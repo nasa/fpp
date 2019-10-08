@@ -1,0 +1,8 @@
+# editors/vim
+
+This directory contains a `vim` syntax file for FPP.
+To activate the syntax file, do the following:
+
+. Copy `fpp.vim` to `~/.vim/syntax/`
+
+. Add `au BufRead,BufNewFile *.fpp set filetype=fpp` to `~/.vimrc`.

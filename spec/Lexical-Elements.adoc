@@ -40,7 +40,7 @@ U32
 U64
 U8
 array
-boolean
+bool
 component
 enum
 false
