@@ -11,4 +11,5 @@ Introduction.adoc
 Syntax-Notation.adoc
 Lexical-Elements.adoc
 Types.adoc
+Expressions.adoc
 "
