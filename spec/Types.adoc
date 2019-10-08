@@ -57,7 +57,7 @@ for name scoping>>. For example:
 
 [source,fpp]
 ----
-namespace N {
+module N {
   enum E { X = 0, Y = 1 }
 }
 constant a = N.E.X # a has type N.E

@@ -4,7 +4,7 @@ An *element sequence* is a sequence of similar elements, e.g., the
 definitions appearing in a
 <<Translation-Units-and-Programs_Translation-Units,translation
 unit>>, the definitions enclosed in a
-<<Definitions_Namespace-Definitions,namespace
+<<Definitions_Module-Definitions,module
 definition>>.
 
 Each element of an element sequence has optional *terminating

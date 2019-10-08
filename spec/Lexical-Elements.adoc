@@ -46,7 +46,7 @@ enum
 false
 import
 locate
-namespace
+module
 port
 string
 struct

@@ -14,7 +14,7 @@ element is any kind of
 except an enumerated constant definition,
 and the terminating punctuation is a semicolon.
 Syntactically, it is identical to a
-<<Definitions_Module-Definitions_Syntax,namespace member 
+<<Definitions_Module-Definitions_Syntax,module member 
 sequence>>.
 
 ==== Example
@@ -23,23 +23,23 @@ Here is a translation unit:
 
 [source,fpp]
 ----
-namespace N1 { constant a = 0 }
+module M1 { constant a = 0 }
 ----
 
 And here is another one:
 
 [source,fpp]
 ----
-namespace N1 { constant b = 0 }
+module M1 { constant b = 0 }
 ----
 
 And here is a third one:
 
 [source,fpp]
 ----
-namespace N2 { 
-  constant a = N1.a
-  constant b = N1.b
+module M2 { 
+  constant a = M1.a
+  constant b = M1.b
 }
 ----
 
@@ -66,27 +66,27 @@ unit:
 
 [source,tnet]
 ----
-namespace N1 { constant a = 0 }
-namespace N1 { constant b = 1 }
-namespace N2 { 
-  constant a = N1.a
-  constant b = N1.b
+module M1 { constant a = 0 }
+module M1 { constant b = 1 }
+module M2 { 
+  constant a = M1.a
+  constant b = M1.b
 }
 ----
 
 According to the
-<<Scoping-of-Names_Module-Definitions,semantics of namespace definitions>>,
+<<Scoping-of-Names_Module-Definitions,semantics of module definitions>>,
 this is also equivalent:
 
 [source,tnet]
 ----
-namespace N1 {
+module M1 {
   constant a = 0
   constant b = 1
 }
-namespace N2 { 
-  constant a = N1.a
-  constant b = N1.b
+module M2 { 
+  constant a = M1.a
+  constant b = M1.b
 }
 ----
 

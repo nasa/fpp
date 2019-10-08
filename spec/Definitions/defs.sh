@@ -13,5 +13,5 @@ Constant-Definitions.adoc
 Enum-Definitions.adoc
 Enumerated-Constant-Definitions.adoc
 Struct-Definitions.adoc
-Namespace-Definitions.adoc
+Module-Definitions.adoc
 "

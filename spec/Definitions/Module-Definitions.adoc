@@ -1,15 +1,15 @@
-=== Namespace Definitions
+=== Module Definitions
 
-A *namespace definition* provides a named scope that encloses other
-definitions, including other namespace definitions.
+A *module definition* provides a named scope that encloses other
+definitions, including other module definitions.
 
 ==== Syntax
 
-`namespace`
+`module`
 <<Detailed-Description_Identifiers,_identifier_>>
-`{` _namespace-member-sequence_ `}`
+`{` _module-member-sequence_ `}`
 
-_namespace-member-sequence_ is an
+_module-member-sequence_ is an
 <<Detailed-Description_Element-Sequences,element sequence>> in 
 which each element is any kind of 
 <<Detailed-Description_Definitions,definition>>
@@ -20,7 +20,7 @@ Syntactically, it is equivalent to a
 
 ==== Semantics
 
-A namespace definition _D_ qualifies the names of all the definitions
+A module definition _D_ qualifies the names of all the definitions
 inside it with its own name. Inside _D_, you can refer to definitions in
 _D_ by their unqualified name (the identifier appearing in the
 definition) or by their qualified name. Outside _D_, you have to use the
@@ -35,11 +35,11 @@ section on
 
 [source,fpp]
 ----
-namespace N {
+module M {
   constant a = 0
-  constant b = a # Inside N, we can refer to N.a as a
-  constant c = N.a # We can also say N.a here
+  constant b = a # Inside M, we can refer to M.a as a
+  constant c = M.a # We can also say M.a here
 }
-constant d = N.a # Outside N, we have to say N.a
+constant d = M.a # Outside M, we have to say M.a
 constant e = a # Error: a is not in scope here
 ----
