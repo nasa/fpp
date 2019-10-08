@@ -1,3 +1,0 @@
-#tag::visible[]
-constant a = (1 + 2) * 3 # The type of the sub-expression 1 + 2 is U8
-#end::visible[]

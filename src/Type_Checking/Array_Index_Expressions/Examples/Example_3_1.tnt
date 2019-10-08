@@ -1,4 +1,0 @@
-#tag::visible[]
-constant a = set { [ 0, 0 ], [ 1, 1 ] }# The type of a is set [2] U8
-constant b = a[0] # The type of b is set U8
-#end::visible[]

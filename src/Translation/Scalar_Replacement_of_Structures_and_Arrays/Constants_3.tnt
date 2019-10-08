@@ -1,6 +1,0 @@
-#tag::visible[]
-constant a_0_x = 0
-constant a_0_y = 1
-constant a_1_x = 2
-constant a_1_y = 3
-#end::visible[]

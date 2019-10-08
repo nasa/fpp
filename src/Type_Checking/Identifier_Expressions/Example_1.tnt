@@ -1,4 +1,0 @@
-#tag::visible[]
-constant a = 42 # a is a constant with type U8
-constant b = a # The expression a refers to the constant a and has type U8
-#end::visible[]

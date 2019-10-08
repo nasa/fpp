@@ -1,6 +1,0 @@
-#tag::visible[]
-constant a = 0
-module M {
-  constant a = 1 # OK, qualified name is M.a =/= a
-}
-#end::visible[]

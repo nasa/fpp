@@ -1,4 +1,0 @@
-#tag::visible[]
-constant a = 123
-constant b = 0xFF
-#end::visible[]

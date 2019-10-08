@@ -1,6 +1,0 @@
-#tag::visible[]
-constant a = 0 # a has value 0 : U8
-constant b : U32 = 1 # b has value 1 : U32
-constant c = 2 : F32 # c has value 2.0 : F32
-constant d : { x : F32, y : F32 } = { x = 0, y = 1 } # d has value { x = 0, y = 1 } : { x : F32, y : F32 }
-#end::visible[]

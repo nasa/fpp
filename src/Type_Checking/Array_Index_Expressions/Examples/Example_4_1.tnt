@@ -1,4 +1,0 @@
-#tag::visible[]
-constant a = [ 0 , 1 ]
-constant b = a[ { x = 0 } ] # Error: Cannot index an array with a structure
-#end::visible[]

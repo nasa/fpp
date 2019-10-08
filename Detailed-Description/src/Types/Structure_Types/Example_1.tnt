@@ -1,6 +1,0 @@
-#tag::visible[]
-{
-  x : U8
-  y : F32
-}
-#end::visible[]

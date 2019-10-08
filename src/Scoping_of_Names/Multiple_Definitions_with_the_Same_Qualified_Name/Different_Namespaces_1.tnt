@@ -1,4 +1,0 @@
-#tag::visible[]
-type t = U32 # Defines t in the type namespace
-constant t : t = 0 # Defines t in the value namespace
-#end::visible[]

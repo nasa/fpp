@@ -1,6 +1,0 @@
-#NO_CHECK
-#tag::visible[]
-a
-a.b
-a.b.c
-#end::visible[]

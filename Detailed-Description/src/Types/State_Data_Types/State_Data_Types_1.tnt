@@ -1,5 +1,0 @@
-#tag::visible[]
-type t1 = U32
-type t2 = { x : U32 }
-type t3 = t1
-#end::visible[]

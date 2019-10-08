@@ -1,4 +1,0 @@
-#tag::visible[]
-module M { type t = U32 }
-constant x : M.t = 3 # M.t is a named type
-#end::visible[]

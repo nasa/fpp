@@ -1,5 +1,0 @@
-#tag::visible[]
-# No terminating punctuation
-constant a = 0
-constant b = 1
-#end::visible[]

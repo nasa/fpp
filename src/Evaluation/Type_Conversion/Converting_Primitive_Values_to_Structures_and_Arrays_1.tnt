@@ -1,3 +1,0 @@
-#tag::visible[]
-constant a = 0 : { x : [2] U32, y : F64, z : { a : U8, b : U16 } }
-#end::visible[]

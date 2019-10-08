@@ -1,4 +1,0 @@
-#tag::visible[]
-constant a = [ 1, 2, 3 ]
-constant b = a[1] # a[1] evaluates to 2
-#end::visible[]
