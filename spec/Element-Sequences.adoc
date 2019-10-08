@@ -1,0 +1,87 @@
+== Element Sequences
+
+An *element sequence* is a sequence of similar elements, e.g., the
+definitions appearing in a
+<<Translation-Units-and-Programs_Translation-Units,translation
+unit>>, the definitions enclosed in a
+<<Definitions_Namespace-Definitions,namespace
+definition>>.
+
+Each element of an element sequence has optional *terminating
+punctuation*. The punctuation is either a comma or a semicolon,
+depending on the kind of sequence.
+
+For each element _e_ in the sequence:
+
+* You can always terminate _e_ with a sequence of one or more line breaks. In 
+this case no terminating punctuation is required.
+
+* You can omit the line break. In this case the terminating punctuation
+is required, unless the element is last in the sequence.
+
+=== Examples
+
+A
+<<Translation-Units-and-Programs_Translation-Units,translation
+unit>> is a kind of element sequence. Here are some examples of element
+sequences using
+<<Definitions_Constant-Definitions,constant
+definitions>> as the elements of a translation unit:
+
+[source,fpp]
+----
+# No terminating punctuation
+constant a = 0
+constant b = 1
+----
+
+[source,fpp]
+----
+# Optional terminating punctuation present
+constant a = 0;
+constant b = 1;
+----
+
+[source,fpp]
+----
+# Terminating punctuation required after the first element but not the second
+constant a = 0; constant b = 1
+----
+
+[source,fpp]
+----
+# Error, because terminating punctuation is missing
+constant a = 0 constant b = 1
+----
+
+An
+<<Definitions_Enum-Definitions_Syntax,enum
+constant sequence>> is another example of an element sequence. Here are
+some element sequences using
+<<Definitions_Enumerated-Constant-Definitions,enumerated
+constant definitions>> as elements of an enum constant sequence:
+
+[source,fpp]
+----
+# No terminating punctuation
+enum E {
+  X = 0
+  Y = 1
+}
+----
+
+[source,fpp]
+----
+# Optional terminating punctuation
+enum E {
+  X = 0,
+  Y = 1,
+}
+----
+
+[source,fpp]
+----
+# Terminating punctuation required after the first element but not the second
+enum E { X = 0, Y = 1 }
+----
+

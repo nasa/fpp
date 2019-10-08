@@ -1,0 +1,96 @@
+== Translation Units and Models
+
+=== Translation Units
+
+A *translation unit* forms part of a <<Models,model>>
+at the top level.
+
+==== Syntax
+
+A translation unit is an
+<<Element-Sequences,element sequence>> in which each 
+element is any kind of
+<<Definitions,definition>>
+except an enumerated constant definition,
+and the terminating punctuation is a semicolon.
+Syntactically, it is identical to a
+<<Definitions_Module-Definitions_Syntax,namespace member 
+sequence>>.
+
+==== Example
+
+Here is a translation unit:
+
+[source,fpp]
+----
+namespace N1 { constant a = 0 }
+----
+
+And here is another one:
+
+[source,fpp]
+----
+namespace N1 { constant b = 0 }
+----
+
+And here is a third one:
+
+[source,fpp]
+----
+namespace N2 { 
+  constant a = N1.a
+  constant b = N1.b
+}
+----
+
+Call these translation units 1, 2, and 3 for purposes of the example in
+the following section.
+
+=== Models
+
+A *model* is a collection of one or more
+<<Detailed-Description_Translation-Units-and-Programs_Translation-Units,translation
+units>>. A model is presented to one or more translators for
+<<Translation,translation>>.
+How this is done depends on the translator. Typically, you ask a
+translator to read a single translation unit from standard input and/or
+to read one or more translation units stored in files, one unit per
+file.
+
+==== Example
+
+<<Detailed-Description_Translation-Units-and-Programs_Translation-Units_Example,Translation
+units 1-3 in the previous section>>, taken together, form a single
+model. That model is equivalent to the following single translation
+unit:
+
+[source,tnet]
+----
+namespace N1 { constant a = 0 }
+namespace N1 { constant b = 1 }
+namespace N2 { 
+  constant a = N1.a
+  constant b = N1.b
+}
+----
+
+According to the
+<<Scoping-of-Names_Module-Definitions,semantics of namespace definitions>>,
+this is also equivalent:
+
+[source,tnet]
+----
+namespace N1 {
+  constant a = 0
+  constant b = 1
+}
+namespace N2 { 
+  constant a = N1.a
+  constant b = N1.b
+}
+----
+
+Note that translation unit 3 alone is not a valid model, because it
+uses free symbols defined in the other translation units. Similarly, the
+translation unit 3 together with just translation unit 1 or translation
+unit 2 is not a valid model.

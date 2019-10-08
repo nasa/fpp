@@ -1,0 +1,109 @@
+== Comments and Annotations
+
+=== Comments
+
+A *comment* is model text that is ignored by the translator. It
+provides information to human readers of the source model.
+
+Comments begin with the character `#` and go to the end of the line. For
+example:
+
+[source,fpp]
+----
+# This is a comment
+----
+
+To write a multiline comment, precede each line with `#`:
+
+[source,fpp]
+----
+# This is a multiline comment.
+# It has two lines.
+----
+=== Annotations
+
+An *annotation* is similar to a
+<<Comments,comment>>, but it is attached to a
+syntactic element of a model, and it is preserved during
+<<Translation,translation>>.  The precise use of annotations depends on the 
+translator. A typical use
+is to include annotations as comments in generated code.
+
+==== Where Annotations Can Occur
+
+Annotations can occur at the following syntax elements:
+
+* A <<Definitions,definition>>.
+
+* A <<Definitions_Structure-Definitions,member of a structure definition>>.
+
+These elements are called the *annotatable elements* of an fpp model.
+
+==== Kinds of Annotations
+
+There are two kinds of annotations: *pre-annotations* and
+*post-annotations*.
+
+A pre-annotation starts with `@` and goes to the end of the line.
+Whitespace characters after the initial `@` are ignored. A
+pre-annotation must occur immediately before an
+<<Comments-and-Annotations_Annotations_Where-Annotations-Can-Occur,
+annotatable element>> _e_. It is attached to _e_ during translation.
+
+A post-annotation starts with `@<` and goes to the end of the line.
+Whitespace characters after the initial `@<` are ignored. A
+post-annotation must occur immediately after an
+<<Comments-and-Annotations_Annotations_Where-Annotations-Can-Occur,
+annotatable element>> _e_. It is attached to _e_ during translation.
+
+===== Example
+
+[source,fpp]
+----
+@ This is module M
+module M {
+  constant a  0 @< This is constant M.a
+  constant b  1 @< This is constant M.b
+  @ This is an enum
+  enum E {
+    a  0 @< This is enumerated constant M.E.a
+    b  1 @< This is enumerated constant M.E.b
+  }
+}
+----
+
+==== Multiline Annotations
+
+You can write several pre-annotations in a row before an
+<<Comments-and-Annotations_Annotations_Where-Annotations-Can-Occur, 
+annotatable element>> _e_.
+In this case, all the pre-annotations are attached to the
+element, in the order that they appear.
+
+Similarly, you can write several post-annotations in a row after an
+<<Comments-and-Annotations_Annotations_Where-Annotations-Can-Occur, 
+annotatable element>> _e_.
+In this case, all the post-annotations are attached to the
+element, in the order that they appear.
+
+===== Example
+
+[source,fpp]
+----
+@ This is module M
+@ Its pre-annotation has two lines
+module M {
+  constant a  0 @< This is constant M.a
+                @< Its post-annotation has two lines
+  constant b  1 @< This is constant M.b
+                @< Its post-annotation has two lines
+  @ This is an enum
+  @ Its pre-annotation has two lines
+  enum E {
+    a  0 @< This is enumerated constant M.E.a
+         @< Its post-annotation has two lines
+    b  1 @< This is enumerated constant M.E.b
+         @< Its post-annotation has two lines
+  }
+}
+----

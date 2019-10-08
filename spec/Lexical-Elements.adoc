@@ -12,11 +12,11 @@ A token is one of the following:
 
 * An <<Lexical-Elements_Identifiers,identifier>>.
 
-* An <<Lexical-Elements_Integer-Literals,integer literal>>.
+* An <<Expressions_Integer-Literals,integer literal>>.
 
-* A <<Lexical-Elements_Floating-Point-Literals,floating-point literal>>.
+* A <<Expressions_Floating-Point-Literals,floating-point literal>>.
 
-* A <<Lexical-Elements_Boolean-Literals,Boolean literal>>.
+* A <<Expressions_Boolean-Literals,Boolean literal>>.
 
 * A <<Lexical-Elements_Newlines,newline character>>.
 
@@ -89,42 +89,6 @@ multiPartIdentifier
 multi_part_identifier
 ----
 
-=== Integer Literals
-
-An *integer literal expression* is one of the following:
-
-* A sequence of decimal digits `0` through `9` denoting the decimal
-representation of a nonnegative integer.
-
-* `0x` or `0X` followed by a sequence of hexadecimal digits
-`0` through `9`, `A` through `F`, or `a` through `f` denoting the hexadecimal 
-representation of a nonnegative
-integer.
-
-**Examples:**
-
-----
-1234
-0xABCD
-----
-
-=== Floating-Point Literals
-
-A *floating-point literal expression* is a C-style representation of an
-IEEE floating-point number.
-
-**Examples:**
-
-----
-1e-10
-0.001
-3.14159
-6.02E23
-----
-
-=== Boolean Literals
-
-A *Boolean literal expression* is one of the values `true` and `false`.
 
 === Newlines
 
@@ -133,8 +97,7 @@ the elements of <<Element-Sequences,element sequences>>.
 
 === Comments
 
-<<Comments-and-Annotations_Comments,Comments>>
-are ignored during lexing.
+<<Comments,Comments>> are ignored during lexing.
 
 === Whitespace and Non-Printing Characters
 

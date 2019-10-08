@@ -11,9 +11,9 @@ FPP supports the following kinds of definitions:
 * <<Definitions_Enumerated-Constant-Definitions,Enumerated 
 Constant Definitions>>
 
-* <<Definitions_Struct,Struct Definitions>>
+* <<Definitions_Struct-Definitions,Struct Definitions>>
 
-* <<Definitions_Struct,Abstract Type Definitions>>
+* <<Definitions_Abstract-Type-Definitions,Abstract Type Definitions>>
 
 * <<Definitions_Module-Definitions,Namespace Definitions>>
 

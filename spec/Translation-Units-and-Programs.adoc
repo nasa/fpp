@@ -1,0 +1,44 @@
+=== Translation Units
+
+A *translation unit* forms part of a
+<<Detailed-Description_Translation-Units-and-Programs_Programs,model>>
+at the top level.
+
+==== Syntax
+
+A translation unit is an
+<<Detailed-Description_Element-Sequences,element sequence>> in which each 
+element is any kind of
+<<Detailed-Description_Definitions,definition>>
+except an enumerated constant definition,
+and the terminating punctuation is a semicolon.
+Syntactically, it is identical to a
+<<Detailed-Description_Definitions_Module-Definitions_Syntax,module member 
+sequence>>.
+
+==== Example
+
+Here is a translation unit:
+
+[source,tnet]
+----
+include::./Detailed-Description/src/Translation_Units_and_Programs/Translation_Units/Example_1.tnt[tag=visible]
+----
+
+And here is another one:
+
+[source,tnet]
+----
+include::./Detailed-Description/src/Translation_Units_and_Programs/Translation_Units/Example_2.tnt[tag=visible]
+----
+
+And here is a third one:
+
+[source,tnet]
+----
+include::./Detailed-Description/src/Translation_Units_and_Programs/Translation_Units/Example_3.tnt[tag=visible]
+----
+
+Call these translation units 1, 2, and 3 for purposes of the example in
+the following section.
+
