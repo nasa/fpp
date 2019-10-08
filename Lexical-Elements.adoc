@@ -44,6 +44,8 @@ boolean
 component
 enum
 false
+import
+locate
 namespace
 port
 string

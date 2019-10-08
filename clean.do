@@ -4,6 +4,6 @@
 # clean.do
 # ----------------------------------------------------------------------
 
-rm -f manual.adoc *.html *~ *.bak
+rm -f fpp-spec.adoc *.html *~ *.bak
 targets=`find . -mindepth 2 -name clean.do | sed 's/\.do$//'`
 redo $targets
