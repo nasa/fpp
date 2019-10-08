@@ -1,0 +1,24 @@
+== Definitions
+
+FPP supports the following kinds of definitions:
+
+* <<Definitions_Array-Definitions,Array Definitions>>
+
+* <<Definitions_Constant-Definitions,Constant Definitions>>
+
+* <<Definitions_Enum-Definitions,Enum Definitions>>
+
+* <<Definitions_Enumerated-Constant-Definitions,Enumerated 
+Constant Definitions>>
+
+* <<Definitions_Struct,Struct Definitions>>
+
+* <<Definitions_Struct,Abstract Type Definitions>>
+
+* <<Definitions_Module-Definitions,Namespace Definitions>>
+
+Constant definitions, array definitions, enum definitions, struct definitions,
+abstract type definitions, and module definitions may appear in
+<<Translation-Units-and-Programs_Translation-Units,translation
+units>> or in namespace definitions. Enumerated constant definitions appear
+in enum definitions.

@@ -1,0 +1,70 @@
+=== Enum Definitions
+
+An *enum definition* does two things:
+
+.  It defines a type stem:[T] and associates a name stem:[N] with stem:[T]. Elsewhere
+in the program, you can use stem:[N] to refer to stem:[T].
+
+.  It associates several named constants stem:[C_1, ..., C_n] with stem:[T].  
+These
+constants, called the *enumerated constants* of stem:[T], are the values that
+an expression of type stem:[T] may attain. Elsewhere in the program, you can
+use the <<Scoping-of-Names_Qualified-Identifiers,qualified
+identifiers>> stem:[N] `.` stem:[C_1, ..., N] `.` stem:[C_n] 
+to refer to the enumerated
+constants.
+
+==== Syntax
+
+`enum` <<Lexical-Elements_Identifiers,_identifier_>>
+_[_ `:` <<Types,_type_>> _]_
+`{` _enum-constant-sequence_ `}`
+
+_enum-constant-sequence_ is an
+<<Element-Sequences,element sequence>> in which the elements are
+<<Definitions_Enumerated-Constant-Definitions,enumerated
+constant definitions>>, and the terminating punctuation is a comma.
+
+==== Semantics
+
+The enumerated constants have the <<Types_Enum-Types,enum 
+type>> defined in the enum definition. In
+<<Translation,translation>>, they are represented as values of 
+integer type, called the
+*representation type*.
+
+==== Inferred Representation Type
+
+If the optional type stem:[T] does not appear after the identifier, then
+the implied representation type is `I32`.
+
+==== Explicit Representation Type
+
+If the optional type stem:[T] appears after the identifier, then the semantic
+analyzer does the following:
+
+. Check that stem:[T] is an integer type.
+If not, throw an error.
+
+. Use stem:[T] as the representation type.
+
+==== Example
+
+[source,fpp]
+----
+enum U8Gunfighters {
+  IL_BUONO = 0
+  IL_MALO = 1
+  IL_CATTIVO = 2
+}
+
+enum U8Gunfighters : U8 {
+  IL_BUONO = 0
+  IL_MALO = 1
+  IL_CATTIVO = 2
+}
+----
+
+Here are three two definitions. In the first one, the implied
+representation type is `I32`.
+In the second one, the representation type is explicitly given as `U8`.

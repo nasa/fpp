@@ -1,0 +1,31 @@
+=== Constant Definitions
+
+A *constant definition* associates a name with a compile-time constant
+value. You can use the name in place of the value elsewhere in the
+program.
+
+==== Syntax
+
+`constant`
+<<Lexical-Elements_Identifiers,_identifier_>>
+`=`
+<<Expressions,_expression_>>
+
+==== Semantics
+
+_expression_ must
+<<Evaluation,evaluate>>
+to a compile-time constant value _v_. At any program point where the
+<<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> _Q_ refers to 
+the constant definition according to the
+<<Scoping-of-Names-Resolution-of-Qualified-Identifiers,scoping
+rules for names>>, you can use _Q_ as a name for _v_.
+
+==== Examples
+
+[source,fpp]
+----
+constant a = 0 # a has value 0
+constant b = 1.0 # b has value 1
+constant c = a # c has value 0
+----

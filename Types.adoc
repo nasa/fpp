@@ -37,7 +37,7 @@ The type `string` is the type of string values.
 An *array type* is a
 <<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> that 
 refers to an
-<<Detailed-Description_Definitions_Array-Definitions,array definition>> via the
+<<Definitions_Array-Definitions,array definition>> via the
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,rules for name 
 scoping>>. For example:
 
@@ -51,7 +51,7 @@ TODO
 An *enum type* is a
 <<Scoping-of-Names_Qualified-Identifiers,qualified
 identifier>> that refers to an
-<<Detailed-Description_Definitions_Enum-Definitions,enum definition>> via the
+<<Definitions_Enum-Definitions,enum definition>> via the
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,rules
 for name scoping>>. For example:
 
@@ -70,7 +70,7 @@ constant a = N.E.X # a has type N.E
 A *struct type* is a
 <<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> that 
 refers to a
-<<Detailed-Description_Definitions_Struct-Definitions,struct definition>> via the
+<<Definitions_Struct-Definitions,struct definition>> via the
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,rules for name 
 scoping>>. For example:
 
@@ -84,7 +84,7 @@ TODO
 An *abstract type* is a
 <<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> that refers to 
 a
-<<Detailed-Description_Definitions_Abstract-Type-Definitions,abstract type 
+<<Definitions_Abstract-Type-Definitions,abstract type 
 definition>> via the
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,rules for name 
 scoping>>. For example:
