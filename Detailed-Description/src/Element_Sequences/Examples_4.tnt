@@ -1,0 +1,4 @@
+#tag::visible[]
+# Error, because terminating punctuation is missing
+constant a = 0 constant b = 1
+#end::visible[]

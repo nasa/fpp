@@ -1,0 +1,3 @@
+#tag::visible[]
+module M1 { constant b = 0 }
+#end::visible[]

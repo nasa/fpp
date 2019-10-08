@@ -1,0 +1,4 @@
+#NO_CHECK
+#tag::visible[]
+constant a = a
+#end::visible[]

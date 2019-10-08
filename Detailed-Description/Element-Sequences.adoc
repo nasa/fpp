@@ -1,0 +1,73 @@
+=== Element Sequences
+
+An *element sequence* is a sequence of similar elements, e.g., the
+definitions appearing in a
+<<Detailed-Description_Translation-Units-and-Programs_Translation-Units,translation
+unit>>, the definitions enclosed in a
+<<Detailed-Description_Definitions_Module-Definitions,module
+definition>>, or the elements of an
+<<Detailed-Description_Expressions_Array-Expressions,array expression>>.
+
+Each element of an element sequence has optional *terminating
+punctuation*. The punctuation is either a comma or a semicolon,
+depending on the kind of sequence.
+
+For each element _e_ in the sequence:
+
+* You can always terminate _e_ with a line break. In this case no
+terminating punctuation is required.
+
+* You can omit the line break. In this case the terminating punctuation
+is required, unless the element is last in the sequence.
+
+==== Examples
+
+A
+<<Detailed-Description_Translation-Units-and-Programs_Translation-Units,translation
+unit>> is a kind of element sequence. Here are some examples of element
+sequences using
+<<Detailed-Description_Definitions_Constant-Definitions,constant
+definitions>> as the elements of a translation unit:
+
+[source,tnet]
+----
+include::./Detailed-Description/src/Element_Sequences/Examples_1.tnt[tag=visible]
+----
+
+[source,tnet]
+----
+include::./Detailed-Description/src/Element_Sequences/Examples_2.tnt[tag=visible]
+----
+
+[source,tnet]
+----
+include::./Detailed-Description/src/Element_Sequences/Examples_3.tnt[tag=visible]
+----
+
+[source,tnet]
+----
+include::./Detailed-Description/src/Element_Sequences/Examples_4.tnt[tag=visible]
+----
+
+An
+<<Detailed-Description_Definitions_Enum-Definitions_Syntax,enum
+constant sequence>> is another example of an element sequence. Here are
+some element sequences using
+<<Detailed-Description_Definitions_Enumerated-Constant-Definitions,enumerated
+constant definitions>> as elements of an enum constant sequence:
+
+[source,tnet]
+----
+include::./Detailed-Description/src/Element_Sequences/Examples_5.tnt[tag=visible]
+----
+
+[source,tnet]
+----
+include::./Detailed-Description/src/Element_Sequences/Examples_6.tnt[tag=visible]
+----
+
+[source,tnet]
+----
+include::./Detailed-Description/src/Element_Sequences/Examples_7.tnt[tag=visible]
+----
+

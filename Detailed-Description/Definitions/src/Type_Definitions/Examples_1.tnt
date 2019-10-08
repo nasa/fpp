@@ -1,0 +1,4 @@
+#tag::visible[]
+type VectorF32 = { x : F32, y : F32, z : F32 }
+constant v = { x = 0, y = 0, z = 0 } : VectorF32
+#end::visible[]

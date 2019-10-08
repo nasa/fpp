@@ -1,0 +1,4 @@
+#tag::visible[]
+constant c1 = { x = 0 }
+constant c2 = c1.x
+#end::visible[]

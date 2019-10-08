@@ -1,0 +1,14 @@
+#tag::visible[]
+constant a = { x = 0 } + 1 # Type is { x : U16 }
+constant b = (1.0:F32) + 2.0:F32 # Type is F32
+constant c = (1.0:F32) + 2.0 # Type is F64
+constant d = 1 + 2.0 # Type is F64
+constant e = 65535 / 2 # Type is U16
+constant f = (100:U64) / -1 # Type is I64
+constant g = 0xFFFFFFFF / -1 # Type is I64
+constant h = 1:U64 + 2:U64 # Type is U64
+constant i = 1:U64 + 2:I64 # Type is I64
+constant j = 255 + 1 # Type is U16
+constant k = 255 + 1:I8 # Type is I16
+constant l = 1 + (-1) # Type is I32
+#end::visible[]

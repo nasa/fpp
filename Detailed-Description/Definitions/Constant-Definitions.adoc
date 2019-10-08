@@ -1,0 +1,40 @@
+==== Constant Definitions
+
+A *constant definition* associates a name with a compile-time constant
+value. You can use the name in place of the value elsewhere in the
+program.
+
+===== Syntax
+
+`constant`
+<<Detailed-Description_Identifiers,_identifier_>>
+_[_ `:`
+<<Detailed-Description_Types,_type_>>
+_]_ `=`
+<<Detailed-Description_Expressions,_expression_>>
+
+===== Semantics
+
+_type_ is optional. If it is present, then
+<<Type-Checking,the type of _expression_>> must be
+<<Type-Checking_Type-Conversion,convertible to>> _type_.
+
+If _type_ is present, then the type of the constant is _type_.
+Otherwise, the type of the constant is the type of _expression_.
+
+_expression_ must
+<<Evaluation,evaluate>>
+to a compile-time constant value _v_. At any program point where the
+<<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> _Q_ refers to 
+the constant definition according to the
+<<Scoping-of-Names-Resolution-of-Qualified-Identifiers,scoping
+rules for names>>, you can use _Q_ as a name for the value that results
+from
+<<Evaluation,converting>> _v_ to the type of the constant.
+
+===== Examples
+
+[source,tnet]
+----
+include::./Detailed-Description/Definitions/src/Constant_Definitions/Examples_1.tnt[tag=visible]
+----

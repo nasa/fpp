@@ -1,0 +1,5 @@
+#tag::visible[]
+module M { constant a = 0 }
+constant c = M.a + M.b
+module M { constant b = 1 }
+#end::visible[]

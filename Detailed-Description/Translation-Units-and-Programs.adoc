@@ -1,0 +1,82 @@
+=== Translation Units and Programs
+
+==== Translation Units
+
+A *translation unit* forms part of a
+<<Detailed-Description_Translation-Units-and-Programs_Programs,program>>
+at the top level.
+
+===== Syntax
+
+A translation unit is an
+<<Detailed-Description_Element-Sequences,element sequence>> in which each 
+element is any kind of
+<<Detailed-Description_Definitions,definition>>
+except an enumerated constant definition,
+and the terminating punctuation is a semicolon.
+Syntactically, it is identical to a
+<<Detailed-Description_Definitions_Module-Definitions_Syntax,module member 
+sequence>>.
+
+===== Example
+
+Here is a translation unit:
+
+[source,tnet]
+----
+include::./Detailed-Description/src/Translation_Units_and_Programs/Translation_Units/Example_1.tnt[tag=visible]
+----
+
+And here is another one:
+
+[source,tnet]
+----
+include::./Detailed-Description/src/Translation_Units_and_Programs/Translation_Units/Example_2.tnt[tag=visible]
+----
+
+And here is a third one:
+
+[source,tnet]
+----
+include::./Detailed-Description/src/Translation_Units_and_Programs/Translation_Units/Example_3.tnt[tag=visible]
+----
+
+Call these translation units 1, 2, and 3 for purposes of the example in
+the following section.
+
+==== Programs
+
+A *program* is a collection of one or more
+<<Detailed-Description_Translation-Units-and-Programs_Translation-Units,translation
+units>>. A program is presented to one or more translators for
+<<Translation,translation>>.
+How this is done depends on the translator. Typically, you ask a
+translator to read a single translation unit from standard input and/or
+to read one or more translation units stored in files, one unit per
+file.
+
+===== Example
+
+<<Detailed-Description_Translation-Units-and-Programs_Translation-Units_Example,Translation
+units 1-3 in the previous section>>, taken together, form a single
+program. That program is equivalent to the following single translation
+unit:
+
+[source,tnet]
+----
+include::./Detailed-Description/src/Translation_Units_and_Programs/Programs/Example_1.tnt[tag=visible]
+----
+
+According to the
+<<Scoping-of-Names_Module-Definitions,semantics of module definitions>>,
+this is also equivalent:
+
+[source,tnet]
+----
+include::./Detailed-Description/src/Translation_Units_and_Programs/Programs/Example_2.tnt[tag=visible]
+----
+
+Note that translation unit 3 alone is not a valid program, because it
+uses free symbols defined in the other translation units. Similarly, the
+translation unit 3 together with just translation unit 1 or translation
+unit 2 is not a valid program.

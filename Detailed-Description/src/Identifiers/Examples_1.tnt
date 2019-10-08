@@ -1,0 +1,8 @@
+#tag::visible[]
+identifier1
+Identifier2
+thisIsIdentifier3
+ThisIsIdentifier4
+this_is_identifier_5
+_identifier6
+#end::visible[]

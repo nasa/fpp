@@ -1,0 +1,18 @@
+==== Task Network Definitions
+
+A *task network definition* defines a task network.
+
+===== Syntax
+
+`tasknet`
+<<Detailed-Description_Identifiers,_identifier_>>
+`{` 
+<<Detailed-Description_Definitions_Task-Network-Bodies,_task-network-body_>>
+`}`
+
+===== Semantics
+
+The identifier names the task network.
+The task network body specifies the timelines and tasks
+of the task network.
+

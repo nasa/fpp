@@ -1,0 +1,289 @@
+== Scoping of Names
+
+=== Qualified Identifiers
+
+A *qualified identifier* is one of the following:
+
+1.  An
+<<Detailed-Description_Identifiers,identifier>>.
+
+2.  _Q_ `.` _I_, where _Q_ is a qualified identifier and _I_ is an
+identifier.
+
+Examples:
+
+[source,tnet]
+----
+include::./src/Scoping_of_Names/Qualified_Identifiers_1.tnt[tag=visible]
+----
+
+=== Names of Definitions
+
+Every 
+<<Detailed-Description_Definitions,definition>>
+ _D_ appearing in a tnet program has a unique *qualified
+name*. The qualified name is a
+<<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> formed as follows:
+
+* If _D_ appears outside any module definition or enum definition, then
+the qualified name is the identifier _I_ appearing in _D_.
+
+* Otherwise, the qualified name is _N_ `.` _I_, where _N_ is the qualified
+name of the enclosing module definition or enum definition, and _I_ is
+the identifier appearing in _D_.
+
+For example:
+
+[source,tnet]
+----
+include::./src/Scoping_of_Names/Names_of_Definitions_1.tnt[tag=visible]
+----
+
+=== Names of Parameters
+
+Every
+<<Detailed-Description_Definitions_Parameter-Lists,parameter>> 
+that is in scope has a unique name.
+The name is the identifier that appears in the parameter.
+It is always a simple identifier.
+
+=== Namespaces
+
+The qualified names of definitions and
+the names of parameters reside in *namespaces*. There are
+four namespaces: the *type namespace*, the *value namespace*,
+the *command namespace*, and the *task namespace*. 
+The following table shows which names reside in which
+namespaces.
+
+[cols=",,,,",options="header",]
+|======================================
+|Kind of Name
+|Type Namespace
+|Value Namespace
+|Command Namespace
+|Task Namespace
+
+|Type definition
+|X
+|
+|
+|
+
+|Constant definition
+|
+|X
+|
+|
+
+|Enumerated constant definition
+|
+|X
+|
+|
+
+|Module definition
+|
+|X
+|
+|
+
+|Enum definition
+|X
+|X
+|
+|
+
+|Parameter
+|
+|X
+|
+|
+
+|Command definition
+|
+|
+|X
+|
+
+|Task template definition
+|
+|
+|
+|X
+
+|Task definition
+|
+|
+|
+|X
+|======================================
+
+An X means that the name resides in the namespace corresponding
+to the column.
+Note that enum definitions reside in both the type namespace
+and the value namespace.
+
+=== Multiple Definitions with the Same Qualified Name
+
+==== Different Namespaces
+
+Two definitions with the same qualified name are allowed if they are in
+different namespaces. For example:
+
+[source,tnet]
+----
+include::./src/Scoping_of_Names/Multiple_Definitions_with_the_Same_Qualified_Name/Different_Namespaces_1.tnt[tag=visible]
+----
+
+==== Module Definitions
+
+Multiple syntactic module definitions with the same qualified name are
+allowed. The semantic analysis combines all such definitions into a
+single module definition with that qualified name. For example, this
+program is legal
+
+[source,tnet]
+----
+include::./src/Scoping_of_Names/Multiple_Definitions_with_the_Same_Qualified_Name/Module_Definitions_1.tnt[tag=visible]
+----
+
+It is equivalent to this program:
+
+[source,tnet]
+----
+include::./src/Scoping_of_Names/Multiple_Definitions_with_the_Same_Qualified_Name/Module_Definitions_2.tnt[tag=visible]
+----
+
+Because the <<Definitions-and-Uses_Order-of-Definitions-and-Uses,order
+of definitions is irrelevant>>, this is also equivalent:
+
+[source,tnet]
+----
+include::./src/Scoping_of_Names/Multiple_Definitions_with_the_Same_Qualified_Name/Module_Definitions_3.tnt[tag=visible]
+----
+
+==== Conflicting Definitions
+
+Within the same namespace, two definitions with the same
+qualified name are not allowed, unless they are both module definitions
+as described above. For example:
+
+[source,tnet]
+----
+include::./src/Scoping_of_Names/Multiple_Definitions_with_the_Same_Qualified_Name/Conflicting_Definitions_1.tnt[tag=visible]
+----
+
+Two definitions with the same identifier are allowed if they have
+different qualified names, for example:
+
+[source,tnet]
+----
+include::./src/Scoping_of_Names/Multiple_Definitions_with_the_Same_Qualified_Name/Conflicting_Definitions_2.tnt[tag=visible]
+----
+
+=== Resolution of Identifiers
+
+The following rules govern the resolution of identifiers, i.e.,
+associating identifiers with definitions:
+
+. Use the context to determine which
+<<Scoping-of-Names_Namespaces,namespace>>
+_S_ to use. For example, if we are expecting a type name, then use the
+type namespace.
+
+. At the top level (outside of any module definition, enum
+definition, task template definition, or task definition), the identifier _I_ 
+refers to the unique definition with
+qualified name _I_ if it exists in namespace _S_. Otherwise an error
+results.
+
+. Inside a
+<<Detailed-Description_Definitions_Module-Definitions,module definition>>,
+<<Detailed-Description_Definitions_Enum-Definitions,enum definition>>,
+<<Detailed-Description_Definitions_Task-Template-Definitions,task template definition>>, or
+<<Detailed-Description_Definitions_Task-Definitions,task definition>>
+with qualified name _N_ appearing at the top level:
+
+  .. If the identifier _I_ names a parameter in scope, then it
+refers to the parameter.
+
+  .. Otherwise the identifier _I_ refers to the definition with qualified name
+_N_ `.` _I_ if it exists in namespace _S_.
+
+  .. Otherwise _I_ refers to the definition with qualified name _I_ if it
+exists in namespace _S_.
+
+  .. Otherwise an error results.
+
+.  Inside a module definition, enum definition, task template definition,
+or task definition with qualified name
+_N_ appearing inside a module definition _D_:
+
+  .. If the identifier _I_ names a parameter in scope, then it
+refers to the parameter.
+
+  ..  Otherwise the identifier _I_ refers to the definition with qualified name
+_N_ `.` _I_ if it exists in namespace _S_.
+
+  ..  Otherwise proceed as if _I_ were appearing inside _D_.
+
+==== Example
+
+_S_ refers to the value namespace.
+
+[source,tnet]
+----
+include::./src/Scoping_of_Names/Resolution_of_Identifiers/Example_1.tnt[tag=visible]
+----
+
+=== Resolution of Qualified Identifiers
+
+The following rules govern the resolution of
+<<Scoping-of-Names_Qualified-Identifiers,qualified identifiers>>, i.e., 
+associating qualified identifiers with definitions:
+
+. If a qualified identifier is an identifier, then resolve it as
+stated in the
+<<Scoping-of-Names_Resolution-of-Identifiers,previous section>>.
+
+. Otherwise, the qualified identifier has the form _Q_ `.` _I_, where
+_Q_ is a qualified identifier and _I_ is an identifier. Do the
+following:
+
+.. Recursively resolve _Q_.
+
+.. If _Q_ refers to a
+<<Detailed-Description_Definitions_Module-Definitions,module definition>> or
+<<Detailed-Description_Definitions_Enum-Definitions,enum definition>> _D_, then 
+do the following:
+
+... Determine the namespace _S_ of _Q_ `.` _I_.
+
+... Look in _D_ for a definition with identifier _I_ in namespace _S_.
+         If there is none, issue an error.
+
+..  Otherwise, if _Q_ refers to a value of
+<<Detailed-Description_Types_Structure-Types,structure type>>, then look in the 
+type of the value for a structure member with
+identifier _I_. If there is none, then issue an error.
+
+.. Otherwise, if _Q_ refers to a value of range or set type _T_ whose
+element type _T'_ is a structure type, then look in _T'_ for a structure
+member with identifier _I_. If there is none, then issue an error.
+
+.. Otherwise the qualified identifier is invalid. Issue an error.
+
+The
+<<Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Conflicting-Definitions,rules
+for name conflicts>> are designed so that rule 2(b)(i) makes sense. For
+example, the expression `a.b` can never refer to both a structure member
+and a type. From the definition associated with `a`, we can determine
+what the namespace of `a.b` must be.
+
+==== Example
+
+[source,tnet]
+----
+include::./src/Scoping_of_Names/Resolution_of_Qualified_Identifiers/Example_1.tnt[tag=visible]
+----

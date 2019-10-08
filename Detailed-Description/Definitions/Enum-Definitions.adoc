@@ -1,0 +1,76 @@
+==== Enum Definitions
+
+An *enum definition* does two things:
+
+.  It defines a type stem:[T] and associates a name stem:[N] with stem:[T]. Elsewhere
+in the program, you can use stem:[N] to refer to stem:[T].
+
+.  It associates several named constants stem:[C_1, ..., C_n] with stem:[T].  
+These
+constants, called the *enumerated constants* of stem:[T], are the values that
+an expression of type stem:[T] may attain. Elsewhere in the program, you can
+use the <<Scoping-of-Names_Qualified-Identifiers,qualified
+identifiers>> stem:[N] `.` stem:[C_1, ..., N] `.` stem:[C_n] 
+to refer to the enumerated
+constants.
+
+===== Syntax
+
+`enum` <<Detailed-Description_Identifiers,_identifier_>> _[_ `:`
+<<Detailed-Description_Types,_type_>>
+_]_ `{` _enum-constant-sequence_ `}`
+
+_enum-constant-sequence_ is an
+<<Detailed-Description_Element-Sequences,element sequence>> in which the elements are
+<<Detailed-Description_Definitions_Enumerated-Constant-Definitions,enumerated
+constant definitions>>, and the terminating punctuation is a comma.
+
+===== Semantics
+
+The enumerated constants have the <<Detailed-Description_Types_Enum-Types,enum 
+type>> defined in the enum definition. In
+<<Translation,translation>>, they are represented as values of 
+integer type, called the
+*representation type*.
+
+==== Inferred Representation Type
+
+The semantic analyzer infers a representation type from the types of
+the expressions stem:[e_1, ... , e_n] in the enumerated constants as follows:
+
+.  Check that stem:[n > 0]. If not, then throw an error.
+
+.  For each stem:[i in [1, n]]
+
+.. Compute the type stem:[T_i].
+
+.. Check that stem:[T_i] is an integer type. If not, throw an error.
+
+.  Compute the <<Type-Checking_Computing-a-Common-Type_Lists-of-Types,common type>>
+stem:[T] of the list stem:[T_1, ..., T_n].
+
+.  Use the type stem:[T] as the representation type.
+
+===== Optional Explicit Representation Type
+
+If the optional type stem:[T] appears after the identifier, then the semantic
+analyzer does the following:
+
+. Check that stem:[T] is an integer type.
+If not, throw an error.
+
+. Use stem:[T] as the representation type.
+
+===== Example
+
+[source,tnet]
+----
+include::./Detailed-Description/Definitions/src/Inferred_Representation_Type/Example_1.tnt[tag=visible]
+----
+
+Here are three enum definitions. In the first one, the implicit
+representation type is `U8`, because
+<<Type-Checking_Integer-Literals,all the enumerated constants are of type `U8`>>. In the 
+second one, the representation
+type is explicitly given as `U32`. In the third one, the representation
+type is `U16`, because the largest constant value (256) is a `U16`.

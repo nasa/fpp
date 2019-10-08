@@ -1,0 +1,4 @@
+#tag::visible[]
+constant a = 42
+constant b = a # a is an identifier expression
+#end::visible[]

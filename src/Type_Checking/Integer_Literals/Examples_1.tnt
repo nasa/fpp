@@ -1,0 +1,8 @@
+#tag::visible[]
+constant a = 0 # Type is U8
+constant b = 1 # Type is U8
+constant c = 256 # Type is U16
+constant d = 65536 # Type is U32
+constant e = 0x100000000 # Type is U64
+constant f = 0x10000000000000000 # Error; integer value is too large
+#end::visible[]

@@ -1,0 +1,15 @@
+== Introduction
+
+This document describes **F Prime Prime**, also known as FPP or F Double Prime.
+FPP is a modeling language for the 
+https://github.com/nasa/fprime[F Prime flight software framework].
+
+The goals of FPP are as follows:
+
+* To provide a modeling language for F Prime that is simple, easy to use, and
+well-tailored to the domain.
+
+* To provide semantic checking and error reporting for F Prime models.
+
+* To support code generation to the various formats that F Prime uses, e.g.,
+C++, Python, XML.

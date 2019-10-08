@@ -1,0 +1,5 @@
+#tag::visible[]
+constant a = 1 : F32 # The type of the expression on the right-hand side is F32
+constant b = 0 : { x : F32, y : F32 } # The type of the RHS expression on the right-hand side is { x : F32, y : F32 }
+constant b = { x = 0, y = 0 } : F32 # Error: Cannot convert a structure to F32
+#end::visible[]

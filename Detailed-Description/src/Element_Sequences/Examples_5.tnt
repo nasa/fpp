@@ -1,0 +1,7 @@
+#tag::visible[]
+# No terminating punctuation
+enum E {
+  X = 0
+  Y = 1
+}
+#end::visible[]

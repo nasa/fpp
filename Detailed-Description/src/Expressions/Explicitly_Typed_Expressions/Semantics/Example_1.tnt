@@ -1,0 +1,3 @@
+#tag::visible[]
+constant x = 1 : F32
+#end::visible[]

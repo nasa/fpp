@@ -1,0 +1,4 @@
+#tag::visible[]
+constant a = { x = 0, y = 1 }
+constant b = a.y # a.y evaluates to 1
+#end::visible[]

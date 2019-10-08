@@ -1,0 +1,7 @@
+#tag::visible[]
+constant a = [ { x = 0, y = 1 }, { x = 2, y = 3 } ]
+constant a_0_x = a[0].x
+constant a_0_y = a[0].y
+constant a_1_x = a[1].x
+constant a_1_y = a[1].y
+#end::visible[]

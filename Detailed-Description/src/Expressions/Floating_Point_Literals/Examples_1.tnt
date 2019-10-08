@@ -1,0 +1,6 @@
+#tag::visible[]
+constant epsilon = 1e-10
+constant delta = 0.001
+constant pi = 3.14159
+constant avogadro = 6.02E23
+#end::visible[]

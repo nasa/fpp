@@ -1,0 +1,86 @@
+=== Comments and Annotations
+
+==== Comments
+
+A *comment* is program text that is ignored by the translator. It
+provides information to human readers of the source program.
+
+Comments begin with the character `#` and go to the end of the line. For
+example:
+
+[source,tnet]
+----
+include::./Detailed-Description/src/Comments_and_Annotations/Comments_1.tnt[tag=visible]
+----
+
+To write a multiline comment, precede each line with `#`:
+
+[source,tnet]
+----
+include::./Detailed-Description/src/Comments_and_Annotations/Comments_2.tnt[tag=visible]
+----
+
+==== Annotations
+
+An *annotation* is similar to a comment, but it is attached to a
+syntactic element of a program, and it is preserved during
+<<Translation,translation>>.  The precise use of annotations depends on the 
+translator. A typical use
+is to include annotations as comments in generated code.
+
+===== Where Annotations Can Occur
+
+Annotations can occur at the following syntax elements:
+
+* A <<Detailed-Description_Definitions,definition>>.
+
+* A <<Detailed-Description_Definitions_Parameter-Lists,parameter>>.
+
+* A <<Detailed-Description_Types_Structure-Types,member of a structure type>>.
+
+These elements are called the *annotatable elements* of a tnet program.
+
+===== Kinds of Annotations
+
+There are two kinds of annotations: *pre-annotations* and
+*post-annotations*.
+
+A pre-annotation starts with `@` and goes to the end of the line.
+Whitespace characters after the initial `@` are ignored. A
+pre-annotation must occur immediately before an
+<<Detailed-Description_Comments-and-Annotations_Where-Annotations-Can-Occur,
+annotatable element>> _e_. It is attached to _e_ during translation.
+
+A post-annotation starts with `@<` and goes to the end of the line.
+Whitespace characters after the initial `@<` are ignored. A
+post-annotation must occur immediately after an
+<<Detailed-Description_Comments-and-Annotations_Where-Annotations-Can-Occur,
+annotatable element>> _e_. It is attached to _e_ during translation.
+
+====== Example
+
+[source,tnet]
+----
+include::./Detailed-Description/src/Comments_and_Annotations/Annotations/Kinds_of_Annotations/Example_1.tnt[tag=visible]
+----
+
+===== Multiline Annotations
+
+You can write several pre-annotations in a row before an
+<<Detailed-Description_Comments-and-Annotations_Where-Annotations-Can-Occur, 
+annotatable element>> _e_.
+In this case, all the pre-annotations are attached to the
+element, in the order that they appear.
+
+Similarly, you can write several post-annotations in a row after an
+<<Detailed-Description_Comments-and-Annotations_Where-Annotations-Can-Occur, 
+annotatable element>> _e_.
+In this case, all the post-annotations are attached to the
+element, in the order that they appear.
+
+====== Example
+
+[source,tnet]
+----
+include::./Detailed-Description/src/Comments_and_Annotations/Annotations/Multiline_Annotations/Example_1.tnt[tag=visible]
+----

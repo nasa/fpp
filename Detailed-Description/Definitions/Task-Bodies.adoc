@@ -1,0 +1,252 @@
+==== Task Bodies
+
+A task body is the body of a
+<<Detailed-Description_Definitions_Task-Template-Definitions,
+task template>> or
+<<Detailed-Description_Definitions_Task-Network-Definitions,
+task>>.
+
+===== Syntax
+
+A **task body** is an
+<<Detailed-Description_Element-Sequences,element sequence>> in which the 
+elements are task body elements, and the terminating punctuation is a semicolon.
+
+A **task body element** is one of the following:
+
+* A *start element*
+`start`
+<<Detailed-Description_Expressions,_expression_>>
+
+* A *start range element*
+`start` `in`
+<<Detailed-Description_Expressions,_expression_>>
+
+* A *duration element*
+`duration`
+<<Detailed-Description_Expressions,_expression_>>
+
+* An *end range element*
+`end` `in`
+<<Detailed-Description_Expressions,_expression_>>
+
+* A *precondition element*
+`pre`
+<<Detailed-Description_Expressions,_expression_>>
+
+* A *maintenance condition element*
+`maint`
+<<Detailed-Description_Expressions,_expression_>>
+
+* A *postcondition element*
+`post`
+<<Detailed-Description_Expressions,_expression_>>
+
+* An *impact element*
+`impact`
+<<Detailed-Description_Expressions,_expression_>>
+`=`
+<<Detailed-Description_Expressions,_expression_>>
+
+* A *cumulative impact element*
+`impact`
+<<Detailed-Description_Expressions,_expression_>>
+`+=`
+<<Detailed-Description_Expressions,_expression_>>
+
+* A *rate impact element*
+`rate` `impact`
+<<Detailed-Description_Expressions,_expression_>>
+`+=`
+<<Detailed-Description_Expressions,_expression_>>
+
+* A *command element*
+`command`
+<<Detailed-Description_Expressions,_expression_>>
+_[_
+`(`
+<<Detailed-Description_Definitions_Argument-Lists,_argument-list_>>
+`)`
+_]_
+
+* A *planning command element*
+`planning` `command`
+<<Detailed-Description_Expressions,_expression_>>
+_[_
+`(`
+<<Detailed-Description_Definitions_Argument-Lists,_argument-list_>>
+`)`
+_]_
+
+* A *cleanup command* element
+`cleanup` `command`
+<<Detailed-Description_Expressions,_expression_>>
+_[_
+`(`
+<<Detailed-Description_Definitions_Argument-Lists,_argument-list_>>
+`)`
+_]_
+
+* A *with contingency element*
+`contingency` `with` `{`
+<<Detailed-Description_Definitions_Task-Bodies,_task-body_>>
+`}`
+
+* A *from contingency element*
+`contingency` `from`
+<<Detailed-Description_Expressions,_expression_>>
+_[_ `(`
+<<Detailed-Description_Definitions_Argument-Lists,_argument-list_>>
+`)` _]_
+_[_
+`with` `{`
+<<Detailed-Description_Definitions_Task-Bodies,_task-body_>>
+`}`
+_]_
+
+===== Semantics
+
+*Start elements:* A task body may contain at most one start element.
+The expression must have a numeric type.
+It denotes the start time of the task in seconds
+of absolute spacecraft time.
+
+*Start range elements:*
+A task body may contain at most one start range element.
+The expression must be of type `range` _T_, where _T_ is a numeric type.
+It denotes the bounds on the start time of the task, in
+seconds of absolute spacecraft time.
+
+*Duration elements:*
+A task body may contain at most one duration element.
+The expression must be of numeric type.
+It denotes a task duration in seconds.
+
+*End range elements:*
+A task body may contain at most one end range element.
+The expression must be of type `range` _T_, where _T_ is a numeric type.
+It denotes the bounds on the end time of the task, in
+seconds of absolute spacecraft time.
+
+*Precondition elements:*
+A task body may at most one precondition element.
+The expression must have Boolean type.
+It denotes a condition that must be true before the
+task is executed.
+
+*Maintenance condition elements:*
+A task body may contain at most one maintenance condition element.
+The expression must have Boolean type.
+It denotes a condition that must be true while the
+task is executed.
+
+*Postcondition elements:*
+A task body may contain at most one postcondition element.
+The expression must have Boolean type.
+It denotes a condition that must be true after the
+task is executed.
+
+*Impact elements:*
+A task body may contain zero or more impact elements.
+The first expression must 
+<<Scoping-of-Names_Resolution-of-Identifiers,refer to>> a 
+<<Detailed-Description_Definitions_Timeline-Definitions,timeline>>.
+The second expression must have the same type as
+the timeline.
+The element denotes the impact, or update, that results
+from evaluating the second expression to a value _v_ and 
+storing storing _v_ into the timeline.
+
+*Cumulative impact elements:*
+A task body may contain zero or more cumulative impact elements.
+The first expression must
+<<Scoping-of-Names_Resolution-of-Identifiers,refer to>> a 
+<<Detailed-Description_Definitions_Timeline-Definitions,timeline>>
+of numeric type.
+The second expression must have the same type as
+the timeline.
+The element denotes the impact, or update, that results
+from (1) evaluating the second expression to a value _v_,
+(2) adding _v_ to the value already in the timeline to produce a
+new value stem:[v'],
+and (3) storing stem:[v'] into the timeline.
+
+*Rate impact elements:*
+A task body may contain zero or more rate impact elements.
+The first expression must
+<<Scoping-of-Names_Resolution-of-Identifiers,refer to>> a 
+<<Detailed-Description_Definitions_Timeline-Definitions,timeline>>
+of numeric type.
+The second expression must have the same type as
+the timeline.
+The element denotes a change to the rate associated
+with the timeline.
+The new rate is computed by
+(1) evaluating the second expression to a value _v_,
+(2) adding _v_ to the old rate.
+
+*Command elements:*
+A task body may contain at most one command element.
+The expression must
+<<Scoping-of-Names_Resolution-of-Identifiers,refer to>> a 
+<<Detailed-Description_Definitions_Command-Definitions,
+command definition>>.
+The command is issued when the task is executed.
+The number and types of the arguments must match
+the command parameters.
+If there are no arguments, then the argument list may be omitted.
+
+*Planning command elements:*
+A task body may contain at most one planning element.
+The expression must
+<<Scoping-of-Names_Resolution-of-Identifiers,refer to>> a 
+<<Detailed-Description_Definitions_Command-Definitions,
+command definition>>.
+The command is issued when the task is planned,
+for example to command the flight software to
+send additional information to the planner.
+The number and types of the arguments must match
+the command parameters.
+If there are no arguments, then the argument list may be omitted.
+
+*Cleanup command elements:*
+A task body may contain at most one cleanup element.
+The expression must refer to
+<<Scoping-of-Names_Resolution-of-Identifiers,refer to>> a 
+<<Detailed-Description_Definitions_Command-Definitions,
+command definition>>.
+The command is issued when the task has been
+dispatched, and its execution has failed.
+The number and types of the arguments must match
+the command parameters.
+If there are no arguments, then the argument list may be omitted.
+
+*With contingency elements:*
+A task body may contain zero or more with contingency elements.
+Each with contingency element denotes an anonymous task
+template whose elements are given by the task body.
+The template is instantiated to a task and added to the plan
+if and when the task execution fails.
+
+*From contingency elements:*
+A task body may contain zero or more from contingency elements.
+In each from contingency element, the expression must 
+<<Scoping-of-Names_Resolution-of-Identifiers,refer to>> a 
+<<Detailed-Description_Definitions_Task-Template-Definitions,
+task template definition>> _T_.
+The arguments are the bindings for the parameters of _T_.
+If there are no arguments, then the argument list may be omitted.
+The number and type of arguments must match the number and type of
+parameters of _T_.
+
+The task body _B_ following the keyword `with` is optional.
+If it is present, then the from contingency element
+denotes a task
+template whose elements are given by adding the task body
+to the template, as for
+<<Detailed-Description_Definitions_Task-Template-Definitions,
+task template definitions>>.
+
+The template is instantiated to a task and added to the plan
+if and when the task execution fails.
+

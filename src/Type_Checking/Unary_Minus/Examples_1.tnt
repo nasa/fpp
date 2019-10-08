@@ -1,0 +1,8 @@
+#tag::visible[]
+constant a = - { x = 1 } # Type is { x: I16 }
+constant b = -1.0 # Type is F64
+constant c = -1 # Type is I16
+constant d = -c # Type is I16
+constant e = -0xFFFFFFFF # Type is I64
+constant f = -0x100000000 # Type is I64
+#end::visible[]

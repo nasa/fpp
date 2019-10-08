@@ -1,0 +1,74 @@
+==== Task Template Definitions
+
+A *task template definition* defines a task template.  A task template 
+specifies a task either partially or completely.
+It may be instantiated into a task (possibly with further specification) as 
+part
+of a <<Detailed-Description_Definitions_Task-Network-Data-Definitions, task
+network definition>>.
+
+===== Syntax
+
+A task template is one of the following:
+
+* A *with task template*
+`task` `template`
+<<Detailed-Description_Identifiers,_identifier_>>
+_[_ `(`
+<<Detailed-Description_Definitions_Parameter-Lists,_parameter-list_>>
+`)` _]_
+`with` `{` 
+<<Detailed-Description_Definitions_Task-Bodies,_task-body_>>
+`}`
+
+* A *from task template*
+`task` `template`
+<<Detailed-Description_Identifiers,_identifier_>>
+_[_ `(`
+<<Detailed-Description_Definitions_Parameter-Lists,_parameter-list_>>
+`)` _]_
+`from`
+<<Detailed-Description_Expressions,_expression_>>
+_[_ `(`
+<<Detailed-Description_Definitions_Argument-Lists,_argument-list_>>
+`)` _]_
+_[_
+`with` `{` 
+<<Detailed-Description_Definitions_Task-Bodies,_task-body_>>
+`}`
+_]_
+
+===== Semantics
+
+*With task templates:* The identifier is the name of the task template. 
+The parameters are the parameters of the task body.
+Each parameter must have
+<<Detailed-Description_Types_Set-Element-Types,set element type>>.
+If there are no parameters, then the parameter list may be omitted.
+The task body specifies the elements of the task template.
+
+*From task templates:* The identifier is the name of the task template.
+The parameters are the parameters of the task body.
+Each parameter must have
+<<Detailed-Description_Types_Set-Element-Types,set element type>>.
+If there are no parameters, then the parameter list may be omitted.
+
+The expression following the keyword `from` must 
+<<Scoping-of-Names_Resolution-of-Identifiers,refer to>>
+another task template _T_.
+The arguments are the bindings for the parameters of _T_.
+If there are no arguments, then the argument list may be omitted.
+The number and type of arguments must match the number and type of
+parameters of _T_.
+
+The task body following the keyword `with` is optional.
+If a task body _B_ is present, then the elements of the template are formed as 
+follows:
+
+. Take the union of the elements of _T_ and the elements given
+in _B_.
+
+. If any kind of element appears both in _B_ and in _T_, and only
+one such element is allowed in a task body, then the element appearing in _B_
+overrides the element appearing in _T_.
+

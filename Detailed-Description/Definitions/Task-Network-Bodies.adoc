@@ -1,0 +1,114 @@
+==== Task Network Bodies
+
+A *task network body* is the body of a task network.
+A task network body consists of zero or more
+timelines, zero or more task templates, and zero or more tasks.
+
+===== Syntax
+
+_task-network-body_ is an
+<<Detailed-Description_Element-Sequences,element sequence>> in which the 
+elements are task network body elements, and the terminating punctuation is a 
+semicolon.
+
+A *task network body element* is one of the following:
+
+* A *timeline element*
+`timeline`
+<<Detailed-Description_Expressions,_expression_>>
+
+* A *task template element*
+`task template`
+<<Detailed-Description_Expressions,_expression_>>
+_[_ `(`
+<<Detailed-Description_Definitions_Argument-Lists,_argument-list_>>
+`)` _]_
+_[_
+`with` `{` 
+<<Detailed-Description_Definitions_Task-Bodies,_task-body_>>
+`}`
+_]_
+
+* A *with task element*
+`task`
+<<Detailed-Description_Expressions,_identifier_>>
+`with` `{` 
+<<Detailed-Description_Definitions_Task-Bodies,_task-body_>>
+`}`
+
+* A *from task element*
+`task`
+<<Detailed-Description_Identifiers,_identifier_>>
+`from`
+<<Detailed-Description_Expressions,_expression_>>
+_[_ `(`
+<<Detailed-Description_Definitions_Argument-Lists,_argument-list_>>
+`)` _]_
+_[_
+`with` `{`
+<<Detailed-Description_Definitions_Task-Bodies,_task-body_>>
+`}`
+_]_
+
+===== Semantics
+
+*Timeline elements:*
+The expression must refer to a transitive element
+stem:[E] of a state data structure, as for a 
+<<Detailed-Description_Definitions_Timeline-Definitions,
+timeline definition>>.
+stem:[E] must also appear in a timeline
+definition that is in scope.
+The timeline element imports the timeline associated with
+stem:[E] into the task
+network, so that when the task network is loaded into
+the planner, the timeline is created.
+
+*Task template elements:*
+The expression must refer to a
+<<Detailed-Description_Definitions_Task-Template-Definitions,
+task template definition>>.
+The arguments are default bindings for the parameters of _T_.
+If there are no arguments, then the argument list may be omitted.
+The number and type of arguments must match the number and type of
+parameters of _T_.
+
+The element imports the task template into the task
+network, so that when the task network is loaded into
+the planner, the template is created.
+During planning the planner can instantiate the template,
+replacing one or more of the default parameter bindings with new values
+if necessary.
+
+The task body _B_ following the keyword `with` is optional.
+If it is present, then
+the element creates a template whose elements are given by adding _B_
+to the template, as for
+<<Detailed-Description_Definitions_Task-Template-Definitions,
+task template definitions>>.
+
+*With task elements:*
+The identifier is the name of the task.
+The element creates a template with the elements given
+in the task body and adds it as task with the given name.
+
+*From task elements:*
+The identifier is the name of the task.
+The expression must refer to a
+<<Detailed-Description_Definitions_Task-Template-Definitions,
+task template definition>> _T_.
+The arguments are the bindings for the parameters of _T_.
+If there are no arguments, then the argument list may be omitted.
+The number and type of arguments must match the number and type of
+parameters of _T_.
+
+The task body _B_ following the keyword `with` is optional.
+If it is present, then
+the element creates a template whose elements are given by adding _B_
+to the template, as for
+<<Detailed-Description_Definitions_Task-Template-Definitions,
+task template definitions>>.
+
+The element instantiates the template and adds it as a task
+with the given name.
+

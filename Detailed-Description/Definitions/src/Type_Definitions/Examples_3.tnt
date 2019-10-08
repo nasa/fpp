@@ -1,0 +1,3 @@
+#tag::visible[]
+type t = { x : { y : U32 } } # Error
+#end::visible[]

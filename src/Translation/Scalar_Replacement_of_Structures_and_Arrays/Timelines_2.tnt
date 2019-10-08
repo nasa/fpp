@@ -1,0 +1,10 @@
+#tag::visible[]
+type VectorF32 = { x : F32, y : F32 , z : F32 }
+type State = { v1 : VectorF32, v2 : VectorF32 }
+state s : State = 0
+constant min : VectorF32 = -1
+constant max : VectorF32 = 1
+timeline s.v1.x in (min..max).x
+timeline s.v1.y in (min..max).y
+timeline s.v1.z in (min..max).z
+#end::visible[]

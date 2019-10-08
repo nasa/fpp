@@ -1,0 +1,4 @@
+#tag::visible[]
+# Terminating punctuation required after the first element but not the second
+enum E { X = 0, Y = 1 }
+#end::visible[]

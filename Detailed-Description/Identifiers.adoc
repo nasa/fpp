@@ -1,0 +1,19 @@
+=== Identifiers
+
+An *identifier* is the unqualified name of a
+<<Detailed-Description_Expressions_Structure-Expressions,structure member>>, a
+<<Detailed-Description_Definitions,definition>>, or a
+<<Detailed-Description_Definitions_Parameter-Lists,parameter>>.
+
+==== Syntax
+
+An identifier consists of one or more characters. The first character
+must be a letter or an underscore. Characters after the first character
+may be letters, digits, and underscores.
+
+==== Examples
+
+[source,tnet]
+----
+include::./Detailed-Description/src/Identifiers/Examples_1.tnt[tag=visible]
+----

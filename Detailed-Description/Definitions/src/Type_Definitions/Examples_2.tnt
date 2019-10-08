@@ -1,0 +1,13 @@
+#tag::visible[]
+enum PorridgeStatus { NOT_EATEN = 0, EATEN = 1 }
+type GoldilocksStatus = {
+  mama : PorridgeStatus
+  papa : PorridgeStatus
+  baby : PorridgeStatus
+}
+constant status : GoldilocksStatus = {
+  mama = PorridgeStatus.EATEN
+  papa = PorridgeStatus.NOT_EATEN
+  baby = PorridgeStatus.NOT_EATEN
+}
+#end::visible[]

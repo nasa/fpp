@@ -1,0 +1,11 @@
+== Syntax Notation
+
+Throughout this document, we use the following notation to describe
+language syntax:
+
+* `fixed-width font` denotes literal program text.
+
+* _italics_ denote grammar nonterminals.
+
+* Italicized brackets _[ ]_ enclose optional elements.
+

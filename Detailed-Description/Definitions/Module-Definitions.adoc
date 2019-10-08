@@ -1,0 +1,39 @@
+==== Module Definitions
+
+A *module definition* provides a named scope that encloses other
+definitions, including other module definitions.
+
+===== Syntax
+
+`module`
+<<Detailed-Description_Identifiers,_identifier_>>
+`{` _module-member-sequence_ `}`
+
+_module-member-sequence_ is an
+<<Detailed-Description_Element-Sequences,element sequence>> in 
+which each element is any kind of 
+<<Detailed-Description_Definitions,definition>>
+except an enumerated constant definition,
+and the terminating punctuation is a semicolon.
+Syntactically, it is equivalent to a
+<<Detailed-Description_Translation-Units,translation unit>>.
+
+===== Semantics
+
+A module definition _D_ qualifies the names of all the definitions
+inside it with its own name. Inside _D_, you can refer to definitions in
+_D_ by their unqualified name (the identifier appearing in the
+definition) or by their qualified name. Outside _D_, you have to use the
+qualified name. We say that the *scope* of the identifiers in the
+definitions in _D_ is limited to the inside of _D_.
+
+For further information about name scoping and qualification, see the
+section on
+<<Scoping-of-Names,Scoping of Names>>.
+
+===== Example
+
+[source,tnet]
+----
+include::./Detailed-Description/Definitions/src/Module_Definitions/Example_1.tnt[tag=visible]
+----

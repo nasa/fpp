@@ -1,0 +1,10 @@
+#tag::visible[]
+constant a = set { 0, 1, 2 } # Type is set U8
+constant b = set { 0..1, 2 } # Type is set U8
+constant c = set { (0..1)..(0..1) } # Error: this expression is not well typed
+constant d = set { set { 0 , 1 } } # Error: this expression is not well typed
+constant e = set { [ 0, 0 ]..[ 1, 1 ] } # Type is set [2] U8
+constant f = set { [ 0, 0 ]..[ 1, 1 ], [ 2 , 2 ] } # Type is set [2] U8
+constant g = set { { x=0, y=0 }..{ x=1, y=1 } } # Type is set { x : U8, y : U8 }
+constant h = set { { x=0, y=0 }..{ x=1, y=1 }, { x=2, y=2 } } # Type is set { x : U8, y : U8 }
+#end::visible[]

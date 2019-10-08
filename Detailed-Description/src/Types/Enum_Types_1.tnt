@@ -1,0 +1,8 @@
+#tag::visible[]
+module M {
+  enum E { X = 0, Y = 1 }
+}
+constant a = M.E.X # a has type M.E
+type t = M.E # t is another name for M.E
+constant b : t = M.E.Y # b has type t
+#end::visible[]

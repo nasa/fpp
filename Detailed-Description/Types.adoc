@@ -1,0 +1,332 @@
+=== Types
+
+==== Primitive Types
+
+*Primitive types* are the types of the primitive scalar values supported
+by most general-purpose computers. There are four kinds of primitive
+types: unsigned integer types, signed integer types, floating-point
+types, and the Boolean type.
+
+* The unsigned integer types are `U8`, `U16`, `U32`, and `U64`. The `U`
+stands for "`unsigned.`" The number after the U is the width of the
+representation in bits, using the standard binary representation of an
+unsigned integer.
+
+* The unsigned integer types are `I8`, `I16`, `I32`, and `I64`. The `I`
+stands for "`[signed] integer.`" The number after the I is the width of
+the representation in bits, using the standard binary two's complement
+representation of a signed integer.
+
+* The floating-point types are `F32` and `F64`. These are IEEE
+floating-point values of width 32 and 64 bits, respectively.
+
+* The Boolean type is `boolean`.
+This type represents the two values `true` and `false`.
+
+The signed and unsigned integer types, collectively, are called the
+*integer types*.
+The integer types together with the floating-point types are called the
+*numeric types*.
+
+==== The String Type
+
+The type `string` is the type of string values.
+
+==== Enum Types
+
+An *enum type* is a
+<<Scoping-of-Names_Qualified-Identifiers,qualified
+identifier>> that refers to an
+<<Detailed-Description_Definitions_Enum-Definitions,enum definition>> via the
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,rules
+for name scoping>>. For example:
+
+[source,tnet]
+----
+include::./Detailed-Description/src/Types/Enum_Types_1.tnt[tag=visible]
+----
+
+`M.E` is an enum type.
+
+==== Structure Types
+
+A *structure type* represents a data structure with members. Each member
+has a name and a type. The order of the members appearing in the type is
+not significant. Two or more members with the same name are not allowed.
+
+The types of the structure members are called the *member types* of the
+structure type. Each member type of a structure type must be an
+<<Detailed-Description_Types_Structure-Member-Types, structure member type>>.
+
+===== Syntax
+
+`{` _structure-type-member-sequence_ `}`
+
+_structure-type-member-sequence_ is an
+<<Detailed-Description_Element-Sequences,element
+sequence>> in which each element is a structure type member of the form
+<<Detailed-Descriptions_Identifiers,_identifier_>> `:`
+<<Detailed-Description_Types,_type_>>,
+and the terminating punctuation is a comma.
+
+===== Semantics
+
+_identifier_ is the name of the member, and _type_ is its type.
+
+===== Example
+
+`{ x : U8, y : F32 }` is a structure type with two members, `x` of type
+`U8` and `y` of type `F32`. We can also write this type as follows:
+
+[source,tnet]
+----
+include::./Detailed-Description/src/Types/Structure_Types/Example_1.tnt[tag=visible]
+----
+
+==== Structure Member Types
+
+A *structure member type* is the type of a member of a 
+<<Detailed-Description_Types_Structure-Types,structure type>>.
+It is a primitive type, the string type, an enum type, a structure type whose
+members all have structure member type,
+an array type whose element type is a structure member type, or a named
+type that refers to a structure member type.
+
+===== Examples
+
+* `U32` is a structure member type.
+
+* `range U32` is not a structure member type.
+
+* `{ x : U32 }` is a valid structure type.
+
+* `{ x : range U32 }` is not a valid structure type, because `range 32` is not 
+a structure member type.
+
+* `{ x : { y : U32 } }` is a valid structure type.
+
+* `{ x : { y : range U32 } }` is not a valid structure type because
+`{ y : range U32 }` is not a structure member type (and also not a valid type).
+
+==== Array Types
+
+An *array type* represents an indexed collection of values.
+
+===== Syntax
+
+`[`
+<<Detailed-Description_Expressions,_expression_>>
+`]`
+<<Detailed-Description_Types,_type_>>
+
+===== Semantics
+
+_expression_ represents the size of the array. Its type must be a
+<<Detailed-Description_Types_Primitive-Types,numeric type>>, and it must
+<<Evaluation,evaluate>> to a compile-time constant.
+
+_type_ is called the *element type* of the array type. It represents the
+type of each array element. It must be an
+<<Detailed-Description_Types_Array-Element-Types,array element type>>.
+
+===== Example
+
+[source,tnet]
+----
+include::./Detailed-Description/src/Types/Array_Types/Example_1.tnt[tag=visible]
+----
+
+In the last constant definition, note that the array type reads
+naturally from left to right as "`array of 3 array of 2 U8.`"
+
+==== Array Element Types
+
+An *array element type* is the element type of an
+<<Detailed-Description_Types_Array-Types,array type>>.
+A type stem:[T] is an array element type if and only if
+stem:[T] is a <<Detailed-Description_Types_Structure-Member-Types,structure 
+member type>>.
+
+===== Examples
+
+* `U32` is an array element type.
+
+* `range U32` is not an array element type.
+
+* `[10] U32` is a valid array type.
+
+* `[10] range U32` is not a valid array type, because `range 32` is not 
+an array element type.
+
+* `[10] [20] U32` is a valid array type.
+
+* `[10] [20] range U32` is not a valid array type because
+`[20] range U32` is not an array element type (and also not a valid type).
+
+==== Range Types
+
+A *range type* represents a range of values.
+
+===== Syntax
+
+`range`
+<<Detailed-Description_Types,_type_>>
+
+===== Semantics
+
+_type_ is called the *element type* of the range type. It represents the
+type of each element of the range. It must be an
+<<Detailed-Description_Types_Range-Element-Types,range element type>>.
+
+===== Examples
+
+* The type of the expression `0..1` is `range U8`.
+
+* The type of the expression `[ 0, 1 ]..[ 1, 2 ]` is `range [2] U8`.
+
+* The type of the expression `{ x = 0.0, y = 0.0 }..{ x = 1.0, y = 1.0 }` is 
+`range { x : F64, y : F64 }`.
+
+* The following code is invalid, because `E` is not a range element type:
+
+  enum E { A = 0, B = 1, C = 2, D = 3 }
+  constant r = E.A..E.C # Invalid: E is not a range element type
+
+==== Range Element Types
+
+A *range element type* is the element type of a
+<<Detailed-Description_Types_Range-Types,range type>>.
+It is a numeric type, a structure type whose
+members all have range element type, an array type whose element type is a
+range element type, or a named
+type that refers to a range element type.
+
+===== Examples
+
+* `U32` is a range element type.
+
+* `range U32` is a valid range type but not a range element type.
+
+* `range range U32` is not a valid range type, because `range 32` is not 
+a range element type.
+
+* `range string` is not a valid range type, because `string` is not
+a range element type.
+
+* `range { x : U32 }` is a valid range type.
+
+* `range { x : string }` is not a valid range type because
+`{ x : string }` is not a range element type.
+
+* `range { x : range U32 }` is not a valid range type because
+`{ x : range U32 }` is not a range element type (and also not a valid type).
+
+* This code illustrates that enum types are not allowed as range element types:
+
+  enum E { A = 0, B = 1, C = 2 }
+  constant r = A..C # Error: range E is not a a valid type
+
+* This code illustrates that enum values can appear in ranges, after conversion to integers:
+
+  enum E { A = 0, B = 1, C = 2 }
+  constant r = 0..C # OK; equivalent to 0..2, with type range U8
+
+==== Set Types
+
+A *set type* represents an unordered collection of values.
+
+===== Syntax
+
+`set`
+<<Detailed-Description_Types,_type_>>
+
+===== Semantics
+
+_type_ is called the *element type* of the set type. It represents the
+type of each element of the set. It must be a
+<<Detailed-Description_Types_Range-Element-Types,range element type>>.
+
+===== Examples
+
+* The type of the expression `set { 0..1 }` is `set U8`.
+
+* The type of the expression `set { [ 0, 1 ], [ 1, 2 ] }` is `set [2] U8`.
+
+* The type of the expression `{ x = 0.0, y = 0.0 }, { x = 1.0, y = 1.0 }` is
+`set { x : F64, y : F64 }`.
+
+==== Set Element Types
+
+A *set element type* is the element type of a
+<<Detailed-Description_Types_Set-Types,set type>>.
+It is a numeric type, an enum type, a structure type whose
+members all have set element type, an array type whose element type is a
+set element type, or a named
+type that refers to a set element type.
+
+===== Examples
+
+* `U32` is a set element type.
+
+* `set U32` is a valid set type but not a set element type.
+
+* `set set U32` is not a valid set type, because `set 32` is not 
+a set element type.
+
+* `set string` is not a valid set type, because `string` is not
+a set element type.
+
+* `set { x : U32 }` is a valid set type.
+
+* `set { x : string }` is not a valid set type because
+`{ x : string }` is not a set element type.
+
+* `set { x : set U32 }` is not a valid set type because
+`{ x : set U32 }` is not a set element type (and also not a valid type).
+
+* This code illustrates that enum types are allowed as set element types:
+
+  enum E { A = 0, B = 1, C = 2 }
+  constant s = set { A, B } # OK; type is set E
+
+==== Named Types
+
+A *named type* is a
+<<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> that 
+refers to a
+<<Detailed-Description_Definitions_Type-Definitions,type definition>> via the
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,rules for name 
+scoping>>. For example, in the example given for
+<<Detailed-Description_Types_Enum-Types,enum types>> above, `t` is a named 
+type. Here is another example:
+
+[source,tnet]
+----
+include::./Detailed-Description/src/Types/Named_Types/Named_Types_1.tnt[tag=visible]
+----
+
+==== State Data Types
+
+A *state data type* is the type of a member of a
+<<Detailed-Description_Definitions_State-Data-Definitions,state data definition>>.
+A state data type is either (1) a
+<<Detailed-Description_Types_Named-Types,named type>> referring to a
+<<Detailed-Description_Definitions_Type-Definitions,type definition>> whose 
+representation type is a structure type or (2) a named
+type referring to a type definition whose representation type is a state
+data type.
+
+For example:
+
+[source,tnet]
+----
+include::./Detailed-Description/src/Types/State_Data_Types/State_Data_Types_1.tnt[tag=visible]
+----
+
+* `U32` and `{ x : U32 }` are not state data types, because they are not named 
+types.
+
+* `t1` is not a state data type, because its representation type is not a
+structure type or a named type referring to a state data type.
+
+* `t2` and `t3` are state data types.
