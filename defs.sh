@@ -10,4 +10,5 @@ export FILES="
 Introduction.adoc
 Syntax-Notation.adoc
 Lexical-Elements.adoc
+Types.adoc
 "

@@ -1,0 +1,95 @@
+== Types
+
+=== Primitive Types
+
+*Primitive types* are the types of the primitive scalar values supported
+by F Prime. There are four kinds of primitive
+types: unsigned integer types, signed integer types, floating-point
+types, and the Boolean type.
+
+* The unsigned integer types are `U8`, `U16`, `U32`, and `U64`. The `U`
+stands for "`unsigned.`" The number after the U is the width of the
+representation in bits, using the standard binary representation of an
+unsigned integer.
+
+* The unsigned integer types are `I8`, `I16`, `I32`, and `I64`. The `I`
+stands for "`[signed] integer.`" The number after the I is the width of
+the representation in bits, using the standard binary two's complement
+representation of a signed integer.
+
+* The floating-point types are `F32` and `F64`. These are IEEE
+floating-point values of width 32 and 64 bits, respectively.
+
+* The Boolean type is `boolean`.
+This type represents the two values `true` and `false`.
+
+The signed and unsigned integer types, collectively, are called the
+*integer types*.
+The integer types together with the floating-point types are called the
+*numeric types*.
+
+=== The String Type
+
+The type `string` is the type of string values.
+
+=== Array Types
+
+An *array type* is a
+<<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> that 
+refers to an
+<<Detailed-Description_Definitions_Array-Definitions,array definition>> via the
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,rules for name 
+scoping>>. For example:
+
+[source,fpp]
+----
+TODO
+----
+
+=== Enum Types
+
+An *enum type* is a
+<<Scoping-of-Names_Qualified-Identifiers,qualified
+identifier>> that refers to an
+<<Detailed-Description_Definitions_Enum-Definitions,enum definition>> via the
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,rules
+for name scoping>>. For example:
+
+[source,fpp]
+----
+namespace N {
+  enum E { X = 0, Y = 1 }
+}
+constant a = N.E.X # a has type N.E
+----
+
+`N.E` is an enum type.
+
+=== Struct Types
+
+A *struct type* is a
+<<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> that 
+refers to a
+<<Detailed-Description_Definitions_Struct-Definitions,struct definition>> via the
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,rules for name 
+scoping>>. For example:
+
+[source,fpp]
+----
+TODO
+----
+
+=== Abstract Types
+
+An *abstract type* is a
+<<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> that refers to 
+a
+<<Detailed-Description_Definitions_Abstract-Type-Definitions,abstract type 
+definition>> via the
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,rules for name 
+scoping>>. For example:
+
+[source,fpp]
+----
+TODO
+----
