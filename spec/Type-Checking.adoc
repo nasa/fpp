@@ -53,6 +53,12 @@ The type of a
 <<Expressions_Boolean-Literals,boolean
 literal expression>> is `bool`.
 
+=== String Literals
+
+The type of a
+<<Expressions_String-Literals,string
+literal expression>> is `string`.
+
 === Unary Minus
 
 To type a
@@ -121,3 +127,22 @@ module M {
 constant b = M.a # Expression M.a represents a use of the definition M.a.
                  # Its type is Integer.
 ----
+
+=== Type Conversion
+
+We say that a type stem:[T_1] *may be converted to* another type stem:[T_2] if
+every <<Evaluation_Values,value>> represented by type stem:[T_1] can be
+<<Evaluation_Type-Conversion,converted>> into a value of type stem:[T_2].
+
+Here are the rules for type conversion:
+
+. Any <<Types_Integer-and-Numeric-Types,numeric
+type>> may be converted to any other numeric type.
+
+. An <<Detailed-Description_Types_Enum-Types,enum type>> may be converted to a
+<<Types_Integer-and-Numeric-Types,numeric type>>.
+
+. Type convertibility is transitive: if stem:[T_1] may be converted to 
+stem:[T_2]
+and stem:[T_2] may be converted to stem:[T_3], then stem:[T_1] 
+may be converted to stem:[T_3].

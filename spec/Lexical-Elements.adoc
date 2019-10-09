@@ -18,9 +18,9 @@ A token is one of the following:
 
 * A <<Expressions_Boolean-Literals,Boolean literal>>.
 
-* A <<Lexical-Elements_String-Literals,string literal>>.
+* A <<Expressions_String-Literals,string literal>>.
 
-* A <<Lexical-Elements_Newlines,newline character>>.
+* A <<Lexical-Elements_Newlines,newline token>>.
 
 * A line of an <<Comments-and-Annotations_Annotations,annotation>>
 beginning with `@` or `@<`.
@@ -94,25 +94,10 @@ multiPartIdentifier
 multi_part_identifier
 ----
 
-=== String Literals
-
-A *string literal* is a sequence of characters enclosed in double quotes.
-The characters must be printable ASCII characters, and the double
-quote character itself is not allowed.
-
-*Examples:*
-
-* `"abc"` is a valid string representing the characters `a`, `b`, and `c`.
-
-* `"abc` is not a valid string, because it is missing the terminating double quote.
-
-* `"ab"c"` is the valid string `"ab"` followed by the identifier `c` and an 
-unmatched double quote character.
-
 === Newlines
 
-The newline character is a token. Sequences of one or more newlines separate 
-the elements of <<Element-Sequences,element sequences>>.
+The NL character (ASCII code 0x0A) is a token. Sequences of one or more 
+newlines separate the elements of <<Element-Sequences,element sequences>>.
 
 === Comments
 
@@ -124,6 +109,8 @@ Apart from <<Lexical-Elements_Newlines,newlines>>, the lexer treats whitespace
 as follows:
 
 * Space characters are ignored, except to separate tokens.
+
+* CR characters (ASCII code 0x0D) are ignored.
 
 * No other whitespace or non-printable characters are allowed
 outside of a comment or annotation.
