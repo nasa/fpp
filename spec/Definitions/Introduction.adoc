@@ -19,8 +19,10 @@ Constant Definitions>>
 
 * <<Definitions_Abstract-Type-Definitions,Abstract Type Definitions>>
 
-Constant definitions, array definitions, enum definitions, struct definitions,
-abstract type definitions, and module definitions may appear in
-<<Translation-Units-and-Programs_Translation-Units,translation
-units>> or in namespace definitions. Enumerated constant definitions appear
-in enum definitions.
+* <<Definitions_Port-Definitions,Port Definitions>>
+
+* <<Definitions_Component-Definitions,Component Definitions>>
+
+* <<Definitions_Component-Instance-Definitions,Component Instance Definitions>>
+
+* <<Definitions_Topology-Definitions,Topology Definitions>>

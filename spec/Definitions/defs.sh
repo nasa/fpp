@@ -15,4 +15,8 @@ Enum-Definitions.adoc
 Enumerated-Constant-Definitions.adoc
 Struct-Type-Definitions.adoc
 Abstract-Type-Definitions.adoc
+Port-Definitions.adoc
+Component-Definitions.adoc
+Component-Instance-Definitions.adoc
+Topology-Definitions.adoc
 "

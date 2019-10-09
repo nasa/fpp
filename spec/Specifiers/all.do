@@ -1,8 +1,7 @@
 #!/bin/sh -e
 
 # ----------------------------------------------------------------------
-# default.adoc.do
+# all.do
 # ----------------------------------------------------------------------
 
-redo-ifchange $2.md
-pandoc $2.md -t asciidoc -o $3
+redo-ifchange Specifiers.adoc

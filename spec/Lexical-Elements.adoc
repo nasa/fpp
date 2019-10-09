@@ -42,11 +42,14 @@ U32
 U64
 U8
 array
+at
+baseid
 bool
 component
 enum
 false
 import
+instance
 locate
 module
 port
