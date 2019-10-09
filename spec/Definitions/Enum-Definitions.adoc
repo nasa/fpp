@@ -3,12 +3,12 @@
 An *enum definition* does two things:
 
 .  It defines a type stem:[T] and associates a name stem:[N] with stem:[T]. Elsewhere
-in the program, you can use stem:[N] to refer to stem:[T].
+in the model, you can use stem:[N] to refer to stem:[T].
 
 .  It associates several named constants stem:[C_1, ..., C_n] with stem:[T].  
 These
 constants, called the *enumerated constants* of stem:[T], are the values that
-an expression of type stem:[T] may attain. Elsewhere in the program, you can
+an expression of type stem:[T] may attain. Elsewhere in the model, you can
 use the <<Scoping-of-Names_Qualified-Identifiers,qualified
 identifiers>> stem:[N] `.` stem:[C_1, ..., N] `.` stem:[C_n] 
 to refer to the enumerated

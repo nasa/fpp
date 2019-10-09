@@ -35,7 +35,9 @@ Annotations can occur at the following syntax elements:
 
 * A <<Definitions,definition>>.
 
-* A <<Definitions_Structure-Definitions,member of a structure definition>>.
+* A <<Definitions_Struct-Type-Definitions,member of a struct type definition>>.
+
+* A <<Parameters,parameter>>.
 
 These elements are called the *annotatable elements* of an fpp model.
 

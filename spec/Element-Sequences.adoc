@@ -1,11 +1,9 @@
 == Element Sequences
 
 An *element sequence* is a sequence of similar elements, e.g., the
-definitions appearing in a
+elements of a
 <<Translation-Units-and-Models_Translation-Units,translation
-unit>>, the definitions enclosed in a
-<<Definitions_Module-Definitions,module
-definition>>.
+unit>>.
 
 Each element of an element sequence has optional *terminating
 punctuation*. The punctuation is either a comma or a semicolon,

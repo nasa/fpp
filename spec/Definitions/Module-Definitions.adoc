@@ -11,12 +11,29 @@ definitions, including other module definitions.
 
 _module-member-sequence_ is an
 <<Element-Sequences,element sequence>> in 
-which each element is any kind of 
-<<Definitions,definition>>
-except an enumerated constant definition,
+which each element is a *module member*,
 and the terminating punctuation is a semicolon.
-Syntactically, it is equivalent to a
-<<Translation-Units,translation unit>>.
+A module member is one of the following:
+
+* A <<Definitions_Constant-Definitions,constant definition>>
+
+* A <<Definitions_Module-Definitions,module definition>>
+
+* An <<Definitions_Array-Type-Definitions,array type definition>>
+
+* An <<Definitions_Enum-Definitions,enum definition>>
+
+* A <<Definitions_Struct-Type-Definitions,struct type definition>>
+
+* An <<Definitions_Abstract-Type-Definitions,abstract type definition>>
+
+* A <<Definitions_Port-Definitions,port definition>>
+
+* A <<Definitions_Component-Definitions,component definition>>
+
+* A <<Definitions_Component-Instance-Definitoins,component instance definition>>
+
+* A <<Definitions_Topology-Definitions,topology definition>>
 
 ==== Semantics
 

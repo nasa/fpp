@@ -9,13 +9,13 @@ at the top level.
 
 A translation unit is an
 <<Element-Sequences,element sequence>> in which each 
-element is any kind of
-<<Definitions,definition>>
-except an enumerated constant definition,
+element is a *translation unit member*,
 and the terminating punctuation is a semicolon.
-Syntactically, it is identical to a
-<<Definitions_Module-Definitions_Syntax,module member 
-sequence>>.
+A translation unit element is one of the following:
+
+* A <<Definitions_Module-Definitions_Syntax,module member>>
+
+* A <<Location-Specifiers,location specifier>>
 
 ==== Example
 

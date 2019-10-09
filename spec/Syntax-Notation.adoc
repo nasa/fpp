@@ -3,7 +3,7 @@
 Throughout this document, we use the following notation to describe
 language syntax:
 
-* `fixed-width font` denotes literal program text.
+* `fixed-width font` denotes literal model text.
 
 * _italics_ denote grammar nonterminals.
 

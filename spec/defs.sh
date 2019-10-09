@@ -13,7 +13,8 @@ Lexical-Elements.adoc
 Types.adoc
 Expressions.adoc
 Definitions/Definitions.adoc
-Specifiers/Specifiers.adoc
+Parameters.adoc
+Location-Specifiers.adoc
 Element-Sequences.adoc
 Comments-and-Annotations.adoc
 Translation-Units-and-Models.adoc

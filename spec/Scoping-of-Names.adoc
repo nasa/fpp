@@ -52,7 +52,7 @@ module M { # Qualified name is M
 
 The qualified names of definitions and
 reside in *name groups*. There are
-12 name groups:
+14 name groups:
 
 . The *type name group*
 
@@ -63,6 +63,10 @@ reside in *name groups*. There are
 . The *port name group*
 
 . The *component name group*
+
+. The *port instance name group*
+
+. The *internal interface name group*
 
 . The *command name group*
 
@@ -97,6 +101,10 @@ Definitions reside in name groups as follows:
 * Port definitions reside in the port name group.
 
 * Component definitions reside in the component name group.
+
+* Port instance definitions reside in the port instance name group.
+
+* Internal interface definitions reside in the internal interface name group.
 
 * Command definitions reside in the command name group.
 
@@ -198,16 +206,12 @@ associating identifiers with definitions:
 _S_ to use. For example, if we are expecting a type name, then use the
 type name group.
 
-. At the top level (outside of any module definition, enum
-definition, task template definition, or task definition), the identifier _I_ 
-refers to the unique definition with
-qualified name _I_ if it exists in name group _S_. Otherwise an error
-results.
+. At the top level (outside the brace-delimited body of any definition), the
+identifier _I_ refers to the unique definition with qualified name _I_ if it
+exists in name group _S_. Otherwise an error results.
 
-. Inside a
-<<Definitions_Module-Definitions,module definition>> or
-<<Definitions_Enum-Definitions,enum definition>>
-with qualified name _N_ appearing at the top level:
+. Inside the brace-delimited body of a <<Definitions,definition>> with
+qualified name _N_ appearing at the top level:
 
   .. The identifier _I_ refers to the definition with qualified name
 _N_ `.` _I_ if it exists in name group _S_.
@@ -217,8 +221,8 @@ exists in name group _S_.
 
   .. Otherwise an error results.
 
-.  Inside a module definition or enum definition with qualified name
-_N_ appearing inside a module definition _D_:
+. Inside the brace-delimited body of a definition with qualified name
+_N_ appearing inside the body of a  definition _D_:
 
   ..  The identifier _I_ refers to the definition with qualified name
 _N_ `.` _I_ if it exists in name group _S_.

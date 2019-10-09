@@ -1,6 +1,6 @@
 == Lexical Elements
 
-Before parsing an FPP program, the compiler converts the source
+Before parsing an FPP model, the compiler converts the source
 text into a list of **tokens**.
 This process is called **lexing**.
 
@@ -118,17 +118,17 @@ the elements of <<Element-Sequences,element sequences>>.
 
 <<Comments,Comments>> are ignored during lexing.
 
-=== Whitespace and Non-Printing Characters
+=== Whitespace and Non-Printable Characters
 
 Apart from <<Lexical-Elements_Newlines,newlines>>, the lexer treats whitespace 
 as follows:
 
 * Space characters are ignored, except to separate tokens.
 
-* No other whitespace or non-printing characters are allowed
+* No other whitespace or non-printable characters are allowed
 outside of a comment or annotation.
 In particular, the tab character may not appear
-in an FPP program outside of a comment or annotation.
+in an FPP model outside of a comment or annotation.
 
 === Line Continuations
 

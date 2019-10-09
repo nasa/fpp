@@ -39,7 +39,7 @@ width. Its type is `F64`.
 The *concrete types* are the types of values. A concrete type is
 identical to a
 <<Types,type
-appearing in a FPP source program>>, except that
+appearing in a FPP source model>>, except that
 enum types are associated with their definitions, not
 their uses. There is only one concrete type per definition.
 

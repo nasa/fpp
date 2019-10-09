@@ -23,6 +23,10 @@ Constant Definitions>>
 
 * <<Definitions_Component-Definitions,Component Definitions>>
 
+* <<Definitions_Port-Instance-Definitions,Port Instance Definitions>>
+
+* <<Definitions_Internal-Interface-Definitions,Internal Interface Definitions>>
+
 * <<Definitions_Command-Definitions,Command Definitions>>
 
 * <<Definitions_Telemetry-Channel-Definitions,Telemetry Channel Definitions>>
