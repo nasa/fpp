@@ -6,17 +6,17 @@ definitions, including other module definitions.
 ==== Syntax
 
 `module`
-<<Detailed-Description_Identifiers,_identifier_>>
+<<Lexical-Elements_Identifiers,_identifier_>>
 `{` _module-member-sequence_ `}`
 
 _module-member-sequence_ is an
-<<Detailed-Description_Element-Sequences,element sequence>> in 
+<<Element-Sequences,element sequence>> in 
 which each element is any kind of 
-<<Detailed-Description_Definitions,definition>>
+<<Definitions,definition>>
 except an enumerated constant definition,
 and the terminating punctuation is a semicolon.
 Syntactically, it is equivalent to a
-<<Detailed-Description_Translation-Units,translation unit>>.
+<<Translation-Units,translation unit>>.
 
 ==== Semantics
 
