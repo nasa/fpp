@@ -19,7 +19,7 @@ this case no terminating punctuation is required.
 * You can omit the line break. In this case the terminating punctuation
 is required, unless the element is last in the sequence.
 
-=== Examples
+*Examples:*
 
 A
 <<Translation-Units-and-Models_Translation-Units,translation

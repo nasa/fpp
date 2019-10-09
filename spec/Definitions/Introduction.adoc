@@ -1,8 +1,10 @@
 == Definitions
 
+A *definition* is a unit of syntax that introduces a name _N_
+and associates some code with _N_.
 FPP supports the following kinds of definitions:
 
-* <<Definitions_Array-Definitions,Array Definitions>>
+* <<Definitions_Array-Type-Definitions,Array Type Definitions>>
 
 * <<Definitions_Constant-Definitions,Constant Definitions>>
 
@@ -11,7 +13,7 @@ FPP supports the following kinds of definitions:
 * <<Definitions_Enumerated-Constant-Definitions,Enumerated 
 Constant Definitions>>
 
-* <<Definitions_Struct-Definitions,Struct Definitions>>
+* <<Definitions_Struct-Type-Definitions,Struct Type Definitions>>
 
 * <<Definitions_Abstract-Type-Definitions,Abstract Type Definitions>>
 

@@ -57,7 +57,7 @@ translator to read a single translation unit from standard input and/or
 to read one or more translation units stored in files, one unit per
 file.
 
-==== Example
+*Example:*
 
 <<Detailed-Description_Translation-Units-and-Programs_Translation-Units_Example,Translation
 units 1-3 in the previous section>>, taken together, form a single

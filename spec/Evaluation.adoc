@@ -1,247 +1,52 @@
 == Evaluation
 
-*Evaluation* is the process of transforming an 
-<<Detailed-Description_Expressions,expression>> into a 
-<<Evaluation_Values,value>>.
-In the current version of tnet, all evaluation happens during
+*Evaluation* is the process of transforming an <<Expressions,expression>> into 
+a <<Evaluation_Values,value>>.
+In FPP, all evaluation happens during
 <<Translation,translation>>,
-either in resolving the size of an
-<<Detailed-Description_Types_Array-Types,array type>> or in resolving a
-<<Detailed-Description_Definitions,definition>>.
+in resolving expressions to compile-time constant values.
 
 === Values
 
-A *value* is one of the following: an integer value, a floating-point
-value, a structure value, an array value, a range value, or a set value.
+A *value* is one of the following:
+
+* An integer value.
+
+* A floating-point value.
+
 Every value belongs to exactly one
 <<Evaluation_Concrete-Types,concrete type>>, and the types partition the 
 values.
 
 ==== Integer Values
 
-An *integer value* is an ordinary (mathematical) integer value together
-with a
-<<Detailed-Description_Types_Primitive-Types,signed
-or unsigned primitive integer type>>. Formally, the set of integer values
-is the disjoint union over the primitive integer types of the values
-represented by each type:
+An *integer value* is an ordinary (mathematical) integer value.
+Its type is _Integer_.
 
-* An unsigned integer type of width stem:[w] represents integers in the 
-range stem:[[0, 2^w-1\]]. For example, `U8` represents the integers 
-stem:[[0, 255\]].
+==== Boolean Values
 
-* A signed integer type of width stem:[w] represents integers in the range
-stem:[[-2^(w-1), 2^(w-1)-1\]]. For example, `I8` represents the integers
-stem:[[-128, 127\]].
+A *Boolean value* is one of the values `true` and `false`.
+Its type is `bool`.
 
-We write an integer value using the same notation as for tnet
-expressions. For example, we write the value 1 at type `U32` as
-`1 : U32`. The value `1 : U32` is distinct from the value `1 : U8`.
 
 ==== Floating-Point Values
 
-A *floating-point value* is an IEEE floating-point value of 4- or 8-byte
-width. Formally, the set of floating-point values is the disjoint union
-over the types `F32` and `F64` of the values represented by each type:
-
-* The type `F32` represents all IEEE 4-byte floating-point values.
-
-* The type `F64` represents all IEEE 8-byte floating-point values.
-
-We write a floating-point value using the same notation as for the
-corresponding tnet expression. For example, we write the value 1.0 at type `F32` as
-`1.0 : F32`.
-
-==== String Values
-
-A *string value* is a sequence of characters.
-We write string values using the same notation as for the
-corresponding tnet expression. For example, `"\"abc"`
-represents the character sequence `"`, `a`, `b`, `c`.
-
-==== Structure Values
-
-A *structure value* consists of a set of
-<<Detailed-Description_Identifiers,identifiers>>
-(the names of the structure members) and a mapping that associates a
-value to each identifier. We write structure values using the same
-notation as for structure expressions. For example, the structure value
-`{ x = 0 : U8, y = 1 : U32 }` has two members, `x` with value `0 : U8`
-and `y` with value `1 : U32`.
-
-The type of a structure value is the
-<<Detailed-Description_Types_Structure-Types,structure
-type>> consisting of the member names and the types of the member values.
-For example, the type of `{ x = 0 : U8, y = 1 : U32 }` is
-`{ x : U8, y : U32 }`.
-
-==== Array Values
-
-An *array value* consists of a nonnegative integer size stem:[S] and a list
-of values (the array elements) of size stem:[S]. The array elements must all
-have the same type stem:[T].
-
-We write array values using the same notation as for array expressions.
-For example, the array value `[ 0 : U8, 1 : U8 ]` has size 2 and
-elements `0 : U8` and `1 : U8`.
-
-The type of the array value with size stem:[S] and element type stem:[T] is `[`
-stem:[S] `]` stem:[T].
-
-==== Range Values
-
-A *range value* is a pair of values stem:[v_1] and stem:[v_2] where 
-stem:[v_1] and stem:[v_2]
-are the respective values of the operands to the range expression
-stem:[e_1] `..` stem:[e_2].
-
-We write range values using the same notation as for range expressions.
-For example, the range value `0:U8..1:U8` has size 2 and elements
-`0 : U8` and `1 : U8`.
-
-The type of the range value with range member type stem:[T] is `range` stem:[T].
-
-==== Set Values
-
-A *set value* consists of a list of values (the set elements). The set
-elements must all have the same type stem:[T].
-
-We write set values using the same notation as for set expressions. For
-example, the set value `set { 0 : U8, 1 : U8 }` has the elements
-`0 : U8` and `1 : U8`.
-
-The type of the set value with element type stem:[T] is `set` stem:[T].
+A *floating-point value* is an IEEE floating-point value of 8-byte
+width. Its type is `F64`.
 
 === Concrete Types
 
 The *concrete types* are the types of values. A concrete type is
 identical to a
-<<Detailed-Description_Types,type
-appearing in a tnet source program>>, except as follows:
-
-* Array types have nonnegative mathematical integer values instead of
-tnet expressions for their sizes. For example, `[` 2 `] U8` is a
-concrete array type.
-
-* Enum types and named types are associated with their definitions, not
+<<Types,type
+appearing in a FPP source program>>, except that
+enum types are associated with their definitions, not
 their uses. There is only one concrete type per definition.
 
 === Evaluating Expressions
 
 Evaluation of expressions occurs as stated in the
-<<Detailed-Description_Expressions,expression descriptions>>. When evaluating a
-<<Type-Checking_Unary-Minus,unary minus expression>> or
-<<Type-Checking_Binary-Arithmetic-Expressions,binary
-arithmetic expression>>, the subexpression values are converted to a type
-wide enough to hold the result before carrying out the evaluation. For
-example, `1 : U8 + 255 : U8` evaluates to `256 : U16`.
-
-=== Type Conversion
-
-The following rules govern the conversion of a value stem:[v_1] of type 
-stem:[T_1]
-to a value stem:[v_2] of type stem:[T_2].
-
-==== Unsigned Integer Values
-
-. If stem:[T_1] and stem:[T_2] are both unsigned integer types and 
-stem:[T_2] is
-narrower than stem:[T_1], then construct stem:[v_2] by truncating the 
-unsigned
-binary representation of stem:[v_1] to the width of stem:[v_2]. For 
-example,
-`(0x1234 : U16) : U8` evaluates to `0x34 : U8`.
-
-. Otherwise if stem:[T_1] and stem:[T_2] are both unsigned integer 
-types, then
-stem:[v_2] is the integer value of stem:[v_1] at the type of 
-stem:[v_2]. For example,
-`(0x12 : U8) : U16 = 0x12 : U16`.
-
-==== Signed Integer Values
-
-. If stem:[T_1] and stem:[T_2] are both signed integer types and 
-stem:[T_2] is narrower
-than stem:[T_1], then construct stem:[v_2] by truncating the two's 
-complement binary
-representation of stem:[v_1] to the width of stem:[v_2]. For example,
-`(-0x1234 : U16) : U8` evaluates to `-0x34 : U8`.
-
-. Otherwise if stem:[T_1] and stem:[T_2] are both signed integer 
-types, then stem:[v_2]
-is the integer value of stem:[v_1] at the type of stem:[v_2]. For 
-example,
-`(-0x12 : U8) : U16 = -0x12 : U16`.
-
-==== Integer Values of Mixed Sign
-
-If stem:[T_1] and stem:[T_2] are integer types with one signed and 
-one unsigned,
-then do the following:
-
-. Construct the value stem:[v] by converting stem:[v_1] to the type 
-stem:[T], where
-stem:[T] is signed if stem:[T_1] is signed and unsigned if 
-stem:[T_1] is unsigned, and
-stem:[T] has the same width as stem:[T_2].
-
-. Construct stem:[v_2] by converting stem:[v] to stem:[T_2].
-
-For example, `(-1 : I8) : U16 = 0xFFFF : U16`
-
-==== Floating-Point Values
-
-We use the standard rules for IEEE floating-point values to convert
-among integer values to and from floating-point values and
-floating-point values to and from each other.
-
-==== Structures and Arrays
-
-We convert structures and arrays member by member. For example:
-
-[source,tnet]
-----
-include::./src/Evaluation/Type_Conversion/Structures_and_Arrays_1.tnt[tag=visible]
-----
-
-==== Converting Primitive Values to Structures and Arrays
-
-We convert a value of primitive type to a structure or array value by
-converting the primitive value to each member of the structure or array
-and applying this rule recursively to any structures or arrays
-encountered. For example,
-
-[source,tnet]
-----
-include::./src/Evaluation/Type_Conversion/Converting_Primitive_Values_to_Structures_and_Arrays_1.tnt[tag=visible]
-----
-
-evaluates to
-
-[source,tnet]
-----
-include::./src/Evaluation/Type_Conversion/Converting_Primitive_Values_to_Structures_and_Arrays_2.tnt[tag=visible]
-----
-
-==== Converting Values to Ranges and Sets
-
-The following rules apply:
-
-. Any value stem:[v] of
-<<Detailed-Description_Types_Range-Element-Types,range
-element type>> may be converted to the range value 
-stem:[v] `..` stem:[v].
-
-. Any range value
-stem:[v_1] `..` stem:[v_2] may be converted to the set value `set {` stem:[v_1] 
-`..` stem:[v_2] `}`.
-
-. Any value stem:[v] of
-<<Detailed-Description_Types_Set-Element-Types,set element type>>
-may be converted to the set value
-`set {` stem:[v] `}`.
-
-==== Converting to the Representation Type
-
-If value stem:[v] has named type stem:[T] with representation type
-stem:[T'], then stem:[v] may be converted to stem:[T'].
+<<Expressions,expression descriptions>>. Evaluation of integer
+expressions occurs at type _Integer_, using enough bits to
+represent the result without truncation or overflow.
+Evaluation of floating-point expressions occurs using 64-bit arithmetic.

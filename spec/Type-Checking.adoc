@@ -121,27 +121,3 @@ module M {
 constant b = M.a # Expression M.a represents a use of the definition M.a.
                  # Its type is Integer.
 ----
-
-=== Type Conversion
-
-We say that a type stem:[T_1] *may be converted to* another type stem:[T_2] if
-every <<Evaluation_Values,value>> represented by type stem:[T_1] can be
-<<Evaluation_Type-Conversion,converted>> into a value of type stem:[T_2].
-
-Here are the rules for type conversion:
-
-. Any <<Types_Primitive-Types,primitive
-type>> may be converted to any other primitive type.
-
-. Any <<Types_Primitive-Types,primitive
-type>> may be converted to <<Types_The-Integer-Type,_Integer_>>.
-
-. An <<Types_Enum-Types,enum type>> may be converted to a
-<<Types_Primitive-Types,primitive type>> or to another 
-enum type that refers to the same
-<<Definitions_Enum-Definitions,enum definition>>.
-
-. Type convertibility is transitive: if stem:[T_1] may be converted to 
-stem:[T_2]
-and stem:[T_2] may be converted to stem:[T_3], then stem:[T_1] 
-may be converted to stem:[T_3].

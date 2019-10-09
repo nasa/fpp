@@ -213,7 +213,7 @@ _N_ `.` _I_ if it exists in namespace _S_.
 
   ..  Otherwise proceed as if _I_ were appearing inside _D_.
 
-==== Example
+*Example:*
 
 _S_ refers to the value namespace.
 
@@ -284,7 +284,7 @@ do the following:
 
 .. Otherwise the qualified identifier is invalid. Issue an error.
 
-==== Example
+*Example:*
 
 [source,fpp]
 ----

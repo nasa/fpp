@@ -35,6 +35,13 @@ to bit width.
 This type does not appear in FPP source programs.
 The compiler assigns it to expressions during <<Type-Checking,type checking>>.
 
+The _Integer_ type together with the 
+<<Types_Primitive-Types,primitive integer types>> are called
+the *integer types*.
+The _Integer_ type togeher with the 
+<<Types_Primitive-Types,primitive numeric types>> are called
+the *numeric types*.
+
 === The String Type
 
 The type `string` is the type of string values.
