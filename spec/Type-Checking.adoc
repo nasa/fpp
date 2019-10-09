@@ -26,10 +26,15 @@ The compiler assigns these types to expressions during type checking.
 The type _Integer_ represents all integer values, without regard
 to bit width.
 
-The _Integer_ type together with the 
+==== Integer Types
+
+<<Type-Checking_Internal-Types_Integer,_Integer_>> together with the 
 <<Types_Primitive-Types,primitive integer types>> are called
 the *integer types*.
-The _Integer_ type togeher with the 
+
+==== Numeric Types
+
+<<Type-Checking_Internal-Types_Integer,_Integer_>> together with the 
 <<Types_Primitive-Types,primitive numeric types>> are called
 the *numeric types*.
 
@@ -168,11 +173,11 @@ every <<Evaluation_Values,value>> represented by type stem:[T_1] can be
 
 Here are the rules for type conversion:
 
-. Any <<Type-Checking_Internal-Types_Integer,numeric
+. Any <<Type-Checking_Internal-Types_Numeric-Types,numeric
 type>> may be converted to any other numeric type.
 
-. An <<Detailed-Description_Types_Enum-Types,enum type>> may be converted to a
-<<Types_Integer-and-Numeric-Types,numeric type>>.
+. An <<Types_Enum-Types,enum type>> may be converted to a
+<<Type-Checking_Internal-Types_Numeric-Types,numeric type>>.
 
 . TODO: Anonymous array types
 
@@ -184,5 +189,13 @@ and stem:[T_2] may be converted to stem:[T_3], then stem:[T_1]
 may be converted to stem:[T_3].
 
 === Computing a Common Type
+
+TODO
+
+==== Pairs of Types
+
+TODO
+
+==== Lists of Types
 
 TODO

@@ -12,6 +12,9 @@ representation of a nonnegative integer.
 representation of a nonnegative
 integer.
 
+An integer literal value stem:[v] must be representable as an unsigned
+integer using most 64 bits, i.e., it must lie in the range stem:[0 <= v < 2^64].
+
 **Examples:**
 
 ----
@@ -76,7 +79,7 @@ FPP currently includes the following *arithmetic expressions*:
 |======================================
 
 For unary negation expressions, `-` stem:[e] must be
-a <<Types_Integer-and-Numeric-Types,numeric type>>.
+a <<Type-Checking_Internal-Types_Numeric-Types,numeric type>>.
 
 === Identifier Expressions
 

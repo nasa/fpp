@@ -23,8 +23,13 @@ floating-point values of width 32 and 64 bits, respectively.
 * The Boolean type is `boolean`.
 This type represents the two values `true` and `false`.
 
+=== Primitive Integer Types
+
 The signed and unsigned integer types, collectively, are called the
 *primitive integer types*.
+
+=== Primitive Numeric Types
+
 The integer types together with the floating-point types are called the
 *primitive numeric types*.
 
