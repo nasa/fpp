@@ -38,7 +38,9 @@ stem:[[0, 255\]].
 stem:[[-2^(w-1), 2^(w-1)-1\]]. For example, `I8` represents the integers
 stem:[[-128, 127\]].
 
-* The _Integer_ type represents integers without regard to bit width.
+* The 
+<<Type-Checking_Internal-Types_Integer,_Integer_>> 
+type represents integers without regard to bit width.
 
 We represent an integer value as an expression followed by a colon and a type.
 For example, we write the value 1 at type `U32` as `1 : U32`. The value `1 :
@@ -90,8 +92,9 @@ TODO
 
 Evaluation of expressions occurs as stated in the
 <<Expressions,expression descriptions>>. Evaluation of integer
-expressions occurs at type _Integer_, using enough bits to
-represent the result without overflow.
+expressions occurs at type 
+<<Type-Checking_Internal-Types_Integer,_Integer_>>,
+using enough bits to represent the result without overflow.
 Evaluation of floating-point expressions occurs using 64-bit arithmetic.
 
 === Type Conversion

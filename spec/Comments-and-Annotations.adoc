@@ -68,8 +68,8 @@ module M {
   constant b  1 @< This is constant M.b
   @ This is an enum
   enum E {
-    a  0 @< This is enumerated constant M.E.a
-    b  1 @< This is enumerated constant M.E.b
+    a = 0 @< This is enumerated constant M.E.a
+    b = 1 @< This is enumerated constant M.E.b
   }
 }
 ----
