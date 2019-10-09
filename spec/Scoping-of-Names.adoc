@@ -5,23 +5,25 @@
 A *qualified identifier* is one of the following:
 
 1.  An
-<<Detailed-Description_Identifiers,identifier>>.
+<<Lexical-Elements_Identifiers,identifier>>.
 
 2.  _Q_ `.` _I_, where _Q_ is a qualified identifier and _I_ is an
 identifier.
 
 Examples:
 
-[source,tnet]
+[source,fpp]
 ----
-include::./src/Scoping_of_Names/Qualified_Identifiers_1.tnt[tag=visible]
+a
+a.b
+a.b.c
 ----
 
 === Names of Definitions
 
 Every 
-<<Detailed-Description_Definitions,definition>>
- _D_ appearing in a tnet program has a unique *qualified
+<<Definitions,definition>>
+ _D_ appearing in an FPP model has a unique *qualified
 name*. The qualified name is a
 <<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> formed as follows:
 
@@ -34,39 +36,41 @@ the identifier appearing in _D_.
 
 For example:
 
-[source,tnet]
+[source,fpp]
 ----
-include::./src/Scoping_of_Names/Names_of_Definitions_1.tnt[tag=visible]
+module M { # Qualified name is M
+  module N { # Qualified name is M.N
+    enum Maybe { # Qualified name is M.N.Maybe
+      NO = 0 # Qualified name is M.N.Maybe.NO
+      YES = 1 # Qualified name is M.N.Maybe.YES
+    }
+  }
+}
 ----
-
-=== Names of Parameters
-
-Every
-<<Detailed-Description_Definitions_Parameter-Lists,parameter>> 
-that is in scope has a unique name.
-The name is the identifier that appears in the parameter.
-It is always a simple identifier.
 
 === Namespaces
 
 The qualified names of definitions and
-the names of parameters reside in *namespaces*. There are
-four namespaces: the *type namespace*, the *value namespace*,
-the *command namespace*, and the *task namespace*. 
+reside in *namespaces*. There are
+three namespaces: the *type namespace*, the *value namespace*,
+and the *module namespace*.
 The following table shows which names reside in which
 namespaces.
 
-[cols=",,,,",options="header",]
+[cols=",,,",options="header",]
 |======================================
 |Kind of Name
 |Type Namespace
 |Value Namespace
-|Command Namespace
-|Task Namespace
+|Module Namespace
 
-|Type definition
+|Array definition
 |X
 |
+|
+
+|Struct definition
+|X
 |
 |
 
@@ -74,47 +78,19 @@ namespaces.
 |
 |X
 |
-|
 
 |Enumerated constant definition
 |
 |X
 |
-|
 
 |Module definition
 |
+|
 |X
-|
-|
 
 |Enum definition
 |X
-|X
-|
-|
-
-|Parameter
-|
-|X
-|
-|
-
-|Command definition
-|
-|
-|X
-|
-
-|Task template definition
-|
-|
-|
-|X
-
-|Task definition
-|
-|
 |
 |X
 |======================================
@@ -122,7 +98,7 @@ namespaces.
 An X means that the name resides in the namespace corresponding
 to the column.
 Note that enum definitions reside in both the type namespace
-and the value namespace.
+and the module namespace.
 
 === Multiple Definitions with the Same Qualified Name
 
@@ -131,9 +107,10 @@ and the value namespace.
 Two definitions with the same qualified name are allowed if they are in
 different namespaces. For example:
 
-[source,tnet]
+[source,fpp]
 ----
-include::./src/Scoping_of_Names/Multiple_Definitions_with_the_Same_Qualified_Name/Different_Namespaces_1.tnt[tag=visible]
+struct s { x : U32 = 0 } U32 # Defines s in the type namespace
+constant s = 0 # Defines s in the value namespace
 ----
 
 ==== Module Definitions
@@ -141,26 +118,37 @@ include::./src/Scoping_of_Names/Multiple_Definitions_with_the_Same_Qualified_Nam
 Multiple syntactic module definitions with the same qualified name are
 allowed. The semantic analysis combines all such definitions into a
 single module definition with that qualified name. For example, this
-program is legal
+model is legal
 
-[source,tnet]
+[source,fpp]
 ----
-include::./src/Scoping_of_Names/Multiple_Definitions_with_the_Same_Qualified_Name/Module_Definitions_1.tnt[tag=visible]
+module M { constant a = 0 }
+module M { constant b = 1 }
+a = M.a
+b = M.b
 ----
 
-It is equivalent to this program:
+It is equivalent to this model:
 
-[source,tnet]
+[source,fpp]
 ----
-include::./src/Scoping_of_Names/Multiple_Definitions_with_the_Same_Qualified_Name/Module_Definitions_2.tnt[tag=visible]
+module M {
+  constant a = 0
+  constant b = 1
+}
+a = M.a
+b = M.b
 ----
 
 Because the <<Definitions-and-Uses_Order-of-Definitions-and-Uses,order
 of definitions is irrelevant>>, this is also equivalent:
 
-[source,tnet]
+[source,fpp]
 ----
-include::./src/Scoping_of_Names/Multiple_Definitions_with_the_Same_Qualified_Name/Module_Definitions_3.tnt[tag=visible]
+module M { constant a = 0 }
+a = M.a
+b = M.b
+module M { constant b = 1 }
 ----
 
 ==== Conflicting Definitions
@@ -169,17 +157,23 @@ Within the same namespace, two definitions with the same
 qualified name are not allowed, unless they are both module definitions
 as described above. For example:
 
-[source,tnet]
+[source,fpp]
 ----
-include::./src/Scoping_of_Names/Multiple_Definitions_with_the_Same_Qualified_Name/Conflicting_Definitions_1.tnt[tag=visible]
+module M {
+  constant a = 0
+  constant a = 1 # Error: Name M.a is redefined
+}
 ----
 
 Two definitions with the same identifier are allowed if they have
 different qualified names, for example:
 
-[source,tnet]
+[source,fpp]
 ----
-include::./src/Scoping_of_Names/Multiple_Definitions_with_the_Same_Qualified_Name/Conflicting_Definitions_2.tnt[tag=visible]
+constant a = 0
+module M {
+  constant a = 1 # OK, qualified name is M.a =/= a
+}
 ----
 
 === Resolution of Identifiers
@@ -199,16 +193,11 @@ qualified name _I_ if it exists in namespace _S_. Otherwise an error
 results.
 
 . Inside a
-<<Detailed-Description_Definitions_Module-Definitions,module definition>>,
-<<Detailed-Description_Definitions_Enum-Definitions,enum definition>>,
-<<Detailed-Description_Definitions_Task-Template-Definitions,task template definition>>, or
-<<Detailed-Description_Definitions_Task-Definitions,task definition>>
+<<Definitions_Module-Definitions,module definition>> or
+<<Definitions_Enum-Definitions,enum definition>>
 with qualified name _N_ appearing at the top level:
 
-  .. If the identifier _I_ names a parameter in scope, then it
-refers to the parameter.
-
-  .. Otherwise the identifier _I_ refers to the definition with qualified name
+  .. The identifier _I_ refers to the definition with qualified name
 _N_ `.` _I_ if it exists in namespace _S_.
 
   .. Otherwise _I_ refers to the definition with qualified name _I_ if it
@@ -216,14 +205,10 @@ exists in namespace _S_.
 
   .. Otherwise an error results.
 
-.  Inside a module definition, enum definition, task template definition,
-or task definition with qualified name
+.  Inside a module definition or enum definition with qualified name
 _N_ appearing inside a module definition _D_:
 
-  .. If the identifier _I_ names a parameter in scope, then it
-refers to the parameter.
-
-  ..  Otherwise the identifier _I_ refers to the definition with qualified name
+  ..  The identifier _I_ refers to the definition with qualified name
 _N_ `.` _I_ if it exists in namespace _S_.
 
   ..  Otherwise proceed as if _I_ were appearing inside _D_.
@@ -232,9 +217,43 @@ _N_ `.` _I_ if it exists in namespace _S_.
 
 _S_ refers to the value namespace.
 
-[source,tnet]
+[source,fpp]
 ----
-include::./src/Scoping_of_Names/Resolution_of_Identifiers/Example_1.tnt[tag=visible]
+# Identifier M is in scope in S and refers to the qualified name M
+# Identifier a is in scope in S and refers to qualified name a
+
+constant a = 1 # Unique definition in S with qualified name a
+
+module M {
+  # Identifier M is in scope in S and refers to the qualified name M
+  # Identifier N is in scope in S and refers to the qualified name N
+  # Identifier a is in scope in S and refers to qualified name a
+  # Identifier b is in scope in S and refers to qualified name M.b
+  constant b = 2 # Unique definition in S with qualified name M.b
+}
+
+# Identifier M is in scope in S and refers to the qualified name M
+# Identifier a is in scope in S and refers to qualified name a
+
+module M {
+
+  # Identifier M is in scope in S and refers to the qualified name M
+  # Identifier N is in scope in S and refers to the qualified name M.N
+  # Identifier a is in scope and refers to qualified name a
+  # Identifier b is in scope and refers to qualified name M.b
+
+  module N {
+    # Identifier M is in scope in S and refers to the qualified name M
+    # Identifier N is in scope in S and refers to the qualified name M.N
+    # Identifier a is in scope in S and refers to qualified name a
+    # Identifier b is in scope in S and refers to qualified name M.N.b
+    constant b = 3 # Unique definition in S with qualified name M.N.b
+  }
+
+}
+
+# Identifier M is in scope in S and refers to the qualified name M
+# Identifier a is in scope in S and refers to qualified name a
 ----
 
 === Resolution of Qualified Identifiers
@@ -254,36 +273,32 @@ following:
 .. Recursively resolve _Q_.
 
 .. If _Q_ refers to a
-<<Detailed-Description_Definitions_Module-Definitions,module definition>> or
-<<Detailed-Description_Definitions_Enum-Definitions,enum definition>> _D_, then 
+<<Definitions_Module-Definitions,module definition>> or
+<<Definitions_Enum-Definitions,enum definition>> _D_, then 
 do the following:
 
 ... Determine the namespace _S_ of _Q_ `.` _I_.
 
 ... Look in _D_ for a definition with identifier _I_ in namespace _S_.
-         If there is none, issue an error.
-
-..  Otherwise, if _Q_ refers to a value of
-<<Detailed-Description_Types_Structure-Types,structure type>>, then look in the 
-type of the value for a structure member with
-identifier _I_. If there is none, then issue an error.
-
-.. Otherwise, if _Q_ refers to a value of range or set type _T_ whose
-element type _T'_ is a structure type, then look in _T'_ for a structure
-member with identifier _I_. If there is none, then issue an error.
+    If there is none, issue an error.
 
 .. Otherwise the qualified identifier is invalid. Issue an error.
 
-The
-<<Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Conflicting-Definitions,rules
-for name conflicts>> are designed so that rule 2(b)(i) makes sense. For
-example, the expression `a.b` can never refer to both a structure member
-and a type. From the definition associated with `a`, we can determine
-what the namespace of `a.b` must be.
-
 ==== Example
 
-[source,tnet]
+[source,fpp]
 ----
-include::./src/Scoping_of_Names/Resolution_of_Qualified_Identifiers/Example_1.tnt[tag=visible]
+module M {
+  constant a = 0
+  enum E {
+    b = 2
+    c = b # Refers to M.E.b
+    d = E.b # Refers to M.E.b
+    e = M.E.b # Refers to M.E.b
+  }
+  constant f = a # Refers to M.a
+  constant g = M.a # Refers to M.a
+  constant h = E.b # Refers to M.E.b
+  constant i = M.E.b # Refers to M.E.b
+}
 ----

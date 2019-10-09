@@ -64,7 +64,7 @@ units 1-3 in the previous section>>, taken together, form a single
 model. That model is equivalent to the following single translation
 unit:
 
-[source,tnet]
+[source,fpp]
 ----
 module M1 { constant a = 0 }
 module M1 { constant b = 1 }
@@ -78,7 +78,7 @@ According to the
 <<Scoping-of-Names_Module-Definitions,semantics of module definitions>>,
 this is also equivalent:
 
-[source,tnet]
+[source,fpp]
 ----
 module M1 {
   constant a = 0
