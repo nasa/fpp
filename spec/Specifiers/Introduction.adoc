@@ -7,14 +7,5 @@ FPP supports the following kinds of specifiers:
 
 * <<Specifiers_Location-Specifiers,Location Specifiers>>
 
-* <<Specifiers_Command-Dictionary-Specifiers,Command Dictionary Specifiers>>
-
-* <<Specifiers_Telemetry-Dictionary-Specifiers,Telemetry Dictionary Specifiers>>
-
-* <<Specifiers_Event-Dictionary-Specifiers,Event Dictionary Specifiers>>
-
-* <<Specifiers_Parameter-Dictionary-Specifiers,Parameter Dictionary Specifiers>>
-
 * <<Specifiers_Component-Instance-Specifiers,Component Instance Specifiers>>
 
-* <<Specifiers_Connection-Graph-Specifiers,Connection Graph Specifiers>>

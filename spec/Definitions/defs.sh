@@ -17,6 +17,10 @@ Struct-Type-Definitions.adoc
 Abstract-Type-Definitions.adoc
 Port-Definitions.adoc
 Component-Definitions.adoc
+Command-Definitions.adoc
+Telemetry-Channel-Definitions.adoc
+Event-Definitions.adoc
+Parameter-Definitions.adoc
 Component-Instance-Definitions.adoc
 Topology-Definitions.adoc
 "

@@ -1,3 +1,0 @@
-=== Telemetry Dictionary Specifiers
-
-TODO
