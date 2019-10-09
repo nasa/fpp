@@ -28,29 +28,13 @@ The signed and unsigned integer types, collectively, are called the
 The integer types together with the floating-point types are called the
 *primitive numeric types*.
 
-=== The Integer Type
-
-The type _Integer_ represents all integer values, without regard
-to bit width.
-This type does not appear in FPP source models.
-The compiler assigns it to expressions during <<Type-Checking,type checking>>.
-
-=== Integer and Numeric Types
-
-The _Integer_ type together with the 
-<<Types_Primitive-Types,primitive integer types>> are called
-the *integer types*.
-The _Integer_ type togeher with the 
-<<Types_Primitive-Types,primitive numeric types>> are called
-the *numeric types*.
-
 === The String Type
 
 The type `string` is the type of string values.
 
-=== Array Types
+=== Named Array Types
 
-An *array type* is a
+An *named array type* is a
 <<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> that 
 refers to an
 <<Definitions_Array-Type-Definitions,array type definition>> via the
@@ -81,9 +65,9 @@ constant a = N.E.X # a has type N.E
 
 `N.E` is an enum type.
 
-=== Struct Types
+=== Named Struct Types
 
-A *struct type* is a
+A *named struct type* is a
 <<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> that 
 refers to a
 <<Definitions_Struct-Type-Definitions,struct type definition>> via the

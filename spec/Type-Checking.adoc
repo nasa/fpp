@@ -16,6 +16,30 @@ The type checking rules exist to ensure that whenever an expression of
 type stem:[T] is <<Evaluation_Evaluating-Expressions,evaluated>>,
 the result is a value of type stem:[T].
 
+=== Internal Types
+
+Internal types dot not appear in FPP source models.
+The compiler assigns these types to expressions during type checking.
+
+==== Integer
+
+The type _Integer_ represents all integer values, without regard
+to bit width.
+
+The _Integer_ type together with the 
+<<Types_Primitive-Types,primitive integer types>> are called
+the *integer types*.
+The _Integer_ type togeher with the 
+<<Types_Primitive-Types,primitive numeric types>> are called
+the *numeric types*.
+
+==== Anonymous Array Types
+
+TODO
+
+==== Anonymous Struct Types
+
+TODO
 === Integer Literals
 
 To type an
@@ -27,7 +51,7 @@ literal expression>>, the semantic analyzer does the following:
 . Check that stem:[v] can be represented in 64 or fewer bits. If not, throw
 an error.
 
-. Assign the type <<Types_The-Integer-Type,_Integer_>> to the expression.
+. Assign the type <<Type-Checking_Internal-Types_Integer,_Integer_>> to the expression.
 
 **Examples:**
 
@@ -59,6 +83,14 @@ The type of a
 <<Expressions_String-Literals,string
 literal expression>> is `string`.
 
+=== Array Literals
+
+TODO
+
+=== Struct Literals
+
+TODO
+
 === Unary Minus
 
 To type a
@@ -70,7 +102,7 @@ minus expression>> `-` stem:[e], the semantic analyzer does the following:
 . If stem:[T] is a 
 <<Types_Primitive-Types,primitive numeric type>>
 or stem:[T] is
-<<Types_The-Integer-Type,_Integer_>>,
+<<Type-Checking_Internal-Types_Integer,_Integer_>>,
 then use stem:[T]
 
 . Otherwise throw an error.
@@ -136,13 +168,21 @@ every <<Evaluation_Values,value>> represented by type stem:[T_1] can be
 
 Here are the rules for type conversion:
 
-. Any <<Types_Integer-and-Numeric-Types,numeric
+. Any <<Type-Checking_Internal-Types_Integer,numeric
 type>> may be converted to any other numeric type.
 
 . An <<Detailed-Description_Types_Enum-Types,enum type>> may be converted to a
 <<Types_Integer-and-Numeric-Types,numeric type>>.
 
+. TODO: Anonymous array types
+
+. TODO: Anonymous structure types
+
 . Type convertibility is transitive: if stem:[T_1] may be converted to 
 stem:[T_2]
 and stem:[T_2] may be converted to stem:[T_3], then stem:[T_1] 
 may be converted to stem:[T_3].
+
+=== Computing a Common Type
+
+TODO

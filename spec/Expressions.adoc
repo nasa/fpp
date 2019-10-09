@@ -53,6 +53,14 @@ quote character itself is not allowed.
 * `"ab"c"` is the valid string `"ab"` followed by the identifier `c` and an 
 unmatched double quote character.
 
+=== Array Literals
+
+TODO
+
+=== Structure Literals
+
+TODO
+
 === Arithmetic Expressions
 
 FPP currently includes the following *arithmetic expressions*:

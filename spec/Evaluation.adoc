@@ -78,6 +78,14 @@ Its type is the type associated with the
 <<Definitions_Enum-Definitions,enum definition>> in which
 the enumerated constant definition appears.
 
+==== Array Values
+
+TODO
+
+==== Structure Values
+
+TODO
+
 === Evaluating Expressions
 
 Evaluation of expressions occurs as stated in the
