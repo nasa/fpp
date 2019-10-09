@@ -1,7 +1,7 @@
 == Type Checking
 
 In this section, we explain the rules used to assign types to
-expressions. tnet is a statically typed language. That means the
+expressions. FPP is a statically typed language. That means the
 following:
 
 * Type checking of expressions occurs during <<Translation,translation>>.
@@ -19,557 +19,107 @@ the result is a value of type stem:[T].
 === Integer Literals
 
 To type an
-<<Detailed-Description_Expressions_Integer-Literals,integer
+<<Expressions_Integer-Literals,integer
 literal expression>>, the semantic analyzer does the following:
 
-.  Evaluate the expression to an unsigned integer value stem:[v].
+. Evaluate the expression to an unsigned integer value stem:[v].
 
-.  Check that stem:[v] can be represented in 64 or fewer bits. If not, throw
+. Check that stem:[v] can be represented in 64 or fewer bits. If not, throw
 an error.
 
-.  Use the narrowest
-<<Detailed-Description_Types_Primitive-Types,unsigned integer type>> that can 
-represent stem:[v].
+. Assign the type <<Types_The-Integer-Type,_Integer_>> to the expression.
 
-==== Examples
+**Examples:**
 
-[source,tnet]
+[source,fpp]
 ----
-include::./src/Type_Checking/Integer_Literals/Examples_1.tnt[tag=visible]
+constant a = 0 # Type is Integer
+constant b = 1 # Type is Integer
+constant c = 256 # Type is Integer
+constant d = 65536 # Type is Integer
+constant e = 0x100000000 # Type is Integer
+constant f = 0x10000000000000000 # Error; integer value is too large
 ----
 
 === Floating-Point Literals
 
 The type of a
-<<Detailed-Description_Expressions_Floating-Point-Literals,floating-point
+<<Expressions_Floating-Point-Literals,floating-point
 literal expression>> is `F64`.
 
 === Boolean Literals
 
 The type of a
-<<Detailed-Description_Expressions_Boolean-Literals,boolean
-literal expression>> is `boolean`.
-
-=== String Literals
-
-The type of a
-<<Detailed-Description_Expressions_String-Literals,string
-literal expression>> is `string`.
+<<Expressions_Boolean-Literals,boolean
+literal expression>> is `bool`.
 
 === Unary Minus
 
 To type a
-<<Detailed-Description_Expressions_Arithmetic-Expressions,unary
+<<Expressions_Arithmetic-Expressions,unary
 minus expression>> `-` stem:[e], the semantic analyzer does the following:
 
-.  Compute the type stem:[T] of stem:[e].
+. Compute the type stem:[T] of stem:[e].
 
 . If stem:[T] is a 
-<<Detailed-Description_Types_Named-Types,named type>>, then
-replace the named type with its representation type and reapply these rules.
+<<Types_Primitive-Types,primitive numeric type>>
+or stem:[T] is
+<<Types_The-Integer-Type,_Integer_>>,
+then use stem:[T]
 
-. Otherwise if stem:[T] is a
-<<Detailed-Description_Types_Structure-Types,structure type>>, then
+. Otherwise throw an error.
 
-.. For each member stem:[m_i] `:` stem:[T_i] of stem:[T], apply these rules to 
-compute the type stem:[T'_i] of `-` stem:[e_i], where stem:[e_i] has type 
-stem:[T_i].
+**Examples:**
 
-.. Use the structure type with members stem:[m_i] `:` stem:[T'_i].
-
-.  Otherwise if stem:[T] is
-an <<Detailed-Description_Types_Array-Types,array type>> `[` stem:[n] `]` stem:[T'],
-then
-
-.. Apply these rules to compute the type stem:[T''] of `-` stem:[e], where
-stem:[e] has type stem:[T'].
-
-.. Use the type `[` stem:[n] `]` stem:[T''].
-
-. Otherwise
-
-.. Check that stem:[T] is a 
-<<Detailed-Description_Types_Primitive-Types,primitive type>> stem:[T'].
-If not, throw an error.
-
-.. If stem:[T'] is a floating point type or signed integer type, then use
-stem:[T'].
-
-.. Otherwise if stem:[T'] is U64, then use I64.
-
-.. Otherwise use the narrowest signed integer type whose width is
-larger than the width of stem:[T'].
-
-==== Examples
-
-[source,tnet]
+[source,fpp]
 ----
-include::./src/Type_Checking/Unary_Minus/Examples_1.tnt[tag=visible]
-----
-
-=== Binary Arithmetic Expressions
-
-To type a
-<<Detailed-Description_Expressions_Arithmetic-Expressions,binary
-arithmetic expression>> stem:[e_1] _op_ stem:[e_2], the semantic 
-analyzer does the following:
-
-. Compute the type stem:[T_1] of stem:[e_1] and the type 
-stem:[T_2] of _stem:[e_2]_.
-
-. If either of stem:[T_1] or stem:[T_2] is a 
-<<Detailed-Description_Types_Named-Types,named type>>, then
-replace each named type with its representation type and reapply these rules.
-
-. Otherwise if stem:[T_1] and stem:[T_2] are both
-<<Detailed-Description_Types_Structure-Types,structure types>> that are 
-<<Type-Checking_Type-Conversion,convertible to a common type>>
-stem:[T], then
-
-.. For each member name stem:[m_i] appearing in stem:[T], apply these 
-rules to compute the
-type stem:[T'_i] of stem:[e_{1i}] stem:[op] stem:[e_{2i}], where stem:[e_{1i}] has
-the type of member stem:[m_i] of stem:[T_1], and stem:[e_{2i}] has the type of
-member stem:[m_i] of stem:[T_2].
-
-.. Use the structure type with members stem:[m_i] `:` stem:[T'_i].
-
-. Otherwise if stem:[T_1] and stem:[T_2] are both array types with size
-stem:[n] that are 
-<<Type-Checking_Type-Conversion,convertible to a common type>>,
-then
-
-.. Apply these rules to compute the type stem:[T']
-of stem:[e_1] stem:[op] stem:[e_2], where the type of stem:[e_1] is the member 
-type of stem:[T_1], and the type of stem:[e_2] is the member type of stem:[T_2].
-
-.. Use the type `[` stem:[n] `]` stem:[T'].
-
-. Otherwise if one of stem:[T_1] and stem:[T_2] is a primitive type 
-and the other one is a structure type stem:[S], then
-
-.. Let stem:[\{ m_i \}] be the set of member names in the structure type.
-
-.. Let stem:[T] be the primitive type.
-
-.. Let stem:[T'] be the structure type with members stem:[m_i] `:` stem:[T].
-
-.. Replace the primitive type with stem:[T'] and reapply these rules.
-
-. Otherwise if one of stem:[T_1] and stem:[T_2] is a primitive type stem:[T'] and the 
-other one is an array type `[` stem:[n] `]` stem:[T''], then
-replace the primitive type with `[` stem:[n] `]` stem:[T'] and
-reapply these rules.
-
-. Otherwise
-
-.. Check that stem:[T_1] and stem:[T_2] are both
-<<Detailed-Description_Types_Primitive-Types,primitive
-types>>. If not, throw an error.
-
-.. Resolve stem:[T_1] and stem:[T_2] to a common type stem:[T] as follows:
-
-... If stem:[T_1] and stem:[T_2] are both floating-point types, then use the
-floating-point type with the same width as the maximal width of stem:[T_1] and
-stem:[T_2].
-
-... Otherwise if one of stem:[T_1] and stem:[T_2] is an integer type and the other
-is a floating-point type, then use the floating-point type.
-
-... Otherwise if _op_ is `-` and stem:[T_1] or stem:[T_2] has width 64, then use
-`I64`.
-
-... Otherwise if _op_ is `-` then use the narrowest signed integer type
-whose width is larger than the maximal width of stem:[T_1] and stem:[T_2].
-
-... Otherwise if _op_ is `/` and stem:[T_2] is unsigned, then use stem:[T_1].
-
-... Otherwise if _op_ is `/` and stem:[T_1] has width 64, then use I64.
-
-... Otherwise if _op_ is `/`, then use the narrowest signed integer type
-whose width is larger than the width of stem:[T_1].
-
-... Otherwise use the integer type stem:[T] given by the following rules:
-
-.... If either stem:[T_1] or stem:[T_2] has width 64, then the width 
-of stem:[T] is 64.
-Otherwise, the width of stem:[T] is the narrowest width that is larger 
-than the maximal width of stem:[T_1] and stem:[T_2].
-
-.... If either stem:[T_1] or stem:[T_2] is signed, then stem:[T] is signed. 
-Otherwise, stem:[T] is unsigned.
-
-==== Examples
-
-[source,tnet]
-----
-include::./src/Type_Checking/Binary_Arithmetic_Expressions/Examples_1.tnt[tag=visible]
-----
-
-In the last line, note that `-1` has type `I16` by the typing rules for
-<<Type-Checking_Integer-Literals,integer literals>> and
-<<Type-Checking_Unary-Minus,unary minus expressions>>.
-
-=== Logical Expressions
-
-To type a
-<<Detailed-Description_Expressions_Logical-Expressions,logical
-expression>> stem:[e_1] _op_ stem:[e_2],
-the semantic analyzer does the following:
-
-. Check that stem:[e_1] and stem:[e_2] both have type `boolean`.
-
-. Assign the type `boolean` to the expression.
-
-=== Membership Expressions
-
-To type a
-<<Detailed-Description_Expressions_Membership-Expressions,membership
-expression>> stem:[e_1] `in` stem:[e_2],
-the semantic analyzer does the following:
-
-. Check that stem:[e_1] has type stem:[T_1]
-and stem:[e_2] has type stem:[T_2].
-
-. Check that stem:[T_2] <<Type-Checking_Type-Conversion,may be converted to>>
-`set` stem:[T_1].
-
-. Assign the type `boolean` to the expression.
-
-=== Equality Expressions
-
-To type an
-<<Detailed-Description_Expressions_Equality-Expressions,equality
-expression>> stem:[e_1] `=` stem:[e_2],
-the semantic analyzer does the following:
-
-. Check that stem:[e_1] and stem:[e_2] have a
-<<Type-Checking_Computing-a-Common-Type,common type>>
-_T_.
-
-. Assign the type `boolean` to the expression.
-
-=== Approximation Expressions
-
-To type an
-<<Detailed-Description_Expressions_Approximation-Expressions,approximation
-expression>> stem:[e_1] `+-` stem:[e_2],
-the semantic analyzer does the following:
-
-. Check that stem:[e_1] and stem:[e_2] have a
-<<Type-Checking_Computing-a-Common-Type,common type>>
-_T_.
-
-. Check that _T_ is a numeric type.
-
-. Assign the type `range` _T_ to the expression.
-
-=== Structure Expressions
-
-To type a
-<<Detailed-Description_Expressions_Structure-Expressions,structure
-expression>> `{` stem:[f_1] `=` stem:[e_1] `,` stem:[...] `,` stem:[f_n] `=` 
-stem:[e_n] `}`,
-the semantic analyzer does the following:
-
-.  For each stem:[i \in [1, n\]]
-
-.. Compute the type stem:[T_i] of stem:[e_i].
-
-.. Check that stem:[T_i] is a
-<<Detailed-Description_Types_Structure-Member-Types,structure member type>>.  
-If not, throw an error.
-
-.  Use the type `{` stem:[f_1] `:` stem:[T_1] `,` stem:[...] `,` 
-stem:[f_n] `:` stem:[T_n] `}`.
-
-==== Examples
-
-* The type of `{ x = 0, y = 1.0 }` is `{ x : U8, y : F64 }`
-
-* The type of `{ a = [ 0, 1 ], b = { x = 0, y = 1.0 } }` is
-`{ a : [2] U8, b : { x : U8, y : F64 } }`
-
-* The expression `{ x = 0..1 }` is not well-typed, because `range U8` is not a
-structure member type.
-
-=== Array Expressions
-
-To type an
-<<Detailed-Description_Expressions_Array-Expressions,array
-expression>> `[` stem:[e_1]`,` stem:[...] `,` stem:[e_n] `]`, 
-the semantic analyzer does the following:
-
-. Check that stem:[n > 0]. If not, throw an error.
-
-. Compute the type stem:[T_i] of each stem:[e_i].
-
-. Compute the <<Type-Checking_Computing-a-Common-Type_Lists-of-Types,common
-type>> stem:[T] of the list of types stem:[T_1, ..., T_n].
-
-. Check that stem:[T] is an 
-<<Detailed-Description_Types_Array-Element-Types,array element type>>.  
-If not, throw an error.
-
-. Use `[` stem:[n] `]` stem:[T].
-
-==== Examples
-
-* The type of `[ 0, 1 ]` is `[2] U8`.
-
-* The type of `[ 0, 65535 ]` is `[2] U16`.
-
-* The type of `[ 0, 1.0 ]` is `[2] F64`.
-
-* The type of `[ { x = 0, y = 0 }, { x = 1.0, y = 1,0 } ]` is
-`[2] { x : F64, y : F64 }`.
-
-* The type of `[ [ 0, 1, 2 ], [ 3.0, 4, 5 ] ]` is `[2][3] F64`
-
-* The expression `[ { x = 1 }, { y = 2 } ]` is not well typed, because `{ x : 
-U8 }` is not compatible with `{ y : U8 }`.
-
-* The expression `[ 0..1 ]` is not well typed, because `range U8` is not an 
-array element type.
-
-=== Range Expressions
-
-To type a
-<<Detailed-Description_Expressions_Range-Expressions,range
-expression>> stem:[e_1] `..` _stem:[e_2]_, the semantic analyzer does the following:
-
-.  Compute the type stem:[T_1] of stem:[e_1] and the type stem:[T_2] of 
-stem:[e_2].
-
-.  Compute the <<Type-Checking_Computing-a-Common-Type_Pairs-of-Types,common 
-type>> stem:[T] of stem:[T_1] and stem:[T_2].
-
-.  Check that stem:[T] is a
-<<Detailed-Description_Types_Range-Element-Types,range element type>>.  
-If not, throw an error.
-
-.  Use the type `range` stem:[T].
-
-==== Examples
-
-* The type of `0..1` is `range U8`.
-
-* The type of `0..65535` is `range U16`.
-
-* The type of `0..1.0` is `range F64`.
-
-* The type of `{x = 0, y = 0 }..{ x = 1.0, y = 1.0 }` is
-`range { x : F64, y : F64 }`.
-
-=== Set Expressions
-
-To type a
-<<Detailed-Description_Expressions_Set-Expressions,set
-expression>> `set` `{` stem:[e_1] `,` stem:[\ldots] `,` stem:[e_n] `}`, 
-the semantic analyzer does the following:
-
-. Check that stem:[n > 0]. If not, throw an error.
-
-. Compute the type stem:[T_i] of each stem:[e_i].
-
-. Compute the <<Type-Checking_Computing-a-Common-Type_Lists-of-Types,common 
-type>> stem:[T] of the list stem:[T_1, ..., T_n].
-
-. Check that stem:[T] is a
-<<Detailed-Description_Types_Set-Element-Type,set element type>>. 
-If not, throw an error.
-
-. Use `set` stem:[T].
-
-==== Examples
-
-Examples of sets containing integer types:
-
-[source,tnet]
-----
-include::./src/Type_Checking/Set_Expressions/Examples_1.tnt[tag=visible]
-----
-
-Examples of sets containing floating-point types:
-
-[source,tnet]
-----
-include::./src/Type_Checking/Set_Expressions/Examples_2.tnt[tag=visible]
+constant b = -1.0 # Type is F64
+constant c = -1 # Type is Integer
+constant d = -c # Type is Integer
+constant e = -0xFFFFFFFF # Type is Integer
+constant f = -bool # Error
 ----
 
 === Identifier Expressions
 
-To type an <<Detailed-Description_Expressions_Identifier-Expressions,identifier 
+To type an <<Expressions_Identifier-Expressions,identifier 
 expression>> stem:[e], the semantic analyzer 
 <<Scoping-of-Names_Resolution-of-Identifiers,resolves the identifier to a 
 definition>> and uses the type given in the definition.
 
-==== Example
+**Example:**
 
-[source,tnet]
+[source,fpp]
 ----
-include::./src/Type_Checking/Identifier_Expressions/Example_1.tnt[tag=visible]
+constant a = 42 # a is a constant with type Integer
+constant b = a # The expression a refers to the constant a and has type Integer
 ----
 
 === Dot Expressions
 
 To type a
-<<Detailed-Description_Expressions_Dot-Expressions,dot
+<<Expressions_Dot-Expressions,dot
 expression>> stem:[e] `.x`, the semantic analyzer does the following:
 
-.  If stem:[e]`.x` is a
+. If stem:[e]`.x` is a
 <<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> that represents 
 the use of a definition according to the
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,rules
 for resolving qualified identifiers>>, and the use is a valid
-<<Detailed-Description_Expressions_Dot-Expressions,dot
+<<Expressions_Dot-Expressions,dot
 expression>>, then use the type given in the definition.
 
-.  Otherwise compute the type stem:[T] of stem:[e] and do the 
-following:
+. Otherwise stem:[e]`.x` is invalid. Throw an error.
 
-..  If stem:[T] is a 
-<<Detailed-Description_Types_Structure-Types,structure
-type>> with a member `x`, then use the type of the member.
+**Example:**
 
-..  Otherwise if stem:[T] is a
-<<Detailed-Description_Types_Range-Types,range
-type>> `range` stem:[T'], and stem:[T'] is a structure type with a 
-member `x`, and
-`x` has type stem:[T''], then use the type `range` stem:[T''].
-
-..  Otherwise if stem:[T] is a
-<<Detailed-Description_Types_Set-Types,set
-type>> `set` stem:[T'], and stem:[T'] is a structure type with a 
-member `x`, and
-`x` has type stem:[T''], then use the type `set` stem:[T''].
-
-..  Otherwise stem:[e]`.x` is invalid. Throw an error.
-
-==== Examples
-
-===== Example 1
-
-[source,tnet]
+[source,fpp]
 ----
-include::./src/Type_Checking/Dot_Expressions/Examples/Example_1_1.tnt[tag=visible]
-----
-
-===== Example 2
-
-[source,tnet]
-----
-include::./src/Type_Checking/Dot_Expressions/Examples/Example_2_1.tnt[tag=visible]
-----
-
-===== Example 3
-
-[source,tnet]
-----
-include::./src/Type_Checking/Dot_Expressions/Examples/Example_3_1.tnt[tag=visible]
-----
-
-===== Example 4
-
-[source,tnet]
-----
-include::./src/Type_Checking/Dot_Expressions/Examples/Example_4_1.tnt[tag=visible]
-----
-
-=== Array Index Expressions
-
-To type a
-<<Detailed-Description_Expressions_Array-Index-Expressions,array
-index expression>> stem:[e_1] `[` _stem:[e_2]_ `]`, the semantic 
-analyzer does the
-following:
-
-. Compute the type stem:[T_1] of stem:[e_1] and the type stem:[T_2] of _stem:[e_2]_.
-
-. Check that stem:[T_2] is
-<<Type-Checking_Type-Conversion,may be converted to>> a
-<<Detailed-Description_Types_Primitive-Types,primitive
-type>>. If not, throw an error.
-
-. If stem:[T_1] is an
-<<Detailed-Description_Types_Array-Types,array
-type>> `[` stem:[n] `]` stem:[T], then use the type stem:[T].
-
-. Otherwise if stem:[T] is a
-<<Detailed-Description_Types_Range-Types,range
-type>> `range` stem:[T'], and stem:[T'] is an array type `[` stem:[n] `]` 
-stem:[T''], then
-use the type `range` stem:[T''].
-
-. Otherwise if stem:[T] is a
-<<Detailed-Description_Types_Set-Types,set type>> `set` stem:[T'], and 
-stem:[T'] is an array type `[` stem:[n] `]` stem:[T''], then use
-the type `set` stem:[T''].
-
-. Otherwise stem:[e_1]`[` stem:[e_2] `]` is invalid. Throw an error.
-
-==== Examples
-
-===== Example 1
-
-[source,tnet]
-----
-include::./src/Type_Checking/Array_Index_Expressions/Examples/Example_1_1.tnt[tag=visible]
-----
-
-===== Example 2
-
-[source,tnet]
-----
-include::./src/Type_Checking/Array_Index_Expressions/Examples/Example_2_1.tnt[tag=visible]
-----
-
-===== Example 3
-
-[source,tnet]
-----
-include::./src/Type_Checking/Array_Index_Expressions/Examples/Example_3_1.tnt[tag=visible]
-----
-
-===== Example 4
-
-[source,tnet]
-----
-include::./src/Type_Checking/Array_Index_Expressions/Examples/Example_4_1.tnt[tag=visible]
-----
-
-=== Parenthesis Expressions
-
-To type a
-<<Detailed-Description_Expressions_Parenthesis-Expressions,parenthesis
-expression>> `(` stem:[e] `)`, the semantic analyzer computes the type 
-stem:[T] of stem:[e].
-
-==== Example
-
-[source,tnet]
-----
-include::./src/Type_Checking/Parenthesis_Expressions/Example/Example_1.tnt[tag=visible]
-----
-
-=== Explicitly-Typed Expressions
-
-To type an
-<<Detailed-Description_Expressions_Explicitly-Typed-Expressions,explicitly
-typed expression>> stem:[e] `:` stem:[t], the semantic analyzer does 
-the following:
-
-.  Compute the type stem:[T] of stem:[e].
-
-.  Check that
-<<Type-Checking_Type-Conversion,stem:[T]
-can be converted to stem:[t]>>. If not, throw an error.
-
-==== Examples
-
-[source,tnet]
-----
-include::./src/Type_Checking/Explicitly_Typed_Expressions/Examples/Examples_1.tnt[tag=visible]
+module M { 
+  constant a = 0 # The constant M.a has type Integer
+}
+constant b = M.a # Expression M.a represents a use of the definition M.a.
+                 # Its type is Integer.
 ----
 
 === Type Conversion
@@ -580,186 +130,18 @@ every <<Evaluation_Values,value>> represented by type stem:[T_1] can be
 
 Here are the rules for type conversion:
 
-. Any <<Detailed-Description_Types_Primitive-Types,primitive
+. Any <<Types_Primitive-Types,primitive
 type>> may be converted to any other primitive type.
 
-. A <<Detailed-Description_Types_named-types,named
-type>> may be converted to the representation type specified in the
-<<Detailed-Description_Definitions_Type-Definitions,type
-definition>> to which it refers.
+. Any <<Types_Primitive-Types,primitive
+type>> may be converted to <<Types_The-Integer-Type,_Integer_>>.
 
-. An <<Detailed-Description_Types_Enum-Types,enum type>> may be converted to a
-<<Detailed-Description_Types_Primitive-Types,primitive type>> or to another 
+. An <<Types_Enum-Types,enum type>> may be converted to a
+<<Types_Primitive-Types,primitive type>> or to another 
 enum type that refers to the same
-<<Detailed-Description_Definitions_Enum-Definitions,enum definition>>.
-
-. A <<Detailed-Description_Types_Structure-Types,structure
-type>> stem:[T_1] may be converted to another structure type 
-stem:[T_2] if the two
-types have the same member names, and each member type of stem:[T_1] 
-may be converted to the corresponding member type of stem:[T_2].
-
-. An <<Detailed-Description_Types_Array-Types,array
-type>> stem:[T_1] may be converted to another array type stem:[T_2] 
-if the two types
-have the same size (that is, the size expressions in the two types
-resolve to the same compile-time constant), and the element type of 
-stem:[T_1]
-may be converted to the element type of stem:[T_2].
-
-. If stem:[T_2] is a
-<<Detailed-Description_Types_Range-Types,range
-type>> and stem:[T_1] may be converted to the member type of 
-stem:[T_2], then stem:[T_1]
-may be converted to stem:[T_2].
-
-. A <<Detailed-Description_Types_Range-Types,range
-type>> stem:[T_1] may be converted to another range type stem:[T_2] 
-if the member
-type of stem:[T_1] may be converted to the member type of stem:[T_2].
-
-. A <<Detailed-Description_Types_Range-Types,range
-type>> stem:[T_1] may be converted to a
-<<Detailed-Description_Types_Set-Types,set
-type>> stem:[T_2] if the member type of stem:[T_1] may be converted to the member
-type of stem:[T_2].
-
-. A <<Detailed-Description_Types_Set-Types,set
-type>> stem:[T_1] may be converted to another set type stem:[T_2] if 
-the member type
-of stem:[T_1] may be converted to the member type of stem:[T_2].
-
-. A <<Detailed-Description_Types_Primitive-Types,primitive
-type>> stem:[T] may be converted to a structure type stem:[T'] if 
-stem:[T] may be
-converted to each member type of stem:[T'].
-
-. A <<Detailed-Description_Types_Primitive-Types,primitive
-type>> stem:[T] may be converted to an array type stem:[T'] if 
-stem:[T] may be converted
-to the element type of stem:[T].
+<<Definitions_Enum-Definitions,enum definition>>.
 
 . Type convertibility is transitive: if stem:[T_1] may be converted to 
 stem:[T_2]
 and stem:[T_2] may be converted to stem:[T_3], then stem:[T_1] 
 may be converted to stem:[T_3].
-
-We say that two types stem:[T_1] and stem:[T_2] are *convertible to a common 
-type* stem:[T] if stem:[T_1] and stem:[T_2] both may be converted to stem:[T].
-We say that a list of types stem:[T_1, ..., T_2] is
-convertible to a common type stem:[T] if stem:[T_1] and stem:[T_2]
-are convertible to a common type stem:[T'_2], stem:[T'_2] and stem:[T_3]
-are convertible to a common type stem:[T'_3], and so forth.
-
-=== Computing a Common Type
-
-==== Pairs of Types
-
-Here are the rules for resolving two types stem:[T_1] and stem:[T_2] 
-(e.g., the
-types of two subexpressions) to a common type stem:[T] (e.g., the type of 
-the whole expression):
-
-. If stem:[T_1] and stem:[T_2] are the same type, then let 
-stem:[T] be stem:[T_1].
-
-. Otherwise if stem:[T_1] and stem:[T_2] are both
-<<Detailed-Description_Types_Primitive-Types,primitive
-types>>, then do the following:
-
-.. If stem:[T_1] and stem:[T_2] are both floating-point types, then use the
-floating-point type with the same width as the maximal width of stem:[T_1] and
-stem:[T_2].
-
-.. Otherwise if one of stem:[T_1] and stem:[T_2] is an integer type and the other
-is a floating-point type, then use the floating-point type.
-
-.. Otherwise use the integer type stem:[T] given by the following rules:
-
-... If either stem:[T_1] or stem:[T_2] is signed, then stem:[T] is signed. Otherwise, stem:[T]
-is unsigned.
-
-... If either stem:[T_1] or stem:[T_2] has width 64, then the width of stem:[T] is 64.
-Otherwise, the width of stem:[T] is the narrowest width that can represent
-all the values of both types.
-For example, if one is `U16` and the other is `I8`, then use `I32`.
-
-. Otherwise if stem:[T_1] or stem:[T_2] is a 
-<<Detailed-Description_Types_Named-Types,named type>>, then
-replace each named type with its representation type and reapply these rules.
-
-. Otherwise if stem:[T_1] and stem:[T_2] are enum types that refer to the
-same definition, then use stem:[T_1].
-
-. Otherwise if stem:[T_1] is an enum type stem:[T], then replace stem:[T_1] with 
-the representation type specified in the definition of stem:[T]
-and reapply these rules.
-
-. Otherwise if stem:[T_2] is an enum type stem:[T], then replace stem:[T_2] with 
-the representation type specified in the definition of stem:[T]
-and reapply these rules.
-
-. Otherwise if stem:[T_1] and stem:[T_2] are structure types that are 
-<<Type-Checking_Type-Conversion,convertible to a to a common type>>, then 
-stem:[T] is the structure type that results from
-applying these rules to each pair of corresponding members of stem:[T_1] and
-stem:[T_2].
-
-. Otherwise if stem:[T_1] and stem:[T_2] are array types with the same size stem:[n]
-and member types stem:[T'_1] and stem:[T'_2], then apply these rules to resolve
-stem:[T'_1] and stem:[T'_2] to stem:[T'] and let stem:[T] be `[`stem:[n]`]` stem:[T'].
-
-. Otherwise if stem:[T_1] and stem:[T_2] are range types with member 
-types stem:[T'_1]
-and stem:[T'_2], then apply these rules to resolve stem:[T'_1] and 
-stem:[T'_2] to stem:[T'] and
-let stem:[T] be `range` stem:[T'].
-
-. Otherwise if stem:[T_1] and stem:[T_2] are set types with member 
-types stem:[T'_1] and
-stem:[T'_2], then apply these rules to resolve stem:[T'_1] and 
-stem:[T'_2] to stem:[T'] and let
-stem:[T] be `set` stem:[T'].
-
-. Otherwise if one of stem:[T_1] and stem:[T_2] is a set type and the other is
-not, then apply these rules to convert the non-set type to a set type,
-and then reapply these rules.
-
-. Otherwise if one of stem:[T_1] and stem:[T_2] is a range type and the other is
-not, then apply these rules to convert the non-range type to range type,
-and then reapply these rules.
-
-. Otherwise if one of stem:[T_1] and stem:[T_2] is a primitive type 
-and the other
-one is a structure type stem:[S], then apply these rules to resolve the
-primitive type and each of the structure member types to a common type.
-Let stem:[T] be the structure type whose members are the members of 
-stem:[S] and
-whose member types are the corresponding common types.
-
-. Otherwise if one of stem:[T_1] and stem:[T_2] is a primitive type 
-and the other
-one is an array type `[` stem:[n] `]` stem:[T'], then apply these 
-rules to resolve
-the primitive type and stem:[T'] to a common type stem:[T'']. Let 
-stem:[T] bet the
-array type `[` stem:[n] `]` stem:[T''].
-
-. Otherwise the attempted resolution is invalid. Throw an error.
-
-==== Lists of Types
-
-To compute a common type for a list of types
-stem:[T_1, ... , T_n], do the following:
-
-.  Check that stem:[n > 0]. If not, then throw an error.
-
-.  Compute the type stem:[T_1] of stem:[e_1].
-
-.  For each stem:[i in [2,n]]
-
-   ..  Compute the type stem:[T] of stem:[e_i].
-
-   ..  Compute the common type stem:[T_i] of stem:[T_(i-1)] and stem:[T].
-
-.  Use stem:[T_n] as the common type of the list.

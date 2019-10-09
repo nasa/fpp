@@ -24,9 +24,16 @@ floating-point values of width 32 and 64 bits, respectively.
 This type represents the two values `true` and `false`.
 
 The signed and unsigned integer types, collectively, are called the
-*integer types*.
+*primitive integer types*.
 The integer types together with the floating-point types are called the
-*numeric types*.
+*primitive numeric types*.
+
+=== The Integer Type
+
+The type _Integer_ represents all integer values, without regard
+to bit width.
+This type does not appear in FPP source programs.
+The compiler assigns it to expressions during <<Type-Checking,type checking>>.
 
 === The String Type
 
