@@ -19,4 +19,5 @@ Translation-Units-and-Models.adoc
 Scoping-of-Names.adoc
 Definitions-and-Uses.adoc
 Type-Checking.adoc
+Translation.adoc
 "

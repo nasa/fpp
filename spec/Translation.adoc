@@ -1,122 +1,14 @@
 == Translation
 
-The tnet language is intended to support a variety of translation
-strategies. For example, we need to generate C++ code and code for
-the MEXEC planner and scheduler. Additional code generation may be
-needed in the future.
+*Translation* is the process of checking a source model
+and generating code. It involves the following steps:
 
-=== Tools
+1. Lexing and parsing to generate an abstract syntax tree (AST)
 
-The following tools for checking and translation currently exist:
+2. If step (1) succeeded, semantic analysis of the AST.
 
-* `tnet-check`: Check the validity of a tnet program, without performing
-any translation.
+3. If step (2) succeeded, code generation.
 
-* `tnet-constants`: Extract the constant definitions in a tnet program into an
-https://github.jpl.nasa.gov/SystemsAutonomyRTD/isf-aut/wiki/ASCII-Tables[ASCII
-table].
-The table is in
-a form that can be used by the task network translation in the 
-https://github.jpl.nasa.gov/SystemsAutonomyRTD/isf-aut/tree/master/Projects/Autonomy/TaskNetworks[3X Autonomy flight software repository].
-
-* `tnet-enums`: Generate one ASCII table for each enum definition 
-in a tnet program.
-Tools in the 3x Autonomy FSW repository can use the tables to generate
-C++ code.
-
-* `tnet-arrays`:  Generate one array type description for each array type definition in a 
-tnet program.
-Tools in the 3x Autonomy FSW repository can use the tables to generate
-C++ code.
-
-* `tnet-structs`: Generate one ASCII table for each structure type definition
-in a tnet program.
-Tools in the 3x Autonomy FSW repository can use the tables to generate
-C++ code.
-
-* `tnet-states`: Generate one ASCII table for each state definition
-in a tnet program.
-Tools in the 3x Autonomy FSW repository can use the tables to generate
-C++ code.
-
-* `tnet-timelines`: Extract all timeline definitions in a tnet program into an 
-ASCII table. Tools in the 3x Autonomy FSW repository can use the table to 
-generate XML input to MEXEC.
-
-* `tnet-state-translator`: Generate one C++ state translator for each timeline definition.
-
-Eventually we will replace these tools with tnet code generators.
-
-For further information about these tools, see the
-https://github.jpl.nasa.gov/SystemsAutonomyRTD/tnet-lang/blob/master/README.md[README
-file] in the tnet-lang repository.
-
-=== Scalar Replacement of Structures and Arrays
-
-MEXEC does not support structures and arrays. Therefore, before
-generating constant and timeline definitions, tnet applies a
-transformation that replaces all structures and arrays with
-corresponding sets of scalars.
-This transformation is called *scalar replacement*.
-
-==== Constants
-
-For structure and array constants, tnet uses the following strategy:
-
-. Replace each structure constant with a set of constants, one for
-each structure member.
-
-. Replace each array constant with a set of constants, one for each
-array index.
-
-. Apply the transformation recursively.
-
-For example, after scalar replacement, this
-
-[source,tnet]
-----
-include::./src/Translation/Scalar_Replacement_of_Structures_and_Arrays/Constants_1.tnt[tag=visible]
-----
-
-becomes this (expansion):
-
-[source,tnet]
-----
-include::./src/Translation/Scalar_Replacement_of_Structures_and_Arrays/Constants_2.tnt[tag=visible]
-----
-
-and then this (replacement):
-
-[source,tnet]
-----
-include::./src/Translation/Scalar_Replacement_of_Structures_and_Arrays/Constants_3.tnt[tag=visible]
-----
-
-==== Timelines
-
-For array and structure timelines, tnet uses the same strategy as for
-constants. In addition, tnet expands any range or set constraints on the
-timeline by selecting the appropriate members of the range or set of
-arrays or structures. For example, this:
-
-[source,tnet]
-----
-include::./src/Translation/Scalar_Replacement_of_Structures_and_Arrays/Timelines_1.tnt[tag=visible]
-----
-
-becomes this:
-
-[source,tnet]
-----
-include::./src/Translation/Scalar_Replacement_of_Structures_and_Arrays/Timelines_2.tnt[tag=visible]
-----
-
-By the
-<<Detailed-Description_Expressions_Dot-Expressions,semantics
-of the dot operator>>, the transformed code is equivalent to this:
-
-[source,tnet]
-----
-include::./src/Translation/Scalar_Replacement_of_Structures_and_Arrays/Timelines_3.tnt[tag=visible]
-----
-
+FPP is intended to support a variety of translation
+strategies. For example, we need to generate (1) C++ code for FSW and 
+(2) XML, Python, or other code to export to ground tools.

@@ -35,6 +35,8 @@ to bit width.
 This type does not appear in FPP source programs.
 The compiler assigns it to expressions during <<Type-Checking,type checking>>.
 
+=== Integer and Numeric Types
+
 The _Integer_ type together with the 
 <<Types_Primitive-Types,primitive integer types>> are called
 the *integer types*.
@@ -51,7 +53,7 @@ The type `string` is the type of string values.
 An *array type* is a
 <<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> that 
 refers to an
-<<Definitions_Array-Definitions,array definition>> via the
+<<Definitions_Array-Type-Definitions,array type definition>> via the
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,rules for name 
 scoping>>. For example:
 
@@ -84,7 +86,7 @@ constant a = N.E.X # a has type N.E
 A *struct type* is a
 <<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> that 
 refers to a
-<<Definitions_Struct-Definitions,struct definition>> via the
+<<Definitions_Struct-Type-Definitions,struct type definition>> via the
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,rules for name 
 scoping>>. For example:
 

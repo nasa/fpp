@@ -4,9 +4,11 @@ A *definition* is a unit of syntax that introduces a name _N_
 and associates some code with _N_.
 FPP supports the following kinds of definitions:
 
-* <<Definitions_Array-Type-Definitions,Array Type Definitions>>
-
 * <<Definitions_Constant-Definitions,Constant Definitions>>
+
+* <<Definitions_Module-Definitions,Module Definitions>>
+
+* <<Definitions_Array-Type-Definitions,Array Type Definitions>>
 
 * <<Definitions_Enum-Definitions,Enum Definitions>>
 
@@ -16,8 +18,6 @@ Constant Definitions>>
 * <<Definitions_Struct-Type-Definitions,Struct Type Definitions>>
 
 * <<Definitions_Abstract-Type-Definitions,Abstract Type Definitions>>
-
-* <<Definitions_Module-Definitions,Namespace Definitions>>
 
 Constant definitions, array definitions, enum definitions, struct definitions,
 abstract type definitions, and module definitions may appear in

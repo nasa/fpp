@@ -18,6 +18,8 @@ A token is one of the following:
 
 * A <<Expressions_Boolean-Literals,Boolean literal>>.
 
+* A <<Lexical-Elements_String-Literals,string literal>>.
+
 * A <<Lexical-Elements_Newlines,newline character>>.
 
 * A line of an <<Comments-and-Annotations_Annotations,annotation>>
@@ -89,6 +91,20 @@ multiPartIdentifier
 multi_part_identifier
 ----
 
+=== String Literals
+
+A *string literal* is a sequence of characters enclosed in double quotes.
+The characters must be printable ASCII characters, and the double
+quote character itself is not allowed.
+
+*Examples:*
+
+* `"abc"` is a valid string representing the characters `a`, `b`, and `c`.
+
+* `"abc` is not a valid string, because it is missing the terminating double quote.
+
+* `"ab"c"` is the valid string `"ab"` followed by the identifier `c` and an 
+unmatched double quote character.
 
 === Newlines
 
@@ -107,9 +123,9 @@ as follows:
 * Space characters are ignored, except to separate tokens.
 
 * No other whitespace or non-printing characters are allowed
-outside of a comment, annotation, or string.
+outside of a comment or annotation.
 In particular, the tab character may not appear
-in an FPP program outside of a comment, annotation, or string.
+in an FPP program outside of a comment or annotation.
 
 === Line Continuations
 
