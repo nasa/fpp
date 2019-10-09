@@ -17,4 +17,5 @@ Element-Sequences.adoc
 Comments-and-Annotations.adoc
 Translation-Units-and-Models.adoc
 Scoping-of-Names.adoc
+Definitions-and-Uses.adoc
 "
