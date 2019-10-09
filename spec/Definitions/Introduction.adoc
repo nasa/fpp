@@ -23,13 +23,13 @@ Constant Definitions>>
 
 * <<Definitions_Component-Definitions,Component Definitions>>
 
-* <<Specifiers_Command-Dictionary-Specifiers,Command Dictionary Specifiers>>
+* <<Definitions_Command-Definitions,Command Definitions>>
 
-* <<Specifiers_Telemetry-Dictionary-Specifiers,Telemetry Dictionary Specifiers>>
+* <<Definitions_Telemetry-Channel-Definitions,Telemetry Channel Definitions>>
 
-* <<Specifiers_Event-Dictionary-Specifiers,Event Dictionary Specifiers>>
+* <<Definitions_Event-Definitions,Event Defintions>>
 
-* <<Specifiers_Parameter-Dictionary-Specifiers,Parameter Dictionary Specifiers>>
+* <<Definitoins_Parameter-Definitions,Parameter Definitions>>
 
 * <<Definitions_Component-Instance-Definitions,Component Instance Definitions>>
 

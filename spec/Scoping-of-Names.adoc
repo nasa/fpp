@@ -48,69 +48,81 @@ module M { # Qualified name is M
 }
 ----
 
-=== Namespaces
+=== Name Groups
 
 The qualified names of definitions and
-reside in *namespaces*. There are
-three namespaces: the *type namespace*, the *value namespace*,
-and the *module namespace*.
-The following table shows which names reside in which
-namespaces.
+reside in *name groups*. There are
+12 name groups:
 
-[cols=",,,",options="header",]
-|======================================
-|Kind of Name
-|Type Namespace
-|Value Namespace
-|Module Namespace
+. The *type name group*
 
-|Array definition
-|X
-|
-|
+. The *value name group*
 
-|Struct definition
-|X
-|
-|
+. The *module name group*
 
-|Constant definition
-|
-|X
-|
+. The *port name group*
 
-|Enumerated constant definition
-|
-|X
-|
+. The *component name group*
 
-|Module definition
-|
-|
-|X
+. The *command name group*
 
-|Enum definition
-|X
-|
-|X
-|======================================
+. The *telemetry name group*
 
-An X means that the name resides in the namespace corresponding
-to the column.
-Note that enum definitions reside in both the type namespace
-and the module namespace.
+. The *event name group*
+
+. The *parameter name group*
+
+. The *component instance name group*
+
+. The *topology name group*
+
+. The *connection name group*
+
+Definitions reside in name groups as follows:
+
+* Constant definitions reside in the value name group.
+
+* Module definitions reside in the module name group.
+
+* Array type definitions reside in the type name group.
+
+* Enum definitions reside in both the value and the type name group.
+
+* Enumerated constant definitions reside in the value name group.
+
+* Struct type definitions reside in the type name group.
+
+* Abstract type definitions reside in the type name group.
+
+* Port definitions reside in the port name group.
+
+* Component definitions reside in the component name group.
+
+* Command definitions reside in the command name group.
+
+* Telemetry channel definitions reside in the telemetry name group.
+
+* Event definitions reside in the event name group.
+
+* Parameter definitions reside in the parameter name group.
+
+* Component instance definitions reside in the component instance name group.
+
+* Topology definitions reside in the topology name group.
+
+* Connection graph definitions reside in the connection name group.
 
 === Multiple Definitions with the Same Qualified Name
 
-==== Different Namespaces
+==== Different Name Groups
 
 Two definitions with the same qualified name are allowed if they are in
-different namespaces. For example:
+different name groups. For example:
 
 [source,fpp]
 ----
-struct s { x : U32 = 0 } U32 # Defines s in the type namespace
-constant s = 0 # Defines s in the value namespace
+struct s { x : U32 = 0 } U32 # Defines s in the type name group
+constant s = 0 # Defines s in the value name group
 ----
 
 ==== Module Definitions
@@ -153,7 +165,7 @@ module M { constant b = 1 }
 
 ==== Conflicting Definitions
 
-Within the same namespace, two definitions with the same
+Within the same name group, two definitions with the same
 qualified name are not allowed, unless they are both module definitions
 as described above. For example:
 
@@ -182,14 +194,14 @@ The following rules govern the resolution of identifiers, i.e.,
 associating identifiers with definitions:
 
 . Use the context to determine which
-<<Scoping-of-Names_Namespaces,namespace>>
+<<Scoping-of-Names_Name-Groups,name group>>
 _S_ to use. For example, if we are expecting a type name, then use the
-type namespace.
+type name group.
 
 . At the top level (outside of any module definition, enum
 definition, task template definition, or task definition), the identifier _I_ 
 refers to the unique definition with
-qualified name _I_ if it exists in namespace _S_. Otherwise an error
+qualified name _I_ if it exists in name group _S_. Otherwise an error
 results.
 
 . Inside a
@@ -198,10 +210,10 @@ results.
 with qualified name _N_ appearing at the top level:
 
   .. The identifier _I_ refers to the definition with qualified name
-_N_ `.` _I_ if it exists in namespace _S_.
+_N_ `.` _I_ if it exists in name group _S_.
 
   .. Otherwise _I_ refers to the definition with qualified name _I_ if it
-exists in namespace _S_.
+exists in name group _S_.
 
   .. Otherwise an error results.
 
@@ -209,13 +221,13 @@ exists in namespace _S_.
 _N_ appearing inside a module definition _D_:
 
   ..  The identifier _I_ refers to the definition with qualified name
-_N_ `.` _I_ if it exists in namespace _S_.
+_N_ `.` _I_ if it exists in name group _S_.
 
   ..  Otherwise proceed as if _I_ were appearing inside _D_.
 
 *Example:*
 
-_S_ refers to the value namespace.
+_S_ refers to the value name group.
 
 [source,fpp]
 ----
@@ -277,9 +289,9 @@ following:
 <<Definitions_Enum-Definitions,enum definition>> _D_, then 
 do the following:
 
-... Determine the namespace _S_ of _Q_ `.` _I_.
+... Determine the name group _S_ of _Q_ `.` _I_.
 
-... Look in _D_ for a definition with identifier _I_ in namespace _S_.
+... Look in _D_ for a definition with identifier _I_ in name group _S_.
     If there is none, issue an error.
 
 .. Otherwise the qualified identifier is invalid. Issue an error.

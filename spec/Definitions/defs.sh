@@ -23,4 +23,5 @@ Event-Definitions.adoc
 Parameter-Definitions.adoc
 Component-Instance-Definitions.adoc
 Topology-Definitions.adoc
+Connection-Graph-Definitions.adoc
 "
