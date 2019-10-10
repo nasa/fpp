@@ -62,10 +62,10 @@ for name scoping>>. For example:
 
 [source,fpp]
 ----
-module N {
+module M {
   enum E { X = 0, Y = 1 }
 }
-constant a = N.E.X # a has type N.E
+constant a = M.E.X # a has type M.E
 ----
 
 `N.E` is an enum type.

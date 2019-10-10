@@ -135,10 +135,10 @@ stored in the corresponding <<Definitions,definition>>.
 
 [source,fpp]
 ----
-namespace N {
+module M {
   constant a = 1
 }
-constant b = N.a # N.a evaluates to 1
+constant b = M.a # M.a evaluates to 1
 ----
 
 ===== Example 2

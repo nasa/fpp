@@ -11,7 +11,8 @@ redo-ifchange $FILES
 echo '= The F Prime Prime (FPP) Modeling Language
 :toc: left
 :toclevels: 3
-:stem:'
+:stem:
+:source-highlighter: prettify'
 for file in $FILES
 do
   echo
