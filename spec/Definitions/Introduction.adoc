@@ -31,9 +31,9 @@ Constant Definitions>>
 
 * <<Definitions_Telemetry-Channel-Definitions,Telemetry Channel Definitions>>
 
-* <<Definitions_Event-Definitions,Event Defintions>>
+* <<Definitions_Event-Definitions,Event Definitions>>
 
-* <<Definitoins_Parameter-Definitions,Parameter Definitions>>
+* <<Definitions_Parameter-Definitions,Parameter Definitions>>
 
 * <<Definitions_Component-Instance-Definitions,Component Instance Definitions>>
 

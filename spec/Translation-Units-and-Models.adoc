@@ -49,7 +49,7 @@ the following section.
 === Models
 
 A *model* is a collection of one or more
-<<Detailed-Description_Translation-Units-and-Programs_Translation-Units,translation
+<<Translation-Units-and-Models_Translation-Units,translation
 units>>. A model is presented to one or more translators for
 <<Translation,translation>>.
 How this is done depends on the translator. Typically, you ask a
@@ -59,7 +59,7 @@ file.
 
 *Example:*
 
-<<Detailed-Description_Translation-Units-and-Programs_Translation-Units_Example,Translation
+<<Translation-Units-and-Models_Translation-Units_Example,Translation
 units 1-3 in the previous section>>, taken together, form a single
 model. That model is equivalent to the following single translation
 unit:
@@ -75,7 +75,8 @@ module M2 {
 ----
 
 According to the
-<<Scoping-of-Names_Module-Definitions,semantics of module definitions>>,
+<<Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Module-Definitions,semantics 
+of module definitions>>,
 this is also equivalent:
 
 [source,fpp]

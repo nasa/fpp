@@ -2,7 +2,7 @@
 
 An *abstract type definition* associates a name with a type
 without specifying the type.
-In generated code, the type is specified exernally (e.g., as a C++ class).
+In generated code, the type is specified externally (e.g., as a C++ class).
 
 ==== Syntax
 

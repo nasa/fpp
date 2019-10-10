@@ -108,7 +108,7 @@ minus expression>> `-` stem:[e], the semantic analyzer does the following:
 <<Types_Primitive-Types,primitive numeric type>>
 or stem:[T] is
 <<Type-Checking_Internal-Types_Integer,_Integer_>>,
-then use stem:[T]
+then use stem:[T].
 
 . Otherwise throw an error.
 
@@ -187,15 +187,3 @@ type>> may be converted to any other numeric type.
 stem:[T_2]
 and stem:[T_2] may be converted to stem:[T_3], then stem:[T_1] 
 may be converted to stem:[T_3].
-
-=== Computing a Common Type
-
-TODO
-
-==== Pairs of Types
-
-TODO
-
-==== Lists of Types
-
-TODO

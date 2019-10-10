@@ -4,7 +4,7 @@
 
 *Primitive integer types* are the types of the primitive integer values supported
 by F Prime. There are two kinds of primitive
-ingeter types: unsigned integer types and signed integer types.
+integer types: unsigned integer types and signed integer types.
 
 * The unsigned integer types are `U8`, `U16`, `U32`, and `U64`. The `U`
 stands for "`unsigned.`" The number after the U is the width of the
@@ -54,8 +54,10 @@ scoping>>. For example:
 
 [source,fpp]
 ----
-array type A = [3] U8
-array type B = [3] A # A is an array type
+module M {
+  array type A = [3] U8
+}
+array type B = [3] M.A # M.A is an array type
 ----
 
 === Enum Types
@@ -88,12 +90,14 @@ scoping>>. For example:
 
 [source,fpp]
 ----
-struct type S = {
-  x : U32
-  y : F32
+module M {
+  struct type S = {
+    x : U32
+    y : F32
+  }
 }
 struct type T = {
-  s : S # S is a struct type
+  s : M.S # M.S is a struct type
 }
 ----
 

@@ -58,13 +58,79 @@ quote character itself is not allowed.
 * `"ab"c"` is the valid string `"ab"` followed by the identifier `c` and an 
 unmatched double quote character.
 
-=== Array Literals
+=== Array Constructors
 
-TODO
+An *array constructor expression* is an expression that constructs an array value.
 
-=== Structure Literals
+==== Syntax
 
-TODO
+<<Lexical-Elements_Identifiers,_type_>>
+`[` _array-constructor-element-sequence_ `]`
+
+_array-constructor-element-sequence_ is an
+<<Element-Sequences,element sequence>> in which the elements
+are
+<<Expressions,expressions>>, and the terminating punctuation
+is a comma.
+
+==== Semantics
+
+_type_ must be an <<Types_Array-Types,array type>>.
+The number of elements in the element sequence must match the
+size of the array.
+The type of each element must be <<Type-Checking_Type-Conversion,convertible 
+to>> the element type of the array.
+
+==== Example
+
+[source,tnet]
+----
+array type A = [3] U32
+constant a = A [ 0, 1, 2 ] # a is a value of type A with elements 0, 1, 2
+----
+
+=== Struct Constructors
+
+An *struct constructor expression* is an expression that constructs an struct value.
+
+==== Syntax
+
+<<Lexical-Elements_Identifiers,_type_>>
+_[_
+`{` _struct-constructor-element-sequence_ `}`
+_]_
+
+_struct-constructor-element-sequence_ is an
+<<Element-Sequences,element sequence>> in which the elements
+are struct constructor elements.
+A *struct constructor element* has the following syntax:
+
+<<Lexical-Elements_Identifiers,_identifier_>> `=` <<Expressions,_expression_>>
+
+==== Semantics
+
+_type_ must be a <<Types_Struct-Types,struct type>> _T_.
+If the struct constructor element sequence _S_ is present, then the
+following must be true:
+
+. Each identifier appearing in _S_ must appear in the member list of _T_.
+
+. No two identifiers appearing in _S_ may be the same.
+
+. Each expression appearing in _S_ must have a type that is
+<<Type-Checking_Type-Conversion,convertible to>> the corresponding
+member type of _T_.
+
+==== Example
+
+[source,fpp]
+----
+struct type S {
+  x : U32
+  y : F32
+}
+constant s = S { x = 1 } # s is a value of type S with member values x = 1, y = 0
+----
 
 === Arithmetic Expressions
 

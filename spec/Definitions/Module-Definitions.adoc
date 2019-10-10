@@ -31,7 +31,7 @@ A module member is one of the following:
 
 * A <<Definitions_Component-Definitions,component definition>>
 
-* A <<Definitions_Component-Instance-Definitoins,component instance definition>>
+* A <<Definitions_Component-Instance-Definitions,component instance definition>>
 
 * A <<Definitions_Topology-Definitions,topology definition>>
 
