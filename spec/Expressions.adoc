@@ -17,6 +17,7 @@ integer using most 64 bits, i.e., it must lie in the range stem:[0 <= v < 2^64].
 
 **Examples:**
 
+[source,fpp]
 ----
 1234
 0xABCD
@@ -29,6 +30,7 @@ IEEE floating-point number.
 
 **Examples:**
 
+[source,fpp]
 ----
 1e-10
 0.001

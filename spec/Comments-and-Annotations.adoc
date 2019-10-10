@@ -64,8 +64,8 @@ annotatable element>> _e_. It is attached to _e_ during translation.
 ----
 @ This is module M
 module M {
-  constant a  0 @< This is constant M.a
-  constant b  1 @< This is constant M.b
+  constant a = 0 @< This is constant M.a
+  constant b = 1 @< This is constant M.b
   @ This is an enum
   enum E {
     a = 0 @< This is enumerated constant M.E.a

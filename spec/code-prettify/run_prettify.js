@@ -13,6 +13,9 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * Revised by Rob Bocchino in 2019
+ * Revisions Copyright (C) 2019 California Institute of Technology
  */
 
 /**
@@ -400,6 +403,23 @@ var IN_GLOBAL_SCOPE = false;
       // Keyword lists for various languages.
       // We use things that coerce to strings to make them compact when minified
       // and to defeat aggressive optimizers that fold large string constants.
+      var FPP_KEYWORDS = [
+        "array," +
+        "at," +
+        "baseid," +
+        "component," +
+        "constant," +
+        "enum," +
+        "false," +
+        "import," +
+        "instance," +
+        "locate," +
+        "module," +
+        "port," +
+        "struct," +
+        "true," +
+        "type"
+      ];
       var FLOW_CONTROL_KEYWORDS = ["break,continue,do,else,for,if,return,while"];
       var C_KEYWORDS = [FLOW_CONTROL_KEYWORDS,"auto,case,char,const,default," +
           "double,enum,extern,float,goto,inline,int,long,register,restrict,short,signed," +
@@ -442,8 +462,9 @@ var IN_GLOBAL_SCOPE = false;
       var SH_KEYWORDS = [FLOW_CONTROL_KEYWORDS, "case,done,elif,esac,eval,fi," +
           "function,in,local,set,then,until"];
       var ALL_KEYWORDS = [
-          CPP_KEYWORDS, CSHARP_KEYWORDS, JAVA_KEYWORDS, JSCRIPT_KEYWORDS,
-          PERL_KEYWORDS, PYTHON_KEYWORDS, RUBY_KEYWORDS, SH_KEYWORDS];
+          FPP_KEYWORDS
+      ]
+      var FPP_TYPES = /^(F32|F64|I16|I32|I64|I8|U16|U32|U64|U8|bool|string)/;
       var C_TYPES = /^(DIR|FILE|array|vector|(de|priority_)?queue|(forward_)?list|stack|(const_)?(reverse_)?iterator|(unordered_)?(multi)?(set|map)|bitset|u?(int|float)\d*)\b/;
 
       // token style names.  correspond to css classes
@@ -1169,49 +1190,12 @@ var IN_GLOBAL_SCOPE = false;
                  null]);
           } else {
             shortcutStylePatterns.push([PR_COMMENT, /^#[^\r\n]*/, null, '#']);
+            shortcutStylePatterns.push([PR_COMMENT, /^@[^\r\n]*/, null, '@']);
           }
         }
-        if (options['cStyleComments']) {
-          fallthroughStylePatterns.push([PR_COMMENT, /^\/\/[^\r\n]*/, null]);
-          fallthroughStylePatterns.push(
-              [PR_COMMENT, /^\/\*[\s\S]*?(?:\*\/|$)/, null]);
-        }
-        var regexLiterals = options['regexLiterals'];
-        if (regexLiterals) {
-          /**
-           * @const
-           */
-          var regexExcls = regexLiterals > 1
-            ? ''  // Multiline regex literals
-            : '\n\r';
-          /**
-           * @const
-           */
-          var regexAny = regexExcls ? '.' : '[\\S\\s]';
-          /**
-           * @const
-           */
-          var REGEX_LITERAL = (
-              // A regular expression literal starts with a slash that is
-              // not followed by * or / so that it is not confused with
-              // comments.
-              '/(?=[^/*' + regexExcls + '])'
-              // and then contains any number of raw characters,
-              + '(?:[^/\\x5B\\x5C' + regexExcls + ']'
-              // escape sequences (\x5C),
-              +    '|\\x5C' + regexAny
-              // or non-nesting character sets (\x5B\x5D);
-              +    '|\\x5B(?:[^\\x5C\\x5D' + regexExcls + ']'
-              +             '|\\x5C' + regexAny + ')*(?:\\x5D|$))+'
-              // finally closed by a /.
-              + '/');
-          fallthroughStylePatterns.push(
-              ['lang-regex',
-               RegExp('^' + REGEXP_PRECEDER_PATTERN + '(' + REGEX_LITERAL + ')')
-               ]);
-        }
 
-        var types = options['types'];
+        //var types = options['types'];
+        var types = FPP_TYPES;
         if (types) {
           fallthroughStylePatterns.push([PR_TYPE, types]);
         }
@@ -1296,7 +1280,7 @@ var IN_GLOBAL_SCOPE = false;
       var decorateSource = sourceDecorator({
             'keywords': ALL_KEYWORDS,
             'hashComments': true,
-            'cStyleComments': true,
+            'cStyleComments': false,
             'multiLineStrings': true,
             'regexLiterals': true
           });

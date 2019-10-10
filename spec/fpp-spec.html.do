@@ -5,4 +5,6 @@
 # ----------------------------------------------------------------------
 
 redo-ifchange fpp-spec.adoc
-asciidoctor -n fpp-spec.adoc -o $3
+asciidoctor -n fpp-spec.adoc -o tmp.html
+sed 's;https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/run_prettify.min.js;code-prettify/run_prettify.js;' < tmp.html > $3
+rm tmp.html

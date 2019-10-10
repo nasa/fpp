@@ -30,6 +30,7 @@ beginning with `@` or `@<`.
 The following are reserved words in FPP.
 They may not be used as identifiers.
 
+[source,fpp]
 ----
 F32
 F64
@@ -46,6 +47,7 @@ at
 baseid
 bool
 component
+constant
 enum
 false
 import
@@ -63,13 +65,16 @@ type
 
 The following sequences of characters are symbol tokens in FPP:
 
+[source,fpp]
 ----
 ,
 -
 .
 :
 ;
+=
 [
+\
 ]
 {
 }
