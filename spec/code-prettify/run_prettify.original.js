@@ -13,9 +13,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * Revised by Rob Bocchino in 2019
- * Revisions Copyright (C) 2019 California Institute of Technology
  */
 
 /**
@@ -403,21 +400,6 @@ var IN_GLOBAL_SCOPE = false;
       // Keyword lists for various languages.
       // We use things that coerce to strings to make them compact when minified
       // and to defeat aggressive optimizers that fold large string constants.
-      var FPP_KEYWORDS = [
-        "array," +
-        "at," +
-        "baseid," +
-        "component," +
-        "constant," +
-        "enum," +
-        "import," +
-        "instance," +
-        "locate," +
-        "module," +
-        "port," +
-        "struct," +
-        "type"
-      ];
       var FLOW_CONTROL_KEYWORDS = ["break,continue,do,else,for,if,return,while"];
       var C_KEYWORDS = [FLOW_CONTROL_KEYWORDS,"auto,case,char,const,default," +
           "double,enum,extern,float,goto,inline,int,long,register,restrict,short,signed," +
@@ -460,9 +442,8 @@ var IN_GLOBAL_SCOPE = false;
       var SH_KEYWORDS = [FLOW_CONTROL_KEYWORDS, "case,done,elif,esac,eval,fi," +
           "function,in,local,set,then,until"];
       var ALL_KEYWORDS = [
-          FPP_KEYWORDS
-      ]
-      var FPP_TYPES = /^(F32|F64|I16|I32|I64|I8|U16|U32|U64|U8|bool|string)/;
+          CPP_KEYWORDS, CSHARP_KEYWORDS, JAVA_KEYWORDS, JSCRIPT_KEYWORDS,
+          PERL_KEYWORDS, PYTHON_KEYWORDS, RUBY_KEYWORDS, SH_KEYWORDS];
       var C_TYPES = /^(DIR|FILE|array|vector|(de|priority_)?queue|(forward_)?list|stack|(const_)?(reverse_)?iterator|(unordered_)?(multi)?(set|map)|bitset|u?(int|float)\d*)\b/;
 
       // token style names.  correspond to css classes
@@ -1188,7 +1169,6 @@ var IN_GLOBAL_SCOPE = false;
                  null]);
           } else {
             shortcutStylePatterns.push([PR_COMMENT, /^#[^\r\n]*/, null, '#']);
-            shortcutStylePatterns.push([PR_COMMENT, /^@[^\r\n]*/, null, '@']);
           }
         }
         if (options['cStyleComments']) {
@@ -1231,8 +1211,7 @@ var IN_GLOBAL_SCOPE = false;
                ]);
         }
 
-        //var types = options['types'];
-        var types = FPP_TYPES;
+        var types = options['types'];
         if (types) {
           fallthroughStylePatterns.push([PR_TYPE, types]);
         }
@@ -1291,7 +1270,6 @@ var IN_GLOBAL_SCOPE = false;
         fallthroughStylePatterns.push(
             // TODO(mikesamuel): recognize non-latin letters and numerals in idents
             [PR_LITERAL,     /^@[a-z_$][a-z_$@0-9]*/i, null],
-            [PR_LITERAL,     /^(true|false)/, null],
             [PR_TYPE,        /^(?:[@_]?[A-Z]+[a-z][A-Za-z_$@0-9]*|\w+_t\b)/, null],
             [PR_PLAIN,       /^[a-z_$][a-z_$@0-9]*/i, null],
             [PR_LITERAL,
@@ -1318,7 +1296,7 @@ var IN_GLOBAL_SCOPE = false;
       var decorateSource = sourceDecorator({
             'keywords': ALL_KEYWORDS,
             'hashComments': true,
-            'cStyleComments': false,
+            'cStyleComments': true,
             'multiLineStrings': true,
             'regexLiterals': true
           });
@@ -1655,11 +1633,6 @@ var IN_GLOBAL_SCOPE = false;
               'cStyleComments': true,
               'types': C_TYPES
             }), ['c', 'cc', 'cpp', 'cxx', 'cyc', 'm']);
-      registerLangHandler(sourceDecorator({
-              'keywords': FPP_KEYWORDS,
-              'hashComments': true,
-              'types': FPP_TYPES
-            }), ['fpp']);
       registerLangHandler(sourceDecorator({
               'keywords': 'null,true,false'
             }), ['json']);
