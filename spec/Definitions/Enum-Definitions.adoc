@@ -33,6 +33,8 @@ type>> defined in the enum definition. In
 integer type, called the
 *representation type*.
 
+There must be at least one enumerated constant.
+No two enumerated constants may have the same identifier.
 Each enumerated constant must <<Evaluation,evaluate>> to
 a compile-time constant whose type is
 <<Type-Checking_Type-Conversion,convertible to>> the

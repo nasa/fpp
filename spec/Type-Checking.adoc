@@ -18,7 +18,7 @@ the result is a value of type stem:[T].
 
 === Internal Types
 
-Internal types dot not appear in FPP source models.
+Internal types do not appear in FPP source models.
 The compiler assigns these types to expressions during type checking.
 
 ==== Integer
@@ -38,13 +38,6 @@ the *integer types*.
 <<Types_Primitive-Types,primitive numeric types>> are called
 the *numeric types*.
 
-==== Anonymous Array Types
-
-TODO
-
-==== Anonymous Struct Types
-
-TODO
 === Integer Literals
 
 To type an
@@ -88,11 +81,27 @@ The type of a
 <<Expressions_String-Literals,string
 literal expression>> is `string`.
 
-=== Array Literals
+=== Array Expressions
 
-TODO
+To type an
+<<Expressions_Array-Expressions,array expression>>
+stem:[T] `[` stem:[e_1] `,` stem:[...] `,` stem:[e_n] `]`,
+the semantic analyzer does the following:
 
-=== Struct Literals
+. Check that the qualified identifier stem:[Q] refers to an
+<<Definitions_Array-Types-Definition,array type definition>> stem:[D] with 
+element type stem:[T'].
+
+. For each stem:[i in [1,n]]
+
+.. Compute the type stem:[T_i] of stem:[e_i]
+
+.. Check that stem:[T_i] is <<Type-Checking_Type-Conversion,convertible to>>
+stem:[T']
+
+. Assign the type associated with stem:[D] to the expression.
+
+=== Struct Expressions
 
 TODO
 
@@ -179,9 +188,14 @@ type>> may be converted to any other numeric type.
 . An <<Types_Enum-Types,enum type>> may be converted to a
 <<Type-Checking_Internal-Types_Numeric-Types,numeric type>>.
 
-. TODO: Converting scalars to arrays
+. A type stem:[T_1] may be converted to an
+<<Types_Array-Types,array type>> stem:[T_2] if
+stem:[T_1] may be converted to the member type of stem:[T_2].
 
-. TODO: Converting scalars to structures
+. A type stem:[T_1] may be converted to a
+<<Types_Structure-Types,structure type>> stem:[T_2] if
+for each member stem:[m_{2i}] `:` stem:[T_{2i}] of 
+stem:[T_1] may be converted to stem:[T_{2i}].
 
 . Type convertibility is transitive: if stem:[T_1] may be converted to 
 stem:[T_2]

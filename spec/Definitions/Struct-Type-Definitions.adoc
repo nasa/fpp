@@ -23,8 +23,8 @@ _N_ with a type, _T'_ representing a structure with named members.  Each
 identifier appearing in the struct type member sequence must be distinct.
 
 The expression is optional.
-If present, it specifies a default value associated with
-the type.
+If present, it specifies the <<Types_Default-Values,default value>>
+associated with the type.
 The type of the expression must be
 <<Type-Checking_Type-Conversion,convertible to>> _T'_.
 
@@ -34,7 +34,8 @@ The name _N_ is in scope after (and not before) the `default` keyword.
 
 [source,fpp]
 ----
- # Defines a struct type A with members x and y
+# Defines a struct type A with members x and y
+# and default value A { x = 0, y = 0 }
 struct type A {
   x : U32
   y : F32

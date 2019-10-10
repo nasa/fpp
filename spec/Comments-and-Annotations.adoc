@@ -68,8 +68,8 @@ module M {
   constant b = 1 @< This is constant M.b
   @ This is an enum
   enum E {
-    a = 0 @< This is enumerated constant M.E.a
-    b = 1 @< This is enumerated constant M.E.b
+    a @< This is enumerated constant M.E.a
+    b @< This is enumerated constant M.E.b
   }
 }
 ----
@@ -102,10 +102,10 @@ module M {
   @ This is an enum
   @ Its pre-annotation has two lines
   enum E {
-    a = 0 @< This is enumerated constant M.E.a
-          @< Its post-annotation has two lines
-    b = 1 @< This is enumerated constant M.E.b
-          @< Its post-annotation has two lines
+    a @< This is enumerated constant M.E.a
+      @< Its post-annotation has two lines
+    b @< This is enumerated constant M.E.b
+      @< Its post-annotation has two lines
   }
 }
 ----

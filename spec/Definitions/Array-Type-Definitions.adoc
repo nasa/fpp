@@ -13,15 +13,15 @@ _[_ `default` <<Expressions,_expression_>> _]_
 
 The identifier is the name _N_ of the new type.
 The first expression must evaluate to a compile-time constant numeric value 
-_n_.
+_n_ whose value is greater than zero.
 The type is the type _T_ of each array element.
 
 The definition associates the name _N_ with a new type, _T'_
 representing an array of _n_ elements of type _T_.
 
 The second expression is optional.
-If present, it specifies a default value associated with
-the type.
+If present, it specifies the <<Types_Default-Values,default value>> associated 
+with the type.
 The type of the expression must be
 <<Type-Checking_Type-Conversion,convertible to>> _T'_.
 
@@ -31,10 +31,14 @@ The name _N_ is in scope after (and not before) the `default` keyword.
 
 [source,fpp]
 ----
-array type A = [3] U8 # Defines an array of 3 U8 elements
-array type B = [3] A # defines an array of 3 A elements
-array type C = [3] F32 default C [ 1, 2, 3 ] # Defines an array of 3 F32 elements with 
-                                             # default value C [ 1, 2, 3 ]
-array type D = [3] U32 default 0 # Defines an array of 3 U32 values with 
-                                 # default value D [ 0, 0, 0 ]
+# Defines an array type A of 3 U8 elements with default value A [ 0, 0, 0 ]
+array type A = [3] U8
+# Defines an array type B of 2 A elements with default value
+# B [ [ 0, 0, 0 ], [ 0, 0, 0 ] ]
+array type B = [3]
+# Defines an array type C of 3 F32 elements with default value C [ 1, 2, 3 ]
+array type C = [3] F32 default C [ 1, 2, 3 ]
+# Defines an array type C of 3 U32 values with default value
+# D [ 1, 1, 1 ] after promoting 1 to D [ 1, 1, 1 ]
+array D = [3] U32 default 1
 ----

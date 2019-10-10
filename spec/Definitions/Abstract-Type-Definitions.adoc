@@ -13,7 +13,7 @@ In generated code, the type is specified externally (e.g., as a C++ class).
 The identifier is the name _N_ of the type.
 The definition associates the name _N_ with an unspecified type _T'_.
 The name _N_ can be used as a type elsewhere in the model.
-There are no values associated with _N_ in the model.
+There are no explicit values associated with _N_ in the model.
 
 ==== Examples
 

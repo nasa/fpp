@@ -113,5 +113,57 @@ scoping>>. For example:
 
 [source,fpp]
 ----
-TODO
+modlue M {
+  abstract type A
+}
+# A is an array of 3 M.A
+# M.A is an abstract type
+array A = [3] M.A
 ----
+
+=== Default Values
+
+Every type _T_ in FPP has an associated *default 
+value*.
+In generated C++ code, this is the value that is used to initialize a variable 
+of type _T_
+when no other initializer is specified.
+Default values are important, because they ensure that in generated code,
+every variable is initialized when it is created.
+
+* The default value associated with each 
+<<Types_Primitive-Numeric-Types,primitive numeric type>> is zero.
+
+* The default value associated with
+<<Types_The-Boolean-Type,`bool`>> is `false`.
+
+* The default value associated with
+<<Types_The-String-Type,`string`>> is the empty string.
+
+* The default value associated with an
+<<Types_Array-Types,array type>> _T_ is (1)
+the default value specified in the definition of the type,
+if one is given; otherwise (2) the unique value
+of type _T_ that has the default value of the member type
+of _T_ at each member.
+See the section on <<Definitions_Array-Type-Definitions,
+array type definitions>> for examples.
+
+* The default value associated with an
+<<Types_Enum-Types,enum type>> is the first
+enumerated constant appearing in the enum definition.
+
+* The default value associated with a
+<<Types_Struct-Types,struct type>> _T_ is (1)
+the default value specified in the definition of the type,
+if one is given; otherwise (2) the unique value of type
+_T_ that has the default value of the member type stem:[T_i]
+for each member stem:[m_i] `:` stem:[T_i] of _T_.
+See the section on <<Definitions_Struct-Type-Definitions,
+struct type definitions>> for examples.
+
+* The default value associated with an
+<<Types_Abstract-Type,abstract type>> _T_ is not specified
+in FPP.
+It is up to the implementer of _T_ to provide a default value.
+

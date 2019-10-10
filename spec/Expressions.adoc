@@ -58,16 +58,16 @@ quote character itself is not allowed.
 * `"ab"c"` is the valid string `"ab"` followed by the identifier `c` and an 
 unmatched double quote character.
 
-=== Array Constructors
+=== Array Expressions
 
-An *array constructor expression* is an expression that constructs an array value.
+An *array expression* is an expression that represents an array value.
 
 ==== Syntax
 
 <<Lexical-Elements_Identifiers,_type_>>
-`[` _array-constructor-element-sequence_ `]`
+`[` _array-element-sequence_ `]`
 
-_array-constructor-element-sequence_ is an
+_array-element-sequence_ is an
 <<Element-Sequences,element sequence>> in which the elements
 are
 <<Expressions,expressions>>, and the terminating punctuation
@@ -89,29 +89,26 @@ array type A = [3] U32
 constant a = A [ 0, 1, 2 ] # a is a value of type A with elements 0, 1, 2
 ----
 
-=== Struct Constructors
+=== Struct Expressions
 
-An *struct constructor expression* is an expression that constructs an struct value.
+An *struct expression* is an expression that represents a struct value.
 
 ==== Syntax
 
 <<Lexical-Elements_Identifiers,_type_>>
-_[_
-`{` _struct-constructor-element-sequence_ `}`
-_]_
+`{` _struct-element-sequence_ `}`
 
-_struct-constructor-element-sequence_ is an
+_struct-element-sequence_ is an
 <<Element-Sequences,element sequence>> in which the elements
-are struct constructor elements.
-A *struct constructor element* has the following syntax:
+are struct elements.
+A *struct element* has the following syntax:
 
 <<Lexical-Elements_Identifiers,_identifier_>> `=` <<Expressions,_expression_>>
 
 ==== Semantics
 
 _type_ must be a <<Types_Struct-Types,struct type>> _T_.
-If the struct constructor element sequence _S_ is present, then the
-following must be true:
+The following must be true of the struct element sequence _S_:
 
 . Each identifier appearing in _S_ must appear in the member list of _T_.
 
@@ -120,6 +117,10 @@ following must be true:
 . Each expression appearing in _S_ must have a type that is
 <<Type-Checking_Type-Conversion,convertible to>> the corresponding
 member type of _T_.
+
+If any member stem:[m_i] `:` stem:[T_i] of _T_ is missing from _S_,
+then stem:[m_i] is assigned the
+<<Types_Default-Values,default value>> associated with stem:[T_i].
 
 ==== Example
 
