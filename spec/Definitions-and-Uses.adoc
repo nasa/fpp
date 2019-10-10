@@ -14,7 +14,7 @@ according to the
 
 === Use-Def Graph
 
-The set of definitions and uses in a tnet model induces a directed
+The set of definitions and uses in a FPP model induces a directed
 graph called the *use-def graph*. In this graph,
 
 . The nodes are the definitions.
@@ -26,10 +26,10 @@ stem:[u_1, ..., u_n] appearing in _d_.
 For example, in the code above, the use-def graph has two nodes `c1` and
 `c2` and one edge `c2` stem:[rarr] `c1`.
 
-In a legal tnet model, the use-def graph must be acyclic. For example,
+In a legal FPP model, the use-def graph must be acyclic. For example,
 this model is illegal:
 
-[source,tnet]
+[source,FPP]
 ----
 constant a = b
 constant b = a
@@ -37,7 +37,7 @@ constant b = a
 
 This model is also illegal:
 
-[source,tnet]
+[source,FPP]
 ----
 constant a = a
 ----
@@ -55,7 +55,7 @@ in any translation unit of a model _M_, then the use of `c` as a
 constant value of type U8 is legal anywhere in any translation unit of
 _M_. In particular, this model is legal:
 
-[source,tnet]
+[source,FPP]
 ----
 constant b = a
 constant a = 0
@@ -63,14 +63,14 @@ constant a = 0
 
 The model consisting of two translation units
 
-[source,tnet]
+[source,FPP]
 ----
 constant b = a
 ----
 
 and
 
-[source,tnet]
+[source,FPP]
 ----
 constant a = 0
 ----

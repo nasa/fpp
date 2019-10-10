@@ -27,11 +27,12 @@ Every
 name*. The qualified name is a
 <<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> formed as follows:
 
-* If _D_ appears outside any module definition or enum definition, then
+* If _D_ appears outside any 
+<<Definitions,definition>> with a brace-delimited body, then
 the qualified name is the identifier _I_ appearing in _D_.
 
 * Otherwise, the qualified name is _N_ `.` _I_, where _N_ is the qualified
-name of the enclosing module definition or enum definition, and _I_ is
+name of the enclosing definition, and _I_ is
 the identifier appearing in _D_.
 
 For example:
@@ -288,12 +289,11 @@ following:
 
 .. Recursively resolve _Q_.
 
-.. If _Q_ refers to a
-<<Definitions_Module-Definitions,module definition>> or
-<<Definitions_Enum-Definitions,enum definition>> _D_, then 
-do the following:
+.. If _Q_ refers to a <<Definitions,definition>> 
+with a brace-delimited body, then do the following:
 
-... Determine the name group _S_ of _Q_ `.` _I_.
+... Determine the <<Scoping-of-Names_Name-Groups,name group>> _S_ of _Q_ `.` 
+_I_.
 
 ... Look in _D_ for a definition with identifier _I_ in name group _S_.
     If there is none, issue an error.

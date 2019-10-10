@@ -42,12 +42,14 @@ U16
 U32
 U64
 U8
+abstract
 array
 at
 baseid
 bool
 component
 constant
+default
 enum
 false
 import
@@ -124,7 +126,7 @@ in an FPP model outside of a comment or annotation.
 
 === Line Continuations
 
-The character `\`, when appearing before a newline, causes the newline to
+The token `\`, when appearing before a newline, causes the newline to
 be ignored. For example, this
 ```
 constant a = \

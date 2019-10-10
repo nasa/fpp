@@ -11,12 +11,13 @@ in the enum definition.
 ==== Syntax
 
 <<Lexical-Elements_Identifiers,_identifier_>>
-`=`
-<<Expressions,_expression_>>
+_[_
+`=` <<Expressions,_expression_>>
+_]_
 
 ==== Semantics
 
-_expression_ must
+If present, _expression_ must
 <<Evaluation,evaluate>>
 to a compile-time constant value _v_. At any model point where the
 <<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> _Q_ refers to 
@@ -26,6 +27,13 @@ rules for names>>, you can use _Q_ as a name for the value that results
 from converting _v_ to the
 <<Definitions_Enum-Definitions_Semantics,type
 of the enclosing enum definition>>.
+
+The expression must be present or absent for all enumerated constant
+definitions appearing in an
+<<Definitions_Enum-Definitions,enum definitions>>.
+If there are no expressions, then the enumerated constant definitions
+are assigned increasing values starting with zero, as for
+enumerations in C.
 
 Note that the type of an enumerated constant value is the
 <<Types_Enum-Types,enum

@@ -179,9 +179,9 @@ type>> may be converted to any other numeric type.
 . An <<Types_Enum-Types,enum type>> may be converted to a
 <<Type-Checking_Internal-Types_Numeric-Types,numeric type>>.
 
-. TODO: Anonymous array types
+. TODO: Converting scalars to arrays
 
-. TODO: Anonymous structure types
+. TODO: Converting scalars to structures
 
 . Type convertibility is transitive: if stem:[T_1] may be converted to 
 stem:[T_2]

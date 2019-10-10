@@ -404,11 +404,13 @@ var IN_GLOBAL_SCOPE = false;
       // We use things that coerce to strings to make them compact when minified
       // and to defeat aggressive optimizers that fold large string constants.
       var FPP_KEYWORDS = [
+        "abstract," +
         "array," +
         "at," +
         "baseid," +
         "component," +
         "constant," +
+        "default," +
         "enum," +
         "import," +
         "instance," +

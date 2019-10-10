@@ -1,3 +1,48 @@
 === Struct Type Definitions
 
-TODO
+A *struct type definition* defines a new structure type and associates a name
+with it.
+
+==== Syntax
+
+`struct` `type` <<Lexical-Elements_Identifiers,_identifier_>> `=`
+`{` _struct-type-member-sequence_ `}`
+_[_ `default` <<Expressions,_expression_>> _]_
+
+_struct-type-member-sequence_ is an <<Element-Sequences,element sequence>>
+in which the elements are struct type members, and the terminating
+punctuation is a comma.
+A *struct type member* has the following syntax:
+
+<<Lexical-Elements_Identifiers,_identifier_>> `:` <<Types,_type_>>
+
+==== Semantics
+
+The identifier is the name _N_ of the type.
+The definition associates the name _N_ with a type, _T'_
+representing a structure with named members.
+
+The expression is optional.
+If present, it specifies a default value associated with
+the type.
+The type of the expression must be
+<<Type-Checking_Type-Conversion,convertible to>> _T'_.
+
+The name _N_ is in scope after (and not before) the `default` keyword.
+
+==== Examples
+
+[source,fpp]
+----
+ # Defines a struct type A with members x and y
+struct type A {
+  x : U32
+  y : F32
+}
+# Defines a struct type  B with members x and y
+# and default value B { x = 0, y = 1 }
+struct type B {
+  x : U32
+  y : F32
+} default B { y = 1 }
+----

@@ -1,3 +1,29 @@
 === Abstract Type Definitions
 
-TODO
+An *abstract type definition* associates a name with a type
+without specifying the type.
+In generated code, the type is specified exernally (e.g., as a C++ class).
+
+==== Syntax
+
+`abstract` `type` <<Lexical-Elements_Identifiers,_identifier_>>
+
+==== Semantics
+
+The identifier is the name _N_ of the type.
+The definition associates the name _N_ with an unspecified type _T'_.
+The name _N_ can be used as a type elsewhere in the model.
+There are no values associated with _N_ in the model.
+
+==== Examples
+
+[source,fpp]
+----
+# Defines an abstract type A
+abstract type A
+# Defines a struct type B whose member x has type A
+struct type B {
+  x : A
+  y : F32
+} default B { y = 1 }
+----

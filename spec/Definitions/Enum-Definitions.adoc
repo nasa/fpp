@@ -58,7 +58,7 @@ If not, throw an error.
 
 [source,fpp]
 ----
-enum U8Gunfighters {
+enum Gunfighters {
   IL_BUONO = 0
   IL_MALO = 1
   IL_CATTIVO = 2
