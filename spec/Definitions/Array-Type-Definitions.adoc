@@ -35,7 +35,7 @@ The name _N_ is in scope after (and not before) the `default` keyword.
 array type A = [3] U8
 # Defines an array type B of 2 A elements with default value
 # B [ [ 0, 0, 0 ], [ 0, 0, 0 ] ]
-array type B = [3]
+array type B = [3] A
 # Defines an array type C of 3 F32 elements with default value C [ 1, 2, 3 ]
 array type C = [3] F32 default C [ 1, 2, 3 ]
 # Defines an array type C of 3 U32 values with default value

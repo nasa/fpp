@@ -207,7 +207,7 @@ stem:[T_1] may be converted to the member type of stem:[T_2].
 
 . A type stem:[T_1] may be converted to a
 <<Types_Structure-Types,structure type>> stem:[T_2] if
-for each member stem:[m_{2i}] `:` stem:[T_{2i}] of 
+for each member stem:[m_{2i}] `:` stem:[T_{2i}] of stem:[T_2],
 stem:[T_1] may be converted to stem:[T_{2i}].
 
 . Type convertibility is transitive: if stem:[T_1] may be converted to 
