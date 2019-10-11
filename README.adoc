@@ -1,0 +1,19 @@
+= F Prime Prime (FPP)
+
+This repository contains the current development for F Prime Prime (fpp for short).
+fpp is a modeling tool for the
+(https://github.jpl.nasa.gov/FPRIME/fprime-sw)[F Prime flight software framework].
+
+== Contents
+
+`editors`: Syntax highlighting for code editors. Currently vim is supported.
+
+`spec`: The FPP specification.
+
+== Requirements
+
+To generate the spec, you will need the following tools:
+
+. The (http://github.com/bocchino/redo)[redo] build system.
+
+. The (https://asciidoctor.org)[asciidoctor] text processor.
