@@ -113,7 +113,7 @@ scoping>>. For example:
 
 [source,fpp]
 ----
-modlue M {
+module M {
   abstract type A
 }
 # A is an array of 3 M.A

@@ -85,7 +85,7 @@ literal expression>> is `string`.
 
 To type an
 <<Expressions_Array-Expressions,array expression>>
-stem:[T] `[` stem:[e_1] `,` stem:[...] `,` stem:[e_n] `]`,
+stem:[Q] `[` stem:[e_1] `,` stem:[...] `,` stem:[e_n] `]`,
 the semantic analyzer does the following:
 
 . Check that the qualified identifier stem:[Q] refers to an
@@ -103,7 +103,24 @@ stem:[T']
 
 === Struct Expressions
 
-TODO
+To type a
+<<Expressions_Struct-Expressions,struct expression>>
+stem:[Q] `{` stem:[m_1] `=` stem:[e_1] `,` stem:[...] `,` stem:[m_n] `=` stem:[e_n] `}`,
+the semantic analyzer does the following:
+
+. Check that the qualified identifier stem:[Q] refers to an
+<<Definitions_Struct-Types-Definition,struct type definition>> stem:[D].
+
+. For each stem:[i in [1,n]]
+
+.. Compute the type stem:[T_i] of stem:[e_i].
+
+.. Check that stem:[D] has a member stem:[m] with type stem:[T_m].
+
+.. Check that stem:[T_i] is <<Type-Checking_Type-Conversion,convertible to>>
+stem:[T_m].
+
+. Assign the type associated with stem:[D] to the expression.
 
 === Unary Minus
 
@@ -113,11 +130,7 @@ minus expression>> `-` stem:[e], the semantic analyzer does the following:
 
 . Compute the type stem:[T] of stem:[e].
 
-. If stem:[T] is a 
-<<Types_Primitive-Types,primitive numeric type>>
-or stem:[T] is
-<<Type-Checking_Internal-Types_Integer,_Integer_>>,
-then use stem:[T].
+. If stem:[T] is a <<Numeric-Type,numeric type>>, then use stem:[T].
 
 . Otherwise throw an error.
 

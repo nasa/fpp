@@ -137,7 +137,7 @@ is equivalent to this:
 constant a = 1 + 1
 ```
 
-Note that the `\` character is required in this case.
+Note that the `\` token is required in this case.
 For example, the following is not syntactically correct:
 ```
 constant a = # Error

@@ -3,7 +3,7 @@
 *Translation* is the process of checking a source model
 and generating code. It involves the following steps:
 
-1. Lexing and parsing to generate an abstract syntax tree (AST)
+1. Lexing and parsing to generate an abstract syntax tree (AST).
 
 2. If step (1) succeeded, semantic analysis of the AST.
 
