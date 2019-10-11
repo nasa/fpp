@@ -18,7 +18,7 @@ representation of a signed integer.
 
 === Floating-Point Types
 
-* The floating-point types are `F32` and `F64`. These are IEEE
+The floating-point types are `F32` and `F64`. These are IEEE
 floating-point values of width 32 and 64 bits, respectively.
 
 === Primitive Numeric Types
@@ -77,7 +77,7 @@ module M {
 constant a = M.E.X # a has type M.E
 ----
 
-`N.E` is an enum type.
+`M.E` is an enum type.
 
 === Struct Types
 
