@@ -8,12 +8,4 @@ https://github.jpl.nasa.gov/FPRIME/fprime-sw[F Prime flight software framework].
 
 `editors`: Syntax highlighting for code editors. Currently vim is supported.
 
-`spec`: The FPP specification.
-
-== Requirements
-
-To generate the spec, you will need the following tools:
-
-. The http://github.com/bocchino/redo[redo] build system.
-
-. The https://asciidoctor.org[asciidoctor] text processor.
+`spec`: Source code for the FPP specification.
