@@ -6,6 +6,8 @@ https://github.jpl.nasa.gov/FPRIME/fprime-sw[F Prime flight software framework].
 
 == Contents
 
+`docs`: The FPP specification.
+
 `editors`: Syntax highlighting for code editors. Currently vim is supported.
 
 `spec`: Source code for the FPP specification.
