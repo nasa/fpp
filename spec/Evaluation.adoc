@@ -10,19 +10,19 @@ in resolving expressions to compile-time constant values.
 
 A *value* is one of the following:
 
-* A primitive integer value.
+* A primitive integer value
 
-* An integer value.
+* An integer value
 
-* A floating-point value.
+* A floating-point value
 
-* A Boolean value.
+* A Boolean value
 
-* A string value.
+* A string value
 
 * An array value
 
-* An enumeration value.
+* An enumeration value
 
 * A structure value
 
@@ -115,7 +115,7 @@ that is an element of a structure type.
 We write a structure value similarly to an
 <<Expressions_Structure-Expressions,structure expression>>:
 a structure value has the form stem:[Q] `{` stem:[m_1] `:` stem:[v_1] `,` stem:[...] `,` 
-stem:[m_n] `:` stem:[v_n] `]`,
+stem:[m_n] `:` stem:[v_n] `}`,
 where
 
 . stem:[Q] is a
