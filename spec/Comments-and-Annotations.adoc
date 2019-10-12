@@ -25,8 +25,8 @@ To write a multiline comment, precede each line with `#`:
 An *annotation* is similar to a
 <<Comments,comment>>, but it is attached to a
 syntactic element of a model, and it is preserved during
-<<Translation,translation>>.  The precise use of annotations depends on the 
-translator. A typical use
+<<Analysis-and-Translation,analysis and translation>>.  The precise use of 
+annotations depends on the translator. A typical use
 is to include annotations as comments in generated code.
 
 ==== Where Annotations Can Occur

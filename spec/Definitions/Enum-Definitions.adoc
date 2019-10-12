@@ -27,9 +27,9 @@ constant definitions>>, and the terminating punctuation is a comma.
 
 ==== Semantics
 
-The enumerated constants have the <<Types_Enum-Types,enum 
-type>> defined in the enum definition. In
-<<Translation,translation>>, they are represented as values of 
+The enumerated constants have the <<Types_Enum-Types,enum type>> defined in the 
+enum definition. During
+<<Analysis-and-Translation,analysis>>, they are represented as values of 
 integer type, called the
 *representation type*.
 

@@ -3,7 +3,7 @@
 *Evaluation* is the process of transforming an <<Expressions,expression>> into 
 a <<Evaluation_Values,value>>.
 In FPP, all evaluation happens during
-<<Translation,translation>>,
+<<Analysis-and-Translation_Analysis,analysis>>,
 in resolving expressions to compile-time constant values.
 
 === Values
@@ -183,7 +183,7 @@ stem:[T] has the same width as stem:[T_2].
 
 . Construct stem:[v_2] by converting stem:[v] to stem:[T_2].
 
-For example, `(-1 : I8) : U16 = 0xFFFF : U16`
+For example converting `-1 : I8` to `U16` yields `0xFFFF : U16`
 
 ==== Primitive and Non-Primitive Integer Values
 

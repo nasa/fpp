@@ -50,9 +50,9 @@ the following section.
 
 A *model* is a collection of one or more
 <<Translation-Units-and-Models_Translation-Units,translation
-units>>. A model is presented to one or more translators for
-<<Translation,translation>>.
-How this is done depends on the translator. Typically, you ask a
+units>>. A model is presented to one or more analyzers or translators for
+<<Analysis-and-Translation,analysis or translation>>.
+How this is done depends on the analyzer or translator. Typically, you ask a
 translator to read a single translation unit from standard input and/or
 to read one or more translation units stored in files, one unit per
 file.
@@ -95,3 +95,16 @@ Note that translation unit 3 alone is not a valid model, because it
 uses free symbols defined in the other translation units. Similarly, the
 translation unit 3 together with just translation unit 1 or translation
 unit 2 is not a valid model.
+
+=== The Location Path of a Translaiton Unit
+
+Every translation unit _T_ in a source model has an associated
+*location path* _P_.
+This path is used when resolving <<Location-Specifiers,location specifiers>>
+during <<Analysis-and-Translation,analysis>>.
+
+. If _T_ is read in from a file, then _P_ is the path to the directory
+containing the file.
+
+. If _T_ is read from `stdin`, then _P_ is the current directory in
+the environment where the analysis occurs.

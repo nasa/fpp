@@ -22,5 +22,5 @@ Scoping-of-Names.adoc
 Definitions-and-Uses.adoc
 Type-Checking.adoc
 Evaluation.adoc
-Translation.adoc
+Analysis-and-Translation.adoc
 "

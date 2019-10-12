@@ -4,7 +4,8 @@ In this section, we explain the rules used to assign types to
 expressions. FPP is a statically typed language. That means the
 following:
 
-* Type checking of expressions occurs during <<Translation,translation>>.
+* Type checking of expressions occurs during 
+<<Analysis-and-Translation_Analysis,analysis>>.
 
 * If the type checking phase detects a violation of any of these rules,
 then translation halts with an error message and does not produce any
