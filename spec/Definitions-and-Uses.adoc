@@ -3,10 +3,7 @@
 === Uses
 
 A *use* is a
-<<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> appearing in an
-<<Expressions,expression>>
-or a
-<<Types,type>>
+<<Scoping-of-Names_Qualified-Identifiers,qualified identifier>>
 that refers to a
 <<Definitions,definition>>
 according to the

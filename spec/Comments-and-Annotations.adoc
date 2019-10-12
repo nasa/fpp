@@ -35,7 +35,7 @@ Annotations can occur at the following syntax elements:
 
 * A <<Definitions,definition>>.
 
-* A <<Definitions_Struct-Type-Definitions,member of a struct type definition>>.
+* A <<Definitions_Struct-Definitions,member of a struct definition>>.
 
 * A <<Parameters,parameter>>.
 

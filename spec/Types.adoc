@@ -48,16 +48,16 @@ The type `string` is the type of string values.
 An *array type* is a
 <<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> that 
 refers to an
-<<Definitions_Array-Type-Definitions,array type definition>> via the
+<<Definitions_Array-Definitions,array definition>> via the
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,rules for name 
 scoping>>. For example:
 
 [source,fpp]
 ----
 module M {
-  array type A = [3] U8
+  array A = [3] U8
 }
-array type B = [3] M.A # M.A is an array type
+array B = [3] M.A # M.A is an array type
 ----
 
 === Enum Types
@@ -84,19 +84,19 @@ constant a = M.E.X # a has type M.E
 A *struct type* is a
 <<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> that 
 refers to a
-<<Definitions_Struct-Type-Definitions,struct type definition>> via the
+<<Definitions_Struct-Definitions,struct definition>> via the
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,rules for name 
 scoping>>. For example:
 
 [source,fpp]
 ----
 module M {
-  struct type S = {
+  struct S = {
     x : U32
     y : F32
   }
 }
-struct type T = {
+struct T = {
   s : M.S # M.S is a struct type
 }
 ----
@@ -114,7 +114,7 @@ scoping>>. For example:
 [source,fpp]
 ----
 module M {
-  abstract type A
+  type A
 }
 # A is an array of 3 M.A
 # M.A is an abstract type
@@ -146,8 +146,8 @@ the default value specified in the definition of the type,
 if one is given; otherwise (2) the unique value
 of type _T_ that has the default value of the member type
 of _T_ at each member.
-See the section on <<Definitions_Array-Type-Definitions,
-array type definitions>> for examples.
+See the section on <<Definitions_Array-Definitions,
+array definitions>> for examples.
 
 * The default value associated with an
 <<Types_Enum-Types,enum type>> is the first
@@ -159,8 +159,8 @@ the default value specified in the definition of the type,
 if one is given; otherwise (2) the unique value of type
 _T_ that has the default value of the member type stem:[T_i]
 for each member stem:[m_i] `:` stem:[T_i] of _T_.
-See the section on <<Definitions_Struct-Type-Definitions,
-struct type definitions>> for examples.
+See the section on <<Definitions_Struct-Definitions,
+struct definitions>> for examples.
 
 * The default value associated with an
 <<Types_Abstract-Type,abstract type>> _T_ is not specified

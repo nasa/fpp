@@ -6,7 +6,7 @@ In generated code, the type is specified externally (e.g., as a C++ class).
 
 ==== Syntax
 
-`abstract` `type` <<Lexical-Elements_Identifiers,_identifier_>>
+`type` <<Lexical-Elements_Identifiers,_identifier_>>
 
 ==== Semantics
 
@@ -20,9 +20,9 @@ There are no explicit values associated with _N_ in the model.
 [source,fpp]
 ----
 # Defines an abstract type A
-abstract type A
+type A
 # Defines a struct type B whose member x has type A
-struct type B {
+struct B {
   x : A
   y : F32
 } default B { y = 1 }

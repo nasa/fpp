@@ -42,7 +42,6 @@ U16
 U32
 U64
 U8
-abstract
 array
 at
 baseid
@@ -103,8 +102,9 @@ multi_part_identifier
 
 === Newlines
 
-The NL character (ASCII code 0x0A) is a token. Sequences of one or more 
-newlines separate the elements of <<Element-Sequences,element sequences>>.
+The NL character (ASCII code 0x0A), optionally followed by a CR character 
+(ASCII code 0x0D), is a token. Sequences of one or more newlines separate the 
+elements of <<Element-Sequences,element sequences>>.
 
 === Comments
 
@@ -116,8 +116,6 @@ Apart from <<Lexical-Elements_Newlines,newlines>>, the lexer treats whitespace
 as follows:
 
 * Space characters are ignored, except to separate tokens.
-
-* CR characters (ASCII code 0x0D) are ignored.
 
 * No other whitespace or non-printable characters are allowed
 outside of a comment or annotation.

@@ -523,11 +523,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Definitions_Module-Definitions_Example">6.2.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Definitions_Array-Type-Definitions">6.3. Array Type Definitions</a>
+<li><a href="#Definitions_Array-Definitions">6.3. Array Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Definitions_Array-Type-Definitions_Syntax">6.3.1. Syntax</a></li>
-<li><a href="#Definitions_Array-Type-Definitions_Semantics">6.3.2. Semantics</a></li>
-<li><a href="#Definitions_Array-Type-Definitions_Examples">6.3.3. Examples</a></li>
+<li><a href="#Definitions_Array-Definitions_Syntax">6.3.1. Syntax</a></li>
+<li><a href="#Definitions_Array-Definitions_Semantics">6.3.2. Semantics</a></li>
+<li><a href="#Definitions_Array-Definitions_Examples">6.3.3. Examples</a></li>
 </ul>
 </li>
 <li><a href="#Definitions_Enum-Definitions">6.4. Enum Definitions</a>
@@ -546,11 +546,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Definitions_Enumerated-Constant-Definitions_Example">6.5.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Definitions_Struct-Type-Definitions">6.6. Struct Type Definitions</a>
+<li><a href="#Definitions_Struct-Definitions">6.6. Struct Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Definitions_Struct-Type-Definitions_Syntax">6.6.1. Syntax</a></li>
-<li><a href="#Definitions_Struct-Type-Definitions_Semantics">6.6.2. Semantics</a></li>
-<li><a href="#Definitions_Struct-Type-Definitions_Examples">6.6.3. Examples</a></li>
+<li><a href="#Definitions_Struct-Definitions_Syntax">6.6.1. Syntax</a></li>
+<li><a href="#Definitions_Struct-Definitions_Semantics">6.6.2. Semantics</a></li>
+<li><a href="#Definitions_Struct-Definitions_Examples">6.6.3. Examples</a></li>
 </ul>
 </li>
 <li><a href="#Definitions_Abstract-Type-Definitions">6.7. Abstract Type Definitions</a>
@@ -787,7 +787,6 @@ U16
 U32
 U64
 U8
-abstract
 array
 at
 baseid
@@ -856,8 +855,9 @@ multi_part_identifier</pre>
 <div class="sect2">
 <h3 id="Lexical-Elements_Newlines">3.4. Newlines</h3>
 <div class="paragraph">
-<p>The NL character (ASCII code 0x0A) is a token. Sequences of one or more
-newlines separate the elements of <a href="#Element-Sequences">element sequences</a>.</p>
+<p>The NL character (ASCII code 0x0A), optionally followed by a CR character
+(ASCII code 0x0D), is a token. Sequences of one or more newlines separate the
+elements of <a href="#Element-Sequences">element sequences</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -876,9 +876,6 @@ as follows:</p>
 <ul>
 <li>
 <p>Space characters are ignored, except to separate tokens.</p>
-</li>
-<li>
-<p>CR characters (ASCII code 0x0D) are ignored.</p>
 </li>
 <li>
 <p>No other whitespace or non-printable characters are allowed
@@ -999,16 +996,16 @@ are called the <strong>primitive types</strong>.</p>
 <p>An <strong>array type</strong> is a
 <a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifier</a> that
 refers to an
-<a href="#Definitions_Array-Type-Definitions">array type definition</a> via the
+<a href="#Definitions_Array-Definitions">array definition</a> via the
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">rules for name
 scoping</a>. For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">module M {
-  array type A = [3] U8
+  array A = [3] U8
 }
-array type B = [3] M.A # M.A is an array type</code></pre>
+array B = [3] M.A # M.A is an array type</code></pre>
 </div>
 </div>
 </div>
@@ -1040,19 +1037,19 @@ constant a = M.E.X # a has type M.E</code></pre>
 <p>A <strong>struct type</strong> is a
 <a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifier</a> that
 refers to a
-<a href="#Definitions_Struct-Type-Definitions">struct type definition</a> via the
+<a href="#Definitions_Struct-Definitions">struct definition</a> via the
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">rules for name
 scoping</a>. For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">module M {
-  struct type S = {
+  struct S = {
     x : U32
     y : F32
   }
 }
-struct type T = {
+struct T = {
   s : M.S # M.S is a struct type
 }</code></pre>
 </div>
@@ -1072,7 +1069,7 @@ scoping</a>. For example:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">module M {
-  abstract type A
+  type A
 }
 # A is an array of 3 M.A
 # M.A is an abstract type
@@ -1112,7 +1109,7 @@ the default value specified in the definition of the type,
 if one is given; otherwise (2) the unique value
 of type <em>T</em> that has the default value of the member type
 of <em>T</em> at each member.
-See the section on <a href="#Definitions_Array-Type-Definitions">array type definitions</a> for examples.</p>
+See the section on <a href="#Definitions_Array-Definitions">array definitions</a> for examples.</p>
 </li>
 <li>
 <p>The default value associated with an
@@ -1126,7 +1123,7 @@ the default value specified in the definition of the type,
 if one is given; otherwise (2) the unique value of type
 <em>T</em> that has the default value of the member type \$T_i\$
 for each member \$m_i\$ <code>:</code> \$T_i\$ of <em>T</em>.
-See the section on <a href="#Definitions_Struct-Type-Definitions">struct type definitions</a> for examples.</p>
+See the section on <a href="#Definitions_Struct-Definitions">struct definitions</a> for examples.</p>
 </li>
 <li>
 <p>The default value associated with an
@@ -1257,7 +1254,7 @@ to</a> the element type of the array.</p>
 <h4 id="Expressions_Array-Expressions_Example">5.5.3. Example</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="tnet">array type A = [3] U32
+<pre class="prettyprint highlight"><code data-lang="tnet">array A = [3] U32
 constant a = A [ 0, 1, 2 ] # a is a value of type A with elements 0, 1, 2</code></pre>
 </div>
 </div>
@@ -1315,7 +1312,7 @@ then \$m_i\$ is assigned the
 <h4 id="Expressions_Struct-Expressions_Example">5.6.3. Example</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">struct type S {
+<pre class="prettyprint highlight"><code data-lang="fpp">struct S {
   x : U32
   y : F32
 }
@@ -1485,7 +1482,7 @@ FPP supports the following kinds of definitions:</p>
 <p><a href="#Definitions_Module-Definitions">Module Definitions</a></p>
 </li>
 <li>
-<p><a href="#Definitions_Array-Type-Definitions">Array Type Definitions</a></p>
+<p><a href="#Definitions_Array-Definitions">Array Definitions</a></p>
 </li>
 <li>
 <p><a href="#Definitions_Enum-Definitions">Enum Definitions</a></p>
@@ -1495,7 +1492,7 @@ FPP supports the following kinds of definitions:</p>
 Constant Definitions</a></p>
 </li>
 <li>
-<p><a href="#Definitions_Struct-Type-Definitions">Struct Type Definitions</a></p>
+<p><a href="#Definitions_Struct-Definitions">Struct Definitions</a></p>
 </li>
 <li>
 <p><a href="#Definitions_Abstract-Type-Definitions">Abstract Type Definitions</a></p>
@@ -1603,13 +1600,13 @@ A module member is one of the following:</p>
 <p>A <a href="#Definitions_Module-Definitions">module definition</a></p>
 </li>
 <li>
-<p>An <a href="#Definitions_Array-Type-Definitions">array type definition</a></p>
+<p>An <a href="#Definitions_Array-Definitions">array definition</a></p>
 </li>
 <li>
 <p>An <a href="#Definitions_Enum-Definitions">enum definition</a></p>
 </li>
 <li>
-<p>A <a href="#Definitions_Struct-Type-Definitions">struct type definition</a></p>
+<p>A <a href="#Definitions_Struct-Definitions">struct definition</a></p>
 </li>
 <li>
 <p>An <a href="#Definitions_Abstract-Type-Definitions">abstract type definition</a></p>
@@ -1661,13 +1658,13 @@ constant e = a # Error: a is not in scope here</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Definitions_Array-Type-Definitions">6.3. Array Type Definitions</h3>
+<h3 id="Definitions_Array-Definitions">6.3. Array Definitions</h3>
 <div class="paragraph">
-<p>An <strong>array type definition</strong> defines a new array type and associates a name with
+<p>An <strong>array definition</strong> defines a new array type and associates a name with
 it.</p>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Array-Type-Definitions_Syntax">6.3.1. Syntax</h4>
+<h4 id="Definitions_Array-Definitions_Syntax">6.3.1. Syntax</h4>
 <div class="paragraph">
 <p><code>array</code> <code>type</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>=</code>
 <code>[</code> <a href="#Expressions"><em>expression</em></a> <code>]</code> <a href="#Types"><em>type</em></a>
@@ -1675,7 +1672,7 @@ it.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Array-Type-Definitions_Semantics">6.3.2. Semantics</h4>
+<h4 id="Definitions_Array-Definitions_Semantics">6.3.2. Semantics</h4>
 <div class="paragraph">
 <p>The identifier is the name <em>N</em> of the new type.
 The first expression must evaluate to a compile-time constant numeric value
@@ -1698,16 +1695,16 @@ The type of the expression must be
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Array-Type-Definitions_Examples">6.3.3. Examples</h4>
+<h4 id="Definitions_Array-Definitions_Examples">6.3.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp"># Defines an array type A of 3 U8 elements with default value A [ 0, 0, 0 ]
-array type A = [3] U8
+array A = [3] U8
 # Defines an array type B of 2 A elements with default value
 # B [ [ 0, 0, 0 ], [ 0, 0, 0 ] ]
-array type B = [3] A
+array B = [3] A
 # Defines an array type C of 3 F32 elements with default value C [ 1, 2, 3 ]
-array type C = [3] F32 default C [ 1, 2, 3 ]
+array C = [3] F32 default C [ 1, 2, 3 ]
 # Defines an array type C of 3 U32 values with default value
 # D [ 1, 1, 1 ] after promoting 1 to D [ 1, 1, 1 ]
 array D = [3] U32 default 1</code></pre>
@@ -1801,15 +1798,15 @@ If not, throw an error.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">enum Gunfighters {
-  IL_BUONO = 0
-  IL_MALO = 1
-  IL_CATTIVO = 2
+  IL_BUONO
+  IL_MALO
+  IL_CATTIVO
 }
 
 enum U8Gunfighters : U8 {
-  IL_BUONO = 0
-  IL_MALO = 1
-  IL_CATTIVO = 2
+  IL_BUONO
+  IL_MALO
+  IL_CATTIVO
 }</code></pre>
 </div>
 </div>
@@ -1883,15 +1880,15 @@ given for enum definitions</a> includes enumerated constant definitions.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Definitions_Struct-Type-Definitions">6.6. Struct Type Definitions</h3>
+<h3 id="Definitions_Struct-Definitions">6.6. Struct Definitions</h3>
 <div class="paragraph">
-<p>A <strong>struct type definition</strong> defines a new structure type and associates a name
+<p>A <strong>struct definition</strong> defines a new structure type and associates a name
 with it.</p>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Struct-Type-Definitions_Syntax">6.6.1. Syntax</h4>
+<h4 id="Definitions_Struct-Definitions_Syntax">6.6.1. Syntax</h4>
 <div class="paragraph">
-<p><code>struct</code> <code>type</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>=</code>
+<p><code>struct</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>=</code>
 <code>{</code> <em>struct-type-member-sequence</em> <code>}</code>
 <em>[</em> <code>default</code> <a href="#Expressions"><em>expression</em></a> <em>]</em></p>
 </div>
@@ -1906,7 +1903,7 @@ A <strong>struct type member</strong> has the following syntax:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Struct-Type-Definitions_Semantics">6.6.2. Semantics</h4>
+<h4 id="Definitions_Struct-Definitions_Semantics">6.6.2. Semantics</h4>
 <div class="paragraph">
 <p>The identifier is the name <em>N</em> of the type.  The definition associates the name
 <em>N</em> with a type, <em>T'</em> representing a structure with named members.  Each
@@ -1924,18 +1921,18 @@ The type of the expression must be
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Struct-Type-Definitions_Examples">6.6.3. Examples</h4>
+<h4 id="Definitions_Struct-Definitions_Examples">6.6.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp"># Defines a struct type A with members x and y
 # and default value A { x = 0, y = 0 }
-struct type A {
+struct A {
   x : U32
   y : F32
 }
 # Defines a struct type B with members x and y
 # and default value B { x = 0, y = 1 }
-struct type B {
+struct B {
   x : U32
   y : F32
 } default B { y = 1 }</code></pre>
@@ -1953,7 +1950,7 @@ In generated code, the type is specified externally (e.g., as a C++ class).</p>
 <div class="sect3">
 <h4 id="Definitions_Abstract-Type-Definitions_Syntax">6.7.1. Syntax</h4>
 <div class="paragraph">
-<p><code>abstract</code> <code>type</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a></p>
+<p><code>type</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a></p>
 </div>
 </div>
 <div class="sect3">
@@ -1970,9 +1967,9 @@ There are no explicit values associated with <em>N</em> in the model.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp"># Defines an abstract type A
-abstract type A
+type A
 # Defines a struct type B whose member x has type A
-struct type B {
+struct B {
   x : A
   y : F32
 } default B { y = 1 }</code></pre>
@@ -2213,7 +2210,7 @@ is to include annotations as comments in generated code.</p>
 <p>A <a href="#Definitions">definition</a>.</p>
 </li>
 <li>
-<p>A <a href="#Definitions_Struct-Type-Definitions">member of a struct type definition</a>.</p>
+<p>A <a href="#Definitions_Struct-Definitions">member of a struct definition</a>.</p>
 </li>
 <li>
 <p>A <a href="#Parameters">parameter</a>.</p>
@@ -2872,10 +2869,7 @@ If there is none, issue an error.</p>
 <h3 id="Definitions-and-Uses_Uses">13.1. Uses</h3>
 <div class="paragraph">
 <p>A <strong>use</strong> is a
-<a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifier</a> appearing in an
-<a href="#Expressions">expression</a>
-or a
-<a href="#Types">type</a>
+<a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifier</a>
 that refers to a
 <a href="#Definitions">definition</a>
 according to the
@@ -3129,7 +3123,7 @@ the semantic analyzer does the following:</p>
 <ol class="arabic">
 <li>
 <p>Check that the qualified identifier \$Q\$ refers to an
-<a href="#Definitions_Struct-Types-Definition">struct type definition</a> \$D\$.</p>
+<a href="#Definitions_Struct-Definition">struct definition</a> \$D\$.</p>
 </li>
 <li>
 <p>For each \$i in [1,n\$]</p>
@@ -3410,8 +3404,7 @@ Its type is <code>string</code>.</p>
 <div class="sect3">
 <h4 id="Evaluation_Values_Array-Values">15.1.6. Array Values</h4>
 <div class="paragraph">
-<p>An <strong>array value</strong> is a list of values associated with an
-array type.
+<p>An <strong>array value</strong> is a list of values associated with an array type.
 We write an array value similarly to an
 <a href="#Expressions_Array-Expressions">array expression</a>:
 an array value has the form \$Q\$ <code>[</code> \$v_1\$ <code>,</code> \$...\$ <code>,</code>
@@ -3424,7 +3417,7 @@ where</p>
 <p>\$Q\$ is a
 <a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifier</a>
 that refers to a
-<a href="#Type-Definitions_Array-Type-Definitions">array type definition</a>
+<a href="#Type-Definitions_Array-Definitions">array definition</a>
 with member type \$T\$.</p>
 </li>
 <li>
@@ -3460,7 +3453,7 @@ where</p>
 <p>\$Q\$ is a
 <a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifier</a>
 that refers to a
-<a href="#Type-Definitions_Struct-Type-Definitions">struct type definition</a>.</p>
+<a href="#Type-Definitions_Struct-Definitions">struct definition</a>.</p>
 </li>
 <li>
 <p>For each \$i in [1,n\$], \$v_i\$ is a value of type \$T_i\$.</p>
@@ -3660,7 +3653,7 @@ strategies. For example, we need to generate (1) C++ code for FSW and
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-10-10 18:10:17 -0700
+Last updated 2019-10-11 18:12:10 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

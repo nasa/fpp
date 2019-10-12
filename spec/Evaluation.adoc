@@ -84,8 +84,7 @@ Its type is `string`.
 
 ==== Array Values
 
-An *array value* is a list of values associated with an
-array type.
+An *array value* is a list of values associated with an array type.
 We write an array value similarly to an
 <<Expressions_Array-Expressions,array expression>>:
 an array value has the form stem:[Q] `[` stem:[v_1] `,` stem:[...] `,` 
@@ -95,7 +94,7 @@ where
 . stem:[Q] is a
 <<Scoping-of-Names_Qualified-Identifiers,qualified identifier>>
 that refers to a
-<<Type-Definitions_Array-Type-Definitions,array type definition>>
+<<Type-Definitions_Array-Definitions,array definition>>
 with member type stem:[T].
 
 . For each stem:[i in [1,n]], stem:[v_i] is a value of type stem:[T].
@@ -121,7 +120,7 @@ where
 . stem:[Q] is a
 <<Scoping-of-Names_Qualified-Identifiers,qualified identifier>>
 that refers to a
-<<Type-Definitions_Struct-Type-Definitions,struct type definition>>.
+<<Type-Definitions_Struct-Definitions,struct definition>>.
 
 . For each stem:[i in [1,n]], stem:[v_i] is a value of type stem:[T_i].
 

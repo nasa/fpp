@@ -1,11 +1,11 @@
-=== Struct Type Definitions
+=== Struct Definitions
 
-A *struct type definition* defines a new structure type and associates a name
+A *struct definition* defines a new structure type and associates a name
 with it.
 
 ==== Syntax
 
-`struct` `type` <<Lexical-Elements_Identifiers,_identifier_>> `=`
+`struct` <<Lexical-Elements_Identifiers,_identifier_>> `=`
 `{` _struct-type-member-sequence_ `}`
 _[_ `default` <<Expressions,_expression_>> _]_
 
@@ -36,13 +36,13 @@ The name _N_ is in scope after (and not before) the `default` keyword.
 ----
 # Defines a struct type A with members x and y
 # and default value A { x = 0, y = 0 }
-struct type A {
+struct A {
   x : U32
   y : F32
 }
 # Defines a struct type B with members x and y
 # and default value B { x = 0, y = 1 }
-struct type B {
+struct B {
   x : U32
   y : F32
 } default B { y = 1 }

@@ -85,7 +85,7 @@ to>> the element type of the array.
 
 [source,tnet]
 ----
-array type A = [3] U32
+array A = [3] U32
 constant a = A [ 0, 1, 2 ] # a is a value of type A with elements 0, 1, 2
 ----
 
@@ -126,7 +126,7 @@ then stem:[m_i] is assigned the
 
 [source,fpp]
 ----
-struct type S {
+struct S {
   x : U32
   y : F32
 }

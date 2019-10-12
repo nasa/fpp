@@ -19,11 +19,11 @@ A module member is one of the following:
 
 * A <<Definitions_Module-Definitions,module definition>>
 
-* An <<Definitions_Array-Type-Definitions,array type definition>>
+* An <<Definitions_Array-Definitions,array definition>>
 
 * An <<Definitions_Enum-Definitions,enum definition>>
 
-* A <<Definitions_Struct-Type-Definitions,struct type definition>>
+* A <<Definitions_Struct-Definitions,struct definition>>
 
 * An <<Definitions_Abstract-Type-Definitions,abstract type definition>>
 

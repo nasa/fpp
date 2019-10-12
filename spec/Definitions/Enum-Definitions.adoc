@@ -61,15 +61,15 @@ If not, throw an error.
 [source,fpp]
 ----
 enum Gunfighters {
-  IL_BUONO = 0
-  IL_MALO = 1
-  IL_CATTIVO = 2
+  IL_BUONO
+  IL_MALO
+  IL_CATTIVO
 }
 
 enum U8Gunfighters : U8 {
-  IL_BUONO = 0
-  IL_MALO = 1
-  IL_CATTIVO = 2
+  IL_BUONO
+  IL_MALO
+  IL_CATTIVO
 }
 ----
 
