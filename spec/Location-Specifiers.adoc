@@ -1,3 +1,86 @@
 == Location Specifiers
 
+A *location specifier* specifies the 
+<<Translation-Units-and-Models_The-Location-of-a-Translation-Unit,location>>
+of the
+<<Translation-Units-and-Models_Translation-Units,translation unit>>
+that contains a
+<<Definitions,definition>>.
+
+=== Syntax
+
+A location specifier is one of the following:
+
+* A *constant location specifier* `locate` `constant` <<Expressions,_expression_>> `at` <<Expressions_String-Literals,_string-literal_>>
+
+* A *type location specifier* `locate` `type` <<Expressions,_expression_>> `at` <<Expressions_String-Literals,_string-literal_>>
+
+* A *port location specifier* `locate` `port` <<Expressions,_expression_>> `at` <<Expressions_String-Literals,_string-literal_>>
+
+* A *component location specifier* `locate` `component` <<Expressions,_expression_>> `at` <<Expressions_String-Literals,_string-literal_>>
+
+* A *component instance location specifier* `locate` `component` `instance` <<Expressions,_expression_>> `at` <<Expressions_String-Literals,_string-literal_>>
+
+* A *topology specifier* `locate` `topology` <<Expressions,_expression_>> `at` <<Expressions_String-Literals,_string-literal_>>
+
+=== Semantics
+
+. The first expression must be a <<Definitions-and-Uses_Uses,use>> that refers 
+to a <<Definitions,definition>>
+as follows:
+
+.. A constant location specifier must refer to a 
+<<Definitions_Constant-Definitions,constant definition>>.
+
+.. A type location specifier must refer to an 
+<<Definitions_Array-Definitions,array definition>>, 
+<<Definitions_Enum-Definitions,enum definition>>,
+<<Definitions_Struct-Definitions,struct definition>>, or
+<<Definitions_Abstract-Type-Definitions,abstract type definition>>.
+
+.. A port location specifier must refer to a 
+<<Definitions_Port-Definitions,port definition>>.
+
+.. A component location specifier must refer to a 
+<<Definitions_Component-Definitions,component definition>>.
+
+.. A component instance location specifier must refer to a 
+<<Definitions_Component-Instance-Definitions,component instance definition>>.
+
+.. A topology location specifier must refer to a 
+<<Definitions_Topology-Definitions,topology definition>>.
+
+. The string literal must specify the path of an FPP source file, relative to the
+<<Translation-Units-and-Models_The-Location-of-a-Translation-Unit,location of the translation unit>>
+in which the location specifier appears.
+The file must exist and must contain the definition referred to in the location specifier.
+
+. Multiple location specifiers for the same definition are allowed in a single
+<<Translation-Units-and-Models_Models,model>>, so long as the locations are all 
+consistent.
+
+=== Examples
+
+*Example 1:*
+
+File `a.fpp` contains the following:
+
+[source,fpp]
+----
+constant a = 1
+----
+
+File `b.fpp` contains the following:
+
+[source,fpp]
+----
+locate constant a at "a.fpp"
+constant b = a
+----
+
+When analyzing `b.fpp`, the analyzer knows that the definition of constant
+`a` is available in `a.fpp`.
+
+*Example 2:*
+
 TODO

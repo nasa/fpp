@@ -26,6 +26,6 @@ rules for names>>, you can use _Q_ as a name for _v_.
 [source,fpp]
 ----
 constant a = 0 # a has value 0
-constant b = 1.0 # b has value 1
+constant b = 1.0 # b has value 1.0
 constant c = a # c has value 0
 ----

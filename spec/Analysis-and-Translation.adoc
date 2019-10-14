@@ -17,7 +17,7 @@ Source files for analysis are provided in one of two ways:
 
 1. Via command-line arguments; or
 
-2. On `stdin`, if there are no arguments.
+2. On stanard input, if there are no arguments.
 
 For example, the command `analyze file1.fpp file2.fpp`
 says to read in the translation units `file1.fpp` and `file2.fpp` and perform 

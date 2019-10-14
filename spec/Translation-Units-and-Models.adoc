@@ -4,6 +4,9 @@
 
 A *translation unit* forms part of a <<Models,model>>
 at the top level.
+Translation units usually correspond to source files of a program.
+However, translation units may be specified in other ways,
+e.g., on standard input.
 
 ==== Syntax
 
@@ -11,11 +14,8 @@ A translation unit is an
 <<Element-Sequences,element sequence>> in which each 
 element is a *translation unit member*,
 and the terminating punctuation is a semicolon.
-A translation unit element is one of the following:
-
-* A <<Definitions_Module-Definitions_Syntax,module member>>
-
-* A <<Location-Specifiers,location specifier>>
+A translation unit member is syntactically identical to a
+<<Definitions_Module-Definitions_Syntax,module member>>.
 
 ==== Example
 
@@ -96,15 +96,15 @@ uses free symbols defined in the other translation units. Similarly, the
 translation unit 3 together with just translation unit 1 or translation
 unit 2 is not a valid model.
 
-=== The Location Path of a Translaiton Unit
+=== The Location of a Translation Unit
 
 Every translation unit _T_ in a source model has an associated
-*location path* _P_.
-This path is used when resolving <<Location-Specifiers,location specifiers>>
+*location* _L_.
+The location is used when resolving <<Location-Specifiers,location specifiers>>
 during <<Analysis-and-Translation,analysis>>.
 
-. If _T_ is read in from a file, then _P_ is the path to the directory
-containing the file.
+. If _T_ is read in from a file, then _P_ is the absolute path 
+of the file.
 
-. If _T_ is read from `stdin`, then _P_ is the current directory in
-the environment where the analysis occurs.
+. If _T_ is read from standard input, then _P_ is the absolute path of the current
+directory in the environment where the analysis occurs.

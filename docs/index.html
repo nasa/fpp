@@ -597,6 +597,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#Translation-Units-and-Models_Models">11.2. Models</a></li>
+<li><a href="#Translation-Units-and-Models_The-Location-Path-of-a-Translaiton-Unit">11.3. The Location Path of a Translaiton Unit</a></li>
 </ul>
 </li>
 <li><a href="#Scoping-of-Names">12. Scoping of Names</a>
@@ -671,7 +672,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
-<li><a href="#Translation">16. Translation</a></li>
+<li><a href="#Analysis-and-Translation">16. Analysis and Translation</a>
+<ul class="sectlevel2">
+<li><a href="#Analysis-and-Translation_Analysis">16.1. Analysis</a></li>
+<li><a href="#Analysis-and-Translation_Analysis-Tools">16.2. Analysis Tools</a></li>
+<li><a href="#Analysis-and-Translation_Translation">16.3. Translation</a></li>
+<li><a href="#Analysis-and-Translation_Translation-Tools">16.4. Translation Tools</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -1752,9 +1760,9 @@ constant definitions</a>, and the terminating punctuation is a comma.</p>
 <div class="sect3">
 <h4 id="Definitions_Enum-Definitions_Semantics">6.4.2. Semantics</h4>
 <div class="paragraph">
-<p>The enumerated constants have the <a href="#Types_Enum-Types">enum
-type</a> defined in the enum definition. In
-<a href="#Translation">translation</a>, they are represented as values of
+<p>The enumerated constants have the <a href="#Types_Enum-Types">enum type</a> defined in the
+enum definition. During
+<a href="#Analysis-and-Translation">analysis</a>, they are represented as values of
 integer type, called the
 <strong>representation type</strong>.</p>
 </div>
@@ -2195,8 +2203,8 @@ example:</p>
 <p>An <strong>annotation</strong> is similar to a
 <a href="#Lexical-Elements_Comments">comment</a>, but it is attached to a
 syntactic element of a model, and it is preserved during
-<a href="#Translation">translation</a>.  The precise use of annotations depends on the
-translator. A typical use
+<a href="#Analysis-and-Translation">analysis and translation</a>.  The precise use of
+annotations depends on the translator. A typical use
 is to include annotations as comments in generated code.</p>
 </div>
 <div class="sect3">
@@ -2367,9 +2375,9 @@ the following section.</p>
 <div class="paragraph">
 <p>A <strong>model</strong> is a collection of one or more
 <a href="#Translation-Units-and-Models_Translation-Units">translation
-units</a>. A model is presented to one or more translators for
-<a href="#Translation">translation</a>.
-How this is done depends on the translator. Typically, you ask a
+units</a>. A model is presented to one or more analyzers or translators for
+<a href="#Analysis-and-Translation">analysis or translation</a>.
+How this is done depends on the analyzer or translator. Typically, you ask a
 translator to read a single translation unit from standard input and/or
 to read one or more translation units stored in files, one unit per
 file.</p>
@@ -2416,6 +2424,27 @@ module M2 {
 uses free symbols defined in the other translation units. Similarly, the
 translation unit 3 together with just translation unit 1 or translation
 unit 2 is not a valid model.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Translation-Units-and-Models_The-Location-Path-of-a-Translaiton-Unit">11.3. The Location Path of a Translaiton Unit</h3>
+<div class="paragraph">
+<p>Every translation unit <em>T</em> in a source model has an associated
+<strong>location path</strong> <em>P</em>.
+This path is used when resolving <a href="#Location-Specifiers">location specifiers</a>
+during <a href="#Analysis-and-Translation">analysis</a>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If <em>T</em> is read in from a file, then <em>P</em> is the path to the directory
+containing the file.</p>
+</li>
+<li>
+<p>If <em>T</em> is read from <code>stdin</code>, then <em>P</em> is the current directory in
+the environment where the analysis occurs.</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -2971,7 +3000,8 @@ following:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Type checking of expressions occurs during <a href="#Translation">translation</a>.</p>
+<p>Type checking of expressions occurs during
+<a href="#Analysis-and-Translation_Analysis">analysis</a>.</p>
 </li>
 <li>
 <p>If the type checking phase detects a violation of any of these rules,
@@ -3284,7 +3314,7 @@ may be converted to \$T_3\$.</p>
 <p><strong>Evaluation</strong> is the process of transforming an <a href="#Expressions">expression</a> into
 a <a href="#Evaluation_Values">value</a>.
 In FPP, all evaluation happens during
-<a href="#Translation">translation</a>,
+<a href="#Analysis-and-Translation_Analysis">analysis</a>,
 in resolving expressions to compile-time constant values.</p>
 </div>
 <div class="sect2">
@@ -3547,7 +3577,7 @@ then do the following:</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>For example, <code>(-1 : I8) : U16 = 0xFFFF : U16</code></p>
+<p>For example converting <code>-1 : I8</code> to <code>U16</code> yields <code>0xFFFF : U16</code></p>
 </div>
 </div>
 <div class="sect3">
@@ -3624,11 +3654,13 @@ and members \$m_i\$ <code>:</code> \$v_{2i}\$.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Translation">16. Translation</h2>
+<h2 id="Analysis-and-Translation">16. Analysis and Translation</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="Analysis-and-Translation_Analysis">16.1. Analysis</h3>
 <div class="paragraph">
-<p><strong>Translation</strong> is the process of checking a source model
-and generating code. It involves the following steps:</p>
+<p><strong>Analyisis</strong> is the process of checking a source model.
+It usually involves the following steps:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -3638,8 +3670,49 @@ and generating code. It involves the following steps:</p>
 <li>
 <p>If step (1) succeeded, semantic analysis of the AST.</p>
 </li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Analysis-and-Translation_Analysis-Tools">16.2. Analysis Tools</h3>
+<div class="paragraph">
+<p>An <strong>analysis tool</strong> is a tool that reads in and analyzes FPP
+source files, but does not generate any code.
+Source files for analysis are provided in one of two ways:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>If step (2) succeeded, code generation.</p>
+<p>Via command-line arguments; or</p>
+</li>
+<li>
+<p>On <code>stdin</code>, if there are no arguments.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For example, the command <code>analyze file1.fpp file2.fpp</code>
+says to read in the translation units <code>file1.fpp</code> and <code>file2.fpp</code> and perform
+analysis on the model consisting of these two translation units.
+The command <code>cat file1.fpp file2.fpp | analyze</code> is functionally equivalent.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Analysis-and-Translation_Translation">16.3. Translation</h3>
+<div class="paragraph">
+<p><strong>Translation</strong> is the process of performing analysis and
+generating code.</p>
+</div>
+<div class="paragraph">
+<p>Translation usually involves the following steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="#Analysis-and-Translation_Analysis">Analysis</a>.</p>
+</li>
+<li>
+<p>If step (1) succeeded, code generation.</p>
 </li>
 </ol>
 </div>
@@ -3649,11 +3722,47 @@ strategies. For example, we need to generate (1) C++ code for FSW and
 (2) XML, Python, or other code to export to ground tools.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="Analysis-and-Translation_Translation-Tools">16.4. Translation Tools</h3>
+<div class="paragraph">
+<p>A <strong>translation tool</strong> is a tool that translates FPP source files.
+A translation tool typically accepts the following two kinds of
+input:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Source files to be translated.</p>
+</li>
+<li>
+<p>Source files that are <strong>imported</strong> for their symbol definitions,
+but are not translated.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For example, when translating a component <em>C</em>, a tool may read
+in files containing the definitions of the ports used in <em>C</em>,
+but not translate those files.</p>
+</div>
+<div class="paragraph">
+<p>Source files for translation are provided as for
+<a href="#Analysis-and-Translation_Analysis-Tools">analysis tools</a>.
+Imported source files are specified as arguments to a <code>-i</code> flag.</p>
+</div>
+<div class="paragraph">
+<p>For example, the command <code>translate -i file1.fpp -i file2.fpp file3.fpp</code>
+says to import <code>file1.fpp</code> and <code>file2.fpp</code> and translate <code>file3.fpp</code>.
+The command <code>cat file2.fpp file3.fpp | translate -i file1.fpp</code> is functionally
+equivalent.</p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-10-11 18:12:10 -0700
+Last updated 2019-10-11 20:40:13 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
