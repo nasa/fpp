@@ -574,7 +574,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#Parameters">7. Parameters</a></li>
-<li><a href="#Location-Specifiers">8. Location Specifiers</a></li>
+<li><a href="#Location-Specifiers">8. Location Specifiers</a>
+<ul class="sectlevel2">
+<li><a href="#Location-Specifiers_Syntax">8.1. Syntax</a></li>
+<li><a href="#Location-Specifiers_Semantics">8.2. Semantics</a></li>
+<li><a href="#Location-Specifiers_Examples">8.3. Examples</a></li>
+</ul>
+</li>
 <li><a href="#Element-Sequences">9. Element Sequences</a></li>
 <li><a href="#Comments-and-Annotations">10. Comments and Annotations</a>
 <ul class="sectlevel2">
@@ -597,7 +603,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#Translation-Units-and-Models_Models">11.2. Models</a></li>
-<li><a href="#Translation-Units-and-Models_The-Location-Path-of-a-Translaiton-Unit">11.3. The Location Path of a Translaiton Unit</a></li>
+<li><a href="#Translation-Units-and-Models_The-Location-of-a-Translation-Unit">11.3. The Location of a Translation Unit</a></li>
 </ul>
 </li>
 <li><a href="#Scoping-of-Names">12. Scoping of Names</a>
@@ -1573,7 +1579,7 @@ rules for names</a>, you can use <em>Q</em> as a name for <em>v</em>.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">constant a = 0 # a has value 0
-constant b = 1.0 # b has value 1
+constant b = 1.0 # b has value 1.0
 constant c = a # c has value 0</code></pre>
 </div>
 </div>
@@ -1601,6 +1607,9 @@ A module member is one of the following:</p>
 </div>
 <div class="ulist">
 <ul>
+<li>
+<p>A <a href="#Location-Specifiers">location specifier</a></p>
+</li>
 <li>
 <p>A <a href="#Definitions_Constant-Definitions">constant definition</a></p>
 </li>
@@ -2065,7 +2074,127 @@ struct B {
 <h2 id="Location-Specifiers">8. Location Specifiers</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<p>A <strong>location specifier</strong> specifies the
+<a href="#Translation-Units-and-Models_The-Location-of-a-Translation-Unit">location</a>
+of the
+<a href="#Translation-Units-and-Models_Translation-Units">translation unit</a>
+that contains a
+<a href="#Definitions">definition</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="Location-Specifiers_Syntax">8.1. Syntax</h3>
+<div class="paragraph">
+<p>A location specifier is one of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A <strong>constant location specifier</strong> <code>locate</code> <code>constant</code> <a href="#Expressions"><em>expression</em></a> <code>at</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
+</li>
+<li>
+<p>A <strong>type location specifier</strong> <code>locate</code> <code>type</code> <a href="#Expressions"><em>expression</em></a> <code>at</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
+</li>
+<li>
+<p>A <strong>port location specifier</strong> <code>locate</code> <code>port</code> <a href="#Expressions"><em>expression</em></a> <code>at</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
+</li>
+<li>
+<p>A <strong>component location specifier</strong> <code>locate</code> <code>component</code> <a href="#Expressions"><em>expression</em></a> <code>at</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
+</li>
+<li>
+<p>A <strong>component instance location specifier</strong> <code>locate</code> <code>component</code> <code>instance</code> <a href="#Expressions"><em>expression</em></a> <code>at</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
+</li>
+<li>
+<p>A <strong>topology specifier</strong> <code>locate</code> <code>topology</code> <a href="#Expressions"><em>expression</em></a> <code>at</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Location-Specifiers_Semantics">8.2. Semantics</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The first expression must be a <a href="#Definitions-and-Uses_Uses">use</a> that refers
+to a <a href="#Definitions">definition</a>
+as follows:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>A constant location specifier must refer to a
+<a href="#Definitions_Constant-Definitions">constant definition</a>.</p>
+</li>
+<li>
+<p>A type location specifier must refer to an
+<a href="#Definitions_Array-Definitions">array definition</a>,
+<a href="#Definitions_Enum-Definitions">enum definition</a>,
+<a href="#Definitions_Struct-Definitions">struct definition</a>, or
+<a href="#Definitions_Abstract-Type-Definitions">abstract type definition</a>.</p>
+</li>
+<li>
+<p>A port location specifier must refer to a
+<a href="#Definitions_Port-Definitions">port definition</a>.</p>
+</li>
+<li>
+<p>A component location specifier must refer to a
+<a href="#Definitions_Component-Definitions">component definition</a>.</p>
+</li>
+<li>
+<p>A component instance location specifier must refer to a
+<a href="#Definitions_Component-Instance-Definitions">component instance definition</a>.</p>
+</li>
+<li>
+<p>A topology location specifier must refer to a
+<a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>The string literal must specify the path of an FPP source file, relative to the
+<a href="#Translation-Units-and-Models_The-Location-of-a-Translation-Unit">location of the translation unit</a>
+in which the location specifier appears.
+The file must exist and must contain the definition referred to in the location specifier.</p>
+</li>
+<li>
+<p>Multiple location specifiers for the same definition are allowed in a single
+<a href="#Translation-Units-and-Models_Models">model</a>, so long as the locations are all
+consistent.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Location-Specifiers_Examples">8.3. Examples</h3>
+<div class="paragraph">
+<p><strong>Example 1:</strong></p>
+</div>
+<div class="paragraph">
+<p>File <code>a.fpp</code> contains the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = 1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>File <code>b.fpp</code> contains the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">locate constant a at "a.fpp"
+constant b = a</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When analyzing <code>b.fpp</code>, the analyzer knows that the definition of constant
+<code>a</code> is available in <code>a.fpp</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example 2:</strong></p>
+</div>
+<div class="paragraph">
 <p>TODO</p>
+</div>
 </div>
 </div>
 </div>
@@ -2313,7 +2442,10 @@ module M {
 <h3 id="Translation-Units-and-Models_Translation-Units">11.1. Translation Units</h3>
 <div class="paragraph">
 <p>A <strong>translation unit</strong> forms part of a <a href="#Translation-Units-and-Models_Models">model</a>
-at the top level.</p>
+at the top level.
+Translation units usually correspond to source files of a program.
+However, translation units may be specified in other ways,
+e.g., on standard input.</p>
 </div>
 <div class="sect3">
 <h4 id="Translation-Units-and-Models_Translation-Units_Syntax">11.1.1. Syntax</h4>
@@ -2322,17 +2454,8 @@ at the top level.</p>
 <a href="#Element-Sequences">element sequence</a> in which each
 element is a <strong>translation unit member</strong>,
 and the terminating punctuation is a semicolon.
-A translation unit element is one of the following:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>A <a href="#Definitions_Module-Definitions_Syntax">module member</a></p>
-</li>
-<li>
-<p>A <a href="#Location-Specifiers">location specifier</a></p>
-</li>
-</ul>
+A translation unit member is syntactically identical to a
+<a href="#Definitions_Module-Definitions_Syntax">module member</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -2427,22 +2550,22 @@ unit 2 is not a valid model.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Translation-Units-and-Models_The-Location-Path-of-a-Translaiton-Unit">11.3. The Location Path of a Translaiton Unit</h3>
+<h3 id="Translation-Units-and-Models_The-Location-of-a-Translation-Unit">11.3. The Location of a Translation Unit</h3>
 <div class="paragraph">
 <p>Every translation unit <em>T</em> in a source model has an associated
-<strong>location path</strong> <em>P</em>.
-This path is used when resolving <a href="#Location-Specifiers">location specifiers</a>
+<strong>location</strong> <em>L</em>.
+The location is used when resolving <a href="#Location-Specifiers">location specifiers</a>
 during <a href="#Analysis-and-Translation">analysis</a>.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>If <em>T</em> is read in from a file, then <em>P</em> is the path to the directory
-containing the file.</p>
+<p>If <em>T</em> is read in from a file, then <em>P</em> is the absolute path
+of the file.</p>
 </li>
 <li>
-<p>If <em>T</em> is read from <code>stdin</code>, then <em>P</em> is the current directory in
-the environment where the analysis occurs.</p>
+<p>If <em>T</em> is read from standard input, then <em>P</em> is the absolute path of the current
+directory in the environment where the analysis occurs.</p>
 </li>
 </ol>
 </div>
@@ -3686,7 +3809,7 @@ Source files for analysis are provided in one of two ways:</p>
 <p>Via command-line arguments; or</p>
 </li>
 <li>
-<p>On <code>stdin</code>, if there are no arguments.</p>
+<p>On stanard input, if there are no arguments.</p>
 </li>
 </ol>
 </div>
@@ -3762,7 +3885,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-10-11 20:40:13 -0700
+Last updated 2019-10-13 20:16:48 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
