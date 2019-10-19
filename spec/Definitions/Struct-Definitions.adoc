@@ -5,7 +5,7 @@ with it.
 
 ==== Syntax
 
-`struct` <<Lexical-Elements_Identifiers,_identifier_>> `=`
+`struct` <<Lexical-Elements_Identifiers,_identifier_>>
 `{` _struct-type-member-sequence_ `}`
 _[_ `default` <<Expressions,_expression_>> _]_
 

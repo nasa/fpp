@@ -91,12 +91,12 @@ scoping>>. For example:
 [source,fpp]
 ----
 module M {
-  struct S = {
+  struct S {
     x : U32
     y : F32
   }
 }
-struct T = {
+struct T {
   s : M.S # M.S is a struct type
 }
 ----
@@ -163,7 +163,7 @@ See the section on <<Definitions_Struct-Definitions,
 struct definitions>> for examples.
 
 * The default value associated with an
-<<Types_Abstract-Type,abstract type>> _T_ is not specified
+<<Types_Abstract-Types,abstract type>> _T_ is not specified
 in FPP.
 It is up to the implementer of _T_ to provide a default value.
 

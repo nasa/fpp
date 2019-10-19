@@ -1058,12 +1058,12 @@ scoping</a>. For example:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">module M {
-  struct S = {
+  struct S {
     x : U32
     y : F32
   }
 }
-struct T = {
+struct T {
   s : M.S # M.S is a struct type
 }</code></pre>
 </div>
@@ -1141,7 +1141,7 @@ See the section on <a href="#Definitions_Struct-Definitions">struct definitions<
 </li>
 <li>
 <p>The default value associated with an
-<a href="#Types_Abstract-Type">abstract type</a> <em>T</em> is not specified
+<a href="#Types_Abstract-Types">abstract type</a> <em>T</em> is not specified
 in FPP.
 It is up to the implementer of <em>T</em> to provide a default value.</p>
 </li>
@@ -1905,7 +1905,7 @@ with it.</p>
 <div class="sect3">
 <h4 id="Definitions_Struct-Definitions_Syntax">6.6.1. Syntax</h4>
 <div class="paragraph">
-<p><code>struct</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>=</code>
+<p><code>struct</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <code>{</code> <em>struct-type-member-sequence</em> <code>}</code>
 <em>[</em> <code>default</code> <a href="#Expressions"><em>expression</em></a> <em>]</em></p>
 </div>
@@ -3885,7 +3885,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-10-13 20:16:48 -0700
+Last updated 2019-10-18 17:33:37 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
