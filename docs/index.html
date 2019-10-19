@@ -2223,7 +2223,9 @@ this case no terminating punctuation is required.</p>
 </li>
 <li>
 <p>You can omit the line break. In this case the terminating punctuation
-is required, unless the element is last in the sequence.</p>
+is required, unless the element is last in the sequence or
+the element is followed by a
+<a href="#Comments-and-Annotations_Annotations">post annotation</a>.</p>
 </li>
 </ul>
 </div>
@@ -2262,6 +2264,13 @@ constant a = 0; constant b = 1</code></pre>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp"># Error, because terminating punctuation is missing
 constant a = 0 constant b = 1</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp"># No termination punctuation required because of the post annotation
+constant a = 0 @&lt; This is OK
+constant b = 1</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3275,7 +3284,7 @@ the semantic analyzer does the following:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Check that the qualified identifier \$Q\$ refers to an
+<p>Check that the qualified identifier \$Q\$ refers to a
 <a href="#Definitions_Struct-Definition">struct definition</a> \$D\$.</p>
 </li>
 <li>
@@ -3885,7 +3894,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-10-18 17:33:37 -0700
+Last updated 2019-10-18 17:46:40 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

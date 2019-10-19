@@ -109,7 +109,7 @@ To type a
 stem:[Q] `{` stem:[m_1] `=` stem:[e_1] `,` stem:[...] `,` stem:[m_n] `=` stem:[e_n] `}`,
 the semantic analyzer does the following:
 
-. Check that the qualified identifier stem:[Q] refers to an
+. Check that the qualified identifier stem:[Q] refers to a
 <<Definitions_Struct-Definition,struct definition>> stem:[D].
 
 . For each stem:[i in [1,n]]

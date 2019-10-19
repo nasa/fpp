@@ -15,7 +15,9 @@ For each element _e_ in the sequence:
 this case no terminating punctuation is required.
 
 * You can omit the line break. In this case the terminating punctuation
-is required, unless the element is last in the sequence.
+is required, unless the element is last in the sequence or
+the element is followed by a
+<<Comments-and-Annotations_Annotations,post annotation>>.
 
 *Examples:*
 
@@ -50,6 +52,13 @@ constant a = 0; constant b = 1
 ----
 # Error, because terminating punctuation is missing
 constant a = 0 constant b = 1
+----
+
+[source,fpp]
+----
+# No termination punctuation required because of the post annotation
+constant a = 0 @< This is OK
+constant b = 1
 ----
 
 An
