@@ -6,6 +6,6 @@ structure ParserState =
 struct
 
   val pos = ref 1
-  val file = ref "<stdin>"
+  val file = ref File.stdin
 
 end

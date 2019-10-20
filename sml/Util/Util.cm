@@ -5,6 +5,7 @@
 Group
 is
   Error.sml
+  File.sml
   Loc.sig
   Loc.sml
   Tool.sml

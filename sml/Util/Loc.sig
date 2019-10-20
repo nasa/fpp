@@ -7,7 +7,7 @@ signature LOC =
 sig
 
   datatype t = Loc of {
-    file: string,
+    file: File.t,
     pos1: int,
     pos2: int
   }

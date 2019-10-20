@@ -6,7 +6,7 @@
 signature PARSER =
 sig
 
-  val parse : string * TextIO.instream -> Ast.trans_unit
+  val parse : File.t * TextIO.instream -> Ast.trans_unit
 
 end
 
