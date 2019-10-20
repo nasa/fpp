@@ -1,8 +1,8 @@
 # ----------------------------------------------------------------------
-# clean.do: remove generated files
+# clean.do
 # ----------------------------------------------------------------------
 
 . ./defs.sh
 
-rm -f tnet.lex.sml tnet.grm.sig tnet.grm.sml tnet.grm.desc
+rm -f fpp.lex.sml fpp.grm.sig fpp.grm.sml fpp.grm.desc
 rm_tmp
