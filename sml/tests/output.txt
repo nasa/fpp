@@ -1,0 +1,49 @@
+redo  all
+redo    fpp-syntax/all
+redo      fpp-syntax/error/all
+redo        ../tools/fpp-syntax/fpp-syntax
+Standard ML of New Jersey v110.81 [built: Tue May  2 11:51:11 2017]
+[scanning fpp-syntax.cm]
+[scanning (fpp-syntax.cm):../../Ast/Ast.cm]
+[scanning (fpp-syntax.cm):../../Ast/(Ast.cm):../Error/Error.cm]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[library $SMLNJ-BASIS/(basis.cm):basis-common.cm is stable]
+[library $SMLNJ-LIB/Util/smlnj-lib.cm is stable]
+[scanning (fpp-syntax.cm):../../Parser/Parser.cm]
+[attempting to load plugin $/lex-ext.cm]
+[library $/lex-ext.cm is stable]
+[library $smlnj/cm/tools.cm is stable]
+[library $smlnj/internal/cm-lib.cm is stable]
+[plugin $/lex-ext.cm loaded successfully]
+[attempting to load plugin $/mllex-tool.cm]
+[library $/mllex-tool.cm is stable]
+[plugin $/mllex-tool.cm loaded successfully]
+[attempting to load plugin $/grm-ext.cm]
+[library $/grm-ext.cm is stable]
+[plugin $/grm-ext.cm loaded successfully]
+[attempting to load plugin $/mlyacc-tool.cm]
+[library $/mlyacc-tool.cm is stable]
+[plugin $/mlyacc-tool.cm loaded successfully]
+[library $/ml-yacc-lib.cm is stable]
+[library $SMLNJ-ML-YACC-LIB/ml-yacc-lib.cm is stable]
+[loading (fpp-syntax.cm):../../Parser/(Parser.cm):ParserState.sml]
+[loading (fpp-syntax.cm):../../Parser/(Parser.cm):fpp.grm.sig]
+[loading (fpp-syntax.cm):../../Ast/(Ast.cm):AstNode.sig]
+[loading (fpp-syntax.cm):../../Ast/(Ast.cm):AstNode.sml]
+[loading (fpp-syntax.cm):../../Ast/(Ast.cm):Ast.sml]
+[loading (fpp-syntax.cm):../../Ast/(Ast.cm):../Error/(Error.cm):Loc.sig]
+[loading (fpp-syntax.cm):../../Ast/(Ast.cm):../Error/(Error.cm):Loc.sml]
+[loading (fpp-syntax.cm):../../Ast/(Ast.cm):Locations.sig]
+[loading (fpp-syntax.cm):../../Ast/(Ast.cm):../Error/(Error.cm):Error.sml]
+[loading (fpp-syntax.cm):../../Ast/(Ast.cm):Locations.sml]
+[loading (fpp-syntax.cm):../../Parser/(Parser.cm):fpp.grm.sml]
+[loading (fpp-syntax.cm):../../Parser/(Parser.cm):fpp.lex.sml]
+[loading (fpp-syntax.cm):../../Parser/(Parser.cm):Parser.sig]
+[loading (fpp-syntax.cm):../../Parser/(Parser.cm):Parser.sml]
+[loading (fpp-syntax.cm):fpp-syntax.sml]
+Heap was already up-to-date.
+unclosed-module.fpp                               [32mPASSED[0m
+redo      fpp-syntax/ok/all
+constant-symbols.fpp                              [32mPASSED[0m
+enum-symbols.fpp                                  [32mPASSED[0m
+expr-ident-uses.fpp                               [32mPASSED[0m

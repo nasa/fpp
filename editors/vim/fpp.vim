@@ -9,14 +9,14 @@ setl cinwords=enum,namespace,struct
 setl cindent
 
 " keywords
+syn keyword fppKeyword at
 syn keyword fppKeyword array
 syn keyword fppKeyword component
 syn keyword fppKeyword constant
 syn keyword fppKeyword enum
 syn keyword fppKeyword false
-syn keyword fppKeyword import
 syn keyword fppKeyword locate
-syn keyword fppKeyword namespace
+syn keyword fppKeyword module
 syn keyword fppKeyword port
 syn keyword fppKeyword struct
 syn keyword fppKeyword true
