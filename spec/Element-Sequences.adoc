@@ -56,7 +56,7 @@ constant a = 0 constant b = 1
 
 [source,fpp]
 ----
-# No termination punctuation required because of the post annotation
+# No terminating punctuation required because of the post annotation
 constant a = 0 @< This is OK
 constant b = 1
 ----
