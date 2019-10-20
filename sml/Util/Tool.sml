@@ -1,11 +1,13 @@
 (* ----------------------------------------------------------------------
- * Util.cm 
+ * Tool.sml
+ * An FPP compilation too
  * ----------------------------------------------------------------------*)
 
-Group
-is
-  Error.sml
-  Loc.sig
-  Loc.sml
-  Tool.sml
-  $/basis.cm
+structure Tool =
+struct
+
+  datatype t = Tool of {
+    name: string
+  }
+
+end

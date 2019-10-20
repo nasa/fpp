@@ -5,6 +5,8 @@
 structure Error =
 struct
 
+  val toolOpt = ref (NONE : Tool.t option)
+
   datatype context = Context of {
     loc : Loc.t,
     writer : TextIO.outstream -> unit
@@ -25,7 +27,11 @@ struct
   fun write s = TextIO.output (TextIO.stdErr, s)
 
   fun display locOpt msg = (
-    write "fpp-check: ";
+    (
+      case !toolOpt of
+           SOME (Tool.Tool tool) => write ((#name tool)^": ")
+         | NONE => ()
+    );
     (
       case locOpt of
            SOME loc => write ((Loc.show loc)^": ")

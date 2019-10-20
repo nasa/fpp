@@ -7,6 +7,8 @@ struct
 
 fun compile () =
   let
+    val tool = Tool.Tool { name = "fpp-syntax" }
+    val _ = (Error.toolOpt := SOME tool)
     val ast = Parser.parse ("stdin", TextIO.stdIn)
   in
     (* TODO *)
