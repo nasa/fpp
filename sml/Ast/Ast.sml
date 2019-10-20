@@ -14,6 +14,8 @@
 
    datatype trans_unit = TransUnit of tu_member list
 
+   and def_abs_type = DefAbsType of ident
+
    and def_array = DefArray of ident * expr node * type_name node * expr node option
 
    and def_constant = DefConstant of ident * expr node
@@ -21,11 +23,9 @@
    and def_enum =
      DefEnum of ident * type_name node option * enumerator node annotated list
 
-   and def_module = DefModule of ident * tu_member list
+   and def_module = DefModule of ident * module_member list
 
    and def_struct = DefStruct of ident * struct_type_member node annotated list * expr option
-
-   and def_abs_type = DefAbsType of ident
 
    and enumerator = Enumerator of ident * expr node option
 
@@ -39,6 +39,16 @@
 
    and literal_kind = LiteralBool | LiteralFloat | LiteralInt | LiteralString
 
+   and module_member = ModuleMember of module_member_node annotated
+
+   and module_member_node =
+     ModuleDefAbsType of def_abs_type node
+   | ModuleDefArray of def_array node
+   | ModuleDefConstant of def_constant node
+   | ModuleDefEnum of def_enum node
+   | ModuleDefModule of def_module node
+   | ModuleDefStruct of def_struct node
+
    and spec_loc = SpecLoc of spec_loc_kind * expr node * string
 
    and spec_loc_kind =
@@ -49,9 +59,9 @@
    | SpecLocComponentInstance
    | SpecLocTopology
 
-   and struct_type_member = StructTypeMember of ident * type_name node
-
    and struct_member = StructMember of ident * expr node
+
+   and struct_type_member = StructTypeMember of ident * type_name node
 
    and tu_member = TUMember of tu_member_node annotated
      
@@ -62,6 +72,7 @@
    | TUDefEnum of def_enum node
    | TUDefModule of def_module node
    | TUDefStruct of def_struct node
+   | TUSpecLoc of spec_loc
 
    and type_bool = true | false
 
