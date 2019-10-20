@@ -1,0 +1,24 @@
+= sml
+
+This directory contains a reference implementation of FPP in Standard ML.
+
+== Requirements
+
+To build the implementation, you need the following:
+
+* https://github.com/bocchino/redo[redo]
+
+* https://www.smlnj.org[Standard ML of New Jersey (SML/NJ)]
+
+You must set the environment variable `SMLNJ_HOME` to the home directory of 
+your SML/NJ installation. It should contain a directory `bin` with a directory 
+`.run` inside it.
+
+== Building the Tools
+
+Run `redo` in this directory. That will create a directory `bin` with the
+executable tools inside it.
+
+== Running the Tests
+
+Run `redo tests/all` to run the tests.

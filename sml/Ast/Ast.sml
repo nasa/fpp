@@ -12,8 +12,6 @@
 
    type ident = string
 
-   fun deannotate (_, x, _) = x
-
    datatype trans_unit = TransUnit of tu_member list
 
    and def_array = DefArray of ident * expr node * type_name node * expr node option
