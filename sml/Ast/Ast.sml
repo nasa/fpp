@@ -30,14 +30,24 @@
    and enumerator = Enumerator of ident * expr node option
 
    and expr =
-     ExprArray of ident * expr node list
+     ExprArray of ident list * expr node list
    | ExprDot of expr node * ident
    | ExprIdent of ident
    | ExprLiteral of literal_kind * string
-   | ExprStruct of ident * struct_member node list
+   | ExprStruct of ident list * struct_member node list
    | ExprUnop of unop * expr node
 
    and literal_kind = LiteralBool | LiteralFloat | LiteralInt | LiteralString
+
+   and spec_loc = SpecLoc of spec_loc_kind * expr node * string
+
+   and spec_loc_kind =
+     SpecLocConstant
+   | SpecLocType
+   | SpecLocPort
+   | SpecLocComponent
+   | SpecLocComponentInstance
+   | SpecLocTopology
 
    and struct_type_member = StructTypeMember of ident * type_name node
 
