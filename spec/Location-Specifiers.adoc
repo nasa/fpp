@@ -50,6 +50,12 @@ as follows:
 .. A topology location specifier must refer to a 
 <<Definitions_Topology-Definitions,topology definition>>.
 
+. When a location specifier appears inside a
+<<Definitions_Module-Definitions,module definition _M_>>,
+the expression is implicitly qualified by the 
+<<Scoping-of-Names_Names-of-Definitions,qualified name>>
+of _M_.
+
 . The string literal must specify the path of an FPP source file, relative to the
 <<Translation-Units-and-Models_The-Location-of-a-Translation-Unit,location of the translation unit>>
 in which the location specifier appears.
@@ -83,4 +89,22 @@ When analyzing `b.fpp`, the analyzer knows that the definition of constant
 
 *Example 2:*
 
-TODO
+File `a.fpp` is as in the previous example.
+File `b.fpp` contains the following:
+
+[source,fpp]
+----
+module M { constant a = 0 }
+----
+
+File `c.fpp` contains the following:
+
+[source,fpp]
+----
+locate constant a at a.fpp
+module M { locate constant a at b.fpp }
+----
+
+The first location specifier refers to the constant `a` defined 
+at the top level.
+The second location specifier refers to the constant `M.a`.

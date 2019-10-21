@@ -1608,6 +1608,9 @@ A module member is one of the following:</p>
 <div class="ulist">
 <ul>
 <li>
+<p>A <a href="#Location-Specifiers">location specifier</a>.</p>
+</li>
+<li>
 <p>A <a href="#Definitions_Constant-Definitions">constant definition</a></p>
 </li>
 <li>
@@ -2147,6 +2150,13 @@ as follows:</p>
 </div>
 </li>
 <li>
+<p>When a location specifier appears inside a
+<a href="#Definitions_Module-Definitions">module definition <em>M</em></a>,
+the expression is implicitly qualified by the
+<a href="#Scoping-of-Names_Names-of-Definitions">qualified name</a>
+of <em>M</em>.</p>
+</li>
+<li>
 <p>The string literal must specify the path of an FPP source file, relative to the
 <a href="#Translation-Units-and-Models_The-Location-of-a-Translation-Unit">location of the translation unit</a>
 in which the location specifier appears.
@@ -2190,7 +2200,27 @@ constant b = a</code></pre>
 <p><strong>Example 2:</strong></p>
 </div>
 <div class="paragraph">
-<p>TODO</p>
+<p>File <code>a.fpp</code> is as in the previous example.
+File <code>b.fpp</code> contains the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M { constant a = 0 }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>File <code>c.fpp</code> contains the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">locate constant a at a.fpp
+module M { locate constant a at b.fpp }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The first location specifier refers to the constant <code>a</code> defined
+at the top level.
+The second location specifier refers to the constant <code>M.a</code>.</p>
 </div>
 </div>
 </div>
@@ -2460,10 +2490,8 @@ e.g., on standard input.</p>
 <a href="#Element-Sequences">element sequence</a> in which each
 element is a <strong>translation unit member</strong>,
 and the terminating punctuation is a semicolon.
-A translation unit member is a
-<a href="#Definitions_Module-Definitions_Syntax">module member</a>
-or a
-<a href="#Location-Specifiers">location specifier</a>.</p>
+A translation unit member is syntactically identical to a
+<a href="#Definitions_Module-Definitions_Syntax">module member</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -3893,7 +3921,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-10-20 15:09:50 -0700
+Last updated 2019-10-20 17:14:50 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

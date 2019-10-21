@@ -23,7 +23,7 @@
    and def_enum =
      DefEnum of ident * type_name node option * enumerator node annotated list
 
-   and def_module = DefModule of ident * module_member list
+   and def_module = DefModule of ident * tu_member list
 
    and def_struct = DefStruct of ident * struct_type_member node annotated list * expr option
 
@@ -38,16 +38,6 @@
    | ExprUnop of unop * expr node
 
    and literal_kind = LiteralBool | LiteralFloat | LiteralInt | LiteralString
-
-   and module_member = ModuleMember of module_member_node annotated
-
-   and module_member_node =
-     ModuleDefAbsType of def_abs_type node
-   | ModuleDefArray of def_array node
-   | ModuleDefConstant of def_constant node
-   | ModuleDefEnum of def_enum node
-   | ModuleDefModule of def_module node
-   | ModuleDefStruct of def_struct node
 
    and spec_loc = SpecLoc of spec_loc_kind * expr node * string
 
