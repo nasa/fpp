@@ -35,15 +35,15 @@ The name _N_ is in scope after (and not before) the `default` keyword.
 [source,fpp]
 ----
 # Defines a struct type A with members x and y
-# and default value A { x = 0, y = 0 }
+# and default value { x = 0, y = 0 } : A
 struct A {
   x : U32
   y : F32
 }
 # Defines a struct type B with members x and y
-# and default value B { x = 0, y = 1 }
+# and default value { x = 0, y = 1 } : B
 struct B {
   x : U32
   y : F32
-} default B { y = 1 }
+} default { y = 1 } : B
 ----

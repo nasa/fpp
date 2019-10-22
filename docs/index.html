@@ -1243,8 +1243,8 @@ unmatched double quote character.</p>
 <div class="sect3">
 <h4 id="Expressions_Array-Expressions_Syntax">5.5.1. Syntax</h4>
 <div class="paragraph">
-<p><a href="#Lexical-Elements_Identifiers"><em>type</em></a>
-<code>[</code> <em>array-element-sequence</em> <code>]</code></p>
+<p><code>[</code> <em>array-element-sequence</em> <code>]</code> <code>:</code>
+<a href="#Lexical-Elements_Identifiers"><em>type</em></a></p>
 </div>
 <div class="paragraph">
 <p><em>array-element-sequence</em> is an
@@ -1269,7 +1269,7 @@ to</a> the element type of the array.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="tnet">array A = [3] U32
-constant a = A [ 0, 1, 2 ] # a is a value of type A with elements 0, 1, 2</code></pre>
+constant a = [ 0, 1, 2 ] : A # a is a value of type A with elements 0, 1, 2</code></pre>
 </div>
 </div>
 </div>
@@ -1282,8 +1282,8 @@ constant a = A [ 0, 1, 2 ] # a is a value of type A with elements 0, 1, 2</code>
 <div class="sect3">
 <h4 id="Expressions_Struct-Expressions_Syntax">5.6.1. Syntax</h4>
 <div class="paragraph">
-<p><a href="#Lexical-Elements_Identifiers"><em>type</em></a>
-<code>{</code> <em>struct-element-sequence</em> <code>}</code></p>
+<p><code>{</code> <em>struct-element-sequence</em> <code>}</code> <code>:</code>
+<a href="#Lexical-Elements_Identifiers"><em>type</em></a></p>
 </div>
 <div class="paragraph">
 <p><em>struct-element-sequence</em> is an
@@ -1330,7 +1330,7 @@ then \$m_i\$ is assigned the
   x : U32
   y : F32
 }
-constant s = S { x = 1 } # s is a value of type S with member values x = 1, y = 0</code></pre>
+constant s = { x = 1 } : S # s is a value of type S with member values x = 1, y = 0</code></pre>
 </div>
 </div>
 </div>
@@ -1683,7 +1683,7 @@ it.</p>
 <div class="sect3">
 <h4 id="Definitions_Array-Definitions_Syntax">6.3.1. Syntax</h4>
 <div class="paragraph">
-<p><code>array</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>=</code>
+<p><code>array</code> <code>type</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>=</code>
 <code>[</code> <a href="#Expressions"><em>expression</em></a> <code>]</code> <a href="#Types"><em>type</em></a>
 <em>[</em> <code>default</code> <a href="#Expressions"><em>expression</em></a> <em>]</em></p>
 </div>
@@ -1715,15 +1715,15 @@ The type of the expression must be
 <h4 id="Definitions_Array-Definitions_Examples">6.3.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp"># Defines an array type A of 3 U8 elements with default value A [ 0, 0, 0 ]
+<pre class="prettyprint highlight"><code data-lang="fpp"># Defines an array type A of 3 U8 elements with default value [ 0, 0, 0 ] : A
 array A = [3] U8
 # Defines an array type B of 2 A elements with default value
-# B [ [ 0, 0, 0 ], [ 0, 0, 0 ] ]
+# [ [ 0, 0, 0 ], [ 0, 0, 0 ] ] : B
 array B = [3] A
-# Defines an array type C of 3 F32 elements with default value C [ 1, 2, 3 ]
-array C = [3] F32 default C [ 1, 2, 3 ]
+# Defines an array type C of 3 F32 elements with default value [ 1, 2, 3 ] : C
+array C = [3] F32 default [ 1, 2, 3 ] : C
 # Defines an array type C of 3 U32 values with default value
-# D [ 1, 1, 1 ] after promoting 1 to D [ 1, 1, 1 ]
+# [ 1, 1, 1 ] : D after promoting 1 to [ 1, 1, 1 ] : D
 array D = [3] U32 default 1</code></pre>
 </div>
 </div>
@@ -1942,17 +1942,17 @@ The type of the expression must be
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp"># Defines a struct type A with members x and y
-# and default value A { x = 0, y = 0 }
+# and default value { x = 0, y = 0 } : A
 struct A {
   x : U32
   y : F32
 }
 # Defines a struct type B with members x and y
-# and default value B { x = 0, y = 1 }
+# and default value { x = 0, y = 1 } : B
 struct B {
   x : U32
   y : F32
-} default B { y = 1 }</code></pre>
+} default { y = 1 } : B</code></pre>
 </div>
 </div>
 </div>
@@ -3921,7 +3921,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-10-21 21:12:49 -0700
+Last updated 2019-10-21 23:44:49 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

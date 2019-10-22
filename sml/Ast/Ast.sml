@@ -30,14 +30,14 @@
    and enumerator = Enumerator of ident * expr node option
 
    and expr =
-     ExprArray of expr node * expr node list
+     ExprArray of expr node list * ident list
    | ExprDot of expr node * ident
    | ExprIdent of ident
    | ExprLiteralBool of literal_bool
    | ExprLiteralInt of string
    | ExprLiteralFloat of string
    | ExprLiteralString of string
-   | ExprStruct of expr node * struct_member list
+   | ExprStruct of struct_member list * ident list
    | ExprUnop of unop * expr node
 
    and literal_bool = True | False

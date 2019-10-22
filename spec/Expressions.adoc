@@ -64,8 +64,8 @@ An *array expression* is an expression that represents an array value.
 
 ==== Syntax
 
+`[` _array-element-sequence_ `]` `:`
 <<Lexical-Elements_Identifiers,_type_>>
-`[` _array-element-sequence_ `]`
 
 _array-element-sequence_ is an
 <<Element-Sequences,element sequence>> in which the elements
@@ -86,7 +86,7 @@ to>> the element type of the array.
 [source,tnet]
 ----
 array A = [3] U32
-constant a = A [ 0, 1, 2 ] # a is a value of type A with elements 0, 1, 2
+constant a = [ 0, 1, 2 ] : A # a is a value of type A with elements 0, 1, 2
 ----
 
 === Struct Expressions
@@ -95,8 +95,8 @@ An *struct expression* is an expression that represents a struct value.
 
 ==== Syntax
 
+`{` _struct-element-sequence_ `}` `:`
 <<Lexical-Elements_Identifiers,_type_>>
-`{` _struct-element-sequence_ `}`
 
 _struct-element-sequence_ is an
 <<Element-Sequences,element sequence>> in which the elements
@@ -130,7 +130,7 @@ struct S {
   x : U32
   y : F32
 }
-constant s = S { x = 1 } # s is a value of type S with member values x = 1, y = 0
+constant s = { x = 1 } : S # s is a value of type S with member values x = 1, y = 0
 ----
 
 === Arithmetic Expressions
