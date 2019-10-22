@@ -25,5 +25,5 @@ type A
 struct B {
   x : A
   y : F32
-} default B { y = 1 }
+} default { y = 1 } : B
 ----
