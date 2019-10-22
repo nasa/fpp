@@ -124,5 +124,5 @@ NL=[\ ]*[\r]?[\n][\ ]*;
 \\{NL} => (lex ());
 
 \t => (syntaxError "illegal tab character");
-. => (syntaxError "illegal character");
+. => (syntaxError ("illegal character "^yytext));
 
