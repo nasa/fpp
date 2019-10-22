@@ -16,10 +16,12 @@ syn keyword fppKeyword constant
 syn keyword fppKeyword default
 syn keyword fppKeyword enum
 syn keyword fppKeyword false
+syn keyword fppKeyword instance
 syn keyword fppKeyword locate
 syn keyword fppKeyword module
 syn keyword fppKeyword port
 syn keyword fppKeyword struct
+syn keyword fppKeyword topology
 syn keyword fppKeyword true
 syn keyword fppKeyword type
 
