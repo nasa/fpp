@@ -25,7 +25,7 @@
 
    and def_module = DefModule of ident * tu_member list
 
-   and def_struct = DefStruct of ident * struct_type_member node annotated list * expr option
+   and def_struct = DefStruct of ident * struct_type_member node annotated list * expr node option
 
    and enumerator = Enumerator of ident * expr node option
 
@@ -64,18 +64,16 @@
    | TUDefStruct of def_struct node
    | TUSpecLoc of spec_loc
 
-   and type_bool = true | false
-
    and type_float = F32 | F64
 
    and type_int = I8 | I16 | I32 | I64 | U8 | U16 | U32 | U64
 
    and type_name = 
-     TypeNameBool of type_bool
+     TypeNameBool
    | TypeNameFloat of type_float
    | TypeNameInt of type_int
-   | TypeNameIdent of ident list
-   | TypeString
+   | TypeNameIdentList of ident list
+   | TypeNameString
 
    and unop =
      Minus
