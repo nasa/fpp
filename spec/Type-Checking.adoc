@@ -39,6 +39,18 @@ the *integer types*.
 <<Types_Primitive-Types,primitive numeric types>> are called
 the *numeric types*.
 
+=== Anonymous Array Types
+
+The type _[_ _n_ _]_ <<Types,_type_>>, where _n_
+is an integer, represents an array of _n_ elements,
+each of type _type_.
+
+=== Anonymous Struct Types
+
+The type _{_ stem:[m_1] _:_ stem:[T_1, ...,] stem:[m_n] _:_ stem:[T_n] _}_
+represents a structure with members stem:[m_i] _:_ stem:[T_i], for
+stem:[i in [1,n\]].
+
 === Integer Literals
 
 To type an
@@ -202,16 +214,116 @@ type>> may be converted to any other numeric type.
 . An <<Types_Enum-Types,enum type>> may be converted to a
 <<Type-Checking_Internal-Types_Numeric-Types,numeric type>>.
 
-. A type stem:[T_1] may be converted to an
+. An anonymous array type stem:[T_1 =] _[_ stem:[n] _]_ stem:[T'_1]
+may be converted to the anonymous array type
+stem:[T_2 =] _[_ stem:[m] _]_ stem:[T'_2]
+if stem:[n = m] and stem:[T'_1] may be converted to stem:[T'_2].
+
+. An anonymous array type stem:[T_1 =] _[_ stem:[n] _]_ stem:[T'_1]
+may be converted to the array type stem:[T_2] if the number
+of elements is the same for the two types, and the member
+type of stem:[T_1] may be converted to the member type of stem:[T_2].
+
+. An anonymous struct type stem:[T =]_{_ stem:[m_1] _:_ stem:[T_1] _,_ 
+stem:[...] _,_ stem:[m_1] _:_ stem:[T_n] _}_ may be converted to
+the anonymous struct type stem:[T'] if for each stem:[i in [1,n\]],
+
+.. stem:[m_i] _:_ stem:[T'_i] is a member of stem:[T']; and
+
+.. stem:[T_i] may be converted to stem:[T'_i].
+
+. An anonymous struct type stem:[T =]_{_ stem:[m_1] _:_ stem:[T_1] _,_ 
+stem:[...] _,_ stem:[m_1] _:_ stem:[T_n] _}_ may be converted to
+the struct type stem:[T'] if for each stem:[i in [1,n\]]
+
+.. stem:[m_i] _:_ stem:[T'_i] is a member of stem:[T']; and
+
+.. stem:[T_i] may be converted to stem:[T'_i].
+
+. A <<Types_Primitive-Types,primitive type>> type stem:[T_1] may be converted 
+to an
 <<Types_Array-Types,array type>> stem:[T_2] if
 stem:[T_1] may be converted to the member type of stem:[T_2].
 
-. A type stem:[T_1] may be converted to a
-<<Types_Structure-Types,structure type>> stem:[T_2] if
-for each member stem:[m_{2i}] `:` stem:[T_{2i}] of stem:[T_2],
-stem:[T_1] may be converted to stem:[T_{2i}].
+. A <<Types_Primitive-Types,primitive type>> type stem:[T] may be converted 
+to a
+<<Types_Structure-Types,structure type>> stem:[T'] if
+for each member stem:[m_i] `:` stem:[T_i] of stem:[T'],
+stem:[T] may be converted to stem:[T_i].
 
 . Type convertibility is transitive: if stem:[T_1] may be converted to 
 stem:[T_2]
 and stem:[T_2] may be converted to stem:[T_3], then stem:[T_1] 
 may be converted to stem:[T_3].
+
+=== Computing a Common Type
+
+==== Pairs of Types
+
+Here are the rules for resolving two types stem:[T_1] and stem:[T_2] 
+(e.g., the
+types of two subexpressions) to a common type stem:[T] (e.g., the type of 
+the whole expression):
+
+. If stem:[T_1] and stem:[T_2] are the same type, then let 
+stem:[T] be stem:[T_1].
+
+. Otherwise if stem:[T_1] and stem:[T_2] are both
+<<Type-Checking_Numeric-Types,numeric types>>, then do the following:
+
+.. If stem:[T_1] and stem:[T_2] are both floating-point types, then use `F64`.
+
+.. Otherwise use <<Type-Checking_Integer,_Integer_>>.
+
+. Otherwise if stem:[T_1] is an enum type stem:[T], then replace stem:[T_1] with 
+the representation type specified in the definition of stem:[T]
+and reapply these rules.
+
+. Otherwise if stem:[T_2] is an enum type stem:[T], then replace stem:[T_2] with 
+the representation type specified in the definition of stem:[T]
+and reapply these rules.
+
+. Otherwise if stem:[T_1] and stem:[T_2] are structure types that are 
+<<Type-Checking_Type-Conversion,convertible to a to a common type>>, then 
+stem:[T] is the structure type that results from
+applying these rules to each pair of corresponding members of stem:[T_1] and
+stem:[T_2].
+
+. Otherwise if stem:[T_1] and stem:[T_2] are array types with the same size stem:[n]
+and member types stem:[T'_1] and stem:[T'_2], then apply these rules to resolve
+stem:[T'_1] and stem:[T'_2] to stem:[T'] and let stem:[T] be `[`stem:[n]`]` stem:[T'].
+
+. Otherwise if one of stem:[T_1] and stem:[T_2] is a primitive type 
+and the other
+one is a structure type stem:[S], then apply these rules to resolve the
+primitive type and each of the structure member types to a common type.
+Let stem:[T] be the structure type whose members are the members of 
+stem:[S] and
+whose member types are the corresponding common types.
+
+. Otherwise if one of stem:[T_1] and stem:[T_2] is a primitive type 
+and the other
+one is an array type `[` stem:[n] `]` stem:[T'], then apply these 
+rules to resolve
+the primitive type and stem:[T'] to a common type stem:[T'']. Let 
+stem:[T] bet the
+array type `[` stem:[n] `]` stem:[T''].
+
+. Otherwise the attempted resolution is invalid. Throw an error.
+
+==== Lists of Types
+
+To compute a common type for a list of types
+stem:[T_1, ... , T_n], do the following:
+
+.  Check that stem:[n > 0]. If not, then throw an error.
+
+.  Compute the type stem:[T_1] of stem:[e_1].
+
+.  For each stem:[i in [2,n]]
+
+   ..  Compute the type stem:[T] of stem:[e_i].
+
+   ..  Compute the common type stem:[T_i] of stem:[T_(i-1)] and stem:[T].
+
+.  Use stem:[T_n] as the common type of the list.

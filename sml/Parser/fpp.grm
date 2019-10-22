@@ -144,7 +144,7 @@ end
 | TYPE_NAME_INT of type_name
 | TYPE_NAME_NODE of type_name node
 
-%name TNet
+%name FPP
 
 %noshift EOF
 %nodefault

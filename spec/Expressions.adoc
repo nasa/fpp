@@ -64,8 +64,7 @@ An *array expression* is an expression that represents an array value.
 
 ==== Syntax
 
-`[` _array-element-sequence_ `]` `:`
-<<Lexical-Elements_Identifiers,_type_>>
+`[` _array-element-sequence_ `]`
 
 _array-element-sequence_ is an
 <<Element-Sequences,element sequence>> in which the elements
@@ -75,11 +74,8 @@ is a comma.
 
 ==== Semantics
 
-_type_ must be an <<Types_Array-Types,array type>>.
-The number of elements in the element sequence must match the
-size of the array.
-The type of each element must be <<Type-Checking_Type-Conversion,convertible 
-to>> the element type of the array.
+The sequence must have at least one element.
+TODO: Type compatibility.
 
 ==== Example
 

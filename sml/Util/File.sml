@@ -11,9 +11,9 @@ struct
     name: string,
     (* The directory path, represented as a list of directories
        The directory containing the file is at the head of the list. *)
-    dir_path : string list
+    dirPath : string list
   }
 
-  val stdin = File { name = "stdin", dir_path = [] }
+  val stdin = File { name = "stdin", dirPath = [] }
 
 end

@@ -31,7 +31,7 @@ in
 end
 
 %%
-%header (functor TNetLexFun(structure Tokens: TNet_TOKENS));
+%header (functor FPPLexFun(structure Tokens: FPP_TOKENS));
 alpha=[A-Za-z];
 digit=[0-9];
 

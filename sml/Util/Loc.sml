@@ -12,7 +12,7 @@ struct
   }
 
   val todo = Loc {
-    file = File.File { name = "todo", dir_path = [] },
+    file = File.File { name = "todo", dirPath = [] },
     pos1 = 0,
     pos2 = 0
   }

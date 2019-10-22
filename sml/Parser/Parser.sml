@@ -1,17 +1,17 @@
 (* ----------------------------------------------------------------------
- * parser.sml
+ * Parser.sml
  * ----------------------------------------------------------------------*) 
 
-structure TNetLrVals =
-  TNetLrValsFun(structure Token = LrParser.Token)
+structure FPPLrVals =
+  FPPLrValsFun(structure Token = LrParser.Token)
 
-structure TNetLex =
-  TNetLexFun(structure Tokens = TNetLrVals.Tokens);
+structure FPPLex =
+  FPPLexFun(structure Tokens = FPPLrVals.Tokens);
 
-structure TNetParser =
+structure FPPParser =
   Join(structure LrParser = LrParser
-    structure ParserData = TNetLrVals.ParserData
-    structure Lex = TNetLex)
+    structure ParserData = FPPLrVals.ParserData
+    structure Lex = FPPLex)
 
 structure Parser :> PARSER=
 struct
@@ -34,8 +34,8 @@ fun parse (file, instream) =
       raise Error.SyntaxError (loc, s)
     end
     fun invoke lexstream = 
-      TNetParser.parse (15, lexstream, printError, ())
-    val lexer = TNetParser.makeLexer input
+      FPPParser.parse (15, lexstream, printError, ())
+    val lexer = FPPParser.makeLexer input
     val (result,lexer) = invoke lexer
   in 
     result
