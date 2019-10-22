@@ -2089,22 +2089,22 @@ that contains a
 <div class="ulist">
 <ul>
 <li>
-<p>A <strong>constant location specifier</strong> <code>locate</code> <code>constant</code> <a href="#Expressions"><em>expression</em></a> <code>at</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
+<p>A <strong>constant location specifier</strong> <code>locate</code> <code>constant</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
 <li>
-<p>A <strong>type location specifier</strong> <code>locate</code> <code>type</code> <a href="#Expressions"><em>expression</em></a> <code>at</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
+<p>A <strong>type location specifier</strong> <code>locate</code> <code>type</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
 <li>
-<p>A <strong>port location specifier</strong> <code>locate</code> <code>port</code> <a href="#Expressions"><em>expression</em></a> <code>at</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
+<p>A <strong>port location specifier</strong> <code>locate</code> <code>port</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
 <li>
-<p>A <strong>component location specifier</strong> <code>locate</code> <code>component</code> <a href="#Expressions"><em>expression</em></a> <code>at</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
+<p>A <strong>component location specifier</strong> <code>locate</code> <code>component</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
 <li>
-<p>A <strong>component instance location specifier</strong> <code>locate</code> <code>component</code> <code>instance</code> <a href="#Expressions"><em>expression</em></a> <code>at</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
+<p>A <strong>component instance location specifier</strong> <code>locate</code> <code>component</code> <code>instance</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
 <li>
-<p>A <strong>topology specifier</strong> <code>locate</code> <code>topology</code> <a href="#Expressions"><em>expression</em></a> <code>at</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
+<p>A <strong>topology specifier</strong> <code>locate</code> <code>topology</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
 </ul>
 </div>
@@ -2114,9 +2114,8 @@ that contains a
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The first expression must be a <a href="#Definitions-and-Uses_Uses">use</a> that refers
-to a <a href="#Definitions">definition</a>
-as follows:</p>
+<p>The qualified identifier <em>Q</em> must be a <a href="#Definitions-and-Uses_Uses">use</a> that refers
+to a <a href="#Definitions">definition</a> as follows:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -2152,7 +2151,7 @@ as follows:</p>
 <li>
 <p>When a location specifier appears inside a
 <a href="#Definitions_Module-Definitions">module definition <em>M</em></a>,
-the expression is implicitly qualified by the
+<em>Q</em> is implicitly qualified by the
 <a href="#Scoping-of-Names_Names-of-Definitions">qualified name</a>
 of <em>M</em>.</p>
 </li>
@@ -3921,7 +3920,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-10-21 23:59:51 -0700
+Last updated 2019-10-22 10:06:03 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

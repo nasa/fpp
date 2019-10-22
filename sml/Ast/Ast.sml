@@ -42,7 +42,7 @@
 
    and literal_bool = True | False
 
-   and spec_loc = SpecLoc of spec_loc_kind * expr node * string
+   and spec_loc = SpecLoc of spec_loc_kind * ident list * string
 
    and spec_loc_kind =
      SpecLocConstant
@@ -65,7 +65,7 @@
    | TUDefEnum of def_enum node
    | TUDefModule of def_module node
    | TUDefStruct of def_struct node
-   | TUSpecLoc of spec_loc
+   | TUSpecLoc of spec_loc node
 
    and type_float = F32 | F64
 
