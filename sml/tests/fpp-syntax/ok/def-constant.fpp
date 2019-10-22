@@ -1,0 +1,1 @@
+constant c = 0

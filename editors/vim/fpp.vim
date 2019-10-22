@@ -13,6 +13,7 @@ syn keyword fppKeyword at
 syn keyword fppKeyword array
 syn keyword fppKeyword component
 syn keyword fppKeyword constant
+syn keyword fppKeyword default
 syn keyword fppKeyword enum
 syn keyword fppKeyword false
 syn keyword fppKeyword locate
