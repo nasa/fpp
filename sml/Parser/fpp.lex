@@ -69,9 +69,11 @@ NL=[\ ]*[\r]?[\n][\ ]*;
 "constant" => (token Tokens.CONSTANT);
 "default" => (token Tokens.DEFAULT);
 "enum" => (token Tokens.ENUM);
+"false" => (token Tokens.FALSE);
 "module" => (token Tokens.MODULE);
 "string" => (token Tokens.STRING);
 "struct" => (token Tokens.STRUCT);
+"true" => (token Tokens.TRUE);
 "type" => (token Tokens.TYPE);
 {NL}*"{"{NL}* => (newlines (yytext); token Tokens.LBRACE);
 {NL}*"}" => (newlines (yytext); token Tokens.RBRACE);
@@ -97,6 +99,15 @@ NL=[\ ]*[\r]?[\n][\ ]*;
 );
 {D}+"."{D}*({E})? => (
   token (fn (x, y) => Tokens.LITERAL_FLOAT (yytext, x, y))
+);
+
+\"([^\\"])*\" => (
+  let 
+    val n = String.size yytext
+    val s = String.substring (yytext, 1, n-2)
+  in
+    Tokens.LITERAL_STRING (s, !pos, !pos)
+  end
 );
 
 {NL}+ => (newlines (yytext); token Tokens.EOL);

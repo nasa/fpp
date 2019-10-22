@@ -33,11 +33,14 @@
      ExprArray of expr node * expr node list
    | ExprDot of expr node * ident
    | ExprIdent of ident
-   | ExprLiteral of literal_kind * string
+   | ExprLiteralBool of literal_bool
+   | ExprLiteralInt of string
+   | ExprLiteralFloat of string
+   | ExprLiteralString of string
    | ExprStruct of expr node * struct_member list
    | ExprUnop of unop * expr node
 
-   and literal_kind = LiteralBool | LiteralFloat | LiteralInt | LiteralString
+   and literal_bool = True | False
 
    and spec_loc = SpecLoc of spec_loc_kind * expr node * string
 

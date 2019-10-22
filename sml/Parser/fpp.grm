@@ -44,6 +44,7 @@ end
 | EOF
 | EOL
 | EQUALS
+| FALSE
 | F32
 | F64
 | I16
@@ -53,8 +54,10 @@ end
 | IDENT of string
 | LBRACE
 | LBRACKET
+| LITERAL_BOOL of string
 | LITERAL_FLOAT of string
 | LITERAL_INT of string
+| LITERAL_STRING of string
 | LPAREN
 | MINUS
 | MODULE
@@ -67,6 +70,7 @@ end
 | SEMI
 | STRING
 | STRUCT
+| TRUE
 | TYPE
 | U16
 | U32
@@ -245,8 +249,11 @@ EXPR
 
 EXPR_ATOMIC
   : IDENT (ExprIdent IDENT)
-  | LITERAL_FLOAT (ExprLiteral (LiteralFloat, LITERAL_FLOAT))
-  | LITERAL_INT (ExprLiteral (LiteralInt, LITERAL_INT))
+  | TRUE (ExprLiteralBool (True))
+  | FALSE (ExprLiteralBool (False))
+  | LITERAL_FLOAT (ExprLiteralFloat (LITERAL_FLOAT))
+  | LITERAL_INT (ExprLiteralInt (LITERAL_INT))
+  | LITERAL_STRING (ExprLiteralString (LITERAL_STRING))
 
 EXPR_NODE
   : EXPR (node (EXPR, EXPRleft, EXPRright))

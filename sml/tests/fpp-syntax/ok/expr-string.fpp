@@ -1,2 +1,1 @@
-# TODO
-# constant a = "abcd"
+constant a = "abcd"

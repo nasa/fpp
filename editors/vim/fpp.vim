@@ -50,10 +50,14 @@ syn match fppNumber /\v<\d+(\.\d*)?([Ee]-?\d+)?/
 syn match fppNumber /\v<\.\d+([Ee]-?\d+)?/
 syn match fppNumber /\v<0x\x+/
 
+" strings
+syn match fppString /".*"/
+
 hi def link fppAnnotation  Special
 hi def link fppComment     Comment
 hi def link fppKeyword     Keyword
 hi def link fppNumber      Number
 hi def link fppOperator    Operator
+hi def link fppString      String
 hi def link fppTodo        Todo
 hi def link fppType        Type
