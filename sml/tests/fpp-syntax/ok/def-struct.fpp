@@ -8,4 +8,4 @@ struct S2 {
 } default {
   x = 1
   y = 2
-} : S2
+}
