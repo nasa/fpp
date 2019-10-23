@@ -12,10 +12,10 @@ fun parseTU (file, instream) =
     ast
   end
 
-fun parse fileNames =
+fun parseFiles fileNames =
 let
   val tool = Tool.Tool { name = "fpp-syntax" }
-  val _ = (Error.toolOpt := SOME tool)
+  val _ = Error.setTool tool
   fun file fileName =
   let
     val file = File.fromPathString fileName
@@ -31,7 +31,7 @@ in
 end
 
 fun main(name,args) =
-  (parse args; OS.Process.success)
+  (parseFiles args; OS.Process.success)
   handle e as IO.Io { name=name, ... } => (
            Error.displayStr NONE ("cannot read file "^name);
            raise e

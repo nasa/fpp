@@ -24,6 +24,8 @@ struct
   }
   exception SyntaxError of Loc.t * string
 
+  fun setTool tool = toolOpt := (SOME tool)
+
   fun write s = TextIO.output (TextIO.stdErr, s)
 
   fun displayTool () = 
