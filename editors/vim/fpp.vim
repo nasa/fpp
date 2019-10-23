@@ -16,6 +16,7 @@ syn keyword fppKeyword constant
 syn keyword fppKeyword default
 syn keyword fppKeyword enum
 syn keyword fppKeyword false
+syn keyword fppKeyword import
 syn keyword fppKeyword instance
 syn keyword fppKeyword locate
 syn keyword fppKeyword module
