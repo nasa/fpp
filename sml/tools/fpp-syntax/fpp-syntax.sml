@@ -18,8 +18,7 @@ let
   val _ = (Error.toolOpt := SOME tool)
   fun file fileName =
   let
-    val dirPath = [ "TODO" ]
-    val file = File.File { name = fileName, dirPath = dirPath }
+    val file = File.fromPathString fileName
     val instream = TextIO.openIn fileName
   in
     (file, instream)

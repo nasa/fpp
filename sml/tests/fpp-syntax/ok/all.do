@@ -19,7 +19,7 @@ num_failed=0
 for file in `ls *.fpp`
 do
   printf '%-50s' $file
-  if $fpp_syntax < $file > $file.out 2>&1
+  if $fpp_syntax $file > $file.out 2>&1
   then
     echo $GREEN'PASSED'$NO_COLOR
   else

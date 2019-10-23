@@ -8,12 +8,19 @@ struct
 
   datatype t = File of {
     (* The file name *)
-    name: string,
-    (* The directory path, represented as a list of directories
-       The directory containing the file is at the head of the list. *)
-    dirPath : string list
+    file: string,
+    (* The directory path *)
+    dir: string
   }
 
-  val stdin = File { name = "stdin", dirPath = [] }
+  val stdin = File { file = "stdin", dir = "" }
+
+  fun fromPathString ps =
+  let
+    val ps = OS.FileSys.fullPath ps
+    val file = OS.Path.splitDirFile ps
+  in
+    File file
+  end
 
 end

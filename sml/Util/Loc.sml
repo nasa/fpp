@@ -12,7 +12,7 @@ struct
   }
 
   val todo = Loc {
-    file = File.File { name = "todo", dirPath = [] },
+    file = File.File { file = "todo", dir = "" },
     pos1 = 0,
     pos2 = 0
   }
@@ -26,7 +26,7 @@ struct
         then "line "^sl
         else "lines "^sl^"-"^el
     in 
-      pos^" of "^(#name file)
+      pos^" of "^(OS.Path.joinDirFile file)
     end
 
 end

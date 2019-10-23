@@ -26,17 +26,21 @@ struct
 
   fun write s = TextIO.output (TextIO.stdErr, s)
 
+  fun displayTool () = 
+    case !toolOpt of
+         SOME (Tool.Tool tool) => write (#name tool)
+       | NONE => ()
+
+  fun displayLoc locOpt =
+    case locOpt of
+         SOME loc => write (Loc.show loc)
+       | NONE => ()
+
   fun display locOpt msg = (
-    (
-      case !toolOpt of
-           SOME (Tool.Tool tool) => write ((#name tool)^": ")
-         | NONE => ()
-    );
-    (
-      case locOpt of
-           SOME loc => write ((Loc.show loc)^": ")
-         | NONE => ()
-    );
+    displayTool ();
+    write "\n";
+    displayLoc locOpt;
+    write "\n";
     msg TextIO.stdErr;
     write "\n"
   )
