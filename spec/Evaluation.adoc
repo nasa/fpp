@@ -20,11 +20,15 @@ A *value* is one of the following:
 
 * A string value
 
+* An anonymous array value
+
 * An array value
 
 * An enumeration value
 
-* A structure value
+* An anonymous struct value
+
+* A struct value
 
 Every value belongs to exactly one type.
 
@@ -82,13 +86,27 @@ It is written in the same way as a string literal expression,
 e.g., `"abc"`.
 Its type is `string`.
 
+==== Anonymous Array Values
+
+An *anonymous array value* is a value associated with an anonymous
+array type.
+We write an anonymous array value similarly to an
+<<Expressions_Array-Expressions,array expression>>:
+an anonymous array value has the form `[` stem:[v_1] `,` stem:[...] `,` 
+stem:[v_n] `]`, where for each stem:[i in [1,n]], stem:[v_i] is a value of type 
+stem:[T] for some stem:[T].
+The type of the value is _[_ stem:[n] _]_ stem:[T].
+
 ==== Array Values
 
-An *array value* is a list of values associated with an array type.
-We write an array value similarly to an
+An *array value* is a value associated with an array type.
+We write an array value like an <<Values_Anonymous-Array-Values,anonymous array 
+value>>, except that the value is annotated with an
+<<Types_Array-Types,array type>>.
+
 <<Expressions_Array-Expressions,array expression>>:
-an array value has the form stem:[Q] `[` stem:[v_1] `,` stem:[...] `,` 
-stem:[v_n] `]`,
+an array value has the form `[` stem:[v_1] `,` stem:[...] `,` 
+stem:[v_n] `]` `:` stem:[Q],
 where
 
 . stem:[Q] is a
@@ -99,6 +117,8 @@ with member type stem:[T].
 
 . For each stem:[i in [1,n]], stem:[v_i] is a value of type stem:[T].
 
+The type of the value is stem:[Q].
+
 ==== Enumeration Values
 
 An *enumeration value* is a value associated with an
@@ -107,20 +127,37 @@ Its type is the type associated with the
 <<Definitions_Enum-Definitions,enum definition>> in which
 the enumerated constant definition appears.
 
-==== Structure Values
+==== Anonymous Struct Values
 
-A *structure value* is a list of members and associated values 
-that is an element of a structure type.
-We write a structure value similarly to an
-<<Expressions_Structure-Expressions,structure expression>>:
-a structure value has the form stem:[Q] `{` stem:[m_1] `:` stem:[v_1] `,` stem:[...] `,` 
-stem:[m_n] `:` stem:[v_n] `}`,
+An *anonymous struct value* is a value associated with an
+<<Type-Checking_Internal-Types_Anonymous-Struct-Types,anonymous struct
+type>>.
+We write an anonymous struct value stem:[v] similarly to a
+<<Expressions_Structure-Expressions,struct expression>>:
+a struct value has the form `{` stem:[m_1] `=` stem:[v_1] `,` stem:[...] `,` 
+stem:[m_n] `=` stem:[v_n] `}`,
+where for each stem:[i in [1,n]], stem:[v_i] is a value of type stem:[T_i].
+The type of stem:[v] is _{_ stem:[m_1] _:_ stem:[T_1] _,_ stem:[...] _,_
+stem:[m_n] _:_ stem:[T_n] _}_.
+
+==== Struct Values
+
+A *struct value* is a value associated with a
+<<Types_Struct-Types,struct type>>.
+that is an element of a struct type.
+We write a struct value similarly to an
+<<Evaluation_Values_Struct-Values,anonymous struct value>>,
+except that we annotate the value with a struct type:
+a struct value has the form `{` stem:[m_1] `:` stem:[v_1] `,` stem:[...] `,` 
+stem:[m_n] `:` stem:[v_n] `}` `:` stem:[Q],
 where
 
 . stem:[Q] is a
 <<Scoping-of-Names_Qualified-Identifiers,qualified identifier>>
 that refers to a
 <<Type-Definitions_Struct-Definitions,struct definition>>.
+
+. The members of stem:[Q] are stem:[m_i] `:` stem:[T_i] for stem:[i in [1,n\]].
 
 . For each stem:[i in [1,n]], stem:[v_i] is a value of type stem:[T_i].
 
@@ -208,25 +245,35 @@ floating-point values to and from each other.
 If stem:[T_2] is an array type and stem:[T_1 = T_2], then
 let stem:[v_2 = v_1].
 
-Otherwise if stem:[T_2] is an array type, then
+Otherwise if stem:[T_1] is an anonymous array type and stem:[T_2] is an 
+anonymous array type or array type, both with stem:[n] elements, then
 
 . Let stem:[T'_2] be the element type of stem:[T_2].
 
-. Let stem:[v'_2] be the result of converting stem:[v_1] to type stem:[T'_2].
+. For each stem:[i in [1,n\]], stem:[v'_i] be the result of converting stem:[v_i] to type stem:[T'_2].
 
-. Let stem:[v_2] be the unique array value with type stem:[T_2]
-value stem:[v'_2] at each element.
+. Let stem:[v_2] be the unique array value of type stem:[T_2]
+with value stem:[v'_i] at each element.
+
+Otherwise the conversion is not valid.
 
 ==== Structure Values
 
 If stem:[T_2] is a struct type and stem:[T_1 = T_2], then
 let stem:[v_2 = v_1].
 
-Otherwise if stem:[T_2] is a struct type with members stem:[m_{2i}] `:` 
-stem:[T_{2i}], then
+Otherwise if stem:[T_1] is an anonymous struct type and stem:[T_2] is
+an anonymous struct type or struct type
+such that for each member stem:[m] `:` stem:[v_m] of stem:[T_1] there is a member 
+stem:[m] `:` stem:[T_m] in stem:[T_2], then use the value of stem:[T_2] with 
+the following members:
 
-. For each stem:[i], let stem:[v_{2i}] be the result of converting
-stem:[v_1] to type stem:[T_{2i}].
+. For each member stem:[m] `:` stem:[T_m] of stem:[T_2] such that there is a member 
+stem:[m] `:` stem:[v_m] in stem:[v_1], add the member stem:[m] `:` stem:[v'_m],
+where stem:[v'_m] is the result of converting stem:[v_m] to stem:[T_m].
 
-. Let stem:[v_2] be the unique struct value with type stem:[T_2]
-and members stem:[m_i] `:` stem:[v_{2i}].
+. For each member stem:[m] `:` stem:[T_m] of stem:[T_2] such that there is no member 
+stem:[m] `:` stem:[v_m] in stem:[v_1], add the member stem:[m] `:` stem:[v'_m],
+where stem:[v'_m] is the <<Types_Default-Values,default value>> at type stem:[T_m].
+
+Otherwise the conversion is invalid.

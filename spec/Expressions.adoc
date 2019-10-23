@@ -74,15 +74,22 @@ is a comma.
 
 ==== Semantics
 
-The sequence must have at least one element.
-TODO: Type compatibility.
+. The sequence must have at least one element.
+
+. The types of the expressions in the sequence must be
+<<Type-Checking_Computing-a-Common-Type_Lists-of-Types,
+convertible to a common type>>.
+
+. The value of the expression is formed by computing
+the value of each element and then converting all the
+elements to the common type.
 
 ==== Example
 
 [source,tnet]
 ----
 array A = [3] U32
-constant a = [ 0, 1, 2 ] : A # a is a value of type A with elements 0, 1, 2
+constant a = [ 0, 1, 2 ] # a is a value of type A with elements 0, 1, 2
 ----
 
 === Struct Expressions
@@ -91,8 +98,7 @@ An *struct expression* is an expression that represents a struct value.
 
 ==== Syntax
 
-`{` _struct-element-sequence_ `}` `:`
-<<Lexical-Elements_Identifiers,_type_>>
+`{` _struct-element-sequence_ `}`
 
 _struct-element-sequence_ is an
 <<Element-Sequences,element sequence>> in which the elements
@@ -110,23 +116,21 @@ The following must be true of the struct element sequence _S_:
 
 . No two identifiers appearing in _S_ may be the same.
 
-. Each expression appearing in _S_ must have a type that is
-<<Type-Checking_Type-Conversion,convertible to>> the corresponding
-member type of _T_.
+. Each expression appearing in _S_ must have a valid type.
 
-If any member stem:[m_i] `:` stem:[T_i] of _T_ is missing from _S_,
-then stem:[m_i] is assigned the
-<<Types_Default-Values,default value>> associated with stem:[T_i].
+The expression is evaluated by evaluating each member expression
+to a value and then constructing the struct value with the
+corresponding member names and values.
 
 ==== Example
 
 [source,fpp]
 ----
-struct S {
-  x : U32
-  y : F32
+# s is a struct value with members x = 0, y = 1
+constant s = { 
+  x = 0
+  y = 1
 }
-constant s = { x = 1 } : S # s is a value of type S with member values x = 1, y = 0
 ----
 
 === Arithmetic Expressions

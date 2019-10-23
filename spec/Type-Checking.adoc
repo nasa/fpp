@@ -39,16 +39,16 @@ the *integer types*.
 <<Types_Primitive-Types,primitive numeric types>> are called
 the *numeric types*.
 
-=== Anonymous Array Types
+==== Anonymous Array Types
 
 The type _[_ _n_ _]_ <<Types,_type_>>, where _n_
 is an integer, represents an array of _n_ elements,
 each of type _type_.
 
-=== Anonymous Struct Types
+==== Anonymous Struct Types
 
 The type _{_ stem:[m_1] _:_ stem:[T_1, ...,] stem:[m_n] _:_ stem:[T_n] _}_
-represents a structure with members stem:[m_i] _:_ stem:[T_i], for
+represents a struct with members stem:[m_i] _:_ stem:[T_i], for
 stem:[i in [1,n\]].
 
 === Integer Literals
@@ -98,42 +98,29 @@ literal expression>> is `string`.
 
 To type an
 <<Expressions_Array-Expressions,array expression>>
-stem:[Q] `[` stem:[e_1] `,` stem:[...] `,` stem:[e_n] `]`,
+`[` stem:[e_1] `,` stem:[...] `,` stem:[e_n] `]`,
 the semantic analyzer does the following:
 
-. Check that the qualified identifier stem:[Q] refers to an
-<<Definitions_Array-Types-Definition,array type definition>> stem:[D] with 
-element type stem:[T'].
+. For each stem:[i in [1,n]], compute the type stem:[T_i] of stem:[e_i].
 
-. For each stem:[i in [1,n]]
+. Compute the <<Type-Checking_Computing-a-Common-Type_Lists-of-Types,common type>>
+stem:[T] of the list of types stem:[T_i].
 
-.. Compute the type stem:[T_i] of stem:[e_i]
-
-.. Check that stem:[T_i] is <<Type-Checking_Type-Conversion,convertible to>>
-stem:[T']
-
-. Assign the type associated with stem:[D] to the expression.
+. Assign the type _[_ stem:[n] _]_ stem:[T] to the expression.
 
 === Struct Expressions
 
 To type a
 <<Expressions_Struct-Expressions,struct expression>>
-stem:[Q] `{` stem:[m_1] `=` stem:[e_1] `,` stem:[...] `,` stem:[m_n] `=` stem:[e_n] `}`,
+`{` stem:[m_1] `=` stem:[e_1] `,` stem:[...] `,` stem:[m_n] `=` stem:[e_n] `}`,
 the semantic analyzer does the following:
 
-. Check that the qualified identifier stem:[Q] refers to a
-<<Definitions_Struct-Definition,struct definition>> stem:[D].
+. Check that the member names stem:[m_i] are distinct.
 
-. For each stem:[i in [1,n]]
+. For each stem:[i in [1,n]], compute the type stem:[T_i] of stem:[e_i].
 
-.. Compute the type stem:[T_i] of stem:[e_i].
-
-.. Check that stem:[D] has a member stem:[m] with type stem:[T_m].
-
-.. Check that stem:[T_i] is <<Type-Checking_Type-Conversion,convertible to>>
-stem:[T_m].
-
-. Assign the type associated with stem:[D] to the expression.
+. Assign the type _{_ stem:[m_1] _=_ stem:[T_1] _,_ stem:[...] _,_ stem:[m_n] _=_ stem:[T_n] _}_
+to the expression.
 
 === Unary Minus
 
@@ -221,8 +208,7 @@ if stem:[n = m] and stem:[T'_1] may be converted to stem:[T'_2].
 
 . An anonymous array type stem:[T_1 =] _[_ stem:[n] _]_ stem:[T'_1]
 may be converted to the array type stem:[T_2] if the number
-of elements is the same for the two types, and the member
-type of stem:[T_1] may be converted to the member type of stem:[T_2].
+of elements and the member types are the same for the two types.
 
 . An anonymous struct type stem:[T =]_{_ stem:[m_1] _:_ stem:[T_1] _,_ 
 stem:[...] _,_ stem:[m_1] _:_ stem:[T_n] _}_ may be converted to
@@ -234,11 +220,7 @@ the anonymous struct type stem:[T'] if for each stem:[i in [1,n\]],
 
 . An anonymous struct type stem:[T =]_{_ stem:[m_1] _:_ stem:[T_1] _,_ 
 stem:[...] _,_ stem:[m_1] _:_ stem:[T_n] _}_ may be converted to
-the struct type stem:[T'] if for each stem:[i in [1,n\]]
-
-.. stem:[m_i] _:_ stem:[T'_i] is a member of stem:[T']; and
-
-.. stem:[T_i] may be converted to stem:[T'_i].
+the struct type stem:[T'] if the sets of members in the two types are identical.
 
 . A <<Types_Primitive-Types,primitive type>> type stem:[T_1] may be converted 
 to an
@@ -275,39 +257,61 @@ stem:[T] be stem:[T_1].
 
 .. Otherwise use <<Type-Checking_Integer,_Integer_>>.
 
-. Otherwise if stem:[T_1] is an enum type stem:[T], then replace stem:[T_1] with 
-the representation type specified in the definition of stem:[T]
+. Otherwise if stem:[T_1] or stem:[T_2] is an enum type stem:[T], then replace 
+the enum type with the representation type specified in the definition of stem:[T]
 and reapply these rules.
 
-. Otherwise if stem:[T_2] is an enum type stem:[T], then replace stem:[T_2] with 
-the representation type specified in the definition of stem:[T]
-and reapply these rules.
+. Otherwise if one of stem:[T_1] and stem:[T_2] is an anonymous array type
+stem:[T] and the other is an array type stem:[T'], and stem:[T]
+may be converted to stem:[T'], then use stem:[T'].
 
-. Otherwise if stem:[T_1] and stem:[T_2] are structure types that are 
-<<Type-Checking_Type-Conversion,convertible to a to a common type>>, then 
-stem:[T] is the structure type that results from
-applying these rules to each pair of corresponding members of stem:[T_1] and
-stem:[T_2].
-
-. Otherwise if stem:[T_1] and stem:[T_2] are array types with the same size stem:[n]
+. Otherwise if stem:[T_1] and stem:[T_2] are anonymous array types with the same size stem:[n]
 and member types stem:[T'_1] and stem:[T'_2], then apply these rules to resolve
-stem:[T'_1] and stem:[T'_2] to stem:[T'] and let stem:[T] be `[`stem:[n]`]` stem:[T'].
+stem:[T'_1] and stem:[T'_2] to stem:[T'] and let stem:[T] be _[_ stem:[n] _]_ stem:[T'].
+
+. Otherwise if one of stem:[T_1] and stem:[T_2] is an anonymous structure type
+stem:[T] and the other is a structure type stem:[T'], and stem:[T]
+may be converted to stem:[T'], then use stem:[T'].
+
+. Otherwise if stem:[T_1] and stem:[T_2] are both anonymous structure types, then use
+the anonymous structure type stem:[T] with the following members:
+
+.. For each member stem:[m_1] _:_ stem:[T'_1] of stem:[T_1],
+if stem:[T_2] has a member stem:[m_1] _:_ stem:[T'_2], then apply these rules
+to convert stem:[T'_1] and stem:[T'_2] to a common type stem:[T'] and
+use stem:[m_1] _:_ stem:[T']. Otherwise use stem:[m_1] _:_ stem:[T'_1].
+
+.. For each member stem:[m_2] _:_ stem:[T'_2] of stem:[T_2],
+if stem:[T_1] has a member stem:[m_2] _:_ stem:[T'_1], then apply these rules
+to convert stem:[T'_2] and stem:[T'_1] to a common type stem:[T'] and
+use stem:[m_2] _:_ stem:[T']. Otherwise use stem:[m_2] _:_ stem:[T'_2].
 
 . Otherwise if one of stem:[T_1] and stem:[T_2] is a primitive type 
 and the other
-one is a structure type stem:[S], then apply these rules to resolve the
+one is an anonymous array type _[_ stem:[n] _]_ stem:[T'], then apply these 
+rules to resolve
+the primitive type and stem:[T'] to a common type stem:[T'']. Let 
+stem:[T] be the
+array type _[_ stem:[n] _]_ stem:[T''].
+
+. Otherwise if one of stem:[T_1] and stem:[T_2] is a primitive type 
+and the other
+one is an array type stem:[A], and the primitive type
+may be converted to the member type of stem:[A], then use stem:[A].
+
+. Otherwise if one of stem:[T_1] and stem:[T_2] is a primitive type and the 
+other
+one is an anonymous structure type stem:[S], then apply these rules to resolve 
+the
 primitive type and each of the structure member types to a common type.
-Let stem:[T] be the structure type whose members are the members of 
+Let stem:[T] be the structure type whose member names are the member names of 
 stem:[S] and
 whose member types are the corresponding common types.
 
 . Otherwise if one of stem:[T_1] and stem:[T_2] is a primitive type 
 and the other
-one is an array type `[` stem:[n] `]` stem:[T'], then apply these 
-rules to resolve
-the primitive type and stem:[T'] to a common type stem:[T'']. Let 
-stem:[T] bet the
-array type `[` stem:[n] `]` stem:[T''].
+one is a structure type stem:[S], and the primitive type
+may be converted to each of the member types of stem:[S], then use stem:[S].
 
 . Otherwise the attempted resolution is invalid. Throw an error.
 
@@ -324,6 +328,7 @@ stem:[T_1, ... , T_n], do the following:
 
    ..  Compute the type stem:[T] of stem:[e_i].
 
-   ..  Compute the common type stem:[T_i] of stem:[T_(i-1)] and stem:[T].
+   ..  Compute the <<Type-Checking_Computing-a-Common-Type,common type>>
+stem:[T_i] of stem:[T_(i-1)] and stem:[T].
 
 .  Use stem:[T_n] as the common type of the list.

@@ -636,6 +636,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Type-Checking_Internal-Types_Integer">14.1.1. Integer</a></li>
 <li><a href="#Type-Checking_Internal-Types_Integer-Types">14.1.2. Integer Types</a></li>
 <li><a href="#Type-Checking_Internal-Types_Numeric-Types">14.1.3. Numeric Types</a></li>
+<li><a href="#Type-Checking_Internal-Types_Anonymous-Array-Types">14.1.4. Anonymous Array Types</a></li>
+<li><a href="#Type-Checking_Internal-Types_Anonymous-Struct-Types">14.1.5. Anonymous Struct Types</a></li>
 </ul>
 </li>
 <li><a href="#Type-Checking_Integer-Literals">14.2. Integer Literals</a></li>
@@ -648,6 +650,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Type-Checking_Identifier-Expressions">14.9. Identifier Expressions</a></li>
 <li><a href="#Type-Checking_Dot-Expressions">14.10. Dot Expressions</a></li>
 <li><a href="#Type-Checking_Type-Conversion">14.11. Type Conversion</a></li>
+<li><a href="#Type-Checking_Computing-a-Common-Type">14.12. Computing a Common Type</a>
+<ul class="sectlevel3">
+<li><a href="#Type-Checking_Computing-a-Common-Type_Pairs-of-Types">14.12.1. Pairs of Types</a></li>
+<li><a href="#Type-Checking_Computing-a-Common-Type_Lists-of-Types">14.12.2. Lists of Types</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#Evaluation">15. Evaluation</a>
@@ -659,9 +667,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Evaluation_Values_Floating-Point-Values">15.1.3. Floating-Point Values</a></li>
 <li><a href="#Evaluation_Values_Boolean-Values">15.1.4. Boolean Values</a></li>
 <li><a href="#Evaluation_Values_String-Values">15.1.5. String Values</a></li>
-<li><a href="#Evaluation_Values_Array-Values">15.1.6. Array Values</a></li>
-<li><a href="#Evaluation_Values_Enumeration-Values">15.1.7. Enumeration Values</a></li>
-<li><a href="#Evaluation_Values_Structure-Values">15.1.8. Structure Values</a></li>
+<li><a href="#Evaluation_Values_Anonymous-Array-Values">15.1.6. Anonymous Array Values</a></li>
+<li><a href="#Evaluation_Values_Array-Values">15.1.7. Array Values</a></li>
+<li><a href="#Evaluation_Values_Enumeration-Values">15.1.8. Enumeration Values</a></li>
+<li><a href="#Evaluation_Values_Anonymous-Struct-Values">15.1.9. Anonymous Struct Values</a></li>
+<li><a href="#Evaluation_Values_Struct-Values">15.1.10. Struct Values</a></li>
 </ul>
 </li>
 <li><a href="#Evaluation_Evaluating-Expressions">15.2. Evaluating Expressions</a></li>
@@ -1243,8 +1253,7 @@ unmatched double quote character.</p>
 <div class="sect3">
 <h4 id="Expressions_Array-Expressions_Syntax">5.5.1. Syntax</h4>
 <div class="paragraph">
-<p><code>[</code> <em>array-element-sequence</em> <code>]</code> <code>:</code>
-<a href="#Lexical-Elements_Identifiers"><em>type</em></a></p>
+<p><code>[</code> <em>array-element-sequence</em> <code>]</code></p>
 </div>
 <div class="paragraph">
 <p><em>array-element-sequence</em> is an
@@ -1256,12 +1265,21 @@ is a comma.</p>
 </div>
 <div class="sect3">
 <h4 id="Expressions_Array-Expressions_Semantics">5.5.2. Semantics</h4>
-<div class="paragraph">
-<p><em>type</em> must be an <a href="#Types_Array-Types">array type</a>.
-The number of elements in the element sequence must match the
-size of the array.
-The type of each element must be <a href="#Type-Checking_Type-Conversion">convertible
-to</a> the element type of the array.</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The sequence must have at least one element.</p>
+</li>
+<li>
+<p>The types of the expressions in the sequence must be
+<a href="#Type-Checking_Computing-a-Common-Type_Lists-of-Types">convertible to a common type</a>.</p>
+</li>
+<li>
+<p>The value of the expression is formed by computing
+the value of each element and then converting all the
+elements to the common type.</p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect3">
@@ -1269,7 +1287,7 @@ to</a> the element type of the array.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="tnet">array A = [3] U32
-constant a = [ 0, 1, 2 ] : A # a is a value of type A with elements 0, 1, 2</code></pre>
+constant a = [ 0, 1, 2 ] # a is a value of type A with elements 0, 1, 2</code></pre>
 </div>
 </div>
 </div>
@@ -1282,8 +1300,7 @@ constant a = [ 0, 1, 2 ] : A # a is a value of type A with elements 0, 1, 2</cod
 <div class="sect3">
 <h4 id="Expressions_Struct-Expressions_Syntax">5.6.1. Syntax</h4>
 <div class="paragraph">
-<p><code>{</code> <em>struct-element-sequence</em> <code>}</code> <code>:</code>
-<a href="#Lexical-Elements_Identifiers"><em>type</em></a></p>
+<p><code>{</code> <em>struct-element-sequence</em> <code>}</code></p>
 </div>
 <div class="paragraph">
 <p><em>struct-element-sequence</em> is an
@@ -1310,27 +1327,25 @@ The following must be true of the struct element sequence <em>S</em>:</p>
 <p>No two identifiers appearing in <em>S</em> may be the same.</p>
 </li>
 <li>
-<p>Each expression appearing in <em>S</em> must have a type that is
-<a href="#Type-Checking_Type-Conversion">convertible to</a> the corresponding
-member type of <em>T</em>.</p>
+<p>Each expression appearing in <em>S</em> must have a valid type.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>If any member \$m_i\$ <code>:</code> \$T_i\$ of <em>T</em> is missing from <em>S</em>,
-then \$m_i\$ is assigned the
-<a href="#Types_Default-Values">default value</a> associated with \$T_i\$.</p>
+<p>The expression is evaluated by evaluating each member expression
+to a value and then constructing the struct value with the
+corresponding member names and values.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="Expressions_Struct-Expressions_Example">5.6.3. Example</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">struct S {
-  x : U32
-  y : F32
-}
-constant s = { x = 1 } : S # s is a value of type S with member values x = 1, y = 0</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp"># s is a struct value with members x = 0, y = 1
+constant s = {
+  x = 0
+  y = 1
+}</code></pre>
 </div>
 </div>
 </div>
@@ -1715,15 +1730,15 @@ The type of the expression must be
 <h4 id="Definitions_Array-Definitions_Examples">6.3.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp"># Defines an array type A of 3 U8 elements with default value [ 0, 0, 0 ] : A
+<pre class="prettyprint highlight"><code data-lang="fpp"># Defines an array type A of 3 U8 elements with default value [ 0, 0, 0 ]
 array A = [3] U8
 # Defines an array type B of 2 A elements with default value
-# [ [ 0, 0, 0 ], [ 0, 0, 0 ] ] : B
+# [ [ 0, 0, 0 ], [ 0, 0, 0 ] ]
 array B = [3] A
-# Defines an array type C of 3 F32 elements with default value [ 1, 2, 3 ] : C
-array C = [3] F32 default [ 1, 2, 3 ] : C
+# Defines an array type C of 3 F32 elements with default value [ 1, 2, 3 ]
+array C = [3] F32 default [ 1, 2, 3 ]
 # Defines an array type C of 3 U32 values with default value
-# [ 1, 1, 1 ] : D after promoting 1 to [ 1, 1, 1 ] : D
+# [ 1, 1, 1 ] after promoting 1 to [ 1, 1, 1 ]
 array D = [3] U32 default 1</code></pre>
 </div>
 </div>
@@ -1942,17 +1957,17 @@ The type of the expression must be
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp"># Defines a struct type A with members x and y
-# and default value { x = 0, y = 0 } : A
+# and default value { x = 0, y = 0 }
 struct A {
   x : U32
   y : F32
 }
 # Defines a struct type B with members x and y
-# and default value { x = 0, y = 1 } : B
+# and default value { x = 0, y = 1 }
 struct B {
   x : U32
   y : F32
-} default { y = 1 } : B</code></pre>
+} default { y = 1 }</code></pre>
 </div>
 </div>
 </div>
@@ -3204,6 +3219,22 @@ the <strong>integer types</strong>.</p>
 the <strong>numeric types</strong>.</p>
 </div>
 </div>
+<div class="sect3">
+<h4 id="Type-Checking_Internal-Types_Anonymous-Array-Types">14.1.4. Anonymous Array Types</h4>
+<div class="paragraph">
+<p>The type <em>[</em> <em>n</em> <em>]</em> <a href="#Types"><em>type</em></a>, where <em>n</em>
+is an integer, represents an array of <em>n</em> elements,
+each of type <em>type</em>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Type-Checking_Internal-Types_Anonymous-Struct-Types">14.1.5. Anonymous Struct Types</h4>
+<div class="paragraph">
+<p>The type <em>{</em> \$m_1\$ <em>:</em> \$T_1, ...,\$ \$m_n\$ <em>:</em> \$T_n\$ <em>}</em>
+represents a struct with members \$m_i\$ <em>:</em> \$T_i\$, for
+\$i in [1,n]\$.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="Type-Checking_Integer-Literals">14.2. Integer Literals</h3>
@@ -3269,32 +3300,20 @@ literal expression</a> is <code>string</code>.</p>
 <div class="paragraph">
 <p>To type an
 <a href="#Expressions_Array-Expressions">array expression</a>
-\$Q\$ <code>[</code> \$e_1\$ <code>,</code> \$...\$ <code>,</code> \$e_n\$ <code>]</code>,
+<code>[</code> \$e_1\$ <code>,</code> \$...\$ <code>,</code> \$e_n\$ <code>]</code>,
 the semantic analyzer does the following:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Check that the qualified identifier \$Q\$ refers to an
-<a href="#Definitions_Array-Types-Definition">array type definition</a> \$D\$ with
-element type \$T'\$.</p>
+<p>For each \$i in [1,n\$], compute the type \$T_i\$ of \$e_i\$.</p>
 </li>
 <li>
-<p>For each \$i in [1,n\$]</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Compute the type \$T_i\$ of \$e_i\$</p>
+<p>Compute the <a href="#Type-Checking_Computing-a-Common-Type_Lists-of-Types">common type</a>
+\$T\$ of the list of types \$T_i\$.</p>
 </li>
 <li>
-<p>Check that \$T_i\$ is <a href="#Type-Checking_Type-Conversion">convertible to</a>
-\$T'\$</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>Assign the type associated with \$D\$ to the expression.</p>
+<p>Assign the type <em>[</em> \$n\$ <em>]</em> \$T\$ to the expression.</p>
 </li>
 </ol>
 </div>
@@ -3304,34 +3323,20 @@ element type \$T'\$.</p>
 <div class="paragraph">
 <p>To type a
 <a href="#Expressions_Struct-Expressions">struct expression</a>
-\$Q\$ <code>{</code> \$m_1\$ <code>=</code> \$e_1\$ <code>,</code> \$...\$ <code>,</code> \$m_n\$ <code>=</code> \$e_n\$ <code>}</code>,
+<code>{</code> \$m_1\$ <code>=</code> \$e_1\$ <code>,</code> \$...\$ <code>,</code> \$m_n\$ <code>=</code> \$e_n\$ <code>}</code>,
 the semantic analyzer does the following:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Check that the qualified identifier \$Q\$ refers to a
-<a href="#Definitions_Struct-Definition">struct definition</a> \$D\$.</p>
+<p>Check that the member names \$m_i\$ are distinct.</p>
 </li>
 <li>
-<p>For each \$i in [1,n\$]</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Compute the type \$T_i\$ of \$e_i\$.</p>
+<p>For each \$i in [1,n\$], compute the type \$T_i\$ of \$e_i\$.</p>
 </li>
 <li>
-<p>Check that \$D\$ has a member \$m\$ with type \$T_m\$.</p>
-</li>
-<li>
-<p>Check that \$T_i\$ is <a href="#Type-Checking_Type-Conversion">convertible to</a>
-\$T_m\$.</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>Assign the type associated with \$D\$ to the expression.</p>
+<p>Assign the type <em>{</em> \$m_1\$ <em>=</em> \$T_1\$ <em>,</em> \$...\$ <em>,</em> \$m_n\$ <em>=</em> \$T_n\$ <em>}</em>
+to the expression.</p>
 </li>
 </ol>
 </div>
@@ -3444,15 +3449,48 @@ type</a> may be converted to any other numeric type.</p>
 <a href="#Type-Checking_Internal-Types_Numeric-Types">numeric type</a>.</p>
 </li>
 <li>
-<p>A type \$T_1\$ may be converted to an
+<p>An anonymous array type \$T_1 =\$ <em>[</em> \$n\$ <em>]</em> \$T'_1\$
+may be converted to the anonymous array type
+\$T_2 =\$ <em>[</em> \$m\$ <em>]</em> \$T'_2\$
+if \$n = m\$ and \$T'_1\$ may be converted to \$T'_2\$.</p>
+</li>
+<li>
+<p>An anonymous array type \$T_1 =\$ <em>[</em> \$n\$ <em>]</em> \$T'_1\$
+may be converted to the array type \$T_2\$ if the number
+of elements and the member types are the same for the two types.</p>
+</li>
+<li>
+<p>An anonymous struct type \$T =\$<em>{</em> \$m_1\$ <em>:</em> \$T_1\$ <em>,</em>
+\$...\$ <em>,</em> \$m_1\$ <em>:</em> \$T_n\$ <em>}</em> may be converted to
+the anonymous struct type \$T'\$ if for each \$i in [1,n]\$,</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>\$m_i\$ <em>:</em> \$T'_i\$ is a member of \$T'\$; and</p>
+</li>
+<li>
+<p>\$T_i\$ may be converted to \$T'_i\$.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>An anonymous struct type \$T =\$<em>{</em> \$m_1\$ <em>:</em> \$T_1\$ <em>,</em>
+\$...\$ <em>,</em> \$m_1\$ <em>:</em> \$T_n\$ <em>}</em> may be converted to
+the struct type \$T'\$ if the sets of members in the two types are identical.</p>
+</li>
+<li>
+<p>A <a href="#Types_Primitive-Types">primitive type</a> type \$T_1\$ may be converted
+to an
 <a href="#Types_Array-Types">array type</a> \$T_2\$ if
 \$T_1\$ may be converted to the member type of \$T_2\$.</p>
 </li>
 <li>
-<p>A type \$T_1\$ may be converted to a
-<a href="#Types_Structure-Types">structure type</a> \$T_2\$ if
-for each member \$m_{2i}\$ <code>:</code> \$T_{2i}\$ of \$T_2\$,
-\$T_1\$ may be converted to \$T_{2i}\$.</p>
+<p>A <a href="#Types_Primitive-Types">primitive type</a> type \$T\$ may be converted
+to a
+<a href="#Types_Structure-Types">structure type</a> \$T'\$ if
+for each member \$m_i\$ <code>:</code> \$T_i\$ of \$T'\$,
+\$T\$ may be converted to \$T_i\$.</p>
 </li>
 <li>
 <p>Type convertibility is transitive: if \$T_1\$ may be converted to
@@ -3461,6 +3499,148 @@ and \$T_2\$ may be converted to \$T_3\$, then \$T_1\$
 may be converted to \$T_3\$.</p>
 </li>
 </ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Type-Checking_Computing-a-Common-Type">14.12. Computing a Common Type</h3>
+<div class="sect3">
+<h4 id="Type-Checking_Computing-a-Common-Type_Pairs-of-Types">14.12.1. Pairs of Types</h4>
+<div class="paragraph">
+<p>Here are the rules for resolving two types \$T_1\$ and \$T_2\$
+(e.g., the
+types of two subexpressions) to a common type \$T\$ (e.g., the type of
+the whole expression):</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If \$T_1\$ and \$T_2\$ are the same type, then let
+\$T\$ be \$T_1\$.</p>
+</li>
+<li>
+<p>Otherwise if \$T_1\$ and \$T_2\$ are both
+<a href="#Type-Checking_Numeric-Types">numeric types</a>, then do the following:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>If \$T_1\$ and \$T_2\$ are both floating-point types, then use <code>F64</code>.</p>
+</li>
+<li>
+<p>Otherwise use <a href="#Type-Checking_Integer"><em>Integer</em></a>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Otherwise if \$T_1\$ or \$T_2\$ is an enum type \$T\$, then replace
+the enum type with the representation type specified in the definition of \$T\$
+and reapply these rules.</p>
+</li>
+<li>
+<p>Otherwise if one of \$T_1\$ and \$T_2\$ is an anonymous array type
+\$T\$ and the other is an array type \$T'\$, and \$T\$
+may be converted to \$T'\$, then use \$T'\$.</p>
+</li>
+<li>
+<p>Otherwise if \$T_1\$ and \$T_2\$ are anonymous array types with the same size \$n\$
+and member types \$T'_1\$ and \$T'_2\$, then apply these rules to resolve
+\$T'_1\$ and \$T'_2\$ to \$T'\$ and let \$T\$ be <em>[</em> \$n\$ <em>]</em> \$T'\$.</p>
+</li>
+<li>
+<p>Otherwise if one of \$T_1\$ and \$T_2\$ is an anonymous structure type
+\$T\$ and the other is a structure type \$T'\$, and \$T\$
+may be converted to \$T'\$, then use \$T'\$.</p>
+</li>
+<li>
+<p>Otherwise if \$T_1\$ and \$T_2\$ are both anonymous structure types, then use
+the anonymous structure type \$T\$ with the following members:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>For each member \$m_1\$ <em>:</em> \$T'_1\$ of \$T_1\$,
+if \$T_2\$ has a member \$m_1\$ <em>:</em> \$T'_2\$, then apply these rules
+to convert \$T'_1\$ and \$T'_2\$ to a common type \$T'\$ and
+use \$m_1\$ <em>:</em> \$T'\$. Otherwise use \$m_1\$ <em>:</em> \$T'_1\$.</p>
+</li>
+<li>
+<p>For each member \$m_2\$ <em>:</em> \$T'_2\$ of \$T_2\$,
+if \$T_1\$ has a member \$m_2\$ <em>:</em> \$T'_1\$, then apply these rules
+to convert \$T'_2\$ and \$T'_1\$ to a common type \$T'\$ and
+use \$m_2\$ <em>:</em> \$T'\$. Otherwise use \$m_2\$ <em>:</em> \$T'_2\$.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Otherwise if one of \$T_1\$ and \$T_2\$ is a primitive type
+and the other
+one is an anonymous array type <em>[</em> \$n\$ <em>]</em> \$T'\$, then apply these
+rules to resolve
+the primitive type and \$T'\$ to a common type \$T''\$. Let
+\$T\$ be the
+array type <em>[</em> \$n\$ <em>]</em> \$T''\$.</p>
+</li>
+<li>
+<p>Otherwise if one of \$T_1\$ and \$T_2\$ is a primitive type
+and the other
+one is an array type \$A\$, and the primitive type
+may be converted to the member type of \$A\$, then use \$A\$.</p>
+</li>
+<li>
+<p>Otherwise if one of \$T_1\$ and \$T_2\$ is a primitive type and the
+other
+one is an anonymous structure type \$S\$, then apply these rules to resolve
+the
+primitive type and each of the structure member types to a common type.
+Let \$T\$ be the structure type whose member names are the member names of
+\$S\$ and
+whose member types are the corresponding common types.</p>
+</li>
+<li>
+<p>Otherwise if one of \$T_1\$ and \$T_2\$ is a primitive type
+and the other
+one is a structure type \$S\$, and the primitive type
+may be converted to each of the member types of \$S\$, then use \$S\$.</p>
+</li>
+<li>
+<p>Otherwise the attempted resolution is invalid. Throw an error.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Type-Checking_Computing-a-Common-Type_Lists-of-Types">14.12.2. Lists of Types</h4>
+<div class="paragraph">
+<p>To compute a common type for a list of types
+\$T_1, ... , T_n\$, do the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Check that \$n &gt; 0\$. If not, then throw an error.</p>
+</li>
+<li>
+<p>Compute the type \$T_1\$ of \$e_1\$.</p>
+</li>
+<li>
+<p>For each \$i in [2,n\$]</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Compute the type \$T\$ of \$e_i\$.</p>
+</li>
+<li>
+<p>Compute the <a href="#Type-Checking_Computing-a-Common-Type">common type</a>
+\$T_i\$ of \$T_(i-1)\$ and \$T\$.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Use \$T_n\$ as the common type of the list.</p>
+</li>
+</ol>
+</div>
 </div>
 </div>
 </div>
@@ -3498,13 +3678,19 @@ in resolving expressions to compile-time constant values.</p>
 <p>A string value</p>
 </li>
 <li>
+<p>An anonymous array value</p>
+</li>
+<li>
 <p>An array value</p>
 </li>
 <li>
 <p>An enumeration value</p>
 </li>
 <li>
-<p>A structure value</p>
+<p>An anonymous struct value</p>
+</li>
+<li>
+<p>A struct value</p>
 </li>
 </ul>
 </div>
@@ -3590,13 +3776,30 @@ Its type is <code>string</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Values_Array-Values">15.1.6. Array Values</h4>
+<h4 id="Evaluation_Values_Anonymous-Array-Values">15.1.6. Anonymous Array Values</h4>
 <div class="paragraph">
-<p>An <strong>array value</strong> is a list of values associated with an array type.
-We write an array value similarly to an
+<p>An <strong>anonymous array value</strong> is a value associated with an anonymous
+array type.
+We write an anonymous array value similarly to an
 <a href="#Expressions_Array-Expressions">array expression</a>:
-an array value has the form \$Q\$ <code>[</code> \$v_1\$ <code>,</code> \$...\$ <code>,</code>
-\$v_n\$ <code>]</code>,
+an anonymous array value has the form <code>[</code> \$v_1\$ <code>,</code> \$...\$ <code>,</code>
+\$v_n\$ <code>]</code>, where for each \$i in [1,n\$], \$v_i\$ is a value of type
+\$T\$ for some \$T\$.
+The type of the value is <em>[</em> \$n\$ <em>]</em> \$T\$.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Evaluation_Values_Array-Values">15.1.7. Array Values</h4>
+<div class="paragraph">
+<p>An <strong>array value</strong> is a value associated with an array type.
+We write an array value like an <a href="#Values_Anonymous-Array-Values">anonymous array
+value</a>, except that the value is annotated with an
+<a href="#Types_Array-Types">array type</a>.</p>
+</div>
+<div class="paragraph">
+<p><a href="#Expressions_Array-Expressions">array expression</a>:
+an array value has the form <code>[</code> \$v_1\$ <code>,</code> \$...\$ <code>,</code>
+\$v_n\$ <code>]</code> <code>:</code> \$Q\$,
 where</p>
 </div>
 <div class="olist arabic">
@@ -3613,9 +3816,12 @@ with member type \$T\$.</p>
 </li>
 </ol>
 </div>
+<div class="paragraph">
+<p>The type of the value is \$Q\$.</p>
+</div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Values_Enumeration-Values">15.1.7. Enumeration Values</h4>
+<h4 id="Evaluation_Values_Enumeration-Values">15.1.8. Enumeration Values</h4>
 <div class="paragraph">
 <p>An <strong>enumeration value</strong> is a value associated with an
 <a href="#Definitions_Enumerated-Constant-Definitions">enumerated constant definition</a>.
@@ -3625,14 +3831,31 @@ the enumerated constant definition appears.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Values_Structure-Values">15.1.8. Structure Values</h4>
+<h4 id="Evaluation_Values_Anonymous-Struct-Values">15.1.9. Anonymous Struct Values</h4>
 <div class="paragraph">
-<p>A <strong>structure value</strong> is a list of members and associated values
-that is an element of a structure type.
-We write a structure value similarly to an
-<a href="#Expressions_Structure-Expressions">structure expression</a>:
-a structure value has the form \$Q\$ <code>{</code> \$m_1\$ <code>:</code> \$v_1\$ <code>,</code> \$...\$ <code>,</code>
-\$m_n\$ <code>:</code> \$v_n\$ <code>}</code>,
+<p>An <strong>anonymous struct value</strong> is a value associated with an
+<a href="#Type-Checking_Internal-Types_Anonymous-Struct-Types">anonymous struct
+type</a>.
+We write an anonymous struct value \$v\$ similarly to a
+<a href="#Expressions_Structure-Expressions">struct expression</a>:
+a struct value has the form <code>{</code> \$m_1\$ <code>=</code> \$v_1\$ <code>,</code> \$...\$ <code>,</code>
+\$m_n\$ <code>=</code> \$v_n\$ <code>}</code>,
+where for each \$i in [1,n\$], \$v_i\$ is a value of type \$T_i\$.
+The type of \$v\$ is <em>{</em> \$m_1\$ <em>:</em> \$T_1\$ <em>,</em> \$...\$ <em>,</em>
+\$m_n\$ <em>:</em> \$T_n\$ <em>}</em>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Evaluation_Values_Struct-Values">15.1.10. Struct Values</h4>
+<div class="paragraph">
+<p>A <strong>struct value</strong> is a value associated with a
+<a href="#Types_Struct-Types">struct type</a>.
+that is an element of a struct type.
+We write a struct value similarly to an
+<a href="#Evaluation_Values_Struct-Values">anonymous struct value</a>,
+except that we annotate the value with a struct type:
+a struct value has the form <code>{</code> \$m_1\$ <code>:</code> \$v_1\$ <code>,</code> \$...\$ <code>,</code>
+\$m_n\$ <code>:</code> \$v_n\$ <code>}</code> <code>:</code> \$Q\$,
 where</p>
 </div>
 <div class="olist arabic">
@@ -3642,6 +3865,9 @@ where</p>
 <a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifier</a>
 that refers to a
 <a href="#Type-Definitions_Struct-Definitions">struct definition</a>.</p>
+</li>
+<li>
+<p>The members of \$Q\$ are \$m_i\$ <code>:</code> \$T_i\$ for \$i in [1,n]\$.</p>
 </li>
 <li>
 <p>For each \$i in [1,n\$], \$v_i\$ is a value of type \$T_i\$.</p>
@@ -3768,7 +3994,8 @@ floating-point values to and from each other.</p>
 let \$v_2 = v_1\$.</p>
 </div>
 <div class="paragraph">
-<p>Otherwise if \$T_2\$ is an array type, then</p>
+<p>Otherwise if \$T_1\$ is an anonymous array type and \$T_2\$ is an
+anonymous array type or array type, both with \$n\$ elements, then</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -3776,13 +4003,16 @@ let \$v_2 = v_1\$.</p>
 <p>Let \$T'_2\$ be the element type of \$T_2\$.</p>
 </li>
 <li>
-<p>Let \$v'_2\$ be the result of converting \$v_1\$ to type \$T'_2\$.</p>
+<p>For each \$i in [1,n]\$, \$v'_i\$ be the result of converting \$v_i\$ to type \$T'_2\$.</p>
 </li>
 <li>
-<p>Let \$v_2\$ be the unique array value with type \$T_2\$
-value \$v'_2\$ at each element.</p>
+<p>Let \$v_2\$ be the unique array value of type \$T_2\$
+with value \$v'_i\$ at each element.</p>
 </li>
 </ol>
+</div>
+<div class="paragraph">
+<p>Otherwise the conversion is not valid.</p>
 </div>
 </div>
 <div class="sect3">
@@ -3792,20 +4022,28 @@ value \$v'_2\$ at each element.</p>
 let \$v_2 = v_1\$.</p>
 </div>
 <div class="paragraph">
-<p>Otherwise if \$T_2\$ is a struct type with members \$m_{2i}\$ <code>:</code>
-\$T_{2i}\$, then</p>
+<p>Otherwise if \$T_1\$ is an anonymous struct type and \$T_2\$ is
+an anonymous struct type or struct type
+such that for each member \$m\$ <code>:</code> \$v_m\$ of \$T_1\$ there is a member
+\$m\$ <code>:</code> \$T_m\$ in \$T_2\$, then use the value of \$T_2\$ with
+the following members:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>For each \$i\$, let \$v_{2i}\$ be the result of converting
-\$v_1\$ to type \$T_{2i}\$.</p>
+<p>For each member \$m\$ <code>:</code> \$T_m\$ of \$T_2\$ such that there is a member
+\$m\$ <code>:</code> \$v_m\$ in \$v_1\$, add the member \$m\$ <code>:</code> \$v'_m\$,
+where \$v'_m\$ is the result of converting \$v_m\$ to \$T_m\$.</p>
 </li>
 <li>
-<p>Let \$v_2\$ be the unique struct value with type \$T_2\$
-and members \$m_i\$ <code>:</code> \$v_{2i}\$.</p>
+<p>For each member \$m\$ <code>:</code> \$T_m\$ of \$T_2\$ such that there is no member
+\$m\$ <code>:</code> \$v_m\$ in \$v_1\$, add the member \$m\$ <code>:</code> \$v'_m\$,
+where \$v'_m\$ is the <a href="#Types_Default-Values">default value</a> at type \$T_m\$.</p>
 </li>
 </ol>
+</div>
+<div class="paragraph">
+<p>Otherwise the conversion is invalid.</p>
 </div>
 </div>
 </div>
@@ -3920,7 +4158,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-10-22 10:06:03 -0700
+Last updated 2019-10-22 18:12:40 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
