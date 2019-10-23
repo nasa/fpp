@@ -108,10 +108,7 @@ A *struct element* has the following syntax:
 
 ==== Semantics
 
-_type_ must be a <<Types_Struct-Types,struct type>> _T_.
 The following must be true of the struct element sequence _S_:
-
-. Each identifier appearing in _S_ must appear in the member list of _T_.
 
 . No two identifiers appearing in _S_ may be the same.
 
