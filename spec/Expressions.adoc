@@ -88,8 +88,7 @@ elements to the common type.
 
 [source,tnet]
 ----
-array A = [3] U32
-constant a = [ 0, 1, 2 ] # a is a value of type A with elements 0, 1, 2
+constant a = [ 0, 1, 2 ] # a is an array value of with elements 0, 1, 2
 ----
 
 === Struct Expressions
