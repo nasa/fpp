@@ -1,9 +1,9 @@
 (* ----------------------------------------------------------------------
- * TNetWriter.sml: implement TNetWriter.sig
+ * FPPWriter.sml: implement FPPWriter.sig
  * Author: Rob Bocchino
  * ----------------------------------------------------------------------*)
 
-structure TNetWriter :> TNET_WRITER =
+structure FPPWriter :> FPP_WRITER =
 struct
 
   open Ast

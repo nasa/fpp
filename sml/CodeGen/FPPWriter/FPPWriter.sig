@@ -1,9 +1,9 @@
 (* ----------------------------------------------------------------------
- * TNetWriter.sig
- * Write out TNet AST as source
+ * FPPWriter.sig
+ * Write out FPP AST as source
  * ----------------------------------------------------------------------*)
 
-signature TNET_WRITER =
+signature FPP_WRITER =
 sig
 
   val writeExpr : Write.t -> Ast.expr -> unit

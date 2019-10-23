@@ -2,8 +2,8 @@ Group
 is
   Write.sig
   Write.sml
-  TNetWriter/TNetWriter.sig
-  TNetWriter/TNetWriter.sml
+  FPPWriter/FPPWriter.sig
+  FPPWriter/FPPWriter.sml
   ../Ast/Ast.cm
   ../Error/Error.cm
   $/basis.cm
