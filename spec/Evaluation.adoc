@@ -70,8 +70,8 @@ over the types `F32` and `F64` of the values represented by each type:
 
 * The type `F64` represents all IEEE 8-byte floating-point values.
 
-We write a floating-point values analogously to integer values. For example, we 
-write the value 1.0 at type `F32` as `1.0 : F32`.
+We write a floating-point values analogously to primitive integer values. For 
+example, we write the value 1.0 at type `F32` as `1.0 : F32`.
 
 ==== Boolean Values
 
