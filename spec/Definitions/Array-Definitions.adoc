@@ -5,7 +5,7 @@ it.
 
 ==== Syntax
 
-`array` `type` <<Lexical-Elements_Identifiers,_identifier_>> `=`
+`array` <<Lexical-Elements_Identifiers,_identifier_>> `=`
 `[` <<Expressions,_expression_>> `]` <<Types,_type_>>
 _[_ `default` <<Expressions,_expression_>> _]_
 
