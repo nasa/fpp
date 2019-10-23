@@ -33,6 +33,10 @@ end
 
 fun main(name,args) =
   (parse args; OS.Process.success)
-  handle e => Error.handleExn e
+  handle e as IO.Io { name=name, ... } => (
+           Error.displayStr NONE ("cannot read file "^name);
+           raise e
+         )
+       | e => Error.handleExn e
 
 end
