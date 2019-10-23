@@ -132,7 +132,7 @@ constant a = \
 ```
 is equivalent to this:
 ```
-constant a = 1 + 1
+constant a = 1
 ```
 
 Note that the `\` token is required in this case.
