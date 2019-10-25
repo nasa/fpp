@@ -6,18 +6,20 @@
 signature FPP_WRITER =
 sig
 
-  val writeExpr : Write.t -> Ast.expr -> unit
+  val expr : Ast.expr -> Line.t list
 
-  val writeDefConstant : Write.t -> Ast.def_constant -> unit
+  val defConstant : Ast.def_constant -> Line.t list
 
-  val writeDefEnum : Write.t -> Ast.def_enum -> unit
+  val defEnum : Ast.def_enum -> Line.t list
 
-  val writeDefModule : Write.t -> Ast.def_module -> unit
+  val defModule : Ast.def_module -> Line.t list
 
-  val writeDefType : Write.t -> Ast.def_type -> unit
+  val enumerator : Ast.enumerator -> Line.t list
 
-  val writeEnumerator : Write.t -> Ast.enumerator -> unit
+  val typeName : Ast.type_name -> Line.t list
 
-  val writeTypeName : Write.t -> Ast.type_name -> unit
+  val transUnit : Ast.trans_unit -> Line.t list
+
+  val transUnitList : Ast.trans_unit list -> Line.t list
 
 end

@@ -18,10 +18,11 @@ struct
 
 open Loc
 
-fun parse (file, instream) = 
+fun parse file = 
   let 
     val _ = ParserState.file := file
     val _ = ParserState.pos := 1
+    val instream = File.openIn file
     fun input _ = TextIO.input instream
     fun printError (s, pos1, pos2) =
     let

@@ -9,25 +9,24 @@ struct
   open Ast
   open AstNode
 
-  fun writeDefEnum wr (DefEnum _) =
-    Write.str wr "def enum"
+  val line = Line.create 2
 
-  and writeDefModule wr e =
-    Write.str wr "def module"
+  fun lines s = [ line s ]
 
-  and writeDefType wr (DefType _) =
-    Write.str wr "def type"
+  fun defEnum (DefEnum _) = lines "def enum"
 
-  and writeEnumerator wr (Enumerator _) =
-    Write.str wr "enumerator"
+  and defModule e = lines "def module"
 
-  and writeExpr wr e = 
-    Write.str wr "expr"
+  and enumerator (Enumerator _) = lines "enumerator"
 
-  and writeTypeName wr tn =
-    Write.str wr "type name"
+  and expr e = lines "expr"
 
-  and writeDefConstant wr (DefConstant _) = 
-    Write.str wr "def constant"
+  and typeName tn = lines "type name"
+
+  and defConstant (DefConstant _) = lines "def constant"
+
+  and transUnit (TransUnit _) = lines "trans unit"
+
+  and transUnitList _ = lines "trans unit list"
 
 end

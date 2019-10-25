@@ -17,7 +17,7 @@ struct
     pos2 = 0
   }
 
-  fun show (Loc {file = File.File file, pos1, pos2}) =
+  fun show (Loc {file, pos1, pos2}) =
     let
       val sl = Int.toString pos1
       val el = Int.toString pos2
@@ -26,7 +26,7 @@ struct
         then "line "^sl
         else "lines "^sl^"-"^el
     in 
-      pos^" of "^(OS.Path.joinDirFile file)
+      pos^" of "^(File.toPathString file)
     end
 
 end

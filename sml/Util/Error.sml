@@ -30,19 +30,17 @@ struct
 
   fun displayTool () = 
     case !toolOpt of
-         SOME (Tool.Tool tool) => write (#name tool)
+         SOME (Tool.Tool tool) => write ((#name tool)^"\n")
        | NONE => ()
 
   fun displayLoc locOpt =
     case locOpt of
-         SOME loc => write (Loc.show loc)
+         SOME loc => write ((Loc.show loc)^"\n")
        | NONE => ()
 
   fun display locOpt msg = (
     displayTool ();
-    write "\n";
     displayLoc locOpt;
-    write "\n";
     msg TextIO.stdErr;
     write "\n"
   )
@@ -70,9 +68,12 @@ struct
         displayStr (SOME (#loc c)) (message^":");
         (#writer c) TextIO.stdErr
       )
-    | show (SyntaxError (loc, s)) =
-        displayStr (SOME loc) s
-    | show e = (displayStr NONE "unknown error occurred"; raise e)
+    | show (SyntaxError (loc, s)) = displayStr (SOME loc) s
+    | show (File.CannotOpen s) = displayStr NONE ("cannot open file "^s)
+    | show (File.DoesNotExist s) = displayStr NONE ("file "^s^" does not exist")
+    | show (IO.Io { name=name, ... }) =
+        displayStr NONE ("I/O error occurred accessing file "^name)
+    | show e = displayStr NONE "unknown error occurred"
 
   fun handleExn e = (show e; OS.Process.failure)
 
