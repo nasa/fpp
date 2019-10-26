@@ -6,7 +6,7 @@
 signature FPP_WRITER =
 sig
 
-  val expr : Ast.expr -> string
+  val expr : Ast.expr -> Line.t list
 
   val defAbsType : Ast.def_abs_type -> Line.t list
 

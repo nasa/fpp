@@ -36,7 +36,7 @@ sig
   val write : TextIO.outstream -> t -> unit
 
   (* Construct a blank-separated list of lines *)
-  val blankSeparatedListOf : ('a -> t list) -> 'a list -> t list
+  val blankSeparated : ('a -> t list) -> 'a list -> t list
 
   (* Get the size of a line.
      Includes indentation, but not the newline. *)
@@ -49,6 +49,6 @@ sig
   val concat : string -> t list -> t
 
   (* Join two lists of lines with separator stirng *)
-  val joinLists : string -> t list -> t list -> t list
+  val joinLists : t list -> string -> t list -> t list
 
 end

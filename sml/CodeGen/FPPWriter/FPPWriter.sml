@@ -9,15 +9,21 @@ struct
   open Ast
   open AstNode
 
+  val indentIn = Line.indentIn 2
+
   val line = Line.create
 
   fun lines s = [ line s ]
 
-  fun separatedList _ [] = ""
-    | separatedList _ (hd :: []) = hd
-    | separatedList sep (hd :: tl) = hd^sep^(separatedList sep tl)
-
-  fun annotate pre post lines = lines
+  fun annotate pre post lines = 
+  let
+    fun preLine l = line ("@ "^l)
+    val pre = List.map preLine pre
+    fun postLine l = line ("@< "^l)
+    val post = List.map postLine post
+  in
+    pre @ (Line.joinLists lines " " post)
+  end
 
   and defAbsType (DefAbsType _) = lines "def abs type"
 
@@ -25,9 +31,10 @@ struct
 
   and defConstant (DefConstant (id, en)) = 
   let
+    val lhs = lines("constant "^id^" =")
     val rhs = expr (data en)
   in
-    lines ("constant "^id^" = "^rhs)
+    Line.joinLists lhs " " rhs
   end
 
   and defEnum (DefEnum _) = lines "def enum"
@@ -40,26 +47,61 @@ struct
 
   and exprArray enl =
   let
-    fun f node = expr (data node)
-    val eltList = List.map f enl
-    val elts = separatedList ", " eltList
+    val lbracket = line "["
+    val elts = List.map (expr o data) enl
+    val elts = List.concat elts
+    val elts = List.map indentIn elts
+    val rbracket = line "]"
   in
-    "[ "^elts^" ]"
+    (lbracket :: elts) @ [ rbracket ]
   end
 
-  and exprLiteralBool True = "true"
-    | exprLiteralBool False = "false"
+  and exprDot e id =
+  let
+    val e = expr e
+    val id = lines id
+  in
+    Line.joinLists e "." id
+  end
 
-  and exprUnop Minus e = "-"^(expr e)
+  and exprLiteralBool True = lines "true"
+    | exprLiteralBool False = lines "false"
+
+  and exprUnop Minus e = 
+  let
+    val minus = lines "-"
+    val e = expr e
+  in
+    Line.joinLists minus "" e
+  end
+
+  and exprStruct sml =
+  let
+    val lbrace = line "{"
+    val members = List.map structMember sml
+    val members = List.concat members
+    val members = List.map indentIn members
+    val rbrace = line "}"
+  in
+    (lbrace :: members) @ [ rbrace ]
+  end
+
+  and structMember (StructMember (id, en)) =
+  let
+    val id = lines id
+    val e = expr (data en)
+  in
+    Line.joinLists id " = " e
+  end
 
   and expr (ExprArray enl) = exprArray enl
-    | expr (ExprDot (en, id)) = (expr (data en))^"."^id
-    | expr (ExprIdent id) = id
-    | expr (ExprLiteralInt s) = s
-    | expr (ExprLiteralFloat s) = s
-    | expr (ExprLiteralString s) = "\""^s^"\""
+    | expr (ExprDot (en, id)) = exprDot (data en) id
+    | expr (ExprIdent id) = lines id
+    | expr (ExprLiteralInt s) = lines s
+    | expr (ExprLiteralFloat s) = lines s
+    | expr (ExprLiteralString s) = lines ("\""^s^"\"")
     | expr (ExprLiteralBool lb) = exprLiteralBool lb
-    | expr (ExprStruct _) = "expr struct"
+    | expr (ExprStruct sml) = exprStruct sml
     | expr (ExprUnop (unop, en)) = exprUnop unop (data en)
 
   and specLoc sl = lines "spec loc"
@@ -82,8 +124,8 @@ struct
 
   and typeName tn = lines "type name"
 
-  and transUnitList tul = (Line.blankSeparatedListOf transUnit) tul
+  and transUnitList tul = (Line.blankSeparated transUnit) tul
 
-  and tuMemberList tuml = (Line.blankSeparatedListOf tuMember) tuml
+  and tuMemberList tuml = (Line.blankSeparated tuMember) tuml
 
 end

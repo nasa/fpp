@@ -30,6 +30,33 @@ in
   raise Error.SyntaxError (loc, s) 
 end
 
+fun trim ss =
+let
+  fun filter c = c = #" " orelse c = #"\n"
+  val ss = Substring.dropl filter ss
+  val ss = Substring.dropr filter ss
+in
+  ss
+end
+
+fun preAnnotation pre =
+let
+  val ss = Substring.full pre
+  val ss = Substring.triml 1 ss
+  val ss = trim ss
+in
+  Substring.string ss
+end
+
+fun postAnnotation post =
+let
+  val ss = Substring.full post
+  val ss = Substring.triml 2 ss
+  val ss = trim ss
+in 
+  Substring.string ss
+end
+
 %%
 %header (functor FPPLexFun(structure Tokens: FPP_TOKENS));
 alpha=[A-Za-z];
@@ -119,10 +146,16 @@ NL=[\ ]*[\r]?[\n][\ ]*;
 {NL}+ => (newlines (yytext); token Tokens.EOL);
 
 "@<"[^\r\n]*{NL}+ => (
-  token (fn (x, y) => (newlines (yytext); Tokens.POST_ANNOTATION (yytext, x, y)))
+  token (fn (x, y) => (
+    newlines (yytext);
+    Tokens.POST_ANNOTATION (postAnnotation yytext, x, y))
+  )
 );
-"@"[^<\r\n]*{NL}+ => (
-  token (fn (x, y) => (newlines (yytext); Tokens.PRE_ANNOTATION (yytext, x, y)))
+"@"[^\r\n]*{NL}+ => (
+  token (fn (x, y) => (
+    newlines (yytext);
+    Tokens.PRE_ANNOTATION (preAnnotation yytext, x, y))
+  )
 );
 
 "#"[^\r\n]*{NL}+ => (newlines (yytext); lex ());

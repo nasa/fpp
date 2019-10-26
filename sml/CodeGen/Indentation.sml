@@ -13,7 +13,7 @@ struct
   let
     fun toString' i s =
       if i < 1
-      then ""
+      then s
       else toString' (i-1) (" "^s)
   in
     toString' count ""

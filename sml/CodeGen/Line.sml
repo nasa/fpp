@@ -45,12 +45,12 @@ struct
 
   fun write os l = TextIO.output (os, getFormatString l)
 
-  fun blankSeparatedListOf _ [] = []
-    | blankSeparatedListOf f (head :: []) = f head
-    | blankSeparatedListOf f (head :: tail) =
+  fun blankSeparated _ [] = []
+    | blankSeparated f (head :: []) = f head
+    | blankSeparated f (head :: tail) =
       let
         val head = f head
-        val tail = blankSeparatedListOf f tail
+        val tail = blankSeparated f tail
       in
         head @ (blank :: tail)
       end
@@ -77,15 +77,15 @@ struct
         join sep head tail
       end
 
-  fun joinLists _ l [] = l
-    | joinLists _ [] l = l
-    | joinLists sep l1 (hd2 :: tl2) =
+  fun joinLists l _ [] = l
+    | joinLists [] _ l = l
+    | joinLists l1 sep (hd2 :: tl2) =
     let
       val hd1 :: tl1 = List.rev l1
-      val indent = indent ((getSize hd1) + 1)
+      val indentIn = indentIn ((getSize hd1) + (String.size sep))
       val part1 = List.rev tl1
       val part2 = join sep hd1 hd2
-      val part3 = List.map indent tl2
+      val part3 = List.map indentIn tl2
     in
       part1 @ (part2 :: part3)
     end
