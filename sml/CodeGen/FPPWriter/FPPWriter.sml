@@ -25,7 +25,7 @@ struct
     pre @ (Line.joinLists lines " " post)
   end
 
-  and defAbsType (DefAbsType _) = lines "def abs type"
+  and defAbsType (DefAbsType id) = lines ("type "^id)
 
   and defArray (DefArray _) = lines "def array"
 
