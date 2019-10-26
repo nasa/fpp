@@ -75,7 +75,7 @@
      TypeNameBool
    | TypeNameFloat of type_float
    | TypeNameInt of type_int
-   | TypeNameIdentList of ident list
+   | TypeNameQualIdent of ident list
    | TypeNameString
 
    and unop =

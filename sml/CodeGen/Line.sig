@@ -5,6 +5,11 @@
 signature LINE =
 sig
 
+  (* The type of an indent mode *)
+  datatype indent_mode = 
+    Indent
+  | NoIndent
+
   (* The type of a LINE *)
   type t
 
@@ -49,6 +54,6 @@ sig
   val concat : string -> t list -> t
 
   (* Join two lists of lines with separator stirng *)
-  val joinLists : t list -> string -> t list -> t list
+  val joinLists : indent_mode -> t list -> string -> t list -> t list
 
 end

@@ -5,6 +5,10 @@
 structure Line :> LINE =
 struct
 
+  datatype indent_mode = 
+    Indent
+  | NoIndent
+
   datatype t = Line of {
     indent : Indentation.t,
     str : string
@@ -77,15 +81,21 @@ struct
         join sep head tail
       end
 
-  fun joinLists l _ [] = l
-    | joinLists [] _ l = l
-    | joinLists l1 sep (hd2 :: tl2) =
+  fun joinLists _ l _ [] = l
+    | joinLists _ [] _ l = l
+    | joinLists mode l1 sep (hd2 :: tl2) =
     let
       val hd1 :: tl1 = List.rev l1
-      val indentIn = indentIn ((getSize hd1) + (String.size sep))
       val part1 = List.rev tl1
       val part2 = join sep hd1 hd2
-      val part3 = List.map indentIn tl2
+      val part3 = case mode of
+                       Indent => 
+                       let
+                         val indentIn = indentIn ((getSize hd1) + (String.size sep))
+                       in
+                         List.map indentIn tl2
+                       end
+                     | NoIndent => tl2
     in
       part1 @ (part2 :: part3)
     end

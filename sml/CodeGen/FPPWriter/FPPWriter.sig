@@ -22,7 +22,11 @@ sig
 
   val enumerator : Ast.enumerator -> Line.t list
 
+  val qualIdent : Ast.ident list -> Line.t list
+
   val specLoc : Ast.spec_loc -> Line.t list
+
+  val structMember : Ast.struct_member -> Line.t list
 
   val typeName : Ast.type_name -> Line.t list
 
