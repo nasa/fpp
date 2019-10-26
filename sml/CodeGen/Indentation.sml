@@ -19,12 +19,16 @@ struct
     toString' count ""
   end
 
+  fun toInt i = i
+
   fun getCount i = i
 
-  fun indent incr count = count + incr
+  fun indentIn incr count = count + incr
 
-  fun unindent incr count =
+  fun indentOut incr count =
     if count >= incr then count - incr else 0
-  
+
+  fun indent amount _ = amount
+
 end
 
