@@ -146,16 +146,25 @@ struct
     joinLists minus "" e
   end
 
-  and qualIdent il =
-  let
-    fun qualIdent' [] = ""
-      | qualIdent' (id :: []) = id
-      | qualIdent' (id :: ids) = id^"."^(qualIdent' ids)
-  in
-    lines (qualIdent' il)
-  end
+  and qualIdent [] = ""
+    | qualIdent (id :: []) = id
+    | qualIdent (id :: ids) = id^"."^(qualIdent ids)
 
-  and specLoc sl = lines "[spec loc]"
+  and specLocKind SpecLocComponent = "component"
+    | specLocKind SpecLocConstant = "constant"
+    | specLocKind SpecLocComponentInstance = "component instance"
+    | specLocKind SpecLocPort = "port"
+    | specLocKind SpecLocType = "type"
+    | specLocKind Topology = "topology"
+
+  and specLoc (SpecLoc (slk, il, s)) = 
+  let
+    val kind = specLocKind slk
+    val qi = qualIdent il
+    val location = "\""^s^"\""
+  in
+    lines ("locate "^kind^" "^qi^" at "^location)
+  end
 
   and structMember (StructMember (id, en)) =
   let
@@ -204,7 +213,7 @@ struct
     | typeName (TypeNameInt U16) = lines "U16"
     | typeName (TypeNameInt U32) = lines "U32"
     | typeName (TypeNameInt U64) = lines "U64"
-    | typeName (TypeNameQualIdent il) = qualIdent il
+    | typeName (TypeNameQualIdent il) = lines (qualIdent il)
     | typeName (TypeNameString) = lines "string"
 
 end
