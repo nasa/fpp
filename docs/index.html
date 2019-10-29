@@ -461,10 +461,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Type-Names_Floating-Point-Type-Names">4.2. Floating-Point Type Names</a></li>
 <li><a href="#Type-Names_The-Boolean-Type-Name">4.3. The Boolean Type Name</a></li>
 <li><a href="#Type-Names_The-String-Type-Name">4.4. The String Type Name</a></li>
-<li><a href="#Type-Names_Array-Type-Names">4.5. Array Type Names</a></li>
-<li><a href="#Type-Names_Enum-Type-Names">4.6. Enum Type Names</a></li>
-<li><a href="#Type-Names_Struct-Type-Names">4.7. Struct Type Names</a></li>
-<li><a href="#Type-Names_Abstract-Type-Names">4.8. Abstract Type Names</a></li>
+<li><a href="#Type-Names_Qualified-Identifier-Type-Names">4.5. Qualified Identifier Type Names</a></li>
 </ul>
 </li>
 <li><a href="#Expressions">5. Expressions</a>
@@ -970,7 +967,7 @@ newline.</p>
 <a href="#Types">types</a>.
 In some cases, e.g., <code>U32</code>, there is a one-to-one correspondence
 between type names and types.
-In other cases, e.g.., array types, there is no one-to-one correspondence.
+In other cases, e.g., array types, there is no one-to-one correspondence.
 For example, depending on the enclosing scope, the name
 <code>a.b</code> and the name <code>b</code> may refer to the same array type.</p>
 </div>
@@ -1021,14 +1018,31 @@ floating-point values of width 32 and 64 bits, respectively.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Names_Array-Type-Names">4.5. Array Type Names</h3>
+<h3 id="Type-Names_Qualified-Identifier-Type-Names">4.5. Qualified Identifier Type Names</h3>
 <div class="paragraph">
-<p>An <strong>array type name</strong> is a
-<a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifier</a> that
-refers to an
-<a href="#Definitions_Array-Definitions">array definition</a> via the
-<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">rules for name
-scoping</a>. For example:</p>
+<p>A <strong>qualified identifier type name</strong> is a
+<a href="#Scoping-of-Names_Qualified-Identifiers">qualified
+identifier</a> that refers to an
+<a href="#Definitions_Abstract-Type-Definitions">abstract type definition</a>,
+<a href="#Definitions_Array-Definitions">array definition</a>,
+<a href="#Definitions_Enum-Definitions">enum definition</a>, or
+<a href="#Definitions_Struct-Definitions">struct definition</a>
+ via the
+<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">rules
+for name scoping</a>.
+It names the
+<a href="#Types">type</a> defined in the definition to which it refers.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+  type T
+  array A = [3] T # T is a qualified identifier t type name. It names the type M.T.
+}</code></pre>
+</div>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1038,35 +1052,13 @@ scoping</a>. For example:</p>
 }</code></pre>
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="Type-Names_Enum-Type-Names">4.6. Enum Type Names</h3>
-<div class="paragraph">
-<p>An <strong>enum type name</strong> is a
-<a href="#Scoping-of-Names_Qualified-Identifiers">qualified
-identifier</a> that refers to an
-<a href="#Definitions_Enum-Definitions">enum definition</a> via the
-<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">rules
-for name scoping</a>. For example:</p>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">module M {
   enum E { X = 0, Y = 1 }
-  array A = [3] E # E is an enum type name. It names the type M.E.
+  array A = [3] E # E is a qualified identifier type name. It names the type M.E.
 }</code></pre>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Type-Names_Struct-Type-Names">4.7. Struct Type Names</h3>
-<div class="paragraph">
-<p>A <strong>struct type name</strong> is a
-<a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifier</a> that
-refers to a
-<a href="#Definitions_Struct-Definitions">struct definition</a> via the
-<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">rules for name
-scoping</a>. For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1076,28 +1068,8 @@ scoping</a>. For example:</p>
     y : F32
   }
   struct T {
-    s : S # S is a struct type name. It names the type M.S.
+    s : S # S is a qualified identifier type name. It names the type M.S.
   }
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Type-Names_Abstract-Type-Names">4.8. Abstract Type Names</h3>
-<div class="paragraph">
-<p>An <strong>abstract type</strong> is a
-<a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifier</a> that refers to
-an
-<a href="#Definitions_Abstract-Type-Definitions">abstract type
-definition</a> via the
-<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">rules for name
-scoping</a>. For example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module M {
-  type T
-  array A = [3] T # T is an abstract type name. It names the type M.T.
 }</code></pre>
 </div>
 </div>
@@ -1645,7 +1617,7 @@ it.</p>
 <p>The identifier is the name <em>N</em> of the new type.
 The first expression must evaluate to a compile-time constant numeric value
 <em>n</em> whose value is greater than zero.
-The type is the type <em>T</em> of each array element.</p>
+<em>type-name</em> names the type <em>T</em> of each array element.</p>
 </div>
 <div class="paragraph">
 <p>The definition associates the name <em>N</em> with a new type, <em>T'</em>
@@ -1723,7 +1695,7 @@ constant definitions</a>, and the terminating punctuation is a comma.</p>
 <p>The enumerated constants have the <a href="#Types_Enum-Types">enum type</a> defined in the
 enum definition. During
 <a href="#Analysis-and-Translation">analysis</a>, they are represented as values of
-integer type, called the
+a primitive integer type, called the
 <strong>representation type</strong>.</p>
 </div>
 <div class="paragraph">
@@ -1739,20 +1711,21 @@ No two enumerated constants may have the same value after the conversion.</p>
 <div class="sect3">
 <h4 id="Definitions_Enum-Definitions_Inferred-Representation-Type">6.4.3. Inferred Representation Type</h4>
 <div class="paragraph">
-<p>If the optional type \$T\$ does not appear after the identifier, then
+<p>If <em>type-name</em> does not appear after the identifier, then
 the implied representation type is <code>I32</code>.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="Definitions_Enum-Definitions_Explicit-Representation-Type">6.4.4. Explicit Representation Type</h4>
 <div class="paragraph">
-<p>If the optional type \$T\$ appears after the identifier, then the semantic
+<p>If <em>type-name</em> appears after the identifier, then the semantic
 analyzer does the following:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Check that \$T\$ is an integer type.
+<p>Check that <em>type-name</em> names a <a href="#Types_Primitive-Integer-Types">primitive
+integer type</a> \$T\$.
 If not, throw an error.</p>
 </li>
 <li>
@@ -1874,7 +1847,8 @@ A <strong>struct type member</strong> has the following syntax:</p>
 <h4 id="Definitions_Struct-Definitions_Semantics">6.6.2. Semantics</h4>
 <div class="paragraph">
 <p>The identifier is the name <em>N</em> of the type.  The definition associates the name
-<em>N</em> with a type, <em>T'</em> representing a structure with named members.  Each
+<em>N</em> with a type, <em>T'</em> representing a structure with named members, each
+of the specified type.  Each
 identifier appearing in the struct type member sequence must be distinct.</p>
 </div>
 <div class="paragraph">
@@ -4247,7 +4221,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-10-29 11:06:17 -0700
+Last updated 2019-10-29 13:15:43 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

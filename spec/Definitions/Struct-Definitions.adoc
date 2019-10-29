@@ -19,7 +19,8 @@ A *struct type member* has the following syntax:
 ==== Semantics
 
 The identifier is the name _N_ of the type.  The definition associates the name
-_N_ with a type, _T'_ representing a structure with named members.  Each
+_N_ with a type, _T'_ representing a structure with named members, each
+of the specified type.  Each
 identifier appearing in the struct type member sequence must be distinct.
 
 The expression is optional.

@@ -30,7 +30,7 @@ constant definitions>>, and the terminating punctuation is a comma.
 The enumerated constants have the <<Types_Enum-Types,enum type>> defined in the 
 enum definition. During
 <<Analysis-and-Translation,analysis>>, they are represented as values of 
-integer type, called the
+a primitive integer type, called the
 *representation type*.
 
 There must be at least one enumerated constant.
@@ -43,15 +43,16 @@ No two enumerated constants may have the same value after the conversion.
 
 ==== Inferred Representation Type
 
-If the optional type stem:[T] does not appear after the identifier, then
+If _type-name_ does not appear after the identifier, then
 the implied representation type is `I32`.
 
 ==== Explicit Representation Type
 
-If the optional type stem:[T] appears after the identifier, then the semantic
+If _type-name_ appears after the identifier, then the semantic
 analyzer does the following:
 
-. Check that stem:[T] is an integer type.
+. Check that _type-name_ names a <<Types_Primitive-Integer-Types,primitive 
+integer type>> stem:[T].
 If not, throw an error.
 
 . Use stem:[T] as the representation type.

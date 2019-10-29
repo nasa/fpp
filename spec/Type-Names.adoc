@@ -4,7 +4,7 @@
 <<Types,types>>.
 In some cases, e.g., `U32`, there is a one-to-one correspondence
 between type names and types.
-In other cases, e.g.., array types, there is no one-to-one correspondence.
+In other cases, e.g., array types, there is no one-to-one correspondence.
 For example, depending on the enclosing scope, the name
 `a.b` and the name `b` may refer to the same array type.
 
@@ -40,14 +40,31 @@ The type name `bool` represents the type of the two Boolean values `true` and
 
 The type name `string` represents the type of string values.
 
-=== Array Type Names
+=== Qualified Identifier Type Names
 
-An *array type name* is a
-<<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> that 
-refers to an
-<<Definitions_Array-Definitions,array definition>> via the
-<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,rules for name 
-scoping>>. For example:
+A *qualified identifier type name* is a
+<<Scoping-of-Names_Qualified-Identifiers,qualified
+identifier>> that refers to an
+<<Definitions_Abstract-Type-Definitions,abstract type definition>>,
+<<Definitions_Array-Definitions,array definition>>,
+<<Definitions_Enum-Definitions,enum definition>>, or
+<<Definitions_Struct-Definitions,struct definition>>
+ via the
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,rules
+for name scoping>>.
+It names the
+<<Types,type>> defined in the definition to which it refers.
+
+For example:
+
+
+[source,fpp]
+----
+module M {
+  type T
+  array A = [3] T # T is a qualified identifier t type name. It names the type M.T.
+}
+----
 
 [source,fpp]
 ----
@@ -57,31 +74,13 @@ module M {
 }
 ----
 
-=== Enum Type Names
-
-An *enum type name* is a
-<<Scoping-of-Names_Qualified-Identifiers,qualified
-identifier>> that refers to an
-<<Definitions_Enum-Definitions,enum definition>> via the
-<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,rules
-for name scoping>>. For example:
-
 [source,fpp]
 ----
 module M {
   enum E { X = 0, Y = 1 }
-  array A = [3] E # E is an enum type name. It names the type M.E.
+  array A = [3] E # E is a qualified identifier type name. It names the type M.E.
 }
 ----
-
-=== Struct Type Names
-
-A *struct type name* is a
-<<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> that 
-refers to a
-<<Definitions_Struct-Definitions,struct definition>> via the
-<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,rules for name 
-scoping>>. For example:
 
 [source,fpp]
 ----
@@ -91,25 +90,7 @@ module M {
     y : F32
   }
   struct T {
-    s : S # S is a struct type name. It names the type M.S.
+    s : S # S is a qualified identifier type name. It names the type M.S.
   }
-}
-----
-
-=== Abstract Type Names
-
-An *abstract type* is a
-<<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> that refers to 
-an
-<<Definitions_Abstract-Type-Definitions,abstract type 
-definition>> via the
-<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,rules for name 
-scoping>>. For example:
-
-[source,fpp]
-----
-module M {
-  type T
-  array A = [3] T # T is an abstract type name. It names the type M.T.
 }
 ----
