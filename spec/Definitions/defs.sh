@@ -18,7 +18,6 @@ Abstract-Type-Definitions.adoc
 Port-Definitions.adoc
 Component-Definitions.adoc
 Port-Instance-Definitions.adoc
-Internal-Interface-Definitions.adoc
 Command-Definitions.adoc
 Telemetry-Channel-Definitions.adoc
 Event-Definitions.adoc
