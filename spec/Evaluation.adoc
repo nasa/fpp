@@ -100,7 +100,7 @@ The type of the value is _[_ stem:[n] _]_ stem:[T].
 ==== Array Values
 
 An *array value* is a value associated with an array type.
-We write an array value like an <<Values_Anonymous-Array-Values,anonymous array 
+We write an array value like an <<Evaluation_Values_Anonymous-Array-Values,anonymous array 
 value>>, except that the value is annotated with an
 <<Types_Array-Types,array type>>.
 
@@ -112,7 +112,7 @@ where
 . stem:[Q] is a
 <<Scoping-of-Names_Qualified-Identifiers,qualified identifier>>
 that refers to a
-<<Type-Definitions_Array-Definitions,array definition>>
+<<Definitions_Array-Definitions,array definition>>
 with member type stem:[T].
 
 . For each stem:[i in [1,n]], stem:[v_i] is a value of type stem:[T].
@@ -130,10 +130,10 @@ the enumerated constant definition appears.
 ==== Anonymous Struct Values
 
 An *anonymous struct value* is a value associated with an
-<<Type-Checking_Internal-Types_Anonymous-Struct-Types,anonymous struct
+<<Types_Internal-Types_Anonymous-Struct-Types,anonymous struct
 type>>.
 We write an anonymous struct value stem:[v] similarly to a
-<<Expressions_Structure-Expressions,struct expression>>:
+<<Expressions_Struct-Expressions,struct expression>>:
 a struct value has the form `{` stem:[m_1] `=` stem:[v_1] `,` stem:[...] `,` 
 stem:[m_n] `=` stem:[v_n] `}`,
 where for each stem:[i in [1,n]], stem:[v_i] is a value of type stem:[T_i].
@@ -155,7 +155,7 @@ where
 . stem:[Q] is a
 <<Scoping-of-Names_Qualified-Identifiers,qualified identifier>>
 that refers to a
-<<Type-Definitions_Struct-Definitions,struct definition>>.
+<<Definitions_Struct-Definitions,struct definition>>.
 
 . The members of stem:[Q] are stem:[m_i] `:` stem:[T_i] for stem:[i in [1,n\]].
 
@@ -168,7 +168,7 @@ All the members must be explicitly assigned values.
 Evaluation of expressions occurs as stated in the
 <<Expressions,expression descriptions>>. Evaluation of integer
 expressions occurs at type 
-<<Type-Checking_Internal-Types_Integer,_Integer_>>,
+<<Types_Internal-Types_Integer,_Integer_>>,
 using enough bits to represent the result without overflow.
 Evaluation of floating-point expressions occurs using 64-bit arithmetic.
 

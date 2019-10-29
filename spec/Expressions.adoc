@@ -144,7 +144,7 @@ FPP currently includes the following *arithmetic expressions*:
 |======================================
 
 For unary negation expressions, `-` stem:[e] must be
-a <<Type-Checking_Internal-Types_Numeric-Types,numeric type>>.
+a <<Types_Internal-Types_Numeric-Types,numeric type>>.
 
 === Identifier Expressions
 

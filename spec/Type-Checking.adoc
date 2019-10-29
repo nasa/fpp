@@ -17,40 +17,6 @@ The type checking rules exist to ensure that whenever an expression of
 type stem:[T] is <<Evaluation_Evaluating-Expressions,evaluated>>,
 the result is a value of type stem:[T].
 
-=== Internal Types
-
-Internal types do not appear in FPP source models.
-The compiler assigns these types to expressions during type checking.
-
-==== Integer
-
-The type _Integer_ represents all integer values, without regard
-to bit width.
-
-==== Integer Types
-
-<<Type-Checking_Internal-Types_Integer,_Integer_>> together with the 
-<<Types_Primitive-Types,primitive integer types>> are called
-the *integer types*.
-
-==== Numeric Types
-
-<<Type-Checking_Internal-Types_Integer,_Integer_>> together with the 
-<<Types_Primitive-Types,primitive numeric types>> are called
-the *numeric types*.
-
-==== Anonymous Array Types
-
-The type _[_ _n_ _]_ <<Types,_type_>>, where _n_
-is an integer, represents an array of _n_ elements,
-each of type _type_.
-
-==== Anonymous Struct Types
-
-The type _{_ stem:[m_1] _:_ stem:[T_1, ...,] stem:[m_n] _:_ stem:[T_n] _}_
-represents a struct with members stem:[m_i] _:_ stem:[T_i], for
-stem:[i in [1,n\]].
-
 === Integer Literals
 
 To type an
@@ -62,7 +28,7 @@ literal expression>>, the semantic analyzer does the following:
 . Check that stem:[v] can be represented in 64 or fewer bits. If not, throw
 an error.
 
-. Assign the type <<Type-Checking_Internal-Types_Integer,_Integer_>> to the expression.
+. Assign the type <<Types_Internal-Types_Integer,_Integer_>> to the expression.
 
 **Examples:**
 
@@ -130,7 +96,7 @@ minus expression>> `-` stem:[e], the semantic analyzer does the following:
 
 . Compute the type stem:[T] of stem:[e].
 
-. If stem:[T] is a <<Numeric-Type,numeric type>>, then use stem:[T].
+. If stem:[T] is a <<Types_Internal-Types_Numeric-Types,numeric type>>, then use stem:[T].
 
 . Otherwise throw an error.
 
@@ -195,11 +161,11 @@ every <<Evaluation_Values,value>> represented by type stem:[T_1] can be
 
 Here are the rules for type conversion:
 
-. Any <<Type-Checking_Internal-Types_Numeric-Types,numeric
+. Any <<Types_Internal-Types_Numeric-Types,numeric
 type>> may be converted to any other numeric type.
 
 . An <<Types_Enum-Types,enum type>> may be converted to a
-<<Type-Checking_Internal-Types_Numeric-Types,numeric type>>.
+<<Types_Internal-Types_Numeric-Types,numeric type>>.
 
 . An anonymous array type stem:[T_1 =] _[_ stem:[n] _]_ stem:[T'_1]
 may be converted to the anonymous array type
@@ -229,7 +195,7 @@ stem:[T_1] may be converted to the member type of stem:[T_2].
 
 . A <<Types_Primitive-Types,primitive type>> type stem:[T] may be converted 
 to a
-<<Types_Structure-Types,structure type>> stem:[T'] if
+<<Types_Struct-Types,structure type>> stem:[T'] if
 for each member stem:[m_i] `:` stem:[T_i] of stem:[T'],
 stem:[T] may be converted to stem:[T_i].
 
@@ -251,11 +217,11 @@ the whole expression):
 stem:[T] be stem:[T_1].
 
 . Otherwise if stem:[T_1] and stem:[T_2] are both
-<<Type-Checking_Numeric-Types,numeric types>>, then do the following:
+<<Types_Internal-Types_Numeric-Types,numeric types>>, then do the following:
 
 .. If stem:[T_1] and stem:[T_2] are both floating-point types, then use `F64`.
 
-.. Otherwise use <<Type-Checking_Integer,_Integer_>>.
+.. Otherwise use <<Types_Internal-Types_Integer,_Integer_>>.
 
 . Otherwise if stem:[T_1] or stem:[T_2] is an enum type stem:[T], then replace 
 the enum type with the representation type specified in the definition of stem:[T]

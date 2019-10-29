@@ -1,0 +1,119 @@
+== Type Names
+
+*Type names* are the syntactic names of
+<<Types,types>>.
+In some cases, e.g., `U32`, there is a one-to-one correspondence
+between type names and types.
+In other cases, e.g.., array types, there is no one-to-one correspondence.
+For example, depending on the enclosing scope, the name
+`a.b` and the name `b` may refer to the same array type.
+
+=== Primitive Integer Type Names
+
+*Primitive integer type names* are the names of the 
+<<Types_Primitive-Integer-Types,primitive integer types>>.
+There are two kinds of primitive
+integer types: unsigned integer types and signed integer types.
+
+* The names of the unsigned integer types are `U8`, `U16`, `U32`, and `U64`. 
+The `U` stands for "`unsigned.`" The number after the U is the width of the
+representation in bits, using the standard binary representation of an
+unsigned integer.
+
+* The names of the signed integer types are `I8`, `I16`, `I32`, and `I64`. The 
+`I` stands for "`[signed] integer.`" The number after the I is the width of
+the representation in bits, using the standard binary two's complement
+representation of a signed integer.
+
+=== Floating-Point Type Names
+
+The *floating-point type names* are `F32` and `F64`. These refer to the types 
+of IEEE
+floating-point values of width 32 and 64 bits, respectively.
+
+=== The Boolean Type Name
+
+The type name `bool` represents the type of the two Boolean values `true` and 
+`false`.
+
+=== The String Type Name
+
+The type name `string` represents the type of string values.
+
+=== Array Type Names
+
+An *array type name* is a
+<<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> that 
+refers to an
+<<Definitions_Array-Definitions,array definition>> via the
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,rules for name 
+scoping>>. For example:
+
+[source,fpp]
+----
+module M {
+  array A = [3] U8
+}
+array B = [3] M.A # M.A is an array type
+----
+
+=== Enum Type Names
+
+An *enum type name* is a
+<<Scoping-of-Names_Qualified-Identifiers,qualified
+identifier>> that refers to an
+<<Definitions_Enum-Definitions,enum definition>> via the
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,rules
+for name scoping>>. For example:
+
+[source,fpp]
+----
+module M {
+  enum E { X = 0, Y = 1 }
+}
+constant a = M.E.X # a has type M.E
+----
+
+`M.E` is an enum type name.
+
+=== Struct Type Names
+
+A *struct type name* is a
+<<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> that 
+refers to a
+<<Definitions_Struct-Definitions,struct definition>> via the
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,rules for name 
+scoping>>. For example:
+
+[source,fpp]
+----
+module M {
+  struct S {
+    x : U32
+    y : F32
+  }
+}
+struct T {
+  s : M.S # M.S is a struct type name
+}
+----
+
+=== Abstract Type Names
+
+An *abstract type* is a
+<<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> that refers to 
+an
+<<Definitions_Abstract-Type-Definitions,abstract type 
+definition>> via the
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,rules for name 
+scoping>>. For example:
+
+[source,fpp]
+----
+module M {
+  type A
+}
+# A is an array of 3 M.A
+# M.A is an abstract type names
+array A = [3] M.A
+----

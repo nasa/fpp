@@ -23,7 +23,7 @@ To write a multiline comment, precede each line with `#`:
 === Annotations
 
 An *annotation* is similar to a
-<<Comments,comment>>, but it is attached to a
+<<Comments-and-Annotations_Comments,comment>>, but it is attached to a
 syntactic element of a model, and it is preserved during
 <<Analysis-and-Translation,analysis and translation>>.  The precise use of 
 annotations depends on the translator. A typical use

@@ -2,7 +2,7 @@
 
 === Translation Units
 
-A *translation unit* forms part of a <<Models,model>>
+A *translation unit* forms part of a <<Translation-Units-and-Models_Models,model>>
 at the top level.
 Translation units usually correspond to source files of a program.
 However, translation units may be specified in other ways,

@@ -108,7 +108,7 @@ elements of <<Element-Sequences,element sequences>>.
 
 === Comments
 
-<<Comments,Comments>> are ignored during lexing.
+<<Comments-and-Annotations_Comments,Comments>> are ignored during lexing.
 
 === Whitespace and Non-Printable Characters
 
