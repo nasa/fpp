@@ -14,11 +14,11 @@ sig
 
   val defEnum : Ast.def_enum -> Line.t list
 
+  val defEnumConstant : Ast.def_enum_constant -> Line.t list
+
   val defModule : Ast.def_module -> Line.t list
 
   val defStruct : Ast.def_struct -> Line.t list
-
-  val enumerator : Ast.enumerator -> Line.t list
 
   val expr : Ast.expr -> Line.t list
 

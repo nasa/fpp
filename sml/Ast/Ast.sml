@@ -21,13 +21,13 @@
    and def_constant = DefConstant of ident * expr node
 
    and def_enum =
-     DefEnum of ident * type_name node option * enumerator node annotated list
+     DefEnum of ident * type_name node option * def_enum_constant node annotated list
+
+   and def_enum_constant = DefEnumConstant of ident * expr node option
 
    and def_module = DefModule of ident * tu_member list
 
    and def_struct = DefStruct of ident * struct_type_member node annotated list * expr node option
-
-   and enumerator = Enumerator of ident * expr node option
 
    and expr =
      ExprArray of expr node list

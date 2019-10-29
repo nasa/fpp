@@ -62,13 +62,17 @@ struct
                      SOME tnn => joinLists start " " (typeName (data tnn))
                    | NONE => start
     val start = joinLists start " " (lines "{")
-    fun f (a, x, a') = annotate a a' (enumerator (data x))
+    fun f (a, x, a') = annotate a a' (defEnumConstant (data x))
     val enums = List.concat (List.map f enal)
     val enums = List.map indentIn enums
     val rbrace = lines "}"
   in
     start @ enums @ rbrace
   end
+
+  and defEnumConstant (DefEnumConstant (id, NONE)) = lines id
+    | defEnumConstant (DefEnumConstant (id, SOME en)) =
+        joinLists (lines id) " = " ((expr o data) en)
 
   and defModule (DefModule (id, tuml)) = 
   let
@@ -90,10 +94,6 @@ struct
   in
     start @ members @ rbrace
   end
-
-  and enumerator (Enumerator (id, NONE)) = lines id
-    | enumerator (Enumerator (id, SOME en)) =
-        joinLists (lines id) " = " ((expr o data) en)
 
   and expr (ExprArray enl) = exprArray enl
     | expr (ExprDot (en, id)) = exprDot (data en) id
