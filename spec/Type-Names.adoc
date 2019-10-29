@@ -53,8 +53,8 @@ scoping>>. For example:
 ----
 module M {
   array A = [3] U8
+  array B = [3] A # A is an array type name. It names the type M.A.
 }
-array B = [3] M.A # M.A is an array type
 ----
 
 === Enum Type Names
@@ -70,11 +70,9 @@ for name scoping>>. For example:
 ----
 module M {
   enum E { X = 0, Y = 1 }
+  array A = [3] E # E is an enum type name. It names the type M.E.
 }
-constant a = M.E.X # a has type M.E
 ----
-
-`M.E` is an enum type name.
 
 === Struct Type Names
 
@@ -92,9 +90,9 @@ module M {
     x : U32
     y : F32
   }
-}
-struct T {
-  s : M.S # M.S is a struct type name
+  struct T {
+    s : S # S is a struct type name. It names the type M.S.
+  }
 }
 ----
 
@@ -111,9 +109,7 @@ scoping>>. For example:
 [source,fpp]
 ----
 module M {
-  type A
+  type T
+  array A = [3] T # T is an abstract type name. It names the type M.T.
 }
-# A is an array of 3 M.A
-# M.A is an abstract type names
-array A = [3] M.A
 ----

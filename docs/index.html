@@ -1034,8 +1034,8 @@ scoping</a>. For example:</p>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">module M {
   array A = [3] U8
-}
-array B = [3] M.A # M.A is an array type</code></pre>
+  array B = [3] A # A is an array type name. It names the type M.A.
+}</code></pre>
 </div>
 </div>
 </div>
@@ -1053,12 +1053,9 @@ for name scoping</a>. For example:</p>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">module M {
   enum E { X = 0, Y = 1 }
-}
-constant a = M.E.X # a has type M.E</code></pre>
+  array A = [3] E # E is an enum type name. It names the type M.E.
+}</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p><code>M.E</code> is an enum type name.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1078,9 +1075,9 @@ scoping</a>. For example:</p>
     x : U32
     y : F32
   }
-}
-struct T {
-  s : M.S # M.S is a struct type name
+  struct T {
+    s : S # S is a struct type name. It names the type M.S.
+  }
 }</code></pre>
 </div>
 </div>
@@ -1099,11 +1096,9 @@ scoping</a>. For example:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">module M {
-  type A
-}
-# A is an array of 3 M.A
-# M.A is an abstract type names
-array A = [3] M.A</code></pre>
+  type T
+  array A = [3] T # T is an abstract type name. It names the type M.T.
+}</code></pre>
 </div>
 </div>
 </div>
@@ -4252,7 +4247,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-10-29 10:58:46 -0700
+Last updated 2019-10-29 11:06:17 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
