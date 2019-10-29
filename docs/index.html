@@ -455,19 +455,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Lexical-Elements_Line-Continuations">3.7. Line Continuations</a></li>
 </ul>
 </li>
-<li><a href="#Types">4. Types</a>
+<li><a href="#Type-Names">4. Type Names</a>
 <ul class="sectlevel2">
-<li><a href="#Types_Primitive-Integer-Types">4.1. Primitive Integer Types</a></li>
-<li><a href="#Types_Floating-Point-Types">4.2. Floating-Point Types</a></li>
-<li><a href="#Types_Primitive-Numeric-Types">4.3. Primitive Numeric Types</a></li>
-<li><a href="#Types_The-Boolean-Type">4.4. The Boolean Type</a></li>
-<li><a href="#Types_Primitive-Types">4.5. Primitive Types</a></li>
-<li><a href="#Types_The-String-Type">4.6. The String Type</a></li>
-<li><a href="#Types_Array-Types">4.7. Array Types</a></li>
-<li><a href="#Types_Enum-Types">4.8. Enum Types</a></li>
-<li><a href="#Types_Struct-Types">4.9. Struct Types</a></li>
-<li><a href="#Types_Abstract-Types">4.10. Abstract Types</a></li>
-<li><a href="#Types_Default-Values">4.11. Default Values</a></li>
+<li><a href="#Type-Names_Primitive-Integer-Type-Names">4.1. Primitive Integer Type Names</a></li>
+<li><a href="#Type-Names_Floating-Point-Type-Names">4.2. Floating-Point Type Names</a></li>
+<li><a href="#Type-Names_The-Boolean-Type-Name">4.3. The Boolean Type Name</a></li>
+<li><a href="#Type-Names_The-String-Type-Name">4.4. The String Type Name</a></li>
+<li><a href="#Type-Names_Array-Type-Names">4.5. Array Type Names</a></li>
+<li><a href="#Type-Names_Enum-Type-Names">4.6. Enum Type Names</a></li>
+<li><a href="#Type-Names_Struct-Type-Names">4.7. Struct Type Names</a></li>
+<li><a href="#Type-Names_Abstract-Type-Names">4.8. Abstract Type Names</a></li>
 </ul>
 </li>
 <li><a href="#Expressions">5. Expressions</a>
@@ -628,71 +625,86 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Definitions-and-Uses_Order-of-Definitions-and-Uses">13.3. Order of Definitions and Uses</a></li>
 </ul>
 </li>
-<li><a href="#Type-Checking">14. Type Checking</a>
+<li><a href="#Types">14. Types</a>
 <ul class="sectlevel2">
-<li><a href="#Type-Checking_Internal-Types">14.1. Internal Types</a>
+<li><a href="#Types_Primitive-Integer-Types">14.1. Primitive Integer Types</a></li>
+<li><a href="#Types_Floating-Point-Types">14.2. Floating-Point Types</a></li>
+<li><a href="#Types_Primitive-Numeric-Types">14.3. Primitive Numeric Types</a></li>
+<li><a href="#Types_The-Boolean-Type">14.4. The Boolean Type</a></li>
+<li><a href="#Types_Primitive-Types">14.5. Primitive Types</a></li>
+<li><a href="#Types_The-String-Type">14.6. The String Type</a></li>
+<li><a href="#Types_Array-Types">14.7. Array Types</a></li>
+<li><a href="#Types_Enum-Types">14.8. Enum Types</a></li>
+<li><a href="#Types_Struct-Types">14.9. Struct Types</a></li>
+<li><a href="#Types_Abstract-Types">14.10. Abstract Types</a></li>
+<li><a href="#Types_Internal-Types">14.11. Internal Types</a>
 <ul class="sectlevel3">
-<li><a href="#Type-Checking_Internal-Types_Integer">14.1.1. Integer</a></li>
-<li><a href="#Type-Checking_Internal-Types_Integer-Types">14.1.2. Integer Types</a></li>
-<li><a href="#Type-Checking_Internal-Types_Numeric-Types">14.1.3. Numeric Types</a></li>
-<li><a href="#Type-Checking_Internal-Types_Anonymous-Array-Types">14.1.4. Anonymous Array Types</a></li>
-<li><a href="#Type-Checking_Internal-Types_Anonymous-Struct-Types">14.1.5. Anonymous Struct Types</a></li>
+<li><a href="#Types_Internal-Types_Integer">14.11.1. Integer</a></li>
+<li><a href="#Types_Internal-Types_Integer-Types">14.11.2. Integer Types</a></li>
+<li><a href="#Types_Internal-Types_Numeric-Types">14.11.3. Numeric Types</a></li>
+<li><a href="#Types_Internal-Types_Anonymous-Array-Types">14.11.4. Anonymous Array Types</a></li>
+<li><a href="#Types_Internal-Types_Anonymous-Struct-Types">14.11.5. Anonymous Struct Types</a></li>
 </ul>
 </li>
-<li><a href="#Type-Checking_Integer-Literals">14.2. Integer Literals</a></li>
-<li><a href="#Type-Checking_Floating-Point-Literals">14.3. Floating-Point Literals</a></li>
-<li><a href="#Type-Checking_Boolean-Literals">14.4. Boolean Literals</a></li>
-<li><a href="#Type-Checking_String-Literals">14.5. String Literals</a></li>
-<li><a href="#Type-Checking_Array-Expressions">14.6. Array Expressions</a></li>
-<li><a href="#Type-Checking_Struct-Expressions">14.7. Struct Expressions</a></li>
-<li><a href="#Type-Checking_Unary-Minus">14.8. Unary Minus</a></li>
-<li><a href="#Type-Checking_Identifier-Expressions">14.9. Identifier Expressions</a></li>
-<li><a href="#Type-Checking_Dot-Expressions">14.10. Dot Expressions</a></li>
-<li><a href="#Type-Checking_Type-Conversion">14.11. Type Conversion</a></li>
-<li><a href="#Type-Checking_Computing-a-Common-Type">14.12. Computing a Common Type</a>
-<ul class="sectlevel3">
-<li><a href="#Type-Checking_Computing-a-Common-Type_Pairs-of-Types">14.12.1. Pairs of Types</a></li>
-<li><a href="#Type-Checking_Computing-a-Common-Type_Lists-of-Types">14.12.2. Lists of Types</a></li>
+<li><a href="#Types_Default-Values">14.12. Default Values</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><a href="#Evaluation">15. Evaluation</a>
+<li><a href="#Type-Checking">15. Type Checking</a>
 <ul class="sectlevel2">
-<li><a href="#Evaluation_Values">15.1. Values</a>
+<li><a href="#Type-Checking_Integer-Literals">15.1. Integer Literals</a></li>
+<li><a href="#Type-Checking_Floating-Point-Literals">15.2. Floating-Point Literals</a></li>
+<li><a href="#Type-Checking_Boolean-Literals">15.3. Boolean Literals</a></li>
+<li><a href="#Type-Checking_String-Literals">15.4. String Literals</a></li>
+<li><a href="#Type-Checking_Array-Expressions">15.5. Array Expressions</a></li>
+<li><a href="#Type-Checking_Struct-Expressions">15.6. Struct Expressions</a></li>
+<li><a href="#Type-Checking_Unary-Minus">15.7. Unary Minus</a></li>
+<li><a href="#Type-Checking_Identifier-Expressions">15.8. Identifier Expressions</a></li>
+<li><a href="#Type-Checking_Dot-Expressions">15.9. Dot Expressions</a></li>
+<li><a href="#Type-Checking_Type-Conversion">15.10. Type Conversion</a></li>
+<li><a href="#Type-Checking_Computing-a-Common-Type">15.11. Computing a Common Type</a>
 <ul class="sectlevel3">
-<li><a href="#Evaluation_Values_Primitive-Integer-Values">15.1.1. Primitive Integer Values</a></li>
-<li><a href="#Evaluation_Values_Integer-Values">15.1.2. Integer Values</a></li>
-<li><a href="#Evaluation_Values_Floating-Point-Values">15.1.3. Floating-Point Values</a></li>
-<li><a href="#Evaluation_Values_Boolean-Values">15.1.4. Boolean Values</a></li>
-<li><a href="#Evaluation_Values_String-Values">15.1.5. String Values</a></li>
-<li><a href="#Evaluation_Values_Anonymous-Array-Values">15.1.6. Anonymous Array Values</a></li>
-<li><a href="#Evaluation_Values_Array-Values">15.1.7. Array Values</a></li>
-<li><a href="#Evaluation_Values_Enumeration-Values">15.1.8. Enumeration Values</a></li>
-<li><a href="#Evaluation_Values_Anonymous-Struct-Values">15.1.9. Anonymous Struct Values</a></li>
-<li><a href="#Evaluation_Values_Struct-Values">15.1.10. Struct Values</a></li>
-</ul>
-</li>
-<li><a href="#Evaluation_Evaluating-Expressions">15.2. Evaluating Expressions</a></li>
-<li><a href="#Evaluation_Type-Conversion">15.3. Type Conversion</a>
-<ul class="sectlevel3">
-<li><a href="#Evaluation_Type-Conversion_Unsigned-Primitive-Integer-Values">15.3.1. Unsigned Primitive Integer Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_Signed-Primitive-Integer-Values">15.3.2. Signed Primitive Integer Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_Primitive-Integer-Values-of-Mixed-Sign">15.3.3. Primitive Integer Values of Mixed Sign</a></li>
-<li><a href="#Evaluation_Type-Conversion_Primitive-and-Non-Primitive-Integer-Values">15.3.4. Primitive and Non-Primitive Integer Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_Floating-Point-Values">15.3.5. Floating-Point Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_Array-Values">15.3.6. Array Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_Structure-Values">15.3.7. Structure Values</a></li>
+<li><a href="#Type-Checking_Computing-a-Common-Type_Pairs-of-Types">15.11.1. Pairs of Types</a></li>
+<li><a href="#Type-Checking_Computing-a-Common-Type_Lists-of-Types">15.11.2. Lists of Types</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#Analysis-and-Translation">16. Analysis and Translation</a>
+<li><a href="#Values">16. Values</a>
 <ul class="sectlevel2">
-<li><a href="#Analysis-and-Translation_Analysis">16.1. Analysis</a></li>
-<li><a href="#Analysis-and-Translation_Analysis-Tools">16.2. Analysis Tools</a></li>
-<li><a href="#Analysis-and-Translation_Translation">16.3. Translation</a></li>
-<li><a href="#Analysis-and-Translation_Translation-Tools">16.4. Translation Tools</a></li>
+<li><a href="#Values_Primitive-Integer-Values">16.1. Primitive Integer Values</a></li>
+<li><a href="#Values_Integer-Values">16.2. Integer Values</a></li>
+<li><a href="#Values_Floating-Point-Values">16.3. Floating-Point Values</a></li>
+<li><a href="#Values_Boolean-Values">16.4. Boolean Values</a></li>
+<li><a href="#Values_String-Values">16.5. String Values</a></li>
+<li><a href="#Values_Anonymous-Array-Values">16.6. Anonymous Array Values</a></li>
+<li><a href="#Values_Array-Values">16.7. Array Values</a></li>
+<li><a href="#Values_Enumeration-Values">16.8. Enumeration Values</a></li>
+<li><a href="#Values_Anonymous-Struct-Values">16.9. Anonymous Struct Values</a></li>
+<li><a href="#Values_Struct-Values">16.10. Struct Values</a></li>
+</ul>
+</li>
+<li><a href="#Evaluation">17. Evaluation</a>
+<ul class="sectlevel2">
+<li><a href="#Evaluation_Evaluating-Expressions">17.1. Evaluating Expressions</a></li>
+<li><a href="#Evaluation_Type-Conversion">17.2. Type Conversion</a>
+<ul class="sectlevel3">
+<li><a href="#Evaluation_Type-Conversion_Unsigned-Primitive-Integer-Values">17.2.1. Unsigned Primitive Integer Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_Signed-Primitive-Integer-Values">17.2.2. Signed Primitive Integer Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_Primitive-Integer-Values-of-Mixed-Sign">17.2.3. Primitive Integer Values of Mixed Sign</a></li>
+<li><a href="#Evaluation_Type-Conversion_Primitive-and-Non-Primitive-Integer-Values">17.2.4. Primitive and Non-Primitive Integer Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_Floating-Point-Values">17.2.5. Floating-Point Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_Array-Values">17.2.6. Array Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_Structure-Values">17.2.7. Structure Values</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#Analysis-and-Translation">18. Analysis and Translation</a>
+<ul class="sectlevel2">
+<li><a href="#Analysis-and-Translation_Analysis">18.1. Analysis</a></li>
+<li><a href="#Analysis-and-Translation_Analysis-Tools">18.2. Analysis Tools</a></li>
+<li><a href="#Analysis-and-Translation_Translation">18.3. Translation</a></li>
+<li><a href="#Analysis-and-Translation_Translation-Tools">18.4. Translation Tools</a></li>
 </ul>
 </li>
 </ul>
@@ -886,7 +898,7 @@ elements of <a href="#Element-Sequences">element sequences</a>.</p>
 <div class="sect2">
 <h3 id="Lexical-Elements_Comments">3.5. Comments</h3>
 <div class="paragraph">
-<p><a href="#Lexical-Elements_Comments">Comments</a> are ignored during lexing.</p>
+<p><a href="#Comments-and-Annotations_Comments">Comments</a> are ignored during lexing.</p>
 </div>
 </div>
 <div class="sect2">
@@ -951,26 +963,36 @@ newline.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Types">4. Types</h2>
+<h2 id="Type-Names">4. Type Names</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="Types_Primitive-Integer-Types">4.1. Primitive Integer Types</h3>
 <div class="paragraph">
-<p><strong>Primitive integer types</strong> are the types of the primitive integer values supported
-by F Prime. There are two kinds of primitive
+<p><strong>Type names</strong> are the syntactic names of
+<a href="#Types">types</a>.
+In some cases, e.g., <code>U32</code>, there is a one-to-one correspondence
+between type names and types.
+In other cases, e.g.., array types, there is no one-to-one correspondence.
+For example, depending on the enclosing scope, the name
+<code>a.b</code> and the name <code>b</code> may refer to the same array type.</p>
+</div>
+<div class="sect2">
+<h3 id="Type-Names_Primitive-Integer-Type-Names">4.1. Primitive Integer Type Names</h3>
+<div class="paragraph">
+<p><strong>Primitive integer type names</strong> are the names of the
+<a href="#Types_Primitive-Integer-Types">primitive integer types</a>.
+There are two kinds of primitive
 integer types: unsigned integer types and signed integer types.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The unsigned integer types are <code>U8</code>, <code>U16</code>, <code>U32</code>, and <code>U64</code>. The <code>U</code>
-stands for &#8220;unsigned.&#8221; The number after the U is the width of the
+<p>The names of the unsigned integer types are <code>U8</code>, <code>U16</code>, <code>U32</code>, and <code>U64</code>.
+The <code>U</code> stands for &#8220;unsigned.&#8221; The number after the U is the width of the
 representation in bits, using the standard binary representation of an
 unsigned integer.</p>
 </li>
 <li>
-<p>The unsigned integer types are <code>I8</code>, <code>I16</code>, <code>I32</code>, and <code>I64</code>. The <code>I</code>
-stands for &#8220;[signed] integer.&#8221; The number after the I is the width of
+<p>The names of the signed integer types are <code>I8</code>, <code>I16</code>, <code>I32</code>, and <code>I64</code>. The
+<code>I</code> stands for &#8220;[signed] integer.&#8221; The number after the I is the width of
 the representation in bits, using the standard binary two&#8217;s complement
 representation of a signed integer.</p>
 </li>
@@ -978,45 +1000,30 @@ representation of a signed integer.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_Floating-Point-Types">4.2. Floating-Point Types</h3>
+<h3 id="Type-Names_Floating-Point-Type-Names">4.2. Floating-Point Type Names</h3>
 <div class="paragraph">
-<p>The floating-point types are <code>F32</code> and <code>F64</code>. These are IEEE
+<p>The <strong>floating-point type names</strong> are <code>F32</code> and <code>F64</code>. These refer to the types
+of IEEE
 floating-point values of width 32 and 64 bits, respectively.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_Primitive-Numeric-Types">4.3. Primitive Numeric Types</h3>
+<h3 id="Type-Names_The-Boolean-Type-Name">4.3. The Boolean Type Name</h3>
 <div class="paragraph">
-<p>The <a href="#Types_Primitive-Integer-Types">primitive integer types</a>
-together with the <a href="#Types_Floating-Point-Types">floating-point types</a> are
-called the <strong>primitive numeric types</strong>.</p>
+<p>The type name <code>bool</code> represents the type of the two Boolean values <code>true</code> and
+<code>false</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_The-Boolean-Type">4.4. The Boolean Type</h3>
+<h3 id="Type-Names_The-String-Type-Name">4.4. The String Type Name</h3>
 <div class="paragraph">
-<p>The type is <code>bool</code> represents the two Boolean values <code>true</code> and <code>false</code>.</p>
+<p>The type name <code>string</code> represents the type of string values.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_Primitive-Types">4.5. Primitive Types</h3>
+<h3 id="Type-Names_Array-Type-Names">4.5. Array Type Names</h3>
 <div class="paragraph">
-<p>Together, the <a href="#Types_Primitive-Numeric-Types">primitive numeric types</a>
-and the
-<a href="#Types_The-Boolean-Type">Boolean type</a>
-are called the <strong>primitive types</strong>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Types_The-String-Type">4.6. The String Type</h3>
-<div class="paragraph">
-<p>The type <code>string</code> is the type of string values.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Types_Array-Types">4.7. Array Types</h3>
-<div class="paragraph">
-<p>An <strong>array type</strong> is a
+<p>An <strong>array type name</strong> is a
 <a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifier</a> that
 refers to an
 <a href="#Definitions_Array-Definitions">array definition</a> via the
@@ -1033,9 +1040,9 @@ array B = [3] M.A # M.A is an array type</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_Enum-Types">4.8. Enum Types</h3>
+<h3 id="Type-Names_Enum-Type-Names">4.6. Enum Type Names</h3>
 <div class="paragraph">
-<p>An <strong>enum type</strong> is a
+<p>An <strong>enum type name</strong> is a
 <a href="#Scoping-of-Names_Qualified-Identifiers">qualified
 identifier</a> that refers to an
 <a href="#Definitions_Enum-Definitions">enum definition</a> via the
@@ -1051,13 +1058,13 @@ constant a = M.E.X # a has type M.E</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>M.E</code> is an enum type.</p>
+<p><code>M.E</code> is an enum type name.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_Struct-Types">4.9. Struct Types</h3>
+<h3 id="Type-Names_Struct-Type-Names">4.7. Struct Type Names</h3>
 <div class="paragraph">
-<p>A <strong>struct type</strong> is a
+<p>A <strong>struct type name</strong> is a
 <a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifier</a> that
 refers to a
 <a href="#Definitions_Struct-Definitions">struct definition</a> via the
@@ -1073,13 +1080,13 @@ scoping</a>. For example:</p>
   }
 }
 struct T {
-  s : M.S # M.S is a struct type
+  s : M.S # M.S is a struct type name
 }</code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_Abstract-Types">4.10. Abstract Types</h3>
+<h3 id="Type-Names_Abstract-Type-Names">4.8. Abstract Type Names</h3>
 <div class="paragraph">
 <p>An <strong>abstract type</strong> is a
 <a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifier</a> that refers to
@@ -1095,66 +1102,9 @@ scoping</a>. For example:</p>
   type A
 }
 # A is an array of 3 M.A
-# M.A is an abstract type
+# M.A is an abstract type names
 array A = [3] M.A</code></pre>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Types_Default-Values">4.11. Default Values</h3>
-<div class="paragraph">
-<p>Every type <em>T</em> in FPP has an associated <strong>default
-value</strong>.
-In generated C++ code, this is the value that is used to initialize a variable
-of type <em>T</em>
-when no other initializer is specified.
-Default values are important, because they ensure that in generated code,
-every variable is initialized when it is created.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>The default value associated with each
-<a href="#Types_Primitive-Numeric-Types">primitive numeric type</a> is zero.</p>
-</li>
-<li>
-<p>The default value associated with
-<a href="#Types_The-Boolean-Type"><code>bool</code></a> is <code>false</code>.</p>
-</li>
-<li>
-<p>The default value associated with
-<a href="#Types_The-String-Type"><code>string</code></a> is the empty string.</p>
-</li>
-<li>
-<p>The default value associated with an
-<a href="#Types_Array-Types">array type</a> <em>T</em> is (1)
-the default value specified in the definition of the type,
-if one is given; otherwise (2) the unique value
-of type <em>T</em> that has the default value of the member type
-of <em>T</em> at each member.
-See the section on <a href="#Definitions_Array-Definitions">array definitions</a> for examples.</p>
-</li>
-<li>
-<p>The default value associated with an
-<a href="#Types_Enum-Types">enum type</a> is the first
-enumerated constant appearing in the enum definition.</p>
-</li>
-<li>
-<p>The default value associated with a
-<a href="#Types_Struct-Types">struct type</a> <em>T</em> is (1)
-the default value specified in the definition of the type,
-if one is given; otherwise (2) the unique value of type
-<em>T</em> that has the default value of the member type \$T_i\$
-for each member \$m_i\$ <code>:</code> \$T_i\$ of <em>T</em>.
-See the section on <a href="#Definitions_Struct-Definitions">struct definitions</a> for examples.</p>
-</li>
-<li>
-<p>The default value associated with an
-<a href="#Types_Abstract-Types">abstract type</a> <em>T</em> is not specified
-in FPP.
-It is up to the implementer of <em>T</em> to provide a default value.</p>
-</li>
-</ul>
 </div>
 </div>
 </div>
@@ -1369,7 +1319,7 @@ constant s = {
 </table>
 <div class="paragraph">
 <p>For unary negation expressions, <code>-</code> \$e\$ must be
-a <a href="#Type-Checking_Internal-Types_Numeric-Types">numeric type</a>.</p>
+a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1530,9 +1480,6 @@ Constant Definitions</a></p>
 <p><a href="#Definitions_Port-Instance-Definitions">Port Instance Definitions</a></p>
 </li>
 <li>
-<p><a href="#Definitions_Internal-Interface-Definitions">Internal Interface Definitions</a></p>
-</li>
-<li>
 <p><a href="#Definitions_Command-Definitions">Command Definitions</a></p>
 </li>
 <li>
@@ -1579,7 +1526,7 @@ model.</p>
 to a compile-time constant value <em>v</em>. At any model point where the
 <a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifier</a> <em>Q</em> refers to
 the constant definition according to the
-<a href="#Scoping-of-Names-Resolution-of-Qualified-Identifiers">scoping
+<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">scoping
 rules for names</a>, you can use <em>Q</em> as a name for <em>v</em>.</p>
 </div>
 </div>
@@ -2368,7 +2315,7 @@ example:</p>
 <h3 id="Comments-and-Annotations_Annotations">10.2. Annotations</h3>
 <div class="paragraph">
 <p>An <strong>annotation</strong> is similar to a
-<a href="#Lexical-Elements_Comments">comment</a>, but it is attached to a
+<a href="#Comments-and-Annotations_Comments">comment</a>, but it is attached to a
 syntactic element of a model, and it is preserved during
 <a href="#Analysis-and-Translation">analysis and translation</a>.  The precise use of
 annotations depends on the translator. A typical use
@@ -3151,7 +3098,210 @@ translator does not matter.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Type-Checking">14. Type Checking</h2>
+<h2 id="Types">14. Types</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="Types_Primitive-Integer-Types">14.1. Primitive Integer Types</h3>
+<div class="paragraph">
+<p>The <strong>primitive integer types</strong> correspond to the
+<a href="#Type-Names_Primitive-Integer-Type-Names">primitive integer type names</a>
+and are written in the same way, e.g., <code>U32</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Types_Floating-Point-Types">14.2. Floating-Point Types</h3>
+<div class="paragraph">
+<p>The <strong>floating-point types</strong> correspond to the
+<a href="#Type-Names_Floating-Point-Type-Names">floating-point type names</a>
+and are written in the same way, e.g., <code>F64</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Types_Primitive-Numeric-Types">14.3. Primitive Numeric Types</h3>
+<div class="paragraph">
+<p>The <a href="#Types_Primitive-Integer-Types">primitive integer types</a>
+together with the <a href="#Types_Floating-Point-Types">floating-point types</a> are
+called the <strong>primitive numeric types</strong>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Types_The-Boolean-Type">14.4. The Boolean Type</h3>
+<div class="paragraph">
+<p>The <strong>Boolean type</strong> corresponds to the
+<a href="#Type-Names_The-Boolean-Type-Name">Boolean type name</a>.
+It is written <code>bool</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Types_Primitive-Types">14.5. Primitive Types</h3>
+<div class="paragraph">
+<p>Together, the <a href="#Types_Primitive-Numeric-Types">primitive numeric types</a>
+and the
+<a href="#Types_The-Boolean-Type">Boolean type</a>
+are called the <strong>primitive types</strong>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Types_The-String-Type">14.6. The String Type</h3>
+<div class="paragraph">
+<p>The <strong>string type</strong> corresponds to the
+<a href="#Type-Names_The-String-Type-Name">string type name</a>.
+It is written <code>string</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Types_Array-Types">14.7. Array Types</h3>
+<div class="paragraph">
+<p>An <strong>array type</strong> is a type associated with an
+<a href="#Definitions_Array-Definitions">array definition</a>.
+There is one array type per array definition.
+Each array type is computed after resolving constants,
+so an array type has a constant integer value for its size.
+An array type is written using its
+<a href="#Scoping-of-Names_Names-of-Definitions">unique qualified
+name</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Types_Enum-Types">14.8. Enum Types</h3>
+<div class="paragraph">
+<p>An <strong>enum type</strong> is a type associated with an
+<a href="#Definitions_Enum-Definitions">enum definition</a>.
+There is one enum type per enum definition.
+An enum type is written using its
+<a href="#Scoping-of-Names_Names-of-Definitions">unique qualified
+name</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Types_Struct-Types">14.9. Struct Types</h3>
+<div class="paragraph">
+<p>A <strong>struct type</strong> is a type associated with a
+<a href="#Definitions_Struct-Definitions">struct definition</a>.
+There is one struct type per struct definition.
+A struct type is written using its
+<a href="#Scoping-of-Names_Names-of-Definitions">unique qualified
+name</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Types_Abstract-Types">14.10. Abstract Types</h3>
+<div class="paragraph">
+<p>An <strong>abstract type</strong> is a type associated with an
+<a href="#Definitions_Abstract-Type-Definitions">abstract type definition</a>.
+There is is one abstract type per abstract type definition.
+An abstract type is written using its
+<a href="#Scoping-of-Names_Names-of-Definitions">unique qualified
+name</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Types_Internal-Types">14.11. Internal Types</h3>
+<div class="paragraph">
+<p>Internal types do not have syntactic names in FPP source models.
+The compiler assigns these types to expressions during type checking.</p>
+</div>
+<div class="sect3">
+<h4 id="Types_Internal-Types_Integer">14.11.1. Integer</h4>
+<div class="paragraph">
+<p>The type <em>Integer</em> represents all integer values, without regard
+to bit width.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Types_Internal-Types_Integer-Types">14.11.2. Integer Types</h4>
+<div class="paragraph">
+<p><a href="#Types_Internal-Types_Integer"><em>Integer</em></a> together with the
+<a href="#Types_Primitive-Integer-Types">primitive integer types</a> are called
+the <strong>integer types</strong>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Types_Internal-Types_Numeric-Types">14.11.3. Numeric Types</h4>
+<div class="paragraph">
+<p><a href="#Types_Internal-Types_Integer"><em>Integer</em></a> together with the
+<a href="#Types_Primitive-Numeric-Types">primitive numeric types</a> are called
+the <strong>numeric types</strong>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Types_Internal-Types_Anonymous-Array-Types">14.11.4. Anonymous Array Types</h4>
+<div class="paragraph">
+<p>The type <em>[</em> <em>n</em> <em>]</em> <a href="#Types"><em>type</em></a>, where <em>n</em>
+is an integer, represents an array of <em>n</em> elements,
+each of type <em>type</em>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Types_Internal-Types_Anonymous-Struct-Types">14.11.5. Anonymous Struct Types</h4>
+<div class="paragraph">
+<p>The type <em>{</em> \$m_1\$ <em>:</em> \$T_1, ...,\$ \$m_n\$ <em>:</em> \$T_n\$ <em>}</em>
+represents a struct with members \$m_i\$ <em>:</em> \$T_i\$, for
+\$i in [1,n]\$.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Types_Default-Values">14.12. Default Values</h3>
+<div class="paragraph">
+<p>Every type <em>T</em> in FPP has an associated <strong>default
+value</strong>.
+In generated C++ code, this is the value that is used to initialize a variable
+of type <em>T</em>
+when no other initializer is specified.
+Default values are important, because they ensure that in generated code,
+every variable is initialized when it is created.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The default value associated with each
+<a href="#Types_Primitive-Numeric-Types">primitive numeric type</a> is zero.</p>
+</li>
+<li>
+<p>The default value associated with
+<a href="#Types_The-Boolean-Type"><code>bool</code></a> is <code>false</code>.</p>
+</li>
+<li>
+<p>The default value associated with
+<a href="#Types_The-String-Type"><code>string</code></a> is the empty string.</p>
+</li>
+<li>
+<p>The default value associated with an
+<a href="#Types_Array-Types">array type</a> <em>T</em> is (1)
+the default value specified in the definition of the type,
+if one is given; otherwise (2) the unique value
+of type <em>T</em> that has the default value of the member type
+of <em>T</em> at each member.
+See the section on <a href="#Definitions_Array-Definitions">array definitions</a> for examples.</p>
+</li>
+<li>
+<p>The default value associated with an
+<a href="#Types_Enum-Types">enum type</a> is the first
+enumerated constant appearing in the enum definition.</p>
+</li>
+<li>
+<p>The default value associated with a
+<a href="#Types_Struct-Types">struct type</a> <em>T</em> is (1)
+the default value specified in the definition of the type,
+if one is given; otherwise (2) the unique value of type
+<em>T</em> that has the default value of the member type \$T_i\$
+for each member \$m_i\$ <code>:</code> \$T_i\$ of <em>T</em>.
+See the section on <a href="#Definitions_Struct-Definitions">struct definitions</a> for examples.</p>
+</li>
+<li>
+<p>The default value associated with an
+<a href="#Types_Abstract-Types">abstract type</a> <em>T</em> is not specified
+in FPP.
+It is up to the implementer of <em>T</em> to provide a default value.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Type-Checking">15. Type Checking</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In this section, we explain the rules used to assign types to
@@ -3173,59 +3323,13 @@ code.</p>
 </div>
 <div class="paragraph">
 <p>Each type represents a collection of
-<a href="#Evaluation_Values">values</a>.
+<a href="#Values">values</a>.
 The type checking rules exist to ensure that whenever an expression of
 type \$T\$ is <a href="#Evaluation_Evaluating-Expressions">evaluated</a>,
 the result is a value of type \$T\$.</p>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Internal-Types">14.1. Internal Types</h3>
-<div class="paragraph">
-<p>Internal types do not appear in FPP source models.
-The compiler assigns these types to expressions during type checking.</p>
-</div>
-<div class="sect3">
-<h4 id="Type-Checking_Internal-Types_Integer">14.1.1. Integer</h4>
-<div class="paragraph">
-<p>The type <em>Integer</em> represents all integer values, without regard
-to bit width.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Type-Checking_Internal-Types_Integer-Types">14.1.2. Integer Types</h4>
-<div class="paragraph">
-<p><a href="#Type-Checking_Internal-Types_Integer"><em>Integer</em></a> together with the
-<a href="#Types_Primitive-Types">primitive integer types</a> are called
-the <strong>integer types</strong>.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Type-Checking_Internal-Types_Numeric-Types">14.1.3. Numeric Types</h4>
-<div class="paragraph">
-<p><a href="#Type-Checking_Internal-Types_Integer"><em>Integer</em></a> together with the
-<a href="#Types_Primitive-Types">primitive numeric types</a> are called
-the <strong>numeric types</strong>.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Type-Checking_Internal-Types_Anonymous-Array-Types">14.1.4. Anonymous Array Types</h4>
-<div class="paragraph">
-<p>The type <em>[</em> <em>n</em> <em>]</em> <a href="#Types"><em>type</em></a>, where <em>n</em>
-is an integer, represents an array of <em>n</em> elements,
-each of type <em>type</em>.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Type-Checking_Internal-Types_Anonymous-Struct-Types">14.1.5. Anonymous Struct Types</h4>
-<div class="paragraph">
-<p>The type <em>{</em> \$m_1\$ <em>:</em> \$T_1, ...,\$ \$m_n\$ <em>:</em> \$T_n\$ <em>}</em>
-represents a struct with members \$m_i\$ <em>:</em> \$T_i\$, for
-\$i in [1,n]\$.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Type-Checking_Integer-Literals">14.2. Integer Literals</h3>
+<h3 id="Type-Checking_Integer-Literals">15.1. Integer Literals</h3>
 <div class="paragraph">
 <p>To type an
 <a href="#Expressions_Integer-Literals">integer
@@ -3241,7 +3345,7 @@ literal expression</a>, the semantic analyzer does the following:</p>
 an error.</p>
 </li>
 <li>
-<p>Assign the type <a href="#Type-Checking_Internal-Types_Integer"><em>Integer</em></a> to the expression.</p>
+<p>Assign the type <a href="#Types_Internal-Types_Integer"><em>Integer</em></a> to the expression.</p>
 </li>
 </ol>
 </div>
@@ -3260,7 +3364,7 @@ constant f = 0x10000000000000000 # Error; integer value is too large</code></pre
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Floating-Point-Literals">14.3. Floating-Point Literals</h3>
+<h3 id="Type-Checking_Floating-Point-Literals">15.2. Floating-Point Literals</h3>
 <div class="paragraph">
 <p>The type of a
 <a href="#Expressions_Floating-Point-Literals">floating-point
@@ -3268,7 +3372,7 @@ literal expression</a> is <code>F64</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Boolean-Literals">14.4. Boolean Literals</h3>
+<h3 id="Type-Checking_Boolean-Literals">15.3. Boolean Literals</h3>
 <div class="paragraph">
 <p>The type of a
 <a href="#Expressions_Boolean-Literals">boolean
@@ -3276,7 +3380,7 @@ literal expression</a> is <code>bool</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_String-Literals">14.5. String Literals</h3>
+<h3 id="Type-Checking_String-Literals">15.4. String Literals</h3>
 <div class="paragraph">
 <p>The type of a
 <a href="#Expressions_String-Literals">string
@@ -3284,7 +3388,7 @@ literal expression</a> is <code>string</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Array-Expressions">14.6. Array Expressions</h3>
+<h3 id="Type-Checking_Array-Expressions">15.5. Array Expressions</h3>
 <div class="paragraph">
 <p>To type an
 <a href="#Expressions_Array-Expressions">array expression</a>
@@ -3307,7 +3411,7 @@ the semantic analyzer does the following:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Struct-Expressions">14.7. Struct Expressions</h3>
+<h3 id="Type-Checking_Struct-Expressions">15.6. Struct Expressions</h3>
 <div class="paragraph">
 <p>To type a
 <a href="#Expressions_Struct-Expressions">struct expression</a>
@@ -3330,7 +3434,7 @@ to the expression.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Unary-Minus">14.8. Unary Minus</h3>
+<h3 id="Type-Checking_Unary-Minus">15.7. Unary Minus</h3>
 <div class="paragraph">
 <p>To type a
 <a href="#Expressions_Arithmetic-Expressions">unary
@@ -3342,7 +3446,7 @@ minus expression</a> <code>-</code> \$e\$, the semantic analyzer does the follow
 <p>Compute the type \$T\$ of \$e\$.</p>
 </li>
 <li>
-<p>If \$T\$ is a <a href="#Numeric-Type">numeric type</a>, then use \$T\$.</p>
+<p>If \$T\$ is a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>, then use \$T\$.</p>
 </li>
 <li>
 <p>Otherwise throw an error.</p>
@@ -3363,7 +3467,7 @@ constant f = -bool # Error</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Identifier-Expressions">14.9. Identifier Expressions</h3>
+<h3 id="Type-Checking_Identifier-Expressions">15.8. Identifier Expressions</h3>
 <div class="paragraph">
 <p>To type an <a href="#Expressions_Identifier-Expressions">identifier
 expression</a> \$e\$, the semantic analyzer
@@ -3381,7 +3485,7 @@ constant b = a # The expression a refers to the constant a and has type Integer<
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Dot-Expressions">14.10. Dot Expressions</h3>
+<h3 id="Type-Checking_Dot-Expressions">15.9. Dot Expressions</h3>
 <div class="paragraph">
 <p>To type a
 <a href="#Expressions_Dot-Expressions">dot
@@ -3417,10 +3521,10 @@ constant b = M.a # Expression M.a represents a use of the definition M.a.
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Type-Conversion">14.11. Type Conversion</h3>
+<h3 id="Type-Checking_Type-Conversion">15.10. Type Conversion</h3>
 <div class="paragraph">
 <p>We say that a type \$T_1\$ <strong>may be converted to</strong> another type \$T_2\$ if
-every <a href="#Evaluation_Values">value</a> represented by type \$T_1\$ can be
+every <a href="#Values">value</a> represented by type \$T_1\$ can be
 <a href="#Evaluation_Type-Conversion">converted</a> into a value of type \$T_2\$.</p>
 </div>
 <div class="paragraph">
@@ -3429,12 +3533,12 @@ every <a href="#Evaluation_Values">value</a> represented by type \$T_1\$ can be
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Any <a href="#Type-Checking_Internal-Types_Numeric-Types">numeric
+<p>Any <a href="#Types_Internal-Types_Numeric-Types">numeric
 type</a> may be converted to any other numeric type.</p>
 </li>
 <li>
 <p>An <a href="#Types_Enum-Types">enum type</a> may be converted to a
-<a href="#Type-Checking_Internal-Types_Numeric-Types">numeric type</a>.</p>
+<a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.</p>
 </li>
 <li>
 <p>An anonymous array type \$T_1 =\$ <em>[</em> \$n\$ <em>]</em> \$T'_1\$
@@ -3476,7 +3580,7 @@ to an
 <li>
 <p>A <a href="#Types_Primitive-Types">primitive type</a> type \$T\$ may be converted
 to a
-<a href="#Types_Structure-Types">structure type</a> \$T'\$ if
+<a href="#Types_Struct-Types">structure type</a> \$T'\$ if
 for each member \$m_i\$ <code>:</code> \$T_i\$ of \$T'\$,
 \$T\$ may be converted to \$T_i\$.</p>
 </li>
@@ -3490,9 +3594,9 @@ may be converted to \$T_3\$.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Computing-a-Common-Type">14.12. Computing a Common Type</h3>
+<h3 id="Type-Checking_Computing-a-Common-Type">15.11. Computing a Common Type</h3>
 <div class="sect3">
-<h4 id="Type-Checking_Computing-a-Common-Type_Pairs-of-Types">14.12.1. Pairs of Types</h4>
+<h4 id="Type-Checking_Computing-a-Common-Type_Pairs-of-Types">15.11.1. Pairs of Types</h4>
 <div class="paragraph">
 <p>Here are the rules for resolving two types \$T_1\$ and \$T_2\$
 (e.g., the
@@ -3507,14 +3611,14 @@ the whole expression):</p>
 </li>
 <li>
 <p>Otherwise if \$T_1\$ and \$T_2\$ are both
-<a href="#Type-Checking_Numeric-Types">numeric types</a>, then do the following:</p>
+<a href="#Types_Internal-Types_Numeric-Types">numeric types</a>, then do the following:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
 <p>If \$T_1\$ and \$T_2\$ are both floating-point types, then use <code>F64</code>.</p>
 </li>
 <li>
-<p>Otherwise use <a href="#Type-Checking_Integer"><em>Integer</em></a>.</p>
+<p>Otherwise use <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.</p>
 </li>
 </ol>
 </div>
@@ -3597,7 +3701,7 @@ may be converted to each of the member types of \$S\$, then use \$S\$.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Type-Checking_Computing-a-Common-Type_Lists-of-Types">14.12.2. Lists of Types</h4>
+<h4 id="Type-Checking_Computing-a-Common-Type_Lists-of-Types">15.11.2. Lists of Types</h4>
 <div class="paragraph">
 <p>To compute a common type for a list of types
 \$T_1, ... , T_n\$, do the following:</p>
@@ -3634,17 +3738,8 @@ may be converted to each of the member types of \$S\$, then use \$S\$.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Evaluation">15. Evaluation</h2>
+<h2 id="Values">16. Values</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p><strong>Evaluation</strong> is the process of transforming an <a href="#Expressions">expression</a> into
-a <a href="#Evaluation_Values">value</a>.
-In FPP, all evaluation happens during
-<a href="#Analysis-and-Translation_Analysis">analysis</a>,
-in resolving expressions to compile-time constant values.</p>
-</div>
-<div class="sect2">
-<h3 id="Evaluation_Values">15.1. Values</h3>
 <div class="paragraph">
 <p>A <strong>value</strong> is one of the following:</p>
 </div>
@@ -3685,8 +3780,8 @@ in resolving expressions to compile-time constant values.</p>
 <div class="paragraph">
 <p>Every value belongs to exactly one type.</p>
 </div>
-<div class="sect3">
-<h4 id="Evaluation_Values_Primitive-Integer-Values">15.1.1. Primitive Integer Values</h4>
+<div class="sect2">
+<h3 id="Values_Primitive-Integer-Values">16.1. Primitive Integer Values</h3>
 <div class="paragraph">
 <p>A <strong>primitive integer value</strong> is an ordinary (mathematical) integer value
 together with a
@@ -3715,8 +3810,8 @@ For example, we write the value 1 at type <code>U32</code> as <code>1 : U32</cod
 U32</code> is distinct from the value <code>1 : U8</code>.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="Evaluation_Values_Integer-Values">15.1.2. Integer Values</h4>
+<div class="sect2">
+<h3 id="Values_Integer-Values">16.2. Integer Values</h3>
 <div class="paragraph">
 <p>An <strong>integer value</strong> is an ordinary (mathematical) integer value.
 It has type <em>Integer</em>.
@@ -3724,8 +3819,8 @@ We represent an integer value as an integer number, with no explicit type.
 For example, <code>1</code> is an integer value.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="Evaluation_Values_Floating-Point-Values">15.1.3. Floating-Point Values</h4>
+<div class="sect2">
+<h3 id="Values_Floating-Point-Values">16.3. Floating-Point Values</h3>
 <div class="paragraph">
 <p>A <strong>floating-point value</strong> is an IEEE floating-point value of 4- or 8-byte
 width. Formally, the set of floating-point values is the disjoint union
@@ -3746,15 +3841,15 @@ over the types <code>F32</code> and <code>F64</code> of the values represented b
 example, we write the value 1.0 at type <code>F32</code> as <code>1.0 : F32</code>.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="Evaluation_Values_Boolean-Values">15.1.4. Boolean Values</h4>
+<div class="sect2">
+<h3 id="Values_Boolean-Values">16.4. Boolean Values</h3>
 <div class="paragraph">
 <p>A <strong>Boolean value</strong> is one of the values <code>true</code> and <code>false</code>.
 Its type is <code>bool</code>.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="Evaluation_Values_String-Values">15.1.5. String Values</h4>
+<div class="sect2">
+<h3 id="Values_String-Values">16.5. String Values</h3>
 <div class="paragraph">
 <p>A <strong>string value</strong> is a sequence of characters that can be
 represented as a <a href="#Expressions_String-Literals">string literal expression</a>.
@@ -3763,8 +3858,8 @@ e.g., <code>"abc"</code>.
 Its type is <code>string</code>.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="Evaluation_Values_Anonymous-Array-Values">15.1.6. Anonymous Array Values</h4>
+<div class="sect2">
+<h3 id="Values_Anonymous-Array-Values">16.6. Anonymous Array Values</h3>
 <div class="paragraph">
 <p>An <strong>anonymous array value</strong> is a value associated with an anonymous
 array type.
@@ -3776,8 +3871,8 @@ an anonymous array value has the form <code>[</code> \$v_1\$ <code>,</code> \$..
 The type of the value is <em>[</em> \$n\$ <em>]</em> \$T\$.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="Evaluation_Values_Array-Values">15.1.7. Array Values</h4>
+<div class="sect2">
+<h3 id="Values_Array-Values">16.7. Array Values</h3>
 <div class="paragraph">
 <p>An <strong>array value</strong> is a value associated with an array type.
 We write an array value like an <a href="#Values_Anonymous-Array-Values">anonymous array
@@ -3796,7 +3891,7 @@ where</p>
 <p>\$Q\$ is a
 <a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifier</a>
 that refers to a
-<a href="#Type-Definitions_Array-Definitions">array definition</a>
+<a href="#Definitions_Array-Definitions">array definition</a>
 with member type \$T\$.</p>
 </li>
 <li>
@@ -3808,8 +3903,8 @@ with member type \$T\$.</p>
 <p>The type of the value is \$Q\$.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="Evaluation_Values_Enumeration-Values">15.1.8. Enumeration Values</h4>
+<div class="sect2">
+<h3 id="Values_Enumeration-Values">16.8. Enumeration Values</h3>
 <div class="paragraph">
 <p>An <strong>enumeration value</strong> is a value associated with an
 <a href="#Definitions_Enumerated-Constant-Definitions">enumerated constant definition</a>.
@@ -3818,14 +3913,14 @@ Its type is the type associated with the
 the enumerated constant definition appears.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="Evaluation_Values_Anonymous-Struct-Values">15.1.9. Anonymous Struct Values</h4>
+<div class="sect2">
+<h3 id="Values_Anonymous-Struct-Values">16.9. Anonymous Struct Values</h3>
 <div class="paragraph">
 <p>An <strong>anonymous struct value</strong> is a value associated with an
-<a href="#Type-Checking_Internal-Types_Anonymous-Struct-Types">anonymous struct
+<a href="#Types_Internal-Types_Anonymous-Struct-Types">anonymous struct
 type</a>.
 We write an anonymous struct value \$v\$ similarly to a
-<a href="#Expressions_Structure-Expressions">struct expression</a>:
+<a href="#Expressions_Struct-Expressions">struct expression</a>:
 a struct value has the form <code>{</code> \$m_1\$ <code>=</code> \$v_1\$ <code>,</code> \$...\$ <code>,</code>
 \$m_n\$ <code>=</code> \$v_n\$ <code>}</code>,
 where for each \$i in [1,n\$], \$v_i\$ is a value of type \$T_i\$.
@@ -3833,14 +3928,14 @@ The type of \$v\$ is <em>{</em> \$m_1\$ <em>:</em> \$T_1\$ <em>,</em> \$...\$ <e
 \$m_n\$ <em>:</em> \$T_n\$ <em>}</em>.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="Evaluation_Values_Struct-Values">15.1.10. Struct Values</h4>
+<div class="sect2">
+<h3 id="Values_Struct-Values">16.10. Struct Values</h3>
 <div class="paragraph">
 <p>A <strong>struct value</strong> is a value associated with a
 <a href="#Types_Struct-Types">struct type</a>.
 that is an element of a struct type.
 We write a struct value similarly to an
-<a href="#Evaluation_Values_Struct-Values">anonymous struct value</a>,
+<a href="#Values_Struct-Values">anonymous struct value</a>,
 except that we annotate the value with a struct type:
 a struct value has the form <code>{</code> \$m_1\$ <code>:</code> \$v_1\$ <code>,</code> \$...\$ <code>,</code>
 \$m_n\$ <code>:</code> \$v_n\$ <code>}</code> <code>:</code> \$Q\$,
@@ -3852,7 +3947,7 @@ where</p>
 <p>\$Q\$ is a
 <a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifier</a>
 that refers to a
-<a href="#Type-Definitions_Struct-Definitions">struct definition</a>.</p>
+<a href="#Definitions_Struct-Definitions">struct definition</a>.</p>
 </li>
 <li>
 <p>The members of \$Q\$ are \$m_i\$ <code>:</code> \$T_i\$ for \$i in [1,n]\$.</p>
@@ -3867,26 +3962,37 @@ that refers to a
 </div>
 </div>
 </div>
+</div>
+<div class="sect1">
+<h2 id="Evaluation">17. Evaluation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Evaluation</strong> is the process of transforming an <a href="#Expressions">expression</a> into
+a <a href="#Values">value</a>.
+In FPP, all evaluation happens during
+<a href="#Analysis-and-Translation_Analysis">analysis</a>,
+in resolving expressions to compile-time constant values.</p>
+</div>
 <div class="sect2">
-<h3 id="Evaluation_Evaluating-Expressions">15.2. Evaluating Expressions</h3>
+<h3 id="Evaluation_Evaluating-Expressions">17.1. Evaluating Expressions</h3>
 <div class="paragraph">
 <p>Evaluation of expressions occurs as stated in the
 <a href="#Expressions">expression descriptions</a>. Evaluation of integer
 expressions occurs at type
-<a href="#Type-Checking_Internal-Types_Integer"><em>Integer</em></a>,
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>,
 using enough bits to represent the result without overflow.
 Evaluation of floating-point expressions occurs using 64-bit arithmetic.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Evaluation_Type-Conversion">15.3. Type Conversion</h3>
+<h3 id="Evaluation_Type-Conversion">17.2. Type Conversion</h3>
 <div class="paragraph">
 <p>The following rules govern the conversion of a value \$v_1\$ of type
 \$T_1\$
 to a value \$v_2\$ of type \$T_2\$.</p>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Unsigned-Primitive-Integer-Values">15.3.1. Unsigned Primitive Integer Values</h4>
+<h4 id="Evaluation_Type-Conversion_Unsigned-Primitive-Integer-Values">17.2.1. Unsigned Primitive Integer Values</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3908,7 +4014,7 @@ converting <code>0x12 : U8</code> to <code>U16</code> yields <code>0x12 : U16</c
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Signed-Primitive-Integer-Values">15.3.2. Signed Primitive Integer Values</h4>
+<h4 id="Evaluation_Type-Conversion_Signed-Primitive-Integer-Values">17.2.2. Signed Primitive Integer Values</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3928,7 +4034,7 @@ example, converting <code>-0x12 : I8</code> to <code>I16</code> yields <code>-0x
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Primitive-Integer-Values-of-Mixed-Sign">15.3.3. Primitive Integer Values of Mixed Sign</h4>
+<h4 id="Evaluation_Type-Conversion_Primitive-Integer-Values-of-Mixed-Sign">17.2.3. Primitive Integer Values of Mixed Sign</h4>
 <div class="paragraph">
 <p>If \$T_1\$ and \$T_2\$ are primitive integer types with one signed and
 one unsigned,
@@ -3953,7 +4059,7 @@ then do the following:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Primitive-and-Non-Primitive-Integer-Values">15.3.4. Primitive and Non-Primitive Integer Values</h4>
+<h4 id="Evaluation_Type-Conversion_Primitive-and-Non-Primitive-Integer-Values">17.2.4. Primitive and Non-Primitive Integer Values</h4>
 <div class="paragraph">
 <p>If \$T_1\$ is <em>Integer</em> and \$T_2\$ is a primitive integer type, then
 proceed as if \$T_1\$ were a signed primitive integer
@@ -3968,7 +4074,7 @@ at type <em>Integer</em>. For example, converting
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Floating-Point-Values">15.3.5. Floating-Point Values</h4>
+<h4 id="Evaluation_Type-Conversion_Floating-Point-Values">17.2.5. Floating-Point Values</h4>
 <div class="paragraph">
 <p>We use the standard rules for IEEE floating-point values to convert
 among integer values to and from floating-point values and
@@ -3976,7 +4082,7 @@ floating-point values to and from each other.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Array-Values">15.3.6. Array Values</h4>
+<h4 id="Evaluation_Type-Conversion_Array-Values">17.2.6. Array Values</h4>
 <div class="paragraph">
 <p>If \$T_2\$ is an array type and \$T_1 = T_2\$, then
 let \$v_2 = v_1\$.</p>
@@ -4004,7 +4110,7 @@ with value \$v'_i\$ at each element.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Structure-Values">15.3.7. Structure Values</h4>
+<h4 id="Evaluation_Type-Conversion_Structure-Values">17.2.7. Structure Values</h4>
 <div class="paragraph">
 <p>If \$T_2\$ is a struct type and \$T_1 = T_2\$, then
 let \$v_2 = v_1\$.</p>
@@ -4038,10 +4144,10 @@ where \$v'_m\$ is the <a href="#Types_Default-Values">default value</a> at type 
 </div>
 </div>
 <div class="sect1">
-<h2 id="Analysis-and-Translation">16. Analysis and Translation</h2>
+<h2 id="Analysis-and-Translation">18. Analysis and Translation</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="Analysis-and-Translation_Analysis">16.1. Analysis</h3>
+<h3 id="Analysis-and-Translation_Analysis">18.1. Analysis</h3>
 <div class="paragraph">
 <p><strong>Analysis</strong> is the process of checking a source model.
 It usually involves the following steps:</p>
@@ -4058,7 +4164,7 @@ It usually involves the following steps:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analysis-and-Translation_Analysis-Tools">16.2. Analysis Tools</h3>
+<h3 id="Analysis-and-Translation_Analysis-Tools">18.2. Analysis Tools</h3>
 <div class="paragraph">
 <p>An <strong>analysis tool</strong> is a tool that reads in and analyzes FPP
 source files, but does not generate any code.
@@ -4082,7 +4188,7 @@ The command <code>cat file1.fpp file2.fpp | analyze</code> is functionally equiv
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analysis-and-Translation_Translation">16.3. Translation</h3>
+<h3 id="Analysis-and-Translation_Translation">18.3. Translation</h3>
 <div class="paragraph">
 <p><strong>Translation</strong> is the process of performing analysis and
 generating code.</p>
@@ -4107,7 +4213,7 @@ strategies. For example, we need to generate (1) C++ code for FSW and
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analysis-and-Translation_Translation-Tools">16.4. Translation Tools</h3>
+<h3 id="Analysis-and-Translation_Translation-Tools">18.4. Translation Tools</h3>
 <div class="paragraph">
 <p>A <strong>translation tool</strong> is a tool that translates FPP source files.
 A translation tool typically accepts the following two kinds of
@@ -4146,7 +4252,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-10-28 15:57:07 -0700
+Last updated 2019-10-29 10:53:32 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
