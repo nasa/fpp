@@ -12,7 +12,7 @@ then translation halts with an error message and does not produce any
 code.
 
 Each type represents a collection of
-<<Evaluation_Values,values>>.
+<<Values,values>>.
 The type checking rules exist to ensure that whenever an expression of
 type stem:[T] is <<Evaluation_Evaluating-Expressions,evaluated>>,
 the result is a value of type stem:[T].
@@ -156,7 +156,7 @@ constant b = M.a # Expression M.a represents a use of the definition M.a.
 === Type Conversion
 
 We say that a type stem:[T_1] *may be converted to* another type stem:[T_2] if
-every <<Evaluation_Values,value>> represented by type stem:[T_1] can be
+every <<Values,value>> represented by type stem:[T_1] can be
 <<Evaluation_Type-Conversion,converted>> into a value of type stem:[T_2].
 
 Here are the rules for type conversion:
