@@ -14,7 +14,7 @@ in which the elements are struct type members, and the terminating
 punctuation is a comma.
 A *struct type member* has the following syntax:
 
-<<Lexical-Elements_Identifiers,_identifier_>> `:` <<Types,_type_>>
+<<Lexical-Elements_Identifiers,_identifier_>> `:` <<Type-Names,_type-name_>>
 
 ==== Semantics
 

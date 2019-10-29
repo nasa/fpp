@@ -17,7 +17,7 @@ constants.
 ==== Syntax
 
 `enum` <<Lexical-Elements_Identifiers,_identifier_>>
-_[_ `:` <<Types,_type_>> _]_
+_[_ `:` <<Type-Names,_type-name_>> _]_
 `{` _enum-constant-sequence_ `}`
 
 _enum-constant-sequence_ is an

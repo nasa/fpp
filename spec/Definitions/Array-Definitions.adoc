@@ -6,7 +6,7 @@ it.
 ==== Syntax
 
 `array` <<Lexical-Elements_Identifiers,_identifier_>> `=`
-`[` <<Expressions,_expression_>> `]` <<Types,_type_>>
+`[` <<Expressions,_expression_>> `]` <<Type-Names,_type-name_>>
 _[_ `default` <<Expressions,_expression_>> _]_
 
 ==== Semantics

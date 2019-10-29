@@ -100,7 +100,7 @@ the *numeric types*.
 
 ==== Anonymous Array Types
 
-The type _[_ _n_ _]_ <<Types,_type_>>, where _n_
+The type _[_ _n_ _]_ <<Type-Names,_type-name_>>, where _n_
 is an integer, represents an array of _n_ elements,
 each of type _type_.
 
