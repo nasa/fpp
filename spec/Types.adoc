@@ -78,7 +78,7 @@ name>>.
 
 === Internal Types
 
-Internal types do not have syntactic names in FPP source models.
+*Internal types* do not have syntactic names in FPP source models.
 The compiler assigns these types to expressions during type checking.
 
 ==== Integer
