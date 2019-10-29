@@ -100,15 +100,15 @@ the *numeric types*.
 
 ==== Anonymous Array Types
 
-The type _[_ _n_ _]_ <<Type-Names,_type-name_>>, where _n_
-is an integer, represents an array of _n_ elements,
-each of type _type_.
+The type _[_ _n_ _]_ _T_, where _n_
+is an integer and _T_ is a type, represents an array of _n_ elements,
+each of type _T_.
 
 ==== Anonymous Struct Types
 
-The type _{_ stem:[m_1] _:_ stem:[T_1, ...,] stem:[m_n] _:_ stem:[T_n] _}_
-represents a struct with members stem:[m_i] _:_ stem:[T_i], for
-stem:[i in [1,n\]].
+The type _{_ stem:[m_1] _:_ stem:[T_1, ...,] stem:[m_n] _:_ stem:[T_n] _}_,
+where each stem:[m_i] is an identifier and each stem:[T_i] is a type,
+represents a struct with members stem:[m_i] _:_ stem:[T_i].
 
 === Default Values
 

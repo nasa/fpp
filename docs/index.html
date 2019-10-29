@@ -3196,17 +3196,17 @@ the <strong>numeric types</strong>.</p>
 <div class="sect3">
 <h4 id="Types_Internal-Types_Anonymous-Array-Types">14.11.4. Anonymous Array Types</h4>
 <div class="paragraph">
-<p>The type <em>[</em> <em>n</em> <em>]</em> <a href="#Type-Names"><em>type-name</em></a>, where <em>n</em>
-is an integer, represents an array of <em>n</em> elements,
-each of type <em>type</em>.</p>
+<p>The type <em>[</em> <em>n</em> <em>]</em> <em>T</em>, where <em>n</em>
+is an integer and <em>T</em> is a type, represents an array of <em>n</em> elements,
+each of type <em>T</em>.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="Types_Internal-Types_Anonymous-Struct-Types">14.11.5. Anonymous Struct Types</h4>
 <div class="paragraph">
-<p>The type <em>{</em> \$m_1\$ <em>:</em> \$T_1, ...,\$ \$m_n\$ <em>:</em> \$T_n\$ <em>}</em>
-represents a struct with members \$m_i\$ <em>:</em> \$T_i\$, for
-\$i in [1,n]\$.</p>
+<p>The type <em>{</em> \$m_1\$ <em>:</em> \$T_1, ...,\$ \$m_n\$ <em>:</em> \$T_n\$ <em>}</em>,
+where each \$m_i\$ is an identifier and each \$T_i\$ is a type,
+represents a struct with members \$m_i\$ <em>:</em> \$T_i\$.</p>
 </div>
 </div>
 </div>
@@ -4221,7 +4221,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-10-29 13:15:43 -0700
+Last updated 2019-10-29 13:20:17 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
