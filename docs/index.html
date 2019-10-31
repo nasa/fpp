@@ -2123,7 +2123,7 @@ File <code>b.fpp</code> contains the following:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module M { constant a = 0 }</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">module M { constant b = 0 }</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2131,14 +2131,13 @@ File <code>b.fpp</code> contains the following:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">locate constant a at a.fpp
-module M { locate constant a at b.fpp }</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">locate constant a at "a.fpp"
+module M { locate constant b at "b.fpp" }</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The first location specifier refers to the constant <code>a</code> defined
-at the top level.
-The second location specifier refers to the constant <code>M.a</code>.</p>
+<p>The first location specifier refers to the constant <code>a</code>.
+The second location specifier refers to the constant <code>M.b</code>.</p>
 </div>
 </div>
 </div>
@@ -4221,7 +4220,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-10-31 10:06:58 -0700
+Last updated 2019-10-31 10:09:03 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
