@@ -1620,8 +1620,8 @@ The first expression must evaluate to a compile-time constant numeric value
 <em>type-name</em> names the type <em>T</em> of each array element.</p>
 </div>
 <div class="paragraph">
-<p>The definition associates the name <em>N</em> with a new type, <em>T'</em>
-representing an array of <em>n</em> elements of type <em>T</em>.</p>
+<p>The definition associates the name <em>N</em> with a new type <em>T'</em>
+that represents an array of <em>n</em> elements of type <em>T</em>.</p>
 </div>
 <div class="paragraph">
 <p>The second expression is optional.
@@ -1631,7 +1631,7 @@ The type of the expression must be
 <a href="#Type-Checking_Type-Conversion">convertible to</a> <em>T'</em>.</p>
 </div>
 <div class="paragraph">
-<p>The name <em>N</em> is in scope after (and not before) the <code>default</code> keyword.</p>
+<p>The type name <em>N</em> is not in scope in the body of the definition.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1859,7 +1859,7 @@ The type of the expression must be
 <a href="#Type-Checking_Type-Conversion">convertible to</a> <em>T'</em>.</p>
 </div>
 <div class="paragraph">
-<p>The name <em>N</em> is in scope after (and not before) the <code>default</code> keyword.</p>
+<p>The type name <em>N</em> is not in scope in the body of the definition.</p>
 </div>
 </div>
 <div class="sect3">
@@ -4221,7 +4221,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-10-30 18:00:07 -0700
+Last updated 2019-10-31 10:06:58 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

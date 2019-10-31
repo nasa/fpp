@@ -16,8 +16,8 @@ The first expression must evaluate to a compile-time constant numeric value
 _n_ whose value is greater than zero.
 _type-name_ names the type _T_ of each array element.
 
-The definition associates the name _N_ with a new type, _T'_
-representing an array of _n_ elements of type _T_.
+The definition associates the name _N_ with a new type _T'_
+that represents an array of _n_ elements of type _T_.
 
 The second expression is optional.
 If present, it specifies the <<Types_Default-Values,default value>> associated 
@@ -25,7 +25,7 @@ with the type.
 The type of the expression must be
 <<Type-Checking_Type-Conversion,convertible to>> _T'_.
 
-The name _N_ is in scope after (and not before) the `default` keyword.
+The type name _N_ is not in scope in the body of the definition.
 
 ==== Examples
 

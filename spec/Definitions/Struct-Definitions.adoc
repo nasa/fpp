@@ -29,7 +29,7 @@ associated with the type.
 The type of the expression must be
 <<Type-Checking_Type-Conversion,convertible to>> _T'_.
 
-The name _N_ is in scope after (and not before) the `default` keyword.
+The type name _N_ is not in scope in the body of the definition.
 
 ==== Examples
 
