@@ -63,13 +63,13 @@ If not, throw an error.
 ----
 enum Gunfighters {
   IL_BUONO
-  IL_MALO
+  IL_BRUTTO
   IL_CATTIVO
 }
 
 enum U8Gunfighters : U8 {
   IL_BUONO
-  IL_MALO
+  IL_BRUTTO
   IL_CATTIVO
 }
 ----
