@@ -1,0 +1,8 @@
+spec loc
+  spec loc kind topology
+  qual ident a.b
+  location "a.b.fpp"
+spec loc
+  spec loc kind topology
+  qual ident c
+  location "c.fpp"

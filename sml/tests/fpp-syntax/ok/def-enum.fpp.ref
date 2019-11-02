@@ -1,0 +1,64 @@
+def enum
+  ident E1
+  def enum constant
+    ident X
+    literal int 0
+  def enum constant
+    ident Y
+    literal int 1
+@ Pre annotation
+def enum
+  ident E2
+  @ Pre annotation
+  def enum constant
+    ident X
+  @< Post annotation
+  @ Pre annotation
+  def enum constant
+    ident Y
+  @< Post annotation
+@< Post annotation
+@ Pre annotation
+def enum
+  ident E3
+  @ Pre annotation
+  def enum constant
+    ident X
+  @< Post annotation
+  @ Pre annotation
+  def enum constant
+    ident Y
+  @< Post annotation
+@< Post annotation
+def enum
+  ident E4
+  def enum constant
+    ident x
+    literal int 0
+  def enum constant
+    ident Y
+    literal int 1
+@ Pre annotation
+def enum
+  ident E5
+  @ Pre annotation
+  def enum constant
+    ident X
+  @< Post annotation
+  @ Pre annotation
+  def enum constant
+    ident Y
+  @< Post annotation
+@< Post annotation
+@ Pre annotation
+def enum
+  ident E6
+  @ Pre annotation
+  def enum constant
+    ident X
+  @< Post annotation
+  @ Pre annotation
+  def enum constant
+    ident Y
+  @< Post annotation
+@< Post annotation

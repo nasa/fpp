@@ -1,0 +1,12 @@
+def abs type
+  ident T1
+@ Pre annotation
+def abs type
+  ident T2
+@< Post annotation
+def abs type
+  ident T3
+@ Pre annotation
+def abs type
+  ident T4
+@< Post annotation

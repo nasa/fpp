@@ -1,0 +1,48 @@
+def struct
+  ident S1
+  x : type name U32
+  y : type name F32
+@ Pre annotation
+def struct
+  ident S2
+  @ Pre annotation
+  x : type name U32
+  @< Post annotation
+  @ Pre annotation
+  y : type name F32
+  @< Post annotation
+@< Post annotation
+@ Pre annotation
+def struct
+  ident S2
+  @ Pre annotation
+  x : type name U32
+  @< Post annotation
+  @ Pre annotation
+  y : type name F32
+  @< Post annotation
+@< Post annotation
+def struct
+  ident S4
+  x : type name U32
+  y : type name F32
+@ Pre annotation
+def struct
+  ident S5
+  @ Pre annotation
+  x : type name U32
+  @< Post annotation
+  @ Pre annotation
+  y : type name F32
+  @< Post annotation
+@< Post annotation
+@ Pre annotation
+def struct
+  ident S6
+  @ Pre annotation
+  x : type name U32
+  @< Post annotation
+  @ Pre annotation
+  y : type name F32
+  @< Post annotation
+@< Post annotation

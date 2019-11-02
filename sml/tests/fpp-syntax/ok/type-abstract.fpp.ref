@@ -1,0 +1,6 @@
+def abs type
+  ident T
+def array
+  ident A
+  literal int 3
+  type name T

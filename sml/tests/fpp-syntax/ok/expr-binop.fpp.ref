@@ -1,0 +1,15 @@
+def constant
+  ident a
+  expr binop
+    expr binop
+      literal int 1
+      binop +
+      expr binop
+        expr binop
+          literal int 2
+          binop *
+          literal int 3
+        binop /
+        literal int 4
+    binop -
+    literal int 5

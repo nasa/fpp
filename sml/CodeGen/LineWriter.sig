@@ -1,9 +1,9 @@
 (* ----------------------------------------------------------------------
- * FPPWriter.sig
- * Write out FPP AST as source
+ * LineWriter.sig
+ * Write out FPP AST as lines
  * ----------------------------------------------------------------------*)
 
-signature FPP_WRITER =
+signature LINE_WRITER =
 sig
 
   val defAbsType : Ast.def_abs_type -> Line.t list
@@ -22,11 +22,7 @@ sig
 
   val expr : Ast.expr -> Line.t list
 
-  val qualIdent : Ast.ident list -> string
-
   val specLoc : Ast.spec_loc -> Line.t list
-
-  val specLocKind : Ast.spec_loc_kind -> string
 
   val structMember : Ast.struct_member -> Line.t list
 

@@ -7,6 +7,7 @@ Library
 is
   fpp-syntax.sml
   ../../Ast/Ast.cm
+  ../../CodeGen/CodeGen.cm
   ../../Parser/Parser.cm
   ../../Util/Util.cm
 

@@ -1,0 +1,6 @@
+def constant
+  ident s
+  expr struct
+    struct member
+      ident x
+      literal int 5

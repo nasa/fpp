@@ -1,0 +1,6 @@
+def struct
+  ident S1
+  x : type name U32
+def struct
+  ident S2
+  x : type name S1

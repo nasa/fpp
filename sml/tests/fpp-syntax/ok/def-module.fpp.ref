@@ -1,0 +1,24 @@
+def module
+  ident M1
+  def constant
+    ident a
+    literal int 0
+@ Pre annotation
+def module
+  ident M2
+  def constant
+    ident a
+    literal int 0
+@< Post annotation
+def module
+  ident M3
+  def constant
+    ident a
+    literal int 0
+@ Pre annotation
+def module
+  ident M3
+  def constant
+    ident a
+    literal int 0
+@< Post annotation

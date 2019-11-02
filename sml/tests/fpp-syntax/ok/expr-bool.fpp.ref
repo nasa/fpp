@@ -1,0 +1,3 @@
+def constant
+  ident b
+  literal bool true

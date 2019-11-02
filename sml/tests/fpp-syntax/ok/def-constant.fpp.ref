@@ -1,0 +1,16 @@
+def constant
+  ident c1
+  literal int 0
+@ Pre annotation
+def constant
+  ident c2
+  literal int 0
+@< Post annotation
+def constant
+  ident c3
+  literal int 0
+@ Pre annotation
+def constant
+  ident c4
+  literal int 0
+@< Post annotation

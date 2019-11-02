@@ -13,8 +13,9 @@ let
   val tul = case fileNames of
                  [] => [ Parser.parse (File.StdIn) ]
                | _ => List.map (Parser.parse o file) fileNames
+  val lines = ASTWriter.transUnitList tul
 in
-  ()
+  List.map (Line.write TextIO.stdOut) lines
 end
 
 fun main(name,args) =

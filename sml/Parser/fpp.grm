@@ -85,7 +85,9 @@ end
 | U64
 | U8
 
-%left PLUS SLASH STAR MINUS DOT
+%left PLUS MINUS
+%left STAR SLASH 
+%left DOT
 
 %nonterm 
   START of trans_unit

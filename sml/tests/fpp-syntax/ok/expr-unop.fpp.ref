@@ -1,0 +1,5 @@
+def constant
+  ident a
+  expr unop
+    unop -
+    literal int 1

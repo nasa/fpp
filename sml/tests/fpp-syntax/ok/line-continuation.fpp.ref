@@ -1,0 +1,3 @@
+def constant
+  ident a
+  literal int 0

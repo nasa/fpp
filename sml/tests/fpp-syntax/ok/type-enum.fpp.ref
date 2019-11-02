@@ -1,0 +1,10 @@
+def enum
+  ident E
+  def enum constant
+    ident X
+  def enum constant
+    ident Y
+def array
+  ident A
+  literal int 3
+  type name E

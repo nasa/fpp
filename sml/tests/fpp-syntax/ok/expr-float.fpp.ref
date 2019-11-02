@@ -1,0 +1,6 @@
+def constant
+  ident a
+  literal float 3.1415926535
+def constant
+  ident b
+  literal float 6.02e23

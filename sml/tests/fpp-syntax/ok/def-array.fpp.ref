@@ -1,0 +1,22 @@
+def array
+  ident A1
+  literal int 3
+  type name F32
+@ Pre annotation
+def array
+  ident A2
+  literal int 3
+  type name U32
+  literal int 1
+@< Post annotation
+def array
+  ident A3
+  literal int 3
+  type name F32
+@ Pre annotation
+def array
+  ident A4
+  literal int 3
+  type name U32
+  literal int 1
+@< Post annotation

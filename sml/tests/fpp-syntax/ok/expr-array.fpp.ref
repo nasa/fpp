@@ -1,0 +1,6 @@
+def constant
+  ident a
+  expr array
+    literal int 1
+    literal int 2
+    literal int 3

@@ -1,0 +1,8 @@
+def array
+  ident A1
+  literal int 3
+  type name F32
+def array
+  ident A2
+  literal int 3
+  type name F64

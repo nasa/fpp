@@ -2,11 +2,12 @@ Group
 is
   ../Ast/Ast.cm
   ../Util/Util.cm
-  FPPWriter/FPPWriter.sig
-  FPPWriter/FPPWriter.sml
+  ASTWriter.sml
+  FPPWriter.sml
   Indentation.sig
   Indentation.sml
   Line.sig
   Line.sml
+  LineWriter.sig
   $/basis.cm
   $/smlnj-lib.cm

@@ -1,0 +1,8 @@
+spec loc
+  spec loc kind port
+  qual ident a.b
+  location "a.b.fpp"
+spec loc
+  spec loc kind port
+  qual ident c
+  location "c.fpp"

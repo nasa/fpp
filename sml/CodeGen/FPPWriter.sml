@@ -3,7 +3,7 @@
  * Author: Rob Bocchino
  * ----------------------------------------------------------------------*)
 
-structure FPPWriter :> FPP_WRITER =
+structure FPPWriter :> LINE_WRITER =
 struct
 
   open Ast
