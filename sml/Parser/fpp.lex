@@ -72,10 +72,12 @@ NL=[\ ]*[\r]?[\n][\ ]*;
 %%
 "(" => (token Tokens.LPAREN);
 ")" => (token Tokens.RPAREN);
+"*" => (token Tokens.STAR);
 "+" => (token Tokens.PLUS);
 ","{NL}* => (newlines (yytext); token Tokens.COMMA);
 "-" => (token Tokens.MINUS);
 "." => (token Tokens.DOT);
+"/" => (token Tokens.SLASH);
 ":" => (token Tokens.COLON);
 ";"{NL}* => (newlines (yytext); token Tokens.SEMI);
 "=" => (token Tokens.EQUALS);

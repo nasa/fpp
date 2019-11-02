@@ -96,12 +96,14 @@ struct
   end
 
   and expr (ExprArray enl) = exprArray enl
+    | expr (ExprBinop (en, binop, en')) = exprBinop (data en) binop (data en')
     | expr (ExprDot (en, id)) = exprDot (data en) id
     | expr (ExprIdent id) = lines id
     | expr (ExprLiteralInt s) = lines s
     | expr (ExprLiteralFloat s) = lines s
     | expr (ExprLiteralString s) = lines ("\""^s^"\"")
     | expr (ExprLiteralBool lb) = exprLiteralBool lb
+    | expr (ExprParen en) = exprParen (data en)
     | expr (ExprStruct sml) = exprStruct sml
     | expr (ExprUnop (unop, en)) = exprUnop unop (data en)
 
@@ -115,6 +117,22 @@ struct
   in
     (lbracket :: elts) @ [ rbracket ]
   end
+
+  and exprBinop e b e' =
+  let
+    val e = expr e
+    val b = binop b
+    val e' = expr e'
+    val e = joinLists e " " b
+    val e = joinLists e " " e'
+  in
+    e
+  end
+
+  and binop Add = lines "+"
+    | binop Div = lines "/"
+    | binop Mul = lines "*"
+    | binop Sub = lines "-"
 
   and exprDot e id =
   let
@@ -136,6 +154,17 @@ struct
     val rbrace = line "}"
   in
     (lbrace :: members) @ [ rbrace ]
+  end
+
+  and exprParen e =
+  let
+    val lp = lines "("
+    val e = expr e
+    val rp = lines ")"
+    val e = joinLists lp "" e
+    val e = joinLists e "" rp
+  in
+    e
   end
 
   and exprUnop Minus e = 

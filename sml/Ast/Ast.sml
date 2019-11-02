@@ -14,6 +14,12 @@
 
    datatype trans_unit = TransUnit of tu_member list
 
+   and binop =
+     Add
+   | Div
+   | Mul
+   | Sub
+
    and def_abs_type = DefAbsType of ident
 
    and def_array = DefArray of ident * expr node * type_name node * expr node option
@@ -31,12 +37,14 @@
 
    and expr =
      ExprArray of expr node list
+   | ExprBinop of expr node * binop * expr node
    | ExprDot of expr node * ident
    | ExprIdent of ident
    | ExprLiteralBool of literal_bool
    | ExprLiteralInt of string
    | ExprLiteralFloat of string
    | ExprLiteralString of string
+   | ExprParen of expr node
    | ExprStruct of struct_member list
    | ExprUnop of unop * expr node
 
