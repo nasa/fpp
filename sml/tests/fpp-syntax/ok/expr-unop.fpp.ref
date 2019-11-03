@@ -1,5 +1,22 @@
+def module
+  ident M
+  def constant
+    ident a
+    expr unop
+      unop -
+      literal int 1
+  def constant
+    ident b
+    expr binop
+      expr unop
+        unop -
+        literal int 2
+      binop +
+      literal int 3
 def constant
-  ident a
+  ident c
   expr unop
     unop -
-    literal int 1
+    expr dot
+      ident a
+      ident b

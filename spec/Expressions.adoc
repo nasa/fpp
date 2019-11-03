@@ -131,7 +131,7 @@ constant s = {
 
 === Arithmetic Expressions
 
-FPP currently includes the following *arithmetic expressions*:
+FPP includes the following *arithmetic expressions*:
 
 [cols=",",options="header",]
 |======================================
@@ -141,10 +141,35 @@ FPP currently includes the following *arithmetic expressions*:
 |`-` stem:[e]
 |Negate stem:[e]
 
+|stem:[e_1] `+` stem:[e_2]
+|Add stem:[e_1] and stem:[e_2]
+
+|stem:[e_1] `-` stem:[e_2]
+|Subtract stem:[e_2] from stem:[e_1]
+
+|stem:[e_1] `*` stem:[e_2]
+|Multiply stem:[e_1] by stem:[e_2]
+
+|stem:[e_1] `/` stem:[e_2]
+|Divide stem:[e_1] by stem:[e_2]
+
 |======================================
 
-For unary negation expressions, `-` stem:[e] must be
-a <<Types_Internal-Types_Numeric-Types,numeric type>>.
+Each subexpression of an arthmetic expression must have
+<<Types_Internal-Types_Numeric-Types,numeric type>>.
+For binary aritmetic expressions, the type of the whole expression is the
+<<Type-Checking_Computing-a-Common-Type,common type>> of the subexpressions.
+The arithmetic is either standard integer arithmetic or standard floating-point 
+arithmetic, depending on the type.
+
+*Example:*
+
+[source,fpp]
+----
+constant a = -1
+constant b = 2 + 3
+constant c = a * b
+----
 
 === Identifier Expressions
 
@@ -214,19 +239,54 @@ enum E { X = 0, Y = 1 }
 constant a = E.X # E.X evaluates to 0
 ----
 
+=== Parenthesis Expressions
+
+A *parenthesis expression* is an expression surrounded
+by parentheses in order to group subexpressions and to
+force evaluation order.
+
+==== Syntax
+
+`(`
+<<Expressions,_expression_>>
+`)`
+
+==== Semantics
+
+The type and value of the expression are the type and value of the subexpression.
+
+==== Example
+
+[source,fpp]
+----
+constant a = (1 + 2) * 3
+----
+
 === Precedence and Associativity
 
-==== Precedence
-
 Ambiguity in parsing expressions is resolved with the following
-precedence ordering. Expressions appearing earlier in the ordering
+precedence table. Expressions appearing earlier in the table
 have higher precedence. For example, `-a.b` is parsed as `-(a.b)`
-and not `(-a).b`.
+and not `(-a).b`. Where necessary, each element in the ordering provides an 
+associativity for resolving expressions with equal precedence.
 
-* Dot expressions _e_ `.` _e_.
+[cols=",",options="header",]
+|======================================
 
-* Unary minus expressions `-` _e_.
+|Expression
+|Associativity
 
-==== Associativity
+|Dot expressions stem:[e] `.` stem:[i]
+|None
 
-For the current expression grammar, no associativity rules are required.
+|Unary negation expressions `-` stem:[e]
+|None
+
+|Multiplication expressions stem:[e_1] `*` stem:[e_2] and division expressions stem:[e_1] `/` stem:[e_2]
+|Left
+
+|Addition expressions stem:[e_1] `+` stem:[e_2] and subtraction expressions stem:[e_1] `-` stem:[e_2]
+|Left
+
+|======================================
+

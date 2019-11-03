@@ -84,10 +84,13 @@ end
 | U32
 | U64
 | U8
+(* The following terminals exist for precedence rules only *)
+| UNARY_MINUS
 
 %left PLUS MINUS
 %left STAR SLASH 
-%left DOT
+%nonassoc UNARY_MINUS
+%nonassoc DOT
 
 %nonterm 
   START of trans_unit
@@ -258,8 +261,8 @@ DEF_STRUCT_NODE
 EXPR
   : EXPR_NODE DOT IDENT %prec DOT (ExprDot (EXPR_NODE, IDENT))
   | EXPR_NODE MINUS EXPR_NODE %prec PLUS (ExprBinop (EXPR_NODE1, Sub, EXPR_NODE2))
-  | EXPR_NODE PLUS EXPR_NODE %prec PLUS (ExprBinop (EXPR_NODE1, Add, EXPR_NODE2))
-  | EXPR_NODE SLASH EXPR_NODE %prec STAR (ExprBinop (EXPR_NODE1, Div, EXPR_NODE2))
+  | EXPR_NODE PLUS EXPR_NODE %prec MINUS (ExprBinop (EXPR_NODE1, Add, EXPR_NODE2))
+  | EXPR_NODE SLASH EXPR_NODE %prec SLASH (ExprBinop (EXPR_NODE1, Div, EXPR_NODE2))
   | EXPR_NODE STAR EXPR_NODE %prec STAR (ExprBinop (EXPR_NODE1, Mul, EXPR_NODE2))
   | FALSE (ExprLiteralBool (False))
   | IDENT (ExprIdent IDENT)
@@ -269,7 +272,7 @@ EXPR
   | LITERAL_INT (ExprLiteralInt (LITERAL_INT))
   | LITERAL_STRING (ExprLiteralString (LITERAL_STRING))
   | LPAREN EXPR_NODE RPAREN (ExprParen (EXPR_NODE))
-  | MINUS EXPR_NODE %prec MINUS (ExprUnop (Minus, EXPR_NODE))
+  | MINUS EXPR_NODE %prec UNARY_MINUS (ExprUnop (Minus, EXPR_NODE))
   | TRUE (ExprLiteralBool (True))
 
 EXPR_NODE
