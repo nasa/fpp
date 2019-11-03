@@ -470,35 +470,37 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Expressions_Floating-Point-Literals">5.2. Floating-Point Literals</a></li>
 <li><a href="#Expressions_Boolean-Literals">5.3. Boolean Literals</a></li>
 <li><a href="#Expressions_String-Literals">5.4. String Literals</a></li>
-<li><a href="#Expressions_Array-Expressions">5.5. Array Expressions</a>
+<li><a href="#Expressions_Identifier-Expressions">5.5. Identifier Expressions</a></li>
+<li><a href="#Expressions_Dot-Expressions">5.6. Dot Expressions</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_Array-Expressions_Syntax">5.5.1. Syntax</a></li>
-<li><a href="#Expressions_Array-Expressions_Semantics">5.5.2. Semantics</a></li>
-<li><a href="#Expressions_Array-Expressions_Example">5.5.3. Example</a></li>
+<li><a href="#Expressions_Dot-Expressions_Syntax">5.6.1. Syntax</a></li>
+<li><a href="#Expressions_Dot-Expressions_Semantics">5.6.2. Semantics</a></li>
+<li><a href="#Expressions_Dot-Expressions_Examples">5.6.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Struct-Expressions">5.6. Struct Expressions</a>
+<li><a href="#Expressions_Array-Expressions">5.7. Array Expressions</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_Struct-Expressions_Syntax">5.6.1. Syntax</a></li>
-<li><a href="#Expressions_Struct-Expressions_Semantics">5.6.2. Semantics</a></li>
-<li><a href="#Expressions_Struct-Expressions_Example">5.6.3. Example</a></li>
+<li><a href="#Expressions_Array-Expressions_Syntax">5.7.1. Syntax</a></li>
+<li><a href="#Expressions_Array-Expressions_Semantics">5.7.2. Semantics</a></li>
+<li><a href="#Expressions_Array-Expressions_Example">5.7.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Arithmetic-Expressions">5.7. Arithmetic Expressions</a></li>
-<li><a href="#Expressions_Identifier-Expressions">5.8. Identifier Expressions</a></li>
-<li><a href="#Expressions_Dot-Expressions">5.9. Dot Expressions</a>
+<li><a href="#Expressions_Struct-Expressions">5.8. Struct Expressions</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_Dot-Expressions_Syntax">5.9.1. Syntax</a></li>
-<li><a href="#Expressions_Dot-Expressions_Semantics">5.9.2. Semantics</a></li>
-<li><a href="#Expressions_Dot-Expressions_Examples">5.9.3. Examples</a></li>
+<li><a href="#Expressions_Struct-Expressions_Syntax">5.8.1. Syntax</a></li>
+<li><a href="#Expressions_Struct-Expressions_Semantics">5.8.2. Semantics</a></li>
+<li><a href="#Expressions_Struct-Expressions_Example">5.8.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Precedence-and-Associativity">5.10. Precedence and Associativity</a>
+<li><a href="#Expressions_Arithmetic-Expressions">5.9. Arithmetic Expressions</a></li>
+<li><a href="#Expressions_Parenthesis-Expressions">5.10. Parenthesis Expressions</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_Precedence-and-Associativity_Precedence">5.10.1. Precedence</a></li>
-<li><a href="#Expressions_Precedence-and-Associativity_Associativity">5.10.2. Associativity</a></li>
+<li><a href="#Expressions_Parenthesis-Expressions_Syntax">5.10.1. Syntax</a></li>
+<li><a href="#Expressions_Parenthesis-Expressions_Semantics">5.10.2. Semantics</a></li>
+<li><a href="#Expressions_Parenthesis-Expressions_Example">5.10.3. Example</a></li>
 </ul>
 </li>
+<li><a href="#Expressions_Precedence-and-Associativity">5.11. Precedence and Associativity</a></li>
 </ul>
 </li>
 <li><a href="#Definitions">6. Definitions</a>
@@ -652,16 +654,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Type-Checking_Floating-Point-Literals">15.2. Floating-Point Literals</a></li>
 <li><a href="#Type-Checking_Boolean-Literals">15.3. Boolean Literals</a></li>
 <li><a href="#Type-Checking_String-Literals">15.4. String Literals</a></li>
-<li><a href="#Type-Checking_Array-Expressions">15.5. Array Expressions</a></li>
-<li><a href="#Type-Checking_Struct-Expressions">15.6. Struct Expressions</a></li>
-<li><a href="#Type-Checking_Unary-Minus">15.7. Unary Minus</a></li>
-<li><a href="#Type-Checking_Identifier-Expressions">15.8. Identifier Expressions</a></li>
-<li><a href="#Type-Checking_Dot-Expressions">15.9. Dot Expressions</a></li>
-<li><a href="#Type-Checking_Type-Conversion">15.10. Type Conversion</a></li>
-<li><a href="#Type-Checking_Computing-a-Common-Type">15.11. Computing a Common Type</a>
+<li><a href="#Type-Checking_Identifier-Expressions">15.5. Identifier Expressions</a></li>
+<li><a href="#Type-Checking_Dot-Expressions">15.6. Dot Expressions</a></li>
+<li><a href="#Type-Checking_Array-Expressions">15.7. Array Expressions</a></li>
+<li><a href="#Type-Checking_Struct-Expressions">15.8. Struct Expressions</a></li>
+<li><a href="#Type-Checking_Unary-Negation-Expressions">15.9. Unary Negation Expressions</a></li>
+<li><a href="#Type-Checking_Binary-Arithmetic-Expressions">15.10. Binary Arithmetic Expressions</a></li>
+<li><a href="#Type-Checking_Parenthesis-Expressions">15.11. Parenthesis Expressions</a></li>
+<li><a href="#Type-Checking_Type-Conversion">15.12. Type Conversion</a></li>
+<li><a href="#Type-Checking_Computing-a-Common-Type">15.13. Computing a Common Type</a>
 <ul class="sectlevel3">
-<li><a href="#Type-Checking_Computing-a-Common-Type_Pairs-of-Types">15.11.1. Pairs of Types</a></li>
-<li><a href="#Type-Checking_Computing-a-Common-Type_Lists-of-Types">15.11.2. Lists of Types</a></li>
+<li><a href="#Type-Checking_Computing-a-Common-Type_Pairs-of-Types">15.13.1. Pairs of Types</a></li>
+<li><a href="#Type-Checking_Computing-a-Common-Type_Lists-of-Types">15.13.2. Lists of Types</a></li>
 </ul>
 </li>
 </ul>
@@ -1162,135 +1166,7 @@ unmatched double quote character.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Array-Expressions">5.5. Array Expressions</h3>
-<div class="paragraph">
-<p>An <strong>array expression</strong> is an expression that represents an array value.</p>
-</div>
-<div class="sect3">
-<h4 id="Expressions_Array-Expressions_Syntax">5.5.1. Syntax</h4>
-<div class="paragraph">
-<p><code>[</code> <em>array-element-sequence</em> <code>]</code></p>
-</div>
-<div class="paragraph">
-<p><em>array-element-sequence</em> is an
-<a href="#Element-Sequences">element sequence</a> in which the elements
-are
-<a href="#Expressions">expressions</a>, and the terminating punctuation
-is a comma.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Expressions_Array-Expressions_Semantics">5.5.2. Semantics</h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>The sequence must have at least one element.</p>
-</li>
-<li>
-<p>The types of the expressions in the sequence must be
-<a href="#Type-Checking_Computing-a-Common-Type_Lists-of-Types">convertible to a common type</a>.</p>
-</li>
-<li>
-<p>The value of the expression is formed by computing
-the value of each element and then converting all the
-elements to the common type.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Expressions_Array-Expressions_Example">5.5.3. Example</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="tnet">constant a = [ 0, 1, 2 ] # a is an array value of with elements 0, 1, 2</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Expressions_Struct-Expressions">5.6. Struct Expressions</h3>
-<div class="paragraph">
-<p>An <strong>struct expression</strong> is an expression that represents a struct value.</p>
-</div>
-<div class="sect3">
-<h4 id="Expressions_Struct-Expressions_Syntax">5.6.1. Syntax</h4>
-<div class="paragraph">
-<p><code>{</code> <em>struct-element-sequence</em> <code>}</code></p>
-</div>
-<div class="paragraph">
-<p><em>struct-element-sequence</em> is an
-<a href="#Element-Sequences">element sequence</a> in which the elements
-are struct elements.
-A <strong>struct element</strong> has the following syntax:</p>
-</div>
-<div class="paragraph">
-<p><a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>=</code> <a href="#Expressions"><em>expression</em></a></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Expressions_Struct-Expressions_Semantics">5.6.2. Semantics</h4>
-<div class="paragraph">
-<p>The following must be true of the struct element sequence <em>S</em>:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>No two identifiers appearing in <em>S</em> may be the same.</p>
-</li>
-<li>
-<p>Each expression appearing in <em>S</em> must have a valid type.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>The expression is evaluated by evaluating each member expression
-to a value and then constructing the struct value with the
-corresponding member names and values.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Expressions_Struct-Expressions_Example">5.6.3. Example</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp"># s is a struct value with members x = 0, y = 1
-constant s = {
-  x = 0
-  y = 1
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Expressions_Arithmetic-Expressions">5.7. Arithmetic Expressions</h3>
-<div class="paragraph">
-<p>FPP currently includes the following <strong>arithmetic expressions</strong>:</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Syntax</th>
-<th class="tableblock halign-left valign-top">Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-</code> \$e\$</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Negate \$e\$</p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>For unary negation expressions, <code>-</code> \$e\$ must be
-a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Expressions_Identifier-Expressions">5.8. Identifier Expressions</h3>
+<h3 id="Expressions_Identifier-Expressions">5.5. Identifier Expressions</h3>
 <div class="paragraph">
 <p>An <strong>identifier expression</strong> is an
 <a href="#Lexical-Elements_Identifiers">identifier</a>
@@ -1312,7 +1188,7 @@ constant b = a # a is an identifier expression</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Dot-Expressions">5.9. Dot Expressions</h3>
+<h3 id="Expressions_Dot-Expressions">5.6. Dot Expressions</h3>
 <div class="paragraph">
 <p>A <strong>dot expression</strong> is a
 <a href="#Definitions-and-Uses_Uses">use</a>
@@ -1322,7 +1198,7 @@ or
 <a href="#Definitions_Constant-Definitions">enumerated constant definition</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Dot-Expressions_Syntax">5.9.1. Syntax</h4>
+<h4 id="Expressions_Dot-Expressions_Syntax">5.6.1. Syntax</h4>
 <div class="paragraph">
 <p><a href="#Expressions"><em>expression</em></a>
 <code>.</code>
@@ -1330,7 +1206,7 @@ or
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Dot-Expressions_Semantics">5.9.2. Semantics</h4>
+<h4 id="Expressions_Dot-Expressions_Semantics">5.6.2. Semantics</h4>
 <div class="paragraph">
 <p>The following rules give the meaning of a dot expression \$e\$<code>.x</code>:</p>
 </div>
@@ -1352,7 +1228,7 @@ stored in the corresponding <a href="#Definitions">definition</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Dot-Expressions_Examples">5.9.3. Examples</h4>
+<h4 id="Expressions_Dot-Expressions_Examples">5.6.3. Examples</h4>
 <div class="sect4">
 <h5 id="Expressions_Dot-Expressions_Examples_Example-1">Example 1</h5>
 <div class="listingblock">
@@ -1376,32 +1252,230 @@ constant a = E.X # E.X evaluates to 0</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Precedence-and-Associativity">5.10. Precedence and Associativity</h3>
+<h3 id="Expressions_Array-Expressions">5.7. Array Expressions</h3>
+<div class="paragraph">
+<p>An <strong>array expression</strong> is an expression that represents an array value.</p>
+</div>
 <div class="sect3">
-<h4 id="Expressions_Precedence-and-Associativity_Precedence">5.10.1. Precedence</h4>
+<h4 id="Expressions_Array-Expressions_Syntax">5.7.1. Syntax</h4>
+<div class="paragraph">
+<p><code>[</code> <em>array-element-sequence</em> <code>]</code></p>
+</div>
+<div class="paragraph">
+<p><em>array-element-sequence</em> is an
+<a href="#Element-Sequences">element sequence</a> in which the elements
+are
+<a href="#Expressions">expressions</a>, and the terminating punctuation
+is a comma.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Array-Expressions_Semantics">5.7.2. Semantics</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The sequence must have at least one element.</p>
+</li>
+<li>
+<p>The types of the expressions in the sequence must be
+<a href="#Type-Checking_Computing-a-Common-Type_Lists-of-Types">convertible to a common type</a>.</p>
+</li>
+<li>
+<p>The value of the expression is formed by computing
+the value of each element and then converting all the
+elements to the common type.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Array-Expressions_Example">5.7.3. Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="tnet">constant a = [ 0, 1, 2 ] # a is an array value of with elements 0, 1, 2</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Expressions_Struct-Expressions">5.8. Struct Expressions</h3>
+<div class="paragraph">
+<p>An <strong>struct expression</strong> is an expression that represents a struct value.</p>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Struct-Expressions_Syntax">5.8.1. Syntax</h4>
+<div class="paragraph">
+<p><code>{</code> <em>struct-element-sequence</em> <code>}</code></p>
+</div>
+<div class="paragraph">
+<p><em>struct-element-sequence</em> is an
+<a href="#Element-Sequences">element sequence</a> in which the elements
+are struct elements.
+A <strong>struct element</strong> has the following syntax:</p>
+</div>
+<div class="paragraph">
+<p><a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>=</code> <a href="#Expressions"><em>expression</em></a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Struct-Expressions_Semantics">5.8.2. Semantics</h4>
+<div class="paragraph">
+<p>The following must be true of the struct element sequence <em>S</em>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>No two identifiers appearing in <em>S</em> may be the same.</p>
+</li>
+<li>
+<p>Each expression appearing in <em>S</em> must have a valid type.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The expression is evaluated by evaluating each member expression
+to a value and then constructing the struct value with the
+corresponding member names and values.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Struct-Expressions_Example">5.8.3. Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp"># s is a struct value with members x = 0, y = 1
+constant s = {
+  x = 0
+  y = 1
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Expressions_Arithmetic-Expressions">5.9. Arithmetic Expressions</h3>
+<div class="paragraph">
+<p>FPP includes the following <strong>arithmetic expressions</strong>:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Syntax</th>
+<th class="tableblock halign-left valign-top">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-</code> \$e\$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Negate \$e\$</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\$e_1\$ <code>+</code> \$e_2\$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add \$e_1\$ and \$e_2\$</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\$e_1\$ <code>-</code> \$e_2\$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Subtract \$e_2\$ from \$e_1\$</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\$e_1\$ <code>*</code> \$e_2\$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Multiply \$e_1\$ by \$e_2\$</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\$e_1\$ <code>/</code> \$e_2\$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Divide \$e_1\$ by \$e_2\$</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Each subexpression of an arithmetic expression must have
+<a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.  Evaluation is by either
+standard integer arithmetic or standard floating-point arithmetic, depending on
+the <a href="#Type-Checking">type of the expression</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = -1
+constant b = 2 + 3
+constant c = a * b</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Expressions_Parenthesis-Expressions">5.10. Parenthesis Expressions</h3>
+<div class="paragraph">
+<p>A <strong>parenthesis expression</strong> is an expression surrounded
+by parentheses in order to group subexpressions and to
+force evaluation order.</p>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Parenthesis-Expressions_Syntax">5.10.1. Syntax</h4>
+<div class="paragraph">
+<p><code>(</code>
+<a href="#Expressions"><em>expression</em></a>
+<code>)</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Parenthesis-Expressions_Semantics">5.10.2. Semantics</h4>
+<div class="paragraph">
+<p>The type and value of the expression are the type and value of the subexpression.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Parenthesis-Expressions_Example">5.10.3. Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = (1 + 2) * 3</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Expressions_Precedence-and-Associativity">5.11. Precedence and Associativity</h3>
 <div class="paragraph">
 <p>Ambiguity in parsing expressions is resolved with the following
-precedence ordering. Expressions appearing earlier in the ordering
+precedence table. Expressions appearing earlier in the table
 have higher precedence. For example, <code>-a.b</code> is parsed as <code>-(a.b)</code>
-and not <code>(-a).b</code>.</p>
+and not <code>(-a).b</code>. Where necessary, each element in the ordering provides an
+associativity for resolving expressions with equal precedence.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Dot expressions <em>e</em> <code>.</code> <em>e</em>.</p>
-</li>
-<li>
-<p>Unary minus expressions <code>-</code> <em>e</em>.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Expressions_Precedence-and-Associativity_Associativity">5.10.2. Associativity</h4>
-<div class="paragraph">
-<p>For the current expression grammar, no associativity rules are required.</p>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Expression</th>
+<th class="tableblock halign-left valign-top">Associativity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dot expressions \$e\$ <code>.</code> \$i\$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unary negation expressions <code>-</code> \$e\$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Multiplication expressions \$e_1\$ <code>*</code> \$e_2\$ and division expressions \$e_1\$ <code>/</code> \$e_2\$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Left</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Addition expressions \$e_1\$ <code>+</code> \$e_2\$ and subtraction expressions \$e_1\$ <code>-</code> \$e_2\$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Left</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -3356,86 +3430,7 @@ literal expression</a> is <code>string</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Array-Expressions">15.5. Array Expressions</h3>
-<div class="paragraph">
-<p>To type an
-<a href="#Expressions_Array-Expressions">array expression</a>
-<code>[</code> \$e_1\$ <code>,</code> \$...\$ <code>,</code> \$e_n\$ <code>]</code>,
-the semantic analyzer does the following:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>For each \$i in [1,n\$], compute the type \$T_i\$ of \$e_i\$.</p>
-</li>
-<li>
-<p>Compute the <a href="#Type-Checking_Computing-a-Common-Type_Lists-of-Types">common type</a>
-\$T\$ of the list of types \$T_i\$.</p>
-</li>
-<li>
-<p>Assign the type <em>[</em> \$n\$ <em>]</em> \$T\$ to the expression.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Type-Checking_Struct-Expressions">15.6. Struct Expressions</h3>
-<div class="paragraph">
-<p>To type a
-<a href="#Expressions_Struct-Expressions">struct expression</a>
-<code>{</code> \$m_1\$ <code>=</code> \$e_1\$ <code>,</code> \$...\$ <code>,</code> \$m_n\$ <code>=</code> \$e_n\$ <code>}</code>,
-the semantic analyzer does the following:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Check that the member names \$m_i\$ are distinct.</p>
-</li>
-<li>
-<p>For each \$i in [1,n\$], compute the type \$T_i\$ of \$e_i\$.</p>
-</li>
-<li>
-<p>Assign the type <em>{</em> \$m_1\$ <em>=</em> \$T_1\$ <em>,</em> \$...\$ <em>,</em> \$m_n\$ <em>=</em> \$T_n\$ <em>}</em>
-to the expression.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Type-Checking_Unary-Minus">15.7. Unary Minus</h3>
-<div class="paragraph">
-<p>To type a
-<a href="#Expressions_Arithmetic-Expressions">unary
-minus expression</a> <code>-</code> \$e\$, the semantic analyzer does the following:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Compute the type \$T\$ of \$e\$.</p>
-</li>
-<li>
-<p>If \$T\$ is a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>, then use \$T\$.</p>
-</li>
-<li>
-<p>Otherwise throw an error.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p><strong>Examples:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">constant b = -1.0 # Type is F64
-constant c = -1 # Type is Integer
-constant d = -c # Type is Integer
-constant e = -0xFFFFFFFF # Type is Integer
-constant f = -bool # Error</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Type-Checking_Identifier-Expressions">15.8. Identifier Expressions</h3>
+<h3 id="Type-Checking_Identifier-Expressions">15.5. Identifier Expressions</h3>
 <div class="paragraph">
 <p>To type an <a href="#Expressions_Identifier-Expressions">identifier
 expression</a> \$e\$, the semantic analyzer
@@ -3453,7 +3448,7 @@ constant b = a # The expression a refers to the constant a and has type Integer<
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Dot-Expressions">15.9. Dot Expressions</h3>
+<h3 id="Type-Checking_Dot-Expressions">15.6. Dot Expressions</h3>
 <div class="paragraph">
 <p>To type a
 <a href="#Expressions_Dot-Expressions">dot
@@ -3489,7 +3484,181 @@ constant b = M.a # Expression M.a represents a use of the definition M.a.
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Type-Conversion">15.10. Type Conversion</h3>
+<h3 id="Type-Checking_Array-Expressions">15.7. Array Expressions</h3>
+<div class="paragraph">
+<p>To type an
+<a href="#Expressions_Array-Expressions">array expression</a>
+<code>[</code> \$e_1\$ <code>,</code> \$...\$ <code>,</code> \$e_n\$ <code>]</code>,
+the semantic analyzer does the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>For each \$i in [1,n\$], compute the type \$T_i\$ of \$e_i\$.</p>
+</li>
+<li>
+<p>Compute the <a href="#Type-Checking_Computing-a-Common-Type_Lists-of-Types">common type</a>
+\$T\$ of the list of types \$T_i\$.</p>
+</li>
+<li>
+<p>Assign the type <em>[</em> \$n\$ <em>]</em> \$T\$ to the expression.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = [ 1, 2, 3 ] # Type is [3] Integer
+constant b = [ 1, 2, 3.0 ] # Type is [3] F64</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Type-Checking_Struct-Expressions">15.8. Struct Expressions</h3>
+<div class="paragraph">
+<p>To type a
+<a href="#Expressions_Struct-Expressions">struct expression</a>
+<code>{</code> \$m_1\$ <code>=</code> \$e_1\$ <code>,</code> \$...\$ <code>,</code> \$m_n\$ <code>=</code> \$e_n\$ <code>}</code>,
+the semantic analyzer does the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Check that the member names \$m_i\$ are distinct.</p>
+</li>
+<li>
+<p>For each \$i in [1,n\$], compute the type \$T_i\$ of \$e_i\$.</p>
+</li>
+<li>
+<p>Assign the type <em>{</em> \$m_1\$ <em>=</em> \$T_1\$ <em>,</em> \$...\$ <em>,</em> \$m_n\$ <em>=</em> \$T_n\$ <em>}</em>
+to the expression.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = { x = 1, y = 2.0 } # Type is { x : Integer, y : F64 }
+constant b = { x = 1, x = 2 } # Error</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Type-Checking_Unary-Negation-Expressions">15.9. Unary Negation Expressions</h3>
+<div class="paragraph">
+<p>To type a
+<a href="#Expressions_Arithmetic-Expressions">unary
+negation expression</a> <code>-</code> \$e\$, the semantic analyzer does the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Compute the type \$T\$ of \$e\$.</p>
+</li>
+<li>
+<p>If \$T\$ is a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>, then use \$T\$.</p>
+</li>
+<li>
+<p>Otherwise if \$T\$ <a href="#Type-Checking_Type-Conversion">may be converted to</a>
+<em>Integer</em>, then use <em>Integer</em>.</p>
+</li>
+<li>
+<p>Otherwise throw an error.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = -1.0 # Type is F64
+constant b = -1 # Type is Integer
+constant c = -c # Type is Integer
+constant d = -0xFFFFFFFF # Type is Integer
+enum E { X = 1 }
+constant e = -E.X # Type is Integer
+constant f = -true # Error</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Type-Checking_Binary-Arithmetic-Expressions">15.10. Binary Arithmetic Expressions</h3>
+<div class="paragraph">
+<p>To type a
+<a href="#Expressions_Arithmetic-Expressions">binary
+arithmetic expression</a> \$e_1\$ <em>op</em> \$e_2\$, the semantic analyzer does
+the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Compute the common type \$T\$ of \$e_1\$ and \$e_2\$.</p>
+</li>
+<li>
+<p>If \$T\$ is a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>, then use \$T\$.</p>
+</li>
+<li>
+<p>Otherwise if \$T\$ <a href="#Type-Checking_Type-Conversion">may be converted to</a>
+<em>Integer</em>, then use <em>Integer</em>.</p>
+</li>
+<li>
+<p>Otherwise throw an error.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = 1 + 2 # Type is Integer
+constant b = 3 + 4 # Type is Integer
+constant c = -c # Type is Integer
+constant d = -0xFFFFFFFF # Type is Integer
+constant e = -bool # Error
+enum E { X = 1, Y = 2 }
+constant e = X + Y # Type is Integer
+constant f = true + "abcd" # Error</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Type-Checking_Parenthesis-Expressions">15.11. Parenthesis Expressions</h3>
+<div class="paragraph">
+<p>To type a
+<a href="#Expressions_Parenthesis-Expressions">parenthesis
+expression</a> <code>(</code> \$e\$ <code>)</code>, the semantic analyzer does the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Compute the type \$T\$ of \$e\$.</p>
+</li>
+<li>
+<p>Use \$T\$ as the type of the expression.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = (1.0 + 2) # Type is F64
+constant b = (3 + 4) # Type is Integer
+constant c = (true) # Type is bool
+constant d = ("abcd") # Type is string
+constant e = ([ 1, 2, 3]) # Type is [3] Integer</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Type-Checking_Type-Conversion">15.12. Type Conversion</h3>
 <div class="paragraph">
 <p>We say that a type \$T_1\$ <strong>may be converted to</strong> another type \$T_2\$ if
 every <a href="#Values">value</a> represented by type \$T_1\$ can be
@@ -3562,9 +3731,9 @@ may be converted to \$T_3\$.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Computing-a-Common-Type">15.11. Computing a Common Type</h3>
+<h3 id="Type-Checking_Computing-a-Common-Type">15.13. Computing a Common Type</h3>
 <div class="sect3">
-<h4 id="Type-Checking_Computing-a-Common-Type_Pairs-of-Types">15.11.1. Pairs of Types</h4>
+<h4 id="Type-Checking_Computing-a-Common-Type_Pairs-of-Types">15.13.1. Pairs of Types</h4>
 <div class="paragraph">
 <p>Here are the rules for resolving two types \$T_1\$ and \$T_2\$
 (e.g., the
@@ -3669,7 +3838,7 @@ may be converted to each of the member types of \$S\$, then use \$S\$.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Type-Checking_Computing-a-Common-Type_Lists-of-Types">15.11.2. Lists of Types</h4>
+<h4 id="Type-Checking_Computing-a-Common-Type_Lists-of-Types">15.13.2. Lists of Types</h4>
 <div class="paragraph">
 <p>To compute a common type for a list of types
 \$T_1, ... , T_n\$, do the following:</p>
@@ -3946,10 +4115,10 @@ in resolving expressions to compile-time constant values.</p>
 <div class="paragraph">
 <p>Evaluation of expressions occurs as stated in the
 <a href="#Expressions">expression descriptions</a>. Evaluation of integer
-expressions occurs at type
-<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>,
+expressions occurs at type <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>,
 using enough bits to represent the result without overflow.
-Evaluation of floating-point expressions occurs using 64-bit arithmetic.</p>
+Evaluation of floating-point expressions occurs using 64-bit floating-point
+arithmetic.</p>
 </div>
 </div>
 <div class="sect2">
@@ -4220,7 +4389,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-10-31 10:09:03 -0700
+Last updated 2019-11-03 12:50:48 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

@@ -10,10 +10,10 @@ in resolving expressions to compile-time constant values.
 
 Evaluation of expressions occurs as stated in the
 <<Expressions,expression descriptions>>. Evaluation of integer
-expressions occurs at type 
-<<Types_Internal-Types_Integer,_Integer_>>,
+expressions occurs at type <<Types_Internal-Types_Integer,_Integer_>>,
 using enough bits to represent the result without overflow.
-Evaluation of floating-point expressions occurs using 64-bit arithmetic.
+Evaluation of floating-point expressions occurs using 64-bit floating-point 
+arithmetic.
 
 === Type Conversion
 

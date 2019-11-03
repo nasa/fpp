@@ -60,57 +60,6 @@ The type of a
 <<Expressions_String-Literals,string
 literal expression>> is `string`.
 
-=== Array Expressions
-
-To type an
-<<Expressions_Array-Expressions,array expression>>
-`[` stem:[e_1] `,` stem:[...] `,` stem:[e_n] `]`,
-the semantic analyzer does the following:
-
-. For each stem:[i in [1,n]], compute the type stem:[T_i] of stem:[e_i].
-
-. Compute the <<Type-Checking_Computing-a-Common-Type_Lists-of-Types,common type>>
-stem:[T] of the list of types stem:[T_i].
-
-. Assign the type _[_ stem:[n] _]_ stem:[T] to the expression.
-
-=== Struct Expressions
-
-To type a
-<<Expressions_Struct-Expressions,struct expression>>
-`{` stem:[m_1] `=` stem:[e_1] `,` stem:[...] `,` stem:[m_n] `=` stem:[e_n] `}`,
-the semantic analyzer does the following:
-
-. Check that the member names stem:[m_i] are distinct.
-
-. For each stem:[i in [1,n]], compute the type stem:[T_i] of stem:[e_i].
-
-. Assign the type _{_ stem:[m_1] _=_ stem:[T_1] _,_ stem:[...] _,_ stem:[m_n] _=_ stem:[T_n] _}_
-to the expression.
-
-=== Unary Minus
-
-To type a
-<<Expressions_Arithmetic-Expressions,unary
-minus expression>> `-` stem:[e], the semantic analyzer does the following:
-
-. Compute the type stem:[T] of stem:[e].
-
-. If stem:[T] is a <<Types_Internal-Types_Numeric-Types,numeric type>>, then use stem:[T].
-
-. Otherwise throw an error.
-
-**Examples:**
-
-[source,fpp]
-----
-constant b = -1.0 # Type is F64
-constant c = -1 # Type is Integer
-constant d = -c # Type is Integer
-constant e = -0xFFFFFFFF # Type is Integer
-constant f = -bool # Error
-----
-
 === Identifier Expressions
 
 To type an <<Expressions_Identifier-Expressions,identifier 
@@ -142,7 +91,7 @@ expression>>, then use the type given in the definition.
 
 . Otherwise stem:[e]`.x` is invalid. Throw an error.
 
-**Example:**
+*Example:*
 
 [source,fpp]
 ----
@@ -151,6 +100,130 @@ module M {
 }
 constant b = M.a # Expression M.a represents a use of the definition M.a.
                  # Its type is Integer.
+----
+
+=== Array Expressions
+
+To type an
+<<Expressions_Array-Expressions,array expression>>
+`[` stem:[e_1] `,` stem:[...] `,` stem:[e_n] `]`,
+the semantic analyzer does the following:
+
+. For each stem:[i in [1,n]], compute the type stem:[T_i] of stem:[e_i].
+
+. Compute the <<Type-Checking_Computing-a-Common-Type_Lists-of-Types,common type>>
+stem:[T] of the list of types stem:[T_i].
+
+. Assign the type _[_ stem:[n] _]_ stem:[T] to the expression.
+
+*Examples:*
+
+[source,fpp]
+----
+constant a = [ 1, 2, 3 ] # Type is [3] Integer
+constant b = [ 1, 2, 3.0 ] # Type is [3] F64
+----
+
+=== Struct Expressions
+
+To type a
+<<Expressions_Struct-Expressions,struct expression>>
+`{` stem:[m_1] `=` stem:[e_1] `,` stem:[...] `,` stem:[m_n] `=` stem:[e_n] `}`,
+the semantic analyzer does the following:
+
+. Check that the member names stem:[m_i] are distinct.
+
+. For each stem:[i in [1,n]], compute the type stem:[T_i] of stem:[e_i].
+
+. Assign the type _{_ stem:[m_1] _=_ stem:[T_1] _,_ stem:[...] _,_ stem:[m_n] _=_ stem:[T_n] _}_
+to the expression.
+
+*Examples:*
+
+[source,fpp]
+----
+constant a = { x = 1, y = 2.0 } # Type is { x : Integer, y : F64 }
+constant b = { x = 1, x = 2 } # Error
+----
+
+
+=== Unary Negation Expressions
+
+To type a
+<<Expressions_Arithmetic-Expressions,unary
+negation expression>> `-` stem:[e], the semantic analyzer does the following:
+
+. Compute the type stem:[T] of stem:[e].
+
+. If stem:[T] is a <<Types_Internal-Types_Numeric-Types,numeric type>>, then use stem:[T].
+
+. Otherwise if stem:[T] <<Type-Checking_Type-Conversion,may be converted to>> 
+_Integer_, then use _Integer_.
+
+. Otherwise throw an error.
+
+**Examples:**
+
+[source,fpp]
+----
+constant a = -1.0 # Type is F64
+constant b = -1 # Type is Integer
+constant c = -c # Type is Integer
+constant d = -0xFFFFFFFF # Type is Integer
+enum E { X = 1 }
+constant e = -E.X # Type is Integer
+constant f = -true # Error
+----
+
+=== Binary Arithmetic Expressions
+
+To type a
+<<Expressions_Arithmetic-Expressions,binary
+arithmetic expression>> stem:[e_1] _op_ stem:[e_2], the semantic analyzer does 
+the following:
+
+. Compute the common type stem:[T] of stem:[e_1] and stem:[e_2].
+
+. If stem:[T] is a <<Types_Internal-Types_Numeric-Types,numeric type>>, then use stem:[T].
+
+. Otherwise if stem:[T] <<Type-Checking_Type-Conversion,may be converted to>> 
+_Integer_, then use _Integer_.
+
+. Otherwise throw an error.
+
+**Examples:**
+
+[source,fpp]
+----
+constant a = 1 + 2 # Type is Integer
+constant b = 3 + 4 # Type is Integer
+constant c = -c # Type is Integer
+constant d = -0xFFFFFFFF # Type is Integer
+constant e = -bool # Error
+enum E { X = 1, Y = 2 }
+constant e = X + Y # Type is Integer
+constant f = true + "abcd" # Error
+----
+
+=== Parenthesis Expressions
+
+To type a
+<<Expressions_Parenthesis-Expressions,parenthesis
+expression>> `(` stem:[e] `)`, the semantic analyzer does the following:
+
+. Compute the type stem:[T] of stem:[e].
+
+. Use stem:[T] as the type of the expression.
+
+**Examples:**
+
+[source,fpp]
+----
+constant a = (1.0 + 2) # Type is F64
+constant b = (3 + 4) # Type is Integer
+constant c = (true) # Type is bool
+constant d = ("abcd") # Type is string
+constant e = ([ 1, 2, 3]) # Type is [3] Integer
 ----
 
 === Type Conversion
