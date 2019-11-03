@@ -148,7 +148,6 @@ end
 
 %noshift EOF
 %nodefault
-%verbose
 %%
 
 START 
