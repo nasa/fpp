@@ -20,8 +20,14 @@ graph called the *use-def graph*. In this graph,
 stem:[d_1, ..., d_n] corresponding to the uses 
 stem:[u_1, ..., u_n] appearing in _d_.
 
-For example, in the code above, the use-def graph has two nodes `c1` and
-`c2` and one edge `c2` stem:[rarr] `c1`.
+For example, in the following code, the use-def graph has two nodes `a` and
+`b` and one edge `b` stem:[rarr] `a`.
+
+[source,FPP]
+----
+constant a = 0
+constant b = a
+----
 
 In a legal FPP model, the use-def graph must be acyclic. For example,
 this model is illegal:

@@ -3074,8 +3074,14 @@ graph called the <strong>use-def graph</strong>. In this graph,</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>For example, in the code above, the use-def graph has two nodes <code>c1</code> and
-<code>c2</code> and one edge <code>c2</code> \$rarr\$ <code>c1</code>.</p>
+<p>For example, in the following code, the use-def graph has two nodes <code>a</code> and
+<code>b</code> and one edge <code>b</code> \$rarr\$ <code>a</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="FPP">constant a = 0
+constant b = a</code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p>In a legal FPP model, the use-def graph must be acyclic. For example,
@@ -4389,7 +4395,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-11-03 12:50:48 -0800
+Last updated 2019-11-05 08:44:12 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
