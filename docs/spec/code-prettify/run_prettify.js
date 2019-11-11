@@ -405,20 +405,39 @@ var IN_GLOBAL_SCOPE = false;
       // and to defeat aggressive optimizers that fold large string constants.
       var FPP_KEYWORDS = [
         "array," +
+        "assert," +
+        "async," +
         "at," +
         "baseid," +
+        "block," +
+        "command," +
         "component," +
         "constant," +
         "default," +
+        "drop," +
         "enum," +
+        "event," +
+        "get," +
+        "guarded," +
         "import," +
+        "input," +
         "instance," +
+        "internal," +
         "locate," +
         "module," +
+        "output," +
+        "param," +
         "port," +
+        "priority," +
         "ref," +
+        "reg," +
+        "resp," +
+        "set," +
         "size," +
         "struct," +
+        "sync," +
+        "telemetry," +
+        "time," +
         "type"
       ];
       var FLOW_CONTROL_KEYWORDS = ["break,continue,do,else,for,if,return,while"];

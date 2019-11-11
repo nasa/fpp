@@ -52,22 +52,17 @@ module M { # Qualified name is M
 === Name Groups
 
 The qualified names of definitions and
-reside in *name groups*. There are
-14 name groups:
+reside in the following *name groups*:
 
 . The *type name group*
 
 . The *value name group*
-
-. The *module name group*
 
 . The *port name group*
 
 . The *component name group*
 
 . The *port instance name group*
-
-. The *internal interface name group*
 
 . The *command name group*
 
@@ -81,13 +76,13 @@ reside in *name groups*. There are
 
 . The *topology name group*
 
-. The *connection name group*
+. The *connection graph name group*
 
 Definitions reside in name groups as follows:
 
 * Constant definitions reside in the value name group.
 
-* Module definitions reside in the module name group.
+* Module definitions reside in the value name group.
 
 * Array type definitions reside in the type name group.
 
@@ -105,8 +100,6 @@ Definitions reside in name groups as follows:
 
 * Port instance definitions reside in the port instance name group.
 
-* Internal interface definitions reside in the internal interface name group.
-
 * Command definitions reside in the command name group.
 
 * Telemetry channel definitions reside in the telemetry name group.
@@ -119,7 +112,7 @@ Definitions reside in name groups as follows:
 
 * Topology definitions reside in the topology name group.
 
-* Connection graph definitions reside in the connection name group.
+* Connection graph definitions reside in the connection graph name group.
 
 === Multiple Definitions with the Same Qualified Name
 

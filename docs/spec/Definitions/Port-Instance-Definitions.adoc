@@ -1,12 +1,105 @@
 === Port Instance Definitions
 
+A *port instance definition* defines an instantiated 
+<<Definitions_Port-Definitions,port>> as part
+of a
+<<Definitions_Component-Definitions,component definition>>.
+
 ==== Syntax
 
-TODO
+A port instance definition is one of the following:
+
+* _general-port-kind_ `port` <<Lexical-Elements_Identifiers,_identifier_>> `:` 
+_[_
+`[` <<Expressions,_expression_>> `]`
+_]_
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
+_[_
+`priority` <<Expressions,_expression_>>
+_]_
+_[_
+_queue-full-behavior_
+_]_
+
+* _special-port-kind_ `port` <<Lexical-Elements_Identifiers,_identifier_>>
+
+_general-port-kind_ is one of the following:
+
+* `async` `input`
+
+* `guarded` `input`
+
+* `internal` `input`
+
+* `output`
+
+* `sync` `input`
+
+_queue-full-behavior_ is one of the following:
+
+* `assert`
+
+* `block`
+
+* `drop`
+
+_special-port-kind_ is one of the following:
+
+* `command`
+
+* `command` `reg`
+
+* `command` `resp`
+
+* `event`
+
+* `param` `get`
+
+* `param` `set`
+
+* `telemetry`
+
+* `time` `get`
 
 ==== Semantics
 
-TODO
+*General ports:*
+
+* The kind specifies the kind of the port.
+`internal input` corresponds to the internal interface of the
+current F Prime implementation.
+
+* The identifier specifies the name of the port.
+
+* The optional expression _e_ enclosed in brackets specifies the
+number of ports in the port array.
+If no such expression appears, the default value is 1.
+The type of _e_ must be <<Type-Checking_Type-Conversion,convertible to>>
+<<Types_Internal-Types_Integer,_Integer_>>.
+
+* The qualified identifier must 
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer>> to a
+<<Definitions_Port-Definitions,port definition>>.
+If the kind is `async input` or `internal input`, then
+the port definition must not specify a return type.
+
+* The optional expression _e_ appearing after the keyword
+`priority` specifies a priority for the port instance.
+The type of _e_ must be <<Type-Checking_Type-Conversion,convertible to>>
+<<Types_Internal-Types_Integer,_Integer_>>.
+The priority applies to the component's message queue and may appear only for 
+`async` and `internal async` ports.
+The meaning of the priority value is operating system-dependent.
+
+* The optional _queue-full-behavior_ specifies the behavior when a
+message is received and the queue is full.
+This specifier is valid only for `async` and `internal async` ports.
+If no specifier appears, then the default behavior is `assert`.
+
+*Special ports:*
+These correspond to the role ports in the current F Prime implementation.
+Their types and other attributes are specified by F Prime.
+The identifier specifies the name of the port.
 
 ==== Code Generation
 
@@ -20,4 +113,53 @@ Parameters declared `ref` are passed by non-`const` reference.
 
 ==== Examples
 
-TODO
+*General ports:*
+
+[source,fpp]
+----
+# Async input port of type Fw.Com
+# It has priority 10.
+# It drops input received when the queue is full.
+async input port asyncComIn : Fw.Com priority 10 drop
+
+# Guarded input port of type Fw.Com
+guarded input port guardedComIn : Fw.Com
+
+# Internal input port of type Fw.Com
+internal input port internalComIn : Fw.Com
+
+# Output port array of 10 Fw.Com ports
+output port comOut : [10] Fw.Com
+
+# Sync input port of type Fw.Com
+sync input port syncComIn : Fw.Com
+----
+
+*Special ports:*
+
+[source,fpp]
+----
+# A port for receiving commands from the command dispatcher
+command port cmdIn
+
+# A port for sending command registration requests to the command dispatcher
+command reg port cmdRegOut
+
+# A port for sending responses to the command dispatcher
+command resp port cmdRespOut
+
+# A port for emitting events
+event port eventOut
+
+# A port for getting parameter values from the parameter database
+param get port paramGetOut
+
+# A port for sending parameter values to the parameter database
+param set port paramSetOut
+
+# A port for emitting telemetry channels
+telemetry port tlmOut
+
+# A port for getting the current time
+time get port timeGetOut
+----
