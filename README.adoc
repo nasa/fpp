@@ -11,5 +11,3 @@ https://github.jpl.nasa.gov/FPRIME/fprime-sw[F Prime flight software framework].
 `editors`: Syntax highlighting for code editors. Currently vim is supported.
 
 `sml`: A reference implementation in Standard ML.
-
-`spec`: Source code for the FPP specification.
