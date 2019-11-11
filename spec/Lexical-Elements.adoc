@@ -189,7 +189,7 @@ It is equivalent to this code:
 module M { constant a = 0 }
 ----
 
-The newline after the `{` symbol is consumed by the `{` symbol.
+The newline after the `{` symbol is consumed by the symbol.
 The newline after the constant definition is consumed
 by the element sequence member.
 
