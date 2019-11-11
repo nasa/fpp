@@ -68,6 +68,8 @@ The following sequences of characters are symbol tokens in FPP:
 
 [source,fpp]
 ----
+(
+)
 ,
 -
 .
@@ -102,7 +104,7 @@ multi_part_identifier
 
 === Newlines
 
-The NL character (ASCII code 0x0A), optionally followed by a CR character 
+The NL character (ASCII code 0x0A), optionally preceded by a CR character 
 (ASCII code 0x0D), is a token. Sequences of one or more newlines separate the 
 elements of <<Element-Sequences,element sequences>>.
 
@@ -122,27 +124,89 @@ outside of a comment or annotation.
 In particular, the tab character may not appear
 in an FPP model outside of a comment or annotation.
 
-=== Line Continuations
+=== Explicit Line Continuations
 
 The token `\`, when appearing before a newline, causes the newline to
 be ignored. For example, this
-```
-constant a = \
-  1
-```
+
+[source,fpp]
+----
+constant a \
+  = 1
+----
 is equivalent to this:
-```
+
+[source,fpp]
+----
 constant a = 1
-```
+----
 
 Note that the `\` token is required in this case.
 For example, the following is not syntactically correct:
-```
-constant a = # Error
-  1
-```
-The newline indicates the end of an element sequence, but
-`constant a =` is not a valid element sequence.
 
-The lexer ignores any space characters appearing between `\` and the next 
-newline.
+[source,fpp]
+----
+constant a # Error
+  = 1
+----
+
+The newline indicates the end of an element sequence, but
+`constant a` is not a valid element sequence.
+
+=== Automatic Line Continuations
+
+The following symbols consume sequences of newlines that
+follow them:
+
+[source,fpp]
+----
+(
+*
++
+,
+-
+/
+:
+;
+=
+[
+{
+----
+
+For example, the following code is legal:
+
+[source,fpp]
+----
+module M {
+  constant a = 0
+}
+----
+
+It is equivalent to this code:
+
+[source,fpp]
+----
+module M { constant a = 0 }
+----
+
+The newline after the `{` symbol is consumed by the `{` symbol.
+The newline after the constant definition is consumed
+by the element sequence member.
+
+The following code is also legal, because the newline is
+consumed by the `=` symbol:
+
+[source,fpp]
+----
+constant a =
+  0
+----
+
+Similarly, the following code is legal, because the newline
+is consumed by the `+` symbol:
+
+[source,fpp]
+----
+constant a = 1 + 
+  2
+----

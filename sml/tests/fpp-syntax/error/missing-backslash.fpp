@@ -1,2 +1,2 @@
-constant a =
-      0
+constant a 
+  = 0

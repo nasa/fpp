@@ -70,17 +70,17 @@ WS=[\ ];
 NL=[\ ]*[\r]?[\n][\ ]*;
 
 %%
-"(" => (token Tokens.LPAREN);
-")" => (token Tokens.RPAREN);
-"*" => (token Tokens.STAR);
-"+" => (token Tokens.PLUS);
+"("{NL}* => (token Tokens.LPAREN);
+{NL}*")" => (token Tokens.RPAREN);
+"*"{NL}* => (token Tokens.STAR);
+"+"{NL}* => (token Tokens.PLUS);
 ","{NL}* => (newlines (yytext); token Tokens.COMMA);
-"-" => (token Tokens.MINUS);
+"-"{NL}* => (token Tokens.MINUS);
 "." => (token Tokens.DOT);
-"/" => (token Tokens.SLASH);
-":" => (token Tokens.COLON);
+"/"{NL}* => (token Tokens.SLASH);
+":"{NL}* => (token Tokens.COLON);
 ";"{NL}* => (newlines (yytext); token Tokens.SEMI);
-"=" => (token Tokens.EQUALS);
+"="{NL}* => (token Tokens.EQUALS);
 "F32" => (token Tokens.F32);
 "F64" => (token Tokens.F64);
 "I16" => (token Tokens.I16);
@@ -108,9 +108,9 @@ NL=[\ ]*[\r]?[\n][\ ]*;
 "topology" => (token Tokens.TOPOLOGY);
 "true" => (token Tokens.TRUE);
 "type" => (token Tokens.TYPE);
-{NL}*"["{NL}* => (newlines (yytext); token Tokens.LBRACKET);
-{NL}*"]"{NL}* => (newlines (yytext); token Tokens.RBRACKET);
-{NL}*"{"{NL}* => (newlines (yytext); token Tokens.LBRACE);
+"["{NL}* => (newlines (yytext); token Tokens.LBRACKET);
+{NL}*"]" => (newlines (yytext); token Tokens.RBRACKET);
+"{"{NL}* => (newlines (yytext); token Tokens.LBRACE);
 {NL}*"}" => (newlines (yytext); token Tokens.RBRACE);
 {L}({L}|{D})* => (
   token (fn (x, y) => Tokens.IDENT (yytext, x, y))
