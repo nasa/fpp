@@ -557,9 +557,22 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Definitions_Abstract-Type-Definitions_Examples">6.7.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Definitions_Port-Definitions">6.8. Port Definitions</a></li>
+<li><a href="#Definitions_Port-Definitions">6.8. Port Definitions</a>
+<ul class="sectlevel3">
+<li><a href="#Definitions_Port-Definitions_Syntax">6.8.1. Syntax</a></li>
+<li><a href="#Definitions_Port-Definitions_Semantics">6.8.2. Semantics</a></li>
+<li><a href="#Definitions_Port-Definitions_Examples">6.8.3. Examples</a></li>
+</ul>
+</li>
 <li><a href="#Definitions_Component-Definitions">6.9. Component Definitions</a></li>
-<li><a href="#Definitions_Port-Instance-Definitions">6.10. Port Instance Definitions</a></li>
+<li><a href="#Definitions_Port-Instance-Definitions">6.10. Port Instance Definitions</a>
+<ul class="sectlevel3">
+<li><a href="#Definitions_Port-Instance-Definitions_Syntax">6.10.1. Syntax</a></li>
+<li><a href="#Definitions_Port-Instance-Definitions_Semantics">6.10.2. Semantics</a></li>
+<li><a href="#Definitions_Port-Instance-Definitions_Code-Generation">6.10.3. Code Generation</a></li>
+<li><a href="#Definitions_Port-Instance-Definitions_Examples">6.10.4. Examples</a></li>
+</ul>
+</li>
 <li><a href="#Definitions_Command-Definitions">6.11. Command Definitions</a></li>
 <li><a href="#Definitions_Telemetry-Channel-Definitions">6.12. Telemetry Channel Definitions</a></li>
 <li><a href="#Definitions_Event-Definitions">6.13. Event Definitions</a></li>
@@ -569,7 +582,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Definitions_Connection-Graph-Definitions">6.17. Connection Graph Definitions</a></li>
 </ul>
 </li>
-<li><a href="#Parameters">7. Parameters</a></li>
+<li><a href="#Formal-Parameter-Lists">7. Formal Parameter Lists</a>
+<ul class="sectlevel2">
+<li><a href="#Formal-Parameter-Lists_Syntax">7.1. Syntax</a></li>
+<li><a href="#Formal-Parameter-Lists_Semantics">7.2. Semantics</a></li>
+<li><a href="#Formal-Parameter-Lists_Examples">7.3. Examples</a></li>
+</ul>
+</li>
 <li><a href="#Location-Specifiers">8. Location Specifiers</a>
 <ul class="sectlevel2">
 <li><a href="#Location-Specifiers_Syntax">8.1. Syntax</a></li>
@@ -647,6 +666,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#Types_Default-Values">14.12. Default Values</a></li>
+<li><a href="#Types_Serialized-Sizes">14.13. Serialized Sizes</a></li>
 </ul>
 </li>
 <li><a href="#Type-Checking">15. Type Checking</a>
@@ -838,6 +858,7 @@ instance
 locate
 module
 port
+ref
 string
 struct
 true
@@ -2064,7 +2085,45 @@ struct B {
 <div class="sect2">
 <h3 id="Definitions_Port-Definitions">6.8. Port Definitions</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>An <strong>port definition</strong> defines an F Prime port.
+A port is the end point of a typed connection between F Prime components.</p>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Port-Definitions_Syntax">6.8.1. Syntax</h4>
+<div class="paragraph">
+<p><code>port</code>
+<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<code>(</code>
+<a href="#Formal-Parameter-Lists"><em>param-list</em></a>
+<code>)</code>
+<em>[</em>
+<code>:</code>
+<a href="#Type-Names"><em>type-name</em></a>
+<em>]</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Port-Definitions_Semantics">6.8.2. Semantics</h4>
+<div class="paragraph">
+<p>The identifier is the name of the port.
+The parameter list specifies the formal parameters of the
+port.
+Each formal parameter is a piece of data carried on the port.
+The optional type name appearing after the colon specifies
+an optional return type for the port.
+If present, the return type is the type of the data returned
+when the port is invoked in a synchronous context.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Port-Definitions_Examples">6.8.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">port Port1(a : U32, b : F64)
+port Port2(ref a : Fw.Com)
+port Port3(a : U32) : U32</code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -2075,8 +2134,36 @@ struct B {
 </div>
 <div class="sect2">
 <h3 id="Definitions_Port-Instance-Definitions">6.10. Port Instance Definitions</h3>
+<div class="sect3">
+<h4 id="Definitions_Port-Instance-Definitions_Syntax">6.10.1. Syntax</h4>
 <div class="paragraph">
 <p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Port-Instance-Definitions_Semantics">6.10.2. Semantics</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Port-Instance-Definitions_Code-Generation">6.10.3. Code Generation</h4>
+<div class="paragraph">
+<p><strong>Synchronous ports:</strong> Parameters not declared <code>ref</code> are passed by value if they
+are primitive
+types, otherwise by <code>const</code> reference.
+Parameters declared <code>ref</code> are passed by non-<code>const</code> reference.</p>
+</div>
+<div class="paragraph">
+<p><strong>Asynchronous ports:</strong> Parameters not declared <code>ref</code> are passed by value.
+Parameters declared <code>ref</code> are passed by non-<code>const</code> reference.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Port-Instance-Definitions_Examples">6.10.4. Examples</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -2124,10 +2211,66 @@ struct B {
 </div>
 </div>
 <div class="sect1">
-<h2 id="Parameters">7. Parameters</h2>
+<h2 id="Formal-Parameter-Lists">7. Formal Parameter Lists</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>A <strong>formal parameter list</strong> is an
+<a href="#Element-Sequences">element sequence</a>
+in which the elements are formal parameters,
+and the terminating punctuation is a comma.</p>
+</div>
+<div class="paragraph">
+<p>A <strong>formal parameter</strong> is a typed symbol to which a value becomes bound
+at runtime.
+Formal parameters appear, for example, in
+<a href="#Definitions_Port-Definitions">port definitions</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="Formal-Parameter-Lists_Syntax">7.1. Syntax</h3>
+<div class="paragraph">
+<p>Formal parameters have the following syntax:</p>
+</div>
+<div class="paragraph">
+<p><em>[</em> <code>ref</code> <em>]</em>
+<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<code>:</code>
+<a href="#Type-Names"><em>type-name</em></a>
+<em>[</em> <code>size</code> <a href="#Expressions"><em>expression</em></a> <em>]</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Formal-Parameter-Lists_Semantics">7.2. Semantics</h3>
+<div class="paragraph">
+<p>If present, the keyword <code>ref</code> specifies that the value
+bound to the formal parameter is to be passed by reference.</p>
+</div>
+<div class="paragraph">
+<p>The identifier is the name of the formal parameter.
+No two parameters in the same formal parameter list
+may have the same name.</p>
+</div>
+<div class="paragraph">
+<p>The type name specifies the type <em>T</em> of the formal parameter <em>P</em>.</p>
+</div>
+<div class="paragraph">
+<p>The optional expression following the keyword <code>size</code> is called the <strong>size
+expression</strong> of the formal parameter <em>P</em>.
+The size expression is allowed only when <em>T</em> is <code>string</code>.
+If present, it specifies the maximum length of a string
+that may be bound to <em>P</em>.
+If it is not present, then the translator uses the maximum string length
+specified for the <code>string</code> type.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Formal-Parameter-Lists_Examples">7.3. Examples</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">a : U32
+b : string size 100
+ref c : Fw.Com</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -2445,7 +2588,7 @@ is to include annotations as comments in generated code.</p>
 <p>A <a href="#Definitions_Struct-Definitions">member of a struct definition</a>.</p>
 </li>
 <li>
-<p>A <a href="#Parameters">parameter</a>.</p>
+<p>A <a href="#Formal-Parameter-Lists">formal parameter</a>.</p>
 </li>
 </ul>
 </div>
@@ -3360,7 +3503,7 @@ represents a struct with members \$m_i\$ <em>:</em> \$T_i\$.</p>
 <div class="sect2">
 <h3 id="Types_Default-Values">14.12. Default Values</h3>
 <div class="paragraph">
-<p>Every type <em>T</em> in FPP has an associated <strong>default
+<p>Every type <em>T</em> with a syntactic name in FPP has an associated <strong>default
 value</strong>.
 In generated C++ code, this is the value that is used to initialize a variable
 of type <em>T</em>
@@ -3410,6 +3553,58 @@ See the section on <a href="#Definitions_Struct-Definitions">struct definitions<
 <a href="#Types_Abstract-Types">abstract type</a> <em>T</em> is not specified
 in FPP.
 It is up to the implementer of <em>T</em> to provide a default value.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Types_Serialized-Sizes">14.13. Serialized Sizes</h3>
+<div class="paragraph">
+<p>Every type <em>T</em> with a syntactic name in FPP has a <strong>serialized size</strong>.
+This is the maximum number of bytes required to
+represent <em>T</em> in the standard F Prime serialized
+format.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The serialized size of each
+<a href="#Types_Primitive-Numeric-Types">primitive numeric type</a> is
+the byte width of the type.
+For example, the serialized size of <code>F64</code> is 8.</p>
+</li>
+<li>
+<p>The serialized size of
+<a href="#Types_The-Boolean-Type"><code>bool</code></a> is 1.</p>
+</li>
+<li>
+<p>The serialized size of
+<a href="#Types_The-String-Type"><code>string</code></a> is the number of bytes used to represent the
+length of a string
+plus the maximum string length. These sizes are
+implementation-specific.</p>
+</li>
+<li>
+<p>The serialized size of an
+<a href="#Types_Array-Types">array type</a> <em>T</em> is
+the number of elements in the array times the
+serialized size of an element.</p>
+</li>
+<li>
+<p>The serialized size of an
+<a href="#Types_Enum-Types">enum type</a> is the
+byte width of the representation type.</p>
+</li>
+<li>
+<p>The serialized size of a
+<a href="#Types_Struct-Types">struct type</a> <em>T</em> is
+the sum of the serialized sizes of the members.</p>
+</li>
+<li>
+<p>The serialized size of an
+<a href="#Types_Abstract-Types">abstract type</a> <em>T</em> is not specified
+in FPP.
+It is up to the implementer of <em>T</em> to provide the serialized size.</p>
 </li>
 </ul>
 </div>
@@ -4463,7 +4658,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-11-11 09:04:09 -0800
+Last updated 2019-11-11 12:37:11 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
