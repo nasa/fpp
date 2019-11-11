@@ -1,3 +1,36 @@
 === Port Definitions
 
-TODO
+An *port definition* defines an F Prime port.
+A port is the end point of a typed connection between F Prime components.
+
+==== Syntax
+
+`port`
+<<Lexical-Elements_Identifiers,_identifier_>>
+`(`
+<<Formal-Parameter-Lists,_param-list_>>
+`)`
+_[_
+`:`
+<<Type-Names,_type-name_>>
+_]_
+
+==== Semantics
+
+The identifier is the name of the port.
+The parameter list specifies the formal parameters of the
+port.
+Each formal parameter is a piece of data carried on the port.
+The optional type name appearing after the colon specifies
+an optional return type for the port.
+If present, the return type is the type of the data returned
+when the port is invoked in a synchronous context.
+
+==== Examples
+
+[source,fpp]
+----
+port Port1(a : U32, b : F64)
+port Port2(ref a : Fw.Com)
+port Port3(a : U32) : U32
+----

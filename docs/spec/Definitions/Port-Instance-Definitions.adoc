@@ -1,3 +1,23 @@
 === Port Instance Definitions
 
+==== Syntax
+
+TODO
+
+==== Semantics
+
+TODO
+
+==== Code Generation
+
+*Synchronous ports:* Parameters not declared `ref` are passed by value if they 
+are primitive
+types, otherwise by `const` reference.
+Parameters declared `ref` are passed by non-`const` reference.
+
+*Asynchronous ports:* Parameters not declared `ref` are passed by value.
+Parameters declared `ref` are passed by non-`const` reference.
+
+==== Examples
+
 TODO

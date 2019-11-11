@@ -112,7 +112,7 @@ represents a struct with members stem:[m_i] _:_ stem:[T_i].
 
 === Default Values
 
-Every type _T_ in FPP has an associated *default 
+Every type _T_ with a syntactic name in FPP has an associated *default 
 value*.
 In generated C++ code, this is the value that is used to initialize a variable 
 of type _T_
@@ -156,3 +156,41 @@ struct definitions>> for examples.
 in FPP.
 It is up to the implementer of _T_ to provide a default value.
 
+=== Serialized Sizes
+
+Every type _T_ with a syntactic name in FPP has a *serialized size*.
+This is the maximum number of bytes required to
+represent _T_ in the standard F Prime serialized
+format.
+
+* The serialized size of each 
+<<Types_Primitive-Numeric-Types,primitive numeric type>> is
+the byte width of the type.
+For example, the serialized size of `F64` is 8.
+
+* The serialized size of
+<<Types_The-Boolean-Type,`bool`>> is 1.
+
+* The serialized size of
+<<Types_The-String-Type,`string`>> is the number of bytes used to represent the 
+length of a string
+plus the maximum string length. These sizes are
+implementation-specific.
+
+* The serialized size of an
+<<Types_Array-Types,array type>> _T_ is 
+the number of elements in the array times the
+serialized size of an element.
+
+* The serialized size of an
+<<Types_Enum-Types,enum type>> is the 
+byte width of the representation type.
+
+* The serialized size of a
+<<Types_Struct-Types,struct type>> _T_ is 
+the sum of the serialized sizes of the members.
+
+* The serialized size of an
+<<Types_Abstract-Types,abstract type>> _T_ is not specified
+in FPP.
+It is up to the implementer of _T_ to provide the serialized size.

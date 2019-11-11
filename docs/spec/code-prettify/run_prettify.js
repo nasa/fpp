@@ -416,6 +416,8 @@ var IN_GLOBAL_SCOPE = false;
         "locate," +
         "module," +
         "port," +
+        "ref," +
+        "size," +
         "struct," +
         "type"
       ];
