@@ -452,7 +452,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Lexical-Elements_Newlines">3.4. Newlines</a></li>
 <li><a href="#Lexical-Elements_Comments">3.5. Comments</a></li>
 <li><a href="#Lexical-Elements_Whitespace-and-Non-Printable-Characters">3.6. Whitespace and Non-Printable Characters</a></li>
-<li><a href="#Lexical-Elements_Line-Continuations">3.7. Line Continuations</a></li>
+<li><a href="#Lexical-Elements_Explicit-Line-Continuations">3.7. Explicit Line Continuations</a></li>
+<li><a href="#Lexical-Elements_Automatic-Line-Continuations">3.8. Automatic Line Continuations</a></li>
 </ul>
 </li>
 <li><a href="#Type-Names">4. Type Names</a>
@@ -851,7 +852,9 @@ type</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">,
+<pre class="prettyprint highlight"><code data-lang="fpp">(
+)
+,
 -
 .
 :
@@ -891,7 +894,7 @@ multi_part_identifier</pre>
 <div class="sect2">
 <h3 id="Lexical-Elements_Newlines">3.4. Newlines</h3>
 <div class="paragraph">
-<p>The NL character (ASCII code 0x0A), optionally followed by a CR character
+<p>The NL character (ASCII code 0x0A), optionally preceded by a CR character
 (ASCII code 0x0D), is a token. Sequences of one or more newlines separate the
 elements of <a href="#Element-Sequences">element sequences</a>.</p>
 </div>
@@ -923,15 +926,15 @@ in an FPP model outside of a comment or annotation.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Lexical-Elements_Line-Continuations">3.7. Line Continuations</h3>
+<h3 id="Lexical-Elements_Explicit-Line-Continuations">3.7. Explicit Line Continuations</h3>
 <div class="paragraph">
 <p>The token <code>\</code>, when appearing before a newline, causes the newline to
 be ignored. For example, this</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code>constant a = \
-  1</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a \
+  = 1</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -939,7 +942,7 @@ be ignored. For example, this</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code>constant a = 1</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = 1</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -948,17 +951,78 @@ For example, the following is not syntactically correct:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code>constant a = # Error
-  1</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a # Error
+  = 1</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>The newline indicates the end of an element sequence, but
-<code>constant a =</code> is not a valid element sequence.</p>
+<code>constant a</code> is not a valid element sequence.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Lexical-Elements_Automatic-Line-Continuations">3.8. Automatic Line Continuations</h3>
+<div class="paragraph">
+<p>The following symbols consume sequences of newlines that
+follow them:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">(
+*
++
+,
+-
+/
+:
+;
+=
+[
+{</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>The lexer ignores any space characters appearing between <code>\</code> and the next
-newline.</p>
+<p>For example, the following code is legal:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+  constant a = 0
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It is equivalent to this code:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M { constant a = 0 }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The newline after the <code>{</code> symbol is consumed by the <code>{</code> symbol.
+The newline after the constant definition is consumed
+by the element sequence member.</p>
+</div>
+<div class="paragraph">
+<p>The following code is also legal, because the newline is
+consumed by the <code>=</code> symbol:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a =
+  0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Similarly, the following code is legal, because the newline
+is consumed by the <code>+</code> symbol:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = 1 +
+  2</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -4395,7 +4459,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-11-05 08:44:12 -0800
+Last updated 2019-11-11 08:43:35 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
