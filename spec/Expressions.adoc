@@ -260,6 +260,9 @@ The type and value of the expression are the type and value of the subexpression
 constant a = (1 + 2) * 3
 ----
 
+The expression on the right-hand side of the constant definition evaluates to 
+9.
+
 === Precedence and Associativity
 
 Ambiguity in parsing expressions is resolved with the following
