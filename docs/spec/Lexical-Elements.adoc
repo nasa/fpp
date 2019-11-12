@@ -73,6 +73,7 @@ The following sequences of characters are symbol tokens in FPP:
 )
 ,
 -
+->
 .
 :
 ;
@@ -166,6 +167,7 @@ follow them:
 +
 ,
 -
+->
 /
 :
 ;

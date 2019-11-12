@@ -1,3 +1,91 @@
 === Component Definitions
 
-TODO
+A *component definition* defines an F Prime component.
+A component is a unit of function in the F Prime framework.
+Component instances communicate with each other across
+<<Definitions_Port-Definitions,ports>>.
+
+==== Syntax
+
+_component-kind_ `component` 
+<<Lexical-Elements_Identifiers,_identifier_>>
+`{` _component-member-sequence_ `}`
+
+_component-kind_ is one of the following:
+
+* `active`
+
+* `passive`
+
+* `queued`
+
+_component-member-sequence_ is an
+<<Element-Sequences,element sequence>> in 
+which each element is a *component member*,
+and the terminating punctuation is a semicolon.
+A component member is one of the following:
+
+* A <<Definitions_Command-Definitions,command definition>>
+
+* A <<Definitions_Constant-Definitions,constant definition>>
+
+* A <<Definitions_Parameter-Definitions,parameter definition>>
+
+* A <<Definitions_Port-Instance-Definitions,port instance definition>>
+
+* A <<Definitions_Struct-Definitions,struct definition>>
+
+* A <<Definitions_Telemetry-Channel-Definitions,telemetry channel definition>>
+
+* An <<Definitions_Array-Definitions,array definition>>
+
+* An <<Definitions_Enum-Definitions,enum definition>>
+
+* An <<Definitions_Event-Definitions,event definition>>
+
+==== Semantics
+
+The identifier is the name of the component.
+The definitions inside the body of the component are
+qualified with the component name, as for 
+<<Definitions_Module-Definitions,module definitions>>.
+
+==== Examples
+
+[source,fpp]
+----
+@ Receives commands from the ground or from a sequencer
+@ Dispatches commands to other components
+active component CommandDispatcher {
+
+  # ----------------------------------------------------------------------
+  # Constants 
+  # ----------------------------------------------------------------------
+
+  @ The number of com command input ports
+  constant numComCmdInPorts = 10
+
+  @ The number of command output ports
+  constant numCmdOutPorts = 20
+
+  # ----------------------------------------------------------------------
+  # Ports 
+  # ----------------------------------------------------------------------
+
+  @ Dispatches commands
+  output port cmdOut : [numCmdOutPorts] Fw.Cmd
+
+  @ Forwards received command responses
+  output port cmdResponseInOut : [numComCmdInPorts] Fw.CmdResponse
+
+  @ Receives com packets containing serialized commands
+  async input port comCmdIn : [numComCmdInPorts] Fw.Com
+  
+  @ Receives command registration requests
+  guarded input port cmdRegIn : [numCmdOutPorts] Fw.CmdReg
+
+  @ Receives command responses
+  async input port cmdResponseIn : Fw.CmdResponse
+
+}
+----

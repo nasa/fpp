@@ -11,7 +11,7 @@ A port is the endpoint of a typed connection between F Prime components.
 <<Formal-Parameter-Lists,_param-list_>>
 `)`
 _[_
-`:`
+`pass:[->]`
 <<Type-Names,_type-name_>>
 _]_
 
@@ -32,5 +32,5 @@ when the port is invoked in a synchronous context.
 ----
 port Port1(a : U32, b : F64)
 port Port2(ref a : Fw.Com)
-port Port3(a : U32) : U32
+port Port3(a : U32) -> U32
 ----

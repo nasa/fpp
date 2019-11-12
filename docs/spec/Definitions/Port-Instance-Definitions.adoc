@@ -117,21 +117,21 @@ Parameters declared `ref` are passed by non-`const` reference.
 
 [source,fpp]
 ----
-# Async input port of type Fw.Com
-# It has priority 10.
-# It drops input received when the queue is full.
+@ Async input port of type Fw.Com
+@ It has priority 10.
+@ It drops input received when the queue is full.
 async input port asyncComIn : Fw.Com priority 10 drop
 
-# Guarded input port of type Fw.Com
+@ Guarded input port of type Fw.Com
 guarded input port guardedComIn : Fw.Com
 
-# Internal input port of type Fw.Com
+@ Internal input port of type Fw.Com
 internal input port internalComIn : Fw.Com
 
-# Output port array of 10 Fw.Com ports
+@ Output port array of 10 Fw.Com ports
 output port comOut : [10] Fw.Com
 
-# Sync input port of type Fw.Com
+@ Sync input port of type Fw.Com
 sync input port syncComIn : Fw.Com
 ----
 
@@ -139,27 +139,27 @@ sync input port syncComIn : Fw.Com
 
 [source,fpp]
 ----
-# A port for receiving commands from the command dispatcher
+@ A port for receiving commands from the command dispatcher
 command port cmdIn
 
-# A port for sending command registration requests to the command dispatcher
+@ A port for sending command registration requests to the command dispatcher
 command reg port cmdRegOut
 
-# A port for sending responses to the command dispatcher
+@ A port for sending responses to the command dispatcher
 command resp port cmdRespOut
 
-# A port for emitting events
+@ A port for emitting events
 event port eventOut
 
-# A port for getting parameter values from the parameter database
+@ A port for getting parameter values from the parameter database
 param get port paramGetOut
 
-# A port for sending parameter values to the parameter database
+@ A port for sending parameter values to the parameter database
 param set port paramSetOut
 
-# A port for emitting telemetry channels
+@ A port for emitting telemetry channels
 telemetry port tlmOut
 
-# A port for getting the current time
+@ A port for getting the current time
 time get port timeGetOut
 ----
