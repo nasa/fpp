@@ -575,8 +575,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#Definitions_Port-Instance-Definitions_Syntax">6.10.1. Syntax</a></li>
 <li><a href="#Definitions_Port-Instance-Definitions_Semantics">6.10.2. Semantics</a></li>
-<li><a href="#Definitions_Port-Instance-Definitions_Code-Generation">6.10.3. Code Generation</a></li>
-<li><a href="#Definitions_Port-Instance-Definitions_Examples">6.10.4. Examples</a></li>
+<li><a href="#Definitions_Port-Instance-Definitions_Examples">6.10.3. Examples</a></li>
 </ul>
 </li>
 <li><a href="#Definitions_Command-Definitions">6.11. Command Definitions</a></li>
@@ -2385,7 +2384,8 @@ The type of <em>e</em> must be <a href="#Type-Checking_Type-Conversion">converti
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer</a> to a
 <a href="#Definitions_Port-Definitions">port definition</a>.
 If the kind is <code>async input</code> or <code>internal input</code>, then
-the port definition must not specify a return type.</p>
+the port definition may not have any <code>ref</code> parameters and may not specify a
+return type.</p>
 </li>
 <li>
 <p>The optional expression <em>e</em> appearing after the keyword
@@ -2412,20 +2412,7 @@ The identifier specifies the name of the port.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Port-Instance-Definitions_Code-Generation">6.10.3. Code Generation</h4>
-<div class="paragraph">
-<p><strong>Synchronous ports:</strong> Parameters not declared <code>ref</code> are passed by value if they
-are primitive
-types, otherwise by <code>const</code> reference.
-Parameters declared <code>ref</code> are passed by non-<code>const</code> reference.</p>
-</div>
-<div class="paragraph">
-<p><strong>Asynchronous ports:</strong> Parameters not declared <code>ref</code> are passed by value.
-Parameters declared <code>ref</code> are passed by non-<code>const</code> reference.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Definitions_Port-Instance-Definitions_Examples">6.10.4. Examples</h4>
+<h4 id="Definitions_Port-Instance-Definitions_Examples">6.10.3. Examples</h4>
 <div class="paragraph">
 <p><strong>General ports:</strong></p>
 </div>
@@ -4963,7 +4950,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-11-11 17:35:06 -0800
+Last updated 2019-11-12 08:30:25 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
