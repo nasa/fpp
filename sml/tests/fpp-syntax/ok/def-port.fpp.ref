@@ -1,5 +1,7 @@
+@ Port P1
 def port
   ident P1
+@ Port P2
 def port
   ident P2
   formal param
@@ -10,6 +12,7 @@ def port
     kind value
     ident b
     type name F64
+@ Port P3
 def port
   ident P3
   @ Argument a
@@ -22,6 +25,7 @@ def port
     kind value
     ident b
     type name F64
+@ Port P4
 def port
   ident P4
   formal param
@@ -32,11 +36,13 @@ def port
     kind ref
     ident b
     type name F64
+@ Port P5
 def port
-  ident P1
+  ident P5
   type name I32
+@ Port P6
 def port
-  ident P2
+  ident P6
   formal param
     kind value
     ident a
@@ -46,8 +52,9 @@ def port
     ident b
     type name F64
   type name I32
+@ Port P7
 def port
-  ident P3
+  ident P7
   formal param
     kind value
     ident a
@@ -59,8 +66,9 @@ def port
     type name F64
   @< Argument b
   type name I32
+@ Port P8
 def port
-  ident P4
+  ident P8
   formal param
     kind ref
     ident a
