@@ -35,7 +35,7 @@
 
    and def_port = DefPort of ident * formal_param node annotated list * type_name node option
 
-   and def_struct = DefStruct of ident * struct_type_member node annotated list * expr node option
+   and def_struct = DefStruct of ident * struct_type_member annotated list * expr node option
 
    and expr =
      ExprArray of expr node list
