@@ -99,6 +99,20 @@ struct
     l1 @ l2 @ l3
   end
 
+  and defPort (DefPort (id, fpnal, tnno)) =
+  let
+    val l1 = lines "def port"
+    val l2 = List.map indentIn (ident id)
+    fun f (a, fpn, a') = annotate a a' (formalParam (data fpn))
+    val l3 = List.concat (List.map f fpnal)
+    val l3 = List.map indentIn l3
+    val l4 = case tnno of
+                  SOME tnn => List.map indentIn (typeName (data tnn))
+                | NONE => []
+  in
+    l1 @ l2 @ l3 @ l4
+  end
+
   and defStruct (DefStruct (id, stmnal, eno)) =
   let
     val l1 = lines "def struct"
@@ -181,6 +195,22 @@ struct
     l1 @ l2 @ l3
   end
 
+  and formalParam (FormalParam (fpk, id, tnn, eno)) =
+  let
+    val l1 = lines "formal param"
+    val l2 = List.map indentIn (lines ("kind "^(formalParamKind fpk)))
+    val l3 = List.map indentIn (ident id)
+    val l4 = List.map indentIn (typeName (data tnn))
+    val l5 = case eno of
+                  SOME en => List.map indentIn (expr (data en))
+                | NONE => []
+  in
+    l1 @ l2 @ l3 @ l4 @ l5
+  end
+
+  and formalParamKind (FormalParamRef) = "ref"
+    | formalParamKind (FormalParamValue) = "value"
+
   and qualIdent [] = ""
     | qualIdent (id :: []) = id
     | qualIdent (id :: ids) = id^"."^(qualIdent ids)
@@ -234,6 +264,7 @@ struct
      | TUDefConstant node => annotate (defConstant (data node))
      | TUDefEnum node => annotate (defEnum (data node))
      | TUDefModule node => annotate (defModule (data node))
+     | TUDefPort node => annotate (defPort (data node))
      | TUDefStruct node => annotate (defStruct (data node))
      | TUSpecLoc node => specLoc (data node)
   end

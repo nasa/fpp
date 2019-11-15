@@ -33,6 +33,8 @@
 
    and def_module = DefModule of ident * tu_member list
 
+   and def_port = DefPort of ident * formal_param node annotated list * type_name node option
+
    and def_struct = DefStruct of ident * struct_type_member node annotated list * expr node option
 
    and expr =
@@ -47,6 +49,12 @@
    | ExprParen of expr node
    | ExprStruct of struct_member list
    | ExprUnop of unop * expr node
+
+   and formal_param = FormalParam of formal_param_kind * ident * type_name node * expr node option
+
+   and formal_param_kind = 
+     FormalParamRef
+   | FormalParamValue
 
    and literal_bool = True | False
 
@@ -72,6 +80,7 @@
    | TUDefConstant of def_constant node
    | TUDefEnum of def_enum node
    | TUDefModule of def_module node
+   | TUDefPort of def_port node
    | TUDefStruct of def_struct node
    | TUSpecLoc of spec_loc node
 

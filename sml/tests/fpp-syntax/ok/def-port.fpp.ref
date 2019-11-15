@@ -1,0 +1,72 @@
+def port
+  ident P1
+def port
+  ident P2
+  formal param
+    kind value
+    ident a
+    type name U32
+  formal param
+    kind value
+    ident b
+    type name F64
+def port
+  ident P3
+  @ Argument a
+  formal param
+    kind value
+    ident a
+    type name U32
+  @ Argument b
+  formal param
+    kind value
+    ident b
+    type name F64
+def port
+  ident P4
+  formal param
+    kind ref
+    ident a
+    type name U32
+  formal param
+    kind ref
+    ident b
+    type name F64
+def port
+  ident P1
+  type name I32
+def port
+  ident P2
+  formal param
+    kind value
+    ident a
+    type name U32
+  formal param
+    kind value
+    ident b
+    type name F64
+  type name I32
+def port
+  ident P3
+  formal param
+    kind value
+    ident a
+    type name U32
+  @< Argument a
+  formal param
+    kind value
+    ident b
+    type name F64
+  @< Argument b
+  type name I32
+def port
+  ident P4
+  formal param
+    kind ref
+    ident a
+    type name U32
+  formal param
+    kind ref
+    ident b
+    type name F64
+  type name I32
