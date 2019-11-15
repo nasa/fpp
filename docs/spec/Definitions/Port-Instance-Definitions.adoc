@@ -89,12 +89,12 @@ return type.
 The type of _e_ must be <<Type-Checking_Type-Conversion,convertible to>>
 <<Types_Internal-Types_Integer,_Integer_>>.
 The priority applies to the component's message queue and may appear only for 
-`async` and `internal async` ports.
+`async input` and `internal input` ports.
 The meaning of the priority value is operating system-dependent.
 
 * The optional _queue-full-behavior_ specifies the behavior when a
 message is received and the queue is full.
-This specifier is valid only for `async` and `internal async` ports.
+This specifier is valid only for `async input` and `internal input` ports.
 If no specifier appears, then the default behavior is `assert`.
 
 *Special ports:*
