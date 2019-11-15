@@ -27,6 +27,11 @@ struct
     pre @ (Line.joinLists Line.Indent lines " " post)
   end
 
+  and binop Add = lines "+"
+    | binop Div = lines "/"
+    | binop Mul = lines "*"
+    | binop Sub = lines "-"
+
   and defAbsType (DefAbsType id) = lines ("type "^id)
 
   and defArray (DefArray (id, en, tnn, eno)) =
@@ -84,6 +89,20 @@ struct
     start @ members @ rbrace
   end
 
+  and defPort (DefPort (id, fpnal, tnno)) =
+  let
+    fun f (a, fpn, a') = annotate a a' (formalParam (data fpn))
+    val params = List.map indentIn (List.concat (List.map f fpnal))
+    val port = case params of
+                    [] => lines ("port "^id^"()")
+                  | _ => (lines ("port "^id^"(")) @ params @ (lines ")")
+    val port = case tnno of
+                    SOME tn => joinLists port " -> " (typeName (data tn))
+                  | NONE => port
+  in
+    port
+  end
+
   and defStruct (DefStruct (id, stmnal, eno)) =
   let
     val start = lines ("struct "^id^" {")
@@ -129,11 +148,6 @@ struct
     e
   end
 
-  and binop Add = lines "+"
-    | binop Div = lines "/"
-    | binop Mul = lines "*"
-    | binop Sub = lines "-"
-
   and exprDot e id =
   let
     val e = expr e
@@ -144,17 +158,6 @@ struct
 
   and exprLiteralBool True = lines "true"
     | exprLiteralBool False = lines "false"
-
-  and exprStruct sml =
-  let
-    val lbrace = line "{"
-    val members = List.map structMember sml
-    val members = List.concat members
-    val members = List.map indentIn members
-    val rbrace = line "}"
-  in
-    (lbrace :: members) @ [ rbrace ]
-  end
 
   and exprParen e =
   let
@@ -167,6 +170,17 @@ struct
     e
   end
 
+  and exprStruct sml =
+  let
+    val lbrace = line "{"
+    val members = List.map structMember sml
+    val members = List.concat members
+    val members = List.map indentIn members
+    val rbrace = line "}"
+  in
+    (lbrace :: members) @ [ rbrace ]
+  end
+
   and exprUnop Minus e = 
   let
     val minus = lines "-"
@@ -175,16 +189,22 @@ struct
     joinLists minus "" e
   end
 
+  and formalParam (FormalParam (fpk, id, tnn, eno)) =
+  let
+    val fp = case fpk of
+                  FormalParamRef => lines ("ref "^id)
+                | FormalParamValue => lines id
+    val fp = joinLists fp " : " (typeName (data tnn))
+    val fp = case eno of
+                  SOME en => joinLists fp " size " (expr (data en))
+                | NONE => fp
+  in
+    fp
+  end
+
   and qualIdent [] = ""
     | qualIdent (id :: []) = id
     | qualIdent (id :: ids) = id^"."^(qualIdent ids)
-
-  and specLocKind SpecLocComponent = "component"
-    | specLocKind SpecLocConstant = "constant"
-    | specLocKind SpecLocComponentInstance = "component instance"
-    | specLocKind SpecLocPort = "port"
-    | specLocKind SpecLocType = "type"
-    | specLocKind Topology = "topology"
 
   and specLoc (SpecLoc (slk, il, s)) = 
   let
@@ -194,6 +214,13 @@ struct
   in
     lines ("locate "^kind^" "^qi^" at "^location)
   end
+
+  and specLocKind SpecLocComponent = "component"
+    | specLocKind SpecLocConstant = "constant"
+    | specLocKind SpecLocComponentInstance = "component instance"
+    | specLocKind SpecLocPort = "port"
+    | specLocKind SpecLocType = "type"
+    | specLocKind Topology = "topology"
 
   and structMember (StructMember (id, en)) =
   let
@@ -225,6 +252,7 @@ struct
      | TUDefConstant node => annotate (defConstant (data node))
      | TUDefEnum node => annotate (defEnum (data node))
      | TUDefModule node => annotate (defModule (data node))
+     | TUDefPort node => annotate (defPort (data node))
      | TUDefStruct node => annotate (defStruct (data node))
      | TUSpecLoc node => specLoc (data node)
   end
