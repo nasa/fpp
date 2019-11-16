@@ -32,6 +32,23 @@ struct
     | binop Mul = lines "*"
     | binop Sub = lines "-"
 
+  and componentKind ComponentActive = "active"
+    | componentKind ComponentPassive = "passive"
+    | componentKind ComponentQueued = "queued"
+
+  and componentMember (ComponentMember (a, cmn, a')) =
+  let
+    val annotate = annotate a a'
+  in
+    case cmn of
+       ComponentDefArray node => annotate (defArray (data node))
+     | ComponentDefConstant node => annotate (defConstant (data node))
+     | ComponentDefEnum node => annotate (defEnum (data node))
+     | ComponentDefStruct node => annotate (defStruct (data node))
+  end
+
+  and componentMemberList cml = (Line.blankSeparated componentMember) cml
+
   and defAbsType (DefAbsType id) = lines ("type "^id)
 
   and defArray (DefArray (id, en, tnn, eno)) =
@@ -50,6 +67,17 @@ struct
            def
          end
        | NONE => def
+  end
+
+  and defComponent (DefComponent (ck, id, cml)) =
+  let
+    val kind = componentKind ck
+    val start = lines (kind^" component "^id^" {")
+    val members = componentMemberList cml
+    val members = List.map indentIn members
+    val rbrace = lines "}"
+  in
+    start @ members @ rbrace
   end
 
   and defConstant (DefConstant (id, en)) = 
@@ -249,6 +277,7 @@ struct
     case tumn of
        TUDefAbsType node => annotate (defAbsType (data node))
      | TUDefArray node => annotate (defArray (data node))
+     | TUDefComponent node => annotate (defComponent (data node))
      | TUDefConstant node => annotate (defConstant (data node))
      | TUDefEnum node => annotate (defEnum (data node))
      | TUDefModule node => annotate (defModule (data node))
