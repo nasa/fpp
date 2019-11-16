@@ -113,12 +113,12 @@ struct
     l1 @ l2 @ l3 @ l4
   end
 
-  and defStruct (DefStruct (id, stmal, eno)) =
+  and defStruct (DefStruct (id, stmnal, eno)) =
   let
     val l1 = lines "def struct"
     val l2 = List.map indentIn (ident id)
-    fun f (a, stm, a') = annotate a a' (structTypeMember stm)
-    val l3 = List.concat (List.map f stmal)
+    fun f (a, x, a') = annotate a a' (structTypeMember (data x))
+    val l3 = List.concat (List.map f stmnal)
     val l3 = List.map indentIn l3
   in
     l1 @ l2 @ l3

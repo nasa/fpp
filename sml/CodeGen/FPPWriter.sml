@@ -103,11 +103,11 @@ struct
     port
   end
 
-  and defStruct (DefStruct (id, stmal, eno)) =
+  and defStruct (DefStruct (id, stmnal, eno)) =
   let
     val start = lines ("struct "^id^" {")
-    fun f (a, stm, a') = annotate a a' (structTypeMember stm)
-    val members = List.concat (List.map f stmal)
+    fun f (a, x, a') = annotate a a' (structTypeMember (data x))
+    val members = List.concat (List.map f stmnal)
     val members = List.map indentIn members
     val rbrace = lines "}"
   in
