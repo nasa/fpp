@@ -36,7 +36,7 @@ struct
 
   and componentKind ComponentActive = "kind active"
     | componentKind ComponentPassive = "kind passive"
-    | componentKind ComponentQueued = "component kind queued"
+    | componentKind ComponentQueued = "kind queued"
 
   and componentMember (ComponentMember (a, cmn, a')) =
   let
@@ -73,10 +73,10 @@ struct
   and defComponent (DefComponent (ck, id, cml)) =
   let
     val l1 = lines "def component"
-    val l2 = List.map indentIn (lines ("kind "^(componentKind ck)))
+    val l2 = List.map indentIn (lines (componentKind ck))
     val l3 = List.map indentIn (ident id)
     val l4 = List.concat (List.map componentMember cml)
-    val l4 = List.map indentIn l3
+    val l4 = List.map indentIn l4
   in
     l1 @ l2 @ l3 @ l4
   end

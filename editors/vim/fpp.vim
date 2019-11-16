@@ -9,6 +9,7 @@ setl cinwords=enum,namespace,struct
 setl cindent
 
 " keywords
+syn keyword fppKeyword active
 syn keyword fppKeyword at
 syn keyword fppKeyword array
 syn keyword fppKeyword component
@@ -20,7 +21,9 @@ syn keyword fppKeyword import
 syn keyword fppKeyword instance
 syn keyword fppKeyword locate
 syn keyword fppKeyword module
+syn keyword fppKeyword passive
 syn keyword fppKeyword port
+syn keyword fppKeyword queued
 syn keyword fppKeyword ref
 syn keyword fppKeyword size
 syn keyword fppKeyword struct

@@ -1,0 +1,21 @@
+@ Component C1
+def component
+  kind active
+  ident C1
+  def constant
+    ident a
+    literal int 0
+@ Component C2
+def component
+  kind passive
+  ident C2
+  def constant
+    ident a
+    literal int 0
+@ Component C3
+def component
+  kind queued
+  ident C3
+  def constant
+    ident a
+    literal int 0
