@@ -59,7 +59,7 @@ _special-port-kind_ is one of the following:
 
 * `telemetry`
 
-* `time` `get`
+* `time`
 
 ==== Semantics
 
@@ -152,5 +152,5 @@ param set port paramSetOut
 telemetry port tlmOut
 
 @ A port for getting the current time
-time get port timeGetOut
+time port timeGetOut
 ----
