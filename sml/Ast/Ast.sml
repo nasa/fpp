@@ -20,9 +20,25 @@
    | Mul
    | Sub
 
+   and component_kind = 
+     ComponentActive
+   | ComponentPassive
+   | ComponentQueued
+
+   and component_member = ComponentMember of component_member_node annotated
+
+   and component_member_node =
+     ComponentDefArray of def_array node
+   | ComponentDefConstant of def_constant node
+   | ComponentDefEnum of def_enum node
+   | ComponentDefStruct of def_struct node
+
    and def_abs_type = DefAbsType of ident
 
    and def_array = DefArray of ident * expr node * type_name node * expr node option
+
+   and def_component = 
+     DefComponent of component_kind * ident * component_member list
 
    and def_constant = DefConstant of ident * expr node
 
@@ -77,6 +93,7 @@
    and tu_member_node = 
      TUDefAbsType of def_abs_type node
    | TUDefArray of def_array node
+   | TUDefComponent of def_component node
    | TUDefConstant of def_constant node
    | TUDefEnum of def_enum node
    | TUDefModule of def_module node

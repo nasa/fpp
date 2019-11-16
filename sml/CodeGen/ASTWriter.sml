@@ -34,6 +34,21 @@ struct
     | binop Mul = lines "binop *"
     | binop Sub = lines "binop -"
 
+  and componentKind ComponentActive = "kind active"
+    | componentKind ComponentPassive = "kind passive"
+    | componentKind ComponentQueued = "component kind queued"
+
+  and componentMember (ComponentMember (a, cmn, a')) =
+  let
+    val annotate = annotate a a'
+  in
+    case cmn of
+       ComponentDefArray node => annotate (defArray (data node))
+     | ComponentDefConstant node => annotate (defConstant (data node))
+     | ComponentDefEnum node => annotate (defEnum (data node))
+     | ComponentDefStruct node => annotate (defStruct (data node))
+  end
+
   and defAbsType (DefAbsType id) = 
   let
     val l1 = lines "def abs type"
@@ -53,6 +68,17 @@ struct
        | NONE => []
   in
     l1 @ l2 @ l3 @ l4 @ l5
+  end
+
+  and defComponent (DefComponent (ck, id, cml)) =
+  let
+    val l1 = lines "def component"
+    val l2 = List.map indentIn (lines ("kind "^(componentKind ck)))
+    val l3 = List.map indentIn (ident id)
+    val l4 = List.concat (List.map componentMember cml)
+    val l4 = List.map indentIn l3
+  in
+    l1 @ l2 @ l3 @ l4
   end
 
   and defConstant (DefConstant (id, en)) = 
@@ -198,7 +224,7 @@ struct
   and formalParam (FormalParam (fpk, id, tnn, eno)) =
   let
     val l1 = lines "formal param"
-    val l2 = List.map indentIn (lines ("kind "^(formalParamKind fpk)))
+    val l2 = List.map indentIn (lines (formalParamKind fpk))
     val l3 = List.map indentIn (ident id)
     val l4 = List.map indentIn (typeName (data tnn))
     val l5 = case eno of
@@ -208,8 +234,8 @@ struct
     l1 @ l2 @ l3 @ l4 @ l5
   end
 
-  and formalParamKind (FormalParamRef) = "ref"
-    | formalParamKind (FormalParamValue) = "value"
+  and formalParamKind (FormalParamRef) = "kind ref"
+    | formalParamKind (FormalParamValue) = "kind value"
 
   and qualIdent [] = ""
     | qualIdent (id :: []) = id
@@ -261,6 +287,7 @@ struct
     case tumn of
        TUDefAbsType node => annotate (defAbsType (data node))
      | TUDefArray node => annotate (defArray (data node))
+     | TUDefComponent node => annotate (defComponent (data node))
      | TUDefConstant node => annotate (defConstant (data node))
      | TUDefEnum node => annotate (defEnum (data node))
      | TUDefModule node => annotate (defModule (data node))
