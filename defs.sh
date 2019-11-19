@@ -22,7 +22,7 @@ doall()
     echoerr 'usage: doall command regex'
     return 1
   fi
-  for file in `find . -name "$2"`; do
+  for file in `find . -mindepth 1 -maxdepth 1 -name "$2"`; do
     $1 $file
   done
 }
