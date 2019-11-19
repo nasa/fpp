@@ -46,6 +46,7 @@ struct
        ComponentDefArray node => annotate (defArray (data node))
      | ComponentDefConstant node => annotate (defConstant (data node))
      | ComponentDefEnum node => annotate (defEnum (data node))
+     | ComponentDefPortInstance node => annotate (defPortInstance (data node))
      | ComponentDefStruct node => annotate (defStruct (data node))
   end
 
@@ -138,6 +139,48 @@ struct
   in
     l1 @ l2 @ l3 @ l4
   end
+
+  and defPortInstance (DefPortInstanceGeneral (dpigk, id, eno, il, eno', qfo)) =
+      let
+        val l1 = lines "def port instance general"
+        val l2 = List.map indentIn (lines (defPortInstanceGeneralKind dpigk))
+        val l3 = List.map indentIn (ident id)
+        val l4 = case eno of
+                      SOME en => expr (data en)
+                    | NONE => []
+        val l5 = lines (qualIdent il)
+        val l6 = case eno' of
+                      SOME en => expr (data en)
+                    | NONE => []
+        val l7 = case qfo of
+                      SOME qf => lines (queueFull qf)
+                    | NONE => []
+      in
+        l1 @ l2 @ l3 @ l4 @ l5 @ l6 @ l7
+      end
+    | defPortInstance (DefPortInstanceSpecial (dpisk, id)) =
+      let
+        val l1 = lines "def port instance special"
+        val l2 = List.map indentIn (lines (defPortInstanceSpecialKind dpisk))
+        val l3 = List.map indentIn (ident id)
+      in
+        l1 @ l2 @ l3
+      end
+
+  and defPortInstanceGeneralKind AsyncInput = "kind async input"
+    | defPortInstanceGeneralKind GuardedInput = "kind guarded input"
+    | defPortInstanceGeneralKind InternalInput = "kind internal input"
+    | defPortInstanceGeneralKind Output = "kind output"
+    | defPortInstanceGeneralKind SyncInput = "kind sync input"
+
+  and defPortInstanceSpecialKind Command = "kind command"
+    | defPortInstanceSpecialKind CommandReg = "kind command reg"
+    | defPortInstanceSpecialKind CommandResp = "kind command resp"
+    | defPortInstanceSpecialKind Event = "kind event"
+    | defPortInstanceSpecialKind ParamGet = "kind param get"
+    | defPortInstanceSpecialKind ParamSet = "kind param set"
+    | defPortInstanceSpecialKind Telemetry = "kind telemetry"
+    | defPortInstanceSpecialKind Time = "kind time"
 
   and defStruct (DefStruct (id, stmnal, eno)) =
   let
@@ -240,6 +283,10 @@ struct
   and qualIdent [] = ""
     | qualIdent (id :: []) = id
     | qualIdent (id :: ids) = id^"."^(qualIdent ids)
+
+  and queueFull Assert = "queue full assert"
+    | queueFull Block = "queue full block"
+    | queueFull Drop = "queue full drop"
 
   and specLoc (SpecLoc (slk, il, s)) = 
   let

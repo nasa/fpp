@@ -31,6 +31,7 @@
      ComponentDefArray of def_array node
    | ComponentDefConstant of def_constant node
    | ComponentDefEnum of def_enum node
+   | ComponentDefPortInstance of def_port_instance node
    | ComponentDefStruct of def_struct node
 
    and def_abs_type = DefAbsType of ident
@@ -50,6 +51,28 @@
    and def_module = DefModule of ident * tu_member list
 
    and def_port = DefPort of ident * formal_param node annotated list * type_name node option
+
+   and def_port_instance =
+     DefPortInstanceGeneral of def_port_instance_general_kind * ident * expr node option * 
+       ident list * expr node option * queue_full option
+   | DefPortInstanceSpecial of def_port_instance_special_kind * ident
+
+   and def_port_instance_general_kind =
+     AsyncInput
+   | GuardedInput
+   | InternalInput
+   | Output
+   | SyncInput
+
+   and def_port_instance_special_kind =
+     Command
+   | CommandReg
+   | CommandResp
+   | Event
+   | ParamGet
+   | ParamSet
+   | Telemetry
+   | Time
 
    and def_struct = DefStruct of ident * struct_type_member node annotated list * expr node option
 
@@ -73,6 +96,11 @@
    | FormalParamValue
 
    and literal_bool = True | False
+
+   and queue_full = 
+     Assert
+   | Block
+   | Drop
 
    and spec_loc = SpecLoc of spec_loc_kind * ident list * string
 
