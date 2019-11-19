@@ -80,6 +80,7 @@ end
 | PARAM
 | PASSIVE
 | PLUS
+| PRIORITY
 | PORT
 | POST_ANNOTATION of string
 | PRE_ANNOTATION of string
@@ -120,6 +121,7 @@ end
   START of trans_unit
 | ARRAY_CELL of expr node
 | ARRAY_CELL_LIST of expr node list
+| ARRAY_SIZE_OPTION of expr node option
 | COMMA_OR_EOL of unit
 | COMPONENT_KIND of component_kind
 | COMPONENT_MEMBER of component_member
@@ -142,6 +144,12 @@ end
 | DEF_MODULE of def_module
 | DEF_MODULE_NODE of def_module node
 | DEF_PORT of def_port
+| DEF_PORT_INSTANCE of def_port_instance
+| DEF_PORT_INSTANCE_GENERAL of def_port_instance_general_kind * ident * expr node option * ident list * expr node option * queue_full option
+| DEF_PORT_INSTANCE_GENERAL_KIND of def_port_instance_general_kind
+| DEF_PORT_INSTANCE_NODE of def_port_instance node
+| DEF_PORT_INSTANCE_SPECIAL of def_port_instance_special_kind * ident
+| DEF_PORT_INSTANCE_SPECIAL_KIND of def_port_instance_special_kind
 | DEF_PORT_NODE of def_port node
 | DEF_STRUCT of def_struct
 | DEF_STRUCT_NODE of def_struct node
@@ -168,7 +176,10 @@ end
 | LAST_TU_MEMBER_NODE of tu_member_node
 | POST_ANNOTATION_LIST of string list
 | PRE_ANNOTATION_LIST of string list
+| PRIORITY_OPTION of expr node option
 | QUAL_IDENT of ident list
+| QUEUE_FULL of queue_full
+| QUEUE_FULL_OPTION of queue_full option
 | SEMI_OR_EOL of unit
 | SPEC_LOC of spec_loc
 | SPEC_LOC_NODE of spec_loc node
@@ -203,6 +214,10 @@ ARRAY_CELL
 ARRAY_CELL_LIST
   : EXPR_NODE ([ EXPR_NODE ])
   | ARRAY_CELL ARRAY_CELL_LIST (ARRAY_CELL :: ARRAY_CELL_LIST)
+
+ARRAY_SIZE_OPTION
+  : (NONE)
+  | LBRACKET EXPR_NODE RBRACKET (SOME EXPR_NODE)
 
 COMMA_OR_EOL
   : COMMA (())
@@ -344,6 +359,40 @@ DEF_PORT
       DefPort (IDENT, FORMAL_PARAM_NODE_ANNOTATED_LIST, SOME TYPE_NAME_NODE)
     )
 
+DEF_PORT_INSTANCE
+  : DEF_PORT_INSTANCE_GENERAL (DefPortInstanceGeneral DEF_PORT_INSTANCE_GENERAL)
+  | DEF_PORT_INSTANCE_SPECIAL (DefPortInstanceSpecial DEF_PORT_INSTANCE_SPECIAL)
+
+DEF_PORT_INSTANCE_GENERAL
+  : DEF_PORT_INSTANCE_GENERAL_KIND PORT IDENT COLON ARRAY_SIZE_OPTION QUAL_IDENT PRIORITY_OPTION QUEUE_FULL_OPTION(
+      DEF_PORT_INSTANCE_GENERAL_KIND, IDENT, ARRAY_SIZE_OPTION, QUAL_IDENT, PRIORITY_OPTION, QUEUE_FULL_OPTION
+    )
+
+DEF_PORT_INSTANCE_GENERAL_KIND
+  : ASYNC INPUT (AsyncInput)
+  | GUARDED INPUT (GuardedInput)
+  | INTERNAL INPUT (InternalInput)
+  | OUTPUT (Output)
+  | SYNC INPUT (SyncInput)
+
+DEF_PORT_INSTANCE_NODE
+  : DEF_PORT_INSTANCE (node (DEF_PORT_INSTANCE, DEF_PORT_INSTANCEleft, DEF_PORT_INSTANCEright))
+
+DEF_PORT_INSTANCE_SPECIAL
+  : DEF_PORT_INSTANCE_SPECIAL_KIND PORT IDENT (
+      DEF_PORT_INSTANCE_SPECIAL_KIND, IDENT
+    )
+
+DEF_PORT_INSTANCE_SPECIAL_KIND
+  : COMMAND (Command)
+  | COMMAND REG (CommandReg)
+  | COMMAND RESP (CommandResp)
+  | EVENT (Event)
+  | PARAM GET (ParamGet)
+  | PARAM SET (ParamSet)
+  | TELEMETRY (Telemetry)
+  | TIME (Time)
+
 DEF_PORT_NODE
   : DEF_PORT (node (DEF_PORT, DEF_PORTleft, DEF_PORTright))
 
@@ -419,6 +468,7 @@ LAST_COMPONENT_MEMBER_NODE
   : DEF_ARRAY_NODE (ComponentDefArray DEF_ARRAY_NODE)
   | DEF_CONSTANT_NODE (ComponentDefConstant DEF_CONSTANT_NODE)
   | DEF_ENUM_NODE (ComponentDefEnum DEF_ENUM_NODE)
+  | DEF_PORT_INSTANCE_NODE (ComponentDefPortInstance DEF_PORT_INSTANCE_NODE)
   | DEF_STRUCT_NODE (ComponentDefStruct DEF_STRUCT_NODE)
 
 LAST_DEF_ENUM_CONSTANT
@@ -497,9 +547,22 @@ PRE_ANNOTATION_LIST
   : PRE_ANNOTATION ([ PRE_ANNOTATION ])
   | PRE_ANNOTATION PRE_ANNOTATION_LIST (PRE_ANNOTATION :: PRE_ANNOTATION_LIST)
 
+PRIORITY_OPTION
+  : (NONE)
+  | PRIORITY EXPR_NODE (SOME EXPR_NODE)
+
 QUAL_IDENT
   : IDENT ([ IDENT ])
   | IDENT DOT QUAL_IDENT (IDENT :: QUAL_IDENT)
+
+QUEUE_FULL
+  : ASSERT (Assert)
+  | BLOCK (Block)
+  | DROP (Drop)
+
+QUEUE_FULL_OPTION
+  : (NONE)
+  | QUEUE_FULL (SOME QUEUE_FULL)
 
 SEMI_OR_EOL
   : SEMI (())

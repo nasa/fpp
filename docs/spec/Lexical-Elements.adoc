@@ -70,6 +70,7 @@ output
 param
 passive
 port
+priority
 queued
 ref
 reg

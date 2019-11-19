@@ -118,6 +118,7 @@ NL=[\ ]*[\r]?[\n][\ ]*;
 "param" => (token Tokens.PARAM);
 "passive" => (token Tokens.PASSIVE);
 "port" => (token Tokens.PORT);
+"priority" => (token Tokens.PRIORITY);
 "queued" => (token Tokens.QUEUED);
 "ref" => (token Tokens.REF);
 "reg" => (token Tokens.REG);

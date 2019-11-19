@@ -36,6 +36,7 @@ syn keyword fppKeyword output
 syn keyword fppKeyword param
 syn keyword fppKeyword passive
 syn keyword fppKeyword port
+syn keyword fppKeyword priority
 syn keyword fppKeyword queued
 syn keyword fppKeyword ref
 syn keyword fppKeyword reg
