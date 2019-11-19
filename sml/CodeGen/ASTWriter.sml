@@ -146,14 +146,26 @@ struct
         val l2 = List.map indentIn (lines (defPortInstanceGeneralKind dpigk))
         val l3 = List.map indentIn (ident id)
         val l4 = case eno of
-                      SOME en => expr (data en)
+                      SOME en => 
+                      let
+                        val note = lines "[ array size ]"
+                        val l = joinLists note " " (expr (data en))
+                      in
+                        List.map indentIn l
+                      end
                     | NONE => []
-        val l5 = lines (qualIdent il)
+        val l5 = List.map indentIn (lines ("qual ident "^(qualIdent il)))
         val l6 = case eno' of
-                      SOME en => expr (data en)
+                      SOME en => 
+                      let
+                        val note =  lines "[ priority ]"
+                        val l = joinLists note " " (expr (data en))
+                      in
+                        List.map indentIn l
+                      end
                     | NONE => []
         val l7 = case qfo of
-                      SOME qf => lines (queueFull qf)
+                      SOME qf => List.map indentIn (lines (queueFull qf))
                     | NONE => []
       in
         l1 @ l2 @ l3 @ l4 @ l5 @ l6 @ l7

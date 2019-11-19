@@ -1,21 +1,72 @@
+@ Port P
+def port
+  ident P
+  formal param
+    kind value
+    ident x
+    type name U32
 @ Component C1
 def component
   kind active
   ident C1
+  @ Constant n
   def constant
-    ident a
-    literal int 0
+    ident n
+    literal int 5
+  @ Constant p
+  def constant
+    ident p
+    literal int 10
+  @ Port p1
+  def port instance general
+    kind async input
+    ident p1
+    qual ident P
+    [ priority ] ident p
+  @ Port p2
+  def port instance general
+    kind guarded input
+    ident p2
+    qual ident P
+  @ Port p3
+  def port instance general
+    kind internal input
+    ident p3
+    qual ident P
+  @ Port p4
+  def port instance general
+    kind output
+    ident p4
+    [ array size ] ident n
+    qual ident P
+  @ Port p5
+  def port instance general
+    kind sync input
+    ident p5
+    qual ident P
 @ Component C2
 def component
   kind passive
   ident C2
-  def constant
-    ident a
-    literal int 0
 @ Component C3
 def component
   kind queued
   ident C3
-  def constant
-    ident a
-    literal int 0
+  @ Port p1
+  def port instance general
+    kind async input
+    ident p1
+    qual ident P
+    queue full assert
+  @ Port p2
+  def port instance general
+    kind async input
+    ident P2
+    qual ident P
+    queue full block
+  @ Port p3
+  def port instance general
+    kind async input
+    ident P3
+    qual ident P
+    queue full drop
