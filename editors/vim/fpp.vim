@@ -14,6 +14,7 @@ syn keyword fppKeyword array
 syn keyword fppKeyword assert
 syn keyword fppKeyword async
 syn keyword fppKeyword at
+syn keyword fppKeyword baseid
 syn keyword fppKeyword block
 syn keyword fppKeyword command
 syn keyword fppKeyword component
@@ -45,7 +46,6 @@ syn keyword fppKeyword struct
 syn keyword fppKeyword sync
 syn keyword fppKeyword telemetry
 syn keyword fppKeyword time
-syn keyword fppKeyword topology
 syn keyword fppKeyword true
 syn keyword fppKeyword type
 

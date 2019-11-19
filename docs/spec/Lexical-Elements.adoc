@@ -59,6 +59,7 @@ enum
 event
 false
 get
+guarded
 import
 input
 instance
@@ -74,6 +75,7 @@ ref
 reg
 resp
 set
+size
 string
 struct
 sync
