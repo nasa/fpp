@@ -44,6 +44,7 @@ struct
        ComponentDefArray node => annotate (defArray (data node))
      | ComponentDefConstant node => annotate (defConstant (data node))
      | ComponentDefEnum node => annotate (defEnum (data node))
+     | ComponentDefPortInstance node => annotate (defPortInstance (data node))
      | ComponentDefStruct node => annotate (defStruct (data node))
   end
 
@@ -130,6 +131,53 @@ struct
   in
     port
   end
+
+  and defPortInstance (DefPortInstanceGeneral (dpigk, id, eno, il, eno', qfo)) =
+      let
+        val def = lines ((defPortInstanceGeneralKind dpigk)^" port "^id^" :")
+        val def = case eno of
+                       SOME en => 
+                       let 
+                         val def = joinLists def " " (lines "[")
+                         val def = joinLists def "" (expr (data en))
+                         val def = joinLists def "" (lines "]")
+                       in
+                         def
+                       end
+                     | NONE => def
+        val def = joinLists def " " (lines (qualIdent il))
+        val def = case eno' of
+                       SOME en =>
+                       let
+                         val def = joinLists def " " (lines "priority")
+                         val def = joinLists def " " (expr (data en))
+                       in
+                         def
+                       end
+                     | NONE => def
+        val def = case qfo of
+                       SOME qf => joinLists def " " (lines (queueFull qf))
+                     | NONE => def
+      in
+        def
+      end
+    | defPortInstance (DefPortInstanceSpecial (dpisk, id)) =
+        lines ((defPortInstanceSpecialKind dpisk)^" port "^id)
+
+  and defPortInstanceGeneralKind AsyncInput = "async input"
+    | defPortInstanceGeneralKind GuardedInput = "guarded input"
+    | defPortInstanceGeneralKind InternalInput = "internal input"
+    | defPortInstanceGeneralKind Output = "output"
+    | defPortInstanceGeneralKind SyncInput = "sync input"
+
+  and defPortInstanceSpecialKind Command = "command"
+    | defPortInstanceSpecialKind CommandReg = "command reg"
+    | defPortInstanceSpecialKind CommandResp = "command resp"
+    | defPortInstanceSpecialKind Event = "event"
+    | defPortInstanceSpecialKind ParamGet = "param get"
+    | defPortInstanceSpecialKind ParamSet = "param set"
+    | defPortInstanceSpecialKind Telemetry = "telemetry"
+    | defPortInstanceSpecialKind Time = "time"
 
   and defStruct (DefStruct (id, stmnal, eno)) =
   let
@@ -233,6 +281,10 @@ struct
   and qualIdent [] = ""
     | qualIdent (id :: []) = id
     | qualIdent (id :: ids) = id^"."^(qualIdent ids)
+
+  and queueFull Assert = "assert"
+    | queueFull Block = "block"
+    | queueFull Drop = "drop"
 
   and specLoc (SpecLoc (slk, il, s)) = 
   let
