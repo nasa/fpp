@@ -35,6 +35,7 @@ end
 %term 
   ACTIVE
 | ARRAY
+| ASYNC
 | AT
 | BOOL
 | COLON
@@ -55,6 +56,7 @@ end
 | I64
 | I8
 | IDENT of string
+| INPUT
 | INSTANCE
 | LBRACE
 | LBRACKET
