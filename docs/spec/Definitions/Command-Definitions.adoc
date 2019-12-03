@@ -1,3 +1,37 @@
 === Command Definitions
 
+A *command definition* defines a command as part of a
+<<Definitions_Component-Definitions,component definition>>.
+
+==== Syntax
+
+* _command-kind_ `command` <<Lexical-Elements_Identifiers,_identifier_>> 
+_[_
+`(` <<Formal-Parameter-Lists,_param-list_>> `)`
+_]_
+_[_
+`opcode` _expression_
+`priority` <<Expressions,_expression_>>
+_]_
+_[_
+_queue-full-behavior_
+_]_
+
+_command-kind_ is one of the following:
+
+* `async`
+
+* `guarded`
+
+* `sync`
+
+_queue-full-behavior_ is as for
+<<Definitions_Port-Instance-Definitions,port instance definitions>>.
+
+==== Semantics
+
+TODO
+
+==== Examples
+
 TODO

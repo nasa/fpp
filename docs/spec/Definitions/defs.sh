@@ -8,21 +8,21 @@ redo-ifchange defs.sh
 
 export FILES="
 Introduction.adoc
-Constant-Definitions.adoc
-Module-Definitions.adoc
+Abstract-Type-Definitions.adoc
 Array-Definitions.adoc
+Command-Definitions.adoc
+Component-Definitions.adoc
+Component-Instance-Definitions.adoc
+Connection-Graph-Definitions.adoc
+Constant-Definitions.adoc
 Enum-Definitions.adoc
 Enumerated-Constant-Definitions.adoc
-Struct-Definitions.adoc
-Abstract-Type-Definitions.adoc
-Port-Definitions.adoc
-Component-Definitions.adoc
-Port-Instance-Definitions.adoc
-Command-Definitions.adoc
-Telemetry-Channel-Definitions.adoc
 Event-Definitions.adoc
+Module-Definitions.adoc
 Parameter-Definitions.adoc
-Component-Instance-Definitions.adoc
+Port-Definitions.adoc
+Port-Instance-Definitions.adoc
+Struct-Definitions.adoc
+Telemetry-Channel-Definitions.adoc
 Topology-Definitions.adoc
-Connection-Graph-Definitions.adoc
 "
