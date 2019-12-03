@@ -11,7 +11,7 @@ Introduction.adoc
 Syntax-Notation.adoc
 Lexical-Elements.adoc
 Type-Names.adoc
-Expressions.adoc
+Expressions/Expressions.adoc
 Definitions/Definitions.adoc
 Formal-Parameter-Lists.adoc
 Location-Specifiers.adoc

@@ -1,0 +1,37 @@
+=== Struct Expressions
+
+An *struct expression* is an expression that represents a struct value.
+
+==== Syntax
+
+`{` _struct-element-sequence_ `}`
+
+_struct-element-sequence_ is an
+<<Element-Sequences,element sequence>> in which the elements
+are struct elements.
+A *struct element* has the following syntax:
+
+<<Lexical-Elements_Identifiers,_identifier_>> `=` <<Expressions,_expression_>>
+
+==== Semantics
+
+The following must be true of the struct element sequence _S_:
+
+. No two identifiers appearing in _S_ may be the same.
+
+. Each expression appearing in _S_ must have a valid type.
+
+The expression is evaluated by evaluating each member expression
+to a value and then constructing the struct value with the
+corresponding member names and values.
+
+==== Example
+
+[source,fpp]
+----
+# s is a struct value with members x = 0, y = 1
+constant s = { 
+  x = 0
+  y = 1
+}
+----

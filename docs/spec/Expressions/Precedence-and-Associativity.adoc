@@ -1,0 +1,28 @@
+=== Precedence and Associativity
+
+Ambiguity in parsing expressions is resolved with the following
+precedence table. Expressions appearing earlier in the table
+have higher precedence. For example, `-a.b` is parsed as `-(a.b)`
+and not `(-a).b`. Where necessary, each element in the ordering provides an 
+associativity for resolving expressions with equal precedence.
+
+[cols=",",options="header",]
+|======================================
+
+|Expression
+|Associativity
+
+|Dot expressions stem:[e] `.` stem:[i]
+|None
+
+|Unary negation expressions `-` stem:[e]
+|None
+
+|Multiplication expressions stem:[e_1] `*` stem:[e_2] and division expressions stem:[e_1] `/` stem:[e_2]
+|Left
+
+|Addition expressions stem:[e_1] `+` stem:[e_2] and subtraction expressions stem:[e_1] `-` stem:[e_2]
+|Left
+
+|======================================
+

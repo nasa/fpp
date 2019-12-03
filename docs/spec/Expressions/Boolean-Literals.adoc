@@ -1,0 +1,4 @@
+=== Boolean Literals
+
+A *Boolean literal expression* is one of the values `true` and `false`.
+

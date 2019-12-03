@@ -1,0 +1,14 @@
+=== Floating-Point Literals
+
+A *floating-point literal expression* is a C-style representation of an
+IEEE floating-point number.
+
+**Examples:**
+
+[source,fpp]
+----
+1e-10
+0.001
+3.14159
+6.02E23
+----

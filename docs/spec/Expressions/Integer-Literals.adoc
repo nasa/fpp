@@ -1,0 +1,22 @@
+=== Integer Literals
+
+An *integer literal expression* is one of the following:
+
+* A sequence of decimal digits `0` through `9` denoting the decimal
+representation of a nonnegative integer.
+
+* `0x` or `0X` followed by a sequence of hexadecimal digits
+`0` through `9`, `A` through `F`, or `a` through `f` denoting the hexadecimal 
+representation of a nonnegative
+integer.
+
+An integer literal value stem:[v] must be representable as an unsigned
+integer using most 64 bits, i.e., it must lie in the range stem:[0 <= v < 2^64].
+
+**Examples:**
+
+[source,fpp]
+----
+1234
+0xABCD
+----

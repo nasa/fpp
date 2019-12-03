@@ -1,0 +1,18 @@
+=== Identifier Expressions
+
+An *identifier expression* is an
+<<Lexical-Elements_Identifiers,identifier>>
+that refers to a
+<<Definitions_Constant-Definitions,constant definition>>
+or
+<<Definitions_Enumerated-Constant-Definitions,enumerated constant definition>>, 
+according to the 
+<<Scoping-of-Names_Resolution-of-Identifiers,rules for resolving identifiers>>.
+
+**Example:**
+
+[source,fpp]
+----
+constant a = 42
+constant b = a # a is an identifier expression
+----

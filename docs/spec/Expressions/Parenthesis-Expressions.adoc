@@ -1,0 +1,25 @@
+=== Parenthesis Expressions
+
+A *parenthesis expression* is an expression surrounded
+by parentheses in order to group subexpressions and to
+force evaluation order.
+
+==== Syntax
+
+`(`
+<<Expressions,_expression_>>
+`)`
+
+==== Semantics
+
+The type and value of the expression are the type and value of the subexpression.
+
+==== Example
+
+[source,fpp]
+----
+constant a = (1 + 2) * 3
+----
+
+The expression on the right-hand side of the constant definition evaluates to 
+9.

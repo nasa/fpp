@@ -1,0 +1,32 @@
+=== Array Expressions
+
+An *array expression* is an expression that represents an array value.
+
+==== Syntax
+
+`[` _array-element-sequence_ `]`
+
+_array-element-sequence_ is an
+<<Element-Sequences,element sequence>> in which the elements
+are
+<<Expressions,expressions>>, and the terminating punctuation
+is a comma.
+
+==== Semantics
+
+. The sequence must have at least one element.
+
+. The types of the expressions in the sequence must be
+<<Type-Checking_Computing-a-Common-Type_Lists-of-Types,
+convertible to a common type>>.
+
+. The value of the expression is formed by computing
+the value of each element and then converting all the
+elements to the common type.
+
+==== Example
+
+[source,tnet]
+----
+constant a = [ 0, 1, 2 ] # a is an array value of with elements 0, 1, 2
+----

@@ -1,0 +1,48 @@
+=== Dot Expressions
+
+A *dot expression* is a
+<<Definitions-and-Uses_Uses,use>>
+that refers to a
+<<Definitions_Constant-Definitions,constant definition>>
+or
+<<Definitions_Constant-Definitions,enumerated constant definition>>.
+
+==== Syntax
+
+<<Expressions,_expression_>>
+`.`
+<<Lexical-Elements_Identifiers,_identifier_>>
+
+==== Semantics
+
+The following rules give the meaning of a dot expression stem:[e]`.x`:
+
+.  If stem:[e]`.x` is a
+<<Scoping-of-Names_Qualified-Identifiers,qualified
+identifier>> that represents one of the uses listed above according to
+the
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,rules
+for resolving qualified identifiers>>, then it evaluates to the value
+stored in the corresponding <<Definitions,definition>>.
+
+.  Otherwise stem:[e]`.x` is invalid.
+
+==== Examples
+
+===== Example 1
+
+[source,fpp]
+----
+module M {
+  constant a = 1
+}
+constant b = M.a # M.a evaluates to 1
+----
+
+===== Example 2
+
+[source,fpp]
+----
+enum E { X = 0, Y = 1 }
+constant a = E.X # E.X evaluates to 0
+----

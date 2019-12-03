@@ -1,0 +1,14 @@
+=== String Literals
+
+A *string literal expression* is a sequence of characters enclosed in double quotes.
+The characters must be printable ASCII characters, and the double
+quote character itself is not allowed.
+
+*Examples:*
+
+* `"abc"` is a valid string representing the characters `a`, `b`, and `c`.
+
+* `"abc` is not a valid string, because it is missing the terminating double quote.
+
+* `"ab"c"` is the valid string `"ab"` followed by the identifier `c` and an 
+unmatched double quote character.

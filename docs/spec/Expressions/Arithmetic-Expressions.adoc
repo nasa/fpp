@@ -1,0 +1,39 @@
+=== Arithmetic Expressions
+
+FPP includes the following *arithmetic expressions*:
+
+[cols=",",options="header",]
+|======================================
+|Syntax
+|Meaning
+
+|`-` stem:[e]
+|Negate stem:[e]
+
+|stem:[e_1] `+` stem:[e_2]
+|Add stem:[e_1] and stem:[e_2]
+
+|stem:[e_1] `-` stem:[e_2]
+|Subtract stem:[e_2] from stem:[e_1]
+
+|stem:[e_1] `*` stem:[e_2]
+|Multiply stem:[e_1] by stem:[e_2]
+
+|stem:[e_1] `/` stem:[e_2]
+|Divide stem:[e_1] by stem:[e_2]
+
+|======================================
+
+Each subexpression of an arithmetic expression must have
+<<Types_Internal-Types_Numeric-Types,numeric type>>.  Evaluation is by either
+standard integer arithmetic or standard floating-point arithmetic, depending on
+the <<Type-Checking,type of the expression>>.
+
+*Example:*
+
+[source,fpp]
+----
+constant a = -1
+constant b = 2 + 3
+constant c = a * b
+----
