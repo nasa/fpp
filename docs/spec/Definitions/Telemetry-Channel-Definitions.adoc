@@ -1,3 +1,51 @@
 === Telemetry Channel Definitions
 
+A *telemetry channel definition* defines a telemetry channel as part of a
+<<Definitions_Component-Definitions,component definition>>.
+
+==== Syntax
+
+`telemetry` <<Lexical-Elements_Identifiers,_identifier_>> `:` <<Type-Names,_type-name_>>
+`id` <<Expressions,_expression_>>
+_[_ `{`
+_telemetry-attribute-list_
+`}` _]_
+
+_telemetry-attribute-list_ is an
+<<Element-Sequences,element sequence>>
+in which the elements are telemetry attributes,
+and the terminating punctuation is a comma.
+
+A *telemetry attribute* is one of the following:
+
+* `update` _telemetry-update_
+
+* `abbrev` <<Expressions_String-Literals,_string-literal_>>
+
+* `format` <<Expressions_String-Literals,_string-literal_>>
+
+* `high` `red` <<Expressions,_expression_>>
+
+* `high` `orange` <<Expressions,_expression_>>
+
+* `high` `yellow` <<Expressions,_expression_>>
+
+* `low` `red` <<Expressions,_expression_>>
+
+* `low` `orange` <<Expressions,_expression_>>
+
+* `low` `yellow` <<Expressions,_expression_>>
+
+_telemetry-update_ is one of the following:
+
+* `always`
+
+* `on change`
+
+==== Semantics
+
+TODO
+
+==== Examples
+
 TODO
