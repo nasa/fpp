@@ -1,3 +1,16 @@
 === Event Definitions
 
+An *event definition* defines an event report as part of a
+<<Definitions_Component-Definitions,component definition>>.
+
+==== Syntax
+
+TODO
+
+==== Semantics
+
+TODO
+
+==== Examples
+
 TODO

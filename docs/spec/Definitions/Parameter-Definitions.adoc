@@ -1,3 +1,16 @@
 === Parameter Definitions
 
+A *parameter definition* defines a parameter as part of a
+<<Definitions_Component-Definitions,component definition>>.
+
+==== Syntax
+
+TODO
+
+==== Semantics
+
+TODO
+
+==== Examples
+
 TODO
