@@ -5,7 +5,14 @@ An *event definition* defines an event report as part of a
 
 ==== Syntax
 
-TODO
+`event` _severity_ <<Lexical-Elements_Identifiers,_identifier_>>
+_[_
+`(` <<Formal-Parameter-Lists,_param-list_>> `)`
+_]_
+`format` <<Expressions_String-Literals,_string-literal_>>
+_[_
+`throttle` <<Expressions,_expression_>>
+_]_
 
 ==== Semantics
 
