@@ -5,12 +5,12 @@ A *command definition* defines a command as part of a
 
 ==== Syntax
 
-* _command-kind_ `command` <<Lexical-Elements_Identifiers,_identifier_>> 
+_command-kind_ `command` <<Lexical-Elements_Identifiers,_identifier_>> 
 _[_
 `(` <<Formal-Parameter-Lists,_param-list_>> `)`
 _]_
-_[_
 `opcode` _expression_
+_[_
 `priority` <<Expressions,_expression_>>
 _]_
 _[_
