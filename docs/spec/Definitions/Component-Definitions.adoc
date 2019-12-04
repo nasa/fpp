@@ -109,13 +109,38 @@ active component CommandDispatcher {
   # Events 
   # ----------------------------------------------------------------------
 
-  # TODO
+  @ Opcode registered event
+  event DIAGNOSTIC OpCodeRegistered(
+      regOpcode : Opcode @< The opcode to register
+      regPort : U32 @< The registration port
+      dispatchSlot : U32 @< The dispatch slot
+  ) \
+    id 0x00 \
+    format "Opcode {} registered to port {} slot {}"
+
+  @ Opcode dispatched event
+  event COMMAND OpCodeDispatched(
+      dispatchOpcode : Opcode @< The opcode dispatched
+      dispatchPort : U32 @< The dispatch port
+  ) \
+    id 0x01 \
+    format "Opcode {} dispatched to port {}"
+
+  ...
 
   # ---------------------------------------------------------------------- 
   # Telemetry
   # ---------------------------------------------------------------------- 
 
-  # TODO
+  @ Number of commands dispatched
+  telemetry CommandsDispatched : U32 \
+    id 0x00 \
+    update on change
+
+  @ Number of command errors
+  telemetry CommandErrors : U32 \
+    id 0x01 \
+    update on change
 
 }
 ----

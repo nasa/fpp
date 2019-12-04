@@ -411,7 +411,6 @@ var IN_GLOBAL_SCOPE = false;
           "FATAL," +
           "WARNING_HI," +
           "WARNING_LO," +
-          "abbrev," +
           "active," +
           "always," +
           "array," +
@@ -420,6 +419,7 @@ var IN_GLOBAL_SCOPE = false;
           "at," +
           "block," +
           "bool," +
+          "change," +
           "command," +
           "component," +
           "constant," +
@@ -438,6 +438,7 @@ var IN_GLOBAL_SCOPE = false;
           "locate," +
           "low," +
           "module," +
+          "on," +
           "opcode," +
           "orange," +
           "output," +

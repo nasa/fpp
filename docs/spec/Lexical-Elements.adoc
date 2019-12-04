@@ -49,7 +49,6 @@ DIAGNOSTIC
 FATAL
 WARNING_HI
 WARNING_LO
-abbrev
 active
 always
 array
@@ -58,6 +57,7 @@ async
 at
 block
 bool
+change
 command
 component
 constant
@@ -77,6 +77,7 @@ internal
 locate
 low
 module
+on
 opcode
 orange
 output

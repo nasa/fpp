@@ -9,6 +9,7 @@ An *event definition* defines an event report as part of a
 _[_
 `(` <<Formal-Parameter-Lists,_param-list_>> `)`
 _]_
+`id` <<Expressions,_expression_>>
 `format` <<Expressions_String-Literals,_string-literal_>>
 _[_
 `throttle` <<Expressions,_expression_>>
@@ -26,8 +27,57 @@ _severity_ is one of the following:
 
 ==== Semantics
 
-TODO
+* _severity_ specifies the severity of the event.
+
+* The identifier names the event.
+
+* The parameter list specifies the event parameters.
+If there are no parameters, the list may be omitted.
+`ref` may not appear in any of the parameters.
+
+* The expression _e_ following `id` specifies the event identifier.
+The type of _e_ must be convertible to 
+<<Types_Internal-Types_Integer,_Integer_>>.
+
+* The string following `format` is a
+<<Format-Strings,format string>> that formats the event
+for display on the ground.
+The arguments to the format string are the values bound to
+the event parameters.
+
+* The expression _e_ following `throttle` specifies the maximum number
+of times to emit the event before throttling it.
+The type of _e_ must be convertible to 
+<<Types_Internal-Types_Integer,_Integer_>>.
 
 ==== Examples
 
-TODO
+[source,fpp]
+----
+@ An array of 3 F64 values
+array F64x3 = [3] F64
+
+@ An enumeration of cases
+enum Case { A, B, C }
+
+@ Event 0
+event ACTIVITY_LO Event0  id 0x00  format "Event 0 occurred"
+
+@ Event 1
+@ Sample output: "Event 1 occurred with argument 42"
+event ACTIVITY_HI Event1(
+  arg1 : U32 @< Argument 1
+) \
+  id 0x01 \
+  format "Event 1 occurred with argument {}"
+
+@ Event 2
+@ Sample output: "Saw value [ 0.001, 0.002, 0.003 ] for case A"
+event WARNING_LO Event2(
+  case : Case @< The case
+  value : F64x3 @< The value
+) \
+  id 0x02 \
+  format "Saw value {.03} for case {}" \
+  throttle 10
+----

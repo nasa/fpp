@@ -8,45 +8,95 @@ A *telemetry channel definition* defines a telemetry channel as part of a
 `telemetry` <<Lexical-Elements_Identifiers,_identifier_>>
 `:` <<Type-Names,_type-name_>>
 `id` <<Expressions,_expression_>>
-_[_ `{`
-_telemetry-attribute-list_
-`}` _]_
-
-_telemetry-attribute-list_ is an
-<<Element-Sequences,element sequence>>
-in which the elements are telemetry attributes,
-and the terminating punctuation is a semicolon.
-
-A *telemetry attribute* is one of the following:
-
-* `update` _telemetry-update_
-
-* `abbrev` <<Expressions_String-Literals,_string-literal_>>
-
-* `format` <<Expressions_String-Literals,_string-literal_>>
-
-* `high` `red` <<Expressions,_expression_>>
-
-* `high` `orange` <<Expressions,_expression_>>
-
-* `high` `yellow` <<Expressions,_expression_>>
-
-* `low` `red` <<Expressions,_expression_>>
-
-* `low` `orange` <<Expressions,_expression_>>
-
-* `low` `yellow` <<Expressions,_expression_>>
+_[_ 
+`update` _telemetry-update_
+_]_
+_[_ 
+`format` <<Expressions_String-Literals,_string-literal_>>
+_]_
+_[_ 
+`low` `{` _telemetry-limit-sequence_ `}`
+_]_ 
+_[_ 
+`high` `{` _telemetry-limit-sequence_ `}`
+_]_ 
 
 _telemetry-update_ is one of the following:
 
 * `always`
 
-* `on change`
+* `on` `change`
+
+_telemetry-limit-sequence_ is an
+<<Element-Sequences,element sequence>>
+in which the elements are *telemetry limits*,
+and the terminating punctuation is a comma.
+A telemetry limit is one of the following:
+
+* `red` <<Expressions,_expression_>>
+
+* `orange` <<Expressions,_expression_>>
+
+* `yellow` <<Expressions,_expression_>>
 
 ==== Semantics
 
-TODO
+. The identifier names the telemetry channel.
+
+. The type name specifies the type of the telemetry channel.
+
+. The expression _e_ after the keyword `id` specifies the channel
+identifier.
+The type of _e_ must be <<Type-Checking_Type-Conversion,convertible to>>
+<<Types_Internal-Types_Integer,_Integer_>>.
+
+. The optional update specifier specifies whether the telemetry channel
+is emitted always or on change.
+If the specifier is not present, the default behavior is always.
+
+. The optional format specifier specifies a
+<<Format-Strings,format string>>.
+There is one argument to the format string, which is the channel value.
+
+. The optional high and low limit specifiers specify the high and low limits
+for the channel.  If either specifier is present, then
+
+.. The type of the
+telemetry channel must <<Types_Types-with-Numeric-Members,have numeric
+members>>.
+
+.. At most one of each kind of limit (red, orange, yellow) may appear
+in each specifier.
+
+.. The expression in each limit must have a 
+<<Types_Internal-Types_Numeric-Types,numeric type>>.
+
+.. The limit is applied to each member of the channel type.
 
 ==== Examples
 
-TODO
+[source,fpp]
+----
+@ An array of 3 F64 values
+array F64x3 = [3] F64
+
+@ Telemetry channel 0
+telemetry Channel0 : U32 id 0x00
+
+@ Telemetry channel 1
+telemetry Channel1 : U32 \
+  id 0x01 \
+  update on change
+
+@ Telemetry channel 2
+telemetry Channel2 : F64x3 \
+  id 0x02 \
+  format "{.03}"
+
+@ Telemetry channel 3
+telemetry Channel3 : F64x3 \
+  id 0x03 \
+  format "{.03}" \
+  low { yellow -1, orange -2, red -3 } \
+  high { yellow 1, orange 2, red 3 }
+----

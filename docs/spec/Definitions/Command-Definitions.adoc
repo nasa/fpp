@@ -40,6 +40,7 @@ The kind `async` is valid only if the component is active or queued.
 
 * The parameter list specifies the command parameters.
 If there are no parameters, the list may be omitted.
+`ref` may not appear in any of the parameters.
 
 * The expression following `opcode` specifies the command opcode.
 Its type must be convertible to <<Types_Internal-Types_Integer,_Integer_>>.

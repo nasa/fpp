@@ -14,6 +14,7 @@ Type-Names.adoc
 Expressions/Expressions.adoc
 Definitions/Definitions.adoc
 Formal-Parameter-Lists.adoc
+Format-Strings.adoc
 Location-Specifiers.adoc
 Element-Sequences.adoc
 Comments-and-Annotations.adoc
