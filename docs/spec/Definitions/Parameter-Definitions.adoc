@@ -52,8 +52,7 @@ the first command appearing in a component) or the previous opcode
 plus one.
 
 * The optional expression _e_ after the keywords `saving` `opcode` specifies 
-* the
-opcode of the command for saving the parameter.
+the opcode of the command for saving the parameter.
 If _e_ is present, then the type of _e_ must be 
 <<Type-Checking_Type-Conversion,convertible to>>
 <<Types_Internal-Types_Integer,_Integer_>>.
