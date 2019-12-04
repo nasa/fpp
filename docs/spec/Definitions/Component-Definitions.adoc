@@ -25,23 +25,27 @@ which each element is a *component member*,
 and the terminating punctuation is a semicolon.
 A component member is one of the following:
 
-* A <<Definitions_Command-Definitions,command definition>>
+* A <<Definitions_Command-Definitions,command definition>>.
+All commands defined in a component must have distinct opcodes.
 
 * A <<Definitions_Constant-Definitions,constant definition>>
 
 * A <<Definitions_Parameter-Definitions,parameter definition>>
+All parameters defined in a component must have distinct identfier values.
 
 * A <<Definitions_Port-Instance-Definitions,port instance definition>>
 
 * A <<Definitions_Struct-Definitions,struct definition>>
 
 * A <<Definitions_Telemetry-Channel-Definitions,telemetry channel definition>>
+All telemetry channels defined in a component must have distinct identfier values.
 
 * An <<Definitions_Array-Definitions,array definition>>
 
 * An <<Definitions_Enum-Definitions,enum definition>>
 
 * An <<Definitions_Event-Definitions,event definition>>
+All events defined in a component must have distinct identfier values.
 
 ==== Semantics
 
