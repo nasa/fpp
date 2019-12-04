@@ -30,7 +30,19 @@ when the port is invoked in a synchronous context.
 
 [source,fpp]
 ----
-port Port1(a : U32, b : F64)
-port Port2(ref a : Fw.Com)
-port Port3(a : U32) -> U32
+@ Port 1
+port Port1(
+    a : U32 @< Parameter a
+    b : F64 @< Parameter b
+)
+
+@ Port 2
+port Port2(
+    ref a : Fw.Com @< Ref parameter a
+)
+
+@ Port 3
+port Port3(
+    a : U32 @< Parameter a
+) -> U32
 ----
