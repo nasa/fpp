@@ -875,14 +875,8 @@ U16
 U32
 U64
 U8
-ACTIVITY_HI
-ACTIVITY_LO
-COMMAND
-DIAGNOSTIC
-FATAL
-WARNING_HI
-WARNING_LO
 active
+activity
 always
 array
 assert
@@ -895,10 +889,12 @@ command
 component
 constant
 default
+diagnostic
 drop
 enum
 event
 false
+fatal
 format
 get
 guarded
@@ -936,6 +932,7 @@ topology
 true
 type
 update
+warning
 yellow</code></pre>
 </div>
 </div>
@@ -2056,7 +2053,7 @@ active component CommandDispatcher {
   # ----------------------------------------------------------------------
 
   @ Opcode registered event
-  event DIAGNOSTIC OpCodeRegistered(
+  diagnostic event OpCodeRegistered(
       regOpcode : Opcode @&lt; The opcode to register
       regPort : U32 @&lt; The registration port
       dispatchSlot : U32 @&lt; The dispatch slot
@@ -2065,7 +2062,7 @@ active component CommandDispatcher {
     format "Opcode {} registered to port {} slot {}"
 
   @ Opcode dispatched event
-  event COMMAND OpCodeDispatched(
+  command event OpCodeDispatched(
       dispatchOpcode : Opcode @&lt; The opcode dispatched
       dispatchPort : U32 @&lt; The dispatch port
   ) \
@@ -2321,7 +2318,7 @@ given for enum definitions</a> includes enumerated constant definitions.</p>
 <div class="sect3">
 <h4 id="Definitions_Event-Definitions_Syntax">6.10.1. Syntax</h4>
 <div class="paragraph">
-<p><code>event</code> <em>severity</em> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<p><em>severity</em> <code>event</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <em>[</em>
 <code>(</code> <a href="#Formal-Parameter-Lists"><em>param-list</em></a> <code>)</code>
 <em>]</em>
@@ -2337,25 +2334,25 @@ given for enum definitions</a> includes enumerated constant definitions.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>ACTIVITY_HI</code></p>
+<p><code>activity</code> <code>high</code></p>
 </li>
 <li>
-<p><code>ACTIVITY_LO</code></p>
+<p><code>activity</code> <code>low</code></p>
 </li>
 <li>
-<p><code>COMMAND</code></p>
+<p><code>command</code></p>
 </li>
 <li>
-<p><code>DIAGNOSTIC</code></p>
+<p><code>diagnostic</code></p>
 </li>
 <li>
-<p><code>FATAL</code></p>
+<p><code>fatal</code></p>
 </li>
 <li>
-<p><code>WARNING_HI</code></p>
+<p><code>warning</code> <code>high</code></p>
 </li>
 <li>
-<p><code>WARNING_LO</code></p>
+<p><code>warning</code> <code>low</code></p>
 </li>
 </ul>
 </div>
@@ -2407,11 +2404,11 @@ array F64x3 = [3] F64
 enum Case { A, B, C }
 
 @ Event 0
-event ACTIVITY_LO Event0  id 0x00  format "Event 0 occurred"
+activity low event Event0  id 0x00  format "Event 0 occurred"
 
 @ Event 1
 @ Sample output: "Event 1 occurred with argument 42"
-event ACTIVITY_HI Event1(
+activity high event Event1(
   arg1 : U32 @&lt; Argument 1
 ) \
   id 0x01 \
@@ -2419,7 +2416,7 @@ event ACTIVITY_HI Event1(
 
 @ Event 2
 @ Sample output: "Saw value [ 0.001, 0.002, 0.003 ] for case A"
-event WARNING_LO Event2(
+warning low event Event2(
   case : Case @&lt; The case
   value : F64x3 @&lt; The value
 ) \
@@ -5550,7 +5547,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-12-04 10:10:04 -0800
+Last updated 2019-12-04 10:20:15 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

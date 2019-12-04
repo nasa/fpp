@@ -404,14 +404,8 @@ var IN_GLOBAL_SCOPE = false;
       // We use things that coerce to strings to make them compact when minified
       // and to defeat aggressive optimizers that fold large string constants.
       var FPP_KEYWORDS = [
-          "ACTIVITY_HI," +
-          "ACTIVITY_LO," +
-          "COMMAND," +
-          "DIAGNOSTIC," +
-          "FATAL," +
-          "WARNING_HI," +
-          "WARNING_LO," +
           "active," +
+          "activity," +
           "always," +
           "array," +
           "assert," +
@@ -424,9 +418,11 @@ var IN_GLOBAL_SCOPE = false;
           "component," +
           "constant," +
           "default," +
+          "diagnostic," +
           "drop," +
           "enum," +
           "event," +
+          "fatal," +
           "format," +
           "get," +
           "guarded," +
@@ -463,6 +459,7 @@ var IN_GLOBAL_SCOPE = false;
           "topology," +
           "type," +
           "update," +
+          "warning," +
           "yellow"
       ];
       var FLOW_CONTROL_KEYWORDS = ["break,continue,do,else,for,if,return,while"];

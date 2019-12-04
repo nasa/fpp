@@ -42,14 +42,8 @@ U16
 U32
 U64
 U8
-ACTIVITY_HI
-ACTIVITY_LO
-COMMAND
-DIAGNOSTIC
-FATAL
-WARNING_HI
-WARNING_LO
 active
+activity
 always
 array
 assert
@@ -62,10 +56,12 @@ command
 component
 constant
 default
+diagnostic
 drop
 enum
 event
 false
+fatal
 format
 get
 guarded
@@ -103,6 +99,7 @@ topology
 true
 type
 update
+warning
 yellow
 ----
 

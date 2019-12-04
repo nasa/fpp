@@ -5,7 +5,7 @@ An *event definition* defines an event report as part of a
 
 ==== Syntax
 
-`event` _severity_ <<Lexical-Elements_Identifiers,_identifier_>>
+_severity_ `event` <<Lexical-Elements_Identifiers,_identifier_>>
 _[_
 `(` <<Formal-Parameter-Lists,_param-list_>> `)`
 _]_
@@ -17,13 +17,13 @@ _]_
 
 _severity_ is one of the following:
 
-* `ACTIVITY_HI`
-* `ACTIVITY_LO`
-* `COMMAND`
-* `DIAGNOSTIC`
-* `FATAL`
-* `WARNING_HI`
-* `WARNING_LO`
+* `activity` `high`
+* `activity` `low`
+* `command`
+* `diagnostic`
+* `fatal`
+* `warning` `high`
+* `warning` `low`
 
 ==== Semantics
 
@@ -61,11 +61,11 @@ array F64x3 = [3] F64
 enum Case { A, B, C }
 
 @ Event 0
-event ACTIVITY_LO Event0  id 0x00  format "Event 0 occurred"
+activity low event Event0  id 0x00  format "Event 0 occurred"
 
 @ Event 1
 @ Sample output: "Event 1 occurred with argument 42"
-event ACTIVITY_HI Event1(
+activity high event Event1(
   arg1 : U32 @< Argument 1
 ) \
   id 0x01 \
@@ -73,7 +73,7 @@ event ACTIVITY_HI Event1(
 
 @ Event 2
 @ Sample output: "Saw value [ 0.001, 0.002, 0.003 ] for case A"
-event WARNING_LO Event2(
+warning low event Event2(
   case : Case @< The case
   value : F64x3 @< The value
 ) \
