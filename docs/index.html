@@ -467,38 +467,38 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#Expressions">5. Expressions</a>
 <ul class="sectlevel2">
-<li><a href="#Expressions_Integer-Literals">5.1. Integer Literals</a></li>
-<li><a href="#Expressions_Floating-Point-Literals">5.2. Floating-Point Literals</a></li>
+<li><a href="#Expressions_Arithmetic-Expressions">5.1. Arithmetic Expressions</a></li>
+<li><a href="#Expressions_Array-Expressions">5.2. Array Expressions</a>
+<ul class="sectlevel3">
+<li><a href="#Expressions_Array-Expressions_Syntax">5.2.1. Syntax</a></li>
+<li><a href="#Expressions_Array-Expressions_Semantics">5.2.2. Semantics</a></li>
+<li><a href="#Expressions_Array-Expressions_Example">5.2.3. Example</a></li>
+</ul>
+</li>
 <li><a href="#Expressions_Boolean-Literals">5.3. Boolean Literals</a></li>
-<li><a href="#Expressions_String-Literals">5.4. String Literals</a></li>
-<li><a href="#Expressions_Identifier-Expressions">5.5. Identifier Expressions</a></li>
-<li><a href="#Expressions_Dot-Expressions">5.6. Dot Expressions</a>
+<li><a href="#Expressions_Dot-Expressions">5.4. Dot Expressions</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_Dot-Expressions_Syntax">5.6.1. Syntax</a></li>
-<li><a href="#Expressions_Dot-Expressions_Semantics">5.6.2. Semantics</a></li>
-<li><a href="#Expressions_Dot-Expressions_Examples">5.6.3. Examples</a></li>
+<li><a href="#Expressions_Dot-Expressions_Syntax">5.4.1. Syntax</a></li>
+<li><a href="#Expressions_Dot-Expressions_Semantics">5.4.2. Semantics</a></li>
+<li><a href="#Expressions_Dot-Expressions_Examples">5.4.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Array-Expressions">5.7. Array Expressions</a>
+<li><a href="#Expressions_Floating-Point-Literals">5.5. Floating-Point Literals</a></li>
+<li><a href="#Expressions_Identifier-Expressions">5.6. Identifier Expressions</a></li>
+<li><a href="#Expressions_Integer-Literals">5.7. Integer Literals</a></li>
+<li><a href="#Expressions_Parenthesis-Expressions">5.8. Parenthesis Expressions</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_Array-Expressions_Syntax">5.7.1. Syntax</a></li>
-<li><a href="#Expressions_Array-Expressions_Semantics">5.7.2. Semantics</a></li>
-<li><a href="#Expressions_Array-Expressions_Example">5.7.3. Example</a></li>
+<li><a href="#Expressions_Parenthesis-Expressions_Syntax">5.8.1. Syntax</a></li>
+<li><a href="#Expressions_Parenthesis-Expressions_Semantics">5.8.2. Semantics</a></li>
+<li><a href="#Expressions_Parenthesis-Expressions_Example">5.8.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Struct-Expressions">5.8. Struct Expressions</a>
+<li><a href="#Expressions_String-Literals">5.9. String Literals</a></li>
+<li><a href="#Expressions_Struct-Expressions">5.10. Struct Expressions</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_Struct-Expressions_Syntax">5.8.1. Syntax</a></li>
-<li><a href="#Expressions_Struct-Expressions_Semantics">5.8.2. Semantics</a></li>
-<li><a href="#Expressions_Struct-Expressions_Example">5.8.3. Example</a></li>
-</ul>
-</li>
-<li><a href="#Expressions_Arithmetic-Expressions">5.9. Arithmetic Expressions</a></li>
-<li><a href="#Expressions_Parenthesis-Expressions">5.10. Parenthesis Expressions</a>
-<ul class="sectlevel3">
-<li><a href="#Expressions_Parenthesis-Expressions_Syntax">5.10.1. Syntax</a></li>
-<li><a href="#Expressions_Parenthesis-Expressions_Semantics">5.10.2. Semantics</a></li>
-<li><a href="#Expressions_Parenthesis-Expressions_Example">5.10.3. Example</a></li>
+<li><a href="#Expressions_Struct-Expressions_Syntax">5.10.1. Syntax</a></li>
+<li><a href="#Expressions_Struct-Expressions_Semantics">5.10.2. Semantics</a></li>
+<li><a href="#Expressions_Struct-Expressions_Example">5.10.3. Example</a></li>
 </ul>
 </li>
 <li><a href="#Expressions_Precedence-and-Associativity">5.11. Precedence and Associativity</a></li>
@@ -506,85 +506,109 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#Definitions">6. Definitions</a>
 <ul class="sectlevel2">
-<li><a href="#Definitions_Constant-Definitions">6.1. Constant Definitions</a>
+<li><a href="#Definitions_Abstract-Type-Definitions">6.1. Abstract Type Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Definitions_Constant-Definitions_Syntax">6.1.1. Syntax</a></li>
-<li><a href="#Definitions_Constant-Definitions_Semantics">6.1.2. Semantics</a></li>
-<li><a href="#Definitions_Constant-Definitions_Examples">6.1.3. Examples</a></li>
+<li><a href="#Definitions_Abstract-Type-Definitions_Syntax">6.1.1. Syntax</a></li>
+<li><a href="#Definitions_Abstract-Type-Definitions_Semantics">6.1.2. Semantics</a></li>
+<li><a href="#Definitions_Abstract-Type-Definitions_Examples">6.1.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Definitions_Module-Definitions">6.2. Module Definitions</a>
+<li><a href="#Definitions_Array-Definitions">6.2. Array Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Definitions_Module-Definitions_Syntax">6.2.1. Syntax</a></li>
-<li><a href="#Definitions_Module-Definitions_Semantics">6.2.2. Semantics</a></li>
-<li><a href="#Definitions_Module-Definitions_Example">6.2.3. Example</a></li>
+<li><a href="#Definitions_Array-Definitions_Syntax">6.2.1. Syntax</a></li>
+<li><a href="#Definitions_Array-Definitions_Semantics">6.2.2. Semantics</a></li>
+<li><a href="#Definitions_Array-Definitions_Examples">6.2.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Definitions_Array-Definitions">6.3. Array Definitions</a>
+<li><a href="#Definitions_Command-Definitions">6.3. Command Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Definitions_Array-Definitions_Syntax">6.3.1. Syntax</a></li>
-<li><a href="#Definitions_Array-Definitions_Semantics">6.3.2. Semantics</a></li>
-<li><a href="#Definitions_Array-Definitions_Examples">6.3.3. Examples</a></li>
+<li><a href="#Definitions_Command-Definitions_Syntax">6.3.1. Syntax</a></li>
+<li><a href="#Definitions_Command-Definitions_Semantics">6.3.2. Semantics</a></li>
+<li><a href="#Definitions_Command-Definitions_Examples">6.3.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Definitions_Enum-Definitions">6.4. Enum Definitions</a>
+<li><a href="#Definitions_Component-Definitions">6.4. Component Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Definitions_Enum-Definitions_Syntax">6.4.1. Syntax</a></li>
-<li><a href="#Definitions_Enum-Definitions_Semantics">6.4.2. Semantics</a></li>
-<li><a href="#Definitions_Enum-Definitions_Inferred-Representation-Type">6.4.3. Inferred Representation Type</a></li>
-<li><a href="#Definitions_Enum-Definitions_Explicit-Representation-Type">6.4.4. Explicit Representation Type</a></li>
-<li><a href="#Definitions_Enum-Definitions_Example">6.4.5. Example</a></li>
+<li><a href="#Definitions_Component-Definitions_Syntax">6.4.1. Syntax</a></li>
+<li><a href="#Definitions_Component-Definitions_Semantics">6.4.2. Semantics</a></li>
+<li><a href="#Definitions_Component-Definitions_Examples">6.4.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Definitions_Enumerated-Constant-Definitions">6.5. Enumerated Constant Definitions</a>
+<li><a href="#Definitions_Component-Instance-Definitions">6.5. Component Instance Definitions</a></li>
+<li><a href="#Definitions_Connection-Graph-Definitions">6.6. Connection Graph Definitions</a></li>
+<li><a href="#Definitions_Constant-Definitions">6.7. Constant Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Definitions_Enumerated-Constant-Definitions_Syntax">6.5.1. Syntax</a></li>
-<li><a href="#Definitions_Enumerated-Constant-Definitions_Semantics">6.5.2. Semantics</a></li>
-<li><a href="#Definitions_Enumerated-Constant-Definitions_Example">6.5.3. Example</a></li>
+<li><a href="#Definitions_Constant-Definitions_Syntax">6.7.1. Syntax</a></li>
+<li><a href="#Definitions_Constant-Definitions_Semantics">6.7.2. Semantics</a></li>
+<li><a href="#Definitions_Constant-Definitions_Examples">6.7.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Definitions_Struct-Definitions">6.6. Struct Definitions</a>
+<li><a href="#Definitions_Enum-Definitions">6.8. Enum Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Definitions_Struct-Definitions_Syntax">6.6.1. Syntax</a></li>
-<li><a href="#Definitions_Struct-Definitions_Semantics">6.6.2. Semantics</a></li>
-<li><a href="#Definitions_Struct-Definitions_Examples">6.6.3. Examples</a></li>
+<li><a href="#Definitions_Enum-Definitions_Syntax">6.8.1. Syntax</a></li>
+<li><a href="#Definitions_Enum-Definitions_Semantics">6.8.2. Semantics</a></li>
+<li><a href="#Definitions_Enum-Definitions_Inferred-Representation-Type">6.8.3. Inferred Representation Type</a></li>
+<li><a href="#Definitions_Enum-Definitions_Explicit-Representation-Type">6.8.4. Explicit Representation Type</a></li>
+<li><a href="#Definitions_Enum-Definitions_Example">6.8.5. Example</a></li>
 </ul>
 </li>
-<li><a href="#Definitions_Abstract-Type-Definitions">6.7. Abstract Type Definitions</a>
+<li><a href="#Definitions_Enumerated-Constant-Definitions">6.9. Enumerated Constant Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Definitions_Abstract-Type-Definitions_Syntax">6.7.1. Syntax</a></li>
-<li><a href="#Definitions_Abstract-Type-Definitions_Semantics">6.7.2. Semantics</a></li>
-<li><a href="#Definitions_Abstract-Type-Definitions_Examples">6.7.3. Examples</a></li>
+<li><a href="#Definitions_Enumerated-Constant-Definitions_Syntax">6.9.1. Syntax</a></li>
+<li><a href="#Definitions_Enumerated-Constant-Definitions_Semantics">6.9.2. Semantics</a></li>
+<li><a href="#Definitions_Enumerated-Constant-Definitions_Example">6.9.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Definitions_Port-Definitions">6.8. Port Definitions</a>
+<li><a href="#Definitions_Event-Definitions">6.10. Event Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Definitions_Port-Definitions_Syntax">6.8.1. Syntax</a></li>
-<li><a href="#Definitions_Port-Definitions_Semantics">6.8.2. Semantics</a></li>
-<li><a href="#Definitions_Port-Definitions_Examples">6.8.3. Examples</a></li>
+<li><a href="#Definitions_Event-Definitions_Syntax">6.10.1. Syntax</a></li>
+<li><a href="#Definitions_Event-Definitions_Semantics">6.10.2. Semantics</a></li>
+<li><a href="#Definitions_Event-Definitions_Examples">6.10.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Definitions_Component-Definitions">6.9. Component Definitions</a>
+<li><a href="#Definitions_Module-Definitions">6.11. Module Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Definitions_Component-Definitions_Syntax">6.9.1. Syntax</a></li>
-<li><a href="#Definitions_Component-Definitions_Semantics">6.9.2. Semantics</a></li>
-<li><a href="#Definitions_Component-Definitions_Examples">6.9.3. Examples</a></li>
+<li><a href="#Definitions_Module-Definitions_Syntax">6.11.1. Syntax</a></li>
+<li><a href="#Definitions_Module-Definitions_Semantics">6.11.2. Semantics</a></li>
+<li><a href="#Definitions_Module-Definitions_Example">6.11.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Definitions_Port-Instance-Definitions">6.10. Port Instance Definitions</a>
+<li><a href="#Definitions_Parameter-Definitions">6.12. Parameter Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Definitions_Port-Instance-Definitions_Syntax">6.10.1. Syntax</a></li>
-<li><a href="#Definitions_Port-Instance-Definitions_Semantics">6.10.2. Semantics</a></li>
-<li><a href="#Definitions_Port-Instance-Definitions_Examples">6.10.3. Examples</a></li>
+<li><a href="#Definitions_Parameter-Definitions_Syntax">6.12.1. Syntax</a></li>
+<li><a href="#Definitions_Parameter-Definitions_Semantics">6.12.2. Semantics</a></li>
+<li><a href="#Definitions_Parameter-Definitions_Examples">6.12.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Definitions_Command-Definitions">6.11. Command Definitions</a></li>
-<li><a href="#Definitions_Telemetry-Channel-Definitions">6.12. Telemetry Channel Definitions</a></li>
-<li><a href="#Definitions_Event-Definitions">6.13. Event Definitions</a></li>
-<li><a href="#Definitions_Parameter-Definitions">6.14. Parameter Definitions</a></li>
-<li><a href="#Definitions_Component-Instance-Definitions">6.15. Component Instance Definitions</a></li>
-<li><a href="#Definitions_Topology-Definitions">6.16. Topology Definitions</a></li>
-<li><a href="#Definitions_Connection-Graph-Definitions">6.17. Connection Graph Definitions</a></li>
+<li><a href="#Definitions_Port-Definitions">6.13. Port Definitions</a>
+<ul class="sectlevel3">
+<li><a href="#Definitions_Port-Definitions_Syntax">6.13.1. Syntax</a></li>
+<li><a href="#Definitions_Port-Definitions_Semantics">6.13.2. Semantics</a></li>
+<li><a href="#Definitions_Port-Definitions_Examples">6.13.3. Examples</a></li>
+</ul>
+</li>
+<li><a href="#Definitions_Port-Instance-Definitions">6.14. Port Instance Definitions</a>
+<ul class="sectlevel3">
+<li><a href="#Definitions_Port-Instance-Definitions_Syntax">6.14.1. Syntax</a></li>
+<li><a href="#Definitions_Port-Instance-Definitions_Semantics">6.14.2. Semantics</a></li>
+<li><a href="#Definitions_Port-Instance-Definitions_Examples">6.14.3. Examples</a></li>
+</ul>
+</li>
+<li><a href="#Definitions_Struct-Definitions">6.15. Struct Definitions</a>
+<ul class="sectlevel3">
+<li><a href="#Definitions_Struct-Definitions_Syntax">6.15.1. Syntax</a></li>
+<li><a href="#Definitions_Struct-Definitions_Semantics">6.15.2. Semantics</a></li>
+<li><a href="#Definitions_Struct-Definitions_Examples">6.15.3. Examples</a></li>
+</ul>
+</li>
+<li><a href="#Definitions_Telemetry-Channel-Definitions">6.16. Telemetry Channel Definitions</a>
+<ul class="sectlevel3">
+<li><a href="#Definitions_Telemetry-Channel-Definitions_Syntax">6.16.1. Syntax</a></li>
+<li><a href="#Definitions_Telemetry-Channel-Definitions_Semantics">6.16.2. Semantics</a></li>
+<li><a href="#Definitions_Telemetry-Channel-Definitions_Examples">6.16.3. Examples</a></li>
+</ul>
+</li>
+<li><a href="#Definitions_Topology-Definitions">6.17. Topology Definitions</a></li>
 </ul>
 </li>
 <li><a href="#Formal-Parameter-Lists">7. Formal Parameter Lists</a>
@@ -849,12 +873,20 @@ U16
 U32
 U64
 U8
+ACTIVITY_HI
+ACTIVITY_LO
+COMMAND
+DIAGNOSTIC
+FATAL
+WARNING_HI
+WARNING_LO
+abbrev
 active
+always
 array
 assert
 async
 at
-baseid
 block
 bool
 command
@@ -865,32 +897,43 @@ drop
 enum
 event
 false
+format
 get
 guarded
-import
+high
+id
 input
 instance
 internal
 locate
+low
 module
+opcode
+orange
 output
 param
 passive
 port
 priority
 queued
+red
 ref
 reg
 resp
+save
 set
 size
 string
 struct
 sync
 telemetry
+throttle
 time
+topology
 true
-type</code></pre>
+type
+update
+yellow</code></pre>
 </div>
 </div>
 </div>
@@ -1199,275 +1242,7 @@ It names the
 <h2 id="Expressions">5. Expressions</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="Expressions_Integer-Literals">5.1. Integer Literals</h3>
-<div class="paragraph">
-<p>An <strong>integer literal expression</strong> is one of the following:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>A sequence of decimal digits <code>0</code> through <code>9</code> denoting the decimal
-representation of a nonnegative integer.</p>
-</li>
-<li>
-<p><code>0x</code> or <code>0X</code> followed by a sequence of hexadecimal digits
-<code>0</code> through <code>9</code>, <code>A</code> through <code>F</code>, or <code>a</code> through <code>f</code> denoting the hexadecimal
-representation of a nonnegative
-integer.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>An integer literal value \$v\$ must be representable as an unsigned
-integer using most 64 bits, i.e., it must lie in the range \$0 &lt;= v &lt; 2^64\$.</p>
-</div>
-<div class="paragraph">
-<p><strong>Examples:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">1234
-0xABCD</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Expressions_Floating-Point-Literals">5.2. Floating-Point Literals</h3>
-<div class="paragraph">
-<p>A <strong>floating-point literal expression</strong> is a C-style representation of an
-IEEE floating-point number.</p>
-</div>
-<div class="paragraph">
-<p><strong>Examples:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">1e-10
-0.001
-3.14159
-6.02E23</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Expressions_Boolean-Literals">5.3. Boolean Literals</h3>
-<div class="paragraph">
-<p>A <strong>Boolean literal expression</strong> is one of the values <code>true</code> and <code>false</code>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Expressions_String-Literals">5.4. String Literals</h3>
-<div class="paragraph">
-<p>A <strong>string literal expression</strong> is a sequence of characters enclosed in double quotes.
-The characters must be printable ASCII characters, and the double
-quote character itself is not allowed.</p>
-</div>
-<div class="paragraph">
-<p><strong>Examples:</strong></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>"abc"</code> is a valid string representing the characters <code>a</code>, <code>b</code>, and <code>c</code>.</p>
-</li>
-<li>
-<p><code>"abc</code> is not a valid string, because it is missing the terminating double quote.</p>
-</li>
-<li>
-<p><code>"ab"c"</code> is the valid string <code>"ab"</code> followed by the identifier <code>c</code> and an
-unmatched double quote character.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Expressions_Identifier-Expressions">5.5. Identifier Expressions</h3>
-<div class="paragraph">
-<p>An <strong>identifier expression</strong> is an
-<a href="#Lexical-Elements_Identifiers">identifier</a>
-that refers to a
-<a href="#Definitions_Constant-Definitions">constant definition</a>
-or
-<a href="#Definitions_Enumerated-Constant-Definitions">enumerated constant definition</a>,
-according to the
-<a href="#Scoping-of-Names_Resolution-of-Identifiers">rules for resolving identifiers</a>.</p>
-</div>
-<div class="paragraph">
-<p><strong>Example:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">constant a = 42
-constant b = a # a is an identifier expression</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Expressions_Dot-Expressions">5.6. Dot Expressions</h3>
-<div class="paragraph">
-<p>A <strong>dot expression</strong> is a
-<a href="#Definitions-and-Uses_Uses">use</a>
-that refers to a
-<a href="#Definitions_Constant-Definitions">constant definition</a>
-or
-<a href="#Definitions_Constant-Definitions">enumerated constant definition</a>.</p>
-</div>
-<div class="sect3">
-<h4 id="Expressions_Dot-Expressions_Syntax">5.6.1. Syntax</h4>
-<div class="paragraph">
-<p><a href="#Expressions"><em>expression</em></a>
-<code>.</code>
-<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Expressions_Dot-Expressions_Semantics">5.6.2. Semantics</h4>
-<div class="paragraph">
-<p>The following rules give the meaning of a dot expression \$e\$<code>.x</code>:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>If \$e\$<code>.x</code> is a
-<a href="#Scoping-of-Names_Qualified-Identifiers">qualified
-identifier</a> that represents one of the uses listed above according to
-the
-<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">rules
-for resolving qualified identifiers</a>, then it evaluates to the value
-stored in the corresponding <a href="#Definitions">definition</a>.</p>
-</li>
-<li>
-<p>Otherwise \$e\$<code>.x</code> is invalid.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Expressions_Dot-Expressions_Examples">5.6.3. Examples</h4>
-<div class="sect4">
-<h5 id="Expressions_Dot-Expressions_Examples_Example-1">Example 1</h5>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module M {
-  constant a = 1
-}
-constant b = M.a # M.a evaluates to 1</code></pre>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="Expressions_Dot-Expressions_Examples_Example-2">Example 2</h5>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">enum E { X = 0, Y = 1 }
-constant a = E.X # E.X evaluates to 0</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Expressions_Array-Expressions">5.7. Array Expressions</h3>
-<div class="paragraph">
-<p>An <strong>array expression</strong> is an expression that represents an array value.</p>
-</div>
-<div class="sect3">
-<h4 id="Expressions_Array-Expressions_Syntax">5.7.1. Syntax</h4>
-<div class="paragraph">
-<p><code>[</code> <em>array-element-sequence</em> <code>]</code></p>
-</div>
-<div class="paragraph">
-<p><em>array-element-sequence</em> is an
-<a href="#Element-Sequences">element sequence</a> in which the elements
-are
-<a href="#Expressions">expressions</a>, and the terminating punctuation
-is a comma.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Expressions_Array-Expressions_Semantics">5.7.2. Semantics</h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>The sequence must have at least one element.</p>
-</li>
-<li>
-<p>The types of the expressions in the sequence must be
-<a href="#Type-Checking_Computing-a-Common-Type_Lists-of-Types">convertible to a common type</a>.</p>
-</li>
-<li>
-<p>The value of the expression is formed by computing
-the value of each element and then converting all the
-elements to the common type.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Expressions_Array-Expressions_Example">5.7.3. Example</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="tnet">constant a = [ 0, 1, 2 ] # a is an array value of with elements 0, 1, 2</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Expressions_Struct-Expressions">5.8. Struct Expressions</h3>
-<div class="paragraph">
-<p>An <strong>struct expression</strong> is an expression that represents a struct value.</p>
-</div>
-<div class="sect3">
-<h4 id="Expressions_Struct-Expressions_Syntax">5.8.1. Syntax</h4>
-<div class="paragraph">
-<p><code>{</code> <em>struct-element-sequence</em> <code>}</code></p>
-</div>
-<div class="paragraph">
-<p><em>struct-element-sequence</em> is an
-<a href="#Element-Sequences">element sequence</a> in which the elements
-are struct elements.
-A <strong>struct element</strong> has the following syntax:</p>
-</div>
-<div class="paragraph">
-<p><a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>=</code> <a href="#Expressions"><em>expression</em></a></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Expressions_Struct-Expressions_Semantics">5.8.2. Semantics</h4>
-<div class="paragraph">
-<p>The following must be true of the struct element sequence <em>S</em>:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>No two identifiers appearing in <em>S</em> may be the same.</p>
-</li>
-<li>
-<p>Each expression appearing in <em>S</em> must have a valid type.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>The expression is evaluated by evaluating each member expression
-to a value and then constructing the struct value with the
-corresponding member names and values.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Expressions_Struct-Expressions_Example">5.8.3. Example</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp"># s is a struct value with members x = 0, y = 1
-constant s = {
-  x = 0
-  y = 1
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Expressions_Arithmetic-Expressions">5.9. Arithmetic Expressions</h3>
+<h3 id="Expressions_Arithmetic-Expressions">5.1. Arithmetic Expressions</h3>
 <div class="paragraph">
 <p>FPP includes the following <strong>arithmetic expressions</strong>:</p>
 </div>
@@ -1523,14 +1298,203 @@ constant c = a * b</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Parenthesis-Expressions">5.10. Parenthesis Expressions</h3>
+<h3 id="Expressions_Array-Expressions">5.2. Array Expressions</h3>
+<div class="paragraph">
+<p>An <strong>array expression</strong> is an expression that represents an array value.</p>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Array-Expressions_Syntax">5.2.1. Syntax</h4>
+<div class="paragraph">
+<p><code>[</code> <em>array-element-sequence</em> <code>]</code></p>
+</div>
+<div class="paragraph">
+<p><em>array-element-sequence</em> is an
+<a href="#Element-Sequences">element sequence</a> in which the elements
+are
+<a href="#Expressions">expressions</a>, and the terminating punctuation
+is a comma.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Array-Expressions_Semantics">5.2.2. Semantics</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The sequence must have at least one element.</p>
+</li>
+<li>
+<p>The types of the expressions in the sequence must be
+<a href="#Type-Checking_Computing-a-Common-Type_Lists-of-Types">convertible to a common type</a>.</p>
+</li>
+<li>
+<p>The value of the expression is formed by computing
+the value of each element and then converting all the
+elements to the common type.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Array-Expressions_Example">5.2.3. Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="tnet">constant a = [ 0, 1, 2 ] # a is an array value of with elements 0, 1, 2</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Expressions_Boolean-Literals">5.3. Boolean Literals</h3>
+<div class="paragraph">
+<p>A <strong>Boolean literal expression</strong> is one of the values <code>true</code> and <code>false</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Expressions_Dot-Expressions">5.4. Dot Expressions</h3>
+<div class="paragraph">
+<p>A <strong>dot expression</strong> is a
+<a href="#Definitions-and-Uses_Uses">use</a>
+that refers to a
+<a href="#Definitions_Constant-Definitions">constant definition</a>
+or
+<a href="#Definitions_Constant-Definitions">enumerated constant definition</a>.</p>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Dot-Expressions_Syntax">5.4.1. Syntax</h4>
+<div class="paragraph">
+<p><a href="#Expressions"><em>expression</em></a>
+<code>.</code>
+<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Dot-Expressions_Semantics">5.4.2. Semantics</h4>
+<div class="paragraph">
+<p>The following rules give the meaning of a dot expression \$e\$<code>.x</code>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If \$e\$<code>.x</code> is a
+<a href="#Scoping-of-Names_Qualified-Identifiers">qualified
+identifier</a> that represents one of the uses listed above according to
+the
+<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">rules
+for resolving qualified identifiers</a>, then it evaluates to the value
+stored in the corresponding <a href="#Definitions">definition</a>.</p>
+</li>
+<li>
+<p>Otherwise \$e\$<code>.x</code> is invalid.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Dot-Expressions_Examples">5.4.3. Examples</h4>
+<div class="sect4">
+<h5 id="Expressions_Dot-Expressions_Examples_Example-1">Example 1</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+  constant a = 1
+}
+constant b = M.a # M.a evaluates to 1</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="Expressions_Dot-Expressions_Examples_Example-2">Example 2</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">enum E { X = 0, Y = 1 }
+constant a = E.X # E.X evaluates to 0</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Expressions_Floating-Point-Literals">5.5. Floating-Point Literals</h3>
+<div class="paragraph">
+<p>A <strong>floating-point literal expression</strong> is a C-style representation of an
+IEEE floating-point number.</p>
+</div>
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">1e-10
+0.001
+3.14159
+6.02E23</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Expressions_Identifier-Expressions">5.6. Identifier Expressions</h3>
+<div class="paragraph">
+<p>An <strong>identifier expression</strong> is an
+<a href="#Lexical-Elements_Identifiers">identifier</a>
+that refers to a
+<a href="#Definitions_Constant-Definitions">constant definition</a>
+or
+<a href="#Definitions_Enumerated-Constant-Definitions">enumerated constant definition</a>,
+according to the
+<a href="#Scoping-of-Names_Resolution-of-Identifiers">rules for resolving identifiers</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = 42
+constant b = a # a is an identifier expression</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Expressions_Integer-Literals">5.7. Integer Literals</h3>
+<div class="paragraph">
+<p>An <strong>integer literal expression</strong> is one of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A sequence of decimal digits <code>0</code> through <code>9</code> denoting the decimal
+representation of a nonnegative integer.</p>
+</li>
+<li>
+<p><code>0x</code> or <code>0X</code> followed by a sequence of hexadecimal digits
+<code>0</code> through <code>9</code>, <code>A</code> through <code>F</code>, or <code>a</code> through <code>f</code> denoting the hexadecimal
+representation of a nonnegative
+integer.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>An integer literal value \$v\$ must be representable as an unsigned
+integer using most 64 bits, i.e., it must lie in the range \$0 &lt;= v &lt; 2^64\$.</p>
+</div>
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">1234
+0xABCD</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Expressions_Parenthesis-Expressions">5.8. Parenthesis Expressions</h3>
 <div class="paragraph">
 <p>A <strong>parenthesis expression</strong> is an expression surrounded
 by parentheses in order to group subexpressions and to
 force evaluation order.</p>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Parenthesis-Expressions_Syntax">5.10.1. Syntax</h4>
+<h4 id="Expressions_Parenthesis-Expressions_Syntax">5.8.1. Syntax</h4>
 <div class="paragraph">
 <p><code>(</code>
 <a href="#Expressions"><em>expression</em></a>
@@ -1538,13 +1502,13 @@ force evaluation order.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Parenthesis-Expressions_Semantics">5.10.2. Semantics</h4>
+<h4 id="Expressions_Parenthesis-Expressions_Semantics">5.8.2. Semantics</h4>
 <div class="paragraph">
 <p>The type and value of the expression are the type and value of the subexpression.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Parenthesis-Expressions_Example">5.10.3. Example</h4>
+<h4 id="Expressions_Parenthesis-Expressions_Example">5.8.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">constant a = (1 + 2) * 3</code></pre>
@@ -1553,6 +1517,85 @@ force evaluation order.</p>
 <div class="paragraph">
 <p>The expression on the right-hand side of the constant definition evaluates to
 9.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Expressions_String-Literals">5.9. String Literals</h3>
+<div class="paragraph">
+<p>A <strong>string literal expression</strong> is a sequence of characters enclosed in double quotes.
+The characters must be printable ASCII characters, and the double
+quote character itself is not allowed.</p>
+</div>
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>"abc"</code> is a valid string representing the characters <code>a</code>, <code>b</code>, and <code>c</code>.</p>
+</li>
+<li>
+<p><code>"abc</code> is not a valid string, because it is missing the terminating double quote.</p>
+</li>
+<li>
+<p><code>"ab"c"</code> is the valid string <code>"ab"</code> followed by the identifier <code>c</code> and an
+unmatched double quote character.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Expressions_Struct-Expressions">5.10. Struct Expressions</h3>
+<div class="paragraph">
+<p>An <strong>struct expression</strong> is an expression that represents a struct value.</p>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Struct-Expressions_Syntax">5.10.1. Syntax</h4>
+<div class="paragraph">
+<p><code>{</code> <em>struct-element-sequence</em> <code>}</code></p>
+</div>
+<div class="paragraph">
+<p><em>struct-element-sequence</em> is an
+<a href="#Element-Sequences">element sequence</a> in which the elements
+are struct elements.
+A <strong>struct element</strong> has the following syntax:</p>
+</div>
+<div class="paragraph">
+<p><a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>=</code> <a href="#Expressions"><em>expression</em></a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Struct-Expressions_Semantics">5.10.2. Semantics</h4>
+<div class="paragraph">
+<p>The following must be true of the struct element sequence <em>S</em>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>No two identifiers appearing in <em>S</em> may be the same.</p>
+</li>
+<li>
+<p>Each expression appearing in <em>S</em> must have a valid type.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The expression is evaluated by evaluating each member expression
+to a value and then constructing the struct value with the
+corresponding member names and values.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Struct-Expressions_Example">5.10.3. Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp"># s is a struct value with members x = 0, y = 1
+constant s = {
+  x = 0
+  y = 1
+}</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -1663,14 +1706,385 @@ Constant Definitions</a></p>
 </ul>
 </div>
 <div class="sect2">
-<h3 id="Definitions_Constant-Definitions">6.1. Constant Definitions</h3>
+<h3 id="Definitions_Abstract-Type-Definitions">6.1. Abstract Type Definitions</h3>
+<div class="paragraph">
+<p>An <strong>abstract type definition</strong> associates a name with a type
+without specifying the type.
+In generated code, the type is specified externally (e.g., as a C++ class).</p>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Abstract-Type-Definitions_Syntax">6.1.1. Syntax</h4>
+<div class="paragraph">
+<p><code>type</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Abstract-Type-Definitions_Semantics">6.1.2. Semantics</h4>
+<div class="paragraph">
+<p>The identifier is the name <em>N</em> of the type.
+The definition associates the name <em>N</em> with an unspecified type <em>T'</em>.
+The name <em>N</em> can be used as a type elsewhere in the model.
+There are no explicit values associated with <em>N</em> in the model.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Abstract-Type-Definitions_Examples">6.1.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp"># Defines an abstract type A
+type A
+# Defines a struct type B whose member x has type A
+struct B {
+  x : A
+  y : F32
+} default { y = 1 }</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Definitions_Array-Definitions">6.2. Array Definitions</h3>
+<div class="paragraph">
+<p>An <strong>array definition</strong> defines a new array type and associates a name with
+it.</p>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Array-Definitions_Syntax">6.2.1. Syntax</h4>
+<div class="paragraph">
+<p><code>array</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>=</code>
+<code>[</code> <a href="#Expressions"><em>expression</em></a> <code>]</code> <a href="#Type-Names"><em>type-name</em></a>
+<em>[</em> <code>default</code> <a href="#Expressions"><em>expression</em></a> <em>]</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Array-Definitions_Semantics">6.2.2. Semantics</h4>
+<div class="paragraph">
+<p>The identifier is the name <em>N</em> of the new type.
+The first expression must evaluate to a compile-time constant numeric value
+<em>n</em> whose value is greater than zero.
+<em>type-name</em> names the type <em>T</em> of each array element.</p>
+</div>
+<div class="paragraph">
+<p>The definition associates the name <em>N</em> with a new type <em>T'</em>
+that represents an array of <em>n</em> elements of type <em>T</em>.</p>
+</div>
+<div class="paragraph">
+<p>The second expression is optional.
+If present, it specifies the <a href="#Types_Default-Values">default value</a> associated
+with the type.
+The type of the expression must be
+<a href="#Type-Checking_Type-Conversion">convertible to</a> <em>T'</em>.</p>
+</div>
+<div class="paragraph">
+<p>The type name <em>N</em> is not in scope in the body of the definition.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Array-Definitions_Examples">6.2.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp"># Defines an array type A of 3 U8 elements with default value [ 0, 0, 0 ]
+array A = [3] U8
+# Defines an array type B of 2 A elements with default value
+# [ [ 0, 0, 0 ], [ 0, 0, 0 ] ]
+array B = [3] A
+# Defines an array type C of 3 F32 elements with default value [ 1, 2, 3 ]
+array C = [3] F32 default [ 1, 2, 3 ]
+# Defines an array type C of 3 U32 values with default value
+# [ 1, 1, 1 ] after promoting 1 to [ 1, 1, 1 ]
+array D = [3] U32 default 1</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Definitions_Command-Definitions">6.3. Command Definitions</h3>
+<div class="paragraph">
+<p>A <strong>command definition</strong> defines a command as part of a
+<a href="#Definitions_Component-Definitions">component definition</a>.</p>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Command-Definitions_Syntax">6.3.1. Syntax</h4>
+<div class="paragraph">
+<p><em>command-kind</em> <code>command</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>[</em>
+<code>(</code> <a href="#Formal-Parameter-Lists"><em>param-list</em></a> <code>)</code>
+<em>]</em>
+<code>opcode</code> <a href="#Expressions"><em>expression</em></a>
+<em>[</em>
+<code>priority</code> <a href="#Expressions"><em>expression</em></a>
+<em>]</em>
+<em>[</em>
+<em>queue-full-behavior</em>
+<em>]</em></p>
+</div>
+<div class="paragraph">
+<p><em>command-kind</em> is one of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>async</code></p>
+</li>
+<li>
+<p><code>guarded</code></p>
+</li>
+<li>
+<p><code>sync</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><em>queue-full-behavior</em> is as for
+<a href="#Definitions_Port-Instance-Definitions">port instance definitions</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Command-Definitions_Semantics">6.3.2. Semantics</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>The command kind specifies the kind of the command.
+It is similar to the kind of a <a href="#Definitions_Port-Instance-Definitions">port instance definition</a>, except that different commands
+on the same port can have different kinds.
+The kind <code>async</code> is valid only if the component is active or queued.</p>
+</li>
+<li>
+<p>The identifier names the command.</p>
+</li>
+<li>
+<p>The parameter list specifies the command parameters.
+If there are no parameters, the list may be omitted.</p>
+</li>
+<li>
+<p>The expression following <code>opcode</code> specifies the command opcode.
+Its type must be convertible to <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.</p>
+</li>
+<li>
+<p>The optional expression <em>e</em> appearing after the keyword <code>priority</code> specifies
+a priority for the command on the input queue.
+The type of <em>e</em> must be <a href="#Type-Checking_Type-Conversion">convertible to</a>
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
+The priority expression is valid only if the kind of the command is <code>async</code>.</p>
+</li>
+<li>
+<p>The optional <em>queue-full-behavior</em>  specifies the behavior of the command
+when the input full is queue.
+This specifier is valid only if the kind of the command is <code>async</code>.
+If no specifier appears, then the default behavior is <code>assert</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Command-Definitions_Examples">6.3.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A sync command with no parameters
+async command SyncNoParams opcode 0x00
+
+@ An async command with no parameters
+async command AsyncNoParams opcode 0x01
+
+@ A sync command with parameters
+sync command SyncParams(
+    param1 : U32 @&lt; Param 1
+    param2 : string @&lt; Param 2
+) opcode 0x02
+
+@ An async command with parameters
+async command AsyncParams(
+    param1 : U32 @&lt; Param 1
+    param2 : string @&lt; Param 2
+) opcode 0x03
+
+@ An async command with priority
+async command AsyncPriority(
+    param1 : U32 @&lt; Param 1
+    param2 : string @&lt; Param 2
+) opcode 0x04 priority 10
+
+@ An async command with priority and drop on queue full
+async command AsyncPriorityDrop(
+    param1 : U32 @&lt; Param 1
+    param2 : string @&lt; Param 2
+) opcode 0x05 priority 10 drop</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Definitions_Component-Definitions">6.4. Component Definitions</h3>
+<div class="paragraph">
+<p>A <strong>component definition</strong> defines an F Prime component.
+A component is a unit of function in the F Prime framework.
+Component instances communicate with each other across
+<a href="#Definitions_Port-Definitions">ports</a>.</p>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Component-Definitions_Syntax">6.4.1. Syntax</h4>
+<div class="paragraph">
+<p><em>component-kind</em> <code>component</code>
+<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<code>{</code> <em>component-member-sequence</em> <code>}</code></p>
+</div>
+<div class="paragraph">
+<p><em>component-kind</em> is one of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>active</code></p>
+</li>
+<li>
+<p><code>passive</code></p>
+</li>
+<li>
+<p><code>queued</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><em>component-member-sequence</em> is an
+<a href="#Element-Sequences">element sequence</a> in
+which each element is a <strong>component member</strong>,
+and the terminating punctuation is a semicolon.
+A component member is one of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A <a href="#Definitions_Command-Definitions">command definition</a>.
+All commands defined in a component must have distinct opcodes.</p>
+</li>
+<li>
+<p>A <a href="#Definitions_Constant-Definitions">constant definition</a></p>
+</li>
+<li>
+<p>A <a href="#Definitions_Parameter-Definitions">parameter definition</a>
+All parameters defined in a component must have distinct identifier values.</p>
+</li>
+<li>
+<p>A <a href="#Definitions_Port-Instance-Definitions">port instance definition</a></p>
+</li>
+<li>
+<p>A <a href="#Definitions_Struct-Definitions">struct definition</a></p>
+</li>
+<li>
+<p>A <a href="#Definitions_Telemetry-Channel-Definitions">telemetry channel definition</a>
+All telemetry channels defined in a component must have distinct identifier values.</p>
+</li>
+<li>
+<p>An <a href="#Definitions_Array-Definitions">array definition</a></p>
+</li>
+<li>
+<p>An <a href="#Definitions_Enum-Definitions">enum definition</a></p>
+</li>
+<li>
+<p>An <a href="#Definitions_Event-Definitions">event definition</a>
+All events defined in a component must have distinct identifier values.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Component-Definitions_Semantics">6.4.2. Semantics</h4>
+<div class="paragraph">
+<p>The identifier is the name of the component.
+The definitions inside the body of the component are
+qualified with the component name, as for
+<a href="#Definitions_Module-Definitions">module definitions</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Component-Definitions_Examples">6.4.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ Receives commands from the ground or from a sequencer
+@ Dispatches commands to other components
+active component CommandDispatcher {
+
+  # ----------------------------------------------------------------------
+  # Constants
+  # ----------------------------------------------------------------------
+
+  @ The number of com command input ports
+  constant numComCmdInPorts = 10
+
+  @ The number of command output ports
+  constant numCmdOutPorts = 20
+
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
+  @ Dispatches commands
+  output port cmdOut : [numCmdOutPorts] Fw.Cmd
+
+  @ Forwards received command responses
+  output port cmdResponseInOut : [numComCmdInPorts] Fw.CmdResponse
+
+  @ Receives com packets containing serialized commands
+  async input port comCmdIn : [numComCmdInPorts] Fw.Com
+
+  @ Receives command registration requests
+  guarded input port cmdRegIn : [numCmdOutPorts] Fw.CmdReg
+
+  @ Receives command responses
+  async input port cmdResponseIn : Fw.CmdResponse
+
+  # ----------------------------------------------------------------------
+  # Commands
+  # ----------------------------------------------------------------------
+
+  @ No-op command
+  async command NO_OP opcode 0x00
+
+  @ No-op string command
+  async command NO_OP_STRING(
+      arg1 : string size 256 @&lt; The string command argument
+  ) opcode 0x01
+
+  ...
+
+  # ----------------------------------------------------------------------
+  # Events
+  # ----------------------------------------------------------------------
+
+  # TODO
+
+  # ----------------------------------------------------------------------
+  # Parameters
+  # ----------------------------------------------------------------------
+
+  # TODO
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Definitions_Component-Instance-Definitions">6.5. Component Instance Definitions</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Definitions_Connection-Graph-Definitions">6.6. Connection Graph Definitions</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Definitions_Constant-Definitions">6.7. Constant Definitions</h3>
 <div class="paragraph">
 <p>A <strong>constant definition</strong> associates a name with a compile-time constant
 value. You can use the name in place of the value elsewhere in the
 model.</p>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Constant-Definitions_Syntax">6.1.1. Syntax</h4>
+<h4 id="Definitions_Constant-Definitions_Syntax">6.7.1. Syntax</h4>
 <div class="paragraph">
 <p><code>constant</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
@@ -1679,7 +2093,7 @@ model.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Constant-Definitions_Semantics">6.1.2. Semantics</h4>
+<h4 id="Definitions_Constant-Definitions_Semantics">6.7.2. Semantics</h4>
 <div class="paragraph">
 <p><em>expression</em> must
 <a href="#Evaluation">evaluate</a>
@@ -1691,7 +2105,7 @@ rules for names</a>, you can use <em>Q</em> as a name for <em>v</em>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Constant-Definitions_Examples">6.1.3. Examples</h4>
+<h4 id="Definitions_Constant-Definitions_Examples">6.7.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">constant a = 0 # a has value 0
@@ -1702,13 +2116,241 @@ constant c = a # c has value 0</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Definitions_Module-Definitions">6.2. Module Definitions</h3>
+<h3 id="Definitions_Enum-Definitions">6.8. Enum Definitions</h3>
+<div class="paragraph">
+<p>An <strong>enum definition</strong> does two things:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>It defines a type \$T\$ and associates a name \$N\$ with \$T\$. Elsewhere
+in the model, you can use \$N\$ to refer to \$T\$.</p>
+</li>
+<li>
+<p>It associates several named constants \$C_1, ..., C_n\$ with \$T\$.
+These
+constants, called the <strong>enumerated constants</strong> of \$T\$, are the values that
+an expression of type \$T\$ may attain. Elsewhere in the model, you can
+use the <a href="#Scoping-of-Names_Qualified-Identifiers">qualified
+identifiers</a> \$N\$ <code>.</code> \$C_1, ..., N\$ <code>.</code> \$C_n\$
+to refer to the enumerated
+constants.</p>
+</li>
+</ol>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Enum-Definitions_Syntax">6.8.1. Syntax</h4>
+<div class="paragraph">
+<p><code>enum</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>[</em> <code>:</code> <a href="#Type-Names"><em>type-name</em></a> <em>]</em>
+<code>{</code> <em>enum-constant-sequence</em> <code>}</code></p>
+</div>
+<div class="paragraph">
+<p><em>enum-constant-sequence</em> is an
+<a href="#Element-Sequences">element sequence</a> in which the elements are
+<a href="#Definitions_Enumerated-Constant-Definitions">enumerated
+constant definitions</a>, and the terminating punctuation is a comma.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Enum-Definitions_Semantics">6.8.2. Semantics</h4>
+<div class="paragraph">
+<p>The enumerated constants have the <a href="#Types_Enum-Types">enum type</a> defined in the
+enum definition. During
+<a href="#Analysis-and-Translation">analysis</a>, they are represented as values of
+a primitive integer type, called the
+<strong>representation type</strong>.</p>
+</div>
+<div class="paragraph">
+<p>There must be at least one enumerated constant.
+No two enumerated constants may have the same identifier.
+Each enumerated constant must <a href="#Evaluation">evaluate</a> to
+a compile-time constant whose type is
+<a href="#Type-Checking_Type-Conversion">convertible to</a> the
+representation type.
+No two enumerated constants may have the same value after the conversion.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Enum-Definitions_Inferred-Representation-Type">6.8.3. Inferred Representation Type</h4>
+<div class="paragraph">
+<p>If <em>type-name</em> does not appear after the identifier, then
+the implied representation type is <code>I32</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Enum-Definitions_Explicit-Representation-Type">6.8.4. Explicit Representation Type</h4>
+<div class="paragraph">
+<p>If <em>type-name</em> appears after the identifier, then the semantic
+analyzer does the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Check that <em>type-name</em> names a <a href="#Types_Primitive-Integer-Types">primitive
+integer type</a> \$T\$.
+If not, throw an error.</p>
+</li>
+<li>
+<p>Use \$T\$ as the representation type.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Enum-Definitions_Example">6.8.5. Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">enum Gunfighters {
+  IL_BUONO
+  IL_BRUTTO
+  IL_CATTIVO
+}
+
+enum U8Gunfighters : U8 {
+  IL_BUONO
+  IL_BRUTTO
+  IL_CATTIVO
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here are three two definitions. In the first one, the implied
+representation type is <code>I32</code>.
+In the second one, the representation type is explicitly given as <code>U8</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Definitions_Enumerated-Constant-Definitions">6.9. Enumerated Constant Definitions</h3>
+<div class="paragraph">
+<p>An <strong>enumerated constant definition</strong> is an element of an
+<a href="#Definitions_Enum-Definitions">enum
+definition</a>. Like a
+<a href="#Definitions_Constant-Definitions">constant
+definition</a>, it associates a value with a named constant. It also
+establishes that the constant is one of the values of the type defined
+in the enum definition.</p>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Enumerated-Constant-Definitions_Syntax">6.9.1. Syntax</h4>
+<div class="paragraph">
+<p><a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>[</em>
+<code>=</code> <a href="#Expressions"><em>expression</em></a>
+<em>]</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Enumerated-Constant-Definitions_Semantics">6.9.2. Semantics</h4>
+<div class="paragraph">
+<p>If present, <em>expression</em> must
+<a href="#Evaluation">evaluate</a>
+to a compile-time constant value <em>v</em>. At any model point where the
+<a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifier</a> <em>Q</em> refers to
+the enumerated constant definition according to the
+<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">scoping
+rules for names</a>, you can use <em>Q</em> as a name for the value that results
+from converting <em>v</em> to the
+<a href="#Definitions_Enum-Definitions_Semantics">type
+of the enclosing enum definition</a>.</p>
+</div>
+<div class="paragraph">
+<p>The expression must be present or absent for all enumerated constant
+definitions appearing in an
+<a href="#Definitions_Enum-Definitions">enum definitions</a>.
+If there are no expressions, then the enumerated constant definitions
+are assigned increasing values starting with zero, as for
+enumerations in C.</p>
+</div>
+<div class="paragraph">
+<p>Note that the type of an enumerated constant value is the
+<a href="#Types_Enum-Types">enum
+type</a> defined by the enclosing enum definition. This may be
+<a href="#Type-Checking_Type-Conversion">converted
+to the representation type of the enum</a>. However, the reverse conversion
+is not allowed: you can convert an enum type to a <code>U32</code> (for example),
+but not a <code>U32</code> to an enum type. Nor can you convert one enum type to a
+different one.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Enumerated-Constant-Definitions_Example">6.9.3. Example</h4>
+<div class="paragraph">
+<p>The
+<a href="#Definitions_Enum-Definitions_Example">example
+given for enum definitions</a> includes enumerated constant definitions.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Definitions_Event-Definitions">6.10. Event Definitions</h3>
+<div class="paragraph">
+<p>An <strong>event definition</strong> defines an event report as part of a
+<a href="#Definitions_Component-Definitions">component definition</a>.</p>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Event-Definitions_Syntax">6.10.1. Syntax</h4>
+<div class="paragraph">
+<p><code>event</code> <em>severity</em> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>[</em>
+<code>(</code> <a href="#Formal-Parameter-Lists"><em>param-list</em></a> <code>)</code>
+<em>]</em>
+<code>format</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a>
+<em>[</em>
+<code>throttle</code> <a href="#Expressions"><em>expression</em></a>
+<em>]</em></p>
+</div>
+<div class="paragraph">
+<p><em>severity</em> is one of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>ACTIVITY_HI</code></p>
+</li>
+<li>
+<p><code>ACTIVITY_LO</code></p>
+</li>
+<li>
+<p><code>COMMAND</code></p>
+</li>
+<li>
+<p><code>DIAGNOSTIC</code></p>
+</li>
+<li>
+<p><code>FATAL</code></p>
+</li>
+<li>
+<p><code>WARNING_HI</code></p>
+</li>
+<li>
+<p><code>WARNING_LO</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Event-Definitions_Semantics">6.10.2. Semantics</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Event-Definitions_Examples">6.10.3. Examples</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Definitions_Module-Definitions">6.11. Module Definitions</h3>
 <div class="paragraph">
 <p>A <strong>module definition</strong> provides a named scope that encloses other
 definitions, including other module definitions.</p>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Module-Definitions_Syntax">6.2.1. Syntax</h4>
+<h4 id="Definitions_Module-Definitions_Syntax">6.11.1. Syntax</h4>
 <div class="paragraph">
 <p><code>module</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
@@ -1760,7 +2402,7 @@ A module member is one of the following:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Module-Definitions_Semantics">6.2.2. Semantics</h4>
+<h4 id="Definitions_Module-Definitions_Semantics">6.11.2. Semantics</h4>
 <div class="paragraph">
 <p>A module definition <em>D</em> qualifies the names of all the definitions
 inside it with its own name. Inside <em>D</em>, you can refer to definitions in
@@ -1776,7 +2418,7 @@ section on
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Module-Definitions_Example">6.2.3. Example</h4>
+<h4 id="Definitions_Module-Definitions_Example">6.11.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">module M {
@@ -1791,335 +2433,43 @@ constant e = a # Error: a is not in scope here</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Definitions_Array-Definitions">6.3. Array Definitions</h3>
+<h3 id="Definitions_Parameter-Definitions">6.12. Parameter Definitions</h3>
 <div class="paragraph">
-<p>An <strong>array definition</strong> defines a new array type and associates a name with
-it.</p>
+<p>A <strong>parameter definition</strong> defines a parameter as part of a
+<a href="#Definitions_Component-Definitions">component definition</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Array-Definitions_Syntax">6.3.1. Syntax</h4>
+<h4 id="Definitions_Parameter-Definitions_Syntax">6.12.1. Syntax</h4>
 <div class="paragraph">
-<p><code>array</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>=</code>
-<code>[</code> <a href="#Expressions"><em>expression</em></a> <code>]</code> <a href="#Type-Names"><em>type-name</em></a>
-<em>[</em> <code>default</code> <a href="#Expressions"><em>expression</em></a> <em>]</em></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Definitions_Array-Definitions_Semantics">6.3.2. Semantics</h4>
-<div class="paragraph">
-<p>The identifier is the name <em>N</em> of the new type.
-The first expression must evaluate to a compile-time constant numeric value
-<em>n</em> whose value is greater than zero.
-<em>type-name</em> names the type <em>T</em> of each array element.</p>
-</div>
-<div class="paragraph">
-<p>The definition associates the name <em>N</em> with a new type <em>T'</em>
-that represents an array of <em>n</em> elements of type <em>T</em>.</p>
-</div>
-<div class="paragraph">
-<p>The second expression is optional.
-If present, it specifies the <a href="#Types_Default-Values">default value</a> associated
-with the type.
-The type of the expression must be
-<a href="#Type-Checking_Type-Conversion">convertible to</a> <em>T'</em>.</p>
-</div>
-<div class="paragraph">
-<p>The type name <em>N</em> is not in scope in the body of the definition.</p>
+<p><code>param</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<code>:</code> <a href="#Type-Names"><em>type-name</em></a>
+<em>[</em> <code>default</code> <a href="#Expressions"><em>expression</em></a> <em>]</em>
+<code>id</code> <a href="#Expressions"><em>expression</em></a>
+<code>set</code> <code>opcode</code> <a href="#Expressions"><em>expression</em></a>
+<code>save</code> <code>opcode</code> <a href="#Expressions"><em>expression</em></a></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Array-Definitions_Examples">6.3.3. Examples</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp"># Defines an array type A of 3 U8 elements with default value [ 0, 0, 0 ]
-array A = [3] U8
-# Defines an array type B of 2 A elements with default value
-# [ [ 0, 0, 0 ], [ 0, 0, 0 ] ]
-array B = [3] A
-# Defines an array type C of 3 F32 elements with default value [ 1, 2, 3 ]
-array C = [3] F32 default [ 1, 2, 3 ]
-# Defines an array type C of 3 U32 values with default value
-# [ 1, 1, 1 ] after promoting 1 to [ 1, 1, 1 ]
-array D = [3] U32 default 1</code></pre>
+<h4 id="Definitions_Parameter-Definitions_Semantics">6.12.2. Semantics</h4>
+<div class="paragraph">
+<p>TODO</p>
 </div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Parameter-Definitions_Examples">6.12.3. Examples</h4>
+<div class="paragraph">
+<p>TODO</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Definitions_Enum-Definitions">6.4. Enum Definitions</h3>
-<div class="paragraph">
-<p>An <strong>enum definition</strong> does two things:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>It defines a type \$T\$ and associates a name \$N\$ with \$T\$. Elsewhere
-in the model, you can use \$N\$ to refer to \$T\$.</p>
-</li>
-<li>
-<p>It associates several named constants \$C_1, ..., C_n\$ with \$T\$.
-These
-constants, called the <strong>enumerated constants</strong> of \$T\$, are the values that
-an expression of type \$T\$ may attain. Elsewhere in the model, you can
-use the <a href="#Scoping-of-Names_Qualified-Identifiers">qualified
-identifiers</a> \$N\$ <code>.</code> \$C_1, ..., N\$ <code>.</code> \$C_n\$
-to refer to the enumerated
-constants.</p>
-</li>
-</ol>
-</div>
-<div class="sect3">
-<h4 id="Definitions_Enum-Definitions_Syntax">6.4.1. Syntax</h4>
-<div class="paragraph">
-<p><code>enum</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
-<em>[</em> <code>:</code> <a href="#Type-Names"><em>type-name</em></a> <em>]</em>
-<code>{</code> <em>enum-constant-sequence</em> <code>}</code></p>
-</div>
-<div class="paragraph">
-<p><em>enum-constant-sequence</em> is an
-<a href="#Element-Sequences">element sequence</a> in which the elements are
-<a href="#Definitions_Enumerated-Constant-Definitions">enumerated
-constant definitions</a>, and the terminating punctuation is a comma.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Definitions_Enum-Definitions_Semantics">6.4.2. Semantics</h4>
-<div class="paragraph">
-<p>The enumerated constants have the <a href="#Types_Enum-Types">enum type</a> defined in the
-enum definition. During
-<a href="#Analysis-and-Translation">analysis</a>, they are represented as values of
-a primitive integer type, called the
-<strong>representation type</strong>.</p>
-</div>
-<div class="paragraph">
-<p>There must be at least one enumerated constant.
-No two enumerated constants may have the same identifier.
-Each enumerated constant must <a href="#Evaluation">evaluate</a> to
-a compile-time constant whose type is
-<a href="#Type-Checking_Type-Conversion">convertible to</a> the
-representation type.
-No two enumerated constants may have the same value after the conversion.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Definitions_Enum-Definitions_Inferred-Representation-Type">6.4.3. Inferred Representation Type</h4>
-<div class="paragraph">
-<p>If <em>type-name</em> does not appear after the identifier, then
-the implied representation type is <code>I32</code>.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Definitions_Enum-Definitions_Explicit-Representation-Type">6.4.4. Explicit Representation Type</h4>
-<div class="paragraph">
-<p>If <em>type-name</em> appears after the identifier, then the semantic
-analyzer does the following:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Check that <em>type-name</em> names a <a href="#Types_Primitive-Integer-Types">primitive
-integer type</a> \$T\$.
-If not, throw an error.</p>
-</li>
-<li>
-<p>Use \$T\$ as the representation type.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Definitions_Enum-Definitions_Example">6.4.5. Example</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">enum Gunfighters {
-  IL_BUONO
-  IL_BRUTTO
-  IL_CATTIVO
-}
-
-enum U8Gunfighters : U8 {
-  IL_BUONO
-  IL_BRUTTO
-  IL_CATTIVO
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Here are three two definitions. In the first one, the implied
-representation type is <code>I32</code>.
-In the second one, the representation type is explicitly given as <code>U8</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Definitions_Enumerated-Constant-Definitions">6.5. Enumerated Constant Definitions</h3>
-<div class="paragraph">
-<p>An <strong>enumerated constant definition</strong> is an element of an
-<a href="#Definitions_Enum-Definitions">enum
-definition</a>. Like a
-<a href="#Definitions_Constant-Definitions">constant
-definition</a>, it associates a value with a named constant. It also
-establishes that the constant is one of the values of the type defined
-in the enum definition.</p>
-</div>
-<div class="sect3">
-<h4 id="Definitions_Enumerated-Constant-Definitions_Syntax">6.5.1. Syntax</h4>
-<div class="paragraph">
-<p><a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
-<em>[</em>
-<code>=</code> <a href="#Expressions"><em>expression</em></a>
-<em>]</em></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Definitions_Enumerated-Constant-Definitions_Semantics">6.5.2. Semantics</h4>
-<div class="paragraph">
-<p>If present, <em>expression</em> must
-<a href="#Evaluation">evaluate</a>
-to a compile-time constant value <em>v</em>. At any model point where the
-<a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifier</a> <em>Q</em> refers to
-the enumerated constant definition according to the
-<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">scoping
-rules for names</a>, you can use <em>Q</em> as a name for the value that results
-from converting <em>v</em> to the
-<a href="#Definitions_Enum-Definitions_Semantics">type
-of the enclosing enum definition</a>.</p>
-</div>
-<div class="paragraph">
-<p>The expression must be present or absent for all enumerated constant
-definitions appearing in an
-<a href="#Definitions_Enum-Definitions">enum definitions</a>.
-If there are no expressions, then the enumerated constant definitions
-are assigned increasing values starting with zero, as for
-enumerations in C.</p>
-</div>
-<div class="paragraph">
-<p>Note that the type of an enumerated constant value is the
-<a href="#Types_Enum-Types">enum
-type</a> defined by the enclosing enum definition. This may be
-<a href="#Type-Checking_Type-Conversion">converted
-to the representation type of the enum</a>. However, the reverse conversion
-is not allowed: you can convert an enum type to a <code>U32</code> (for example),
-but not a <code>U32</code> to an enum type. Nor can you convert one enum type to a
-different one.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Definitions_Enumerated-Constant-Definitions_Example">6.5.3. Example</h4>
-<div class="paragraph">
-<p>The
-<a href="#Definitions_Enum-Definitions_Example">example
-given for enum definitions</a> includes enumerated constant definitions.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Definitions_Struct-Definitions">6.6. Struct Definitions</h3>
-<div class="paragraph">
-<p>A <strong>struct definition</strong> defines a new structure type and associates a name
-with it.</p>
-</div>
-<div class="sect3">
-<h4 id="Definitions_Struct-Definitions_Syntax">6.6.1. Syntax</h4>
-<div class="paragraph">
-<p><code>struct</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
-<code>{</code> <em>struct-type-member-sequence</em> <code>}</code>
-<em>[</em> <code>default</code> <a href="#Expressions"><em>expression</em></a> <em>]</em></p>
-</div>
-<div class="paragraph">
-<p><em>struct-type-member-sequence</em> is an <a href="#Element-Sequences">element sequence</a>
-in which the elements are struct type members, and the terminating
-punctuation is a comma.
-A <strong>struct type member</strong> has the following syntax:</p>
-</div>
-<div class="paragraph">
-<p><a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>:</code> <a href="#Type-Names"><em>type-name</em></a></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Definitions_Struct-Definitions_Semantics">6.6.2. Semantics</h4>
-<div class="paragraph">
-<p>The identifier is the name <em>N</em> of the type.  The definition associates the name
-<em>N</em> with a type, <em>T'</em> representing a structure with named members, each
-of the specified type.  Each
-identifier appearing in the struct type member sequence must be distinct.</p>
-</div>
-<div class="paragraph">
-<p>The expression is optional.
-If present, it specifies the <a href="#Types_Default-Values">default value</a>
-associated with the type.
-The type of the expression must be
-<a href="#Type-Checking_Type-Conversion">convertible to</a> <em>T'</em>.</p>
-</div>
-<div class="paragraph">
-<p>The type name <em>N</em> is not in scope in the body of the definition.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Definitions_Struct-Definitions_Examples">6.6.3. Examples</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp"># Defines a struct type A with members x and y
-# and default value { x = 0, y = 0 }
-struct A {
-  x : U32
-  y : F32
-}
-# Defines a struct type B with members x and y
-# and default value { x = 0, y = 1 }
-struct B {
-  x : U32
-  y : F32
-} default { y = 1 }</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Definitions_Abstract-Type-Definitions">6.7. Abstract Type Definitions</h3>
-<div class="paragraph">
-<p>An <strong>abstract type definition</strong> associates a name with a type
-without specifying the type.
-In generated code, the type is specified externally (e.g., as a C++ class).</p>
-</div>
-<div class="sect3">
-<h4 id="Definitions_Abstract-Type-Definitions_Syntax">6.7.1. Syntax</h4>
-<div class="paragraph">
-<p><code>type</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Definitions_Abstract-Type-Definitions_Semantics">6.7.2. Semantics</h4>
-<div class="paragraph">
-<p>The identifier is the name <em>N</em> of the type.
-The definition associates the name <em>N</em> with an unspecified type <em>T'</em>.
-The name <em>N</em> can be used as a type elsewhere in the model.
-There are no explicit values associated with <em>N</em> in the model.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Definitions_Abstract-Type-Definitions_Examples">6.7.3. Examples</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp"># Defines an abstract type A
-type A
-# Defines a struct type B whose member x has type A
-struct B {
-  x : A
-  y : F32
-} default { y = 1 }</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Definitions_Port-Definitions">6.8. Port Definitions</h3>
+<h3 id="Definitions_Port-Definitions">6.13. Port Definitions</h3>
 <div class="paragraph">
 <p>An <strong>port definition</strong> defines an F Prime port.
 A port is the endpoint of a typed connection between F Prime components.</p>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Port-Definitions_Syntax">6.8.1. Syntax</h4>
+<h4 id="Definitions_Port-Definitions_Syntax">6.13.1. Syntax</h4>
 <div class="paragraph">
 <p><code>port</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
@@ -2133,7 +2483,7 @@ A port is the endpoint of a typed connection between F Prime components.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Port-Definitions_Semantics">6.8.2. Semantics</h4>
+<h4 id="Definitions_Port-Definitions_Semantics">6.13.2. Semantics</h4>
 <div class="paragraph">
 <p>The identifier is the name of the port.
 The parameter list specifies the formal parameters of the
@@ -2146,139 +2496,30 @@ when the port is invoked in a synchronous context.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Port-Definitions_Examples">6.8.3. Examples</h4>
+<h4 id="Definitions_Port-Definitions_Examples">6.13.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">port Port1(a : U32, b : F64)
-port Port2(ref a : Fw.Com)
-port Port3(a : U32) -&gt; U32</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">@ Port 1
+port Port1(
+    a : U32 @&lt; Parameter a
+    b : F64 @&lt; Parameter b
+)
+
+@ Port 2
+port Port2(
+    ref a : Fw.Com @&lt; Ref parameter a
+)
+
+@ Port 3
+port Port3(
+    a : U32 @&lt; Parameter a
+) -&gt; U32</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Definitions_Component-Definitions">6.9. Component Definitions</h3>
-<div class="paragraph">
-<p>A <strong>component definition</strong> defines an F Prime component.
-A component is a unit of function in the F Prime framework.
-Component instances communicate with each other across
-<a href="#Definitions_Port-Definitions">ports</a>.</p>
-</div>
-<div class="sect3">
-<h4 id="Definitions_Component-Definitions_Syntax">6.9.1. Syntax</h4>
-<div class="paragraph">
-<p><em>component-kind</em> <code>component</code>
-<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
-<code>{</code> <em>component-member-sequence</em> <code>}</code></p>
-</div>
-<div class="paragraph">
-<p><em>component-kind</em> is one of the following:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>active</code></p>
-</li>
-<li>
-<p><code>passive</code></p>
-</li>
-<li>
-<p><code>queued</code></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><em>component-member-sequence</em> is an
-<a href="#Element-Sequences">element sequence</a> in
-which each element is a <strong>component member</strong>,
-and the terminating punctuation is a semicolon.
-A component member is one of the following:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>A <a href="#Definitions_Command-Definitions">command definition</a></p>
-</li>
-<li>
-<p>A <a href="#Definitions_Constant-Definitions">constant definition</a></p>
-</li>
-<li>
-<p>A <a href="#Definitions_Parameter-Definitions">parameter definition</a></p>
-</li>
-<li>
-<p>A <a href="#Definitions_Port-Instance-Definitions">port instance definition</a></p>
-</li>
-<li>
-<p>A <a href="#Definitions_Struct-Definitions">struct definition</a></p>
-</li>
-<li>
-<p>A <a href="#Definitions_Telemetry-Channel-Definitions">telemetry channel definition</a></p>
-</li>
-<li>
-<p>An <a href="#Definitions_Array-Definitions">array definition</a></p>
-</li>
-<li>
-<p>An <a href="#Definitions_Enum-Definitions">enum definition</a></p>
-</li>
-<li>
-<p>An <a href="#Definitions_Event-Definitions">event definition</a></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Definitions_Component-Definitions_Semantics">6.9.2. Semantics</h4>
-<div class="paragraph">
-<p>The identifier is the name of the component.
-The definitions inside the body of the component are
-qualified with the component name, as for
-<a href="#Definitions_Module-Definitions">module definitions</a>.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Definitions_Component-Definitions_Examples">6.9.3. Examples</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">@ Receives commands from the ground or from a sequencer
-@ Dispatches commands to other components
-active component CommandDispatcher {
-
-  # ----------------------------------------------------------------------
-  # Constants
-  # ----------------------------------------------------------------------
-
-  @ The number of com command input ports
-  constant numComCmdInPorts = 10
-
-  @ The number of command output ports
-  constant numCmdOutPorts = 20
-
-  # ----------------------------------------------------------------------
-  # Ports
-  # ----------------------------------------------------------------------
-
-  @ Dispatches commands
-  output port cmdOut : [numCmdOutPorts] Fw.Cmd
-
-  @ Forwards received command responses
-  output port cmdResponseInOut : [numComCmdInPorts] Fw.CmdResponse
-
-  @ Receives com packets containing serialized commands
-  async input port comCmdIn : [numComCmdInPorts] Fw.Com
-
-  @ Receives command registration requests
-  guarded input port cmdRegIn : [numCmdOutPorts] Fw.CmdReg
-
-  @ Receives command responses
-  async input port cmdResponseIn : Fw.CmdResponse
-
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Definitions_Port-Instance-Definitions">6.10. Port Instance Definitions</h3>
+<h3 id="Definitions_Port-Instance-Definitions">6.14. Port Instance Definitions</h3>
 <div class="paragraph">
 <p>A <strong>port instance definition</strong> defines an instantiated
 <a href="#Definitions_Port-Definitions">port</a> as part
@@ -2286,7 +2527,7 @@ of a
 <a href="#Definitions_Component-Definitions">component definition</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Port-Instance-Definitions_Syntax">6.10.1. Syntax</h4>
+<h4 id="Definitions_Port-Instance-Definitions_Syntax">6.14.1. Syntax</h4>
 <div class="paragraph">
 <p>A port instance definition is one of the following:</p>
 </div>
@@ -2381,7 +2622,7 @@ of a
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Port-Instance-Definitions_Semantics">6.10.2. Semantics</h4>
+<h4 id="Definitions_Port-Instance-Definitions_Semantics">6.14.2. Semantics</h4>
 <div class="paragraph">
 <p><strong>General ports:</strong></p>
 </div>
@@ -2435,7 +2676,7 @@ The identifier specifies the name of the port.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Port-Instance-Definitions_Examples">6.10.3. Examples</h4>
+<h4 id="Definitions_Port-Instance-Definitions_Examples">6.14.3. Examples</h4>
 <div class="paragraph">
 <p><strong>General ports:</strong></p>
 </div>
@@ -2492,43 +2733,152 @@ time port timeGetOut</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Definitions_Command-Definitions">6.11. Command Definitions</h3>
+<h3 id="Definitions_Struct-Definitions">6.15. Struct Definitions</h3>
+<div class="paragraph">
+<p>A <strong>struct definition</strong> defines a new structure type and associates a name
+with it.</p>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Struct-Definitions_Syntax">6.15.1. Syntax</h4>
+<div class="paragraph">
+<p><code>struct</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<code>{</code> <em>struct-type-member-sequence</em> <code>}</code>
+<em>[</em> <code>default</code> <a href="#Expressions"><em>expression</em></a> <em>]</em></p>
+</div>
+<div class="paragraph">
+<p><em>struct-type-member-sequence</em> is an <a href="#Element-Sequences">element sequence</a>
+in which the elements are struct type members, and the terminating
+punctuation is a comma.
+A <strong>struct type member</strong> has the following syntax:</p>
+</div>
+<div class="paragraph">
+<p><a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>:</code> <a href="#Type-Names"><em>type-name</em></a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Struct-Definitions_Semantics">6.15.2. Semantics</h4>
+<div class="paragraph">
+<p>The identifier is the name <em>N</em> of the type.  The definition associates the name
+<em>N</em> with a type, <em>T'</em> representing a structure with named members, each
+of the specified type.  Each
+identifier appearing in the struct type member sequence must be distinct.</p>
+</div>
+<div class="paragraph">
+<p>The expression is optional.
+If present, it specifies the <a href="#Types_Default-Values">default value</a>
+associated with the type.
+The type of the expression must be
+<a href="#Type-Checking_Type-Conversion">convertible to</a> <em>T'</em>.</p>
+</div>
+<div class="paragraph">
+<p>The type name <em>N</em> is not in scope in the body of the definition.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Struct-Definitions_Examples">6.15.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp"># Defines a struct type A with members x and y
+# and default value { x = 0, y = 0 }
+struct A {
+  x : U32
+  y : F32
+}
+# Defines a struct type B with members x and y
+# and default value { x = 0, y = 1 }
+struct B {
+  x : U32
+  y : F32
+} default { y = 1 }</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Definitions_Telemetry-Channel-Definitions">6.16. Telemetry Channel Definitions</h3>
+<div class="paragraph">
+<p>A <strong>telemetry channel definition</strong> defines a telemetry channel as part of a
+<a href="#Definitions_Component-Definitions">component definition</a>.</p>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Telemetry-Channel-Definitions_Syntax">6.16.1. Syntax</h4>
+<div class="paragraph">
+<p><code>telemetry</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<code>:</code> <a href="#Type-Names"><em>type-name</em></a>
+<code>id</code> <a href="#Expressions"><em>expression</em></a>
+<em>[</em> <code>{</code>
+<em>telemetry-attribute-list</em>
+<code>}</code> <em>]</em></p>
+</div>
+<div class="paragraph">
+<p><em>telemetry-attribute-list</em> is an
+<a href="#Element-Sequences">element sequence</a>
+in which the elements are telemetry attributes,
+and the terminating punctuation is a comma.</p>
+</div>
+<div class="paragraph">
+<p>A <strong>telemetry attribute</strong> is one of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>update</code> <em>telemetry-update</em></p>
+</li>
+<li>
+<p><code>abbrev</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
+</li>
+<li>
+<p><code>format</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
+</li>
+<li>
+<p><code>high</code> <code>red</code> <a href="#Expressions"><em>expression</em></a></p>
+</li>
+<li>
+<p><code>high</code> <code>orange</code> <a href="#Expressions"><em>expression</em></a></p>
+</li>
+<li>
+<p><code>high</code> <code>yellow</code> <a href="#Expressions"><em>expression</em></a></p>
+</li>
+<li>
+<p><code>low</code> <code>red</code> <a href="#Expressions"><em>expression</em></a></p>
+</li>
+<li>
+<p><code>low</code> <code>orange</code> <a href="#Expressions"><em>expression</em></a></p>
+</li>
+<li>
+<p><code>low</code> <code>yellow</code> <a href="#Expressions"><em>expression</em></a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><em>telemetry-update</em> is one of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>always</code></p>
+</li>
+<li>
+<p><code>on change</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Telemetry-Channel-Definitions_Semantics">6.16.2. Semantics</h4>
 <div class="paragraph">
 <p>TODO</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="Definitions_Telemetry-Channel-Definitions">6.12. Telemetry Channel Definitions</h3>
+<div class="sect3">
+<h4 id="Definitions_Telemetry-Channel-Definitions_Examples">6.16.3. Examples</h4>
 <div class="paragraph">
 <p>TODO</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="Definitions_Event-Definitions">6.13. Event Definitions</h3>
-<div class="paragraph">
-<p>TODO</p>
-</div>
 </div>
 <div class="sect2">
-<h3 id="Definitions_Parameter-Definitions">6.14. Parameter Definitions</h3>
-<div class="paragraph">
-<p>TODO</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Definitions_Component-Instance-Definitions">6.15. Component Instance Definitions</h3>
-<div class="paragraph">
-<p>TODO</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Definitions_Topology-Definitions">6.16. Topology Definitions</h3>
-<div class="paragraph">
-<p>TODO</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Definitions_Connection-Graph-Definitions">6.17. Connection Graph Definitions</h3>
+<h3 id="Definitions_Topology-Definitions">6.17. Topology Definitions</h3>
 <div class="paragraph">
 <p>TODO</p>
 </div>
@@ -4973,7 +5323,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-11-19 16:41:31 -0800
+Last updated 2019-12-03 17:07:17 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
