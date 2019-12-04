@@ -2062,15 +2062,13 @@ active component CommandDispatcher {
       regOpcode : Opcode @&lt; The opcode to register
       regPort : U32 @&lt; The registration port
       dispatchSlot : U32 @&lt; The dispatch slot
-  ) \
-    format "Opcode {} registered to port {} slot {}"
+  ) format "Opcode {} registered to port {} slot {}"
 
   @ Opcode dispatched event
   command event OpCodeDispatched(
       dispatchOpcode : Opcode @&lt; The opcode dispatched
       dispatchPort : U32 @&lt; The dispatch port
-  ) \
-    format "Opcode {} dispatched to port {}"
+  ) format "Opcode {} dispatched to port {}"
 
   ...
 
@@ -2079,12 +2077,10 @@ active component CommandDispatcher {
   # ----------------------------------------------------------------------
 
   @ Number of commands dispatched
-  telemetry CommandsDispatched : U32 \
-    update on change
+  telemetry CommandsDispatched : U32 update on change
 
   @ Number of command errors
-  telemetry CommandErrors : U32 \
-    update on change
+  telemetry CommandErrors : U32 update on change
 
 }</code></pre>
 </div>
@@ -5628,7 +5624,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-12-04 10:49:49 -0800
+Last updated 2019-12-04 10:52:22 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
