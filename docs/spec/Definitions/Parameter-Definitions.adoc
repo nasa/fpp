@@ -67,7 +67,7 @@ plus one.
 @ Parameter 1
 param Parameter1 : U32 \
   id 0x00 \
-  set opcode 0x80
+  set opcode 0x80 \
   save opcode 0x81
 
 @ Parameter 2
