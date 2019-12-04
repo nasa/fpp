@@ -14,6 +14,16 @@ _[_
 `throttle` <<Expressions,_expression_>>
 _]_
 
+_severity_ is one of the following:
+
+* `ACTIVITY_HI`
+* `ACTIVITY_LO`
+* `COMMAND`
+* `DIAGNOSTIC`
+* `FATAL`
+* `WARNING_HI`
+* `WARNING_LO`
+
 ==== Semantics
 
 TODO

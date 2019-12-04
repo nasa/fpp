@@ -5,7 +5,12 @@ A *parameter definition* defines a parameter as part of a
 
 ==== Syntax
 
-TODO
+`param` <<Lexical-Elements_Identifiers,_identifier_>>
+`:` <<Type-Names,_type-name_>>
+_[_ `default` <<Expressions,_expression_>> _]_
+`id` <<Expressions,_expression_>>
+`set` `opcode` <<Expressions,_expression_>>
+`save` `opcode` <<Expressions,_expression_>>
 
 ==== Semantics
 

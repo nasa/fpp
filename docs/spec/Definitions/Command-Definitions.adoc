@@ -9,7 +9,7 @@ _command-kind_ `command` <<Lexical-Elements_Identifiers,_identifier_>>
 _[_
 `(` <<Formal-Parameter-Lists,_param-list_>> `)`
 _]_
-`opcode` _expression_
+`opcode` <<Expressions,_expression_>>
 _[_
 `priority` <<Expressions,_expression_>>
 _]_

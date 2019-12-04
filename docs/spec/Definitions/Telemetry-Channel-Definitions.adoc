@@ -5,7 +5,8 @@ A *telemetry channel definition* defines a telemetry channel as part of a
 
 ==== Syntax
 
-`telemetry` <<Lexical-Elements_Identifiers,_identifier_>> `:` <<Type-Names,_type-name_>>
+`telemetry` <<Lexical-Elements_Identifiers,_identifier_>>
+`:` <<Type-Names,_type-name_>>
 `id` <<Expressions,_expression_>>
 _[_ `{`
 _telemetry-attribute-list_
