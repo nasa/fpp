@@ -96,12 +96,12 @@ active component CommandDispatcher {
   # ----------------------------------------------------------------------
 
   @ No-op command
-  async command NO_OP opcode 0x00
+  async command NO_OP
 
   @ No-op string command
   async command NO_OP_STRING(
       arg1 : string size 256 @< The string command argument
-  ) opcode 0x01
+  )
 
   ...
 
@@ -115,7 +115,6 @@ active component CommandDispatcher {
       regPort : U32 @< The registration port
       dispatchSlot : U32 @< The dispatch slot
   ) \
-    id 0x00 \
     format "Opcode {} registered to port {} slot {}"
 
   @ Opcode dispatched event
@@ -123,7 +122,6 @@ active component CommandDispatcher {
       dispatchOpcode : Opcode @< The opcode dispatched
       dispatchPort : U32 @< The dispatch port
   ) \
-    id 0x01 \
     format "Opcode {} dispatched to port {}"
 
   ...
@@ -134,12 +132,10 @@ active component CommandDispatcher {
 
   @ Number of commands dispatched
   telemetry CommandsDispatched : U32 \
-    id 0x00 \
     update on change
 
   @ Number of command errors
   telemetry CommandErrors : U32 \
-    id 0x01 \
     update on change
 
 }

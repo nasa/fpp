@@ -7,15 +7,74 @@ A *parameter definition* defines a parameter as part of a
 
 `param` <<Lexical-Elements_Identifiers,_identifier_>>
 `:` <<Type-Names,_type-name_>>
-_[_ `default` <<Expressions,_expression_>> _]_
+_[_
+`default` <<Expressions,_expression_>>
+_]_
+_[_
 `id` <<Expressions,_expression_>>
+_]_
+_[_
 `set` `opcode` <<Expressions,_expression_>>
+_]_
+_[_
 `save` `opcode` <<Expressions,_expression_>>
+_]_
 
 ==== Semantics
 
-TODO
+* The identifier names the parameter.
+
+* The type name specifies the type _T_ of the parameter.
+
+* The optional expression _e_ following the keyword `default`
+specifies a default value for the parameter.
+If _e_ is present, then the type of _e_ must be 
+<<Type-Checking_Type-Conversion,convertible to>> _T_.
+If _e_ is not present, then the default value is the
+<<Types_Default-Values,default value associated with _T_>>.
+
+* The optional expression _e_ after the keyword `id` specifies the channel
+identifier.
+If _e_ is present, then the type of _e_ must be 
+<<Type-Checking_Type-Conversion,convertible to>>
+<<Types_Internal-Types_Integer,_Integer_>>.
+If _e_ is not present, then the
+default identifier is either zero (for the first parameter appearing in a
+component) or the previous parameter identifier plus one.
+
+* The optional expression _e_ after the keywords `set` `opcode` specifies the
+opcode of the command for setting the parameter.
+If _e_ is present, then type of _e_ must be 
+<<Type-Checking_Type-Conversion,convertible to>>
+<<Types_Internal-Types_Integer,_Integer_>>.
+If _e_ is not present, then the default value is either zero (for
+the first command appearing in a component) or the previous opcode
+plus one.
+
+* The optional expression _e_ after the keywords `saving` `opcode` specifies 
+* the
+opcode of the command for saving the parameter.
+If _e_ is present, then the type of _e_ must be 
+<<Type-Checking_Type-Conversion,convertible to>>
+<<Types_Internal-Types_Integer,_Integer_>>.
+If _e_ is not present, then the default value is either zero (for
+the first command appearing in a component) or the previous opcode
+plus one.
 
 ==== Examples
 
-TODO
+[source,fpp]
+----
+@ Parameter 1
+param Parameter1 : U32 \
+  id 0x00 \
+  set opcode 0x80
+  save opcode 0x81
+
+@ Parameter 2
+param Parameter2 : F64 \
+  id 0x00 \
+  default 1.0 \
+  set opcode 0x82 \
+  save opcode 0x83
+----

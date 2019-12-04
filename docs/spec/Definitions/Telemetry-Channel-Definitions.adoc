@@ -7,7 +7,9 @@ A *telemetry channel definition* defines a telemetry channel as part of a
 
 `telemetry` <<Lexical-Elements_Identifiers,_identifier_>>
 `:` <<Type-Names,_type-name_>>
+_[_ 
 `id` <<Expressions,_expression_>>
+_]_
 _[_ 
 `update` _telemetry-update_
 _]_
@@ -45,10 +47,13 @@ A telemetry limit is one of the following:
 
 . The type name specifies the type of the telemetry channel.
 
-. The expression _e_ after the keyword `id` specifies the channel
-identifier.
-The type of _e_ must be <<Type-Checking_Type-Conversion,convertible to>>
+. The optional expression _e_ after the keyword `id` specifies the channel
+identifier.  If _e_ is present, then the type of _e_ must be
+<<Type-Checking_Type-Conversion,convertible to>>
 <<Types_Internal-Types_Integer,_Integer_>>.
+If _e_ is not present, then the
+default identifier is either zero (for the first channel appearing in a
+component) or the previous channel identifier plus one.
 
 . The optional update specifier specifies whether the telemetry channel
 is emitted always or on change.

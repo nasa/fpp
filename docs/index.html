@@ -1810,7 +1810,9 @@ array D = [3] U32 default 1</code></pre>
 <em>[</em>
 <code>(</code> <a href="#Formal-Parameter-Lists"><em>param-list</em></a> <code>)</code>
 <em>]</em>
+<em>[</em>
 <code>opcode</code> <a href="#Expressions"><em>expression</em></a>
+<em>]</em>
 <em>[</em>
 <code>priority</code> <a href="#Expressions"><em>expression</em></a>
 <em>]</em>
@@ -1858,8 +1860,11 @@ If there are no parameters, the list may be omitted.
 <code>ref</code> may not appear in any of the parameters.</p>
 </li>
 <li>
-<p>The expression following <code>opcode</code> specifies the command opcode.
-Its type must be convertible to <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.</p>
+<p>The optional expression <em>e</em> following <code>opcode</code> specifies the command opcode.
+If <em>e</em> is present, its type must be convertible to
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
+If <em>e</em> is not present, then the default opcode is either zero (for the first
+opcode appearing in a component) or the previous opcode plus one.</p>
 </li>
 <li>
 <p>The optional expression <em>e</em> appearing after the keyword <code>priority</code> specifies
@@ -2039,12 +2044,12 @@ active component CommandDispatcher {
   # ----------------------------------------------------------------------
 
   @ No-op command
-  async command NO_OP opcode 0x00
+  async command NO_OP
 
   @ No-op string command
   async command NO_OP_STRING(
       arg1 : string size 256 @&lt; The string command argument
-  ) opcode 0x01
+  )
 
   ...
 
@@ -2058,7 +2063,6 @@ active component CommandDispatcher {
       regPort : U32 @&lt; The registration port
       dispatchSlot : U32 @&lt; The dispatch slot
   ) \
-    id 0x00 \
     format "Opcode {} registered to port {} slot {}"
 
   @ Opcode dispatched event
@@ -2066,7 +2070,6 @@ active component CommandDispatcher {
       dispatchOpcode : Opcode @&lt; The opcode dispatched
       dispatchPort : U32 @&lt; The dispatch port
   ) \
-    id 0x01 \
     format "Opcode {} dispatched to port {}"
 
   ...
@@ -2077,12 +2080,10 @@ active component CommandDispatcher {
 
   @ Number of commands dispatched
   telemetry CommandsDispatched : U32 \
-    id 0x00 \
     update on change
 
   @ Number of command errors
   telemetry CommandErrors : U32 \
-    id 0x01 \
     update on change
 
 }</code></pre>
@@ -2322,8 +2323,12 @@ given for enum definitions</a> includes enumerated constant definitions.</p>
 <em>[</em>
 <code>(</code> <a href="#Formal-Parameter-Lists"><em>param-list</em></a> <code>)</code>
 <em>]</em>
+<em>[</em>
 <code>id</code> <a href="#Expressions"><em>expression</em></a>
+<em>]</em>
+<em>[</em>
 <code>format</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a>
+<em>]</em>
 <em>[</em>
 <code>throttle</code> <a href="#Expressions"><em>expression</em></a>
 <em>]</em></p>
@@ -2373,16 +2378,21 @@ If there are no parameters, the list may be omitted.
 <code>ref</code> may not appear in any of the parameters.</p>
 </li>
 <li>
-<p>The expression <em>e</em> following <code>id</code> specifies the event identifier.
-The type of <em>e</em> must be convertible to
-<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.</p>
+<p>The optional expression <em>e</em> following <code>id</code> specifies the event identifier.
+If <em>e</em> is present, then type of <em>e</em> must be convertible to
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
+If <em>e</em> is not present, then the default identifier is either zero (for the
+first
+event appearing in a component) or the previous event identifier plus one.</p>
 </li>
 <li>
-<p>The string following <code>format</code> is a
+<p>The optional string following <code>format</code> is a
 <a href="#Format-Strings">format string</a> that formats the event
 for display on the ground.
 The arguments to the format string are the values bound to
-the event parameters.</p>
+the event parameters.
+If there is no format string, then the event is displayed in a
+standard way as a list of argument values.</p>
 </li>
 <li>
 <p>The expression <em>e</em> following <code>throttle</code> specifies the maximum number
@@ -2527,22 +2537,91 @@ constant e = a # Error: a is not in scope here</code></pre>
 <div class="paragraph">
 <p><code>param</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <code>:</code> <a href="#Type-Names"><em>type-name</em></a>
-<em>[</em> <code>default</code> <a href="#Expressions"><em>expression</em></a> <em>]</em>
+<em>[</em>
+<code>default</code> <a href="#Expressions"><em>expression</em></a>
+<em>]</em>
+<em>[</em>
 <code>id</code> <a href="#Expressions"><em>expression</em></a>
+<em>]</em>
+<em>[</em>
 <code>set</code> <code>opcode</code> <a href="#Expressions"><em>expression</em></a>
-<code>save</code> <code>opcode</code> <a href="#Expressions"><em>expression</em></a></p>
+<em>]</em>
+<em>[</em>
+<code>save</code> <code>opcode</code> <a href="#Expressions"><em>expression</em></a>
+<em>]</em></p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="Definitions_Parameter-Definitions_Semantics">6.12.2. Semantics</h4>
-<div class="paragraph">
-<p>TODO</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The identifier names the parameter.</p>
+</li>
+<li>
+<p>The type name specifies the type <em>T</em> of the parameter.</p>
+</li>
+<li>
+<p>The optional expression <em>e</em> following the keyword <code>default</code>
+specifies a default value for the parameter.
+If <em>e</em> is present, then the type of <em>e</em> must be
+<a href="#Type-Checking_Type-Conversion">convertible to</a> <em>T</em>.
+If <em>e</em> is not present, then the default value is the
+<a href="#Types_Default-Values">default value associated with <em>T</em></a>.</p>
+</li>
+<li>
+<p>The optional expression <em>e</em> after the keyword <code>id</code> specifies the channel
+identifier.
+If <em>e</em> is present, then the type of <em>e</em> must be
+<a href="#Type-Checking_Type-Conversion">convertible to</a>
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
+If <em>e</em> is not present, then the
+default identifier is either zero (for the first parameter appearing in a
+component) or the previous parameter identifier plus one.</p>
+</li>
+<li>
+<p>The optional expression <em>e</em> after the keywords <code>set</code> <code>opcode</code> specifies the
+opcode of the command for setting the parameter.
+If <em>e</em> is present, then type of <em>e</em> must be
+<a href="#Type-Checking_Type-Conversion">convertible to</a>
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
+If <em>e</em> is not present, then the default value is either zero (for
+the first command appearing in a component) or the previous opcode
+plus one.</p>
+</li>
+<li>
+<p>The optional expression <em>e</em> after the keywords <code>saving</code> <code>opcode</code> specifies</p>
+</li>
+<li>
+<p>the
+opcode of the command for saving the parameter.
+If <em>e</em> is present, then the type of <em>e</em> must be
+<a href="#Type-Checking_Type-Conversion">convertible to</a>
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
+If <em>e</em> is not present, then the default value is either zero (for
+the first command appearing in a component) or the previous opcode
+plus one.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect3">
 <h4 id="Definitions_Parameter-Definitions_Examples">6.12.3. Examples</h4>
-<div class="paragraph">
-<p>TODO</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ Parameter 1
+param Parameter1 : U32 \
+  id 0x00 \
+  set opcode 0x80
+  save opcode 0x81
+
+@ Parameter 2
+param Parameter2 : F64 \
+  id 0x00 \
+  default 1.0 \
+  set opcode 0x82 \
+  save opcode 0x83</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -2889,7 +2968,9 @@ struct B {
 <div class="paragraph">
 <p><code>telemetry</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <code>:</code> <a href="#Type-Names"><em>type-name</em></a>
+<em>[</em>
 <code>id</code> <a href="#Expressions"><em>expression</em></a>
+<em>]</em>
 <em>[</em>
 <code>update</code> <em>telemetry-update</em>
 <em>]</em>
@@ -2948,10 +3029,13 @@ A telemetry limit is one of the following:</p>
 <p>The type name specifies the type of the telemetry channel.</p>
 </li>
 <li>
-<p>The expression <em>e</em> after the keyword <code>id</code> specifies the channel
-identifier.
-The type of <em>e</em> must be <a href="#Type-Checking_Type-Conversion">convertible to</a>
-<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.</p>
+<p>The optional expression <em>e</em> after the keyword <code>id</code> specifies the channel
+identifier.  If <em>e</em> is present, then the type of <em>e</em> must be
+<a href="#Type-Checking_Type-Conversion">convertible to</a>
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
+If <em>e</em> is not present, then the
+default identifier is either zero (for the first channel appearing in a
+component) or the previous channel identifier plus one.</p>
 </li>
 <li>
 <p>The optional update specifier specifies whether the telemetry channel
@@ -5547,7 +5631,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-12-04 10:20:15 -0800
+Last updated 2019-12-04 10:48:18 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

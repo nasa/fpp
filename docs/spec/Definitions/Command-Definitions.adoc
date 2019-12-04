@@ -9,7 +9,9 @@ _command-kind_ `command` <<Lexical-Elements_Identifiers,_identifier_>>
 _[_
 `(` <<Formal-Parameter-Lists,_param-list_>> `)`
 _]_
+_[_
 `opcode` <<Expressions,_expression_>>
+_]_
 _[_
 `priority` <<Expressions,_expression_>>
 _]_
@@ -42,8 +44,11 @@ The kind `async` is valid only if the component is active or queued.
 If there are no parameters, the list may be omitted.
 `ref` may not appear in any of the parameters.
 
-* The expression following `opcode` specifies the command opcode.
-Its type must be convertible to <<Types_Internal-Types_Integer,_Integer_>>.
+* The optional expression _e_ following `opcode` specifies the command opcode.
+If _e_ is present, its type must be convertible to 
+<<Types_Internal-Types_Integer,_Integer_>>.
+If _e_ is not present, then the default opcode is either zero (for the first
+opcode appearing in a component) or the previous opcode plus one.
 
 * The optional expression _e_ appearing after the keyword `priority` specifies 
 a priority for the command on the input queue.
