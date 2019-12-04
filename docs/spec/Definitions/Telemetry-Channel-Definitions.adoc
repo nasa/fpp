@@ -15,7 +15,7 @@ _telemetry-attribute-list_
 _telemetry-attribute-list_ is an
 <<Element-Sequences,element sequence>>
 in which the elements are telemetry attributes,
-and the terminating punctuation is a comma.
+and the terminating punctuation is a semicolon.
 
 A *telemetry attribute* is one of the following:
 
