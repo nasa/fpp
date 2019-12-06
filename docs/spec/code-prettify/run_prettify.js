@@ -428,6 +428,7 @@ var IN_GLOBAL_SCOPE = false;
           "guarded," +
           "high," +
           "id," +
+          "include," +
           "input," +
           "instance," +
           "internal," +

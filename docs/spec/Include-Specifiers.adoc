@@ -1,0 +1,76 @@
+== Include Specifiers
+
+An *include specifier* specifies that a file
+should be included in a
+<<Translation-Units-and-Models_Translation-Units,translation unit>>.
+
+=== Syntax
+
+`include` <<Expressions_String-Literals,_string-literal_>>
+
+=== Semantics
+
+The string literal specifies a file path relative to the
+<<Translation-Units-and-Models_The-Location-of-a-Translation-Unit,
+location>> of the enclosing translation unit.
+
+During parsing, the translator does the following:
+
+. Resolve the path to an absolute file name.
+
+. Parse the file and include its parsed elements as if they appeared
+in the enclosing translation unit at the point where the include
+specifier appears.
+
+=== Examples
+
+*Example 1.*
+
+File `a.fpp` contains the following:
+
+[source,fpp]
+----
+constant a = 1
+----
+
+File `b.fpp` contains the following:
+
+[source,fpp]
+----
+include "a.fpp"
+constant b = a
+----
+
+File `b.fpp` is translated identically to this translation unit:
+
+[source,fpp]
+----
+constant a = 1
+constant b = a
+----
+
+*Example 2.*
+
+File `a.fpp` contains the following:
+
+[source,fpp]
+----
+constant a = 1
+----
+
+File `b.fpp` contains the following:
+
+[source,fpp]
+----
+module M { include "a.fpp" }
+b = M.a
+----
+
+File `b.fpp` is translated identically to this translation unit:
+
+[source,fpp]
+----
+module M { constant a = 1 }
+b = M.a
+----
+
