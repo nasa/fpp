@@ -42,8 +42,8 @@ stem:[[-2^(w-1), 2^(w-1)-1\]]. For example, `I8` represents the integers
 stem:[[-128, 127\]].
 
 We represent a primitive integer value as an expression followed by a colon and a type.
-For example, we write the value 1 at type `U32` as `1 : U32`. The value `1 :
-U32` is distinct from the value `1 : U8`.
+For example, we write the value 1 at type `U32` as `1: U32`. The value `1:
+U32` is distinct from the value `1: U8`.
 
 === Integer Values
 
@@ -63,7 +63,7 @@ over the types `F32` and `F64` of the values represented by each type:
 * The type `F64` represents all IEEE 8-byte floating-point values.
 
 We write a floating-point values analogously to primitive integer values. For 
-example, we write the value 1.0 at type `F32` as `1.0 : F32`.
+example, we write the value 1.0 at type `F32` as `1.0: F32`.
 
 === Boolean Values
 

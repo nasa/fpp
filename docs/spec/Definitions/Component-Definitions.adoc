@@ -47,6 +47,8 @@ All telemetry channels defined in a component must have distinct identifier valu
 * An <<Definitions_Event-Definitions,event definition>>.
 All events defined in a component must have distinct identifier values.
 
+* An <<Definitions_Internal-Port-Definitions,internal port definition>>
+
 ==== Semantics
 
 The identifier is the name of the component.
@@ -73,23 +75,48 @@ active component CommandDispatcher {
   constant numCmdOutPorts = 20
 
   # ----------------------------------------------------------------------
-  # Ports 
+  # General ports 
   # ----------------------------------------------------------------------
 
   @ Dispatches commands
-  output port cmdOut : [numCmdOutPorts] Fw.Cmd
+  output port cmdOut: [numCmdOutPorts] Fw.Cmd
 
   @ Forwards received command responses
-  output port cmdResponseInOut : [numComCmdInPorts] Fw.CmdResponse
+  output port cmdResponseInOut: [numComCmdInPorts] Fw.CmdResponse
 
   @ Receives com packets containing serialized commands
-  async input port comCmdIn : [numComCmdInPorts] Fw.Com
+  async input port comCmdIn: [numComCmdInPorts] Fw.Com
   
   @ Receives command registration requests
-  guarded input port cmdRegIn : [numCmdOutPorts] Fw.CmdReg
+  guarded input port cmdRegIn: [numCmdOutPorts] Fw.CmdReg
 
   @ Receives command responses
-  async input port cmdResponseIn : Fw.CmdResponse
+  async input port cmdResponseIn: Fw.CmdResponse
+
+  # ----------------------------------------------------------------------
+  # Special ports 
+  # ----------------------------------------------------------------------
+
+  @ Command receive port
+  command recv port cmdIn
+
+  @ Command registration port
+  command reg port cmdRegOut
+
+  @ Command response port
+  command resp cmdResponseOut
+
+  @ Event port
+  event port eventOut
+
+  @ Telemetry port
+  telemetry port tlmOut
+
+  @ Text event port
+  text event port textEventOut
+
+  @ Time get port
+  time get port timeGetOut
 
   # ----------------------------------------------------------------------
   # Commands 
@@ -100,7 +127,7 @@ active component CommandDispatcher {
 
   @ No-op string command
   async command NO_OP_STRING(
-      arg1 : string size 256 @< The string command argument
+      arg1: string size 256 @< The string command argument
   )
 
   ...
@@ -111,15 +138,15 @@ active component CommandDispatcher {
 
   @ Opcode registered event
   diagnostic event OpCodeRegistered(
-      regOpcode : Opcode @< The opcode to register
-      regPort : U32 @< The registration port
-      dispatchSlot : U32 @< The dispatch slot
+      regOpcode: Opcode @< The opcode to register
+      regPort: U32 @< The registration port
+      dispatchSlot: U32 @< The dispatch slot
   ) format "Opcode {} registered to port {} slot {}"
 
   @ Opcode dispatched event
   command event OpCodeDispatched(
-      dispatchOpcode : Opcode @< The opcode dispatched
-      dispatchPort : U32 @< The dispatch port
+      dispatchOpcode: Opcode @< The opcode dispatched
+      dispatchPort: U32 @< The dispatch port
   ) format "Opcode {} dispatched to port {}"
 
   ...
@@ -129,10 +156,10 @@ active component CommandDispatcher {
   # ---------------------------------------------------------------------- 
 
   @ Number of commands dispatched
-  telemetry CommandsDispatched : U32 update on change
+  telemetry CommandsDispatched: U32 update on change
 
   @ Number of command errors
-  telemetry CommandErrors : U32 update on change
+  telemetry CommandErrors: U32 update on change
 
 }
 ----

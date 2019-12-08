@@ -123,7 +123,7 @@ different name groups. For example:
 
 [source,fpp]
 ----
-struct s { x : U32 } # Defines s in the type name group
+struct s { x: U32 } # Defines s in the type name group
 constant s = 0 # Defines s in the value name group
 ----
 

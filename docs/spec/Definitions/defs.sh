@@ -18,6 +18,7 @@ Constant-Definitions.adoc
 Enum-Definitions.adoc
 Enumerated-Constant-Definitions.adoc
 Event-Definitions.adoc
+Internal-Port-Definitions.adoc
 Module-Definitions.adoc
 Parameter-Definitions.adoc
 Port-Definitions.adoc

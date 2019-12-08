@@ -28,26 +28,26 @@ stem:[T_2] is
 narrower than stem:[T_1], then construct stem:[v_2] by truncating the 
 unsigned
 binary representation of stem:[v_1] to the width of stem:[v_2]. For 
-example, converting `0x1234 : U16` to `U8` yields `0x34 : U8`.
+example, converting `0x1234: U16` to `U8` yields `0x34: U8`.
 
 . Otherwise if stem:[T_1] and stem:[T_2] are both unsigned primitive integer 
 types, then
 stem:[v_2] is the integer value of stem:[v_1] at the type of 
 stem:[v_2]. For example,
-converting `0x12 : U8` to `U16` yields `0x12 : U16`.
+converting `0x12: U8` to `U16` yields `0x12: U16`.
 
 ==== Signed Primitive Integer Values
 
 . If stem:[T_1] and stem:[T_2] are both signed primitive integer types and
 stem:[T_2] is narrower than stem:[T_1], then construct stem:[v_2] by truncating
 the two's complement binary representation of stem:[v_1] to the width of
-stem:[v_2]. For example, converting `-0x1234 : I16` to `I8` yields `-0x34 :
+stem:[v_2]. For example, converting `-0x1234: I16` to `I8` yields `-0x34:
 I8`.
 
 . Otherwise if stem:[T_1] and stem:[T_2] are both signed primitive integer 
 types, then stem:[v_2]
 is the integer value of stem:[v_1] at the type of stem:[v_2]. For 
-example, converting `-0x12 : I8` to `I16` yields `-0x12 : I16`.
+example, converting `-0x12: I8` to `I16` yields `-0x12: I16`.
 
 ==== Primitive Integer Values of Mixed Sign
 
@@ -63,19 +63,19 @@ stem:[T] has the same width as stem:[T_2].
 
 . Construct stem:[v_2] by converting stem:[v] to stem:[T_2].
 
-For example converting `-1 : I8` to `U16` yields `0xFFFF : U16`
+For example converting `-1: I8` to `U16` yields `0xFFFF: U16`
 
 ==== Primitive and Non-Primitive Integer Values
 
 If stem:[T_1] is _Integer_ and stem:[T_2] is a primitive integer type, then
 proceed as if stem:[T_1] were a signed primitive integer
 type of the narrowest bit width that will hold stem:[v_1].
-For example, converting `-0x1234` to `I8` yields `-0x34 : I8`.
+For example, converting `-0x1234` to `I8` yields `-0x34: I8`.
 
 If stem:[T_1] is a primitive integer type and stem:[T_2] is
 _Integer_, then stem:[v_2] is the integer value of stem:[v_1]
 at type _Integer_. For example, converting
-`0xFFFF : U32` to _Integer_ yields `0xFFFF`.
+`0xFFFF: U32` to _Integer_ yields `0xFFFF`.
 
 ==== Floating-Point Values
 

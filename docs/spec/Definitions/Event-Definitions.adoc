@@ -75,7 +75,7 @@ activity low event Event0  id 0x00  format "Event 0 occurred"
 @ Event 1
 @ Sample output: "Event 1 occurred with argument 42"
 activity high event Event1(
-  arg1 : U32 @< Argument 1
+  arg1: U32 @< Argument 1
 ) \
   id 0x01 \
   format "Event 1 occurred with argument {}"
@@ -83,10 +83,10 @@ activity high event Event1(
 @ Event 2
 @ Sample output: "Saw value [ 0.001, 0.002, 0.003 ] for case A"
 warning low event Event2(
-  case : Case @< The case
-  value : F64x3 @< The value
+  case: Case @< The case
+  value: F64x3 @< The value
 ) \
   id 0x02 \
-  format "Saw value {.03} for case {}" \
+  format "Saw value {.03f} for case {}" \
   throttle 10
 ----

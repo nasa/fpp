@@ -86,11 +86,11 @@ module M {
 ----
 module M {
   struct S {
-    x : U32
-    y : F32
+    x: U32
+    y: F32
   }
   struct T {
-    s : S # S is a qualified identifier type name. It names the type M.S.
+    s: S # S is a qualified identifier type name. It names the type M.S.
   }
 }
 ----

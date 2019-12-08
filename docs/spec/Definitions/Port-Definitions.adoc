@@ -32,17 +32,17 @@ when the port is invoked in a synchronous context.
 ----
 @ Port 1
 port Port1(
-    a : U32 @< Parameter a
-    b : F64 @< Parameter b
+    a: U32 @< Parameter a
+    b: F64 @< Parameter b
 )
 
 @ Port 2
 port Port2(
-    ref a : Fw.Com @< Ref parameter a
+    ref a: Fw.Com @< Ref parameter a
 )
 
 @ Port 3
 port Port3(
-    a : U32 @< Parameter a
+    a: U32 @< Parameter a
 ) -> U32
 ----

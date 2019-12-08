@@ -428,6 +428,7 @@ var IN_GLOBAL_SCOPE = false;
           "guarded," +
           "high," +
           "id," +
+          "include," +
           "input," +
           "instance," +
           "internal," +
@@ -443,17 +444,20 @@ var IN_GLOBAL_SCOPE = false;
           "port," +
           "priority," +
           "queued," +
+          "recv," +
           "red," +
           "ref," +
           "reg," +
           "resp," +
           "save," +
+          "serial," +
           "set," +
           "size," +
           "string," +
           "struct," +
           "sync," +
           "telemetry," +
+          "text," +
           "throttle," +
           "time," +
           "topology," +

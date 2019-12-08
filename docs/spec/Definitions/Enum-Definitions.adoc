@@ -67,7 +67,7 @@ enum Gunfighters {
   IL_CATTIVO
 }
 
-enum U8Gunfighters : U8 {
+enum U8Gunfighters: U8 {
   IL_BUONO
   IL_BRUTTO
   IL_CATTIVO

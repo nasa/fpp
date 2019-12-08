@@ -65,13 +65,13 @@ plus one.
 [source,fpp]
 ----
 @ Parameter 1
-param Parameter1 : U32 \
+param Parameter1: U32 \
   id 0x00 \
   set opcode 0x80 \
   save opcode 0x81
 
 @ Parameter 2
-param Parameter2 : F64 \
+param Parameter2: F64 \
   id 0x00 \
   default 1.0 \
   set opcode 0x82 \

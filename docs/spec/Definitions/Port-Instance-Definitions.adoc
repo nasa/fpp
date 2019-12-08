@@ -13,7 +13,7 @@ A port instance definition is one of the following:
 _[_
 `[` <<Expressions,_expression_>> `]`
 _]_
-<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
+_port-instance-type_
 _[_
 `priority` <<Expressions,_expression_>>
 _]_
@@ -29,11 +29,15 @@ _general-port-kind_ is one of the following:
 
 * `guarded` `input`
 
-* `internal` `input`
-
 * `output`
 
 * `sync` `input`
+
+_port-instance-type_ is one of the following:
+
+* <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
+
+* `serial`
 
 _queue-full-behavior_ is one of the following:
 
@@ -45,7 +49,7 @@ _queue-full-behavior_ is one of the following:
 
 _special-port-kind_ is one of the following:
 
-* `command`
+* `command` `recv`
 
 * `command` `reg`
 
@@ -59,42 +63,51 @@ _special-port-kind_ is one of the following:
 
 * `telemetry`
 
-* `time`
+* `text` `event`
+
+* `time` `get`
 
 ==== Semantics
 
 *General ports:*
 
-* The kind specifies the kind of the port.
-`internal input` corresponds to the internal interface of the
-current F Prime implementation.
+. The kind specifies the kind of the port.
 
-* The identifier specifies the name of the port.
+. The identifier specifies the name of the port.
 
-* The optional expression _e_ enclosed in brackets specifies the
+. The optional expression _e_ enclosed in brackets specifies the
 number of ports in the port array.
 If no such expression appears, the default value is 1.
 The type of _e_ must be <<Type-Checking_Type-Conversion,convertible to>>
 <<Types_Internal-Types_Integer,_Integer_>>.
 
-* The qualified identifier must 
-<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer>> to a
-<<Definitions_Port-Definitions,port definition>>.
-If the kind is `async input` or `internal input`, then
-the port definition may not have any `ref` parameters and may not specify a 
-return type.
+. _port-instance-type_ specifies the type of the port instance.
 
-* The optional expression _e_ appearing after the keyword
+.. If the type is a qualified identifier _q_, then _q_ must
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer>> to a
+<<Definitions_Port-Definitions,port definition _D_>>.
+If the kind is `async input`, then _D_
+may not have any `ref` parameters and may not specify a return type.
+
+.. If the type is `serial`, then the port instance is a *serial
+port instance*.
+A serial port instance does not specify a type.
+It may be connected to a port of any type.
+Serial data passes through the port.
+The data may be converted to or
+from a specific type at the other end of the connection.
+
+. The optional expression _e_ appearing after the keyword
 `priority` specifies a priority for the port instance.
 The type of _e_ must be <<Type-Checking_Type-Conversion,convertible to>>
 <<Types_Internal-Types_Integer,_Integer_>>.
 The priority applies to the component's message queue and may appear only for 
-`async input` and `internal input` ports.
+`async input` ports.
 The meaning of the priority value is operating system-dependent.
 
-* The optional _queue-full-behavior_ specifies the behavior when a
+. The optional _queue-full-behavior_ specifies the behavior when a
 message is received and the queue is full.
-This specifier is valid only for `async input` and `internal input` ports.
+This specifier is valid only for `async input` ports.
 If no specifier appears, then the default behavior is `assert`.
 
 *Special ports:*
@@ -111,19 +124,19 @@ The identifier specifies the name of the port.
 @ Async input port of type Fw.Com
 @ It has priority 10.
 @ It drops input received when the queue is full.
-async input port asyncComIn : Fw.Com priority 10 drop
+async input port asyncComIn: Fw.Com priority 10 drop
+
+@ Async input serial port
+async input port serialIn: serial
 
 @ Guarded input port of type Fw.Com
-guarded input port guardedComIn : Fw.Com
-
-@ Internal input port of type Fw.Com
-internal input port internalComIn : Fw.Com
+guarded input port guardedComIn: Fw.Com
 
 @ Output port array of 10 Fw.Com ports
-output port comOut : [10] Fw.Com
+output port comOut: [10] Fw.Com
 
 @ Sync input port of type Fw.Com
-sync input port syncComIn : Fw.Com
+sync input port syncComIn: Fw.Com
 ----
 
 *Special ports:*
@@ -131,7 +144,7 @@ sync input port syncComIn : Fw.Com
 [source,fpp]
 ----
 @ A port for receiving commands from the command dispatcher
-command port cmdIn
+command recv port cmdIn
 
 @ A port for sending command registration requests to the command dispatcher
 command reg port cmdRegOut
@@ -141,6 +154,9 @@ command resp port cmdRespOut
 
 @ A port for emitting events
 event port eventOut
+
+@ A port for emitting text events
+text event port textEventOut
 
 @ A port for getting parameter values from the parameter database
 param get port paramGetOut
@@ -152,5 +168,5 @@ param set port paramSetOut
 telemetry port tlmOut
 
 @ A port for getting the current time
-time port timeGetOut
+time get port timeGetOut
 ----

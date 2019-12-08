@@ -38,13 +38,13 @@ The type name _N_ is not in scope in the body of the definition.
 # Defines a struct type A with members x and y
 # and default value { x = 0, y = 0 }
 struct A {
-  x : U32
-  y : F32
+  x: U32
+  y: F32
 }
 # Defines a struct type B with members x and y
 # and default value { x = 0, y = 1 }
 struct B {
-  x : U32
-  y : F32
+  x: U32
+  y: F32
 } default { y = 1 }
 ----

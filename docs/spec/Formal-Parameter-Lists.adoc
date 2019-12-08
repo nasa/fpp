@@ -43,7 +43,7 @@ specified for the `string` type.
 
 [source,fpp]
 ----
-a : U32
-b : string size 100
-ref c : Fw.Com
+a: U32
+b: string size 100
+ref c: Fw.Com
 ----
