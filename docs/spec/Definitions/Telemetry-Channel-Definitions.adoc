@@ -59,9 +59,11 @@ component) or the previous channel identifier plus one.
 is emitted always or on change.
 If the specifier is not present, the default behavior is always.
 
-. The optional format specifier specifies a
-<<Format-Strings,format string>>.
-There is one argument to the format string, which is the channel value.
+. The optional format specifier specifies a <<Format-Strings,format string>>.
+There is one argument to the format string, which is the channel value.  A
+numeric format is allowed if the channel type telemetry channel must
+<<Types_Types-with-Numeric-Members,has numeric members>>.  The format specified
+here overrides any format specified in the type.
 
 . The optional high and low limit specifiers specify the high and low limits
 for the channel.  If either specifier is present, then

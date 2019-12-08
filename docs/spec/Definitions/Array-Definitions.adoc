@@ -7,7 +7,12 @@ it.
 
 `array` <<Lexical-Elements_Identifiers,_identifier_>> `=`
 `[` <<Expressions,_expression_>> `]` <<Type-Names,_type-name_>>
-_[_ `default` <<Expressions,_expression_>> _]_
+_[_
+`default` <<Expressions,_expression_>> 
+_]_
+_[_
+`format` <<Expressions_String-Literals,_string-literal_>>
+_]_
 
 ==== Semantics
 
@@ -19,11 +24,18 @@ _type-name_ names the type _T_ of each array element.
 The definition associates the name _N_ with a new type _T'_
 that represents an array of _n_ elements of type _T_.
 
-The second expression is optional.
+The expression following the keyword _default_ is optional.
 If present, it specifies the <<Types_Default-Values,default value>> associated 
 with the type.
 The type of the expression must be
 <<Type-Checking_Type-Conversion,convertible to>> _T'_.
+
+The optional format specifier specifies a <<Format-Strings,format string>>.
+When displaying the array, the format is applied to each element of the array.
+There is one argument to the format string, which an array member.  
+A numeric format is allowed if the array element type 
+<<Types_Types-with-Numeric-Members,has numeric members>>. The format specified
+here overrides any format specified in the type.
 
 The type name _N_ is not in scope in the body of the definition.
 
@@ -33,12 +45,19 @@ The type name _N_ is not in scope in the body of the definition.
 ----
 # Defines an array type A of 3 U8 elements with default value [ 0, 0, 0 ]
 array A = [3] U8
+
 # Defines an array type B of 2 A elements with default value
 # [ [ 0, 0, 0 ], [ 0, 0, 0 ] ]
 array B = [3] A
+
 # Defines an array type C of 3 F32 elements with default value [ 1, 2, 3 ]
 array C = [3] F32 default [ 1, 2, 3 ]
+
 # Defines an array type C of 3 U32 values with default value
 # [ 1, 1, 1 ] after promoting 1 to [ 1, 1, 1 ]
 array D = [3] U32 default 1
+
+# Defines an array type E of 3 U32 values with default value
+# [ 1, 1, 1, ] and element format {.03f}
+array E = [3] U32 default 1 format "{.03f}"
 ----

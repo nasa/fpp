@@ -1771,7 +1771,12 @@ it.</p>
 <div class="paragraph">
 <p><code>array</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>=</code>
 <code>[</code> <a href="#Expressions"><em>expression</em></a> <code>]</code> <a href="#Type-Names"><em>type-name</em></a>
-<em>[</em> <code>default</code> <a href="#Expressions"><em>expression</em></a> <em>]</em></p>
+<em>[</em>
+<code>default</code> <a href="#Expressions"><em>expression</em></a>
+<em>]</em>
+<em>[</em>
+<code>format</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a>
+<em>]</em></p>
 </div>
 </div>
 <div class="sect3">
@@ -1787,11 +1792,19 @@ The first expression must evaluate to a compile-time constant numeric value
 that represents an array of <em>n</em> elements of type <em>T</em>.</p>
 </div>
 <div class="paragraph">
-<p>The second expression is optional.
+<p>The expression following the keyword <em>default</em> is optional.
 If present, it specifies the <a href="#Types_Default-Values">default value</a> associated
 with the type.
 The type of the expression must be
 <a href="#Type-Checking_Type-Conversion">convertible to</a> <em>T'</em>.</p>
+</div>
+<div class="paragraph">
+<p>The optional format specifier specifies a <a href="#Format-Strings">format string</a>.
+When displaying the array, the format is applied to each element of the array.
+There is one argument to the format string, which an array member.
+A numeric format is allowed if the array element type
+<a href="#Types_Types-with-Numeric-Members">has numeric members</a>. The format specified
+here overrides any format specified in the type.</p>
 </div>
 <div class="paragraph">
 <p>The type name <em>N</em> is not in scope in the body of the definition.</p>
@@ -1803,14 +1816,21 @@ The type of the expression must be
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp"># Defines an array type A of 3 U8 elements with default value [ 0, 0, 0 ]
 array A = [3] U8
+
 # Defines an array type B of 2 A elements with default value
 # [ [ 0, 0, 0 ], [ 0, 0, 0 ] ]
 array B = [3] A
+
 # Defines an array type C of 3 F32 elements with default value [ 1, 2, 3 ]
 array C = [3] F32 default [ 1, 2, 3 ]
+
 # Defines an array type C of 3 U32 values with default value
 # [ 1, 1, 1 ] after promoting 1 to [ 1, 1, 1 ]
-array D = [3] U32 default 1</code></pre>
+array D = [3] U32 default 1
+
+# Defines an array type E of 3 U32 values with default value
+# [ 1, 1, 1, ] and element format {.03f}
+array E = [3] U32 default 1 format "{.03f}"</code></pre>
 </div>
 </div>
 </div>
@@ -2429,12 +2449,13 @@ event appearing in a component) or the previous event identifier plus one.</p>
 </li>
 <li>
 <p>The optional string following <code>format</code> is a
-<a href="#Format-Strings">format string</a> that formats the event
-for display on the ground.
-The arguments to the format string are the values bound to
-the event parameters.
-If there is no format string, then the event is displayed in a
-standard way as a list of argument values.</p>
+<a href="#Format-Strings">format string</a> that formats the event for display on the
+ground.  The arguments to the format string are the values bound to the event
+parameters.  If there is no format string, then the event is displayed in a
+standard way as a list of argument values.  A numeric format is allowed for any
+argument whose type <a href="#Types_Types-with-Numeric-Members">has numeric members</a>.
+The format specified here overrides any format specified in the
+type.</p>
 </li>
 <li>
 <p>The expression <em>e</em> following <code>throttle</code> specifies the maximum number
@@ -3050,7 +3071,10 @@ punctuation is a comma.
 A <strong>struct type member</strong> has the following syntax:</p>
 </div>
 <div class="paragraph">
-<p><a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>:</code> <a href="#Type-Names"><em>type-name</em></a></p>
+<p><a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>:</code> <a href="#Type-Names"><em>type-name</em></a>
+<em>[</em>
+<code>format</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a>
+<em>]</em></p>
 </div>
 </div>
 <div class="sect3">
@@ -3062,7 +3086,16 @@ of the specified type.  Each
 identifier appearing in the struct type member sequence must be distinct.</p>
 </div>
 <div class="paragraph">
-<p>The expression is optional.
+<p>The optional format specifier for a struct member specifies a
+<a href="#Format-Strings">format string</a>.
+The format is applied when displaying the struct member.
+There is one argument to the format string, which is the member value.
+A numeric format is allowed if the member type
+<a href="#Types_Types-with-Numeric-Members">has numeric members</a>. The format specified
+here overrides any format specified in the member type.</p>
+</div>
+<div class="paragraph">
+<p>The expression following the keyword <em>default</em> is optional.
 If present, it specifies the <a href="#Types_Default-Values">default value</a>
 associated with the type.
 The type of the expression must be
@@ -3178,9 +3211,11 @@ is emitted always or on change.
 If the specifier is not present, the default behavior is always.</p>
 </li>
 <li>
-<p>The optional format specifier specifies a
-<a href="#Format-Strings">format string</a>.
-There is one argument to the format string, which is the channel value.</p>
+<p>The optional format specifier specifies a <a href="#Format-Strings">format string</a>.
+There is one argument to the format string, which is the channel value.  A
+numeric format is allowed if the channel type telemetry channel must
+<a href="#Types_Types-with-Numeric-Members">has numeric members</a>.  The format specified
+here overrides any format specified in the type.</p>
 </li>
 <li>
 <p>The optional high and low limit specifiers specify the high and low limits
@@ -3316,9 +3351,10 @@ ref c: Fw.Com</code></pre>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A <strong>format string</strong> is a string that specifies the display format
-of an
-<a href="#Definitions_Event-Definitions">event report</a>
-or
+of a
+<a href="#Definitions_Struct-Definitions">struct member</a>,
+<a href="#Definitions_Array-Definitions">array element</a>,
+<a href="#Definitions_Event-Definitions">event report</a>, or
 <a href="#Definitions_Telemetry-Channel-Definitions">telemetry channel</a>.</p>
 </div>
 <div class="paragraph">
@@ -5685,7 +5721,7 @@ For example, converting <code>-0x1234</code> to <code>I8</code> yields <code>-0x
 <p>If \$T_1\$ is a primitive integer type and \$T_2\$ is
 <em>Integer</em>, then \$v_2\$ is the integer value of \$v_1\$
 at type <em>Integer</em>. For example, converting
-<code>0xFFFF: U32</code> to <em>Integer</em> yields <code>0xFFFF</code>.</p>
+<code>0xFFFF: U32</code> to <em>Integer</em> yields <code>0xFFFF:</code> <em>Integer</em>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -5867,7 +5903,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-12-07 16:54:44 -0800
+Last updated 2019-12-08 14:22:54 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

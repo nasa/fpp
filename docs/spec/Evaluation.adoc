@@ -75,7 +75,7 @@ For example, converting `-0x1234` to `I8` yields `-0x34: I8`.
 If stem:[T_1] is a primitive integer type and stem:[T_2] is
 _Integer_, then stem:[v_2] is the integer value of stem:[v_1]
 at type _Integer_. For example, converting
-`0xFFFF: U32` to _Integer_ yields `0xFFFF`.
+`0xFFFF: U32` to _Integer_ yields `0xFFFF:` _Integer_.
 
 ==== Floating-Point Values
 

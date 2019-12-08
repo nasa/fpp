@@ -47,12 +47,13 @@ first
 event appearing in a component) or the previous event identifier plus one.
 
 * The optional string following `format` is a
-<<Format-Strings,format string>> that formats the event
-for display on the ground.
-The arguments to the format string are the values bound to
-the event parameters.
-If there is no format string, then the event is displayed in a
-standard way as a list of argument values.
+<<Format-Strings,format string>> that formats the event for display on the
+ground.  The arguments to the format string are the values bound to the event
+parameters.  If there is no format string, then the event is displayed in a
+standard way as a list of argument values.  A numeric format is allowed for any
+argument whose type <<Types_Types-with-Numeric-Members,has numeric members>>.
+The format specified here overrides any format specified in the
+type.
 
 * The expression _e_ following `throttle` specifies the maximum number
 of times to emit the event before throttling it.

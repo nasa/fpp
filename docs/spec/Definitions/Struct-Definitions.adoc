@@ -15,6 +15,9 @@ punctuation is a comma.
 A *struct type member* has the following syntax:
 
 <<Lexical-Elements_Identifiers,_identifier_>> `:` <<Type-Names,_type-name_>>
+_[_
+`format` <<Expressions_String-Literals,_string-literal_>>
+_]_
 
 ==== Semantics
 
@@ -23,7 +26,15 @@ _N_ with a type, _T'_ representing a structure with named members, each
 of the specified type.  Each
 identifier appearing in the struct type member sequence must be distinct.
 
-The expression is optional.
+The optional format specifier for a struct member specifies a 
+<<Format-Strings,format string>>.
+The format is applied when displaying the struct member.
+There is one argument to the format string, which is the member value.
+A numeric format is allowed if the member type 
+<<Types_Types-with-Numeric-Members,has numeric members>>. The format specified
+here overrides any format specified in the member type.
+
+The expression following the keyword _default_ is optional.
 If present, it specifies the <<Types_Default-Values,default value>>
 associated with the type.
 The type of the expression must be
