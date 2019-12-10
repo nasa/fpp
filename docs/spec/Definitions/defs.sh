@@ -13,6 +13,7 @@ Array-Definitions.adoc
 Command-Definitions.adoc
 Component-Definitions.adoc
 Component-Instance-Definitions.adoc
+Component-Instance-Specifiers.adoc
 Connection-Graph-Definitions.adoc
 Constant-Definitions.adoc
 Enum-Definitions.adoc
@@ -26,4 +27,5 @@ Port-Instance-Definitions.adoc
 Struct-Definitions.adoc
 Telemetry-Channel-Definitions.adoc
 Topology-Definitions.adoc
+Topology-Import-Specifiers.adoc
 "

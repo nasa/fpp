@@ -1,12 +1,17 @@
 === String Literals
 
-A *string literal expression* is a sequence of characters enclosed in double quotes.
-The characters must be printable ASCII characters, and the double
-quote character itself is not allowed.
+A *string literal expression* is a sequence of characters enclosed in double 
+quotes.
+The characters must be printable ASCII characters, not including newline.
+The double quote character itself is not allowed, except that the character 
+sequence `\"`
+represents a single double quote character.
 
 *Examples:*
 
-* `"abc"` is a valid string representing the characters `a`, `b`, and `c`.
+* `"abc"` is a valid string consisting of the characters `a`, `b`, and `c`.
+
+* `"ab\""` is a valid string consisting of the characters `a`, `b`, and `"`.
 
 * `"abc` is not a valid string, because it is missing the terminating double quote.
 

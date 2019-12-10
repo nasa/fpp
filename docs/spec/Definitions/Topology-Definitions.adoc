@@ -1,3 +1,32 @@
 === Topology Definitions
 
+A *topology definition* defines an F Prime topology,
+that is, a set of component instances and the connections
+between their ports.
+
+==== Syntax
+
+`topology` 
+<<Lexical-Elements_Identifiers,_identifier_>>
+`{` _topology-member-sequence_ `}`
+
+_topology-member-sequence_ is an
+<<Element-Sequences,element sequence>> in 
+which each element is a *topology member*,
+and the terminating punctuation is a semicolon.
+A topology member is one of the following:
+
+* A <<Definitions_Topology-Import-Specifiers,topology import specifier>>
+
+* A <<Definitions_Component-Instance-Specifiers,component 
+instance specifier>>
+
+* A <<Definitions_Connection-Graph-Definitions,connection graph definition>>
+
+==== Semantics
+
+TODO
+
+==== Examples
+
 TODO

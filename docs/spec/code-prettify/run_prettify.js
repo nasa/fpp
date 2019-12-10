@@ -411,6 +411,7 @@ var IN_GLOBAL_SCOPE = false;
           "assert," +
           "async," +
           "at," +
+          "base," +
           "block," +
           "bool," +
           "change," +
@@ -443,6 +444,7 @@ var IN_GLOBAL_SCOPE = false;
           "passive," +
           "port," +
           "priority," +
+          "private," +
           "queued," +
           "recv," +
           "red," +

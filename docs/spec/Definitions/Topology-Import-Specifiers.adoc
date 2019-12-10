@@ -1,0 +1,20 @@
+=== Topology Import Specifiers
+
+A *topology import specifier* imports one topology into another one.
+
+==== Syntax
+
+`import` <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
+
+==== Semantics
+
+The qualified identifier must 
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
+a
+<<Definitions_Topology-Definitions,topology definition _D_>>.
+
+TODO
+
+==== Examples
+
+TODO

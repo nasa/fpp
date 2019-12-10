@@ -1,3 +1,23 @@
 === Component Instance Definitions
 
+A *component instance definition* defines an instance
+of a
+<<Definitions_Component-Definitions,component>>
+that you can use as part of a
+<<Definitions_Topology-Definitions,topology definition>>.
+
+==== Syntax
+
+`instance`
+<<Lexical-Elements_Identifiers,_identifier_>>
+`:`
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
+`base` `id` <<Expressions,_expression_>>
+
+==== Semantics
+
+TODO
+
+==== Examples
+
 TODO

@@ -49,6 +49,7 @@ array
 assert
 async
 at
+base
 block
 bool
 change
@@ -82,6 +83,7 @@ param
 passive
 port
 priority
+private
 queued
 recv
 red

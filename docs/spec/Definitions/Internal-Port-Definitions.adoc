@@ -1,0 +1,56 @@
+=== Internal Port Definitions
+
+An *internal port definition* defines and instantiates
+a port for use in handlers of the enclosing 
+<<Definitions_Component-Definitions,component>>.
+A component can use an internal port to send a message
+to itself.
+
+==== Syntax
+
+`internal` `port`
+<<Lexical-Elements_Identifiers,_identifier_>>
+`(`
+<<Formal-Parameter-Lists,_param-list_>>
+`)`
+_[_
+`priority` <<Expressions,_expression_>>
+_]_
+_[_
+_queue-full-behavior_
+_]_
+
+_queue-full-behavior_ has the same syntax as for 
+<<Definitions_Port-Instance-Definitions,port instance definitions>>.
+
+==== Semantics
+
+An internal port definition is valid only if the enclosing
+component is active or queued.
+
+The identifier is the name of the port.
+The parameter list specifies the formal parameters of the
+port.
+Each formal parameter is a piece of data carried on the port.
+No formal parameter may be a `ref` parameter.
+
+The optional priority and queue full behavior have the same semantics as the 
+corresponding constructs in <<Definitions_Port-Instance-Definitions,port 
+instance definitions>>.
+
+==== Examples
+
+[source,fpp]
+----
+@ Port 1
+internal port Port1(
+    a: U32 @< Parameter a
+    b: F64 @< Parameter b
+)
+
+@ Port 2
+internal port Port2
+    a: U8 @< Parameter a
+    b: I32 @< Parameter b
+) priority 10 drop
+----
