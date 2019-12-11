@@ -72,7 +72,7 @@ _Integer_, and assign the index _n_ at that position.
 Check that _n_ is in bounds for the
 <<Definitions_Port-Definitions,port>> being indexed.
 
-.. Otherwise assign the smallest available index at postion _P_.
+.. Otherwise assign the smallest available index at position _P_.
 An index is available if (1) it is in bounds for the 
 <<Definitions_Port-Definitions,port>> being indexed; and (2)
 it is not already assigned to the same port in the topology.
