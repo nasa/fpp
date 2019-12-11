@@ -33,8 +33,7 @@ Let _C2_ be the set of
 <<Definitions_Connection-Graph-Definitions,connections>>
 of _T2_.
 
-. Let _C_ be the disjoint union of _C1_ and _C2_, where
-the disjoint union disregards array indices.
+. Let _C_ be the disjoint union of _C1_ and _C2_.
 That means that if _C1_ contains _n_ connections between port
 _p_ and port _p'_, and _C2_ contains _m_ connections between
 port _p_ and port _p'_, then _C_ contains _n + m_ connections

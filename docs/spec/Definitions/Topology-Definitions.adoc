@@ -35,8 +35,8 @@ to a topology _T_:
 (both public and private) appearing in _D_.
 
 . Let _C_ be the disjoint union of all connections specified in any
-<<Definitions_Connection-Graph-Definitions,connection graphs>> of _D_, where
-the disjoint union disregards port array indices.  For example, if graph _G1_
+<<Definitions_Connection-Graph-Definitions,connection graphs>> of _D_.
+For example, if graph _G1_
 contains _n_ connections between port _p_ and port _p'_, and graph _G2_
 contains _m_ connections between port _p_ and port _p'_, then the disjoint
 union _C_ of the connections in _G1_ and _G2_ contains _n + m_ connections
