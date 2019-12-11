@@ -14,28 +14,29 @@ a
 <<Definitions_Topology-Definitions,topology definition>>.
 
 FPP uses the following algorithm to compute _T_, which is the result of 
-importing a topology _T2_ into a topology _T1_:
+importing a topology _T'_ into a topology _T_:
 
-. Let _I1_ be the set of 
+. Let _I_ be the set of 
 <<Definitions_Component-Instance-Specifiers,instances>>
-of _T1_.  Let _I2_ be the set of 
+of _T_.  Let _I'_ be the set of 
 <<Definitions_Component-Instance-Specifiers,public instances>>
-of _T2_.
+of _T'_.
 
-. Let _I_ be the set union of _I1_ and _I2_.
-That means that if either or both of _I1_ and _I2_ contain the instance _i_,
+. Let _I_ be the set union of _I_ and _I'_.
+That means that if either or both of _I_ and _I'_ contain the 
+instance _i_,
 then _N_ contains the instance _i_ once.
 
-. Let _C1_ be the set of 
+. Let _C_ be the set of 
 <<Definitions_Connection-Graph-Definitions,connections>>
-of _T1_.
-Let _C2_ be the set of
+of _T_.
+Let _C'_ be the set of
 <<Definitions_Connection-Graph-Definitions,connections>>
-of _T2_.
+of _T'_.
 
-. Let _C_ be the disjoint union of _C1_ and _C2_.
-That means that if _C1_ contains _n_ connections between port
-_p_ and port _p'_, and _C2_ contains _m_ connections between
+. Let _C_ be the disjoint union of _C_ and _C'_.
+That means that if _C_ contains _n_ connections between port
+_p_ and port _p'_, and _C'_ contains _m_ connections between
 port _p_ and port _p'_, then _C_ contains _n + m_ connections
 between port _p_ and port _p'_.
 

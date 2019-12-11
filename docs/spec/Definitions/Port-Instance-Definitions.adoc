@@ -114,7 +114,16 @@ The priority applies to the component's message queue and may appear only for
 The meaning of the priority value is operating system-dependent.
 
 . The optional _queue-full-behavior_ specifies the behavior when a
-message is received and the queue is full.
+message is received and the queue is full:
+
+.. `assert` means that an assertion fails, terminating FSW.
+
+.. `block` means that the sender is blocked until there is
+space on the queue for the message.
+
+.. `drop` means that the message is dropped.
+
++
 This specifier is valid only for `async input` ports.
 If no specifier appears, then the default behavior is `assert`.
 

@@ -43,13 +43,22 @@ component C { ... }
 
 instance a: A base id 0x100
 instance b: B base id 0x200
-private instance c: B base id 0x300
+instance c: B base id 0x300
 
 Topology T {
 
+  # ----------------------------------------------------------------------
+  # Public instances 
+  # ----------------------------------------------------------------------
+
   instance a
   instance b
-  instance c
+
+  # ----------------------------------------------------------------------
+  # Private instances
+  # ----------------------------------------------------------------------
+
+  private instance c
 
   ...
 

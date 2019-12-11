@@ -44,9 +44,11 @@ _]_
 . The identifier following the keyword `connections` names
 the connection graph.
 
-. For each qualified identifier _Q_:
+. For each connection _C_:
 
-.. _Q_ must
+.. For each qualified identifier _Q_ in _C_:
+
+... _Q_ must
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
 a component instance _I_ that is available in the enclosing topology,
 either through
@@ -54,17 +56,17 @@ either through
 or through
 <<Definitions_Topology-Import-Specifiers,import>>.
 
-.. The 
+... The 
 <<Definitions_Component-Instance-Definitions,definition referred to by _I_>>
 must refer to a 
-<<Definitions_Component-Definitions,component definition _C_>>. 
+<<Definitions_Component-Definitions,component definition _C'_>>. 
 
-.. The identifier following _Q_
+... The identifier following _Q_
 must refer to a
 <<Definitions_Port-Instance-Definitions,port instance definition>>
-of _C_.
+of _C'_.
 
-. Each optional expression _e_, if it is present, represents a
+.. Each optional expression _e_, if it is present, represents a
 port array index.
 The type of _e_ must be a
 <<Types_Internal-Types_Numeric-Types,numeric type>>, and
@@ -73,9 +75,7 @@ _e_ must
 that becomes a non-negative integer when 
 <<Evaluation_Type-Conversion,converted to>> type _Integer_.
 
-. The arrow represents the direction of the connection (left to right).
-
-. Each connection must obey the following rules:
+.. The arrow represents the direction of the connection (left to right).
 
 .. The connection must go from an
 <<Definitions_Port-Instance-Definitions,output port instance>>
@@ -88,8 +88,6 @@ to any port at the other end.
 
 .. Any array index, if present, must be within bounds for
 the array size specified in the port instance.
-
-.. TODO
 
 ==== Examples
 

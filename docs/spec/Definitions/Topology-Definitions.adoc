@@ -59,17 +59,27 @@ _T'_ into _T_.
 
 ===== Automatic Numbering of Array Indices
 
-FPP automatically numbers the array indices appearing in the 
-<<Definitions_Connection-Graph-Definitions,connections>>
-of a topology _T_ as follows. For each position _P_ (output or input)
-in each connection _C_, do the following:
+*General numbering:* FPP automatically numbers the array indices appearing in 
+the <<Definitions_Connection-Graph-Definitions,connections>>
+of a topology _T_ as follows.
 
-. TODO: Explicit index
+. For each position _P_ (output or input) in each connection _C_, do the following:
 
-. TODO: Implicit index
+.. If _P_ has an array index expression _e_ in the FPP source, then
+<<Evaluation,evaluate>> _e_,
+<<Type-Checking_Type-Conversion,convert>> the result to a value _n_ of type 
+_Integer_, and assign the index _n_ at that position.
+Check that _n_ is in bounds for the
+<<Definitions_Port-Definitions,port>> being indexed.
+
+.. Otherwise assign the smallest available index at postion _P_.
+An index is available if (1) it is in bounds for the 
+<<Definitions_Port-Definitions,port>> being indexed; and (2)
+it is not already assigned to the same port in the topology.
+If no index is available, throw an error.
 
 . Check that in _C_ there is no pair of connections _c1_ and _c2_
-with the same output port instance _i_ and the same port array index at _i_,
+with the same output port instance _i_ and the same port array index at _i_.
 For example, the following pair of connections is not allowed:
 +
 [source,fpp]
@@ -78,6 +88,231 @@ a.p[0] -> b.p
 a.p[0] -> c.p
 ----
 
+Note that in step 1(a), the order of traversal of the connections is
+not specified in the FPP source.
+
+*Special numbering:* Particular translation strategies may apply
+special numbering passes. For example:
+
+* There may be a numbering pass to ensure
+that the indices of the command registration connections coming into the 
+command dispatcher match the indices of the command connections going out
+of the command dispatcher.
+
+* There may be a numbering pass to ensure
+that the indices of the command connections going out of the sequencer
+match the indices of the command response connections coming into the 
+sequencer.
+
 ==== Examples
 
-TODO
+*Example 1.*
+
+[source,fpp]
+----
+@ Command and data handling topology
+topology CDH {
+
+  # ----------------------------------------------------------------------
+  # Public instances 
+  # ----------------------------------------------------------------------
+
+  instance commandDispatcher
+  instance commandSequencer
+  instance engineeringRateGroup
+  instance engineeringTelemetryLogger
+  instance engineeringTelemetryConverter
+  instance engineeringTelemetrySplitter
+  instance eventLogger
+  instance rateGroupDriver
+  instance telemetryDatabase
+  instance timeSource
+
+  # ----------------------------------------------------------------------
+  # Private instances 
+  # ----------------------------------------------------------------------
+
+  instance socketGroundInterface
+
+  # ----------------------------------------------------------------------
+  # Connections
+  # ----------------------------------------------------------------------
+
+  connections CommandRegistration {
+    commandDispatcher.cmdRegOut -> commandDispatcher.cmdRegIn
+    commandSequencer.cmdRegOut -> commandDispatcher.cmdRegIn
+    engineeringTelemetryLogger.cmdRegOut -> commandDispatcher.cmdRegIn
+    eventLogger.cmdRegOut -> commandDispatcher.cmdRegIn
+    telemetryDatabase.cmdRegOut -> commandDispatcher.cmdRegIn
+    timeSource.cmdRegOut -> commandDispatcher.cmdRegIn
+  }
+
+  connections CommandResponses {
+    commandDispatcher.cmdResponseInOut -> commandSequencer.cmdResponseIn
+    commandDispatcher.cmdResponseOut -> commandDispatcher.cmdResponseIn
+    commandSequencer.cmdResponseOut -> commandDispatcher.cmdResponseIn
+    engineeringTelemetryLogger.cmdResponseOut -> commandDispatcher.cmdResponseIn
+    eventLogger.cmdResponseOut -> commandDispatcher.cmdResponseIn
+    telemetryDatabase.cmdResponseOut -> commandDispatcher.cmdResponseIn
+    timeSource.cmdResponseOut -> commandDispatcher.cmdResponseIn
+  }
+
+  connections CommandSequences {
+    commandSequencer.comCmdOut -> commandDispatcher.comCmdIn
+  }
+
+  connections Commands {
+    commandDispatcher.cmdOut -> commandDispatcher.cmdIn
+    commandDispatcher.cmdOut -> commandSequencer.cmdIn
+    commandDispatcher.cmdOut -> engineeringTelemetryLogger.cmdIn
+    commandDispatcher.cmdOut -> eventLogger.cmdIn
+    commandDispatcher.cmdOut -> telemetryDatabase.cmdIn
+    commandDispatcher.cmdOut -> timeSource.cmdIn
+  }
+
+  connections Downlink {
+    eventLogger.comOut -> socketGroundInterface.comEventIn
+    telemetryDatabase.comOut -> socketGroundInterface.comTlmIn
+  }
+
+  connections EngineeringTelemetry {
+    commandDispatcher.tlmOut -> engineeringTelemetrySplitter.tlmIn
+    commandSequencer.tlmOut -> telemetryDatabase.tlmIn
+    engineeringRateGroup.tlmOut -> engineeringTelemetrySplitter.tlmIn
+    engineeringTelmetryConverter.comTlmOut -> engineeringTelemetryLogger.comTlmIn
+    engineeringTelemetrySplitter.tlmOut -> engineeringTelemetryConverter.tlmIn
+    engineeringTelemetrySplitter.tlmOut -> telemetryDatabase.tlmIn
+  }
+
+  connections Events {
+    commandDispatcher.eventOut -> eventLogger.eventIn
+    commandSequencer.eventOut -> eventLogger.eventIn
+    engineeringRateGroup.eventOut -> eventLogger.eventIn
+    engineeringTelemetryLogger.eventOut -> eventLogger.eventIn
+    eventLogger.eventOut -> eventLogger.eventIn
+    telemetryDatabase.eventOut -> eventLogger.eventIn
+  }
+
+  connections RateGroups {
+    engineeringRateGroup.schedOut -> commandSequencer.schedIn
+    engineeringRateGroup.schedOut -> telemetryDatabase.schedIn
+    rateGroupDriver.cycleOut -> engineeringRateGroup.cycleIn
+  }
+
+  connections Time {
+    commandDispatcher.timeGetOut -> timeSource.timeGetIn
+    engineeringRateGroup.timeGetOut -> timeSource.timeGetIn
+    engineeringTelemetryLogger.timeGetOut -> timeSource.timeGetIn
+    eventLogger.timeGetOut -> timeSource.timeGetIn
+    sequencer.timeGetOut -> timeSource.timeGetIn
+    socketGroundInterface.timeGetOut -> timeSource.timeGetIn
+  }
+
+  connections Uplink {
+    socketGroundInterface.comCmdOut -> commandDispatcher.comCmdIn
+  }
+
+}
+----
+
+*Example 2.*
+
+[source,fpp]
+----
+@ Attitude control topology
+topology AttitudeControl {
+
+  # ----------------------------------------------------------------------
+  # Imported topologies 
+  # ----------------------------------------------------------------------
+
+  import CDH
+
+  # ----------------------------------------------------------------------
+  # Public instances 
+  # ----------------------------------------------------------------------
+
+  instance acsRateGroup
+  instance attitudeControl
+  ...
+
+  # ----------------------------------------------------------------------
+  # Private instances 
+  # ----------------------------------------------------------------------
+
+  instance socketGroundInterface
+
+  # ----------------------------------------------------------------------
+  # Connections
+  # ----------------------------------------------------------------------
+
+  connections AttitudeTelemetry {
+    ...
+  }
+
+  connections CommandRegistration {
+    attitudeControl.cmdRegOut -> commandDispatcher.cmdRegIn
+    ...
+  }
+
+  connections CommandResponses {
+    attitudeControl.cmdResponseOut -> commandDispatcher.cmdResponseIn
+    ...
+  }
+
+  connections Commands {
+    commandDispatcher.cmdOut -> attitudeControl.cmdIn
+    ...
+  }
+
+  connections Downlink {
+    eventLogger.comOut -> socketGroundInterface.comEventIn
+    telemetryDatabase.comOut -> socketGroundInterface.comTlmIn
+  }
+
+  connections EngineeringTelemetry {
+    acsRateGroup.tlmOut -> engineeringTelemetrySplitter.tlmIn
+    ...
+  }
+
+  connections Events {
+    attitudeControl.eventOut -> eventLogger.eventIn
+    acsRateGroup.eventOut -> eventLogger.eventIn
+    ...
+  }
+
+  connections RateGroups {
+    acsRateGroup.schedOut -> attitudeControl.schedIn
+  }
+
+  connections Time {
+    acsRateGroup.timeGetOut -> timeSource.timeGetIn
+    attitudeControl.timeGetOut -> timeSource.timeGetIn
+    ...
+  }
+
+  connections Uplink {
+    socketGroundInterface.comCmdOut -> commandDispatcher.comCmdIn
+  }
+
+}
+----
+
+*Example 3.*
+
+[source,fpp]
+----
+@ Release topology
+topology Release {
+
+  # ----------------------------------------------------------------------
+  # Imported topologies 
+  # ----------------------------------------------------------------------
+
+  import AttitudeControl
+  import CDH
+  import Communication
+  ...
+
+}
+----

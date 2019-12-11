@@ -56,6 +56,14 @@ The definitions inside the body of the component are
 qualified with the component name, as for 
 <<Definitions_Module-Definitions,module definitions>>.
 
+The port definitions must satisfy the following rules:
+
+. No passive component may have an `async` `input` port
+instance definition.
+
+. Each active component must have either a command port
+or at least one `async` `input` port.
+
 ==== Examples
 
 [source,fpp]
