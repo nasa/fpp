@@ -15,7 +15,7 @@ As in python, a format string consists of text containing one or more
 In the output, each replacement field is replaced by the value of an 
 *argument*.
 Characters outside of replacement fields are copied to the output unchanged,
-except that the escape sequences `{{`` and `}}` are converted to single 
+except that the escape sequences `{{` and `}}` are converted to single 
 braces.
 
 The number of arguments must match the number of replacement fields.

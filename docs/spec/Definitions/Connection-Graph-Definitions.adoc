@@ -1,3 +1,96 @@
 === Connection Graph Definitions
 
+A *connection graph definition* defines a *connection graph*
+as part of a
+<<Definitions_Topology-Definitions,topology definition>>.
+A connection graph is a named collection of *connections*.
+A connection connects an 
+<<Definitions_Port-Instance-Definitions,output port instance>> of one
+<<Definitions_Component-Instance-Specifiers,component instance>>
+to an
+<<Definitions_Port-Instance-Definitions,input port instance>> of
+another.
+
+==== Syntax
+
+`connections` 
+<<Lexical-Elements_Identifiers,_identifier_>>
+`{` _connection-sequence_ `}`
+
+_connection-sequence_ is an
+<<Element-Sequences,element sequence>> in 
+which each element is a *connection*,
+and the terminating punctuation is a comma.
+A connection is the following:
+
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `.`
+<<Lexical-Elements_Identifiers,_identifier_>>
+_[_
+`[`
+<<Expressions,_expression_>>
+`]`
+_]_
+`pass:[->]`
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `.`
+<<Lexical-Elements_Identifiers,_identifier_>>
+_[_
+`[`
+<<Expressions,_expression_>>
+`]`
+_]_
+
+==== Semantics
+
+. The identifier following the keyword `connections` names
+the connection graph.
+
+. For each qualified identifier _Q_:
+
+.. _Q_ must
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
+a component instance _I_ that is available in the enclosing topology,
+either through
+<<Definitions_Component-Instance-Specifiers,direct specification>>
+or through
+<<Definitions_Topology-Import-Specifiers,import>>.
+
+.. The 
+<<Definitions_Component-Instance-Definitions,definition referred to by _I_>>
+must refer to a 
+<<Definitions_Component-Definitions,component definition _C_>>. 
+
+.. The identifier following _Q_
+must refer to a
+<<Definitions_Port-Instance-Definitions,port instance definition>>
+of _C_.
+
+. Each optional expression _e_, if it is present, represents a
+port array index.
+The type of _e_ must be a
+<<Types_Internal-Types_Numeric-Types,numeric type>>, and
+_e_ must
+<<Evaluation,evaluate>> to a compile-time constant
+that becomes a non-negative integer when 
+<<Evaluation_Type-Conversion,converted to>> type _Integer_.
+
+. The arrow represents the direction of the connection (left to right).
+
+. Each connection must obey the following rules:
+
+.. The connection must go from an
+<<Definitions_Port-Instance-Definitions,output port instance>>
+to an
+<<Definitions_Port-Instance-Definitions,input port instance>>.
+
+.. The types specified in the two port instances must match,
+except that a `serial` port at either end can be connected
+to any port at the other end.
+
+.. Any array index, if present, must be within bounds for
+the array size specified in the port instance.
+
+.. TODO
+
+==== Examples
+
 TODO

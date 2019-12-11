@@ -11,9 +11,39 @@ A *topology import specifier* imports one topology into another one.
 The qualified identifier must 
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
 a
-<<Definitions_Topology-Definitions,topology definition _D_>>.
+<<Definitions_Topology-Definitions,topology definition>>.
 
-TODO
+FPP uses the following algorithm to compute _T_, which is the result of 
+importing a topology _T2_ into a topology _T1_:
+
+. Let _I1_ be the set of 
+<<Definitions_Component-Instance-Specifiers,instances>>
+of _T1_.  Let _I2_ be the set of 
+<<Definitions_Component-Instance-Specifiers,public instances>>
+of _T2_.
+
+. Let _I_ be the set union of _I1_ and _I2_.
+That means that if either or both of _I1_ and _I2_ contain the instance _i_,
+then _N_ contains the instance _i_ once.
+
+. Let _C1_ be the set of 
+<<Definitions_Connection-Graph-Definitions,connections>>
+of _T1_.
+Let _C2_ be the set of
+<<Definitions_Connection-Graph-Definitions,connections>>
+of _T2_.
+
+. Let _C_ be the disjoint union of _C1_ and _C2_, where
+the disjoint union disregards array indices.
+That means that if _C1_ contains _n_ connections between port
+_p_ and port _p'_, and _C2_ contains _m_ connections between
+port _p_ and port _p'_, then _C_ contains _n + m_ connections
+between port _p_ and port _p'_.
+
+. Let _T_ be the topology constructed from _I_ and _C_,
+after applying
+<<Definitions_Topology-Definitions_Semantics_Automatic-Numbering-of-Array-Indices,
+automatic numbering of array indices>>.
 
 ==== Examples
 

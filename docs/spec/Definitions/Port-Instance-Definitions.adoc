@@ -25,47 +25,55 @@ _]_
 
 _general-port-kind_ is one of the following:
 
-* `async` `input`
+. `async` `input`
 
-* `guarded` `input`
+. `guarded` `input`
 
-* `output`
+. `output`
 
-* `sync` `input`
+. `sync` `input`
 
 _port-instance-type_ is one of the following:
 
-* <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
+. <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
 
-* `serial`
+. `serial`
 
 _queue-full-behavior_ is one of the following:
 
-* `assert`
+. `assert`
 
-* `block`
+. `block`
 
-* `drop`
+. `drop`
 
 _special-port-kind_ is one of the following:
 
-* `command` `recv`
+. `command` `recv`
 
-* `command` `reg`
+. `command` `reg`
 
-* `command` `resp`
+. `command` `resp`
 
-* `event`
+. `event`
 
-* `param` `get`
+. `param` `get`
 
-* `param` `set`
+. `param` `set`
 
-* `telemetry`
+. `telemetry`
 
-* `text` `event`
+. `text` `event`
 
-* `time` `get`
+. `time` `get`
+
+The following port instances are *input port instances*:
+
+* Any general port with `input` in its name.
+
+* Special ports `command recv` and `command resp`.
+
+The others are *output port instances*.
 
 ==== Semantics
 

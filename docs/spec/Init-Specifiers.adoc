@@ -13,7 +13,7 @@ component instance>>.
 
 === Semantics
 
-* The qualified identifer must 
+* The qualified identifier must 
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
 a
 <<Definitions_Component-Instance-Definitions,

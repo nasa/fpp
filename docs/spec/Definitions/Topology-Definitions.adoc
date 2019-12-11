@@ -25,7 +25,58 @@ instance specifier>>
 
 ==== Semantics
 
-TODO
+===== Resolving Topology Definitions
+
+FPP uses the following algorithm to resolve a topology definition _D_
+to a topology _T_:
+
+. Let _I_ be the set of 
+<<Definitions_Component-Instance-Specifiers,instances>> 
+(both public and private) appearing in _D_.
+
+. Let _C_ be the disjoint union of all connections specified in any
+<<Definitions_Connection-Graph-Definitions,connection graphs>> of _D_, where
+the disjoint union disregards port array indices.  For example, if graph _G1_
+contains _n_ connections between port _p_ and port _p'_, and graph _G2_
+contains _m_ connections between port _p_ and port _p'_, then the disjoint
+union _C_ of the connections in _G1_ and _G2_ contains _n + m_ connections
+between port _p_ and port _p'_.
+
+. Let _T_ be the topology constructed from _I_ and _C_,
+after applying
+<<Definitions_Topology-Definitions_Semantics_Automatic-Numbering-of-Array-Indices,
+automatic numbering of array indices>>.
+
+. For each import specifier _S_ appearing in _D_, do the following:
+
+.. Let _T'_ be the topology referred to in _S_.
+
+.. Let _T''_ be the result of 
+<<Definitions_Topology-Import-Specifiers,importing>>
+_T'_ into _T_.
+
+.. Let _T_ = _T''_.
+
+===== Automatic Numbering of Array Indices
+
+FPP automatically numbers the array indices appearing in the 
+<<Definitions_Connection-Graph-Definitions,connections>>
+of a topology _T_ as follows. For each position _P_ (output or input)
+in each connection _C_, do the following:
+
+. TODO: Explicit index
+
+. TODO: Implicit index
+
+. Check that in _C_ there is no pair of connections _c1_ and _c2_
+with the same output port instance _i_ and the same port array index at _i_,
+For example, the following pair of connections is not allowed:
++
+[source,fpp]
+----
+a.p[0] -> b.p
+a.p[0] -> c.p
+----
 
 ==== Examples
 

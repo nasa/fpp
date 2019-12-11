@@ -417,6 +417,7 @@ var IN_GLOBAL_SCOPE = false;
           "change," +
           "command," +
           "component," +
+          "connections," +
           "constant," +
           "default," +
           "diagnostic," +

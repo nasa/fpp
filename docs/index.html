@@ -539,17 +539,23 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#Definitions_Component-Instance-Definitions_Syntax">6.5.1. Syntax</a></li>
 <li><a href="#Definitions_Component-Instance-Definitions_Semantics">6.5.2. Semantics</a></li>
-<li><a href="#Definitions_Component-Instance-Definitions_Examples">6.5.3. Examples</a></li>
+<li><a href="#Definitions_Component-Instance-Definitions_Example">6.5.3. Example</a></li>
 </ul>
 </li>
 <li><a href="#Definitions_Component-Instance-Specifiers">6.6. Component Instance Specifiers</a>
 <ul class="sectlevel3">
 <li><a href="#Definitions_Component-Instance-Specifiers_Syntax">6.6.1. Syntax</a></li>
 <li><a href="#Definitions_Component-Instance-Specifiers_Semantics">6.6.2. Semantics</a></li>
-<li><a href="#Definitions_Component-Instance-Specifiers_Examples">6.6.3. Examples</a></li>
+<li><a href="#Definitions_Component-Instance-Specifiers_Example">6.6.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Definitions_Connection-Graph-Definitions">6.7. Connection Graph Definitions</a></li>
+<li><a href="#Definitions_Connection-Graph-Definitions">6.7. Connection Graph Definitions</a>
+<ul class="sectlevel3">
+<li><a href="#Definitions_Connection-Graph-Definitions_Syntax">6.7.1. Syntax</a></li>
+<li><a href="#Definitions_Connection-Graph-Definitions_Semantics">6.7.2. Semantics</a></li>
+<li><a href="#Definitions_Connection-Graph-Definitions_Examples">6.7.3. Examples</a></li>
+</ul>
+</li>
 <li><a href="#Definitions_Constant-Definitions">6.8. Constant Definitions</a>
 <ul class="sectlevel3">
 <li><a href="#Definitions_Constant-Definitions_Syntax">6.8.1. Syntax</a></li>
@@ -939,6 +945,7 @@ bool
 change
 command
 component
+connections
 constant
 default
 diagnostic
@@ -1050,7 +1057,7 @@ multi_part_identifier</pre>
 quotes <code>"""</code>
 The characters must be printable ASCII characters, including newline.
 A sequence of three double quotes is not allowed inside the string, except
-that the sequene <code>\"""</code> represents three double quotes.
+that the sequence <code>\"""</code> represents three double quotes.
 The first newline after the first <code>"""</code> (if it exists) is omitted
 from the output string.</p>
 </div>
@@ -2232,8 +2239,8 @@ active component CommandDispatcher {
 <p>A <strong>component instance definition</strong> defines an instance
 of a
 <a href="#Definitions_Component-Definitions">component</a>
-that you can use as part of a
-<a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
+that you can refer to in a
+<a href="#Definitions_Component-Instance-Specifiers">topology definition</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="Definitions_Component-Instance-Definitions_Syntax">6.5.1. Syntax</h4>
@@ -2247,14 +2254,33 @@ that you can use as part of a
 </div>
 <div class="sect3">
 <h4 id="Definitions_Component-Instance-Definitions_Semantics">6.5.2. Semantics</h4>
-<div class="paragraph">
-<p>TODO</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The identifier names the component instance.</p>
+</li>
+<li>
+<p>The qualified identifier must
+<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
+a
+<a href="#Definitions_Component-Definitions">component definition <em>D</em></a>.</p>
+</li>
+<li>
+<p>The expression following the keywords <code>base</code> <code>id</code> must have a
+<a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.
+It associates a base identifier with the component instance.
+The base identifier is used when resolving command opcodes and
+event, telemetry, and parameter identifiers.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Component-Instance-Definitions_Examples">6.5.3. Examples</h4>
-<div class="paragraph">
-<p>TODO</p>
+<h4 id="Definitions_Component-Instance-Definitions_Example">6.5.3. Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">instance commandDispatcher: Svc.CommandDispatcher base id 0x100</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -2277,21 +2303,186 @@ is part of a
 </div>
 <div class="sect3">
 <h4 id="Definitions_Component-Instance-Specifiers_Semantics">6.6.2. Semantics</h4>
-<div class="paragraph">
-<p>TODO</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The qualified identifier must
+<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
+a
+<a href="#Definitions_Component-Instance-Definitions">component instance</a>.</p>
+</li>
+<li>
+<p>The optional keyword <code>private</code>, if present, specifies
+a <strong>private instance</strong> of a topology.
+This means that
+the instance is private to the topology <em>T</em> in which
+the specifier appears.
+A private instance appears only in <em>T</em>; it does not appear
+in any topology <em>T'</em> into which <em>T</em> is
+<a href="#Definitions_Topology-Import-Specifiers">imported</a>.</p>
+</li>
+<li>
+<p>If an instance is not declared private, then it is implicitly
+a <strong>public instance</strong>. This means the instance
+appears in each topology <em>T'</em> into which <em>T</em> is
+<a href="#Definitions_Topology-Import-Specifiers">imported</a>.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Component-Instance-Specifiers_Examples">6.6.3. Examples</h4>
-<div class="paragraph">
-<p>TODO</p>
+<h4 id="Definitions_Component-Instance-Specifiers_Example">6.6.3. Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">component A { ... }
+component B { ... }
+component C { ... }
+
+instance a: A base id 0x100
+instance b: B base id 0x200
+private instance c: B base id 0x300
+
+Topology T {
+
+  instance a
+  instance b
+  instance c
+
+  ...
+
+}</code></pre>
+</div>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="Definitions_Connection-Graph-Definitions">6.7. Connection Graph Definitions</h3>
 <div class="paragraph">
+<p>A <strong>connection graph definition</strong> defines a <strong>connection graph</strong>
+as part of a
+<a href="#Definitions_Topology-Definitions">topology definition</a>.
+A connection graph is a named collection of <strong>connections</strong>.
+A connection connects an
+<a href="#Definitions_Port-Instance-Definitions">output port instance</a> of one
+<a href="#Definitions_Component-Instance-Specifiers">component instance</a>
+to an
+<a href="#Definitions_Port-Instance-Definitions">input port instance</a> of
+another.</p>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Connection-Graph-Definitions_Syntax">6.7.1. Syntax</h4>
+<div class="paragraph">
+<p><code>connections</code>
+<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<code>{</code> <em>connection-sequence</em> <code>}</code></p>
+</div>
+<div class="paragraph">
+<p><em>connection-sequence</em> is an
+<a href="#Element-Sequences">element sequence</a> in
+which each element is a <strong>connection</strong>,
+and the terminating punctuation is a comma.
+A connection is the following:</p>
+</div>
+<div class="paragraph">
+<p><a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>.</code>
+<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>[</em>
+<code>[</code>
+<a href="#Expressions"><em>expression</em></a>
+<code>]</code>
+<em>]</em>
+<code>-></code>
+<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>.</code>
+<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>[</em>
+<code>[</code>
+<a href="#Expressions"><em>expression</em></a>
+<code>]</code>
+<em>]</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Connection-Graph-Definitions_Semantics">6.7.2. Semantics</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The identifier following the keyword <code>connections</code> names
+the connection graph.</p>
+</li>
+<li>
+<p>For each qualified identifier <em>Q</em>:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><em>Q</em> must
+<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
+a component instance <em>I</em> that is available in the enclosing topology,
+either through
+<a href="#Definitions_Component-Instance-Specifiers">direct specification</a>
+or through
+<a href="#Definitions_Topology-Import-Specifiers">import</a>.</p>
+</li>
+<li>
+<p>The
+<a href="#Definitions_Component-Instance-Definitions">definition referred to by <em>I</em></a>
+must refer to a
+<a href="#Definitions_Component-Definitions">component definition <em>C</em></a>.</p>
+</li>
+<li>
+<p>The identifier following <em>Q</em>
+must refer to a
+<a href="#Definitions_Port-Instance-Definitions">port instance definition</a>
+of <em>C</em>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Each optional expression <em>e</em>, if it is present, represents a
+port array index.
+The type of <em>e</em> must be a
+<a href="#Types_Internal-Types_Numeric-Types">numeric type</a>, and
+<em>e</em> must
+<a href="#Evaluation">evaluate</a> to a compile-time constant
+that becomes a non-negative integer when
+<a href="#Evaluation_Type-Conversion">converted to</a> type <em>Integer</em>.</p>
+</li>
+<li>
+<p>The arrow represents the direction of the connection (left to right).</p>
+</li>
+<li>
+<p>Each connection must obey the following rules:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>The connection must go from an
+<a href="#Definitions_Port-Instance-Definitions">output port instance</a>
+to an
+<a href="#Definitions_Port-Instance-Definitions">input port instance</a>.</p>
+</li>
+<li>
+<p>The types specified in the two port instances must match,
+except that a <code>serial</code> port at either end can be connected
+to any port at the other end.</p>
+</li>
+<li>
+<p>Any array index, if present, must be within bounds for
+the array size specified in the port instance.</p>
+</li>
+<li>
 <p>TODO</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Connection-Graph-Definitions_Examples">6.7.3. Examples</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -2973,8 +3164,8 @@ of a
 <div class="paragraph">
 <p><em>general-port-kind</em> is one of the following:</p>
 </div>
-<div class="ulist">
-<ul>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p><code>async</code> <code>input</code></p>
 </li>
@@ -2987,26 +3178,26 @@ of a
 <li>
 <p><code>sync</code> <code>input</code></p>
 </li>
-</ul>
+</ol>
 </div>
 <div class="paragraph">
 <p><em>port-instance-type</em> is one of the following:</p>
 </div>
-<div class="ulist">
-<ul>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p><a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a></p>
 </li>
 <li>
 <p><code>serial</code></p>
 </li>
-</ul>
+</ol>
 </div>
 <div class="paragraph">
 <p><em>queue-full-behavior</em> is one of the following:</p>
 </div>
-<div class="ulist">
-<ul>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p><code>assert</code></p>
 </li>
@@ -3016,13 +3207,13 @@ of a
 <li>
 <p><code>drop</code></p>
 </li>
-</ul>
+</ol>
 </div>
 <div class="paragraph">
 <p><em>special-port-kind</em> is one of the following:</p>
 </div>
-<div class="ulist">
-<ul>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p><code>command</code> <code>recv</code></p>
 </li>
@@ -3050,7 +3241,23 @@ of a
 <li>
 <p><code>time</code> <code>get</code></p>
 </li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The following port instances are <strong>input port instances</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Any general port with <code>input</code> in its name.</p>
+</li>
+<li>
+<p>Special ports <code>command recv</code> and <code>command resp</code>.</p>
+</li>
 </ul>
+</div>
+<div class="paragraph">
+<p>The others are <strong>output port instances</strong>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -3441,8 +3648,83 @@ instance specifier</a></p>
 </div>
 <div class="sect3">
 <h4 id="Definitions_Topology-Definitions_Semantics">6.19.2. Semantics</h4>
+<div class="sect4">
+<h5 id="Definitions_Topology-Definitions_Semantics_Resolving-Topology-Definitions">Resolving Topology Definitions</h5>
 <div class="paragraph">
-<p>TODO</p>
+<p>FPP uses the following algorithm to resolve a topology definition <em>D</em>
+to a topology <em>T</em>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Let <em>I</em> be the set of
+<a href="#Definitions_Component-Instance-Specifiers">instances</a>
+(both public and private) appearing in <em>D</em>.</p>
+</li>
+<li>
+<p>Let <em>C</em> be the disjoint union of all connections specified in any
+<a href="#Definitions_Connection-Graph-Definitions">connection graphs</a> of <em>D</em>, where
+the disjoint union disregards port array indices.  For example, if graph <em>G1</em>
+contains <em>n</em> connections between port <em>p</em> and port <em>p'</em>, and graph <em>G2</em>
+contains <em>m</em> connections between port <em>p</em> and port <em>p'</em>, then the disjoint
+union <em>C</em> of the connections in <em>G1</em> and <em>G2</em> contains <em>n + m</em> connections
+between port <em>p</em> and port <em>p'</em>.</p>
+</li>
+<li>
+<p>Let <em>T</em> be the topology constructed from <em>I</em> and <em>C</em>,
+after applying
+<a href="#Definitions_Topology-Definitions_Semantics_Automatic-Numbering-of-Array-Indices">automatic numbering of array indices</a>.</p>
+</li>
+<li>
+<p>For each import specifier <em>S</em> appearing in <em>D</em>, do the following:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Let <em>T'</em> be the topology referred to in <em>S</em>.</p>
+</li>
+<li>
+<p>Let <em>T''</em> be the result of
+<a href="#Definitions_Topology-Import-Specifiers">importing</a>
+<em>T'</em> into <em>T</em>.</p>
+</li>
+<li>
+<p>Let <em>T</em> = <em>T''</em>.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="Definitions_Topology-Definitions_Semantics_Automatic-Numbering-of-Array-Indices">Automatic Numbering of Array Indices</h5>
+<div class="paragraph">
+<p>FPP automatically numbers the array indices appearing in the
+<a href="#Definitions_Connection-Graph-Definitions">connections</a>
+of a topology <em>T</em> as follows. For each position <em>P</em> (output or input)
+in each connection <em>C</em>, do the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>TODO: Explicit index</p>
+</li>
+<li>
+<p>TODO: Implicit index</p>
+</li>
+<li>
+<p>Check that in <em>C</em> there is no pair of connections <em>c1</em> and <em>c2</em>
+with the same output port instance <em>i</em> and the same port array index at <em>i</em>,
+For example, the following pair of connections is not allowed:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">a.p[0] -&gt; b.p
+a.p[0] -&gt; c.p</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
 </div>
 </div>
 <div class="sect3">
@@ -3469,10 +3751,48 @@ instance specifier</a></p>
 <p>The qualified identifier must
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
 a
-<a href="#Definitions_Topology-Definitions">topology definition <em>D</em></a>.</p>
+<a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
 </div>
 <div class="paragraph">
-<p>TODO</p>
+<p>FPP uses the following algorithm to compute <em>T</em>, which is the result of
+importing a topology <em>T2</em> into a topology <em>T1</em>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Let <em>I1</em> be the set of
+<a href="#Definitions_Component-Instance-Specifiers">instances</a>
+of <em>T1</em>.  Let <em>I2</em> be the set of
+<a href="#Definitions_Component-Instance-Specifiers">public instances</a>
+of <em>T2</em>.</p>
+</li>
+<li>
+<p>Let <em>I</em> be the set union of <em>I1</em> and <em>I2</em>.
+That means that if either or both of <em>I1</em> and <em>I2</em> contain the instance <em>i</em>,
+then <em>N</em> contains the instance <em>i</em> once.</p>
+</li>
+<li>
+<p>Let <em>C1</em> be the set of
+<a href="#Definitions_Connection-Graph-Definitions">connections</a>
+of <em>T1</em>.
+Let <em>C2</em> be the set of
+<a href="#Definitions_Connection-Graph-Definitions">connections</a>
+of <em>T2</em>.</p>
+</li>
+<li>
+<p>Let <em>C</em> be the disjoint union of <em>C1</em> and <em>C2</em>, where
+the disjoint union disregards array indices.
+That means that if <em>C1</em> contains <em>n</em> connections between port
+<em>p</em> and port <em>p'</em>, and <em>C2</em> contains <em>m</em> connections between
+port <em>p</em> and port <em>p'</em>, then <em>C</em> contains <em>n + m</em> connections
+between port <em>p</em> and port <em>p'</em>.</p>
+</li>
+<li>
+<p>Let <em>T</em> be the topology constructed from <em>I</em> and <em>C</em>,
+after applying
+<a href="#Definitions_Topology-Definitions_Semantics_Automatic-Numbering-of-Array-Indices">automatic numbering of array indices</a>.</p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect3">
@@ -3568,7 +3888,7 @@ As in python, a format string consists of text containing one or more
 In the output, each replacement field is replaced by the value of an
 <strong>argument</strong>.
 Characters outside of replacement fields are copied to the output unchanged,
-except that the escape sequences <code>{{`</code> and <code>}}</code> are converted to single
+except that the escape sequences <code>{{</code> and <code>}}</code> are converted to single
 braces.</p>
 </div>
 <div class="paragraph">
@@ -3880,7 +4200,7 @@ code with a
 <div class="ulist">
 <ul>
 <li>
-<p>The qualified identifer must
+<p>The qualified identifier must
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
 a
 <a href="#Definitions_Component-Instance-Definitions">component instance definition <em>D</em></a>.</p>
@@ -6175,7 +6495,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-12-10 17:50:09 -0800
+Last updated 2019-12-11 11:51:34 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

@@ -57,6 +57,7 @@ bool
 change
 command
 component
+connections
 constant
 default
 diagnostic
@@ -160,7 +161,7 @@ A *code string* is a sequence of characters enclosed in triple double
 quotes `"""`
 The characters must be printable ASCII characters, including newline.
 A sequence of three double quotes is not allowed inside the string, except
-that the sequene `\"""` represents three double quotes.
+that the sequence `\"""` represents three double quotes.
 The first newline after the first `"""` (if it exists) is omitted
 from the output string.
 
