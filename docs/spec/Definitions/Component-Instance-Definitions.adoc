@@ -16,8 +16,22 @@ that you can use as part of a
 
 ==== Semantics
 
-TODO
+* The identifier names the component instance.
 
-==== Examples
+* The qualified identifier must
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
+a
+<<Definitions_Component-Definitions,component definition _D_>>.
 
-TODO
+* The expression following the keywords `base` `id` must have a
+<<Types_Internal-Types_Numeric-Types,numeric type>>.
+It associates a base identifier with the component instance.
+The base identifier is used when resolving command opcodes and
+event, telemetry, and parameter identifiers.
+
+==== Example
+
+[source,fpp]
+----
+instance commandDispatcher: Svc.CommandDispatcher base id 0x100
+----
