@@ -430,6 +430,7 @@ var IN_GLOBAL_SCOPE = false;
           "high," +
           "id," +
           "include," +
+          "init," +
           "input," +
           "instance," +
           "internal," +
@@ -442,6 +443,7 @@ var IN_GLOBAL_SCOPE = false;
           "output," +
           "param," +
           "passive," +
+          "phase," +
           "port," +
           "priority," +
           "private," +

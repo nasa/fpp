@@ -1,0 +1,55 @@
+== Init Specifiers
+
+An *init specifier* associates some initialization
+code with a 
+<<Definitions_Component-Instance-Definitions,
+component instance>>.
+
+=== Syntax
+
+`init` <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
+`phase` <<Expressions,_expression_>>
+<<Lexical-Elements_Code-Strings,_code-string_>>
+
+=== Semantics
+
+* The qualified identifer must 
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
+a
+<<Definitions_Component-Instance-Definitions,
+component instance definition _D_>>.
+
+* The expression following the keyword `phase` must have
+a <<Types_Internal-Types_Numeric-Types,numeric type>>.
+It provides an integer identifier for an initialization phase.
+
+* The code string specifies some code in a target language
+that is associated with the instance.
+
+The meaning of the initialization phase and the code depends
+on the translation context.
+
+=== Example
+
+[source,fpp]
+----
+@ Phases of initialization
+enum Phases {
+  @ When components are constructed
+  CONSTRUCTION
+  @ After components are constructed, and before connections are established
+  BEFORE_CONNECTIONS
+  @ After connections are established
+  AFTER_CONNECTIONS
+}
+
+init commandDispatcher phase CONSTRUCTION
+"""
+Svc::CommandDispatcher cmdDisp("commandDispatcher");
+"""
+
+init commandDispatcher phase BEFORE_CONNECTIONS
+"""
+commandDispatcher.init(QueueDepth::commandDispatcher);
+"""
+----

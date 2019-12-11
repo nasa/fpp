@@ -17,6 +17,7 @@ Formal-Parameter-Lists.adoc
 Format-Strings.adoc
 Location-Specifiers.adoc
 Include-Specifiers.adoc
+Init-Specifiers.adoc
 Element-Sequences.adoc
 Comments-and-Annotations.adoc
 Translation-Units-and-Models.adoc

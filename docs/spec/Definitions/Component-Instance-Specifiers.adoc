@@ -1,0 +1,21 @@
+=== Component Instance Specifiers
+
+A *component instance specifier* 
+specifies that a 
+<<Definitions_Component-Instance-Definitions,component instance>>
+is part of a
+<<Definitions_Topology-Definitions,topology>>.
+
+==== Syntax
+
+_[_ `private` _]_
+`instance`
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
+
+==== Semantics
+
+TODO
+
+==== Examples
+
+TODO

@@ -1,0 +1,44 @@
+== Format Strings
+
+A *format string* is a string that specifies the display format
+of a
+<<Definitions_Struct-Definitions,struct member>>,
+<<Definitions_Array-Definitions,array element>>,
+<<Definitions_Event-Definitions,event report>>, or
+<<Definitions_Telemetry-Channel-Definitions,telemetry channel>>.
+
+An FPP format string is similar to a
+https://docs.python.org/3.0/library/string.html#formatstrings[Python format 
+string].
+As in python, a format string consists of text containing one or more
+*replacement fields* surrounded by curly braces `{` `}`.
+In the output, each replacement field is replaced by the value of an 
+*argument*.
+Characters outside of replacement fields are copied to the output unchanged,
+except that the escape sequences `{{`` and `}}` are converted to single 
+braces.
+
+The number of arguments must match the number of replacement fields.
+Each replacement field must also match the type of its argument, as
+discussed below.
+
+The following replacement fields are allowed:
+
+. You can use an empty replacement field `{}` to convert any argument.
+It causes the argument to be displayed in a standard way
+for F Prime according to its type.
+
+. You can use a replacement field containing a numeric format specifier,
+as defined
+https://docs.python.org/3.0/library/string.html#format-specification-mini-language[in Python].
+For example, `{.03f}`.
+It can bind to any argument whose type <<Types_Types-with-Numeric-Members,has 
+numeric members>>.
+If the type is a numeric type, then the specifier displays the argument
+in the standard way.
+If the type is a structure or array, then the type is displayed in a standard 
+way for F Prime, but with the specifier applied to each member.
+
+No other replacement fields are allowed.
+No other use of `{` or `}` is allowed, except in the escape sequences
+`{{` and `}}`.

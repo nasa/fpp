@@ -20,6 +20,8 @@ A token is one of the following:
 
 * A <<Expressions_String-Literals,string literal>>.
 
+* A <<Lexical-Elements_Code-Strings,code string>>
+
 * A <<Lexical-Elements_Newlines,newline token>>.
 
 * A line of an <<Comments-and-Annotations_Annotations,annotation>>
@@ -69,6 +71,7 @@ guarded
 high
 id
 include
+init
 input
 instance
 internal
@@ -81,6 +84,7 @@ orange
 output
 param
 passive
+phase
 port
 priority
 private
@@ -149,6 +153,28 @@ identifier_
 multiPartIdentifier
 multi_part_identifier
 ----
+
+=== Code Strings
+
+A *code string* is a sequence of characters enclosed in triple double 
+quotes `"""`
+The characters must be printable ASCII characters, including newline.
+A sequence of three double quotes is not allowed inside the string, except
+that the sequene `\"""` represents three double quotes.
+The first newline after the first `"""` (if it exists) is omitted
+from the output string.
+
+*Example:*
+
+[source,fpp]
+----
+"""
+// This is a code string
+instance.create(0, 1);
+"""
+----
+
+The output string consists of two lines, each followed by a newline.
 
 === Newlines
 
