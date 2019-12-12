@@ -1,4 +1,4 @@
-=== Telemetry Channel Definitions
+=== Telemetry Channel Specifiers
 
 A *telemetry channel definition* defines a telemetry channel as part of a
 <<Definitions_Component-Definitions,component definition>>.

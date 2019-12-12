@@ -38,7 +38,7 @@ values.
 
 * A <<Definitions_Struct-Definitions,struct definition>>
 
-* A <<Definitions_Telemetry-Channel-Definitions,telemetry channel definition>>.
+* A <<Specifiers_Telemetry-Channel-Specifiers,telemetry channel definition>>.
 All telemetry channels specified in a component must have distinct names and 
 identifier values.
 

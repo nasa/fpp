@@ -16,7 +16,6 @@ Definitions/Definitions.adoc
 Specifiers/Specifiers.adoc
 Formal-Parameter-Lists.adoc
 Format-Strings.adoc
-Init-Specifiers.adoc
 Element-Sequences.adoc
 Comments-and-Annotations.adoc
 Translation-Units-and-Models.adoc

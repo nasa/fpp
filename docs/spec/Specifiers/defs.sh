@@ -13,9 +13,11 @@ Component-Instance-Specifiers.adoc
 Connection-Graph-Specifiers.adoc
 Event-Specifiers.adoc
 Include-Specifiers.adoc
+Init-Specifiers.adoc
 Internal-Port-Specifiers.adoc
 Location-Specifiers.adoc
 Parameter-Specifiers.adoc
 Port-Instance-Specifiers.adoc
+Telemetry-Channel-Specifiers.adoc
 Topology-Import-Specifiers.adoc
 "

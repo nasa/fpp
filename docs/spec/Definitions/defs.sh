@@ -18,6 +18,5 @@ Enumerated-Constant-Definitions.adoc
 Module-Definitions.adoc
 Port-Definitions.adoc
 Struct-Definitions.adoc
-Telemetry-Channel-Definitions.adoc
 Topology-Definitions.adoc
 "

@@ -132,7 +132,7 @@ topology B {
 
 Note the following:
 
-* The connections from toplogies `A` and `B` are merged graph by graph.
+* The connections from topologies `A` and `B` are merged graph by graph.
 
 * Because instance b is private to topology `A`, neither it nor any
 of its connections appear in topology `B`.

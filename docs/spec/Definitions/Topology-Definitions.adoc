@@ -31,7 +31,7 @@ instance specifier>>
 
 ==== Semantics
 
-A topology defintion _D_ must be resolvable to a topology _T_,
+A topology definition _D_ must be resolvable to a topology _T_,
 according to the following algorithm:
 
 . Resolve _D_ to an
@@ -98,7 +98,7 @@ it is not already assigned to the same port in the topology.
 If no index is available, throw an error.
 
 . For each input position _P_ in each connection _C_, 
-if no index is already assinged, then assign the index zero.
+if no index is already assigned, then assign the index zero.
 
 Note that in step 1(a), the order of traversal of the connections is
 not specified in the FPP source.
