@@ -54,65 +54,41 @@ module M { # Qualified name is M
 The qualified names of definitions and
 reside in the following *name groups*:
 
+. The *component instance name group*
+
+. The *component name group*
+
+. The *port name group*
+
+. The *topology name group*
+
 . The *type name group*
 
 . The *value name group*
 
-. The *port name group*
-
-. The *component name group*
-
-. The *port instance name group*
-
-. The *command name group*
-
-. The *telemetry name group*
-
-. The *event name group*
-
-. The *parameter name group*
-
-. The *component instance name group*
-
-. The *topology name group*
-
-. The *connection graph name group*
-
 Definitions reside in name groups as follows:
 
-* Constant definitions reside in the value name group.
-
-* Module definitions reside in the value name group.
+* Abstract type definitions reside in the type name group.
 
 * Array type definitions reside in the type name group.
+
+* Component definitions reside in the component name group.
+
+* Component instance definitions reside in the component instance name group.
+
+* Constant definitions reside in the value name group.
 
 * Enum definitions reside in both the value and the type name group.
 
 * Enumerated constant definitions reside in the value name group.
 
-* Struct type definitions reside in the type name group.
-
-* Abstract type definitions reside in the type name group.
+* Module definitions reside in the value name group.
 
 * Port definitions reside in the port name group.
 
-* Component definitions reside in the component name group.
-
-* Port instance definitions reside in the port instance name group.
-
-* Command definitions reside in the command name group.
-
-* Telemetry channel definitions reside in the telemetry name group.
-
-* Event definitions reside in the event name group.
-
-* Parameter definitions reside in the parameter name group.
-
-* Component instance definitions reside in the component instance name group.
+* Struct type definitions reside in the type name group.
 
 * Topology definitions reside in the topology name group.
-
-* Connection graph definitions reside in the connection graph name group.
 
 === Multiple Definitions with the Same Qualified Name
 
