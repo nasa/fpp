@@ -1,4 +1,4 @@
-== Location Specifiers
+=== Location Specifiers
 
 A *location specifier* specifies the 
 <<Translation-Units-and-Models_The-Location-of-a-Translation-Unit,location>>
@@ -7,7 +7,7 @@ of the
 that contains a
 <<Definitions,definition>>.
 
-=== Syntax
+==== Syntax
 
 A location specifier is one of the following:
 
@@ -23,7 +23,7 @@ A location specifier is one of the following:
 
 * A *topology specifier* `locate` `topology` <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at` <<Expressions_String-Literals,_string-literal_>>
 
-=== Semantics
+==== Semantics
 
 . The qualified identifier _Q_ must be a <<Definitions-and-Uses_Uses,use>> that refers 
 to a <<Definitions,definition>> as follows:
@@ -64,7 +64,7 @@ The file must exist and must contain the definition referred to in the location 
 <<Translation-Units-and-Models_Models,model>>, so long as the locations are all 
 consistent.
 
-=== Examples
+==== Examples
 
 *Example 1:*
 

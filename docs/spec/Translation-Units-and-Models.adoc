@@ -100,9 +100,9 @@ unit 2 is not a valid model.
 
 Every translation unit _T_ in a source model has an associated
 *location* _L_.
-The location is used when resolving <<Location-Specifiers,location specifiers>>
-and
-<<Include-Specifiers,include specifiers>>
+The location is used when resolving <<Specifiers_Location-Specifiers,location 
+specifiers>> and
+<<Specifiers_Include-Specifiers,include specifiers>>
 during <<Analysis-and-Translation,analysis>>.
 
 . If _T_ is read in from a file, then _P_ is the absolute path 

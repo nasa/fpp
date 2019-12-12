@@ -22,9 +22,9 @@ which each element is a *topology member*,
 and the terminating punctuation is a semicolon.
 A topology member is one of the following:
 
-* A <<Definitions_Topology-Import-Specifiers,topology import specifier>>
+* A <<Specifiers_Topology-Import-Specifiers,topology import specifier>>
 
-* A <<Definitions_Component-Instance-Specifiers,component 
+* A <<Specifiers_Component-Instance-Specifiers,component 
 instance specifier>>
 
 * A <<Definitions_Connection-Graph-Definitions,connection graph definition>>
@@ -49,7 +49,7 @@ An *unnumbered topology* is a topology in which port array index expressions
 may or may not be present, and if they are present their meaning is ignored.
 
 . Let _T_ be the topology given by all
-<<Definitions_Component-Instance-Specifiers,instances>> (both public and
+<<Specifiers_Component-Instance-Specifiers,instances>> (both public and
 private) appearing in _D_ and all
 <<Definitions_Connection-Graph-Definitions,connection graphs>> appearing in
 _D_.
@@ -60,7 +60,7 @@ _D_.
 _S_ to an unnumbered topology.
 
 .. Let _T''_ be the result of 
-<<Definitions_Topology-Import-Specifiers,importing>>
+<<Specifiers_Topology-Import-Specifiers,importing>>
 _T'_ into _T_.
 
 .. Let _T_ = _T''_.
@@ -333,7 +333,7 @@ topology Release {
 
 Here is one topology that can result from automatic numbering of array indices
 applied to topology `B` in the
-<<Definitions_Topology-Import-Specifiers_Example,example for topology import
+<<Specifiers_Topology-Import-Specifiers_Example,example for topology import
 specifiers>>:
 
 [source,fpp]

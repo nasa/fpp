@@ -26,12 +26,12 @@ the instance is private to the topology _T_ in which
 the specifier appears.
 A private instance appears only in _T_; it does not appear
 in any topology _T'_ into which _T_ is
-<<Definitions_Topology-Import-Specifiers,imported>>.
+<<Specifiers_Topology-Import-Specifiers,imported>>.
 
 * If an instance is not declared private, then it is implicitly
 a *public instance*. This means the instance 
 appears in each topology _T'_ into which _T_ is
-<<Definitions_Topology-Import-Specifiers,imported>>.
+<<Specifiers_Topology-Import-Specifiers,imported>>.
 
 ==== Example
 

@@ -2,39 +2,3 @@
 
 A *definition* is a unit of syntax that introduces a name _N_
 and associates some code with _N_.
-FPP supports the following kinds of definitions:
-
-* <<Definitions_Constant-Definitions,Constant Definitions>>
-
-* <<Definitions_Module-Definitions,Module Definitions>>
-
-* <<Definitions_Array-Definitions,Array Definitions>>
-
-* <<Definitions_Enum-Definitions,Enum Definitions>>
-
-* <<Definitions_Enumerated-Constant-Definitions,Enumerated 
-Constant Definitions>>
-
-* <<Definitions_Struct-Definitions,Struct Definitions>>
-
-* <<Definitions_Abstract-Type-Definitions,Abstract Type Definitions>>
-
-* <<Definitions_Port-Definitions,Port Definitions>>
-
-* <<Definitions_Component-Definitions,Component Definitions>>
-
-* <<Definitions_Port-Instance-Definitions,Port Instance Definitions>>
-
-* <<Definitions_Command-Definitions,Command Definitions>>
-
-* <<Definitions_Telemetry-Channel-Definitions,Telemetry Channel Definitions>>
-
-* <<Definitions_Event-Definitions,Event Definitions>>
-
-* <<Definitions_Parameter-Definitions,Parameter Definitions>>
-
-* <<Definitions_Component-Instance-Definitions,Component Instance Definitions>>
-
-* <<Definitions_Topology-Definitions,Topology Definitions>>
-
-* <<Definitions_Connection-Graph-Definitions,Connection Graph Definitions>>

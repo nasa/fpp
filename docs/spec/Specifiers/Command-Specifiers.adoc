@@ -1,6 +1,6 @@
-=== Command Definitions
+=== Command Specifiers
 
-A *command definition* defines a command as part of a
+A *command specifier* specifies a command as part of a
 <<Definitions_Component-Definitions,component definition>>.
 
 ==== Syntax

@@ -1,14 +1,14 @@
-== Include Specifiers
+=== Include Specifiers
 
 An *include specifier* specifies that a file
 should be included in a
 <<Translation-Units-and-Models_Translation-Units,translation unit>>.
 
-=== Syntax
+==== Syntax
 
 `include` <<Expressions_String-Literals,_string-literal_>>
 
-=== Semantics
+==== Semantics
 
 The string literal specifies a file path relative to the
 <<Translation-Units-and-Models_The-Location-of-a-Translation-Unit,
@@ -22,7 +22,7 @@ During parsing, the translator does the following:
 in the enclosing translation unit at the point where the include
 specifier appears.
 
-=== Examples
+==== Examples
 
 *Example 1.*
 

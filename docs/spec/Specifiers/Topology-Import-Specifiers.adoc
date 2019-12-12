@@ -18,11 +18,11 @@ topology _T_,
 producing a new topology _T''_:
 
 . Let _I_ be the set of 
-<<Definitions_Component-Instance-Specifiers,instances>>
+<<Specifiers_Component-Instance-Specifiers,instances>>
 of _T_.
 
 . Let _I'_ be the set of 
-<<Definitions_Component-Instance-Specifiers,public instances>>
+<<Specifiers_Component-Instance-Specifiers,public instances>>
 of _T'_.
 
 . Let _I''_ be the set union of _I_ and _I'_.

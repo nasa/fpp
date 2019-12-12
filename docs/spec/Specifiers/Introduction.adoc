@@ -1,0 +1,8 @@
+== Specifiers
+
+A *specifier* is a unit of syntax that specifies some information
+about an FPP model.
+It may associate a local name with the specification.
+However, unlike a <<Definitions,definition>>, it does not
+create a
+<<Scoping-of-Names_Names-of-Definitions,globally unique qualified name>>.

@@ -25,7 +25,7 @@ which each element is a *component member*,
 and the terminating punctuation is a semicolon.
 A component member is one of the following:
 
-* A <<Definitions_Command-Definitions,command definition>>.
+* A <<Specifiers_Command-Specifiers,command specifier>>.
 All commands defined in a component must have distinct opcodes.
 
 * A <<Definitions_Constant-Definitions,constant definition>>

@@ -15,7 +15,7 @@ which each element is a *module member*,
 and the terminating punctuation is a semicolon.
 A module member is one of the following:
 
-* A <<Location-Specifiers,location specifier>>
+* A <<Specifiers_Location-Specifiers,location specifier>>
 
 * A <<Definitions_Constant-Definitions,constant definition>>
 
