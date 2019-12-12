@@ -1,6 +1,6 @@
-=== Event Definitions
+=== Event Specifiers
 
-An *event definition* defines an event report as part of a
+An *event specifier* specifies an event report as part of a
 <<Definitions_Component-Definitions,component definition>>.
 
 ==== Syntax

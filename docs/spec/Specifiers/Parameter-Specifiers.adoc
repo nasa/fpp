@@ -1,6 +1,6 @@
-=== Parameter Definitions
+=== Parameter Specifiers
 
-A *parameter definition* defines a parameter as part of a
+A *parameter specifier* specifies a parameter as part of a
 <<Definitions_Component-Definitions,component definition>>.
 
 ==== Syntax

@@ -27,7 +27,7 @@ A topology member is one of the following:
 * A <<Specifiers_Component-Instance-Specifiers,component 
 instance specifier>>
 
-* A <<Definitions_Connection-Graph-Definitions,connection graph definition>>
+* A <<Specifiers_Connection-Graph-Specifiers,connection graph specifier>>
 
 ==== Semantics
 
@@ -51,7 +51,7 @@ may or may not be present, and if they are present their meaning is ignored.
 . Let _T_ be the topology given by all
 <<Specifiers_Component-Instance-Specifiers,instances>> (both public and
 private) appearing in _D_ and all
-<<Definitions_Connection-Graph-Definitions,connection graphs>> appearing in
+<<Specifiers_Connection-Graph-Specifiers,connection graphs>> appearing in
 _D_.
 
 . For each import specifier _S_ appearing in _D_, do the following:
@@ -68,7 +68,7 @@ _T'_ into _T_.
 ===== Automatic Numbering of Array Indices
 
 *General numbering:* FPP automatically numbers the array indices appearing in 
-the <<Definitions_Connection-Graph-Definitions,connections>>
+the <<Specifiers_Connection-Graph-Specifiers,connections>>
 of a topology _T_ as follows.
 
 . For each position _P_ (output or input) in each connection _C_, 

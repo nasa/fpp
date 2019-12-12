@@ -28,13 +28,13 @@ _command-kind_ is one of the following:
 * `sync`
 
 _queue-full-behavior_ is as for
-<<Definitions_Port-Instance-Definitions,port instance definitions>>.
+<<Specifiers_Port-Instance-Specifiers,port instance specifiers>>.
 
 ==== Semantics
 
 * The command kind specifies the kind of the command.
-It is similar to the kind of a <<Definitions_Port-Instance-Definitions,
-port instance definition>>, except that different commands
+It is similar to the kind of a <<Specifiers_Port-Instance-Specifiers,
+port instance specifier>>, except that different commands
 on the same port can have different kinds.
 The kind `async` is valid only if the component is active or queued.
 

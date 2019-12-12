@@ -31,7 +31,7 @@ instance _S_,
 then _I''_ contains the instance _S_ once.
 
 . For each
-<<Definitions_Connection-Graph-Definitions,connection graph name>> stem:[N_i]
+<<Specifiers_Connection-Graph-Specifiers,connection graph name>> stem:[N_i]
 that appears in either _T_ or _T'_:
 
 .. Let stem:[G_i] be the connection graph named stem:[N_i] in _T_.
@@ -43,11 +43,11 @@ If no such graph exists, then let stem:[G'_i] be the empty connection graph
 with name stem:[N_i].
 
 .. Let stem:[C_i] be the set of 
-<<Definitions_Connection-Graph-Definitions,connections>>
+<<Specifiers_Connection-Graph-Specifiers,connections>>
 of stem:[G_i].
 
 .. Let stem:[C'_i] be the set of
-<<Definitions_Connection-Graph-Definitions,connections>>
+<<Specifiers_Connection-Graph-Specifiers,connections>>
 of stem:[G'_i].
 
 .. Let stem:[C''_i] be the disjoint union of stem:[C_i] and stem:[C'_i].

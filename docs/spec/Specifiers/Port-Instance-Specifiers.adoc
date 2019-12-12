@@ -1,13 +1,13 @@
-=== Port Instance Definitions
+=== Port Instance Specifiers
 
-A *port instance definition* defines an instantiated 
+A *port instance specifier* specifies an instantiated 
 <<Definitions_Port-Definitions,port>> as part
 of a
 <<Definitions_Component-Definitions,component definition>>.
 
 ==== Syntax
 
-A port instance definition is one of the following:
+A port instance specifier is one of the following:
 
 * _general-port-kind_ `port` <<Lexical-Elements_Identifiers,_identifier_>> `:` 
 _[_

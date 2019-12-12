@@ -1,14 +1,14 @@
-=== Connection Graph Definitions
+=== Connection Graph Specifiers
 
-A *connection graph definition* defines a *connection graph*
+A *connection graph specifier* specifies a *connection graph*
 as part of a
 <<Definitions_Topology-Definitions,topology definition>>.
 A connection graph is a named collection of *connections*.
 A connection connects an 
-<<Definitions_Port-Instance-Definitions,output port instance>> of one
+<<Specifiers_Port-Instance-Specifiers,output port instance>> of one
 <<Specifiers_Component-Instance-Specifiers,component instance>>
 to an
-<<Definitions_Port-Instance-Definitions,input port instance>> of
+<<Specifiers_Port-Instance-Specifiers,input port instance>> of
 another.
 
 ==== Syntax
@@ -64,7 +64,7 @@ definition _C'_>>.
 
 ... The identifier following _Q_
 must refer to a
-<<Definitions_Port-Instance-Definitions,port instance definition _P_>>
+<<Specifiers_Port-Instance-Specifiers,port instance specifier _P_>>
 of _C'_.
 
 ... The optional expression _e_ following the identifier, if it is present, 
@@ -82,9 +82,9 @@ the array size specified in _P_.
 .. The arrow represents the direction of the connection (left to right).
 
 .. The connection must go from an
-<<Definitions_Port-Instance-Definitions,output port instance>>
+<<Specifiers_Port-Instance-Specifiers,output port instance>>
 to an
-<<Definitions_Port-Instance-Definitions,input port instance>>.
+<<Specifiers_Port-Instance-Specifiers,input port instance>>.
 
 .. The types specified in the two port instances must match,
 except that a `serial` port at either end can be connected

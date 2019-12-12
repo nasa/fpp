@@ -26,28 +26,31 @@ and the terminating punctuation is a semicolon.
 A component member is one of the following:
 
 * A <<Specifiers_Command-Specifiers,command specifier>>.
-All commands defined in a component must have distinct opcodes.
+All commands specified in a component must have distinct names and opcodes.
 
 * A <<Definitions_Constant-Definitions,constant definition>>
 
-* A <<Definitions_Parameter-Definitions,parameter definition>>.
-All parameters defined in a component must have distinct identifier values.
+* A <<Specifiers_Parameter-Specifiers,parameter specifier>>.
+All parameters specified in a component must have distinct names and identifier 
+values.
 
-* A <<Definitions_Port-Instance-Definitions,port instance definition>>
+* A <<Specifiers_Port-Instance-Specifiers,port instance specifier>>
 
 * A <<Definitions_Struct-Definitions,struct definition>>
 
 * A <<Definitions_Telemetry-Channel-Definitions,telemetry channel definition>>.
-All telemetry channels defined in a component must have distinct identifier values.
+All telemetry channels specified in a component must have distinct names and 
+identifier values.
 
 * An <<Definitions_Array-Definitions,array definition>>
 
 * An <<Definitions_Enum-Definitions,enum definition>>
 
-* An <<Definitions_Event-Definitions,event definition>>.
-All events defined in a component must have distinct identifier values.
+* An <<Specifiers_Event-Specifiers,event specifier>>.
+All events specified in a component must have distinct names and identifier 
+values.
 
-* An <<Definitions_Internal-Port-Definitions,internal port definition>>
+* An <<Specifiers_Internal-Port-Specifiers,internal port specifier>>
 
 ==== Semantics
 

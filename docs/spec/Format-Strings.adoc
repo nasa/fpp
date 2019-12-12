@@ -4,7 +4,7 @@ A *format string* is a string that specifies the display format
 of a
 <<Definitions_Struct-Definitions,struct member>>,
 <<Definitions_Array-Definitions,array element>>,
-<<Definitions_Event-Definitions,event report>>, or
+<<Specifiers_Event-Specifiers,event report>>, or
 <<Definitions_Telemetry-Channel-Definitions,telemetry channel>>.
 
 An FPP format string is similar to a
