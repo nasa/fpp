@@ -79,7 +79,7 @@ _Integer_, and assign the index _n_ at that position.
 Check that _n_ is in bounds for the
 <<Definitions_Port-Definitions,port>> being indexed.
 
-. Check that in _C_ there is no pair of connections _c1_ and _c2_
+. Check that in _C_ there is no pair of connections stem:[c_1] and stem:[c_2]
 with the same output port instance _i_ and the same port array index at _i_.
 For example, the following pair of connections is not allowed:
 +
@@ -100,8 +100,11 @@ If no index is available, throw an error.
 . For each input position _P_ in each connection _C_, 
 if no index is already assigned, then assign the index zero.
 
-Note that in step 1(a), the order of traversal of the connections is
+Note that in step 3, the order of traversal of the output positions is
 not specified in the FPP source.
+Therefore, in general multiple assignments are possible.
+The translator just picks a legal one.
+See Example 4 below.
 
 *Special numbering:* Particular translation strategies may apply
 special numbering passes. For example:
