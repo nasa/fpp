@@ -2452,29 +2452,34 @@ or through
 <a href="#Definitions_Topology-Import-Specifiers">import</a>.</p>
 </li>
 <li>
-<p>The
-<a href="#Definitions_Component-Instance-Definitions">definition referred to by <em>I</em></a>
-must refer to a
-<a href="#Definitions_Component-Definitions">component definition <em>C'</em></a>.</p>
+<p><em>I</em> must refer to a <a href="#Definitions_Component-Instance-Definitions">component
+instance definition <em>I'</em></a>.</p>
+</li>
+<li>
+<p><em>I'</em> must refer to a <a href="#Definitions_Component-Definitions">component
+definition <em>C'</em></a>.</p>
 </li>
 <li>
 <p>The identifier following <em>Q</em>
 must refer to a
-<a href="#Definitions_Port-Instance-Definitions">port instance definition</a>
+<a href="#Definitions_Port-Instance-Definitions">port instance definition <em>P</em></a>
 of <em>C'</em>.</p>
 </li>
-</ol>
-</div>
-</li>
 <li>
-<p>Each optional expression <em>e</em>, if it is present, represents a
+<p>The optional expression <em>e</em> following the identifier, if it is present,
+represents a
 port array index.
 The type of <em>e</em> must be a
 <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>, and
 <em>e</em> must
 <a href="#Evaluation">evaluate</a> to a compile-time constant
-that becomes a non-negative integer when
-<a href="#Evaluation_Type-Conversion">converted to</a> type <em>Integer</em>.</p>
+that becomes a non-negative integer <em>n</em> when
+<a href="#Evaluation_Type-Conversion">converted to</a> type <em>Integer</em>.
+<em>n</em> must be within bounds for
+the array size specified in <em>P</em>.</p>
+</li>
+</ol>
+</div>
 </li>
 <li>
 <p>The arrow represents the direction of the connection (left to right).</p>
@@ -2489,10 +2494,6 @@ to an
 <p>The types specified in the two port instances must match,
 except that a <code>serial</code> port at either end can be connected
 to any port at the other end.</p>
-</li>
-<li>
-<p>Any array index, if present, must be within bounds for
-the array size specified in the port instance.</p>
 </li>
 </ol>
 </div>
@@ -3489,12 +3490,19 @@ struct A {
   x: U32
   y: F32
 }
+
 # Defines a struct type B with members x and y
 # and default value { x = 0, y = 1 }
 struct B {
   x: U32
   y: F32
-} default { y = 1 }</code></pre>
+} default { y = 1 }
+
+# Defines a struct type C with format specifiers
+struct C {
+  x: U32 format "{} counts"
+  y: F32 format "{} m/s"
+}</code></pre>
 </div>
 </div>
 </div>
@@ -6784,7 +6792,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-12-12 08:32:05 -0800
+Last updated 2019-12-12 08:48:04 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

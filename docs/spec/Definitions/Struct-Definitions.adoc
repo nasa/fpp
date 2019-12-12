@@ -52,10 +52,17 @@ struct A {
   x: U32
   y: F32
 }
+
 # Defines a struct type B with members x and y
 # and default value { x = 0, y = 1 }
 struct B {
   x: U32
   y: F32
 } default { y = 1 }
+
+# Defines a struct type C with format specifiers
+struct C {
+  x: U32 format "{} counts"
+  y: F32 format "{} m/s"
+}
 ----

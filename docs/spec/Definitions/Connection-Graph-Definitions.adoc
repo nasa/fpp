@@ -56,24 +56,28 @@ either through
 or through
 <<Definitions_Topology-Import-Specifiers,import>>.
 
-... The 
-<<Definitions_Component-Instance-Definitions,definition referred to by _I_>>
-must refer to a 
-<<Definitions_Component-Definitions,component definition _C'_>>. 
+... _I_ must refer to a <<Definitions_Component-Instance-Definitions,component 
+instance definition _I'_>>.
+
+... _I'_ must refer to a <<Definitions_Component-Definitions,component 
+definition _C'_>>. 
 
 ... The identifier following _Q_
 must refer to a
-<<Definitions_Port-Instance-Definitions,port instance definition>>
+<<Definitions_Port-Instance-Definitions,port instance definition _P_>>
 of _C'_.
 
-.. Each optional expression _e_, if it is present, represents a
+... The optional expression _e_ following the identifier, if it is present, 
+represents a
 port array index.
 The type of _e_ must be a
 <<Types_Internal-Types_Numeric-Types,numeric type>>, and
 _e_ must
 <<Evaluation,evaluate>> to a compile-time constant
-that becomes a non-negative integer when 
+that becomes a non-negative integer _n_ when 
 <<Evaluation_Type-Conversion,converted to>> type _Integer_.
+_n_ must be within bounds for
+the array size specified in _P_.
 
 .. The arrow represents the direction of the connection (left to right).
 
@@ -85,9 +89,6 @@ to an
 .. The types specified in the two port instances must match,
 except that a `serial` port at either end can be connected
 to any port at the other end.
-
-.. Any array index, if present, must be within bounds for
-the array size specified in the port instance.
 
 ==== Examples
 
