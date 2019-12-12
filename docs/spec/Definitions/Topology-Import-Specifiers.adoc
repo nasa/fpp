@@ -13,8 +13,9 @@ The qualified identifier must
 a
 <<Definitions_Topology-Definitions,topology definition>>.
 
-FPP uses the following algorithm to compute _T_, which is the result of 
-importing a topology _T'_ into a topology _T_:
+FPP uses the following algorithm to compute import a topology _T'_ into a 
+topology _T_,
+producing a new topology _T''_:
 
 . Let _I_ be the set of 
 <<Definitions_Component-Instance-Specifiers,instances>>
@@ -40,7 +41,7 @@ _p_ and port _p'_, and _C'_ contains _m_ connections between
 port _p_ and port _p'_, then _C_ contains _n + m_ connections
 between port _p_ and port _p'_.
 
-. Let _T_ be the topology constructed from _I_ and _C_,
+. Let _T''_ be the topology constructed from _I_ and _C_,
 after applying
 <<Definitions_Topology-Definitions_Semantics_Automatic-Numbering-of-Array-Indices,
 automatic numbering of array indices>>.
