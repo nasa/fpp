@@ -90,6 +90,19 @@ to an
 except that a `serial` port at either end can be connected
 to any port at the other end.
 
-==== Examples
+==== Example
 
-TODO
+[source,fpp]
+----
+connections CommandRegistration {
+  commandDispatcher.cmdRegOut -> commandDispatcher.cmdRegIn
+  commandSequencer.cmdRegOut -> commandDispatcher.cmdRegIn
+  engineeringTelemetryLogger.cmdRegOut -> commandDispatcher.cmdRegIn
+  eventLogger.cmdRegOut -> commandDispatcher.cmdRegIn
+  telemetryDatabase.cmdRegOut -> commandDispatcher.cmdRegIn
+  timeSource.cmdRegOut -> commandDispatcher.cmdRegIn
+}
+----
+
+See also the <<Definitions_Topology-Definitions_Examples,examples for topology 
+definitions>>.
