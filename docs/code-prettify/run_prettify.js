@@ -420,6 +420,7 @@ var IN_GLOBAL_SCOPE = false;
           "connections," +
           "constant," +
           "default," +
+          "depth," +
           "diagnostic," +
           "drop," +
           "enum," +
@@ -450,6 +451,7 @@ var IN_GLOBAL_SCOPE = false;
           "priority," +
           "private," +
           "queued," +
+          "queue," +
           "recv," +
           "red," +
           "ref," +
@@ -459,6 +461,7 @@ var IN_GLOBAL_SCOPE = false;
           "serial," +
           "set," +
           "size," +
+          "stack," +
           "string," +
           "struct," +
           "sync," +

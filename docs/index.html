@@ -952,6 +952,7 @@ component
 connections
 constant
 default
+depth
 diagnostic
 drop
 enum
@@ -982,6 +983,7 @@ phase
 port
 priority
 private
+queue
 queued
 recv
 red
@@ -992,6 +994,7 @@ save
 serial
 set
 size
+stack
 string
 struct
 sync
@@ -2093,7 +2096,16 @@ that you can refer to in a
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <code>:</code>
 <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a>
-<code>base</code> <code>id</code> <a href="#Expressions"><em>expression</em></a></p>
+<code>base</code> <code>id</code> <a href="#Expressions"><em>expression</em></a>
+<em>[</em>
+<code>queue</code> <code>depth</code> <a href="#Expressions"><em>expression</em></a>
+<em>]</em>
+<em>[</em>
+<code>priority</code> <a href="#Expressions"><em>expression</em></a>
+<em>]</em>
+<em>[</em>
+<code>stack</code> <code>size</code> <a href="#Expressions"><em>expression</em></a>
+<em>]</em></p>
 </div>
 </div>
 <div class="sect3">
@@ -2116,6 +2128,27 @@ It associates a base identifier with the component instance.
 The base identifier is used when resolving command opcodes and
 event, telemetry, and parameter identifiers.</p>
 </li>
+<li>
+<p>If present, the expression following the keywords <code>queue</code> <code>depth</code> must
+have a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.
+It specifies the queue depth for active and queued components.
+The queue depth is required for active and queued components
+and is not allowed for passive components.</p>
+</li>
+<li>
+<p>If present, the expression following the keyword <code>priority</code> must
+have a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.
+It specifies the thread priority for active components.
+The priority is required for active components and is not allowed
+for queued or passive components.</p>
+</li>
+<li>
+<p>If present, the expression following the keywords <code>stack</code> <code>size</code> must
+have a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.
+It specifies the stack size in bytes for active components.
+The stack size is required for active components and is not allowed
+for queued or passive components.</p>
+</li>
 </ul>
 </div>
 </div>
@@ -2123,7 +2156,11 @@ event, telemetry, and parameter identifiers.</p>
 <h4 id="Definitions_Component-Instance-Definitions_Example">6.4.3. Example</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">instance commandDispatcher: Svc.CommandDispatcher base id 0x100</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">instance commandDispatcher: Svc.CommandDispatcher \
+  base id 0x100 \
+  queue depth 10 \
+  priority 30 \
+  stack size 4096</code></pre>
 </div>
 </div>
 </div>
@@ -2680,7 +2717,7 @@ Check that <em>n</em> is in bounds for the
 <a href="#Definitions_Port-Definitions">port</a> being indexed.</p>
 </li>
 <li>
-<p>Check that in <em>C</em> there is no pair of connections <em>c1</em> and <em>c2</em>
+<p>Check that in <em>C</em> there is no pair of connections \$c_1\$ and \$c_2\$
 with the same output port instance <em>i</em> and the same port array index at <em>i</em>.
 For example, the following pair of connections is not allowed:</p>
 <div class="listingblock">
@@ -2706,8 +2743,11 @@ if no index is already assigned, then assign the index zero.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>Note that in step 1(a), the order of traversal of the connections is
-not specified in the FPP source.</p>
+<p>Note that in step 3, the order of traversal of the output positions is
+not specified in the FPP source.
+Therefore, in general multiple assignments are possible.
+The translator just picks a legal one.
+See Example 4 below.</p>
 </div>
 <div class="paragraph">
 <p><strong>Special numbering:</strong> Particular translation strategies may apply
@@ -3094,7 +3134,7 @@ If no specifier appears, then the default behavior is <code>assert</code>.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">@ A sync command with no parameters
-async command SyncNoParams opcode 0x00
+sync command SyncNoParams opcode 0x00
 
 @ An async command with no parameters
 async command AsyncNoParams opcode 0x01
@@ -3180,9 +3220,9 @@ appears in each topology <em>T'</em> into which <em>T</em> is
 component B { ... }
 component C { ... }
 
-instance a: A base id 0x100
-instance b: B base id 0x200
-instance c: B base id 0x300
+instance a: A base id 0x100 ...
+instance b: B base id 0x200 ...
+instance c: B base id 0x300 ...
 
 Topology T {
 
@@ -3725,22 +3765,34 @@ that contains a
 <div class="ulist">
 <ul>
 <li>
-<p>A <strong>constant location specifier</strong> <code>locate</code> <code>constant</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
+<p>A <strong>constant location specifier</strong> <code>locate</code> <code>constant</code>
+<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
+<a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
 <li>
-<p>A <strong>type location specifier</strong> <code>locate</code> <code>type</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
+<p>A <strong>type location specifier</strong> <code>locate</code> <code>type</code>
+<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
+<a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
 <li>
-<p>A <strong>port location specifier</strong> <code>locate</code> <code>port</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
+<p>A <strong>port location specifier</strong> <code>locate</code> <code>port</code>
+<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
+<a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
 <li>
-<p>A <strong>component location specifier</strong> <code>locate</code> <code>component</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
+<p>A <strong>component location specifier</strong> <code>locate</code> <code>component</code>
+<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
+<a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
 <li>
-<p>A <strong>component instance location specifier</strong> <code>locate</code> <code>component</code> <code>instance</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
+<p>A <strong>component instance location specifier</strong> <code>locate</code> <code>component</code> <code>instance</code>
+<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
+<a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
 <li>
-<p>A <strong>topology specifier</strong> <code>locate</code> <code>topology</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
+<p>A <strong>topology location specifier</strong> <code>locate</code> <code>topology</code>
+<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
+<a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
 </ul>
 </div>
@@ -6890,7 +6942,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-12-12 13:16:43 -0800
+Last updated 2020-01-06 13:10:46 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

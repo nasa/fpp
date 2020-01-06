@@ -66,7 +66,7 @@ If no specifier appears, then the default behavior is `assert`.
 [source,fpp]
 ----
 @ A sync command with no parameters
-async command SyncNoParams opcode 0x00
+sync command SyncNoParams opcode 0x00
 
 @ An async command with no parameters
 async command AsyncNoParams opcode 0x01

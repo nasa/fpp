@@ -60,6 +60,7 @@ component
 connections
 constant
 default
+depth
 diagnostic
 drop
 enum
@@ -90,6 +91,7 @@ phase
 port
 priority
 private
+queue
 queued
 recv
 red
@@ -100,6 +102,7 @@ save
 serial
 set
 size
+stack
 string
 struct
 sync
