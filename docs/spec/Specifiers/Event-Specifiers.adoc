@@ -71,7 +71,9 @@ array F64x3 = [3] F64
 enum Case { A, B, C }
 
 @ Event 0
-activity low event Event0  id 0x00  format "Event 0 occurred"
+activity low event Event0 \
+  id 0x00 \
+  format "Event 0 occurred"
 
 @ Event 1
 @ Sample output: "Event 1 occurred with argument 42"

@@ -43,13 +43,32 @@ enum Phases {
   AFTER_CONNECTIONS
 }
 
-init commandDispatcher phase CONSTRUCTION
-"""
-Svc::CommandDispatcher cmdDisp("commandDispatcher");
-"""
-
 init commandDispatcher phase BEFORE_CONNECTIONS
 """
 commandDispatcher.init(QueueDepth::commandDispatcher);
 """
 ----
+
+In this example, the code generator provides three phases,
+`CONSTRUCTION`, `BEFORE_CONNECTIONS`, and `AFTER_CONNECTIONS`.
+In the `CONSTRUCTION` phase, the code generator generates
+a default constructor invocation that looks like this:
+
+[source,fpp]
+----
+Svc::CommandDispatcher commandDispatcher("commandDispatcher");
+----
+
+By default, the code generator would generate this code
+to run before connections are established:
+
+[source,c++]
+----
+commandDispatcher.init(
+    QueueDepth::commandDispatcher,
+    InstanceID::commandDispatcher
+);
+----
+
+The code shown above overrides the code generated for the second
+phase to remove the instance ID from the arguments of the `init` method.
