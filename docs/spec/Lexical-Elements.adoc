@@ -114,6 +114,7 @@ time
 topology
 true
 type
+unused
 update
 warning
 yellow

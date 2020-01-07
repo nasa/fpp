@@ -12,32 +12,16 @@ A connection graph specifier is one of the following:
 
 _unused-port-sequence_ is an
 <<Element-Sequences,element sequence>> in 
-which each element is an *unused port group*,
+which each element is an *unused port*,
 and the terminating punctuation is a comma.
-An unused port group is the following:
+An unused port is the following:
 
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `.`
 <<Lexical-Elements_Identifiers,_identifier_>>
-_[_ `[` _index-range_ `]` _]_
-
-_index-range_ is one the following:
-
-. <<Expressions,_expression_>>
-
-. <<Expressions,_expression_>>
-`..`
-_[_ 
-<<Expressions,_expression_>>
-_]_
-
-. `..`
-_[_ 
-<<Expressions,_expression_>>
-_]_
 
 ==== Semantics
 
-For each unused port group _U_:
+For each unused port _U_:
 
 . The qualified identifier _Q_ appearing in _U_ must
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
@@ -58,47 +42,14 @@ must refer to a
 <<Specifiers_Port-Instance-Specifiers,port instance specifier _P_>>
 of _C'_.
 
-. The optional index range _R_, if it appears, must satisfy
-the following constraints:
-
-.. Each expression _e_ appearing in _R_ must have
-<<Types_Internal-Types_Numeric-Types,numeric type>>,
-_e_ must
-<<Evaluation,evaluate>> to a compile-time constant
-that becomes a non-negative integer _n_ when 
-<<Evaluation_Type-Conversion,converted to>> type _Integer_.
-_n_ must be within bounds for
-the array size specified in _P_.
-
-.. The first form of an index range (an expression _e_)
-represents the single port at that index.
-
-.. The second form of an index range (_e_
-followed by `..` optionally followed by _e'_) represents all
-ports at indices _n_ through _n'_, where (a) _e_ evaluates to _n_ and (b)
-if _e'_ is present, then it evaluates to _n'_, and otherwise _n'_ is the
-maximum index for _P_.
-If _n_ > _n'_, then flag an error.
-
-.. The third form of an index range (`..` optionally followed by _e_) 
-represents all
-ports at indices 0 through _n_, where if _e_ is present, then it evaluates to 
-_n_, and otherwise _n_ is the maximum index for _P_.
-
-. If an index range _R_ is present in _U_, then _U_ represents
-all port indices specified in the range.
-Otherwise, _U_ represents all port indices available in _P_.
-
 ==== Example
 
 [source,fpp]
 ----
 unused {
-  a.p
-  b.p[2]
-  c.p[2..3]
-  d.p[2..]
-  e.p[..10]
-  f.p[..] # Equivalent to f.p
+  a.p1
+  a.p2
+  b.p
+  c.p
 }
 ----
