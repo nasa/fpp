@@ -23,10 +23,10 @@ A connection graph specifier is one of the following:
 * A *graph pattern specifier:*
 `connections` 
 `instance` <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
-`pattern` <<Expressions,_expression_>>
 _[_
 `{` _instance-sequence_ `}`
 _]_
+`pattern` <<Expressions,_expression_>>
 
 _connection-sequence_ is an
 <<Element-Sequences,element sequence>> in 
@@ -118,6 +118,10 @@ by specifying a source component, a set of target components,
 and a pattern for connecting the source component to each of the
 target components.
 
+. The expression following the keyword `pattern` must have
+a <<Types_Internal-Types_Numeric-Types,numeric type>>.
+It provides an integer identifier for a connection pattern.
+
 . The qualified identifier following the keyword `instance` must
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
 a component instance that is available in the enclosing topology,
@@ -125,10 +129,6 @@ either through
 <<Specifiers_Component-Instance-Specifiers,direct specification>>
 or through
 <<Specifiers_Topology-Import-Specifiers,import>>.
-
-. The expression following the keyword `pattern` must have
-a <<Types_Internal-Types_Numeric-Types,numeric type>>.
-It provides an integer identifier for a connection pattern.
 
 . If the instance sequence _I_ appears, then each qualified identifier
 _Q_ appearing in _I_ must refer to a component instance that is available

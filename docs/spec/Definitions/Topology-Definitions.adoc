@@ -29,6 +29,8 @@ instance specifier>>
 
 * A <<Specifiers_Connection-Graph-Specifiers,connection graph specifier>>
 
+* An <<Specifiers_Unused-Port-Specifiers,unused port specifier>>
+
 ==== Semantics
 
 A topology definition _D_ must be resolvable to a topology _T_,
@@ -42,6 +44,9 @@ topology>> _T'_.
 <<Definitions_Topology-Definitions_Semantics_Automatic-Numbering-of-Array-Indices,
 automatic numbering of array indices>>
 to _T'_.
+
+. <<Definitions_Topology-Definitions_Semantics_Checking-for-Unconnected-Ports,
+Check for unconnected ports>> in _T'_.
 
 ===== Resolving to an Unnumbered Topology
 
@@ -145,6 +150,17 @@ sequencer.
 ping output port of the Health instance matches the index of the corresponding 
 ping input port of the Health instance.
 
+===== Checking for Unconnected Ports
+
+After resolving a topology definition _D_ to a numbered topology _T_,
+check for unused ports in _T_ as follows:
+
+. For each instance _I_ appearing in _T_, for each port _P_ of _I_,
+if (a) there is no connection to or from any index of _P_ and (b)
+_P_ does not appear in any 
+<<Specifiers_Unused-Port-Specifiers,unused port specifier>> of _D_,
+then issue a warning.
+
 ==== Examples
 
 *Example 1.*
@@ -179,9 +195,9 @@ topology CDH {
   # Connection patterns
   # ----------------------------------------------------------------------
 
-  connections instance commandDispatcher pattern COMMANDS
-  connections instance eventLogger pattern EVENTS
-  connections instance timeSource pattern TIME
+  connections pattern COMMANDS instance commandDispatcher
+  connections pattern EVENTS instance eventLogger
+  connections pattern TIME instance timeSource
 
   # ---------------------------------------------------------------------- 
   # Connection graphs
@@ -213,6 +229,34 @@ topology CDH {
 
   connections Uplink {
     socketGroundInterface.comCmdOut -> commandDispatcher.comCmdIn
+  }
+
+  # ----------------------------------------------------------------------
+  # Unused ports 
+  # ----------------------------------------------------------------------
+
+  unused {
+    commandDispatcher.pingIn
+    commandDispatcher.pingOut
+    commandSequencer.pingIn
+    commandSequencer.pingOut
+    engineeringRateGroup.pingIn
+    engineeringRateGroup.pingOut
+    engineeringTelemetryLogger.bufferSendIn
+    engineeringTelemetryLogger.bufferSendOut
+    engineeringTelemetryLogger.pingIn
+    engineeringTelemetryLogger.pingOut
+    eventLogger.pingIn
+    eventLogger.pingOut
+    socketGroundInterface.fileDownlinkBufferSendIn
+    socketGroundInterface.fileDownlinkBufferSendOut
+    socketGroundInterface.fileUplinkBufferGet
+    socketGroundInterface.fileUplinkBufferSendOut
+    telemetryDatabase.comTlmOut
+    telemetryDatabase.pingIn
+    telemetryDatabase.pingOut
+    telemetryDatabase.schedIn
+    telemetryDatabase.tlmGetIn
   }
 
 }
