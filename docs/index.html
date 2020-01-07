@@ -674,6 +674,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Specifiers_Topology-Import-Specifiers_Example">7.12.3. Example</a></li>
 </ul>
 </li>
+<li><a href="#Specifiers_Unused-Port-Specifiers">7.13. Unused Port Specifiers</a>
+<ul class="sectlevel3">
+<li><a href="#Specifiers_Unused-Port-Specifiers_Syntax">7.13.1. Syntax</a></li>
+<li><a href="#Specifiers_Unused-Port-Specifiers_Semantics">7.13.2. Semantics</a></li>
+<li><a href="#Specifiers_Unused-Port-Specifiers_Example">7.13.3. Example</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#Formal-Parameter-Lists">8. Formal Parameter Lists</a>
@@ -1006,6 +1013,7 @@ time
 topology
 true
 type
+unused
 update
 warning
 yellow</code></pre>
@@ -2466,7 +2474,7 @@ constant e = a # Error: a is not in scope here</code></pre>
 <h3 id="Definitions_Port-Definitions">6.9. Port Definitions</h3>
 <div class="paragraph">
 <p>An <strong>port definition</strong> defines an F Prime port.
-A port is the endpoint of a typed connection between F Prime components.</p>
+A port is the endpoint of a connection between F Prime components.</p>
 </div>
 <div class="sect3">
 <h4 id="Definitions_Port-Definitions_Syntax">6.9.1. Syntax</h4>
@@ -2639,6 +2647,9 @@ instance specifier</a></p>
 <li>
 <p>A <a href="#Specifiers_Connection-Graph-Specifiers">connection graph specifier</a></p>
 </li>
+<li>
+<p>An <a href="#Specifiers_Unused-Port-Specifiers">unused port specifier</a></p>
+</li>
 </ul>
 </div>
 </div>
@@ -2659,6 +2670,9 @@ topology</a> <em>T'</em>.</p>
 <p>Apply
 <a href="#Definitions_Topology-Definitions_Semantics_Automatic-Numbering-of-Array-Indices">automatic numbering of array indices</a>
 to <em>T'</em>.</p>
+</li>
+<li>
+<p><a href="#Definitions_Topology-Definitions_Semantics_Checking-for-Unconnected-Ports">Check for unconnected ports</a> in <em>T'</em>.</p>
 </li>
 </ol>
 </div>
@@ -2800,6 +2814,24 @@ ping input port of the Health instance.</p>
 </ul>
 </div>
 </div>
+<div class="sect4">
+<h5 id="Definitions_Topology-Definitions_Semantics_Checking-for-Unconnected-Ports">Checking for Unconnected Ports</h5>
+<div class="paragraph">
+<p>After resolving a topology definition <em>D</em> to a numbered topology <em>T</em>,
+check for unused ports in <em>T</em> as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>For each instance <em>I</em> appearing in <em>T</em>, for each port <em>P</em> of <em>I</em>,
+if (a) there is no connection to or from any index of <em>P</em> and (b)
+<em>P</em> does not appear in any
+<a href="#Specifiers_Unused-Port-Specifiers">unused port specifier</a> of <em>D</em>,
+then issue a warning.</p>
+</li>
+</ol>
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="Definitions_Topology-Definitions_Examples">6.11.3. Examples</h4>
@@ -2836,9 +2868,9 @@ topology CDH {
   # Connection patterns
   # ----------------------------------------------------------------------
 
-  connections instance commandDispatcher pattern COMMANDS
-  connections instance eventLogger pattern EVENTS
-  connections instance timeSource pattern TIME
+  connections pattern COMMANDS instance commandDispatcher
+  connections pattern EVENTS instance eventLogger
+  connections pattern TIME instance timeSource
 
   # ----------------------------------------------------------------------
   # Connection graphs
@@ -2870,6 +2902,34 @@ topology CDH {
 
   connections Uplink {
     socketGroundInterface.comCmdOut -&gt; commandDispatcher.comCmdIn
+  }
+
+  # ----------------------------------------------------------------------
+  # Unused ports
+  # ----------------------------------------------------------------------
+
+  unused {
+    commandDispatcher.pingIn
+    commandDispatcher.pingOut
+    commandSequencer.pingIn
+    commandSequencer.pingOut
+    engineeringRateGroup.pingIn
+    engineeringRateGroup.pingOut
+    engineeringTelemetryLogger.bufferSendIn
+    engineeringTelemetryLogger.bufferSendOut
+    engineeringTelemetryLogger.pingIn
+    engineeringTelemetryLogger.pingOut
+    eventLogger.pingIn
+    eventLogger.pingOut
+    socketGroundInterface.fileDownlinkBufferSendIn
+    socketGroundInterface.fileDownlinkBufferSendOut
+    socketGroundInterface.fileUplinkBufferGet
+    socketGroundInterface.fileUplinkBufferSendOut
+    telemetryDatabase.comTlmOut
+    telemetryDatabase.pingIn
+    telemetryDatabase.pingOut
+    telemetryDatabase.schedIn
+    telemetryDatabase.tlmGetIn
   }
 
 }</code></pre>
@@ -3251,10 +3311,10 @@ another.</p>
 <p>A <strong>graph pattern specifier:</strong>
 <code>connections</code>
 <code>instance</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a>
-<code>pattern</code> <a href="#Expressions"><em>expression</em></a>
 <em>[</em>
 <code>{</code> <em>instance-sequence</em> <code>}</code>
-<em>]</em></p>
+<em>]</em>
+<code>pattern</code> <a href="#Expressions"><em>expression</em></a></p>
 </li>
 </ul>
 </div>
@@ -3380,6 +3440,11 @@ target components.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
+<p>The expression following the keyword <code>pattern</code> must have
+a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.
+It provides an integer identifier for a connection pattern.</p>
+</li>
+<li>
 <p>The qualified identifier following the keyword <code>instance</code> must
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
 a component instance that is available in the enclosing topology,
@@ -3387,11 +3452,6 @@ either through
 <a href="#Specifiers_Component-Instance-Specifiers">direct specification</a>
 or through
 <a href="#Specifiers_Topology-Import-Specifiers">import</a>.</p>
-</li>
-<li>
-<p>The expression following the keyword <code>pattern</code> must have
-a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.
-It provides an integer identifier for a connection pattern.</p>
 </li>
 <li>
 <p>If the instance sequence <em>I</em> appears, then each qualified identifier
@@ -4757,6 +4817,80 @@ topology B {
 of its connections appear in topology <code>B</code>.</p>
 </li>
 </ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Specifiers_Unused-Port-Specifiers">7.13. Unused Port Specifiers</h3>
+<div class="paragraph">
+<p>An <strong>unused port specifier</strong> specifies that one or more ports in a
+<a href="#Definitions_Topology-Definitions">topology definition</a>
+may be unused.</p>
+</div>
+<div class="sect3">
+<h4 id="Specifiers_Unused-Port-Specifiers_Syntax">7.13.1. Syntax</h4>
+<div class="paragraph">
+<p>A connection graph specifier is one of the following:</p>
+</div>
+<div class="paragraph">
+<p><code>unused</code> <code>{</code> <em>unused-port-sequence</em> <code>}</code></p>
+</div>
+<div class="paragraph">
+<p><em>unused-port-sequence</em> is an
+<a href="#Element-Sequences">element sequence</a> in
+which each element is an <strong>unused port</strong>,
+and the terminating punctuation is a comma.
+An unused port is the following:</p>
+</div>
+<div class="paragraph">
+<p><a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>.</code>
+<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Specifiers_Unused-Port-Specifiers_Semantics">7.13.2. Semantics</h4>
+<div class="paragraph">
+<p>For each unused port <em>U</em>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The qualified identifier <em>Q</em> appearing in <em>U</em> must
+<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
+a component instance <em>I</em> that is available in the enclosing topology,
+either through
+<a href="#Specifiers_Component-Instance-Specifiers">direct specification</a>
+or through
+<a href="#Specifiers_Topology-Import-Specifiers">import</a>.</p>
+</li>
+<li>
+<p><em>I</em> must refer to a <a href="#Definitions_Component-Instance-Definitions">component
+instance definition <em>I'</em></a>.</p>
+</li>
+<li>
+<p><em>I'</em> must refer to a <a href="#Definitions_Component-Definitions">component
+definition <em>C'</em></a>.</p>
+</li>
+<li>
+<p>The identifier following <em>Q</em>
+must refer to a
+<a href="#Specifiers_Port-Instance-Specifiers">port instance specifier <em>P</em></a>
+of <em>C'</em>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Specifiers_Unused-Port-Specifiers_Example">7.13.3. Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">unused {
+  a.p1
+  a.p2
+  b.p
+  c.p
+}</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -7095,7 +7229,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-01-06 17:58:07 -0800
+Last updated 2020-01-07 09:43:39 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
