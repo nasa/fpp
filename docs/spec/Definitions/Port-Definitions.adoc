@@ -1,7 +1,7 @@
 === Port Definitions
 
 An *port definition* defines an F Prime port.
-A port is the endpoint of a typed connection between F Prime components.
+A port is the endpoint of a connection between F Prime components.
 
 ==== Syntax
 
