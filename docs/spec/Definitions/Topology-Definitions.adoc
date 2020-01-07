@@ -52,7 +52,29 @@ may or may not be present, and if they are present their meaning is ignored.
 <<Specifiers_Component-Instance-Specifiers,instances>> (both public and
 private) appearing in _D_ and all
 <<Specifiers_Connection-Graph-Specifiers,connection graphs>> appearing in
-_D_.
+_D_, after resolving all graph pattern pattern specifiers to direct graph
+specifiers and merging each set of connection graphs with the same name into
+a single graph.
+For example, the two connection graphs
++
+[source,fpp]
+----
+connections C { a.b -> c.d }
+----
++
+and
++
+[source,fpp]
+----
+connections C { e.f -> g.h }
+----
++
+are treated as the single graph
++
+[source,fpp]
+----
+connections C { a.b -> c.d, e.f -> g.h }
+----
 
 . For each import specifier _S_ appearing in _D_, do the following:
 
@@ -119,6 +141,10 @@ that the indices of the command connections going out of the sequencer
 match the indices of the command response connections coming into the 
 sequencer.
 
+* There may be a numbering pass to ensure that the index of each 
+ping output port of the Health instance matches the index of the corresponding 
+ping input port of the Health instance.
+
 ==== Examples
 
 *Example 1.*
@@ -147,42 +173,22 @@ topology CDH {
   # Private instances 
   # ----------------------------------------------------------------------
 
-  instance socketGroundInterface
+  private instance socketGroundInterface
 
   # ----------------------------------------------------------------------
-  # Connections
+  # Connection patterns
   # ----------------------------------------------------------------------
 
-  connections CommandRegistration {
-    commandDispatcher.cmdRegOut -> commandDispatcher.cmdRegIn
-    commandSequencer.cmdRegOut -> commandDispatcher.cmdRegIn
-    engineeringTelemetryLogger.cmdRegOut -> commandDispatcher.cmdRegIn
-    eventLogger.cmdRegOut -> commandDispatcher.cmdRegIn
-    telemetryDatabase.cmdRegOut -> commandDispatcher.cmdRegIn
-    timeSource.cmdRegOut -> commandDispatcher.cmdRegIn
-  }
+  connections instance commandDispatcher pattern COMMANDS
+  connections instance eventLogger pattern EVENTS
+  connections instance timeSource pattern TIME
 
-  connections CommandResponses {
-    commandDispatcher.cmdResponseInOut -> commandSequencer.cmdResponseIn
-    commandDispatcher.cmdResponseOut -> commandDispatcher.cmdResponseIn
-    commandSequencer.cmdResponseOut -> commandDispatcher.cmdResponseIn
-    engineeringTelemetryLogger.cmdResponseOut -> commandDispatcher.cmdResponseIn
-    eventLogger.cmdResponseOut -> commandDispatcher.cmdResponseIn
-    telemetryDatabase.cmdResponseOut -> commandDispatcher.cmdResponseIn
-    timeSource.cmdResponseOut -> commandDispatcher.cmdResponseIn
-  }
+  # ---------------------------------------------------------------------- 
+  # Connection graphs
+  # ---------------------------------------------------------------------- 
 
   connections CommandSequences {
     commandSequencer.comCmdOut -> commandDispatcher.comCmdIn
-  }
-
-  connections Commands {
-    commandDispatcher.cmdOut -> commandDispatcher.cmdIn
-    commandDispatcher.cmdOut -> commandSequencer.cmdIn
-    commandDispatcher.cmdOut -> engineeringTelemetryLogger.cmdIn
-    commandDispatcher.cmdOut -> eventLogger.cmdIn
-    commandDispatcher.cmdOut -> telemetryDatabase.cmdIn
-    commandDispatcher.cmdOut -> timeSource.cmdIn
   }
 
   connections Downlink {
@@ -199,28 +205,10 @@ topology CDH {
     engineeringTelemetrySplitter.tlmOut -> telemetryDatabase.tlmIn
   }
 
-  connections Events {
-    commandDispatcher.eventOut -> eventLogger.eventIn
-    commandSequencer.eventOut -> eventLogger.eventIn
-    engineeringRateGroup.eventOut -> eventLogger.eventIn
-    engineeringTelemetryLogger.eventOut -> eventLogger.eventIn
-    eventLogger.eventOut -> eventLogger.eventIn
-    telemetryDatabase.eventOut -> eventLogger.eventIn
-  }
-
   connections RateGroups {
     engineeringRateGroup.schedOut -> commandSequencer.schedIn
     engineeringRateGroup.schedOut -> telemetryDatabase.schedIn
     rateGroupDriver.cycleOut -> engineeringRateGroup.cycleIn
-  }
-
-  connections Time {
-    commandDispatcher.timeGetOut -> timeSource.timeGetIn
-    engineeringRateGroup.timeGetOut -> timeSource.timeGetIn
-    engineeringTelemetryLogger.timeGetOut -> timeSource.timeGetIn
-    eventLogger.timeGetOut -> timeSource.timeGetIn
-    sequencer.timeGetOut -> timeSource.timeGetIn
-    socketGroundInterface.timeGetOut -> timeSource.timeGetIn
   }
 
   connections Uplink {
@@ -258,25 +246,19 @@ topology AttitudeControl {
   instance socketGroundInterface
 
   # ----------------------------------------------------------------------
-  # Connections
+  # Connection patterns
+  # ----------------------------------------------------------------------
+
+  connections instance commandDispatcher pattern COMMANDS
+  connections instance eventLogger pattern EVENTS
+  connections instance timeSource pattern TIME
+
+
+  # ----------------------------------------------------------------------
+  # Connection graphs
   # ----------------------------------------------------------------------
 
   connections AttitudeTelemetry {
-    ...
-  }
-
-  connections CommandRegistration {
-    attitudeControl.cmdRegOut -> commandDispatcher.cmdRegIn
-    ...
-  }
-
-  connections CommandResponses {
-    attitudeControl.cmdResponseOut -> commandDispatcher.cmdResponseIn
-    ...
-  }
-
-  connections Commands {
-    commandDispatcher.cmdOut -> attitudeControl.cmdIn
     ...
   }
 
@@ -290,20 +272,8 @@ topology AttitudeControl {
     ...
   }
 
-  connections Events {
-    attitudeControl.eventOut -> eventLogger.eventIn
-    acsRateGroup.eventOut -> eventLogger.eventIn
-    ...
-  }
-
   connections RateGroups {
     acsRateGroup.schedOut -> attitudeControl.schedIn
-  }
-
-  connections Time {
-    acsRateGroup.timeGetOut -> timeSource.timeGetIn
-    attitudeControl.timeGetOut -> timeSource.timeGetIn
-    ...
   }
 
   connections Uplink {

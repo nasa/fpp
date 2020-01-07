@@ -1,11 +1,11 @@
 === Connection Graph Specifiers
 
-A *connection graph specifier* specifies a *connection graph*
+A *connection graph specifier* specifies one or more *connection graphs*
 as part of a
 <<Definitions_Topology-Definitions,topology definition>>.
-A connection graph is a named collection of *connections*.
-A connection connects an 
-<<Specifiers_Port-Instance-Specifiers,output port instance>> of one
+A connection graph is a named set of *connections*.
+A connection connects an <<Specifiers_Port-Instance-Specifiers,output port 
+instance>> of one
 <<Specifiers_Component-Instance-Specifiers,component instance>>
 to an
 <<Specifiers_Port-Instance-Specifiers,input port instance>> of
@@ -13,9 +13,20 @@ another.
 
 ==== Syntax
 
+A connection graph specifier is one of the following:
+
+* A *direct graph specifier:*
 `connections` 
 <<Lexical-Elements_Identifiers,_identifier_>>
 `{` _connection-sequence_ `}`
+
+* A *graph pattern specifier:*
+`connections` 
+`instance` <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
+`pattern` <<Expressions,_expression_>>
+_[_
+`{` _instance-sequence_ `}`
+_]_
 
 _connection-sequence_ is an
 <<Element-Sequences,element sequence>> in 
@@ -39,12 +50,22 @@ _[_
 `]`
 _]_
 
+_instance-sequence_ is an
+<<Element-Sequences,element sequence>> in 
+which each element is a
+<<Scoping-of-Names_Qualified-Identifiers,qualified identifier>>,
+and the terminating punctuation is a comma.
+
 ==== Semantics
+
+*Direct graph specifiers.*
+A direct graph specifier directly specifies a named connection graph.
 
 . The identifier following the keyword `connections` names
 the connection graph.
 
-. For each connection _C_:
+. The connection sequence specifies the set of connections in the graph.
+For each connection _C_:
 
 .. For each qualified identifier _Q_ in _C_:
 
@@ -90,7 +111,88 @@ to an
 except that a `serial` port at either end can be connected
 to any port at the other end.
 
+*Graph pattern specifiers.*
+A graph pattern specifier indirectly specifies one or more named connection 
+graphs
+by specifying a source component, a set of target components,
+and a pattern for connecting the source component to each of the
+target components.
+
+. The qualified identifier following the keyword `instance` must
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
+a component instance that is available in the enclosing topology,
+either through
+<<Specifiers_Component-Instance-Specifiers,direct specification>>
+or through
+<<Specifiers_Topology-Import-Specifiers,import>>.
+
+. The expression following the keyword `pattern` must have
+a <<Types_Internal-Types_Numeric-Types,numeric type>>.
+It provides an integer identifier for a connection pattern.
+
+. If the instance sequence _I_ appears, then each qualified identifier
+_Q_ appearing in _I_ must refer to a component instance that is available
+in the enclosing topology, and each instance must be valid for the pattern
+(i.e., must have a port of the type required for the pattern).
+The instances in the sequence name the target instances for the
+pattern. If no instance sequence appears, then the target instances are
+all instances specified directly in the enclosing topology (not via import)
+that are valid for the pattern.
+
+The meaning of the pattern identifiers depends on the translation context.
+Typical patterns include the following:
+
+. `COMMANDS`: The source instance _I_ is a command dispatcher.
+The following connection graphs are generated:
+
+.. A connection graph named `Command` consisting of all connections
+from the output port of type `Fw::Cmd` of _I_ to the input port of type 
+`Fw::Cmd` of each target component.
+
+.. A connection graph named `CommandRegistration` consisting of all
+connections from the output port of type `Fw::CmdReg` of each target component
+to the input port of type `Fw::Cmd` of _I_.
+
+.. A connection graph named `CommandResponse` consisting of all connections 
+from the output port of type `Fw::CmdResp` of each target component
+to the input port of type `Fw::CmdResp` of _I_.
+
+. `EVENTS`: The source instance _I_ is an active logger.
+The generated connection graph has name `Events` and contains
+all connections for sending events to _I_.
+
+. `HEALTH`: The source instance _I_ is a health component.
+The generated connection graph has name `Health` and contains
+all connections between the health component and the ping
+ports of the target components.
+
+. `TIME`: The source instance _I_ is a time component.
+The generated connection graph has name `Time` and contains
+all connections for getting the time from _I_.
+
 ==== Example
+
+Assume the following instances are available in the enclosing topology,
+and all have command ports:
+
+[source,fpp]
+----
+commandDispatcher
+commandSequencer
+engineeringTelemetryLogger
+eventLogger
+telemetryDatabase
+timeSource
+----
+
+Here is a graph pattern specifier:
+
+[source,fpp]
+----
+connections pattern COMMAND instance commandDispatcher
+----
+
+It is equivalent to the following direct graph specifiers:
 
 [source,fpp]
 ----
@@ -101,6 +203,24 @@ connections CommandRegistration {
   eventLogger.cmdRegOut -> commandDispatcher.cmdRegIn
   telemetryDatabase.cmdRegOut -> commandDispatcher.cmdRegIn
   timeSource.cmdRegOut -> commandDispatcher.cmdRegIn
+}
+
+connections Command {
+  commandDispatcher.cmdOut -> commandDispatcher.cmdIn
+  commandDispatcher.cmdOut -> commandSequencer.cmdIn
+  commandDispatcher.cmdOut -> engineeringTelemetryLogger.cmdIn
+  commandDispatcher.cmdOut -> eventLogger.cmdIn
+  commandDispatcher.cmdOut -> telemetryDatabase.cmdIn
+  commandDispatcher.cmdOut -> timeSource.cmdIn
+}
+
+connections CommandResponse {
+  commandDispatcher.cmdRespOut -> commandDispatcher.cmdRespIn
+  commandSequencer.cmdRespOut -> commandDispatcher.cmdRespIn
+  engineeringTelemetryLogger.cmdRespOut -> commandDispatcher.cmdRespIn
+  eventLogger.cmdRespOut -> commandDispatcher.cmdRespIn
+  telemetryDatabase.cmdRespOut -> commandDispatcher.cmdRespIn
+  timeSource.cmdRespOut -> commandDispatcher.cmdRespIn
 }
 ----
 

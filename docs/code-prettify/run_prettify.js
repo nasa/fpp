@@ -446,6 +446,7 @@ var IN_GLOBAL_SCOPE = false;
           "output," +
           "param," +
           "passive," +
+          "pattern," +
           "phase," +
           "port," +
           "priority," +

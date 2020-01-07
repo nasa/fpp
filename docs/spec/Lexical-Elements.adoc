@@ -87,6 +87,7 @@ orange
 output
 param
 passive
+pattern
 phase
 port
 priority

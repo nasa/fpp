@@ -5,7 +5,7 @@ An *event specifier* specifies an event report as part of a
 
 ==== Syntax
 
-_severity_ `event` <<Lexical-Elements_Identifiers,_identifier_>>
+`event` _severity_ <<Lexical-Elements_Identifiers,_identifier_>>
 _[_
 `(` <<Formal-Parameter-Lists,_param-list_>> `)`
 _]_
@@ -71,13 +71,13 @@ array F64x3 = [3] F64
 enum Case { A, B, C }
 
 @ Event 0
-activity low event Event0 \
+event activity low Event0 \
   id 0x00 \
   format "Event 0 occurred"
 
 @ Event 1
 @ Sample output: "Event 1 occurred with argument 42"
-activity high event Event1(
+event activity high Event1(
   arg1: U32 @< Argument 1
 ) \
   id 0x01 \
@@ -85,7 +85,7 @@ activity high event Event1(
 
 @ Event 2
 @ Sample output: "Saw value [ 0.001, 0.002, 0.003 ] for case A"
-warning low event Event2(
+event warning low Event2(
   case: Case @< The case
   value: F64x3 @< The value
 ) \

@@ -979,6 +979,7 @@ orange
 output
 param
 passive
+pattern
 phase
 port
 priority
@@ -2674,7 +2675,31 @@ may or may not be present, and if they are present their meaning is ignored.</p>
 <a href="#Specifiers_Component-Instance-Specifiers">instances</a> (both public and
 private) appearing in <em>D</em> and all
 <a href="#Specifiers_Connection-Graph-Specifiers">connection graphs</a> appearing in
-<em>D</em>.</p>
+<em>D</em>, after resolving all graph pattern pattern specifiers to direct graph
+specifiers and merging each set of connection graphs with the same name into
+a single graph.
+For example, the two connection graphs</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">connections C { a.b -&gt; c.d }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>and</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">connections C { e.f -&gt; g.h }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>are treated as the single graph</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">connections C { a.b -&gt; c.d, e.f -&gt; g.h }</code></pre>
+</div>
+</div>
 </li>
 <li>
 <p>For each import specifier <em>S</em> appearing in <em>D</em>, do the following:</p>
@@ -2767,6 +2792,11 @@ that the indices of the command connections going out of the sequencer
 match the indices of the command response connections coming into the
 sequencer.</p>
 </li>
+<li>
+<p>There may be a numbering pass to ensure that the index of each
+ping output port of the Health instance matches the index of the corresponding
+ping input port of the Health instance.</p>
+</li>
 </ul>
 </div>
 </div>
@@ -2800,42 +2830,22 @@ topology CDH {
   # Private instances
   # ----------------------------------------------------------------------
 
-  instance socketGroundInterface
+  private instance socketGroundInterface
 
   # ----------------------------------------------------------------------
-  # Connections
+  # Connection patterns
   # ----------------------------------------------------------------------
 
-  connections CommandRegistration {
-    commandDispatcher.cmdRegOut -&gt; commandDispatcher.cmdRegIn
-    commandSequencer.cmdRegOut -&gt; commandDispatcher.cmdRegIn
-    engineeringTelemetryLogger.cmdRegOut -&gt; commandDispatcher.cmdRegIn
-    eventLogger.cmdRegOut -&gt; commandDispatcher.cmdRegIn
-    telemetryDatabase.cmdRegOut -&gt; commandDispatcher.cmdRegIn
-    timeSource.cmdRegOut -&gt; commandDispatcher.cmdRegIn
-  }
+  connections instance commandDispatcher pattern COMMANDS
+  connections instance eventLogger pattern EVENTS
+  connections instance timeSource pattern TIME
 
-  connections CommandResponses {
-    commandDispatcher.cmdResponseInOut -&gt; commandSequencer.cmdResponseIn
-    commandDispatcher.cmdResponseOut -&gt; commandDispatcher.cmdResponseIn
-    commandSequencer.cmdResponseOut -&gt; commandDispatcher.cmdResponseIn
-    engineeringTelemetryLogger.cmdResponseOut -&gt; commandDispatcher.cmdResponseIn
-    eventLogger.cmdResponseOut -&gt; commandDispatcher.cmdResponseIn
-    telemetryDatabase.cmdResponseOut -&gt; commandDispatcher.cmdResponseIn
-    timeSource.cmdResponseOut -&gt; commandDispatcher.cmdResponseIn
-  }
+  # ----------------------------------------------------------------------
+  # Connection graphs
+  # ----------------------------------------------------------------------
 
   connections CommandSequences {
     commandSequencer.comCmdOut -&gt; commandDispatcher.comCmdIn
-  }
-
-  connections Commands {
-    commandDispatcher.cmdOut -&gt; commandDispatcher.cmdIn
-    commandDispatcher.cmdOut -&gt; commandSequencer.cmdIn
-    commandDispatcher.cmdOut -&gt; engineeringTelemetryLogger.cmdIn
-    commandDispatcher.cmdOut -&gt; eventLogger.cmdIn
-    commandDispatcher.cmdOut -&gt; telemetryDatabase.cmdIn
-    commandDispatcher.cmdOut -&gt; timeSource.cmdIn
   }
 
   connections Downlink {
@@ -2852,28 +2862,10 @@ topology CDH {
     engineeringTelemetrySplitter.tlmOut -&gt; telemetryDatabase.tlmIn
   }
 
-  connections Events {
-    commandDispatcher.eventOut -&gt; eventLogger.eventIn
-    commandSequencer.eventOut -&gt; eventLogger.eventIn
-    engineeringRateGroup.eventOut -&gt; eventLogger.eventIn
-    engineeringTelemetryLogger.eventOut -&gt; eventLogger.eventIn
-    eventLogger.eventOut -&gt; eventLogger.eventIn
-    telemetryDatabase.eventOut -&gt; eventLogger.eventIn
-  }
-
   connections RateGroups {
     engineeringRateGroup.schedOut -&gt; commandSequencer.schedIn
     engineeringRateGroup.schedOut -&gt; telemetryDatabase.schedIn
     rateGroupDriver.cycleOut -&gt; engineeringRateGroup.cycleIn
-  }
-
-  connections Time {
-    commandDispatcher.timeGetOut -&gt; timeSource.timeGetIn
-    engineeringRateGroup.timeGetOut -&gt; timeSource.timeGetIn
-    engineeringTelemetryLogger.timeGetOut -&gt; timeSource.timeGetIn
-    eventLogger.timeGetOut -&gt; timeSource.timeGetIn
-    sequencer.timeGetOut -&gt; timeSource.timeGetIn
-    socketGroundInterface.timeGetOut -&gt; timeSource.timeGetIn
   }
 
   connections Uplink {
@@ -2912,25 +2904,19 @@ topology AttitudeControl {
   instance socketGroundInterface
 
   # ----------------------------------------------------------------------
-  # Connections
+  # Connection patterns
+  # ----------------------------------------------------------------------
+
+  connections instance commandDispatcher pattern COMMANDS
+  connections instance eventLogger pattern EVENTS
+  connections instance timeSource pattern TIME
+
+
+  # ----------------------------------------------------------------------
+  # Connection graphs
   # ----------------------------------------------------------------------
 
   connections AttitudeTelemetry {
-    ...
-  }
-
-  connections CommandRegistration {
-    attitudeControl.cmdRegOut -&gt; commandDispatcher.cmdRegIn
-    ...
-  }
-
-  connections CommandResponses {
-    attitudeControl.cmdResponseOut -&gt; commandDispatcher.cmdResponseIn
-    ...
-  }
-
-  connections Commands {
-    commandDispatcher.cmdOut -&gt; attitudeControl.cmdIn
     ...
   }
 
@@ -2944,20 +2930,8 @@ topology AttitudeControl {
     ...
   }
 
-  connections Events {
-    attitudeControl.eventOut -&gt; eventLogger.eventIn
-    acsRateGroup.eventOut -&gt; eventLogger.eventIn
-    ...
-  }
-
   connections RateGroups {
     acsRateGroup.schedOut -&gt; attitudeControl.schedIn
-  }
-
-  connections Time {
-    acsRateGroup.timeGetOut -&gt; timeSource.timeGetIn
-    attitudeControl.timeGetOut -&gt; timeSource.timeGetIn
-    ...
   }
 
   connections Uplink {
@@ -3249,12 +3223,12 @@ Topology T {
 <div class="sect2">
 <h3 id="Specifiers_Connection-Graph-Specifiers">7.3. Connection Graph Specifiers</h3>
 <div class="paragraph">
-<p>A <strong>connection graph specifier</strong> specifies a <strong>connection graph</strong>
+<p>A <strong>connection graph specifier</strong> specifies one or more <strong>connection graphs</strong>
 as part of a
 <a href="#Definitions_Topology-Definitions">topology definition</a>.
-A connection graph is a named collection of <strong>connections</strong>.
-A connection connects an
-<a href="#Specifiers_Port-Instance-Specifiers">output port instance</a> of one
+A connection graph is a named set of <strong>connections</strong>.
+A connection connects an <a href="#Specifiers_Port-Instance-Specifiers">output port
+instance</a> of one
 <a href="#Specifiers_Component-Instance-Specifiers">component instance</a>
 to an
 <a href="#Specifiers_Port-Instance-Specifiers">input port instance</a> of
@@ -3263,9 +3237,26 @@ another.</p>
 <div class="sect3">
 <h4 id="Specifiers_Connection-Graph-Specifiers_Syntax">7.3.1. Syntax</h4>
 <div class="paragraph">
-<p><code>connections</code>
+<p>A connection graph specifier is one of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A <strong>direct graph specifier:</strong>
+<code>connections</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <code>{</code> <em>connection-sequence</em> <code>}</code></p>
+</li>
+<li>
+<p>A <strong>graph pattern specifier:</strong>
+<code>connections</code>
+<code>instance</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a>
+<code>pattern</code> <a href="#Expressions"><em>expression</em></a>
+<em>[</em>
+<code>{</code> <em>instance-sequence</em> <code>}</code>
+<em>]</em></p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p><em>connection-sequence</em> is an
@@ -3291,9 +3282,20 @@ A connection is the following:</p>
 <code>]</code>
 <em>]</em></p>
 </div>
+<div class="paragraph">
+<p><em>instance-sequence</em> is an
+<a href="#Element-Sequences">element sequence</a> in
+which each element is a
+<a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifier</a>,
+and the terminating punctuation is a comma.</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Connection-Graph-Specifiers_Semantics">7.3.2. Semantics</h4>
+<div class="paragraph">
+<p><strong>Direct graph specifiers.</strong>
+A direct graph specifier directly specifies a named connection graph.</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3301,7 +3303,8 @@ A connection is the following:</p>
 the connection graph.</p>
 </li>
 <li>
-<p>For each connection <em>C</em>:</p>
+<p>The connection sequence specifies the set of connections in the graph.
+For each connection <em>C</em>:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -3366,9 +3369,117 @@ to any port at the other end.</p>
 </li>
 </ol>
 </div>
+<div class="paragraph">
+<p><strong>Graph pattern specifiers.</strong>
+A graph pattern specifier indirectly specifies one or more named connection
+graphs
+by specifying a source component, a set of target components,
+and a pattern for connecting the source component to each of the
+target components.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The qualified identifier following the keyword <code>instance</code> must
+<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
+a component instance that is available in the enclosing topology,
+either through
+<a href="#Specifiers_Component-Instance-Specifiers">direct specification</a>
+or through
+<a href="#Specifiers_Topology-Import-Specifiers">import</a>.</p>
+</li>
+<li>
+<p>The expression following the keyword <code>pattern</code> must have
+a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.
+It provides an integer identifier for a connection pattern.</p>
+</li>
+<li>
+<p>If the instance sequence <em>I</em> appears, then each qualified identifier
+<em>Q</em> appearing in <em>I</em> must refer to a component instance that is available
+in the enclosing topology, and each instance must be valid for the pattern
+(i.e., must have a port of the type required for the pattern).
+The instances in the sequence name the target instances for the
+pattern. If no instance sequence appears, then the target instances are
+all instances specified directly in the enclosing topology (not via import)
+that are valid for the pattern.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The meaning of the pattern identifiers depends on the translation context.
+Typical patterns include the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>COMMANDS</code>: The source instance <em>I</em> is a command dispatcher.
+The following connection graphs are generated:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>A connection graph named <code>Command</code> consisting of all connections
+from the output port of type <code>Fw::Cmd</code> of <em>I</em> to the input port of type
+<code>Fw::Cmd</code> of each target component.</p>
+</li>
+<li>
+<p>A connection graph named <code>CommandRegistration</code> consisting of all
+connections from the output port of type <code>Fw::CmdReg</code> of each target component
+to the input port of type <code>Fw::Cmd</code> of <em>I</em>.</p>
+</li>
+<li>
+<p>A connection graph named <code>CommandResponse</code> consisting of all connections
+from the output port of type <code>Fw::CmdResp</code> of each target component
+to the input port of type <code>Fw::CmdResp</code> of <em>I</em>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><code>EVENTS</code>: The source instance <em>I</em> is an active logger.
+The generated connection graph has name <code>Events</code> and contains
+all connections for sending events to <em>I</em>.</p>
+</li>
+<li>
+<p><code>HEALTH</code>: The source instance <em>I</em> is a health component.
+The generated connection graph has name <code>Health</code> and contains
+all connections between the health component and the ping
+ports of the target components.</p>
+</li>
+<li>
+<p><code>TIME</code>: The source instance <em>I</em> is a time component.
+The generated connection graph has name <code>Time</code> and contains
+all connections for getting the time from <em>I</em>.</p>
+</li>
+</ol>
+</div>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Connection-Graph-Specifiers_Example">7.3.3. Example</h4>
+<div class="paragraph">
+<p>Assume the following instances are available in the enclosing topology,
+and all have command ports:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">commandDispatcher
+commandSequencer
+engineeringTelemetryLogger
+eventLogger
+telemetryDatabase
+timeSource</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here is a graph pattern specifier:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">connections pattern COMMAND instance commandDispatcher</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It is equivalent to the following direct graph specifiers:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">connections CommandRegistration {
@@ -3378,6 +3489,24 @@ to any port at the other end.</p>
   eventLogger.cmdRegOut -&gt; commandDispatcher.cmdRegIn
   telemetryDatabase.cmdRegOut -&gt; commandDispatcher.cmdRegIn
   timeSource.cmdRegOut -&gt; commandDispatcher.cmdRegIn
+}
+
+connections Command {
+  commandDispatcher.cmdOut -&gt; commandDispatcher.cmdIn
+  commandDispatcher.cmdOut -&gt; commandSequencer.cmdIn
+  commandDispatcher.cmdOut -&gt; engineeringTelemetryLogger.cmdIn
+  commandDispatcher.cmdOut -&gt; eventLogger.cmdIn
+  commandDispatcher.cmdOut -&gt; telemetryDatabase.cmdIn
+  commandDispatcher.cmdOut -&gt; timeSource.cmdIn
+}
+
+connections CommandResponse {
+  commandDispatcher.cmdRespOut -&gt; commandDispatcher.cmdRespIn
+  commandSequencer.cmdRespOut -&gt; commandDispatcher.cmdRespIn
+  engineeringTelemetryLogger.cmdRespOut -&gt; commandDispatcher.cmdRespIn
+  eventLogger.cmdRespOut -&gt; commandDispatcher.cmdRespIn
+  telemetryDatabase.cmdRespOut -&gt; commandDispatcher.cmdRespIn
+  timeSource.cmdRespOut -&gt; commandDispatcher.cmdRespIn
 }</code></pre>
 </div>
 </div>
@@ -3396,7 +3525,7 @@ definitions</a>.</p>
 <div class="sect3">
 <h4 id="Specifiers_Event-Specifiers_Syntax">7.4.1. Syntax</h4>
 <div class="paragraph">
-<p><em>severity</em> <code>event</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<p><code>event</code> <em>severity</em> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <em>[</em>
 <code>(</code> <a href="#Formal-Parameter-Lists"><em>param-list</em></a> <code>)</code>
 <em>]</em>
@@ -3492,11 +3621,13 @@ array F64x3 = [3] F64
 enum Case { A, B, C }
 
 @ Event 0
-activity low event Event0  id 0x00  format "Event 0 occurred"
+event activity low Event0 \
+  id 0x00 \
+  format "Event 0 occurred"
 
 @ Event 1
 @ Sample output: "Event 1 occurred with argument 42"
-activity high event Event1(
+event activity high Event1(
   arg1: U32 @&lt; Argument 1
 ) \
   id 0x01 \
@@ -3504,7 +3635,7 @@ activity high event Event1(
 
 @ Event 2
 @ Sample output: "Saw value [ 0.001, 0.002, 0.003 ] for case A"
-warning low event Event2(
+event warning low Event2(
   case: Case @&lt; The case
   value: F64x3 @&lt; The value
 ) \
@@ -3667,16 +3798,38 @@ enum Phases {
   AFTER_CONNECTIONS
 }
 
-init commandDispatcher phase CONSTRUCTION
-"""
-Svc::CommandDispatcher cmdDisp("commandDispatcher");
-"""
-
 init commandDispatcher phase BEFORE_CONNECTIONS
 """
 commandDispatcher.init(QueueDepth::commandDispatcher);
 """</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>In this example, the code generator provides three phases,
+<code>CONSTRUCTION</code>, <code>BEFORE_CONNECTIONS</code>, and <code>AFTER_CONNECTIONS</code>.
+In the <code>CONSTRUCTION</code> phase, the code generator generates
+a default constructor invocation that looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">Svc::CommandDispatcher commandDispatcher("commandDispatcher");</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>By default, the code generator would generate this code
+to run before connections are established:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="c++">commandDispatcher.init(
+    QueueDepth::commandDispatcher,
+    InstanceID::commandDispatcher
+);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The code shown above overrides the code generated for the second
+phase to remove the instance ID from the arguments of the <code>init</code> method.</p>
 </div>
 </div>
 </div>
@@ -6942,7 +7095,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-01-06 13:10:46 -0800
+Last updated 2020-01-06 17:58:07 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
