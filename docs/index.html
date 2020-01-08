@@ -959,7 +959,6 @@ component
 connections
 constant
 default
-depth
 diagnostic
 drop
 enum
@@ -2107,13 +2106,13 @@ that you can refer to in a
 <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a>
 <code>base</code> <code>id</code> <a href="#Expressions"><em>expression</em></a>
 <em>[</em>
-<code>queue</code> <code>depth</code> <a href="#Expressions"><em>expression</em></a>
-<em>]</em>
-<em>[</em>
-<code>priority</code> <a href="#Expressions"><em>expression</em></a>
+<code>queue</code> <code>size</code> <a href="#Expressions"><em>expression</em></a>
 <em>]</em>
 <em>[</em>
 <code>stack</code> <code>size</code> <a href="#Expressions"><em>expression</em></a>
+<em>]</em>
+<em>[</em>
+<code>priority</code> <a href="#Expressions"><em>expression</em></a>
 <em>]</em></p>
 </div>
 </div>
@@ -2138,24 +2137,24 @@ The base identifier is used when resolving command opcodes and
 event, telemetry, and parameter identifiers.</p>
 </li>
 <li>
-<p>If present, the expression following the keywords <code>queue</code> <code>depth</code> must
+<p>If present, the expression following the keywords <code>queue</code> <code>size</code> must
 have a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.
-It specifies the queue depth for active and queued components.
-The queue depth is required for active and queued components
+It specifies the queue size for active and queued components.
+The queue size is required for active and queued components
 and is not allowed for passive components.</p>
-</li>
-<li>
-<p>If present, the expression following the keyword <code>priority</code> must
-have a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.
-It specifies the thread priority for active components.
-The priority is required for active components and is not allowed
-for queued or passive components.</p>
 </li>
 <li>
 <p>If present, the expression following the keywords <code>stack</code> <code>size</code> must
 have a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.
 It specifies the stack size in bytes for active components.
 The stack size is required for active components and is not allowed
+for queued or passive components.</p>
+</li>
+<li>
+<p>If present, the expression following the keyword <code>priority</code> must
+have a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.
+It specifies the thread priority for active components.
+The priority is required for active components and is not allowed
 for queued or passive components.</p>
 </li>
 </ul>
@@ -2167,9 +2166,9 @@ for queued or passive components.</p>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">instance commandDispatcher: Svc.CommandDispatcher \
   base id 0x100 \
-  queue depth 10 \
-  priority 30 \
-  stack size 4096</code></pre>
+  queue size 10 \
+  stack size 4096 \
+  priority 30</code></pre>
 </div>
 </div>
 </div>
@@ -7229,7 +7228,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-01-07 09:43:39 -0800
+Last updated 2020-01-07 17:34:42 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

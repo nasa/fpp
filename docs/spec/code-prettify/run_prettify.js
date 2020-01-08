@@ -420,7 +420,6 @@ var IN_GLOBAL_SCOPE = false;
           "connections," +
           "constant," +
           "default," +
-          "depth," +
           "diagnostic," +
           "drop," +
           "enum," +

@@ -14,13 +14,13 @@ that you can refer to in a
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
 `base` `id` <<Expressions,_expression_>>
 _[_
-`queue` `depth` <<Expressions,_expression_>>
-_]_
-_[_
-`priority` <<Expressions,_expression_>>
+`queue` `size` <<Expressions,_expression_>>
 _]_
 _[_
 `stack` `size` <<Expressions,_expression_>>
+_]_
+_[_
+`priority` <<Expressions,_expression_>>
 _]_
 
 ==== Semantics
@@ -38,22 +38,22 @@ It associates a base identifier with the component instance.
 The base identifier is used when resolving command opcodes and
 event, telemetry, and parameter identifiers.
 
-* If present, the expression following the keywords `queue` `depth` must 
+* If present, the expression following the keywords `queue` `size` must 
 have a <<Types_Internal-Types_Numeric-Types,numeric type>>.
-It specifies the queue depth for active and queued components.
-The queue depth is required for active and queued components
+It specifies the queue size for active and queued components.
+The queue size is required for active and queued components
 and is not allowed for passive components.
-
-* If present, the expression following the keyword `priority` must
-have a <<Types_Internal-Types_Numeric-Types,numeric type>>.
-It specifies the thread priority for active components.
-The priority is required for active components and is not allowed
-for queued or passive components.
 
 * If present, the expression following the keywords `stack` `size` must
 have a <<Types_Internal-Types_Numeric-Types,numeric type>>.
 It specifies the stack size in bytes for active components.
 The stack size is required for active components and is not allowed
+for queued or passive components.
+
+* If present, the expression following the keyword `priority` must
+have a <<Types_Internal-Types_Numeric-Types,numeric type>>.
+It specifies the thread priority for active components.
+The priority is required for active components and is not allowed
 for queued or passive components.
 
 ==== Example
@@ -62,7 +62,7 @@ for queued or passive components.
 ----
 instance commandDispatcher: Svc.CommandDispatcher \
   base id 0x100 \
-  queue depth 10 \
-  priority 30 \
-  stack size 4096
+  queue size 10 \
+  stack size 4096 \
+  priority 30
 ----
