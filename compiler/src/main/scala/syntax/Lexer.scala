@@ -21,7 +21,7 @@ object Lexer extends RegexParsers {
   }
 
   def ignore: Parser[Unit] = {
-    def comment: Parser[Unit] = unitParser("#[^\n]*".r ~ newlinesOpt)
+    def comment: Parser[Unit] = unitParser("#[^\r\n]*".r ~ newlinesOpt)
     def spaces: Parser[Unit] = unitParser(" +".r)
     def escapedNewline: Parser[Unit] = unitParser("\\" ~ newline)
     unitParser(rep(comment | spaces | escapedNewline))
@@ -61,7 +61,7 @@ object Lexer extends RegexParsers {
   def newline: Parser[Unit] = unitParser(" *\r?\n *".r)
 
   def preAnnotation: Parser[Token] = {
-    "@[^\n]*".r <~ newlinesOpt ^^ {
+    "@[^\r\n]*".r <~ newlinesOpt ^^ {
       case s => {
         val s1 = s.stripPrefix("@").trim
         Token.PRE_ANNOTATION(s1)
@@ -70,7 +70,7 @@ object Lexer extends RegexParsers {
   }
 
   def postAnnotation: Parser[Token] = {
-    "@<[^\n]*".r <~ newlinesOpt ^^ {
+    "@<[^\r\n]*".r <~ newlinesOpt ^^ {
       case s => {
         val s1 = s.stripPrefix("@<").trim
         Token.POST_ANNOTATION(s1)
