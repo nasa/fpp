@@ -27,15 +27,6 @@ object Lexer extends RegexParsers {
     unitParser(rep(comment | spaces | escapedNewline))
   }
 
-  def keyword: Parser[Token] = positioned {
-    type ST = Tuple2[String, Token]
-    def f(st: ST): Parser[Token] = {
-      val (s, t) = st
-      accept((s ++ raw"\b").toList) ^^ { _ => t }
-    }
-    (keywords map f).foldRight (internalError) ((x, y) => y | x)
-  }
-
   def literalFloat: Parser[Token] = positioned {
     (
       "[0-9]+[Ee][+-]?[0-9]+".r | 
@@ -49,7 +40,21 @@ object Lexer extends RegexParsers {
   }
 
   def literalString: Parser[Token] = positioned {
-    "\"([^\\\\\"]+(\\\\(\")?)?)*\"".r ^^ { 
+    literalStringSingle | literalStringMulti
+  }
+
+  def literalStringMulti: Parser[Token] = positioned {
+    "\"\"\"([^\\\\\"]+(\\\\(\")?)?)*\"\"\"".r ^^ { 
+      case s => {
+        val s1 = "\\\\\"".r.replaceAllIn(s, "\"")
+        val s2 = s1.drop(1).dropRight(1)
+        Token.LITERAL_STRING(s2)
+      }
+    }
+  }
+
+  def literalStringSingle: Parser[Token] = positioned {
+    "\"([^\\\\\"\r\n]+(\\\\(\")?)?)*\"".r ^^ { 
       case s => {
         val s1 = "\\\\\"".r.replaceAllIn(s, "\"")
         val s2 = s1.drop(1).dropRight(1)
@@ -60,6 +65,15 @@ object Lexer extends RegexParsers {
 
   def newline: Parser[Unit] = unitParser(" *\r?\n *".r)
 
+  def postAnnotation: Parser[Token] = {
+    "@<[^\r\n]*".r <~ newlinesOpt ^^ {
+      case s => {
+        val s1 = s.stripPrefix("@<").trim
+        Token.POST_ANNOTATION(s1)
+      }
+    }
+  }
+
   def preAnnotation: Parser[Token] = {
     "@[^\r\n]*".r <~ newlinesOpt ^^ {
       case s => {
@@ -69,13 +83,13 @@ object Lexer extends RegexParsers {
     }
   }
 
-  def postAnnotation: Parser[Token] = {
-    "@<[^\r\n]*".r <~ newlinesOpt ^^ {
-      case s => {
-        val s1 = s.stripPrefix("@<").trim
-        Token.POST_ANNOTATION(s1)
-      }
+  def reservedWord: Parser[Token] = positioned {
+    type ST = Tuple2[String, Token]
+    def f(st: ST): Parser[Token] = {
+      val (s, t) = st
+      (s ++ raw"\b").r ^^ { _ => t }
     }
+    (reservedWords map f).foldRight (internalError) ((x, y) => y | x)
   }
 
   def symbol: Parser[Token] = positioned {
@@ -88,7 +102,7 @@ object Lexer extends RegexParsers {
   }
 
   def token: Parser[Token] = positioned {
-    keyword |
+    reservedWord |
     eol |
     identifier | 
     literalFloat |
@@ -123,7 +137,13 @@ object Lexer extends RegexParsers {
 
   val internalError = failure("internal error"): Parser[Token]
 
-  val keywords = List(
+  val newlines = unitParser(rep1(newline))
+
+  val newlinesOpt = unitParser(rep(newline))
+
+  val nothing = success(())
+
+  val reservedWords = List(
     ("F32", Token.F32),
     ("F64", Token.F64),
     ("I16", Token.I16),
@@ -135,53 +155,79 @@ object Lexer extends RegexParsers {
     ("U64", Token.U64),
     ("U8", Token.U8),
     ("active", Token.ACTIVE),
+    ("activity", Token.ACTIVITY),
+    ("always", Token.ALWAYS),
     ("array", Token.ARRAY),
     ("assert", Token.ASSERT),
     ("async", Token.ASYNC),
     ("at", Token.AT),
+    ("base", Token.BASE),
     ("block", Token.BLOCK),
     ("bool", Token.BOOL),
+    ("change", Token.CHANGE),
     ("command", Token.COMMAND),
     ("component", Token.COMPONENT),
+    ("connections", Token.CONNECTIONS),
     ("constant", Token.CONSTANT),
     ("default", Token.DEFAULT),
+    ("diagnostic", Token.DIAGNOSTIC),
     ("drop", Token.DROP),
     ("enum", Token.ENUM),
     ("event", Token.EVENT),
     ("false", Token.FALSE),
+    ("fatal", Token.FATAL),
+    ("format", Token.FORMAT),
     ("get", Token.GET),
     ("guarded", Token.GUARDED),
+    ("high", Token.HIGH),
+    ("id", Token.ID),
+    ("import", Token.IMPORT),
+    ("include", Token.INCLUDE),
+    ("init", Token.INIT),
     ("input", Token.INPUT),
     ("instance", Token.INSTANCE),
     ("internal", Token.INTERNAL),
     ("locate", Token.LOCATE),
+    ("low", Token.LOW),
     ("module", Token.MODULE),
+    ("on", Token.ON),
+    ("opcode", Token.OPCODE),
+    ("orange", Token.ORANGE),
     ("output", Token.OUTPUT),
     ("param", Token.PARAM),
     ("passive", Token.PASSIVE),
+    ("pattern", Token.PATTERN),
+    ("phase", Token.PHASE),
     ("port", Token.PORT),
     ("priority", Token.PRIORITY),
+    ("private", Token.PRIVATE),
+    ("queue", Token.QUEUE),
     ("queued", Token.QUEUED),
+    ("recv", Token.RECV),
+    ("red", Token.RED),
     ("ref", Token.REF),
     ("reg", Token.REG),
     ("resp", Token.RESP),
+    ("save", Token.SAVE),
+    ("serial", Token.SERIAL),
     ("set", Token.SET),
     ("size", Token.SIZE),
+    ("stack", Token.STACK),
     ("string", Token.STRING),
     ("struct", Token.STRUCT),
     ("sync", Token.SYNC),
     ("telemetry", Token.TELEMETRY),
+    ("text", Token.TEXT),
+    ("throttle", Token.THROTTLE),
     ("time", Token.TIME),
     ("topology", Token.TOPOLOGY),
     ("true", Token.TRUE),
     ("type", Token.TYPE),
+    ("unused", Token.UNUSED),
+    ("update", Token.UPDATE),
+    ("warning", Token.WARNING),
+    ("yellow", Token.YELLOW),
   )
-
-  val newlines = unitParser(rep1(newline))
-
-  val newlinesOpt = unitParser(rep(newline))
-
-  val nothing = success(())
 
   val symbols = List(
     (newlinesOpt, ")", Token.RPAREN, nothing),
@@ -199,7 +245,7 @@ object Lexer extends RegexParsers {
     (nothing, ";", Token.SEMI, newlinesOpt),
     (nothing, "=", Token.EQUALS, newlinesOpt),
     (nothing, "[", Token.LBRACKET, newlinesOpt),
-    (nothing, "}", Token.LBRACE, newlinesOpt),
+    (nothing, "{", Token.LBRACE, newlinesOpt),
   )
 
 }

@@ -1,6 +1,11 @@
 === String Literals
 
-A *string literal expression* is a sequence of characters enclosed in double 
+A *string literal expression* is a single-line string literal
+or a multiline stirng literal.
+
+==== Single-Line String Literals
+
+A *single-line string literal* is a sequence of characters enclosed in double 
 quotes.
 The characters must be printable ASCII characters, not including newline.
 The double quote character itself is not allowed, except that the character 
@@ -17,3 +22,34 @@ represents a single double quote character.
 
 * `"ab"c"` is the valid string `"ab"` followed by the identifier `c` and an 
 unmatched double quote character.
+
+=== Multiline String Literals
+
+A *multiline string literal* is a sequence of characters enclosed in triple double 
+quotes `"""`
+The characters must be printable ASCII characters, including newline.
+Inside a code string
+
+* The character sequence `\"` is interpeted
+as a double quote character.
+
+* A sequence of three double quote characters in a row is not allowed
+inside the string. To include a sequence of three double quote
+characters in he output, you must precede one of the characters with `\`.
+
+The first newline after the first `"""` (if it exists) is omitted
+from the output string.
+
+*Example:*
+
+[source,fpp]
+----
+"""
+// This is a multiline string literal
+// It represents some C++ code
+instance.create(0, 1);
+"""
+----
+
+The output string consists of two lines, each followed by a newline.
+

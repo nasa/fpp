@@ -16,13 +16,9 @@ A token is one of the following:
 
 * A <<Expressions_Floating-Point-Literals,floating-point literal>>.
 
-* A <<Expressions_Boolean-Literals,Boolean literal>>.
-
 * A <<Expressions_String-Literals,string literal>>.
 
-* A <<Lexical-Elements_Code-Strings,code string>>
-
-* A <<Lexical-Elements_Newlines,newline token>>.
+* An <<Lexical-Elements_End-of-Line-Tokens,end-of-line token>>.
 
 * A line of an <<Comments-and-Annotations_Annotations,annotation>>
 beginning with `@` or `@<`.
@@ -135,7 +131,6 @@ The following sequences of characters are symbol tokens in FPP:
 ;
 =
 [
-\
 ]
 {
 }
@@ -160,33 +155,12 @@ multiPartIdentifier
 multi_part_identifier
 ----
 
-=== Code Strings
+=== End-of-Line Tokens
 
-A *code string* is a sequence of characters enclosed in triple double 
-quotes `"""`
-The characters must be printable ASCII characters, including newline.
-A sequence of three double quotes is not allowed inside the string, except
-that the sequence `\"""` represents three double quotes.
-The first newline after the first `"""` (if it exists) is omitted
-from the output string.
-
-*Example:*
-
-[source,fpp]
-----
-"""
-// This is a code string
-instance.create(0, 1);
-"""
-----
-
-The output string consists of two lines, each followed by a newline.
-
-=== Newlines
-
-The NL character (ASCII code 0x0A), optionally preceded by a CR character 
-(ASCII code 0x0D), is a token. Sequences of one or more newlines separate the 
-elements of <<Element-Sequences,element sequences>>.
+An *end-of-line token* is a sequence of one or more *newlines*.
+A newline is the NL character (ASCII code 0x0A), optionally preceded by a CR 
+character (ASCII code 0x0D). End-of-line tokens separate the elements of 
+<<Element-Sequences,element sequences>>.
 
 === Comments
 
@@ -194,8 +168,8 @@ elements of <<Element-Sequences,element sequences>>.
 
 === Whitespace and Non-Printable Characters
 
-Apart from <<Lexical-Elements_Newlines,newlines>>, the lexer treats whitespace 
-as follows:
+Apart from <<Lexical-Elements_End-of-Line-Tokens,end-of-line tokens>>, the 
+lexer treats whitespace as follows:
 
 * Space characters are ignored, except to separate tokens.
 
@@ -206,8 +180,13 @@ in an FPP model outside of a comment or annotation.
 
 === Explicit Line Continuations
 
-The token `\`, when appearing before a newline, causes the newline to
-be ignored. For example, this
+The character `\`, when appearing before a 
+<<Lexical-Elements_End-of-Line-Tokens,newline>>, 
+suppresses the newline.
+Both the `\` and the following newline are ignored, and no
+<<Lexical-Elements_End-of-Line-Tokens,end-of-line token>>, 
+is created.
+For example, this
 
 [source,fpp]
 ----
@@ -221,7 +200,7 @@ is equivalent to this:
 constant a = 1
 ----
 
-Note that the `\` token is required in this case.
+Note that `\` is required in this case.
 For example, the following is not syntactically correct:
 
 [source,fpp]
@@ -233,10 +212,11 @@ constant a # Error
 The newline indicates the end of an element sequence, but
 `constant a` is not a valid element sequence.
 
-=== Automatic Line Continuations
+=== Automatic Suppression of Newlines
 
 The following symbols consume sequences of newlines that
-follow them:
+follow them, without creating an
+<<Lexical-Elements_End-of-Line-Tokens,end-of-line token>>:
 
 [source,fpp]
 ----
@@ -290,4 +270,36 @@ is consumed by the `+` symbol:
 ----
 constant a = 1 + 
   2
+----
+
+To make parsing easier, the following symbols consume sequences of newlines that
+precede them, without creating an
+<<Lexical-Elements_End-of-Line-Tokens,end-of-line token>>:
+
+[source,fpp]
+----
+)
+]
+}
+----
+
+For example, this code
+
+[source,fpp]
+----
+constant a = [
+  1
+  2
+  3
+]
+----
+
+is parsed as if it were this:
+
+[source,fpp]
+----
+constant a = [
+  1
+  2
+  3 ]
 ----

@@ -9,7 +9,7 @@ component instance>>.
 
 `init` <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
 `phase` <<Expressions,_expression_>>
-<<Lexical-Elements_Code-Strings,_code-string_>>
+<<Expressions_String-Literals,_string-literal_>>
 
 ==== Semantics
 
