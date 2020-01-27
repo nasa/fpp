@@ -44,7 +44,6 @@ object Lexer extends RegexParsers {
     literalStringMulti | literalStringSingle
   }
 
-
   def literalStringMulti: Parser[Token] = positioned {
     case class PositionedString(s: String) extends Positional
     def positionedString: Parser[PositionedString] = positioned {
