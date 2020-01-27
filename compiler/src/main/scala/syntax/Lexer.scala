@@ -2,6 +2,7 @@ package fpp.compiler.syntax
 
 import fpp.compiler.error._
 import scala.util.parsing.combinator.RegexParsers
+import scala.util.parsing.input.Positional
 
 object Lexer extends RegexParsers {
 
@@ -40,15 +41,37 @@ object Lexer extends RegexParsers {
   }
 
   def literalString: Parser[Token] = positioned {
-    literalStringSingle | literalStringMulti
+    literalStringMulti | literalStringSingle
   }
 
+
   def literalStringMulti: Parser[Token] = positioned {
-    "\"\"\"([^\\\\\"]+(\\\\(\")?)?)*\"\"\"".r ^^ { 
-      case s => {
-        val s1 = "\\\\\"".r.replaceAllIn(s, "\"")
-        val s2 = s1.drop(1).dropRight(1)
-        Token.LITERAL_STRING(s2)
+    case class PositionedString(s: String) extends Positional
+    def positionedString: Parser[PositionedString] = positioned {
+      "\"\"\"([^\\\\\"]+(\\\\(\")?)?)*\"\"\"".r ^^ { 
+        case s => {
+          val s1 = "\\\\\"".r.replaceAllIn(s, "\"")
+          val s2 = s1.drop(3).dropRight(3)
+          val s3 = "^\\n".r.replaceAllIn(s2, "")
+          PositionedString(s3)
+        }
+      }
+    }
+    positionedString ^^ { 
+      case ps @ PositionedString(s) => {
+        val col = ps.pos.column
+        def stripPrefix(s: String): String = {
+          def recurse(pos: Int, s: String): String = {
+            if (s.length == 0 || pos >= col) { s }
+            else if (s.head == ' ') { recurse(pos+1, s.tail) }
+            else { s }
+          }
+          recurse(0, s)
+        }
+        val ss  = s.split("\\r?\\n").toList
+        val ss1 = ss.head :: ss.tail.map(stripPrefix)
+        val s1 = ss1.mkString("\n")
+        Token.LITERAL_STRING(s1)
       }
     }
   }

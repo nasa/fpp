@@ -23,7 +23,7 @@ represents a single double quote character.
 * `"ab"c"` is the valid string `"ab"` followed by the identifier `c` and an 
 unmatched double quote character.
 
-=== Multiline String Literals
+==== Multiline String Literals
 
 A *multiline string literal* is a sequence of characters enclosed in triple double 
 quotes `"""`
@@ -37,19 +37,28 @@ as a double quote character.
 inside the string. To include a sequence of three double quote
 characters in he output, you must precede one of the characters with `\`.
 
-The first newline after the first `"""` (if it exists) is omitted
+Whitespace inside a multiline string literal is trimmed as follows:
+
+* The first newline after the first `"""` (if it exists) is omitted
 from the output string.
+
+* Any whitespace occurring in columns to the left of the first `"""`
+is omitted from the output string.
 
 *Example:*
 
 [source,fpp]
 ----
-"""
-// This is a multiline string literal
-// It represents some C++ code
-instance.create(0, 1);
-"""
+  """
+  // This is a multiline string literal
+  // It represents some C++ code
+  instance.create(0, 1);
+  """
 ----
 
-The output string consists of two lines, each followed by a newline.
+The output string consists of the following lines, each terminated by a newline:
+
+. `// This is a multiline string literal`
+. `// It represents some C++ code`
+. `instance.create(0, 1);`
 
