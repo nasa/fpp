@@ -449,12 +449,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Lexical-Elements_Reserved-Words">3.1. Reserved Words</a></li>
 <li><a href="#Lexical-Elements_Symbols">3.2. Symbols</a></li>
 <li><a href="#Lexical-Elements_Identifiers">3.3. Identifiers</a></li>
-<li><a href="#Lexical-Elements_Code-Strings">3.4. Code Strings</a></li>
-<li><a href="#Lexical-Elements_Newlines">3.5. Newlines</a></li>
-<li><a href="#Lexical-Elements_Comments">3.6. Comments</a></li>
-<li><a href="#Lexical-Elements_Whitespace-and-Non-Printable-Characters">3.7. Whitespace and Non-Printable Characters</a></li>
-<li><a href="#Lexical-Elements_Explicit-Line-Continuations">3.8. Explicit Line Continuations</a></li>
-<li><a href="#Lexical-Elements_Automatic-Line-Continuations">3.9. Automatic Line Continuations</a></li>
+<li><a href="#Lexical-Elements_End-of-Line-Tokens">3.4. End-of-Line Tokens</a></li>
+<li><a href="#Lexical-Elements_Comments">3.5. Comments</a></li>
+<li><a href="#Lexical-Elements_Whitespace-and-Non-Printable-Characters">3.6. Whitespace and Non-Printable Characters</a></li>
+<li><a href="#Lexical-Elements_Explicit-Line-Continuations">3.7. Explicit Line Continuations</a></li>
+<li><a href="#Lexical-Elements_Automatic-Suppression-of-Newlines">3.8. Automatic Suppression of Newlines</a></li>
 </ul>
 </li>
 <li><a href="#Type-Names">4. Type Names</a>
@@ -494,15 +493,20 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Expressions_Parenthesis-Expressions_Example">5.8.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_String-Literals">5.9. String Literals</a></li>
-<li><a href="#Expressions_Struct-Expressions">5.10. Struct Expressions</a>
+<li><a href="#Expressions_String-Literals">5.9. String Literals</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_Struct-Expressions_Syntax">5.10.1. Syntax</a></li>
-<li><a href="#Expressions_Struct-Expressions_Semantics">5.10.2. Semantics</a></li>
-<li><a href="#Expressions_Struct-Expressions_Example">5.10.3. Example</a></li>
+<li><a href="#Expressions_String-Literals_Single-Line-String-Literals">5.9.1. Single-Line String Literals</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Precedence-and-Associativity">5.11. Precedence and Associativity</a></li>
+<li><a href="#Expressions_Multiline-String-Literals">5.10. Multiline String Literals</a></li>
+<li><a href="#Expressions_Struct-Expressions">5.11. Struct Expressions</a>
+<ul class="sectlevel3">
+<li><a href="#Expressions_Struct-Expressions_Syntax">5.11.1. Syntax</a></li>
+<li><a href="#Expressions_Struct-Expressions_Semantics">5.11.2. Semantics</a></li>
+<li><a href="#Expressions_Struct-Expressions_Example">5.11.3. Example</a></li>
+</ul>
+</li>
+<li><a href="#Expressions_Precedence-and-Associativity">5.12. Precedence and Associativity</a></li>
 </ul>
 </li>
 <li><a href="#Definitions">6. Definitions</a>
@@ -908,16 +912,10 @@ This process is called <strong>lexing</strong>.</p>
 <p>A <a href="#Expressions_Floating-Point-Literals">floating-point literal</a>.</p>
 </li>
 <li>
-<p>A <a href="#Expressions_Boolean-Literals">Boolean literal</a>.</p>
-</li>
-<li>
 <p>A <a href="#Expressions_String-Literals">string literal</a>.</p>
 </li>
 <li>
-<p>A <a href="#Lexical-Elements_Code-Strings">code string</a></p>
-</li>
-<li>
-<p>A <a href="#Lexical-Elements_Newlines">newline token</a>.</p>
+<p>An <a href="#Lexical-Elements_End-of-Line-Tokens">end-of-line token</a>.</p>
 </li>
 <li>
 <p>A line of an <a href="#Comments-and-Annotations_Annotations">annotation</a>
@@ -1036,7 +1034,6 @@ yellow</code></pre>
 ;
 =
 [
-\
 ]
 {
 }</code></pre>
@@ -1067,50 +1064,25 @@ multi_part_identifier</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Lexical-Elements_Code-Strings">3.4. Code Strings</h3>
+<h3 id="Lexical-Elements_End-of-Line-Tokens">3.4. End-of-Line Tokens</h3>
 <div class="paragraph">
-<p>A <strong>code string</strong> is a sequence of characters enclosed in triple double
-quotes <code>"""</code>
-The characters must be printable ASCII characters, including newline.
-A sequence of three double quotes is not allowed inside the string, except
-that the sequence <code>\"""</code> represents three double quotes.
-The first newline after the first <code>"""</code> (if it exists) is omitted
-from the output string.</p>
-</div>
-<div class="paragraph">
-<p><strong>Example:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">"""
-// This is a code string
-instance.create(0, 1);
-"""</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The output string consists of two lines, each followed by a newline.</p>
+<p>An <strong>end-of-line token</strong> is a sequence of one or more <strong>newlines</strong>.
+A newline is the NL character (ASCII code 0x0A), optionally preceded by a CR
+character (ASCII code 0x0D). End-of-line tokens separate the elements of
+<a href="#Element-Sequences">element sequences</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Lexical-Elements_Newlines">3.5. Newlines</h3>
-<div class="paragraph">
-<p>The NL character (ASCII code 0x0A), optionally preceded by a CR character
-(ASCII code 0x0D), is a token. Sequences of one or more newlines separate the
-elements of <a href="#Element-Sequences">element sequences</a>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Lexical-Elements_Comments">3.6. Comments</h3>
+<h3 id="Lexical-Elements_Comments">3.5. Comments</h3>
 <div class="paragraph">
 <p><a href="#Comments-and-Annotations_Comments">Comments</a> are ignored during lexing.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Lexical-Elements_Whitespace-and-Non-Printable-Characters">3.7. Whitespace and Non-Printable Characters</h3>
+<h3 id="Lexical-Elements_Whitespace-and-Non-Printable-Characters">3.6. Whitespace and Non-Printable Characters</h3>
 <div class="paragraph">
-<p>Apart from <a href="#Lexical-Elements_Newlines">newlines</a>, the lexer treats whitespace
-as follows:</p>
+<p>Apart from <a href="#Lexical-Elements_End-of-Line-Tokens">end-of-line tokens</a>, the
+lexer treats whitespace as follows:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1127,10 +1099,15 @@ in an FPP model outside of a comment or annotation.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Lexical-Elements_Explicit-Line-Continuations">3.8. Explicit Line Continuations</h3>
+<h3 id="Lexical-Elements_Explicit-Line-Continuations">3.7. Explicit Line Continuations</h3>
 <div class="paragraph">
-<p>The token <code>\</code>, when appearing before a newline, causes the newline to
-be ignored. For example, this</p>
+<p>The character <code>\</code>, when appearing before a
+<a href="#Lexical-Elements_End-of-Line-Tokens">newline</a>,
+suppresses the newline.
+Both the <code>\</code> and the following newline are ignored, and no
+<a href="#Lexical-Elements_End-of-Line-Tokens">end-of-line token</a>,
+is created.
+For example, this</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1147,7 +1124,7 @@ be ignored. For example, this</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Note that the <code>\</code> token is required in this case.
+<p>Note that <code>\</code> is required in this case.
 For example, the following is not syntactically correct:</p>
 </div>
 <div class="listingblock">
@@ -1162,10 +1139,11 @@ For example, the following is not syntactically correct:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Lexical-Elements_Automatic-Line-Continuations">3.9. Automatic Line Continuations</h3>
+<h3 id="Lexical-Elements_Automatic-Suppression-of-Newlines">3.8. Automatic Suppression of Newlines</h3>
 <div class="paragraph">
 <p>The following symbols consume sequences of newlines that
-follow them:</p>
+follow them, without creating an
+<a href="#Lexical-Elements_End-of-Line-Tokens">end-of-line token</a>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1224,6 +1202,41 @@ is consumed by the <code>+</code> symbol:</p>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">constant a = 1 +
   2</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To simplify parsing, the following symbols consume sequences of newlines that
+precede them, without creating an
+<a href="#Lexical-Elements_End-of-Line-Tokens">end-of-line token</a>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">)
+]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For example, this code</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = [
+  1
+  2
+  3
+]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>is parsed as if it were this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = [
+  1
+  2
+  3 ]</code></pre>
 </div>
 </div>
 </div>
@@ -1631,7 +1644,13 @@ force evaluation order.</p>
 <div class="sect2">
 <h3 id="Expressions_String-Literals">5.9. String Literals</h3>
 <div class="paragraph">
-<p>A <strong>string literal expression</strong> is a sequence of characters enclosed in double
+<p>A <strong>string literal expression</strong> is a single-line string literal
+or a multiline stirng literal.</p>
+</div>
+<div class="sect3">
+<h4 id="Expressions_String-Literals_Single-Line-String-Literals">5.9.1. Single-Line String Literals</h4>
+<div class="paragraph">
+<p>A <strong>single-line string literal</strong> is a sequence of characters enclosed in double
 quotes.
 The characters must be printable ASCII characters, not including newline.
 The double quote character itself is not allowed, except that the character
@@ -1659,13 +1678,55 @@ unmatched double quote character.</p>
 </ul>
 </div>
 </div>
+</div>
 <div class="sect2">
-<h3 id="Expressions_Struct-Expressions">5.10. Struct Expressions</h3>
+<h3 id="Expressions_Multiline-String-Literals">5.10. Multiline String Literals</h3>
+<div class="paragraph">
+<p>A <strong>multiline string literal</strong> is a sequence of characters enclosed in triple double
+quotes <code>"""</code>
+The characters must be printable ASCII characters, including newline.
+Inside a code string</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The character sequence <code>\"</code> is interpeted
+as a double quote character.</p>
+</li>
+<li>
+<p>A sequence of three double quote characters in a row is not allowed
+inside the string. To include a sequence of three double quote
+characters in he output, you must precede one of the characters with <code>\</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The first newline after the first <code>"""</code> (if it exists) is omitted
+from the output string.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">"""
+// This is a multiline string literal
+// It represents some C++ code
+instance.create(0, 1);
+"""</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The output string consists of two lines, each followed by a newline.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Expressions_Struct-Expressions">5.11. Struct Expressions</h3>
 <div class="paragraph">
 <p>An <strong>struct expression</strong> is an expression that represents a struct value.</p>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Struct-Expressions_Syntax">5.10.1. Syntax</h4>
+<h4 id="Expressions_Struct-Expressions_Syntax">5.11.1. Syntax</h4>
 <div class="paragraph">
 <p><code>{</code> <em>struct-element-sequence</em> <code>}</code></p>
 </div>
@@ -1680,7 +1741,7 @@ A <strong>struct element</strong> has the following syntax:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Struct-Expressions_Semantics">5.10.2. Semantics</h4>
+<h4 id="Expressions_Struct-Expressions_Semantics">5.11.2. Semantics</h4>
 <div class="paragraph">
 <p>The following must be true of the struct element sequence <em>S</em>:</p>
 </div>
@@ -1701,7 +1762,7 @@ corresponding member names and values.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Struct-Expressions_Example">5.10.3. Example</h4>
+<h4 id="Expressions_Struct-Expressions_Example">5.11.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp"># s is a struct value with members x = 0, y = 1
@@ -1714,7 +1775,7 @@ constant s = {
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Precedence-and-Associativity">5.11. Precedence and Associativity</h3>
+<h3 id="Expressions_Precedence-and-Associativity">5.12. Precedence and Associativity</h3>
 <div class="paragraph">
 <p>Ambiguity in parsing expressions is resolved with the following
 precedence table. Expressions appearing earlier in the table
@@ -3814,7 +3875,7 @@ code with a
 <div class="paragraph">
 <p><code>init</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a>
 <code>phase</code> <a href="#Expressions"><em>expression</em></a>
-<a href="#Lexical-Elements_Code-Strings"><em>code-string</em></a></p>
+<a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </div>
 </div>
 <div class="sect3">
@@ -7228,7 +7289,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-01-07 17:34:42 -0800
+Last updated 2020-01-27 10:23:18 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
