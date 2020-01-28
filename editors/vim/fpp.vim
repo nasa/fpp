@@ -73,11 +73,12 @@ syn match fppTodo          /\v<TODO/ containedin=ALL
 
 " numbers
 syn match fppNumber /\v<\d+(\.\d*)?([Ee]-?\d+)?/
-syn match fppNumber /\v<\.\d+([Ee]-?\d+)?/
+syn match fppNumber /\.\d+([Ee]-?\d+)?/
 syn match fppNumber /\v<0x\x+/
 
 " strings
-syn match fppString /".*"/
+:syntax region String matchgroup=String start=+"""+  skip=+\\"+  end=+"""+
+:syntax region String matchgroup=String start=+"+  skip=+\\"+  end=+"+
 
 hi def link fppAnnotation  Special
 hi def link fppComment     Comment

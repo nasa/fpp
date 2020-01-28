@@ -1,0 +1,2 @@
+constant a \
+  = 1

@@ -9,7 +9,7 @@ object Lexer extends RegexParsers {
   def apply(code: String): Either[LexerError, List[Token]] = {
     parse(tokens, code) match {
       case NoSuccess(msg, next) => Left(LexerError(Location(next.pos),msg))
-      case Success(result, next) => Right(result)
+      case Success(result, _) => Right(result)
     }
   }
 
@@ -37,7 +37,7 @@ object Lexer extends RegexParsers {
   }
 
   def literalInt: Parser[Token] = positioned {
-    ("[0-9]+".r | "0[Xx][0-9a-fA-F]+".r) ^^ { Token.LITERAL_INT(_) }
+    ( "0[Xx][0-9a-fA-F]+".r | "[0-9]+".r ) ^^ { Token.LITERAL_INT(_) }
   }
 
   def literalString: Parser[Token] = positioned {
@@ -47,7 +47,7 @@ object Lexer extends RegexParsers {
   def literalStringMulti: Parser[Token] = positioned {
     case class PositionedString(s: String) extends Positional
     def positionedString: Parser[PositionedString] = positioned {
-      "\"\"\"([^\\\\\"]+(\\\\(\")?)?)*\"\"\"".r ^^ { 
+      "\"\"\"([^\\\\\"]*(\\\\(\")?)?)*\"\"\"".r ^^ { 
         case s => {
           val s1 = "\\\\\"".r.replaceAllIn(s, "\"")
           val s2 = s1.drop(3).dropRight(3)
@@ -76,7 +76,7 @@ object Lexer extends RegexParsers {
   }
 
   def literalStringSingle: Parser[Token] = positioned {
-    "\"([^\\\\\"\r\n]+(\\\\(\")?)?)*\"".r ^^ { 
+    "\"([^\\\\\"\r\n]*(\\\\(\")?)?)*\"".r ^^ { 
       case s => {
         val s1 = "\\\\\"".r.replaceAllIn(s, "\"")
         val s2 = s1.drop(1).dropRight(1)
