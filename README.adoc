@@ -10,9 +10,17 @@ https://github.jpl.nasa.gov/FPRIME/fprime-sw[F Prime flight software framework].
 
 `editors`: Syntax highlighting for code editors. Currently vim is supported.
 
-`sml`: A reference implementation in Standard ML.
+`compiler`: An implementation of the FPP compiler in Scala.
+So far the lexer is constructed.
+
+`sml`: A partial implementation in Standard ML.
+It is a little ahead of the Scala implementation.
+Once the Scala implementation catches up, it will
+be superseded.
 
 == Building and Installing
+
+=== Spec and SML Implemenation
 
 See `docs/spec/README.adoc` and `sml/README.adoc` for required tools.
 Once you have everything installed, you can run the following
@@ -21,3 +29,7 @@ from this directory:
 * `redo` or `redo all`: Build everything.
 
 * `redo clean`: Clean everything.
+
+=== Scala Implementation
+
+See `compiler/README.adoc`.

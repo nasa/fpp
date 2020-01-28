@@ -1,0 +1,11 @@
+= Compiler
+
+*Requirements:*
+Install the 
+https://www.scala-sbt.org[Simple Build Tool (sbt)] for Scala.
+
+*Building:*
+From the `sbt` console, run `compile`.
+
+*Running unit tests:*
+From the `sbt` console, run `test`.
