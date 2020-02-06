@@ -6,9 +6,9 @@ import scala.util.parsing.input.Positional
 
 object Lexer extends RegexParsers {
 
-  def apply(code: String): Either[LexerError, List[Token]] = {
+  def apply(file: File, code: String): Result.Result[List[Token]] = {
     parse(tokens, code) match {
-      case NoSuccess(msg, next) => Left(LexerError(Location(next.pos),msg))
+      case NoSuccess(msg, next) => Left(SyntaxError(Location(file, next.pos),msg))
       case Success(result, _) => Right(result)
     }
   }
