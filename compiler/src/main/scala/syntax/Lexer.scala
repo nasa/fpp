@@ -1,6 +1,6 @@
 package fpp.compiler.syntax
 
-import fpp.compiler.error._
+import fpp.compiler.util._
 import scala.util.parsing.combinator.RegexParsers
 import scala.util.parsing.input.Positional
 
