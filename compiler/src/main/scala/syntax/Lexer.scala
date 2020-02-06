@@ -106,7 +106,7 @@ object Lexer extends RegexParsers {
   }
 
   def reservedWord: Parser[Token] = positioned {
-    type ST = Tuple2[String, Token]
+    type ST = (String, Token)
     def f(st: ST): Parser[Token] = {
       val (s, t) = st
       (s ++ raw"\b").r ^^ { _ => t }
@@ -115,7 +115,7 @@ object Lexer extends RegexParsers {
   }
 
   def symbol: Parser[Token] = positioned {
-    type PSTP = Tuple4[Parser[Unit], String, Token, Parser[Unit]]
+    type PSTP = (Parser[Unit], String, Token, Parser[Unit])
     def f(pstp: PSTP): Parser[Token] = {
       val (p1, s, t, p2) = pstp
       p1 ~> accept(s.toList) <~ p2 ^^ { _ => t }
