@@ -28,8 +28,8 @@ sealed trait File {
 
 object File {
 
-  case class Path(path: java.nio.file.Path) extends File
-  case object StdIn extends File
+  final case class Path(path: java.nio.file.Path) extends File
+  final case object StdIn extends File
 
   def fromString(s: String): File = {
     val p = java.nio.file.Paths.get(s).toAbsolutePath

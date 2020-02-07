@@ -4,6 +4,10 @@
 
 package fpp.compiler.util
 
+/** An exception for signaling internal compiler errors */
+final case class InternalError(private val msg: String) extends Exception
+
+/** An algebraic data type for handling copmilation errors */
 sealed trait Error {
   def print = {
     this match {
@@ -14,10 +18,10 @@ sealed trait Error {
   }
 }
 
-case class SyntaxError(loc: Location, msg: String) extends Error
+final case class SyntaxError(loc: Location, msg: String) extends Error
 
 object FileError {
-  case class CannotOpen(name: String) extends Error
+  final case class CannotOpen(name: String) extends Error
 }
 
 object Error {

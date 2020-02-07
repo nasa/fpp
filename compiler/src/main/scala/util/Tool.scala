@@ -4,4 +4,4 @@
 
 package fpp.compiler.util
 
-case class Tool(name: String)
+final case class Tool(name: String)
