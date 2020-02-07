@@ -1,3 +1,7 @@
+/**
+ * An AST node with an identifier
+ */
+
 package fpp.compiler.ast
 
 case class AstNode[T] private(data: T, id: AstNode.Id) {
