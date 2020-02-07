@@ -45,7 +45,7 @@ object Lexer extends RegexParsers {
   }
 
   def literalStringMulti: Parser[Token] = positioned {
-    case class PositionedString(s: String) extends Positional
+    final case class PositionedString(s: String) extends Positional
     def positionedString: Parser[PositionedString] = positioned {
       "\"\"\"([^\\\\\"]*(\\\\(\")?)?)*\"\"\"".r ^^ { 
         case s => {
