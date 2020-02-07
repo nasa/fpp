@@ -1,4 +1,4 @@
-package fpp.compiler.syntax
+package fpp.compiler.parser
 
 import scala.util.parsing.input.Positional
 
