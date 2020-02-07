@@ -1,9 +1,6 @@
-/**
- * A file used in compilation
- */
-
 package fpp.compiler.util
 
+/** A file used in compilation */
 sealed trait File {
 
   override def toString = this match {
@@ -11,6 +8,7 @@ sealed trait File {
     case File.StdIn => "stdin"
   }
 
+  /** Open the file */
   def open: Result.Result[java.io.Reader] = {
     try {
       val r = this match {
@@ -28,9 +26,12 @@ sealed trait File {
 
 object File {
 
+  /** A file path */
   final case class Path(path: java.nio.file.Path) extends File
+  /** Standard input */
   final case object StdIn extends File
 
+  /** Construct a file from a string representing a file path */
   def fromString(s: String): File = {
     val p = java.nio.file.Paths.get(s).toAbsolutePath
     File.Path(p)

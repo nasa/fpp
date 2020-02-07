@@ -1,14 +1,12 @@
-/**
- * A compilation error
- */
-
 package fpp.compiler.util
 
 /** An exception for signaling internal compiler errors */
 final case class InternalError(private val msg: String) extends Exception
 
-/** An algebraic data type for handling copmilation errors */
+/** A data type for handling compilation errors */
 sealed trait Error {
+
+  /*** Print the error */
   def print = {
     this match {
       case SyntaxError(loc, msg) => Error.print (Some(loc)) (msg)
@@ -16,11 +14,15 @@ sealed trait Error {
         Error.print (None) (s"cannot open fle $name")
     }
   }
+
 }
 
+/** A syntax error */
 final case class SyntaxError(loc: Location, msg: String) extends Error
 
+/** A file error */
 object FileError {
+  /** Cannot open file */
   final case class CannotOpen(name: String) extends Error
 }
 
@@ -28,17 +30,21 @@ object Error {
 
   private var toolOpt: Option[Tool] = None
 
+  /** Set the tool */
   def setTool(t: Tool) = { toolOpt = Some(t) }
 
-  def printOpt[T](o: T) = {
-    o match {
+  /** Print an optional value */
+  def printOpt[T](opt: T) = {
+    opt match {
       case Some(t) => System.err.println(t.toString)
       case _ => ()
     }
   }
 
+  /** Print the tool */
   def printTool = printOpt(toolOpt)
 
+  /** Print an optioanl location and a message */
   def print (locOpt: Option[Location]) (msg: String) = {
     printTool
     printOpt(locOpt)
