@@ -144,18 +144,14 @@ object Ast {
   /** Expression */
   sealed trait Expr
   final case class ExprArray(elts: List[AstNode[Expr]])
-  final case class ExprBinop(
-    e1: AstNode[Expr],
-    op: Binop,
-    e2: AstNode[Expr]
-  )
+  final case class ExprBinop(e1: AstNode[Expr], op: Binop, e2: AstNode[Expr])
   final case class ExprDot(e: AstNode[Expr], id: Ident)
   final case class ExprIdent(value: Ident)
   final case class ExprLiteralBool(value: LiteralBool)
   final case class ExprLiteralInt(value: String)
   final case class ExprLiteralFloat(value: String)
   final case class ExprLiteralString(value: String)
-  final case class ExprParent(e: AstNode[Expr])
+  final case class ExprParen(e: AstNode[Expr])
   final case class ExprStruct(members: List[StructMember])
   final case class ExprUnop(op: Unop, e: AstNode[Expr])
 
