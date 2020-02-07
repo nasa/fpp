@@ -496,17 +496,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Expressions_String-Literals">5.9. String Literals</a>
 <ul class="sectlevel3">
 <li><a href="#Expressions_String-Literals_Single-Line-String-Literals">5.9.1. Single-Line String Literals</a></li>
+<li><a href="#Expressions_String-Literals_Multiline-String-Literals">5.9.2. Multiline String Literals</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Multiline-String-Literals">5.10. Multiline String Literals</a></li>
-<li><a href="#Expressions_Struct-Expressions">5.11. Struct Expressions</a>
+<li><a href="#Expressions_Struct-Expressions">5.10. Struct Expressions</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_Struct-Expressions_Syntax">5.11.1. Syntax</a></li>
-<li><a href="#Expressions_Struct-Expressions_Semantics">5.11.2. Semantics</a></li>
-<li><a href="#Expressions_Struct-Expressions_Example">5.11.3. Example</a></li>
+<li><a href="#Expressions_Struct-Expressions_Syntax">5.10.1. Syntax</a></li>
+<li><a href="#Expressions_Struct-Expressions_Semantics">5.10.2. Semantics</a></li>
+<li><a href="#Expressions_Struct-Expressions_Example">5.10.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Precedence-and-Associativity">5.12. Precedence and Associativity</a></li>
+<li><a href="#Expressions_Precedence-and-Associativity">5.11. Precedence and Associativity</a></li>
 </ul>
 </li>
 <li><a href="#Definitions">6. Definitions</a>
@@ -1678,9 +1678,8 @@ unmatched double quote character.</p>
 </ul>
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="Expressions_Multiline-String-Literals">5.10. Multiline String Literals</h3>
+<div class="sect3">
+<h4 id="Expressions_String-Literals_Multiline-String-Literals">5.9.2. Multiline String Literals</h4>
 <div class="paragraph">
 <p>A <strong>multiline string literal</strong> is a sequence of characters enclosed in triple double
 quotes <code>"""</code>
@@ -1701,32 +1700,57 @@ characters in he output, you must precede one of the characters with <code>\</co
 </ul>
 </div>
 <div class="paragraph">
+<p>Whitespace inside a multiline string literal is trimmed as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
 <p>The first newline after the first <code>"""</code> (if it exists) is omitted
 from the output string.</p>
+</li>
+<li>
+<p>Any whitespace occurring in columns to the left of the first <code>"""</code>
+is omitted from the output string.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p><strong>Example:</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">"""
-// This is a multiline string literal
-// It represents some C++ code
-instance.create(0, 1);
-"""</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">  """
+  // This is a multiline string literal
+  // It represents some C++ code
+  instance.create(0, 1);
+  """</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The output string consists of two lines, each followed by a newline.</p>
+<p>The output string consists of the following lines, each terminated by a newline:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>// This is a multiline string literal</code></p>
+</li>
+<li>
+<p><code>// It represents some C++ code</code></p>
+</li>
+<li>
+<p><code>instance.create(0, 1);</code></p>
+</li>
+</ol>
+</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Struct-Expressions">5.11. Struct Expressions</h3>
+<h3 id="Expressions_Struct-Expressions">5.10. Struct Expressions</h3>
 <div class="paragraph">
 <p>An <strong>struct expression</strong> is an expression that represents a struct value.</p>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Struct-Expressions_Syntax">5.11.1. Syntax</h4>
+<h4 id="Expressions_Struct-Expressions_Syntax">5.10.1. Syntax</h4>
 <div class="paragraph">
 <p><code>{</code> <em>struct-element-sequence</em> <code>}</code></p>
 </div>
@@ -1741,7 +1765,7 @@ A <strong>struct element</strong> has the following syntax:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Struct-Expressions_Semantics">5.11.2. Semantics</h4>
+<h4 id="Expressions_Struct-Expressions_Semantics">5.10.2. Semantics</h4>
 <div class="paragraph">
 <p>The following must be true of the struct element sequence <em>S</em>:</p>
 </div>
@@ -1762,7 +1786,7 @@ corresponding member names and values.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Struct-Expressions_Example">5.11.3. Example</h4>
+<h4 id="Expressions_Struct-Expressions_Example">5.10.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp"># s is a struct value with members x = 0, y = 1
@@ -1775,7 +1799,7 @@ constant s = {
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Precedence-and-Associativity">5.12. Precedence and Associativity</h3>
+<h3 id="Expressions_Precedence-and-Associativity">5.11. Precedence and Associativity</h3>
 <div class="paragraph">
 <p>Ambiguity in parsing expressions is resolved with the following
 precedence table. Expressions appearing earlier in the table
@@ -7289,7 +7313,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-01-27 10:23:18 -0800
+Last updated 2020-02-07 15:10:30 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
