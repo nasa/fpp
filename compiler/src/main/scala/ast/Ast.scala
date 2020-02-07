@@ -9,7 +9,7 @@ object Ast {
   type Ident = String
 
   /** Translation unit */
-  final case class TransUnit(tuml: List[TUMember])
+  final case class TransUnit(members: List[TUMember])
 
   /** A binary operation */
   sealed trait Binop
