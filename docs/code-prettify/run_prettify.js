@@ -460,6 +460,7 @@ var IN_GLOBAL_SCOPE = false;
           "save," +
           "serial," +
           "set," +
+          "severity," +
           "size," +
           "stack," +
           "string," +

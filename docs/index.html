@@ -998,6 +998,7 @@ resp
 save
 serial
 set
+severity
 size
 stack
 string
@@ -3670,10 +3671,12 @@ definitions</a>.</p>
 <div class="sect3">
 <h4 id="Specifiers_Event-Specifiers_Syntax">7.4.1. Syntax</h4>
 <div class="paragraph">
-<p><code>event</code> <em>severity</em> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<p><code>event</code>
+<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <em>[</em>
 <code>(</code> <a href="#Formal-Parameter-Lists"><em>param-list</em></a> <code>)</code>
 <em>]</em>
+<code>severity</code> <em>severity</em>
 <em>[</em>
 <code>id</code> <a href="#Expressions"><em>expression</em></a>
 <em>]</em>
@@ -3718,10 +3721,10 @@ definitions</a>.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><em>severity</em> specifies the severity of the event.</p>
+<p>The identifier names the event.</p>
 </li>
 <li>
-<p>The identifier names the event.</p>
+<p><em>severity</em> specifies the severity of the event.</p>
 </li>
 <li>
 <p>The parameter list specifies the event parameters.
@@ -3766,24 +3769,27 @@ array F64x3 = [3] F64
 enum Case { A, B, C }
 
 @ Event 0
-event activity low Event0 \
+event Event0 \
+  severity activity low \
   id 0x00 \
   format "Event 0 occurred"
 
 @ Event 1
 @ Sample output: "Event 1 occurred with argument 42"
-event activity high Event1(
+event Event1(
   arg1: U32 @&lt; Argument 1
 ) \
+  severity activity high \
   id 0x01 \
   format "Event 1 occurred with argument {}"
 
 @ Event 2
 @ Sample output: "Saw value [ 0.001, 0.002, 0.003 ] for case A"
-event warning low Event2(
+event Event2(
   case: Case @&lt; The case
   value: F64x3 @&lt; The value
 ) \
+  severity warning low \
   id 0x02 \
   format "Saw value {.03f} for case {}" \
   throttle 10</code></pre>
@@ -7314,7 +7320,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-02-07 15:24:41 -0800
+Last updated 2020-02-07 16:43:26 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

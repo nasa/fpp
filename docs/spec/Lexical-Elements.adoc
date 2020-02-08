@@ -97,6 +97,7 @@ resp
 save
 serial
 set
+severity
 size
 stack
 string

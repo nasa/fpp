@@ -265,7 +265,25 @@ object Ast {
   }
 
   /** Event specifier */
-  type SpecEvent = TODO
+  final case class SpecEvent(
+    name: Ident,
+    severity: SpecEvent.Severity,
+    params: List[AstNode[FormalParam]],
+    id: Option[AstNode[Expr]],
+    format: Option[String],
+    throttle: Option[Expr]
+  )
+  final object SpecEvent {
+    /** Event severity */
+    sealed trait Severity
+    final case object ActivityHigh extends Severity
+    final case object ActivityLow extends Severity
+    final case object Command extends Severity
+    final case object Diagnostic extends Severity
+    final case object Fatal extends Severity
+    final case object WarningHigh extends Severity
+    final case object WarningLow extends Severity
+  }
 
   /** Internal port specifier */
   type SpecInternalPort = TODO

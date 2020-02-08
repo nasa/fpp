@@ -5,10 +5,12 @@ An *event specifier* specifies an event report as part of a
 
 ==== Syntax
 
-`event` _severity_ <<Lexical-Elements_Identifiers,_identifier_>>
+`event` 
+<<Lexical-Elements_Identifiers,_identifier_>>
 _[_
 `(` <<Formal-Parameter-Lists,_param-list_>> `)`
 _]_
+`severity` _severity_ 
 _[_
 `id` <<Expressions,_expression_>>
 _]_
@@ -31,9 +33,9 @@ _severity_ is one of the following:
 
 ==== Semantics
 
-* _severity_ specifies the severity of the event.
-
 * The identifier names the event.
+
+* _severity_ specifies the severity of the event.
 
 * The parameter list specifies the event parameters.
 If there are no parameters, the list may be omitted.
@@ -71,24 +73,27 @@ array F64x3 = [3] F64
 enum Case { A, B, C }
 
 @ Event 0
-event activity low Event0 \
+event Event0 \
+  severity activity low \
   id 0x00 \
   format "Event 0 occurred"
 
 @ Event 1
 @ Sample output: "Event 1 occurred with argument 42"
-event activity high Event1(
+event Event1(
   arg1: U32 @< Argument 1
 ) \
+  severity activity high \
   id 0x01 \
   format "Event 1 occurred with argument {}"
 
 @ Event 2
 @ Sample output: "Saw value [ 0.001, 0.002, 0.003 ] for case A"
-event warning low Event2(
+event Event2(
   case: Case @< The case
   value: F64x3 @< The value
 ) \
+  severity warning low \
   id 0x02 \
   format "Saw value {.03f} for case {}" \
   throttle 10
