@@ -16,9 +16,11 @@ location>> of the enclosing translation unit.
 
 During parsing, the translator does the following:
 
-. Resolve the path to an absolute file name.
+. Resolve the path to an absolute file name that refers to a file _F_.
 
-. Parse the file and include its parsed elements as if they appeared
+. Parse _F_, recursively resolving any include specifiers that appear in _F_.
+
+. Include its parsed elements as if they appeared
 in the enclosing translation unit at the point where the include
 specifier appears.
 

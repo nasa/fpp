@@ -25,18 +25,18 @@ which each element is a *component member*,
 and the terminating punctuation is a semicolon.
 A component member is one of the following:
 
+* A <<Definitions_Constant-Definitions,constant definition>>
+
+* A <<Definitions_Struct-Definitions,struct definition>>
+
 * A <<Specifiers_Command-Specifiers,command specifier>>.
 All commands specified in a component must have distinct names and opcodes.
-
-* A <<Definitions_Constant-Definitions,constant definition>>
 
 * A <<Specifiers_Parameter-Specifiers,parameter specifier>>.
 All parameters specified in a component must have distinct names and identifier 
 values.
 
 * A <<Specifiers_Port-Instance-Specifiers,port instance specifier>>
-
-* A <<Definitions_Struct-Definitions,struct definition>>
 
 * A <<Specifiers_Telemetry-Channel-Specifiers,telemetry channel specifier>>.
 All telemetry channels specified in a component must have distinct names and 
@@ -49,6 +49,8 @@ identifier values.
 * An <<Specifiers_Event-Specifiers,event specifier>>.
 All events specified in a component must have distinct names and identifier 
 values.
+
+* An <<Specifiers_Include-Specifiers,include specifier>>
 
 * An <<Specifiers_Internal-Port-Specifiers,internal port specifier>>
 All internal ports specified in a component must have distinct names.

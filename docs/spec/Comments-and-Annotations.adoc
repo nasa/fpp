@@ -35,6 +35,8 @@ Annotations can occur at the following syntax elements:
 
 * A <<Definitions,definition>>.
 
+* A <<Specifiers,specifier>>.
+
 * A <<Definitions_Struct-Definitions,member of a struct definition>>.
 
 * A <<Formal-Parameter-Lists,formal parameter>>.

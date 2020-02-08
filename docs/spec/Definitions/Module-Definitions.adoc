@@ -15,27 +15,29 @@ which each element is a *module member*,
 and the terminating punctuation is a semicolon.
 A module member is one of the following:
 
-* A <<Specifiers_Location-Specifiers,location specifier>>
+* A <<Definitions_Component-Definitions,component definition>>
+
+* A <<Definitions_Component-Instance-Definitions,component instance definition>>
 
 * A <<Definitions_Constant-Definitions,constant definition>>
 
 * A <<Definitions_Module-Definitions,module definition>>
 
+* A <<Definitions_Port-Definitions,port definition>>
+
+* A <<Definitions_Struct-Definitions,struct definition>>
+
+* A <<Definitions_Topology-Definitions,topology definition>>
+
+* A <<Specifiers_Location-Specifiers,location specifier>>
+
+* An <<Definitions_Abstract-Type-Definitions,abstract type definition>>
+
 * An <<Definitions_Array-Definitions,array definition>>
 
 * An <<Definitions_Enum-Definitions,enum definition>>
 
-* A <<Definitions_Struct-Definitions,struct definition>>
-
-* An <<Definitions_Abstract-Type-Definitions,abstract type definition>>
-
-* A <<Definitions_Port-Definitions,port definition>>
-
-* A <<Definitions_Component-Definitions,component definition>>
-
-* A <<Definitions_Component-Instance-Definitions,component instance definition>>
-
-* A <<Definitions_Topology-Definitions,topology definition>>
+* An <<Specifiers_Include-Specifiers,include specifier>>
 
 ==== Semantics
 

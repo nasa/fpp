@@ -3,8 +3,6 @@ package fpp.compiler.ast
 
 object Ast {
 
-  type TODO = Int
-
   /** Annotated AST value */
   type Annotated[T] = (List[String], T, List[String])
 
@@ -17,7 +15,7 @@ object Ast {
   /** Translation unit */
   final case class TransUnit(members: List[Annotated[AstNode[TUMember]]])
 
-  /** A binary operation */
+  /** Binary operation */
   sealed trait Binop
   final object Binop {
     final case object Add extends Binop
@@ -42,6 +40,7 @@ object Ast {
     final case class DefStruct(member: DefStruct) extends ComponentMember
     final case class SpecCommand(member: SpecCommand) extends ComponentMember
     final case class SpecEvent(member: SpecEvent) extends ComponentMember
+    final case class SpecInclude(member: SpecInclude) extends ComponentMember
     final case class SpecInternalPort(member: SpecInternalPort) extends ComponentMember
     final case class SpecParam(member: SpecParam) extends ComponentMember
     final case class SpecPortInstance(member: SpecPortInstance) extends ComponentMember
@@ -102,17 +101,18 @@ object Ast {
   /** Module member */
   sealed trait ModuleMember
   object ModuleMember {
-    final case class SpecLoc(member: SpecLoc) extends ModuleMember
-    final case class DefConstant(member: DefConstant) extends ModuleMember
-    final case class DefModule(member: DefModule) extends ModuleMember
-    final case class DefArray(member: DefArray) extends ModuleMember
-    final case class DefEnum(member: DefEnum) extends ModuleMember
-    final case class DefStruct(member: DefStruct) extends ModuleMember
     final case class DefAbsType(member: DefAbsType) extends ModuleMember
-    final case class DefPort(member: DefPort) extends ModuleMember
+    final case class DefArray(member: DefArray) extends ModuleMember
     final case class DefComponent(member: DefComponent) extends ModuleMember
     final case class DefComponentInstance(member: DefComponentInstance) extends ModuleMember
+    final case class DefConstant(member: DefConstant) extends ModuleMember
+    final case class DefEnum(member: DefEnum) extends ModuleMember
+    final case class DefModule(member: DefModule) extends ModuleMember
+    final case class DefPort(member: DefPort) extends ModuleMember
+    final case class DefStruct(member: DefStruct) extends ModuleMember
     final case class DefTopology(member: DefTopology) extends ModuleMember
+    final case class SpecInclude(member: SpecInclude) extends ModuleMember
+    final case class SpecLoc(member: SpecLoc) extends ModuleMember
   }
 
   /** Port definition */
@@ -195,22 +195,23 @@ object Ast {
   object TopologyMember {
     final case class SpecCompInstance(member: SpecCompInstance) extends TopologyMember
     final case class SpecConnectionGraph(member: SpecConnectionGraph) extends TopologyMember
+    final case class SpecInclude(member: SpecInclude) extends TopologyMember
     final case class SpecTopImport(member: SpecTopImport) extends TopologyMember
     final case class SpecUnusedPorts(member: SpecUnusedPorts) extends TopologyMember
   }
 
   /** Formal parameter */
   final case class FormalParam(
-    kind: FormalParamKind,
+    kind: FormalParam.Kind,
     name: Ident,
-    typeName: AstNode[TypeName]
+    typeName: AstNode[TypeName],
+    size: Option[AstNode[Expr]]
   )
-
-  /** Formal parameter kind */
-  sealed trait FormalParamKind
-  object FormalParam {
-    final case object Ref extends FormalParamKind
-    final case object Value extends FormalParamKind
+  final object FormalParam {
+    /** Formal parameter kind */
+    sealed trait Kind
+    final case object Ref extends Kind
+    final case object Value extends Kind
   }
 
   /** Literal bool */
@@ -254,6 +255,7 @@ object Ast {
       pattern: AstNode[Expr]
     ) extends SpecConnectionGraph
 
+    /** Connection */
     final case class Connection(
       fromInstance: AstNode[QualIdent],
       fromPort: Ident,
@@ -268,7 +270,7 @@ object Ast {
   final case class SpecEvent(
     name: Ident,
     severity: SpecEvent.Severity,
-    params: List[AstNode[FormalParam]],
+    params: List[Annotated[AstNode[FormalParam]]],
     id: Option[AstNode[Expr]],
     format: Option[String],
     throttle: Option[Expr]
@@ -285,39 +287,131 @@ object Ast {
     final case object WarningLow extends Severity
   }
 
+  /** Include specifier */
+  final case class SpecInclude(file: String)
+
+  /** Init specifier */
+  final case class SpecInit(
+    instance: AstNode[QualIdent],
+    phase: AstNode[Expr],
+    code: String
+  )
+
   /** Internal port specifier */
-  type SpecInternalPort = TODO
+  final case class SpecInternalPort(
+    name: Ident,
+    params: List[Annotated[AstNode[FormalParam]]],
+    priority: Option[AstNode[Expr]],
+    queueFull: QueueFull
+  )
 
   /** Location specifier */
   final case class SpecLoc(
-    kind: SpecLocKind,
+    kind: SpecLoc.Kind,
     symbol: AstNode[QualIdent],
-    path: String
+    file: String
   )
-
-  /** Location specifier kind */
-  sealed trait SpecLocKind
-  final case object SpecLocConstant
-  final case object SpecLocType extends SpecLocKind
-  final case object SpecLocPort extends SpecLocKind
-  final case object SpecLocComponent extends SpecLocKind
-  final case object SpecLocComponentInstance extends SpecLocKind
-  final case object SpecLocTopology extends SpecLocKind
+  object SpecLoc {
+    /** Location specifier kind */
+    sealed trait Kind
+    final case object Constant
+    final case object Type extends Kind
+    final case object Port extends Kind
+    final case object Component extends Kind
+    final case object ComponentInstance extends Kind
+    final case object Topology extends Kind
+  }
 
   /** Parameter specifier */
-  type SpecParam = TODO
+  final case class SpecParam(
+    name: Ident,
+    typeName: AstNode[TypeName],
+    default: Option[AstNode[Expr]],
+    id: Option[AstNode[Expr]],
+    setOpcode:  Option[AstNode[Expr]],
+    saveOpcode:  Option[AstNode[Expr]]
+  )
 
   /** Port instance specifier */
-  type SpecPortInstance = TODO
+  sealed trait SpecPortInstance
+  object SpecPortInstance {
+
+    /** General port instance */
+    final case class General(
+      kind: GeneralKind,
+      name: Ident,
+      size: Option[AstNode[Expr]],
+      ty: Option[AstNode[QualIdent]],
+      priority: Option[AstNode[Expr]],
+      queueFull: Option[QueueFull]
+    ) extends SpecPortInstance
+
+    /** General port instance kind */
+    sealed trait GeneralKind
+    final case object AsyncInput extends GeneralKind
+    final case object GuardedInput extends GeneralKind
+    final case object Output extends GeneralKind
+    final case object SyncInput extends GeneralKind
+
+    /** Special port instance */
+    final case class Special (
+      kind: SpecialKind,
+      name: Ident
+    ) extends SpecPortInstance
+
+    /** Special port instance kind */
+    sealed trait SpecialKind
+    final case object CommandRecv extends SpecialKind
+    final case object CommandReg extends SpecialKind
+    final case object CommandResp extends SpecialKind
+    final case object Event extends SpecialKind
+    final case object ParamGet extends SpecialKind
+    final case object ParamSet extends SpecialKind
+    final case object Telemetry extends SpecialKind
+    final case object TextEvent extends SpecialKind
+    final case object TimeGet extends SpecialKind
+
+  }
 
   /** Telemetry channel specifier */
-  type SpecTlmChannel = TODO
+  final case class SpecTlmChannel(
+    name: Ident,
+    typeName: AstNode[TypeName],
+    id: Option[AstNode[Expr]],
+    update: Option[SpecTlmChannel.Update],
+    format: Option[String],
+    low: List[SpecTlmChannel.Limit],
+    high: List[SpecTlmChannel.Limit]
+  )
+  final object SpecTlmChannel {
+
+    /** Telemetry update */
+    sealed trait Update
+    final case object Always extends Update
+    final case object OnChange extends Update
+
+    /** Telemetry limit */
+    type Limit = (LimitKind, AstNode[Expr])
+
+    /** Telemetry limit kind */
+    sealed trait LimitKind
+    final case object Red extends LimitKind
+    final case object Orange extends LimitKind
+    final case object Yellow extends LimitKind
+
+  }
 
   /** Topology import specifier */
-  type SpecTopImport = TODO
+  final case class SpecTopImport(top: AstNode[QualIdent])
 
   /** Unused port specifier */
-  type SpecUnusedPorts = TODO
+  final case class SpecUnusedPorts(ports: List[SpecUnusedPorts.Port])
+  final object SpecUnusedPorts {
+    final case class Port(
+      instance: AstNode[QualIdent],
+      port: Ident
+    )
+  }
 
   /** Struct member */
   final case class StructMember(name: Ident, value: AstNode[Expr])
@@ -326,18 +420,8 @@ object Ast {
   final case class StructTypeMember(name: Ident, typeName: AstNode[TypeName])
 
   /** Translation unit member */
-  sealed trait TUMember
-  object TUMember {
-    final case class DefAbsType(member: DefAbsType) extends TUMember
-    final case class DefArray(member: DefArray) extends TUMember
-    final case class DefComponent(member: DefComponent) extends TUMember
-    final case class DefConstant(member: DefConstant) extends TUMember
-    final case class DefEnum(member: DefEnum) extends TUMember
-    final case class DefModule(member: DefModule) extends TUMember
-    final case class DefPort(member: DefPort) extends TUMember
-    final case class DefStruct(member: DefStruct) extends TUMember
-    final case class SpecLoc(member: SpecLoc) extends TUMember
-  }
+  type TUMember = ModuleMember
+  val TUMember = ModuleMember
 
   /** Float type */
   sealed trait TypeFloat

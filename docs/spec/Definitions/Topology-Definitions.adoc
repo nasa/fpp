@@ -22,12 +22,14 @@ which each element is a *topology member*,
 and the terminating punctuation is a semicolon.
 A topology member is one of the following:
 
-* A <<Specifiers_Topology-Import-Specifiers,topology import specifier>>
-
 * A <<Specifiers_Component-Instance-Specifiers,component 
 instance specifier>>
 
 * A <<Specifiers_Connection-Graph-Specifiers,connection graph specifier>>
+
+* A <<Specifiers_Topology-Import-Specifiers,topology import specifier>>
+
+* An <<Specifiers_Include-Specifiers,include specifier>>
 
 * An <<Specifiers_Unused-Port-Specifiers,unused port specifier>>
 
