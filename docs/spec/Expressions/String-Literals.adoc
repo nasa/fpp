@@ -1,7 +1,7 @@
 === String Literals
 
 A *string literal expression* is a single-line string literal
-or a multiline stirng literal.
+or a multiline string literal.
 
 ==== Single-Line String Literals
 
@@ -30,7 +30,7 @@ quotes `"""`
 The characters must be printable ASCII characters, including newline.
 Inside a code string
 
-* The character sequence `\"` is interpeted
+* The character sequence `\"` is interpreted
 as a double quote character.
 
 * A sequence of three double quote characters in a row is not allowed
