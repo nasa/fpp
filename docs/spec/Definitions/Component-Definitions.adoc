@@ -38,7 +38,7 @@ values.
 
 * A <<Definitions_Struct-Definitions,struct definition>>
 
-* A <<Specifiers_Telemetry-Channel-Specifiers,telemetry channel definition>>.
+* A <<Specifiers_Telemetry-Channel-Specifiers,telemetry channel specifier>>.
 All telemetry channels specified in a component must have distinct names and 
 identifier values.
 
@@ -51,6 +51,7 @@ All events specified in a component must have distinct names and identifier
 values.
 
 * An <<Specifiers_Internal-Port-Specifiers,internal port specifier>>
+All internal ports specified in a component must have distinct names.
 
 ==== Semantics
 
