@@ -13,7 +13,7 @@ object Ast {
   type QualIdent = List[Ident]
 
   /** Translation unit */
-  final case class TransUnit(members: List[Annotated[AstNode[TUMember]]])
+  final case class TransUnit(members: List[TUMember])
 
   /** Binary operation */
   sealed trait Binop
@@ -31,20 +31,21 @@ object Ast {
   final case object Queued extends ComponentKind
 
   /** Component member */
-  sealed trait ComponentMember
+  final case class ComponentMember(node: Annotated[ComponentMember.Node])
   object ComponentMember {
-    final case class DefArray(member: DefArray) extends ComponentMember
-    final case class DefConstant(member: DefConstant) extends ComponentMember
-    final case class DefEnum(member: DefEnum) extends ComponentMember
-    final case class DefPortInstance(member: DefPortInstance) extends ComponentMember
-    final case class DefStruct(member: DefStruct) extends ComponentMember
-    final case class SpecCommand(member: SpecCommand) extends ComponentMember
-    final case class SpecEvent(member: SpecEvent) extends ComponentMember
-    final case class SpecInclude(member: SpecInclude) extends ComponentMember
-    final case class SpecInternalPort(member: SpecInternalPort) extends ComponentMember
-    final case class SpecParam(member: SpecParam) extends ComponentMember
-    final case class SpecPortInstance(member: SpecPortInstance) extends ComponentMember
-    final case class SpecTlmChannel(member: SpecTlmChannel) extends ComponentMember
+    sealed trait Node
+    final case class DefArray(node: AstNode[DefArray]) extends Node
+    final case class DefConstant(node: AstNode[DefConstant]) extends Node
+    final case class DefEnum(node: AstNode[DefEnum]) extends Node
+    final case class DefPortInstance(node: AstNode[DefPortInstance]) extends Node
+    final case class DefStruct(node: AstNode[DefStruct]) extends Node
+    final case class SpecCommand(node: AstNode[SpecCommand]) extends Node
+    final case class SpecEvent(node: AstNode[SpecEvent]) extends Node
+    final case class SpecInclude(node: AstNode[SpecInclude]) extends Node
+    final case class SpecInternalPort(node: AstNode[SpecInternalPort]) extends Node
+    final case class SpecParam(node: AstNode[SpecParam]) extends Node
+    final case class SpecPortInstance(node: AstNode[SpecPortInstance]) extends Node
+    final case class SpecTlmChannel(node: AstNode[SpecTlmChannel]) extends Node
   }
 
   /** Abstract type definition */
@@ -63,7 +64,7 @@ object Ast {
   final case class DefComponent(
     kind: ComponentKind,
     name: Ident,
-    members: List[Annotated[AstNode[ComponentMember]]]
+    members: List[ComponentMember]
   )
 
   /** Component instance definition */
@@ -83,7 +84,7 @@ object Ast {
   final case class DefEnum(
     name: Ident,
     typeName: Option[AstNode[TypeName]],
-    constants: Annotated[List[DefEnumConstant]]
+    constants: List[Annotated[AstNode[DefEnumConstant]]]
   )
 
   /** Enum constant definition */
@@ -95,24 +96,25 @@ object Ast {
   /** Module definition */
   final case class DefModule(
     name: Ident,
-    members: List[Annotated[AstNode[ModuleMember]]]
+    members: List[ModuleMember]
   )
 
   /** Module member */
-  sealed trait ModuleMember
+  final case class ModuleMember(node: Annotated[ModuleMember.Node])
   object ModuleMember {
-    final case class DefAbsType(member: DefAbsType) extends ModuleMember
-    final case class DefArray(member: DefArray) extends ModuleMember
-    final case class DefComponent(member: DefComponent) extends ModuleMember
-    final case class DefComponentInstance(member: DefComponentInstance) extends ModuleMember
-    final case class DefConstant(member: DefConstant) extends ModuleMember
-    final case class DefEnum(member: DefEnum) extends ModuleMember
-    final case class DefModule(member: DefModule) extends ModuleMember
-    final case class DefPort(member: DefPort) extends ModuleMember
-    final case class DefStruct(member: DefStruct) extends ModuleMember
-    final case class DefTopology(member: DefTopology) extends ModuleMember
-    final case class SpecInclude(member: SpecInclude) extends ModuleMember
-    final case class SpecLoc(member: SpecLoc) extends ModuleMember
+    sealed trait Node
+    final case class DefAbsType(node: AstNode[DefAbsType]) extends Node
+    final case class DefArray(node: AstNode[DefArray]) extends Node
+    final case class DefComponent(node: AstNode[DefComponent]) extends Node
+    final case class DefComponentInstance(node: AstNode[DefComponentInstance]) extends Node
+    final case class DefConstant(node: AstNode[DefConstant]) extends Node
+    final case class DefEnum(node: AstNode[DefEnum]) extends Node
+    final case class DefModule(node: AstNode[DefModule]) extends Node
+    final case class DefPort(node: AstNode[DefPort]) extends Node
+    final case class DefStruct(node: AstNode[DefStruct]) extends Node
+    final case class DefTopology(node: AstNode[DefTopology]) extends Node
+    final case class SpecInclude(node: AstNode[SpecInclude]) extends Node
+    final case class SpecLoc(node: AstNode[SpecLoc]) extends Node
   }
 
   /** Port definition */
@@ -187,17 +189,18 @@ object Ast {
   /** Topology defintion */
   final case class DefTopology(
     name: Ident,
-    members: List[Annotated[AstNode[TopologyMember]]]
+    members: List[TopologyMember]
   )
 
   /** Topology member */
-  sealed trait TopologyMember
+  final case class TopologyMember(node: Annotated[TopologyMember.Node])
   object TopologyMember {
-    final case class SpecCompInstance(member: SpecCompInstance) extends TopologyMember
-    final case class SpecConnectionGraph(member: SpecConnectionGraph) extends TopologyMember
-    final case class SpecInclude(member: SpecInclude) extends TopologyMember
-    final case class SpecTopImport(member: SpecTopImport) extends TopologyMember
-    final case class SpecUnusedPorts(member: SpecUnusedPorts) extends TopologyMember
+    sealed trait Node
+    final case class SpecCompInstance(node: AstNode[SpecCompInstance]) extends Node
+    final case class SpecConnectionGraph(node: AstNode[SpecConnectionGraph]) extends Node
+    final case class SpecInclude(node: AstNode[SpecInclude]) extends Node
+    final case class SpecTopImport(node: AstNode[SpecTopImport]) extends Node
+    final case class SpecUnusedPorts(node: AstNode[SpecUnusedPorts]) extends Node
   }
 
   /** Formal parameter */
