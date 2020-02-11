@@ -232,6 +232,7 @@ object Lexer extends RegexParsers {
     ("resp", Token.RESP),
     ("save", Token.SAVE),
     ("serial", Token.SERIAL),
+    ("severity", Token.SEVERITY),
     ("set", Token.SET),
     ("size", Token.SIZE),
     ("stack", Token.STACK),
