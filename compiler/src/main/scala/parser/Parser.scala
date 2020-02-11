@@ -19,6 +19,14 @@ object Parser extends Parsers {
 
   var file = File.StdIn
 
+  private def unitParser[T](p: Parser[T]): Parser[Unit] = { p ^^ { _ => () } }
+
+  private def nothing: Parser[Unit] = success(())
+
+  private def elementSequence[E,S](elt: Parser[E], sep: Parser[S]): Parser[List[E]] = {
+    repsep(elt, sep | Token.EOL) <~ (unitParser(sep) | nothing)
+  }
+
   private def identifier: Parser[String] = {
     accept("identifier", { case Token.IDENTIFIER(s) => s })
   }
@@ -41,6 +49,10 @@ object Parser extends Parsers {
 
   private def literalTrue: Parser[Unit] = {
     accept("true", { case Token.TRUE => () })
+  }
+
+  private def comma: Parser[Unit] = {
+    accept("comma", { case Token.COMMA => () })
   }
 
   def node[T](p: Parser[T]): Parser[AstNode[T]] = {
@@ -85,20 +97,25 @@ object Parser extends Parsers {
       }
       ids.foldLeft(e)(f)
     }
-    // TODO
-    def arrayExpr = node { literalTrue ^^ { case _ => Ast.ExprLiteralBool(Ast.True) } }
-    def falseExpr = node { literalFalse ^^ { case _ => Ast.ExprLiteralBool(Ast.False) } }
-    def floatExpr = node { literalFloat ^^ { case s => Ast.ExprLiteralFloat(s) } }
-    def identExpr = node { identifier ^^ { case id => Ast.ExprIdent(id) } }
-    def intExpr = node { literalInt ^^ { case li => Ast.ExprLiteralInt(li) } }
-    def parenExpr = node { 
-      Token.LPAREN ~> exprNode <~ Token.RPAREN ^^ { case e => Ast.ExprParen(e) }
+    def arrayExpr = 
+      Token.LBRACKET ~> elementSequence(exprNode, comma) <~ Token.RBRACKET ^^ { 
+        case es => Ast.ExprArray(es)
+      }
+    def falseExpr = literalFalse ^^ { case _ => Ast.ExprLiteralBool(Ast.False) }
+    def floatExpr = literalFloat ^^ { case s => Ast.ExprLiteralFloat(s) }
+    def identExpr = identifier ^^ { case id => Ast.ExprIdent(id) }
+    def intExpr = literalInt ^^ { case li => Ast.ExprLiteralInt(li) }
+    def parenExpr = Token.LPAREN ~> exprNode <~ Token.RPAREN ^^ { case e => Ast.ExprParen(e) }
+    def stringExpr = literalString ^^ { case s => Ast.ExprLiteralString(s) }
+    def structMember = identifier ~ Token.EQUALS ~ exprNode ^^ {
+      case id ~ _ ~ e => Ast.StructMember(id, e)
     }
-    def stringExpr = node { literalString ^^ { case s => Ast.ExprLiteralString(s) } }
-    // TODO
-    def structExpr = node { literalTrue ^^ { case _ => Ast.ExprLiteralBool(Ast.True) } }
-    def trueExpr = node { literalTrue ^^ { case _ => Ast.ExprLiteralBool(Ast.True) } }
-    def dotOperand = 
+    def structExpr = 
+      Token.LBRACE ~> elementSequence(structMember, comma) <~ Token.RBRACE ^^ {
+        case es => Ast.ExprStruct(es)
+      }
+    def trueExpr = literalTrue ^^ { case _ => Ast.ExprLiteralBool(Ast.True) }
+    def dotOperand = node {
       arrayExpr |
       falseExpr |
       floatExpr |
@@ -106,8 +123,9 @@ object Parser extends Parsers {
       intExpr |
       parenExpr |
       stringExpr |
-      structExpr
+      structExpr |
       trueExpr
+    }
     def unaryMinus = node { 
       Token.MINUS ~> unaryMinusOperand ^^ { case e => Ast.ExprUnop(Ast.Unop.Minus, e) }
     }
