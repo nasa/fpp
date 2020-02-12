@@ -117,7 +117,7 @@ object Parser extends Parsers {
     positionedT ^^ { 
       case pt @ Positioned(t) => {
         val n = AstNode.create(t)
-        val loc = Location(file, pt.pos)
+        val loc = Location(ParserState.file, pt.pos)
         Locations.put(n.id, loc)
         n
       }
@@ -127,7 +127,7 @@ object Parser extends Parsers {
   def parseTokens[T](p: Parser[T], tokens: Seq[Token]): Result.Result[T] = {
     val reader = new TokenReader(tokens)
     p(reader) match {
-      case NoSuccess(msg, next) => Left(SyntaxError(Location(file, next.pos),msg))
+      case NoSuccess(msg, next) => Left(SyntaxError(Location(ParserState.file, next.pos),msg))
       case Success(result, next) => Right(result)
     }
   }
@@ -226,7 +226,5 @@ object Parser extends Parsers {
 
   private def semi: Parser[Unit] =
     accept("semicolon", { case Token.SEMI => () })
-
-  var file = File.StdIn
 
 }
