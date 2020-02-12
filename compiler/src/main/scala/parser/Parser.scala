@@ -139,6 +139,8 @@ object Parser extends Parsers {
     } yield result
   }
 
+  def qualIdent: Parser[List[Ast.Ident]] = repsep(identifier, dot)
+
   def transUnit: Parser[Ast.TransUnit] = {
     annotatedElementSequence(tuMemberNode, semi, Ast.TUMember(_)) ^^ {
       case members => Ast.TransUnit(members)
@@ -146,6 +148,26 @@ object Parser extends Parsers {
   }
 
   def tuMemberNode = moduleMemberNode
+
+  def typeName: Parser[Ast.TypeName] = {
+    def typeNameFloat =
+      accept("F32", { case Token.F32 => Ast.TypeNameFloat(Ast.F32) }) |
+      accept("F64", { case Token.F64 => Ast.TypeNameFloat(Ast.F64) })
+    def typeNameInt =
+      accept("I8", { case Token.I8 => Ast.TypeNameInt(Ast.I8) }) |
+      accept("I16", { case Token.I16 => Ast.TypeNameInt(Ast.I16) }) |
+      accept("I32", { case Token.I32 => Ast.TypeNameInt(Ast.I32) }) |
+      accept("I64", { case Token.I64 => Ast.TypeNameInt(Ast.I64) }) |
+      accept("U8", { case Token.U8 => Ast.TypeNameInt(Ast.U8) }) |
+      accept("U16", { case Token.U16 => Ast.TypeNameInt(Ast.U16) }) |
+      accept("U32", { case Token.U32 => Ast.TypeNameInt(Ast.U32) }) |
+      accept("U64", { case Token.U64 => Ast.TypeNameInt(Ast.U64) })
+    accept("bool", { case Token.BOOL => Ast.TypeNameBool }) |
+    accept("string", { case Token.BOOL => Ast.TypeNameString }) |
+    typeNameFloat |
+    typeNameInt |
+    node(qualIdent) ^^ { case qidn => Ast.TypeNameQualIdent(qidn) }
+  }
 
   override type Elem = Token
 
@@ -172,49 +194,38 @@ object Parser extends Parsers {
     (rep(Token.EOL) ~> elts) ^^ { elts => elts.map(constructor) }
   }
 
-  private def comma: Parser[Unit] = {
-    accept("comma", { case Token.COMMA => () })
-  }
+  private def comma: Parser[Unit] = accept("comma", { case Token.COMMA => () })
 
-  private def elementSequence[E,S](elt: Parser[E], sep: Parser[S]): Parser[List[E]] = {
+  private def dot: Parser[Unit] = accept("dot", { case Token.DOT => () })
+
+  private def elementSequence[E,S](elt: Parser[E], sep: Parser[S]): Parser[List[E]] =
     repsep(elt, sep | Token.EOL) <~ opt(sep)
-  }
 
-  private def identifier: Parser[String] = {
+  private def identifier: Parser[Ast.Ident] =
     accept("identifier", { case Token.IDENTIFIER(s) => s })
-  }
 
-  private def literalFalse: Parser[Unit] = {
+  private def literalFalse: Parser[Unit] =
     accept("false", { case Token.FALSE => () })
-  }
 
-  private def literalFloat: Parser[String] = {
+  private def literalFloat: Parser[String] =
     accept("floating-point literal", { case Token.LITERAL_FLOAT(s) => s })
-  }
 
-  private def literalInt: Parser[String] = {
+  private def literalInt: Parser[String] =
     accept("integer literal", { case Token.LITERAL_INT(s) => s })
-  }
 
-  private def literalString: Parser[String] = {
+  private def literalString: Parser[String] =
     accept("string literal", { case Token.LITERAL_STRING(s) => s })
-  }
 
-  private def literalTrue: Parser[Unit] = {
-    accept("true", { case Token.TRUE => () })
-  }
+  private def literalTrue: Parser[Unit] = accept("true", { case Token.TRUE => () })
 
-  private def postAnnotation: Parser[String] = {
+  private def postAnnotation: Parser[String] =
     accept("post annotation", { case Token.POST_ANNOTATION(s) => s })
-  }
 
-  private def preAnnotation: Parser[String] = {
+  private def preAnnotation: Parser[String] =
     accept("pre annotation", { case Token.PRE_ANNOTATION(s) => s })
-  }
 
-  private def semi: Parser[Unit] = {
+  private def semi: Parser[Unit] =
     accept("semicolon", { case Token.SEMI => () })
-  }
 
   var file = File.StdIn
 
