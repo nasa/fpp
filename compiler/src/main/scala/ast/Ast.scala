@@ -1,6 +1,5 @@
 package fpp.compiler.ast
 
-
 object Ast {
 
   /** Annotated AST value */
@@ -34,18 +33,18 @@ object Ast {
   final case class ComponentMember(node: Annotated[ComponentMember.Node])
   object ComponentMember {
     sealed trait Node
-    final case class DefArray(node: AstNode[DefArray]) extends Node
-    final case class DefConstant(node: AstNode[DefConstant]) extends Node
-    final case class DefEnum(node: AstNode[DefEnum]) extends Node
-    final case class DefPortInstance(node: AstNode[DefPortInstance]) extends Node
-    final case class DefStruct(node: AstNode[DefStruct]) extends Node
-    final case class SpecCommand(node: AstNode[SpecCommand]) extends Node
-    final case class SpecEvent(node: AstNode[SpecEvent]) extends Node
-    final case class SpecInclude(node: AstNode[SpecInclude]) extends Node
-    final case class SpecInternalPort(node: AstNode[SpecInternalPort]) extends Node
-    final case class SpecParam(node: AstNode[SpecParam]) extends Node
-    final case class SpecPortInstance(node: AstNode[SpecPortInstance]) extends Node
-    final case class SpecTlmChannel(node: AstNode[SpecTlmChannel]) extends Node
+    final case class DefArray(node: AstNode[Ast.DefArray]) extends Node
+    final case class DefConstant(node: AstNode[Ast.DefConstant]) extends Node
+    final case class DefEnum(node: AstNode[Ast.DefEnum]) extends Node
+    final case class DefPortInstance(node: AstNode[Ast.DefPortInstance]) extends Node
+    final case class DefStruct(node: AstNode[Ast.DefStruct]) extends Node
+    final case class SpecCommand(node: AstNode[Ast.SpecCommand]) extends Node
+    final case class SpecEvent(node: AstNode[Ast.SpecEvent]) extends Node
+    final case class SpecInclude(node: AstNode[Ast.SpecInclude]) extends Node
+    final case class SpecInternalPort(node: AstNode[Ast.SpecInternalPort]) extends Node
+    final case class SpecParam(node: AstNode[Ast.SpecParam]) extends Node
+    final case class SpecPortInstance(node: AstNode[Ast.SpecPortInstance]) extends Node
+    final case class SpecTlmChannel(node: AstNode[Ast.SpecTlmChannel]) extends Node
   }
 
   /** Abstract type definition */
@@ -103,18 +102,18 @@ object Ast {
   final case class ModuleMember(node: Annotated[ModuleMember.Node])
   object ModuleMember {
     sealed trait Node
-    final case class DefAbsType(node: AstNode[DefAbsType]) extends Node
-    final case class DefArray(node: AstNode[DefArray]) extends Node
-    final case class DefComponent(node: AstNode[DefComponent]) extends Node
-    final case class DefComponentInstance(node: AstNode[DefComponentInstance]) extends Node
-    final case class DefConstant(node: AstNode[DefConstant]) extends Node
-    final case class DefEnum(node: AstNode[DefEnum]) extends Node
-    final case class DefModule(node: AstNode[DefModule]) extends Node
-    final case class DefPort(node: AstNode[DefPort]) extends Node
-    final case class DefStruct(node: AstNode[DefStruct]) extends Node
-    final case class DefTopology(node: AstNode[DefTopology]) extends Node
-    final case class SpecInclude(node: AstNode[SpecInclude]) extends Node
-    final case class SpecLoc(node: AstNode[SpecLoc]) extends Node
+    final case class DefAbsType(node: AstNode[Ast.DefAbsType]) extends Node
+    final case class DefArray(node: AstNode[Ast.DefArray]) extends Node
+    final case class DefComponent(node: AstNode[Ast.DefComponent]) extends Node
+    final case class DefComponentInstance(node: AstNode[Ast.DefComponentInstance]) extends Node
+    final case class DefConstant(node: AstNode[Ast.DefConstant]) extends Node
+    final case class DefEnum(node: AstNode[Ast.DefEnum]) extends Node
+    final case class DefModule(node: AstNode[Ast.DefModule]) extends Node
+    final case class DefPort(node: AstNode[Ast.DefPort]) extends Node
+    final case class DefStruct(node: AstNode[Ast.DefStruct]) extends Node
+    final case class DefTopology(node: AstNode[Ast.DefTopology]) extends Node
+    final case class SpecInclude(node: AstNode[Ast.SpecInclude]) extends Node
+    final case class SpecLoc(node: AstNode[Ast.SpecLoc]) extends Node
   }
 
   /** Port definition */
