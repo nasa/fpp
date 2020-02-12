@@ -51,34 +51,25 @@ object Parser extends Parsers {
       }
       es.foldLeft(e)(f)
     }
-    def dotSelectors(e: AstNode[Ast.Expr], ids: List[String]): AstNode[Ast.Expr] = {
-      def f(e: AstNode[Ast.Expr], id: String): AstNode[Ast.Expr] = {
-        val dot = AstNode.create(Ast.ExprDot(e, id))
-        val loc = Locations.get(e.getId)
-        Locations.put(dot.getId, loc)
-        dot
-      }
-      ids.foldLeft(e)(f)
-    }
-    def arrayExpr = 
-      Token.LBRACKET ~> elementSequence(exprNode, comma) <~ Token.RBRACKET ^^ { 
-        case es => Ast.ExprArray(es)
-      }
-    def falseExpr = literalFalse ^^ { case _ => Ast.ExprLiteralBool(Ast.False) }
-    def floatExpr = literalFloat ^^ { case s => Ast.ExprLiteralFloat(s) }
-    def identExpr = identifier ^^ { case id => Ast.ExprIdent(id) }
-    def intExpr = literalInt ^^ { case li => Ast.ExprLiteralInt(li) }
-    def parenExpr = Token.LPAREN ~> exprNode <~ Token.RPAREN ^^ { case e => Ast.ExprParen(e) }
-    def stringExpr = literalString ^^ { case s => Ast.ExprLiteralString(s) }
-    def structMember = identifier ~ (Token.EQUALS ~> exprNode) ^^ {
-      case id ~ e => Ast.StructMember(id, e)
-    }
-    def structExpr = 
-      Token.LBRACE ~> elementSequence(structMember, comma) <~ Token.RBRACE ^^ {
-        case es => Ast.ExprStruct(es)
-      }
-    def trueExpr = literalTrue ^^ { case _ => Ast.ExprLiteralBool(Ast.True) }
     def dotOperand = node {
+      def arrayExpr = 
+        Token.LBRACKET ~> elementSequence(exprNode, comma) <~ Token.RBRACKET ^^ { 
+          case es => Ast.ExprArray(es)
+        }
+      def falseExpr = literalFalse ^^ { case _ => Ast.ExprLiteralBool(Ast.False) }
+      def floatExpr = literalFloat ^^ { case s => Ast.ExprLiteralFloat(s) }
+      def identExpr = identifier ^^ { case id => Ast.ExprIdent(id) }
+      def intExpr = literalInt ^^ { case li => Ast.ExprLiteralInt(li) }
+      def parenExpr = Token.LPAREN ~> exprNode <~ Token.RPAREN ^^ { case e => Ast.ExprParen(e) }
+      def stringExpr = literalString ^^ { case s => Ast.ExprLiteralString(s) }
+      def structMember = identifier ~ (Token.EQUALS ~> exprNode) ^^ {
+        case id ~ e => Ast.StructMember(id, e)
+      }
+      def structExpr = 
+        Token.LBRACE ~> elementSequence(structMember, comma) <~ Token.RBRACE ^^ {
+          case es => Ast.ExprStruct(es)
+        }
+      def trueExpr = literalTrue ^^ { case _ => Ast.ExprLiteralBool(Ast.True) }
       arrayExpr |
       falseExpr |
       floatExpr |
@@ -92,8 +83,17 @@ object Parser extends Parsers {
     def unaryMinus = node { 
       Token.MINUS ~> unaryMinusOperand ^^ { case e => Ast.ExprUnop(Ast.Unop.Minus, e) }
     }
-    def unaryMinusOperand = dotOperand ~ rep(identifier) ^^ {
-      case e ~ ids => dotSelectors(e, ids)
+    def unaryMinusOperand = {
+      def dotIds(e: AstNode[Ast.Expr], ids: List[String]): AstNode[Ast.Expr] = {
+        def f(e: AstNode[Ast.Expr], id: String): AstNode[Ast.Expr] = {
+          val dot = AstNode.create(Ast.ExprDot(e, id))
+          val loc = Locations.get(e.getId)
+          Locations.put(dot.getId, loc)
+          dot
+        }
+        ids.foldLeft(e)(f)
+      }
+      dotOperand ~ rep(identifier) ^^ { case e ~ ids => dotIds(e, ids) }
     }
     def mulDivOperand = unaryMinus | unaryMinusOperand
     def addSubOperand = mulDivOperand ~ rep((Token.STAR | Token.SLASH) ~ mulDivOperand) ^^ {
