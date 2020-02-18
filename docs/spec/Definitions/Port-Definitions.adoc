@@ -7,9 +7,11 @@ A port is the endpoint of a connection between F Prime components.
 
 `port`
 <<Lexical-Elements_Identifiers,_identifier_>>
+_[_
 `(`
 <<Formal-Parameter-Lists,_param-list_>>
 `)`
+_]_
 _[_
 `pass:[->]`
 <<Type-Names,_type-name_>>
@@ -17,11 +19,15 @@ _]_
 
 ==== Semantics
 
-The identifier is the name of the port.
-The parameter list specifies the formal parameters of the
+* The identifier is the name of the port.
+
+* The optional parameter list specifies the formal parameters of the
 port.
 Each formal parameter is a piece of data carried on the port.
-The optional type name appearing after the colon specifies
+If there are no formal parameters, then the parameter list
+may be omitted.
+
+* The optional type name appearing after the arrow specifies
 an optional return type for the port.
 If present, the return type is the type of the data returned
 when the port is invoked in a synchronous context.

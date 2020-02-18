@@ -5,6 +5,9 @@ object Ast {
   /** Annotated AST value */
   type Annotated[T] = (List[String], T, List[String])
 
+  /** Formal parameter list */
+  type FormalParamList = List[Annotated[AstNode[FormalParam]]]
+
   /** Identifier */
   type Ident = String
 
@@ -25,9 +28,11 @@ object Ast {
 
   /** Component kind */
   sealed trait ComponentKind
-  final case object Active extends ComponentKind
-  final case object Passive extends ComponentKind
-  final case object Queued extends ComponentKind
+  final object ComponentKind {
+    final case object Active extends ComponentKind
+    final case object Passive extends ComponentKind
+    final case object Queued extends ComponentKind
+  }
 
   /** Component member */
   final case class ComponentMember(node: Annotated[ComponentMember.Node])
@@ -56,7 +61,7 @@ object Ast {
     size: AstNode[Expr],
     eltType: AstNode[TypeName],
     default: Option[AstNode[Expr]],
-    format: Option[String]
+    format: Option[AstNode[String]]
   )
 
   /** Component definition */
@@ -119,7 +124,7 @@ object Ast {
   /** Port definition */
   final case class DefPort(
     name: Ident,
-    params: List[Annotated[AstNode[FormalParam]]],
+    params: FormalParamList,
     returnType: Option[AstNode[TypeName]]
   )
 
@@ -230,7 +235,7 @@ object Ast {
   /** Command specifier */
   final case class SpecCommand(
     name: Ident,
-    params: List[Annotated[AstNode[FormalParam]]],
+    params: FormalParamList,
     opcode: Option[AstNode[Expr]],
     priority: Option[AstNode[Expr]],
     queueFull: Option[AstNode[QueueFull]]
@@ -272,7 +277,7 @@ object Ast {
   final case class SpecEvent(
     name: Ident,
     severity: SpecEvent.Severity,
-    params: List[Annotated[AstNode[FormalParam]]],
+    params: FormalParamList,
     id: Option[AstNode[Expr]],
     format: Option[String],
     throttle: Option[Expr]
@@ -302,7 +307,7 @@ object Ast {
   /** Internal port specifier */
   final case class SpecInternalPort(
     name: Ident,
-    params: List[Annotated[AstNode[FormalParam]]],
+    params: FormalParamList,
     priority: Option[AstNode[Expr]],
     queueFull: QueueFull
   )
