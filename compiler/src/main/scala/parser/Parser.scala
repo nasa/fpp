@@ -22,8 +22,17 @@ object Parser extends Parsers {
   }
 
   def componentMemberNode: Parser[Ast.ComponentMember.Node] = {
-    node(defConstant) ^^ { case d => Ast.ComponentMember.DefConstant(d) }
-    // TODO
+    node(defArray) ^^ { case n => Ast.ComponentMember.DefArray(n) } |
+    node(defConstant) ^^ { case n => Ast.ComponentMember.DefConstant(n) } |
+    node(defEnum) ^^ { case n => Ast.ComponentMember.DefEnum(n) }
+    node(defStruct) ^^ { case n => Ast.ComponentMember.DefStruct(n) }
+    // TODO: SpecCommand
+    // TODO: SpecEvent
+    node(specInclude) ^^ { case n => Ast.ComponentMember.SpecInclude(n) }
+    // TODO: SpecInternalPort
+    // TODO: SpecParam
+    // TODO: SpecPortInstance
+    // TODO: SpecTlmChannel
   }
 
   def defAbsType: Parser[Ast.DefAbsType] = {
@@ -86,6 +95,21 @@ object Parser extends Parsers {
   def defPort: Parser[Ast.DefPort] = {
     (Token.PORT ~> ident) ~ formalParamList ~ opt(Token.RARROW ~> node(typeName)) ^^ {
       case ident ~ formalParamList ~ returnType => Ast.DefPort(ident, formalParamList, returnType)
+    }
+  }
+
+  def defStruct: Parser[Ast.DefStruct] = {
+    def id(x: Ast.Annotated[AstNode[Ast.StructTypeMember]]) = x
+    def members = annotatedElementSequence(node(structTypeMember), comma, id)
+    (Token.STRUCT ~> ident) ~ (Token.LBRACE ~> members <~ Token.RBRACE) ~ opt(Token.DEFAULT ~> exprNode) ^^ {
+      case name ~ members ~ default => Ast.DefStruct(name, members, default)
+    }
+  }
+
+  def defTopology: Parser[Ast.DefTopology] = {
+    def members = annotatedElementSequence(topologyMemberNode, semi, Ast.TopologyMember(_))
+    (Token.TOPOLOGY ~> ident) ~ (Token.LBRACE ~> members <~ Token.RBRACE) ^^ {
+      case name ~ members => Ast.DefTopology(name, members)
     }
   }
 
@@ -182,18 +206,18 @@ object Parser extends Parsers {
   }
 
   def moduleMemberNode: Parser[Ast.ModuleMember.Node] = {
-    node(defAbsType) ^^ { case d => Ast.ModuleMember.DefAbsType(d) } |
-    node(defArray) ^^ { case d => Ast.ModuleMember.DefArray(d) } |
-    node(defComponent) ^^ { case d => Ast.ModuleMember.DefComponent(d) }
-    node(defComponentInstance) ^^ { case d => Ast.ModuleMember.DefComponentInstance(d) }
-    node(defConstant) ^^ { case d => Ast.ModuleMember.DefConstant(d) }
-    node(defEnum) ^^ { case d => Ast.ModuleMember.DefEnum(d) }
-    node(defModule) ^^ { case d => Ast.ModuleMember.DefModule(d) }
-    node(defPort) ^^ { case d => Ast.ModuleMember.DefPort(d) }
-    //node(defStruct) ^^ { case d => Ast.ModuleMember.DefStruct(d) }
-    //node(defTopology) ^^ { case d => Ast.ModuleMember.DefTopology(d) }
-    //node(specInclude) ^^ { case d => Ast.ModuleMember.SpecInclude(d) }
-    //node(specLoc) ^^ { case d => Ast.ModuleMember.SpecLoc(d) }
+    node(defAbsType) ^^ { case n => Ast.ModuleMember.DefAbsType(n) } |
+    node(defArray) ^^ { case n => Ast.ModuleMember.DefArray(n) } |
+    node(defComponent) ^^ { case n => Ast.ModuleMember.DefComponent(n) } |
+    node(defComponentInstance) ^^ { case n => Ast.ModuleMember.DefComponentInstance(n) } |
+    node(defConstant) ^^ { case n => Ast.ModuleMember.DefConstant(n) } |
+    node(defEnum) ^^ { case n => Ast.ModuleMember.DefEnum(n) } |
+    node(defModule) ^^ { case n => Ast.ModuleMember.DefModule(n) } |
+    node(defPort) ^^ { case n => Ast.ModuleMember.DefPort(n) } |
+    node(defStruct) ^^ { case n => Ast.ModuleMember.DefStruct(n) } |
+    node(defTopology) ^^ { case n => Ast.ModuleMember.DefTopology(n) } |
+    node(specInclude) ^^ { case n => Ast.ModuleMember.SpecInclude(n) } |
+    node(specLoc) ^^ { case n => Ast.ModuleMember.SpecLoc(n) }
   }
 
   def node[T](p: Parser[T]): Parser[AstNode[T]] = {
@@ -227,6 +251,38 @@ object Parser extends Parsers {
   }
 
   def qualIdent: Parser[List[Ast.Ident]] = repsep(ident, dot)
+
+  def specInclude: Parser[Ast.SpecInclude] = {
+    include ~> literalString ^^ { case file => Ast.SpecInclude(file) }
+  }
+
+  def specLoc: Parser[Ast.SpecLoc] = {
+    def kind: Parser[Ast.SpecLoc.Kind] = {
+      accept("constant", { case Token.CONSTANT => Ast.SpecLoc.Constant }) |
+      accept("type", { case Token.TYPE => Ast.SpecLoc.Type }) |
+      accept("port", { case Token.PORT => Ast.SpecLoc.Port }) |
+      component ~ instance ^^ { case _ => Ast.SpecLoc.ComponentInstance } |
+      component ^^ { case _ => Ast.SpecLoc.Component } |
+      accept("topology", { case Token.TOPOLOGY => Ast.SpecLoc.Topology })
+    }
+    (Token.LOCATE ~> kind) ~ node(qualIdent) ~ (Token.AT ~> literalString) ^^ {
+      case kind ~ symbol ~ file => Ast.SpecLoc(kind, symbol, file)
+    }
+  }
+
+  def structTypeMember: Parser[Ast.StructTypeMember] = {
+    ident ~ (Token.COLON ~> node(typeName)) ~ opt(Token.FORMAT ~> node(literalString)) ^^ {
+      case name ~ typeName ~ format => Ast.StructTypeMember(name, typeName, format)
+    }
+  }
+
+  def topologyMemberNode: Parser[Ast.TopologyMember.Node] = {
+    // TODO: SpecCompInstance
+    // TODO: SpecConnectionGraph
+    node(specInclude) ^^ { case n => Ast.TopologyMember.SpecInclude(n) }
+    // TODO: SpecTopImport
+    // TODO: SpecUnusedPorts
+  }
 
   def transUnit: Parser[Ast.TransUnit] = {
     annotatedElementSequence(tuMemberNode, semi, Ast.TUMember(_)) ^^ {
@@ -288,8 +344,17 @@ object Parser extends Parsers {
   private def elementSequence[E,S](elt: Parser[E], sep: Parser[S]): Parser[List[E]] =
     repsep(elt, sep | Token.EOL) <~ opt(sep)
 
+  private def component: Parser[Unit] =
+    accept("component", { case Token.COMPONENT => () })
+
   private def ident: Parser[Ast.Ident] =
     accept("identifier", { case Token.IDENTIFIER(s) => s })
+
+  private def include: Parser[Unit] =
+    accept("include", { case Token.INCLUDE => () })
+
+  private def instance: Parser[Unit] =
+    accept("instance", { case Token.INSTANCE => () })
 
   private def literalFalse: Parser[Unit] =
     accept("false", { case Token.FALSE => () })

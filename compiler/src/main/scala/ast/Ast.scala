@@ -41,7 +41,6 @@ object Ast {
     final case class DefArray(node: AstNode[Ast.DefArray]) extends Node
     final case class DefConstant(node: AstNode[Ast.DefConstant]) extends Node
     final case class DefEnum(node: AstNode[Ast.DefEnum]) extends Node
-    final case class DefPortInstance(node: AstNode[Ast.DefPortInstance]) extends Node
     final case class DefStruct(node: AstNode[Ast.DefStruct]) extends Node
     final case class SpecCommand(node: AstNode[Ast.SpecCommand]) extends Node
     final case class SpecEvent(node: AstNode[Ast.SpecEvent]) extends Node
@@ -200,11 +199,11 @@ object Ast {
   final case class TopologyMember(node: Annotated[TopologyMember.Node])
   object TopologyMember {
     sealed trait Node
-    final case class SpecCompInstance(node: AstNode[SpecCompInstance]) extends Node
-    final case class SpecConnectionGraph(node: AstNode[SpecConnectionGraph]) extends Node
-    final case class SpecInclude(node: AstNode[SpecInclude]) extends Node
-    final case class SpecTopImport(node: AstNode[SpecTopImport]) extends Node
-    final case class SpecUnusedPorts(node: AstNode[SpecUnusedPorts]) extends Node
+    final case class SpecCompInstance(node: AstNode[Ast.SpecCompInstance]) extends Node
+    final case class SpecConnectionGraph(node: AstNode[Ast.SpecConnectionGraph]) extends Node
+    final case class SpecInclude(node: AstNode[Ast.SpecInclude]) extends Node
+    final case class SpecTopImport(node: AstNode[Ast.SpecTopImport]) extends Node
+    final case class SpecUnusedPorts(node: AstNode[Ast.SpecUnusedPorts]) extends Node
   }
 
   /** Formal parameter */
@@ -279,7 +278,7 @@ object Ast {
     severity: SpecEvent.Severity,
     params: FormalParamList,
     id: Option[AstNode[Expr]],
-    format: Option[String],
+    format: Option[AstNode[String]],
     throttle: Option[Expr]
   )
   final object SpecEvent {
@@ -321,7 +320,7 @@ object Ast {
   object SpecLoc {
     /** Location specifier kind */
     sealed trait Kind
-    final case object Constant
+    final case object Constant extends Kind
     final case object Type extends Kind
     final case object Port extends Kind
     final case object Component extends Kind
@@ -386,7 +385,7 @@ object Ast {
     typeName: AstNode[TypeName],
     id: Option[AstNode[Expr]],
     update: Option[SpecTlmChannel.Update],
-    format: Option[String],
+    format: Option[AstNode[String]],
     low: List[SpecTlmChannel.Limit],
     high: List[SpecTlmChannel.Limit]
   )
@@ -424,7 +423,11 @@ object Ast {
   final case class StructMember(name: Ident, value: AstNode[Expr])
 
   /** Struct type member */
-  final case class StructTypeMember(name: Ident, typeName: AstNode[TypeName])
+  final case class StructTypeMember(
+    name: Ident,
+    typeName: AstNode[TypeName],
+    format: Option[AstNode[String]]
+  )
 
   /** Translation unit member */
   type TUMember = ModuleMember
