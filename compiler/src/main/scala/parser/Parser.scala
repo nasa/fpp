@@ -32,7 +32,7 @@ object Parser extends Parsers {
     node(specInternalPort) ^^ { case n => Ast.ComponentMember.SpecInternalPort(n) }
     node(specParam) ^^ { case n => Ast.ComponentMember.SpecParam(n) }
     node(specPortInstance) ^^ { case n => Ast.ComponentMember.SpecPortInstance(n) }
-    // TODO: SpecTlmChannel
+    node(specTlmChannel) ^^ { case n => Ast.ComponentMember.SpecTlmChannel(n) }
   }
 
   def defAbsType: Parser[Ast.DefAbsType] = {
@@ -368,6 +368,44 @@ object Parser extends Parsers {
     general | special
   }
 
+  def specTlmChannel: Parser[Ast.SpecTlmChannel] = {
+    val Channel = Ast.SpecTlmChannel
+    def update: Parser[Channel.Update] = {
+      always ^^ { case _ => Ast.SpecTlmChannel.Always } |
+      on ~ change ^^ { case _ => Ast.SpecTlmChannel.OnChange }
+    }
+    def kind: Parser[Channel.LimitKind] = {
+      orange ^^ { case _ => Ast.SpecTlmChannel.Orange } |
+      red ^^ { case _ => Ast.SpecTlmChannel.Red } |
+      yellow ^^ { case _ => Ast.SpecTlmChannel.Yellow }
+    }
+    def limit: Parser[Channel.Limit] = {
+      kind ~ exprNode ^^ { case kind ~ e => (kind, e) }
+    }
+    def limitSequence: Parser[List[Channel.Limit]] = {
+      opt(Token.LOW ~ Token.LBRACE ~> elementSequence(limit, comma <~ Token.RBRACE)) ^^ {
+        case Some(seq) => seq
+        case None => Nil
+      }
+    }
+    (Token.TELEMETRY ~> ident) ~ 
+    (Token.COLON ~> node(typeName)) ~
+    opt(Token.ID ~> exprNode) ~ 
+    opt(Token.UPDATE ~> update) ~
+    opt(Token.FORMAT ~> node(literalString)) ~
+    limitSequence ~ limitSequence ^^ {
+      case name ~ typeName ~ id ~ update ~ format ~ low ~ high => Ast.SpecTlmChannel(
+        name,
+        typeName,
+        id,
+        update,
+        format,
+        low,
+        high
+      )
+    }
+  }
+
   def structTypeMember: Parser[Ast.StructTypeMember] = {
     ident ~ (Token.COLON ~> node(typeName)) ~ opt(Token.FORMAT ~> node(literalString)) ^^ {
       case name ~ typeName ~ format => Ast.StructTypeMember(name, typeName, format)
@@ -437,7 +475,11 @@ object Parser extends Parsers {
     (rep(Token.EOL) ~> elts) ^^ { elts => elts.map(constructor) }
   }
 
+  private def always: Parser[Unit] = token("always", Token.ALWAYS)
+
   private def async: Parser[Unit] = token("async", Token.ASYNC)
+
+  private def change: Parser[Unit] = token("change", Token.CHANGE)
 
   private def comma: Parser[Unit] = token("comma", Token.COMMA)
 
@@ -471,6 +513,10 @@ object Parser extends Parsers {
 
   private def internal: Parser[Unit] = token("internal", Token.INTERNAL)
 
+  private def on: Parser[Unit] = token("on", Token.ON)
+
+  private def orange: Parser[Unit] = token("orange", Token.ORANGE)
+
   private def literalFalse: Parser[Unit] = token("false", Token.FALSE)
 
   private def literalFloat: Parser[String] =
@@ -502,6 +548,8 @@ object Parser extends Parsers {
 
   private def recv: Parser[Unit] = token("recv", Token.RECV)
 
+  private def red: Parser[Unit] = token("red", Token.RED)
+
   private def ref: Parser[Unit] = token("ref", Token.REF)
 
   private def reg: Parser[Unit] = token("reg", Token.REG)
@@ -526,5 +574,7 @@ object Parser extends Parsers {
     accept(s, { case t => () })
 
   private def warning: Parser[Unit] = token("warning", Token.WARNING)
+
+  private def yellow: Parser[Unit] = token("yellow", Token.YELLOW)
 
 }
