@@ -28,5 +28,5 @@ elements to the common type.
 
 [source,tnet]
 ----
-constant a = [ 0, 1, 2 ] # a is an array value of with elements 0, 1, 2
+constant a = [ 0, 1, 2 ] # a is an array value with elements 0, 1, 2
 ----
