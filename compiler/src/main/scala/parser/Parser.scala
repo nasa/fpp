@@ -26,12 +26,12 @@ object Parser extends Parsers {
     node(defConstant) ^^ { case n => Ast.ComponentMember.DefConstant(n) } |
     node(defEnum) ^^ { case n => Ast.ComponentMember.DefEnum(n) }
     node(defStruct) ^^ { case n => Ast.ComponentMember.DefStruct(n) }
-    // TODO: SpecCommand
-    // TODO: SpecEvent
+    node(specCommand) ^^ { case n => Ast.ComponentMember.SpecCommand(n) }
+    node(specEvent) ^^ { case n => Ast.ComponentMember.SpecEvent(n) }
     node(specInclude) ^^ { case n => Ast.ComponentMember.SpecInclude(n) }
-    // TODO: SpecInternalPort
-    // TODO: SpecParam
-    // TODO: SpecPortInstance
+    node(specInternalPort) ^^ { case n => Ast.ComponentMember.SpecInternalPort(n) }
+    node(specParam) ^^ { case n => Ast.ComponentMember.SpecParam(n) }
+    node(specPortInstance) ^^ { case n => Ast.ComponentMember.SpecPortInstance(n) }
     // TODO: SpecTlmChannel
   }
 
@@ -252,22 +252,120 @@ object Parser extends Parsers {
 
   def qualIdent: Parser[List[Ast.Ident]] = repsep(ident, dot)
 
+  def queueFull: Parser[Ast.QueueFull] = {
+    accept("assert", { case Token.ASSERT => Ast.QueueFull.Assert }) |
+    accept("block", { case Token.BLOCK => Ast.QueueFull.Block }) |
+    accept("dropt", { case Token.DROP => Ast.QueueFull.Drop })
+  }
+
+  def specCommand: Parser[Ast.SpecCommand] = {
+    def kind: Parser[Ast.SpecCommand.Kind] = {
+      accept("async", { case Token.ASYNC => Ast.SpecCommand.Async })
+      accept("guarded", { case Token.GUARDED => Ast.SpecCommand.Guarded })
+      accept("sync", { case Token.SYNC => Ast.SpecCommand.Sync })
+    }
+    kind ~ (Token.COMMAND ~> ident) ~ formalParamList ~ 
+    opt(Token.OPCODE ~> exprNode) ~ opt(Token.PRIORITY ~> exprNode) ~ opt(node(queueFull)) ^^ {
+      case kind ~ name ~ params ~ opcode ~ priority ~ queueFull => 
+        Ast.SpecCommand(kind, name, params, opcode, priority, queueFull)
+    }
+  }
+
+  def specEvent: Parser[Ast.SpecEvent] = {
+    def severity: Parser[Ast.SpecEvent.Severity] = {
+      activity ~ high ^^ { case _ => Ast.SpecEvent.ActivityHigh } |
+      activity ~ low ^^ { case _ => Ast.SpecEvent.ActivityLow } |
+      command ^^ { case _ => Ast.SpecEvent.Command } |
+      diagnostic ^^ { case _ => Ast.SpecEvent.Diagnostic } |
+      fatal ^^ { case _ => Ast.SpecEvent.Fatal } |
+      warning ~ high ^^ { case _ => Ast.SpecEvent.WarningHigh } |
+      warning ~ low ^^ { case _ => Ast.SpecEvent.WarningLow }
+    }
+    (Token.EVENT ~> ident) ~ formalParamList ~ (Token.SEVERITY ~> severity) ~
+    opt(Token.ID ~> exprNode) ~
+    opt(Token.FORMAT ~> node(literalString)) ~
+    opt(Token.THROTTLE ~> exprNode) ^^ {
+      case name ~ params ~ severity ~ id ~ format ~ throttle => 
+        Ast.SpecEvent(name, params, severity, id, format, throttle)
+    }
+  }
+
   def specInclude: Parser[Ast.SpecInclude] = {
     include ~> literalString ^^ { case file => Ast.SpecInclude(file) }
+  }
+
+  def specInternalPort: Parser[Ast.SpecInternalPort] = {
+    (internal ~ port ~> ident) ~ formalParamList ~
+    opt(Token.PRIORITY ~> exprNode) ~
+    opt(queueFull) ^^ {
+      case name ~ params ~ priority ~ queueFull => 
+        Ast.SpecInternalPort(name, params, priority, queueFull)
+    }
   }
 
   def specLoc: Parser[Ast.SpecLoc] = {
     def kind: Parser[Ast.SpecLoc.Kind] = {
       accept("constant", { case Token.CONSTANT => Ast.SpecLoc.Constant }) |
-      accept("type", { case Token.TYPE => Ast.SpecLoc.Type }) |
       accept("port", { case Token.PORT => Ast.SpecLoc.Port }) |
-      component ~ instance ^^ { case _ => Ast.SpecLoc.ComponentInstance } |
+      accept("topology", { case Token.TOPOLOGY => Ast.SpecLoc.Topology }) |
+      accept("type", { case Token.TYPE => Ast.SpecLoc.Type }) |
       component ^^ { case _ => Ast.SpecLoc.Component } |
-      accept("topology", { case Token.TOPOLOGY => Ast.SpecLoc.Topology })
+      component ~ instance ^^ { case _ => Ast.SpecLoc.ComponentInstance }
     }
     (Token.LOCATE ~> kind) ~ node(qualIdent) ~ (Token.AT ~> literalString) ^^ {
       case kind ~ symbol ~ file => Ast.SpecLoc(kind, symbol, file)
     }
+  }
+
+  def specParam: Parser[Ast.SpecParam] = {
+    (Token.PARAM ~> ident) ~ (Token.COLON ~> node(typeName)) ~
+    opt(Token.DEFAULT ~> exprNode) ~
+    opt(Token.ID ~> exprNode) ~
+    opt(Token.SET ~ Token.OPCODE ~> exprNode) ~
+    opt(Token.SAVE ~ Token.OPCODE ~> exprNode) ^^ {
+      case name ~ typeName ~ default ~ id ~ setOpcode ~ saveOpcode =>
+        Ast.SpecParam(name, typeName, default, id, setOpcode, saveOpcode)
+    }
+  }
+
+  def specPortInstance: Parser[Ast.SpecPortInstance] = {
+    def generalKind: Parser[Ast.SpecPortInstance.GeneralKind] = {
+      async ~ input ^^ { case _ => Ast.SpecPortInstance.AsyncInput } |
+      guarded ~ input ^^ { case _ => Ast.SpecPortInstance.GuardedInput } |
+      output ^^ { case _ => Ast.SpecPortInstance.Output } |
+      sync ~ input ^^ { case _ => Ast.SpecPortInstance.SyncInput }
+    }
+    def instanceType: Parser[Option[AstNode[Ast.QualIdent]]] = {
+      node(qualIdent) ^^ { case qi => Some(qi) } |
+      serial ^^ { case _ => None}
+    }
+    def specialKind: Parser[Ast.SpecPortInstance.SpecialKind] = {
+      command ~ recv ^^ { case _ => Ast.SpecPortInstance.CommandRecv } |
+      command ~ reg ^^ { case _ => Ast.SpecPortInstance.CommandReg } |
+      command ~ resp ^^ { case _ => Ast.SpecPortInstance.CommandResp } |
+      event ^^ { case _ => Ast.SpecPortInstance.Event } |
+      param ~ get ^^ { case _ => Ast.SpecPortInstance.ParamGet } |
+      param ~ set ^^ { case _ => Ast.SpecPortInstance.ParamSet } |
+      telemetry ^^ { case _ => Ast.SpecPortInstance.Telemetry } |
+      text ~ event ^^ { case _ => Ast.SpecPortInstance.TextEvent } |
+      time ~ get ^^ { case _ => Ast.SpecPortInstance.TimeGet }
+    }
+    def general: Parser[Ast.SpecPortInstance] = {
+      generalKind ~ (Token.PORT ~> ident) ~
+      (Token.COLON ~> opt(Token.LBRACKET ~> exprNode <~ Token.RBRACKET)) ~
+      instanceType ~
+      opt(Token.PRIORITY ~> exprNode) ~
+      opt(queueFull) ^^ {
+        case kind ~ name ~ size ~ ty ~ priority ~ queueFull =>
+          Ast.SpecPortInstance.General(kind, name, size, ty, priority, queueFull)
+      }
+    }
+    def special: Parser[Ast.SpecPortInstance] = {
+      specialKind ~ (Token.PORT ~> ident) ^^ {
+        case kind ~ name => Ast.SpecPortInstance.Special(kind, name)
+      }
+    }
+    general | special
   }
 
   def structTypeMember: Parser[Ast.StructTypeMember] = {
@@ -314,6 +412,8 @@ object Parser extends Parsers {
 
   override type Elem = Token
 
+  private def activity: Parser[Unit] = token("activity", Token.ACTIVITY)
+
   private def annotatedElementSequence[E, T](
     elt: Parser[E],
     punct: Parser[Unit],
@@ -337,38 +437,62 @@ object Parser extends Parsers {
     (rep(Token.EOL) ~> elts) ^^ { elts => elts.map(constructor) }
   }
 
-  private def comma: Parser[Unit] = accept("comma", { case Token.COMMA => () })
+  private def async: Parser[Unit] = token("async", Token.ASYNC)
 
-  private def dot: Parser[Unit] = accept("dot", { case Token.DOT => () })
+  private def comma: Parser[Unit] = token("comma", Token.COMMA)
+
+  private def command: Parser[Unit] = token("command", Token.COMMAND)
+
+  private def component: Parser[Unit] = token("component", Token.COMPONENT)
+
+  private def diagnostic: Parser[Unit] = token("diagnostic", Token.DIAGNOSTIC)
+  
+  private def event: Parser[Unit] = token("event", Token.EVENT)
+
+  private def dot: Parser[Unit] = token("dot", Token.DOT)
 
   private def elementSequence[E,S](elt: Parser[E], sep: Parser[S]): Parser[List[E]] =
     repsep(elt, sep | Token.EOL) <~ opt(sep)
 
-  private def component: Parser[Unit] =
-    accept("component", { case Token.COMPONENT => () })
+  private def fatal: Parser[Unit] = token("fatal", Token.FATAL)
+
+  private def guarded: Parser[Unit] = token("guarded", Token.GUARDED)
+
+  private def high: Parser[Unit] = token("high", Token.HIGH)
 
   private def ident: Parser[Ast.Ident] =
     accept("identifier", { case Token.IDENTIFIER(s) => s })
 
-  private def include: Parser[Unit] =
-    accept("include", { case Token.INCLUDE => () })
+  private def include: Parser[Unit] = token("include", Token.INCLUDE)
 
-  private def instance: Parser[Unit] =
-    accept("instance", { case Token.INSTANCE => () })
+  private def input: Parser[Unit] = token("input", Token.INPUT)
 
-  private def literalFalse: Parser[Unit] =
-    accept("false", { case Token.FALSE => () })
+  private def instance: Parser[Unit] = token("instance", Token.INSTANCE)
+
+  private def internal: Parser[Unit] = token("internal", Token.INTERNAL)
+
+  private def literalFalse: Parser[Unit] = token("false", Token.FALSE)
 
   private def literalFloat: Parser[String] =
     accept("floating-point literal", { case Token.LITERAL_FLOAT(s) => s })
 
-  private def literalInt: Parser[String] =
+  private def literalInt: Parser[String] = 
     accept("integer literal", { case Token.LITERAL_INT(s) => s })
 
   private def literalString: Parser[String] =
     accept("string literal", { case Token.LITERAL_STRING(s) => s })
 
-  private def literalTrue: Parser[Unit] = accept("true", { case Token.TRUE => () })
+  private def literalTrue: Parser[Unit] = token("true", Token.TRUE)
+
+  private def low: Parser[Unit] = token("low", Token.LOW)
+
+  private def output: Parser[Unit] = token("output", Token.OUTPUT)
+
+  private def param: Parser[Unit] = token("param", Token.PARAM)
+  
+  private def get: Parser[Unit] = token("get", Token.GET)
+
+  private def port: Parser[Unit] = token("port", Token.PORT)
 
   private def postAnnotation: Parser[String] =
     accept("post annotation", { case Token.POST_ANNOTATION(s) => s })
@@ -376,10 +500,31 @@ object Parser extends Parsers {
   private def preAnnotation: Parser[String] =
     accept("pre annotation", { case Token.PRE_ANNOTATION(s) => s })
 
-  private def ref: Parser[Unit] =
-    accept("ref", { case Token.REF => () })
+  private def recv: Parser[Unit] = token("recv", Token.RECV)
 
-  private def semi: Parser[Unit] =
-    accept("semicolon", { case Token.SEMI => () })
+  private def ref: Parser[Unit] = token("ref", Token.REF)
+
+  private def reg: Parser[Unit] = token("reg", Token.REG)
+
+  private def resp: Parser[Unit] = token("resp", Token.RESP)
+
+  private def semi: Parser[Unit] = token("semicolon", Token.SEMI)
+
+  private def serial: Parser[Unit] = token("serial", Token.SERIAL)
+
+  private def set: Parser[Unit] = token("set", Token.SET)
+
+  private def sync: Parser[Unit] = token("sync", Token.SYNC)
+
+  private def telemetry: Parser[Unit] = token("telemetry", Token.TELEMETRY)
+
+  private def text: Parser[Unit] = token("text", Token.TEXT)
+
+  private def time: Parser[Unit] = token("time", Token.TIME)
+
+  private def token(s: String, t: Token): Parser[Unit] =
+    accept(s, { case t => () })
+
+  private def warning: Parser[Unit] = token("warning", Token.WARNING)
 
 }

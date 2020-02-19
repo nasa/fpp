@@ -227,18 +227,27 @@ object Ast {
 
   /** Queue full behavior */
   sealed trait QueueFull
-  final case object Assert extends QueueFull
-  final case object Block extends QueueFull
-  final case object Drop extends QueueFull
+  final object QueueFull {
+    final case object Assert extends QueueFull
+    final case object Block extends QueueFull
+    final case object Drop extends QueueFull
+  }
 
   /** Command specifier */
   final case class SpecCommand(
+    kind: SpecCommand.Kind,
     name: Ident,
     params: FormalParamList,
     opcode: Option[AstNode[Expr]],
     priority: Option[AstNode[Expr]],
     queueFull: Option[AstNode[QueueFull]]
   )
+  object SpecCommand {
+    sealed trait Kind
+    final case object Async extends Kind
+    final case object Guarded extends Kind
+    final case object Sync extends Kind
+  }
 
   /** Component instance specifier */
   final case class SpecCompInstance(
@@ -275,11 +284,11 @@ object Ast {
   /** Event specifier */
   final case class SpecEvent(
     name: Ident,
-    severity: SpecEvent.Severity,
     params: FormalParamList,
+    severity: SpecEvent.Severity,
     id: Option[AstNode[Expr]],
     format: Option[AstNode[String]],
-    throttle: Option[Expr]
+    throttle: Option[AstNode[Expr]]
   )
   final object SpecEvent {
     /** Event severity */
@@ -308,7 +317,7 @@ object Ast {
     name: Ident,
     params: FormalParamList,
     priority: Option[AstNode[Expr]],
-    queueFull: QueueFull
+    queueFull: Option[QueueFull]
   )
 
   /** Location specifier */
