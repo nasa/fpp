@@ -474,7 +474,9 @@ object Ast {
 
   /** Visibility */
   sealed trait Visibility
-  final case object Private extends Visibility
-  final case object Public extends Visibility
+  final object Visibility {
+    final case object Private extends Visibility
+    final case object Public extends Visibility
+  }
 
 }

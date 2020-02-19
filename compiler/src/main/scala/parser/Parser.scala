@@ -35,13 +35,22 @@ object Parser extends Parsers {
     node(specTlmChannel) ^^ { case n => Ast.ComponentMember.SpecTlmChannel(n) }
   }
 
+  def connection: Parser[Ast.SpecConnectionGraph.Connection] = {
+    def connectionPort = node(qualIdent) ~ (Token.DOT ~> ident) ~ opt(index)
+    connectionPort ~ (Token.RARROW ~> connectionPort) ^^ {
+      case (qid1 ~ id1 ~ e1) ~ (qid2 ~ id2 ~ e2) => {
+        Ast.SpecConnectionGraph.Connection(qid1, id1, e1, qid2, id2, e2)
+      }
+    }
+  }
+
   def defAbsType: Parser[Ast.DefAbsType] = {
     (Token.TYPE ~> ident) ^^ { case id => Ast.DefAbsType(id) }
   }
 
   def defArray: Parser[Ast.DefArray] = {
     (Token.ARRAY ~> ident <~ Token.EQUALS) ~ 
-    (Token.LBRACKET ~> exprNode <~ Token.RBRACKET) ~ node(typeName) ~ 
+    index ~ node(typeName) ~ 
     opt(Token.DEFAULT ~> exprNode) ~
     opt(Token.FORMAT ~> node(literalString)) ^^ {
       case name ~ size ~ eltType ~ default ~ format => Ast.DefArray(name, size, eltType, default, format)
@@ -114,8 +123,8 @@ object Parser extends Parsers {
   }
 
   def exprNode: Parser[AstNode[Ast.Expr]] = {
-    def leftAssoc(e: AstNode[Ast.Expr], es: List[Token ~ AstNode[Ast.Expr]]): AstNode[Ast.Expr] = {
-      def f(e1: AstNode[Ast.Expr], op_e2: Token ~ AstNode[Ast.Expr]): AstNode[Ast.Expr] = {
+    def leftAssoc(e: AstNode[Ast.Expr], es: List[Token ~ AstNode[Ast.Expr]]) = {
+      def f(e1: AstNode[Ast.Expr], op_e2: Token ~ AstNode[Ast.Expr]) = {
         val op ~ e2 = op_e2
         val binop =
           op match {
@@ -164,8 +173,8 @@ object Parser extends Parsers {
       Token.MINUS ~> unaryMinusOperand ^^ { case e => Ast.ExprUnop(Ast.Unop.Minus, e) }
     }
     def unaryMinusOperand = {
-      def dotIds(e: AstNode[Ast.Expr], ids: List[String]): AstNode[Ast.Expr] = {
-        def f(e: AstNode[Ast.Expr], id: String): AstNode[Ast.Expr] = {
+      def dotIds(e: AstNode[Ast.Expr], ids: List[String]) = {
+        def f(e: AstNode[Ast.Expr], id: String) = {
           val dot = AstNode.create(Ast.ExprDot(e, id))
           val loc = Locations.get(e.getId)
           Locations.put(dot.getId, loc)
@@ -185,7 +194,7 @@ object Parser extends Parsers {
   }
 
   def formalParam: Parser[Ast.FormalParam] = {
-    def kind: Parser[Ast.FormalParam.Kind] = {
+    def kind = {
       opt(ref) ^^ { 
         case Some(_) => Ast.FormalParam.Ref
         case None => Ast.FormalParam.Value
@@ -204,6 +213,8 @@ object Parser extends Parsers {
       case None => Nil
     }
   }
+
+  def index: Parser[AstNode[Ast.Expr]] = Token.LBRACKET ~> exprNode <~ Token.RBRACKET
 
   def moduleMemberNode: Parser[Ast.ModuleMember.Node] = {
     node(defAbsType) ^^ { case n => Ast.ModuleMember.DefAbsType(n) } |
@@ -259,7 +270,7 @@ object Parser extends Parsers {
   }
 
   def specCommand: Parser[Ast.SpecCommand] = {
-    def kind: Parser[Ast.SpecCommand.Kind] = {
+    def kind = {
       accept("async", { case Token.ASYNC => Ast.SpecCommand.Async })
       accept("guarded", { case Token.GUARDED => Ast.SpecCommand.Guarded })
       accept("sync", { case Token.SYNC => Ast.SpecCommand.Sync })
@@ -271,8 +282,34 @@ object Parser extends Parsers {
     }
   }
 
+  def specCompInstance: Parser[Ast.SpecCompInstance] = {
+    visibility ~ (instance ~> node(qualIdent)) ^^ {
+      case visibility ~ instance => Ast.SpecCompInstance(visibility, instance)
+    }
+  }
+
+  def specConnectionGraph: Parser[Ast.SpecConnectionGraph] = {
+    def direct = {
+      (connections ~> ident) ~ (Token.LBRACE ~> elementSequence(connection, comma) <~ Token.RBRACE) ^^ { 
+        case ident ~ connections => Ast.SpecConnectionGraph.Direct(ident, connections) 
+      }
+    }
+    def pattern = {
+      def instanceSequence = {
+        opt(Token.LBRACE ~> elementSequence(node(qualIdent), comma) <~ Token.RBRACE) ^^ {
+          case Some(elements) => elements
+          case None => Nil
+        }
+      }
+      (connections ~ instance ~> node(qualIdent)) ~ instanceSequence ~ (Token.PATTERN ~> exprNode) ^^ {
+        case source ~ targets ~ pattern => Ast.SpecConnectionGraph.Pattern(source, targets, pattern)
+      }
+    }
+    direct | pattern
+  }
+
   def specEvent: Parser[Ast.SpecEvent] = {
-    def severity: Parser[Ast.SpecEvent.Severity] = {
+    def severity = {
       activity ~ high ^^ { case _ => Ast.SpecEvent.ActivityHigh } |
       activity ~ low ^^ { case _ => Ast.SpecEvent.ActivityLow } |
       command ^^ { case _ => Ast.SpecEvent.Command } |
@@ -304,7 +341,7 @@ object Parser extends Parsers {
   }
 
   def specLoc: Parser[Ast.SpecLoc] = {
-    def kind: Parser[Ast.SpecLoc.Kind] = {
+    def kind = {
       accept("constant", { case Token.CONSTANT => Ast.SpecLoc.Constant }) |
       accept("port", { case Token.PORT => Ast.SpecLoc.Port }) |
       accept("topology", { case Token.TOPOLOGY => Ast.SpecLoc.Topology }) |
@@ -329,17 +366,17 @@ object Parser extends Parsers {
   }
 
   def specPortInstance: Parser[Ast.SpecPortInstance] = {
-    def generalKind: Parser[Ast.SpecPortInstance.GeneralKind] = {
+    def generalKind = {
       async ~ input ^^ { case _ => Ast.SpecPortInstance.AsyncInput } |
       guarded ~ input ^^ { case _ => Ast.SpecPortInstance.GuardedInput } |
       output ^^ { case _ => Ast.SpecPortInstance.Output } |
       sync ~ input ^^ { case _ => Ast.SpecPortInstance.SyncInput }
     }
-    def instanceType: Parser[Option[AstNode[Ast.QualIdent]]] = {
+    def instanceType = {
       node(qualIdent) ^^ { case qi => Some(qi) } |
       serial ^^ { case _ => None}
     }
-    def specialKind: Parser[Ast.SpecPortInstance.SpecialKind] = {
+    def specialKind = {
       command ~ recv ^^ { case _ => Ast.SpecPortInstance.CommandRecv } |
       command ~ reg ^^ { case _ => Ast.SpecPortInstance.CommandReg } |
       command ~ resp ^^ { case _ => Ast.SpecPortInstance.CommandResp } |
@@ -350,9 +387,9 @@ object Parser extends Parsers {
       text ~ event ^^ { case _ => Ast.SpecPortInstance.TextEvent } |
       time ~ get ^^ { case _ => Ast.SpecPortInstance.TimeGet }
     }
-    def general: Parser[Ast.SpecPortInstance] = {
+    def general = {
       generalKind ~ (Token.PORT ~> ident) ~
-      (Token.COLON ~> opt(Token.LBRACKET ~> exprNode <~ Token.RBRACKET)) ~
+      (Token.COLON ~> opt(index)) ~
       instanceType ~
       opt(Token.PRIORITY ~> exprNode) ~
       opt(queueFull) ^^ {
@@ -370,19 +407,19 @@ object Parser extends Parsers {
 
   def specTlmChannel: Parser[Ast.SpecTlmChannel] = {
     val Channel = Ast.SpecTlmChannel
-    def update: Parser[Channel.Update] = {
+    def update = {
       always ^^ { case _ => Ast.SpecTlmChannel.Always } |
       on ~ change ^^ { case _ => Ast.SpecTlmChannel.OnChange }
     }
-    def kind: Parser[Channel.LimitKind] = {
+    def kind = {
       orange ^^ { case _ => Ast.SpecTlmChannel.Orange } |
       red ^^ { case _ => Ast.SpecTlmChannel.Red } |
       yellow ^^ { case _ => Ast.SpecTlmChannel.Yellow }
     }
-    def limit: Parser[Channel.Limit] = {
+    def limit = {
       kind ~ exprNode ^^ { case kind ~ e => (kind, e) }
     }
-    def limitSequence: Parser[List[Channel.Limit]] = {
+    def limitSequence = {
       opt(Token.LOW ~ Token.LBRACE ~> elementSequence(limit, comma <~ Token.RBRACE)) ^^ {
         case Some(seq) => seq
         case None => Nil
@@ -413,8 +450,8 @@ object Parser extends Parsers {
   }
 
   def topologyMemberNode: Parser[Ast.TopologyMember.Node] = {
-    // TODO: SpecCompInstance
-    // TODO: SpecConnectionGraph
+    node(specCompInstance) ^^ { case n => Ast.TopologyMember.SpecCompInstance(n) }
+    node(specConnectionGraph) ^^ { case n => Ast.TopologyMember.SpecConnectionGraph(n) }
     node(specInclude) ^^ { case n => Ast.TopologyMember.SpecInclude(n) }
     // TODO: SpecTopImport
     // TODO: SpecUnusedPorts
@@ -448,9 +485,18 @@ object Parser extends Parsers {
     node(qualIdent) ^^ { case qidn => Ast.TypeNameQualIdent(qidn) }
   }
 
+  def visibility: Parser[Ast.Visibility] = {
+    opt(token("private", Token.PRIVATE)) ^^ {
+      case Some(_) => Ast.Visibility.Private
+      case None => Ast.Visibility.Public
+    }
+  }
+
   override type Elem = Token
 
   private def activity: Parser[Unit] = token("activity", Token.ACTIVITY)
+
+  private def always: Parser[Unit] = token("always", Token.ALWAYS)
 
   private def annotatedElementSequence[E, T](
     elt: Parser[E],
@@ -475,8 +521,6 @@ object Parser extends Parsers {
     (rep(Token.EOL) ~> elts) ^^ { elts => elts.map(constructor) }
   }
 
-  private def always: Parser[Unit] = token("always", Token.ALWAYS)
-
   private def async: Parser[Unit] = token("async", Token.ASYNC)
 
   private def change: Parser[Unit] = token("change", Token.CHANGE)
@@ -486,6 +530,8 @@ object Parser extends Parsers {
   private def command: Parser[Unit] = token("command", Token.COMMAND)
 
   private def component: Parser[Unit] = token("component", Token.COMPONENT)
+
+  private def connections: Parser[Unit] = token("connections", Token.CONNECTIONS)
 
   private def diagnostic: Parser[Unit] = token("diagnostic", Token.DIAGNOSTIC)
   
@@ -513,10 +559,6 @@ object Parser extends Parsers {
 
   private def internal: Parser[Unit] = token("internal", Token.INTERNAL)
 
-  private def on: Parser[Unit] = token("on", Token.ON)
-
-  private def orange: Parser[Unit] = token("orange", Token.ORANGE)
-
   private def literalFalse: Parser[Unit] = token("false", Token.FALSE)
 
   private def literalFloat: Parser[String] =
@@ -531,6 +573,10 @@ object Parser extends Parsers {
   private def literalTrue: Parser[Unit] = token("true", Token.TRUE)
 
   private def low: Parser[Unit] = token("low", Token.LOW)
+
+  private def on: Parser[Unit] = token("on", Token.ON)
+
+  private def orange: Parser[Unit] = token("orange", Token.ORANGE)
 
   private def output: Parser[Unit] = token("output", Token.OUTPUT)
 
