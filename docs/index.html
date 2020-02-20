@@ -456,59 +456,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Lexical-Elements_Automatic-Suppression-of-Newlines">3.8. Automatic Suppression of Newlines</a></li>
 </ul>
 </li>
-<li><a href="#Type-Names">4. Type Names</a>
+<li><a href="#Models-and-Translation-Units">4. Models and Translation Units</a>
 <ul class="sectlevel2">
-<li><a href="#Type-Names_Primitive-Integer-Type-Names">4.1. Primitive Integer Type Names</a></li>
-<li><a href="#Type-Names_Floating-Point-Type-Names">4.2. Floating-Point Type Names</a></li>
-<li><a href="#Type-Names_The-Boolean-Type-Name">4.3. The Boolean Type Name</a></li>
-<li><a href="#Type-Names_The-String-Type-Name">4.4. The String Type Name</a></li>
-<li><a href="#Type-Names_Qualified-Identifier-Type-Names">4.5. Qualified Identifier Type Names</a></li>
-</ul>
-</li>
-<li><a href="#Expressions">5. Expressions</a>
-<ul class="sectlevel2">
-<li><a href="#Expressions_Arithmetic-Expressions">5.1. Arithmetic Expressions</a></li>
-<li><a href="#Expressions_Array-Expressions">5.2. Array Expressions</a>
+<li><a href="#Models-and-Translation-Units_Models">4.1. Models</a></li>
+<li><a href="#Models-and-Translation-Units_Translation-Units">4.2. Translation Units</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_Array-Expressions_Syntax">5.2.1. Syntax</a></li>
-<li><a href="#Expressions_Array-Expressions_Semantics">5.2.2. Semantics</a></li>
-<li><a href="#Expressions_Array-Expressions_Example">5.2.3. Example</a></li>
+<li><a href="#Models-and-Translation-Units_Translation-Units_Syntax">4.2.1. Syntax</a></li>
+<li><a href="#Models-and-Translation-Units_Translation-Units_Example">4.2.2. Example</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Boolean-Literals">5.3. Boolean Literals</a></li>
-<li><a href="#Expressions_Dot-Expressions">5.4. Dot Expressions</a>
-<ul class="sectlevel3">
-<li><a href="#Expressions_Dot-Expressions_Syntax">5.4.1. Syntax</a></li>
-<li><a href="#Expressions_Dot-Expressions_Semantics">5.4.2. Semantics</a></li>
-<li><a href="#Expressions_Dot-Expressions_Examples">5.4.3. Examples</a></li>
+<li><a href="#Models-and-Translation-Units_The-Location-of-a-Translation-Unit">4.3. The Location of a Translation Unit</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Floating-Point-Literals">5.5. Floating-Point Literals</a></li>
-<li><a href="#Expressions_Identifier-Expressions">5.6. Identifier Expressions</a></li>
-<li><a href="#Expressions_Integer-Literals">5.7. Integer Literals</a></li>
-<li><a href="#Expressions_Parenthesis-Expressions">5.8. Parenthesis Expressions</a>
-<ul class="sectlevel3">
-<li><a href="#Expressions_Parenthesis-Expressions_Syntax">5.8.1. Syntax</a></li>
-<li><a href="#Expressions_Parenthesis-Expressions_Semantics">5.8.2. Semantics</a></li>
-<li><a href="#Expressions_Parenthesis-Expressions_Example">5.8.3. Example</a></li>
-</ul>
-</li>
-<li><a href="#Expressions_String-Literals">5.9. String Literals</a>
-<ul class="sectlevel3">
-<li><a href="#Expressions_String-Literals_Single-Line-String-Literals">5.9.1. Single-Line String Literals</a></li>
-<li><a href="#Expressions_String-Literals_Multiline-String-Literals">5.9.2. Multiline String Literals</a></li>
-</ul>
-</li>
-<li><a href="#Expressions_Struct-Expressions">5.10. Struct Expressions</a>
-<ul class="sectlevel3">
-<li><a href="#Expressions_Struct-Expressions_Syntax">5.10.1. Syntax</a></li>
-<li><a href="#Expressions_Struct-Expressions_Semantics">5.10.2. Semantics</a></li>
-<li><a href="#Expressions_Struct-Expressions_Example">5.10.3. Example</a></li>
-</ul>
-</li>
-<li><a href="#Expressions_Precedence-and-Associativity">5.11. Precedence and Associativity</a></li>
-</ul>
-</li>
+<li><a href="#Element-Sequences">5. Element Sequences</a></li>
 <li><a href="#Definitions">6. Definitions</a>
 <ul class="sectlevel2">
 <li><a href="#Definitions_Abstract-Type-Definitions">6.1. Abstract Type Definitions</a>
@@ -687,37 +647,77 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
-<li><a href="#Formal-Parameter-Lists">8. Formal Parameter Lists</a>
+<li><a href="#Type-Names">8. Type Names</a>
 <ul class="sectlevel2">
-<li><a href="#Formal-Parameter-Lists_Syntax">8.1. Syntax</a></li>
-<li><a href="#Formal-Parameter-Lists_Semantics">8.2. Semantics</a></li>
-<li><a href="#Formal-Parameter-Lists_Examples">8.3. Examples</a></li>
+<li><a href="#Type-Names_Primitive-Integer-Type-Names">8.1. Primitive Integer Type Names</a></li>
+<li><a href="#Type-Names_Floating-Point-Type-Names">8.2. Floating-Point Type Names</a></li>
+<li><a href="#Type-Names_The-Boolean-Type-Name">8.3. The Boolean Type Name</a></li>
+<li><a href="#Type-Names_The-String-Type-Name">8.4. The String Type Name</a></li>
+<li><a href="#Type-Names_Qualified-Identifier-Type-Names">8.5. Qualified Identifier Type Names</a></li>
 </ul>
 </li>
-<li><a href="#Format-Strings">9. Format Strings</a></li>
-<li><a href="#Element-Sequences">10. Element Sequences</a></li>
-<li><a href="#Comments-and-Annotations">11. Comments and Annotations</a>
+<li><a href="#Expressions">9. Expressions</a>
 <ul class="sectlevel2">
-<li><a href="#Comments-and-Annotations_Comments">11.1. Comments</a></li>
-<li><a href="#Comments-and-Annotations_Annotations">11.2. Annotations</a>
+<li><a href="#Expressions_Arithmetic-Expressions">9.1. Arithmetic Expressions</a></li>
+<li><a href="#Expressions_Array-Expressions">9.2. Array Expressions</a>
 <ul class="sectlevel3">
-<li><a href="#Comments-and-Annotations_Annotations_Where-Annotations-Can-Occur">11.2.1. Where Annotations Can Occur</a></li>
-<li><a href="#Comments-and-Annotations_Annotations_Kinds-of-Annotations">11.2.2. Kinds of Annotations</a></li>
-<li><a href="#Comments-and-Annotations_Annotations_Multiline-Annotations">11.2.3. Multiline Annotations</a></li>
+<li><a href="#Expressions_Array-Expressions_Syntax">9.2.1. Syntax</a></li>
+<li><a href="#Expressions_Array-Expressions_Semantics">9.2.2. Semantics</a></li>
+<li><a href="#Expressions_Array-Expressions_Example">9.2.3. Example</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><a href="#Translation-Units-and-Models">12. Translation Units and Models</a>
-<ul class="sectlevel2">
-<li><a href="#Translation-Units-and-Models_Translation-Units">12.1. Translation Units</a>
+<li><a href="#Expressions_Boolean-Literals">9.3. Boolean Literals</a></li>
+<li><a href="#Expressions_Dot-Expressions">9.4. Dot Expressions</a>
 <ul class="sectlevel3">
-<li><a href="#Translation-Units-and-Models_Translation-Units_Syntax">12.1.1. Syntax</a></li>
-<li><a href="#Translation-Units-and-Models_Translation-Units_Example">12.1.2. Example</a></li>
+<li><a href="#Expressions_Dot-Expressions_Syntax">9.4.1. Syntax</a></li>
+<li><a href="#Expressions_Dot-Expressions_Semantics">9.4.2. Semantics</a></li>
+<li><a href="#Expressions_Dot-Expressions_Examples">9.4.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Translation-Units-and-Models_Models">12.2. Models</a></li>
-<li><a href="#Translation-Units-and-Models_The-Location-of-a-Translation-Unit">12.3. The Location of a Translation Unit</a></li>
+<li><a href="#Expressions_Floating-Point-Literals">9.5. Floating-Point Literals</a></li>
+<li><a href="#Expressions_Identifier-Expressions">9.6. Identifier Expressions</a></li>
+<li><a href="#Expressions_Integer-Literals">9.7. Integer Literals</a></li>
+<li><a href="#Expressions_Parenthesis-Expressions">9.8. Parenthesis Expressions</a>
+<ul class="sectlevel3">
+<li><a href="#Expressions_Parenthesis-Expressions_Syntax">9.8.1. Syntax</a></li>
+<li><a href="#Expressions_Parenthesis-Expressions_Semantics">9.8.2. Semantics</a></li>
+<li><a href="#Expressions_Parenthesis-Expressions_Example">9.8.3. Example</a></li>
+</ul>
+</li>
+<li><a href="#Expressions_String-Literals">9.9. String Literals</a>
+<ul class="sectlevel3">
+<li><a href="#Expressions_String-Literals_Single-Line-String-Literals">9.9.1. Single-Line String Literals</a></li>
+<li><a href="#Expressions_String-Literals_Multiline-String-Literals">9.9.2. Multiline String Literals</a></li>
+</ul>
+</li>
+<li><a href="#Expressions_Struct-Expressions">9.10. Struct Expressions</a>
+<ul class="sectlevel3">
+<li><a href="#Expressions_Struct-Expressions_Syntax">9.10.1. Syntax</a></li>
+<li><a href="#Expressions_Struct-Expressions_Semantics">9.10.2. Semantics</a></li>
+<li><a href="#Expressions_Struct-Expressions_Example">9.10.3. Example</a></li>
+</ul>
+</li>
+<li><a href="#Expressions_Precedence-and-Associativity">9.11. Precedence and Associativity</a></li>
+</ul>
+</li>
+<li><a href="#Formal-Parameter-Lists">10. Formal Parameter Lists</a>
+<ul class="sectlevel2">
+<li><a href="#Formal-Parameter-Lists_Syntax">10.1. Syntax</a></li>
+<li><a href="#Formal-Parameter-Lists_Semantics">10.2. Semantics</a></li>
+<li><a href="#Formal-Parameter-Lists_Examples">10.3. Examples</a></li>
+</ul>
+</li>
+<li><a href="#Format-Strings">11. Format Strings</a></li>
+<li><a href="#Comments-and-Annotations">12. Comments and Annotations</a>
+<ul class="sectlevel2">
+<li><a href="#Comments-and-Annotations_Comments">12.1. Comments</a></li>
+<li><a href="#Comments-and-Annotations_Annotations">12.2. Annotations</a>
+<ul class="sectlevel3">
+<li><a href="#Comments-and-Annotations_Annotations_Where-Annotations-Can-Occur">12.2.1. Where Annotations Can Occur</a></li>
+<li><a href="#Comments-and-Annotations_Annotations_Kinds-of-Annotations">12.2.2. Kinds of Annotations</a></li>
+<li><a href="#Comments-and-Annotations_Annotations_Multiline-Annotations">12.2.3. Multiline Annotations</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#Scoping-of-Names">13. Scoping of Names</a>
@@ -1244,600 +1244,250 @@ precede them, without creating an
 </div>
 </div>
 <div class="sect1">
-<h2 id="Type-Names">4. Type Names</h2>
+<h2 id="Models-and-Translation-Units">4. Models and Translation Units</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="Models-and-Translation-Units_Models">4.1. Models</h3>
 <div class="paragraph">
-<p><strong>Type names</strong> are the syntactic names of
-<a href="#Types">types</a>.
-In some cases, e.g., <code>U32</code>, there is a one-to-one correspondence
-between type names and types.
-In other cases, e.g., array types, there is no one-to-one correspondence.
-For example, depending on the enclosing scope, the name
-<code>a.b</code> and the name <code>b</code> may refer to the same array type.</p>
+<p>A <strong>model</strong> is a collection of one or more
+<a href="#Models-and-Translation-Units_Translation-Units">translation
+units</a>. A model is presented to one or more analyzers or translators for
+<a href="#Analysis-and-Translation">analysis or translation</a>.
+How this is done depends on the analyzer or translator. Typically, you ask a
+translator to read a single translation unit from standard input and/or
+to read one or more translation units stored in files, one unit per
+file.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p><a href="#Models-and-Translation-Units_Translation-Units_Example">Translation
+units 1-3 in the following section</a>, taken together, form a single
+model. That model is equivalent to the following single translation
+unit:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M1 { constant a = 0 }
+module M1 { constant b = 1 }
+module M2 {
+  constant a = M1.a
+  constant b = M1.b
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>According to the
+<a href="#Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Module-Definitions">semantics
+of module definitions</a>,
+this is also equivalent:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M1 {
+  constant a = 0
+  constant b = 1
+}
+module M2 {
+  constant a = M1.a
+  constant b = M1.b
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that translation unit 3 alone is not a valid model, because it
+uses free symbols defined in the other translation units. Similarly, the
+translation unit 3 together with just translation unit 1 or translation
+unit 2 is not a valid model.</p>
+</div>
 </div>
 <div class="sect2">
-<h3 id="Type-Names_Primitive-Integer-Type-Names">4.1. Primitive Integer Type Names</h3>
+<h3 id="Models-and-Translation-Units_Translation-Units">4.2. Translation Units</h3>
 <div class="paragraph">
-<p><strong>Primitive integer type names</strong> are the names of the
-<a href="#Types_Primitive-Integer-Types">primitive integer types</a>.
-There are two kinds of primitive
-integer types: unsigned integer types and signed integer types.</p>
+<p>A <strong>translation unit</strong> forms part of a <a href="#Models-and-Translation-Units_Models">model</a>
+at the top level.
+Translation units usually correspond to source files of a program.
+However, translation units may be specified in other ways,
+e.g., on standard input.</p>
 </div>
-<div class="ulist">
-<ul>
+<div class="sect3">
+<h4 id="Models-and-Translation-Units_Translation-Units_Syntax">4.2.1. Syntax</h4>
+<div class="paragraph">
+<p>A translation unit is an
+<a href="#Element-Sequences">element sequence</a> in which each
+element is a <strong>translation unit member</strong>,
+and the terminating punctuation is a semicolon.
+A translation unit member is syntactically identical to a
+<a href="#Definitions_Module-Definitions_Syntax">module member</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Models-and-Translation-Units_Translation-Units_Example">4.2.2. Example</h4>
+<div class="paragraph">
+<p>Here is a translation unit:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M1 { constant a = 0 }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And here is another one:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M1 { constant b = 0 }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And here is a third one:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M2 {
+  constant a = M1.a
+  constant b = M1.b
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Call these translation units 1, 2, and 3 for purposes of the example in
+the following section.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Models-and-Translation-Units_The-Location-of-a-Translation-Unit">4.3. The Location of a Translation Unit</h3>
+<div class="paragraph">
+<p>Every translation unit <em>T</em> in a source model has an associated
+<strong>location</strong> <em>L</em>.
+The location is used when resolving <a href="#Specifiers_Location-Specifiers">location
+specifiers</a> and
+<a href="#Specifiers_Include-Specifiers">include specifiers</a>
+during <a href="#Analysis-and-Translation">analysis</a>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>The names of the unsigned integer types are <code>U8</code>, <code>U16</code>, <code>U32</code>, and <code>U64</code>.
-The <code>U</code> stands for &#8220;unsigned.&#8221; The number after the U is the width of the
-representation in bits, using the standard binary representation of an
-unsigned integer.</p>
+<p>If <em>T</em> is read in from a file, then <em>P</em> is the absolute path
+of the file.</p>
 </li>
 <li>
-<p>The names of the signed integer types are <code>I8</code>, <code>I16</code>, <code>I32</code>, and <code>I64</code>. The
-<code>I</code> stands for &#8220;[signed] integer.&#8221; The number after the I is the width of
-the representation in bits, using the standard binary two&#8217;s complement
-representation of a signed integer.</p>
+<p>If <em>T</em> is read from standard input, then <em>P</em> is the absolute path of the current
+directory in the environment where the analysis occurs.</p>
 </li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Type-Names_Floating-Point-Type-Names">4.2. Floating-Point Type Names</h3>
-<div class="paragraph">
-<p>The <strong>floating-point type names</strong> are <code>F32</code> and <code>F64</code>. These refer to the types
-of IEEE
-floating-point values of width 32 and 64 bits, respectively.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Type-Names_The-Boolean-Type-Name">4.3. The Boolean Type Name</h3>
-<div class="paragraph">
-<p>The type name <code>bool</code> represents the type of the two Boolean values <code>true</code> and
-<code>false</code>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Type-Names_The-String-Type-Name">4.4. The String Type Name</h3>
-<div class="paragraph">
-<p>The type name <code>string</code> represents the type of string values.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Type-Names_Qualified-Identifier-Type-Names">4.5. Qualified Identifier Type Names</h3>
-<div class="paragraph">
-<p>A <strong>qualified identifier type name</strong> is a
-<a href="#Scoping-of-Names_Qualified-Identifiers">qualified
-identifier</a> that refers to an
-<a href="#Definitions_Abstract-Type-Definitions">abstract type definition</a>,
-<a href="#Definitions_Array-Definitions">array definition</a>,
-<a href="#Definitions_Enum-Definitions">enum definition</a>, or
-<a href="#Definitions_Struct-Definitions">struct definition</a>
- via the
-<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">rules
-for name scoping</a>.
-It names the
-<a href="#Types">type</a> defined in the definition to which it refers.</p>
-</div>
-<div class="paragraph">
-<p>For example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module M {
-  type T
-  array A = [3] T # T is a qualified identifier t type name. It names the type M.T.
-}</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module M {
-  array A = [3] U8
-  array B = [3] A # A is an array type name. It names the type M.A.
-}</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module M {
-  enum E { X = 0, Y = 1 }
-  array A = [3] E # E is a qualified identifier type name. It names the type M.E.
-}</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module M {
-  struct S {
-    x: U32
-    y: F32
-  }
-  struct T {
-    s: S # S is a qualified identifier type name. It names the type M.S.
-  }
-}</code></pre>
-</div>
+</ol>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Expressions">5. Expressions</h2>
+<h2 id="Element-Sequences">5. Element Sequences</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="Expressions_Arithmetic-Expressions">5.1. Arithmetic Expressions</h3>
 <div class="paragraph">
-<p>FPP includes the following <strong>arithmetic expressions</strong>:</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Syntax</th>
-<th class="tableblock halign-left valign-top">Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-</code> \$e\$</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Negate \$e\$</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">\$e_1\$ <code>+</code> \$e_2\$</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Add \$e_1\$ and \$e_2\$</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">\$e_1\$ <code>-</code> \$e_2\$</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Subtract \$e_2\$ from \$e_1\$</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">\$e_1\$ <code>*</code> \$e_2\$</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Multiply \$e_1\$ by \$e_2\$</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">\$e_1\$ <code>/</code> \$e_2\$</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Divide \$e_1\$ by \$e_2\$</p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>Each subexpression of an arithmetic expression must have
-<a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.  Evaluation is by either
-standard integer arithmetic or standard floating-point arithmetic, depending on
-the <a href="#Type-Checking">type of the expression</a>.</p>
+<p>An <strong>element sequence</strong> is a sequence of similar elements, e.g., the
+elements of a
+<a href="#Models-and-Translation-Units_Translation-Units">translation
+unit</a>.</p>
 </div>
 <div class="paragraph">
-<p><strong>Example:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">constant a = -1
-constant b = 2 + 3
-constant c = a * b</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Expressions_Array-Expressions">5.2. Array Expressions</h3>
-<div class="paragraph">
-<p>An <strong>array expression</strong> is an expression that represents an array value.</p>
-</div>
-<div class="sect3">
-<h4 id="Expressions_Array-Expressions_Syntax">5.2.1. Syntax</h4>
-<div class="paragraph">
-<p><code>[</code> <em>array-element-sequence</em> <code>]</code></p>
+<p>Each element of an element sequence has optional <strong>terminating
+punctuation</strong>. The punctuation is either a comma or a semicolon,
+depending on the kind of sequence.</p>
 </div>
 <div class="paragraph">
-<p><em>array-element-sequence</em> is an
-<a href="#Element-Sequences">element sequence</a> in which the elements
-are
-<a href="#Expressions">expressions</a>, and the terminating punctuation
-is a comma.</p>
+<p>For each element <em>e</em> in the sequence:</p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="Expressions_Array-Expressions_Semantics">5.2.2. Semantics</h4>
-<div class="olist arabic">
-<ol class="arabic">
+<div class="ulist">
+<ul>
 <li>
-<p>The sequence must have at least one element.</p>
+<p>You can always terminate <em>e</em> with a sequence of one or more line breaks. In
+this case no terminating punctuation is required.</p>
 </li>
 <li>
-<p>The types of the expressions in the sequence must be
-<a href="#Type-Checking_Computing-a-Common-Type_Lists-of-Types">convertible to a common type</a>.</p>
+<p>You can omit the line break. In this case the terminating punctuation
+is required, unless the element is last in the sequence or
+the element is followed by a
+<a href="#Comments-and-Annotations_Annotations">post-annotation</a>.</p>
 </li>
-<li>
-<p>The value of the expression is formed by computing
-the value of each element and then converting all the
-elements to the common type.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Expressions_Array-Expressions_Example">5.2.3. Example</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="tnet">constant a = [ 0, 1, 2 ] # a is an array value with elements 0, 1, 2</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Expressions_Boolean-Literals">5.3. Boolean Literals</h3>
-<div class="paragraph">
-<p>A <strong>Boolean literal expression</strong> is one of the values <code>true</code> and <code>false</code>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Expressions_Dot-Expressions">5.4. Dot Expressions</h3>
-<div class="paragraph">
-<p>A <strong>dot expression</strong> is a
-<a href="#Definitions-and-Uses_Uses">use</a>
-that refers to a
-<a href="#Definitions_Constant-Definitions">constant definition</a>
-or
-<a href="#Definitions_Constant-Definitions">enumerated constant definition</a>.</p>
-</div>
-<div class="sect3">
-<h4 id="Expressions_Dot-Expressions_Syntax">5.4.1. Syntax</h4>
-<div class="paragraph">
-<p><a href="#Expressions"><em>expression</em></a>
-<code>.</code>
-<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Expressions_Dot-Expressions_Semantics">5.4.2. Semantics</h4>
-<div class="paragraph">
-<p>The following rules give the meaning of a dot expression \$e\$<code>.x</code>:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>If \$e\$<code>.x</code> is a
-<a href="#Scoping-of-Names_Qualified-Identifiers">qualified
-identifier</a> that represents one of the uses listed above according to
-the
-<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">rules
-for resolving qualified identifiers</a>, then it evaluates to the value
-stored in the corresponding <a href="#Definitions">definition</a>.</p>
-</li>
-<li>
-<p>Otherwise \$e\$<code>.x</code> is invalid.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Expressions_Dot-Expressions_Examples">5.4.3. Examples</h4>
-<div class="sect4">
-<h5 id="Expressions_Dot-Expressions_Examples_Example-1">Example 1</h5>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module M {
-  constant a = 1
-}
-constant b = M.a # M.a evaluates to 1</code></pre>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="Expressions_Dot-Expressions_Examples_Example-2">Example 2</h5>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">enum E { X = 0, Y = 1 }
-constant a = E.X # E.X evaluates to 0</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Expressions_Floating-Point-Literals">5.5. Floating-Point Literals</h3>
-<div class="paragraph">
-<p>A <strong>floating-point literal expression</strong> is a C-style representation of an
-IEEE floating-point number.</p>
+</ul>
 </div>
 <div class="paragraph">
 <p><strong>Examples:</strong></p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">1e-10
-0.001
-3.14159
-6.02E23</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Expressions_Identifier-Expressions">5.6. Identifier Expressions</h3>
 <div class="paragraph">
-<p>An <strong>identifier expression</strong> is an
-<a href="#Lexical-Elements_Identifiers">identifier</a>
-that refers to a
-<a href="#Definitions_Constant-Definitions">constant definition</a>
-or
-<a href="#Definitions_Enumerated-Constant-Definitions">enumerated constant definition</a>,
-according to the
-<a href="#Scoping-of-Names_Resolution-of-Identifiers">rules for resolving identifiers</a>.</p>
-</div>
-<div class="paragraph">
-<p><strong>Example:</strong></p>
+<p>A
+<a href="#Models-and-Translation-Units_Translation-Units">translation
+unit</a> is a kind of element sequence. Here are some examples of element
+sequences using
+<a href="#Definitions_Constant-Definitions">constant
+definitions</a> as the elements of a translation unit:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">constant a = 42
-constant b = a # a is an identifier expression</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp"># No terminating punctuation
+constant a = 0
+constant b = 1</code></pre>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Expressions_Integer-Literals">5.7. Integer Literals</h3>
-<div class="paragraph">
-<p>An <strong>integer literal expression</strong> is one of the following:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>A sequence of decimal digits <code>0</code> through <code>9</code> denoting the decimal
-representation of a nonnegative integer.</p>
-</li>
-<li>
-<p><code>0x</code> or <code>0X</code> followed by a sequence of hexadecimal digits
-<code>0</code> through <code>9</code>, <code>A</code> through <code>F</code>, or <code>a</code> through <code>f</code> denoting the hexadecimal
-representation of a nonnegative
-integer.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>An integer literal value \$v\$ must be representable as an unsigned
-integer using most 64 bits, i.e., it must lie in the range \$0 &lt;= v &lt; 2^64\$.</p>
-</div>
-<div class="paragraph">
-<p><strong>Examples:</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">1234
-0xABCD</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp"># Optional terminating punctuation present
+constant a = 0;
+constant b = 1;</code></pre>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Expressions_Parenthesis-Expressions">5.8. Parenthesis Expressions</h3>
-<div class="paragraph">
-<p>A <strong>parenthesis expression</strong> is an expression surrounded
-by parentheses in order to group subexpressions and to
-force evaluation order.</p>
-</div>
-<div class="sect3">
-<h4 id="Expressions_Parenthesis-Expressions_Syntax">5.8.1. Syntax</h4>
-<div class="paragraph">
-<p><code>(</code>
-<a href="#Expressions"><em>expression</em></a>
-<code>)</code></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Expressions_Parenthesis-Expressions_Semantics">5.8.2. Semantics</h4>
-<div class="paragraph">
-<p>The type and value of the expression are the type and value of the subexpression.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Expressions_Parenthesis-Expressions_Example">5.8.3. Example</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">constant a = (1 + 2) * 3</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The expression on the right-hand side of the constant definition evaluates to
-9.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Expressions_String-Literals">5.9. String Literals</h3>
-<div class="paragraph">
-<p>A <strong>string literal expression</strong> is a single-line string literal
-or a multiline string literal.</p>
-</div>
-<div class="sect3">
-<h4 id="Expressions_String-Literals_Single-Line-String-Literals">5.9.1. Single-Line String Literals</h4>
-<div class="paragraph">
-<p>A <strong>single-line string literal</strong> is a sequence of characters enclosed in double
-quotes.
-The characters must be printable ASCII characters, not including newline.
-The double quote character itself is not allowed, except that the character
-sequence <code>\"</code>
-represents a single double quote character.</p>
-</div>
-<div class="paragraph">
-<p><strong>Examples:</strong></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>"abc"</code> is a valid string consisting of the characters <code>a</code>, <code>b</code>, and <code>c</code>.</p>
-</li>
-<li>
-<p><code>"ab\""</code> is a valid string consisting of the characters <code>a</code>, <code>b</code>, and <code>"</code>.</p>
-</li>
-<li>
-<p><code>"abc</code> is not a valid string, because it is missing the terminating double quote.</p>
-</li>
-<li>
-<p><code>"ab"c"</code> is the valid string <code>"ab"</code> followed by the identifier <code>c</code> and an
-unmatched double quote character.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Expressions_String-Literals_Multiline-String-Literals">5.9.2. Multiline String Literals</h4>
-<div class="paragraph">
-<p>A <strong>multiline string literal</strong> is a sequence of characters enclosed in triple double
-quotes <code>"""</code>
-The characters must be printable ASCII characters, including newline.
-Inside a code string</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>The character sequence <code>\"</code> is interpreted
-as a double quote character.</p>
-</li>
-<li>
-<p>A sequence of three double quote characters in a row is not allowed
-inside the string. To include a sequence of three double quote
-characters in he output, you must precede one of the characters with <code>\</code>.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Whitespace inside a multiline string literal is trimmed as follows:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>The first newline after the first <code>"""</code> (if it exists) is omitted
-from the output string.</p>
-</li>
-<li>
-<p>Any whitespace occurring in columns to the left of the first <code>"""</code>
-is omitted from the output string.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><strong>Example:</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">  """
-  // This is a multiline string literal
-  // It represents some C++ code
-  instance.create(0, 1);
-  """</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp"># Terminating punctuation required after the first element but not the second
+constant a = 0; constant b = 1</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>The output string consists of the following lines, each terminated by a newline:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><code>// This is a multiline string literal</code></p>
-</li>
-<li>
-<p><code>// It represents some C++ code</code></p>
-</li>
-<li>
-<p><code>instance.create(0, 1);</code></p>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Expressions_Struct-Expressions">5.10. Struct Expressions</h3>
-<div class="paragraph">
-<p>An <strong>struct expression</strong> is an expression that represents a struct value.</p>
-</div>
-<div class="sect3">
-<h4 id="Expressions_Struct-Expressions_Syntax">5.10.1. Syntax</h4>
-<div class="paragraph">
-<p><code>{</code> <em>struct-element-sequence</em> <code>}</code></p>
-</div>
-<div class="paragraph">
-<p><em>struct-element-sequence</em> is an
-<a href="#Element-Sequences">element sequence</a> in which the elements
-are struct elements.
-A <strong>struct element</strong> has the following syntax:</p>
-</div>
-<div class="paragraph">
-<p><a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>=</code> <a href="#Expressions"><em>expression</em></a></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Expressions_Struct-Expressions_Semantics">5.10.2. Semantics</h4>
-<div class="paragraph">
-<p>The following must be true of the struct element sequence <em>S</em>:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>No two identifiers appearing in <em>S</em> may be the same.</p>
-</li>
-<li>
-<p>Each expression appearing in <em>S</em> must have a valid type.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>The expression is evaluated by evaluating each member expression
-to a value and then constructing the struct value with the
-corresponding member names and values.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Expressions_Struct-Expressions_Example">5.10.3. Example</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp"># s is a struct value with members x = 0, y = 1
-constant s = {
-  x = 0
-  y = 1
+<pre class="prettyprint highlight"><code data-lang="fpp"># Error, because terminating punctuation is missing
+constant a = 0 constant b = 1</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp"># No terminating punctuation required because of the post-annotation
+constant a = 0 @&lt; This is OK
+constant b = 1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>An
+<a href="#Definitions_Enum-Definitions_Syntax">enum
+constant sequence</a> is another example of an element sequence. Here are
+some element sequences using
+<a href="#Definitions_Enumerated-Constant-Definitions">enumerated
+constant definitions</a> as elements of an enum constant sequence:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp"># No terminating punctuation
+enum E {
+  X = 0
+  Y = 1
 }</code></pre>
 </div>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp"># Optional terminating punctuation
+enum E {
+  X = 0,
+  Y = 1,
+}</code></pre>
 </div>
 </div>
-<div class="sect2">
-<h3 id="Expressions_Precedence-and-Associativity">5.11. Precedence and Associativity</h3>
-<div class="paragraph">
-<p>Ambiguity in parsing expressions is resolved with the following
-precedence table. Expressions appearing earlier in the table
-have higher precedence. For example, <code>-a.b</code> is parsed as <code>-(a.b)</code>
-and not <code>(-a).b</code>. Where necessary, each element in the ordering provides an
-associativity for resolving expressions with equal precedence.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp"># Terminating punctuation required after the first element but not the second
+enum E { X = 0, Y = 1 }</code></pre>
 </div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Expression</th>
-<th class="tableblock halign-left valign-top">Associativity</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Dot expressions \$e\$ <code>.</code> \$i\$</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Unary negation expressions <code>-</code> \$e\$</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Multiplication expressions \$e_1\$ <code>*</code> \$e_2\$ and division expressions \$e_1\$ <code>/</code> \$e_2\$</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Left</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Addition expressions \$e_1\$ <code>+</code> \$e_2\$ and subtraction expressions \$e_1\$ <code>-</code> \$e_2\$</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Left</p></td>
-</tr>
-</tbody>
-</table>
 </div>
 </div>
 </div>
@@ -3823,7 +3473,7 @@ event Event2(
 <div class="paragraph">
 <p>An <strong>include specifier</strong> specifies that a file
 should be included in a
-<a href="#Translation-Units-and-Models_Translation-Units">translation unit</a>.</p>
+<a href="#Models-and-Translation-Units_Translation-Units">translation unit</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Include-Specifiers_Syntax">7.5.1. Syntax</h4>
@@ -3835,7 +3485,7 @@ should be included in a
 <h4 id="Specifiers_Include-Specifiers_Semantics">7.5.2. Semantics</h4>
 <div class="paragraph">
 <p>The string literal specifies a file path relative to the
-<a href="#Translation-Units-and-Models_The-Location-of-a-Translation-Unit">location</a> of the enclosing translation unit.</p>
+<a href="#Models-and-Translation-Units_The-Location-of-a-Translation-Unit">location</a> of the enclosing translation unit.</p>
 </div>
 <div class="paragraph">
 <p>During parsing, the translator does the following:</p>
@@ -4079,9 +3729,9 @@ internal port Port2
 <h3 id="Specifiers_Location-Specifiers">7.8. Location Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>location specifier</strong> specifies the
-<a href="#Translation-Units-and-Models_The-Location-of-a-Translation-Unit">location</a>
+<a href="#Models-and-Translation-Units_The-Location-of-a-Translation-Unit">location</a>
 of the
-<a href="#Translation-Units-and-Models_Translation-Units">translation unit</a>
+<a href="#Models-and-Translation-Units_Translation-Units">translation unit</a>
 that contains a
 <a href="#Definitions">definition</a>.</p>
 </div>
@@ -4173,13 +3823,13 @@ of <em>M</em>.</p>
 </li>
 <li>
 <p>The string literal must specify the path of an FPP source file, relative to the
-<a href="#Translation-Units-and-Models_The-Location-of-a-Translation-Unit">location of the translation unit</a>
+<a href="#Models-and-Translation-Units_The-Location-of-a-Translation-Unit">location of the translation unit</a>
 in which the location specifier appears.
 The file must exist and must contain the definition referred to in the location specifier.</p>
 </li>
 <li>
 <p>Multiple location specifiers for the same definition are allowed in a single
-<a href="#Translation-Units-and-Models_Models">model</a>, so long as the locations are all
+<a href="#Models-and-Translation-Units_Models">model</a>, so long as the locations are all
 consistent.</p>
 </li>
 </ol>
@@ -5012,7 +4662,605 @@ of <em>C'</em>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Formal-Parameter-Lists">8. Formal Parameter Lists</h2>
+<h2 id="Type-Names">8. Type Names</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Type names</strong> are the syntactic names of
+<a href="#Types">types</a>.
+In some cases, e.g., <code>U32</code>, there is a one-to-one correspondence
+between type names and types.
+In other cases, e.g., array types, there is no one-to-one correspondence.
+For example, depending on the enclosing scope, the name
+<code>a.b</code> and the name <code>b</code> may refer to the same array type.</p>
+</div>
+<div class="sect2">
+<h3 id="Type-Names_Primitive-Integer-Type-Names">8.1. Primitive Integer Type Names</h3>
+<div class="paragraph">
+<p><strong>Primitive integer type names</strong> are the names of the
+<a href="#Types_Primitive-Integer-Types">primitive integer types</a>.
+There are two kinds of primitive
+integer types: unsigned integer types and signed integer types.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The names of the unsigned integer types are <code>U8</code>, <code>U16</code>, <code>U32</code>, and <code>U64</code>.
+The <code>U</code> stands for &#8220;unsigned.&#8221; The number after the U is the width of the
+representation in bits, using the standard binary representation of an
+unsigned integer.</p>
+</li>
+<li>
+<p>The names of the signed integer types are <code>I8</code>, <code>I16</code>, <code>I32</code>, and <code>I64</code>. The
+<code>I</code> stands for &#8220;[signed] integer.&#8221; The number after the I is the width of
+the representation in bits, using the standard binary two&#8217;s complement
+representation of a signed integer.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Type-Names_Floating-Point-Type-Names">8.2. Floating-Point Type Names</h3>
+<div class="paragraph">
+<p>The <strong>floating-point type names</strong> are <code>F32</code> and <code>F64</code>. These refer to the types
+of IEEE
+floating-point values of width 32 and 64 bits, respectively.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Type-Names_The-Boolean-Type-Name">8.3. The Boolean Type Name</h3>
+<div class="paragraph">
+<p>The type name <code>bool</code> represents the type of the two Boolean values <code>true</code> and
+<code>false</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Type-Names_The-String-Type-Name">8.4. The String Type Name</h3>
+<div class="paragraph">
+<p>The type name <code>string</code> represents the type of string values.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Type-Names_Qualified-Identifier-Type-Names">8.5. Qualified Identifier Type Names</h3>
+<div class="paragraph">
+<p>A <strong>qualified identifier type name</strong> is a
+<a href="#Scoping-of-Names_Qualified-Identifiers">qualified
+identifier</a> that refers to an
+<a href="#Definitions_Abstract-Type-Definitions">abstract type definition</a>,
+<a href="#Definitions_Array-Definitions">array definition</a>,
+<a href="#Definitions_Enum-Definitions">enum definition</a>, or
+<a href="#Definitions_Struct-Definitions">struct definition</a>
+ via the
+<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">rules
+for name scoping</a>.
+It names the
+<a href="#Types">type</a> defined in the definition to which it refers.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+  type T
+  array A = [3] T # T is a qualified identifier t type name. It names the type M.T.
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+  array A = [3] U8
+  array B = [3] A # A is an array type name. It names the type M.A.
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+  enum E { X = 0, Y = 1 }
+  array A = [3] E # E is a qualified identifier type name. It names the type M.E.
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+  struct S {
+    x: U32
+    y: F32
+  }
+  struct T {
+    s: S # S is a qualified identifier type name. It names the type M.S.
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Expressions">9. Expressions</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="Expressions_Arithmetic-Expressions">9.1. Arithmetic Expressions</h3>
+<div class="paragraph">
+<p>FPP includes the following <strong>arithmetic expressions</strong>:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Syntax</th>
+<th class="tableblock halign-left valign-top">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-</code> \$e\$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Negate \$e\$</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\$e_1\$ <code>+</code> \$e_2\$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add \$e_1\$ and \$e_2\$</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\$e_1\$ <code>-</code> \$e_2\$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Subtract \$e_2\$ from \$e_1\$</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\$e_1\$ <code>*</code> \$e_2\$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Multiply \$e_1\$ by \$e_2\$</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\$e_1\$ <code>/</code> \$e_2\$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Divide \$e_1\$ by \$e_2\$</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Each subexpression of an arithmetic expression must have
+<a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.  Evaluation is by either
+standard integer arithmetic or standard floating-point arithmetic, depending on
+the <a href="#Type-Checking">type of the expression</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = -1
+constant b = 2 + 3
+constant c = a * b</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Expressions_Array-Expressions">9.2. Array Expressions</h3>
+<div class="paragraph">
+<p>An <strong>array expression</strong> is an expression that represents an array value.</p>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Array-Expressions_Syntax">9.2.1. Syntax</h4>
+<div class="paragraph">
+<p><code>[</code> <em>array-element-sequence</em> <code>]</code></p>
+</div>
+<div class="paragraph">
+<p><em>array-element-sequence</em> is an
+<a href="#Element-Sequences">element sequence</a> in which the elements
+are
+<a href="#Expressions">expressions</a>, and the terminating punctuation
+is a comma.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Array-Expressions_Semantics">9.2.2. Semantics</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The sequence must have at least one element.</p>
+</li>
+<li>
+<p>The types of the expressions in the sequence must be
+<a href="#Type-Checking_Computing-a-Common-Type_Lists-of-Types">convertible to a common type</a>.</p>
+</li>
+<li>
+<p>The value of the expression is formed by computing
+the value of each element and then converting all the
+elements to the common type.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Array-Expressions_Example">9.2.3. Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="tnet">constant a = [ 0, 1, 2 ] # a is an array value with elements 0, 1, 2</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Expressions_Boolean-Literals">9.3. Boolean Literals</h3>
+<div class="paragraph">
+<p>A <strong>Boolean literal expression</strong> is one of the values <code>true</code> and <code>false</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Expressions_Dot-Expressions">9.4. Dot Expressions</h3>
+<div class="paragraph">
+<p>A <strong>dot expression</strong> is a
+<a href="#Definitions-and-Uses_Uses">use</a>
+that refers to a
+<a href="#Definitions_Constant-Definitions">constant definition</a>
+or
+<a href="#Definitions_Constant-Definitions">enumerated constant definition</a>.</p>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Dot-Expressions_Syntax">9.4.1. Syntax</h4>
+<div class="paragraph">
+<p><a href="#Expressions"><em>expression</em></a>
+<code>.</code>
+<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Dot-Expressions_Semantics">9.4.2. Semantics</h4>
+<div class="paragraph">
+<p>The following rules give the meaning of a dot expression \$e\$<code>.x</code>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If \$e\$<code>.x</code> is a
+<a href="#Scoping-of-Names_Qualified-Identifiers">qualified
+identifier</a> that represents one of the uses listed above according to
+the
+<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">rules
+for resolving qualified identifiers</a>, then it evaluates to the value
+stored in the corresponding <a href="#Definitions">definition</a>.</p>
+</li>
+<li>
+<p>Otherwise \$e\$<code>.x</code> is invalid.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Dot-Expressions_Examples">9.4.3. Examples</h4>
+<div class="sect4">
+<h5 id="Expressions_Dot-Expressions_Examples_Example-1">Example 1</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+  constant a = 1
+}
+constant b = M.a # M.a evaluates to 1</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="Expressions_Dot-Expressions_Examples_Example-2">Example 2</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">enum E { X = 0, Y = 1 }
+constant a = E.X # E.X evaluates to 0</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Expressions_Floating-Point-Literals">9.5. Floating-Point Literals</h3>
+<div class="paragraph">
+<p>A <strong>floating-point literal expression</strong> is a C-style representation of an
+IEEE floating-point number.</p>
+</div>
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">1e-10
+0.001
+3.14159
+6.02E23</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Expressions_Identifier-Expressions">9.6. Identifier Expressions</h3>
+<div class="paragraph">
+<p>An <strong>identifier expression</strong> is an
+<a href="#Lexical-Elements_Identifiers">identifier</a>
+that refers to a
+<a href="#Definitions_Constant-Definitions">constant definition</a>
+or
+<a href="#Definitions_Enumerated-Constant-Definitions">enumerated constant definition</a>,
+according to the
+<a href="#Scoping-of-Names_Resolution-of-Identifiers">rules for resolving identifiers</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = 42
+constant b = a # a is an identifier expression</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Expressions_Integer-Literals">9.7. Integer Literals</h3>
+<div class="paragraph">
+<p>An <strong>integer literal expression</strong> is one of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A sequence of decimal digits <code>0</code> through <code>9</code> denoting the decimal
+representation of a nonnegative integer.</p>
+</li>
+<li>
+<p><code>0x</code> or <code>0X</code> followed by a sequence of hexadecimal digits
+<code>0</code> through <code>9</code>, <code>A</code> through <code>F</code>, or <code>a</code> through <code>f</code> denoting the hexadecimal
+representation of a nonnegative
+integer.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>An integer literal value \$v\$ must be representable as an unsigned
+integer using most 64 bits, i.e., it must lie in the range \$0 &lt;= v &lt; 2^64\$.</p>
+</div>
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">1234
+0xABCD</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Expressions_Parenthesis-Expressions">9.8. Parenthesis Expressions</h3>
+<div class="paragraph">
+<p>A <strong>parenthesis expression</strong> is an expression surrounded
+by parentheses in order to group subexpressions and to
+force evaluation order.</p>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Parenthesis-Expressions_Syntax">9.8.1. Syntax</h4>
+<div class="paragraph">
+<p><code>(</code>
+<a href="#Expressions"><em>expression</em></a>
+<code>)</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Parenthesis-Expressions_Semantics">9.8.2. Semantics</h4>
+<div class="paragraph">
+<p>The type and value of the expression are the type and value of the subexpression.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Parenthesis-Expressions_Example">9.8.3. Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = (1 + 2) * 3</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The expression on the right-hand side of the constant definition evaluates to
+9.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Expressions_String-Literals">9.9. String Literals</h3>
+<div class="paragraph">
+<p>A <strong>string literal expression</strong> is a single-line string literal
+or a multiline string literal.</p>
+</div>
+<div class="sect3">
+<h4 id="Expressions_String-Literals_Single-Line-String-Literals">9.9.1. Single-Line String Literals</h4>
+<div class="paragraph">
+<p>A <strong>single-line string literal</strong> is a sequence of characters enclosed in double
+quotes.
+The characters must be printable ASCII characters, not including newline.
+The double quote character itself is not allowed, except that the character
+sequence <code>\"</code>
+represents a single double quote character.</p>
+</div>
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>"abc"</code> is a valid string consisting of the characters <code>a</code>, <code>b</code>, and <code>c</code>.</p>
+</li>
+<li>
+<p><code>"ab\""</code> is a valid string consisting of the characters <code>a</code>, <code>b</code>, and <code>"</code>.</p>
+</li>
+<li>
+<p><code>"abc</code> is not a valid string, because it is missing the terminating double quote.</p>
+</li>
+<li>
+<p><code>"ab"c"</code> is the valid string <code>"ab"</code> followed by the identifier <code>c</code> and an
+unmatched double quote character.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_String-Literals_Multiline-String-Literals">9.9.2. Multiline String Literals</h4>
+<div class="paragraph">
+<p>A <strong>multiline string literal</strong> is a sequence of characters enclosed in triple double
+quotes <code>"""</code>
+The characters must be printable ASCII characters, including newline.
+Inside a code string</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The character sequence <code>\"</code> is interpreted
+as a double quote character.</p>
+</li>
+<li>
+<p>A sequence of three double quote characters in a row is not allowed
+inside the string. To include a sequence of three double quote
+characters in he output, you must precede one of the characters with <code>\</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Whitespace inside a multiline string literal is trimmed as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The first newline after the first <code>"""</code> (if it exists) is omitted
+from the output string.</p>
+</li>
+<li>
+<p>Any whitespace occurring in columns to the left of the first <code>"""</code>
+is omitted from the output string.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">  """
+  // This is a multiline string literal
+  // It represents some C++ code
+  instance.create(0, 1);
+  """</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The output string consists of the following lines, each terminated by a newline:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>// This is a multiline string literal</code></p>
+</li>
+<li>
+<p><code>// It represents some C++ code</code></p>
+</li>
+<li>
+<p><code>instance.create(0, 1);</code></p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Expressions_Struct-Expressions">9.10. Struct Expressions</h3>
+<div class="paragraph">
+<p>An <strong>struct expression</strong> is an expression that represents a struct value.</p>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Struct-Expressions_Syntax">9.10.1. Syntax</h4>
+<div class="paragraph">
+<p><code>{</code> <em>struct-element-sequence</em> <code>}</code></p>
+</div>
+<div class="paragraph">
+<p><em>struct-element-sequence</em> is an
+<a href="#Element-Sequences">element sequence</a> in which the elements
+are struct elements.
+A <strong>struct element</strong> has the following syntax:</p>
+</div>
+<div class="paragraph">
+<p><a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>=</code> <a href="#Expressions"><em>expression</em></a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Struct-Expressions_Semantics">9.10.2. Semantics</h4>
+<div class="paragraph">
+<p>The following must be true of the struct element sequence <em>S</em>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>No two identifiers appearing in <em>S</em> may be the same.</p>
+</li>
+<li>
+<p>Each expression appearing in <em>S</em> must have a valid type.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The expression is evaluated by evaluating each member expression
+to a value and then constructing the struct value with the
+corresponding member names and values.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Struct-Expressions_Example">9.10.3. Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp"># s is a struct value with members x = 0, y = 1
+constant s = {
+  x = 0
+  y = 1
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Expressions_Precedence-and-Associativity">9.11. Precedence and Associativity</h3>
+<div class="paragraph">
+<p>Ambiguity in parsing expressions is resolved with the following
+precedence table. Expressions appearing earlier in the table
+have higher precedence. For example, <code>-a.b</code> is parsed as <code>-(a.b)</code>
+and not <code>(-a).b</code>. Where necessary, each element in the ordering provides an
+associativity for resolving expressions with equal precedence.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Expression</th>
+<th class="tableblock halign-left valign-top">Associativity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dot expressions \$e\$ <code>.</code> \$i\$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unary negation expressions <code>-</code> \$e\$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Multiplication expressions \$e_1\$ <code>*</code> \$e_2\$ and division expressions \$e_1\$ <code>/</code> \$e_2\$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Left</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Addition expressions \$e_1\$ <code>+</code> \$e_2\$ and subtraction expressions \$e_1\$ <code>-</code> \$e_2\$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Left</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Formal-Parameter-Lists">10. Formal Parameter Lists</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A <strong>formal parameter list</strong> is an
@@ -5027,7 +5275,7 @@ Formal parameters appear, for example, in
 <a href="#Definitions_Port-Definitions">port definitions</a>.</p>
 </div>
 <div class="sect2">
-<h3 id="Formal-Parameter-Lists_Syntax">8.1. Syntax</h3>
+<h3 id="Formal-Parameter-Lists_Syntax">10.1. Syntax</h3>
 <div class="paragraph">
 <p>Formal parameters have the following syntax:</p>
 </div>
@@ -5040,7 +5288,7 @@ Formal parameters appear, for example, in
 </div>
 </div>
 <div class="sect2">
-<h3 id="Formal-Parameter-Lists_Semantics">8.2. Semantics</h3>
+<h3 id="Formal-Parameter-Lists_Semantics">10.2. Semantics</h3>
 <div class="paragraph">
 <p>If present, the keyword <code>ref</code> specifies that the value
 bound to the formal parameter is to be passed by reference.</p>
@@ -5064,7 +5312,7 @@ specified for the <code>string</code> type.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Formal-Parameter-Lists_Examples">8.3. Examples</h3>
+<h3 id="Formal-Parameter-Lists_Examples">10.3. Examples</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">a: U32
@@ -5076,7 +5324,7 @@ ref c: Fw.Com</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Format-Strings">9. Format Strings</h2>
+<h2 id="Format-Strings">11. Format Strings</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A <strong>format string</strong> is a string that specifies the display format
@@ -5135,119 +5383,10 @@ No other use of <code>{</code> or <code>}</code> is allowed, except in the escap
 </div>
 </div>
 <div class="sect1">
-<h2 id="Element-Sequences">10. Element Sequences</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>An <strong>element sequence</strong> is a sequence of similar elements, e.g., the
-elements of a
-<a href="#Translation-Units-and-Models_Translation-Units">translation
-unit</a>.</p>
-</div>
-<div class="paragraph">
-<p>Each element of an element sequence has optional <strong>terminating
-punctuation</strong>. The punctuation is either a comma or a semicolon,
-depending on the kind of sequence.</p>
-</div>
-<div class="paragraph">
-<p>For each element <em>e</em> in the sequence:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>You can always terminate <em>e</em> with a sequence of one or more line breaks. In
-this case no terminating punctuation is required.</p>
-</li>
-<li>
-<p>You can omit the line break. In this case the terminating punctuation
-is required, unless the element is last in the sequence or
-the element is followed by a
-<a href="#Comments-and-Annotations_Annotations">post-annotation</a>.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><strong>Examples:</strong></p>
-</div>
-<div class="paragraph">
-<p>A
-<a href="#Translation-Units-and-Models_Translation-Units">translation
-unit</a> is a kind of element sequence. Here are some examples of element
-sequences using
-<a href="#Definitions_Constant-Definitions">constant
-definitions</a> as the elements of a translation unit:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp"># No terminating punctuation
-constant a = 0
-constant b = 1</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp"># Optional terminating punctuation present
-constant a = 0;
-constant b = 1;</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp"># Terminating punctuation required after the first element but not the second
-constant a = 0; constant b = 1</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp"># Error, because terminating punctuation is missing
-constant a = 0 constant b = 1</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp"># No terminating punctuation required because of the post-annotation
-constant a = 0 @&lt; This is OK
-constant b = 1</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>An
-<a href="#Definitions_Enum-Definitions_Syntax">enum
-constant sequence</a> is another example of an element sequence. Here are
-some element sequences using
-<a href="#Definitions_Enumerated-Constant-Definitions">enumerated
-constant definitions</a> as elements of an enum constant sequence:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp"># No terminating punctuation
-enum E {
-  X = 0
-  Y = 1
-}</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp"># Optional terminating punctuation
-enum E {
-  X = 0,
-  Y = 1,
-}</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp"># Terminating punctuation required after the first element but not the second
-enum E { X = 0, Y = 1 }</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="Comments-and-Annotations">11. Comments and Annotations</h2>
+<h2 id="Comments-and-Annotations">12. Comments and Annotations</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="Comments-and-Annotations_Comments">11.1. Comments</h3>
+<h3 id="Comments-and-Annotations_Comments">12.1. Comments</h3>
 <div class="paragraph">
 <p>A <strong>comment</strong> is model text that is ignored by the translator. It
 provides information to human readers of the source model.</p>
@@ -5272,7 +5411,7 @@ example:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Comments-and-Annotations_Annotations">11.2. Annotations</h3>
+<h3 id="Comments-and-Annotations_Annotations">12.2. Annotations</h3>
 <div class="paragraph">
 <p>An <strong>annotation</strong> is similar to a
 <a href="#Comments-and-Annotations_Comments">comment</a>, but it is attached to a
@@ -5282,7 +5421,7 @@ annotations depends on the translator. A typical use
 is to include annotations as comments in generated code.</p>
 </div>
 <div class="sect3">
-<h4 id="Comments-and-Annotations_Annotations_Where-Annotations-Can-Occur">11.2.1. Where Annotations Can Occur</h4>
+<h4 id="Comments-and-Annotations_Annotations_Where-Annotations-Can-Occur">12.2.1. Where Annotations Can Occur</h4>
 <div class="paragraph">
 <p>Annotations can occur at the following syntax elements:</p>
 </div>
@@ -5307,7 +5446,7 @@ is to include annotations as comments in generated code.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Comments-and-Annotations_Annotations_Kinds-of-Annotations">11.2.2. Kinds of Annotations</h4>
+<h4 id="Comments-and-Annotations_Annotations_Kinds-of-Annotations">12.2.2. Kinds of Annotations</h4>
 <div class="paragraph">
 <p>There are two kinds of annotations: <strong>pre-annotations</strong> and
 <strong>post-annotations</strong>.</p>
@@ -5343,7 +5482,7 @@ module M {
 </div>
 </div>
 <div class="sect3">
-<h4 id="Comments-and-Annotations_Annotations_Multiline-Annotations">11.2.3. Multiline Annotations</h4>
+<h4 id="Comments-and-Annotations_Annotations_Multiline-Annotations">12.2.3. Multiline Annotations</h4>
 <div class="paragraph">
 <p>You can write several pre-annotations in a row before an
 <a href="#Comments-and-Annotations_Annotations_Where-Annotations-Can-Occur">annotatable element</a> <em>e</em>.
@@ -5379,145 +5518,6 @@ module M {
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="Translation-Units-and-Models">12. Translation Units and Models</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="Translation-Units-and-Models_Translation-Units">12.1. Translation Units</h3>
-<div class="paragraph">
-<p>A <strong>translation unit</strong> forms part of a <a href="#Translation-Units-and-Models_Models">model</a>
-at the top level.
-Translation units usually correspond to source files of a program.
-However, translation units may be specified in other ways,
-e.g., on standard input.</p>
-</div>
-<div class="sect3">
-<h4 id="Translation-Units-and-Models_Translation-Units_Syntax">12.1.1. Syntax</h4>
-<div class="paragraph">
-<p>A translation unit is an
-<a href="#Element-Sequences">element sequence</a> in which each
-element is a <strong>translation unit member</strong>,
-and the terminating punctuation is a semicolon.
-A translation unit member is syntactically identical to a
-<a href="#Definitions_Module-Definitions_Syntax">module member</a>.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Translation-Units-and-Models_Translation-Units_Example">12.1.2. Example</h4>
-<div class="paragraph">
-<p>Here is a translation unit:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module M1 { constant a = 0 }</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>And here is another one:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module M1 { constant b = 0 }</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>And here is a third one:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module M2 {
-  constant a = M1.a
-  constant b = M1.b
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Call these translation units 1, 2, and 3 for purposes of the example in
-the following section.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Translation-Units-and-Models_Models">12.2. Models</h3>
-<div class="paragraph">
-<p>A <strong>model</strong> is a collection of one or more
-<a href="#Translation-Units-and-Models_Translation-Units">translation
-units</a>. A model is presented to one or more analyzers or translators for
-<a href="#Analysis-and-Translation">analysis or translation</a>.
-How this is done depends on the analyzer or translator. Typically, you ask a
-translator to read a single translation unit from standard input and/or
-to read one or more translation units stored in files, one unit per
-file.</p>
-</div>
-<div class="paragraph">
-<p><strong>Example:</strong></p>
-</div>
-<div class="paragraph">
-<p><a href="#Translation-Units-and-Models_Translation-Units_Example">Translation
-units 1-3 in the previous section</a>, taken together, form a single
-model. That model is equivalent to the following single translation
-unit:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module M1 { constant a = 0 }
-module M1 { constant b = 1 }
-module M2 {
-  constant a = M1.a
-  constant b = M1.b
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>According to the
-<a href="#Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Module-Definitions">semantics
-of module definitions</a>,
-this is also equivalent:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module M1 {
-  constant a = 0
-  constant b = 1
-}
-module M2 {
-  constant a = M1.a
-  constant b = M1.b
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Note that translation unit 3 alone is not a valid model, because it
-uses free symbols defined in the other translation units. Similarly, the
-translation unit 3 together with just translation unit 1 or translation
-unit 2 is not a valid model.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Translation-Units-and-Models_The-Location-of-a-Translation-Unit">12.3. The Location of a Translation Unit</h3>
-<div class="paragraph">
-<p>Every translation unit <em>T</em> in a source model has an associated
-<strong>location</strong> <em>L</em>.
-The location is used when resolving <a href="#Specifiers_Location-Specifiers">location
-specifiers</a> and
-<a href="#Specifiers_Include-Specifiers">include specifiers</a>
-during <a href="#Analysis-and-Translation">analysis</a>.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>If <em>T</em> is read in from a file, then <em>P</em> is the absolute path
-of the file.</p>
-</li>
-<li>
-<p>If <em>T</em> is read from standard input, then <em>P</em> is the absolute path of the current
-directory in the environment where the analysis occurs.</p>
-</li>
-</ol>
 </div>
 </div>
 </div>
@@ -5986,7 +5986,7 @@ constant b = a</code></pre>
 <a href="#Definitions-and-Uses_Use-Def-Graph">use-def graph</a> is acyclic, there is no
 constraint either on the ordering of
 definitions and uses within a
-<a href="#Translation-Units-and-Models">translation unit</a>,
+<a href="#Models-and-Translation-Units">translation unit</a>,
 or on the distribution of definitions and uses among translation
 units. For example, if the definition <code>constant c = 0</code> appears anywhere
 in any translation unit of a model <em>M</em>, then the use of <code>c</code> as a
@@ -7347,7 +7347,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-02-19 14:14:38 -0800
+Last updated 2020-02-20 13:07:11 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
