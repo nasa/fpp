@@ -346,8 +346,8 @@ object Parser extends Parsers {
       accept("port", { case Token.PORT => Ast.SpecLoc.Port }) |
       accept("topology", { case Token.TOPOLOGY => Ast.SpecLoc.Topology }) |
       accept("type", { case Token.TYPE => Ast.SpecLoc.Type }) |
-      component ^^ { case _ => Ast.SpecLoc.Component } |
-      component ~ instance ^^ { case _ => Ast.SpecLoc.ComponentInstance }
+      component ~ instance ^^ { case _ => Ast.SpecLoc.ComponentInstance } |
+      component ^^ { case _ => Ast.SpecLoc.Component }
     }
     (Token.LOCATE ~> kind) ~ node(qualIdent) ~ (Token.AT ~> literalString) ^^ {
       case kind ~ symbol ~ file => Ast.SpecLoc(kind, symbol, file)
@@ -443,6 +443,22 @@ object Parser extends Parsers {
     }
   }
 
+  def specTopImport: Parser[Ast.SpecTopImport] = {
+    token("import", Token.IMPORT) ~> node(qualIdent) ^^ { 
+      case top => Ast.SpecTopImport(top)
+    }
+  }
+
+  def specUnusedPorts: Parser[Ast.SpecUnusedPorts] = {
+    def unusedPort = node(qualIdent) ~ (Token.DOT ~> ident) ^^ {
+      case instance ~ port => Ast.SpecUnusedPorts.Port(instance,port)
+    }
+    token("unused", Token.UNUSED) ~ 
+    Token.LBRACE ~> elementSequence(unusedPort, comma) <~ Token.RBRACE ^^ {
+      case ports => Ast.SpecUnusedPorts(ports)
+    }
+  }
+
   def structTypeMember: Parser[Ast.StructTypeMember] = {
     ident ~ (Token.COLON ~> node(typeName)) ~ opt(Token.FORMAT ~> node(literalString)) ^^ {
       case name ~ typeName ~ format => Ast.StructTypeMember(name, typeName, format)
@@ -453,8 +469,8 @@ object Parser extends Parsers {
     node(specCompInstance) ^^ { case n => Ast.TopologyMember.SpecCompInstance(n) }
     node(specConnectionGraph) ^^ { case n => Ast.TopologyMember.SpecConnectionGraph(n) }
     node(specInclude) ^^ { case n => Ast.TopologyMember.SpecInclude(n) }
-    // TODO: SpecTopImport
-    // TODO: SpecUnusedPorts
+    node(specTopImport) ^^ { case n => Ast.TopologyMember.SpecTopImport(n) }
+    node(specUnusedPorts) ^^ { case n => Ast.TopologyMember.SpecUnusedPorts(n) }
   }
 
   def transUnit: Parser[Ast.TransUnit] = {
@@ -521,45 +537,45 @@ object Parser extends Parsers {
     (rep(Token.EOL) ~> elts) ^^ { elts => elts.map(constructor) }
   }
 
-  private def async: Parser[Unit] = token("async", Token.ASYNC)
+  private def async = token("async", Token.ASYNC)
 
-  private def change: Parser[Unit] = token("change", Token.CHANGE)
+  private def change = token("change", Token.CHANGE)
 
-  private def comma: Parser[Unit] = token("comma", Token.COMMA)
+  private def comma = token("comma", Token.COMMA)
 
-  private def command: Parser[Unit] = token("command", Token.COMMAND)
+  private def command = token("command", Token.COMMAND)
 
-  private def component: Parser[Unit] = token("component", Token.COMPONENT)
+  private def component = token("component", Token.COMPONENT)
 
-  private def connections: Parser[Unit] = token("connections", Token.CONNECTIONS)
+  private def connections = token("connections", Token.CONNECTIONS)
 
-  private def diagnostic: Parser[Unit] = token("diagnostic", Token.DIAGNOSTIC)
+  private def diagnostic = token("diagnostic", Token.DIAGNOSTIC)
   
-  private def event: Parser[Unit] = token("event", Token.EVENT)
+  private def event = token("event", Token.EVENT)
 
-  private def dot: Parser[Unit] = token("dot", Token.DOT)
+  private def dot = token("dot", Token.DOT)
 
   private def elementSequence[E,S](elt: Parser[E], sep: Parser[S]): Parser[List[E]] =
     repsep(elt, sep | Token.EOL) <~ opt(sep)
 
-  private def fatal: Parser[Unit] = token("fatal", Token.FATAL)
+  private def fatal = token("fatal", Token.FATAL)
 
-  private def guarded: Parser[Unit] = token("guarded", Token.GUARDED)
+  private def guarded = token("guarded", Token.GUARDED)
 
-  private def high: Parser[Unit] = token("high", Token.HIGH)
+  private def high = token("high", Token.HIGH)
 
   private def ident: Parser[Ast.Ident] =
     accept("identifier", { case Token.IDENTIFIER(s) => s })
 
-  private def include: Parser[Unit] = token("include", Token.INCLUDE)
+  private def include = token("include", Token.INCLUDE)
 
-  private def input: Parser[Unit] = token("input", Token.INPUT)
+  private def input = token("input", Token.INPUT)
 
-  private def instance: Parser[Unit] = token("instance", Token.INSTANCE)
+  private def instance = token("instance", Token.INSTANCE)
 
-  private def internal: Parser[Unit] = token("internal", Token.INTERNAL)
+  private def internal = token("internal", Token.INTERNAL)
 
-  private def literalFalse: Parser[Unit] = token("false", Token.FALSE)
+  private def literalFalse = token("false", Token.FALSE)
 
   private def literalFloat: Parser[String] =
     accept("floating-point literal", { case Token.LITERAL_FLOAT(s) => s })
@@ -570,21 +586,21 @@ object Parser extends Parsers {
   private def literalString: Parser[String] =
     accept("string literal", { case Token.LITERAL_STRING(s) => s })
 
-  private def literalTrue: Parser[Unit] = token("true", Token.TRUE)
+  private def literalTrue = token("true", Token.TRUE)
 
-  private def low: Parser[Unit] = token("low", Token.LOW)
+  private def low = token("low", Token.LOW)
 
-  private def on: Parser[Unit] = token("on", Token.ON)
+  private def on = token("on", Token.ON)
 
-  private def orange: Parser[Unit] = token("orange", Token.ORANGE)
+  private def orange = token("orange", Token.ORANGE)
 
-  private def output: Parser[Unit] = token("output", Token.OUTPUT)
+  private def output = token("output", Token.OUTPUT)
 
-  private def param: Parser[Unit] = token("param", Token.PARAM)
+  private def param = token("param", Token.PARAM)
   
-  private def get: Parser[Unit] = token("get", Token.GET)
+  private def get = token("get", Token.GET)
 
-  private def port: Parser[Unit] = token("port", Token.PORT)
+  private def port = token("port", Token.PORT)
 
   private def postAnnotation: Parser[String] =
     accept("post annotation", { case Token.POST_ANNOTATION(s) => s })
@@ -592,35 +608,35 @@ object Parser extends Parsers {
   private def preAnnotation: Parser[String] =
     accept("pre annotation", { case Token.PRE_ANNOTATION(s) => s })
 
-  private def recv: Parser[Unit] = token("recv", Token.RECV)
+  private def recv = token("recv", Token.RECV)
 
-  private def red: Parser[Unit] = token("red", Token.RED)
+  private def red = token("red", Token.RED)
 
-  private def ref: Parser[Unit] = token("ref", Token.REF)
+  private def ref = token("ref", Token.REF)
 
-  private def reg: Parser[Unit] = token("reg", Token.REG)
+  private def reg = token("reg", Token.REG)
 
-  private def resp: Parser[Unit] = token("resp", Token.RESP)
+  private def resp = token("resp", Token.RESP)
 
-  private def semi: Parser[Unit] = token("semicolon", Token.SEMI)
+  private def semi = token("semicolon", Token.SEMI)
 
-  private def serial: Parser[Unit] = token("serial", Token.SERIAL)
+  private def serial = token("serial", Token.SERIAL)
 
-  private def set: Parser[Unit] = token("set", Token.SET)
+  private def set = token("set", Token.SET)
 
-  private def sync: Parser[Unit] = token("sync", Token.SYNC)
+  private def sync = token("sync", Token.SYNC)
 
-  private def telemetry: Parser[Unit] = token("telemetry", Token.TELEMETRY)
+  private def telemetry = token("telemetry", Token.TELEMETRY)
 
-  private def text: Parser[Unit] = token("text", Token.TEXT)
+  private def text = token("text", Token.TEXT)
 
-  private def time: Parser[Unit] = token("time", Token.TIME)
+  private def time = token("time", Token.TIME)
 
   private def token(s: String, t: Token): Parser[Unit] =
     accept(s, { case t => () })
 
-  private def warning: Parser[Unit] = token("warning", Token.WARNING)
+  private def warning = token("warning", Token.WARNING)
 
-  private def yellow: Parser[Unit] = token("yellow", Token.YELLOW)
+  private def yellow = token("yellow", Token.YELLOW)
 
 }
