@@ -1,6 +1,6 @@
 package fpp.compiler.test
 
-import fpp.compiler.parser.{Lexer,Token}
+import fpp.compiler.syntax.{Lexer,Token}
 import java.io.File
 import java.io.FileReader
 import org.scalatest.wordspec.AnyWordSpec

@@ -1,4 +1,4 @@
-package fpp.compiler.parser
+package fpp.compiler.syntax
 
 import fpp.compiler.util._
 import scala.util.parsing.combinator.RegexParsers

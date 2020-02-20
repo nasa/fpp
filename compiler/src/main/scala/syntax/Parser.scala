@@ -1,4 +1,4 @@
-package fpp.compiler.parser
+package fpp.compiler.syntax
 
 import fpp.compiler.ast._
 import fpp.compiler.util._
