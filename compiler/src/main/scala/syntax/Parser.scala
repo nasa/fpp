@@ -261,7 +261,7 @@ object Parser extends Parsers {
     } yield result
   }
 
-  def qualIdent: Parser[List[Ast.Ident]] = repsep(ident, dot)
+  def qualIdent: Parser[List[Ast.Ident]] = rep1sep(ident, dot)
 
   def queueFull: Parser[Ast.QueueFull] = {
     accept("assert", { case Token.ASSERT => Ast.QueueFull.Assert }) |
@@ -495,7 +495,7 @@ object Parser extends Parsers {
       accept("U32", { case Token.U32 => Ast.TypeNameInt(Ast.U32) }) |
       accept("U64", { case Token.U64 => Ast.TypeNameInt(Ast.U64) })
     accept("bool", { case Token.BOOL => Ast.TypeNameBool }) |
-    accept("string", { case Token.BOOL => Ast.TypeNameString }) |
+    accept("string", { case Token.STRING => Ast.TypeNameString }) |
     typeNameFloat |
     typeNameInt |
     node(qualIdent) ^^ { case qidn => Ast.TypeNameQualIdent(qidn) }
