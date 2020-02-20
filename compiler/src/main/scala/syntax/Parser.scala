@@ -266,7 +266,7 @@ object Parser extends Parsers {
   def queueFull: Parser[Ast.QueueFull] = {
     accept("assert", { case Token.ASSERT => Ast.QueueFull.Assert }) |
     accept("block", { case Token.BLOCK => Ast.QueueFull.Block }) |
-    accept("dropt", { case Token.DROP => Ast.QueueFull.Drop })
+    accept("drop", { case Token.DROP => Ast.QueueFull.Drop })
   }
 
   def specCommand: Parser[Ast.SpecCommand] = {
