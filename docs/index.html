@@ -1460,7 +1460,7 @@ elements to the common type.</p>
 <h4 id="Expressions_Array-Expressions_Example">5.2.3. Example</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="tnet">constant a = [ 0, 1, 2 ] # a is an array value of with elements 0, 1, 2</code></pre>
+<pre class="prettyprint highlight"><code data-lang="tnet">constant a = [ 0, 1, 2 ] # a is an array value with elements 0, 1, 2</code></pre>
 </div>
 </div>
 </div>
@@ -2573,9 +2573,11 @@ A port is the endpoint of a connection between F Prime components.</p>
 <div class="paragraph">
 <p><code>port</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>[</em>
 <code>(</code>
 <a href="#Formal-Parameter-Lists"><em>param-list</em></a>
 <code>)</code>
+<em>]</em>
 <em>[</em>
 <code>-></code>
 <a href="#Type-Names"><em>type-name</em></a>
@@ -2584,15 +2586,25 @@ A port is the endpoint of a connection between F Prime components.</p>
 </div>
 <div class="sect3">
 <h4 id="Definitions_Port-Definitions_Semantics">6.9.2. Semantics</h4>
-<div class="paragraph">
-<p>The identifier is the name of the port.
-The parameter list specifies the formal parameters of the
+<div class="ulist">
+<ul>
+<li>
+<p>The identifier is the name of the port.</p>
+</li>
+<li>
+<p>The optional parameter list specifies the formal parameters of the
 port.
 Each formal parameter is a piece of data carried on the port.
-The optional type name appearing after the colon specifies
+If there are no formal parameters, then the parameter list
+may be omitted.</p>
+</li>
+<li>
+<p>The optional type name appearing after the arrow specifies
 an optional return type for the port.
 If present, the return type is the type of the data returned
 when the port is invoked in a synchronous context.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect3">
@@ -7335,7 +7347,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-02-07 17:46:12 -0800
+Last updated 2020-02-19 14:14:38 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
