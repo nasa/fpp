@@ -6,24 +6,25 @@ may be unused.
 
 ==== Syntax
 
-A connection graph specifier is one of the following:
-
 `unused` `{` _unused-port-sequence_ `}`
 
 _unused-port-sequence_ is an
 <<Element-Sequences,element sequence>> in 
-which each element is an *unused port*,
+which each element is a
+<<Scoping-of-Names_Qualified-Identifiers,qualified identifier>>,
 and the terminating punctuation is a comma.
-An unused port is the following:
 
-<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `.`
-<<Lexical-Elements_Identifiers,_identifier_>>
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
 
 ==== Semantics
 
-For each unused port _U_:
+For each qualified identifier _Q_ appearing in 
+_unused-port-sequence_:
 
-. The qualified identifier _Q_ appearing in _U_ must
+. _Q_ must have the form _Q'_ `.` _P_, where _Q'_ is a 
+qualified identifier, and _P_ is an identifier.
+
+. _Q_ must
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
 a component instance _I_ that is available in the enclosing topology,
 either through
@@ -35,12 +36,12 @@ or through
 instance definition _I'_>>.
 
 . _I'_ must refer to a <<Definitions_Component-Definitions,component 
-definition _C'_>>. 
+definition _C_>>. 
 
-. The identifier following _Q_
+. The identifier _P_
 must refer to a
-<<Specifiers_Port-Instance-Specifiers,port instance specifier _P_>>
-of _C'_.
+<<Specifiers_Port-Instance-Specifiers,port instance specifier>>
+of _C_.
 
 ==== Example
 

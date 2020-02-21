@@ -2178,6 +2178,9 @@ A module member is one of the following:</p>
 <li>
 <p>An <a href="#Specifiers_Include-Specifiers">include specifier</a></p>
 </li>
+<li>
+<p>An <a href="#Specifiers_Init-Specifiers">init specifier</a></p>
+</li>
 </ul>
 </div>
 </div>
@@ -3083,16 +3086,14 @@ and the terminating punctuation is a comma.
 A connection is the following:</p>
 </div>
 <div class="paragraph">
-<p><a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>.</code>
-<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<p><a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a>
 <em>[</em>
 <code>[</code>
 <a href="#Expressions"><em>expression</em></a>
 <code>]</code>
 <em>]</em>
 <code>-></code>
-<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>.</code>
-<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a>
 <em>[</em>
 <code>[</code>
 <a href="#Expressions"><em>expression</em></a>
@@ -3129,7 +3130,11 @@ For each connection <em>C</em>:</p>
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
 <li>
-<p><em>Q</em> must
+<p><em>Q</em> must have the form <em>Q'</em> <code>.</code> <em>P</em>, where <em>Q'</em> is a qualified
+identifier, and <em>P</em> is an identifier.</p>
+</li>
+<li>
+<p><em>Q'</em> must
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
 a component instance <em>I</em> that is available in the enclosing topology,
 either through
@@ -3146,8 +3151,7 @@ instance definition <em>I'</em></a>.</p>
 definition <em>C'</em></a>.</p>
 </li>
 <li>
-<p>The identifier following <em>Q</em>
-must refer to a
+<p><em>P</em> must refer to a
 <a href="#Specifiers_Port-Instance-Specifiers">port instance specifier <em>P</em></a>
 of <em>C'</em>.</p>
 </li>
@@ -3743,17 +3747,7 @@ that contains a
 <div class="ulist">
 <ul>
 <li>
-<p>A <strong>constant location specifier</strong> <code>locate</code> <code>constant</code>
-<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
-<a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
-</li>
-<li>
-<p>A <strong>type location specifier</strong> <code>locate</code> <code>type</code>
-<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
-<a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
-</li>
-<li>
-<p>A <strong>port location specifier</strong> <code>locate</code> <code>port</code>
+<p>A <strong>component instance location specifier</strong> <code>locate</code> <code>component</code> <code>instance</code>
 <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
 <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
@@ -3763,12 +3757,22 @@ that contains a
 <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
 <li>
-<p>A <strong>component instance location specifier</strong> <code>locate</code> <code>component</code> <code>instance</code>
+<p>A <strong>constant location specifier</strong> <code>locate</code> <code>constant</code>
+<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
+<a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
+</li>
+<li>
+<p>A <strong>port location specifier</strong> <code>locate</code> <code>port</code>
 <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
 <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
 <li>
 <p>A <strong>topology location specifier</strong> <code>locate</code> <code>topology</code>
+<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
+<a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
+</li>
+<li>
+<p>A <strong>type location specifier</strong> <code>locate</code> <code>type</code>
 <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
 <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
@@ -4595,32 +4599,33 @@ may be unused.</p>
 <div class="sect3">
 <h4 id="Specifiers_Unused-Port-Specifiers_Syntax">7.13.1. Syntax</h4>
 <div class="paragraph">
-<p>A connection graph specifier is one of the following:</p>
-</div>
-<div class="paragraph">
 <p><code>unused</code> <code>{</code> <em>unused-port-sequence</em> <code>}</code></p>
 </div>
 <div class="paragraph">
 <p><em>unused-port-sequence</em> is an
 <a href="#Element-Sequences">element sequence</a> in
-which each element is an <strong>unused port</strong>,
-and the terminating punctuation is a comma.
-An unused port is the following:</p>
+which each element is a
+<a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifier</a>,
+and the terminating punctuation is a comma.</p>
 </div>
 <div class="paragraph">
-<p><a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>.</code>
-<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a></p>
+<p><a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a></p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Unused-Port-Specifiers_Semantics">7.13.2. Semantics</h4>
 <div class="paragraph">
-<p>For each unused port <em>U</em>:</p>
+<p>For each qualified identifier <em>Q</em> appearing in
+<em>unused-port-sequence</em>:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The qualified identifier <em>Q</em> appearing in <em>U</em> must
+<p><em>Q</em> must have the form <em>Q'</em> <code>.</code> <em>P</em>, where <em>Q'</em> is a
+qualified identifier, and <em>P</em> is an identifier.</p>
+</li>
+<li>
+<p><em>Q</em> must
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
 a component instance <em>I</em> that is available in the enclosing topology,
 either through
@@ -4634,13 +4639,13 @@ instance definition <em>I'</em></a>.</p>
 </li>
 <li>
 <p><em>I'</em> must refer to a <a href="#Definitions_Component-Definitions">component
-definition <em>C'</em></a>.</p>
+definition <em>C</em></a>.</p>
 </li>
 <li>
-<p>The identifier following <em>Q</em>
+<p>The identifier <em>P</em>
 must refer to a
-<a href="#Specifiers_Port-Instance-Specifiers">port instance specifier <em>P</em></a>
-of <em>C'</em>.</p>
+<a href="#Specifiers_Port-Instance-Specifiers">port instance specifier</a>
+of <em>C</em>.</p>
 </li>
 </ol>
 </div>
@@ -5176,7 +5181,7 @@ is omitted from the output string.</p>
 <div class="paragraph">
 <p><em>struct-element-sequence</em> is an
 <a href="#Element-Sequences">element sequence</a> in which the elements
-are struct elements.
+are struct elements, and the terminating punctuation is a comma.
 A <strong>struct element</strong> has the following syntax:</p>
 </div>
 <div class="paragraph">
@@ -7347,7 +7352,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-02-20 13:07:11 -0800
+Last updated 2020-02-21 15:43:41 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

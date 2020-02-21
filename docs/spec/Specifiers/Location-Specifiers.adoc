@@ -11,15 +11,7 @@ that contains a
 
 A location specifier is one of the following:
 
-* A *constant location specifier* `locate` `constant` 
-<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at` 
-<<Expressions_String-Literals,_string-literal_>>
-
-* A *type location specifier* `locate` `type` 
-<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at` 
-<<Expressions_String-Literals,_string-literal_>>
-
-* A *port location specifier* `locate` `port` 
+* A *component instance location specifier* `locate` `component` `instance` 
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at` 
 <<Expressions_String-Literals,_string-literal_>>
 
@@ -27,11 +19,19 @@ A location specifier is one of the following:
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at` 
 <<Expressions_String-Literals,_string-literal_>>
 
-* A *component instance location specifier* `locate` `component` `instance` 
+* A *constant location specifier* `locate` `constant` 
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at` 
+<<Expressions_String-Literals,_string-literal_>>
+
+* A *port location specifier* `locate` `port` 
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at` 
 <<Expressions_String-Literals,_string-literal_>>
 
 * A *topology location specifier* `locate` `topology` 
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at` 
+<<Expressions_String-Literals,_string-literal_>>
+
+* A *type location specifier* `locate` `type` 
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at` 
 <<Expressions_String-Literals,_string-literal_>>
 

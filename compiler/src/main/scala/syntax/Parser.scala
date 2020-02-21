@@ -424,7 +424,7 @@ object Parser extends Parsers {
 
   def specTlmChannel: Parser[Ast.SpecTlmChannel] = {
     val Channel = Ast.SpecTlmChannel
-    def update = {
+    def updateValue = {
       always ^^ { case _ => Ast.SpecTlmChannel.Always } |
       on ~ change ^^ { case _ => Ast.SpecTlmChannel.OnChange }
     }
@@ -436,8 +436,8 @@ object Parser extends Parsers {
     def limit = {
       kind ~ exprNode ^^ { case kind ~ e => (kind, e) }
     }
-    def limitSequence = {
-      opt(low ~ lbrace ~> elementSequence(limit, comma <~ rbrace)) ^^ {
+    def limitSequence(p: Parser[Token]) = {
+      opt(p ~ lbrace ~> elementSequence(limit, comma) <~ rbrace) ^^ {
         case Some(seq) => seq
         case None => Nil
       }
@@ -445,9 +445,9 @@ object Parser extends Parsers {
     (telemetry ~> ident) ~ 
     (colon ~> node(typeName)) ~
     opt(id ~> exprNode) ~ 
-    opt(update ~> update) ~
+    opt(update ~> updateValue) ~
     opt(format ~> node(literalString)) ~
-    limitSequence ~ limitSequence ^^ {
+    limitSequence(low) ~ limitSequence(high) ^^ {
       case name ~ typeName ~ id ~ update ~ format ~ low ~ high => Ast.SpecTlmChannel(
         name,
         typeName,
@@ -467,10 +467,7 @@ object Parser extends Parsers {
   }
 
   def specUnusedPorts: Parser[Ast.SpecUnusedPorts] = {
-    def unusedPort = node(qualIdent) ~ (dot ~> ident) ^^ {
-      case instance ~ port => Ast.SpecUnusedPorts.Port(instance,port)
-    }
-    unused ~ lbrace ~> elementSequence(unusedPort, comma) <~ rbrace ^^ {
+    unused ~ lbrace ~> elementSequence(node(qualIdent), comma) <~ rbrace ^^ {
       case ports => Ast.SpecUnusedPorts(ports)
     }
   }
