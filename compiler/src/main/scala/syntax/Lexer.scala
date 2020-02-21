@@ -139,14 +139,14 @@ object Lexer extends RegexParsers {
 
   def token: Parser[Token] = positioned {
     reservedWord |
-    eol |
     identifier | 
     literalFloat |
     literalInt | 
     literalString |
     postAnnotation |
     preAnnotation |
-    symbol
+    symbol |
+    eol
   }
 
   def tokens: Parser[List[Token]] = {

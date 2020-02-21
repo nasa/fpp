@@ -24,14 +24,14 @@ object Parser extends Parsers {
   def componentMemberNode: Parser[Ast.ComponentMember.Node] = {
     node(defArray) ^^ { case n => Ast.ComponentMember.DefArray(n) } |
     node(defConstant) ^^ { case n => Ast.ComponentMember.DefConstant(n) } |
-    node(defEnum) ^^ { case n => Ast.ComponentMember.DefEnum(n) }
-    node(defStruct) ^^ { case n => Ast.ComponentMember.DefStruct(n) }
-    node(specCommand) ^^ { case n => Ast.ComponentMember.SpecCommand(n) }
-    node(specEvent) ^^ { case n => Ast.ComponentMember.SpecEvent(n) }
-    node(specInclude) ^^ { case n => Ast.ComponentMember.SpecInclude(n) }
-    node(specInternalPort) ^^ { case n => Ast.ComponentMember.SpecInternalPort(n) }
-    node(specParam) ^^ { case n => Ast.ComponentMember.SpecParam(n) }
-    node(specPortInstance) ^^ { case n => Ast.ComponentMember.SpecPortInstance(n) }
+    node(defEnum) ^^ { case n => Ast.ComponentMember.DefEnum(n) } |
+    node(defStruct) ^^ { case n => Ast.ComponentMember.DefStruct(n) } |
+    node(specCommand) ^^ { case n => Ast.ComponentMember.SpecCommand(n) } |
+    node(specEvent) ^^ { case n => Ast.ComponentMember.SpecEvent(n) } |
+    node(specInclude) ^^ { case n => Ast.ComponentMember.SpecInclude(n) } |
+    node(specInternalPort) ^^ { case n => Ast.ComponentMember.SpecInternalPort(n) } |
+    node(specParam) ^^ { case n => Ast.ComponentMember.SpecParam(n) } |
+    node(specPortInstance) ^^ { case n => Ast.ComponentMember.SpecPortInstance(n) } |
     node(specTlmChannel) ^^ { case n => Ast.ComponentMember.SpecTlmChannel(n) }
   }
 
@@ -173,16 +173,17 @@ object Parser extends Parsers {
       minus ~> unaryMinusOperand ^^ { case e => Ast.ExprUnop(Ast.Unop.Minus, e) }
     }
     def unaryMinusOperand = {
-      def dotIds(e: AstNode[Ast.Expr], ids: List[String]) = {
-        def f(e: AstNode[Ast.Expr], id: String) = {
+      def dotSelectors(e: AstNode[Ast.Expr], ss: List[Token ~ String]) = {
+        def f(e: AstNode[Ast.Expr], s: Token ~ String) = {
+          val _ ~ id = s
           val dot = AstNode.create(Ast.ExprDot(e, id))
           val loc = Locations.get(e.getId)
           Locations.put(dot.getId, loc)
           dot
         }
-        ids.foldLeft(e)(f)
+        ss.foldLeft(e)(f)
       }
-      dotOperand ~ rep(ident) ^^ { case e ~ ids => dotIds(e, ids) }
+      dotOperand ~ rep(dot ~ ident) ^^ { case e ~ ss => dotSelectors(e, ss) }
     }
     def mulDivOperand = unaryMinus | unaryMinusOperand
     def addSubOperand = mulDivOperand ~ rep((star | slash) ~ mulDivOperand) ^^ {
@@ -280,8 +281,8 @@ object Parser extends Parsers {
 
   def specCommand: Parser[Ast.SpecCommand] = {
     def kind = {
-      async ^^ { case _ => Ast.SpecCommand.Async }
-      guarded ^^ { case _ => Ast.SpecCommand.Guarded }
+      async ^^ { case _ => Ast.SpecCommand.Async } |
+      guarded ^^ { case _ => Ast.SpecCommand.Guarded } |
       sync ^^ { case _ => Ast.SpecCommand.Sync }
     }
     kind ~ (command ~> ident) ~ formalParamList ~ 
@@ -529,7 +530,7 @@ object Parser extends Parsers {
     punct: Parser[S],
     constructor: Ast.Annotated[E] => T
   ): Parser[List[T]] = {
-    def terminator = punct | Token.EOL
+    def terminator = punct | eol
     def punctTerminatedElt = rep(preAnnotation) ~ (elt <~ terminator) ~ rep(postAnnotation) ^^ {
       case al1 ~ elt ~ al2 => (al1, elt, al2)
     }
@@ -544,7 +545,7 @@ object Parser extends Parsers {
       case elts ~ Some(elt) => elts :+ elt
       case elts ~ None => elts
     }
-    (rep(Token.EOL) ~> elts) ^^ { elts => elts.map(constructor) }
+    (rep(eol) ~> elts) ^^ { elts => elts.map(constructor) }
   }
 
   private def array = accept("array", { case t @ Token.ARRAY => t })
@@ -584,7 +585,9 @@ object Parser extends Parsers {
   private def drop = accept("drop", { case t @ Token.DROP => t })
 
   private def elementSequence[E,S](elt: Parser[E], sep: Parser[S]): Parser[List[E]] =
-    repsep(elt, sep | Token.EOL) <~ opt(sep)
+    repsep(elt, sep | eol | sep ~ eol) <~ opt(sep)
+
+  private def eol = accept("end of line", { case t @ Token.EOL => t })
 
   private def equals = accept("=", { case t @ Token.EQUALS => t })
 

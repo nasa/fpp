@@ -8,7 +8,7 @@ An *struct expression* is an expression that represents a struct value.
 
 _struct-element-sequence_ is an
 <<Element-Sequences,element sequence>> in which the elements
-are struct elements.
+are struct elements, and the terminating punctuation is a comma.
 A *struct element* has the following syntax:
 
 <<Lexical-Elements_Identifiers,_identifier_>> `=` <<Expressions,_expression_>>
