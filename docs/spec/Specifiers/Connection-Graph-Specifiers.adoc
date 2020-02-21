@@ -34,16 +34,14 @@ which each element is a *connection*,
 and the terminating punctuation is a comma.
 A connection is the following:
 
-<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `.`
-<<Lexical-Elements_Identifiers,_identifier_>>
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
 _[_
 `[`
 <<Expressions,_expression_>>
 `]`
 _]_
 `pass:[->]`
-<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `.`
-<<Lexical-Elements_Identifiers,_identifier_>>
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
 _[_
 `[`
 <<Expressions,_expression_>>
@@ -69,7 +67,10 @@ For each connection _C_:
 
 .. For each qualified identifier _Q_ in _C_:
 
-... _Q_ must
+... _Q_ must have the form _Q'_ `.` _P_, where _Q'_ is a qualified
+identifier, and _P_ is an identifier.
+
+... _Q'_ must
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
 a component instance _I_ that is available in the enclosing topology,
 either through
@@ -83,8 +84,7 @@ instance definition _I'_>>.
 ... _I'_ must refer to a <<Definitions_Component-Definitions,component 
 definition _C'_>>. 
 
-... The identifier following _Q_
-must refer to a
+... _P_ must refer to a
 <<Specifiers_Port-Instance-Specifiers,port instance specifier _P_>>
 of _C'_.
 

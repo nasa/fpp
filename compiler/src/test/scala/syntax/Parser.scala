@@ -7,6 +7,77 @@ import org.scalatest.wordspec.AnyWordSpec
 
 class ParserSpec extends AnyWordSpec {
 
+  "connection OK" should {
+    parseAllOK(
+      Parser.connection,
+      List(
+        "a -> b",
+        "a.b -> c.d",
+        "a.b.c -> d.e.f",
+      )
+    )
+  }
+
+  "spec connection graph direct OK" should {
+    parseAllOK(
+      Parser.specConnectionGraph,
+      List(
+        "connections C {}",
+        "connections C { a-> b }",
+        "connections C { a-> b, c -> d }",
+      )
+    )
+  }
+
+  "spec connection graph pattern OK" should {
+    parseAllOK(
+      Parser.specConnectionGraph,
+      List(
+        "connections instance a.b pattern P",
+        "connections instance a.b {} pattern P",
+        "connections instance a.b { c.d } pattern P"
+      )
+    )
+  }
+
+  "spec event OK" should {
+    parseAllOK(
+      Parser.specEvent,
+      List(
+        "event E severity activity high",
+        "event E severity activity low",
+        "event E severity command",
+        "event E severity diagnostic",
+        "event E severity fatal",
+        "event E severity warning high",
+        "event E severity warning low",
+        "event E () severity activity high",
+        "event E (x: U32) severity activity high",
+        "event E severity activity high id 0x100",
+        "event E (x: U32) severity activity high id 0x100 format \"x={}\"",
+        "event E (x: U32) severity activity high id 0x100 format \"x={}\" throttle 10",
+      )
+    )
+  }
+
+  "spec include OK" should {
+    parseAllOK(
+      Parser.specInclude,
+      List(
+        "include \"file.fpp\"",
+      )
+    )
+  }
+
+  "spec init OK" should {
+    parseAllOK(
+      Parser.specInit,
+      List(
+        "init a.b phase 0 \"string\"",
+      )
+    )
+  }
+
   "def abs type OK" should {
     parseAllOK(
       Parser.defAbsType,

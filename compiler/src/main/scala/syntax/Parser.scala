@@ -36,10 +36,10 @@ object Parser extends Parsers {
   }
 
   def connection: Parser[Ast.SpecConnectionGraph.Connection] = {
-    def connectionPort = node(qualIdent) ~ (dot ~> ident) ~ opt(index)
+    def connectionPort = node(qualIdent) ~ opt(index)
     connectionPort ~ (rarrow ~> connectionPort) ^^ {
-      case (qid1 ~ id1 ~ e1) ~ (qid2 ~ id2 ~ e2) => {
-        Ast.SpecConnectionGraph.Connection(qid1, id1, e1, qid2, id2, e2)
+      case (fromPort ~ fromIndex) ~ (toPort ~ toIndex) => {
+        Ast.SpecConnectionGraph.Connection(fromPort, fromIndex, toPort, toIndex)
       }
     }
   }
@@ -229,6 +229,7 @@ object Parser extends Parsers {
     node(defStruct) ^^ { case n => Ast.ModuleMember.DefStruct(n) } |
     node(defTopology) ^^ { case n => Ast.ModuleMember.DefTopology(n) } |
     node(specInclude) ^^ { case n => Ast.ModuleMember.SpecInclude(n) } |
+    //node(specInit) ^^ { case n => Ast.ModuleMember.SpecInit(n) } |
     node(specLoc) ^^ { case n => Ast.ModuleMember.SpecLoc(n) }
   }
 
@@ -339,6 +340,12 @@ object Parser extends Parsers {
 
   def specInclude: Parser[Ast.SpecInclude] = {
     include ~> literalString ^^ { case file => Ast.SpecInclude(file) }
+  }
+
+  def specInit: Parser[Ast.SpecInit] = {
+    (init ~> node(qualIdent)) ~ (phase ~> exprNode) ~ literalString ^^ {
+      case instance ~ phase ~ code => Ast.SpecInit(instance, phase, code)
+    }
   }
 
   def specInternalPort: Parser[Ast.SpecInternalPort] = {
@@ -611,6 +618,8 @@ object Parser extends Parsers {
   private def importToken = accept("import", { case t @ Token.IMPORT => t })
 
   private def include = accept("include", { case t @ Token.INCLUDE => t })
+  
+  private def init = accept("init", { case t @ Token.INIT => t })
 
   private def input = accept("input", { case t @ Token.INPUT => t })
 
@@ -664,6 +673,8 @@ object Parser extends Parsers {
 
   private def preAnnotation: Parser[String] =
     accept("pre annotation", { case Token.PRE_ANNOTATION(s) => s })
+
+  private def phase = accept("phase", { case t @ Token.PHASE => t })
 
   private def priority = accept("priority", { case t @ Token.PRIORITY => t })
 
