@@ -585,7 +585,7 @@ object Parser extends Parsers {
   private def drop = accept("drop", { case t @ Token.DROP => t })
 
   private def elementSequence[E,S](elt: Parser[E], sep: Parser[S]): Parser[List[E]] =
-    repsep(elt, sep | eol | sep ~ eol) <~ opt(sep)
+    repsep(elt, sep | eol) <~ opt(sep)
 
   private def eol = accept("end of line", { case t @ Token.EOL => t })
 
