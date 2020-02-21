@@ -9,7 +9,7 @@ class ParserSpec extends AnyWordSpec {
 
   "type name OK" should {
     def parse(s: String): Unit = {
-      Parser.parseString(Parser.phrase(Parser.typeName), s) match {
+      Parser.parseString(Parser.typeName, s) match {
         case Right(_) => ()
         case Left(_) => assert(false)
       }
@@ -36,7 +36,7 @@ class ParserSpec extends AnyWordSpec {
 
   "type name error" should {
     def parse(s: String): Unit = {
-      Parser.parseString(Parser.phrase(Parser.typeName), s) match {
+      Parser.parseString(Parser.typeName, s) match {
         case Right(r) => assert(false)
         case Left(_) => ()
       }

@@ -87,6 +87,20 @@ object Lexer extends RegexParsers {
 
   def newline: Parser[Unit] = unitParser(" *\r?\n *".r)
 
+  def parseAllInput[T](p: Parser[T]) = new Parser[T] {
+    def dropWhile(in: Input, p: Char => Boolean): Input = {
+      if (in.atEnd) in
+      else if (p(in.first)) dropWhile(in.rest, p)
+      else in
+    }
+    def apply(in: Input) = p(in) match {
+      case s @ Success(out, in1) =>
+        if (in1.atEnd) s
+        else Failure("illegal character", dropWhile(in1, _ == ' '))
+      case other => other
+    }
+  }
+
   def postAnnotation: Parser[Token] = {
     "@<[^\r\n]*".r <~ newlinesOpt ^^ {
       case s => {
@@ -136,19 +150,6 @@ object Lexer extends RegexParsers {
   }
 
   def tokens: Parser[List[Token]] = {
-    def parseAllInput[T](p: Parser[T]) = new Parser[T] {
-      def dropWhile(in: Input, p: Char => Boolean): Input = {
-        if (in.atEnd) in
-        else if (p(in.first)) dropWhile(in.rest, p)
-        else in
-      }
-      def apply(in: Input) = p(in) match {
-        case s @ Success(out, in1) =>
-          if (in1.atEnd) s
-          else Failure("illegal character", dropWhile(in1, _ == ' '))
-        case other => other
-      }
-    }
     val p = ignore ~> repsep(token, ignore) <~ ignore
     parseAllInput(p)
   }
