@@ -83,13 +83,13 @@ object Parser extends Parsers {
   def defEnum: Parser[Ast.DefEnum] = {
     def id(x: Ast.Annotated[AstNode[Ast.DefEnumConstant]]) = x
     def constants = annotatedElementSequence(node(defEnumConstant), comma, id)
-    ident ~ opt(colon ~> node(typeName)) ~ (lbrace ~> constants <~ rbrace) ^^ {
+    (enum ~> ident) ~ opt(colon ~> node(typeName)) ~ (lbrace ~> constants <~ rbrace) ^^ {
       case name ~ typeName ~ constants => Ast.DefEnum(name, typeName, constants)
     }
   }
 
   def defEnumConstant: Parser[Ast.DefEnumConstant] = {
-    ident ~ (equals ~> opt(exprNode)) ^^ { 
+    ident ~ opt(equals ~> exprNode) ^^ { 
       case id ~ e => Ast.DefEnumConstant(id, e)
     }
   }
@@ -229,7 +229,7 @@ object Parser extends Parsers {
     node(defStruct) ^^ { case n => Ast.ModuleMember.DefStruct(n) } |
     node(defTopology) ^^ { case n => Ast.ModuleMember.DefTopology(n) } |
     node(specInclude) ^^ { case n => Ast.ModuleMember.SpecInclude(n) } |
-    //node(specInit) ^^ { case n => Ast.ModuleMember.SpecInit(n) } |
+    node(specInit) ^^ { case n => Ast.ModuleMember.SpecInit(n) } |
     node(specLoc) ^^ { case n => Ast.ModuleMember.SpecLoc(n) }
   }
 
@@ -359,12 +359,12 @@ object Parser extends Parsers {
 
   def specLoc: Parser[Ast.SpecLoc] = {
     def kind = {
+      component ^^ { case _ => Ast.SpecLoc.Component } |
       constant ^^ { case _ => Ast.SpecLoc.Constant } |
+      instance ^^ { case _ => Ast.SpecLoc.ComponentInstance } |
       port ^^ { case _ => Ast.SpecLoc.Port } |
       topology ^^ { case _ => Ast.SpecLoc.Topology } |
-      typeToken ^^ { case _ => Ast.SpecLoc.Type } |
-      component ~ instance ^^ { case _ => Ast.SpecLoc.ComponentInstance } |
-      component ^^ { case _ => Ast.SpecLoc.Component }
+      typeToken ^^ { case _ => Ast.SpecLoc.Type }
     }
     (locate ~> kind) ~ node(qualIdent) ~ (at ~> literalString) ^^ {
       case kind ~ symbol ~ file => Ast.SpecLoc(kind, symbol, file)
@@ -479,10 +479,10 @@ object Parser extends Parsers {
   }
 
   def topologyMemberNode: Parser[Ast.TopologyMember.Node] = {
-    node(specCompInstance) ^^ { case n => Ast.TopologyMember.SpecCompInstance(n) }
-    node(specConnectionGraph) ^^ { case n => Ast.TopologyMember.SpecConnectionGraph(n) }
-    node(specInclude) ^^ { case n => Ast.TopologyMember.SpecInclude(n) }
-    node(specTopImport) ^^ { case n => Ast.TopologyMember.SpecTopImport(n) }
+    node(specCompInstance) ^^ { case n => Ast.TopologyMember.SpecCompInstance(n) } |
+    node(specConnectionGraph) ^^ { case n => Ast.TopologyMember.SpecConnectionGraph(n) } |
+    node(specInclude) ^^ { case n => Ast.TopologyMember.SpecInclude(n) } |
+    node(specTopImport) ^^ { case n => Ast.TopologyMember.SpecTopImport(n) } |
     node(specUnusedPorts) ^^ { case n => Ast.TopologyMember.SpecUnusedPorts(n) }
   }
 
@@ -564,6 +564,8 @@ object Parser extends Parsers {
 
   private def block = accept("block", { case t @ Token.BLOCK => t })
 
+  private def enum = accept("enum", { case t @ Token.ENUM => t })
+
   private def change = accept("change", { case t @ Token.CHANGE => t })
 
   private def colon = accept(":", { case t @ Token.COLON => t })
@@ -584,7 +586,7 @@ object Parser extends Parsers {
   
   private def event = accept("event", { case t @ Token.EVENT => t })
 
-  private def dot = accept("dot", { case t @ Token.DOT => t })
+  private def dot = accept(".", { case t @ Token.DOT => t })
 
   private def drop = accept("drop", { case t @ Token.DROP => t })
 

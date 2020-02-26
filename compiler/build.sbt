@@ -4,3 +4,5 @@ libraryDependencies += "org.scala-lang.modules" %% "scala-parser-combinators" % 
 libraryDependencies += "org.scalatest" % "scalatest_2.13" % "3.1.0" % "test"
 scalacOptions += "-deprecation"
 scalacOptions += "-unchecked"
+//testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-oI")
+testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-oNCXELOPQRM")

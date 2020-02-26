@@ -1,11 +1,43 @@
 package fpp.compiler.test
 
+import fpp.compiler.ast._
 import fpp.compiler.syntax.{Lexer,Parser,Token}
 import java.io.File
 import java.io.FileReader
 import org.scalatest.wordspec.AnyWordSpec
 
 class ParserSpec extends AnyWordSpec {
+
+  "annotation OK" should {
+    val r = Parser.parseString(
+      Parser.transUnit, 
+      """
+
+      @ Line 1
+
+      @ Line 2
+
+      active component C {} @< Line 3
+
+                            @< Line 4
+
+      """
+    )
+    val Right(Ast.TransUnit(List(tum))) = r
+    val Ast.TUMember((pre, _, post)) = tum
+    assert(pre == List("Line 1", "Line 2"))
+    assert(post == List("Line 3", "Line 4"))
+    ()
+  }
+
+  "comment OK" should {
+    parseAllOK(
+      Parser.transUnit,
+      List(
+        "# This is a comment",
+      )
+    )
+  }
 
   "connection OK" should {
     parseAllOK(
@@ -45,6 +77,140 @@ class ParserSpec extends AnyWordSpec {
         "active component C { }",
         "passive component C { }",
         "queued component C { }",
+        """active component C { 
+          constant a = 0
+          struct S { x: U32 }
+          async command C
+          param p: U32
+          async input port p: P
+          telemetry T: U32
+          array A = [10] U32
+          enum E { X = 0, Y = 1 }
+          event E severity activity low
+          include "a.fpp"
+          internal port P
+        }""",
+        """active component C {
+          @ Pre
+          constant a = 0 @< Post
+          @ Pre
+          constant b = 0 @< Post
+        }""",
+      )
+    )
+  }
+
+  "def component instance OK" should {
+    parseAllOK(
+      Parser.defComponentInstance,
+      List(
+        "instance i: C base id 0x100",
+        "instance i: C base id 0x100 queue size 10",
+        "instance i: C base id 0x100 queue size 10 stack size 1024 ",
+        "instance i: C base id 0x100 queue size 10 stack size 1024 priority 3",
+      )
+    )
+  }
+
+  "def constant OK" should {
+    parseAllOK(
+      Parser.defConstant,
+      List(
+        "constant a = 0",
+      )
+    )
+  }
+
+  "def enum OK" should {
+    parseAllOK(
+      Parser.defEnum,
+      List(
+        "enum E { X, Y }",
+        "enum E { X = 0, Y = 1 }",
+        """enum E { 
+          @ Pre
+          X = 0 @< Post
+          @ Pre
+          Y = 1 @< Post
+        }""",
+      )
+    )
+  }
+
+  "def module OK" should {
+    parseAllOK(
+      Parser.defModule,
+      List(
+        "module M {}",
+        """module M { 
+          active component C {}
+          instance i: C base id 0x100
+          constant a = 0
+          module M {}
+          port P
+          struct S {}
+          topology T {}
+          locate component C at "c.fpp"
+          type T
+          array A = [10] U32
+          enum E { X, Y }
+          include "a.fpp"
+          init i phase P "x = 5"
+        }""",
+        """module M {
+          @ Pre
+          active component C {} @< Post
+        }""",
+      )
+    )
+  }
+
+  "def port OK" should {
+    parseAllOK(
+      Parser.defPort,
+      List(
+        "port P",
+        "port P()",
+        "port P(x: U32)",
+        "port P(x: U32) -> U32",
+      )
+    )
+  }
+
+  "def struct OK" should {
+    parseAllOK(
+      Parser.defStruct,
+      List(
+        "struct S {}",
+        "struct S { x: U32, y: F32 }",
+        "struct S { x: U32 format \"{} steps\", y: F32 format \"{} m/s\" }",
+        "struct S { x: U32, y: F32 } default { x = 1, y = 2 }",
+        """struct S { 
+          @ Pre
+          x: U32 @< Post
+          @ Pre
+          y: F32 @< Post
+        }""",
+      )
+    )
+  }
+
+  "def topology OK" should {
+    parseAllOK(
+      Parser.defTopology,
+      List(
+        "topology T {}",
+        """topology T {
+          instance i
+          connections C {}
+          import T
+          include "a.fpp"
+          unused {}
+        }""",
+        """topology T {
+          @ Pre
+          instance i @< Post
+        }""",
       )
     )
   }
@@ -267,7 +433,7 @@ class ParserSpec extends AnyWordSpec {
       Parser.specLoc,
       List(
         "locate component a.b at \"c.fpp\"",
-        "locate component instance a.b at \"c.fpp\"",
+        "locate instance a.b at \"c.fpp\"",
         "locate constant a.b at \"c.fpp\"",
         "locate port a.b at \"c.fpp\"",
         "locate topology a.b at \"c.fpp\"",
@@ -420,6 +586,60 @@ class ParserSpec extends AnyWordSpec {
     )
   }
 
+  "trans unit OK" should {
+    parseAllOK(
+      Parser.transUnit,
+      List(
+        "",
+        """
+        # Some newlines
+        
+        
+        """,
+        """
+        active component C {}
+        instance i: C base id 0x100
+        constant a = 0
+        module M {}
+        port P
+        struct S {}
+        topology T {}
+        locate component C at "c.fpp"
+        type T
+        array A = [10] U32
+        enum E { X, Y }
+        include "a.fpp"
+        init i phase P "x = 5"
+        """,
+        """
+        @ Pre
+        active component C {} @< Post
+        """,
+        """
+
+
+        constant a = 0
+
+
+        constant b = 1
+
+
+        """,
+      )
+    )
+  }
+
+  "trans unit error" should {
+    parseAllError(
+      Parser.transUnit,
+      List(
+        "$",
+        "abcd",
+        "1+1",
+      )
+    )
+  }
+
   "type name error" should {
     parseAllError(
       Parser.typeName,
@@ -441,7 +661,10 @@ class ParserSpec extends AnyWordSpec {
 
   def parseError[T](p: Parser.Parser[T], s: String): Unit = {
     Parser.parseString(p, s) match {
-      case Right(r) => assert(false)
+      case Right(r) => { 
+        Console.err.println(s"parsed $r")
+        assert(false) 
+      }
       case Left(_) => ()
     }
   }
@@ -449,7 +672,10 @@ class ParserSpec extends AnyWordSpec {
   def parseOK[T](p: Parser.Parser[T], s: String): Unit = {
     Parser.parseString(p, s) match {
       case Right(_) => ()
-      case Left(_) => assert(false)
+      case Left(l) => { 
+        Console.err.println(s"failed with error $l")
+        assert(false)
+      }
     }
   }
 

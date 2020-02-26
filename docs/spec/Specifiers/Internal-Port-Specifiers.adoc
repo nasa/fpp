@@ -10,9 +10,11 @@ to itself.
 
 `internal` `port`
 <<Lexical-Elements_Identifiers,_identifier_>>
+_[_
 `(`
 <<Formal-Parameter-Lists,_param-list_>>
 `)`
+_]_
 _[_
 `priority` <<Expressions,_expression_>>
 _]_
