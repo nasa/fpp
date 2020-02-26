@@ -456,16 +456,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Lexical-Elements_Automatic-Suppression-of-Newlines">3.8. Automatic Suppression of Newlines</a></li>
 </ul>
 </li>
-<li><a href="#Models-and-Translation-Units">4. Models and Translation Units</a>
+<li><a href="#Translation-Units-and-Models">4. Translation Units and Models</a>
 <ul class="sectlevel2">
-<li><a href="#Models-and-Translation-Units_Models">4.1. Models</a></li>
-<li><a href="#Models-and-Translation-Units_Translation-Units">4.2. Translation Units</a>
+<li><a href="#Translation-Units-and-Models_Translation-Units">4.1. Translation Units</a>
 <ul class="sectlevel3">
-<li><a href="#Models-and-Translation-Units_Translation-Units_Syntax">4.2.1. Syntax</a></li>
-<li><a href="#Models-and-Translation-Units_Translation-Units_Example">4.2.2. Example</a></li>
+<li><a href="#Translation-Units-and-Models_Translation-Units_Syntax">4.1.1. Syntax</a></li>
+<li><a href="#Translation-Units-and-Models_Translation-Units_Example">4.1.2. Example</a></li>
 </ul>
 </li>
-<li><a href="#Models-and-Translation-Units_The-Location-of-a-Translation-Unit">4.3. The Location of a Translation Unit</a></li>
+<li><a href="#Translation-Units-and-Models_Models">4.2. Models</a></li>
+<li><a href="#Translation-Units-and-Models_The-Location-of-a-Translation-Unit">4.3. The Location of a Translation Unit</a></li>
 </ul>
 </li>
 <li><a href="#Element-Sequences">5. Element Sequences</a></li>
@@ -1244,13 +1244,68 @@ precede them, without creating an
 </div>
 </div>
 <div class="sect1">
-<h2 id="Models-and-Translation-Units">4. Models and Translation Units</h2>
+<h2 id="Translation-Units-and-Models">4. Translation Units and Models</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="Models-and-Translation-Units_Models">4.1. Models</h3>
+<h3 id="Translation-Units-and-Models_Translation-Units">4.1. Translation Units</h3>
+<div class="paragraph">
+<p>A <strong>translation unit</strong> forms part of a <a href="#Translation-Units-and-Models_Models">model</a>
+at the top level.
+Translation units usually correspond to source files of a program.
+However, translation units may be specified in other ways,
+e.g., on standard input.</p>
+</div>
+<div class="sect3">
+<h4 id="Translation-Units-and-Models_Translation-Units_Syntax">4.1.1. Syntax</h4>
+<div class="paragraph">
+<p>A translation unit is an
+<a href="#Element-Sequences">element sequence</a> in which each
+element is a <strong>translation unit member</strong>,
+and the terminating punctuation is a semicolon.
+A translation unit member is syntactically identical to a
+<a href="#Definitions_Module-Definitions_Syntax">module member</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Translation-Units-and-Models_Translation-Units_Example">4.1.2. Example</h4>
+<div class="paragraph">
+<p>Here is a translation unit:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M1 { constant a = 0 }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And here is another one:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M1 { constant b = 0 }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And here is a third one:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M2 {
+  constant a = M1.a
+  constant b = M1.b
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Call these translation units 1, 2, and 3 for purposes of the example in
+the following section.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Translation-Units-and-Models_Models">4.2. Models</h3>
 <div class="paragraph">
 <p>A <strong>model</strong> is a collection of one or more
-<a href="#Models-and-Translation-Units_Translation-Units">translation
+<a href="#Translation-Units-and-Models_Translation-Units">translation
 units</a>. A model is presented to one or more analyzers or translators for
 <a href="#Analysis-and-Translation">analysis or translation</a>.
 How this is done depends on the analyzer or translator. Typically, you ask a
@@ -1262,8 +1317,8 @@ file.</p>
 <p><strong>Example:</strong></p>
 </div>
 <div class="paragraph">
-<p><a href="#Models-and-Translation-Units_Translation-Units_Example">Translation
-units 1-3 in the following section</a>, taken together, form a single
+<p><a href="#Translation-Units-and-Models_Translation-Units_Example">Translation
+units 1-3 in the previous section</a>, taken together, form a single
 model. That model is equivalent to the following single translation
 unit:</p>
 </div>
@@ -1303,62 +1358,7 @@ unit 2 is not a valid model.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Models-and-Translation-Units_Translation-Units">4.2. Translation Units</h3>
-<div class="paragraph">
-<p>A <strong>translation unit</strong> forms part of a <a href="#Models-and-Translation-Units_Models">model</a>
-at the top level.
-Translation units usually correspond to source files of a program.
-However, translation units may be specified in other ways,
-e.g., on standard input.</p>
-</div>
-<div class="sect3">
-<h4 id="Models-and-Translation-Units_Translation-Units_Syntax">4.2.1. Syntax</h4>
-<div class="paragraph">
-<p>A translation unit is an
-<a href="#Element-Sequences">element sequence</a> in which each
-element is a <strong>translation unit member</strong>,
-and the terminating punctuation is a semicolon.
-A translation unit member is syntactically identical to a
-<a href="#Definitions_Module-Definitions_Syntax">module member</a>.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Models-and-Translation-Units_Translation-Units_Example">4.2.2. Example</h4>
-<div class="paragraph">
-<p>Here is a translation unit:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module M1 { constant a = 0 }</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>And here is another one:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module M1 { constant b = 0 }</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>And here is a third one:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module M2 {
-  constant a = M1.a
-  constant b = M1.b
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Call these translation units 1, 2, and 3 for purposes of the example in
-the following section.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Models-and-Translation-Units_The-Location-of-a-Translation-Unit">4.3. The Location of a Translation Unit</h3>
+<h3 id="Translation-Units-and-Models_The-Location-of-a-Translation-Unit">4.3. The Location of a Translation Unit</h3>
 <div class="paragraph">
 <p>Every translation unit <em>T</em> in a source model has an associated
 <strong>location</strong> <em>L</em>.
@@ -1388,7 +1388,7 @@ directory in the environment where the analysis occurs.</p>
 <div class="paragraph">
 <p>An <strong>element sequence</strong> is a sequence of similar elements, e.g., the
 elements of a
-<a href="#Models-and-Translation-Units_Translation-Units">translation
+<a href="#Translation-Units-and-Models_Translation-Units">translation
 unit</a>.</p>
 </div>
 <div class="paragraph">
@@ -1418,7 +1418,7 @@ the element is followed by a
 </div>
 <div class="paragraph">
 <p>A
-<a href="#Models-and-Translation-Units_Translation-Units">translation
+<a href="#Translation-Units-and-Models_Translation-Units">translation
 unit</a> is a kind of element sequence. Here are some examples of element
 sequences using
 <a href="#Definitions_Constant-Definitions">constant
@@ -1567,7 +1567,7 @@ The first expression must evaluate to a compile-time constant numeric value
 that represents an array of <em>n</em> elements of type <em>T</em>.</p>
 </div>
 <div class="paragraph">
-<p>The expression following the keyword <em>default</em> is optional.
+<p>The expression following the keyword <code>default</code> is optional.
 If present, it specifies the <a href="#Types_Default-Values">default value</a> associated
 with the type.
 The type of the expression must be
@@ -1799,14 +1799,14 @@ active component CommandDispatcher {
   # ----------------------------------------------------------------------
 
   @ Opcode registered event
-  diagnostic event OpCodeRegistered(
+  diagnostic event OpcodeRegistered(
       regOpcode: Opcode @&lt; The opcode to register
       regPort: U32 @&lt; The registration port
       dispatchSlot: U32 @&lt; The dispatch slot
   ) format "Opcode {} registered to port {} slot {}"
 
   @ Opcode dispatched event
-  command event OpCodeDispatched(
+  command event OpcodeDispatched(
       dispatchOpcode: Opcode @&lt; The opcode dispatched
       dispatchPort: U32 @&lt; The dispatch port
   ) format "Opcode {} dispatched to port {}"
@@ -3477,7 +3477,7 @@ event Event2(
 <div class="paragraph">
 <p>An <strong>include specifier</strong> specifies that a file
 should be included in a
-<a href="#Models-and-Translation-Units_Translation-Units">translation unit</a>.</p>
+<a href="#Translation-Units-and-Models_Translation-Units">translation unit</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Include-Specifiers_Syntax">7.5.1. Syntax</h4>
@@ -3489,7 +3489,7 @@ should be included in a
 <h4 id="Specifiers_Include-Specifiers_Semantics">7.5.2. Semantics</h4>
 <div class="paragraph">
 <p>The string literal specifies a file path relative to the
-<a href="#Models-and-Translation-Units_The-Location-of-a-Translation-Unit">location</a> of the enclosing translation unit.</p>
+<a href="#Translation-Units-and-Models_The-Location-of-a-Translation-Unit">location</a> of the enclosing translation unit.</p>
 </div>
 <div class="paragraph">
 <p>During parsing, the translator does the following:</p>
@@ -3735,9 +3735,9 @@ internal port Port2
 <h3 id="Specifiers_Location-Specifiers">7.8. Location Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>location specifier</strong> specifies the
-<a href="#Models-and-Translation-Units_The-Location-of-a-Translation-Unit">location</a>
+<a href="#Translation-Units-and-Models_The-Location-of-a-Translation-Unit">location</a>
 of the
-<a href="#Models-and-Translation-Units_Translation-Units">translation unit</a>
+<a href="#Translation-Units-and-Models_Translation-Units">translation unit</a>
 that contains a
 <a href="#Definitions">definition</a>.</p>
 </div>
@@ -3829,13 +3829,13 @@ of <em>M</em>.</p>
 </li>
 <li>
 <p>The string literal must specify the path of an FPP source file, relative to the
-<a href="#Models-and-Translation-Units_The-Location-of-a-Translation-Unit">location of the translation unit</a>
+<a href="#Translation-Units-and-Models_The-Location-of-a-Translation-Unit">location of the translation unit</a>
 in which the location specifier appears.
 The file must exist and must contain the definition referred to in the location specifier.</p>
 </li>
 <li>
 <p>Multiple location specifiers for the same definition are allowed in a single
-<a href="#Models-and-Translation-Units_Models">model</a>, so long as the locations are all
+<a href="#Translation-Units-and-Models_Models">model</a>, so long as the locations are all
 consistent.</p>
 </li>
 </ol>
@@ -5993,7 +5993,7 @@ constant b = a</code></pre>
 <a href="#Definitions-and-Uses_Use-Def-Graph">use-def graph</a> is acyclic, there is no
 constraint either on the ordering of
 definitions and uses within a
-<a href="#Models-and-Translation-Units">translation unit</a>,
+<a href="#Translation-Units-and-Models">translation unit</a>,
 or on the distribution of definitions and uses among translation
 units. For example, if the definition <code>constant c = 0</code> appears anywhere
 in any translation unit of a model <em>M</em>, then the use of <code>c</code> as a
@@ -7354,7 +7354,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-02-26 09:30:07 -0800
+Last updated 2020-02-26 11:14:27 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

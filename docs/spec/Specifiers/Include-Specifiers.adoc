@@ -2,7 +2,7 @@
 
 An *include specifier* specifies that a file
 should be included in a
-<<Models-and-Translation-Units_Translation-Units,translation unit>>.
+<<Translation-Units-and-Models_Translation-Units,translation unit>>.
 
 ==== Syntax
 
@@ -11,7 +11,7 @@ should be included in a
 ==== Semantics
 
 The string literal specifies a file path relative to the
-<<Models-and-Translation-Units_The-Location-of-a-Translation-Unit,
+<<Translation-Units-and-Models_The-Location-of-a-Translation-Unit,
 location>> of the enclosing translation unit.
 
 During parsing, the translator does the following:

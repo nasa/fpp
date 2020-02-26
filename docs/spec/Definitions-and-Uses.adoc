@@ -51,7 +51,7 @@ So long as the
 <<Definitions-and-Uses_Use-Def-Graph,use-def graph>> is acyclic, there is no 
 constraint either on the ordering of
 definitions and uses within a
-<<Models-and-Translation-Units,translation unit>>, 
+<<Translation-Units-and-Models,translation unit>>, 
 or on the distribution of definitions and uses among translation
 units. For example, if the definition `constant c = 0` appears anywhere
 in any translation unit of a model _M_, then the use of `c` as a

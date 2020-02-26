@@ -2,7 +2,7 @@
 
 An *element sequence* is a sequence of similar elements, e.g., the
 elements of a
-<<Models-and-Translation-Units_Translation-Units,translation
+<<Translation-Units-and-Models_Translation-Units,translation
 unit>>.
 
 Each element of an element sequence has optional *terminating
@@ -22,7 +22,7 @@ the element is followed by a
 *Examples:*
 
 A
-<<Models-and-Translation-Units_Translation-Units,translation
+<<Translation-Units-and-Models_Translation-Units,translation
 unit>> is a kind of element sequence. Here are some examples of element
 sequences using
 <<Definitions_Constant-Definitions,constant

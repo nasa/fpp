@@ -24,7 +24,7 @@ _type-name_ names the type _T_ of each array element.
 The definition associates the name _N_ with a new type _T'_
 that represents an array of _n_ elements of type _T_.
 
-The expression following the keyword _default_ is optional.
+The expression following the keyword `default` is optional.
 If present, it specifies the <<Types_Default-Values,default value>> associated 
 with the type.
 The type of the expression must be

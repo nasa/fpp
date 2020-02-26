@@ -1,58 +1,8 @@
-== Models and Translation Units
-
-=== Models
-
-A *model* is a collection of one or more
-<<Models-and-Translation-Units_Translation-Units,translation
-units>>. A model is presented to one or more analyzers or translators for
-<<Analysis-and-Translation,analysis or translation>>.
-How this is done depends on the analyzer or translator. Typically, you ask a
-translator to read a single translation unit from standard input and/or
-to read one or more translation units stored in files, one unit per
-file.
-
-*Example:*
-
-<<Models-and-Translation-Units_Translation-Units_Example,Translation
-units 1-3 in the following section>>, taken together, form a single
-model. That model is equivalent to the following single translation
-unit:
-
-[source,fpp]
-----
-module M1 { constant a = 0 }
-module M1 { constant b = 1 }
-module M2 { 
-  constant a = M1.a
-  constant b = M1.b
-}
-----
-
-According to the
-<<Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Module-Definitions,semantics 
-of module definitions>>,
-this is also equivalent:
-
-[source,fpp]
-----
-module M1 {
-  constant a = 0
-  constant b = 1
-}
-module M2 { 
-  constant a = M1.a
-  constant b = M1.b
-}
-----
-
-Note that translation unit 3 alone is not a valid model, because it
-uses free symbols defined in the other translation units. Similarly, the
-translation unit 3 together with just translation unit 1 or translation
-unit 2 is not a valid model.
+== Translation Units and Models
 
 === Translation Units
 
-A *translation unit* forms part of a <<Models-and-Translation-Units_Models,model>>
+A *translation unit* forms part of a <<Translation-Units-and-Models_Models,model>>
 at the top level.
 Translation units usually correspond to source files of a program.
 However, translation units may be specified in other ways,
@@ -95,6 +45,56 @@ module M2 {
 
 Call these translation units 1, 2, and 3 for purposes of the example in
 the following section.
+
+=== Models
+
+A *model* is a collection of one or more
+<<Translation-Units-and-Models_Translation-Units,translation
+units>>. A model is presented to one or more analyzers or translators for
+<<Analysis-and-Translation,analysis or translation>>.
+How this is done depends on the analyzer or translator. Typically, you ask a
+translator to read a single translation unit from standard input and/or
+to read one or more translation units stored in files, one unit per
+file.
+
+*Example:*
+
+<<Translation-Units-and-Models_Translation-Units_Example,Translation
+units 1-3 in the previous section>>, taken together, form a single
+model. That model is equivalent to the following single translation
+unit:
+
+[source,fpp]
+----
+module M1 { constant a = 0 }
+module M1 { constant b = 1 }
+module M2 { 
+  constant a = M1.a
+  constant b = M1.b
+}
+----
+
+According to the
+<<Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Module-Definitions,semantics 
+of module definitions>>,
+this is also equivalent:
+
+[source,fpp]
+----
+module M1 {
+  constant a = 0
+  constant b = 1
+}
+module M2 { 
+  constant a = M1.a
+  constant b = M1.b
+}
+----
+
+Note that translation unit 3 alone is not a valid model, because it
+uses free symbols defined in the other translation units. Similarly, the
+translation unit 3 together with just translation unit 1 or translation
+unit 2 is not a valid model.
 
 === The Location of a Translation Unit
 

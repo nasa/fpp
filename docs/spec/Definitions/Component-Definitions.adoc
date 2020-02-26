@@ -151,14 +151,14 @@ active component CommandDispatcher {
   # ----------------------------------------------------------------------
 
   @ Opcode registered event
-  diagnostic event OpCodeRegistered(
+  diagnostic event OpcodeRegistered(
       regOpcode: Opcode @< The opcode to register
       regPort: U32 @< The registration port
       dispatchSlot: U32 @< The dispatch slot
   ) format "Opcode {} registered to port {} slot {}"
 
   @ Opcode dispatched event
-  command event OpCodeDispatched(
+  command event OpcodeDispatched(
       dispatchOpcode: Opcode @< The opcode dispatched
       dispatchPort: U32 @< The dispatch port
   ) format "Opcode {} dispatched to port {}"
