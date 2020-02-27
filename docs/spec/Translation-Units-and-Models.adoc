@@ -105,8 +105,8 @@ specifiers>> and
 <<Specifiers_Include-Specifiers,include specifiers>>
 during <<Analysis-and-Translation,analysis>>.
 
-. If _T_ is read in from a file, then _P_ is the absolute path 
+. If _T_ is read in from a file, then _L_ is the absolute path 
 of the file.
 
-. If _T_ is read from standard input, then _P_ is the absolute path of the current
+. If _T_ is read from standard input, then _L_ is the absolute path of the current
 directory in the environment where the analysis occurs.
