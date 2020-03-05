@@ -257,19 +257,26 @@ object Parser extends Parsers {
     }
   }
 
+  def lexAndParse[T](
+    tokenStream: => Result.Result[List[Token]],
+    parser: Parser[T]
+  ): Result.Result[T] = {
+    for {
+      tokens <- tokenStream
+      result <- parseTokens(parser, tokens)
+    } yield result
+  }
+
+  def parseFile[T](p: Parser[T], f: File): Result.Result[T] = lexAndParse(Lexer.lexFile(f), p)
+
+  def parseString[T](p: Parser[T], s: String): Result.Result[T] = lexAndParse(Lexer.lexString(s), p)
+
   def parseTokens[T](p: Parser[T], tokens: Seq[Token]): Result.Result[T] = {
     val reader = new TokenReader(tokens)
     parseAllInput(p)(reader) match {
       case NoSuccess(msg, next) => Left(SyntaxError(Location(ParserState.file, next.pos),msg))
       case Success(result, next) => Right(result)
     }
-  }
- 
-  def parseString[T](p: Parser[T], s: String): Result.Result[T] = {
-    for {
-      tokens <- Lexer(File.StdIn, s)
-      result <- parseTokens(p, tokens)
-    } yield result
   }
 
   def qualIdent: Parser[List[Ast.Ident]] = rep1sep(ident, dot)
@@ -564,8 +571,6 @@ object Parser extends Parsers {
 
   private def block = accept("block", { case t @ Token.BLOCK => t })
 
-  private def enum = accept("enum", { case t @ Token.ENUM => t })
-
   private def change = accept("change", { case t @ Token.CHANGE => t })
 
   private def colon = accept(":", { case t @ Token.COLON => t })
@@ -592,6 +597,8 @@ object Parser extends Parsers {
 
   private def elementSequence[E,S](elt: Parser[E], sep: Parser[S]): Parser[List[E]] =
     repsep(elt, sep | eol) <~ opt(sep)
+
+  private def enum = accept("enum", { case t @ Token.ENUM => t })
 
   private def eol = accept("end of line", { case t @ Token.EOL => t })
 
@@ -663,6 +670,8 @@ object Parser extends Parsers {
 
   private def pattern = accept("pattern", { case t @ Token.PATTERN => t })
 
+  private def phase = accept("phase", { case t @ Token.PHASE => t })
+
   private def plus = accept("+", { case t @ Token.PLUS => t })
 
   private def port = accept("port", { case t @ Token.PORT => t })
@@ -672,8 +681,6 @@ object Parser extends Parsers {
 
   private def preAnnotation: Parser[String] =
     accept("pre annotation", { case Token.PRE_ANNOTATION(s) => s })
-
-  private def phase = accept("phase", { case t @ Token.PHASE => t })
 
   private def priority = accept("priority", { case t @ Token.PRIORITY => t })
 
@@ -735,9 +742,9 @@ object Parser extends Parsers {
 
   private def typeToken = accept("type", { case t @ Token.TYPE => t })
 
-  private def update = accept("update", { case t @ Token.UPDATE => t })
-
   private def unused = accept("unused", { case t @ Token.UNUSED => t })
+
+  private def update = accept("update", { case t @ Token.UPDATE => t })
 
   private def warning = accept("warning", { case t @ Token.WARNING => t })
 

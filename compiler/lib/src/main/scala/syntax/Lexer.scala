@@ -6,13 +6,6 @@ import scala.util.parsing.input.Positional
 
 object Lexer extends RegexParsers {
 
-  def apply(file: File, code: String): Result.Result[List[Token]] = {
-    parse(tokens, code) match {
-      case NoSuccess(msg, next) => Left(SyntaxError(Location(file, next.pos),msg))
-      case Success(result, _) => Right(result)
-    }
-  }
-
   def eol: Parser[Token] = {
     newlines ^^ { _ => Token.EOL }
   }
@@ -26,6 +19,19 @@ object Lexer extends RegexParsers {
     def spaces: Parser[Unit] = unitParser(" +".r)
     def escapedNewline: Parser[Unit] = unitParser("\\" ~ newline)
     unitParser(rep(comment | spaces | escapedNewline))
+  }
+
+  def lexFile(file: File): Result.Result[List[Token]] = {
+    ParserState.file = file
+    for {
+      reader <- file.open
+      result <- checkResult(parse(tokens, reader))
+    } yield result
+  }
+
+  def lexString(s: String): Result.Result[List[Token]] = {
+    ParserState.file = File.StdIn
+    checkResult(parse(tokens, s))
   }
 
   def literalFloat: Parser[Token] = positioned {
@@ -157,6 +163,13 @@ object Lexer extends RegexParsers {
   def unitParser[T](p: Parser[T]): Parser[Unit] = { p ^^ { _ => () } }
 
   override def skipWhitespace = false
+
+  private def checkResult[T](pr: ParseResult[T]): Result.Result[T] = {
+    pr match {
+      case NoSuccess(msg, next) => Left(SyntaxError(Location(ParserState.file, next.pos),msg))
+      case Success(result, _) => Right(result)
+    }
+  }
 
   val internalError = failure("internal error"): Parser[Token]
 
