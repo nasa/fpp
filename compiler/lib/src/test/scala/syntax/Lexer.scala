@@ -15,7 +15,7 @@ class LexerSpec extends AnyWordSpec {
         case Lexer.NoSuccess(msg, next) => ()
       }
     }
-    val dir = new File("src/test/input/syntax/lexer/error")
+    val dir = new File("lib/src/test/input/syntax/lexer/error")
     val files = dir.listFiles.filter(_.isFile)
       .filter(_.getName.endsWith(".fpp"))
       .foreach { file => s"not lex $file" in error(file) }
@@ -50,7 +50,7 @@ class LexerSpec extends AnyWordSpec {
         }
       }
     }
-    val dir = new File("src/test/input/syntax/lexer/ok")
+    val dir = new File("lib/src/test/input/syntax/lexer/ok")
     val files = dir.listFiles.filter(_.isFile)
       .filter(_.getName.endsWith(".fpp"))
       .foreach { file => s"lex $file" in ok(file) }

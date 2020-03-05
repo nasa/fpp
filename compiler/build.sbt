@@ -1,13 +1,32 @@
-scalaVersion := "2.13.1"
+// See https://pbassiner.github.io/blog/defining_multi-project_builds_with_sbt.html
 
-libraryDependencies += "org.scala-lang.modules" %% "scala-parser-combinators" % "1.1.2"
-libraryDependencies += "org.scalatest" % "scalatest_2.13" % "3.1.0" % "test"
-scalacOptions += "-deprecation"
-scalacOptions += "-unchecked"
+name := "fpp-compiler"
+organization in ThisBuild := "gov.nasa.jpl"
+scalaVersion in ThisBuild := "2.13.1"
 
-testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-oNCXELOPQRM")
-
-lazy val fpp_syntax = (project in file("tools/fpp-syntax"))
-lazy val root = (project in file(".")).aggregate(
-  fpp_syntax
+lazy val settings = Seq(
+  scalacOptions ++= Seq(
+    "-deprecation",
+    "-unchecked",
+  ),
+  libraryDependencies ++= dependencies, 
+  testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-oNCXELOPQRM"),
 )
+
+lazy val dependencies = Seq(
+  "org.scala-lang.modules" %% "scala-parser-combinators" % "1.1.2",
+  "org.scalatest" % "scalatest_2.13" % "3.1.0" % "test",
+)
+
+lazy val root = (project in file("."))
+  .settings(settings)
+  .aggregate(
+    lib,
+    fpp_syntax,
+  )
+lazy val lib = project
+  .settings(settings)
+lazy val fpp_syntax = (project in file("tools/fpp-syntax"))
+  .settings(settings)
+  .dependsOn(lib)
+  .enablePlugins(AssemblyPlugin)
