@@ -1,0 +1,38 @@
+#!/bin/sh -e
+
+if test $# -gt 1
+then
+  echo 'usage: install dest-dir' 1>&2
+  echo '       install' 1>&2
+  exit 1
+fi
+
+if test -n "$1" 
+then
+  dest=$1
+else
+  dest=bin
+fi
+
+dir=`dirname $dest`
+dir=`cd $dir; pwd`
+base=`basename $dest`
+dest=$dir/$base
+
+tools="
+fpp-syntax
+"
+
+sbt assembly
+
+mkdir -p $dest
+
+for tool in $tools
+do
+  jar=`find tools/$tool -name '*assembly*.jar'`
+  cp $jar $dest/$tool.jar
+  echo '#!/bin/sh
+
+  java -jar '$dest'/'$tool'.jar $@' > $dest/$tool
+  chmod +x $dest/$tool
+done

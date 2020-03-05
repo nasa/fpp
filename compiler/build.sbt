@@ -24,8 +24,10 @@ lazy val root = (project in file("."))
     lib,
     fpp_syntax,
   )
+
 lazy val lib = project
   .settings(settings)
+
 lazy val fpp_syntax = (project in file("tools/fpp-syntax"))
   .settings(settings)
   .dependsOn(lib)
