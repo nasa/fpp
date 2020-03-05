@@ -4,8 +4,15 @@
 Install the 
 https://www.scala-sbt.org[Simple Build Tool (sbt)] for Scala.
 
+*Installing*
+To install in the `bin` directory, run `./install`.
+To install to a different directory, run `./install` *dir-name*.
+
 *Building:*
-From the `sbt` console, run `compile`.
+`sbt compile`.
 
 *Running unit tests:*
-From the `sbt` console, run `test`.
+`sbt test`.
+
+*Building, running unit tests, and assembling jar files:*
+`sbt assembly`.
