@@ -23,10 +23,12 @@ tools="
 fpp-syntax
 "
 
+echo "Building jar files"
 sbt assembly
 
 mkdir -p $dest
 
+echo "Installing tools at $dest"
 for tool in $tools
 do
   jar=`find tools/$tool -name '*assembly*.jar'`
