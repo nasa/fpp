@@ -8,6 +8,13 @@ https://www.scala-sbt.org[Simple Build Tool (sbt)] for Scala.
 To install in the `bin` directory, run `./install`.
 To install to a different directory, run `./install` *dir-name*.
 
+The currently available tools are
+
+* `fpp-syntax`
+
+See https://github.jpl.nasa.gov/bocchino/fpp/wiki/Tools
+for more information.
+
 *Building:*
 `sbt compile`.
 
