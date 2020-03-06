@@ -36,8 +36,8 @@ object Parser extends Parsers {
   }
 
   def connection: Parser[Ast.SpecConnectionGraph.Connection] = {
-    def connectionPort = node(qualIdent) ~ opt(index)
-    connectionPort ~ (rarrow ~> connectionPort) ^^ {
+    def connectionPort = node(qualIdent) ~! opt(index)
+    connectionPort ~! (rarrow ~>! connectionPort) ^^ {
       case (fromPort ~ fromIndex) ~ (toPort ~ toIndex) => {
         Ast.SpecConnectionGraph.Connection(fromPort, fromIndex, toPort, toIndex)
       }
@@ -45,37 +45,37 @@ object Parser extends Parsers {
   }
 
   def defAbsType: Parser[Ast.DefAbsType] = {
-    (typeToken ~> ident) ^^ { case id => Ast.DefAbsType(id) }
+    (typeToken ~>! ident) ^^ { case id => Ast.DefAbsType(id) }
   }
 
   def defArray: Parser[Ast.DefArray] = {
-    (array ~> ident <~ equals) ~ 
-    index ~ node(typeName) ~ 
-    opt(default ~> exprNode) ~
-    opt(format ~> node(literalString)) ^^ {
+    (array ~>! ident <~! equals) ~!
+    index ~! node(typeName) ~!
+    opt(default ~>! exprNode) ~!
+    opt(format ~>! node(literalString)) ^^ {
       case name ~ size ~ eltType ~ default ~ format => Ast.DefArray(name, size, eltType, default, format)
     }
   }
 
   def defComponent: Parser[Ast.DefComponent] = {
     def members = annotatedElementSequence(componentMemberNode, semi, Ast.ComponentMember(_))
-    componentKind ~ (component ~> ident) ~ (lbrace ~> members <~ rbrace) ^^ {
+    componentKind ~! (component ~>! ident) ~! (lbrace ~>! members <~! rbrace) ^^ {
       case kind ~ name ~ members => Ast.DefComponent(kind, name, members)
     }
   }
 
   def defComponentInstance: Parser[Ast.DefComponentInstance] = {
-    (instance ~> ident) ~ (colon ~> node(qualIdent)) ~ (base ~ id ~> exprNode) ~
-    opt(queue ~ size ~> exprNode) ~
-    opt(stack ~ size ~> exprNode) ~
-    opt(priority ~> exprNode) ^^ {
+    (instance ~>! ident) ~! (colon ~>! node(qualIdent)) ~! (base ~! id ~>! exprNode) ~!
+    opt(queue ~! size ~>! exprNode) ~!
+    opt(stack ~! size ~>! exprNode) ~!
+    opt(priority ~>! exprNode) ^^ {
       case name ~ typeName ~ baseId ~ queueSize ~ stackSize ~ priority => 
         Ast.DefComponentInstance(name, typeName, baseId, queueSize, stackSize, priority)
     }
   }
 
   def defConstant: Parser[Ast.DefConstant] = {
-    (constant ~> ident) ~ (equals ~> exprNode) ^^ {
+    (constant ~>! ident) ~! (equals ~>! exprNode) ^^ {
       case id ~ e => Ast.DefConstant(id, e)
     }
   }
@@ -83,26 +83,26 @@ object Parser extends Parsers {
   def defEnum: Parser[Ast.DefEnum] = {
     def id(x: Ast.Annotated[AstNode[Ast.DefEnumConstant]]) = x
     def constants = annotatedElementSequence(node(defEnumConstant), comma, id)
-    (enum ~> ident) ~ opt(colon ~> node(typeName)) ~ (lbrace ~> constants <~ rbrace) ^^ {
+    (enum ~>! ident) ~! opt(colon ~>! node(typeName)) ~! (lbrace ~>! constants <~! rbrace) ^^ {
       case name ~ typeName ~ constants => Ast.DefEnum(name, typeName, constants)
     }
   }
 
   def defEnumConstant: Parser[Ast.DefEnumConstant] = {
-    ident ~ opt(equals ~> exprNode) ^^ { 
+    ident ~! opt(equals ~>! exprNode) ^^ { 
       case id ~ e => Ast.DefEnumConstant(id, e)
     }
   }
 
   def defModule: Parser[Ast.DefModule] = {
     def members = annotatedElementSequence(moduleMemberNode, semi, Ast.ModuleMember(_))
-    (module ~> ident) ~ (lbrace ~> members <~ rbrace) ^^ {
+    (module ~>! ident) ~! (lbrace ~>! members <~! rbrace) ^^ {
       case name ~ members => Ast.DefModule(name, members)
     }
   }
 
   def defPort: Parser[Ast.DefPort] = {
-    (port ~> ident) ~ formalParamList ~ opt(rarrow ~> node(typeName)) ^^ {
+    (port ~>! ident) ~! formalParamList ~! opt(rarrow ~>! node(typeName)) ^^ {
       case ident ~ formalParamList ~ returnType => Ast.DefPort(ident, formalParamList, returnType)
     }
   }
@@ -110,14 +110,14 @@ object Parser extends Parsers {
   def defStruct: Parser[Ast.DefStruct] = {
     def id(x: Ast.Annotated[AstNode[Ast.StructTypeMember]]) = x
     def members = annotatedElementSequence(node(structTypeMember), comma, id)
-    (struct ~> ident) ~ (lbrace ~> members <~ rbrace) ~ opt(default ~> exprNode) ^^ {
+    (struct ~>! ident) ~! (lbrace ~>! members <~! rbrace) ~! opt(default ~>! exprNode) ^^ {
       case name ~ members ~ default => Ast.DefStruct(name, members, default)
     }
   }
 
   def defTopology: Parser[Ast.DefTopology] = {
     def members = annotatedElementSequence(topologyMemberNode, semi, Ast.TopologyMember(_))
-    (topology ~> ident) ~ (lbrace ~> members <~ rbrace) ^^ {
+    (topology ~>! ident) ~! (lbrace ~>! members <~! rbrace) ^^ {
       case name ~ members => Ast.DefTopology(name, members)
     }
   }
@@ -142,7 +142,7 @@ object Parser extends Parsers {
     }
     def dotOperand = node {
       def arrayExpr = 
-        lbracket ~> elementSequence(exprNode, comma) <~ rbracket ^^ { 
+        lbracket ~>! elementSequence(exprNode, comma) <~! rbracket ^^ { 
           case es => Ast.ExprArray(es)
         }
       def falseExpr = falseToken ^^ { case _ => Ast.ExprLiteralBool(Ast.False) }
@@ -151,11 +151,11 @@ object Parser extends Parsers {
       def intExpr = literalInt ^^ { case li => Ast.ExprLiteralInt(li) }
       def parenExpr = lparen ~> exprNode <~ rparen ^^ { case e => Ast.ExprParen(e) }
       def stringExpr = literalString ^^ { case s => Ast.ExprLiteralString(s) }
-      def structMember = ident ~ (equals ~> exprNode) ^^ {
+      def structMember = ident ~! (equals ~>! exprNode) ^^ {
         case id ~ e => Ast.StructMember(id, e)
       }
       def structExpr = 
-        lbrace ~> elementSequence(structMember, comma) <~ rbrace ^^ {
+        lbrace ~>! elementSequence(structMember, comma) <~! rbrace ^^ {
           case es => Ast.ExprStruct(es)
         }
       def trueExpr = trueToken ^^ { case _ => Ast.ExprLiteralBool(Ast.True) }
@@ -167,10 +167,11 @@ object Parser extends Parsers {
       parenExpr |
       stringExpr |
       structExpr |
-      trueExpr
+      trueExpr |
+      failure("expression expected")
     }
     def unaryMinus = node { 
-      minus ~> unaryMinusOperand ^^ { case e => Ast.ExprUnop(Ast.Unop.Minus, e) }
+      minus ~>! unaryMinusOperand ^^ { case e => Ast.ExprUnop(Ast.Unop.Minus, e) }
     }
     def unaryMinusOperand = {
       def dotSelectors(e: AstNode[Ast.Expr], ss: List[Token ~ String]) = {
@@ -183,13 +184,13 @@ object Parser extends Parsers {
         }
         ss.foldLeft(e)(f)
       }
-      dotOperand ~ rep(dot ~ ident) ^^ { case e ~ ss => dotSelectors(e, ss) }
+      dotOperand ~ rep(dot ~! ident) ^^ { case e ~ ss => dotSelectors(e, ss) }
     }
     def mulDivOperand = unaryMinus | unaryMinusOperand
-    def addSubOperand = mulDivOperand ~ rep((star | slash) ~ mulDivOperand) ^^ {
+    def addSubOperand = mulDivOperand ~ rep((star | slash) ~! mulDivOperand) ^^ {
       case e ~ es => leftAssoc(e, es)
     }
-    addSubOperand ~ rep((plus | minus) ~ addSubOperand) ^^ {
+    addSubOperand ~ rep((plus | minus) ~! addSubOperand) ^^ {
       case e ~ es => leftAssoc(e, es)
     }
   }
@@ -201,7 +202,7 @@ object Parser extends Parsers {
         case None => Ast.FormalParam.Value
       }
     }
-    kind ~ ident ~ (colon ~> node(typeName)) ~ opt(size ~> exprNode) ^^ {
+    kind ~ ident ~! (colon ~>! node(typeName)) ~! opt(size ~>! exprNode) ^^ {
       case kind ~ id ~ tn ~ size => Ast.FormalParam(kind, id, tn, size)
     }
   }
@@ -209,13 +210,13 @@ object Parser extends Parsers {
   def formalParamList: Parser[Ast.FormalParamList] = {
     def id(x: Ast.Annotated[AstNode[Ast.FormalParam]]) = x
     def params = annotatedElementSequence(node(formalParam), comma, id)
-    opt(lparen ~> params <~ rparen) ^^ {
+    opt(lparen ~>! params <~! rparen) ^^ {
       case Some(params) => params
       case None => Nil
     }
   }
 
-  def index: Parser[AstNode[Ast.Expr]] = lbracket ~> exprNode <~ rbracket
+  def index: Parser[AstNode[Ast.Expr]] = lbracket ~>! exprNode <~! rbracket
 
   def moduleMemberNode: Parser[Ast.ModuleMember.Node] = {
     node(defAbsType) ^^ { case n => Ast.ModuleMember.DefAbsType(n) } |
@@ -249,11 +250,16 @@ object Parser extends Parsers {
   }
 
   def parseAllInput[T](p: Parser[T]) = new Parser[T] {
-    def apply(in: Input) = p(in) match {
-      case s @ Success(out, in1) =>
-        if (in1.atEnd) s
-        else Failure("unexpected token", in1)
-      case other => other
+    def apply(in: Input) = {
+      val r = p(in) 
+      r match {
+        case s @ Success(out, in1) =>
+          error match {
+            case Some(e) => e
+            case None => if (in1.atEnd) s else Failure("unexpected token", in1)
+          }
+        case other => other
+      }
     }
   }
 
@@ -272,6 +278,7 @@ object Parser extends Parsers {
   def parseString[T](p: Parser[T], s: String): Result.Result[T] = lexAndParse(Lexer.lexString(s), p)
 
   def parseTokens[T](p: Parser[T], tokens: Seq[Token]): Result.Result[T] = {
+    error = None
     val reader = new TokenReader(tokens)
     parseAllInput(p)(reader) match {
       case NoSuccess(msg, next) => Left(SyntaxError(Location(ParserState.file, next.pos),msg))
@@ -293,33 +300,33 @@ object Parser extends Parsers {
       guarded ^^ { case _ => Ast.SpecCommand.Guarded } |
       sync ^^ { case _ => Ast.SpecCommand.Sync }
     }
-    kind ~ (command ~> ident) ~ formalParamList ~ 
-    opt(opcode ~> exprNode) ~ opt(priority ~> exprNode) ~ opt(node(queueFull)) ^^ {
+    kind ~ (command ~>! ident) ~! formalParamList ~!
+    opt(opcode ~>! exprNode) ~! opt(priority ~>! exprNode) ~! opt(node(queueFull)) ^^ {
       case kind ~ name ~ params ~ opcode ~ priority ~ queueFull => 
         Ast.SpecCommand(kind, name, params, opcode, priority, queueFull)
     }
   }
 
   def specCompInstance: Parser[Ast.SpecCompInstance] = {
-    visibility ~ (instance ~> node(qualIdent)) ^^ {
-      case visibility ~ instance => Ast.SpecCompInstance(visibility, instance)
+    visibility ~ (instance ~>! node(qualIdent)) ^^ { 
+      case visibility ~ instance => Ast.SpecCompInstance(visibility, instance) 
     }
   }
 
   def specConnectionGraph: Parser[Ast.SpecConnectionGraph] = {
     def directGraph = {
-      (connections ~> ident) ~ (lbrace ~> elementSequence(connection, comma) <~ rbrace) ^^ { 
+      (connections ~> ident) ~! (lbrace ~>! elementSequence(connection, comma) <~! rbrace) ^^ { 
         case ident ~ connections => Ast.SpecConnectionGraph.Direct(ident, connections) 
       }
     }
     def patternGraph = {
       def instanceSequence = {
-        opt(lbrace ~> elementSequence(node(qualIdent), comma) <~ rbrace) ^^ {
+        opt(lbrace ~>! elementSequence(node(qualIdent), comma) <~! rbrace) ^^ {
           case Some(elements) => elements
           case None => Nil
         }
       }
-      (connections ~ instance ~> node(qualIdent)) ~ instanceSequence ~ (pattern ~> exprNode) ^^ {
+      (connections ~ instance ~>! node(qualIdent)) ~! instanceSequence ~! (pattern ~>! exprNode) ^^ {
         case source ~ targets ~ pattern => Ast.SpecConnectionGraph.Pattern(source, targets, pattern)
       }
     }
@@ -327,37 +334,38 @@ object Parser extends Parsers {
   }
 
   def specEvent: Parser[Ast.SpecEvent] = {
-    def severityValue = {
+    def severityLevel = {
       activity ~ high ^^ { case _ => Ast.SpecEvent.ActivityHigh } |
       activity ~ low ^^ { case _ => Ast.SpecEvent.ActivityLow } |
       command ^^ { case _ => Ast.SpecEvent.Command } |
       diagnostic ^^ { case _ => Ast.SpecEvent.Diagnostic } |
       fatal ^^ { case _ => Ast.SpecEvent.Fatal } |
       warning ~ high ^^ { case _ => Ast.SpecEvent.WarningHigh } |
-      warning ~ low ^^ { case _ => Ast.SpecEvent.WarningLow }
+      warning ~ low ^^ { case _ => Ast.SpecEvent.WarningLow } |
+      failure("severity level expected")
     }
-    (event ~> ident) ~ formalParamList ~ (severity ~> severityValue) ~
-    opt(id ~> exprNode) ~
-    opt(format ~> node(literalString)) ~
-    opt(throttle ~> exprNode) ^^ {
+    (event ~>! ident) ~! formalParamList ~! (severity ~>! severityLevel) ~!
+    opt(id ~>! exprNode) ~!
+    opt(format ~>! node(literalString)) ~!
+    opt(throttle ~>! exprNode) ^^ {
       case name ~ params ~ severity ~ id ~ format ~ throttle => 
         Ast.SpecEvent(name, params, severity, id, format, throttle)
     }
   }
 
   def specInclude: Parser[Ast.SpecInclude] = {
-    include ~> literalString ^^ { case file => Ast.SpecInclude(file) }
+    include ~>! literalString ^^ { case file => Ast.SpecInclude(file) }
   }
 
   def specInit: Parser[Ast.SpecInit] = {
-    (init ~> node(qualIdent)) ~ (phase ~> exprNode) ~ literalString ^^ {
+    (init ~>! node(qualIdent)) ~! (phase ~>! exprNode) ~! literalString ^^ {
       case instance ~ phase ~ code => Ast.SpecInit(instance, phase, code)
     }
   }
 
   def specInternalPort: Parser[Ast.SpecInternalPort] = {
-    (internal ~ port ~> ident) ~ formalParamList ~
-    opt(priority ~> exprNode) ~
+    (internal ~! port ~>! ident) ~! formalParamList ~!
+    opt(priority ~>! exprNode) ~!
     opt(queueFull) ^^ {
       case name ~ params ~ priority ~ queueFull => 
         Ast.SpecInternalPort(name, params, priority, queueFull)
@@ -371,19 +379,20 @@ object Parser extends Parsers {
       instance ^^ { case _ => Ast.SpecLoc.ComponentInstance } |
       port ^^ { case _ => Ast.SpecLoc.Port } |
       topology ^^ { case _ => Ast.SpecLoc.Topology } |
-      typeToken ^^ { case _ => Ast.SpecLoc.Type }
+      typeToken ^^ { case _ => Ast.SpecLoc.Type } |
+      failure("location kind expected")
     }
-    (locate ~> kind) ~ node(qualIdent) ~ (at ~> literalString) ^^ {
+    (locate ~>! kind) ~! node(qualIdent) ~! (at ~>! literalString) ^^ {
       case kind ~ symbol ~ file => Ast.SpecLoc(kind, symbol, file)
     }
   }
 
   def specParam: Parser[Ast.SpecParam] = {
-    (param ~> ident) ~ (colon ~> node(typeName)) ~
-    opt(default ~> exprNode) ~
-    opt(id ~> exprNode) ~
-    opt(set ~ opcode ~> exprNode) ~
-    opt(save ~ opcode ~> exprNode) ^^ {
+    (param ~>! ident) ~ (colon ~>! node(typeName)) ~!
+    opt(default ~>! exprNode) ~!
+    opt(id ~>! exprNode) ~!
+    opt(set ~! opcode ~>! exprNode) ~!
+    opt(save ~! opcode ~>! exprNode) ^^ {
       case name ~ typeName ~ default ~ id ~ setOpcode ~ saveOpcode =>
         Ast.SpecParam(name, typeName, default, id, setOpcode, saveOpcode)
     }
@@ -412,17 +421,17 @@ object Parser extends Parsers {
       time ~ get ^^ { case _ => Ast.SpecPortInstance.TimeGet }
     }
     def general = {
-      generalKind ~ (port ~> ident) ~
-      (colon ~> opt(index)) ~
-      instanceType ~
-      opt(priority ~> exprNode) ~
+      generalKind ~! (port ~>! ident) ~!
+      (colon ~>! opt(index)) ~!
+      instanceType ~!
+      opt(priority ~>! exprNode) ~!
       opt(queueFull) ^^ {
         case kind ~ name ~ size ~ ty ~ priority ~ queueFull =>
           Ast.SpecPortInstance.General(kind, name, size, ty, priority, queueFull)
       }
     }
     def special: Parser[Ast.SpecPortInstance] = {
-      specialKind ~ (port ~> ident) ^^ {
+      specialKind ~ (port ~>! ident) ^^ {
         case kind ~ name => Ast.SpecPortInstance.Special(kind, name)
       }
     }
@@ -431,9 +440,10 @@ object Parser extends Parsers {
 
   def specTlmChannel: Parser[Ast.SpecTlmChannel] = {
     val Channel = Ast.SpecTlmChannel
-    def updateValue = {
+    def updateSetting = {
       always ^^ { case _ => Ast.SpecTlmChannel.Always } |
-      on ~ change ^^ { case _ => Ast.SpecTlmChannel.OnChange }
+      on ~! change ^^ { case _ => Ast.SpecTlmChannel.OnChange } |
+      failure("update setting expected")
     }
     def kind = {
       orange ^^ { case _ => Ast.SpecTlmChannel.Orange } |
@@ -441,20 +451,20 @@ object Parser extends Parsers {
       yellow ^^ { case _ => Ast.SpecTlmChannel.Yellow }
     }
     def limit = {
-      kind ~ exprNode ^^ { case kind ~ e => (kind, e) }
+      kind ~! exprNode ^^ { case kind ~ e => (kind, e) }
     }
     def limitSequence(p: Parser[Token]) = {
-      opt(p ~ lbrace ~> elementSequence(limit, comma) <~ rbrace) ^^ {
+      opt(p ~! lbrace ~>! elementSequence(limit, comma) <~! rbrace) ^^ {
         case Some(seq) => seq
         case None => Nil
       }
     }
-    (telemetry ~> ident) ~ 
-    (colon ~> node(typeName)) ~
-    opt(id ~> exprNode) ~ 
-    opt(update ~> updateValue) ~
-    opt(format ~> node(literalString)) ~
-    limitSequence(low) ~ limitSequence(high) ^^ {
+    (telemetry ~> ident) ~!
+    (colon ~>! node(typeName)) ~!
+    opt(id ~>! exprNode) ~!
+    opt(update ~>! updateSetting) ~!
+    opt(format ~>! node(literalString)) ~!
+    limitSequence(low) ~! limitSequence(high) ^^ {
       case name ~ typeName ~ id ~ update ~ format ~ low ~ high => Ast.SpecTlmChannel(
         name,
         typeName,
@@ -468,19 +478,19 @@ object Parser extends Parsers {
   }
 
   def specTopImport: Parser[Ast.SpecTopImport] = {
-    importToken ~> node(qualIdent) ^^ { 
+    importToken ~>! node(qualIdent) ^^ { 
       case top => Ast.SpecTopImport(top)
     }
   }
 
   def specUnusedPorts: Parser[Ast.SpecUnusedPorts] = {
-    unused ~ lbrace ~> elementSequence(node(qualIdent), comma) <~ rbrace ^^ {
+    unused ~! lbrace ~>! elementSequence(node(qualIdent), comma) <~! rbrace ^^ {
       case ports => Ast.SpecUnusedPorts(ports)
     }
   }
 
   def structTypeMember: Parser[Ast.StructTypeMember] = {
-    ident ~ (colon ~> node(typeName)) ~ opt(format ~> node(literalString)) ^^ {
+    ident ~! (colon ~>! node(typeName)) ~! opt(format ~>! node(literalString)) ^^ {
       case name ~ typeName ~ format => Ast.StructTypeMember(name, typeName, format)
     }
   }
@@ -518,13 +528,30 @@ object Parser extends Parsers {
     accept("string", { case Token.STRING => Ast.TypeNameString }) |
     typeNameFloat |
     typeNameInt |
-    node(qualIdent) ^^ { case qidn => Ast.TypeNameQualIdent(qidn) }
+    node(qualIdent) ^^ { case qidn => Ast.TypeNameQualIdent(qidn) } |
+    failure("type name expected")
   }
 
   def visibility: Parser[Ast.Visibility] = {
     opt(accept("private", { case Token.PRIVATE => () })) ^^ {
       case Some(_) => Ast.Visibility.Private
       case None => Ast.Visibility.Public
+    }
+  }
+
+  override def commit[T](p: => Parser[T]) = Parser{ in =>
+    def setError(e: Error) = {
+      error match {
+        case None => { error = Some(e) }
+        case Some(_) => ()
+      }
+      e
+    }
+    val r = p(in) 
+    r match{
+      case s @ Success(_, _) => s
+      case e @ Error(_, _) => setError(e)
+      case f @ Failure(msg, next) => setError(Error(msg, next))
     }
   }
 
@@ -749,5 +776,8 @@ object Parser extends Parsers {
   private def warning = accept("warning", { case t @ Token.WARNING => t })
 
   private def yellow = accept("yellow", { case t @ Token.YELLOW => t })
+
+  /** The first error seen */
+  private var error: Option[Error] = None
 
 }

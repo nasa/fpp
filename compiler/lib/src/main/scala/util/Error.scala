@@ -48,6 +48,7 @@ object Error {
   def print (locOpt: Option[Location]) (msg: String) = {
     printTool
     printOpt(locOpt)
+    System.err.print("error: ")
     System.err.println(msg)
   }
 
