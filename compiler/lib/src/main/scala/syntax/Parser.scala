@@ -407,7 +407,8 @@ object Parser extends Parsers {
     }
     def instanceType = {
       node(qualIdent) ^^ { case qi => Some(qi) } |
-      serial ^^ { case _ => None}
+      serial ^^ { case _ => None} |
+      failure("port type expected")
     }
     def specialKind = {
       command ~ recv ^^ { case _ => Ast.SpecPortInstance.CommandRecv } |
