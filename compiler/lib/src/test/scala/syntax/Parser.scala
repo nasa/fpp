@@ -9,8 +9,7 @@ import org.scalatest.wordspec.AnyWordSpec
 class ParserSpec extends AnyWordSpec {
 
   "annotation OK" should {
-    val r = Parser.parseString(
-      Parser.transUnit, 
+    val r = Parser.parseString(Parser.transUnit)(
       """
 
       @ Line 1
@@ -660,7 +659,7 @@ class ParserSpec extends AnyWordSpec {
   }
 
   def parseError[T](p: Parser.Parser[T], s: String): Unit = {
-    Parser.parseString(p, s) match {
+    Parser.parseString(p)(s) match {
       case Right(r) => { 
         Console.err.println(s"parsed $r")
         assert(false) 
@@ -670,7 +669,7 @@ class ParserSpec extends AnyWordSpec {
   }
 
   def parseOK[T](p: Parser.Parser[T], s: String): Unit = {
-    Parser.parseString(p, s) match {
+    Parser.parseString(p)(s) match {
       case Right(_) => ()
       case Left(l) => { 
         Console.err.println(s"failed with error $l")

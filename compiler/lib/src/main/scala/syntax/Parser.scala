@@ -269,15 +269,15 @@ object Parser extends Parsers {
   ): Result.Result[T] = {
     for {
       tokens <- tokenStream
-      result <- parseTokens(parser, tokens)
+      result <- parseTokens(parser)(tokens)
     } yield result
   }
 
-  def parseFile[T](p: Parser[T], f: File): Result.Result[T] = lexAndParse(Lexer.lexFile(f), p)
+  def parseFile[T](p: Parser[T])(f: File): Result.Result[T] = lexAndParse(Lexer.lexFile(f), p)
 
-  def parseString[T](p: Parser[T], s: String): Result.Result[T] = lexAndParse(Lexer.lexString(s), p)
+  def parseString[T](p: Parser[T])(s: String): Result.Result[T] = lexAndParse(Lexer.lexString(s), p)
 
-  def parseTokens[T](p: Parser[T], tokens: Seq[Token]): Result.Result[T] = {
+  def parseTokens[T](p: Parser[T])(tokens: Seq[Token]): Result.Result[T] = {
     error = None
     val reader = new TokenReader(tokens)
     parseAllInput(p)(reader) match {
