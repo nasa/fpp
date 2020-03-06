@@ -15,11 +15,12 @@ The currently available tools are
 See https://github.jpl.nasa.gov/bocchino/fpp/wiki/Tools
 for more information.
 
-*Building:*
-`sbt compile`.
+*Development:*
 
-*Running unit tests:*
-`sbt test`.
+. Start up the sbt shell.
 
-*Building, running unit tests, and assembling jar files:*
-`sbt assembly`.
+. In the shell, run `compile` to compile everything, `test` to run all unit tests,
+and `assembly` to create jar files.
+The installer script runs these commands automatically.
+It also moves the jar files to the install directory and puts executable
+shell scripts there.
