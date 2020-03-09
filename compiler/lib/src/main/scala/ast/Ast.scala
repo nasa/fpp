@@ -223,8 +223,10 @@ object Ast {
 
   /** Literal bool */
   sealed trait LiteralBool
-  final case object True extends LiteralBool
-  final case object False extends LiteralBool
+  object LiteralBool {
+    final case object True extends LiteralBool
+    final case object False extends LiteralBool
+  }
 
   /** Queue full behavior */
   sealed trait QueueFull

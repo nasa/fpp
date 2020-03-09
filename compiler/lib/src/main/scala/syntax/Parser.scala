@@ -145,7 +145,7 @@ object Parser extends Parsers {
         lbracket ~>! elementSequence(exprNode, comma) <~! rbracket ^^ { 
           case es => Ast.ExprArray(es)
         }
-      def falseExpr = falseToken ^^ { case _ => Ast.ExprLiteralBool(Ast.False) }
+      def falseExpr = falseToken ^^ { case _ => Ast.ExprLiteralBool(Ast.LiteralBool.False) }
       def floatExpr = literalFloat ^^ { case s => Ast.ExprLiteralFloat(s) }
       def identExpr = ident ^^ { case id => Ast.ExprIdent(id) }
       def intExpr = literalInt ^^ { case li => Ast.ExprLiteralInt(li) }
@@ -158,7 +158,7 @@ object Parser extends Parsers {
         lbrace ~>! elementSequence(structMember, comma) <~! rbrace ^^ {
           case es => Ast.ExprStruct(es)
         }
-      def trueExpr = trueToken ^^ { case _ => Ast.ExprLiteralBool(Ast.True) }
+      def trueExpr = trueToken ^^ { case _ => Ast.ExprLiteralBool(Ast.LiteralBool.True) }
       arrayExpr |
       falseExpr |
       floatExpr |
