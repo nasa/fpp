@@ -1,6 +1,7 @@
 package fpp.compiler
 
 import fpp.compiler.ast._
+import fpp.compiler.codegen._
 import fpp.compiler.syntax._
 import fpp.compiler.util._
 import scopt.OParser
@@ -42,7 +43,10 @@ object FPPSyntax {
 
   def printAst(options: Options)(tul: List[Ast.TransUnit]): Result.Result[List[Ast.TransUnit]] = {
     options.ast match {
-      case true => System.out.println("TODO: print AST")
+      case true => {
+        val lines = tul.map(AstWriter.transUnit).flatten
+        lines.map(Line.write(Line.stdout) _)
+      }
       case false => ()
     }
     Right(tul)

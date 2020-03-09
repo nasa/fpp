@@ -7,10 +7,13 @@ object Line {
   case object Indent extends IndentMode
   case object NoIndent extends IndentMode
 
+  val stdout = new java.io.PrintWriter(System.out, true)
+
   def blank: Line = Line(string = "")
 
-  def write (writer: java.io.PrintWriter) (line: Line) =
+  def write (writer: java.io.PrintWriter) (line: Line) = {
     writer.println(line.toString)
+  }
 
   /** Construct a blank-separated list of lines */
   def blankSeparated[T] (f: T => List[Line]) (ts: List[T]): List[Line] = 
@@ -31,13 +34,13 @@ object Line {
     Line(indent, string)
   }
 
-  /* Concatenate a list of lines with separtor string */
-  def concat (sep: String) (lines: List[Line]): Line =
+  /* Flatten a list of lines with separtor string */
+  def flatten (sep: String) (lines: List[Line]): Line =
     lines match {
       case Nil => blank
       case (head :: Nil) => head
       case (head :: tail) => {
-        val tail1 = concat (sep) (tail)
+        val tail1 = flatten (sep) (tail)
         join (sep) (head) (tail1)
       }
     }
