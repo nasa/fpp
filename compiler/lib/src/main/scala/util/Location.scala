@@ -14,7 +14,7 @@ final case class Location(
           case Nil => s
           case (file, pos) :: fpl1 => showIncludes(
             fpl1, 
-            s"  included at ${file}: ${pos}\n"
+            s"\n  included at ${file}: ${pos}"
           )
         }
       }
