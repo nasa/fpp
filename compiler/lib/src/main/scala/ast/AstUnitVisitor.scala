@@ -3,8 +3,6 @@ package fpp.compiler.ast
 /** Visit an AST with unit input */
 trait AstUnitVisitor[B] extends AstVisitor[Unit, B] {
 
-  def componentMember(cm: Ast.ComponentMember): B
-
   def defAbsType(dat: Ast.DefAbsType): B
 
   def defArray(da: Ast.DefArray): B
@@ -27,7 +25,11 @@ trait AstUnitVisitor[B] extends AstVisitor[Unit, B] {
 
   def defTopology(dt: Ast.DefTopology): B
 
-  def expr(e: Ast.Expr): B
+  def exprArray(elts: List[AstNode[Ast.Expr]]): B
+
+  def exprBinop(e1: Ast.Expr, op: Ast.Binop, e2: Ast.Expr): B
+
+  def exprDot(e: Ast.Expr, id: Ast.Ident): B
 
   def specCommand(sc: Ast.SpecCommand): B
 
@@ -47,17 +49,7 @@ trait AstUnitVisitor[B] extends AstVisitor[Unit, B] {
 
   def specTlmChannel(stc: Ast.SpecTlmChannel): B
   
-  def structMember(sm: Ast.StructMember): B
-
-  def structTypeMember(stm: Ast.StructTypeMember): B
-
   def transUnit(tu: Ast.TransUnit): B
-
-  def tuMember(tum: Ast.TUMember): B
-
-  def typeName(tn: Ast.TypeName): B
-
-  final def componentMember(a: Unit, cm: Ast.ComponentMember): B = componentMember((), cm)
 
   final def defAbsType(a: Unit, dat: Ast.DefAbsType): B = defAbsType((), dat)
 
@@ -75,23 +67,23 @@ trait AstUnitVisitor[B] extends AstVisitor[Unit, B] {
 
   final def defModule(a: Unit, dm: Ast.DefModule): B = defModule((), dm)
 
-  final def defPort(a:Unit, dp: Ast.DefPort): B = defPort((), dp)
+  final def defPort(a: Unit, dp: Ast.DefPort): B = defPort((), dp)
 
   final def defStruct(a: Unit, ds: Ast.DefStruct): B = defStruct((), ds)
 
-  final def defTopology(a:Unit, dt: Ast.DefTopology): B = defTopology((), dt)
+  final def defTopology(a: Unit, dt: Ast.DefTopology): B = defTopology((), dt)
 
-  final def expr(a:Unit, e: Ast.Expr): B = expr((), e)
+  final def exprArray(a: Unit, elts: List[AstNode[Ast.Expr]]): B = exprArray((), elts)
+
+  final def exprBinop(a: Unit, e1: Ast.Expr, op: Ast.Binop, e2: Ast.Expr): B = exprBinop((), e1, op, e2)
+
+  final def exprDot(a: Unit, e: Ast.Expr, id: Ast.Ident): B = exprDot((), e, id)
 
   final def matchComponentMemberNode(cmn: Ast.ComponentMember.Node): B =
     matchComponentMemberNode((), cmn)
 
   final def matchModuleMemberNode(mmn: Ast.ModuleMember.Node): B =
     matchModuleMemberNode((), mmn)
-
-  final def specParam(a: Unit, sp: Ast.SpecParam): B = specParam((), sp)
-
-  final def specTlmChannel(a: Unit, stc: Ast.SpecTlmChannel): B = specTlmChannel((), stc)
 
   final def matchTuMemberNode(tumn: Ast.TUMember.Node): B =
     matchTuMemberNode((), tumn)
@@ -108,16 +100,12 @@ trait AstUnitVisitor[B] extends AstVisitor[Unit, B] {
 
   final def specLoc(a: Unit, sl: Ast.SpecLoc): B = specLoc((), sl)
 
+  final def specParam(a: Unit, sp: Ast.SpecParam): B = specParam((), sp)
+
   final def specPortInstance(a: Unit, spi: Ast.SpecPortInstance): B = specPortInstance((), spi)
 
-  final def structMember(a: Unit, sm: Ast.StructMember): B = structMember((), sm)
-
-  final def structTypeMember(a: Unit, stm: Ast.StructTypeMember): B = structTypeMember((), stm)
+  final def specTlmChannel(a: Unit, stc: Ast.SpecTlmChannel): B = specTlmChannel((), stc)
 
   final def transUnit(a: Unit, tu: Ast.TransUnit): B = transUnit((), tu)
-
-  final def tuMember(a: Unit, tum: Ast.TUMember): B = tuMember((), tum)
-
-  final def typeName(a: Unit, tn: Ast.TypeName): B = typeName((), tn)
 
 }

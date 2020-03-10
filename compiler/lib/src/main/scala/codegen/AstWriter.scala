@@ -102,21 +102,17 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
 
   def defTopology(ds: Ast.DefTopology) = todo
 
-  def expr(e: Ast.Expr) = e match {
-    case Ast.ExprBinop(e1, op, e2) => exprBinop(e1.getData, op, e2.getData)
-    case Ast.ExprArray(enl) => exprArray(enl)
-    case Ast.ExprDot(en, id) => exprDot(en.getData, id)
-    case Ast.ExprIdent(id) => ident(id)
-    case Ast.ExprLiteralInt(s) => lines("literal int " ++ s)
-    case Ast.ExprLiteralFloat(s) => lines("literal float " ++ s)
-    case Ast.ExprLiteralString(s) => lines("literal string " ++ s)
-    case Ast.ExprLiteralBool(lb) => exprLiteralBool(lb)
-    case Ast.ExprParen(en) => exprParen(en.getData)
-    case Ast.ExprStruct(sml) => exprStruct(sml)
-    case Ast.ExprUnop(op, en) => exprUnop(op, en.getData)
-  }
+  def exprArray(enl: List[AstNode[Ast.Expr]]) =
+    lines("expr array") ++
+    enl.map((en: AstNode[Ast.Expr]) => expr(en.getData)).flatten.map(indentIn)
 
-  def fileString(s: String) = lines("file " ++ s)
+  def exprBinop(e1: Ast.Expr, op: Ast.Binop, e2: Ast.Expr) =
+    lines("expr binop") ++
+    (expr(e1) ++ binop(op) ++ expr(e2)).map(indentIn)
+  
+  def exprDot(e: Ast.Expr, id: Ast.Ident) =
+    lines("expr dot") ++
+    (expr(e) ++ ident(id)).map(indentIn)
 
   def formatString(s: String) = lines("format " ++ s)
 
@@ -204,17 +200,19 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
       case Ast.Binop.Sub => lines("binop -")
     }
 
-  private def exprArray(enl: List[AstNode[Ast.Expr]]) =
-    lines("expr array") ++
-    enl.map((en: AstNode[Ast.Expr]) => expr(en.getData)).flatten.map(indentIn)
-
-  private def exprBinop(e1: Ast.Expr, op: Ast.Binop, e2: Ast.Expr) =
-    lines("expr binop") ++
-    (expr(e1) ++ binop(op) ++ expr(e2)).map(indentIn)
-  
-  private def exprDot(e: Ast.Expr, id: Ast.Ident) =
-    lines("expr dot") ++
-    (expr(e) ++ ident(id)).map(indentIn)
+  private def expr(e: Ast.Expr): List[Line] = e match {
+    case Ast.ExprBinop(e1, op, e2) => exprBinop(e1.getData, op, e2.getData)
+    case Ast.ExprArray(enl) => exprArray(enl)
+    case Ast.ExprDot(en, id) => exprDot(en.getData, id)
+    case Ast.ExprIdent(id) => ident(id)
+    case Ast.ExprLiteralInt(s) => lines("literal int " ++ s)
+    case Ast.ExprLiteralFloat(s) => lines("literal float " ++ s)
+    case Ast.ExprLiteralString(s) => lines("literal string " ++ s)
+    case Ast.ExprLiteralBool(lb) => exprLiteralBool(lb)
+    case Ast.ExprParen(en) => exprParen(en.getData)
+    case Ast.ExprStruct(sml) => exprStruct(sml)
+    case Ast.ExprUnop(op, en) => exprUnop(op, en.getData)
+  }
 
   private def exprLiteralBool(lb: Ast.LiteralBool) = {
     val s = lb match {
@@ -235,6 +233,8 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
   private def exprUnop(op: Ast.Unop, e: Ast.Expr) =
     lines("expr unop") ++
     (unop(op) ++ expr(e)).map(indentIn)
+
+  private def fileString(s: String) = lines("file " ++ s)
 
   private def ident(s: String) = lines("ident " ++ s)
 

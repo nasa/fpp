@@ -3,8 +3,6 @@ package fpp.compiler.ast
 /** Visit an AST */
 trait AstVisitor[A, B] {
 
-  def componentMember(a: A, cm: Ast.ComponentMember): B
-
   def defAbsType(a: A, dat: Ast.DefAbsType): B
 
   def defArray(a: A, da: Ast.DefArray): B
@@ -27,7 +25,37 @@ trait AstVisitor[A, B] {
 
   def defTopology(a: A, dt: Ast.DefTopology): B
 
-  def expr(a: A, e: Ast.Expr): B
+  def exprArray(a: A, elts: List[AstNode[Ast.Expr]]): B
+
+  def exprBinop(a: A, e1: Ast.Expr, op: Ast.Binop, e2: Ast.Expr): B
+  
+  def exprDot(a: A, e: Ast.Expr, id: Ast.Ident): B
+    /*
+  private def exprDot(e: Ast.Expr, id: Ast.Ident) =
+    lines("expr dot") ++
+    (expr(e) ++ ident(id)).map(indentIn)
+
+  private def exprLiteralBool(lb: Ast.LiteralBool) = {
+    val s = lb match {
+      case Ast.LiteralBool.True => "true"
+      case Ast.LiteralBool.False => "false"
+    }
+    lines("literal bool " ++ s)
+  }
+
+  private def exprParen(e: Ast.Expr) =
+    lines("expr paren") ++
+    expr(e).map(indentIn)
+
+  private def exprStruct(sml: List[Ast.StructMember]) =
+    lines("expr struct") ++
+    sml.map(structMember).flatten.map(indentIn)
+
+  private def exprUnop(op: Ast.Unop, e: Ast.Expr) =
+    lines("expr unop") ++
+    (unop(op) ++ expr(e)).map(indentIn)
+    */
+
 
   def specCommand(a: A, sc: Ast.SpecCommand): B
 
@@ -47,15 +75,7 @@ trait AstVisitor[A, B] {
 
   def specTlmChannel(a: A, stc: Ast.SpecTlmChannel): B
 
-  def structMember(a: A, sm: Ast.StructMember): B
-
-  def structTypeMember(a: A, stm: Ast.StructTypeMember): B
-
   def transUnit(a: A, tu: Ast.TransUnit): B
-
-  def tuMember(a: A, tum: Ast.TUMember): B
-
-  def typeName(a: A, tn: Ast.TypeName): B
 
   final def matchComponentMemberNode(a: A, cmn: Ast.ComponentMember.Node): B =
     cmn match {
@@ -89,6 +109,6 @@ trait AstVisitor[A, B] {
       case Ast.ModuleMember.SpecLoc(node) => specLoc(a, node.getData)
     }
 
-  final def matchTuMemberNode(a: A, tumn: Ast.TUMember.Node):B  = matchModuleMemberNode(a, tumn)
+  final def matchTuMemberNode(a: A, tumn: Ast.TUMember.Node): B  = matchModuleMemberNode(a, tumn)
 
 }
