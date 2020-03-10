@@ -5,9 +5,22 @@ import fpp.compiler.ast._
 /** Write out an FPP AST */
 object AstWriter extends LineWriter {
 
-  def defAbsType(dat: Ast.DefAbsType) = lines("[ def abs type ]")
+  def defAbsType(dat: Ast.DefAbsType) = {
+    val Ast.DefAbsType(id) = dat
+    lines("def abs type") ++ ident(id).map(indentIn)
+  }
 
-  def defArray(da: Ast.DefArray) = lines("[ def array ]")
+  def defArray(da: Ast.DefArray) = {
+    val Ast.DefArray(id, en, tnn, eno, sno) = da
+    lines("def array") ++
+    List(
+      ident(id),
+      expr(en.getData),
+      typeName(tnn.getData),
+      linesOpt((en: AstNode[Ast.Expr]) => expr(en.getData), eno),
+      linesOpt((sn: AstNode[String]) => formatString(sn.getData), sno)
+    ).flatten.map(indentIn)
+  }
 
   def defComponent(dc: Ast.DefComponent) = lines("[ def component ]")
 
@@ -16,15 +29,39 @@ object AstWriter extends LineWriter {
   def defConstant(dc: Ast.DefConstant) = {
     val Ast.DefConstant(id, en) = dc
     lines("def constant") ++
-    ident(id).map(indentIn) ++
-    expr(en.getData).map(indentIn)
+    (ident(id) ++ expr(en.getData)).map(indentIn)
   }
 
-  def defEnum(de: Ast.DefEnum) = lines("[ def enum ]")
+  def defEnum(de: Ast.DefEnum) = {
+    val Ast.DefEnum(id, tnno, decnal) = de
+    lines("def enum") ++
+    List(
+      ident(id),
+      linesOpt((tnn: AstNode[Ast.TypeName]) => typeName(tnn.getData), tnno),
+      {
+        def f(sns: Ast.Annotated[AstNode[Ast.DefEnumConstant]]) = {
+          val (a1, node, a2) = sns
+          annotate (a1) (a2) (defEnumConstant(node.getData))
+        }
+        decnal.map(f).flatten
+      }
+    ).flatten.map(indentIn)
+  }
 
-  def defEnumConstant(dec: Ast.DefEnumConstant) = lines("[ def enum constant ]")
+  def defEnumConstant(dec: Ast.DefEnumConstant) = {
+    val Ast.DefEnumConstant(id, eno) = dec
+    lines("def enum constant") ++
+    List(
+      ident(id),
+      linesOpt((en: AstNode[Ast.Expr]) => expr(en.getData), eno)
+    ).flatten.map(indentIn)
+  }
 
-  def defModule(dm: Ast.DefModule) = lines("[ def module ]")
+  def defModule(dm: Ast.DefModule) = {
+    val Ast.DefModule(id, mml) = dm
+    lines("def module") ++
+    (ident(id) ++ mml.map(moduleMember).flatten).map(indentIn)
+  }
 
   def defPort(dm: Ast.DefPort) = lines("[ def port ]")
 
@@ -46,6 +83,28 @@ object AstWriter extends LineWriter {
     case Ast.ExprUnop(op, en) => exprUnop(op, en.getData)
   }
 
+  def formatString(s: String) = lines("format " ++ s)
+
+  def moduleMember(mm: Ast.ModuleMember) = {
+    val Ast.ModuleMember((a, mmn, a1)) = mm
+    def annotate1 = annotate (a) (a1) _
+    mmn match {
+      case Ast.ModuleMember.DefAbsType(node) => annotate1(defAbsType(node.getData))
+      case Ast.ModuleMember.DefArray(node) => annotate1(defArray(node.getData))
+      case Ast.ModuleMember.DefComponent(node) => annotate1(defComponent(node.getData))
+      case Ast.ModuleMember.DefComponentInstance(node) => annotate1(defComponentInstance(node.getData))
+      case Ast.ModuleMember.DefConstant(node) => annotate1(defConstant(node.getData))
+      case Ast.ModuleMember.DefEnum(node) => annotate1(defEnum(node.getData))
+      case Ast.ModuleMember.DefModule(node) => annotate1(defModule(node.getData))
+      case Ast.ModuleMember.DefPort(node) => annotate1(defPort(node.getData))
+      case Ast.ModuleMember.DefStruct(node) => annotate1(defStruct(node.getData))
+      case Ast.ModuleMember.DefTopology(node) => annotate1(defTopology(node.getData))
+      case Ast.ModuleMember.SpecInclude(node) => annotate1(specInclude(node.getData))
+      case Ast.ModuleMember.SpecInit(node) => annotate1(specInit(node.getData))
+      case Ast.ModuleMember.SpecLoc(node) => annotate1(specLoc(node.getData))
+    }
+  }
+
   def specInclude(sl: Ast.SpecInclude) = lines("[ spec include ]")
 
   def specInit(sl: Ast.SpecInit) = lines("[ spec init ]")
@@ -59,35 +118,24 @@ object AstWriter extends LineWriter {
     members.map(tuMember).flatten
   }
 
-  def tuMember(tum: Ast.TUMember) = {
-    val Ast.TUMember((a, tumn, a1)) = tum
-    def annotate1 = annotate (a) (a1) _
-    tumn match {
-      case Ast.TUMember.DefAbsType(node) => annotate1(defAbsType(node.getData))
-      case Ast.TUMember.DefArray(node) => annotate1(defArray(node.getData))
-      case Ast.TUMember.DefComponent(node) => annotate1(defComponent(node.getData))
-      case Ast.TUMember.DefComponentInstance(node) => annotate1(defComponentInstance(node.getData))
-      case Ast.TUMember.DefConstant(node) => annotate1(defConstant(node.getData))
-      case Ast.TUMember.DefEnum(node) => annotate1(defEnum(node.getData))
-      case Ast.TUMember.DefModule(node) => annotate1(defModule(node.getData))
-      case Ast.TUMember.DefPort(node) => annotate1(defPort(node.getData))
-      case Ast.TUMember.DefStruct(node) => annotate1(defStruct(node.getData))
-      case Ast.TUMember.DefTopology(node) => annotate1(defTopology(node.getData))
-      case Ast.TUMember.SpecInclude(node) => annotate1(specInclude(node.getData))
-      case Ast.TUMember.SpecInit(node) => annotate1(specInit(node.getData))
-      case Ast.TUMember.SpecLoc(node) => annotate1(specLoc(node.getData))
+  def tuMember(tum: Ast.TUMember) = moduleMember(tum)
+
+  def typeName(tn: Ast.TypeName) =
+    tn match {
+      case Ast.TypeNameBool => lines("type name bool")
+      case Ast.TypeNameFloat(Ast.F32) => lines("type name F32")
+      case Ast.TypeNameFloat(Ast.F64) => lines("type name F64")
+      case Ast.TypeNameInt(Ast.I8) => lines("type name I8")
+      case Ast.TypeNameInt(Ast.I16) => lines("type name I16")
+      case Ast.TypeNameInt(Ast.I32) => lines("type name I32")
+      case Ast.TypeNameInt(Ast.I64) => lines("type name I64")
+      case Ast.TypeNameInt(Ast.U8) => lines("type name U8")
+      case Ast.TypeNameInt(Ast.U16) => lines("type name U16")
+      case Ast.TypeNameInt(Ast.U32) => lines("type name U32")
+      case Ast.TypeNameInt(Ast.U64) => lines("type name U64")
+      case Ast.TypeNameQualIdent(qidn) => lines("type name " ++ qualIdent(qidn.getData))
+      case Ast.TypeNameString => lines("type name string")
     }
-  }
-
-  def typeName(tn: Ast.TypeName) = lines("[ type name ]")
-
-  private def annotate (pre: List[String]) (post: List[String]) (lines: List[Line]) = {
-    def preLine(s: String) = line("@ " ++ s)
-    val pre1 = pre.map(preLine)
-    def postLine(s: String) = line("@< " ++ s)
-    val post1 = post.map(postLine)
-    pre1 ++ lines ++ post1
-  }
 
   private def binop(op: Ast.Binop) =
     op match {
@@ -103,14 +151,11 @@ object AstWriter extends LineWriter {
 
   private def exprBinop(e1: Ast.Expr, op: Ast.Binop, e2: Ast.Expr) =
     lines("expr binop") ++
-    expr(e1).map(indentIn) ++
-    binop(op).map(indentIn) ++
-    expr(e2).map(indentIn)
+    (expr(e1) ++ binop(op) ++ expr(e2)).map(indentIn)
   
   private def exprDot(e: Ast.Expr, id: Ast.Ident) =
     lines("expr dot") ++
-    expr(e).map(indentIn) ++
-    ident(id).map(indentIn)
+    (expr(e) ++ ident(id)).map(indentIn)
 
   private def exprLiteralBool(lb: Ast.LiteralBool) =
     lb match {
@@ -128,8 +173,7 @@ object AstWriter extends LineWriter {
 
   private def exprUnop(op: Ast.Unop, e: Ast.Expr) =
     lines("expr unop") ++
-    unop(op).map(indentIn) ++
-    expr(e).map(indentIn)
+    (unop(op) ++ expr(e)).map(indentIn)
 
   private def ident(s: String) = lines("ident " ++ s)
 
@@ -140,6 +184,27 @@ object AstWriter extends LineWriter {
   private def line(s: String) = Line(string = s)
 
   private def lines(s: String) = List(line(s))
+
+  private def linesOpt[T](f: T => List[Line], o: Option[T]) =
+    o match {
+      case Some(x) => f(x)
+      case None => Nil
+    }
+
+  private def qualIdent(qid: Ast.QualIdent): String =
+    qid match {
+      case Nil => ""
+      case id :: Nil => id
+      case (id :: qid1) => id ++ "." ++ qualIdent(qid1)
+    }
+    
+  private def annotate (pre: List[String]) (post: List[String]) (lines: List[Line]) = {
+    def preLine(s: String) = line("@ " ++ s)
+    val pre1 = pre.map(preLine)
+    def postLine(s: String) = line("@< " ++ s)
+    val post1 = post.map(postLine)
+    pre1 ++ lines ++ post1
+  }
 
   private def unop(op: Ast.Unop) =
     op match {
@@ -165,27 +230,6 @@ object AstWriter extends LineWriter {
      | ComponentDefStruct node => annotate (defStruct (data node))
   end
 
-  and defAbsType (DefAbsType id) = 
-  let
-    val l1 = lines "def abs type"
-    val l2 = List.map indentIn (ident id)
-  in
-    l1 @ l2
-  end
-
-  and defArray (DefArray (id, en, tnn, eno)) =
-  let
-    val l1 = lines "def array"
-    val l2 = List.map indentIn (ident id)
-    val l3 = List.map indentIn (expr (data en))
-    val l4 = List.map indentIn (typeName (data tnn))
-    val l5 = case eno of
-         SOME en => List.map indentIn (expr (data en))
-       | NONE => []
-  in
-    l1 @ l2 @ l3 @ l4 @ l5
-  end
-
   and defComponent (DefComponent (ck, id, cml)) =
   let
     val l1 = lines "def component"
@@ -195,41 +239,6 @@ object AstWriter extends LineWriter {
     val l4 = List.map indentIn l4
   in
     l1 @ l2 @ l3 @ l4
-  end
-
-  and defEnum (DefEnum (id, tnno, enal)) = 
-  let
-    val l1 = lines "def enum"
-    val l2 = List.map indentIn (ident id)
-    val l3 = case tnno of
-                  SOME tnn => typeName (data tnn)
-                | NONE => []
-    fun f (a, x, a') = annotate a a' (defEnumConstant (data x))
-    val l4 = List.concat (List.map f enal)
-    val l4 = List.map indentIn l4
-  in
-    l1 @ l2 @ l3 @ l4
-  end
-
-  and defEnumConstant (DefEnumConstant (id, eno)) =
-  let
-    val l1 = lines "def enum constant"
-    val l2 = List.map indentIn (ident id)
-    val l3 = case eno of
-                  SOME en => List.map indentIn (expr (data (en)))
-                | NONE => []
-  in
-    l1 @ l2 @ l3
-  end
-
-  and defModule (DefModule (id, tuml)) = 
-  let
-    val l1 = lines "def module"
-    val l2 = List.map indentIn (ident id)
-    val l3 = tuMemberList tuml
-    val l3 = List.map indentIn l3
-  in
-    l1 @ l2 @ l3
   end
 
   and defPort (DefPort (id, fpnal, tnno)) =
@@ -327,10 +336,6 @@ object AstWriter extends LineWriter {
   and formalParamKind (FormalParamRef) = "kind ref"
     | formalParamKind (FormalParamValue) = "kind value"
 
-  and qualIdent [] = ""
-    | qualIdent (id :: []) = id
-    | qualIdent (id :: ids) = id^"."^(qualIdent ids)
-
   and queueFull Assert = "queue full assert"
     | queueFull Block = "queue full block"
     | queueFull Drop = "queue full drop"
@@ -369,22 +374,6 @@ object AstWriter extends LineWriter {
   in
     joinLists id " : " tn
   end
-
-  and transUnit (TransUnit tuml) = tuMemberList tuml
-
-  and typeName TypeNameBool = lines "type name bool"
-    | typeName (TypeNameFloat F32) = lines "type name F32"
-    | typeName (TypeNameFloat F64) = lines "type name F64"
-    | typeName (TypeNameInt I8) = lines "type name I8"
-    | typeName (TypeNameInt I16) = lines "type name I16"
-    | typeName (TypeNameInt I32) = lines "type name I32"
-    | typeName (TypeNameInt I64) = lines "type name I64"
-    | typeName (TypeNameInt U8) = lines "type name U8"
-    | typeName (TypeNameInt U16) = lines "type name U16"
-    | typeName (TypeNameInt U32) = lines "type name U32"
-    | typeName (TypeNameInt U64) = lines "type name U64"
-    | typeName (TypeNameQualIdent il) = lines ("type name "^(qualIdent il))
-    | typeName (TypeNameString) = lines "type name string"
 
   */
 
