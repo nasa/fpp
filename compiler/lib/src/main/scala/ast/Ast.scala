@@ -52,7 +52,7 @@ object Ast {
   }
 
   /** Abstract type definition */
-  final case class DefAbsType(id: Ident)
+  final case class DefAbsType(name: Ident)
 
   /* Array definition */
   final case class DefArray(
@@ -330,12 +330,12 @@ object Ast {
   object SpecLoc {
     /** Location specifier kind */
     sealed trait Kind
-    final case object Constant extends Kind
-    final case object Type extends Kind
-    final case object Port extends Kind
     final case object Component extends Kind
     final case object ComponentInstance extends Kind
+    final case object Constant extends Kind
+    final case object Port extends Kind
     final case object Topology extends Kind
+    final case object Type extends Kind
   }
 
   /** Parameter specifier */
