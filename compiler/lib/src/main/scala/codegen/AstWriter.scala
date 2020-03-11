@@ -193,22 +193,22 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
 
   override def typeNameFloat(tnf: Ast.TypeNameFloat) = {
     val s = tnf.name match {
-      case Ast.F32 => "F32"
-      case Ast.F64 => "F64"
+      case Ast.F32() => "F32()"
+      case Ast.F64() => "F64()"
     }
     lines(s)
   }
 
   override def typeNameInt(tni: Ast.TypeNameInt) = {
     val s = tni.name match {
-      case Ast.I8 => "I8"
-      case Ast.I16 => "I16"
-      case Ast.I32 => "I32"
-      case Ast.I64 => "I64"
-      case Ast.U8 => "U8"
-      case Ast.U16 => "U16"
-      case Ast.U32 => "U32"
-      case Ast.U64 => "U64"
+      case Ast.I8() => "I8()"
+      case Ast.I16() => "I16()"
+      case Ast.I32() => "I32()"
+      case Ast.I64() => "I64()"
+      case Ast.U8() => "U8()"
+      case Ast.U16() => "U16()"
+      case Ast.U32() => "U32()"
+      case Ast.U64() => "U64()"
     }
     lines(s)
   }

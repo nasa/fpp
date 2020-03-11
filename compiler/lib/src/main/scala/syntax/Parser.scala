@@ -130,10 +130,10 @@ object Parser extends Parsers {
         val op ~ e2 = op_e2
         val binop =
           op match {
-            case Token.MINUS => AstNode.create(Ast.ExprBinop(e1, Ast.Binop.Sub, e2))
-            case Token.PLUS => AstNode.create(Ast.ExprBinop(e1, Ast.Binop.Add, e2))
-            case Token.SLASH => AstNode.create(Ast.ExprBinop(e1, Ast.Binop.Div, e2))
-            case Token.STAR => AstNode.create(Ast.ExprBinop(e1, Ast.Binop.Mul, e2))
+            case Token.MINUS() => AstNode.create(Ast.ExprBinop(e1, Ast.Binop.Sub, e2))
+            case Token.PLUS() => AstNode.create(Ast.ExprBinop(e1, Ast.Binop.Add, e2))
+            case Token.SLASH() => AstNode.create(Ast.ExprBinop(e1, Ast.Binop.Div, e2))
+            case Token.STAR() => AstNode.create(Ast.ExprBinop(e1, Ast.Binop.Mul, e2))
             case _ => throw new InternalError(s"invalid binary operator ${op}")
         }
         val loc = Locations.get(e.getId)
@@ -520,19 +520,19 @@ object Parser extends Parsers {
 
   def typeName: Parser[Ast.TypeName] = {
     def typeNameFloat =
-      accept("F32", { case Token.F32 => Ast.TypeNameFloat(Ast.F32) }) |
-      accept("F64", { case Token.F64 => Ast.TypeNameFloat(Ast.F64) })
+      accept("F32()", { case Token.F32() => Ast.TypeNameFloat(Ast.F32()) }) |
+      accept("F64()", { case Token.F64() => Ast.TypeNameFloat(Ast.F64()) })
     def typeNameInt =
-      accept("I8", { case Token.I8 => Ast.TypeNameInt(Ast.I8) }) |
-      accept("I16", { case Token.I16 => Ast.TypeNameInt(Ast.I16) }) |
-      accept("I32", { case Token.I32 => Ast.TypeNameInt(Ast.I32) }) |
-      accept("I64", { case Token.I64 => Ast.TypeNameInt(Ast.I64) }) |
-      accept("U8", { case Token.U8 => Ast.TypeNameInt(Ast.U8) }) |
-      accept("U16", { case Token.U16 => Ast.TypeNameInt(Ast.U16) }) |
-      accept("U32", { case Token.U32 => Ast.TypeNameInt(Ast.U32) }) |
-      accept("U64", { case Token.U64 => Ast.TypeNameInt(Ast.U64) })
-    accept("bool", { case Token.BOOL => Ast.TypeNameBool }) |
-    accept("string", { case Token.STRING => Ast.TypeNameString }) |
+      accept("I8()", { case Token.I8() => Ast.TypeNameInt(Ast.I8()) }) |
+      accept("I16()", { case Token.I16() => Ast.TypeNameInt(Ast.I16()) }) |
+      accept("I32()", { case Token.I32() => Ast.TypeNameInt(Ast.I32()) }) |
+      accept("I64()", { case Token.I64() => Ast.TypeNameInt(Ast.I64()) }) |
+      accept("U8()", { case Token.U8() => Ast.TypeNameInt(Ast.U8()) }) |
+      accept("U16()", { case Token.U16() => Ast.TypeNameInt(Ast.U16()) }) |
+      accept("U32()", { case Token.U32() => Ast.TypeNameInt(Ast.U32()) }) |
+      accept("U64()", { case Token.U64() => Ast.TypeNameInt(Ast.U64()) })
+    accept("bool", { case Token.BOOL() => Ast.TypeNameBool }) |
+    accept("string", { case Token.STRING() => Ast.TypeNameString }) |
     typeNameFloat |
     typeNameInt |
     qualIdent ^^ { case qid => Ast.TypeNameQualIdent(qid) } |
@@ -540,7 +540,7 @@ object Parser extends Parsers {
   }
 
   def visibility: Parser[Ast.Visibility] = {
-    opt(accept("private", { case Token.PRIVATE => () })) ^^ {
+    opt(accept("private", { case Token.PRIVATE() => () })) ^^ {
       case Some(_) => Ast.Visibility.Private
       case None => Ast.Visibility.Public
     }
@@ -564,11 +564,11 @@ object Parser extends Parsers {
 
   override type Elem = Token
 
-  private def active = accept("active", { case t @ Token.ACTIVE => t })
+  private def active = accept("active", { case t @ Token.ACTIVE() => t })
 
-  private def activity = accept("activity", { case t @ Token.ACTIVITY => t })
+  private def activity = accept("activity", { case t @ Token.ACTIVITY() => t })
 
-  private def always = accept("always", { case t @ Token.ALWAYS => t })
+  private def always = accept("always", { case t @ Token.ALWAYS() => t })
 
   private def annotatedElementSequence[E, S, T](
     elt: Parser[E],
@@ -596,83 +596,83 @@ object Parser extends Parsers {
     (rep(eol) ~> elts) ^^ { elts => elts.map(constructor) }
   }
 
-  private def array = accept("array", { case t @ Token.ARRAY => t })
+  private def array = accept("array", { case t @ Token.ARRAY() => t })
 
-  private def assert = accept("assert", { case t @ Token.ASSERT => t })
+  private def assert = accept("assert", { case t @ Token.ASSERT() => t })
 
-  private def async = accept("async", { case t @ Token.ASYNC => t })
+  private def async = accept("async", { case t @ Token.ASYNC() => t })
 
-  private def at = accept("at", { case t @ Token.AT => t })
+  private def at = accept("at", { case t @ Token.AT() => t })
 
-  private def base = accept("base", { case t @ Token.BASE => t })
+  private def base = accept("base", { case t @ Token.BASE() => t })
 
-  private def block = accept("block", { case t @ Token.BLOCK => t })
+  private def block = accept("block", { case t @ Token.BLOCK() => t })
 
-  private def change = accept("change", { case t @ Token.CHANGE => t })
+  private def change = accept("change", { case t @ Token.CHANGE() => t })
 
-  private def colon = accept(":", { case t @ Token.COLON => t })
+  private def colon = accept(":", { case t @ Token.COLON() => t })
 
-  private def comma = accept(",", { case t @ Token.COMMA => t })
+  private def comma = accept(",", { case t @ Token.COMMA() => t })
 
-  private def command = accept("command", { case t @ Token.COMMAND => t })
+  private def command = accept("command", { case t @ Token.COMMAND() => t })
 
-  private def component = accept("component", { case t @ Token.COMPONENT => t })
+  private def component = accept("component", { case t @ Token.COMPONENT() => t })
 
-  private def connections = accept("connections", { case t @ Token.CONNECTIONS => t })
+  private def connections = accept("connections", { case t @ Token.CONNECTIONS() => t })
 
-  private def constant = accept("constant", { case t @ Token.CONSTANT => t })
+  private def constant = accept("constant", { case t @ Token.CONSTANT() => t })
 
-  private def default = accept("default", { case t @ Token.DEFAULT => t })
+  private def default = accept("default", { case t @ Token.DEFAULT() => t })
 
-  private def diagnostic = accept("diagnostic", { case t @ Token.DIAGNOSTIC => t })
+  private def diagnostic = accept("diagnostic", { case t @ Token.DIAGNOSTIC() => t })
   
-  private def event = accept("event", { case t @ Token.EVENT => t })
+  private def event = accept("event", { case t @ Token.EVENT() => t })
 
-  private def dot = accept(".", { case t @ Token.DOT => t })
+  private def dot = accept(".", { case t @ Token.DOT() => t })
 
-  private def drop = accept("drop", { case t @ Token.DROP => t })
+  private def drop = accept("drop", { case t @ Token.DROP() => t })
 
   private def elementSequence[E,S](elt: Parser[E], sep: Parser[S]): Parser[List[E]] =
     repsep(elt, sep | eol) <~ opt(sep)
 
-  private def enum = accept("enum", { case t @ Token.ENUM => t })
+  private def enum = accept("enum", { case t @ Token.ENUM() => t })
 
-  private def eol = accept("end of line", { case t @ Token.EOL => t })
+  private def eol = accept("end of line", { case t @ Token.EOL() => t })
 
-  private def equals = accept("=", { case t @ Token.EQUALS => t })
+  private def equals = accept("=", { case t @ Token.EQUALS() => t })
 
-  private def falseToken = accept("false", { case t @ Token.FALSE => t })
+  private def falseToken = accept("false", { case t @ Token.FALSE() => t })
 
-  private def fatal = accept("fatal", { case t @ Token.FATAL => t })
+  private def fatal = accept("fatal", { case t @ Token.FATAL() => t })
 
-  private def format = accept("format", { case t @ Token.FORMAT => t })
+  private def format = accept("format", { case t @ Token.FORMAT() => t })
 
-  private def get = accept("get", { case t @ Token.GET => t })
+  private def get = accept("get", { case t @ Token.GET() => t })
 
-  private def guarded = accept("guarded", { case t @ Token.GUARDED => t })
+  private def guarded = accept("guarded", { case t @ Token.GUARDED() => t })
 
-  private def high = accept("high", { case t @ Token.HIGH => t })
+  private def high = accept("high", { case t @ Token.HIGH() => t })
 
-  private def id = accept("id", { case t @ Token.ID => t })
+  private def id = accept("id", { case t @ Token.ID() => t })
   
   private def ident: Parser[Ast.Ident] =
     accept("identifier", { case Token.IDENTIFIER(s) => s })
 
-  private def importToken = accept("import", { case t @ Token.IMPORT => t })
+  private def importToken = accept("import", { case t @ Token.IMPORT() => t })
 
-  private def include = accept("include", { case t @ Token.INCLUDE => t })
+  private def include = accept("include", { case t @ Token.INCLUDE() => t })
   
-  private def init = accept("init", { case t @ Token.INIT => t })
+  private def init = accept("init", { case t @ Token.INIT() => t })
 
-  private def input = accept("input", { case t @ Token.INPUT => t })
+  private def input = accept("input", { case t @ Token.INPUT() => t })
 
-  private def instance = accept("instance", { case t @ Token.INSTANCE => t })
+  private def instance = accept("instance", { case t @ Token.INSTANCE() => t })
 
-  private def internal = accept("internal", { case t @ Token.INTERNAL => t })
+  private def internal = accept("internal", { case t @ Token.INTERNAL() => t })
 
-  private def lbrace = accept("{", { case t @ Token.LBRACE => t })
+  private def lbrace = accept("{", { case t @ Token.LBRACE() => t })
 
-  private def lbracket = accept("[", { case t @ Token.LBRACKET => t })
+  private def lbracket = accept("[", { case t @ Token.LBRACKET() => t })
 
   private def literalFloat: Parser[String] =
     accept("floating-point literal", { case Token.LITERAL_FLOAT(s) => s })
@@ -683,35 +683,35 @@ object Parser extends Parsers {
   private def literalString: Parser[String] =
     accept("string literal", { case Token.LITERAL_STRING(s) => s })
 
-  private def locate = accept("locate", { case t @ Token.LOCATE => t })
+  private def locate = accept("locate", { case t @ Token.LOCATE() => t })
 
-  private def low = accept("low", { case t @ Token.LOW => t })
+  private def low = accept("low", { case t @ Token.LOW() => t })
 
-  private def lparen = accept("(", { case t @ Token.LPAREN => t })
+  private def lparen = accept("(", { case t @ Token.LPAREN() => t })
 
-  private def minus = accept("-", { case t @ Token.MINUS => t })
+  private def minus = accept("-", { case t @ Token.MINUS() => t })
 
-  private def module = accept("module", { case t @ Token.MODULE => t })
+  private def module = accept("module", { case t @ Token.MODULE() => t })
 
-  private def on = accept("on", { case t @ Token.ON => t })
+  private def on = accept("on", { case t @ Token.ON() => t })
 
-  private def opcode = accept("opcode", { case t @ Token.OPCODE => t })
+  private def opcode = accept("opcode", { case t @ Token.OPCODE() => t })
 
-  private def orange = accept("orange", { case t @ Token.ORANGE => t })
+  private def orange = accept("orange", { case t @ Token.ORANGE() => t })
 
-  private def output = accept("output", { case t @ Token.OUTPUT => t })
+  private def output = accept("output", { case t @ Token.OUTPUT() => t })
 
-  private def param = accept("param", { case t @ Token.PARAM => t })
+  private def param = accept("param", { case t @ Token.PARAM() => t })
 
-  private def passive = accept("passive", { case t @ Token.PASSIVE => t })
+  private def passive = accept("passive", { case t @ Token.PASSIVE() => t })
 
-  private def pattern = accept("pattern", { case t @ Token.PATTERN => t })
+  private def pattern = accept("pattern", { case t @ Token.PATTERN() => t })
 
-  private def phase = accept("phase", { case t @ Token.PHASE => t })
+  private def phase = accept("phase", { case t @ Token.PHASE() => t })
 
-  private def plus = accept("+", { case t @ Token.PLUS => t })
+  private def plus = accept("+", { case t @ Token.PLUS() => t })
 
-  private def port = accept("port", { case t @ Token.PORT => t })
+  private def port = accept("port", { case t @ Token.PORT() => t })
 
   private def postAnnotation: Parser[String] =
     accept("post annotation", { case Token.POST_ANNOTATION(s) => s })
@@ -719,73 +719,73 @@ object Parser extends Parsers {
   private def preAnnotation: Parser[String] =
     accept("pre annotation", { case Token.PRE_ANNOTATION(s) => s })
 
-  private def priority = accept("priority", { case t @ Token.PRIORITY => t })
+  private def priority = accept("priority", { case t @ Token.PRIORITY() => t })
 
-  private def queue = accept("queue", { case t @ Token.QUEUE => t })
+  private def queue = accept("queue", { case t @ Token.QUEUE() => t })
 
-  private def queued = accept("queued", { case t @ Token.QUEUED => t })
+  private def queued = accept("queued", { case t @ Token.QUEUED() => t })
   
-  private def rarrow = accept("->", { case t @ Token.RARROW => t })
+  private def rarrow = accept("->", { case t @ Token.RARROW() => t })
 
-  private def rbrace = accept("}", { case t @ Token.RBRACE => t })
+  private def rbrace = accept("}", { case t @ Token.RBRACE() => t })
 
-  private def rbracket = accept("]", { case t @ Token.RBRACKET => t })
+  private def rbracket = accept("]", { case t @ Token.RBRACKET() => t })
 
-  private def recv = accept("recv", { case t @ Token.RECV => t })
+  private def recv = accept("recv", { case t @ Token.RECV() => t })
 
-  private def red = accept("red", { case t @ Token.RED => t })
+  private def red = accept("red", { case t @ Token.RED() => t })
 
-  private def ref = accept("ref", { case t @ Token.REF => t })
+  private def ref = accept("ref", { case t @ Token.REF() => t })
 
-  private def reg = accept("reg", { case t @ Token.REG => t })
+  private def reg = accept("reg", { case t @ Token.REG() => t })
 
-  private def resp = accept("resp", { case t @ Token.RESP => t })
+  private def resp = accept("resp", { case t @ Token.RESP() => t })
 
-  private def rparen = accept(")", { case t @ Token.RPAREN => t })
+  private def rparen = accept(")", { case t @ Token.RPAREN() => t })
 
-  private def save = accept("save", { case t @ Token.SAVE => t })
+  private def save = accept("save", { case t @ Token.SAVE() => t })
 
-  private def semi = accept(";", { case t @ Token.SEMI => t })
+  private def semi = accept(";", { case t @ Token.SEMI() => t })
 
-  private def serial = accept("serial", { case t @ Token.SERIAL => t })
+  private def serial = accept("serial", { case t @ Token.SERIAL() => t })
 
-  private def set = accept("set", { case t @ Token.SET => t })
+  private def set = accept("set", { case t @ Token.SET() => t })
 
-  private def severity = accept("severity", { case t @ Token.SEVERITY => t })
+  private def severity = accept("severity", { case t @ Token.SEVERITY() => t })
 
-  private def size = accept("size", { case t @ Token.SIZE => t })
+  private def size = accept("size", { case t @ Token.SIZE() => t })
 
-  private def slash = accept("/", { case t @ Token.SLASH => t })
+  private def slash = accept("/", { case t @ Token.SLASH() => t })
 
-  private def stack = accept("stack", { case t @ Token.STACK => t })
+  private def stack = accept("stack", { case t @ Token.STACK() => t })
 
-  private def star = accept("*", { case t @ Token.STAR => t  })
+  private def star = accept("*", { case t @ Token.STAR() => t  })
 
-  private def struct = accept("struct", { case t @ Token.STRUCT => t })
+  private def struct = accept("struct", { case t @ Token.STRUCT() => t })
 
-  private def sync = accept("sync", { case t @ Token.SYNC => t })
+  private def sync = accept("sync", { case t @ Token.SYNC() => t })
 
-  private def telemetry = accept("telemetry", { case t @ Token.TELEMETRY => t })
+  private def telemetry = accept("telemetry", { case t @ Token.TELEMETRY() => t })
 
-  private def text = accept("text", { case t @ Token.TEXT => t })
+  private def text = accept("text", { case t @ Token.TEXT() => t })
 
-  private def throttle = accept("throttle", { case t @ Token.THROTTLE => t })
+  private def throttle = accept("throttle", { case t @ Token.THROTTLE() => t })
 
-  private def time = accept("time", { case t @ Token.TIME => t })
+  private def time = accept("time", { case t @ Token.TIME() => t })
 
-  private def topology = accept("topology", { case t @ Token.TOPOLOGY => t })
+  private def topology = accept("topology", { case t @ Token.TOPOLOGY() => t })
 
-  private def trueToken = accept("true", { case t @ Token.TRUE => t })
+  private def trueToken = accept("true", { case t @ Token.TRUE() => t })
 
-  private def typeToken = accept("type", { case t @ Token.TYPE => t })
+  private def typeToken = accept("type", { case t @ Token.TYPE() => t })
 
-  private def unused = accept("unused", { case t @ Token.UNUSED => t })
+  private def unused = accept("unused", { case t @ Token.UNUSED() => t })
 
-  private def update = accept("update", { case t @ Token.UPDATE => t })
+  private def update = accept("update", { case t @ Token.UPDATE() => t })
 
-  private def warning = accept("warning", { case t @ Token.WARNING => t })
+  private def warning = accept("warning", { case t @ Token.WARNING() => t })
 
-  private def yellow = accept("yellow", { case t @ Token.YELLOW => t })
+  private def yellow = accept("yellow", { case t @ Token.YELLOW() => t })
 
   /** The first error seen */
   private var error: Option[Error] = None

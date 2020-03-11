@@ -398,19 +398,19 @@ object Ast {
 
   /** Float type */
   sealed trait TypeFloat
-  final case object F32 extends TypeFloat
-  final case object F64 extends TypeFloat
+  final case class F32() extends TypeFloat
+  final case class F64() extends TypeFloat
 
   /** Int type */
   sealed trait TypeInt
-  final case object I8 extends TypeInt
-  final case object I16 extends TypeInt
-  final case object I32 extends TypeInt
-  final case object I64 extends TypeInt
-  final case object U8 extends TypeInt
-  final case object U16 extends TypeInt
-  final case object U32 extends TypeInt
-  final case object U64 extends TypeInt
+  final case class I8() extends TypeInt
+  final case class I16() extends TypeInt
+  final case class I32() extends TypeInt
+  final case class I64() extends TypeInt
+  final case class U8() extends TypeInt
+  final case class U16() extends TypeInt
+  final case class U32() extends TypeInt
+  final case class U64() extends TypeInt
 
   /** Type name */
   sealed trait TypeName

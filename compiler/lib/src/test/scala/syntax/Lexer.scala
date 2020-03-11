@@ -89,7 +89,7 @@ class LexerSpec extends AnyWordSpec {
     "lex \"\\n\" to one EOL" in {
       val s = "\n"
       Lexer.parse(Lexer.tokens, s) match {
-        case Lexer.Success(Token.EOL :: List(), _) => ()
+        case Lexer.Success(Token.EOL() :: List(), _) => ()
         case _ => assert(false)
       }
     }
