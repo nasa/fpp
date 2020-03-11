@@ -529,7 +529,7 @@ object Parser extends Parsers {
     accept("string", { case Token.STRING => Ast.TypeNameString }) |
     typeNameFloat |
     typeNameInt |
-    node(qualIdent) ^^ { case qidn => Ast.TypeNameQualIdent(qidn) } |
+    qualIdent ^^ { case qid => Ast.TypeNameQualIdent(qid) } |
     failure("type name expected")
   }
 

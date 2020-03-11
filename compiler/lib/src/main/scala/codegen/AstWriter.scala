@@ -5,16 +5,11 @@ import fpp.compiler.ast._
 /** Write out an FPP AST */
 object AstWriter extends AstUnitVisitor[List[Line]] {
 
-  def componentMember(cm: Ast.ComponentMember) = {
-    val (a, cmn, a1) = cm.node
-    val l = matchComponentMemberNode(cmn)
-    annotate (a) (a1) (l)
-  }
+  override def defAbsTypeNode(node: AstNode[Ast.DefAbsType]) =
+    lines("def abs type") ++ ident(node.getData.name).map(indentIn)
 
-  def defAbsType(dat: Ast.DefAbsType) =
-    lines("def abs type") ++ ident(dat.name).map(indentIn)
-
-  def defArray(da: Ast.DefArray) =
+  override def defArrayNode(node: AstNode[Ast.DefArray]) = {
+    val da = node.getData
     lines("def array") ++
     List(
       ident(da.name),
@@ -23,10 +18,11 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
       linesOpt(applyToData(expr), da.default),
       linesOpt(applyToData(formatString), da.format)
     ).flatten.map(indentIn)
+  }
 
-  def defComponent(dc: Ast.DefComponent) = {
-    val Ast.DefComponent(ck, id, cml) = dc
-    val kind = ck match {
+  override def defComponentNode(node: AstNode[Ast.DefComponent]) = {
+    val dc = node.getData
+    val kind = dc.kind match {
       case Ast.ComponentKind.Active => "active"
       case Ast.ComponentKind.Passive => "passive"
       case Ast.ComponentKind.Queued => "queued"
@@ -34,18 +30,19 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
     lines("def component") ++
     (
       lines("kind " ++ kind) ++ 
-      ident(id) ++ 
-      cml.map(componentMember).flatten
+      ident(dc.name) ++ 
+      dc.members.map(componentMember).flatten
     ).map(indentIn)
   }
 
-  def defComponentInstance(dc: Ast.DefComponentInstance) = todo
-  
-  def defConstant(dc: Ast.DefConstant) =
+  override def defConstantNode(node: AstNode[Ast.DefConstant]) = {
+    val dc = node.getData
     lines("def constant") ++
     (ident(dc.name) ++ expr(dc.value.getData)).map(indentIn)
+  }
 
-  def defEnum(de: Ast.DefEnum) =
+  override def defEnumNode(node: AstNode[Ast.DefEnum]) = {
+    val de = node.getData
     lines("def enum") ++
     List(
       ident(de.name),
@@ -58,37 +55,26 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
         de.constants.map(f).flatten
       }
     ).flatten.map(indentIn)
+  }
 
-  def defEnumConstant(dec: Ast.DefEnumConstant) =
-    lines("def enum constant") ++
-    List(
-      ident(dec.name),
-      linesOpt(applyToData(expr), dec.value)
-    ).flatten.map(indentIn)
-
-  def defModule(dm: Ast.DefModule) =
+  override def defModuleNode(node: AstNode[Ast.DefModule]) = {
+    val dm = node.getData
     lines("def module") ++
     (ident(dm.name) ++ dm.members.map(moduleMember).flatten).map(indentIn)
+  }
 
-  def defPort(dp: Ast.DefPort) =
-    todo
-  /*
-  and defPort (DefPort (id, fpnal, tnno)) =
-  let
-    val l1 = lines "def port"
-    val l2 = List.map indentIn (ident id)
-    fun f (a, fpn, a') = annotate a a' (formalParam (data fpn))
-    val l3 = List.concat (List.map f fpnal)
-    val l3 = List.map indentIn l3
-    val l4 = case tnno of
-                  SOME tnn => List.map indentIn (typeName (data tnn))
-                | NONE => []
-  in
-    l1 @ l2 @ l3 @ l4
-  end
-  */
+  override def defPortNode(node: AstNode[Ast.DefPort]) = {
+    val dp = node.getData
+    lines("def port") ++
+    List(
+      ident(dp.name),
+      formalParamList(dp.params),
+      linesOpt(applyToData(typeName), dp.returnType)
+    ).flatten.map(indentIn)
+  }
 
-  def defStruct(ds: Ast.DefStruct) = {
+  override def defStructNode(node: AstNode[Ast.DefStruct]) = {
+    val ds = node.getData
     def f(ana: Ast.Annotated[AstNode[Ast.StructTypeMember]]) = {
       val (a1, node, a2) = ana
       annotate (a1) (a2) (structTypeMember(node.getData))
@@ -98,42 +84,58 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
     (
       ds.members.map(f).flatten ++ 
       linesOpt(applyToData(expr), ds.default)
-    ).map(indentIn) }
+    ).map(indentIn) 
+  }
 
-  def defTopology(ds: Ast.DefTopology) = todo
+  override def default = lines("TODO")
 
-  def exprArray(enl: List[AstNode[Ast.Expr]]) =
+  override def exprArray(enl: List[AstNode[Ast.Expr]]) =
     lines("expr array") ++
     enl.map((en: AstNode[Ast.Expr]) => expr(en.getData)).flatten.map(indentIn)
 
-  def exprBinop(e1: Ast.Expr, op: Ast.Binop, e2: Ast.Expr) =
+  override def exprBinop(e1: Ast.Expr, op: Ast.Binop, e2: Ast.Expr) =
     lines("expr binop") ++
     (expr(e1) ++ binop(op) ++ expr(e2)).map(indentIn)
   
-  def exprDot(e: Ast.Expr, id: Ast.Ident) =
+  override def exprDot(e: Ast.Expr, id: Ast.Ident) =
     lines("expr dot") ++
     (expr(e) ++ ident(id)).map(indentIn)
 
-  def formatString(s: String) = lines("format " ++ s)
+  override def exprIdent(id: Ast.Ident) = ident(id)
 
-  def moduleMember(mm: Ast.ModuleMember) = {
-    val (a, mmn, a1) = mm.node
-    val l = matchModuleMemberNode(mmn)
-    annotate (a) (a1) (l)
+  override def exprLiteralBool(lb: Ast.LiteralBool) = {
+    val s = lb match {
+      case Ast.LiteralBool.True => "true"
+      case Ast.LiteralBool.False => "false"
+    }
+    lines("literal bool " ++ s)
   }
 
-  def specCommand(sc: Ast.SpecCommand) = todo
+  override def exprLiteralFloat(s: String) = lines("literal float " ++ s)
 
-  def specEvent(se: Ast.SpecEvent) = todo
+  override def exprLiteralInt(s: String) = lines("literal int " ++ s)
 
-  def specInclude(si: Ast.SpecInclude) =
+  override def exprLiteralString(s: String) = lines("literal string " ++ s)
+
+  override def exprParen(e: Ast.Expr) =
+    lines("expr paren") ++
+    expr(e).map(indentIn)
+
+  override def exprStruct(sml: List[Ast.StructMember]) =
+    lines("expr struct") ++
+    sml.map(structMember).flatten.map(indentIn)
+
+  override def exprUnop(op: Ast.Unop, e: Ast.Expr) =
+    lines("expr unop") ++
+    (unop(op) ++ expr(e)).map(indentIn)
+
+  override def specIncludeNode(node: AstNode[Ast.SpecInclude]) = {
+    val si = node.getData
     lines("spec include") ++ fileString(si.file).map(indentIn)
+  }
 
-  def specInit(sl: Ast.SpecInit) = todo
-
-  def specInternalPort(sip: Ast.SpecInternalPort) = todo
-
-  def specLoc(sl: Ast.SpecLoc) = {
+  override def specLocNode(node: AstNode[Ast.SpecLoc]) = {
+    val sl = node.getData
     val kind = sl.kind match {
       case Ast.SpecLoc.Component => "component"
       case Ast.SpecLoc.ComponentInstance => "component instance"
@@ -145,96 +147,95 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
     lines("spec loc") ++
     (
       lines("kind " ++ kind) ++
-      lines("symbol " ++ qualIdent(sl.symbol.getData)) ++ 
+      lines("symbol " ++ qualIdentString(sl.symbol.getData)) ++ 
       fileString(sl.file)
     ).map(indentIn)
   }
 
-  def specParam(sp: Ast.SpecParam) = todo
+  override def transUnit(tu: Ast.TransUnit) = tu.members.map(tuMember).flatten
 
-  def specPortInstance(spi: Ast.SpecPortInstance) = todo
+  override def typeNameBool = lines("bool")
 
-  def specTlmChannel(stc: Ast.SpecTlmChannel) = todo
-
-  def structMember(sm: Ast.StructMember) =
-    lines("struct member") ++ 
-    (ident(sm.name) ++ expr(sm.value.getData)).map(indentIn)
-
-  def structTypeMember(stm: Ast.StructTypeMember) = {
-    val Ast.StructTypeMember(id, tnn, sno) = stm
-    val l1 = joinLists (lines(id)) (": ") (typeName(tnn.data))
-    val l2 = linesOpt((sn: AstNode[String]) => formatString(sn.getData), sno)
-    joinLists (l1) (" ") (l2)
-  }
-
-  def transUnit(tu: Ast.TransUnit) = tu.members.map(tuMember).flatten
-
-  def tuMember(tum: Ast.TUMember) = moduleMember(tum)
-
-  def typeName(tn: Ast.TypeName) = {
-    val s = tn match {
-      case Ast.TypeNameBool => "bool"
-      case Ast.TypeNameFloat(Ast.F32) => "F32"
-      case Ast.TypeNameFloat(Ast.F64) => "F64"
-      case Ast.TypeNameInt(Ast.I8) => "I8"
-      case Ast.TypeNameInt(Ast.I16) => "I16"
-      case Ast.TypeNameInt(Ast.I32) => "I32"
-      case Ast.TypeNameInt(Ast.I64) => "I64"
-      case Ast.TypeNameInt(Ast.U8) => "U8"
-      case Ast.TypeNameInt(Ast.U16) => "U16"
-      case Ast.TypeNameInt(Ast.U32) => "U32"
-      case Ast.TypeNameInt(Ast.U64) => "U64"
-      case Ast.TypeNameQualIdent(qidn) => qualIdent(qidn.getData)
-      case Ast.TypeNameString => "string"
+  override def typeNameFloat(tnf: Ast.TypeNameFloat) = {
+    val s = tnf.name match {
+      case Ast.F32 => "F32"
+      case Ast.F64 => "F64"
     }
-    lines("type name " ++ s)
+    lines(s)
   }
 
-  private def applyToData[A,B](f: A => B): AstNode[A] => B = (a: AstNode[A]) => f(a.getData)
-
-  private def binop(op: Ast.Binop) =
-    op match {
-      case Ast.Binop.Add => lines("binop +")
-      case Ast.Binop.Div => lines("binop /")
-      case Ast.Binop.Mul => lines("binop *")
-      case Ast.Binop.Sub => lines("binop -")
+  override def typeNameInt(tni: Ast.TypeNameInt) = {
+    val s = tni.name match {
+      case Ast.I8 => "I8"
+      case Ast.I16 => "I16"
+      case Ast.I32 => "I32"
+      case Ast.I64 => "I64"
+      case Ast.U8 => "U8"
+      case Ast.U16 => "U16"
+      case Ast.U32 => "U32"
+      case Ast.U64 => "U64"
     }
-
-  private def expr(e: Ast.Expr): List[Line] = e match {
-    case Ast.ExprBinop(e1, op, e2) => exprBinop(e1.getData, op, e2.getData)
-    case Ast.ExprArray(enl) => exprArray(enl)
-    case Ast.ExprDot(en, id) => exprDot(en.getData, id)
-    case Ast.ExprIdent(id) => ident(id)
-    case Ast.ExprLiteralInt(s) => lines("literal int " ++ s)
-    case Ast.ExprLiteralFloat(s) => lines("literal float " ++ s)
-    case Ast.ExprLiteralString(s) => lines("literal string " ++ s)
-    case Ast.ExprLiteralBool(lb) => exprLiteralBool(lb)
-    case Ast.ExprParen(en) => exprParen(en.getData)
-    case Ast.ExprStruct(sml) => exprStruct(sml)
-    case Ast.ExprUnop(op, en) => exprUnop(op, en.getData)
+    lines(s)
   }
 
-  private def exprLiteralBool(lb: Ast.LiteralBool) = {
-    val s = lb match {
-      case Ast.LiteralBool.True => "true"
-      case Ast.LiteralBool.False => "false"
-    }
-    lines("literal bool " ++ s)
+  override def typeNameQualIdent(tnqid: Ast.TypeNameQualIdent) = 
+    qualIdent(tnqid.name)
+
+  override def typeNameString = lines("string")
+
+  private def applyToData[A,B](f: A => B): AstNode[A] => B = 
+    (a: AstNode[A]) => f(a.getData)
+
+  private def binop(op: Ast.Binop) = op match {
+    case Ast.Binop.Add => lines("binop +")
+    case Ast.Binop.Div => lines("binop /")
+    case Ast.Binop.Mul => lines("binop *")
+    case Ast.Binop.Sub => lines("binop -")
   }
 
-  private def exprParen(e: Ast.Expr) =
-    lines("expr paren") ++
-    expr(e).map(indentIn)
+  private def componentMember(cm: Ast.ComponentMember) = {
+    val (a, cmn, a1) = cm.node
+    val l = matchComponentMemberNode(cmn)
+    annotate (a) (a1) (l)
+  }
 
-  private def exprStruct(sml: List[Ast.StructMember]) =
-    lines("expr struct") ++
-    sml.map(structMember).flatten.map(indentIn)
+  private def defEnumConstant(dec: Ast.DefEnumConstant) =
+    lines("def enum constant") ++
+    List(
+      ident(dec.name),
+      linesOpt(applyToData(expr), dec.value)
+    ).flatten.map(indentIn)
 
-  private def exprUnop(op: Ast.Unop, e: Ast.Expr) =
-    lines("expr unop") ++
-    (unop(op) ++ expr(e)).map(indentIn)
+  private def expr(e: Ast.Expr): List[Line] = matchExpr(e)
 
   private def fileString(s: String) = lines("file " ++ s)
+
+  private def formalParam(fp: Ast.FormalParam) = {
+    def kind(k: Ast.FormalParam.Kind) = {
+      val s = k match {
+        case Ast.FormalParam.Ref => "ref"
+        case Ast.FormalParam.Value => "value"
+      }
+      "kind " ++ s
+    }
+    lines("formal param") ++
+    List(
+      lines(kind(fp.kind)),
+      ident(fp.name),
+      typeName(fp.typeName.getData),
+      linesOpt(applyToData(expr), fp.size)
+    ).flatten.map(indentIn)
+  }
+
+  private def formalParamList(params: Ast.FormalParamList) = {
+    def f(ana: Ast.Annotated[AstNode[Ast.FormalParam]]) = {
+      val (a1, n, a2) = ana
+      annotate (a1) (a2) (formalParam(n.getData))
+    }
+    params.map(f).flatten
+  }
+
+  private def formatString(s: String) = lines("format " ++ s)
 
   private def ident(s: String) = lines("ident " ++ s)
 
@@ -252,12 +253,21 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
       case None => Nil
     }
 
-  private def qualIdent(qid: Ast.QualIdent): String =
+  private def moduleMember(mm: Ast.ModuleMember) = {
+    val (a, mmn, a1) = mm.node
+    val l = matchModuleMemberNode(mmn)
+    annotate (a) (a1) (l)
+  }
+
+  private def qualIdentString(qid: Ast.QualIdent): String =
     qid match {
       case Nil => ""
       case id :: Nil => id
-      case (id :: qid1) => id ++ "." ++ qualIdent(qid1)
+      case (id :: qid1) => id ++ "." ++ qualIdentString(qid1)
     }
+
+  private def qualIdent(qid: Ast.QualIdent): List[Line] =
+    lines(qualIdentString(qid))
     
   private def annotate (pre: List[String]) (post: List[String]) (lines: List[Line]) = {
     def preLine(s: String) = line("@ " ++ s)
@@ -267,58 +277,67 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
     pre1 ++ lines ++ post1
   }
 
+  private def structMember(sm: Ast.StructMember) =
+    lines("struct member") ++ 
+    (ident(sm.name) ++ expr(sm.value.getData)).map(indentIn)
+
+  private def structTypeMember(stm: Ast.StructTypeMember) = {
+    val Ast.StructTypeMember(id, tnn, sno) = stm
+    val l1 = joinLists (lines(id)) (": ") (typeName(tnn.data))
+    val l2 = linesOpt((sn: AstNode[String]) => formatString(sn.getData), sno)
+    joinLists (l1) (" ") (l2)
+  }
+
+  private def tuMember(tum: Ast.TUMember) = moduleMember(tum)
+
+  private def typeName(tn: Ast.TypeName) =
+    joinLists (lines("type name")) (" ") (matchTypeName(tn))
+
   private def unop(op: Ast.Unop) =
     op match {
       case Ast.Unop.Minus => lines("unop -")
     }
 
-  private val todo = lines("TODO")
+  override def specPortInstanceNode(node: AstNode[Ast.SpecPortInstance]) = {
+    def general(i: Ast.SpecPortInstance.General) = {
+      def kind(k: Ast.SpecPortInstance.GeneralKind) = {
+        val s = k match {
+          case Ast.SpecPortInstance.AsyncInput => "async input"
+          case Ast.SpecPortInstance.GuardedInput => "guarded input"
+          case Ast.SpecPortInstance.Output => "output"
+          case Ast.SpecPortInstance.SyncInput => "sync input"
+        }
+        lines("kind " ++ s)
+      }
+      lines("def port instance general")
+      List(
+        kind(i.kind),
+        ident(i.name),
+        joinLists (lines("array size")) (" ") (linesOpt(applyToData(expr), i.size)),
+        linesOpt(applyToData(qualIdent), i.port),
+        joinLists (lines("priority")) (" ") (linesOpt(applyToData(expr), i.priority)),
+        linesOpt(queueFull, i.queueFull)
+      ).flatten.map(indentIn)
+    }
+    def special(i: Ast.SpecPortInstance.Special) = {
+      default
+    }
+    node.getData match {
+      case i @ Ast.SpecPortInstance.General(_, _, _, _, _, _) => general(i)
+      case i @ Ast.SpecPortInstance.Special(_, _) => special(i)
+    }
+  }
+
+  private def queueFull(qf: Ast.QueueFull) = {
+    val s = qf match {
+      case Ast.QueueFull.Assert => "assert"
+      case Ast.QueueFull.Block => "block"
+      case Ast.QueueFull.Drop => "drop"
+    }
+    lines("queue full " ++ s)
+  }
 
   /*
-  and defPort (DefPort (id, fpnal, tnno)) =
-  let
-    val l1 = lines "def port"
-    val l2 = List.map indentIn (ident id)
-    fun f (a, fpn, a') = annotate a a' (formalParam (data fpn))
-    val l3 = List.concat (List.map f fpnal)
-    val l3 = List.map indentIn l3
-    val l4 = case tnno of
-                  SOME tnn => List.map indentIn (typeName (data tnn))
-                | NONE => []
-  in
-    l1 @ l2 @ l3 @ l4
-  end
-
-  and defPortInstance (DefPortInstanceGeneral (dpigk, id, eno, il, eno', qfo)) =
-      let
-        val l1 = lines "def port instance general"
-        val l2 = List.map indentIn (lines (defPortInstanceGeneralKind dpigk))
-        val l3 = List.map indentIn (ident id)
-        val l4 = case eno of
-                      SOME en => 
-                      let
-                        val note = lines "[ array size ]"
-                        val l = joinLists note " " (expr (data en))
-                      in
-                        List.map indentIn l
-                      end
-                    | NONE => []
-        val l5 = List.map indentIn (lines ("qual ident "^(qualIdent il)))
-        val l6 = case eno' of
-                      SOME en => 
-                      let
-                        val note =  lines "[ priority ]"
-                        val l = joinLists note " " (expr (data en))
-                      in
-                        List.map indentIn l
-                      end
-                    | NONE => []
-        val l7 = case qfo of
-                      SOME qf => List.map indentIn (lines (queueFull qf))
-                    | NONE => []
-      in
-        l1 @ l2 @ l3 @ l4 @ l5 @ l6 @ l7
-      end
     | defPortInstance (DefPortInstanceSpecial (dpisk, id)) =
       let
         val l1 = lines "def port instance special"
@@ -328,11 +347,6 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
         l1 @ l2 @ l3
       end
 
-  and defPortInstanceGeneralKind AsyncInput = "kind async input"
-    | defPortInstanceGeneralKind GuardedInput = "kind guarded input"
-    | defPortInstanceGeneralKind InternalInput = "kind internal input"
-    | defPortInstanceGeneralKind Output = "kind output"
-    | defPortInstanceGeneralKind SyncInput = "kind sync input"
 
   and defPortInstanceSpecialKind Command = "kind command"
     | defPortInstanceSpecialKind CommandReg = "kind command reg"
@@ -342,27 +356,6 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
     | defPortInstanceSpecialKind ParamSet = "kind param set"
     | defPortInstanceSpecialKind Telemetry = "kind telemetry"
     | defPortInstanceSpecialKind Time = "kind time"
-
-
-  and formalParam (FormalParam (fpk, id, tnn, eno)) =
-  let
-    val l1 = lines "formal param"
-    val l2 = List.map indentIn (lines (formalParamKind fpk))
-    val l3 = List.map indentIn (ident id)
-    val l4 = List.map indentIn (typeName (data tnn))
-    val l5 = case eno of
-                  SOME en => List.map indentIn (expr (data en))
-                | NONE => []
-  in
-    l1 @ l2 @ l3 @ l4 @ l5
-  end
-
-  and formalParamKind (FormalParamRef) = "kind ref"
-    | formalParamKind (FormalParamValue) = "kind value"
-
-  and queueFull Assert = "queue full assert"
-    | queueFull Block = "queue full block"
-    | queueFull Drop = "queue full drop"
 
 
   */

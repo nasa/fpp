@@ -128,47 +128,6 @@ object Ast {
     returnType: Option[AstNode[TypeName]]
   )
 
-  /** Port instance definition */
-  sealed trait DefPortInstance
-  object DefPortInstance {
-
-    /** General port instance */
-    final case class General(
-      kind: GeneralKind,
-      name: Ident,
-      index: Option[AstNode[Expr]],
-      portType: AstNode[QualIdent],
-      priority: Option[AstNode[Expr]],
-      queueFull: Option[QueueFull]
-    ) extends DefPortInstance
-
-    /** General port instance kind */
-    sealed trait GeneralKind
-    final case object AsyncInput extends GeneralKind
-    final case object GuardedInput extends GeneralKind
-    final case object InternalInput extends GeneralKind
-    final case object Output extends GeneralKind
-    final case object SyncInput extends GeneralKind
-
-    /** Special port instance */
-    final case class Special(
-      kind: SpecialKind,
-      name: Ident
-    ) extends DefPortInstance
-
-    /** Special port instance kind */
-    sealed trait SpecialKind
-    final case object Command extends SpecialKind
-    final case object CommandReg extends SpecialKind
-    final case object CommandResp extends SpecialKind
-    final case object Event extends SpecialKind
-    final case object ParamGet extends SpecialKind
-    final case object ParamSet extends SpecialKind
-    final case object Telemetry extends SpecialKind
-    final case object Time extends SpecialKind
-
-  }
-
   /** Struct definition */
   final case class DefStruct(
     name: Ident,
@@ -357,7 +316,7 @@ object Ast {
       kind: GeneralKind,
       name: Ident,
       size: Option[AstNode[Expr]],
-      ty: Option[AstNode[QualIdent]],
+      port: Option[AstNode[QualIdent]],
       priority: Option[AstNode[Expr]],
       queueFull: Option[QueueFull]
     ) extends SpecPortInstance
@@ -457,7 +416,7 @@ object Ast {
   sealed trait TypeName
   final case class TypeNameFloat(name: TypeFloat) extends TypeName
   final case class TypeNameInt(name: TypeInt) extends TypeName
-  final case class TypeNameQualIdent(name: AstNode[QualIdent]) extends TypeName
+  final case class TypeNameQualIdent(name: QualIdent) extends TypeName
   final case object TypeNameBool extends TypeName
   final case object TypeNameString extends TypeName
 

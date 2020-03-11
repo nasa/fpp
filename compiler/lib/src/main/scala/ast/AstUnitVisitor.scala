@@ -3,84 +3,84 @@ package fpp.compiler.ast
 /** Visit an AST with unit input */
 trait AstUnitVisitor[B] extends AstVisitor[Unit, B] {
 
-  def defAbsType(dat: Ast.DefAbsType): B
+  def default: B
 
-  def defArray(da: Ast.DefArray): B
+  def defAbsTypeNode(node: AstNode[Ast.DefAbsType]): B = default
 
-  def defComponent(dc: Ast.DefComponent): B
+  def defArrayNode(node: AstNode[Ast.DefArray]): B = default
 
-  def defComponentInstance(dci: Ast.DefComponentInstance): B
+  def defComponentNode(node: AstNode[Ast.DefComponent]): B = default
 
-  def defConstant(dc: Ast.DefConstant): B
+  def defComponentInstanceNode(node: AstNode[Ast.DefComponentInstance]): B = default
 
-  def defEnum(de: Ast.DefEnum): B
+  def defConstantNode(node: AstNode[Ast.DefConstant]): B = default
 
-  def defEnumConstant(dec: Ast.DefEnumConstant): B
+  def defEnumNode(node: AstNode[Ast.DefEnum]): B = default
 
-  def defModule(dm: Ast.DefModule): B
+  def defModuleNode(node: AstNode[Ast.DefModule]): B = default
 
-  def defPort(dp: Ast.DefPort): B
+  def defPortNode(node: AstNode[Ast.DefPort]): B = default
 
-  def defStruct(ds: Ast.DefStruct): B
+  def defStructNode(node: AstNode[Ast.DefStruct]): B = default
 
-  def defTopology(dt: Ast.DefTopology): B
+  def defTopologyNode(dt: AstNode[Ast.DefTopology]): B = default
 
-  def exprArray(elts: List[AstNode[Ast.Expr]]): B
+  def exprArray(elts: List[AstNode[Ast.Expr]]): B = default
 
-  def exprBinop(e1: Ast.Expr, op: Ast.Binop, e2: Ast.Expr): B
+  def exprBinop(e1: Ast.Expr, op: Ast.Binop, e2: Ast.Expr): B = default
 
-  def exprDot(e: Ast.Expr, id: Ast.Ident): B
+  def exprDot(e: Ast.Expr, id: Ast.Ident): B = default
 
-  def specCommand(sc: Ast.SpecCommand): B
+  def exprIdent(id: Ast.Ident): B = default
 
-  def specEvent(se: Ast.SpecEvent): B
+  def exprLiteralBool(lb: Ast.LiteralBool): B = default
 
-  def specInclude(si: Ast.SpecInclude): B
+  def exprLiteralInt(s: String): B = default
 
-  def specInit(si: Ast.SpecInit): B
+  def exprLiteralFloat(s: String): B = default
 
-  def specInternalPort(sip: Ast.SpecInternalPort): B
+  def exprLiteralString(s: String): B = default
 
-  def specLoc(sl: Ast.SpecLoc): B
+  def exprParen(e: Ast.Expr): B = default
 
-  def specParam(sp: Ast.SpecParam): B
+  def exprStruct(sml: List[Ast.StructMember]): B = default
+
+  def exprUnop(op: Ast.Unop, e: Ast.Expr): B = default
+
+  def specCommandNode(node: AstNode[Ast.SpecCommand]): B = default
+
+  def specEventNode(node: AstNode[Ast.SpecEvent]): B = default
+
+  def specIncludeNode(node: AstNode[Ast.SpecInclude]): B = default
+
+  def specInitNode(node: AstNode[Ast.SpecInit]): B = default
+
+  def specInternalPortNode(node: AstNode[Ast.SpecInternalPort]): B = default
+
+  def specLocNode(node: AstNode[Ast.SpecLoc]): B = default
+
+  def specParamNode(node: AstNode[Ast.SpecParam]): B = default
   
-  def specPortInstance(spi: Ast.SpecPortInstance): B
+  def specPortInstanceNode(node: AstNode[Ast.SpecPortInstance]): B = default
 
-  def specTlmChannel(stc: Ast.SpecTlmChannel): B
+  def specTlmChannelNode(node: AstNode[Ast.SpecTlmChannel]): B = default
   
-  def transUnit(tu: Ast.TransUnit): B
+  def transUnit(tu: Ast.TransUnit): B = default
 
-  final def defAbsType(a: Unit, dat: Ast.DefAbsType): B = defAbsType((), dat)
+  def typeNameBool: B = default
 
-  final def defArray(a: Unit, da: Ast.DefArray): B = defArray((), da)
+  def typeNameFloat(tnf: Ast.TypeNameFloat): B = default
 
-  final def defComponent(a: Unit, dc: Ast.DefComponent): B = defComponent((), dc)
+  def typeNameInt(tni: Ast.TypeNameInt): B = default
 
-  final def defComponentInstance(a: Unit, dci: Ast.DefComponentInstance): B = defComponentInstance((), dci)
+  def typeNameQualIdent(tnqid: Ast.TypeNameQualIdent): B = default
 
-  final def defConstant(a: Unit, dc: Ast.DefConstant): B = defConstant((), dc)
-
-  final def defEnum(a: Unit, de: Ast.DefEnum): B = defEnum((), de)
-
-  final def defEnumConstant(a: Unit, dec: Ast.DefEnumConstant): B = defEnumConstant((), dec)
-
-  final def defModule(a: Unit, dm: Ast.DefModule): B = defModule((), dm)
-
-  final def defPort(a: Unit, dp: Ast.DefPort): B = defPort((), dp)
-
-  final def defStruct(a: Unit, ds: Ast.DefStruct): B = defStruct((), ds)
-
-  final def defTopology(a: Unit, dt: Ast.DefTopology): B = defTopology((), dt)
-
-  final def exprArray(a: Unit, elts: List[AstNode[Ast.Expr]]): B = exprArray((), elts)
-
-  final def exprBinop(a: Unit, e1: Ast.Expr, op: Ast.Binop, e2: Ast.Expr): B = exprBinop((), e1, op, e2)
-
-  final def exprDot(a: Unit, e: Ast.Expr, id: Ast.Ident): B = exprDot((), e, id)
+  def typeNameString: B = default
 
   final def matchComponentMemberNode(cmn: Ast.ComponentMember.Node): B =
     matchComponentMemberNode((), cmn)
+
+  final def matchExpr(e: Ast.Expr): B = matchExpr((), e)
 
   final def matchModuleMemberNode(mmn: Ast.ModuleMember.Node): B =
     matchModuleMemberNode((), mmn)
@@ -88,24 +88,105 @@ trait AstUnitVisitor[B] extends AstVisitor[Unit, B] {
   final def matchTuMemberNode(tumn: Ast.TUMember.Node): B =
     matchTuMemberNode((), tumn)
 
-  final def specCommand(a: Unit, sc: Ast.SpecCommand): B = specCommand((), sc)
+  final def matchTypeName(tn: Ast.TypeName): B = matchTypeName((), tn)
 
-  final def specEvent(a: Unit, se: Ast.SpecEvent): B = specEvent((), se)
+  final override def default(u: Unit): B = default
 
-  final def specInclude(a: Unit, si: Ast.SpecInclude): B = specInclude((), si)
+  final override def defAbsTypeNode(a: Unit, node: AstNode[Ast.DefAbsType]): B = 
+    defAbsTypeNode(node)
 
-  final def specInit(a: Unit, si: Ast.SpecInit): B = specInit((), si)
+  final override def defArrayNode(a: Unit, node: AstNode[Ast.DefArray]): B = 
+    defArrayNode(node)
 
-  final def specInternalPort(a: Unit, sip: Ast.SpecInternalPort): B = specInternalPort((), sip)
+  final override def defComponentNode(a: Unit, node: AstNode[Ast.DefComponent]): B = 
+    defComponentNode(node)
 
-  final def specLoc(a: Unit, sl: Ast.SpecLoc): B = specLoc((), sl)
+  final override def defComponentInstanceNode(a: Unit, node: AstNode[Ast.DefComponentInstance]): B = 
+    defComponentInstanceNode(node)
 
-  final def specParam(a: Unit, sp: Ast.SpecParam): B = specParam((), sp)
+  final override def defConstantNode(a: Unit, node: AstNode[Ast.DefConstant]): B = 
+    defConstantNode(node)
 
-  final def specPortInstance(a: Unit, spi: Ast.SpecPortInstance): B = specPortInstance((), spi)
+  final override def defEnumNode(a: Unit, node: AstNode[Ast.DefEnum]): B = 
+    defEnumNode(node)
 
-  final def specTlmChannel(a: Unit, stc: Ast.SpecTlmChannel): B = specTlmChannel((), stc)
+  final override def defModuleNode(a: Unit, node: AstNode[Ast.DefModule]): B = 
+    defModuleNode(node)
 
-  final def transUnit(a: Unit, tu: Ast.TransUnit): B = transUnit((), tu)
+  final override def defPortNode(a: Unit, node: AstNode[Ast.DefPort]): B = 
+    defPortNode(node)
+
+  final override def defStructNode(a: Unit, node: AstNode[Ast.DefStruct]): B = 
+    defStructNode(node)
+
+  final override def defTopologyNode(a: Unit, node: AstNode[Ast.DefTopology]): B = 
+    defTopologyNode(node)
+
+  final override def exprArray(a: Unit, elts: List[AstNode[Ast.Expr]]): B = 
+    exprArray(elts)
+
+  final override def exprBinop(a: Unit, e1: Ast.Expr, op: Ast.Binop, e2: Ast.Expr): B = 
+    exprBinop(e1, op, e2)
+
+  final override def exprDot(a: Unit, e: Ast.Expr, id: Ast.Ident): B = exprDot(e, id)
+
+  final override def exprIdent(a: Unit, id: Ast.Ident): B = exprIdent(id)
+
+  final override def exprLiteralBool(a: Unit, lb: Ast.LiteralBool): B = exprLiteralBool(lb)
+
+  final override def exprLiteralInt(a: Unit, s: String): B = exprLiteralInt(s)
+
+  final override def exprLiteralFloat(a: Unit, s: String): B = exprLiteralFloat(s)
+
+  final override def exprLiteralString(a: Unit, s: String): B = exprLiteralString(s)
+
+  final override def exprParen(a: Unit, e: Ast.Expr): B = exprParen(e)
+
+  final override def exprStruct(a: Unit, sml: List[Ast.StructMember]): B = exprStruct(sml)
+
+  final override def exprUnop(a: Unit, op: Ast.Unop, e: Ast.Expr): B = exprUnop(op, e)
+
+  final override def specCommandNode(a: Unit, node: AstNode[Ast.SpecCommand]): B = 
+    specCommandNode(node)
+
+  final override def specEventNode(a: Unit, node: AstNode[Ast.SpecEvent]): B = 
+    specEventNode(node)
+
+  final override def specIncludeNode(a: Unit, node: AstNode[Ast.SpecInclude]): B = 
+    specIncludeNode(node)
+
+  final override def specInitNode(a: Unit, node: AstNode[Ast.SpecInit]): B = 
+    specInitNode(node)
+
+  final override def specInternalPortNode(a: Unit, node: AstNode[Ast.SpecInternalPort]): B = 
+    specInternalPortNode(node)
+
+  final override def specLocNode(a: Unit, node: AstNode[Ast.SpecLoc]): B = 
+    specLocNode(node)
+
+  final override def specParamNode(a: Unit, node: AstNode[Ast.SpecParam]): B = 
+    specParamNode(node)
+
+  final override def specPortInstanceNode(a: Unit, node: AstNode[Ast.SpecPortInstance]): B = 
+    specPortInstanceNode(node)
+
+  final override def specTlmChannelNode(a: Unit, node: AstNode[Ast.SpecTlmChannel]): B = 
+    specTlmChannelNode(node)
+
+  final override def transUnit(a: Unit, tu: Ast.TransUnit): B = 
+    transUnit(tu)
+
+  final override def typeNameBool(a: Unit): B = typeNameBool
+
+  final override def typeNameFloat(a: Unit, tnf: Ast.TypeNameFloat): B = 
+    typeNameFloat(tnf)
+
+  final override def typeNameInt(a: Unit, tnf: Ast.TypeNameInt): B = 
+    typeNameInt(tnf)
+
+  final override def typeNameQualIdent(a: Unit, tnqid: Ast.TypeNameQualIdent): B = 
+    typeNameQualIdent(tnqid)
+
+  final override def typeNameString(a: Unit): B = typeNameString
 
 }
