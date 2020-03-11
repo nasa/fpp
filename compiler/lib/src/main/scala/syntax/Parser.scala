@@ -570,11 +570,14 @@ object Parser extends Parsers {
     constructor: Ast.Annotated[E] => T
   ): Parser[List[T]] = {
     def terminator = punct | eol
-    def punctTerminatedElt = rep(preAnnotation) ~ (elt <~ terminator) ~ rep(postAnnotation) ^^ {
-      case al1 ~ elt ~ al2 => (al1, elt, al2)
+    def prefix0 = elt ^^ { case elt => (Nil, elt) }
+    def prefix1 = rep1(preAnnotation) ~! elt ^^ { case al ~ elt => (al, elt) }
+    def prefix = prefix0 | prefix1
+    def punctTerminatedElt = (prefix <~ terminator) ~ rep(postAnnotation) ^^ {
+      case (al1, elt) ~ al2 => (al1, elt, al2)
     }
-    def annotationTerminatedElt = rep(preAnnotation) ~ elt ~ rep1(postAnnotation) ^^ {
-      case al1 ~ elt ~ al2 => (al1, elt, al2)
+    def annotationTerminatedElt = prefix ~ rep1(postAnnotation) ^^ {
+      case (al1, elt) ~ al2 => (al1, elt, al2)
     }
     def terminatedElt = punctTerminatedElt | annotationTerminatedElt
     def unterminatedElt = rep(preAnnotation) ~ elt ^^ {
