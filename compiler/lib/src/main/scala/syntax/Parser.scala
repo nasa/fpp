@@ -344,7 +344,7 @@ object Parser extends Parsers {
       warning ~ low ^^ { case _ => Ast.SpecEvent.WarningLow } |
       failure("severity level expected")
     }
-    (event ~>! ident) ~! formalParamList ~! (severity ~>! severityLevel) ~!
+    (event ~> ident) ~! formalParamList ~! (severity ~>! severityLevel) ~!
     opt(id ~>! exprNode) ~!
     opt(format ~>! node(literalString)) ~!
     opt(throttle ~>! exprNode) ^^ {
