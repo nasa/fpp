@@ -18,7 +18,8 @@ object Parser extends Parsers {
   def componentKind: Parser[Ast.ComponentKind] = {
     active ^^ { case _ => Ast.ComponentKind.Active } |
     passive ^^ { case _ => Ast.ComponentKind.Passive } |
-    queued ^^ { case _ => Ast.ComponentKind.Queued }
+    queued ^^ { case _ => Ast.ComponentKind.Queued } |
+    failure("component kind expected")
   }
 
   def componentMemberNode: Parser[Ast.ComponentMember.Node] = {
@@ -32,7 +33,8 @@ object Parser extends Parsers {
     node(specInternalPort) ^^ { case n => Ast.ComponentMember.SpecInternalPort(n) } |
     node(specParam) ^^ { case n => Ast.ComponentMember.SpecParam(n) } |
     node(specPortInstance) ^^ { case n => Ast.ComponentMember.SpecPortInstance(n) } |
-    node(specTlmChannel) ^^ { case n => Ast.ComponentMember.SpecTlmChannel(n) }
+    node(specTlmChannel) ^^ { case n => Ast.ComponentMember.SpecTlmChannel(n) } |
+    failure("component member expected")
   }
 
   def connection: Parser[Ast.SpecConnectionGraph.Connection] = {
@@ -231,7 +233,8 @@ object Parser extends Parsers {
     node(defTopology) ^^ { case n => Ast.ModuleMember.DefTopology(n) } |
     node(specInclude) ^^ { case n => Ast.ModuleMember.SpecInclude(n) } |
     node(specInit) ^^ { case n => Ast.ModuleMember.SpecInit(n) } |
-    node(specLoc) ^^ { case n => Ast.ModuleMember.SpecLoc(n) }
+    node(specLoc) ^^ { case n => Ast.ModuleMember.SpecLoc(n) } |
+    failure("module member expected")
   }
 
   def node[T](p: Parser[T]): Parser[AstNode[T]] = {
@@ -291,14 +294,16 @@ object Parser extends Parsers {
   def queueFull: Parser[Ast.QueueFull] = {
     assert ^^ { case _ => Ast.QueueFull.Assert } |
     block ^^ { case _ => Ast.QueueFull.Block } |
-    drop ^^ { case _ => Ast.QueueFull.Drop }
+    drop ^^ { case _ => Ast.QueueFull.Drop } |
+    failure("queue full expected")
   }
 
   def specCommand: Parser[Ast.SpecCommand] = {
     def kind = {
       async ^^ { case _ => Ast.SpecCommand.Async } |
       guarded ^^ { case _ => Ast.SpecCommand.Guarded } |
-      sync ^^ { case _ => Ast.SpecCommand.Sync }
+      sync ^^ { case _ => Ast.SpecCommand.Sync } |
+      failure("command kind expected")
     }
     kind ~ (command ~>! ident) ~! formalParamList ~!
     opt(opcode ~>! exprNode) ~! opt(priority ~>! exprNode) ~! opt(node(queueFull)) ^^ {
@@ -330,7 +335,7 @@ object Parser extends Parsers {
         case source ~ targets ~ pattern => Ast.SpecConnectionGraph.Pattern(source, targets, pattern)
       }
     }
-    directGraph | patternGraph
+    directGraph | patternGraph | failure("connection graph expected")
   }
 
   def specEvent: Parser[Ast.SpecEvent] = {
@@ -501,7 +506,8 @@ object Parser extends Parsers {
     node(specConnectionGraph) ^^ { case n => Ast.TopologyMember.SpecConnectionGraph(n) } |
     node(specInclude) ^^ { case n => Ast.TopologyMember.SpecInclude(n) } |
     node(specTopImport) ^^ { case n => Ast.TopologyMember.SpecTopImport(n) } |
-    node(specUnusedPorts) ^^ { case n => Ast.TopologyMember.SpecUnusedPorts(n) }
+    node(specUnusedPorts) ^^ { case n => Ast.TopologyMember.SpecUnusedPorts(n) } |
+    failure("topology member expected")
   }
 
   def transUnit: Parser[Ast.TransUnit] = {

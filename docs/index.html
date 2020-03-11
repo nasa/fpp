@@ -1799,17 +1799,19 @@ active component CommandDispatcher {
   # ----------------------------------------------------------------------
 
   @ Opcode registered event
-  diagnostic event OpcodeRegistered(
+  event OpcodeRegistered(
       regOpcode: Opcode @&lt; The opcode to register
       regPort: U32 @&lt; The registration port
       dispatchSlot: U32 @&lt; The dispatch slot
-  ) format "Opcode {} registered to port {} slot {}"
+  ) severity diagnostic \
+    format "Opcode {} registered to port {} slot {}"
 
   @ Opcode dispatched event
-  command event OpcodeDispatched(
+  event OpcodeDispatched(
       dispatchOpcode: Opcode @&lt; The opcode dispatched
       dispatchPort: U32 @&lt; The dispatch port
-  ) format "Opcode {} dispatched to port {}"
+  ) severity command \
+    format "Opcode {} dispatched to port {}"
 
   ...
 
@@ -7354,7 +7356,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-02-27 13:13:44 -0800
+Last updated 2020-03-11 08:09:54 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
