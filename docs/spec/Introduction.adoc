@@ -1,8 +1,11 @@
 == Introduction
 
 This document describes **F Prime Prime**, also known as FPP or F Double Prime.
-FPP is a modeling language for the 
-https://github.com/nasa/fprime[F Prime flight software framework].
+FPP is a modeling language for the https://github.com/nasa/fprime[F Prime 
+flight software framework].
+A https://digitalcommons.usu.edu/smallsat/2018/all2018/328/paper[paper 
+presented at SmallSat 2018]
+provides an overview of F Prime.
 
 The goals of FPP are as follows:
 
