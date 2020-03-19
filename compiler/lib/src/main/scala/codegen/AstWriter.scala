@@ -1,6 +1,7 @@
 package fpp.compiler.codegen
 
 import fpp.compiler.ast._
+import fpp.compiler.util._
 
 /** Write out an FPP AST */
 object AstWriter extends AstUnitVisitor[List[Line]] {
@@ -96,7 +97,7 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
     (ident(dt.name) ++ dt.members.map(topologyMember).flatten).map(indentIn)
   }
 
-  override def default = todo
+  override def default = throw new InternalError("AstWriter: Visitor not implemented")
 
   override def exprArray(enl: List[AstNode[Ast.Expr]]) =
     lines("expr array") ++
@@ -358,9 +359,17 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
     ).flatten.map(indentIn)
   }
 
-  override def specTopImportNode(node: AstNode[Ast.SpecTopImport]) = todo
+  override def specTopImportNode(node: AstNode[Ast.SpecTopImport]) = {
+    val ti = node.getData
+    lines("spec top import") ++
+    qualIdent(ti.top.getData).map(indentIn)
+  }
 
-  override def specUnusedPortsNode(node: AstNode[Ast.SpecUnusedPorts]) = todo
+  override def specUnusedPortsNode(node: AstNode[Ast.SpecUnusedPorts]) = {
+    val up = node.getData
+    lines("spec unused ports") ++
+    up.ports.map(applyToData(qualIdent)).flatten.map(indentIn)
+  }
 
   override def transUnit(tu: Ast.TransUnit) = tu.members.map(tuMember).flatten
 
