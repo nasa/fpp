@@ -193,16 +193,56 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
     }
   }
 
-  override def specEventNode(node: AstNode[Ast.SpecEvent]) = todo
+  override def specEventNode(node: AstNode[Ast.SpecEvent]) = {
+    def severity(s: Ast.SpecEvent.Severity) = s match {
+      case Ast.SpecEvent.ActivityHigh => "activity high"
+      case Ast.SpecEvent.ActivityLow => "activity low"
+      case Ast.SpecEvent.Command => "command"
+      case Ast.SpecEvent.Diagnostic => "diagnostic"
+      case Ast.SpecEvent.Fatal => "fatal"
+      case Ast.SpecEvent.WarningHigh => "warning high"
+      case Ast.SpecEvent.WarningLow => "warning low"
+    }
+    val se = node.getData
+    lines("spec event") ++
+    List(
+      ident(se.name),
+      formalParamList(se.params),
+      lines("severity " ++ severity(se.severity)),
+      linesOpt(addPrefix("id", applyToData(expr)), se.id),
+      linesOpt(applyToData(formatString), se.format),
+      linesOpt(addPrefix("throttle", applyToData(expr)), se.throttle),
+    ).flatten.map(indentIn)
+  }
 
   override def specIncludeNode(node: AstNode[Ast.SpecInclude]) = {
     val si = node.getData
     lines("spec include") ++ fileString(si.file).map(indentIn)
   }
 
-  override def specInitNode(node: AstNode[Ast.SpecInit]) = todo
+  override def specInitNode(node: AstNode[Ast.SpecInit]) = {
+    val si = node.getData
+    lines("spec init") ++
+    List(
+      addPrefix("instance", applyToData(qualIdent)) (si.instance),
+      addPrefix("phase", applyToData(expr)) (si.phase),
+      {
+        val code = si.code.split("\n").map(line).toList
+        Line.joinLists (Line.Indent) (lines("code")) (" ") (code)
+      }
+    ).flatten.map(indentIn)
+  }
 
-  override def specInternalPortNode(node: AstNode[Ast.SpecInternalPort]) = todo
+  override def specInternalPortNode(node: AstNode[Ast.SpecInternalPort]) = {
+    val sip = node.getData
+    lines("spec internal port") ++
+    List(
+      ident(sip.name),
+      formalParamList(sip.params),
+      linesOpt(addPrefix("priority", applyToData(expr)), sip.priority),
+      linesOpt(queueFull, sip.queueFull)
+    ).flatten.map(indentIn)
+  }
 
   override def specLocNode(node: AstNode[Ast.SpecLoc]) = {
     val sl = node.getData
@@ -217,12 +257,23 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
     lines("spec loc") ++
     (
       lines("kind " ++ kind) ++
-      lines("symbol " ++ qualIdentString(sl.symbol.getData)) ++ 
+      addPrefix("symbol", qualIdent) (sl.symbol.getData) ++ 
       fileString(sl.file)
     ).map(indentIn)
   }
 
-  override def specParamNode(node: AstNode[Ast.SpecParam]) = todo
+  override def specParamNode(node: AstNode[Ast.SpecParam]) = {
+    val sp = node.getData
+    lines("spec param") ++
+    List(
+      ident(sp.name),
+      typeName(sp.typeName.getData),
+      linesOpt(addPrefix("default", applyToData(expr)), sp.default),
+      linesOpt(addPrefix("id", applyToData(expr)), sp.id),
+      linesOpt(addPrefix("set opcode", applyToData(expr)), sp.setOpcode),
+      linesOpt(addPrefix("save opcode", applyToData(expr)), sp.saveOpcode),
+    ).flatten.map(indentIn)
+  }
 
   override def specPortInstanceNode(node: AstNode[Ast.SpecPortInstance]) = {
     def general(i: Ast.SpecPortInstance.General) = {
@@ -269,7 +320,43 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
     }
   }
 
-  override def specTlmChannelNode(node: AstNode[Ast.SpecTlmChannel]) = todo
+  override def specTlmChannelNode(node: AstNode[Ast.SpecTlmChannel]) = {
+    def update(u: Ast.SpecTlmChannel.Update) = {
+      val s = u match {
+        case Ast.SpecTlmChannel.Always => "always"
+        case Ast.SpecTlmChannel.OnChange => "on change"
+      }
+      lines("update " + s)
+    }
+    def kind(k: Ast.SpecTlmChannel.LimitKind) = {
+      val s = k match {
+        case Ast.SpecTlmChannel.Red => "red"
+        case Ast.SpecTlmChannel.Orange => "orange"
+        case Ast.SpecTlmChannel.Yellow => "yellow"
+      }
+      lines(s)
+    }
+    def limit(l: Ast.SpecTlmChannel.Limit) = {
+      val (k, en) = l
+      lines("limit") ++ (
+        kind(k) ++
+        expr(en.getData)
+      ).map(indentIn)
+    }
+    def limits(name: String, ls: List[Ast.SpecTlmChannel.Limit]) =
+      ls.map(addPrefix(name, limit))
+    val tc = node.getData
+    lines("spec tlm channel") ++
+    List(
+      ident(tc.name),
+      typeName(tc.typeName.getData),
+      linesOpt(addPrefix("id", applyToData(expr)), tc.id),
+      linesOpt(update, tc.update),
+      linesOpt(applyToData(formatString), tc.format),
+      limits("low", tc.low).flatten,
+      limits("high", tc.high).flatten,
+    ).flatten.map(indentIn)
+  }
 
   override def specTopImportNode(node: AstNode[Ast.SpecTopImport]) = todo
 
@@ -281,22 +368,22 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
 
   override def typeNameFloat(tnf: Ast.TypeNameFloat) = {
     val s = tnf.name match {
-      case Ast.F32() => "F32()"
-      case Ast.F64() => "F64()"
+      case Ast.F32() => "F32"
+      case Ast.F64() => "F64"
     }
     lines(s)
   }
 
   override def typeNameInt(tni: Ast.TypeNameInt) = {
     val s = tni.name match {
-      case Ast.I8() => "I8()"
-      case Ast.I16() => "I16()"
-      case Ast.I32() => "I32()"
-      case Ast.I64() => "I64()"
-      case Ast.U8() => "U8()"
-      case Ast.U16() => "U16()"
-      case Ast.U32() => "U32()"
-      case Ast.U64() => "U64()"
+      case Ast.I8() => "I8"
+      case Ast.I16() => "I16"
+      case Ast.I32() => "I32"
+      case Ast.I64() => "I64"
+      case Ast.U8() => "U8"
+      case Ast.U16() => "U16"
+      case Ast.U32() => "U32"
+      case Ast.U64() => "U64"
     }
     lines(s)
   }
@@ -395,7 +482,7 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
   }
 
   private def qualIdent(qid: Ast.QualIdent): List[Line] =
-    lines(qualIdentString(qid))
+    lines("qual ident " ++ qualIdentString(qid))
     
   private def qualIdentString(qid: Ast.QualIdent): String =
     qid match {
