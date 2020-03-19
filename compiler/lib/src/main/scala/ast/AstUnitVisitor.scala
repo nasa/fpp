@@ -23,7 +23,7 @@ trait AstUnitVisitor[B] extends AstVisitor[Unit, B] {
 
   def defStructNode(node: AstNode[Ast.DefStruct]): B = default
 
-  def defTopologyNode(dt: AstNode[Ast.DefTopology]): B = default
+  def defTopologyNode(node: AstNode[Ast.DefTopology]): B = default
 
   def exprArray(elts: List[AstNode[Ast.Expr]]): B = default
 
@@ -35,9 +35,9 @@ trait AstUnitVisitor[B] extends AstVisitor[Unit, B] {
 
   def exprLiteralBool(lb: Ast.LiteralBool): B = default
 
-  def exprLiteralInt(s: String): B = default
-
   def exprLiteralFloat(s: String): B = default
+
+  def exprLiteralInt(s: String): B = default
 
   def exprLiteralString(s: String): B = default
 
@@ -48,6 +48,10 @@ trait AstUnitVisitor[B] extends AstVisitor[Unit, B] {
   def exprUnop(op: Ast.Unop, e: Ast.Expr): B = default
 
   def specCommandNode(node: AstNode[Ast.SpecCommand]): B = default
+
+  def specCompInstanceNode(node: AstNode[Ast.SpecCompInstance]): B = default
+
+  def specConnectionGraphNode(node: AstNode[Ast.SpecConnectionGraph]): B = default
 
   def specEventNode(node: AstNode[Ast.SpecEvent]): B = default
 
@@ -64,6 +68,10 @@ trait AstUnitVisitor[B] extends AstVisitor[Unit, B] {
   def specPortInstanceNode(node: AstNode[Ast.SpecPortInstance]): B = default
 
   def specTlmChannelNode(node: AstNode[Ast.SpecTlmChannel]): B = default
+
+  def specTopImportNode(node: AstNode[Ast.SpecTopImport]): B = default
+
+  def specUnusedPortsNode(node: AstNode[Ast.SpecUnusedPorts]): B = default
   
   def transUnit(tu: Ast.TransUnit): B = default
 
@@ -84,6 +92,9 @@ trait AstUnitVisitor[B] extends AstVisitor[Unit, B] {
 
   final def matchModuleMemberNode(mmn: Ast.ModuleMember.Node): B =
     matchModuleMemberNode((), mmn)
+
+  final def matchTopologyMemberNode(tmn: Ast.TopologyMember.Node): B =
+    matchTopologyMemberNode((), tmn)
 
   final def matchTuMemberNode(tumn: Ast.TUMember.Node): B =
     matchTuMemberNode((), tumn)
@@ -149,6 +160,12 @@ trait AstUnitVisitor[B] extends AstVisitor[Unit, B] {
   final override def specCommandNode(a: Unit, node: AstNode[Ast.SpecCommand]): B = 
     specCommandNode(node)
 
+  final override def specCompInstanceNode(a: Unit, node: AstNode[Ast.SpecCompInstance]): B = 
+    specCompInstanceNode(node)
+
+  final override def specConnectionGraphNode(a: Unit, node: AstNode[Ast.SpecConnectionGraph]): B = 
+    specConnectionGraphNode(node)
+
   final override def specEventNode(a: Unit, node: AstNode[Ast.SpecEvent]): B = 
     specEventNode(node)
 
@@ -172,6 +189,12 @@ trait AstUnitVisitor[B] extends AstVisitor[Unit, B] {
 
   final override def specTlmChannelNode(a: Unit, node: AstNode[Ast.SpecTlmChannel]): B = 
     specTlmChannelNode(node)
+
+  final override def specTopImportNode(a: Unit, node: AstNode[Ast.SpecTopImport]): B = 
+    specTopImportNode(node)
+
+  final override def specUnusedPortsNode(a: Unit, node: AstNode[Ast.SpecUnusedPorts]): B = 
+    specUnusedPortsNode(node)
 
   final override def transUnit(a: Unit, tu: Ast.TransUnit): B = 
     transUnit(tu)

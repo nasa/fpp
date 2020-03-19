@@ -49,6 +49,10 @@ trait AstVisitor[A, B] {
 
   def specCommandNode(a: A, node: AstNode[Ast.SpecCommand]): B = default(a)
 
+  def specCompInstanceNode(a: A, node: AstNode[Ast.SpecCompInstance]): B = default(a)
+
+  def specConnectionGraphNode(a: A, node: AstNode[Ast.SpecConnectionGraph]): B = default(a)
+
   def specEventNode(a: A, node: AstNode[Ast.SpecEvent]): B = default(a)
 
   def specIncludeNode(a: A, node: AstNode[Ast.SpecInclude]): B = default(a)
@@ -64,6 +68,10 @@ trait AstVisitor[A, B] {
   def specPortInstanceNode(a: A, node: AstNode[Ast.SpecPortInstance]): B = default(a)
 
   def specTlmChannelNode(a: A, node: AstNode[Ast.SpecTlmChannel]): B = default(a)
+
+  def specTopImportNode(a: A, node: AstNode[Ast.SpecTopImport]): B = default(a)
+
+  def specUnusedPortsNode(a: A, node: AstNode[Ast.SpecUnusedPorts]): B = default(a)
 
   def transUnit(a: A, tu: Ast.TransUnit): B = default(a)
 
@@ -107,7 +115,7 @@ trait AstVisitor[A, B] {
       case Ast.ExprUnop(op, en) => exprUnop(a, op, en.getData)
     }
 
-  final def matchModuleMemberNode(a: A, mmn: Ast.ModuleMember.Node): B = {
+  final def matchModuleMemberNode(a: A, mmn: Ast.ModuleMember.Node): B =
     mmn match {
       case Ast.ModuleMember.DefAbsType(node) => defAbsTypeNode(a, node)
       case Ast.ModuleMember.DefArray(node) => defArrayNode(a, node)
@@ -123,7 +131,15 @@ trait AstVisitor[A, B] {
       case Ast.ModuleMember.SpecInit(node) => specInitNode(a, node)
       case Ast.ModuleMember.SpecLoc(node) => specLocNode(a, node)
     }
-  }
+
+  final def matchTopologyMemberNode(a: A, tmn: Ast.TopologyMember.Node): B =
+    tmn match {
+      case Ast.TopologyMember.SpecCompInstance(node) => specCompInstanceNode(a, node)
+      case Ast.TopologyMember.SpecConnectionGraph(node) => specConnectionGraphNode(a, node)
+      case Ast.TopologyMember.SpecInclude(node) => specIncludeNode(a, node)
+      case Ast.TopologyMember.SpecTopImport(node) => specTopImportNode(a, node)
+      case Ast.TopologyMember.SpecUnusedPorts(node) => specUnusedPortsNode(a, node)
+    }
 
   final def matchTuMemberNode(a: A, tumn: Ast.TUMember.Node): B = 
     matchModuleMemberNode(a, tumn)
