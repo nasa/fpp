@@ -1,0 +1,10 @@
+#!/bin/sh
+
+tests=`find . -name run | grep test | sed 's;^\./;;'`
+for t in $tests
+do
+  echo $t
+  dir=`dirname $t`
+  base=`basename $t`
+  (cd $dir; ./$base)
+done

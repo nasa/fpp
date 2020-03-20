@@ -15,6 +15,11 @@ The currently available tools are
 See https://github.jpl.nasa.gov/bocchino/fpp/wiki/Tools
 for more information.
 
+*Testing:*
+Run `./test` to run all unit and integration tests.
+Do this after installing.
+If you update the build, rerun `./install` before running `./test`.
+
 *Development:*
 
 . Start up the sbt shell.
