@@ -17,7 +17,7 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
       addPrefix("size", expr) (da.size.getData),
       typeName(da.eltType.getData),
       linesOpt(addPrefix("default", applyToData(expr)), da.default),
-      linesOpt(applyToData(formatString), da.format)
+      linesOpt(addPrefix("format", applyToData(string)), da.format)
     ).flatten.map(indentIn)
   }
 
@@ -125,7 +125,7 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
 
   override def exprLiteralInt(s: String) = lines("literal int " ++ s)
 
-  override def exprLiteralString(s: String) = lines("literal string " ++ s)
+  override def exprLiteralString(s: String) = addPrefix("literal string", string) (s)
 
   override def exprParen(e: Ast.Expr) =
     lines("expr paren") ++
@@ -211,7 +211,7 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
       formalParamList(se.params),
       lines("severity " ++ severity(se.severity)),
       linesOpt(addPrefix("id", applyToData(expr)), se.id),
-      linesOpt(applyToData(formatString), se.format),
+      linesOpt(addPrefix("format", applyToData(string)), se.format),
       linesOpt(addPrefix("throttle", applyToData(expr)), se.throttle),
     ).flatten.map(indentIn)
   }
@@ -227,10 +227,7 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
     List(
       addPrefix("instance", applyToData(qualIdent)) (si.instance),
       addPrefix("phase", applyToData(expr)) (si.phase),
-      {
-        val code = si.code.split('\n').map(line).toList
-        Line.joinLists (Line.Indent) (lines("code")) (" ") (code)
-      }
+      addPrefix("code", string) (si.code)
     ).flatten.map(indentIn)
   }
 
@@ -353,7 +350,7 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
       typeName(tc.typeName.getData),
       linesOpt(addPrefix("id", applyToData(expr)), tc.id),
       linesOpt(update, tc.update),
-      linesOpt(applyToData(formatString), tc.format),
+      linesOpt(addPrefix("format", applyToData(string)), tc.format),
       limits("low", tc.low).flatten,
       limits("high", tc.high).flatten,
     ).flatten.map(indentIn)
@@ -466,13 +463,11 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
   private def formalParamList(params: Ast.FormalParamList) =
     params.map(annotateNode(formalParam)).flatten
 
-  private def formatString(s: String) = lines("format " ++ s)
-
   private def ident(s: String) = lines("ident " ++ s)
 
   private def indentIn(line: Line) = line.indentIn(2)
 
-  private def joinLists = Line.joinLists(Line.NoIndent) _
+  private def joinLists = Line.joinLists(Line.Indent) _
 
   private def line(s: String) = Line(string = s)
 
@@ -509,6 +504,8 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
     lines("queue full " ++ s)
   }
 
+  private def string(s: String) = s.split('\n').map(line).toList
+
   private def structMember(sm: Ast.StructMember) =
     lines("struct member") ++ 
     (ident(sm.name) ++ expr(sm.value.getData)).map(indentIn)
@@ -518,7 +515,7 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
     List(
       ident(stm.name),
       typeName(stm.typeName.getData),
-      linesOpt(applyToData(formatString), stm.format)
+      linesOpt(addPrefix("format", applyToData(string)), stm.format)
     ).flatten.map(indentIn)
   }
 
