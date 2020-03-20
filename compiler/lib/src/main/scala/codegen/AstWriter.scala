@@ -342,7 +342,7 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
       ).map(indentIn)
     }
     def limits(name: String, ls: List[Ast.SpecTlmChannel.Limit]) =
-      ls.map(addPrefix(name, limit))
+      ls.map(addPrefixNoIndent(name, limit))
     val tc = node.getData
     lines("spec tlm channel") ++
     List(
@@ -400,7 +400,10 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
   override def typeNameString = lines("string")
 
   private def addPrefix[T](s: String, f: T => List[Line]): T => List[Line] =
-    (t: T) => joinLists (lines(s)) (" ") (f(t))
+    (t: T) => Line.joinLists (Line.Indent) (lines(s)) (" ") (f(t))
+
+  private def addPrefixNoIndent[T](s: String, f: T => List[Line]): T => List[Line] =
+    (t: T) => Line.joinLists (Line.NoIndent) (lines(s)) (" ") (f(t))
 
   private def annotate(pre: List[String], lines: List[Line], post: List[String]) = {
     def preLine(s: String) = line("@ " ++ s)
@@ -467,8 +470,6 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
 
   private def indentIn(line: Line) = line.indentIn(2)
 
-  private def joinLists = Line.joinLists(Line.Indent) _
-
   private def line(s: String) = Line(string = s)
 
   private def lines(s: String) = List(line(s))
@@ -529,8 +530,7 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
 
   private def tuMember(tum: Ast.TUMember) = moduleMember(tum)
 
-  private def typeName(tn: Ast.TypeName) =
-    joinLists (lines("type name")) (" ") (matchTypeName(tn))
+  private def typeName(tn: Ast.TypeName) = addPrefix("type name", matchTypeName) (tn)
 
   private def unop(op: Ast.Unop) =
     op match {
