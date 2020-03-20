@@ -6,7 +6,7 @@ import util.parsing.input.Position
 final case class Location(
   file: File, /* The file */
   pos: Position, /* The position */
-  includes: List[(File, Position)] = Nil /* The included locations: A :: B means A includes B */
+  includes: List[(File, Position)] = Nil /* The included locations: A :: B means A is included in B */
 ) {
 
   override def toString = {
@@ -15,7 +15,7 @@ final case class Location(
         case Nil => s
         case (file, pos) :: fpl1 => showIncludes(
           fpl1, 
-          s"\n  included at ${file}: ${pos}"
+          s ++ s"\n  included at ${file}: ${pos}"
         )
       }
     }
