@@ -18,13 +18,17 @@ def module
     kind active
     ident C
     @ Command specifier
-    spec command node
+    spec command
       kind async
       name ident C
       formal param
         kind value
-        ident x
+        ident a
         type name U32
+      formal param
+        kind value
+        ident b
+        type name F32
       opcode literal int 0x00
       priority literal int 10
       queue full assert
@@ -83,8 +87,12 @@ def module
       ident E
       formal param
         kind value
-        ident x
+        ident a
         type name U32
+      formal param
+        kind value
+        ident b
+        type name F32
       severity activity low
       id literal int 0x00
       format {} counts
@@ -95,7 +103,11 @@ def module
       ident I
       formal param
         kind value
-        ident x
+        ident a
+        type name U32
+      formal param
+        kind value
+        ident b
         type name F32
       priority literal int 10
       queue full assert
@@ -153,8 +165,12 @@ def module
     ident P
     formal param
       kind value
-      ident x
+      ident a
       type name U32
+    formal param
+      kind value
+      ident b
+      type name F32
     return type name U32
   @< Port definition
   @ Struct definition
@@ -307,9 +323,9 @@ def module
     ident intLiteralExp
     literal int 1234
   @< Int literal
-  @ Parens
+  @ Paren
   def constant
-    ident parensExp
+    ident parenExp
     expr binop
       expr paren
         expr binop
@@ -318,5 +334,31 @@ def module
           literal int 2
       binop *
       literal int 3
-  @< Parens
+  @< Paren
+  @ String literal single
+  def constant
+    ident stringLiteralSingleExp
+    literal string This is a string.
+  @< String literal single
+  @ String literal multi
+  def constant
+    ident stringLiteralMultExp
+    literal string line 1
+                   line 2
+                   line 3
+  @< String literal multi
+  @ Struct
+  def constant
+    ident structExp
+    expr struct
+      struct member
+        ident a
+        literal int 1
+      struct member
+        ident b
+        literal int 2
+      struct member
+        ident c
+        literal int 3
+  @< Struct
 @< Expressions

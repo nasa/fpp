@@ -13,7 +13,7 @@ module DefinitionsAndSpecifiers {
   active component C {
 
     @ Command specifier
-    async command C(x: U32) opcode 0x00 priority 10 assert
+    async command C(a: U32, b: F32) opcode 0x00 priority 10 assert
     @< Command specifier
 
     @ Parameter specifier
@@ -35,11 +35,11 @@ module DefinitionsAndSpecifiers {
     @< Telemetry channel specifier
 
     @ Event specifier
-    event E(x: U32) severity activity low id 0x00 format "{} counts" throttle 10
+    event E(a: U32, b: F32) severity activity low id 0x00 format "{} counts" throttle 10
     @< Event specifier
 
     @ Internal port specifier
-    internal port I(x: F32) priority 10 assert
+    internal port I(a: U32, b: F32) priority 10 assert
     @< Internal port specifier
 
   }
@@ -84,7 +84,7 @@ module DefinitionsAndSpecifiers {
   """
 
   @ Port definition
-  port P(x: U32) -> U32
+  port P(a: U32, b: F32) -> U32
   @< Port definition
 
   @ Struct definition
@@ -178,9 +178,25 @@ module Expressions {
   constant intLiteralExp = 1234
   @< Int literal
 
-  @ Parens
-  constant parensExp = (1 + 2) * 3
-  @< Parens
+  @ Paren
+  constant parenExp = (1 + 2) * 3
+  @< Paren
+
+  @ String literal single
+  constant stringLiteralSingleExp = "This is a string."
+  @< String literal single
+
+  @ String literal multi
+  constant stringLiteralMultExp = """
+                                  line 1
+                                  line 2
+                                  line 3
+                                  """
+  @< String literal multi
+
+  @ Struct
+  constant structExp = { a = 1, b = 2, c = 3 }
+  @< Struct
 
 }
 @< Expressions

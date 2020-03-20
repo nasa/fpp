@@ -146,7 +146,7 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
       case Ast.SpecCommand.Sync => "sync"
     }
     val sc = node.getData
-    lines("spec command node") ++
+    lines("spec command") ++
     List(
       lines("kind " ++ kind(sc.kind)),
       addPrefix("name", ident) (sc.name),
