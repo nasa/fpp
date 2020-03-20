@@ -1,0 +1,18 @@
+#!/bin/sh
+
+. ../../../scripts/test-utils.sh
+
+ast_no_include()
+{
+  ../../../bin/fpp-syntax -a ast-no-include.fpp > ast-no-include.out.txt
+  diff -u ast-no-include.ref.txt ast-no-include.out.txt
+}
+
+tests="
+ast_no_include
+"
+
+for t in $tests
+do
+  run $t
+done

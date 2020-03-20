@@ -14,9 +14,9 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
     lines("def array") ++
     List(
       ident(da.name),
-      expr(da.size.getData),
+      addPrefix("size", expr) (da.size.getData),
       typeName(da.eltType.getData),
-      linesOpt(applyToData(expr), da.default),
+      linesOpt(addPrefix("default", applyToData(expr)), da.default),
       linesOpt(applyToData(formatString), da.format)
     ).flatten.map(indentIn)
   }
@@ -77,15 +77,15 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
     List(
       ident(dp.name),
       formalParamList(dp.params),
-      linesOpt(applyToData(typeName), dp.returnType)
+      linesOpt(addPrefix("return", applyToData(typeName)), dp.returnType)
     ).flatten.map(indentIn)
   }
 
   override def defStructNode(node: AstNode[Ast.DefStruct]) = {
     val ds = node.getData
     lines("def struct") ++ 
-    ident(ds.name) ++
     (
+      ident(ds.name) ++
       ds.members.map(annotateNode(structTypeMember)).flatten ++ 
       linesOpt(applyToData(expr), ds.default)
     ).map(indentIn) 
@@ -148,7 +148,7 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
     val sc = node.getData
     lines("spec command node") ++
     List(
-      lines("kind" ++ kind(sc.kind)),
+      lines("kind " ++ kind(sc.kind)),
       addPrefix("name", ident) (sc.name),
       formalParamList(sc.params),
       linesOpt(addPrefix("opcode", applyToData(expr)), sc.opcode),
@@ -228,7 +228,7 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
       addPrefix("instance", applyToData(qualIdent)) (si.instance),
       addPrefix("phase", applyToData(expr)) (si.phase),
       {
-        val code = si.code.split("\n").map(line).toList
+        val code = si.code.split('\n').map(line).toList
         Line.joinLists (Line.Indent) (lines("code")) (" ") (code)
       }
     ).flatten.map(indentIn)
@@ -514,10 +514,12 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
     (ident(sm.name) ++ expr(sm.value.getData)).map(indentIn)
 
   private def structTypeMember(stm: Ast.StructTypeMember) = {
-    val Ast.StructTypeMember(id, tnn, sno) = stm
-    val l1 = joinLists (lines(id)) (": ") (typeName(tnn.data))
-    val l2 = linesOpt(applyToData(formatString), sno)
-    joinLists (l1) (" ") (l2)
+    lines("struct type member") ++ 
+    List(
+      ident(stm.name),
+      typeName(stm.typeName.getData),
+      linesOpt(applyToData(formatString), stm.format)
+    ).flatten.map(indentIn)
   }
 
   private def todo = lines("TODO")

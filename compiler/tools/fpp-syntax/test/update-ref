@@ -1,0 +1,3 @@
+#!/bin/sh
+
+../../../bin/fpp-syntax -a ast-no-include.fpp > ast-no-include.ref.txt
