@@ -204,8 +204,8 @@ trait AstUnitVisitor[B] extends AstVisitor[Unit, B] {
   final override def typeNameFloat(a: Unit, tnf: Ast.TypeNameFloat): B = 
     typeNameFloat(tnf)
 
-  final override def typeNameInt(a: Unit, tnf: Ast.TypeNameInt): B = 
-    typeNameInt(tnf)
+  final override def typeNameInt(a: Unit, tni: Ast.TypeNameInt): B = 
+    typeNameInt(tni)
 
   final override def typeNameQualIdent(a: Unit, tnqid: Ast.TypeNameQualIdent): B = 
     typeNameQualIdent(tnqid)

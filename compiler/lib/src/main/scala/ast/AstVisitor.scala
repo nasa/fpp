@@ -79,9 +79,9 @@ trait AstVisitor[A, B] {
 
   def typeNameFloat(a: A, tnf: Ast.TypeNameFloat): B = default(a)
 
-  def typeNameInt(a: A, tnf: Ast.TypeNameInt): B = default(a)
+  def typeNameInt(a: A, tni: Ast.TypeNameInt): B = default(a)
 
-  def typeNameQualIdent(a: A, qid: Ast.TypeNameQualIdent): B = default(a)
+  def typeNameQualIdent(a: A, tnqid: Ast.TypeNameQualIdent): B = default(a)
 
   def typeNameString(a: A): B = default(a)
 
