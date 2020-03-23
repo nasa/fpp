@@ -15,7 +15,7 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
     List(
       ident(da.name),
       addPrefix("size", expr) (da.size.getData),
-      typeName(da.eltType.getData),
+      typeNameNode(da.eltType),
       linesOpt(addPrefix("default", applyToData(expr)), da.default),
       linesOpt(addPrefix("format", applyToData(string)), da.format)
     ).flatten.map(indentIn)
@@ -60,7 +60,7 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
     lines("def enum") ++
     List(
       ident(de.name),
-      linesOpt(applyToData(typeName), de.typeName),
+      linesOpt(typeNameNode, de.typeName),
       de.constants.map(annotateNode(defEnumConstant)).flatten
     ).flatten.map(indentIn)
   }
@@ -77,7 +77,7 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
     List(
       ident(dp.name),
       formalParamList(dp.params),
-      linesOpt(addPrefix("return", applyToData(typeName)), dp.returnType)
+      linesOpt(addPrefix("return", typeNameNode), dp.returnType)
     ).flatten.map(indentIn)
   }
 
@@ -265,7 +265,7 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
     lines("spec param") ++
     List(
       ident(sp.name),
-      typeName(sp.typeName.getData),
+      typeNameNode(sp.typeName),
       linesOpt(addPrefix("default", applyToData(expr)), sp.default),
       linesOpt(addPrefix("id", applyToData(expr)), sp.id),
       linesOpt(addPrefix("set opcode", applyToData(expr)), sp.setOpcode),
@@ -347,7 +347,7 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
     lines("spec tlm channel") ++
     List(
       ident(tc.name),
-      typeName(tc.typeName.getData),
+      typeNameNode(tc.typeName),
       linesOpt(addPrefix("id", applyToData(expr)), tc.id),
       linesOpt(update, tc.update),
       linesOpt(addPrefix("format", applyToData(string)), tc.format),
@@ -370,18 +370,18 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
 
   override def transUnit(tu: Ast.TransUnit) = tu.members.map(tuMember).flatten
 
-  override def typeNameBool = lines("bool")
+  override def typeNameBoolNode(node: AstNode[Ast.TypeName]) = lines("bool")
 
-  override def typeNameFloat(tnf: Ast.TypeNameFloat) = {
-    val s = tnf.name match {
+  override def typeNameFloatNode(node: AstNode[Ast.TypeName], tn: Ast.TypeNameFloat) = {
+    val s = tn.name match {
       case Ast.F32() => "F32"
       case Ast.F64() => "F64"
     }
     lines(s)
   }
 
-  override def typeNameInt(tni: Ast.TypeNameInt) = {
-    val s = tni.name match {
+  override def typeNameIntNode(node: AstNode[Ast.TypeName], tn: Ast.TypeNameInt) = {
+    val s = tn.name match {
       case Ast.I8() => "I8"
       case Ast.I16() => "I16"
       case Ast.I32() => "I32"
@@ -394,10 +394,10 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
     lines(s)
   }
 
-  override def typeNameQualIdent(tnqid: Ast.TypeNameQualIdent) = 
-    qualIdent(tnqid.name)
+  override def typeNameQualIdentNode(node: AstNode[Ast.TypeName], tn: Ast.TypeNameQualIdent) = 
+    qualIdent(tn.name)
 
-  override def typeNameString = lines("string")
+  override def typeNameStringNode(node: AstNode[Ast.TypeName]) = lines("string")
 
   private def addPrefix[T](s: String, f: T => List[Line]): T => List[Line] =
     (t: T) => Line.joinLists (Line.Indent) (lines(s)) (" ") (f(t))
@@ -458,7 +458,7 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
     List(
       lines(kind(fp.kind)),
       ident(fp.name),
-      typeName(fp.typeName.getData),
+      typeNameNode(fp.typeName),
       linesOpt(applyToData(expr), fp.size)
     ).flatten.map(indentIn)
   }
@@ -515,7 +515,7 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
     lines("struct type member") ++ 
     List(
       ident(stm.name),
-      typeName(stm.typeName.getData),
+      typeNameNode(stm.typeName),
       linesOpt(addPrefix("format", applyToData(string)), stm.format)
     ).flatten.map(indentIn)
   }
@@ -530,7 +530,7 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
 
   private def tuMember(tum: Ast.TUMember) = moduleMember(tum)
 
-  private def typeName(tn: Ast.TypeName) = addPrefix("type name", matchTypeName) (tn)
+  private def typeNameNode(node: AstNode[Ast.TypeName]) = addPrefix("type name", matchTypeNameNode) (node)
 
   private def unop(op: Ast.Unop) =
     op match {

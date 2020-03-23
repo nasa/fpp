@@ -75,23 +75,13 @@ trait AstUnitVisitor[B] extends AstVisitor[Unit, B] {
   
   def transUnit(tu: Ast.TransUnit): B = default
 
-  def typeNameBool: B = default
-
   def typeNameBoolNode(node: AstNode[Ast.TypeName]): B = default
-
-  def typeNameFloat(tnf: Ast.TypeNameFloat): B = default
 
   def typeNameFloatNode(node: AstNode[Ast.TypeName], tn: Ast.TypeNameFloat): B = default
 
-  def typeNameInt(tni: Ast.TypeNameInt): B = default
-
   def typeNameIntNode(node: AstNode[Ast.TypeName], tn: Ast.TypeNameInt): B = default
 
-  def typeNameQualIdent(tnqid: Ast.TypeNameQualIdent): B = default
-
   def typeNameQualIdentNode(node: AstNode[Ast.TypeName], tn: Ast.TypeNameQualIdent): B = default
-
-  def typeNameString: B = default
 
   def typeNameStringNode(node: AstNode[Ast.TypeName]): B = default
 
@@ -108,8 +98,6 @@ trait AstUnitVisitor[B] extends AstVisitor[Unit, B] {
 
   final def matchTuMemberNode(tumn: Ast.TUMember.Node): B =
     matchTuMemberNode((), tumn)
-
-  final def matchTypeName(tn: Ast.TypeName): B = matchTypeName((), tn)
 
   final def matchTypeNameNode(node: AstNode[Ast.TypeName]): B = matchTypeNameNode((), node)
 
@@ -211,25 +199,18 @@ trait AstUnitVisitor[B] extends AstVisitor[Unit, B] {
   final override def transUnit(a: Unit, tu: Ast.TransUnit): B = 
     transUnit(tu)
 
-  final override def typeNameBool(a: Unit): B = typeNameBool
-
   final override def typeNameBoolNode(a: Unit, node: AstNode[Ast.TypeName]): B = typeNameBoolNode(node)
-
-  final override def typeNameFloat(a: Unit, tnf: Ast.TypeNameFloat): B = 
-    typeNameFloat(tnf)
 
   final override def typeNameFloatNode(a: Unit, node: AstNode[Ast.TypeName], tn: Ast.TypeNameFloat): B = 
     typeNameFloatNode(node, tn)
 
-  final override def typeNameInt(a: Unit, tni: Ast.TypeNameInt): B = 
-    typeNameInt(tni)
-
   final override def typeNameIntNode(a: Unit, node: AstNode[Ast.TypeName], tn: Ast.TypeNameInt): B = 
     typeNameIntNode(node, tn)
 
-  final override def typeNameQualIdent(a: Unit, tnqid: Ast.TypeNameQualIdent): B = 
-    typeNameQualIdent(tnqid)
+  final override def typeNameQualIdentNode(a: Unit, node: AstNode[Ast.TypeName], tn: Ast.TypeNameQualIdent): B = 
+    typeNameQualIdentNode(node, tn)
 
-  final override def typeNameString(a: Unit): B = typeNameString
+  final override def typeNameStringNode(a: Unit, node: AstNode[Ast.TypeName]): B = 
+    typeNameStringNode(node)
 
 }
