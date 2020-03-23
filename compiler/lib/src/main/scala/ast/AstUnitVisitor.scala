@@ -1,136 +1,138 @@
 package fpp.compiler.ast
 
 /** Visit an AST with unit input */
-trait AstUnitVisitor[B] extends AstVisitor[Unit, B] {
+trait AstUnitVisitor extends AstVisitor {
 
-  def default: B
+  type In = Unit
 
-  def defAbsTypeNode(node: AstNode[Ast.DefAbsType]): B = default
+  def default: Out
 
-  def defArrayNode(node: AstNode[Ast.DefArray]): B = default
+  def defAbsTypeNode(node: AstNode[Ast.DefAbsType]): Out = default
 
-  def defComponentNode(node: AstNode[Ast.DefComponent]): B = default
+  def defArrayNode(node: AstNode[Ast.DefArray]): Out = default
 
-  def defComponentInstanceNode(node: AstNode[Ast.DefComponentInstance]): B = default
+  def defComponentNode(node: AstNode[Ast.DefComponent]): Out = default
 
-  def defConstantNode(node: AstNode[Ast.DefConstant]): B = default
+  def defComponentInstanceNode(node: AstNode[Ast.DefComponentInstance]): Out = default
 
-  def defEnumNode(node: AstNode[Ast.DefEnum]): B = default
+  def defConstantNode(node: AstNode[Ast.DefConstant]): Out = default
 
-  def defModuleNode(node: AstNode[Ast.DefModule]): B = default
+  def defEnumNode(node: AstNode[Ast.DefEnum]): Out = default
 
-  def defPortNode(node: AstNode[Ast.DefPort]): B = default
+  def defModuleNode(node: AstNode[Ast.DefModule]): Out = default
 
-  def defStructNode(node: AstNode[Ast.DefStruct]): B = default
+  def defPortNode(node: AstNode[Ast.DefPort]): Out = default
 
-  def defTopologyNode(node: AstNode[Ast.DefTopology]): B = default
+  def defStructNode(node: AstNode[Ast.DefStruct]): Out = default
 
-  def exprArrayNode(node: AstNode[Ast.Expr], e: Ast.ExprArray): B = default
+  def defTopologyNode(node: AstNode[Ast.DefTopology]): Out = default
 
-  def exprBinopNode(node: AstNode[Ast.Expr], e: Ast.ExprBinop): B = default
+  def exprArrayNode(node: AstNode[Ast.Expr], e: Ast.ExprArray): Out = default
 
-  def exprDotNode(node: AstNode[Ast.Expr], e: Ast.ExprDot): B = default
+  def exprBinopNode(node: AstNode[Ast.Expr], e: Ast.ExprBinop): Out = default
 
-  def exprIdentNode(node: AstNode[Ast.Expr], e: Ast.ExprIdent): B = default
+  def exprDotNode(node: AstNode[Ast.Expr], e: Ast.ExprDot): Out = default
 
-  def exprLiteralBoolNode(node: AstNode[Ast.Expr], e: Ast.ExprLiteralBool): B = default
+  def exprIdentNode(node: AstNode[Ast.Expr], e: Ast.ExprIdent): Out = default
 
-  def exprLiteralFloatNode(node: AstNode[Ast.Expr], e: Ast.ExprLiteralFloat): B = default
+  def exprLiteralBoolNode(node: AstNode[Ast.Expr], e: Ast.ExprLiteralBool): Out = default
 
-  def exprLiteralIntNode(node: AstNode[Ast.Expr], e: Ast.ExprLiteralInt): B = default
+  def exprLiteralFloatNode(node: AstNode[Ast.Expr], e: Ast.ExprLiteralFloat): Out = default
 
-  def exprLiteralStringNode(node: AstNode[Ast.Expr], e: Ast.ExprLiteralString): B = default
+  def exprLiteralIntNode(node: AstNode[Ast.Expr], e: Ast.ExprLiteralInt): Out = default
 
-  def exprParenNode(node: AstNode[Ast.Expr], e: Ast.ExprParen): B = default
+  def exprLiteralStringNode(node: AstNode[Ast.Expr], e: Ast.ExprLiteralString): Out = default
 
-  def exprStructNode(node: AstNode[Ast.Expr], e: Ast.ExprStruct): B = default
+  def exprParenNode(node: AstNode[Ast.Expr], e: Ast.ExprParen): Out = default
 
-  def exprUnopNode(node: AstNode[Ast.Expr], e: Ast.ExprUnop): B = default
+  def exprStructNode(node: AstNode[Ast.Expr], e: Ast.ExprStruct): Out = default
 
-  def specCommandNode(node: AstNode[Ast.SpecCommand]): B = default
+  def exprUnopNode(node: AstNode[Ast.Expr], e: Ast.ExprUnop): Out = default
 
-  def specCompInstanceNode(node: AstNode[Ast.SpecCompInstance]): B = default
+  def specCommandNode(node: AstNode[Ast.SpecCommand]): Out = default
 
-  def specConnectionGraphNode(node: AstNode[Ast.SpecConnectionGraph]): B = default
+  def specCompInstanceNode(node: AstNode[Ast.SpecCompInstance]): Out = default
 
-  def specEventNode(node: AstNode[Ast.SpecEvent]): B = default
+  def specConnectionGraphNode(node: AstNode[Ast.SpecConnectionGraph]): Out = default
 
-  def specIncludeNode(node: AstNode[Ast.SpecInclude]): B = default
+  def specEventNode(node: AstNode[Ast.SpecEvent]): Out = default
 
-  def specInitNode(node: AstNode[Ast.SpecInit]): B = default
+  def specIncludeNode(node: AstNode[Ast.SpecInclude]): Out = default
 
-  def specInternalPortNode(node: AstNode[Ast.SpecInternalPort]): B = default
+  def specInitNode(node: AstNode[Ast.SpecInit]): Out = default
 
-  def specLocNode(node: AstNode[Ast.SpecLoc]): B = default
+  def specInternalPortNode(node: AstNode[Ast.SpecInternalPort]): Out = default
 
-  def specParamNode(node: AstNode[Ast.SpecParam]): B = default
+  def specLocNode(node: AstNode[Ast.SpecLoc]): Out = default
+
+  def specParamNode(node: AstNode[Ast.SpecParam]): Out = default
   
-  def specPortInstanceNode(node: AstNode[Ast.SpecPortInstance]): B = default
+  def specPortInstanceNode(node: AstNode[Ast.SpecPortInstance]): Out = default
 
-  def specTlmChannelNode(node: AstNode[Ast.SpecTlmChannel]): B = default
+  def specTlmChannelNode(node: AstNode[Ast.SpecTlmChannel]): Out = default
 
-  def specTopImportNode(node: AstNode[Ast.SpecTopImport]): B = default
+  def specTopImportNode(node: AstNode[Ast.SpecTopImport]): Out = default
 
-  def specUnusedPortsNode(node: AstNode[Ast.SpecUnusedPorts]): B = default
+  def specUnusedPortsNode(node: AstNode[Ast.SpecUnusedPorts]): Out = default
   
-  def transUnit(tu: Ast.TransUnit): B = default
+  def transUnit(tu: Ast.TransUnit): Out = default
 
-  def typeNameBoolNode(node: AstNode[Ast.TypeName]): B = default
+  def typeNameBoolNode(node: AstNode[Ast.TypeName]): Out = default
 
-  def typeNameFloatNode(node: AstNode[Ast.TypeName], tn: Ast.TypeNameFloat): B = default
+  def typeNameFloatNode(node: AstNode[Ast.TypeName], tn: Ast.TypeNameFloat): Out = default
 
-  def typeNameIntNode(node: AstNode[Ast.TypeName], tn: Ast.TypeNameInt): B = default
+  def typeNameIntNode(node: AstNode[Ast.TypeName], tn: Ast.TypeNameInt): Out = default
 
-  def typeNameQualIdentNode(node: AstNode[Ast.TypeName], tn: Ast.TypeNameQualIdent): B = default
+  def typeNameQualIdentNode(node: AstNode[Ast.TypeName], tn: Ast.TypeNameQualIdent): Out = default
 
-  def typeNameStringNode(node: AstNode[Ast.TypeName]): B = default
+  def typeNameStringNode(node: AstNode[Ast.TypeName]): Out = default
 
-  final def matchComponentMemberNode(cmn: Ast.ComponentMember.Node): B =
+  final def matchComponentMemberNode(cmn: Ast.ComponentMember.Node): Out =
     matchComponentMemberNode((), cmn)
 
-  final def matchExprNode(node: AstNode[Ast.Expr]): B = matchExprNode((), node)
+  final def matchExprNode(node: AstNode[Ast.Expr]): Out = matchExprNode((), node)
 
-  final def matchModuleMemberNode(mmn: Ast.ModuleMember.Node): B =
+  final def matchModuleMemberNode(mmn: Ast.ModuleMember.Node): Out =
     matchModuleMemberNode((), mmn)
 
-  final def matchTopologyMemberNode(tmn: Ast.TopologyMember.Node): B =
+  final def matchTopologyMemberNode(tmn: Ast.TopologyMember.Node): Out =
     matchTopologyMemberNode((), tmn)
 
-  final def matchTuMemberNode(tumn: Ast.TUMember.Node): B =
+  final def matchTuMemberNode(tumn: Ast.TUMember.Node): Out =
     matchTuMemberNode((), tumn)
 
-  final def matchTypeNameNode(node: AstNode[Ast.TypeName]): B = matchTypeNameNode((), node)
+  final def matchTypeNameNode(node: AstNode[Ast.TypeName]): Out = matchTypeNameNode((), node)
 
-  final override def default(u: Unit): B = default
+  final override def default(u: Unit): Out = default
 
-  final override def defAbsTypeNode(a: Unit, node: AstNode[Ast.DefAbsType]): B = 
+  final override def defAbsTypeNode(a: Unit, node: AstNode[Ast.DefAbsType]): Out = 
     defAbsTypeNode(node)
 
-  final override def defArrayNode(a: Unit, node: AstNode[Ast.DefArray]): B = 
+  final override def defArrayNode(a: Unit, node: AstNode[Ast.DefArray]): Out = 
     defArrayNode(node)
 
-  final override def defComponentNode(a: Unit, node: AstNode[Ast.DefComponent]): B = 
+  final override def defComponentNode(a: Unit, node: AstNode[Ast.DefComponent]): Out = 
     defComponentNode(node)
 
-  final override def defComponentInstanceNode(a: Unit, node: AstNode[Ast.DefComponentInstance]): B = 
+  final override def defComponentInstanceNode(a: Unit, node: AstNode[Ast.DefComponentInstance]): Out = 
     defComponentInstanceNode(node)
 
-  final override def defConstantNode(a: Unit, node: AstNode[Ast.DefConstant]): B = 
+  final override def defConstantNode(a: Unit, node: AstNode[Ast.DefConstant]): Out = 
     defConstantNode(node)
 
-  final override def defEnumNode(a: Unit, node: AstNode[Ast.DefEnum]): B = 
+  final override def defEnumNode(a: Unit, node: AstNode[Ast.DefEnum]): Out = 
     defEnumNode(node)
 
-  final override def defModuleNode(a: Unit, node: AstNode[Ast.DefModule]): B = 
+  final override def defModuleNode(a: Unit, node: AstNode[Ast.DefModule]): Out = 
     defModuleNode(node)
 
-  final override def defPortNode(a: Unit, node: AstNode[Ast.DefPort]): B = 
+  final override def defPortNode(a: Unit, node: AstNode[Ast.DefPort]): Out = 
     defPortNode(node)
 
-  final override def defStructNode(a: Unit, node: AstNode[Ast.DefStruct]): B = 
+  final override def defStructNode(a: Unit, node: AstNode[Ast.DefStruct]): Out = 
     defStructNode(node)
 
-  final override def defTopologyNode(a: Unit, node: AstNode[Ast.DefTopology]): B = 
+  final override def defTopologyNode(a: Unit, node: AstNode[Ast.DefTopology]): Out = 
     defTopologyNode(node)
 
   final override def exprArrayNode(a: Unit, node: AstNode[Ast.Expr], e: Ast.ExprArray) =
@@ -166,60 +168,60 @@ trait AstUnitVisitor[B] extends AstVisitor[Unit, B] {
   final override def exprUnopNode(a: Unit, node: AstNode[Ast.Expr], e: Ast.ExprUnop) =
     exprUnopNode(node, e)
 
-  final override def specCommandNode(a: Unit, node: AstNode[Ast.SpecCommand]): B = 
+  final override def specCommandNode(a: Unit, node: AstNode[Ast.SpecCommand]): Out = 
     specCommandNode(node)
 
-  final override def specCompInstanceNode(a: Unit, node: AstNode[Ast.SpecCompInstance]): B = 
+  final override def specCompInstanceNode(a: Unit, node: AstNode[Ast.SpecCompInstance]): Out = 
     specCompInstanceNode(node)
 
-  final override def specConnectionGraphNode(a: Unit, node: AstNode[Ast.SpecConnectionGraph]): B = 
+  final override def specConnectionGraphNode(a: Unit, node: AstNode[Ast.SpecConnectionGraph]): Out = 
     specConnectionGraphNode(node)
 
-  final override def specEventNode(a: Unit, node: AstNode[Ast.SpecEvent]): B = 
+  final override def specEventNode(a: Unit, node: AstNode[Ast.SpecEvent]): Out = 
     specEventNode(node)
 
-  final override def specIncludeNode(a: Unit, node: AstNode[Ast.SpecInclude]): B = 
+  final override def specIncludeNode(a: Unit, node: AstNode[Ast.SpecInclude]): Out = 
     specIncludeNode(node)
 
-  final override def specInitNode(a: Unit, node: AstNode[Ast.SpecInit]): B = 
+  final override def specInitNode(a: Unit, node: AstNode[Ast.SpecInit]): Out = 
     specInitNode(node)
 
-  final override def specInternalPortNode(a: Unit, node: AstNode[Ast.SpecInternalPort]): B = 
+  final override def specInternalPortNode(a: Unit, node: AstNode[Ast.SpecInternalPort]): Out = 
     specInternalPortNode(node)
 
-  final override def specLocNode(a: Unit, node: AstNode[Ast.SpecLoc]): B = 
+  final override def specLocNode(a: Unit, node: AstNode[Ast.SpecLoc]): Out = 
     specLocNode(node)
 
-  final override def specParamNode(a: Unit, node: AstNode[Ast.SpecParam]): B = 
+  final override def specParamNode(a: Unit, node: AstNode[Ast.SpecParam]): Out = 
     specParamNode(node)
 
-  final override def specPortInstanceNode(a: Unit, node: AstNode[Ast.SpecPortInstance]): B = 
+  final override def specPortInstanceNode(a: Unit, node: AstNode[Ast.SpecPortInstance]): Out = 
     specPortInstanceNode(node)
 
-  final override def specTlmChannelNode(a: Unit, node: AstNode[Ast.SpecTlmChannel]): B = 
+  final override def specTlmChannelNode(a: Unit, node: AstNode[Ast.SpecTlmChannel]): Out = 
     specTlmChannelNode(node)
 
-  final override def specTopImportNode(a: Unit, node: AstNode[Ast.SpecTopImport]): B = 
+  final override def specTopImportNode(a: Unit, node: AstNode[Ast.SpecTopImport]): Out = 
     specTopImportNode(node)
 
-  final override def specUnusedPortsNode(a: Unit, node: AstNode[Ast.SpecUnusedPorts]): B = 
+  final override def specUnusedPortsNode(a: Unit, node: AstNode[Ast.SpecUnusedPorts]): Out = 
     specUnusedPortsNode(node)
 
-  final override def transUnit(a: Unit, tu: Ast.TransUnit): B = 
+  final override def transUnit(a: Unit, tu: Ast.TransUnit): Out = 
     transUnit(tu)
 
-  final override def typeNameBoolNode(a: Unit, node: AstNode[Ast.TypeName]): B = typeNameBoolNode(node)
+  final override def typeNameBoolNode(a: Unit, node: AstNode[Ast.TypeName]): Out = typeNameBoolNode(node)
 
-  final override def typeNameFloatNode(a: Unit, node: AstNode[Ast.TypeName], tn: Ast.TypeNameFloat): B = 
+  final override def typeNameFloatNode(a: Unit, node: AstNode[Ast.TypeName], tn: Ast.TypeNameFloat): Out = 
     typeNameFloatNode(node, tn)
 
-  final override def typeNameIntNode(a: Unit, node: AstNode[Ast.TypeName], tn: Ast.TypeNameInt): B = 
+  final override def typeNameIntNode(a: Unit, node: AstNode[Ast.TypeName], tn: Ast.TypeNameInt): Out = 
     typeNameIntNode(node, tn)
 
-  final override def typeNameQualIdentNode(a: Unit, node: AstNode[Ast.TypeName], tn: Ast.TypeNameQualIdent): B = 
+  final override def typeNameQualIdentNode(a: Unit, node: AstNode[Ast.TypeName], tn: Ast.TypeNameQualIdent): Out = 
     typeNameQualIdentNode(node, tn)
 
-  final override def typeNameStringNode(a: Unit, node: AstNode[Ast.TypeName]): B = 
+  final override def typeNameStringNode(a: Unit, node: AstNode[Ast.TypeName]): Out = 
     typeNameStringNode(node)
 
 }

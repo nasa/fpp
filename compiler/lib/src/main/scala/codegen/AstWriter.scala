@@ -4,7 +4,9 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 
 /** Write out an FPP AST */
-object AstWriter extends AstUnitVisitor[List[Line]] {
+object AstWriter extends AstUnitVisitor {
+
+  type Out = List[Line]
 
   override def defAbsTypeNode(node: AstNode[Ast.DefAbsType]) =
     lines("def abs type") ++ ident(node.getData.name).map(indentIn)
