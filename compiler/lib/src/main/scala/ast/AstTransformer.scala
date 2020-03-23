@@ -116,18 +116,20 @@ trait AstTransformer[A, B] {
   def transUnit(a: A, tu: Ast.TransUnit): Result[Ast.TransUnit] =
     Right(default(a), tu)
 
-  def typeNameBool(a: A): Result.Result[B] = Right(default(a))
+  def typeNameBoolNode(a: A, node: AstNode[Ast.TypeName]): ResultNode[Ast.TypeName] =
+    Right(default(a), node)
 
-  def typeNameFloat(a: A, tnf: Ast.TypeNameFloat): Result[Ast.TypeNameFloat] =
-    Right(default(a), tnf)
+  def typeNameFloatNode(a: A, node: AstNode[Ast.TypeName], tn: Ast.TypeNameFloat): ResultNode[Ast.TypeName] =
+    Right(default(a), node)
 
-  def typeNameInt(a: A, tni: Ast.TypeNameInt): Result[Ast.TypeNameInt] = 
-    Right(default(a), tni)
+  def typeNameIntNode(a: A, node: AstNode[Ast.TypeName], tn: Ast.TypeNameInt): ResultNode[Ast.TypeName] = 
+    Right(default(a), node)
 
-  def typeNameQualIdent(a: A, tnqid: Ast.TypeNameQualIdent): Result[Ast.TypeNameQualIdent] =
-    Right(default(a), tnqid)
+  def typeNameQualIdentNode(a: A, node: AstNode[Ast.TypeName], tn: Ast.TypeNameQualIdent): ResultNode[Ast.TypeName] =
+    Right(default(a), node)
 
-  def typeNameString(a: A): Result.Result[B]= Right(default(a))
+  def typeNameStringNode(a: A, node: AstNode[Ast.TypeName]): ResultNode[Ast.TypeName] =
+    Right(default(a), node)
 
   final def matchComponentMemberNode(a: A, cmn: Ast.ComponentMember.Node): Result[Ast.ComponentMember.Node] = {
     cmn match {
@@ -156,7 +158,7 @@ trait AstTransformer[A, B] {
     }
   }
 
-  final def matchExprNode(a: A, node: AstNode[Ast.Expr]): ResultNode[Ast.Expr] = {
+  final def matchExprNode(a: A, node: AstNode[Ast.Expr]): ResultNode[Ast.Expr] =
     node.getData match {
       case e @ Ast.ExprArray(_) => exprArrayNode(a, node, e)
       case e @ Ast.ExprBinop(_, _, _) => exprBinopNode(a, node, e)
@@ -170,9 +172,8 @@ trait AstTransformer[A, B] {
       case e @ Ast.ExprStruct(_) => exprStructNode(a, node, e)
       case e @ Ast.ExprUnop(_, _) => exprUnopNode(a, node, e)
     }
-  }
 
-  final def matchModuleMemberNode(a: A, mmn: Ast.ModuleMember.Node): Result[Ast.ModuleMember.Node] = {
+  final def matchModuleMemberNode(a: A, mmn: Ast.ModuleMember.Node): Result[Ast.ModuleMember.Node] =
     mmn match {
       case Ast.ModuleMember.DefAbsType(node) => 
         transformNode(defAbsTypeNode(a, node), Ast.ModuleMember.DefAbsType(_))
@@ -201,34 +202,36 @@ trait AstTransformer[A, B] {
       case Ast.ModuleMember.SpecLoc(node) => 
         transformNode(specLocNode(a, node), Ast.ModuleMember.SpecLoc(_))
     }
-  }
 
-  /*
-  final def matchTopologyMemberNode(a: A, tmn: Ast.TopologyMember.Node): B =
+  final def matchTopologyMemberNode(a: A, tmn: Ast.TopologyMember.Node): Result[Ast.TopologyMember.Node] =
     tmn match {
-      case Ast.TopologyMember.SpecCompInstance(node) => specCompInstanceNode(a, node)
-      case Ast.TopologyMember.SpecConnectionGraph(node) => specConnectionGraphNode(a, node)
-      case Ast.TopologyMember.SpecInclude(node) => specIncludeNode(a, node)
-      case Ast.TopologyMember.SpecTopImport(node) => specTopImportNode(a, node)
-      case Ast.TopologyMember.SpecUnusedPorts(node) => specUnusedPortsNode(a, node)
+      case Ast.TopologyMember.SpecCompInstance(node) => 
+        transformNode(specCompInstanceNode(a, node), Ast.TopologyMember.SpecCompInstance(_))
+      case Ast.TopologyMember.SpecConnectionGraph(node) => 
+        transformNode(specConnectionGraphNode(a, node), Ast.TopologyMember.SpecConnectionGraph(_))
+      case Ast.TopologyMember.SpecInclude(node) => 
+        transformNode(specIncludeNode(a, node), Ast.TopologyMember.SpecInclude(_))
+      case Ast.TopologyMember.SpecTopImport(node) => 
+        transformNode(specTopImportNode(a, node), Ast.TopologyMember.SpecTopImport(_))
+      case Ast.TopologyMember.SpecUnusedPorts(node) => 
+        transformNode(specUnusedPortsNode(a, node), Ast.TopologyMember.SpecUnusedPorts(_))
     }
 
-  final def matchTuMemberNode(a: A, tumn: Ast.TUMember.Node): B = 
+  final def matchTuMemberNode(a: A, tumn: Ast.TUMember.Node): Result[Ast.TUMember.Node] = 
     matchModuleMemberNode(a, tumn)
 
-  final def matchTypeName(a: A, tn: Ast.TypeName): B =
-    tn match {
-      case Ast.TypeNameBool => typeNameBool(a)
-      case tnf @ Ast.TypeNameFloat(_) => typeNameFloat(a, tnf)
-      case tni @ Ast.TypeNameInt(_) => typeNameInt(a, tni)
-      case tnqid @ Ast.TypeNameQualIdent(_) => typeNameQualIdent(a, tnqid)
-      case Ast.TypeNameString => typeNameString(a)
+  final def matchTypeName(a: A, node: AstNode[Ast.TypeName]): ResultNode[Ast.TypeName] =
+    node.getData match {
+      case Ast.TypeNameBool => typeNameBoolNode(a, node)
+      case tn @ Ast.TypeNameFloat(_) => typeNameFloatNode(a, node, tn)
+      case tn @ Ast.TypeNameInt(_) => typeNameIntNode(a, node, tn)
+      case tn @ Ast.TypeNameQualIdent(_) => typeNameQualIdentNode(a, node, tn)
+      case Ast.TypeNameString => typeNameStringNode(a, node)
     }
-    */
 
   private def transformNode[A,B](rn: ResultNode[A], f: AstNode[A] => B): Result[B] =
     rn match {
-      case Right((b, node1)) => Right((b, f(node1)))
+      case Right((b, node)) => Right((b, f(node)))
       case Left(e) => Left(e)
     }
 
