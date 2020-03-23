@@ -41,38 +41,38 @@ trait AstTransformer[A, B] {
   def defTopologyNode(a: A, node: AstNode[Ast.DefTopology]): ResultNode[Ast.DefTopology] =
     Right(default(a), node)
 
-  def exprArray(a: A, elts: List[AstNode[Ast.Expr]]): Result[List[AstNode[Ast.Expr]]] =
-    Right(default(a), elts)
+  def exprArrayNode(a: A, node: AstNode[Ast.Expr], e: Ast.ExprArray): ResultNode[Ast.Expr] =
+    Right(default(a), node)
 
-  def exprBinop(a: A, e: (Ast.Expr, Ast.Binop, Ast.Expr)): Result[(Ast.Expr, Ast.Binop, Ast.Expr)] =
-    Right(default(a), e)
+  def exprBinopNode(a: A, node: AstNode[Ast.Expr], e: Ast.ExprBinop): ResultNode[Ast.Expr] =
+    Right(default(a), node)
   
-  def exprDot(a: A, e: (Ast.Expr, Ast.Ident)): Result[(Ast.Expr, Ast.Ident)] =
-    Right(default(a), e)
+  def exprDotNode(a: A, node: AstNode[Ast.Expr], e: Ast.ExprDot): ResultNode[Ast.Expr] =
+    Right(default(a), node)
 
-  def exprIdent(a: A, id: Ast.Ident): Result[Ast.Ident] =
-    Right(default(a), id)
+  def exprIdentNode(a: A, node: AstNode[Ast.Expr], e: Ast.ExprIdent): ResultNode[Ast.Expr] =
+    Right(default(a), node)
 
-  def exprLiteralBool(a: A, lb: Ast.LiteralBool): Result[Ast.LiteralBool] =
-    Right(default(a), lb)
+  def exprLiteralBoolNode(a: A, node: AstNode[Ast.Expr], e: Ast.ExprLiteralBool): ResultNode[Ast.Expr] =
+    Right(default(a), node)
 
-  def exprLiteralInt(a: A, s: String): Result[String] =
-    Right(default(a), s)
+  def exprLiteralFloatNode(a: A, node: AstNode[Ast.Expr], e: Ast.ExprLiteralFloat): ResultNode[Ast.Expr] =
+    Right(default(a), node)
 
-  def exprLiteralString(a: A, s: String): Result[String] =
-    Right(default(a), s)
+  def exprLiteralIntNode(a: A, node: AstNode[Ast.Expr], e: Ast.ExprLiteralInt): ResultNode[Ast.Expr] =
+    Right(default(a), node)
 
-  def exprLiteralFloat(a: A, s: String): Result[String] =
-    Right(default(a), s)
+  def exprLiteralStringNode(a: A, node: AstNode[Ast.Expr], e: Ast.ExprLiteralString): ResultNode[Ast.Expr] =
+    Right(default(a), node)
 
-  def exprParen(a: A, e: Ast.Expr): Result[Ast.Expr] =
-    Right(default(a), e)
+  def exprParenNode(a: A, node: AstNode[Ast.Expr], e: Ast.ExprParen): ResultNode[Ast.Expr] =
+    Right(default(a), node)
 
-  def exprStruct(a: A, sml: List[Ast.StructMember]): Result[List[Ast.StructMember]] =
-    Right(default(a), sml)
+  def exprStructNode(a: A, node: AstNode[Ast.Expr], e: Ast.ExprStruct): ResultNode[Ast.Expr] =
+    Right(default(a), node)
 
-  def exprUnop(a: A, e: (Ast.Unop, Ast.Expr)): Result[(Ast.Unop, Ast.Expr)] =
-    Right(default(a), e)
+  def exprUnopNode(a: A, node: AstNode[Ast.Expr], e: Ast.ExprUnop): ResultNode[Ast.Expr] =
+    Right(default(a), node)
 
   def specCommandNode(a: A, node: AstNode[Ast.SpecCommand]): ResultNode[Ast.SpecCommand] =
     Right(default(a), node)
@@ -161,21 +161,19 @@ trait AstTransformer[A, B] {
     }
   }
 
-  final def matchExpr(a: A, e: Ast.Expr): Result[Ast.Expr] = {
-    e match {
-      /*
-      case Ast.ExprBinop(e1, op, e2) => exprBinop(a, e1.getData, op, e2.getData)
-      case Ast.ExprDot(en, id) => exprDot(a, en.getData, id)
-      case Ast.ExprIdent(id) => exprIdent(a, id)
-      case Ast.ExprLiteralInt(s) => exprLiteralInt(a, s)
-      case Ast.ExprLiteralFloat(s) => exprLiteralFloat(a, s)
-      case Ast.ExprLiteralString(s) => exprLiteralString(a, s)
-      case Ast.ExprLiteralBool(lb) => exprLiteralBool(a, lb)
-      case Ast.ExprParen(en) => exprParen(a, en.getData)
-      case Ast.ExprStruct(sml) => exprStruct(a, sml)
-      case Ast.ExprUnop(op, en) => exprUnop(a, op, en.getData)
-      */
-      case _ => Right(default(a), e)
+  final def matchExprNode(a: A, node: AstNode[Ast.Expr]): ResultNode[Ast.Expr] = {
+    node.getData match {
+      case e @ Ast.ExprArray(_) => exprArrayNode(a, node, e)
+      case e @ Ast.ExprBinop(_, _, _) => exprBinopNode(a, node, e)
+      case e @ Ast.ExprDot(_, _) => exprDotNode(a, node, e)
+      case e @ Ast.ExprIdent(_) => exprIdentNode(a, node, e)
+      case e @ Ast.ExprLiteralInt(_) => exprLiteralIntNode(a, node, e)
+      case e @ Ast.ExprLiteralFloat(_) => exprLiteralFloatNode(a, node, e)
+      case e @ Ast.ExprLiteralString(_) => exprLiteralStringNode(a, node, e)
+      case e @ Ast.ExprLiteralBool(_) => exprLiteralBoolNode(a, node, e)
+      case e @ Ast.ExprParen(_) => exprParenNode(a, node, e)
+      case e @ Ast.ExprStruct(_) => exprStructNode(a, node, e)
+      case e @ Ast.ExprUnop(_, _) => exprUnopNode(a, node, e)
     }
   }
 
