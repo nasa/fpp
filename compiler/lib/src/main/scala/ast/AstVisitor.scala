@@ -77,13 +77,23 @@ trait AstVisitor[A, B] {
 
   def typeNameBool(a: A): B = default(a)
 
+  def typeNameBoolNode(a: A, node: AstNode[Ast.TypeName]): B = default(a)
+
   def typeNameFloat(a: A, tnf: Ast.TypeNameFloat): B = default(a)
+
+  def typeNameFloatNode(a: A, node: AstNode[Ast.TypeName], tn: Ast.TypeNameFloat): B = default(a)
 
   def typeNameInt(a: A, tni: Ast.TypeNameInt): B = default(a)
 
+  def typeNameIntNode(a: A, node: AstNode[Ast.TypeName], tn: Ast.TypeNameInt): B = default(a)
+
   def typeNameQualIdent(a: A, tnqid: Ast.TypeNameQualIdent): B = default(a)
 
+  def typeNameQualIdentNode(a: A, node: AstNode[Ast.TypeName], tn: Ast.TypeNameQualIdent): B = default(a)
+
   def typeNameString(a: A): B = default(a)
+
+  def typeNameStringNode(a: A, node: AstNode[Ast.TypeName]): B = default(a)
 
   final def matchComponentMemberNode(a: A, cmn: Ast.ComponentMember.Node): B =
     cmn match {
@@ -151,6 +161,15 @@ trait AstVisitor[A, B] {
       case tni @ Ast.TypeNameInt(_) => typeNameInt(a, tni)
       case tnqid @ Ast.TypeNameQualIdent(_) => typeNameQualIdent(a, tnqid)
       case Ast.TypeNameString => typeNameString(a)
+    }
+
+  final def matchTypeNameNode(a: A, node: AstNode[Ast.TypeName]): B =
+    node.getData match {
+      case Ast.TypeNameBool => typeNameBoolNode(a, node)
+      case tn @ Ast.TypeNameFloat(_) => typeNameFloatNode(a, node, tn)
+      case tn @ Ast.TypeNameInt(_) => typeNameIntNode(a, node, tn)
+      case tn @ Ast.TypeNameQualIdent(_) => typeNameQualIdentNode(a, node, tn)
+      case Ast.TypeNameString => typeNameStringNode(a, node)
     }
 
 }
