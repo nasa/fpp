@@ -25,27 +25,27 @@ trait AstVisitor[A, B] {
 
   def defTopologyNode(a: A, node: AstNode[Ast.DefTopology]): B = default(a)
 
-  def exprArray(a: A, elts: List[AstNode[Ast.Expr]]): B = default(a)
+  def exprArrayNode(a: A, node: AstNode[Ast.Expr], e: Ast.ExprArray): B = default(a)
 
-  def exprBinop(a: A, e1: Ast.Expr, op: Ast.Binop, e2: Ast.Expr): B = default(a)
+  def exprBinopNode(a: A, node: AstNode[Ast.Expr], e: Ast.ExprBinop): B = default(a)
   
-  def exprDot(a: A, e: Ast.Expr, id: Ast.Ident): B = default(a)
+  def exprDotNode(a: A, node: AstNode[Ast.Expr], e: Ast.ExprDot): B = default(a)
 
-  def exprIdent(a: A, id: Ast.Ident): B = default(a)
+  def exprIdentNode(a: A, node: AstNode[Ast.Expr], e: Ast.ExprIdent): B = default(a)
 
-  def exprLiteralBool(a: A, lb: Ast.LiteralBool): B = default(a)
+  def exprLiteralBoolNode(a: A, node: AstNode[Ast.Expr], e: Ast.ExprLiteralBool): B = default(a)
 
-  def exprLiteralInt(a: A, s: String): B = default(a)
+  def exprLiteralFloatNode(a: A, node: AstNode[Ast.Expr], e: Ast.ExprLiteralFloat): B = default(a)
 
-  def exprLiteralString(a: A, s: String): B = default(a)
+  def exprLiteralIntNode(a: A, node: AstNode[Ast.Expr], e: Ast.ExprLiteralInt): B = default(a)
 
-  def exprLiteralFloat(a: A, s: String): B = default(a)
+  def exprLiteralStringNode(a: A, node: AstNode[Ast.Expr], e: Ast.ExprLiteralString): B = default(a)
 
-  def exprParen(a: A, e: Ast.Expr): B = default(a)
+  def exprParenNode(a: A, node: AstNode[Ast.Expr], e: Ast.ExprParen): B = default(a)
 
-  def exprStruct(a: A, sml: List[Ast.StructMember]): B = default(a)
+  def exprStructNode(a: A, node: AstNode[Ast.Expr], e: Ast.ExprStruct): B = default(a)
 
-  def exprUnop(a: A, op: Ast.Unop, e: Ast.Expr): B = default(a)
+  def exprUnopNode(a: A, node: AstNode[Ast.Expr], e: Ast.ExprUnop): B = default(a)
 
   def specCommandNode(a: A, node: AstNode[Ast.SpecCommand]): B = default(a)
 
@@ -100,19 +100,19 @@ trait AstVisitor[A, B] {
       case Ast.ComponentMember.SpecTlmChannel(node) => specTlmChannelNode(a, node)
     }
 
-  final def matchExpr(a: A, e: Ast.Expr): B =
-    e match {
-      case Ast.ExprBinop(e1, op, e2) => exprBinop(a, e1.getData, op, e2.getData)
-      case Ast.ExprArray(enl) => exprArray(a, enl)
-      case Ast.ExprDot(en, id) => exprDot(a, en.getData, id)
-      case Ast.ExprIdent(id) => exprIdent(a, id)
-      case Ast.ExprLiteralInt(s) => exprLiteralInt(a, s)
-      case Ast.ExprLiteralFloat(s) => exprLiteralFloat(a, s)
-      case Ast.ExprLiteralString(s) => exprLiteralString(a, s)
-      case Ast.ExprLiteralBool(lb) => exprLiteralBool(a, lb)
-      case Ast.ExprParen(en) => exprParen(a, en.getData)
-      case Ast.ExprStruct(sml) => exprStruct(a, sml)
-      case Ast.ExprUnop(op, en) => exprUnop(a, op, en.getData)
+  final def matchExprNode(a: A, node: AstNode[Ast.Expr]): B =
+    node.getData match {
+      case e @ Ast.ExprBinop(_, _, _) => exprBinopNode(a, node, e)
+      case e @ Ast.ExprArray(_) => exprArrayNode(a, node, e)
+      case e @ Ast.ExprDot(_, _) => exprDotNode(a, node, e)
+      case e @ Ast.ExprIdent(_) => exprIdentNode(a, node, e)
+      case e @ Ast.ExprLiteralInt(_) => exprLiteralIntNode(a, node, e)
+      case e @ Ast.ExprLiteralFloat(_) => exprLiteralFloatNode(a, node, e)
+      case e @ Ast.ExprLiteralString(_) => exprLiteralStringNode(a, node, e)
+      case e @ Ast.ExprLiteralBool(_) => exprLiteralBoolNode(a, node, e)
+      case e @ Ast.ExprParen(_) => exprParenNode(a, node, e)
+      case e @ Ast.ExprStruct(_) => exprStructNode(a, node, e)
+      case e @ Ast.ExprUnop(_, _) => exprUnopNode(a, node, e)
     }
 
   final def matchModuleMemberNode(a: A, mmn: Ast.ModuleMember.Node): B =

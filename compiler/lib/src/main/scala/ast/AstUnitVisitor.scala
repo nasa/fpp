@@ -25,27 +25,27 @@ trait AstUnitVisitor[B] extends AstVisitor[Unit, B] {
 
   def defTopologyNode(node: AstNode[Ast.DefTopology]): B = default
 
-  def exprArray(elts: List[AstNode[Ast.Expr]]): B = default
+  def exprArrayNode(node: AstNode[Ast.Expr], e: Ast.ExprArray): B = default
 
-  def exprBinop(e1: Ast.Expr, op: Ast.Binop, e2: Ast.Expr): B = default
+  def exprBinopNode(node: AstNode[Ast.Expr], e: Ast.ExprBinop): B = default
 
-  def exprDot(e: Ast.Expr, id: Ast.Ident): B = default
+  def exprDotNode(node: AstNode[Ast.Expr], e: Ast.ExprDot): B = default
 
-  def exprIdent(id: Ast.Ident): B = default
+  def exprIdentNode(node: AstNode[Ast.Expr], e: Ast.ExprIdent): B = default
 
-  def exprLiteralBool(lb: Ast.LiteralBool): B = default
+  def exprLiteralBoolNode(node: AstNode[Ast.Expr], e: Ast.ExprLiteralBool): B = default
 
-  def exprLiteralFloat(s: String): B = default
+  def exprLiteralFloatNode(node: AstNode[Ast.Expr], e: Ast.ExprLiteralFloat): B = default
 
-  def exprLiteralInt(s: String): B = default
+  def exprLiteralIntNode(node: AstNode[Ast.Expr], e: Ast.ExprLiteralInt): B = default
 
-  def exprLiteralString(s: String): B = default
+  def exprLiteralStringNode(node: AstNode[Ast.Expr], e: Ast.ExprLiteralString): B = default
 
-  def exprParen(e: Ast.Expr): B = default
+  def exprParenNode(node: AstNode[Ast.Expr], e: Ast.ExprParen): B = default
 
-  def exprStruct(sml: List[Ast.StructMember]): B = default
+  def exprStructNode(node: AstNode[Ast.Expr], e: Ast.ExprStruct): B = default
 
-  def exprUnop(op: Ast.Unop, e: Ast.Expr): B = default
+  def exprUnopNode(node: AstNode[Ast.Expr], e: Ast.ExprUnop): B = default
 
   def specCommandNode(node: AstNode[Ast.SpecCommand]): B = default
 
@@ -88,7 +88,7 @@ trait AstUnitVisitor[B] extends AstVisitor[Unit, B] {
   final def matchComponentMemberNode(cmn: Ast.ComponentMember.Node): B =
     matchComponentMemberNode((), cmn)
 
-  final def matchExpr(e: Ast.Expr): B = matchExpr((), e)
+  final def matchExprNode(node: AstNode[Ast.Expr]): B = matchExprNode((), node)
 
   final def matchModuleMemberNode(mmn: Ast.ModuleMember.Node): B =
     matchModuleMemberNode((), mmn)
@@ -133,29 +133,38 @@ trait AstUnitVisitor[B] extends AstVisitor[Unit, B] {
   final override def defTopologyNode(a: Unit, node: AstNode[Ast.DefTopology]): B = 
     defTopologyNode(node)
 
-  final override def exprArray(a: Unit, elts: List[AstNode[Ast.Expr]]): B = 
-    exprArray(elts)
+  final override def exprArrayNode(a: Unit, node: AstNode[Ast.Expr], e: Ast.ExprArray) =
+    exprArrayNode(node, e)
 
-  final override def exprBinop(a: Unit, e1: Ast.Expr, op: Ast.Binop, e2: Ast.Expr): B = 
-    exprBinop(e1, op, e2)
+  final override def exprBinopNode(a: Unit, node: AstNode[Ast.Expr], e: Ast.ExprBinop) =
+    exprBinopNode(node, e)
 
-  final override def exprDot(a: Unit, e: Ast.Expr, id: Ast.Ident): B = exprDot(e, id)
+  final override def exprDotNode(a: Unit, node: AstNode[Ast.Expr], e: Ast.ExprDot) =
+    exprDotNode(node, e)
 
-  final override def exprIdent(a: Unit, id: Ast.Ident): B = exprIdent(id)
+  final override def exprIdentNode(a: Unit, node: AstNode[Ast.Expr], e: Ast.ExprIdent) =
+    exprIdentNode(node, e)
 
-  final override def exprLiteralBool(a: Unit, lb: Ast.LiteralBool): B = exprLiteralBool(lb)
+  final override def exprLiteralBoolNode(a: Unit, node: AstNode[Ast.Expr], e: Ast.ExprLiteralBool) =
+    exprLiteralBoolNode(node, e)
 
-  final override def exprLiteralInt(a: Unit, s: String): B = exprLiteralInt(s)
+  final override def exprLiteralIntNode(a: Unit, node: AstNode[Ast.Expr], e: Ast.ExprLiteralInt) =
+    exprLiteralIntNode(node, e)
 
-  final override def exprLiteralFloat(a: Unit, s: String): B = exprLiteralFloat(s)
+  final override def exprLiteralFloatNode(a: Unit, node: AstNode[Ast.Expr], e: Ast.ExprLiteralFloat) =
+    exprLiteralFloatNode(node, e)
 
-  final override def exprLiteralString(a: Unit, s: String): B = exprLiteralString(s)
+  final override def exprLiteralStringNode(a: Unit, node: AstNode[Ast.Expr], e: Ast.ExprLiteralString) =
+    exprLiteralStringNode(node, e)
 
-  final override def exprParen(a: Unit, e: Ast.Expr): B = exprParen(e)
+  final override def exprParenNode(a: Unit, node: AstNode[Ast.Expr], e: Ast.ExprParen) =
+    exprParenNode(node, e)
 
-  final override def exprStruct(a: Unit, sml: List[Ast.StructMember]): B = exprStruct(sml)
+  final override def exprStructNode(a: Unit, node: AstNode[Ast.Expr], e: Ast.ExprStruct) =
+    exprStructNode(node, e)
 
-  final override def exprUnop(a: Unit, op: Ast.Unop, e: Ast.Expr): B = exprUnop(op, e)
+  final override def exprUnopNode(a: Unit, node: AstNode[Ast.Expr], e: Ast.ExprUnop) =
+    exprUnopNode(node, e)
 
   final override def specCommandNode(a: Unit, node: AstNode[Ast.SpecCommand]): B = 
     specCommandNode(node)

@@ -14,9 +14,9 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
     lines("def array") ++
     List(
       ident(da.name),
-      addPrefix("size", expr) (da.size.getData),
+      addPrefix("size", exprNode) (da.size),
       typeNameNode(da.eltType),
-      linesOpt(addPrefix("default", applyToData(expr)), da.default),
+      linesOpt(addPrefix("default", exprNode), da.default),
       linesOpt(addPrefix("format", applyToData(string)), da.format)
     ).flatten.map(indentIn)
   }
@@ -42,17 +42,17 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
     List(
       ident(dci.name),
       addPrefix("component", qualIdent) (dci.typeName.getData),
-      addPrefix("base id", applyToData(expr)) (dci.baseId),
-      addPrefix("queue size", applyToData(expr)) (dci.baseId),
-      addPrefix("stack size", applyToData(expr)) (dci.baseId),
-      addPrefix("priority", applyToData(expr)) (dci.baseId),
+      addPrefix("base id", exprNode) (dci.baseId),
+      addPrefix("queue size", exprNode) (dci.baseId),
+      addPrefix("stack size", exprNode) (dci.baseId),
+      addPrefix("priority", exprNode) (dci.baseId),
     ).flatten.map(indentIn)
   }
 
   override def defConstantNode(node: AstNode[Ast.DefConstant]) = {
     val dc = node.getData
     lines("def constant") ++
-    (ident(dc.name) ++ expr(dc.value.getData)).map(indentIn)
+    (ident(dc.name) ++ exprNode(dc.value)).map(indentIn)
   }
 
   override def defEnumNode(node: AstNode[Ast.DefEnum]) = {
@@ -87,7 +87,7 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
     (
       ident(ds.name) ++
       ds.members.map(annotateNode(structTypeMember)).flatten ++ 
-      linesOpt(applyToData(expr), ds.default)
+      linesOpt(exprNode, ds.default)
     ).map(indentIn) 
   }
 
@@ -99,45 +99,49 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
 
   override def default = throw new InternalError("AstWriter: Visitor not implemented")
 
-  override def exprArray(enl: List[AstNode[Ast.Expr]]) =
+  override def exprArrayNode(node: AstNode[Ast.Expr], e: Ast.ExprArray) =
     lines("expr array") ++
-    enl.map(applyToData(expr)).flatten.map(indentIn)
+    e.elts.map(exprNode).flatten.map(indentIn)
 
-  override def exprBinop(e1: Ast.Expr, op: Ast.Binop, e2: Ast.Expr) =
+  override def exprBinopNode(node: AstNode[Ast.Expr], e: Ast.ExprBinop) =
     lines("expr binop") ++
-    (expr(e1) ++ binop(op) ++ expr(e2)).map(indentIn)
+    (exprNode(e.e1) ++ binop(e.op) ++ exprNode(e.e2)).map(indentIn)
   
-  override def exprDot(e: Ast.Expr, id: Ast.Ident) =
+  override def exprDotNode(node: AstNode[Ast.Expr], e: Ast.ExprDot) =
     lines("expr dot") ++
-    (expr(e) ++ ident(id)).map(indentIn)
+    (exprNode(e.e) ++ ident(e.id)).map(indentIn)
 
-  override def exprIdent(id: Ast.Ident) = ident(id)
+  override def exprIdentNode(node: AstNode[Ast.Expr], e: Ast.ExprIdent) = 
+    ident(e.value)
 
-  override def exprLiteralBool(lb: Ast.LiteralBool) = {
-    val s = lb match {
+  override def exprLiteralBoolNode(node: AstNode[Ast.Expr], e: Ast.ExprLiteralBool) = {
+    val s = e.value match {
       case Ast.LiteralBool.True => "true"
       case Ast.LiteralBool.False => "false"
     }
     lines("literal bool " ++ s)
   }
 
-  override def exprLiteralFloat(s: String) = lines("literal float " ++ s)
+  override def exprLiteralFloatNode(node: AstNode[Ast.Expr], e: Ast.ExprLiteralFloat) =
+    lines("literal float " ++ e.value)
+  
+  override def exprLiteralIntNode(node: AstNode[Ast.Expr], e: Ast.ExprLiteralInt) =
+    lines("literal int " ++ e.value)
 
-  override def exprLiteralInt(s: String) = lines("literal int " ++ s)
+  override def exprLiteralStringNode(node: AstNode[Ast.Expr], e: Ast.ExprLiteralString) =
+    addPrefix("literal string", string) (e.value)
 
-  override def exprLiteralString(s: String) = addPrefix("literal string", string) (s)
-
-  override def exprParen(e: Ast.Expr) =
+  override def exprParenNode(node: AstNode[Ast.Expr], e: Ast.ExprParen) =
     lines("expr paren") ++
-    expr(e).map(indentIn)
+    exprNode(e.e).map(indentIn)
 
-  override def exprStruct(sml: List[Ast.StructMember]) =
+  override def exprStructNode(node: AstNode[Ast.Expr], e: Ast.ExprStruct) =
     lines("expr struct") ++
-    sml.map(structMember).flatten.map(indentIn)
+    e.members.map(structMember).flatten.map(indentIn)
 
-  override def exprUnop(op: Ast.Unop, e: Ast.Expr) =
+  override def exprUnopNode(node: AstNode[Ast.Expr], e: Ast.ExprUnop) =
     lines("expr unop") ++
-    (unop(op) ++ expr(e)).map(indentIn)
+    (unop(e.op) ++ exprNode(e.e)).map(indentIn)
 
   override def specCommandNode(node: AstNode[Ast.SpecCommand]) = {
     def kind(k: Ast.SpecCommand.Kind) = k match {
@@ -151,8 +155,8 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
       lines("kind " ++ kind(sc.kind)),
       addPrefix("name", ident) (sc.name),
       formalParamList(sc.params),
-      linesOpt(addPrefix("opcode", applyToData(expr)), sc.opcode),
-      linesOpt(addPrefix("priority", applyToData(expr)), sc.priority),
+      linesOpt(addPrefix("opcode", exprNode), sc.opcode),
+      linesOpt(addPrefix("priority", exprNode), sc.priority),
       linesOpt(applyToData(queueFull), sc.queueFull)
     ).flatten.map(indentIn)
   }
@@ -170,9 +174,9 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
       def connection(c: Ast.SpecConnectionGraph.Connection) = {
         lines("connection") ++ (
           addPrefix("from port", qualIdent) (c.fromPort.getData) ++
-          linesOpt(addPrefix("index", applyToData(expr)), c.fromIndex) ++
+          linesOpt(addPrefix("index", exprNode), c.fromIndex) ++
           addPrefix("to port", qualIdent) (c.toPort.getData) ++
-          linesOpt(addPrefix("index", applyToData(expr)), c.toIndex)
+          linesOpt(addPrefix("index", exprNode), c.toIndex)
         ).map(indentIn)
       }
       lines("spec connection graph direct") ++ (
@@ -185,7 +189,7 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
       lines("spec connection graph pattern") ++ (
         addPrefix("source", qualIdent) (g.source.getData) ++
         g.targets.map(applyToData(target)).flatten ++
-        addPrefix("pattern", applyToData(expr)) (g.pattern)
+        addPrefix("pattern", exprNode) (g.pattern)
       ).map(indentIn)
     }
     node.getData match {
@@ -210,9 +214,9 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
       ident(se.name),
       formalParamList(se.params),
       lines("severity " ++ severity(se.severity)),
-      linesOpt(addPrefix("id", applyToData(expr)), se.id),
+      linesOpt(addPrefix("id", exprNode), se.id),
       linesOpt(addPrefix("format", applyToData(string)), se.format),
-      linesOpt(addPrefix("throttle", applyToData(expr)), se.throttle),
+      linesOpt(addPrefix("throttle", exprNode), se.throttle),
     ).flatten.map(indentIn)
   }
 
@@ -226,7 +230,7 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
     lines("spec init") ++
     List(
       addPrefix("instance", applyToData(qualIdent)) (si.instance),
-      addPrefix("phase", applyToData(expr)) (si.phase),
+      addPrefix("phase", exprNode) (si.phase),
       addPrefix("code", string) (si.code)
     ).flatten.map(indentIn)
   }
@@ -237,7 +241,7 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
     List(
       ident(sip.name),
       formalParamList(sip.params),
-      linesOpt(addPrefix("priority", applyToData(expr)), sip.priority),
+      linesOpt(addPrefix("priority", exprNode), sip.priority),
       linesOpt(queueFull, sip.queueFull)
     ).flatten.map(indentIn)
   }
@@ -266,10 +270,10 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
     List(
       ident(sp.name),
       typeNameNode(sp.typeName),
-      linesOpt(addPrefix("default", applyToData(expr)), sp.default),
-      linesOpt(addPrefix("id", applyToData(expr)), sp.id),
-      linesOpt(addPrefix("set opcode", applyToData(expr)), sp.setOpcode),
-      linesOpt(addPrefix("save opcode", applyToData(expr)), sp.saveOpcode),
+      linesOpt(addPrefix("default", exprNode), sp.default),
+      linesOpt(addPrefix("id", exprNode), sp.id),
+      linesOpt(addPrefix("set opcode", exprNode), sp.setOpcode),
+      linesOpt(addPrefix("save opcode", exprNode), sp.saveOpcode),
     ).flatten.map(indentIn)
   }
 
@@ -288,9 +292,9 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
       List(
         kind(i.kind),
         ident(i.name),
-        linesOpt(addPrefix("array size", applyToData(expr)), i.size),
+        linesOpt(addPrefix("array size", exprNode), i.size),
         linesOpt(addPrefix("port type", applyToData(qualIdent)), i.port),
-        linesOpt(addPrefix("priority", applyToData(expr)), i.priority),
+        linesOpt(addPrefix("priority", exprNode), i.priority),
         linesOpt(queueFull, i.queueFull)
       ).flatten.map(indentIn)
     }
@@ -338,7 +342,7 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
       val (k, en) = l
       lines("limit") ++ (
         kind(k) ++
-        expr(en.getData)
+        exprNode(en)
       ).map(indentIn)
     }
     def limits(name: String, ls: List[Ast.SpecTlmChannel.Limit]) =
@@ -348,7 +352,7 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
     List(
       ident(tc.name),
       typeNameNode(tc.typeName),
-      linesOpt(addPrefix("id", applyToData(expr)), tc.id),
+      linesOpt(addPrefix("id", exprNode), tc.id),
       linesOpt(update, tc.update),
       linesOpt(addPrefix("format", applyToData(string)), tc.format),
       limits("low", tc.low).flatten,
@@ -439,10 +443,10 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
     lines("def enum constant") ++
     List(
       ident(dec.name),
-      linesOpt(applyToData(expr), dec.value)
+      linesOpt(exprNode, dec.value)
     ).flatten.map(indentIn)
 
-  private def expr(e: Ast.Expr): List[Line] = matchExpr(e)
+  private def exprNode(node: AstNode[Ast.Expr]): List[Line] = matchExprNode(node)
 
   private def fileString(s: String) = lines("file " ++ s)
 
@@ -459,7 +463,7 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
       lines(kind(fp.kind)),
       ident(fp.name),
       typeNameNode(fp.typeName),
-      linesOpt(applyToData(expr), fp.size)
+      linesOpt(exprNode, fp.size)
     ).flatten.map(indentIn)
   }
 
@@ -509,7 +513,7 @@ object AstWriter extends AstUnitVisitor[List[Line]] {
 
   private def structMember(sm: Ast.StructMember) =
     lines("struct member") ++ 
-    (ident(sm.name) ++ expr(sm.value.getData)).map(indentIn)
+    (ident(sm.name) ++ exprNode(sm.value)).map(indentIn)
 
   private def structTypeMember(stm: Ast.StructTypeMember) = {
     lines("struct type member") ++ 
