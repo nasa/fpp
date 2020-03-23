@@ -15,6 +15,13 @@ object AstWriter extends AstTransformer {
   def default(in: In) = in
 
   //def transUnit(in: In, tu: Ast.TransUnit) =
+  
+  private def resolveSpecInclude(
+    in: In, 
+    annotatedNode: Ast.Annotated[Ast.ModuleMember.SpecInclude]
+  ): Result[List[Ast.ModuleMember]] = {
+    Right(in, List(Ast.ModuleMember(annotatedNode)))
+  }
 
   private def moduleMember(in: In, mm: Ast.ModuleMember): Result[List[Ast.ModuleMember]] = {
     val (a1, node, a2) = mm.node
@@ -25,6 +32,5 @@ object AstWriter extends AstTransformer {
   }
 
   private def tuMember(in: In, tum: Ast.TUMember) = moduleMember(in, tum)
-
 
 }
