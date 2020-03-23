@@ -129,26 +129,42 @@ trait AstTransformer[A, B] {
 
   def typeNameString(a: A): Result.Result[B]= Right(default(a))
 
-  /*
-  final def matchComponentMemberNode(a: A, cmn: Ast.ComponentMember.Node): B =
+  final def matchComponentMemberNode(a: A, cmn: Ast.ComponentMember.Node): Result[Ast.ComponentMember.Node] = {
+    def transform[T](rn: ResultNode[T], f: AstNode[T] => Ast.ComponentMember.Node) =
+      rn match {
+        case Right((b, node1)) => Right((b, f(node1)))
+        case Left(e) => Left(e)
+      }
     cmn match {
-      case Ast.ComponentMember.DefArray(node) => defArrayNode(a, node)
-      case Ast.ComponentMember.DefConstant(node) => defConstantNode(a, node)
-      case Ast.ComponentMember.DefEnum(node) => defEnumNode(a, node)
-      case Ast.ComponentMember.DefStruct(node) => defStructNode(a, node)
-      case Ast.ComponentMember.SpecCommand(node) => specCommandNode(a, node)
-      case Ast.ComponentMember.SpecEvent(node) => specEventNode(a, node)
-      case Ast.ComponentMember.SpecInclude(node) => specIncludeNode(a, node)
-      case Ast.ComponentMember.SpecInternalPort(node) => specInternalPortNode(a, node)
-      case Ast.ComponentMember.SpecParam(node) => specParamNode(a, node)
-      case Ast.ComponentMember.SpecPortInstance(node) => specPortInstanceNode(a, node)
-      case Ast.ComponentMember.SpecTlmChannel(node) => specTlmChannelNode(a, node)
+      case Ast.ComponentMember.DefArray(node) => 
+        transform(defArrayNode(a, node), Ast.ComponentMember.DefArray(_))
+      case Ast.ComponentMember.DefConstant(node) => 
+        transform(defConstantNode(a, node), Ast.ComponentMember.DefConstant(_))
+      case Ast.ComponentMember.DefEnum(node) => 
+        transform(defEnumNode(a, node), Ast.ComponentMember.DefEnum(_))
+      case Ast.ComponentMember.DefStruct(node) => 
+        transform(defStructNode(a, node), Ast.ComponentMember.DefStruct(_))
+      case Ast.ComponentMember.SpecCommand(node) => 
+        transform(specCommandNode(a, node), Ast.ComponentMember.SpecCommand(_))
+      case Ast.ComponentMember.SpecEvent(node) => 
+        transform(specEventNode(a, node), Ast.ComponentMember.SpecEvent(_))
+      case Ast.ComponentMember.SpecInclude(node) => 
+        transform(specIncludeNode(a, node), Ast.ComponentMember.SpecInclude(_))
+      case Ast.ComponentMember.SpecInternalPort(node) => 
+        transform(specInternalPortNode(a, node), Ast.ComponentMember.SpecInternalPort(_))
+      case Ast.ComponentMember.SpecParam(node) => 
+        transform(specParamNode(a, node), Ast.ComponentMember.SpecParam(_))
+      case Ast.ComponentMember.SpecPortInstance(node) => 
+        transform(specPortInstanceNode(a, node), Ast.ComponentMember.SpecPortInstance(_))
+      case Ast.ComponentMember.SpecTlmChannel(node) => 
+        transform(specTlmChannelNode(a, node), Ast.ComponentMember.SpecTlmChannel(_))
     }
+  }
 
-  final def matchExpr(a: A, e: Ast.Expr): B =
+  final def matchExpr(a: A, e: Ast.Expr): Result[Ast.Expr] = {
     e match {
+      /*
       case Ast.ExprBinop(e1, op, e2) => exprBinop(a, e1.getData, op, e2.getData)
-      case Ast.ExprArray(enl) => exprArray(a, enl)
       case Ast.ExprDot(en, id) => exprDot(a, en.getData, id)
       case Ast.ExprIdent(id) => exprIdent(a, id)
       case Ast.ExprLiteralInt(s) => exprLiteralInt(a, s)
@@ -158,8 +174,12 @@ trait AstTransformer[A, B] {
       case Ast.ExprParen(en) => exprParen(a, en.getData)
       case Ast.ExprStruct(sml) => exprStruct(a, sml)
       case Ast.ExprUnop(op, en) => exprUnop(a, op, en.getData)
+      */
+      case _ => Right(default(a), e)
     }
+  }
 
+  /*
   final def matchModuleMemberNode(a: A, mmn: Ast.ModuleMember.Node): B =
     mmn match {
       case Ast.ModuleMember.DefAbsType(node) => defAbsTypeNode(a, node)
