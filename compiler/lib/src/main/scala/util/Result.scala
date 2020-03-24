@@ -10,22 +10,15 @@ object Result {
     list: List[A], 
     f: A => Result[B]
   ): Result[List[B]] = {
-    def helper(
-      list: List[A],
-      results: List[B]
-    ): Result[List[B]] = {
-      list match {
-        case head :: tail => {
-          val result = f(head)
-          result match {
-            case Left(e) => Left(e)
-            case Right(tu) => helper(tail, tu :: results)
-          }
-        }
-        case Nil => Right(results)
+    list match {
+      case head :: tail => {
+        for { 
+          tu <- f(head)
+          tul <- map(tail, f)
+        } yield tu :: tul
       }
+      case Nil => Right(Nil)
     }
-    helper(list, Nil)
   }
 
   /** Apply a list of result functions in sequence */

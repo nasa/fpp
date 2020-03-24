@@ -3,6 +3,7 @@ package fpp.compiler
 import fpp.compiler.ast._
 import fpp.compiler.codegen._
 import fpp.compiler.syntax._
+import fpp.compiler.transform._
 import fpp.compiler.util._
 import scopt.OParser
 
@@ -54,10 +55,7 @@ object FPPSyntax {
 
   def resolveIncludes(options: Options)(tul: List[Ast.TransUnit]): Result.Result[List[Ast.TransUnit]] = {
     options.include match {
-      case true => {
-        System.out.println("TODO: resolve includes")
-        Right(tul)
-      }
+      case true => Result.map(tul, ResolveSpecInclude.transUnit)
       case false => Right(tul)
     }
   }

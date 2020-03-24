@@ -10,7 +10,15 @@ object ResolveSpecInclude extends AstTransformer {
 
   final case class Data(visitedFiles: List[File])
 
-  override def transUnit(dataIn: Data, tu: Ast.TransUnit) = {
+  def transUnit(tuIn: Ast.TransUnit): Result.Result[Ast.TransUnit] = {
+    for { result <- transUnit(Data(Nil), tuIn) }
+    yield {
+      val (_, tuOut) = result
+      tuOut
+    }
+  }
+
+  override def transUnit(dataIn: Data, tu: Ast.TransUnit): Result[Ast.TransUnit] = {
     for { result <- transformList(dataIn, tu.members, tuMember) } 
     yield {
       val (dataOut, members) = result
@@ -23,6 +31,7 @@ object ResolveSpecInclude extends AstTransformer {
       in: In, 
       node: Ast.Annotated[AstNode[Ast.SpecInclude]]
     ): Result[List[Ast.ModuleMember]] = {
+      System.out.println(s"visiting ${node}")
       val (pre, node1, post) = node
       val member = Ast.ModuleMember(pre, Ast.ModuleMember.SpecInclude(node1), post)
       Right(in, List(member))
