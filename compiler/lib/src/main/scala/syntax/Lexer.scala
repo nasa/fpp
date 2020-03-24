@@ -3,6 +3,7 @@ package fpp.compiler.syntax
 import fpp.compiler.util._
 import scala.util.parsing.combinator.RegexParsers
 import scala.util.parsing.input.Positional
+import scala.util.parsing.input.Position
 
 object Lexer extends RegexParsers {
 
@@ -21,8 +22,9 @@ object Lexer extends RegexParsers {
     unitParser(rep(comment | spaces | escapedNewline))
   }
 
-  def lexFile(file: File): Result.Result[List[Token]] = {
+  def lexFile(file: File, includingLoc: Option[Location] = None): Result.Result[List[Token]] = {
     ParserState.file = file
+    ParserState.includingLoc = includingLoc
     for {
       reader <- file.open
       result <- checkResult(parse(tokens, reader))
@@ -31,6 +33,7 @@ object Lexer extends RegexParsers {
 
   def lexString(s: String): Result.Result[List[Token]] = {
     ParserState.file = File.StdIn
+    ParserState.includingLoc = None
     checkResult(parse(tokens, s))
   }
 
@@ -166,7 +169,10 @@ object Lexer extends RegexParsers {
 
   private def checkResult[T](pr: ParseResult[T]): Result.Result[T] = {
     pr match {
-      case NoSuccess(msg, next) => Left(SyntaxError(Location(ParserState.file, next.pos),msg))
+      case NoSuccess(msg, next) => {
+        val loc = Location(ParserState.file, next.pos, ParserState.includingLoc)
+        Left(SyntaxError(loc, msg))
+      }
       case Success(result, _) => Right(result)
     }
   }

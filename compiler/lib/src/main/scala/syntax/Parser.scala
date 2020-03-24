@@ -245,7 +245,7 @@ object Parser extends Parsers {
     positionedT ^^ { 
       case pt @ Positioned(t) => {
         val n = AstNode.create(t)
-        val loc = Location(ParserState.file, pt.pos)
+        val loc = Location(ParserState.file, pt.pos, ParserState.includingLoc)
         Locations.put(n.id, loc)
         n
       }
@@ -284,7 +284,10 @@ object Parser extends Parsers {
     error = None
     val reader = new TokenReader(tokens)
     parseAllInput(p)(reader) match {
-      case NoSuccess(msg, next) => Left(SyntaxError(Location(ParserState.file, next.pos),msg))
+      case NoSuccess(msg, next) => {
+        val loc = Location(ParserState.file, next.pos, ParserState.includingLoc)
+        Left(SyntaxError(loc,msg))
+      }
       case Success(result, next) => Right(result)
     }
   }
