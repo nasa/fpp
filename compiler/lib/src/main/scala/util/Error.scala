@@ -10,8 +10,8 @@ sealed trait Error {
   def print = {
     this match {
       case SyntaxError(loc, msg) => Error.print (Some(loc)) (msg)
-      case FileError.CannotOpen(name) => 
-        Error.print (None) (s"cannot open fle $name")
+      case FileError.CannotOpen(locOpt, name) => 
+        Error.print (locOpt) (s"cannot open fle $name")
     }
   }
 
@@ -23,7 +23,7 @@ final case class SyntaxError(loc: Location, msg: String) extends Error
 /** A file error */
 object FileError {
   /** Cannot open file */
-  final case class CannotOpen(name: String) extends Error
+  final case class CannotOpen(locOpt: Option[Location], name: String) extends Error
 }
 
 object Error {
