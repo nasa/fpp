@@ -6,10 +6,11 @@ import fpp.compiler.util._
 /** Resolve include specifiers */
 object ResolveSpecInclude extends AstTransformer {
 
-  def default(in: In) = in
+  def default(dataIn: Data) = dataIn
 
   def transUnit(tuIn: Ast.TransUnit): Result.Result[Ast.TransUnit] = {
-    for { result <- transUnit(Data(Nil), tuIn) }
+    val dataIn = Data(Nil)
+    for { result <- transUnit(dataIn, tuIn) }
     yield {
       val (_, tuOut) = result
       tuOut
