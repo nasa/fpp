@@ -34,7 +34,7 @@ object ResolveSpecInclude extends AstTransformer {
     }
   }
 
-  override def transUnit(dataIn: Data, tu: Ast.TransUnit): Result[Ast.TransUnit] = {
+  override def transUnit(dataIn: Data, tu: Ast.TransUnit) = {
     for { result <- transformList(dataIn, tu.members, tuMember) } 
     yield {
       val (dataOut, members) = result
@@ -73,14 +73,14 @@ object ResolveSpecInclude extends AstTransformer {
       case head :: tail => for { 
         result1 <- transform(in, head) 
         result2 <- {
-          val (out, _) = result1
-          transformList(out, tail, transform)
+          val (dataOut, _) = result1
+          transformList(dataOut, tail, transform)
         }
       }
       yield {
         val (_, members1) = result1
-        val (out, members2) = result2
-        (out, members1 :: members2)
+        val (dataOut, members2) = result2
+        (dataOut, members1 :: members2)
       }
     }
   }
