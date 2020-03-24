@@ -185,9 +185,9 @@ trait AstTransformer {
       result: ResultAnnotatedNode[T], 
       f: AstNode[T] => Ast.ComponentMember.Node
     ) = {
-      result match {
-        case Right((out, (pre, node, post))) => Right((out, Ast.ComponentMember(pre, f(node), post)))
-        case Left(e) => Left(e)
+      for { pair <- result } yield {
+        val (out, (pre, node, post)) = pair
+        (out, Ast.ComponentMember(pre, f(node), post))
       }
     }
     val (pre, node, post) =  member.node
@@ -237,9 +237,9 @@ trait AstTransformer {
       result: ResultAnnotatedNode[T], 
       f: AstNode[T] => Ast.ModuleMember.Node
     ) = {
-      result match {
-        case Right((out, (pre, node, post))) => Right((out, Ast.ModuleMember(pre, f(node), post)))
-        case Left(e) => Left(e)
+      for { pair <- result } yield {
+        val (out, (pre, node, post)) = pair
+        (out, Ast.ModuleMember(pre, f(node), post))
       }
     }
     val (pre, node, post) =  member.node
@@ -278,9 +278,9 @@ trait AstTransformer {
       result: ResultAnnotatedNode[T], 
       f: AstNode[T] => Ast.TopologyMember.Node
     ) = {
-      result match {
-        case Right((out, (pre, node, post))) => Right((out, Ast.TopologyMember(pre, f(node), post)))
-        case Left(e) => Left(e)
+      for (pair <- result) yield {
+        val (out, (pre, node, post)) = pair
+        (out, Ast.TopologyMember(pre, f(node), post))
       }
     }
     val (pre, node, post) =  member.node
@@ -311,9 +311,9 @@ trait AstTransformer {
     }
 
   private def transformNode[In,Out](rn: ResultNode[In], f: AstNode[In] => Out): Result[Out] =
-    rn match {
-      case Right((b, node)) => Right((b, f(node)))
-      case Left(e) => Left(e)
+    for (pair <- rn) yield {
+      val (out, node) = pair
+      (out, f(node))
     }
 
 }

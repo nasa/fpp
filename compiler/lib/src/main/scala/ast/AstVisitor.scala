@@ -7,154 +7,160 @@ trait AstVisitor {
 
   type Out
 
-  def default(a: In): Out
+  def default(in: In): Out
 
-  def defAbsTypeNode(a: In, node: AstNode[Ast.DefAbsType]): Out = default(a)
+  def defAbsTypeNode(in: In, node: AstNode[Ast.DefAbsType]): Out = default(in)
 
-  def defArrayNode(a: In, node: AstNode[Ast.DefArray]): Out = default(a)
+  def defArrayNode(in: In, node: AstNode[Ast.DefArray]): Out = default(in)
 
-  def defComponentNode(a: In, node: AstNode[Ast.DefComponent]): Out = default(a)
+  def defComponentNode(in: In, node: AstNode[Ast.DefComponent]): Out = default(in)
 
-  def defComponentInstanceNode(a: In, node: AstNode[Ast.DefComponentInstance]): Out = default(a)
+  def defComponentInstanceNode(in: In, node: AstNode[Ast.DefComponentInstance]): Out = default(in)
 
-  def defConstantNode(a: In, node: AstNode[Ast.DefConstant]): Out = default(a)
+  def defConstantNode(in: In, node: AstNode[Ast.DefConstant]): Out = default(in)
 
-  def defEnumNode(a: In, node: AstNode[Ast.DefEnum]): Out = default(a)
+  def defEnumNode(in: In, node: AstNode[Ast.DefEnum]): Out = default(in)
 
-  def defModuleNode(a: In, node: AstNode[Ast.DefModule]): Out = default(a)
+  def defModuleNode(in: In, node: AstNode[Ast.DefModule]): Out = default(in)
 
-  def defPortNode(a: In, node: AstNode[Ast.DefPort]): Out = default(a)
+  def defPortNode(in: In, node: AstNode[Ast.DefPort]): Out = default(in)
 
-  def defStructNode(a: In, node: AstNode[Ast.DefStruct]): Out = default(a)
+  def defStructNode(in: In, node: AstNode[Ast.DefStruct]): Out = default(in)
 
-  def defTopologyNode(a: In, node: AstNode[Ast.DefTopology]): Out = default(a)
+  def defTopologyNode(in: In, node: AstNode[Ast.DefTopology]): Out = default(in)
 
-  def exprArrayNode(a: In, node: AstNode[Ast.Expr], e: Ast.ExprArray): Out = default(a)
+  def exprArrayNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprArray): Out = default(in)
 
-  def exprBinopNode(a: In, node: AstNode[Ast.Expr], e: Ast.ExprBinop): Out = default(a)
+  def exprBinopNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprBinop): Out = default(in)
   
-  def exprDotNode(a: In, node: AstNode[Ast.Expr], e: Ast.ExprDot): Out = default(a)
+  def exprDotNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprDot): Out = default(in)
 
-  def exprIdentNode(a: In, node: AstNode[Ast.Expr], e: Ast.ExprIdent): Out = default(a)
+  def exprIdentNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprIdent): Out = default(in)
 
-  def exprLiteralBoolNode(a: In, node: AstNode[Ast.Expr], e: Ast.ExprLiteralBool): Out = default(a)
+  def exprLiteralBoolNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprLiteralBool): Out = default(in)
 
-  def exprLiteralFloatNode(a: In, node: AstNode[Ast.Expr], e: Ast.ExprLiteralFloat): Out = default(a)
+  def exprLiteralFloatNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprLiteralFloat): Out = default(in)
 
-  def exprLiteralIntNode(a: In, node: AstNode[Ast.Expr], e: Ast.ExprLiteralInt): Out = default(a)
+  def exprLiteralIntNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprLiteralInt): Out = default(in)
 
-  def exprLiteralStringNode(a: In, node: AstNode[Ast.Expr], e: Ast.ExprLiteralString): Out = default(a)
+  def exprLiteralStringNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprLiteralString): Out = default(in)
 
-  def exprParenNode(a: In, node: AstNode[Ast.Expr], e: Ast.ExprParen): Out = default(a)
+  def exprParenNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprParen): Out = default(in)
 
-  def exprStructNode(a: In, node: AstNode[Ast.Expr], e: Ast.ExprStruct): Out = default(a)
+  def exprStructNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprStruct): Out = default(in)
 
-  def exprUnopNode(a: In, node: AstNode[Ast.Expr], e: Ast.ExprUnop): Out = default(a)
+  def exprUnopNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprUnop): Out = default(in)
 
-  def specCommandNode(a: In, node: AstNode[Ast.SpecCommand]): Out = default(a)
+  def specCommandNode(in: In, node: AstNode[Ast.SpecCommand]): Out = default(in)
 
-  def specCompInstanceNode(a: In, node: AstNode[Ast.SpecCompInstance]): Out = default(a)
+  def specCompInstanceNode(in: In, node: AstNode[Ast.SpecCompInstance]): Out = default(in)
 
-  def specConnectionGraphNode(a: In, node: AstNode[Ast.SpecConnectionGraph]): Out = default(a)
+  def specCompInstanceAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecCompInstance]]): Out = default(in)
 
-  def specEventNode(a: In, node: AstNode[Ast.SpecEvent]): Out = default(a)
+  def specConnectionGraphNode(in: In, node: AstNode[Ast.SpecConnectionGraph]): Out = default(in)
 
-  def specIncludeNode(a: In, node: AstNode[Ast.SpecInclude]): Out = default(a)
+  def specConnectionGraphAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecConnectionGraph]]): Out = default(in)
 
-  def specInitNode(a: In, node: AstNode[Ast.SpecInit]): Out = default(a)
+  def specEventNode(in: In, node: AstNode[Ast.SpecEvent]): Out = default(in)
 
-  def specInternalPortNode(a: In, node: AstNode[Ast.SpecInternalPort]): Out = default(a)
+  def specIncludeNode(in: In, node: AstNode[Ast.SpecInclude]): Out = default(in)
 
-  def specLocNode(a: In, node: AstNode[Ast.SpecLoc]): Out = default(a)
+  def specIncludeAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecInclude]]): Out = default(in)
 
-  def specParamNode(a: In, node: AstNode[Ast.SpecParam]): Out = default(a)
+  def specInitNode(in: In, node: AstNode[Ast.SpecInit]): Out = default(in)
 
-  def specPortInstanceNode(a: In, node: AstNode[Ast.SpecPortInstance]): Out = default(a)
+  def specInternalPortNode(in: In, node: AstNode[Ast.SpecInternalPort]): Out = default(in)
 
-  def specTlmChannelNode(a: In, node: AstNode[Ast.SpecTlmChannel]): Out = default(a)
+  def specLocNode(in: In, node: AstNode[Ast.SpecLoc]): Out = default(in)
 
-  def specTopImportNode(a: In, node: AstNode[Ast.SpecTopImport]): Out = default(a)
+  def specParamNode(in: In, node: AstNode[Ast.SpecParam]): Out = default(in)
 
-  def specUnusedPortsNode(a: In, node: AstNode[Ast.SpecUnusedPorts]): Out = default(a)
+  def specPortInstanceNode(in: In, node: AstNode[Ast.SpecPortInstance]): Out = default(in)
 
-  def transUnit(a: In, tu: Ast.TransUnit): Out = default(a)
+  def specTlmChannelNode(in: In, node: AstNode[Ast.SpecTlmChannel]): Out = default(in)
 
-  def typeNameBoolNode(a: In, node: AstNode[Ast.TypeName]): Out = default(a)
+  def specTopImportNode(in: In, node: AstNode[Ast.SpecTopImport]): Out = default(in)
 
-  def typeNameFloatNode(a: In, node: AstNode[Ast.TypeName], tn: Ast.TypeNameFloat): Out = default(a)
+  def specUnusedPortsNode(in: In, node: AstNode[Ast.SpecUnusedPorts]): Out = default(in)
 
-  def typeNameIntNode(a: In, node: AstNode[Ast.TypeName], tn: Ast.TypeNameInt): Out = default(a)
+  def transUnit(in: In, tu: Ast.TransUnit): Out = default(in)
 
-  def typeNameQualIdentNode(a: In, node: AstNode[Ast.TypeName], tn: Ast.TypeNameQualIdent): Out = default(a)
+  def typeNameBoolNode(in: In, node: AstNode[Ast.TypeName]): Out = default(in)
 
-  def typeNameStringNode(a: In, node: AstNode[Ast.TypeName]): Out = default(a)
+  def typeNameFloatNode(in: In, node: AstNode[Ast.TypeName], tn: Ast.TypeNameFloat): Out = default(in)
 
-  final def matchComponentMemberNode(a: In, cmn: Ast.ComponentMember.Node): Out =
+  def typeNameIntNode(in: In, node: AstNode[Ast.TypeName], tn: Ast.TypeNameInt): Out = default(in)
+
+  def typeNameQualIdentNode(in: In, node: AstNode[Ast.TypeName], tn: Ast.TypeNameQualIdent): Out = default(in)
+
+  def typeNameStringNode(in: In, node: AstNode[Ast.TypeName]): Out = default(in)
+
+  final def matchComponentMemberNode(in: In, cmn: Ast.ComponentMember.Node): Out =
     cmn match {
-      case Ast.ComponentMember.DefArray(node) => defArrayNode(a, node)
-      case Ast.ComponentMember.DefConstant(node) => defConstantNode(a, node)
-      case Ast.ComponentMember.DefEnum(node) => defEnumNode(a, node)
-      case Ast.ComponentMember.DefStruct(node) => defStructNode(a, node)
-      case Ast.ComponentMember.SpecCommand(node) => specCommandNode(a, node)
-      case Ast.ComponentMember.SpecEvent(node) => specEventNode(a, node)
-      case Ast.ComponentMember.SpecInclude(node) => specIncludeNode(a, node)
-      case Ast.ComponentMember.SpecInternalPort(node) => specInternalPortNode(a, node)
-      case Ast.ComponentMember.SpecParam(node) => specParamNode(a, node)
-      case Ast.ComponentMember.SpecPortInstance(node) => specPortInstanceNode(a, node)
-      case Ast.ComponentMember.SpecTlmChannel(node) => specTlmChannelNode(a, node)
+      case Ast.ComponentMember.DefArray(node) => defArrayNode(in, node)
+      case Ast.ComponentMember.DefConstant(node) => defConstantNode(in, node)
+      case Ast.ComponentMember.DefEnum(node) => defEnumNode(in, node)
+      case Ast.ComponentMember.DefStruct(node) => defStructNode(in, node)
+      case Ast.ComponentMember.SpecCommand(node) => specCommandNode(in, node)
+      case Ast.ComponentMember.SpecEvent(node) => specEventNode(in, node)
+      case Ast.ComponentMember.SpecInclude(node) => specIncludeNode(in, node)
+      case Ast.ComponentMember.SpecInternalPort(node) => specInternalPortNode(in, node)
+      case Ast.ComponentMember.SpecParam(node) => specParamNode(in, node)
+      case Ast.ComponentMember.SpecPortInstance(node) => specPortInstanceNode(in, node)
+      case Ast.ComponentMember.SpecTlmChannel(node) => specTlmChannelNode(in, node)
     }
 
-  final def matchExprNode(a: In, node: AstNode[Ast.Expr]): Out =
+  final def matchExprNode(in: In, node: AstNode[Ast.Expr]): Out =
     node.getData match {
-      case e @ Ast.ExprBinop(_, _, _) => exprBinopNode(a, node, e)
-      case e @ Ast.ExprArray(_) => exprArrayNode(a, node, e)
-      case e @ Ast.ExprDot(_, _) => exprDotNode(a, node, e)
-      case e @ Ast.ExprIdent(_) => exprIdentNode(a, node, e)
-      case e @ Ast.ExprLiteralInt(_) => exprLiteralIntNode(a, node, e)
-      case e @ Ast.ExprLiteralFloat(_) => exprLiteralFloatNode(a, node, e)
-      case e @ Ast.ExprLiteralString(_) => exprLiteralStringNode(a, node, e)
-      case e @ Ast.ExprLiteralBool(_) => exprLiteralBoolNode(a, node, e)
-      case e @ Ast.ExprParen(_) => exprParenNode(a, node, e)
-      case e @ Ast.ExprStruct(_) => exprStructNode(a, node, e)
-      case e @ Ast.ExprUnop(_, _) => exprUnopNode(a, node, e)
+      case e @ Ast.ExprBinop(_, _, _) => exprBinopNode(in, node, e)
+      case e @ Ast.ExprArray(_) => exprArrayNode(in, node, e)
+      case e @ Ast.ExprDot(_, _) => exprDotNode(in, node, e)
+      case e @ Ast.ExprIdent(_) => exprIdentNode(in, node, e)
+      case e @ Ast.ExprLiteralInt(_) => exprLiteralIntNode(in, node, e)
+      case e @ Ast.ExprLiteralFloat(_) => exprLiteralFloatNode(in, node, e)
+      case e @ Ast.ExprLiteralString(_) => exprLiteralStringNode(in, node, e)
+      case e @ Ast.ExprLiteralBool(_) => exprLiteralBoolNode(in, node, e)
+      case e @ Ast.ExprParen(_) => exprParenNode(in, node, e)
+      case e @ Ast.ExprStruct(_) => exprStructNode(in, node, e)
+      case e @ Ast.ExprUnop(_, _) => exprUnopNode(in, node, e)
     }
 
-  final def matchModuleMemberNode(a: In, mmn: Ast.ModuleMember.Node): Out =
+  final def matchModuleMemberNode(in: In, mmn: Ast.ModuleMember.Node): Out =
     mmn match {
-      case Ast.ModuleMember.DefAbsType(node) => defAbsTypeNode(a, node)
-      case Ast.ModuleMember.DefArray(node) => defArrayNode(a, node)
-      case Ast.ModuleMember.DefComponent(node) => defComponentNode(a, node)
-      case Ast.ModuleMember.DefComponentInstance(node) => defComponentInstanceNode(a, node)
-      case Ast.ModuleMember.DefConstant(node) => defConstantNode(a, node)
-      case Ast.ModuleMember.DefEnum(node) => defEnumNode(a, node)
-      case Ast.ModuleMember.DefModule(node) => defModuleNode(a, node)
-      case Ast.ModuleMember.DefPort(node) => defPortNode(a, node)
-      case Ast.ModuleMember.DefStruct(node) => defStructNode(a, node)
-      case Ast.ModuleMember.DefTopology(node) => defTopologyNode(a, node)
-      case Ast.ModuleMember.SpecInclude(node) => specIncludeNode(a, node)
-      case Ast.ModuleMember.SpecInit(node) => specInitNode(a, node)
-      case Ast.ModuleMember.SpecLoc(node) => specLocNode(a, node)
+      case Ast.ModuleMember.DefAbsType(node) => defAbsTypeNode(in, node)
+      case Ast.ModuleMember.DefArray(node) => defArrayNode(in, node)
+      case Ast.ModuleMember.DefComponent(node) => defComponentNode(in, node)
+      case Ast.ModuleMember.DefComponentInstance(node) => defComponentInstanceNode(in, node)
+      case Ast.ModuleMember.DefConstant(node) => defConstantNode(in, node)
+      case Ast.ModuleMember.DefEnum(node) => defEnumNode(in, node)
+      case Ast.ModuleMember.DefModule(node) => defModuleNode(in, node)
+      case Ast.ModuleMember.DefPort(node) => defPortNode(in, node)
+      case Ast.ModuleMember.DefStruct(node) => defStructNode(in, node)
+      case Ast.ModuleMember.DefTopology(node) => defTopologyNode(in, node)
+      case Ast.ModuleMember.SpecInclude(node) => specIncludeNode(in, node)
+      case Ast.ModuleMember.SpecInit(node) => specInitNode(in, node)
+      case Ast.ModuleMember.SpecLoc(node) => specLocNode(in, node)
     }
 
-  final def matchTopologyMemberNode(a: In, tmn: Ast.TopologyMember.Node): Out =
+  final def matchTopologyMemberNode(in: In, tmn: Ast.TopologyMember.Node): Out =
     tmn match {
-      case Ast.TopologyMember.SpecCompInstance(node) => specCompInstanceNode(a, node)
-      case Ast.TopologyMember.SpecConnectionGraph(node) => specConnectionGraphNode(a, node)
-      case Ast.TopologyMember.SpecInclude(node) => specIncludeNode(a, node)
-      case Ast.TopologyMember.SpecTopImport(node) => specTopImportNode(a, node)
-      case Ast.TopologyMember.SpecUnusedPorts(node) => specUnusedPortsNode(a, node)
+      case Ast.TopologyMember.SpecCompInstance(node) => specCompInstanceNode(in, node)
+      case Ast.TopologyMember.SpecConnectionGraph(node) => specConnectionGraphNode(in, node)
+      case Ast.TopologyMember.SpecInclude(node) => specIncludeNode(in, node)
+      case Ast.TopologyMember.SpecTopImport(node) => specTopImportNode(in, node)
+      case Ast.TopologyMember.SpecUnusedPorts(node) => specUnusedPortsNode(in, node)
     }
 
-  final def matchTuMemberNode(a: In, tumn: Ast.TUMember.Node): Out = 
-    matchModuleMemberNode(a, tumn)
+  final def matchTuMemberNode(in: In, tumn: Ast.TUMember.Node): Out = 
+    matchModuleMemberNode(in, tumn)
 
-  final def matchTypeNameNode(a: In, node: AstNode[Ast.TypeName]): Out =
+  final def matchTypeNameNode(in: In, node: AstNode[Ast.TypeName]): Out =
     node.getData match {
-      case Ast.TypeNameBool => typeNameBoolNode(a, node)
-      case tn @ Ast.TypeNameFloat(_) => typeNameFloatNode(a, node, tn)
-      case tn @ Ast.TypeNameInt(_) => typeNameIntNode(a, node, tn)
-      case tn @ Ast.TypeNameQualIdent(_) => typeNameQualIdentNode(a, node, tn)
-      case Ast.TypeNameString => typeNameStringNode(a, node)
+      case Ast.TypeNameBool => typeNameBoolNode(in, node)
+      case tn @ Ast.TypeNameFloat(_) => typeNameFloatNode(in, node, tn)
+      case tn @ Ast.TypeNameInt(_) => typeNameIntNode(in, node, tn)
+      case tn @ Ast.TypeNameQualIdent(_) => typeNameQualIdentNode(in, node, tn)
+      case Ast.TypeNameString => typeNameStringNode(in, node)
     }
 
 }
