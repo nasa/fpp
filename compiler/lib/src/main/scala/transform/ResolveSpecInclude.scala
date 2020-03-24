@@ -8,13 +8,28 @@ object ResolveSpecInclude extends AstTransformer {
 
   def default(in: In) = in
 
-  final case class Data(visitedFiles: List[File])
-
   def transUnit(tuIn: Ast.TransUnit): Result.Result[Ast.TransUnit] = {
     for { result <- transUnit(Data(Nil), tuIn) }
     yield {
       val (_, tuOut) = result
       tuOut
+    }
+  }
+
+  final case class Data(visitedFiles: List[File])
+
+  override def defModuleAnnotatedNode(
+    dataIn: Data,
+    node: Ast.Annotated[AstNode[Ast.DefModule]]
+  ) = {
+    val (pre, node1, post) = node
+    val defModule = node1.getData
+    for { result <- transformList(dataIn, defModule.members, moduleMember) }
+    yield {
+      val (dataOut, members) = result
+      val defModule1 = Ast.DefModule(defModule.name, members.flatten)
+      val node2 = AstNode.create(defModule1, node1.getId)
+      (dataOut, (pre, node2, post))
     }
   }
 

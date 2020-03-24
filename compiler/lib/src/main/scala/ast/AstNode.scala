@@ -18,6 +18,9 @@ object AstNode {
     node
   }
 
+  /** Create a new node with an existing identifier  */
+  def create[T](data: T, id: Id) = AstNode(data, id)
+
   /** The next identifier */
   private var id: Id = 0
 
