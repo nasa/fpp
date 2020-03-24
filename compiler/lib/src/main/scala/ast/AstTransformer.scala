@@ -13,37 +13,56 @@ trait AstTransformer {
 
   type ResultNode[T] = Result[AstNode[T]]
 
+  type ResultAnnotatedNode[T] = Result[Ast.Annotated[AstNode[T]]]
+
   def default(in: In): Out
 
-  def defAbsTypeNode(in: In, node: AstNode[Ast.DefAbsType]): ResultNode[Ast.DefAbsType] = 
+  def defAbsTypeAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.DefAbsType]]
+  ): ResultAnnotatedNode[Ast.DefAbsType] = 
     Right(default(in), node)
 
-  def defArrayNode(in: In, node: AstNode[Ast.DefArray]): ResultNode[Ast.DefArray] =
+  def defArrayAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefArray]]): ResultAnnotatedNode[Ast.DefArray] =
     Right(default(in), node)
 
-  def defComponentNode(in: In, node: AstNode[Ast.DefComponent]): ResultNode[Ast.DefComponent] =
+  def defComponentAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefComponent]]): ResultAnnotatedNode[Ast.DefComponent] =
     Right(default(in), node)
 
-  def defComponentInstanceNode(in: In, node: AstNode[Ast.DefComponentInstance]): ResultNode[Ast.DefComponentInstance] =
-    Right(default(in), node)
+  def defComponentInstanceAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.DefComponentInstance]]
+  ): ResultAnnotatedNode[Ast.DefComponentInstance] = Right(default(in), node)
 
-  def defConstantNode(in: In, node: AstNode[Ast.DefConstant]): ResultNode[Ast.DefConstant] =
-    Right(default(in), node)
+  def defConstantAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.DefConstant]]
+  ): ResultAnnotatedNode[Ast.DefConstant] = Right(default(in), node)
 
-  def defEnumNode(in: In, node: AstNode[Ast.DefEnum]): ResultNode[Ast.DefEnum] =
-    Right(default(in), node)
+  def defEnumAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.DefEnum]]
+  ): ResultAnnotatedNode[Ast.DefEnum] = Right(default(in), node)
 
-  def defModuleNode(in: In, node: AstNode[Ast.DefModule]): ResultNode[Ast.DefModule] =
-    Right(default(in), node)
+  def defModuleAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.DefModule]]
+  ): ResultAnnotatedNode[Ast.DefModule] = Right(default(in), node)
 
-  def defPortNode(in: In, node: AstNode[Ast.DefPort]): ResultNode[Ast.DefPort] =
-    Right(default(in), node)
+  def defPortAnnotatedNode(
+    in: In, 
+    node: Ast.Annotated[AstNode[Ast.DefPort]]
+  ): ResultAnnotatedNode[Ast.DefPort] = Right(default(in), node)
 
-  def defStructNode(in: In, node: AstNode[Ast.DefStruct]): ResultNode[Ast.DefStruct] =
-    Right(default(in), node)
+  def defStructAnnotatedNode(
+    in: In, 
+    node: Ast.Annotated[AstNode[Ast.DefStruct]]
+  ): ResultAnnotatedNode[Ast.DefStruct] = Right(default(in), node)
 
-  def defTopologyNode(in: In, node: AstNode[Ast.DefTopology]): ResultNode[Ast.DefTopology] =
-    Right(default(in), node)
+  def defTopologyAnnotatedNode(
+    in: In, 
+    node: Ast.Annotated[AstNode[Ast.DefTopology]]
+  ): ResultAnnotatedNode[Ast.DefTopology] = Right(default(in), node)
 
   def exprArrayNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprArray): ResultNode[Ast.Expr] =
     Right(default(in), node)
@@ -78,44 +97,70 @@ trait AstTransformer {
   def exprUnopNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprUnop): ResultNode[Ast.Expr] =
     Right(default(in), node)
 
-  def specCommandNode(in: In, node: AstNode[Ast.SpecCommand]): ResultNode[Ast.SpecCommand] =
-    Right(default(in), node)
+  def specCommandAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.SpecCommand]]
+  ): ResultAnnotatedNode[Ast.SpecCommand] = Right(default(in), node)
 
-  def specCompInstanceNode(in: In, node: AstNode[Ast.SpecCompInstance]): ResultNode[Ast.SpecCompInstance] =
-    Right(default(in), node)
+  def specCompInstanceAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.SpecCompInstance]]
+  ): ResultAnnotatedNode[Ast.SpecCompInstance] = Right(default(in), node)
 
-  def specConnectionGraphNode(in: In, node: AstNode[Ast.SpecConnectionGraph]): ResultNode[Ast.SpecConnectionGraph] =
-    Right(default(in), node)
+  def specConnectionGraphAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.SpecConnectionGraph]]
+  ): ResultAnnotatedNode[Ast.SpecConnectionGraph] = Right(default(in), node)
 
-  def specEventNode(in: In, node: AstNode[Ast.SpecEvent]): ResultNode[Ast.SpecEvent] =
-    Right(default(in), node)
+  def specEventAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.SpecEvent]]
+  ): ResultAnnotatedNode[Ast.SpecEvent] = Right(default(in), node)
 
-  def specIncludeNode(in: In, node: AstNode[Ast.SpecInclude]): ResultNode[Ast.SpecInclude] =
-    Right(default(in), node)
+  def specIncludeAnnotatedNode(
+    in: In, 
+    node: Ast.Annotated[AstNode[Ast.SpecInclude]]
+  ): ResultAnnotatedNode[Ast.SpecInclude] = Right(default(in), node)
 
-  def specInitNode(in: In, node: AstNode[Ast.SpecInit]): ResultNode[Ast.SpecInit] =
-    Right(default(in), node)
+  def specInitAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.SpecInit]]
+  ): ResultAnnotatedNode[Ast.SpecInit] = Right(default(in), node)
 
-  def specInternalPortNode(in: In, node: AstNode[Ast.SpecInternalPort]): ResultNode[Ast.SpecInternalPort] =
-    Right(default(in), node)
+  def specInternalPortAnnotatedNode(
+    in: In, 
+    node: Ast.Annotated[AstNode[Ast.SpecInternalPort]]
+  ): ResultAnnotatedNode[Ast.SpecInternalPort] = Right(default(in), node)
 
-  def specLocNode(in: In, node: AstNode[Ast.SpecLoc]): ResultNode[Ast.SpecLoc] =
-    Right(default(in), node)
+  def specLocAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.SpecLoc]]
+  ): ResultAnnotatedNode[Ast.SpecLoc] = Right(default(in), node)
 
-  def specParamNode(in: In, node: AstNode[Ast.SpecParam]): ResultNode[Ast.SpecParam] =
-    Right(default(in), node)
+  def specParamAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.SpecParam]]
+  ): ResultAnnotatedNode[Ast.SpecParam] = Right(default(in), node)
 
-  def specPortInstanceNode(in: In, node: AstNode[Ast.SpecPortInstance]): ResultNode[Ast.SpecPortInstance] =
-    Right(default(in), node)
+  def specPortInstanceAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.SpecPortInstance]]
+  ): ResultAnnotatedNode[Ast.SpecPortInstance] = Right(default(in), node)
 
-  def specTlmChannelNode(in: In, node: AstNode[Ast.SpecTlmChannel]): ResultNode[Ast.SpecTlmChannel] =
-    Right(default(in), node)
+  def specTlmChannelAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]
+  ): ResultAnnotatedNode[Ast.SpecTlmChannel] = Right(default(in), node)
 
-  def specTopImportNode(in: In, node: AstNode[Ast.SpecTopImport]): ResultNode[Ast.SpecTopImport] =
-    Right(default(in), node)
+  def specTopImportAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.SpecTopImport]]
+  ): ResultAnnotatedNode[Ast.SpecTopImport] = Right(default(in), node)
 
-  def specUnusedPortsNode(in: In, node: AstNode[Ast.SpecUnusedPorts]): ResultNode[Ast.SpecUnusedPorts] =
-    Right(default(in), node)
+  def specUnusedPortsAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.SpecUnusedPorts]]
+  ): ResultAnnotatedNode[Ast.SpecUnusedPorts] = Right(default(in), node)
 
   def transUnit(in: In, tu: Ast.TransUnit): Result[Ast.TransUnit] =
     Right(default(in), tu)
@@ -135,30 +180,40 @@ trait AstTransformer {
   def typeNameStringNode(in: In, node: AstNode[Ast.TypeName]): ResultNode[Ast.TypeName] =
     Right(default(in), node)
 
-  final def matchComponentMemberNode(in: In, cmn: Ast.ComponentMember.Node): Result[Ast.ComponentMember.Node] = {
-    cmn match {
-      case Ast.ComponentMember.DefArray(node) => 
-        transformNode(defArrayNode(in, node), Ast.ComponentMember.DefArray(_))
-      case Ast.ComponentMember.DefConstant(node) => 
-        transformNode(defConstantNode(in, node), Ast.ComponentMember.DefConstant(_))
-      case Ast.ComponentMember.DefEnum(node) => 
-        transformNode(defEnumNode(in, node), Ast.ComponentMember.DefEnum(_))
-      case Ast.ComponentMember.DefStruct(node) => 
-        transformNode(defStructNode(in, node), Ast.ComponentMember.DefStruct(_))
-      case Ast.ComponentMember.SpecCommand(node) => 
-        transformNode(specCommandNode(in, node), Ast.ComponentMember.SpecCommand(_))
-      case Ast.ComponentMember.SpecEvent(node) => 
-        transformNode(specEventNode(in, node), Ast.ComponentMember.SpecEvent(_))
-      case Ast.ComponentMember.SpecInclude(node) => 
-        transformNode(specIncludeNode(in, node), Ast.ComponentMember.SpecInclude(_))
-      case Ast.ComponentMember.SpecInternalPort(node) => 
-        transformNode(specInternalPortNode(in, node), Ast.ComponentMember.SpecInternalPort(_))
-      case Ast.ComponentMember.SpecParam(node) => 
-        transformNode(specParamNode(in, node), Ast.ComponentMember.SpecParam(_))
-      case Ast.ComponentMember.SpecPortInstance(node) => 
-        transformNode(specPortInstanceNode(in, node), Ast.ComponentMember.SpecPortInstance(_))
-      case Ast.ComponentMember.SpecTlmChannel(node) => 
-        transformNode(specTlmChannelNode(in, node), Ast.ComponentMember.SpecTlmChannel(_))
+  final def matchComponentMember(in: In, member: Ast.ComponentMember): Result[Ast.ComponentMember] = {
+    def transform[T](
+      result: ResultAnnotatedNode[T], 
+      f: AstNode[T] => Ast.ComponentMember.Node
+    ) = {
+      result match {
+        case Right((out, (pre, node, post))) => Right((out, Ast.ComponentMember(pre, f(node), post)))
+        case Left(e) => Left(e)
+      }
+    }
+    val (pre, node, post) =  member.node
+    node match {
+      case Ast.ComponentMember.DefArray(node1) => 
+        transform(defArrayAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.DefArray(_))
+      case Ast.ComponentMember.DefConstant(node1) => 
+        transform(defConstantAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.DefConstant(_))
+      case Ast.ComponentMember.DefEnum(node1) => 
+        transform(defEnumAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.DefEnum(_))
+      case Ast.ComponentMember.DefStruct(node1) => 
+        transform(defStructAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.DefStruct(_))
+      case Ast.ComponentMember.SpecCommand(node1) => 
+        transform(specCommandAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.SpecCommand(_))
+      case Ast.ComponentMember.SpecEvent(node1) => 
+        transform(specEventAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.SpecEvent(_))
+      case Ast.ComponentMember.SpecInclude(node1) => 
+        transform(specIncludeAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.SpecInclude(_))
+      case Ast.ComponentMember.SpecInternalPort(node1) => 
+        transform(specInternalPortAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.SpecInternalPort(_))
+      case Ast.ComponentMember.SpecParam(node1) => 
+        transform(specParamAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.SpecParam(_))
+      case Ast.ComponentMember.SpecPortInstance(node1) => 
+        transform(specPortInstanceAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.SpecPortInstance(_))
+      case Ast.ComponentMember.SpecTlmChannel(node1) => 
+        transform(specTlmChannelAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.SpecTlmChannel(_))
     }
   }
 
@@ -177,52 +232,74 @@ trait AstTransformer {
       case e @ Ast.ExprUnop(_, _) => exprUnopNode(in, node, e)
     }
 
-  final def matchModuleMemberNode(in: In, mmn: Ast.ModuleMember.Node): Result[Ast.ModuleMember.Node] =
-    mmn match {
-      case Ast.ModuleMember.DefAbsType(node) => 
-        transformNode(defAbsTypeNode(in, node), Ast.ModuleMember.DefAbsType(_))
-      case Ast.ModuleMember.DefArray(node) => 
-        transformNode(defArrayNode(in, node), Ast.ModuleMember.DefArray(_))
-      case Ast.ModuleMember.DefComponent(node) => 
-        transformNode(defComponentNode(in, node), Ast.ModuleMember.DefComponent(_))
-      case Ast.ModuleMember.DefComponentInstance(node) => 
-        transformNode(defComponentInstanceNode(in, node), Ast.ModuleMember.DefComponentInstance(_))
-      case Ast.ModuleMember.DefConstant(node) => 
-        transformNode(defConstantNode(in, node), Ast.ModuleMember.DefConstant(_))
-      case Ast.ModuleMember.DefEnum(node) => 
-        transformNode(defEnumNode(in, node), Ast.ModuleMember.DefEnum(_))
-      case Ast.ModuleMember.DefModule(node) => 
-        transformNode(defModuleNode(in, node), Ast.ModuleMember.DefModule(_))
-      case Ast.ModuleMember.DefPort(node) => 
-        transformNode(defPortNode(in, node), Ast.ModuleMember.DefPort(_))
-      case Ast.ModuleMember.DefStruct(node) => 
-        transformNode(defStructNode(in, node), Ast.ModuleMember.DefStruct(_))
-      case Ast.ModuleMember.DefTopology(node) => 
-        transformNode(defTopologyNode(in, node), Ast.ModuleMember.DefTopology(_))
-      case Ast.ModuleMember.SpecInclude(node) => 
-        transformNode(specIncludeNode(in, node), Ast.ModuleMember.SpecInclude(_))
-      case Ast.ModuleMember.SpecInit(node) => 
-        transformNode(specInitNode(in, node), Ast.ModuleMember.SpecInit(_))
-      case Ast.ModuleMember.SpecLoc(node) => 
-        transformNode(specLocNode(in, node), Ast.ModuleMember.SpecLoc(_))
+  final def matchModuleMember(in: In, member: Ast.ModuleMember): Result[Ast.ModuleMember] = {
+    def transform[T](
+      result: ResultAnnotatedNode[T], 
+      f: AstNode[T] => Ast.ModuleMember.Node
+    ) = {
+      result match {
+        case Right((out, (pre, node, post))) => Right((out, Ast.ModuleMember(pre, f(node), post)))
+        case Left(e) => Left(e)
+      }
     }
-
-  final def matchTopologyMemberNode(in: In, tmn: Ast.TopologyMember.Node): Result[Ast.TopologyMember.Node] =
-    tmn match {
-      case Ast.TopologyMember.SpecCompInstance(node) => 
-        transformNode(specCompInstanceNode(in, node), Ast.TopologyMember.SpecCompInstance(_))
-      case Ast.TopologyMember.SpecConnectionGraph(node) => 
-        transformNode(specConnectionGraphNode(in, node), Ast.TopologyMember.SpecConnectionGraph(_))
-      case Ast.TopologyMember.SpecInclude(node) => 
-        transformNode(specIncludeNode(in, node), Ast.TopologyMember.SpecInclude(_))
-      case Ast.TopologyMember.SpecTopImport(node) => 
-        transformNode(specTopImportNode(in, node), Ast.TopologyMember.SpecTopImport(_))
-      case Ast.TopologyMember.SpecUnusedPorts(node) => 
-        transformNode(specUnusedPortsNode(in, node), Ast.TopologyMember.SpecUnusedPorts(_))
+    val (pre, node, post) =  member.node
+    node match {
+      case Ast.ModuleMember.DefAbsType(node1) => 
+        transform(defAbsTypeAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefAbsType(_))
+      case Ast.ModuleMember.DefArray(node1) => 
+        transform(defArrayAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefArray(_))
+      case Ast.ModuleMember.DefComponent(node1) => 
+        transform(defComponentAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefComponent(_))
+      case Ast.ModuleMember.DefComponentInstance(node1) => 
+        transform(defComponentInstanceAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefComponentInstance(_))
+      case Ast.ModuleMember.DefConstant(node1) => 
+        transform(defConstantAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefConstant(_))
+      case Ast.ModuleMember.DefEnum(node1) => 
+        transform(defEnumAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefEnum(_))
+      case Ast.ModuleMember.DefModule(node1) => 
+        transform(defModuleAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefModule(_))
+      case Ast.ModuleMember.DefPort(node1) => 
+        transform(defPortAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefPort(_))
+      case Ast.ModuleMember.DefStruct(node1) => 
+        transform(defStructAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefStruct(_))
+      case Ast.ModuleMember.DefTopology(node1) => 
+        transform(defTopologyAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefTopology(_))
+      case Ast.ModuleMember.SpecInclude(node1) => 
+        transform(specIncludeAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.SpecInclude(_))
+      case Ast.ModuleMember.SpecInit(node1) => 
+        transform(specInitAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.SpecInit(_))
+      case Ast.ModuleMember.SpecLoc(node1) => 
+        transform(specLocAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.SpecLoc(_))
     }
+  }
 
-  final def matchTuMemberNode(in: In, tumn: Ast.TUMember.Node): Result[Ast.TUMember.Node] = 
-    matchModuleMemberNode(in, tumn)
+  final def matchTopologyMember(in: In, member: Ast.TopologyMember): Result[Ast.TopologyMember] = {
+    def transform[T](
+      result: ResultAnnotatedNode[T], 
+      f: AstNode[T] => Ast.TopologyMember.Node
+    ) = {
+      result match {
+        case Right((out, (pre, node, post))) => Right((out, Ast.TopologyMember(pre, f(node), post)))
+        case Left(e) => Left(e)
+      }
+    }
+    val (pre, node, post) =  member.node
+    node match {
+      case Ast.TopologyMember.SpecCompInstance(node1) => 
+        transform(specCompInstanceAnnotatedNode(in, (pre, node1, post)), Ast.TopologyMember.SpecCompInstance(_))
+      case Ast.TopologyMember.SpecConnectionGraph(node1) => 
+        transform(specConnectionGraphAnnotatedNode(in, (pre, node1, post)), Ast.TopologyMember.SpecConnectionGraph(_))
+      case Ast.TopologyMember.SpecInclude(node1) => 
+        transform(specIncludeAnnotatedNode(in, (pre, node1, post)), Ast.TopologyMember.SpecInclude(_))
+      case Ast.TopologyMember.SpecTopImport(node1) => 
+        transform(specTopImportAnnotatedNode(in, (pre, node1, post)), Ast.TopologyMember.SpecTopImport(_))
+      case Ast.TopologyMember.SpecUnusedPorts(node1) => 
+        transform(specUnusedPortsAnnotatedNode(in, (pre, node1, post)), Ast.TopologyMember.SpecUnusedPorts(_))
+    }
+  }
+
+  final def matchTuMember(in: In, member: Ast.TUMember): Result[Ast.TUMember] = 
+    matchModuleMember(in, member)
 
   final def matchTypeName(in: In, node: AstNode[Ast.TypeName]): ResultNode[Ast.TypeName] =
     node.getData match {
