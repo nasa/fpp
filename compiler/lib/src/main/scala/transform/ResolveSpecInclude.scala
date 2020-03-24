@@ -6,41 +6,15 @@ import fpp.compiler.util._
 /** Resolve include specifiers */
 object ResolveSpecInclude extends AstTransformer {
 
-  final case class Data(visitedFiles: List[File])
-
-  type In = Data
-
-  type Out = Data
-
   def default(in: In) = in
 
-  override def transUnit(in: In, tu: Ast.TransUnit) = {
-    //val f: (Data, Ast.TUMember) => Result[List[Ast.TUMember]] = tuMember
-    def transformList(
-      dataIn: Data,
-      members: List[Ast.TUMember],
-      transform: (Data, Ast.TUMember) => Result[List[Ast.TUMember]]
-    ): Result[List[List[Ast.TUMember]]] = {
-      members match {
-        case Nil => Right(dataIn, Nil)
-        case head :: tail => for { 
-          result1 <- transform(dataIn, head) 
-          result2 <- {
-            val (data, _) = result1
-            transformList(data, tail, transform)
-          }
-        }
-        yield {
-          val (_, members1) = result1
-          val (data, members2) = result2
-          (data, members1 :: members2)
-        }
-      }
-    }
-    for { result <- transformList(in, tu.members, tuMember) } 
+  final case class Data(visitedFiles: List[File])
+
+  override def transUnit(dataIn: Data, tu: Ast.TransUnit) = {
+    for { result <- transformList(dataIn, tu.members, tuMember) } 
     yield {
-      val (data, members) = result
-      (data, Ast.TransUnit(members.flatten))
+      val (dataOut, members) = result
+      (dataOut, Ast.TransUnit(members.flatten))
     }
   }
   
@@ -64,6 +38,32 @@ object ResolveSpecInclude extends AstTransformer {
     }
   }
 
+  private def transformList[A,B](
+    in: In,
+    members: List[A],
+    transform: (Data, A) => Result[B]
+  ): Result[List[B]] = {
+    members match {
+      case Nil => Right(in, Nil)
+      case head :: tail => for { 
+        result1 <- transform(in, head) 
+        result2 <- {
+          val (out, _) = result1
+          transformList(out, tail, transform)
+        }
+      }
+      yield {
+        val (_, members1) = result1
+        val (out, members2) = result2
+        (out, members1 :: members2)
+      }
+    }
+  }
+
   private def tuMember(in: In, tum: Ast.TUMember) = moduleMember(in, tum)
+
+  type In = Data
+
+  type Out = Data
 
 }
