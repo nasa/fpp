@@ -15,6 +15,13 @@ echo_red()
   echo "${RED}${BOLD}$@${NO_COLOR}"
 }
 
+# Remove local path prefix
+remove_path_prefix()
+{
+  local_path_prefix=`cd ../../../..; echo $PWD`
+  sed "s;$local_path_prefix;[ local path prefix ];"
+}
+
 # Run a test
 run()
 {
@@ -30,9 +37,33 @@ run()
   return $status
 }
 
-# Remove local path prefix
-remove_path_prefix()
+# Run a test suite
+run_suite()
 {
-  local_path_prefix=`cd ../../../..; echo $PWD`
-  sed "s;$local_path_prefix;[ local path prefix ];"
+
+  tests=$@
+
+  num_passed=0
+  num_failed=0
+
+  for t in $tests
+  do
+    if run $t
+    then
+      num_passed=`expr $num_passed + 1`
+    else
+      num_failed=`expr $num_failed + 1`
+    fi
+  done
+
+  printf "$num_passed passed"
+  if test $num_failed -gt 0
+  then
+    printf ", $num_failed failed"
+  fi
+  echo
+
+  exit $num_failed
+
 }
+

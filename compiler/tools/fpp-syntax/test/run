@@ -18,6 +18,11 @@ run_test()
   diff -u $outfile.ref.txt $outfile.out.txt > $outfile.diff.txt 2>&1
 }
 
+empty()
+{
+  run_test -a empty
+}
+
 include_component()
 {
   run_test -ia include-component
@@ -84,6 +89,7 @@ syntax_include_ast()
 }
 
 tests="
+empty
 include_component
 include_constant_1
 include_cycle_1
@@ -99,24 +105,4 @@ syntax_ast
 syntax_include_ast
 "
 
-num_passed=0
-num_failed=0
-
-for t in $tests
-do
-  if run $t
-  then
-    num_passed=`expr $num_passed + 1`
-  else
-    num_failed=`expr $num_failed + 1`
-  fi
-done
-
-printf "$num_passed passed"
-if test $num_failed -gt 0
-then
-  printf ", $num_failed failed"
-fi
-echo
-
-exit $num_failed
+run_suite $tests
