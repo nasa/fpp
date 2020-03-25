@@ -7,41 +7,50 @@ import fpp.compiler.util._
 /** Resolve include specifiers */
 object ResolveSpecInclude extends AstTransformer {
 
-  def default(in: In) = in
+  def default(in: Unit) = ()
 
   def transUnit(tuIn: Ast.TransUnit): Result.Result[Ast.TransUnit] = {
     for { result <- transUnit((), tuIn) }
+    yield result._2
+  }
+
+  override def defComponentAnnotatedNode(
+    in: Unit,
+    node: Ast.Annotated[AstNode[Ast.DefComponent]]
+  ) = {
+    val (pre, node1, post) = node
+    val Ast.DefComponent(kind, name, members) = node1.getData
+    for { result <- transformList(members, componentMember) }
     yield {
-      val (_, tuOut) = result
-      tuOut
+      val (_, members1) = result
+      val defComponent = Ast.DefComponent(kind, name, members1.flatten)
+      val node2 = AstNode.create(defComponent, node1.getId)
+      ((), (pre, node2, post))
     }
   }
 
   override def defModuleAnnotatedNode(
-    in: In,
+    in: Unit,
     node: Ast.Annotated[AstNode[Ast.DefModule]]
   ) = {
     val (pre, node1, post) = node
-    val defModule = node1.getData
-    for { result <- transformList(in, defModule.members, moduleMember) }
+    val Ast.DefModule(name, members) = node1.getData
+    for { result <- transformList(members, moduleMember) }
     yield {
-      val (dataOut, members) = result
-      val defModule1 = Ast.DefModule(defModule.name, members.flatten)
-      val node2 = AstNode.create(defModule1, node1.getId)
-      (dataOut, (pre, node2, post))
+      val (_, members1) = result
+      val defModule = Ast.DefModule(name, members1.flatten)
+      val node2 = AstNode.create(defModule, node1.getId)
+      ((), (pre, node2, post))
     }
   }
 
-  override def transUnit(in: In, tu: Ast.TransUnit) = {
-    for { result <- transformList(in, tu.members, tuMember) } 
-    yield {
-      val (dataOut, members) = result
-      (dataOut, Ast.TransUnit(members.flatten))
-    }
+  override def transUnit(in: Unit, tu: Ast.TransUnit) = {
+    for { result <- transformList(tu.members, tuMember) } 
+    yield ((), Ast.TransUnit(result._2.flatten))
   }
 
   private def checkForCycle(includingLoc: Location, includedPath: String): Result.Result[Unit] = {
-    def checkLoc(locOpt: Option[Location], visitedPaths: List[String]): Result.Result[Unit] = {
+    def checkLoc(locOpt: Option[Location], visitedPaths: List[String]): Result.Result[Unit] =
       locOpt match {
         case None => Right(())
         case Some(loc) => {
@@ -51,75 +60,90 @@ object ResolveSpecInclude extends AstTransformer {
             val msg = "include cycle:\n" ++ visitedPaths1.map("  " ++ _).mkString(" includes\n")
             Left(IncludeError.Cycle(includingLoc, msg))
           }
-          else {
-            checkLoc(loc.includingLoc, visitedPaths1)
-          }
+          else checkLoc(loc.includingLoc, visitedPaths1)
         }
       }
-    }
     includingLoc.file match {
       case File.StdIn => Right(())
       case _ => checkLoc(Some(includingLoc), List(includedPath))
     }
   }
   
-  private def moduleMember(in: In, member: Ast.ModuleMember): Result[List[Ast.ModuleMember]] = {
-    def visitSpecInclude(
-      in: In, 
-      node: Ast.Annotated[AstNode[Ast.SpecInclude]]
-    ): Result[List[Ast.ModuleMember]] = {
-      val (pre, node1, post) = node
-      val spec = node1.getData
-      val includingLoc = Locations.get(node1.getId)
-      for { 
-        path <- includingLoc.relativePath(spec.file) 
-        _ <- checkForCycle(includingLoc, path.toString)
-        members <- {
-          val includedFile = File.Path(path)
-          val result = Parser.parseIncludedFile (Parser.moduleMembers) (includedFile, includingLoc)
-          result
-        }
-        pair <- transformList(in, members, moduleMember)
+  private def resolveSpecInclude[MemberType](
+    node: AstNode[Ast.SpecInclude],
+    parser: Parser.Parser[List[MemberType]],
+    transformer: (Unit, MemberType) => Result[List[MemberType]]
+  ): Result[List[MemberType]] = {
+    val spec = node.getData
+    val includingLoc = Locations.get(node.getId)
+    for { 
+      path <- includingLoc.relativePath(spec.file) 
+      _ <- checkForCycle(includingLoc, path.toString)
+      members <- {
+        val includedFile = File.Path(path)
+        Parser.parseFile (parser) (Some(includingLoc)) (includedFile)
       }
-      yield {
-        val (data, list) = pair
-        (data, list.flatten)
-      }
+      pair <- transformList(members, transformer)
     }
-    val (pre, node, post) = member.node
+    yield ((), pair._2.flatten)
+  }
+
+  private def componentMember(in: Unit, member: Ast.ComponentMember): Result[List[Ast.ComponentMember]] = {
+    val (_, node, _) = member.node
     node match {
-      case Ast.ModuleMember.SpecInclude(node1) => visitSpecInclude(in, (pre, node1, post))
+      case Ast.ComponentMember.SpecInclude(node1) => resolveSpecInclude(
+        node1,
+        Parser.componentMembers,
+        componentMember
+      )
+      case _ => for { result <- matchComponentMember(in, member) } 
+        yield ((), List(result._2))
+    }
+  }
+
+  private def moduleMember(in: Unit, member: Ast.ModuleMember): Result[List[Ast.ModuleMember]] = {
+    val (_, node, _) = member.node
+    node match {
+      case Ast.ModuleMember.SpecInclude(node1) => resolveSpecInclude(
+        node1,
+        Parser.moduleMembers,
+        moduleMember
+      )
       case _ => for { result <- matchModuleMember(in, member) } 
-      yield {
-        val (data, member) = result
-        (data, List(member))
-      }
+        yield ((), List(result._2))
+    }
+  }
+
+  private def topologyMember(in: Unit, member: Ast.TopologyMember): Result[List[Ast.TopologyMember]] = {
+    val (_, node, _) = member.node
+    node match {
+      case Ast.TopologyMember.SpecInclude(node1) => resolveSpecInclude(
+        node1,
+        Parser.topologyMembers,
+        topologyMember
+      )
+      case _ => for { result <- matchTopologyMember(in, member) } 
+      yield ((), List(result._2))
     }
   }
 
   private def transformList[A,B](
-    in: In,
     members: List[A],
-    transform: (In, A) => Result[B]
+    transform: (Unit, A) => Result[B]
   ): Result[List[B]] = {
-    members match {
-      case Nil => Right(in, Nil)
-      case head :: tail => for { 
-        result1 <- transform(in, head) 
-        result2 <- {
-          val (dataOut, _) = result1
-          transformList(dataOut, tail, transform)
+    def helper(in: List[A], out: List[B]): Result[List[B]] = {
+      in match {
+        case Nil => Right((), out)
+        case head :: tail => transform((), head) match {
+          case Left(e) => Left(e)
+          case Right((_, members)) => helper(tail, members :: out)
         }
       }
-      yield {
-        val (_, members1) = result1
-        val (dataOut, members2) = result2
-        (dataOut, members1 :: members2)
-      }
     }
+    helper(members, Nil)
   }
 
-  private def tuMember(in: In, tum: Ast.TUMember) = moduleMember(in, tum)
+  private def tuMember(in: Unit, tum: Ast.TUMember) = moduleMember(in, tum)
 
   type In = Unit
 

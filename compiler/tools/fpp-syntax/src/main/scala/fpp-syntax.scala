@@ -22,7 +22,7 @@ object FPPSyntax {
       case _ => options.files
     }
     val result = Result.seq(
-      Result.map(files, Parser.parseFile (Parser.transUnit) _),
+      Result.map(files, Parser.parseFile (Parser.transUnit) (None) _),
       List(resolveIncludes (options) _, printAst (options) _)
     )
     result match {
