@@ -22,9 +22,8 @@ object Lexer extends RegexParsers {
     unitParser(rep(comment | spaces | escapedNewline))
   }
 
-  def lexFile(file: File, includingLoc: Option[Location] = None): Result.Result[List[Token]] = {
+  def lexFile(file: File): Result.Result[List[Token]] = {
     ParserState.file = file
-    ParserState.includingLoc = includingLoc
     for {
       reader <- file.open
       result <- checkResult(parse(tokens, reader))

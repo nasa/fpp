@@ -278,7 +278,15 @@ object Parser extends Parsers {
     }
   }
 
-  def parseFile[T](p: Parser[T])(f: File): Result.Result[T] = lexAndParse(Lexer.lexFile(f), p)
+  def parseFile[T](p: Parser[T])(f: File): Result.Result[T] = {
+    ParserState.includingLoc = None
+    lexAndParse(Lexer.lexFile(f), p)
+  }
+
+  def parseIncludedFile[T](p: Parser[T])(f: File, includingLoc: Location): Result.Result[T] = {
+    ParserState.includingLoc = Some(includingLoc)
+    lexAndParse(Lexer.lexFile(f), p)
+  }
 
   def parseString[T](p: Parser[T])(s: String): Result.Result[T] = lexAndParse(Lexer.lexString(s), p)
 

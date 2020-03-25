@@ -1,6 +1,7 @@
 package fpp.compiler.transform
 
 import fpp.compiler.ast._
+import fpp.compiler.syntax._
 import fpp.compiler.util._
 
 /** Resolve include specifiers */
@@ -47,7 +48,7 @@ object ResolveSpecInclude extends AstTransformer {
           val path = loc.file.toString
           val visitedPaths1 = path :: visitedPaths
           if (path == includedPath) {
-            val msg = "include cycle:\n" ++ visitedPaths1.reverse.map("  " ++ _).mkString(" includes\n")
+            val msg = "include cycle:\n" ++ visitedPaths1.map("  " ++ _).mkString(" includes\n")
             Left(IncludeError.Cycle(includingLoc, msg))
           }
           else {
@@ -56,7 +57,10 @@ object ResolveSpecInclude extends AstTransformer {
         }
       }
     }
-   checkLoc(Some(includingLoc), List(includedPath))
+    includingLoc.file match {
+      case File.StdIn => Right(())
+      case _ => checkLoc(Some(includingLoc), List(includedPath))
+    }
   }
   
   private def moduleMember(in: In, member: Ast.ModuleMember): Result[List[Ast.ModuleMember]] = {
@@ -64,19 +68,22 @@ object ResolveSpecInclude extends AstTransformer {
       in: In, 
       node: Ast.Annotated[AstNode[Ast.SpecInclude]]
     ): Result[List[Ast.ModuleMember]] = {
-      System.out.println(s"visiting ${node}")
       val (pre, node1, post) = node
       val spec = node1.getData
-      val loc = Locations.get(node1.getId).tuLocation
+      val includingLoc = Locations.get(node1.getId)
       for { 
-        path <- loc.relativePath(spec.file) 
-        _ <- checkForCycle(loc, path.toString)
-        reader <- File.Path(path).open(loc)
+        path <- includingLoc.relativePath(spec.file) 
+        _ <- checkForCycle(includingLoc, path.toString)
+        members <- {
+          val includedFile = File.Path(path)
+          val result = Parser.parseIncludedFile (Parser.moduleMembers) (includedFile, includingLoc)
+          result
+        }
+        pair <- transformList(in, members, moduleMember)
       }
-      yield { 
-        System.out.println(s"  path=${path}")
-        val member = Ast.ModuleMember(pre, Ast.ModuleMember.SpecInclude(node1), post)
-        (in, List(member))
+      yield {
+        val (data, list) = pair
+        (data, list.flatten)
       }
     }
     val (pre, node, post) = member.node
