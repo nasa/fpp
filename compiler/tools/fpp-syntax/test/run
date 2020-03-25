@@ -38,6 +38,16 @@ include_parse_error()
   run_test -i include-parse-error
 }
 
+include_parent_dir()
+{
+  run_test -ia subdir/include-parent-dir
+}
+
+include_subdir()
+{
+  run_test -ia include-subdir
+}
+
 parse_error()
 {
   run_test "" parse-error
@@ -63,6 +73,8 @@ include_constant_1
 include_cycle_1
 include_cycle_2
 include_parse_error
+include_parent_dir
+include_subdir
 parse_error
 syntax
 syntax_ast

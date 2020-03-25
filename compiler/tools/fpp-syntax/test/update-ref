@@ -30,4 +30,6 @@ update -i cycle-2 include-cycle-2
 update -i include-parse-error
 update -ia include-constant-1 include-constant-1
 update -ia include-module
+update -ia subdir/include-parent-dir
+update -ia include-subdir
 update -ia syntax syntax-include-ast
