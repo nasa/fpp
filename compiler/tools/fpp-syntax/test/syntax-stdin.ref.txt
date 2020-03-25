@@ -1,0 +1,365 @@
+@ Expressions
+def module
+  ident Expressions
+  @ Struct
+  def constant
+    ident structExp
+    expr struct
+      struct member
+        ident a
+        literal int 1
+      struct member
+        ident b
+        literal int 2
+      struct member
+        ident c
+        literal int 3
+  @< Struct
+  @ String literal multi
+  def constant
+    ident stringLiteralMultExp
+    literal string line 1
+                   line 2
+                   line 3
+  @< String literal multi
+  @ String literal single
+  def constant
+    ident stringLiteralSingleExp
+    literal string This is a string.
+  @< String literal single
+  @ Paren
+  def constant
+    ident parenExp
+    expr binop
+      expr paren
+        expr binop
+          literal int 1
+          binop +
+          literal int 2
+      binop *
+      literal int 3
+  @< Paren
+  @ Int literal
+  def constant
+    ident intLiteralExp
+    literal int 1234
+  @< Int literal
+  @ Identifier
+  def constant
+    ident identExp
+    ident x
+  @< Identifier
+  @ FP literal
+  def constant
+    ident fpLiteralExp
+    literal float 0.1234
+  @< FP literal
+  @ Dot
+  def constant
+    ident dotExp
+    expr dot
+      expr dot
+        ident a
+        ident b
+      ident c
+  @< Dot
+  @ Boolean literal
+  def constant
+    ident booleanLiteralExp
+    literal bool true
+  @< Boolean literal
+  @ Array
+  def constant
+    ident arrayExp
+    expr array
+      literal int 1
+      literal int 2
+      literal int 3
+  @< Array
+  @ Arithmetic
+  def constant
+    ident arithExp
+    expr binop
+      expr binop
+        expr binop
+          literal int 1
+          binop +
+          expr binop
+            literal int 2
+            binop *
+            literal int 3
+        binop -
+        expr binop
+          expr unop
+            unop -
+            literal int 4
+          binop *
+          literal int 5
+      binop +
+      literal int 6
+  @< Arithmetic
+@< Expressions
+@ Type names
+def module
+  ident TypeNames
+  def array
+    ident typeNameQID
+    size literal int 10
+    type name qual ident a.b.c
+  def array
+    ident typeNameString
+    size literal int 10
+    type name string
+  def array
+    ident typeNameBool
+    size literal int 10
+    type name bool
+  def array
+    ident typeNameF32
+    size literal int 10
+    type name F32
+  def array
+    ident typeNameU32
+    size literal int 10
+    type name U32
+@< Type names
+@ Definitions and specifiers
+def module
+  ident DefinitionsAndSpecifiers
+  @ Location specifier
+  spec loc
+    kind component instance
+    symbol qual ident i
+    file instances.fpp
+  @< Location specifier
+  @ Topology definition
+  def topology
+    ident T
+    @ Public instance specifier
+    spec comp instance
+      public
+      qual ident i1
+    @< Public instance specifier
+    @ Private instance specifier
+    spec comp instance
+      private
+      qual ident i2
+    @< Private instance specifier
+    @ Direct connection graph specifier
+    spec connection graph direct
+      ident C
+      connection
+        from port qual ident i1.p
+        index literal int 0
+        to port qual ident i2.p
+        index literal int 1
+    @< Direct connection graph specifier
+    @ Graph pattern specifier
+    spec connection graph pattern
+      source qual ident i1
+      target qual ident i2
+      target qual ident i3
+      target qual ident i4
+      pattern ident COMMAND
+    @< Graph pattern specifier
+    @ Topology import specifier
+    spec top import
+      qual ident T1
+    @< Topology import specifier
+    @ Unused port specifier
+    spec unused ports
+      qual ident a.p
+      qual ident b.p
+      qual ident c.p
+    @< Unused port specifier
+  @< Topology definition
+  @ Struct definition
+  def struct
+    ident S
+    @ x
+    struct type member
+      ident x
+      type name U32
+      format {} s
+    @< x
+    @ y
+    struct type member
+      ident y
+      type name F32
+      format {} m/s
+    @< y
+  @< Struct definition
+  @ Port definition
+  def port
+    ident P
+    formal param
+      kind value
+      ident a
+      type name U32
+    formal param
+      kind value
+      ident b
+      type name F32
+    return type name U32
+  @< Port definition
+  @ Init specifier
+  spec init
+    instance qual ident i
+    phase ident CONSTRUCTION
+    code line 1
+         line 2
+         line 3
+  @ Included constant
+  def constant
+    ident x
+    literal int 0
+  @< Included constant
+  @ Module definition
+  def module
+    ident M
+    def constant
+      ident x
+      literal int 0
+  @< Module definition
+  @ Enum definition
+  def enum
+    ident E
+    type name I32
+    @ X
+    def enum constant
+      ident X
+      literal int 1
+    @< X
+    @ Y
+    def enum constant
+      ident Y
+      literal int 2
+    @< Y
+  @< Enum definition
+  @ Constant definition
+  def constant
+    ident x
+    literal int 0
+  @< Constant definition
+  @ Component instance definition
+  def component instance
+    ident c
+    component qual ident C
+    base id literal int 0x100
+    queue size literal int 0x100
+    stack size literal int 0x100
+    priority literal int 0x100
+  @< Component instance definition
+  @ Component definition
+  def component
+    kind active
+    ident C
+    @ Internal port specifier
+    spec internal port
+      ident I
+      formal param
+        kind value
+        ident a
+        type name U32
+      formal param
+        kind value
+        ident b
+        type name F32
+      priority literal int 10
+      queue full assert
+    @< Internal port specifier
+    @ Event specifier
+    spec event
+      ident E
+      formal param
+        kind value
+        ident a
+        type name U32
+      formal param
+        kind value
+        ident b
+        type name F32
+      severity activity low
+      id literal int 0x00
+      format {} counts
+      throttle literal int 10
+    @< Event specifier
+    @ Telemetry channel specifier
+    spec tlm channel
+      ident T
+      type name U32
+      id literal int 0x00
+      update on change
+      format {} s
+      low limit
+        red
+        literal int 0
+      low limit
+        orange
+        literal int 1
+      low limit
+        yellow
+        literal int 2
+      high limit
+        yellow
+        literal int 10
+      high limit
+        orange
+        literal int 11
+      high limit
+        red
+        literal int 12
+    @< Telemetry channel specifier
+    @ Special port instance specifier
+    spec port instance special
+      kind command recv
+      ident cmdIn
+    @< Special port instance specifier
+    @ General port instance specifier
+    spec port instance general
+      kind sync input
+      ident p
+      array size literal int 10
+      port type qual ident P
+      priority literal int 10
+      queue full assert
+    @< General port instance specifier
+    @ Parameter specifier
+    spec param
+      ident P
+      type name U32
+      default literal int 0
+      id literal int 0x00
+      set opcode literal int 0x01
+      save opcode literal int 0x02
+    @< Parameter specifier
+    @ Command specifier
+    spec command
+      kind async
+      name ident C
+      formal param
+        kind value
+        ident a
+        type name U32
+      formal param
+        kind value
+        ident b
+        type name F32
+      opcode literal int 0x00
+      priority literal int 10
+      queue full assert
+    @< Command specifier
+  @< Component definition
+  @ Array definition
+  def array
+    ident A
+    size literal int 10
+    type name U32
+    default literal int 0
+    format {} counts
+  @< Array definition
+  @ Abstract type definition
+  def abs type
+    ident T
+  @< Abstract type definition
+@< Definitions and specifiers

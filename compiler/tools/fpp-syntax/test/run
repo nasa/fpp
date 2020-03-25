@@ -88,6 +88,18 @@ syntax_include_ast()
   run_test -ia syntax syntax-include-ast
 }
 
+syntax_stdin()
+{
+  cat syntax.fpp | $fpp_syntax -ia > syntax-stdin.out.txt
+  diff -u syntax-stdin.ref.txt syntax-stdin.out.txt > syntax-stdin.diff.txt 2>&1
+}
+
+two_input_files()
+{
+  $fpp_syntax -ia include-module.fpp include-component.fpp 2>&1 > two-input-files.out.txt
+  diff -u two-input-files.ref.txt two-input-files.out.txt > two-input-files.diff.txt 2>&1
+}
+
 tests="
 empty
 include_component
@@ -103,6 +115,8 @@ parse_error
 syntax
 syntax_ast
 syntax_include_ast
+syntax_stdin
+two_input_files
 "
 
 run_suite $tests

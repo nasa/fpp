@@ -36,3 +36,7 @@ update -ia subdir/include-parent-dir
 update -ia include-subdir
 update -ia include-topology
 update -ia syntax syntax-include-ast
+
+cat syntax.fpp | $fpp_syntax -ia 2>&1 > syntax-stdin.ref.txt
+
+$fpp_syntax -ia include-module.fpp include-component.fpp 2>&1 > two-input-files.ref.txt
