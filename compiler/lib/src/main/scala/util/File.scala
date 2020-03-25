@@ -4,7 +4,7 @@ package fpp.compiler.util
 sealed trait File {
 
   override def toString = this match {
-    case File.Path(p) => p.toString
+    case File.Path(p) => p.normalize().toString
     case File.StdIn => "stdin"
   }
 
@@ -38,7 +38,7 @@ object File {
 
   /** Construct a file from a string representing a file path */
   def fromString(s: String): File = {
-    val p = java.nio.file.Paths.get(s).toAbsolutePath
+    val p = java.nio.file.Paths.get(s).toAbsolutePath.normalize
     File.Path(p)
   }
 

@@ -38,6 +38,26 @@ object ResolveSpecInclude extends AstTransformer {
       (dataOut, Ast.TransUnit(members.flatten))
     }
   }
+
+  private def checkForCycle(includingLoc: Location, includedPath: String): Result.Result[Unit] = {
+    def checkLoc(locOpt: Option[Location], visitedPaths: List[String]): Result.Result[Unit] = {
+      locOpt match {
+        case None => Right(())
+        case Some(loc) => {
+          val path = loc.file.toString
+          val visitedPaths1 = path :: visitedPaths
+          if (path == includedPath) {
+            val msg = "include cycle:\n" ++ visitedPaths1.reverse.map("  " ++ _).mkString(" includes\n")
+            Left(IncludeError.Cycle(includingLoc, msg))
+          }
+          else {
+            checkLoc(loc.includingLoc, visitedPaths1)
+          }
+        }
+      }
+    }
+   checkLoc(Some(includingLoc), List(includedPath))
+  }
   
   private def moduleMember(in: In, member: Ast.ModuleMember): Result[List[Ast.ModuleMember]] = {
     def visitSpecInclude(
@@ -50,6 +70,7 @@ object ResolveSpecInclude extends AstTransformer {
       val loc = Locations.get(node1.getId).tuLocation
       for { 
         path <- loc.relativePath(spec.file) 
+        _ <- checkForCycle(loc, path.toString)
         reader <- File.Path(path).open(loc)
       }
       yield { 

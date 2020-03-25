@@ -32,7 +32,7 @@ final case class Location(
     case None => this
     case Some(loc) => loc.tuLocation
   }
-
+  
   /** Get the directory path associated with the location */
   def dirPath: Result.Result[java.nio.file.Path] = 
     try {
@@ -43,7 +43,7 @@ final case class Location(
       Right(path)
     }
     catch {
-      case _: Exception => Left(FileError.CannotOpen(Some(this), "directory"))
+      case _: Exception => Left(FileError.CannotResolvePath(this, "directory"))
     }
 
   /** Resolve a path relative to the path of this location */
@@ -53,7 +53,7 @@ final case class Location(
       yield { p.resolve(path).normalize() }
     }
     catch {
-      case _: Exception => Left(FileError.CannotOpen(Some(this), path))
+      case _: Exception => Left(FileError.CannotResolvePath(this, path))
     }
 
 }

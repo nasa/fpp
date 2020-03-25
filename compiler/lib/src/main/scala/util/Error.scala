@@ -10,8 +10,11 @@ sealed trait Error {
   def print = {
     this match {
       case SyntaxError(loc, msg) => Error.print (Some(loc)) (msg)
+      case IncludeError.Cycle(loc, msg) => Error.print (Some(loc)) (msg)
       case FileError.CannotOpen(locOpt, name) => 
         Error.print (locOpt) (s"cannot open fle $name")
+      case FileError.CannotResolvePath(loc, name) => 
+        Error.print (Some(loc)) (s"cannot resolve path $name")
     }
   }
 
@@ -20,10 +23,18 @@ sealed trait Error {
 /** A syntax error */
 final case class SyntaxError(loc: Location, msg: String) extends Error
 
+/** An include error */
+object IncludeError {
+  /** Include cycle */
+  final case class Cycle(loc: Location, msg: String) extends Error
+}
+
 /** A file error */
 object FileError {
   /** Cannot open file */
   final case class CannotOpen(locOpt: Option[Location], name: String) extends Error
+  /** Cannot resolve path */
+  final case class CannotResolvePath(loc: Location, name: String) extends Error
 }
 
 object Error {

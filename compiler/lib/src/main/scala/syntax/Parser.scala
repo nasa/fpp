@@ -37,6 +37,9 @@ object Parser extends Parsers {
     failure("component member expected")
   }
 
+  def componentMembers: Parser[List[Ast.ComponentMember]] = 
+    annotatedElementSequence(componentMemberNode, semi, Ast.ComponentMember(_))
+
   def connection: Parser[Ast.SpecConnectionGraph.Connection] = {
     def connectionPort = node(qualIdent) ~! opt(index)
     connectionPort ~! (rarrow ~>! connectionPort) ^^ {
@@ -60,8 +63,7 @@ object Parser extends Parsers {
   }
 
   def defComponent: Parser[Ast.DefComponent] = {
-    def members = annotatedElementSequence(componentMemberNode, semi, Ast.ComponentMember(_))
-    componentKind ~! (component ~>! ident) ~! (lbrace ~>! members <~! rbrace) ^^ {
+    componentKind ~! (component ~>! ident) ~! (lbrace ~>! componentMembers <~! rbrace) ^^ {
       case kind ~ name ~ members => Ast.DefComponent(kind, name, members)
     }
   }
@@ -97,8 +99,7 @@ object Parser extends Parsers {
   }
 
   def defModule: Parser[Ast.DefModule] = {
-    def members = annotatedElementSequence(moduleMemberNode, semi, Ast.ModuleMember(_))
-    (module ~>! ident) ~! (lbrace ~>! members <~! rbrace) ^^ {
+    (module ~>! ident) ~! (lbrace ~>! moduleMembers <~! rbrace) ^^ {
       case name ~ members => Ast.DefModule(name, members)
     }
   }
@@ -116,10 +117,9 @@ object Parser extends Parsers {
       case name ~ members ~ default => Ast.DefStruct(name, members, default)
     }
   }
-
+    
   def defTopology: Parser[Ast.DefTopology] = {
-    def members = annotatedElementSequence(topologyMemberNode, semi, Ast.TopologyMember(_))
-    (topology ~>! ident) ~! (lbrace ~>! members <~! rbrace) ^^ {
+    (topology ~>! ident) ~! (lbrace ~>! topologyMembers <~! rbrace) ^^ {
       case name ~ members => Ast.DefTopology(name, members)
     }
   }
@@ -220,6 +220,16 @@ object Parser extends Parsers {
 
   def index: Parser[AstNode[Ast.Expr]] = lbracket ~>! exprNode <~! rbracket
 
+  def lexAndParse[T](
+    tokenStream: => Result.Result[List[Token]],
+    parser: Parser[T]
+  ): Result.Result[T] = {
+    for {
+      tokens <- tokenStream
+      result <- parseTokens(parser)(tokens)
+    } yield result
+  }
+
   def moduleMemberNode: Parser[Ast.ModuleMember.Node] = {
     node(defAbsType) ^^ { case n => Ast.ModuleMember.DefAbsType(n) } |
     node(defArray) ^^ { case n => Ast.ModuleMember.DefArray(n) } |
@@ -236,6 +246,8 @@ object Parser extends Parsers {
     node(specLoc) ^^ { case n => Ast.ModuleMember.SpecLoc(n) } |
     failure("module member expected")
   }
+
+  def moduleMembers: Parser[List[Ast.ModuleMember]] = annotatedElementSequence(moduleMemberNode, semi, Ast.ModuleMember(_))
 
   def node[T](p: Parser[T]): Parser[AstNode[T]] = {
     final case class Positioned(t: T) extends Positional
@@ -264,16 +276,6 @@ object Parser extends Parsers {
         case other => other
       }
     }
-  }
-
-  def lexAndParse[T](
-    tokenStream: => Result.Result[List[Token]],
-    parser: Parser[T]
-  ): Result.Result[T] = {
-    for {
-      tokens <- tokenStream
-      result <- parseTokens(parser)(tokens)
-    } yield result
   }
 
   def parseFile[T](p: Parser[T])(f: File): Result.Result[T] = lexAndParse(Lexer.lexFile(f), p)
@@ -513,13 +515,14 @@ object Parser extends Parsers {
     failure("topology member expected")
   }
 
+  def topologyMembers: Parser[List[Ast.TopologyMember]] = 
+    annotatedElementSequence(topologyMemberNode, semi, Ast.TopologyMember(_))
+
   def transUnit: Parser[Ast.TransUnit] = {
-    annotatedElementSequence(tuMemberNode, semi, Ast.TUMember(_)) ^^ {
-      case members => Ast.TransUnit(members)
-    }
+    tuMembers ^^ { case members => Ast.TransUnit(members) }
   }
 
-  def tuMemberNode = moduleMemberNode
+  def tuMembers = moduleMembers
 
   def typeName: Parser[Ast.TypeName] = {
     def typeNameFloat =
