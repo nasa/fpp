@@ -9,8 +9,8 @@ object ResolveSpecInclude extends AstTransformer {
 
   def default(in: Unit) = ()
 
-  def transUnit(tuIn: Ast.TransUnit): Result.Result[Ast.TransUnit] = {
-    for { result <- transUnit((), tuIn) }
+  def transUnit(tu: Ast.TransUnit): Result.Result[Ast.TransUnit] = {
+    for { result <- transUnit((), tu) }
     yield result._2
   }
 

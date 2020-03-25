@@ -4,28 +4,69 @@
 
 fpp_syntax=../../../bin/fpp-syntax
 
-ast_no_include()
+run_test()
 {
-  $fpp_syntax -a ast-no-include.fpp > ast-no-include.out.txt
-  diff -u ast-no-include.ref.txt ast-no-include.out.txt
+  args=$1
+  infile=$2
+  if test -n "$3"
+  then
+    outfile=$3
+  else
+    outfile=$infile
+  fi
+  $fpp_syntax $args $infile.fpp 2>&1 | remove_path_prefix > $outfile.out.txt
+  diff -u $outfile.ref.txt $outfile.out.txt > $outfile.diff.txt 2>&1
+}
+
+include_constant_1()
+{
+  run_test -ia include-constant-1
 }
 
 include_cycle_1()
 {
-  $fpp_syntax -i cycle-1.fpp > include-cycle-1.out.txt 2>&1
-  diff -u include-cycle-1.ref.txt include-cycle-1.out.txt
+  run_test -i cycle-1 include-cycle-1
 }
 
 include_cycle_2()
 {
-  $fpp_syntax -i cycle-2.fpp > include-cycle-2.out.txt 2>&1
-  diff -u include-cycle-2.ref.txt include-cycle-2.out.txt
+  run_test -i cycle-2 include-cycle-2
+}
+
+include_parse_error()
+{
+  run_test -i include-parse-error
+}
+
+parse_error()
+{
+  run_test "" parse-error
+}
+
+syntax()
+{
+  run_test "" syntax
+}
+
+syntax_ast()
+{
+  run_test -a syntax syntax-ast
+}
+
+syntax_include_ast()
+{
+  run_test -ia syntax syntax-include-ast
 }
 
 tests="
-ast_no_include
+include_constant_1
 include_cycle_1
 include_cycle_2
+include_parse_error
+parse_error
+syntax
+syntax_ast
+syntax_include_ast
 "
 
 for t in $tests

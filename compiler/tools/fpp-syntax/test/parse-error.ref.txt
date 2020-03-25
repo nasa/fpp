@@ -1,0 +1,5 @@
+fpp-syntax
+[ local path prefix ]/compiler/tools/fpp-syntax/test/parse-error.fpp: 1.1
+onstant x = 1
+^
+error: unexpected token

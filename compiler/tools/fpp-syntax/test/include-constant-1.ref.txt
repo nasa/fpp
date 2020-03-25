@@ -1,0 +1,9 @@
+def constant
+  ident z
+  literal int 3
+def constant
+  ident y
+  literal int 2
+def constant
+  ident x
+  literal int 1

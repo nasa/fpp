@@ -28,3 +28,9 @@ run()
   fi
 }
 
+# Remove local path prefix
+remove_path_prefix()
+{
+  local_path_prefix=`cd ../../../..; echo $PWD`
+  sed "s;$local_path_prefix;[ local path prefix ];"
+}
