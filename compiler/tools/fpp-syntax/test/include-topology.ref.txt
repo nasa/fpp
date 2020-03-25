@@ -1,0 +1,4 @@
+def topology
+  ident T
+  spec include
+    file constant.fpp

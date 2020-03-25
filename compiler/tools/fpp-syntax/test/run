@@ -18,6 +18,11 @@ run_test()
   diff -u $outfile.ref.txt $outfile.out.txt > $outfile.diff.txt 2>&1
 }
 
+include_component()
+{
+  run_test -ia include-component
+}
+
 include_constant_1()
 {
   run_test -ia include-constant-1
@@ -33,6 +38,11 @@ include_cycle_2()
   run_test -i cycle-2 include-cycle-2
 }
 
+include_module()
+{
+  run_test -ia include-module
+}
+
 include_parse_error()
 {
   run_test -i include-parse-error
@@ -46,6 +56,11 @@ include_parent_dir()
 include_subdir()
 {
   run_test -ia include-subdir
+}
+
+include_topology()
+{
+  run_test -ia include-topology
 }
 
 parse_error()
@@ -69,19 +84,39 @@ syntax_include_ast()
 }
 
 tests="
+include_component
 include_constant_1
 include_cycle_1
 include_cycle_2
-include_parse_error
+include_module
 include_parent_dir
+include_parse_error
 include_subdir
+include_topology
 parse_error
 syntax
 syntax_ast
 syntax_include_ast
 "
 
+num_passed=0
+num_failed=0
+
 for t in $tests
 do
-  run $t
+  if run $t
+  then
+    num_passed=`expr $num_passed + 1`
+  else
+    num_failed=`expr $num_failed + 1`
+  fi
 done
+
+printf "$num_passed passed"
+if test $num_failed -gt 0
+then
+  printf ", $num_failed failed"
+fi
+echo
+
+exit $num_failed

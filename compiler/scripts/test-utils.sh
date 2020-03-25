@@ -20,12 +20,14 @@ run()
 {
   printf '%-60s' $1
   $@
-  if test $? -eq 0
+  status=$?
+  if test $status -eq 0
   then
     echo_green PASSED
   else
     echo_red FAILED
   fi
+  return $status
 }
 
 # Remove local path prefix

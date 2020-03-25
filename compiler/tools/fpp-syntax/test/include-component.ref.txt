@@ -1,0 +1,8 @@
+def component
+  kind active
+  ident C
+  @ Included constant
+  def constant
+    ident x
+    literal int 0
+  @< Included constant
