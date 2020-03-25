@@ -1,3 +1,6 @@
 #!/bin/sh
 
-../../../bin/fpp-syntax -a ast-no-include.fpp > ast-no-include.ref.txt
+fpp_syntax=../../../bin/fpp-syntax
+$fpp_syntax -a ast-no-include.fpp > ast-no-include.ref.txt
+$fpp_syntax -i cycle-1.fpp > include-cycle-1.ref.txt 2>&1
+$fpp_syntax -i cycle-2.fpp > include-cycle-2.ref.txt 2>&1

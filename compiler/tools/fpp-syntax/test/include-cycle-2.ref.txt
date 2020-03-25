@@ -1,0 +1,11 @@
+fpp-syntax
+/Users/bocchino/JPL/Tools/fpp/compiler/tools/fpp-syntax/test/cycle-1.fpp: 1.1
+include "cycle-2.fpp"
+^
+  included at /Users/bocchino/JPL/Tools/fpp/compiler/tools/fpp-syntax/test/cycle-3.fpp: 1.1
+  included at /Users/bocchino/JPL/Tools/fpp/compiler/tools/fpp-syntax/test/cycle-2.fpp: 1.1
+error: include cycle:
+  /Users/bocchino/JPL/Tools/fpp/compiler/tools/fpp-syntax/test/cycle-2.fpp includes
+  /Users/bocchino/JPL/Tools/fpp/compiler/tools/fpp-syntax/test/cycle-3.fpp includes
+  /Users/bocchino/JPL/Tools/fpp/compiler/tools/fpp-syntax/test/cycle-1.fpp includes
+  /Users/bocchino/JPL/Tools/fpp/compiler/tools/fpp-syntax/test/cycle-2.fpp

@@ -2,14 +2,30 @@
 
 . ../../../scripts/test-utils.sh
 
+fpp_syntax=../../../bin/fpp-syntax
+
 ast_no_include()
 {
-  ../../../bin/fpp-syntax -a ast-no-include.fpp > ast-no-include.out.txt
+  $fpp_syntax -a ast-no-include.fpp > ast-no-include.out.txt
   diff -u ast-no-include.ref.txt ast-no-include.out.txt
+}
+
+include_cycle_1()
+{
+  $fpp_syntax -i cycle-1.fpp > include-cycle-1.out.txt 2>&1
+  diff -u include-cycle-1.ref.txt include-cycle-1.out.txt
+}
+
+include_cycle_2()
+{
+  $fpp_syntax -i cycle-2.fpp > include-cycle-2.out.txt 2>&1
+  diff -u include-cycle-2.ref.txt include-cycle-2.out.txt
 }
 
 tests="
 ast_no_include
+include_cycle_1
+include_cycle_2
 "
 
 for t in $tests
