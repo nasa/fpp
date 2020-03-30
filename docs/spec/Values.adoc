@@ -96,8 +96,7 @@ We write an array value like an <<Values_Anonymous-Array-Values,anonymous array
 value>>, except that the value is annotated with an
 <<Types_Array-Types,array type>>.
 
-<<Expressions_Array-Expressions,array expression>>:
-an array value has the form `[` stem:[v_1] `,` stem:[...] `,` 
+An array value has the form `[` stem:[v_1] `,` stem:[...] `,` 
 stem:[v_n] `]` `:` stem:[Q],
 where
 
