@@ -8,7 +8,7 @@ import fpp.compiler.transform._
 import fpp.compiler.util._
 import scopt.OParser
 
-object FPPSyntax {
+object FPPDepend {
 
   case class Options(
     include: Boolean = false,
@@ -16,7 +16,6 @@ object FPPSyntax {
   )
 
   def command(options: Options) = {
-    Error.setTool(Tool(name))
     val files = options.files match {
       case Nil => List(File.StdIn)
       case _ => options.files
@@ -45,6 +44,7 @@ object FPPSyntax {
   }
 
   def main(args: Array[String]) = {
+    Error.setTool(Tool(name))
     val options = OParser.parse(oparser, args, Options())
     for { result <- options } yield {
       command(result) match {
