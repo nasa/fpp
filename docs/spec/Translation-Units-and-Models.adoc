@@ -96,17 +96,17 @@ uses free symbols defined in the other translation units. Similarly, the
 translation unit 3 together with just translation unit 1 or translation
 unit 2 is not a valid model.
 
-=== The Location of a Translation Unit
+=== Locations
 
-Every translation unit _T_ in a source model has an associated
+Every syntactic element _E_ in a source model has an associated
 *location* _L_.
 The location is used when resolving <<Specifiers_Location-Specifiers,location 
 specifiers>> and
 <<Specifiers_Include-Specifiers,include specifiers>>
 during <<Analysis-and-Translation,analysis>>.
 
-. If _T_ is read in from a file, then _L_ is the absolute path 
+. If _E_ is read in from a file, then _L_ is the absolute path 
 of the file.
 
-. If _T_ is read from standard input, then _L_ is the absolute path of the current
+. If _E_ is read from standard input, then _L_ is the absolute path of the current
 directory in the environment where the analysis occurs.

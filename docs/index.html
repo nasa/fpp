@@ -465,7 +465,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#Translation-Units-and-Models_Models">4.2. Models</a></li>
-<li><a href="#Translation-Units-and-Models_The-Location-of-a-Translation-Unit">4.3. The Location of a Translation Unit</a></li>
+<li><a href="#Translation-Units-and-Models_Locations">4.3. Locations</a></li>
 </ul>
 </li>
 <li><a href="#Element-Sequences">5. Element Sequences</a></li>
@@ -1361,9 +1361,9 @@ unit 2 is not a valid model.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Translation-Units-and-Models_The-Location-of-a-Translation-Unit">4.3. The Location of a Translation Unit</h3>
+<h3 id="Translation-Units-and-Models_Locations">4.3. Locations</h3>
 <div class="paragraph">
-<p>Every translation unit <em>T</em> in a source model has an associated
+<p>Every syntactic element <em>E</em> in a source model has an associated
 <strong>location</strong> <em>L</em>.
 The location is used when resolving <a href="#Specifiers_Location-Specifiers">location
 specifiers</a> and
@@ -1373,11 +1373,11 @@ during <a href="#Analysis-and-Translation">analysis</a>.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>If <em>T</em> is read in from a file, then <em>L</em> is the absolute path
+<p>If <em>E</em> is read in from a file, then <em>L</em> is the absolute path
 of the file.</p>
 </li>
 <li>
-<p>If <em>T</em> is read from standard input, then <em>L</em> is the absolute path of the current
+<p>If <em>E</em> is read from standard input, then <em>L</em> is the absolute path of the current
 directory in the environment where the analysis occurs.</p>
 </li>
 </ol>
@@ -3494,7 +3494,7 @@ should be included in a
 <h4 id="Specifiers_Include-Specifiers_Semantics">7.5.2. Semantics</h4>
 <div class="paragraph">
 <p>The string literal specifies a file path relative to the
-<a href="#Translation-Units-and-Models_The-Location-of-a-Translation-Unit">location</a> of the enclosing translation unit.</p>
+<a href="#Translation-Units-and-Models_Locations">location</a> of the include specifier.</p>
 </div>
 <div class="paragraph">
 <p>During parsing, the translator does the following:</p>
@@ -3740,11 +3740,8 @@ internal port Port2
 <h3 id="Specifiers_Location-Specifiers">7.8. Location Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>location specifier</strong> specifies the
-<a href="#Translation-Units-and-Models_The-Location-of-a-Translation-Unit">location</a>
-of the
-<a href="#Translation-Units-and-Models_Translation-Units">translation unit</a>
-that contains a
-<a href="#Definitions">definition</a>.</p>
+<a href="#Translation-Units-and-Models_Locations">location</a>
+of a <a href="#Definitions">definition</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Location-Specifiers_Syntax">7.8.1. Syntax</h4>
@@ -3834,8 +3831,8 @@ of <em>M</em>.</p>
 </li>
 <li>
 <p>The string literal must specify the path of an FPP source file, relative to the
-<a href="#Translation-Units-and-Models_The-Location-of-a-Translation-Unit">location of the translation unit</a>
-in which the location specifier appears.
+<a href="#Translation-Units-and-Models_Locations">location</a>
+of the specifier.
 The file must exist and must contain the definition referred to in the location specifier.</p>
 </li>
 <li>
@@ -7358,7 +7355,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-03-30 09:32:25 -0700
+Last updated 2020-04-03 13:08:34 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

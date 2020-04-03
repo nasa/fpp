@@ -11,8 +11,8 @@ should be included in a
 ==== Semantics
 
 The string literal specifies a file path relative to the
-<<Translation-Units-and-Models_The-Location-of-a-Translation-Unit,
-location>> of the enclosing translation unit.
+<<Translation-Units-and-Models_Locations,
+location>> of the include specifier.
 
 During parsing, the translator does the following:
 
