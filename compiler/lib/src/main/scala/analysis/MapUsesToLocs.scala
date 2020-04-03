@@ -3,8 +3,9 @@ package fpp.compiler.analysis
 import fpp.compiler.ast._
 import fpp.compiler.util._
 
-/** Compute depencencies */
-object ComputeDependencies extends AstStateVisitor {
+/** Map uses to locations 
+ *  Prerequisites: BuildLocSpecMap */
+object MapUsesToLocs extends AstStateVisitor {
 
   type State = Analysis
 

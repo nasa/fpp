@@ -28,11 +28,10 @@ object FPPDepend {
         tul, 
         ResolveSpecInclude.transUnit
       )
-      a <- ComputeDependencies.visitList(
-        pair._1,
-        pair._2,
-        ComputeDependencies.transUnit
-      )
+      a <- Right(pair._1)
+      tul <- Right(pair._2)
+      a <- BuildLocSpecMap.visitList(a, tul, BuildLocSpecMap.transUnit)
+      a <- MapUsesToLocs.visitList(a, tul, MapUsesToLocs.transUnit)
     }
     yield {
       a.dependencyFileSet.map(System.out.println(_))
