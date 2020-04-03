@@ -11,7 +11,6 @@ import scopt.OParser
 object FPPSyntax {
 
   case class Options(
-    ast: Boolean = false,
     include: Boolean = false,
     files: List[File] = List()
   )
@@ -22,49 +21,41 @@ object FPPSyntax {
       case Nil => List(File.StdIn)
       case _ => options.files
     }
-    val result = Result.seq(
-      Result.map(files, Parser.parseFile (Parser.transUnit) (None) _),
-      List(resolveIncludes (options) _, printAst (options) _)
-    )
-    result match {
-      case Left(error) => {
-        error.print
-        System.exit(1)
+    val a = Analysis(inputFileSet = options.files.toSet)
+    for {
+      tul <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
+      pair <- ResolveSpecInclude.transformList(
+        a,
+        tul, 
+        ResolveSpecInclude.transUnit
+      )
+      a <- ComputeDependencies.visitList(
+        pair._1,
+        pair._2,
+        ComputeDependencies.transUnit
+      )
+    }
+    yield {
+      a.dependencyFileSet.map(System.out.println(_))
+      options.include match {
+        case true => a.includedFileSet.map(System.out.println(_))
+        case false => ()
       }
-      case Right(_) => ()
     }
   }
 
   def main(args: Array[String]) = {
     val options = OParser.parse(oparser, args, Options())
-    options match {
-      case Some(options) => command(options)
-      case None => ()
-    }
-  }
-
-  def printAst(options: Options)(tul: List[Ast.TransUnit]): Result.Result[List[Ast.TransUnit]] = {
-    options.ast match {
-      case true => {
-        val lines = tul.map(AstWriter.transUnit).flatten
-        lines.map(Line.write(Line.stdout) _)
+    for { result <- options } yield {
+      command(result) match {
+        case Left(error) => {
+          error.print
+          System.exit(1)
+        }
+        case _ => ()
       }
-      case false => ()
     }
-    Right(tul)
-  }
-
-  def resolveIncludes(options: Options)(tul: List[Ast.TransUnit]): Result.Result[List[Ast.TransUnit]] = {
-    options.include match {
-      case true => for { 
-        result <- ResolveSpecInclude.transformList(
-          Analysis(),
-          tul, 
-          ResolveSpecInclude.transUnit
-        )
-      } yield result._2
-      case false => Right(tul)
-    }
+    ()
   }
 
   val builder = OParser.builder[Options]
@@ -76,12 +67,9 @@ object FPPSyntax {
     OParser.sequence(
       programName(name),
       head(name, "0.1"),
-      opt[Unit]('a', "ast")
-        .action((_, c) => c.copy(ast = true))
-        .text("print the abstract syntax tree (ast)"),
       opt[Unit]('i', "include")
         .action((_, c) => c.copy(include = true))
-        .text("resolve include specifiers"),
+        .text("count included files as dependencies"),
       help('h', "help").text("print this message and exit"),
       arg[String]("file ...")
         .unbounded()
