@@ -20,6 +20,7 @@ base=`basename $dest`
 dest=$dir/$base
 
 tools="
+fpp-depend
 fpp-syntax
 "
 
