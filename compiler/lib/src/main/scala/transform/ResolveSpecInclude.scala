@@ -6,7 +6,7 @@ import fpp.compiler.syntax._
 import fpp.compiler.util._
 
 /** Resolve include specifiers */
-object ResolveSpecInclude extends AstTransformer {
+object ResolveSpecInclude extends AstStateTransformer {
 
   def default(a: Analysis) = a
 
@@ -132,27 +132,8 @@ object ResolveSpecInclude extends AstTransformer {
     }
   }
 
-  def transformList[A,B](
-    a: Analysis,
-    list: List[A],
-    transform: (Analysis, A) => Result[B]
-  ): Result[List[B]] = {
-    def helper(a: Analysis, in: List[A], out: List[B]): Result[List[B]] = {
-      in match {
-        case Nil => Right((a, out))
-        case head :: tail => transform(a, head) match {
-          case Left(e) => Left(e)
-          case Right((a, list)) => helper(a, tail, list :: out)
-        }
-      }
-    }
-    helper(a, list, Nil)
-  }
-
   private def tuMember(a: Analysis, tum: Ast.TUMember) = moduleMember(a, tum)
 
-  type In = Analysis
-
-  type Out = Analysis
+  type State = Analysis
 
 }
