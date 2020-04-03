@@ -10,11 +10,6 @@ object ResolveSpecInclude extends AstStateTransformer {
 
   def default(a: Analysis) = a
 
-  def transUnit(tu: Ast.TransUnit): Result.Result[Ast.TransUnit] = {
-    for { result <- transUnit(Analysis(), tu) }
-    yield result._2
-  }
-
   override def defComponentAnnotatedNode(
     a: Analysis,
     node: Ast.Annotated[AstNode[Ast.DefComponent]]
@@ -23,10 +18,10 @@ object ResolveSpecInclude extends AstStateTransformer {
     val Ast.DefComponent(kind, name, members) = node1.getData
     for { result <- transformList(a, members, componentMember) }
     yield {
-      val (_, members1) = result
+      val (a1, members1) = result
       val defComponent = Ast.DefComponent(kind, name, members1.flatten)
       val node2 = AstNode.create(defComponent, node1.getId)
-      (a, (pre, node2, post))
+      (a1, (pre, node2, post))
     }
   }
 
@@ -38,16 +33,16 @@ object ResolveSpecInclude extends AstStateTransformer {
     val Ast.DefModule(name, members) = node1.getData
     for { result <- transformList(a, members, moduleMember) }
     yield {
-      val (_, members1) = result
+      val (a1, members1) = result
       val defModule = Ast.DefModule(name, members1.flatten)
       val node2 = AstNode.create(defModule, node1.getId)
-      (a, (pre, node2, post))
+      (a1, (pre, node2, post))
     }
   }
 
   override def transUnit(a: Analysis, tu: Ast.TransUnit) = {
     for { result <- transformList(a, tu.members, tuMember) } 
-    yield (a, Ast.TransUnit(result._2.flatten))
+    yield (result._1, Ast.TransUnit(result._2.flatten))
   }
 
   private def checkForCycle(includingLoc: Location, includedPath: String): Result.Result[Unit] = {
@@ -80,14 +75,15 @@ object ResolveSpecInclude extends AstStateTransformer {
     val includingLoc = Locations.get(node.getId)
     for { 
       path <- includingLoc.relativePath(spec.file) 
+      includedFile <- Right(File.Path(path))
       _ <- checkForCycle(includingLoc, path.toString)
-      members <- {
-        val includedFile = File.Path(path)
-        Parser.parseFile (parser) (Some(includingLoc)) (includedFile)
+      members <- Parser.parseFile (parser) (Some(includingLoc)) (includedFile)
+      pair <- {
+        val a1 = a.copy(includedFileSet = a.includedFileSet + includedFile)
+        transformList(a1, members, transformer)
       }
-      pair <- transformList(a, members, transformer)
     }
-    yield (a, pair._2.flatten)
+    yield (pair._1, pair._2.flatten)
   }
 
   private def componentMember(a: Analysis, member: Ast.ComponentMember): Result[List[Ast.ComponentMember]] = {
@@ -100,7 +96,7 @@ object ResolveSpecInclude extends AstStateTransformer {
         componentMember
       )
       case _ => for { result <- matchComponentMember(a, member) } 
-        yield (a, List(result._2))
+        yield (result._1, List(result._2))
     }
   }
 
@@ -114,7 +110,7 @@ object ResolveSpecInclude extends AstStateTransformer {
         moduleMember
       )
       case _ => for { result <- matchModuleMember(a, member) } 
-        yield (a, List(result._2))
+        yield (result._1, List(result._2))
     }
   }
 
@@ -128,7 +124,7 @@ object ResolveSpecInclude extends AstStateTransformer {
         topologyMember
       )
       case _ => for { result <- matchTopologyMember(a, member) } 
-      yield (a, List(result._2))
+      yield (result._1, List(result._2))
     }
   }
 
