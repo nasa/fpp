@@ -10,12 +10,13 @@ case class Analysis(
   dependencyFileSet: Set[File] = Set(),
   /** The set of files included when parsing input */
   includedFileSet: Set[File] = Set(),
-  /** A map from qualified names to files.
-   *  Each entry in the map represents the location of a symbol */
+  /** A map from qualified names to files.  Each entry in the map represents
+   *  the location of a symbol */
   locationSpecifierMap: Map[Name.Qualified, File] = Map(),
-  /** A list of unqualified names representing the enclosing module
-   *  scopes. For exapmle, inside module B where B is inside A and
-   *  A is at the top level, the module name list is [ A, B ]. */
+  /** A list of unqualified names representing the enclosing module scopes,
+   *  with the innermost name at the head of the list. For exapmle, inside
+   *  module B where B is inside A and A is at the top level, the module name
+   *  list is [ B, A ]. */
   moduleNameList: List[Name.Unqualified] = List(),
   // TODO
 ) {
