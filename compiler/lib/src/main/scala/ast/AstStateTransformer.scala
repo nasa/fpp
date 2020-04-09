@@ -26,7 +26,8 @@ trait AstStateTransformer extends AstTransformer {
         }
       }
     }
-    helper(s, list, Nil)
+    for { pair <- helper(s, list, Nil) }
+    yield (pair._1, pair._2.reverse)
   }
 
 }

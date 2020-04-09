@@ -20,6 +20,15 @@ object BuildLocSpecMap extends AstStateVisitor {
     yield a2.copy(moduleNameList = a.moduleNameList)
   }
 
+  override def specLocAnnotatedNode(
+    a: Analysis,
+    node: Ast.Annotated[AstNode[Ast.SpecLoc]]
+  ) = {
+    System.out.println(s"BuildLocSpecMap: visiting ${node}")
+    System.out.println(s"  moduleNameList=${a.moduleNameList}")
+    default(a)
+  }
+
   override def transUnit(a: Analysis, tu: Ast.TransUnit) =
     visitList(a, tu.members, matchTuMember)
 

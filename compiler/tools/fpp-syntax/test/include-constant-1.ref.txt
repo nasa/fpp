@@ -1,9 +1,9 @@
 def constant
-  ident z
-  literal int 3
+  ident x
+  literal int 1
 def constant
   ident y
   literal int 2
 def constant
-  ident x
-  literal int 1
+  ident z
+  literal int 3
