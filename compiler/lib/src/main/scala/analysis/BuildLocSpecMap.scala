@@ -30,13 +30,24 @@ object BuildLocSpecMap extends AstStateVisitor {
     val symbolNode = spec.symbol
     val symbol = symbolNode.getData
     val qualifiedName = Name.Qualified.fromIdentList(symbol.reverse ++ a.moduleNameList)
-    System.out.println(s"  name=${qualifiedName}")
     val loc = Locations.get(specNode.getId)
-    System.out.println(s"  loc=${loc}")
-    default(a)
+    for { 
+      path <- loc.relativePath(spec.file) 
+      a <- updateMap(a, qualifiedName, path.toString)
+    } yield {
+      a
+    }
   }
 
   override def transUnit(a: Analysis, tu: Ast.TransUnit) =
     visitList(a, tu.members, matchTuMember)
+
+  private def updateMap(
+    a: Analysis,
+    qualifiedName: Name.Qualified,
+    path: String
+  ): Result = {
+    default(a)
+  }
 
 }
