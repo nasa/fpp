@@ -26,7 +26,7 @@ object Lexer extends RegexParsers {
     ParserState.file = file
     ParserState.includingLoc = includingLoc
     for {
-      reader <- file.open
+      reader <- file.open(ParserState.includingLoc)
       result <- checkResult(parse(tokens, reader))
     } yield result
   }

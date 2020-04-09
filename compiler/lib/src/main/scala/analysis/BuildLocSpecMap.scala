@@ -25,7 +25,14 @@ object BuildLocSpecMap extends AstStateVisitor {
     node: Ast.Annotated[AstNode[Ast.SpecLoc]]
   ) = {
     System.out.println(s"BuildLocSpecMap: visiting ${node}")
-    System.out.println(s"  moduleNameList=${a.moduleNameList}")
+    val specNode = node._2
+    val spec = specNode.getData
+    val symbolNode = spec.symbol
+    val symbol = symbolNode.getData
+    val qualifiedName = Name.Qualified.fromIdentList(symbol.reverse ++ a.moduleNameList)
+    System.out.println(s"  name=${qualifiedName}")
+    val loc = Locations.get(specNode.getId)
+    System.out.println(s"  loc=${loc}")
     default(a)
   }
 

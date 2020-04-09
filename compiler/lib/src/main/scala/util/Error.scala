@@ -12,7 +12,7 @@ sealed trait Error {
       case SyntaxError(loc, msg) => Error.print (Some(loc)) (msg)
       case IncludeError.Cycle(loc, msg) => Error.print (Some(loc)) (msg)
       case FileError.CannotOpen(locOpt, name) => 
-        Error.print (locOpt) (s"cannot open fle $name")
+        Error.print (locOpt) (s"cannot open file $name")
       case FileError.CannotResolvePath(loc, name) => 
         Error.print (Some(loc)) (s"cannot resolve path $name")
     }
