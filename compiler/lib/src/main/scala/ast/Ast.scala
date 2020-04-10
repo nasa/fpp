@@ -263,7 +263,7 @@ object Ast {
   }
 
   /** Include specifier */
-  final case class SpecInclude(file: String)
+  final case class SpecInclude(file: AstNode[String])
 
   /** Init specifier */
   final case class SpecInit(

@@ -31,6 +31,7 @@ update -a empty
 update -i include-parse-error
 update -ia include-component
 update -ia include-constant-1 include-constant-1
+update -i include-missing-file
 update -ia include-module
 update -ia subdir/include-parent-dir
 update -ia include-subdir

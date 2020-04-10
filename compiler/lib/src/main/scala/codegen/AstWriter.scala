@@ -240,7 +240,7 @@ object AstWriter extends AstVisitor {
   override def specIncludeAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.SpecInclude]]) =  {
     val (_, node, _) = an
     val si = node.getData
-    lines("spec include") ++ fileString(si.file).map(indentIn)
+    lines("spec include") ++ fileString(si.file.getData).map(indentIn)
   }
 
   override def specInitAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.SpecInit]]) = {

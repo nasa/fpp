@@ -365,7 +365,7 @@ object Parser extends Parsers {
   }
 
   def specInclude: Parser[Ast.SpecInclude] = {
-    include ~>! literalString ^^ { case file => Ast.SpecInclude(file) }
+    include ~>! node(literalString) ^^ { case file => Ast.SpecInclude(file) }
   }
 
   def specInit: Parser[Ast.SpecInit] = {

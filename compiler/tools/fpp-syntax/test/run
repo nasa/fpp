@@ -43,6 +43,11 @@ include_cycle_2()
   run_test -i cycle-2 include-cycle-2
 }
 
+include_missing_file()
+{
+  run_test -i include-missing-file
+}
+
 include_module()
 {
   run_test -ia include-module
@@ -106,6 +111,7 @@ include_component
 include_constant_1
 include_cycle_1
 include_cycle_2
+include_missing_file
 include_module
 include_parent_dir
 include_parse_error
