@@ -281,7 +281,7 @@ object AstWriter extends AstVisitor {
     (
       lines("kind " ++ kind) ++
       addPrefix("symbol", qualIdent) (sl.symbol.getData) ++ 
-      fileString(sl.file)
+      fileString(sl.file.getData)
     ).map(indentIn)
   }
 

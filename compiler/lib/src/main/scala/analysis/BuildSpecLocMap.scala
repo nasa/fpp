@@ -3,8 +3,7 @@ package fpp.compiler.analysis
 import fpp.compiler.ast._
 import fpp.compiler.util._
 
-/** Build the location specifier map 
- *  Prerequisites: Empty module name list and location specifier map */
+/** Build the location specifier map */
 object BuildSpecLocMap extends AstStateVisitor {
 
   type State = Analysis
@@ -31,11 +30,11 @@ object BuildSpecLocMap extends AstStateVisitor {
     val key = (spec.kind, qualifiedName)
     a.locationSpecifierMap.get(key) match {
       case None => {
-        val map = a.locationSpecifierMap + (key -> specNode)
+        val map = a.locationSpecifierMap + (key -> spec)
         Right(a.copy(locationSpecifierMap = map))
       }
-      case Some(specNode1) => 
-        for { _ <- checkPathConsistency(specNode, specNode1) } yield a
+      case Some(spec1) => 
+        for { _ <- checkPathConsistency(spec, spec1) } yield a
     }
   }
 
@@ -43,17 +42,17 @@ object BuildSpecLocMap extends AstStateVisitor {
     visitList(a, tu.members, matchTuMember)
 
   private def checkPathConsistency(
-    specNode1: AstNode[Ast.SpecLoc],
-    specNode2: AstNode[Ast.SpecLoc]
+    spec1: Ast.SpecLoc,
+    spec2: Ast.SpecLoc
   ): Result.Result[Unit] = {
     for {
-      path1 <- getPathString(specNode1)
-      path2 <- getPathString(specNode2)
+      path1 <- getPathString(spec1)
+      path2 <- getPathString(spec2)
       _ <- if (path1 == path2) Right(()) else {
           val e = SpecLocError.Inconsistent(
-          Locations.get(specNode1.getId),
+          Locations.get(spec1.file.getId),
           path1,
-          Locations.get(specNode2.getId),
+          Locations.get(spec2.file.getId),
           path2
         )
         Left(e)
@@ -61,9 +60,9 @@ object BuildSpecLocMap extends AstStateVisitor {
     } yield ()
   }
 
-  private def getPathString(node: AstNode[Ast.SpecLoc]): Result.Result[String] = {
-    val loc = Locations.get(node.getId)
-    for { path <- loc.relativePath(node.getData.file) } 
+  private def getPathString(spec: Ast.SpecLoc): Result.Result[String] = {
+    val loc = Locations.get(spec.file.getId)
+    for { path <- loc.relativePath(spec.file.getData) } 
     yield path.toString
   }
 

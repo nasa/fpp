@@ -284,7 +284,7 @@ object Ast {
   final case class SpecLoc(
     kind: SpecLoc.Kind,
     symbol: AstNode[QualIdent],
-    file: String
+    file: AstNode[String]
   )
   object SpecLoc {
     /** Location specifier kind */

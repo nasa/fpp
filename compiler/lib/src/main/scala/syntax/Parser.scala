@@ -393,7 +393,7 @@ object Parser extends Parsers {
       typeToken ^^ { case _ => Ast.SpecLoc.Type } |
       failure("location kind expected")
     }
-    (locate ~>! kind) ~! node(qualIdent) ~! (at ~>! literalString) ^^ {
+    (locate ~>! kind) ~! node(qualIdent) ~! (at ~>! node(literalString)) ^^ {
       case kind ~ symbol ~ file => Ast.SpecLoc(kind, symbol, file)
     }
   }
