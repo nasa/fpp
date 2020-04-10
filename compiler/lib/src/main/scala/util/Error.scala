@@ -15,6 +15,11 @@ sealed trait Error {
         Error.print (locOpt) (s"cannot open file $name")
       case FileError.CannotResolvePath(loc, name) => 
         Error.print (Some(loc)) (s"cannot resolve path $name")
+      case SpecLocError.Inconsistent(loc, path, prevLoc, prevPath) => {
+        Error.print (Some(loc)) (s"inconsistent location path ${path}")
+        System.err.println(prevLoc)
+        System.err.println(s"previous path was ${prevPath}")
+      }
     }
   }
 
@@ -37,6 +42,17 @@ object FileError {
   final case class CannotResolvePath(loc: Location, name: String) extends Error
 }
 
+/** A location specifier error */
+object SpecLocError {
+  /** Inconsistent specifiers */
+  final case class Inconsistent(
+    loc: Location,
+    path: String,
+    prevLoc: Location,
+    prevPath: String
+  ) extends Error
+}
+
 object Error {
 
   private var toolOpt: Option[Tool] = None
@@ -55,7 +71,7 @@ object Error {
   /** Print the tool */
   def printTool = printOpt(toolOpt)
 
-  /** Print an optioanl location and a message */
+  /** Print an optional location and a message */
   def print (locOpt: Option[Location]) (msg: String) = {
     printTool
     printOpt(locOpt)

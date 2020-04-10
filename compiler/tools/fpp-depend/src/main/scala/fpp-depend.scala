@@ -30,7 +30,7 @@ object FPPDepend {
       )
       a <- Right(pair._1)
       tul <- Right(pair._2)
-      a <- BuildLocSpecMap.visitList(a, tul, BuildLocSpecMap.transUnit)
+      a <- BuildSpecLocMap.visitList(a, tul, BuildSpecLocMap.transUnit)
       a <- MapUsesToLocs.visitList(a, tul, MapUsesToLocs.transUnit)
     }
     yield {
