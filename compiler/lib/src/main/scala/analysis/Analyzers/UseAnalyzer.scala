@@ -6,15 +6,15 @@ import fpp.compiler.util._
 /** Analyze uses */
 trait UseAnalyzer extends TypeExpressionAnalyzer {
 
-  def componentInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) = default(a)
+  def componentInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
 
-  def exprUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) = default(a)
+  def exprUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified): Result = default(a)
 
-  def portInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) = default(a)
+  def portInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
 
-  def topologyUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) = default(a)
+  def topologyUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
 
-  def typeNameUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified) = default(a)
+  def typeNameUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified): Result = default(a)
 
   override def exprDotNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprDot) = {
     def nameOpt(e: Ast.Expr, qualifier: List[Name.Unqualified]): Option[Name.Qualified] = {
