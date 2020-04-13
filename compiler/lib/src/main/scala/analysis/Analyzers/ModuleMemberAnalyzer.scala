@@ -3,8 +3,8 @@ package fpp.compiler.analysis
 import fpp.compiler.ast._
 import fpp.compiler.util._
 
-/** Visit translation units and modules, updating the module name list */
-trait ModuleAnalyzer extends Analyzer {
+/** Visit translation unit membersand module members */
+trait ModuleMemberAnalyzer extends Analyzer {
 
   override def defModuleAnnotatedNode(
     a: Analysis,

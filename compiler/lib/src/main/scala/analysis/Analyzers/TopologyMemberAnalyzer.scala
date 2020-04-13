@@ -3,8 +3,8 @@ package fpp.compiler.analysis
 import fpp.compiler.ast._
 import fpp.compiler.util._
 
-/** Analyze components */
-trait TopologyAnalyzer extends Analyzer {
+/** Analyze topology members */
+trait TopologyMemberAnalyzer extends Analyzer {
 
   override def defTopologyAnnotatedNode(
     a: Analysis,

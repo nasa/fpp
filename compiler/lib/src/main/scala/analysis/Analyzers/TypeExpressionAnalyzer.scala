@@ -6,11 +6,14 @@ import fpp.compiler.util._
 /** Analyze types and expressions */
 trait TypeExpressionAnalyzer 
   extends Analyzer 
-  with ComponentAnalyzer
-  with EnumAnalyzer 
-  with ModuleAnalyzer
-  with TopologyAnalyzer
+  with ComponentMemberAnalyzer
+  with ModuleMemberAnalyzer
+  with TopologyMemberAnalyzer
 {
+
+  def exprNode(a: Analysis, node: AstNode[Ast.Expr]): Result = default(a)
+
+  def typeNameNode(a: Analysis, node: AstNode[Ast.TypeName]): Result = default(a)
 
   override def defArrayAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val (_, node1, _) = node
@@ -40,11 +43,32 @@ trait TypeExpressionAnalyzer
     exprNode(a, data.value)
   }
 
-  override def defEnumConstantAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefEnumConstant]]) = {
+  override def defEnumAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
     val (_, node1, _) = node
     val data = node1.getData
-    opt(exprNode)(a, data.value)
+    for {
+      a <- opt(typeNameNode)(a, data.typeName)
+      a <- visitList(a, data.constants, defEnumConstantAnnotatedNode)
+    } yield a
   }
+
+  override def exprArrayNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprArray) =
+    visitList(a, e.elts, exprNode)
+
+  override def exprBinopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprBinop) =
+    for {
+      a <- exprNode(a, e.e1)
+      a <- exprNode(a, e.e2)
+    } yield a
+  
+  override def exprDotNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprDot) = exprNode(a, e.e)
+
+  override def exprParenNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprParen) = exprNode(a, e.e)
+
+  override def exprStructNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprStruct) =
+    visitList(a, e.members, structMember)
+
+  override def exprUnopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprUnop) = exprNode(a, e.e)
 
   override def defPortAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefPort]]) = {
     val (_, node1, _) = node
@@ -155,9 +179,10 @@ trait TypeExpressionAnalyzer
     } yield a
   }
 
-  private def exprNode(a: Analysis, node: AstNode[Ast.Expr]): Result = {
-    System.out.println(node)
-    default(a)
+  private def defEnumConstantAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefEnumConstant]]) = {
+    val (_, node1, _) = node
+    val data = node1.getData
+    opt(exprNode)(a, data.value)
   }
 
   private def formalParamNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.FormalParam]]): Result = {
@@ -176,6 +201,8 @@ trait TypeExpressionAnalyzer
     typeNameNode(a, node1)
   }
 
+  private def structMember(a: Analysis, member: Ast.StructMember): Result = exprNode(a, member.value)
+
   private def structTypeMemberAnnotatedNode(
     a: Analysis,
     node: Ast.Annotated[AstNode[Ast.StructTypeMember]]
@@ -183,11 +210,6 @@ trait TypeExpressionAnalyzer
     val (_, node1, _) = node
     val data = node1.getData
     typeNameNode(a, data.typeName)
-  }
-
-  private def typeNameNode(a: Analysis, node: AstNode[Ast.TypeName]): Result = {
-    System.out.println(node)
-    default(a)
   }
 
 }
