@@ -64,6 +64,97 @@ trait TypeExpressionAnalyzer
     } yield a
   }
 
+  override def specCommandAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecCommand]]) = {
+    val (_, node1, _) = node
+    val data = node1.getData
+    for {
+      a <- visitList(a, data.params, formalParamNode)
+      a <- opt(exprNode)(a, data.opcode)
+      a <- opt(exprNode)(a, data.priority)
+    } yield a
+  }
+
+  override def specConnectionGraphAnnotatedNode(
+    a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecConnectionGraph]]) = {
+    def connection(a: Analysis, connection: Ast.SpecConnectionGraph.Connection): Result = {
+      for {
+        a <- opt(exprNode)(a, connection.fromIndex)
+        a <- opt(exprNode)(a, connection.toIndex)
+      } yield a
+    }
+    val (_, node1, _) = node
+    val data = node1.getData
+    data match {
+      case direct @ Ast.SpecConnectionGraph.Direct(_, _) => visitList(a, direct.connections, connection)
+      case pattern @ Ast.SpecConnectionGraph.Pattern(_, _, _) => exprNode(a, pattern.pattern)
+    }
+  }
+
+  override def specEventAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecEvent]]) = {
+    val (_, node1, _) = node
+    val data = node1.getData
+    for {
+      a <- visitList(a, data.params, formalParamNode)
+      a <- opt(exprNode)(a, data.id)
+      a <- opt(exprNode)(a, data.throttle)
+    } yield a
+  }
+
+  override def specInitAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecInit]]) = {
+    val (_, node1, _) = node
+    val data = node1.getData
+    exprNode(a, data.phase)
+  }
+
+  override def specInternalPortAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecInternalPort]]) = {
+    val (_, node1, _) = node
+    val data = node1.getData
+    for {
+      a <- visitList(a, data.params, formalParamNode)
+      a <- opt(exprNode)(a, data.priority)
+    } yield a
+  }
+
+  override def specParamAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecParam]]) = {
+    val (_, node1, _) = node
+    val data = node1.getData
+    for {
+      a <- typeNameNode(a, data.typeName)
+      a <- opt(exprNode)(a, data.default)
+      a <- opt(exprNode)(a, data.id)
+      a <- opt(exprNode)(a, data.setOpcode)
+      a <- opt(exprNode)(a, data.saveOpcode)
+    } yield a
+  }
+
+  override def specPortInstanceAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecPortInstance]]) = {
+    val (_, node1, _) = node
+    val data = node1.getData
+    data match {
+      case general @ Ast.SpecPortInstance.General(_, _, _, _, _, _) =>
+        for {
+          a <- opt(exprNode)(a, general.size)
+          a <- opt(exprNode)(a, general.priority)
+        } yield a
+      case _ => Right(a)
+    }
+  }
+
+  override def specTlmChannelAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]) = {
+    def limit(a: Analysis, value: Ast.SpecTlmChannel.Limit) = {
+      val (_, e) = value
+      exprNode(a, e)
+    }
+    val (_, node1, _) = node
+    val data = node1.getData
+    for {
+      a <- typeNameNode(a, data.typeName)
+      a <- opt(exprNode)(a, data.id)
+      a <- visitList(a, data.low, limit)
+      a <- visitList(a, data.high, limit)
+    } yield a
+  }
+
   private def exprNode(a: Analysis, node: AstNode[Ast.Expr]): Result = {
     System.out.println(node)
     default(a)
@@ -77,12 +168,6 @@ trait TypeExpressionAnalyzer
       a <- opt(exprNode)(a, data.size)
     } yield a
   }
-
-  private def opt[T] (f: (Analysis, T) => Result) (a: Analysis, o: Option[T]): Result =
-    o match {
-      case Some(x) => f(a, x)
-      case None => Right(a)
-    }
 
   private def qualIdentTypeNameNode(a: Analysis, node: AstNode[Ast.QualIdent]): Result = {
     val typeName = Ast.TypeNameQualIdent(node.data)

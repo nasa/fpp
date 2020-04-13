@@ -7,4 +7,11 @@ trait Analyzer extends AstStateVisitor {
 
   type State = Analysis
 
+  /** Apply an analysis to an option value */
+  final def opt[T] (f: (Analysis, T) => Result) (a: Analysis, o: Option[T]): Result =
+    o match {
+      case Some(x) => f(a, x)
+      case None => Right(a)
+    }
+
 }
