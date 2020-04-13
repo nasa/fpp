@@ -33,9 +33,9 @@ object Name {
     /** Create a qualified name from a string */
     def fromString(s: String) = fromIdentList(s.split(".").toList)
 
-    /** Create a qualified name A.B.C from an identifer list [ C, B, A ] */
+    /** Create a qualified name A.B.C from an identifer list [ A, B, C ] */
     def fromIdentList(il: List[Ast.Ident]) = {
-      il match {
+      il.reverse match {
         case head :: tail => Qualified(tail.reverse, head)
         case _ => throw new InternalError("empty identifier list")
       }
