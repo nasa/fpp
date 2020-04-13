@@ -2,9 +2,7 @@ package fpp.compiler.tools
 
 import fpp.compiler.analysis._
 import fpp.compiler.ast._
-import fpp.compiler.codegen._
 import fpp.compiler.syntax._
-import fpp.compiler.transform._
 import fpp.compiler.util._
 import scopt.OParser
 
@@ -23,15 +21,7 @@ object FPPDepend {
     val a = Analysis(inputFileSet = options.files.toSet)
     for {
       tul <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
-      pair <- ResolveSpecInclude.transformList(
-        a,
-        tul, 
-        ResolveSpecInclude.transUnit
-      )
-      a <- Right(pair._1)
-      tul <- Right(pair._2)
-      a <- BuildSpecLocMap.visitList(a, tul, BuildSpecLocMap.transUnit)
-      a <- MapUsesToLocs.visitList(a, tul, MapUsesToLocs.transUnit)
+      a <- ComputeDependencies.tuList(a, tul)
     }
     yield {
       a.dependencyFileSet.map(System.out.println(_))
