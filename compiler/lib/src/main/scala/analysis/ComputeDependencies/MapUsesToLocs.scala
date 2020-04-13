@@ -5,9 +5,7 @@ import fpp.compiler.util._
 
 /** Map uses to locations 
  *  Prerequisites: BuildLocSpecMap */
-object MapUsesToLocs extends AstStateVisitor {
-
-  type State = Analysis
+object MapUsesToLocs extends UseAnalyzer {
 
   // TODO
 
