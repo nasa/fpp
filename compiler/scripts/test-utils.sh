@@ -67,3 +67,11 @@ run_suite()
 
 }
 
+# Remove generated files
+clean()
+{
+  for file in `find . -name '*.out.txt' -or -name '*.diff.txt' -or -name '*~'`
+  do
+    rm $file
+  done
+}

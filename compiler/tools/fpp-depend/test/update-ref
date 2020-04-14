@@ -24,5 +24,8 @@ done
 
 update '' locate_constant_1
 update '' locate_constant_consistent
+update '' locate_constant_include_1 locate_constant_include_no_i
 update '' locate_constant_inconsistent
+update '-m tmp.out.txt' missing; remove_path_prefix < tmp.out.txt > missing_output.ref.txt
 update -i include
+update -i locate_constant_include_1 locate_constant_include_i

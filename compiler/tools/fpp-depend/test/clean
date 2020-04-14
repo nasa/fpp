@@ -1,6 +1,5 @@
 #!/bin/sh -e
 
-for file in `find . -name '*.out.txt' -or -name '*.diff.txt'`
-do
-  rm $file
-done
+. ../../../scripts/test-utils.sh
+
+clean

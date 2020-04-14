@@ -4,6 +4,12 @@
 
 fpp_depend=../../../bin/fpp-depend
 
+compare()
+{
+  outfile=$1
+  diff -u $outfile.ref.txt $outfile.out.txt > $outfile.diff.txt 2>&1
+}
+
 run_test()
 {
   args=$1
@@ -15,7 +21,8 @@ run_test()
     outfile=$infile
   fi
   $fpp_depend $args $infile.fpp 2>&1 | remove_path_prefix > $outfile.out.txt
-  diff -u $outfile.ref.txt $outfile.out.txt > $outfile.diff.txt 2>&1
+  compare $outfile
+  #diff -u $outfile.ref.txt $outfile.out.txt > $outfile.diff.txt 2>&1
 }
 
 include()
@@ -33,16 +40,36 @@ locate_constant_consistent()
   run_test '' locate_constant_consistent
 }
 
+locate_constant_include_i()
+{
+  run_test -i locate_constant_include_1 locate_constant_include_i
+}
+
+locate_constant_include_no_i()
+{
+  run_test '' locate_constant_include_1 locate_constant_include_no_i
+}
+
 locate_constant_inconsistent()
 {
   run_test '' locate_constant_inconsistent
+}
+
+missing()
+{
+  run_test '-m tmp.out.txt' missing
+  remove_path_prefix < tmp.out.txt > missing_output.out.txt
+  compare missing_output
 }
 
 tests="
 include
 locate_constant_1
 locate_constant_consistent
+locate_constant_include_i
+locate_constant_include_no_i
 locate_constant_inconsistent
+missing
 "
 
 run_suite $tests
