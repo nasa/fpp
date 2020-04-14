@@ -18,6 +18,16 @@ run_test()
   diff -u $outfile.ref.txt $outfile.out.txt > $outfile.diff.txt 2>&1
 }
 
+include()
+{
+  run_test -i include
+}
+
+locate_constant_1()
+{
+  run_test '' locate_constant_1
+}
+
 locate_constant_consistent()
 {
   run_test '' locate_constant_consistent
@@ -28,15 +38,11 @@ locate_constant_inconsistent()
   run_test '' locate_constant_inconsistent
 }
 
-include()
-{
-  run_test -i include
-}
-
 tests="
+include
+locate_constant_1
 locate_constant_consistent
 locate_constant_inconsistent
-include
 "
 
 run_suite $tests

@@ -1,1 +1,0 @@
-constant c = 0
