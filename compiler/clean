@@ -1,0 +1,12 @@
+#!/bin/sh -e
+
+. scripts/utils.sh
+
+sbt clean
+rm -rf bin
+clean
+for file in `find . -mindepth 2 -name clean`
+do
+  dir=`dirname $file`
+  (cd $dir; ./clean)
+done

@@ -66,12 +66,3 @@ run_suite()
   exit $num_failed
 
 }
-
-# Remove generated files
-clean()
-{
-  for file in `find . -name '*.out.txt' -or -name '*.diff.txt' -or -name '*~'`
-  do
-    rm $file
-  done
-}

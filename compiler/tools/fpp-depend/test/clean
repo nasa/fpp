@@ -1,5 +1,5 @@
 #!/bin/sh -e
 
-. ../../../scripts/test-utils.sh
+. ../../../scripts/utils.sh
 
 clean
