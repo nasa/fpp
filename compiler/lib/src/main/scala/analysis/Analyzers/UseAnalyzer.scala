@@ -6,15 +6,38 @@ import fpp.compiler.util._
 /** Analyze uses */
 trait UseAnalyzer extends TypeExpressionAnalyzer {
 
+  /** A use of a component definition */
+  def componentUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
+ 
+  /** A use of a component instance definition */
   def componentInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
 
-  def exprUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified): Result = default(a)
+  /** A use of a constant definition */
+  def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified): Result = default(a)
 
+  /** A use of a component instance definition, followed by the name of a port instance specifier */
   def portInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
 
+  /** A use of a port definition */
+  def portUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
+
+  /** A use of a topology definition */
   def topologyUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
 
-  def typeNameUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified): Result = default(a)
+  /** A use of a type definition */
+  def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified): Result = default(a)
+
+  override def defComponentInstanceAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefComponentInstance]]) = {
+    val (_, node1, _) = node
+    val data = node1.getData
+    for {
+      a <- qualIdentNode (componentUse) (a, data.typeName)
+      a <- exprNode(a, data.baseId)
+      a <- opt(exprNode)(a, data.queueSize)
+      a <- opt(exprNode)(a, data.stackSize)
+      a <- opt(exprNode)(a, data.priority)
+    } yield a
+  }
 
   override def exprDotNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprDot) = {
     def nameOpt(e: Ast.Expr, qualifier: List[Name.Unqualified]): Option[Name.Qualified] = {
@@ -29,14 +52,14 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
       }
     }
     nameOpt(e, Nil) match {
-      case Some(use) => exprUse(a, node, use)
+      case Some(use) => constantUse(a, node, use)
       case None => Right(a)
     }
   }
 
   override def exprIdentNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprIdent) = {
     val use = Name.Qualified(Nil, e.value)
-    exprUse(a, node, use)
+    constantUse(a, node, use)
   }
 
   override def exprNode(a: Analysis, node: AstNode[Ast.Expr]): Result = matchExprNode(a, node)
@@ -85,7 +108,7 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
       case general @ Ast.SpecPortInstance.General(_, _, _, _, _, _) =>
         for {
           a <- opt(exprNode)(a, general.size)
-          a <- opt(qualIdentNode(portInstanceUse))(a, general.port)
+          a <- opt(qualIdentNode(portUse))(a, general.port)
           a <- opt(exprNode)(a, general.priority)
         } yield a
       case _ => Right(a)
@@ -108,7 +131,7 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
 
   override def typeNameQualIdentNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameQualIdent) = {
     val use = Name.Qualified.fromIdentList(tn.name)
-    typeNameUse(a, node, use)
+    typeUse(a, node, use)
   }
 
   private def qualIdentNode 

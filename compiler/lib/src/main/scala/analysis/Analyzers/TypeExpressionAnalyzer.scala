@@ -29,7 +29,6 @@ trait TypeExpressionAnalyzer
     val (_, node1, _) = node
     val data = node1.getData
     for {
-      a <- qualIdentTypeNameNode(a, data.typeName)
       a <- exprNode(a, data.baseId)
       a <- opt(exprNode)(a, data.queueSize)
       a <- opt(exprNode)(a, data.stackSize)
@@ -192,13 +191,6 @@ trait TypeExpressionAnalyzer
       a <- typeNameNode(a, data.typeName)
       a <- opt(exprNode)(a, data.size)
     } yield a
-  }
-
-  private def qualIdentTypeNameNode(a: Analysis, node: AstNode[Ast.QualIdent]): Result = {
-    val typeName = Ast.TypeNameQualIdent(node.data)
-    val id = node.getId
-    val node1 = AstNode.create(typeName, id)
-    typeNameNode(a, node1)
   }
 
   private def structMember(a: Analysis, member: Ast.StructMember): Result = exprNode(a, member.value)
