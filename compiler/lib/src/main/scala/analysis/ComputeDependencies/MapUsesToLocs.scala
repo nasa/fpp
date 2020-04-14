@@ -17,10 +17,13 @@ object MapUsesToLocs extends UseAnalyzer {
   override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) =
     analyzeUse(a, Ast.SpecLoc.Constant, use)
 
-  override def portInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) = {
-    val componentInstanceUse = Name.Qualified.fromIdentList(use.qualifier)
+  override def portInstanceUse(
+    a: Analysis,
+    node: AstNode[Ast.QualIdent],
+    componentInstanceUse: Name.Qualified,
+    port: Name.Unqualified
+  ) =
     analyzeUse(a, Ast.SpecLoc.ComponentInstance, componentInstanceUse)
-  }
 
   override def portUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     analyzeUse(a, Ast.SpecLoc.Port, use)
