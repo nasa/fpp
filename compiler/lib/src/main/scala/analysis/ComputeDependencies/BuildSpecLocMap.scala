@@ -4,7 +4,7 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 
 /** Build the location specifier map */
-object BuildSpecLocMap extends ModuleMemberAnalyzer {
+object BuildSpecLocMap extends ModuleAnalyzer {
 
   override def specLocAnnotatedNode(
     a: Analysis,

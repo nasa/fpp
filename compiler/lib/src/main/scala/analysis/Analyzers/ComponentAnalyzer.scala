@@ -4,7 +4,7 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 
 /** Analyze component members */
-trait ComponentMemberAnalyzer extends Analyzer {
+trait ComponentAnalyzer extends Analyzer {
 
   override def defComponentAnnotatedNode(
     a: Analysis,

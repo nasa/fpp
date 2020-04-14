@@ -6,9 +6,9 @@ import fpp.compiler.util._
 /** Analyze types and expressions */
 trait TypeExpressionAnalyzer 
   extends Analyzer 
-  with ComponentMemberAnalyzer
-  with ModuleMemberAnalyzer
-  with TopologyMemberAnalyzer
+  with ComponentAnalyzer
+  with ModuleAnalyzer
+  with TopologyAnalyzer
 {
 
   def exprNode(a: Analysis, node: AstNode[Ast.Expr]): Result = default(a)
