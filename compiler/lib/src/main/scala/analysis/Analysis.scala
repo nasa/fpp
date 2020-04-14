@@ -9,6 +9,8 @@ case class Analysis(
   inputFileSet: Set[File] = Set(),
   /** The set of files on which the analysis depends */
   dependencyFileSet: Set[File] = Set(),
+  /** The set of dependency files that could not be opened */
+  missingDependencyFileSet: Set[File] = Set(),
   /** The set of files included when parsing input */
   includedFileSet: Set[File] = Set(),
   /** A map from pairs (spec loc kind, qualified name) to spec locs. */

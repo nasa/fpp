@@ -10,7 +10,8 @@ object FPPDepend {
 
   case class Options(
     include: Boolean = false,
-    files: List[File] = List()
+    files: List[File] = List(),
+    missingFile: Option[String] = None
   )
 
   def command(options: Options) = {
@@ -22,13 +23,27 @@ object FPPDepend {
     for {
       tul <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
       a <- ComputeDependencies.tuList(a, tul)
-    }
-    yield {
-      a.dependencyFileSet.map(System.out.println(_))
-      options.include match {
-        case true => a.includedFileSet.map(System.out.println(_))
-        case false => ()
+      _ <- {
+        a.dependencyFileSet.map(System.out.println(_))
+        options.include match {
+          case true => a.includedFileSet.map(System.out.println(_))
+          case false => ()
+        }
+        options.missingFile match {
+          case Some(file) => writeMissingDeps(a, file)
+          case None => Right(())
+        }
       }
+    } yield ()
+  }
+
+  def writeMissingDeps(a: Analysis, fileName: String): Result.Result[Unit] = {
+    val file = File.fromString(fileName)
+    for { writer <- file.openWrite() 
+    } yield { 
+      a.missingDependencyFileSet.map(writer.println(_))
+      writer.close()
+      ()
     }
   }
 
@@ -59,6 +74,10 @@ object FPPDepend {
       opt[Unit]('i', "include")
         .action((_, c) => c.copy(include = true))
         .text("count included files as dependencies"),
+      opt[String]('m', "missing")
+        .valueName("<file>")
+        .action((m, c) => c.copy(missingFile = Some(m)))
+        .text("write missing dependencies to file"),
       help('h', "help").text("print this message and exit"),
       arg[String]("file ...")
         .unbounded()

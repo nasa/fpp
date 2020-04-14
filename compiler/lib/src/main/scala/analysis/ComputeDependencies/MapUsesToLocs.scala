@@ -66,9 +66,10 @@ object MapUsesToLocs extends UseAnalyzer {
         a2 <- ComputeDependencies.tuList(pair._1, List(pair._2))
       } yield a2
       result match {
-        // If the file is not there, just add the dependency and continue
-        // It could be auto-generated later
-        case Left(FileError.CannotOpen(_, _)) => Right(a1)
+        case Left(FileError.CannotOpen(_, _)) => {
+          val a = a1.copy(missingDependencyFileSet = a1.missingDependencyFileSet + file)
+          Right(a)
+        }
         case _ => result
       }
     }

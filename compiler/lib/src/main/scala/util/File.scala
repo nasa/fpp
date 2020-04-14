@@ -8,8 +8,8 @@ sealed trait File {
     case File.StdIn => "stdin"
   }
 
-  /** Open the file */
-  def open(locOpt: Option[Location]): Result.Result[java.io.Reader] = {
+  /** Open the file for reading */
+  def openRead(locOpt: Option[Location] = None): Result.Result[java.io.Reader] = {
     try {
       val r = this match {
         case File.Path(p) => new java.io.FileReader(p.toFile)
@@ -22,9 +22,24 @@ sealed trait File {
     }
   }
 
-  def open(loc: Location): Result.Result[java.io.Reader] = open(Some(loc))
-
-  def open: Result.Result[java.io.Reader] = open(None)
+  /** Open the file for writing */
+  def openWrite(locOpt: Option[Location] = None): Result.Result[java.io.PrintWriter] = {
+    val error = FileError.CannotOpen(locOpt, this.toString)
+    try {
+      this match {
+        case File.Path(p) => {
+          val overwrite = false
+          val fileWriter = new java.io.FileWriter(p.toFile, overwrite)
+          val printWriter = new java.io.PrintWriter(fileWriter)
+          Right(printWriter)
+        }
+        case _ => Left(error)
+      }
+    }
+    catch {
+      case _: Exception => Left(error)
+    }
+  }
 
 }
 
