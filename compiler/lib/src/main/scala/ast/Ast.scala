@@ -234,9 +234,11 @@ object Ast {
 
     /** Connection */
     final case class Connection(
-      fromPort: AstNode[QualIdent],
+      fromInstance: AstNode[QualIdent],
+      fromPortName: Ident,
       fromIndex: Option[AstNode[Expr]],
-      toPort: AstNode[QualIdent],
+      toInstance: AstNode[QualIdent],
+      toPortName: Ident,
       toIndex: Option[AstNode[Expr]]
     )
   }

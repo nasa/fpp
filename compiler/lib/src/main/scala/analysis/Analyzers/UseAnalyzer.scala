@@ -71,9 +71,9 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
     a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecConnectionGraph]]) = {
     def connection(a: Analysis, connection: Ast.SpecConnectionGraph.Connection): Result = {
       for {
-        a <- qualIdentNode (portInstanceUse) (a, connection.fromPort)
+        a <- qualIdentNode (componentInstanceUse) (a, connection.fromInstance)
         a <- opt(exprNode)(a, connection.fromIndex)
-        a <- qualIdentNode (portInstanceUse) (a, connection.toPort)
+        a <- qualIdentNode (componentInstanceUse) (a, connection.toInstance)
         a <- opt(exprNode)(a, connection.toIndex)
       } yield a
     }

@@ -43,9 +43,24 @@ object Parser extends Parsers {
   def connection: Parser[Ast.SpecConnectionGraph.Connection] = {
     def connectionQualIdent = ident ~! (dot ~>! qualIdent) ^^ { case id ~ qid => id :: qid }
     def connectionPort = node(connectionQualIdent) ~! opt(index)
+    def getInstanceAndName(node: AstNode[List[Ast.Ident]]) = {
+      val name :: tail = node.getData.reverse
+      val instance = tail.reverse
+      val node1 = AstNode.create(instance, node.getId)
+      (node1, name)
+    }
     connectionPort ~! (rarrow ~>! connectionPort) ^^ {
       case (fromPort ~ fromIndex) ~ (toPort ~ toIndex) => {
-        Ast.SpecConnectionGraph.Connection(fromPort, fromIndex, toPort, toIndex)
+        val (fromPortInstance, fromPortName) = getInstanceAndName(fromPort)
+        val (toPortInstance, toPortName) = getInstanceAndName(toPort)
+        Ast.SpecConnectionGraph.Connection(
+          fromPortInstance, 
+          fromPortName, 
+          fromIndex, 
+          toPortInstance,
+          toPortName,
+          toIndex
+        )
       }
     }
   }

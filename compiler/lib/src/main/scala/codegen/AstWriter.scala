@@ -187,10 +187,12 @@ object AstWriter extends AstVisitor {
   override def specConnectionGraphAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.SpecConnectionGraph]]) =  {
     def direct(g: Ast.SpecConnectionGraph.Direct) = {
       def connection(c: Ast.SpecConnectionGraph.Connection) = {
+        val fromPort = c.fromInstance.getData ++ List(c.fromPortName)
+        val toPort = c.toInstance.getData ++ List(c.toPortName)
         lines("connection") ++ (
-          addPrefix("from port", qualIdent) (c.fromPort.getData) ++
+          addPrefix("from port", qualIdent) (fromPort) ++
           linesOpt(addPrefix("index", exprNode), c.fromIndex) ++
-          addPrefix("to port", qualIdent) (c.toPort.getData) ++
+          addPrefix("to port", qualIdent) (toPort) ++
           linesOpt(addPrefix("index", exprNode), c.toIndex)
         ).map(indentIn)
       }
