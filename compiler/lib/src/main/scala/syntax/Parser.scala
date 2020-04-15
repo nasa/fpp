@@ -41,7 +41,8 @@ object Parser extends Parsers {
     annotatedElementSequence(componentMemberNode, semi, Ast.ComponentMember(_))
 
   def connection: Parser[Ast.SpecConnectionGraph.Connection] = {
-    def connectionPort = node(qualIdent) ~! opt(index)
+    def connectionQualIdent = ident ~! (dot ~>! qualIdent) ^^ { case id ~ qid => id :: qid }
+    def connectionPort = node(connectionQualIdent) ~! opt(index)
     connectionPort ~! (rarrow ~>! connectionPort) ^^ {
       case (fromPort ~ fromIndex) ~ (toPort ~ toIndex) => {
         Ast.SpecConnectionGraph.Connection(fromPort, fromIndex, toPort, toIndex)

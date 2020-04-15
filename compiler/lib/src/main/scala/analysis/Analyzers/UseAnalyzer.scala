@@ -140,18 +140,9 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
   }
 
   private def portInstanceUseHelper(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = {
-    val qualifier = use.qualifier
-    qualifier match {
-      case Nil => {
-        val loc = Locations.get(node.getId)
-        Left(SyntaxError(loc, "expected qualified identifier"))
-      }
-      case _ => {
-        val componentInstanceUse = Name.Qualified.fromIdentList(qualifier)
-        val port = use.base
-        portInstanceUse(a, node, componentInstanceUse, port)
-      }
-    }
+    val use1 = Name.Qualified.fromIdentList(use.qualifier)
+    val port = use.base
+    componentInstanceUse(a, node, use1)
   }
 
   private def qualIdentNode 

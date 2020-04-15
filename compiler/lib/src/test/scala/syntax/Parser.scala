@@ -42,7 +42,6 @@ class ParserSpec extends AnyWordSpec {
     parseAllOK(
       Parser.connection,
       List(
-        "a -> b",
         "a.b -> c.d",
         "a.b.c -> d.e.f",
       )
@@ -359,8 +358,8 @@ class ParserSpec extends AnyWordSpec {
       Parser.specConnectionGraph,
       List(
         "connections C {}",
-        "connections C { a-> b }",
-        "connections C { a-> b, c -> d }",
+        "connections C { a.b -> c.d }",
+        "connections C { a.b -> c.d, e.f -> g.h }",
       )
     )
   }
