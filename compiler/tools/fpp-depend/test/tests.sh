@@ -21,7 +21,10 @@ spec_connection_graph_direct
 spec_connection_graph_pattern
 spec_event
 spec_init
+spec_internal_port
+spec_param
 spec_port_instance
+spec_tlm_channel
 spec_top_import
 spec_unused_ports
 "
