@@ -386,7 +386,7 @@ object Ast {
   final case class SpecTopImport(top: AstNode[QualIdent])
 
   /** Unused port specifier */
-  final case class SpecUnusedPorts(ports: List[AstNode[QualIdent]])
+  final case class SpecUnusedPorts(ports: List[AstNode[PortInstanceIdentifier]])
 
   /** Struct member */
   final case class StructMember(name: Ident, value: AstNode[Expr])

@@ -310,15 +310,6 @@ object Parser extends Parsers {
       }
     }
 
-  def convertPortInstanceId(node: AstNode[List[Ast.Ident]]): AstNode[Ast.PortInstanceIdentifier] = {
-    val qid = node.getData
-    val portName :: tail = qid.reverse
-    val componentInstance = tail.reverse
-    val node1 = AstNode.create(componentInstance, node.getId)
-    val piid = Ast.PortInstanceIdentifier(node1, portName)
-    AstNode.create(piid, node1.getId)
-  }
-
   def qualIdent: Parser[List[Ast.Ident]] = rep1sep(ident, dot)
 
   def queueFull: Parser[Ast.QueueFull] = {
@@ -520,7 +511,7 @@ object Parser extends Parsers {
   }
 
   def specUnusedPorts: Parser[Ast.SpecUnusedPorts] = {
-    unused ~! lbrace ~>! elementSequence(node(qualIdent), comma) <~! rbrace ^^ {
+    unused ~! lbrace ~>! elementSequence(node(portInstanceIdentifier), comma) <~! rbrace ^^ {
       case ports => Ast.SpecUnusedPorts(ports)
     }
   }

@@ -121,7 +121,7 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
   override def specUnusedPortsAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecUnusedPorts]]) = {
     val (_, node1, _) = node
     val data = node1.getData
-    visitList(a, data.ports, qualIdentNode (portInstanceUse))
+    visitList(a, data.ports, portInstanceIdentifierNode)
   }
 
   override def typeNameNode(a: Analysis, node: AstNode[Ast.TypeName]) = matchTypeNameNode(a, node)
@@ -133,12 +133,6 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
 
   private def portInstanceIdentifierNode(a: Analysis, node: AstNode[Ast.PortInstanceIdentifier]): Result =
     qualIdentNode (componentInstanceUse) (a, node.getData.componentInstance)
-
-  private def portInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = {
-    val use1 = Name.Qualified.fromIdentList(use.qualifier)
-    val port = use.base
-    componentInstanceUse(a, node, use1)
-  }
 
   private def qualIdentNode 
     (f: (Analysis, AstNode[Ast.QualIdent], Name.Qualified) => Result) 

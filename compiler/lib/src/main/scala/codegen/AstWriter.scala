@@ -395,7 +395,7 @@ object AstWriter extends AstVisitor {
     val (_, node, _) = an
     val up = node.getData
     lines("spec unused ports") ++
-    up.ports.map(applyToData(qualIdent)).flatten.map(indentIn)
+    up.ports.map(applyToData(portInstanceIdentifier)).flatten.map(indentIn)
   }
 
   override def transUnit(in: Unit, tu: Ast.TransUnit) = tu.members.map(tuMember).flatten

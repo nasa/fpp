@@ -553,7 +553,6 @@ class ParserSpec extends AnyWordSpec {
       Parser.specUnusedPorts,
       List(
         "unused {}",
-        "unused { a }",
         "unused { a.b }",
         "unused { a.b.c }",
         "unused { a.b.c, d.e.f }",
