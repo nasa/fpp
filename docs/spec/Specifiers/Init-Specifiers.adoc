@@ -43,7 +43,7 @@ enum Phases {
   AFTER_CONNECTIONS
 }
 
-init commandDispatcher phase BEFORE_CONNECTIONS
+init commandDispatcher phase BEFORE_CONNECTIONS \
 """
 commandDispatcher.init(QueueDepth::commandDispatcher);
 """

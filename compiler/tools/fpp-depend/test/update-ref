@@ -36,3 +36,6 @@ update -i locate_constant_include_1 locate_constant_include_i
 update '' spec_comp_instance
 update '' spec_connection_graph_direct
 update '' spec_connection_graph_pattern
+update '' spec_init
+update '' spec_port_instance
+update '' spec_top_import

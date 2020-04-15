@@ -96,6 +96,21 @@ spec_connection_graph_pattern()
   run_test '' spec_connection_graph_pattern
 }
 
+spec_init()
+{
+  run_test '' spec_init
+}
+
+spec_port_instance()
+{
+  run_test '' spec_port_instance
+}
+
+spec_top_import()
+{
+  run_test '' spec_top_import
+}
+
 tests="
 def_component_instance
 enum_constant
@@ -111,6 +126,9 @@ missing
 spec_comp_instance
 spec_connection_graph_direct
 spec_connection_graph_pattern
+spec_init
+spec_port_instance
+spec_top_import
 "
 
 run_suite $tests

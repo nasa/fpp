@@ -1,9 +1,6 @@
 locate instance a at "a.fpp"
 locate instance b at "b.fpp"
-
-enum Pattern {
-  COMMAND
-}
+locate type Pattern at "Pattern.fpp"
 
 topology T {
 
