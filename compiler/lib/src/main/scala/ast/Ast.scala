@@ -187,6 +187,12 @@ object Ast {
     final case object False extends LiteralBool
   }
 
+  /** Port instance identifier */
+  final case class PortInstanceIdentifier(
+    componentInstance: AstNode[List[Ident]],
+    portName: Ident
+  )
+
   /** Queue full behavior */
   sealed trait QueueFull
   final object QueueFull {
@@ -234,11 +240,9 @@ object Ast {
 
     /** Connection */
     final case class Connection(
-      fromInstance: AstNode[QualIdent],
-      fromPortName: Ident,
+      fromPort: AstNode[PortInstanceIdentifier],
       fromIndex: Option[AstNode[Expr]],
-      toInstance: AstNode[QualIdent],
-      toPortName: Ident,
+      toPort: AstNode[PortInstanceIdentifier],
       toIndex: Option[AstNode[Expr]]
     )
   }

@@ -187,12 +187,10 @@ object AstWriter extends AstVisitor {
   override def specConnectionGraphAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.SpecConnectionGraph]]) =  {
     def direct(g: Ast.SpecConnectionGraph.Direct) = {
       def connection(c: Ast.SpecConnectionGraph.Connection) = {
-        val fromPort = c.fromInstance.getData ++ List(c.fromPortName)
-        val toPort = c.toInstance.getData ++ List(c.toPortName)
         lines("connection") ++ (
-          addPrefix("from port", qualIdent) (fromPort) ++
+          addPrefix("from port", portInstanceIdentifier) (c.fromPort.getData) ++
           linesOpt(addPrefix("index", exprNode), c.fromIndex) ++
-          addPrefix("to port", qualIdent) (toPort) ++
+          addPrefix("to port", portInstanceIdentifier) (c.toPort.getData) ++
           linesOpt(addPrefix("index", exprNode), c.toIndex)
         ).map(indentIn)
       }
@@ -516,6 +514,11 @@ object AstWriter extends AstVisitor {
     val (a1, _, a2) = member.node
     val l = matchModuleMember((), member)
     annotate(a1, l, a2)
+  }
+
+  private def portInstanceIdentifier(piid: Ast.PortInstanceIdentifier): List[Line] = {
+    val qid = piid.componentInstance.getData ++ List(piid.portName)
+    qualIdent(qid)
   }
 
   private def qualIdent(qid: Ast.QualIdent): List[Line] =

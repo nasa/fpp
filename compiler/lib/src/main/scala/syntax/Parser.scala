@@ -41,24 +41,13 @@ object Parser extends Parsers {
     annotatedElementSequence(componentMemberNode, semi, Ast.ComponentMember(_))
 
   def connection: Parser[Ast.SpecConnectionGraph.Connection] = {
-    def connectionQualIdent = ident ~! (dot ~>! qualIdent) ^^ { case id ~ qid => id :: qid }
-    def connectionPort = node(connectionQualIdent) ~! opt(index)
-    def getInstanceAndName(node: AstNode[List[Ast.Ident]]) = {
-      val name :: tail = node.getData.reverse
-      val instance = tail.reverse
-      val node1 = AstNode.create(instance, node.getId)
-      (node1, name)
-    }
+    def connectionPort = node(portInstanceIdentifier) ~! opt(index)
     connectionPort ~! (rarrow ~>! connectionPort) ^^ {
       case (fromPort ~ fromIndex) ~ (toPort ~ toIndex) => {
-        val (fromPortInstance, fromPortName) = getInstanceAndName(fromPort)
-        val (toPortInstance, toPortName) = getInstanceAndName(toPort)
         Ast.SpecConnectionGraph.Connection(
-          fromPortInstance, 
-          fromPortName, 
+          fromPort,
           fromIndex, 
-          toPortInstance,
-          toPortName,
+          toPort,
           toIndex
         )
       }
@@ -310,6 +299,16 @@ object Parser extends Parsers {
       case Success(result, next) => Right(result)
     }
   }
+
+  def portInstanceIdentifier: Parser[Ast.PortInstanceIdentifier] =
+    node(ident) ~! (dot ~>! qualIdent) ^^ { 
+      case id ~ qid => {
+        val portName :: tail = qid.reverse
+        val componentInstance = id.getData :: tail.reverse
+        val node = AstNode.create(componentInstance, id.getId)
+        Ast.PortInstanceIdentifier(node, portName)
+      }
+    }
 
   def qualIdent: Parser[List[Ast.Ident]] = rep1sep(ident, dot)
 
