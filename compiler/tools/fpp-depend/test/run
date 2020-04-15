@@ -24,6 +24,11 @@ run_test()
   compare $outfile
 }
 
+def_component_instance()
+{
+  run_test '' def_component_instance
+}
+
 include()
 {
   run_test -i include
@@ -71,7 +76,13 @@ missing()
   compare missing_output
 }
 
+spec_comp_instance()
+{
+  run_test '' spec_comp_instance
+}
+
 tests="
+def_component_instance
 include
 locate_constant_1
 locate_constant_consistent
@@ -81,6 +92,7 @@ locate_constant_inconsistent
 locate_constant_modules_1
 locate_constant_modules_2
 missing
+spec_comp_instance
 "
 
 run_suite $tests
