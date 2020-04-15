@@ -15,7 +15,18 @@ object MapUsesToLocs extends UseAnalyzer {
     analyzeUse(a, Ast.SpecLoc.Component, use)
 
   override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) =
-    analyzeUse(a, Ast.SpecLoc.Constant, use)
+    for {
+      // Analyze as a constant
+      a <- analyzeUse(a, Ast.SpecLoc.Constant, use)
+      // If in the form A.B, also analyze as an enumerated constant
+      a <- use.qualifier match {
+        case Nil => Right(a)
+        case q => {
+          val enumUse = Name.Qualified.fromIdentList(q)
+          analyzeUse(a, Ast.SpecLoc.Type, enumUse)
+        }
+      }
+    } yield a
 
   override def portInstanceUse(
     a: Analysis,

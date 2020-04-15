@@ -23,6 +23,7 @@ do
 done
 
 update '' def_component_instance
+update '' enum_constant
 update '' locate_constant_1
 update '' locate_constant_consistent
 update '' locate_constant_include_1 locate_constant_include_no_i

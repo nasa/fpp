@@ -12,7 +12,7 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
   /** A use of a component instance definition */
   def componentInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
 
-  /** A use of a constant definition */
+  /** A use of a constant definition or enumerated constantd definition */
   def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified): Result = default(a)
 
   /** A use of a component instance definition, followed by the name of a port instance specifier */

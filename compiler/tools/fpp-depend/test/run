@@ -29,6 +29,11 @@ def_component_instance()
   run_test '' def_component_instance
 }
 
+enum_constant()
+{
+  run_test '' enum_constant
+}
+
 include()
 {
   run_test -i include
@@ -93,6 +98,7 @@ spec_connection_graph_pattern()
 
 tests="
 def_component_instance
+enum_constant
 include
 locate_constant_1
 locate_constant_consistent
