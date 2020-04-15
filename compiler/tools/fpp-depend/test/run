@@ -111,6 +111,11 @@ spec_top_import()
   run_test '' spec_top_import
 }
 
+spec_unused_ports()
+{
+  run_test '' spec_unused_ports
+}
+
 tests="
 def_component_instance
 enum_constant
@@ -129,6 +134,7 @@ spec_connection_graph_pattern
 spec_init
 spec_port_instance
 spec_top_import
+spec_unused_ports
 "
 
 run_suite $tests

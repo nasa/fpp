@@ -39,3 +39,4 @@ update '' spec_connection_graph_pattern
 update '' spec_init
 update '' spec_port_instance
 update '' spec_top_import
+update '' spec_unused_ports
