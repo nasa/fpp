@@ -90,7 +90,7 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
     data match {
       case direct @ Ast.SpecConnectionGraph.Direct(_, _) => visitList(a, direct.connections, connection)
       case pattern @ Ast.SpecConnectionGraph.Pattern(_, _, _) => for {
-        a <- qualIdentNode (portInstanceUseHelper) (a, pattern.source)
+        a <- qualIdentNode (componentInstanceUse) (a, pattern.source)
         a <- visitList(a, pattern.targets, qualIdentNode (portInstanceUseHelper))
         a <- exprNode(a, pattern.pattern)
       } yield a

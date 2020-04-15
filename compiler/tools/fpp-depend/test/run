@@ -81,6 +81,16 @@ spec_comp_instance()
   run_test '' spec_comp_instance
 }
 
+spec_connection_graph_direct()
+{
+  run_test '' spec_connection_graph_direct
+}
+
+spec_connection_graph_pattern()
+{
+  run_test '' spec_connection_graph_pattern
+}
+
 tests="
 def_component_instance
 include
@@ -93,6 +103,8 @@ locate_constant_modules_1
 locate_constant_modules_2
 missing
 spec_comp_instance
+spec_connection_graph_direct
+spec_connection_graph_pattern
 "
 
 run_suite $tests

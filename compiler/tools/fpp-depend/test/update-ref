@@ -33,3 +33,5 @@ update '-m tmp.out.txt' missing; remove_path_prefix < tmp.out.txt > missing_outp
 update -i include
 update -i locate_constant_include_1 locate_constant_include_i
 update '' spec_comp_instance
+update '' spec_connection_graph_direct
+update '' spec_connection_graph_pattern
