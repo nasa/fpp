@@ -14,6 +14,7 @@ Translation-Units-and-Models.adoc
 Element-Sequences.adoc
 Definitions/Definitions.adoc
 Specifiers/Specifiers.adoc
+Port-Instance-Identifiers.adoc
 Type-Names.adoc
 Expressions/Expressions.adoc
 Formal-Parameter-Lists.adoc

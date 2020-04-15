@@ -34,14 +34,14 @@ which each element is a *connection*,
 and the terminating punctuation is a comma.
 A connection is the following:
 
-<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
+<<Port-Instance-Identifiers,_port-instance-id_>>
 _[_
 `[`
 <<Expressions,_expression_>>
 `]`
 _]_
 `pass:[->]`
-<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
+<<Port-Instance-Identifiers,_port-instance-id_>>
 _[_
 `[`
 <<Expressions,_expression_>>
@@ -65,28 +65,14 @@ the connection graph.
 . The connection sequence specifies the set of connections in the graph.
 For each connection _C_:
 
-.. For each qualified identifier _Q_ in _C_:
+.. For each of the two port instance identifiers _I_ appearing in _C_:
 
-... _Q_ must have the form _Q'_ `.` _P_, where _Q'_ is a qualified
-identifier, and _P_ is an identifier.
-
-... _Q'_ must
-<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
-a component instance _I_ that is available in the enclosing topology,
+... The component instance named in _I_
+must be available in the enclosing topology,
 either through
 <<Specifiers_Component-Instance-Specifiers,direct specification>>
 or through
 <<Specifiers_Topology-Import-Specifiers,import>>.
-
-... _I_ must refer to a <<Definitions_Component-Instance-Definitions,component 
-instance definition _I'_>>.
-
-... _I'_ must refer to a <<Definitions_Component-Definitions,component 
-definition _C'_>>. 
-
-... _P_ must refer to a
-<<Specifiers_Port-Instance-Specifiers,port instance specifier _P_>>
-of _C'_.
 
 ... The optional expression _e_ following the identifier, if it is present, 
 represents a
@@ -97,8 +83,8 @@ _e_ must
 <<Evaluation,evaluate>> to a compile-time constant
 that becomes a non-negative integer _n_ when 
 <<Evaluation_Type-Conversion,converted to>> type _Integer_.
-_n_ must be within bounds for
-the array size specified in _P_.
+_n_ must be in bounds for the array size of 
+the port instance specifier named in _I_.
 
 .. The arrow represents the direction of the connection (left to right).
 
