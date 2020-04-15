@@ -24,9 +24,24 @@ run_test()
   compare $outfile
 }
 
+def_array()
+{
+  run_test '' def_array
+}
+
 def_component_instance()
 {
   run_test '' def_component_instance
+}
+
+def_constant()
+{
+  run_test '' def_constant
+}
+
+def_enum()
+{
+  run_test '' def_enum
 }
 
 enum_constant()
@@ -117,7 +132,10 @@ spec_unused_ports()
 }
 
 tests="
+def_array
 def_component_instance
+def_constant
+def_enum
 enum_constant
 include
 locate_constant_1

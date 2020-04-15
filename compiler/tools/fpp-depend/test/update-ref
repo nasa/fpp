@@ -22,7 +22,10 @@ do
   rm $file
 done
 
+update '' def_array
 update '' def_component_instance
+update '' def_constant
+update '' def_enum
 update '' enum_constant
 update '' locate_constant_1
 update '' locate_constant_consistent

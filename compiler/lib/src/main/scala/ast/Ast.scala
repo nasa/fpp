@@ -73,7 +73,7 @@ object Ast {
   /** Component instance definition */
   final case class DefComponentInstance(
     name: Ident,
-    typeName: AstNode[QualIdent],
+    component: AstNode[QualIdent],
     baseId: AstNode[Expr],
     queueSize: Option[AstNode[Expr]],
     stackSize: Option[AstNode[Expr]],

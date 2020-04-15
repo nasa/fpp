@@ -48,7 +48,7 @@ object AstWriter extends AstVisitor {
     lines("def component instance") ++
     List(
       ident(dci.name),
-      addPrefix("component", qualIdent) (dci.typeName.getData),
+      addPrefix("component", qualIdent) (dci.component.getData),
       addPrefix("base id", exprNode) (dci.baseId),
       addPrefix("queue size", exprNode) (dci.baseId),
       addPrefix("stack size", exprNode) (dci.baseId),

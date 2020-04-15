@@ -28,7 +28,7 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
     val (_, node1, _) = node
     val data = node1.getData
     for {
-      a <- qualIdentNode (componentUse) (a, data.typeName)
+      a <- qualIdentNode (componentUse) (a, data.component)
       a <- exprNode(a, data.baseId)
       a <- opt(exprNode)(a, data.queueSize)
       a <- opt(exprNode)(a, data.stackSize)
