@@ -1,4 +1,5 @@
-locate instance i at "i.fpp"
+locate instance a at "a.fpp"
+locate instance b at "b.fpp"
 
 enum Pattern {
   COMMAND
@@ -6,6 +7,6 @@ enum Pattern {
 
 topology T {
 
-  connections instance i pattern Pattern.COMMAND
+  connections instance a { b } pattern Pattern.COMMAND
 
 }
