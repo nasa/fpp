@@ -3,4 +3,4 @@
 . ../../../scripts/utils.sh
 
 clean
-rm -f default_tests.sh
+rm -f default-tests.sh default-update-ref.sh
