@@ -6,6 +6,13 @@ def_enum
 def_port
 def_struct
 enum_constant
+expr_array
+expr_binop
+expr_dot
+expr_ident
+expr_paren
+expr_struct
+expr_unop
 include
 locate_constant_1
 locate_constant_consistent
