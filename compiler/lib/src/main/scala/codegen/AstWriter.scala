@@ -201,9 +201,10 @@ object AstWriter extends AstVisitor {
     }
     def pattern(g: Ast.SpecConnectionGraph.Pattern) = {
       def target(qid: Ast.QualIdent) = addPrefix("target", qualIdent) (qid)
+      def targetNew(target: Ast.PortInstanceIdentifier) = addPrefix("target", portInstanceIdentifier) (target)
       lines("spec connection graph pattern") ++ (
         addPrefix("source", qualIdent) (g.source.getData) ++
-        g.targets.map(applyToData(target)).flatten ++
+        g.targetsNew.map(applyToData(targetNew)).flatten ++
         addPrefix("pattern", exprNode) (g.pattern)
       ).map(indentIn)
     }

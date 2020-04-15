@@ -71,9 +71,9 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
     a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecConnectionGraph]]) = {
     def connection(a: Analysis, connection: Ast.SpecConnectionGraph.Connection): Result = {
       for {
-        a <- qualIdentNode (componentInstanceUse) (a, connection.fromPort.getData.componentInstance)
+        a <- portInstanceIdentifierNode(a, connection.fromPort)
         a <- opt(exprNode)(a, connection.fromIndex)
-        a <- qualIdentNode (componentInstanceUse) (a, connection.toPort.getData.componentInstance)
+        a <- portInstanceIdentifierNode(a, connection.toPort)
         a <- opt(exprNode)(a, connection.toIndex)
       } yield a
     }
@@ -83,7 +83,7 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
       case direct @ Ast.SpecConnectionGraph.Direct(_, _) => visitList(a, direct.connections, connection)
       case pattern @ Ast.SpecConnectionGraph.Pattern(_, _, _) => for {
         a <- qualIdentNode (componentInstanceUse) (a, pattern.source)
-        a <- visitList(a, pattern.targets, qualIdentNode (portInstanceUse))
+        a <- visitList(a, pattern.targetsNew, portInstanceIdentifierNode)
         a <- exprNode(a, pattern.pattern)
       } yield a
     }
@@ -130,6 +130,9 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
     val use = Name.Qualified.fromIdentList(tn.name)
     typeUse(a, node, use)
   }
+
+  private def portInstanceIdentifierNode(a: Analysis, node: AstNode[Ast.PortInstanceIdentifier]): Result =
+    qualIdentNode (componentInstanceUse) (a, node.getData.componentInstance)
 
   private def portInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = {
     val use1 = Name.Qualified.fromIdentList(use.qualifier)

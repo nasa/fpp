@@ -234,7 +234,7 @@ object Ast {
 
     final case class Pattern(
       source: AstNode[QualIdent],
-      targets: List[AstNode[QualIdent]],
+      targetsNew: List[AstNode[PortInstanceIdentifier]],
       pattern: AstNode[Expr]
     ) extends SpecConnectionGraph
 
