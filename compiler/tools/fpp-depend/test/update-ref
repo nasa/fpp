@@ -26,6 +26,8 @@ update '' def_array
 update '' def_component_instance
 update '' def_constant
 update '' def_enum
+update '' def_port
+update '' def_struct
 update '' enum_constant
 update '' locate_constant_1
 update '' locate_constant_consistent
@@ -36,9 +38,11 @@ update '' locate_constant_modules_2
 update '-m tmp.out.txt' missing; remove_path_prefix < tmp.out.txt > missing_output.ref.txt
 update -i include
 update -i locate_constant_include_1 locate_constant_include_i
+update '' spec_command
 update '' spec_comp_instance
 update '' spec_connection_graph_direct
 update '' spec_connection_graph_pattern
+update '' spec_event
 update '' spec_init
 update '' spec_port_instance
 update '' spec_top_import
