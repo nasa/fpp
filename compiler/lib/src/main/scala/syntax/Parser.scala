@@ -362,10 +362,7 @@ object Parser extends Parsers {
         }
       }
       (connections ~ instance ~>! node(qualIdent)) ~! instanceSequence ~! (pattern ~>! exprNode) ^^ {
-        case source ~ targets ~ pattern => {
-          val targetsNew = targets.map(convertPortInstanceId)
-          Ast.SpecConnectionGraph.Pattern(source, targetsNew, pattern)
-        }
+        case source ~ targets ~ pattern => Ast.SpecConnectionGraph.Pattern(source, targets, pattern)
       }
     }
     directGraph | patternGraph | failure("connection graph expected")

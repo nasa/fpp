@@ -189,7 +189,7 @@ object Ast {
 
   /** Port instance identifier */
   final case class PortInstanceIdentifier(
-    componentInstance: AstNode[List[Ident]],
+    componentInstance: AstNode[QualIdent],
     portName: Ident
   )
 
@@ -234,7 +234,7 @@ object Ast {
 
     final case class Pattern(
       source: AstNode[QualIdent],
-      targetsNew: List[AstNode[PortInstanceIdentifier]],
+      targets: List[AstNode[QualIdent]],
       pattern: AstNode[Expr]
     ) extends SpecConnectionGraph
 
