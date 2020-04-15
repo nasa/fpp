@@ -15,14 +15,6 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
   /** A use of a constant definition or enumerated constantd definition */
   def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified): Result = default(a)
 
-  /** A use of a component instance definition, followed by the name of a port instance specifier */
-  def portInstanceUse(
-    a: Analysis,
-    node: AstNode[Ast.QualIdent],
-    componentInstanceUse: Name.Qualified,
-    port: Name.Unqualified
-  ): Result = default(a)
-
   /** A use of a port definition */
   def portUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
 
@@ -79,9 +71,9 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
     a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecConnectionGraph]]) = {
     def connection(a: Analysis, connection: Ast.SpecConnectionGraph.Connection): Result = {
       for {
-        a <- qualIdentNode (portInstanceUseHelper) (a, connection.fromPort)
+        a <- qualIdentNode (portInstanceUse) (a, connection.fromPort)
         a <- opt(exprNode)(a, connection.fromIndex)
-        a <- qualIdentNode (portInstanceUseHelper) (a, connection.toPort)
+        a <- qualIdentNode (portInstanceUse) (a, connection.toPort)
         a <- opt(exprNode)(a, connection.toIndex)
       } yield a
     }
@@ -91,7 +83,7 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
       case direct @ Ast.SpecConnectionGraph.Direct(_, _) => visitList(a, direct.connections, connection)
       case pattern @ Ast.SpecConnectionGraph.Pattern(_, _, _) => for {
         a <- qualIdentNode (componentInstanceUse) (a, pattern.source)
-        a <- visitList(a, pattern.targets, qualIdentNode (portInstanceUseHelper))
+        a <- visitList(a, pattern.targets, qualIdentNode (portInstanceUse))
         a <- exprNode(a, pattern.pattern)
       } yield a
     }
@@ -129,7 +121,7 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
   override def specUnusedPortsAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecUnusedPorts]]) = {
     val (_, node1, _) = node
     val data = node1.getData
-    visitList(a, data.ports, qualIdentNode (portInstanceUseHelper))
+    visitList(a, data.ports, qualIdentNode (portInstanceUse))
   }
 
   override def typeNameNode(a: Analysis, node: AstNode[Ast.TypeName]) = matchTypeNameNode(a, node)
@@ -139,7 +131,7 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
     typeUse(a, node, use)
   }
 
-  private def portInstanceUseHelper(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = {
+  private def portInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = {
     val use1 = Name.Qualified.fromIdentList(use.qualifier)
     val port = use.base
     componentInstanceUse(a, node, use1)

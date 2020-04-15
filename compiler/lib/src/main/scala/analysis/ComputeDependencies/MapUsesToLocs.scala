@@ -28,14 +28,6 @@ object MapUsesToLocs extends UseAnalyzer {
       }
     } yield a
 
-  override def portInstanceUse(
-    a: Analysis,
-    node: AstNode[Ast.QualIdent],
-    componentInstanceUse: Name.Qualified,
-    port: Name.Unqualified
-  ) =
-    analyzeUse(a, Ast.SpecLoc.ComponentInstance, componentInstanceUse)
-
   override def portUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     analyzeUse(a, Ast.SpecLoc.Port, use)
 
