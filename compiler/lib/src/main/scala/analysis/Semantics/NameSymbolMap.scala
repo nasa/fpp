@@ -4,30 +4,48 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 
 /** A local mapping of unqualified names to symbols */
-case class NameSymbolMap(map: Map[Name.Unqualified,Symbol] = Map()) {
+trait NameSymbolMap {
 
   type Result = Result.Result[NameSymbolMap]
 
   /** Put a name and symbol into the map. */
-  def +(ns: (Name.Unqualified, Symbol)): Result = {
-    val (name, symbol) = ns
+  def put(name: Name.Unqualified, symbol: Symbol): Result
+
+  /** Get a symbol from the map. Throw an InternalError if the name is not there.*/
+  def get(name: Name.Unqualified): Symbol
+
+  /** Get a symbol from the map. Return none if the name is not there. */
+  def getOpt(name: Name.Unqualified): Option[Symbol]
+
+}
+
+object NameSymbolMap {
+
+  /** Create an empty NameSymbolMap */
+  def empty: NameSymbolMap = NameSymbolMapImpl()
+
+}
+
+private case class NameSymbolMapImpl(map: Map[Name.Unqualified,Symbol] = Map()) 
+  extends NameSymbolMap
+{
+
+  def put(name: Name.Unqualified, symbol: Symbol) = {
     map.get(name) match {
       case Some(prevSymbol) => {
         val loc = symbol.getLoc
         val prevLoc = prevSymbol.getLoc
         Left(SemanticError.RedefinedSymbol(name, loc, prevLoc))
       }
-      case None => Right(NameSymbolMap(map + (name -> symbol)))
+      case None => Right(NameSymbolMapImpl(map + (name -> symbol)))
     }
   }
 
-  /** Get a symbol from the map. Throw an InternalError if the name is not there.*/
-  def get(name: Name.Unqualified): Symbol = getOpt(name) match {
+  def get(name: Name.Unqualified) = getOpt(name) match {
     case Some(symbol) => symbol
     case _ => throw new InternalError(s"could not find symbol for name ${name}")
   }
 
-  /** Get a symbol from the map. Return none if the name is not there. */
   def getOpt(name: Name.Unqualified) = map.get(name)
 
 }
