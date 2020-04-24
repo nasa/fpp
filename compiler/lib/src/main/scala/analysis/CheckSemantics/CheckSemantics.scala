@@ -9,14 +9,14 @@ object CheckSemantics {
 
   def tuList(a: Analysis, tul: List[Ast.TransUnit]): Result.Result[Analysis] = {
     for {
-      pair <- ResolveSpecInclude.transformList(
+      a_tul <- ResolveSpecInclude.transformList(
         a,
         tul, 
         ResolveSpecInclude.transUnit
       )
-      a <- Right(pair._1)
-      tul <- Right(pair._2)
-      // TODO: Enter symbols
+      a <- Right(a_tul._1)
+      tul <- Right(a_tul._2)
+      a <- EnterSymbols.visitList(a, tul, EnterSymbols.transUnit)
       // TODO: Check uses
       // TODO: Check use-def cycles
       // TODO: Check types (phase 1)
