@@ -7,7 +7,7 @@ import fpp.compiler.util._
 sealed trait NestedScope extends Scope {
 
   /** Push a new scope onto the stack */
-  def push: NestedScope
+  def push(scope: Scope): NestedScope
 
   /** Pop a scope off the stack */
   def pop: NestedScope
@@ -30,7 +30,7 @@ private case class NestedScopeImpl(scopes: List[Scope] = List(Scope.empty))
     case _ => throw new InternalError("empty scope stack")
   }
 
-  def push = NestedScopeImpl(Scope.empty :: this.scopes)
+  def push(scope: Scope) = NestedScopeImpl(scope :: this.scopes)
 
   def pop = {
     val (_, tail) = splitScopes
