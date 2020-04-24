@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/redef_enum_constant.fpp: 3.3
+  X
+  ^
+error: redefinition of symbol X
+previous definition was here:
+[ local path prefix ]/compiler/tools/fpp-check/test/redef_enum_constant.fpp: 2.3
+  X
+  ^

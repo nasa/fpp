@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/redef_array.fpp: 2.1
+array A = [2] U32
+^
+error: redefinition of symbol A
+previous definition was here:
+[ local path prefix ]/compiler/tools/fpp-check/test/redef_array.fpp: 1.1
+array A = [1] U32
+^
