@@ -4,17 +4,13 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 
 /** A collection of name-symbol maps, one for each name group */
-trait Scope {
+sealed trait Scope {
 
   /** Put a name and symbol into the map. */
   def put (nameGroup: NameGroup) (name: Name.Unqualified, symbol: Symbol): Result.Result[Scope]
 
   /** Get a symbol from the map. Throw an InternalError if the name is not there.*/
-  final def get (nameGroup: NameGroup) (name: Name.Unqualified) = 
-    getOpt(nameGroup)(name) match {
-      case Some(symbol) => symbol
-      case _ => throw new InternalError(s"could not find symbol for name ${name}")
-    }
+  def get (nameGroup: NameGroup) (name: Name.Unqualified): Symbol
 
   /** Get a symbol from the map. Return none if the name is not there. */
   def getOpt (nameGroup: NameGroup) (name: Name.Unqualified): Option[Symbol]
@@ -47,5 +43,8 @@ private case class ScopeImpl(map: Map[NameGroup,NameSymbolMap] = Map())
 
   def getOpt (nameGroup: NameGroup) (name: Name.Unqualified) =
     getNameSymbolMap(nameGroup).getOpt(name)
+
+  def get (nameGroup: NameGroup) (name: Name.Unqualified) = 
+    getNameSymbolMap(nameGroup).get(name)
 
 }
