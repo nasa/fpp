@@ -15,10 +15,15 @@ sealed trait Error {
         Error.print (locOpt) (s"cannot open file $name")
       case FileError.CannotResolvePath(loc, name) => 
         Error.print (Some(loc)) (s"cannot resolve path $name")
-      case SpecLocError.Inconsistent(loc, path, prevLoc, prevPath) => {
+      case SemanticError.InconsistentSpecLoc(loc, path, prevLoc, prevPath) => {
         Error.print (Some(loc)) (s"inconsistent location path ${path}")
         System.err.println(prevLoc)
         System.err.println(s"previous path was ${prevPath}")
+      }
+      case SemanticError.RedefinedSymbol(name, loc, prevLoc) => {
+        Error.print (Some(loc)) (s"redefinition of symbol ${name}")
+        System.err.println(s"previous definition was here:")
+        System.err.println(prevLoc)
       }
     }
   }
@@ -42,14 +47,20 @@ object FileError {
   final case class CannotResolvePath(loc: Location, name: String) extends Error
 }
 
-/** A location specifier error */
-object SpecLocError {
-  /** Inconsistent specifiers */
-  final case class Inconsistent(
+/** A semantic error */
+object SemanticError {
+  /** Inconsistent location specifiers */
+  final case class InconsistentSpecLoc(
     loc: Location,
     path: String,
     prevLoc: Location,
     prevPath: String
+  ) extends Error
+  /** Redefined symbol */
+  final case class RedefinedSymbol(
+    name: String,
+    loc: Location,
+    prevLoc: Location
   ) extends Error
 }
 

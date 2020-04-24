@@ -33,7 +33,7 @@ object BuildSpecLocMap extends ModuleAnalyzer {
       path1 <- getPathString(spec1)
       path2 <- getPathString(spec2)
       _ <- if (path1 == path2) Right(()) else {
-          val e = SpecLocError.Inconsistent(
+          val e = SemanticError.InconsistentSpecLoc(
           Locations.get(spec1.file.getId),
           path1,
           Locations.get(spec2.file.getId),
