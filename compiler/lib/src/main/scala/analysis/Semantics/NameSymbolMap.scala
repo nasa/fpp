@@ -4,12 +4,10 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 
 /** A local mapping of unqualified names to symbols */
-trait NameSymbolMap {
-
-  type Result = Result.Result[NameSymbolMap]
+sealed trait NameSymbolMap {
 
   /** Put a name and symbol into the map. */
-  def put(name: Name.Unqualified, symbol: Symbol): Result
+  def put(name: Name.Unqualified, symbol: Symbol): Result.Result[NameSymbolMap]
 
   /** Get a symbol from the map. Throw an InternalError if the name is not there.*/
   def get(name: Name.Unqualified): Symbol
