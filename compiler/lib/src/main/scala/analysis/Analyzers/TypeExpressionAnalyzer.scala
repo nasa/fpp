@@ -178,7 +178,7 @@ trait TypeExpressionAnalyzer
     } yield a
   }
 
-  private def defEnumConstantAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefEnumConstant]]) = {
+  def defEnumConstantAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefEnumConstant]]) = {
     val (_, node1, _) = node
     val data = node1.getData
     opt(exprNode)(a, data.value)
