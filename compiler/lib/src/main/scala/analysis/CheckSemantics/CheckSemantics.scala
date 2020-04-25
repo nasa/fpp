@@ -17,7 +17,7 @@ object CheckSemantics {
       a <- Right(a_tul._1)
       tul <- Right(a_tul._2)
       a <- EnterSymbols.visitList(a, tul, EnterSymbols.transUnit)
-      // TODO: Check uses
+      a <- CheckUses.visitList(a, tul, CheckUses.transUnit)
       // TODO: Check use-def cycles
       // TODO: Check types (phase 1)
       // TODO: Evaluate constants
