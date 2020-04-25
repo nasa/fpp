@@ -5,7 +5,7 @@
 
 " Indent words
 "
-setl cinwords=enum,namespace,struct
+setl cinwords=component,enum,module,struct,topology
 setl cindent
 
 " keywords
