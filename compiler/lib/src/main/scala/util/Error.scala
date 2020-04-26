@@ -25,6 +25,8 @@ sealed trait Error {
         System.err.println(s"previous definition was here:")
         System.err.println(prevLoc)
       }
+      case SemanticError.UndefinedSymbol(name, loc) =>
+        Error.print (Some(loc)) (s"undefined symbol ${name}")
     }
   }
 
@@ -61,6 +63,11 @@ object SemanticError {
     name: String,
     loc: Location,
     prevLoc: Location
+  ) extends Error
+  /** Undefined symbol */
+  final case class UndefinedSymbol(
+    name: String,
+    loc: Location
   ) extends Error
 }
 

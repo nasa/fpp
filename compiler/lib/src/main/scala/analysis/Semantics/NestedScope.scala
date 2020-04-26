@@ -21,6 +21,9 @@ sealed trait NestedScope {
   /** Get a symbol from the map. Return none if the name is not there. */
   def getOpt (nameGroup: NameGroup) (name: Name.Unqualified): Option[Symbol]
 
+  /** Get the innermost nested scope */
+  def innerScope: Scope
+
 }
 
 object NestedScope {
@@ -68,5 +71,7 @@ private case class NestedScopeImpl(scopes: List[Scope] = List(Scope.empty))
       }
     helper(this.scopes)
   }
+
+  def innerScope = splitScopes._1
 
 }

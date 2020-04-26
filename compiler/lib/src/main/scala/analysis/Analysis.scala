@@ -24,6 +24,8 @@ case class Analysis(
   nestedScope: NestedScope = NestedScope.empty,
   /** The mapping from symbols with scopes to their scopes */
   symbolScopeMap: Map[Symbol,Scope] = Map(),
+  /** The mapping from uses (by node ID) to their definitions */
+  useDefMap: Map[AstNode.Id, Symbol] = Map(),
   // TODO
 ) {
 
