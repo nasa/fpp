@@ -47,12 +47,18 @@ object EnterSymbols extends ModuleAnalyzer {
       a <- {
         val scope = Scope.empty
         val nestedScope1 = nestedScope.push(scope)
-        val symbolScopeMap = a.symbolScopeMap + (symbol -> scope)
-        val a1 = a.copy(nestedScope = nestedScope1, symbolScopeMap = symbolScopeMap)
+        val a1 = a.copy(nestedScope = nestedScope1)
         visitList(a1, data.constants, defEnumConstantAnnotatedNode)
       }
     }
-    yield a.copy(nestedScope = a.nestedScope.pop)
+    yield {
+      val scope = a.nestedScope.innerScope
+      val newSymbolScopeMap = a.symbolScopeMap + (symbol -> scope)
+      a.copy(
+        nestedScope = a.nestedScope.pop,
+        symbolScopeMap = newSymbolScopeMap
+      )
+    }
   }
 
   override def defModuleAnnotatedNode(

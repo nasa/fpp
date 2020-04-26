@@ -122,7 +122,7 @@ object AstWriter extends AstVisitor {
   
   override def exprDotNode(in: Unit, node: AstNode[Ast.Expr], e: Ast.ExprDot) =
     lines("expr dot") ++
-    (exprNode(e.e) ++ ident(e.id)).map(indentIn)
+    (exprNode(e.e) ++ ident(e.id.getData)).map(indentIn)
 
   override def exprIdentNode(in: Unit, node: AstNode[Ast.Expr], e: Ast.ExprIdent) = 
     ident(e.value)

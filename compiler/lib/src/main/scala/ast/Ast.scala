@@ -139,7 +139,7 @@ object Ast {
   sealed trait Expr
   final case class ExprArray(elts: List[AstNode[Expr]]) extends Expr
   final case class ExprBinop(e1: AstNode[Expr], op: Binop, e2: AstNode[Expr]) extends Expr
-  final case class ExprDot(e: AstNode[Expr], id: Ident) extends Expr
+  final case class ExprDot(e: AstNode[Expr], id: AstNode[Ident]) extends Expr
   final case class ExprIdent(value: Ident) extends Expr
   final case class ExprLiteralBool(value: LiteralBool) extends Expr
   final case class ExprLiteralInt(value: String) extends Expr

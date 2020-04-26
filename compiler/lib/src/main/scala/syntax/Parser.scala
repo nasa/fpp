@@ -181,8 +181,8 @@ object Parser extends Parsers {
       minus ~>! unaryMinusOperand ^^ { case e => Ast.ExprUnop(Ast.Unop.Minus, e) }
     }
     def unaryMinusOperand = {
-      def dotSelectors(e: AstNode[Ast.Expr], ss: List[Token ~ String]) = {
-        def f(e: AstNode[Ast.Expr], s: Token ~ String) = {
+      def dotSelectors(e: AstNode[Ast.Expr], ss: List[Token ~ AstNode[String]]) = {
+        def f(e: AstNode[Ast.Expr], s: Token ~ AstNode[String]) = {
           val _ ~ id = s
           val dot = AstNode.create(Ast.ExprDot(e, id))
           val loc = Locations.get(e.getId)
@@ -191,7 +191,7 @@ object Parser extends Parsers {
         }
         ss.foldLeft(e)(f)
       }
-      dotOperand ~ rep(dot ~! ident) ^^ { case e ~ ss => dotSelectors(e, ss) }
+      dotOperand ~ rep(dot ~! node(ident)) ^^ { case e ~ ss => dotSelectors(e, ss) }
     }
     def mulDivOperand = unaryMinus | unaryMinusOperand
     def addSubOperand = mulDivOperand ~ rep((star | slash) ~! mulDivOperand) ^^ {

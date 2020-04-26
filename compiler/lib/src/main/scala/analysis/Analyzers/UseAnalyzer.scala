@@ -44,7 +44,7 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
           val use = Name.Qualified.fromIdentList(list)
           Some(use)
         }
-        case Ast.ExprDot(e1, id) => nameOpt(e1.getData, id :: qualifier)
+        case Ast.ExprDot(e1, id) => nameOpt(e1.getData, id.getData :: qualifier)
         case _ => None
       }
     }

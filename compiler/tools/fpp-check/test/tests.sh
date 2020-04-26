@@ -7,5 +7,6 @@ redef_enum
 redef_enum_constant
 redef_struct
 redef_type
+uses_ok
 "
 

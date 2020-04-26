@@ -15,14 +15,14 @@ object CheckUses extends UseAnalyzer {
           a.copy(useDefMap = useDefMap)
         }
       }
-      def visitExprDot(a: Analysis, node: AstNode[Ast.Expr], e: AstNode[Ast.Expr], id: Name.Unqualified) = {
+      def visitExprDot(a: Analysis, node: AstNode[Ast.Expr], e: AstNode[Ast.Expr], id: AstNode[String]) = {
         for {
           a <- visitExprNode(a, e)
           symbol <- {
             val symbol = getDefForUse(a, e)
             val scope = getScopeForSymbol(a, symbol)
             val mapping = scope.getOpt (NameGroup.Value) _
-            getSymbolForName(mapping)(node, id)
+            getSymbolForName(mapping)(id, id.getData)
           }
         } yield {
           val useDefMap = a.useDefMap + (node.getId -> symbol)
