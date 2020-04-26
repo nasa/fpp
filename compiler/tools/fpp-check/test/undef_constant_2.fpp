@@ -1,0 +1,1 @@
+constant b = M.a

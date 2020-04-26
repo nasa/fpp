@@ -9,5 +9,8 @@ redef_enum_constant
 redef_struct
 redef_type
 type_uses_ok
+undef_constant_1
+undef_constant_2
+undef_constant_3
 "
 
