@@ -16,6 +16,22 @@ object Ast {
   /** Qualified identifier */
   type QualIdent = List[AstNode[Ident]]
 
+  object QualIdent {
+
+    /** Split a qualified identifier into qualifier and name */
+    def split(qualIdent: QualIdent) = qualIdent.reverse match {
+      case head :: tail => (tail.reverse, head)
+      case Nil => throw InternalError("qualified identifier should not be empty")
+    }
+
+    /** Get the qualifier */
+    def qualifier(qualIdent: QualIdent) = split(qualIdent)._1
+
+    /** Get the unqualified name*/
+    def name(qualIdent: QualIdent) = split(qualIdent)._2
+
+  }
+
   /** Translation unit */
   final case class TransUnit(members: List[TUMember])
 
@@ -439,12 +455,6 @@ object Ast {
   final object Visibility {
     final case object Private extends Visibility
     final case object Public extends Visibility
-  }
-
-  /** Split a qualified identifier into qualifier and name */
-  def splitQualIdent(qualIdent: QualIdent) = qualIdent.reverse match {
-    case head :: tail => (tail.reverse, head)
-    case Nil => throw InternalError("qualified identifier should not be empty")
   }
 
 }

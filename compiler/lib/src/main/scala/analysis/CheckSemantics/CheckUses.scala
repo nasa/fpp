@@ -49,7 +49,7 @@ object CheckUses extends UseAnalyzer {
         }
       }
       def visitQualifiedName(a: Analysis, qualifier: Ast.QualIdent, name: AstNode[Name.Unqualified]) = {
-        val (_, qualifyingName) = Ast.splitQualIdent(qualifier)
+        val qualifyingName = Ast.QualIdent.name(qualifier)
         for {
           a <- visitQualIdent(a, qualifier)
           symbol <- {
@@ -63,7 +63,7 @@ object CheckUses extends UseAnalyzer {
           a.copy(useDefMap = useDefMap)
         }
       }
-      Ast.splitQualIdent(qualIdent) match {
+      Ast.QualIdent.split(qualIdent) match {
         case (Nil, name) => visitUnqualifiedName(a, name)
         case (qualifier, name) => visitQualifiedName(a, qualifier, name)
       }
