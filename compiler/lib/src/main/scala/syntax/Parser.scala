@@ -74,7 +74,7 @@ object Parser extends Parsers {
   }
 
   def defComponentInstance: Parser[Ast.DefComponentInstance] = {
-    (instance ~>! ident) ~! (colon ~>! node(qualIdent)) ~! (base ~! id ~>! exprNode) ~!
+    (instance ~>! ident) ~! (colon ~>! qualIdent) ~! (base ~! id ~>! exprNode) ~!
     opt(queue ~! size ~>! exprNode) ~!
     opt(stack ~! size ~>! exprNode) ~!
     opt(priority ~>! exprNode) ^^ {
@@ -304,13 +304,12 @@ object Parser extends Parsers {
     node(ident) ~! (dot ~>! qualIdent) ^^ { 
       case id ~ qid => {
         val portName :: tail = qid.reverse
-        val componentInstance = id.getData :: tail.reverse
-        val node = AstNode.create(componentInstance, id.getId)
-        Ast.PortInstanceIdentifier(node, portName)
+        val componentInstance = id :: tail.reverse
+        Ast.PortInstanceIdentifier(componentInstance, portName)
       }
     }
 
-  def qualIdent: Parser[List[Ast.Ident]] = rep1sep(ident, dot)
+  def qualIdent: Parser[List[AstNode[Ast.Ident]]] = rep1sep(node(ident), dot)
 
   def queueFull: Parser[Ast.QueueFull] = {
     assert ^^ { case _ => Ast.QueueFull.Assert } |
@@ -334,7 +333,7 @@ object Parser extends Parsers {
   }
 
   def specCompInstance: Parser[Ast.SpecCompInstance] = {
-    visibility ~ (instance ~>! node(qualIdent)) ^^ { 
+    visibility ~ (instance ~>! qualIdent) ^^ { 
       case visibility ~ instance => Ast.SpecCompInstance(visibility, instance) 
     }
   }
@@ -347,12 +346,12 @@ object Parser extends Parsers {
     }
     def patternGraph = {
       def instanceSequence = {
-        opt(lbrace ~>! elementSequence(node(qualIdent), comma) <~! rbrace) ^^ {
+        opt(lbrace ~>! elementSequence(qualIdent, comma) <~! rbrace) ^^ {
           case Some(elements) => elements
           case None => Nil
         }
       }
-      (connections ~ instance ~>! node(qualIdent)) ~! instanceSequence ~! (pattern ~>! exprNode) ^^ {
+      (connections ~ instance ~>! qualIdent) ~! instanceSequence ~! (pattern ~>! exprNode) ^^ {
         case source ~ targets ~ pattern => Ast.SpecConnectionGraph.Pattern(source, targets, pattern)
       }
     }
@@ -384,7 +383,7 @@ object Parser extends Parsers {
   }
 
   def specInit: Parser[Ast.SpecInit] = {
-    (init ~>! node(qualIdent)) ~! (phase ~>! exprNode) ~! literalString ^^ {
+    (init ~>! qualIdent) ~! (phase ~>! exprNode) ~! literalString ^^ {
       case instance ~ phase ~ code => Ast.SpecInit(instance, phase, code)
     }
   }
@@ -408,7 +407,7 @@ object Parser extends Parsers {
       typeToken ^^ { case _ => Ast.SpecLoc.Type } |
       failure("location kind expected")
     }
-    (locate ~>! kind) ~! node(qualIdent) ~! (at ~>! node(literalString)) ^^ {
+    (locate ~>! kind) ~! qualIdent ~! (at ~>! node(literalString)) ^^ {
       case kind ~ symbol ~ file => Ast.SpecLoc(kind, symbol, file)
     }
   }
@@ -432,7 +431,7 @@ object Parser extends Parsers {
       sync ~ input ^^ { case _ => Ast.SpecPortInstance.SyncInput }
     }
     def instanceType = {
-      node(qualIdent) ^^ { case qi => Some(qi) } |
+      qualIdent ^^ { case qi => Some(qi) } |
       serial ^^ { case _ => None} |
       failure("port type expected")
     }
@@ -504,11 +503,8 @@ object Parser extends Parsers {
     }
   }
 
-  def specTopImport: Parser[Ast.SpecTopImport] = {
-    importToken ~>! node(qualIdent) ^^ { 
-      case top => Ast.SpecTopImport(top)
-    }
-  }
+  def specTopImport: Parser[Ast.SpecTopImport] =
+    importToken ~>! qualIdent ^^ { case top => Ast.SpecTopImport(top) }
 
   def specUnusedPorts: Parser[Ast.SpecUnusedPorts] = {
     unused ~! lbrace ~>! elementSequence(node(portInstanceIdentifier), comma) <~! rbrace ^^ {

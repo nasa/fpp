@@ -12,7 +12,7 @@ object Ast {
   type Ident = String
 
   /** Qualified identifier */
-  type QualIdent = List[Ident]
+  type QualIdent = List[AstNode[Ident]]
 
   /** Translation unit */
   final case class TransUnit(members: List[TUMember])
@@ -73,7 +73,7 @@ object Ast {
   /** Component instance definition */
   final case class DefComponentInstance(
     name: Ident,
-    component: AstNode[QualIdent],
+    component: QualIdent,
     baseId: AstNode[Expr],
     queueSize: Option[AstNode[Expr]],
     stackSize: Option[AstNode[Expr]],
@@ -189,8 +189,8 @@ object Ast {
 
   /** Port instance identifier */
   final case class PortInstanceIdentifier(
-    componentInstance: AstNode[QualIdent],
-    portName: Ident
+    componentInstance: QualIdent,
+    portName: AstNode[Ident]
   )
 
   /** Queue full behavior */
@@ -220,7 +220,7 @@ object Ast {
   /** Component instance specifier */
   final case class SpecCompInstance(
     visibility: Visibility,
-    instance: AstNode[QualIdent]
+    instance: QualIdent
   )
 
   /** Connection graph specifier */
@@ -233,8 +233,8 @@ object Ast {
     ) extends SpecConnectionGraph
 
     final case class Pattern(
-      source: AstNode[QualIdent],
-      targets: List[AstNode[QualIdent]],
+      source: QualIdent,
+      targets: List[QualIdent],
       pattern: AstNode[Expr]
     ) extends SpecConnectionGraph
 
@@ -273,7 +273,7 @@ object Ast {
 
   /** Init specifier */
   final case class SpecInit(
-    instance: AstNode[QualIdent],
+    instance: QualIdent,
     phase: AstNode[Expr],
     code: String
   )
@@ -289,7 +289,7 @@ object Ast {
   /** Location specifier */
   final case class SpecLoc(
     kind: SpecLoc.Kind,
-    symbol: AstNode[QualIdent],
+    symbol: QualIdent,
     file: AstNode[String]
   )
   object SpecLoc {
@@ -322,7 +322,7 @@ object Ast {
       kind: GeneralKind,
       name: Ident,
       size: Option[AstNode[Expr]],
-      port: Option[AstNode[QualIdent]],
+      port: Option[QualIdent],
       priority: Option[AstNode[Expr]],
       queueFull: Option[QueueFull]
     ) extends SpecPortInstance
@@ -383,7 +383,7 @@ object Ast {
   }
 
   /** Topology import specifier */
-  final case class SpecTopImport(top: AstNode[QualIdent])
+  final case class SpecTopImport(top: QualIdent)
 
   /** Unused port specifier */
   final case class SpecUnusedPorts(ports: List[AstNode[PortInstanceIdentifier]])
