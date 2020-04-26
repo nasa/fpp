@@ -12,5 +12,7 @@ type_uses_ok
 undef_constant_1
 undef_constant_2
 undef_constant_3
+undef_enum_constant_1
+undef_enum_constant_2
 "
 
