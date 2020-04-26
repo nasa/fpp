@@ -1,5 +1,7 @@
 package fpp.compiler.ast
 
+import fpp.compiler.util._
+
 object Ast {
 
   /** Annotated AST value */
@@ -437,6 +439,12 @@ object Ast {
   final object Visibility {
     final case object Private extends Visibility
     final case object Public extends Visibility
+  }
+
+  /** Split a qualified identifier into qualifier and name */
+  def splitQualIdent(qualIdent: QualIdent) = qualIdent.reverse match {
+    case head :: tail => (tail.reverse, head)
+    case Nil => throw InternalError("qualified identifier should not be empty")
   }
 
 }

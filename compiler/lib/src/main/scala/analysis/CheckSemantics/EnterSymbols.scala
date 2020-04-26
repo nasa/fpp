@@ -76,9 +76,9 @@ object EnterSymbols extends ModuleAnalyzer {
       case Some(scope) => (a1, scope)
       case None => {
         val scope = Scope.empty
-        val result = a1.nestedScope.put(NameGroup.Value)(name, symbol)
-        val nestedScope = Result.expectRight(result)
-        val a = a1.copy(nestedScope = nestedScope)
+        val nestedScope = Result.expectRight(a1.nestedScope.put(NameGroup.Value)(name, symbol))
+        val nestedScope1 = Result.expectRight(nestedScope.put(NameGroup.Type)(name, symbol))
+        val a = a1.copy(nestedScope = nestedScope1)
         (a, scope)
       }
     }

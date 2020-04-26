@@ -40,8 +40,39 @@ object CheckUses extends UseAnalyzer {
   }
 
   override def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified) = {
-    // TODO
-    default(a)
+    def visitQualIdent(a: Analysis, qualIdent: Ast.QualIdent): Result = {
+      def visitUnqualifiedName(a: Analysis, name: AstNode[Name.Unqualified]) = {
+        val mapping = a.nestedScope.getOpt (NameGroup.Type) _
+        for (symbol <- getSymbolForName(mapping)(name, name.getData)) yield {
+          val useDefMap = a.useDefMap + (name.getId -> symbol)
+          a.copy(useDefMap = useDefMap)
+        }
+      }
+      def visitQualifiedName(a: Analysis, qualifier: Ast.QualIdent, name: AstNode[Name.Unqualified]) = {
+        val (_, qualifyingName) = Ast.splitQualIdent(qualifier)
+        for {
+          a <- visitQualIdent(a, qualifier)
+          symbol <- {
+            val symbol = getDefForUse(a, qualifyingName)
+            val scope = getScopeForSymbol(a, symbol)
+            val mapping = scope.getOpt (NameGroup.Type) _
+            getSymbolForName(mapping)(name, name.getData)
+          }
+        } yield {
+          val useDefMap = a.useDefMap + (name.getId -> symbol)
+          a.copy(useDefMap = useDefMap)
+        }
+      }
+      Ast.splitQualIdent(qualIdent) match {
+        case (Nil, name) => visitUnqualifiedName(a, name)
+        case (qualifier, name) => visitQualifiedName(a, qualifier, name)
+      }
+    }
+    val data = node.getData
+    data match {
+      case Ast.TypeNameQualIdent(qualIdent) => visitQualIdent(a, qualIdent)
+      case _ => throw InternalError("type use should be qualified identifier")
+    }
   }
 
   override def defEnumAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
