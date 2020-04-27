@@ -80,7 +80,7 @@ module M {
 }
 ----
 
-The use `M` appears inside the defintion of `M`.
+The use `M` appears inside the definition of `M`.
 However, it is a qualifying use.
 
 === Order of Definitions and Uses
