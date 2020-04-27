@@ -32,6 +32,32 @@ object Ast {
 
   }
 
+  sealed trait QidNew
+  object QidNew {
+    case class Unqualified(name: Ident) extends QidNew
+    case class Qualified(qualifier: AstNode[QidNew], name: AstNode[Ident]) extends QidNew
+  }
+  object QidNewNode {
+    def fromQid(qid: QualIdent): AstNode[QidNew] =
+      QualIdent.split(qid) match {
+        case (Nil, name) => AstNode.create(QidNew.Unqualified(name.getData), name.getId)
+        case (qualifier, name) => {
+          val qualifier1 = fromQid(qualifier)
+          val qidNew = QidNew.Qualified(qualifier1, name)
+          AstNode.create(qidNew, name.getId)
+        }
+      }
+    def toQid(node: AstNode[QidNew]): QualIdent = {
+      node.data match {
+        case QidNew.Unqualified(name) => {
+          val node1 = AstNode.create(name, node.getId)
+          List(node1)
+        }
+        case QidNew.Qualified(qualifier, name) => toQid(qualifier) ++ List(name)
+      }
+    }
+  }
+
   /** Translation unit */
   final case class TransUnit(members: List[TUMember])
 
