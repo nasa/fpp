@@ -74,7 +74,7 @@ object Parser extends Parsers {
   }
 
   def defComponentInstance: Parser[Ast.DefComponentInstance] = {
-    (instance ~>! ident) ~! (colon ~>! node(qualIdentNew)) ~! (base ~! id ~>! exprNode) ~!
+    (instance ~>! ident) ~! (colon ~>! node(qualIdent)) ~! (base ~! id ~>! exprNode) ~!
     opt(queue ~! size ~>! exprNode) ~!
     opt(stack ~! size ~>! exprNode) ~!
     opt(priority ~>! exprNode) ^^ {
@@ -301,18 +301,18 @@ object Parser extends Parsers {
   }
 
   def portInstanceIdentifier: Parser[Ast.PortInstanceIdentifier] =
-    node(ident) ~! (dot ~>! qualIdentList) ^^ { 
+    node(ident) ~! (dot ~>! qualIdentNodeList) ^^ { 
       case id ~ qid => {
         val portName :: tail = qid.reverse
         val componentInstance = id :: tail.reverse
-        val node = Ast.QualIdentNode.fromList(componentInstance)
+        val node = Ast.QualIdent.Node.fromList(componentInstance)
         Ast.PortInstanceIdentifier(node, portName)
       }
     }
 
-  def qualIdentList: Parser[Ast.QualIdent.NodeList] = rep1sep(node(ident), dot)
+  def qualIdentNodeList: Parser[Ast.QualIdent.NodeList] = rep1sep(node(ident), dot)
 
-  def qualIdentNew: Parser[Ast.QualIdent] = qualIdentList ^^ { case qid => Ast.QualIdent.fromList(qid) }
+  def qualIdent: Parser[Ast.QualIdent] = qualIdentNodeList ^^ { case qid => Ast.QualIdent.fromNodeList(qid) }
 
   def queueFull: Parser[Ast.QueueFull] = {
     assert ^^ { case _ => Ast.QueueFull.Assert } |
@@ -336,7 +336,7 @@ object Parser extends Parsers {
   }
 
   def specCompInstance: Parser[Ast.SpecCompInstance] = {
-    visibility ~ (instance ~>! node(qualIdentNew)) ^^ { 
+    visibility ~ (instance ~>! node(qualIdent)) ^^ { 
       case visibility ~ instance => Ast.SpecCompInstance(visibility, instance) 
     }
   }
@@ -349,12 +349,12 @@ object Parser extends Parsers {
     }
     def patternGraph = {
       def instanceSequence = {
-        opt(lbrace ~>! elementSequence(node(qualIdentNew), comma) <~! rbrace) ^^ {
+        opt(lbrace ~>! elementSequence(node(qualIdent), comma) <~! rbrace) ^^ {
           case Some(elements) => elements
           case None => Nil
         }
       }
-      (connections ~ instance ~>! node(qualIdentNew)) ~! instanceSequence ~! (pattern ~>! exprNode) ^^ {
+      (connections ~ instance ~>! node(qualIdent)) ~! instanceSequence ~! (pattern ~>! exprNode) ^^ {
         case source ~ targets ~ pattern => Ast.SpecConnectionGraph.Pattern(source, targets, pattern)
       }
     }
@@ -386,7 +386,7 @@ object Parser extends Parsers {
   }
 
   def specInit: Parser[Ast.SpecInit] = {
-    (init ~>! node(qualIdentNew)) ~! (phase ~>! exprNode) ~! literalString ^^ {
+    (init ~>! node(qualIdent)) ~! (phase ~>! exprNode) ~! literalString ^^ {
       case instance ~ phase ~ code => Ast.SpecInit(instance, phase, code)
     }
   }
@@ -410,7 +410,7 @@ object Parser extends Parsers {
       typeToken ^^ { case _ => Ast.SpecLoc.Type } |
       failure("location kind expected")
     }
-    (locate ~>! kind) ~! node(qualIdentNew) ~! (at ~>! node(literalString)) ^^ {
+    (locate ~>! kind) ~! node(qualIdent) ~! (at ~>! node(literalString)) ^^ {
       case kind ~ symbol ~ file => Ast.SpecLoc(kind, symbol, file)
     }
   }
@@ -434,7 +434,7 @@ object Parser extends Parsers {
       sync ~ input ^^ { case _ => Ast.SpecPortInstance.SyncInput }
     }
     def instanceType = {
-      node(qualIdentNew) ^^ { case qi => Some(qi) } |
+      node(qualIdent) ^^ { case qi => Some(qi) } |
       serial ^^ { case _ => None} |
       failure("port type expected")
     }
@@ -507,7 +507,7 @@ object Parser extends Parsers {
   }
 
   def specTopImport: Parser[Ast.SpecTopImport] =
-    importToken ~>! node(qualIdentNew) ^^ { case top => Ast.SpecTopImport(top) }
+    importToken ~>! node(qualIdent) ^^ { case top => Ast.SpecTopImport(top) }
 
   def specUnusedPorts: Parser[Ast.SpecUnusedPorts] = {
     unused ~! lbrace ~>! elementSequence(node(portInstanceIdentifier), comma) <~! rbrace ^^ {
@@ -556,7 +556,7 @@ object Parser extends Parsers {
     accept("string", { case Token.STRING() => Ast.TypeNameString }) |
     typeNameFloat |
     typeNameInt |
-    node(qualIdentNew) ^^ { case qid => Ast.TypeNameQualIdent(qid) } |
+    node(qualIdent) ^^ { case qid => Ast.TypeNameQualIdent(qid) } |
     failure("type name expected")
   }
 
