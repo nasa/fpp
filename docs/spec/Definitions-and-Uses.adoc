@@ -9,15 +9,37 @@ that refers to a
 according to the
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,scoping rules for names>>.
 
+A use is a *qualifying use* if it qualifies another use. For example, in
+the following code
+
+* The expression `M.a` contains the expression `M`, which is a qualifying use 
+of the module `M`. It qualifies the use `M.a`.
+* The expression `M.a` is not a qualifying use.
+
+[source,FPP]
+----
+module M {
+
+  constant a = 0
+
+  constant b = M.a
+
+}
+----
+
+If a use _u_ is not a qualifying use, then we say it is a *non-qualifying use*.
+
 === Use-Def Graph
 
-The set of definitions and uses in a FPP model induces a directed
+The set of definitions and 
+<<Definitions-and-Uses_Uses,non-qualifying uses>>
+in an FPP model induces a directed
 graph called the *use-def graph*. In this graph,
 
 . The nodes are the definitions.
 
 . There is an edge from each definition _d_ to the definitions 
-stem:[d_1, ..., d_n] corresponding to the uses 
+stem:[d_1, ..., d_n] corresponding to the non-qualifying uses 
 stem:[u_1, ..., u_n] appearing in _d_.
 
 For example, in the following code, the use-def graph has two nodes `a` and
@@ -44,6 +66,22 @@ This model is also illegal:
 ----
 constant a = a
 ----
+
+This model is legal:
+
+[source,FPP]
+----
+module M {
+
+  constant a = 0
+
+  constant b = M.a
+
+}
+----
+
+The use `M` appears inside the defintion of `M`.
+However, it is a qualifying use.
 
 === Order of Definitions and Uses
 
