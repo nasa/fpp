@@ -40,37 +40,47 @@ object CheckUses extends UseAnalyzer {
   }
 
   override def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified) = {
-    def visitQualIdent(a: Analysis, qualIdent: Ast.QualIdent.NodeList): Result = {
-      def visitUnqualifiedName(a: Analysis, name: AstNode[Name.Unqualified]) = {
+    def visitQualIdentNode(a: Analysis, node: AstNode[Ast.QualIdent]): Result = {
+      def visitUnqualified(a: Analysis, node: AstNode[Ast.QualIdent], name: Name.Unqualified) = {
         val mapping = a.nestedScope.getOpt (NameGroup.Type) _
-        for (symbol <- getSymbolForName(mapping)(name, name.getData)) yield {
-          val useDefMap = a.useDefMap + (name.getId -> symbol)
+        for (symbol <- getSymbolForName(mapping)(node, name)) yield {
+          val useDefMap = a.useDefMap + (node.getId -> symbol)
           a.copy(useDefMap = useDefMap)
         }
       }
-      def visitQualifiedName(a: Analysis, qualifier: Ast.QualIdent.NodeList, name: AstNode[Name.Unqualified]) = {
-        val qualifyingName = Ast.QualIdent.NodeList.name(qualifier)
+      def visitQualified(
+        a: Analysis,
+        node: AstNode[Ast.QualIdent],
+        qualifier: AstNode[Ast.QualIdent],
+        name: AstNode[Ast.Ident]
+      ) = {
         for {
-          a <- visitQualIdent(a, qualifier)
+          a <- visitQualIdentNode(a, qualifier)
           symbol <- {
-            val symbol = getDefForUse(a, qualifyingName)
+            val symbol = getDefForUse(a, qualifier)
             val scope = getScopeForSymbol(a, symbol)
             val mapping = scope.getOpt (NameGroup.Type) _
             getSymbolForName(mapping)(name, name.getData)
           }
         } yield {
-          val useDefMap = a.useDefMap + (name.getId -> symbol)
+          val useDefMap = a.useDefMap + (node.getId -> symbol)
           a.copy(useDefMap = useDefMap)
         }
       }
-      Ast.QualIdent.NodeList.split(qualIdent) match {
-        case (Nil, name) => visitUnqualifiedName(a, name)
-        case (qualifier, name) => visitQualifiedName(a, qualifier, name)
+      val data = node.getData
+      data match {
+        case Ast.QualIdent.Unqualified(name) => visitUnqualified(a, node, name)
+        case Ast.QualIdent.Qualified(qualifier, name) => visitQualified(a, node, qualifier, name)
       }
     }
     val data = node.getData
     data match {
-      case Ast.TypeNameQualIdent(qualIdent) => visitQualIdent(a, Ast.QualIdent.Node.toNodeList(qualIdent))
+      case Ast.TypeNameQualIdent(qualIdentNode) => for {
+        a <- visitQualIdentNode(a, qualIdentNode)
+      } yield {
+        val symbol = a.useDefMap(qualIdentNode.getId)
+        a.copy(useDefMap = a.useDefMap + (node.getId -> symbol))
+      }
       case _ => throw InternalError("type use should be qualified identifier")
     }
   }
