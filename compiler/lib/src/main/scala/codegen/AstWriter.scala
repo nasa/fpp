@@ -48,7 +48,7 @@ object AstWriter extends AstVisitor {
     lines("def component instance") ++
     List(
       ident(dci.name),
-      addPrefix("component", qualIdent) (Ast.QualIdentNode.toQid(dci.component)),
+      addPrefix("component", qualIdent) (Ast.QualIdentNode.toList(dci.component)),
       addPrefix("base id", exprNode) (dci.baseId),
       addPrefix("queue size", exprNode) (dci.baseId),
       addPrefix("stack size", exprNode) (dci.baseId),
@@ -180,7 +180,7 @@ object AstWriter extends AstVisitor {
     val ci = node.getData
     lines("spec comp instance") ++ (
       lines(visibility(ci.visibility)) ++
-      qualIdent(Ast.QualIdentNode.toQid(ci.instance))
+      qualIdent(Ast.QualIdentNode.toList(ci.instance))
     ).map(indentIn)
   }
 
@@ -202,8 +202,8 @@ object AstWriter extends AstVisitor {
     def pattern(g: Ast.SpecConnectionGraph.Pattern) = {
       def target(qid: Ast.IdentNodeList) = addPrefix("target", qualIdent) (qid)
       lines("spec connection graph pattern") ++ (
-        addPrefix("source", qualIdent) (Ast.QualIdentNode.toQid(g.source)) ++
-        g.targets.map(Ast.QualIdentNode.toQid).map(target).flatten ++
+        addPrefix("source", qualIdent) (Ast.QualIdentNode.toList(g.source)) ++
+        g.targets.map(Ast.QualIdentNode.toList).map(target).flatten ++
         addPrefix("pattern", exprNode) (g.pattern)
       ).map(indentIn)
     }
@@ -248,7 +248,7 @@ object AstWriter extends AstVisitor {
     val si = node.getData
     lines("spec init") ++
     List(
-      addPrefix("instance", qualIdent) (Ast.QualIdentNode.toQid(si.instance)),
+      addPrefix("instance", qualIdent) (Ast.QualIdentNode.toList(si.instance)),
       addPrefix("phase", exprNode) (si.phase),
       addPrefix("code", string) (si.code)
     ).flatten.map(indentIn)
@@ -280,7 +280,7 @@ object AstWriter extends AstVisitor {
     lines("spec loc") ++
     (
       lines("kind " ++ kind) ++
-      addPrefix("symbol", qualIdent) (Ast.QualIdentNode.toQid(sl.symbol)) ++ 
+      addPrefix("symbol", qualIdent) (Ast.QualIdentNode.toList(sl.symbol)) ++ 
       fileString(sl.file.getData)
     ).map(indentIn)
   }
@@ -316,7 +316,7 @@ object AstWriter extends AstVisitor {
         kind(i.kind),
         ident(i.name),
         linesOpt(addPrefix("array size", exprNode), i.size),
-        linesOpt(addPrefix("port type", qualIdent), for (port <- i.port) yield Ast.QualIdentNode.toQid(port)),
+        linesOpt(addPrefix("port type", qualIdent), for (port <- i.port) yield Ast.QualIdentNode.toList(port)),
         linesOpt(addPrefix("priority", exprNode), i.priority),
         linesOpt(queueFull, i.queueFull)
       ).flatten.map(indentIn)
@@ -388,7 +388,7 @@ object AstWriter extends AstVisitor {
     val (_, node, _) = an
     val ti = node.getData
     lines("spec top import") ++
-    qualIdent(Ast.QualIdentNode.toQid(ti.top)).map(indentIn)
+    qualIdent(Ast.QualIdentNode.toList(ti.top)).map(indentIn)
   }
 
   override def specUnusedPortsAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.SpecUnusedPorts]]) =  {
@@ -425,7 +425,7 @@ object AstWriter extends AstVisitor {
   }
 
   override def typeNameQualIdentNode(in: Unit, node: AstNode[Ast.TypeName], tn: Ast.TypeNameQualIdent) = 
-    qualIdent(Ast.QualIdentNode.toQid(tn.name))
+    qualIdent(Ast.QualIdentNode.toList(tn.name))
 
   override def typeNameStringNode(in: Unit, node: AstNode[Ast.TypeName]) = lines("string")
 
@@ -517,7 +517,7 @@ object AstWriter extends AstVisitor {
   }
 
   private def portInstanceIdentifier(piid: Ast.PortInstanceIdentifier): List[Line] = {
-    val qid = Ast.QualIdentNode.toQid(piid.componentInstance) ++ List(piid.portName)
+    val qid = Ast.QualIdentNode.toList(piid.componentInstance) ++ List(piid.portName)
     qualIdent(qid)
   }
 

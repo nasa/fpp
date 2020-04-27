@@ -32,6 +32,7 @@ object Ast {
 
   }
 
+  /** A qualified identifier */
   sealed trait QualIdent
   object QualIdent {
     case class Unqualified(name: Ident) extends QualIdent
@@ -47,7 +48,10 @@ object Ast {
         }
       }
   }
+
+  /** A qualified identifier node */
   object QualIdentNode {
+
     def fromList(list: IdentNodeList): AstNode[QualIdent] =
       IdentNodeList.split(list) match {
         case (Nil, name) => AstNode.create(QualIdent.Unqualified(name.getData), name.getId)
@@ -60,15 +64,17 @@ object Ast {
           node
         }
       }
-    def toQid(node: AstNode[QualIdent]): IdentNodeList = {
+
+    def toList(node: AstNode[QualIdent]): IdentNodeList = {
       node.data match {
         case QualIdent.Unqualified(name) => {
           val node1 = AstNode.create(name, node.getId)
           List(node1)
         }
-        case QualIdent.Qualified(qualifier, name) => toQid(qualifier) ++ List(name)
+        case QualIdent.Qualified(qualifier, name) => toList(qualifier) ++ List(name)
       }
     }
+
   }
 
   /** Translation unit */
