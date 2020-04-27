@@ -56,11 +56,11 @@ object Ast {
     /** A qualified identifier node */
     object Node {
 
-      def fromList(nodeList: NodeList): AstNode[QualIdent] =
+      def fromNodeList(nodeList: NodeList): AstNode[QualIdent] =
         NodeList.split(nodeList) match {
           case (Nil, name) => AstNode.create(Unqualified(name.getData), name.getId)
           case (qualifier, name) => {
-            val qualifier1 = fromList(qualifier)
+            val qualifier1 = fromNodeList(qualifier)
             val qidNew = Qualified(qualifier1, name)
             val node = AstNode.create(qidNew)
             val loc = Locations.get(qualifier1.getId)
@@ -69,13 +69,13 @@ object Ast {
           }
         }
 
-      def toList(node: AstNode[QualIdent]): NodeList = {
+      def toNodeList(node: AstNode[QualIdent]): NodeList = {
         node.data match {
           case Unqualified(name) => {
             val node1 = AstNode.create(name, node.getId)
             List(node1)
           }
-          case Qualified(qualifier, name) => toList(qualifier) ++ List(name)
+          case Qualified(qualifier, name) => toNodeList(qualifier) ++ List(name)
         }
       }
 

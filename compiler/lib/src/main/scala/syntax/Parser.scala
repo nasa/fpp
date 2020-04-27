@@ -305,7 +305,7 @@ object Parser extends Parsers {
       case id ~ qid => {
         val portName :: tail = qid.reverse
         val componentInstance = id :: tail.reverse
-        val node = Ast.QualIdent.Node.fromList(componentInstance)
+        val node = Ast.QualIdent.Node.fromNodeList(componentInstance)
         Ast.PortInstanceIdentifier(node, portName)
       }
     }
