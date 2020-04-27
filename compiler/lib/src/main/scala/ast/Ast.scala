@@ -192,7 +192,7 @@ object Ast {
     portName: AstNode[Ident]
   )
 
-  /** A qualified identifier */
+  /** A possibly-qualified identifier */
   sealed trait QualIdent {
 
     /** Convert a qualified identifier to a list of identifiers */
@@ -227,7 +227,8 @@ object Ast {
         }
       }
 
-    /** A qualified identifier represented as a list of identifier nodes */
+    /** A qualified identifier represented as a list of identifier nodes 
+     *  This is useful during parsing */
     type NodeList = List[AstNode[Ident]]
 
     object NodeList {
@@ -249,27 +250,13 @@ object Ast {
     /** A qualified identifier node */
     object Node {
 
-      def fromNodeList(nodeList: NodeList): AstNode[QualIdent] =
-        NodeList.split(nodeList) match {
-          case (Nil, name) => AstNode.create(Unqualified(name.getData), name.getId)
-          case (qualifier, name) => {
-            val qualifier1 = fromNodeList(qualifier)
-            val qidNew = Qualified(qualifier1, name)
-            val node = AstNode.create(qidNew)
-            val loc = Locations.get(qualifier1.getId)
-            Locations.put(node.getId, loc)
-            node
-          }
-        }
-
-      def toNodeList(node: AstNode[QualIdent]): NodeList = {
-        node.data match {
-          case Unqualified(name) => {
-            val node1 = AstNode.create(name, node.getId)
-            List(node1)
-          }
-          case Qualified(qualifier, name) => toNodeList(qualifier) ++ List(name)
-        }
+      /** Create a QualIdent node from a node list */
+      def fromNodeList(nodeList: NodeList): AstNode[QualIdent] = {
+        val qualIdent = QualIdent.fromNodeList(nodeList)
+        val node = AstNode.create(qualIdent)
+        val loc = Locations.get(nodeList.head.getId)
+        Locations.put(node.getId, loc)
+        node
       }
 
     }
