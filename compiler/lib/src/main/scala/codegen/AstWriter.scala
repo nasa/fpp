@@ -48,7 +48,7 @@ object AstWriter extends AstVisitor {
     lines("def component instance") ++
     List(
       ident(dci.name),
-      addPrefix("component", qualIdent) (Ast.QualIdent.Node.toNodeList(dci.component)),
+      addPrefix("component", qualIdent) (dci.component.getData),
       addPrefix("base id", exprNode) (dci.baseId),
       addPrefix("queue size", exprNode) (dci.baseId),
       addPrefix("stack size", exprNode) (dci.baseId),
@@ -180,7 +180,7 @@ object AstWriter extends AstVisitor {
     val ci = node.getData
     lines("spec comp instance") ++ (
       lines(visibility(ci.visibility)) ++
-      qualIdent(Ast.QualIdent.Node.toNodeList(ci.instance))
+      qualIdent(ci.instance.data)
     ).map(indentIn)
   }
 
@@ -200,10 +200,10 @@ object AstWriter extends AstVisitor {
       ).map(indentIn)
     }
     def pattern(g: Ast.SpecConnectionGraph.Pattern) = {
-      def target(qid: Ast.QualIdent.NodeList) = addPrefix("target", qualIdent) (qid)
+      def target(qid: AstNode[Ast.QualIdent]) = addPrefix("target", qualIdent) (qid.getData)
       lines("spec connection graph pattern") ++ (
-        addPrefix("source", qualIdent) (Ast.QualIdent.Node.toNodeList(g.source)) ++
-        g.targets.map(Ast.QualIdent.Node.toNodeList).map(target).flatten ++
+        addPrefix("source", qualIdent) (g.source.getData) ++
+        g.targets.map(target).flatten ++
         addPrefix("pattern", exprNode) (g.pattern)
       ).map(indentIn)
     }
@@ -248,7 +248,7 @@ object AstWriter extends AstVisitor {
     val si = node.getData
     lines("spec init") ++
     List(
-      addPrefix("instance", qualIdent) (Ast.QualIdent.Node.toNodeList(si.instance)),
+      addPrefix("instance", qualIdent) (si.instance.getData),
       addPrefix("phase", exprNode) (si.phase),
       addPrefix("code", string) (si.code)
     ).flatten.map(indentIn)
@@ -280,7 +280,7 @@ object AstWriter extends AstVisitor {
     lines("spec loc") ++
     (
       lines("kind " ++ kind) ++
-      addPrefix("symbol", qualIdent) (Ast.QualIdent.Node.toNodeList(sl.symbol)) ++ 
+      addPrefix("symbol", qualIdent) (sl.symbol.getData) ++ 
       fileString(sl.file.getData)
     ).map(indentIn)
   }
@@ -316,7 +316,7 @@ object AstWriter extends AstVisitor {
         kind(i.kind),
         ident(i.name),
         linesOpt(addPrefix("array size", exprNode), i.size),
-        linesOpt(addPrefix("port type", qualIdent), for (port <- i.port) yield Ast.QualIdent.Node.toNodeList(port)),
+        linesOpt(addPrefix("port type", applyToData(qualIdent)), i.port),
         linesOpt(addPrefix("priority", exprNode), i.priority),
         linesOpt(queueFull, i.queueFull)
       ).flatten.map(indentIn)
@@ -388,7 +388,7 @@ object AstWriter extends AstVisitor {
     val (_, node, _) = an
     val ti = node.getData
     lines("spec top import") ++
-    qualIdent(Ast.QualIdent.Node.toNodeList(ti.top)).map(indentIn)
+    qualIdent(ti.top.getData).map(indentIn)
   }
 
   override def specUnusedPortsAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.SpecUnusedPorts]]) =  {
@@ -425,7 +425,7 @@ object AstWriter extends AstVisitor {
   }
 
   override def typeNameQualIdentNode(in: Unit, node: AstNode[Ast.TypeName], tn: Ast.TypeNameQualIdent) = 
-    qualIdent(Ast.QualIdent.Node.toNodeList(tn.name))
+    qualIdent(tn.name.getData)
 
   override def typeNameStringNode(in: Unit, node: AstNode[Ast.TypeName]) = lines("string")
 
@@ -517,18 +517,18 @@ object AstWriter extends AstVisitor {
   }
 
   private def portInstanceIdentifier(piid: Ast.PortInstanceIdentifier): List[Line] = {
-    val qid = Ast.QualIdent.Node.toNodeList(piid.componentInstance) ++ List(piid.portName)
+    val qid = Ast.QualIdent.Qualified(piid.componentInstance, piid.portName)
     qualIdent(qid)
   }
 
-  private def qualIdent(qid: Ast.QualIdent.NodeList): List[Line] =
+  private def qualIdent(qid: Ast.QualIdent): List[Line] =
     lines("qual ident " ++ qualIdentString(qid))
-    
-  private def qualIdentString(qid: Ast.QualIdent.NodeList): String =
+
+  private def qualIdentString(qid: Ast.QualIdent): String =
     qid match {
-      case Nil => ""
-      case node :: Nil => node.getData
-      case (node :: qid1) => node.getData ++ "." ++ qualIdentString(qid1)
+      case Ast.QualIdent.Unqualified(name) => name
+      case Ast.QualIdent.Qualified(qualifier, name) => 
+        qualIdentString(qualifier.getData) ++ "." ++ name.getData
     }
 
   private def queueFull(qf: Ast.QueueFull) = {
