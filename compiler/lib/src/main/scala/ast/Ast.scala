@@ -13,22 +13,22 @@ object Ast {
   /** Identifier */
   type Ident = String
 
-  /** Qualified identifier */
+  /** A qualified identifier represented as a list of identifier nodes */
   type QualIdent = List[AstNode[Ident]]
 
   object QualIdent {
 
-    /** Split a qualified identifier into qualifier and name */
-    def split(qualIdent: QualIdent) = qualIdent.reverse match {
+    /** Split a qualified identifier list into qualifier and name */
+    def split(list: QualIdent) = list.reverse match {
       case head :: tail => (tail.reverse, head)
       case Nil => throw InternalError("qualified identifier should not be empty")
     }
 
     /** Get the qualifier */
-    def qualifier(qualIdent: QualIdent) = split(qualIdent)._1
+    def qualifier(list: QualIdent) = split(list)._1
 
     /** Get the unqualified name*/
-    def name(qualIdent: QualIdent) = split(qualIdent)._2
+    def name(list: QualIdent) = split(list)._2
 
   }
 
@@ -36,15 +36,28 @@ object Ast {
   object QidNew {
     case class Unqualified(name: Ident) extends QidNew
     case class Qualified(qualifier: AstNode[QidNew], name: AstNode[Ident]) extends QidNew
+
+    def fromList(list: QualIdent): QidNew =
+      QualIdent.split(list) match {
+        case (Nil, name) => QidNew.Unqualified(name.getData)
+        case (qualifier, name) => {
+          val qualifier1 = fromList(qualifier)
+          val node = AstNode.create(qualifier1, QualIdent.name(qualifier).getId)
+          QidNew.Qualified(node, name)
+        }
+      }
   }
   object QidNewNode {
-    def fromQid(qid: QualIdent): AstNode[QidNew] =
-      QualIdent.split(qid) match {
+    def fromList(list: QualIdent): AstNode[QidNew] =
+      QualIdent.split(list) match {
         case (Nil, name) => AstNode.create(QidNew.Unqualified(name.getData), name.getId)
         case (qualifier, name) => {
-          val qualifier1 = fromQid(qualifier)
+          val qualifier1 = fromList(qualifier)
           val qidNew = QidNew.Qualified(qualifier1, name)
-          AstNode.create(qidNew, name.getId)
+          val node = AstNode.create(qidNew)
+          val loc = Locations.get(qualifier1.getId)
+          Locations.put(node.getId, loc)
+          node
         }
       }
     def toQid(node: AstNode[QidNew]): QualIdent = {
@@ -117,7 +130,7 @@ object Ast {
   /** Component instance definition */
   final case class DefComponentInstance(
     name: Ident,
-    component: QualIdent,
+    component: AstNode[QidNew],
     baseId: AstNode[Expr],
     queueSize: Option[AstNode[Expr]],
     stackSize: Option[AstNode[Expr]],
@@ -233,7 +246,7 @@ object Ast {
 
   /** Port instance identifier */
   final case class PortInstanceIdentifier(
-    componentInstance: QualIdent,
+    componentInstance: AstNode[QidNew],
     portName: AstNode[Ident]
   )
 
@@ -264,7 +277,7 @@ object Ast {
   /** Component instance specifier */
   final case class SpecCompInstance(
     visibility: Visibility,
-    instance: QualIdent
+    instance: AstNode[QidNew]
   )
 
   /** Connection graph specifier */
@@ -277,8 +290,8 @@ object Ast {
     ) extends SpecConnectionGraph
 
     final case class Pattern(
-      source: QualIdent,
-      targets: List[QualIdent],
+      source: AstNode[QidNew],
+      targets: List[AstNode[QidNew]],
       pattern: AstNode[Expr]
     ) extends SpecConnectionGraph
 
@@ -317,7 +330,7 @@ object Ast {
 
   /** Init specifier */
   final case class SpecInit(
-    instance: QualIdent,
+    instance: AstNode[QidNew],
     phase: AstNode[Expr],
     code: String
   )
@@ -333,7 +346,7 @@ object Ast {
   /** Location specifier */
   final case class SpecLoc(
     kind: SpecLoc.Kind,
-    symbol: QualIdent,
+    symbol: AstNode[QidNew],
     file: AstNode[String]
   )
   object SpecLoc {
@@ -366,7 +379,7 @@ object Ast {
       kind: GeneralKind,
       name: Ident,
       size: Option[AstNode[Expr]],
-      port: Option[QualIdent],
+      port: Option[AstNode[QidNew]],
       priority: Option[AstNode[Expr]],
       queueFull: Option[QueueFull]
     ) extends SpecPortInstance
@@ -427,7 +440,7 @@ object Ast {
   }
 
   /** Topology import specifier */
-  final case class SpecTopImport(top: QualIdent)
+  final case class SpecTopImport(top: AstNode[QidNew])
 
   /** Unused port specifier */
   final case class SpecUnusedPorts(ports: List[AstNode[PortInstanceIdentifier]])
@@ -466,7 +479,7 @@ object Ast {
   sealed trait TypeName
   final case class TypeNameFloat(name: TypeFloat) extends TypeName
   final case class TypeNameInt(name: TypeInt) extends TypeName
-  final case class TypeNameQualIdent(name: QualIdent) extends TypeName
+  final case class TypeNameQualIdent(name: AstNode[QidNew]) extends TypeName
   final case object TypeNameBool extends TypeName
   final case object TypeNameString extends TypeName
 

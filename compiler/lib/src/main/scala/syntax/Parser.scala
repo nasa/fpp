@@ -74,7 +74,7 @@ object Parser extends Parsers {
   }
 
   def defComponentInstance: Parser[Ast.DefComponentInstance] = {
-    (instance ~>! ident) ~! (colon ~>! qualIdent) ~! (base ~! id ~>! exprNode) ~!
+    (instance ~>! ident) ~! (colon ~>! node(qualIdentNew)) ~! (base ~! id ~>! exprNode) ~!
     opt(queue ~! size ~>! exprNode) ~!
     opt(stack ~! size ~>! exprNode) ~!
     opt(priority ~>! exprNode) ^^ {
@@ -301,15 +301,18 @@ object Parser extends Parsers {
   }
 
   def portInstanceIdentifier: Parser[Ast.PortInstanceIdentifier] =
-    node(ident) ~! (dot ~>! qualIdent) ^^ { 
+    node(ident) ~! (dot ~>! qualIdentList) ^^ { 
       case id ~ qid => {
         val portName :: tail = qid.reverse
         val componentInstance = id :: tail.reverse
-        Ast.PortInstanceIdentifier(componentInstance, portName)
+        val node = Ast.QidNewNode.fromList(componentInstance)
+        Ast.PortInstanceIdentifier(node, portName)
       }
     }
 
-  def qualIdent: Parser[List[AstNode[Ast.Ident]]] = rep1sep(node(ident), dot)
+  def qualIdentList: Parser[List[AstNode[Ast.Ident]]] = rep1sep(node(ident), dot)
+
+  def qualIdentNew: Parser[Ast.QidNew] = qualIdentList ^^ { case qid => Ast.QidNew.fromList(qid) }
 
   def queueFull: Parser[Ast.QueueFull] = {
     assert ^^ { case _ => Ast.QueueFull.Assert } |
@@ -333,7 +336,7 @@ object Parser extends Parsers {
   }
 
   def specCompInstance: Parser[Ast.SpecCompInstance] = {
-    visibility ~ (instance ~>! qualIdent) ^^ { 
+    visibility ~ (instance ~>! node(qualIdentNew)) ^^ { 
       case visibility ~ instance => Ast.SpecCompInstance(visibility, instance) 
     }
   }
@@ -346,12 +349,12 @@ object Parser extends Parsers {
     }
     def patternGraph = {
       def instanceSequence = {
-        opt(lbrace ~>! elementSequence(qualIdent, comma) <~! rbrace) ^^ {
+        opt(lbrace ~>! elementSequence(node(qualIdentNew), comma) <~! rbrace) ^^ {
           case Some(elements) => elements
           case None => Nil
         }
       }
-      (connections ~ instance ~>! qualIdent) ~! instanceSequence ~! (pattern ~>! exprNode) ^^ {
+      (connections ~ instance ~>! node(qualIdentNew)) ~! instanceSequence ~! (pattern ~>! exprNode) ^^ {
         case source ~ targets ~ pattern => Ast.SpecConnectionGraph.Pattern(source, targets, pattern)
       }
     }
@@ -383,7 +386,7 @@ object Parser extends Parsers {
   }
 
   def specInit: Parser[Ast.SpecInit] = {
-    (init ~>! qualIdent) ~! (phase ~>! exprNode) ~! literalString ^^ {
+    (init ~>! node(qualIdentNew)) ~! (phase ~>! exprNode) ~! literalString ^^ {
       case instance ~ phase ~ code => Ast.SpecInit(instance, phase, code)
     }
   }
@@ -407,7 +410,7 @@ object Parser extends Parsers {
       typeToken ^^ { case _ => Ast.SpecLoc.Type } |
       failure("location kind expected")
     }
-    (locate ~>! kind) ~! qualIdent ~! (at ~>! node(literalString)) ^^ {
+    (locate ~>! kind) ~! node(qualIdentNew) ~! (at ~>! node(literalString)) ^^ {
       case kind ~ symbol ~ file => Ast.SpecLoc(kind, symbol, file)
     }
   }
@@ -431,7 +434,7 @@ object Parser extends Parsers {
       sync ~ input ^^ { case _ => Ast.SpecPortInstance.SyncInput }
     }
     def instanceType = {
-      qualIdent ^^ { case qi => Some(qi) } |
+      node(qualIdentNew) ^^ { case qi => Some(qi) } |
       serial ^^ { case _ => None} |
       failure("port type expected")
     }
@@ -504,7 +507,7 @@ object Parser extends Parsers {
   }
 
   def specTopImport: Parser[Ast.SpecTopImport] =
-    importToken ~>! qualIdent ^^ { case top => Ast.SpecTopImport(top) }
+    importToken ~>! node(qualIdentNew) ^^ { case top => Ast.SpecTopImport(top) }
 
   def specUnusedPorts: Parser[Ast.SpecUnusedPorts] = {
     unused ~! lbrace ~>! elementSequence(node(portInstanceIdentifier), comma) <~! rbrace ^^ {
@@ -553,7 +556,7 @@ object Parser extends Parsers {
     accept("string", { case Token.STRING() => Ast.TypeNameString }) |
     typeNameFloat |
     typeNameInt |
-    qualIdent ^^ { case qid => Ast.TypeNameQualIdent(qid) } |
+    node(qualIdentNew) ^^ { case qid => Ast.TypeNameQualIdent(qid) } |
     failure("type name expected")
   }
 

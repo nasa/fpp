@@ -13,7 +13,7 @@ object BuildSpecLocMap extends ModuleAnalyzer {
     val specNode = node._2
     val spec = specNode.getData
     val symbol = spec.symbol
-    val qualifiedName = Name.Qualified.fromIdentList(a.moduleNameList.reverse ++ symbol.map(_.getData))
+    val qualifiedName = Name.Qualified.fromIdentList(a.moduleNameList.reverse ++ Ast.QidNewNode.toQid(symbol).map(_.getData))
     val key = (spec.kind, qualifiedName)
     a.locationSpecifierMap.get(key) match {
       case None => {

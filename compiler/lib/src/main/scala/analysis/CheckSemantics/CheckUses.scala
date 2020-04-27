@@ -70,7 +70,7 @@ object CheckUses extends UseAnalyzer {
     }
     val data = node.getData
     data match {
-      case Ast.TypeNameQualIdent(qualIdent) => visitQualIdent(a, qualIdent)
+      case Ast.TypeNameQualIdent(qualIdent) => visitQualIdent(a, Ast.QidNewNode.toQid(qualIdent))
       case _ => throw InternalError("type use should be qualified identifier")
     }
   }
