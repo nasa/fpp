@@ -28,7 +28,7 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
     val (_, node1, _) = node
     val data = node1.getData
     for {
-      a <- qualIdent (componentUse) (a, Ast.QidNewNode.toQid(data.component))
+      a <- qualIdent (componentUse) (a, Ast.QualIdentNode.toQid(data.component))
       a <- exprNode(a, data.baseId)
       a <- opt(exprNode)(a, data.queueSize)
       a <- opt(exprNode)(a, data.stackSize)
@@ -64,7 +64,7 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
   override def specCompInstanceAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecCompInstance]]) = {
     val (_, node1, _) = node
     val data = node1.getData
-    qualIdent (componentInstanceUse) (a, Ast.QidNewNode.toQid(data.instance))
+    qualIdent (componentInstanceUse) (a, Ast.QualIdentNode.toQid(data.instance))
   }
 
   override def specConnectionGraphAnnotatedNode(
@@ -82,8 +82,8 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
     data match {
       case direct @ Ast.SpecConnectionGraph.Direct(_, _) => visitList(a, direct.connections, connection)
       case pattern @ Ast.SpecConnectionGraph.Pattern(_, _, _) => for {
-        a <- qualIdent (componentInstanceUse) (a, Ast.QidNewNode.toQid(pattern.source))
-        a <- visitList(a, pattern.targets.map(Ast.QidNewNode.toQid), qualIdent (componentInstanceUse) _)
+        a <- qualIdent (componentInstanceUse) (a, Ast.QualIdentNode.toQid(pattern.source))
+        a <- visitList(a, pattern.targets.map(Ast.QualIdentNode.toQid), qualIdent (componentInstanceUse) _)
         a <- exprNode(a, pattern.pattern)
       } yield a
     }
@@ -93,7 +93,7 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
     val (_, node1, _) = node
     val data = node1.getData
     for {
-      a <- qualIdent (componentInstanceUse) (a, Ast.QidNewNode.toQid(data.instance))
+      a <- qualIdent (componentInstanceUse) (a, Ast.QualIdentNode.toQid(data.instance))
       a <- exprNode(a, data.phase)
     } yield a
   }
@@ -105,7 +105,7 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
       case general @ Ast.SpecPortInstance.General(_, _, _, _, _, _) =>
         for {
           a <- opt(exprNode)(a, general.size)
-          a <- opt(qualIdent(portUse))(a, for (port <- general.port) yield Ast.QidNewNode.toQid(port))
+          a <- opt(qualIdent(portUse))(a, for (port <- general.port) yield Ast.QualIdentNode.toQid(port))
           a <- opt(exprNode)(a, general.priority)
         } yield a
       case _ => Right(a)
@@ -115,7 +115,7 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
   override def specTopImportAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecTopImport]]) = {
     val (_, node1, _) = node
     val data = node1.getData
-    qualIdent(topologyUse)(a, Ast.QidNewNode.toQid(data.top))
+    qualIdent(topologyUse)(a, Ast.QualIdentNode.toQid(data.top))
   }
 
   override def specUnusedPortsAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecUnusedPorts]]) = {
@@ -127,12 +127,12 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
   override def typeNameNode(a: Analysis, node: AstNode[Ast.TypeName]) = matchTypeNameNode(a, node)
 
   override def typeNameQualIdentNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameQualIdent) = {
-    val use = Name.Qualified.fromIdentList(Ast.QidNewNode.toQid(tn.name).map(_.getData))
+    val use = Name.Qualified.fromIdentList(Ast.QualIdentNode.toQid(tn.name).map(_.getData))
     typeUse(a, node, use)
   }
 
   private def portInstanceIdentifierNode(a: Analysis, node: AstNode[Ast.PortInstanceIdentifier]): Result =
-    qualIdent (componentInstanceUse) (a, Ast.QidNewNode.toQid(node.getData.componentInstance))
+    qualIdent (componentInstanceUse) (a, Ast.QualIdentNode.toQid(node.getData.componentInstance))
 
   private def qualIdent
     (f: (Analysis, Ast.IdentNodeList, Name.Qualified) => Result) 

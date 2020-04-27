@@ -305,14 +305,14 @@ object Parser extends Parsers {
       case id ~ qid => {
         val portName :: tail = qid.reverse
         val componentInstance = id :: tail.reverse
-        val node = Ast.QidNewNode.fromList(componentInstance)
+        val node = Ast.QualIdentNode.fromList(componentInstance)
         Ast.PortInstanceIdentifier(node, portName)
       }
     }
 
   def qualIdentList: Parser[List[AstNode[Ast.Ident]]] = rep1sep(node(ident), dot)
 
-  def qualIdentNew: Parser[Ast.QidNew] = qualIdentList ^^ { case qid => Ast.QidNew.fromList(qid) }
+  def qualIdentNew: Parser[Ast.QualIdent] = qualIdentList ^^ { case qid => Ast.QualIdent.fromList(qid) }
 
   def queueFull: Parser[Ast.QueueFull] = {
     assert ^^ { case _ => Ast.QueueFull.Assert } |
