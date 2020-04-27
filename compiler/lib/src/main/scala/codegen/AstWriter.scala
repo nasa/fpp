@@ -200,7 +200,7 @@ object AstWriter extends AstVisitor {
       ).map(indentIn)
     }
     def pattern(g: Ast.SpecConnectionGraph.Pattern) = {
-      def target(qid: Ast.IdentNodeList) = addPrefix("target", qualIdent) (qid)
+      def target(qid: Ast.QualIdent.NodeList) = addPrefix("target", qualIdent) (qid)
       lines("spec connection graph pattern") ++ (
         addPrefix("source", qualIdent) (Ast.QualIdentNode.toList(g.source)) ++
         g.targets.map(Ast.QualIdentNode.toList).map(target).flatten ++
@@ -521,10 +521,10 @@ object AstWriter extends AstVisitor {
     qualIdent(qid)
   }
 
-  private def qualIdent(qid: Ast.IdentNodeList): List[Line] =
+  private def qualIdent(qid: Ast.QualIdent.NodeList): List[Line] =
     lines("qual ident " ++ qualIdentString(qid))
     
-  private def qualIdentString(qid: Ast.IdentNodeList): String =
+  private def qualIdentString(qid: Ast.QualIdent.NodeList): String =
     qid match {
       case Nil => ""
       case node :: Nil => node.getData

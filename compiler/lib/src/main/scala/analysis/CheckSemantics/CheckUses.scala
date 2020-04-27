@@ -40,7 +40,7 @@ object CheckUses extends UseAnalyzer {
   }
 
   override def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified) = {
-    def visitQualIdent(a: Analysis, qualIdent: Ast.IdentNodeList): Result = {
+    def visitQualIdent(a: Analysis, qualIdent: Ast.QualIdent.NodeList): Result = {
       def visitUnqualifiedName(a: Analysis, name: AstNode[Name.Unqualified]) = {
         val mapping = a.nestedScope.getOpt (NameGroup.Type) _
         for (symbol <- getSymbolForName(mapping)(name, name.getData)) yield {
@@ -48,8 +48,8 @@ object CheckUses extends UseAnalyzer {
           a.copy(useDefMap = useDefMap)
         }
       }
-      def visitQualifiedName(a: Analysis, qualifier: Ast.IdentNodeList, name: AstNode[Name.Unqualified]) = {
-        val qualifyingName = Ast.IdentNodeList.name(qualifier)
+      def visitQualifiedName(a: Analysis, qualifier: Ast.QualIdent.NodeList, name: AstNode[Name.Unqualified]) = {
+        val qualifyingName = Ast.QualIdent.NodeList.name(qualifier)
         for {
           a <- visitQualIdent(a, qualifier)
           symbol <- {
@@ -63,7 +63,7 @@ object CheckUses extends UseAnalyzer {
           a.copy(useDefMap = useDefMap)
         }
       }
-      Ast.IdentNodeList.split(qualIdent) match {
+      Ast.QualIdent.NodeList.split(qualIdent) match {
         case (Nil, name) => visitUnqualifiedName(a, name)
         case (qualifier, name) => visitQualifiedName(a, qualifier, name)
       }

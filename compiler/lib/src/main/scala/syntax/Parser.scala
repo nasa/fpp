@@ -310,7 +310,7 @@ object Parser extends Parsers {
       }
     }
 
-  def qualIdentList: Parser[List[AstNode[Ast.Ident]]] = rep1sep(node(ident), dot)
+  def qualIdentList: Parser[Ast.QualIdent.NodeList] = rep1sep(node(ident), dot)
 
   def qualIdentNew: Parser[Ast.QualIdent] = qualIdentList ^^ { case qid => Ast.QualIdent.fromList(qid) }
 
