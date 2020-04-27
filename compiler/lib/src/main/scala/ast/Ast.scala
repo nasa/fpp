@@ -193,14 +193,28 @@ object Ast {
   )
 
   /** A qualified identifier */
-  sealed trait QualIdent
+  sealed trait QualIdent {
+
+    /** Convert a qualified identifier to a list of identifiers */
+    def toIdentList: List[Ident]
+      
+  }
+
   object QualIdent {
 
     /** An unqualified identifier */
-    case class Unqualified(name: Ident) extends QualIdent
+    case class Unqualified(name: Ident) extends QualIdent {
+
+      def toIdentList = List(name)
+
+    }
 
     /** A qualified identifier */
-    case class Qualified(qualifier: AstNode[QualIdent], name: AstNode[Ident]) extends QualIdent
+    case class Qualified(qualifier: AstNode[QualIdent], name: AstNode[Ident]) extends QualIdent {
+
+      def toIdentList = qualifier.getData.toIdentList ++ List(name.getData)
+
+    }
 
     /** Construct a qualified identifier from a node list */
     def fromNodeList(nodeList: QualIdent.NodeList): QualIdent =
