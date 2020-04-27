@@ -7,19 +7,19 @@ import fpp.compiler.util._
 trait UseAnalyzer extends TypeExpressionAnalyzer {
 
   /** A use of a component definition */
-  def componentUse(a: Analysis, qualIdent: Ast.QualIdent, use: Name.Qualified): Result = default(a)
+  def componentUse(a: Analysis, qualIdent: Ast.IdentNodeList, use: Name.Qualified): Result = default(a)
  
   /** A use of a component instance definition */
-  def componentInstanceUse(a: Analysis, node: Ast.QualIdent, use: Name.Qualified): Result = default(a)
+  def componentInstanceUse(a: Analysis, node: Ast.IdentNodeList, use: Name.Qualified): Result = default(a)
 
   /** A use of a constant definition or enumerated constant definition */
   def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified): Result = default(a)
 
   /** A use of a port definition */
-  def portUse(a: Analysis, qualIdent: Ast.QualIdent, use: Name.Qualified): Result = default(a)
+  def portUse(a: Analysis, qualIdent: Ast.IdentNodeList, use: Name.Qualified): Result = default(a)
 
   /** A use of a topology definition */
-  def topologyUse(a: Analysis, qualIdent: Ast.QualIdent, use: Name.Qualified): Result = default(a)
+  def topologyUse(a: Analysis, qualIdent: Ast.IdentNodeList, use: Name.Qualified): Result = default(a)
 
   /** A use of a type definition */
   def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified): Result = default(a)
@@ -135,8 +135,8 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
     qualIdent (componentInstanceUse) (a, Ast.QidNewNode.toQid(node.getData.componentInstance))
 
   private def qualIdent
-    (f: (Analysis, Ast.QualIdent, Name.Qualified) => Result) 
-    (a: Analysis, qualIdent: Ast.QualIdent): Result = {
+    (f: (Analysis, Ast.IdentNodeList, Name.Qualified) => Result) 
+    (a: Analysis, qualIdent: Ast.IdentNodeList): Result = {
     val use = Name.Qualified.fromIdentList(qualIdent.map(_.getData))
     f(a, qualIdent, use)
   }

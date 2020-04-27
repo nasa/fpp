@@ -14,21 +14,21 @@ object Ast {
   type Ident = String
 
   /** A qualified identifier represented as a list of identifier nodes */
-  type QualIdent = List[AstNode[Ident]]
+  type IdentNodeList = List[AstNode[Ident]]
 
-  object QualIdent {
+  object IdentNodeList {
 
     /** Split a qualified identifier list into qualifier and name */
-    def split(list: QualIdent) = list.reverse match {
+    def split(list: IdentNodeList) = list.reverse match {
       case head :: tail => (tail.reverse, head)
       case Nil => throw InternalError("qualified identifier should not be empty")
     }
 
     /** Get the qualifier */
-    def qualifier(list: QualIdent) = split(list)._1
+    def qualifier(list: IdentNodeList) = split(list)._1
 
     /** Get the unqualified name*/
-    def name(list: QualIdent) = split(list)._2
+    def name(list: IdentNodeList) = split(list)._2
 
   }
 
@@ -37,19 +37,19 @@ object Ast {
     case class Unqualified(name: Ident) extends QidNew
     case class Qualified(qualifier: AstNode[QidNew], name: AstNode[Ident]) extends QidNew
 
-    def fromList(list: QualIdent): QidNew =
-      QualIdent.split(list) match {
+    def fromList(list: IdentNodeList): QidNew =
+      IdentNodeList.split(list) match {
         case (Nil, name) => QidNew.Unqualified(name.getData)
         case (qualifier, name) => {
           val qualifier1 = fromList(qualifier)
-          val node = AstNode.create(qualifier1, QualIdent.name(qualifier).getId)
+          val node = AstNode.create(qualifier1, IdentNodeList.name(qualifier).getId)
           QidNew.Qualified(node, name)
         }
       }
   }
   object QidNewNode {
-    def fromList(list: QualIdent): AstNode[QidNew] =
-      QualIdent.split(list) match {
+    def fromList(list: IdentNodeList): AstNode[QidNew] =
+      IdentNodeList.split(list) match {
         case (Nil, name) => AstNode.create(QidNew.Unqualified(name.getData), name.getId)
         case (qualifier, name) => {
           val qualifier1 = fromList(qualifier)
@@ -60,7 +60,7 @@ object Ast {
           node
         }
       }
-    def toQid(node: AstNode[QidNew]): QualIdent = {
+    def toQid(node: AstNode[QidNew]): IdentNodeList = {
       node.data match {
         case QidNew.Unqualified(name) => {
           val node1 = AstNode.create(name, node.getId)
