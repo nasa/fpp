@@ -22,48 +22,48 @@ sealed trait Symbol {
 
 object Symbol {
 
-  final case class AbsType(node: AstNode[Ast.DefAbsType]) extends Symbol {
-    override def getLocOpt = Locations.getOpt(node.getId)
-    override def getUnqualifiedName = node.getData.name
+  final case class AbsType(node: Ast.Annotated[AstNode[Ast.DefAbsType]]) extends Symbol {
+    override def getLocOpt = Locations.getOpt(node._2.getId)
+    override def getUnqualifiedName = node._2.getData.name
   }
-  final case class Array(node: AstNode[Ast.DefArray]) extends Symbol {
-    override def getLocOpt = Locations.getOpt(node.getId)
-    override def getUnqualifiedName = node.getData.name
+  final case class Array(node: Ast.Annotated[AstNode[Ast.DefArray]]) extends Symbol {
+    override def getLocOpt = Locations.getOpt(node._2.getId)
+    override def getUnqualifiedName = node._2.getData.name
   }
-  final case class Component(node: AstNode[Ast.DefComponent]) extends Symbol {
-    override def getLocOpt = Locations.getOpt(node.getId)
-    override def getUnqualifiedName = node.getData.name
+  final case class Component(node: Ast.Annotated[AstNode[Ast.DefComponent]]) extends Symbol {
+    override def getLocOpt = Locations.getOpt(node._2.getId)
+    override def getUnqualifiedName = node._2.getData.name
   }
-  final case class ComponentInstance(node: AstNode[Ast.DefComponentInstance]) extends Symbol {
-    override def getLocOpt = Locations.getOpt(node.getId)
-    override def getUnqualifiedName = node.getData.name
+  final case class ComponentInstance(node: Ast.Annotated[AstNode[Ast.DefComponentInstance]]) extends Symbol {
+    override def getLocOpt = Locations.getOpt(node._2.getId)
+    override def getUnqualifiedName = node._2.getData.name
   }
-  final case class Constant(node: AstNode[Ast.DefConstant]) extends Symbol {
-    override def getLocOpt = Locations.getOpt(node.getId)
-    override def getUnqualifiedName = node.getData.name
+  final case class Constant(node: Ast.Annotated[AstNode[Ast.DefConstant]]) extends Symbol {
+    override def getLocOpt = Locations.getOpt(node._2.getId)
+    override def getUnqualifiedName = node._2.getData.name
   }
-  final case class Enum(node: AstNode[Ast.DefEnum]) extends Symbol {
-    override def getLocOpt = Locations.getOpt(node.getId)
-    override def getUnqualifiedName = node.getData.name
+  final case class Enum(node: Ast.Annotated[AstNode[Ast.DefEnum]]) extends Symbol {
+    override def getLocOpt = Locations.getOpt(node._2.getId)
+    override def getUnqualifiedName = node._2.getData.name
   }
-  final case class EnumConstant(node: AstNode[Ast.DefEnumConstant]) extends Symbol {
-    override def getLocOpt = Locations.getOpt(node.getId)
-    override def getUnqualifiedName = node.getData.name
+  final case class EnumConstant(node: Ast.Annotated[AstNode[Ast.DefEnumConstant]]) extends Symbol {
+    override def getLocOpt = Locations.getOpt(node._2.getId)
+    override def getUnqualifiedName = node._2.getData.name
   }
   final case class Module(name: Name.Qualified) extends Symbol {
     override def getUnqualifiedName = name.base
   }
-  final case class Port(node: AstNode[Ast.DefPort]) extends Symbol {
-    override def getLocOpt = Locations.getOpt(node.getId)
-    override def getUnqualifiedName = node.getData.name
+  final case class Port(node: Ast.Annotated[AstNode[Ast.DefPort]]) extends Symbol {
+    override def getLocOpt = Locations.getOpt(node._2.getId)
+    override def getUnqualifiedName = node._2.getData.name
   }
-  final case class Struct(node: AstNode[Ast.DefStruct]) extends Symbol {
-    override def getLocOpt = Locations.getOpt(node.getId)
-    override def getUnqualifiedName = node.getData.name
+  final case class Struct(node: Ast.Annotated[AstNode[Ast.DefStruct]]) extends Symbol {
+    override def getLocOpt = Locations.getOpt(node._2.getId)
+    override def getUnqualifiedName = node._2.getData.name
   }
-  final case class Topology(node: AstNode[Ast.DefTopology]) extends Symbol {
-    override def getLocOpt = Locations.getOpt(node.getId)
-    override def getUnqualifiedName = node.getData.name
+  final case class Topology(node: Ast.Annotated[AstNode[Ast.DefTopology]]) extends Symbol {
+    override def getLocOpt = Locations.getOpt(node._2.getId)
+    override def getUnqualifiedName = node._2.getData.name
   }
 
 }

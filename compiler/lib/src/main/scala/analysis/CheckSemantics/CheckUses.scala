@@ -91,7 +91,7 @@ object CheckUses extends UseAnalyzer {
     for {
       a <- opt(typeNameNode)(a, data.typeName)
       a <- {
-        val symbol = Symbol.Enum(node1)
+        val symbol = Symbol.Enum(node)
         val scope = getScopeForSymbol(a, symbol)
         val newNestedScope = a.nestedScope.push(scope)
         val a1 = a.copy(nestedScope = newNestedScope)

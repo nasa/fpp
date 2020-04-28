@@ -6,11 +6,9 @@ import fpp.compiler.util._
 /** Check for use-def cycles */
 object CheckUseDefCycles extends UseAnalyzer {
 
-  private def annotate[T](x: T) = (List(), x, List())
-
   private def visitDefinition(a: Analysis, symbol: Symbol): Result = {
     symbol match {
-      case Symbol.Constant(node) => defConstantAnnotatedNode(a, annotate(node))
+      case Symbol.Constant(node) => defConstantAnnotatedNode(a, node)
       case _ => Right(a)
     }
   }
@@ -23,8 +21,8 @@ object CheckUseDefCycles extends UseAnalyzer {
   }
 
   override def defConstantAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
+    val symbol = Symbol.Constant(node)
     val (_, node1, _) = node
-    val symbol = Symbol.Constant(node1)
     val data = node1.getData
     if (a.useDefSymbolSet.contains(symbol)) {
       val loc = Locations.get(node1.getId)

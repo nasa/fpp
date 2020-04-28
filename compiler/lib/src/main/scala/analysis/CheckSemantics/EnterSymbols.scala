@@ -10,7 +10,7 @@ object EnterSymbols extends ModuleAnalyzer {
     val (_, node1, _) = node
     val data = node1.getData
     val name = data.name
-    val symbol = Symbol.AbsType(node1)
+    val symbol = Symbol.AbsType(node)
     val nestedScope = a.nestedScope
     for (nestedScope <- nestedScope.put(NameGroup.Type)(name, symbol))
       yield a.copy(nestedScope = nestedScope)
@@ -20,7 +20,7 @@ object EnterSymbols extends ModuleAnalyzer {
     val (_, node1, _) = node
     val data = node1.getData
     val name = data.name
-    val symbol = Symbol.Array(node1)
+    val symbol = Symbol.Array(node)
     val nestedScope = a.nestedScope
     for (nestedScope <- nestedScope.put(NameGroup.Type)(name, symbol))
       yield a.copy(nestedScope = nestedScope)
@@ -30,7 +30,7 @@ object EnterSymbols extends ModuleAnalyzer {
     val (_, node1, _) = node
     val data = node1.getData
     val name = data.name
-    val symbol = Symbol.Constant(node1)
+    val symbol = Symbol.Constant(node)
     val nestedScope = a.nestedScope
     for (nestedScope <- nestedScope.put(NameGroup.Value)(name, symbol))
       yield a.copy(nestedScope = nestedScope)
@@ -40,7 +40,7 @@ object EnterSymbols extends ModuleAnalyzer {
     val (_, node1, _) = node
     val data = node1.getData
     val name = data.name
-    val symbol = Symbol.Enum(node1)
+    val symbol = Symbol.Enum(node)
     for {
       nestedScope <- a.nestedScope.put(NameGroup.Type)(name, symbol)
       nestedScope <- nestedScope.put(NameGroup.Value)(name, symbol)
@@ -99,7 +99,7 @@ object EnterSymbols extends ModuleAnalyzer {
     val (_, node1, _) = node
     val data = node1.getData
     val name = data.name
-    val symbol = Symbol.Struct(node1)
+    val symbol = Symbol.Struct(node)
     val nestedScope = a.nestedScope
     for (nestedScope <- nestedScope.put(NameGroup.Type)(name, symbol))
       yield a.copy(nestedScope = nestedScope)
@@ -109,7 +109,7 @@ object EnterSymbols extends ModuleAnalyzer {
     val (_, node1, _) = node
     val data = node1.getData
     val name = data.name
-    val symbol = Symbol.EnumConstant(node1)
+    val symbol = Symbol.EnumConstant(node)
     val nestedScope = a.nestedScope
     for (nestedScope <- nestedScope.put(NameGroup.Value)(name, symbol))
       yield a.copy(nestedScope = nestedScope)
