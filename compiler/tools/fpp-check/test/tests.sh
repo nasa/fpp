@@ -1,5 +1,7 @@
 tests="
 constant_uses_ok
+cycle_constant_1
+cycle_constant_2
 defs_ok
 redef_array
 redef_constant

@@ -46,8 +46,8 @@ object CheckUseDefCycles extends UseAnalyzer {
   }
 
   private def errorMessage(a: Analysis): String = {
-    // TODO
-    "encountered a use-def cycle"
+    def printMatching(m: UseDefMatching) = "\n  " ++ m.toString
+    "encountered a use-def cycle:" ++ a.useDefMatchingList.reverse.map(printMatching).flatten
   }
 
   private def getDefForUse[T](a: Analysis, use: AstNode[T]): Symbol =
