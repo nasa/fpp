@@ -37,7 +37,6 @@ case class Analysis(
   // TODO
 ) {
 
-
 }
 
 object Analysis {

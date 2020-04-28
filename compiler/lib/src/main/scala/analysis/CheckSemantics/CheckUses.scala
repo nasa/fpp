@@ -9,7 +9,7 @@ object CheckUses extends UseAnalyzer {
   override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) = {
     def visitExprNode(a: Analysis, node: AstNode[Ast.Expr]): Result = {
       def visitExprIdent(a: Analysis, node: AstNode[Ast.Expr], name: Name.Unqualified) = {
-        val mapping = a.nestedScope.getOpt (NameGroup.Value) _
+        val mapping = a.nestedScope.get (NameGroup.Value) _
         for (symbol <- getSymbolForName(mapping)(node, name)) yield {
           val useDefMap = a.useDefMap + (node.getId -> symbol)
           a.copy(useDefMap = useDefMap)
@@ -19,9 +19,9 @@ object CheckUses extends UseAnalyzer {
         for {
           a <- visitExprNode(a, e)
           symbol <- {
-            val symbol = getDefForUse(a, e)
-            val scope = getScopeForSymbol(a, symbol)
-            val mapping = scope.getOpt (NameGroup.Value) _
+            val symbol = a.useDefMap(e.getId)
+            val scope = a.symbolScopeMap(symbol)
+            val mapping = scope.get (NameGroup.Value) _
             getSymbolForName(mapping)(id, id.getData)
           }
         } yield {
@@ -42,7 +42,7 @@ object CheckUses extends UseAnalyzer {
   override def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified) = {
     def visitQualIdentNode(a: Analysis, node: AstNode[Ast.QualIdent]): Result = {
       def visitUnqualified(a: Analysis, node: AstNode[Ast.QualIdent], name: Name.Unqualified) = {
-        val mapping = a.nestedScope.getOpt (NameGroup.Type) _
+        val mapping = a.nestedScope.get (NameGroup.Type) _
         for (symbol <- getSymbolForName(mapping)(node, name)) yield {
           val useDefMap = a.useDefMap + (node.getId -> symbol)
           a.copy(useDefMap = useDefMap)
@@ -57,9 +57,9 @@ object CheckUses extends UseAnalyzer {
         for {
           a <- visitQualIdentNode(a, qualifier)
           symbol <- {
-            val symbol = getDefForUse(a, qualifier)
-            val scope = getScopeForSymbol(a, symbol)
-            val mapping = scope.getOpt (NameGroup.Type) _
+            val symbol = a.useDefMap(qualifier.getId)
+            val scope = a.symbolScopeMap(symbol)
+            val mapping = scope.get (NameGroup.Type) _
             getSymbolForName(mapping)(name, name.getData)
           }
         } yield {
@@ -92,7 +92,7 @@ object CheckUses extends UseAnalyzer {
       a <- opt(typeNameNode)(a, data.typeName)
       a <- {
         val symbol = Symbol.Enum(node)
-        val scope = getScopeForSymbol(a, symbol)
+        val scope = a.symbolScopeMap(symbol)
         val newNestedScope = a.nestedScope.push(scope)
         val a1 = a.copy(nestedScope = newNestedScope)
         visitList(a1, data.constants, defEnumConstantAnnotatedNode)
@@ -110,7 +110,7 @@ object CheckUses extends UseAnalyzer {
     val newModuleNameList = name :: oldModuleNameList
     val qualifiedName = Name.Qualified.fromIdentList(newModuleNameList.reverse)
     val symbol = Symbol.Module(qualifiedName)
-    val scope = getScopeForSymbol(a, symbol)
+    val scope = a.symbolScopeMap(symbol)
     val newNestedScope = a.nestedScope.push(scope)
     val a1 = a.copy(moduleNameList = newModuleNameList, nestedScope = newNestedScope)
     for (a <- visitList(a1, members, matchModuleMember))
@@ -122,18 +122,6 @@ object CheckUses extends UseAnalyzer {
 
   override def transUnit(a: Analysis, tu: Ast.TransUnit) =
     visitList(a, tu.members, matchTuMember)
-
-  private def getDefForUse[T](a: Analysis, use: AstNode[T]): Symbol =
-    a.useDefMap.get(use.getId) match {
-      case Some(symbol) => symbol
-      case None => throw InternalError(s"could not find definition for use ${use}")
-    }
-
-  private def getScopeForSymbol(a: Analysis, symbol: Symbol): Scope =
-    a.symbolScopeMap.get(symbol) match {
-      case Some(scope) => scope
-      case None => throw InternalError(s"could not find scope for symbol ${symbol}")
-    }
 
   private def getSymbolForName[T] 
     (mapping: Name.Unqualified => Option[Symbol]) 

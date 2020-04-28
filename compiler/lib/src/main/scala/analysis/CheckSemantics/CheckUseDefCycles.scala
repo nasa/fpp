@@ -14,7 +14,7 @@ object CheckUseDefCycles extends UseAnalyzer {
   }
 
   override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) = {
-    val symbol = getDefForUse(a, node)
+    val symbol = a.useDefMap(node.getId)
     val m = UseDefMatching(node.getId, use, symbol)
     val a1 = a.copy(useDefMatchingList = m :: a.useDefMatchingList)
     visitDefinition(a1, symbol)
@@ -49,11 +49,5 @@ object CheckUseDefCycles extends UseAnalyzer {
     def printMatching(m: UseDefMatching) = "\n  " ++ m.toString
     "encountered a use-def cycle:" ++ a.useDefMatchingList.reverse.map(printMatching).flatten
   }
-
-  private def getDefForUse[T](a: Analysis, use: AstNode[T]): Symbol =
-    a.useDefMap.get(use.getId) match {
-      case Some(symbol) => symbol
-      case None => throw InternalError(s"could not find definition for use ${use}")
-    }
 
 }
