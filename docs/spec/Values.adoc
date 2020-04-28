@@ -135,7 +135,6 @@ stem:[m_n] _:_ stem:[T_n] _}_.
 
 A *struct value* is a value associated with a
 <<Types_Struct-Types,struct type>>.
-that is an element of a struct type.
 We write a struct value similarly to an
 <<Values_Struct-Values,anonymous struct value>>,
 except that we annotate the value with a struct type:
