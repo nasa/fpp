@@ -26,6 +26,14 @@ case class Analysis(
   symbolScopeMap: Map[Symbol,Scope] = Map(),
   /** The mapping from uses (by node ID) to their definitions */
   useDefMap: Map[AstNode.Id, Symbol] = Map(),
+  /** The set of symbols visited so far */
+  visitedSymbolSet: Set[Symbol] = Set(),
+  /** The set of symbols on the current use-def path.
+   *  Used during cycle analysis. */
+  useDefSymbolSet: Set[Symbol] = Set(),
+  /* The list of use-def matchings on the current use-def path.
+   * Used during cycle analysis. */
+  useDefMatchingList: List[UseDefMatching] = List(),
   // TODO
 ) {
 
