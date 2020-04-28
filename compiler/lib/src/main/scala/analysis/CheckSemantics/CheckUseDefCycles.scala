@@ -19,6 +19,21 @@ object CheckUseDefCycles extends UseAnalyzer {
     visitDefPost(a, symbol, node, super.defConstantAnnotatedNode)
   }
 
+  override def defEnumAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
+    val symbol = Symbol.Enum(node)
+    visitDefPost(a, symbol, node, super.defEnumAnnotatedNode)
+  }
+
+  override def defEnumConstantAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefEnumConstant]]) = {
+    val symbol = Symbol.EnumConstant(node)
+    visitDefPost(a, symbol, node, super.defEnumConstantAnnotatedNode)
+  }
+
+  override def defStructAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
+    val symbol = Symbol.Struct(node)
+    visitDefPost(a, symbol, node, super.defStructAnnotatedNode)
+  }
+
   override def transUnit(a: Analysis, tu: Ast.TransUnit) =
     visitList(a, tu.members, matchTuMember)
 
@@ -38,6 +53,9 @@ object CheckUseDefCycles extends UseAnalyzer {
     symbol match {
       case Symbol.Array(node) => defArrayAnnotatedNode(a, node)
       case Symbol.Constant(node) => defConstantAnnotatedNode(a, node)
+      case Symbol.Enum(node) => defEnumAnnotatedNode(a, node)
+      case Symbol.EnumConstant(node) => defEnumConstantAnnotatedNode(a, node)
+      case Symbol.Struct(node) => defStructAnnotatedNode(a, node)
       case _ => Right(a)
     }
   }

@@ -11,6 +11,12 @@ trait TypeExpressionAnalyzer
   with TopologyAnalyzer
 {
 
+  def defEnumConstantAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefEnumConstant]]) = {
+    val (_, node1, _) = node
+    val data = node1.getData
+    opt(exprNode)(a, data.value)
+  }
+
   def exprNode(a: Analysis, node: AstNode[Ast.Expr]): Result = default(a)
 
   def typeNameNode(a: Analysis, node: AstNode[Ast.TypeName]): Result = default(a)
@@ -176,12 +182,6 @@ trait TypeExpressionAnalyzer
       a <- visitList(a, data.low, limit)
       a <- visitList(a, data.high, limit)
     } yield a
-  }
-
-  def defEnumConstantAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefEnumConstant]]) = {
-    val (_, node1, _) = node
-    val data = node1.getData
-    opt(exprNode)(a, data.value)
   }
 
   private def formalParamNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.FormalParam]]): Result = {
