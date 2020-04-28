@@ -1,7 +1,11 @@
 tests="
 constant_uses_ok
+cycle_array
+cycle_enum
+cycle_enum_constant
 cycle_constant_1
 cycle_constant_2
+cycle_struct
 defs_ok
 redef_array
 redef_constant
