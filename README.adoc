@@ -33,3 +33,8 @@ from this directory:
 === Scala Implementation
 
 See `compiler/README.adoc`.
+
+== Design and Implementation Status
+
+See the
+https://github.jpl.nasa.gov/bocchino/fpp/wiki[wiki].
