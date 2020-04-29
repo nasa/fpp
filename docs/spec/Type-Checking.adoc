@@ -335,7 +335,7 @@ the enum type with the representation type specified in the definition of stem:[
 and reapply these rules.
 
 . Otherwise if stem:[T_1] and stem:[T_2] are anonymous array types with the same size stem:[n]
-and member types stem:[T'_1] and stem:[T'_2], then apply these rules to resolve
+and with member types stem:[T'_1] and stem:[T'_2], then apply these rules to resolve
 stem:[T'_1] and stem:[T'_2] to stem:[T'] and let stem:[T] be _[_ stem:[n] _]_ stem:[T'].
 
 . Otherwise if one of stem:[T_1] and stem:[T_2] is an array type
@@ -351,41 +351,41 @@ if stem:[T_2] has a member stem:[m_1] _:_ stem:[T'_2], then apply these rules
 to convert stem:[T'_1] and stem:[T'_2] to a common type stem:[T'] and
 use stem:[m_1] _:_ stem:[T']. Otherwise use stem:[m_1] _:_ stem:[T'_1].
 
-.. For each member stem:[m_2] _:_ stem:[T'_2] of stem:[T_2],
-if stem:[T_1] has a member stem:[m_2] _:_ stem:[T'_1], then apply these rules
-to convert stem:[T'_2] and stem:[T'_1] to a common type stem:[T'] and
-use stem:[m_2] _:_ stem:[T']. Otherwise use stem:[m_2] _:_ stem:[T'_2].
+.. For each member stem:[m_2] _:_ stem:[T'_2] of stem:[T_2] such
+that stem:[T_1] has no member named stem:[m_2],
+use stem:[m_2] _:_ stem:[T'_2].
 
-. Otherwise if one of stem:[T_1] and stem:[T_2] is an struct type
-and the other one is an struct type or anonymous struct type, then replace the 
+. Otherwise if one of stem:[T_1] and stem:[T_2] is a struct type
+and the other one is a struct type or anonymous struct type, then replace the 
 struct type or types with structurally equivalent anonymous struct
 types and reapply these rules.
 
-. Otherwise if one of stem:[T_1] and stem:[T_2] is a primitive type 
+. Otherwise if one of stem:[T_1] and stem:[T_2] is a type stem:[T'] that is 
+convertible to an anonymous array type
 and the other
-one is an anonymous array type _[_ stem:[n] _]_ stem:[T'], then apply these 
+one is an anonymous array type _[_ stem:[n] _]_ stem:[T''], then apply these 
 rules to resolve
-the primitive type and stem:[T'] to a common type stem:[T'']. Let 
-stem:[T] be the
-array type _[_ stem:[n] _]_ stem:[T''].
+stem:[T'] and stem:[T''] to a common type stem:[T''']. Let stem:[T] be 
+the
+array type _[_ stem:[n] _]_ stem:[T'''].
 
-. Otherwise if one of stem:[T_1] and stem:[T_2] is a primitive type 
+. Otherwise if one of stem:[T_1] and stem:[T_2] is a type stem:[T'] that is 
+convertible to an anonymous array type
 and the other
-one is an array type stem:[A], and the primitive type
+one is an array type stem:[A], and stem:[T']
 may be converted to the member type of stem:[A], then use stem:[A].
 
-. Otherwise if one of stem:[T_1] and stem:[T_2] is a primitive type and the 
-other
+. Otherwise if one of stem:[T_1] and stem:[T_2] is a type stem:[T'] that is 
+convertible to an anonymous struct type and the other
 one is an anonymous struct type stem:[S], then apply these rules to resolve 
-the
-primitive type and each of the struct member types to a common type.
+stem:[T'] and each of the struct member types to a common type.
 Let stem:[T] be the struct type whose member names are the member names of 
 stem:[S] and
 whose member types are the corresponding common types.
 
-. Otherwise if one of stem:[T_1] and stem:[T_2] is a primitive type 
-and the other
-one is a struct type stem:[S], and the primitive type
+. Otherwise if one of stem:[T_1] and stem:[T_2] is a type stem:[T'] that is
+convertible to an anonymous struct type and the other
+one is a struct type stem:[S], and stem:[T]
 may be converted to each of the member types of stem:[S], then use stem:[S].
 
 . Otherwise the attempted resolution is invalid. Throw an error.
