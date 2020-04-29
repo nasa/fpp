@@ -245,10 +245,9 @@ may be converted to the anonymous array type
 stem:[T_2 =] _[_ stem:[m] _]_ stem:[T'_2]
 if stem:[n = m] and stem:[T'_1] may be converted to stem:[T'_2].
 
-. An anonymous array type stem:[T] may be converted to the array type stem:[T']
-if stem:[T'] has size stem:[n] and element type stem:[T''], and
-stem:[T] may be converted to the anonymous array type _[_ stem:[n] _]_ 
-stem:[T''].
+. An anonymous array type stem:[T_1 =] _[_ stem:[n] _]_ stem:[T'_1]
+may be converted to the array type stem:[T_2] if the number
+of elements and the member types are the same for the two types.
 
 . An anonymous struct type stem:[T =]_{_ stem:[m_1] _:_ stem:[T_1] _,_ 
 stem:[...] _,_ stem:[m_1] _:_ stem:[T_n] _}_ may be converted to
@@ -258,12 +257,9 @@ the anonymous struct type stem:[T'] if for each stem:[i in [1,n\]],
 
 .. stem:[T_i] may be converted to stem:[T'_i].
 
-. An anonymous struct type stem:[T] may be 
-converted to
-the struct type stem:[T'] if stem:[T'] has members 
-_{_ stem:[m'_i] _:_ stem:[T'_i] _}_, and stem:[T] 
-may be converted to the anonymous struct type
-_{_ stem:[m'_i] _:_ stem:[T'_i] _}_.
+. An anonymous struct type stem:[T =]_{_ stem:[m_1] _:_ stem:[T_1] _,_ 
+stem:[...] _,_ stem:[m_1] _:_ stem:[T_n] _}_ may be converted to
+the struct type stem:[T'] if the sets of members in the two types are identical.
 
 . A <<Types_Internal-Types_Numeric-Types,numeric type>> type, <<Types_The-Boolean-Type,Boolean 
 type>>,
