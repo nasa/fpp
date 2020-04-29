@@ -6739,9 +6739,10 @@ may be converted to the anonymous array type
 if \$n = m\$ and \$T'_1\$ may be converted to \$T'_2\$.</p>
 </li>
 <li>
-<p>An anonymous array type \$T_1 =\$ <em>[</em> \$n\$ <em>]</em> \$T'_1\$
-may be converted to the array type \$T_2\$ if the number
-of elements and the member types are the same for the two types.</p>
+<p>An anonymous array type \$T\$ may be converted to the array type \$T'\$
+if \$T'\$ has size \$n\$ and element type \$T''\$, and
+\$T\$ may be converted to the anonymous array type <em>[</em> \$n\$ <em>]</em>
+\$T''\$.</p>
 </li>
 <li>
 <p>An anonymous struct type \$T =\$<em>{</em> \$m_1\$ <em>:</em> \$T_1\$ <em>,</em>
@@ -6759,19 +6760,26 @@ the anonymous struct type \$T'\$ if for each \$i in [1,n]\$,</p>
 </div>
 </li>
 <li>
-<p>An anonymous struct type \$T =\$<em>{</em> \$m_1\$ <em>:</em> \$T_1\$ <em>,</em>
-\$...\$ <em>,</em> \$m_1\$ <em>:</em> \$T_n\$ <em>}</em> may be converted to
-the struct type \$T'\$ if the sets of members in the two types are identical.</p>
+<p>An anonymous struct type \$T\$ may be
+converted to
+the struct type \$T'\$ if \$T'\$ has members
+<em>{</em> \$m'_i\$ <em>:</em> \$T'_i\$ <em>}</em>, and \$T\$
+may be converted to the anonymous struct type
+<em>{</em> \$m'_i\$ <em>:</em> \$T'_i\$ <em>}</em>.</p>
 </li>
 <li>
-<p>A <a href="#Types_Primitive-Types">primitive type</a> type \$T_1\$ may be converted
-to an
+<p>A <a href="#Types_Internal-Types_Numeric-Types">numeric type</a> type, <a href="#Types_The-Boolean-Type">Boolean
+type</a>,
+<a href="#Types_Enum-Types">enum type</a>, or <a href="#Types_The-String-Type">string type</a> \$T\$
+may be converted to an
 <a href="#Types_Array-Types">array type</a> \$T_2\$ if
 \$T_1\$ may be converted to the member type of \$T_2\$.</p>
 </li>
 <li>
-<p>A <a href="#Types_Primitive-Types">primitive type</a> type \$T\$ may be converted
-to a
+<p>A <a href="#Types_Internal-Types_Numeric-Types">numeric type</a> type, <a href="#Types_The-Boolean-Type">Boolean
+type</a>,
+<a href="#Types_Enum-Types">enum type</a>, or <a href="#Types_The-String-Type">string type</a> \$T\$
+may be converted to a
 <a href="#Types_Struct-Types">structure type</a> \$T'\$ if
 for each member \$m_i\$ <code>:</code> \$T_i\$ of \$T'\$,
 \$T\$ may be converted to \$T_i\$.</p>
@@ -7442,7 +7450,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-04-28 19:52:32 -0700
+Last updated 2020-04-28 22:02:48 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
