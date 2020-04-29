@@ -337,18 +337,18 @@ object Type {
           }
         }
         /** Resolve all members of t1 against the corresponding members of t2, if they exist */
-        def resolveT1Members(in: List[AnonStruct.Member], out: List[AnonStruct.Member]): Option[List[AnonStruct.Member]] =
+        def resolveT1Members(in: List[AnonStruct.Member], out: AnonStruct.Members): Option[AnonStruct.Members] =
           in match {
             case Nil => Some(out)
             case head :: tail => resolveT1Member(head) match {
-              case Some(member) => resolveT1Members(tail, member :: out)
+              case Some(member) => resolveT1Members(tail, out + member)
               case None => None
             }
           }
-        for (t1ResolvedList <- resolveT1Members(members1.toList, Nil)) yield {
-          val t1ResolvedMap = t1ResolvedList.toMap
-          val t2ResolvedMap = members2.filter((member: AnonStruct.Member) => !members1.contains(member._1))
-          AnonStruct(t1ResolvedMap ++ t2ResolvedMap)
+        for (t1ResolvedMembers <- resolveT1Members(members1.toList, Map())) yield {
+          def pred(member: AnonStruct.Member) = !members1.contains(member._1)
+          val t2ResolvedMembers = members2.filter(pred)
+          AnonStruct(t1ResolvedMembers ++ t2ResolvedMembers)
         }
       }
       case Struct(_, anonStruct1) -> (anonStruct2 @ AnonStruct(_)) =>
