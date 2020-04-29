@@ -6774,18 +6774,37 @@ type</a> may be converted to any other numeric type.</p>
 <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.</p>
 </li>
 <li>
+<p>If \$T_1\$ or \$T_2\$ or both are
+<a href="#Types_Array-Types">array types</a>, then
+\$T_1\$ may be coverted to \$T_2\$ if the conversion
+is allowed after replacing the array type or types with
+structurally equivalent
+<a href="#Types_Internal-Types_Anonymous-Array-Types">anonymous array types</a>.</p>
+</li>
+<li>
 <p>An anonymous array type \$T_1 =\$ <em>[</em> \$n\$ <em>]</em> \$T'_1\$
 may be converted to the anonymous array type
 \$T_2 =\$ <em>[</em> \$m\$ <em>]</em> \$T'_2\$
 if \$n = m\$ and \$T'_1\$ may be converted to \$T'_2\$.</p>
 </li>
 <li>
-<p>An anonymous array type \$T_1 =\$ <em>[</em> \$n\$ <em>]</em> \$T'_1\$
-may be converted to the array type \$T_2\$ if the number
-of elements and the member types are the same for the two types.</p>
+<p>A <a href="#Types_Internal-Types_Numeric-Types">numeric type</a> type, <a href="#Types_The-Boolean-Type">Boolean
+type</a>,
+<a href="#Types_Enum-Types">enum type</a>, or <a href="#Types_The-String-Type">string type</a> \$T\$
+may be converted to an anonymous array type
+\$T_1\$ may be converted to the member type of \$T_2\$.</p>
 </li>
 <li>
-<p>An anonymous struct type \$T =\$<em>{</em> \$m_1\$ <em>:</em> \$T_1\$ <em>,</em>
+<p>If \$T_1\$ or \$T_2\$ or both are
+<a href="#Types_Struct-Types">struct types</a>, then
+\$T_1\$ may be coverted to \$T_2\$ if the conversion
+is allowed after replacing the struct type or types with
+structurally equivalent
+<a href="#Types_Internal-Types_Anonymous-Struct-Types">anonymous struct types</a>.</p>
+</li>
+<li>
+<p>An anonymous struct type
+\$T =\$<em>{</em> \$m_1\$ <em>:</em> \$T_1\$ <em>,</em>
 \$...\$ <em>,</em> \$m_1\$ <em>:</em> \$T_n\$ <em>}</em> may be converted to
 the anonymous struct type \$T'\$ if for each \$i in [1,n]\$,</p>
 <div class="olist loweralpha">
@@ -6798,19 +6817,6 @@ the anonymous struct type \$T'\$ if for each \$i in [1,n]\$,</p>
 </li>
 </ol>
 </div>
-</li>
-<li>
-<p>An anonymous struct type \$T =\$<em>{</em> \$m_1\$ <em>:</em> \$T_1\$ <em>,</em>
-\$...\$ <em>,</em> \$m_1\$ <em>:</em> \$T_n\$ <em>}</em> may be converted to
-the struct type \$T'\$ if the sets of members in the two types are identical.</p>
-</li>
-<li>
-<p>A <a href="#Types_Internal-Types_Numeric-Types">numeric type</a> type, <a href="#Types_The-Boolean-Type">Boolean
-type</a>,
-<a href="#Types_Enum-Types">enum type</a>, or <a href="#Types_The-String-Type">string type</a> \$T\$
-may be converted to an
-<a href="#Types_Internal-Types_Anonymous-Array-Types">anonymous array type</a> \$T_2\$ if
-\$T_1\$ may be converted to the member type of \$T_2\$.</p>
 </li>
 <li>
 <p>A <a href="#Types_Internal-Types_Numeric-Types">numeric type</a> type, <a href="#Types_The-Boolean-Type">Boolean
@@ -6862,9 +6868,14 @@ the whole expression):</p>
 </div>
 </li>
 <li>
-<p>Otherwise if \$T_1\$ or \$T_2\$ is an enum type \$T\$, then replace
-the enum type with the representation type specified in the definition of \$T\$
+<p>Otherwise if \$T_1\$ or \$T_2\$ or both are enum types, then replace
+the enum type or types with the representation type specified in the enum definitions and
 and reapply these rules.</p>
+</li>
+<li>
+<p>Otherwise if \$T_1\$ or \$T_2\$ or both are array types,
+then replace the array type or types with structurally equivalent
+anonymous array types and reapply these rules.</p>
 </li>
 <li>
 <p>Otherwise if \$T_1\$ and \$T_2\$ are anonymous array types with the same size \$n\$
@@ -6872,10 +6883,19 @@ and with member types \$T'_1\$ and \$T'_2\$, then apply these rules to resolve
 \$T'_1\$ and \$T'_2\$ to \$T'\$ and let \$T\$ be <em>[</em> \$n\$ <em>]</em> \$T'\$.</p>
 </li>
 <li>
-<p>Otherwise if one of \$T_1\$ and \$T_2\$ is an array type
-and the other one is an array type or anonymous array type, then
-replace the array type or types with structurally equivalent anonymous array
-types and reapply these rules.</p>
+<p>Otherwise if one of \$T_1\$ and \$T_2\$ is a type \$T'\$ that is
+convertible to an anonymous array type
+and the other
+one is an anonymous array type <em>[</em> \$n\$ <em>]</em> \$T''\$, then apply these
+rules to resolve
+\$T'\$ and \$T''\$ to a common type \$T'''\$. Let \$T\$ be
+the
+array type <em>[</em> \$n\$ <em>]</em> \$T'''\$.</p>
+</li>
+<li>
+<p>Otherwise if \$T_1\$ or \$T_2\$ or both are struct types,
+then replace the struct type or types with structurally equivalent
+anonymous struct types and reapply these rules.</p>
 </li>
 <li>
 <p>Otherwise if \$T_1\$ and \$T_2\$ are both anonymous struct types, then use
@@ -6897,41 +6917,13 @@ use \$m_2\$ <em>:</em> \$T'_2\$.</p>
 </div>
 </li>
 <li>
-<p>Otherwise if one of \$T_1\$ and \$T_2\$ is a struct type
-and the other one is a struct type or anonymous struct type, then replace the
-struct type or types with structurally equivalent anonymous struct
-types and reapply these rules.</p>
-</li>
-<li>
-<p>Otherwise if one of \$T_1\$ and \$T_2\$ is a primitive type
-and the other
-one is an anonymous array type <em>[</em> \$n\$ <em>]</em> \$T'\$, then apply these
-rules to resolve
-the primitive type and \$T'\$ to a common type \$T''\$. Let
-\$T\$ be the
-array type <em>[</em> \$n\$ <em>]</em> \$T''\$.</p>
-</li>
-<li>
-<p>Otherwise if one of \$T_1\$ and \$T_2\$ is a primitive type
-and the other
-one is an array type \$A\$, and the primitive type
-may be converted to the member type of \$A\$, then use \$A\$.</p>
-</li>
-<li>
-<p>Otherwise if one of \$T_1\$ and \$T_2\$ is a primitive type and the
-other
+<p>Otherwise if one of \$T_1\$ and \$T_2\$ is a type \$T'\$ that is
+convertible to an anonymous struct type and the other
 one is an anonymous struct type \$S\$, then apply these rules to resolve
-the
-primitive type and each of the struct member types to a common type.
+\$T'\$ and each of the struct member types to a common type.
 Let \$T\$ be the struct type whose member names are the member names of
 \$S\$ and
 whose member types are the corresponding common types.</p>
-</li>
-<li>
-<p>Otherwise if one of \$T_1\$ and \$T_2\$ is a primitive type
-and the other
-one is a struct type \$S\$, and the primitive type
-may be converted to each of the member types of \$S\$, then use \$S\$.</p>
 </li>
 <li>
 <p>Otherwise the attempted resolution is invalid. Throw an error.</p>
@@ -7489,7 +7481,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-04-29 11:39:49 -0700
+Last updated 2020-04-29 16:09:10 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

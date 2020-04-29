@@ -269,33 +269,39 @@ type>> may be converted to any other numeric type.
 . An <<Types_Enum-Types,enum type>> may be converted to a
 <<Types_Internal-Types_Numeric-Types,numeric type>>.
 
+. If stem:[T_1] or stem:[T_2] or both are 
+<<Types_Array-Types,array types>>, then
+stem:[T_1] may be coverted to stem:[T_2] if the conversion
+is allowed after replacing the array type or types with
+structurally equivalent 
+<<Types_Internal-Types_Anonymous-Array-Types,anonymous array types>>.
+
 . An anonymous array type stem:[T_1 =] _[_ stem:[n] _]_ stem:[T'_1]
 may be converted to the anonymous array type
 stem:[T_2 =] _[_ stem:[m] _]_ stem:[T'_2]
 if stem:[n = m] and stem:[T'_1] may be converted to stem:[T'_2].
 
-. An anonymous array type stem:[T_1 =] _[_ stem:[n] _]_ stem:[T'_1]
-may be converted to the array type stem:[T_2] if the number
-of elements and the member types are the same for the two types.
+. A <<Types_Internal-Types_Numeric-Types,numeric type>> type, <<Types_The-Boolean-Type,Boolean 
+type>>,
+<<Types_Enum-Types,enum type>>, or <<Types_The-String-Type,string type>> stem:[T] 
+may be converted to an anonymous array type
+stem:[T_1] may be converted to the member type of stem:[T_2].
 
-. An anonymous struct type stem:[T =]_{_ stem:[m_1] _:_ stem:[T_1] _,_ 
+. If stem:[T_1] or stem:[T_2] or both are 
+<<Types_Struct-Types,struct types>>, then
+stem:[T_1] may be coverted to stem:[T_2] if the conversion
+is allowed after replacing the struct type or types with
+structurally equivalent 
+<<Types_Internal-Types_Anonymous-Struct-Types,anonymous struct types>>.
+
+. An anonymous struct type 
+stem:[T =]_{_ stem:[m_1] _:_ stem:[T_1] _,_ 
 stem:[...] _,_ stem:[m_1] _:_ stem:[T_n] _}_ may be converted to
 the anonymous struct type stem:[T'] if for each stem:[i in [1,n\]],
 
 .. stem:[m_i] _:_ stem:[T'_i] is a member of stem:[T']; and
 
 .. stem:[T_i] may be converted to stem:[T'_i].
-
-. An anonymous struct type stem:[T =]_{_ stem:[m_1] _:_ stem:[T_1] _,_ 
-stem:[...] _,_ stem:[m_1] _:_ stem:[T_n] _}_ may be converted to
-the struct type stem:[T'] if the sets of members in the two types are identical.
-
-. A <<Types_Internal-Types_Numeric-Types,numeric type>> type, <<Types_The-Boolean-Type,Boolean 
-type>>,
-<<Types_Enum-Types,enum type>>, or <<Types_The-String-Type,string type>> stem:[T] 
-may be converted to an
-<<Types_Internal-Types_Anonymous-Array-Types,anonymous array type>> stem:[T_2] if
-stem:[T_1] may be converted to the member type of stem:[T_2].
 
 . A <<Types_Internal-Types_Numeric-Types,numeric type>> type, <<Types_The-Boolean-Type,Boolean 
 type>>,
@@ -330,18 +336,30 @@ stem:[T] be stem:[T_1].
 
 .. Otherwise use <<Types_Internal-Types_Integer,_Integer_>>.
 
-. Otherwise if stem:[T_1] or stem:[T_2] is an enum type stem:[T], then replace 
-the enum type with the representation type specified in the definition of stem:[T]
+. Otherwise if stem:[T_1] or stem:[T_2] or both are enum types, then replace 
+the enum type or types with the representation type specified in the enum definitions and
 and reapply these rules.
+
+. Otherwise if stem:[T_1] or stem:[T_2] or both are array types,
+then replace the array type or types with structurally equivalent
+anonymous array types and reapply these rules.
 
 . Otherwise if stem:[T_1] and stem:[T_2] are anonymous array types with the same size stem:[n]
 and with member types stem:[T'_1] and stem:[T'_2], then apply these rules to resolve
 stem:[T'_1] and stem:[T'_2] to stem:[T'] and let stem:[T] be _[_ stem:[n] _]_ stem:[T'].
 
-. Otherwise if one of stem:[T_1] and stem:[T_2] is an array type
-and the other one is an array type or anonymous array type, then 
-replace the array type or types with structurally equivalent anonymous array
-types and reapply these rules.
+. Otherwise if one of stem:[T_1] and stem:[T_2] is a type stem:[T'] that is 
+convertible to an anonymous array type
+and the other
+one is an anonymous array type _[_ stem:[n] _]_ stem:[T''], then apply these 
+rules to resolve
+stem:[T'] and stem:[T''] to a common type stem:[T''']. Let stem:[T] be 
+the
+array type _[_ stem:[n] _]_ stem:[T'''].
+
+. Otherwise if stem:[T_1] or stem:[T_2] or both are struct types,
+then replace the struct type or types with structurally equivalent
+anonymous struct types and reapply these rules.
 
 . Otherwise if stem:[T_1] and stem:[T_2] are both anonymous struct types, then use
 the anonymous struct type stem:[T] with the following members:
@@ -355,26 +373,6 @@ use stem:[m_1] _:_ stem:[T']. Otherwise use stem:[m_1] _:_ stem:[T'_1].
 that stem:[T_1] has no member named stem:[m_2],
 use stem:[m_2] _:_ stem:[T'_2].
 
-. Otherwise if one of stem:[T_1] and stem:[T_2] is a struct type
-and the other one is a struct type or anonymous struct type, then replace the 
-struct type or types with structurally equivalent anonymous struct
-types and reapply these rules.
-
-. Otherwise if one of stem:[T_1] and stem:[T_2] is a type stem:[T'] that is 
-convertible to an anonymous array type
-and the other
-one is an anonymous array type _[_ stem:[n] _]_ stem:[T''], then apply these 
-rules to resolve
-stem:[T'] and stem:[T''] to a common type stem:[T''']. Let stem:[T] be 
-the
-array type _[_ stem:[n] _]_ stem:[T'''].
-
-. Otherwise if one of stem:[T_1] and stem:[T_2] is a type stem:[T'] that is 
-convertible to an anonymous array type
-and the other
-one is an array type stem:[A], and stem:[T']
-may be converted to the member type of stem:[A], then use stem:[A].
-
 . Otherwise if one of stem:[T_1] and stem:[T_2] is a type stem:[T'] that is 
 convertible to an anonymous struct type and the other
 one is an anonymous struct type stem:[S], then apply these rules to resolve 
@@ -382,11 +380,6 @@ stem:[T'] and each of the struct member types to a common type.
 Let stem:[T] be the struct type whose member names are the member names of 
 stem:[S] and
 whose member types are the corresponding common types.
-
-. Otherwise if one of stem:[T_1] and stem:[T_2] is a type stem:[T'] that is
-convertible to an anonymous struct type and the other
-one is a struct type stem:[S], and stem:[T]
-may be converted to each of the member types of stem:[S], then use stem:[S].
 
 . Otherwise the attempted resolution is invalid. Throw an error.
 

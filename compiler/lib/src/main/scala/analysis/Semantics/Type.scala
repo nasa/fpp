@@ -7,7 +7,7 @@ import fpp.compiler.util._
 sealed trait Type {
 
   /** Get the array size, if it exists and is known */
-  def getArraySize: Type.Array.Size = None
+  def getArraySize: Option[Type.Array.Size] = None
 
   /** Get the definition node identifier, if any */
   def getDefNodeId: Option[AstNode.Id] = None
@@ -128,30 +128,30 @@ object Type {
     node: Ast.Annotated[AstNode[Ast.DefArray]],
     /** The size expression */
     sizeExpr: AstNode[Ast.Expr],
-    /** The size value, if known */
-    size: Array.Size,
-    /** The element type */
-    eltType: Type
+    /** The structurally equivalent anonymous array */
+    anonArray: AnonArray
   ) extends Type {
-    override def getArraySize = size
+    /** Set the array size */
+    def setSize(size: Array.Size) = this.copy(anonArray = anonArray.setSize(size))
+    override def getArraySize = anonArray.getArraySize
     override def getDefNodeId = Some(node._2.getId)
-    override def hasNumericMembers = eltType.hasNumericMembers
+    override def hasNumericMembers = anonArray.hasNumericMembers
     override def toString = "array type " ++ node._2.getData.name
   }
 
   object Array {
 
-    type Size = Option[BigInt]
+    type Size = BigInt
 
     /** Check whether two array sizes match */
-    def sizesMatch(size1: Size, size2: Size): Boolean = (size1, size2) match {
+    def sizesMatch(size1: Option[Size], size2: Option[Size]): Boolean = (size1, size2) match {
       case (None, _) => true
       case (_, None) => true
       case (Some(n1), Some(n2)) => n1 == n2
     }
 
     /** Compute a common array size */
-    def commonSize(size1: Size, size2: Size): Size = (size1, size2) match {
+    def commonSize(size1: Option[Size], size2: Option[Size]): Option[Size] = (size1, size2) match {
       case (Some(n1), Some(n2)) => if (n1 == n2) Some(n1) else None
       case _ => None
     }
@@ -175,7 +175,7 @@ object Type {
   case class Struct(
     /** The AST node giving the definition */
     node: Ast.Annotated[AstNode[Ast.DefStruct]],
-    /** The corresponding anonymous struct type */
+    /** The structurally equivalent anonymous struct type */
     anonStruct: AnonStruct
   ) extends Type {
     override def getDefNodeId = Some(node._2.getId)
@@ -183,13 +183,39 @@ object Type {
     override def toString = "struct type " ++ node._2.getData.name
   }
 
+  object Struct {
+
+    type Member = (Name.Unqualified, Type)
+
+    type Members = Map[Name.Unqualified, Type]
+
+    /** Resolve a member map, generating a new member map */
+    def resolveMembers (resolver: Member => Option[Member]) (members: Members): Option[Members] = {
+      def helper(
+        in: List[Member], 
+        out: Members
+      ): Option[Members] =
+        in match {
+          case Nil => Some(out)
+          case head :: tail => resolver(head) match {
+            case Some(member) => helper(tail, out + member)
+            case None => None
+          }
+        }
+      helper(members.toList, Map())
+    }
+
+  }
+
   /** An anonymous array type */
   case class AnonArray(
     /** The array size, if known */
-    size: Array.Size,
+    size: Option[Array.Size],
     /** The element type */
     eltType: Type
   ) extends Type {
+    /** Set the array size */
+    def setSize(size: Array.Size) = this.copy(size = Some(size))
     override def getArraySize = size
     override def hasNumericMembers = eltType.hasNumericMembers
     override def toString = size match {
@@ -201,24 +227,16 @@ object Type {
   /** An anonymous struct type */
   case class AnonStruct(
     /** The members */
-    members: AnonStruct.Members
+    members: Struct.Members
   ) extends Type {
     override def hasNumericMembers = members.values.forall(_.hasNumericMembers)
     override def toString = {
-      def memberToString(member: AnonStruct.Member) = member._1 ++ ": " ++ member._2.toString
+      def memberToString(member: Struct.Member) = member._1 ++ ": " ++ member._2.toString
       members.size match {
         case 0 => "{ }"
         case _ => "struct type { " ++ members.map(memberToString).mkString(", ") ++ " }"
       }
     }
-  }
-
-  object AnonStruct {
-
-    type Member = (Name.Unqualified, Type)
-
-    type Members = Map[Name.Unqualified, Type]
-
   }
 
   /** Check for type identity */
@@ -251,40 +269,37 @@ object Type {
   /** Check for type convertibility */
   def mayBeConverted(pair: (Type, Type)): Boolean = {
     val t1 -> t2 = pair
-    def toNumeric = t1.isConvertibleToNumeric && t2.isNumeric
-    def toArray = pair match {
+    def numeric = t1.isConvertibleToNumeric && t2.isNumeric
+    def array = pair match {
+      case Array(_, _, anonArray1) -> _ => anonArray1.isConvertibleTo(t2)
+      case _ -> Array(_, _, anonArray2) => t1.isConvertibleTo(anonArray2)
       case AnonArray(size1, eltType1) -> AnonArray(size2, eltType2) => 
         Array.sizesMatch(size1, size2) &&
         eltType1.isConvertibleTo(eltType2)
-      case AnonArray(size1, eltType1) -> Array(_, _, size2, eltType2) =>
-        Array.sizesMatch(size1, size2) &&
-        eltType1.isConvertibleTo(eltType2)
-      case _ -> Array(_, _, _, eltType) =>
-        t1.isPromotableToArray && t1.isConvertibleTo(eltType)
+      case _ -> AnonArray(_, eltType2) =>
+        t1.isPromotableToArray && t1.isConvertibleTo(eltType2)
       case _ => false
     }
-    def toStruct = {
-      def memberExistsIn (members: AnonStruct.Members) (member: AnonStruct.Member): Boolean =
+    def struct = {
+      def memberExistsIn (members: Struct.Members) (member: Struct.Member): Boolean =
         members.get(member._1) match {
           case Some(t) => member._2.isConvertibleTo(t)
           case None => false
         }
       pair match {
+        case Struct(_, anonStruct1) -> _ => anonStruct1.isConvertibleTo(t2)
+        case _ -> Struct(_, anonStruct2) => t1.isConvertibleTo(anonStruct2)
         case AnonStruct(members1) -> AnonStruct(members2) => 
           members1.forall(memberExistsIn(members2) _)
-        case (anonStruct1 @ AnonStruct(_)) -> Struct(_, anonStruct2) =>
-          anonStruct1.isConvertibleTo(anonStruct2)
-        case (Struct(_, anonStruct1) -> Struct(_, anonStruct2)) =>
-          anonStruct1.isConvertibleTo(anonStruct2)
-        case _ -> Struct(_, AnonStruct(members)) =>
-            t1.isPromotableToStruct && members.values.forall(t1.isConvertibleTo(_))
+        case _ -> AnonStruct(members2) =>
+            t1.isPromotableToStruct && members2.values.forall(t1.isConvertibleTo(_))
         case _ => false
       }
     }
     areIdentical(t1, t2) ||
-    toNumeric ||
-    toArray ||
-    toStruct
+    numeric ||
+    array ||
+    struct
   }
 
   /** Compute the common type for a pair of types, ignoring array sizes */
@@ -312,54 +327,53 @@ object Type {
       case _ => None
     }
     def array() = pair match {
-      case AnonArray(size1, eltType1) -> AnonArray(size2, eltType2) =>
+      case (_, Array(_, _, anonArray2)) => commonType(t1, anonArray2)
+      case (Array(_, _, anonArray1), _) => commonType(anonArray1, t2)
+      case (AnonArray(size1, eltType1), AnonArray(size2, eltType2)) =>
         if (Array.sizesMatch(size1, size2)) {
           val size = Array.commonSize(size1, size2)
           for (eltType <- commonType(eltType1, eltType2)) yield AnonArray(size, eltType)
         }
         else None
-      case Array(_, _, size1, eltType1) -> AnonArray(_, _) =>
-        commonType(AnonArray(size1, eltType1), t2)
-      case AnonArray(_, _) -> Array(_, _, size2, eltType2) =>
-        commonType(t1, AnonArray(size2, eltType2))
-      case Array(_, _, size1, eltType1) -> Array(_, _, size2, eltType2) =>
-        commonType(AnonArray(size1, eltType1), AnonArray(size2, eltType2))
+      case _ -> AnonArray(size2, eltType2) =>
+        if (t1.isPromotableToArray)
+          for (eltType <- commonType(t1, eltType2)) yield AnonArray(size2, eltType)
+        else None
+      case AnonArray(_, _) -> _ => commonType(t2, t1)
       case _ => None
     }
     def struct() = pair match {
+      case (_, Struct(_, anonStruct2)) => commonType(t1, anonStruct2)
+      case (Struct(_, anonStruct1), _) => commonType(anonStruct1, t2)
       case AnonStruct(members1) -> AnonStruct(members2) => {
         /** Resolve a member of t1 against the corresponding member of t2, if it exists */
-        def resolveT1Member(member: AnonStruct.Member): Option[AnonStruct.Member] = {
+        def resolveT1Member(member: Struct.Member): Option[Struct.Member] = {
           val name1 -> ty1 = member
           members2.get(name1) match {
             case Some(ty2) => for (ty <- commonType(ty1, ty2)) yield (name1 -> ty)
             case None => Some(member)
           }
         }
-        /** Resolve all members of t1 against the corresponding members of t2, if they exist */
-        def resolveT1Members(in: List[AnonStruct.Member], out: AnonStruct.Members): Option[AnonStruct.Members] =
-          in match {
-            case Nil => Some(out)
-            case head :: tail => resolveT1Member(head) match {
-              case Some(member) => resolveT1Members(tail, out + member)
-              case None => None
-            }
-          }
-        for (t1ResolvedMembers <- resolveT1Members(members1.toList, Map())) yield {
-          def pred(member: AnonStruct.Member) = !members1.contains(member._1)
+        /** Resolve each member of t1 against the corresponding member of t2, if it exists */
+        def resolveT1Members = Struct.resolveMembers (resolveT1Member) _
+        for (t1ResolvedMembers <- resolveT1Members(members1)) yield {
+          def pred(member: Struct.Member) = !members1.contains(member._1)
           val t2ResolvedMembers = members2.filter(pred)
           AnonStruct(t1ResolvedMembers ++ t2ResolvedMembers)
         }
       }
-      case Struct(_, anonStruct1) -> (anonStruct2 @ AnonStruct(_)) =>
-        commonType(anonStruct1, anonStruct2)
-      case (anonStruct1 @ AnonStruct(_)) -> Struct(_, anonStruct2) =>
-        commonType(anonStruct1, anonStruct2)
-      case Struct(_, anonStruct1) -> Struct(_, anonStruct2) =>
-        commonType(anonStruct1, anonStruct2)
+      case _ -> AnonStruct(members2) => {
+        /** Resolve a member of t2 against t1 */
+        def resolveT2Member(member: Struct.Member): Option[Struct.Member] =
+          for (t <- commonType(t1, member._2)) yield (member._1 -> t)
+        /** Resolve all members of t2 against t1 */
+        def resolveT2Members = Struct.resolveMembers (resolveT2Member) _
+        for (t2ResolvedMembers <- resolveT2Members(members2))
+          yield AnonStruct(t2ResolvedMembers)
+      }
+      case AnonStruct(_) -> _ => commonType(t2, t1)
       case _ => None
     }
-    // TODO
     val rules: List[Rule] = List(
       identical,
       numeric,
