@@ -226,6 +226,32 @@ constant d = ("abcd") # Type is string
 constant e = ([ 1, 2, 3]) # Type is [3] Integer
 ----
 
+=== Identical Types
+
+We say that types stem:[T_1] and stem:[T_2] are *identical* if one
+of the following holds:
+
+. stem:[T_1] and stem:[T_2] are 
+<<Types_Internal-Types_Numeric-Types,numeric types>>
+with the same name, e.g., `U32` or _Integer_.
+In each case of a numeric type, the name of the type uniquely identifies 
+the type.
+
+. stem:[T_1] and stem:[T_2]
+are both
+<<Types_The-Boolean-Type,the Boolean type>>.
+
+. stem:[T_1] and stem:[T_2]
+are both 
+<<Types_The-String-Type,the string type>>.
+
+. Each of stem:[T_1] and stem:[T_2]
+is an
+<<Types_Array-Types,array type>>,
+<<Types_Enum-Types,enum type>>, or
+<<Types_Struct-Types,struct type>>,
+and both types refer to the same definition.
+
 === Type Conversion
 
 We say that a type stem:[T_1] *may be converted to* another type stem:[T_2] if
@@ -233,6 +259,9 @@ every <<Values,value>> represented by type stem:[T_1] can be
 <<Evaluation_Type-Conversion,converted>> into a value of type stem:[T_2].
 
 Here are the rules for type conversion:
+
+. stem:[T_1] may be converted to stem:[T_2] if stem:[T_1] and stem:[T_2]
+are <<Type-Checking_Identical-Types,identical types>>.
 
 . Any <<Types_Internal-Types_Numeric-Types,numeric
 type>> may be converted to any other numeric type.
@@ -290,7 +319,8 @@ Here are the rules for resolving two types stem:[T_1] and stem:[T_2]
 types of two subexpressions) to a common type stem:[T] (e.g., the type of 
 the whole expression):
 
-. If stem:[T_1] and stem:[T_2] are the same type, then let 
+. If stem:[T_1] and stem:[T_2] are
+<<Type-Checking_Identical-Types,identical types>>, then let 
 stem:[T] be stem:[T_1].
 
 . Otherwise if stem:[T_1] and stem:[T_2] are both
@@ -304,20 +334,17 @@ stem:[T] be stem:[T_1].
 the enum type with the representation type specified in the definition of stem:[T]
 and reapply these rules.
 
-. Otherwise if one of stem:[T_1] and stem:[T_2] is an anonymous array type
-stem:[T] and the other is an array type stem:[T'], and stem:[T]
-may be converted to stem:[T'], then use stem:[T'].
-
 . Otherwise if stem:[T_1] and stem:[T_2] are anonymous array types with the same size stem:[n]
 and member types stem:[T'_1] and stem:[T'_2], then apply these rules to resolve
 stem:[T'_1] and stem:[T'_2] to stem:[T'] and let stem:[T] be _[_ stem:[n] _]_ stem:[T'].
 
-. Otherwise if one of stem:[T_1] and stem:[T_2] is an anonymous structure type
-stem:[T] and the other is a structure type stem:[T'], and stem:[T]
-may be converted to stem:[T'], then use stem:[T'].
+. Otherwise if one of stem:[T_1] and stem:[T_2] is an array type
+and the other one is an array type or anonymous array type, then 
+replace the array type or types with structurally equivalent anonymous array
+types and reapply these rules.
 
-. Otherwise if stem:[T_1] and stem:[T_2] are both anonymous structure types, then use
-the anonymous structure type stem:[T] with the following members:
+. Otherwise if stem:[T_1] and stem:[T_2] are both anonymous struct types, then use
+the anonymous struct type stem:[T] with the following members:
 
 .. For each member stem:[m_1] _:_ stem:[T'_1] of stem:[T_1],
 if stem:[T_2] has a member stem:[m_1] _:_ stem:[T'_2], then apply these rules
@@ -328,6 +355,11 @@ use stem:[m_1] _:_ stem:[T']. Otherwise use stem:[m_1] _:_ stem:[T'_1].
 if stem:[T_1] has a member stem:[m_2] _:_ stem:[T'_1], then apply these rules
 to convert stem:[T'_2] and stem:[T'_1] to a common type stem:[T'] and
 use stem:[m_2] _:_ stem:[T']. Otherwise use stem:[m_2] _:_ stem:[T'_2].
+
+. Otherwise if one of stem:[T_1] and stem:[T_2] is an struct type
+and the other one is an struct type or anonymous struct type, then replace the 
+struct type or types with structurally equivalent anonymous struct
+types and reapply these rules.
 
 . Otherwise if one of stem:[T_1] and stem:[T_2] is a primitive type 
 and the other
@@ -344,16 +376,16 @@ may be converted to the member type of stem:[A], then use stem:[A].
 
 . Otherwise if one of stem:[T_1] and stem:[T_2] is a primitive type and the 
 other
-one is an anonymous structure type stem:[S], then apply these rules to resolve 
+one is an anonymous struct type stem:[S], then apply these rules to resolve 
 the
-primitive type and each of the structure member types to a common type.
-Let stem:[T] be the structure type whose member names are the member names of 
+primitive type and each of the struct member types to a common type.
+Let stem:[T] be the struct type whose member names are the member names of 
 stem:[S] and
 whose member types are the corresponding common types.
 
 . Otherwise if one of stem:[T_1] and stem:[T_2] is a primitive type 
 and the other
-one is a structure type stem:[S], and the primitive type
+one is a struct type stem:[S], and the primitive type
 may be converted to each of the member types of stem:[S], then use stem:[S].
 
 . Otherwise the attempted resolution is invalid. Throw an error.

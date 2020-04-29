@@ -6,15 +6,43 @@ import fpp.compiler.util._
 /** An FPP Type */
 sealed trait Type {
 
+  /** Convert this type to another type t. Yield t or an error if the conversion is illegal. */
+  def convertTo(t: Type, loc: Location): Result.Result[Type] =
+    this.isConvertibleTo(t) match {
+      case true => Right(t)
+      case false => Left(SemanticError.TypeMismatch(loc, s"cannot convert ${this} to ${t}"))
+    }
+
+  /** Get the definition node identifier, if any */
+  def getDefNodeId: Option[AstNode.Id] = None
+
+  /** Does this type have numeric members? */
   def hasNumericMembers: Boolean = isNumeric
 
+  /** Is this type convertible to a numeric type? */
+  def isConvertibleToNumeric: Boolean = isNumeric
+
+  /** Is this type promotable to an array type? */
+  def isPromotableToArray: Boolean = isNumeric
+
+  /** Is this type a float type? */
   def isFloat: Boolean = false
 
+  /** Is this type an int type? */
   def isInt: Boolean = false
 
+  /** Is this type a primitive type? */
   def isPrimitive: Boolean = false
 
+  /** Is this type promotable to a struct type? */
+  final def isPromotableToStruct = isPromotableToArray
+
+  /** Is this type numeric? */
   final def isNumeric: Boolean = isInt || isFloat
+
+  /** Is this type convertible to type t? 
+   *  Checking here is done without regard to array size */
+  final def isConvertibleTo(t: Type) = Type.mayBeConverted(this -> t)
 
 }
 
@@ -76,11 +104,13 @@ object Type {
   /** The Boolean type */
   case object Boolean extends Type with Primitive {
     override def toString = "bool"
+    override def isPromotableToArray = true
   }
 
   /** The string type */
   case object String extends Type {
     override def toString = "string"
+    override def isPromotableToArray = true
   }
 
   /** The type of arbitrary-width integers */
@@ -93,18 +123,22 @@ object Type {
     /** The AST node giving the definition */
     node: Ast.Annotated[AstNode[Ast.DefAbsType]]
   ) extends Type {
-    override def toString = node._2.getData.name
+    override def getDefNodeId = Some(node._2.getId)
+    override def toString = "abstract type " ++ node._2.getData.name
   }
 
   /** A named array type */
   case class Array(
     /** The AST node giving the definition */
     node: Ast.Annotated[AstNode[Ast.DefArray]],
-    /** The corresponding anonymous array type */
-    anonArray: AnonArray
+    /** The size expression */
+    size: AstNode[Ast.Expr],
+    /** The element type */
+    eltType: Type
   ) extends Type {
-    override def hasNumericMembers = anonArray.hasNumericMembers
-    override def toString = node._2.getData.name
+    override def getDefNodeId = Some(node._2.getId)
+    override def hasNumericMembers = eltType.hasNumericMembers
+    override def toString = "array type " ++ node._2.getData.name
   }
 
   /** An enum type */
@@ -114,7 +148,10 @@ object Type {
     /** The representation type */
     repType: Type
   ) extends Type {
-    override def toString = node._2.getData.name
+    override def getDefNodeId = Some(node._2.getId)
+    override def isConvertibleToNumeric = true
+    override def isPromotableToArray = true
+    override def toString = "enum type " ++ node._2.getData.name
   }
 
   /** A named struct type */
@@ -124,14 +161,15 @@ object Type {
     /** The corresponding anonymous struct type */
     anonStruct: AnonStruct
   ) extends Type {
+    override def getDefNodeId = Some(node._2.getId)
     override def hasNumericMembers = anonStruct.hasNumericMembers
-    override def toString = node._2.getData.name
+    override def toString = "struct type " ++ node._2.getData.name
   }
 
   /** An anonymous array type */
   case class AnonArray(
-    /** The size expression */
-    sizeExpr: AstNode[Ast.Expr],
+    /** The array size */
+    size: Int,
     /** The element type */
     eltType: Type
   ) extends Type {
@@ -142,16 +180,86 @@ object Type {
   /** An anonymous struct type */
   case class AnonStruct(
     /** The members */
-    members: Set[(Name.Unqualified, Type)]
+    members: AnonStruct.Members
   ) extends Type {
-    override def hasNumericMembers = members.forall(_._2.hasNumericMembers)
+    override def hasNumericMembers = members.values.forall(_.hasNumericMembers)
     override def toString = {
-      def pairToString(pair: (Name.Unqualified, Type)) = pair._1 + ": " + pair._2.toString
-      members.toList match {
-        case Nil => "{ }"
-        case list => "{ " ++ list.map(pairToString).mkString(", ") ++ " }"
+      def memberToString(member: AnonStruct.Member) = member._1 ++ ": " ++ member._2.toString
+      members.size match {
+        case 0 => "{ }"
+        case _ => "struct type { " ++ members.map(memberToString).mkString(", ") ++ " }"
       }
     }
+  }
+
+  object AnonStruct {
+
+    type Member = (Name.Unqualified, Type)
+
+    type Members = Map[Name.Unqualified, Type]
+
+  }
+
+  /** Check for type identity */
+  def areIdentical(t1: Type, t2: Type): Boolean = {
+    val pair = (t1, t2)
+    def numeric = pair match {
+      case (PrimitiveInt(kind1), PrimitiveInt(kind2)) => kind1 == kind2
+      case (Float(kind1), Float(kind2)) => kind1 == kind2
+      case (Integer, Integer) => true
+      case _ => false
+    }
+    def boolean = pair match {
+      case (Boolean -> Boolean) => true
+      case _ => false
+    }
+    def string = pair match {
+      case (String -> String) => true
+      case _ => false
+    }
+    def sameDef = (t1.getDefNodeId, t2.getDefNodeId) match {
+      case (Some(id1), Some(id2)) => id1 == id2
+      case _ => false
+    }
+    numeric ||
+    boolean ||
+    string ||
+    sameDef
+  }
+  
+  /** Check for convertibility, ignoring array sizes */
+  def mayBeConverted(pair: (Type, Type)): Boolean = {
+    val t1 -> t2 = pair
+    def toNumeric = t1.isConvertibleToNumeric && t2.isNumeric
+    def toArray = pair match {
+      case AnonArray(_, eltType1) -> AnonArray(_, eltType2) => 
+        eltType1.isConvertibleTo(eltType2)
+      case AnonArray(_, eltType1) -> Array(_, _, eltType2) =>
+        eltType1.isConvertibleTo(eltType2)
+      case _ -> Array(_, _, eltType) =>
+        t1.isPromotableToArray && t1.isConvertibleTo(eltType)
+      case _ => false
+    }
+    def toStruct = {
+      def memberExistsIn (members: AnonStruct.Members) (member: AnonStruct.Member): Boolean =
+        members.get(member._1) match {
+          case Some(t) => member._2.isConvertibleTo(t)
+          case None => false
+        }
+      pair match {
+        case AnonStruct(members1) -> AnonStruct(members2) => 
+          members1.forall(memberExistsIn(members2) _)
+        case (anonStruct1 @ AnonStruct(_)) -> Struct(_, anonStruct2) =>
+          anonStruct1.isConvertibleTo(anonStruct2)
+        case _ -> Struct(_, AnonStruct(members)) =>
+            t1.isPromotableToStruct && members.values.forall(t1.isConvertibleTo(_))
+        case _ => false
+      }
+    }
+    areIdentical(t1, t2) ||
+    toNumeric ||
+    toArray ||
+    toStruct
   }
 
 }

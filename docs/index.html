@@ -789,11 +789,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Type-Checking_Unary-Negation-Expressions">17.9. Unary Negation Expressions</a></li>
 <li><a href="#Type-Checking_Binary-Arithmetic-Expressions">17.10. Binary Arithmetic Expressions</a></li>
 <li><a href="#Type-Checking_Parenthesis-Expressions">17.11. Parenthesis Expressions</a></li>
-<li><a href="#Type-Checking_Type-Conversion">17.12. Type Conversion</a></li>
-<li><a href="#Type-Checking_Computing-a-Common-Type">17.13. Computing a Common Type</a>
+<li><a href="#Type-Checking_Identical-Types">17.12. Identical Types</a></li>
+<li><a href="#Type-Checking_Type-Conversion">17.13. Type Conversion</a></li>
+<li><a href="#Type-Checking_Computing-a-Common-Type">17.14. Computing a Common Type</a>
 <ul class="sectlevel3">
-<li><a href="#Type-Checking_Computing-a-Common-Type_Pairs-of-Types">17.13.1. Pairs of Types</a></li>
-<li><a href="#Type-Checking_Computing-a-Common-Type_Lists-of-Types">17.13.2. Lists of Types</a></li>
+<li><a href="#Type-Checking_Computing-a-Common-Type_Pairs-of-Types">17.14.1. Pairs of Types</a></li>
+<li><a href="#Type-Checking_Computing-a-Common-Type_Lists-of-Types">17.14.2. Lists of Types</a></li>
 </ul>
 </li>
 </ul>
@@ -6713,7 +6714,43 @@ constant e = ([ 1, 2, 3]) # Type is [3] Integer</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Type-Conversion">17.12. Type Conversion</h3>
+<h3 id="Type-Checking_Identical-Types">17.12. Identical Types</h3>
+<div class="paragraph">
+<p>We say that types \$T_1\$ and \$T_2\$ are <strong>identical</strong> if one
+of the following holds:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>\$T_1\$ and \$T_2\$ are
+<a href="#Types_Internal-Types_Numeric-Types">numeric types</a>
+with the same name, e.g., <code>U32</code> or <em>Integer</em>.
+In each case of a numeric type, the name of the type uniquely identifies
+the type.</p>
+</li>
+<li>
+<p>\$T_1\$ and \$T_2\$
+are both
+<a href="#Types_The-Boolean-Type">the Boolean type</a>.</p>
+</li>
+<li>
+<p>\$T_1\$ and \$T_2\$
+are both
+<a href="#Types_The-String-Type">the string type</a>.</p>
+</li>
+<li>
+<p>Each of \$T_1\$ and \$T_2\$
+is an
+<a href="#Types_Array-Types">array type</a>,
+<a href="#Types_Enum-Types">enum type</a>, or
+<a href="#Types_Struct-Types">struct type</a>,
+and both types refer to the same definition.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Type-Checking_Type-Conversion">17.13. Type Conversion</h3>
 <div class="paragraph">
 <p>We say that a type \$T_1\$ <strong>may be converted to</strong> another type \$T_2\$ if
 every <a href="#Values">value</a> represented by type \$T_1\$ can be
@@ -6724,6 +6761,10 @@ every <a href="#Values">value</a> represented by type \$T_1\$ can be
 </div>
 <div class="olist arabic">
 <ol class="arabic">
+<li>
+<p>\$T_1\$ may be converted to \$T_2\$ if \$T_1\$ and \$T_2\$
+are <a href="#Type-Checking_Identical-Types">identical types</a>.</p>
+</li>
 <li>
 <p>Any <a href="#Types_Internal-Types_Numeric-Types">numeric
 type</a> may be converted to any other numeric type.</p>
@@ -6790,9 +6831,9 @@ may be converted to \$T_3\$.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Computing-a-Common-Type">17.13. Computing a Common Type</h3>
+<h3 id="Type-Checking_Computing-a-Common-Type">17.14. Computing a Common Type</h3>
 <div class="sect3">
-<h4 id="Type-Checking_Computing-a-Common-Type_Pairs-of-Types">17.13.1. Pairs of Types</h4>
+<h4 id="Type-Checking_Computing-a-Common-Type_Pairs-of-Types">17.14.1. Pairs of Types</h4>
 <div class="paragraph">
 <p>Here are the rules for resolving two types \$T_1\$ and \$T_2\$
 (e.g., the
@@ -6802,7 +6843,8 @@ the whole expression):</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>If \$T_1\$ and \$T_2\$ are the same type, then let
+<p>If \$T_1\$ and \$T_2\$ are
+<a href="#Type-Checking_Identical-Types">identical types</a>, then let
 \$T\$ be \$T_1\$.</p>
 </li>
 <li>
@@ -6825,23 +6867,19 @@ the enum type with the representation type specified in the definition of \$T\$
 and reapply these rules.</p>
 </li>
 <li>
-<p>Otherwise if one of \$T_1\$ and \$T_2\$ is an anonymous array type
-\$T\$ and the other is an array type \$T'\$, and \$T\$
-may be converted to \$T'\$, then use \$T'\$.</p>
-</li>
-<li>
 <p>Otherwise if \$T_1\$ and \$T_2\$ are anonymous array types with the same size \$n\$
 and member types \$T'_1\$ and \$T'_2\$, then apply these rules to resolve
 \$T'_1\$ and \$T'_2\$ to \$T'\$ and let \$T\$ be <em>[</em> \$n\$ <em>]</em> \$T'\$.</p>
 </li>
 <li>
-<p>Otherwise if one of \$T_1\$ and \$T_2\$ is an anonymous structure type
-\$T\$ and the other is a structure type \$T'\$, and \$T\$
-may be converted to \$T'\$, then use \$T'\$.</p>
+<p>Otherwise if one of \$T_1\$ and \$T_2\$ is an array type
+and the other one is an array type or anonymous array type, then
+replace the array type or types with structurally equivalent anonymous array
+types and reapply these rules.</p>
 </li>
 <li>
-<p>Otherwise if \$T_1\$ and \$T_2\$ are both anonymous structure types, then use
-the anonymous structure type \$T\$ with the following members:</p>
+<p>Otherwise if \$T_1\$ and \$T_2\$ are both anonymous struct types, then use
+the anonymous struct type \$T\$ with the following members:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -6858,6 +6896,12 @@ use \$m_2\$ <em>:</em> \$T'\$. Otherwise use \$m_2\$ <em>:</em> \$T'_2\$.</p>
 </li>
 </ol>
 </div>
+</li>
+<li>
+<p>Otherwise if one of \$T_1\$ and \$T_2\$ is an struct type
+and the other one is an struct type or anonymous struct type, then replace the
+struct type or types with structurally equivalent anonymous struct
+types and reapply these rules.</p>
 </li>
 <li>
 <p>Otherwise if one of \$T_1\$ and \$T_2\$ is a primitive type
@@ -6877,17 +6921,17 @@ may be converted to the member type of \$A\$, then use \$A\$.</p>
 <li>
 <p>Otherwise if one of \$T_1\$ and \$T_2\$ is a primitive type and the
 other
-one is an anonymous structure type \$S\$, then apply these rules to resolve
+one is an anonymous struct type \$S\$, then apply these rules to resolve
 the
-primitive type and each of the structure member types to a common type.
-Let \$T\$ be the structure type whose member names are the member names of
+primitive type and each of the struct member types to a common type.
+Let \$T\$ be the struct type whose member names are the member names of
 \$S\$ and
 whose member types are the corresponding common types.</p>
 </li>
 <li>
 <p>Otherwise if one of \$T_1\$ and \$T_2\$ is a primitive type
 and the other
-one is a structure type \$S\$, and the primitive type
+one is a struct type \$S\$, and the primitive type
 may be converted to each of the member types of \$S\$, then use \$S\$.</p>
 </li>
 <li>
@@ -6897,7 +6941,7 @@ may be converted to each of the member types of \$S\$, then use \$S\$.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Type-Checking_Computing-a-Common-Type_Lists-of-Types">17.13.2. Lists of Types</h4>
+<h4 id="Type-Checking_Computing-a-Common-Type_Lists-of-Types">17.14.2. Lists of Types</h4>
 <div class="paragraph">
 <p>To compute a common type for a list of types
 \$T_1, ... , T_n\$, do the following:</p>
@@ -7446,7 +7490,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-04-28 22:18:08 -0700
+Last updated 2020-04-29 10:36:44 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
