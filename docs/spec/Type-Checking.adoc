@@ -245,9 +245,10 @@ may be converted to the anonymous array type
 stem:[T_2 =] _[_ stem:[m] _]_ stem:[T'_2]
 if stem:[n = m] and stem:[T'_1] may be converted to stem:[T'_2].
 
-. An anonymous array type stem:[T_1 =] _[_ stem:[n] _]_ stem:[T'_1]
-may be converted to the array type stem:[T_2] if the number
-of elements and the member types are the same for the two types.
+. An anonymous array type stem:[T] may be converted to the array type stem:[T']
+if stem:[T'] has size stem:[n] and element type stem:[T''], and
+stem:[T] may be converted to the anonymous array type _[_ stem:[n] _]_ 
+stem:[T''].
 
 . An anonymous struct type stem:[T =]_{_ stem:[m_1] _:_ stem:[T_1] _,_ 
 stem:[...] _,_ stem:[m_1] _:_ stem:[T_n] _}_ may be converted to
@@ -257,17 +258,24 @@ the anonymous struct type stem:[T'] if for each stem:[i in [1,n\]],
 
 .. stem:[T_i] may be converted to stem:[T'_i].
 
-. An anonymous struct type stem:[T =]_{_ stem:[m_1] _:_ stem:[T_1] _,_ 
-stem:[...] _,_ stem:[m_1] _:_ stem:[T_n] _}_ may be converted to
-the struct type stem:[T'] if the sets of members in the two types are identical.
+. An anonymous struct type stem:[T] may be 
+converted to
+the struct type stem:[T'] if stem:[T'] has members 
+_{_ stem:[m'_i] _:_ stem:[T'_i] _}_, and stem:[T] 
+may be converted to the anonymous struct type
+_{_ stem:[m'_i] _:_ stem:[T'_i] _}_.
 
-. A <<Types_Primitive-Types,primitive type>> type stem:[T_1] may be converted 
-to an
+. A <<Types_Internal-Types_Numeric-Types,numeric type>> type, <<Types_The-Boolean-Type,Boolean 
+type>>,
+<<Types_Enum-Types,enum type>>, or <<Types_The-String-Type,string type>> stem:[T] 
+may be converted to an
 <<Types_Array-Types,array type>> stem:[T_2] if
 stem:[T_1] may be converted to the member type of stem:[T_2].
 
-. A <<Types_Primitive-Types,primitive type>> type stem:[T] may be converted 
-to a
+. A <<Types_Internal-Types_Numeric-Types,numeric type>> type, <<Types_The-Boolean-Type,Boolean 
+type>>,
+<<Types_Enum-Types,enum type>>, or <<Types_The-String-Type,string type>> stem:[T] 
+may be converted to a
 <<Types_Struct-Types,structure type>> stem:[T'] if
 for each member stem:[m_i] `:` stem:[T_i] of stem:[T'],
 stem:[T] may be converted to stem:[T_i].
