@@ -269,14 +269,14 @@ _{_ stem:[m'_i] _:_ stem:[T'_i] _}_.
 type>>,
 <<Types_Enum-Types,enum type>>, or <<Types_The-String-Type,string type>> stem:[T] 
 may be converted to an
-<<Types_Array-Types,array type>> stem:[T_2] if
+<<Types_Internal-Types_Anonymous-Array-Types,anonymous array type>> stem:[T_2] if
 stem:[T_1] may be converted to the member type of stem:[T_2].
 
 . A <<Types_Internal-Types_Numeric-Types,numeric type>> type, <<Types_The-Boolean-Type,Boolean 
 type>>,
 <<Types_Enum-Types,enum type>>, or <<Types_The-String-Type,string type>> stem:[T] 
-may be converted to a
-<<Types_Struct-Types,structure type>> stem:[T'] if
+may be converted to an
+<<Types_Internal-Types_Anonymous-Struct-Types,anonymous struct type>> stem:[T'] if
 for each member stem:[m_i] `:` stem:[T_i] of stem:[T'],
 stem:[T] may be converted to stem:[T_i].
 
