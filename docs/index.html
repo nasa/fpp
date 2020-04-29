@@ -6256,6 +6256,11 @@ each of type <em>T</em>.</p>
 where each \$m_i\$ is an identifier and each \$T_i\$ is a type,
 represents a struct with members \$m_i\$ <em>:</em> \$T_i\$.</p>
 </div>
+<div class="paragraph">
+<p>The order of the members is not significant.
+For example, <code>{ a: U32, b: F32 }</code> represents the same
+type as <code>{ b : F32, a: U32 }</code>.</p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -7437,7 +7442,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-04-28 14:43:53 -0700
+Last updated 2020-04-28 19:52:32 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

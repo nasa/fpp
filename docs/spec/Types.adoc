@@ -110,6 +110,10 @@ The type _{_ stem:[m_1] _:_ stem:[T_1, ...,] stem:[m_n] _:_ stem:[T_n] _}_,
 where each stem:[m_i] is an identifier and each stem:[T_i] is a type,
 represents a struct with members stem:[m_i] _:_ stem:[T_i].
 
+The order of the members is not significant.
+For example, `{ a: U32, b: F32 }` represents the same
+type as `{ b : F32, a: U32 }`.
+
 === Types with Numeric Members
 
 A type *has numeric members* if it is one of the following:

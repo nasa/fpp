@@ -38,9 +38,3 @@ case class Analysis(
 ) {
 
 }
-
-object Analysis {
-
-
-
-}
