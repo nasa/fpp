@@ -7,6 +7,8 @@ cycle_constant_1
 cycle_constant_2
 cycle_struct
 defs_ok
+expr_array_error
+expr_array_ok
 redef_array
 redef_constant
 redef_constant_module

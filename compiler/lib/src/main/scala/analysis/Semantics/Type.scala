@@ -244,7 +244,7 @@ object Type {
       def memberToString(member: Struct.Member) = member._1 ++ ": " ++ member._2.toString
       members.size match {
         case 0 => "{ }"
-        case _ => "struct { " ++ members.map(memberToString).mkString(", ") ++ " }"
+        case _ => "{ " ++ members.map(memberToString).mkString(", ") ++ " }"
       }
     }
   }

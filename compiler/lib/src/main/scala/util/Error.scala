@@ -31,7 +31,7 @@ sealed trait Error {
         System.err.println(s"previous definition was here:")
         System.err.println(prevLoc)
       }
-      case SemanticError.TypeMismatch(loc, msg) => Error.print (Some(loc)) ("type mismatch: " ++ msg)
+      case SemanticError.TypeMismatch(loc, msg) => Error.print (Some(loc)) (msg)
       case SemanticError.UndefinedSymbol(name, loc) =>
         Error.print (Some(loc)) (s"undefined symbol ${name}")
       case SemanticError.UseDefCycle(loc, msg) => Error.print (Some(loc)) (msg)
