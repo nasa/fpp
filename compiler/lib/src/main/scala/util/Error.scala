@@ -20,6 +20,7 @@ sealed trait Error {
         System.err.println(prevLoc)
         System.err.println(s"previous path was ${prevPath}")
       }
+      case SemanticError.MalformedExpression(loc, msg) => Error.print (Some(loc)) (msg)
       case SemanticError.RedefinedSymbol(name, loc, prevLoc) => {
         Error.print (Some(loc)) (s"redefinition of symbol ${name}")
         System.err.println(s"previous definition was here:")
@@ -60,6 +61,8 @@ object SemanticError {
     prevLoc: Location,
     prevPath: String
   ) extends Error
+  /** Malformed expression */
+  final case class MalformedExpression(loc: Location, msg: String) extends Error
   /** Redefined symbol */
   final case class RedefinedSymbol(
     name: String,

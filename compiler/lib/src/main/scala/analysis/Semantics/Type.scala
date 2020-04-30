@@ -326,21 +326,27 @@ object Type {
       case (_, Enum(_, repType)) => commonType(t1, repType)
       case _ => None
     }
-    def array() = pair match {
-      case (_, Array(_, _, anonArray2)) => commonType(t1, anonArray2)
-      case (Array(_, _, anonArray1), _) => commonType(anonArray1, t2)
-      case (AnonArray(size1, eltType1), AnonArray(size2, eltType2)) =>
-        if (Array.sizesMatch(size1, size2)) {
-          val size = Array.commonSize(size1, size2)
-          for (eltType <- commonType(eltType1, eltType2)) yield AnonArray(size, eltType)
-        }
+    def array() = {
+      /** Handle the case of a single anonymous array in either position */
+      def singleAnonArray(anonArray: AnonArray, other: Type) = {
+        if (other.isPromotableToArray)
+          for (eltType <- commonType(other, anonArray.eltType)) 
+            yield AnonArray(anonArray.size, eltType)
         else None
-      case _ -> AnonArray(size2, eltType2) =>
-        if (t1.isPromotableToArray)
-          for (eltType <- commonType(t1, eltType2)) yield AnonArray(size2, eltType)
-        else None
-      case AnonArray(_, _) -> _ => commonType(t2, t1)
-      case _ => None
+      }
+      pair match {
+        case (_, Array(_, _, anonArray2)) => commonType(t1, anonArray2)
+        case (Array(_, _, anonArray1), _) => commonType(anonArray1, t2)
+        case (AnonArray(size1, eltType1), AnonArray(size2, eltType2)) =>
+          if (Array.sizesMatch(size1, size2)) {
+            val size = Array.commonSize(size1, size2)
+            for (eltType <- commonType(eltType1, eltType2)) yield AnonArray(size, eltType)
+          }
+          else None
+        case _ -> (anonArray @ AnonArray(_, _)) => singleAnonArray(anonArray, t1)
+        case (anonArray @ AnonArray(size1, eltType1)) -> _ => singleAnonArray(anonArray, t2)
+        case _ => None
+      }
     }
     def struct() = pair match {
       case (_, Struct(_, anonStruct2)) => commonType(t1, anonStruct2)
@@ -362,16 +368,28 @@ object Type {
           AnonStruct(t1ResolvedMembers ++ t2ResolvedMembers)
         }
       }
-      case _ -> AnonStruct(members2) => {
-        /** Resolve a member of t2 against t1 */
-        def resolveT2Member(member: Struct.Member): Option[Struct.Member] =
-          for (t <- commonType(t1, member._2)) yield (member._1 -> t)
-        /** Resolve all members of t2 against t1 */
-        def resolveT2Members = Struct.resolveMembers (resolveT2Member) _
-        for (t2ResolvedMembers <- resolveT2Members(members2))
-          yield AnonStruct(t2ResolvedMembers)
-      }
-      case AnonStruct(_) -> _ => commonType(t2, t1)
+      case _ -> AnonStruct(members2) => 
+        if (t1.isPromotableToStruct) {
+          /** Resolve a member of t2 against t1 */
+          def resolveT2Member(member: Struct.Member): Option[Struct.Member] =
+            for (t <- commonType(t1, member._2)) yield (member._1 -> t)
+          /** Resolve all members of t2 against t1 */
+          def resolveT2Members = Struct.resolveMembers (resolveT2Member) _
+          for (t2ResolvedMembers <- resolveT2Members(members2))
+            yield AnonStruct(t2ResolvedMembers)
+        }
+        else None
+      case AnonStruct(members1) -> _ =>
+        if (t2.isPromotableToStruct) {
+          /** Resolve a member of t1 against t2 */
+          def resolveT1Member(member: Struct.Member): Option[Struct.Member] =
+            for (t <- commonType(t2, member._2)) yield (member._1 -> t)
+          /** Resolve all members of t1 against t2 */
+          def resolveT1Members = Struct.resolveMembers (resolveT1Member) _
+          for (t1ResolvedMembers <- resolveT1Members(members1))
+            yield AnonStruct(t1ResolvedMembers)
+        }
+        else None
       case _ => None
     }
     val rules: List[Rule] = List(

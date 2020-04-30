@@ -34,7 +34,43 @@ case class Analysis(
   /* The list of use-def matchings on the current use-def path.
    * Used during cycle analysis. */
   useDefMatchingList: List[UseDefMatching] = List(),
+  /* The mapping from type and constant symbols, expressions,
+   * and type names to their types */
+  typeMap: Map[AstNode.Id, Type] = Map(),
   // TODO
 ) {
+
+  /** Add a mapping to the type map */
+  def addTypeMapping[T](mapping: (AstNode[T], Type)): Analysis = {
+    val node -> t = mapping
+    this.copy(typeMap = this.typeMap + (node.getId -> t))
+  }
+
+  /** Compute the common type for a list of nodes */
+  def computeCommonType(nodes: List[AstNode.Id], emptyListError: Error): Result.Result[Type] = {
+    def helper(prevNodeId: AstNode.Id, prevType: Type, nextNodes: List[AstNode.Id]): Result.Result[Type] = {
+      nextNodes match {
+        case Nil => Right(prevType)
+        case head :: tail => {
+          val currentType = this.typeMap(head)
+          Type.commonType(prevType, currentType) match {
+            case None => {
+              val loc = Locations.get(prevNodeId)
+              val msg = s"cannot compute common type of ${prevType} and ${currentType}"
+              Left(SemanticError.TypeMismatch(loc, msg))
+            }
+            case Some(t) => helper(head, t, tail)
+          }
+        }
+      }
+    }
+    nodes match {
+      case Nil => Left(emptyListError)
+      case firstNodeId :: rest => {
+        val firstType = this.typeMap(firstNodeId)
+        helper(firstNodeId, firstType, rest)
+      }
+    }
+  }
 
 }
