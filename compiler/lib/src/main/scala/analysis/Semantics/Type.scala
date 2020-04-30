@@ -302,7 +302,7 @@ object Type {
     struct
   }
 
-  /** Compute the common type for a pair of types, ignoring array sizes */
+  /** Compute the common type for a pair of types */
   def commonType(t1: Type, t2: Type): Option[Type] = {
     val pair = (t1, t2)
     type Rule = () => Option[Type]
@@ -349,15 +349,33 @@ object Type {
       }
     }
     def struct() = {
+      /** Handle the case of two anonymous structs */
+      def twoAnonStructs(members1: Struct.Members, members2: Struct.Members) = {
+        /** Resolve a member of t1 against the corresponding member of t2, if it exists */
+        def resolveT1Member(member: Struct.Member): Option[Struct.Member] = {
+          val name1 -> ty1 = member
+          members2.get(name1) match {
+            case Some(ty2) => for (ty <- commonType(ty1, ty2)) yield (name1 -> ty)
+            case None => Some(member)
+          }
+        }
+        /** Resolve each member of t1 against the corresponding member of t2, if it exists */
+        def resolveT1Members = Struct.resolveMembers (resolveT1Member) _
+        for (t1ResolvedMembers <- resolveT1Members(members1)) yield {
+          def pred(member: Struct.Member) = !members1.contains(member._1)
+          val t2ResolvedMembers = members2.filter(pred)
+          AnonStruct(t1ResolvedMembers ++ t2ResolvedMembers)
+        }
+      }
       /** Handle the case of a single anonymous struct in either position */
-      def singleAnonStruct(anonStruct: AnonStruct, other: Type) = {
+      def singleAnonStruct(members: Struct.Members, other: Type) = {
         if (other.isPromotableToStruct) {
           /** Resolve a member of t2 against t1 */
           def resolveMember(member: Struct.Member): Option[Struct.Member] =
             for (t <- commonType(other, member._2)) yield (member._1 -> t)
           /** Resolve all members of t2 against t1 */
           def resolveMembers = Struct.resolveMembers (resolveMember) _
-          for (resolvedMembers <- resolveMembers(anonStruct.members))
+          for (resolvedMembers <- resolveMembers(members))
             yield AnonStruct(resolvedMembers)
         }
         else None
@@ -365,25 +383,9 @@ object Type {
       pair match {
         case (_, Struct(_, anonStruct2)) => commonType(t1, anonStruct2)
         case (Struct(_, anonStruct1), _) => commonType(anonStruct1, t2)
-        case AnonStruct(members1) -> AnonStruct(members2) => {
-          /** Resolve a member of t1 against the corresponding member of t2, if it exists */
-          def resolveT1Member(member: Struct.Member): Option[Struct.Member] = {
-            val name1 -> ty1 = member
-            members2.get(name1) match {
-              case Some(ty2) => for (ty <- commonType(ty1, ty2)) yield (name1 -> ty)
-              case None => Some(member)
-            }
-          }
-          /** Resolve each member of t1 against the corresponding member of t2, if it exists */
-          def resolveT1Members = Struct.resolveMembers (resolveT1Member) _
-          for (t1ResolvedMembers <- resolveT1Members(members1)) yield {
-            def pred(member: Struct.Member) = !members1.contains(member._1)
-            val t2ResolvedMembers = members2.filter(pred)
-            AnonStruct(t1ResolvedMembers ++ t2ResolvedMembers)
-          }
-        }
-        case _ -> (anonStruct @ AnonStruct(_)) => singleAnonStruct(anonStruct, t1)
-        case (anonStruct @ AnonStruct(_)) -> _ => singleAnonStruct(anonStruct, t2)
+        case AnonStruct(members1) -> AnonStruct(members2) => twoAnonStructs(members1, members2)
+        case _ -> AnonStruct(members) => singleAnonStruct(members, t1)
+        case AnonStruct(members) -> _ => singleAnonStruct(members, t2)
         case _ => None
       }
     }
