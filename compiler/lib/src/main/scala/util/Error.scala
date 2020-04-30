@@ -15,12 +15,17 @@ sealed trait Error {
         Error.print (locOpt) (s"cannot open file $name")
       case FileError.CannotResolvePath(loc, name) => 
         Error.print (Some(loc)) (s"cannot resolve path $name")
+      case SemanticError.DuplicateStructMember(name, loc, prevLoc) => {
+        Error.print (Some(loc)) (s"duplicate struct member ${name}")
+        System.err.println(s"previous member was here:")
+        System.err.println(prevLoc)
+      }
+      case SemanticError.EmptyArray(loc) => Error.print (Some(loc)) ("array expression may not be empty")
       case SemanticError.InconsistentSpecLoc(loc, path, prevLoc, prevPath) => {
         Error.print (Some(loc)) (s"inconsistent location path ${path}")
         System.err.println(prevLoc)
         System.err.println(s"previous path was ${prevPath}")
       }
-      case SemanticError.MalformedExpression(loc, msg) => Error.print (Some(loc)) (msg)
       case SemanticError.RedefinedSymbol(name, loc, prevLoc) => {
         Error.print (Some(loc)) (s"redefinition of symbol ${name}")
         System.err.println(s"previous definition was here:")
@@ -54,6 +59,14 @@ object FileError {
 
 /** A semantic error */
 object SemanticError {
+  /** Empty array */
+  final case class EmptyArray(loc: Location) extends Error
+  /** Duplicate struct member */
+  final case class DuplicateStructMember(
+    name: String,
+    loc: Location,
+    prevLoc: Location
+  ) extends Error
   /** Inconsistent location specifiers */
   final case class InconsistentSpecLoc(
     loc: Location,
@@ -61,8 +74,6 @@ object SemanticError {
     prevLoc: Location,
     prevPath: String
   ) extends Error
-  /** Malformed expression */
-  final case class MalformedExpression(loc: Location, msg: String) extends Error
   /** Redefined symbol */
   final case class RedefinedSymbol(
     name: String,

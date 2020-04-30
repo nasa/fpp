@@ -234,7 +234,7 @@ object Type {
       def memberToString(member: Struct.Member) = member._1 ++ ": " ++ member._2.toString
       members.size match {
         case 0 => "{ }"
-        case _ => "struct type { " ++ members.map(memberToString).mkString(", ") ++ " }"
+        case _ => "struct { " ++ members.map(memberToString).mkString(", ") ++ " }"
       }
     }
   }
@@ -318,7 +318,8 @@ object Type {
       case false => None
     }
     def numeric() = 
-      if (t1.isFloat && t2.isFloat) Some(Float(Float.F64))
+      if (t1.isFloat && t2.isNumeric) Some(Float(Float.F64))
+      else if (t1.isNumeric && t2.isFloat) Some(Float(Float.F64))
       else if (t1.isNumeric && t2.isNumeric) Some(Integer)
       else None
     def enum() = pair match {

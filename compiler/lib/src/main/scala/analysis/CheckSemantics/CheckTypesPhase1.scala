@@ -16,7 +16,7 @@ object CheckTypesPhase1 extends UseAnalyzer {
       for (a <- super.defConstantAnnotatedNode(a, anode))
         yield {
           val t = a.typeMap.get(data.value.getId)
-          addTypeMapping(a, node -> t)
+          assignType(a, node -> t)
         }
     }
     else Right(a)
@@ -24,48 +24,77 @@ object CheckTypesPhase1 extends UseAnalyzer {
 
   override def exprArrayNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprArray) = {
     val loc = Locations.get(node.getId)
-    val emptyListError = SemanticError.MalformedExpression(loc, "array expression may not have zero elements")
+    val emptyListError = SemanticError.EmptyArray(loc)
     for {
       a <- super.exprArrayNode(a, node, e)
       t <- a.computeCommonType(e.elts.map(_.getId), emptyListError)
-    } yield a.addTypeMapping(node -> Type.AnonArray(None, t))
+    } yield a.assignType(node -> Type.AnonArray(None, t))
   }
 
   override def exprBinopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprBinop) = {
     // TODO
-    Right(a.addTypeMapping(node -> Type.Integer))
+    Right(a.assignType(node -> Type.Integer))
   }
 
   override def exprLiteralBoolNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralBool) =
-    Right(a.addTypeMapping(node -> Type.Boolean))
+    Right(a.assignType(node -> Type.Boolean))
 
   override def exprLiteralFloatNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralFloat) =
-    Right(a.addTypeMapping(node -> Type.Float(Type.Float.F64)))
+    Right(a.assignType(node -> Type.Float(Type.Float.F64)))
 
   override def exprLiteralIntNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralInt) =
-    Right(a.addTypeMapping(node -> Type.Integer))
+    Right(a.assignType(node -> Type.Integer))
   
   override def exprLiteralStringNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralString) =
-    Right(a.addTypeMapping(node -> Type.String))
+    Right(a.assignType(node -> Type.String))
 
   override def exprParenNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprParen) = {
     // TODO
-    Right(a.addTypeMapping(node -> Type.Integer))
+    Right(a.assignType(node -> Type.Integer))
   }
 
   override def exprStructNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprStruct) = {
-    // TODO
-    Right(a.addTypeMapping(node -> Type.AnonStruct(Map())))
+    def checkForDuplicateMember(nodes: List[AstNode[Ast.StructMember]], map: Map[Name.Unqualified, AstNode.Id]): Result.Result[Unit] =
+      nodes match {
+        case Nil => Right(())
+        case node :: tail => {
+          val data = node.data
+          map.get(data.name) match {
+            case None => checkForDuplicateMember(tail, map + (data.name -> node.getId))
+            case Some(id) => {
+              val loc = Locations.get(node.getId)
+              val prevLoc = Locations.get(id)
+              Left(SemanticError.DuplicateStructMember(data.name, loc, prevLoc))
+            }
+          }
+        }
+      }
+    for {
+      _ <- checkForDuplicateMember(e.members, Map())
+      a <- super.exprStructNode(a, node, e)
+    } 
+    yield {
+      def f(members: Type.Struct.Members, node: AstNode[Ast.StructMember]): Type.Struct.Members = {
+        val data = node.data
+        a.typeMap.get(data.value.getId) match {
+          case Some(t) => members + (data.name -> t)
+          case None => members
+        }
+      }
+      val empty: Type.Struct.Members = Map()
+      val members = e.members.foldLeft(empty)(f)
+      a.assignType(node -> Type.AnonStruct(members))
+    }
   }
 
   override def exprUnopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprUnop) = {
     // TODO
-    Right(a.addTypeMapping(node -> Type.Integer))
+    Right(a.assignType(node -> Type.Integer))
   }
 
   override def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified) = {
     // TODO
-    Right(a.addTypeMapping(node -> Type.Integer))
+    Right(a.assignType(node -> Type.Integer))
   }
 
   private def visitUse[T](a: Analysis, node: AstNode[T], use: Name.Qualified): Result = {
@@ -81,15 +110,15 @@ object CheckTypesPhase1 extends UseAnalyzer {
       }
     } yield {
       val t = a.typeMap.get(symbol.getNodeId)
-      addTypeMapping(a, node -> t)
+      assignType(a, node -> t)
     }
   }
 
-  private def addTypeMapping[T](a: Analysis, mapping: (AstNode[T], Option[Type])): Analysis = {
+  private def assignType[T](a: Analysis, mapping: (AstNode[T], Option[Type])): Analysis = {
     // TODO: Make this abort on failure to find the mapping
     val node -> tOpt = mapping
     tOpt match {
-      case Some(t) => a.addTypeMapping(node -> t)
+      case Some(t) => a.assignType(node -> t)
       case None => a
     }
   }

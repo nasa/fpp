@@ -41,7 +41,7 @@ case class Analysis(
 ) {
 
   /** Add a mapping to the type map */
-  def addTypeMapping[T](mapping: (AstNode[T], Type)): Analysis = {
+  def assignType[T](mapping: (AstNode[T], Type)): Analysis = {
     val node -> t = mapping
     this.copy(typeMap = this.typeMap + (node.getId -> t))
   }
