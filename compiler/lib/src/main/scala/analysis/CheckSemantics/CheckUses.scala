@@ -120,9 +120,6 @@ object CheckUses extends UseAnalyzer {
     )
   }
 
-  override def transUnit(a: Analysis, tu: Ast.TransUnit) =
-    visitList(a, tu.members, matchTuMember)
-
   private def getSymbolForName[T] 
     (mapping: Name.Unqualified => Option[Symbol]) 
     (node: AstNode[T], name: Name.Unqualified): Result.Result[Symbol] =

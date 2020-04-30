@@ -17,7 +17,4 @@ trait ModuleAnalyzer extends Analyzer {
     yield a2.copy(moduleNameList = a.moduleNameList)
   }
 
-  override def transUnit(a: Analysis, tu: Ast.TransUnit) =
-    visitList(a, tu.members, matchTuMember)
-
 }

@@ -14,4 +14,7 @@ trait Analyzer extends AstStateVisitor {
       case None => Right(a)
     }
 
+  override def transUnit(a: Analysis, tu: Ast.TransUnit) =
+    visitList(a, tu.members, matchTuMember)
+
 }

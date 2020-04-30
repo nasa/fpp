@@ -34,9 +34,6 @@ object CheckUseDefCycles extends UseAnalyzer {
     visitDefPost(a, symbol, node, super.defStructAnnotatedNode)
   }
 
-  override def transUnit(a: Analysis, tu: Ast.TransUnit) =
-    visitList(a, tu.members, matchTuMember)
-
   override def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified) =
     visitUse(a, node, use)
 
