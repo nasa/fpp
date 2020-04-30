@@ -81,6 +81,15 @@ object Type {
     case object U64 extends Kind
   }
 
+  val I8 = PrimitiveInt(PrimitiveInt.I8)
+  val I16 = PrimitiveInt(PrimitiveInt.I16)
+  val I32 = PrimitiveInt(PrimitiveInt.I32)
+  val I64 = PrimitiveInt(PrimitiveInt.I64)
+  val U8 = PrimitiveInt(PrimitiveInt.U8)
+  val U16 = PrimitiveInt(PrimitiveInt.U16)
+  val U32 = PrimitiveInt(PrimitiveInt.U32)
+  val U64 = PrimitiveInt(PrimitiveInt.U64)
+
   /** Floating-point types */
   case class Float(kind: Float.Kind) extends Type with Primitive {
     override def isFloat = true
@@ -89,6 +98,9 @@ object Type {
       case Float.F64 => "F64"
     }
   }
+
+  val F32 = Float(Float.F32)
+  val F64 = Float(Float.F64)
 
   object Float {
     sealed trait Kind
@@ -126,8 +138,6 @@ object Type {
   case class Array(
     /** The AST node giving the definition */
     node: Ast.Annotated[AstNode[Ast.DefArray]],
-    /** The size expression */
-    sizeExpr: AstNode[Ast.Expr],
     /** The structurally equivalent anonymous array */
     anonArray: AnonArray
   ) extends Type {
@@ -271,8 +281,8 @@ object Type {
     val t1 -> t2 = pair
     def numeric = t1.isConvertibleToNumeric && t2.isNumeric
     def array = pair match {
-      case Array(_, _, anonArray1) -> _ => anonArray1.isConvertibleTo(t2)
-      case _ -> Array(_, _, anonArray2) => t1.isConvertibleTo(anonArray2)
+      case Array(_, anonArray1) -> _ => anonArray1.isConvertibleTo(t2)
+      case _ -> Array(_, anonArray2) => t1.isConvertibleTo(anonArray2)
       case AnonArray(size1, eltType1) -> AnonArray(size2, eltType2) => 
         Array.sizesMatch(size1, size2) &&
         eltType1.isConvertibleTo(eltType2)
@@ -336,8 +346,8 @@ object Type {
         else None
       }
       pair match {
-        case (_, Array(_, _, anonArray2)) => commonType(t1, anonArray2)
-        case (Array(_, _, anonArray1), _) => commonType(anonArray1, t2)
+        case (_, Array(_, anonArray2)) => commonType(t1, anonArray2)
+        case (Array(_, anonArray1), _) => commonType(anonArray1, t2)
         case (AnonArray(size1, eltType1), AnonArray(size2, eltType2)) =>
           if (Array.sizesMatch(size1, size2)) {
             val size = Array.commonSize(size1, size2)
