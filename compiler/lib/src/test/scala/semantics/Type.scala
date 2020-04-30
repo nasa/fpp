@@ -10,10 +10,10 @@ class TypeSpec extends AnyWordSpec {
 
   "type identity" should {
     val identicalPairs = List(
-      duplicate(absType("T")),
-      duplicate(array("A")),
-      duplicate(enum("E")),
-      duplicate(struct("S")),
+      duplicate(defaultAbsType),
+      duplicate(defaultArray),
+      duplicate(defaultEnum),
+      duplicate(defaultStruct),
       duplicate(Boolean),
       duplicate(F32),
       duplicate(F64),
@@ -34,14 +34,22 @@ class TypeSpec extends AnyWordSpec {
       (array("A0", AnonArray(None, I32), 0), array("A1", AnonArray(None, U32), 1)),
       (struct("S0", AnonStruct(Map()), 0), struct("S1", AnonStruct(Map()), 1)),
       (array("A", AnonArray(None, I32), 0), struct("S0", AnonStruct(Map()), 1)),
+      (defaultAbsType, defaultEnum),
+      (defaultArray, defaultStruct),
       (Boolean,String),
       (F32,F64),
       (I8,U32),
       duplicate(AnonArray(None, I32)),
       duplicate(AnonStruct(Map())),
     )
-    identicalPairs.foreach { pair => s"hold for $pair" in assert(areIdentical(pair._1, pair._2)) }
-    distinctPairs.foreach { pair => s"not hold for $pair" in assert(!areIdentical(pair._1, pair._2)) }
+    identicalPairs.foreach { 
+      pair => s"hold for $pair" in 
+      assert(areIdentical(pair._1, pair._2)) 
+    }
+    distinctPairs.foreach { 
+      pair => s"not hold for $pair" in
+      assert(!areIdentical(pair._1, pair._2)) 
+    }
   }
 
   "type conversion" should {
@@ -62,7 +70,7 @@ class TypeSpec extends AnyWordSpec {
       AnonArray(Some(3), I32) -> AnonArray(Some(3), AnonArray(Some(3), I32)),
       duplicate(AnonStruct(Map("x" -> I32))),
       AnonStruct(Map("x" -> I32)) -> AnonStruct(Map("x" -> AnonArray(None, I32))),
-      AnonStruct(Map("x" -> I32)) -> AnonStruct(Map("x" -> I32) + ("y" -> I32)),
+      AnonStruct(Map("x" -> I32)) -> AnonStruct(Map("x" -> I32, "y" -> I32)),
       struct("S", AnonStruct(Map("x" -> I32))) -> AnonStruct(Map("x" -> I32)),
       struct("S0", AnonStruct(Map("x" -> I32)), 0) -> struct("S1", AnonStruct(Map("x" -> I32)), 1),
       String -> AnonStruct(Map("x" -> String)),
@@ -84,8 +92,94 @@ class TypeSpec extends AnyWordSpec {
       AnonArray(None, I32) -> AnonStruct(Map()),
       AnonStruct(Map()) -> AnonArray(None, I32),
     )
-    allowedPairs.foreach { pair => s"allow ${pair._1} -> ${pair._2}" in assert(mayBeConverted(pair)) }
-    disallowedPairs.foreach { pair => s"not allow ${pair._1} -> ${pair._2}" in assert(!mayBeConverted(pair)) }
+    allowedPairs.foreach { 
+      pair => s"allow ${pair._1} -> ${pair._2}" in
+      assert(mayBeConverted(pair)) 
+    }
+    disallowedPairs.foreach { 
+      pair => s"not allow ${pair._1} -> ${pair._2}" in 
+      assert(!mayBeConverted(pair)) 
+    }
+  }
+
+  "common types" should {
+    def commonTypeOfPair(pair: (Type, Type)) = commonType(pair._1, pair._2)
+    val allowedPairs = List(
+      duplicate(I32) -> I32,
+      duplicate(defaultAbsType) -> defaultAbsType,
+      duplicate(defaultArray) -> defaultArray,
+      duplicate(defaultEnum) -> defaultEnum,
+      duplicate(defaultStruct) -> defaultStruct,
+      (I32, I8) -> Integer,
+      (F32, F64) -> F64,
+      (I32, F64) -> F64,
+      (F64, I32) -> F64,
+      // Enums
+      (enum("E", I32), I32) -> I32,
+      (enum("E", I32), F64) -> F64,
+      (I32, enum("E", I32)) -> I32,
+      (F64, enum("E", I32)) -> F64,
+      (enum("E0", I32, 0), enum("E1", I32, 1)) -> I32,
+      (enum("E0", I32, 0), enum("E1", I8, 1)) -> Integer,
+      // Arrays
+      (AnonArray(Some(3), I32), AnonArray(Some(3), I8)) -> AnonArray(Some(3), Integer),
+      (Integer, AnonArray(Some(3), Integer)) -> AnonArray(Some(3), Integer),
+      (AnonArray(Some(3), Integer), Integer) -> AnonArray(Some(3), Integer),
+      (AnonArray(Some(3), Integer), AnonArray(Some(3), AnonArray(Some(4), Integer))) -> 
+        AnonArray(Some(3), AnonArray(Some(4), Integer)),
+      (array("A0", AnonArray(Some(3), I32), 0), array("A1", AnonArray(Some(3), I8), 1)) -> 
+        AnonArray(Some(3), Integer),
+      (AnonArray(Some(3), I32), array("A1", AnonArray(Some(3), I8), 1)) -> 
+        AnonArray(Some(3), Integer),
+      (array("A0", AnonArray(Some(3), I32), 0), AnonArray(Some(3), I8)) -> 
+        AnonArray(Some(3), Integer),
+      // Structs
+      (AnonStruct(Map("x" -> I32)), AnonStruct(Map("x" -> I32))) -> 
+        AnonStruct(Map("x" -> I32)),
+      (AnonStruct(Map("x" -> I32)), AnonStruct(Map("x" -> I8))) -> 
+        AnonStruct(Map("x" -> Integer)),
+      (AnonStruct(Map("x" -> I32)), AnonStruct(Map("y" -> I8))) -> 
+        AnonStruct(Map("x" -> I32, "y" -> I8)),
+      (AnonStruct(Map("x" -> I32)), AnonStruct(Map("x" -> I8, "y" -> I8))) -> 
+        AnonStruct(Map("x" -> Integer, "y" -> I8)),
+      (Integer, AnonStruct(Map("x" -> Integer))) -> AnonStruct(Map("x" -> Integer)),
+      (AnonStruct(Map("x" -> Integer)), Integer) -> AnonStruct(Map("x" -> Integer)),
+      (AnonStruct(Map("x" -> I32)), AnonStruct(Map("x" -> AnonStruct(Map("x" -> I8))))) -> 
+        AnonStruct(Map("x" -> AnonStruct(Map("x" -> Integer)))),
+      (struct("S0", AnonStruct(Map("x" -> I32)), 0), struct("A1", AnonStruct(Map("x" -> I8)), 1)) ->
+        AnonStruct(Map("x" -> Integer)),
+      (AnonStruct(Map("x" -> I32)), struct("A1", AnonStruct(Map("x" -> I8)), 1)) ->
+        AnonStruct(Map("x" -> Integer)),
+      (struct("S0", AnonStruct(Map("x" -> I32)), 0), AnonStruct(Map("x" -> I8))) ->
+        AnonStruct(Map("x" -> Integer)),
+    )
+    val disallowedPairs = List(
+      (String, Boolean),
+      (AnonArray(None, I32), AnonStruct(Map())),
+      (AnonStruct(Map()), AnonArray(None, I32)),
+      (AnonArray(Some(3), I32), AnonArray(Some(4), I8)),
+      (AnonArray(Some(3), I32), AnonArray(Some(3), String)),
+      (String, AnonArray(Some(3), Integer)),
+      (AnonArray(Some(3), Integer), String),
+      (AnonArray(Some(4), Integer), AnonArray(Some(3), AnonArray(Some(4), Integer))),
+      (AnonStruct(Map("x" -> Integer)), AnonStruct(Map("x" -> String))),
+      (String, AnonStruct(Map("x" -> Integer))),
+      (AnonStruct(Map("x" -> Integer)), String),
+      (defaultArray, defaultStruct),
+      (defaultStruct, defaultArray),
+      (defaultArray, AnonStruct(Map())),
+      (AnonStruct(Map()), defaultArray),
+      (defaultStruct, AnonArray(None, I32)),
+      (AnonArray(None,I32), defaultStruct),
+    )
+    allowedPairs.foreach { 
+      pair => s"resolve ${pair._1} to ${pair._2}" in 
+      assert(commonTypeOfPair(pair._1) == Some(pair._2)) 
+    }
+    disallowedPairs.foreach { 
+      pair => s"not resolve ${pair}" in 
+      assert(commonTypeOfPair(pair) == None) 
+    }
   }
 
   def absType(name: Ast.Ident, id: AstNode.Id = 0) = {
@@ -119,5 +213,10 @@ class TypeSpec extends AnyWordSpec {
     val anode = annotatedNode(d, id)
     Struct(anode, anonStruct)
   }
+
+  lazy val defaultAbsType = absType("T", 0)
+  lazy val defaultArray = array("A", AnonArray(None, I32), 1)
+  lazy val defaultEnum = enum("E", I32, 2)
+  lazy val defaultStruct = struct("S", AnonStruct(Map()), 3)
 
 }
