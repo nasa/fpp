@@ -29,10 +29,7 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
     val data = node1.getData
     for {
       a <- qualIdentNode (componentUse) (a, data.component)
-      a <- exprNode(a, data.baseId)
-      a <- opt(exprNode)(a, data.queueSize)
-      a <- opt(exprNode)(a, data.stackSize)
-      a <- opt(exprNode)(a, data.priority)
+      a <- super.defComponentInstanceAnnotatedNode(a, node)
     } yield a
   }
 
@@ -58,8 +55,6 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
     val use = Name.Qualified(Nil, e.value)
     constantUse(a, node, use)
   }
-
-  override def exprNode(a: Analysis, node: AstNode[Ast.Expr]): Result = matchExprNode(a, node)
 
   override def specCompInstanceAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecCompInstance]]) = {
     val (_, node1, _) = node
@@ -123,8 +118,6 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
     val data = node1.getData
     visitList(a, data.ports, portInstanceIdentifierNode)
   }
-
-  override def typeNameNode(a: Analysis, node: AstNode[Ast.TypeName]) = matchTypeNameNode(a, node)
 
   override def typeNameQualIdentNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameQualIdent) = {
     val use = Name.Qualified.fromQualIdent(tn.name.getData)

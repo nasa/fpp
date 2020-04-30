@@ -150,7 +150,7 @@ object AstWriter extends AstVisitor {
 
   override def exprStructNode(in: Unit, node: AstNode[Ast.Expr], e: Ast.ExprStruct) =
     lines("expr struct") ++
-    e.members.map(structMember).flatten.map(indentIn)
+    e.members.map(applyToData(structMember)).flatten.map(indentIn)
 
   override def exprUnopNode(in: Unit, node: AstNode[Ast.Expr], e: Ast.ExprUnop) =
     lines("expr unop") ++

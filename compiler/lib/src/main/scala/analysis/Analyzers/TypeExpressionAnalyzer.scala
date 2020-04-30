@@ -17,9 +17,30 @@ trait TypeExpressionAnalyzer
     opt(exprNode)(a, data.value)
   }
 
-  def exprNode(a: Analysis, node: AstNode[Ast.Expr]): Result = default(a)
+  def exprNode(a: Analysis, node: AstNode[Ast.Expr]): Result = matchExprNode(a, node)
 
-  def typeNameNode(a: Analysis, node: AstNode[Ast.TypeName]): Result = default(a)
+  def formalParamNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.FormalParam]]): Result = {
+    val (_, node1, _) = node
+    val data = node1.getData
+    for {
+      a <- typeNameNode(a, data.typeName)
+      a <- opt(exprNode)(a, data.size)
+    } yield a
+  }
+
+  def structMemberNode(a: Analysis, node: AstNode[Ast.StructMember]): Result = 
+    exprNode(a, node.data.value)
+
+  def structTypeMemberAnnotatedNode(
+    a: Analysis,
+    node: Ast.Annotated[AstNode[Ast.StructTypeMember]]
+  ): Result = {
+    val (_, node1, _) = node
+    val data = node1.getData
+    typeNameNode(a, data.typeName)
+  }
+
+  def typeNameNode(a: Analysis, node: AstNode[Ast.TypeName]) = matchTypeNameNode(a, node)
 
   override def defArrayAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val (_, node1, _) = node
@@ -89,7 +110,7 @@ trait TypeExpressionAnalyzer
   override def exprParenNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprParen) = exprNode(a, e.e)
 
   override def exprStructNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprStruct) =
-    visitList(a, e.members, structMember)
+    visitList(a, e.members, structMemberNode)
 
   override def exprUnopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprUnop) = exprNode(a, e.e)
 
@@ -182,26 +203,6 @@ trait TypeExpressionAnalyzer
       a <- visitList(a, data.low, limit)
       a <- visitList(a, data.high, limit)
     } yield a
-  }
-
-  private def formalParamNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.FormalParam]]): Result = {
-    val (_, node1, _) = node
-    val data = node1.getData
-    for {
-      a <- typeNameNode(a, data.typeName)
-      a <- opt(exprNode)(a, data.size)
-    } yield a
-  }
-
-  private def structMember(a: Analysis, member: Ast.StructMember): Result = exprNode(a, member.value)
-
-  private def structTypeMemberAnnotatedNode(
-    a: Analysis,
-    node: Ast.Annotated[AstNode[Ast.StructTypeMember]]
-  ): Result = {
-    val (_, node1, _) = node
-    val data = node1.getData
-    typeNameNode(a, data.typeName)
   }
 
 }

@@ -162,7 +162,7 @@ object Parser extends Parsers {
         case id ~ e => Ast.StructMember(id, e)
       }
       def structExpr = 
-        lbrace ~>! elementSequence(structMember, comma) <~! rbrace ^^ {
+        lbrace ~>! elementSequence(node(structMember), comma) <~! rbrace ^^ {
           case es => Ast.ExprStruct(es)
         }
       def trueExpr = trueToken ^^ { case _ => Ast.ExprLiteralBool(Ast.LiteralBool.True) }

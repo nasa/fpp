@@ -145,7 +145,7 @@ object Ast {
   final case class ExprLiteralFloat(value: String) extends Expr
   final case class ExprLiteralString(value: String) extends Expr
   final case class ExprParen(e: AstNode[Expr]) extends Expr
-  final case class ExprStruct(members: List[StructMember]) extends Expr
+  final case class ExprStruct(members: List[AstNode[StructMember]]) extends Expr
   final case class ExprUnop(op: Unop, e: AstNode[Expr]) extends Expr
 
   /** Topology defintion */
