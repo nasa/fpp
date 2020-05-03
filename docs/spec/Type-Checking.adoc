@@ -197,12 +197,10 @@ _Integer_, then use _Integer_.
 ----
 constant a = 1 + 2 # Type is Integer
 constant b = 3 + 4 # Type is Integer
-constant c = -c # Type is Integer
-constant d = -0xFFFFFFFF # Type is Integer
-constant e = -bool # Error
+constant c = -0xFFFFFFFF # Type is Integer
 enum E { X = 1, Y = 2 }
-constant e = X + Y # Type is Integer
-constant f = true + "abcd" # Error
+constant d = X + Y # Type is Integer
+constant e = true + "abcd" # Error
 ----
 
 === Parenthesis Expressions

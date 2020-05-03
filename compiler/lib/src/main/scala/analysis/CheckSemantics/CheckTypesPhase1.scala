@@ -27,13 +27,19 @@ object CheckTypesPhase1 extends UseAnalyzer {
     val emptyListError = SemanticError.EmptyArray(loc)
     for {
       a <- super.exprArrayNode(a, node, e)
-      t <- a.computeCommonType(e.elts.map(_.getId), emptyListError)
+      t <- a.commonType(e.elts.map(_.getId), emptyListError)
     } yield a.assignType(node -> Type.AnonArray(None, t))
   }
 
   override def exprBinopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprBinop) = {
-    // TODO
-    Right(a.assignType(node -> Type.Integer))
+    val loc = Locations.get(node.getId)
+    for {
+      a <- super.exprBinopNode(a, node, e)
+      t <- a.commonType(e.e1.getId, e.e2.getId, loc)
+      t <- if (t.isNumeric) Right(t) 
+           else if (t.isConvertibleTo(Type.Integer)) Right(Type.Integer)
+           else Left(SemanticError.NonNumericType(loc, t.toString))
+    } yield a.assignType(node -> t)
   }
 
   override def exprLiteralBoolNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralBool) =

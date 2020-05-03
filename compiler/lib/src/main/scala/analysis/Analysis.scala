@@ -46,20 +46,17 @@ case class Analysis(
     this.copy(typeMap = this.typeMap + (node.getId -> t))
   }
 
-  /** Compute the common type for a list of nodes */
-  def computeCommonType(nodes: List[AstNode.Id], emptyListError: Error): Result.Result[Type] = {
+  /** Compute the common type for a list of node Ids */
+  def commonType(nodes: List[AstNode.Id], emptyListError: Error): Result.Result[Type] = {
     def helper(prevNodeId: AstNode.Id, prevType: Type, nextNodes: List[AstNode.Id]): Result.Result[Type] = {
       nextNodes match {
         case Nil => Right(prevType)
         case head :: tail => {
           val currentType = this.typeMap(head)
-          Type.commonType(prevType, currentType) match {
-            case None => {
-              val loc = Locations.get(prevNodeId)
-              val msg = s"cannot compute common type of ${prevType} and ${currentType}"
-              Left(SemanticError.TypeMismatch(loc, msg))
-            }
-            case Some(t) => helper(head, t, tail)
+          val loc = Locations.get(prevNodeId)
+          Analysis.commonType(prevType, currentType, loc) match {
+            case error @ Left(_) => error
+            case Right(t) => helper(head, t, tail)
           }
         }
       }
@@ -72,5 +69,26 @@ case class Analysis(
       }
     }
   }
+
+  /** Compute the common type for two node Ids */
+  def commonType(id1: AstNode.Id, id2: AstNode.Id, errorLoc: Location): Result.Result[Type] = {
+    val t1 = this.typeMap(id1)
+    val t2 = this.typeMap(id2)
+    Analysis.commonType(t1, t2, errorLoc)
+  }
+
+}
+
+object Analysis {
+
+  /** Compute the common type for two types */
+  def commonType(t1: Type, t2: Type, errorLoc: Location): Result.Result[Type] =
+    Type.commonType(t1, t2) match {
+      case None => {
+        val msg = s"cannot compute common type of $t1 and $t2"
+        Left(SemanticError.TypeMismatch(errorLoc, msg))
+      }
+      case Some(t) => Right(t)
+    }
 
 }

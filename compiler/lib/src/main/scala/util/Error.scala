@@ -26,6 +26,8 @@ sealed trait Error {
         System.err.println(prevLoc)
         System.err.println(s"previous path was ${prevPath}")
       }
+      case SemanticError.NonNumericType(loc, t) =>
+        Error.print (Some(loc)) (s"cannot convert $t to a numeric type")
       case SemanticError.NotImplemented(loc) =>
         Error.print (Some(loc)) ("language feature is not yet implemented")
       case SemanticError.RedefinedSymbol(name, loc, prevLoc) => {
@@ -76,6 +78,8 @@ object SemanticError {
     prevLoc: Location,
     prevPath: String
   ) extends Error
+  /** Non-numeric type */
+  final case class NonNumericType(loc: Location, t: String) extends Error
   /** Feature not implemented */
   final case class NotImplemented(loc: Location) extends Error
   /** Redefined symbol */
