@@ -1,4 +1,5 @@
 tests="
+component_unimplemented
 constant_uses_ok
 cycle_array
 cycle_enum
