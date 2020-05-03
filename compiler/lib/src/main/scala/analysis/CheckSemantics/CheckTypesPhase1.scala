@@ -55,12 +55,15 @@ object CheckTypesPhase1 extends UseAnalyzer {
     Right(a.assignType(node -> Type.String))
 
   override def exprParenNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprParen) = {
-    // TODO
-    Right(a.assignType(node -> Type.Integer))
+    for (a <- super.exprParenNode(a, node, e))
+      yield assignType(a, node -> a.typeMap.get(e.e.getId))
   }
 
   override def exprStructNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprStruct) = {
-    def checkForDuplicateMember(nodes: List[AstNode[Ast.StructMember]], map: Map[Name.Unqualified, AstNode.Id]): Result.Result[Unit] =
+    def checkForDuplicateMember(
+      nodes: List[AstNode[Ast.StructMember]],
+      map: Map[Name.Unqualified, AstNode.Id]
+    ): Result.Result[Unit] =
       nodes match {
         case Nil => Right(())
         case node :: tail => {
@@ -94,8 +97,16 @@ object CheckTypesPhase1 extends UseAnalyzer {
   }
 
   override def exprUnopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprUnop) = {
-    // TODO
-    Right(a.assignType(node -> Type.Integer))
+    val loc = Locations.get(node.getId)
+    for {
+      a <- super.exprUnopNode(a, node, e)
+      t <- {
+        val t1 = a.typeMap(e.e.getId)
+        if (t1.isNumeric) Right(t1) 
+        else if (t1.isConvertibleTo(Type.Integer)) Right(Type.Integer)
+         else Left(SemanticError.NonNumericType(loc, t1.toString))
+      }
+    } yield a.assignType(node -> t)
   }
 
   override def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified) = {
