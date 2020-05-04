@@ -90,7 +90,7 @@ object CheckExprTypesPhase1 extends UseAnalyzer {
     for {
       a <- super.exprArrayNode(a, node, e)
       t <- a.commonType(e.elts.map(_.getId), emptyListError)
-    } yield a.assignType(node -> Type.AnonArray(None, t))
+    } yield a.assignType(node -> Type.AnonArray(Some(e.elts.size), t))
   }
 
   override def exprBinopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprBinop) = {
