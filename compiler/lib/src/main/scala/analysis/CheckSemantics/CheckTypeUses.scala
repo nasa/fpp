@@ -36,6 +36,10 @@ object CheckTypeUses extends UseAnalyzer {
       val loc = Locations.get(node.getId)
       for {
         a <- super.defEnumAnnotatedNode(a, aNode)
+        _ <- data.constants match {
+          case Nil => Left(SemanticError.InvalidType(loc, "enum must define at least one constant"))
+          case _ => Right(())
+        }
         repType <- {
           data.typeName match {
             case Some(typeName) => {
