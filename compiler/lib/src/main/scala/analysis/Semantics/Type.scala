@@ -6,6 +6,9 @@ import fpp.compiler.util._
 /** An FPP Type */
 sealed trait Type {
 
+  /** Get the default value */
+  def getDefaultValue: Value = ???
+
   /** Get the array size, if it exists and is known */
   def getArraySize: Option[Type.Array.Size] = None
 
@@ -57,6 +60,7 @@ object Type {
   case class PrimitiveInt(kind: PrimitiveInt.Kind) 
     extends Type with Primitive with Int
   {
+    override def getDefaultValue = Value.PrimitiveInt(0, kind)
     override def toString = kind match {
       case PrimitiveInt.I8 => "I8"
       case PrimitiveInt.I16 => "I16"
@@ -92,6 +96,7 @@ object Type {
 
   /** Floating-point types */
   case class Float(kind: Float.Kind) extends Type with Primitive {
+    override def getDefaultValue = Value.Float(0, kind)
     override def isFloat = true
     override def toString = kind match {
       case Float.F32 => "F32"
@@ -110,18 +115,21 @@ object Type {
 
   /** The Boolean type */
   case object Boolean extends Type with Primitive {
+    override def getDefaultValue = Value.Boolean(false)
     override def toString = "bool"
     override def isPromotableToArray = true
   }
 
   /** The string type */
   case object String extends Type {
+    override def getDefaultValue = Value.String("")
     override def toString = "string"
     override def isPromotableToArray = true
   }
 
   /** The type of arbitrary-width integers */
   case object Integer extends Type with Int {
+    override def getDefaultValue = Value.Integer(0)
     override def toString = "Integer"
   }
   
@@ -130,6 +138,7 @@ object Type {
     /** The AST node giving the definition */
     node: Ast.Annotated[AstNode[Ast.DefAbsType]]
   ) extends Type {
+    override def getDefaultValue = throw InternalError("abstract type has no specified default value")
     override def getDefNodeId = Some(node._2.getId)
     override def toString = "abstract type " ++ node._2.getData.name
   }
@@ -139,9 +148,15 @@ object Type {
     /** The AST node giving the definition */
     node: Ast.Annotated[AstNode[Ast.DefArray]],
     /** The structurally equivalent anonymous array */
-    anonArray: AnonArray
+    anonArray: AnonArray,
+    /** The default value, if any */
+    default: Option[Value.Array] = None
   ) extends Type {
-    /** Set the array size */
+    override def getDefaultValue = default match {
+      case Some(v) => v
+      case None => Value.Array(anonArray.getDefaultValue, this)
+    }
+    /** Set the size */
     def setSize(size: Array.Size) = this.copy(anonArray = anonArray.setSize(size))
     override def getArraySize = anonArray.getArraySize
     override def getDefNodeId = Some(node._2.getId)
@@ -151,7 +166,7 @@ object Type {
 
   object Array {
 
-    type Size = BigInt
+    type Size = scala.Int
 
     /** Check whether two array sizes match */
     def sizesMatch(size1: Option[Size], size2: Option[Size]): Boolean = (size1, size2) match {
@@ -186,7 +201,9 @@ object Type {
     /** The AST node giving the definition */
     node: Ast.Annotated[AstNode[Ast.DefStruct]],
     /** The structurally equivalent anonymous struct type */
-    anonStruct: AnonStruct
+    anonStruct: AnonStruct,
+    /** The default value, if any */
+    default: Option[Value.AnonStruct] = None
   ) extends Type {
     override def getDefNodeId = Some(node._2.getId)
     override def hasNumericMembers = anonStruct.hasNumericMembers
@@ -224,8 +241,9 @@ object Type {
     /** The element type */
     eltType: Type
   ) extends Type {
-    /** Set the array size */
+    /** Set the size */
     def setSize(size: Array.Size) = this.copy(size = Some(size))
+    override def getDefaultValue: Value.AnonArray = Value.AnonArray(Nil)
     override def getArraySize = size
     override def hasNumericMembers = eltType.hasNumericMembers
     override def toString = size match {
@@ -281,8 +299,8 @@ object Type {
     val t1 -> t2 = pair
     def numeric = t1.isConvertibleToNumeric && t2.isNumeric
     def array = pair match {
-      case Array(_, anonArray1) -> _ => anonArray1.isConvertibleTo(t2)
-      case _ -> Array(_, anonArray2) => t1.isConvertibleTo(anonArray2)
+      case Array(_, anonArray1, _) -> _ => anonArray1.isConvertibleTo(t2)
+      case _ -> Array(_, anonArray2, _) => t1.isConvertibleTo(anonArray2)
       case AnonArray(size1, eltType1) -> AnonArray(size2, eltType2) => 
         Array.sizesMatch(size1, size2) &&
         eltType1.isConvertibleTo(eltType2)
@@ -297,8 +315,8 @@ object Type {
           case None => false
         }
       pair match {
-        case Struct(_, anonStruct1) -> _ => anonStruct1.isConvertibleTo(t2)
-        case _ -> Struct(_, anonStruct2) => t1.isConvertibleTo(anonStruct2)
+        case Struct(_, anonStruct1, _) -> _ => anonStruct1.isConvertibleTo(t2)
+        case _ -> Struct(_, anonStruct2, _) => t1.isConvertibleTo(anonStruct2)
         case AnonStruct(members1) -> AnonStruct(members2) => 
           members1.forall(memberExistsIn(members2) _)
         case _ -> AnonStruct(members2) =>
@@ -346,8 +364,8 @@ object Type {
         else None
       }
       pair match {
-        case (_, Array(_, anonArray2)) => commonType(t1, anonArray2)
-        case (Array(_, anonArray1), _) => commonType(anonArray1, t2)
+        case (_, Array(_, anonArray2, _)) => commonType(t1, anonArray2)
+        case (Array(_, anonArray1, _), _) => commonType(anonArray1, t2)
         case (AnonArray(size1, eltType1), AnonArray(size2, eltType2)) =>
           if (Array.sizesMatch(size1, size2)) {
             val size = Array.commonSize(size1, size2)
@@ -392,8 +410,8 @@ object Type {
         else None
       }
       pair match {
-        case (_, Struct(_, anonStruct2)) => commonType(t1, anonStruct2)
-        case (Struct(_, anonStruct1), _) => commonType(anonStruct1, t2)
+        case (_, Struct(_, anonStruct2, _)) => commonType(t1, anonStruct2)
+        case (Struct(_, anonStruct1, _), _) => commonType(anonStruct1, t2)
         case AnonStruct(members1) -> AnonStruct(members2) => twoAnonStructs(members1, members2)
         case _ -> AnonStruct(members) => singleAnonStruct(members, t1)
         case AnonStruct(members) -> _ => singleAnonStruct(members, t2)
