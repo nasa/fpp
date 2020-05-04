@@ -7,7 +7,7 @@ import fpp.compiler.util._
 sealed trait Type {
 
   /** Get the default value */
-  def getDefaultValue: Value = ???
+  def getDefaultValue: Value
 
   /** Get the array size, if it exists and is known */
   def getArraySize: Option[Type.Array.Size] = None
@@ -60,7 +60,7 @@ object Type {
   case class PrimitiveInt(kind: PrimitiveInt.Kind) 
     extends Type with Primitive with Int
   {
-    override def getDefaultValue = Value.PrimitiveInt(0, kind)
+    override def getDefaultValue: Value.PrimitiveInt = Value.PrimitiveInt(0, kind)
     override def toString = kind match {
       case PrimitiveInt.I8 => "I8"
       case PrimitiveInt.I16 => "I16"
@@ -96,7 +96,7 @@ object Type {
 
   /** Floating-point types */
   case class Float(kind: Float.Kind) extends Type with Primitive {
-    override def getDefaultValue = Value.Float(0, kind)
+    override def getDefaultValue: Value.Float = Value.Float(0, kind)
     override def isFloat = true
     override def toString = kind match {
       case Float.F32 => "F32"
@@ -115,21 +115,21 @@ object Type {
 
   /** The Boolean type */
   case object Boolean extends Type with Primitive {
-    override def getDefaultValue = Value.Boolean(false)
+    override def getDefaultValue: Value.Boolean = Value.Boolean(false)
     override def toString = "bool"
     override def isPromotableToArray = true
   }
 
   /** The string type */
   case object String extends Type {
-    override def getDefaultValue = Value.String("")
+    override def getDefaultValue: Value.String = Value.String("")
     override def toString = "string"
     override def isPromotableToArray = true
   }
 
   /** The type of arbitrary-width integers */
   case object Integer extends Type with Int {
-    override def getDefaultValue = Value.Integer(0)
+    override def getDefaultValue: Value.Integer = Value.Integer(0)
     override def toString = "Integer"
   }
   
@@ -152,7 +152,7 @@ object Type {
     /** The default value, if any */
     default: Option[Value.Array] = None
   ) extends Type {
-    override def getDefaultValue = default match {
+    override def getDefaultValue: Value.Array = default match {
       case Some(v) => v
       case None => Value.Array(anonArray.getDefaultValue, this)
     }
@@ -188,8 +188,14 @@ object Type {
     /** The AST node giving the definition */
     node: Ast.Annotated[AstNode[Ast.DefEnum]],
     /** The representation type */
-    repType: Type
+    repType: Type,
+    /** The default value, if known */
+    default: Option[Value.EnumConstant] = None
   ) extends Type {
+    override def getDefaultValue: Value.EnumConstant = default match {
+      case Some(v) => v
+      case None => throw InternalError("default value of enum is not known")
+    }
     override def getDefNodeId = Some(node._2.getId)
     override def isConvertibleToNumeric = true
     override def isPromotableToArray = true
@@ -203,8 +209,12 @@ object Type {
     /** The structurally equivalent anonymous struct type */
     anonStruct: AnonStruct,
     /** The default value, if any */
-    default: Option[Value.AnonStruct] = None
+    default: Option[Value.Struct] = None
   ) extends Type {
+    override def getDefaultValue: Value.Struct = default match {
+      case Some(v) => v
+      case None => Value.Struct(anonStruct.getDefaultValue, this)
+    }
     override def getDefNodeId = Some(node._2.getId)
     override def hasNumericMembers = anonStruct.hasNumericMembers
     override def toString = "struct " ++ node._2.getData.name
@@ -257,6 +267,13 @@ object Type {
     /** The members */
     members: Struct.Members
   ) extends Type {
+    override def getDefaultValue: Value.AnonStruct = {
+      def f(m1: Struct.Member): Value.Struct.Member = {
+        val (k -> t) = m1
+        k -> t.getDefaultValue
+      }
+      Value.AnonStruct(members.map(f))
+    }
     override def hasNumericMembers = members.values.forall(_.hasNumericMembers)
     override def toString = {
       def memberToString(member: Struct.Member) = member._1 ++ ": " ++ member._2.toString
@@ -351,8 +368,8 @@ object Type {
       else if (t1.isNumeric && t2.isNumeric) Some(Integer)
       else None
     def enum() = pair match {
-      case (Enum(_, repType), _) => commonType(repType, t2)
-      case (_, Enum(_, repType)) => commonType(t1, repType)
+      case (Enum(_, repType, _), _) => commonType(repType, t2)
+      case (_, Enum(_, repType, _)) => commonType(t1, repType)
       case _ => None
     }
     def array() = {
