@@ -9,17 +9,79 @@ object CheckExprTypesPhase1 extends UseAnalyzer {
   override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) = 
     visitUse(a, node, use)
 
-  override def defConstantAnnotatedNode(a: Analysis, anode: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
-    val (_, node,_) = anode
+  override def defArrayAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    for {
+      a <- super.defArrayAnnotatedNode(a, aNode)
+      _ <- {
+        val id = data.size.getId
+        val t = a.typeMap(id)
+        val loc = Locations.get(id)
+        convertToNumeric(loc, t)
+      }
+      _ <- data.default match {
+        case Some(defaultNode) => {
+          val arrayId = node.getId
+          val arrayType = a.typeMap(arrayId)
+          val defaultId = defaultNode.id
+          val defaultType = a.typeMap(defaultId)
+          val loc = Locations.get(defaultId)
+          Analysis.convertTypes(loc, defaultType -> arrayType)
+        }
+        case None => Right(a)
+      }
+    } yield a
+  }
+
+  override def defConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
+    val (_, node,_) = aNode
     if (!a.typeMap.contains(node.getId)) {
       val data = node.getData
-      for (a <- super.defConstantAnnotatedNode(a, anode))
+      for (a <- super.defConstantAnnotatedNode(a, aNode))
         yield {
           val t = a.typeMap(data.value.getId)
           a.assignType(node -> t)
         }
     }
     else Right(a)
+  }
+
+  override def defEnumConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnumConstant]]) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    data.value match {
+      case Some(e) => {
+        for {
+          a <- super.defEnumConstantAnnotatedNode(a, aNode)
+          _ <- {
+            val exprType = a.typeMap(e.getId)
+            val loc = Locations.get(e.getId)
+            convertToNumeric(loc, exprType)
+          }
+        } yield a
+      }
+      case None => Right(a)
+    }
+  }
+
+  override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    for {
+      a <- super.defStructAnnotatedNode(a, aNode)
+      _ <- data.default match {
+        case Some(defaultNode) => {
+          val structId = node.getId
+          val structType = a.typeMap(structId)
+          val defaultId = defaultNode.id
+          val defaultType = a.typeMap(defaultId)
+          val loc = Locations.get(defaultId)
+          Analysis.convertTypes(loc, defaultType -> structType)
+        }
+        case None => Right(a)
+      }
+    } yield a
   }
 
   override def exprArrayNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprArray) = {
@@ -36,9 +98,7 @@ object CheckExprTypesPhase1 extends UseAnalyzer {
     for {
       a <- super.exprBinopNode(a, node, e)
       t <- a.commonType(e.e1.getId, e.e2.getId, loc)
-      t <- if (t.isNumeric) Right(t) 
-           else if (t.isConvertibleTo(Type.Integer)) Right(Type.Integer)
-           else Left(nonNumericType(loc, t))
+      _ <- convertToNumeric(loc, t)
     } yield a.assignType(node -> t)
   }
 
@@ -85,9 +145,7 @@ object CheckExprTypesPhase1 extends UseAnalyzer {
       a <- super.exprUnopNode(a, node, e)
       t <- {
         val t1 = a.typeMap(e.e.getId)
-        if (t1.isNumeric) Right(t1) 
-        else if (t1.isConvertibleTo(Type.Integer)) Right(Type.Integer)
-        else Left(nonNumericType(loc, t1))
+        convertToNumeric(loc, t1)
       }
     } yield a.assignType(node -> t)
   }
@@ -107,7 +165,13 @@ object CheckExprTypesPhase1 extends UseAnalyzer {
     }
   }
 
-  private def nonNumericType(loc: Location, t: Type): Error = 
-    SemanticError.InvalidType(loc, s"cannot convert $t to a numeric type")
+  private def convertToNumeric(loc: Location, t: Type): Result.Result[Type] = {
+    if (t.isNumeric) Right(t) 
+    else if (t.isConvertibleTo(Type.Integer)) Right(Type.Integer)
+    else {
+      val error = SemanticError.InvalidType(loc, s"cannot convert $t to a numeric type")
+      Left(error)
+    }
+  }
 
 }

@@ -118,4 +118,14 @@ object Analysis {
     helper(nodes, Map())
   }
 
+  /** Convert one type to another */
+  def convertTypes(loc: Location, pair: (Type, Type)): Result.Result[Type] = {
+    val (t1 -> t2) = pair
+    t1.isConvertibleTo(t2) match {
+      case true => Right(t2)
+      case false => Left(SemanticError.TypeMismatch(loc, s"cannot convert $t1 to $t2"))
+    }
+  }
+  
+
 }
