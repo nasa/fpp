@@ -3,8 +3,9 @@ package fpp.compiler.analysis
 import fpp.compiler.ast._
 import fpp.compiler.util._
 
-/** Compute and check expression types, except for array sizes */
-object CheckExprTypesPhase1 extends UseAnalyzer {
+/** Compute and check expression types, except for array sizes
+ *  and default values */
+object CheckExprTypes extends UseAnalyzer {
 
   override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) = 
     visitUse(a, node, use)
