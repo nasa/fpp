@@ -6,7 +6,7 @@ import fpp.compiler.util._
 /** Compute and check expression types, except for array sizes */
 object CheckExprTypesPhase1 extends UseAnalyzer {
 
-  override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) =
+  override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) = 
     visitUse(a, node, use)
 
   override def defConstantAnnotatedNode(a: Analysis, anode: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
@@ -15,8 +15,8 @@ object CheckExprTypesPhase1 extends UseAnalyzer {
       val data = node.getData
       for (a <- super.defConstantAnnotatedNode(a, anode))
         yield {
-          val t = a.typeMap.get(data.value.getId)
-          assignType(a, node -> t)
+          val t = a.typeMap(data.value.getId)
+          a.assignType(node -> t)
         }
     }
     else Right(a)
@@ -46,7 +46,7 @@ object CheckExprTypesPhase1 extends UseAnalyzer {
     Right(a.assignType(node -> Type.Boolean))
 
   override def exprLiteralFloatNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralFloat) =
-    Right(a.assignType(node -> Type.Float(Type.Float.F64)))
+    Right(a.assignType(node -> Type.F64))
 
   override def exprLiteralIntNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralInt) =
     Right(a.assignType(node -> Type.Integer))
@@ -56,7 +56,7 @@ object CheckExprTypesPhase1 extends UseAnalyzer {
 
   override def exprParenNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprParen) = {
     for (a <- super.exprParenNode(a, node, e))
-      yield assignType(a, node -> a.typeMap.get(e.e.getId))
+      yield a.assignType(node -> a.typeMap(e.e.getId))
   }
 
   override def exprStructNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprStruct) = {
@@ -102,17 +102,8 @@ object CheckExprTypesPhase1 extends UseAnalyzer {
         case _ => Right(a)
       }
     } yield {
-      val t = a.typeMap.get(symbol.getNodeId)
-      assignType(a, node -> t)
-    }
-  }
-
-  private def assignType[T](a: Analysis, mapping: (AstNode[T], Option[Type])): Analysis = {
-    // TODO: Make this abort on failure to find the mapping
-    val node -> tOpt = mapping
-    tOpt match {
-      case Some(t) => a.assignType(node -> t)
-      case None => a
+      val t = a.typeMap(symbol.getNodeId)
+      a.assignType(node -> t)
     }
   }
 
