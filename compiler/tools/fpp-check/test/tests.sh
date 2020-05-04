@@ -8,11 +8,16 @@ cycle_constant_1
 cycle_constant_2
 cycle_struct
 defs_ok
-enum_bad_type
+enum_bad_constant
+enum_bad_rep_type
 enum_missing_constant
 expr_array_empty
 expr_array_error
 expr_array_ok
+expr_neg_error
+expr_neg_ok
+expr_plus_error
+expr_plus_ok
 expr_struct_duplicate
 redef_array
 redef_constant
