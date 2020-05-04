@@ -3,7 +3,9 @@ package fpp.compiler.analysis
 import fpp.compiler.ast._
 import fpp.compiler.util._
 
-/** Check type uses */
+/** Compute and check the types of type definition symbols, enumerated 
+ *  constant symbols, and type names, except that array size expressions and 
+ *  default value expressions are still unevaluated. */
 object CheckTypeUses extends UseAnalyzer {
 
   override def defAbsTypeAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAbsType]]) = {
