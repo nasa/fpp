@@ -20,9 +20,10 @@ object CheckSemantics {
       a <- EnterSymbols.visitList(a, tul, EnterSymbols.transUnit)
       a <- CheckUses.visitList(a, tul, CheckUses.transUnit)
       a <- CheckUseDefCycles.visitList(a, tul, CheckUseDefCycles.transUnit)
-      a <- CheckTypesPhase1.visitList(a, tul, CheckTypesPhase1.transUnit)
+      a <- CheckTypeUses.visitList(a, tul, CheckTypeUses.transUnit)
+      a <- CheckExprTypesPhase1.visitList(a, tul, CheckExprTypesPhase1.transUnit)
       // TODO: Evaluate constants
-      // TODO: Check types (phase 2)
+      // TODO: Check expression types (phase 2)
       // TODO: Check port definitions
       // TODO: Check component definitions
       // TODO: Check component instance definitions

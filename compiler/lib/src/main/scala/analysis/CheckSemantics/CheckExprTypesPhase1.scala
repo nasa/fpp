@@ -3,8 +3,8 @@ package fpp.compiler.analysis
 import fpp.compiler.ast._
 import fpp.compiler.util._
 
-/** Compute and check types, except for array sizes */
-object CheckTypesPhase1 extends UseAnalyzer {
+/** Compute and check expression types, except for array sizes */
+object CheckExprTypesPhase1 extends UseAnalyzer {
 
   override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) =
     visitUse(a, node, use)
@@ -38,7 +38,7 @@ object CheckTypesPhase1 extends UseAnalyzer {
       t <- a.commonType(e.e1.getId, e.e2.getId, loc)
       t <- if (t.isNumeric) Right(t) 
            else if (t.isConvertibleTo(Type.Integer)) Right(Type.Integer)
-           else Left(SemanticError.NonNumericType(loc, t.toString))
+           else Left(nonNumericType(loc, t))
     } yield a.assignType(node -> t)
   }
 
@@ -60,30 +60,13 @@ object CheckTypesPhase1 extends UseAnalyzer {
   }
 
   override def exprStructNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprStruct) = {
-    def checkForDuplicateMember(
-      nodes: List[AstNode[Ast.StructMember]],
-      map: Map[Name.Unqualified, AstNode.Id]
-    ): Result.Result[Unit] =
-      nodes match {
-        case Nil => Right(())
-        case node :: tail => {
-          val data = node.data
-          map.get(data.name) match {
-            case None => checkForDuplicateMember(tail, map + (data.name -> node.getId))
-            case Some(id) => {
-              val loc = Locations.get(node.getId)
-              val prevLoc = Locations.get(id)
-              Left(SemanticError.DuplicateStructMember(data.name, loc, prevLoc))
-            }
-          }
-        }
-      }
+    def getName(member: Ast.StructMember) = member.name
     for {
-      _ <- checkForDuplicateMember(e.members, Map())
+      _ <- Analysis.checkForDuplicateStructMember(getName)(e.members)
       a <- super.exprStructNode(a, node, e)
     } 
     yield {
-      def f(members: Type.Struct.Members, node: AstNode[Ast.StructMember]): Type.Struct.Members = {
+      def visitor(members: Type.Struct.Members, node: AstNode[Ast.StructMember]): Type.Struct.Members = {
         val data = node.data
         a.typeMap.get(data.value.getId) match {
           case Some(t) => members + (data.name -> t)
@@ -91,7 +74,7 @@ object CheckTypesPhase1 extends UseAnalyzer {
         }
       }
       val empty: Type.Struct.Members = Map()
-      val members = e.members.foldLeft(empty)(f)
+      val members = e.members.foldLeft(empty)(visitor)
       a.assignType(node -> Type.AnonStruct(members))
     }
   }
@@ -104,25 +87,19 @@ object CheckTypesPhase1 extends UseAnalyzer {
         val t1 = a.typeMap(e.e.getId)
         if (t1.isNumeric) Right(t1) 
         else if (t1.isConvertibleTo(Type.Integer)) Right(Type.Integer)
-         else Left(SemanticError.NonNumericType(loc, t1.toString))
+        else Left(nonNumericType(loc, t1))
       }
     } yield a.assignType(node -> t)
   }
 
-  override def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified) = {
-    // TODO
-    Right(a.assignType(node -> Type.Integer))
-  }
+  override def typeNameNode(a: Analysis, node: AstNode[Ast.TypeName]) = default(a)
 
   private def visitUse[T](a: Analysis, node: AstNode[T], use: Name.Qualified): Result = {
     val symbol = a.useDefMap(node.getId)
     for {
       a <- symbol match {
-        case Symbol.Array(node) => defArrayAnnotatedNode(a, node)
         case Symbol.Constant(node) => defConstantAnnotatedNode(a, node)
-        case Symbol.Enum(node) => defEnumAnnotatedNode(a, node)
         case Symbol.EnumConstant(node) => defEnumConstantAnnotatedNode(a, node)
-        case Symbol.Struct(node) => defStructAnnotatedNode(a, node)
         case _ => Right(a)
       }
     } yield {
@@ -139,5 +116,8 @@ object CheckTypesPhase1 extends UseAnalyzer {
       case None => a
     }
   }
+
+  private def nonNumericType(loc: Location, t: Type): Error = 
+    SemanticError.InvalidType(loc, s"cannot convert $t to a numeric type")
 
 }

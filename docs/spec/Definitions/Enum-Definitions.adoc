@@ -52,7 +52,7 @@ If _type-name_ appears after the identifier, then the semantic
 analyzer does the following:
 
 . Check that _type-name_ names a <<Types_Primitive-Integer-Types,primitive 
-integer type>> stem:[T].
+integer type>>.
 If not, throw an error.
 
 . Use stem:[T] as the representation type.

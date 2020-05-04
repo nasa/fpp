@@ -91,4 +91,31 @@ object Analysis {
       case Some(t) => Right(t)
     }
 
+  /** Check for duplicate struct member */
+  def checkForDuplicateStructMember[T]
+    (getName: T => Name.Unqualified)
+    (nodes: List[AstNode[T]]): Result.Result[Unit] = {
+    def helper(
+      nodes: List[AstNode[T]],
+      map: Map[Name.Unqualified, AstNode.Id],
+    ): Result.Result[Unit] = {
+      nodes match {
+        case Nil => Right(())
+        case node :: tail => {
+          val data = node.data
+          val name = getName(data)
+          map.get(name) match {
+            case None => helper(tail, map + (name -> node.getId))
+            case Some(id) => {
+              val loc = Locations.get(node.getId)
+              val prevLoc = Locations.get(id)
+              Left(SemanticError.DuplicateStructMember(name, loc, prevLoc))
+            }
+          }
+        }
+      }
+    }
+    helper(nodes, Map())
+  }
+
 }
