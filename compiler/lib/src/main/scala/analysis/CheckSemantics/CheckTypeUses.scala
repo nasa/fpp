@@ -48,7 +48,7 @@ object CheckTypeUses extends UseAnalyzer {
               val repType = a.typeMap(typeName.getId)
               val loc = Locations.get(typeName.getId)
               repType match {
-                case Type.PrimitiveInt(_) => Right(repType)
+                case t @ Type.PrimitiveInt(_) => Right(t)
                 case _ => Left(SemanticError.InvalidType(loc, "primitive integer type required"))
               }
             }

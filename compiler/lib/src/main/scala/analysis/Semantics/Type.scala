@@ -188,7 +188,7 @@ object Type {
     /** The AST node giving the definition */
     node: Ast.Annotated[AstNode[Ast.DefEnum]],
     /** The representation type */
-    repType: Type,
+    repType: Type.PrimitiveInt,
     /** The default value, if known */
     default: Option[Value.EnumConstant] = None
   ) extends Type {

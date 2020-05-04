@@ -58,14 +58,22 @@ sealed trait Value {
     }
   }
 
+  /** Truncate the value based on the width of its type */
+  def truncate: Value = this
+
+  /** Multiply two values */
   def *(v: Value): Option[Value] = None
 
+  /** Add two values */
   def +(v: Value): Option[Value] = None
 
+  /** Subtract one value from another */
   def -(v: Value): Option[Value] = None
 
+  /** Divide one value by another */
   def /(v: Value): Option[Result.Result[Value]] = None
 
+  /** Negate a value */
   def unary_-(v: Value): Option[Value] = None
 
 }
@@ -88,6 +96,25 @@ object Value {
     override def getType = Type.PrimitiveInt(kind)
 
     override def toString = value.toString + ": " + kind.toString
+
+    override def truncate: PrimitiveInt = {
+      def truncateUnsigned(v: BigInt, shiftAmt: Int) = {
+        val modulus = BigInt(1) << shiftAmt
+        val truncated = v % modulus
+        if (v < 0) v + modulus else v
+      }
+      val v = kind match {
+        case Type.PrimitiveInt.I8 => BigInt(value.toByte)
+        case Type.PrimitiveInt.I16 => BigInt(value.toShort)
+        case Type.PrimitiveInt.I32 => BigInt(value.toInt)
+        case Type.PrimitiveInt.I64 => BigInt(value.toLong)
+        case Type.PrimitiveInt.U8 => truncateUnsigned(value, 8)
+        case Type.PrimitiveInt.U16 => truncateUnsigned(value, 16)
+        case Type.PrimitiveInt.U32 => truncateUnsigned(value, 32)
+        case Type.PrimitiveInt.U64 => truncateUnsigned(value, 64)
+      }
+      PrimitiveInt(v, kind)
+    }
 
   }
 
@@ -121,6 +148,11 @@ object Value {
     override def getType = Type.Float(kind)
 
     override def toString = value.toString + ": " + kind.toString
+
+    override def truncate: Value = kind match {
+      case Type.Float.F32 => Float(value.toFloat, kind)
+      case Type.Float.F64 => this
+    }
 
   }
 
@@ -182,6 +214,8 @@ object Value {
 
     override def toString = "[ " ++ elements.mkString(", ") ++ " ]"
 
+    override def truncate: AnonArray = AnonArray(elements.map(_.truncate))
+
   }
 
   /** Array values */
@@ -204,6 +238,8 @@ object Value {
 
     override def toString = anonArray.toString ++ ": " ++ t.node._2.getData.name
 
+    override def truncate: Array = Array(anonArray.truncate, t)
+
   }
 
   /** Enum constant values */
@@ -219,6 +255,11 @@ object Value {
     override def getType = t
 
     override def toString = value.toString ++ ": " ++ t.node._2.getData.name
+
+    override def truncate: EnumConstant = {
+      val truncated = PrimitiveInt(value, t.repType.kind).truncate
+      EnumConstant(truncated.value, t)
+    }
 
   }
 
@@ -271,6 +312,14 @@ object Value {
       }
     }
 
+    override def truncate: AnonStruct = {
+      def f(member: Value.Struct.Member) = {
+        val m -> v = member
+        m -> v.truncate
+      }
+      AnonStruct(members.map(f))
+    }
+
   }
 
   /** Struct values */
@@ -290,6 +339,8 @@ object Value {
     override def getType = t
 
     override def toString = anonStruct.toString ++ ": " ++ t.node._2.getData.name
+
+    override def truncate: Struct = Struct(anonStruct.truncate, t)
 
   }
 
