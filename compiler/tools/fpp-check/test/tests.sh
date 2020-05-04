@@ -14,8 +14,10 @@ enum_missing_constant
 expr_array_empty
 expr_array_error
 expr_array_ok
+expr_literal_ok
 expr_neg_error
 expr_neg_ok
+expr_paren_ok
 expr_plus_error
 expr_plus_ok
 expr_struct_duplicate
