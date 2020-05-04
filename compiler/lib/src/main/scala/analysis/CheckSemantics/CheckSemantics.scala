@@ -21,9 +21,10 @@ object CheckSemantics {
       a <- CheckUses.visitList(a, tul, CheckUses.transUnit)
       a <- CheckUseDefCycles.visitList(a, tul, CheckUseDefCycles.transUnit)
       a <- CheckTypeUses.visitList(a, tul, CheckTypeUses.transUnit)
-      a <- CheckExprTypesPhase1.visitList(a, tul, CheckExprTypesPhase1.transUnit)
+      a <- CheckExprTypes.visitList(a, tul, CheckExprTypes.transUnit)
+      // TODO: Evaluate implied enum constants
       // TODO: Evaluate constants
-      // TODO: Check expression types (phase 2)
+      // TODO: Finalize type definitions
       // TODO: Check port definitions
       // TODO: Check component definitions
       // TODO: Check component instance definitions
