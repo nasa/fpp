@@ -99,7 +99,6 @@ object CheckExprTypesPhase1 extends UseAnalyzer {
     for {
       a <- symbol match {
         case Symbol.Constant(node) => defConstantAnnotatedNode(a, node)
-        case Symbol.EnumConstant(node) => defEnumConstantAnnotatedNode(a, node)
         case _ => Right(a)
       }
     } yield {

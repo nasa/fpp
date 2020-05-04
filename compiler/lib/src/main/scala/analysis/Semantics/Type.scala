@@ -146,7 +146,7 @@ object Type {
     override def getArraySize = anonArray.getArraySize
     override def getDefNodeId = Some(node._2.getId)
     override def hasNumericMembers = anonArray.hasNumericMembers
-    override def toString = "array type " ++ node._2.getData.name
+    override def toString = "array " ++ node._2.getData.name
   }
 
   object Array {
@@ -178,7 +178,7 @@ object Type {
     override def getDefNodeId = Some(node._2.getId)
     override def isConvertibleToNumeric = true
     override def isPromotableToArray = true
-    override def toString = "enum type " ++ node._2.getData.name
+    override def toString = "enum " ++ node._2.getData.name
   }
 
   /** A named struct type */
@@ -190,7 +190,7 @@ object Type {
   ) extends Type {
     override def getDefNodeId = Some(node._2.getId)
     override def hasNumericMembers = anonStruct.hasNumericMembers
-    override def toString = "struct type " ++ node._2.getData.name
+    override def toString = "struct " ++ node._2.getData.name
   }
 
   object Struct {

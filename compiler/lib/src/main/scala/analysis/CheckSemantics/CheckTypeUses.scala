@@ -56,7 +56,8 @@ object CheckTypeUses extends UseAnalyzer {
         a <- {
           val t = Type.Enum(aNode, repType)
           val a1 = a.assignType(node -> t)
-          def visitor[T](a: Analysis, aNode: T) = Right(a.assignType(node -> t))
+          def visitor(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnumConstant]]): Result =
+            Right(a.assignType(aNode._2 -> t))
           visitList(a1, data.constants, visitor)
         }
       }
