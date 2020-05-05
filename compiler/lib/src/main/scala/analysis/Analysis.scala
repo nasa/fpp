@@ -31,12 +31,14 @@ case class Analysis(
   /** The set of symbols on the current use-def path.
    *  Used during cycle analysis. */
   useDefSymbolSet: Set[Symbol] = Set(),
-  /* The list of use-def matchings on the current use-def path.
-   * Used during cycle analysis. */
+  /** The list of use-def matchings on the current use-def path.
+   *  Used during cycle analysis. */
   useDefMatchingList: List[UseDefMatching] = List(),
-  /* The mapping from type and constant symbols, expressions,
-   * and type names to their types */
+  /** The mapping from type and constant symbols, expressions,
+   *  and type names to their types */
   typeMap: Map[AstNode.Id, Type] = Map(),
+  /** THe mapping from constant symbols and expressions to their values. */
+  valueMap: Map[AstNode.Id, Value] = Map(),
   // TODO
 ) {
 
@@ -75,6 +77,52 @@ case class Analysis(
     val t1 = this.typeMap(id1)
     val t2 = this.typeMap(id2)
     Analysis.commonType(t1, t2, errorLoc)
+  }
+
+  /** Add two noes */
+  def add(id1: AstNode.Id, id2: AstNode.Id): Value = {
+    val v1 = valueMap(id1)
+    val v2 = valueMap(id1)
+    v1 + v2 match {
+      case Some(v) => v
+      case None => throw InternalError("addition failed")
+    }
+  }
+
+  /** Subtract one node from another */
+  def sub(id1: AstNode.Id, id2: AstNode.Id): Value = {
+    val v1 = valueMap(id1)
+    val v2 = valueMap(id1)
+    v1 - v2 match {
+      case Some(v) => v
+      case None => throw InternalError("subtraction failed")
+    }
+  }
+
+  /** Multiply two nodes */
+  def mul(id1: AstNode.Id, id2: AstNode.Id): Value = {
+    val v1 = valueMap(id1)
+    val v2 = valueMap(id1)
+    v1 * v2 match {
+      case Some(v) => v
+      case None => throw InternalError("multiplication failed")
+    }
+  }
+
+  /** Divide one node by another */
+  def div(id1: AstNode.Id, id2: AstNode.Id): Result.Result[Value] = {
+    val v1 = valueMap(id1)
+    val v2 = valueMap(id1)
+    if (v2.isZero) {
+      val loc = Locations.get(id2)
+      Left(SemanticError.DivisionByZero(loc))
+    }
+    else {
+      v1 / v2 match {
+        case Some(v) => Right(v)
+        case None => throw InternalError("division failed")
+      }
+    }
   }
 
 }
@@ -126,6 +174,5 @@ object Analysis {
       case false => Left(SemanticError.TypeMismatch(loc, s"cannot convert $t1 to $t2"))
     }
   }
-  
 
 }

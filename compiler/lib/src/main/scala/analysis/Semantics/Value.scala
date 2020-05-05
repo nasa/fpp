@@ -6,6 +6,16 @@ import fpp.compiler.util._
 /** An FPP value */
 sealed trait Value {
 
+  /** Add two values */
+  final def +(v: Value): Option[Value] = {
+    def intOp(v1: BigInt, v2: BigInt) = v1 + v2
+    def doubleOp(v1: Double, v2: Double) = v1 + v2
+    binop(Value.Binop(intOp, doubleOp))(v)
+  }
+
+  /** Check whether a value is zero for purposes of division */
+  def isZero: Boolean = false
+
   /** Convert this value to a distinct type */
   def convertToDistinctType(t: Type): Option[Value] = None
 
@@ -16,8 +26,28 @@ sealed trait Value {
     else convertToDistinctType(t)
   }
 
+  /** Divide one value by another */
+  final def /(v: Value): Option[Value] = {
+    def intOp(v1: BigInt, v2: BigInt) = v1 / v2
+    def doubleOp(v1: Double, v2: Double) = v1 / v2
+    binop(Value.Binop(intOp, doubleOp))(v)
+  }
+
+  /** Generic binary operation */
+  def binop(op: Value.Binop)(v: Value): Option[Value] = None
+
   /** Get the type of the value */
   def getType: Type
+
+  /** Multiply two values */
+  final def *(v: Value): Option[Value] = {
+    def intOp(v1: BigInt, v2: BigInt) = v1 * v2
+    def doubleOp(v1: Double, v2: Double) = v1 * v2
+    binop(Value.Binop(intOp, doubleOp))(v)
+  }
+
+  /** Negate a value */
+  def unary_- : Option[Value] = None
 
   /** Promote this value to an array, anonymous array, struct, or anonymous struct */
   final def promoteToAggregate(t: Type): Option[Value] = {
@@ -58,23 +88,15 @@ sealed trait Value {
     }
   }
 
+  /** Subtract one value from another */
+  final def -(v: Value): Option[Value] = {
+    def intOp(v1: BigInt, v2: BigInt) = v1 - v2
+    def doubleOp(v1: Double, v2: Double) = v1 - v2
+    binop(Value.Binop(intOp, doubleOp))(v)
+  }
+
   /** Truncate the value based on the width of its type */
   def truncate: Value = this
-
-  /** Multiply two values */
-  def *(v: Value): Option[Value] = None
-
-  /** Add two values */
-  def +(v: Value): Option[Value] = None
-
-  /** Subtract one value from another */
-  def -(v: Value): Option[Value] = None
-
-  /** Divide one value by another */
-  def /(v: Value): Option[Result.Result[Value]] = None
-
-  /** Negate a value */
-  def unary_-(v: Value): Option[Value] = None
 
 }
 
@@ -85,6 +107,22 @@ object Value {
     extends Value
   {
 
+    override def binop(op: Binop)(v: Value) = v match {
+      case PrimitiveInt(value1, kind1) => {
+        val result1 = op.intOp(value, value1)
+        val result2 = if (kind1 == kind) PrimitiveInt(result1, kind) else Integer(result1)
+        Some(result2)
+      }
+      case Integer(value1) => Some(Integer(op.intOp(value, value1)))
+      case Float(value1, kind1) => {
+        val result = op.doubleOp(value.toFloat, value1)
+        Some(Float(result.toFloat, Type.Float.F64))
+      }
+      case enumConstant @ EnumConstant(_, _) =>
+        binop(op)(enumConstant.convertToRepType)
+      case _ => None
+    }
+
     override def convertToDistinctType(t: Type) =
       t match {
         case Type.PrimitiveInt(kind1) => Some(PrimitiveInt(value, kind1))
@@ -94,6 +132,8 @@ object Value {
       }
 
     override def getType = Type.PrimitiveInt(kind)
+
+    override def isZero = (value == 0)
 
     override def toString = value.toString + ": " + kind.toString
 
@@ -116,10 +156,27 @@ object Value {
       PrimitiveInt(v, kind)
     }
 
+    override def unary_- = Some(PrimitiveInt(-value, kind))
+
   }
 
   /** Integer values */
   case class Integer(value: BigInt) extends Value {
+
+    override def binop(op: Binop)(v: Value) = v match {
+      case PrimitiveInt(value1, kind1) => {
+        val result = op.intOp(value, value1)
+        Some(Integer(result))
+      }
+      case Integer(value1) => Some(Integer(op.intOp(value, value1)))
+      case Float(value1, kind1) => {
+        val result = op.doubleOp(value.toFloat, value1)
+        Some(Float(result.toFloat, Type.Float.F64))
+      }
+      case enumConstant @ EnumConstant(_, _) =>
+        binop(op)(enumConstant.convertToRepType)
+      case _ => None
+    }
 
     override def convertToDistinctType(t: Type) =
       t match {
@@ -131,12 +188,39 @@ object Value {
 
     override def getType = Type.Integer
 
+    override def isZero = (value == 0)
+
     override def toString = value.toString
+
+    override def unary_- = Some(Integer(-value))
 
   }
 
   /** Floating-point values */
   case class Float(value: Double, kind: Type.Float.Kind) extends Value {
+
+    override def binop(op: Binop)(v: Value) = v match {
+      case PrimitiveInt(value1, kind1) => {
+        val result = op.doubleOp(value, value1.toDouble)
+        Some(Float(result.toFloat, Type.Float.F64))
+      }
+      case Integer(value1) => {
+        val result = op.doubleOp(value, value1.toDouble)
+        Some(Float(result.toDouble, Type.Float.F64))
+      }
+      case Float(value1, kind1) => {
+        val result1 = op.doubleOp(value, value1)
+        val result2 = 
+          if (kind1 == kind) Float(result1, kind) 
+          else Float(result1, Type.Float.F64)
+        Some(result2)
+      }
+      case enumConstant @ EnumConstant(_, _) =>
+        binop(op)(enumConstant.convertToRepType)
+      case _ => None
+    }
+
+    override def isZero = (Math.abs(value) < 0.000001)
 
     override def convertToDistinctType(t: Type) =
       t match {
@@ -153,6 +237,8 @@ object Value {
       case Type.Float.F32 => Float(value.toFloat, kind)
       case Type.Float.F64 => this
     }
+
+    override def unary_- = Some(Float(-value, kind))
 
   }
 
@@ -245,21 +331,21 @@ object Value {
   /** Enum constant values */
   case class EnumConstant(value: BigInt, t: Type.Enum) extends Value {
 
-    override def convertToDistinctType(t: Type) = t match {
-      case Type.PrimitiveInt(kind1) => Some(PrimitiveInt(value, kind1))
-      case Type.Integer => Some(Integer(value))
-      case Type.Float(kind1) => Some(Float(value.doubleValue, kind1))
-      case _ => promoteToAggregate(t)
-    }
+    override def binop(op: Binop)(v: Value) = convertToRepType.binop(op)(v)
+
+    /** Convert the enum to the representation type */
+    def convertToRepType: PrimitiveInt = PrimitiveInt(value, t.repType.kind)
+
+    override def convertToDistinctType(t: Type) =
+      convertToRepType.convertToDistinctType(t)
 
     override def getType = t
 
+    override def isZero = convertToRepType.isZero
+
     override def toString = value.toString ++ ": " ++ t.node._2.getData.name
 
-    override def truncate: EnumConstant = {
-      val truncated = PrimitiveInt(value, t.repType.kind).truncate
-      EnumConstant(truncated.value, t)
-    }
+    override def unary_- = - convertToRepType
 
   }
 
@@ -349,6 +435,21 @@ object Value {
     type Member = (Name.Unqualified, Value)
 
     type Members = Map[Name.Unqualified, Value]
+
+  }
+
+  /** Binary operations */
+  case class Binop(
+    /** The integer operation */
+    intOp: Binop.Op[BigInt], 
+    /** The double-precision floating point operation */
+    doubleOp: Binop.Op[Double]
+  )
+
+  object Binop {
+
+    /** A binary operation */
+    type Op[T] = (T, T) => T
 
   }
 

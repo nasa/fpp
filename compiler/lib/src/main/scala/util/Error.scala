@@ -15,6 +15,8 @@ sealed trait Error {
         Error.print (locOpt) (s"cannot open file $name")
       case FileError.CannotResolvePath(loc, name) => 
         Error.print (Some(loc)) (s"cannot resolve path $name")
+      case SemanticError.DivisionByZero(loc) =>
+        Error.print (Some(loc)) ("division by zero")
       case SemanticError.DuplicateStructMember(name, loc, prevLoc) => {
         Error.print (Some(loc)) (s"duplicate struct member ${name}")
         System.err.println(s"previous member was here:")
@@ -65,6 +67,8 @@ object FileError {
 object SemanticError {
   /** Empty array */
   final case class EmptyArray(loc: Location) extends Error
+  /** Division by zero */
+  final case class DivisionByZero(loc: Location) extends Error
   /** Duplicate struct member */
   final case class DuplicateStructMember(
     name: String,
