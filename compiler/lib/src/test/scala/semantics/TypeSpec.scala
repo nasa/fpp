@@ -4,7 +4,9 @@ import fpp.compiler.ast._
 import fpp.compiler.analysis._
 import org.scalatest.wordspec.AnyWordSpec
 
+import Helpers._
 import Type._
+import Types._
 
 class TypeSpec extends AnyWordSpec {
 
@@ -181,42 +183,5 @@ class TypeSpec extends AnyWordSpec {
       assert(commonTypeOfPair(pair) == None) 
     }
   }
-
-  def absType(name: Ast.Ident, id: AstNode.Id = 0) = {
-    val d = Ast.DefAbsType(name)
-    val anode = annotatedNode(d, id)
-    AbsType(anode)
-  }
-
-  def annotate[T](x: T) = (List(), x, List())
-
-  def annotatedNode[T](x: T, id: AstNode.Id) = annotate(AstNode.create(x, id))
-
-  def array(name: Ast.Ident, anonArray: AnonArray = AnonArray(None, U32), id: AstNode.Id = 0) = {
-    val size = AstNode.create(Ast.ExprLiteralInt("1"))
-    val eltType = AstNode.create(Ast.TypeNameInt(Ast.U32()))
-    val d = Ast.DefArray(name, size, eltType, None, None)
-    val anode = annotatedNode(d, id)
-    Array(anode, anonArray)
-  }
-
-  def duplicate[T](x: T) = (x, x)
-
-  def enum(name: Ast.Ident, repType: Type.PrimitiveInt = I32, id: AstNode.Id = 0) = {
-    val d = Ast.DefEnum(name, None, List())
-    val anode = annotatedNode(d, id)
-    Enum(anode, repType)
-  }
-
-  def struct(name: Ast.Ident, anonStruct: AnonStruct = AnonStruct(Map()), id: AstNode.Id = 0) = {
-    val d = Ast.DefStruct(name, List(), None)
-    val anode = annotatedNode(d, id)
-    Struct(anode, anonStruct)
-  }
-
-  lazy val defaultAbsType = absType("T", 0)
-  lazy val defaultArray = array("A", AnonArray(None, I32), 1)
-  lazy val defaultEnum = enum("E", I32, 2)
-  lazy val defaultStruct = struct("S", AnonStruct(Map()), 3)
 
 }
