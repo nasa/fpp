@@ -5,7 +5,6 @@ import fpp.compiler.analysis._
 import org.scalatest.wordspec.AnyWordSpec
 
 import Helpers._
-import Types._
 import Value._
 import Values._
 
@@ -26,7 +25,11 @@ class ValueSpec extends AnyWordSpec {
       (defaultF64, Type.F64),
       (defaultBoolean, Type.Boolean),
       (defaultString, Type.String),
-      (defaultAnonArray3U32, Type.AnonArray(Some(3), Type.U32)),
+      (defaultAnonArray3U32, defaultAnonArray3U32Type),
+      (array, arrayType),
+      (enum, enumType),
+      (anonStruct, anonStructType),
+      (struct, structType),
     )
     pairs.foreach { 
       pair => s"evaluate ${pair._1} to ${pair._2}" in 
