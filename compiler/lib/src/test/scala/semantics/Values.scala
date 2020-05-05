@@ -38,7 +38,8 @@ object Values {
 
   val defaultString = String("")
 
-  val defaultAnonArray3U32 = AnonArray(List.fill(3)(defaultU32))
+  def createAnonArray(size: Int, v: Value) = AnonArray(List.fill(size)(v))
+  val defaultAnonArray3U32 = createAnonArray(3, defaultU32)
   val defaultAnonArray3U32Type = Type.AnonArray(Some(3), Type.U32)
   val defaultAnonArray3I32 = AnonArray(List.fill(3)(defaultI32))
   val array = Array(defaultAnonArray3I32, Types.defaultArray)

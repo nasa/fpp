@@ -141,7 +141,7 @@ object Value {
       def truncateUnsigned(v: BigInt, shiftAmt: Int) = {
         val modulus = BigInt(1) << shiftAmt
         val truncated = v % modulus
-        if (v < 0) v + modulus else v
+        if (truncated < 0) truncated + modulus else truncated
       }
       val v = kind match {
         case Type.PrimitiveInt.I8 => BigInt(value.toByte)
@@ -220,7 +220,7 @@ object Value {
       case _ => None
     }
 
-    override def isZero = (Math.abs(value) < 0.000001)
+    override def isZero = (Math.abs(value) < Float.EPSILON)
 
     override def convertToDistinctType(t: Type) =
       t match {
@@ -239,6 +239,13 @@ object Value {
     }
 
     override def unary_- = Some(Float(-value, kind))
+
+  }
+
+  object Float {
+
+    /** Epsilon for nearness to zero */
+    val EPSILON = 0.0000001
 
   }
 
