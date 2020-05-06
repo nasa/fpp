@@ -50,23 +50,29 @@ object EvalConstantExprs extends UseAnalyzer {
     else Right(a)
   }
 
-  /*
   override def defEnumConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnumConstant]]) = {
     val (_, node, _) = aNode
     if (!a.valueMap.contains(node.getId)) {
-      val data = node.data
-      data.value match {
+      node.data.value match {
         case Some(e) => 
           for (a <- super.defEnumConstantAnnotatedNode(a, aNode))
             yield {
-
+              val value = Analysis.convertValueToType(a.valueMap(e.getId), Type.Integer) match {
+                case Value.Integer(value) => value
+                case _ => throw InternalError("conversion to Integer type should yield Integer value")
+              }
+              val enumType = a.typeMap(node.getId) match {
+                case enumType @ Type.Enum(_, _, _) => enumType
+                case _ => throw InternalError("type of enum constant definition should be enum type")
+              }
+              val v = Value.EnumConstant(value, enumType)
+              a.assignValue(node -> v)
             }
         case None => throw InternalError("implied enum constants should already be evaluated")
       }
     }
     else Right(a)
   }
-  */
 
   override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
     /*
@@ -176,6 +182,7 @@ object EvalConstantExprs extends UseAnalyzer {
     val symbol = a.useDefMap(node.getId)
     for {
       a <- symbol match {
+        case Symbol.EnumConstant(node) => defEnumConstantAnnotatedNode(a, node)
         case Symbol.Constant(node) => defConstantAnnotatedNode(a, node)
         case _ => Right(a)
       }

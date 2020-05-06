@@ -25,7 +25,7 @@ object EvalImpliedEnumConsts extends ModuleAnalyzer {
           case node :: tail => {
             val enumType = a.typeMap(node.getId) match {
               case enumType @ Type.Enum(_, _, _) => enumType
-              case _ => throw InternalError("enum definition should have enum type")
+              case _ => throw InternalError("type of enum definition should be enum type")
             }
             val a1 = a.assignValue(node -> Value.EnumConstant(value, enumType))
             visitConstants(a1, value + 1, tail)
