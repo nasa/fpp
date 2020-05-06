@@ -22,7 +22,10 @@ sealed trait Error {
         System.err.println(s"previous member was here:")
         System.err.println(prevLoc)
       }
-      case SemanticError.EmptyArray(loc) => Error.print (Some(loc)) ("array expression may not be empty")
+      case SemanticError.ConstantTooLarge(loc) => 
+        Error.print (Some(loc)) ("value is too large: integer constant must fit within width of U64 type")
+      case SemanticError.EmptyArray(loc) => 
+        Error.print (Some(loc)) ("array expression may not be empty")
       case SemanticError.InconsistentSpecLoc(loc, path, prevLoc, prevPath) => {
         Error.print (Some(loc)) (s"inconsistent location path ${path}")
         System.err.println(prevLoc)
@@ -67,6 +70,8 @@ object FileError {
 
 /** A semantic error */
 object SemanticError {
+  /** Integer constant too large */
+  final case class ConstantTooLarge(loc: Location) extends Error
   /** Empty array */
   final case class EmptyArray(loc: Location) extends Error
   /** Division by zero */

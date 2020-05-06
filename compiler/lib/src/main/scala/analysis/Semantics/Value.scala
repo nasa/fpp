@@ -162,6 +162,11 @@ object Value {
 
   /** Integer values */
   case class Integer(value: BigInt) extends Value {
+    
+    def fitsInU64Width = {
+      val u64Bound = BigInt(1) << 64
+      (value >= - (u64Bound / 2) && value < u64Bound)
+    }
 
     override def binop(op: Binop)(v: Value) = v match {
       case PrimitiveInt(value1, kind1) => {

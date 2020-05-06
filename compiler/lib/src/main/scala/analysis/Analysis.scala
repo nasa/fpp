@@ -88,7 +88,7 @@ case class Analysis(
   /** Add two noes */
   def add(id1: AstNode.Id, id2: AstNode.Id): Value = {
     val v1 = valueMap(id1)
-    val v2 = valueMap(id1)
+    val v2 = valueMap(id2)
     v1 + v2 match {
       case Some(v) => v
       case None => throw InternalError("addition failed")
@@ -98,7 +98,7 @@ case class Analysis(
   /** Subtract one node from another */
   def sub(id1: AstNode.Id, id2: AstNode.Id): Value = {
     val v1 = valueMap(id1)
-    val v2 = valueMap(id1)
+    val v2 = valueMap(id2)
     v1 - v2 match {
       case Some(v) => v
       case None => throw InternalError("subtraction failed")
@@ -108,7 +108,7 @@ case class Analysis(
   /** Multiply two nodes */
   def mul(id1: AstNode.Id, id2: AstNode.Id): Value = {
     val v1 = valueMap(id1)
-    val v2 = valueMap(id1)
+    val v2 = valueMap(id2)
     v1 * v2 match {
       case Some(v) => v
       case None => throw InternalError("multiplication failed")
@@ -118,7 +118,7 @@ case class Analysis(
   /** Divide one node by another */
   def div(id1: AstNode.Id, id2: AstNode.Id): Result.Result[Value] = {
     val v1 = valueMap(id1)
-    val v2 = valueMap(id1)
+    val v2 = valueMap(id2)
     if (v2.isZero) {
       val loc = Locations.get(id2)
       Left(SemanticError.DivisionByZero(loc))
@@ -130,6 +130,15 @@ case class Analysis(
       }
     }
   }
+
+  /** Negate a value */
+  def neg(id: AstNode.Id): Value = {
+    val v = valueMap(id)
+    -v match {
+        case Some(v) => v
+        case None => throw InternalError("negation failed")
+      }
+    }
 
 }
 
