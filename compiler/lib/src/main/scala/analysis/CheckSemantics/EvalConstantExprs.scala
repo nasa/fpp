@@ -50,26 +50,23 @@ object EvalConstantExprs extends UseAnalyzer {
     else Right(a)
   }
 
+  /*
   override def defEnumConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnumConstant]]) = {
-    /*
     val (_, node, _) = aNode
-    val data = node.data
-    data.value match {
-      case Some(e) => {
-        for {
-          a <- super.defEnumConstantAnnotatedNode(a, aNode)
-          _ <- {
-            val exprType = a.typeMap(e.getId)
-            val loc = Locations.get(e.getId)
-            convertToNumeric(loc, exprType)
-          }
-        } yield a
+    if (!a.valueMap.contains(node.getId)) {
+      val data = node.data
+      data.value match {
+        case Some(e) => 
+          for (a <- super.defEnumConstantAnnotatedNode(a, aNode))
+            yield {
+
+            }
+        case None => throw InternalError("implied enum constants should already be evaluated")
       }
-      case None => Right(a)
     }
-    */
-    default(a)
+    else Right(a)
   }
+  */
 
   override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
     /*
@@ -93,18 +90,23 @@ object EvalConstantExprs extends UseAnalyzer {
     default(a)
   }
 
-  /*
-  override def exprArrayNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprArray) = {
-    val loc = Locations.get(node.getId)
-    val emptyListError = SemanticError.EmptyArray(loc)
-    for {
-      a <- super.exprArrayNode(a, node, e)
-      t <- a.commonType(e.elts.map(_.getId), emptyListError)
-    } yield a.assignType(node -> Type.AnonArray(Some(e.elts.size), t))
-  }
-  */
+  override def exprArrayNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprArray) =
+    for (a <- super.exprArrayNode(a, node, e))
+      yield {
+        val eltType = a.typeMap(node.getId) match {
+          case Type.AnonArray(_, eltType) => eltType
+          case _ => throw InternalError("element type of array expression should be AnonArray")
+        }
+        def f(node: AstNode[Ast.Expr]) = {
+          val v = a.valueMap(node.getId)
+          Analysis.convertValueToType(v, eltType)
+        }
+        val elts = e.elts.map(f)
+        val v = Value.AnonArray(elts)
+        a.assignValue(node -> v)
+      }
 
-  override def exprBinopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprBinop) = {
+  override def exprBinopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprBinop) =
     for {
       a <- super.exprBinopNode(a, node, e)
       v <- e.op match {
@@ -114,7 +116,6 @@ object EvalConstantExprs extends UseAnalyzer {
             case Ast.Binop.Sub => Right(a.sub(e.e1.getId, e.e2.getId))
           }
     } yield a.assignValue(node -> v)
-  }
 
   override def exprLiteralBoolNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralBool) = {
     val b = e.value match {
@@ -146,27 +147,19 @@ object EvalConstantExprs extends UseAnalyzer {
       yield a.assignValue(node -> a.valueMap(e.e.getId))
   }
 
-  /*
-  override def exprStructNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprStruct) = {
-    def getName(member: Ast.StructMember) = member.name
-    for {
-      _ <- Analysis.checkForDuplicateStructMember(getName)(e.members)
-      a <- super.exprStructNode(a, node, e)
-    } 
-    yield {
-      def visitor(members: Type.Struct.Members, node: AstNode[Ast.StructMember]): Type.Struct.Members = {
-        val data = node.data
-        a.typeMap.get(data.value.getId) match {
-          case Some(t) => members + (data.name -> t)
-          case None => members
+  override def exprStructNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprStruct) =
+    for (a <- super.exprStructNode(a, node, e))
+      yield {
+        def visitor(members: Value.Struct.Members, node: AstNode[Ast.StructMember]): Value.Struct.Members = {
+          val data = node.data
+          val v = a.valueMap(data.value.getId)
+          members + (data.name -> v)
         }
+        val empty: Value.Struct.Members = Map()
+        val members = e.members.foldLeft(empty)(visitor)
+        val v = Value.AnonStruct(members)
+        a.assignValue(node -> v)
       }
-      val empty: Type.Struct.Members = Map()
-      val members = e.members.foldLeft(empty)(visitor)
-      a.assignType(node -> Type.AnonStruct(members))
-    }
-  }
-  */
 
   override def exprUnopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprUnop) = {
     val loc = Locations.get(node.getId)

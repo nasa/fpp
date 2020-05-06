@@ -53,14 +53,19 @@ object CheckExprTypes extends UseAnalyzer {
     val data = node.data
     data.value match {
       case Some(e) => {
-        for {
-          a <- super.defEnumConstantAnnotatedNode(a, aNode)
-          _ <- {
-            val exprType = a.typeMap(e.getId)
-            val loc = Locations.get(e.getId)
-            convertToNumeric(loc, exprType)
-          }
-        } yield a
+        if (!a.typeMap.contains(e.getId)) {
+          for {
+            a <- super.defEnumConstantAnnotatedNode(a, aNode)
+            _ <- {
+              val exprType = a.typeMap(e.getId)
+              val loc = Locations.get(e.getId)
+              // Just check that the type of the value expression is convertible to numeric
+              // The enum type of the enum constant node is already in the type map
+              convertToNumeric(loc, exprType)
+            }
+          } yield a
+        }
+        else Right(a)
       }
       case None => Right(a)
     }
@@ -129,10 +134,8 @@ object CheckExprTypes extends UseAnalyzer {
     yield {
       def visitor(members: Type.Struct.Members, node: AstNode[Ast.StructMember]): Type.Struct.Members = {
         val data = node.data
-        a.typeMap.get(data.value.getId) match {
-          case Some(t) => members + (data.name -> t)
-          case None => members
-        }
+        val t = a.typeMap(data.value.getId)
+        members + (data.name -> t)
       }
       val empty: Type.Struct.Members = Map()
       val members = e.members.foldLeft(empty)(visitor)

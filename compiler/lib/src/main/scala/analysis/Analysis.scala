@@ -190,4 +190,11 @@ object Analysis {
     }
   }
 
+  /** Convert a value to a type */
+  def convertValueToType(v: Value, t: Type): Value =
+    v.convertToType(t) match {
+      case Some(v) => v
+      case None => throw InternalError(s"cannot convert value $v to type $t")
+    }
+
 }
