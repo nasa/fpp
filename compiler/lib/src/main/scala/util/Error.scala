@@ -28,6 +28,8 @@ sealed trait Error {
         System.err.println(prevLoc)
         System.err.println(s"previous path was ${prevPath}")
       }
+      case SemanticError.InvalidEnumConstants(loc) =>
+        Error.print (Some(loc)) ("enum constants must be all explicit or all implied")
       case SemanticError.InvalidType(loc, msg) =>
         Error.print (Some(loc)) (msg)
       case SemanticError.NotImplemented(loc) =>
@@ -82,6 +84,8 @@ object SemanticError {
     prevLoc: Location,
     prevPath: String
   ) extends Error
+  /** Invalid enum constants */
+  final case class InvalidEnumConstants(loc: Location) extends Error
   /** Invalid type */
   final case class InvalidType(loc: Location, msg: String) extends Error
   /** Feature not implemented */

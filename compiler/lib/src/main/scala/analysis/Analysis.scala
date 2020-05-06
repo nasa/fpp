@@ -48,6 +48,12 @@ case class Analysis(
     this.copy(typeMap = this.typeMap + (node.getId -> t))
   }
 
+  /** Add a value to the value map */
+  def assignValue[T](mapping: (AstNode[T], Value)): Analysis = {
+    val node -> v = mapping
+    this.copy(valueMap = this.valueMap + (node.getId -> v))
+  }
+
   /** Compute the common type for a list of node Ids */
   def commonType(nodes: List[AstNode.Id], emptyListError: Error): Result.Result[Type] = {
     def helper(prevNodeId: AstNode.Id, prevType: Type, nextNodes: List[AstNode.Id]): Result.Result[Type] = {

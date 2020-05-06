@@ -22,7 +22,7 @@ object CheckSemantics {
       a <- CheckUseDefCycles.visitList(a, tul, CheckUseDefCycles.transUnit)
       a <- CheckTypeUses.visitList(a, tul, CheckTypeUses.transUnit)
       a <- CheckExprTypes.visitList(a, tul, CheckExprTypes.transUnit)
-      // TODO: Evaluate implied enum constants
+      a <- EvalImpliedEnumConsts.visitList(a, tul, EvalImpliedEnumConsts.transUnit)
       // TODO: Evaluate constants
       // TODO: Finalize type definitions
       // TODO: Check port definitions
