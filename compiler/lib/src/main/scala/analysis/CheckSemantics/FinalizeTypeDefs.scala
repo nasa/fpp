@@ -81,12 +81,6 @@ object FinalizeTypeDefs extends ModuleAnalyzer {
     val symbol = Symbol.Struct(aNode)
     def visitor(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
       val (_, node, _) = aNode
-//      // TODO: Compute the real default value and check that the type matches
-//      val anonStruct = Value.AnonStruct(Map())
-//      val structType @ Type.Struct(_, _, _) = a.typeMap(node.getId)
-//      val default = Value.Struct(anonStruct, structType)
-//      val structType1 = structType.copy(default = Some(default))
-//      Right(a.assignType(node -> structType1))
       val data = node.getData
       // Get the type of this node as a struct type S
       val structType @ Type.Struct(_, _, _) = a.typeMap(node.getId)
@@ -109,8 +103,6 @@ object FinalizeTypeDefs extends ModuleAnalyzer {
                 val struct @ Value.Struct(_, _) = Analysis.convertValueToType(v, structType)
                 struct
               }
-//            val Some(anonStruct) = structType.anonStruct.getDefaultValue
-//            Right(Value.Struct(anonStruct, structType))
           }
           case None => {
             val Some(anonStruct) = structType.anonStruct.getDefaultValue
