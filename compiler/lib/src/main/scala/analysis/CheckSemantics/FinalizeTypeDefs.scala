@@ -35,8 +35,8 @@ object FinalizeTypeDefs extends ModuleAnalyzer {
             Left(SemanticError.InvalidArraySize(loc, size))
           }
         }
-        // Update the default value in A
-        arrayType <- data.default match {
+        // Compute the default value
+        default <- data.default match {
           case Some(defaultNode) => {
             val id = defaultNode.getId
             val v = a.valueMap(id)
@@ -44,20 +44,21 @@ object FinalizeTypeDefs extends ModuleAnalyzer {
             for (_ <- Analysis.convertTypes(loc, v.getType -> arrayType))
               yield {
                 val array @ Value.Array(_, _) = Analysis.convertValueToType(v, arrayType)
-                arrayType.copy(default = Some(array))
+                array
               }
           }
           case None => {
-            val anonArray = arrayType.anonArray.getDefaultValue match {
-              case Some(anonArray) => anonArray
-              case None => throw InternalError("could not get default value for array")
-            }
-            val array = Value.Array(anonArray, arrayType)
-            Right(arrayType.copy(default = Some(array)))
+            val Some(anonArray) = arrayType.anonArray.getDefaultValue
+            Right(Value.Array(anonArray, arrayType))
           }
         }
       } 
-      yield a.assignType(node -> arrayType)
+      yield {
+        // Update the default value in A
+        val arrayType1 = arrayType.copy(default = Some(default))
+        // Update A in the type map
+        a.assignType(node -> arrayType1)
+      }
     }
     visitIfNeeded(symbol, visitor)(a, aNode)
   }
