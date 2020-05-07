@@ -316,6 +316,15 @@ object Value {
 
   }
 
+  /** An abstract type */
+  case class AbsType(t: Type.AbsType) extends Value {
+    
+    override def getType = t
+
+    override def toString = s"value of type $t"
+
+  }
+
   /** Array values */
   case class Array(anonArray: AnonArray, t: Type.Array) extends Value {
 
@@ -371,7 +380,7 @@ object Value {
           case (m -> t) :: tail => {
             val vOpt = members.get(m) match {
               case Some(v) => v.convertToType(t)
-              case None => Some(t.getDefaultValue)
+              case None => t.getDefaultValue
             }
             vOpt match {
               case Some(v) => convertMembers(tail, out + (m -> v))

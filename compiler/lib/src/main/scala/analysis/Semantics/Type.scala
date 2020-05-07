@@ -7,7 +7,7 @@ import fpp.compiler.util._
 sealed trait Type {
 
   /** Get the default value */
-  def getDefaultValue: Value
+  def getDefaultValue: Option[Value]
 
   /** Get the array size, if it exists and is known */
   def getArraySize: Option[Type.Array.Size] = None
@@ -60,7 +60,7 @@ object Type {
   case class PrimitiveInt(kind: PrimitiveInt.Kind) 
     extends Type with Primitive with Int
   {
-    override def getDefaultValue: Value.PrimitiveInt = Value.PrimitiveInt(0, kind)
+    override def getDefaultValue: Option[Value.PrimitiveInt] = Some(Value.PrimitiveInt(0, kind))
     override def toString = kind match {
       case PrimitiveInt.I8 => "I8"
       case PrimitiveInt.I16 => "I16"
@@ -96,7 +96,7 @@ object Type {
 
   /** Floating-point types */
   case class Float(kind: Float.Kind) extends Type with Primitive {
-    override def getDefaultValue: Value.Float = Value.Float(0, kind)
+    override def getDefaultValue: Option[Value.Float] = Some(Value.Float(0, kind))
     override def isFloat = true
     override def toString = kind match {
       case Float.F32 => "F32"
@@ -115,21 +115,21 @@ object Type {
 
   /** The Boolean type */
   case object Boolean extends Type with Primitive {
-    override def getDefaultValue: Value.Boolean = Value.Boolean(false)
+    override def getDefaultValue: Option[Value.Boolean] = Some(Value.Boolean(false))
     override def toString = "bool"
     override def isPromotableToArray = true
   }
 
   /** The string type */
   case object String extends Type {
-    override def getDefaultValue: Value.String = Value.String("")
+    override def getDefaultValue: Option[Value.String] = Some(Value.String(""))
     override def toString = "string"
     override def isPromotableToArray = true
   }
 
   /** The type of arbitrary-width integers */
   case object Integer extends Type with Int {
-    override def getDefaultValue: Value.Integer = Value.Integer(0)
+    override def getDefaultValue: Option[Value.Integer] = Some(Value.Integer(0))
     override def toString = "Integer"
   }
   
@@ -138,9 +138,9 @@ object Type {
     /** The AST node giving the definition */
     node: Ast.Annotated[AstNode[Ast.DefAbsType]]
   ) extends Type {
-    override def getDefaultValue = throw InternalError("abstract type has no specified default value")
+    override def getDefaultValue: Option[Value.AbsType] = Some(Value.AbsType(this))
     override def getDefNodeId = Some(node._2.getId)
-    override def toString = "abstract type " ++ node._2.getData.name
+    override def toString = node._2.getData.name
   }
 
   /** A named array type */
@@ -152,10 +152,7 @@ object Type {
     /** The specified default value, if any */
     default: Option[Value.Array] = None
   ) extends Type {
-    override def getDefaultValue: Value.Array = default match {
-      case Some(v) => v
-      case None => Value.Array(anonArray.getDefaultValue, this)
-    }
+    override def getDefaultValue: Option[Value.Array] = default
     /** Set the size */
     def setSize(size: Array.Size) = this.copy(anonArray = anonArray.setSize(size))
     override def getArraySize = anonArray.getArraySize
@@ -192,10 +189,7 @@ object Type {
     /** The default value, if known */
     default: Option[Value.EnumConstant] = None
   ) extends Type {
-    override def getDefaultValue: Value.EnumConstant = default match {
-      case Some(v) => v
-      case None => throw InternalError("default value of enum is not known")
-    }
+    override def getDefaultValue: Option[Value.EnumConstant] = default
     override def getDefNodeId = Some(node._2.getId)
     override def isConvertibleToNumeric = true
     override def isPromotableToArray = true
@@ -208,13 +202,10 @@ object Type {
     node: Ast.Annotated[AstNode[Ast.DefStruct]],
     /** The structurally equivalent anonymous struct type */
     anonStruct: AnonStruct,
-    /** The default value, if any */
+    /** The default value, if known */
     default: Option[Value.Struct] = None
   ) extends Type {
-    override def getDefaultValue: Value.Struct = default match {
-      case Some(v) => v
-      case None => Value.Struct(anonStruct.getDefaultValue, this)
-    }
+    override def getDefaultValue: Option[Value.Struct] = default
     override def getDefNodeId = Some(node._2.getId)
     override def hasNumericMembers = anonStruct.hasNumericMembers
     override def toString = "struct " ++ node._2.getData.name
@@ -253,7 +244,13 @@ object Type {
   ) extends Type {
     /** Set the size */
     def setSize(size: Array.Size) = this.copy(size = Some(size))
-    override def getDefaultValue: Value.AnonArray = Value.AnonArray(Nil)
+    override def getDefaultValue: Option[Value.AnonArray] = for {
+      size <- size
+      elt <- eltType.getDefaultValue
+    } yield {
+      val elts = List.fill(size.toInt)(elt)
+      Value.AnonArray(elts)
+    }
     override def getArraySize = size
     override def hasNumericMembers = eltType.hasNumericMembers
     override def toString = size match {
@@ -267,12 +264,17 @@ object Type {
     /** The members */
     members: Struct.Members
   ) extends Type {
-    override def getDefaultValue: Value.AnonStruct = {
-      def f(m1: Struct.Member): Value.Struct.Member = {
-        val (k -> t) = m1
-        k -> t.getDefaultValue
-      }
-      Value.AnonStruct(members.map(f))
+    override def getDefaultValue: Option[Value.AnonStruct] = {
+      def defaultMembers(in: List[Struct.Member], out: Value.Struct.Members): Option[Value.Struct.Members] =
+        in match {
+          case Nil => Some(out)
+          case (m -> t) :: tail => t.getDefaultValue match {
+            case Some(v) => defaultMembers(tail, out + (m -> v))
+            case None => None
+          }
+        }
+      for (members <- defaultMembers(members.toList, Map()))
+        yield Value.AnonStruct(members)
     }
     override def hasNumericMembers = members.values.forall(_.hasNumericMembers)
     override def toString = {

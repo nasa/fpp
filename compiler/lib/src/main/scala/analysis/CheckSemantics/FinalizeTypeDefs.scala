@@ -47,7 +47,14 @@ object FinalizeTypeDefs extends ModuleAnalyzer {
                 arrayType.copy(default = Some(array))
               }
           }
-          case None => Right(arrayType)
+          case None => {
+            val anonArray = arrayType.anonArray.getDefaultValue match {
+              case Some(anonArray) => anonArray
+              case None => throw InternalError("could not get default value for array")
+            }
+            val array = Value.Array(anonArray, arrayType)
+            Right(arrayType.copy(default = Some(array)))
+          }
         }
       } 
       yield a.assignType(node -> arrayType)
@@ -55,46 +62,20 @@ object FinalizeTypeDefs extends ModuleAnalyzer {
     visitIfNeeded(symbol, visitor)(a, aNode)
   }
 
-//  override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
-//    def visitor(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
-//      /*
-//      val (_, node, _) = aNode
-//      val data = node.data
-//      val loc = Locations.get(node.getId)
-//      for {
-//        a <- super.defEnumAnnotatedNode(a, aNode)
-//        _ <- data.constants match {
-//          case Nil => Left(SemanticError.InvalidType(loc, "enum must define at least one constant"))
-//          case _ => Right(())
-//        }
-//        repType <- {
-//          data.typeName match {
-//            case Some(typeName) => {
-//              val repType = a.typeMap(typeName.getId)
-//              val loc = Locations.get(typeName.getId)
-//              repType match {
-//                case t @ Type.PrimitiveInt(_) => Right(t)
-//                case _ => Left(SemanticError.InvalidType(loc, "primitive integer type required"))
-//              }
-//            }
-//            case None => Right(Type.I32)
-//          }
-//        }
-//        a <- {
-//          val t = Type.Enum(aNode, repType)
-//          val a1 = a.assignType(node -> t)
-//          def visitor(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnumConstant]]): Result =
-//            Right(a.assignType(aNode._2 -> t))
-//          visitList(a1, data.constants, visitor)
-//        }
-//      }
-//      yield a
-//      */
-//      Right(a)
-//    }
-//    visitIfNeeded(visitor)(a, aNode)
-//  }
-//
+  override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
+    val symbol = Symbol.Enum(aNode)
+    def visitor(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
+      val (_, node, _) = aNode
+      val data = node.data
+      val enumType @ Type.Enum(_, _, _) = a.typeMap(node.getId)
+      val default = a.valueMap(data.constants.head._2.getId)
+      val enumConstant @ Value.EnumConstant(_, _) = default
+      val enumType1 = enumType.copy(default = Some(enumConstant))
+      Right(a.assignType(node -> enumType1))
+    }
+    visitIfNeeded(symbol, visitor)(a, aNode)
+  }
+
 //  override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
 //    def visitor(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
 //      /*
@@ -155,6 +136,10 @@ object FinalizeTypeDefs extends ModuleAnalyzer {
     override def anonArray(a: Analysis, t: Type.AnonArray) =
       for (eltType <- ty(a, t.eltType))
         yield Type.AnonArray(t.size, eltType)
+
+    override def enum(a: Analysis, t: Type.Enum) = 
+      for (a <- defEnumAnnotatedNode(a, t.node))
+        yield a.typeMap(t.node._2.getId)
 
   }
 
