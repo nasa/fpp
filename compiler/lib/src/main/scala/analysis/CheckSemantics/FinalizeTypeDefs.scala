@@ -7,27 +7,36 @@ import fpp.compiler.util._
  *  to the definitions. */
 object FinalizeTypeDefs extends ModuleAnalyzer {
 
+  val maxArraySize = 1000
+
   override def defArrayAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val symbol = Symbol.Array(aNode)
     def visitor(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
       val node = aNode._2
       val data = node.getData
-      // Get the type of this node as an array type
+      // Get the type of this node as an array type A
       val arrayType @ Type.Array(_, _, _) = a.typeMap(node.getId)
       for {
-        // Visit the anonymous array type
+        // Visit the anonymous array type A' inside A, to update the members of A'
         t <- TypeVisitor.anonArray(a, arrayType.anonArray)
-        // Update the size
+        // Update the size in A'
         arrayType <- {
+          val sizeId = data.size.getId
           val Type.AnonArray(_, eltType) = t
           val Value.Integer(size) = Analysis.convertValueToType(
-            a.valueMap(data.size.getId),
+            a.valueMap(sizeId),
             Type.Integer
           )
-          val anonArray = Type.AnonArray(Some(size.toInt), eltType)
-          Right(arrayType.copy(anonArray = anonArray))
+          if (size >= 0 && size <= maxArraySize) {
+            val anonArray = Type.AnonArray(Some(size.toInt), eltType)
+            Right(arrayType.copy(anonArray = anonArray))
+          }
+          else {
+            val loc = Locations.get(sizeId)
+            Left(SemanticError.InvalidArraySize(loc, size))
+          }
         }
-        // Compute the default value
+        // Compute the default value for the node
         default <- data.default match {
           case Some(defaultNode) => {
             val id = defaultNode.getId
@@ -38,12 +47,14 @@ object FinalizeTypeDefs extends ModuleAnalyzer {
           }
           case None => Right(arrayType.getDefaultValue)
         }
-        // Update the default value
-        t <- {
-          val array @ Value.Array(_, _) = default
-          Right(arrayType.copy(default = Some(array)))
-        }
-      } yield a.assignType(node -> t)
+      } 
+      yield {
+        // Update the default value in A
+        val array @ Value.Array(_, _) = default
+        val t = arrayType.copy(default = Some(array))
+        // Update the type map
+        a.assignType(node -> t)
+      }
     }
     visitIfNeeded(symbol, visitor)(a, aNode)
   }

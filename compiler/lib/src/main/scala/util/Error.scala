@@ -36,6 +36,8 @@ sealed trait Error {
         System.err.println(prevLoc)
         System.err.println(s"previous path was ${prevPath}")
       }
+      case SemanticError.InvalidArraySize(loc, size) =>
+        Error.print (Some(loc)) (s"invalid array size $size")
       case SemanticError.InvalidEnumConstants(loc) =>
         Error.print (Some(loc)) ("enum constants must be all explicit or all implied")
       case SemanticError.InvalidType(loc, msg) =>
@@ -100,6 +102,8 @@ object SemanticError {
     prevLoc: Location,
     prevPath: String
   ) extends Error
+  /** Invalid array size */
+  final case class InvalidArraySize(loc: Location, size: BigInt) extends Error
   /** Invalid enum constants */
   final case class InvalidEnumConstants(loc: Location) extends Error
   /** Invalid type */
