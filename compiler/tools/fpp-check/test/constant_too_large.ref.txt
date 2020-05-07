@@ -1,5 +1,0 @@
-fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/constant_too_large.fpp: 1.14
-constant a = 0x10000000000000000
-             ^
-error: value is too large: integer constant must fit within width of U64 type

@@ -10,8 +10,10 @@ representation of a nonnegative integer.
 representation of a nonnegative
 integer.
 
-An integer literal value stem:[v] must be representable as an unsigned
-integer using most 64 bits, i.e., it must lie in the range stem:[0 <= v < 2^64].
+An integer literal value stem:[v] is represented in the model as an integer of
+arbitrary width.
+During code generation, the width is narrowed (if necessary) to some machine width
+less than or equal to 64 bits.
 
 **Examples:**
 

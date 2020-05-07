@@ -3,7 +3,6 @@ array_default_ok
 array_default_error
 array_invalid_size
 component_unimplemented
-constant_too_large
 constant_uses_ok
 cycle_array
 cycle_enum

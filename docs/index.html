@@ -5058,8 +5058,10 @@ integer.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>An integer literal value \$v\$ must be representable as an unsigned
-integer using most 64 bits, i.e., it must lie in the range \$0 &lt;= v &lt; 2^64\$.</p>
+<p>An integer literal value \$v\$ is represented in the model as an integer of
+arbitrary width.
+During code generation, the width is narrowed (if necessary) to some machine width
+less than or equal to 64 bits.</p>
 </div>
 <div class="paragraph">
 <p><strong>Examples:</strong></p>
@@ -7487,7 +7489,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-05-06 17:31:09 -0700
+Last updated 2020-05-07 10:28:50 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
