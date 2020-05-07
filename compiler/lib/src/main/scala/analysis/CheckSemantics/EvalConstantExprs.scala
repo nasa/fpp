@@ -9,34 +9,6 @@ object EvalConstantExprs extends UseAnalyzer {
   override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) = 
     visitUse(a, node, use)
 
-  override def defArrayAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
-    /*
-    val (_, node, _) = aNode
-    val data = node.data
-    for {
-      a <- super.defArrayAnnotatedNode(a, aNode)
-      _ <- {
-        val id = data.size.getId
-        val t = a.typeMap(id)
-        val loc = Locations.get(id)
-        convertToNumeric(loc, t)
-      }
-      _ <- data.default match {
-        case Some(defaultNode) => {
-          val arrayId = node.getId
-          val arrayType = a.typeMap(arrayId)
-          val defaultId = defaultNode.id
-          val defaultType = a.typeMap(defaultId)
-          val loc = Locations.get(defaultId)
-          Analysis.convertTypes(loc, defaultType -> arrayType)
-        }
-        case None => Right(a)
-      }
-    } yield a
-    */
-    default(a)
-  }
-
   override def defConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
     val (_, node,_) = aNode
     if (!a.valueMap.contains(node.getId)) {
@@ -72,28 +44,6 @@ object EvalConstantExprs extends UseAnalyzer {
       }
     }
     else Right(a)
-  }
-
-  override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
-    /*
-    val (_, node, _) = aNode
-    val data = node.data
-    for {
-      a <- super.defStructAnnotatedNode(a, aNode)
-      _ <- data.default match {
-        case Some(defaultNode) => {
-          val structId = node.getId
-          val structType = a.typeMap(structId)
-          val defaultId = defaultNode.id
-          val defaultType = a.typeMap(defaultId)
-          val loc = Locations.get(defaultId)
-          Analysis.convertTypes(loc, defaultType -> structType)
-        }
-        case None => Right(a)
-      }
-    } yield a
-    */
-    default(a)
   }
 
   override def exprArrayNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprArray) =

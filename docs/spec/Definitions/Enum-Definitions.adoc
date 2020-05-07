@@ -39,7 +39,6 @@ Each enumerated constant must <<Evaluation,evaluate>> to
 a compile-time constant whose type is
 <<Type-Checking_Type-Conversion,convertible to>> the
 representation type.
-No two enumerated constants may have the same value after the conversion.
 
 ==== Inferred Representation Type
 

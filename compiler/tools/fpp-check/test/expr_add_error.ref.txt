@@ -1,5 +1,5 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/expr_plus_error.fpp: 1.14
+[ local path prefix ]/compiler/tools/fpp-check/test/expr_add_error.fpp: 1.14
 constant a = 1 + "abc"
              ^
 error: cannot compute common type of Integer and string
