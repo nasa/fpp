@@ -17,6 +17,11 @@ sealed trait Error {
         Error.print (Some(loc)) (s"cannot resolve path $name")
       case SemanticError.DivisionByZero(loc) =>
         Error.print (Some(loc)) ("division by zero")
+      case SemanticError.DuplicateEnumValue(value, loc, prevLoc) => {
+        Error.print (Some(loc)) (s"duplicate enum value ${value}")
+        System.err.println(s"previous occurrence was here:")
+        System.err.println(prevLoc)
+      }
       case SemanticError.DuplicateStructMember(name, loc, prevLoc) => {
         Error.print (Some(loc)) (s"duplicate struct member ${name}")
         System.err.println(s"previous member was here:")
@@ -76,6 +81,12 @@ object SemanticError {
   final case class EmptyArray(loc: Location) extends Error
   /** Division by zero */
   final case class DivisionByZero(loc: Location) extends Error
+  /** Duplicate enum value */
+  final case class DuplicateEnumValue(
+    value: String,
+    loc: Location,
+    prevLoc: Location
+  ) extends Error
   /** Duplicate struct member */
   final case class DuplicateStructMember(
     name: String,

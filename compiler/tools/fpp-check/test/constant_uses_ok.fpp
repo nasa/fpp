@@ -7,13 +7,13 @@ module M {
 
   constant a = 0
   constant e = E.X
-  enum E { X = a, Y = X }
+  enum E { X = a, Y = X + 1}
 
   module N {
 
     constant a = 0
     constant e = E.X
-    enum E { X = M.a, Y = a, Z = X }
+    enum E { X = M.a, Y = a + 1, Z = Y + 2 }
 
   }
 

@@ -9,6 +9,7 @@ cycle_constant_2
 cycle_struct
 defs_ok
 enum_bad_constant
+enum_duplicate_value
 enum_explicit
 enum_implied
 enum_invalid_constants

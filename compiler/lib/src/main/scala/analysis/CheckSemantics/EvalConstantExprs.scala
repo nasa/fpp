@@ -22,6 +22,32 @@ object EvalConstantExprs extends UseAnalyzer {
     else Right(a)
   }
 
+  override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
+    def checkForDuplicateValue(
+      a: Analysis,
+      ids: List[AstNode.Id],
+      values: Map[Value,AstNode.Id]
+    ): Result.Result[Unit] = ids match {
+      case Nil => Right(())
+      case id :: tail => {
+        val v = a.valueMap(id)
+        values.get(v) match {
+          case None => checkForDuplicateValue(a, tail, values + (v -> id))
+          case Some(prevId) => {
+            val intVal = Analysis.convertValueToType(v, Type.Integer)
+            val loc = Locations.get(id)
+            val prevLoc = Locations.get(prevId)
+            Left(SemanticError.DuplicateEnumValue(intVal.toString, loc, prevLoc))
+          }
+        }
+      }
+    }
+    for {
+      a <- super.defEnumAnnotatedNode(a, aNode)
+      _ <- checkForDuplicateValue(a, aNode._2.getData.constants.map(_._2.getId), Map())
+    } yield a
+  }
+
   override def defEnumConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnumConstant]]) = {
     val (_, node, _) = aNode
     if (!a.valueMap.contains(node.getId)) {
