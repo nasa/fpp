@@ -1,6 +1,7 @@
 tests="
 array_default_ok
 array_default_error
+array_enum_default_ok
 array_invalid_size
 component_unimplemented
 constant_uses_ok
