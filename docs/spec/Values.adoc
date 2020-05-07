@@ -12,6 +12,8 @@ A *value* is one of the following:
 
 * A string value
 
+* An abstract type value
+
 * An anonymous array value
 
 * An array value
@@ -77,6 +79,13 @@ represented as a <<Expressions_String-Literals,string literal expression>>.
 It is written in the same way as a string literal expression,
 e.g., `"abc"`.
 Its type is `string`.
+
+=== Abstract Type Values
+
+An *abstract type value* is a value associated with an abstract
+type.
+There is one value associated with each abstract type stem:[T].
+We write the value `value of type` stem:[T].
 
 === Anonymous Array Values
 

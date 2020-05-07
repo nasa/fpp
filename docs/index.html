@@ -806,11 +806,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Values_Floating-Point-Values">18.3. Floating-Point Values</a></li>
 <li><a href="#Values_Boolean-Values">18.4. Boolean Values</a></li>
 <li><a href="#Values_String-Values">18.5. String Values</a></li>
-<li><a href="#Values_Anonymous-Array-Values">18.6. Anonymous Array Values</a></li>
-<li><a href="#Values_Array-Values">18.7. Array Values</a></li>
-<li><a href="#Values_Enumeration-Values">18.8. Enumeration Values</a></li>
-<li><a href="#Values_Anonymous-Struct-Values">18.9. Anonymous Struct Values</a></li>
-<li><a href="#Values_Struct-Values">18.10. Struct Values</a></li>
+<li><a href="#Values_Abstract-Type-Values">18.6. Abstract Type Values</a></li>
+<li><a href="#Values_Anonymous-Array-Values">18.7. Anonymous Array Values</a></li>
+<li><a href="#Values_Array-Values">18.8. Array Values</a></li>
+<li><a href="#Values_Enumeration-Values">18.9. Enumeration Values</a></li>
+<li><a href="#Values_Anonymous-Struct-Values">18.10. Anonymous Struct Values</a></li>
+<li><a href="#Values_Struct-Values">18.11. Struct Values</a></li>
 </ul>
 </li>
 <li><a href="#Evaluation">19. Evaluation</a>
@@ -6347,9 +6348,10 @@ See the section on <a href="#Definitions_Struct-Definitions">struct definitions<
 </li>
 <li>
 <p>The default value associated with an
-<a href="#Types_Abstract-Types">abstract type</a> <em>T</em> is not specified
-in FPP.
-It is up to the implementer of <em>T</em> to provide a default value.</p>
+<a href="#Types_Abstract-Types">abstract type</a> <em>T</em> is the
+<a href="#Values_Abstract-Type-Values">single value associated with <em>T</em></a>.
+This value is left abstract in the FPP model; the implementation
+of <em>T</em> must provide a concrete value.</p>
 </li>
 </ul>
 </div>
@@ -6784,7 +6786,7 @@ type</a> may be converted to any other numeric type.</p>
 <li>
 <p>If \$T_1\$ or \$T_2\$ or both are
 <a href="#Types_Array-Types">array types</a>, then
-\$T_1\$ may be coverted to \$T_2\$ if the conversion
+\$T_1\$ may be converted to \$T_2\$ if the conversion
 is allowed after replacing the array type or types with
 structurally equivalent
 <a href="#Types_Internal-Types_Anonymous-Array-Types">anonymous array types</a>.</p>
@@ -6805,7 +6807,7 @@ may be converted to an anonymous array type
 <li>
 <p>If \$T_1\$ or \$T_2\$ or both are
 <a href="#Types_Struct-Types">struct types</a>, then
-\$T_1\$ may be coverted to \$T_2\$ if the conversion
+\$T_1\$ may be converted to \$T_2\$ if the conversion
 is allowed after replacing the struct type or types with
 structurally equivalent
 <a href="#Types_Internal-Types_Anonymous-Struct-Types">anonymous struct types</a>.</p>
@@ -7000,6 +7002,9 @@ whose member types are the corresponding common types.</p>
 <p>A string value</p>
 </li>
 <li>
+<p>An abstract type value</p>
+</li>
+<li>
 <p>An anonymous array value</p>
 </li>
 <li>
@@ -7098,7 +7103,16 @@ Its type is <code>string</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Anonymous-Array-Values">18.6. Anonymous Array Values</h3>
+<h3 id="Values_Abstract-Type-Values">18.6. Abstract Type Values</h3>
+<div class="paragraph">
+<p>An <strong>abstract type value</strong> is a value associated with an abstract
+type.
+There is one value associated with each abstract type \$T\$.
+We write the value <code>value of type</code> \$T\$.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Values_Anonymous-Array-Values">18.7. Anonymous Array Values</h3>
 <div class="paragraph">
 <p>An <strong>anonymous array value</strong> is a value associated with an anonymous
 array type.
@@ -7111,7 +7125,7 @@ The type of the value is <em>[</em> \$n\$ <em>]</em> \$T\$.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Array-Values">18.7. Array Values</h3>
+<h3 id="Values_Array-Values">18.8. Array Values</h3>
 <div class="paragraph">
 <p>An <strong>array value</strong> is a value associated with an array type.
 We write an array value like an <a href="#Values_Anonymous-Array-Values">anonymous array
@@ -7142,7 +7156,7 @@ with member type \$T\$.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Enumeration-Values">18.8. Enumeration Values</h3>
+<h3 id="Values_Enumeration-Values">18.9. Enumeration Values</h3>
 <div class="paragraph">
 <p>An <strong>enumeration value</strong> is a value associated with an
 <a href="#Definitions_Enumerated-Constant-Definitions">enumerated constant definition</a>.
@@ -7152,7 +7166,7 @@ the enumerated constant definition appears.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Anonymous-Struct-Values">18.9. Anonymous Struct Values</h3>
+<h3 id="Values_Anonymous-Struct-Values">18.10. Anonymous Struct Values</h3>
 <div class="paragraph">
 <p>An <strong>anonymous struct value</strong> is a value associated with an
 <a href="#Types_Internal-Types_Anonymous-Struct-Types">anonymous struct
@@ -7167,7 +7181,7 @@ The type of \$v\$ is <em>{</em> \$m_1\$ <em>:</em> \$T_1\$ <em>,</em> \$...\$ <e
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Struct-Values">18.10. Struct Values</h3>
+<h3 id="Values_Struct-Values">18.11. Struct Values</h3>
 <div class="paragraph">
 <p>A <strong>struct value</strong> is a value associated with a
 <a href="#Types_Struct-Types">struct type</a>.
@@ -7489,7 +7503,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-05-07 10:28:50 -0700
+Last updated 2020-05-07 13:21:14 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

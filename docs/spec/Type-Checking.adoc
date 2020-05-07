@@ -269,7 +269,7 @@ type>> may be converted to any other numeric type.
 
 . If stem:[T_1] or stem:[T_2] or both are 
 <<Types_Array-Types,array types>>, then
-stem:[T_1] may be coverted to stem:[T_2] if the conversion
+stem:[T_1] may be converted to stem:[T_2] if the conversion
 is allowed after replacing the array type or types with
 structurally equivalent 
 <<Types_Internal-Types_Anonymous-Array-Types,anonymous array types>>.
@@ -287,7 +287,7 @@ stem:[T_1] may be converted to the member type of stem:[T_2].
 
 . If stem:[T_1] or stem:[T_2] or both are 
 <<Types_Struct-Types,struct types>>, then
-stem:[T_1] may be coverted to stem:[T_2] if the conversion
+stem:[T_1] may be converted to stem:[T_2] if the conversion
 is allowed after replacing the struct type or types with
 structurally equivalent 
 <<Types_Internal-Types_Anonymous-Struct-Types,anonymous struct types>>.

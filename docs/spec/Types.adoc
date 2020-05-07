@@ -170,9 +170,10 @@ See the section on <<Definitions_Struct-Definitions,
 struct definitions>> for examples.
 
 * The default value associated with an
-<<Types_Abstract-Types,abstract type>> _T_ is not specified
-in FPP.
-It is up to the implementer of _T_ to provide a default value.
+<<Types_Abstract-Types,abstract type>> _T_ is the
+<<Values_Abstract-Type-Values,single value associated with _T_>>.
+This value is left abstract in the FPP model; the implementation
+of _T_ must provide a concrete value.
 
 === Serialized Sizes
 
