@@ -19,12 +19,12 @@ object CheckSemantics {
       _ <- CheckUnimplemented.visitList(a, tul, CheckUnimplemented.transUnit)
       a <- EnterSymbols.visitList(a, tul, EnterSymbols.transUnit)
       a <- CheckUses.visitList(a, tul, CheckUses.transUnit)
-      a <- CheckUseDefCycles.visitList(a, tul, CheckUseDefCycles.transUnit)
+      _ <- CheckUseDefCycles.visitList(a, tul, CheckUseDefCycles.transUnit)
       a <- CheckTypeUses.visitList(a, tul, CheckTypeUses.transUnit)
       a <- CheckExprTypes.visitList(a, tul, CheckExprTypes.transUnit)
       a <- EvalImpliedEnumConsts.visitList(a, tul, EvalImpliedEnumConsts.transUnit)
       a <- EvalConstantExprs.visitList(a, tul, EvalConstantExprs.transUnit)
-      // TODO: Finalize type definitions
+      a <- FinalizeTypeDefs.visitList(a, tul, FinalizeTypeDefs.transUnit)
       // TODO: Check port definitions
       // TODO: Check component definitions
       // TODO: Check component instance definitions

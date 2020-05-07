@@ -3,29 +3,29 @@ package fpp.compiler.analysis
 /** Visit a type */
 trait TypeVisitor {
 
-  def absType(in: In, t: Type.AbsType): Out = default(in)
+  def absType(in: In, t: Type.AbsType): Out = default(in, t)
 
-  def anonArray(in: In, t: Type.AnonArray): Out = default(in)
+  def anonArray(in: In, t: Type.AnonArray): Out = default(in, t)
 
-  def anonStruct(in: In, t: Type.AnonStruct): Out = default(in)
+  def anonStruct(in: In, t: Type.AnonStruct): Out = default(in, t)
 
-  def array(in: In, t: Type.Array): Out = default(in)
+  def array(in: In, t: Type.Array): Out = default(in, t)
 
-  def boolean(in: In) = default(in)
+  def boolean(in: In) = default(in, Type.Boolean)
 
-  def default(in: In): Out
+  def default(in: In, t: Type): Out
 
-  def enum(in: In, t: Type.Enum): Out = default(in)
+  def enum(in: In, t: Type.Enum): Out = default(in, t)
 
-  def float(in: In, t: Type.Float): Out = default(in)
+  def float(in: In, t: Type.Float): Out = default(in, t)
 
-  def integer(in: In): Out = default(in)
+  def integer(in: In): Out = default(in, Type.Integer)
 
-  def primitiveInt(in: In, t: Type.PrimitiveInt): Out = default(in)
+  def primitiveInt(in: In, t: Type.PrimitiveInt): Out = default(in, t)
 
-  def string(in: In) = default(in)
+  def string(in: In) = default(in, Type.String)
 
-  def struct(in: In, t: Type.Struct): Out = default(in)
+  def struct(in: In, t: Type.Struct): Out = default(in, t)
 
   def ty(in: In, t: Type): Out = matchType(in, t)
 
@@ -42,7 +42,7 @@ trait TypeVisitor {
       case t @ Type.PrimitiveInt(_) => primitiveInt(in, t)
       case Type.String => string(in)
       case t @ Type.Struct(_, _, _) => struct(in, t)
-      case _ => default(in)
+      case _ => default(in, t)
     }
 
   type In
