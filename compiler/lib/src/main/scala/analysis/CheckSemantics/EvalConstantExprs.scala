@@ -13,11 +13,18 @@ object EvalConstantExprs extends UseAnalyzer {
     val (_, node,_) = aNode
     if (!a.valueMap.contains(node.getId)) {
       val data = node.getData
-      for (a <- super.defConstantAnnotatedNode(a, aNode))
-        yield {
-          val v = a.valueMap(data.value.getId)
-          a.assignValue(node -> v)
-        }
+      for {
+        a <- super.defConstantAnnotatedNode(a, aNode)
+        v <- Right(a.valueMap(data.value.getId))
+        _ <- if (v.getType.isInt) {
+               val i @ Value.Integer(_) = Analysis.convertValueToType(v, Type.Integer)
+               if (i.fitsInU64Width) Right(()) else {
+                 val loc = Locations.get(node.data.value.getId)
+                 Left(SemanticError.ConstantTooLarge(loc))
+               }
+             } else Right(())
+      } 
+      yield a.assignValue(node -> v)
     }
     else Right(a)
   }
@@ -115,8 +122,18 @@ object EvalConstantExprs extends UseAnalyzer {
   }
 
   override def exprLiteralIntNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralInt) = {
-    val v = Value.Integer(BigInt(e.value))
-    Right(a.assignValue(node -> v))
+    val valueIsHex = if (e.value.length > 2) {
+      val prefix = e.value.substring(0, 2)
+      prefix == "0x" || prefix == "0X"
+    } else false
+    val (value, radix) = if (valueIsHex) (e.value.substring(2, e.value.length), 16) else (e.value, 10)
+    val v = Value.Integer(BigInt(value, radix))
+    if (v.fitsInU64Width) 
+      Right(a.assignValue(node -> v))
+    else {
+      val loc = Locations.get(node.getId)
+      Left(SemanticError.ConstantTooLarge(loc))
+    }
   }
   
   override def exprLiteralStringNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralString) = {

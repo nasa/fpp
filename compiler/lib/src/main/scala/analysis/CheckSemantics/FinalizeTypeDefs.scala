@@ -19,7 +19,7 @@ object FinalizeTypeDefs extends ModuleAnalyzer {
       for {
         // Visit the element type of A, to update its members
         eltType <- TypeVisitor.ty(a, arrayType.anonArray.eltType)
-        // Update the size of A
+        // Update the size and element type in A
         arrayType <- {
           val sizeId = data.size.getId
           val Value.Integer(size) = Analysis.convertValueToType(
