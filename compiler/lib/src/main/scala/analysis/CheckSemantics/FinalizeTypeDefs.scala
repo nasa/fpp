@@ -76,37 +76,19 @@ object FinalizeTypeDefs extends ModuleAnalyzer {
     visitIfNeeded(symbol, visitor)(a, aNode)
   }
 
-//  override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
-//    def visitor(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
-//      /*
-//      val (_, node, _) = aNode
-//      val data = node.data
-//      def getName(member: Ast.StructTypeMember) = member.name
-//      for {
-//        _ <- Analysis.checkForDuplicateStructMember(getName)(data.members.map(_._2))
-//        a <- super.defStructAnnotatedNode(a, aNode)
-//      }
-//        yield {
-//          def visitor(
-//            members: Type.Struct.Members,
-//            aNode: Ast.Annotated[AstNode[Ast.StructTypeMember]]
-//          ): Type.Struct.Members = {
-//            val (_, node, _) = aNode
-//            val data = node.data
-//            val t = a.typeMap(data.typeName.getId)
-//            members + (data.name -> t)
-//          }
-//          val empty: Type.Struct.Members = Map()
-//          val members = data.members.foldLeft(empty)(visitor)
-//          val anonStruct = Type.AnonStruct(members)
-//          val t = Type.Struct(aNode, anonStruct)
-//          a.assignType(node -> t)
-//        }
-//        */
-//      Right(a)
-//    }
-//    visitIfNeeded(visitor)(a, aNode)
-//  }
+  override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
+    val symbol = Symbol.Struct(aNode)
+    def visitor(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
+      val (_, node, _) = aNode
+      // TODO: Compute the real default value and check that the type matches
+      val anonStruct = Value.AnonStruct(Map())
+      val structType @ Type.Struct(_, _, _) = a.typeMap(node.getId)
+      val default = Value.Struct(anonStruct, structType)
+      val structType1 = structType.copy(default = Some(default))
+      Right(a.assignType(node -> structType1))
+    }
+    visitIfNeeded(symbol, visitor)(a, aNode)
+  }
 
   override def transUnit(a: Analysis, tu: Ast.TransUnit) =
     super.transUnit(a.copy(visitedSymbolSet = Set()), tu)
@@ -140,6 +122,17 @@ object FinalizeTypeDefs extends ModuleAnalyzer {
     override def enum(a: Analysis, t: Type.Enum) = 
       for (a <- defEnumAnnotatedNode(a, t.node))
         yield a.typeMap(t.node._2.getId)
+
+    override def struct(a: Analysis, t: Type.Struct) =
+      for (a <- defStructAnnotatedNode(a, t.node))
+        yield a.typeMap(t.node._2.getId)
+
+    override def anonStruct(a: Analysis, t: Type.AnonStruct) = {
+      def visitor(member: Type.Struct.Member): Result.Result[Type.Struct.Member] = 
+        for (t <- ty(a, member._2)) yield member._1 -> t
+      for (members <- Result.map(t.members.toList, visitor))
+        yield Type.AnonStruct(members.toMap)
+    }
 
   }
 
