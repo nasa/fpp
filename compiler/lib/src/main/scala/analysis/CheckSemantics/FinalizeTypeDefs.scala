@@ -130,7 +130,7 @@ object FinalizeTypeDefs extends ModuleAnalyzer {
 
     override def anonStruct(a: Analysis, t: Type.AnonStruct) = {
       def visitor(member: Type.Struct.Member): Result.Result[Type.Struct.Member] = 
-        for (t <- ty(a, member._2)) yield member._1 -> t
+        for (memberType <- ty(a, member._2)) yield member._1 -> memberType
       for (members <- Result.map(t.members.toList, visitor))
         yield Type.AnonStruct(members.toMap)
     }
