@@ -1,4 +1,6 @@
 tests="
+array_default_ok
+array_default_error
 component_unimplemented
 constant_uses_ok
 cycle_array

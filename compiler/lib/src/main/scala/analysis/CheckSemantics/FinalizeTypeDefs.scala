@@ -17,12 +17,11 @@ object FinalizeTypeDefs extends ModuleAnalyzer {
       // Get the type of this node as an array type A
       val arrayType @ Type.Array(_, _, _) = a.typeMap(node.getId)
       for {
-        // Visit the anonymous array type A' inside A, to update the members of A'
-        t <- TypeVisitor.anonArray(a, arrayType.anonArray)
-        // Update the size in A'
+        // Visit the element type of A, to update its members
+        eltType <- TypeVisitor.ty(a, arrayType.anonArray.eltType)
+        // Update the size of A
         arrayType <- {
           val sizeId = data.size.getId
-          val Type.AnonArray(_, eltType) = t
           val Value.Integer(size) = Analysis.convertValueToType(
             a.valueMap(sizeId),
             Type.Integer
@@ -36,25 +35,22 @@ object FinalizeTypeDefs extends ModuleAnalyzer {
             Left(SemanticError.InvalidArraySize(loc, size))
           }
         }
-        // Compute the default value for the node
-        default <- data.default match {
+        // Update the default value in A
+        arrayType <- data.default match {
           case Some(defaultNode) => {
             val id = defaultNode.getId
             val v = a.valueMap(id)
             val loc = Locations.get(id)
             for (_ <- Analysis.convertTypes(loc, v.getType -> arrayType))
-              yield Analysis.convertValueToType(v, arrayType)
+              yield {
+                val array @ Value.Array(_, _) = Analysis.convertValueToType(v, arrayType)
+                arrayType.copy(default = Some(array))
+              }
           }
-          case None => Right(arrayType.getDefaultValue)
+          case None => Right(arrayType)
         }
       } 
-      yield {
-        // Update the default value in A
-        val array @ Value.Array(_, _) = default
-        val t = arrayType.copy(default = Some(array))
-        // Update the type map
-        a.assignType(node -> t)
-      }
+      yield a.assignType(node -> arrayType)
     }
     visitIfNeeded(symbol, visitor)(a, aNode)
   }

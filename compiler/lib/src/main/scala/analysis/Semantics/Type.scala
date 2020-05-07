@@ -149,7 +149,7 @@ object Type {
     node: Ast.Annotated[AstNode[Ast.DefArray]],
     /** The structurally equivalent anonymous array */
     anonArray: AnonArray,
-    /** The default value, if any */
+    /** The specified default value, if any */
     default: Option[Value.Array] = None
   ) extends Type {
     override def getDefaultValue: Value.Array = default match {
