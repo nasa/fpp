@@ -358,7 +358,10 @@ object Value {
     def convertToRepType: PrimitiveInt = PrimitiveInt(value, t.repType.kind)
 
     override def convertToDistinctType(t: Type) =
-      convertToRepType.convertToDistinctType(t)
+      convertToRepType.convertToDistinctType(t) match {
+        case Some(v) => Some(v)
+        case None => promoteToAggregate(t)
+      }
 
     override def getType = t
 

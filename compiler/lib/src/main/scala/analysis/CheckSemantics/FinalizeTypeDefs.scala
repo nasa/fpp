@@ -81,12 +81,49 @@ object FinalizeTypeDefs extends ModuleAnalyzer {
     val symbol = Symbol.Struct(aNode)
     def visitor(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
       val (_, node, _) = aNode
-      // TODO: Compute the real default value and check that the type matches
-      val anonStruct = Value.AnonStruct(Map())
+//      // TODO: Compute the real default value and check that the type matches
+//      val anonStruct = Value.AnonStruct(Map())
+//      val structType @ Type.Struct(_, _, _) = a.typeMap(node.getId)
+//      val default = Value.Struct(anonStruct, structType)
+//      val structType1 = structType.copy(default = Some(default))
+//      Right(a.assignType(node -> structType1))
+      val data = node.getData
+      // Get the type of this node as a struct type S
       val structType @ Type.Struct(_, _, _) = a.typeMap(node.getId)
-      val default = Value.Struct(anonStruct, structType)
-      val structType1 = structType.copy(default = Some(default))
-      Right(a.assignType(node -> structType1))
+      for {
+        // Visit the anonymous struct type of S, to update its members
+        t <- TypeVisitor.ty(a, structType.anonStruct)
+        // Update the anonymous struct type of S
+        structType <- {
+          val anonStructType @ Type.AnonStruct(_) = t
+          Right(structType.copy(anonStruct = anonStructType))
+        }
+        // Compute the default value
+        default <- data.default match {
+          case Some(defaultNode) => {
+            val id = defaultNode.getId
+            val v = a.valueMap(id)
+            val loc = Locations.get(id)
+            for (_ <- Analysis.convertTypes(loc, v.getType -> structType))
+              yield {
+                val struct @ Value.Struct(_, _) = Analysis.convertValueToType(v, structType)
+                struct
+              }
+//            val Some(anonStruct) = structType.anonStruct.getDefaultValue
+//            Right(Value.Struct(anonStruct, structType))
+          }
+          case None => {
+            val Some(anonStruct) = structType.anonStruct.getDefaultValue
+            Right(Value.Struct(anonStruct, structType))
+          }
+        }
+      } 
+      yield {
+        // Update the default value in S
+        val structType1 = structType.copy(default = Some(default))
+        // Update S in the type map
+        a.assignType(node -> structType1)
+      }
     }
     visitIfNeeded(symbol, visitor)(a, aNode)
   }
