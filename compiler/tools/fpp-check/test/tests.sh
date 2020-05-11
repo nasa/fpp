@@ -41,6 +41,9 @@ redef_enum
 redef_enum_constant
 redef_struct
 redef_type
+struct_default_error
+struct_default_ok
+struct_no_default_ok
 type_uses_ok
 undef_constant_1
 undef_constant_2
