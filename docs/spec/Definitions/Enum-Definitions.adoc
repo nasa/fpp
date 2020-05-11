@@ -74,6 +74,6 @@ enum U8Gunfighters: U8 {
 }
 ----
 
-Here are three two definitions. In the first one, the implied
+The example shows two definitions. In the first one, the implied
 representation type is `I32`.
 In the second one, the representation type is explicitly given as `U8`.
