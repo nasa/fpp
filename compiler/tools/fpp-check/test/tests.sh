@@ -1,8 +1,13 @@
 tests="
-array_default_ok
-array_default_error
+array_array_default_error
+array_array_default_ok
+array_array_no_default_ok
+array_enum_default_error
 array_enum_default_ok
+array_enum_no_default_ok
 array_invalid_size
+array_struct_default_ok
+array_struct_no_default_ok
 component_ok
 constant_uses_ok
 cycle_array
