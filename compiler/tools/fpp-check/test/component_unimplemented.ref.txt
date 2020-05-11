@@ -1,5 +1,0 @@
-fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/component_unimplemented.fpp: 1.1
-active component C { }
-^
-error: language feature is not yet implemented

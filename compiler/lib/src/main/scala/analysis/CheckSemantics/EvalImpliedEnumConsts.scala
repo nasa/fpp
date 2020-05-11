@@ -4,7 +4,11 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 
 /** Evaluate implied enum constants */
-object EvalImpliedEnumConsts extends ModuleAnalyzer {
+object EvalImpliedEnumConsts
+  extends Analyzer
+  with ModuleAnalyzer
+  with ComponentAnalyzer
+{
 
   override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
     val (_, node, _) = aNode

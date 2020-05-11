@@ -4,7 +4,12 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 
 /** Enter symbols into their scopes */
-object EnterSymbols extends ModuleAnalyzer {
+object EnterSymbols 
+  extends Analyzer 
+  with ComponentAnalyzer
+  with ModuleAnalyzer
+  with TopologyAnalyzer
+{
 
   override def defAbsTypeAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefAbsType]]) = {
     val (_, node1, _) = node
