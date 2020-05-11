@@ -1,7 +1,6 @@
 " Vim syntax file
 " Language:    fpp
 " Maintainer:  Robert Bocchino <bocchino@jpl.nasa.gov>
-" Last Change: 8 October 2019
 
 " Indent words
 "
