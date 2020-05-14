@@ -28,12 +28,23 @@ The following replacement fields are allowed:
 It causes the argument to be displayed in a standard way
 for F Prime according to its type.
 
-. You can use a replacement field containing a numeric format specifier,
-as defined
-https://docs.python.org/3.0/library/string.html#format-specification-mini-language[in Python].
-For example, `{.03f}`.
-It can bind to any argument whose type <<Types_Types-with-Numeric-Members,has 
-numeric members>>.
+. You can use a replacement field containing a *numeric format specifier*.
+A numeric format specifier consists of an optional *precision* followed
+by a *presentation type*.
+The available precisions and presentation types are as defined
+https://docs.python.org/3.0/library/string.html#format-specification-mini-language[in 
+Python],
+except that (1) the presentation type `n` is not available; and
+(2) it is not valid to specify a precision if the presentation
+type is an integer type.
++
+For example, `{.3f}`, is a valid replacement field.
+Its numeric format specifier is `.3f`, consisting of
+the precision `.3`, for three decimal places, and the presentation type `f`, 
+for fixed point.
+
+A replacement field with a numeric format specifier can bind to any argument 
+whose type <<Types_Types-with-Numeric-Members,has numeric members>>.
 If the type is a numeric type, then the specifier displays the argument
 in the standard way.
 If the type is a structure or array, then the type is displayed in a standard 

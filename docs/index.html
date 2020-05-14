@@ -5410,18 +5410,31 @@ It causes the argument to be displayed in a standard way
 for F Prime according to its type.</p>
 </li>
 <li>
-<p>You can use a replacement field containing a numeric format specifier,
-as defined
-<a href="https://docs.python.org/3.0/library/string.html#format-specification-mini-language">in Python</a>.
-For example, <code>{.03f}</code>.
-It can bind to any argument whose type <a href="#Types_Types-with-Numeric-Members">has
-numeric members</a>.
+<p>You can use a replacement field containing a <strong>numeric format specifier</strong>.
+A numeric format specifier consists of an optional <strong>precision</strong> followed
+by a <strong>presentation type</strong>.
+The available precisions and presentation types are as defined
+<a href="https://docs.python.org/3.0/library/string.html#format-specification-mini-language">in
+Python</a>,
+except that (1) the presentation type <code>n</code> is not available; and
+(2) it is not valid to specify a precision if the presentation
+type is an integer type.</p>
+<div class="paragraph">
+<p>For example, <code>{.3f}</code>, is a valid replacement field.
+Its numeric format specifier is <code>.3f</code>, consisting of
+the precision <code>.3</code>, for three decimal places, and the presentation type <code>f</code>,
+for fixed point.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>A replacement field with a numeric format specifier can bind to any argument
+whose type <a href="#Types_Types-with-Numeric-Members">has numeric members</a>.
 If the type is a numeric type, then the specifier displays the argument
 in the standard way.
 If the type is a structure or array, then the type is displayed in a standard
 way for F Prime, but with the specifier applied to each member.</p>
-</li>
-</ol>
 </div>
 <div class="paragraph">
 <p>No other replacement fields are allowed.
@@ -7503,7 +7516,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-05-11 13:37:17 -0700
+Last updated 2020-05-14 11:23:09 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
