@@ -15,7 +15,7 @@ object FinalizeTypeDefs extends ModuleAnalyzer {
       val node = aNode._2
       val data = node.getData
       // Get the type of this node as an array type A
-      val arrayType @ Type.Array(_, _, _) = a.typeMap(node.getId)
+      val arrayType @ Type.Array(_, _, _, _) = a.typeMap(node.getId)
       for {
         // Visit the element type of A, to update its members
         eltType <- TypeVisitor.ty(a, arrayType.anonArray.eltType)
@@ -52,10 +52,15 @@ object FinalizeTypeDefs extends ModuleAnalyzer {
             Right(Value.Array(anonArray, arrayType))
           }
         }
+        // Compute the format
+        format <- data.format match {
+          case Some(node) => for (format <- computeFormat(node, arrayType)) yield Some(format)
+          case None => Right(None)
+        }
       } 
       yield {
-        // Update the default value in A
-        val arrayType1 = arrayType.copy(default = Some(default))
+        // Update the default value and format in A
+        val arrayType1 = arrayType.copy(default = Some(default), format = format)
         // Update A in the type map
         a.assignType(node -> arrayType1)
       }
@@ -83,7 +88,7 @@ object FinalizeTypeDefs extends ModuleAnalyzer {
       val (_, node, _) = aNode
       val data = node.getData
       // Get the type of this node as a struct type S
-      val structType @ Type.Struct(_, _, _) = a.typeMap(node.getId)
+      val structType @ Type.Struct(_, _, _, _) = a.typeMap(node.getId)
       for {
         // Visit the anonymous struct type of S, to update its members
         t <- TypeVisitor.ty(a, structType.anonStruct)
@@ -109,10 +114,29 @@ object FinalizeTypeDefs extends ModuleAnalyzer {
             Right(Value.Struct(anonStruct, structType))
           }
         }
+        // Compute the formats
+        formats <- {
+          def mapping(member: Ast.StructTypeMember) = {
+            val name = member.name
+            val t = structType.anonStruct.members(name)
+            for {
+              formatOpt <- member.format match {
+                case Some(node) => for (format <- computeFormat(node, t)) yield Some(format)
+                case None => Right(None)
+              }
+            } yield {
+              for (format <- formatOpt) yield (name, format)
+            }
+          }
+          val members = data.members.map(_._2.getData)
+          for (pairs <- Result.map(members, mapping)) yield {
+            pairs.filter(_.isDefined).map(_.get).toMap
+          }
+        }
       } 
       yield {
-        // Update the default value in S
-        val structType1 = structType.copy(default = Some(default))
+        // Update the default value and formats in S
+        val structType1 = structType.copy(default = Some(default), formats = formats)
         // Update S in the type map
         a.assignType(node -> structType1)
       }
@@ -131,6 +155,23 @@ object FinalizeTypeDefs extends ModuleAnalyzer {
       for (a <- visitor(a, aNode))
         yield a.copy(visitedSymbolSet = a.visitedSymbolSet + symbol)
     else Right(a)
+  }
+
+  private def computeFormat(node: AstNode[String], t: Type): Result.Result[Format] = {
+    val loc = Locations.get(node.getId)
+    def getFields(format: Format) = 
+      if (format.fields.size <= 1) Right(format.fields.map(_._1)) else {
+        Left(SemanticError.InvalidFormatString(loc, "too many replacement fields"))
+      }
+    def checkNumericField(field: Format.Field) = if (field.isNumeric && !t.hasNumericMembers) {
+      val loc = Locations.get(node.getId)
+      Left(SemanticError.InvalidFormatString(loc, s"type $t does not have numeric members"))
+    } else Right(())
+    for {
+      format <- Format.Parser.parseNode(node)
+      fields <- getFields(format)
+      _ <- Result.map(fields, checkNumericField)
+    } yield format
   }
 
   object TypeVisitor extends TypeVisitor {

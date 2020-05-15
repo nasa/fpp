@@ -150,7 +150,9 @@ object Type {
     /** The structurally equivalent anonymous array */
     anonArray: AnonArray,
     /** The specified default value, if any */
-    default: Option[Value.Array] = None
+    default: Option[Value.Array] = None,
+    /** The specified format, if any */
+    format: Option[Format] = None,
   ) extends Type {
     override def getDefaultValue: Option[Value.Array] = default
     /** Set the size */
@@ -203,7 +205,9 @@ object Type {
     /** The structurally equivalent anonymous struct type */
     anonStruct: AnonStruct,
     /** The default value, if known */
-    default: Option[Value.Struct] = None
+    default: Option[Value.Struct] = None,
+    /** The known member formats */
+    formats: Struct.Formats = Map(),
   ) extends Type {
     override def getDefaultValue: Option[Value.Struct] = default
     override def getDefNodeId = Some(node._2.getId)
@@ -216,6 +220,8 @@ object Type {
     type Member = (Name.Unqualified, Type)
 
     type Members = Map[Name.Unqualified, Type]
+
+    type Formats = Map[Name.Unqualified, Format]
 
     /** Resolve a member map, generating a new member map */
     def resolveMembers (resolver: Member => Option[Member]) (members: Members): Option[Members] = {
@@ -318,8 +324,8 @@ object Type {
     val t1 -> t2 = pair
     def numeric = t1.isConvertibleToNumeric && t2.isNumeric
     def array = pair match {
-      case Array(_, anonArray1, _) -> _ => anonArray1.isConvertibleTo(t2)
-      case _ -> Array(_, anonArray2, _) => t1.isConvertibleTo(anonArray2)
+      case Array(_, anonArray1, _, _) -> _ => anonArray1.isConvertibleTo(t2)
+      case _ -> Array(_, anonArray2, _, _) => t1.isConvertibleTo(anonArray2)
       case AnonArray(size1, eltType1) -> AnonArray(size2, eltType2) => 
         Array.sizesMatch(size1, size2) &&
         eltType1.isConvertibleTo(eltType2)
@@ -334,8 +340,8 @@ object Type {
           case None => false
         }
       pair match {
-        case Struct(_, anonStruct1, _) -> _ => anonStruct1.isConvertibleTo(t2)
-        case _ -> Struct(_, anonStruct2, _) => t1.isConvertibleTo(anonStruct2)
+        case Struct(_, anonStruct1, _, _) -> _ => anonStruct1.isConvertibleTo(t2)
+        case _ -> Struct(_, anonStruct2, _, _) => t1.isConvertibleTo(anonStruct2)
         case AnonStruct(members1) -> AnonStruct(members2) => 
           members1.forall(memberExistsIn(members2) _)
         case _ -> AnonStruct(members2) =>
@@ -383,8 +389,8 @@ object Type {
         else None
       }
       pair match {
-        case (_, Array(_, anonArray2, _)) => commonType(t1, anonArray2)
-        case (Array(_, anonArray1, _), _) => commonType(anonArray1, t2)
+        case (_, Array(_, anonArray2, _, _)) => commonType(t1, anonArray2)
+        case (Array(_, anonArray1, _, _), _) => commonType(anonArray1, t2)
         case (AnonArray(size1, eltType1), AnonArray(size2, eltType2)) =>
           if (Array.sizesMatch(size1, size2)) {
             val size = Array.commonSize(size1, size2)
@@ -429,8 +435,8 @@ object Type {
         else None
       }
       pair match {
-        case (_, Struct(_, anonStruct2, _)) => commonType(t1, anonStruct2)
-        case (Struct(_, anonStruct1, _), _) => commonType(anonStruct1, t2)
+        case (_, Struct(_, anonStruct2, _, _)) => commonType(t1, anonStruct2)
+        case (Struct(_, anonStruct1, _, _), _) => commonType(anonStruct1, t2)
         case AnonStruct(members1) -> AnonStruct(members2) => twoAnonStructs(members1, members2)
         case _ -> AnonStruct(members) => singleAnonStruct(members, t1)
         case AnonStruct(members) -> _ => singleAnonStruct(members, t2)

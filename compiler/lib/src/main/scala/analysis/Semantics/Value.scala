@@ -81,9 +81,9 @@ sealed trait Value {
         yield Value.Struct(anonStruct, struct)
     t match {
       case anonArray @ Type.AnonArray(_, _) => promoteToAnonArray(anonArray)
-      case array @ Type.Array(_, _, _) => promoteToArray(array)
+      case array @ Type.Array(_, _, _, _) => promoteToArray(array)
       case anonStruct @ Type.AnonStruct(_) => promoteToAnonStruct(anonStruct)
-      case struct @ Type.Struct(_, _, _) => promoteToStruct(struct)
+      case struct @ Type.Struct(_, _, _, _) => promoteToStruct(struct)
       case _ => None
     }
   }
@@ -296,7 +296,7 @@ object Value {
     }
 
     def convertToArray(arrayType: Type.Array): Option[Value.Array] = {
-      val Type.Array(_, anonArrayType, _) = arrayType
+      val Type.Array(_, anonArrayType, _, _) = arrayType
       for (anonArray <- convertToAnonArray(anonArrayType))
         yield Array(anonArray, arrayType)
     }
@@ -304,7 +304,7 @@ object Value {
     override def convertToDistinctType(t: Type) =
       t match {
         case anonArrayType @ Type.AnonArray(_, _) => convertToAnonArray(anonArrayType)
-        case arrayType @ Type.Array(_, _, _) => convertToArray(arrayType)
+        case arrayType @ Type.Array(_, _, _, _) => convertToArray(arrayType)
         case _ => None
       }
 
@@ -337,7 +337,7 @@ object Value {
     override def convertToDistinctType(t: Type) =
       t match {
         case anonArrayType @ Type.AnonArray(_, _) => convertToAnonArray(anonArrayType)
-        case arrayType @ Type.Array(_, _, _) => convertToArray(arrayType)
+        case arrayType @ Type.Array(_, _, _, _) => convertToArray(arrayType)
         case _ => None
       }
 
@@ -396,7 +396,7 @@ object Value {
     }
 
     def convertToStruct(structType: Type.Struct): Option[Value.Struct] = {
-      val Type.Struct(_, anonStructType, _) = structType
+      val Type.Struct(_, anonStructType, _, _) = structType
       for (anonStruct <- convertToAnonStruct(anonStructType))
         yield Struct(anonStruct, structType)
     }
@@ -404,7 +404,7 @@ object Value {
     override def convertToDistinctType(t: Type) =
       t match {
         case anonStructType @ Type.AnonStruct(_) => convertToAnonStruct(anonStructType)
-        case structType @ Type.Struct(_, _, _) => convertToStruct(structType)
+        case structType @ Type.Struct(_, _, _, _) => convertToStruct(structType)
         case _ => None
       }
 
@@ -442,7 +442,7 @@ object Value {
     override def convertToDistinctType(t: Type) =
       t match {
         case anonStructType @ Type.AnonStruct(_) => convertToAnonStruct(anonStructType)
-        case structType @ Type.Struct(_, _, _) => convertToStruct(structType)
+        case structType @ Type.Struct(_, _, _, _) => convertToStruct(structType)
         case _ => None
       }
 

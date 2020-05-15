@@ -102,9 +102,11 @@ object Format {
         case other => other
       }
     }
-
-    def parseString(loc: Location, s: String): Result.Result[Format] = {
-      parse(parseAllInput(format), s) match {
+    
+    def parseNode(node: AstNode[String]): Result.Result[Format] = {
+      val loc = Locations.get(node.getId)
+      val string = node.getData
+      parse(parseAllInput(format), string) match {
         case NoSuccess(msg, next) => Left(SemanticError.InvalidFormatString(loc, msg))
         case Success(result, _) => Right(result)
       }
