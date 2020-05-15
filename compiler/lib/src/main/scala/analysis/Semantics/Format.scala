@@ -14,13 +14,17 @@ case class Format(
 
 object Format {
 
-  sealed trait Field
+  sealed trait Field {
+    def isNumeric = false
+  }
 
   object Field {
 
     case object Default extends Field
 
-    case class Integer(t: Integer.Type) extends Field
+    case class Integer(t: Integer.Type) extends Field {
+      override def isNumeric = true
+    }
 
     object Integer {
       sealed trait Type
@@ -31,7 +35,9 @@ object Format {
       case object Octal extends Type
     }
 
-    case class Floating(precision: Option[Int], t: Floating.Type) extends Field
+    case class Floating(precision: Option[Int], t: Floating.Type) extends Field {
+      override def isNumeric = true
+    }
 
     object Floating {
       sealed trait Type
