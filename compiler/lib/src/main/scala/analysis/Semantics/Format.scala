@@ -72,6 +72,17 @@ object Format {
       "{" ~>! (integer | floating) <~! "}"
     }
 
+    def format: Parser[Format] = string ~ rep(field ~ string) ^^ {
+      case prefix ~ fields => Format(prefix, fields.map({ case field ~ string => (field, string) }))
+    }
+
+    def parseString(loc: Location, s: String): Result.Result[Format] = {
+      parse(format, s) match {
+        case NoSuccess(msg, next) => Left(SemanticError.InvalidFormatString(loc, msg))
+        case Success(result, _) => Right(result)
+      }
+    }
+
   }
 
 }
