@@ -3,6 +3,7 @@ package fpp.compiler.analysis
 import fpp.compiler.ast._
 import fpp.compiler.util._
 import scala.util.parsing.combinator.RegexParsers
+import scala.util.parsing.input.Positional
 
 /** An FPP presentation format */
 case class Format(
@@ -14,7 +15,7 @@ case class Format(
 
 object Format {
 
-  sealed trait Field {
+  sealed trait Field extends Positional {
     def isNumeric = false
   }
 
@@ -63,14 +64,14 @@ object Format {
 
     def precision: Parser[Int] = "." ~>! "[0-9]+".r  ^^ { _.toInt }
 
-    def field: Parser[Field] = {
+    def field: Parser[Field] = positioned {
       def default = "{}" ^^ { case _ => Field.Default }
       def integer = {
         def binary = "b" ^^ { case _ => Field.Integer(Field.Integer.Binary) }
         def character = "c" ^^ { case _ => Field.Integer(Field.Integer.Character) }
         def decimal = "d" ^^ { case _ => Field.Integer(Field.Integer.Decimal) }
         def hexadecimal = "x" ^^ { case _ => Field.Integer(Field.Integer.Hexadecimal) }
-        "{" ~> (binary | character | decimal | hexadecimal) <~! "}"
+        binary | character | decimal | hexadecimal
       }
       def floating = {
         def ty = {
@@ -78,11 +79,11 @@ object Format {
           def fixed = "F|f".r ^^ { case _ => Field.Floating.Fixed }
           def general = "G|g".r ^^ { case _ => Field.Floating.General }
           def percent = "%" ^^ { case _ => Field.Floating.Percent }
-          exponent | fixed | general | percent
+          exponent | fixed | general | percent | failure("rational type expected")
         }
-        "{" ~>! (opt(precision) ~ ty ^^ { case p ~ t => Field.Floating(p, t) }) <~! "}"
+        opt(precision) ~ ty ^^ { case p ~ t => Field.Floating(p, t) }
       }
-      default | integer | floating
+      default | ("{" ~>! (integer | floating | failure("invalid replacement field")) <~! "}")
     }
 
     def format: Parser[Format] = string ~ rep(field ~ string) ^^ {
@@ -107,7 +108,10 @@ object Format {
       val loc = Locations.get(node.getId)
       val string = node.getData
       parse(parseAllInput(format), string) match {
-        case NoSuccess(msg, next) => Left(SemanticError.InvalidFormatString(loc, msg))
+        case NoSuccess(msg, next) => {
+          val msg1 = "\n" ++ next.pos.longString ++ "\n" ++ msg
+          Left(SemanticError.InvalidFormatString(loc, msg1))
+        }
         case Success(result, _) => Right(result)
       }
     }
