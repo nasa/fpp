@@ -49,6 +49,8 @@ struct_default_error
 struct_default_ok
 struct_format_bad_syntax
 struct_format_ok
+struct_format_not_numeric
+struct_format_too_many_repls
 struct_no_default_ok
 type_uses_ok
 undef_constant_1
