@@ -1,6 +1,10 @@
 tests="
 array_array_default_error
 array_array_default_ok
+array_format_ok
+array_format_bad_syntax
+array_format_not_numeric
+array_format_too_many_repls
 array_array_no_default_ok
 array_enum_default_error
 array_enum_default_ok
