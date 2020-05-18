@@ -40,6 +40,10 @@ include() {
   update -i include
 }
 
+included_dep_i() {
+  update -i included_dep included_dep_i
+}
+
 locate_constant_include_i() {
   update -i locate_constant_include_1 locate_constant_include_i
 }

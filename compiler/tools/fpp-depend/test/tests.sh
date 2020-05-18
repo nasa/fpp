@@ -14,6 +14,8 @@ expr_paren
 expr_struct
 expr_unop
 include
+included_dep
+included_dep_i
 locate_constant_1
 locate_constant_consistent
 locate_constant_include_i

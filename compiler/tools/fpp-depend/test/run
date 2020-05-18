@@ -43,6 +43,11 @@ include()
   run_test -i include
 }
 
+included_dep_i()
+{
+  run_test -i included_dep included_dep_i
+}
+
 locate_constant_include_no_i()
 {
   run_test '' locate_constant_include_1 locate_constant_include_no_i
