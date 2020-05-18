@@ -16,23 +16,27 @@ object CheckSpecLocs
   }
 
   override def defArrayAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
-    // TODO
-    default(a)
+    val (_, node, _) = aNode
+    val name = node.getData.name
+    checkSpecLoc(a, Ast.SpecLoc.Type, name, node)
   }
 
   override def defConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
-    // TODO
-    default(a)
+    val (_, node, _) = aNode
+    val name = node.getData.name
+    checkSpecLoc(a, Ast.SpecLoc.Constant, name, node)
   }
 
   override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
-    // TODO
-    default(a)
+    val (_, node, _) = aNode
+    val name = node.getData.name
+    checkSpecLoc(a, Ast.SpecLoc.Type, name, node)
   }
 
   override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
-    // TODO
-    default(a)
+    val (_, node, _) = aNode
+    val name = node.getData.name
+    checkSpecLoc(a, Ast.SpecLoc.Type, name, node)
   }
 
   private def checkSpecLoc[T](
