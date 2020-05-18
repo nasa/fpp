@@ -9,6 +9,11 @@ object CheckSpecLocs
   with ModuleAnalyzer 
 {
 
+  override def defAbsTypeAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAbsType]]) = {
+    // TODO
+    default(a)
+  }
+
   override def defArrayAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     // TODO
     default(a)
