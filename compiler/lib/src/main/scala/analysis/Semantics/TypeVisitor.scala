@@ -34,14 +34,14 @@ trait TypeVisitor {
       case t @ Type.AbsType(_) => absType(in, t)
       case t @ Type.AnonArray(_, _) => anonArray(in, t)
       case t @ Type.AnonStruct(_) => anonStruct(in, t)
-      case t @ Type.Array(_, _, _) => array(in, t)
+      case t @ Type.Array(_, _, _, _) => array(in, t)
       case Type.Boolean => boolean(in)
       case t @ Type.Enum(_, _, _) => enum(in, t)
       case t @ Type.Float(_) => float(in, t)
       case Type.Integer => integer(in)
       case t @ Type.PrimitiveInt(_) => primitiveInt(in, t)
       case Type.String => string(in)
-      case t @ Type.Struct(_, _, _) => struct(in, t)
+      case t @ Type.Struct(_, _, _, _) => struct(in, t)
       case _ => default(in, t)
     }
 

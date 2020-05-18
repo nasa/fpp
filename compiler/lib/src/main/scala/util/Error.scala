@@ -34,6 +34,10 @@ sealed trait Error {
         System.err.println(prevLoc)
         System.err.println(s"previous path was ${prevPath}")
       }
+      case SemanticError.IncorrectSpecLoc(loc, specifiedPath, actualPath) => {
+        Error.print (Some(loc)) (s"incorrect location path ${specifiedPath}")
+        System.err.println(s"actual path is ${actualPath}")
+      }
       case SemanticError.InvalidArraySize(loc, size) =>
         Error.print (Some(loc)) (s"invalid array size $size")
       case SemanticError.InvalidEnumConstants(loc) =>
@@ -99,6 +103,12 @@ object SemanticError {
     path: String,
     prevLoc: Location,
     prevPath: String
+  ) extends Error
+  /** Incorrect location specifiers */
+  final case class IncorrectSpecLoc(
+    loc: Location,
+    specifiedPath: String,
+    actualPath: String
   ) extends Error
   /** Invalid array size */
   final case class InvalidArraySize(loc: Location, size: BigInt) extends Error

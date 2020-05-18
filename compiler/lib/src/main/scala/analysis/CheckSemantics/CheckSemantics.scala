@@ -29,6 +29,7 @@ object CheckSemantics {
       // TODO: Check component instance definitions
       // TODO: Check topology definitions
       // TODO: Check init specifiers
+      a <- BuildSpecLocMap.visitList(a, tul, BuildSpecLocMap.transUnit)
       // TODO: Check location specifiers
     }
     yield a
