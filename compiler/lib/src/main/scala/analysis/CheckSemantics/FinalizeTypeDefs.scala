@@ -5,7 +5,11 @@ import fpp.compiler.util._
 
 /** Finalize type definitions. Update the types of uses (type names) that refer 
  *  to the definitions. */
-object FinalizeTypeDefs extends ModuleAnalyzer {
+object FinalizeTypeDefs 
+  extends Analyzer
+  with ComponentAnalyzer
+  with ModuleAnalyzer 
+{
 
   val maxArraySize = 1000
 

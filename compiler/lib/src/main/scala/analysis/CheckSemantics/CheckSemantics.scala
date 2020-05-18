@@ -30,7 +30,7 @@ object CheckSemantics {
       // TODO: Check topology definitions
       // TODO: Check init specifiers
       a <- BuildSpecLocMap.visitList(a, tul, BuildSpecLocMap.transUnit)
-      // TODO: Check location specifiers
+      a <- CheckSpecLocs.visitList(a, tul, CheckSpecLocs.transUnit)
     }
     yield a
   }
