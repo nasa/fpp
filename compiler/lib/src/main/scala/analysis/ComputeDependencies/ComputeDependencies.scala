@@ -19,7 +19,11 @@ object ComputeDependencies {
       a <- BuildSpecLocMap.visitList(a, tul, BuildSpecLocMap.transUnit)
       a <- MapUsesToLocs.visitList(a, tul, MapUsesToLocs.transUnit)
     }
-    yield a
+    yield {
+      val includedFileSet = a.includedFileSet
+      val dependencyFileSet = a.dependencyFileSet.diff(includedFileSet)
+      a.copy(dependencyFileSet = dependencyFileSet)
+    }
   }
 
 }
