@@ -53,6 +53,8 @@ spec_loc_constant_error
 spec_loc_constant_ok
 spec_loc_enum_error
 spec_loc_enum_ok
+spec_loc_struct_error
+spec_loc_struct_ok
 struct_default_error
 struct_default_ok
 struct_format_bad_syntax
