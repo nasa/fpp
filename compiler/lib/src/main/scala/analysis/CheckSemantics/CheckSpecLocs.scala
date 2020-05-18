@@ -10,8 +10,9 @@ object CheckSpecLocs
 {
 
   override def defAbsTypeAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAbsType]]) = {
-    // TODO
-    default(a)
+    val (_, node, _) = aNode
+    val name = node.getData.name
+    checkSpecLoc(a, Ast.SpecLoc.Type, name, node)
   }
 
   override def defArrayAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
@@ -32,6 +33,30 @@ object CheckSpecLocs
   override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
     // TODO
     default(a)
+  }
+
+  private def checkSpecLoc[T](
+    a: Analysis,
+    kind: Ast.SpecLoc.Kind,
+    name: Name.Unqualified,
+    node: AstNode[T]
+  ): Result = {
+    val qualifiedName = Name.Qualified(a.moduleNameList.reverse, name)
+    val actualLoc = Locations.get(node.getId)
+    a.locationSpecifierMap.get((kind, qualifiedName)) match {
+      case Some(specLoc) => {
+        val specifierLoc = Locations.get(specLoc.file.getId)
+        for {
+          specifiedJavaPath <- specifierLoc.relativePath(specLoc.file.getData)
+          specifiedPath <- Right(File.Path(specifiedJavaPath).toString)
+          actualPath <- Right(actualLoc.file.toString)
+          _ <- if (specifiedPath == actualPath) Right(()) 
+            else Left(SemanticError.IncorrectSpecLoc(specifierLoc, specifiedPath, actualLoc))
+        }
+        yield a
+      }
+      case None => Right(a)
+    }
   }
 
 }

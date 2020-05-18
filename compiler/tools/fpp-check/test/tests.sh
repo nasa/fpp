@@ -45,6 +45,8 @@ redef_enum
 redef_enum_constant
 redef_struct
 redef_type
+spec_loc_error
+spec_loc_ok
 struct_default_error
 struct_default_ok
 struct_format_bad_syntax
