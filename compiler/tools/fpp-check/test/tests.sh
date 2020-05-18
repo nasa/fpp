@@ -49,6 +49,10 @@ spec_loc_abs_type_error
 spec_loc_abs_type_ok
 spec_loc_array_error
 spec_loc_array_ok
+spec_loc_constant_error
+spec_loc_constant_ok
+spec_loc_enum_error
+spec_loc_enum_ok
 struct_default_error
 struct_default_ok
 struct_format_bad_syntax
