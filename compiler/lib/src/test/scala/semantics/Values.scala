@@ -49,7 +49,7 @@ object Values {
   val enumType = Types.defaultEnum
 
   val anonStruct = AnonStruct(Map("a" -> defaultU32, "b" -> defaultString))
-  val anonStructType = Type.AnonStruct(Map("a" -> Type.U32, "b" -> Type.String))
+  val anonStructType = Type.AnonStruct(Map("a" -> Type.U32, "b" -> Type.String(None)))
   val structType = Types.struct("S", anonStructType, 3)
   val struct = Struct(anonStruct, structType)
 

@@ -115,7 +115,7 @@ object CheckExprTypes extends UseAnalyzer {
     Right(a.assignType(node -> Type.Integer))
   
   override def exprLiteralStringNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralString) =
-    Right(a.assignType(node -> Type.String))
+    Right(a.assignType(node -> Type.String(None)))
 
   override def exprParenNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprParen) = {
     for (a <- super.exprParenNode(a, node, e))

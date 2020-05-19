@@ -120,8 +120,8 @@ object Type {
     override def isPromotableToArray = true
   }
 
-  /** The string type */
-  case object String extends Type {
+  /** The type of a string */
+  case class String(size: Option[AstNode[Ast.Expr]]) extends Type {
     override def getDefaultValue: Option[Value.String] = Some(Value.String(""))
     override def toString = "string"
     override def isPromotableToArray = true
@@ -306,7 +306,7 @@ object Type {
       case _ => false
     }
     def string = pair match {
-      case (String -> String) => true
+      case (String(_) -> String(_)) => true
       case _ => false
     }
     def sameDef = (t1.getDefNodeId, t2.getDefNodeId) match {

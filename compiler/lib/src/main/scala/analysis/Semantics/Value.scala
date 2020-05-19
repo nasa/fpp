@@ -270,7 +270,7 @@ object Value {
 
     override def convertToDistinctType(t: Type) = promoteToAggregate(t)
 
-    override def getType = Type.String
+    override def getType = Type.String(None)
 
     override def toString = "\"" + value.toString + "\""
 

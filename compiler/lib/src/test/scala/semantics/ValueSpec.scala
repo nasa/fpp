@@ -24,7 +24,7 @@ class ValueSpec extends AnyWordSpec {
       (defaultF32, Type.F32),
       (defaultF64, Type.F64),
       (defaultBoolean, Type.Boolean),
-      (defaultString, Type.String),
+      (defaultString, Type.String(None)),
       (defaultAnonArray3U32, defaultAnonArray3U32Type),
       (array, arrayType),
       (enum, enumType),
@@ -93,15 +93,15 @@ class ValueSpec extends AnyWordSpec {
       (anonStruct, arrayType, None),
       (createAnonArray(2, createI8(1)), defaultAnonArray3U32Type, None),
       (anonStruct, anonStructType, Some(anonStruct)),
-      (anonStruct, Type.AnonStruct(Map("a" -> Type.String)), None),
+      (anonStruct, Type.AnonStruct(Map("a" -> Type.String(None))), None),
       (
         anonStruct,
-        Type.AnonStruct(Map("a" -> Type.U32, "b" -> Type.String, "c" -> Type.I8)),
+        Type.AnonStruct(Map("a" -> Type.U32, "b" -> Type.String(None), "c" -> Type.I8)),
         Some(AnonStruct(anonStruct.members + ("c" -> defaultI8)))
       ),
       (
         struct,
-        Type.AnonStruct(Map("a" -> Type.U32, "b" -> Type.String, "c" -> Type.I8)),
+        Type.AnonStruct(Map("a" -> Type.U32, "b" -> Type.String(None), "c" -> Type.I8)),
         Some(AnonStruct(anonStruct.members + ("c" -> defaultI8)))
       ),
       (createI32(0), anonStructType, None),
