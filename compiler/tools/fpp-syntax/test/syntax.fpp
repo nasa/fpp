@@ -141,7 +141,7 @@ module TypeNames {
   array typeNameU32 = [10] U32
   array typeNameF32 = [10] F32
   array typeNameBool = [10] bool
-  array typeNameString = [10] string
+  array typeNameString = [10] string size 256
   array typeNameQID = [10] a.b.c
 
 }
