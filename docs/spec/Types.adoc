@@ -31,12 +31,14 @@ and the
 <<Types_The-Boolean-Type,Boolean type>>
 are called the *primitive types*.
 
+=== String Types
 
-=== The String Type
-
-The *string type* corresponds to the
-<<Type-Names_The-String-Type-Name,string type name>>.
-It is written `string`.
+The *string types* correspond to the
+<<Type-Names_String-Type-Names,string type names>>.
+A string type is written `string` or `string size` _n_,
+where _n_ is a positive integer value.
+There is one string type `string` and one string type `string` _n_
+for each legal value of _n_.
 
 === Array Types
 
@@ -144,8 +146,8 @@ every variable is initialized when it is created.
 * The default value associated with
 <<Types_The-Boolean-Type,`bool`>> is `false`.
 
-* The default value associated with
-<<Types_The-String-Type,`string`>> is the empty string.
+* The default value associated with any
+<<Types_String-Types,string type>> is the empty string.
 
 * The default value associated with an
 <<Types_Array-Types,array type>> _T_ is (1)
@@ -190,11 +192,12 @@ For example, the serialized size of `F64` is 8.
 * The serialized size of
 <<Types_The-Boolean-Type,`bool`>> is 1.
 
-* The serialized size of
-<<Types_The-String-Type,`string`>> is the number of bytes used to represent the 
+* The serialized size of a
+<<Types_String-Types,string type>> is the number of bytes used to represent the 
 length of a string
 plus the maximum string length. These sizes are
-implementation-specific.
+implementation-specific, except that the maximum length
+may be given in the string type.
 
 * The serialized size of an
 <<Types_Array-Types,array type>> _T_ is 

@@ -659,7 +659,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Type-Names_Primitive-Integer-Type-Names">9.1. Primitive Integer Type Names</a></li>
 <li><a href="#Type-Names_Floating-Point-Type-Names">9.2. Floating-Point Type Names</a></li>
 <li><a href="#Type-Names_The-Boolean-Type-Name">9.3. The Boolean Type Name</a></li>
-<li><a href="#Type-Names_The-String-Type-Name">9.4. The String Type Name</a></li>
+<li><a href="#Type-Names_String-Type-Names">9.4. String Type Names</a></li>
 <li><a href="#Type-Names_Qualified-Identifier-Type-Names">9.5. Qualified Identifier Type Names</a></li>
 </ul>
 </li>
@@ -757,7 +757,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Types_Primitive-Numeric-Types">16.3. Primitive Numeric Types</a></li>
 <li><a href="#Types_The-Boolean-Type">16.4. The Boolean Type</a></li>
 <li><a href="#Types_Primitive-Types">16.5. Primitive Types</a></li>
-<li><a href="#Types_The-String-Type">16.6. The String Type</a></li>
+<li><a href="#Types_String-Types">16.6. String Types</a></li>
 <li><a href="#Types_Array-Types">16.7. Array Types</a></li>
 <li><a href="#Types_Enum-Types">16.8. Enum Types</a></li>
 <li><a href="#Types_Struct-Types">16.9. Struct Types</a></li>
@@ -4760,9 +4760,27 @@ floating-point values of width 32 and 64 bits, respectively.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Names_The-String-Type-Name">9.4. The String Type Name</h3>
+<h3 id="Type-Names_String-Type-Names">9.4. String Type Names</h3>
 <div class="paragraph">
-<p>The type name <code>string</code> represents the type of string values.</p>
+<p>A <strong>string type name</strong> consists of the keyword <code>string</code> optionally
+followed by the keyword <code>size</code> and an
+<a href="#Expressions"><em>expression</em></a>. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">string
+string size 256</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The optional expression following the keyword <code>size</code> is called the <strong>size
+expression</strong> of the string type name.  If present, it must have a
+<a href="#Types_Internal-Types_Numeric-Types">numeric type</a>, and it must
+evaluate to a value greater than zero after conversion to
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
+The size expression specifies the maximum
+length of a string value represented by the type.  If the size expression is
+not present, then the translator uses a default maximum string length.</p>
 </div>
 </div>
 <div class="sect2">
@@ -5331,8 +5349,7 @@ Formal parameters appear, for example, in
 <p><em>[</em> <code>ref</code> <em>]</em>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <code>:</code>
-<a href="#Type-Names"><em>type-name</em></a>
-<em>[</em> <code>size</code> <a href="#Expressions"><em>expression</em></a> <em>]</em></p>
+<a href="#Type-Names"><em>type-name</em></a></p>
 </div>
 </div>
 <div class="sect2">
@@ -5348,15 +5365,6 @@ may have the same name.</p>
 </div>
 <div class="paragraph">
 <p>The type name specifies the type <em>T</em> of the formal parameter <em>P</em>.</p>
-</div>
-<div class="paragraph">
-<p>The optional expression following the keyword <code>size</code> is called the <strong>size
-expression</strong> of the formal parameter <em>P</em>.
-The size expression is allowed only when <em>T</em> is <code>string</code>.
-If present, it specifies the maximum length of a string
-that may be bound to <em>P</em>.
-If it is not present, then the translator uses the maximum string length
-specified for the <code>string</code> type.</p>
 </div>
 </div>
 <div class="sect2">
@@ -6184,11 +6192,14 @@ are called the <strong>primitive types</strong>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_The-String-Type">16.6. The String Type</h3>
+<h3 id="Types_String-Types">16.6. String Types</h3>
 <div class="paragraph">
-<p>The <strong>string type</strong> corresponds to the
-<a href="#Type-Names_The-String-Type-Name">string type name</a>.
-It is written <code>string</code>.</p>
+<p>The <strong>string types</strong> correspond to the
+<a href="#Type-Names_String-Type-Names">string type names</a>.
+A string type is written <code>string</code> or <code>string size</code> <em>n</em>,
+where <em>n</em> is a positive integer value.
+There is one string type <code>string</code> and one string type <code>string</code> <em>n</em>
+for each legal value of <em>n</em>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -6333,8 +6344,8 @@ every variable is initialized when it is created.</p>
 <a href="#Types_The-Boolean-Type"><code>bool</code></a> is <code>false</code>.</p>
 </li>
 <li>
-<p>The default value associated with
-<a href="#Types_The-String-Type"><code>string</code></a> is the empty string.</p>
+<p>The default value associated with any
+<a href="#Types_String-Types">string type</a> is the empty string.</p>
 </li>
 <li>
 <p>The default value associated with an
@@ -6390,11 +6401,12 @@ For example, the serialized size of <code>F64</code> is 8.</p>
 <a href="#Types_The-Boolean-Type"><code>bool</code></a> is 1.</p>
 </li>
 <li>
-<p>The serialized size of
-<a href="#Types_The-String-Type"><code>string</code></a> is the number of bytes used to represent the
+<p>The serialized size of a
+<a href="#Types_String-Types">string type</a> is the number of bytes used to represent the
 length of a string
 plus the maximum string length. These sizes are
-implementation-specific.</p>
+implementation-specific, except that the maximum length
+may be given in the string type.</p>
 </li>
 <li>
 <p>The serialized size of an
@@ -6758,8 +6770,8 @@ are both
 </li>
 <li>
 <p>\$T_1\$ and \$T_2\$
-are both
-<a href="#Types_The-String-Type">the string type</a>.</p>
+are both  the same
+<a href="#Types_String-Types">string type</a>.</p>
 </li>
 <li>
 <p>Each of \$T_1\$ and \$T_2\$
@@ -6789,6 +6801,10 @@ every <a href="#Values">value</a> represented by type \$T_1\$ can be
 are <a href="#Type-Checking_Identical-Types">identical types</a>.</p>
 </li>
 <li>
+<p>Any <a href="#Types_String-Types">string type</a> may be converted
+to any other string type.</p>
+</li>
+<li>
 <p>Any <a href="#Types_Internal-Types_Numeric-Types">numeric
 type</a> may be converted to any other numeric type.</p>
 </li>
@@ -6813,7 +6829,7 @@ if \$n = m\$ and \$T'_1\$ may be converted to \$T'_2\$.</p>
 <li>
 <p>A <a href="#Types_Internal-Types_Numeric-Types">numeric type</a> type, <a href="#Types_The-Boolean-Type">Boolean
 type</a>,
-<a href="#Types_Enum-Types">enum type</a>, or <a href="#Types_The-String-Type">string type</a> \$T\$
+<a href="#Types_Enum-Types">enum type</a>, or <a href="#Types_String-Types">string types</a> \$T\$
 may be converted to an anonymous array type
 \$T_1\$ may be converted to the member type of \$T_2\$.</p>
 </li>
@@ -6844,7 +6860,7 @@ the anonymous struct type \$T'\$ if for each \$i in [1,n]\$,</p>
 <li>
 <p>A <a href="#Types_Internal-Types_Numeric-Types">numeric type</a> type, <a href="#Types_The-Boolean-Type">Boolean
 type</a>,
-<a href="#Types_Enum-Types">enum type</a>, or <a href="#Types_The-String-Type">string type</a> \$T\$
+<a href="#Types_Enum-Types">enum type</a>, or <a href="#Types_String-Types">string type</a> \$T\$
 may be converted to an
 <a href="#Types_Internal-Types_Anonymous-Struct-Types">anonymous struct type</a> \$T'\$ if
 for each member \$m_i\$ <code>:</code> \$T_i\$ of \$T'\$,
@@ -7516,7 +7532,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-05-14 11:23:09 -0700
+Last updated 2020-05-19 13:30:55 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

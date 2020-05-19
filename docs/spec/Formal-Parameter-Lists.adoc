@@ -18,7 +18,6 @@ _[_ `ref` _]_
 <<Lexical-Elements_Identifiers,_identifier_>>
 `:`
 <<Type-Names,_type-name_>>
-_[_ `size` <<Expressions,_expression_>> _]_
 
 === Semantics
 
@@ -30,14 +29,6 @@ No two parameters in the same formal parameter list
 may have the same name.
 
 The type name specifies the type _T_ of the formal parameter _P_.
-
-The optional expression following the keyword `size` is called the *size 
-expression* of the formal parameter _P_.
-The size expression is allowed only when _T_ is `string`.
-If present, it specifies the maximum length of a string
-that may be bound to _P_.
-If it is not present, then the translator uses the maximum string length
-specified for the `string` type.
 
 === Examples
 

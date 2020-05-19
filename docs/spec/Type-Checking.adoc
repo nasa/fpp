@@ -240,8 +240,8 @@ are both
 <<Types_The-Boolean-Type,the Boolean type>>.
 
 . stem:[T_1] and stem:[T_2]
-are both 
-<<Types_The-String-Type,the string type>>.
+are both  the same
+<<Types_String-Types,string type>>.
 
 . Each of stem:[T_1] and stem:[T_2]
 is an
@@ -260,6 +260,9 @@ Here are the rules for type conversion:
 
 . stem:[T_1] may be converted to stem:[T_2] if stem:[T_1] and stem:[T_2]
 are <<Type-Checking_Identical-Types,identical types>>.
+
+. Any <<Types_String-Types,string type>> may be converted
+to any other string type.
 
 . Any <<Types_Internal-Types_Numeric-Types,numeric
 type>> may be converted to any other numeric type.
@@ -281,7 +284,7 @@ if stem:[n = m] and stem:[T'_1] may be converted to stem:[T'_2].
 
 . A <<Types_Internal-Types_Numeric-Types,numeric type>> type, <<Types_The-Boolean-Type,Boolean 
 type>>,
-<<Types_Enum-Types,enum type>>, or <<Types_The-String-Type,string type>> stem:[T] 
+<<Types_Enum-Types,enum type>>, or <<Types_String-Types,string types>> stem:[T] 
 may be converted to an anonymous array type
 stem:[T_1] may be converted to the member type of stem:[T_2].
 
@@ -303,7 +306,7 @@ the anonymous struct type stem:[T'] if for each stem:[i in [1,n\]],
 
 . A <<Types_Internal-Types_Numeric-Types,numeric type>> type, <<Types_The-Boolean-Type,Boolean 
 type>>,
-<<Types_Enum-Types,enum type>>, or <<Types_The-String-Type,string type>> stem:[T] 
+<<Types_Enum-Types,enum type>>, or <<Types_String-Types,string type>> stem:[T] 
 may be converted to an
 <<Types_Internal-Types_Anonymous-Struct-Types,anonymous struct type>> stem:[T'] if
 for each member stem:[m_i] `:` stem:[T_i] of stem:[T'],
