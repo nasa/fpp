@@ -24,7 +24,6 @@ trait TypeExpressionAnalyzer
     val data = node1.getData
     for {
       a <- typeNameNode(a, data.typeName)
-      a <- opt(exprNode)(a, data.size)
     } yield a
   }
 

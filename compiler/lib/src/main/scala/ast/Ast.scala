@@ -169,8 +169,7 @@ object Ast {
   final case class FormalParam(
     kind: FormalParam.Kind,
     name: Ident,
-    typeName: AstNode[TypeName],
-    size: Option[AstNode[Expr]]
+    typeName: AstNode[TypeName]
   )
   final object FormalParam {
     /** Formal parameter kind */

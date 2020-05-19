@@ -427,7 +427,8 @@ object AstWriter extends AstVisitor {
   override def typeNameQualIdentNode(in: Unit, node: AstNode[Ast.TypeName], tn: Ast.TypeNameQualIdent) = 
     qualIdent(tn.name.getData)
 
-  override def typeNameStringNode(in: Unit, node: AstNode[Ast.TypeName]) = lines("string")
+  override def typeNameStringNode(in: Unit, node: AstNode[Ast.TypeName], tn: Ast.TypeNameString) =
+    lines("string") ++ linesOpt(addPrefix("size", exprNode), tn.size).map(indentIn)
 
   private def addPrefixNoIndent[T](s: String, f: T => List[Line]): T => List[Line] =
     (t: T) => Line.joinLists (Line.NoIndent) (lines(s)) (" ") (f(t))
@@ -489,7 +490,6 @@ object AstWriter extends AstVisitor {
       lines(kind(fp.kind)),
       ident(fp.name),
       typeNameNode(fp.typeName),
-      linesOpt(exprNode, fp.size)
     ).flatten.map(indentIn)
   }
 

@@ -209,8 +209,8 @@ object Parser extends Parsers {
         case None => Ast.FormalParam.Value
       }
     }
-    kind ~ ident ~! (colon ~>! node(typeName)) ~! opt(size ~>! exprNode) ^^ {
-      case kind ~ id ~ tn ~ size => Ast.FormalParam(kind, id, tn, size)
+    kind ~ ident ~! (colon ~>! node(typeName)) ^^ {
+      case kind ~ id ~ tn => Ast.FormalParam(kind, id, tn)
     }
   }
 
@@ -554,7 +554,7 @@ object Parser extends Parsers {
       accept("U32()", { case Token.U32() => Ast.TypeNameInt(Ast.U32()) }) |
       accept("U64()", { case Token.U64() => Ast.TypeNameInt(Ast.U64()) })
     accept("bool", { case Token.BOOL() => Ast.TypeNameBool }) |
-    accept("string", { case Token.STRING() => Ast.TypeNameString(None) }) |
+    string ~> opt(size ~>! exprNode) ^^ { case e => Ast.TypeNameString(e) } |
     typeNameFloat |
     typeNameInt |
     node(qualIdent) ^^ { case qid => Ast.TypeNameQualIdent(qid) } |
@@ -782,6 +782,8 @@ object Parser extends Parsers {
   private def stack = accept("stack", { case t @ Token.STACK() => t })
 
   private def star = accept("*", { case t @ Token.STAR() => t  })
+
+  private def string = accept("string", { case t @ Token.STRING() => t })
 
   private def struct = accept("struct", { case t @ Token.STRUCT() => t })
 
