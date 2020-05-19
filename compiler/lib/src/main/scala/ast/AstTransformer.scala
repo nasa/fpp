@@ -307,7 +307,7 @@ trait AstTransformer {
       case tn @ Ast.TypeNameFloat(_) => typeNameFloatNode(in, node, tn)
       case tn @ Ast.TypeNameInt(_) => typeNameIntNode(in, node, tn)
       case tn @ Ast.TypeNameQualIdent(_) => typeNameQualIdentNode(in, node, tn)
-      case Ast.TypeNameString => typeNameStringNode(in, node)
+      case Ast.TypeNameString(_) => typeNameStringNode(in, node)
     }
 
   private def transformNode[In,Out](rn: ResultNode[In], f: AstNode[In] => Out): Result[Out] =

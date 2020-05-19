@@ -494,7 +494,7 @@ object Ast {
   final case class TypeNameInt(name: TypeInt) extends TypeName
   final case class TypeNameQualIdent(name: AstNode[QualIdent]) extends TypeName
   final case object TypeNameBool extends TypeName
-  final case object TypeNameString extends TypeName
+  final case class TypeNameString(size: Option[AstNode[Expr]]) extends TypeName
 
   /** Unary operation */
   sealed trait Unop

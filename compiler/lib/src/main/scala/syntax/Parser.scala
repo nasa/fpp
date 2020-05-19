@@ -554,7 +554,7 @@ object Parser extends Parsers {
       accept("U32()", { case Token.U32() => Ast.TypeNameInt(Ast.U32()) }) |
       accept("U64()", { case Token.U64() => Ast.TypeNameInt(Ast.U64()) })
     accept("bool", { case Token.BOOL() => Ast.TypeNameBool }) |
-    accept("string", { case Token.STRING() => Ast.TypeNameString }) |
+    accept("string", { case Token.STRING() => Ast.TypeNameString(None) }) |
     typeNameFloat |
     typeNameInt |
     node(qualIdent) ^^ { case qid => Ast.TypeNameQualIdent(qid) } |

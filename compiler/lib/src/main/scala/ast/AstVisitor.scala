@@ -160,7 +160,7 @@ trait AstVisitor {
       case tn @ Ast.TypeNameFloat(_) => typeNameFloatNode(in, node, tn)
       case tn @ Ast.TypeNameInt(_) => typeNameIntNode(in, node, tn)
       case tn @ Ast.TypeNameQualIdent(_) => typeNameQualIdentNode(in, node, tn)
-      case Ast.TypeNameString => typeNameStringNode(in, node)
+      case Ast.TypeNameString(_) => typeNameStringNode(in, node)
     }
 
 }
