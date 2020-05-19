@@ -337,6 +337,9 @@ stem:[T] be stem:[T_1].
 
 .. Otherwise use <<Types_Internal-Types_Integer,_Integer_>>.
 
+. Otherwise if stem:[T_1] and stem:[T_2] are both
+<<Types_String-Types,string types>>, then use `string`.
+
 . Otherwise if stem:[T_1] or stem:[T_2] or both are enum types, then replace 
 the enum type or types with the representation type specified in the enum definitions and
 and reapply these rules.

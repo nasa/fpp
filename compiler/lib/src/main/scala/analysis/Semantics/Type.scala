@@ -306,7 +306,8 @@ object Type {
       case _ => false
     }
     def string = pair match {
-      case (String(_) -> String(_)) => true
+      case (String(None) -> String(None)) => true
+      case (String(Some(e1)) -> String(Some(e2))) => e1 == e2
       case _ => false
     }
     def sameDef = (t1.getDefNodeId, t2.getDefNodeId) match {
@@ -323,6 +324,10 @@ object Type {
   def mayBeConverted(pair: (Type, Type)): Boolean = {
     val t1 -> t2 = pair
     def numeric = t1.isConvertibleToNumeric && t2.isNumeric
+    def string = pair match {
+      case (String(_) -> String(_)) => true
+      case _ => false
+    }
     def array = pair match {
       case Array(_, anonArray1, _, _) -> _ => anonArray1.isConvertibleTo(t2)
       case _ -> Array(_, anonArray2, _, _) => t1.isConvertibleTo(anonArray2)
@@ -351,6 +356,7 @@ object Type {
     }
     areIdentical(t1, t2) ||
     numeric ||
+    string ||
     array ||
     struct
   }
@@ -375,6 +381,10 @@ object Type {
       else if (t1.isNumeric && t2.isFloat) Some(Float(Float.F64))
       else if (t1.isNumeric && t2.isNumeric) Some(Integer)
       else None
+    def string() = pair match {
+      case (String(_), String(_)) => Some(String(None))
+      case _ => None
+    }
     def enum() = pair match {
       case (Enum(_, repType, _), _) => commonType(repType, t2)
       case (_, Enum(_, repType, _)) => commonType(t1, repType)
@@ -446,6 +456,7 @@ object Type {
     val rules: List[Rule] = List(
       identical,
       numeric,
+      string,
       enum,
       array,
       struct
