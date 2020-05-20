@@ -33,6 +33,7 @@ expr_add_ok
 expr_array_empty
 expr_array_error
 expr_array_ok
+expr_div_by_zero
 expr_literal_ok
 expr_neg_error
 expr_neg_ok
