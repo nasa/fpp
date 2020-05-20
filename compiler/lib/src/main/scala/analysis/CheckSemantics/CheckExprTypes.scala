@@ -151,7 +151,19 @@ object CheckExprTypes extends UseAnalyzer {
     } yield a.assignType(node -> t)
   }
 
-  override def typeNameNode(a: Analysis, node: AstNode[Ast.TypeName]) = default(a)
+  override def typeNameStringNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameString) =
+    for {
+      a <- super.typeNameStringNode(a, node, tn)
+      _ <- tn.size match {
+        case Some(e) => {
+          val id = e.id
+          val t = a.typeMap(id)
+          val loc = Locations.get(id)
+          for (_ <- convertToNumeric(loc, t)) yield a
+        }
+        case None => Right(a)
+      }
+    } yield a
 
   private def visitUse[T](a: Analysis, node: AstNode[T], use: Name.Qualified): Result = {
     val symbol = a.useDefMap(node.getId)
