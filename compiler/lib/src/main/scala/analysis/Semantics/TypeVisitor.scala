@@ -23,7 +23,7 @@ trait TypeVisitor {
 
   def primitiveInt(in: In, t: Type.PrimitiveInt): Out = default(in, t)
 
-  def string(in: In) = default(in, Type.String(None))
+  def string(in: In, t: Type.String): Out = default(in, t)
 
   def struct(in: In, t: Type.Struct): Out = default(in, t)
 
@@ -40,7 +40,7 @@ trait TypeVisitor {
       case t @ Type.Float(_) => float(in, t)
       case Type.Integer => integer(in)
       case t @ Type.PrimitiveInt(_) => primitiveInt(in, t)
-      case Type.String(_) => string(in)
+      case t @ Type.String(_) => string(in, t)
       case t @ Type.Struct(_, _, _, _) => struct(in, t)
       case _ => default(in, t)
     }

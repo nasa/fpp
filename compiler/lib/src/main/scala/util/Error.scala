@@ -44,6 +44,8 @@ sealed trait Error {
         Error.print (Some(loc)) ("enum constants must be all explicit or all implied")
       case SemanticError.InvalidFormatString(loc, msg) =>
         Error.print (Some(loc)) (s"invalid format string: $msg")
+      case SemanticError.InvalidStringSize(loc, size) =>
+        Error.print (Some(loc)) (s"invalid string size $size")
       case SemanticError.InvalidType(loc, msg) =>
         Error.print (Some(loc)) (msg)
       case SemanticError.NotImplemented(loc) =>
@@ -116,6 +118,8 @@ object SemanticError {
   final case class InvalidEnumConstants(loc: Location) extends Error
   /** Invalid format string  */
   final case class InvalidFormatString(loc: Location, msg: String) extends Error
+  /** Invalid string size */
+  final case class InvalidStringSize(loc: Location, size: BigInt) extends Error
   /** Invalid type */
   final case class InvalidType(loc: Location, msg: String) extends Error
   /** Feature not implemented */

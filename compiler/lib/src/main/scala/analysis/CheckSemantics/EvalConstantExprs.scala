@@ -152,8 +152,6 @@ object EvalConstantExprs extends UseAnalyzer {
       }
   }
 
-  override def typeNameNode(a: Analysis, node: AstNode[Ast.TypeName]) = default(a)
-
   private def visitUse[T](a: Analysis, node: AstNode[T], use: Name.Qualified): Result = {
     val symbol = a.useDefMap(node.getId)
     for {

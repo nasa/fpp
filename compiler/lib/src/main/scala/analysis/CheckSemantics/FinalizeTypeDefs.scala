@@ -198,6 +198,23 @@ object FinalizeTypeDefs
       for (a <- defEnumAnnotatedNode(a, t.node))
         yield a.typeMap(t.node._2.getId)
 
+    override def string(a: Analysis, t: Type.String) =
+      t.size match {
+        case Some(e) => {
+          val id = e.getId
+          val Value.Integer(size) = Analysis.convertValueToType(
+            a.valueMap(id),
+            Type.Integer
+          )
+          if (size >= 0) Right(t)
+          else {
+            val loc = Locations.get(id)
+            Left(SemanticError.InvalidStringSize(loc, size))
+          }
+        }
+        case None => Right(t)
+      }
+
     override def struct(a: Analysis, t: Type.Struct) =
       for (a <- defStructAnnotatedNode(a, t.node))
         yield a.typeMap(t.node._2.getId)

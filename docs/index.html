@@ -6197,7 +6197,7 @@ are called the <strong>primitive types</strong>.</p>
 <p>The <strong>string types</strong> correspond to the
 <a href="#Type-Names_String-Type-Names">string type names</a>.
 A string type is written <code>string</code> or <code>string size</code> <em>n</em>,
-where <em>n</em> is a positive integer value.
+where <em>n</em> is a nonnegative integer value.
 There is one string type <code>string</code> and one string type <code>string</code> <em>n</em>
 for each legal value of <em>n</em>.</p>
 </div>
@@ -6907,6 +6907,10 @@ the whole expression):</p>
 </div>
 </li>
 <li>
+<p>Otherwise if \$T_1\$ and \$T_2\$ are both
+<a href="#Types_String-Types">string types</a>, then use <code>string</code>.</p>
+</li>
+<li>
 <p>Otherwise if \$T_1\$ or \$T_2\$ or both are enum types, then replace
 the enum type or types with the representation type specified in the enum definitions and
 and reapply these rules.</p>
@@ -7532,7 +7536,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-05-19 13:30:55 -0700
+Last updated 2020-05-19 17:23:20 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

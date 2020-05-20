@@ -55,6 +55,7 @@ spec_loc_enum_error
 spec_loc_enum_ok
 spec_loc_struct_error
 spec_loc_struct_ok
+string_size_invalid
 string_size_not_numeric
 struct_default_error
 struct_default_ok
