@@ -3,6 +3,7 @@ package fpp.compiler.tools
 import fpp.compiler.analysis._
 import fpp.compiler.ast._
 import fpp.compiler.syntax._
+import fpp.compiler.transform._
 import fpp.compiler.util._
 import scopt.OParser
 
@@ -11,7 +12,7 @@ object FPPCheck {
   case class Options(
     dir: Option[String] = None,
     files: List[File] = Nil,
-    includes: List[File] = Nil,
+    imports: List[File] = Nil,
     names: Option[String] = None,
   )
 
@@ -22,8 +23,16 @@ object FPPCheck {
     }
     val a = Analysis(inputFileSet = options.files.toSet)
     for {
-      tul <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
-      a <- CheckSemantics.tuList(a, tul)
+      tulFiles <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
+      aTulFiles <- ResolveSpecInclude.transformList(
+        a,
+        tulFiles, 
+        ResolveSpecInclude.transUnit
+      )
+      tulFiles <- Right(aTulFiles._2)
+      tulImports <- Result.map(options.imports, Parser.parseFile (Parser.transUnit) (None) _)
+      a <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
+      // TODO: Generate code from tulFiles
     } yield a
   }
 
@@ -56,10 +65,10 @@ object FPPCheck {
         .valueName("<dir>")
         .action((d, c) => c.copy(dir = Some(d)))
         .text("output directory"),
-      opt[Seq[String]]('i', "includes")
+      opt[Seq[String]]('i', "imports")
         .valueName("<file1>,<file2>...")
-        .action((i, c) => c.copy(includes = i.toList.map(File.fromString(_))))
-        .text("files to include"),
+        .action((i, c) => c.copy(imports = i.toList.map(File.fromString(_))))
+        .text("files to import"),
       opt[String]('n', "names")
         .valueName("<file>")
         .action((n, c) => c.copy(names = Some(n)))
@@ -68,7 +77,7 @@ object FPPCheck {
         .unbounded()
         .optional()
         .action((f, c) => c.copy(files = File.fromString(f) :: c.files))
-        .text("input files"),
+        .text("files to translate"),
     )
   }
 
