@@ -9,7 +9,10 @@ import scopt.OParser
 object FPPCheck {
 
   case class Options(
-    files: List[File] = List(),
+    dir: Option[String] = None,
+    files: List[File] = Nil,
+    includes: List[File] = Nil,
+    names: Option[String] = None,
   )
 
   def command(options: Options) = {
@@ -49,6 +52,18 @@ object FPPCheck {
       programName(name),
       head(name, "0.1"),
       help('h', "help").text("print this message and exit"),
+      opt[String]('d', "directory")
+        .valueName("<dir>")
+        .action((d, c) => c.copy(dir = Some(d)))
+        .text("output directory"),
+      opt[Seq[String]]('i', "includes")
+        .valueName("<file1>,<file2>...")
+        .action((i, c) => c.copy(includes = i.toList.map(File.fromString(_))))
+        .text("files to include"),
+      opt[String]('n', "names")
+        .valueName("<file>")
+        .action((n, c) => c.copy(names = Some(n)))
+        .text("write names of generated files to <file>"),
       arg[String]("file ...")
         .unbounded()
         .optional()
