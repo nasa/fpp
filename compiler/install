@@ -23,6 +23,7 @@ tools="
 fpp-check
 fpp-depend
 fpp-syntax
+fpp-to-xml
 "
 
 echo "Building jar files"
