@@ -18,6 +18,14 @@ object ComputeXmlFiles extends AstStateVisitor {
     addMapping(s, fileName, loc)
   }
 
+  override def defEnumAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
+    val (_, node1, _) = node
+    val data = node1.getData
+    val loc = Locations.get(node1.getId)
+    val fileName = data.name ++ "EnumAi.xml"
+    addMapping(s, fileName, loc)
+  }
+
   override def defModuleAnnotatedNode(
     s: State,
     node: Ast.Annotated[AstNode[Ast.DefModule]]
@@ -25,6 +33,14 @@ object ComputeXmlFiles extends AstStateVisitor {
     val (_, node1, _) = node
     val data = node1.getData
     visitList(s, data.members, matchModuleMember)
+  }
+
+  override def defStructAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
+    val (_, node1, _) = node
+    val data = node1.getData
+    val loc = Locations.get(node1.getId)
+    val fileName = data.name ++ "SerializableAi.xml"
+    addMapping(s, fileName, loc)
   }
 
   override def transUnit(s: State, tu: Ast.TransUnit) =
