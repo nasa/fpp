@@ -16,34 +16,34 @@ object XmlWriter extends AstStateVisitor {
     dir: String
   )
 
-  override def defArrayAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefArray]]) = {
-    val (_, node1, _) = node
-    val data = node1.getData
+  override def defArrayAnnotatedNode(s: State, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
+    val (_, node, _) = aNode
+    val data = node.getData
     // TODO
     default(s)
   }
 
-  override def defEnumAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
-    val (_, node1, _) = node
-    val data = node1.getData
+  override def defEnumAnnotatedNode(s: State, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
+    val (_, node, _) = aNode
+    val data = node.getData
     // TODO
     default(s)
   }
 
   override def defModuleAnnotatedNode(
     s: State,
-    node: Ast.Annotated[AstNode[Ast.DefModule]]
+    aNode: Ast.Annotated[AstNode[Ast.DefModule]]
   ) = {
-    val (_, node1, _) = node
-    val data = node1.getData
+    val (_, node, _) = aNode
+    val data = node.getData
     visitList(s, data.members, matchModuleMember)
   }
 
-  override def defStructAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
-    val (_, node1, _) = node
-    val data = node1.getData
+  override def defStructAnnotatedNode(s: State, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
+    val (_, node, _) = aNode
+    val data = node.getData
     val fileName = ComputeXmlFiles.getStructFileName(data)
-    val lines = StructXmlWriter.defStructAnnotatedNode(s, node)
+    val lines = StructXmlWriter.defStructAnnotatedNode(s, aNode)
     writeXmlFile(s, fileName, lines)
   }
 
