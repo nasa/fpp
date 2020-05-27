@@ -31,16 +31,30 @@ object FPPCheck {
         ResolveSpecInclude.transUnit
       )
       tulFiles <- Right(aTulFiles._2)
-      _ <- XmlWriter.PathNameAnalyzer.visitList(Map(), tulFiles, XmlWriter.PathNameAnalyzer.transUnit)
+      xmlFileMap <- ComputeXmlFiles.visitList(Map(), tulFiles, ComputeXmlFiles.transUnit)
       tulImports <- Result.map(options.imports, Parser.parseFile (Parser.transUnit) (None) _)
       a <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
-    } yield {
-      val dir = options.dir match {
-        case Some(dir1) => dir1
-        case None => "."
+      _ <- options.names match {
+        case Some(fileName) => writeXmlFileNames(xmlFileMap.toList.map(_._1), fileName)
+        case None => Right(())
       }
-      val state = XmlWriter.State(a, dir)
-      tulFiles.map(XmlWriter.transUnit(state, _))
+      _ <- {
+        val dir = options.dir match {
+          case Some(dir1) => dir1
+          case None => "."
+        }
+        val state = XmlWriter.State(a, dir)
+        XmlWriter.visitList(state, tulFiles, XmlWriter.transUnit)
+      }
+    } yield ()
+  }
+
+  def writeXmlFileNames(xmlFiles: List[String], fileName: String) = {
+    val file = File.fromString(fileName)
+    for { writer <- file.openWrite() 
+    } yield { 
+      xmlFiles.map(writer.println(_))
+      writer.close()
     }
   }
 
