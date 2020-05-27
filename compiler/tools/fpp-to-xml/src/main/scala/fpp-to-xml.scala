@@ -2,6 +2,7 @@ package fpp.compiler.tools
 
 import fpp.compiler.analysis._
 import fpp.compiler.ast._
+import fpp.compiler.codegen._
 import fpp.compiler.syntax._
 import fpp.compiler.transform._
 import fpp.compiler.util._
@@ -30,10 +31,17 @@ object FPPCheck {
         ResolveSpecInclude.transUnit
       )
       tulFiles <- Right(aTulFiles._2)
+      _ <- XmlWriter.PathNameAnalyzer.visitList(Map(), tulFiles, XmlWriter.PathNameAnalyzer.transUnit)
       tulImports <- Result.map(options.imports, Parser.parseFile (Parser.transUnit) (None) _)
       a <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
-      // TODO: Generate code from tulFiles
-    } yield a
+    } yield {
+      val dir = options.dir match {
+        case Some(dir1) => dir1
+        case None => "."
+      }
+      val state = XmlWriter.State(a, dir)
+      tulFiles.map(XmlWriter.transUnit(state, _))
+    }
   }
 
   def main(args: Array[String]) = {
