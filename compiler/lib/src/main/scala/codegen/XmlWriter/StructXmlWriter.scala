@@ -10,7 +10,10 @@ object StructXmlWriter extends AstVisitor {
 
   override def default(s: XmlWriter.State) = Nil
 
-  override def transUnit(s: XmlWriter.State, tu: Ast.TransUnit) = tu.members.map(matchTuMember(s, _)).flatten
+  override def defStructAnnotatedNode(s: XmlWriter.State, node: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
+    // TODO
+    Nil
+  }
 
   type In = XmlWriter.State
 

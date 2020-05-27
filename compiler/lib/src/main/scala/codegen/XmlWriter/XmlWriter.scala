@@ -8,6 +8,7 @@ import fpp.compiler.util._
 /** Write out F Prime XML */
 object XmlWriter extends AstStateVisitor {
 
+  /** XML Writer state */
   case class State(
     /** The result of semantic analysis */
     a: Analysis,
@@ -16,6 +17,13 @@ object XmlWriter extends AstStateVisitor {
   )
 
   override def defArrayAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefArray]]) = {
+    val (_, node1, _) = node
+    val data = node1.getData
+    // TODO
+    default(s)
+  }
+
+  override def defEnumAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
     val (_, node1, _) = node
     val data = node1.getData
     // TODO
@@ -31,7 +39,12 @@ object XmlWriter extends AstStateVisitor {
     visitList(s, data.members, matchModuleMember)
   }
 
-  override def default(s: State) = Right(s)
+  override def defStructAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
+    val (_, node1, _) = node
+    val data = node1.getData
+    // TODO
+    default(s)
+  }
 
   override def transUnit(s: State, tu: Ast.TransUnit) = 
     visitList(s, tu.members, matchTuMember)
