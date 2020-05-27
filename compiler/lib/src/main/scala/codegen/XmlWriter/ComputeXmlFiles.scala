@@ -10,11 +10,17 @@ object ComputeXmlFiles extends AstStateVisitor {
 
   type State = Map[String, Location]
 
+  def getArrayFileName(defArray: Ast.DefArray) = defArray.name ++ "ArrayAi.xml"
+
+  def getEnumFileName(defEnum: Ast.DefEnum) = defEnum.name ++ "EnumAi.xml"
+
+  def getStructFileName(defStruct: Ast.DefStruct) = defStruct.name ++ "SerializableAi.xml"
+
   override def defArrayAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val (_, node1, _) = node
     val data = node1.getData
     val loc = Locations.get(node1.getId)
-    val fileName = data.name ++ "ArrayAi.xml"
+    val fileName = getArrayFileName(data)
     addMapping(s, fileName, loc)
   }
 
@@ -22,7 +28,7 @@ object ComputeXmlFiles extends AstStateVisitor {
     val (_, node1, _) = node
     val data = node1.getData
     val loc = Locations.get(node1.getId)
-    val fileName = data.name ++ "EnumAi.xml"
+    val fileName = getEnumFileName(data)
     addMapping(s, fileName, loc)
   }
 
@@ -39,7 +45,7 @@ object ComputeXmlFiles extends AstStateVisitor {
     val (_, node1, _) = node
     val data = node1.getData
     val loc = Locations.get(node1.getId)
-    val fileName = data.name ++ "SerializableAi.xml"
+    val fileName = getStructFileName(data)
     addMapping(s, fileName, loc)
   }
 
