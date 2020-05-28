@@ -34,51 +34,52 @@ object XmlWriter extends AstStateVisitor {
       }
     }
 
+    /** Write import directives as lines */
+    def writeImportDirectives(currentFile: File): List[Line] = {
+      def getDirectiveForSymbol(sym: Symbol): Option[String] =
+        for {
+          loc <- sym.getLocOpt
+          _ <- if (loc.file != currentFile) Some(()) else None
+          locPath <- loc.file match {
+            case File.Path(p) => Some(p)
+            case _ => None
+          }
+          tagFileName <- sym match {
+            case Symbol.AbsType(_) => Some(
+              "include_header",
+              sym.getUnqualifiedName ++ ".hpp"
+            )
+            case Symbol.Array(aNode) => Some(
+              "include_array_type",
+              ComputeXmlFiles.getArrayFileName(aNode._2.getData)
+            )
+            case Symbol.Enum(aNode) => Some(
+              "include_enum_type",
+              ComputeXmlFiles.getEnumFileName(aNode._2.getData)
+            )
+            case Symbol.Struct(aNode) => Some(
+              "import_serializable_type",
+              ComputeXmlFiles.getStructFileName(aNode._2.getData)
+            )
+            case _ => None
+          }
+        }
+        yield {
+          val (tag, fileName) = tagFileName
+          val filePath = java.nio.file.Paths.get(fileName)
+          val dir = locPath.getParent
+          val path = removeLongestPrefix(dir.resolve(filePath))
+          addTagToString(tag)(path.toString)
+        }
+      val set = a.usedSymbolSet.map(getDirectiveForSymbol(_)).filter(_.isDefined).map(_.get)
+      val array = set.toArray
+      scala.util.Sorting.quickSort(array)
+      array.toList.map(Line(_))
+    }
+
   }
 
   def addTagToString (tag: String) (s: String) = s"<$tag>$s</$tag>"
-
-  def writeImportDirectives(s: State, currentFile: File, usedSymbolSet: Set[Symbol]): List[Line] = {
-    def getDirectiveForSymbol(s: State, currentFile: File, sym: Symbol): Option[String] =
-      for {
-        loc <- sym.getLocOpt
-        _ <- if (loc.file != currentFile) Some(()) else None
-        locPath <- loc.file match {
-          case File.Path(p) => Some(p)
-          case _ => None
-        }
-        tagFileName <- sym match {
-          case Symbol.AbsType(_) => Some(
-            "include_header",
-            sym.getUnqualifiedName ++ ".hpp"
-          )
-          case Symbol.Array(aNode) => Some(
-            "include_array_type",
-            ComputeXmlFiles.getArrayFileName(aNode._2.getData)
-          )
-          case Symbol.Enum(aNode) => Some(
-            "include_enum_type",
-            ComputeXmlFiles.getEnumFileName(aNode._2.getData)
-          )
-          case Symbol.Struct(aNode) => Some(
-            "import_serializable_type",
-            ComputeXmlFiles.getStructFileName(aNode._2.getData)
-          )
-          case _ => None
-        }
-      }
-      yield {
-        val (tag, fileName) = tagFileName
-        val filePath = java.nio.file.Paths.get(fileName)
-        val dir = locPath.getParent
-        val path = s.removeLongestPrefix(dir.resolve(filePath))
-        addTagToString(tag)(path.toString)
-      }
-    val set = usedSymbolSet.map(getDirectiveForSymbol(s, currentFile, _)).filter(_.isDefined).map(_.get)
-    val array = set.toArray
-    scala.util.Sorting.quickSort(array)
-    array.toList.map(Line(_))
-  }
 
   override def defArrayAnnotatedNode(s: State, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val (_, node, _) = aNode
