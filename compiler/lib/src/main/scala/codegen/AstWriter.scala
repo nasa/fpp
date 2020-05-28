@@ -500,7 +500,7 @@ object AstWriter extends AstVisitor {
 
   private def indentIn(line: Line) = line.indentIn(2)
 
-  private def line(s: String) = Line(string = s)
+  private def line(s: String) = Line(s)
 
   private def lines(s: String) = List(line(s))
 

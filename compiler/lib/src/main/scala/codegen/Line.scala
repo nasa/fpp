@@ -9,7 +9,7 @@ object Line {
 
   val stdout = new java.io.PrintWriter(System.out, true)
 
-  def blank: Line = Line(string = "")
+  def blank: Line = Line()
 
   def write (writer: java.io.PrintWriter) (line: Line) = {
     writer.println(line.toString)
@@ -31,7 +31,7 @@ object Line {
   def join (sep: String) (l1: Line) (l2: Line): Line = {
     val indent = l1.indent
     val string = l1.string ++ sep ++ l2.string
-    Line(indent, string)
+    Line(string, indent)
   }
 
   /* Flatten a list of lines with separtor string */
@@ -66,7 +66,7 @@ object Line {
     }
 }
 
-case class Line(indent: Indentation = Indentation(0), string: String) {
+case class Line(string: String = "", indent: Indentation = Indentation(0)) {
 
   /** Convert the line to a formatted string */
   override def toString = indent.toString ++ string

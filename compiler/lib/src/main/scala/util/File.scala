@@ -45,8 +45,10 @@ sealed trait File {
 
 object File {
 
+  type JavaPath = java.nio.file.Path
+
   /** A file path */
-  final case class Path(path: java.nio.file.Path) extends File
+  final case class Path(path: JavaPath) extends File
 
   /** Standard input */
   final case object StdIn extends File

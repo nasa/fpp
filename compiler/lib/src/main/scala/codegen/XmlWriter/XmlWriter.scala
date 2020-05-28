@@ -16,7 +16,69 @@ object XmlWriter extends AstStateVisitor {
     dir: String,
     /** The list of include prefixes */
     prefixes: List[String],
-  )
+  ) {
+
+    /** Remove the longest prefix from a Java path */
+    def removeLongestPrefix(path: File.JavaPath): File.JavaPath = {
+      def removePrefix(s: String) = {
+        val prefix = java.nio.file.Paths.get(s)
+        if (path.startsWith(prefix)) path.relativize(prefix) else path
+      }
+      prefixes.map(removePrefix(_)) match {
+        case Nil => path
+        case head :: tail => {
+          def min(p1: File.JavaPath, p2: File.JavaPath) = 
+            if (p1.getNameCount < p2.getNameCount) p1 else p2
+          tail.fold(head)(min)
+        }
+      }
+    }
+
+  }
+
+  def addTagToString (tag: String) (s: String) = s"<$tag>$s</$tag>"
+
+  def writeImportDirectives(s: State, currentFile: File, usedSymbolSet: Set[Symbol]): List[Line] = {
+    def getDirectiveForSymbol(s: State, currentFile: File, sym: Symbol): Option[String] =
+      for {
+        loc <- sym.getLocOpt
+        _ <- if (loc.file != currentFile) Some(()) else None
+        locPath <- loc.file match {
+          case File.Path(p) => Some(p)
+          case _ => None
+        }
+        tagFileName <- sym match {
+          case Symbol.AbsType(_) => Some(
+            "include_header",
+            sym.getUnqualifiedName ++ ".hpp"
+          )
+          case Symbol.Array(aNode) => Some(
+            "include_array_type",
+            ComputeXmlFiles.getArrayFileName(aNode._2.getData)
+          )
+          case Symbol.Enum(aNode) => Some(
+            "include_enum_type",
+            ComputeXmlFiles.getEnumFileName(aNode._2.getData)
+          )
+          case Symbol.Struct(aNode) => Some(
+            "import_serializable_type",
+            ComputeXmlFiles.getStructFileName(aNode._2.getData)
+          )
+          case _ => None
+        }
+      }
+      yield {
+        val (tag, fileName) = tagFileName
+        val filePath = java.nio.file.Paths.get(fileName)
+        val dir = locPath.getParent
+        val path = s.removeLongestPrefix(dir.resolve(filePath))
+        addTagToString(tag)(path.toString)
+      }
+    val set = usedSymbolSet.map(getDirectiveForSymbol(s, currentFile, _)).filter(_.isDefined).map(_.get)
+    val array = set.toArray
+    scala.util.Sorting.quickSort(array)
+    array.toList.map(Line(_))
+  }
 
   override def defArrayAnnotatedNode(s: State, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val (_, node, _) = aNode
