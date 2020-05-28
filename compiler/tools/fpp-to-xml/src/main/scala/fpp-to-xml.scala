@@ -15,6 +15,7 @@ object FPPCheck {
     files: List[File] = Nil,
     imports: List[File] = Nil,
     names: Option[String] = None,
+    prefixes: List[String] = Nil,
   )
 
   def command(options: Options) = {
@@ -43,7 +44,7 @@ object FPPCheck {
           case Some(dir1) => dir1
           case None => "."
         }
-        val state = XmlWriter.State(a, dir)
+        val state = XmlWriter.State(a, dir, options.prefixes)
         XmlWriter.visitList(state, tulFiles, XmlWriter.transUnit)
       }
     } yield ()
@@ -95,6 +96,10 @@ object FPPCheck {
         .valueName("<file>")
         .action((n, c) => c.copy(names = Some(n)))
         .text("write names of generated files to <file>"),
+      opt[Seq[String]]('p', "prefixes")
+        .valueName("<prefix1>,<prefix2>...")
+        .action((p, c) => c.copy(prefixes = p.toList))
+        .text("path prefixes to delete from imported files"),
       arg[String]("file ...")
         .unbounded()
         .optional()

@@ -39,7 +39,8 @@ case class Analysis(
   typeMap: Map[AstNode.Id, Type] = Map(),
   /** THe mapping from constant symbols and expressions to their values. */
   valueMap: Map[AstNode.Id, Value] = Map(),
-  // TODO
+  /** The set of symbols used. Used during code generation. */
+  usedSymbolSet: Set[Symbol] = Set(),
 ) {
 
   /** Add a mapping to the type map */

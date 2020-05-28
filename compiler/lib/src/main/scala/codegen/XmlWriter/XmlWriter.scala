@@ -13,7 +13,9 @@ object XmlWriter extends AstStateVisitor {
     /** The result of semantic analysis */
     a: Analysis,
     /** The output directory */
-    dir: String
+    dir: String,
+    /** The list of include prefixes */
+    prefixes: List[String],
   )
 
   override def defArrayAnnotatedNode(s: State, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
