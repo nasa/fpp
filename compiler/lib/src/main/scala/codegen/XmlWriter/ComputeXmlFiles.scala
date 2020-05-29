@@ -5,15 +5,25 @@ import fpp.compiler.ast._
 import fpp.compiler.codegen._
 import fpp.compiler.util._
 
-/** Compute the list of XML files */
+/** ====================================================================== 
+ *  Compute the names of the XML files to generate
+ *  ====================================================================== 
+ *  Check for duplicates that would cause a name collision. 
+ *  For example, module M { struct S { ... } } and struct S { ... } will both
+ *  generate SSerializableAi.xml, so we can't generate XML files for both
+ *  in the same place. 
+ *  ======================================================================*/
 object ComputeXmlFiles extends AstStateVisitor {
 
   type State = Map[String, Location]
 
+  /** Get the generated XML file name for an array definition */
   def getArrayFileName(defArray: Ast.DefArray) = defArray.name ++ "ArrayAi.xml"
 
+  /** Get the generated XML file name for an enum definition */
   def getEnumFileName(defEnum: Ast.DefEnum) = defEnum.name ++ "EnumAi.xml"
 
+  /** Get the generated XML file name for a struct definition */
   def getStructFileName(defStruct: Ast.DefStruct) = defStruct.name ++ "SerializableAi.xml"
 
   override def defArrayAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefArray]]) = {
