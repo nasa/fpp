@@ -58,7 +58,7 @@ Source files for translation are provided as for
 <<Analysis-and-Translation_Analysis-Tools,analysis tools>>.
 Imported source files are specified as arguments to a `-i` flag.
 
-For example, the command `translate -i file1.fpp -i file2.fpp file3.fpp`
+For example, the command `translate -i file1.fpp,file2.fpp file3.fpp`
 says to import `file1.fpp` and `file2.fpp` and translate `file3.fpp`.
-The command `cat file2.fpp file3.fpp | translate -i file1.fpp` is functionally 
+The command `translate -i file1.fpp,file2.fpp < file3.fpp` is functionally 
 equivalent.

@@ -7525,9 +7525,9 @@ but not translate those files.</p>
 Imported source files are specified as arguments to a <code>-i</code> flag.</p>
 </div>
 <div class="paragraph">
-<p>For example, the command <code>translate -i file1.fpp -i file2.fpp file3.fpp</code>
+<p>For example, the command <code>translate -i file1.fpp,file2.fpp file3.fpp</code>
 says to import <code>file1.fpp</code> and <code>file2.fpp</code> and translate <code>file3.fpp</code>.
-The command <code>cat file2.fpp file3.fpp | translate -i file1.fpp</code> is functionally
+The command <code>translate -i file1.fpp,file2.fpp &lt; file3.fpp</code> is functionally
 equivalent.</p>
 </div>
 </div>
@@ -7536,7 +7536,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-05-19 17:23:20 -0700
+Last updated 2020-05-29 16:44:03 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
