@@ -24,7 +24,7 @@ object XmlWriter extends AstStateVisitor {
     def removeLongestPrefix(path: File.JavaPath): File.JavaPath = {
       def removePrefix(s: String) = {
         val prefix = java.nio.file.Paths.get(s)
-        if (path.startsWith(prefix)) path.relativize(prefix) else path
+        if (path.startsWith(prefix)) prefix.relativize(path) else path
       }
       prefixes.map(removePrefix(_)) match {
         case Nil => path
@@ -67,9 +67,8 @@ object XmlWriter extends AstStateVisitor {
         }
         yield {
           val (tagName, fileName) = tagFileName
-          val filePath = java.nio.file.Paths.get(fileName)
           val dir = locPath.getParent
-          val path = removeLongestPrefix(dir.resolve(filePath))
+          val path = removeLongestPrefix(java.nio.file.Paths.get(dir.toString, fileName))
           val tags = XmlTags.tags(tagName)
           XmlTags.taggedString(tags)(path.toString)
         }
