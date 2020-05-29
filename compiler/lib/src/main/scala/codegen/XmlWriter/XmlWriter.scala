@@ -39,7 +39,6 @@ object XmlWriter extends AstStateVisitor {
       def getDirectiveForSymbol(sym: Symbol): Option[String] =
         for {
           loc <- sym.getLocOpt
-          _ <- if (loc.file != currentFile) Some(()) else None
           locPath <- loc.file match {
             case File.Path(p) => Some(p)
             case _ => None
@@ -69,7 +68,7 @@ object XmlWriter extends AstStateVisitor {
           val filePath = java.nio.file.Paths.get(fileName)
           val dir = locPath.getParent
           val path = removeLongestPrefix(dir.resolve(filePath))
-          addTagToString(tag)(path.toString)
+          XmlTags.taggedString(tag)(path.toString)
         }
       val set = a.usedSymbolSet.map(getDirectiveForSymbol(_)).filter(_.isDefined).map(_.get)
       val array = set.toArray
@@ -77,9 +76,14 @@ object XmlWriter extends AstStateVisitor {
       array.toList.map(Line(_))
     }
 
-  }
+    /** Get the enclosing namespace */
+    def getNamespace: String = a.moduleNameList.reverse match {
+      case Nil => ""
+      case head :: Nil => head
+      case head :: tail => tail.foldLeft(head)({ case (s, name) => s ++ "::" ++ name })
+    }
 
-  def addTagToString (tag: String) (s: String) = s"<$tag>$s</$tag>"
+  }
 
   override def defArrayAnnotatedNode(s: State, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val (_, node, _) = aNode
@@ -101,15 +105,21 @@ object XmlWriter extends AstStateVisitor {
   ) = {
     val (_, node, _) = aNode
     val data = node.getData
-    visitList(s, data.members, matchModuleMember)
+    val a = s.a.copy(moduleNameList = data.name :: s.a.moduleNameList)
+    val s1 = s.copy(a = a)
+    visitList(s1, data.members, matchModuleMember)
   }
 
   override def defStructAnnotatedNode(s: State, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
     val (_, node, _) = aNode
+    val loc = Locations.get(node.getId)
     val data = node.getData
     val fileName = ComputeXmlFiles.getStructFileName(data)
     val lines = StructXmlWriter.defStructAnnotatedNode(s, aNode)
-    writeXmlFile(s, fileName, lines)
+    for {
+      _ <- if (data.members.length == 0) Left(CodeGenError.EmptyStruct(loc)) else Right(())
+      s <- writeXmlFile(s, fileName, lines)
+    } yield s
   }
 
   override def transUnit(s: State, tu: Ast.TransUnit) = 

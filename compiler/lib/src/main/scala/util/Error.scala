@@ -15,6 +15,8 @@ sealed trait Error {
         System.err.println(s"previous file would be generated here:")
         System.err.println(prevLoc)
       }
+      case CodeGenError.EmptyStruct(loc) =>
+        Error.print (Some(loc)) (s"cannot write XML for an empty struct")
       case IncludeError.Cycle(loc, msg) => Error.print (Some(loc)) (msg)
       case FileError.CannotOpen(locOpt, name) => 
         Error.print (locOpt) (s"cannot open file $name")
@@ -76,6 +78,8 @@ final case class SyntaxError(loc: Location, msg: String) extends Error
 object CodeGenError {
   /** Duplicate XML path */
   final case class DuplicateXmlFile(file: String, loc: Location, prevLoc: Location) extends Error
+  /** Empty struct */
+  final case class EmptyStruct(loc: Location) extends Error
 }
 
 /** An include error */
