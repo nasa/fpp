@@ -27,7 +27,8 @@ object StructXmlWriter extends AstVisitor with LineUtils {
       val comment = AnnotationXmlWriter.multilineComment(aNode)
       val members = {
         val tags = XmlTags.tags("members")
-        val ls = data.members.map(structTypeMemberAnnotatedNode(s, _))
+        val st @ Type.Struct(_, _, _, _) = s.a.typeMap(node.getId) 
+        val ls = data.members.map(structTypeMemberAnnotatedNode(s, st, _))
         XmlTags.taggedLines(tags)(ls.map(indentIn))
       }
       comment ++ imports ++ members
@@ -37,16 +38,23 @@ object StructXmlWriter extends AstVisitor with LineUtils {
 
   def structTypeMemberAnnotatedNode(
     s: XmlWriter.State,
+    structType: Type.Struct,
     aNode: Ast.Annotated[AstNode[Ast.StructTypeMember]]
   ) = {
     val node = aNode._2
     val data = node.getData
     val pairs = ("name", data.name) :: TypeXmlWriter.getPairs(s, data.typeName)
-    val pairs1 = AnnotationXmlWriter.singleLineComment(aNode) match {
-      case Some(comment) => pairs :+ comment
+    val pairs1 = structType.formats.get(data.name) match {
+      case Some(format) => {
+        val s = FormatXmlWriter.formatToString(format, List(data.typeName))
+        pairs :+ ("format", s)
+      }
       case None => pairs
     }
-    // TODO: Format
+    val pairs2 = AnnotationXmlWriter.singleLineComment(aNode) match {
+      case Some(comment) => pairs1 :+ comment
+      case None => pairs1
+    }
     line(XmlTags.openCloseTag("member", pairs1))
   }
 

@@ -163,18 +163,20 @@ object FinalizeTypeDefs
 
   private def computeFormat(node: AstNode[String], t: Type): Result.Result[Format] = {
     val loc = Locations.get(node.getId)
-    def getFields(format: Format) = 
-      if (format.fields.size <= 1) Right(format.fields.map(_._1)) else {
+    def getField(format: Format) = 
+      if (format.fields.size == 0)
+        Left(SemanticError.InvalidFormatString(loc, "missing replacement field"))
+      else if (format.fields.size > 1) 
         Left(SemanticError.InvalidFormatString(loc, "too many replacement fields"))
-      }
+      else Right(format.fields.head._1)
     def checkNumericField(field: Format.Field) = if (field.isNumeric && !t.hasNumericMembers) {
       val loc = Locations.get(node.getId)
       Left(SemanticError.InvalidFormatString(loc, s"type $t does not have numeric members"))
     } else Right(())
     for {
       format <- Format.Parser.parseNode(node)
-      fields <- getFields(format)
-      _ <- Result.map(fields, checkNumericField)
+      field <- getField(format)
+      _ <- checkNumericField(field)
     } yield format
   }
 
