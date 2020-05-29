@@ -2,7 +2,6 @@ package fpp.compiler.codegen
 
 import fpp.compiler.analysis._
 import fpp.compiler.ast._
-import fpp.compiler.codegen._
 import fpp.compiler.util._
 
 /** Write out F Prime XML for structs */
@@ -16,10 +15,9 @@ object StructXmlWriter extends AstVisitor with LineUtils {
     val data = node.getData
     val tags = {
       val namespace = s.getNamespace
-      val pairs = List(
-        if (namespace != "") Some("namespace", namespace) else None,
-        Some("name", data.name)
-      ).filter(_.isDefined).map(_.get)
+      val namePair = ("name", data.name)
+      val namespacePair = ("namespace", namespace)
+      val pairs = if (namespace != "") List(namespacePair, namePair) else List(namePair)
       XmlTags.tags("serializable", pairs)
     }
     val body: List[Line] = {
