@@ -48,6 +48,7 @@ object StructXmlWriter extends AstVisitor with LineUtils {
       case Some(comment) => pairs :+ comment
       case None => pairs
     }
+    // TODO: Format
     line(XmlTags.openCloseTag("member", pairs1))
   }
 
