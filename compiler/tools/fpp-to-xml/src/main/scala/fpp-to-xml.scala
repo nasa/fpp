@@ -45,7 +45,7 @@ object FPPCheck {
           case Some(dir1) => dir1
           case None => "."
         }
-        val state = XmlWriter.State(a, dir, options.prefixes, options.defaultStringSize)
+        val state = XmlWriterState(a, dir, options.prefixes, options.defaultStringSize)
         XmlWriter.visitList(state, tulFiles, XmlWriter.transUnit)
       }
     } yield ()

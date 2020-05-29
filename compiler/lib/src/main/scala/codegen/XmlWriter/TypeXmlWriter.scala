@@ -46,17 +46,17 @@ object TypeXmlWriter {
   }
 
   /** Get the name of a type */
-  def getName(s: XmlWriter.State, tn: AstNode[Ast.TypeName]): String = Visitor.matchTypeNameNode((), tn)
+  def getName(s: XmlWriterState, tn: AstNode[Ast.TypeName]): String = Visitor.matchTypeNameNode((), tn)
 
   /** Get the size of a type */
-  def getSize(s: XmlWriter.State, tn: AstNode[Ast.TypeName]): Option[String] = tn.getData match {
+  def getSize(s: XmlWriterState, tn: AstNode[Ast.TypeName]): Option[String] = tn.getData match {
     case Ast.TypeNameString(Some(node)) => Some(s.a.valueMap(node.getId).toString)
     case Ast.TypeNameString(_) => Some(s.defaultStringSize.toString)
     case _ => None
   }
 
   /** Get the key-value pairs for a type */
-  def getPairs(s: XmlWriter.State, tn: AstNode[Ast.TypeName]): List[(String,String)] = {
+  def getPairs(s: XmlWriterState, tn: AstNode[Ast.TypeName]): List[(String,String)] = {
     val name = ("type", getName(s, tn))
     getSize(s, tn) match {
       case Some(size) => List(name, ("size", size))

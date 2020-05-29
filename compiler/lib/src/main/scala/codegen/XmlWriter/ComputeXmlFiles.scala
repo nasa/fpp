@@ -2,7 +2,6 @@ package fpp.compiler.codegen
 
 import fpp.compiler.analysis._
 import fpp.compiler.ast._
-import fpp.compiler.codegen._
 import fpp.compiler.util._
 
 /** ====================================================================== 
