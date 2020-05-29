@@ -16,6 +16,7 @@ object FPPCheck {
     imports: List[File] = Nil,
     names: Option[String] = None,
     prefixes: List[String] = Nil,
+    defaultStringSize: Int = 80,
   )
 
   def command(options: Options) = {
@@ -44,7 +45,7 @@ object FPPCheck {
           case Some(dir1) => dir1
           case None => "."
         }
-        val state = XmlWriter.State(a, dir, options.prefixes)
+        val state = XmlWriter.State(a, dir, options.prefixes, options.defaultStringSize)
         XmlWriter.visitList(state, tulFiles, XmlWriter.transUnit)
       }
     } yield ()
@@ -100,6 +101,11 @@ object FPPCheck {
         .valueName("<prefix1>,<prefix2>...")
         .action((p, c) => c.copy(prefixes = p.toList))
         .text("path prefixes to delete from imported files"),
+      opt[Int]('s', "size")
+        .valueName("<size>")
+        .validate(s => if (s > 0 && s <= 1024) success else failure("<size> must be between 1 and 1024"))
+        .action((s, c) => c.copy(defaultStringSize = s))
+        .text("set the default string size"),
       arg[String]("file ...")
         .unbounded()
         .optional()

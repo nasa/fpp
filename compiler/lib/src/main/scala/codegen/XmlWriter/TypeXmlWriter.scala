@@ -39,19 +39,16 @@ object TypeXmlWriter extends AstVisitor {
   override def typeNameStringNode(u: Unit, node: AstNode[Ast.TypeName], tn: Ast.TypeNameString) = "string"
 
   /** Get the size of a type */
-  def getSize(s: XmlWriter.State, tn: AstNode[Ast.TypeName]): Option[String] = tn.getData match {
-    case Ast.TypeNameString(Some(node)) => {
-      val v = s.a.valueMap(node.getId)
-      Some(v.toString)
-    }
-    case _ => None
+  def getSize(s: XmlWriter.State, tn: AstNode[Ast.TypeName]): String = tn.getData match {
+    case Ast.TypeNameString(Some(node)) => s.a.valueMap(node.getId).toString
+    case _ => s.defaultStringSize.toString
   }
 
   /** Get the key-value pairs for a type */
   def getPairs(s: XmlWriter.State, tn: AstNode[Ast.TypeName]): List[(String,String)] = {
-    val name = Some(("type", matchTypeNameNode((), tn)))
-    val size = for (size <- getSize(s, tn)) yield ("size", size)
-    List(name, size).filter(_.isDefined).map(_.get)
+    val name = ("type", matchTypeNameNode((), tn))
+    val size = ("size", getSize(s, tn))
+    List(name, size)
   }
 
   type In = Unit

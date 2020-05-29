@@ -13,22 +13,24 @@ object StructXmlWriter extends AstVisitor with LineUtils {
   override def defStructAnnotatedNode(s: XmlWriter.State, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
     val node = aNode._2
     val data = node.getData
-    val openTag = {
+    val tags = {
       val namespace = s.getNamespace
       val pairs = List(
         if (namespace != "") Some("namespace", namespace) else None,
         Some("name", data.name)
       ).filter(_.isDefined).map(_.get)
-      lines(XmlTags.openTag("serializable", pairs))
+      XmlTags.tags("serializable", pairs)
     }
     val body: List[Line] = {
-      val openTag = lines(XmlTags.openTag("members"))
-      val members = data.members.map(structTypeMemberAnnotatedNode(s, _))
-      val closeTag = lines(XmlTags.closeTag("members"))
-      openTag ++ members.map(indentIn) ++ closeTag
+      val comment = AnnotationXmlWriter.multilineComment(aNode)
+      val members = {
+        val tags = XmlTags.tags("members")
+        val ls = data.members.map(structTypeMemberAnnotatedNode(s, _))
+        XmlTags.taggedLines(tags)(ls.map(indentIn))
+      }
+      comment ++ members
     }
-    val closeTag = lines(XmlTags.closeTag("serializable"))
-    openTag ++ body.map(indentIn) ++ closeTag
+    XmlTags.taggedLines(tags)(body.map(indentIn))
   }
 
   def structTypeMemberAnnotatedNode(
@@ -39,7 +41,7 @@ object StructXmlWriter extends AstVisitor with LineUtils {
     val data = node.getData
     val pairs = ("name", data.name) :: TypeXmlWriter.getPairs(s, data.typeName)
     // TODO: Add comment
-    Line(XmlTags.openCloseTag("member", pairs))
+    line(XmlTags.openCloseTag("member", pairs))
   }
 
   type In = XmlWriter.State

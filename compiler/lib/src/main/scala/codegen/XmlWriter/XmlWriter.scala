@@ -16,6 +16,8 @@ object XmlWriter extends AstStateVisitor {
     dir: String,
     /** The list of include prefixes */
     prefixes: List[String],
+    /** The default string size */
+    defaultStringSize: Int,
   ) {
 
     /** Remove the longest prefix from a Java path */
@@ -64,11 +66,12 @@ object XmlWriter extends AstStateVisitor {
           }
         }
         yield {
-          val (tag, fileName) = tagFileName
+          val (tagName, fileName) = tagFileName
           val filePath = java.nio.file.Paths.get(fileName)
           val dir = locPath.getParent
           val path = removeLongestPrefix(dir.resolve(filePath))
-          XmlTags.taggedString(tag)(path.toString)
+          val tags = XmlTags.tags(tagName)
+          XmlTags.taggedString(tags)(path.toString)
         }
       val set = a.usedSymbolSet.map(getDirectiveForSymbol(_)).filter(_.isDefined).map(_.get)
       val array = set.toArray
