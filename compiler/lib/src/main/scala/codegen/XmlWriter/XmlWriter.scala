@@ -108,6 +108,7 @@ object XmlWriter extends AstStateVisitor {
     val a = s.a.copy(moduleNameList = data.name :: s.a.moduleNameList)
     val s1 = s.copy(a = a)
     visitList(s1, data.members, matchModuleMember)
+    Right(s)
   }
 
   override def defStructAnnotatedNode(s: State, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {

@@ -31,7 +31,7 @@ object TypeXmlWriter extends AstVisitor {
   override def typeNameQualIdentNode(u: Unit, node: AstNode[Ast.TypeName], tn: Ast.TypeNameQualIdent) = {
     def qualIdent(qi: Ast.QualIdent): String = qi match {
       case Ast.QualIdent.Unqualified(name) => name
-      case Ast.QualIdent.Qualified(qualifier, name) => s"${qualIdent(qualifier.getData)}::$name"
+      case Ast.QualIdent.Qualified(qualifier, name) => s"${qualIdent(qualifier.getData)}::${name.getData}"
     }
     qualIdent(tn.name.getData)
   }
