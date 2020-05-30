@@ -35,26 +35,29 @@ object FormatXmlWriter {
       case Ast.TypeNameBool => "%u"
       case Ast.TypeNameString(size) => "%s"
     }
-    def integer(t: Integer.Type) = {
-      val Ast.TypeNameInt(typeInt) = tn.getData
-      (t, signedness(typeInt)) match {
+    def integer(t: Integer.Type) = tn.getData match {
+      case Ast.TypeNameInt(typeInt) => (t, signedness(typeInt)) match {
         case (Integer.Character, _) => "%c"
         case (Integer.Decimal, Signed) => "%d"
         case (Integer.Decimal, Unsigned) => "%u"
         case (Integer.Hexadecimal, _) => "%x"
         case (Integer.Octal, _) => "%o"
       }
+      case _ => default
     }
-    def rational(precision: Option[Int], t: Rational.Type) = {
-      val precisionStr = precision match {
-        case Some(p) => s".${p.toString}"
-        case None => ""
+    def rational(precision: Option[Int], t: Rational.Type) = tn.getData match {
+      case Ast.TypeNameFloat(_) => {
+        val precisionStr = precision match {
+          case Some(p) => s".${p.toString}"
+          case None => ""
+        }
+        t match {
+          case Rational.Exponent => s"%${precisionStr}e"
+          case Rational.Fixed => s"%${precisionStr}f"
+          case Rational.General => s"%${precisionStr}g"
+        }
       }
-      t match {
-        case Rational.Exponent => s"%${precisionStr}e"
-        case Rational.Fixed => s"%${precisionStr}f"
-        case Rational.General => s"%${precisionStr}g"
-      }
+      case _ => default
     }
     f match {
       case Default => default
