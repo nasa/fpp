@@ -42,7 +42,6 @@ object FormatXmlWriter {
         case (Integer.Character, _) => "%c"
         case (Integer.Decimal, Signed) => "%d"
         case (Integer.Decimal, Unsigned) => "%u"
-        case (Integer.Hexadecimal, Signed) => "%x"
         case (Integer.Hexadecimal, _) => "%x"
         case (Integer.Octal, _) => "%o"
       }

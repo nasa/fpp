@@ -71,7 +71,8 @@ object Format {
         def character = "c" ^^ { case _ => Field.Integer(Field.Integer.Character) }
         def decimal = "d" ^^ { case _ => Field.Integer(Field.Integer.Decimal) }
         def hexadecimal = "x" ^^ { case _ => Field.Integer(Field.Integer.Hexadecimal) }
-        binary | character | decimal | hexadecimal
+        def octal = "o" ^^ { case _ => Field.Integer(Field.Integer.Octal) }
+        binary | character | decimal | hexadecimal | octal
       }
       def floating = {
         def ty = {

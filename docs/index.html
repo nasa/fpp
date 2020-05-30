@@ -1597,9 +1597,8 @@ The type of the expression must be
 <p>The optional format specifier specifies a <a href="#Format-Strings">format string</a>.
 When displaying the array, the format is applied to each element of the array.
 There is one argument to the format string, which an array member.
-A numeric format is allowed if the array element type
-<a href="#Types_Types-with-Numeric-Members">has numeric members</a>. The format specified
-here overrides any format specified in the type.</p>
+A numeric format is allowed if the array element type is a
+<a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.</p>
 </div>
 <div class="paragraph">
 <p>The type name <em>N</em> is not in scope in the body of the definition.</p>
@@ -2344,9 +2343,8 @@ identifier appearing in the struct type member sequence must be distinct.</p>
 <a href="#Format-Strings">format string</a>.
 The format is applied when displaying the struct member.
 There is one argument to the format string, which is the member value.
-A numeric format is allowed if the member type
-<a href="#Types_Types-with-Numeric-Members">has numeric members</a>. The format specified
-here overrides any format specified in the member type.</p>
+A numeric format is allowed if the member type is a
+<a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.</p>
 </div>
 <div class="paragraph">
 <p>The expression following the keyword <em>default</em> is optional.
@@ -3424,9 +3422,7 @@ event appearing in a component) or the previous event identifier plus one.</p>
 ground.  The arguments to the format string are the values bound to the event
 parameters.  If there is no format string, then the event is displayed in a
 standard way as a list of argument values.  A numeric format is allowed for any
-argument whose type <a href="#Types_Types-with-Numeric-Members">has numeric members</a>.
-The format specified here overrides any format specified in the
-type.</p>
+argument whose type is a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.</p>
 </li>
 <li>
 <p>The expression <em>e</em> following <code>throttle</code> specifies the maximum number
@@ -4358,17 +4354,18 @@ If the specifier is not present, the default behavior is always.</p>
 <li>
 <p>The optional format specifier specifies a <a href="#Format-Strings">format string</a>.
 There is one argument to the format string, which is the channel value.  A
-numeric format is allowed if the channel type telemetry channel must
-<a href="#Types_Types-with-Numeric-Members">has numeric members</a>.  The format specified
-here overrides any format specified in the type.</p>
+numeric format is allowed if the channel type telemetry channel is a
+<a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.</p>
 </li>
 <li>
 <p>The optional high and low limit specifiers specify the high and low limits
-for the channel.  If either specifier is present, then</p>
+for the channel.
+The following rules apply:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>The type of the
+<p>If either specifier is present, then
+the type of the
 telemetry channel must <a href="#Types_Types-with-Numeric-Members">have numeric
 members</a>.</p>
 </li>
@@ -4377,11 +4374,26 @@ members</a>.</p>
 in each specifier.</p>
 </li>
 <li>
-<p>The expression in each limit must have a
-<a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.</p>
+<p>The type of the expression in each limit must be
+<a href="#Type-Checking_Type-Conversion">convertible to</a>
+the type of the channel.</p>
 </li>
 <li>
-<p>The limit is applied to each member of the channel type.</p>
+<p>The limit is applied to each telemetry channel with type <em>T</em> and value <em>v</em>
+as follows:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>If <em>T</em> is a
+<a href="#Types_Internal-Types_Numeric-Types">numeric type</a>, then the
+limit is applied directly to <em>v</em>.</p>
+</li>
+<li>
+<p>If <em>T</em> has numeric members but is not itself a numeric type
+(e.g., it is an array), then the limit is applied to each member value of <em>v</em>.</p>
+</li>
+</ol>
+</div>
 </li>
 </ol>
 </div>
@@ -5413,36 +5425,62 @@ discussed below.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>You can use an empty replacement field <code>{}</code> to convert any argument.
+<p>You can use the <strong>default replacement field</strong> <code>{}</code> to convert any argument.
 It causes the argument to be displayed in a standard way
 for F Prime according to its type.</p>
 </li>
 <li>
-<p>You can use a replacement field containing a <strong>numeric format specifier</strong>.
-A numeric format specifier consists of an optional <strong>precision</strong> followed
-by a <strong>presentation type</strong>.
-The available precisions and presentation types are as defined
-<a href="https://docs.python.org/3.0/library/string.html#format-specification-mini-language">in
-Python</a>,
-except that (1) the presentation type <code>n</code> is not available; and
-(2) it is not valid to specify a precision if the presentation
-type is an integer type.</p>
-<div class="paragraph">
-<p>For example, <code>{.3f}</code>, is a valid replacement field.
-Its numeric format specifier is <code>.3f</code>, consisting of
-the precision <code>.3</code>, for three decimal places, and the presentation type <code>f</code>,
-for fixed point.</p>
-</div>
+<p>If an argument <em>a</em> has <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>,
+then you can use an <strong>integer format specifier</strong> to convert <em>a</em>.
+An integer format specifier is one of the following:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><code>{c}</code>: Display <em>a</em> as a character value.</p>
+</li>
+<li>
+<p><code>{d}</code>: Display <em>a</em> as a decimal integer value</p>
+</li>
+<li>
+<p><code>{x}</code>: Display <em>a</em> as a hexadecimal integer value.</p>
+</li>
+<li>
+<p><code>{o}</code>: Display <em>a</em> as an octal integer value.</p>
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p>A replacement field with a numeric format specifier can bind to any argument
-whose type <a href="#Types_Types-with-Numeric-Members">has numeric members</a>.
-If the type is a numeric type, then the specifier displays the argument
-in the standard way.
-If the type is a structure or array, then the type is displayed in a standard
-way for F Prime, but with the specifier applied to each member.</p>
+</li>
+<li>
+<p>If an argument <em>a</em> has <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>,
+then you can use a <strong>rational format specifier</strong> to convert <em>a</em>.
+A rational format specifier is one of the following:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><code>{e}</code>: Display <em>a</em> as a rational number using exponent notation, e.g., <code>1.234e2</code></p>
+</li>
+<li>
+<p><code>{f}</code>: Display <em>a</em> as a rational number using fixed-point notation, e.g., <code>12.34</code>.</p>
+</li>
+<li>
+<p><code>{g}</code>: Display <em>a</em> as a rational number using general format. This format
+uses fixed-point notation for
+numbers up to some size <em>s</em> and uses exponent notation for numbers larger than
+<em>s</em>.
+The value of <em>s</em> is implementation-dependent.</p>
+</li>
+<li>
+<p>One of the fields denoted above with a period and an integer after the
+opening brace.
+The integer value specifies the <strong>precision</strong>, i.e., the number of digits after
+the decimal point for fixed-point notation, or before the <code>e</code> for exponent notation.
+For example, the replacement field <code>{.3f}</code>, specifies fixed-point notation
+with a precision of 3.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p>No other replacement fields are allowed.
@@ -7536,7 +7574,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-05-29 16:44:03 -0700
+Last updated 2020-05-30 10:34:16 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
