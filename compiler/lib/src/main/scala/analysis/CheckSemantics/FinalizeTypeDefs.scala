@@ -169,9 +169,9 @@ object FinalizeTypeDefs
       else if (format.fields.size > 1) 
         Left(SemanticError.InvalidFormatString(loc, "too many replacement fields"))
       else Right(format.fields.head._1)
-    def checkNumericField(field: Format.Field) = if (field.isNumeric && !t.hasNumericMembers) {
+    def checkNumericField(field: Format.Field) = if (field.isNumeric && !t.isNumeric) {
       val loc = Locations.get(node.getId)
-      Left(SemanticError.InvalidFormatString(loc, s"type $t does not have numeric members"))
+      Left(SemanticError.InvalidFormatString(loc, s"type $t is not numeric"))
     } else Right(())
     for {
       format <- Format.Parser.parseNode(node)
