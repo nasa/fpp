@@ -5431,8 +5431,8 @@ for F Prime according to its type.</p>
 </li>
 <li>
 <p>If an argument <em>a</em> has <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>,
-then you can use an <strong>integer format specifier</strong> to convert <em>a</em>.
-An integer format specifier is one of the following:</p>
+then you can use an <strong>integer replacement field</strong> to convert <em>a</em>.
+An integer replacement field is one of the following:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -5452,15 +5452,15 @@ An integer format specifier is one of the following:</p>
 </li>
 <li>
 <p>If an argument <em>a</em> has <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>,
-then you can use a <strong>rational format specifier</strong> to convert <em>a</em>.
-A rational format specifier is one of the following:</p>
+then you can use a <strong>rational replacement field</strong> to convert <em>a</em>.
+A rational replacement field is one of the following:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
 <p><code>{e}</code>: Display <em>a</em> as a rational number using exponent notation, e.g., <code>1.234e2</code></p>
 </li>
 <li>
-<p><code>{f}</code>: Display <em>a</em> as a rational number using fixed-point notation, e.g., <code>12.34</code>.</p>
+<p><code>{f}</code>: Display <em>a</em> as a rational number using fixed-point notation, e.g., <code>123.4</code>.</p>
 </li>
 <li>
 <p><code>{g}</code>: Display <em>a</em> as a rational number using general format. This format
@@ -5470,10 +5470,11 @@ numbers up to some size <em>s</em> and uses exponent notation for numbers larger
 The value of <em>s</em> is implementation-dependent.</p>
 </li>
 <li>
-<p>One of the fields denoted above with a period and an integer after the
-opening brace.
+<p>One of the replacement fields denoted above, but with a period and an integer
+after the opening brace.
 The integer value specifies the <strong>precision</strong>, i.e., the number of digits after
-the decimal point for fixed-point notation, or before the <code>e</code> for exponent notation.
+the decimal point for fixed-point notation, or before the <code>e</code> for exponent
+notation.
 For example, the replacement field <code>{.3f}</code>, specifies fixed-point notation
 with a precision of 3.</p>
 </li>
@@ -7574,7 +7575,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-05-30 10:34:16 -0700
+Last updated 2020-05-30 10:41:41 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

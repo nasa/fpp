@@ -29,23 +29,21 @@ object Format {
 
     object Integer {
       sealed trait Type
-      case object Binary extends Type
       case object Character extends Type
       case object Decimal extends Type
       case object Hexadecimal extends Type
       case object Octal extends Type
     }
 
-    case class Floating(precision: Option[Int], t: Floating.Type) extends Field {
+    case class Rational(precision: Option[Int], t: Rational.Type) extends Field {
       override def isNumeric = true
     }
 
-    object Floating {
+    object Rational {
       sealed trait Type
       case object Exponent extends Type
       case object Fixed extends Type
       case object General extends Type
-      case object Percent extends Type
     }
   }
 
@@ -67,24 +65,22 @@ object Format {
     def field: Parser[Field] = positioned {
       def default = "{}" ^^ { case _ => Field.Default }
       def integer = {
-        def binary = "b" ^^ { case _ => Field.Integer(Field.Integer.Binary) }
         def character = "c" ^^ { case _ => Field.Integer(Field.Integer.Character) }
         def decimal = "d" ^^ { case _ => Field.Integer(Field.Integer.Decimal) }
         def hexadecimal = "x" ^^ { case _ => Field.Integer(Field.Integer.Hexadecimal) }
         def octal = "o" ^^ { case _ => Field.Integer(Field.Integer.Octal) }
-        binary | character | decimal | hexadecimal | octal
+        character | decimal | hexadecimal | octal
       }
-      def floating = {
+      def rational = {
         def ty = {
-          def exponent = "E|e".r ^^ { case _ => Field.Floating.Exponent }
-          def fixed = "F|f".r ^^ { case _ => Field.Floating.Fixed }
-          def general = "G|g".r ^^ { case _ => Field.Floating.General }
-          def percent = "%" ^^ { case _ => Field.Floating.Percent }
-          exponent | fixed | general | percent | failure("rational type expected")
+          def exponent = "e".r ^^ { case _ => Field.Rational.Exponent }
+          def fixed = "f".r ^^ { case _ => Field.Rational.Fixed }
+          def general = "g".r ^^ { case _ => Field.Rational.General }
+          exponent | fixed | general | failure("e, f, or g expected")
         }
-        opt(precision) ~ ty ^^ { case p ~ t => Field.Floating(p, t) }
+        opt(precision) ~ ty ^^ { case p ~ t => Field.Rational(p, t) }
       }
-      default | ("{" ~>! (integer | floating | failure("invalid replacement field")) <~! "}")
+      default | ("{" ~>! (integer | rational | failure("invalid replacement field")) <~! "}")
     }
 
     def format: Parser[Format] = string ~ rep(field ~ string) ^^ {

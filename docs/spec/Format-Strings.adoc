@@ -29,8 +29,8 @@ It causes the argument to be displayed in a standard way
 for F Prime according to its type.
 
 . If an argument _a_ has <<Types_Internal-Types_Numeric-Types,numeric type>>,
-then you can use an *integer format specifier* to convert _a_.
-An integer format specifier is one of the following:
+then you can use an *integer replacement field* to convert _a_.
+An integer replacement field is one of the following:
 
 .. `{c}`: Display _a_ as a character value.
 
@@ -41,12 +41,12 @@ An integer format specifier is one of the following:
 .. `{o}`: Display _a_ as an octal integer value.
 
 . If an argument _a_ has <<Types_Internal-Types_Numeric-Types,numeric type>>,
-then you can use a *rational format specifier* to convert _a_.
-A rational format specifier is one of the following:
+then you can use a *rational replacement field* to convert _a_.
+A rational replacement field is one of the following:
 
 .. `{e}`: Display _a_ as a rational number using exponent notation, e.g., `1.234e2`
 
-.. `{f}`: Display _a_ as a rational number using fixed-point notation, e.g., `12.34`.
+.. `{f}`: Display _a_ as a rational number using fixed-point notation, e.g., `123.4`.
 
 .. `{g}`: Display _a_ as a rational number using general format. This format 
 uses fixed-point notation for
@@ -54,10 +54,11 @@ numbers up to some size _s_ and uses exponent notation for numbers larger than
 _s_.
 The value of _s_ is implementation-dependent.
 
-.. One of the fields denoted above with a period and an integer after the
-opening brace.
+.. One of the replacement fields denoted above, but with a period and an integer 
+after the opening brace.
 The integer value specifies the *precision*, i.e., the number of digits after
-the decimal point for fixed-point notation, or before the `e` for exponent notation.
+the decimal point for fixed-point notation, or before the `e` for exponent 
+notation.
 For example, the replacement field `{.3f}`, specifies fixed-point notation
 with a precision of 3.
 
