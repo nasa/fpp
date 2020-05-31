@@ -47,5 +47,5 @@ different one.
 ==== Example
 
 The
-<<Definitions_Enum-Definitions_Example,example
-given for enum definitions>> includes enumerated constant definitions.
+<<Definitions_Enum-Definitions_Examples,examples
+given for enum definitions>> include enumerated constant definitions.

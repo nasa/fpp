@@ -151,7 +151,7 @@ every variable is initialized when it is created.
 
 * The default value associated with an
 <<Types_Array-Types,array type>> _T_ is (1)
-the default value specified in the definition of the type,
+the default value specified in the array definition,
 if one is given; otherwise (2) the unique value
 of type _T_ that has the default value of the member type
 of _T_ at each member.
@@ -159,12 +159,14 @@ See the section on <<Definitions_Array-Definitions,
 array definitions>> for examples.
 
 * The default value associated with an
-<<Types_Enum-Types,enum type>> is the first
+<<Types_Enum-Types,enum type>> is (1) the default value
+specified in the enum definition, if one is given; 
+otherwise (2) the first
 enumerated constant appearing in the enum definition.
 
 * The default value associated with a
 <<Types_Struct-Types,struct type>> _T_ is (1)
-the default value specified in the definition of the type,
+the default value specified in the struct definition,
 if one is given; otherwise (2) the unique value of type
 _T_ that has the default value of the member type stem:[T_i]
 for each member stem:[m_i] `:` stem:[T_i] of _T_.
