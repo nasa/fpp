@@ -23,7 +23,9 @@ cycle_enum_constant
 cycle_struct
 defs_ok
 enum_bad_constant
+enum_bad_default
 enum_bad_rep_type
+enum_default_ok
 enum_duplicate_value
 enum_explicit
 enum_implied
