@@ -45,7 +45,7 @@ object Values {
   val array = Array(defaultAnonArray3I32, Types.defaultArray)
   val arrayType = Types.defaultArray
 
-  val enum = EnumConstant(0, Types.defaultEnum)
+  val enum = EnumConstant(("X", 0), Types.defaultEnum)
   val enumType = Types.defaultEnum
 
   val anonStruct = AnonStruct(Map("a" -> defaultU32, "b" -> defaultString))

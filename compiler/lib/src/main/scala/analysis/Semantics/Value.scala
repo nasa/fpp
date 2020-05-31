@@ -350,12 +350,12 @@ object Value {
   }
 
   /** Enum constant values */
-  case class EnumConstant(value: BigInt, t: Type.Enum) extends Value {
+  case class EnumConstant(value: (Name.Unqualified, BigInt), t: Type.Enum) extends Value {
 
     override def binop(op: Binop)(v: Value) = convertToRepType.binop(op)(v)
 
     /** Convert the enum to the representation type */
-    def convertToRepType: PrimitiveInt = PrimitiveInt(value, t.repType.kind)
+    def convertToRepType: PrimitiveInt = PrimitiveInt(value._2, t.repType.kind)
 
     override def convertToDistinctType(t: Type) =
       convertToRepType.convertToDistinctType(t) match {

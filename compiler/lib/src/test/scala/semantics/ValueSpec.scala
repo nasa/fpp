@@ -125,7 +125,7 @@ class ValueSpec extends AnyWordSpec {
       (defaultString, None),
       (defaultAnonArray3U32, None),
       (anonStruct, None),
-      (EnumConstant(1, Types.defaultEnum), Some(createI32(-1))),
+      (EnumConstant(("X", 1), Types.defaultEnum), Some(createI32(-1))),
     )
     pairs.foreach { 
       pair => s"evaluate ${pair._1} to ${pair._2}" in 

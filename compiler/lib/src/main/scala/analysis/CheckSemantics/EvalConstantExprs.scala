@@ -55,16 +55,17 @@ object EvalConstantExprs extends UseAnalyzer {
         case Some(e) => 
           for (a <- super.defEnumConstantAnnotatedNode(a, aNode))
             yield {
-              val value = Analysis.convertValueToType(a.valueMap(e.getId), Type.Integer) match {
-                case Value.Integer(value) => value
+              val intValue = Analysis.convertValueToType(a.valueMap(e.getId), Type.Integer) match {
+                case Value.Integer(intValue) => intValue
                 case _ => throw InternalError("conversion to Integer type should yield Integer value")
               }
               val enumType = a.typeMap(node.getId) match {
                 case enumType @ Type.Enum(_, _, _) => enumType
                 case _ => throw InternalError("type of enum constant definition should be enum type")
               }
-              val v = Value.EnumConstant(value, enumType)
-              a.assignValue(node -> v)
+              val value = (node.data.name, intValue)
+              val enumValue = Value.EnumConstant(value, enumType)
+              a.assignValue(node -> enumValue)
             }
         case None => throw InternalError("implied enum constants should already be evaluated")
       }
