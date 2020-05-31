@@ -48,6 +48,25 @@ object CheckExprTypes extends UseAnalyzer {
     else Right(a)
   }
 
+  override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    for {
+      a <- super.defEnumAnnotatedNode(a, aNode)
+      _ <- data.default match {
+        case Some(defaultNode) => {
+          val enumId = node.getId
+          val enumType = a.typeMap(enumId)
+          val defaultId = defaultNode.id
+          val defaultType = a.typeMap(defaultId)
+          val loc = Locations.get(defaultId)
+          Analysis.convertTypes(loc, defaultType -> enumType)
+        }
+        case None => Right(a)
+      }
+    } yield a
+  }
+
   override def defEnumConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnumConstant]]) = {
     val (_, node, _) = aNode
     val data = node.data

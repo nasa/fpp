@@ -78,7 +78,10 @@ object FinalizeTypeDefs
       val (_, node, _) = aNode
       val data = node.data
       val enumType @ Type.Enum(_, _, _) = a.typeMap(node.getId)
-      val default = a.valueMap(data.constants.head._2.getId)
+      val default = data.default match {
+        case Some(default) => a.valueMap(default.getId)
+        case None => a.valueMap(data.constants.head._2.getId)
+      }
       val enumConstant @ Value.EnumConstant(_, _) = default
       val enumType1 = enumType.copy(default = Some(enumConstant))
       Right(a.assignType(node -> enumType1))

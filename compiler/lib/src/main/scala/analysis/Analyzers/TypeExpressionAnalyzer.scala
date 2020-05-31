@@ -77,6 +77,7 @@ trait TypeExpressionAnalyzer
     for {
       a <- opt(typeNameNode)(a, data.typeName)
       a <- visitList(a, data.constants, defEnumConstantAnnotatedNode)
+      a <- opt(exprNode)(a, data.default)
     } yield a
   }
 

@@ -97,6 +97,7 @@ object CheckUses extends UseAnalyzer {
         val a1 = a.copy(nestedScope = newNestedScope)
         visitList(a1, data.constants, defEnumConstantAnnotatedNode)
       }
+      a <- opt(exprNode)(a, data.default)
     } yield a.copy(nestedScope = a.nestedScope.pop)
   }
 
