@@ -22,26 +22,44 @@ object FormatXmlWriter {
     case Ast.U64() => Unsigned
   }
 
+  def width(typeInt: Ast.TypeInt): Int = typeInt match {
+    case Ast.I8() => 8
+    case Ast.I16() => 16
+    case Ast.I32() => 32
+    case Ast.I64() => 64
+    case Ast.U8() => 8
+    case Ast.U16() => 16
+    case Ast.U32() => 32
+    case Ast.U64() => 64
+  }
+
   /** Convert a format field and type name to a string */
   def fieldToString(f: Format.Field, tn: AstNode[Ast.TypeName]): String = {
     import Format.Field._
     def default = tn.data match {
       case Ast.TypeNameFloat(name) => "%g"
-      case Ast.TypeNameInt(typeInt) => signedness(typeInt) match {
-        case Signed => "%d"
-        case Unsigned => "%u"
+      case Ast.TypeNameInt(typeInt) => (width(typeInt), signedness(typeInt)) match {
+        case (64, Signed) => "%ld"
+        case (_, Signed) => "%d"
+        case (64, Unsigned) => "%lu"
+        case (_, Unsigned) => "%u"
       }
       case Ast.TypeNameQualIdent(name) => "%s"
       case Ast.TypeNameBool => "%u"
       case Ast.TypeNameString(size) => "%s"
     }
     def integer(t: Integer.Type) = tn.getData match {
-      case Ast.TypeNameInt(typeInt) => (t, signedness(typeInt)) match {
-        case (Integer.Character, _) => "%c"
-        case (Integer.Decimal, Signed) => "%d"
-        case (Integer.Decimal, Unsigned) => "%u"
-        case (Integer.Hexadecimal, _) => "%x"
-        case (Integer.Octal, _) => "%o"
+      case Ast.TypeNameInt(typeInt) => (t, width(typeInt), signedness(typeInt)) match {
+        case (Integer.Decimal, 64, Signed) => "%ld"
+        case (Integer.Decimal, 64, Unsigned) => "%lu"
+        case (Integer.Hexadecimal, 64, _) => "%lx"
+        case (Integer.Octal, 64, _) => "%lo"
+        case (Integer.Character, 64, _) => default
+        case (Integer.Character, _, _) => "%c"
+        case (Integer.Decimal, _, Signed) => "%d"
+        case (Integer.Decimal, _, Unsigned) => "%u"
+        case (Integer.Hexadecimal, _, _) => "%x"
+        case (Integer.Octal, _, _) => "%o"
       }
       case _ => default
     }

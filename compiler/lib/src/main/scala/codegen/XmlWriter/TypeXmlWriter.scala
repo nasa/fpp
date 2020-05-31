@@ -10,7 +10,7 @@ object TypeXmlWriter {
 
     override def default(u: Unit) = throw new InternalError("visitor not defined")
 
-    override def typeNameBoolNode(u: Unit, node: AstNode[Ast.TypeName]) = "boolean"
+    override def typeNameBoolNode(u: Unit, node: AstNode[Ast.TypeName]) = "bool"
 
     override def typeNameFloatNode(u: Unit, node: AstNode[Ast.TypeName], tn: Ast.TypeNameFloat) =
       tn.name match {
