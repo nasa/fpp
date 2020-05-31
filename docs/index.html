@@ -512,7 +512,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Definitions_Enum-Definitions_Semantics">6.6.2. Semantics</a></li>
 <li><a href="#Definitions_Enum-Definitions_Inferred-Representation-Type">6.6.3. Inferred Representation Type</a></li>
 <li><a href="#Definitions_Enum-Definitions_Explicit-Representation-Type">6.6.4. Explicit Representation Type</a></li>
-<li><a href="#Definitions_Enum-Definitions_Example">6.6.5. Example</a></li>
+<li><a href="#Definitions_Enum-Definitions_Examples">6.6.5. Examples</a></li>
 </ul>
 </li>
 <li><a href="#Definitions_Enumerated-Constant-Definitions">6.7. Enumerated Constant Definitions</a>
@@ -2001,7 +2001,10 @@ constants.</p>
 <div class="paragraph">
 <p><code>enum</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <em>[</em> <code>:</code> <a href="#Type-Names"><em>type-name</em></a> <em>]</em>
-<code>{</code> <em>enum-constant-sequence</em> <code>}</code></p>
+<code>{</code> <em>enum-constant-sequence</em> <code>}</code>
+<em>[</em>
+<code>default</code> <a href="#Expressions"><em>expression</em></a>
+<em>]</em></p>
 </div>
 <div class="paragraph">
 <p><em>enum-constant-sequence</em> is an
@@ -2027,6 +2030,12 @@ a compile-time constant whose type is
 <a href="#Type-Checking_Type-Conversion">convertible to</a> the
 representation type.
 No two enumerated constants may have the same value after the conversion.</p>
+</div>
+<div class="paragraph">
+<p>The expression following the keyword <code>default</code> is optional.
+If present, it specifies the <a href="#Types_Default-Values">default value</a> associated
+with the enum definition.
+The type of the expression must be the type of the enum definition.</p>
 </div>
 </div>
 <div class="sect3">
@@ -2056,7 +2065,12 @@ If not, throw an error.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Enum-Definitions_Example">6.6.5. Example</h4>
+<h4 id="Definitions_Enum-Definitions_Examples">6.6.5. Examples</h4>
+<div class="paragraph">
+<p>The following example shows two definitions. In the first one, the implied
+representation type is <code>I32</code>.
+In the second one, the representation type is explicitly given as <code>U8</code>.</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">enum Gunfighters {
@@ -2073,9 +2087,17 @@ enum U8Gunfighters: U8 {
 </div>
 </div>
 <div class="paragraph">
-<p>The example shows two definitions. In the first one, the implied
-representation type is <code>I32</code>.
-In the second one, the representation type is explicitly given as <code>U8</code>.</p>
+<p>The next example shows an enum definition with an explicit
+default value.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">enum Status {
+  YES
+  NO
+  MAYBE
+} default MAYBE</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -2136,8 +2158,8 @@ different one.</p>
 <h4 id="Definitions_Enumerated-Constant-Definitions_Example">6.7.3. Example</h4>
 <div class="paragraph">
 <p>The
-<a href="#Definitions_Enum-Definitions_Example">example
-given for enum definitions</a> includes enumerated constant definitions.</p>
+<a href="#Definitions_Enum-Definitions_Examples">examples
+given for enum definitions</a> include enumerated constant definitions.</p>
 </div>
 </div>
 </div>
@@ -6389,7 +6411,7 @@ every variable is initialized when it is created.</p>
 <li>
 <p>The default value associated with an
 <a href="#Types_Array-Types">array type</a> <em>T</em> is (1)
-the default value specified in the definition of the type,
+the default value specified in the array definition,
 if one is given; otherwise (2) the unique value
 of type <em>T</em> that has the default value of the member type
 of <em>T</em> at each member.
@@ -6397,13 +6419,15 @@ See the section on <a href="#Definitions_Array-Definitions">array definitions</a
 </li>
 <li>
 <p>The default value associated with an
-<a href="#Types_Enum-Types">enum type</a> is the first
+<a href="#Types_Enum-Types">enum type</a> is (1) the default value
+specified in the enum definition, if one is given;
+otherwise (2) the first
 enumerated constant appearing in the enum definition.</p>
 </li>
 <li>
 <p>The default value associated with a
 <a href="#Types_Struct-Types">struct type</a> <em>T</em> is (1)
-the default value specified in the definition of the type,
+the default value specified in the struct definition,
 if one is given; otherwise (2) the unique value of type
 <em>T</em> that has the default value of the member type \$T_i\$
 for each member \$m_i\$ <code>:</code> \$T_i\$ of <em>T</em>.
@@ -7232,6 +7256,8 @@ with member type \$T\$.</p>
 <div class="paragraph">
 <p>An <strong>enumeration value</strong> is a value associated with an
 <a href="#Definitions_Enumerated-Constant-Definitions">enumerated constant definition</a>.
+It is a pair consisting of the name and the integer value
+specified in the enumerated constant definition.
 Its type is the type associated with the
 <a href="#Definitions_Enum-Definitions">enum definition</a> in which
 the enumerated constant definition appears.</p>
@@ -7575,7 +7601,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-05-30 10:41:41 -0700
+Last updated 2020-05-31 14:19:13 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

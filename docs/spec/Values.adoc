@@ -123,6 +123,8 @@ The type of the value is stem:[Q].
 
 An *enumeration value* is a value associated with an
 <<Definitions_Enumerated-Constant-Definitions,enumerated constant definition>>.
+It is a pair consisting of the name and the integer value
+specified in the enumerated constant definition.
 Its type is the type associated with the
 <<Definitions_Enum-Definitions,enum definition>> in which
 the enumerated constant definition appears.
