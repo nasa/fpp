@@ -24,7 +24,7 @@ object Types {
   }
 
   def enum(name: Ast.Ident, repType: Type.PrimitiveInt = I32, id: AstNode.Id = 0) = {
-    val d = Ast.DefEnum(name, None, List())
+    val d = Ast.DefEnum(name, None, List(), None)
     val anode = annotatedNode(d, id)
     Enum(anode, repType)
   }

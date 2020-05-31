@@ -92,8 +92,11 @@ object Parser extends Parsers {
   def defEnum: Parser[Ast.DefEnum] = {
     def id(x: Ast.Annotated[AstNode[Ast.DefEnumConstant]]) = x
     def constants = annotatedElementSequence(node(defEnumConstant), comma, id)
-    (enum ~>! ident) ~! opt(colon ~>! node(typeName)) ~! (lbrace ~>! constants <~! rbrace) ^^ {
-      case name ~ typeName ~ constants => Ast.DefEnum(name, typeName, constants)
+    (enum ~>! ident) ~! 
+    opt(colon ~>! node(typeName)) ~! 
+    (lbrace ~>! constants <~! rbrace) ~!
+    opt(default ~>! exprNode) ^^ {
+      case name ~ typeName ~ constants ~ default => Ast.DefEnum(name, typeName, constants, default)
     }
   }
 

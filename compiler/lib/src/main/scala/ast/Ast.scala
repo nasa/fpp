@@ -86,7 +86,8 @@ object Ast {
   final case class DefEnum(
     name: Ident,
     typeName: Option[AstNode[TypeName]],
-    constants: List[Annotated[AstNode[DefEnumConstant]]]
+    constants: List[Annotated[AstNode[DefEnumConstant]]],
+    default: Option[AstNode[Expr]]
   )
 
   /** Enum constant definition */
