@@ -1,8 +1,5 @@
 package fpp.compiler.codegen
 
-import fpp.compiler.ast._
-import fpp.compiler.util._
-
 /** Utilities for writing lines */
 trait LineUtils {
 
@@ -10,7 +7,7 @@ trait LineUtils {
 
   def line(s: String) = Line(s)
 
-  def lines(s: String) = s.stripMargin.split("\n").map(line(_))
+  def lines(s: String) = s.stripMargin.split("\n").map(line(_)).toList
 
   def linesOpt[T](f: T => List[Line], o: Option[T]) =
     o match {

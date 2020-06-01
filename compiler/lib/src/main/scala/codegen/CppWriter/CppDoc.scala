@@ -3,7 +3,7 @@ package fpp.compiler.codegen
 /** A C++ document representing an .hpp file backed by zero or more
  *  .cpp files. */
 case class CppDoc(
-  hppFileName: String,
+  hppFile: String,
   includeGuard: String,
   members: List[CppDoc.Member]
 )
@@ -39,8 +39,9 @@ object CppDoc {
   )
   case object Function {
     case class Param(
-      name: String,
+      constQualifier: Function.ConstQualifier,
       t: Type,
+      name: String,
       comment: Option[String]
     )
     sealed trait ConstQualifier
@@ -54,7 +55,7 @@ object CppDoc {
 
 
   /** A list of uninterpreted lines of C++ code */
-  case class Lines(lines: List[Line], output: Lines.Output = Lines.Hpp)
+  case class Lines(content: List[Line], output: Lines.Output = Lines.Hpp)
   object Lines {
     sealed trait Output
     case object Hpp extends Output
