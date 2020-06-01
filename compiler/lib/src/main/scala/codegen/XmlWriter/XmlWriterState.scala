@@ -35,11 +35,6 @@ case class XmlWriterState(
   def writeImportDirectives(currentFile: File): List[Line] = {
     def getDirectiveForSymbol(sym: Symbol): Option[String] =
       for {
-        loc <- sym.getLocOpt
-        locPath <- loc.file match {
-          case File.Path(p) => Some(p)
-          case _ => None
-        }
         tagFileName <- sym match {
           case Symbol.AbsType(_) => Some(
             "include_header",
@@ -61,9 +56,16 @@ case class XmlWriterState(
         }
       }
       yield {
+        val loc = sym.getLoc
         val (tagName, fileName) = tagFileName
-        val dir = locPath.getParent
-        val path = removeLongestPrefix(java.nio.file.Paths.get(dir.toString, fileName))
+        val fullPath = loc.file match {
+          case File.Path(p) => {
+            val dir = p.getParent
+            java.nio.file.Paths.get(dir.toString, fileName)
+          }
+          case _ => java.nio.file.Paths.get(fileName).toAbsolutePath
+        }
+        val path = removeLongestPrefix(fullPath)
         val tags = XmlTags.tags(tagName)
         XmlTags.taggedString(tags)(path.toString)
       }

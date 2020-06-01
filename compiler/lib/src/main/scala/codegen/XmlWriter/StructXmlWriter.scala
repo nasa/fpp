@@ -23,8 +23,8 @@ object StructXmlWriter extends AstVisitor with LineUtils {
     val body: List[Line] = {
       val Right(a1) = UsedSymbols.defStructAnnotatedNode(s.a, aNode)
       val s1 = s.copy(a = a1)
-      val imports = s1.writeImportDirectives(loc.file)
       val comment = AnnotationXmlWriter.multilineComment(aNode)
+      val imports = s1.writeImportDirectives(loc.file)
       val members = {
         val tags = XmlTags.tags("members")
         val st @ Type.Struct(_, _, _, _) = s.a.typeMap(node.getId) 
