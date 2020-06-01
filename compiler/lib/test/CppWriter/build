@@ -1,0 +1,3 @@
+#!/bin/sh -e
+
+scalac -deprecation *.scala CppWriter/*.scala main/Main.scala
