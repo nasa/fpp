@@ -1,24 +1,24 @@
 package fpp.compiler.codegen
 
-/** A C++ Writer document representing an .hpp file backed by zero or more
+/** A C++ document representing an .hpp file backed by zero or more
  *  .cpp files. */
-case class CppWriterDoc(
+case class CppDoc(
   hppFileName: String,
   includeGuard: String,
-  members: List[CppWriterDoc.Member]
+  members: List[CppDoc.Member]
 )
 
-object CppWriterDoc {
+object CppDoc {
 
   /** A C++ class */
   case class Class(name: String, members: List[Class.Member])
   object Class {
     sealed trait Member
     object Member {
-      case class Class(c: CppWriterDoc.Class) extends Member
-      case class Constructor(constructor: CppWriterDoc.Class.Constructor) extends Member
-      case class Lines(lines: CppWriterDoc.Lines) extends Member
-      case class Function(function: CppWriterDoc.Function) extends Member
+      case class Class(c: CppDoc.Class) extends Member
+      case class Constructor(constructor: CppDoc.Class.Constructor) extends Member
+      case class Lines(lines: CppDoc.Lines) extends Member
+      case class Function(function: CppDoc.Function) extends Member
     }
     case class Constructor(
       name: String,
@@ -65,7 +65,7 @@ object CppWriterDoc {
   /** A C++ namespace */
   case class Namespace(name: String, members: List[Namespace.Member])
   object Namespace {
-    type Member = CppWriterDoc.Member
+    type Member = CppDoc.Member
   }
 
   /** A C++ type. The .cpp spelling of the type can be different from the .hpp type. 
@@ -78,10 +78,10 @@ object CppWriterDoc {
   /** A CppWriter document member */
   sealed trait Member
   object Member {
-    case class Class(c: CppWriterDoc.Class) extends Member
-    case class Lines(lines: CppWriterDoc.Lines) extends Member
-    case class Function(function: CppWriterDoc.Function) extends Member
-    case class Namespace(namespace: CppWriterDoc.Namespace) extends Member
+    case class Class(c: CppDoc.Class) extends Member
+    case class Lines(lines: CppDoc.Lines) extends Member
+    case class Function(function: CppDoc.Function) extends Member
+    case class Namespace(namespace: CppDoc.Namespace) extends Member
   }
 
 }
