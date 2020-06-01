@@ -45,7 +45,7 @@ object FormatXmlWriter {
         case (_, Unsigned) => "%u"
       }
       case Ast.TypeNameQualIdent(name) => "%s"
-      case Ast.TypeNameBool => "%u"
+      case Ast.TypeNameBool => "%s"
       case Ast.TypeNameString(size) => "%s"
     }
     def integer(t: Integer.Type) = tn.getData match {

@@ -10,7 +10,7 @@ trait LineUtils {
 
   def line(s: String) = Line(s)
 
-  def lines(s: String) = List(line(s))
+  def lines(s: String) = s.stripMargin.split("\n").map(line(_))
 
   def linesOpt[T](f: T => List[Line], o: Option[T]) =
     o match {
