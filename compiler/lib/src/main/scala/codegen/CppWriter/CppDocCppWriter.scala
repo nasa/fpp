@@ -34,10 +34,10 @@ object CppDocCppWriter extends CppDocWriter {
       case None => List(Line.blank, line(s"class $name {"))
     }
     val output = {
-      val Output(hppLines, cppLines) = c.members.foldRight(Output())(
+      val Output(_, outputLines) = c.members.foldRight(Output())(
         { case (member, output) => visitClassMember(in1, member) ++ output }
       )
-      Output(hppLines.map(_.indentIn(2 * indentIncrement)), cppLines)
+      Output(Nil, outputLines)
     }
     val hppEndLines = List(
       Line.blank,
@@ -49,15 +49,7 @@ object CppDocCppWriter extends CppDocWriter {
   override def visitConstructor(in: Input, constructor: CppDoc.Class.Constructor) = {
     val unqualifiedClassName = in.getEnclosingClassUnqualified
     val qualifiedClassName = in.getEnclosingClassQualified
-    val hppLines = {
-      val lines1 = CppDocWriter.doxygenCommentOpt(constructor.comment)
-      val lines2 = {
-        val params = CppDocWriter.writeHppParams(unqualifiedClassName, constructor.params)
-        Line.addSuffix(params, ";")
-      }
-      lines1 ++ lines2
-    }
-    val cppLines = {
+    val outputLines = {
       val nameLines = lines(s"$qualifiedClassName ::")
       val paramLines = {
         val lines1 = CppDocWriter.writeCppParams(unqualifiedClassName, constructor.params)
@@ -82,59 +74,24 @@ object CppDocCppWriter extends CppDocWriter {
         bodyLines
       ).flatten
     }
-    Output(hppLines, cppLines)
+    Output(Nil, outputLines)
   }
 
   override def visitDestructor(in: Input, destructor: CppDoc.Class.Destructor) = {
     val unqualifiedClassName = in.getEnclosingClassUnqualified
     val qualifiedClassName = in.getEnclosingClassQualified
-    val hppLines = {
-      val lines1 = CppDocWriter.doxygenCommentOpt(destructor.comment)
-      val lines2 = destructor.virtualQualifier match {
-        case CppDoc.Class.Destructor.Virtual => lines(s"virtual ~$unqualifiedClassName();")
-        case _ => lines(s"~$unqualifiedClassName();")
-      }
-      lines1 ++ lines2
-    }
-    val cppLines = {
+    val outputLines = {
       val startLine1 = line(s"$qualifiedClassName ::")
       val startLine2 = indentIn(line(s"~$unqualifiedClassName()"))
       val bodyLines = CppDocWriter.writeFunctionBody(destructor.body)
       Line.blank :: startLine1 :: startLine2 :: bodyLines
     }
-    Output(hppLines, cppLines)
+    Output(Nil, outputLines)
   }
 
   override def visitFunction(in: Input, function: CppDoc.Function) = {
     import CppDoc.Function._
-    val hppLines = {
-      val lines1 = CppDocWriter.doxygenCommentOpt(function.comment)
-      val lines2 = {
-        val prefix = {
-          val prefix1 = function.svQualifier match {
-            case Virtual => "virtual "
-            case PureVirtual => "virtual "
-            case Static => "static "
-            case _ => ""
-          }
-          prefix1 ++ s"${function.retType.hppType} ${function.name}"
-        }
-        val lines1 = {
-          val lines1 = CppDocWriter.writeHppParams(prefix, function.params)
-          function.constQualifier match {
-            case Const => Line.addSuffix(lines1, " const")
-            case _ => lines1
-          }
-        }
-        val lines2 = function.svQualifier match {
-          case PureVirtual => lines(" = 0;")
-          case _ => lines(";")
-        }
-        Line.joinLists(Line.NoIndent)(lines1)("")(lines2)
-      }
-      lines1 ++ lines2
-    }
-    val cppLines = {
+    val outputLines = {
       val contentLines = {
         val startLines = {
           val prototypeLines = {
@@ -160,7 +117,7 @@ object CppDocCppWriter extends CppDocWriter {
       }
       Line.blank :: contentLines
     }
-    Output(hppLines, cppLines)
+    Output(Nil, outputLines)
   }
 
   override def visitLines(in: Input, lines: CppDoc.Lines) = {
