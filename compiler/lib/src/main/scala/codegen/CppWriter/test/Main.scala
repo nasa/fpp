@@ -24,6 +24,12 @@ object Main extends LineUtils {
           val const = CppDoc.Class.Constructor(comment, params, List("x(0)", "y(1)"), lines("// line1\n// line2"))
           CppDoc.Class.Member.Constructor(const)
         }
+        val destMember = {
+          val comment = Some("This is line 1.\nThis is line 2.")
+          val body = lines("// Body line 1\n// Body line 2")
+          val dest = CppDoc.Class.Destructor(comment, CppDoc.Class.Destructor.Virtual, body)
+          CppDoc.Class.Member.Destructor(dest)
+        }
         val linesMember2 = {
           val tag = CppDocWriter.accessTag("private")
           val comment = CppDocWriter.doxygenComment("Member variable y")
@@ -32,7 +38,7 @@ object Main extends LineUtils {
           val cppDocLines = CppDoc.Lines(content)
           CppDoc.Class.Member.Lines(cppDocLines)
         }
-        val members = List(linesMember1, constMember, linesMember2)
+        val members = List(linesMember1, constMember, destMember, linesMember2)
         CppDoc.Class("C", None, members)
       }
       val member = CppDoc.Member.Class(c)

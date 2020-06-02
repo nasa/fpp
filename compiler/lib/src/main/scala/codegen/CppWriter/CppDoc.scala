@@ -45,6 +45,7 @@ object CppDoc {
       body: List[Line]
     )
     case class Destructor(
+      comment: Option[String],
       virtualQualifier: Destructor.VirtualQualifier,
       body: List[Line],
     )

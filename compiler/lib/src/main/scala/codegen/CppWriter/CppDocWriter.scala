@@ -89,10 +89,12 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
     val qualifiedClassName = getEnclosingClassQualified(in)
     val hppLines = {
       val lines1 = doxygenCommentOpt(constructor.comment)
-      val lines2 = lines1 ++ lines(s"$unqualifiedClassName")
-      val lines3 = Line.joinLists(Line.NoIndent)(lines2)("")(writeHppParams(constructor.params))
-      val lines4 = Line.joinLists(Line.NoIndent)(lines3)("")(lines(";"))
-      lines4
+      val lines2 = {
+        val lines1 = lines(s"$unqualifiedClassName")
+        val lines2 = Line.joinLists(Line.NoIndent)(lines1)("")(writeHppParams(constructor.params))
+        Line.joinLists(Line.NoIndent)(lines2)("")(lines(";"))
+      }
+      lines1 ++ lines2
     }
     val cppLines = {
       val nameLines = lines(s"$qualifiedClassName ::")
@@ -125,10 +127,31 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
   }
 
   override def visitDestructor(in: Input, destructor: CppDoc.Class.Destructor) = {
-    // TODO
-    val classNameUnqualified = getEnclosingClassUnqualified(in)
-    val lines = List(Line.blank, line(s"// Destructor for $classNameUnqualified"))
-    Output.both(lines)
+    val unqualifiedClassName = getEnclosingClassUnqualified(in)
+    val qualifiedClassName = getEnclosingClassQualified(in)
+    val hppLines = {
+      val lines1 = doxygenCommentOpt(destructor.comment)
+      val lines2 = destructor.virtualQualifier match {
+        case CppDoc.Class.Destructor.Virtual => lines(s"virtual ~$unqualifiedClassName();")
+        case _ => lines(s"~$unqualifiedClassName();")
+      }
+      lines1 ++ lines2
+    }
+    val cppLines = {
+      val startLines = {
+        val line1 = line(s"$qualifiedClassName ::")
+        val line2 = indentIn(line(s"~$unqualifiedClassName()"))
+        val line3 = line("{")
+        List(line1, line2, line3)
+      }
+      val bodyLines = destructor.body.length match {
+        case 0 => Line.blank :: Nil
+        case _ => destructor.body.map(indentIn(_))
+      }
+      val endLine = line("}")
+      Line.blank :: ((startLines ++ bodyLines) :+ endLine)
+    }
+    Output(hppLines, cppLines)
   }
 
   override def visitFunction(in: Input, function: CppDoc.Function) = {
