@@ -12,7 +12,7 @@ object Program extends LineUtils {
         CppDoc.Class.Member.Lines(lines)
       }
       val constComment = {
-        val comment = CppDocWriter.bannerComment("Consructors and destructors")
+        val comment = CppDocWriter.writeBannerComment("Consructors and destructors")
         val lines = CppDoc.Lines(comment, CppDoc.Lines.Both)
         CppDoc.Class.Member.Lines(lines)
       }
@@ -39,7 +39,7 @@ object Program extends LineUtils {
         CppDoc.Class.Member.Destructor(dest)
       }
       val publicFunc = {
-        val comment = CppDocWriter.bannerComment("Public member functions")
+        val comment = CppDocWriter.writeBannerComment("Public member functions")
         val lines = CppDoc.Lines(comment, CppDoc.Lines.Both)
         CppDoc.Class.Member.Lines(lines)
       }
@@ -66,7 +66,7 @@ object Program extends LineUtils {
       }
       val variables = {
         val tag = CppDocHppWriter.accessTag("private")
-        val comment = CppDocWriter.doxygenComment("Member variable y")
+        val comment = CppDocWriter.writeDoxygenComment("Member variable y")
         val y = lines("int y;")
         val content = tag ++ comment ++ y
         val cppDocLines = CppDoc.Lines(content)

@@ -42,7 +42,7 @@ object CppDocHppWriter extends CppDocWriter {
     val unqualifiedClassName = in.getEnclosingClassUnqualified
     val qualifiedClassName = in.getEnclosingClassQualified
     val outputLines = {
-      val lines1 = CppDocWriter.doxygenCommentOpt(constructor.comment)
+      val lines1 = CppDocWriter.writeDoxygenCommentOpt(constructor.comment)
       val lines2 = {
         val params = writeParams(unqualifiedClassName, constructor.params)
         Line.addSuffix(params, ";")
@@ -56,7 +56,7 @@ object CppDocHppWriter extends CppDocWriter {
     val unqualifiedClassName = in.getEnclosingClassUnqualified
     val qualifiedClassName = in.getEnclosingClassQualified
     val outputLines = {
-      val lines1 = CppDocWriter.doxygenCommentOpt(destructor.comment)
+      val lines1 = CppDocWriter.writeDoxygenCommentOpt(destructor.comment)
       val lines2 = destructor.virtualQualifier match {
         case CppDoc.Class.Destructor.Virtual => lines(s"virtual ~$unqualifiedClassName();")
         case _ => lines(s"~$unqualifiedClassName();")
@@ -69,7 +69,7 @@ object CppDocHppWriter extends CppDocWriter {
   override def visitFunction(in: Input, function: CppDoc.Function) = {
     import CppDoc.Function._
     val outputLines = {
-      val lines1 = CppDocWriter.doxygenCommentOpt(function.comment)
+      val lines1 = CppDocWriter.writeDoxygenCommentOpt(function.comment)
       val lines2 = {
         val prefix = {
           val prefix1 = function.svQualifier match {

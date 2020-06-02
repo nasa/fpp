@@ -2,7 +2,7 @@ package fpp.compiler.codegen
 
 import java.time.Year
 
-/** A C++ doc writer */
+/** Write a Cpp doc as hpp or cpp */
 trait CppDocWriter extends CppDocVisitor with LineUtils {
 
   case class Input(
@@ -22,14 +22,19 @@ trait CppDocWriter extends CppDocVisitor with LineUtils {
 
   def default(in: Input) = Nil
 
+  /** Convert a param to a string with no trailing comma */
   def paramString(p: CppDoc.Function.Param): String
 
+  /** Convert a param to a string with a trailing comma */
   def paramStringComma(p: CppDoc.Function.Param): String
 
+  /** Visit a CppDoc */
   def visitCppDoc(cppDoc: CppDoc): Output
 
+  /** Write a parameter with no trailing comma as a line */
   final def writeParam(p: CppDoc.Function.Param) = line(paramString(p))
 
+  /** Write a parameter with a trailing comma as a line */
   final def writeParamComma(p: CppDoc.Function.Param) = line(paramStringComma(p))
 
   type Output = List[Line]
@@ -38,27 +43,34 @@ trait CppDocWriter extends CppDocVisitor with LineUtils {
 
 object CppDocWriter extends LineUtils {
 
-  def bannerComment(comment: String) = {
+  /** Write a banner comment */
+  def writeBannerComment(comment: String) = {
     def banner =
       line("// ----------------------------------------------------------------------")
-    (Line.blank :: banner :: commentBody(comment)) :+ banner
+    (Line.blank :: banner :: writeCommentBody(comment)) :+ banner
   }
 
-  def comment(comment: String) = Line.blank :: commentBody(comment)
+  /** Write a comment */
+  def writeComment(comment: String) = Line.blank :: writeCommentBody(comment)
 
-  def doxygenCommentOpt(commentOpt: Option[String]) = commentOpt match {
-    case Some(comment) => doxygenComment(comment)
+  /** Write an optional Doxygen comment */
+  def writeDoxygenCommentOpt(commentOpt: Option[String]) = commentOpt match {
+    case Some(comment) => writeDoxygenComment(comment)
     case None => Line.blank :: Nil
   }
     
-  def doxygenComment(comment: String) = 
+  /** Write a Doxygen comment */
+  def writeDoxygenComment(comment: String) = 
     Line.blank ::lines(comment).map(Line.join(" ")(line("//!"))_)
     
-  def commentBody(comment: String) = lines(comment).map(Line.join(" ")(line("//"))_)
+  /** Write a comment body */
+  def writeCommentBody(comment: String) = lines(comment).map(Line.join(" ")(line("//"))_)
 
+  /** Left align a compiler directive */
   def leftAlignDirective(line: Line) =
     if (line.string.startsWith("#")) Line(line.string) else line
 
+  /** Write a header banner */
   def writeBanner(title: String) = lines(
     s"""|// ====================================================================== 
         |// \\title  $title
@@ -79,6 +91,7 @@ object CppDocWriter extends LineUtils {
         |// ======================================================================"""
   )
 
+  /** Write a function body */
   def writeFunctionBody(body: List[Line]) = {
     val bodyLines = body.length match {
       case 0 => Line.blank :: Nil
