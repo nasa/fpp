@@ -13,7 +13,7 @@ object CppDocHppWriter extends CppDocWriter {
       { case (member, output) => visitMember(in, member) ++ output }
     )
     List(
-      Output(CppDocWriter.writeBanner(in.hppFile.name), CppDocWriter.writeBanner(in.cppFileName)),
+      Output(CppDocWriter.writeBanner(in.hppFile.name)),
       Output.hpp(CppDocWriter.openIncludeGuard(hppFile.includeGuard)),
       body,
       Output.hpp(CppDocWriter.closeIncludeGuard)
@@ -34,10 +34,10 @@ object CppDocHppWriter extends CppDocWriter {
       case None => List(Line.blank, line(s"class $name {"))
     }
     val output = {
-      val Output(outputLines, _) = c.members.foldRight(Output())(
+      val Output(outputLines) = c.members.foldRight(Output())(
         { case (member, output) => visitClassMember(in1, member) ++ output }
       )
-      Output(outputLines.map(_.indentIn(2 * indentIncrement)), Nil)
+      Output(outputLines.map(_.indentIn(2 * indentIncrement)))
     }
     val endLines = List(
       Line.blank,
@@ -57,7 +57,7 @@ object CppDocHppWriter extends CppDocWriter {
       }
       lines1 ++ lines2
     }
-    Output(outputLines, Nil)
+    Output(outputLines)
   }
 
   override def visitDestructor(in: Input, destructor: CppDoc.Class.Destructor) = {
@@ -71,7 +71,7 @@ object CppDocHppWriter extends CppDocWriter {
       }
       lines1 ++ lines2
     }
-    Output(outputLines, Nil)
+    Output(outputLines)
   }
 
   override def visitFunction(in: Input, function: CppDoc.Function) = {
@@ -103,7 +103,7 @@ object CppDocHppWriter extends CppDocWriter {
       }
       lines1 ++ lines2
     }
-    Output(outputLines, Nil)
+    Output(outputLines)
   }
 
   override def visitLines(in: Input, lines: CppDoc.Lines) = {

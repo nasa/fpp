@@ -13,7 +13,7 @@ object CppDocCppWriter extends CppDocWriter {
       { case (member, output) => visitMember(in, member) ++ output }
     )
     List(
-      Output(CppDocWriter.writeBanner(in.hppFile.name), CppDocWriter.writeBanner(in.cppFileName)),
+      Output(CppDocWriter.writeBanner(in.cppFileName)),
       Output.hpp(CppDocWriter.openIncludeGuard(hppFile.includeGuard)),
       body,
       Output.hpp(CppDocWriter.closeIncludeGuard)
@@ -34,10 +34,10 @@ object CppDocCppWriter extends CppDocWriter {
       case None => List(Line.blank, line(s"class $name {"))
     }
     val output = {
-      val Output(_, outputLines) = c.members.foldRight(Output())(
+      val Output(outputLines) = c.members.foldRight(Output())(
         { case (member, output) => visitClassMember(in1, member) ++ output }
       )
-      Output(Nil, outputLines)
+      Output(outputLines)
     }
     val hppEndLines = List(
       Line.blank,
@@ -74,7 +74,7 @@ object CppDocCppWriter extends CppDocWriter {
         bodyLines
       ).flatten
     }
-    Output(Nil, outputLines)
+    Output(outputLines)
   }
 
   override def visitDestructor(in: Input, destructor: CppDoc.Class.Destructor) = {
@@ -86,7 +86,7 @@ object CppDocCppWriter extends CppDocWriter {
       val bodyLines = CppDocWriter.writeFunctionBody(destructor.body)
       Line.blank :: startLine1 :: startLine2 :: bodyLines
     }
-    Output(Nil, outputLines)
+    Output(outputLines)
   }
 
   override def visitFunction(in: Input, function: CppDoc.Function) = {
@@ -117,15 +117,15 @@ object CppDocCppWriter extends CppDocWriter {
       }
       Line.blank :: contentLines
     }
-    Output(Nil, outputLines)
+    Output(outputLines)
   }
 
   override def visitLines(in: Input, lines: CppDoc.Lines) = {
     val content = lines.content
     lines.output match {
-      case CppDoc.Lines.Hpp => Output.hpp(content)
+      case CppDoc.Lines.Hpp => Output()
       case CppDoc.Lines.Cpp => Output.cpp(content)
-      case CppDoc.Lines.Both => Output.both(content)
+      case CppDoc.Lines.Both => Output.cpp(content)
     }
   }
 
@@ -136,8 +136,8 @@ object CppDocCppWriter extends CppDocWriter {
     )
     val startLines = List(Line.blank, line(s"namespace $name {"))
     val endLines = List(Line.blank, line("}"))
-    val startOutput = Output.both(startLines)
-    val endOutput = Output.both(endLines)
+    val startOutput = Output.cpp(startLines)
+    val endOutput = Output.cpp(endLines)
     startOutput ++ output.indentIn() ++ endOutput
   }
 
