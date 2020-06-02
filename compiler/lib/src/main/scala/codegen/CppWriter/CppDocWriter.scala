@@ -62,13 +62,7 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
     val name = c.name
     val newClassNameList = name :: in.classNameList
     val in1 = in.copy(classNameList = newClassNameList)
-    val output = {
-      val Output(hppLines, cppLines) = c.members.foldRight(Output())(
-        { case (member, output) => visitClassMember(in1, member) ++ output }
-      )
-      Output(hppLines.map(_.indentIn(2 * indentIncrement)), cppLines)
-    }
-    val startLines = c.superclassDecls match {
+    val hppStartLines = c.superclassDecls match {
       case Some(d) => List(
         Line.blank,
         line(s"class $name :"), 
@@ -77,13 +71,17 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
       )
       case None => List(Line.blank, line(s"class $name {"))
     }
-    val endLines = List(
+    val output = {
+      val Output(hppLines, cppLines) = c.members.foldRight(Output())(
+        { case (member, output) => visitClassMember(in1, member) ++ output }
+      )
+      Output(hppLines.map(_.indentIn(2 * indentIncrement)), cppLines)
+    }
+    val hppEndLines = List(
       Line.blank,
       line("};")
     )
-    val startOutput = Output.hpp(startLines)
-    val endOutput = Output.hpp(endLines)
-    startOutput ++ output ++ endOutput
+    Output.hpp(hppStartLines) ++ output ++ Output.hpp(hppEndLines)
   }
 
   override def visitConstructor(in: Input, constructor: CppDoc.Class.Constructor) = {
@@ -115,8 +113,7 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
         }
       }
       val bodyLines = writeFunctionBody(constructor.body)
-      List(
-        lines(""),
+      Line.blank :: List(
         nameLines,
         paramLines,
         initializerLines,
@@ -324,7 +321,7 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
     else {
       val head :: tail = params.reverse
       val paramLines = (writeHppParam(head) :: tail.map(writeHppParamComma(_))).reverse
-      line(s"(") :: (paramLines.map(_.indentIn(2 * indentIncrement)) :+ line(")"))
+      line(s"$prefix(") :: (paramLines.map(_.indentIn(2 * indentIncrement)) :+ line(")"))
     }
   }
 
