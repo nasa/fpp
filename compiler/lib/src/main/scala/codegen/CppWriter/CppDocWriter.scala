@@ -173,36 +173,24 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
       lines1 ++ lines2
     }
     val cppLines = {
-      // Create name and params
-      // If we are in a class, add the class name; otherwise don't
-      /*
-      val nameLines = lines(s"$qualifiedClassName ::")
-      val paramLines = {
-        val lines1 = lines(s"$unqualifiedClassName")
-        val lines2 = writeCppParams(constructor.params).map(indentIn(_))
-        val lines3 = Line.joinLists(Line.NoIndent)(lines1)("")(lines2)
-        val lines4 = constructor.initializers match {
-          case Nil => lines3
-          case _ => Line.joinLists(Line.NoIndent)(lines3)(" ")(lines(":"))
+      val prototypeLines = in.classNameList match {
+        case head :: _ => {
+          val line1 = line(s"${function.retType.getCppType} $head ::")
+          val lines2 = writeCppParams(function.name, function.params)
+          val lines3 = function.constQualifier match {
+            case CppDoc.Function.Const => Line.joinLists(Line.NoIndent)(lines2)(" ")(lines("const"))
+            case CppDoc.Function.NonConst => lines2
+          }
+          line1 :: lines2.map(indentIn(_))
         }
-        lines4.map(indentIn(_))
-      }
-      val initializerLines = constructor.initializers.reverse match {
         case Nil => Nil
-        case head :: tail => {
-          val list = head :: tail.map(_ ++ ",")
-          list.reverse.map(line(_)).map(_.indentIn(2 * indentIncrement))
-        }
       }
-      val startLine = line("{")
-      val bodyLines = constructor.body.length match {
-        case 0 => Line.blank :: Nil
-        case _ => constructor.body.map(indentIn(_))
+      val bodyLines = writeFunctionBody(function.body)
+      val contentLines = in.classNameList match {
+        case _ :: _ => prototypeLines ++ bodyLines
+        case Nil => Line.joinLists(Line.NoIndent)(prototypeLines)(" ")(bodyLines)
       }
-      val endLine = line("}")
-      Line.blank :: (nameLines ++ paramLines ++ initializerLines ++ ((startLine :: bodyLines) :+ endLine))
-      */
-      Nil
+      Line.blank :: contentLines
     }
     Output(hppLines, cppLines)
   }
