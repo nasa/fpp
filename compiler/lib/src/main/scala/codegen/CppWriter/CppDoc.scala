@@ -28,6 +28,7 @@ object CppDoc {
       case class Function(function: CppDoc.Function) extends Member
     }
     case class Constructor(
+      comment: Option[String],
       params: List[Function.Param],
       initializers: List[String],
       body: List[Line]
@@ -40,6 +41,7 @@ object CppDoc {
     params: List[Function.Param],
     retType: Type,
     body: List[Line],
+    staticQualifier: Function.StaticQualifier = Function.NonStatic,
     constQualifier: Function.ConstQualifier = Function.NonConst,
     virtualQualifier: Function.VirtualQualifier = Function.NonVirtual
   )
@@ -50,6 +52,9 @@ object CppDoc {
       name: String,
       comment: Option[String]
     )
+    sealed trait StaticQualifier
+    case object Static extends StaticQualifier
+    case object NonStatic extends StaticQualifier
     sealed trait ConstQualifier
     case object Const extends ConstQualifier
     case object NonConst extends ConstQualifier

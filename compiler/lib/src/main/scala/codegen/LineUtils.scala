@@ -3,7 +3,9 @@ package fpp.compiler.codegen
 /** Utilities for writing lines */
 trait LineUtils {
 
-  def indentIn(line: Line) = line.indentIn(2)
+  val indentIncrement = 2
+
+  def indentIn(line: Line) = line.indentIn(indentIncrement)
 
   def line(s: String) = Line(s)
 

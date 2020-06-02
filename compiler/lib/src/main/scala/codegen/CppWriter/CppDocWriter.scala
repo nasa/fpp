@@ -25,9 +25,21 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
 
   def comment(comment: String) = Line.blank :: commentBody(comment)
 
-  private def commentBody(comment: String) = lines(comment).map(Line.join(" ")(line("//"))_)
-
   def default(in: Input) = Map()
+
+  def doxygenCommentOpt(commentOpt: Option[String]) = commentOpt match {
+    case Some(comment) => doxygenComment(comment)
+    case None => Line.blank :: Nil
+  }
+    
+  def doxygenComment(comment: String) = 
+    Line.blank ::lines(comment).map(Line.join(" ")(line("//!"))_)
+    
+  private def hppParamString(p: CppDoc.Function.Param) = {
+    val s1 = cppParamString(p)
+    val s2 = addParamComment(s1, p.comment)
+    s2
+  }
 
   def visitCppDoc(cppDoc: CppDoc): Output = {
     val hppFile = cppDoc.hppFile
@@ -56,14 +68,13 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
     }
     val lines2 = List(
       Line.blank,
-      line("}")
+      line("};")
     )
-    output + (in.hppFile -> (lines1 ++ output.getOrElse(in.hppFile, Nil).map(_.indentIn(4)) ++ lines2))
-  }
- 
-  override def visitConstructor(in: Input, constructor: CppDoc.Class.Constructor) = {
-    val lines = List(Line.blank, line(s"// Constructor"))
-    Map(in.hppFile -> lines)
+    output + (
+      in.hppFile -> 
+      (lines1 ++ output.getOrElse(in.hppFile, Nil).
+        map(_.indentIn(2 * indentIncrement)) ++ lines2)
+    )
   }
 
   override def visitFunction(in: Input, function: CppDoc.Function) = {
@@ -96,10 +107,45 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
     output + (in.hppFile -> (lines1 ++ output.getOrElse(in.hppFile, Nil).map(indentIn(_)) ++ lines2))
   }
 
+  private def addParamComment(s: String, commentOpt: Option[String]) = commentOpt match {
+    case Some(comment) => s"$s //!< ${"\n".r.replaceAllIn(comment, " ")}"
+    case None => s
+  }
+
+  private def addParamConstQualifier(q: CppDoc.Function.ConstQualifier, s: String) = {
+    import CppDoc.Function._
+    q match {
+      case Const => s"const $s"
+      case NonConst => s
+    }
+  }
+
   private def closeIncludeGuard = lines(
     """|
        |#endif"""
   )
+
+  private def commentBody(comment: String) = lines(comment).map(Line.join(" ")(line("//"))_)
+
+  private def cppParamString(p: CppDoc.Function.Param) = {
+    val s1 = s"${p.t.hppType} ${p.name}"
+    val s2 = addParamConstQualifier(p.constQualifier, s1)
+    s2
+  }
+
+  private def getEnclosingName(in: Input) = in.qualifierList.head.split("::").reverse.head
+ 
+  override def visitConstructor(in: Input, constructor: CppDoc.Class.Constructor) = {
+    val className = getEnclosingName(in)
+    val hppLines = {
+      val lines1 = doxygenCommentOpt(constructor.comment)
+      val lines2 = lines1 ++ lines(s"$className")
+      val lines3 = Line.joinLists(Line.NoIndent)(lines2)("")(writeHppParams(constructor.params))
+      val lines4 = Line.joinLists(Line.NoIndent)(lines3)("")(lines(";"))
+      lines4
+    }
+    Map(in.hppFile -> hppLines)
+  }
 
   private def leftAlignDirective(line: Line) =
     if (line.string.startsWith("#")) Line(line.string) else line
@@ -134,6 +180,17 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
         |// countries or providing access to foreign persons.
         |// ======================================================================"""
   )
+
+  private def writeCppParam(p: CppDoc.Function.Param) = line(cppParamString(p))
+
+  private def writeHppParam(p: CppDoc.Function.Param) = line(hppParamString(p))
+
+  private def writeHppParams(params: List[CppDoc.Function.Param]) = {
+    if (params.length == 0) lines("()")
+    else if (params.length == 1 && params.head.comment.isEmpty)
+      lines("(" ++ hppParamString(params.head) ++ ")")
+    else (line("(") :: params.map(writeHppParam(_))).map(indentIn(_)) :+ line(")")
+  }
 
   type Output = Map[String,List[Line]]
 
