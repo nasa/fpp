@@ -43,6 +43,12 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
     s2
   }
 
+  private def hppParamStringComma(p: CppDoc.Function.Param) = {
+    val s1 = cppParamStringComma(p)
+    val s2 = addParamComment(s1, p.comment)
+    s2
+  }
+
   def visitCppDoc(cppDoc: CppDoc): Output = {
     val hppFile = cppDoc.hppFile
     val cppFileName = cppDoc.cppFileName
@@ -105,7 +111,7 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
         val lines4 = constructor.initializers match {
           case Nil => lines3
           case _ => Line.joinLists(Line.NoIndent)(lines3)(" ")(lines(":"))
-        }
+         }
         lines4.map(indentIn(_))
       }
       val initializerLines = constructor.initializers.reverse match {
@@ -115,15 +121,17 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
           list.reverse.map(line(_)).map(_.indentIn(2 * indentIncrement))
         }
       }
-      val startLines = lines("{")
-      val bodyLines = constructor.body.length match {
-        case 0 => Line.blank :: Nil
-        case _ => constructor.body.map(indentIn(_))
-      }
-      val endLines = lines("}")
-      Line.blank :: (nameLines ++ paramLines ++ initializerLines ++ startLines ++ bodyLines ++ endLines)
+      val startLine = line("{")
+      val bodyLines = writeFunctionBody(constructor.body)
+      val endLine = line("}")
+      Line.blank :: (nameLines ++ paramLines ++ initializerLines ++ ((startLine :: bodyLines) :+ endLine))
     }
     Output(hppLines, cppLines)
+  }
+
+  private def writeFunctionBody(body: List[Line]) = body.length match {
+    case 0 => Line.blank :: Nil
+    case _ => body.map(indentIn(_))
   }
 
   override def visitDestructor(in: Input, destructor: CppDoc.Class.Destructor) = {
@@ -138,16 +146,12 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
       lines1 ++ lines2
     }
     val cppLines = {
-      val startLines = {
-        val line1 = line(s"$qualifiedClassName ::")
-        val line2 = indentIn(line(s"~$unqualifiedClassName()"))
-        val line3 = line("{")
-        List(line1, line2, line3)
-      }
-      val bodyLines = destructor.body.length match {
-        case 0 => Line.blank :: Nil
-        case _ => destructor.body.map(indentIn(_))
-      }
+      val startLines = List(
+        line(s"$qualifiedClassName ::"),
+        indentIn(line(s"~$unqualifiedClassName()")),
+        line("{")
+      )
+      val bodyLines = writeFunctionBody(destructor.body)
       val endLine = line("}")
       Line.blank :: ((startLines ++ bodyLines) :+ endLine)
     }
@@ -155,9 +159,65 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
   }
 
   override def visitFunction(in: Input, function: CppDoc.Function) = {
-    // TODO
-    val lines = List(Line.blank, line(s"// Function $function.name"))
-    Output.both(lines)
+    import CppDoc.Function._
+    val hppLines = {
+      val lines1 = doxygenCommentOpt(function.comment)
+      val lines2 = {
+        val lines1 = {
+          val line1 = function.svQualifier match {
+            case Virtual => line("virtual ")
+            case PureVirtual => line("virtual ")
+            case Static => line("static ")
+            case _ => line("")
+          }
+          List(Line.join("")(line1)(line(s"${function.retType.hppType} ${function.name}")))
+        }
+        val lines2 = Line.joinLists(Line.NoIndent)(lines1)("")(writeHppParams(function.params))
+        val lines3 = function.constQualifier match {
+          case Const => Line.joinLists(Line.NoIndent)(lines2)(" ")(lines("const"))
+          case _ => lines2
+        }
+        val lines4 = function.svQualifier match {
+          case PureVirtual => lines(" = 0;")
+          case _ => lines("")
+        }
+        Line.joinLists(Line.NoIndent)(lines3)("")(lines4)
+      }
+      lines1 ++ lines2
+    }
+    val cppLines = {
+      // Create name and params
+      // If we are in a class, add the class name; otherwise don't
+      /*
+      val nameLines = lines(s"$qualifiedClassName ::")
+      val paramLines = {
+        val lines1 = lines(s"$unqualifiedClassName")
+        val lines2 = writeCppParams(constructor.params).map(indentIn(_))
+        val lines3 = Line.joinLists(Line.NoIndent)(lines1)("")(lines2)
+        val lines4 = constructor.initializers match {
+          case Nil => lines3
+          case _ => Line.joinLists(Line.NoIndent)(lines3)(" ")(lines(":"))
+        }
+        lines4.map(indentIn(_))
+      }
+      val initializerLines = constructor.initializers.reverse match {
+        case Nil => Nil
+        case head :: tail => {
+          val list = head :: tail.map(_ ++ ",")
+          list.reverse.map(line(_)).map(_.indentIn(2 * indentIncrement))
+        }
+      }
+      val startLine = line("{")
+      val bodyLines = constructor.body.length match {
+        case 0 => Line.blank :: Nil
+        case _ => constructor.body.map(indentIn(_))
+      }
+      val endLine = line("}")
+      Line.blank :: (nameLines ++ paramLines ++ initializerLines ++ ((startLine :: bodyLines) :+ endLine))
+      */
+      Nil
+    }
+    Output(hppLines, cppLines)
   }
 
   override def visitLines(in: Input, lines: CppDoc.Lines) = {
@@ -194,6 +254,8 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
   private def commentBody(comment: String) = lines(comment).map(Line.join(" ")(line("//"))_)
 
   private def cppParamString(p: CppDoc.Function.Param) = s"${p.t.hppType} ${p.name}"
+
+  private def cppParamStringComma(p: CppDoc.Function.Param) = s"${p.t.hppType} ${p.name},"
 
   private def getEnclosingClassQualified(in: Input) = in.classNameList.reverse.mkString("::")
  
@@ -232,20 +294,32 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
 
   private def writeCppParam(p: CppDoc.Function.Param) = line(cppParamString(p))
 
+  private def writeCppParamComma(p: CppDoc.Function.Param) = line(cppParamStringComma(p))
+
   private def writeCppParams(params: List[CppDoc.Function.Param]) = {
     if (params.length == 0) lines("()")
     else if (params.length == 1)
       lines("(" ++ cppParamString(params.head) ++ ")")
-    else (line("(") :: params.map(writeCppParam(_))).map(indentIn(_)) :+ line(")")
+    else {
+      val head :: tail = params.reverse
+      val paramLines = (writeCppParam(head) :: tail.map(writeCppParamComma(_))).reverse
+      line("(") :: (paramLines.map(indentIn(_)) :+ line(")"))
+    }
   }
 
   private def writeHppParam(p: CppDoc.Function.Param) = line(hppParamString(p))
+
+  private def writeHppParamComma(p: CppDoc.Function.Param) = line(hppParamStringComma(p))
 
   private def writeHppParams(params: List[CppDoc.Function.Param]) = {
     if (params.length == 0) lines("()")
     else if (params.length == 1 && params.head.comment.isEmpty)
       lines("(" ++ hppParamString(params.head) ++ ")")
-    else (line("(") :: params.map(writeHppParam(_))).map(indentIn(_)) :+ line(")")
+    else {
+      val head :: tail = params.reverse
+      val paramLines = (writeHppParam(head) :: tail.map(writeHppParamComma(_))).reverse
+      line("(") :: (paramLines.map(indentIn(_)) :+ line(")"))
+    }
   }
 
   case class Output(

@@ -58,13 +58,13 @@ object CppDoc {
 
   /** A C++ function, either standalone or inside a class */
   case class Function(
+    comment: Option[String],
     name: String,
     params: List[Function.Param],
     retType: Type,
     body: List[Line],
-    staticQualifier: Function.StaticQualifier = Function.NonStatic,
+    svQualifier: Function.SVQualifier = Function.NonSV,
     constQualifier: Function.ConstQualifier = Function.NonConst,
-    virtualQualifier: Function.VirtualQualifier = Function.NonVirtual
   )
   case object Function {
     case class Param(
@@ -72,16 +72,14 @@ object CppDoc {
       name: String,
       comment: Option[String]
     )
-    sealed trait StaticQualifier
-    case object Static extends StaticQualifier
-    case object NonStatic extends StaticQualifier
+    sealed trait SVQualifier
+    case object NonSV extends SVQualifier
+    case object PureVirtual extends SVQualifier
+    case object Virtual extends SVQualifier
+    case object Static extends SVQualifier
     sealed trait ConstQualifier
     case object Const extends ConstQualifier
     case object NonConst extends ConstQualifier
-    sealed trait VirtualQualifier
-    case object NonVirtual extends VirtualQualifier
-    case object PureVirtual extends VirtualQualifier
-    case object Virtual extends VirtualQualifier
   }
 
   /** A C++ namespace */
