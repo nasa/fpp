@@ -1,8 +1,0 @@
-#!/bin/sh -e
-
-codegen=../../src/main/scala/codegen
-
-cp $codegen/Indentation.scala .
-cp $codegen/LineUtils.scala .
-cp $codegen/Line.scala .
-cp -R $codegen/CppWriter .

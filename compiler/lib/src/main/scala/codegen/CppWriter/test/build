@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+codegen=../..
+
+files="
+$codegen/Indentation.scala
+$codegen/LineUtils.scala
+$codegen/Line.scala
+`ls $codegen/CppWriter/*.scala`
+Main.scala
+"
+
+scalac -deprecation $files
