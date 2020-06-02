@@ -13,6 +13,8 @@ trait CppDocVisitor {
  
   def visitConstructor(in: Input, constructor: CppDoc.Class.Constructor): Output = default(in)
 
+  def visitDestructor(in: Input, destructor: CppDoc.Class.Destructor): Output = default(in)
+
   def visitFunction(in: Input, function: CppDoc.Function): Output = default(in)
 
   def visitLines(in: Input, function: CppDoc.Lines): Output = default(in)
@@ -37,6 +39,7 @@ trait CppDocVisitor {
     member match {
       case Class(c) => visitClass(in, c)
       case Constructor(constructor) => visitConstructor(in, constructor)
+      case Destructor(destructor) => visitDestructor(in, destructor)
       case Lines(lines) => visitLines(in, lines)
       case Function(function) => visitFunction(in, function)
     }

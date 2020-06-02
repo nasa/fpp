@@ -1,14 +1,24 @@
 package fpp.compiler.codegen
 
-/** A C++ document representing an .hpp file backed by zero or more
- *  .cpp files. */
+/** A C++ document representing an .hpp file and a .cpp file */
 case class CppDoc(
-  hppFile: String,
-  includeGuard: String,
+  /** The hpp file */
+  hppFile: CppDoc.HppFile,
+  /** The cpp file name */
+  cppFileName: String,
+  /** The members */
   members: List[CppDoc.Member]
 )
 
 object CppDoc {
+
+  /** An hpp file */
+  case class HppFile(
+    /** The file name */
+    name: String,
+    /** The include guard */
+    includeGuard: String
+  )
 
   /** A C++ class */
   case class Class(
@@ -17,13 +27,14 @@ object CppDoc {
     /** The superclass declarations, if any, after the colon */
     superclassDecls: Option[String],
     /** The class members */
-    members: List[Class.Member]
+    members: List[Class.Member],
   )
   object Class {
     sealed trait Member
     object Member {
       case class Class(c: CppDoc.Class) extends Member
       case class Constructor(constructor: CppDoc.Class.Constructor) extends Member
+      case class Destructor(destructor: CppDoc.Class.Destructor) extends Member
       case class Lines(lines: CppDoc.Lines) extends Member
       case class Function(function: CppDoc.Function) extends Member
     }
@@ -33,6 +44,15 @@ object CppDoc {
       initializers: List[String],
       body: List[Line]
     )
+    case class Destructor(
+      virtualQualifier: Destructor.VirtualQualifier,
+      body: List[Line],
+    )
+    object Destructor {
+      sealed trait VirtualQualifier
+      case object NonVirtual extends VirtualQualifier
+      case object Virtual extends VirtualQualifier
+    }
   }
 
   /** A C++ function, either standalone or inside a class */
@@ -64,16 +84,6 @@ object CppDoc {
     case object Virtual extends VirtualQualifier
   }
 
-
-  /** A list of uninterpreted lines of C++ code */
-  case class Lines(content: List[Line], output: Lines.Output = Lines.Hpp)
-  object Lines {
-    sealed trait Output
-    case object Hpp extends Output
-    case class Cpp(cppFile: String) extends Output
-    case class Both(cppFile: String) extends Output
-  }
-
   /** A C++ namespace */
   case class Namespace(name: String, members: List[Namespace.Member])
   object Namespace {
@@ -85,7 +95,14 @@ object CppDoc {
   case class Type(
     hppType: String,
     cppType: Option[String] = None
-  )
+  ) {
+
+    def getCppType = cppType match {
+      case Some(t) => t
+      case None => hppType
+    }
+
+  }
 
   /** A CppWriter document member */
   sealed trait Member
@@ -94,6 +111,15 @@ object CppDoc {
     case class Lines(lines: CppDoc.Lines) extends Member
     case class Function(function: CppDoc.Function) extends Member
     case class Namespace(namespace: CppDoc.Namespace) extends Member
+  }
+
+  /** A list of uninterpreted lines of C++ code */
+  case class Lines(content: List[Line], output: Lines.Output = Lines.Hpp)
+  object Lines {
+    sealed trait Output
+    case object Both extends Output
+    case object Cpp extends Output
+    case object Hpp extends Output
   }
 
 }

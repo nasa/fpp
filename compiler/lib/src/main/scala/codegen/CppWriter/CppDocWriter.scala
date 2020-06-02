@@ -6,10 +6,12 @@ import java.time.Year
 object CppDocWriter extends CppDocVisitor with LineUtils {
 
   case class Input(
-    /** The current hpp file */
-    hppFile: String,
-    /** The list of name qualifiers, backwards. A name qualifier may include :: */
-    qualifierList: List[String] = Nil,
+    /** The hpp file */
+    hppFile: CppDoc.HppFile,
+    /** The cpp file name */
+    cppFileName: String,
+    /** The list of enclosing class names, backwards. A class name may include :: */
+    classNameList: List[String] = Nil,
   )
 
   def accessTag(tag: String) = List(
@@ -25,7 +27,7 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
 
   def comment(comment: String) = Line.blank :: commentBody(comment)
 
-  def default(in: Input) = Map()
+  def default(in: Input) = Output()
 
   def doxygenCommentOpt(commentOpt: Option[String]) = commentOpt match {
     case Some(comment) => doxygenComment(comment)
@@ -43,21 +45,28 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
 
   def visitCppDoc(cppDoc: CppDoc): Output = {
     val hppFile = cppDoc.hppFile
-    val in = Input(hppFile)
-    val output = Map(hppFile -> openIncludeGuard(cppDoc.includeGuard))
-    val output1 = cppDoc.members.map(visitMember(in, _)).fold(output)(mergeOutput(_, _))
-    val output2 = output1 + (hppFile -> (output1(hppFile) ++ closeIncludeGuard))
-    val output3 = output2.map({ case (k -> v) => (k -> (writeBanner(k) ++ v)) })
-    val output4 = output3.map({ case (k -> v) => (k -> v.map(leftAlignDirective(_))) })
+    val cppFileName = cppDoc.cppFileName
+    val in = Input(hppFile, cppFileName)
+    val output1 = cppDoc.members.foldRight(Output())(
+      { case (member, output) => visitMember(in, member) ++ output }
+    )
+    val output2 = Output(writeBanner(in.hppFile.name), writeBanner(in.cppFileName)) ++ output1
+    val output3 = Output.hpp(openIncludeGuard(hppFile.includeGuard)) ++ output2
+    val output4 = output3 ++ Output.hpp(closeIncludeGuard)
     output4
   }
 
   override def visitClass(in: Input, c: CppDoc.Class): Output = {
     val name = c.name
-    val newQualifierList = name :: in.qualifierList
-    val in1 = in.copy(qualifierList = newQualifierList)
-    val output = c.members.map(visitClassMember(in1, _)).fold(Map())(mergeOutput(_, _))
-    val lines1 = c.superclassDecls match {
+    val newClassNameList = name :: in.classNameList
+    val in1 = in.copy(classNameList = newClassNameList)
+    val output = {
+      val Output(hppLines, cppLines) = c.members.foldRight(Output())(
+        { case (member, output) => visitClassMember(in1, member) ++ output }
+      )
+      Output(hppLines.map(_.indentIn(2 * indentIncrement)), cppLines.map(indentIn(_)))
+    }
+    val startLines = c.superclassDecls match {
       case Some(d) => List(
         Line.blank,
         line(s"class $name :"), 
@@ -66,45 +75,87 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
       )
       case None => List(Line.blank, line(s"class $name {"))
     }
-    val lines2 = List(
+    val endLines = List(
       Line.blank,
       line("};")
     )
-    output + (
-      in.hppFile -> 
-      (lines1 ++ output.getOrElse(in.hppFile, Nil).
-        map(_.indentIn(2 * indentIncrement)) ++ lines2)
-    )
+    val startOutput = Output.both(startLines)
+    val endOutput = Output.both(endLines)
+    startOutput ++ output ++ endOutput
+  }
+
+  override def visitConstructor(in: Input, constructor: CppDoc.Class.Constructor) = {
+    val unqualifiedClassName = getEnclosingClassUnqualified(in)
+    val qualifiedClassName = getEnclosingClassQualified(in)
+    val hppLines = {
+      val lines1 = doxygenCommentOpt(constructor.comment)
+      val lines2 = lines1 ++ lines(s"$unqualifiedClassName")
+      val lines3 = Line.joinLists(Line.NoIndent)(lines2)("")(writeHppParams(constructor.params))
+      val lines4 = Line.joinLists(Line.NoIndent)(lines3)("")(lines(";"))
+      lines4
+    }
+    val cppLines = {
+      val nameLines = lines(s"$qualifiedClassName ::")
+      val paramLines = {
+        val lines1 = lines(s"$unqualifiedClassName")
+        val lines2 = writeCppParams(constructor.params).map(indentIn(_))
+        val lines3 = Line.joinLists(Line.NoIndent)(lines1)("")(lines2)
+        val lines4 = constructor.initializers match {
+          case Nil => lines3
+          case _ => Line.joinLists(Line.NoIndent)(lines3)(" ")(lines(":"))
+        }
+        lines4.map(indentIn(_))
+      }
+      val initializerLines = constructor.initializers.reverse match {
+        case Nil => Nil
+        case head :: tail => {
+          val list = head :: tail.map(_ ++ ",")
+          list.reverse.map(line(_)).map(_.indentIn(2 * indentIncrement))
+        }
+      }
+      val startLines = lines("{")
+      val bodyLines = constructor.body.length match {
+        case 0 => Line.blank :: Nil
+        case _ => constructor.body.map(indentIn(_))
+      }
+      val endLines = lines("}")
+      Line.blank :: (nameLines ++ paramLines ++ initializerLines ++ startLines ++ bodyLines ++ endLines)
+    }
+    Output(hppLines, cppLines)
+  }
+
+  override def visitDestructor(in: Input, destructor: CppDoc.Class.Destructor) = {
+    // TODO
+    val classNameUnqualified = getEnclosingClassUnqualified(in)
+    val lines = List(Line.blank, line(s"// Destructor for $classNameUnqualified"))
+    Output.both(lines)
   }
 
   override def visitFunction(in: Input, function: CppDoc.Function) = {
+    // TODO
     val lines = List(Line.blank, line(s"// Function $function.name"))
-    Map(in.hppFile -> lines)
+    Output.both(lines)
   }
 
   override def visitLines(in: Input, lines: CppDoc.Lines) = {
     val content = lines.content
     lines.output match {
-      case CppDoc.Lines.Hpp => Map(in.hppFile -> content)
-      case CppDoc.Lines.Cpp(cppFile) => Map(cppFile -> content)
-      case CppDoc.Lines.Both(cppFile) => Map(in.hppFile -> content, cppFile -> content)
+      case CppDoc.Lines.Hpp => Output.hpp(content)
+      case CppDoc.Lines.Cpp => Output.cpp(content)
+      case CppDoc.Lines.Both => Output.both(content)
     }
   }
 
   override def visitNamespace(in: Input, namespace: CppDoc.Namespace): Output = {
     val name = namespace.name
-    val newQualifierList = name :: in.qualifierList
-    val in1 = in.copy(qualifierList = newQualifierList)
-    val output = namespace.members.map(visitNamespaceMember(in1, _)).fold(Map())(mergeOutput(_, _))
-    val lines1 = List(
-      Line.blank,
-      line(s"namespace $name {")
+    val output = namespace.members.foldRight(Output())(
+      { case (member, output) => visitNamespaceMember(in, member) ++ output }
     )
-    val lines2 = List(
-      Line.blank,
-      line("}")
-    )
-    output + (in.hppFile -> (lines1 ++ output.getOrElse(in.hppFile, Nil).map(indentIn(_)) ++ lines2))
+    val startLines = List(Line.blank, line(s"namespace $name {"))
+    val endLines = List(Line.blank, line("}"))
+    val startOutput = Output.both(startLines)
+    val endOutput = Output.both(endLines)
+    startOutput ++ output.indentIn() ++ endOutput
   }
 
   private def addParamComment(s: String, commentOpt: Option[String]) = commentOpt match {
@@ -133,25 +184,12 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
     s2
   }
 
-  private def getEnclosingName(in: Input) = in.qualifierList.head.split("::").reverse.head
+  private def getEnclosingClassQualified(in: Input) = in.classNameList.reverse.mkString("::")
  
-  override def visitConstructor(in: Input, constructor: CppDoc.Class.Constructor) = {
-    val className = getEnclosingName(in)
-    val hppLines = {
-      val lines1 = doxygenCommentOpt(constructor.comment)
-      val lines2 = lines1 ++ lines(s"$className")
-      val lines3 = Line.joinLists(Line.NoIndent)(lines2)("")(writeHppParams(constructor.params))
-      val lines4 = Line.joinLists(Line.NoIndent)(lines3)("")(lines(";"))
-      lines4
-    }
-    Map(in.hppFile -> hppLines)
-  }
+  private def getEnclosingClassUnqualified(in: Input) = in.classNameList.head.split("::").reverse.head
 
   private def leftAlignDirective(line: Line) =
     if (line.string.startsWith("#")) Line(line.string) else line
-
-  private def mergeOutput(output1: Output, output2: Output) =
-    output2.foldRight(output1)({ case (k -> v, map) => map + (k -> (map.getOrElse(k, Nil) ++ v)) })
 
   private def openIncludeGuard(guard: String): List[Line] = {
     lines(
@@ -183,6 +221,13 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
 
   private def writeCppParam(p: CppDoc.Function.Param) = line(cppParamString(p))
 
+  private def writeCppParams(params: List[CppDoc.Function.Param]) = {
+    if (params.length == 0) lines("()")
+    else if (params.length == 1)
+      lines("(" ++ cppParamString(params.head) ++ ")")
+    else (line("(") :: params.map(writeCppParam(_))).map(indentIn(_)) :+ line(")")
+  }
+
   private def writeHppParam(p: CppDoc.Function.Param) = line(hppParamString(p))
 
   private def writeHppParams(params: List[CppDoc.Function.Param]) = {
@@ -192,6 +237,28 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
     else (line("(") :: params.map(writeHppParam(_))).map(indentIn(_)) :+ line(")")
   }
 
-  type Output = Map[String,List[Line]]
+  case class Output(
+    /** The lines of the hpp file */
+    hppLines: List[Line] = Nil,
+    /** The lines of the cpp file */
+    cppLines: List[Line] = Nil,
+  ) {
+
+    def ++(output: Output) = Output(hppLines ++ output.hppLines, cppLines ++ output.cppLines)
+
+    def indentIn(increment: Int = indentIncrement) = 
+      Output(hppLines.map(_.indentIn(increment)), cppLines.map(_.indentIn(increment)))
+
+  }
+
+  object Output {
+
+    def both(lines: List[Line]) = Output(lines, lines)
+    
+    def cpp(lines: List[Line]) = Output(Nil, lines)
+
+    def hpp(lines: List[Line]) = Output(lines, Nil)
+
+  }
 
 }
