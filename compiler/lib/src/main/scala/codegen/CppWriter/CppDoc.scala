@@ -11,7 +11,14 @@ case class CppDoc(
 object CppDoc {
 
   /** A C++ class */
-  case class Class(name: String, members: List[Class.Member])
+  case class Class(
+    /** The name of the class */
+    name: String,
+    /** The superclass declarations, if any, after the colon */
+    superclassDecls: Option[String],
+    /** The class members */
+    members: List[Class.Member]
+  )
   object Class {
     sealed trait Member
     object Member {
@@ -21,7 +28,6 @@ object CppDoc {
       case class Function(function: CppDoc.Function) extends Member
     }
     case class Constructor(
-      name: String,
       params: List[Function.Param],
       initializers: List[String],
       body: List[Line]
