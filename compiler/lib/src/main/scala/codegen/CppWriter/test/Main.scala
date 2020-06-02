@@ -40,9 +40,8 @@ object Main extends LineUtils {
           CppDoc.Class.Member.Destructor(dest)
         }
         val publicFunc = {
-          val tag = CppDocWriter.accessTag("public")
           val comment = CppDocWriter.bannerComment("Public member functions")
-          val lines = CppDoc.Lines(tag ++ comment)
+          val lines = CppDoc.Lines(comment, CppDoc.Lines.Both)
           CppDoc.Class.Member.Lines(lines)
         }
         val functionMember = {
@@ -74,7 +73,7 @@ object Main extends LineUtils {
           val cppDocLines = CppDoc.Lines(content)
           CppDoc.Class.Member.Lines(cppDocLines)
         }
-        val members = List(publicTag, constComment, constMember, destMember, publicFunc, functionMember, variables)
+        val members = List(publicTag, constComment, constMember, destMember, publicTag, publicFunc, functionMember, variables)
         CppDoc.Class("C", None, members)
       }
       val member = CppDoc.Member.Class(c)
@@ -84,8 +83,8 @@ object Main extends LineUtils {
       val members = List(CppDoc.Member.Namespace(namespace))
       CppDoc(hppFile, cppFile, members)
     }
-    val output = CppDocHppWriter.visitCppDoc(cppDoc)
-    output.outputLines.map(Line.write(Line.stdout) _)
+    val output = CppDocCppWriter.visitCppDoc(cppDoc)
+    output.map(Line.write(Line.stdout) _)
     ()
   }
 

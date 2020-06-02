@@ -9,15 +9,12 @@ object CppDocHppWriter extends CppDocWriter {
     val hppFile = cppDoc.hppFile
     val cppFileName = cppDoc.cppFileName
     val in = Input(hppFile, cppFileName)
-    val body = cppDoc.members.foldRight(Output())(
-      { case (member, output) => visitMember(in, member) ++ output }
-    )
     List(
-      Output(CppDocWriter.writeBanner(in.hppFile.name)),
-      Output.hpp(CppDocWriter.openIncludeGuard(hppFile.includeGuard)),
-      body,
-      Output.hpp(CppDocWriter.closeIncludeGuard)
-    ).fold(Output())(_ ++ _)
+      CppDocWriter.writeBanner(in.hppFile.name),
+      CppDocWriter.openIncludeGuard(hppFile.includeGuard),
+      cppDoc.members.map(visitMember(in, _)).flatten,
+      CppDocWriter.closeIncludeGuard
+    ).flatten
   }
 
   override def visitClass(in: Input, c: CppDoc.Class): Output = {
@@ -33,17 +30,12 @@ object CppDocHppWriter extends CppDocWriter {
       )
       case None => List(Line.blank, line(s"class $name {"))
     }
-    val output = {
-      val Output(outputLines) = c.members.foldRight(Output())(
-        { case (member, output) => visitClassMember(in1, member) ++ output }
-      )
-      Output(outputLines.map(_.indentIn(2 * indentIncrement)))
+    val outputLines = {
+      val outputLines = c.members.map(visitClassMember(in1, _)).flatten
+      outputLines.map(_.indentIn(2 * indentIncrement))
     }
-    val endLines = List(
-      Line.blank,
-      line("};")
-    )
-    Output.hpp(startLines) ++ output ++ Output.hpp(endLines)
+    val endLines = List(Line.blank, line("};"))
+    startLines ++ outputLines ++ endLines
   }
 
   override def visitConstructor(in: Input, constructor: CppDoc.Class.Constructor) = {
@@ -57,7 +49,7 @@ object CppDocHppWriter extends CppDocWriter {
       }
       lines1 ++ lines2
     }
-    Output(outputLines)
+    outputLines
   }
 
   override def visitDestructor(in: Input, destructor: CppDoc.Class.Destructor) = {
@@ -71,7 +63,7 @@ object CppDocHppWriter extends CppDocWriter {
       }
       lines1 ++ lines2
     }
-    Output(outputLines)
+    outputLines
   }
 
   override def visitFunction(in: Input, function: CppDoc.Function) = {
@@ -103,28 +95,52 @@ object CppDocHppWriter extends CppDocWriter {
       }
       lines1 ++ lines2
     }
-    Output(outputLines)
+    outputLines
   }
 
   override def visitLines(in: Input, lines: CppDoc.Lines) = {
     val content = lines.content
     lines.output match {
-      case CppDoc.Lines.Hpp => Output.hpp(content)
-      case CppDoc.Lines.Cpp => Output()
-      case CppDoc.Lines.Both => Output.hpp(content)
+      case CppDoc.Lines.Hpp => content
+      case CppDoc.Lines.Cpp => Nil
+      case CppDoc.Lines.Both => content
     }
   }
 
   override def visitNamespace(in: Input, namespace: CppDoc.Namespace): Output = {
     val name = namespace.name
-    val output = namespace.members.foldRight(Output())(
-      { case (member, output) => visitNamespaceMember(in, member) ++ output }
-    )
     val startLines = List(Line.blank, line(s"namespace $name {"))
+    val outputLines = namespace.members.map(visitNamespaceMember(in, _)).flatten
     val endLines = List(Line.blank, line("}"))
-    val startOutput = Output.hpp(startLines)
-    val endOutput = Output.hpp(endLines)
-    startOutput ++ output.indentIn() ++ endOutput
+    startLines ++ outputLines.map(indentIn(_)) ++ endLines
+  }
+
+  def addParamComment(s: String, commentOpt: Option[String]) = commentOpt match {
+    case Some(comment) => s"$s //!< ${"\n".r.replaceAllIn(comment, " ")}"
+    case None => s
+  }
+
+  def paramString(p: CppDoc.Function.Param) = {
+    val s1 = CppDocCppWriter.paramString(p)
+    val s2 = addParamComment(s1, p.comment)
+    s2
+  }
+
+  def paramStringComma(p: CppDoc.Function.Param) = {
+    val s1 = CppDocCppWriter.paramStringComma(p)
+    val s2 = addParamComment(s1, p.comment)
+    s2
+  }
+
+  def writeParams(prefix: String, params: List[CppDoc.Function.Param]) = {
+    if (params.length == 0) lines(s"$prefix()")
+    else if (params.length == 1 && params.head.comment.isEmpty)
+      lines(s"$prefix(" ++ CppDocCppWriter.paramString(params.head) ++ ")")
+    else {
+      val head :: tail = params.reverse
+      val paramLines = (writeParam(head) :: tail.map(writeParamComma(_))).reverse
+      line(s"$prefix(") :: (paramLines.map(_.indentIn(2 * indentIncrement)) :+ line(")"))
+    }
   }
 
 }

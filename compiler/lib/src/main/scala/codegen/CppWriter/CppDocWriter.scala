@@ -20,28 +20,19 @@ trait CppDocWriter extends CppDocVisitor with LineUtils {
 
   }
 
-  def default(in: Input) = Output()
+  def default(in: Input) = Nil
+
+  def paramString(p: CppDoc.Function.Param): String
+
+  def paramStringComma(p: CppDoc.Function.Param): String
 
   def visitCppDoc(cppDoc: CppDoc): Output
 
-  case class Output(
-    /** The lines of the file */
-    outputLines: List[Line] = Nil,
-  ) {
+  final def writeParam(p: CppDoc.Function.Param) = line(paramString(p))
 
-    def ++(output: Output) = Output(outputLines ++ output.outputLines)
+  final def writeParamComma(p: CppDoc.Function.Param) = line(paramStringComma(p))
 
-    def indentIn(increment: Int = indentIncrement) = Output(outputLines.map(_.indentIn(increment)))
-
-  }
-
-  object Output {
-
-    def cpp(lines: List[Line]) = Output(lines)
-
-    def hpp(lines: List[Line]) = Output(lines)
-
-  }
+  type Output = List[Line]
 
 }
 
@@ -52,13 +43,27 @@ object CppDocWriter extends LineUtils {
     line(s"$tag:").indentOut(2)
   )
 
+  def addParamComment(s: String, commentOpt: Option[String]) = commentOpt match {
+    case Some(comment) => s"$s //!< ${"\n".r.replaceAllIn(comment, " ")}"
+    case None => s
+  }
+
   def bannerComment(comment: String) = {
     def banner =
       line("// ----------------------------------------------------------------------")
     (Line.blank :: banner :: commentBody(comment)) :+ banner
   }
 
+  def closeIncludeGuard = lines(
+    """|
+       |#endif"""
+  )
+
   def comment(comment: String) = Line.blank :: commentBody(comment)
+
+  def cppParamString(p: CppDoc.Function.Param) = s"${p.t.hppType} ${p.name}"
+
+  def cppParamStringComma(p: CppDoc.Function.Param) = s"${p.t.hppType} ${p.name},"
 
   def doxygenCommentOpt(commentOpt: Option[String]) = commentOpt match {
     case Some(comment) => doxygenComment(comment)
@@ -70,29 +75,11 @@ object CppDocWriter extends LineUtils {
     
   def commentBody(comment: String) = lines(comment).map(Line.join(" ")(line("//"))_)
 
-  def cppParamString(p: CppDoc.Function.Param) = s"${p.t.hppType} ${p.name}"
-
-  def writeCppParam(p: CppDoc.Function.Param) = line(cppParamString(p))
-
-  def writeCppParamComma(p: CppDoc.Function.Param) = line(cppParamStringComma(p))
-
   def hppParamString(p: CppDoc.Function.Param) = {
     val s1 = CppDocWriter.cppParamString(p)
     val s2 = addParamComment(s1, p.comment)
     s2
   }
-
-  def addParamComment(s: String, commentOpt: Option[String]) = commentOpt match {
-    case Some(comment) => s"$s //!< ${"\n".r.replaceAllIn(comment, " ")}"
-    case None => s
-  }
-
-  def closeIncludeGuard = lines(
-    """|
-       |#endif"""
-  )
-
-  def cppParamStringComma(p: CppDoc.Function.Param) = s"${p.t.hppType} ${p.name},"
 
   def hppParamStringComma(p: CppDoc.Function.Param) = {
     val s1 = cppParamStringComma(p)
@@ -130,6 +117,10 @@ object CppDocWriter extends LineUtils {
         |// countries or providing access to foreign persons.
         |// ======================================================================"""
   )
+
+  def writeCppParam(p: CppDoc.Function.Param) = line(cppParamString(p))
+
+  def writeCppParamComma(p: CppDoc.Function.Param) = line(cppParamStringComma(p))
 
   def writeCppParams(prefix: String, params: List[CppDoc.Function.Param]) = {
     if (params.length == 0) lines(s"$prefix()")
