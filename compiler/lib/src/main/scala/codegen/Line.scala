@@ -9,6 +9,12 @@ object Line {
 
   val stdout = new java.io.PrintWriter(System.out, true)
 
+  def addPrefix(prefix: String, ls: List[Line]) =
+    joinLists(Line.NoIndent)(List(Line(prefix)))("")(ls)
+
+  def addSuffix(ls: List[Line], suffix: String) =
+    joinLists(Line.NoIndent)(ls)("")(List(Line(suffix)))
+
   def blank: Line = Line()
 
   def write (writer: java.io.PrintWriter) (line: Line) = {

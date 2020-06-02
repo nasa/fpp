@@ -4,7 +4,7 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 
 /** Write out an FPP AST */
-object AstWriter extends AstVisitor {
+object AstWriter extends AstVisitor with LineUtils {
 
   def transUnit(tu: Ast.TransUnit): Out = transUnit((), tu)
 
@@ -497,18 +497,6 @@ object AstWriter extends AstVisitor {
     params.map(annotateNode(formalParam)).flatten
 
   private def ident(s: String) = lines("ident " ++ s)
-
-  private def indentIn(line: Line) = line.indentIn(2)
-
-  private def line(s: String) = Line(s)
-
-  private def lines(s: String) = List(line(s))
-
-  private def linesOpt[T](f: T => List[Line], o: Option[T]) =
-    o match {
-      case Some(x) => f(x)
-      case None => Nil
-    }
 
   private def moduleMember(member: Ast.ModuleMember) = {
     val (a1, _, a2) = member.node

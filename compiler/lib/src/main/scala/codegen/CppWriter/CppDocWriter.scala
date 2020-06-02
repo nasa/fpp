@@ -91,7 +91,7 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
       val lines1 = doxygenCommentOpt(constructor.comment)
       val lines2 = {
         val params = writeHppParams(unqualifiedClassName, constructor.params)
-        Line.joinLists(Line.NoIndent)(params)("")(lines(";"))
+        Line.addSuffix(params, ";")
       }
       lines1 ++ lines2
     }
@@ -101,7 +101,7 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
         val lines1 = writeCppParams(unqualifiedClassName, constructor.params)
         val lines2 = constructor.initializers match {
           case Nil => lines1
-          case _ => Line.joinLists(Line.NoIndent)(lines1)(" ")(lines(":"))
+          case _ => Line.addSuffix(lines1, " :")
          }
         lines2.map(indentIn(_))
       }
@@ -160,7 +160,7 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
         val lines1 = {
           val lines1 = writeHppParams(prefix, function.params)
           function.constQualifier match {
-            case Const => Line.joinLists(Line.NoIndent)(lines1)(" ")(lines("const"))
+            case Const => Line.addSuffix(lines1, " const")
             case _ => lines1
           }
         }
@@ -178,7 +178,7 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
           val line1 = line(s"${function.retType.getCppType} $head ::")
           val lines2 = writeCppParams(function.name, function.params)
           val lines3 = function.constQualifier match {
-            case CppDoc.Function.Const => Line.joinLists(Line.NoIndent)(lines2)(" ")(lines("const"))
+            case CppDoc.Function.Const => Line.addSuffix(lines2, " const")
             case CppDoc.Function.NonConst => lines2
           }
           line1 :: lines2.map(indentIn(_))
