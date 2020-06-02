@@ -106,7 +106,7 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
       val nameLines = lines(s"$qualifiedClassName ::")
       val paramLines = {
         val lines1 = lines(s"$unqualifiedClassName")
-        val lines2 = writeCppParams(constructor.params).map(indentIn(_))
+        val lines2 = writeCppParams(constructor.params)
         val lines3 = Line.joinLists(Line.NoIndent)(lines1)("")(lines2)
         val lines4 = constructor.initializers match {
           case Nil => lines3
@@ -179,7 +179,7 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
         }
         val lines4 = function.svQualifier match {
           case PureVirtual => lines(" = 0;")
-          case _ => lines("")
+          case _ => lines(";")
         }
         Line.joinLists(Line.NoIndent)(lines3)("")(lines4)
       }
@@ -303,7 +303,7 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
     else {
       val head :: tail = params.reverse
       val paramLines = (writeCppParam(head) :: tail.map(writeCppParamComma(_))).reverse
-      line("(") :: (paramLines.map(indentIn(_)) :+ line(")"))
+      line("(") :: (paramLines.map(_.indentIn(2 * indentIncrement)) :+ line(")"))
     }
   }
 
@@ -318,7 +318,7 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
     else {
       val head :: tail = params.reverse
       val paramLines = (writeHppParam(head) :: tail.map(writeHppParamComma(_))).reverse
-      line("(") :: (paramLines.map(indentIn(_)) :+ line(")"))
+      line("(") :: (paramLines.map(_.indentIn(2 * indentIncrement)) :+ line(")"))
     }
   }
 

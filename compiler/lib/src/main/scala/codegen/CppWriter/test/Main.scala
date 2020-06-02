@@ -24,7 +24,12 @@ object Main extends LineUtils {
             "x",
             Some("This is parameter x")
           )
-          val params = List(param1)
+          val param2 = CppDoc.Function.Param(
+            CppDoc.Type("const int", None),
+            "y",
+            Some("This is parameter y")
+          )
+          val params = List(param1, param2)
           val const = CppDoc.Class.Constructor(comment, params, List("x(0)", "y(1)"), lines("// line1\n// line2"))
           CppDoc.Class.Member.Constructor(const)
         }
@@ -80,7 +85,7 @@ object Main extends LineUtils {
       CppDoc(hppFile, cppFile, members)
     }
     val output = CppDocWriter.visitCppDoc(cppDoc)
-    output.cppLines.map(Line.write(Line.stdout) _)
+    output.hppLines.map(Line.write(Line.stdout) _)
     ()
   }
 
