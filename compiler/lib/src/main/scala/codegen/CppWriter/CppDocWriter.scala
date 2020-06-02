@@ -38,26 +38,11 @@ trait CppDocWriter extends CppDocVisitor with LineUtils {
 
 object CppDocWriter extends LineUtils {
 
-  def accessTag(tag: String) = List(
-    Line.blank,
-    line(s"$tag:").indentOut(2)
-  )
-
-  def addParamComment(s: String, commentOpt: Option[String]) = commentOpt match {
-    case Some(comment) => s"$s //!< ${"\n".r.replaceAllIn(comment, " ")}"
-    case None => s
-  }
-
   def bannerComment(comment: String) = {
     def banner =
       line("// ----------------------------------------------------------------------")
     (Line.blank :: banner :: commentBody(comment)) :+ banner
   }
-
-  def closeIncludeGuard = lines(
-    """|
-       |#endif"""
-  )
 
   def comment(comment: String) = Line.blank :: commentBody(comment)
 
@@ -73,14 +58,6 @@ object CppDocWriter extends LineUtils {
 
   def leftAlignDirective(line: Line) =
     if (line.string.startsWith("#")) Line(line.string) else line
-
-  def openIncludeGuard(guard: String): List[Line] = {
-    lines(
-      s"""|
-          |#ifndef $guard
-          |#define $guard"""
-    )
-  }
 
   def writeBanner(title: String) = lines(
     s"""|// ====================================================================== 

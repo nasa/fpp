@@ -11,9 +11,9 @@ object CppDocHppWriter extends CppDocWriter {
     val in = Input(hppFile, cppFileName)
     List(
       CppDocWriter.writeBanner(in.hppFile.name),
-      CppDocWriter.openIncludeGuard(hppFile.includeGuard),
+      openIncludeGuard(hppFile.includeGuard),
       cppDoc.members.map(visitMember(in, _)).flatten,
-      CppDocWriter.closeIncludeGuard
+      closeIncludeGuard
     ).flatten
   }
 
@@ -115,9 +115,28 @@ object CppDocHppWriter extends CppDocWriter {
     startLines ++ outputLines.map(indentIn(_)) ++ endLines
   }
 
+  def accessTag(tag: String) = List(
+    Line.blank,
+    line(s"$tag:").indentOut(2)
+  )
+
   def addParamComment(s: String, commentOpt: Option[String]) = commentOpt match {
     case Some(comment) => s"$s //!< ${"\n".r.replaceAllIn(comment, " ")}"
     case None => s
+  }
+
+  def closeIncludeGuard = lines(
+    """|
+       |#endif"""
+  )
+
+
+  def openIncludeGuard(guard: String): List[Line] = {
+    lines(
+      s"""|
+          |#ifndef $guard
+          |#define $guard"""
+    )
   }
 
   def paramString(p: CppDoc.Function.Param) = {
