@@ -84,8 +84,8 @@ object Main extends LineUtils {
       val members = List(CppDoc.Member.Namespace(namespace))
       CppDoc(hppFile, cppFile, members)
     }
-    val output = CppDocWriter.visitCppDoc(cppDoc)
-    output.hppLines.map(Line.write(Line.stdout) _)
+    val output = CppDocCppWriter.visitCppDoc(cppDoc)
+    output.cppLines.map(Line.write(Line.stdout) _)
     ()
   }
 
