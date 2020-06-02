@@ -67,7 +67,6 @@ object CppDoc {
   )
   case object Function {
     case class Param(
-      constQualifier: Function.ConstQualifier,
       t: Type,
       name: String,
       comment: Option[String]

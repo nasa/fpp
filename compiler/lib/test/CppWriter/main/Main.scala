@@ -16,8 +16,7 @@ object Main extends LineUtils {
         val constMember = {
           val comment = Some("This is line 1.\nThis is line 2.")
           val param1 = CppDoc.Function.Param(
-            CppDoc.Function.Const,
-            CppDoc.Type("unsigned", None),
+            CppDoc.Type("const unsigned", None),
             "x",
             Some("This is parameter x")
           )
@@ -44,7 +43,7 @@ object Main extends LineUtils {
       CppDoc(hppFile, cppFile, members)
     }
     val output = CppDocWriter.visitCppDoc(cppDoc)
-    output.hppLines.map(Line.write(Line.stdout) _)
+    output.cppLines.map(Line.write(Line.stdout) _)
     ()
   }
 

@@ -163,14 +163,6 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
     case None => s
   }
 
-  private def addParamConstQualifier(q: CppDoc.Function.ConstQualifier, s: String) = {
-    import CppDoc.Function._
-    q match {
-      case Const => s"const $s"
-      case NonConst => s
-    }
-  }
-
   private def closeIncludeGuard = lines(
     """|
        |#endif"""
@@ -178,11 +170,7 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
 
   private def commentBody(comment: String) = lines(comment).map(Line.join(" ")(line("//"))_)
 
-  private def cppParamString(p: CppDoc.Function.Param) = {
-    val s1 = s"${p.t.hppType} ${p.name}"
-    val s2 = addParamConstQualifier(p.constQualifier, s1)
-    s2
-  }
+  private def cppParamString(p: CppDoc.Function.Param) = s"${p.t.hppType} ${p.name}"
 
   private def getEnclosingClassQualified(in: Input) = in.classNameList.reverse.mkString("::")
  
