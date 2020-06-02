@@ -26,7 +26,7 @@ object CppDocCppWriter extends CppDocWriter {
     val outputLines = {
       val nameLines = lines(s"$qualifiedClassName ::")
       val paramLines = {
-        val lines1 = CppDocWriter.writeCppParams(unqualifiedClassName, constructor.params)
+        val lines1 = writeParams(unqualifiedClassName, constructor.params)
         val lines2 = constructor.initializers match {
           case Nil => lines1
           case _ => Line.addSuffix(lines1, " :")
@@ -69,7 +69,7 @@ object CppDocCppWriter extends CppDocWriter {
       val contentLines = {
         val startLines = {
           val prototypeLines = {
-            val lines1 = CppDocWriter.writeCppParams(function.name, function.params)
+            val lines1 = writeParams(function.name, function.params)
             function.constQualifier match {
               case CppDoc.Function.Const => Line.addSuffix(lines1, " const")
               case CppDoc.Function.NonConst => lines1

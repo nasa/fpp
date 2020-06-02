@@ -44,7 +44,7 @@ object CppDocHppWriter extends CppDocWriter {
     val outputLines = {
       val lines1 = CppDocWriter.doxygenCommentOpt(constructor.comment)
       val lines2 = {
-        val params = CppDocWriter.writeHppParams(unqualifiedClassName, constructor.params)
+        val params = writeParams(unqualifiedClassName, constructor.params)
         Line.addSuffix(params, ";")
       }
       lines1 ++ lines2
@@ -81,7 +81,7 @@ object CppDocHppWriter extends CppDocWriter {
           prefix1 ++ s"${function.retType.hppType} ${function.name}"
         }
         val lines1 = {
-          val lines1 = CppDocWriter.writeHppParams(prefix, function.params)
+          val lines1 = writeParams(prefix, function.params)
           function.constQualifier match {
             case Const => Line.addSuffix(lines1, " const")
             case _ => lines1

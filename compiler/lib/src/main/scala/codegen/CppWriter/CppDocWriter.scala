@@ -61,10 +61,6 @@ object CppDocWriter extends LineUtils {
 
   def comment(comment: String) = Line.blank :: commentBody(comment)
 
-  def cppParamString(p: CppDoc.Function.Param) = s"${p.t.hppType} ${p.name}"
-
-  def cppParamStringComma(p: CppDoc.Function.Param) = s"${p.t.hppType} ${p.name},"
-
   def doxygenCommentOpt(commentOpt: Option[String]) = commentOpt match {
     case Some(comment) => doxygenComment(comment)
     case None => Line.blank :: Nil
@@ -74,18 +70,6 @@ object CppDocWriter extends LineUtils {
     Line.blank ::lines(comment).map(Line.join(" ")(line("//!"))_)
     
   def commentBody(comment: String) = lines(comment).map(Line.join(" ")(line("//"))_)
-
-  def hppParamString(p: CppDoc.Function.Param) = {
-    val s1 = CppDocWriter.cppParamString(p)
-    val s2 = addParamComment(s1, p.comment)
-    s2
-  }
-
-  def hppParamStringComma(p: CppDoc.Function.Param) = {
-    val s1 = cppParamStringComma(p)
-    val s2 = addParamComment(s1, p.comment)
-    s2
-  }
 
   def leftAlignDirective(line: Line) =
     if (line.string.startsWith("#")) Line(line.string) else line
@@ -118,42 +102,12 @@ object CppDocWriter extends LineUtils {
         |// ======================================================================"""
   )
 
-  def writeCppParam(p: CppDoc.Function.Param) = line(cppParamString(p))
-
-  def writeCppParamComma(p: CppDoc.Function.Param) = line(cppParamStringComma(p))
-
-  def writeCppParams(prefix: String, params: List[CppDoc.Function.Param]) = {
-    if (params.length == 0) lines(s"$prefix()")
-    else if (params.length == 1)
-      lines(s"$prefix(" ++ CppDocWriter.cppParamString(params.head) ++ ")")
-    else {
-      val head :: tail = params.reverse
-      val paramLines = (writeCppParam(head) :: tail.map(writeCppParamComma(_))).reverse
-      line(s"$prefix(") :: (paramLines.map(_.indentIn(2 * indentIncrement)) :+ line(")"))
-    }
-  }
-
   def writeFunctionBody(body: List[Line]) = {
     val bodyLines = body.length match {
       case 0 => Line.blank :: Nil
       case _ => body.map(indentIn(_))
     }
-    (line("{") :: bodyLines) :+ line("}")
-  }
-
-  def writeHppParam(p: CppDoc.Function.Param) = line(hppParamString(p))
-
-  def writeHppParamComma(p: CppDoc.Function.Param) = line(hppParamStringComma(p))
-
-  def writeHppParams(prefix: String, params: List[CppDoc.Function.Param]) = {
-    if (params.length == 0) lines(s"$prefix()")
-    else if (params.length == 1 && params.head.comment.isEmpty)
-      lines(s"$prefix(" ++ hppParamString(params.head) ++ ")")
-    else {
-      val head :: tail = params.reverse
-      val paramLines = (writeHppParam(head) :: tail.map(writeHppParamComma(_))).reverse
-      line(s"$prefix(") :: (paramLines.map(_.indentIn(2 * indentIncrement)) :+ line(")"))
-    }
+    line("{") :: (bodyLines :+ line("}"))
   }
 
 }
