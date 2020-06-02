@@ -70,7 +70,7 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
       val Output(hppLines, cppLines) = c.members.foldRight(Output())(
         { case (member, output) => visitClassMember(in1, member) ++ output }
       )
-      Output(hppLines.map(_.indentIn(2 * indentIncrement)), cppLines.map(indentIn(_)))
+      Output(hppLines.map(_.indentIn(2 * indentIncrement)), cppLines)
     }
     val startLines = c.superclassDecls match {
       case Some(d) => List(
@@ -85,8 +85,8 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
       Line.blank,
       line("};")
     )
-    val startOutput = Output.both(startLines)
-    val endOutput = Output.both(endLines)
+    val startOutput = Output.hpp(startLines)
+    val endOutput = Output.hpp(endLines)
     startOutput ++ output ++ endOutput
   }
 
@@ -105,14 +105,12 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
     val cppLines = {
       val nameLines = lines(s"$qualifiedClassName ::")
       val paramLines = {
-        val lines1 = lines(s"$unqualifiedClassName")
-        val lines2 = writeCppParams(constructor.params)
-        val lines3 = Line.joinLists(Line.NoIndent)(lines1)("")(lines2)
-        val lines4 = constructor.initializers match {
-          case Nil => lines3
-          case _ => Line.joinLists(Line.NoIndent)(lines3)(" ")(lines(":"))
+        val lines1 = writeCppParams(unqualifiedClassName, constructor.params)
+        val lines2 = constructor.initializers match {
+          case Nil => lines1
+          case _ => Line.joinLists(Line.NoIndent)(lines1)(" ")(lines(":"))
          }
-        lines4.map(indentIn(_))
+        lines2.map(indentIn(_))
       }
       val initializerLines = constructor.initializers.reverse match {
         case Nil => Nil
@@ -296,14 +294,14 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
 
   private def writeCppParamComma(p: CppDoc.Function.Param) = line(cppParamStringComma(p))
 
-  private def writeCppParams(params: List[CppDoc.Function.Param]) = {
-    if (params.length == 0) lines("()")
+  private def writeCppParams(prefix: String, params: List[CppDoc.Function.Param]) = {
+    if (params.length == 0) lines(s"$prefix()")
     else if (params.length == 1)
-      lines("(" ++ cppParamString(params.head) ++ ")")
+      lines(s"$prefix(" ++ cppParamString(params.head) ++ ")")
     else {
       val head :: tail = params.reverse
       val paramLines = (writeCppParam(head) :: tail.map(writeCppParamComma(_))).reverse
-      line("(") :: (paramLines.map(_.indentIn(2 * indentIncrement)) :+ line(")"))
+      line(s"$prefix(") :: (paramLines.map(_.indentIn(2 * indentIncrement)) :+ line(")"))
     }
   }
 
