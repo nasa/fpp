@@ -135,12 +135,10 @@ object CppDocWriter extends CppDocVisitor with LineUtils {
       lines1 ++ lines2
     }
     val cppLines = {
-      val startLines = List(
-        line(s"$qualifiedClassName ::"),
-        indentIn(line(s"~$unqualifiedClassName()")),
-      )
+      val startLine1 = line(s"$qualifiedClassName ::")
+      val startLine2 = indentIn(line(s"~$unqualifiedClassName()"))
       val bodyLines = writeFunctionBody(destructor.body)
-      Line.blank :: (startLines ++ bodyLines)
+      Line.blank :: startLine1 :: startLine2 :: bodyLines
     }
     Output(hppLines, cppLines)
   }
