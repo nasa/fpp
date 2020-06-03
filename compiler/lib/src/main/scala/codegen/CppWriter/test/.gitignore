@@ -1,0 +1,4 @@
+*.cpp
+*.hpp
+*.hpp.gch
+*.o

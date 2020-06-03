@@ -48,8 +48,8 @@ object CppDoc {
     )
     case class Destructor(
       comment: Option[String],
-      virtualQualifier: Destructor.VirtualQualifier,
       body: List[Line],
+      virtualQualifier: Destructor.VirtualQualifier = Destructor.NonVirtual
     )
     object Destructor {
       sealed trait VirtualQualifier
