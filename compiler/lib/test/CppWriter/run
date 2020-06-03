@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. ../../../../../../../scripts/test-utils.sh
+. ../../../scripts/test-utils.sh
 
 ./build
 ./hpp > C.hpp
