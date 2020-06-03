@@ -2,7 +2,7 @@
 
 . ../../../../scripts/test-utils.sh
 
-cpp_codegen_ok()
+cpp_doc_ok()
 {
   ./build
   ./hpp > C.hpp
@@ -12,7 +12,7 @@ cpp_codegen_ok()
 }
 
 tests="
-cpp_codegen_ok
+cpp_doc_ok
 "
 
 run_suite $tests
