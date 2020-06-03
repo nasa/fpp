@@ -6,6 +6,7 @@ https://www.scala-sbt.org[Simple Build Tool (sbt)] for Scala.
 
 *Installing:*
 To install in the `bin` directory, run `./install`.
+This step also runs all the unit tests.
 To install to a different directory, run `./install` _dir-name_.
 
 The currently available tools are
@@ -19,8 +20,9 @@ See https://github.jpl.nasa.gov/bocchino/fpp/wiki/Tools
 for more information.
 
 *Testing:*
-Run `./test` to run all unit and integration tests.
-Do this after installing.
+Run `./install` or `./sbt test` to run all unit tests.
+Run `./test` to run all integration tests.
+Do this after running `./install`.
 If you update the build, rerun `./install` before running `./test`.
 
 *Development:*
