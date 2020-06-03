@@ -12,6 +12,8 @@ The currently available tools are
 
 * `fpp-syntax`
 * `fpp-depend`
+* `fpp-check` (constants, types, and enums only)
+* `fpp-to-xml` (structs only)
 
 See https://github.jpl.nasa.gov/bocchino/fpp/wiki/Tools
 for more information.
