@@ -2,13 +2,8 @@ package fpp.compiler.codegen
 
 import java.time.Year
 
-/** A C++ doc hpp writer */
+/** Write a CppDoc to an hpp file */
 object CppDocHppWriter extends CppDocWriter {
-
-  def writeAccessTag(tag: String) = List(
-    Line.blank,
-    line(s"$tag:").indentOut(2)
-  )
 
   def addParamComment(s: String, commentOpt: Option[String]) = commentOpt match {
     case Some(comment) => s"$s //!< ${"\n".r.replaceAllIn(comment, " ")}"
@@ -40,6 +35,11 @@ object CppDocHppWriter extends CppDocWriter {
     s2
   }
 
+  def writeAccessTag(tag: String) = List(
+    Line.blank,
+    line(s"$tag:").indentOut(2)
+  )
+
   def writeParams(prefix: String, params: List[CppDoc.Function.Param]) = {
     if (params.length == 0) lines(s"$prefix()")
     else if (params.length == 1 && params.head.comment.isEmpty)
@@ -53,23 +53,23 @@ object CppDocHppWriter extends CppDocWriter {
 
   override def visitClass(in: Input, c: CppDoc.Class): Output = {
     val name = c.name
-    val newClassNameList = name :: in.classNameList
-    val in1 = in.copy(classNameList = newClassNameList)
-    val startLines = c.superclassDecls match {
+    val commentLines = CppDocWriter.writeDoxygenCommentOpt(c.comment)
+    val openLines = c.superclassDecls match {
       case Some(d) => List(
-        Line.blank,
         line(s"class $name :"), 
         indentIn(line(d)),
         line("{")
       )
-      case None => List(Line.blank, line(s"class $name {"))
+      case None => lines(s"class $name {")
     }
-    val outputLines = {
-      val outputLines = c.members.map(visitClassMember(in1, _)).flatten
-      outputLines.map(_.indentIn(2 * indentIncrement))
+    val bodyLines = {
+      val newClassNameList = name :: in.classNameList
+      val in1 = in.copy(classNameList = newClassNameList)
+      val bodyLines = c.members.map(visitClassMember(in1, _)).flatten
+      bodyLines.map(_.indentIn(2 * indentIncrement))
     }
-    val endLines = List(Line.blank, line("};"))
-    startLines ++ outputLines ++ endLines
+    val closeLines = List(Line.blank, line("};"))
+    commentLines ++ openLines ++ bodyLines ++ closeLines
   }
 
   override def visitConstructor(in: Input, constructor: CppDoc.Class.Constructor) = {

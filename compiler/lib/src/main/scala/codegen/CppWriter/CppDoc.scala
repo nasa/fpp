@@ -22,6 +22,8 @@ object CppDoc {
 
   /** A C++ class */
   case class Class(
+    /** An optional comment */
+    comment: Option[String],
     /** The name of the class */
     name: String,
     /** The superclass declarations, if any, after the colon */
@@ -58,12 +60,19 @@ object CppDoc {
 
   /** A C++ function, either standalone or inside a class */
   case class Function(
+    /** An optional comment */
     comment: Option[String],
+    /** The function name */
     name: String,
+    /** The formal parameters */
     params: List[Function.Param],
+    /** The return type */
     retType: Type,
+    /** The function body */
     body: List[Line],
+    /** The static or virtual qualifier */
     svQualifier: Function.SVQualifier = Function.NonSV,
+    /** The const qualifier */
     constQualifier: Function.ConstQualifier = Function.NonConst,
   )
   case object Function {
