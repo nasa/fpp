@@ -14,8 +14,10 @@ trait CppDocWriter extends CppDocVisitor with LineUtils {
     classNameList: List[String] = Nil,
   ) {
 
+    /** Get the enclosing class name, including any qualifier */
     def getEnclosingClassQualified = classNameList.reverse.mkString("::")
  
+    /** Get the enclosing class name with no qualifier */
     def getEnclosingClassUnqualified = classNameList.head.split("::").reverse.head
 
   }

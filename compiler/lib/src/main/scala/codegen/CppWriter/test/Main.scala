@@ -7,7 +7,7 @@ object Program extends LineUtils {
   val namespace = {
     val c = {
       val publicTag = {
-        val tag = CppDocHppWriter.accessTag("public")
+        val tag = CppDocHppWriter.writeAccessTag("public")
         val lines = CppDoc.Lines(tag)
         CppDoc.Class.Member.Lines(lines)
       }
@@ -61,18 +61,35 @@ object Program extends LineUtils {
         val body = Nil
         val svQualifier = CppDoc.Function.NonSV
         val constQualifier = CppDoc.Function.NonConst
-        val function = CppDoc.Function(comment, name, params, retType, body, svQualifier, constQualifier)
+        val function = CppDoc.Function(
+          comment,
+          name,
+          params,
+          retType,
+          body,
+          svQualifier,
+          constQualifier
+        )
         CppDoc.Class.Member.Function(function)
       }
       val variables = {
-        val tag = CppDocHppWriter.accessTag("private")
+        val tag = CppDocHppWriter.writeAccessTag("private")
         val comment = CppDocWriter.writeDoxygenComment("Member variable y")
         val y = lines("int y;")
         val content = tag ++ comment ++ y
         val cppDocLines = CppDoc.Lines(content)
         CppDoc.Class.Member.Lines(cppDocLines)
       }
-      val members = List(publicTag, constComment, constMember, destMember, publicTag, publicFunc, functionMember, variables)
+      val members = List(
+        publicTag,
+        constComment,
+        constMember,
+        destMember,
+        publicTag,
+        publicFunc,
+        functionMember,
+        variables
+      )
       CppDoc.Class("C", None, members)
     }
     val member = CppDoc.Member.Class(c)

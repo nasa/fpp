@@ -5,16 +5,50 @@ import java.time.Year
 /** A C++ doc hpp writer */
 object CppDocHppWriter extends CppDocWriter {
 
-  override def visitCppDoc(cppDoc: CppDoc): Output = {
-    val hppFile = cppDoc.hppFile
-    val cppFileName = cppDoc.cppFileName
-    val in = Input(hppFile, cppFileName)
-    List(
-      CppDocWriter.writeBanner(in.hppFile.name),
-      openIncludeGuard(hppFile.includeGuard),
-      cppDoc.members.map(visitMember(in, _)).flatten,
-      closeIncludeGuard
-    ).flatten
+  def writeAccessTag(tag: String) = List(
+    Line.blank,
+    line(s"$tag:").indentOut(2)
+  )
+
+  def addParamComment(s: String, commentOpt: Option[String]) = commentOpt match {
+    case Some(comment) => s"$s //!< ${"\n".r.replaceAllIn(comment, " ")}"
+    case None => s
+  }
+
+  def closeIncludeGuard = lines(
+    """|
+       |#endif"""
+  )
+
+  def openIncludeGuard(guard: String): List[Line] = {
+    lines(
+      s"""|
+          |#ifndef $guard
+          |#define $guard"""
+    )
+  }
+
+  def paramString(p: CppDoc.Function.Param) = {
+    val s1 = CppDocCppWriter.paramString(p)
+    val s2 = addParamComment(s1, p.comment)
+    s2
+  }
+
+  def paramStringComma(p: CppDoc.Function.Param) = {
+    val s1 = CppDocCppWriter.paramStringComma(p)
+    val s2 = addParamComment(s1, p.comment)
+    s2
+  }
+
+  def writeParams(prefix: String, params: List[CppDoc.Function.Param]) = {
+    if (params.length == 0) lines(s"$prefix()")
+    else if (params.length == 1 && params.head.comment.isEmpty)
+      lines(s"$prefix(" ++ CppDocCppWriter.paramString(params.head) ++ ")")
+    else {
+      val head :: tail = params.reverse
+      val paramLines = (writeParam(head) :: tail.map(writeParamComma(_))).reverse
+      line(s"$prefix(") :: (paramLines.map(_.indentIn(2 * indentIncrement)) :+ line(")"))
+    }
   }
 
   override def visitClass(in: Input, c: CppDoc.Class): Output = {
@@ -50,6 +84,18 @@ object CppDocHppWriter extends CppDocWriter {
       lines1 ++ lines2
     }
     outputLines
+  }
+
+  override def visitCppDoc(cppDoc: CppDoc): Output = {
+    val hppFile = cppDoc.hppFile
+    val cppFileName = cppDoc.cppFileName
+    val in = Input(hppFile, cppFileName)
+    List(
+      CppDocWriter.writeBanner(in.hppFile.name),
+      openIncludeGuard(hppFile.includeGuard),
+      cppDoc.members.map(visitMember(in, _)).flatten,
+      closeIncludeGuard
+    ).flatten
   }
 
   override def visitDestructor(in: Input, destructor: CppDoc.Class.Destructor) = {
@@ -113,53 +159,6 @@ object CppDocHppWriter extends CppDocWriter {
     val outputLines = namespace.members.map(visitNamespaceMember(in, _)).flatten
     val endLines = List(Line.blank, line("}"))
     startLines ++ outputLines.map(indentIn(_)) ++ endLines
-  }
-
-  def accessTag(tag: String) = List(
-    Line.blank,
-    line(s"$tag:").indentOut(2)
-  )
-
-  def addParamComment(s: String, commentOpt: Option[String]) = commentOpt match {
-    case Some(comment) => s"$s //!< ${"\n".r.replaceAllIn(comment, " ")}"
-    case None => s
-  }
-
-  def closeIncludeGuard = lines(
-    """|
-       |#endif"""
-  )
-
-
-  def openIncludeGuard(guard: String): List[Line] = {
-    lines(
-      s"""|
-          |#ifndef $guard
-          |#define $guard"""
-    )
-  }
-
-  def paramString(p: CppDoc.Function.Param) = {
-    val s1 = CppDocCppWriter.paramString(p)
-    val s2 = addParamComment(s1, p.comment)
-    s2
-  }
-
-  def paramStringComma(p: CppDoc.Function.Param) = {
-    val s1 = CppDocCppWriter.paramStringComma(p)
-    val s2 = addParamComment(s1, p.comment)
-    s2
-  }
-
-  def writeParams(prefix: String, params: List[CppDoc.Function.Param]) = {
-    if (params.length == 0) lines(s"$prefix()")
-    else if (params.length == 1 && params.head.comment.isEmpty)
-      lines(s"$prefix(" ++ CppDocCppWriter.paramString(params.head) ++ ")")
-    else {
-      val head :: tail = params.reverse
-      val paramLines = (writeParam(head) :: tail.map(writeParamComma(_))).reverse
-      line(s"$prefix(") :: (paramLines.map(_.indentIn(2 * indentIncrement)) :+ line(")"))
-    }
   }
 
 }
