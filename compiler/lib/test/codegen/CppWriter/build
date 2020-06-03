@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-codegen=../../src/main/scala/codegen
+codegen=../../../src/main/scala/codegen
 
 files="
 $codegen/Indentation.scala

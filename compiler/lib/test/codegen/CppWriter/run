@@ -1,0 +1,18 @@
+#!/bin/sh
+
+. ../../../../scripts/test-utils.sh
+
+cpp_codegen_ok()
+{
+  ./build
+  ./hpp > C.hpp
+  ./cpp > C.cpp
+
+  gcc -c C.cpp
+}
+
+tests="
+cpp_codegen_ok
+"
+
+run_suite $tests
