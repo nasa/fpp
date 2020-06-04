@@ -37,4 +37,12 @@ $t()
 done > default-tests.sh
 . ./default-tests.sh
 
+struct_ok()
+{
+  run_test "-n struct_ok.names.txt -p $PWD" struct_ok
+  diff -u struct_ok.names.txt struct_ok.names.ref.txt
+  diff -u StructOK1SerializableAi.xml StructOK1SerializableAi.ref.xml
+  diff -u StructOK2SerializableAi.xml StructOK2SerializableAi.ref.xml
+}
+
 run_suite $tests

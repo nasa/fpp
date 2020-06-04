@@ -35,6 +35,14 @@ $t()
 done > default-update-ref.sh
 . ./default-update-ref.sh
 
+struct_ok()
+{
+  update "-n struct_ok.names.txt -p $PWD" struct_ok
+  mv struct_ok.names.txt struct_ok.names.ref.txt
+  mv StructOK1SerializableAi.xml StructOK1SerializableAi.ref.xml 
+  mv StructOK2SerializableAi.xml StructOK2SerializableAi.ref.xml 
+}
+
 for t in $tests
 do
   echo "updating ref output for $t"
