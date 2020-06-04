@@ -44,18 +44,19 @@ object StructXmlWriter extends AstVisitor with LineUtils {
     val node = aNode._2
     val data = node.getData
     val pairs = ("name", data.name) :: TypeXmlWriter.getPairs(s, data.typeName)
-    val pairs1 = structType.formats.get(data.name) match {
-      case Some(format) => {
-        val s = FormatXmlWriter.formatToString(format, List(data.typeName))
-        pairs :+ ("format", s)
+    val pairs1 = {
+      val format = structType.formats.get(data.name) match {
+        case Some(format) => format
+        case None => Format("", List((Format.Field.Default,"")))
       }
-      case None => pairs
+      val s = FormatXmlWriter.formatToString(format, List(data.typeName))
+      pairs :+ ("format", s)
     }
     val pairs2 = AnnotationXmlWriter.singleLineComment(aNode) match {
       case Some(comment) => pairs1 :+ comment
       case None => pairs1
     }
-    line(XmlTags.openCloseTag("member", pairs1))
+    line(XmlTags.openCloseTag("member", pairs2))
   }
 
   type In = XmlWriterState
