@@ -45,4 +45,11 @@ struct_ok()
   diff -u StructOK2SerializableAi.xml StructOK2SerializableAi.ref.xml
 }
 
+struct_format()
+{
+  run_test '' struct_format
+  diff StructFormatSerializableAi.xml StructFormatSerializableAi.ref.xml
+}
+
+
 run_suite $tests

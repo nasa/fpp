@@ -43,6 +43,12 @@ struct_ok()
   mv StructOK2SerializableAi.xml StructOK2SerializableAi.ref.xml 
 }
 
+struct_format()
+{
+  update '' struct_format
+  mv StructFormatSerializableAi.xml StructFormatSerializableAi.ref.xml 
+}
+
 for t in $tests
 do
   echo "updating ref output for $t"
