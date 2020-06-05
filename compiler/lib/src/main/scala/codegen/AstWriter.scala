@@ -209,8 +209,8 @@ object AstWriter extends AstVisitor with LineUtils {
     }
     val (_, node, _) = an
     node.getData match {
-      case g @ Ast.SpecConnectionGraph.Direct(_, _) => direct(g)
-      case g @ Ast.SpecConnectionGraph.Pattern(_, _, _) => pattern(g)
+      case g : Ast.SpecConnectionGraph.Direct => direct(g)
+      case g : Ast.SpecConnectionGraph.Pattern => pattern(g)
     }
   }
 
@@ -340,8 +340,8 @@ object AstWriter extends AstVisitor with LineUtils {
       (kind(i.kind) ++ ident(i.name)).map(indentIn)
     }
     node.getData match {
-      case i @ Ast.SpecPortInstance.General(_, _, _, _, _, _) => general(i)
-      case i @ Ast.SpecPortInstance.Special(_, _) => special(i)
+      case i : Ast.SpecPortInstance.General => general(i)
+      case i : Ast.SpecPortInstance.Special => special(i)
     }
   }
 

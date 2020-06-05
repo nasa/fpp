@@ -138,8 +138,8 @@ trait TypeExpressionAnalyzer
     val (_, node1, _) = node
     val data = node1.getData
     data match {
-      case direct @ Ast.SpecConnectionGraph.Direct(_, _) => visitList(a, direct.connections, connection)
-      case pattern @ Ast.SpecConnectionGraph.Pattern(_, _, _) => exprNode(a, pattern.pattern)
+      case direct : Ast.SpecConnectionGraph.Direct => visitList(a, direct.connections, connection)
+      case pattern : Ast.SpecConnectionGraph.Pattern => exprNode(a, pattern.pattern)
     }
   }
 
@@ -184,7 +184,7 @@ trait TypeExpressionAnalyzer
     val (_, node1, _) = node
     val data = node1.getData
     data match {
-      case general @ Ast.SpecPortInstance.General(_, _, _, _, _, _) =>
+      case general : Ast.SpecPortInstance.General =>
         for {
           a <- opt(exprNode)(a, general.size)
           a <- opt(exprNode)(a, general.priority)

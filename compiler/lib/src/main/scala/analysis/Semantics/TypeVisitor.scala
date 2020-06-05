@@ -31,17 +31,17 @@ trait TypeVisitor {
 
   final def matchType(in: In, t: Type): Out =
     t match {
-      case t @ Type.AbsType(_) => absType(in, t)
-      case t @ Type.AnonArray(_, _) => anonArray(in, t)
-      case t @ Type.AnonStruct(_) => anonStruct(in, t)
-      case t @ Type.Array(_, _, _, _) => array(in, t)
+      case t : Type.AbsType => absType(in, t)
+      case t : Type.AnonArray => anonArray(in, t)
+      case t : Type.AnonStruct => anonStruct(in, t)
+      case t : Type.Array => array(in, t)
       case Type.Boolean => boolean(in)
-      case t @ Type.Enum(_, _, _) => enum(in, t)
-      case t @ Type.Float(_) => float(in, t)
+      case t : Type.Enum => enum(in, t)
+      case t : Type.Float => float(in, t)
       case Type.Integer => integer(in)
-      case t @ Type.PrimitiveInt(_) => primitiveInt(in, t)
-      case t @ Type.String(_) => string(in, t)
-      case t @ Type.Struct(_, _, _, _) => struct(in, t)
+      case t : Type.PrimitiveInt => primitiveInt(in, t)
+      case t : Type.String => string(in, t)
+      case t : Type.Struct => struct(in, t)
       case _ => default(in, t)
     }
 

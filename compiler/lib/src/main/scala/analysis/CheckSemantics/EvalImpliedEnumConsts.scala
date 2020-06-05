@@ -28,7 +28,7 @@ object EvalImpliedEnumConsts
           case Nil => Right(a)
           case node :: tail => {
             val enumType = a.typeMap(node.getId) match {
-              case enumType @ Type.Enum(_, _, _) => enumType
+              case enumType : Type.Enum => enumType
               case _ => throw InternalError("type of enum definition should be enum type")
             }
             val value = (node.data.name, BigInt(intValue))

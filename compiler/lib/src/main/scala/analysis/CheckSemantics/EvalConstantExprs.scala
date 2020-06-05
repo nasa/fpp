@@ -60,7 +60,7 @@ object EvalConstantExprs extends UseAnalyzer {
                 case _ => throw InternalError("conversion to Integer type should yield Integer value")
               }
               val enumType = a.typeMap(node.getId) match {
-                case enumType @ Type.Enum(_, _, _) => enumType
+                case enumType : Type.Enum => enumType
                 case _ => throw InternalError("type of enum constant definition should be enum type")
               }
               val value = (node.data.name, intValue)

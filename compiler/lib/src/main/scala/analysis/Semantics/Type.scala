@@ -407,8 +407,8 @@ object Type {
             for (eltType <- commonType(eltType1, eltType2)) yield AnonArray(size, eltType)
           }
           else None
-        case _ -> (anonArray @ AnonArray(_, _)) => singleAnonArray(anonArray, t1)
-        case (anonArray @ AnonArray(size1, eltType1)) -> _ => singleAnonArray(anonArray, t2)
+        case _ -> (anonArray : AnonArray) => singleAnonArray(anonArray, t1)
+        case (anonArray : AnonArray) -> _ => singleAnonArray(anonArray, t2)
         case _ => None
       }
     }

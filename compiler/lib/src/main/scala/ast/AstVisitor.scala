@@ -108,17 +108,17 @@ trait AstVisitor {
 
   final def matchExprNode(in: In, node: AstNode[Ast.Expr]): Out =
     node.getData match {
-      case e @ Ast.ExprBinop(_, _, _) => exprBinopNode(in, node, e)
-      case e @ Ast.ExprArray(_) => exprArrayNode(in, node, e)
-      case e @ Ast.ExprDot(_, _) => exprDotNode(in, node, e)
-      case e @ Ast.ExprIdent(_) => exprIdentNode(in, node, e)
-      case e @ Ast.ExprLiteralInt(_) => exprLiteralIntNode(in, node, e)
-      case e @ Ast.ExprLiteralFloat(_) => exprLiteralFloatNode(in, node, e)
-      case e @ Ast.ExprLiteralString(_) => exprLiteralStringNode(in, node, e)
-      case e @ Ast.ExprLiteralBool(_) => exprLiteralBoolNode(in, node, e)
-      case e @ Ast.ExprParen(_) => exprParenNode(in, node, e)
-      case e @ Ast.ExprStruct(_) => exprStructNode(in, node, e)
-      case e @ Ast.ExprUnop(_, _) => exprUnopNode(in, node, e)
+      case e : Ast.ExprBinop => exprBinopNode(in, node, e)
+      case e : Ast.ExprArray => exprArrayNode(in, node, e)
+      case e : Ast.ExprDot => exprDotNode(in, node, e)
+      case e : Ast.ExprIdent => exprIdentNode(in, node, e)
+      case e : Ast.ExprLiteralInt => exprLiteralIntNode(in, node, e)
+      case e : Ast.ExprLiteralFloat => exprLiteralFloatNode(in, node, e)
+      case e : Ast.ExprLiteralString => exprLiteralStringNode(in, node, e)
+      case e : Ast.ExprLiteralBool => exprLiteralBoolNode(in, node, e)
+      case e : Ast.ExprParen => exprParenNode(in, node, e)
+      case e : Ast.ExprStruct => exprStructNode(in, node, e)
+      case e : Ast.ExprUnop => exprUnopNode(in, node, e)
     }
 
   final def matchModuleMember(in: In, member: Ast.ModuleMember): Out = {
@@ -157,10 +157,10 @@ trait AstVisitor {
   final def matchTypeNameNode(in: In, node: AstNode[Ast.TypeName]): Out =
     node.getData match {
       case Ast.TypeNameBool => typeNameBoolNode(in, node)
-      case tn @ Ast.TypeNameFloat(_) => typeNameFloatNode(in, node, tn)
-      case tn @ Ast.TypeNameInt(_) => typeNameIntNode(in, node, tn)
-      case tn @ Ast.TypeNameQualIdent(_) => typeNameQualIdentNode(in, node, tn)
-      case tn @ Ast.TypeNameString(_) => typeNameStringNode(in, node, tn)
+      case tn : Ast.TypeNameFloat => typeNameFloatNode(in, node, tn)
+      case tn : Ast.TypeNameInt => typeNameIntNode(in, node, tn)
+      case tn : Ast.TypeNameQualIdent => typeNameQualIdentNode(in, node, tn)
+      case tn : Ast.TypeNameString => typeNameStringNode(in, node, tn)
     }
 
 }

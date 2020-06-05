@@ -80,10 +80,10 @@ sealed trait Value {
       for (anonStruct <- promoteToAnonStruct(struct.anonStruct))
         yield Value.Struct(anonStruct, struct)
     t match {
-      case anonArray @ Type.AnonArray(_, _) => promoteToAnonArray(anonArray)
-      case array @ Type.Array(_, _, _, _) => promoteToArray(array)
-      case anonStruct @ Type.AnonStruct(_) => promoteToAnonStruct(anonStruct)
-      case struct @ Type.Struct(_, _, _, _) => promoteToStruct(struct)
+      case anonArray : Type.AnonArray => promoteToAnonArray(anonArray)
+      case array : Type.Array => promoteToArray(array)
+      case anonStruct : Type.AnonStruct => promoteToAnonStruct(anonStruct)
+      case struct : Type.Struct => promoteToStruct(struct)
       case _ => None
     }
   }
@@ -118,7 +118,7 @@ object Value {
         val result = op.doubleOp(value.toFloat, value1)
         Some(Float(result.toFloat, Type.Float.F64))
       }
-      case enumConstant @ EnumConstant(_, _) =>
+      case enumConstant : EnumConstant =>
         binop(op)(enumConstant.convertToRepType)
       case _ => None
     }
@@ -178,7 +178,7 @@ object Value {
         val result = op.doubleOp(value.toFloat, value1)
         Some(Float(result.toFloat, Type.Float.F64))
       }
-      case enumConstant @ EnumConstant(_, _) =>
+      case enumConstant : EnumConstant =>
         binop(op)(enumConstant.convertToRepType)
       case _ => None
     }
@@ -220,7 +220,7 @@ object Value {
           else Float(result1, Type.Float.F64)
         Some(result2)
       }
-      case enumConstant @ EnumConstant(_, _) =>
+      case enumConstant : EnumConstant =>
         binop(op)(enumConstant.convertToRepType)
       case _ => None
     }
@@ -303,8 +303,8 @@ object Value {
 
     override def convertToDistinctType(t: Type) =
       t match {
-        case anonArrayType @ Type.AnonArray(_, _) => convertToAnonArray(anonArrayType)
-        case arrayType @ Type.Array(_, _, _, _) => convertToArray(arrayType)
+        case anonArrayType : Type.AnonArray => convertToAnonArray(anonArrayType)
+        case arrayType : Type.Array => convertToArray(arrayType)
         case _ => None
       }
 
@@ -336,8 +336,8 @@ object Value {
 
     override def convertToDistinctType(t: Type) =
       t match {
-        case anonArrayType @ Type.AnonArray(_, _) => convertToAnonArray(anonArrayType)
-        case arrayType @ Type.Array(_, _, _, _) => convertToArray(arrayType)
+        case anonArrayType : Type.AnonArray => convertToAnonArray(anonArrayType)
+        case arrayType : Type.Array => convertToArray(arrayType)
         case _ => None
       }
 
@@ -403,8 +403,8 @@ object Value {
 
     override def convertToDistinctType(t: Type) =
       t match {
-        case anonStructType @ Type.AnonStruct(_) => convertToAnonStruct(anonStructType)
-        case structType @ Type.Struct(_, _, _, _) => convertToStruct(structType)
+        case anonStructType : Type.AnonStruct => convertToAnonStruct(anonStructType)
+        case structType : Type.Struct => convertToStruct(structType)
         case _ => None
       }
 
@@ -441,8 +441,8 @@ object Value {
       anonStruct.convertToStruct(structType)
     override def convertToDistinctType(t: Type) =
       t match {
-        case anonStructType @ Type.AnonStruct(_) => convertToAnonStruct(anonStructType)
-        case structType @ Type.Struct(_, _, _, _) => convertToStruct(structType)
+        case anonStructType : Type.AnonStruct => convertToAnonStruct(anonStructType)
+        case structType : Type.Struct => convertToStruct(structType)
         case _ => None
       }
 
