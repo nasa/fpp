@@ -1,7 +1,8 @@
 === Module Definitions
 
-A *module definition* provides a named scope that encloses other
+A *module definition* provides a named scope that encloses and qualifies other
 definitions, including other module definitions.
+It is similar to a namespace in C++ or a package in Java or Scala.
 
 ==== Syntax
 

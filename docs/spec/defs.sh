@@ -10,7 +10,6 @@ export FILES="
 Introduction.adoc
 Syntax-Notation.adoc
 Lexical-Elements.adoc
-Translation-Units-and-Models.adoc
 Element-Sequences.adoc
 Definitions/Definitions.adoc
 Specifiers/Specifiers.adoc
@@ -20,6 +19,7 @@ Expressions/Expressions.adoc
 Formal-Parameter-Lists.adoc
 Format-Strings.adoc
 Comments-and-Annotations.adoc
+Translation-Units-and-Models.adoc
 Scoping-of-Names.adoc
 Definitions-and-Uses.adoc
 Types.adoc
