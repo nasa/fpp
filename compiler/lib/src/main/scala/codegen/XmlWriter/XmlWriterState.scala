@@ -82,4 +82,12 @@ case class XmlWriterState(
     case head :: tail => tail.foldLeft(head)({ case (s, name) => s ++ "::" ++ name })
   }
 
+  /** Get the enclosing namespace and the name */
+  def getNamespaceAndName(name: String): List[(String, String)] = {
+    val namespace = this.getNamespace
+    val namePair = ("name", name)
+    val namespacePair = ("namespace", namespace)
+    if (namespace != "") List(namespacePair, namePair) else List(namePair)
+  }
+
 }

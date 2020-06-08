@@ -14,13 +14,10 @@ object StructXmlWriter extends AstVisitor with LineUtils {
     val loc = Locations.get(node.getId)
     val data = node.getData
     val tags = {
-      val namespace = s.getNamespace
-      val namePair = ("name", data.name)
-      val namespacePair = ("namespace", namespace)
-      val pairs = if (namespace != "") List(namespacePair, namePair) else List(namePair)
+      val pairs = s.getNamespaceAndName(data.name)
       XmlTags.tags("serializable", pairs)
     }
-    val body: List[Line] = {
+    val body = {
       val Right(a1) = UsedSymbols.defStructAnnotatedNode(s.a, aNode)
       val s1 = s.copy(a = a1)
       val comment = AnnotationXmlWriter.multilineComment(aNode)
