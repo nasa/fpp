@@ -51,5 +51,16 @@ struct_format()
   diff StructFormatSerializableAi.xml StructFormatSerializableAi.ref.xml
 }
 
+struct_output_dir()
+{
+  run_test '-d output_dir' output_dir/struct_output_dir
+  diff output_dir/StructOutputDirSerializableAi.xml output_dir/StructOutputDirSerializableAi.ref.xml
+}
+
+struct_string()
+{
+  run_test '' struct_string
+  diff StructStringSerializableAi.xml StructStringSerializableAi.ref.xml
+}
 
 run_suite $tests

@@ -4,3 +4,7 @@
 
 clean
 rm -f default-tests.sh default-update-ref.sh
+for file in `find . -name '*Ai.xml'`
+do
+  rm $file
+done

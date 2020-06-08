@@ -49,6 +49,18 @@ struct_format()
   mv StructFormatSerializableAi.xml StructFormatSerializableAi.ref.xml 
 }
 
+struct_output_dir()
+{
+  update '-d output_dir' output_dir/struct_output_dir
+  mv output_dir/StructOutputDirSerializableAi.xml output_dir/StructOutputDirSerializableAi.ref.xml
+}
+
+struct_string()
+{
+  update '' struct_string
+  mv StructStringSerializableAi.xml StructStringSerializableAi.ref.xml 
+}
+
 for t in $tests
 do
   echo "updating ref output for $t"
