@@ -35,6 +35,18 @@ $t()
 done > default-update-ref.sh
 . ./default-update-ref.sh
 
+enum_explicit()
+{
+  update '' enum_explicit
+  mv ExplicitEnumAi.xml ExplicitEnumAi.ref.xml 
+}
+
+enum_implicit()
+{
+  update '' enum_implicit
+  mv ImplicitEnumAi.xml ImplicitEnumAi.ref.xml 
+}
+
 struct_ok()
 {
   update "-n struct_ok.names.txt -p $PWD" struct_ok

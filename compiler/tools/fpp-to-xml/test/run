@@ -37,6 +37,18 @@ $t()
 done > default-tests.sh
 . ./default-tests.sh
 
+enum_explicit()
+{
+  run_test '' enum_explicit && \
+    diff ExplicitEnumAi.xml ExplicitEnumAi.ref.xml
+}
+
+enum_implicit()
+{
+  run_test '' enum_implicit && \
+    diff ImplicitEnumAi.xml ImplicitEnumAi.ref.xml
+}
+
 struct_ok()
 {
   run_test "-n struct_ok.names.txt -p $PWD" struct_ok && \
