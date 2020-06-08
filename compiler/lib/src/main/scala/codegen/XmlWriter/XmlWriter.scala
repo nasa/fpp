@@ -19,8 +19,9 @@ object XmlWriter extends AstStateVisitor with LineUtils {
   override def defEnumAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
     val (_, node, _) = aNode
     val data = node.getData
-    // TODO
-    default(s)
+    val fileName = ComputeXmlFiles.getEnumFileName(data)
+    val lines = EnumXmlWriter.defEnumAnnotatedNode(s, aNode)
+    writeXmlFile(s, fileName, lines)
   }
 
   override def defModuleAnnotatedNode(

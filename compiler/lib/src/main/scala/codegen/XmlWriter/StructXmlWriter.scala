@@ -4,7 +4,7 @@ import fpp.compiler.analysis._
 import fpp.compiler.ast._
 import fpp.compiler.util._
 
-/** Write out F Prime XML for structs */
+/** Write out F Prime XML for struct definitions */
 object StructXmlWriter extends AstVisitor with LineUtils {
 
   override def default(s: XmlWriterState) = Nil
