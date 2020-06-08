@@ -3,6 +3,11 @@ constant b = a
 constant c = M.a
 constant d = M.N.a
 
+constant hex1 = 0xFF
+constant hex2 = 0xff
+constant hex3 = 0XFF
+constant hex4 = 0Xff
+
 module M {
 
   constant a = 0

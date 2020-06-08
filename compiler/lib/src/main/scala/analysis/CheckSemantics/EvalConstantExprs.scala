@@ -116,7 +116,9 @@ object EvalConstantExprs extends UseAnalyzer {
   }
 
   override def exprLiteralIntNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralInt) = {
-    val v = Value.Integer(BigInt(e.value))
+    val bigInt = if (e.value.startsWith("0x") || e.value.startsWith("0X"))
+      BigInt(e.value.substring(2, e.value.length), 16) else BigInt(e.value)
+    val v = Value.Integer(bigInt)
     Right(a.assignValue(node -> v))
   }
   
