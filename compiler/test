@@ -1,5 +1,9 @@
 #!/bin/sh
 
+. scripts/test-utils.sh
+
+num_failed=0
+
 tests=`find . -name run | grep test | sed 's;^\./;;'`
 for t in $tests
 do
@@ -7,4 +11,17 @@ do
   dir=`dirname $t`
   base=`basename $t`
   (cd $dir; ./$base)
+  num_failed=`expr $num_failed + $?`
 done
+
+echo 
+if test $num_failed -eq 0
+then
+  printf "All tests "
+  echo_green PASSED
+else
+  printf "$num_failed tests "
+  echo_red FAILED
+fi
+
+exit $num_failed
