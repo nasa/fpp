@@ -1,0 +1,6 @@
+*.out.txt
+*.diff.txt
+*Ai.xml
+*.names.txt
+default-tests.sh
+default-update-ref.sh
