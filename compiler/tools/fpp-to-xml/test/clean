@@ -4,7 +4,7 @@
 
 clean
 rm -f default-tests.sh default-update-ref.sh
-for file in `find . -name '*Ai.xml'`
+for file in `find . -name '*Ai.xml' -or -name '*.names.txt'`
 do
   rm $file
 done
