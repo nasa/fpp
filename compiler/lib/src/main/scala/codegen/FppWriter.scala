@@ -15,7 +15,7 @@ object FppWriter extends AstVisitor with LineUtils {
   }
 
   /*
-  override def defArrayAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.DefArray]]) = {
+  override def defArrayAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val (_, node, _) = an
     val da = node.getData
     lines("def array") ++
@@ -28,7 +28,7 @@ object FppWriter extends AstVisitor with LineUtils {
     ).flatten.map(indentIn)
   }
 
-  override def defComponentAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.DefComponent]]) = {
+  override def defComponentAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefComponent]]) = {
     val (_, node, _) = an
     val dc = node.getData
     val kind = dc.kind match {
@@ -44,7 +44,7 @@ object FppWriter extends AstVisitor with LineUtils {
     ).map(indentIn)
   }
 
-  override def defComponentInstanceAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.DefComponentInstance]]) = {
+  override def defComponentInstanceAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefComponentInstance]]) = {
     val (_, node, _) = an
     val dci = node.getData
     lines("def component instance") ++
@@ -57,15 +57,18 @@ object FppWriter extends AstVisitor with LineUtils {
       addPrefix("priority", exprNode) (dci.baseId),
     ).flatten.map(indentIn)
   }
+  */
 
-  override def defConstantAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
-    val (_, node, _) = an
-    val dc = node.getData
-    lines("def constant") ++
-    (ident(dc.name) ++ exprNode(dc.value)).map(indentIn)
+  override def defConstantAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
+    val (_, node, _) = aNode
+    val data = node.getData
+    val prefix = lines(s"constant ${data.name} = ")
+    val expr = exprNode(data.value)
+    Line.joinLists (Line.Indent) (prefix) ("") (expr)
   }
 
-  override def defEnumAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
+  /*
+  override def defEnumAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
     val (_, node, _) = an
     val de = node.getData
     lines("def enum") ++
@@ -76,14 +79,14 @@ object FppWriter extends AstVisitor with LineUtils {
     ).flatten.map(indentIn)
   }
 
-  override def defModuleAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.DefModule]]) = {
+  override def defModuleAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefModule]]) = {
     val (_, node, _) = an
     val dm = node.getData
     lines("def module") ++
     (ident(dm.name) ++ dm.members.map(moduleMember).flatten).map(indentIn)
   }
 
-  override def defPortAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.DefPort]]) = {
+  override def defPortAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefPort]]) = {
     val (_, node, _) = an
     val dp = node.getData
     lines("def port") ++
@@ -94,7 +97,7 @@ object FppWriter extends AstVisitor with LineUtils {
     ).flatten.map(indentIn)
   }
 
-  override def defStructAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
+  override def defStructAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
     val (_, node, _) = an
     val ds = node.getData
     lines("def struct") ++ 
@@ -105,7 +108,7 @@ object FppWriter extends AstVisitor with LineUtils {
     ).map(indentIn) 
   }
 
-  override def defTopologyAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.DefTopology]]) = {
+  override def defTopologyAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefTopology]]) = {
     val (_, node, _) = an
     val dt = node.getData
     lines("def topology") ++
@@ -115,43 +118,47 @@ object FppWriter extends AstVisitor with LineUtils {
 
   override def default(in: Unit) = Nil
 
-  /*
   override def exprArrayNode(in: Unit, node: AstNode[Ast.Expr], e: Ast.ExprArray) =
-    lines("expr array") ++
-    e.elts.map(exprNode).flatten.map(indentIn)
+    (line("[") :: e.elts.map(exprNode).flatten.map(indentIn)) :+ line("]")
 
   override def exprBinopNode(in: Unit, node: AstNode[Ast.Expr], e: Ast.ExprBinop) =
-    lines("expr binop") ++
-    (exprNode(e.e1) ++ binop(e.op) ++ exprNode(e.e2)).map(indentIn)
+    Line.joinLists (Line.NoIndent) (exprNode(e.e1)) (binop(e.op)) (exprNode(e.e2))
   
   override def exprDotNode(in: Unit, node: AstNode[Ast.Expr], e: Ast.ExprDot) =
-    lines("expr dot") ++
-    (exprNode(e.e) ++ ident(e.id.getData)).map(indentIn)
+    Line.joinLists (Line.NoIndent) (exprNode(e.e)) (".") (lines(e.id.getData))
 
   override def exprIdentNode(in: Unit, node: AstNode[Ast.Expr], e: Ast.ExprIdent) = 
-    ident(e.value)
+    lines(e.value)
 
   override def exprLiteralBoolNode(in: Unit, node: AstNode[Ast.Expr], e: Ast.ExprLiteralBool) = {
     val s = e.value match {
       case Ast.LiteralBool.True => "true"
       case Ast.LiteralBool.False => "false"
     }
-    lines("literal bool " ++ s)
+    lines(s)
   }
 
   override def exprLiteralFloatNode(in: Unit, node: AstNode[Ast.Expr], e: Ast.ExprLiteralFloat) =
-    lines("literal float " ++ e.value)
+    lines(e.value)
   
   override def exprLiteralIntNode(in: Unit, node: AstNode[Ast.Expr], e: Ast.ExprLiteralInt) =
-    lines("literal int " ++ e.value)
+    lines(e.value)
 
   override def exprLiteralStringNode(in: Unit, node: AstNode[Ast.Expr], e: Ast.ExprLiteralString) =
-    addPrefix("literal string", string) (e.value)
+    e.value.split("\n").toList match {
+      case Nil => lines("\"\"")
+      case s :: Nil => lines("\"" ++ s.replaceAll("\"", "\\\"") ++ "\"")
+      case ss => {
+        lines("\"\"\"") ++
+        ss.map((s: String) => line(s.replaceAll("\"\"\"", "\\\"\"\""))) ++
+        lines("\"\"\"")
+      }
+    }
 
   override def exprParenNode(in: Unit, node: AstNode[Ast.Expr], e: Ast.ExprParen) =
-    lines("expr paren") ++
-    exprNode(e.e).map(indentIn)
+    addPrefixAndSuffix("(", exprNode _, ")")(e.e)
 
+  /*
   override def exprStructNode(in: Unit, node: AstNode[Ast.Expr], e: Ast.ExprStruct) =
     lines("expr struct") ++
     e.members.map(applyToData(structMember)).flatten.map(indentIn)
@@ -160,7 +167,7 @@ object FppWriter extends AstVisitor with LineUtils {
     lines("expr unop") ++
     (unop(e.op) ++ exprNode(e.e)).map(indentIn)
 
-  override def specCommandAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.SpecCommand]]) = {
+  override def specCommandAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecCommand]]) = {
     val (_, node, _) = an
     def kind(k: Ast.SpecCommand.Kind) = k match {
       case Ast.SpecCommand.Async => "async"
@@ -179,7 +186,7 @@ object FppWriter extends AstVisitor with LineUtils {
     ).flatten.map(indentIn)
   }
 
-  override def specCompInstanceAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.SpecCompInstance]]) =  {
+  override def specCompInstanceAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecCompInstance]]) =  {
     val (_, node, _) = an
     val ci = node.getData
     lines("spec comp instance") ++ (
@@ -188,7 +195,7 @@ object FppWriter extends AstVisitor with LineUtils {
     ).map(indentIn)
   }
 
-  override def specConnectionGraphAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.SpecConnectionGraph]]) =  {
+  override def specConnectionGraphAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecConnectionGraph]]) =  {
     def direct(g: Ast.SpecConnectionGraph.Direct) = {
       def connection(c: Ast.SpecConnectionGraph.Connection) = {
         lines("connection") ++ (
@@ -218,7 +225,7 @@ object FppWriter extends AstVisitor with LineUtils {
     }
   }
 
-  override def specEventAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.SpecEvent]]) = {
+  override def specEventAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecEvent]]) = {
     val (_, node, _) = an
     def severity(s: Ast.SpecEvent.Severity) = s match {
       case Ast.SpecEvent.ActivityHigh => "activity high"
@@ -241,13 +248,13 @@ object FppWriter extends AstVisitor with LineUtils {
     ).flatten.map(indentIn)
   }
 
-  override def specIncludeAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.SpecInclude]]) =  {
+  override def specIncludeAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecInclude]]) =  {
     val (_, node, _) = an
     val si = node.getData
     lines("spec include") ++ fileString(si.file.getData).map(indentIn)
   }
 
-  override def specInitAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.SpecInit]]) = {
+  override def specInitAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecInit]]) = {
     val (_, node, _) = an
     val si = node.getData
     lines("spec init") ++
@@ -258,7 +265,7 @@ object FppWriter extends AstVisitor with LineUtils {
     ).flatten.map(indentIn)
   }
 
-  override def specInternalPortAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.SpecInternalPort]]) = {
+  override def specInternalPortAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecInternalPort]]) = {
     val (_, node, _) = an
     val sip = node.getData
     lines("spec internal port") ++
@@ -270,7 +277,7 @@ object FppWriter extends AstVisitor with LineUtils {
     ).flatten.map(indentIn)
   }
 
-  override def specLocAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.SpecLoc]]) = {
+  override def specLocAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecLoc]]) = {
     val (_, node, _) = an
     val sl = node.getData
     val kind = sl.kind match {
@@ -289,7 +296,7 @@ object FppWriter extends AstVisitor with LineUtils {
     ).map(indentIn)
   }
 
-  override def specParamAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.SpecParam]]) = {
+  override def specParamAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecParam]]) = {
     val (_, node, _) = an
     val sp = node.getData
     lines("spec param") ++
@@ -303,7 +310,7 @@ object FppWriter extends AstVisitor with LineUtils {
     ).flatten.map(indentIn)
   }
 
-  override def specPortInstanceAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.SpecPortInstance]]) = {
+  override def specPortInstanceAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]]) = {
     val (_, node, _) = an
     def general(i: Ast.SpecPortInstance.General) = {
       def kind(k: Ast.SpecPortInstance.GeneralKind) = {
@@ -349,7 +356,7 @@ object FppWriter extends AstVisitor with LineUtils {
     }
   }
 
-  override def specTlmChannelAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]) = {
+  override def specTlmChannelAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]) = {
     val (_, node, _) = an
     def update(u: Ast.SpecTlmChannel.Update) = {
       val s = u match {
@@ -388,14 +395,14 @@ object FppWriter extends AstVisitor with LineUtils {
     ).flatten.map(indentIn)
   }
 
-  override def specTopImportAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.SpecTopImport]]) =  {
+  override def specTopImportAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecTopImport]]) =  {
     val (_, node, _) = an
     val ti = node.getData
     lines("spec top import") ++
     qualIdent(ti.top.getData).map(indentIn)
   }
 
-  override def specUnusedPortsAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.SpecUnusedPorts]]) =  {
+  override def specUnusedPortsAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecUnusedPorts]]) =  {
     val (_, node, _) = an
     val up = node.getData
     lines("spec unused ports") ++
@@ -435,13 +442,16 @@ object FppWriter extends AstVisitor with LineUtils {
 
   override def typeNameStringNode(in: Unit, node: AstNode[Ast.TypeName], tn: Ast.TypeNameString) =
     lines("string") ++ linesOpt(addPrefix("size", exprNode), tn.size).map(indentIn)
-
-  private def addPrefixNoIndent[T](s: String, f: T => List[Line]): T => List[Line] =
-    (t: T) => Line.joinLists (Line.NoIndent) (lines(s)) (" ") (f(t))
+  */
 
   private def addPrefix[T](s: String, f: T => List[Line]): T => List[Line] =
-    (t: T) => Line.joinLists (Line.Indent) (lines(s)) (" ") (f(t))
-  */
+    (t: T) => Line.joinLists (Line.NoIndent) (lines(s)) ("") (f(t))
+
+  private def addSuffix[T](f: T => List[Line], s: String): T => List[Line] =
+    (t: T) => Line.joinLists (Line.NoIndent) (f(t)) ("") (lines(s))
+
+  private def addPrefixAndSuffix[T](prefix: String, f: T => List[Line], suffix: String): T => List[Line] =
+    addPrefix(prefix, addSuffix(f, suffix))
 
   private def annotate(pre: List[String], lines: List[Line], post: List[String]) = {
     def preLine(s: String) = line("@ " ++ s)
@@ -451,10 +461,9 @@ object FppWriter extends AstVisitor with LineUtils {
     pre1 ++ lines ++ post1
   }
 
-  /*
   private def annotateNode[T](f: T => List[Line]): Ast.Annotated[AstNode[T]] => List[Line] =
-    (ana: Ast.Annotated[AstNode[T]]) => {
-      val (a1, node, a2) = ana
+    (aNode: Ast.Annotated[AstNode[T]]) => {
+      val (a1, node, a2) = aNode
       annotate(a1, f(node.getData), a2)
     }
 
@@ -462,12 +471,13 @@ object FppWriter extends AstVisitor with LineUtils {
     (a: AstNode[A]) => f(a.getData)
 
   private def binop(op: Ast.Binop) = op match {
-    case Ast.Binop.Add => lines("binop +")
-    case Ast.Binop.Div => lines("binop /")
-    case Ast.Binop.Mul => lines("binop *")
-    case Ast.Binop.Sub => lines("binop -")
+    case Ast.Binop.Add => " + "
+    case Ast.Binop.Div => " / "
+    case Ast.Binop.Mul => " * "
+    case Ast.Binop.Sub => " - "
   }
 
+  /*
   private def componentMember(member: Ast.ComponentMember) = {
     val (a1, _, a2) = member.node
     val l = matchComponentMember((), member)
@@ -480,9 +490,11 @@ object FppWriter extends AstVisitor with LineUtils {
       ident(dec.name),
       linesOpt(exprNode, dec.value)
     ).flatten.map(indentIn)
+  */
 
   private def exprNode(node: AstNode[Ast.Expr]): List[Line] = matchExprNode((), node)
 
+  /*
   private def fileString(s: String) = lines("file " ++ s)
 
   private def formalParam(fp: Ast.FormalParam) = {
