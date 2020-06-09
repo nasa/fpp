@@ -158,15 +158,15 @@ object FppWriter extends AstVisitor with LineUtils {
   override def exprParenNode(in: Unit, node: AstNode[Ast.Expr], e: Ast.ExprParen) =
     addPrefixAndSuffix("(", exprNode _, ")")(e.e)
 
-  /*
   override def exprStructNode(in: Unit, node: AstNode[Ast.Expr], e: Ast.ExprStruct) =
-    lines("expr struct") ++
-    e.members.map(applyToData(structMember)).flatten.map(indentIn)
+    lines("{") ++
+    e.members.map(applyToData(structMember)).flatten.map(indentIn) ++
+    lines("}")
 
   override def exprUnopNode(in: Unit, node: AstNode[Ast.Expr], e: Ast.ExprUnop) =
-    lines("expr unop") ++
-    (unop(e.op) ++ exprNode(e.e)).map(indentIn)
+    addPrefix(unop(e.op), exprNode _)(e.e)
 
+  /*
   override def specCommandAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecCommand]]) = {
     val (_, node, _) = an
     def kind(k: Ast.SpecCommand.Kind) = k match {
@@ -551,11 +551,15 @@ object FppWriter extends AstVisitor with LineUtils {
   }
 
   private def string(s: String) = s.split('\n').map(line).toList
+  */
 
-  private def structMember(sm: Ast.StructMember) =
-    lines("struct member") ++ 
-    (ident(sm.name) ++ exprNode(sm.value)).map(indentIn)
+  private def structMember(member: Ast.StructMember) = {
+    val prefix = lines(s"${member.name} = ")
+    val value = exprNode(member.value)
+    Line.joinLists (Line.Indent) (prefix) ("") (value)
+  }
 
+  /*
   private def structTypeMember(stm: Ast.StructTypeMember) = {
     lines("struct type member") ++ 
     List(
@@ -577,12 +581,14 @@ object FppWriter extends AstVisitor with LineUtils {
   /*
   private def typeNameNode(node: AstNode[Ast.TypeName]) =
     addPrefix("type name", matchTypeNameNode((), _)) (node)
+  */
 
   private def unop(op: Ast.Unop) =
     op match {
-      case Ast.Unop.Minus => lines("unop -")
+      case Ast.Unop.Minus => "-"
     }
 
+  /*
   private def visibility(v: Ast.Visibility) = v match {
     case Ast.Visibility.Private => "private"
     case Ast.Visibility.Public => "public"
