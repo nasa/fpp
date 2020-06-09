@@ -401,9 +401,11 @@ object FppWriter extends AstVisitor with LineUtils {
     lines("spec unused ports") ++
     up.ports.map(applyToData(portInstanceIdentifier)).flatten.map(indentIn)
   }
+  */
 
   override def transUnit(in: Unit, tu: Ast.TransUnit) = tu.members.map(tuMember).flatten
 
+  /*
   override def typeNameBoolNode(in: Unit, node: AstNode[Ast.TypeName]) = lines("bool")
 
   override def typeNameFloatNode(in: Unit, node: AstNode[Ast.TypeName], tn: Ast.TypeNameFloat) = {
@@ -439,6 +441,7 @@ object FppWriter extends AstVisitor with LineUtils {
 
   private def addPrefix[T](s: String, f: T => List[Line]): T => List[Line] =
     (t: T) => Line.joinLists (Line.Indent) (lines(s)) (" ") (f(t))
+  */
 
   private def annotate(pre: List[String], lines: List[Line], post: List[String]) = {
     def preLine(s: String) = line("@ " ++ s)
@@ -448,6 +451,7 @@ object FppWriter extends AstVisitor with LineUtils {
     pre1 ++ lines ++ post1
   }
 
+  /*
   private def annotateNode[T](f: T => List[Line]): Ast.Annotated[AstNode[T]] => List[Line] =
     (ana: Ast.Annotated[AstNode[T]]) => {
       val (a1, node, a2) = ana
@@ -501,6 +505,7 @@ object FppWriter extends AstVisitor with LineUtils {
     params.map(annotateNode(formalParam)).flatten
 
   private def ident(s: String) = lines("ident " ++ s)
+  */
 
   private def moduleMember(member: Ast.ModuleMember) = {
     val (a1, _, a2) = member.node
@@ -508,6 +513,7 @@ object FppWriter extends AstVisitor with LineUtils {
     annotate(a1, l, a2)
   }
 
+  /*
   private def portInstanceIdentifier(piid: Ast.PortInstanceIdentifier): List[Line] = {
     val qid = Ast.QualIdent.Qualified(piid.componentInstance, piid.portName)
     qualIdent(qid)
@@ -552,9 +558,11 @@ object FppWriter extends AstVisitor with LineUtils {
     val (a1, _, a2) = tm.node
     annotate(a1, l, a2)
   }
+  */
 
   private def tuMember(tum: Ast.TUMember) = moduleMember(tum)
 
+  /*
   private def typeNameNode(node: AstNode[Ast.TypeName]) =
     addPrefix("type name", matchTypeNameNode((), _)) (node)
 

@@ -24,16 +24,17 @@ lazy val root = (project in file("."))
   .settings(settings)
   .aggregate(
     lib,
-    fpp_syntax,
-    fpp_depend,
     fpp_check,
+    fpp_depend,
+    fpp_format,
+    fpp_syntax,
     fpp_to_xml,
   )
 
 lazy val lib = project
   .settings(settings)
 
-lazy val fpp_syntax = (project in file("tools/fpp-syntax"))
+lazy val fpp_check = (project in file("tools/fpp-check"))
   .settings(settings)
   .dependsOn(lib)
   .enablePlugins(AssemblyPlugin)
@@ -43,7 +44,12 @@ lazy val fpp_depend = (project in file("tools/fpp-depend"))
   .dependsOn(lib)
   .enablePlugins(AssemblyPlugin)
 
-lazy val fpp_check = (project in file("tools/fpp-check"))
+lazy val fpp_format = (project in file("tools/fpp-format"))
+  .settings(settings)
+  .dependsOn(lib)
+  .enablePlugins(AssemblyPlugin)
+
+lazy val fpp_syntax = (project in file("tools/fpp-syntax"))
   .settings(settings)
   .dependsOn(lib)
   .enablePlugins(AssemblyPlugin)
@@ -52,3 +58,4 @@ lazy val fpp_to_xml = (project in file("tools/fpp-to-xml"))
   .settings(settings)
   .dependsOn(lib)
   .enablePlugins(AssemblyPlugin)
+
