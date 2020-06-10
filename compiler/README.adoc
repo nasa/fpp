@@ -13,7 +13,7 @@ The currently available tools are
 
 * `fpp-check` (constants, types, and enums only)
 * `fpp-depend`
-* `fpp-format`
+* `fpp-format` (constants, types, and enums only)
 * `fpp-syntax`
 * `fpp-to-xml` (structs and enums only)
 
