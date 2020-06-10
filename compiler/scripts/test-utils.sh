@@ -46,22 +46,24 @@ run_suite()
   num_passed=0
   num_failed=0
 
-  for t in $tests
-  do
-    if run $t
-    then
-      num_passed=`expr $num_passed + 1`
-    else
-      num_failed=`expr $num_failed + 1`
-    fi
-  done
+  {
+    for t in $tests
+    do
+      if run $t
+      then
+        num_passed=`expr $num_passed + 1`
+      else
+        num_failed=`expr $num_failed + 1`
+      fi
+    done
 
-  printf "$num_passed passed"
-  if test $num_failed -gt 0
-  then
-    printf ", $num_failed failed"
-  fi
-  echo
+    printf "$num_passed passed"
+    if test $num_failed -gt 0
+    then
+      printf ", $num_failed failed"
+    fi
+    echo
+  } 2>&1 | tee test-output.txt
 
   exit $num_failed
 
