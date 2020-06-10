@@ -57,14 +57,15 @@ object FppWriter extends AstVisitor with LineUtils {
       de.constants.map(annotateNode(defEnumConstant)).flatten
     ).flatten.map(indentIn)
   }
+  */
 
   override def defModuleAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefModule]]) = {
-    val (_, node, _) = an
-    val dm = node.getData
-    lines("def module") ++
-    (ident(dm.name) ++ dm.members.map(moduleMember).flatten).map(indentIn)
+    val (_, node, _) = aNode
+    val data = node.getData
+    List(line(s"module ${data.name} {"), Line.blank) ++
+    (Line.blankSeparated (moduleMember) (data.members)).map(indentIn) ++
+    List(Line.blank, line("}"))
   }
-  */
 
   override def defStructAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
     val (_, node, _) = aNode
@@ -143,7 +144,8 @@ object FppWriter extends AstVisitor with LineUtils {
   }
   */
 
-  override def transUnit(in: Unit, tu: Ast.TransUnit) = tu.members.map(tuMember).flatten
+  override def transUnit(in: Unit, tu: Ast.TransUnit) =
+    Line.blankSeparated (tuMember) (tu.members)
 
   override def typeNameBoolNode(in: Unit, node: AstNode[Ast.TypeName]) = lines("bool")
 
