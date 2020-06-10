@@ -2,9 +2,24 @@ package fpp.compiler.codegen
 
 import fpp.compiler.ast._
 import fpp.compiler.util._
+import scala.language.implicitConversions
 
 /** Write out FPP source */
 object FppWriter extends AstVisitor with LineUtils {
+
+  private case class JoinOps(ls: List[Line]) {
+
+    def join (sep: String) (ls1: List[Line]) = Line.joinLists (Line.Indent) (ls) (sep) (ls1)
+
+    def joinOpt[T] (opt: Option[T]) (sep: String) (f: T => List[Line]) =
+      opt match {
+        case Some(t) => join (sep) (f(t))
+        case None => ls
+      }
+
+  }
+
+  private implicit def lift(ls: List[Line]) = JoinOps(ls)
 
   def transUnit(tu: Ast.TransUnit): Out = transUnit((), tu)
 
@@ -14,20 +29,17 @@ object FppWriter extends AstVisitor with LineUtils {
     lines(s"type ${data.name}")
   }
 
-  /*
   override def defArrayAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
-    val (_, node, _) = an
-    val da = node.getData
-    lines("def array") ++
-    List(
-      ident(da.name),
-      addPrefix("size", exprNode) (da.size),
-      typeNameNode(da.eltType),
-      linesOpt(addPrefix("default", exprNode), da.default),
-      linesOpt(addPrefix("format", applyToData(string)), da.format)
-    ).flatten.map(indentIn)
+    val (_, node, _) = aNode
+    val data = node.getData
+    lines(s"array ${data.name} = [").
+      join ("") (exprNode(data.size)).
+      join ("] ") (typeNameNode(data.eltType)).
+      joinOpt (data.default) (" default ") (exprNode).
+      joinOpt (data.format) (" format ") (applyToData(string))
   }
 
+  /*
   override def defComponentAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefComponent]]) = {
     val (_, node, _) = an
     val dc = node.getData
@@ -62,9 +74,8 @@ object FppWriter extends AstVisitor with LineUtils {
   override def defConstantAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
     val (_, node, _) = aNode
     val data = node.getData
-    val prefix = lines(s"constant ${data.name} = ")
-    val expr = exprNode(data.value)
-    Line.joinLists (Line.Indent) (prefix) ("") (expr)
+    val prefix = s"constant ${data.name} = "
+    Line.addPrefixIndent(prefix, exprNode(data.value))
   }
 
   /*
@@ -145,18 +156,10 @@ object FppWriter extends AstVisitor with LineUtils {
     lines(e.value)
 
   override def exprLiteralStringNode(in: Unit, node: AstNode[Ast.Expr], e: Ast.ExprLiteralString) =
-    e.value.split("\n").toList match {
-      case Nil => lines("\"\"")
-      case s :: Nil => lines("\"" ++ s.replaceAll("\"", "\\\"") ++ "\"")
-      case ss => {
-        lines("\"\"\"") ++
-        ss.map((s: String) => line(s.replaceAll("\"\"\"", "\\\"\"\""))) ++
-        lines("\"\"\"")
-      }
-    }
+    string(e.value)
 
   override def exprParenNode(in: Unit, node: AstNode[Ast.Expr], e: Ast.ExprParen) =
-    addPrefixAndSuffix("(", exprNode _, ")")(e.e)
+    Line.addPrefixAndSuffix("(", exprNode(e.e), ")")
 
   override def exprStructNode(in: Unit, node: AstNode[Ast.Expr], e: Ast.ExprStruct) =
     lines("{") ++
@@ -164,7 +167,7 @@ object FppWriter extends AstVisitor with LineUtils {
     lines("}")
 
   override def exprUnopNode(in: Unit, node: AstNode[Ast.Expr], e: Ast.ExprUnop) =
-    addPrefix(unop(e.op), exprNode _)(e.e)
+    Line.addPrefixIndent(unop(e.op), exprNode(e.e))
 
   /*
   override def specCommandAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecCommand]]) = {
@@ -412,27 +415,26 @@ object FppWriter extends AstVisitor with LineUtils {
 
   override def transUnit(in: Unit, tu: Ast.TransUnit) = tu.members.map(tuMember).flatten
 
-  /*
   override def typeNameBoolNode(in: Unit, node: AstNode[Ast.TypeName]) = lines("bool")
 
   override def typeNameFloatNode(in: Unit, node: AstNode[Ast.TypeName], tn: Ast.TypeNameFloat) = {
     val s = tn.name match {
-      case Ast.F32() => "F32"
-      case Ast.F64() => "F64"
+      case _: Ast.F32 => "F32"
+      case _: Ast.F64 => "F64"
     }
     lines(s)
   }
 
   override def typeNameIntNode(in: Unit, node: AstNode[Ast.TypeName], tn: Ast.TypeNameInt) = {
     val s = tn.name match {
-      case Ast.I8() => "I8"
-      case Ast.I16() => "I16"
-      case Ast.I32() => "I32"
-      case Ast.I64() => "I64"
-      case Ast.U8() => "U8"
-      case Ast.U16() => "U16"
-      case Ast.U32() => "U32"
-      case Ast.U64() => "U64"
+      case _: Ast.I8 => "I8"
+      case _: Ast.I16 => "I16"
+      case _: Ast.I32 => "I32"
+      case _: Ast.I64 => "I64"
+      case _: Ast.U8 => "U8"
+      case _: Ast.U16 => "U16"
+      case _: Ast.U32 => "U32"
+      case _: Ast.U64 => "U64"
     }
     lines(s)
   }
@@ -441,23 +443,14 @@ object FppWriter extends AstVisitor with LineUtils {
     qualIdent(tn.name.getData)
 
   override def typeNameStringNode(in: Unit, node: AstNode[Ast.TypeName], tn: Ast.TypeNameString) =
-    lines("string") ++ linesOpt(addPrefix("size", exprNode), tn.size).map(indentIn)
-  */
-
-  private def addPrefix[T](s: String, f: T => List[Line]): T => List[Line] =
-    (t: T) => Line.joinLists (Line.NoIndent) (lines(s)) ("") (f(t))
-
-  private def addSuffix[T](f: T => List[Line], s: String): T => List[Line] =
-    (t: T) => Line.joinLists (Line.NoIndent) (f(t)) ("") (lines(s))
-
-  private def addPrefixAndSuffix[T](prefix: String, f: T => List[Line], suffix: String): T => List[Line] =
-    addPrefix(prefix, addSuffix(f, suffix))
+    tn.size match {
+      case Some(size) => Line.addPrefixIndent("string", exprNode(size))
+      case None => lines("string")
+    }
 
   private def annotate(pre: List[String], lines: List[Line], post: List[String]) = {
-    def preLine(s: String) = line("@ " ++ s)
-    val pre1 = pre.map(preLine)
-    def postLine(s: String) = line("@< " ++ s)
-    val post1 = post.map(postLine)
+    val pre1 = pre.map((s: String) => line("@ " ++ s))
+    val post1 = post.map((s: String) => line("@< " ++ s))
     pre1 ++ lines ++ post1
   }
 
@@ -530,9 +523,10 @@ object FppWriter extends AstVisitor with LineUtils {
     val qid = Ast.QualIdent.Qualified(piid.componentInstance, piid.portName)
     qualIdent(qid)
   }
+  */
 
   private def qualIdent(qid: Ast.QualIdent): List[Line] =
-    lines("qual ident " ++ qualIdentString(qid))
+    lines(qualIdentString(qid))
 
   private def qualIdentString(qid: Ast.QualIdent): String =
     qid match {
@@ -541,6 +535,7 @@ object FppWriter extends AstVisitor with LineUtils {
         qualIdentString(qualifier.getData) ++ "." ++ name.getData
     }
 
+  /*
   private def queueFull(qf: Ast.QueueFull) = {
     val s = qf match {
       case Ast.QueueFull.Assert => "assert"
@@ -549,14 +544,21 @@ object FppWriter extends AstVisitor with LineUtils {
     }
     lines("queue full " ++ s)
   }
-
-  private def string(s: String) = s.split('\n').map(line).toList
   */
 
+  private def string(s: String) = s.split("\n").toList match {
+    case Nil => lines("\"\"")
+    case s :: Nil => lines("\"" ++ s.replaceAll("\"", "\\\"") ++ "\"")
+    case ss => {
+      lines("\"\"\"") ++
+      ss.map((s: String) => line(s.replaceAll("\"\"\"", "\\\"\"\""))) ++
+      lines("\"\"\"")
+    }
+  }
+
   private def structMember(member: Ast.StructMember) = {
-    val prefix = lines(s"${member.name} = ")
-    val value = exprNode(member.value)
-    Line.joinLists (Line.Indent) (prefix) ("") (value)
+    val prefix = s"${member.name} = "
+    Line.addPrefixIndent(prefix, exprNode(member.value))
   }
 
   /*
@@ -578,10 +580,7 @@ object FppWriter extends AstVisitor with LineUtils {
 
   private def tuMember(tum: Ast.TUMember) = moduleMember(tum)
 
-  /*
-  private def typeNameNode(node: AstNode[Ast.TypeName]) =
-    addPrefix("type name", matchTypeNameNode((), _)) (node)
-  */
+  private def typeNameNode(node: AstNode[Ast.TypeName]) = matchTypeNameNode((), node)
 
   private def unop(op: Ast.Unop) =
     op match {

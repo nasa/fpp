@@ -12,6 +12,12 @@ object Line {
   def addPrefix(prefix: String, ls: List[Line]) =
     joinLists(Line.NoIndent)(List(Line(prefix)))("")(ls)
 
+  def addPrefixAndSuffix(prefix: String, ls: List[Line], suffix: String) =
+    addPrefix(prefix, addSuffix(ls, suffix))
+
+  def addPrefixIndent(prefix: String, ls: List[Line]) =
+    joinLists(Line.Indent)(List(Line(prefix)))("")(ls)
+
   def addSuffix(ls: List[Line], suffix: String) =
     joinLists(Line.NoIndent)(ls)("")(List(Line(suffix)))
 
@@ -40,7 +46,7 @@ object Line {
     Line(string, indent)
   }
 
-  /* Flatten a list of lines with separtor string */
+  /* Flatten a list of lines with separator string */
   def flatten (sep: String) (lines: List[Line]): Line =
     lines match {
       case Nil => blank
