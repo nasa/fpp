@@ -79,10 +79,10 @@ object FppWriter extends AstVisitor with LineUtils {
     (line("[") :: e.elts.map(exprNode).flatten.map(indentIn)) :+ line("]")
 
   override def exprBinopNode(in: Unit, node: AstNode[Ast.Expr], e: Ast.ExprBinop) =
-    Line.joinLists (Line.NoIndent) (exprNode(e.e1)) (binop(e.op)) (exprNode(e.e2))
+    exprNode(e.e1).join (binop(e.op)) (exprNode(e.e2))
   
   override def exprDotNode(in: Unit, node: AstNode[Ast.Expr], e: Ast.ExprDot) =
-    Line.joinLists (Line.NoIndent) (exprNode(e.e)) (".") (lines(e.id.getData))
+    exprNode(e.e).join (".") (lines(e.id.getData))
 
   override def exprIdentNode(in: Unit, node: AstNode[Ast.Expr], e: Ast.ExprIdent) = 
     lines(e.value)
@@ -113,19 +113,18 @@ object FppWriter extends AstVisitor with LineUtils {
     lines("}")
 
   override def exprUnopNode(in: Unit, node: AstNode[Ast.Expr], e: Ast.ExprUnop) =
-    Line.addPrefixIndent(unop(e.op), exprNode(e.e))
+    lines(unop(e.op)).join ("") (exprNode(e.e))
 
-  /*
-  override def specIncludeAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecInclude]]) =  {
-    val (_, node, _) = an
-    val si = node.getData
-    lines("spec include") ++ fileString(si.file.getData).map(indentIn)
+  override def specIncludeAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecInclude]]) = {
+    val (_, node, _) = aNode
+    val data = node.getData
+    lines("include").join (" ") (string(data.file.getData))
   }
 
   override def specLocAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecLoc]]) = {
-    val (_, node, _) = an
-    val sl = node.getData
-    val kind = sl.kind match {
+    val (_, node, _) = aNode
+    val data = node.getData
+    val kind = data.kind match {
       case Ast.SpecLoc.Component => "component"
       case Ast.SpecLoc.ComponentInstance => "component instance"
       case Ast.SpecLoc.Constant => "constant"
@@ -133,14 +132,10 @@ object FppWriter extends AstVisitor with LineUtils {
       case Ast.SpecLoc.Topology => "topology"
       case Ast.SpecLoc.Type => "type"
     }
-    lines("spec loc") ++
-    (
-      lines("kind " ++ kind) ++
-      addPrefix("symbol", qualIdent) (sl.symbol.getData) ++ 
-      fileString(sl.file.getData)
-    ).map(indentIn)
+    lines(s"locate ${kind}").
+      join (" ") (qualIdent(data.symbol.getData)).
+      join (" at ") (string(data.file.getData))
   }
-  */
 
   override def transUnit(in: Unit, tu: Ast.TransUnit) =
     Line.blankSeparated (tuMember) (tu.members)
@@ -228,10 +223,8 @@ object FppWriter extends AstVisitor with LineUtils {
     }
   }
 
-  private def structMember(member: Ast.StructMember) = {
-    val prefix = s"${member.name} = "
-    Line.addPrefixIndent(prefix, exprNode(member.value))
-  }
+  private def structMember(member: Ast.StructMember) =
+    lines(member.name).join (" = ") (exprNode(member.value))
 
   private def structTypeMember(member: Ast.StructTypeMember) =
     lines(member.name).
