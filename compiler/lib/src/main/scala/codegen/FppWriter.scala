@@ -9,6 +9,8 @@ object FppWriter extends AstVisitor with LineUtils {
 
   private case class JoinOps(ls: List[Line]) {
 
+    def addSuffix(suffix: String) = Line.addSuffix(ls, suffix)
+
     def join (sep: String) (ls1: List[Line]) = Line.joinLists (Line.Indent) (ls) (sep) (ls1)
 
     def joinOpt[T] (opt: Option[T]) (sep: String) (f: T => List[Line]) =
@@ -42,22 +44,18 @@ object FppWriter extends AstVisitor with LineUtils {
   override def defConstantAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
     val (_, node, _) = aNode
     val data = node.getData
-    val prefix = s"constant ${data.name} = "
-    Line.addPrefixIndent(prefix, exprNode(data.value))
+    lines(s"constant ${data.name}").join (" = ") (exprNode(data.value))
   }
 
-  /*
   override def defEnumAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
-    val (_, node, _) = an
-    val de = node.getData
-    lines("def enum") ++
-    List(
-      ident(de.name),
-      linesOpt(typeNameNode, de.typeName),
-      de.constants.map(annotateNode(defEnumConstant)).flatten
-    ).flatten.map(indentIn)
+    val (_, node, _) = aNode
+    val data = node.getData
+    lines(s"enum ${data.name}").
+      joinOpt (data.typeName) (": ") (typeNameNode).
+      addSuffix(" {") ++
+    data.constants.map(annotateNode(defEnumConstant)).flatten.map(indentIn) ++
+    lines("}")
   }
-  */
 
   override def defModuleAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefModule]]) = {
     val (_, node, _) = aNode
@@ -175,10 +173,7 @@ object FppWriter extends AstVisitor with LineUtils {
     qualIdent(tn.name.getData)
 
   override def typeNameStringNode(in: Unit, node: AstNode[Ast.TypeName], tn: Ast.TypeNameString) =
-    tn.size match {
-      case Some(size) => Line.addPrefixIndent("string", exprNode(size))
-      case None => lines("string")
-    }
+    lines("string").joinOpt (tn.size) (" size ") (exprNode)
 
   private def annotate(pre: List[String], lines: List[Line], post: List[String]) = {
     val pre1 = pre.map((s: String) => line("@ " ++ s))
@@ -202,14 +197,8 @@ object FppWriter extends AstVisitor with LineUtils {
     case Ast.Binop.Sub => " - "
   }
 
-  /*
   private def defEnumConstant(dec: Ast.DefEnumConstant) =
-    lines("def enum constant") ++
-    List(
-      ident(dec.name),
-      linesOpt(exprNode, dec.value)
-    ).flatten.map(indentIn)
-  */
+    lines(dec.name).joinOpt (dec.value) (" = ") (exprNode)
 
   private def exprNode(node: AstNode[Ast.Expr]): List[Line] = matchExprNode((), node)
 
