@@ -66,6 +66,8 @@ sealed trait Error {
       case SemanticError.UndefinedSymbol(name, loc) =>
         Error.print (Some(loc)) (s"undefined symbol ${name}")
       case SemanticError.UseDefCycle(loc, msg) => Error.print (Some(loc)) (msg)
+      case XmlError.ParseError(file, msg) => Error.printXml (file) (msg)
+      case XmlError.SemanticError(file, msg) => Error.printXml (file) (msg)
     }
   }
 
@@ -156,6 +158,14 @@ object SemanticError {
   final case class TypeMismatch(loc: Location, msg: String) extends Error
 }
 
+/** An F Prime XML error */
+object XmlError {
+  /** A parse error */
+  final case class ParseError(file: String, msg: String) extends Error
+  /** A semantic error */
+  final case class SemanticError(file: String, msg: String) extends Error
+}
+
 object Error {
 
   private var toolOpt: Option[Tool] = None
@@ -178,6 +188,14 @@ object Error {
   def print (locOpt: Option[Location]) (msg: String) = {
     printTool
     printOpt(locOpt)
+    System.err.print("error: ")
+    System.err.println(msg)
+  }
+
+  /** Print an XML file and a message */
+  def printXml (file: String) (msg: String) = {
+    printTool
+    System.err.println(s"file: $file")
     System.err.print("error: ")
     System.err.println(msg)
   }
