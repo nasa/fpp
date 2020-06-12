@@ -8,7 +8,7 @@ import fpp.compiler.transform._
 import fpp.compiler.util._
 import scopt.OParser
 
-object FPPCheck {
+object FPPToXml {
 
   case class Options(
     dir: Option[String] = None,

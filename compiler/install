@@ -24,6 +24,7 @@ fpp-check
 fpp-depend
 fpp-format
 fpp-syntax
+fpp-from-xml
 fpp-to-xml
 "
 

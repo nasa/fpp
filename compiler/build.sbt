@@ -27,6 +27,7 @@ lazy val root = (project in file("."))
     fpp_check,
     fpp_depend,
     fpp_format,
+    fpp_from_xml,
     fpp_syntax,
     fpp_to_xml,
   )
@@ -50,6 +51,11 @@ lazy val fpp_format = (project in file("tools/fpp-format"))
   .enablePlugins(AssemblyPlugin)
 
 lazy val fpp_syntax = (project in file("tools/fpp-syntax"))
+  .settings(settings)
+  .dependsOn(lib)
+  .enablePlugins(AssemblyPlugin)
+
+lazy val fpp_from_xml = (project in file("tools/fpp-from-xml"))
   .settings(settings)
   .dependsOn(lib)
   .enablePlugins(AssemblyPlugin)
