@@ -21,7 +21,14 @@ object XmlFppWriter extends LineUtils {
   }
 
   def writeFile(file: File): Result = {
-    Right(List(Line.blank, line(s"# ${file.name}"), Line.blank))
+    val eltType = file.elem.label
+    for {
+      body <- eltType match {
+        case "enum" => EnumXmlFppWriter.writeEnumFile(file)
+        case _ => Left(file.error(XmlError.SemanticError(_, s"invalid element type $eltType")))
+      }
+    }
+    yield body ++ List(Line.blank, line(s"# ${file.name}"), Line.blank)
   }
 
   def writeFileList(fileList: List[File]) = {
