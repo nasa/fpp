@@ -13,9 +13,9 @@ object FPPCheck {
   )
 
   def command(options: Options) = {
-    val files = options.files match {
+    val files = options.files.reverse match {
       case Nil => List(File.StdIn)
-      case _ => options.files
+      case list => list
     }
     val a = Analysis(inputFileSet = options.files.toSet)
     for {
