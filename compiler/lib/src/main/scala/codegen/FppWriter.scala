@@ -23,7 +23,15 @@ object FppWriter extends AstVisitor with LineUtils {
 
   private implicit def lift(ls: List[Line]) = JoinOps(ls)
 
+  def moduleMember(member: Ast.ModuleMember) = {
+    val (a1, _, a2) = member.node
+    val l = matchModuleMember((), member)
+    annotate(a1, l, a2)
+  }
+
   def transUnit(tu: Ast.TransUnit): Out = transUnit((), tu)
+
+  def tuMember(tum: Ast.TUMember) = moduleMember(tum)
 
   override def defAbsTypeAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefAbsType]]) = {
     val (_, node, _) = aNode
@@ -197,12 +205,6 @@ object FppWriter extends AstVisitor with LineUtils {
 
   private def exprNode(node: AstNode[Ast.Expr]): List[Line] = matchExprNode((), node)
 
-  private def moduleMember(member: Ast.ModuleMember) = {
-    val (a1, _, a2) = member.node
-    val l = matchModuleMember((), member)
-    annotate(a1, l, a2)
-  }
-
   private def qualIdent(qid: Ast.QualIdent): List[Line] =
     lines(qualIdentString(qid))
 
@@ -231,7 +233,6 @@ object FppWriter extends AstVisitor with LineUtils {
       join (": ") (typeNameNode(member.typeName)).
       joinOpt (member.format) (" format ") (applyToData(string))
 
-  private def tuMember(tum: Ast.TUMember) = moduleMember(tum)
 
   private def typeNameNode(node: AstNode[Ast.TypeName]) = matchTypeNameNode((), node)
 
