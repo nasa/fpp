@@ -4,16 +4,16 @@ import fpp.compiler.ast._
 import fpp.compiler.codegen._
 import fpp.compiler.util._
 
-// Write out F Prime XML as FPP source
+/** Writes F Prime XML as FPP source */
 object XmlFppWriter extends LineUtils {
 
   type Result = Result.Result[List[Line]]
 
-  // An F Prime XML file
+  /** An F Prime XML file */
   case class File(
-    // The file name
+    /** The file name */
     name: String,
-    // The XML element
+    /** The XML element */
     elem: scala.xml.Elem
   ) {
 
