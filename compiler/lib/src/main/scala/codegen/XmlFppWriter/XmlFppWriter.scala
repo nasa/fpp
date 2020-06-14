@@ -22,7 +22,7 @@ object XmlFppWriter extends LineUtils {
     def getAttribute(node: scala.xml.Node, name: String): Result.Result[String] = 
       getAttributeOpt(node, name) match {
         case Some(s) => Right(s)
-        case None => Left(error(XmlError.SemanticError(_, s"misisng attribute $name for node ${node.toString}")))
+        case None => Left(error(XmlError.SemanticError(_, s"missing attribute $name for node ${node.toString}")))
       }
 
     def write: Result = {

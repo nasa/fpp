@@ -19,7 +19,7 @@ object Result {
         }
       }
     }
-    helper(list, Nil)
+    helper(list.reverse, Nil)
   }
 
   /** Apply a list of result functions in sequence */

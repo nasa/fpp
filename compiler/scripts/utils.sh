@@ -4,7 +4,7 @@
 clean()
 {
   echo "cleaning $PWD"
-  rm -f test-output.txt
+  rm -f num_failed.txt test-output.txt
   for file in `find . -name '*.out.txt' -or -name '*.diff.txt' -or -name '*~'`
   do
     rm $file

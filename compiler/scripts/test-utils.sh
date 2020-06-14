@@ -63,8 +63,9 @@ run_suite()
       printf ", $num_failed failed"
     fi
     echo
+    echo $num_failed > num_failed.txt
   } 2>&1 | tee test-output.txt
 
-  exit $num_failed
+  exit `cat num_failed.txt`
 
 }

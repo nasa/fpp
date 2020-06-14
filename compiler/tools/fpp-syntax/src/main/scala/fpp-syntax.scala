@@ -18,9 +18,9 @@ object FPPSyntax {
 
   def command(options: Options) = {
     Error.setTool(Tool(name))
-    val files = options.files match {
+    val files = options.files.reverse match {
       case Nil => List(File.StdIn)
-      case _ => options.files
+      case list => list
     }
     val result = Result.seq(
       Result.map(files, Parser.parseFile (Parser.transUnit) (None) _),

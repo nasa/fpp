@@ -24,6 +24,7 @@ num_failed=0
     printf "$num_failed tests "
     echo_red FAILED
   fi
+  echo $num_failed > num_failed.txt
 } 2>&1 | tee test-output.txt
 
-exit $num_failed
+exit `cat num_failed.txt`

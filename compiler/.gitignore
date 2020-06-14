@@ -1,4 +1,5 @@
 bin
 build.properties
+num_failed.txt
 target/
 test-output.txt
