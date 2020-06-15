@@ -33,6 +33,8 @@ object FppWriter extends AstVisitor with LineUtils {
 
   def tuMember(tum: Ast.TUMember) = moduleMember(tum)
 
+  def tuMemberList(tuml: List[Ast.TUMember]) = Line.blankSeparated (tuMember) (tuml)
+
   override def defAbsTypeAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefAbsType]]) = {
     val (_, node, _) = aNode
     val data = node.data
@@ -145,8 +147,7 @@ object FppWriter extends AstVisitor with LineUtils {
       join (" at ") (string(data.file.getData))
   }
 
-  override def transUnit(in: Unit, tu: Ast.TransUnit) =
-    Line.blankSeparated (tuMember) (tu.members)
+  override def transUnit(in: Unit, tu: Ast.TransUnit) = tuMemberList(tu.members)
 
   override def typeNameBoolNode(in: Unit, node: AstNode[Ast.TypeName]) = lines("bool")
 
