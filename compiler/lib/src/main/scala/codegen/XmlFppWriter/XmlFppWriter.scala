@@ -29,7 +29,8 @@ object XmlFppWriter extends LineUtils {
       val eltType = elem.label
       for {
         body <- eltType match {
-          case "enum" => EnumXmlFppWriter.writeEnumFile(this)
+          case "enum" => EnumXmlFppWriter.writeFile(this)
+          case "serializable" => StructXmlFppWriter.writeFile(this)
           case _ => Left(error(XmlError.SemanticError(_, s"invalid element type $eltType")))
         }
       }
@@ -60,27 +61,35 @@ object XmlFppWriter extends LineUtils {
 
   object FppBuilder {
 
-    def encloseWithTuMemberModule(name: String)(node: Ast.ModuleMember.Node): Ast.TUMember.Node =
-      encloseWithModule(Ast.TUMember.DefModule(_))(name)(node)
+    def encloseWithTuMemberModule
+      (name: String)
+      (nodeList: List[Ast.Annotated[Ast.ModuleMember.Node]]): Ast.Annotated[Ast.TUMember.Node] =
+      encloseWithModule(Ast.TUMember.DefModule(_))(name)(nodeList)
 
-    def encloseWithModuleMemberModules(names: List[String])(node: Ast.ModuleMember.Node): Ast.ModuleMember.Node = {
-      def encloseWithModuleMemberModule(name: String)(node: Ast.ModuleMember.Node): Ast.ModuleMember.Node =
-        encloseWithModule(Ast.ModuleMember.DefModule(_))(name)(node)
+    def encloseWithModuleMemberModules
+      (names: List[String])
+      (aNode: Ast.Annotated[Ast.ModuleMember.Node]): Ast.Annotated[Ast.ModuleMember.Node] = {
+      def encloseWithModuleMemberModule
+        (name: String)
+        (aNode: Ast.Annotated[Ast.ModuleMember.Node]): Ast.Annotated[Ast.ModuleMember.Node] =
+          encloseWithModule(Ast.ModuleMember.DefModule(_))(name)(List(aNode))
       names match {
-        case Nil => node
-        case head :: tail => encloseWithModuleMemberModules(tail)(encloseWithModuleMemberModule(head)(node))
+        case Nil => aNode
+        case head :: tail => encloseWithModuleMemberModules(tail)(encloseWithModuleMemberModule(head)(aNode))
       }
     }
 
-    private def encloseWithModule[T](f: AstNode[Ast.DefModule] => T)(name:String)(node: Ast.ModuleMember.Node): T = {
-      val aNode = (Nil, node, Nil)
-      val moduleMember = Ast.ModuleMember(aNode)
-      val defModule = Ast.DefModule(name, List(moduleMember))
+    private def encloseWithModule[T]
+      (f: AstNode[Ast.DefModule] => T)
+      (name:String)
+      (aNodeList: List[Ast.Annotated[Ast.ModuleMember.Node]]): Ast.Annotated[T] = 
+    {
+      val moduleMembers = aNodeList.map((aNode: Ast.Annotated[Ast.ModuleMember.Node]) => Ast.ModuleMember(aNode))
+      val defModule = Ast.DefModule(name, moduleMembers)
       val node1 = AstNode.create(defModule)
-      f(node1)
+      (Nil, f(node1), Nil)
     }
 
   }
-
 
 }

@@ -7,7 +7,7 @@ import fpp.compiler.util._
 /** Writes out an F Prime XML enum as FPP source */
 object EnumXmlFppWriter extends LineUtils {
 
-  def writeEnumFile(file: XmlFppWriter.File): XmlFppWriter.Result =
+  def writeFile(file: XmlFppWriter.File): XmlFppWriter.Result =
     for (tuMember <- FppBuilder.tuMember(file))
       yield FppWriter.tuMember(tuMember)
 
@@ -75,15 +75,14 @@ object EnumXmlFppWriter extends LineUtils {
         val a = annotation(file)
         val moduleNames = XmlFppWriter.getAttributeNamespace(file.elem)
         val node = AstNode.create(data)
-        val memberNode = moduleNames match {
-          case Nil => Ast.TUMember.DefEnum(node)
+        val aNode = moduleNames match {
+          case Nil => (a, Ast.TUMember.DefEnum(node), Nil)
           case head :: tail => {
-            val memberNode1 = Ast.ModuleMember.DefEnum(node)
-            val memberNode2 = XmlFppWriter.FppBuilder.encloseWithModuleMemberModules(tail.reverse)(memberNode1)
-            XmlFppWriter.FppBuilder.encloseWithTuMemberModule(head)(memberNode2)
+            val aNode1 = (a, Ast.ModuleMember.DefEnum(node), Nil)
+            val aNode2 = XmlFppWriter.FppBuilder.encloseWithModuleMemberModules(tail.reverse)(aNode1)
+            XmlFppWriter.FppBuilder.encloseWithTuMemberModule(head)(List(aNode2))
           }
         }
-        val aNode = (a, memberNode, Nil)
         Ast.TUMember(aNode)
       }
 
