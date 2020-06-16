@@ -61,33 +61,41 @@ object XmlFppWriter extends LineUtils {
 
   object FppBuilder {
 
+    /** Enclose a list of module members with a module inside a trans unit */
     def encloseWithTuMemberModule
       (name: String)
-      (nodeList: List[Ast.Annotated[Ast.ModuleMember.Node]]): Ast.Annotated[Ast.TUMember.Node] =
-      encloseWithModule(Ast.TUMember.DefModule(_))(name)(nodeList)
+      (members: List[Ast.Annotated[Ast.ModuleMember.Node]]): 
+      Ast.Annotated[Ast.TUMember.Node] =
+        encloseWithModule(Ast.TUMember.DefModule(_))(name)(members)
 
+    /** Enclose a list of module members with zero more modules inside a module */
     def encloseWithModuleMemberModules
       (names: List[String])
-      (aNode: Ast.Annotated[Ast.ModuleMember.Node]): Ast.Annotated[Ast.ModuleMember.Node] = {
+      (members: List[Ast.Annotated[Ast.ModuleMember.Node]]):
+      List[Ast.Annotated[Ast.ModuleMember.Node]] =
+    {
       def encloseWithModuleMemberModule
         (name: String)
-        (aNode: Ast.Annotated[Ast.ModuleMember.Node]): Ast.Annotated[Ast.ModuleMember.Node] =
-          encloseWithModule(Ast.ModuleMember.DefModule(_))(name)(List(aNode))
+        (members: List[Ast.Annotated[Ast.ModuleMember.Node]]):
+        List[Ast.Annotated[Ast.ModuleMember.Node]] =
+          List(encloseWithModule(Ast.ModuleMember.DefModule(_))(name)(members))
       names match {
-        case Nil => aNode
-        case head :: tail => encloseWithModuleMemberModules(tail)(encloseWithModuleMemberModule(head)(aNode))
+        case Nil => members
+        case head :: tail => encloseWithModuleMemberModules(tail)(encloseWithModuleMemberModule(head)(members))
       }
     }
 
-    private def encloseWithModule[T]
-      (f: AstNode[Ast.DefModule] => T)
+    /** Enclose several member nodes with a module of variant type */
+    private def encloseWithModule[MemberType]
+      (memberTypeConstructor: AstNode[Ast.DefModule] => MemberType)
       (name:String)
-      (aNodeList: List[Ast.Annotated[Ast.ModuleMember.Node]]): Ast.Annotated[T] = 
+      (memberNodes: List[Ast.Annotated[Ast.ModuleMember.Node]]):
+      Ast.Annotated[MemberType] = 
     {
-      val moduleMembers = aNodeList.map((aNode: Ast.Annotated[Ast.ModuleMember.Node]) => Ast.ModuleMember(aNode))
-      val defModule = Ast.DefModule(name, moduleMembers)
-      val node1 = AstNode.create(defModule)
-      (Nil, f(node1), Nil)
+      val members = memberNodes.map(Ast.ModuleMember(_))
+      val defModule = Ast.DefModule(name, members)
+      val node = AstNode.create(defModule)
+      (Nil, memberTypeConstructor(node), Nil)
     }
 
   }

@@ -78,9 +78,9 @@ object EnumXmlFppWriter extends LineUtils {
         val aNode = moduleNames match {
           case Nil => (a, Ast.TUMember.DefEnum(node), Nil)
           case head :: tail => {
-            val aNode1 = (a, Ast.ModuleMember.DefEnum(node), Nil)
-            val aNode2 = XmlFppWriter.FppBuilder.encloseWithModuleMemberModules(tail.reverse)(aNode1)
-            XmlFppWriter.FppBuilder.encloseWithTuMemberModule(head)(List(aNode2))
+            val aNodeList1 = List((a, Ast.ModuleMember.DefEnum(node), Nil))
+            val aNodeList2 = XmlFppWriter.FppBuilder.encloseWithModuleMemberModules(tail.reverse)(aNodeList1)
+            XmlFppWriter.FppBuilder.encloseWithTuMemberModule(head)(aNodeList2)
           }
         }
         Ast.TUMember(aNode)
