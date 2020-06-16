@@ -13,11 +13,6 @@ object StructXmlFppWriter extends LineUtils {
 
   private object FppBuilder {
 
-    def annotation(file: XmlFppWriter.File): List[String] = {
-      // TODO
-      Nil
-    }
-
     /** Extracts arrays from struct member types */
     def defArrayAnnotatedList(file: XmlFppWriter.File): Result.Result[List[Ast.Annotated[Ast.DefArray]]] = {
       def array (name:String) (node: scala.xml.Node): Result.Result[Option[Ast.DefArray]] =
@@ -55,9 +50,31 @@ object StructXmlFppWriter extends LineUtils {
     /** Translates the struct type */
     def defStructAnnotated(file: XmlFppWriter.File): Result.Result[Ast.Annotated[Ast.DefStruct]] =
       for {
+        comment <- file.getComment
         name <- file.getAttribute(file.elem, "name")
+        members <- structTypeMemberAnnotatedList(file)
       }
-      yield (Nil, Ast.DefStruct(name, Nil, None), Nil)
+      yield {
+        (comment, Ast.DefStruct(name, members, None), Nil)
+      }
+
+    /** Extracts struct type members */
+    def structTypeMemberAnnotatedList(file: XmlFppWriter.File): 
+      Result.Result[List[Ast.Annotated[AstNode[Ast.StructTypeMember]]]] = 
+    {
+      // TODO
+      Right(Nil)
+    }
+
+    /** Extracts a struct type member */
+    def structTypeMemberAnnotated(node: scala.xml.Node): 
+      Result.Result[Ast.Annotated[AstNode[Ast.StructTypeMember]]] =
+    {
+      val data = Ast.StructTypeMember("TODO", AstNode.create(Ast.TypeNameBool), None)
+      val node = AstNode.create(data)
+      val aNode = (Nil, node, Nil)
+      Right(aNode)
+    }
 
     /** Generates the list of TU members */
     def tuMemberList(file: XmlFppWriter.File): Result.Result[List[Ast.TUMember]] = {
@@ -72,14 +89,14 @@ object StructXmlFppWriter extends LineUtils {
         val moduleNames = XmlFppWriter.getAttributeNamespace(file.elem)
         val memberNodes = moduleNames match {
           case Nil => {
-            val arrays1 = arrays.map(transformer(Ast.TUMember.DefArray(_)))
-            val enums1 = enums.map(transformer(Ast.TUMember.DefEnum(_)))
+            val arrays1 = arrays.map(transformer(Ast.TUMember.DefArray))
+            val enums1 = enums.map(transformer(Ast.TUMember.DefEnum))
             val struct1 = transformer(Ast.TUMember.DefStruct)(struct)
             (arrays1 ++ enums1) :+ struct1
           }
           case head :: tail => {
-            val arrays1 = arrays.map(transformer(Ast.ModuleMember.DefArray(_)))
-            val enums1 = enums.map(transformer(Ast.ModuleMember.DefEnum(_)))
+            val arrays1 = arrays.map(transformer(Ast.ModuleMember.DefArray))
+            val enums1 = enums.map(transformer(Ast.ModuleMember.DefEnum))
             val struct1 = transformer(Ast.ModuleMember.DefStruct)(struct)
             val aNodeList1 = (arrays1 ++ enums1) :+ struct1
             val aNodeList2 = XmlFppWriter.FppBuilder.encloseWithModuleMemberModules(tail.reverse)(aNodeList1)

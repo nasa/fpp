@@ -25,10 +25,39 @@ object XmlFppWriter extends LineUtils {
         case None => Left(error(XmlError.SemanticError(_, s"missing attribute $name for node ${node.toString}")))
       }
 
+    def getComment: Result.Result[List[String]] =
+      for (childOpt <- getSingleChildOpt(elem, "comment"))
+        yield {
+          def removeOuterBlanks(list: List[String]) = {
+            def removeLeadingBlanks(list: List[String]): List[String] =
+              list match {
+                case "" :: tail => removeLeadingBlanks(tail)
+                case _ => list
+              }
+            def removeTrailingBlanks(list: List[String]) =
+              removeLeadingBlanks(list.reverse).reverse
+            removeTrailingBlanks(removeLeadingBlanks(list))
+          }
+          childOpt match {
+            case Some(node) => {
+              val list = node.child.map(_.toString.split("\n").map(_.trim)).flatten.toList
+              removeOuterBlanks(list)
+            }
+            case None => Nil
+          }
+        }
+
     def getSingleChild(node: scala.xml.Node, name: String): Result.Result[scala.xml.Node] =
+      getSingleChildOpt(node, name) match {
+        case Right(Some(child)) => Right(child)
+        case Right(None) => Left(error(XmlError.SemanticError(_, s"missing child $name for node ${node.toString}")))
+        case Left(e) => Left(e)
+      }
+
+    def getSingleChildOpt(node: scala.xml.Node, name: String): Result.Result[Option[scala.xml.Node]] =
       (node \ name).toList match {
-        case head :: Nil => Right(head)
-        case Nil => Left(error(XmlError.SemanticError(_, s"missing child $name for node ${node.toString}")))
+        case head :: Nil => Right(Some(head))
+        case Nil => Right(None)
         case _ => Left(error(XmlError.SemanticError(_, s"multiple child nodes $name for node ${node.toString}")))
       }
 
