@@ -18,84 +18,77 @@ object StructXmlFppWriter extends LineUtils {
       Nil
     }
 
-    /** Arrays extracted from struct member types */
-    def defArrayList(file: XmlFppWriter.File): Result.Result[List[Ast.DefArray]] =
-      Right(Nil)
-
-    /** Enums extracted from struct member types */
-    def defEnumList(file: XmlFppWriter.File): Result.Result[List[Ast.DefEnum]] =
-      Right(Nil)
-
-    def defStruct(file: XmlFppWriter.File): Result.Result[Ast.DefStruct] =
-      Right(Ast.DefStruct("TODO", Nil, None))
-
-      /*
-      for {
-        name <- file.getAttribute(file.elem, "name")
-        constants <- FppBuilder.constants(file)
-      }
-      yield {
-        val repType = FppBuilder.repType(file)
-        val default = FppBuilder.default(file)
-        Ast.DefStruct(name, repType, constants, default)
-      }
-
-    def defStructConstant(
-      file: XmlFppWriter.File,
-      constant: scala.xml.Node
-    ): Result.Result[Ast.DefStructConstant] =
-      for {
-        name <- file.getAttribute(constant, "name")
-        value <- file.getAttribute(constant, "value")
-      }
-      yield {
-        val e = Ast.ExprLiteralInt(value)
-        val node = AstNode.create(e)
-        Ast.DefStructConstant(name, Some(node))
-      }
-
-    def defStructConstantAnnotatedNode(
-      file: XmlFppWriter.File,
-      constant: scala.xml.Node
-    ): Result.Result[Ast.Annotated[AstNode[Ast.DefStructConstant]]] =
-      for (data <- defStructConstant(file, constant))
-      yield {
-        val a = XmlFppWriter.getAttributeComment(constant)
-        val node = AstNode.create(data)
-        (Nil, node, a)
-      }
-
-    def default(file: XmlFppWriter.File): Option[AstNode[Ast.Expr]] = {
-      // Not supported in F Prime XML
-      None
-    }
-
-    def repType(file: XmlFppWriter.File): Option[AstNode[Ast.TypeName]] = {
-      // Not supported in F Prime XML
-      None
-    }
-    */
-
-    def tuMemberList(file: XmlFppWriter.File): Result.Result[List[Ast.TUMember]] =
-      Right(Nil)
-      /*
-      for (data <- defStruct(file))
-      yield {
-        val a = annotation(file)
-        val moduleNames = XmlFppWriter.getAttributeNamespace(file.elem)
-        val node = AstNode.create(data)
-        val memberNode = moduleNames match {
-          case Nil => Ast.TUMember.DefStruct(node)
-          case head :: tail => {
-            val memberNode1 = Ast.ModuleMember.DefStruct(node)
-            val memberNode2 = XmlFppWriter.FppBuilder.encloseWithModuleMemberModules(tail.reverse)(memberNode1)
-            XmlFppWriter.FppBuilder.encloseWithTuMemberModule(head)(memberNode2)
+    /** Extracts arrays from struct member types */
+    def defArrayAnnotatedList(file: XmlFppWriter.File): Result.Result[List[Ast.Annotated[Ast.DefArray]]] = {
+      def array (name:String) (node: scala.xml.Node): Result.Result[Option[Ast.DefArray]] =
+        for {
+          memberName <- file.getAttribute(node, "name")
+          t <- file.getAttribute(node, "type")
+        }
+        yield {
+          val sizeOpt = XmlFppWriter.getAttributeOpt(node, "size")
+          (t, sizeOpt) match {
+            case ("string", _) => None
+            case (_, None) => None
+            case (_, Some(size)) => Some(Ast.DefArray(
+              s"${name}_${memberName}",
+              AstNode.create(Ast.ExprLiteralInt(size)),
+              AstNode.create(XmlFppWriter.FppBuilder.translateType(t, None)),
+              None,
+              None
+            ))
           }
         }
-        val aNode = (a, memberNode, Nil)
-        Ast.TUMember(aNode)
+      for {
+        name <- file.getAttribute(file.elem, "name")
+        child <- file.getSingleChild(file.elem, "members")
+        members <- Right((child \ "member").toList)
+        arrays <- Result.map(members, array(name) _)
       }
-      */
+      yield arrays.filter(_.isDefined).map(_.get).map((Nil, _, Nil))
+    }
+
+    /** Extracts enums from struct member types */
+    def defEnumAnnotatedList(file: XmlFppWriter.File): Result.Result[List[Ast.Annotated[Ast.DefEnum]]] =
+      Right(Nil)
+
+    /** Translates the struct type */
+    def defStructAnnotated(file: XmlFppWriter.File): Result.Result[Ast.Annotated[Ast.DefStruct]] =
+      for {
+        name <- file.getAttribute(file.elem, "name")
+      }
+      yield (Nil, Ast.DefStruct(name, Nil, None), Nil)
+
+    /** Generates the list of TU members */
+    def tuMemberList(file: XmlFppWriter.File): Result.Result[List[Ast.TUMember]] = {
+      for {
+        arrays <- defArrayAnnotatedList(file)
+        enums <- defEnumAnnotatedList(file)
+        struct <- defStructAnnotated(file)
+      }
+      yield {
+        def transformer[A,B](constructor: AstNode[A] => B)(a: Ast.Annotated[A]) = 
+          (a._1, constructor(AstNode.create(a._2)), a._3)
+        val moduleNames = XmlFppWriter.getAttributeNamespace(file.elem)
+        val memberNodes = moduleNames match {
+          case Nil => {
+            val arrays1 = arrays.map(transformer(Ast.TUMember.DefArray(_)))
+            val enums1 = enums.map(transformer(Ast.TUMember.DefEnum(_)))
+            val struct1 = transformer(Ast.TUMember.DefStruct)(struct)
+            (arrays1 ++ enums1) :+ struct1
+          }
+          case head :: tail => {
+            val arrays1 = arrays.map(transformer(Ast.ModuleMember.DefArray(_)))
+            val enums1 = enums.map(transformer(Ast.ModuleMember.DefEnum(_)))
+            val struct1 = transformer(Ast.ModuleMember.DefStruct)(struct)
+            val aNodeList1 = (arrays1 ++ enums1) :+ struct1
+            val aNodeList2 = XmlFppWriter.FppBuilder.encloseWithModuleMemberModules(tail.reverse)(aNodeList1)
+            List(XmlFppWriter.FppBuilder.encloseWithTuMemberModule(head)(aNodeList2))
+          }
+        }
+        memberNodes.map(Ast.TUMember(_))
+      }      
+    }
 
   }
 

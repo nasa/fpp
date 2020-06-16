@@ -25,6 +25,13 @@ object XmlFppWriter extends LineUtils {
         case None => Left(error(XmlError.SemanticError(_, s"missing attribute $name for node ${node.toString}")))
       }
 
+    def getSingleChild(node: scala.xml.Node, name: String): Result.Result[scala.xml.Node] =
+      (node \ name).toList match {
+        case head :: Nil => Right(head)
+        case Nil => Left(error(XmlError.SemanticError(_, s"missing child $name for node ${node.toString}")))
+        case _ => Left(error(XmlError.SemanticError(_, s"multiple child nodes $name for node ${node.toString}")))
+      }
+
     def write: Result = {
       val eltType = elem.label
       for {
@@ -53,7 +60,7 @@ object XmlFppWriter extends LineUtils {
 
   def getAttributeOpt(node: scala.xml.Node, name: String): Option[String] = 
     node.attribute(name).map(_.toList.head.toString)
-
+  
   def writeFileList(fileList: List[File]) = {
     for (files <- Result.map(fileList, (file: File) => file.write))
       yield Line.blankSeparated (identity[List[Line]]) (files)
@@ -85,7 +92,31 @@ object XmlFppWriter extends LineUtils {
       }
     }
 
-    /** Enclose several member nodes with a module of variant type */
+    /** Translates an XML type to an FPP type name */
+    def translateType(xmlType: String, size: Option[String]): Ast.TypeName = xmlType match {
+      case "I16" => Ast.TypeNameInt(Ast.I16())
+      case "I32" => Ast.TypeNameInt(Ast.I32())
+      case "I64" => Ast.TypeNameInt(Ast.I64())
+      case "I8" => Ast.TypeNameInt(Ast.I8())
+      case "F32" => Ast.TypeNameFloat(Ast.F32())
+      case "F64" => Ast.TypeNameFloat(Ast.F64())
+      case "U16" => Ast.TypeNameInt(Ast.U16())
+      case "U32" => Ast.TypeNameInt(Ast.U32())
+      case "U64" => Ast.TypeNameInt(Ast.U64())
+      case "U8" => Ast.TypeNameInt(Ast.U8())
+      case "bool" => Ast.TypeNameBool
+      case "string" => Ast.TypeNameString(
+        size.map((s: String) => AstNode.create(Ast.ExprLiteralInt(s)))
+      )
+      case _ => Ast.TypeNameQualIdent(
+        AstNode.create(Ast.QualIdent.fromNodeList(xmlType.split("::").toList.map(AstNode.create(_))))
+      )
+    }
+      /*
+  final case class TypeNameQualIdent(name: AstNode[QualIdent]) extends TypeName
+  */
+
+    /** Encloses several member nodes with a module of variant type */
     private def encloseWithModule[MemberType]
       (memberTypeConstructor: AstNode[Ast.DefModule] => MemberType)
       (name:String)
