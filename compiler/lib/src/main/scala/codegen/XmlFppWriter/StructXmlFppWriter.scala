@@ -14,18 +14,21 @@ object StructXmlFppWriter extends LineUtils {
   /** Builds FPP for translating Serializable XML */
   private object FppBuilder {
 
-    /** Extracts arrays from struct member node */
-    def defArrayAnnotatedList(file: XmlFppWriter.File):
-      Result.Result[List[Ast.Annotated[Ast.DefArray]]] =
+    /** Extracts a struct type member */
+    def structTypeMemberAnnotatedNode(file: XmlFppWriter.File, node: scala.xml.Node): 
+      Result.Result[Ast.Annotated[AstNode[Ast.StructTypeMember]]] =
       for {
-        name <- file.getAttribute(file.elem, "name")
-        child <- file.getSingleChild(file.elem, "members")
-        members <- Right((child \ "member").toList)
-        arrayOpts <- Result.map(members, defArrayAnnotatedOpt(file)(name))
+        name <- file.getAttribute(node, "name")
+        t <- file.translateType(node)
       }
-      yield arrayOpts.filter(_.isDefined).map(_.get)
+      yield {
+        val comment = XmlFppWriter.getAttributeComment(node)
+        val data = Ast.StructTypeMember(name, AstNode.create(t), None)
+        val astNode = AstNode.create(data)
+        (Nil, astNode, comment)
+      }
 
-    /** Extracts an array from a struct member node if it is there */
+    /** Extracts an definition array from a struct member node if needed */
     def defArrayAnnotatedOpt(file: XmlFppWriter.File)(name:String)(node: scala.xml.Node):
       Result.Result[Option[Ast.Annotated[Ast.DefArray]]] =
       for {
@@ -51,7 +54,18 @@ object StructXmlFppWriter extends LineUtils {
       }
       yield result
 
-    /** Extracts enums from struct member types */
+    /** Extracts array definitions from struct members */
+    def defArrayAnnotatedList(file: XmlFppWriter.File):
+      Result.Result[List[Ast.Annotated[Ast.DefArray]]] =
+      for {
+        name <- file.getAttribute(file.elem, "name")
+        child <- file.getSingleChild(file.elem, "members")
+        members <- Right((child \ "member").toList)
+        arrayOpts <- Result.map(members, defArrayAnnotatedOpt(file)(name))
+      }
+      yield arrayOpts.filter(_.isDefined).map(_.get)
+
+    /** Extracts enum definitions from struct members */
     def defEnumAnnotatedList(file: XmlFppWriter.File):
       Result.Result[List[Ast.Annotated[Ast.DefEnum]]] =
       for {
@@ -64,16 +78,6 @@ object StructXmlFppWriter extends LineUtils {
       }
       yield enumOpts.filter(_.isDefined).map(_.get)
 
-    /** Translates the struct type */
-    def defStructAnnotated(file: XmlFppWriter.File):
-      Result.Result[Ast.Annotated[Ast.DefStruct]] =
-      for {
-        comment <- file.getComment
-        name <- file.getAttribute(file.elem, "name")
-        members <- structTypeMemberAnnotatedNodeList(file)
-      }
-      yield (comment, Ast.DefStruct(name, members, None), Nil)
-
     /** Extracts struct type members */
     def structTypeMemberAnnotatedNodeList(file: XmlFppWriter.File): 
       Result.Result[List[Ast.Annotated[AstNode[Ast.StructTypeMember]]]] =
@@ -84,20 +88,6 @@ object StructXmlFppWriter extends LineUtils {
           Result.map(members.toList, structTypeMemberAnnotatedNode(file, _))
         } 
       } yield result
-
-    /** Extracts a struct type member */
-    def structTypeMemberAnnotatedNode(file: XmlFppWriter.File, node: scala.xml.Node): 
-      Result.Result[Ast.Annotated[AstNode[Ast.StructTypeMember]]] =
-      for {
-        name <- file.getAttribute(node, "name")
-        t <- file.translateType(node)
-      }
-      yield {
-        val comment = XmlFppWriter.getAttributeComment(node)
-        val data = Ast.StructTypeMember(name, AstNode.create(t), None)
-        val astNode = AstNode.create(data)
-        (Nil, astNode, comment)
-      }
 
     /** Generates the list of TU members */
     def tuMemberList(file: XmlFppWriter.File): Result.Result[List[Ast.TUMember]] = {
@@ -129,6 +119,16 @@ object StructXmlFppWriter extends LineUtils {
         memberNodes.map(Ast.TUMember(_))
       }      
     }
+
+    /** Translates the struct type */
+    def defStructAnnotated(file: XmlFppWriter.File):
+      Result.Result[Ast.Annotated[Ast.DefStruct]] =
+      for {
+        comment <- file.getComment
+        name <- file.getAttribute(file.elem, "name")
+        members <- structTypeMemberAnnotatedNodeList(file)
+      }
+      yield (comment, Ast.DefStruct(name, members, None), Nil)
 
   }
 
