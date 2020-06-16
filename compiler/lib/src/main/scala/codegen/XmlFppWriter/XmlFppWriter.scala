@@ -17,14 +17,17 @@ object XmlFppWriter extends LineUtils {
     elem: scala.xml.Elem
   ) {
 
+    /** Constructs an error containing the file name */
     def error(e: (String) => Error) = e(name)
 
+    /** Gets an attribute from a node, returning an error if it is not there */
     def getAttribute(node: scala.xml.Node, name: String): Result.Result[String] = 
       getAttributeOpt(node, name) match {
         case Some(s) => Right(s)
         case None => Left(error(XmlError.SemanticError(_, s"missing attribute $name for node ${node.toString}")))
       }
 
+    /** Gets a comment from a node, returning an empty list if it is not there */
     def getComment: Result.Result[List[String]] =
       for (childOpt <- getSingleChildOpt(elem, "comment"))
         yield {
@@ -47,6 +50,7 @@ object XmlFppWriter extends LineUtils {
           }
         }
 
+    /** Gets a single child from a node, returning an error if it is not there */
     def getSingleChild(node: scala.xml.Node, name: String): Result.Result[scala.xml.Node] =
       getSingleChildOpt(node, name) match {
         case Right(Some(child)) => Right(child)
@@ -54,6 +58,7 @@ object XmlFppWriter extends LineUtils {
         case Left(e) => Left(e)
       }
 
+    /** Gets an optional single child from a node */
     def getSingleChildOpt(node: scala.xml.Node, name: String): Result.Result[Option[scala.xml.Node]] =
       (node \ name).toList match {
         case head :: Nil => Right(Some(head))
@@ -61,6 +66,41 @@ object XmlFppWriter extends LineUtils {
         case _ => Left(error(XmlError.SemanticError(_, s"multiple child nodes $name for node ${node.toString}")))
       }
 
+    /** Translates an XML type to an FPP type name */
+    def translateType(node: scala.xml.Node): Result.Result[Ast.TypeName] = {
+      for {
+        xmlType <- getAttribute(node, "type")
+        result <- {
+          def qualIdent(xmlType: String) = Ast.TypeNameQualIdent(
+            AstNode.create(Ast.QualIdent.fromNodeList(xmlType.split("::").toList.map(AstNode.create(_))))
+          )
+          val sizeOpt = getAttributeOpt(node, "size")
+          xmlType match {
+            case "I16" => Right(Ast.TypeNameInt(Ast.I16()))
+            case "I32" => Right(Ast.TypeNameInt(Ast.I32()))
+            case "I64" => Right(Ast.TypeNameInt(Ast.I64()))
+            case "I8" => Right(Ast.TypeNameInt(Ast.I8()))
+            case "F32" => Right(Ast.TypeNameFloat(Ast.F32()))
+            case "F64" => Right(Ast.TypeNameFloat(Ast.F64()))
+            case "U16" => Right(Ast.TypeNameInt(Ast.U16()))
+            case "U32" => Right(Ast.TypeNameInt(Ast.U32()))
+            case "U64" => Right(Ast.TypeNameInt(Ast.U64()))
+            case "U8" => Right(Ast.TypeNameInt(Ast.U8()))
+            case "bool" => Right(Ast.TypeNameBool)
+            case "ENUM" => for {
+              enum <- getSingleChild(node, "enum")
+              name <- getAttribute(enum, "name")
+            } yield qualIdent(name)
+            case "string" => Right(Ast.TypeNameString(
+              sizeOpt.map((size: String) => AstNode.create(Ast.ExprLiteralInt(size)))
+            ))
+            case _ => Right(qualIdent(xmlType))
+          }
+        }
+      } yield result
+    }
+
+    /** Writes a file as lines */
     def write: Result = {
       val eltType = elem.label
       for {
@@ -95,6 +135,7 @@ object XmlFppWriter extends LineUtils {
       yield Line.blankSeparated (identity[List[Line]]) (files)
   }
 
+  /** Utilities for constructing FPP ASTs */
   object FppBuilder {
 
     /** Enclose a list of module members with a module inside a trans unit */
@@ -117,29 +158,10 @@ object XmlFppWriter extends LineUtils {
           List(encloseWithModule(Ast.ModuleMember.DefModule(_))(name)(members))
       names match {
         case Nil => members
-        case head :: tail => encloseWithModuleMemberModules(tail)(encloseWithModuleMemberModule(head)(members))
+        case head :: tail => encloseWithModuleMemberModules(tail)(
+          encloseWithModuleMemberModule(head)(members)
+        )
       }
-    }
-
-    /** Translates an XML type to an FPP type name */
-    def translateType(xmlType: String, size: Option[String]): Ast.TypeName = xmlType match {
-      case "I16" => Ast.TypeNameInt(Ast.I16())
-      case "I32" => Ast.TypeNameInt(Ast.I32())
-      case "I64" => Ast.TypeNameInt(Ast.I64())
-      case "I8" => Ast.TypeNameInt(Ast.I8())
-      case "F32" => Ast.TypeNameFloat(Ast.F32())
-      case "F64" => Ast.TypeNameFloat(Ast.F64())
-      case "U16" => Ast.TypeNameInt(Ast.U16())
-      case "U32" => Ast.TypeNameInt(Ast.U32())
-      case "U64" => Ast.TypeNameInt(Ast.U64())
-      case "U8" => Ast.TypeNameInt(Ast.U8())
-      case "bool" => Ast.TypeNameBool
-      case "string" => Ast.TypeNameString(
-        size.map((s: String) => AstNode.create(Ast.ExprLiteralInt(s)))
-      )
-      case _ => Ast.TypeNameQualIdent(
-        AstNode.create(Ast.QualIdent.fromNodeList(xmlType.split("::").toList.map(AstNode.create(_))))
-      )
     }
 
     /** Encloses several member nodes with a module of variant type */
@@ -153,6 +175,89 @@ object XmlFppWriter extends LineUtils {
       val defModule = Ast.DefModule(name, members)
       val node = AstNode.create(defModule)
       (Nil, memberTypeConstructor(node), Nil)
+    }
+
+    /** Constructs enums embedded in XML nodes */
+    object EnumBuilder {
+
+      /** Translates an enum */
+      def defEnumAnnotated(file: XmlFppWriter.File)(node: scala.xml.Node) = {
+        for {
+          name <- file.getAttribute(node, "name")
+          constants <- defEnumConstantNodeAnnotatedList(file)(node)
+        }
+        yield Ast.DefEnum(name, None, constants, None)
+      }
+
+      /** Translates an enum if present in the node */
+      def defEnumAnnotatedOpt(file: XmlFppWriter.File)(node: scala.xml.Node):
+        Result.Result[Option[Ast.DefEnum]] = 
+      {
+        for {
+          enumNodeOpt <- file.getSingleChildOpt(node, "enum")
+          result <- enumNodeOpt match {
+            case Some(enumNode) => defEnumAnnotated(file)(enumNode).map(Some(_))
+            case None => Right(None)
+          }
+        } yield result
+      }
+
+      /** Translates enum constant nodes */
+      def defEnumConstantNodeAnnotated
+        (file: XmlFppWriter.File)
+        (node: scala.xml.Node, defaultValue: Int) =
+      {
+        for {
+          name <- file.getAttribute(node, "name")
+          value <- getItemValue(file, node, defaultValue)
+        }
+        yield {
+          val valueOpt = XmlFppWriter.getAttributeOpt(node, "value")
+          val data = Ast.DefEnumConstant(
+            name,
+            Some(AstNode.create(Ast.ExprLiteralInt(value.toString)))
+          )
+          val astNode = AstNode.create(data)
+          val comment = XmlFppWriter.getAttributeComment(node)
+          ((Nil, astNode, comment), value + 1)
+        }
+      }
+
+      /** Translates a list of enum constant nodes */
+      def defEnumConstantNodeAnnotatedList
+        (file: XmlFppWriter.File)
+        (enumNode: scala.xml.Node) = 
+      {
+        val items = (enumNode \ "item").toList
+        def fold(
+          nodes: List[scala.xml.Node],
+          defaultValue: Int,
+          out: List[Ast.Annotated[AstNode[Ast.DefEnumConstant]]]
+        ): Result.Result[List[Ast.Annotated[AstNode[Ast.DefEnumConstant]]]] =
+            nodes match {
+              case Nil => Right(out.reverse)
+              case head :: tail => defEnumConstantNodeAnnotated(file)(head, defaultValue) match {
+                case Left(e) => Left(e)
+                case Right((aNode, value)) => fold(tail, value, aNode :: out)
+              }
+            }
+        fold(items, 0, Nil)
+      }
+
+      /** Gets the value from an enum item node */
+      def getItemValue(file: XmlFppWriter.File, node: scala.xml.Node, defaultValue: Int) = 
+        XmlFppWriter.getAttributeOpt(node, "value") match {
+          case Some(value) => 
+            try { 
+              Right(value.toInt) 
+            } catch {
+              case _: Exception => Left(
+                file.error(XmlError.SemanticError(_, s"invalid value $value for node ${node.toString}"))
+              )
+            }
+          case None => Right(defaultValue)
+        }
+
     }
 
   }
