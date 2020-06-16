@@ -24,7 +24,9 @@ object XmlFppWriter extends LineUtils {
     def getAttribute(node: scala.xml.Node, name: String): Result.Result[String] = 
       getAttributeOpt(node, name) match {
         case Some(s) => Right(s)
-        case None => Left(error(XmlError.SemanticError(_, s"missing attribute $name for node ${node.toString}")))
+        case None => Left(
+          error(XmlError.SemanticError(_, s"missing attribute $name for node ${node.toString}"))
+        )
       }
 
     /** Gets a comment from a node, returning an empty list if it is not there */
@@ -177,8 +179,8 @@ object XmlFppWriter extends LineUtils {
       (Nil, memberTypeConstructor(node), Nil)
     }
 
-    /** Constructs enums embedded in XML nodes */
-    object EnumBuilder {
+    /** Constructs enums inlined into in XML nodes */
+    object InlineEnumBuilder {
 
       /** Translates an enum */
       def defEnumAnnotated(file: XmlFppWriter.File)(node: scala.xml.Node) = {
@@ -186,13 +188,11 @@ object XmlFppWriter extends LineUtils {
           name <- file.getAttribute(node, "name")
           constants <- defEnumConstantNodeAnnotatedList(file)(node)
         }
-        yield Ast.DefEnum(name, None, constants, None)
+        yield (Nil, Ast.DefEnum(name, None, constants, None), Nil)
       }
 
       /** Translates an enum if present in the node */
-      def defEnumAnnotatedOpt(file: XmlFppWriter.File)(node: scala.xml.Node):
-        Result.Result[Option[Ast.DefEnum]] = 
-      {
+      def defEnumAnnotatedOpt(file: XmlFppWriter.File)(node: scala.xml.Node) = {
         for {
           enumNodeOpt <- file.getSingleChildOpt(node, "enum")
           result <- enumNodeOpt match {

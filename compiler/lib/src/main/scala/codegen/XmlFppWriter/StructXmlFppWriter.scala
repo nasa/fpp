@@ -14,50 +14,59 @@ object StructXmlFppWriter extends LineUtils {
   /** Builds FPP for translating Serializable XML */
   private object FppBuilder {
 
-    /** Extracts arrays from struct member types */
-    def defArrayAnnotatedList(file: XmlFppWriter.File): Result.Result[List[Ast.Annotated[Ast.DefArray]]] = {
-      def array (name:String) (node: scala.xml.Node): Result.Result[Option[Ast.DefArray]] =
-        for {
-          memberName <- file.getAttribute(node, "name")
-          t <- file.getAttribute(node, "type")
-          result <- {
-            val sizeOpt = XmlFppWriter.getAttributeOpt(node, "size")
-            (t, sizeOpt) match {
-              case ("string", _) => Right(None)
-              case (_, None) => Right(None)
-              case (_, Some(size)) => for (t <- file.translateType(node)) yield
-                Some(Ast.DefArray(
-                  s"${name}_${memberName}",
-                  AstNode.create(Ast.ExprLiteralInt(size)),
-                  AstNode.create(t),
-                  None,
-                  None
-                ))
-            }
-          }
-        }
-        yield result
+    /** Extracts arrays from struct member node */
+    def defArrayAnnotatedList(file: XmlFppWriter.File):
+      Result.Result[List[Ast.Annotated[Ast.DefArray]]] =
       for {
         name <- file.getAttribute(file.elem, "name")
         child <- file.getSingleChild(file.elem, "members")
         members <- Right((child \ "member").toList)
-        arrays <- Result.map(members, array(name))
+        arrayOpts <- Result.map(members, defArrayAnnotatedOpt(file)(name))
       }
-      yield arrays.filter(_.isDefined).map(_.get).map((Nil, _, Nil))
-    }
+      yield arrayOpts.filter(_.isDefined).map(_.get)
+
+    /** Extracts an array from a struct member node if it is there */
+    def defArrayAnnotatedOpt(file: XmlFppWriter.File)(name:String)(node: scala.xml.Node):
+      Result.Result[Option[Ast.Annotated[Ast.DefArray]]] =
+      for {
+        memberName <- file.getAttribute(node, "name")
+        t <- file.getAttribute(node, "type")
+        result <- {
+          val sizeOpt = XmlFppWriter.getAttributeOpt(node, "size")
+          (t, sizeOpt) match {
+            case ("string", _) => Right(None)
+            case (_, None) => Right(None)
+            case (_, Some(size)) => for (t <- file.translateType(node)) yield {
+              val array = Ast.DefArray(
+                s"${name}_${memberName}",
+                AstNode.create(Ast.ExprLiteralInt(size)),
+                AstNode.create(t),
+                None,
+                None
+              )
+              Some((Nil, array, Nil))
+            }
+          }
+        }
+      }
+      yield result
 
     /** Extracts enums from struct member types */
-    def defEnumAnnotatedList(file: XmlFppWriter.File): Result.Result[List[Ast.Annotated[Ast.DefEnum]]] = {
+    def defEnumAnnotatedList(file: XmlFppWriter.File):
+      Result.Result[List[Ast.Annotated[Ast.DefEnum]]] =
       for {
         child <- file.getSingleChild(file.elem, "members")
         members <- Right((child \ "member").toList)
-        enumOpts <- Result.map(members, XmlFppWriter.FppBuilder.EnumBuilder.defEnumAnnotatedOpt(file))
+        enumOpts <- Result.map(
+          members,
+          XmlFppWriter.FppBuilder.InlineEnumBuilder.defEnumAnnotatedOpt(file)
+        )
       }
-      yield enumOpts.filter(_.isDefined).map(_.get).map((Nil, _, Nil))
-    }
+      yield enumOpts.filter(_.isDefined).map(_.get)
 
     /** Translates the struct type */
-    def defStructAnnotated(file: XmlFppWriter.File): Result.Result[Ast.Annotated[Ast.DefStruct]] =
+    def defStructAnnotated(file: XmlFppWriter.File):
+      Result.Result[Ast.Annotated[Ast.DefStruct]] =
       for {
         comment <- file.getComment
         name <- file.getAttribute(file.elem, "name")
