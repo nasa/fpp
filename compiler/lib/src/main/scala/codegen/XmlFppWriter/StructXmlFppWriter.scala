@@ -60,14 +60,17 @@ object StructXmlFppWriter extends LineUtils {
 
     /** Extracts struct type members */
     def structTypeMemberAnnotatedList(file: XmlFppWriter.File): 
-      Result.Result[List[Ast.Annotated[AstNode[Ast.StructTypeMember]]]] = 
-    {
-      // TODO
-      Right(Nil)
-    }
+      Result.Result[List[Ast.Annotated[AstNode[Ast.StructTypeMember]]]] =
+      for {
+        child <- file.getSingleChild(file.elem, "members")
+        result <- {
+          val members = child \ "member"
+          Result.map(members.toList, structTypeMemberAnnotatedNode(file, _))
+        } 
+      } yield result
 
     /** Extracts a struct type member */
-    def structTypeMemberAnnotated(node: scala.xml.Node): 
+    def structTypeMemberAnnotatedNode(file: XmlFppWriter.File, node: scala.xml.Node): 
       Result.Result[Ast.Annotated[AstNode[Ast.StructTypeMember]]] =
     {
       val data = Ast.StructTypeMember("TODO", AstNode.create(Ast.TypeNameBool), None)

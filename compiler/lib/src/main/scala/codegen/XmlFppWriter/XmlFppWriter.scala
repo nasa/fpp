@@ -141,9 +141,6 @@ object XmlFppWriter extends LineUtils {
         AstNode.create(Ast.QualIdent.fromNodeList(xmlType.split("::").toList.map(AstNode.create(_))))
       )
     }
-      /*
-  final case class TypeNameQualIdent(name: AstNode[QualIdent]) extends TypeName
-  */
 
     /** Encloses several member nodes with a module of variant type */
     private def encloseWithModule[MemberType]
