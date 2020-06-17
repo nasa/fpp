@@ -52,6 +52,21 @@ object XmlFppWriter extends LineUtils {
           }
         }
 
+    /** Gets the integer value attribute from a node */
+    def getIntegerValueAttribute(defaultValue: Int)(node: scala.xml.Node):
+      Result.Result[Int]= 
+      getAttributeOpt(node, "value") match {
+        case Some(value) => 
+          try { 
+            Right(value.toInt) 
+          } catch {
+            case _: Exception => Left(
+              error(XmlError.SemanticError(_, s"invalid value $value for node ${node.toString}"))
+            )
+          }
+        case None => Right(defaultValue)
+      }
+
     /** Gets a single child from a node, returning an error if it is not there */
     def getSingleChild(node: scala.xml.Node, name: String): Result.Result[scala.xml.Node] =
       getSingleChildOpt(node, name) match {
@@ -73,9 +88,6 @@ object XmlFppWriter extends LineUtils {
       for {
         xmlType <- getAttribute(node, "type")
         result <- {
-          def qualIdent(xmlType: String) = Ast.TypeNameQualIdent(
-            AstNode.create(Ast.QualIdent.fromNodeList(xmlType.split("::").toList.map(AstNode.create(_))))
-          )
           val sizeOpt = getAttributeOpt(node, "size")
           xmlType match {
             case "I16" => Right(Ast.TypeNameInt(Ast.I16()))
@@ -92,11 +104,11 @@ object XmlFppWriter extends LineUtils {
             case "ENUM" => for {
               enum <- getSingleChild(node, "enum")
               name <- getAttribute(enum, "name")
-            } yield qualIdent(name)
+            } yield FppBuilder.translateQualIdentType(name)
             case "string" => Right(Ast.TypeNameString(
               sizeOpt.map((size: String) => AstNode.create(Ast.ExprLiteralInt(size)))
             ))
-            case _ => Right(qualIdent(xmlType))
+            case _ => Right(FppBuilder.translateQualIdentType(xmlType))
           }
         }
       } yield result
@@ -117,21 +129,25 @@ object XmlFppWriter extends LineUtils {
 
   }
 
+  /** Gets an attribute comment */
   def getAttributeComment(node: scala.xml.Node): List[String] =
     getAttributeOpt(node, "comment") match {
       case Some(s) => s.split("\n").map(_.trim).toList
       case None => Nil
     }
 
+  /** Gets an attribute namespace */
   def getAttributeNamespace(node: scala.xml.Node): List[String] =
     getAttributeOpt(node, "namespace") match {
       case Some(s) => s.split("::").toList
       case None => Nil
     }
 
+  /** Gets an optional attribute */
   def getAttributeOpt(node: scala.xml.Node, name: String): Option[String] = 
     node.attribute(name).map(_.toList.head.toString)
   
+  /** Writes a file list */
   def writeFileList(fileList: List[File]) = {
     for (files <- Result.map(fileList, (file: File) => file.write))
       yield Line.blankSeparated (identity[List[Line]]) (files)
@@ -166,6 +182,11 @@ object XmlFppWriter extends LineUtils {
       }
     }
 
+    /** Translate a qualified identifier type */
+    def translateQualIdentType(xmlType: String) = Ast.TypeNameQualIdent(
+      AstNode.create(Ast.QualIdent.fromNodeList(xmlType.split("::").toList.map(AstNode.create(_))))
+    )
+
     /** Encloses several member nodes with a module of variant type */
     private def encloseWithModule[MemberType]
       (memberTypeConstructor: AstNode[Ast.DefModule] => MemberType)
@@ -179,20 +200,21 @@ object XmlFppWriter extends LineUtils {
       (Nil, memberTypeConstructor(node), Nil)
     }
 
-    /** Constructs enums inlined into in XML nodes */
+    /** Extracts inline enums from XML nodes */
     object InlineEnumBuilder {
 
       /** Translates an enum */
-      def defEnumAnnotated(file: XmlFppWriter.File)(node: scala.xml.Node) = {
+      def defEnumAnnotated(file: XmlFppWriter.File)(node: scala.xml.Node):
+        Result.Result[Ast.Annotated[Ast.DefEnum]] =
         for {
           name <- file.getAttribute(node, "name")
           constants <- defEnumConstantNodeAnnotatedList(file)(node)
         }
         yield (Nil, Ast.DefEnum(name, None, constants, None), Nil)
-      }
 
       /** Translates an enum if present in the node */
-      def defEnumAnnotatedOpt(file: XmlFppWriter.File)(node: scala.xml.Node) = {
+      def defEnumAnnotatedOpt(file: XmlFppWriter.File)(node: scala.xml.Node):
+        Result.Result[Option[Ast.Annotated[Ast.DefEnum]]] =
         for {
           enumNodeOpt <- file.getSingleChildOpt(node, "enum")
           result <- enumNodeOpt match {
@@ -200,19 +222,19 @@ object XmlFppWriter extends LineUtils {
             case None => Right(None)
           }
         } yield result
-      }
 
-      /** Translates enum constant nodes */
+      /** Translates an enum constant node */
       def defEnumConstantNodeAnnotated
         (file: XmlFppWriter.File)
-        (node: scala.xml.Node, defaultValue: Int) =
+        (defaultValue: Int)
+        (node: scala.xml.Node):
+        Result.Result[(Ast.Annotated[AstNode[Ast.DefEnumConstant]], Int)] =
       {
         for {
           name <- file.getAttribute(node, "name")
-          value <- getItemValue(file, node, defaultValue)
+          value <- file.getIntegerValueAttribute(defaultValue)(node)
         }
         yield {
-          val valueOpt = XmlFppWriter.getAttributeOpt(node, "value")
           val data = Ast.DefEnumConstant(
             name,
             Some(AstNode.create(Ast.ExprLiteralInt(value.toString)))
@@ -226,37 +248,25 @@ object XmlFppWriter extends LineUtils {
       /** Translates a list of enum constant nodes */
       def defEnumConstantNodeAnnotatedList
         (file: XmlFppWriter.File)
-        (enumNode: scala.xml.Node) = 
+        (enumNode: scala.xml.Node):
+        Result.Result[List[Ast.Annotated[AstNode[Ast.DefEnumConstant]]]] = 
       {
         val items = (enumNode \ "item").toList
         def fold(
           nodes: List[scala.xml.Node],
           defaultValue: Int,
           out: List[Ast.Annotated[AstNode[Ast.DefEnumConstant]]]
-        ): Result.Result[List[Ast.Annotated[AstNode[Ast.DefEnumConstant]]]] =
-            nodes match {
-              case Nil => Right(out.reverse)
-              case head :: tail => defEnumConstantNodeAnnotated(file)(head, defaultValue) match {
-                case Left(e) => Left(e)
-                case Right((aNode, value)) => fold(tail, value, aNode :: out)
-              }
+        ): Result.Result[List[Ast.Annotated[AstNode[Ast.DefEnumConstant]]]] = {
+          nodes match {
+            case Nil => Right(out.reverse)
+            case head :: tail => defEnumConstantNodeAnnotated(file)(defaultValue)(head) match {
+              case Left(e) => Left(e)
+              case Right((aNode, nextDefaultValue)) => fold(tail, nextDefaultValue, aNode :: out)
             }
+          }
+        }
         fold(items, 0, Nil)
       }
-
-      /** Gets the value from an enum item node */
-      def getItemValue(file: XmlFppWriter.File, node: scala.xml.Node, defaultValue: Int) = 
-        XmlFppWriter.getAttributeOpt(node, "value") match {
-          case Some(value) => 
-            try { 
-              Right(value.toInt) 
-            } catch {
-              case _: Exception => Left(
-                file.error(XmlError.SemanticError(_, s"invalid value $value for node ${node.toString}"))
-              )
-            }
-          case None => Right(defaultValue)
-        }
 
     }
 

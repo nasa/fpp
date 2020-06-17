@@ -14,41 +14,60 @@ object StructXmlFppWriter extends LineUtils {
   /** Builds FPP for translating Serializable XML */
   private object FppBuilder {
 
+    /** Constructs an array name from a struct name and a member name */
+    def getArrayName(structName: String, memberName: String) =
+      s"${structName}_${memberName}"
+
     /** Extracts a struct type member */
     def structTypeMemberAnnotatedNode(file: XmlFppWriter.File, node: scala.xml.Node): 
       Result.Result[Ast.Annotated[AstNode[Ast.StructTypeMember]]] =
       for {
-        name <- file.getAttribute(node, "name")
-        t <- file.translateType(node)
+        structName <- file.getAttribute(file.elem, "name")
+        memberName <- file.getAttribute(node, "name")
+        xmlType <- file.getAttribute(node, "type")
+        memberType <- {
+          val sizeOpt = XmlFppWriter.getAttributeOpt(node, "size")
+          (xmlType, sizeOpt) match {
+            case ("string", _) => file.translateType(node)
+            case (_, Some(size)) => {
+              val arrayName = getArrayName(structName, memberName)
+              val arrayType = XmlFppWriter.FppBuilder.translateQualIdentType(arrayName)
+              Right(arrayType)
+            }
+            case _ => file.translateType(node)
+          }
+        }
       }
       yield {
         val comment = XmlFppWriter.getAttributeComment(node)
-        val data = Ast.StructTypeMember(name, AstNode.create(t), None)
+        val data = Ast.StructTypeMember(memberName, AstNode.create(memberType), None)
         val astNode = AstNode.create(data)
         (Nil, astNode, comment)
       }
 
-    /** Extracts an definition array from a struct member node if needed */
-    def defArrayAnnotatedOpt(file: XmlFppWriter.File)(name:String)(node: scala.xml.Node):
+    /** Extracts an array definition from a struct member if needed */
+    def defArrayAnnotatedOpt(file: XmlFppWriter.File)(structName:String)(node: scala.xml.Node):
       Result.Result[Option[Ast.Annotated[Ast.DefArray]]] =
       for {
         memberName <- file.getAttribute(node, "name")
-        t <- file.getAttribute(node, "type")
+        xmlType <- file.getAttribute(node, "type")
         result <- {
           val sizeOpt = XmlFppWriter.getAttributeOpt(node, "size")
-          (t, sizeOpt) match {
+          (xmlType, sizeOpt) match {
             case ("string", _) => Right(None)
             case (_, None) => Right(None)
-            case (_, Some(size)) => for (t <- file.translateType(node)) yield {
-              val array = Ast.DefArray(
-                s"${name}_${memberName}",
-                AstNode.create(Ast.ExprLiteralInt(size)),
-                AstNode.create(t),
-                None,
-                None
-              )
-              Some((Nil, array, Nil))
-            }
+            case (_, Some(size)) => 
+              for (memberType <- file.translateType(node))
+                yield {
+                  val array = Ast.DefArray(
+                    getArrayName(structName, memberName),
+                    AstNode.create(Ast.ExprLiteralInt(size)),
+                    AstNode.create(memberType),
+                    None,
+                    None
+                  )
+                  Some((Nil, array, Nil))
+                }
           }
         }
       }
@@ -125,10 +144,10 @@ object StructXmlFppWriter extends LineUtils {
       Result.Result[Ast.Annotated[Ast.DefStruct]] =
       for {
         comment <- file.getComment
-        name <- file.getAttribute(file.elem, "name")
+        structName <- file.getAttribute(file.elem, "name")
         members <- structTypeMemberAnnotatedNodeList(file)
       }
-      yield (comment, Ast.DefStruct(name, members, None), Nil)
+      yield (comment, Ast.DefStruct(structName, members, None), Nil)
 
   }
 
