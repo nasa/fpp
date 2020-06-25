@@ -15,5 +15,6 @@
         <item name="Z"/>
       </enum>
     </member>
+    <member name="m6" type="U32" size="10"/>
   </members>
 </serializable>

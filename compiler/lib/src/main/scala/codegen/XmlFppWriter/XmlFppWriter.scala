@@ -156,14 +156,14 @@ object XmlFppWriter extends LineUtils {
   /** Utilities for constructing FPP ASTs */
   object FppBuilder {
 
-    /** Enclose a list of module members with a module inside a trans unit */
+    /** Encloses a list of module members with a module inside a trans unit */
     def encloseWithTuMemberModule
       (name: String)
       (members: List[Ast.Annotated[Ast.ModuleMember.Node]]): 
       Ast.Annotated[Ast.TUMember.Node] =
         encloseWithModule(Ast.TUMember.DefModule(_))(name)(members)
 
-    /** Enclose a list of module members with zero more modules inside a module */
+    /** Encloses a list of module members with zero more modules inside a module */
     def encloseWithModuleMemberModules
       (names: List[String])
       (members: List[Ast.Annotated[Ast.ModuleMember.Node]]):
@@ -182,7 +182,7 @@ object XmlFppWriter extends LineUtils {
       }
     }
 
-    /** Translate a qualified identifier type */
+    /** Translates a qualified identifier type */
     def translateQualIdentType(xmlType: String) = Ast.TypeNameQualIdent(
       AstNode.create(Ast.QualIdent.fromNodeList(xmlType.split("::").toList.map(AstNode.create(_))))
     )

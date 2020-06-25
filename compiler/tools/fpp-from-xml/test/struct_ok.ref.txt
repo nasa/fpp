@@ -2,6 +2,8 @@ module A {
 
   module B {
   
+    array StructOK_m6 = [10] U32
+    
     enum E {
       X = 0
       Y = 3 @< Inline comment
@@ -16,6 +18,7 @@ module A {
       m3: bool
       m4: string size 23
       m5: E
+      m6: StructOK_m6
     }
   
   }
