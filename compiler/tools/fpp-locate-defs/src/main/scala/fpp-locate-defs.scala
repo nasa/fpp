@@ -26,7 +26,7 @@ object FPPLocateDefs {
     }
     yield {
       val (_, tul) = a_tul
-      val config = LocateDefsFppWriter.Config(options.dir)
+      val config = LocateDefsFppWriter.State(options.dir)
       val lines = tul.map(LocateDefsFppWriter.transUnit(config, _)).flatten
       lines.map(Line.write(Line.stdout) _)
     }
@@ -34,9 +34,9 @@ object FPPLocateDefs {
 
   def main(args: Array[String]) = {
     Error.setTool(Tool(name))
-    val options = OParser.parse(oparser, args, Options())
-    for { result <- options } yield {
-      command(result) match {
+    for { options <- OParser.parse(oparser, args, Options()) }
+    yield {
+      command(options) match {
         case Left(error) => {
           error.print
           System.exit(1)
