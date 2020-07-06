@@ -13,6 +13,7 @@ object FPPLocateUses {
   case class Options(
     dir: Option[String] = None,
     files: List[File] = Nil,
+    imports: List[File] = Nil,
   )
 
   def command(options: Options): Result.Result[Unit] = {
@@ -20,19 +21,43 @@ object FPPLocateUses {
       case Nil => List(File.StdIn)
       case list => list
     }
-    /*
+    val a = Analysis(inputFileSet = options.files.toSet)
     for {
-      tul <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
-      a_tul <- ResolveSpecInclude.transformList(Analysis(), tul, ResolveSpecInclude.transUnit)
+      tulFiles <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
+      aTulFiles <- ResolveSpecInclude.transformList(
+        a,
+        tulFiles, 
+        ResolveSpecInclude.transUnit
+      )
+      tulFiles <- Right(aTulFiles._2)
+      tulImports <- Result.map(options.imports, Parser.parseFile (Parser.transUnit) (None) _)
+      a <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
+      a <- UsedSymbols.visitList(a, tulFiles, UsedSymbols.transUnit)
+    } yield a.usedSymbolSet.flatMap(writeSymbol(a) _).map(Line.write(Line.stdout) _)
+  }
+
+  def writeSymbol(a: Analysis)(s: Symbol): List[Line] = {
+    val loc = Locations.get(s.getNodeId)
+    loc.file match {
+      case File.Path(path) => {
+        /*
+        val nodeList = (name :: s.moduleNameList).reverse.map(s => AstNode.create(s))
+        val qualIdentNode = AstNode.create(Ast.QualIdent.fromNodeList(nodeList))
+        val baseDir = s.baseDir match {
+          case Some(dir) => dir
+          case None => ""
+        }
+        val baseDirPath = java.nio.file.Paths.get(baseDir).toAbsolutePath
+        val relativePath = baseDirPath.relativize(path)
+        val fileNode = AstNode.create(relativePath.normalize.toString)
+        val specLocNode = AstNode.create(Ast.SpecLoc(kind, qualIdentNode, fileNode))
+        val specLocAnnotatedNode = (Nil, specLocNode, Nil)
+        FppWriter.specLocAnnotatedNode((), specLocAnnotatedNode)
+        */
+        Nil
+      }
+      case File.StdIn => Nil
     }
-    yield {
-      val (_, tul) = a_tul
-      val config = LocateUsesFppWriter.State(options.dir)
-      val lines = tul.map(LocateUsesFppWriter.transUnit(config, _)).flatten
-      lines.map(Line.write(Line.stdout) _)
-    }
-    */
-    Right(())
   }
 
   def main(args: Array[String]) = {
@@ -63,6 +88,10 @@ object FPPLocateUses {
         .valueName("<dir>")
         .action((d, c) => c.copy(dir = Some(d)))
         .text("base directory"),
+      opt[Seq[String]]('i', "imports")
+        .valueName("<file1>,<file2>...")
+        .action((i, c) => c.copy(imports = i.toList.map(File.fromString(_))))
+        .text("files to import"),
       help('h', "help").text("print this message and exit"),
       arg[String]("file ...")
         .unbounded()

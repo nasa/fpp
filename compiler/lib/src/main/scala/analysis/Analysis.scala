@@ -22,6 +22,8 @@ case class Analysis(
   moduleNameList: List[Name.Unqualified] = List(),
   /** The current nested scope for symbol lookup */
   nestedScope: NestedScope = NestedScope.empty,
+  /** The mapping from symbols to their qualified names */
+  qualifiedNameMap: Map[Symbol,Name.Qualified] = Map(),
   /** The mapping from symbols with scopes to their scopes */
   symbolScopeMap: Map[Symbol,Scope] = Map(),
   /** The mapping from uses (by node ID) to their definitions */
