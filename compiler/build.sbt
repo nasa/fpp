@@ -29,6 +29,7 @@ lazy val root = (project in file("."))
     fpp_format,
     fpp_from_xml,
     fpp_locate_defs,
+    fpp_locate_uses,
     fpp_syntax,
     fpp_to_xml,
   )
@@ -62,6 +63,11 @@ lazy val fpp_from_xml = (project in file("tools/fpp-from-xml"))
   .enablePlugins(AssemblyPlugin)
 
 lazy val fpp_locate_defs = (project in file("tools/fpp-locate-defs"))
+  .settings(settings)
+  .dependsOn(lib)
+  .enablePlugins(AssemblyPlugin)
+
+lazy val fpp_locate_uses = (project in file("tools/fpp-locate-uses"))
   .settings(settings)
   .dependsOn(lib)
   .enablePlugins(AssemblyPlugin)

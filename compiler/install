@@ -26,6 +26,7 @@ fpp-format
 fpp-syntax
 fpp-from-xml
 fpp-locate-defs
+fpp-locate-uses
 fpp-to-xml
 "
 
