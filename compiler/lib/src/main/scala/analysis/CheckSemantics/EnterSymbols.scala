@@ -46,14 +46,14 @@ object EnterSymbols
     val data = node1.getData
     val name = data.name
     val symbol = Symbol.Enum(node)
-    val moduleNameList = a.moduleNameList
+    val scopeNameList = a.scopeNameList
     for {
       nestedScope <- a.nestedScope.put(NameGroup.Type)(name, symbol)
       nestedScope <- nestedScope.put(NameGroup.Value)(name, symbol)
       a <- {
         val scope = Scope.empty
         val nestedScope1 = nestedScope.push(scope)
-        val a1 = a.copy(nestedScope = nestedScope1, moduleNameList = name :: moduleNameList)
+        val a1 = a.copy(nestedScope = nestedScope1, scopeNameList = name :: scopeNameList)
         visitList(a1, data.constants, defEnumConstantAnnotatedNode)
       }
     }
@@ -61,7 +61,7 @@ object EnterSymbols
       val scope = a.nestedScope.innerScope
       val newSymbolScopeMap = a.symbolScopeMap + (symbol -> scope)
       updateMap(a, symbol).copy(
-        moduleNameList = moduleNameList,
+        scopeNameList = scopeNameList,
         nestedScope = a.nestedScope.pop,
         symbolScopeMap = newSymbolScopeMap
       )
@@ -74,9 +74,9 @@ object EnterSymbols
   ) = {
     val (_, node1, _) = node
     val Ast.DefModule(name, members) = node1.getData
-    val oldModuleNameList = a.moduleNameList
+    val oldModuleNameList = a.scopeNameList
     val newModuleNameList = name :: oldModuleNameList
-    val a1 = a.copy(moduleNameList = newModuleNameList)
+    val a1 = a.copy(scopeNameList = newModuleNameList)
     val qualifiedName = Name.Qualified.fromIdentList(newModuleNameList.reverse)
     val symbol = Symbol.Module(qualifiedName)
     val (a2, scope) = a1.symbolScopeMap.get(symbol) match {
@@ -95,7 +95,7 @@ object EnterSymbols
       val scope = a.nestedScope.innerScope
       val newSymbolScopeMap = a.symbolScopeMap + (symbol -> scope)
       updateMap(a, symbol).copy(
-        moduleNameList = oldModuleNameList,
+        scopeNameList = oldModuleNameList,
         nestedScope = a.nestedScope.pop,
         symbolScopeMap = newSymbolScopeMap
       )
@@ -113,7 +113,7 @@ object EnterSymbols
   }
 
   private def updateMap(a: Analysis, s: Symbol): Analysis = {
-    val identList = (s.getUnqualifiedName :: a.moduleNameList).reverse
+    val identList = (s.getUnqualifiedName :: a.scopeNameList).reverse
     val name = Name.Qualified.fromIdentList(identList)
     a.copy(qualifiedNameMap = a.qualifiedNameMap + (s -> name))
   }

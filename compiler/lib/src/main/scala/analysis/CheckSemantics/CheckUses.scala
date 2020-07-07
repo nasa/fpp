@@ -107,16 +107,16 @@ object CheckUses extends UseAnalyzer {
   ) = {
     val (_, node1, _) = node
     val Ast.DefModule(name, members) = node1.getData
-    val oldModuleNameList = a.moduleNameList
+    val oldModuleNameList = a.scopeNameList
     val newModuleNameList = name :: oldModuleNameList
     val qualifiedName = Name.Qualified.fromIdentList(newModuleNameList.reverse)
     val symbol = Symbol.Module(qualifiedName)
     val scope = a.symbolScopeMap(symbol)
     val newNestedScope = a.nestedScope.push(scope)
-    val a1 = a.copy(moduleNameList = newModuleNameList, nestedScope = newNestedScope)
+    val a1 = a.copy(scopeNameList = newModuleNameList, nestedScope = newNestedScope)
     for (a <- visitList(a1, members, matchModuleMember))
     yield a.copy(
-      moduleNameList = oldModuleNameList,
+      scopeNameList = oldModuleNameList,
       nestedScope = a.nestedScope.pop
     )
   }

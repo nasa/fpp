@@ -76,7 +76,7 @@ case class XmlWriterState(
   }
 
   /** Get the enclosing namespace */
-  def getNamespace: String = a.moduleNameList.reverse match {
+  def getNamespace: String = a.scopeNameList.reverse match {
     case Nil => ""
     case head :: Nil => head
     case head :: tail => tail.foldLeft(head)({ case (s, name) => s ++ "::" ++ name })

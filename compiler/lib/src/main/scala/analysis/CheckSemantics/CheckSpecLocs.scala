@@ -45,7 +45,7 @@ object CheckSpecLocs
     name: Name.Unqualified,
     node: AstNode[T]
   ): Result = {
-    val qualifiedName = Name.Qualified(a.moduleNameList.reverse, name)
+    val qualifiedName = Name.Qualified(a.scopeNameList.reverse, name)
     val actualLoc = Locations.get(node.getId)
     a.locationSpecifierMap.get((kind, qualifiedName)) match {
       case Some(specLoc) => {

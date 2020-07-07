@@ -12,9 +12,9 @@ trait ComponentAnalyzer extends Analyzer {
   ) = {
     val (_, node1, _) = node
     val Ast.DefComponent(kind, name, members) = node1.getData
-    val a1 = a.copy(moduleNameList = name :: a.moduleNameList)
+    val a1 = a.copy(scopeNameList = name :: a.scopeNameList)
     for { a2 <- visitList(a1, members, matchComponentMember) }
-    yield a2.copy(moduleNameList = a.moduleNameList)
+    yield a2.copy(scopeNameList = a.scopeNameList)
   }
 
 }

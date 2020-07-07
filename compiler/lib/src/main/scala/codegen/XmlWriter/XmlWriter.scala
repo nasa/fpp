@@ -30,7 +30,7 @@ object XmlWriter extends AstStateVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.getData
-    val a = s.a.copy(moduleNameList = data.name :: s.a.moduleNameList)
+    val a = s.a.copy(scopeNameList = data.name :: s.a.scopeNameList)
     val s1 = s.copy(a = a)
     visitList(s1, data.members, matchModuleMember)
     Right(s)

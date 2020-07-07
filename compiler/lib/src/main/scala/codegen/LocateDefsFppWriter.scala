@@ -12,7 +12,7 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
     /** The base directory for constructing location specifiers */
     val baseDir: Option[String],
     /** The list of enclosing module names */
-    val moduleNameList: List[Name.Unqualified] = Nil
+    val scopeNameList: List[Name.Unqualified] = Nil
   )
 
   override def default(s: State) = Nil
@@ -59,7 +59,7 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val Ast.DefModule(name, members) = node.getData
-    val s1 = s.copy(moduleNameList = name :: s.moduleNameList)
+    val s1 = s.copy(scopeNameList = name :: s.scopeNameList)
     members.flatMap(matchModuleMember(s1, _))
   }
 
@@ -84,7 +84,7 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
     val loc = Locations.get(node.getId)
     loc.file match {
       case File.Path(path) => {
-        val nodeList = (name :: s.moduleNameList).reverse.map(s => AstNode.create(s))
+        val nodeList = (name :: s.scopeNameList).reverse.map(s => AstNode.create(s))
         val qualIdentNode = AstNode.create(Ast.QualIdent.fromNodeList(nodeList))
         val baseDir = s.baseDir match {
           case Some(dir) => dir

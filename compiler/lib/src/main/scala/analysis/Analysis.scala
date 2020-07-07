@@ -15,11 +15,11 @@ case class Analysis(
   includedFileSet: Set[File] = Set(),
   /** A map from pairs (spec loc kind, qualified name) to spec locs. */
   locationSpecifierMap: Map[(Ast.SpecLoc.Kind, Name.Qualified), Ast.SpecLoc] = Map(),
-  /** A list of unqualified names representing the enclosing module names,
+  /** A list of unqualified names representing the enclosing scope names,
    *  with the innermost name at the head of the list. For exapmle, inside
    *  module B where B is inside A and A is at the top level, the module name
    *  list is [ B, A ]. */
-  moduleNameList: List[Name.Unqualified] = List(),
+  scopeNameList: List[Name.Unqualified] = List(),
   /** The current nested scope for symbol lookup */
   nestedScope: NestedScope = NestedScope.empty,
   /** The mapping from symbols to their qualified names */

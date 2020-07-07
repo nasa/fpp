@@ -48,7 +48,7 @@ object MapUsesToLocs extends UseAnalyzer {
           }
         }
       }
-      helper(a.moduleNameList, Nil)
+      helper(a.scopeNameList, Nil)
     }
     def findLocation(nameList: List[Name.Qualified]): Option[Ast.SpecLoc] = {
       nameList match {
