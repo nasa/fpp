@@ -1,7 +1,9 @@
 package fpp.compiler.util
 
 /** An exception for signaling internal compiler errors */
-final case class InternalError(private val msg: String) extends Exception
+final case class InternalError(val msg: String) extends Exception {
+  override def toString = s"internal error: $msg"
+}
 
 /** A data type for handling compilation errors */
 sealed trait Error {
