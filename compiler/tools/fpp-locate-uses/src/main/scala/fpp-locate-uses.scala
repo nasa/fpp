@@ -33,28 +33,45 @@ object FPPLocateUses {
       tulImports <- Result.map(options.imports, Parser.parseFile (Parser.transUnit) (None) _)
       a <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
       a <- UsedSymbols.visitList(a, tulFiles, UsedSymbols.transUnit)
-    } yield a.usedSymbolSet.flatMap(writeSymbol(a) _).map(Line.write(Line.stdout) _)
+    } yield a.usedSymbolSet.flatMap(writeUsedSymbol(a, options) _).map(Line.write(Line.stdout) _)
   }
 
-  def writeSymbol(a: Analysis)(s: Symbol): List[Line] = {
+  def writeUsedSymbol(a: Analysis, options: Options)(s: Symbol): List[Line] = {
     val loc = Locations.get(s.getNodeId)
     loc.file match {
       case File.Path(path) => {
-        /*
-        val nodeList = (name :: s.moduleNameList).reverse.map(s => AstNode.create(s))
+        val name = a.qualifiedNameMap(s)
+        val nameList = {
+          s match {
+            case _: Symbol.EnumConstant => name.qualifier
+            case _ => name.qualifier :+ name.base
+          }
+        }
+        val nodeList = nameList.map(s => AstNode.create(s))
         val qualIdentNode = AstNode.create(Ast.QualIdent.fromNodeList(nodeList))
-        val baseDir = s.baseDir match {
+        val baseDir = options.dir match {
           case Some(dir) => dir
           case None => ""
         }
         val baseDirPath = java.nio.file.Paths.get(baseDir).toAbsolutePath
         val relativePath = baseDirPath.relativize(path)
         val fileNode = AstNode.create(relativePath.normalize.toString)
+        val kind = s match {
+          case _: Symbol.AbsType => Ast.SpecLoc.Type
+          case _: Symbol.Array => Ast.SpecLoc.Type
+          case _: Symbol.Component => Ast.SpecLoc.Component
+          case _: Symbol.ComponentInstance => Ast.SpecLoc.ComponentInstance
+          case _: Symbol.Constant => Ast.SpecLoc.Constant
+          case _: Symbol.Enum => Ast.SpecLoc.Type
+          case _: Symbol.EnumConstant => Ast.SpecLoc.Type
+          case _: Symbol.Module => throw InternalError("use should not be module symbol")
+          case _: Symbol.Port => Ast.SpecLoc.Port
+          case _: Symbol.Struct => Ast.SpecLoc.Type
+          case _: Symbol.Topology => Ast.SpecLoc.Topology
+        }
         val specLocNode = AstNode.create(Ast.SpecLoc(kind, qualIdentNode, fileNode))
         val specLocAnnotatedNode = (Nil, specLocNode, Nil)
         FppWriter.specLocAnnotatedNode((), specLocAnnotatedNode)
-        */
-        Nil
       }
       case File.StdIn => Nil
     }

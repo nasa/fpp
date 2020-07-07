@@ -46,13 +46,14 @@ object EnterSymbols
     val data = node1.getData
     val name = data.name
     val symbol = Symbol.Enum(node)
+    val moduleNameList = a.moduleNameList
     for {
       nestedScope <- a.nestedScope.put(NameGroup.Type)(name, symbol)
       nestedScope <- nestedScope.put(NameGroup.Value)(name, symbol)
       a <- {
         val scope = Scope.empty
         val nestedScope1 = nestedScope.push(scope)
-        val a1 = a.copy(nestedScope = nestedScope1)
+        val a1 = a.copy(nestedScope = nestedScope1, moduleNameList = name :: moduleNameList)
         visitList(a1, data.constants, defEnumConstantAnnotatedNode)
       }
     }
@@ -60,6 +61,7 @@ object EnterSymbols
       val scope = a.nestedScope.innerScope
       val newSymbolScopeMap = a.symbolScopeMap + (symbol -> scope)
       updateMap(a, symbol).copy(
+        moduleNameList = moduleNameList,
         nestedScope = a.nestedScope.pop,
         symbolScopeMap = newSymbolScopeMap
       )
