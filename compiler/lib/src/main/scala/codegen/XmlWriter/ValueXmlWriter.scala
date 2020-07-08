@@ -1,7 +1,13 @@
+<<<<<<< HEAD
 package fpp.compiler.codegen
 
 import fpp.compiler.ast._
 import fpp.compiler.analysis._
+=======
+ackage fpp.compiler.codegen
+
+import fpp.compiler.ast._
+>>>>>>> FPP to XML tool array feature minus default values
 import fpp.compiler.util._
 
 /** Write an FPP value as XML */
@@ -12,6 +18,7 @@ object ValueXmlWriter {
     type In = XmlWriterState
 
     type Out = String
+<<<<<<< HEAD
 
     override def absType(in: In, v: Value.AbsType): Out = v.toString
 
@@ -80,4 +87,7 @@ object ValueXmlWriter {
     Visitor.value(s, v)
   }
 
+=======
+  }
+>>>>>>> FPP to XML tool array feature minus default values
 }
