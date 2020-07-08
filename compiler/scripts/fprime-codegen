@@ -7,7 +7,7 @@
 #
 # 1. Set FPRIME to point to the root of your F Prime working repo
 #
-# 2. Set FPRIME_VENV to point to your F Prime Python virtual environemnt,
+# 2. Set FPRIME_VENV to point to your F Prime Python virtual environment,
 #    or use the default $FPRIME/fprime-venv
 # ======================================================================
 
