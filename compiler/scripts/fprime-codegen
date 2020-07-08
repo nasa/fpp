@@ -2,6 +2,7 @@
 
 # ======================================================================
 # Run the F Prime autocoder
+# ---------------------------------------------------------------------- 
 # Setup:
 #
 # 1. Set FPRIME to point to the root of your F Prime working repo
