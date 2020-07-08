@@ -1,4 +1,5 @@
 tests="
+array_ok
 duplicate_xml_file
 enum_explicit
 enum_implicit
