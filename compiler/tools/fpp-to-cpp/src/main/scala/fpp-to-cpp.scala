@@ -17,6 +17,7 @@ object FPPToCpp {
     names: Option[String] = None,
     prefixes: List[String] = Nil,
     defaultStringSize: Int = 80,
+    template: Boolean = false,
   )
 
   def command(options: Options) = {
@@ -33,11 +34,12 @@ object FPPToCpp {
         ResolveSpecInclude.transUnit
       )
       tulFiles <- Right(aTulFiles._2)
-      xmlFileMap <- ComputeXmlFiles.visitList(Map(), tulFiles, ComputeXmlFiles.transUnit)
+      //xmlFileMap <- ComputeCppFiles.visitList(Map(), tulFiles, ComputeCppFiles.transUnit)
       tulImports <- Result.map(options.imports, Parser.parseFile (Parser.transUnit) (None) _)
       a <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
+      /*
       _ <- options.names match {
-        case Some(fileName) => writeXmlFileNames(xmlFileMap.toList.map(_._1), fileName)
+        case Some(fileName) => writeCppFileNames(xmlFileMap.toList.map(_._1), fileName)
         case None => Right(())
       }
       _ <- {
@@ -48,14 +50,15 @@ object FPPToCpp {
         val state = XmlWriterState(a, dir, options.prefixes, options.defaultStringSize)
         XmlWriter.visitList(state, tulFiles, XmlWriter.transUnit)
       }
+      */
     } yield ()
   }
 
-  def writeXmlFileNames(xmlFiles: List[String], fileName: String) = {
+  def writeCppFileNames(cppFiles: List[String], fileName: String) = {
     val file = File.fromString(fileName)
     for { writer <- file.openWrite() 
     } yield { 
-      xmlFiles.map(writer.println(_))
+      cppFiles.map(writer.println(_))
       writer.close()
     }
   }
@@ -106,6 +109,9 @@ object FPPToCpp {
         .validate(s => if (s > 0 && s <= 1024) success else failure("<size> must be between 1 and 1024"))
         .action((s, c) => c.copy(defaultStringSize = s))
         .text("set the default string size"),
+      opt[Unit]('t', "template")
+        .action((_, c) => c.copy(template = true))
+        .text("emit template code"),
       arg[String]("file ...")
         .unbounded()
         .optional()
