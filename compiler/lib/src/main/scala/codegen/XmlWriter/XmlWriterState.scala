@@ -15,21 +15,9 @@ case class XmlWriterState(
   defaultStringSize: Int,
 ) {
 
-  /** Remove the longest prefix from a Java path */
-  def removeLongestPrefix(path: File.JavaPath): File.JavaPath = {
-    def removePrefix(s: String) = {
-      val prefix = java.nio.file.Paths.get(s)
-      if (path.startsWith(prefix)) prefix.relativize(path) else path
-    }
-    prefixes.map(removePrefix(_)) match {
-      case Nil => path
-      case head :: tail => {
-        def min(p1: File.JavaPath, p2: File.JavaPath) = 
-          if (p1.getNameCount < p2.getNameCount) p1 else p2
-        tail.fold(head)(min)
-      }
-    }
-  }
+  /** Removes the longest prefix from a Java path */
+  def removeLongestPrefix(path: File.JavaPath): File.JavaPath = 
+    File.removeLongestPrefix(prefixes)(path)
 
   /** Write import directives as lines */
   def writeImportDirectives(currentFile: File): List[Line] = {

@@ -47,8 +47,8 @@ object FPPToCpp {
           case Some(dir1) => dir1
           case None => "."
         }
-        val state = XmlWriterState(a, dir, options.prefixes, options.defaultStringSize)
-        XmlWriter.visitList(state, tulFiles, XmlWriter.transUnit)
+        val state = CppWriterState(a, dir, options.prefixes, options.defaultStringSize)
+        CppWriter.visitList(state, tulFiles, CppWriter.transUnit)
       }
       */
     } yield ()

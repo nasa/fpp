@@ -59,4 +59,20 @@ object File {
     File.Path(p)
   }
 
+  /** Remove the longest prefix from a Java path */
+  def removeLongestPrefix(prefixes: List[String])(path: JavaPath): JavaPath = {
+    def removePrefix(s: String) = {
+      val prefix = java.nio.file.Paths.get(s)
+      if (path.startsWith(prefix)) prefix.relativize(path) else path
+    }
+    prefixes.map(removePrefix(_)) match {
+      case Nil => path
+      case head :: tail => {
+        def min(p1: JavaPath, p2: JavaPath) = 
+          if (p1.getNameCount < p2.getNameCount) p1 else p2
+        tail.fold(head)(min)
+      }
+    }
+  }
+
 }

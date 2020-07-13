@@ -6,7 +6,7 @@ files="
 $codegen/Indentation.scala
 $codegen/LineUtils.scala
 $codegen/Line.scala
-`ls $codegen/CppWriter/*.scala`
+`ls $codegen/CppWriter/CppDoc*.scala`
 Main.scala
 "
 
