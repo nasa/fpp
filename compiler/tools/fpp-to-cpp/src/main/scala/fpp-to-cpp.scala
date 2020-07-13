@@ -34,14 +34,14 @@ object FPPToCpp {
         ResolveSpecInclude.transUnit
       )
       tulFiles <- Right(aTulFiles._2)
-      //xmlFileMap <- ComputeCppFiles.visitList(Map(), tulFiles, ComputeCppFiles.transUnit)
+      xmlFileMap <- ComputeCppFiles.visitList(Map(), tulFiles, ComputeCppFiles.transUnit)
       tulImports <- Result.map(options.imports, Parser.parseFile (Parser.transUnit) (None) _)
       a <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
-      /*
       _ <- options.names match {
         case Some(fileName) => writeCppFileNames(xmlFileMap.toList.map(_._1), fileName)
         case None => Right(())
       }
+      /*
       _ <- {
         val dir = options.dir match {
           case Some(dir1) => dir1

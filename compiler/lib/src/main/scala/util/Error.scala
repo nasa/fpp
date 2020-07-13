@@ -12,6 +12,11 @@ sealed trait Error {
   def print = {
     this match {
       case SyntaxError(loc, msg) => Error.print (Some(loc)) (msg)
+      case CodeGenError.DuplicateCppFile(file, loc, prevLoc) => {
+        Error.print (Some(loc)) (s"duplicate C++ file ${file}")
+        System.err.println(s"previous file would be generated here:")
+        System.err.println(prevLoc)
+      }
       case CodeGenError.DuplicateXmlFile(file, loc, prevLoc) => {
         Error.print (Some(loc)) (s"duplicate XML file ${file}")
         System.err.println(s"previous file would be generated here:")
@@ -80,7 +85,9 @@ final case class SyntaxError(loc: Location, msg: String) extends Error
 
 /** A code generation error */
 object CodeGenError {
-  /** Duplicate XML path */
+  /** Duplicate C++ file path */
+  final case class DuplicateCppFile(file: String, loc: Location, prevLoc: Location) extends Error
+  /** Duplicate XML file path */
   final case class DuplicateXmlFile(file: String, loc: Location, prevLoc: Location) extends Error
   /** Empty struct */
   final case class EmptyStruct(loc: Location) extends Error
