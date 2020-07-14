@@ -63,7 +63,7 @@ object FppWriter extends AstVisitor with LineUtils {
     lines(s"enum ${data.name}").
       joinOpt (data.typeName) (": ") (typeNameNode).
       addSuffix(" {") ++
-    data.constants.map(annotateNode(defEnumConstant)).flatten.map(indentIn) ++
+    data.constants.flatMap(annotateNode(defEnumConstant)).map(indentIn) ++
     lines("}")
   }
 
@@ -79,14 +79,14 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.getData
     lines(s"struct ${data.name} {") ++
-    data.members.map(annotateNode(structTypeMember)).flatten.map(indentIn) ++ 
+    data.members.flatMap(annotateNode(structTypeMember)).map(indentIn) ++ 
     lines("}").joinOpt (data.default) (" default ") (exprNode)
   }
 
   override def default(in: Unit) = Nil
 
   override def exprArrayNode(in: Unit, node: AstNode[Ast.Expr], e: Ast.ExprArray) =
-    (line("[") :: e.elts.map(exprNode).flatten.map(indentIn)) :+ line("]")
+    (line("[") :: e.elts.flatMap(exprNode).map(indentIn)) :+ line("]")
 
   override def exprBinopNode(in: Unit, node: AstNode[Ast.Expr], e: Ast.ExprBinop) =
     exprNode(e.e1).join (binop(e.op)) (exprNode(e.e2))
@@ -119,7 +119,7 @@ object FppWriter extends AstVisitor with LineUtils {
 
   override def exprStructNode(in: Unit, node: AstNode[Ast.Expr], e: Ast.ExprStruct) =
     lines("{") ++
-    e.members.map(applyToData(structMember)).flatten.map(indentIn) ++
+    e.members.flatMap(applyToData(structMember)).map(indentIn) ++
     lines("}")
 
   override def exprUnopNode(in: Unit, node: AstNode[Ast.Expr], e: Ast.ExprUnop) =
