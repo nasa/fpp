@@ -13,13 +13,13 @@ object ComputeCppFiles extends AstStateVisitor {
 
   type State = Map[String, Option[Location]]
 
-  /** Gets the generated C++ file name for a constant definition */
-  def getConstantName(defConstant: Ast.DefConstant) = "Constants.hpp"
+  /** Gets the generated C++ file name for constant definitions */
+  def getConstantsName = "FppConstants"
 
   override def defConstantAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
     val (_, node1, _) = node
     val data = node1.getData
-    val mapping = (getConstantName(data), None)
+    val mapping = (getConstantsName, None)
     addMapping(s, mapping)
   }
 
