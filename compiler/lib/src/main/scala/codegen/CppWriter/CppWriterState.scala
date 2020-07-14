@@ -21,6 +21,12 @@ case class CppWriterState(
   def removeLongestPathPrefix(path: File.JavaPath): File.JavaPath =
     File.removeLongestPrefix(pathPrefixes)(path)
 
+  /** Gets the relative path for a file */
+  def getRelativePath(fileName: String): File.JavaPath = {
+    val path = java.nio.file.Paths.get(fileName).toAbsolutePath.normalize
+    removeLongestPathPrefix(path)
+  }
+
   /** Constructs an include guard from the prefix and a name */
   def includeGuardFromPrefix(name: String) = {
     val guard = guardPrefix match {

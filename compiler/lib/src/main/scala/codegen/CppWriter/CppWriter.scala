@@ -57,9 +57,8 @@ object CppWriter extends AstStateVisitor with LineUtils {
       Line.blank :: headers.map(headerLine)
     }
     val cppHeaderLines = {
-      val absolutePath = java.nio.file.Paths.get(s"$fileName.hpp").toAbsolutePath.normalize
-      val relativePath = s.removeLongestPathPrefix(absolutePath)
-      val headers = List(relativePath.toString)
+      val path = s.getRelativePath(s"$fileName.hpp")
+      val headers = List(path.toString)
       Line.blank :: headers.map(headerLine)
     }
     val members = linesMember(hppHeaderLines) :: 
