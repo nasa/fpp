@@ -14,8 +14,9 @@ object FPPToCpp {
     dir: Option[String] = None,
     files: List[File] = Nil,
     imports: List[File] = Nil,
+    guardPrefix: Option[String] = None,
     names: Option[String] = None,
-    prefixes: List[String] = Nil,
+    pathPrefixes: List[String] = Nil,
     defaultStringSize: Int = 80,
     template: Boolean = false,
   )
@@ -46,7 +47,13 @@ object FPPToCpp {
           case Some(dir1) => dir1
           case None => "."
         }
-        val state = CppWriterState(a, dir, options.prefixes, options.defaultStringSize)
+        val state = CppWriterState(
+          a,
+          dir,
+          options.guardPrefix,
+          options.pathPrefixes,
+          options.defaultStringSize
+        )
         CppWriter.tuList(state, tulFiles)
       }
     } yield ()
@@ -94,13 +101,17 @@ object FPPToCpp {
         .valueName("<file1>,<file2>...")
         .action((i, c) => c.copy(imports = i.toList.map(File.fromString(_))))
         .text("files to import"),
+      opt[String]('g', "guard prefix")
+        .valueName("<prefix>")
+        .action((g, c) => c.copy(names = Some(g)))
+        .text("prefix for generated include guards"),
       opt[String]('n', "names")
         .valueName("<file>")
         .action((n, c) => c.copy(names = Some(n)))
         .text("write names of generated files to <file>"),
-      opt[Seq[String]]('p', "prefixes")
+      opt[Seq[String]]('p', "path prefixes")
         .valueName("<prefix1>,<prefix2>...")
-        .action((p, c) => c.copy(prefixes = p.toList))
+        .action((p, c) => c.copy(pathPrefixes = p.toList))
         .text("path prefixes to delete from imported files"),
       opt[Int]('s', "size")
         .valueName("<size>")

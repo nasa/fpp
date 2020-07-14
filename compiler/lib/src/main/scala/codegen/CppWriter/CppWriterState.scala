@@ -9,14 +9,22 @@ case class CppWriterState(
   a: Analysis,
   /** The output directory */
   dir: String,
-  /** The list of include prefixes */
-  prefixes: List[String],
+  /** The include guard prefix */
+  guardPrefix: Option[String],
+  /** The list of include path prefixes */
+  pathPrefixes: List[String],
   /** The default string size */
   defaultStringSize: Int,
 ) {
 
   /** Removes the longest prefix from a Java path */
-  def removeLongestPrefix(path: File.JavaPath): File.JavaPath =
-    File.removeLongestPrefix(prefixes)(path)
+  def removeLongestPathPrefix(path: File.JavaPath): File.JavaPath =
+    File.removeLongestPrefix(pathPrefixes)(path)
+
+  /** Constructs an include guard from the prefix and a name */
+  def constructIncludeGuard(name: String) = guardPrefix match {
+    case Some(s) => s ++ "_" ++ name
+    case None => name
+  }
 
 }
