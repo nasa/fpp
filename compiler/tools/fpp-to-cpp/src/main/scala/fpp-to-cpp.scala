@@ -103,7 +103,7 @@ object FPPToCpp {
         .text("files to import"),
       opt[String]('g', "guard prefix")
         .valueName("<prefix>")
-        .action((g, c) => c.copy(names = Some(g)))
+        .action((g, c) => c.copy(guardPrefix = Some(g)))
         .text("prefix for generated include guards"),
       opt[String]('n', "names")
         .valueName("<file>")
