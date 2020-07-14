@@ -117,7 +117,7 @@ object FPPToCpp {
         .valueName("<size>")
         .validate(s => if (s > 0 && s <= 1024) success else failure("<size> must be between 1 and 1024"))
         .action((s, c) => c.copy(defaultStringSize = s))
-        .text("set the default string size"),
+        .text("default string size"),
       opt[Unit]('t', "template")
         .action((_, c) => c.copy(template = true))
         .text("emit template code"),
