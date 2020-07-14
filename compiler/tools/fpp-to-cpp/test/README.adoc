@@ -1,0 +1,13 @@
+== fpp-to-cpp/test
+
+This is the test directory for the `fpp-to-cpp` tool.
+
+=== Running Tests
+
+To run the tests, execute `run` in this directory.
+All the tests should pass.
+
+=== Developing Tests
+
+When developing tests, run the tool `check-cpp`.
+This makes sure that all the `*.ref.cpp` files are valid {cpp} files.

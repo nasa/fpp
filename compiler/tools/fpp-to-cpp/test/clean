@@ -3,8 +3,8 @@
 . ../../../scripts/utils.sh
 
 clean
-rm -f default-tests.sh default-update-ref.sh
-for file in `find . -name '*out.*' -or -name '*.names.txt'`
+rm -f default-tests.sh default-update-ref.sh FppConstants.hpp FppConstants.cpp
+for file in `find . -name '*out.*' -or -name '*.names.txt' -or -name '*o'`
 do
   rm $file
 done
