@@ -31,6 +31,7 @@ object CppDoc {
     /** The class members */
     members: List[Class.Member],
   )
+
   object Class {
     sealed trait Member
     object Member {

@@ -41,16 +41,14 @@ object FPPToCpp {
         case Some(fileName) => writeCppFileNames(xmlFileMap.toList.map(_._1), fileName)
         case None => Right(())
       }
-      /*
       _ <- {
         val dir = options.dir match {
           case Some(dir1) => dir1
           case None => "."
         }
         val state = CppWriterState(a, dir, options.prefixes, options.defaultStringSize)
-        CppWriter.visitList(state, tulFiles, CppWriter.transUnit)
+        CppWriter.tuList(state, tulFiles)
       }
-      */
     } yield ()
   }
 
