@@ -16,12 +16,8 @@ object ComputeCppFiles extends AstStateVisitor {
   /** Gets the generated C++ file name for constant definitions */
   def getConstantsName = "FppConstants"
 
-  override def defConstantAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
-    val (_, node1, _) = node
-    val data = node1.getData
-    val mapping = (getConstantsName, None)
-    addMapping(s, mapping)
-  }
+  override def defConstantAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefConstant]]) =
+    addMappings(s, getConstantsName)
 
   override def defModuleAnnotatedNode(
     s: State,
@@ -35,6 +31,24 @@ object ComputeCppFiles extends AstStateVisitor {
   override def transUnit(s: State, tu: Ast.TransUnit) =
     visitList(s, tu.members, matchTuMember)
 
+  /** Adds mappings for hpp and cppfiles */
+  private def addMappings(s: State, fileName: String, locOpt: Option[Location] = None) = {
+    for {
+      s <- addHppMapping(s, fileName, locOpt)
+      s <- addCppMapping(s, fileName, locOpt)
+    }
+    yield s
+  }
+
+  /** Adds a mapping for an hpp file  */
+  private def addHppMapping(s: State, fileName: String, locOpt: Option[Location] = None) =
+    addMapping(s, (s"$fileName.hpp" -> locOpt))
+
+  /** Adds a mapping for a cpp file  */
+  private def addCppMapping(s: State, fileName: String, locOpt: Option[Location] = None) =
+    addMapping(s, (s"$fileName.cpp" -> locOpt))
+
+  /** Adds a mapping for one file */
   private def addMapping(s: State, mapping: (String, Option[Location])) = {
     val (fileName, locOpt) = mapping
     (s.get(fileName), locOpt) match {
