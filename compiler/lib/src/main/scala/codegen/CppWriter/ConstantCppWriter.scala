@@ -4,7 +4,8 @@ import fpp.compiler.analysis._
 import fpp.compiler.ast._
 import fpp.compiler.util._
 
-/** Writes out C++ for constant definitions */
+/** Writes out C++ for constant definitions 
+ *  Writes only primitive values, enum values, and strings (no structs or arrays) */
 object ConstantCppWriter extends AstVisitor with LineUtils {
 
   override def default(s: CppWriterState) = Nil
@@ -16,32 +17,35 @@ object ConstantCppWriter extends AstVisitor with LineUtils {
     val node = aNode._2
     val loc = Locations.get(node.getId)
     val data = node.getData
-    val ty = s.a.typeMap(node.getId)
     val value = s.a.valueMap(node.getId)
-    val constantLines = {
-      if (ty.isInt) writeIntConstant(data.name, value.toString)
-      else if (ty.isFloat) writeFloatConstant(data.name, value.toString)
-      else ty match {
-        case Type.Boolean => writeBooleanConstant(data.name, value.toString)
-        case _: Type.Enum => {
-          val Value.EnumConstant(enumValue, _) = value
-          val valueString = enumValue._2.toString
-          writeIntConstant(data.name, valueString)
+    val (hppLines, cppLines) = value match {
+      case Value.Boolean(b) => writeBooleanConstant(data.name, b.toString)
+      case Value.EnumConstant(e, _) => writeIntConstant(data.name, e._2.toString)
+      case Value.Integer(i) => writeIntConstant(data.name, i.toString)
+      case Value.Float(f, _) => writeFloatConstant(data.name, f.toString)
+      case Value.String(s) => writeStringConstant(data.name, s)
+      case Value.PrimitiveInt(i, _) => writeIntConstant(data.name, i.toString)
+      case _ => (Nil, Nil)
+    }
+    val hppMemberList = {
+      hppLines match {
+        case Nil => Nil
+        case _ => {
+          val ls = (Line.blank :: AnnotationCppWriter.writePreComment(aNode)) ++ hppLines
+          List(CppWriter.linesMember(ls))
         }
-        case _: Type.String => {
-          val Value.String(s) = value
-          writeStringConstant(data.name, s)
-        }
-        case _ => Nil
       }
     }
-    constantLines match {
-      case Nil => Nil
-      case _ => {
-        val ls = (Line.blank :: AnnotationCppWriter.writePreComment(aNode)) ++ constantLines
-        List(CppWriter.linesMember(ls))
+    val cppMemberList = {
+      cppLines match {
+        case Nil => Nil
+        case _ => {
+          val ls = Line.blank :: cppLines
+          List(CppWriter.linesMember(ls, CppDoc.Lines.Cpp))
+        }
       }
     }
+    hppMemberList ++ cppMemberList
   }
 
   override def defModuleAnnotatedNode(
@@ -59,19 +63,35 @@ object ConstantCppWriter extends AstVisitor with LineUtils {
     tu.members.flatMap(matchTuMember(s, _))
 
   private def writeBooleanConstant(name: String, value: String) =
-    lines("const bool " ++ name ++ " = " ++ value ++ ";")
+    (
+      lines("extern const bool " ++ name ++ ";"),
+      lines("const bool " ++ name ++ " = " ++ value ++ ";")
+    )
 
   private def writeIntConstant(name: String, value: String) = {
-    val defLine = line(name ++ " = " ++ value)
-    List(line("enum " ++ name ++ " {"), indentIn(defLine), line("};"))
+    val hppLines = {
+      val defLine = line(name ++ " = " ++ value)
+      List(
+        line("enum FppConstant_" ++ name ++ " {"),
+        indentIn(defLine),
+        line("};")
+      )
+    }
+    (hppLines, Nil)
   }
 
   private def writeFloatConstant(name: String, value: String) =
-    lines("const F64 " ++ name ++ " = " ++ value ++ ";")
+    (
+      lines("extern const F64 " ++ name ++ ";"),
+      lines("const F64 " ++ name ++ " = " ++ value ++ ";")
+    )
 
   private def writeStringConstant(name: String, value: String) = {
     val s = value.replaceAll("\"", "\\\"").replaceAll("\n", "\\n")
-    lines("const char *const " ++ name ++ " = \"" ++ s ++ "\";")
+    (
+      lines("extern const char *const " ++ name ++ ";"),
+      lines("const char *const " ++ name ++ " = \"" ++ s ++ "\";")
+    )
   }
 
   type In = CppWriterState

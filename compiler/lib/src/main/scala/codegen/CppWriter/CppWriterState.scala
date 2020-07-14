@@ -22,17 +22,21 @@ case class CppWriterState(
     File.removeLongestPrefix(pathPrefixes)(path)
 
   /** Constructs an include guard from the prefix and a name */
-  def includeGuardFromPrefix(name: String) = guardPrefix match {
-    case Some(s) => s ++ "_" ++ name
-    case None => name
+  def includeGuardFromPrefix(name: String) = {
+    val guard = guardPrefix match {
+      case Some(s) => s ++ "_" ++ name
+      case None => name
+    }
+    guard ++ "_HPP"
   }
 
   /** Constructs an include guard from the enclosing namespace and a name */
   def includeGuardFromNamespace(name: String) = {
-    a.scopeNameList.reverse.mkString("_") match {
+    val guard = a.scopeNameList.reverse.mkString("_") match {
       case "" => name
       case prefix => prefix ++ "_" ++ name
     }
+    guard ++ "_HPP"
   }
 
 }
