@@ -16,8 +16,8 @@
 // countries or providing access to foreign persons.
 // ======================================================================
 
-#ifndef FppConstants_HPP
-#define FppConstants_HPP
+#ifndef GUARD_PREFIX_FppConstants_HPP
+#define GUARD_PREFIX_FppConstants_HPP
 
 #include "Fw/Types/BasicTypes.hpp"
 

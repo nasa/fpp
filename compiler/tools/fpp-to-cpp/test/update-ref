@@ -43,6 +43,13 @@ constants()
   mv FppConstants.cpp FppConstants_constants.ref.cpp
 }
 
+constants_guard()
+{
+  update "-g GUARD_PREFIX -p $PWD" constants
+  mv FppConstants.hpp FppConstants_constants_guard.ref.hpp
+  mv FppConstants.cpp FppConstants_constants_guard.ref.cpp
+}
+
 constants_output_dir()
 {
   update "-d output_dir -p $PWD" constants output_dir/constants

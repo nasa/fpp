@@ -47,6 +47,15 @@ constants()
     diff -u FppConstants_constants.out.cpp FppConstants_constants.ref.cpp
 }
 
+constants_guard()
+{
+  run_test "-g GUARD_PREFIX -p $PWD" constants && \
+  mv FppConstants.hpp FppConstants_constants_guard.out.hpp && \
+  diff -u FppConstants_constants_guard.out.hpp FppConstants_constants_guard.ref.hpp && \
+  mv FppConstants.cpp FppConstants_constants_guard.out.cpp && \
+  diff -u FppConstants_constants_guard.out.cpp FppConstants_constants_guard.ref.cpp
+}
+
 constants_output_dir()
 {
   run_test "-d output_dir -p $PWD" constants output_dir/constants && \
