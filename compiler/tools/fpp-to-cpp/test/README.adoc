@@ -15,7 +15,7 @@ This makes sure that all the `*.ref.cpp` files are valid {cpp} files.
 Before running `check-cpp`, do the following:
 
 * Check out a copy of the 
-https://github.jpl.nasa.gov/FPRIME/fprime-sw[F Prime repository]
+https://github.jpl.nasa.gov/FPRIME/fprime-sw[F Prime repository].
 
 * Set the shell environment variable `FPRIME` to point to
 the root of the F Prime repository.

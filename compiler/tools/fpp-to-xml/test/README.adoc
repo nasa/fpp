@@ -16,7 +16,7 @@ that produce valid {cpp} files when run through the F Prime code generator.
 Before running `check-xml`, do the following:
 
 * Check out a copy of the 
-https://github.jpl.nasa.gov/FPRIME/fprime-sw[F Prime repository]
+https://github.jpl.nasa.gov/FPRIME/fprime-sw[F Prime repository].
 
 * Set the shell environment variable `FPRIME` to point to
 the root of the F Prime repository.
