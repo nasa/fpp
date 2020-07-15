@@ -1,8 +1,9 @@
 = Compiler
 
 *Requirements:*
-Install the 
-https://www.scala-sbt.org[Simple Build Tool (sbt)] for Scala.
+
+* A Unix environment, such as Linux, Mac OS, or the Windows Subsystem for Linux.
+* The https://www.scala-sbt.org[Simple Build Tool (sbt)] for Scala.
 
 *Installing:*
 To install in the `bin` directory, run `./install`.
@@ -25,8 +26,10 @@ See https://github.jpl.nasa.gov/bocchino/fpp/wiki/Tools
 for more information.
 
 *Testing:*
-Run `./install` or `./sbt test` to run all unit tests.
-Run `./test` to run all integration tests.
+
+* Run `./install` or `./sbt test` to run all unit tests.
+
+* Run `./test` to run all integration tests.
 Do this after running `./install`.
 If you update the build, rerun `./install` before running `./test`.
 
@@ -36,7 +39,7 @@ If you update the build, rerun `./install` before running `./test`.
 
 . In the shell, run `compile` to compile everything, `test` to run all unit tests,
 and `assembly` to create jar files.
-The installer script runs these commands automatically.
+The `install` script runs these commands automatically.
 It also moves the jar files to the install directory and puts executable
 shell scripts there.
 
