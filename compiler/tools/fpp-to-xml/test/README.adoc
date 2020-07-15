@@ -1,0 +1,21 @@
+== fpp-to-xml/test
+
+This is the test directory for the `fpp-to-xml` tool.
+
+=== Running Tests
+
+To run the tests, execute `run` in this directory.
+All the tests should pass.
+
+=== Developing Tests
+
+When developing tests, run the tool `check-xml`.
+This makes sure that all the `*.ref.xml` files are valid F Prime XML files.
+
+Before running `check-xml`, do the following:
+
+* Check out a copy of the 
+https://github.jpl.nasa.gov/FPRIME/fprime-sw[F Prime repository]
+
+* Set the shell environment variable `FPRIME` to point to
+the root of the F Prime repository.
