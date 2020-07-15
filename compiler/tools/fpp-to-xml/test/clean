@@ -3,8 +3,8 @@
 . ../../../scripts/utils.sh
 
 clean
-rm -f default-tests.sh default-update-ref.sh
-for file in `find . -name '*Ai.xml' -or -name '*.names.txt'`
+rm -rf default-tests.sh default-update-ref.sh DefaultDict
+for file in `find . -name '*Ai.xml' -or -name '*Ac.*' -or -name '*.names.txt'`
 do
   rm $file
 done
