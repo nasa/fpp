@@ -49,9 +49,9 @@ constants()
 
 constants_output_dir()
 {
-  run_test "-d output_dir -p $PWD" output_dir/constants_output_dir && \
-    diff output_dir/FppConstants.hpp output_dir/FppConstants_constants.ref.hpp && \
-    diff output_dir/FppConstants.cpp output_dir/FppConstants_constants.ref.cpp
+  run_test "-d output_dir -p $PWD" constants output_dir/constants && \
+    diff output_dir/FppConstants.hpp output_dir/FppConstants.ref.hpp && \
+    diff output_dir/FppConstants.cpp output_dir/FppConstants.ref.cpp
 }
 
 run_suite $tests

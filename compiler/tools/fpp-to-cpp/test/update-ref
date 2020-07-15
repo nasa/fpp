@@ -45,9 +45,9 @@ constants()
 
 constants_output_dir()
 {
-  update "-d output_dir -p $PWD" output_dir/constants_output_dir
-  mv output_dir/FppConstants.hpp output_dir/FppConstants_constants.ref.hpp
-  mv output_dir/FppConstants.cpp output_dir/FppConstants_constants.ref.cpp
+  update "-d output_dir -p $PWD" constants output_dir/constants
+  mv output_dir/FppConstants.hpp output_dir/FppConstants.ref.hpp
+  mv output_dir/FppConstants.cpp output_dir/FppConstants.ref.cpp
 }
 
 for t in $tests
