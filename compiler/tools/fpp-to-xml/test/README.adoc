@@ -10,7 +10,8 @@ All the tests should pass.
 === Developing Tests
 
 When developing tests, run the tool `check-xml`.
-This makes sure that all the `*.ref.xml` files are valid F Prime XML files.
+This ensures that all the `*.ref.xml` files are valid F Prime XML files
+that produce valid {cpp} files when run through the F Prime code generator.
 
 Before running `check-xml`, do the following:
 
