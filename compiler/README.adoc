@@ -9,12 +9,16 @@ To install in the `bin` directory, run `./install`.
 This step also runs all the unit tests.
 To install to a different directory, run `./install` _dir-name_.
 
-The currently available tools are
+The currently available tools are as follows:
 
 * `fpp-check` (constants, types, and enums only)
 * `fpp-depend`
 * `fpp-format` (constants, types, and enums only)
+* `fpp-from-xml` (structs and enums only)
+* `fpp-locate-defs`
+* `fpp-locate-uses`
 * `fpp-syntax`
+* `fpp-to-cpp` (constants only)
 * `fpp-to-xml` (structs and enums only)
 
 See https://github.jpl.nasa.gov/bocchino/fpp/wiki/Tools
