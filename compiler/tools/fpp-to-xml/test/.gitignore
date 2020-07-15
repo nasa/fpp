@@ -1,7 +1,9 @@
-*.out.txt
 *.diff.txt
-*Ai.xml
 *.names.txt
+*.out.txt
+*Ac.cpp
+*Ac.hpp
+*Ai.xml
+DefaultDict
 default-tests.sh
 default-update-ref.sh
-DefaultDict
