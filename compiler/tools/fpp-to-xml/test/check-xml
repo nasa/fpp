@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
 # ----------------------------------------------------------------------
-# Compile ref files, to check them for XML validity
+# Compile ref XML files, to check them for validity
 # ----------------------------------------------------------------------
 
 fprime_codegen=../../../scripts/fprime-codegen
