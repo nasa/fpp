@@ -1,16 +1,19 @@
-#!/bin/sh
+#!/bin/sh -e
 
 # ----------------------------------------------------------------------
 # Compile ref files, to check them for XML validity
 # ----------------------------------------------------------------------
 
 fprime_codegen=../../../scripts/fprime-codegen
+fprime_gcc=../../../scripts/fprime-gcc
 
 for file in `find . -name '*Ai.ref.xml'`
 do
-  base=`basename $file .ref.xml`
-  src_file=$base.xml
-  cp $file $src_file
-  echo "compiling $src_file"
-  $fprime_codegen $src_file
+  base=`basename $file Ai.ref.xml`
+  xml_file=$base'Ai.xml'
+  cp $file $xml_file
+  echo "compiling $xml_file"
+  $fprime_codegen $xml_file > /dev/null
+  cpp_file=$base'Ac.cpp'
+  $fprime_gcc -c $cpp_file
 done
