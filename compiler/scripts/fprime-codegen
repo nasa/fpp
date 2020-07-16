@@ -1,0 +1,37 @@
+#!/bin/sh -e
+
+# ======================================================================
+# Run the F Prime autocoder
+# ---------------------------------------------------------------------- 
+# Setup:
+#
+# 1. Set FPRIME to point to the root of your F Prime working repo
+#
+# 2. Set FPRIME_VENV to point to your F Prime Python virtual environment,
+#    or use the default $FPRIME/fprime-venv
+# ======================================================================
+
+if test -z "$FPRIME"
+then
+  echo 'fprime-codegen: environment variable FPRIME is not set' 1>&2
+  echo '  set FPRIME to the root of your F Prime working repo' 1>&2
+  exit 1
+fi
+
+if test -z "$FPRIME_VENV"
+then
+  export FPRIME_VENV=$FPRIME/fprime-venv
+fi
+
+if ! test -d $FPRIME_VENV
+then
+  echo "fprime-codegen: directory $FPRIME_VENV does not exist" 1>&2
+  echo "  expected to find F Prime virtual environment at $FPRIME_VENV" 1>&2
+  echo "  set environment variable FPRIME_VENV to use a different directory" 1>&2
+  exit 1
+fi
+
+export BUILD_ROOT=$FPRIME:$PWD
+export FPRIME_CORE_DIR=$FPRIME
+export PYTHONPATH=$FPRIME/Autocoders/Python/src
+$FPRIME_VENV/bin/python $FPRIME/Autocoders/Python/bin/codegen.py -b $@
