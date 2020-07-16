@@ -152,7 +152,7 @@ case class Analysis(
         case (Nil, _) => result
         case (_, _ :: Nil) => result
         case (head1 :: tail1, head2 :: tail2) => 
-          if (head1 == tail1) helper(tail1, tail2)
+          if (head1 == head2) helper(tail1, tail2)
           else name
         case _ => name
       }

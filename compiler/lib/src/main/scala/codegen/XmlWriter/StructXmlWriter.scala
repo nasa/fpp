@@ -40,7 +40,7 @@ object StructXmlWriter extends AstVisitor with LineUtils {
   ) = {
     val node = aNode._2
     val data = node.getData
-    val t = s.a.typeMap(node.getId)
+    val t = s.a.typeMap(data.typeName.getId)
     val pairs = ("name", data.name) :: TypeXmlWriter.getPairs(s, t)
     val pairs1 = {
       val format = structType.formats.get(data.name) match {

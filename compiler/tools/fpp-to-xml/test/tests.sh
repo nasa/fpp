@@ -4,6 +4,7 @@ enum_explicit
 enum_implicit
 empty_struct
 struct_format
+struct_modules
 struct_ok
 struct_output_dir
 struct_string

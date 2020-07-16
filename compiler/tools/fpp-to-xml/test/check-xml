@@ -14,6 +14,12 @@ do
   cp $file $xml_file
   echo "compiling $xml_file"
   $fprime_codegen $xml_file > /dev/null
+done
+
+for file in `find . -name '*Ai.ref.xml'`
+do
+  base=`basename $file Ai.ref.xml`
   cpp_file=$base'Ac.cpp'
+  echo "compiling $cpp_file"
   $fprime_gcc -c $cpp_file
 done

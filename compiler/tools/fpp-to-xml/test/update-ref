@@ -61,6 +61,14 @@ struct_format()
   mv StructFormatSerializableAi.xml StructFormatSerializableAi.ref.xml 
 }
 
+struct_modules()
+{
+  update '' struct_modules
+  mv StructModules1SerializableAi.xml StructModules1SerializableAi.ref.xml 
+  mv StructModules2SerializableAi.xml StructModules2SerializableAi.ref.xml 
+  mv StructModules3SerializableAi.xml StructModules3SerializableAi.ref.xml 
+}
+
 struct_output_dir()
 {
   update '-d output_dir' output_dir/struct_output_dir

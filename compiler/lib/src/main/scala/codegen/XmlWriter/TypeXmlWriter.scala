@@ -37,7 +37,7 @@ object TypeXmlWriter {
     private def symbol(s: XmlWriterState, sym: Symbol): String = {
       val qualifiedName = s.a.qualifiedNameMap(sym)
       val shortName = s.a.shortName(qualifiedName)
-      shortName.toString.replaceAll(".", "::")
+      shortName.toString.replaceAll("\\.", "::")
     }
 
   }
