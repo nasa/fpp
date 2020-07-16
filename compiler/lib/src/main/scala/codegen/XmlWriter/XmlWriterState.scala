@@ -29,11 +29,11 @@ case class XmlWriterState(
             sym.getUnqualifiedName ++ ".hpp"
           )
           case Symbol.Array(aNode) => Some(
-            "include_array_type",
+            "import_array_type",
             ComputeXmlFiles.getArrayFileName(aNode._2.getData)
           )
           case Symbol.Enum(aNode) => Some(
-            "include_enum_type",
+            "import_enum_type",
             ComputeXmlFiles.getEnumFileName(aNode._2.getData)
           )
           case Symbol.Struct(aNode) => Some(

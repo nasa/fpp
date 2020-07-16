@@ -47,6 +47,12 @@ enum_implicit()
   mv ImplicitEnumAi.xml ImplicitEnumAi.ref.xml 
 }
 
+struct_enum_member()
+{
+  update "-i enum_explicit.fpp -p $PWD" struct_enum_member
+  mv StructEnumMemberSerializableAi.xml StructEnumMemberSerializableAi.ref.xml 
+}
+
 struct_ok()
 {
   update "-n struct_ok.names.txt -p $PWD" struct_ok

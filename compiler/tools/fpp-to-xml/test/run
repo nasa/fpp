@@ -49,6 +49,12 @@ enum_implicit()
     diff ImplicitEnumAi.xml ImplicitEnumAi.ref.xml
 }
 
+struct_enum_member()
+{
+  run_test "-i enum_explicit.fpp -p $PWD" struct_enum_member && \
+  diff -u StructEnumMemberSerializableAi.xml StructEnumMemberSerializableAi.ref.xml
+}
+
 struct_ok()
 {
   run_test "-n struct_ok.names.txt -p $PWD" struct_ok && \
