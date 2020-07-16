@@ -1,9 +1,5 @@
-@ Top-level annotation, line 1
-@ Top-level annotation, line 2
 module A {
-  struct StructOK1 {
-    @ Member annotation, line 1.
-    @ Member annotation, line 2.
+  struct ComprehensiveStruct {
     mF32: F32
     mF64: F64
     mI16: I16
@@ -19,11 +15,12 @@ module A {
   }
 }
 
-module B {
-  struct StructOK2 {
-    s1: A.StructOK1
-  }
+struct Struct2D {
+  s1: A.ComprehensiveStruct
 }
 
-array Struct1 = [2] A.StructOK1
-array Struct2 = [2] B.StructOK2
+array Struct1 = [2] A.ComprehensiveStruct
+
+module B {
+  array Struct2 = [3] Struct2D
+}

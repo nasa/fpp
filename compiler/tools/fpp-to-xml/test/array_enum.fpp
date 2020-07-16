@@ -1,11 +1,22 @@
 module M {
 
-  enum Explicit {
-    X = 1 @< Member X
+  enum EnumModule {
+    X = 1 @< Example comment
     Y = 2
+    Z = 9
   }
 
 }
-module N {
-array ABC = [2] M.Explicit
+
+enum EnumGlobal {
+  A = 10
+  B = 20
+  C = 30
+  D = 40
 }
+
+module N {
+array ABC = [2] M.EnumModule
+}
+
+array DEF = [5] EnumGlobal

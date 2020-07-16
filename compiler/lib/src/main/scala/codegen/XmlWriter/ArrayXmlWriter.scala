@@ -20,7 +20,6 @@ object ArrayXmlWriter extends AstVisitor with LineUtils {
 
     val body = {
       val imports = s.writeImportDirectives(loc.file)
-      val comment = AnnotationXmlWriter.multilineComment(aNode)
       val arrayType @ Type.Array(_, _, _, _) = s.a.typeMap(node.getId) 
 
       val arrType = {
@@ -53,7 +52,7 @@ object ArrayXmlWriter extends AstVisitor with LineUtils {
       }
       val arrDefault = {
         val defaultTags = XmlTags.tags("default")
-        val ls = arrayType.getDefaultValue.map(arrayTypeDefaultValue(s, data.eltType, _))
+        val ls = arrayType.getDefaultValue.map(arrayTypeDefaultValue(s, _))
         XmlTags.taggedLines(defaultTags)(ls.get.map(indentIn))
       }
       imports ++ comment ++ arrType ++ arrSize ++ arrFormat ++ arrDefault
@@ -64,7 +63,6 @@ object ArrayXmlWriter extends AstVisitor with LineUtils {
   // Returns list of value lines for each value in array
   def arrayTypeDefaultValue(
     s: XmlWriterState,
-    arrayType: AstNode[Ast.TypeName],
     defaultValue: Value.Array
   ): List[Line] = {
     val valueTags = XmlTags.tags("value")
