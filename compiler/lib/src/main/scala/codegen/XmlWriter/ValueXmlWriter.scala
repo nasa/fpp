@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 package fpp.compiler.codegen
 
 import fpp.compiler.ast._
@@ -8,6 +9,12 @@ ackage fpp.compiler.codegen
 
 import fpp.compiler.ast._
 >>>>>>> FPP to XML tool array feature minus default values
+=======
+package fpp.compiler.codegen
+
+import fpp.compiler.ast._
+import fpp.compiler.analysis._
+>>>>>>> Pre-merge valuevisitor changes
 import fpp.compiler.util._
 
 /** Write an FPP value as XML */
@@ -19,6 +26,9 @@ object ValueXmlWriter {
 
     type Out = String
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Pre-merge valuevisitor changes
 
     override def absType(in: In, v: Value.AbsType): Out = v.toString
 
@@ -85,9 +95,14 @@ object ValueXmlWriter {
   /** Get the c++ value for a type */
   def getValue(s: XmlWriterState, v: Value): String = {
     Visitor.value(s, v)
+<<<<<<< HEAD
   }
 
 =======
   }
 >>>>>>> FPP to XML tool array feature minus default values
+=======
+  }
+
+>>>>>>> Pre-merge valuevisitor changes
 }
