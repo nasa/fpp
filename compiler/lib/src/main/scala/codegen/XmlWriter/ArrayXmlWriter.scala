@@ -24,8 +24,8 @@ object ArrayXmlWriter extends AstVisitor with LineUtils {
       val arrayType @ Type.Array(_, _, _, _) = s.a.typeMap(node.getId) 
 
       val arrType = {
-        val typeName = TypeXmlWriter.getName(s, data.eltType)
-        val stringSize = TypeXmlWriter.getSize(s, data.eltType)
+        val typeName = TypeXmlWriter.getName(s, arrayType.anonArray.eltType)
+        val stringSize = TypeXmlWriter.getSize(s, arrayType.anonArray.eltType)
         val openTag = stringSize match {
           case Some(openTag)=> XmlTags.openTag("type", List( ("size", openTag) ))
           case None => XmlTags.openTag("type", Nil)
@@ -70,7 +70,7 @@ object ArrayXmlWriter extends AstVisitor with LineUtils {
     val valueTags = XmlTags.tags("value")
     val elements = defaultValue.anonArray.elements
     val defaultType = defaultValue.anonArray.getType
-    val valueList = elements.map( ValueXmlWriter.listGetValue(s, arrayType, _) )
+    val valueList = elements.map( ValueXmlWriter.getValue(s, _) )
     val tags = valueList.map( XmlTags.taggedString(valueTags)(_) )
     tags.map(line(_))
   }
