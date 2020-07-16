@@ -32,5 +32,6 @@ then
 fi
 
 export BUILD_ROOT=$FPRIME:$PWD
+export FPRIME_CORE_DIR=$FPRIME
 export PYTHONPATH=$FPRIME/Autocoders/Python/src
 $FPRIME_VENV/bin/python $FPRIME/Autocoders/Python/bin/codegen.py -b $@
