@@ -3,55 +3,51 @@ package fpp.compiler.analysis
 /** Visit a Value */
 trait ValueVisitor {
 
-  def absValue(in: In, t: Value.AbsValue): Out = default(in, t)
+  def absType(in: In, v: Value.AbsType): Out = default(in, v)
 
-  def anonArray(in: In, t: Value.AnonArray): Out = default(in, t)
+  def anonArray(in: In, v: Value.AnonArray): Out = default(in, v)
 
-  def anonStruct(in: In, t: Value.AnonStruct): Out = default(in, t)
+  def anonStruct(in: In, v: Value.AnonStruct): Out = default(in, v)
 
-  def array(in: In, t: Value.Array): Out = default(in, t)
+  def array(in: In, v: Value.Array): Out = default(in, v)
 
-  def binop(in: In, t: Value.Binop): Out = default(in, t)
+  def boolean(in: In, v: Value.Boolean) = default(in, v)
 
-  def boolean(in: In) = default(in, Value.Boolean)
+  def default(in: In, v: Value): Out
 
-  def default(in: In, t: Value): Out
+  def enumConstant(in: In, v: Value.EnumConstant): Out = default(in, v)
 
-  def enum(in: In, t: Value.Enum): Out = default(in, t)
+  def float(in: In, v: Value.Float): Out = default(in, v)
 
-  def enumConstant(in: In, t: Value.EnumConstant): Out = default(in, t)
+  def integer(in: In, v: Value.Integer): Out = default(in, v)
 
-  def float(in: In, t: Value.Float): Out = default(in, t)
+  def primitiveInt(in: In, v: Value.PrimitiveInt): Out = default(in, v)
 
-  def integer(in: In): Out = default(in, Value.Integer)
+  def string(in: In, v: Value.String): Out = default(in, v)
 
-  def primitiveInt(in: In, t: Value.PrimitiveInt): Out = default(in, t)
+  def struct(in: In, v: Value.Struct): Out = default(in, v)
 
-  def string(in: In, t: Value.String): Out = default(in, t)
+  def value(in: In, v: Value): Out = matchValue(in, v)
 
-  def struct(in: In, t: Value.Struct): Out = default(in, t)
-
-  def ty(in: In, t: Value): Out = matchValue(in, t)
-
-  final def matchValue(in: In, t: Value): Out =
-    t match {
-      case t : Value.PrimitiveInt => primitiveInt(in, t)
-      case t : Value.Integer => integer(in, t)
-      case t : Value.Float => float(in, t)
-      case t : Value.Boolean => boolean(in, t)
-      case t : Value.String => string(in, t)
-      case t : Value.AnonArray => anonArray(in, t)
-      case t : Value.AbsValue => absValue(in, t)
-      case t : Value.Array => array(in, t)
-      case t : Value.EnumConstant => enumConstant(in, t)
-      case t : Value.AnonStruct => anonStruct(in, t)
-      case t : Value.Struct => struct(in, t)
-      case t : Value.Binop => binop(in, t)
-      case _ => default(in, t)
+  final def matchValue(in: In, v: Value): Out = {
+    v match {
+      case v : Value.PrimitiveInt => primitiveInt(in, v)
+      case v : Value.Integer => integer(in, v)
+      case v : Value.Float => float(in, v)
+      case v : Value.Boolean => boolean(in, v)
+      case v : Value.String => string(in, v)
+      case v : Value.AnonArray => anonArray(in, v)
+      case v : Value.AbsType => absType(in, v)
+      case v : Value.Array => array(in, v)
+      case v : Value.EnumConstant => enumConstant(in, v)
+      case v : Value.AnonStruct => anonStruct(in, v)
+      case v : Value.Struct => struct(in, v)
+      case _ => default(in, v)
     }
+  }
 
-  Value In
+  type In
 
-  Value Out
+  type Out
 
 }

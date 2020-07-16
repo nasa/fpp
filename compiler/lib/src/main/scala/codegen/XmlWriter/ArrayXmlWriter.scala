@@ -52,10 +52,9 @@ object ArrayXmlWriter extends AstVisitor with LineUtils {
         List(line(XmlTags.taggedString(tags)(s)))
       }
       val arrDefault = {
-        val valueTags = XmlTags.tags("value")
         val defaultTags = XmlTags.tags("default")
-        val ls = arrayType.getDefaultValue.map(arrayTypeDefaultNode(s, arrayType, _))
-        XmlTags.taggedLines(defaultTags)(ls.get)
+        val ls = arrayType.getDefaultValue.map(arrayTypeDefaultValue(s, data.eltType, _))
+        XmlTags.taggedLines(defaultTags)(ls.get.map(indentIn))
       }
       imports ++ comment ++ arrType ++ arrSize ++ arrFormat ++ arrDefault
     } 
@@ -63,18 +62,17 @@ object ArrayXmlWriter extends AstVisitor with LineUtils {
   }
 
   // Returns list of value lines for each value in array
-  def arrayTypeDefaultNode(
+  def arrayTypeDefaultValue(
     s: XmlWriterState,
-    arrayType: Type.Array,
+    arrayType: AstNode[Ast.TypeName],
     defaultValue: Value.Array
   ): List[Line] = {
-    // arrayNode.anonArray.getClass.getMethods.map(_.getName) foreach println
-    // defaultValue.anonArray.elements.map(_.value) foreach println
-    // val elements = defaultValue.anonArray.elements
-    // val expandArray = elements.map(v) foreach match {
-    //   Value.Array(v) => 
-    // }
-    List(line("Nil"))
+    val valueTags = XmlTags.tags("value")
+    val elements = defaultValue.anonArray.elements
+    val defaultType = defaultValue.anonArray.getType
+    val valueList = elements.map( ValueXmlWriter.listGetValue(s, arrayType, _) )
+    val tags = valueList.map( XmlTags.taggedString(valueTags)(_) )
+    tags.map(line(_))
   }
 
   type In = XmlWriterState
