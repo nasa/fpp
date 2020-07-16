@@ -95,11 +95,12 @@ object EnterSymbols
     yield {
       val scope = a.nestedScope.innerScope
       val newSymbolScopeMap = a.symbolScopeMap + (symbol -> scope)
-      updateMap(a, symbol).copy(
+      val a1 = a.copy(
         scopeNameList = oldModuleNameList,
         nestedScope = a.nestedScope.pop,
         symbolScopeMap = newSymbolScopeMap
       )
+      updateMap(a1, symbol)
     }
   }
 
