@@ -49,6 +49,12 @@ enum_implicit()
     diff ImplicitEnumAi.xml ImplicitEnumAi.ref.xml
 }
 
+struct_abs_type()
+{
+  run_test "-p $PWD" struct_abs_type && \
+  diff -u StructAbsTypeSerializableAi.xml StructAbsTypeSerializableAi.ref.xml
+}
+
 struct_enum_member()
 {
   run_test "-i enum_explicit.fpp -p $PWD" struct_enum_member && \

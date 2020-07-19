@@ -47,6 +47,12 @@ enum_implicit()
   mv ImplicitEnumAi.xml ImplicitEnumAi.ref.xml 
 }
 
+struct_abs_type()
+{
+  update "-p $PWD" struct_abs_type
+  mv StructAbsTypeSerializableAi.xml StructAbsTypeSerializableAi.ref.xml 
+}
+
 struct_enum_member()
 {
   update "-i enum_explicit.fpp -p $PWD" struct_enum_member
