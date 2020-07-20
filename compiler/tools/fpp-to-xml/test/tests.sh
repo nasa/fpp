@@ -1,5 +1,7 @@
 tests="
+array_enum
 array_ok
+array_struct
 duplicate_xml_file
 enum_explicit
 enum_implicit

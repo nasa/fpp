@@ -20,6 +20,7 @@ object ArrayXmlWriter extends AstVisitor with LineUtils {
 
     val body = {
       val imports = s.writeImportDirectives(loc.file)
+      val comment = AnnotationXmlWriter.multilineComment(aNode)
       val arrayType @ Type.Array(_, _, _, _) = s.a.typeMap(node.getId) 
 
       val arrType = {
