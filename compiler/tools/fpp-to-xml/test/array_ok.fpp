@@ -9,5 +9,10 @@ array F = [3] M.E
 array G = [2] string default ["string1", "string2"]
 
 module L {
-    array H = [4] G
+    array H = [4] G @< Array with array arg
 }
+
+module Abs {
+    type TA
+}
+array AbsArray = [3] Abs.TA

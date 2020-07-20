@@ -16,7 +16,7 @@ enum EnumGlobal {
 }
 
 module N {
-array ABC = [2] M.EnumModule
+array ABC = [2] M.EnumModule @< Array with enum argument
 }
 
 array DEF = [5] EnumGlobal

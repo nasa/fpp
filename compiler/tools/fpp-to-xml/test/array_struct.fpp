@@ -1,3 +1,5 @@
+type T
+
 module A {
   struct ComprehensiveStruct {
     mF32: F32
@@ -12,6 +14,7 @@ module A {
     mU8: U8
     m_bool: bool
     m_string: string
+    m_absType: T
   }
 }
 
@@ -22,5 +25,5 @@ struct Struct2D {
 array Struct1 = [2] A.ComprehensiveStruct
 
 module B {
-  array Struct2 = [3] Struct2D
+  array Struct2 = [3] Struct2D @< Array with struct arg
 }

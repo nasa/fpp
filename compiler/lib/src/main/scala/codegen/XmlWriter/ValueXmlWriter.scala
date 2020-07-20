@@ -13,7 +13,7 @@ object ValueXmlWriter {
 
     type Out = String
 
-    override def absType(in: In, v: Value.AbsType): Out = v.getType.toString
+    override def absType(in: In, v: Value.AbsType): Out = TypeXmlWriter.getName(in, v.getType) ++ "()"
 
     override def array(in: In, v: Value.Array): Out = {
       val elements = v.anonArray.elements.map(getValue(in, _))
