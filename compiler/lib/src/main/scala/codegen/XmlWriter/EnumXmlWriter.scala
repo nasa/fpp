@@ -18,8 +18,7 @@ object EnumXmlWriter extends AstVisitor with LineUtils {
       XmlTags.tags("enum", pairs)
     }
     val body = {
-      // The Enum XML schema currently does not allow a top-level comment
-      val comment = Nil
+      val comment = AnnotationXmlWriter.multilineComment(aNode)
       val members = data.constants.map(defEnumConstantAnnotatedNode(s, _))
       comment ++ members
     }
