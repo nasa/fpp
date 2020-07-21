@@ -38,10 +38,10 @@ done > default-update-ref.sh
 array_enum()
 {
   update "-p $PWD" array_enum
-  mv EnumModuleEnumAi.xml EnumModuleEnumAi.ref.xml
-  mv EnumGlobalEnumAi.xml EnumGlobalEnumAi.ref.xml
-  mv ABCArrayAi.xml ABCArrayAi.ref.xml
-  mv DEFArrayAi.xml DEFArrayAi.ref.xml
+  mv ArrayEnumE1EnumAi.xml ArrayEnumE1EnumAi.ref.xml
+  mv ArrayEnumE2EnumAi.xml ArrayEnumE2EnumAi.ref.xml
+  mv ArrayEnum1ArrayAi.xml ArrayEnum1ArrayAi.ref.xml
+  mv ArrayEnum2ArrayAi.xml ArrayEnum2ArrayAi.ref.xml
 }
 
 enum_explicit()

@@ -40,10 +40,10 @@ done > default-tests.sh
 array_enum()
 {
   run_test "-p $PWD" array_enum && \
-  diff EnumModuleEnumAi.xml EnumModuleEnumAi.ref.xml && \
-  diff EnumGlobalEnumAi.xml EnumGlobalEnumAi.ref.xml && \
-  diff ABCArrayAi.xml ABCArrayAi.ref.xml && \
-  diff DEFArrayAi.xml DEFArrayAi.ref.xml
+  diff ArrayEnumE1EnumAi.xml ArrayEnumE1EnumAi.ref.xml && \
+  diff ArrayEnumE2EnumAi.xml ArrayEnumE2EnumAi.ref.xml && \
+  diff ArrayEnum1ArrayAi.xml ArrayEnum1ArrayAi.ref.xml && \
+  diff ArrayEnum2ArrayAi.xml ArrayEnum2ArrayAi.ref.xml
 }
 
 enum_explicit()

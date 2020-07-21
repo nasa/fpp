@@ -1,6 +1,6 @@
 module M {
 
-  enum EnumModule {
+  enum ArrayEnumE1 {
     X = 1 @< Example comment
     Y = 2
     Z = 9
@@ -8,7 +8,7 @@ module M {
 
 }
 
-enum EnumGlobal {
+enum ArrayEnumE2 {
   A = 10
   B = 20
   C = 30
@@ -16,7 +16,7 @@ enum EnumGlobal {
 }
 
 module N {
-  array ABC = [2] M.EnumModule @< Array with enum argument
+  array ArrayEnum1 = [2] M.ArrayEnumE1 @< Array with enum argument
 }
 
-array DEF = [5] EnumGlobal
+array ArrayEnum2 = [5] ArrayEnumE2
