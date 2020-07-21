@@ -30,7 +30,7 @@ do
   echo "
 $t()
 {
-  update '' $t
+  update '-p '$PWD $t
 }"
 done > default-update-ref.sh
 . ./default-update-ref.sh
@@ -75,7 +75,7 @@ struct_format()
 
 struct_modules()
 {
-  update '' struct_modules
+  update "-p $PWD" struct_modules
   mv StructModules1SerializableAi.xml StructModules1SerializableAi.ref.xml 
   mv StructModules2SerializableAi.xml StructModules2SerializableAi.ref.xml 
   mv StructModules3SerializableAi.xml StructModules3SerializableAi.ref.xml 
