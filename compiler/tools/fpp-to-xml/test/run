@@ -37,6 +37,15 @@ $t()
 done > default-tests.sh
 . ./default-tests.sh
 
+array_enum()
+{
+  run_test "-p $PWD" array_enum && \
+  diff EnumModuleEnumAi.xml EnumModuleEnumAi.ref.xml && \
+  diff EnumGlobalEnumAi.xml EnumGlobalEnumAi.ref.xml && \
+  diff ABCArrayAi.xml ABCArrayAi.ref.xml && \
+  diff DEFArrayAi.xml DEFArrayAi.ref.xml
+}
+
 enum_explicit()
 {
   run_test '' enum_explicit && \

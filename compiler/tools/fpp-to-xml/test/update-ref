@@ -35,6 +35,15 @@ $t()
 done > default-update-ref.sh
 . ./default-update-ref.sh
 
+array_enum()
+{
+  update "-p $PWD" array_enum
+  mv EnumModuleEnumAi.xml EnumModuleEnumAi.ref.xml
+  mv EnumGlobalEnumAi.xml EnumGlobalEnumAi.ref.xml
+  mv ABCArrayAi.xml ABCArrayAi.ref.xml
+  mv DEFArrayAi.xml DEFArrayAi.ref.xml
+}
+
 enum_explicit()
 {
   update '' enum_explicit
