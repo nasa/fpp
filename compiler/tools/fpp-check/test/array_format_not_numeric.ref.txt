@@ -2,4 +2,4 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/array_format_not_numeric.fpp: 1.29
 array A = [3] string format "{.3f}"
                             ^
-error: invalid format string: type array A is not numeric
+error: invalid format string: type string is not numeric

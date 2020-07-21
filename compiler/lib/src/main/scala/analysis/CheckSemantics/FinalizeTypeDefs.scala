@@ -58,7 +58,7 @@ object FinalizeTypeDefs
         }
         // Compute the format
         format <- data.format match {
-          case Some(node) => for (format <- computeFormat(node, arrayType)) yield Some(format)
+          case Some(node) => for (format <- computeFormat(node, eltType)) yield Some(format)
           case None => Right(None)
         }
       } 
