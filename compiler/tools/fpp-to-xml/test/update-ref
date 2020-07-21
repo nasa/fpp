@@ -44,6 +44,16 @@ array_enum()
   mv ArrayEnum2ArrayAi.xml ArrayEnum2ArrayAi.ref.xml
 }
 
+array_ok()
+{
+  update "-p $PWD" array_ok
+  mv ArrayOK1ArrayAi.xml ArrayOK1ArrayAi.ref.xml
+  mv ArrayOK2ArrayAi.xml ArrayOK2ArrayAi.ref.xml
+  mv ArrayOK3ArrayAi.xml ArrayOK3ArrayAi.ref.xml
+  mv ArrayOK4ArrayAi.xml ArrayOK4ArrayAi.ref.xml
+  mv ArrayOK5ArrayAi.xml ArrayOK5ArrayAi.ref.xml
+}
+
 enum_explicit()
 {
   update '' enum_explicit

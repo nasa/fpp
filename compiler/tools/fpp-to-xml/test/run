@@ -46,6 +46,16 @@ array_enum()
   diff ArrayEnum2ArrayAi.xml ArrayEnum2ArrayAi.ref.xml
 }
 
+array_ok()
+{
+  run_test "-p $PWD" array_ok && \
+  diff ArrayOK1ArrayAi.xml ArrayOK1ArrayAi.ref.xml && \
+  diff ArrayOK2ArrayAi.xml ArrayOK2ArrayAi.ref.xml && \
+  diff ArrayOK3ArrayAi.xml ArrayOK3ArrayAi.ref.xml && \
+  diff ArrayOK4ArrayAi.xml ArrayOK4ArrayAi.ref.xml && \
+  diff ArrayOK5ArrayAi.xml ArrayOK5ArrayAi.ref.xml
+}
+
 enum_explicit()
 {
   run_test '' enum_explicit && \
