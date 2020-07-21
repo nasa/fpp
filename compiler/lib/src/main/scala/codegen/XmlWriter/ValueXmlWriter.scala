@@ -50,7 +50,7 @@ object ValueXmlWriter {
     }
 
   }
-
+ 
   /** Get the c++ value for a type */
   def getValue(s: XmlWriterState, v: Value): String = {
     Visitor.value(s, v)
