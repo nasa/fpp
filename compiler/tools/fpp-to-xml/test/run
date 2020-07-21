@@ -37,23 +37,33 @@ $t()
 done > default-tests.sh
 . ./default-tests.sh
 
+diff_xml()
+{
+  for file in $@
+  do
+    if ! diff $file'Ai.xml' $file'Ai.ref.xml'
+    then
+      return 1
+    fi
+  done
+}
+
 array_enum()
 {
   run_test "-p $PWD" array_enum && \
-  diff ArrayEnumE1EnumAi.xml ArrayEnumE1EnumAi.ref.xml && \
-  diff ArrayEnumE2EnumAi.xml ArrayEnumE2EnumAi.ref.xml && \
-  diff ArrayEnum1ArrayAi.xml ArrayEnum1ArrayAi.ref.xml && \
-  diff ArrayEnum2ArrayAi.xml ArrayEnum2ArrayAi.ref.xml
+    diff_xml ArrayEnumE1Enum ArrayEnumE2Enum ArrayEnum1Array ArrayEnum2Array
 }
 
 array_ok()
 {
   run_test "-p $PWD" array_ok && \
-  diff ArrayOK1ArrayAi.xml ArrayOK1ArrayAi.ref.xml && \
-  diff ArrayOK2ArrayAi.xml ArrayOK2ArrayAi.ref.xml && \
-  diff ArrayOK3ArrayAi.xml ArrayOK3ArrayAi.ref.xml && \
-  diff ArrayOK4ArrayAi.xml ArrayOK4ArrayAi.ref.xml && \
-  diff ArrayOK5ArrayAi.xml ArrayOK5ArrayAi.ref.xml
+    diff_xml ArrayOK1Array ArrayOK2Array ArrayOK3Array ArrayOK4Array ArrayOK5Array
+}
+
+array_struct()
+{
+  run_test "-p $PWD" array_struct && \
+    diff_xml ArrayStructS1Serializable ArrayStructS2Serializable ArrayStruct1Array ArrayStruct2Array
 }
 
 enum_explicit()

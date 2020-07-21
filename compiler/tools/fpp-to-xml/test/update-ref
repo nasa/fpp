@@ -35,23 +35,31 @@ $t()
 done > default-update-ref.sh
 . ./default-update-ref.sh
 
+move_xml()
+{
+  for file in $@
+  do
+    mv $file'Ai.xml' $file'Ai.ref.xml'
+  done
+}
+
 array_enum()
 {
   update "-p $PWD" array_enum
-  mv ArrayEnumE1EnumAi.xml ArrayEnumE1EnumAi.ref.xml
-  mv ArrayEnumE2EnumAi.xml ArrayEnumE2EnumAi.ref.xml
-  mv ArrayEnum1ArrayAi.xml ArrayEnum1ArrayAi.ref.xml
-  mv ArrayEnum2ArrayAi.xml ArrayEnum2ArrayAi.ref.xml
+  move_xml ArrayEnumE1Enum ArrayEnumE2Enum ArrayEnum1Array ArrayEnum2Array
 }
 
 array_ok()
 {
   update "-p $PWD" array_ok
-  mv ArrayOK1ArrayAi.xml ArrayOK1ArrayAi.ref.xml
-  mv ArrayOK2ArrayAi.xml ArrayOK2ArrayAi.ref.xml
-  mv ArrayOK3ArrayAi.xml ArrayOK3ArrayAi.ref.xml
-  mv ArrayOK4ArrayAi.xml ArrayOK4ArrayAi.ref.xml
-  mv ArrayOK5ArrayAi.xml ArrayOK5ArrayAi.ref.xml
+  indices=`seq 1 5`
+  move_xml ArrayOK1Array ArrayOK2Array ArrayOK3Array ArrayOK4Array ArrayOK5Array
+}
+
+array_struct()
+{
+  update "-p $PWD" array_struct
+  move_xml ArrayStructS1Serializable ArrayStructS2Serializable ArrayStruct1Array ArrayStruct2Array
 }
 
 enum_explicit()
