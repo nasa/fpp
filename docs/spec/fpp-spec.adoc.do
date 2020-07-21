@@ -8,7 +8,7 @@
 
 redo-ifchange $FILES
 
-echo '= The F Prime Prime (FPP) Modeling Language
+echo '= The F Prime Prime (FPP) Language Specification
 :toc: left
 :toclevels: 3
 :stem:
