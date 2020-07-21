@@ -38,7 +38,12 @@ object ValueXmlWriter {
     override def string(in: In, v: Value.String) = "\"" ++ v.value.toString ++ "\""
     
     override def struct(in: In, v: Value.Struct): Out = {
-      val members = v.anonStruct.members.map(_._2)
+      val structType = v.getType
+      val data = structType.node._2.getData
+      val namesList = data.members
+      val memberNames = namesList.map(_._2.getData.name)
+      val membersMap = v.anonStruct.members
+      val members = memberNames.map(membersMap.get(_).get)
       val memberValues = members.map(getValue(in, _))
       val aggregate = memberValues.mkString(", ")
       TypeXmlWriter.getName(in, v.getType) ++ "(" ++ aggregate ++ ")"

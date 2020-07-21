@@ -12,7 +12,5 @@ module L {
     array H = [4] G @< Array with array arg
 }
 
-module Abs {
-    type TA
-}
-array AbsArray = [3] Abs.TA
+type T
+array AbsArray = [3] T
