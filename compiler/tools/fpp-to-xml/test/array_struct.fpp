@@ -1,7 +1,7 @@
 type T
 
-module A {
-  struct ComprehensiveStruct {
+module M1 {
+  struct ArrayStructS1 {
     mF32: F32
     mF64: F64
     mI16: I16
@@ -18,12 +18,12 @@ module A {
   }
 }
 
-struct Struct2D {
-  s1: A.ComprehensiveStruct
+struct ArrayStructS2 {
+  s1: M1.ArrayStructS1
 }
 
-array Struct1 = [2] A.ComprehensiveStruct
+array ArrayStruct1 = [2] M1.ArrayStructS1
 
-module B {
-  array Struct2 = [3] Struct2D @< Array with struct arg
+module M2 {
+  array ArrayStruct2 = [3] ArrayStructS2 @< Array with struct arg
 }

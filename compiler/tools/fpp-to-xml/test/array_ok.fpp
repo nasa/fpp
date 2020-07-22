@@ -1,16 +1,16 @@
-module M {
-array E = [5] U32 default 1 format "{.03f}"
+module M1 {
+  array ArrayOK1 = [5] U32 default 1 format "{.03f}"
 }
 
-module N {
-array F = [3] M.E
+module M2 {
+  array ArrayOK2 = [3] M1.ArrayOK1
 }
 
-array G = [2] string default ["string1", "string2"]
+array ArrayOK3 = [2] string default ["string1", "string2"]
 
-module L {
-    array H = [4] G @< Array with array arg
+module M3 {
+  array ArrayOK4 = [4] ArrayOK3 @< Array with array arg
 }
 
 type T
-array AbsArray = [3] T
+array ArrayOK5 = [3] T
