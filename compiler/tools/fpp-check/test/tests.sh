@@ -8,6 +8,7 @@ array_enum_no_default_ok
 array_format_bad_syntax
 array_format_missing_repl
 array_format_not_numeric
+array_format_numeric
 array_format_ok
 array_format_too_many_repls
 array_invalid_size
@@ -66,6 +67,7 @@ struct_default_ok
 struct_format_bad_syntax
 struct_format_missing_repl
 struct_format_not_numeric
+struct_format_numeric
 struct_format_ok
 struct_format_too_many_repls
 struct_no_default_ok

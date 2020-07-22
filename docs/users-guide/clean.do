@@ -4,7 +4,7 @@
 # clean.do
 # ----------------------------------------------------------------------
 
-rm -f fpp-spec.adoc *.html *~ *.bak \
+rm -f fpp-users-guide.adoc *.html *~ *.bak \
   defined-tags.txt used-tags.txt \
   undefined-tags.txt undefined-tags.annotated.txt \
   keywords.txt

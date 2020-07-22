@@ -5,6 +5,8 @@
 # Refresh docs
 # ----------------------------------------------------------------------
 
-redo-ifchange spec/fpp-spec.html
-cp spec/fpp-spec.html index.html
-cp spec/code-prettify/run_prettify.js code-prettify
+spec=spec/fpp-spec.html
+users_guide=users-guide/fpp-users-guide.html
+redo-ifchange $spec $users_guide
+cp $spec index.html
+cp $users_guide .
