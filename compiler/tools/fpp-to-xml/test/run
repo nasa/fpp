@@ -32,10 +32,39 @@ do
   echo "
 $t()
 {
-  run_test '' $t
+  run_test '-p '$PWD $t
 }"
 done > default-tests.sh
 . ./default-tests.sh
+
+diff_xml()
+{
+  for file in $@
+  do
+    if ! diff $file'Ai.xml' $file'Ai.ref.xml'
+    then
+      return 1
+    fi
+  done
+}
+
+array_enum()
+{
+  run_test "-p $PWD" array_enum && \
+    diff_xml ArrayEnumE1Enum ArrayEnumE2Enum ArrayEnum1Array ArrayEnum2Array
+}
+
+array_ok()
+{
+  run_test "-p $PWD" array_ok && \
+    diff_xml ArrayOK1Array ArrayOK2Array ArrayOK3Array ArrayOK4Array ArrayOK5Array
+}
+
+array_struct()
+{
+  run_test "-p $PWD" array_struct && \
+    diff_xml ArrayStructS1Serializable ArrayStructS2Serializable ArrayStruct1Array ArrayStruct2Array
+}
 
 enum_explicit()
 {
@@ -77,7 +106,7 @@ struct_format()
 
 struct_modules()
 {
-  run_test '' struct_modules && \
+  run_test "-p $PWD" struct_modules && \
     diff StructModules1SerializableAi.xml StructModules1SerializableAi.ref.xml && \
     diff StructModules2SerializableAi.xml StructModules2SerializableAi.ref.xml && \
     diff StructModules3SerializableAi.xml StructModules3SerializableAi.ref.xml

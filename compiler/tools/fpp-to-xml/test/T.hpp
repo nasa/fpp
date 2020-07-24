@@ -20,6 +20,7 @@ class T :
   public:
 
     bool operator==(const T& other) const;
+    bool operator!=(const T& other) const;
 
     Fw::SerializeStatus serialize(Fw::SerializeBufferBase& buffer) const;
 

@@ -463,14 +463,14 @@ object Value {
   }
 
   /** Binary operations */
-  case class Binop(
+  private case class Binop(
     /** The integer operation */
     intOp: Binop.Op[BigInt], 
     /** The double-precision floating point operation */
     doubleOp: Binop.Op[Double]
   )
 
-  object Binop {
+  private object Binop {
 
     /** A binary operation */
     type Op[T] = (T, T) => T
