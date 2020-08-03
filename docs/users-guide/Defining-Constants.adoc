@@ -1,0 +1,36 @@
+== Defining Constants
+
+=== The Basics
+
+TODO
+
+=== Expressions
+
+==== Simple Values
+
+TODO
+
+==== Array Values
+
+TODO
+
+==== Struct Values
+
+TODO
+
+==== Name Expressions
+
+TODO
+
+==== Aritmetic Expressions
+
+TODO
+
+=== Multiple Definitions
+
+TODO
+
+=== Multiline Definitions
+
+TODO
+

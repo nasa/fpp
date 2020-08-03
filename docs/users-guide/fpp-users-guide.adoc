@@ -1,6 +1,13 @@
+= The F Prime Prime (FPP) User's Guide
+:toc: left
+:toclevels: 3
+:stem:
+:source-highlighter: prettify
+
 *The technical data in this document is controlled under the U.S. export 
 regulations. Release to foreign persons may require an export authorization.*
 
+[[Introduction]]
 == Introduction
 
 This document provides an overview of **F Prime Prime**, also known 
@@ -36,3 +43,64 @@ currently implemented features in the FPP compiler:
 * Type and enum definitions
 
 Future versions of this document will cover additional features of FPP.
+
+[[Installing-FPP]]
+== Installing FPP
+
+Before reading the rest of this document, you should install
+the latest version of FPP.
+The installation instructions are available here:
+
+https://github.jpl.nasa.gov/bocchino/fpp/tree/master/compiler#compiler
+
+Make sure that the FPP tools are in your shell path.
+For example, running `fpp-check` should succeed and should
+prompt for standard input. (You can type control-C to end
+the program.)
+
+[[Defining-Constants]]
+== Defining Constants
+
+[[Defining-Constants_The-Basics]]
+=== The Basics
+
+TODO
+
+[[Defining-Constants_Expressions]]
+=== Expressions
+
+[[Defining-Constants_Expressions_Simple-Values]]
+==== Simple Values
+
+TODO
+
+[[Defining-Constants_Expressions_Array-Values]]
+==== Array Values
+
+TODO
+
+[[Defining-Constants_Expressions_Struct-Values]]
+==== Struct Values
+
+TODO
+
+[[Defining-Constants_Expressions_Name-Expressions]]
+==== Name Expressions
+
+TODO
+
+[[Defining-Constants_Expressions_Aritmetic-Expressions]]
+==== Aritmetic Expressions
+
+TODO
+
+[[Defining-Constants_Multiple-Definitions]]
+=== Multiple Definitions
+
+TODO
+
+[[Defining-Constants_Multiline-Definitions]]
+=== Multiline Definitions
+
+TODO
+
