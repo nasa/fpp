@@ -11,7 +11,6 @@ For example, running `fpp-check` on the command line should succeed and should
 prompt for standard input. You can type control-C to end
 the program:
 
-[source,bash]
 ----
 % fpp-check
 ^C

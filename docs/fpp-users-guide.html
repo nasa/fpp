@@ -443,6 +443,42 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#Introduction">1. Introduction</a></li>
+<li><a href="#Installing-FPP">2. Installing FPP</a></li>
+<li><a href="#Defining-Constants">3. Defining Constants</a>
+<ul class="sectlevel2">
+<li><a href="#Defining-Constants_The-Basics">3.1. The Basics</a></li>
+<li><a href="#Defining-Constants_Expressions">3.2. Expressions</a>
+<ul class="sectlevel3">
+<li><a href="#Defining-Constants_Expressions_Simple-Values">3.2.1. Simple Values</a></li>
+<li><a href="#Defining-Constants_Expressions_Array-Values">3.2.2. Array Values</a></li>
+<li><a href="#Defining-Constants_Expressions_Struct-Values">3.2.3. Struct Values</a></li>
+<li><a href="#Defining-Constants_Expressions_Name-Expressions">3.2.4. Name Expressions</a></li>
+<li><a href="#Defining-Constants_Expressions_Arithmetic-Expressions">3.2.5. Arithmetic Expressions</a></li>
+<li><a href="#Defining-Constants_Expressions_Compound-Expressions">3.2.6. Compound Expressions</a></li>
+</ul>
+</li>
+<li><a href="#Defining-Constants_Multiple-Definitions">3.3. Multiple Definitions</a></li>
+<li><a href="#Defining-Constants_Multiline-Definitions">3.4. Multiline Definitions</a></li>
+</ul>
+</li>
+<li><a href="#Defining-Types">4. Defining Types</a>
+<ul class="sectlevel2">
+<li><a href="#Defining-Types_Array-Types">4.1. Array Types</a></li>
+<li><a href="#Defining-Types_Struct-Types">4.2. Struct Types</a></li>
+<li><a href="#Defining-Types_Abstract-Types">4.3. Abstract Types</a></li>
+</ul>
+</li>
+<li><a href="#Defining-Enums">5. Defining Enums</a></li>
+<li><a href="#Specifying-Models">6. Specifying Models</a></li>
+<li><a href="#Analyzing-Models">7. Analyzing Models</a></li>
+<li><a href="#Translating-Models">8. Translating Models</a></li>
+<li><a href="#Appendix:-F-Prime-XML-Format">9. Appendix: F Prime XML Format</a>
+<ul class="sectlevel2">
+<li><a href="#Appendix:-F-Prime-XML-Format_SerializableAi.xml">9.1. SerializableAi.xml</a></li>
+<li><a href="#Appendix:-F-Prime-XML-Format_EnumAi.xml">9.2. EnumAi.xml</a></li>
+<li><a href="#Appendix:-F-Prime-XML-Format_ArrayAi.xml">9.3. ArrayAi.xml</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -486,19 +522,339 @@ C++, Python, XML.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>The purpose of this document is to describe FPP in a way that is accessible
+<p><strong>Purpose:</strong> The purpose of this document is to describe FPP in a way that is accessible
 to users.
-A more detailed description is available in
+A more detailed and precise description is available in
 <a href="https://github.jpl.nasa.gov/pages/bocchino/fpp"><em>The FPP Language
 Specification</em></a>.
 It is recommended that users read this document before consulting that one.</p>
+</div>
+<div class="paragraph">
+<p><strong>Scope:</strong> This document covers the following features of FPP, which are the
+currently implemented features in the FPP compiler:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Constant definitions</p>
+</li>
+<li>
+<p>Type and enum definitions</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Future versions of this document will cover additional features of FPP.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Installing-FPP">2. Installing FPP</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Before reading the rest of this document, you should install
+the latest version of FPP.
+The installation instructions are available here:</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.jpl.nasa.gov/bocchino/fpp/tree/master/compiler#compiler" class="bare">https://github.jpl.nasa.gov/bocchino/fpp/tree/master/compiler#compiler</a></p>
+</div>
+<div class="paragraph">
+<p>Make sure that the FPP command-line tools are in your shell path.
+For example, running <code>fpp-check</code> on the command line should succeed and should
+prompt for standard input. You can type control-C to end
+the program:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-check
+^C
+%</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Defining-Constants">3. Defining Constants</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In an FPP model, a <strong>constant definition</strong> associates a name with a value,
+so that elsewhere you can use the name instead of re-computing or restating the
+value.
+Using constants instead of repeating values fosters understanding (the name
+says what the value stands for) and modularity (by modifying one constant
+you instantly change all its uses).</p>
+</div>
+<div class="paragraph">
+<p>This section covers the following topics:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The basics of writing an FPP constant definition.</p>
+</li>
+<li>
+<p>The mechanics of writing an <strong>expression</strong>, which is the program text
+that defines the value associated with the constant.</p>
+</li>
+<li>
+<p>Writing multiple constant definitions.</p>
+</li>
+<li>
+<p>Writing a constant definition that spans two or more lines of source text.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="Defining-Constants_The-Basics">3.1. The Basics</h3>
+<div class="paragraph">
+<p>To write a constant definition, you write the keyword <code>constant</code>,
+an equals sign, and an expression.
+The next section describes all the expressions you can write.
+Here is an example that uses an integer literal expression representing
+the value 42:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant ultimateAnswer = 42</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This definition associates the name <code>ultimateAnswer</code> with the value 42.
+Elsewhere in the FPP model you can use the name <code>ultimateAnswer</code> instead of the value.
+You can also generate a C&#43;&#43; header file that defines the C&#43;&#43; constant
+<code>ultimateAnswer</code> and gives it the value 42.</p>
+</div>
+<div class="paragraph">
+<p>As an example, do the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>On the command line, run <code>fpp-check</code>.</p>
+</li>
+<li>
+<p>When the prompt appears, type the text shown above, type return, type control-D, and type return.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You should see something like the following on your console:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-check
+constant ultimateAnswer = 42
+%</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As an example of an incorrect model that produces an error message, repeat the
+exercise, but omit the value 42.
+You should see something like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-check
+constant ultimateAnswer =
+fpp-check
+stdin: end of input
+error: expression expected</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here the <code>fpp-check</code> tool is telling you that it could not parse the input:
+the input ended where it expected an expression.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-Constants_Expressions">3.2. Expressions</h3>
+<div class="paragraph">
+<p>This section describes the expressions that you can write in a constant
+definition.
+These expressions can appear elsewhere in FPP models as well.
+When we describe those other uses of expressions later in the User&#8217;s Guide,
+we will refer back to this section.</p>
+</div>
+<div class="sect3">
+<h4 id="Defining-Constants_Expressions_Simple-Values">3.2.1. Simple Values</h4>
+<div class="paragraph">
+<p>When writing an expression, you may write a <strong>simple value</strong>, which is one of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A decimal integer literal value such as <code>1234</code>.</p>
+</li>
+<li>
+<p>A hexadecimal integer literal value such as <code>0xABCD</code>.</p>
+</li>
+<li>
+<p>A floating-point literal value such as <code>12.34</code> or <code>1234e-2</code>.</p>
+</li>
+<li>
+<p>A string literal value such as <code>"abcd"</code>.
+To put the double-quote character in a string, escape it, like this:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">"\"This is a quotation within a string,\" he said."</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>A Boolean literal expression <code>true</code> or <code>false</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>As an exercise, try the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Construct some constant definitions with simple values as their expressions, and
+feed the results to <code>fpp-check</code>.
+For example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = 1234
+constant b = 0xABCD</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>If you get an error, make sure you understand why.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Constants_Expressions_Array-Values">3.2.2. Array Values</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Constants_Expressions_Struct-Values">3.2.3. Struct Values</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Constants_Expressions_Name-Expressions">3.2.4. Name Expressions</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Constants_Expressions_Arithmetic-Expressions">3.2.5. Arithmetic Expressions</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Constants_Expressions_Compound-Expressions">3.2.6. Compound Expressions</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-Constants_Multiple-Definitions">3.3. Multiple Definitions</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-Constants_Multiline-Definitions">3.4. Multiline Definitions</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Defining-Types">4. Defining Types</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="Defining-Types_Array-Types">4.1. Array Types</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-Types_Struct-Types">4.2. Struct Types</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-Types_Abstract-Types">4.3. Abstract Types</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Defining-Enums">5. Defining Enums</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Specifying-Models">6. Specifying Models</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Analyzing-Models">7. Analyzing Models</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Translating-Models">8. Translating Models</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Appendix:-F-Prime-XML-Format">9. Appendix: F Prime XML Format</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="Appendix:-F-Prime-XML-Format_SerializableAi.xml">9.1. SerializableAi.xml</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Appendix:-F-Prime-XML-Format_EnumAi.xml">9.2. EnumAi.xml</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Appendix:-F-Prime-XML-Format_ArrayAi.xml">9.3. ArrayAi.xml</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-03 09:05:31 -0700
+Last updated 2020-08-03 14:33:15 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

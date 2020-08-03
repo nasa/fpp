@@ -1,14 +1,102 @@
 == Defining Constants
 
+In an FPP model, a *constant definition* associates a name with a value,
+so that elsewhere you can use the name instead of re-computing or restating the 
+value.
+Using constants instead of repeating values fosters understanding (the name
+says what the value stands for) and modularity (by modifying one constant
+you instantly change all its uses).
+
+This section covers the following topics:
+
+* The basics of writing an FPP constant definition.
+* The mechanics of writing an *expression*, which is the program text
+that defines the value associated with the constant.
+* Writing multiple constant definitions.
+* Writing a constant definition that spans two or more lines of source text.
+
 === The Basics
 
-TODO
+To write a constant definition, you write the keyword `constant`,
+an equals sign, and an expression.
+The next section describes all the expressions you can write.
+Here is an example that uses an integer literal expression representing
+the value 42:
+
+[source,fpp]
+----
+constant ultimateAnswer = 42
+----
+
+This definition associates the name `ultimateAnswer` with the value 42.
+Elsewhere in the FPP model you can use the name `ultimateAnswer` instead of the value.
+You can also generate a {cpp} header file that defines the {cpp} constant
+`ultimateAnswer` and gives it the value 42.
+
+As an example, do the following:
+
+* On the command line, run `fpp-check`.
+* When the prompt appears, type the text shown above, type return, type control-D, and type return.
+
+You should see something like the following on your console:
+
+----
+% fpp-check
+constant ultimateAnswer = 42
+%
+----
+
+As an example of an incorrect model that produces an error message, repeat the 
+exercise, but omit the value 42.
+You should see something like this:
+
+----
+% fpp-check
+constant ultimateAnswer =
+fpp-check
+stdin: end of input
+error: expression expected
+----
+
+Here the `fpp-check` tool is telling you that it could not parse the input:
+the input ended where it expected an expression.
 
 === Expressions
 
+This section describes the expressions that you can write in a constant
+definition.
+These expressions can appear elsewhere in FPP models as well.
+When we describe those other uses of expressions later in the User's Guide,
+we will refer back to this section.
+
 ==== Simple Values
 
-TODO
+When writing an expression, you may write a *simple value*, which is one of the following:
+
+* A decimal integer literal value such as `1234`.
+* A hexadecimal integer literal value such as `0xABCD`.
+* A floating-point literal value such as `12.34` or `1234e-2`.
+* A string literal value such as `"abcd"`.
+To put the double-quote character in a string, escape it, like this:
++
+[source,fpp]
+----
+"\"This is a quotation within a string,\" he said."
+----
+* A Boolean literal expression `true` or `false`.
+
+As an exercise, try the following:
+
+* Construct some constant definitions with simple values as their expressions, and
+feed the results to `fpp-check`.
+For example:
++
+[source,fpp]
+----
+constant a = 1234
+constant b = 0xABCD
+----
+* If you get an error, make sure you understand why.
 
 ==== Array Values
 
@@ -23,6 +111,10 @@ TODO
 TODO
 
 ==== Arithmetic Expressions
+
+TODO
+
+==== Compound Expressions
 
 TODO
 
