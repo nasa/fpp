@@ -10,4 +10,6 @@ export FILES="
 Introduction.adoc
 Installing-FPP.adoc
 Defining-Constants.adoc
+Defining-Types.adoc
+Defining-Enums.adoc
 "

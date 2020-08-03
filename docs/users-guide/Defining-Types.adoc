@@ -1,0 +1,13 @@
+== Defining Types
+
+=== Array Types
+
+TODO
+
+=== Struct Types
+
+TODO
+
+=== Abstract Types
+
+TODO

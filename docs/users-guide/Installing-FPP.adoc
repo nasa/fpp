@@ -6,7 +6,14 @@ The installation instructions are available here:
 
 https://github.jpl.nasa.gov/bocchino/fpp/tree/master/compiler#compiler
 
-Make sure that the FPP tools are in your shell path.
-For example, running `fpp-check` should succeed and should
-prompt for standard input. (You can type control-C to end
-the program.)
+Make sure that the FPP command-line tools are in your shell path.
+For example, running `fpp-check` on the command line should succeed and should
+prompt for standard input. You can type control-C to end
+the program:
+
+[source,bash]
+----
+% fpp-check
+^C
+%
+----
