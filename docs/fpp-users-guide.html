@@ -447,18 +447,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Constants">3. Defining Constants</a>
 <ul class="sectlevel2">
 <li><a href="#Defining-Constants_The-Basics">3.1. The Basics</a></li>
-<li><a href="#Defining-Constants_Expressions">3.2. Expressions</a>
+<li><a href="#Defining-Constants_Names">3.2. Names</a></li>
+<li><a href="#Defining-Constants_Expressions">3.3. Expressions</a>
 <ul class="sectlevel3">
-<li><a href="#Defining-Constants_Expressions_Simple-Values">3.2.1. Simple Values</a></li>
-<li><a href="#Defining-Constants_Expressions_Array-Values">3.2.2. Array Values</a></li>
-<li><a href="#Defining-Constants_Expressions_Struct-Values">3.2.3. Struct Values</a></li>
-<li><a href="#Defining-Constants_Expressions_Name-Expressions">3.2.4. Name Expressions</a></li>
-<li><a href="#Defining-Constants_Expressions_Arithmetic-Expressions">3.2.5. Arithmetic Expressions</a></li>
-<li><a href="#Defining-Constants_Expressions_Compound-Expressions">3.2.6. Compound Expressions</a></li>
+<li><a href="#Defining-Constants_Expressions_Simple-Values">3.3.1. Simple Values</a></li>
+<li><a href="#Defining-Constants_Expressions_Array-Values">3.3.2. Array Values</a></li>
+<li><a href="#Defining-Constants_Expressions_Struct-Values">3.3.3. Struct Values</a></li>
+<li><a href="#Defining-Constants_Expressions_Name-Expressions">3.3.4. Name Expressions</a></li>
+<li><a href="#Defining-Constants_Expressions_Arithmetic-Expressions">3.3.5. Arithmetic Expressions</a></li>
+<li><a href="#Defining-Constants_Expressions_Compound-Expressions">3.3.6. Compound Expressions</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Constants_Multiple-Definitions">3.3. Multiple Definitions</a></li>
-<li><a href="#Defining-Constants_Multiline-Definitions">3.4. Multiline Definitions</a></li>
+<li><a href="#Defining-Constants_Multiple-Definitions">3.4. Multiple Definitions</a></li>
+<li><a href="#Defining-Constants_Multiline-Definitions">3.5. Multiline Definitions</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Types">4. Defining Types</a>
@@ -585,9 +586,9 @@ the program:</p>
 <p>In an FPP model, a <strong>constant definition</strong> associates a name with a value,
 so that elsewhere you can use the name instead of re-computing or restating the
 value.
-Using constants instead of repeating values fosters understanding (the name
-says what the value stands for) and modularity (by modifying one constant
-you instantly change all its uses).</p>
+Using named constants makes the model easier to understand (the name
+says what the value means) and to maintain (changing a named constant is easy;
+changing all and only the relevant uses of a repeated value is not).</p>
 </div>
 <div class="paragraph">
 <p>This section covers the following topics:</p>
@@ -672,18 +673,36 @@ the input ended where it expected an expression.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Constants_Expressions">3.2. Expressions</h3>
+<h3 id="Defining-Constants_Names">3.2. Names</h3>
+<div class="paragraph">
+<p>The name appearing in a constant definition follows the usual rules for
+identifiers in a programming language:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>It must contain at least one character</p>
+</li>
+<li>
+<p>It must start with a letter or underscore character</p>
+</li>
+<li>
+<p>The characters after the first may be letters, numbers, or underscores</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-Constants_Expressions">3.3. Expressions</h3>
 <div class="paragraph">
 <p>This section describes the expressions that you can write as part of a constant
-definition.
-These expressions can appear elsewhere in FPP models as well.
-When we describe those other uses of expressions later in the User&#8217;s Guide,
-we will refer back to this section.</p>
+definition.</p>
 </div>
 <div class="sect3">
-<h4 id="Defining-Constants_Expressions_Simple-Values">3.2.1. Simple Values</h4>
+<h4 id="Defining-Constants_Expressions_Simple-Values">3.3.1. Simple Values</h4>
 <div class="paragraph">
-<p>When writing an expression, you may write a <strong>simple value</strong>, which is one of the following:</p>
+<p>When writing an expression, you may write a <strong>simple value expression</strong>, which is
+one of the following:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -691,7 +710,7 @@ we will refer back to this section.</p>
 <p>A decimal integer literal value such as <code>1234</code>.</p>
 </li>
 <li>
-<p>A hexadecimal integer literal value such as <code>0xABCD</code>.</p>
+<p>A hexadecimal integer literal value such as <code>0xABCD</code> or <code>0xabcd</code>.</p>
 </li>
 <li>
 <p>A floating-point literal value such as <code>12.34</code> or <code>1234e-2</code>.</p>
@@ -711,33 +730,27 @@ To put the double-quote character in a string, escape it, like this:</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>As an exercise, try the following:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Construct some constant definitions with simple values as their expressions, and
+<p>As an exercise, construct some constant definitions with simple values as their
+expressions, and
 feed the results to <code>fpp-check</code>.
 For example:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">constant a = 1234
 constant b = 0xABCD</code></pre>
 </div>
 </div>
-</li>
-<li>
+<div class="paragraph">
 <p>If you get an error, make sure you understand why.</p>
-</li>
-</ul>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Constants_Expressions_Array-Values">3.2.2. Array Values</h4>
+<h4 id="Defining-Constants_Expressions_Array-Values">3.3.2. Array Values</h4>
 <div class="paragraph">
-<p>An <strong>array value</strong> is an expression that represents a fixed-size array
+<p>An <strong>array value expression</strong> is an expression that represents a fixed-size array
 of values.
-To write an array value, you write a comma-separated list of one or more values
+To write an array value expression, you write a comma-separated list of one or more values
 (the array elements)
 enclosed in square brackets.
 Here is an example:</p>
@@ -748,7 +761,7 @@ Here is an example:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>This code defines a constant named <code>a</code> and associates it with the array of
+<p>This code associates the name <code>a</code> with the array of
 integers
 <code>[ 1, 2, 3 ]</code>.</p>
 </div>
@@ -765,20 +778,21 @@ indices typically start at zero.</p>
 <ol class="arabic">
 <li>
 <p>An array value must have at least one element.
-That is, <code>[]</code> is not a valid array expression.</p>
+That is, <code>[]</code> is not a valid array value.</p>
 </li>
 <li>
-<p>There is an upper limit on the number of elements.
+<p>There is an upper limit on the number of elements
+in an array value.
 FPP arrays are designed to encode small, fixed-size arrays, e.g.,
 for command arguments or telemetry channels.
 They are not designed to encode large computational arrays.
-The upper limit is implementation-defined, and it should be large
-enough to support the intended use case.
-If you exceed the limit, the checker will complain.</p>
+The upper limit on array size is implementation-defined.
+If you use FPP arrays as intended you are unlikely to hit the limit;
+if you do, the checker will complain.</p>
 </li>
 <li>
 <p>The types of the elements must match.
-For example, this is illegal, because the value <code>1</code> (which has type <code>Integer</code>)
+For example, the following code is illegal, because the value <code>1</code> (which has type <code>Integer</code>)
 and the value <code>"abcd"</code> (which has type <code>string</code>) are incompatible:</p>
 <div class="listingblock">
 <div class="content">
@@ -796,8 +810,7 @@ and the value <code>"abcd"</code> (which has type <code>string</code>) are incom
 <em>The FPP Specification</em> has all the details, and we won&#8217;t attempt
 to repeat them here.
 In general, things work as you would expect: for example, we can convert
-an integer value to a floating-point value, so this is allowed,
-and it evaluates to an array of two floating-point values:</p>
+an integer value to a floating-point value, so the following code is allowed:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -805,8 +818,11 @@ and it evaluates to an array of two floating-point values:</p>
 </div>
 </div>
 <div class="paragraph">
+<p>It evaluates to an array of two floating-point values.</p>
+</div>
+<div class="paragraph">
 <p>If you are not sure whether a type conversion is allowed, you can
-always ask the analysis tool, <code>fpp-check</code>.
+ask the analysis tool, <code>fpp-check</code>.
 For example: can we convert a Boolean value to an integer value?
 In older languages like C and C&#43;&#43; we can, but in most other languages
 we can&#8217;t. Here is the answer in FPP:</p>
@@ -833,10 +849,10 @@ error: cannot compute common type of Integer and bool</pre>
 <li>
 <p>Any legal value can be an element of an array value, so in particular arrays
 of arrays
-are allowed. For example, this is allowed:</p>
+are allowed. For example, this code is allowed:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">constant a = [ [ 1, 2, ] [ 3, 4 ] ]</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = [ [ 1, 2 ] [ 3, 4 ] ]</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -847,7 +863,7 @@ are allowed. For example, this is allowed:</p>
 <li>
 <p>To avoid repeating values, a numeric, string, or Boolean value is automatically promoted to an array
 of appropriate size whenever necessary to make the types work.
-For example, this is allowed:</p>
+For example, this code is allowed:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">constant a = [ [ 1, 2, 3 ], 0 ]</code></pre>
@@ -866,38 +882,113 @@ For example, this is allowed:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Constants_Expressions_Struct-Values">3.2.3. Struct Values</h4>
+<h4 id="Defining-Constants_Expressions_Struct-Values">3.3.3. Struct Values</h4>
+<div class="paragraph">
+<p>A <strong>struct value expression</strong> represents a C- or C&#43;&#43;-style structure, i.e., a mapping
+of names to values.
+To write a struct value expression, you write a comma-separated list of <strong>struct members</strong>
+enclosed in curly braces.
+A struct member consists of a name, an equals sign, and a value.</p>
+</div>
+<div class="paragraph">
+<p>Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant s = { x = 1, y = "abc" }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This code associates the name <code>s</code> with a struct value.
+The struct value has two members <code>x</code> and <code>y</code>.
+Member <code>x</code> has the integer value 1, and member <code>y</code> has the string value <code>"abc"</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Arrays in structs:</strong> You can write an array value as a member of a struct value.
+For example, this code is allowed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant s = { x = 1, y = [ 2, 3 ] }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Structs in arrays:</strong> You can write a struct value as a member of an array value.
+For example, this code is allowed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = [ { x = 1, y = 2 }, { x = 3, y = 4 } ]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This code is also allowed.
+When writing a struct value, the order in which the members appear does not matter.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = [ { x = 1, y = 2 }, { y = 4, x = 3 } ]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This code is not allowed, because the element types don&#8217;t match&#8201;&#8212;&#8201;an array is not
+compatible with a struct.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = [ { x = 1, y = 2 }, [ 3, 4 ] ]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>However, this code is allowed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = [ { x = 1, y = 2 }, { x = 3 } ]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that the first member of <code>a</code> is a struct with two members <code>x</code> and <code>y</code>.
+The second member of <code>a</code> is also a struct, but it has only one member <code>x</code>.
+When the FPP analyzer detects that a struct type is missing a member like this,
+it automatically adds the member, giving it a default value.
+The default values are the ones you would expect: zero for numeric members, the empty
+string for string members, and <code>false</code> for Boolean members.
+So the code above is equivalent to the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = [ { x = 1, y = 2 }, { x = 3, y = 0 } ]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Constants_Expressions_Name-Expressions">3.3.4. Name Expressions</h4>
 <div class="paragraph">
 <p>TODO</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Constants_Expressions_Name-Expressions">3.2.4. Name Expressions</h4>
+<h4 id="Defining-Constants_Expressions_Arithmetic-Expressions">3.3.5. Arithmetic Expressions</h4>
 <div class="paragraph">
 <p>TODO</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Constants_Expressions_Arithmetic-Expressions">3.2.5. Arithmetic Expressions</h4>
-<div class="paragraph">
-<p>TODO</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Defining-Constants_Expressions_Compound-Expressions">3.2.6. Compound Expressions</h4>
+<h4 id="Defining-Constants_Expressions_Compound-Expressions">3.3.6. Compound Expressions</h4>
 <div class="paragraph">
 <p>TODO</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Constants_Multiple-Definitions">3.3. Multiple Definitions</h3>
+<h3 id="Defining-Constants_Multiple-Definitions">3.4. Multiple Definitions</h3>
 <div class="paragraph">
 <p>TODO</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Constants_Multiline-Definitions">3.4. Multiline Definitions</h3>
+<h3 id="Defining-Constants_Multiline-Definitions">3.5. Multiline Definitions</h3>
 <div class="paragraph">
 <p>TODO</p>
 </div>
@@ -985,7 +1076,7 @@ For example, this is allowed:</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-03 15:10:19 -0700
+Last updated 2020-08-03 15:58:57 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

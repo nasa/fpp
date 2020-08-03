@@ -3,9 +3,9 @@
 In an FPP model, a *constant definition* associates a name with a value,
 so that elsewhere you can use the name instead of re-computing or restating the 
 value.
-Using constants instead of repeating values fosters understanding (the name
-says what the value stands for) and modularity (by modifying one constant
-you instantly change all its uses).
+Using named constants makes the model easier to understand (the name
+says what the value means) and to maintain (changing a named constant is easy;
+changing all and only the relevant uses of a repeated value is not).
 
 This section covers the following topics:
 
@@ -61,20 +61,27 @@ error: expression expected
 Here the `fpp-check` tool is telling you that it could not parse the input:
 the input ended where it expected an expression.
 
+=== Names
+
+The name appearing in a constant definition follows the usual rules for
+identifiers in a programming language:
+
+* It must contain at least one character
+* It must start with a letter or underscore character
+* The characters after the first may be letters, numbers, or underscores
+
 === Expressions
 
 This section describes the expressions that you can write as part of a constant
 definition.
-These expressions can appear elsewhere in FPP models as well.
-When we describe those other uses of expressions later in the User's Guide,
-we will refer back to this section.
 
 ==== Simple Values
 
-When writing an expression, you may write a *simple value*, which is one of the following:
+When writing an expression, you may write a *simple value expression*, which is 
+one of the following:
 
 * A decimal integer literal value such as `1234`.
-* A hexadecimal integer literal value such as `0xABCD`.
+* A hexadecimal integer literal value such as `0xABCD` or `0xabcd`.
 * A floating-point literal value such as `12.34` or `1234e-2`.
 * A string literal value such as `"abcd"`.
 To put the double-quote character in a string, escape it, like this:
@@ -85,24 +92,23 @@ To put the double-quote character in a string, escape it, like this:
 ----
 * A Boolean literal expression `true` or `false`.
 
-As an exercise, try the following:
-
-* Construct some constant definitions with simple values as their expressions, and
+As an exercise, construct some constant definitions with simple values as their 
+expressions, and
 feed the results to `fpp-check`.
 For example:
-+
+
 [source,fpp]
 ----
 constant a = 1234
 constant b = 0xABCD
 ----
-* If you get an error, make sure you understand why.
+If you get an error, make sure you understand why.
 
 ==== Array Values
 
-An *array value* is an expression that represents a fixed-size array
+An *array value expression* is an expression that represents a fixed-size array
 of values.
-To write an array value, you write a comma-separated list of one or more values 
+To write an array value expression, you write a comma-separated list of one or more values 
 (the array elements)
 enclosed in square brackets.
 Here is an example:
@@ -112,7 +118,7 @@ Here is an example:
 constant a = [ 1, 2, 3 ]
 ----
 
-This code defines a constant named `a` and associates it with the array of 
+This code associates the name `a` with the array of 
 integers
 `[ 1, 2, 3 ]`.
 
@@ -124,16 +130,17 @@ indices typically start at zero.
 Here are some rules for writing array values:
 
 . An array value must have at least one element.
-That is, `[]` is not a valid array expression.
-. There is an upper limit on the number of elements.
+That is, `[]` is not a valid array value.
+. There is an upper limit on the number of elements
+in an array value.
 FPP arrays are designed to encode small, fixed-size arrays, e.g.,
 for command arguments or telemetry channels.
 They are not designed to encode large computational arrays.
-The upper limit is implementation-defined, and it should be large
-enough to support the intended use case.
-If you exceed the limit, the checker will complain.
+The upper limit on array size is implementation-defined.
+If you use FPP arrays as intended you are unlikely to hit the limit;
+if you do, the checker will complain. 
 . The types of the elements must match.
-For example, this is illegal, because the value `1` (which has type `Integer`)
+For example, the following code is illegal, because the value `1` (which has type `Integer`)
 and the value `"abcd"` (which has type `string`) are incompatible:
 +
 [source,fpp]
@@ -146,16 +153,17 @@ What does it mean for types to match?
 _The FPP Specification_ has all the details, and we won't attempt
 to repeat them here.
 In general, things work as you would expect: for example, we can convert
-an integer value to a floating-point value, so this is allowed,
-and it evaluates to an array of two floating-point values:
+an integer value to a floating-point value, so the following code is allowed:
 
 [source,fpp]
 ----
 constant a = [ 1, 2.0 ]
 ----
 
+It evaluates to an array of two floating-point values.
+
 If you are not sure whether a type conversion is allowed, you can
-always ask the analysis tool, `fpp-check`.
+ask the analysis tool, `fpp-check`.
 For example: can we convert a Boolean value to an integer value?
 In older languages like C and {cpp} we can, but in most other languages
 we can't. Here is the answer in FPP:
@@ -176,11 +184,11 @@ Here are two additional points about array values:
 
 . Any legal value can be an element of an array value, so in particular arrays 
 of arrays
-are allowed. For example, this is allowed:
+are allowed. For example, this code is allowed:
 +
 [source,fpp]
 ----
-constant a = [ [ 1, 2, ] [ 3, 4 ] ]
+constant a = [ [ 1, 2 ] [ 3, 4 ] ]
 ----
 +
 It represents an array with two elements: the array `[ 1, 2 ]` and the array `[ 
@@ -188,7 +196,7 @@ It represents an array with two elements: the array `[ 1, 2 ]` and the array `[
 
 . To avoid repeating values, a numeric, string, or Boolean value is automatically promoted to an array
 of appropriate size whenever necessary to make the types work.
-For example, this is allowed:
+For example, this code is allowed:
 +
 [source,fpp]
 ----
@@ -204,7 +212,74 @@ constant a  = [ [ 1, 2, 3 ], [ 0, 0, 0 ] ]
 
 ==== Struct Values
 
-TODO
+A *struct value expression* represents a C- or {cpp}-style structure, i.e., a mapping
+of names to values.
+To write a struct value expression, you write a comma-separated list of *struct members*
+enclosed in curly braces.
+A struct member consists of a name, an equals sign, and a value.
+
+Here is an example:
+
+[source,fpp]
+----
+constant s = { x = 1, y = "abc" }
+----
+
+This code associates the name `s` with a struct value.
+The struct value has two members `x` and `y`.
+Member `x` has the integer value 1, and member `y` has the string value `"abc"`.
+
+*Arrays in structs:* You can write an array value as a member of a struct value.
+For example, this code is allowed:
+
+[source,fpp]
+----
+constant s = { x = 1, y = [ 2, 3 ] }
+----
+
+*Structs in arrays:* You can write a struct value as a member of an array value.
+For example, this code is allowed:
+
+[source,fpp]
+----
+constant a = [ { x = 1, y = 2 }, { x = 3, y = 4 } ]
+----
+
+This code is also allowed.
+When writing a struct value, the order in which the members appear does not matter.
+
+[source,fpp]
+----
+constant a = [ { x = 1, y = 2 }, { y = 4, x = 3 } ]
+----
+
+This code is not allowed, because the element types don't match -- an array is not 
+compatible with a struct.
+
+[source,fpp]
+----
+constant a = [ { x = 1, y = 2 }, [ 3, 4 ] ]
+----
+
+However, this code is allowed:
+
+[source,fpp]
+----
+constant a = [ { x = 1, y = 2 }, { x = 3 } ]
+----
+
+Notice that the first member of `a` is a struct with two members `x` and `y`.
+The second member of `a` is also a struct, but it has only one member `x`.
+When the FPP analyzer detects that a struct type is missing a member like this,
+it automatically adds the member, giving it a default value.
+The default values are the ones you would expect: zero for numeric members, the empty
+string for string members, and `false` for Boolean members.
+So the code above is equivalent to the following:
+
+[source,fpp]
+----
+constant a = [ { x = 1, y = 2 }, { x = 3, y = 0 } ]
+----
 
 ==== Name Expressions
 
