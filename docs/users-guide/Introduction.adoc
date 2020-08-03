@@ -3,4 +3,27 @@ regulations. Release to foreign persons may require an export authorization.*
 
 == Introduction
 
-TODO
+This document provides an overview of **F Prime Prime**, also known 
+as FPP or F Double Prime.
+FPP is a modeling language for the https://github.com/nasa/fprime[F Prime 
+flight software framework].
+A https://digitalcommons.usu.edu/smallsat/2018/all2018/328/[paper presented at 
+SmallSat 2018]
+provides an overview of F Prime.
+
+The goals of FPP are as follows:
+
+* To provide a modeling language for F Prime that is simple, easy to use, and
+well-tailored to the domain.
+
+* To provide semantic checking and error reporting for F Prime models.
+
+* To generate code in the various formats that F Prime uses, e.g.,
+C++, Python, XML.
+
+The purpose of this document is to describe FPP in a way that is accessible
+to users.
+A more detailed description is available in
+https://github.jpl.nasa.gov/pages/bocchino/fpp[_The FPP Language
+Specification_].
+It is recommended that users read this document before consulting that one.
