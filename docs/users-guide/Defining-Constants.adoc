@@ -22,7 +22,7 @@ TODO
 
 TODO
 
-==== Aritmetic Expressions
+==== Arithmetic Expressions
 
 TODO
 
