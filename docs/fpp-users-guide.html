@@ -541,6 +541,10 @@ currently implemented features in the FPP compiler:</p>
 <li>
 <p>Type and enum definitions</p>
 </li>
+<li>
+<p>Specifying, analyzing, and translating models containing these kinds of
+definitions</p>
+</li>
 </ul>
 </div>
 <div class="paragraph">
@@ -591,11 +595,11 @@ you instantly change all its uses).</p>
 <div class="ulist">
 <ul>
 <li>
-<p>The basics of writing an FPP constant definition.</p>
+<p>Writing an FPP constant definition.</p>
 </li>
 <li>
-<p>The mechanics of writing an <strong>expression</strong>, which is the program text
-that defines the value associated with the constant.</p>
+<p>Writing an <strong>expression</strong>, which is the program text
+that defines the value associated with the constant definition.</p>
 </li>
 <li>
 <p>Writing multiple constant definitions.</p>
@@ -670,7 +674,7 @@ the input ended where it expected an expression.</p>
 <div class="sect2">
 <h3 id="Defining-Constants_Expressions">3.2. Expressions</h3>
 <div class="paragraph">
-<p>This section describes the expressions that you can write in a constant
+<p>This section describes the expressions that you can write as part of a constant
 definition.
 These expressions can appear elsewhere in FPP models as well.
 When we describe those other uses of expressions later in the User&#8217;s Guide,
@@ -731,7 +735,134 @@ constant b = 0xABCD</code></pre>
 <div class="sect3">
 <h4 id="Defining-Constants_Expressions_Array-Values">3.2.2. Array Values</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>An <strong>array value</strong> is an expression that represents a fixed-size array
+of values.
+To write an array value, you write a comma-separated list of one or more values
+(the array elements)
+enclosed in square brackets.
+Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = [ 1, 2, 3 ]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This code defines a constant named <code>a</code> and associates it with the array of
+integers
+<code>[ 1, 2, 3 ]</code>.</p>
+</div>
+<div class="paragraph">
+<p>The FPP model does not specify the index of the leftmost array element;
+that is up to the implementation.
+However, since we are usually generating C&#43;&#43; or Python, array
+indices typically start at zero.</p>
+</div>
+<div class="paragraph">
+<p>Here are some rules for writing array values:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>An array value must have at least one element.
+That is, <code>[]</code> is not a valid array expression.</p>
+</li>
+<li>
+<p>There is an upper limit on the number of elements.
+FPP arrays are designed to encode small, fixed-size arrays, e.g.,
+for command arguments or telemetry channels.
+They are not designed to encode large computational arrays.
+The upper limit is implementation-defined, and it should be large
+enough to support the intended use case.
+If you exceed the limit, the checker will complain.</p>
+</li>
+<li>
+<p>The types of the elements must match.
+For example, this is illegal, because the value <code>1</code> (which has type <code>Integer</code>)
+and the value <code>"abcd"</code> (which has type <code>string</code>) are incompatible:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant mismatch = [ 1, "abcd" ]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Try entering this example into <code>fpp-check</code> and see what happens.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>What does it mean for types to match?
+<em>The FPP Specification</em> has all the details, and we won&#8217;t attempt
+to repeat them here.
+In general, things work as you would expect: for example, we can convert
+an integer value to a floating-point value, so this is allowed,
+and it evaluates to an array of two floating-point values:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = [ 1, 2.0 ]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you are not sure whether a type conversion is allowed, you can
+always ask the analysis tool, <code>fpp-check</code>.
+For example: can we convert a Boolean value to an integer value?
+In older languages like C and C&#43;&#43; we can, but in most other languages
+we can&#8217;t. Here is the answer in FPP:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-check
+constant a = [ 1, true ]
+fpp-check
+stdin: 1.16
+constant a = [ 1, true ]
+               ^
+error: cannot compute common type of Integer and bool</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>So no, we can&#8217;t.</p>
+</div>
+<div class="paragraph">
+<p>Here are two additional points about array values:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Any legal value can be an element of an array value, so in particular arrays
+of arrays
+are allowed. For example, this is allowed:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = [ [ 1, 2, ] [ 3, 4 ] ]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It represents an array with two elements: the array <code>[ 1, 2 ]</code> and the array <code>[
+3, 4 ]</code>.</p>
+</div>
+</li>
+<li>
+<p>To avoid repeating values, a numeric, string, or Boolean value is automatically promoted to an array
+of appropriate size whenever necessary to make the types work.
+For example, this is allowed:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = [ [ 1, 2, 3 ], 0 ]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It is equivalent to this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a  = [ [ 1, 2, 3 ], [ 0, 0, 0 ] ]</code></pre>
+</div>
+</div>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect3">
@@ -854,7 +985,7 @@ constant b = 0xABCD</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-03 14:33:15 -0700
+Last updated 2020-08-03 15:10:19 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

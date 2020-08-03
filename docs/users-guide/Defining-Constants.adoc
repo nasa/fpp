@@ -9,9 +9,9 @@ you instantly change all its uses).
 
 This section covers the following topics:
 
-* The basics of writing an FPP constant definition.
-* The mechanics of writing an *expression*, which is the program text
-that defines the value associated with the constant.
+* Writing an FPP constant definition.
+* Writing an *expression*, which is the program text
+that defines the value associated with the constant definition.
 * Writing multiple constant definitions.
 * Writing a constant definition that spans two or more lines of source text.
 
@@ -63,7 +63,7 @@ the input ended where it expected an expression.
 
 === Expressions
 
-This section describes the expressions that you can write in a constant
+This section describes the expressions that you can write as part of a constant
 definition.
 These expressions can appear elsewhere in FPP models as well.
 When we describe those other uses of expressions later in the User's Guide,
@@ -100,7 +100,107 @@ constant b = 0xABCD
 
 ==== Array Values
 
-TODO
+An *array value* is an expression that represents a fixed-size array
+of values.
+To write an array value, you write a comma-separated list of one or more values 
+(the array elements)
+enclosed in square brackets.
+Here is an example:
+
+[source,fpp]
+----
+constant a = [ 1, 2, 3 ]
+----
+
+This code defines a constant named `a` and associates it with the array of 
+integers
+`[ 1, 2, 3 ]`.
+
+The FPP model does not specify the index of the leftmost array element;
+that is up to the implementation.
+However, since we are usually generating {cpp} or Python, array
+indices typically start at zero.
+
+Here are some rules for writing array values:
+
+. An array value must have at least one element.
+That is, `[]` is not a valid array expression.
+. There is an upper limit on the number of elements.
+FPP arrays are designed to encode small, fixed-size arrays, e.g.,
+for command arguments or telemetry channels.
+They are not designed to encode large computational arrays.
+The upper limit is implementation-defined, and it should be large
+enough to support the intended use case.
+If you exceed the limit, the checker will complain.
+. The types of the elements must match.
+For example, this is illegal, because the value `1` (which has type `Integer`)
+and the value `"abcd"` (which has type `string`) are incompatible:
++
+[source,fpp]
+----
+constant mismatch = [ 1, "abcd" ]
+----
+Try entering this example into `fpp-check` and see what happens.
+
+What does it mean for types to match?
+_The FPP Specification_ has all the details, and we won't attempt
+to repeat them here.
+In general, things work as you would expect: for example, we can convert
+an integer value to a floating-point value, so this is allowed,
+and it evaluates to an array of two floating-point values:
+
+[source,fpp]
+----
+constant a = [ 1, 2.0 ]
+----
+
+If you are not sure whether a type conversion is allowed, you can
+always ask the analysis tool, `fpp-check`.
+For example: can we convert a Boolean value to an integer value?
+In older languages like C and {cpp} we can, but in most other languages
+we can't. Here is the answer in FPP:
+
+----
+% fpp-check
+constant a = [ 1, true ]
+fpp-check
+stdin: 1.16
+constant a = [ 1, true ]
+               ^
+error: cannot compute common type of Integer and bool
+----
+
+So no, we can't.
+
+Here are two additional points about array values:
+
+. Any legal value can be an element of an array value, so in particular arrays 
+of arrays
+are allowed. For example, this is allowed:
++
+[source,fpp]
+----
+constant a = [ [ 1, 2, ] [ 3, 4 ] ]
+----
++
+It represents an array with two elements: the array `[ 1, 2 ]` and the array `[ 
+3, 4 ]`.
+
+. To avoid repeating values, a numeric, string, or Boolean value is automatically promoted to an array
+of appropriate size whenever necessary to make the types work.
+For example, this is allowed:
++
+[source,fpp]
+----
+constant a = [ [ 1, 2, 3 ], 0 ]
+----
++
+It is equivalent to this:
++
+[source,fpp]
+----
+constant a  = [ [ 1, 2, 3 ], [ 0, 0, 0 ] ] 
+----
 
 ==== Struct Values
 
