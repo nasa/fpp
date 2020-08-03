@@ -163,7 +163,7 @@ constant a = [ 1, 2.0 ]
 It evaluates to an array of two floating-point values.
 
 If you are not sure whether a type conversion is allowed, you can
-ask the analysis tool, `fpp-check`.
+ask `fpp-check`.
 For example: can we convert a Boolean value to an integer value?
 In older languages like C and {cpp} we can, but in most other languages
 we can't. Here is the answer in FPP:
