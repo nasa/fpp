@@ -1112,9 +1112,9 @@ lexer treats whitespace as follows:</p>
 </li>
 <li>
 <p>No other whitespace or non-printable characters are allowed
-outside of a comment or annotation.
+outside of a string, comment, or annotation.
 In particular, the tab character may not appear
-in an FPP model outside of a comment or annotation.</p>
+in an FPP model outside of a string, comment, or annotation.</p>
 </li>
 </ul>
 </div>
@@ -5033,8 +5033,8 @@ or a multiline string literal.</p>
 <div class="paragraph">
 <p>A <strong>single-line string literal</strong> is a sequence of characters enclosed in double
 quotes.
-The characters must be printable ASCII characters, not including newline.
-The double quote character itself is not allowed, except that the character
+The newline character is not allowed.
+The double quote character is not allowed, except that the character
 sequence <code>\"</code>
 represents a single double quote character.</p>
 </div>
@@ -5064,8 +5064,8 @@ unmatched double quote character.</p>
 <div class="paragraph">
 <p>A <strong>multiline string literal</strong> is a sequence of characters enclosed in triple double
 quotes <code>"""</code>
-The characters must be printable ASCII characters, including newline.
-Inside a code string</p>
+Newline is allowed.
+Inside a multiline string literal</p>
 </div>
 <div class="ulist">
 <ul>
@@ -7602,7 +7602,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-07-20 17:27:44 -0700
+Last updated 2020-08-03 08:47:18 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

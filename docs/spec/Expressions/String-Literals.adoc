@@ -7,8 +7,8 @@ or a multiline string literal.
 
 A *single-line string literal* is a sequence of characters enclosed in double 
 quotes.
-The characters must be printable ASCII characters, not including newline.
-The double quote character itself is not allowed, except that the character 
+The newline character is not allowed.
+The double quote character is not allowed, except that the character 
 sequence `\"`
 represents a single double quote character.
 
@@ -27,8 +27,8 @@ unmatched double quote character.
 
 A *multiline string literal* is a sequence of characters enclosed in triple double 
 quotes `"""`
-The characters must be printable ASCII characters, including newline.
-Inside a code string
+Newline is allowed.
+Inside a multiline string literal
 
 * The character sequence `\"` is interpreted
 as a double quote character.

@@ -175,9 +175,9 @@ lexer treats whitespace as follows:
 * Space characters are ignored, except to separate tokens.
 
 * No other whitespace or non-printable characters are allowed
-outside of a comment or annotation.
+outside of a string, comment, or annotation.
 In particular, the tab character may not appear
-in an FPP model outside of a comment or annotation.
+in an FPP model outside of a string, comment, or annotation.
 
 === Explicit Line Continuations
 
