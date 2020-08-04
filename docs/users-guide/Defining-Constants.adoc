@@ -268,7 +268,7 @@ For example, this code is allowed:
 constant a = [ { x = 1, y = 2 }, { x = 3, y = 4 } ]
 ----
 
-This code is also allowed:
+This code is also allowed, and it is equivalent to the previous code:
 
 [source,fpp]
 ----
