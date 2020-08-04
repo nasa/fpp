@@ -1,0 +1,44 @@
+#!/bin/sh -e
+
+# ----------------------------------------------------------------------
+# check_do
+# ----------------------------------------------------------------------
+
+redo-ifchange $FILES $SCRIPTS/extract.awk
+rm -rf check
+mkdir check
+for file in $FILES
+do
+  if ! echo $file | grep -q '/' 
+  then
+    base=`basename $file .adoc`
+    awk -f $SCRIPTS/extract.awk -v path_prefix=check/$base $file
+  fi
+done
+
+cd check
+for file in `ls | grep '\.fpp$' || true`
+do
+  echo 'checking '$file 1>&2
+  mode=`echo $file | sed 's/^.*_\([^_]*\)\.fpp$/\1/'`
+  outfile=$file.out
+  case $mode in
+    ok)
+      if ! fpp-check $file > $outfile 2>&1
+      then
+        echo "check.do: checking of $file failed" 1>&2
+      fi
+      ;;
+    err)
+      if fpp-check $file > $outfile 2>&1
+      then
+        echo "check.do: checking of $file succeeded" 1>&2
+      fi
+      ;;
+    *)
+      echo "check.do: invalid mode $mode" 1>&2
+      ;;
+  esac
+done
+cd ..
+

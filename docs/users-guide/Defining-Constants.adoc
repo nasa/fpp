@@ -158,9 +158,9 @@ For example, the following code is illegal, because the value `1` (which has typ
 and the value `"abcd"` (which has type `string`) are incompatible:
 +
 [source,fpp]
-----
+--------
 constant mismatch = [ 1, "abcd" ]
-----
+--------
 Try entering this example into `fpp-check` and see what happens.
 
 What does it mean for types to match?
@@ -271,9 +271,9 @@ This code is not allowed, because the element types don't match -- an array is n
 compatible with a struct.
 
 [source,fpp]
-----
+--------
 constant a = [ { x = 1, y = 2 }, [ 3, 4 ] ]
-----
+--------
 
 However, this code is allowed:
 
@@ -323,11 +323,11 @@ For example, this code is illegal, because there is a cycle from `a` to `b` to
 `c` and back to `a`:
 
 [source,fpp]
-----
+--------
 constant a = c
 constant b = a
 constant c = b
-----
+--------
 
 Try submitting this code to `fpp-check`, to see what happens.
 
@@ -501,7 +501,7 @@ Note that in this case you need the explicit continuation, i.e., this code
 is not legal:
 
 [source,fpp]
-----
+--------
 constant
   a = 1
-----
+--------
