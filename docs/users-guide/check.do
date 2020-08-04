@@ -7,4 +7,4 @@
 . ./defs.sh
 
 export SCRIPTS=$PWD/scripts
-$SCRIPTS/check_do $@
+scripts/check_do $@

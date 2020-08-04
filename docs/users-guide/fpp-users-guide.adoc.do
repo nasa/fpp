@@ -17,4 +17,4 @@ for file in $FILES
 do
   echo
   cat $file
-done | awk -f tags.awk
+done | awk -f scripts/tags.awk
