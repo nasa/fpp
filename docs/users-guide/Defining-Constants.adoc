@@ -226,9 +226,11 @@ constant a  = [ [ 1, 2, 3 ], [ 0, 0, 0 ] ]
 
 ==== Struct Values
 
-A *struct value expression* represents a C- or {cpp}-style structure, i.e., a mapping
+A *struct value expression* represents a C- or {cpp}-style structure, i.e., a 
+mapping
 of names to values.
-To write a struct value expression, you write a comma-separated list of *struct members*
+To write a struct value expression, you write a comma-separated list of zero or 
+more *struct members*
 enclosed in curly braces.
 A struct member consists of a name, an equals sign, and a value.
 
@@ -242,6 +244,13 @@ constant s = { x = 1, y = "abc" }
 This code associates the name `s` with a struct value.
 The struct value has two members `x` and `y`.
 Member `x` has the integer value 1, and member `y` has the string value `"abc"`.
+
+*The empty struct:* The empty struct is allowed:
+
+[source,fpp]
+----
+constant s = {}
+----
 
 *Arrays in structs:* You can write an array value as a member of a struct value.
 For example, this code is allowed:
@@ -284,7 +293,7 @@ constant a = [ { x = 1, y = 2 }, { x = 3 } ]
 
 Notice that the first member of `a` is a struct with two members `x` and `y`.
 The second member of `a` is also a struct, but it has only one member `x`.
-When the FPP analyzer detects that a struct type is missing a member like this,
+When the FPP analyzer detects that a struct type is missing a member,
 it automatically adds the member, giving it a default value.
 The default values are the ones you would expect: zero for numeric members, the empty
 string for string members, and `false` for Boolean members.

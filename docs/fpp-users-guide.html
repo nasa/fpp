@@ -902,9 +902,11 @@ For example, this code is allowed:</p>
 <div class="sect3">
 <h4 id="Defining-Constants_Expressions_Struct-Values">3.3.4. Struct Values</h4>
 <div class="paragraph">
-<p>A <strong>struct value expression</strong> represents a C- or C&#43;&#43;-style structure, i.e., a mapping
+<p>A <strong>struct value expression</strong> represents a C- or C&#43;&#43;-style structure, i.e., a
+mapping
 of names to values.
-To write a struct value expression, you write a comma-separated list of <strong>struct members</strong>
+To write a struct value expression, you write a comma-separated list of zero or
+more <strong>struct members</strong>
 enclosed in curly braces.
 A struct member consists of a name, an equals sign, and a value.</p>
 </div>
@@ -920,6 +922,14 @@ A struct member consists of a name, an equals sign, and a value.</p>
 <p>This code associates the name <code>s</code> with a struct value.
 The struct value has two members <code>x</code> and <code>y</code>.
 Member <code>x</code> has the integer value 1, and member <code>y</code> has the string value <code>"abc"</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>The empty struct:</strong> The empty struct is allowed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant s = {}</code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p><strong>Arrays in structs:</strong> You can write an array value as a member of a struct value.
@@ -970,7 +980,7 @@ compatible with a struct.</p>
 <div class="paragraph">
 <p>Notice that the first member of <code>a</code> is a struct with two members <code>x</code> and <code>y</code>.
 The second member of <code>a</code> is also a struct, but it has only one member <code>x</code>.
-When the FPP analyzer detects that a struct type is missing a member like this,
+When the FPP analyzer detects that a struct type is missing a member,
 it automatically adds the member, giving it a default value.
 The default values are the ones you would expect: zero for numeric members, the empty
 string for string members, and <code>false</code> for Boolean members.
@@ -1349,7 +1359,7 @@ is not legal:</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-03 18:55:47 -0700
+Last updated 2020-08-03 19:24:24 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
