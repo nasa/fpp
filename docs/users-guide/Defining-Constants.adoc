@@ -139,7 +139,7 @@ The FPP language does not provide array indexing, so it does not specify the
 index of the leftmost array element;
 that is up to the implementation.
 For example, if we are generating {cpp} or Python, then array
-start at zero.
+indices start at zero.
 
 Here are some rules for writing array values:
 
@@ -450,7 +450,7 @@ required between the elements and optional after the last element.
 
 === Multiline Definitions
 
-Sometimes, especially for long definitions, it is useful to split the
+Sometimes, especially for long definitions, it is useful to split a
 definition across two or more lines.
 In FPP there are several ways to do this.
 
