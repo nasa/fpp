@@ -4,13 +4,14 @@ In an FPP model, a *constant definition* associates a name with a value,
 so that elsewhere you can use the name instead of re-computing or restating the 
 value.
 Using named constants makes the model easier to understand (the name
-says what the value means) and to maintain (changing a named constant is easy;
+says what the value means) and to maintain (changing a constant definition is 
+easy;
 changing all and only the relevant uses of a repeated value is not).
 
 This section covers the following topics:
 
 * Writing an FPP constant definition.
-* Writing an *expression*, which is the program text
+* Writing an *expression*, which is the source text
 that defines the value associated with the constant definition.
 * Writing multiple constant definitions.
 * Writing a constant definition that spans two or more lines of source text.
@@ -29,7 +30,8 @@ constant ultimateAnswer = 42
 ----
 
 This definition associates the name `ultimateAnswer` with the value 42.
-Elsewhere in the FPP model you can use the name `ultimateAnswer` instead of the value.
+Elsewhere in the FPP model you can use the name `ultimateAnswer` to represent 
+the value.
 You can also generate a {cpp} header file that defines the {cpp} constant
 `ultimateAnswer` and gives it the value 42.
 
@@ -66,33 +68,27 @@ the input ended where it expected an expression.
 The name appearing in a constant definition follows the usual rules for
 identifiers in a programming language:
 
-* It must contain at least one character
-* It must start with a letter or underscore character
-* The characters after the first may be letters, numbers, or underscores
+* It must contain at least one character.
+* It must start with a letter or underscore character.
+* The characters after the first may be letters, numbers, or underscores.
 
 === Expressions
 
 This section describes the expressions that you can write as part of a constant
 definition.
 
-==== Simple Values
+==== Primitive Values
 
-When writing an expression, you may write a *simple value expression*, which is 
-one of the following:
+A *primtive value expression* represents a primitive machine value, such as an 
+integer.
+It is one of the following:
 
 * A decimal integer literal value such as `1234`.
 * A hexadecimal integer literal value such as `0xABCD` or `0xabcd`.
 * A floating-point literal value such as `12.34` or `1234e-2`.
-* A string literal value such as `"abcd"`.
-To put the double-quote character in a string, escape it, like this:
-+
-[source,fpp]
-----
-"\"This is a quotation within a string,\" he said."
-----
 * A Boolean literal expression `true` or `false`.
 
-As an exercise, construct some constant definitions with simple values as their 
+As an exercise, construct some constant definitions with primitive values as their 
 expressions, and
 feed the results to `fpp-check`.
 For example:
@@ -104,9 +100,26 @@ constant b = 0xABCD
 ----
 If you get an error, make sure you understand why.
 
+==== String Values
+
+A *string value* represents a string of characters.
+For example:
+
+[source,fpp]
+----
+constant s = "This is a string."
+----
+
+To put the double-quote character in a string, escape it, like this:
+
+[source,fpp]
+----
+constant s = "\"This is a quotation within a string,\" he said."
+----
+
 ==== Array Values
 
-An *array value expression* is an expression that represents a fixed-size array
+An *array value expression* represents a fixed-size array
 of values.
 To write an array value expression, you write a comma-separated list of one or more values 
 (the array elements)
@@ -122,10 +135,11 @@ This code associates the name `a` with the array of
 integers
 `[ 1, 2, 3 ]`.
 
-The FPP model does not specify the index of the leftmost array element;
+The FPP language does not provide array indexing, so it does not specify the 
+index of the leftmost array element;
 that is up to the implementation.
-However, since we are usually generating {cpp} or Python, array
-indices typically start at zero.
+For example, if we are generating {cpp} or Python, then array
+start at zero.
 
 Here are some rules for writing array values:
 
@@ -137,7 +151,7 @@ FPP arrays are designed to encode small, fixed-size arrays, e.g.,
 for command arguments or telemetry channels.
 They are not designed to encode large computational arrays.
 The upper limit on array size is implementation-defined.
-If you use FPP arrays as intended you are unlikely to hit the limit;
+If you use FPP arrays as intended, you are unlikely to hit the limit;
 if you do, the checker will complain. 
 . The types of the elements must match.
 For example, the following code is illegal, because the value `1` (which has type `Integer`)
@@ -180,7 +194,7 @@ error: cannot compute common type of Integer and bool
 
 So no, we can't.
 
-Here are two additional points about array values:
+Here are two more points about array values:
 
 . Any legal value can be an element of an array value, so in particular arrays 
 of arrays
@@ -188,7 +202,7 @@ are allowed. For example, this code is allowed:
 +
 [source,fpp]
 ----
-constant a = [ [ 1, 2 ] [ 3, 4 ] ]
+constant a = [ [ 1, 2 ], [ 3, 4 ] ]
 ----
 +
 It represents an array with two elements: the array `[ 1, 2 ]` and the array `[ 
@@ -245,13 +259,13 @@ For example, this code is allowed:
 constant a = [ { x = 1, y = 2 }, { x = 3, y = 4 } ]
 ----
 
-This code is also allowed.
-When writing a struct value, the order in which the members appear does not matter.
+This code is also allowed:
 
 [source,fpp]
 ----
 constant a = [ { x = 1, y = 2 }, { y = 4, x = 3 } ]
 ----
+When writing a struct value, the order in which the members appear does not matter.
 
 This code is not allowed, because the element types don't match -- an array is not 
 compatible with a struct.
@@ -283,21 +297,210 @@ constant a = [ { x = 1, y = 2 }, { x = 3, y = 0 } ]
 
 ==== Name Expressions
 
-TODO
+A *name expression* is a use of a name appearing in a constant definition.
+It stands for the associated constant value.
+For example:
+
+[source,fpp]
+----
+constant a = 1
+constant b = a
+----
+
+In this code, constant `b` has the value 1.
+
+The order of definitions does not matter, so this code is equivalent:
+
+[source,fpp]
+----
+constant b = a
+constant a = 1
+----
+
+The only requirement is that there may not be any cycles in the graph
+consisting of constant definitions and their uses.
+For example, this code is illegal, because there is a cycle from `a` to `b` to 
+`c` and back to `a`:
+
+[source,fpp]
+----
+constant a = c
+constant b = a
+constant c = b
+----
+
+Try submitting this code to `fpp-check`, to see what happens.
 
 ==== Arithmetic Expressions
 
-TODO
+An *arithmetic expression* is one of the following:
+
+* A negation expression, for example:
++
+[source,fpp]
+----
+constant a = -1
+----
+* A binary operation expression, where the binary operation is one of `+` (addition), `-` (subtraction),
+`*` (multiplication), and `-` (division). For example:
++
+[source,fpp]
+----
+constant a = 1 + 2
+----
+* A parenthesis expression, for example:
++
+[source,fpp]
+----
+constant a = (1)
+----
+
+The following rules apply to arithmetic expressions:
+
+* The subexpressions must evaluate to integer or floating-point values.
+
+* If there are any floating-point subexpressions, then the entire expression is 
+evaluated using 64-bit floating-point arithmetic.
+
+* Otherwise the expression is evaluated using arbitrary-precision integer 
+arithmetic.
+
+* In a division operation, the second operand may not be zero or (for 
+floating-point values) very close to zero.
 
 ==== Compound Expressions
 
-TODO
+Wherever you can write a value inside an expression, you can write
+a more complex expression there.
+For example, these expressions are valid:
 
-=== Multiple Definitions
+[source,fpp]
+----
+constant a = (1 + 2) * 3
+constant b = [ 1 + 2, 3 ]
+----
 
-TODO
+The first example is a binary expression whose first operand is a parentheses 
+expression;
+that parentheses expression in turn has a binary expression as its 
+subexpression.
+The second example is an array expression whose first element is a binary 
+expression.
+
+Compound expressions are evaluated in the obvious way.
+For example, the constant definitions above are equivalent to the following:
+
+[source,fpp]
+----
+constant a = 9
+constant b = [ 3, 3 ]
+----
+
+For compound arithmetic expressions, the
+precedence and associativity rules are the usual ones (evaluate parentheses 
+first, then multiplication, and so forth).
+
+=== Multiple Definitions and Element Sequences
+
+Typically you want to specify several constant definitions in a model, not just one.
+There are two ways to do this:
+
+. You can separate the definitions by one or more newlines, as shown
+in the examples above.
+
+. You can put the definitions on the same line, separated by a semicolon.
+
+For example, the following two code excerpts are equivalent:
+
+[source,fpp]
+----
+constant a = 1
+constant b = 2
+----
+
+[source,fpp]
+----
+constant a = 1; constant b = 2
+----
+
+More generally, a collection of several constant definitions is an example
+of an *element sequence*, i.e., a sequence of similar syntactic elements.
+In brief, the rules for writing an element sequence are as follows:
+
+. Every kind of element sequence has optional *terminating punctuation*.
+The terminating punctuation is either a semicolon or a comma, depending
+on the kind of element sequence.
+For constant definitions, it is a semicolon.
+
+. When writing elements on separate lines, the terminating punctuation is 
+optional.
+
+. When writing two or more elements on the same line, the termination 
+punctuation is
+required between the elements and optional after the last element.
 
 === Multiline Definitions
 
-TODO
+Sometimes, especially for long definitions, it is useful to split the
+definition across two or more lines.
+In FPP there are several ways to do this.
 
+First, FPP ignores newlines that follow opening symbols like `[`  and precede 
+closing symbols like `]`.
+For example, this code is allowed
+
+[source,fpp]
+----
+constant a = [
+  1, 2, 3
+]
+----
+
+Second, the elements of an array or struct form an element sequence (see
+the previous section), so you can write each element on its own line,
+omitting the commas if you wish:
+
+[source,fpp]
+----
+constant s = {
+  x = 1
+  y = 2
+  z = 3
+}
+----
+
+This is a clean way to write arrays and structs.
+In particular, the assignment of each element to its own line and the lack of 
+terminating punctuation
+make it easy to rearrange the elements.
+For example, one can do a line-by-line sort on the elements without concern for 
+messing up the commas.
+
+Third, FPP ignores newlines that follow connecting symbols such as `=` and `+`
+For example, this code is allowed;
+
+[source,fpp]
+----
+constant a =
+  1
+constant b = 1 +
+  2
+----
+
+Finally, in other cases you can use an explicit line continuation by escaping
+one or more newline characters with `\`:
+
+[source,fpp]
+----
+constant \
+  a = 1
+----
+
+Note that in this case you need the explicit continuation, i.e., this code
+is not legal:
+
+[source,fpp]
+----
+constant
+  a = 1
+----

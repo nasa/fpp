@@ -10,6 +10,8 @@ export FILES="
 Introduction.adoc
 Installing-FPP.adoc
 Defining-Constants.adoc
+Writing-Comments-and-Annotations.adoc
+Defining-Modules.adoc
 Defining-Types.adoc
 Defining-Enums.adoc
 Specifying-Models.adoc
