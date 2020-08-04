@@ -450,34 +450,37 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Constants_Names">3.2. Names</a></li>
 <li><a href="#Defining-Constants_Expressions">3.3. Expressions</a>
 <ul class="sectlevel3">
-<li><a href="#Defining-Constants_Expressions_Simple-Values">3.3.1. Simple Values</a></li>
-<li><a href="#Defining-Constants_Expressions_Array-Values">3.3.2. Array Values</a></li>
-<li><a href="#Defining-Constants_Expressions_Struct-Values">3.3.3. Struct Values</a></li>
-<li><a href="#Defining-Constants_Expressions_Name-Expressions">3.3.4. Name Expressions</a></li>
-<li><a href="#Defining-Constants_Expressions_Arithmetic-Expressions">3.3.5. Arithmetic Expressions</a></li>
-<li><a href="#Defining-Constants_Expressions_Compound-Expressions">3.3.6. Compound Expressions</a></li>
+<li><a href="#Defining-Constants_Expressions_Primitive-Values">3.3.1. Primitive Values</a></li>
+<li><a href="#Defining-Constants_Expressions_String-Values">3.3.2. String Values</a></li>
+<li><a href="#Defining-Constants_Expressions_Array-Values">3.3.3. Array Values</a></li>
+<li><a href="#Defining-Constants_Expressions_Struct-Values">3.3.4. Struct Values</a></li>
+<li><a href="#Defining-Constants_Expressions_Name-Expressions">3.3.5. Name Expressions</a></li>
+<li><a href="#Defining-Constants_Expressions_Arithmetic-Expressions">3.3.6. Arithmetic Expressions</a></li>
+<li><a href="#Defining-Constants_Expressions_Compound-Expressions">3.3.7. Compound Expressions</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Constants_Multiple-Definitions">3.4. Multiple Definitions</a></li>
+<li><a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">3.4. Multiple Definitions and Element Sequences</a></li>
 <li><a href="#Defining-Constants_Multiline-Definitions">3.5. Multiline Definitions</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Types">4. Defining Types</a>
+<li><a href="#Writing-Comments-and-Annotations">4. Writing Comments and Annotations</a></li>
+<li><a href="#Defining-Modules">5. Defining Modules</a></li>
+<li><a href="#Defining-Types">6. Defining Types</a>
 <ul class="sectlevel2">
-<li><a href="#Defining-Types_Array-Types">4.1. Array Types</a></li>
-<li><a href="#Defining-Types_Struct-Types">4.2. Struct Types</a></li>
-<li><a href="#Defining-Types_Abstract-Types">4.3. Abstract Types</a></li>
+<li><a href="#Defining-Types_Array-Types">6.1. Array Types</a></li>
+<li><a href="#Defining-Types_Struct-Types">6.2. Struct Types</a></li>
+<li><a href="#Defining-Types_Abstract-Types">6.3. Abstract Types</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Enums">5. Defining Enums</a></li>
-<li><a href="#Specifying-Models">6. Specifying Models</a></li>
-<li><a href="#Analyzing-Models">7. Analyzing Models</a></li>
-<li><a href="#Translating-Models">8. Translating Models</a></li>
-<li><a href="#Appendix:-F-Prime-XML-Format">9. Appendix: F Prime XML Format</a>
+<li><a href="#Defining-Enums">7. Defining Enums</a></li>
+<li><a href="#Specifying-Models">8. Specifying Models</a></li>
+<li><a href="#Analyzing-Models">9. Analyzing Models</a></li>
+<li><a href="#Translating-Models">10. Translating Models</a></li>
+<li><a href="#Appendix:-F-Prime-XML-Format">11. Appendix: F Prime XML Format</a>
 <ul class="sectlevel2">
-<li><a href="#Appendix:-F-Prime-XML-Format_SerializableAi.xml">9.1. SerializableAi.xml</a></li>
-<li><a href="#Appendix:-F-Prime-XML-Format_EnumAi.xml">9.2. EnumAi.xml</a></li>
-<li><a href="#Appendix:-F-Prime-XML-Format_ArrayAi.xml">9.3. ArrayAi.xml</a></li>
+<li><a href="#Appendix:-F-Prime-XML-Format_SerializableAi.xml">11.1. SerializableAi.xml</a></li>
+<li><a href="#Appendix:-F-Prime-XML-Format_EnumAi.xml">11.2. EnumAi.xml</a></li>
+<li><a href="#Appendix:-F-Prime-XML-Format_ArrayAi.xml">11.3. ArrayAi.xml</a></li>
 </ul>
 </li>
 </ul>
@@ -587,7 +590,8 @@ the program:</p>
 so that elsewhere you can use the name instead of re-computing or restating the
 value.
 Using named constants makes the model easier to understand (the name
-says what the value means) and to maintain (changing a named constant is easy;
+says what the value means) and to maintain (changing a constant definition is
+easy;
 changing all and only the relevant uses of a repeated value is not).</p>
 </div>
 <div class="paragraph">
@@ -599,7 +603,7 @@ changing all and only the relevant uses of a repeated value is not).</p>
 <p>Writing an FPP constant definition.</p>
 </li>
 <li>
-<p>Writing an <strong>expression</strong>, which is the program text
+<p>Writing an <strong>expression</strong>, which is the source text
 that defines the value associated with the constant definition.</p>
 </li>
 <li>
@@ -626,7 +630,8 @@ the value 42:</p>
 </div>
 <div class="paragraph">
 <p>This definition associates the name <code>ultimateAnswer</code> with the value 42.
-Elsewhere in the FPP model you can use the name <code>ultimateAnswer</code> instead of the value.
+Elsewhere in the FPP model you can use the name <code>ultimateAnswer</code> to represent
+the value.
 You can also generate a C&#43;&#43; header file that defines the C&#43;&#43; constant
 <code>ultimateAnswer</code> and gives it the value 42.</p>
 </div>
@@ -681,13 +686,13 @@ identifiers in a programming language:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>It must contain at least one character</p>
+<p>It must contain at least one character.</p>
 </li>
 <li>
-<p>It must start with a letter or underscore character</p>
+<p>It must start with a letter or underscore character.</p>
 </li>
 <li>
-<p>The characters after the first may be letters, numbers, or underscores</p>
+<p>The characters after the first may be letters, numbers, or underscores.</p>
 </li>
 </ul>
 </div>
@@ -699,10 +704,11 @@ identifiers in a programming language:</p>
 definition.</p>
 </div>
 <div class="sect3">
-<h4 id="Defining-Constants_Expressions_Simple-Values">3.3.1. Simple Values</h4>
+<h4 id="Defining-Constants_Expressions_Primitive-Values">3.3.1. Primitive Values</h4>
 <div class="paragraph">
-<p>When writing an expression, you may write a <strong>simple value expression</strong>, which is
-one of the following:</p>
+<p>A <strong>primitive value expression</strong> represents a primitive machine value, such as an
+integer.
+It is one of the following:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -716,21 +722,12 @@ one of the following:</p>
 <p>A floating-point literal value such as <code>12.34</code> or <code>1234e-2</code>.</p>
 </li>
 <li>
-<p>A string literal value such as <code>"abcd"</code>.
-To put the double-quote character in a string, escape it, like this:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">"\"This is a quotation within a string,\" he said."</code></pre>
-</div>
-</div>
-</li>
-<li>
 <p>A Boolean literal expression <code>true</code> or <code>false</code>.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>As an exercise, construct some constant definitions with simple values as their
+<p>As an exercise, construct some constant definitions with primitive values as their
 expressions, and
 feed the results to <code>fpp-check</code>.
 For example:</p>
@@ -746,9 +743,29 @@ constant b = 0xABCD</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Constants_Expressions_Array-Values">3.3.2. Array Values</h4>
+<h4 id="Defining-Constants_Expressions_String-Values">3.3.2. String Values</h4>
 <div class="paragraph">
-<p>An <strong>array value expression</strong> is an expression that represents a fixed-size array
+<p>A <strong>string value</strong> represents a string of characters.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant s = "This is a string."</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To put the double-quote character in a string, escape it, like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant s = "\"This is a quotation within a string,\" he said."</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Constants_Expressions_Array-Values">3.3.3. Array Values</h4>
+<div class="paragraph">
+<p>An <strong>array value expression</strong> represents a fixed-size array
 of values.
 To write an array value expression, you write a comma-separated list of one or more values
 (the array elements)
@@ -766,10 +783,11 @@ integers
 <code>[ 1, 2, 3 ]</code>.</p>
 </div>
 <div class="paragraph">
-<p>The FPP model does not specify the index of the leftmost array element;
+<p>The FPP language does not provide array indexing, so it does not specify the
+index of the leftmost array element;
 that is up to the implementation.
-However, since we are usually generating C&#43;&#43; or Python, array
-indices typically start at zero.</p>
+For example, if we are generating C&#43;&#43; or Python, then array
+start at zero.</p>
 </div>
 <div class="paragraph">
 <p>Here are some rules for writing array values:</p>
@@ -787,7 +805,7 @@ FPP arrays are designed to encode small, fixed-size arrays, e.g.,
 for command arguments or telemetry channels.
 They are not designed to encode large computational arrays.
 The upper limit on array size is implementation-defined.
-If you use FPP arrays as intended you are unlikely to hit the limit;
+If you use FPP arrays as intended, you are unlikely to hit the limit;
 if you do, the checker will complain.</p>
 </li>
 <li>
@@ -842,7 +860,7 @@ error: cannot compute common type of Integer and bool</pre>
 <p>So no, we can&#8217;t.</p>
 </div>
 <div class="paragraph">
-<p>Here are two additional points about array values:</p>
+<p>Here are two more points about array values:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -852,7 +870,7 @@ of arrays
 are allowed. For example, this code is allowed:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">constant a = [ [ 1, 2 ] [ 3, 4 ] ]</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = [ [ 1, 2 ], [ 3, 4 ] ]</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -882,7 +900,7 @@ For example, this code is allowed:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Constants_Expressions_Struct-Values">3.3.3. Struct Values</h4>
+<h4 id="Defining-Constants_Expressions_Struct-Values">3.3.4. Struct Values</h4>
 <div class="paragraph">
 <p>A <strong>struct value expression</strong> represents a C- or C&#43;&#43;-style structure, i.e., a mapping
 of names to values.
@@ -922,13 +940,15 @@ For example, this code is allowed:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>This code is also allowed.
-When writing a struct value, the order in which the members appear does not matter.</p>
+<p>This code is also allowed:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">constant a = [ { x = 1, y = 2 }, { y = 4, x = 3 } ]</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>When writing a struct value, the order in which the members appear does not matter.</p>
 </div>
 <div class="paragraph">
 <p>This code is not allowed, because the element types don&#8217;t match&#8201;&#8212;&#8201;an array is not
@@ -963,63 +983,316 @@ So the code above is equivalent to the following:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Constants_Expressions_Name-Expressions">3.3.4. Name Expressions</h4>
+<h4 id="Defining-Constants_Expressions_Name-Expressions">3.3.5. Name Expressions</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>A <strong>name expression</strong> is a use of a name appearing in a constant definition.
+It stands for the associated constant value.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = 1
+constant b = a</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this code, constant <code>b</code> has the value 1.</p>
+</div>
+<div class="paragraph">
+<p>The order of definitions does not matter, so this code is equivalent:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant b = a
+constant a = 1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The only requirement is that there may not be any cycles in the graph
+consisting of constant definitions and their uses.
+For example, this code is illegal, because there is a cycle from <code>a</code> to <code>b</code> to
+<code>c</code> and back to <code>a</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = c
+constant b = a
+constant c = b</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Try submitting this code to <code>fpp-check</code>, to see what happens.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Constants_Expressions_Arithmetic-Expressions">3.3.5. Arithmetic Expressions</h4>
+<h4 id="Defining-Constants_Expressions_Arithmetic-Expressions">3.3.6. Arithmetic Expressions</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>An <strong>arithmetic expression</strong> is one of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A negation expression, for example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = -1</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>A binary operation expression, where the binary operation is one of <code>+</code> (addition), <code>-</code> (subtraction),
+<code>*</code> (multiplication), and <code>-</code> (division). For example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = 1 + 2</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>A parenthesis expression, for example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = (1)</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following rules apply to arithmetic expressions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The subexpressions must evaluate to integer or floating-point values.</p>
+</li>
+<li>
+<p>If there are any floating-point subexpressions, then the entire expression is
+evaluated using 64-bit floating-point arithmetic.</p>
+</li>
+<li>
+<p>Otherwise the expression is evaluated using arbitrary-precision integer
+arithmetic.</p>
+</li>
+<li>
+<p>In a division operation, the second operand may not be zero or (for
+floating-point values) very close to zero.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Constants_Expressions_Compound-Expressions">3.3.6. Compound Expressions</h4>
+<h4 id="Defining-Constants_Expressions_Compound-Expressions">3.3.7. Compound Expressions</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>Wherever you can write a value inside an expression, you can write
+a more complex expression there.
+For example, these expressions are valid:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = (1 + 2) * 3
+constant b = [ 1 + 2, 3 ]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The first example is a binary expression whose first operand is a parentheses
+expression;
+that parentheses expression in turn has a binary expression as its
+subexpression.
+The second example is an array expression whose first element is a binary
+expression.</p>
+</div>
+<div class="paragraph">
+<p>Compound expressions are evaluated in the obvious way.
+For example, the constant definitions above are equivalent to the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = 9
+constant b = [ 3, 3 ]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For compound arithmetic expressions, the
+precedence and associativity rules are the usual ones (evaluate parentheses
+first, then multiplication, and so forth).</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Constants_Multiple-Definitions">3.4. Multiple Definitions</h3>
+<h3 id="Defining-Constants_Multiple-Definitions-and-Element-Sequences">3.4. Multiple Definitions and Element Sequences</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>Typically you want to specify several constant definitions in a model, not just one.
+There are two ways to do this:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>You can separate the definitions by one or more newlines, as shown
+in the examples above.</p>
+</li>
+<li>
+<p>You can put the definitions on the same line, separated by a semicolon.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For example, the following two code excerpts are equivalent:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = 1
+constant b = 2</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = 1; constant b = 2</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>More generally, a collection of several constant definitions is an example
+of an <strong>element sequence</strong>, i.e., a sequence of similar syntactic elements.
+In brief, the rules for writing an element sequence are as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Every kind of element sequence has optional <strong>terminating punctuation</strong>.
+The terminating punctuation is either a semicolon or a comma, depending
+on the kind of element sequence.
+For constant definitions, it is a semicolon.</p>
+</li>
+<li>
+<p>When writing elements on separate lines, the terminating punctuation is
+optional.</p>
+</li>
+<li>
+<p>When writing two or more elements on the same line, the termination
+punctuation is
+required between the elements and optional after the last element.</p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect2">
 <h3 id="Defining-Constants_Multiline-Definitions">3.5. Multiline Definitions</h3>
 <div class="paragraph">
+<p>Sometimes, especially for long definitions, it is useful to split the
+definition across two or more lines.
+In FPP there are several ways to do this.</p>
+</div>
+<div class="paragraph">
+<p>First, FPP ignores newlines that follow opening symbols like <code>[</code>  and precede
+closing symbols like <code>]</code>.
+For example, this code is allowed</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = [
+  1, 2, 3
+]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Second, the elements of an array or struct form an element sequence (see
+the previous section), so you can write each element on its own line,
+omitting the commas if you wish:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant s = {
+  x = 1
+  y = 2
+  z = 3
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is a clean way to write arrays and structs.
+In particular, the assignment of each element to its own line and the lack of
+terminating punctuation
+make it easy to rearrange the elements.
+For example, one can do a line-by-line sort on the elements (for example, to
+sort struct members alphabetically by name) without concern for messing up the
+commas.</p>
+</div>
+<div class="paragraph">
+<p>Third, FPP ignores newlines that follow connecting symbols such as <code>=</code> and <code>+</code>
+For example, this code is allowed;</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a =
+  1
+constant b = 1 +
+  2</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Finally, in other cases you can use an explicit line continuation by escaping
+one or more newline characters with <code>\</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant \
+  a = 1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that in this case you need the explicit continuation, i.e., this code
+is not legal:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant
+  a = 1</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Writing-Comments-and-Annotations">4. Writing Comments and Annotations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Defining-Modules">5. Defining Modules</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Defining-Types">6. Defining Types</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="Defining-Types_Array-Types">6.1. Array Types</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-Types_Struct-Types">6.2. Struct Types</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-Types_Abstract-Types">6.3. Abstract Types</h3>
+<div class="paragraph">
 <p>TODO</p>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Defining-Types">4. Defining Types</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="Defining-Types_Array-Types">4.1. Array Types</h3>
-<div class="paragraph">
-<p>TODO</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Defining-Types_Struct-Types">4.2. Struct Types</h3>
-<div class="paragraph">
-<p>TODO</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Defining-Types_Abstract-Types">4.3. Abstract Types</h3>
-<div class="paragraph">
-<p>TODO</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="Defining-Enums">5. Defining Enums</h2>
+<h2 id="Defining-Enums">7. Defining Enums</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>TODO</p>
@@ -1027,7 +1300,7 @@ So the code above is equivalent to the following:</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Specifying-Models">6. Specifying Models</h2>
+<h2 id="Specifying-Models">8. Specifying Models</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>TODO</p>
@@ -1035,7 +1308,7 @@ So the code above is equivalent to the following:</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Analyzing-Models">7. Analyzing Models</h2>
+<h2 id="Analyzing-Models">9. Analyzing Models</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>TODO</p>
@@ -1043,7 +1316,7 @@ So the code above is equivalent to the following:</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Translating-Models">8. Translating Models</h2>
+<h2 id="Translating-Models">10. Translating Models</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>TODO</p>
@@ -1051,22 +1324,22 @@ So the code above is equivalent to the following:</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Appendix:-F-Prime-XML-Format">9. Appendix: F Prime XML Format</h2>
+<h2 id="Appendix:-F-Prime-XML-Format">11. Appendix: F Prime XML Format</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="Appendix:-F-Prime-XML-Format_SerializableAi.xml">9.1. SerializableAi.xml</h3>
+<h3 id="Appendix:-F-Prime-XML-Format_SerializableAi.xml">11.1. SerializableAi.xml</h3>
 <div class="paragraph">
 <p>TODO</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Appendix:-F-Prime-XML-Format_EnumAi.xml">9.2. EnumAi.xml</h3>
+<h3 id="Appendix:-F-Prime-XML-Format_EnumAi.xml">11.2. EnumAi.xml</h3>
 <div class="paragraph">
 <p>TODO</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Appendix:-F-Prime-XML-Format_ArrayAi.xml">9.3. ArrayAi.xml</h3>
+<h3 id="Appendix:-F-Prime-XML-Format_ArrayAi.xml">11.3. ArrayAi.xml</h3>
 <div class="paragraph">
 <p>TODO</p>
 </div>
@@ -1076,7 +1349,7 @@ So the code above is equivalent to the following:</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-03 16:00:45 -0700
+Last updated 2020-08-03 18:55:47 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

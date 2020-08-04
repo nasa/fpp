@@ -79,7 +79,7 @@ definition.
 
 ==== Primitive Values
 
-A *primtive value expression* represents a primitive machine value, such as an 
+A *primitive value expression* represents a primitive machine value, such as an 
 integer.
 It is one of the following:
 
@@ -473,8 +473,9 @@ This is a clean way to write arrays and structs.
 In particular, the assignment of each element to its own line and the lack of 
 terminating punctuation
 make it easy to rearrange the elements.
-For example, one can do a line-by-line sort on the elements without concern for 
-messing up the commas.
+For example, one can do a line-by-line sort on the elements (for example, to 
+sort struct members alphabetically by name) without concern for messing up the 
+commas.
 
 Third, FPP ignores newlines that follow connecting symbols such as `=` and `+`
 For example, this code is allowed;
