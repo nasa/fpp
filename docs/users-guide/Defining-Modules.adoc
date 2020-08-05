@@ -1,3 +1,39 @@
 == Defining Modules
 
+In an FPP model, a *module* is a group of model elements that are all qualified
+with a name, called the *module name*.
+An FPP module corresponds to a namespace in {cpp} and a module in Python.
+
+To define a module, you write the keyword `module` followed by one
+or more definitions enclosed in curly braces.
+For example:
+
+[source,fpp]
+----
+module M {
+  constant a = 1
+}
+----
+
+The module name qualifies the names of the definitions it encloses.
+To write the qualified name, you write the qualifier, a dot, 
+and the base name: for example `M.a`. (This is also the way that
+name qualification works in Python, Java, and Scala.)
+Inside the module, you can use the qualified name or the unqualified
+name.
+Outside the module, you must use the qualified name.
+For example:
+
+[source,fpp]
+--------
+module M {
+  constant a = 1
+  constant b = a # OK: refers to M.a
+  constant c = M.b
+}
+
+constant a = M.a
+constant c = b # Error: b is not in scope here
+--------
+
 TODO

@@ -1403,6 +1403,45 @@ example timing analysis, that are not part of the FPP language specification.</p
 <h2 id="Defining-Modules">5. Defining Modules</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<p>In an FPP model, a <strong>module</strong> is a group of model elements that are all qualified
+with a name, called the <strong>module name</strong>.
+An FPP module corresponds to a namespace in C&#43;&#43; and a module in Python.</p>
+</div>
+<div class="paragraph">
+<p>To define a module, you write the keyword <code>module</code> followed by one
+or more definitions enclosed in curly braces.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+  constant a = 1
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The module name qualifies the names of the definitions it encloses.
+To write the qualified name, you write the qualifier, a dot,
+and the base name: for example <code>M.a</code>. (This is also the way that
+name qualification works in Python, Java, and Scala.)
+Inside the module, you can use the qualified name or the unqualified
+name.
+Outside the module, you must use the qualified name.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+  constant a = 1
+  constant b = a # OK: refers to M.a
+  constant c = M.b
+}
+
+constant a = M.a
+constant c = b # Error: b is not in scope here</code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p>TODO</p>
 </div>
 </div>
@@ -1488,7 +1527,7 @@ example timing analysis, that are not part of the FPP language specification.</p
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-04 18:38:31 -0700
+Last updated 2020-08-05 09:00:50 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
