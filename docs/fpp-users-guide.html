@@ -455,7 +455,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Constants_Expressions_Array-Values">3.3.3. Array Values</a></li>
 <li><a href="#Defining-Constants_Expressions_Struct-Values">3.3.4. Struct Values</a></li>
 <li><a href="#Defining-Constants_Expressions_Name-Expressions">3.3.5. Name Expressions</a></li>
-<li><a href="#Defining-Constants_Expressions_Arithmetic-Expressions">3.3.6. Arithmetic Expressions</a></li>
+<li><a href="#Defining-Constants_Expressions_Value-Arithmetic-Expressions">3.3.6. Value Arithmetic Expressions</a></li>
 <li><a href="#Defining-Constants_Expressions_Compound-Expressions">3.3.7. Compound Expressions</a></li>
 </ul>
 </li>
@@ -463,7 +463,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Constants_Multiline-Definitions">3.5. Multiline Definitions</a></li>
 </ul>
 </li>
-<li><a href="#Writing-Comments-and-Annotations">4. Writing Comments and Annotations</a></li>
+<li><a href="#Writing-Comments-and-Annotations">4. Writing Comments and Annotations</a>
+<ul class="sectlevel2">
+<li><a href="#Writing-Comments-and-Annotations_Comments">4.1. Comments</a></li>
+<li><a href="#Writing-Comments-and-Annotations_Annotations">4.2. Annotations</a></li>
+</ul>
+</li>
 <li><a href="#Defining-Modules">5. Defining Modules</a></li>
 <li><a href="#Defining-Types">6. Defining Types</a>
 <ul class="sectlevel2">
@@ -1035,9 +1040,10 @@ constant c = b</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Constants_Expressions_Arithmetic-Expressions">3.3.6. Arithmetic Expressions</h4>
+<h4 id="Defining-Constants_Expressions_Value-Arithmetic-Expressions">3.3.6. Value Arithmetic Expressions</h4>
 <div class="paragraph">
-<p>An <strong>arithmetic expression</strong> is one of the following:</p>
+<p>An <strong>value arithmetic expression</strong> performs arithmetic on values.
+It is one of the following:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1074,7 +1080,7 @@ constant c = b</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p>The subexpressions must evaluate to integer or floating-point values.</p>
+<p>The subexpressions must be integer or floating-point values.</p>
 </li>
 <li>
 <p>If there are any floating-point subexpressions, then the entire expression is
@@ -1095,7 +1101,7 @@ floating-point values) very close to zero.</p>
 <h4 id="Defining-Constants_Expressions_Compound-Expressions">3.3.7. Compound Expressions</h4>
 <div class="paragraph">
 <p>Wherever you can write a value inside an expression, you can write
-a more complex expression there.
+a more complex expression there, so long as the types work out.
 For example, these expressions are valid:</p>
 </div>
 <div class="listingblock">
@@ -1111,6 +1117,15 @@ that parentheses expression in turn has a binary expression as its
 subexpression.
 The second example is an array expression whose first element is a binary
 expression.</p>
+</div>
+<div class="paragraph">
+<p>This expression is invalid, because <code>1 + 2.0</code> evaluates to a floating-point
+value, which is incompatible with type <code>string</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = [ 1 + 2.0, "abc" ]</code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p>Compound expressions are evaluated in the obvious way.
@@ -1266,7 +1281,121 @@ is not legal:</p>
 <h2 id="Writing-Comments-and-Annotations">4. Writing Comments and Annotations</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>In FPP, you can write <strong>comments</strong> that are ignored by the parser.
+These are just like comments in most programming languages.
+You can also write <strong>annotations</strong> that have no meaning in the FPP model
+but are attached to model elements and may be carried through
+to translation (for example, they may become comments in generated C&#43;&#43; code).</p>
+</div>
+<div class="sect2">
+<h3 id="Writing-Comments-and-Annotations_Comments">4.1. Comments</h3>
+<div class="paragraph">
+<p>A comment starts with the character <code>#</code> and goes to the end of the line.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp"># This is a comment</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To write a comment that spans multiple lines, start each line with <code>#</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp"># This is a comment.
+# It spans two lines.</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Writing-Comments-and-Annotations_Annotations">4.2. Annotations</h3>
+<div class="paragraph">
+<p>Annotations are attached to elements of a model, such as
+<a href="#Defining-Constants">constant definitions</a>.
+A model element that may have an annotation attached to it
+is called an <strong>annotatable element</strong>.
+Any constant definition is an annotatable element.
+Other annotatable elements will be called out in future sections
+of this document.</p>
+</div>
+<div class="paragraph">
+<p>There are two kinds of annotations: <strong>pre annotations</strong> and <strong>post annotations</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A pre annotation starts with the character <code>@</code> and is attached to the
+annotatable element that follows it.</p>
+</li>
+<li>
+<p>A post annotation starts with the characters <code>@&lt;</code> and is attached to
+the annotatable element that precedes it.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In either case</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Any whitespace after the <code>@</code> or <code>@&lt;</code> characters is ignored.</p>
+</li>
+<li>
+<p>The annotation goes to the end of the line.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ This is a pre-annotation
+constant c = 0 @&lt; This is a post-annotation</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Multiline annotations are allowed. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ This is a pre-annotation
+@ It has two lines.
+constant c = 0 @&lt; This is a post-annotation
+               @&lt; It also has two lines.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The meaning of the annotations is tool-specific.
+A typical use is to concatenate the pre and post annotations
+into a list of lines and emit them as a comment.
+For example, if you send the code immediately above
+through the tool <code>fpp-to-cpp</code>, it should generate a file
+<code>FppConstants.hpp</code>. If you examine that file, should see,
+in relevant part, the following code:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="cpp">//! This is a pre-annotation
+//! It has two lines.
+//! This is a post-annotation
+//! It also has two lines.
+enum FppConstant_c {
+  c = 0
+};</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The two lines of the pre annotation and the two lines of the post
+annotation have been concatenated and written out as a Doxygen
+comment attached to the constant definition, represented as a C&#43;&#43; enum.</p>
+</div>
+<div class="paragraph">
+<p>In the future, annotations may be used to provide additional capabilities, for
+example timing analysis, that are not part of the FPP language specification.</p>
+</div>
 </div>
 </div>
 </div>
@@ -1359,7 +1488,7 @@ is not legal:</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-04 08:51:04 -0700
+Last updated 2020-08-04 18:38:31 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

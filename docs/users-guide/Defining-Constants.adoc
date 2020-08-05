@@ -340,9 +340,10 @@ constant c = b
 
 Try submitting this code to `fpp-check`, to see what happens.
 
-==== Arithmetic Expressions
+==== Value Arithmetic Expressions
 
-An *arithmetic expression* is one of the following:
+An *value arithmetic expression* performs arithmetic on values.
+It is one of the following:
 
 * A negation expression, for example:
 +
@@ -366,7 +367,7 @@ constant a = (1)
 
 The following rules apply to arithmetic expressions:
 
-* The subexpressions must evaluate to integer or floating-point values.
+* The subexpressions must be integer or floating-point values.
 
 * If there are any floating-point subexpressions, then the entire expression is 
 evaluated using 64-bit floating-point arithmetic.
@@ -380,7 +381,7 @@ floating-point values) very close to zero.
 ==== Compound Expressions
 
 Wherever you can write a value inside an expression, you can write
-a more complex expression there.
+a more complex expression there, so long as the types work out.
 For example, these expressions are valid:
 
 [source,fpp]
@@ -395,6 +396,14 @@ that parentheses expression in turn has a binary expression as its
 subexpression.
 The second example is an array expression whose first element is a binary 
 expression.
+
+This expression is invalid, because `1 + 2.0` evaluates to a floating-point
+value, which is incompatible with type `string`:
+
+[source,fpp]
+--------
+constant a = [ 1 + 2.0, "abc" ]
+--------
 
 Compound expressions are evaluated in the obvious way.
 For example, the constant definitions above are equivalent to the following:

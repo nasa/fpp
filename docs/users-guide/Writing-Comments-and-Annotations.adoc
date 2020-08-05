@@ -1,3 +1,93 @@
 == Writing Comments and Annotations
 
-TODO
+In FPP, you can write *comments* that are ignored by the parser.
+These are just like comments in most programming languages.
+You can also write *annotations* that have no meaning in the FPP model
+but are attached to model elements and may be carried through
+to translation (for example, they may become comments in generated {cpp} code).
+
+=== Comments
+
+A comment starts with the character `#` and goes to the end of the line.
+For example:
+
+[source,fpp]
+----
+# This is a comment
+----
+
+To write a comment that spans multiple lines, start each line with `#`:
+
+[source,fpp]
+----
+# This is a comment.
+# It spans two lines.
+----
+
+=== Annotations
+
+Annotations are attached to elements of a model, such as
+<<Defining-Constants,constant definitions>>.
+A model element that may have an annotation attached to it
+is called an *annotatable element*.
+Any constant definition is an annotatable element.
+Other annotatable elements will be called out in future sections
+of this document.
+
+There are two kinds of annotations: *pre annotations* and *post annotations*:
+
+* A pre annotation starts with the character `@` and is attached to the
+annotatable element that follows it.
+
+* A post annotation starts with the characters `@<` and is attached to
+the annotatable element that precedes it.
+
+In either case
+
+* Any whitespace after the `@` or `@<` characters is ignored.
+
+* The annotation goes to the end of the line.
+
+For example:
+
+[source,fpp]
+----
+@ This is a pre-annotation
+constant c = 0 @< This is a post-annotation
+----
+
+Multiline annotations are allowed. For example:
+
+[source,fpp]
+----
+@ This is a pre-annotation
+@ It has two lines.
+constant c = 0 @< This is a post-annotation
+               @< It also has two lines.
+----
+
+The meaning of the annotations is tool-specific.
+A typical use is to concatenate the pre and post annotations
+into a list of lines and emit them as a comment.
+For example, if you send the code immediately above
+through the tool `fpp-to-cpp`, it should generate a file
+`FppConstants.hpp`. If you examine that file, should see,
+in relevant part, the following code:
+
+[source,cpp]
+----
+//! This is a pre-annotation
+//! It has two lines.
+//! This is a post-annotation
+//! It also has two lines.
+enum FppConstant_c {
+  c = 0
+};
+----
+
+The two lines of the pre annotation and the two lines of the post
+annotation have been concatenated and written out as a Doxygen
+comment attached to the constant definition, represented as a {cpp} enum.
+
+In the future, annotations may be used to provide additional capabilities, for
+example timing analysis, that are not part of the FPP language specification.
