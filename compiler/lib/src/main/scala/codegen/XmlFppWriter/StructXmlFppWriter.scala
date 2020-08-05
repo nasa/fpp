@@ -39,10 +39,15 @@ object StructXmlFppWriter extends LineUtils {
         }
       }
       yield {
-        val comment = XmlFppWriter.getAttributeComment(node)
-        val data = Ast.StructTypeMember(memberName, AstNode.create(memberType), None)
+        val (fppFormatOpt, pre) = XmlFppWriter.translateFormat(node)
+        val data = Ast.StructTypeMember(
+          memberName,
+          AstNode.create(memberType),
+          fppFormatOpt.map(AstNode.create(_))
+        )
         val astNode = AstNode.create(data)
-        (Nil, astNode, comment)
+        val post = XmlFppWriter.getAttributeComment(node)
+        (pre, astNode, post)
       }
 
     /** Extracts an array definition from a struct member if needed */
