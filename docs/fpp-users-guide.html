@@ -1178,7 +1178,7 @@ constant b = 2</code></pre>
 <div class="paragraph">
 <p>More generally, a collection of several constant definitions is an example
 of an <strong>element sequence</strong>, i.e., a sequence of similar syntactic elements.
-In brief, the rules for writing an element sequence are as follows:</p>
+Here are the rules for writing an element sequence:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1193,7 +1193,7 @@ For constant definitions, it is a semicolon.</p>
 optional.</p>
 </li>
 <li>
-<p>When writing two or more elements on the same line, the termination
+<p>When writing two or more elements on the same line, the terminating
 punctuation is
 required between the elements and optional after the last element.</p>
 </li>
@@ -1352,8 +1352,8 @@ the annotatable element that precedes it.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">@ This is a pre-annotation
-constant c = 0 @&lt; This is a post-annotation</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">@ This is a pre annotation
+constant c = 0 @&lt; This is a post annotation</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1361,9 +1361,9 @@ constant c = 0 @&lt; This is a post-annotation</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">@ This is a pre-annotation
+<pre class="prettyprint highlight"><code data-lang="fpp">@ This is a pre annotation.
 @ It has two lines.
-constant c = 0 @&lt; This is a post-annotation
+constant c = 0 @&lt; This is a post annotation.
                @&lt; It also has two lines.</code></pre>
 </div>
 </div>
@@ -1378,9 +1378,9 @@ in relevant part, the following code:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="cpp">//! This is a pre-annotation
+<pre class="prettyprint highlight"><code data-lang="cpp">//! This is a pre annotation.
 //! It has two lines.
-//! This is a post-annotation
+//! This is a post annotation.
 //! It also has two lines.
 enum FppConstant_c {
   c = 0
@@ -1488,8 +1488,7 @@ constant c = A.B.c</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Both inside and outside a module definition, the sequence of definitions
-forms an
+<p>The inside of a module definition is an
 <a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">element sequence</a>
 with a semicolon as the optional terminating punctuation.
 For example, you can write this:</p>
@@ -1595,7 +1594,7 @@ module M {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-05 11:25:44 -0700
+Last updated 2020-08-05 11:36:32 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

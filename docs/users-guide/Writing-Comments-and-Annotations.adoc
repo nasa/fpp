@@ -52,17 +52,17 @@ For example:
 
 [source,fpp]
 ----
-@ This is a pre-annotation
-constant c = 0 @< This is a post-annotation
+@ This is a pre annotation
+constant c = 0 @< This is a post annotation
 ----
 
 Multiline annotations are allowed. For example:
 
 [source,fpp]
 ----
-@ This is a pre-annotation
+@ This is a pre annotation.
 @ It has two lines.
-constant c = 0 @< This is a post-annotation
+constant c = 0 @< This is a post annotation.
                @< It also has two lines.
 ----
 
@@ -76,9 +76,9 @@ in relevant part, the following code:
 
 [source,cpp]
 ----
-//! This is a pre-annotation
+//! This is a pre annotation.
 //! It has two lines.
-//! This is a post-annotation
+//! This is a post annotation.
 //! It also has two lines.
 enum FppConstant_c {
   c = 0

@@ -79,8 +79,7 @@ module A {
 constant c = A.B.c
 ----
 
-Both inside and outside a module definition, the sequence of definitions
-forms an
+The inside of a module definition is an 
 <<Defining-Constants_Multiple-Definitions-and-Element-Sequences,element sequence>>
 with a semicolon as the optional terminating punctuation.
 For example, you can write this:

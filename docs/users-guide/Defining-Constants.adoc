@@ -443,7 +443,7 @@ constant a = 1; constant b = 2
 
 More generally, a collection of several constant definitions is an example
 of an *element sequence*, i.e., a sequence of similar syntactic elements.
-In brief, the rules for writing an element sequence are as follows:
+Here are the rules for writing an element sequence:
 
 . Every kind of element sequence has optional *terminating punctuation*.
 The terminating punctuation is either a semicolon or a comma, depending
@@ -453,7 +453,7 @@ For constant definitions, it is a semicolon.
 . When writing elements on separate lines, the terminating punctuation is 
 optional.
 
-. When writing two or more elements on the same line, the termination 
+. When writing two or more elements on the same line, the terminating
 punctuation is
 required between the elements and optional after the last element.
 
