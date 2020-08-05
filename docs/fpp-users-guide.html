@@ -1405,7 +1405,9 @@ example timing analysis, that are not part of the FPP language specification.</p
 <div class="paragraph">
 <p>In an FPP model, a <strong>module</strong> is a group of model elements that are all qualified
 with a name, called the <strong>module name</strong>.
-An FPP module corresponds to a namespace in C&#43;&#43; and a module in Python.</p>
+An FPP module corresponds to a namespace in C&#43;&#43; and a module in Python.
+Modules are useful for (1) organizing a large model into a hierarchy of smaller
+units and (2) avoiding name clashes between different units.</p>
 </div>
 <div class="paragraph">
 <p>To define a module, you write the keyword <code>module</code> followed by one
@@ -1420,9 +1422,10 @@ For example:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>The module name qualifies the names of the definitions it encloses.
-To write the qualified name, you write the qualifier, a dot,
-and the base name: for example <code>M.a</code>. (This is also the way that
+<p>The name of a module qualifies the names of all the definitions that the module
+encloses.
+To write the qualified name, you write the qualifier, a dot, and the base name:
+for example <code>M.a</code>. (This is also the way that
 name qualification works in Python, Java, and Scala.)
 Inside the module, you can use the qualified name or the unqualified
 name.
@@ -1442,7 +1445,72 @@ constant c = b # Error: b is not in scope here</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>TODO</p>
+<p>As with namespaces in C&#43;&#43;, you can close a module definition and
+reopen it later.
+All the definitions enclosed by the same name go in the module
+with that name.
+For example, the following code is allowed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+  constant a = 0
+}
+module M {
+  constant b = 1
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It is equivalent to this code:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+  constant a = 0
+  constant b = 1
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can define modules inside other modules.
+When you do that, the name qualification works in the obvious way.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module A {
+  module B {
+    constant c = 0
+  }
+}
+constant c = A.B.c</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Both inside and outside a module definition, the sequence of definitions
+forms an
+<a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">element sequence</a>
+with a semicolon as the optional terminating punctuation.
+For example, you can write this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M { constant a = 0; constant b = 1 }; constant c = M.a</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A module definition is an
+<a href="#Writing-Comments-and-Annotations_Annotations">annotatable element</a>,
+so you can attach annotations to it, like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ This is module M
+module M {
+  constant a = 0
+}</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -1527,7 +1595,7 @@ constant c = b # Error: b is not in scope here</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-05 09:00:50 -0700
+Last updated 2020-08-05 11:25:44 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
