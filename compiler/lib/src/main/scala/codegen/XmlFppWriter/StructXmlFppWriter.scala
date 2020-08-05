@@ -39,15 +39,7 @@ object StructXmlFppWriter extends LineUtils {
         }
       }
       yield {
-        val xmlFormatOpt = XmlFppWriter.getAttributeOpt(node, "format")
-        val fppFormatOpt = xmlFormatOpt.flatMap(XmlFppWriter.FppBuilder.translateFormatString(_))
-        val pre = (xmlFormatOpt, fppFormatOpt) match {
-          case (Some(xmlFormat), None) => {
-            val s = "could not translate format string " + xmlFormat
-            List(XmlFppWriter.constructNote(s))
-          }
-          case _ => Nil
-        }
+        val (fppFormatOpt, pre) = XmlFppWriter.translateFormat(node)
         val data = Ast.StructTypeMember(
           memberName,
           AstNode.create(memberType),
