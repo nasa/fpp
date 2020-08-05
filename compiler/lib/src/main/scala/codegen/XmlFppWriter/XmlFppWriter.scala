@@ -157,7 +157,7 @@ object XmlFppWriter extends LineUtils {
     val fppFormatOpt = xmlFormatOpt.flatMap(FppBuilder.translateFormatString(_))
     val note = (xmlFormatOpt, fppFormatOpt) match {
       case (Some(xmlFormat), None) => {
-        val s = "could not translate format string \"" + xmlFormat + "\""
+        val s = "could not translate format string \"" ++ xmlFormat ++ "\""
         List(constructNote(s))
       }
       case _ => Nil
