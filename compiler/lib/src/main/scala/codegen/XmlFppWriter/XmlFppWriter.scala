@@ -129,6 +129,9 @@ object XmlFppWriter extends LineUtils {
 
   }
 
+  /** Constructs a translator note */
+  def constructNote(s: String) = "FPP from XML: " ++ s
+
   /** Gets an attribute comment */
   def getAttributeComment(node: scala.xml.Node): List[String] =
     getAttributeOpt(node, "comment") match {
@@ -186,6 +189,12 @@ object XmlFppWriter extends LineUtils {
     def translateQualIdentType(xmlType: String) = Ast.TypeNameQualIdent(
       AstNode.create(Ast.QualIdent.fromNodeList(xmlType.split("::").toList.map(AstNode.create(_))))
     )
+
+    /** Translates a format string */
+    def translateFormatString(xmlFormat: String): Option[String] = {
+      // TODO as part of GitHub issue #43
+      None
+    }
 
     /** Encloses several member nodes with a module of variant type */
     private def encloseWithModule[MemberType]
