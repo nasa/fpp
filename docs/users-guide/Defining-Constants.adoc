@@ -141,12 +141,12 @@ integers
 `[ 1, 2, 3 ]`.
 
 As mentioned in the Introduction, an FPP model describes the structure of a FSW 
-application; the computations are specified in a separate implementation 
+application; the computations are specified in a target 
 language such as {cpp}.
 As a result, FPP does not provide an array indexing operation.
 In particular, it does not specify the index of the leftmost array element;
-that is up to the implementation language.
-For example, if the implementation language is {cpp}, then array indices start 
+that is up to the target language.
+For example, if the target language is {cpp}, then array indices start 
 at zero.
 
 Here are some rules for writing array values:

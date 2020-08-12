@@ -525,14 +525,14 @@ well-tailored to the domain.</p>
 <p>To provide semantic checking and error reporting for F Prime models.</p>
 </li>
 <li>
-<p>To generate code in the various formats that F Prime uses, e.g.,
+<p>To generate code in the <strong>target languages</strong> that F Prime uses, e.g.,
 C++, Python, XML.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
 <p>Code generated from FPP models may be combined with handwritten code in
-other languages to create, e.g., deployable FSW programs and ground
+a target language to create, e.g., deployable FSW programs and ground
 data environments.</p>
 </div>
 <div class="paragraph">
@@ -807,12 +807,12 @@ integers
 </div>
 <div class="paragraph">
 <p>As mentioned in the Introduction, an FPP model describes the structure of a FSW
-application; the computations are specified in a separate implementation
+application; the computations are specified in a target
 language such as C&#43;&#43;.
 As a result, FPP does not provide an array indexing operation.
 In particular, it does not specify the index of the leftmost array element;
-that is up to the implementation language.
-For example, if the implementation language is C&#43;&#43;, then array indices start
+that is up to the target language.
+For example, if the target language is C&#43;&#43;, then array indices start
 at zero.</p>
 </div>
 <div class="paragraph">
@@ -1615,7 +1615,7 @@ module M {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-12 15:55:47 -0700
+Last updated 2020-08-12 16:00:39 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
