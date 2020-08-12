@@ -72,6 +72,11 @@ identifiers in a programming language:
 * It must start with a letter or underscore character.
 * The characters after the first may be letters, numbers, or underscores.
 
+For example:
+
+* `name`, `Name`, `_name`, and `name1` are valid names.
+* `1invalid` is not a valid name, because names may not start with digits.
+
 === Expressions
 
 This section describes the expressions that you can write as part of a constant
@@ -135,11 +140,14 @@ This code associates the name `a` with the array of
 integers
 `[ 1, 2, 3 ]`.
 
-The FPP language does not provide array indexing, so it does not specify the 
-index of the leftmost array element;
-that is up to the implementation.
-For example, if we are generating {cpp} or Python, then array
-indices start at zero.
+As mentioned in the Introduction, an FPP model describes the structure of a FSW 
+application; the computations are specified in a separate implementation 
+language such as {cpp}.
+As a result, FPP does not provide an array indexing operation.
+In particular, it does not specify the index of the leftmost array element;
+that is up to the implementation language.
+For example, if the implementation language is {cpp}, then array indices start 
+at zero.
 
 Here are some rules for writing array values:
 
@@ -465,7 +473,7 @@ In FPP there are several ways to do this.
 
 First, FPP ignores newlines that follow opening symbols like `[`  and precede 
 closing symbols like `]`.
-For example, this code is allowed
+For example, this code is allowed:
 
 [source,fpp]
 ----
@@ -506,7 +514,7 @@ constant b = 1 +
   2
 ----
 
-Finally, in other cases you can use an explicit line continuation by escaping
+Finally, you can always create an explicit line continuation by escaping
 one or more newline characters with `\`:
 
 [source,fpp]
@@ -515,7 +523,7 @@ constant \
   a = 1
 ----
 
-Note that in this case you need the explicit continuation, i.e., this code
+Note that in this example you need the explicit continuation, i.e., this code
 is not legal:
 
 [source,fpp]

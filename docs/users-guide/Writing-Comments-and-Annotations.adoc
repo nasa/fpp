@@ -4,7 +4,7 @@ In FPP, you can write *comments* that are ignored by the parser.
 These are just like comments in most programming languages.
 You can also write *annotations* that have no meaning in the FPP model
 but are attached to model elements and may be carried through
-to translation (for example, they may become comments in generated {cpp} code).
+to translation -- for example, they may become comments in generated {cpp} code.
 
 === Comments
 

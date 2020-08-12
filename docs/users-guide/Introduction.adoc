@@ -21,6 +21,10 @@ well-tailored to the domain.
 * To generate code in the various formats that F Prime uses, e.g.,
 C++, Python, XML.
 
+Code generated from FPP models may be combined with handwritten code in
+other languages to create, e.g., deployable FSW programs and ground
+data environments.
+
 *Purpose:* The purpose of this document is to describe FPP in a way that is accessible
 to users.
 A more detailed and precise description is available in

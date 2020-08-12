@@ -531,6 +531,11 @@ C++, Python, XML.</p>
 </ul>
 </div>
 <div class="paragraph">
+<p>Code generated from FPP models may be combined with handwritten code in
+other languages to create, e.g., deployable FSW programs and ground
+data environments.</p>
+</div>
+<div class="paragraph">
 <p><strong>Purpose:</strong> The purpose of this document is to describe FPP in a way that is accessible
 to users.
 A more detailed and precise description is available in
@@ -701,6 +706,19 @@ identifiers in a programming language:</p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>name</code>, <code>Name</code>, <code>_name</code>, and <code>name1</code> are valid names.</p>
+</li>
+<li>
+<p><code>1invalid</code> is not a valid name, because names may not start with digits.</p>
+</li>
+</ul>
+</div>
 </div>
 <div class="sect2">
 <h3 id="Defining-Constants_Expressions">3.3. Expressions</h3>
@@ -788,11 +806,14 @@ integers
 <code>[ 1, 2, 3 ]</code>.</p>
 </div>
 <div class="paragraph">
-<p>The FPP language does not provide array indexing, so it does not specify the
-index of the leftmost array element;
-that is up to the implementation.
-For example, if we are generating C&#43;&#43; or Python, then array
-indices start at zero.</p>
+<p>As mentioned in the Introduction, an FPP model describes the structure of a FSW
+application; the computations are specified in a separate implementation
+language such as C&#43;&#43;.
+As a result, FPP does not provide an array indexing operation.
+In particular, it does not specify the index of the leftmost array element;
+that is up to the implementation language.
+For example, if the implementation language is C&#43;&#43;, then array indices start
+at zero.</p>
 </div>
 <div class="paragraph">
 <p>Here are some rules for writing array values:</p>
@@ -1210,7 +1231,7 @@ In FPP there are several ways to do this.</p>
 <div class="paragraph">
 <p>First, FPP ignores newlines that follow opening symbols like <code>[</code>  and precede
 closing symbols like <code>]</code>.
-For example, this code is allowed</p>
+For example, this code is allowed:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1255,7 +1276,7 @@ constant b = 1 +
 </div>
 </div>
 <div class="paragraph">
-<p>Finally, in other cases you can use an explicit line continuation by escaping
+<p>Finally, you can always create an explicit line continuation by escaping
 one or more newline characters with <code>\</code>:</p>
 </div>
 <div class="listingblock">
@@ -1265,7 +1286,7 @@ one or more newline characters with <code>\</code>:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Note that in this case you need the explicit continuation, i.e., this code
+<p>Note that in this example you need the explicit continuation, i.e., this code
 is not legal:</p>
 </div>
 <div class="listingblock">
@@ -1285,7 +1306,7 @@ is not legal:</p>
 These are just like comments in most programming languages.
 You can also write <strong>annotations</strong> that have no meaning in the FPP model
 but are attached to model elements and may be carried through
-to translation (for example, they may become comments in generated C&#43;&#43; code).</p>
+to translation&#8201;&#8212;&#8201;for example, they may become comments in generated C&#43;&#43; code.</p>
 </div>
 <div class="sect2">
 <h3 id="Writing-Comments-and-Annotations_Comments">4.1. Comments</h3>
@@ -1594,7 +1615,7 @@ module M {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-05 11:36:32 -0700
+Last updated 2020-08-12 15:55:47 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
