@@ -18,8 +18,9 @@ well-tailored to the domain.
 
 * To provide semantic checking and error reporting for F Prime models.
 
-* To generate code in the *target languages* that F Prime uses, e.g.,
-C++, Python, XML.
+* To generate code in the various programming languages that F Prime uses, e.g.,
+{cpp}, Python, XML.
+In this document, we will call these languages the *target languages*.
 
 Code generated from FPP models may be combined with handwritten code in
 a target language to create, e.g., deployable FSW programs and ground
