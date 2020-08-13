@@ -1,13 +1,242 @@
 == Defining Types
 
-=== Array Types
+An FPP model may include *type definitions*.
+These definitions describe named types that may be used elsewhere in the
+model and that may generate code in the target language -- for example
+an FPP type definition may become a class definition in {cpp} or Python.
+
+There are three kinds of type definitions:
+
+* Array type definitions.
+* Struct type definitions.
+* Abstract type definitions.
+
+Type definitions may appear at the top level or inside a
+<<Defining-Modules,module definition>>.
+A type definition is an 
+<<Writing-Comments-and-Annotations_Annotations,annotatable element>>.
+
+=== Array Type Definitions
+
+An *array type definition* associates a name with an *array type*
+that specifies an element type and a size.
+
+==== Writing an Array Type Definition
+
+As an example, here is an array type definition that associates
+the name _A_ with an array of 3 values, each of which is a 32-bit unsigned
+integer:
+
+[source,fpp]
+----
+array A = [3] U32
+----
+
+In general, to write an array type definition, you write the following:
+
+* The <<Defining-Constants_Names,name>> of the array type.
+* An equals sign `=`.
+* An <<Defining-Constants_Expressions,expression>>
+enclosed in square brackets `[` ... `]` denoting the size (number of elements) of the array.
+* A type name denoting the element type.
+The available type names are discussed below.
+
+As for <<Defining-Constants_Expressions_Array-Values,
+array values>>,
+an array type has a maximum size that is implementation-dependent
+and is guaranteed to be large enough for practical purposes.
+Optionally, you may write a default expression and a format string;
+these are discussed below.
+
+==== The Names of Element Types
+
+The following type names are available for the element types:
+
+* The type names `U8`, `U16`, `U32`, and `U64`, denoting the type of unsigned 
+integers of width 8, 16, 32, and 64 bits.
+
+* The type names `I8`, `I16`, `I32`, and `I64`, denoting the type of signed integers
+of width 8, 16, 32, and 64 bits.
+
+* The type names `F32` and `F64`, denoting the type of floating-point values
+of width 32 and 64 bits.
+
+* The type name `bool`, denoting the type of Boolean values (`true` and `false`).
+
+* The type name `string`, denoting the type of 
+<<Defining-Constants_Expressions_String-Values,string values>>.
+
+* A name associated with another type definition.
+In particular, an array definition may have another array definition as
+its element type; this situation is discussed further below.
+
+An array type definition may not refer to itself (array type definitions are not
+recursive). For example, this definition is illegal:
+
+[source,fpp]
+--------
+array A = [3] A # Illegal: the definition of A may not refer to itself
+--------
+
+==== The Optional Default Expression
+
+Optionally, you can specify a default value for an array type.
+To do this, you write the keyword `default` and an expression
+that evaluates to an <<Defining-Constants_Expressions_Array-Values,array value>>.
+For example, here is an array with default value `[ 1, 2, 3 ]`:
+
+[source,fpp]
+----
+array A = [3] U32 default [ 1, 2, 3 ]
+----
+
+A default value can be any expression.
+In particular, you can create a named constant with an array
+value and use it multiple times, like this:
+
+[source,fpp]
+----
+constant a = [ 1, 2, 3 ]
+array A = [3] U8 default a
+array B = [3] U16 default a
+----
+
+If you don't specify a default value, then the type gets an automatic default value,
+consisting of the default value for each element.
+The default value numeric value is zero, the default Boolean value is `false`, 
+the default string value is `""`, and the default value of a defined type
+is specified in the type definition.
+
+The type of the default expression must match the size and element type of the
+array, with type conversions allowed as discussed for 
+<<Defining-Constants_Expressions_Array-Values,array values>>.
+For example, this default expression is allowed, because we can convert integer
+values to floating-point values, and we can promote a single value to an array
+of three values:
+
+[source,fpp]
+----
+array A = [3] F32 default 1
+----
+
+However, these size expressions are not allowed:
+
+[source,fpp]
+--------
+array A = [3] U32 default [ 1, 2 ] # Error: size does not match
+--------
+
+[source,fpp]
+--------
+array B = [3] U32 default [ "a", "b", "c" ] # Error: element type does not match
+--------
+
+==== The Optional Format String
+
+You can specify an optional *format string* which says how to display
+each element value and optionally provides some surrounding text.
+For example, here is an array definition that interprets three integer
+values as wheel speeds measured in RPMs:
+
+[source,fpp]
+----
+array WheelSpeeds = [3] U32 format "{} RPM"
+----
+
+Then an element with value 100 would have the format `100 RPM`.
+
+The special character sequence `{}` is called a *replacement field*; it says 
+where to put the value in the format text.
+Each format string must have exactly one replacement field.
+The following replacement fields are allowed:
+
+* The field `{}` for displaying element values in a default format.
+
+* The field `{c}` for displaying a character value
+
+* The field `{d}` for displaying a decimal value
+
+* The field `{x}` for displaying a hexadecimal value
+
+* The field `{o}` for displaying an octal value
+
+* The field `{e}` for displaying a rational value in exponent notation, e.g., 
+`1.234e2`.
+
+* The field `{f}` for displaying a rational value in fixed-point notation, 
+e.g., `123.4`.
+
+* The field `{g}` for displaying a rational value in general format 
+(fixed-point notation up to an implementation-dependent size and exponent 
+notation for larger sizes).
+
+For any field except `{}`, the element type must be numeric.
+For field types `e`, `f`, and `g`, you can optionally specify a precision
+by writing a decimal point and an integer before the field type.  For example, 
+the replacement field `{.3f}`, specifies fixed-point notation with a precision 
+of 3.
+
+To include the literal character `{` in the formatted output, you can write
+`{{`, and similarly for `}` and `}}`. For example, the following definition
+
+[source,fpp]
+----
+array A = [3] U32 format "{{element {}}}"
+----
+
+specifies a format string `element {0}` for element value 0.
+
+No other use of `{` or `}` in a format string is allowed. For example, this is illegal:
+
+[source,fpp]
+--------
+array A = [3] U32 format "{" # Illegal
+--------
+
+You can include both a default value and a format; in this case, the default
+value must come first. For example:
+
+[source,fpp]
+----
+array WheelSpeeds = [3] U32 default 100 format "{} RPM"
+----
+
+==== Arrays of Arrays
+
+An array type may have another array type as its element type.
+In this way you can construct an array of arrays.
+For example:
+
+[source,fpp]
+----
+array A = [3] U32
+array B = [3] A
+----
+
+When constructing an array of arrays, you may provide any legal
+default expression, so long as the types match after type
+conversion.
+For example:
+
+[source,fpp]
+----
+array A = [2] U32 default 10 # promoted to [ 10, 10 ]
+array B1 = [2] A # assigned the automatic default [ [ 10, 10 ], [ 10, 10 ] ]
+array B2 = [2] A default 1 # promoted to [ [ 1, 1 ], [ 1, 1 ] ]
+array B3 = [2] A default [ 1, 2 ] # promoted to [ [ 1, 1 ], [ 2, 2 ] ]
+array B4 = [2] A default [ [ 1, 2 ], [ 3, 4 ] ]
+----
+
+=== Struct Type Definitions
 
 TODO
 
-=== Struct Types
+=== Abstract Type Definitions
 
-TODO
-
-=== Abstract Types
+An abstract type, by contrast, has an incomplete or opaque definition.
+It provides only a name _N_.
+Its purpose is to tell the analyzer that a type with name _N_.
+will be defined in the target language (for example, the type may be a {cpp} 
+class.
 
 TODO
