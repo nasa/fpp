@@ -2,7 +2,8 @@
 
 An FPP model may include *type definitions*.
 These definitions describe named types that may be used elsewhere in the
-model and that may generate code in the target language -- for example
+model and that may generate code in the target language.
+For example,
 an FPP type definition may become a class definition in {cpp} or Python.
 
 There are three kinds of type definitions:
@@ -160,7 +161,7 @@ where to put the value in the format text.
 Each format string must have exactly one replacement field.
 The following replacement fields are allowed:
 
-* The field `{}` for displaying element values in a default format.
+* The field `{}` for displaying element values in their default format.
 
 * The field `{c}` for displaying a character value
 
@@ -181,6 +182,14 @@ e.g., `123.4`.
 notation for larger sizes).
 
 For any field except `{}`, the element type must be numeric.
+For example, the following format string is illegal, because
+type `string` is not numeric:
+
+[source,fpp]
+--------
+array A = [3] string format "{d}" # Illegal: string is not numeric
+--------
+
 For field types `e`, `f`, and `g`, you can optionally specify a precision
 by writing a decimal point and an integer before the field type.  For example, 
 the replacement field `{.3f}`, specifies fixed-point notation with a precision 
@@ -200,7 +209,7 @@ No other use of `{` or `}` in a format string is allowed. For example, this is i
 
 [source,fpp]
 --------
-array A = [3] U32 format "{" # Illegal
+array A = [3] U32 format "{" # Illegal use of { character
 --------
 
 You can include both a default value and a format; in this case, the default
@@ -224,8 +233,7 @@ array B = [3] A
 ----
 
 When constructing an array of arrays, you may provide any legal
-default expression, so long as the types match after type
-conversion.
+default expression, so long as the types are compatible.
 For example:
 
 [source,fpp]

@@ -1549,7 +1549,8 @@ module M {
 <div class="paragraph">
 <p>An FPP model may include <strong>type definitions</strong>.
 These definitions describe named types that may be used elsewhere in the
-model and that may generate code in the target language&#8201;&#8212;&#8201;for example
+model and that may generate code in the target language.
+For example,
 an FPP type definition may become a class definition in C&#43;&#43; or Python.</p>
 </div>
 <div class="paragraph">
@@ -1759,7 +1760,7 @@ The following replacement fields are allowed:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>The field <code>{}</code> for displaying element values in a default format.</p>
+<p>The field <code>{}</code> for displaying element values in their default format.</p>
 </li>
 <li>
 <p>The field <code>{c}</code> for displaying a character value</p>
@@ -1790,7 +1791,16 @@ notation for larger sizes).</p>
 </div>
 <div class="paragraph">
 <p>For any field except <code>{}</code>, the element type must be numeric.
-For field types <code>e</code>, <code>f</code>, and <code>g</code>, you can optionally specify a precision
+For example, the following format string is illegal, because
+type <code>string</code> is not numeric:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">array A = [3] string format "{d}" # Illegal: string is not numeric</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For field types <code>e</code>, <code>f</code>, and <code>g</code>, you can optionally specify a precision
 by writing a decimal point and an integer before the field type.  For example,
 the replacement field <code>{.3f}</code>, specifies fixed-point notation with a precision
 of 3.</p>
@@ -1812,7 +1822,7 @@ of 3.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">array A = [3] U32 format "{" # Illegal</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">array A = [3] U32 format "{" # Illegal use of { character</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1840,8 +1850,7 @@ array B = [3] A</code></pre>
 </div>
 <div class="paragraph">
 <p>When constructing an array of arrays, you may provide any legal
-default expression, so long as the types match after type
-conversion.
+default expression, so long as the types are compatible.
 For example:</p>
 </div>
 <div class="listingblock">
@@ -1938,7 +1947,7 @@ then the type may be a C&#43;&#43; class).</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-12 18:13:52 -0700
+Last updated 2020-08-13 08:33:20 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
