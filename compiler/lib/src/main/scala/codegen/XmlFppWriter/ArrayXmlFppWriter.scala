@@ -84,7 +84,7 @@ object ArrayXmlFppWriter extends LineUtils {
     def format(node: scala.xml.Node): (Option[AstNode[String]], List[String]) = {
       XmlFppWriter.FppBuilder.translateFormatString(node.text) match {
         case Some(f) => (Some(AstNode.create(f)), Nil)
-        case None => (None, Nil)
+        case None => (None, node.text)
       }
     }
 
