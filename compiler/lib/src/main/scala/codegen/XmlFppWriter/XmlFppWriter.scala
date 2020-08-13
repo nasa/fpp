@@ -130,10 +130,7 @@ object XmlFppWriter extends LineUtils {
 
   }
 
-<<<<<<< HEAD
   /** Constructs a translator note */
-=======
->>>>>>> Finished xml-to-fpp array
   def constructNote(s: String) = "FPP from XML: " ++ s
 
   /** Gets an attribute comment */
@@ -209,12 +206,6 @@ object XmlFppWriter extends LineUtils {
       AstNode.create(Ast.QualIdent.fromNodeList(xmlType.split("::").toList.map(AstNode.create(_))))
     )
 
-<<<<<<< HEAD
-    /** Translates a format string */
-    def translateFormatString(xmlFormat: String): Option[String] = {
-      // TODO as part of GitHub issue #43
-      None
-=======
     /** Translates a format string **/
     def translateFormatString(xmlFormat: String): Option[String] = {
       val s1 = xmlFormat.replaceAll("\\{", "{{").replace("\\}", "}}")
@@ -234,7 +225,6 @@ object XmlFppWriter extends LineUtils {
         case false => Some(s3)
         case true => None
       }
->>>>>>> Finished xml-to-fpp array
     }
 
     /** Encloses several member nodes with a module of variant type */
