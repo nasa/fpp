@@ -16,7 +16,7 @@ object Lexer extends RegexParsers {
   }
 
   def ignore: Parser[Unit] = {
-    def comment: Parser[Unit] = unitParser("#[^\r\n]*".r ~ newlinesOpt)
+    def comment: Parser[Unit] = unitParser("#[^\r\n]*".r)
     def spaces: Parser[Unit] = unitParser(" +".r)
     def escapedNewline: Parser[Unit] = unitParser("\\" ~ newline)
     unitParser(rep(comment | spaces | escapedNewline))
