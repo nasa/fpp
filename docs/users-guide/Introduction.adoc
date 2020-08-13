@@ -18,7 +18,7 @@ well-tailored to the domain.
 
 * To provide semantic checking and error reporting for F Prime models.
 
-* To generate code in the various programming languages that F Prime uses, e.g.,
+* To generate code in the various languages that F Prime uses, e.g.,
 {cpp}, Python, XML.
 In this document, we will call these languages the *target languages*.
 

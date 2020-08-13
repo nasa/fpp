@@ -65,11 +65,10 @@ the input ended where it expected an expression.
 
 === Names
 
-The name appearing in a constant definition follows the usual rules for
-identifiers in a programming language:
+Names in FPP follow the usual rules for identifiers in a programming language:
 
-* It must contain at least one character.
-* It must start with a letter or underscore character.
+* A name must contain at least one character.
+* A name must start with a letter or underscore character.
 * The characters after the first may be letters, numbers, or underscores.
 
 For example:
@@ -253,6 +252,17 @@ This code associates the name `s` with a struct value.
 The struct value has two members `x` and `y`.
 Member `x` has the integer value 1, and member `y` has the string value `"abc"`.
 
+*The order of members:* When writing a struct value, the order in which the 
+members appear does not matter.
+For example, in the following code, constants `s1` and `s2` denote the same 
+value:
+
+[source,fpp]
+----
+constant s1 = { x = 1, y = "abc" }
+constant s2 = { y = "abc", x = 1 }
+----
+
 *The empty struct:* The empty struct is allowed:
 
 [source,fpp]
@@ -276,13 +286,6 @@ For example, this code is allowed:
 constant a = [ { x = 1, y = 2 }, { x = 3, y = 4 } ]
 ----
 
-This code is also allowed, and it is equivalent to the previous code:
-
-[source,fpp]
-----
-constant a = [ { x = 1, y = 2 }, { y = 4, x = 3 } ]
-----
-When writing a struct value, the order in which the members appear does not matter.
 
 This code is not allowed, because the element types don't match -- an array is not 
 compatible with a struct.

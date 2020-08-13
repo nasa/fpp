@@ -20,7 +20,9 @@ A type definition is an
 === Array Type Definitions
 
 An *array type definition* associates a name with an *array type*.
-An array type specifies an element type and a size.
+An array type describes the shape of an
+<<Defining-Constants_Expressions_Array-Values,array value>>.
+It specifies an element type and a size.
 
 ==== Writing an Array Type Definition
 
@@ -35,6 +37,7 @@ array A = [3] U32
 
 In general, to write an array type definition, you write the following:
 
+* The keyword `array`.
 * The <<Defining-Constants_Names,name>> of the array type.
 * An equals sign `=`.
 * An <<Defining-Constants_Expressions,expression>>
@@ -44,12 +47,13 @@ The available type names are discussed below.
 
 As for <<Defining-Constants_Expressions_Array-Values,
 array values>>,
-an array type has a maximum size that is implementation-dependent
+an array type must have size greater than zero and less than or equal to a 
+maximum that is implementation-dependent
 and is guaranteed to be large enough for practical purposes.
 Optionally, you may write a default expression and a format string;
 these are discussed below.
 
-==== The Names of Element Types
+==== Type Names
 
 The following type names are available for the element types:
 
@@ -79,12 +83,12 @@ recursive). For example, this definition is illegal:
 array A = [3] A # Illegal: the definition of A may not refer to itself
 --------
 
-==== The Optional Default Expression
+==== The Optional Default Value
 
 Optionally, you can specify a default value for an array type.
 To do this, you write the keyword `default` and an expression
 that evaluates to an <<Defining-Constants_Expressions_Array-Values,array value>>.
-For example, here is an array with default value `[ 1, 2, 3 ]`:
+For example, here is an array type `A` with default value `[ 1, 2, 3 ]`:
 
 [source,fpp]
 ----
@@ -103,15 +107,6 @@ array A = [3] U8 default a # default value is [ 1, 2, 3 ]
 array B = [3] U16 default a # default value is [ 1, 2, 3 ]
 ----
 
-Or, because we can promote integers to arrays, you can use an integer constant,
-like this:
-
-[source,fpp]
-----
-constant a = 1
-array A = [3] U32 default a # default value is [ 1, 1, 1 ]
-----
-
 If you don't specify a default value, then the type gets an automatic default value,
 consisting of the default value for each element.
 The default numeric value is zero, the default Boolean value is `false`, 
@@ -127,10 +122,10 @@ of three values:
 
 [source,fpp]
 ----
-array A = [3] F32 default 1
+array A = [3] F32 default 1 # default value is [ 1.0, 1.0, 1.0 ]
 ----
 
-However, these size expressions are not allowed:
+However, these default expressions are not allowed:
 
 [source,fpp]
 --------
@@ -155,6 +150,15 @@ array WheelSpeeds = [3] U32 format "{} RPM"
 ----
 
 Then an element with value 100 would have the format `100 RPM`.
+
+Note that the format string specifies the format for an _element_, not the 
+entire array.
+The way an entire array is displayed is implementation-specific.
+A standard way is a comma-separated list enclosed in square brackets.
+For example, a value `[ 100, 200, 300 ]` of type `WheelSpeeds` might
+be displayed as `[ 100 RPM, 200 RPM, 300 RPM ]`.
+Or, since the format is the same for all elements, the implementation could 
+display the array as `[ 100, 200, 300 ] RPM`.
 
 The special character sequence `{}` is called a *replacement field*; it says 
 where to put the value in the format text.
@@ -247,18 +251,187 @@ array B4 = [2] A default [ [ 1, 2 ], [ 3, 4 ] ]
 
 === Struct Type Definitions
 
+A *struct type definition* associates a name with a *struct type*.
+A struct type describes the shape of a
+<<Defining-Constants_Expressions_Struct-Values,struct value>>.
+It specifies a mapping from element names to their types.
+As discussed below, it also specifies a serialization order
+for the struct elements.
+
+==== Writing a Struct Type Definition
+
+As an example, here is a struct type definition that associates the name `S` with
+a struct type containing two members: `x` of type `U32`, and `y` of type `string`:
+
+[source,fpp]
+----
+struct S { x: U32, y: string }
+----
+
+In general, to write a struct type definition, you write the following:
+
+* The keyword `struct`.
+* The <<Defining-Constants_Names,name>> of the struct type.
+* A sequence of *struct type members* enclosed in curly braces `{` ... `}`.
+
+A struct type member consists of a name, a colon, and a
+<<Defining-Types_Array-Type-Definitions_Type-Names,type name>>,
+for example `x: U32`.
+
+The struct type members form an
+<<Defining-Constants_Multiple-Definitions-and-Element-Sequences,element 
+sequence>>
+with a comma as the optional terminating punctuation.
+As usual for element sequences, you can omit the comma and use
+a newline instead.
+So, for example, we can write the definition shown above in this alternate way:
+
+[source,fpp]
+----
+struct S {
+  x: U32
+  y: string
+}
+----
+
+==== Annotating a Struct Type Definition
+
+As noted in the beginning of this section, a type definition is
+an annotatable element, so you can attach pre and post annotations
+to it.
+A struct type member is also an annotatable element, so any
+struct type member can have pre and post annotations as well.
+Here is an example:
+
+[source,fpp]
+----
+@ This is a pre annotation for struct S
+struct S {
+  @ This is a pre annotation for member x
+  x: U32 @< This is a post annotation for member x
+  @ This is a pre annotation for member y
+  y: string @< This is a post annotation for member y
+} @< This is a post annotation for struct S
+----
+
+==== The Optional Default Value
+
+You can specify an optional default value for a struct definition.
+To do this, you write the keyword `default` and an expression
+that evaluates to a <<Defining-Constants_Expressions_Struct-Values,struct 
+value>>.
+For example, here is a struct type `S` with default value `{ x = 1, y = "abc" 
+}`:
+
+[source,fpp]
+----
+struct S { x: U32, y: string } default { x = 1, y = "abc" }
+----
+
+A default value expression need not be a literal struct value; it
+can be any expression with the correct type.
+For example, you can create a named constant with a struct
+value and use it multiple times, like this:
+
+[source,fpp]
+----
+constant s = { x = 1, y = "abc" }
+struct S1 { x: U8, y: string } default s
+struct S2 { x: U32, y: string } default s
+----
+
+If you don't specify a default value, then the struct type gets an automatic default 
+value,
+consisting of the default value for each member.
+
+The type of the default expression must match the type of the struct, with type 
+conversions allowed as discussed for 
+<<Defining-Constants_Expressions_Struct-Values,struct values>>.
+For example, this default expression is allowed, because we can convert integer
+values to floating-point values, and we can promote a single value to a
+struct with numeric members:
+
+[source,fpp]
+----
+struct S { x: F32, y: F32 } default 1 # default value is { x = 1.0, y = 1.0 }
+----
+
+And this default expression is allowed, because if we omit a member of a struct,
+then FPP will fill in the member and give it the default value:
+
+[source,fpp]
+----
+struct S { x: F32, y: F32 } default { x = 1 } # default value is { x = 1.0, y = 0.0 }
+----
+
+However, these default expressions are not allowed:
+
+[source,fpp]
+--------
+struct S1 { x: U32, y: string } default { z = 1 } # Error: member z does not match
+--------
+
+[source,fpp]
+--------
+struct S2 { x: U32, y: string } default { x = "abc" } # Error: type of member x does not match
+--------
+
+==== The Optional Member Format Strings
+
 TODO
+
+==== Struct Types Containing Named Types
+
+TODO
+
+==== The Order of Members
+
+For <<Defining-Constants_Expressions_Struct-Values,struct values>>,
+we said that the order in which the members appear in the value is not 
+significant.
+For example, the expressions `{ x = 1, y = 2 }` and `{ y = 2, x = 1 }` denote 
+the same value.
+For struct types, the rule is different.
+The order in which the members appear is significant, because
+it governs the order in which the members appear in the generated
+code, and therefore the order in which the members are serialized to binary data.
+
+For example, the type `struct S1 { x: U32, y : string }` might generate a {cpp}
+class `S1` with members `x` and `y` laid out with `x` first; while `struct S2 
+{ y : string, x : U32 }`
+might generate a {cpp} class `S2` with members `x` and `y` laid out with `y` 
+first.
+Since class members are generally serialized in the order in which they appear in 
+the class,
+the members of `S1` would be serialized with `x` first, and the members of 
+`S2`
+would be serialized with `y` first.
+Serializing `S1` to data and then trying to deserialize it to `S2` would 
+produce garbage.
+
+The order matters only for purposes of defining the type, not for
+assigning default values to it.
+For example, this code is legal:
+
+[source,fpp]
+----
+struct S { x: U32, y: string } default { y = "abc", x = 5 }
+----
+
+FPP struct _values_ have no inherent order associated with their members.
+However, once those values are assigned to a named struct _type_,
+the order becomes fixed.
 
 === Abstract Type Definitions
 
 An array or struct type definition specifies a complete type:
 in addition to the name of the type, it provides all the members
 and their types.
-An abstract type, by contrast, has an incomplete or opaque definition.
+An *abstract type*, by contrast, has an incomplete or opaque definition.
 It provides only a name _N_.
-Its purpose is to bring the name _N_ into scope and to tell the analyzer 
-that a type with name _N_.
-will be defined somewhere else (for example, if the target language is {cpp}, 
-then the type may be a {cpp} class).
+Its purpose is to bring the name _N_ into scope and to tell the analyzer that a 
+type with name _N_ exists and will be defined elsewhere.
+For example, if the target language is {cpp}, then the type may be a {cpp} 
+class.
 
 TODO

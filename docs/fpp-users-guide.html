@@ -475,13 +475,22 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Types_Array-Type-Definitions">6.1. Array Type Definitions</a>
 <ul class="sectlevel3">
 <li><a href="#Defining-Types_Array-Type-Definitions_Writing-an-Array-Type-Definition">6.1.1. Writing an Array Type Definition</a></li>
-<li><a href="#Defining-Types_Array-Type-Definitions_The-Names-of-Element-Types">6.1.2. The Names of Element Types</a></li>
-<li><a href="#Defining-Types_Array-Type-Definitions_The-Optional-Default-Expression">6.1.3. The Optional Default Expression</a></li>
+<li><a href="#Defining-Types_Array-Type-Definitions_Type-Names">6.1.2. Type Names</a></li>
+<li><a href="#Defining-Types_Array-Type-Definitions_The-Optional-Default-Value">6.1.3. The Optional Default Value</a></li>
 <li><a href="#Defining-Types_Array-Type-Definitions_The-Optional-Format-String">6.1.4. The Optional Format String</a></li>
 <li><a href="#Defining-Types_Array-Type-Definitions_Arrays-of-Arrays">6.1.5. Arrays of Arrays</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Types_Struct-Type-Definitions">6.2. Struct Type Definitions</a></li>
+<li><a href="#Defining-Types_Struct-Type-Definitions">6.2. Struct Type Definitions</a>
+<ul class="sectlevel3">
+<li><a href="#Defining-Types_Struct-Type-Definitions_Writing-a-Struct-Type-Definition">6.2.1. Writing a Struct Type Definition</a></li>
+<li><a href="#Defining-Types_Struct-Type-Definitions_Annotating-a-Struct-Type-Definition">6.2.2. Annotating a Struct Type Definition</a></li>
+<li><a href="#Defining-Types_Struct-Type-Definitions_The-Optional-Default-Value">6.2.3. The Optional Default Value</a></li>
+<li><a href="#Defining-Types_Struct-Type-Definitions_The-Optional-Member-Format-Strings">6.2.4. The Optional Member Format Strings</a></li>
+<li><a href="#Defining-Types_Struct-Type-Definitions_Struct-Types-Containing-Named-Types">6.2.5. Struct Types Containing Named Types</a></li>
+<li><a href="#Defining-Types_Struct-Type-Definitions_The-Order-of-Members">6.2.6. The Order of Members</a></li>
+</ul>
+</li>
 <li><a href="#Defining-Types_Abstract-Type-Definitions">6.3. Abstract Type Definitions</a></li>
 </ul>
 </li>
@@ -533,7 +542,7 @@ well-tailored to the domain.</p>
 <p>To provide semantic checking and error reporting for F Prime models.</p>
 </li>
 <li>
-<p>To generate code in the various programming languages that F Prime uses, e.g.,
+<p>To generate code in the various languages that F Prime uses, e.g.,
 C&#43;&#43;, Python, XML.
 In this document, we will call these languages the <strong>target languages</strong>.</p>
 </li>
@@ -699,16 +708,15 @@ the input ended where it expected an expression.</p>
 <div class="sect2">
 <h3 id="Defining-Constants_Names">3.2. Names</h3>
 <div class="paragraph">
-<p>The name appearing in a constant definition follows the usual rules for
-identifiers in a programming language:</p>
+<p>Names in FPP follow the usual rules for identifiers in a programming language:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>It must contain at least one character.</p>
+<p>A name must contain at least one character.</p>
 </li>
 <li>
-<p>It must start with a letter or underscore character.</p>
+<p>A name must start with a letter or underscore character.</p>
 </li>
 <li>
 <p>The characters after the first may be letters, numbers, or underscores.</p>
@@ -959,6 +967,18 @@ The struct value has two members <code>x</code> and <code>y</code>.
 Member <code>x</code> has the integer value 1, and member <code>y</code> has the string value <code>"abc"</code>.</p>
 </div>
 <div class="paragraph">
+<p><strong>The order of members:</strong> When writing a struct value, the order in which the
+members appear does not matter.
+For example, in the following code, constants <code>s1</code> and <code>s2</code> denote the same
+value:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant s1 = { x = 1, y = "abc" }
+constant s2 = { y = "abc", x = 1 }</code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p><strong>The empty struct:</strong> The empty struct is allowed:</p>
 </div>
 <div class="listingblock">
@@ -983,17 +1003,6 @@ For example, this code is allowed:</p>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">constant a = [ { x = 1, y = 2 }, { x = 3, y = 4 } ]</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>This code is also allowed, and it is equivalent to the previous code:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">constant a = [ { x = 1, y = 2 }, { y = 4, x = 3 } ]</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>When writing a struct value, the order in which the members appear does not matter.</p>
 </div>
 <div class="paragraph">
 <p>This code is not allowed, because the element types don&#8217;t match&#8201;&#8212;&#8201;an array is not
@@ -1579,7 +1588,9 @@ A type definition is an
 <h3 id="Defining-Types_Array-Type-Definitions">6.1. Array Type Definitions</h3>
 <div class="paragraph">
 <p>An <strong>array type definition</strong> associates a name with an <strong>array type</strong>.
-An array type specifies an element type and a size.</p>
+An array type describes the shape of an
+<a href="#Defining-Constants_Expressions_Array-Values">array value</a>.
+It specifies an element type and a size.</p>
 </div>
 <div class="sect3">
 <h4 id="Defining-Types_Array-Type-Definitions_Writing-an-Array-Type-Definition">6.1.1. Writing an Array Type Definition</h4>
@@ -1599,6 +1610,9 @@ integer:</p>
 <div class="ulist">
 <ul>
 <li>
+<p>The keyword <code>array</code>.</p>
+</li>
+<li>
 <p>The <a href="#Defining-Constants_Names">name</a> of the array type.</p>
 </li>
 <li>
@@ -1616,14 +1630,15 @@ The available type names are discussed below.</p>
 </div>
 <div class="paragraph">
 <p>As for <a href="#Defining-Constants_Expressions_Array-Values">array values</a>,
-an array type has a maximum size that is implementation-dependent
+an array type must have size greater than zero and less than or equal to a
+maximum that is implementation-dependent
 and is guaranteed to be large enough for practical purposes.
 Optionally, you may write a default expression and a format string;
 these are discussed below.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Types_Array-Type-Definitions_The-Names-of-Element-Types">6.1.2. The Names of Element Types</h4>
+<h4 id="Defining-Types_Array-Type-Definitions_Type-Names">6.1.2. Type Names</h4>
 <div class="paragraph">
 <p>The following type names are available for the element types:</p>
 </div>
@@ -1666,12 +1681,12 @@ recursive). For example, this definition is illegal:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Types_Array-Type-Definitions_The-Optional-Default-Expression">6.1.3. The Optional Default Expression</h4>
+<h4 id="Defining-Types_Array-Type-Definitions_The-Optional-Default-Value">6.1.3. The Optional Default Value</h4>
 <div class="paragraph">
 <p>Optionally, you can specify a default value for an array type.
 To do this, you write the keyword <code>default</code> and an expression
 that evaluates to an <a href="#Defining-Constants_Expressions_Array-Values">array value</a>.
-For example, here is an array with default value <code>[ 1, 2, 3 ]</code>:</p>
+For example, here is an array type <code>A</code> with default value <code>[ 1, 2, 3 ]</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1692,16 +1707,6 @@ array B = [3] U16 default a # default value is [ 1, 2, 3 ]</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Or, because we can promote integers to arrays, you can use an integer constant,
-like this:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">constant a = 1
-array A = [3] U32 default a # default value is [ 1, 1, 1 ]</code></pre>
-</div>
-</div>
-<div class="paragraph">
 <p>If you don&#8217;t specify a default value, then the type gets an automatic default value,
 consisting of the default value for each element.
 The default numeric value is zero, the default Boolean value is <code>false</code>,
@@ -1718,11 +1723,11 @@ of three values:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">array A = [3] F32 default 1</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">array A = [3] F32 default 1 # default value is [ 1.0, 1.0, 1.0 ]</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>However, these size expressions are not allowed:</p>
+<p>However, these default expressions are not allowed:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1750,6 +1755,16 @@ values as wheel speeds measured in RPMs:</p>
 </div>
 <div class="paragraph">
 <p>Then an element with value 100 would have the format <code>100 RPM</code>.</p>
+</div>
+<div class="paragraph">
+<p>Note that the format string specifies the format for an <em>element</em>, not the
+entire array.
+The way an entire array is displayed is implementation-specific.
+A standard way is a comma-separated list enclosed in square brackets.
+For example, a value <code>[ 100, 200, 300 ]</code> of type <code>WheelSpeeds</code> might
+be displayed as <code>[ 100 RPM, 200 RPM, 300 RPM ]</code>.
+Or, since the format is the same for all elements, the implementation could
+display the array as <code>[ 100, 200, 300 ] RPM</code>.</p>
 </div>
 <div class="paragraph">
 <p>The special character sequence <code>{}</code> is called a <strong>replacement field</strong>; it says
@@ -1867,7 +1882,208 @@ array B4 = [2] A default [ [ 1, 2 ], [ 3, 4 ] ]</code></pre>
 <div class="sect2">
 <h3 id="Defining-Types_Struct-Type-Definitions">6.2. Struct Type Definitions</h3>
 <div class="paragraph">
+<p>A <strong>struct type definition</strong> associates a name with a <strong>struct type</strong>.
+A struct type describes the shape of a
+<a href="#Defining-Constants_Expressions_Struct-Values">struct value</a>.
+It specifies a mapping from element names to their types.
+As discussed below, it also specifies a serialization order
+for the struct elements.</p>
+</div>
+<div class="sect3">
+<h4 id="Defining-Types_Struct-Type-Definitions_Writing-a-Struct-Type-Definition">6.2.1. Writing a Struct Type Definition</h4>
+<div class="paragraph">
+<p>As an example, here is a struct type definition that associates the name <code>S</code> with
+a struct type containing two members: <code>x</code> of type <code>U32</code>, and <code>y</code> of type <code>string</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">struct S { x: U32, y: string }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In general, to write a struct type definition, you write the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The keyword <code>struct</code>.</p>
+</li>
+<li>
+<p>The <a href="#Defining-Constants_Names">name</a> of the struct type.</p>
+</li>
+<li>
+<p>A sequence of <strong>struct type members</strong> enclosed in curly braces <code>{</code> &#8230;&#8203; <code>}</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A struct type member consists of a name, a colon, and a
+<a href="#Defining-Types_Array-Type-Definitions_Type-Names">type name</a>,
+for example <code>x: U32</code>.</p>
+</div>
+<div class="paragraph">
+<p>The struct type members form an
+<a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">element
+sequence</a>
+with a comma as the optional terminating punctuation.
+As usual for element sequences, you can omit the comma and use
+a newline instead.
+So, for example, we can write the definition shown above in this alternate way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">struct S {
+  x: U32
+  y: string
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Types_Struct-Type-Definitions_Annotating-a-Struct-Type-Definition">6.2.2. Annotating a Struct Type Definition</h4>
+<div class="paragraph">
+<p>As noted in the beginning of this section, a type definition is
+an annotatable element, so you can attach pre and post annotations
+to it.
+A struct type member is also an annotatable element, so any
+struct type member can have pre and post annotations as well.
+Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ This is a pre annotation for struct S
+struct S {
+  @ This is a pre annotation for member x
+  x: U32 @&lt; This is a post annotation for member x
+  @ This is a pre annotation for member y
+  y: string @&lt; This is a post annotation for member y
+} @&lt; This is a post annotation for struct S</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Types_Struct-Type-Definitions_The-Optional-Default-Value">6.2.3. The Optional Default Value</h4>
+<div class="paragraph">
+<p>You can specify an optional default value for a struct definition.
+To do this, you write the keyword <code>default</code> and an expression
+that evaluates to a <a href="#Defining-Constants_Expressions_Struct-Values">struct
+value</a>.
+For example, here is a struct type <code>S</code> with default value <code>{ x = 1, y = "abc"
+}</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">struct S { x: U32, y: string } default { x = 1, y = "abc" }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A default value expression need not be a literal struct value; it
+can be any expression with the correct type.
+For example, you can create a named constant with a struct
+value and use it multiple times, like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant s = { x = 1, y = "abc" }
+struct S1 { x: U8, y: string } default s
+struct S2 { x: U32, y: string } default s</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you don&#8217;t specify a default value, then the struct type gets an automatic default
+value,
+consisting of the default value for each member.</p>
+</div>
+<div class="paragraph">
+<p>The type of the default expression must match the type of the struct, with type
+conversions allowed as discussed for
+<a href="#Defining-Constants_Expressions_Struct-Values">struct values</a>.
+For example, this default expression is allowed, because we can convert integer
+values to floating-point values, and we can promote a single value to a
+struct with numeric members:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">struct S { x: F32, y: F32 } default 1 # default value is { x = 1.0, y = 1.0 }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And this default expression is allowed, because if we omit a member of a struct,
+then FPP will fill in the member and give it the default value:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">struct S { x: F32, y: F32 } default { x = 1 } # default value is { x = 1.0, y = 0.0 }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>However, these default expressions are not allowed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">struct S1 { x: U32, y: string } default { z = 1 } # Error: member z does not match</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">struct S2 { x: U32, y: string } default { x = "abc" } # Error: type of member x does not match</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Types_Struct-Type-Definitions_The-Optional-Member-Format-Strings">6.2.4. The Optional Member Format Strings</h4>
+<div class="paragraph">
 <p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Types_Struct-Type-Definitions_Struct-Types-Containing-Named-Types">6.2.5. Struct Types Containing Named Types</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Types_Struct-Type-Definitions_The-Order-of-Members">6.2.6. The Order of Members</h4>
+<div class="paragraph">
+<p>For <a href="#Defining-Constants_Expressions_Struct-Values">struct values</a>,
+we said that the order in which the members appear in the value is not
+significant.
+For example, the expressions <code>{ x = 1, y = 2 }</code> and <code>{ y = 2, x = 1 }</code> denote
+the same value.
+For struct types, the rule is different.
+The order in which the members appear is significant, because
+it governs the order in which the members appear in the generated
+code, and therefore the order in which the members are serialized to binary data.</p>
+</div>
+<div class="paragraph">
+<p>For example, the type <code>struct S1 { x: U32, y : string }</code> might generate a C&#43;&#43;
+class <code>S1</code> with members <code>x</code> and <code>y</code> laid out with <code>x</code> first; while <code>struct S2
+{ y : string, x : U32 }</code>
+might generate a C&#43;&#43; class <code>S2</code> with members <code>x</code> and <code>y</code> laid out with <code>y</code>
+first.
+Since class members are generally serialized in the order in which they appear in
+the class,
+the members of <code>S1</code> would be serialized with <code>x</code> first, and the members of
+<code>S2</code>
+would be serialized with <code>y</code> first.
+Serializing <code>S1</code> to data and then trying to deserialize it to <code>S2</code> would
+produce garbage.</p>
+</div>
+<div class="paragraph">
+<p>The order matters only for purposes of defining the type, not for
+assigning default values to it.
+For example, this code is legal:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">struct S { x: U32, y: string } default { y = "abc", x = 5 }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>FPP struct <em>values</em> have no inherent order associated with their members.
+However, once those values are assigned to a named struct <em>type</em>,
+the order becomes fixed.</p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -1876,12 +2092,12 @@ array B4 = [2] A default [ [ 1, 2 ], [ 3, 4 ] ]</code></pre>
 <p>An array or struct type definition specifies a complete type:
 in addition to the name of the type, it provides all the members
 and their types.
-An abstract type, by contrast, has an incomplete or opaque definition.
+An <strong>abstract type</strong>, by contrast, has an incomplete or opaque definition.
 It provides only a name <em>N</em>.
-Its purpose is to bring the name <em>N</em> into scope and to tell the analyzer
-that a type with name <em>N</em>.
-will be defined somewhere else (for example, if the target language is C&#43;&#43;,
-then the type may be a C&#43;&#43; class).</p>
+Its purpose is to bring the name <em>N</em> into scope and to tell the analyzer that a
+type with name <em>N</em> exists and will be defined elsewhere.
+For example, if the target language is C&#43;&#43;, then the type may be a C&#43;&#43;
+class.</p>
 </div>
 <div class="paragraph">
 <p>TODO</p>
@@ -1947,7 +2163,7 @@ then the type may be a C&#43;&#43; class).</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-13 08:33:20 -0700
+Last updated 2020-08-13 14:34:11 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
