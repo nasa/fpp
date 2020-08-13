@@ -7,9 +7,9 @@ an FPP type definition may become a class definition in {cpp} or Python.
 
 There are three kinds of type definitions:
 
-* Array type definitions.
-* Struct type definitions.
-* Abstract type definitions.
+* Array type definitions
+* Struct type definitions
+* Abstract type definitions
 
 Type definitions may appear at the top level or inside a
 <<Defining-Modules,module definition>>.
@@ -18,13 +18,13 @@ A type definition is an
 
 === Array Type Definitions
 
-An *array type definition* associates a name with an *array type*
-that specifies an element type and a size.
+An *array type definition* associates a name with an *array type*.
+An array type specifies an element type and a size.
 
 ==== Writing an Array Type Definition
 
 As an example, here is an array type definition that associates
-the name _A_ with an array of 3 values, each of which is a 32-bit unsigned
+the name `A` with an array of three values, each of which is a 32-bit unsigned
 integer:
 
 [source,fpp]
@@ -90,21 +90,31 @@ For example, here is an array with default value `[ 1, 2, 3 ]`:
 array A = [3] U32 default [ 1, 2, 3 ]
 ----
 
-A default value can be any expression.
-In particular, you can create a named constant with an array
+A default value expression need not be a literal array value; it
+can be any expression with the correct type.
+For example, you can create a named constant with an array
 value and use it multiple times, like this:
 
 [source,fpp]
 ----
 constant a = [ 1, 2, 3 ]
-array A = [3] U8 default a
-array B = [3] U16 default a
+array A = [3] U8 default a # default value is [ 1, 2, 3 ]
+array B = [3] U16 default a # default value is [ 1, 2, 3 ]
+----
+
+Or, because we can promote integers to arrays, you can use an integer constant,
+like this:
+
+[source,fpp]
+----
+constant a = 1
+array A = [3] U32 default a # default value is [ 1, 1, 1 ]
 ----
 
 If you don't specify a default value, then the type gets an automatic default value,
 consisting of the default value for each element.
-The default value numeric value is zero, the default Boolean value is `false`, 
-the default string value is `""`, and the default value of a defined type
+The default numeric value is zero, the default Boolean value is `false`, 
+the default string value is `""`, and the default value of an array type
 is specified in the type definition.
 
 The type of the default expression must match the size and element type of the
@@ -220,10 +230,10 @@ For example:
 
 [source,fpp]
 ----
-array A = [2] U32 default 10 # promoted to [ 10, 10 ]
-array B1 = [2] A # assigned the automatic default [ [ 10, 10 ], [ 10, 10 ] ]
-array B2 = [2] A default 1 # promoted to [ [ 1, 1 ], [ 1, 1 ] ]
-array B3 = [2] A default [ 1, 2 ] # promoted to [ [ 1, 1 ], [ 2, 2 ] ]
+array A = [2] U32 default 10 # default value is [ 10, 10 ]
+array B1 = [2] A # default value is [ [ 10, 10 ], [ 10, 10 ] ]
+array B2 = [2] A default 1 # default value is [ [ 1, 1 ], [ 1, 1 ] ]
+array B3 = [2] A default [ 1, 2 ] # default value is [ [ 1, 1 ], [ 2, 2 ] ]
 array B4 = [2] A default [ [ 1, 2 ], [ 3, 4 ] ]
 ----
 
@@ -233,10 +243,14 @@ TODO
 
 === Abstract Type Definitions
 
+An array or struct type definition specifies a complete type:
+in addition to the name of the type, it provides all the members
+and their types.
 An abstract type, by contrast, has an incomplete or opaque definition.
 It provides only a name _N_.
-Its purpose is to tell the analyzer that a type with name _N_.
-will be defined in the target language (for example, the type may be a {cpp} 
-class.
+Its purpose is to bring the name _N_ into scope and to tell the analyzer 
+that a type with name _N_.
+will be defined somewhere else (for example, if the target language is {cpp}, 
+then the type may be a {cpp} class).
 
 TODO
