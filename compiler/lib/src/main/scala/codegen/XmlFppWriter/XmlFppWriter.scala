@@ -119,6 +119,7 @@ object XmlFppWriter extends LineUtils {
       val eltType = elem.label
       for {
         body <- eltType match {
+          case "array" => ArrayXmlFppWriter.writeFile(this)
           case "enum" => EnumXmlFppWriter.writeFile(this)
           case "serializable" => StructXmlFppWriter.writeFile(this)
           case _ => Left(error(XmlError.SemanticError(_, s"invalid element type $eltType")))
@@ -128,6 +129,8 @@ object XmlFppWriter extends LineUtils {
     }
 
   }
+
+  def constructNote(s: String) = "FPP from XML: " ++ s
 
   /** Gets an attribute comment */
   def getAttributeComment(node: scala.xml.Node): List[String] =
@@ -186,6 +189,27 @@ object XmlFppWriter extends LineUtils {
     def translateQualIdentType(xmlType: String) = Ast.TypeNameQualIdent(
       AstNode.create(Ast.QualIdent.fromNodeList(xmlType.split("::").toList.map(AstNode.create(_))))
     )
+
+    /** Translates a format string **/
+    def translateFormatString(xmlFormat: String): Option[String] = {
+      val s1 = xmlFormat.replaceAll("\\{", "{{").replace("\\}", "}}")
+      val primitives = s1.replaceAll("(%ld|%d|%lu|%u|%s|%g|%llu|%lld)", "{}")
+      val c = primitives.replaceAll("%c", "{c}")
+      val o = c.replaceAll("(%o|%lo|%llo)", "{o}")
+      val x = o.replaceAll("(%x|%lx|%llx)", "{x}")
+      val e = x.replaceAll("%e", "{e}")
+      val f = e.replaceAll("%f", "{f}")
+      val ePrecision = f.replaceAll("%(.[0-9]+)e", "{$1e}")
+      val fPrecision = ePrecision.replaceAll("%(.[0-9]+)f", "{$1f}")
+      val s2 = fPrecision.replaceAll("%(\\.[0-9]+)g", "{$1g}")
+
+      val s3 = s2.replaceAll("%%", "")
+
+      s3.contains("%") match {
+        case false => Some(s3)
+        case true => None
+      }
+    }
 
     /** Encloses several member nodes with a module of variant type */
     private def encloseWithModule[MemberType]
