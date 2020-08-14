@@ -27,7 +27,7 @@ a target language to create, e.g., deployable FSW programs and ground
 data environments.
 
 *Purpose:* The purpose of this document is to describe FPP in a way that is accessible
-to users.
+to users, including beginning users.
 A more detailed and precise description is available in
 https://github.jpl.nasa.gov/pages/bocchino/fpp[_The FPP Language
 Specification_].

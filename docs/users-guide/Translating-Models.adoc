@@ -1,3 +1,10 @@
 == Translating Models
 
 TODO
+
+Explain how abstract types work in {cpp}.
+When implementing an abstract type in {cpp}, you must provide
+
+* An implementation of the Serializable virtual classes
+* A SERIALIZABLE_SIZE
+* A zero-arg constructor

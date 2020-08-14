@@ -47,11 +47,9 @@ The available type names are discussed below.
 
 As for <<Defining-Constants_Expressions_Array-Values,
 array values>>,
-an array type must have size greater than zero and less than or equal to a 
-maximum that is implementation-dependent
+an array type must have size greater than zero and below a limit that is 
+implementation-dependent
 and is guaranteed to be large enough for practical purposes.
-Optionally, you may write a default expression and a format string;
-these are discussed below.
 
 ==== Type Names
 
@@ -479,13 +477,52 @@ the order becomes fixed.
 === Abstract Type Definitions
 
 An array or struct type definition specifies a complete type:
-in addition to the name of the type, it provides all the members
-and their types.
+in addition to the name of the type, it provides the names and types
+of all the members.
 An *abstract type*, by contrast, has an incomplete or opaque definition.
 It provides only a name _N_.
-Its purpose is to bring the name _N_ into scope and to tell the analyzer that a 
-type with name _N_ exists and will be defined elsewhere.
-For example, if the target language is {cpp}, then the type may be a {cpp} 
+Its purpose is to tell the analyzer that a type with name _N_ exists and will 
+be defined elsewhere.
+For example, if the target language is {cpp}, then the type is a {cpp} 
 class.
 
-TODO
+To define an abstract type, you write the keyword `type` followed
+by the name of the type.
+For example, you can define an abstract type `T`; then you can construct
+an array `A` with member type `T`:
+
+[source,fpp]
+----
+type T # T is an abstract type
+array A = [3] T # A is an array of 3 values of type T
+----
+
+This code says the following:
+
+* A type `T` exists. It is defined in the implementation,
+but not in the model.
+* `A` is an array of three values, each of type `T`.
+
+Now suppose that the target language is {cpp}.
+Then the following happens when generating code:
+
+* The definition `type T` does not cause any code to be generated.
+* The definition `array A = ...` causes a {cpp} class `A`
+to be generated in files `A.hpp` and `A.cpp`.
+* File `A.hpp` includes a header file `T.hpp`.
+
+It is up to the user to implement a {cpp} class `T` with
+a header file `T.hpp`.
+This header file must define `T` in a way that is compatible
+with the way that `T` is used in `A`.
+We will have more to say about this topic in the section on
+<<Translating-Models,translating models>>.
+
+Because an abstract type `T` is opaque in the FPP model, it has
+no values that are expressible in the model.
+Thus, every use of an abstract type `T` represents the default value
+for `T`.
+The default value must be provided by the implementation of `T`
+in the target language.
+In particular, when the target language is {cpp}, the default
+value is provided by the zero-argument constructor `T()`.
