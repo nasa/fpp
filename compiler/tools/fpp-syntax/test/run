@@ -18,6 +18,11 @@ run_test()
   diff -u $outfile.ref.txt $outfile.out.txt > $outfile.diff.txt 2>&1
 }
 
+comments()
+{
+  run_test "" comments
+}
+
 empty()
 {
   run_test -a empty
@@ -106,6 +111,7 @@ two_input_files()
 }
 
 tests="
+comments
 empty
 include_component
 include_constant_1

@@ -83,7 +83,7 @@ recursive). For example, this definition is illegal:
 array A = [3] A # Illegal: the definition of A may not refer to itself
 --------
 
-==== The Optional Default Value
+==== Default Values
 
 Optionally, you can specify a default value for an array type.
 To do this, you write the keyword `default` and an expression
@@ -137,7 +137,7 @@ array A = [3] U32 default [ 1, 2 ] # Error: size does not match
 array B = [3] U32 default [ "a", "b", "c" ] # Error: element type does not match
 --------
 
-==== The Optional Format String
+==== Format Strings
 
 You can specify an optional *format string* which says how to display
 each element value and optionally provides some surrounding text.
@@ -224,6 +224,11 @@ value must come first. For example:
 array WheelSpeeds = [3] U32 default 100 format "{} RPM"
 ----
 
+If you don't specify an element format, then each element is displayed
+using the default format for its type.
+Therefore, omitting the format string is equivalent to writing the format
+string `"{}"`.
+
 ==== Arrays of Arrays
 
 An array type may have another array type as its element type.
@@ -233,7 +238,7 @@ For example:
 [source,fpp]
 ----
 array A = [3] U32
-array B = [3] A
+array B = [3] A # An array of 3 A, which is an array of 3 U32
 ----
 
 When constructing an array of arrays, you may provide any legal
@@ -314,7 +319,7 @@ struct S {
 } @< This is a post annotation for struct S
 ----
 
-==== The Optional Default Value
+==== Default Values
 
 You can specify an optional default value for a struct definition.
 To do this, you write the keyword `default` and an expression
@@ -376,13 +381,62 @@ struct S1 { x: U32, y: string } default { z = 1 } # Error: member z does not mat
 struct S2 { x: U32, y: string } default { x = "abc" } # Error: type of member x does not match
 --------
 
-==== The Optional Member Format Strings
+==== Member Format Strings
 
-TODO
+For any member, you can include an optional format.
+To this, write the keyword `format` and a format string.
+The format string for a struct member has the same form as for an
+<<Defining-Types_Array-Type-Definitions_Format-Strings,array member>>.
+For example, the following struct definition specifies
+that member `x` should be displayed as a hexadecimal value:
+
+[source,fpp]
+----
+struct Channel {
+  name: string
+  offset: U32 format "offset 0x{x}"
+}
+----
+
+How the entire struct is displayed depends on the implementation.
+As an example, the value of `S` with `name = "momentum"` and `offset = 1024`
+might look like this when displayed:
+
+----
+Channel { name = "momentum", offset = 0x400 }
+----
+
+If you don't specify a format for a struct member, then the system uses the default 
+format for the type of that member.
 
 ==== Struct Types Containing Named Types
 
-TODO
+A struct type may have an array or struct type as a member type.
+In this way you can define a struct that has arrays or structs as members.
+For example:
+
+[source,fpp]
+----
+array Speeds = [3] U32
+# Member speeds has type Speeds, which is an array of 3 U32 values
+struct Wheel { name: string, speeds: Speeds }
+----
+
+When initializing a struct, you may provide any legal
+default expression, so long as the types are compatible.
+For example:
+
+[source,fpp]
+----
+array A = [2] U32
+struct S1 { x: U32, y: string }
+
+# default value is { s1 = { x = 0, y = "" }, a = [ 0, 0 ] }
+struct S2 { s1: S1, a: A }
+
+# default value is { s1 = { x = 0, y = "abc" }, a = [ 5, 5 ] }
+struct S3 { s1: S1, a: A } default { s1 = { y = "abc" }, a = 5 }
+----
 
 ==== The Order of Members
 

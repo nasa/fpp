@@ -14,6 +14,7 @@ update()
   else
     outfile=$infile
   fi
+  echo "updating $outfile.ref.txt"
   $fpp_syntax $args $infile.fpp 2>&1 | remove_path_prefix > $outfile.ref.txt
 }
 
@@ -22,20 +23,21 @@ do
   rm $file
 done
 
+update "" comments
 update "" parse-error
 update "" syntax
+update -a empty
 update -a syntax syntax-ast
 update -i cycle-1 include-cycle-1
 update -i cycle-2 include-cycle-2
-update -a empty
+update -i include-missing-file
 update -i include-parse-error
 update -ia include-component
 update -ia include-constant-1 include-constant-1
-update -i include-missing-file
 update -ia include-module
-update -ia subdir/include-parent-dir
 update -ia include-subdir
 update -ia include-topology
+update -ia subdir/include-parent-dir
 update -ia syntax syntax-include-ast
 
 cat syntax.fpp | $fpp_syntax -ia 2>&1 > syntax-stdin.ref.txt
