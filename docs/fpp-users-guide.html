@@ -476,8 +476,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#Defining-Types_Array-Type-Definitions_Writing-an-Array-Type-Definition">6.1.1. Writing an Array Type Definition</a></li>
 <li><a href="#Defining-Types_Array-Type-Definitions_Type-Names">6.1.2. Type Names</a></li>
-<li><a href="#Defining-Types_Array-Type-Definitions_The-Optional-Default-Value">6.1.3. The Optional Default Value</a></li>
-<li><a href="#Defining-Types_Array-Type-Definitions_The-Optional-Format-String">6.1.4. The Optional Format String</a></li>
+<li><a href="#Defining-Types_Array-Type-Definitions_Default-Values">6.1.3. Default Values</a></li>
+<li><a href="#Defining-Types_Array-Type-Definitions_Format-Strings">6.1.4. Format Strings</a></li>
 <li><a href="#Defining-Types_Array-Type-Definitions_Arrays-of-Arrays">6.1.5. Arrays of Arrays</a></li>
 </ul>
 </li>
@@ -485,8 +485,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#Defining-Types_Struct-Type-Definitions_Writing-a-Struct-Type-Definition">6.2.1. Writing a Struct Type Definition</a></li>
 <li><a href="#Defining-Types_Struct-Type-Definitions_Annotating-a-Struct-Type-Definition">6.2.2. Annotating a Struct Type Definition</a></li>
-<li><a href="#Defining-Types_Struct-Type-Definitions_The-Optional-Default-Value">6.2.3. The Optional Default Value</a></li>
-<li><a href="#Defining-Types_Struct-Type-Definitions_The-Optional-Member-Format-Strings">6.2.4. The Optional Member Format Strings</a></li>
+<li><a href="#Defining-Types_Struct-Type-Definitions_Default-Values">6.2.3. Default Values</a></li>
+<li><a href="#Defining-Types_Struct-Type-Definitions_Member-Format-Strings">6.2.4. Member Format Strings</a></li>
 <li><a href="#Defining-Types_Struct-Type-Definitions_Struct-Types-Containing-Named-Types">6.2.5. Struct Types Containing Named Types</a></li>
 <li><a href="#Defining-Types_Struct-Type-Definitions_The-Order-of-Members">6.2.6. The Order of Members</a></li>
 </ul>
@@ -1681,7 +1681,7 @@ recursive). For example, this definition is illegal:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Types_Array-Type-Definitions_The-Optional-Default-Value">6.1.3. The Optional Default Value</h4>
+<h4 id="Defining-Types_Array-Type-Definitions_Default-Values">6.1.3. Default Values</h4>
 <div class="paragraph">
 <p>Optionally, you can specify a default value for an array type.
 To do this, you write the keyword <code>default</code> and an expression
@@ -1741,7 +1741,7 @@ of three values:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Types_Array-Type-Definitions_The-Optional-Format-String">6.1.4. The Optional Format String</h4>
+<h4 id="Defining-Types_Array-Type-Definitions_Format-Strings">6.1.4. Format Strings</h4>
 <div class="paragraph">
 <p>You can specify an optional <strong>format string</strong> which says how to display
 each element value and optionally provides some surrounding text.
@@ -1849,6 +1849,12 @@ value must come first. For example:</p>
 <pre class="prettyprint highlight"><code data-lang="fpp">array WheelSpeeds = [3] U32 default 100 format "{} RPM"</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>If you don&#8217;t specify an element format, then each element is displayed
+using the default format for its type.
+Therefore, omitting the format string is equivalent to writing the format
+string <code>"{}"</code>.</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="Defining-Types_Array-Type-Definitions_Arrays-of-Arrays">6.1.5. Arrays of Arrays</h4>
@@ -1860,7 +1866,7 @@ For example:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">array A = [3] U32
-array B = [3] A</code></pre>
+array B = [3] A # An array of 3 A, which is an array of 3 U32</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1962,7 +1968,7 @@ struct S {
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Types_Struct-Type-Definitions_The-Optional-Default-Value">6.2.3. The Optional Default Value</h4>
+<h4 id="Defining-Types_Struct-Type-Definitions_Default-Values">6.2.3. Default Values</h4>
 <div class="paragraph">
 <p>You can specify an optional default value for a struct definition.
 To do this, you write the keyword <code>default</code> and an expression
@@ -2031,15 +2037,68 @@ then FPP will fill in the member and give it the default value:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Types_Struct-Type-Definitions_The-Optional-Member-Format-Strings">6.2.4. The Optional Member Format Strings</h4>
+<h4 id="Defining-Types_Struct-Type-Definitions_Member-Format-Strings">6.2.4. Member Format Strings</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>For any member, you can include an optional format.
+To this, write the keyword <code>format</code> and a format string.
+The format string for a struct member has the same form as for an
+<a href="#Defining-Types_Array-Type-Definitions_Format-Strings">array member</a>.
+For example, the following struct definition specifies
+that member <code>x</code> should be displayed as a hexadecimal value:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">struct Channel {
+  name: string
+  offset: U32 format "offset 0x{x}"
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>How the entire struct is displayed depends on the implementation.
+As an example, the value of <code>S</code> with <code>name = "momentum"</code> and <code>offset = 1024</code>
+might look like this when displayed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Channel { name = "momentum", offset = 0x400 }</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you don&#8217;t specify a format for a struct member, then the system uses the default
+format for the type of that member.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="Defining-Types_Struct-Type-Definitions_Struct-Types-Containing-Named-Types">6.2.5. Struct Types Containing Named Types</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>A struct type may have an array or struct type as a member type.
+In this way you can define a struct that has arrays or structs as members.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">array Speeds = [3] U32
+# Member speeds has type Speeds, which is an array of 3 U32 values
+struct Wheel { name: string, speeds: Speeds }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When initializing a struct, you may provide any legal
+default expression, so long as the types are compatible.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">array A = [2] U32
+struct S1 { x: U32, y: string }
+
+# default value is { s1 = { x = 0, y = "" }, a = [ 0, 0 ] }
+struct S2 { s1: S1, a: A }
+
+# default value is { s1 = { x = 0, y = "abc" }, a = [ 5, 5 ] }
+struct S3 { s1: S1, a: A } default { s1 = { y = "abc" }, a = 5 }</code></pre>
+</div>
 </div>
 </div>
 <div class="sect3">
@@ -2163,7 +2222,7 @@ class.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-13 14:34:11 -0700
+Last updated 2020-08-13 17:31:44 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
