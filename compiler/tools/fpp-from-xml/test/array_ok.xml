@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<array name="ArrayOkArray">
+<array namespace="A::B" name="ArrayOk">
   <comment>Array with string args</comment>
   <type size="80">string</type>
   <size>2</size>

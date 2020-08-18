@@ -1,4 +1,13 @@
-array ArrayOkArray = [2] string size 80 default [
-                                                  "abcd"
-                                                  "abcd"
-                                                ] format "{}" @< Array with string args
+module A {
+
+  module B {
+  
+    @ Array with string args
+    array ArrayOk = [2] string size 80 default [
+                                                 "abcd"
+                                                 "abcd"
+                                               ] format "{}"
+  
+  }
+
+}

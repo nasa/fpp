@@ -60,7 +60,7 @@ object ArrayXmlFppWriter extends LineUtils {
           fppDefaultsOpt,
           fppFormatOpt.map(AstNode.create(_))
         )
-        (note, node, comment)
+        (note ++ comment, node, Nil)
       }
 
     /** Generates the list of TU members */
