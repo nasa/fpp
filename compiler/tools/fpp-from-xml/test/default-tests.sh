@@ -1,7 +1,7 @@
 
-array_ok()
+array_string()
 {
-  run_test '' array_ok
+  run_test '' array_string
 }
 
 array_struct()

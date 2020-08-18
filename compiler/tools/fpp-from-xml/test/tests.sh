@@ -1,5 +1,5 @@
 tests="
-array_ok
+array_string
 array_struct
 enum_missing_name
 enum_ok
