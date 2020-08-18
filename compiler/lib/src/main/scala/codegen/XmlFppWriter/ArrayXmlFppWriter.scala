@@ -64,6 +64,7 @@ object ArrayXmlFppWriter extends LineUtils {
       val text = node.text.replaceAll("^\"|\"$", "")
       val exprOpt = (tn, text) match {
         case (Ast.TypeNameInt(_), _) => Some(Ast.ExprLiteralInt(text))
+        // TODO: Handle Float types
         case (Ast.TypeNameBool, "true") => Some(Ast.ExprLiteralBool(Ast.LiteralBool.True))
         case (Ast.TypeNameBool, "false") => Some(Ast.ExprLiteralBool(Ast.LiteralBool.False))
         case (Ast.TypeNameString(_), _) => Some(Ast.ExprLiteralString(text))
