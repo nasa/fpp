@@ -225,7 +225,12 @@ object XmlFppWriter extends LineUtils {
           List(constructNote(s))
         case _ => Nil
       }
-      (fppFormatOpt, note)
+      // Represent default format "{}" more succinctly as no format
+      val format = fppFormatOpt match {
+        case Some("{}") => None
+        case _ => fppFormatOpt
+      }
+      (format, note)
     }
 
     /** Translates a value from FPP to XML */
