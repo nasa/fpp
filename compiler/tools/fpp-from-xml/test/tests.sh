@@ -1,5 +1,6 @@
 tests="
 array_ok
+array_struct
 enum_missing_name
 enum_ok
 parse_error

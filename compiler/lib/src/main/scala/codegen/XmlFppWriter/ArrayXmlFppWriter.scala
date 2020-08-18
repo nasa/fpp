@@ -21,14 +21,13 @@ object ArrayXmlFppWriter extends LineUtils {
         post <- file.getComment
         s <- size(file)
         t <- eltType(file)
+        d <- file.getSingleChild(file.elem, "default")
+        f <- file.getSingleChild(file.elem, "format")
       }
       yield {
-        val parsedF = parseFormat(file)
-        val (f, preF) = formatOrNil(parsedF)
-        val parsedD = parseDefaults(file)
-        val (d, preD) = defaultsOrNil(parsedD, t.getData)
-
-        (preF ++ preD, Ast.DefArray(name, s, t, d, f), post)
+        val (fValue, preF) = format(f)
+        val (dValue, preD) = defaults((d, t.getData))
+        (preD ++ preF, Ast.DefArray(name, s, t, dValue, fValue), post)
       }
 
     def size(file: XmlFppWriter.File): Result.Result[AstNode[Ast.Expr]] =
@@ -43,58 +42,28 @@ object ArrayXmlFppWriter extends LineUtils {
     def eltType(file: XmlFppWriter.File): Result.Result[AstNode[Ast.TypeName]] =
       for {
         node <- file.getSingleChild(file.elem, "type")
-        typeNode <- translateArrayType(file, node)
+        typeNode <- translateArrayType((file, node))
       }
       yield {
         AstNode.create(typeNode)
       }
 
-    def formatOrNil(node: Option[scala.xml.Node]): (Option[AstNode[String]], List[String]) = {
-      node match {
-        case Some(node) => format(node)
-        case None => (None, Nil)
-      }
-    }
-
-    def defaultsOrNil(node: Option[scala.xml.Node], t: Ast.TypeName): (Option[AstNode[Ast.Expr]], List[String]) = {
-      node match {
-        case Some(node) => defaults(node, t)
-        case None => (None, Nil)
-      }
-    }
-
-    def parseFormat(file: XmlFppWriter.File): Option[scala.xml.Node] = {
-      val node = file.getSingleChild(file.elem, "format")
-
-      node match {
-        case Right(node) => Some(node)
-        case _ => None
-      }
-    }
-
-    def parseDefaults(file: XmlFppWriter.File): Option[scala.xml.Node] = {
-      val node = file.getSingleChild(file.elem, "default")
-
-      node match {
-        case Right(node) => Some(node)
-        case _ => None
-      }
-    }
-
     def format(node: scala.xml.Node): (Option[AstNode[String]], List[String]) = {
       XmlFppWriter.FppBuilder.translateFormatString(node.text) match {
         case Some(f) => (Some(AstNode.create(f)), Nil)
-        case None => (None, node.text)
+        case None => (None, List(XmlFppWriter.constructNote(node.text)))
       }
     }
 
-    def defaults(node: scala.xml.Node, typ: Ast.TypeName): (Option[AstNode[Ast.Expr]], List[String]) = {
+    def defaults(value: (scala.xml.Node, Ast.TypeName)): (Option[AstNode[Ast.Expr]], List[String]) = {
+        val node = value._1
+        val typ = value._2
         val valueNodes = node \ "value"
         val nodesWithTypes = valueNodes.map( (_, typ) )
         val optValues = Options.map(nodesWithTypes.toList, defaultValue)
         optValues.map(exprNodes => AstNode.create(Ast.ExprArray(exprNodes))) match {
           case Some(defaultExpr) => (Some(defaultExpr), Nil)
-          case None => (None, List("[" ++ valueNodes.map(_.text).mkString(", ") ++ "]"))
+          case None => (None, List(XmlFppWriter.constructNote("[" ++ valueNodes.map(_.text).mkString(", ") ++ "]")))
         }
       }
 
@@ -144,7 +113,9 @@ object ArrayXmlFppWriter extends LineUtils {
       }
 
     /** This is from XmlFppWriter but changed for array type xml nodes */
-    def translateArrayType(file: XmlFppWriter.File, node: scala.xml.Node): Result.Result[Ast.TypeName] = {
+    def translateArrayType(value: (XmlFppWriter.File, scala.xml.Node)): Result.Result[Ast.TypeName] = {
+      val file = value._1
+      val node = value._2
       val xmlType = node.text
       for {
         result <- {
