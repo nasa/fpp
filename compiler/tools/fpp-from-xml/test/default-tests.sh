@@ -33,3 +33,8 @@ struct_ok()
 {
   run_test '' struct_ok
 }
+
+struct_format()
+{
+  run_test '' struct_format
+}

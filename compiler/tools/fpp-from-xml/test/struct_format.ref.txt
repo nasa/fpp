@@ -1,0 +1,17 @@
+module A {
+
+  module B {
+  
+    array StructFormat_m6 = [10] U32
+    
+    struct StructFormat {
+      m2: I32 format "{}"
+      @ FPP from XML: could not translate format string "%p"
+      m3: bool
+      m4: string size 23 format "{}"
+      m6: StructFormat_m6 format "{.23g}"
+    }
+  
+  }
+
+}
