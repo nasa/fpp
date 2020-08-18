@@ -153,10 +153,9 @@ object XmlFppWriter extends LineUtils {
   def getAttributeOpt(node: scala.xml.Node, name: String): Option[String] = 
     node.attribute(name).map(_.toList.head.toString)
   
-  /** Translates an XML format.
+  /** Translates an optional XML format.
    *  Returns the translated format and a note. */
-  def translateFormat(node: scala.xml.Node): (Option[String], List[String]) = {
-    val xmlFormatOpt = XmlFppWriter.getAttributeOpt(node, "format")
+  def translateFormatOpt(xmlFormatOpt: Option[String]): (Option[String], List[String]) = {
     val fppFormatOpt = xmlFormatOpt.flatMap(FppBuilder.translateFormatString(_))
     val note = (xmlFormatOpt, fppFormatOpt) match {
       case (Some(xmlFormat), None) => {

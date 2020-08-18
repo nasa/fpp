@@ -3,7 +3,7 @@
 <array name="ArrayStructArray">
   <type>ArrayStructStruct1</type>
   <size>1</size>
-  <format>Non-supported format string %r</format>
+  <format>%r</format>
   <default>
     <value>ArrayStructStruct1(1)</value>
   </default>

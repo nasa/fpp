@@ -22,73 +22,57 @@ object ArrayXmlFppWriter extends LineUtils {
       Result.Result[Ast.Annotated[Ast.DefArray]] =
       for {
         name <- file.getAttribute(file.elem, "name")
-        post <- file.getComment
-        s <- size(file)
-        t <- eltType(file)
-        d <- file.getSingleChild(file.elem, "default")
-        f <- file.getSingleChild(file.elem, "format")
+        comment <- file.getComment
+        xmlSize <- file.getSingleChild(file.elem, "size")
+        xmlEltType <- file.getSingleChild(file.elem, "type")
+        eltType <- translateType(file)(xmlEltType)
+        xmlDefault <- file.getSingleChild(file.elem, "default")
+        xmlFormat <- file.getSingleChild(file.elem, "format")
       }
       yield {
-        val (fValue, preF) = format(f)
-        val (dValue, preD) = defaults((d, t.getData))
-        (preD ++ preF, Ast.DefArray(name, s, t, dValue, fValue), post)
+        val eltTypeNode = AstNode.create(eltType)
+        val (fppDefaultsOpt, note1) = translateDefaults(xmlDefault, eltTypeNode.getData)
+        val (fppFormatOpt, note2) = XmlFppWriter.translateFormatOpt(Some(xmlFormat.text))
+        val note = note1 ++ note2
+        val node = Ast.DefArray(
+          name,
+          AstNode.create(Ast.ExprLiteralInt(xmlSize.text)),
+          eltTypeNode,
+          fppDefaultsOpt,
+          fppFormatOpt.map(AstNode.create(_))
+        )
+        (note, node, comment)
       }
 
-    def size(file: XmlFppWriter.File): Result.Result[AstNode[Ast.Expr]] =
-      for {
-        node <- file.getSingleChild(file.elem, "size")
-      }
-      yield {
-        val exprNode = Ast.ExprLiteralInt(node.text)
-        AstNode.create(exprNode)
-      }
-
-    def eltType(file: XmlFppWriter.File): Result.Result[AstNode[Ast.TypeName]] =
-      for {
-        node <- file.getSingleChild(file.elem, "type")
-        typeNode <- translateType(file)(node)
-      }
-      yield AstNode.create(typeNode)
-
-    def format(node: scala.xml.Node): (Option[AstNode[String]], List[String]) = {
-      XmlFppWriter.FppBuilder.translateFormatString(node.text) match {
-        case Some(f) => (Some(AstNode.create(f)), Nil)
-        case None => (None, List(XmlFppWriter.constructNote(node.text)))
-      }
-    }
-
-    def defaults(value: (scala.xml.Node, Ast.TypeName)): (Option[AstNode[Ast.Expr]], List[String]) = {
-      val node = value._1
-      val typ = value._2
+    /** Translates a block of default values from FPP to XML */
+    def translateDefaults(node: scala.xml.Node, tn: Ast.TypeName): (Option[AstNode[Ast.Expr]], List[String]) = {
       val valueNodes = node \ "value"
-      val nodesWithTypes = valueNodes.map( (_, typ) )
-      val optValues = Options.map(nodesWithTypes.toList, defaultValue)
-      optValues.map(exprNodes => AstNode.create(Ast.ExprArray(exprNodes))) match {
-        case Some(defaultExpr) => (Some(defaultExpr), Nil)
-        case None => (None, List(XmlFppWriter.constructNote("[" ++ valueNodes.map(_.text).mkString(", ") ++ "]")))
+      val optValues = Options.map(
+        valueNodes.toList,
+        ((node: scala.xml.Node) => translateDefault(node, tn))
+      )
+      val exprsOpt = optValues.map(exprNodes => AstNode.create(Ast.ExprArray(exprNodes)))
+      val note = exprsOpt match {
+        case Some(_) => Nil
+        case None => List(XmlFppWriter.constructNote("[" ++ valueNodes.map(_.text).mkString(", ") ++ "]"))
       }
+      (exprsOpt, note)
     }
 
-    def defaultValue(value: (scala.xml.Node, Ast.TypeName)): Option[AstNode[Ast.Expr]] = {
-      val node = value._1
-      val typeName = value._2
+    /** Translates a default value from FPP to XML */
+    def translateDefault(node: scala.xml.Node, tn: Ast.TypeName): Option[AstNode[Ast.Expr]] = {
       val text = node.text.replaceAll("^\"|\"$", "")
-      val exprOpt = typeName match {
-        case Ast.TypeNameInt(_) => Some(Ast.ExprLiteralInt(text))
-        case Ast.TypeNameBool => Some(Ast.ExprLiteralBool(getBool(text)))
-        case Ast.TypeNameString(_) => Some(Ast.ExprLiteralString(text))
+      val exprOpt = (tn, text) match {
+        case (Ast.TypeNameInt(_), _) => Some(Ast.ExprLiteralInt(text))
+        case (Ast.TypeNameBool, "true") => Some(Ast.ExprLiteralBool(Ast.LiteralBool.True))
+        case (Ast.TypeNameBool, "false") => Some(Ast.ExprLiteralBool(Ast.LiteralBool.False))
+        case (Ast.TypeNameString(_), _) => Some(Ast.ExprLiteralString(text))
         case _ => None
       }
       exprOpt.map(AstNode.create(_))
     }
 
-    def getBool(value: String): Ast.LiteralBool = {
-      value match {
-        case "True" => Ast.LiteralBool.True
-        case "False" => Ast.LiteralBool.False
-      }
-    }
-
+    /** Generates the list of TU members */
     def tuMember(file: XmlFppWriter.File): Result.Result[Ast.TUMember] =
       for (data <- defArrayAnnotated(file))
       yield {
