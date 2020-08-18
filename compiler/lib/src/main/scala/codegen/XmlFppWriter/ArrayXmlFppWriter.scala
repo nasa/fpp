@@ -28,7 +28,7 @@ object ArrayXmlFppWriter extends LineUtils {
       } yield AstNode.create(Ast.ExprArray(elementNodes))
       val note = arrayNodeOpt match {
         case None => 
-          val xmlArray = "[" ++ xmlElements.map(_.text).mkString(", ") ++ "]"
+          val xmlArray = "[ " ++ xmlElements.map(_.text).mkString(", ") ++ " ]"
           val s = "could not translate array value " ++ xmlArray
           List(XmlFppWriter.constructNote(s))
         case _ => Nil

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<array name="ArrayStructArray">
-  <type>ArrayStructStruct1</type>
+<array name="ArrayStruct">
+  <type>S</type>
   <size>1</size>
   <format>%r</format>
   <default>
-    <value>ArrayStructStruct1(1)</value>
+    <value>S(1)</value>
   </default>
 </array>
