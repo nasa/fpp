@@ -1,5 +1,4 @@
-@ Array with string args
 array ArrayOkArray = [2] string size 80 default [
-                                       "a"
-                                       "b"
-                                     ] format "{.03f}"
+                                                  "abcd"
+                                                  "abcd"
+                                                ] format "{}" @< Array with string args

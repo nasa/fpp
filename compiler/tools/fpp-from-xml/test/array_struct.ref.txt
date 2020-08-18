@@ -1,0 +1,3 @@
+@ FPP from XML: [ArrayStructStruct1(1)]
+@ FPP from XML: Non-supported format string %r
+array ArrayStructArray = [1] ArrayStructStruct1
