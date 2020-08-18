@@ -1,3 +1,0 @@
-@ FPP from XML: could not translate array value [ S(1) ]
-@ FPP from XML: could not translate format string "%r"
-array ArrayStruct = [1] S
