@@ -268,7 +268,11 @@ object Value {
   /** String values */
   case class String(value: java.lang.String) extends Value {
 
-    override def convertToDistinctType(t: Type) = promoteToAggregate(t)
+    override def convertToDistinctType(t: Type) =
+      t match {
+        case Type.String(_) => Some(this)
+        case _ => promoteToAggregate(t)
+      }
 
     override def getType = Type.String(None)
 
