@@ -211,7 +211,8 @@ object XmlFppWriter extends LineUtils {
         ("%(\\.[0-9]+)g" -> "{$1g}")
       )
       val s = repls.foldLeft(xmlFormat)({ case (s, (a, b)) => s.replaceAll(a, b) })
-      if (!s.replaceAll("%%", "").contains("%")) Some(s) else None
+      if (!s.replaceAll("%%", "").contains("%"))
+        Some(s.replaceAll("%%", "%")) else None
     }
 
     /** Translates an optional XML format.
@@ -227,34 +228,14 @@ object XmlFppWriter extends LineUtils {
       (fppFormatOpt, note)
     }
 
-    /** Translates a block of default values from FPP to XML */
-    def translateDefaults(node: scala.xml.Node, tn: Ast.TypeName): (Option[AstNode[Ast.Expr]], List[String]) = {
-      val xmlElements = node \ "value"
-      val arrayNodeOpt = for {
-        elementNodes <- Options.map(
-          xmlElements.toList,
-          ((node: scala.xml.Node) => translateDefault(node, tn))
-        )
-      } yield AstNode.create(Ast.ExprArray(elementNodes))
-      val note = arrayNodeOpt match {
-        case None => 
-          val xmlArray = "[" ++ xmlElements.map(_.text).mkString(", ") ++ "]"
-          val s = "could not translate array value " ++ xmlArray
-          List(constructNote(s))
-        case _ => Nil
-      }
-      (arrayNodeOpt, note)
-    }
-
-    /** Translates a default value from FPP to XML */
-    def translateDefault(node: scala.xml.Node, tn: Ast.TypeName): Option[AstNode[Ast.Expr]] = {
-      val text = node.text.replaceAll("^\"|\"$", "")
-      val exprOpt = (tn, text) match {
-        case (Ast.TypeNameInt(_), _) => Some(Ast.ExprLiteralInt(text))
-        // TODO: Handle Float types
-        case (Ast.TypeNameBool, "true") => Some(Ast.ExprLiteralBool(Ast.LiteralBool.True))
-        case (Ast.TypeNameBool, "false") => Some(Ast.ExprLiteralBool(Ast.LiteralBool.False))
-        case (Ast.TypeNameString(_), _) => Some(Ast.ExprLiteralString(text))
+    /** Translates a value from FPP to XML */
+    def translateValue(xmlValue: String, tn: Ast.TypeName): Option[AstNode[Ast.Expr]] = {
+      val exprOpt = (xmlValue, tn) match {
+        case (_, Ast.TypeNameInt(_)) => Some(Ast.ExprLiteralInt(xmlValue))
+        case (_, Ast.TypeNameFloat(_)) => Some(Ast.ExprLiteralFloat(xmlValue))
+        case ("true", Ast.TypeNameBool) => Some(Ast.ExprLiteralBool(Ast.LiteralBool.True))
+        case ("false", Ast.TypeNameBool) => Some(Ast.ExprLiteralBool(Ast.LiteralBool.False))
+        case (_, Ast.TypeNameString(_)) => Some(Ast.ExprLiteralString(xmlValue.replaceAll("^\"|\"$", "")))
         case _ => None
       }
       exprOpt.map(AstNode.create(_))

@@ -17,6 +17,25 @@ object ArrayXmlFppWriter extends LineUtils {
     /** Translates an XML type to an FPP type name */
     def translateType(file: XmlFppWriter.File) = file.translateType(node => Right(node.text)) _
 
+    /** Translates a block of default values from FPP to XML */
+    def translateDefaults(node: scala.xml.Node, tn: Ast.TypeName): (Option[AstNode[Ast.Expr]], List[String]) = {
+      val xmlElements = node \ "value"
+      val arrayNodeOpt = for {
+        elementNodes <- Options.map(
+          xmlElements.toList,
+          ((node: scala.xml.Node) => XmlFppWriter.FppBuilder.translateValue(node.text, tn))
+        )
+      } yield AstNode.create(Ast.ExprArray(elementNodes))
+      val note = arrayNodeOpt match {
+        case None => 
+          val xmlArray = "[" ++ xmlElements.map(_.text).mkString(", ") ++ "]"
+          val s = "could not translate array value " ++ xmlArray
+          List(XmlFppWriter.constructNote(s))
+        case _ => Nil
+      }
+      (arrayNodeOpt, note)
+    }
+
    /** Extracts array definitions from struct members */
     def defArrayAnnotated(file: XmlFppWriter.File):
       Result.Result[Ast.Annotated[Ast.DefArray]] =
@@ -30,8 +49,7 @@ object ArrayXmlFppWriter extends LineUtils {
         xmlFormat <- file.getSingleChild(file.elem, "format")
       }
       yield {
-        val (fppDefaultsOpt, note1) = 
-          XmlFppWriter.FppBuilder.translateDefaults(xmlDefault, eltType)
+        val (fppDefaultsOpt, note1) = translateDefaults(xmlDefault, eltType)
         val (fppFormatOpt, note2) = 
           XmlFppWriter.FppBuilder.translateFormatOpt(Some(xmlFormat.text))
         val note = note1 ++ note2
