@@ -153,20 +153,6 @@ object XmlFppWriter extends LineUtils {
   def getAttributeOpt(node: scala.xml.Node, name: String): Option[String] = 
     node.attribute(name).map(_.toList.head.toString)
   
-  /** Translates an optional XML format.
-   *  Returns the translated format and a note. */
-  def translateFormatOpt(xmlFormatOpt: Option[String]): (Option[String], List[String]) = {
-    val fppFormatOpt = xmlFormatOpt.flatMap(FppBuilder.translateFormatString(_))
-    val note = (xmlFormatOpt, fppFormatOpt) match {
-      case (Some(xmlFormat), None) => {
-        val s = "could not translate format string \"" ++ xmlFormat ++ "\""
-        List(constructNote(s))
-      }
-      case _ => Nil
-    }
-    (fppFormatOpt, note)
-  }
-
   /** Writes a file list */
   def writeFileList(fileList: List[File]) = {
     for (files <- Result.map(fileList, (file: File) => file.write))
@@ -207,8 +193,8 @@ object XmlFppWriter extends LineUtils {
       AstNode.create(Ast.QualIdent.fromNodeList(xmlType.split("::").toList.map(AstNode.create(_))))
     )
 
-    /** Translates a format string */
-    def translateFormatString(xmlFormat: String): Option[String] = {
+    /** Translates an XML format */
+    def translateFormat(xmlFormat: String): Option[String] = {
       val s1 = xmlFormat.replaceAll("\\{", "{{").replace("\\}", "}}")
       val primitives = s1.replaceAll("(%ld|%d|%lu|%u|%s|%g|%llu|%lld)", "{}")
       val c = primitives.replaceAll("%c", "{c}")
@@ -226,6 +212,20 @@ object XmlFppWriter extends LineUtils {
         case false => Some(s3)
         case true => None
       }
+    }
+
+    /** Translates an optional XML format.
+     *  Returns the translated format and a note. */
+    def translateFormatOpt(xmlFormatOpt: Option[String]): (Option[String], List[String]) = {
+      val fppFormatOpt = xmlFormatOpt.flatMap(FppBuilder.translateFormat(_))
+      val note = (xmlFormatOpt, fppFormatOpt) match {
+        case (Some(xmlFormat), None) => {
+          val s = "could not translate format string \"" ++ xmlFormat ++ "\""
+          List(constructNote(s))
+        }
+        case _ => Nil
+      }
+      (fppFormatOpt, note)
     }
 
     /** Encloses several member nodes with a module of variant type */

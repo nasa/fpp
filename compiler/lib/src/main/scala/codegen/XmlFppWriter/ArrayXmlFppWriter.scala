@@ -32,7 +32,7 @@ object ArrayXmlFppWriter extends LineUtils {
       yield {
         val eltTypeNode = AstNode.create(eltType)
         val (fppDefaultsOpt, note1) = translateDefaults(xmlDefault, eltTypeNode.getData)
-        val (fppFormatOpt, note2) = XmlFppWriter.translateFormatOpt(Some(xmlFormat.text))
+        val (fppFormatOpt, note2) = XmlFppWriter.FppBuilder.translateFormatOpt(Some(xmlFormat.text))
         val note = note1 ++ note2
         val node = Ast.DefArray(
           name,
