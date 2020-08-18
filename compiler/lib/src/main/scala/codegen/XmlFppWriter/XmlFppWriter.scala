@@ -84,9 +84,9 @@ object XmlFppWriter extends LineUtils {
       }
 
     /** Translates an XML type to an FPP type name */
-    def translateTypeStruct(node: scala.xml.Node): Result.Result[Ast.TypeName] = {
+    def translateType(getType: scala.xml.Node => Result.Result[String])(node: scala.xml.Node): Result.Result[Ast.TypeName] =
       for {
-        xmlType <- getAttribute(node, "type")
+        xmlType <- getType(node)
         result <- {
           val sizeOpt = getAttributeOpt(node, "size")
           xmlType match {
@@ -112,39 +112,9 @@ object XmlFppWriter extends LineUtils {
           }
         }
       } yield result
-    }
 
-    // TODO: Remove code duplication
-    def translateTypeArray(node: scala.xml.Node): Result.Result[Ast.TypeName] = {
-      val xmlType = node.text
-      for {
-        result <- {
-          val sizeOpt = getAttributeOpt(node, "size")
-          xmlType match {
-            case "I16" => Right(Ast.TypeNameInt(Ast.I16()))
-            case "I32" => Right(Ast.TypeNameInt(Ast.I32()))
-            case "I64" => Right(Ast.TypeNameInt(Ast.I64()))
-            case "I8" => Right(Ast.TypeNameInt(Ast.I8()))
-            case "F32" => Right(Ast.TypeNameFloat(Ast.F32()))
-            case "F64" => Right(Ast.TypeNameFloat(Ast.F64()))
-            case "U16" => Right(Ast.TypeNameInt(Ast.U16()))
-            case "U32" => Right(Ast.TypeNameInt(Ast.U32()))
-            case "U64" => Right(Ast.TypeNameInt(Ast.U64()))
-            case "U8" => Right(Ast.TypeNameInt(Ast.U8()))
-            case "bool" => Right(Ast.TypeNameBool)
-            case "ENUM" => for {
-              enum <- getSingleChild(node, "enum")
-              name <- getAttribute(enum, "name")
-            } yield FppBuilder.translateQualIdentType(name)
-            case "string" => Right(Ast.TypeNameString(
-              sizeOpt.map((size: String) => AstNode.create(Ast.ExprLiteralInt(size)))
-            ))
-            case _ => Right(FppBuilder.translateQualIdentType(xmlType))
-          }
-        }
-      } yield result
-    }
-
+    /** Translates an XML type to an FPP type name for arrays */
+    val translateTypeArray = translateType(node => Right(node.text)) _
 
     /** Writes a file as lines */
     def write: Result = {
@@ -238,7 +208,7 @@ object XmlFppWriter extends LineUtils {
       AstNode.create(Ast.QualIdent.fromNodeList(xmlType.split("::").toList.map(AstNode.create(_))))
     )
 
-    /** Translates a format string **/
+    /** Translates a format string */
     def translateFormatString(xmlFormat: String): Option[String] = {
       val s1 = xmlFormat.replaceAll("\\{", "{{").replace("\\}", "}}")
       val primitives = s1.replaceAll("(%ld|%d|%lu|%u|%s|%g|%llu|%lld)", "{}")

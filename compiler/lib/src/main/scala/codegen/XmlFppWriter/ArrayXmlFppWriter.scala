@@ -13,6 +13,10 @@ object ArrayXmlFppWriter extends LineUtils {
       yield FppWriter.tuMember(tuMember)
 
   private object FppBuilder {
+
+    /** Translates an XML type to an FPP type name for arrays */
+    def translateType(file: XmlFppWriter.File) = file.translateType(node => Right(node.text)) _
+
    /** Extracts array definitions from struct members */
     def defArrayAnnotated(file: XmlFppWriter.File):
       Result.Result[Ast.Annotated[Ast.DefArray]] =
@@ -42,7 +46,7 @@ object ArrayXmlFppWriter extends LineUtils {
     def eltType(file: XmlFppWriter.File): Result.Result[AstNode[Ast.TypeName]] =
       for {
         node <- file.getSingleChild(file.elem, "type")
-        typeNode <- file.translateTypeArray(node)
+        typeNode <- translateType(file)(node)
       }
       yield AstNode.create(typeNode)
 
