@@ -1,0 +1,3 @@
+@ FPP from XML: could not translate array value [ A::B(1) ]
+@ FPP from XML: could not translate format string "%r"
+array ArrayQualId = [1] A.B

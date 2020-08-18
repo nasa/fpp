@@ -1,0 +1,14 @@
+#!/bin/sh -e
+
+# ----------------------------------------------------------------------
+# Compile ref FPP files, to check them for validity
+# ----------------------------------------------------------------------
+
+fpp_syntax=../../../bin/fpp-syntax
+fprime_gcc=../../../scripts/fprime-gcc
+
+for file in `find . -name '*_ok.ref.txt'`
+do
+  echo "checking $file"
+  $fpp_syntax < $file
+done

@@ -1,7 +1,10 @@
 tests="
+array_qual_id
+array_string
 enum_missing_name
 enum_ok
 parse_error
+struct_format
 struct_missing_member_name
 struct_ok
 "

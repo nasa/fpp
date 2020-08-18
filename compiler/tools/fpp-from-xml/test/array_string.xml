@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<array namespace="A::B" name="ArrayString">
+  <comment>Array with string args</comment>
+  <type size="80">string</type>
+  <size>2</size>
+  <format>%s</format>
+  <default>
+    <value>"abcd"</value>
+    <value>"abcd"</value>
+  </default>
+</array>

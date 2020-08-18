@@ -84,9 +84,11 @@ object XmlFppWriter extends LineUtils {
       }
 
     /** Translates an XML type to an FPP type name */
-    def translateType(node: scala.xml.Node): Result.Result[Ast.TypeName] = {
+    def translateType
+      (getType: scala.xml.Node => Result.Result[String])
+      (node: scala.xml.Node): Result.Result[Ast.TypeName] =
       for {
-        xmlType <- getAttribute(node, "type")
+        xmlType <- getType(node)
         result <- {
           val sizeOpt = getAttributeOpt(node, "size")
           xmlType match {
@@ -112,13 +114,16 @@ object XmlFppWriter extends LineUtils {
           }
         }
       } yield result
-    }
+
+    /** Translates an XML type to an FPP type name for arrays */
+    val translateTypeArray = translateType(node => Right(node.text)) _
 
     /** Writes a file as lines */
     def write: Result = {
       val eltType = elem.label
       for {
         body <- eltType match {
+          case "array" => ArrayXmlFppWriter.writeFile(this)
           case "enum" => EnumXmlFppWriter.writeFile(this)
           case "serializable" => StructXmlFppWriter.writeFile(this)
           case _ => Left(error(XmlError.SemanticError(_, s"invalid element type $eltType")))
@@ -150,21 +155,6 @@ object XmlFppWriter extends LineUtils {
   def getAttributeOpt(node: scala.xml.Node, name: String): Option[String] = 
     node.attribute(name).map(_.toList.head.toString)
   
-  /** Translates an XML format.
-   *  Returns the translated format and a note. */
-  def translateFormat(node: scala.xml.Node): (Option[String], List[String]) = {
-    val xmlFormatOpt = XmlFppWriter.getAttributeOpt(node, "format")
-    val fppFormatOpt = xmlFormatOpt.flatMap(FppBuilder.translateFormatString(_))
-    val note = (xmlFormatOpt, fppFormatOpt) match {
-      case (Some(xmlFormat), None) => {
-        val s = "could not translate format string \"" ++ xmlFormat ++ "\""
-        List(constructNote(s))
-      }
-      case _ => Nil
-    }
-    (fppFormatOpt, note)
-  }
-
   /** Writes a file list */
   def writeFileList(fileList: List[File]) = {
     for (files <- Result.map(fileList, (file: File) => file.write))
@@ -205,10 +195,55 @@ object XmlFppWriter extends LineUtils {
       AstNode.create(Ast.QualIdent.fromNodeList(xmlType.split("::").toList.map(AstNode.create(_))))
     )
 
-    /** Translates a format string */
-    def translateFormatString(xmlFormat: String): Option[String] = {
-      // TODO as part of GitHub issue #43
-      None
+    /** Translates an XML format */
+    def translateFormat(xmlFormat: String): Option[String] = {
+      val repls = List(
+        ("\\{" -> "{{"),
+        ("\\}" -> "}}"),
+        ("(%ld|%d|%lu|%u|%s|%g|%llu|%lld)" -> "{}"),
+        ("%c" -> "{c}"),
+        ("(%o|%lo|%llo)" ->"{o}"),
+        ("(%x|%lx|%llx)" -> "{x}"),
+        ("%e"-> "{e}"),
+        ("%f"-> "{f}"),
+        ("%(,[0-9]+)e"-> "{$1e}"),
+        ("%(,[0-9]+)f"-> "{$1f}"),
+        ("%(\\.[0-9]+)g" -> "{$1g}")
+      )
+      val s = repls.foldLeft(xmlFormat)({ case (s, (a, b)) => s.replaceAll(a, b) })
+      if (!s.replaceAll("%%", "").contains("%"))
+        Some(s.replaceAll("%%", "%")) else None
+    }
+
+    /** Translates an optional XML format.
+     *  Returns the translated format and a note. */
+    def translateFormatOpt(xmlFormatOpt: Option[String]): (Option[String], List[String]) = {
+      val fppFormatOpt = xmlFormatOpt.flatMap(FppBuilder.translateFormat(_))
+      val note = (xmlFormatOpt, fppFormatOpt) match {
+        case (Some(xmlFormat), None) =>
+          val s = "could not translate format string \"" ++ xmlFormat ++ "\""
+          List(constructNote(s))
+        case _ => Nil
+      }
+      // Represent default format "{}" more succinctly as no format
+      val format = fppFormatOpt match {
+        case Some("{}") => None
+        case _ => fppFormatOpt
+      }
+      (format, note)
+    }
+
+    /** Translates a value from FPP to XML */
+    def translateValue(xmlValue: String, tn: Ast.TypeName): Option[AstNode[Ast.Expr]] = {
+      val exprOpt = (xmlValue, tn) match {
+        case (_, Ast.TypeNameInt(_)) => Some(Ast.ExprLiteralInt(xmlValue))
+        case (_, Ast.TypeNameFloat(_)) => Some(Ast.ExprLiteralFloat(xmlValue))
+        case ("true", Ast.TypeNameBool) => Some(Ast.ExprLiteralBool(Ast.LiteralBool.True))
+        case ("false", Ast.TypeNameBool) => Some(Ast.ExprLiteralBool(Ast.LiteralBool.False))
+        case (_, Ast.TypeNameString(_)) => Some(Ast.ExprLiteralString(xmlValue.replaceAll("^\"|\"$", "")))
+        case _ => None
+      }
+      exprOpt.map(AstNode.create(_))
     }
 
     /** Encloses several member nodes with a module of variant type */
