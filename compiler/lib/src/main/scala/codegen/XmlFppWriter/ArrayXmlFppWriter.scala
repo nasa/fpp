@@ -14,7 +14,7 @@ object ArrayXmlFppWriter extends LineUtils {
 
   private object FppBuilder {
 
-    /** Translates an XML type to an FPP type name for arrays */
+    /** Translates an XML type to an FPP type name */
     def translateType(file: XmlFppWriter.File) = file.translateType(node => Right(node.text)) _
 
    /** Extracts array definitions from struct members */
@@ -30,48 +30,20 @@ object ArrayXmlFppWriter extends LineUtils {
         xmlFormat <- file.getSingleChild(file.elem, "format")
       }
       yield {
-        val eltTypeNode = AstNode.create(eltType)
-        val (fppDefaultsOpt, note1) = translateDefaults(xmlDefault, eltTypeNode.getData)
-        val (fppFormatOpt, note2) = XmlFppWriter.FppBuilder.translateFormatOpt(Some(xmlFormat.text))
+        val (fppDefaultsOpt, note1) = 
+          XmlFppWriter.FppBuilder.translateDefaults(xmlDefault, eltType)
+        val (fppFormatOpt, note2) = 
+          XmlFppWriter.FppBuilder.translateFormatOpt(Some(xmlFormat.text))
         val note = note1 ++ note2
         val node = Ast.DefArray(
           name,
           AstNode.create(Ast.ExprLiteralInt(xmlSize.text)),
-          eltTypeNode,
+          AstNode.create(eltType),
           fppDefaultsOpt,
           fppFormatOpt.map(AstNode.create(_))
         )
         (note, node, comment)
       }
-
-    /** Translates a block of default values from FPP to XML */
-    def translateDefaults(node: scala.xml.Node, tn: Ast.TypeName): (Option[AstNode[Ast.Expr]], List[String]) = {
-      val valueNodes = node \ "value"
-      val optValues = Options.map(
-        valueNodes.toList,
-        ((node: scala.xml.Node) => translateDefault(node, tn))
-      )
-      val exprsOpt = optValues.map(exprNodes => AstNode.create(Ast.ExprArray(exprNodes)))
-      val note = exprsOpt match {
-        case Some(_) => Nil
-        case None => List(XmlFppWriter.constructNote("[" ++ valueNodes.map(_.text).mkString(", ") ++ "]"))
-      }
-      (exprsOpt, note)
-    }
-
-    /** Translates a default value from FPP to XML */
-    def translateDefault(node: scala.xml.Node, tn: Ast.TypeName): Option[AstNode[Ast.Expr]] = {
-      val text = node.text.replaceAll("^\"|\"$", "")
-      val exprOpt = (tn, text) match {
-        case (Ast.TypeNameInt(_), _) => Some(Ast.ExprLiteralInt(text))
-        // TODO: Handle Float types
-        case (Ast.TypeNameBool, "true") => Some(Ast.ExprLiteralBool(Ast.LiteralBool.True))
-        case (Ast.TypeNameBool, "false") => Some(Ast.ExprLiteralBool(Ast.LiteralBool.False))
-        case (Ast.TypeNameString(_), _) => Some(Ast.ExprLiteralString(text))
-        case _ => None
-      }
-      exprOpt.map(AstNode.create(_))
-    }
 
     /** Generates the list of TU members */
     def tuMember(file: XmlFppWriter.File): Result.Result[Ast.TUMember] =

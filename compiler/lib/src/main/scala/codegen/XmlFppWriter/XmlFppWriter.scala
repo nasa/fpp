@@ -84,7 +84,9 @@ object XmlFppWriter extends LineUtils {
       }
 
     /** Translates an XML type to an FPP type name */
-    def translateType(getType: scala.xml.Node => Result.Result[String])(node: scala.xml.Node): Result.Result[Ast.TypeName] =
+    def translateType
+      (getType: scala.xml.Node => Result.Result[String])
+      (node: scala.xml.Node): Result.Result[Ast.TypeName] =
       for {
         xmlType <- getType(node)
         result <- {
@@ -195,7 +197,7 @@ object XmlFppWriter extends LineUtils {
 
     /** Translates an XML format */
     def translateFormat(xmlFormat: String): Option[String] = {
-      val s1 = xmlFormat.replaceAll("\\{", "{{").replace("\\}", "}}")
+      val s1 = xmlFormat.replaceAll("\\{", "{{").replaceAll("\\}", "}}")
       val primitives = s1.replaceAll("(%ld|%d|%lu|%u|%s|%g|%llu|%lld)", "{}")
       val c = primitives.replaceAll("%c", "{c}")
       val o = c.replaceAll("(%o|%lo|%llo)", "{o}")
@@ -205,13 +207,7 @@ object XmlFppWriter extends LineUtils {
       val ePrecision = f.replaceAll("%(.[0-9]+)e", "{$1e}")
       val fPrecision = ePrecision.replaceAll("%(.[0-9]+)f", "{$1f}")
       val s2 = fPrecision.replaceAll("%(\\.[0-9]+)g", "{$1g}")
-
-      val s3 = s2.replaceAll("%%", "")
-
-      s3.contains("%") match {
-        case false => Some(s3)
-        case true => None
-      }
+      if (!s2.replaceAll("%%", "").contains("%")) Some(s2) else None
     }
 
     /** Translates an optional XML format.
@@ -219,13 +215,45 @@ object XmlFppWriter extends LineUtils {
     def translateFormatOpt(xmlFormatOpt: Option[String]): (Option[String], List[String]) = {
       val fppFormatOpt = xmlFormatOpt.flatMap(FppBuilder.translateFormat(_))
       val note = (xmlFormatOpt, fppFormatOpt) match {
-        case (Some(xmlFormat), None) => {
+        case (Some(xmlFormat), None) =>
           val s = "could not translate format string \"" ++ xmlFormat ++ "\""
           List(constructNote(s))
-        }
         case _ => Nil
       }
       (fppFormatOpt, note)
+    }
+
+    /** Translates a block of default values from FPP to XML */
+    def translateDefaults(node: scala.xml.Node, tn: Ast.TypeName): (Option[AstNode[Ast.Expr]], List[String]) = {
+      val xmlElements = node \ "value"
+      val arrayNodeOpt = for {
+        elementNodes <- Options.map(
+          xmlElements.toList,
+          ((node: scala.xml.Node) => translateDefault(node, tn))
+        )
+      } yield AstNode.create(Ast.ExprArray(elementNodes))
+      val note = arrayNodeOpt match {
+        case None => 
+          val xmlArray = "[" ++ xmlElements.map(_.text).mkString(", ") ++ "]"
+          val s = "could not translate array value " ++ xmlArray
+          List(constructNote(s))
+        case _ => Nil
+      }
+      (arrayNodeOpt, note)
+    }
+
+    /** Translates a default value from FPP to XML */
+    def translateDefault(node: scala.xml.Node, tn: Ast.TypeName): Option[AstNode[Ast.Expr]] = {
+      val text = node.text.replaceAll("^\"|\"$", "")
+      val exprOpt = (tn, text) match {
+        case (Ast.TypeNameInt(_), _) => Some(Ast.ExprLiteralInt(text))
+        // TODO: Handle Float types
+        case (Ast.TypeNameBool, "true") => Some(Ast.ExprLiteralBool(Ast.LiteralBool.True))
+        case (Ast.TypeNameBool, "false") => Some(Ast.ExprLiteralBool(Ast.LiteralBool.False))
+        case (Ast.TypeNameString(_), _) => Some(Ast.ExprLiteralString(text))
+        case _ => None
+      }
+      exprOpt.map(AstNode.create(_))
     }
 
     /** Encloses several member nodes with a module of variant type */
