@@ -1,5 +1,5 @@
 
-include() 
+include()
 {
   run_test '' include
 }

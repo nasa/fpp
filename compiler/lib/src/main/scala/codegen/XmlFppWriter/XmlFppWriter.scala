@@ -114,6 +114,38 @@ object XmlFppWriter extends LineUtils {
       } yield result
     }
 
+    // TODO: Remove code duplication
+    def translateArrayType(node: scala.xml.Node): Result.Result[Ast.TypeName] = {
+      val xmlType = node.text
+      for {
+        result <- {
+          val sizeOpt = XmlFppWriter.getAttributeOpt(node, "size")
+          xmlType match {
+            case "I16" => Right(Ast.TypeNameInt(Ast.I16()))
+            case "I32" => Right(Ast.TypeNameInt(Ast.I32()))
+            case "I64" => Right(Ast.TypeNameInt(Ast.I64()))
+            case "I8" => Right(Ast.TypeNameInt(Ast.I8()))
+            case "F32" => Right(Ast.TypeNameFloat(Ast.F32()))
+            case "F64" => Right(Ast.TypeNameFloat(Ast.F64()))
+            case "U16" => Right(Ast.TypeNameInt(Ast.U16()))
+            case "U32" => Right(Ast.TypeNameInt(Ast.U32()))
+            case "U64" => Right(Ast.TypeNameInt(Ast.U64()))
+            case "U8" => Right(Ast.TypeNameInt(Ast.U8()))
+            case "bool" => Right(Ast.TypeNameBool)
+            case "ENUM" => for {
+              enum <- getSingleChild(node, "enum")
+              name <- getAttribute(enum, "name")
+            } yield XmlFppWriter.FppBuilder.translateQualIdentType(name)
+            case "string" => Right(Ast.TypeNameString(
+              sizeOpt.map((size: String) => AstNode.create(Ast.ExprLiteralInt(size)))
+            ))
+            case _ => Right(XmlFppWriter.FppBuilder.translateQualIdentType(xmlType))
+          }
+        }
+      } yield result
+    }
+
+
     /** Writes a file as lines */
     def write: Result = {
       val eltType = elem.label

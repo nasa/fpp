@@ -42,11 +42,10 @@ object ArrayXmlFppWriter extends LineUtils {
     def eltType(file: XmlFppWriter.File): Result.Result[AstNode[Ast.TypeName]] =
       for {
         node <- file.getSingleChild(file.elem, "type")
-        typeNode <- translateArrayType((file, node))
+        typeNode <- file.translateArrayType(node)
+        //typeNode <- file.translateType(node)
       }
-      yield {
-        AstNode.create(typeNode)
-      }
+      yield AstNode.create(typeNode)
 
     def format(node: scala.xml.Node): (Option[AstNode[String]], List[String]) = {
       XmlFppWriter.FppBuilder.translateFormatString(node.text) match {
@@ -56,36 +55,28 @@ object ArrayXmlFppWriter extends LineUtils {
     }
 
     def defaults(value: (scala.xml.Node, Ast.TypeName)): (Option[AstNode[Ast.Expr]], List[String]) = {
-        val node = value._1
-        val typ = value._2
-        val valueNodes = node \ "value"
-        val nodesWithTypes = valueNodes.map( (_, typ) )
-        val optValues = Options.map(nodesWithTypes.toList, defaultValue)
-        optValues.map(exprNodes => AstNode.create(Ast.ExprArray(exprNodes))) match {
-          case Some(defaultExpr) => (Some(defaultExpr), Nil)
-          case None => (None, List(XmlFppWriter.constructNote("[" ++ valueNodes.map(_.text).mkString(", ") ++ "]")))
-        }
+      val node = value._1
+      val typ = value._2
+      val valueNodes = node \ "value"
+      val nodesWithTypes = valueNodes.map( (_, typ) )
+      val optValues = Options.map(nodesWithTypes.toList, defaultValue)
+      optValues.map(exprNodes => AstNode.create(Ast.ExprArray(exprNodes))) match {
+        case Some(defaultExpr) => (Some(defaultExpr), Nil)
+        case None => (None, List(XmlFppWriter.constructNote("[" ++ valueNodes.map(_.text).mkString(", ") ++ "]")))
       }
+    }
 
     def defaultValue(value: (scala.xml.Node, Ast.TypeName)): Option[AstNode[Ast.Expr]] = {
       val node = value._1
       val typeName = value._2
-      val rawText = node.text
+      val text = node.text.replaceAll("^\"|\"$", "")
       val exprOpt = typeName match {
-        case Ast.TypeNameInt(_) => Some(Ast.ExprLiteralInt(rawText))
-        case Ast.TypeNameBool => Some(Ast.ExprLiteralBool(getBool(rawText)))
-        case Ast.TypeNameString(_) => Some(Ast.ExprLiteralString(removeQuotes(rawText)))
+        case Ast.TypeNameInt(_) => Some(Ast.ExprLiteralInt(text))
+        case Ast.TypeNameBool => Some(Ast.ExprLiteralBool(getBool(text)))
+        case Ast.TypeNameString(_) => Some(Ast.ExprLiteralString(text))
         case _ => None
       }
       exprOpt.map(AstNode.create(_))
-    }
-
-    def removeQuotes(value: String) = {
-      val pattern = """\s*".*"\s*""".r
-      pattern.matches(value) match {
-        case true => value.substring(value.indexOf("\"") + 1, value.lastIndexOf("\""))
-        case false => throw new InternalError("Invalid string value in array defaults")
-      }
     }
 
     def getBool(value: String): Ast.LiteralBool = {
@@ -112,38 +103,6 @@ object ArrayXmlFppWriter extends LineUtils {
         Ast.TUMember(aNode)
       }
 
-    /** This is from XmlFppWriter but changed for array type xml nodes */
-    def translateArrayType(value: (XmlFppWriter.File, scala.xml.Node)): Result.Result[Ast.TypeName] = {
-      val file = value._1
-      val node = value._2
-      val xmlType = node.text
-      for {
-        result <- {
-          val sizeOpt = XmlFppWriter.getAttributeOpt(node, "size")
-          xmlType match {
-            case "I16" => Right(Ast.TypeNameInt(Ast.I16()))
-            case "I32" => Right(Ast.TypeNameInt(Ast.I32()))
-            case "I64" => Right(Ast.TypeNameInt(Ast.I64()))
-            case "I8" => Right(Ast.TypeNameInt(Ast.I8()))
-            case "F32" => Right(Ast.TypeNameFloat(Ast.F32()))
-            case "F64" => Right(Ast.TypeNameFloat(Ast.F64()))
-            case "U16" => Right(Ast.TypeNameInt(Ast.U16()))
-            case "U32" => Right(Ast.TypeNameInt(Ast.U32()))
-            case "U64" => Right(Ast.TypeNameInt(Ast.U64()))
-            case "U8" => Right(Ast.TypeNameInt(Ast.U8()))
-            case "bool" => Right(Ast.TypeNameBool)
-            case "ENUM" => for {
-              enum <- file.getSingleChild(node, "enum")
-              name <- file.getAttribute(enum, "name")
-            } yield XmlFppWriter.FppBuilder.translateQualIdentType(name)
-            case "string" => Right(Ast.TypeNameString(
-              sizeOpt.map((size: String) => AstNode.create(Ast.ExprLiteralInt(size)))
-            ))
-            case _ => Right(XmlFppWriter.FppBuilder.translateQualIdentType(xmlType))
-          }
-        }
-      } yield result
-    }
-
   }
+
 }
