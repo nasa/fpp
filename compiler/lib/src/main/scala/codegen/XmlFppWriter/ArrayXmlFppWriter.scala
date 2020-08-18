@@ -42,8 +42,7 @@ object ArrayXmlFppWriter extends LineUtils {
     def eltType(file: XmlFppWriter.File): Result.Result[AstNode[Ast.TypeName]] =
       for {
         node <- file.getSingleChild(file.elem, "type")
-        typeNode <- file.translateArrayType(node)
-        //typeNode <- file.translateType(node)
+        typeNode <- file.translateTypeArray(node)
       }
       yield AstNode.create(typeNode)
 

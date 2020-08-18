@@ -28,13 +28,13 @@ object StructXmlFppWriter extends LineUtils {
         memberType <- {
           val sizeOpt = XmlFppWriter.getAttributeOpt(node, "size")
           (xmlType, sizeOpt) match {
-            case ("string", _) => file.translateType(node)
+            case ("string", _) => file.translateTypeStruct(node)
             case (_, Some(size)) => {
               val arrayName = getArrayName(structName, memberName)
               val arrayType = XmlFppWriter.FppBuilder.translateQualIdentType(arrayName)
               Right(arrayType)
             }
-            case _ => file.translateType(node)
+            case _ => file.translateTypeStruct(node)
           }
         }
       }
@@ -62,7 +62,7 @@ object StructXmlFppWriter extends LineUtils {
             case ("string", _) => Right(None)
             case (_, None) => Right(None)
             case (_, Some(size)) => 
-              for (memberType <- file.translateType(node))
+              for (memberType <- file.translateTypeStruct(node))
                 yield {
                   val array = Ast.DefArray(
                     getArrayName(structName, memberName),

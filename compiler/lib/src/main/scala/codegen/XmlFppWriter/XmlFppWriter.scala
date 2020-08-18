@@ -84,7 +84,7 @@ object XmlFppWriter extends LineUtils {
       }
 
     /** Translates an XML type to an FPP type name */
-    def translateType(node: scala.xml.Node): Result.Result[Ast.TypeName] = {
+    def translateTypeStruct(node: scala.xml.Node): Result.Result[Ast.TypeName] = {
       for {
         xmlType <- getAttribute(node, "type")
         result <- {
@@ -115,11 +115,11 @@ object XmlFppWriter extends LineUtils {
     }
 
     // TODO: Remove code duplication
-    def translateArrayType(node: scala.xml.Node): Result.Result[Ast.TypeName] = {
+    def translateTypeArray(node: scala.xml.Node): Result.Result[Ast.TypeName] = {
       val xmlType = node.text
       for {
         result <- {
-          val sizeOpt = XmlFppWriter.getAttributeOpt(node, "size")
+          val sizeOpt = getAttributeOpt(node, "size")
           xmlType match {
             case "I16" => Right(Ast.TypeNameInt(Ast.I16()))
             case "I32" => Right(Ast.TypeNameInt(Ast.I32()))
@@ -135,11 +135,11 @@ object XmlFppWriter extends LineUtils {
             case "ENUM" => for {
               enum <- getSingleChild(node, "enum")
               name <- getAttribute(enum, "name")
-            } yield XmlFppWriter.FppBuilder.translateQualIdentType(name)
+            } yield FppBuilder.translateQualIdentType(name)
             case "string" => Right(Ast.TypeNameString(
               sizeOpt.map((size: String) => AstNode.create(Ast.ExprLiteralInt(size)))
             ))
-            case _ => Right(XmlFppWriter.FppBuilder.translateQualIdentType(xmlType))
+            case _ => Right(FppBuilder.translateQualIdentType(xmlType))
           }
         }
       } yield result
