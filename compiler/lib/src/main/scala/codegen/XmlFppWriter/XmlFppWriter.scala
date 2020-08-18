@@ -197,17 +197,21 @@ object XmlFppWriter extends LineUtils {
 
     /** Translates an XML format */
     def translateFormat(xmlFormat: String): Option[String] = {
-      val s1 = xmlFormat.replaceAll("\\{", "{{").replaceAll("\\}", "}}")
-      val primitives = s1.replaceAll("(%ld|%d|%lu|%u|%s|%g|%llu|%lld)", "{}")
-      val c = primitives.replaceAll("%c", "{c}")
-      val o = c.replaceAll("(%o|%lo|%llo)", "{o}")
-      val x = o.replaceAll("(%x|%lx|%llx)", "{x}")
-      val e = x.replaceAll("%e", "{e}")
-      val f = e.replaceAll("%f", "{f}")
-      val ePrecision = f.replaceAll("%(.[0-9]+)e", "{$1e}")
-      val fPrecision = ePrecision.replaceAll("%(.[0-9]+)f", "{$1f}")
-      val s2 = fPrecision.replaceAll("%(\\.[0-9]+)g", "{$1g}")
-      if (!s2.replaceAll("%%", "").contains("%")) Some(s2) else None
+      val repls = List(
+        ("\\{" -> "{{"),
+        ("\\}" -> "}}"),
+        ("(%ld|%d|%lu|%u|%s|%g|%llu|%lld)" -> "{}"),
+        ("%c" -> "{c}"),
+        ("(%o|%lo|%llo)" ->"{o}"),
+        ("(%x|%lx|%llx)" -> "{x}"),
+        ("%e"-> "{e}"),
+        ("%f"-> "{f}"),
+        ("%(,[0-9]+)e"-> "{$1e}"),
+        ("%(,[0-9]+)f"-> "{$1f}"),
+        ("%(\\.[0-9]+)g" -> "{$1g}")
+      )
+      val s = repls.foldLeft(xmlFormat)({ case (s, (a, b)) => s.replaceAll(a, b) })
+      if (!s.replaceAll("%%", "").contains("%")) Some(s) else None
     }
 
     /** Translates an optional XML format.
