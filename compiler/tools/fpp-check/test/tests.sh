@@ -12,6 +12,7 @@ array_format_numeric
 array_format_ok
 array_format_too_many_repls
 array_invalid_size
+array_string_size_default_ok
 array_struct_default_ok
 array_struct_no_default_ok
 component_ok
