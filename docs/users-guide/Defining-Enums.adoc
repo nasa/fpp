@@ -45,7 +45,7 @@ For example, this definition is equivalent to the one above:
 
 [source,fpp]
 ----
-enum Decision = { YES, NO, MAYBE }
+enum Decision { YES, NO, MAYBE }
 ----
 
 There must be at least one enumerated constant.
