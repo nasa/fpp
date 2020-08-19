@@ -15,4 +15,5 @@ struct StructFormat {
   m14: F32 format "{.3e}"
   m15: F32 format "{.3f}"
   m16: F32 format "{.3g}"
+  m17: F32 format "{.3g}%"
 }

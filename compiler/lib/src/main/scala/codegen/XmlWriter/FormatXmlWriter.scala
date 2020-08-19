@@ -86,11 +86,15 @@ object FormatXmlWriter {
 
   /** Convert a format to a string */
   def formatToString(f: Format, nodes: List[AstNode[Ast.TypeName]]): String = {
+    def escapePercent(s: String) = s.replaceAll("%", "%%")
     val fields = f.fields
     if (fields.length != nodes.length) 
       throw new InternalError("number of nodes should match number of fields")
     val pairs = fields zip nodes
-    pairs.foldLeft(f.prefix)({ case (s, ((field, s1), tn)) => s ++ fieldToString(field, tn) ++ s1 })
+    val s0 = escapePercent(f.prefix)
+    pairs.foldLeft(s0)({ 
+      case (s1, ((field, s2), tn)) => s1 ++ fieldToString(field, tn) ++ escapePercent(s2) 
+    })
   }
 
 }
