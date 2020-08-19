@@ -139,7 +139,7 @@ This code associates the name `a` with the array of
 integers
 `[ 1, 2, 3 ]`.
 
-As mentioned in the Introduction, an FPP model describes the structure of a FSW 
+As mentioned in the introduction, an FPP model describes the structure of a FSW 
 application; the computations are specified in a target 
 language such as {cpp}.
 As a result, FPP does not provide an array indexing operation.
