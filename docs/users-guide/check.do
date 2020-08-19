@@ -6,5 +6,10 @@
 
 . ./defs.sh
 
-export SCRIPTS=$PWD/scripts
-scripts/check_do $@
+mkdir -p check
+for file in $FILES
+do
+  base=`basename $file .adoc`
+  echo check/$base.ok check/$base.err
+done | xargs redo-ifchange
+

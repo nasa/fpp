@@ -5,48 +5,45 @@
 # ----------------------------------------------------------------------
 
 BEGIN {
-  if (path_prefix == "") path_prefix = "unknown"
+  if (mode == "") mode = "ok"
+  if (mode != "ok" && mode != "err") {
+    print "extract.awk: invalid mode " mode > "/dev/stderr"
+    exit 1
+  }
   OUTSIDE = 0
-  HEADER_1 = 1
-  HEADER_2 = 2
-  BODY = 3
+  HEADER = 1
+  BODY = 2
   state = outside
   num_lines = 0
   start_line = 0
-  found_main = 0
 }
 
 state == OUTSIDE && /\[source,fpp\]/ { 
-  mode = $0
-  sub(/^.*,/, "", mode)
-  sub(/].*/, "", mode)
   start_line = NR
-  state = HEADER_1
+  state = HEADER
   next 
 }
 
-state == HEADER_1 && $1 ~ "^----" { 
-  mode = "ok"
-  if (length($1) > 4)
-    mode = "err"
-  state = HEADER_2
+state == HEADER && $1 ~ "^----" { 
+  if (mode == "ok" && length($1) == 4)
+    state = BODY
+  else if (mode == "err" && length($1) > 4)
+    state = BODY
   next 
 }
 
-state == HEADER_2 && $1 ~ "^----" {
-  path = path_prefix "_" start_line "_" mode ".fpp"
+state == BODY && $1 ~ "^----" {
+  path = path_prefix start_line ".fpp"
   printf("") > path
   for (i = 1; i <= num_lines; ++i)
     print lines[i] >> path
   close(path)
   state = OUTSIDE
   num_lines = 0
-  found_main = 0
   next
 }
 
-state == HEADER_2 {
-  if (/main()/) found_main = 1
+state == BODY {
   lines[++num_lines] = $0
   next
 }
