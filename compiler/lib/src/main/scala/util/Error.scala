@@ -60,6 +60,8 @@ sealed trait Error {
         Error.print (Some(loc)) (s"invalid format string: $msg")
       case SemanticError.InvalidStringSize(loc, size) =>
         Error.print (Some(loc)) (s"invalid string size $size")
+      case SemanticError.InvalidSymbol(name, loc, msg) =>
+        Error.print (Some(loc)) (s"invalid symbol $name: $msg")
       case SemanticError.InvalidType(loc, msg) =>
         Error.print (Some(loc)) (msg)
       case SemanticError.NotImplemented(loc) =>
@@ -146,6 +148,8 @@ object SemanticError {
   final case class InvalidFormatString(loc: Location, msg: String) extends Error
   /** Invalid string size */
   final case class InvalidStringSize(loc: Location, size: BigInt) extends Error
+  /** Invalid symbol */
+  final case class InvalidSymbol(name: String, loc: Location, msg: String) extends Error
   /** Invalid type */
   final case class InvalidType(loc: Location, msg: String) extends Error
   /** Feature not implemented */
@@ -157,10 +161,7 @@ object SemanticError {
     prevLoc: Location
   ) extends Error
   /** Undefined symbol */
-  final case class UndefinedSymbol(
-    name: String,
-    loc: Location
-  ) extends Error
+  final case class UndefinedSymbol(name: String, loc: Location) extends Error
   /** Use-def cycle */
   final case class UseDefCycle(loc: Location, msg: String) extends Error
   /** Type mismatch */

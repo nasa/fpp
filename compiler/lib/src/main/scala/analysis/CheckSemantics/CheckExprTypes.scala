@@ -189,7 +189,12 @@ object CheckExprTypes extends UseAnalyzer {
     for {
       a <- symbol match {
         case Symbol.Constant(node) => defConstantAnnotatedNode(a, node)
-        case _ => Right(a)
+        case Symbol.EnumConstant(node) => Right(a)
+        case _ => Left(SemanticError.InvalidSymbol(
+          symbol.getUnqualifiedName,
+          Locations.get(node.id),
+          "not a constant symbol"
+        ))
       }
     } yield {
       val t = a.typeMap(symbol.getNodeId)
