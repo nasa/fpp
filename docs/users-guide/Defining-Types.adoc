@@ -379,6 +379,13 @@ struct S1 { x: U32, y: string } default { z = 1 } # Error: member z does not mat
 struct S2 { x: U32, y: string } default { x = "abc" } # Error: type of member x does not match
 --------
 
+*XML limitation:*
+FPP structs are translated to F Prime Serializable XML types.
+The F Prime Serializable XML format does not support default
+values for the structure members.
+Therefore, any default values specified in FPP structs are ignored
+when translating to F Prime XML.
+
 ==== Member Format Strings
 
 For any member, you can include an optional format.
@@ -435,6 +442,16 @@ struct S2 { s1: S1, a: A }
 # default value is { s1 = { x = 0, y = "abc" }, a = [ 5, 5 ] }
 struct S3 { s1: S1, a: A } default { s1 = { y = "abc" }, a = 5 }
 ----
+
+*XML limitation:*
+FPP structs are translated to F Prime Serializable XML types.
+The F Prime Serializable format does not support complex types
+in struct members.
+When translating to F Prime XML, you should use only simple types
+in struct members.
+If you write a complex type in a struct member, it will pass the
+FPP analysis and FPP will generate XML, but the resulting XML
+will not be handled correctly by the F Prime XML autocoder.
 
 ==== The Order of Members
 

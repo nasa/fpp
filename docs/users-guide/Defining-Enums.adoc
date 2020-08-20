@@ -50,7 +50,7 @@ enum Decision { YES, NO, MAYBE }
 
 There must be at least one enumerated constant.
 
-=== Using Enum Definitions
+=== Using a Enum Definition
 
 Once you have defined an enum, you can use the enum as a type and the 
 enumerated constants as constants.
@@ -77,7 +77,7 @@ Here we have used the enum type as the type of the array member,
 and we have used the value `Decision.MAYBE` as the default
 value of an array member.
 
-=== Numeric Values Associated with Constants
+=== Numeric Values
 
 As in C and {cpp}, each enumerated constant has an associated
 numeric value.
@@ -136,6 +136,10 @@ array A = [3] E default 10
 --------
 
 === The Representation Type
+
+Each enum definition has an associated *representation type*.
+This is the primitive integer type used to represent the numeric
+values associated with the enumerated constants when generating code.
 
 TODO
 

@@ -351,6 +351,11 @@ constant c = b
 
 Try submitting this code to `fpp-check`, to see what happens.
 
+Names like `a`, `b`, and `c` are simple or unqualified names.
+Names can also be qualified: for example `A.a` is allowed.
+We will discuss qualified names further when we introduce
+module definitions and enum definitions below.
+
 ==== Value Arithmetic Expressions
 
 An *value arithmetic expression* performs arithmetic on values.
