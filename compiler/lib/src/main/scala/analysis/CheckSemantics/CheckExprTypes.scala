@@ -188,8 +188,13 @@ object CheckExprTypes extends UseAnalyzer {
     val symbol = a.useDefMap(node.getId)
     for {
       a <- symbol match {
+        // Unqualified constant symbol: visit the constant definition
+        // to ensure it has a type
         case Symbol.Constant(node) => defConstantAnnotatedNode(a, node)
+        // Unqualified enum symbol: if this is in scope, then we are in 
+        // the enum definition, so it already has a type
         case Symbol.EnumConstant(node) => Right(a)
+        // Invalid use of a symbol in an expression
         case _ => Left(SemanticError.InvalidSymbol(
           symbol.getUnqualifiedName,
           Locations.get(node.id),
