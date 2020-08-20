@@ -17,5 +17,4 @@ Defining-Enums.adoc
 Specifying-Models.adoc
 Analyzing-Models.adoc
 Translating-Models.adoc
-F-Prime-XML-Format.adoc
 "

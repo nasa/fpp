@@ -141,7 +141,31 @@ Each enum definition has an associated *representation type*.
 This is the primitive integer type used to represent the numeric
 values associated with the enumerated constants when generating code.
 
-TODO
+If you don't specify a representation type, then the default
+type is `I32`.
+For example, in the enumerations defined in the previous sections,
+the representation type is `I32`.
+To specify an explicit representation type, you write it after
+the enum name, separated from the name by a colon, like this:
+
+[source,fpp]
+----
+enum Small : U8 { A, B, C }
+----
+
+This code defines an enum `Small` with three enumerated constants
+`Small.A`, `Small.B`, and `Small.C`.
+Each of the enumerated constants is represented as a `U8` value
+in {cpp}.
+
+*XML limitation:*
+The F Prime XML format for enums does not support the concept
+of a representation type.
+Instead, the representation type for all enums is specified
+in {cpp} by a preprocessor definition named `FwEnumStoreType`.
+So when translating an enum `E` to F Prime XML, the representation type
+for `E` specified in the FPP model is ignored, and `FwEnumStoreType`
+is used instead.
 
 === The Default Value
 
