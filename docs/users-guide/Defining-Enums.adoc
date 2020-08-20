@@ -1,6 +1,6 @@
 == Defining Enums
 
-An FPP model may contain *enum definitions*.
+An FPP model may contain one or more *enum definitions*.
 Enum is short for enumeration.
 An FPP enum is similar to an enum in C or {cpp}.
 It defines a named type called an *enum type* and a set of named constants
@@ -53,7 +53,7 @@ There must be at least one enumerated constant.
 === Using a Enum Definition
 
 Once you have defined an enum, you can use the enum as a type and the 
-enumerated constants as constants.
+enumerated constants as constants of that type.
 The name of each enumerated constant is qualified by the enum name.
 Here is an example:
 
@@ -63,7 +63,7 @@ enum State { ON, OFF }
 constant initialState = State.OFF
 ----
 
-The constant `s` has the value `State.ON`.
+The constant `s` has type `State` and value `State.ON`.
 Here is another example:
 
 [source,fpp]
@@ -169,4 +169,31 @@ is used instead.
 
 === The Default Value
 
-TODO
+Every type in FPP has an associated default value.
+For enum types, if you don't specify a default value explicitly,
+then the default value is the first enumerated constant
+in the definition.
+For example, given this definition
+
+[source,fpp]
+----
+enum Decision { YES, NO, MAYBE }
+----
+
+the default value for the type `Decision` is `Decision.YES`.
+
+That may be too permissive, say if `Decision` represents
+a decision on a bank loan.
+Perhaps the default value should be `Decision.MAYBE`.
+To specify an explicit default value, write the keyword `default`
+and the enumerated constant after the enumerated constant
+definitions, like this:
+
+[source,fpp]
+----
+enum Decision { YES, NO, MAYBE } default MAYBE
+----
+
+Notice that when using the constant `MAYBE` as a default value, we
+don't need to qualify it with the enum name, because the
+use appears inside the enum where it is defined.

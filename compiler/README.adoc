@@ -10,6 +10,17 @@ To install in the `bin` directory, run `./install`.
 This step also runs all the unit tests.
 To install to a different directory, run `./install` _dir-name_.
 
+Once you have installed the FPP compiler to a directory `FPP_INSTALL_DIR`, you
+should put `FPP_INSTALL_DIR` in your shell path. For example, in bash:
+
+[source,bash]
+----
+% export FPP_INSTALL_DIR=[path-to-fpp-install-dir]
+% export PATH=$PATH:$FPP_INSTALL_DIR
+----
+
+That way you can run the tools from anywhere.
+
 The currently available tools are as follows:
 
 * `fpp-check` (constants, types, and enums only)

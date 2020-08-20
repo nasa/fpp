@@ -1,6 +1,6 @@
 == Defining Types
 
-An FPP model may include *type definitions*.
+An FPP model may include one or more *type definitions*.
 These definitions describe named types that may be used elsewhere in the
 model and that may generate code in the target language.
 For example,
