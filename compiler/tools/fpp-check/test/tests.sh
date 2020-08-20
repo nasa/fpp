@@ -32,6 +32,7 @@ enum_duplicate_value
 enum_explicit
 enum_implied
 enum_invalid_constants
+enum_invalid_symbol
 enum_missing_constant
 expr_add_error
 expr_add_ok
