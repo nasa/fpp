@@ -50,13 +50,90 @@ enum Decision { YES, NO, MAYBE }
 
 There must be at least one enumerated constant.
 
-=== Using the Enumerated Constants
+=== Using Enum Definitions
 
-TODO
+Once you have defined an enum, you can use the enum as a type and the 
+enumerated constants as constants.
+The name of each enumerated constant is qualified by the enum name.
+Here is an example:
 
-=== Specifying the Constant Values
+[source,fpp]
+----
+enum State { ON, OFF }
+constant initialState = State.OFF
+----
 
-TODO
+The constant `s` has the value `State.ON`.
+Here is another example:
+
+[source,fpp]
+
+----
+enum Decision { YES, NO, MAYBE }
+array Decisions = [3] Decision default Decision.MAYBE
+----
+
+Here we have used the enum type as the type of the array member,
+and we have used the value `Decision.MAYBE` as the default
+value of an array member.
+
+=== Numeric Values Associated with Constants
+
+As in C and {cpp}, each enumerated constant has an associated
+numeric value.
+By default, the values start at zero and go up by one.
+For example, in the enum `Decision` defined above,
+`YES` has value 0, `NO` has value 1, and `MAYBE` has value 2.
+
+You can optionally assign explicit values to the enumerated
+constants.
+To do this, you write an equals sign and an expression after
+each of the constant definitions.
+Here is an example:
+
+[source,fpp]
+----
+enum E { A = 1, B = 2, C = 3 }
+----
+
+This definition creates an enum type `E` with three enumerated constants `E.A`,
+`E.B`, and `E.C`. The constants have 1, 2, and 3 as their associated numeric 
+values.
+
+If you provide an explicit numeric value for any of the enumerated constants,
+then you must do so for all of them.
+For example, this code is not allowed:
+
+[source,fpp]
+--------
+# Error: cannot provide a value for just one enumerated constant
+enum E { A = 1, B, C }
+--------
+
+You may convert an enumerated constant to its associated numeric value.
+For example, this code is allowed:
+
+[source,fpp]
+----
+enum E { A = 5 }
+constant c = E.A + 1
+----
+
+The constant `c` has the value 6.
+
+However, you may not convert a numeric value to an enumerated constant.
+This is for type safety reasons: a value of enumeration type should have
+one of the numeric values specified in the type.
+Assigning an arbitrary number to an enum type would violate this rule.
+
+For example, this code is not allowed:
+
+[source,fpp]
+--------
+enum E { A, B, C }
+# Error: cannot assign integer 10 to type E
+array A = [3] E default 10
+--------
 
 === The Representation Type
 

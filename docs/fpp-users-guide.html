@@ -497,8 +497,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Enums">7. Defining Enums</a>
 <ul class="sectlevel2">
 <li><a href="#Defining-Enums_Writing-an-Enum-Definition">7.1. Writing an Enum Definition</a></li>
-<li><a href="#Defining-Enums_Using-the-Enumerated-Constants">7.2. Using the Enumerated Constants</a></li>
-<li><a href="#Defining-Enums_Specifying-the-Constant-Values">7.3. Specifying the Constant Values</a></li>
+<li><a href="#Defining-Enums_Using-Enum-Definitions">7.2. Using Enum Definitions</a></li>
+<li><a href="#Defining-Enums_Numeric-Values-Associated-with-Constants">7.3. Numeric Values Associated with Constants</a></li>
 <li><a href="#Defining-Enums_The-Representation-Type">7.4. The Representation Type</a></li>
 <li><a href="#Defining-Enums_The-Default-Value">7.5. The Default Value</a></li>
 </ul>
@@ -2304,15 +2304,100 @@ For example, this definition is equivalent to the one above:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Enums_Using-the-Enumerated-Constants">7.2. Using the Enumerated Constants</h3>
+<h3 id="Defining-Enums_Using-Enum-Definitions">7.2. Using Enum Definitions</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>Once you have defined an enum, you can use the enum as a type and the
+enumerated constants as constants.
+The name of each enumerated constant is qualified by the enum name.
+Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">enum State { ON, OFF }
+constant initialState = State.OFF</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The constant <code>s</code> has the value <code>State.ON</code>.
+Here is another example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">enum Decision { YES, NO, MAYBE }
+array Decisions = [3] Decision default Decision.MAYBE</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here we have used the enum type as the type of the array member,
+and we have used the value <code>Decision.MAYBE</code> as the default
+value of an array member.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Enums_Specifying-the-Constant-Values">7.3. Specifying the Constant Values</h3>
+<h3 id="Defining-Enums_Numeric-Values-Associated-with-Constants">7.3. Numeric Values Associated with Constants</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>As in C and C&#43;&#43;, each enumerated constant has an associated
+numeric value.
+By default, the values start at zero and go up by one.
+For example, in the enum <code>Decision</code> defined above,
+<code>YES</code> has value 0, <code>NO</code> has value 1, and <code>MAYBE</code> has value 2.</p>
+</div>
+<div class="paragraph">
+<p>You can optionally assign explicit values to the enumerated
+constants.
+To do this, you write an equals sign and an expression after
+each of the constant definitions.
+Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">enum E { A = 1, B = 2, C = 3 }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This definition creates an enum type <code>E</code> with three enumerated constants <code>E.A</code>,
+<code>E.B</code>, and <code>E.C</code>. The constants have 1, 2, and 3 as their associated numeric
+values.</p>
+</div>
+<div class="paragraph">
+<p>If you provide an explicit numeric value for any of the enumerated constants,
+then you must do so for all of them.
+For example, this code is not allowed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp"># Error: cannot provide a value for just one enumerated constant
+enum E { A = 1, B, C }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You may convert an enumerated constant to its associated numeric value.
+For example, this code is allowed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">enum E { A = 5 }
+constant c = E.A + 1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The constant <code>c</code> has the value 6.</p>
+</div>
+<div class="paragraph">
+<p>However, you may not convert a numeric value to an enumerated constant.
+This is for type safety reasons: a value of enumeration type should have
+one of the numeric values specified in the type.
+Assigning an arbitrary number to an enum type would violate this rule.</p>
+</div>
+<div class="paragraph">
+<p>For example, this code is not allowed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">enum E { A, B, C }
+# Error: cannot assign integer 10 to type E
+array A = [3] E default 10</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -2396,7 +2481,7 @@ When implementing an abstract type in C&#43;&#43;, you must provide</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-19 15:53:58 -0700
+Last updated 2020-08-20 08:45:29 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

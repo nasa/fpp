@@ -4,4 +4,4 @@
 # all.do
 # ----------------------------------------------------------------------
 
-redo-ifchange fpp-users-guide.html
+redo-ifchange check fpp-users-guide.html
