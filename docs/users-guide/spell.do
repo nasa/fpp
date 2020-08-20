@@ -6,7 +6,7 @@
 
 . ./defs.sh
 
-# Check subdirectories
+# Check this directory
 for file in $FILES
 do
   if ! echo $file | grep -q '/'
@@ -15,7 +15,7 @@ do
   fi
 done
 
-# Check this directory
+# Check this subdirectories
 targets=`find . -mindepth 2 -name spell.do | sed 's/\.do$//'`
 for target in $targets
 do

@@ -14,7 +14,7 @@ provides an overview of F Prime.
 The goals of FPP are as follows:
 
 * To provide a modeling language for F Prime that is simple, easy to use, and
-well-tailored to the domain.
+well-tailored to its purpose.
 
 * To provide semantic checking and error reporting for F Prime models.
 
@@ -22,9 +22,8 @@ well-tailored to the domain.
 {cpp}, Python, XML.
 In this document, we will call these languages the *target languages*.
 
-Code generated from FPP models may be combined with handwritten code in
-a target language to create, e.g., deployable FSW programs and ground
-data environments.
+Developers may combine code generated from FPP with code written by hand to
+create, e.g., deployable FSW programs and ground data environments.
 
 *Purpose:* The purpose of this document is to describe FPP in a way that is accessible
 to users, including beginning users.

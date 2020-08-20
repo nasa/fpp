@@ -443,16 +443,6 @@ struct S2 { s1: S1, a: A }
 struct S3 { s1: S1, a: A } default { s1 = { y = "abc" }, a = 5 }
 ----
 
-*XML limitation:*
-FPP structs are translated to F Prime Serializable XML types.
-The F Prime Serializable format does not support complex types
-in struct members.
-When translating to F Prime XML, you should use only simple types
-in struct members.
-If you write a complex type in a struct member, it will pass the
-FPP analysis and FPP will generate XML, but the resulting XML
-will not be handled correctly by the F Prime XML autocoder.
-
 ==== The Order of Members
 
 For <<Defining-Constants_Expressions_Struct-Values,struct values>>,

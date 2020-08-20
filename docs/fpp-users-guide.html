@@ -497,8 +497,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Enums">7. Defining Enums</a>
 <ul class="sectlevel2">
 <li><a href="#Defining-Enums_Writing-an-Enum-Definition">7.1. Writing an Enum Definition</a></li>
-<li><a href="#Defining-Enums_Using-Enum-Definitions">7.2. Using Enum Definitions</a></li>
-<li><a href="#Defining-Enums_Numeric-Values-Associated-with-Constants">7.3. Numeric Values Associated with Constants</a></li>
+<li><a href="#Defining-Enums_Using-a-Enum-Definition">7.2. Using a Enum Definition</a></li>
+<li><a href="#Defining-Enums_Numeric-Values">7.3. Numeric Values</a></li>
 <li><a href="#Defining-Enums_The-Representation-Type">7.4. The Representation Type</a></li>
 <li><a href="#Defining-Enums_The-Default-Value">7.5. The Default Value</a></li>
 </ul>
@@ -506,13 +506,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Specifying-Models">8. Specifying Models</a></li>
 <li><a href="#Analyzing-Models">9. Analyzing Models</a></li>
 <li><a href="#Translating-Models">10. Translating Models</a></li>
-<li><a href="#Appendix:-F-Prime-XML-Format">11. Appendix: F Prime XML Format</a>
-<ul class="sectlevel2">
-<li><a href="#Appendix:-F-Prime-XML-Format_SerializableAi.xml">11.1. SerializableAi.xml</a></li>
-<li><a href="#Appendix:-F-Prime-XML-Format_EnumAi.xml">11.2. EnumAi.xml</a></li>
-<li><a href="#Appendix:-F-Prime-XML-Format_ArrayAi.xml">11.3. ArrayAi.xml</a></li>
-</ul>
-</li>
 </ul>
 </div>
 </div>
@@ -544,7 +537,7 @@ provides an overview of F Prime.</p>
 <ul>
 <li>
 <p>To provide a modeling language for F Prime that is simple, easy to use, and
-well-tailored to the domain.</p>
+well-tailored to its purpose.</p>
 </li>
 <li>
 <p>To provide semantic checking and error reporting for F Prime models.</p>
@@ -557,9 +550,8 @@ In this document, we will call these languages the <strong>target languages</str
 </ul>
 </div>
 <div class="paragraph">
-<p>Code generated from FPP models may be combined with handwritten code in
-a target language to create, e.g., deployable FSW programs and ground
-data environments.</p>
+<p>Developers may combine code generated from FPP with code written by hand to
+create, e.g., deployable FSW programs and ground data environments.</p>
 </div>
 <div class="paragraph">
 <p><strong>Purpose:</strong> The purpose of this document is to describe FPP in a way that is accessible
@@ -589,6 +581,16 @@ definitions</p>
 </div>
 <div class="paragraph">
 <p>Future versions of this document will cover additional features of FPP.</p>
+</div>
+<div class="paragraph">
+<p><strong>XML limitations:</strong>
+The current translation strategy for FPP is to translate to F Prime XML
+and then to C&#43;&#43;.
+Some features of FPP are not supported in the XML representation.
+Where a feature is not supported, we will call out this fact in a
+note marked <strong>XML limitation</strong>.
+A future version of FPP will generate C&#43;&#43; directly and will support
+all the features described here.</p>
 </div>
 </div>
 </div>
@@ -1091,6 +1093,12 @@ constant c = b</code></pre>
 </div>
 <div class="paragraph">
 <p>Try submitting this code to <code>fpp-check</code>, to see what happens.</p>
+</div>
+<div class="paragraph">
+<p>Names like <code>a</code>, <code>b</code>, and <code>c</code> are simple or unqualified names.
+Names can also be qualified: for example <code>A.a</code> is allowed.
+We will discuss qualified names further when we introduce
+module definitions and enum definitions below.</p>
 </div>
 </div>
 <div class="sect3">
@@ -2048,6 +2056,14 @@ then FPP will fill in the member and give it the default value:</p>
 <pre class="prettyprint highlight"><code data-lang="fpp">struct S2 { x: U32, y: string } default { x = "abc" } # Error: type of member x does not match</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p><strong>XML limitation:</strong>
+FPP structs are translated to F Prime Serializable XML types.
+The F Prime Serializable XML format does not support default
+values for the structure members.
+Therefore, any default values specified in FPP structs are ignored
+when translating to F Prime XML.</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="Defining-Types_Struct-Type-Definitions_Member-Format-Strings">6.2.4. Member Format Strings</h4>
@@ -2304,7 +2320,7 @@ For example, this definition is equivalent to the one above:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Enums_Using-Enum-Definitions">7.2. Using Enum Definitions</h3>
+<h3 id="Defining-Enums_Using-a-Enum-Definition">7.2. Using a Enum Definition</h3>
 <div class="paragraph">
 <p>Once you have defined an enum, you can use the enum as a type and the
 enumerated constants as constants.
@@ -2334,7 +2350,7 @@ value of an array member.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Enums_Numeric-Values-Associated-with-Constants">7.3. Numeric Values Associated with Constants</h3>
+<h3 id="Defining-Enums_Numeric-Values">7.3. Numeric Values</h3>
 <div class="paragraph">
 <p>As in C and C&#43;&#43;, each enumerated constant has an associated
 numeric value.
@@ -2403,7 +2419,38 @@ array A = [3] E default 10</code></pre>
 <div class="sect2">
 <h3 id="Defining-Enums_The-Representation-Type">7.4. The Representation Type</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>Each enum definition has an associated <strong>representation type</strong>.
+This is the primitive integer type used to represent the numeric
+values associated with the enumerated constants when generating code.</p>
+</div>
+<div class="paragraph">
+<p>If you don&#8217;t specify a representation type, then the default
+type is <code>I32</code>.
+For example, in the enumerations defined in the previous sections,
+the representation type is <code>I32</code>.
+To specify an explicit representation type, you write it after
+the enum name, separated from the name by a colon, like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">enum Small : U8 { A, B, C }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This code defines an enum <code>Small</code> with three enumerated constants
+<code>Small.A</code>, <code>Small.B</code>, and <code>Small.C</code>.
+Each of the enumerated constants is represented as a <code>U8</code> value
+in C&#43;&#43;.</p>
+</div>
+<div class="paragraph">
+<p><strong>XML limitation:</strong>
+The F Prime XML format for enums does not support the concept
+of a representation type.
+Instead, a single representation type is specified for all enums
+by a C&#43;&#43; preprocessor definition named <code>FwEnumStoreType</code>.
+So when translating an enum <code>E</code> to F Prime XML, the representation type
+for <code>E</code> specified in the FPP model is ignored, and <code>FwEnumStoreType</code>
+is used instead.</p>
 </div>
 </div>
 <div class="sect2">
@@ -2455,33 +2502,10 @@ When implementing an abstract type in C&#43;&#43;, you must provide</p>
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="Appendix:-F-Prime-XML-Format">11. Appendix: F Prime XML Format</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="Appendix:-F-Prime-XML-Format_SerializableAi.xml">11.1. SerializableAi.xml</h3>
-<div class="paragraph">
-<p>TODO</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Appendix:-F-Prime-XML-Format_EnumAi.xml">11.2. EnumAi.xml</h3>
-<div class="paragraph">
-<p>TODO</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Appendix:-F-Prime-XML-Format_ArrayAi.xml">11.3. ArrayAi.xml</h3>
-<div class="paragraph">
-<p>TODO</p>
-</div>
-</div>
-</div>
-</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-20 08:45:29 -0700
+Last updated 2020-08-20 10:54:30 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
