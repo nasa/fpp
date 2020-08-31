@@ -1,6 +1,0 @@
-def constant
-  ident a
-  literal int 123
-def constant
-  ident b
-  literal int 0x123

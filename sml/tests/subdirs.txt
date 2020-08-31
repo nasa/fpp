@@ -1,2 +1,0 @@
-fpp-format
-fpp-syntax

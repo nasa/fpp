@@ -1,8 +1,0 @@
-spec loc
-  spec loc kind component instance
-  qual ident a.b
-  location "a.b.fpp"
-spec loc
-  spec loc kind component instance
-  qual ident c
-  location "c.fpp"

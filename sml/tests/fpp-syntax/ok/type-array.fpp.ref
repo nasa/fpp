@@ -1,8 +1,0 @@
-def array
-  ident A
-  literal int 3
-  type name U8
-def array
-  ident B
-  literal int 3
-  type name A

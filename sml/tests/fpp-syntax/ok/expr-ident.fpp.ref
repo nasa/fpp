@@ -1,6 +1,0 @@
-def constant
-  ident c1
-  literal int 0
-def constant
-  ident c2
-  ident c1

@@ -1,4 +1,0 @@
-def array
-  ident A
-  literal int 3
-  type name bool

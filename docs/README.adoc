@@ -1,6 +1,6 @@
-== docs/spec
+== docs
 
-This directory contains a draft specification for the F Prime Prime (FPP)
+This directory contains documentation for the F Prime Prime (FPP)
 FSW modeling language.
 To generate the specification, you need the following tools installed on your 
 system:
