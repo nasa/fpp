@@ -11,24 +11,15 @@ ports, components, and topologies.
 
 === Dividing Models into Files
 
-FPP does not specify any particular division of model elements into files.
-For example (unlike F Prime XML), there is no requirement that each
+Unlike F Prime XML, FPP does not require any particular division of model 
+elements into files.
+For example, there is no requirement that each
 type definition reside in its own file.
 Nor is there any requirement that the names of files correspond
 to the names of the definitions in the files.
 
-There is a requirement that a syntactic unit may not span multiple files.
-For example, you may place as many type definitions in a single file
-as you wish, but each type definition must reside in a single file.
-Module definitions may span several syntactic units of the form `module { ... 
-}`,
-so module definitions may span multiple files.
-These rules are similar to the way that {cpp} requires a class definition
-`class { ... }` a single file, but it allows namespace definitions to span 
-multiple files.
-
-Of course you should try to adhere to good style when deciding how to
-decompose a large model into many files.
+Of course you should try to adhere to good style when decomposing a large model 
+into many files.
 For example:
 
 * Group related model elements into files, and name the files
@@ -47,6 +38,23 @@ For example, group types separately from ports.
 
 ** You can group files according to their role in the FSW.
 For example, group framework files separately from application files.
+
+There is a requirement that a syntactic unit must begin and end in the same file.
+For example:
+
+* Each type definition is a syntactic unit, so each type definition must begin 
+and end in the same file.
+
+* A module definition may span several syntactic units of the form 
+`module { ...  }`,
+so a module definition may span multiple files (with each unit of the form
+`module { ... }` residing in a single file).
+
+These rules are similar to the way that {cpp} requires a class definition
+`class C { ... }` or a namespace block `namespace N { ... }` to reside in a 
+single file, but it allows the definition of a single namespace `N` to span 
+multiple blocks
+`namespace N { ... }` that can be in different files.
 
 === Location Specifiers
 

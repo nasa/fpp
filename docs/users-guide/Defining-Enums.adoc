@@ -161,11 +161,12 @@ in {cpp}.
 *XML limitation:*
 The F Prime XML format for enums does not support the concept
 of a representation type.
-Instead, a single representation type is specified for all enums
+Instead, all enums have a single representation type specified
 by a {cpp} preprocessor definition named `FwEnumStoreType`.
-So when translating an enum `E` to F Prime XML, the representation type
-for `E` specified in the FPP model is ignored, and `FwEnumStoreType`
-is used instead.
+So when translating an enum `E` to F Prime XML, the translator ignores the 
+representation type
+specified for `E` in the FPP model is ignored and uses `FwEnumStoreType`
+instead.
 
 === The Default Value
 
