@@ -4,8 +4,9 @@ The previous sections have explained the various syntactic elements
 of FPP.
 This section takes a broader view:
 it explains how to assemble the elements into an FPP model.
-We focus on constants and types, because those elements of FPP
-are currently implemented.
+
+In the discussion below, we focus on constants and types, because those 
+elements of FPP are currently implemented.
 In future versions of this User's Guide, we will extend the discussion to cover
 ports, components, and topologies.
 
@@ -116,11 +117,14 @@ It emits a list of files containing the symbols used in _f_ (i.e., the
 dependencies of _f_).
 
 Typically these steps occur in separate phases of development.
-For example, you may run step 1 to locate all the symbols exported by one or 
-more modules,
-and then run step 2 several times to develop files that depend on those 
-modules,
-without running step 1 again.
+For example:
+
+* You may run step 1 to locate all the symbols exported by one or 
+more modules.
+
+* You may run step 2 several times to develop files that depend on those 
+modules, without running step 1 again.
+
 Below we explain these steps in more detail.
 
 === Location Specifiers
@@ -216,11 +220,11 @@ For example, the name `a` appearing in the example above is automatically
 resolved to `M.a`.
 
 Note that this rule is less flexible than for other uses of definitions.
-For example, a use of constant `M.a` in an expression inside module `M`
-may be spelled either `a` or `M.a`.
-When referring to `M.a` in a locate specifier in module `M`, you must
-write `a` and not `M.a`.
-The reason for this restriction is to facilitate dependency analysis,
+For example, when using the constant `M.a` in an expression inside module `M`
+you may spell the constant either `a` or `M.a`;
+but when referring to the same constant `M.a` in a locate specifier in module 
+`M`, you must write `a` and not `M.a`.
+The purpose of this restriction is to facilitate dependency analysis,
 which occurs before the analyzer has complete information about
 definitions and their uses.
 
