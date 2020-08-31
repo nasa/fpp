@@ -2,10 +2,10 @@
 
 The previous sections have explained the various syntactic elements
 of FPP.
-This section explains how to assemble these elements its into a larger FPP 
-model.
-We focus on constants and types, because those are the elements of FPP
-that are currently implemented.
+This section takes a broader view:
+it explains how to assemble the elements into an FPP model.
+We focus on constants and types, because those elements of FPP
+are currently implemented.
 In future versions of this User's Guide, we will extend the discussion to cover
 ports, components, and topologies.
 
@@ -56,14 +56,183 @@ single file, but it allows the definition of a single namespace `N` to span
 multiple blocks
 `namespace N { ... }` that can be in different files.
 
+=== Dependencies
+
+When a model is split into two or more files, a file _f_ may use symbols
+whose definitions appear in files other than _f_.
+In order to analyze and translate _f_, the analyzer needs to extract
+the definitions from these files.
+Files other than _f_ used during analysis of _f_ are called the *dependencies* 
+of _f_.
+
+For example, suppose the file `a.fpp` contains the following definition:
+
+[source,fpp]
+----
+constant a = 0
+----
+
+And suppose the file `b.fpp` contains the following definition:
+
+
+[source,fpp]
+--------
+constant b = a
+--------
+
+If you present both files to `fpp-check`, like this:
+
+----
+% fpp-check a.fpp b.fpp
+----
+
+the check will pass.
+However, if you present just `b.fpp`, like this:
+
+----
+% fpp-check b.fpp
+----
+
+you will get an error stating that the symbol `a` is undefined. (Try it and 
+see.)
+The error occurs because the definition of `a` is located in `a.fpp`,
+which was not included in the analysis.
+
+For very simple models, we can manage dependencies by hand, as we did
+for the example above.
+However, for even moderately complex models, this gets difficult.
+Therefore FPP has a set of tools and features that assist with dependency
+management.
+
+In summary, dependency management in FPP generally works as follows:
+
+. You run a tool called `fpp-locate-defs` to generate *location specifiers*
+for all the symbols that could be used in _f_.
+
+. You run a tool called `fpp-depend`, passing it _f_ and the location 
+specifiers
+generated in step 1.
+It emits a list of files containing the symbols used in _f_ (i.e., the 
+dependencies of _f_).
+
+Typically these steps occur in separate phases of development.
+For example, you may run step 1 to locate all the symbols exported by one or 
+more modules,
+and then run step 2 several times to develop files that depend on those 
+modules,
+without running step 1 again.
+Below we explain these steps in more detail.
+
 === Location Specifiers
 
-TODO
+This section explains how location specifiers work.
 
-=== Include Specifiers
+==== Writing Location Specifiers
+
+A location specifier is a unit of syntax in an FPP model.
+Here we explain the syntax, so you know what it means.
+However, you should ordinarily not write location specifiers
+by hand.
+Instead, you should let the tools generate them, as described
+in the next section.
+
+*Syntax:* A location specifier consists of the keyword `locate`, a kind of symbol,
+the name of a symbol, and a string representing a file path.
+For example, to locate the definition of constant `a` at `a.fpp`,
+we would write
+
+[source,fpp]
+----
+# Locating a constant definition
+locate constant a at "a.fpp"
+----
+
+For the current version of FPP, the kind of symbol can be `constant` or `type`.
+To locate a type `T` in a file `T.fpp`, we would write the following:
+
+[source,fpp]
+----
+# Locating a type definition
+locate type T at "T.fpp"
+----
+
+To locate an enum, we locate the type; the location of the enumerated
+constants are then implied:
+
+[source,fpp]
+----
+# Locating an enum definition,
+# including the enumerated constant definitions
+locate type E at "E.fpp"
+----
+
+*Path Names:* The path name in a location specifier _L_ is relative to the
+location of the file where _L_ appears.
+For example, suppose the file `b.fpp` appears on the file system in some directory _D_.
+Suppose also that _D_ has a subdirectory `Constants`, `Constants` contains a file `a.fpp`,
+and `a.fpp` defines the constant `a`.
+Then in `b.fpp` we could write this:
+
+[source,fpp]
+----
+locate constant a at "Constants/a.fpp"
+----
+
+If, instead of residing in a subdirectory, `a.fpp` were located one directory above
+`b.fpp` in the file system, we could write this:
+
+[source,fpp]
+----
+locate constant a at "../a.fpp"
+----
+
+*Symbol Names:* The symbol name appearing after the keyword `locate`
+may be a qualified name.
+For example, suppose the file `M.fpp` contains the following:
+
+[source,fpp]
+----
+module M { constant a = 0 }
+----
+
+Then in file `b.fpp` we could write this:
+
+[source.fpp]
+----
+locate constant M.a at "M.fpp"
+----
+
+Optionally, we may enclose the locate specifier in the module `M`, like
+this:
+
+[source,fpp]
+----
+module M { locate constant a at "M.fpp" }
+----
+
+A locate specifier written inside a module this way has its symbol name
+implicitly qualified with the module name.
+For example, the name `a` appearing in the example above is automatically
+resolved to `M.a`.
+
+Note that this rule is less flexible than for other uses of definitions.
+For example, a use of constant `M.a` in an expression inside module `M`
+may be spelled either `a` or `M.a`.
+When referring to `M.a` in a locate specifier in module `M`, you must
+write `a` and not `M.a`.
+The reason for this restriction is to facilitate dependency analysis,
+which occurs before the analyzer has complete information about
+definitions and their uses.
+
+
+==== Generating Location Specifiers
 
 TODO
 
 === Computing Dependencies
+
+TODO
+
+=== Include Specifiers
 
 TODO

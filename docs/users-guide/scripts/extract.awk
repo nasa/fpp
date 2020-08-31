@@ -29,6 +29,7 @@ state == HEADER && $1 ~ "^----" {
     state = BODY
   else if (mode == "err" && length($1) > 4)
     state = BODY
+  else state = OUTSIDE
   next 
 }
 
