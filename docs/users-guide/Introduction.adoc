@@ -25,6 +25,14 @@ In this document, we will call these languages the *target languages*.
 Developers may combine code generated from FPP with code written by hand to
 create, e.g., deployable FSW programs and ground data environments.
 
+The name "F Double Prime" (or F'') deliberately suggests the idea of a 
+"derivative"
+of F Prime (or F').
+By "integrating" an FPP model (i.e., running the tools) you get a partial
+FSW implementation in the F Prime framework; and then by "integrating" again 
+(i.e., providing
+the project-specific {cpp} implementation) you get a FSW application.
+
 *Purpose:* The purpose of this document is to describe FPP in a way that is accessible
 to users, including beginning users.
 A more detailed and precise description is available in

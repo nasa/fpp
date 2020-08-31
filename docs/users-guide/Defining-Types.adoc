@@ -284,7 +284,7 @@ for example `x: U32`.
 The struct type members form an
 <<Defining-Constants_Multiple-Definitions-and-Element-Sequences,element 
 sequence>>
-with a comma as the optional terminating punctuation.
+in which the optional terminating punctuation is a comma.
 As usual for element sequences, you can omit the comma and use
 a newline instead.
 So, for example, we can write the definition shown above in this alternate way:

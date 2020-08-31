@@ -1,3 +1,61 @@
 == Specifying Models
 
+The previous sections have explained the various syntactic elements
+of FPP.
+This section explains how to assemble these elements its into a larger FPP 
+model.
+We focus on constants and types, because those are the elements of FPP
+that are currently implemented.
+In future versions of this User's Guide, we will extend the discussion to cover
+ports, components, and topologies.
+
+=== Dividing Models into Files
+
+FPP does not specify any particular division of model elements into files.
+For example (unlike F Prime XML), there is no requirement that each
+type definition reside in its own file.
+Nor is there any requirement that the names of files correspond
+to the names of the definitions in the files.
+
+There is a requirement that a syntactic unit may not span multiple files.
+For example, you may place as many type definitions in a single file
+as you wish, but each type definition must reside in a single file.
+Module definitions may span several syntactic units of the form `module { ... 
+}`,
+so module definitions may span multiple files.
+These rules are similar to the way that {cpp} requires a class definition
+`class { ... }` a single file, but it allows namespace definitions to span 
+multiple files.
+
+Of course you should try to adhere to good style when deciding how to
+decompose a large model into many files.
+For example:
+
+* Group related model elements into files, and name the files
+according to the purpose of the grouping.
+
+* Choose meaningful module names, and group all files in a single module
+in single directory (including its subdirectories).
+Examples from the F Prime distribution include the `Fw` and `Svc`
+namespaces, which correspond to modules `Fw` and `Svc` in an FPP model.
+
+* Group files into modules and directories logically according to their function.
+For example:
+
+** You can group files according to their role in the FPP model.
+For example, group types separately from ports.
+
+** You can group files according to their role in the FSW.
+For example, group framework files separately from application files.
+
+=== Location Specifiers
+
+TODO
+
+=== Include Specifiers
+
+TODO
+
+=== Computing Dependencies
+
 TODO

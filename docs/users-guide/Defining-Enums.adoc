@@ -40,7 +40,7 @@ In general, to write an enum definition, you write the following:
 The enumerated constants form an
 <<Defining-Constants_Multiple-Definitions-and-Element-Sequences,element 
 sequence>>
-with a comma as the optional terminating punctuation.
+in which the optional terminating punctuation is a comma.
 For example, this definition is equivalent to the one above:
 
 [source,fpp]
