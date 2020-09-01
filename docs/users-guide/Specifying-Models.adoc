@@ -5,10 +5,20 @@ of FPP.
 This section takes a broader view:
 it explains how to assemble the elements into an FPP model.
 
-In the discussion below, we focus on constants and types, because those 
+In the discussion below
+
+* We focus on constants and types, because those 
 elements of FPP are currently implemented.
 In future versions of this User's Guide, we will extend the discussion to cover
 ports, components, and topologies.
+
+* We discuss several tools for specifying and analyzing dependencies between
+model files.
+Here we focus on how to use the tools, and we summarize their most important
+features.
+We do not attempt to cover every feature of every tool.
+For more comprehensive coverage, see
+https://github.jpl.nasa.gov/bocchino/fpp/wiki/Tools[the FPP wiki].
 
 === Dividing Models into Files
 
@@ -168,7 +178,7 @@ constants are then implied:
 locate type E at "E.fpp"
 ----
 
-*Path Names:* The path name in a location specifier _L_ is relative to the
+*Path Names.* The path name in a location specifier _L_ is relative to the
 location of the file where _L_ appears.
 For example, suppose the file `b.fpp` appears on the file system in some directory _D_.
 Suppose also that _D_ has a subdirectory `Constants`, `Constants` contains a file `a.fpp`,
@@ -188,7 +198,7 @@ If, instead of residing in a subdirectory, `a.fpp` were located one directory ab
 locate constant a at "../a.fpp"
 ----
 
-*Symbol Names:* The symbol name appearing after the keyword `locate`
+*Symbol Names.* The symbol name appearing after the keyword `locate`
 may be a qualified name.
 For example, suppose the file `M.fpp` contains the following:
 
@@ -242,16 +252,100 @@ The tool for doing this is called `fpp-locate-uses`.
 
 As example, you could carry out step 1 to report the locations of all
 the type definitions in your model.
-Later, you could carry out step 2 to report the location of all the type 
+Later, you could carry out step 2 to report the locations of all the type 
 definitions used in a port definition.
 
-*Locating Definitions.* TODO
+*Locating Definitions.* To locate definitions, do the following:
 
-*Locating Uses.* TODO
+. Collect all the FPP source files containing the definitions you want to 
+locate.
+For example, run `find . -name '*.fpp'`.
+
+. Run `fpp-locate-defs` with the result of step 1 as the command-line 
+arguments.
+The result will be a list of location specifiers.
+
+For example, suppose the file `Constants/a.fpp` defines the constant `a`.
+Running
+
+----
+% fpp-locate-defs `find Constants -name '*.fpp'`
+----
+
+generates the location specifier
+
+[source,fpp]
+----
+locate constant a at "Constants/a.fpp"
+----
+
+Notice that the location path is relative to the current directory.
+To specify a different base directory, use the option `-d`.
+For example, running
+
+----
+% fpp-locate-defs -d Constants `find Constants -name '*.fpp'`
+----
+
+generates the location specifier
+
+[source,fpp]
+----
+locate constant a at "a.fpp"
+----
+
+
+*Locating Uses.* To locate uses, do the following:
+
+. Construct a comma-separated list _F1_ of one or more FPP source files 
+containing location specifiers.
+These files could be the output of *locating definitions*, above.
+
+. Construct a space-separated list _F2_ one or more FPP source files whose uses you want to locate.
+
+. Run `fpp-locate-uses -i` _F1_ _F2_
+
+The `-i` option stands for _import_: it says that the files _F1_ are to be read 
+for their
+symbols, but not to be included in the results of the analysis.
+
+For example, suppose `a.fpp` defines constant `a`, `b.fpp` defines constant 
+`b`,
+and `c.fpp` uses `a` but not `b`.
+Then `fpp-locate-uses -i a.fpp,b.fpp c.fpp` generates the output `locate a at 
+"a.fpp`
+
+With `fpp-locate-uses`, you can automatically derive the equivalent of the `import`
+declarations that you have to enter by hand when writing F Prime XML.
+For example, suppose you have specified a port _P_ that uses a type _T_.
+To specify _P_ in F Prime XML, you would write an `import` statement that
+imports _T_ into _P_. In FPP you don't do this. Instead, you can do the following:
+
+. Run `fpp-locate-defs` to generate location specifiers for all the type 
+definitions.
+You can do this as needed, or you can do it once and check it in as part of
+the module that defines the types.
+
+. Run `fpp-locate-uses` on _P_, using the `-i` option to pass in the result of 
+step 1.
+
+The result should be a location specifier that gives the location of _T_.
+If you wish, you can check the result in as part of the definition of _P_.
+This is similar to an explicit import statement, if that is desired, e.g.,
+to make the dependencies explicit in the code.
+Or you can just use the procedure given above generate the "import statement"
+whenever desired, and see the dependencies that way.
+
+As with `fpp-locate-defs`, you can use `-d` to specify a base directory
+for the location specifiers, if you wish.
 
 === Computing Dependencies
 
 TODO
+
+Discuss `fpp-depend`.
+
+Discuss relation between `fpp-depend` and `fpp-locate-uses`.
 
 === Include Specifiers
 

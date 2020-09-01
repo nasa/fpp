@@ -453,7 +453,7 @@ the same value.
 For struct types, the rule is different.
 The order in which the members appear is significant, because
 it governs the order in which the members appear in the generated
-code, and therefore the order in which the members are serialized to binary data.
+code.
 
 For example, the type `struct S1 { x: U32, y : string }` might generate a {cpp}
 class `S1` with members `x` and `y` laid out with `x` first; while `struct S2 
