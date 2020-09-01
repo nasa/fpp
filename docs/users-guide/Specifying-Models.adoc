@@ -114,7 +114,7 @@ becomes difficult.
 Therefore FPP has a set of tools and features that help automate dependency
 management.
 
-In summary, dependency management in FPP generally works as follows:
+In summary, dependency management in FPP works as follows:
 
 . You run a tool called `fpp-locate-defs` to generate *location specifiers*
 for all the symbols that could be used in _f_.
