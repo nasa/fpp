@@ -15,6 +15,5 @@ Defining-Modules.adoc
 Defining-Types.adoc
 Defining-Enums.adoc
 Specifying-Models.adoc
-Analyzing-Models.adoc
-Translating-Models.adoc
+Analyzing-and-Translating-Models.adoc
 "

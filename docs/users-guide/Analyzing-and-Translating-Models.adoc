@@ -1,4 +1,16 @@
-== Translating Models
+== Analyzing and Translating Models
+
+TODO
+
+=== Checking Models
+
+TODO
+
+=== Generating XML
+
+TODO
+
+=== Generating C Plus Plus
 
 TODO
 
@@ -7,4 +19,9 @@ When implementing an abstract type in {cpp}, you must provide
 
 * An implementation of the Serializable virtual classes
 * A SERIALIZABLE_SIZE
-* A zero-arg constructor
+* A zero-argument constructor
+
+=== Translating XML to FPP
+
+TODO
+

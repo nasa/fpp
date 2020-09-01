@@ -62,9 +62,7 @@ multiple blocks
 When a model is split into two or more files, a file _f_ may use symbols
 whose definitions appear in files other than _f_.
 In order to analyze and translate _f_, the analyzer needs to extract
-the definitions from these files.
-Files other than _f_ used during analysis of _f_ are called the *dependencies* 
-of _f_.
+the definitions from these files, called the *dependencies* of _f_.
 
 For example, suppose the file `a.fpp` contains the following definition:
 
@@ -99,10 +97,11 @@ see.)
 The error occurs because the definition of `a` is located in `a.fpp`,
 which was not included in the analysis.
 
-For very simple models, we can manage dependencies by hand, as we did
-for the example above.
-However, for even moderately complex models, this gets difficult.
-Therefore FPP has a set of tools and features that assist with dependency
+For very simple models, we can easily manage the dependencies by hand, as we 
+did for the example above.
+However, for even moderately complex models, this kind of hand management 
+becomes difficult.
+Therefore FPP has a set of tools and features that help automate dependency
 management.
 
 In summary, dependency management in FPP generally works as follows:
@@ -119,11 +118,10 @@ dependencies of _f_).
 Typically these steps occur in separate phases of development.
 For example:
 
-* You may run step 1 to locate all the symbols exported by one or 
-more modules.
+* You may run step 1 to locate and export all the type definitions
+on which your model depends.
 
-* You may run step 2 several times to develop files that depend on those 
-modules, without running step 1 again.
+* You may run step 2 to develop ports that depend on the types.
 
 Below we explain these steps in more detail.
 
@@ -131,7 +129,7 @@ Below we explain these steps in more detail.
 
 This section explains how location specifiers work.
 
-==== Writing Location Specifiers
+==== The Form of a Location Specifier
 
 A location specifier is a unit of syntax in an FPP model.
 Here we explain the syntax, so you know what it means.
@@ -228,10 +226,28 @@ The purpose of this restriction is to facilitate dependency analysis,
 which occurs before the analyzer has complete information about
 definitions and their uses.
 
-
 ==== Generating Location Specifiers
 
-TODO
+The FPP tool suite provides two ways to generate location specifiers:
+
+. Given a collection of FPP source files _F_, you can generate location specifiers 
+for
+all the symbols defined in _F_.
+The tool for doing this is called `fpp-locate-defs`.
+
+. Given a collection of location specifiers _L_, and given one 
+or more files _F_ that depend on the symbols located in _L_, you can generate
+the subset of _L_ corresponding to the symbols used in the files.
+The tool for doing this is called `fpp-locate-uses`.
+
+As example, you could carry out step 1 to report the locations of all
+the type definitions in your model.
+Later, you could carry out step 2 to report the location of all the type 
+definitions used in a port definition.
+
+*Locating Definitions.* TODO
+
+*Locating Uses.* TODO
 
 === Computing Dependencies
 
