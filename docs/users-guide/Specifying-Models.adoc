@@ -1,9 +1,9 @@
 == Specifying Models
 
-The previous sections have explained the various syntactic elements
-of FPP.
+The previous sections have explained various syntactic elements
+of FPP models.
 This section takes a broader view:
-it explains how to assemble the elements into an FPP model.
+it explains how to assemble the elements into a model.
 
 In the discussion below
 
@@ -50,7 +50,8 @@ For example, group types separately from ports.
 ** You can group files according to their role in the FSW.
 For example, group framework files separately from application files.
 
-There is a requirement that a syntactic unit must begin and end in the same file.
+There is still the usual requirement that a syntactic unit must begin and end 
+in the same file.
 For example:
 
 * Each type definition is a syntactic unit, so each type definition must begin 
@@ -66,6 +67,10 @@ These rules are similar to the way that {cpp} requires a class definition
 single file, but it allows the definition of a single namespace `N` to span 
 multiple blocks
 `namespace N { ... }` that can be in different files.
+
+=== Include Specifiers
+
+TODO
 
 === Dependencies
 
@@ -111,7 +116,7 @@ For simple models, we can manage the dependencies by hand, as we
 did for the example above.
 However, for even moderately complex models, this kind of hand management 
 becomes difficult.
-Therefore FPP has a set of tools and features that help automate dependency
+Therefore FPP has a set of tools and features for automatic dependency
 management.
 
 In summary, dependency management in FPP works as follows:
@@ -342,7 +347,3 @@ whenever desired, and see the dependencies that way.
 
 As with `fpp-locate-defs`, you can use `-d` to specify a base directory
 for the location specifiers, if you wish.
-
-=== Include Specifiers
-
-TODO
