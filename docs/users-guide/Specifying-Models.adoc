@@ -137,6 +137,8 @@ For example:
 on which your model depends.
 
 * You may run step 2 to develop ports that depend on the types.
+This step would typically be run automatically as part of the build, e.g.,
+the F Prime CMake build.
 
 Below we explain these steps in more detail.
 
