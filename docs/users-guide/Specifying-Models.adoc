@@ -83,7 +83,7 @@ available.
 Because these definitions are short, include specifiers are less
 useful for writing them.
 However, we describe include specifiers here for completeness, anticipating
-that they will become useful in later versions of FPP.
+that we will need them in later versions of FPP.
 
 To write an include specifier, you write the keyword `include`
 followed by string denoting a file path.
@@ -166,7 +166,9 @@ or module-level syntactic unit.
 Nor is it valid to write an include specifier in a place where an identifier 
 like `a`
 is expected.
-For example:
+
+For example, here is the result of a failed attempt to include
+an identifier into a constant definition:
 
 ----
 % echo a > a.fpp
@@ -232,12 +234,11 @@ management.
 In summary, dependency management in FPP works as follows:
 
 . You run a tool called `fpp-locate-defs` to generate *location specifiers*
-for all the symbols that could be used in _f_.
+for all the symbols available for use in _f_.
 
 . You run a tool called `fpp-depend`, passing it _f_ and the location 
-specifiers
-generated in step 1.
-It emits a list of files containing the symbols used in _f_ (i.e., the 
+specifiers generated in step 1.
+It emits a list of files containing symbols used in _f_ (i.e., the 
 dependencies of _f_).
 
 These steps may occur in separate phases of development.
@@ -363,9 +364,10 @@ definitions and their uses.
 ==== Included Files
 
 When a file that defines symbols is included in another file, the location of
-each definition is the location of the file where the definition occurs,
-not where the file is included.
-For example, suppose that file `a.fpp` contains the definition `constant a = 0`,
+each definition is the file where the definition occurs,
+not the file where it is included.
+For example, suppose that file `a.fpp` contains the definition `constant a = 
+0`,
 and suppose that file `b.fpp` contains the include specifier `include "a.fpp"`.
 When analyzing `b.fpp`, the location of the definition of the constant `a`
 is `a.fpp`, not `b.fpp`.
@@ -378,6 +380,8 @@ The tool for doing this analysis is called `fpp-locate-defs`.
 As example, you can run `fpp-locate-defs` to report the locations of all
 the definitions in a subdirectory called `Constants` that contains constant
 definitions for your model.
+When analyzing files that depend on the constants, you can use the location
+specifiers to discover the dependencies.
 
 To locate definitions, do the following:
 
