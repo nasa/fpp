@@ -180,8 +180,10 @@ locate type E at "E.fpp"
 
 The path name in a location specifier _L_ is relative to the
 location of the file where _L_ appears.
-For example, suppose the file `b.fpp` appears on the file system in some directory _D_.
-Suppose also that _D_ has a subdirectory `Constants`, `Constants` contains a file `a.fpp`,
+For example, suppose the file `b.fpp` appears in the file system in some 
+directory _D_.
+Suppose also that _D_ has a subdirectory `Constants`, `Constants` contains a 
+file `a.fpp`,
 and `a.fpp` defines the constant `a`.
 Then in `b.fpp` we could write this:
 
@@ -296,7 +298,7 @@ Discuss `fpp-depend`.
 Given a collection of files _F_ and their dependencies _D_, you can generate
 the locations of the symbols defined in _D_ and _F_ and used in _F_.
 This is not necessary for doing analysis and translation -- the dependency 
-analysis described in the previous section is sufficient).
+analysis described in the previous section is sufficient.
 However, it may be helpful to see the dependencies between FPP files at the 
 granularity of individual symbols.
 
