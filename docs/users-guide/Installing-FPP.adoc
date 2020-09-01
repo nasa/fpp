@@ -19,6 +19,6 @@ the program:
 
 Most of the examples in the following sections are complete FPP models.
 You can run the models through
-`fpp-check` by typing or redirecting them into standard input.
+`fpp-check` by typing or pasting them into standard input.
 It is recommended that you to this for at least a few of the examples,
 to get a feel for how FPP works.
