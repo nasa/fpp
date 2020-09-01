@@ -506,18 +506,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Specifying-Models">8. Specifying Models</a>
 <ul class="sectlevel2">
 <li><a href="#Specifying-Models_Dividing-Models-into-Files">8.1. Dividing Models into Files</a></li>
-<li><a href="#Specifying-Models_Dependencies">8.2. Dependencies</a></li>
-<li><a href="#Specifying-Models_Location-Specifiers">8.3. Location Specifiers</a>
+<li><a href="#Specifying-Models_Include-Specifiers">8.2. Include Specifiers</a></li>
+<li><a href="#Specifying-Models_Dependencies">8.3. Dependencies</a></li>
+<li><a href="#Specifying-Models_Location-Specifiers">8.4. Location Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifying-Models_Location-Specifiers_Syntax">8.3.1. Syntax</a></li>
-<li><a href="#Specifying-Models_Location-Specifiers_Path-Names">8.3.2. Path Names</a></li>
-<li><a href="#Specifying-Models_Location-Specifiers_Symbol-Names">8.3.3. Symbol Names</a></li>
+<li><a href="#Specifying-Models_Location-Specifiers_Syntax">8.4.1. Syntax</a></li>
+<li><a href="#Specifying-Models_Location-Specifiers_Path-Names">8.4.2. Path Names</a></li>
+<li><a href="#Specifying-Models_Location-Specifiers_Symbol-Names">8.4.3. Symbol Names</a></li>
+<li><a href="#Specifying-Models_Location-Specifiers_Included-Files">8.4.4. Included Files</a></li>
 </ul>
 </li>
-<li><a href="#Specifying-Models_Locating-Definitions">8.4. Locating Definitions</a></li>
-<li><a href="#Specifying-Models_Computing-Dependencies">8.5. Computing Dependencies</a></li>
-<li><a href="#Specifying-Models_Locating-Uses">8.6. Locating Uses</a></li>
-<li><a href="#Specifying-Models_Include-Specifiers">8.7. Include Specifiers</a></li>
+<li><a href="#Specifying-Models_Locating-Definitions">8.5. Locating Definitions</a></li>
+<li><a href="#Specifying-Models_Computing-Dependencies">8.6. Computing Dependencies</a></li>
+<li><a href="#Specifying-Models_Locating-Uses">8.7. Locating Uses</a></li>
 </ul>
 </li>
 <li><a href="#Analyzing-and-Translating-Models">9. Analyzing and Translating Models</a>
@@ -731,6 +732,7 @@ You can also generate a C&#43;&#43; header file that defines the C&#43;&#43; con
 <div class="content">
 <pre>% fpp-check
 constant ultimateAnswer = 42
+^D
 %</pre>
 </div>
 </div>
@@ -743,6 +745,7 @@ You should see something like this:</p>
 <div class="content">
 <pre>% fpp-check
 constant ultimateAnswer =
+^D
 fpp-check
 stdin: end of input
 error: expression expected</pre>
@@ -940,6 +943,7 @@ we can&#8217;t. Here is the answer in FPP:</p>
 <div class="content">
 <pre>% fpp-check
 constant a = [ 1, true ]
+^D
 fpp-check
 stdin: 1.16
 constant a = [ 1, true ]
@@ -2527,10 +2531,10 @@ use appears inside the enum where it is defined.</p>
 <h2 id="Specifying-Models">8. Specifying Models</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The previous sections have explained the various syntactic elements
-of FPP.
+<p>The previous sections have explained various syntactic elements
+of FPP models.
 This section takes a broader view:
-it explains how to assemble the elements into an FPP model.</p>
+it explains how to assemble the elements into a model.</p>
 </div>
 <div class="paragraph">
 <p>In the discussion below</p>
@@ -2600,7 +2604,8 @@ For example, group framework files separately from application files.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>There is a requirement that a syntactic unit must begin and end in the same file.
+<p>There is still the usual requirement that a syntactic unit must begin and end
+in the same file.
 For example:</p>
 </div>
 <div class="ulist">
@@ -2626,12 +2631,142 @@ multiple blocks
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models_Dependencies">8.2. Dependencies</h3>
+<h3 id="Specifying-Models_Include-Specifiers">8.2. Include Specifiers</h3>
 <div class="paragraph">
-<p>When a model is split into two or more files, one file <em>f</em> may use symbols
-whose definitions appear in files other than <em>f</em>.
+<p>As part of an FPP model, you can write one or more <strong>include specifiers</strong>.
+An include specifier is an instruction to include FPP source elements
+from one file into another file.</p>
+</div>
+<div class="paragraph">
+<p>The main purpose of include specifiers is to split up large syntactic units
+into several files.
+For example, a component definition could include a telemetry dictionary
+from a separate file.
+In the current version of FPP, only constant and type definitions are
+available.
+Because these definitions are short, include specifiers are less
+useful for writing them.
+However, we describe include specifiers here for completeness, anticipating
+that they will become useful in later versions of FPP.</p>
+</div>
+<div class="paragraph">
+<p>To write an include specifier, you write the keyword <code>include</code>
+followed by string denoting a file path.
+The path is relative to the file in which the include specifier appears.</p>
+</div>
+<div class="paragraph">
+<p>For example, suppose that the file <code>a.fpp</code> contains the definition</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = 0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In a file <code>b.fpp</code> in the same directory, you could write this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">include "a.fpp"
+constant b = a</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After resolving the include specifier, the model is equivalent
+to the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = 0
+constant b = a</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As mentioned above, the path is relative to the directory
+of the file containing the include specifier.
+So if <code>a.fpp</code> is located in a subdirectory <code>A</code>, you could write this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">include "A/a.fpp"
+constant b = a</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And if <code>a.fpp</code> is located in the parent directory, you could write this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">include "../a.fpp"
+constant b = a</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can write an include specifier inside a module.
+In this case, any definitions in the included file are treated as occurring
+inside the module.
+For example, if <code>a.fpp</code> contains the definition <code>constant a = 0</code>,
+then this source text</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M { include "a.fpp" }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>defines the constant <code>M.a</code>.</p>
+</div>
+<div class="paragraph">
+<p>As an exercise, try this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% echo "constant a = 0" &gt; a.fpp
+% fpp-check
+module M { include "a.fpp" }
+constant b = M.a
+^D
+%</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The check should pass.</p>
+</div>
+<div class="paragraph">
+<p>In any case, an included file must contain complete syntactic
+units that could appear at the top level or at the module level.
+For example, an included file may contain one or more constant
+definitions or type definitions.
+It may not contain a bare identifier <code>a</code>, as this is not a valid top-level
+or module-level syntactic unit.
+Nor is it valid to write an include specifier in a place where an identifier
+like <code>a</code>
+is expected.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% echo a &gt; a.fpp
+% fpp-check
+module M { constant include "a.fpp" = 0 }
+constant b = M.a
+^D
+fpp-check
+stdin: 1.21
+module M { constant include "a.fpp" = 0 }
+                    ^
+error: identifier expected
+%</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Specifying-Models_Dependencies">8.3. Dependencies</h3>
+<div class="paragraph">
+<p>Whenever a model spans two or more files, one file <em>f</em> may use symbols
+whose definitions appear in other files.
 In order to analyze <em>f</em>, the tools must extract
-the definitions from these files, called the <strong>dependencies</strong> of <em>f</em>.</p>
+the definitions from these other files, called the <strong>dependencies</strong> of <em>f</em>.</p>
 </div>
 <div class="paragraph">
 <p>For example, suppose the file <code>a.fpp</code> contains the following definition:</p>
@@ -2677,7 +2812,7 @@ which was not included in the analysis.</p>
 did for the example above.
 However, for even moderately complex models, this kind of hand management
 becomes difficult.
-Therefore FPP has a set of tools and features that help automate dependency
+Therefore FPP has a set of tools and features for automatic dependency
 management.</p>
 </div>
 <div class="paragraph">
@@ -2709,7 +2844,9 @@ For example:</p>
 on which your model depends.</p>
 </li>
 <li>
-<p>You may run step 2 to develop ports that depend on the types.</p>
+<p>You may run step 2 to develop ports that depend on the types.
+This step would typically be run automatically as part of the build, e.g.,
+the F Prime CMake build.</p>
 </li>
 </ul>
 </div>
@@ -2718,7 +2855,7 @@ on which your model depends.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models_Location-Specifiers">8.3. Location Specifiers</h3>
+<h3 id="Specifying-Models_Location-Specifiers">8.4. Location Specifiers</h3>
 <div class="paragraph">
 <p>A location specifier is a unit of syntax in an FPP model.
 Here we explain the syntax, so you know what it means.
@@ -2728,7 +2865,7 @@ Instead, you should let the tools generate them, as described
 in the next section.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models_Location-Specifiers_Syntax">8.3.1. Syntax</h4>
+<h4 id="Specifying-Models_Location-Specifiers_Syntax">8.4.1. Syntax</h4>
 <div class="paragraph">
 <p>A location specifier consists of the keyword <code>locate</code>, a kind of symbol,
 the name of a symbol, and a string representing a file path.
@@ -2764,9 +2901,11 @@ locate type E at "E.fpp"</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models_Location-Specifiers_Path-Names">8.3.2. Path Names</h4>
+<h4 id="Specifying-Models_Location-Specifiers_Path-Names">8.4.2. Path Names</h4>
 <div class="paragraph">
-<p>The path name in a location specifier <em>L</em> is relative to the
+<p>As with
+<a href="#Specifying-Models_Include-Specifiers">include specifiers</a>,
+the path name in a location specifier <em>L</em> is relative to the
 location of the file where <em>L</em> appears.
 For example, suppose the file <code>b.fpp</code> appears in the file system in some
 directory <em>D</em>.
@@ -2791,7 +2930,7 @@ Then in <code>b.fpp</code> we could write this:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models_Location-Specifiers_Symbol-Names">8.3.3. Symbol Names</h4>
+<h4 id="Specifying-Models_Location-Specifiers_Symbol-Names">8.4.3. Symbol Names</h4>
 <div class="paragraph">
 <p>The symbol name appearing after the keyword <code>locate</code>
 may be a qualified name.
@@ -2831,20 +2970,34 @@ For example, when using the constant <code>M.a</code> in an expression inside mo
 you may spell the constant either <code>a</code> or <code>M.a</code>;
 but when referring to the same constant <code>M.a</code> in a locate specifier in module
 <code>M</code>, you must write <code>a</code> and not <code>M.a</code>.
+If you wrote <code>M.a</code>, it would be incorrectly resolved to <code>M.M.a</code>.
 The purpose of this restriction is to facilitate dependency analysis,
 which occurs before the analyzer has complete information about
 definitions and their uses.</p>
 </div>
 </div>
+<div class="sect3">
+<h4 id="Specifying-Models_Location-Specifiers_Included-Files">8.4.4. Included Files</h4>
+<div class="paragraph">
+<p>When a file that defines symbols is included in another file, the location of
+each definition is the location of the file where the definition occurs,
+not where the file is included.
+For example, suppose that file <code>a.fpp</code> contains the definition <code>constant a = 0</code>,
+and suppose that file <code>b.fpp</code> contains the include specifier <code>include "a.fpp"</code>.
+When analyzing <code>b.fpp</code>, the location of the definition of the constant <code>a</code>
+is <code>a.fpp</code>, not <code>b.fpp</code>.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models_Locating-Definitions">8.4. Locating Definitions</h3>
+<h3 id="Specifying-Models_Locating-Definitions">8.5. Locating Definitions</h3>
 <div class="paragraph">
 <p>Given a collection of FPP source files <em>F</em>, you can generate location specifiers
 for all the symbols defined in <em>F</em>.
 The tool for doing this analysis is called <code>fpp-locate-defs</code>.
 As example, you can run <code>fpp-locate-defs</code> to report the locations of all
-the constant definitions in your model.</p>
+the definitions in a subdirectory called <code>Constants</code> that contains constant
+definitions for your model.</p>
 </div>
 <div class="paragraph">
 <p>To locate definitions, do the following:</p>
@@ -2854,7 +3007,7 @@ the constant definitions in your model.</p>
 <li>
 <p>Collect all the FPP source files containing the definitions you want to
 locate.
-For example, run <code>find . -name '*.fpp'</code>.</p>
+For example, run <code>find Constants -name '*.fpp'</code>.</p>
 </li>
 <li>
 <p>Run <code>fpp-locate-defs</code> with the result of step 1 as the command-line
@@ -2900,16 +3053,32 @@ For example, running</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models_Computing-Dependencies">8.5. Computing Dependencies</h3>
+<h3 id="Specifying-Models_Computing-Dependencies">8.6. Computing Dependencies</h3>
 <div class="paragraph">
 <p>TODO</p>
 </div>
 <div class="paragraph">
 <p>Discuss <code>fpp-depend</code>.</p>
 </div>
+<div class="paragraph">
+<p>TODO: Discuss how fpp-depend handles included files.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>By default, they are excluded from the dependency list.
+This is what you want for determining which files to present to the tools.</p>
+</li>
+<li>
+<p>When you run fpp-depend with the switch <code>-i</code>, included files
+appear in the dependency list.
+This is what you want for computing build dependencies.</p>
+</li>
+</ul>
+</div>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models_Locating-Uses">8.6. Locating Uses</h3>
+<h3 id="Specifying-Models_Locating-Uses">8.7. Locating Uses</h3>
 <div class="paragraph">
 <p>Given a collection of files <em>F</em> and their dependencies <em>D</em>, you can generate
 the locations of the symbols defined in <em>D</em> and <em>F</em> and used in <em>F</em>.
@@ -2973,12 +3142,6 @@ whenever desired, and see the dependencies that way.</p>
 for the location specifiers, if you wish.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="Specifying-Models_Include-Specifiers">8.7. Include Specifiers</h3>
-<div class="paragraph">
-<p>TODO</p>
-</div>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -3033,7 +3196,7 @@ When implementing an abstract type in C&#43;&#43;, you must provide</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-31 19:11:15 -0700
+Last updated 2020-09-01 13:25:23 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
