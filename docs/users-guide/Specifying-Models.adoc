@@ -70,14 +70,119 @@ multiple blocks
 
 === Include Specifiers
 
-TODO
+As part of an FPP model, you can write one or more *include specifiers*.
+An include specifier is an instruction to include FPP source elements
+from one file into another file.
+
+The main purpose of include specifiers is to split up large syntactic units 
+into several files.
+For example, a component definition could include a telemetry dictionary
+from a separate file.
+Because constant and type definitions are short, include specifiers are less
+useful for writing these definitions.
+However, we describe include specifiers here for completeness, anticipating
+that they will become useful in later versions of FPP.
+
+To write an include specifier, you write the keyword `include`
+followed by string denoting a file path.
+The path is relative to the file in which the include specifier appears.
+
+For example, suppose that the file `a.fpp` contains the definition
+
+[source,fpp]
+----
+constant a = 0
+----
+
+In a file `b.fpp` in the same directory, you could write this:
+
+[source,fpp]
+--------
+include "a.fpp"
+constant b = a
+--------
+
+After resolving the include specifier, the model is equivalent
+to the following:
+
+[source,fpp]
+----
+constant a = 0
+constant b = a
+----
+
+As mentioned above, the path is relative to the directory
+of the file containing the include specifier.
+So if `a.fpp` is located in a subdirectory `A`, you could write this:
+
+[source,fpp]
+--------
+include "A/a.fpp"
+constant b = a
+--------
+
+And if `a.fpp` is located in the parent directory, you could write this:
+
+[source,fpp]
+--------
+include "../a.fpp"
+constant b = a
+--------
+
+You can write an include specifier inside a module.
+In this case, any definitions in the included file are treated as occurring 
+inside the module.
+For example, if `a.fpp` contains the definition `constant a = 0`,
+then this source text
+
+[source,fpp]
+--------
+module M { include "a.fpp" }
+--------
+
+defines the constant `M.a`.
+
+As an exercise, try this:
+
+----
+% echo "constant a = 0" > a.fpp
+% fpp-check
+module M { include "a.fpp" }
+constant b = M.a
+^D
+%
+----
+
+The check should pass.
+
+In any case, the source text in an included file must consist of complete syntactic
+units that could appear at the top level or at the module level.
+For example, an included file may contain one or more constant
+definitions or type definitions.
+It may not contain a bare identifier `a`, as this is not a valid top-level
+or module-level syntactic unit.
+For example:
+
+----
+% echo "a = 0" > a.fpp
+% fpp-check
+module M { constant include "a.fpp" }
+constant b = M.a
+^D
+fpp-check
+stdin: 1.21
+module M { constant include "a.fpp" }
+                    ^
+error: identifier expected
+%
+----
 
 === Dependencies
 
-When a model is split into two or more files, one file _f_ may use symbols
+Whenever a model is split into two or more files, one file _f_ may use symbols
 whose definitions appear in files other than _f_.
 In order to analyze _f_, the tools must extract
-the definitions from these files, called the *dependencies* of _f_.
+the definitions from these other files, called the *dependencies* of _f_.
 
 For example, suppose the file `a.fpp` contains the following definition:
 
@@ -185,7 +290,9 @@ locate type E at "E.fpp"
 
 ==== Path Names
 
-The path name in a location specifier _L_ is relative to the
+As with
+<<Specifying-Models_Include-Specifiers,include specifiers>>,
+the path name in a location specifier _L_ is relative to the
 location of the file where _L_ appears.
 For example, suppose the file `b.fpp` appears in the file system in some 
 directory _D_.
@@ -247,6 +354,12 @@ The purpose of this restriction is to facilitate dependency analysis,
 which occurs before the analyzer has complete information about
 definitions and their uses.
 
+==== Included Files
+
+TODO: When including a file that defines symbols, the location of
+each symbol is the location of the file not the location where the file is 
+included.
+
 === Locating Definitions
 
 Given a collection of FPP source files _F_, you can generate location specifiers 
@@ -299,6 +412,15 @@ locate constant a at "a.fpp"
 TODO
 
 Discuss `fpp-depend`.
+
+TODO: Discuss how fpp-depend handles included files.
+
+* By default, they are excluded from the dependency list.
+This is what you want for determining which files to present to the tools.
+
+* When you run fpp-depend with the switch `-i`, included files
+appear in the dependency list.
+This is what you want for computing build dependencies.
 
 === Locating Uses
 

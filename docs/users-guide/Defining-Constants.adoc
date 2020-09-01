@@ -45,6 +45,7 @@ You should see something like the following on your console:
 ----
 % fpp-check
 constant ultimateAnswer = 42
+^D
 %
 ----
 
@@ -55,6 +56,7 @@ You should see something like this:
 ----
 % fpp-check
 constant ultimateAnswer =
+^D
 fpp-check
 stdin: end of input
 error: expression expected
@@ -192,6 +194,7 @@ we can't. Here is the answer in FPP:
 ----
 % fpp-check
 constant a = [ 1, true ]
+^D
 fpp-check
 stdin: 1.16
 constant a = [ 1, true ]
