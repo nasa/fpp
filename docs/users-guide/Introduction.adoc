@@ -3,8 +3,7 @@ regulations. Release to foreign persons may require an export authorization.*
 
 == Introduction
 
-This document provides an overview of **F Prime Prime**, also known 
-as FPP or F Double Prime.
+This document describes **F Prime Prime**, also known as FPP or F Double Prime.
 FPP is a modeling language for the https://github.com/nasa/fprime[F Prime 
 flight software framework].
 A https://digitalcommons.usu.edu/smallsat/2018/all2018/328/[paper presented at 
