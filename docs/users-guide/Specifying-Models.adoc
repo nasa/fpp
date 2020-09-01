@@ -184,8 +184,8 @@ error: identifier expected
 
 === Dependencies
 
-Whenever a model is split into two or more files, one file _f_ may use symbols
-whose definitions appear in files other than _f_.
+Whenever a model spans two or more files, one file _f_ may use symbols
+whose definitions appear in other files.
 In order to analyze _f_, the tools must extract
 the definitions from these other files, called the *dependencies* of _f_.
 
@@ -355,15 +355,20 @@ For example, when using the constant `M.a` in an expression inside module `M`
 you may spell the constant either `a` or `M.a`;
 but when referring to the same constant `M.a` in a locate specifier in module 
 `M`, you must write `a` and not `M.a`.
+If you wrote `M.a`, it would be incorrectly resolved to `M.M.a`.
 The purpose of this restriction is to facilitate dependency analysis,
 which occurs before the analyzer has complete information about
 definitions and their uses.
 
 ==== Included Files
 
-TODO: When including a file that defines symbols, the location of
-each symbol is the location of the file not the location where the file is 
-included.
+When a file that defines symbols is included in another file, the location of
+each definition is the location of the file where the definition occurs,
+not where the file is included.
+For example, suppose that file `a.fpp` contains the definition `constant a = 0`,
+and suppose that file `b.fpp` contains the include specifier `include "a.fpp"`.
+When analyzing `b.fpp`, the location of the definition of the constant `a`
+is `a.fpp`, not `b.fpp`.
 
 === Locating Definitions
 
@@ -371,13 +376,14 @@ Given a collection of FPP source files _F_, you can generate location specifiers
 for all the symbols defined in _F_.
 The tool for doing this analysis is called `fpp-locate-defs`.
 As example, you can run `fpp-locate-defs` to report the locations of all
-the constant definitions in your model.
+the definitions in a subdirectory called `Constants` that contains constant
+definitions for your model.
 
 To locate definitions, do the following:
 
 . Collect all the FPP source files containing the definitions you want to 
 locate.
-For example, run `find . -name '*.fpp'`.
+For example, run `find Constants -name '*.fpp'`.
 
 . Run `fpp-locate-defs` with the result of step 1 as the command-line 
 arguments.
