@@ -178,7 +178,7 @@ constants are then implied:
 locate type E at "E.fpp"
 ----
 
-*Path Names.* The path name in a location specifier _L_ is relative to the
+*Path Names:* The path name in a location specifier _L_ is relative to the
 location of the file where _L_ appears.
 For example, suppose the file `b.fpp` appears on the file system in some directory _D_.
 Suppose also that _D_ has a subdirectory `Constants`, `Constants` contains a file `a.fpp`,
@@ -198,7 +198,7 @@ If, instead of residing in a subdirectory, `a.fpp` were located one directory ab
 locate constant a at "../a.fpp"
 ----
 
-*Symbol Names.* The symbol name appearing after the keyword `locate`
+*Symbol Names:* The symbol name appearing after the keyword `locate`
 may be a qualified name.
 For example, suppose the file `M.fpp` contains the following:
 
@@ -255,7 +255,7 @@ the type definitions in your model.
 Later, you could carry out step 2 to report the locations of all the type 
 definitions used in a port definition.
 
-*Locating Definitions.* To locate definitions, do the following:
+*Locating Definitions:* To locate definitions, do the following:
 
 . Collect all the FPP source files containing the definitions you want to 
 locate.
@@ -295,7 +295,7 @@ locate constant a at "a.fpp"
 ----
 
 
-*Locating Uses.* To locate uses, do the following:
+*Locating Uses:* To locate uses, do the following:
 
 . Construct a comma-separated list _F1_ of one or more FPP source files 
 containing location specifiers.
