@@ -509,12 +509,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Specifying-Models_Dependencies">8.2. Dependencies</a></li>
 <li><a href="#Specifying-Models_Location-Specifiers">8.3. Location Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifying-Models_Location-Specifiers_The-Form-of-a-Location-Specifier">8.3.1. The Form of a Location Specifier</a></li>
-<li><a href="#Specifying-Models_Location-Specifiers_Generating-Location-Specifiers">8.3.2. Generating Location Specifiers</a></li>
+<li><a href="#Specifying-Models_Location-Specifiers_Syntax">8.3.1. Syntax</a></li>
+<li><a href="#Specifying-Models_Location-Specifiers_Path-Names">8.3.2. Path Names</a></li>
+<li><a href="#Specifying-Models_Location-Specifiers_Symbol-Names">8.3.3. Symbol Names</a></li>
 </ul>
 </li>
-<li><a href="#Specifying-Models_Computing-Dependencies">8.4. Computing Dependencies</a></li>
-<li><a href="#Specifying-Models_Include-Specifiers">8.5. Include Specifiers</a></li>
+<li><a href="#Specifying-Models_Locating-Definitions">8.4. Locating Definitions</a></li>
+<li><a href="#Specifying-Models_Computing-Dependencies">8.5. Computing Dependencies</a></li>
+<li><a href="#Specifying-Models_Locating-Uses">8.6. Locating Uses</a></li>
+<li><a href="#Specifying-Models_Include-Specifiers">8.7. Include Specifiers</a></li>
 </ul>
 </li>
 <li><a href="#Analyzing-and-Translating-Models">9. Analyzing and Translating Models</a>
@@ -2625,9 +2628,9 @@ multiple blocks
 <div class="sect2">
 <h3 id="Specifying-Models_Dependencies">8.2. Dependencies</h3>
 <div class="paragraph">
-<p>When a model is split into two or more files, a file <em>f</em> may use symbols
+<p>When a model is split into two or more files, one file <em>f</em> may use symbols
 whose definitions appear in files other than <em>f</em>.
-In order to analyze and translate <em>f</em>, the analyzer needs to extract
+In order to analyze <em>f</em>, the tools must extract
 the definitions from these files, called the <strong>dependencies</strong> of <em>f</em>.</p>
 </div>
 <div class="paragraph">
@@ -2670,7 +2673,7 @@ The error occurs because the definition of <code>a</code> is located in <code>a.
 which was not included in the analysis.</p>
 </div>
 <div class="paragraph">
-<p>For very simple models, we can easily manage the dependencies by hand, as we
+<p>For simple models, we can manage the dependencies by hand, as we
 did for the example above.
 However, for even moderately complex models, this kind of hand management
 becomes difficult.
@@ -2696,7 +2699,7 @@ dependencies of <em>f</em>).</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>Typically these steps occur in separate phases of development.
+<p>These steps may occur in separate phases of development.
 For example:</p>
 </div>
 <div class="ulist">
@@ -2717,11 +2720,6 @@ on which your model depends.</p>
 <div class="sect2">
 <h3 id="Specifying-Models_Location-Specifiers">8.3. Location Specifiers</h3>
 <div class="paragraph">
-<p>This section explains how location specifiers work.</p>
-</div>
-<div class="sect3">
-<h4 id="Specifying-Models_Location-Specifiers_The-Form-of-a-Location-Specifier">8.3.1. The Form of a Location Specifier</h4>
-<div class="paragraph">
 <p>A location specifier is a unit of syntax in an FPP model.
 Here we explain the syntax, so you know what it means.
 However, you should ordinarily not write location specifiers
@@ -2729,8 +2727,10 @@ by hand.
 Instead, you should let the tools generate them, as described
 in the next section.</p>
 </div>
+<div class="sect3">
+<h4 id="Specifying-Models_Location-Specifiers_Syntax">8.3.1. Syntax</h4>
 <div class="paragraph">
-<p><strong>Syntax:</strong> A location specifier consists of the keyword <code>locate</code>, a kind of symbol,
+<p>A location specifier consists of the keyword <code>locate</code>, a kind of symbol,
 the name of a symbol, and a string representing a file path.
 For example, to locate the definition of constant <code>a</code> at <code>a.fpp</code>,
 we would write</p>
@@ -2762,8 +2762,11 @@ constants are then implied:</p>
 locate type E at "E.fpp"</code></pre>
 </div>
 </div>
+</div>
+<div class="sect3">
+<h4 id="Specifying-Models_Location-Specifiers_Path-Names">8.3.2. Path Names</h4>
 <div class="paragraph">
-<p><strong>Path Names:</strong> The path name in a location specifier <em>L</em> is relative to the
+<p>The path name in a location specifier <em>L</em> is relative to the
 location of the file where <em>L</em> appears.
 For example, suppose the file <code>b.fpp</code> appears on the file system in some directory <em>D</em>.
 Suppose also that <em>D</em> has a subdirectory <code>Constants</code>, <code>Constants</code> contains a file <code>a.fpp</code>,
@@ -2784,8 +2787,11 @@ Then in <code>b.fpp</code> we could write this:</p>
 <pre class="prettyprint highlight"><code data-lang="fpp">locate constant a at "../a.fpp"</code></pre>
 </div>
 </div>
+</div>
+<div class="sect3">
+<h4 id="Specifying-Models_Location-Specifiers_Symbol-Names">8.3.3. Symbol Names</h4>
 <div class="paragraph">
-<p><strong>Symbol Names:</strong> The symbol name appearing after the keyword <code>locate</code>
+<p>The symbol name appearing after the keyword <code>locate</code>
 may be a qualified name.
 For example, suppose the file <code>M.fpp</code> contains the following:</p>
 </div>
@@ -2828,35 +2834,18 @@ which occurs before the analyzer has complete information about
 definitions and their uses.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="Specifying-Models_Location-Specifiers_Generating-Location-Specifiers">8.3.2. Generating Location Specifiers</h4>
-<div class="paragraph">
-<p>The FPP tool suite provides two ways to generate location specifiers:</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
+<div class="sect2">
+<h3 id="Specifying-Models_Locating-Definitions">8.4. Locating Definitions</h3>
+<div class="paragraph">
 <p>Given a collection of FPP source files <em>F</em>, you can generate location specifiers
-for
-all the symbols defined in <em>F</em>.
-The tool for doing this is called <code>fpp-locate-defs</code>.</p>
-</li>
-<li>
-<p>Given a collection of location specifiers <em>L</em>, and given one
-or more files <em>F</em> that depend on the symbols located in <em>L</em>, you can generate
-the subset of <em>L</em> corresponding to the symbols used in the files.
-The tool for doing this is called <code>fpp-locate-uses</code>.</p>
-</li>
-</ol>
+for all the symbols defined in <em>F</em>.
+The tool for doing this analysis is called <code>fpp-locate-defs</code>.
+As example, you can run <code>fpp-locate-defs</code> to report the locations of all
+the constant definitions in your model.</p>
 </div>
 <div class="paragraph">
-<p>As example, you could carry out step 1 to report the locations of all
-the type definitions in your model.
-Later, you could carry out step 2 to report the locations of all the type
-definitions used in a port definition.</p>
-</div>
-<div class="paragraph">
-<p><strong>Locating Definitions:</strong> To locate definitions, do the following:</p>
+<p>To locate definitions, do the following:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -2890,7 +2879,7 @@ Running</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Notice that the location path is relative to the current directory.
+<p>By default, the location path is relative to the current directory.
 To specify a different base directory, use the option <code>-d</code>.
 For example, running</p>
 </div>
@@ -2907,26 +2896,35 @@ For example, running</p>
 <pre class="prettyprint highlight"><code data-lang="fpp">locate constant a at "a.fpp"</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p><strong>Locating Uses:</strong> To locate uses, do the following:</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Construct a comma-separated list <em>F1</em> of one or more FPP source files
-containing location specifiers.
-These files could be the output of <strong>locating definitions</strong>, above.</p>
-</li>
-<li>
-<p>Construct a space-separated list <em>F2</em> one or more FPP source files whose uses you want to locate.</p>
-</li>
-<li>
-<p>Run <code>fpp-locate-uses -i</code> <em>F1</em> <em>F2</em></p>
-</li>
-</ol>
+<div class="sect2">
+<h3 id="Specifying-Models_Computing-Dependencies">8.5. Computing Dependencies</h3>
+<div class="paragraph">
+<p>TODO</p>
 </div>
 <div class="paragraph">
-<p>The <code>-i</code> option stands for <em>import</em>: it says that the files <em>F1</em> are to be read
+<p>Discuss <code>fpp-depend</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Specifying-Models_Locating-Uses">8.6. Locating Uses</h3>
+<div class="paragraph">
+<p>Given a collection of files <em>F</em> and their dependencies <em>D</em>, you can generate
+the locations of the symbols defined in <em>D</em> and <em>F</em> and used in <em>F</em>.
+This is not necessary for doing analysis and translation&#8201;&#8212;&#8201;the dependency
+analysis described in the previous section is sufficient).
+However, it may be helpful to see the dependencies between FPP files at the
+granularity of individual symbols.</p>
+</div>
+<div class="paragraph">
+<p>The tool for doing this analysis is called <code>fpp-locate-uses</code>.
+As an example, you can run <code>fpp-locate-uses</code> to report the locations of all the
+type definitions used in a port definition.</p>
+</div>
+<div class="paragraph">
+<p>To locate uses, run <code>fpp-locate-uses -i</code> <em>D</em> <em>F</em>, where <em>D</em> is a comma-separated
+list and <em>F</em> is a space-separated list.
+The <code>-i</code> option stands for <em>import</em>: it says that the files <em>D</em> are to be read
 for their
 symbols, but not to be included in the results of the analysis.</p>
 </div>
@@ -2935,7 +2933,7 @@ symbols, but not to be included in the results of the analysis.</p>
 <code>b</code>,
 and <code>c.fpp</code> uses <code>a</code> but not <code>b</code>.
 Then <code>fpp-locate-uses -i a.fpp,b.fpp c.fpp</code> generates the output <code>locate a at
-"a.fpp</code></p>
+"a.fpp"</code></p>
 </div>
 <div class="paragraph">
 <p>With <code>fpp-locate-uses</code>, you can automatically derive the equivalent of the <code>import</code>
@@ -2947,14 +2945,16 @@ imports <em>T</em> into <em>P</em>. In FPP you don&#8217;t do this. Instead, you
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Run <code>fpp-locate-defs</code> to generate location specifiers for all the type
+<p>Run <code>fpp-locate-defs</code> to generate location specifiers <em>L</em> for all the type
 definitions.
 You can do this as needed, or you can do it once and check it in as part of
 the module that defines the types.</p>
 </li>
 <li>
-<p>Run <code>fpp-locate-uses</code> on <em>P</em>, using the <code>-i</code> option to pass in the result of
-step 1.</p>
+<p>Run <code>fpp-depend</code> on <em>L</em> and <em>P</em> to generate the dependencies <em>D</em> of <em>P</em>.</p>
+</li>
+<li>
+<p>Run <code>fpp-locate-uses -i</code> <em>D</em> <em>P</em>.</p>
 </li>
 </ol>
 </div>
@@ -2971,21 +2971,8 @@ whenever desired, and see the dependencies that way.</p>
 for the location specifiers, if you wish.</p>
 </div>
 </div>
-</div>
 <div class="sect2">
-<h3 id="Specifying-Models_Computing-Dependencies">8.4. Computing Dependencies</h3>
-<div class="paragraph">
-<p>TODO</p>
-</div>
-<div class="paragraph">
-<p>Discuss <code>fpp-depend</code>.</p>
-</div>
-<div class="paragraph">
-<p>Discuss relation between <code>fpp-depend</code> and <code>fpp-locate-uses</code>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Specifying-Models_Include-Specifiers">8.5. Include Specifiers</h3>
+<h3 id="Specifying-Models_Include-Specifiers">8.7. Include Specifiers</h3>
 <div class="paragraph">
 <p>TODO</p>
 </div>
@@ -3044,7 +3031,7 @@ When implementing an abstract type in C&#43;&#43;, you must provide</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-31 18:18:27 -0700
+Last updated 2020-08-31 19:08:45 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

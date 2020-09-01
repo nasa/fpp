@@ -69,9 +69,9 @@ multiple blocks
 
 === Dependencies
 
-When a model is split into two or more files, a file _f_ may use symbols
+When a model is split into two or more files, one file _f_ may use symbols
 whose definitions appear in files other than _f_.
-In order to analyze and translate _f_, the analyzer needs to extract
+In order to analyze _f_, the tools must extract
 the definitions from these files, called the *dependencies* of _f_.
 
 For example, suppose the file `a.fpp` contains the following definition:
@@ -107,7 +107,7 @@ see.)
 The error occurs because the definition of `a` is located in `a.fpp`,
 which was not included in the analysis.
 
-For very simple models, we can easily manage the dependencies by hand, as we 
+For simple models, we can manage the dependencies by hand, as we 
 did for the example above.
 However, for even moderately complex models, this kind of hand management 
 becomes difficult.
@@ -125,7 +125,7 @@ generated in step 1.
 It emits a list of files containing the symbols used in _f_ (i.e., the 
 dependencies of _f_).
 
-Typically these steps occur in separate phases of development.
+These steps may occur in separate phases of development.
 For example:
 
 * You may run step 1 to locate and export all the type definitions
@@ -137,10 +137,6 @@ Below we explain these steps in more detail.
 
 === Location Specifiers
 
-This section explains how location specifiers work.
-
-==== The Form of a Location Specifier
-
 A location specifier is a unit of syntax in an FPP model.
 Here we explain the syntax, so you know what it means.
 However, you should ordinarily not write location specifiers
@@ -148,7 +144,9 @@ by hand.
 Instead, you should let the tools generate them, as described
 in the next section.
 
-*Syntax:* A location specifier consists of the keyword `locate`, a kind of symbol,
+==== Syntax
+
+A location specifier consists of the keyword `locate`, a kind of symbol,
 the name of a symbol, and a string representing a file path.
 For example, to locate the definition of constant `a` at `a.fpp`,
 we would write
@@ -178,7 +176,9 @@ constants are then implied:
 locate type E at "E.fpp"
 ----
 
-*Path Names:* The path name in a location specifier _L_ is relative to the
+==== Path Names
+
+The path name in a location specifier _L_ is relative to the
 location of the file where _L_ appears.
 For example, suppose the file `b.fpp` appears on the file system in some directory _D_.
 Suppose also that _D_ has a subdirectory `Constants`, `Constants` contains a file `a.fpp`,
@@ -198,7 +198,9 @@ If, instead of residing in a subdirectory, `a.fpp` were located one directory ab
 locate constant a at "../a.fpp"
 ----
 
-*Symbol Names:* The symbol name appearing after the keyword `locate`
+==== Symbol Names
+
+The symbol name appearing after the keyword `locate`
 may be a qualified name.
 For example, suppose the file `M.fpp` contains the following:
 
@@ -236,26 +238,15 @@ The purpose of this restriction is to facilitate dependency analysis,
 which occurs before the analyzer has complete information about
 definitions and their uses.
 
-==== Generating Location Specifiers
+=== Locating Definitions
 
-The FPP tool suite provides two ways to generate location specifiers:
+Given a collection of FPP source files _F_, you can generate location specifiers 
+for all the symbols defined in _F_.
+The tool for doing this analysis is called `fpp-locate-defs`.
+As example, you can run `fpp-locate-defs` to report the locations of all
+the constant definitions in your model.
 
-. Given a collection of FPP source files _F_, you can generate location specifiers 
-for
-all the symbols defined in _F_.
-The tool for doing this is called `fpp-locate-defs`.
-
-. Given a collection of location specifiers _L_, and given one 
-or more files _F_ that depend on the symbols located in _L_, you can generate
-the subset of _L_ corresponding to the symbols used in the files.
-The tool for doing this is called `fpp-locate-uses`.
-
-As example, you could carry out step 1 to report the locations of all
-the type definitions in your model.
-Later, you could carry out step 2 to report the locations of all the type 
-definitions used in a port definition.
-
-*Locating Definitions:* To locate definitions, do the following:
+To locate definitions, do the following:
 
 . Collect all the FPP source files containing the definitions you want to 
 locate.
@@ -279,7 +270,7 @@ generates the location specifier
 locate constant a at "Constants/a.fpp"
 ----
 
-Notice that the location path is relative to the current directory.
+By default, the location path is relative to the current directory.
 To specify a different base directory, use the option `-d`.
 For example, running
 
@@ -294,18 +285,28 @@ generates the location specifier
 locate constant a at "a.fpp"
 ----
 
+=== Computing Dependencies
 
-*Locating Uses:* To locate uses, do the following:
+TODO
 
-. Construct a comma-separated list _F1_ of one or more FPP source files 
-containing location specifiers.
-These files could be the output of *locating definitions*, above.
+Discuss `fpp-depend`.
 
-. Construct a space-separated list _F2_ one or more FPP source files whose uses you want to locate.
+=== Locating Uses
 
-. Run `fpp-locate-uses -i` _F1_ _F2_
+Given a collection of files _F_ and their dependencies _D_, you can generate
+the locations of the symbols defined in _D_ and _F_ and used in _F_.
+This is not necessary for doing analysis and translation -- the dependency 
+analysis described in the previous section is sufficient).
+However, it may be helpful to see the dependencies between FPP files at the 
+granularity of individual symbols.
 
-The `-i` option stands for _import_: it says that the files _F1_ are to be read 
+The tool for doing this analysis is called `fpp-locate-uses`.
+As an example, you can run `fpp-locate-uses` to report the locations of all the 
+type definitions used in a port definition.
+
+To locate uses, run `fpp-locate-uses -i` _D_ _F_, where _D_ is a comma-separated
+list and _F_ is a space-separated list.
+The `-i` option stands for _import_: it says that the files _D_ are to be read 
 for their
 symbols, but not to be included in the results of the analysis.
 
@@ -313,7 +314,7 @@ For example, suppose `a.fpp` defines constant `a`, `b.fpp` defines constant
 `b`,
 and `c.fpp` uses `a` but not `b`.
 Then `fpp-locate-uses -i a.fpp,b.fpp c.fpp` generates the output `locate a at 
-"a.fpp`
+"a.fpp"`
 
 With `fpp-locate-uses`, you can automatically derive the equivalent of the `import`
 declarations that you have to enter by hand when writing F Prime XML.
@@ -321,13 +322,14 @@ For example, suppose you have specified a port _P_ that uses a type _T_.
 To specify _P_ in F Prime XML, you would write an `import` statement that
 imports _T_ into _P_. In FPP you don't do this. Instead, you can do the following:
 
-. Run `fpp-locate-defs` to generate location specifiers for all the type 
+. Run `fpp-locate-defs` to generate location specifiers _L_ for all the type 
 definitions.
 You can do this as needed, or you can do it once and check it in as part of
 the module that defines the types.
 
-. Run `fpp-locate-uses` on _P_, using the `-i` option to pass in the result of 
-step 1.
+. Run `fpp-depend` on _L_ and _P_ to generate the dependencies _D_ of _P_.
+
+. Run `fpp-locate-uses -i` _D_ _P_.
 
 The result should be a location specifier that gives the location of _T_.
 If you wish, you can check the result in as part of the definition of _P_.
@@ -338,14 +340,6 @@ whenever desired, and see the dependencies that way.
 
 As with `fpp-locate-defs`, you can use `-d` to specify a base directory
 for the location specifiers, if you wish.
-
-=== Computing Dependencies
-
-TODO
-
-Discuss `fpp-depend`.
-
-Discuss relation between `fpp-depend` and `fpp-locate-uses`.
 
 === Include Specifiers
 
