@@ -17,8 +17,25 @@ the program:
 %
 ----
 
+`fpp-check` is the tool for checking that an FPP model is valid.
+Like most FPP tools (except the ones that operate on XML files -- more on this 
+below),
+`fpp-check` reads from one or more files or from standard input.
+If one or more files are named on the command line, `fpp-check` reads those;
+otherwise it reads from standard input.
+As an example, the following two operations are equivalent:
+
+----
+% fpp-check < file.fpp
+% fpp-check file.fpp
+----
+
+The first operation redirects `file.fpp` into the standard input of 
+`fpp-check`.
+The second operation names `file.fpp` as an input file of `fpp-check`.
+
 Most of the examples in the following sections are complete FPP models.
 You can run the models through
-`fpp-check` by typing or pasting them into standard input.
+`fpp-check` by typing or pasting them into a file or into standard input.
 It is recommended that you to this for at least a few of the examples,
 to get a feel for how FPP works.

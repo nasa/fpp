@@ -260,7 +260,8 @@ Here we explain the syntax, so you know what it means.
 However, you should ordinarily not write location specifiers
 by hand.
 Instead, you should let the tools generate them, as described
-in the next section.
+in the section on <<Specifying-Models_Locating-Definitions,locating 
+definitions>>.
 
 ==== Syntax
 
@@ -440,11 +441,12 @@ This is what you want for computing build dependencies.
 === Locating Uses
 
 Given a collection of files _F_ and their dependencies _D_, you can generate
-the locations of the symbols defined in _D_ and _F_ and used in _F_.
+the locations of the symbols defined in _D_ and used in _F_.
 This is not necessary for doing analysis and translation -- the dependency 
 analysis described in the previous section is sufficient.
-However, it may be helpful to see the dependencies between FPP files at the 
-granularity of individual symbols.
+However, by showing the dependencies between FPP files at the granularity of 
+individual symbols, it provides an additional level of detail that may be 
+helpful in some cases.
 
 The tool for doing this analysis is called `fpp-locate-uses`.
 As an example, you can run `fpp-locate-uses` to report the locations of all the 
