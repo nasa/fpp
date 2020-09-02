@@ -186,10 +186,10 @@ error: identifier expected
 
 === Dependencies
 
-Whenever a model spans two or more files, one file _f_ may use symbols
+Whenever a model spans two or more files, one file _F_ may use symbols
 whose definitions appear in other files.
-In order to analyze _f_, the tools must extract
-the definitions from these other files, called the *dependencies* of _f_.
+In order to analyze _F_, the tools must extract
+the definitions from these other files, called the *dependencies* of _F_.
 
 For example, suppose the file `a.fpp` contains the following definition:
 
@@ -199,7 +199,6 @@ constant a = 0
 ----
 
 And suppose the file `b.fpp` contains the following definition:
-
 
 [source,fpp]
 --------
@@ -234,12 +233,12 @@ management.
 In summary, dependency management in FPP works as follows:
 
 . You run a tool called `fpp-locate-defs` to generate *location specifiers*
-for all the symbols available for use in _f_.
+for all the symbols available for use in _F_.
 
-. You run a tool called `fpp-depend`, passing it _f_ and the location 
+. You run a tool called `fpp-depend`, passing it _F_ and the location 
 specifiers generated in step 1.
-It emits a list of files containing symbols used in _f_ (i.e., the 
-dependencies of _f_).
+It emits a list of files containing symbols used in _F_ (i.e., the 
+dependencies of _F_).
 
 These steps may occur in separate phases of development.
 For example:
@@ -425,9 +424,127 @@ locate constant a at "a.fpp"
 
 === Computing Dependencies
 
+Given files _F_ and location specifiers _L_ that locate the symbols used in 
+_F_, you can
+generate the dependencies of _F_.
+The tool for doing this is is called `fpp-depend`.
+
+==== Running fpp-depend
+
+To run `fpp-depend`, you pass it as input (1) all the code you want to analyze
+and (2) a set of location specifiers that contains the location specifiers 
+for the symbols used in that code.
+The tool filters out the location specifiers for the symbols used in the
+code, resolves them to absolute path names (the dependencies), and writes the
+dependencies to standard output.
+
+For example, suppose the file `a.fpp` contains the following
+definition:
+
+[source,fpp]
+----
+constant a = 0
+----
+
+Suppose the file `b.fpp` contains the following definition:
+
+[source,fpp]
+----
+constant b = 1
+----
+
+Suppose the file `locations.fpp` contains the following location 
+specifiers:
+
+[source,fpp]
+----
+locate constant a at "a.fpp"
+locate constant b at "b.fpp"
+----
+
+And suppose the file `c.fpp` contains the following definition of `c`,
+which uses the definition of `b` but not the definition of `a`:
+
+[source,fpp]
+--------
+constant c = b + 1
+--------
+
+Then running `fpp-depend locations.fpp c.fpp` produces the output
+`[path-prefix]/b.fpp`.
+The dependency output contains absolute path names, which will vary from system 
+to system.
+Here we represent the system-dependent part of the path as `[path-prefix]`.
+
+----
+% fpp-depend locations.fpp c.fpp
+[path-prefix]/b.fpp
+----
+
+As usual with FPP tools, you can provide input as a set of files
+or on standard input.
+So the following is equivalent:
+
+----
+% cat locations.fpp c.fpp | fpp-depend
+[path-prefix]/b.fpp
+----
+
+==== Transitive Dependencies
+
+`fpp-depend` computes dependencies transitively.
+This means that if _A_ depends on _B_ and _B_
+depends on _C_, then _A_ depends on _C_.
+
+For example, suppose again that `locations.fpp`
+contains the following location specifiers:
+
+[source,fpp]
+----
+locate constant a at "a.fpp"
+locate constant b at "b.fpp"
+----
+
+Suppose the file `a.fpp` contains the following definition:
+
+[source,fpp]
+----
+constant a = 0
+----
+
+Suppose the file `b.fpp` contains the following definition:
+
+[source,fpp]
+--------
+constant b = a
+--------
+
+And suppose that file `c.fpp` contains the following definition:
+
+[source,fpp]
+--------
+constant c = b
+--------
+
+Then running `fpp-depend` on `locations.fpp` and `c.fpp`
+produces the dependencies `a.fpp` and `b.fpp`:
+
+----
+% fpp-depend locations.fpp c.fpp
+[path-prefix]/a.fpp
+[path-prefix]/b.fpp
+----
+
+Notice that there is a direct dependence of `c.fpp` on `b.fpp`
+and a transitive dependence of `c.fpp` on `a.fpp`.
+The transitive dependence occurs because there is a direct dependence
+of `c.fpp` on `b.fpp` and a direct dependence of `b.fpp` on `a.fpp`.
+
+==== Missing Files
+
 TODO
 
-Discuss `fpp-depend`.
+==== Included Files
 
 TODO: Discuss how fpp-depend handles included files.
 
@@ -442,11 +559,11 @@ This is what you want for computing build dependencies.
 
 Given a collection of files _F_ and their dependencies _D_, you can generate
 the locations of the symbols defined in _D_ and used in _F_.
-This is not necessary for doing analysis and translation -- the dependency 
-analysis described in the previous section is sufficient.
-However, by showing the dependencies between FPP files at the granularity of 
-individual symbols, it provides an additional level of detail that may be 
-helpful in some cases.
+This is not necessary for doing analysis and translation -- 
+<<Specifying-Models_Computing-Dependencies,computing file-level dependencies>>
+suffices for that.
+However, by revealing dependencies at the granularity of individual symbols, it 
+provides an additional level of detail that may be helpful in some cases.
 
 The tool for doing this analysis is called `fpp-locate-uses`.
 As an example, you can run `fpp-locate-uses` to report the locations of all the 
