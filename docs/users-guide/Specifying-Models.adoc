@@ -1,13 +1,13 @@
 == Specifying Models
 
-The previous sections have explained various syntactic elements
+The previous sections have explained the individual syntactic elements
 of FPP models.
 This section takes a broader view:
-it explains how to assemble the elements into a model.
+it explains how to assemble a collection of elements into a model.
 
 In the discussion below
 
-* We focus on constants and types, because those 
+* We focus on defining constants and types, because those 
 elements of FPP are currently implemented.
 In future versions of this User's Guide, we will extend the discussion to cover
 ports, components, and topologies.
@@ -27,7 +27,7 @@ elements into files.
 For example, there is no requirement that each
 type definition reside in its own file.
 Nor is there any requirement that the names of files correspond
-to the names of the definitions in the files.
+to the names of the definitions they contain.
 
 Of course you should try to adhere to good style when decomposing a large model 
 into many files.
@@ -38,8 +38,9 @@ according to the purpose of the grouping.
 
 * Choose meaningful module names, and group all files in a single module
 in single directory (including its subdirectories).
-Examples from the F Prime distribution include the `Fw` and `Svc`
-namespaces, which correspond to modules `Fw` and `Svc` in an FPP model.
+In the F Prime distribution, the `Fw` and `Svc` directories
+follow this pattern, where the {cpp} namespaces `Fw` and `Svc`
+correspond to FPP modules.
 
 * Group files into modules and directories logically according to their function.
 For example:
@@ -186,8 +187,8 @@ error: identifier expected
 
 === Dependencies
 
-Whenever a model spans two or more files, one file _F_ may use symbols
-whose definitions appear in other files.
+Whenever a model spans two or more files, one file _F_ may use 
+definition that appear in other files.
 In order to analyze _F_, the tools must extract
 the definitions from these other files, called the *dependencies* of _F_.
 
@@ -221,7 +222,7 @@ However, if you present just `b.fpp`, like this:
 you will get an error stating that the symbol `a` is undefined. (Try it and 
 see.)
 The error occurs because the definition of `a` is located in `a.fpp`,
-which was not included in the analysis.
+which was not included in the input to the analysis.
 
 For simple models, we can manage the dependencies by hand, as we 
 did for the example above.
@@ -233,39 +234,41 @@ management.
 In summary, dependency management in FPP works as follows:
 
 . You run a tool called `fpp-locate-defs` to generate *location specifiers*
-for all the symbols available for use in _F_.
+for all the definitions _that could be used_ in _F_.
 
 . You run a tool called `fpp-depend`, passing it _F_ and the location 
 specifiers generated in step 1.
-It emits a list of files containing symbols used in _F_ (i.e., the 
-dependencies of _F_).
+It emits a list of files containing definitions _that are actually used_ in _F_ 
+(i.e., the dependencies of _F_).
 
 These steps may occur in separate phases of development.
 For example:
 
-* You may run step 1 to locate and export all the type definitions
-on which your model depends.
+* You may run step 1 to locate all the type definitions
+available for use in the model.
 
 * You may run step 2 to develop ports that depend on the types.
-This step would typically be run automatically as part of the build, e.g.,
-the F Prime CMake build.
+Typically you would run this step as part of a build process, e.g.,
+the CMake build process included in the F Prime distribution.
 
 Below we explain these steps in more detail.
 
 === Location Specifiers
 
 A location specifier is a unit of syntax in an FPP model.
-Here we explain the syntax, so you know what it means.
-However, you should ordinarily not write location specifiers
-by hand.
-Instead, you should let the tools generate them, as described
+It specifies the location of a definition used in the model.
+
+Although it is possible to write location specifiers by hand,
+you should usually not do so.
+Instead, you should write definitions and let the tools discover their 
+locations, as described
 in the section on <<Specifying-Models_Locating-Definitions,locating 
 definitions>>.
 
 ==== Syntax
 
-A location specifier consists of the keyword `locate`, a kind of symbol,
-the name of a symbol, and a string representing a file path.
+A location specifier consists of the keyword `locate`, a kind of definition,
+the name of a definition, and a string representing a file path.
 For example, to locate the definition of constant `a` at `a.fpp`,
 we would write
 
@@ -275,7 +278,7 @@ we would write
 locate constant a at "a.fpp"
 ----
 
-For the current version of FPP, the kind of symbol can be `constant` or `type`.
+For the current version of FPP, the kind of definition can be `constant` or `type`.
 To locate a type `T` in a file `T.fpp`, we would write the following:
 
 [source,fpp]
@@ -320,9 +323,9 @@ If, instead of residing in a subdirectory, `a.fpp` were located one directory ab
 locate constant a at "../a.fpp"
 ----
 
-==== Symbol Names
+==== Definition Names
 
-The symbol name appearing after the keyword `locate`
+The definition name appearing after the keyword `locate`
 may be a qualified name.
 For example, suppose the file `M.fpp` contains the following:
 
@@ -346,24 +349,25 @@ this:
 module M { locate constant a at "M.fpp" }
 ----
 
-A locate specifier written inside a module this way has its symbol name
+A locate specifier written inside a module this way has its definition name
 implicitly qualified with the module name.
 For example, the name `a` appearing in the example above is automatically
 resolved to `M.a`.
 
-Note that this rule is less flexible than for other uses of definitions.
-For example, when using the constant `M.a` in an expression inside module `M`
+Note that this rule is different than for other uses of definitions.
+For example, when using the constant `M.a` in an expression inside module `M`,
 you may spell the constant either `a` or `M.a`;
-but when referring to the same constant `M.a` in a locate specifier in module 
-`M`, you must write `a` and not `M.a`.
-If you wrote `M.a`, it would be incorrectly resolved to `M.M.a`.
-The purpose of this restriction is to facilitate dependency analysis,
+but when referring to the same constant `M.a` in a location specifier inside 
+module `M`, you must write `a` and not `M.a`.
+(If you wrote `M.a`, it would be incorrectly resolved to `M.M.a`.)
+The purpose of this rule is to facilitate dependency analysis,
 which occurs before the analyzer has complete information about
 definitions and their uses.
 
 ==== Included Files
 
-When you include a file that defines in another file, the location of
+When you write a file that contains definitions and you include that file in another 
+file, the location of
 each definition is the file where the definition occurs,
 not the file where it is included.
 For example, suppose that file `a.fpp` contains the definition `constant a = 
@@ -375,13 +379,13 @@ is `a.fpp`, not `b.fpp`.
 === Locating Definitions
 
 Given a collection of FPP source files _F_, you can generate location specifiers 
-for all the symbols defined in _F_.
+for all the definitions in _F_.
 The tool for doing this analysis is called `fpp-locate-defs`.
 As example, you can run `fpp-locate-defs` to report the locations of all
 the definitions in a subdirectory called `Constants` that contains constant
 definitions for your model.
-When analyzing files that depend on the constants, you can use the location
-specifiers to discover the dependencies.
+When analyzing other files that use the constants, you can use the location
+specifiers to discover dependencies on individual files within `Constants`.
 
 To locate definitions, do the following:
 
@@ -424,18 +428,19 @@ locate constant a at "a.fpp"
 
 === Computing Dependencies
 
-Given files _F_ and location specifiers _L_ that locate the symbols used in 
+Given files _F_ and location specifiers _L_ that locate the definitions used in 
 _F_, you can
 generate the dependencies of _F_.
 The tool for doing this is is called `fpp-depend`.
 
 ==== Running fpp-depend
 
-To run `fpp-depend`, you pass it as input (1) all the code you want to analyze
-and (2) a superset of the location specifiers for the symbols used in that 
+To run `fpp-depend`, you pass it as input (1) files _F_ that you want to 
+analyze
+and (2) a superset of the location specifiers for the definitions used in that 
 code.
-The tool filters out the location specifiers for the symbols used in the
-code, resolves them to absolute path names (the dependencies), and writes the
+The tool extracts the location specifiers for the definitions used in _F_, resolves 
+them to absolute path names (the dependencies of _F_), and writes the
 dependencies to standard output.
 
 For example, suppose the file `a.fpp` contains the following
@@ -526,19 +531,19 @@ And suppose that file `c.fpp` contains the following definition:
 constant c = b
 --------
 
-Then running `fpp-depend` on `locations.fpp` and `c.fpp`
-produces the dependencies `a.fpp` and `b.fpp`:
+Notice that there is a direct dependence of `c.fpp` on `b.fpp`
+and a transitive dependence of `c.fpp` on `a.fpp`.
+The transitive dependence occurs because there is a direct dependence
+of `c.fpp` on `b.fpp` and a direct dependence of `b.fpp` on `a.fpp`.
+
+Running `fpp-depend` on `locations.fpp` and `c.fpp`
+produces both dependencies:
 
 ----
 % fpp-depend locations.fpp c.fpp
 [path-prefix]/a.fpp
 [path-prefix]/b.fpp
 ----
-
-Notice that there is a direct dependence of `c.fpp` on `b.fpp`
-and a transitive dependence of `c.fpp` on `a.fpp`.
-The transitive dependence occurs because there is a direct dependence
-of `c.fpp` on `b.fpp` and a direct dependence of `b.fpp` on `a.fpp`.
 
 ==== Missing Dependencies
 
@@ -562,15 +567,17 @@ it reports the dependency of `c.fpp` on `b.fpp`.
 ----
 
 The philosophy behind `fpp-depend` is to be as permissive and enabling as 
-possbile.
+possible.
 It doesn't assume that something is wrong because a dependency is missing:
 for example, that dependency could be created later, as part of a code-generation 
 step.
 
 However, you may want to know about missing dependencies, either to issue
-a warning or error, or to identify files that need to be generated.
+a warning or error because something really is wrong, or to identify files to
+generate.
 To record missing dependencies, use the `-m` option.
-It takes as an argument the name of a file, and it writes missing dependencies (if any)
+It takes as an argument the name of a file, and it writes missing dependencies 
+(if any)
 to that file.
 
 For example, the command
@@ -583,26 +590,56 @@ writes the missing dependency `[path-prefix]/b.fpp` to `missing.txt` in
 addition to writing
 the dependency `[path-prefix]/b.fpp` to standard output.
 
-==== Dependencies on Included Files
+==== Included Files
 
-TODO: Discuss how fpp-depend handles included files.
+Suppose file `a.fpp` contains the
+<<Specifying-Models_Include-Specifiers,include specifier>>
+`include "b.fpp"`.
+Then there are two options for computing the dependencies of `a.fpp`:
 
-* By default, they are excluded from the dependency list.
-This is what you want for determining which files to present to the tools.
+. `a.fpp` does not depend on `b.fpp`.
+. `a.fpp` does depend on `b.fpp`.
 
-* When you run fpp-depend with the switch `-i`, included files
-appear in the dependency list.
-This is what you want for computing build dependencies.
+Option 1 is what you want for assembling the input
+to FPP analysis and translation tools such as `fpp-check`.
+In this case, when analyzing `a.fpp`, the tool will resolve the include
+specifier and include the contents of `b.fpp`. So `b.fpp` should
+not be included as a separate input to the analysis.
+
+On the other hand, suppose you are constructing a list of dependencies
+for a build system such as the F Prime CMake system.
+In this case, the build system doesn't know anything about FPP include specifiers.
+However, it needs to know that `a.fpp` does depend on `b.fpp` in the sense that
+if `b.fpp` is modified, then `a.fpp` should be analyzed or translated again.
+So in this case we want option 2.
+
+By default, `fpp-depend` provides option 1:
+
+----
+% echo 'include "b.fpp"' > a.fpp
+% rm -f b.fpp
+% touch b.fpp
+% fpp-depend a.fpp
+----
+
+To get option 2, use the `-i` option to `fpp-depend`:
+
+----
+% echo 'include "b.fpp"' > a.fpp
+% rm -f b.fpp
+% touch b.fpp
+% fpp-depend -i a.fpp
+[path-prefix]/b.fpp
+----
 
 === Locating Uses
 
 Given a collection of files _F_ and their dependencies _D_, you can generate
-the locations of the symbols defined in _D_ and used in _F_.
-This is not necessary for doing analysis and translation -- 
-<<Specifying-Models_Computing-Dependencies,computing file-level dependencies>>
-suffices for that.
-However, by revealing dependencies at the granularity of individual symbols, it 
-provides an additional level of detail that may be helpful in some cases.
+the locations of the definitions appearing in _D_ and used in _F_.
+This information is not necessary for doing analysis and translation -- for 
+that it is sufficient to know the file dependencies _D_.
+However, by reporting dependencies at the granularity of individual definition, 
+this analysis provides an additional level of detail that may be helpful.
 
 The tool for doing this analysis is called `fpp-locate-uses`.
 As an example, you can run `fpp-locate-uses` to report the locations of all the 
@@ -612,7 +649,7 @@ To locate uses, run `fpp-locate-uses -i` _D_ _F_, where _D_ is a comma-separated
 list and _F_ is a space-separated list.
 The `-i` option stands for _import_: it says that the files _D_ are to be read 
 for their
-symbols, but not to be included in the results of the analysis.
+definitions, but not to be included in the results of the analysis.
 
 For example, suppose `a.fpp` defines constant `a`, `b.fpp` defines constant 
 `b`,
@@ -620,8 +657,18 @@ and `c.fpp` uses `a` but not `b`.
 Then `fpp-locate-uses -i a.fpp,b.fpp c.fpp` generates the output `locate a at 
 "a.fpp"`
 
+Note that unlike in the case of 
+<<Specifying-Models_Computing-Dependencies,dependency analysis>>,
+the inputs _D_ and _F_ to `fpp-locate-uses` must form a complete model.
+There must be no name used in _D_ or in _F_ that is not defined somewhere in 
+_D_ or in _F_.
+If _D_ is the output of running `fpp-depend` on _F_, and there are no
+<<Specifying-Models_Computing-Dependencies_Missing-Dependencies,missing 
+dependencies>>,
+then this property should hold.
+
 With `fpp-locate-uses`, you can automatically derive the equivalent of the `import`
-declarations that you have to construct by hand when writing F Prime XML.
+declarations that you construct by hand when writing F Prime XML.
 For example, suppose you have specified a port _P_ that uses a type _T_.
 To specify _P_ in F Prime XML, you would write an `import` statement that
 imports _T_ into _P_. In FPP you don't do this. Instead, you can do the following:
@@ -635,13 +682,14 @@ the module that defines the types.
 
 . Run `fpp-locate-uses -i` _D_ _P_.
 
-The result should be a location specifier that gives the location of _T_.
-If you wish, you can check the result in as part of the definition of _P_.
-Doing this provide as a kind of "import statement," if that is desired, e.g.,
+The result is a location specifier that gives the location of _T_.
+If you wish, you can check the result in as part of the source code that 
+defines _P_.
+Doing this provide as a kind of "import statement," if that is desired
 to make the dependencies explicit in the code.
 Or you can just use the procedure given above to generate the "import 
 statement"
 whenever desired, and see the dependencies that way.
 
 As with `fpp-locate-defs`, you can use `-d` to specify a base directory
-for the location specifiers, if you wish.
+for the location specifiers.

@@ -512,12 +512,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#Specifying-Models_Location-Specifiers_Syntax">8.4.1. Syntax</a></li>
 <li><a href="#Specifying-Models_Location-Specifiers_Path-Names">8.4.2. Path Names</a></li>
-<li><a href="#Specifying-Models_Location-Specifiers_Symbol-Names">8.4.3. Symbol Names</a></li>
+<li><a href="#Specifying-Models_Location-Specifiers_Definition-Names">8.4.3. Definition Names</a></li>
 <li><a href="#Specifying-Models_Location-Specifiers_Included-Files">8.4.4. Included Files</a></li>
 </ul>
 </li>
 <li><a href="#Specifying-Models_Locating-Definitions">8.5. Locating Definitions</a></li>
-<li><a href="#Specifying-Models_Computing-Dependencies">8.6. Computing Dependencies</a></li>
+<li><a href="#Specifying-Models_Computing-Dependencies">8.6. Computing Dependencies</a>
+<ul class="sectlevel3">
+<li><a href="#Specifying-Models_Computing-Dependencies_Running-fpp-depend">8.6.1. Running fpp-depend</a></li>
+<li><a href="#Specifying-Models_Computing-Dependencies_Transitive-Dependencies">8.6.2. Transitive Dependencies</a></li>
+<li><a href="#Specifying-Models_Computing-Dependencies_Missing-Dependencies">8.6.3. Missing Dependencies</a></li>
+<li><a href="#Specifying-Models_Computing-Dependencies_Included-Files">8.6.4. Included Files</a></li>
+</ul>
+</li>
 <li><a href="#Specifying-Models_Locating-Uses">8.7. Locating Uses</a></li>
 </ul>
 </li>
@@ -650,9 +657,29 @@ the program:</p>
 </div>
 </div>
 <div class="paragraph">
+<p><code>fpp-check</code> is the tool for checking that an FPP model is valid.
+Like most FPP tools (except the ones that operate on XML files&#8201;&#8212;&#8201;more on this
+below),
+<code>fpp-check</code> reads from one or more files or from standard input.
+If one or more files are named on the command line, <code>fpp-check</code> reads those;
+otherwise it reads from standard input.
+As an example, the following two operations are equivalent:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-check &lt; file.fpp
+% fpp-check file.fpp</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The first operation redirects <code>file.fpp</code> into the standard input of
+<code>fpp-check</code>.
+The second operation names <code>file.fpp</code> as an input file of <code>fpp-check</code>.</p>
+</div>
+<div class="paragraph">
 <p>Most of the examples in the following sections are complete FPP models.
 You can run the models through
-<code>fpp-check</code> by typing or pasting them into standard input.
+<code>fpp-check</code> by typing or pasting them into a file or into standard input.
 It is recommended that you to this for at least a few of the examples,
 to get a feel for how FPP works.</p>
 </div>
@@ -2530,10 +2557,10 @@ use appears inside the enum where it is defined.</p>
 <h2 id="Specifying-Models">8. Specifying Models</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The previous sections have explained various syntactic elements
+<p>The previous sections have explained the individual syntactic elements
 of FPP models.
 This section takes a broader view:
-it explains how to assemble the elements into a model.</p>
+it explains how to assemble a collection of elements into a model.</p>
 </div>
 <div class="paragraph">
 <p>In the discussion below</p>
@@ -2541,7 +2568,7 @@ it explains how to assemble the elements into a model.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>We focus on constants and types, because those
+<p>We focus on defining constants and types, because those
 elements of FPP are currently implemented.
 In future versions of this User&#8217;s Guide, we will extend the discussion to cover
 ports, components, and topologies.</p>
@@ -2565,7 +2592,7 @@ elements into files.
 For example, there is no requirement that each
 type definition reside in its own file.
 Nor is there any requirement that the names of files correspond
-to the names of the definitions in the files.</p>
+to the names of the definitions they contain.</p>
 </div>
 <div class="paragraph">
 <p>Of course you should try to adhere to good style when decomposing a large model
@@ -2581,8 +2608,9 @@ according to the purpose of the grouping.</p>
 <li>
 <p>Choose meaningful module names, and group all files in a single module
 in single directory (including its subdirectories).
-Examples from the F Prime distribution include the <code>Fw</code> and <code>Svc</code>
-namespaces, which correspond to modules <code>Fw</code> and <code>Svc</code> in an FPP model.</p>
+In the F Prime distribution, the <code>Fw</code> and <code>Svc</code> directories
+follow this pattern, where the C&#43;&#43; namespaces <code>Fw</code> and <code>Svc</code>
+correspond to FPP modules.</p>
 </li>
 <li>
 <p>Group files into modules and directories logically according to their function.
@@ -2646,7 +2674,7 @@ available.
 Because these definitions are short, include specifiers are less
 useful for writing them.
 However, we describe include specifiers here for completeness, anticipating
-that they will become useful in later versions of FPP.</p>
+that we will need them in later versions of FPP.</p>
 </div>
 <div class="paragraph">
 <p>To write an include specifier, you write the keyword <code>include</code>
@@ -2740,8 +2768,11 @@ It may not contain a bare identifier <code>a</code>, as this is not a valid top-
 or module-level syntactic unit.
 Nor is it valid to write an include specifier in a place where an identifier
 like <code>a</code>
-is expected.
-For example:</p>
+is expected.</p>
+</div>
+<div class="paragraph">
+<p>For example, here is the result of a failed attempt to include
+an identifier into a constant definition:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2762,10 +2793,10 @@ error: identifier expected
 <div class="sect2">
 <h3 id="Specifying-Models_Dependencies">8.3. Dependencies</h3>
 <div class="paragraph">
-<p>Whenever a model spans two or more files, one file <em>f</em> may use symbols
-whose definitions appear in other files.
-In order to analyze <em>f</em>, the tools must extract
-the definitions from these other files, called the <strong>dependencies</strong> of <em>f</em>.</p>
+<p>Whenever a model spans two or more files, one file <em>F</em> may use
+definition that appear in other files.
+In order to analyze <em>F</em>, the tools must extract
+the definitions from these other files, called the <strong>dependencies</strong> of <em>F</em>.</p>
 </div>
 <div class="paragraph">
 <p>For example, suppose the file <code>a.fpp</code> contains the following definition:</p>
@@ -2804,7 +2835,7 @@ However, if you present just <code>b.fpp</code>, like this:</p>
 <p>you will get an error stating that the symbol <code>a</code> is undefined. (Try it and
 see.)
 The error occurs because the definition of <code>a</code> is located in <code>a.fpp</code>,
-which was not included in the analysis.</p>
+which was not included in the input to the analysis.</p>
 </div>
 <div class="paragraph">
 <p>For simple models, we can manage the dependencies by hand, as we
@@ -2821,14 +2852,13 @@ management.</p>
 <ol class="arabic">
 <li>
 <p>You run a tool called <code>fpp-locate-defs</code> to generate <strong>location specifiers</strong>
-for all the symbols that could be used in <em>f</em>.</p>
+for all the definitions <em>that could be used</em> in <em>F</em>.</p>
 </li>
 <li>
-<p>You run a tool called <code>fpp-depend</code>, passing it <em>f</em> and the location
-specifiers
-generated in step 1.
-It emits a list of files containing the symbols used in <em>f</em> (i.e., the
-dependencies of <em>f</em>).</p>
+<p>You run a tool called <code>fpp-depend</code>, passing it <em>F</em> and the location
+specifiers generated in step 1.
+It emits a list of files containing definitions <em>that are actually used</em> in <em>F</em>
+(i.e., the dependencies of <em>F</em>).</p>
 </li>
 </ol>
 </div>
@@ -2839,13 +2869,13 @@ For example:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>You may run step 1 to locate and export all the type definitions
-on which your model depends.</p>
+<p>You may run step 1 to locate all the type definitions
+available for use in the model.</p>
 </li>
 <li>
 <p>You may run step 2 to develop ports that depend on the types.
-This step would typically be run automatically as part of the build, e.g.,
-the F Prime CMake build.</p>
+Typically you would run this step as part of a build process, e.g.,
+the CMake build process included in the F Prime distribution.</p>
 </li>
 </ul>
 </div>
@@ -2857,17 +2887,21 @@ the F Prime CMake build.</p>
 <h3 id="Specifying-Models_Location-Specifiers">8.4. Location Specifiers</h3>
 <div class="paragraph">
 <p>A location specifier is a unit of syntax in an FPP model.
-Here we explain the syntax, so you know what it means.
-However, you should ordinarily not write location specifiers
-by hand.
-Instead, you should let the tools generate them, as described
-in the next section.</p>
+It specifies the location of a definition used in the model.</p>
+</div>
+<div class="paragraph">
+<p>Although it is possible to write location specifiers by hand,
+you should usually not do so.
+Instead, you should write definitions and let the tools discover their
+locations, as described
+in the section on <a href="#Specifying-Models_Locating-Definitions">locating
+definitions</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="Specifying-Models_Location-Specifiers_Syntax">8.4.1. Syntax</h4>
 <div class="paragraph">
-<p>A location specifier consists of the keyword <code>locate</code>, a kind of symbol,
-the name of a symbol, and a string representing a file path.
+<p>A location specifier consists of the keyword <code>locate</code>, a kind of definition,
+the name of a definition, and a string representing a file path.
 For example, to locate the definition of constant <code>a</code> at <code>a.fpp</code>,
 we would write</p>
 </div>
@@ -2878,7 +2912,7 @@ locate constant a at "a.fpp"</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>For the current version of FPP, the kind of symbol can be <code>constant</code> or <code>type</code>.
+<p>For the current version of FPP, the kind of definition can be <code>constant</code> or <code>type</code>.
 To locate a type <code>T</code> in a file <code>T.fpp</code>, we would write the following:</p>
 </div>
 <div class="listingblock">
@@ -2929,9 +2963,9 @@ Then in <code>b.fpp</code> we could write this:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models_Location-Specifiers_Symbol-Names">8.4.3. Symbol Names</h4>
+<h4 id="Specifying-Models_Location-Specifiers_Definition-Names">8.4.3. Definition Names</h4>
 <div class="paragraph">
-<p>The symbol name appearing after the keyword <code>locate</code>
+<p>The definition name appearing after the keyword <code>locate</code>
 may be a qualified name.
 For example, suppose the file <code>M.fpp</code> contains the following:</p>
 </div>
@@ -2958,19 +2992,19 @@ this:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>A locate specifier written inside a module this way has its symbol name
+<p>A locate specifier written inside a module this way has its definition name
 implicitly qualified with the module name.
 For example, the name <code>a</code> appearing in the example above is automatically
 resolved to <code>M.a</code>.</p>
 </div>
 <div class="paragraph">
-<p>Note that this rule is less flexible than for other uses of definitions.
-For example, when using the constant <code>M.a</code> in an expression inside module <code>M</code>
+<p>Note that this rule is different than for other uses of definitions.
+For example, when using the constant <code>M.a</code> in an expression inside module <code>M</code>,
 you may spell the constant either <code>a</code> or <code>M.a</code>;
-but when referring to the same constant <code>M.a</code> in a locate specifier in module
-<code>M</code>, you must write <code>a</code> and not <code>M.a</code>.
-If you wrote <code>M.a</code>, it would be incorrectly resolved to <code>M.M.a</code>.
-The purpose of this restriction is to facilitate dependency analysis,
+but when referring to the same constant <code>M.a</code> in a location specifier inside
+module <code>M</code>, you must write <code>a</code> and not <code>M.a</code>.
+(If you wrote <code>M.a</code>, it would be incorrectly resolved to <code>M.M.a</code>.)
+The purpose of this rule is to facilitate dependency analysis,
 which occurs before the analyzer has complete information about
 definitions and their uses.</p>
 </div>
@@ -2978,10 +3012,12 @@ definitions and their uses.</p>
 <div class="sect3">
 <h4 id="Specifying-Models_Location-Specifiers_Included-Files">8.4.4. Included Files</h4>
 <div class="paragraph">
-<p>When a file that defines symbols is included in another file, the location of
-each definition is the location of the file where the definition occurs,
-not where the file is included.
-For example, suppose that file <code>a.fpp</code> contains the definition <code>constant a = 0</code>,
+<p>When you write a file that contains definitions and you include that file in another
+file, the location of
+each definition is the file where the definition occurs,
+not the file where it is included.
+For example, suppose that file <code>a.fpp</code> contains the definition <code>constant a =
+0</code>,
 and suppose that file <code>b.fpp</code> contains the include specifier <code>include "a.fpp"</code>.
 When analyzing <code>b.fpp</code>, the location of the definition of the constant <code>a</code>
 is <code>a.fpp</code>, not <code>b.fpp</code>.</p>
@@ -2992,11 +3028,13 @@ is <code>a.fpp</code>, not <code>b.fpp</code>.</p>
 <h3 id="Specifying-Models_Locating-Definitions">8.5. Locating Definitions</h3>
 <div class="paragraph">
 <p>Given a collection of FPP source files <em>F</em>, you can generate location specifiers
-for all the symbols defined in <em>F</em>.
+for all the definitions in <em>F</em>.
 The tool for doing this analysis is called <code>fpp-locate-defs</code>.
 As example, you can run <code>fpp-locate-defs</code> to report the locations of all
 the definitions in a subdirectory called <code>Constants</code> that contains constant
-definitions for your model.</p>
+definitions for your model.
+When analyzing other files that use the constants, you can use the location
+specifiers to discover dependencies on individual files within <code>Constants</code>.</p>
 </div>
 <div class="paragraph">
 <p>To locate definitions, do the following:</p>
@@ -3054,37 +3092,272 @@ For example, running</p>
 <div class="sect2">
 <h3 id="Specifying-Models_Computing-Dependencies">8.6. Computing Dependencies</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>Given files <em>F</em> and location specifiers <em>L</em> that locate the definitions used in
+<em>F</em>, you can
+generate the dependencies of <em>F</em>.
+The tool for doing this is is called <code>fpp-depend</code>.</p>
+</div>
+<div class="sect3">
+<h4 id="Specifying-Models_Computing-Dependencies_Running-fpp-depend">8.6.1. Running fpp-depend</h4>
+<div class="paragraph">
+<p>To run <code>fpp-depend</code>, you pass it as input (1) files <em>F</em> that you want to
+analyze
+and (2) a superset of the location specifiers for the definitions used in that
+code.
+The tool extracts the location specifiers for the definitions used in <em>F</em>, resolves
+them to absolute path names (the dependencies of <em>F</em>), and writes the
+dependencies to standard output.</p>
 </div>
 <div class="paragraph">
-<p>Discuss <code>fpp-depend</code>.</p>
+<p>For example, suppose the file <code>a.fpp</code> contains the following
+definition:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = 0</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>TODO: Discuss how fpp-depend handles included files.</p>
+<p>Suppose the file <code>b.fpp</code> contains the following definition:</p>
 </div>
-<div class="ulist">
-<ul>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant b = 1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Suppose the file <code>locations.fpp</code> contains the following location
+specifiers:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">locate constant a at "a.fpp"
+locate constant b at "b.fpp"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And suppose the file <code>c.fpp</code> contains the following definition of <code>c</code>,
+which uses the definition of <code>b</code> but not the definition of <code>a</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant c = b + 1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then running <code>fpp-depend locations.fpp c.fpp</code> produces the output
+<code>[path-prefix]/b.fpp</code>.
+The dependency output contains absolute path names, which will vary from system
+to system.
+Here we represent the system-dependent part of the path as <code>[path-prefix]</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-depend locations.fpp c.fpp
+[path-prefix]/b.fpp</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As usual with FPP tools, you can provide input as a set of files
+or on standard input.
+So the following is equivalent:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% cat locations.fpp c.fpp | fpp-depend
+[path-prefix]/b.fpp</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Specifying-Models_Computing-Dependencies_Transitive-Dependencies">8.6.2. Transitive Dependencies</h4>
+<div class="paragraph">
+<p><code>fpp-depend</code> computes dependencies transitively.
+This means that if <em>A</em> depends on <em>B</em> and <em>B</em>
+depends on <em>C</em>, then <em>A</em> depends on <em>C</em>.</p>
+</div>
+<div class="paragraph">
+<p>For example, suppose again that <code>locations.fpp</code>
+contains the following location specifiers:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">locate constant a at "a.fpp"
+locate constant b at "b.fpp"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Suppose the file <code>a.fpp</code> contains the following definition:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = 0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Suppose the file <code>b.fpp</code> contains the following definition:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant b = a</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And suppose that file <code>c.fpp</code> contains the following definition:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant c = b</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that there is a direct dependence of <code>c.fpp</code> on <code>b.fpp</code>
+and a transitive dependence of <code>c.fpp</code> on <code>a.fpp</code>.
+The transitive dependence occurs because there is a direct dependence
+of <code>c.fpp</code> on <code>b.fpp</code> and a direct dependence of <code>b.fpp</code> on <code>a.fpp</code>.</p>
+</div>
+<div class="paragraph">
+<p>Running <code>fpp-depend</code> on <code>locations.fpp</code> and <code>c.fpp</code>
+produces both dependencies:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-depend locations.fpp c.fpp
+[path-prefix]/a.fpp
+[path-prefix]/b.fpp</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Specifying-Models_Computing-Dependencies_Missing-Dependencies">8.6.3. Missing Dependencies</h4>
+<div class="paragraph">
+<p>Suppose we construct the files <code>locations.fpp</code> and <code>a.fpp</code>, <code>b.fpp</code>, and <code>c.fpp</code>
+as described in the previous section, but then we remove <code>b.fpp</code>.
+Then the following facts are true:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>By default, they are excluded from the dependency list.
-This is what you want for determining which files to present to the tools.</p>
+<p><code>fpp-depend</code> can see the direct dependence of <code>c.fpp</code> on <code>b.fpp</code>.</p>
 </li>
 <li>
-<p>When you run fpp-depend with the switch <code>-i</code>, included files
-appear in the dependency list.
-This is what you want for computing build dependencies.</p>
+<p><code>fpp-depend</code> can see that <code>b.fpp</code> does not exist.
+In this case we say that <code>b.fpp</code> is a <strong>missing dependency</strong>.</p>
 </li>
-</ul>
+<li>
+<p><code>fpp-depend</code> cannot see that <code>b.fpp</code> depends on <code>a.fpp</code> (that dependency
+occurred in the missing file) and therefore it cannot see that
+<code>c.fpp</code> depends on <code>a.fpp</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>In this case, by default, <code>fpp-depend</code> does the best that it can:
+it reports the dependency of <code>c.fpp</code> on <code>b.fpp</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-depend locations.fpp c.fpp
+[path-prefix]/b.fpp</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The philosophy behind <code>fpp-depend</code> is to be as permissive and enabling as
+possible.
+It doesn&#8217;t assume that something is wrong because a dependency is missing:
+for example, that dependency could be created later, as part of a code-generation
+step.</p>
+</div>
+<div class="paragraph">
+<p>However, you may want to know about missing dependencies, either to issue
+a warning or error because something really is wrong, or to identify files to
+generate.
+To record missing dependencies, use the <code>-m</code> option.
+It takes as an argument the name of a file, and it writes missing dependencies
+(if any)
+to that file.</p>
+</div>
+<div class="paragraph">
+<p>For example, the command</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>fpp-depend -m missing.txt locations.fpp c.fpp</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>writes the missing dependency <code>[path-prefix]/b.fpp</code> to <code>missing.txt</code> in
+addition to writing
+the dependency <code>[path-prefix]/b.fpp</code> to standard output.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Specifying-Models_Computing-Dependencies_Included-Files">8.6.4. Included Files</h4>
+<div class="paragraph">
+<p>Suppose file <code>a.fpp</code> contains the
+<a href="#Specifying-Models_Include-Specifiers">include specifier</a>
+<code>include "b.fpp"</code>.
+Then there are two options for computing the dependencies of <code>a.fpp</code>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>a.fpp</code> does not depend on <code>b.fpp</code>.</p>
+</li>
+<li>
+<p><code>a.fpp</code> does depend on <code>b.fpp</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Option 1 is what you want for assembling the input
+to FPP analysis and translation tools such as <code>fpp-check</code>.
+In this case, when analyzing <code>a.fpp</code>, the tool will resolve the include
+specifier and include the contents of <code>b.fpp</code>. So <code>b.fpp</code> should
+not be included as a separate input to the analysis.</p>
+</div>
+<div class="paragraph">
+<p>On the other hand, suppose you are constructing a list of dependencies
+for a build system such as the F Prime CMake system.
+In this case, the build system doesn&#8217;t know anything about FPP include specifiers.
+However, it needs to know that <code>a.fpp</code> does depend on <code>b.fpp</code> in the sense that
+if <code>b.fpp</code> is modified, then <code>a.fpp</code> should be analyzed or translated again.
+So in this case we want option 2.</p>
+</div>
+<div class="paragraph">
+<p>By default, <code>fpp-depend</code> provides option 1:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% echo 'include "b.fpp"' &gt; a.fpp
+% rm -f b.fpp
+% touch b.fpp
+% fpp-depend a.fpp</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To get option 2, use the <code>-i</code> option to <code>fpp-depend</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% echo 'include "b.fpp"' &gt; a.fpp
+% rm -f b.fpp
+% touch b.fpp
+% fpp-depend -i a.fpp
+[path-prefix]/b.fpp</pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="Specifying-Models_Locating-Uses">8.7. Locating Uses</h3>
 <div class="paragraph">
 <p>Given a collection of files <em>F</em> and their dependencies <em>D</em>, you can generate
-the locations of the symbols defined in <em>D</em> and <em>F</em> and used in <em>F</em>.
-This is not necessary for doing analysis and translation&#8201;&#8212;&#8201;the dependency
-analysis described in the previous section is sufficient.
-However, it may be helpful to see the dependencies between FPP files at the
-granularity of individual symbols.</p>
+the locations of the definitions appearing in <em>D</em> and used in <em>F</em>.
+This information is not necessary for doing analysis and translation&#8201;&#8212;&#8201;for
+that it is sufficient to know the file dependencies <em>D</em>.
+However, by reporting dependencies at the granularity of individual definition,
+this analysis provides an additional level of detail that may be helpful.</p>
 </div>
 <div class="paragraph">
 <p>The tool for doing this analysis is called <code>fpp-locate-uses</code>.
@@ -3096,7 +3369,7 @@ type definitions used in a port definition.</p>
 list and <em>F</em> is a space-separated list.
 The <code>-i</code> option stands for <em>import</em>: it says that the files <em>D</em> are to be read
 for their
-symbols, but not to be included in the results of the analysis.</p>
+definitions, but not to be included in the results of the analysis.</p>
 </div>
 <div class="paragraph">
 <p>For example, suppose <code>a.fpp</code> defines constant <code>a</code>, <code>b.fpp</code> defines constant
@@ -3106,8 +3379,19 @@ Then <code>fpp-locate-uses -i a.fpp,b.fpp c.fpp</code> generates the output <cod
 "a.fpp"</code></p>
 </div>
 <div class="paragraph">
+<p>Note that unlike in the case of
+<a href="#Specifying-Models_Computing-Dependencies">dependency analysis</a>,
+the inputs <em>D</em> and <em>F</em> to <code>fpp-locate-uses</code> must form a complete model.
+There must be no name used in <em>D</em> or in <em>F</em> that is not defined somewhere in
+<em>D</em> or in <em>F</em>.
+If <em>D</em> is the output of running <code>fpp-depend</code> on <em>F</em>, and there are no
+<a href="#Specifying-Models_Computing-Dependencies_Missing-Dependencies">missing
+dependencies</a>,
+then this property should hold.</p>
+</div>
+<div class="paragraph">
 <p>With <code>fpp-locate-uses</code>, you can automatically derive the equivalent of the <code>import</code>
-declarations that you have to enter by hand when writing F Prime XML.
+declarations that you construct by hand when writing F Prime XML.
 For example, suppose you have specified a port <em>P</em> that uses a type <em>T</em>.
 To specify <em>P</em> in F Prime XML, you would write an <code>import</code> statement that
 imports <em>T</em> into <em>P</em>. In FPP you don&#8217;t do this. Instead, you can do the following:</p>
@@ -3129,16 +3413,18 @@ the module that defines the types.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>The result should be a location specifier that gives the location of <em>T</em>.
-If you wish, you can check the result in as part of the definition of <em>P</em>.
-This is similar to an explicit import statement, if that is desired, e.g.,
+<p>The result is a location specifier that gives the location of <em>T</em>.
+If you wish, you can check the result in as part of the source code that
+defines <em>P</em>.
+Doing this provide as a kind of "import statement," if that is desired
 to make the dependencies explicit in the code.
-Or you can just use the procedure given above generate the "import statement"
+Or you can just use the procedure given above to generate the "import
+statement"
 whenever desired, and see the dependencies that way.</p>
 </div>
 <div class="paragraph">
 <p>As with <code>fpp-locate-defs</code>, you can use <code>-d</code> to specify a base directory
-for the location specifiers, if you wish.</p>
+for the location specifiers.</p>
 </div>
 </div>
 </div>
@@ -3195,7 +3481,7 @@ When implementing an abstract type in C&#43;&#43;, you must provide</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-09-01 13:48:28 -0700
+Last updated 2020-09-02 12:15:40 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

@@ -4,7 +4,7 @@
 # fpp-users-guide.html.do
 # ----------------------------------------------------------------------
 
-redo-ifchange spell
+redo spell
 redo-ifchange check
 redo-ifchange undefined-tags.annotated.txt code-prettify
 asciidoctor -n fpp-users-guide.adoc -o tmp.html
