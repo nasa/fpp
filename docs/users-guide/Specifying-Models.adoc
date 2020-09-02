@@ -363,7 +363,7 @@ definitions and their uses.
 
 ==== Included Files
 
-When a file that defines symbols is included in another file, the location of
+When you include a file that defines in another file, the location of
 each definition is the file where the definition occurs,
 not the file where it is included.
 For example, suppose that file `a.fpp` contains the definition `constant a = 
@@ -432,8 +432,8 @@ The tool for doing this is is called `fpp-depend`.
 ==== Running fpp-depend
 
 To run `fpp-depend`, you pass it as input (1) all the code you want to analyze
-and (2) a set of location specifiers that contains the location specifiers 
-for the symbols used in that code.
+and (2) a superset of the location specifiers for the symbols used in that 
+code.
 The tool filters out the location specifiers for the symbols used in the
 code, resolves them to absolute path names (the dependencies), and writes the
 dependencies to standard output.
@@ -540,11 +540,50 @@ and a transitive dependence of `c.fpp` on `a.fpp`.
 The transitive dependence occurs because there is a direct dependence
 of `c.fpp` on `b.fpp` and a direct dependence of `b.fpp` on `a.fpp`.
 
-==== Missing Files
+==== Missing Dependencies
 
-TODO
+Suppose we construct the files `locations.fpp` and `a.fpp`, `b.fpp`, and `c.fpp`
+as described in the previous section, but then we remove `b.fpp`.
+Then the following facts are true:
 
-==== Included Files
+. `fpp-depend` can see the direct dependence of `c.fpp` on `b.fpp`.
+. `fpp-depend` can see that `b.fpp` does not exist.
+In this case we say that `b.fpp` is a *missing dependency*.
+. `fpp-depend` cannot see that `b.fpp` depends on `a.fpp` (that dependency
+occurred in the missing file) and therefore it cannot see that
+`c.fpp` depends on `a.fpp`.
+
+In this case, by default, `fpp-depend` does the best that it can:
+it reports the dependency of `c.fpp` on `b.fpp`.
+
+----
+% fpp-depend locations.fpp c.fpp
+[path-prefix]/b.fpp
+----
+
+The philosophy behind `fpp-depend` is to be as permissive and enabling as 
+possbile.
+It doesn't assume that something is wrong because a dependency is missing:
+for example, that dependency could be created later, as part of a code-generation 
+step.
+
+However, you may want to know about missing dependencies, either to issue
+a warning or error, or to identify files that need to be generated.
+To record missing dependencies, use the `-m` option.
+It takes as an argument the name of a file, and it writes missing dependencies (if any)
+to that file.
+
+For example, the command
+
+----
+fpp-depend -m missing.txt locations.fpp c.fpp
+----
+
+writes the missing dependency `[path-prefix]/b.fpp` to `missing.txt` in 
+addition to writing
+the dependency `[path-prefix]/b.fpp` to standard output.
+
+==== Dependencies on Included Files
 
 TODO: Discuss how fpp-depend handles included files.
 
@@ -582,7 +621,7 @@ Then `fpp-locate-uses -i a.fpp,b.fpp c.fpp` generates the output `locate a at
 "a.fpp"`
 
 With `fpp-locate-uses`, you can automatically derive the equivalent of the `import`
-declarations that you have to enter by hand when writing F Prime XML.
+declarations that you have to construct by hand when writing F Prime XML.
 For example, suppose you have specified a port _P_ that uses a type _T_.
 To specify _P_ in F Prime XML, you would write an `import` statement that
 imports _T_ into _P_. In FPP you don't do this. Instead, you can do the following:
@@ -598,9 +637,10 @@ the module that defines the types.
 
 The result should be a location specifier that gives the location of _T_.
 If you wish, you can check the result in as part of the definition of _P_.
-This is similar to an explicit import statement, if that is desired, e.g.,
+Doing this provide as a kind of "import statement," if that is desired, e.g.,
 to make the dependencies explicit in the code.
-Or you can just use the procedure given above generate the "import statement"
+Or you can just use the procedure given above to generate the "import 
+statement"
 whenever desired, and see the dependencies that way.
 
 As with `fpp-locate-defs`, you can use `-d` to specify a base directory
