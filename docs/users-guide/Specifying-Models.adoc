@@ -638,7 +638,7 @@ Given a collection of files _F_ and their dependencies _D_, you can generate
 the locations of the definitions appearing in _D_ and used in _F_.
 This information is not necessary for doing analysis and translation -- for 
 that it is sufficient to know the file dependencies _D_.
-However, by reporting dependencies at the granularity of individual definition, 
+However, by reporting dependencies on individual definitions, 
 this analysis provides an additional level of detail that may be helpful.
 
 The tool for doing this analysis is called `fpp-locate-uses`.
