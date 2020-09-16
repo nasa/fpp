@@ -1,10 +1,57 @@
 == Analyzing and Translating Models
 
-TODO
+The previous section explained how to specify an FPP model:
+how to divide a model into source files and how to compute the
+dependencies of one or more files on other files.
+This section explains how to perform analysis and
+translation of FPP models.
 
 === Checking Models
 
-TODO
+As mentioned above, the tool for checking models is called
+`fpp-check`.
+If you provide one or more files as arguments, `fpp-check`
+will attempt to read those files.
+For example:
+
+----
+% fpp-check file1.fpp file2.fpp
+----
+
+If there are no arguments, then `fpp-check` reads from standard input.
+For example:
+
+----
+% cat file1.fpp file2.fpp | fpp-check
+----
+
+If you run `fpp-check` with no arguments on the command line,
+it will block and wait for standard input.
+This is useful for interactive sessions, where you want
+to type simple model text into the console and immediately check it.
+`fpp-check` will keep reading input until (1) it encounters a parse error (more 
+on this below); or (2) you terminate the input with control-D (which must be 
+the first character in a line); or (3)
+you terminate the program with control-C.
+
+For larger models, the usual procedure for running `fpp-check` is as follows:
+
+. Collect one or more files _F_ that you want to check.
+. <<Specifying-Models_Computing-Dependencies,compute the dependencies>> _D_ of _F_.
+. Run `fpp-check` _D_ _F_.
+
+When you run `fpp-check`, the following occurs:
+
+. The tool parses all the input files, recursively resolving 
+<<Specifying-Models_Include-Specifiers,include specifiers>> as it goes.
+If there are any parse errors or any problems resolving include files (for 
+example, a missing file), it prints an error message to standard error and 
+halts with nonzero status.
+
+. If parsing succeeds, then the tool runs semantic analysis.
+If everything checks out, the tool silently returns zero status.
+Otherwise it prints an error message to standard error and
+halts with nonzero status.
 
 === Generating XML
 

@@ -3433,12 +3433,80 @@ for the location specifiers.</p>
 <h2 id="Analyzing-and-Translating-Models">9. Analyzing and Translating Models</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>The previous section explained how to specify an FPP model:
+how to divide a model into source files and how to compute the
+dependencies of one or more files on other files.
+This section explains how to perform analysis and
+translation of FPP models.</p>
 </div>
 <div class="sect2">
 <h3 id="Analyzing-and-Translating-Models_Checking-Models">9.1. Checking Models</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>As mentioned above, the tool for checking models is called
+<code>fpp-check</code>.
+If you provide one or more files as arguments, <code>fpp-check</code>
+will attempt to read those files.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-check file1.fpp file2.fpp</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If there are no arguments, then <code>fpp-check</code> reads from standard input.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% cat file1.fpp file2.fpp | fpp-check</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you run <code>fpp-check</code> with no arguments on the command line,
+it will block and wait for standard input.
+This is useful for interactive sessions, where you want
+to type simple model text into the console and immediately check it.
+<code>fpp-check</code> will keep reading input until (1) it encounters a parse error (more
+on this below); or (2) you terminate the input with control-D (which must be
+the first character in a line); or (3)
+you terminate the program with control-C.</p>
+</div>
+<div class="paragraph">
+<p>For larger models, the usual procedure for running <code>fpp-check</code> is as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Collect one or more files <em>F</em> that you want to check.</p>
+</li>
+<li>
+<p><a href="#Specifying-Models_Computing-Dependencies">compute the dependencies</a> <em>D</em> of <em>F</em>.</p>
+</li>
+<li>
+<p>Run <code>fpp-check</code> <em>D</em> <em>F</em>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>When you run <code>fpp-check</code>, the following occurs:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The tool parses all the input files, recursively resolving
+<a href="#Specifying-Models_Include-Specifiers">include specifiers</a> as it goes.
+If there are any parse errors or any problems resolving include files (for
+example, a missing file), it prints an error message to standard error and
+halts with nonzero status.</p>
+</li>
+<li>
+<p>If parsing succeeds, then the tool runs semantic analysis.
+If everything checks out, the tool silently returns zero status.
+Otherwise it prints an error message to standard error and
+halts with nonzero status.</p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect2">
@@ -3481,7 +3549,7 @@ When implementing an abstract type in C&#43;&#43;, you must provide</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-09-02 13:07:34 -0700
+Last updated 2020-09-16 16:50:24 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
