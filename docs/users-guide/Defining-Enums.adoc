@@ -158,15 +158,13 @@ This code defines an enum `Small` with three enumerated constants
 Each of the enumerated constants is represented as a `U8` value
 in {cpp}.
 
-*XML limitation:*
-The F Prime XML format for enums does not support the concept
-of a representation type.
+*XML limitation:* The F Prime XML format does not support the concept
+of a representation type for enums.
 Instead, all enums have a single representation type specified
 by a {cpp} preprocessor definition named `FwEnumStoreType`.
 So when translating an enum `E` to F Prime XML, the translator ignores the 
 representation type
-specified for `E` in the FPP model is ignored and uses `FwEnumStoreType`
-instead.
+specified for `E` in the FPP model.
 
 === The Default Value
 
@@ -198,3 +196,9 @@ enum Decision { YES, NO, MAYBE } default MAYBE
 Notice that when using the constant `MAYBE` as a default value, we
 don't need to qualify it with the enum name, because the
 use appears inside the enum where it is defined.
+
+*XML limitation:*
+The F Prime XML format does not represent default values
+for enums.
+Therefore, any default value that you specify in an enum
+definition is ignored when translating to XML.

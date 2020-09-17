@@ -2504,15 +2504,13 @@ Each of the enumerated constants is represented as a <code>U8</code> value
 in C&#43;&#43;.</p>
 </div>
 <div class="paragraph">
-<p><strong>XML limitation:</strong>
-The F Prime XML format for enums does not support the concept
-of a representation type.
+<p><strong>XML limitation:</strong> The F Prime XML format does not support the concept
+of a representation type for enums.
 Instead, all enums have a single representation type specified
 by a C&#43;&#43; preprocessor definition named <code>FwEnumStoreType</code>.
 So when translating an enum <code>E</code> to F Prime XML, the translator ignores the
 representation type
-specified for <code>E</code> in the FPP model is ignored and uses <code>FwEnumStoreType</code>
-instead.</p>
+specified for <code>E</code> in the FPP model.</p>
 </div>
 </div>
 <div class="sect2">
@@ -2549,6 +2547,13 @@ definitions, like this:</p>
 <p>Notice that when using the constant <code>MAYBE</code> as a default value, we
 don&#8217;t need to qualify it with the enum name, because the
 use appears inside the enum where it is defined.</p>
+</div>
+<div class="paragraph">
+<p><strong>XML limitation:</strong>
+The F Prime XML format does not represent default values
+for enums.
+Therefore, any default value that you specify in an enum
+definition is ignored when translating to XML.</p>
 </div>
 </div>
 </div>
@@ -3477,7 +3482,7 @@ you terminate the program with control-C.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Collect one or more files <em>F</em> that you want to check.</p>
+<p>Identify one or more files <em>F</em> that you want to check.</p>
 </li>
 <li>
 <p><a href="#Specifying-Models_Computing-Dependencies">Compute the dependencies</a> <em>D</em> of <em>F</em>.</p>
@@ -3525,7 +3530,7 @@ In a future version of FPP, we will streamline this process.</p>
 translated
 to F Prime XML files.
 The table shows only types and enums, because those are currently implemented.
-As we implement more of FPP, we will add to the table.</p>
+As we implement more of FPP, we will extend this table.</p>
 </div>
 <table id="xml-file-names" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. XML File Names</caption>
@@ -3576,7 +3581,7 @@ The the usual procedure for running <code>fpp-to-xml</code> is as follows:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Collect one or more files <em>F</em> that you want to translate.</p>
+<p>Identify one or more files <em>F</em> that you want to translate.</p>
 </li>
 <li>
 <p><a href="#Specifying-Models_Computing-Dependencies">Compute the dependencies</a> <em>D</em> of <em>F</em>.</p>
@@ -3701,7 +3706,20 @@ you can provide FPP source on standard input, as described
 for <a href="#Analyzing-and-Translating-Models_Checking-Models"><code>fpp-check</code></a>.</p>
 </div>
 <div class="paragraph">
-<p><strong>XML limitations:</strong> TODO</p>
+<p><strong>XML limitations:</strong> The XML translation currently has several
+limitations.
+For more information, see the text marked <strong>XML limitations</strong> in the following
+sections:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#Defining-Types_Struct-Type-Definitions">Struct Type Definitions</a></p>
+</li>
+<li>
+<p><a href="#Defining-Enums">Defining Enums</a></p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -3738,7 +3756,7 @@ When implementing an abstract type in C&#43;&#43;, you must provide</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-09-17 08:26:38 -0700
+Last updated 2020-09-17 08:49:19 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

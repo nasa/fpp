@@ -35,7 +35,7 @@ you terminate the program with control-C.
 
 For larger models, the usual procedure for running `fpp-check` is as follows:
 
-. Collect one or more files _F_ that you want to check.
+. Identify one or more files _F_ that you want to check.
 . <<Specifying-Models_Computing-Dependencies,Compute the dependencies>> _D_ of _F_.
 . Run `fpp-check` _D_ _F_.
 
@@ -66,7 +66,7 @@ In a future version of FPP, we will streamline this process.
 translated
 to F Prime XML files.
 The table shows only types and enums, because those are currently implemented.
-As we implement more of FPP, we will add to the table.
+As we implement more of FPP, we will extend this table.
 
 [[xml-file-names]]
 .XML File Names
@@ -93,7 +93,7 @@ is called `fpp-to-xml`.
 *Procedure:*
 The the usual procedure for running `fpp-to-xml` is as follows:
 
-. Collect one or more files _F_ that you want to translate.
+. Identify one or more files _F_ that you want to translate.
 . <<Specifying-Models_Computing-Dependencies,Compute the dependencies>> _D_ of _F_.
 . If _D_ is empty, then run `fpp-to-xml` _F_.
 . Otherwise run `fpp-to-xml -i` _D1_ `,` ... `,` _Dn_ _F_, where _Di_ are the
@@ -181,7 +181,14 @@ an automatic default of 80.
 you can provide FPP source on standard input, as described
 for <<Analyzing-and-Translating-Models_Checking-Models,`fpp-check`>>.
 
-*XML limitations:* TODO
+*XML limitations:* The XML translation currently has several
+limitations.
+For more information, see the text marked *XML limitations* in the following 
+sections:
+
+* <<Defining-Types_Struct-Type-Definitions,Struct Type Definitions>>
+
+* <<Defining-Enums,Defining Enums>>
 
 === Generating C Plus Plus
 
