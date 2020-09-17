@@ -10,7 +10,10 @@ awk '/<</ {
   n = split($0, fields, /<</)
   for (i = 2; i <= n; ++i) {
     field = fields[i]
-    sub(/,.*/, "", field)
+    if (field ~ /,/)
+      sub(/,.*/, "", field)
+    else
+      sub(/>>.*/, "", field)
     print field
   }
 }' fpp-users-guide.adoc | sort | uniq > $3

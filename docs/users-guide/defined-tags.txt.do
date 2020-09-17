@@ -11,4 +11,10 @@ awk '/^\[\[.*\]\]$/ {
   sub(/\[\[/, "", tag)
   sub(/\]\]/, "", tag)
   print tag
+}
+/\[#.*\]/ {
+  tag = $0
+  sub(/\[#/, "", tag)
+  sub(/\]/, "", tag)
+  print tag
 }' fpp-users-guide.adoc | sort

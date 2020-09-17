@@ -3442,8 +3442,7 @@ translation of FPP models.</p>
 <div class="sect2">
 <h3 id="Analyzing-and-Translating-Models_Checking-Models">9.1. Checking Models</h3>
 <div class="paragraph">
-<p>As mentioned above, the tool for checking models is called
-<code>fpp-check</code>.
+<p>The tool for checking models is called <code>fpp-check</code>.
 If you provide one or more files as arguments, <code>fpp-check</code>
 will attempt to read those files.
 For example:</p>
@@ -3481,12 +3480,16 @@ you terminate the program with control-C.</p>
 <p>Collect one or more files <em>F</em> that you want to check.</p>
 </li>
 <li>
-<p><a href="#Specifying-Models_Computing-Dependencies">compute the dependencies</a> <em>D</em> of <em>F</em>.</p>
+<p><a href="#Specifying-Models_Computing-Dependencies">Compute the dependencies</a> <em>D</em> of <em>F</em>.</p>
 </li>
 <li>
 <p>Run <code>fpp-check</code> <em>D</em> <em>F</em>.</p>
 </li>
 </ol>
+</div>
+<div class="paragraph">
+<p>All the files <em>D</em> and all the files <em>F</em> are specified as file arguments,
+separated by spaces.</p>
 </div>
 <div class="paragraph">
 <p>When you run <code>fpp-check</code>, the following occurs:</p>
@@ -3512,7 +3515,193 @@ halts with nonzero status.</p>
 <div class="sect2">
 <h3 id="Analyzing-and-Translating-Models_Generating-XML">9.2. Generating XML</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>The current code generation strategy for FPP is to generate
+F Prime XML, and then to run the generated XML through the F Prime
+Python autocoders to generate C&#43;&#43;.
+In a future version of FPP, we will streamline this process.</p>
+</div>
+<div class="paragraph">
+<p><strong>XML file names:</strong> The table <a href="#xml-file-names">XML File Names</a> shows how FPP definitions are
+translated
+to F Prime XML files.
+The table shows only types and enums, because those are currently implemented.
+As we implement more of FPP, we will add to the table.</p>
+</div>
+<table id="xml-file-names" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. XML File Names</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">FPP Definition</th>
+<th class="tableblock halign-left valign-top">F Prime XML File</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array <em>A</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>A</em> <code>ArrayAi.xml</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enum <em>E</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>E</em> <code>EnumAi.xml</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Struct <em>S</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>S</em> <code>SerializableAi.xml</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>For example, the FPP array definition</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">array A = [3] U32</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>is translated to the file <code>AArrayAi.xml</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Tool name:</strong> The tool for translating FPP definitions to XML files
+is called <code>fpp-to-xml</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Procedure:</strong>
+The the usual procedure for running <code>fpp-to-xml</code> is as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Collect one or more files <em>F</em> that you want to translate.</p>
+</li>
+<li>
+<p><a href="#Specifying-Models_Computing-Dependencies">Compute the dependencies</a> <em>D</em> of <em>F</em>.</p>
+</li>
+<li>
+<p>If <em>D</em> is empty, then run <code>fpp-to-xml</code> <em>F</em>.</p>
+</li>
+<li>
+<p>Otherwise run <code>fpp-to-xml -i</code> <em>D1</em> <code>,</code> &#8230;&#8203; <code>,</code> <em>Dn</em> <em>F</em>, where <em>Di</em> are the
+names of the dependencies.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For example, suppose you want to generate XML for the definitions in <code>c.fpp</code>,
+If <code>c.fpp</code> has no dependencies, then run</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-to-xml c.fpp</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On the other hand, if <code>c.fpp</code> depends on <code>a.fpp</code> and <code>b.fpp</code>, then run</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-to-xml -i a.fpp,b.fpp c.fpp</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that you provide the dependencies as a comma-separated list of
+arguments to the option <code>-i</code>.
+<code>-i</code> stands for "import."
+This option tells the tool that you want to read the files in <em>D</em> for their symbols,
+but you don&#8217;t want to translate them.
+Only the files <em>F</em> provided as arguments are translated.</p>
+</div>
+<div class="paragraph">
+<p><strong>Tool Behavior:</strong> When you run <code>fpp-check</code>, the following occurs:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The tool runs the same analysis
+<a href="#Analyzing-and-Translating-Models_Checking-Models">as for <code>fpp-check</code></a>.
+If there is any problem, the tool prints an error message to
+standard error and halts with nonzero status.</p>
+</li>
+<li>
+<p>If the analysis succeeds, then the tool generates XML files, one
+for each definition appearing in <em>F</em>, with names as shown in the table above.
+The files are written to the current directory.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>More Options:</strong> The following additional options are available
+when running <code>fpp-to-xml</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>-d</code> <em>dir</em> : Use <em>dir</em> instead of the current directory as
+the output directory for writing files.
+For example,</p>
+<div class="listingblock">
+<div class="content">
+<pre>fpp-to-xml -d xml ...</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>writes output files
+to the directory <code>xml</code> (which must already exist).</p>
+</div>
+</li>
+<li>
+<p><code>-n</code> <em>file</em> : Write the names of the generated XML files
+to <em>file</em>.
+This is useful for collecting autocoder build dependencies.</p>
+</li>
+<li>
+<p><code>-p</code> <em>prefix1</em> <code>,</code> <em>prefix2</em> <code>, &#8230;&#8203;</code> :
+Delete the specified path prefixes from <code>import</code> declarations
+in the generated XML.
+For example, if your F Prime repository lives at <code>$FPRIME</code>
+on your local machine, by default all path prefixes will start
+with <code>$FPRIME</code>.
+Usually when generating code we want to delete this local prefix.
+We do that with</p>
+<div class="listingblock">
+<div class="content">
+<pre>fpp-to-xml -p $FPRIME ...</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To specify multiple prefixes, separate them with commas.</p>
+</div>
+</li>
+<li>
+<p><code>-s</code> <em>size</em> : Specify a default string size.
+For example,</p>
+<div class="listingblock">
+<div class="content">
+<pre>fpp-to-xml -s 40 ...</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>FPP allows string types with no specified size, and F Prime XML
+does not.
+So when generating code we need to provide a default size
+to use when FPP doesn&#8217;t specify the size.
+If you don&#8217;t specify the <code>-s</code> option, then the tool uses
+an automatic default of 80.</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Standard input:</strong> Instead of providing named files as arguments,
+you can provide FPP source on standard input, as described
+for <a href="#Analyzing-and-Translating-Models_Checking-Models"><code>fpp-check</code></a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>XML limitations:</strong> TODO</p>
 </div>
 </div>
 <div class="sect2">
@@ -3549,7 +3738,7 @@ When implementing an abstract type in C&#43;&#43;, you must provide</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-09-16 16:50:24 -0700
+Last updated 2020-09-16 18:36:03 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
