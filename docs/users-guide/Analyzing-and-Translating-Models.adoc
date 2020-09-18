@@ -119,7 +119,7 @@ This option tells the tool that you want to read the files in _D_ for their symb
 but you don't want to translate them.
 Only the files _F_ provided as arguments are translated.
 
-*Tool Behavior:* When you run `fpp-check`, the following occurs:
+*Tool behavior:* When you run `fpp-check`, the following occurs:
 
 . The tool runs the same analysis 
 <<Analyzing-and-Translating-Models_Checking-Models,as for `fpp-check`>>.
@@ -130,7 +130,77 @@ standard error and halts with nonzero status.
 for each definition appearing in _F_, with names as shown in the table above.
 The files are written to the current directory.
 
-*More Options:* The following additional options are available
+*Generated import paths:*
+When one FPP definition `A` depends on another definition `B`,
+the generated XML file for `A` contains an XML node that imports
+the generated XML file for `B`.
+The tool constructs the import path from the
+<<Specifying-Models_Locating-Definitions,location>> of the imported FPP symbol.
+
+For example, suppose the file `[path prefix]/A/A.fpp` contains the following
+definition, where `[path prefix]` represents the path prefix of directory
+`A` starting from the root of the file system:
+
+[source,fpp]
+--------
+array A = [3] B
+--------
+
+And suppose the file `[path prefix]/B/B.fpp` contains the following definition:
+
+[source.fpp]
+----
+array B = [3] U32
+----
+
+If you run this command in directory `[path prefix]/A`
+
+----
+% fpp-to-xml -i ../B/B.fpp A.fpp
+----
+
+then in that directory the tool will generate a file `AArrayAi.xml` containing 
+the following line:
+
+[source,xml]
+----
+<import_array_type>[path prefix]/B/BArrayAi.xml</import_array_type>
+----
+
+*Removing path prefixes:*
+Usually when generating XML we don't want to include the system-specific part 
+of the path prefix.
+Instead, we want the path to be specified relative to some known place, for 
+example
+the root of the F Prime repository or a project repository.
+
+To remove the prefix _prefix_ from generated paths, use the option
+`-p` _prefix_ .
+To continue the previous example, running
+
+----
+fpp-to-xml -i ../B/B.fpp -p [path prefix] A.fpp
+----
+
+generates a file `AArrayAi.xml` containing the line
+
+[source,xml]
+----
+<import_array_type>B/BArrayAi.xml</import_array_type>
+----
+
+Notice that the path prefix `[path prefix]/` has been removed.
+
+To specify multiple prefixes, separate them with commas:
+
+----
+fpp-to-xml -p prefix1,prefix2, ...
+----
+
+For each generated path, the tool will delete the longest prefix
+that matches a prefix in the list.
+
+*More options:* The following additional options are available
 when running `fpp-to-xml`:
 
 * `-d` _dir_ : Use _dir_ instead of the current directory as 
@@ -147,21 +217,6 @@ to the directory `xml` (which must already exist).
 * `-n` _file_ : Write the names of the generated XML files
 to _file_.
 This is useful for collecting autocoder build dependencies.
-
-* `-p` _prefix1_ `,` _prefix2_ `, ...` :
-Delete the specified path prefixes from `import` declarations
-in the generated XML.
-For example, if your F Prime repository lives at `$FPRIME`
-on your local machine, by default all path prefixes will start
-with `$FPRIME`.
-Usually when generating code we want to delete this local prefix.
-We do that with
-+
-----
-fpp-to-xml -p $FPRIME ...
-----
-+
-To specify multiple prefixes, separate them with commas.
 
 * `-s` _size_ : Specify a default string size.
 For example,
@@ -194,12 +249,123 @@ sections:
 
 TODO
 
-Explain how abstract types work in {cpp}.
-When implementing an abstract type in {cpp}, you must provide
+=== Implementing Abstract Types
 
-* An implementation of the Serializable virtual classes
-* A SERIALIZABLE_SIZE
-* A zero-argument constructor
+<<Defining-Types_Abstract-Type-Definitions,Abstract type definitions>>
+represent {cpp} classes that you write directly in {cpp}.
+When you use an abstract type _T_ in another FPP definition _D_ (for example, 
+an array definition)
+and _D_ is translated to XML, then the use of _T_
+becomes an `include_header` node in the generated XML
+for _D_.
+
+As an example, try this:
+
+----
+% fpp-to-xml -p $PWD
+type T
+array A = [3] T
+^D
+----
+
+Notice that we used the option `-p $PWD`.
+This is to make the generated include path relative to the current directory.
+
+Now run
+
+----
+% cat AArrayAi.xml
+----
+
+You should see the following line in the generated XML:
+
+[source,xml]
+----
+<include_header>T.hpp</include_header>
+----
+
+This line says that when the F Prime autocoder translates this XML file
+to a {cpp} class, the class will expect a header file `T.hpp`
+to exist in the current directory. It is up to you to provide that header.
+
+When implementing an abstract type `T` in {cpp}, you must define
+a class that extends `Fw::Serializable` from the F Prime framework.
+Your class definition must include the following:
+
+* An implementation of the virtual function
++
+[source,c++]
+----
+Fw::SerializeStatus T::serialize(Fw::SerializeBufferBase&) const`
+----
++
+that specifies how to *serialize* a class instance (i.e., convert a class 
+instance to a byte string).
+
+* An implementation of the function
++
+[source,c++]
+----
+Fw::SerializeStatus T::serialize(Fw::SerializeBufferBase&)`
+----
++
+that specifies how to *deserialize* a class instance (i.e., reconstruct a class
+instance from a byte string).
+
+* A constant `T::SERIALIZED_SIZE` that specifies the size in bytes
+of a byte string serialized from the class.
+
+* A zero-argument constructor `T()`.
+
+* An overloaded equality operator
++
+----
+bool operator==(const T& that) const;
+----
+
+Here is a minimal complete implementation of an abstract type `T`.
+It has one field `x` of type `U32` and no methods other than
+those required by F Prime.
+We have made `T` a {cpp} struct (rather than a class) so that
+all members are public by default.
+
+----
+// A minimal implementation of abstract type T
+
+#ifndef T_HPP
+#define T_HPP
+
+// Include Fw/Types/Serializable.fpp from the F Prime framework
+#include "Fw/Types/Serializable.hpp"
+
+struct T : public Fw::Serializable { // Extend Fw::Serializable
+
+  // Define some shorthand for F Prime types
+  typedef Fw::SerializeStatus SS;
+  typedef Fw::SerializeBufferBase B;
+
+  // Define the constant SERIALIZED_SIZE
+  enum Constants { SERIALIZED_SIZE = sizeof(U32) };
+
+  // Provide a zero-argument constructor
+  T() : x(0) { }
+
+  // Define a comparison operator
+  bool operator==(const T& that) const { return this->x == that.x; }
+
+  // Define the virtual serialize method
+  SS serialize(B& b) const { return b.serialize(x); }
+
+  // Define the virtual deserialize method
+  SS deserialize(B& b) { return b.deserialize(x); }
+
+  // Provide some data
+  U32 x;
+
+};
+
+#endif
+----
 
 === Translating XML to FPP
 

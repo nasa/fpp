@@ -533,7 +533,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Analyzing-and-Translating-Models_Checking-Models">9.1. Checking Models</a></li>
 <li><a href="#Analyzing-and-Translating-Models_Generating-XML">9.2. Generating XML</a></li>
 <li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">9.3. Generating C Plus Plus</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Translating-XML-to-FPP">9.4. Translating XML to FPP</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Implementing-Abstract-Types">9.4. Implementing Abstract Types</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Translating-XML-to-FPP">9.5. Translating XML to FPP</a></li>
 </ul>
 </li>
 </ul>
@@ -660,7 +661,7 @@ the program:</p>
 <p><code>fpp-check</code> is the tool for checking that an FPP model is valid.
 Like most FPP tools (except the ones that operate on XML files&#8201;&#8212;&#8201;more on this
 below),
-<code>fpp-check</code> reads from one or more files or from standard input.
+<code>fpp-check</code> reads either from named files or from standard input.
 If one or more files are named on the command line, <code>fpp-check</code> reads those;
 otherwise it reads from standard input.
 As an example, the following two operations are equivalent:</p>
@@ -3621,7 +3622,7 @@ but you don&#8217;t want to translate them.
 Only the files <em>F</em> provided as arguments are translated.</p>
 </div>
 <div class="paragraph">
-<p><strong>Tool Behavior:</strong> When you run <code>fpp-check</code>, the following occurs:</p>
+<p><strong>Tool behavior:</strong> When you run <code>fpp-check</code>, the following occurs:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -3639,7 +3640,91 @@ The files are written to the current directory.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p><strong>More Options:</strong> The following additional options are available
+<p><strong>Generated import paths:</strong>
+When one FPP definition <code>A</code> depends on another definition <code>B</code>,
+the generated XML file for <code>A</code> contains an XML node that imports
+the generated XML file for <code>B</code>.
+The tool constructs the import path from the
+<a href="#Specifying-Models_Locating-Definitions">location</a> of the imported FPP symbol.</p>
+</div>
+<div class="paragraph">
+<p>For example, suppose the file <code>[path prefix]/A/A.fpp</code> contains the following
+definition, where <code>[path prefix]</code> represents the path prefix of directory
+<code>A</code> starting from the root of the file system:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">array A = [3] B</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And suppose the file <code>[path prefix]/B/B.fpp</code> contains the following definition:</p>
+</div>
+<div class="listingblock fpp">
+<div class="content">
+<pre class="prettyprint highlight"><code>array B = [3] U32</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you run this command in directory <code>[path prefix]/A</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-to-xml -i ../B/B.fpp A.fpp</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>then in that directory the tool will generate a file <code>AArrayAi.xml</code> containing
+the following line:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="xml">&lt;import_array_type&gt;[path prefix]/B/BArrayAi.xml&lt;/import_array_type&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Removing path prefixes:</strong>
+Usually when generating XML we don&#8217;t want to include the system-specific part
+of the path prefix.
+Instead, we want the path to be specified relative to some known place, for
+example
+the root of the F Prime repository or a project repository.</p>
+</div>
+<div class="paragraph">
+<p>To remove the prefix <em>prefix</em> from generated paths, use the option
+<code>-p</code> <em>prefix</em> .
+To continue the previous example, running</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>fpp-to-xml -i ../B/B.fpp -p [path prefix] A.fpp</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>generates a file <code>AArrayAi.xml</code> containing the line</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="xml">&lt;import_array_type&gt;B/BArrayAi.xml&lt;/import_array_type&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that the path prefix <code>[path prefix]/</code> has been removed.</p>
+</div>
+<div class="paragraph">
+<p>To specify multiple prefixes, separate them with commas:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>fpp-to-xml -p prefix1,prefix2, ...</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For each generated path, the tool will delete the longest prefix
+that matches a prefix in the list.</p>
+</div>
+<div class="paragraph">
+<p><strong>More options:</strong> The following additional options are available
 when running <code>fpp-to-xml</code>:</p>
 </div>
 <div class="ulist">
@@ -3662,24 +3747,6 @@ to the directory <code>xml</code> (which must already exist).</p>
 <p><code>-n</code> <em>file</em> : Write the names of the generated XML files
 to <em>file</em>.
 This is useful for collecting autocoder build dependencies.</p>
-</li>
-<li>
-<p><code>-p</code> <em>prefix1</em> <code>,</code> <em>prefix2</em> <code>, &#8230;&#8203;</code> :
-Delete the specified path prefixes from <code>import</code> declarations
-in the generated XML.
-For example, if your F Prime repository lives at <code>$FPRIME</code>
-on your local machine, by default all path prefixes will start
-with <code>$FPRIME</code>.
-Usually when generating code we want to delete this local prefix.
-We do that with</p>
-<div class="listingblock">
-<div class="content">
-<pre>fpp-to-xml -p $FPRIME ...</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>To specify multiple prefixes, separate them with commas.</p>
-</div>
 </li>
 <li>
 <p><code>-s</code> <em>size</em> : Specify a default string size.
@@ -3727,26 +3794,151 @@ sections:</p>
 <div class="paragraph">
 <p>TODO</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="Analyzing-and-Translating-Models_Implementing-Abstract-Types">9.4. Implementing Abstract Types</h3>
 <div class="paragraph">
-<p>Explain how abstract types work in C&#43;&#43;.
-When implementing an abstract type in C&#43;&#43;, you must provide</p>
+<p><a href="#Defining-Types_Abstract-Type-Definitions">Abstract type definitions</a>
+represent C&#43;&#43; classes that you write directly in C&#43;&#43;.
+When you use an abstract type <em>T</em> in another FPP definition <em>D</em> (for example,
+an array definition)
+and <em>D</em> is translated to XML, then the use of <em>T</em>
+becomes an <code>include_header</code> node in the generated XML
+for <em>D</em>.</p>
+</div>
+<div class="paragraph">
+<p>As an example, try this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-to-xml -p $PWD
+type T
+array A = [3] T
+^D</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that we used the option <code>-p $PWD</code>.
+This is to make the generated include path relative to the current directory.</p>
+</div>
+<div class="paragraph">
+<p>Now run</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% cat AArrayAi.xml</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should see the following line in the generated XML:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="xml">&lt;include_header&gt;T.hpp&lt;/include_header&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This line says that when the F Prime autocoder translates this XML file
+to a C&#43;&#43; class, the class will expect a header file <code>T.hpp</code>
+to exist in the current directory. It is up to you to provide that header.</p>
+</div>
+<div class="paragraph">
+<p>When implementing an abstract type <code>T</code> in C&#43;&#43;, you must define
+a class that extends <code>Fw::Serializable</code> from the F Prime framework.
+Your class definition must include the following:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>An implementation of the Serializable virtual classes</p>
+<p>An implementation of the virtual function</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="c++">Fw::SerializeStatus T::serialize(Fw::SerializeBufferBase&amp;) const`</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>that specifies how to <strong>serialize</strong> a class instance (i.e., convert a class
+instance to a byte string).</p>
+</div>
 </li>
 <li>
-<p>A SERIALIZABLE_SIZE</p>
+<p>An implementation of the function</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="c++">Fw::SerializeStatus T::serialize(Fw::SerializeBufferBase&amp;)`</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>that specifies how to <strong>deserialize</strong> a class instance (i.e., reconstruct a class
+instance from a byte string).</p>
+</div>
 </li>
 <li>
-<p>A zero-argument constructor</p>
+<p>A constant <code>T::SERIALIZED_SIZE</code> that specifies the size in bytes
+of a byte string serialized from the class.</p>
+</li>
+<li>
+<p>A zero-argument constructor <code>T()</code>.</p>
+</li>
+<li>
+<p>An overloaded equality operator</p>
+<div class="listingblock">
+<div class="content">
+<pre>bool operator==(const T&amp; that) const;</pre>
+</div>
+</div>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>Here is a minimal complete implementation of an abstract type <code>T</code>.
+It has one field <code>x</code> of type <code>U32</code> and no methods other than
+those required by F Prime.
+We have made <code>T</code> a C&#43;&#43; struct (rather than a class) so that
+all members are public by default.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>// A minimal implementation of abstract type T
+
+#ifndef T_HPP
+#define T_HPP
+
+// Include Fw/Types/Serializable.fpp from the F Prime framework
+#include "Fw/Types/Serializable.hpp"
+
+struct T : public Fw::Serializable { // Extend Fw::Serializable
+
+  // Define some shorthand for F Prime types
+  typedef Fw::SerializeStatus SS;
+  typedef Fw::SerializeBufferBase B;
+
+  // Define the constant SERIALIZED_SIZE
+  enum Constants { SERIALIZED_SIZE = sizeof(U32) };
+
+  // Provide a zero-argument constructor
+  T() : x(0) { }
+
+  // Define a comparison operator
+  bool operator==(const T&amp; that) const { return this-&gt;x == that.x; }
+
+  // Define the virtual serialize method
+  SS serialize(B&amp; b) const { return b.serialize(x); }
+
+  // Define the virtual deserialize method
+  SS deserialize(B&amp; b) { return b.deserialize(x); }
+
+  // Provide some data
+  U32 x;
+
+};
+
+#endif</pre>
+</div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Translating-XML-to-FPP">9.4. Translating XML to FPP</h3>
+<h3 id="Analyzing-and-Translating-Models_Translating-XML-to-FPP">9.5. Translating XML to FPP</h3>
 <div class="paragraph">
 <p>TODO</p>
 </div>
@@ -3756,7 +3948,7 @@ When implementing an abstract type in C&#43;&#43;, you must provide</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-09-17 08:49:19 -0700
+Last updated 2020-09-17 17:44:22 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
