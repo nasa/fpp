@@ -251,13 +251,13 @@ TODO
 
 === Implementing Abstract Types
 
-<<Defining-Types_Abstract-Type-Definitions,Abstract type definitions>>
-represent {cpp} classes that you write directly in {cpp}.
-When you use an abstract type _T_ in another FPP definition _D_ (for example, 
-an array definition)
-and _D_ is translated to XML, then the use of _T_
-becomes an `include_header` node in the generated XML
-for _D_.
+An <<Defining-Types_Abstract-Type-Definitions,abstract type definition>>
+represents a {cpp} class that you write by hand.
+When you use an abstract type _T_ in an FPP definition _D_ (for example, 
+as the member type of an array definition)
+and you translate _D_ to XML, then the 
+generated XML node for _D_ contains an `include_header` node that
+includes a header file for _T_.
 
 As an example, try this:
 
@@ -285,8 +285,9 @@ You should see the following line in the generated XML:
 ----
 
 This line says that when the F Prime autocoder translates this XML file
-to a {cpp} class, the class will expect a header file `T.hpp`
-to exist in the current directory. It is up to you to provide that header.
+to a {cpp} class, in order to compile that class, a header file `T.hpp`
+must exist in the current directory. It is up to you to provide that header
+file.
 
 When implementing an abstract type `T` in {cpp}, you must define
 a class that extends `Fw::Serializable` from the F Prime framework.
