@@ -2,20 +2,20 @@ module A {
 
   module B {
   
-    array StructFormat_m4 = [10] F32
+    array StructFormat_m4 = [10] F32 format "{.3e}"
     
-    array StructFormat_m5 = [10] F32
+    array StructFormat_m5 = [10] F32 format "{.3f}"
     
-    array StructFormat_m6 = [10] F32
+    array StructFormat_m6 = [10] F32 format "{.3g}"
     
     struct StructFormat {
       m1: I32
       @ FPP from XML: could not translate format string "%q"
       m2: bool
       m3: string size 23
-      m4: StructFormat_m4 format "{.3e}"
-      m5: StructFormat_m5 format "{.3f}"
-      m6: StructFormat_m6 format "{.3g}"
+      m4: StructFormat_m4
+      m5: StructFormat_m5
+      m6: StructFormat_m6
     }
   
   }
