@@ -206,8 +206,8 @@ object XmlFppWriter extends LineUtils {
         ("(%x|%lx|%llx)" -> "{x}"),
         ("%e"-> "{e}"),
         ("%f"-> "{f}"),
-        ("%(,[0-9]+)e"-> "{$1e}"),
-        ("%(,[0-9]+)f"-> "{$1f}"),
+        ("%(\\.[0-9]+)e"-> "{$1e}"),
+        ("%(\\.[0-9]+)f"-> "{$1f}"),
         ("%(\\.[0-9]+)g" -> "{$1g}")
       )
       val s = repls.foldLeft(xmlFormat)({ case (s, (a, b)) => s.replaceAll(a, b) })
