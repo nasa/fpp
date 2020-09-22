@@ -65,4 +65,13 @@ constants_output_dir()
     diff output_dir/FppConstants.out.cpp output_dir/FppConstants.ref.cpp
 }
 
+constants_string()
+{
+  run_test "-p $PWD" constants_string constants_string && \
+    mv FppConstants.hpp FppConstants_constants_string.out.hpp && \
+    diff -u FppConstants_constants_string.out.hpp FppConstants_constants_string.ref.hpp && \
+    mv FppConstants.cpp FppConstants_constants_string.out.cpp && \
+    diff -u FppConstants_constants_string.out.cpp FppConstants_constants_string.ref.cpp
+}
+
 run_suite $tests

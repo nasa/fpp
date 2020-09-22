@@ -57,6 +57,13 @@ constants_output_dir()
   mv output_dir/FppConstants.cpp output_dir/FppConstants.ref.cpp
 }
 
+constants_string()
+{
+  update "-p $PWD" constants_string
+  mv FppConstants.hpp FppConstants_constants_string.ref.hpp
+  mv FppConstants.cpp FppConstants_constants_string.ref.cpp
+}
+
 for t in $tests
 do
   echo "updating ref output for $t"

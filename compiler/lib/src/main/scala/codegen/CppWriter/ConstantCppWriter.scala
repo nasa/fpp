@@ -87,7 +87,7 @@ object ConstantCppWriter extends AstVisitor with LineUtils {
     )
 
   private def writeStringConstant(name: String, value: String) = {
-    val s = value.replaceAll("\"", "\\\"").replaceAll("\n", "\\n")
+    val s = value.replaceAll("\"", "\\\\\"").replaceAll("\n", "\\\\n")
     (
       lines("extern const char *const " ++ name ++ ";"),
       lines("const char *const " ++ name ++ " = \"" ++ s ++ "\";")
