@@ -1,0 +1,21 @@
+module A {
+
+  module B {
+  
+    array StructOK_m = [3] E format "the value is {}"
+    
+    enum E {
+      X = 0
+      Y = 1
+      Z = 2
+    }
+    
+    @ Top-level comment, line 1
+    @ Top-level comment, line 2
+    struct StructOK {
+      m: StructOK_m
+    }
+  
+  }
+
+}

@@ -3,6 +3,7 @@ array_qual_id
 array_string
 enum_missing_name
 enum_ok
+member_array_of_enum
 parse_error
 struct_format
 struct_missing_member_name
