@@ -510,7 +510,7 @@ This is a clean way to write arrays and structs.
 In particular, the assignment of each element to its own line and the lack of 
 terminating punctuation
 make it easy to rearrange the elements.
-For example, one can do a line-by-line sort on the elements (for example, to 
+In particular, one can do a line-by-line sort on the elements (for example, to 
 sort struct members alphabetically by name) without concern for messing up the 
 commas.
 
