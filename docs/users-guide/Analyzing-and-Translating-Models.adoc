@@ -251,7 +251,7 @@ sections:
 === Generating C Plus Plus
 
 As discussed in the previous section, our current strategy is to generate XML 
-and use the F Prime autocoders to generate
+and to use the F Prime autocoders to generate
 {cpp}.
 However, we make an exception for constant definitions: for those, we generate 
 {cpp} for those directly from FPP.
@@ -501,5 +501,163 @@ struct T : public Fw::Serializable { // Extend Fw::Serializable
 
 === Translating XML to FPP
 
+The FPP tool suite provides a limited capability to translate F Prime
+XML files to FPP.
+Its purpose is to address the following case:
+
+. You have already developed an F Prime model in XML.
+. You wish to translate the model to FPP so you can use FPP going forward.
+
+Currently only translation for types and enumerations is provided.
+However, you can translate your types to FPP now, and integrate
+the FPP types with the rest of your model, which is in XML.
+Later, when more of FPP becomes available, you can translate more
+of the model.
+
+The purpose of the XML-to-FPP translation is to do most of the work in 
+translating an existing XML
+model into FPP.
+Some manual effort will still be required.
+The good news is that this is a one-time effort: you can do it once
+and then use the FPP version thereafter.
+
+*Tool name:* The tool for translating XML to FPP is called
+`fpp-from-xml`.
+
+*Tool behavior:*
+Unlike the tools described above, `fpp-from-xml` does not read
+from standard input.
+To use it, you must name one or more XML files on the command line.
+The reason is that the XML parser used by the tool requires
+named files.
+The tool reads the XML files you name, translates them, and
+writes the result to standard output.
+
+As an example, try this:
+
+----
+% fpp-to-xml
+array A = [3] U32
+^D
+% fpp-from-xml AArrayAi.xml
+array A = [3] U32 default [
+                            0
+                            0
+                            0
+                          ]
+----
+
+Notice that the translation from XML has added explicit default
+values.
+The reason for this is explained below.
+
+*Default values:*
+There are two issues to note in connection with the translation of default 
+values.
+
+First, in FPP you can omit the default value for a definition;
+if you do that, the automatic default is used.
+By contrast, in F Prime XML, you _must_ supply default values for array
+elements (but you _may not_ supply default values for struct members
+or enumerations; this is an unfortunate inconsistency of the XML 
+representation).
+To keep the translation simple, if default values are present in the XML
+representation, then `fpp-from-xml` translates them explicitly,
+even if (as in the example above)
+they are the automatic values and so could be implicit.
+
+Second, to keep the translation simple, only numeric values,
+string values, and Boolean values are translated.
+Array, struct, enum, and abstract type values are not translated, because the
+types cannot be easily inferred from the form of those values.
+In this case, the translator adds an annotation
+identifying what was not translated, so that you can do the translation
+yourself.
+
+For example, try this:
+
+----
+% fpp-to-xml
+type T
+array A = [3] T  
+% fpp-from-xml AArrayAi.xml 
+@ FPP from XML: could not translate array value [ T(), T(), T() ]
+array A = [3] T
+----
+
+The tool cannot translate the abstract type `T`.
+So it adds an annotation stating that.
+
+Only XML arrays have default values, enums and structs
+do not. (Again, this is a limitation of the F Prime XML representation.)
+So these issues pertain only to array translation.
+
+*Complex serializable members:*
+The F Prime Serializable XML type can
+contain arrays and enumerations as member types.
+The array sizes and enumerated values are specified inline, as
+part of the member definition.
+
+FPP does not represent these inline type definitions.
+In FPP, type definitions are always explicit and named,
+so they can be reused.
+Therefore, when translating a Serializable XML type that contains
+an array or enumeration member, `fpp-to-xml` does the following: (1) translate
+the type to an FPP type; and (2) translate the member using that type.
+
+For example, here is an F Prime Serializable XML type
+`N::S` containing a member `m` that is an array of 10 `U32`
+values:
+
+[source,xml]
+----
+% cat SSerializableAi.xml
+<serializable namespace="N" name="S">
+  <members>
+    <member name="m" type="U32" size="10"/>
+  </members>
+</serializable>
+----
+
+Running `fpp-from-xml` yields the following:
+
+----
+% fpp-from-xml SSerializableAi.xml
+module N {
+
+  array S_m = [10] U32
+  
+  struct S {
+    m: S_m
+  }
+
+}
+----
+
+Notice the following:
+
+. The namespace `N` is translated to module `N`.
+. The Serializable type `N::S` is translated to struct `N.S`.
+. The translator has generated an array type `N.S_m` to represent the
+type of member `m` of struct `N.S`.
+. The translator has given member `m` of struct `N.S` the type `N.S_m`.
+
+The handling of inline enumeration types is similar.
+
+While the FPP translator will translate inline
+array and enum members in the manner described, it may be a
+better development strategy not to use this capability.
+Instead, you can first refactor your FSW
+to eliminate these inline members, and then translate from
+XML to FPP.
+This order of operations presents less risk of breaking
+your XML model, and all the code depending on it, at the
+point of translating to FPP.
+
+In any event, the use of inline array and enum members is being phased
+out in favor of named array and enum types as we
+migrate to FPP.
+
+*Format strings:*
 TODO
 

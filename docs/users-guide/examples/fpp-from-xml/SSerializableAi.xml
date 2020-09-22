@@ -1,0 +1,5 @@
+<serializable namespace="N" name="S">
+  <members>
+    <member name="m" type="U32" size="10"/>
+  </members>
+</serializable>
