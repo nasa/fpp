@@ -2298,8 +2298,8 @@ a header file <code>T.hpp</code>.
 This header file must define <code>T</code> in a way that is compatible
 with the way that <code>T</code> is used in <code>A</code>.
 We will have more to say about this topic in the section on
-<a href="#Analyzing-and-Translating-Models_Implementing-Abstract-Types">analyzing and
-translating models</a>.</p>
+<a href="#Analyzing-and-Translating-Models_Implementing-Abstract-Types">implementing
+abstract types</a>.</p>
 </div>
 <div class="paragraph">
 <p>Because an abstract type <code>T</code> is opaque in the FPP model, it has
@@ -3796,12 +3796,12 @@ sections:</p>
 <h3 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus">9.3. Generating C Plus Plus</h3>
 <div class="paragraph">
 <p>As discussed in the previous section, our current strategy is to generate XML
-and use the F Prime autocoders to generate
+and to use the F Prime autocoders to generate
 C&#43;&#43;.
 However, we make an exception for constant definitions: for those, we generate
-C&#43;&#43; for those directly from FPP.
-The reason is that the F Prime autocoder provides no capability
-to specify constants in XML.</p>
+C&#43;&#43; directly from FPP.
+The reason is that the F Prime XML representation has no way to specify
+symbolic constants.</p>
 </div>
 <div class="paragraph">
 <p><strong>Tool name:</strong> The tool for translating FPP to C&#43;&#43; is called
@@ -3842,15 +3842,15 @@ either through named files or through standard input.</p>
 <p><strong>Tool behavior:</strong>
 For now this tool just generates C&#43;&#43; constants.
 In the future it will do more.
-(Eventually, it should replace <code>fpp-to-xml</code> and the Python autocoders.)</p>
+(Eventually, it will replace <code>fpp-to-xml</code> and the Python C&#43;&#43; autocoders.)</p>
 </div>
 <div class="paragraph">
 <p><code>fpp-to-cpp</code> extracts <a href="#Defining-Constants">constant definitions</a>
 from the source files <em>F</em>.
 It generates files <code>FppConstants.hpp</code> and <code>FppConstants.cpp</code>
-containing C&#43;&#43; definitions of the constants.
-By including and/or linking against he generated C&#43;&#43; files,
-you can refer to the constants defined in the FPP model
+containing C&#43;&#43; translations of the constants.
+By including and/or linking against these files,
+you can use constants defined in the FPP model
 in your FSW implementation code.</p>
 </div>
 <div class="paragraph">
@@ -3929,11 +3929,13 @@ for <code>FppConstants.hpp</code> is <code>FppConstants_HPP</code>.
 This works fine if you generate one constant file
 for your whole model.
 However, if you generate separate constant files for
-separate source files in your model, and you include
-the files in your FSW application, then having multiple
+separate source files in your model, then having multiple
 files with the same guard is not a good idea.
-It can cause symbols to be improperly excluded from the compilation,
-leading to compilation failure.</p>
+If one compilation step tries to include both files, then the second
+inclusion will fail.
+This will likely cause a compilation failure,
+because symbols defined in the excluded file will be
+reported as undefined.</p>
 </div>
 <div class="paragraph">
 <p>To avoid this problem, use the option <code>-g</code> <em>guard-prefix</em>.
@@ -3973,12 +3975,13 @@ This is similar to the <code>-p</code> option for
 <div class="sect2">
 <h3 id="Analyzing-and-Translating-Models_Implementing-Abstract-Types">9.4. Implementing Abstract Types</h3>
 <div class="paragraph">
-<p>An <a href="#Defining-Types_Abstract-Type-Definitions">abstract type definition</a>
-represents a C&#43;&#43; class that you write by hand.
-When you use an abstract type <em>T</em> in an FPP definition <em>D</em> (for example,
-as the member type of an array definition)
-and you translate <em>D</em> to XML, then the
-generated XML node for <em>D</em> contains an <code>include_header</code> node that
+<p>When translating to XML and then C&#43;&#43;, an
+<a href="#Defining-Types_Abstract-Type-Definitions">abstract type definition</a>
+represents a C&#43;&#43; class that you write directly in C&#43;&#43;.
+When you use an abstract type <em>T</em> in an FPP definition <em>D</em> (for example, as the
+member type of an array definition)
+and you translate <em>D</em> to XML, then the generated XML node for <em>D</em> contains an
+<code>include_header</code> node that
 includes a header file for <em>T</em>.</p>
 </div>
 <div class="paragraph">
@@ -4029,7 +4032,7 @@ Your class definition must include the following:</p>
 <p>An implementation of the virtual function</p>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="c++">Fw::SerializeStatus T::serialize(Fw::SerializeBufferBase&amp;) const`</code></pre>
+<pre>Fw::SerializeStatus T::serialize(Fw::SerializeBufferBase&amp;) const`</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4041,7 +4044,7 @@ instance to a byte string).</p>
 <p>An implementation of the function</p>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="c++">Fw::SerializeStatus T::serialize(Fw::SerializeBufferBase&amp;)`</code></pre>
+<pre>Fw::SerializeStatus T::serialize(Fw::SerializeBufferBase&amp;)`</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4068,7 +4071,7 @@ of a byte string serialized from the class.</p>
 </div>
 <div class="paragraph">
 <p>Here is a minimal complete implementation of an abstract type <code>T</code>.
-It has one field <code>x</code> of type <code>U32</code> and no methods other than
+It has one member variable <code>x</code> of type <code>U32</code> and no methods other than
 those required by F Prime.
 We have made <code>T</code> a C&#43;&#43; struct (rather than a class) so that
 all members are public by default.</p>
@@ -4116,7 +4119,321 @@ struct T : public Fw::Serializable { // Extend Fw::Serializable
 <div class="sect2">
 <h3 id="Analyzing-and-Translating-Models_Translating-XML-to-FPP">9.5. Translating XML to FPP</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>The FPP tool suite provides a capability to translate F Prime
+XML files to FPP.
+Its purpose is to address the following case:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>You have already developed an F Prime model in XML.</p>
+</li>
+<li>
+<p>You wish to translate the model to FPP so you can use FPP going forward.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Currently translation for types and enumerations is available.
+You can translate these elements in your XML model now,
+and use FPP to represent them going forward.
+To integrate the FPP types and enumerations with the rest of the XML model,
+use the
+<a href="#Analyzing-and-Translating-Models_Generating-XML">FPP to XML translation
+described above</a>.
+Later, when more of FPP becomes available, you can translate more
+of your model to FPP.</p>
+</div>
+<div class="paragraph">
+<p>The XML-to-FPP translation is designed to do most of the work in translating an
+existing XML model into FPP.
+As discussed below, some manual effort will still be required,
+because the FPP and XML representations are not identical.
+The good news is that this is a one-time effort: you can do it once
+and then use the FPP version thereafter.</p>
+</div>
+<div class="paragraph">
+<p><strong>Tool name:</strong> The tool for translating XML to FPP is called
+<code>fpp-from-xml</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Tool behavior:</strong>
+Unlike the tools described above, <code>fpp-from-xml</code> does not read
+from standard input.
+To use it, you must name one or more XML files on the command line.
+The reason is that the XML parsing library used by the tool requires
+named files.
+The tool reads the XML files you name, translates them, and
+writes the result to standard output.</p>
+</div>
+<div class="paragraph">
+<p>As an example, try this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-to-xml
+struct S { x: U32, y: F32 }
+^D
+% fpp-from-xml SSerializableAi.xml
+struct S {
+  x: U32
+  y: F32
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Default values:</strong>
+There are two issues to note in connection with translating default
+values.</p>
+</div>
+<div class="paragraph">
+<p>First, in FPP, every definition has a default value, but
+the default value need not be given explicitly:
+if you provide no explicit default value, then an implicit default is used.
+By contrast, in F Prime XML, (1) you <em>must</em> supply default values for array
+elements, and (2) you <em>may not</em> supply default values for struct members
+or enumerations. (This is an unfortunate inconsistency of the XML
+representation.)
+To keep the translation simple, if default values are present in the XML
+representation, then <code>fpp-from-xml</code> translates them to explicit values,
+even if they could be made implicit.</p>
+</div>
+<div class="paragraph">
+<p>Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-to-xml
+array A = [3] U32
+^D
+% fpp-from-xml AArrayAi.xml
+array A = [3] U32 default [
+                            0
+                            0
+                            0
+                          ]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that the implicit default value <code>[ 0, 0, 0 ]</code> becomes
+explicit when translating to XML and back to FPP.</p>
+</div>
+<div class="paragraph">
+<p>Second, to keep the translation simple, only numeric values,
+string values, and Boolean values are translated.
+Values of array, struct, enum, and abstract type are not translated.
+The reason is that the types of these values cannot be easily inferred from the
+XML representation.
+When a default value is not translated, the translator inserts an annotation
+identifying what was not translated, so that you can do the translation
+yourself.</p>
+</div>
+<div class="paragraph">
+<p>For example, try this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-to-xml
+type T
+array A = [3] T
+^D
+% fpp-from-xml AArrayAi.xml
+@ FPP from XML: could not translate array value [ T(), T(), T() ]
+array A = [3] T</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The tool cannot translate the abstract type <code>T</code>.
+So it adds an annotation stating that.
+In this case, <code>T()</code> is the default value associated with the
+abstract type <code>T</code>, so using the implicit default is correct.
+So in this case, just delete the annotation.</p>
+</div>
+<div class="paragraph">
+<p>Here is another example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-to-xml
+array A = [2] U32
+array B = [2] A default [ [ 1, 2 ], [ 3, 4 ] ]
+^D
+% fpp-from-xml BArrayAi.xml
+@ FPP from XML: could not translate array value [ A(1, 2), A(3, 4) ]
+array B = [2] A</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here XML representation of the array values <code>[ 1, 2 ]</code> and <code>[ 3, 4 ]</code>
+uses the C&#43;&#43; constructor calls <code>A(1, 2)</code> and <code>A(3, 4)</code>.
+When translating <code>BArrayAi.xml</code> <code>fpp-from-xml</code> doesn&#8217;t know how to translate
+those values, because it doesn&#8217;t have any information about the type <code>A</code>.
+So it omits the FPP default array value and reports the XML default element
+values in the annotation.
+That way, you can manually construct a default value in FPP.</p>
+</div>
+<div class="paragraph">
+<p><strong>Inline type definitions:</strong>
+The F Prime Serializable XML type can
+contain arrays and enumerations as member types.
+The array sizes and enumerated values are specified inline, as
+part of the member definition.</p>
+</div>
+<div class="paragraph">
+<p>FPP does not represent these inline type definitions directly.
+In FPP, type definitions are always named, so they can be reused.
+Therefore, when translating a Serializable XML type that contains
+an array or enumeration member with an inline type definition, <code>fpp-to-xml</code>
+does the following: (1) translate
+the inline definition to a named FPP type; and (2) use the named type in the
+translated member.</p>
+</div>
+<div class="paragraph">
+<p>For example, here is an F Prime Serializable XML type
+<code>N::S</code> containing a member <code>m</code> that is an array of 10 <code>U32</code>
+values:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% cat &gt; SSerializableAi.xml
+&lt;serializable namespace="N" name="S"&gt;
+  &lt;members&gt;
+    &lt;member name="m" type="U32" size="10"/&gt;
+  &lt;/members&gt;
+&lt;/serializable&gt;
+^D</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Running <code>fpp-from-xml</code> yields the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-from-xml SSerializableAi.xml
+module N {
+
+  array S_m = [10] U32
+
+  struct S {
+    m: S_m
+  }
+
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The namespace <code>N</code> in the XML is translated to module <code>N</code> in FPP.</p>
+</li>
+<li>
+<p>The Serializable type <code>N::S</code> in the XML is translated to struct <code>N.S</code> in FPP.</p>
+</li>
+<li>
+<p>The translator has generated an array type <code>N.S_m</code> to represent the
+type of member <code>m</code> of struct <code>N.S</code>.</p>
+</li>
+<li>
+<p>The translator has given member <code>m</code> of struct <code>N.S</code> the type <code>N.S_m</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The handling of inline enumeration types is similar.</p>
+</div>
+<div class="paragraph">
+<p>While <code>fpp-from-xml</code> will translate inline
+array and enum definitions in the manner described, it may be
+better not to rely on this capability.
+Instead, you can first refactor your XML model and your FSW
+to eliminate all inline type definitions in the XML, and then translate from
+XML to FPP.
+This approach has better separation of concerns, because you can refactor,
+test the refactoring, translate, and test the translation.
+If you translate first, then you will still need to refactor; but then you must
+implement and test the translation and the refactoring at the same time.</p>
+</div>
+<div class="paragraph">
+<p>In any event, the use of inline array and enum members is being phased
+out in favor of named array and enum types as we
+migrate to FPP.</p>
+</div>
+<div class="paragraph">
+<p><strong>Format strings:</strong>
+<code>fpp-from-xml</code> translates XML format strings to FPP
+format strings, if it can.
+Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-to-xml
+array A = [3] F32 format "{f}"
+^D</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will generate a file <code>AArrayAi.xml</code> containing the line</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;format&gt;%f&lt;/format&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>which is the XML representation of the format.</p>
+</div>
+<div class="paragraph">
+<p>Now try this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-from-xml AArrayAi.xml
+array A = [3] F32 default [
+                            0.0
+                            0.0
+                            0.0
+                          ] format "{f}"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The XML format <code>%f</code> is translated back to the FPP format <code>{f}</code>.</p>
+</div>
+<div class="paragraph">
+<p>If the tool cannot translate the format, it will insert an annotation
+stating that. For example, <code>%q</code> is not a format recognized by
+FPP, so a format containing this string won&#8217;t be translated:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% cat &gt; AArrayAi.xml
+&lt;array name="A"&gt;
+  &lt;type&gt;F32&lt;/type&gt;
+  &lt;size&gt;1&lt;/size&gt;
+  &lt;format&gt;%q&lt;/format&gt;
+  &lt;default&gt;
+    &lt;value&gt;0.0&lt;/value&gt;
+  &lt;/default&gt;
+&lt;/array&gt;
+^D
+% fpp-from-xml AArrayAi.xml
+@ FPP from XML: could not translate format string "%q"
+array A = [1] F32 default [
+                            0.0
+                          ]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Import and include directives:</strong>
+Import and include directives appearing in the XML source are ignored
+in the translation.
+These directives represent dependencies between XML files, which
+become dependencies between FPP source files in the FPP translation.
+Once the XML-to-FPP translation is done, you can handle these
+dependencies in the ordinary way for FPP, as discussed in the
+section on <a href="#Specifying-Models">specifying models</a>.</p>
 </div>
 </div>
 </div>
@@ -4124,7 +4441,7 @@ struct T : public Fw::Serializable { // Extend Fw::Serializable
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-09-21 17:38:26 -0700
+Last updated 2020-09-22 10:55:55 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
