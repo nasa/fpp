@@ -1492,13 +1492,12 @@ constant c = 0 @&lt; This is a post annotation.
 </div>
 </div>
 <div class="paragraph">
-<p>The meaning of the annotations is tool-specific.
-A typical use is to concatenate the pre and post annotations
-into a list of lines and emit them as a comment.
-For example, if you send the code immediately above
-through the tool <code>fpp-to-cpp</code>, it should generate a file
-<code>FppConstants.hpp</code>. If you examine that file, should see,
-in relevant part, the following code:</p>
+<p>The meaning of the annotations is tool-specific.  A typical use is to
+concatenate the pre and post annotations into a list of lines and emit them as
+a comment.  For example, if you send the code immediately above through the
+tool <a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus"><code>fpp-to-cpp</code></a>,
+it should generate a file <code>FppConstants.hpp</code>. If you examine that file, should
+see, in relevant part, the following code:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3443,13 +3442,16 @@ for the location specifiers.</p>
 <p>The previous section explained how to specify an FPP model:
 how to divide a model into source files and how to compute the
 dependencies of one or more files on other files.
-This section explains how to perform analysis and
-translation of FPP models.</p>
+This section explains the next step: how to perform analysis and
+translation on part or all of an FPP model, after specifying
+the model and computing its dependencies.</p>
 </div>
 <div class="sect2">
 <h3 id="Analyzing-and-Translating-Models_Checking-Models">9.1. Checking Models</h3>
 <div class="paragraph">
-<p>The tool for checking models is called <code>fpp-check</code>.
+<p>It is often useful to check a model for correctness, without
+doing any translation.
+The tool for checking models is called <code>fpp-check</code>.
 If you provide one or more files as arguments, <code>fpp-check</code>
 will attempt to read those files.
 For example:</p>
@@ -3578,7 +3580,7 @@ is called <code>fpp-to-xml</code>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Procedure:</strong>
-The the usual procedure for running <code>fpp-to-xml</code> is as follows:</p>
+The usual procedure for running <code>fpp-to-xml</code> is as follows:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -3793,7 +3795,179 @@ sections:</p>
 <div class="sect2">
 <h3 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus">9.3. Generating C Plus Plus</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>As discussed in the previous section, our current strategy is to generate XML
+and use the F Prime autocoders to generate
+C&#43;&#43;.
+However, we make an exception for constant definitions: for those, we generate
+C&#43;&#43; for those directly from FPP.
+The reason is that the F Prime autocoder provides no capability
+to specify constants in XML.</p>
+</div>
+<div class="paragraph">
+<p><strong>Tool name:</strong> The tool for translating FPP to C&#43;&#43; is called
+<code>fpp-to-cpp</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Procedure:</strong>
+The usual procedure for running <code>fpp-to-cpp</code> is as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Identify one or more files <em>F</em> that you want to translate.</p>
+</li>
+<li>
+<p><a href="#Specifying-Models_Computing-Dependencies">Compute the dependencies</a> <em>D</em> of <em>F</em>.</p>
+</li>
+<li>
+<p>If <em>D</em> is empty, then run <code>fpp-to-cpp</code> <em>F</em>.</p>
+</li>
+<li>
+<p>Otherwise run <code>fpp-to-cpp -i</code> <em>D1</em> <code>,</code> &#8230;&#8203; <code>,</code> <em>Dn</em> <em>F</em>, where <em>Di</em> are the
+names of the dependencies.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Except for the tool name, this procedure is identical to the one given for
+<a href="#Analyzing-and-Translating-Models_Generating-XML">generating XML</a>.
+See that section for examples of the procedure.</p>
+</div>
+<div class="paragraph">
+<p><strong>Input:</strong> As with the tools described above, you can provide input to
+<code>fpp-to-cpp</code>
+either through named files or through standard input.</p>
+</div>
+<div class="paragraph">
+<p><strong>Tool behavior:</strong>
+For now this tool just generates C&#43;&#43; constants.
+In the future it will do more.
+(Eventually, it should replace <code>fpp-to-xml</code> and the Python autocoders.)</p>
+</div>
+<div class="paragraph">
+<p><code>fpp-to-cpp</code> extracts <a href="#Defining-Constants">constant definitions</a>
+from the source files <em>F</em>.
+It generates files <code>FppConstants.hpp</code> and <code>FppConstants.cpp</code>
+containing C&#43;&#43; definitions of the constants.
+By including and/or linking against he generated C&#43;&#43; files,
+you can refer to the constants defined in the FPP model
+in your FSW implementation code.</p>
+</div>
+<div class="paragraph">
+<p>To keep things simple, only numeric, string, and Boolean constants are
+translated;
+struct and array constants are ignored.
+For example, the following constant is not translated, because
+it is an array:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = [ 1, 2, 3 ]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To translate array constants, you must expand them to values
+that are translated, like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a0 = 1
+constant a1 = 2
+constant a2 = 3
+constant a = [ a0, a1, a2 ]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Constants are translated as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Integer constants become enumeration constants.</p>
+</li>
+<li>
+<p>Floating-point constants become <code>const</code> floating-point variables.</p>
+</li>
+<li>
+<p><code>bool</code> point constants become <code>const bool</code> variables.</p>
+</li>
+<li>
+<p><code>string</code> constants become <code>const char* const</code> variables initialized
+with string literals.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>As an example, try this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-to-cpp
+@ Constant a
+constant a = 1
+@ Constant b
+constant b = 2.0
+@ Constant c
+constant c = true
+@ Constant d
+constant d = "abcd"
+^D</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should see files <code>FppConstants.hpp</code> and <code>FppConstants.cpp</code>
+in the current directory.
+Examine them to confirm your understanding of how the translation
+works
+Notice how the FPP annotations are translated to comments.
+(We also remarked on this in the section on
+<a href="#Writing-Comments-and-Annotations_Annotations">writing annotations</a>.)</p>
+</div>
+<div class="paragraph">
+<p><strong>Setting the include guard prefix:</strong> By default, the include guard
+for <code>FppConstants.hpp</code> is <code>FppConstants_HPP</code>.
+This works fine if you generate one constant file
+for your whole model.
+However, if you generate separate constant files for
+separate source files in your model, and you include
+the files in your FSW application, then having multiple
+files with the same guard is not a good idea.
+It can cause symbols to be improperly excluded from the compilation,
+leading to compilation failure.</p>
+</div>
+<div class="paragraph">
+<p>To avoid this problem, use the option <code>-g</code> <em>guard-prefix</em>.
+This options says to add <em>guard-prefix</em> to the include
+guard for <code>FppConstants.hpp</code>.
+For example, if you run <code>fpp-to-cpp -g Commands &#8230;&#8203;</code>,
+then the include guard will be <code>Commands_FppConstants_HPP</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>More options:</strong> The following additional options are available
+when running <code>fpp-to-cpp</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>-d</code> <em>dir</em> : Use <em>dir</em> instead of the current directory as
+the output directory for writing files.
+This is similar to the <code>-d</code> option for
+<a href="#Analyzing-and-Translating-Models_Generating-XML"><code>fpp-to-xml</code></a>.</p>
+</li>
+<li>
+<p><code>-n</code> <em>file</em> : Write the names of the generated XML files
+to <em>file</em>.
+This is similar to the <code>-n</code> option for
+<a href="#Analyzing-and-Translating-Models_Generating-XML"><code>fpp-to-xml</code></a>.</p>
+</li>
+<li>
+<p><code>-p</code> <em>path-prefixes</em> : Remove the longest of one or more path prefixes from
+generated header paths.
+To specify multiple prefixes, separate them with commas (and no spaces).
+This is similar to the <code>-p</code> option for
+<a href="#Analyzing-and-Translating-Models_Generating-XML"><code>fpp-to-xml</code></a>.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -3950,7 +4124,7 @@ struct T : public Fw::Serializable { // Extend Fw::Serializable
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-09-17 19:38:08 -0700
+Last updated 2020-09-21 17:38:26 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
