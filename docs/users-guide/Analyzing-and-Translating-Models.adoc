@@ -3,11 +3,14 @@
 The previous section explained how to specify an FPP model:
 how to divide a model into source files and how to compute the
 dependencies of one or more files on other files.
-This section explains how to perform analysis and
-translation of FPP models.
+This section explains the next step: how to perform analysis and
+translation on part or all of an FPP model, after specifying
+the model and computing its dependencies.
 
 === Checking Models
 
+It is often useful to check a model for correctness, without
+doing any translation.
 The tool for checking models is called `fpp-check`.
 If you provide one or more files as arguments, `fpp-check`
 will attempt to read those files.
@@ -91,7 +94,7 @@ is translated to the file `AArrayAi.xml`.
 is called `fpp-to-xml`.
 
 *Procedure:*
-The the usual procedure for running `fpp-to-xml` is as follows:
+The usual procedure for running `fpp-to-xml` is as follows:
 
 . Identify one or more files _F_ that you want to translate.
 . <<Specifying-Models_Computing-Dependencies,Compute the dependencies>> _D_ of _F_.
@@ -247,7 +250,135 @@ sections:
 
 === Generating C Plus Plus
 
-TODO
+As discussed in the previous section, our current strategy is to generate XML 
+and use the F Prime autocoders to generate
+{cpp}.
+However, we make an exception for constant definitions: for those, we generate 
+{cpp} for those directly from FPP.
+The reason is that the F Prime autocoder provides no capability
+to specify constants in XML.
+
+*Tool name:* The tool for translating FPP to {cpp} is called
+`fpp-to-cpp`.
+
+*Procedure:* 
+The usual procedure for running `fpp-to-cpp` is as follows:
+
+. Identify one or more files _F_ that you want to translate.
+. <<Specifying-Models_Computing-Dependencies,Compute the dependencies>> _D_ of _F_.
+. If _D_ is empty, then run `fpp-to-cpp` _F_.
+. Otherwise run `fpp-to-cpp -i` _D1_ `,` ... `,` _Dn_ _F_, where _Di_ are the
+names of the dependencies.
+
+Except for the tool name, this procedure is identical to the one given for 
+<<Analyzing-and-Translating-Models_Generating-XML,generating XML>>.
+See that section for examples of the procedure.
+
+*Input:* As with the tools described above, you can provide input to 
+`fpp-to-cpp`
+either through named files or through standard input.
+
+*Tool behavior:*
+For now this tool just generates {cpp} constants.
+In the future it will do more.
+(Eventually, it should replace `fpp-to-xml` and the Python autocoders.)
+
+`fpp-to-cpp` extracts <<Defining-Constants,constant definitions>>
+from the source files _F_.
+It generates files `FppConstants.hpp` and `FppConstants.cpp`
+containing {cpp} definitions of the constants.
+By including and/or linking against he generated {cpp} files,
+you can refer to the constants defined in the FPP model
+in your FSW implementation code.
+
+To keep things simple, only numeric, string, and Boolean constants are 
+translated;
+struct and array constants are ignored.
+For example, the following constant is not translated, because
+it is an array:
+
+[source,fpp]
+----
+constant a = [ 1, 2, 3 ]
+----
+
+To translate array constants, you must expand them to values
+that are translated, like this:
+
+[source,fpp]
+----
+constant a0 = 1
+constant a1 = 2
+constant a2 = 3
+constant a = [ a0, a1, a2 ]
+----
+
+Constants are translated as follows:
+
+* Integer constants become enumeration constants.
+* Floating-point constants become `const` floating-point variables.
+* `bool` point constants become `const bool` variables.
+* `string` constants become `const char* const` variables initialized
+with string literals.
+
+As an example, try this:
+
+----
+% fpp-to-cpp
+@ Constant a
+constant a = 1
+@ Constant b
+constant b = 2.0
+@ Constant c
+constant c = true
+@ Constant d
+constant d = "abcd"
+^D
+----
+
+You should see files `FppConstants.hpp` and `FppConstants.cpp`
+in the current directory.
+Examine them to confirm your understanding of how the translation
+works
+Notice how the FPP annotations are translated to comments.
+(We also remarked on this in the section on 
+<<Writing-Comments-and-Annotations_Annotations,writing annotations>>.)
+
+*Setting the include guard prefix:* By default, the include guard
+for `FppConstants.hpp` is `FppConstants_HPP`.
+This works fine if you generate one constant file
+for your whole model.
+However, if you generate separate constant files for
+separate source files in your model, and you include
+the files in your FSW application, then having multiple
+files with the same guard is not a good idea.
+It can cause symbols to be improperly excluded from the compilation,
+leading to compilation failure.
+
+To avoid this problem, use the option `-g` _guard-prefix_.
+This options says to add _guard-prefix_ to the include
+guard for `FppConstants.hpp`.
+For example, if you run `fpp-to-cpp -g Commands ...`,
+then the include guard will be `Commands_FppConstants_HPP`.
+
+*More options:* The following additional options are available
+when running `fpp-to-cpp`:
+
+* `-d` _dir_ : Use _dir_ instead of the current directory as 
+the output directory for writing files.
+This is similar to the `-d` option for
+<<Analyzing-and-Translating-Models_Generating-XML, `fpp-to-xml`>>.
+
+* `-n` _file_ : Write the names of the generated XML files
+to _file_.
+This is similar to the `-n` option for
+<<Analyzing-and-Translating-Models_Generating-XML, `fpp-to-xml`>>.
+
+* `-p` _path-prefixes_ : Remove the longest of one or more path prefixes from
+generated header paths.
+To specify multiple prefixes, separate them with commas (and no spaces).
+This is similar to the `-p` option for
+<<Analyzing-and-Translating-Models_Generating-XML, `fpp-to-xml`>>.
 
 === Implementing Abstract Types
 
