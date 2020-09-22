@@ -2800,7 +2800,7 @@ error: identifier expected
 <h3 id="Specifying-Models_Dependencies">8.3. Dependencies</h3>
 <div class="paragraph">
 <p>Whenever a model spans two or more files, one file <em>F</em> may use
-definition that appear in other files.
+one or more definitions appearing in other files.
 In order to analyze <em>F</em>, the tools must extract
 the definitions from these other files, called the <strong>dependencies</strong> of <em>F</em>.</p>
 </div>
@@ -2841,7 +2841,11 @@ However, if you present just <code>b.fpp</code>, like this:</p>
 <p>you will get an error stating that the symbol <code>a</code> is undefined. (Try it and
 see.)
 The error occurs because the definition of <code>a</code> is located in <code>a.fpp</code>,
-which was not included in the input to the analysis.</p>
+which was not included in the input to the analysis.
+In this case we say that <code>a.fpp</code> is a <strong>dependency</strong> of <code>b.fpp</code>.
+In order to analyze a file <em>F</em> (for example, <code>a.fpp</code>), the analyzer
+needs to be told where to find all the dependencies of <em>F</em> (for example,
+<code>b.fpp</code>).</p>
 </div>
 <div class="paragraph">
 <p>For simple models, we can manage the dependencies by hand, as we
@@ -4441,7 +4445,7 @@ section on <a href="#Specifying-Models">specifying models</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-09-22 14:11:31 -0700
+Last updated 2020-09-22 16:45:11 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

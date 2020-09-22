@@ -188,7 +188,7 @@ error: identifier expected
 === Dependencies
 
 Whenever a model spans two or more files, one file _F_ may use 
-definition that appear in other files.
+one or more definitions appearing in other files.
 In order to analyze _F_, the tools must extract
 the definitions from these other files, called the *dependencies* of _F_.
 
@@ -223,6 +223,10 @@ you will get an error stating that the symbol `a` is undefined. (Try it and
 see.)
 The error occurs because the definition of `a` is located in `a.fpp`,
 which was not included in the input to the analysis.
+In this case we say that `a.fpp` is a *dependency* of `b.fpp`.
+In order to analyze a file _F_ (for example, `a.fpp`), the analyzer
+needs to be told where to find all the dependencies of _F_ (for example, 
+`b.fpp`).
 
 For simple models, we can manage the dependencies by hand, as we 
 did for the example above.
