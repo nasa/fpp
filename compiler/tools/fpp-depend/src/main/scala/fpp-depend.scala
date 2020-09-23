@@ -14,6 +14,9 @@ object FPPDepend {
     missingFile: Option[String] = None
   )
 
+  def mapSet[T](set: Set[T], f: String => Unit) =
+    set.map(_.toString).toArray.sortWith(_ < _).map(f)
+
   def command(options: Options) = {
     val files = options.files.reverse match {
       case Nil => List(File.StdIn)
@@ -24,9 +27,9 @@ object FPPDepend {
       tul <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
       a <- ComputeDependencies.tuList(a, tul)
       _ <- {
-        a.dependencyFileSet.map(System.out.println(_))
+        mapSet(a.dependencyFileSet, System.out.println(_))
         options.include match {
-          case true => a.includedFileSet.map(System.out.println(_))
+          case true => mapSet(a.includedFileSet, System.out.println(_))
           case false => ()
         }
         options.missingFile match {
@@ -41,7 +44,7 @@ object FPPDepend {
     val file = File.fromString(fileName)
     for { writer <- file.openWrite() 
     } yield { 
-      a.missingDependencyFileSet.map(writer.println(_))
+      mapSet(a.missingDependencyFileSet, writer.println(_))
       writer.close()
       ()
     }
