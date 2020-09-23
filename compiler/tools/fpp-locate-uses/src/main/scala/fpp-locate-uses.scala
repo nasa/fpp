@@ -16,6 +16,9 @@ object FPPLocateUses {
     imports: List[File] = Nil,
   )
 
+  def mapSeq[T](seq: Seq[T], f: String => Unit) =
+    seq.map(_.toString).sortWith(_ < _).map(f)
+
   def command(options: Options): Result.Result[Unit] = {
     val files = options.files.reverse match {
       case Nil => List(File.StdIn)
@@ -33,7 +36,10 @@ object FPPLocateUses {
       tulImports <- Result.map(options.imports, Parser.parseFile (Parser.transUnit) (None) _)
       a <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
       a <- UsedSymbols.visitList(a, tulFiles, UsedSymbols.transUnit)
-    } yield a.usedSymbolSet.flatMap(writeUsedSymbol(a, options) _).map(Line.write(Line.stdout) _)
+    } yield {
+      val list = a.usedSymbolSet.flatMap(writeUsedSymbol(a, options) _).toList
+      mapSeq(list, System.out.println(_))
+    }
   }
 
   def writeUsedSymbol(a: Analysis, options: Options)(s: Symbol): List[Line] = {

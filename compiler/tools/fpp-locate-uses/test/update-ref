@@ -14,7 +14,7 @@ update()
   else
     outfile=$infile
   fi
-  $fpp_locate_uses $args $infile.fpp 2>&1 | sort | remove_path_prefix > $outfile.ref.txt
+  $fpp_locate_uses $args $infile.fpp 2>&1 | remove_path_prefix > $outfile.ref.txt
 }
 
 for file in `find . -name '*.ref.txt'`
