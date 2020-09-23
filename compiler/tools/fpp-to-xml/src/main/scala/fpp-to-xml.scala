@@ -55,7 +55,7 @@ object FPPToXml {
     val file = File.fromString(fileName)
     for { writer <- file.openWrite() 
     } yield { 
-      xmlFiles.map(writer.println(_))
+      xmlFiles.map(_.toString).sortWith(_ < _).map(writer.println(_))
       writer.close()
     }
   }
