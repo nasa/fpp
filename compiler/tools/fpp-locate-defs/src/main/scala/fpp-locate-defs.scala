@@ -15,6 +15,9 @@ object FPPLocateDefs {
     files: List[File] = Nil,
   )
 
+  def mapSeq[T](seq: Seq[T], f: String => Unit) =
+    seq.map(_.toString).sortWith(_ < _).map(f)
+
   def command(options: Options) = {
     val files = options.files.reverse match {
       case Nil => List(File.StdIn)
@@ -28,7 +31,7 @@ object FPPLocateDefs {
       val (_, tul) = a_tul
       val config = LocateDefsFppWriter.State(options.dir)
       val lines = tul.map(LocateDefsFppWriter.transUnit(config, _)).flatten
-      lines.map(Line.write(Line.stdout) _)
+      mapSeq(lines, System.out.println(_))
     }
   }
 
