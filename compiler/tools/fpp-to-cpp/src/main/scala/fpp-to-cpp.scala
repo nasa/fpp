@@ -63,7 +63,7 @@ object FPPToCpp {
     val file = File.fromString(fileName)
     for { writer <- file.openWrite() 
     } yield { 
-      cppFiles.map(writer.println(_))
+      cppFiles.map(_.toString).sortWith(_ < _).map(writer.println(_))
       writer.close()
     }
   }
