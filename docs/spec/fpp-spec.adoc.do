@@ -8,11 +8,11 @@
 
 redo-ifchange $FILES
 
-echo '= The F Prime Prime (FPP) Language Specification
+echo "= The F Prime Prime (FPP) Language Specification, $VERSION
 :toc: left
 :toclevels: 3
 :stem:
-:source-highlighter: prettify'
+:source-highlighter: prettify"
 for file in $FILES
 do
   echo

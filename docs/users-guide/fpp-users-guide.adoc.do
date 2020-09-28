@@ -8,7 +8,7 @@
 
 redo-ifchange $FILES
 
-echo "= The F Prime Prime (FPP) User's Guide
+echo "= The F Prime Prime (FPP) User's Guide, $VERSION
 :toc: left
 :toclevels: 3
 :stem:

@@ -2,6 +2,8 @@
 # defs.sh: definitions common to all subdirectories
 # ----------------------------------------------------------------------
 
+export VERSION=v0.1.0
+
 # Users of this file should set LEVEL first
 if test -z "$LEVEL"; then
   export LEVEL=.
@@ -39,13 +41,4 @@ rm_tmp()
 {
   doall rm '*~'
   doall rm '*redo*tmp'
-}
-
-# Exclude dot where it can cause problems
-nodot()
-{
-  if echo "$2" | grep -q '\.'; then
-    echoerr 'no rule to make '"$2"
-    return 1
-  fi
 }
