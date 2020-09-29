@@ -23,20 +23,17 @@ object EvalImpliedEnumConsts
       constants.map(_.getData).map(count).fold(0)(_ + _)
     }
     if (numExprs == 0) {
-      def visitConstants(a: Analysis, intValue: Int, constants: List[AstNode[Ast.DefEnumConstant]]): Result =
-        constants match {
-          case Nil => Right(a)
-          case node :: tail => {
-            val enumType = a.typeMap(node.getId) match {
-              case enumType : Type.Enum => enumType
-              case _ => throw InternalError("type of enum definition should be enum type")
-            }
-            val value = (node.data.name, BigInt(intValue))
-            val a1 = a.assignValue(node -> Value.EnumConstant(value, enumType))
-            visitConstants(a1, intValue + 1, tail)
-          }
+      val (a1, _) = constants.foldLeft((a, 0))( (pair, node) => {
+        val (a, v) = pair
+        val enumType = a.typeMap(node.getId) match {
+          case enumType : Type.Enum => enumType
+          case _ => throw InternalError("type of enum definition should be enum type")
         }
-      visitConstants(a, 0, constants)
+        val value = (node.data.name, BigInt(v))
+        val a1 = a.assignValue(node -> Value.EnumConstant(value, enumType))
+        (a1, v + 1)
+      } )
+      Right(a1)
     }
     else if (numExprs != constants.size)
       Left(SemanticError.InvalidEnumConstants(loc))
