@@ -110,6 +110,16 @@ For example, this code is not allowed:
 enum E { A = 1, B, C }
 --------
 
+Further, the values must be distinct.
+For example, this code is not allowed, because
+the enumerated constants `A` and `B` both have the value 2:
+
+[source,fpp]
+--------
+# Error: enumerated constant values must be distinct
+enum E { A = 2, B = 1 + 1 }
+--------
+
 You may convert an enumerated constant to its associated numeric value.
 For example, this code is allowed:
 

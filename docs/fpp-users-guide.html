@@ -2449,6 +2449,17 @@ enum E { A = 1, B, C }</code></pre>
 </div>
 </div>
 <div class="paragraph">
+<p>Further, the values must be distinct.
+For example, this code is not allowed, because
+the enumerated constants <code>A</code> and <code>B</code> both have the value 2:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp"># Error: enumerated constant values must be distinct
+enum E { A = 2, B = 1 + 1 }</code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p>You may convert an enumerated constant to its associated numeric value.
 For example, this code is allowed:</p>
 </div>
@@ -4445,7 +4456,7 @@ section on <a href="#Specifying-Models">specifying models</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-09-28 11:35:43 -0700
+Last updated 2020-09-29 13:44:06 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
