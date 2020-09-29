@@ -30,14 +30,13 @@ object EvalConstantExprs extends UseAnalyzer {
     ): Result.Result[Unit] = ids match {
       case Nil => Right(())
       case id :: tail => {
-        val v = a.valueMap(id)
+        val v = Analysis.convertValueToType(a.valueMap(id), Type.Integer)
         values.get(v) match {
           case None => checkForDuplicateValue(a, tail, values + (v -> id))
           case Some(prevId) => {
-            val intVal = Analysis.convertValueToType(v, Type.Integer)
             val loc = Locations.get(id)
             val prevLoc = Locations.get(prevId)
-            Left(SemanticError.DuplicateEnumValue(intVal.toString, loc, prevLoc))
+            Left(SemanticError.DuplicateEnumValue(v.toString, loc, prevLoc))
           }
         }
       }
