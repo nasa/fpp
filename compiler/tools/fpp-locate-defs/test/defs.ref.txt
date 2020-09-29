@@ -1,5 +1,7 @@
 locate constant M.a at "defs/defs-2.fpp"
 locate constant a at "defs/defs-1.fpp"
+locate port M.P at "defs/defs-2.fpp"
+locate port P at "defs/defs-1.fpp"
 locate type A at "defs/defs-1.fpp"
 locate type E at "defs/defs-1.fpp"
 locate type M.A at "defs/defs-2.fpp"

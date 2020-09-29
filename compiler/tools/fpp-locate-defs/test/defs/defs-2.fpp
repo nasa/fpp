@@ -4,4 +4,5 @@ module M {
   enum E { X, Y, Z }
   type T
   struct S { x: U32 }
+  port P
 }

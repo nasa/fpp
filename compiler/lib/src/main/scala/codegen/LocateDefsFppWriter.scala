@@ -63,6 +63,15 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
     members.flatMap(matchModuleMember(s1, _))
   }
 
+  override def defPortAnnotatedNode(
+    s: State,
+    aNode: Ast.Annotated[AstNode[Ast.DefPort]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.getData
+    writeSpecLoc(s, Ast.SpecLoc.Port, data.name, node)
+  }
+
   override def defStructAnnotatedNode(
     s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefStruct]]
