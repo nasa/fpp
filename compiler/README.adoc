@@ -23,15 +23,15 @@ That way you can run the tools from anywhere.
 
 The currently available tools are as follows:
 
-* `fpp-check` (constants, types, and enums only)
+* `fpp-check` (constants, types, enums, and ports only)
 * `fpp-depend`
 * `fpp-format` (constants, types, and enums only)
-* `fpp-from-xml` (structs and enums only)
+* `fpp-from-xml` (types and enums only)
 * `fpp-locate-defs`
 * `fpp-locate-uses`
 * `fpp-syntax`
 * `fpp-to-cpp` (constants only)
-* `fpp-to-xml` (structs and enums only)
+* `fpp-to-xml` (types and enums only)
 
 See https://github.jpl.nasa.gov/bocchino/fpp/wiki/Tools
 for more information.
