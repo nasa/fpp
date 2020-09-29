@@ -45,6 +45,7 @@ expr_neg_error
 expr_neg_ok
 expr_paren_ok
 expr_struct_duplicate
+port_duplicate_param
 ports_ok
 redef_array
 redef_constant
