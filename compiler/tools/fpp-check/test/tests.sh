@@ -45,11 +45,13 @@ expr_neg_error
 expr_neg_ok
 expr_paren_ok
 expr_struct_duplicate
+ports_ok
 redef_array
 redef_constant
 redef_constant_module
 redef_enum
 redef_enum_constant
+redef_port
 redef_struct
 redef_type
 spec_loc_abs_type_error
