@@ -42,21 +42,21 @@ enum FppConstant_e {
 
 
 namespace M {
-  
+
   //! Constant a
   enum FppConstant_a {
     a = 0
   };
-  
+
   //! Constant b
   extern const F64 b;
-  
+
   //! Constant c
   extern const bool c;
-  
+
   //! Constant d
   extern const char *const d;
-  
+
   //! Constant e
   enum FppConstant_e {
     e = 3

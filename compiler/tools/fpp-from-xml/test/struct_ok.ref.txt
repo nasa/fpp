@@ -1,15 +1,15 @@
 module A {
 
   module B {
-  
+
     array StructOK_m6 = [10] U32
-    
+
     enum E {
       X = 0
       Y = 3 @< Inline comment
       Z = 4
     }
-    
+
     @ Top-level comment, line 1
     @ Top-level comment, line 2
     struct StructOK {
@@ -20,7 +20,7 @@ module A {
       m5: E
       m6: StructOK_m6
     }
-  
+
   }
 
 }

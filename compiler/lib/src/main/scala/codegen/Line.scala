@@ -81,7 +81,10 @@ object Line {
 case class Line(string: String = "", indent: Indentation = Indentation(0)) {
 
   /** Convert the line to a formatted string */
-  override def toString = indent.toString ++ string
+  override def toString = string match {
+    case "" => ""
+    case _ => indent.toString ++ string
+  }
 
   /** Indent in */
   def indentIn(n: Int) = this.copy(indent = indent.indentIn(n))

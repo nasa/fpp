@@ -36,6 +36,10 @@ module DefinitionsAndSpecifiers {
   include "constant.fpp"
   @< Include specifier
 
+  @ Port definition
+  port P(a: U32, b: F32) -> U32
+  @< Port definition
+
   @ Struct definition
   struct S { 
     @ x

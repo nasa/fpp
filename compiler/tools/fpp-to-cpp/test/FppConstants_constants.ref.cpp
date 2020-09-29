@@ -25,11 +25,11 @@ const bool c = true;
 const char *const d = "abc";
 
 namespace M {
-  
+
   const F64 b = 1.0;
-  
+
   const bool c = true;
-  
+
   const char *const d = "abc";
 
 }
