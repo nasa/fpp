@@ -13,6 +13,8 @@ object FppWriter extends AstVisitor with LineUtils {
 
     def join (sep: String) (ls1: List[Line]) = Line.joinLists (Line.Indent) (ls) (sep) (ls1)
 
+    def joinNoIndent (sep: String) (ls1: List[Line]) = Line.joinLists (Line.NoIndent) (ls) (sep) (ls1)
+
     def joinOpt[T] (opt: Option[T]) (sep: String) (f: T => List[Line]) =
       opt match {
         case Some(t) => join (sep) (f(t))
@@ -65,6 +67,14 @@ object FppWriter extends AstVisitor with LineUtils {
       addSuffix(" {") ++
     data.constants.flatMap(annotateNode(defEnumConstant)).map(indentIn) ++
     lines("}")
+  }
+
+  override def defPortAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefPort]]) = {
+    val (_, node, _) = aNode
+    val data = node.getData
+    lines(s"port ${data.name}").
+      join ("") (formalParamList(data.params)).
+      joinOpt (data.returnType) (" -> ") (typeNameNode)
   }
 
   override def defModuleAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefModule]]) = {
@@ -205,6 +215,24 @@ object FppWriter extends AstVisitor with LineUtils {
     lines(dec.name).joinOpt (dec.value) (" = ") (exprNode)
 
   private def exprNode(node: AstNode[Ast.Expr]): List[Line] = matchExprNode((), node)
+
+  private def formalParam(fp: Ast.FormalParam) = {
+    val prefix = fp.kind match {
+      case Ast.FormalParam.Ref => "ref "
+      case Ast.FormalParam.Value => ""
+    }
+    val name = prefix ++ fp.name
+    lines(name).join (": ") (typeNameNode(fp.typeName))
+  }
+
+  private def formalParamList(fpl: Ast.FormalParamList) =
+    fpl match {
+      case Nil => Nil
+      case _ => 
+        lines("(") ++
+        fpl.flatMap(annotateNode(formalParam)).map(indentIn) ++
+        lines(")")
+    }
 
   private def qualIdent(qid: Ast.QualIdent): List[Line] =
     lines(qualIdentString(qid))
