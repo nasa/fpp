@@ -34,28 +34,29 @@ A location specifier is one of the following:
 
 ==== Semantics
 
-. The qualified identifier _Q_ must be a <<Definitions-and-Uses_Uses,use>> that refers 
-to a <<Definitions,definition>> as follows:
+. The qualified identifier _Q_ is resolved like a 
+<<Definitions-and-Uses_Uses,use>> that refers to a <<Definitions,definition>> 
+as follows:
 
-.. A constant location specifier must refer to a 
+.. A constant location specifier refers to a 
 <<Definitions_Constant-Definitions,constant definition>>.
 
-.. A type location specifier must refer to an 
+.. A type location specifier refers to an 
 <<Definitions_Array-Definitions,array definition>>, 
 <<Definitions_Enum-Definitions,enum definition>>,
 <<Definitions_Struct-Definitions,struct definition>>, or
 <<Definitions_Abstract-Type-Definitions,abstract type definition>>.
 
-.. A port location specifier must refer to a 
+.. A port location specifier refers to a 
 <<Definitions_Port-Definitions,port definition>>.
 
-.. A component location specifier must refer to a 
+.. A component location specifier refers to a 
 <<Definitions_Component-Definitions,component definition>>.
 
-.. A component instance location specifier must refer to a 
+.. A component instance location specifier refers to a 
 <<Definitions_Component-Instance-Definitions,component instance definition>>.
 
-.. A topology location specifier must refer to a 
+.. A topology location specifier refers to a 
 <<Definitions_Topology-Definitions,topology definition>>.
 
 . When a location specifier appears inside a
@@ -63,6 +64,11 @@ to a <<Definitions,definition>> as follows:
 _Q_ is implicitly qualified by the 
 <<Scoping-of-Names_Names-of-Definitions,qualified name>>
 of _M_.
+
+. _Q_ need not actually refer to any definition.
+This rule allows the specification of dependencies for a larger set
+of files than the ones involved in a particular analysis
+or translation.
 
 . The string literal must specify the path of an FPP source file, relative to the
 <<Translation-Units-and-Models_Locations,location>>
