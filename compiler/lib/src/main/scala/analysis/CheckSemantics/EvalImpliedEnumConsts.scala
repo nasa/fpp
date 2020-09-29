@@ -24,14 +24,14 @@ object EvalImpliedEnumConsts
     }
     if (numExprs == 0) {
       val (a1, _) = constants.foldLeft((a, 0))( (pair, node) => {
-        val (a, v) = pair
+        val (a, intValue) = pair
         val enumType = a.typeMap(node.getId) match {
           case enumType : Type.Enum => enumType
           case _ => throw InternalError("type of enum definition should be enum type")
         }
-        val value = (node.data.name, BigInt(v))
+        val value = (node.data.name, BigInt(intValue))
         val a1 = a.assignValue(node -> Value.EnumConstant(value, enumType))
-        (a1, v + 1)
+        (a1, intValue + 1)
       } )
       Right(a1)
     }
