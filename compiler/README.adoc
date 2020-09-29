@@ -25,7 +25,7 @@ The currently available tools are as follows:
 
 * `fpp-check` (constants, types, enums, and ports only)
 * `fpp-depend`
-* `fpp-format` (constants, types, and enums only)
+* `fpp-format` (constants, types, enums, and ports only)
 * `fpp-from-xml` (types and enums only)
 * `fpp-locate-defs` (constants, types, and enums only)
 * `fpp-locate-uses` (constants, types, and enums only)
