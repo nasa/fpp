@@ -174,31 +174,38 @@ object Analysis {
       case Some(t) => Right(t)
     }
 
+  /** Check for duplicate node */
+  def checkForDuplicateNode[T]
+    (getName: T => Name.Unqualified)
+    (error: (String, Location, Location) => Error)
+    (nodes: List[AstNode[T]]): Result.Result[Unit] = {
+    val result: Result.Result[Map[Name.Unqualified, AstNode.Id]] = Right(Map())
+    for {
+      _ <- nodes.foldLeft(result)( (result, node) => {
+        val Right(map) = result
+        val name = getName(node.data)
+        map.get(name) match {
+          case None => Right(map + (name -> node.getId))
+          case Some(id) => {
+            val loc = Locations.get(node.getId)
+            val prevLoc = Locations.get(id)
+            Left(error(name, loc, prevLoc))
+          }
+        }
+      } )
+    } yield ()
+  }
+
   /** Check for duplicate struct member */
   def checkForDuplicateStructMember[T]
     (getName: T => Name.Unqualified)
-    (nodes: List[AstNode[T]]): Result.Result[Unit] = {
-    def helper(
-      nodes: List[AstNode[T]],
-      map: Map[Name.Unqualified, AstNode.Id],
-    ): Result.Result[Unit] = {
-      nodes match {
-        case Nil => Right(())
-        case node :: tail => {
-          val data = node.data
-          val name = getName(data)
-          map.get(name) match {
-            case None => helper(tail, map + (name -> node.getId))
-            case Some(id) => {
-              val loc = Locations.get(node.getId)
-              val prevLoc = Locations.get(id)
-              Left(SemanticError.DuplicateStructMember(name, loc, prevLoc))
-            }
-          }
-        }
-      }
-    }
-    helper(nodes, Map())
+    (nodes: List[AstNode[T]]): Result.Result[Unit] =
+    checkForDuplicateNode (getName) (SemanticError.DuplicateStructMember) (nodes)
+
+  /** Check for duplicate parameter */
+  def checkForDuplicateParameter(nodes: Ast.FormalParamList): Result.Result[Unit] = {
+    def getName(param: Ast.FormalParam) = param.name
+    checkForDuplicateNode (getName) (SemanticError.DuplicateParameter) (nodes.map(_._2))
   }
 
   /** Convert one type to another */
