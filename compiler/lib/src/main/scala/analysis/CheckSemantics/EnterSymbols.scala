@@ -11,41 +11,41 @@ object EnterSymbols
   with TopologyAnalyzer
 {
 
-  override def defAbsTypeAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefAbsType]]) = {
-    val (_, node1, _) = node
-    val data = node1.getData
+  override def defAbsTypeAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAbsType]]) = {
+    val (_, node, _) = aNode
+    val data = node.getData
     val name = data.name
-    val symbol = Symbol.AbsType(node)
+    val symbol = Symbol.AbsType(aNode)
     val nestedScope = a.nestedScope
     for (nestedScope <- nestedScope.put(NameGroup.Type)(name, symbol))
       yield updateMap(a, symbol).copy(nestedScope = nestedScope)
   }
 
-  override def defArrayAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefArray]]) = {
-    val (_, node1, _) = node
-    val data = node1.getData
+  override def defArrayAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
+    val (_, node, _) = aNode
+    val data = node.getData
     val name = data.name
-    val symbol = Symbol.Array(node)
+    val symbol = Symbol.Array(aNode)
     val nestedScope = a.nestedScope
     for (nestedScope <- nestedScope.put(NameGroup.Type)(name, symbol))
       yield updateMap(a, symbol).copy(nestedScope = nestedScope)
   }
 
-  override def defConstantAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
-    val (_, node1, _) = node
-    val data = node1.getData
+  override def defConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
+    val (_, node, _) = aNode
+    val data = node.getData
     val name = data.name
-    val symbol = Symbol.Constant(node)
+    val symbol = Symbol.Constant(aNode)
     val nestedScope = a.nestedScope
     for (nestedScope <- nestedScope.put(NameGroup.Value)(name, symbol))
       yield updateMap(a, symbol).copy(nestedScope = nestedScope)
   }
 
-  override def defEnumAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
-    val (_, node1, _) = node
-    val data = node1.getData
+  override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
+    val (_, node, _) = aNode
+    val data = node.getData
     val name = data.name
-    val symbol = Symbol.Enum(node)
+    val symbol = Symbol.Enum(aNode)
     val scopeNameList = a.scopeNameList
     for {
       nestedScope <- a.nestedScope.put(NameGroup.Type)(name, symbol)
@@ -71,10 +71,10 @@ object EnterSymbols
 
   override def defModuleAnnotatedNode(
     a: Analysis,
-    node: Ast.Annotated[AstNode[Ast.DefModule]]
+    aNode: Ast.Annotated[AstNode[Ast.DefModule]]
   ) = {
-    val (_, node1, _) = node
-    val Ast.DefModule(name, members) = node1.getData
+    val (_, node, _) = aNode
+    val Ast.DefModule(name, members) = node.getData
     val oldModuleNameList = a.scopeNameList
     val newModuleNameList = name :: oldModuleNameList
     val a1 = a.copy(scopeNameList = newModuleNameList)
@@ -104,11 +104,21 @@ object EnterSymbols
     }
   }
 
-  override def defStructAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
-    val (_, node1, _) = node
-    val data = node1.getData
+  override def defPortAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefPort]]) = {
+    val (_, node, _) = aNode
+    val data = node.getData
     val name = data.name
-    val symbol = Symbol.Struct(node)
+    val symbol = Symbol.Port(aNode)
+    val nestedScope = a.nestedScope
+    for (nestedScope <- nestedScope.put(NameGroup.Port)(name, symbol))
+      yield updateMap(a, symbol).copy(nestedScope = nestedScope)
+  }
+
+  override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
+    val (_, node, _) = aNode
+    val data = node.getData
+    val name = data.name
+    val symbol = Symbol.Struct(aNode)
     val nestedScope = a.nestedScope
     for (nestedScope <- nestedScope.put(NameGroup.Type)(name, symbol))
       yield updateMap(a, symbol).copy(nestedScope = nestedScope)
@@ -120,11 +130,11 @@ object EnterSymbols
     a.copy(qualifiedNameMap = a.qualifiedNameMap + (s -> name))
   }
 
-  private def defEnumConstantAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefEnumConstant]]) = {
-    val (_, node1, _) = node
-    val data = node1.getData
+  private def defEnumConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnumConstant]]) = {
+    val (_, node, _) = aNode
+    val data = node.getData
     val name = data.name
-    val symbol = Symbol.EnumConstant(node)
+    val symbol = Symbol.EnumConstant(aNode)
     val nestedScope = a.nestedScope
     for (nestedScope <- nestedScope.put(NameGroup.Value)(name, symbol))
       yield updateMap(a, symbol).copy(nestedScope = nestedScope)
