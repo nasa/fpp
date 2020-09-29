@@ -63,6 +63,8 @@ spec_loc_constant_error
 spec_loc_constant_ok
 spec_loc_enum_error
 spec_loc_enum_ok
+spec_loc_port_error
+spec_loc_port_ok
 spec_loc_struct_error
 spec_loc_struct_ok
 string_size_invalid

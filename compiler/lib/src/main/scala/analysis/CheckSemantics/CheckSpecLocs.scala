@@ -33,6 +33,12 @@ object CheckSpecLocs
     checkSpecLoc(a, Ast.SpecLoc.Type, name, node)
   }
 
+  override def defPortAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefPort]]) = {
+    val (_, node, _) = aNode
+    val name = node.getData.name
+    checkSpecLoc(a, Ast.SpecLoc.Port, name, node)
+  }
+
   override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
     val (_, node, _) = aNode
     val name = node.getData.name
