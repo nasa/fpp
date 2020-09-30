@@ -18,10 +18,12 @@ object PortXmlWriter extends AstVisitor with LineUtils {
       XmlTags.tags("interface", pairs)
     }
     val body = {
-      val Right(a1) = UsedSymbols.defPortAnnotatedNode(s.a, aNode)
-      val s1 = s.copy(a = a1)
       val comment = AnnotationXmlWriter.multilineComment(aNode)
-      val imports = s1.writeImportDirectives(loc.file)
+      val imports = {
+        val Right(a1) = UsedSymbols.defPortAnnotatedNode(s.a, aNode)
+        val s1 = s.copy(a = a1)
+        s1.writeImportDirectives(loc.file)
+      }
       val args = formalParamList(s, data.params)
       val ret = data.returnType match {
         case Some(typeName) =>
