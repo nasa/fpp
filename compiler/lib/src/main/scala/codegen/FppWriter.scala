@@ -40,13 +40,13 @@ object FppWriter extends AstVisitor with LineUtils {
   override def defAbsTypeAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefAbsType]]) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"type ${data.name}")
+    lines(s"type ${ident(data.name)}")
   }
 
   override def defArrayAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val (_, node, _) = aNode
     val data = node.getData
-    lines(s"array ${data.name} = [").
+    lines(s"array ${ident(data.name)} = [").
       join ("") (exprNode(data.size)).
       join ("] ") (typeNameNode(data.eltType)).
       joinOpt (data.default) (" default ") (exprNode).
@@ -56,13 +56,13 @@ object FppWriter extends AstVisitor with LineUtils {
   override def defConstantAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
     val (_, node, _) = aNode
     val data = node.getData
-    lines(s"constant ${data.name}").join (" = ") (exprNode(data.value))
+    lines(s"constant ${ident(data.name)}").join (" = ") (exprNode(data.value))
   }
 
   override def defEnumAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
     val (_, node, _) = aNode
     val data = node.getData
-    lines(s"enum ${data.name}").
+    lines(s"enum ${ident(data.name)}").
       joinOpt (data.typeName) (": ") (typeNameNode).
       addSuffix(" {") ++
     data.constants.flatMap(annotateNode(defEnumConstant)).map(indentIn) ++
@@ -72,7 +72,7 @@ object FppWriter extends AstVisitor with LineUtils {
   override def defPortAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefPort]]) = {
     val (_, node, _) = aNode
     val data = node.getData
-    lines(s"port ${data.name}").
+    lines(s"port ${ident(data.name)}").
       join ("") (formalParamList(data.params)).
       joinOpt (data.returnType) (" -> ") (typeNameNode)
   }
@@ -80,7 +80,7 @@ object FppWriter extends AstVisitor with LineUtils {
   override def defModuleAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefModule]]) = {
     val (_, node, _) = aNode
     val data = node.getData
-    List(line(s"module ${data.name} {"), Line.blank) ++
+    List(line(s"module ${ident(data.name)} {"), Line.blank) ++
     (Line.blankSeparated (moduleMember) (data.members)).map(indentIn) ++
     List(Line.blank, line("}"))
   }
@@ -88,7 +88,7 @@ object FppWriter extends AstVisitor with LineUtils {
   override def defStructAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
     val (_, node, _) = aNode
     val data = node.getData
-    lines(s"struct ${data.name} {") ++
+    lines(s"struct ${ident(data.name)} {") ++
     data.members.flatMap(annotateNode(structTypeMember)).map(indentIn) ++ 
     lines("}").joinOpt (data.default) (" default ") (exprNode)
   }
@@ -216,12 +216,14 @@ object FppWriter extends AstVisitor with LineUtils {
 
   private def exprNode(node: AstNode[Ast.Expr]): List[Line] = matchExprNode((), node)
 
+  private def ident(id: Ast.Ident) = if (keywords.contains(id)) "$" ++ id else id
+
   private def formalParam(fp: Ast.FormalParam) = {
     val prefix = fp.kind match {
       case Ast.FormalParam.Ref => "ref "
       case Ast.FormalParam.Value => ""
     }
-    val name = prefix ++ fp.name
+    val name = prefix ++ ident(fp.name)
     lines(name).join (": ") (typeNameNode(fp.typeName))
   }
 
@@ -239,9 +241,9 @@ object FppWriter extends AstVisitor with LineUtils {
 
   private def qualIdentString(qid: Ast.QualIdent): String =
     qid match {
-      case Ast.QualIdent.Unqualified(name) => name
+      case Ast.QualIdent.Unqualified(name) => ident(name)
       case Ast.QualIdent.Qualified(qualifier, name) => 
-        qualIdentString(qualifier.getData) ++ "." ++ name.getData
+        qualIdentString(qualifier.getData) ++ "." ++ ident(name.getData)
     }
 
   private def string(s: String) = s.split("\n").toList match {
@@ -255,10 +257,10 @@ object FppWriter extends AstVisitor with LineUtils {
   }
 
   private def structMember(member: Ast.StructMember) =
-    lines(member.name).join (" = ") (exprNode(member.value))
+    lines(ident(member.name)).join (" = ") (exprNode(member.value))
 
   private def structTypeMember(member: Ast.StructTypeMember) =
-    lines(member.name).
+    lines(ident(member.name)).
       join (": ") (typeNameNode(member.typeName)).
       joinOpt (member.format) (" format ") (applyToData(string))
 
@@ -273,5 +275,92 @@ object FppWriter extends AstVisitor with LineUtils {
   type In = Unit
 
   type Out = List[Line]
+
+  val keywords = Set(
+    "F32",
+    "F64",
+    "I16",
+    "I32",
+    "I64",
+    "I8",
+    "U16",
+    "U32",
+    "U64",
+    "U8",
+    "active",
+    "activity",
+    "always",
+    "array",
+    "assert",
+    "async",
+    "at",
+    "base",
+    "block",
+    "bool",
+    "change",
+    "command",
+    "component",
+    "connections",
+    "constant",
+    "default",
+    "diagnostic",
+    "drop",
+    "enum",
+    "event",
+    "false",
+    "fatal",
+    "format",
+    "get",
+    "guarded",
+    "high",
+    "id",
+    "import",
+    "include",
+    "init",
+    "input",
+    "instance",
+    "internal",
+    "locate",
+    "low",
+    "module",
+    "on",
+    "opcode",
+    "orange",
+    "output",
+    "param",
+    "passive",
+    "pattern",
+    "phase",
+    "port",
+    "priority",
+    "private",
+    "queue",
+    "queued",
+    "recv",
+    "red",
+    "ref",
+    "reg",
+    "resp",
+    "save",
+    "serial",
+    "set",
+    "severity",
+    "size",
+    "stack",
+    "string",
+    "struct",
+    "sync",
+    "telemetry",
+    "text",
+    "throttle",
+    "time",
+    "topology",
+    "true",
+    "type",
+    "unused",
+    "update",
+    "warning",
+    "yellow",
+  )
 
 }
