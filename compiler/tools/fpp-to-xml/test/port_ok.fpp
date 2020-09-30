@@ -18,7 +18,7 @@ module M {
   port PortOK3(
     a: U32
     ref b: string size 40
-  ) -> string size 40
+  ) -> F32
 
   port PortOK4(
     ref a: M1.ArrayOK1
