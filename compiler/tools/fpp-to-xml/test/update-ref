@@ -3,6 +3,7 @@
 . ../../../scripts/test-utils.sh
 
 fpp_to_xml=../../../bin/fpp-to-xml
+fpp_depend=../../../bin/fpp-depend
 
 update()
 {
@@ -72,6 +73,12 @@ enum_implicit()
 {
   update '' enum_implicit
   mv ImplicitEnumAi.xml ImplicitEnumAi.ref.xml 
+}
+
+port_ok()
+{
+  update "-i `fpp-depend port_ok.fpp | tr '\n' ','`  -p $PWD" port_ok
+  move_xml PortOK1Port PortOK2Port PortOK3Port PortOK4Port
 }
 
 struct_abs_type()
