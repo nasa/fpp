@@ -26,6 +26,7 @@ done
 update "" comments
 update "" parse-error
 update "" syntax
+update "" syntax-kwd-names
 update -a empty
 update -a syntax syntax-ast
 update -i cycle-1 include-cycle-1

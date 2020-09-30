@@ -88,6 +88,11 @@ syntax()
   run_test "" syntax
 }
 
+syntax_kwd_names()
+{
+  run_test "" syntax-kwd-names
+}
+
 syntax_ast()
 {
   run_test -a syntax syntax-ast
@@ -125,6 +130,7 @@ include_subdir
 include_topology
 parse_error
 syntax
+syntax_kwd_names
 syntax_ast
 syntax_include_ast
 syntax_stdin
