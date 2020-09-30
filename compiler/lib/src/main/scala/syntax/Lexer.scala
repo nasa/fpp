@@ -12,7 +12,7 @@ object Lexer extends RegexParsers {
   }
 
   def identifier: Parser[Token] = positioned {
-    "[A-Za-z_][A-Za-z_0-9]*".r ^^ { Token.IDENTIFIER(_) }
+    "\\$?[A-Za-z_][A-Za-z_0-9]*".r ^^ { s => Token.IDENTIFIER(s.replaceAll("\\$", "")) }
   }
 
   def ignore: Parser[Unit] = {
