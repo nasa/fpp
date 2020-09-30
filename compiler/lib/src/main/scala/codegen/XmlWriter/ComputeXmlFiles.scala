@@ -22,6 +22,9 @@ object ComputeXmlFiles extends AstStateVisitor {
   /** Get the generated XML file name for an enum definition */
   def getEnumFileName(defEnum: Ast.DefEnum) = defEnum.name ++ "EnumAi.xml"
 
+  /** Get the generated XML file name for a port definition */
+  def getPortFileName(defPort: Ast.DefPort) = defPort.name ++ "PortAi.xml"
+
   /** Get the generated XML file name for a struct definition */
   def getStructFileName(defStruct: Ast.DefStruct) = defStruct.name ++ "SerializableAi.xml"
 
@@ -48,6 +51,14 @@ object ComputeXmlFiles extends AstStateVisitor {
     val (_, node1, _) = node
     val data = node1.getData
     visitList(s, data.members, matchModuleMember)
+  }
+
+  override def defPortAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefPort]]) = {
+    val (_, node1, _) = node
+    val data = node1.getData
+    val loc = Locations.get(node1.getId)
+    val fileName = getPortFileName(data)
+    addMapping(s, fileName, loc)
   }
 
   override def defStructAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefStruct]]) = {

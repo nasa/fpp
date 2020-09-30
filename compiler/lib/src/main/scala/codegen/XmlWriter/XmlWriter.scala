@@ -37,6 +37,14 @@ object XmlWriter extends AstStateVisitor with LineUtils {
     Right(s)
   }
 
+  override def defPortAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefPort]]) = {
+    val (_, node, _) = aNode
+    val data = node.getData
+    val fileName = ComputeXmlFiles.getPortFileName(data)
+    val lines = PortXmlWriter.defPortAnnotatedNode(s, aNode)
+    writeXmlFile(s, fileName, lines)
+  }
+
   override def defStructAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
     val (_, node, _) = aNode
     val loc = Locations.get(node.getId)
