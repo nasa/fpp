@@ -55,4 +55,5 @@ object ValueXmlWriter {
   def getValue(s: XmlWriterState, v: Value): String = {
     Visitor.value(s, v)
   }
+
 }

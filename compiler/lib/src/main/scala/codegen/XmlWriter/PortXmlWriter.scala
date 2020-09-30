@@ -13,27 +13,59 @@ object PortXmlWriter extends AstVisitor with LineUtils {
     val node = aNode._2
     val loc = Locations.get(node.getId)
     val data = node.getData
-    /*
     val tags = {
       val pairs = s.getNamespaceAndName(data.name)
-      XmlTags.tags("serializable", pairs)
+      XmlTags.tags("interface", pairs)
     }
     val body = {
-      val Right(a1) = UsedSymbols.defStructAnnotatedNode(s.a, aNode)
+      val Right(a1) = UsedSymbols.defPortAnnotatedNode(s.a, aNode)
       val s1 = s.copy(a = a1)
       val comment = AnnotationXmlWriter.multilineComment(aNode)
       val imports = s1.writeImportDirectives(loc.file)
-      val members = {
-        val tags = XmlTags.tags("members")
-        val st @ Type.Struct(_, _, _, _) = s.a.typeMap(node.getId) 
-        val ls = data.members.map(structTypeMemberAnnotatedNode(s, st, _))
-        XmlTags.taggedLines(tags)(ls.map(indentIn))
+      val args = formalParamList(s, data.params)
+      val ret = data.returnType match {
+        case Some(typeName) =>
+          val t = s.a.typeMap(typeName.getId)
+          val pairs = TypeXmlWriter.getPairs(s, t)
+          lines(XmlTags.openCloseTag("return", pairs))
+        case None => Nil
       }
-      comment ++ imports ++ members
+      comment ++ imports ++ args ++ ret
     }
     XmlTags.taggedLines(tags)(body.map(indentIn))
-    */
-    Nil
+  }
+
+  def formalParamList(
+    s: XmlWriterState,
+    params: Ast.FormalParamList
+  ) = params match {
+    case Nil => Nil
+    case _ =>
+      val ls = params.flatMap(formalParamAnnotatedNode(s, _))
+      val tags = XmlTags.tags("args", Nil)
+      XmlTags.taggedLines (tags) (ls.map(indentIn))
+  }
+
+  def formalParamAnnotatedNode(
+    s: XmlWriterState,
+    aNode: Ast.Annotated[AstNode[Ast.FormalParam]]
+  ) = {
+    val node = aNode._2
+    val data = node.getData
+    val pairs = {
+      val t = s.a.typeMap(data.typeName.getId)
+      val passBy = data.kind match {
+        case Ast.FormalParam.Ref => List(("pass_by", "reference"))
+        case _ => Nil
+      }
+      ("name", data.name) :: (TypeXmlWriter.getPairs(s, t) ++ passBy)
+    }
+    AnnotationXmlWriter.multilineComment(aNode) match {
+      case Nil => lines(XmlTags.openCloseTag("arg", pairs))
+      case comment =>
+        val tags = XmlTags.tags("arg", pairs)
+        XmlTags.taggedLines (tags) (comment.map(indentIn))
+    }
   }
 
   type In = XmlWriterState
