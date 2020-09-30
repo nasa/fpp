@@ -26,7 +26,8 @@ beginning with `@` or `@<`.
 === Reserved Words
 
 The following are reserved words in FPP.
-They may not be used as identifiers.
+They may not be used as identifiers, except
+when preceded by the `$` character, as discussed below.
 
 [source,fpp]
 ----
@@ -139,22 +140,33 @@ The following sequences of characters are symbol tokens in FPP:
 
 === Identifiers
 
-An *identifier* is an unqualified name
+*Definition:* An *identifier* is an unqualified name
 consisting of one or more characters. The first character
 must be a letter or an underscore. Characters after the first character
 may be letters, digits, and underscores.
 
-**Examples:**
+For example:
 
-----
-Identifier
-MultiPartIdentifier
-_identifier_
-identifier
-identifier_
-multiPartIdentifier
-multi_part_identifier
-----
+* `identifier`, `identifier3`, and `__identifier3` are valid identifiers.
+
+* `3identifier` is not a valid identifier, because it starts with a digit.
+
+* `identifier%` is not a valid identifier, because it contains the character `%`.
+
+*Escaped keywords:* Any identifier may be preceded by the character `$`, with 
+no intervening space.
+An identifier `$` _I_ has the same meaning as _I_, except that if _I_ is a
+<<Lexical-Elements_Reserved-Words,reserved word>>, then _I_ is scanned
+as an identifier and not as a reserved word.
+
+For example:
+
+* `$identifier` is a valid identifier.  It has the same meaning as `identifier`.
+
+* `$time` is a valid identifier. It represents the character sequence `time`
+treated as an identifier and not as a reserved word.
+
+* `time` is a reserved word. It may not be used as an identifier.
 
 === End-of-Line Tokens
 

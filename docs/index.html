@@ -958,7 +958,8 @@ beginning with <code>@</code> or <code>@&lt;</code>.</p>
 <h3 id="Lexical-Elements_Reserved-Words">3.1. Reserved Words</h3>
 <div class="paragraph">
 <p>The following are reserved words in FPP.
-They may not be used as identifiers.</p>
+They may not be used as identifiers, except
+when preceded by the <code>$</code> character, as discussed below.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1075,24 +1076,50 @@ yellow</code></pre>
 <div class="sect2">
 <h3 id="Lexical-Elements_Identifiers">3.3. Identifiers</h3>
 <div class="paragraph">
-<p>An <strong>identifier</strong> is an unqualified name
+<p><strong>Definition:</strong> An <strong>identifier</strong> is an unqualified name
 consisting of one or more characters. The first character
 must be a letter or an underscore. Characters after the first character
 may be letters, digits, and underscores.</p>
 </div>
 <div class="paragraph">
-<p><strong>Examples:</strong></p>
+<p>For example:</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre>Identifier
-MultiPartIdentifier
-_identifier_
-identifier
-identifier_
-multiPartIdentifier
-multi_part_identifier</pre>
+<div class="ulist">
+<ul>
+<li>
+<p><code>identifier</code>, <code>identifier3</code>, and <code>__identifier3</code> are valid identifiers.</p>
+</li>
+<li>
+<p><code>3identifier</code> is not a valid identifier, because it starts with a digit.</p>
+</li>
+<li>
+<p><code>identifier%</code> is not a valid identifier, because it contains the character <code>%</code>.</p>
+</li>
+</ul>
 </div>
+<div class="paragraph">
+<p><strong>Escaped keywords:</strong> Any identifier may be preceded by the character <code>$</code>, with
+no intervening space.
+An identifier <code>$</code> <em>I</em> has the same meaning as <em>I</em>, except that if <em>I</em> is a
+<a href="#Lexical-Elements_Reserved-Words">reserved word</a>, then <em>I</em> is scanned
+as an identifier and not as a reserved word.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>$identifier</code> is a valid identifier.  It has the same meaning as <code>identifier</code>.</p>
+</li>
+<li>
+<p><code>$time</code> is a valid identifier. It represents the character sequence <code>time</code>
+treated as an identifier and not as a reserved word.</p>
+</li>
+<li>
+<p><code>time</code> is a reserved word. It may not be used as an identifier.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -7620,7 +7647,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-09-29 13:44:15 -0700
+Last updated 2020-09-30 16:55:03 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
