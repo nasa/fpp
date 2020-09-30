@@ -212,7 +212,7 @@ object FppWriter extends AstVisitor with LineUtils {
   }
 
   private def defEnumConstant(dec: Ast.DefEnumConstant) =
-    lines(dec.name).joinOpt (dec.value) (" = ") (exprNode)
+    lines(ident(dec.name)).joinOpt (dec.value) (" = ") (exprNode)
 
   private def exprNode(node: AstNode[Ast.Expr]): List[Line] = matchExprNode((), node)
 

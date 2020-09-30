@@ -43,6 +43,12 @@ include()
     fpp-syntax include.out.txt
 }
 
+kwd_names()
+{
+  run_test '' kwd_names && \
+    fpp-syntax kwd_names.out.txt
+}
+
 no_include()
 {
   run_test '' syntax no_include && \

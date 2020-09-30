@@ -45,6 +45,11 @@ include()
   update '-i' syntax include
 }
 
+kwd_names()
+{
+  update '' kwd_names
+}
+
 for t in $tests
 do
   echo "updating ref output for $t"
