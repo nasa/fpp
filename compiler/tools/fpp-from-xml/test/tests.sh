@@ -1,6 +1,7 @@
 tests="
 array_qual_id
 array_string
+enum_kwd_name
 enum_missing_name
 enum_ok
 member_array_of_enum
