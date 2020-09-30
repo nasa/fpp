@@ -6,6 +6,7 @@ duplicate_xml_file
 enum_explicit
 enum_implicit
 empty_struct
+port_kwd_name
 port_ok
 struct_abs_type
 struct_enum_member

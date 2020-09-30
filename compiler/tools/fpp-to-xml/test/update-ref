@@ -75,6 +75,12 @@ enum_implicit()
   mv ImplicitEnumAi.xml ImplicitEnumAi.ref.xml 
 }
 
+port_kwd_name()
+{
+  update "-p $PWD" port_kwd_name
+  move_xml PortKwdNamePort
+}
+
 port_ok()
 {
   update "-i `fpp-depend port_ok.fpp | tr '\n' ','`  -p $PWD" port_ok

@@ -78,6 +78,12 @@ enum_implicit()
     diff ImplicitEnumAi.xml ImplicitEnumAi.ref.xml
 }
 
+port_kwd_name()
+{
+  run_test "-p $PWD" port_kwd_name && \
+    diff_xml PortKwdNamePort
+}
+
 port_ok()
 {
   files=""
