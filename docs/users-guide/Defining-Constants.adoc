@@ -78,6 +78,65 @@ For example:
 * `name`, `Name`, `_name`, and `name1` are valid names.
 * `1invalid` is not a valid name, because names may not start with digits.
 
+==== Reserved Words
+
+Certain sequences of letters such as `constant` are called out as *reserved 
+words* in FPP.
+Each reserved word has a special meaning, such as introducing a constant 
+declaration.
+_The FPP Language Specification_ has a complete list of reserved words.
+
+Using a reserved word as a name in the ordinary way causes a parsing error.
+For example, this code is incorrect:
+
+[source,fpp]
+--------
+constant constant = 0
+--------
+
+To use a reserved word as a name, you must put the character `$` in
+front of it with no space.
+For example, this code is legal:
+
+[source,fpp]
+----
+constant $constant = 0
+----
+
+The character sequence `$constant` represents the name `constant`,
+as opposed to the keyword `constant`.
+
+You can put the character `$` in front of any identifier,
+not just a keyword.
+If the identifier is not a keyword, then the `$` has no effect.
+For example, `$name` has the same meaning as `name`.
+
+==== Name Clashes
+
+FPP will not let you define two different symbols of the same
+kind with the same name.
+For example, this code will produce an error:
+
+[source,fpp]
+--------
+constant c = 0
+constant c = 1
+--------
+
+Two symbols can have the same unqualified name if they
+reside in different
+<<Defining-Modules,modules>> or
+<<Defining-Enums,enums>>; these concepts
+are explained below.
+Two symbols can also have the same name if the analyzer
+can distinguish them based on their kinds.
+For example, an
+<<Defining-Types_Array-Type-Definitions, array type>> (described below) and a 
+constant
+can have the same name, but an array type and a
+<<Defining-Types_Struct-Type-Definitions,struct type>> may not.
+_The FPP Language Specification_ has all the details.
+
 === Expressions
 
 This section describes the expressions that you can write as part of a constant

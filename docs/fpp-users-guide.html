@@ -447,7 +447,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Constants">3. Defining Constants</a>
 <ul class="sectlevel2">
 <li><a href="#Defining-Constants_The-Basics">3.1. The Basics</a></li>
-<li><a href="#Defining-Constants_Names">3.2. Names</a></li>
+<li><a href="#Defining-Constants_Names">3.2. Names</a>
+<ul class="sectlevel3">
+<li><a href="#Defining-Constants_Names_Reserved-Words">3.2.1. Reserved Words</a></li>
+<li><a href="#Defining-Constants_Names_Name-Clashes">3.2.2. Name Clashes</a></li>
+</ul>
+</li>
 <li><a href="#Defining-Constants_Expressions">3.3. Expressions</a>
 <ul class="sectlevel3">
 <li><a href="#Defining-Constants_Expressions_Primitive-Values">3.3.1. Primitive Values</a></li>
@@ -813,6 +818,74 @@ the input ended where it expected an expression.</p>
 <p><code>1invalid</code> is not a valid name, because names may not start with digits.</p>
 </li>
 </ul>
+</div>
+<div class="sect3">
+<h4 id="Defining-Constants_Names_Reserved-Words">3.2.1. Reserved Words</h4>
+<div class="paragraph">
+<p>Certain sequences of letters such as <code>constant</code> are called out as <strong>reserved
+words</strong> in FPP.
+Each reserved word has a special meaning, such as introducing a constant
+declaration.
+<em>The FPP Language Specification</em> has a complete list of reserved words.</p>
+</div>
+<div class="paragraph">
+<p>Using a reserved word as a name in the ordinary way causes a parsing error.
+For example, this code is incorrect:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant constant = 0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To use a reserved word as a name, you must put the character <code>$</code> in
+front of it with no space.
+For example, this code is legal:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant $constant = 0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The character sequence <code>$constant</code> represents the name <code>constant</code>,
+as opposed to the keyword <code>constant</code>.</p>
+</div>
+<div class="paragraph">
+<p>You can put the character <code>$</code> in front of any identifier,
+not just a keyword.
+If the identifier is not a keyword, then the <code>$</code> has no effect.
+For example, <code>$name</code> has the same meaning as <code>name</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Constants_Names_Name-Clashes">3.2.2. Name Clashes</h4>
+<div class="paragraph">
+<p>FPP will not let you define two different symbols of the same
+kind with the same name.
+For example, this code will produce an error:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant c = 0
+constant c = 1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Two symbols can have the same unqualified name if they
+reside in different
+<a href="#Defining-Modules">modules</a> or
+<a href="#Defining-Enums">enums</a>; these concepts
+are explained below.
+Two symbols can also have the same name if the analyzer
+can distinguish them based on their kinds.
+For example, an
+<a href="#Defining-Types_Array-Type-Definitions">array type</a> (described below) and a
+constant
+can have the same name, but an array type and a
+<a href="#Defining-Types_Struct-Type-Definitions">struct type</a> may not.
+<em>The FPP Language Specification</em> has all the details.</p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -1530,7 +1603,9 @@ example timing analysis, that are not part of the FPP language specification.</p
 with a name, called the <strong>module name</strong>.
 An FPP module corresponds to a namespace in C&#43;&#43; and a module in Python.
 Modules are useful for (1) organizing a large model into a hierarchy of smaller
-units and (2) avoiding name clashes between different units.</p>
+units and (2) avoiding
+<a href="#Defining-Constants_Names_Name-Clashes">name clashes</a>
+between different units.</p>
 </div>
 <div class="paragraph">
 <p>To define a module, you write the keyword <code>module</code> followed by one
@@ -4456,7 +4531,7 @@ section on <a href="#Specifying-Models">specifying models</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-09-30 16:55:57 -0700
+Last updated 2020-09-30 17:22:09 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
