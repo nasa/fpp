@@ -21,15 +21,7 @@ trait AstStateVisitor extends AstVisitor {
     s: State,
     list: List[T],
     visit: (State, T) => Result
-  ): Result = {
-    list match {
-      case Nil => Right(s)
-      case head :: tail => visit(s, head) match {
-        case Left(e) => Left(e)
-        case Right(s) => visitList(s, tail, visit)
-      }
-    }
-
-  }
-
+  ): Result = 
+    Result.foldLeft (list) (s) (visit)
+  
 }
