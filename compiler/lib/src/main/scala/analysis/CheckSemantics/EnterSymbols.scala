@@ -86,11 +86,21 @@ object EnterSymbols
         case None => 
           val symbol = Symbol.Module(aNode)
           val scope = Scope.empty
-          val nestedScope = NameGroup.groups.foldLeft(a1.nestedScope) ( (ns, ng) => {
-            Result.expectRight(ns.put (ng) (name, symbol))
-          } )
-          val a = a1.copy(nestedScope = nestedScope)
-          Right((a, symbol, scope))
+          def updateNameGroups(ngs: List[NameGroup], ns: NestedScope): Result.Result[NestedScope] =
+            ngs match {
+              case Nil => Right(ns)
+              case ng :: tail =>
+                ns.put (ng) (name, symbol) match {
+                  case Right(ns) => updateNameGroups(tail, ns)
+                  case Left(e) => Left(e)
+                }
+            }
+          updateNameGroups(NameGroup.groups, a1.nestedScope) match {
+            case Right(nestedScope) =>
+              val a = a1.copy(nestedScope = nestedScope)
+              Right((a, symbol, scope))
+            case Left(e) => Left(e)
+          }
         case Some(symbol) => 
           val error = SemanticError.RedefinedSymbol(
             name,
