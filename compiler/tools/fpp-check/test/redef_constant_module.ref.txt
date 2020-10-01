@@ -1,9 +1,9 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/redef_constant_module.fpp: 3.3
-  constant x = 1
-  ^
-error: redefinition of symbol x
+[ local path prefix ]/compiler/tools/fpp-check/test/redef_constant_module.fpp: 2.1
+module c { }
+^
+error: redefinition of symbol c
 previous definition was here:
-[ local path prefix ]/compiler/tools/fpp-check/test/redef_constant_module.fpp: 2.3
-  constant x = 0
-  ^
+[ local path prefix ]/compiler/tools/fpp-check/test/redef_constant_module.fpp: 1.1
+constant c = 0
+^

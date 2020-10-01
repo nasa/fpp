@@ -1,4 +1,2 @@
-module M {
-  constant x = 0
-  constant x = 1
-}
+constant c = 0
+module c { }
