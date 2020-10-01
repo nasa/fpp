@@ -10,4 +10,14 @@ object NameGroup {
   case object Topoology extends NameGroup
   case object Type extends NameGroup
   case object Value extends NameGroup
+
+  val groups = List(
+    ComponentInstance,
+    Component,
+    Port,
+    Topoology,
+    Type,
+    Value
+  )
+
 }

@@ -75,28 +75,42 @@ object EnterSymbols
   ) = {
     val (_, node, _) = aNode
     val Ast.DefModule(name, members) = node.getData
-    val oldModuleNameList = a.scopeNameList
-    val newModuleNameList = name :: oldModuleNameList
-    val a1 = a.copy(scopeNameList = newModuleNameList)
-    val qualifiedName = Name.Qualified.fromIdentList(newModuleNameList.reverse)
-    val symbol = Symbol.Module(qualifiedName)
-    val (a2, scope) = a1.symbolScopeMap.get(symbol) match {
-      case Some(scope) => (a1, scope)
-      case None => {
-        val scope = Scope.empty
-        val nestedScope = Result.expectRight(a1.nestedScope.put(NameGroup.Value)(name, symbol))
-        val nestedScope1 = Result.expectRight(nestedScope.put(NameGroup.Type)(name, symbol))
-        val a = a1.copy(nestedScope = nestedScope1)
-        (a, scope)
+    val oldScopeNameList = a.scopeNameList
+    val newScopeNameList = name :: oldScopeNameList
+    val a1 = a.copy(scopeNameList = newScopeNameList)
+    for {
+      triple <- a1.nestedScope.get (NameGroup.Value) (name) match {
+        case Some(symbol: Symbol.Module) => 
+          val scope = a1.symbolScopeMap(symbol)
+          Right((a1, symbol, scope))
+        case None => 
+          val symbol = Symbol.Module(aNode)
+          val scope = Scope.empty
+          val nestedScope = NameGroup.groups.foldLeft(a1.nestedScope) ( (ns, ng) => {
+            Result.expectRight(ns.put (ng) (name, symbol))
+          } )
+          val a = a1.copy(nestedScope = nestedScope)
+          Right((a, symbol, scope))
+        case Some(symbol) => 
+          val error = SemanticError.RedefinedSymbol(
+            name,
+            Locations.get(node.getId),
+            symbol.getLoc
+          )
+          Left(error)
+      }
+      a <- {
+        val (a2, _, scope) = triple
+        val a3 = a2.copy(nestedScope = a2.nestedScope.push(scope))
+        visitList(a3, members, matchModuleMember)
       }
     }
-    val a3 = a2.copy(nestedScope = a2.nestedScope.push(scope))
-    for (a <- visitList(a3, members, matchModuleMember))
     yield {
+      val symbol = triple._2
       val scope = a.nestedScope.innerScope
       val newSymbolScopeMap = a.symbolScopeMap + (symbol -> scope)
       val a1 = a.copy(
-        scopeNameList = oldModuleNameList,
+        scopeNameList = oldScopeNameList,
         nestedScope = a.nestedScope.pop,
         symbolScopeMap = newSymbolScopeMap
       )

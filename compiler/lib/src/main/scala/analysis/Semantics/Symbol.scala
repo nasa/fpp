@@ -62,8 +62,9 @@ object Symbol {
     override def getNodeIdOpt = Some(node._2.getId)
     override def getUnqualifiedName = node._2.getData.name
   }
-  final case class Module(name: Name.Qualified) extends Symbol {
-    override def getUnqualifiedName = name.base
+  final case class Module(node: Ast.Annotated[AstNode[Ast.DefModule]]) extends Symbol {
+    override def getNodeIdOpt = Some(node._2.getId)
+    override def getUnqualifiedName = node._2.getData.name
   }
   final case class Port(node: Ast.Annotated[AstNode[Ast.DefPort]]) extends Symbol {
     override def getNodeIdOpt = Some(node._2.getId)
