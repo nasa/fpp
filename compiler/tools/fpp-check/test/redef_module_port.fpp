@@ -1,0 +1,2 @@
+module P { }
+port P

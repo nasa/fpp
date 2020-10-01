@@ -54,10 +54,13 @@ redef_constant_module
 redef_enum
 redef_enum_constant
 redef_module_constant
+redef_module_port
+redef_module_type
 redef_port
 redef_port_module
 redef_struct
 redef_type
+redef_type_module
 spec_loc_abs_type_error
 spec_loc_abs_type_ok
 spec_loc_array_error

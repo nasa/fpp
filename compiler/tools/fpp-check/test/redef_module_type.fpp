@@ -1,0 +1,2 @@
+module T { }
+type T
