@@ -103,18 +103,25 @@ object CheckUses extends UseAnalyzer {
 
   override def defModuleAnnotatedNode(
     a: Analysis,
-    node: Ast.Annotated[AstNode[Ast.DefModule]]
+    aNode: Ast.Annotated[AstNode[Ast.DefModule]]
   ) = {
-    val (_, node1, _) = node
-    val Ast.DefModule(name, members) = node1.getData
+    val node = aNode._2
+    val Ast.DefModule(name, members) = node.getData
     val oldModuleNameList = a.scopeNameList
     val newModuleNameList = name :: oldModuleNameList
     val qualifiedName = Name.Qualified.fromIdentList(newModuleNameList.reverse)
-    val symbol = Symbol.Module(qualifiedName)
-    val scope = a.symbolScopeMap(symbol)
-    val newNestedScope = a.nestedScope.push(scope)
-    val a1 = a.copy(scopeNameList = newModuleNameList, nestedScope = newNestedScope)
-    for (a <- visitList(a1, members, matchModuleMember))
+    for {
+      symbol <- {
+        val mapping = a.nestedScope.get (NameGroup.Value) _
+        getSymbolForName(mapping)(node, name)
+      }
+      a <- {
+        val scope = a.symbolScopeMap(symbol)
+        val newNestedScope = a.nestedScope.push(scope)
+        val a1 = a.copy(scopeNameList = newModuleNameList, nestedScope = newNestedScope)
+        visitList(a1, members, matchModuleMember)
+      }
+    }
     yield a.copy(
       scopeNameList = oldModuleNameList,
       nestedScope = a.nestedScope.pop
