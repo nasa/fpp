@@ -83,29 +83,6 @@ object EnterSymbols
         case Some(symbol: Symbol.Module) => 
           val scope = a1.symbolScopeMap(symbol)
           Right((a1, symbol, scope))
-        case None => 
-          val symbol = Symbol.Module(aNode)
-          val scope = Scope.empty
-          def foldLeftResult[A,B]
-            (as: List[A])
-            (b: B)
-            (f: (B, A) => Result.Result[B]): Result.Result[B] =
-            as match {
-              case Nil => Right(b)
-              case a :: tail =>
-                f(b, a) match {
-                  case Right(b) => foldLeftResult(tail)(b)(f)
-                  case Left(e) => Left(e)
-                }
-            }
-          foldLeftResult(NameGroup.groups)(a1.nestedScope)( (ns, ng) => {
-            ns.put (ng) (name, symbol)
-          } ) match {
-            case Right(nestedScope) =>
-              val a = a1.copy(nestedScope = nestedScope)
-              Right((a, symbol, scope))
-            case Left(e) => Left(e)
-          }
         case Some(symbol) => 
           val error = SemanticError.RedefinedSymbol(
             name,
@@ -113,6 +90,18 @@ object EnterSymbols
             symbol.getLoc
           )
           Left(error)
+        case None => 
+          val symbol = Symbol.Module(aNode)
+          val scope = Scope.empty
+          for {
+            nestedScope <- Result.foldLeft (NameGroup.groups) (a1.nestedScope) (
+              (ns, ng) => ns.put (ng) (name, symbol)
+            )
+          }
+          yield {
+            val a = a1.copy(nestedScope = nestedScope)
+            (a, symbol, scope)
+          }
       }
       a <- {
         val (a2, _, scope) = triple

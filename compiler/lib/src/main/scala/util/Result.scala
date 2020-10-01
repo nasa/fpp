@@ -5,6 +5,20 @@ object Result {
 
   type Result[T] = Either[Error, T]
   
+  /** Left fold with a function that returns a result */
+  def foldLeft[A,B]
+    (as: List[A])
+    (b: B)
+    (f: (B, A) => Result.Result[B]): Result.Result[B] =
+    as match {
+      case Nil => Right(b)
+      case a :: tail =>
+        f(b, a) match {
+          case Right(b) => foldLeft(tail)(b)(f)
+          case Left(e) => Left(e)
+        }
+    }
+
   /** Apply a result function to each element of a list */
   def map[A,B](
     list: List[A], 
