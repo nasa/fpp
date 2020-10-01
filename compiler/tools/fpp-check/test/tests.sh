@@ -55,6 +55,7 @@ redef_enum
 redef_enum_constant
 redef_module_constant
 redef_port
+redef_port_module
 redef_struct
 redef_type
 spec_loc_abs_type_error

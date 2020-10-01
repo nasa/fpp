@@ -86,16 +86,21 @@ object EnterSymbols
         case None => 
           val symbol = Symbol.Module(aNode)
           val scope = Scope.empty
-          def updateNameGroups(ngs: List[NameGroup], ns: NestedScope): Result.Result[NestedScope] =
-            ngs match {
-              case Nil => Right(ns)
-              case ng :: tail =>
-                ns.put (ng) (name, symbol) match {
-                  case Right(ns) => updateNameGroups(tail, ns)
+          def foldLeftResult[A,B]
+            (as: List[A])
+            (b: B)
+            (f: (B, A) => Result.Result[B]): Result.Result[B] =
+            as match {
+              case Nil => Right(b)
+              case a :: tail =>
+                f(b, a) match {
+                  case Right(b) => foldLeftResult(tail)(b)(f)
                   case Left(e) => Left(e)
                 }
             }
-          updateNameGroups(NameGroup.groups, a1.nestedScope) match {
+          foldLeftResult(NameGroup.groups)(a1.nestedScope)( (ns, ng) => {
+            ns.put (ng) (name, symbol)
+          } ) match {
             case Right(nestedScope) =>
               val a = a1.copy(nestedScope = nestedScope)
               Right((a, symbol, scope))
