@@ -107,9 +107,6 @@ object CheckUses extends UseAnalyzer {
   ) = {
     val node = aNode._2
     val Ast.DefModule(name, members) = node.getData
-    val oldModuleNameList = a.scopeNameList
-    val newModuleNameList = name :: oldModuleNameList
-    val qualifiedName = Name.Qualified.fromIdentList(newModuleNameList.reverse)
     for {
       symbol <- {
         val mapping = a.nestedScope.get (NameGroup.Value) _
@@ -118,14 +115,11 @@ object CheckUses extends UseAnalyzer {
       a <- {
         val scope = a.symbolScopeMap(symbol)
         val newNestedScope = a.nestedScope.push(scope)
-        val a1 = a.copy(scopeNameList = newModuleNameList, nestedScope = newNestedScope)
+        val a1 = a.copy(nestedScope = newNestedScope)
         visitList(a1, members, matchModuleMember)
       }
     }
-    yield a.copy(
-      scopeNameList = oldModuleNameList,
-      nestedScope = a.nestedScope.pop
-    )
+    yield a.copy(nestedScope = a.nestedScope.pop)
   }
 
   private def getSymbolForName[T] 
@@ -133,10 +127,9 @@ object CheckUses extends UseAnalyzer {
     (node: AstNode[T], name: Name.Unqualified): Result.Result[Symbol] =
     mapping(name) match {
       case Some(symbol) => Right(symbol)
-      case None => {
+      case None =>
         val loc = Locations.get(node.getId)
         Left(SemanticError.UndefinedSymbol(name, loc))
-      }
     }
 
 }
