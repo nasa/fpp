@@ -83,7 +83,7 @@ the value name group, and the type name group.
 
 * Enumerated constant definitions reside in the value name group.
 
-* Module definitions reside in the all the name groups.
+* Module definitions reside in all the name groups.
 
 * Port definitions reside in the port name group.
 
