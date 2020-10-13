@@ -26,10 +26,7 @@ object PortXmlFppWriter extends LineUtils {
         kind <- XmlFppWriter.getAttributeOpt(node, "pass_by") match {
           case Some("value") => Right(Ast.FormalParam.Value)
           case Some("reference") => Right(Ast.FormalParam.Ref)
-          case Some(s) => 
-            Left(
-              file.error(XmlError.SemanticError(_, s"invalid attribute pass_by in node ${node.toString}"))
-            )
+          case Some(_) => Left(file.invalidAttribute("pass_by", node))
           case None => Right(Ast.FormalParam.Value)
         }
         typeName <- translateType(file)(node)

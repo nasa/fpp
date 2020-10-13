@@ -83,6 +83,10 @@ object XmlFppWriter extends LineUtils {
         case _ => Left(error(XmlError.SemanticError(_, s"multiple child nodes $name for node ${node.toString}")))
       }
 
+    /** Reports an invalid attribute */
+    def invalidAttribute(name: String, node: scala.xml.Node): Error =
+      error(XmlError.SemanticError(_, s"invalid attribute $name in node ${node.toString}"))
+
     /** Translates an XML type to an FPP type name */
     def translateType
       (getType: scala.xml.Node => Result.Result[String])
