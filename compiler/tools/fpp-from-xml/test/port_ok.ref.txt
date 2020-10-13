@@ -1,0 +1,18 @@
+module A {
+
+  enum Return {
+    X = 0
+    Y = 1
+    Z = 2
+  }
+
+  @ Top-level comment line 1
+  @ Top-level comment line 2
+  port OK(
+           a: U32 @< Argument a comment line 1
+                  @< Argument a comment line 2
+           ref b: string size 40 @< Argument b comment line 1
+                                 @< Argument b comment line 2
+         ) -> Return
+
+}
