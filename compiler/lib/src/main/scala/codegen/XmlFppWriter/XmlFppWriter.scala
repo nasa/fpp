@@ -30,8 +30,8 @@ object XmlFppWriter extends LineUtils {
       }
 
     /** Gets a comment from a node, returning an empty list if it is not there */
-    def getComment: Result.Result[List[String]] =
-      for (childOpt <- getSingleChildOpt(elem, "comment"))
+    def getComment(node: scala.xml.Node): Result.Result[List[String]] =
+      for (childOpt <- getSingleChildOpt(node, "comment"))
         yield {
           def removeOuterBlanks(list: List[String]) = {
             def removeLeadingBlanks(list: List[String]): List[String] =

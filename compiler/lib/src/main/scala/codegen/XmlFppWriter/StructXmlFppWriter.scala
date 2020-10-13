@@ -143,7 +143,7 @@ object StructXmlFppWriter extends LineUtils {
     def defStructAnnotated(file: XmlFppWriter.File):
       Result.Result[Ast.Annotated[Ast.DefStruct]] =
       for {
-        comment <- file.getComment
+        comment <- file.getComment(file.elem)
         structName <- file.getAttribute(file.elem, "name")
         members <- structTypeMemberAnnotatedNodeList(file)
       }

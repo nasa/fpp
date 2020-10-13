@@ -18,45 +18,6 @@ object PortXmlFppWriter extends LineUtils {
     def translateType(file: XmlFppWriter.File) = 
       file.translateType(node => file.getAttribute(node, "type")) _
 
-    /** Extracts a struct type member */
-    /*
-    def structTypeMemberAnnotatedNode(file: XmlFppWriter.File, node: scala.xml.Node): 
-      Result.Result[Ast.Annotated[AstNode[Ast.StructTypeMember]]] = {
-      val sizeOpt = XmlFppWriter.getAttributeOpt(node, "size")
-      for {
-        structName <- file.getAttribute(file.elem, "name")
-        memberName <- file.getAttribute(node, "name")
-        xmlType <- file.getAttribute(node, "type")
-        memberType <- {
-          (xmlType, sizeOpt) match {
-            case ("string", _) => translateType(file)(node)
-            case (_, Some(size)) => {
-              val arrayName = getArrayName(structName, memberName)
-              val arrayType = XmlFppWriter.FppBuilder.translateQualIdentType(arrayName)
-              Right(arrayType)
-            }
-            case _ => translateType(file)(node)
-          }
-        }
-      }
-      yield {
-        val xmlFormatOpt = sizeOpt match {
-          case Some(_) => None
-          case None => XmlFppWriter.getAttributeOpt(node, "format")
-        }
-        val (fppFormatOpt, pre) = XmlFppWriter.FppBuilder.translateFormatOpt(xmlFormatOpt)
-        val data = Ast.StructTypeMember(
-          memberName,
-          AstNode.create(memberType),
-          fppFormatOpt.map(AstNode.create(_))
-        )
-        val astNode = AstNode.create(data)
-        val post = XmlFppWriter.getAttributeComment(node)
-        (pre, astNode, post)
-      }
-    }
-    */
-
     /** Extracts a formal parameter */
     def formalParamAnnotatedNode(file: XmlFppWriter.File, node: scala.xml.Node): 
       Result.Result[Ast.Annotated[AstNode[Ast.FormalParam]]] =
@@ -84,7 +45,8 @@ object PortXmlFppWriter extends LineUtils {
     /** Extracts enum definitions from argument and return types */
     def defEnumAnnotatedList(file: XmlFppWriter.File):
       Result.Result[List[Ast.Annotated[Ast.DefEnum]]] =
-        /*
+      // TODO
+      /*
       for {
         child <- file.getSingleChild(file.elem, "members")
         members <- Right((child \ "member").toList)
@@ -140,7 +102,7 @@ object PortXmlFppWriter extends LineUtils {
     def defPortAnnotated(file: XmlFppWriter.File):
       Result.Result[Ast.Annotated[Ast.DefPort]] =
       for {
-        comment <- file.getComment
+        comment <- file.getComment(file.elem)
         name <- file.getAttribute(file.elem, "name")
         params <- formalParamList(file)
         returnType <- typeNameNodeOpt(file)

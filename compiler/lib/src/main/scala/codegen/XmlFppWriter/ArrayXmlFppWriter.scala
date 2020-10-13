@@ -41,7 +41,7 @@ object ArrayXmlFppWriter extends LineUtils {
       Result.Result[Ast.Annotated[Ast.DefArray]] =
       for {
         name <- file.getAttribute(file.elem, "name")
-        comment <- file.getComment
+        comment <- file.getComment(file.elem)
         xmlSize <- file.getSingleChild(file.elem, "size")
         xmlEltType <- file.getSingleChild(file.elem, "type")
         eltType <- translateType(file)(xmlEltType)
