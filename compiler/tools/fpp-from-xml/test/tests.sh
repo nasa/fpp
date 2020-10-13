@@ -6,6 +6,7 @@ enum_missing_name
 enum_ok
 member_array_of_enum
 parse_error
+port_cmd_resp
 struct_format
 struct_missing_member_name
 struct_ok

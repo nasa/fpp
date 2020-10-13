@@ -1,0 +1,19 @@
+module Fw {
+
+  enum CommandResponse {
+    COMMAND_OK = 0 @< Command successfully executed
+    COMMAND_INVALID_OPCODE = 1 @< Invalid opcode dispatched
+    COMMAND_VALIDATION_ERROR = 2 @< Command failed validation
+    COMMAND_FORMAT_ERROR = 3 @< Command failed to deserialize
+    COMMAND_EXECUTION_ERROR = 4 @< Command had execution error
+    COMMAND_BUSY = 5 @< Component busy
+  }
+
+  @ Command port
+  port CmdResponse(
+                    opCode: FwOpcodeType @< Command Op Code
+                    cmdSeq: U32 @< Command Sequence
+                    response: CommandResponse @< The command response argument
+                  )
+
+}
