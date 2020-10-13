@@ -89,34 +89,37 @@ object PortXmlFppWriter extends LineUtils {
         } 
       } yield result
       */
+    
+    /** Extracts the formal parameter list */
+    def formalParamList(file: XmlFppWriter.File):
+      Result.Result[Ast.FormalParamList] =
+      Right(Nil)
+
+    /** Extracts the return type */
+    def getReturnType(file: XmlFppWriter.File):
+      Result.Result[Option[AstNode[Ast.TypeName]]] =
+      file.getSingleChildOpt(file.elem, "return") match {
+        case Right(Some(child)) =>
+          for (typeName <- translateType(file)(child))
+            yield Some(AstNode.create(typeName))
+        case Right(None) => Right(None)
+        case Left(e) => Left(e)
+      }
 
     /** Generates the list of TU members */
-    def tuMemberList(file: XmlFppWriter.File): Result.Result[List[Ast.TUMember]] = {
+    def tuMemberList(file: XmlFppWriter.File): Result.Result[List[Ast.TUMember]] =
       for {
         enums <- defEnumAnnotatedList(file)
         port <- defPortAnnotated(file)
       }
-      yield {
-        def transform[A,B](construct: AstNode[A] => B)(a: Ast.Annotated[A]) = 
-          (a._1, construct(AstNode.create(a._2)), a._3)
-        val moduleNames = XmlFppWriter.getAttributeNamespace(file.elem)
-        val memberNodes = moduleNames match {
-          case Nil => {
-            val enums1 = enums.map(transform(Ast.TUMember.DefEnum))
-            val port1 = transform(Ast.TUMember.DefPort)(port)
-            enums1 :+ port1
-          }
-          case head :: tail => {
-            val enums1 = enums.map(transform(Ast.ModuleMember.DefEnum))
-            val port1 = transform(Ast.ModuleMember.DefPort)(port)
-            val aNodeList1 = enums1 :+ port1
-            val aNodeList2 = XmlFppWriter.FppBuilder.encloseWithModuleMemberModules(tail.reverse)(aNodeList1)
-            List(XmlFppWriter.FppBuilder.encloseWithTuMemberModule(head)(aNodeList2))
-          }
-        }
-        memberNodes.map(Ast.TUMember(_))
-      }      
-    }
+      yield XmlFppWriter.tuMemberList(
+        Nil,
+        enums,
+        port,
+        Ast.TUMember.DefPort(_),
+        Ast.ModuleMember.DefPort(_),
+        file
+      )
 
     /** Translates the port */
     def defPortAnnotated(file: XmlFppWriter.File):
@@ -124,8 +127,8 @@ object PortXmlFppWriter extends LineUtils {
       for {
         comment <- file.getComment
         name <- file.getAttribute(file.elem, "name")
-        params <- Right(Nil)
-        returnType <- Right(None)
+        params <- formalParamList(file)
+        returnType <- getReturnType(file)
       }
       yield (comment, Ast.DefPort(name, params, returnType), Nil)
 

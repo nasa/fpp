@@ -124,35 +124,20 @@ object StructXmlFppWriter extends LineUtils {
       } yield result
 
     /** Generates the list of TU members */
-    def tuMemberList(file: XmlFppWriter.File): Result.Result[List[Ast.TUMember]] = {
+    def tuMemberList(file: XmlFppWriter.File): Result.Result[List[Ast.TUMember]] =
       for {
         arrays <- defArrayAnnotatedList(file)
         enums <- defEnumAnnotatedList(file)
         struct <- defStructAnnotated(file)
       }
-      yield {
-        def transform[A,B](construct: AstNode[A] => B)(a: Ast.Annotated[A]) = 
-          (a._1, construct(AstNode.create(a._2)), a._3)
-        val moduleNames = XmlFppWriter.getAttributeNamespace(file.elem)
-        val memberNodes = moduleNames match {
-          case Nil => {
-            val arrays1 = arrays.map(transform(Ast.TUMember.DefArray))
-            val enums1 = enums.map(transform(Ast.TUMember.DefEnum))
-            val struct1 = transform(Ast.TUMember.DefStruct)(struct)
-            (arrays1 ++ enums1) :+ struct1
-          }
-          case head :: tail => {
-            val arrays1 = arrays.map(transform(Ast.ModuleMember.DefArray))
-            val enums1 = enums.map(transform(Ast.ModuleMember.DefEnum))
-            val struct1 = transform(Ast.ModuleMember.DefStruct)(struct)
-            val aNodeList1 = (arrays1 ++ enums1) :+ struct1
-            val aNodeList2 = XmlFppWriter.FppBuilder.encloseWithModuleMemberModules(tail.reverse)(aNodeList1)
-            List(XmlFppWriter.FppBuilder.encloseWithTuMemberModule(head)(aNodeList2))
-          }
-        }
-        memberNodes.map(Ast.TUMember(_))
-      }      
-    }
+      yield XmlFppWriter.tuMemberList(
+        arrays,
+        enums,
+        struct,
+        Ast.TUMember.DefStruct(_),
+        Ast.ModuleMember.DefStruct(_),
+        file
+      )
 
     /** Translates the struct type */
     def defStructAnnotated(file: XmlFppWriter.File):

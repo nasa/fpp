@@ -162,6 +162,52 @@ object XmlFppWriter extends LineUtils {
       yield Line.blankSeparated (identity[List[Line]]) (files)
   }
 
+  /** Builds a single TU member */
+  def tuMember[T](
+    aT: Ast.Annotated[T],
+    tumConstructor: AstNode[T] => Ast.TUMember.Node,
+    moduleConstructor: AstNode[T] => Ast.ModuleMember.Node,
+    file: XmlFppWriter.File
+  ) = tuMemberList(
+    Nil,
+    Nil,
+    aT,
+    tumConstructor,
+    moduleConstructor,
+    file
+  ).head
+
+  /** Builds a TU member list with extracted arrays and enums */
+  def tuMemberList[T](
+    arrays: List[Ast.Annotated[Ast.DefArray]],
+    enums: List[Ast.Annotated[Ast.DefEnum]],
+    aT: Ast.Annotated[T],
+    tumConstructor: AstNode[T] => Ast.TUMember.Node,
+    moduleConstructor: AstNode[T] => Ast.ModuleMember.Node,
+    file: XmlFppWriter.File
+  ): List[Ast.TUMember] = {
+    def transform[A,B](construct: AstNode[A] => B)(a: Ast.Annotated[A]) = 
+      (a._1, construct(AstNode.create(a._2)), a._3)
+    val moduleNames = XmlFppWriter.getAttributeNamespace(file.elem)
+    val memberNodes = moduleNames match {
+      case Nil => {
+        val arrays1 = arrays.map(transform(Ast.TUMember.DefArray))
+        val enums1 = enums.map(transform(Ast.TUMember.DefEnum))
+        val aT1 = transform(tumConstructor)(aT)
+        (arrays1 ++ enums1) :+ aT1
+      }
+      case head :: tail => {
+        val arrays1 = arrays.map(transform(Ast.ModuleMember.DefArray))
+        val enums1 = enums.map(transform(Ast.ModuleMember.DefEnum))
+        val aT1 = transform(moduleConstructor)(aT)
+        val aNodeList1 = (arrays1 ++ enums1) :+ aT1
+        val aNodeList2 = XmlFppWriter.FppBuilder.encloseWithModuleMemberModules(tail.reverse)(aNodeList1)
+        List(XmlFppWriter.FppBuilder.encloseWithTuMemberModule(head)(aNodeList2))
+      }
+    }
+    memberNodes.map(Ast.TUMember(_))
+  }      
+
   /** Utilities for constructing FPP ASTs */
   object FppBuilder {
 

@@ -63,23 +63,15 @@ object ArrayXmlFppWriter extends LineUtils {
         (note ++ comment, node, Nil)
       }
 
-    /** Generates the list of TU members */
+    /** Generates the TU member */
     def tuMember(file: XmlFppWriter.File): Result.Result[Ast.TUMember] =
-      for (data <- defArrayAnnotated(file))
-      yield {
-        def transform[A,B](construct: AstNode[A] => B)(a: Ast.Annotated[A]) = 
-          (a._1, construct(AstNode.create(a._2)), a._3)
-        val moduleNames = XmlFppWriter.getAttributeNamespace(file.elem)
-        val aNode = moduleNames match {
-          case Nil => transform(Ast.TUMember.DefArray)(data)
-          case head :: tail => {
-            val aNodeList1 = List(transform(Ast.TUMember.DefArray)(data))
-            val aNodeList2 = XmlFppWriter.FppBuilder.encloseWithModuleMemberModules(tail.reverse)(aNodeList1)
-            XmlFppWriter.FppBuilder.encloseWithTuMemberModule(head)(aNodeList2)
-          }
-        }
-        Ast.TUMember(aNode)
-      }
+      for (array <- defArrayAnnotated(file))
+        yield XmlFppWriter.tuMember(
+          array,
+          Ast.TUMember.DefArray(_),
+          Ast.ModuleMember.DefArray(_),
+          file
+        )
 
   }
 

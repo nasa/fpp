@@ -53,11 +53,11 @@ object EnumXmlFppWriter extends LineUtils {
       constant: scala.xml.Node
     ): Result.Result[Ast.Annotated[AstNode[Ast.DefEnumConstant]]] =
       for (data <- defEnumConstant(file, constant))
-      yield {
-        val a = XmlFppWriter.getAttributeComment(constant)
-        val node = AstNode.create(data)
-        (Nil, node, a)
-      }
+        yield {
+          val a = XmlFppWriter.getAttributeComment(constant)
+          val node = AstNode.create(data)
+          (Nil, node, a)
+        }
 
     def default(file: XmlFppWriter.File): Option[AstNode[Ast.Expr]] = {
       // Not supported in F Prime XML
@@ -69,22 +69,19 @@ object EnumXmlFppWriter extends LineUtils {
       None
     }
 
+    /** Generates the TU member */
     def tuMember(file: XmlFppWriter.File): Result.Result[Ast.TUMember] =
       for (data <- defEnum(file))
-      yield {
-        val a = annotation(file)
-        val moduleNames = XmlFppWriter.getAttributeNamespace(file.elem)
-        val node = AstNode.create(data)
-        val aNode = moduleNames match {
-          case Nil => (a, Ast.TUMember.DefEnum(node), Nil)
-          case head :: tail => {
-            val aNodeList1 = List((a, Ast.ModuleMember.DefEnum(node), Nil))
-            val aNodeList2 = XmlFppWriter.FppBuilder.encloseWithModuleMemberModules(tail.reverse)(aNodeList1)
-            XmlFppWriter.FppBuilder.encloseWithTuMemberModule(head)(aNodeList2)
-          }
+        yield {
+          val a = annotation(file)
+          val aT = (a, data, Nil)
+          XmlFppWriter.tuMember(
+            aT,
+            Ast.TUMember.DefEnum(_),
+            Ast.ModuleMember.DefEnum(_),
+            file
+          )
         }
-        Ast.TUMember(aNode)
-      }
 
   }
 
