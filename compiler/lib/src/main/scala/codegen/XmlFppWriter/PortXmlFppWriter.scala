@@ -33,7 +33,7 @@ object PortXmlFppWriter extends LineUtils {
           case None => Right(Ast.FormalParam.Value)
         }
         typeName <- translateType(file)(node)
-        comment <- Right(Nil)
+        comment <- file.getComment(node)
       }
       yield {
         val typeNameNode = AstNode.create(typeName)
@@ -45,19 +45,23 @@ object PortXmlFppWriter extends LineUtils {
     /** Extracts enum definitions from argument and return types */
     def defEnumAnnotatedList(file: XmlFppWriter.File):
       Result.Result[List[Ast.Annotated[Ast.DefEnum]]] =
-      // TODO
-      /*
       for {
-        child <- file.getSingleChild(file.elem, "members")
-        members <- Right((child \ "member").toList)
+        nodeOpt <- file.getSingleChildOpt(file.elem, "args")
+        nodes <- nodeOpt match {
+          case Some(node) => Right((node \ "arg").toList)
+          case None => Right(Nil)
+        }
+        retTypeNodeOpt <- file.getSingleChildOpt(file.elem, "return")
+        nodes <- retTypeNodeOpt match {
+          case Some(node) => Right(nodes :+ node)
+          case None => Right(nodes)
+        }
         enumOpts <- Result.map(
-          members,
+          nodes,
           XmlFppWriter.FppBuilder.InlineEnumBuilder.defEnumAnnotatedOpt(file)
         )
       }
       yield enumOpts.filter(_.isDefined).map(_.get)
-      */
-      Right(Nil)
 
     /** Extracts formal parameters */
     def formalParamList(file: XmlFppWriter.File): Result.Result[Ast.FormalParamList] =
