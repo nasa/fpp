@@ -18,10 +18,6 @@ object PortXmlFppWriter extends LineUtils {
     def translateType(file: XmlFppWriter.File) = 
       file.translateType(node => file.getAttribute(node, "type")) _
 
-    /** Constructs an array name from a struct name and a member name */
-    def getArrayName(structName: String, memberName: String) =
-      s"${structName}_${memberName}"
-
     /** Extracts a struct type member */
     /*
     def structTypeMemberAnnotatedNode(file: XmlFppWriter.File, node: scala.xml.Node): 
@@ -61,7 +57,31 @@ object PortXmlFppWriter extends LineUtils {
     }
     */
 
-    /** Extracts enum definitions from struct members */
+    /** Extracts a formal parameter */
+    def formalParamAnnotatedNode(file: XmlFppWriter.File, node: scala.xml.Node): 
+      Result.Result[Ast.Annotated[AstNode[Ast.FormalParam]]] =
+      for {
+        name <- file.getAttribute(node, "name")
+        kind <- XmlFppWriter.getAttributeOpt(node, "pass_by") match {
+          case Some("value") => Right(Ast.FormalParam.Value)
+          case Some("reference") => Right(Ast.FormalParam.Ref)
+          case Some(s) => 
+            Left(
+              file.error(XmlError.SemanticError(_, s"invalid attribute pass_by in node ${node.toString}"))
+            )
+          case None => Right(Ast.FormalParam.Value)
+        }
+        typeName <- translateType(file)(node)
+        comment <- Right(Nil)
+      }
+      yield {
+        val typeNameNode = AstNode.create(typeName)
+        val data = Ast.FormalParam(kind, name, typeNameNode)
+        val node = AstNode.create(data)
+        (Nil, node, comment)
+      }
+
+    /** Extracts enum definitions from argument and return types */
     def defEnumAnnotatedList(file: XmlFppWriter.File):
       Result.Result[List[Ast.Annotated[Ast.DefEnum]]] =
         /*
@@ -77,26 +97,20 @@ object PortXmlFppWriter extends LineUtils {
       */
       Right(Nil)
 
-    /** Extracts struct type members */
-    /*
-    def structTypeMemberAnnotatedNodeList(file: XmlFppWriter.File): 
-      Result.Result[List[Ast.Annotated[AstNode[Ast.StructTypeMember]]]] =
+    /** Extracts formal parameters */
+    def formalParamList(file: XmlFppWriter.File): Result.Result[Ast.FormalParamList] =
       for {
-        child <- file.getSingleChild(file.elem, "members")
-        result <- {
-          val members = child \ "member"
-          Result.map(members.toList, structTypeMemberAnnotatedNode(file, _))
-        } 
+        childOpt <- file.getSingleChildOpt(file.elem, "args")
+        result <- childOpt match {
+          case Some(child) =>
+            val args = child \ "arg"
+            Result.map(args.toList, formalParamAnnotatedNode(file, _))
+          case None => Right(Nil)
+        }
       } yield result
-      */
-    
-    /** Extracts the formal parameter list */
-    def formalParamList(file: XmlFppWriter.File):
-      Result.Result[Ast.FormalParamList] =
-      Right(Nil)
 
     /** Extracts the return type */
-    def getReturnType(file: XmlFppWriter.File):
+    def typeNameNodeOpt(file: XmlFppWriter.File):
       Result.Result[Option[AstNode[Ast.TypeName]]] =
       file.getSingleChildOpt(file.elem, "return") match {
         case Right(Some(child)) =>
@@ -109,11 +123,12 @@ object PortXmlFppWriter extends LineUtils {
     /** Generates the list of TU members */
     def tuMemberList(file: XmlFppWriter.File): Result.Result[List[Ast.TUMember]] =
       for {
+        arrays <- Right(Nil)
         enums <- defEnumAnnotatedList(file)
         port <- defPortAnnotated(file)
       }
       yield XmlFppWriter.tuMemberList(
-        Nil,
+        arrays,
         enums,
         port,
         Ast.TUMember.DefPort(_),
@@ -128,7 +143,7 @@ object PortXmlFppWriter extends LineUtils {
         comment <- file.getComment
         name <- file.getAttribute(file.elem, "name")
         params <- formalParamList(file)
-        returnType <- getReturnType(file)
+        returnType <- typeNameNodeOpt(file)
       }
       yield (comment, Ast.DefPort(name, params, returnType), Nil)
 
