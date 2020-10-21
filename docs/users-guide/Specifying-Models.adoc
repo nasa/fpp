@@ -7,10 +7,10 @@ it explains how to assemble a collection of elements into a model.
 
 In the discussion below
 
-* We focus on defining constants and types, because those 
+* We focus on defining constants, types, enums, and ports, because those 
 elements of FPP are currently implemented.
 In future versions of this User's Guide, we will extend the discussion to cover
-ports, components, and topologies.
+components, and topologies.
 
 * We discuss several tools for specifying and analyzing dependencies between
 model files.
@@ -282,13 +282,22 @@ we would write
 locate constant a at "a.fpp"
 ----
 
-For the current version of FPP, the kind of definition can be `constant` or `type`.
+For the current version of FPP, the kind of definition can be `constant`, 
+`type`, or `port`.
 To locate a type `T` in a file `T.fpp`, we would write the following:
 
 [source,fpp]
 ----
 # Locating a type definition
 locate type T at "T.fpp"
+----
+
+To locate a port `P` in a file `P.fpp`, we write the following:
+
+[source,fpp]
+----
+# Locating a port definition
+locate port P at "P.fpp"
 ----
 
 To locate an enum, we locate the type; the location of the enumerated

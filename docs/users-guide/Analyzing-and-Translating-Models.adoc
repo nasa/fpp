@@ -60,7 +60,7 @@ halts with nonzero status.
 
 === Generating XML
 
-The current code generation strategy for FPP is to generate
+The current strategy is to generate
 F Prime XML, and then to run the generated XML through the F Prime
 Python autocoders to generate {cpp}.
 In a future version of FPP, we will streamline this process.
@@ -68,7 +68,8 @@ In a future version of FPP, we will streamline this process.
 *XML file names:* The table <<xml-file-names>> shows how FPP definitions are 
 translated
 to F Prime XML files.
-The table shows only types and enums, because those are currently implemented.
+The table shows types, enums, and ports because those are the features
+currently implemented.
 As we implement more of FPP, we will extend this table.
 
 [[xml-file-names]]
@@ -79,6 +80,7 @@ As we implement more of FPP, we will extend this table.
 |Array _A_|_A_ `ArrayAi.xml`
 |Enum _E_|_E_ `EnumAi.xml`
 |Struct _S_|_S_ `SerializableAi.xml`
+|Port _P_|_P_ `PortAi.xml`
 |===
 
 For example, the FPP array definition
@@ -509,13 +511,13 @@ Its purpose is to address the following case:
 . You have already developed an F Prime model in XML.
 . You wish to translate the model to FPP so you can use FPP going forward.
 
-Currently translation for types and enumerations is available.
+Currently translation for types, enumerations, and ports is available.
 You can translate these elements in your XML model now,
 and use FPP to represent them going forward.
-To integrate the FPP types and enumerations with the rest of the XML model,
-use the
+To integrate these elements written in FPP with other model
+elements (components and topologies) written directly in XML, use the
 <<Analyzing-and-Translating-Models_Generating-XML,FPP to XML translation 
-described above>>.
+described above>> to generate XML from the FPP part.
 Later, when more of FPP becomes available, you can translate more
 of your model to FPP.
 
@@ -631,18 +633,28 @@ values in the annotation.
 That way, you can manually construct a default value in FPP.
 
 *Inline type definitions:*
-The F Prime Serializable XML type can
+The following F Prime XML formats may include definitions of arrays
+and enumerations:
+
+* The F Prime Serializable XML format can
 contain arrays and enumerations as member types.
-The array sizes and enumerated values are specified inline, as
+The array sizes and enumerated constants are specified inline, as
 part of the member definition.
 
-FPP does not represent these inline type definitions directly.
-In FPP, type definitions are always named, so they can be reused.
-Therefore, when translating a Serializable XML type that contains
-an array or enumeration member with an inline type definition, `fpp-to-xml` 
-does the following: (1) translate
-the inline definition to a named FPP type; and (2) use the named type in the 
-translated member.
+* The F Prime Port XML format can contain enumerations
+as parameter types or as the return type.
+Again the enumerated constants are specified inline.
+
+We call such definitions *inline array and enum definitions*, because each one
+is embedded in some other definition (the definition of a serializable type or 
+of a port).
+
+FPP does not represent inline array and enum definitions directly.
+In FPP, array and enum definitions are always named, so they can be reused.
+Therefore, when translating a Serializable XML file or Port XML file that 
+contains inline definitions, `fpp-to-xml` does the following: (1) translate
+each inline definition to a named FPP type; and (2) use the named types in the
+translated FPP struct type or port.
 
 For example, here is an F Prime Serializable XML type
 `N::S` containing a member `m` that is an array of 10 `U32`
@@ -676,27 +688,35 @@ module N {
 Notice the following:
 
 . The namespace `N` in the XML is translated to module `N` in FPP.
-. The Serializable type `N::S` in the XML is translated to struct `N.S` in FPP.
+. The Serializable type `N::S` in the XML is translated to the struct type 
+`N.S` in FPP.
 . The translator has generated an array type `N.S_m` to represent the
 type of member `m` of struct `N.S`.
 . The translator has given member `m` of struct `N.S` the type `N.S_m`.
 
-The handling of inline enumeration types is similar.
+The handling of inline enumeration types and of formal parameters in ports is 
+similar.
 
-While `fpp-from-xml` will translate inline
-array and enum definitions in the manner described, it may be
-better not to rely on this capability.
-Instead, you can first refactor your XML model and your FSW
-to eliminate all inline type definitions in the XML, and then translate from
-XML to FPP.
-This approach has better separation of concerns, because you can refactor,
-test the refactoring, translate, and test the translation.
-If you translate first, then you will still need to refactor; but then you must 
-implement and test the translation and the refactoring at the same time.
+If you have an existing XML model, and that model contains Serializable
+XML files or Port XML files with inline arrays or enums, then we suggest the 
+following procedure for translating the model to FPP:
 
-In any event, the use of inline array and enum members is being phased
-out in favor of named array and enum types as we
-migrate to FPP.
+. Run `fpp-from-xml` as described above.
+. Refactor your XML model to use the XML types generated in step 1.
+This may require changes to your {cpp} code.
+For example, inline XML enums and XML enum types generate
+slightly different code.
+Therefore, you will need to revise any
+uses of the old inline enums to match the new format.
+Do this step incrementally, making sure that all your regression tests pass at 
+each step.
+During this step, you can replace auto-generated names such as `S_m`
+with more meaningful names.
+. Once you have the XML model in the required form, run `fpp-from-xml`
+again to generate an FPP model _M_.
+If you have done step 2 correctly, then you should be able to
+replace your handwritten XML with the result of running `fpp-to-xml`
+on _M_.
 
 *Format strings:*
 `fpp-from-xml` translates XML format strings to FPP
