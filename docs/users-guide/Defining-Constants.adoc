@@ -16,7 +16,7 @@ that defines the value associated with the constant definition.
 * Writing multiple constant definitions.
 * Writing a constant definition that spans two or more lines of source text.
 
-=== The Basics
+=== Writing a Constant Definition
 
 To write a constant definition, you write the keyword `constant`,
 an equals sign, and an expression.

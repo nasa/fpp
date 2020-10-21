@@ -1,0 +1,207 @@
+== Defining Ports
+
+A *port definition* defines an F Prime port.
+In F Prime, a port is the endpoint of a connection
+between two component instances.
+A port definition specifies (1) the name of the port, (2) the type of the data 
+carried
+on the port and (3) an optional return type.
+
+=== Port Names
+
+The simplest port definition consists of the keyword `port` followed
+by a name.
+For example:
+
+[source,fpp]
+----
+port P
+----
+
+This code defines a port named `P` that carries no data and returns
+no data.
+This kind of port can be useful for sending or receiving a triggering event.
+
+=== Formal Parameters
+
+More often, a port will carry data.
+To specify the data, you write more *formal parameters*
+enclosed in parentheses.
+These are similar to the formal parameters of a function in a programming
+language: each one has a name and a type, and you may write
+zero or more of them.
+For example:
+
+[source,fpp]
+----
+port P1() # Zero parameters; equivalent to port P1
+port P2(a: U32) # One parameter
+port P3(a: I32, b: F32, c: string) # Three parameters
+----
+
+The type of a formal parameter may be any valid type, including an
+array type, a struct type, an enum type, or an abstract type.
+For example, here is some code that defines an enum type `E` and
+and abstract type `T`, and then uses those types in the
+formal parameters of a port:
+
+[source,fpp]
+----
+enum E { A, B }
+type T
+port P(e: E, t: T)
+----
+
+Each formal parameter of a port _P_ becomes bound to an argument (a value) when 
+_P_ is *invoked*.
+The invocation generally occurs in {cpp} code that you write by hand.
+To invoke a port, you call an auto-generated function.
+The arguments are {cpp} values, and their types must match the
+types of the {cpp} function parameters generated from the FPP port parameters.
+For more information about invoking ports, see the F Prime User's Guide.
+
+The formal parameters form an
+<<Defining-Constants_Multiple-Definitions-and-Element-Sequences,element
+sequence>> in which the optional terminating punctuation is a comma.  As usual
+for element sequences, you can omit the comma and use a newline instead.  So,
+for example, we can write the definition shown above in this alternate way:
+
+[source,fpp]
+----
+enum E { A, B }
+type T
+port P(
+  e: E
+  t: T
+)
+----
+
+=== Returning Values
+
+Optionally, you can give the port a return type.
+To do this you write an arrow `pass:[->]` and a type
+after the name and the formal parameters, if any.
+For example:
+
+[source,fpp]
+----
+type T
+port P1 -> U32 # No parameters, returns U32
+port P2(a: U32, b: F32) -> T # Two parameters, returns T
+----
+
+Invoking a port with a return type is like calling a function with
+a return value.
+Such a port may be used only in a synchronous context.
+
+You may also write the keyword `ref` in front of any formal parameter _p_.
+Doing this specifies that _p_ is a *reference parameter*, i.e.,
+its data is passed by reference.
+For example:
+
+[source,fpp]
+----
+port P(ref a: U32)
+----
+
+In this example, `a` is a reference parameter of type `U32`.
+If a port _P_ has one or more parameters marked `ref`, then
+_P_ may be used only in a synchronous context.
+
+`ref` parameters provide another way to return values on the port,
+by assigning to the reference, instead of 
+executing a {cpp} `return` statement.
+As an example, consider the following two port definitions:
+
+[source,fpp]
+----
+type T
+port P1 -> T
+port P2(ref t: T)
+----
+
+The similarities and differences are as follows:
+
+. Both `P1` and `P2` must be used in a synchronous context,
+because each returns a `T` value.
+
+. In the generated {cpp} code,
+
+.. The function for invoking `P1`
+has no arguments and returns a `T` value.
+A handler associated with `P1` returns a value of type `T`
+via the {cpp} `return` statement.
+For example:
++
+----
+T P1_handler() {
+  ...
+  return T(1, 2, 3);
+}
+----
+
+.. The function for invoking `P1` has one argument `t`
+of type `T&`.
+A handler associated with `P2` returns a value of type `T`
+by updating the reference `t` (assigning to it, or updating
+its fields).
+For example:
++
+----
+void P2_handler(T& t) {
+  ...
+  t = T(1, 2, 3);
+}
+----
++
++
+
+The second way may involve less copying of data.
+
+Finally, there can be ave any number of reference parameters,
+but at most one return value.
+So if you need to return multiple values on a port, then reference
+parameters can be useful.
+As an example, the following port attempts to update a result
+value of type `U32`.
+It does this via reference parameter.
+It also returns a status value indicating whether the update
+was successful.
+
+[source,fpp]
+----
+enum Status { SUCCEED, FAIL }
+port P(ref result: U32) -> Status
+----
+
+A handler for `P` might look like this:
+
+----
+Status P_handler(U32& result) {
+  Status status = Status::FAIL;
+  if (...) {
+    ...
+    result = ...
+    status = Status::SUCCEED; 
+  }
+  return status;
+}
+----
+
+=== Annotating a Port Definition
+
+A port definition is an
+<<Writing-Comments-and-Annotations_Annotations,annotatable element>>.
+Each formal parameter is also an annotatable element.
+Here is an example:
+
+[source,fpp]
+----
+@ Pre annotation for port P
+port P(
+  @ Pre annotation for parameter a
+  a: U32
+  @ Pre annotation for parameter b
+  b: F32
+)
+----
