@@ -420,7 +420,7 @@ module definitions and enum definitions below.
 
 ==== Value Arithmetic Expressions
 
-An *value arithmetic expression* performs arithmetic on values.
+A *value arithmetic expression* performs arithmetic on values.
 It is one of the following:
 
 * A negation expression, for example:
@@ -430,7 +430,7 @@ It is one of the following:
 constant a = -1
 ----
 * A binary operation expression, where the binary operation is one of `+` (addition), `-` (subtraction),
-`*` (multiplication), and `-` (division). For example:
+`*` (multiplication), and `/` (division). For example:
 +
 [source,fpp]
 ----
