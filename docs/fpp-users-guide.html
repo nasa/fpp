@@ -446,7 +446,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Installing-FPP">2. Installing FPP</a></li>
 <li><a href="#Defining-Constants">3. Defining Constants</a>
 <ul class="sectlevel2">
-<li><a href="#Defining-Constants_The-Basics">3.1. The Basics</a></li>
+<li><a href="#Defining-Constants_Writing-a-Constant-Definition">3.1. Writing a Constant Definition</a></li>
 <li><a href="#Defining-Constants_Names">3.2. Names</a>
 <ul class="sectlevel3">
 <li><a href="#Defining-Constants_Names_Reserved-Words">3.2.1. Reserved Words</a></li>
@@ -508,38 +508,46 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Enums_The-Default-Value">7.5. The Default Value</a></li>
 </ul>
 </li>
-<li><a href="#Specifying-Models">8. Specifying Models</a>
+<li><a href="#Defining-Ports">8. Defining Ports</a>
 <ul class="sectlevel2">
-<li><a href="#Specifying-Models_Dividing-Models-into-Files">8.1. Dividing Models into Files</a></li>
-<li><a href="#Specifying-Models_Include-Specifiers">8.2. Include Specifiers</a></li>
-<li><a href="#Specifying-Models_Dependencies">8.3. Dependencies</a></li>
-<li><a href="#Specifying-Models_Location-Specifiers">8.4. Location Specifiers</a>
-<ul class="sectlevel3">
-<li><a href="#Specifying-Models_Location-Specifiers_Syntax">8.4.1. Syntax</a></li>
-<li><a href="#Specifying-Models_Location-Specifiers_Path-Names">8.4.2. Path Names</a></li>
-<li><a href="#Specifying-Models_Location-Specifiers_Definition-Names">8.4.3. Definition Names</a></li>
-<li><a href="#Specifying-Models_Location-Specifiers_Included-Files">8.4.4. Included Files</a></li>
+<li><a href="#Defining-Ports_Port-Names">8.1. Port Names</a></li>
+<li><a href="#Defining-Ports_Formal-Parameters">8.2. Formal Parameters</a></li>
+<li><a href="#Defining-Ports_Returning-Values">8.3. Returning Values</a></li>
+<li><a href="#Defining-Ports_Annotating-a-Port-Definition">8.4. Annotating a Port Definition</a></li>
 </ul>
 </li>
-<li><a href="#Specifying-Models_Locating-Definitions">8.5. Locating Definitions</a></li>
-<li><a href="#Specifying-Models_Computing-Dependencies">8.6. Computing Dependencies</a>
-<ul class="sectlevel3">
-<li><a href="#Specifying-Models_Computing-Dependencies_Running-fpp-depend">8.6.1. Running fpp-depend</a></li>
-<li><a href="#Specifying-Models_Computing-Dependencies_Transitive-Dependencies">8.6.2. Transitive Dependencies</a></li>
-<li><a href="#Specifying-Models_Computing-Dependencies_Missing-Dependencies">8.6.3. Missing Dependencies</a></li>
-<li><a href="#Specifying-Models_Computing-Dependencies_Included-Files">8.6.4. Included Files</a></li>
-</ul>
-</li>
-<li><a href="#Specifying-Models_Locating-Uses">8.7. Locating Uses</a></li>
-</ul>
-</li>
-<li><a href="#Analyzing-and-Translating-Models">9. Analyzing and Translating Models</a>
+<li><a href="#Specifying-Models">9. Specifying Models</a>
 <ul class="sectlevel2">
-<li><a href="#Analyzing-and-Translating-Models_Checking-Models">9.1. Checking Models</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-XML">9.2. Generating XML</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">9.3. Generating C Plus Plus</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Implementing-Abstract-Types">9.4. Implementing Abstract Types</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Translating-XML-to-FPP">9.5. Translating XML to FPP</a></li>
+<li><a href="#Specifying-Models_Dividing-Models-into-Files">9.1. Dividing Models into Files</a></li>
+<li><a href="#Specifying-Models_Include-Specifiers">9.2. Include Specifiers</a></li>
+<li><a href="#Specifying-Models_Dependencies">9.3. Dependencies</a></li>
+<li><a href="#Specifying-Models_Location-Specifiers">9.4. Location Specifiers</a>
+<ul class="sectlevel3">
+<li><a href="#Specifying-Models_Location-Specifiers_Syntax">9.4.1. Syntax</a></li>
+<li><a href="#Specifying-Models_Location-Specifiers_Path-Names">9.4.2. Path Names</a></li>
+<li><a href="#Specifying-Models_Location-Specifiers_Definition-Names">9.4.3. Definition Names</a></li>
+<li><a href="#Specifying-Models_Location-Specifiers_Included-Files">9.4.4. Included Files</a></li>
+</ul>
+</li>
+<li><a href="#Specifying-Models_Locating-Definitions">9.5. Locating Definitions</a></li>
+<li><a href="#Specifying-Models_Computing-Dependencies">9.6. Computing Dependencies</a>
+<ul class="sectlevel3">
+<li><a href="#Specifying-Models_Computing-Dependencies_Running-fpp-depend">9.6.1. Running fpp-depend</a></li>
+<li><a href="#Specifying-Models_Computing-Dependencies_Transitive-Dependencies">9.6.2. Transitive Dependencies</a></li>
+<li><a href="#Specifying-Models_Computing-Dependencies_Missing-Dependencies">9.6.3. Missing Dependencies</a></li>
+<li><a href="#Specifying-Models_Computing-Dependencies_Included-Files">9.6.4. Included Files</a></li>
+</ul>
+</li>
+<li><a href="#Specifying-Models_Locating-Uses">9.7. Locating Uses</a></li>
+</ul>
+</li>
+<li><a href="#Analyzing-and-Translating-Models">10. Analyzing and Translating Models</a>
+<ul class="sectlevel2">
+<li><a href="#Analyzing-and-Translating-Models_Checking-Models">10.1. Checking Models</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-XML">10.2. Generating XML</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">10.3. Generating C Plus Plus</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Implementing-Abstract-Types">10.4. Implementing Abstract Types</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Translating-XML-to-FPP">10.5. Translating XML to FPP</a></li>
 </ul>
 </li>
 </ul>
@@ -618,6 +626,9 @@ currently implemented features in the FPP compiler:</p>
 <p>Type and enum definitions</p>
 </li>
 <li>
+<p>Port definitions</p>
+</li>
+<li>
 <p>Specifying, analyzing, and translating models containing these kinds of
 definitions</p>
 </li>
@@ -628,8 +639,7 @@ definitions</p>
 </div>
 <div class="paragraph">
 <p><strong>XML limitations:</strong>
-The current translation strategy for FPP is to translate to F Prime XML
-and then to C&#43;&#43;.
+Currently we translate FPP is to F Prime XML and then to C&#43;&#43;.
 Some features of FPP are not supported in the XML representation.
 Where a feature is not supported, we will call out this fact in a
 note marked <strong>XML limitation</strong>.
@@ -724,7 +734,7 @@ that defines the value associated with the constant definition.</p>
 </ul>
 </div>
 <div class="sect2">
-<h3 id="Defining-Constants_The-Basics">3.1. The Basics</h3>
+<h3 id="Defining-Constants_Writing-a-Constant-Definition">3.1. Writing a Constant Definition</h3>
 <div class="paragraph">
 <p>To write a constant definition, you write the keyword <code>constant</code>,
 an equals sign, and an expression.
@@ -1239,7 +1249,7 @@ module definitions and enum definitions below.</p>
 <div class="sect3">
 <h4 id="Defining-Constants_Expressions_Value-Arithmetic-Expressions">3.3.6. Value Arithmetic Expressions</h4>
 <div class="paragraph">
-<p>An <strong>value arithmetic expression</strong> performs arithmetic on values.
+<p>A <strong>value arithmetic expression</strong> performs arithmetic on values.
 It is one of the following:</p>
 </div>
 <div class="ulist">
@@ -1254,7 +1264,7 @@ It is one of the following:</p>
 </li>
 <li>
 <p>A binary operation expression, where the binary operation is one of <code>+</code> (addition), <code>-</code> (subtraction),
-<code>*</code> (multiplication), and <code>-</code> (division). For example:</p>
+<code>*</code> (multiplication), and <code>/</code> (division). For example:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">constant a = 1 + 2</code></pre>
@@ -2646,7 +2656,252 @@ definition is ignored when translating to XML.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Specifying-Models">8. Specifying Models</h2>
+<h2 id="Defining-Ports">8. Defining Ports</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A <strong>port definition</strong> defines an F Prime port.
+In F Prime, a port is the endpoint of a connection
+between two component instances.
+A port definition specifies (1) the name of the port, (2) the type of the data
+carried
+on the port and (3) an optional return type.</p>
+</div>
+<div class="sect2">
+<h3 id="Defining-Ports_Port-Names">8.1. Port Names</h3>
+<div class="paragraph">
+<p>The simplest port definition consists of the keyword <code>port</code> followed
+by a name.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">port P</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This code defines a port named <code>P</code> that carries no data and returns
+no data.
+This kind of port can be useful for sending or receiving a triggering event.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-Ports_Formal-Parameters">8.2. Formal Parameters</h3>
+<div class="paragraph">
+<p>More often, a port will carry data.
+To specify the data, you write more <strong>formal parameters</strong>
+enclosed in parentheses.
+These are similar to the formal parameters of a function in a programming
+language: each one has a name and a type, and you may write
+zero or more of them.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">port P1() # Zero parameters; equivalent to port P1
+port P2(a: U32) # One parameter
+port P3(a: I32, b: F32, c: string) # Three parameters</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The type of a formal parameter may be any valid type, including an
+array type, a struct type, an enum type, or an abstract type.
+For example, here is some code that defines an enum type <code>E</code> and
+and abstract type <code>T</code>, and then uses those types in the
+formal parameters of a port:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">enum E { A, B }
+type T
+port P(e: E, t: T)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Each formal parameter of a port <em>P</em> becomes bound to an argument (a value) when
+<em>P</em> is <strong>invoked</strong>.
+The invocation generally occurs in C&#43;&#43; code that you write by hand.
+To invoke a port, you call an auto-generated function.
+The arguments are C&#43;&#43; values, and their types must match the
+types of the C&#43;&#43; function parameters generated from the FPP port parameters.
+For more information about invoking ports, see the F Prime User&#8217;s Guide.</p>
+</div>
+<div class="paragraph">
+<p>The formal parameters form an
+<a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">element
+sequence</a> in which the optional terminating punctuation is a comma.  As usual
+for element sequences, you can omit the comma and use a newline instead.  So,
+for example, we can write the definition shown above in this alternate way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">enum E { A, B }
+type T
+port P(
+  e: E
+  t: T
+)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-Ports_Returning-Values">8.3. Returning Values</h3>
+<div class="paragraph">
+<p>Optionally, you can give the port a return type.
+To do this you write an arrow <code>-></code> and a type
+after the name and the formal parameters, if any.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">type T
+port P1 -&gt; U32 # No parameters, returns U32
+port P2(a: U32, b: F32) -&gt; T # Two parameters, returns T</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Invoking a port with a return type is like calling a function with
+a return value.
+Such a port may be used only in a synchronous context.</p>
+</div>
+<div class="paragraph">
+<p>You may also write the keyword <code>ref</code> in front of any formal parameter <em>p</em>.
+Doing this specifies that <em>p</em> is a <strong>reference parameter</strong>, i.e.,
+its data is passed by reference.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">port P(ref a: U32)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this example, <code>a</code> is a reference parameter of type <code>U32</code>.
+If a port <em>P</em> has one or more parameters marked <code>ref</code>, then
+<em>P</em> may be used only in a synchronous context.</p>
+</div>
+<div class="paragraph">
+<p><code>ref</code> parameters provide another way to return values on the port,
+by assigning to the reference, instead of
+executing a C&#43;&#43; <code>return</code> statement.
+As an example, consider the following two port definitions:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">type T
+port P1 -&gt; T
+port P2(ref t: T)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The similarities and differences are as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Both <code>P1</code> and <code>P2</code> must be used in a synchronous context,
+because each returns a <code>T</code> value.</p>
+</li>
+<li>
+<p>In the generated C&#43;&#43; code,</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>The function for invoking <code>P1</code>
+has no arguments and returns a <code>T</code> value.
+A handler associated with <code>P1</code> returns a value of type <code>T</code>
+via the C&#43;&#43; <code>return</code> statement.
+For example:</p>
+<div class="listingblock">
+<div class="content">
+<pre>T P1_handler() {
+  ...
+  return T(1, 2, 3);
+}</pre>
+</div>
+</div>
+</li>
+<li>
+<p>The function for invoking <code>P1</code> has one argument <code>t</code>
+of type <code>T&amp;</code>.
+A handler associated with <code>P2</code> returns a value of type <code>T</code>
+by updating the reference <code>t</code> (assigning to it, or updating
+its fields).
+For example:</p>
+<div class="listingblock">
+<div class="content">
+<pre>void P2_handler(T&amp; t) {
+  ...
+  t = T(1, 2, 3);
+}</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The second way may involve less copying of data.</p>
+</div>
+<div class="paragraph">
+<p>Finally, there can be ave any number of reference parameters,
+but at most one return value.
+So if you need to return multiple values on a port, then reference
+parameters can be useful.
+As an example, the following port attempts to update a result
+value of type <code>U32</code>.
+It does this via reference parameter.
+It also returns a status value indicating whether the update
+was successful.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">enum Status { SUCCEED, FAIL }
+port P(ref result: U32) -&gt; Status</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A handler for <code>P</code> might look like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Status P_handler(U32&amp; result) {
+  Status status = Status::FAIL;
+  if (...) {
+    ...
+    result = ...
+    status = Status::SUCCEED;
+  }
+  return status;
+}</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-Ports_Annotating-a-Port-Definition">8.4. Annotating a Port Definition</h3>
+<div class="paragraph">
+<p>A port definition is an
+<a href="#Writing-Comments-and-Annotations_Annotations">annotatable element</a>.
+Each formal parameter is also an annotatable element.
+Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ Pre annotation for port P
+port P(
+  @ Pre annotation for parameter a
+  a: U32
+  @ Pre annotation for parameter b
+  b: F32
+)</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Specifying-Models">9. Specifying Models</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The previous sections have explained the individual syntactic elements
@@ -2660,10 +2915,10 @@ it explains how to assemble a collection of elements into a model.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>We focus on defining constants and types, because those
+<p>We focus on defining constants, types, enums, and ports, because those
 elements of FPP are currently implemented.
 In future versions of this User&#8217;s Guide, we will extend the discussion to cover
-ports, components, and topologies.</p>
+components, and topologies.</p>
 </li>
 <li>
 <p>We discuss several tools for specifying and analyzing dependencies between
@@ -2677,7 +2932,7 @@ For more comprehensive coverage, see
 </ul>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models_Dividing-Models-into-Files">8.1. Dividing Models into Files</h3>
+<h3 id="Specifying-Models_Dividing-Models-into-Files">9.1. Dividing Models into Files</h3>
 <div class="paragraph">
 <p>Unlike F Prime XML, FPP does not require any particular division of model
 elements into files.
@@ -2750,7 +3005,7 @@ multiple blocks
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models_Include-Specifiers">8.2. Include Specifiers</h3>
+<h3 id="Specifying-Models_Include-Specifiers">9.2. Include Specifiers</h3>
 <div class="paragraph">
 <p>As part of an FPP model, you can write one or more <strong>include specifiers</strong>.
 An include specifier is an instruction to include FPP source elements
@@ -2883,7 +3138,7 @@ error: identifier expected
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models_Dependencies">8.3. Dependencies</h3>
+<h3 id="Specifying-Models_Dependencies">9.3. Dependencies</h3>
 <div class="paragraph">
 <p>Whenever a model spans two or more files, one file <em>F</em> may use
 one or more definitions appearing in other files.
@@ -2980,7 +3235,7 @@ the CMake build process included in the F Prime distribution.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models_Location-Specifiers">8.4. Location Specifiers</h3>
+<h3 id="Specifying-Models_Location-Specifiers">9.4. Location Specifiers</h3>
 <div class="paragraph">
 <p>A location specifier is a unit of syntax in an FPP model.
 It specifies the location of a definition used in the model.</p>
@@ -2994,7 +3249,7 @@ in the section on <a href="#Specifying-Models_Locating-Definitions">locating
 definitions</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models_Location-Specifiers_Syntax">8.4.1. Syntax</h4>
+<h4 id="Specifying-Models_Location-Specifiers_Syntax">9.4.1. Syntax</h4>
 <div class="paragraph">
 <p>A location specifier consists of the keyword <code>locate</code>, a kind of definition,
 the name of a definition, and a string representing a file path.
@@ -3008,13 +3263,23 @@ locate constant a at "a.fpp"</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>For the current version of FPP, the kind of definition can be <code>constant</code> or <code>type</code>.
+<p>For the current version of FPP, the kind of definition can be <code>constant</code>,
+<code>type</code>, or <code>port</code>.
 To locate a type <code>T</code> in a file <code>T.fpp</code>, we would write the following:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp"># Locating a type definition
 locate type T at "T.fpp"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To locate a port <code>P</code> in a file <code>P.fpp</code>, we write the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp"># Locating a port definition
+locate port P at "P.fpp"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3030,7 +3295,7 @@ locate type E at "E.fpp"</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models_Location-Specifiers_Path-Names">8.4.2. Path Names</h4>
+<h4 id="Specifying-Models_Location-Specifiers_Path-Names">9.4.2. Path Names</h4>
 <div class="paragraph">
 <p>As with
 <a href="#Specifying-Models_Include-Specifiers">include specifiers</a>,
@@ -3059,7 +3324,7 @@ Then in <code>b.fpp</code> we could write this:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models_Location-Specifiers_Definition-Names">8.4.3. Definition Names</h4>
+<h4 id="Specifying-Models_Location-Specifiers_Definition-Names">9.4.3. Definition Names</h4>
 <div class="paragraph">
 <p>The definition name appearing after the keyword <code>locate</code>
 may be a qualified name.
@@ -3106,7 +3371,7 @@ definitions and their uses.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models_Location-Specifiers_Included-Files">8.4.4. Included Files</h4>
+<h4 id="Specifying-Models_Location-Specifiers_Included-Files">9.4.4. Included Files</h4>
 <div class="paragraph">
 <p>When you write a file that contains definitions and you include that file in another
 file, the location of
@@ -3121,7 +3386,7 @@ is <code>a.fpp</code>, not <code>b.fpp</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models_Locating-Definitions">8.5. Locating Definitions</h3>
+<h3 id="Specifying-Models_Locating-Definitions">9.5. Locating Definitions</h3>
 <div class="paragraph">
 <p>Given a collection of FPP source files <em>F</em>, you can generate location specifiers
 for all the definitions in <em>F</em>.
@@ -3186,7 +3451,7 @@ For example, running</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models_Computing-Dependencies">8.6. Computing Dependencies</h3>
+<h3 id="Specifying-Models_Computing-Dependencies">9.6. Computing Dependencies</h3>
 <div class="paragraph">
 <p>Given files <em>F</em> and location specifiers <em>L</em> that locate the definitions used in
 <em>F</em>, you can
@@ -3194,7 +3459,7 @@ generate the dependencies of <em>F</em>.
 The tool for doing this is is called <code>fpp-depend</code>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models_Computing-Dependencies_Running-fpp-depend">8.6.1. Running fpp-depend</h4>
+<h4 id="Specifying-Models_Computing-Dependencies_Running-fpp-depend">9.6.1. Running fpp-depend</h4>
 <div class="paragraph">
 <p>To run <code>fpp-depend</code>, you pass it as input (1) files <em>F</em> that you want to
 analyze
@@ -3266,7 +3531,7 @@ So the following is equivalent:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models_Computing-Dependencies_Transitive-Dependencies">8.6.2. Transitive Dependencies</h4>
+<h4 id="Specifying-Models_Computing-Dependencies_Transitive-Dependencies">9.6.2. Transitive Dependencies</h4>
 <div class="paragraph">
 <p><code>fpp-depend</code> computes dependencies transitively.
 This means that if <em>A</em> depends on <em>B</em> and <em>B</em>
@@ -3325,7 +3590,7 @@ produces both dependencies:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models_Computing-Dependencies_Missing-Dependencies">8.6.3. Missing Dependencies</h4>
+<h4 id="Specifying-Models_Computing-Dependencies_Missing-Dependencies">9.6.3. Missing Dependencies</h4>
 <div class="paragraph">
 <p>Suppose we construct the files <code>locations.fpp</code> and <code>a.fpp</code>, <code>b.fpp</code>, and <code>c.fpp</code>
 as described in the previous section, but then we remove <code>b.fpp</code>.
@@ -3388,7 +3653,7 @@ the dependency <code>[path-prefix]/b.fpp</code> to standard output.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models_Computing-Dependencies_Included-Files">8.6.4. Included Files</h4>
+<h4 id="Specifying-Models_Computing-Dependencies_Included-Files">9.6.4. Included Files</h4>
 <div class="paragraph">
 <p>Suppose file <code>a.fpp</code> contains the
 <a href="#Specifying-Models_Include-Specifiers">include specifier</a>
@@ -3446,7 +3711,7 @@ So in this case we want option 2.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models_Locating-Uses">8.7. Locating Uses</h3>
+<h3 id="Specifying-Models_Locating-Uses">9.7. Locating Uses</h3>
 <div class="paragraph">
 <p>Given a collection of files <em>F</em> and their dependencies <em>D</em>, you can generate
 the locations of the definitions appearing in <em>D</em> and used in <em>F</em>.
@@ -3526,7 +3791,7 @@ for the location specifiers.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Analyzing-and-Translating-Models">9. Analyzing and Translating Models</h2>
+<h2 id="Analyzing-and-Translating-Models">10. Analyzing and Translating Models</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The previous section explained how to specify an FPP model:
@@ -3537,7 +3802,7 @@ translation on part or all of an FPP model, after specifying
 the model and computing its dependencies.</p>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Checking-Models">9.1. Checking Models</h3>
+<h3 id="Analyzing-and-Translating-Models_Checking-Models">10.1. Checking Models</h3>
 <div class="paragraph">
 <p>It is often useful to check a model for correctness, without
 doing any translation.
@@ -3612,9 +3877,9 @@ halts with nonzero status.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Generating-XML">9.2. Generating XML</h3>
+<h3 id="Analyzing-and-Translating-Models_Generating-XML">10.2. Generating XML</h3>
 <div class="paragraph">
-<p>The current code generation strategy for FPP is to generate
+<p>The current strategy is to generate
 F Prime XML, and then to run the generated XML through the F Prime
 Python autocoders to generate C&#43;&#43;.
 In a future version of FPP, we will streamline this process.</p>
@@ -3623,7 +3888,8 @@ In a future version of FPP, we will streamline this process.</p>
 <p><strong>XML file names:</strong> The table <a href="#xml-file-names">XML File Names</a> shows how FPP definitions are
 translated
 to F Prime XML files.
-The table shows only types and enums, because those are currently implemented.
+The table shows types, enums, and ports because those are the features
+currently implemented.
 As we implement more of FPP, we will extend this table.</p>
 </div>
 <table id="xml-file-names" class="tableblock frame-all grid-all stretch">
@@ -3650,6 +3916,10 @@ As we implement more of FPP, we will extend this table.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Struct <em>S</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>S</em> <code>SerializableAi.xml</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port <em>P</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>P</em> <code>PortAi.xml</code></p></td>
 </tr>
 </tbody>
 </table>
@@ -3883,7 +4153,7 @@ sections:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus">9.3. Generating C Plus Plus</h3>
+<h3 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus">10.3. Generating C Plus Plus</h3>
 <div class="paragraph">
 <p>As discussed in the previous section, our current strategy is to generate XML
 and to use the F Prime autocoders to generate
@@ -4063,7 +4333,7 @@ This is similar to the <code>-p</code> option for
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Implementing-Abstract-Types">9.4. Implementing Abstract Types</h3>
+<h3 id="Analyzing-and-Translating-Models_Implementing-Abstract-Types">10.4. Implementing Abstract Types</h3>
 <div class="paragraph">
 <p>When translating to XML and then C&#43;&#43;, an
 <a href="#Defining-Types_Abstract-Type-Definitions">abstract type definition</a>
@@ -4207,7 +4477,7 @@ struct T : public Fw::Serializable { // Extend Fw::Serializable
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Translating-XML-to-FPP">9.5. Translating XML to FPP</h3>
+<h3 id="Analyzing-and-Translating-Models_Translating-XML-to-FPP">10.5. Translating XML to FPP</h3>
 <div class="paragraph">
 <p>The FPP tool suite provides a capability to translate F Prime
 XML files to FPP.
@@ -4224,13 +4494,13 @@ Its purpose is to address the following case:</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>Currently translation for types and enumerations is available.
+<p>Currently translation for types, enumerations, and ports is available.
 You can translate these elements in your XML model now,
 and use FPP to represent them going forward.
-To integrate the FPP types and enumerations with the rest of the XML model,
-use the
+To integrate these elements written in FPP with other model
+elements (components and topologies) written directly in XML, use the
 <a href="#Analyzing-and-Translating-Models_Generating-XML">FPP to XML translation
-described above</a>.
+described above</a> to generate XML from the FPP part.
 Later, when more of FPP becomes available, you can translate more
 of your model to FPP.</p>
 </div>
@@ -4364,19 +4634,36 @@ That way, you can manually construct a default value in FPP.</p>
 </div>
 <div class="paragraph">
 <p><strong>Inline type definitions:</strong>
-The F Prime Serializable XML type can
+The following F Prime XML formats may include definitions of arrays
+and enumerations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The F Prime Serializable XML format can
 contain arrays and enumerations as member types.
-The array sizes and enumerated values are specified inline, as
+The array sizes and enumerated constants are specified inline, as
 part of the member definition.</p>
+</li>
+<li>
+<p>The F Prime Port XML format can contain enumerations
+as parameter types or as the return type.
+Again the enumerated constants are specified inline.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>FPP does not represent these inline type definitions directly.
-In FPP, type definitions are always named, so they can be reused.
-Therefore, when translating a Serializable XML type that contains
-an array or enumeration member with an inline type definition, <code>fpp-to-xml</code>
-does the following: (1) translate
-the inline definition to a named FPP type; and (2) use the named type in the
-translated member.</p>
+<p>We call such definitions <strong>inline array and enum definitions</strong>, because each one
+is embedded in some other definition (the definition of a serializable type or
+of a port).</p>
+</div>
+<div class="paragraph">
+<p>FPP does not represent inline array and enum definitions directly.
+In FPP, array and enum definitions are always named, so they can be reused.
+Therefore, when translating a Serializable XML file or Port XML file that
+contains inline definitions, <code>fpp-to-xml</code> does the following: (1) translate
+each inline definition to a named FPP type; and (2) use the named types in the
+translated FPP struct type or port.</p>
 </div>
 <div class="paragraph">
 <p>For example, here is an F Prime Serializable XML type
@@ -4420,7 +4707,8 @@ module N {
 <p>The namespace <code>N</code> in the XML is translated to module <code>N</code> in FPP.</p>
 </li>
 <li>
-<p>The Serializable type <code>N::S</code> in the XML is translated to struct <code>N.S</code> in FPP.</p>
+<p>The Serializable type <code>N::S</code> in the XML is translated to the struct type
+<code>N.S</code> in FPP.</p>
 </li>
 <li>
 <p>The translator has generated an array type <code>N.S_m</code> to represent the
@@ -4432,24 +4720,39 @@ type of member <code>m</code> of struct <code>N.S</code>.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>The handling of inline enumeration types is similar.</p>
+<p>The handling of inline enumeration types and of formal parameters in ports is
+similar.</p>
 </div>
 <div class="paragraph">
-<p>While <code>fpp-from-xml</code> will translate inline
-array and enum definitions in the manner described, it may be
-better not to rely on this capability.
-Instead, you can first refactor your XML model and your FSW
-to eliminate all inline type definitions in the XML, and then translate from
-XML to FPP.
-This approach has better separation of concerns, because you can refactor,
-test the refactoring, translate, and test the translation.
-If you translate first, then you will still need to refactor; but then you must
-implement and test the translation and the refactoring at the same time.</p>
+<p>If you have an existing XML model, and that model contains Serializable
+XML files or Port XML files with inline arrays or enums, then we suggest the
+following procedure for translating the model to FPP:</p>
 </div>
-<div class="paragraph">
-<p>In any event, the use of inline array and enum members is being phased
-out in favor of named array and enum types as we
-migrate to FPP.</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Run <code>fpp-from-xml</code> as described above.</p>
+</li>
+<li>
+<p>Refactor your XML model to use the XML types generated in step 1.
+This may require changes to your C&#43;&#43; code.
+For example, inline XML enums and XML enum types generate
+slightly different code.
+Therefore, you will need to revise any
+uses of the old inline enums to match the new format.
+Do this step incrementally, making sure that all your regression tests pass at
+each step.
+During this step, you can replace auto-generated names such as <code>S_m</code>
+with more meaningful names.</p>
+</li>
+<li>
+<p>Once you have the XML model in the required form, run <code>fpp-from-xml</code>
+again to generate an FPP model <em>M</em>.
+If you have done step 2 correctly, then you should be able to
+replace your handwritten XML with the result of running <code>fpp-to-xml</code>
+on <em>M</em>.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p><strong>Format strings:</strong>
@@ -4531,7 +4834,7 @@ section on <a href="#Specifying-Models">specifying models</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-09-30 17:44:55 -0700
+Last updated 2020-10-21 16:44:05 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
