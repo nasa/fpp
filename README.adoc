@@ -28,7 +28,7 @@ If you want to use FPP, then you should install these tools.
 === Spec and User's Guide
 
 See `docs/spec/README.adoc`.
-Build the user's guide only if you are developing it.
+Build these documents from source only if you are developing them.
 Otherwise, read the copies available on the 
 https://github.jpl.nasa.gov/bocchino/fpp/wiki[wiki].
 
