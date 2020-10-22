@@ -20,13 +20,17 @@ for current status.
 
 == Building and Installing
 
-=== Spec and User's Guide
-
-See `docs/spec/README.adoc`.
-
 === Tools
 
 See `compiler/README.adoc`.
+If you want to use FPP, then you should install these tools.
+
+=== Spec and User's Guide
+
+See `docs/spec/README.adoc`.
+Build the user's guide only if you are developing it.
+Otherwise, read the copies available on the 
+https://github.jpl.nasa.gov/bocchino/fpp/wiki[wiki].
 
 == Design and Implementation Status
 
