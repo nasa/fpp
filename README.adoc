@@ -1,8 +1,10 @@
 = F Prime Prime (FPP)
 
-This repository contains the current development for F Prime Prime (FPP for short).
-FPP is a modeling tool for the
-https://github.jpl.nasa.gov/FPRIME/fprime-sw[F Prime flight software framework].
+This repository contains the code and documentation for F Prime Prime (FPP for 
+short).
+FPP is a modeling language for the
+https://github.jpl.nasa.gov/FPRIME/fprime-sw[F Prime flight software 
+framework].
 
 == Contents
 
@@ -22,7 +24,7 @@ for current status.
 
 See `docs/spec/README.adoc`.
 
-=== Scala Implementation
+=== Implementation
 
 See `compiler/README.adoc`.
 
