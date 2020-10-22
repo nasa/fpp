@@ -498,7 +498,8 @@ first, then multiplication, and so forth).
 
 === Multiple Definitions and Element Sequences
 
-Typically you want to specify several constant definitions in a model, not just one.
+Typically you want to specify several definitions in a model source file, not 
+just one.
 There are two ways to do this:
 
 . You can separate the definitions by one or more newlines, as shown
@@ -566,12 +567,14 @@ constant s = {
 ----
 
 This is a clean way to write arrays and structs.
-In particular, the assignment of each element to its own line and the lack of 
+The assignment of each element to its own line and the lack of 
 terminating punctuation
 make it easy to rearrange the elements.
 In particular, one can do a line-by-line sort on the elements (for example, to 
 sort struct members alphabetically by name) without concern for messing up the 
-commas.
+arrangement of commas.
+If we assume that the example represents the first five lines of a source file,
+then in vi this is easily done as `:2-4!sort`.
 
 Third, FPP ignores newlines that follow connecting symbols such as `=` and `+`
 For example, this code is allowed;

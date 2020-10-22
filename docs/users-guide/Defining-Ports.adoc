@@ -5,7 +5,7 @@ In F Prime, a port is the endpoint of a connection
 between two component instances.
 A port definition specifies (1) the name of the port, (2) the type of the data 
 carried
-on the port and (3) an optional return type.
+on the port, and (3) an optional return type.
 
 === Port Names
 
@@ -25,9 +25,10 @@ This kind of port can be useful for sending or receiving a triggering event.
 === Formal Parameters
 
 More often, a port will carry data.
-To specify the data, you write more *formal parameters*
+To specify the data, you write *formal parameters*
 enclosed in parentheses.
-These are similar to the formal parameters of a function in a programming
+The formal parameters of a port definition are similar to the formal parameters 
+of a function in a programming
 language: each one has a name and a type, and you may write
 zero or more of them.
 For example:
@@ -54,7 +55,7 @@ port P(e: E, t: T)
 
 Each formal parameter of a port _P_ becomes bound to an argument (a value) when 
 _P_ is *invoked*.
-The invocation generally occurs in {cpp} code that you write by hand.
+The invocation occurs in {cpp} code that implements the model.
 To invoke a port, you call an auto-generated function.
 The arguments are {cpp} values, and their types must match the
 types of the {cpp} function parameters generated from the FPP port parameters.
@@ -92,7 +93,9 @@ port P2(a: U32, b: F32) -> T # Two parameters, returns T
 
 Invoking a port with a return type is like calling a function with
 a return value.
-Such a port may be used only in a synchronous context.
+Such a port may be used only in a synchronous context (i.e.,
+as a direct function call, not as a message placed
+on a concurrent queue).
 
 You may also write the keyword `ref` in front of any formal parameter _p_.
 Doing this specifies that _p_ is a *reference parameter*, i.e.,
@@ -158,7 +161,7 @@ void P2_handler(T& t) {
 
 The second way may involve less copying of data.
 
-Finally, there can be ave any number of reference parameters,
+Finally, there can be any number of reference parameters,
 but at most one return value.
 So if you need to return multiple values on a port, then reference
 parameters can be useful.

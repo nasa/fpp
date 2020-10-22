@@ -10,7 +10,7 @@ In the discussion below
 * We focus on defining constants, types, enums, and ports, because those 
 elements of FPP are currently implemented.
 In future versions of this User's Guide, we will extend the discussion to cover
-components, and topologies.
+components and topologies.
 
 * We discuss several tools for specifying and analyzing dependencies between
 model files.
@@ -43,7 +43,6 @@ follow this pattern, where the {cpp} namespaces `Fw` and `Svc`
 correspond to FPP modules.
 
 * Group files into modules and directories logically according to their function.
-For example:
 
 ** You can group files according to their role in the FPP model.
 For example, group types separately from ports.
@@ -77,7 +76,7 @@ from one file into another file.
 
 The main purpose of include specifiers is to split up large syntactic units 
 into several files.
-For example, a component definition could include a telemetry dictionary
+For example, a component definition may include a telemetry dictionary
 from a separate file.
 In the current version of FPP, only constant and type definitions are 
 available.
@@ -224,9 +223,9 @@ see.)
 The error occurs because the definition of `a` is located in `a.fpp`,
 which was not included in the input to the analysis.
 In this case we say that `a.fpp` is a *dependency* of `b.fpp`.
-In order to analyze a file _F_ (for example, `a.fpp`), the analyzer
+In order to analyze a file _F_ (for example, `b.fpp`), the analyzer
 needs to be told where to find all the dependencies of _F_ (for example, 
-`b.fpp`).
+`a.fpp`).
 
 For simple models, we can manage the dependencies by hand, as we 
 did for the example above.
@@ -238,10 +237,10 @@ management.
 In summary, dependency management in FPP works as follows:
 
 . You run a tool called `fpp-locate-defs` to generate *location specifiers*
-for all the definitions _that could be used_ in _F_.
+for all the definitions _that could be used_ in a set of files _F_.
 
-. You run a tool called `fpp-depend`, passing it _F_ and the location 
-specifiers generated in step 1.
+. You run a tool called `fpp-depend`, passing it the files _F_ 
+and the location specifiers generated in step 1.
 It emits a list of files containing definitions _that are actually used_ in _F_ 
 (i.e., the dependencies of _F_).
 
@@ -561,7 +560,7 @@ produces both dependencies:
 ==== Missing Dependencies
 
 Suppose we construct the files `locations.fpp` and `a.fpp`, `b.fpp`, and `c.fpp`
-as described in the previous section, but then we remove `b.fpp`.
+as described in the previous section, but then we temporarily remove `b.fpp`.
 Then the following facts are true:
 
 . `fpp-depend` can see the direct dependence of `c.fpp` on `b.fpp`.

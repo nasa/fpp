@@ -632,7 +632,7 @@ So it omits the FPP default array value and reports the XML default element
 values in the annotation.
 That way, you can manually construct a default value in FPP.
 
-*Inline type definitions:*
+*Inline array and enum definitions:*
 The following F Prime XML formats may include definitions of arrays
 and enumerations:
 
@@ -645,16 +645,12 @@ part of the member definition.
 as parameter types or as the return type.
 Again the enumerated constants are specified inline.
 
-We call such definitions *inline array and enum definitions*, because each one
-is embedded in some other definition (the definition of a serializable type or 
-of a port).
-
-FPP does not represent inline array and enum definitions directly.
+FPP does not represent these inline array and enum definitions directly.
 In FPP, array and enum definitions are always named, so they can be reused.
 Therefore, when translating a Serializable XML file or Port XML file that 
 contains inline definitions, `fpp-to-xml` does the following: (1) translate
-each inline definition to a named FPP type; and (2) use the named types in the
-translated FPP struct type or port.
+each inline definition to a named FPP array or enum; and (2) use the 
+corresponding named types in the translated FPP struct or port.
 
 For example, here is an F Prime Serializable XML type
 `N::S` containing a member `m` that is an array of 10 `U32`
@@ -697,11 +693,11 @@ type of member `m` of struct `N.S`.
 The handling of inline enumeration types and of formal parameters in ports is 
 similar.
 
-If you have an existing XML model, and that model contains Serializable
-XML files or Port XML files with inline arrays or enums, then we suggest the 
-following procedure for translating the model to FPP:
+If you have to translate an XML model to FPP, and that model contains
+inline arrays or enums, then we suggest the following procedure:
 
-. Run `fpp-from-xml` as described above.
+. Run `fpp-from-xml` as described above to convert all of the
+inline definitions to named XML types.
 . Refactor your XML model to use the XML types generated in step 1.
 This may require changes to your {cpp} code.
 For example, inline XML enums and XML enum types generate

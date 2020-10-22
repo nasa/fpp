@@ -382,7 +382,7 @@ struct S2 { x: U32, y: string } default { x = "abc" } # Error: type of member x 
 *XML limitation:*
 FPP structs are translated to F Prime Serializable XML types.
 The F Prime Serializable XML format does not support default
-values for the structure members.
+values for the struct members.
 Therefore, any default values specified in FPP structs are ignored
 when translating to F Prime XML.
 
@@ -515,8 +515,9 @@ Then the following happens when generating code:
 
 * The definition `type T` does not cause any code to be generated.
 * The definition `array A = ...` causes a {cpp} class `A`
-to be generated in files `A.hpp` and `A.cpp`.
-* File `A.hpp` includes a header file `T.hpp`.
+to be generated.
+By F Prime convention, the generated files are `AArrayAc.hpp` and `AArrayAc.cpp`.
+* File `AArrayAc.hpp` includes a header file `T.hpp`.
 
 It is up to the user to implement a {cpp} class `T` with
 a header file `T.hpp`.
