@@ -4398,7 +4398,7 @@ Your class definition must include the following:</p>
 <p>An implementation of the virtual function</p>
 <div class="listingblock">
 <div class="content">
-<pre>Fw::SerializeStatus T::serialize(Fw::SerializeBufferBase&amp;) const`</pre>
+<pre>Fw::SerializeStatus T::serialize(Fw::SerializeBufferBase&amp;) const</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4410,7 +4410,7 @@ instance to a byte string).</p>
 <p>An implementation of the function</p>
 <div class="listingblock">
 <div class="content">
-<pre>Fw::SerializeStatus T::serialize(Fw::SerializeBufferBase&amp;)`</pre>
+<pre>Fw::SerializeStatus T::serialize(Fw::SerializeBufferBase&amp;)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4495,15 +4495,15 @@ Its purpose is to address the following case:</p>
 <p>You have already developed an F Prime model in XML.</p>
 </li>
 <li>
-<p>You wish to translate the model to FPP so you can use FPP going forward.</p>
+<p>You wish to translate the model to FPP in order to use FPP as the source
+language going forward.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
 <p>Currently translation for types, enumerations, and ports is available.
-You can translate these elements in your XML model now,
-and use FPP to represent them going forward.
-To integrate these elements written in FPP with other model
+You can convert these elements of your XML model to FPP now.
+To integrate these elements with other model
 elements (components and topologies) written directly in XML, use the
 <a href="#Analyzing-and-Translating-Models_Generating-XML">FPP to XML translation
 described above</a> to generate XML from the FPP part.
@@ -4512,7 +4512,7 @@ of your model to FPP.</p>
 </div>
 <div class="paragraph">
 <p>The XML-to-FPP translation is designed to do most of the work in translating an
-existing XML model into FPP.
+XML model into FPP.
 As discussed below, some manual effort will still be required,
 because the FPP and XML representations are not identical.
 The good news is that this is a one-time effort: you can do it once
@@ -4725,17 +4725,18 @@ type of member <code>m</code> of struct <code>N.S</code>.</p>
 similar.</p>
 </div>
 <div class="paragraph">
-<p>If you have to translate an XML model to FPP, and that model contains
+<p>If you wish to translate an XML model to FPP, and that model contains
 inline arrays or enums, then we suggest the following procedure:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Run <code>fpp-from-xml</code> as described above to convert all of the
+<p>Run <code>fpp-from-xml</code> on the XML model as described above to convert all of the
 inline definitions to named XML types.</p>
 </li>
 <li>
-<p>Refactor your XML model to use the XML types generated in step 1.
+<p>Refactor your XML model and FSW implementation to use the XML types generated
+in step 1.
 This may require changes to your C&#43;&#43; code.
 For example, inline XML enums and XML enum types generate
 slightly different code.
@@ -4835,7 +4836,7 @@ section on <a href="#Specifying-Models">specifying models</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-10-21 17:40:22 -0700
+Last updated 2020-10-22 08:37:50 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
