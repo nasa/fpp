@@ -432,7 +432,7 @@ Your class definition must include the following:
 * An implementation of the virtual function
 +
 ----
-Fw::SerializeStatus T::serialize(Fw::SerializeBufferBase&) const`
+Fw::SerializeStatus T::serialize(Fw::SerializeBufferBase&) const
 ----
 +
 that specifies how to *serialize* a class instance (i.e., convert a class 
@@ -441,7 +441,7 @@ instance to a byte string).
 * An implementation of the function
 +
 ----
-Fw::SerializeStatus T::serialize(Fw::SerializeBufferBase&)`
+Fw::SerializeStatus T::serialize(Fw::SerializeBufferBase&)
 ----
 +
 that specifies how to *deserialize* a class instance (i.e., reconstruct a class
@@ -509,12 +509,12 @@ XML files to FPP.
 Its purpose is to address the following case:
 
 . You have already developed an F Prime model in XML.
-. You wish to translate the model to FPP so you can use FPP going forward.
+. You wish to translate the model to FPP in order to use FPP as the source 
+language going forward.
 
 Currently translation for types, enumerations, and ports is available.
-You can translate these elements in your XML model now,
-and use FPP to represent them going forward.
-To integrate these elements written in FPP with other model
+You can convert these elements of your XML model to FPP now.
+To integrate these elements with other model
 elements (components and topologies) written directly in XML, use the
 <<Analyzing-and-Translating-Models_Generating-XML,FPP to XML translation 
 described above>> to generate XML from the FPP part.
@@ -522,7 +522,7 @@ Later, when more of FPP becomes available, you can translate more
 of your model to FPP.
 
 The XML-to-FPP translation is designed to do most of the work in translating an 
-existing XML model into FPP.
+XML model into FPP.
 As discussed below, some manual effort will still be required,
 because the FPP and XML representations are not identical.
 The good news is that this is a one-time effort: you can do it once
@@ -693,12 +693,13 @@ type of member `m` of struct `N.S`.
 The handling of inline enumeration types and of formal parameters in ports is 
 similar.
 
-If you have to translate an XML model to FPP, and that model contains
+If you wish to translate an XML model to FPP, and that model contains
 inline arrays or enums, then we suggest the following procedure:
 
-. Run `fpp-from-xml` as described above to convert all of the
+. Run `fpp-from-xml` on the XML model as described above to convert all of the
 inline definitions to named XML types.
-. Refactor your XML model to use the XML types generated in step 1.
+. Refactor your XML model and FSW implementation to use the XML types generated 
+in step 1.
 This may require changes to your {cpp} code.
 For example, inline XML enums and XML enum types generate
 slightly different code.
