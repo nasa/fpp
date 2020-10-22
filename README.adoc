@@ -12,7 +12,7 @@ framework].
 
 `editors`: Syntax highlighting for code editors. Currently vim is supported.
 
-`compiler`: The FPP compilation tools.
+`compiler`: The FPP analysis and translation tools.
 These tools are in development.
 See the
 https://github.jpl.nasa.gov/bocchino/fpp/wiki/Schedule[schedule]
@@ -24,7 +24,7 @@ for current status.
 
 See `docs/spec/README.adoc`.
 
-=== Implementation
+=== Tools
 
 See `compiler/README.adoc`.
 
