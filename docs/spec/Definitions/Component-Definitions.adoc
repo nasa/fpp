@@ -52,7 +52,7 @@ values.
 
 * An <<Specifiers_Include-Specifiers,include specifier>>
 
-* An <<Specifiers_Internal-Port-Specifiers,internal port specifier>>
+* An <<Specifiers_Internal-Port-Specifiers,internal port specifier>>.
 All internal ports specified in a component must have distinct names.
 
 ==== Semantics
