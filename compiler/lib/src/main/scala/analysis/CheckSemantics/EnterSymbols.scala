@@ -6,6 +6,7 @@ import fpp.compiler.util._
 /** Enter symbols into their scopes */
 object EnterSymbols 
   extends Analyzer 
+  with EnumAnalyzer
   with ComponentAnalyzer
   with ModuleAnalyzer
   with TopologyAnalyzer
@@ -76,27 +77,35 @@ object EnterSymbols
     val data = node.getData
     val name = data.name
     val symbol = Symbol.Enum(aNode)
-    val scopeNameList = a.scopeNameList
     for {
       nestedScope <- a.nestedScope.put(NameGroup.Type)(name, symbol)
       nestedScope <- nestedScope.put(NameGroup.Value)(name, symbol)
       a <- {
         val scope = Scope.empty
         val nestedScope1 = nestedScope.push(scope)
-        val a1 = a.copy(nestedScope = nestedScope1, scopeNameList = name :: scopeNameList)
-        visitList(a1, data.constants, defEnumConstantAnnotatedNode)
+        val a1 = a.copy(nestedScope = nestedScope1)
+        super.defEnumAnnotatedNode(a1, aNode)
       }
     }
     yield {
       val scope = a.nestedScope.innerScope
       val newSymbolScopeMap = a.symbolScopeMap + (symbol -> scope)
       val a1 = a.copy(
-        scopeNameList = scopeNameList,
         nestedScope = a.nestedScope.pop,
         symbolScopeMap = newSymbolScopeMap
       )
       updateMap(a1, symbol)
     }
+  }
+
+  override def defEnumConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnumConstant]]) = {
+    val (_, node, _) = aNode
+    val data = node.getData
+    val name = data.name
+    val symbol = Symbol.EnumConstant(aNode)
+    val nestedScope = a.nestedScope
+    for (nestedScope <- nestedScope.put(NameGroup.Value)(name, symbol))
+      yield updateMap(a, symbol).copy(nestedScope = nestedScope)
   }
 
   override def defModuleAnnotatedNode(
@@ -176,16 +185,6 @@ object EnterSymbols
     val identList = (s.getUnqualifiedName :: a.scopeNameList).reverse
     val name = Name.Qualified.fromIdentList(identList)
     a.copy(qualifiedNameMap = a.qualifiedNameMap + (s -> name))
-  }
-
-  private def defEnumConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnumConstant]]) = {
-    val (_, node, _) = aNode
-    val data = node.getData
-    val name = data.name
-    val symbol = Symbol.EnumConstant(aNode)
-    val nestedScope = a.nestedScope
-    for (nestedScope <- nestedScope.put(NameGroup.Value)(name, symbol))
-      yield updateMap(a, symbol).copy(nestedScope = nestedScope)
   }
 
 }
