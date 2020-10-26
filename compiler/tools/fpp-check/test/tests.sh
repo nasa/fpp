@@ -52,8 +52,9 @@ redef_constant
 redef_constant_in_module
 redef_constant_module
 redef_enum
-redef_enum_module
 redef_enum_constant
+redef_enum_module
+redef_module_component
 redef_module_constant
 redef_module_enum
 redef_module_port
@@ -90,6 +91,7 @@ type_uses_ok
 undef_constant_1
 undef_constant_2
 undef_constant_3
+undef_constant_component
 undef_enum_constant_1
 undef_enum_constant_2
 "

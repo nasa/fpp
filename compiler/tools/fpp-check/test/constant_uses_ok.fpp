@@ -23,3 +23,12 @@ module M {
   }
 
 }
+
+constant e = C.b
+
+passive component C {
+
+  constant a = 1
+  constant b = a
+
+}
