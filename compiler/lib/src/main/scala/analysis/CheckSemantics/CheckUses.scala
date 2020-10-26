@@ -85,6 +85,20 @@ object CheckUses extends UseAnalyzer {
     }
   }
 
+  override def defComponentAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefComponent]]) = {
+    val (_, node, _) = aNode
+    val data = node.getData
+    for {
+      a <- {
+        val symbol = Symbol.Component(aNode)
+        val scope = a.symbolScopeMap(symbol)
+        val newNestedScope = a.nestedScope.push(scope)
+        val a1 = a.copy(nestedScope = newNestedScope)
+        super.defComponentAnnotatedNode(a1, aNode)
+      }
+    } yield a.copy(nestedScope = a.nestedScope.pop)
+  }
+
   override def defEnumAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
     val (_, node1, _) = node
     val data = node1.getData
