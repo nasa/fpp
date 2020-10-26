@@ -31,6 +31,36 @@ object EnterSymbols
       yield updateMap(a, symbol).copy(nestedScope = nestedScope)
   }
 
+  override def defComponentAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.getData
+    val name = data.name
+    val symbol = Symbol.Component(aNode)
+    for {
+      nestedScope <- a.nestedScope.put(NameGroup.Component)(name, symbol)
+      nestedScope <- nestedScope.put(NameGroup.Type)(name, symbol)
+      nestedScope <- nestedScope.put(NameGroup.Value)(name, symbol)
+      a <- {
+        val scope = Scope.empty
+        val nestedScope1 = nestedScope.push(scope)
+        val a1 = a.copy(nestedScope = nestedScope1)
+        super.defComponentAnnotatedNode(a1, aNode)
+      }
+    }
+    yield {
+      val scope = a.nestedScope.innerScope
+      val newSymbolScopeMap = a.symbolScopeMap + (symbol -> scope)
+      val a1 = a.copy(
+        nestedScope = a.nestedScope.pop,
+        symbolScopeMap = newSymbolScopeMap
+      )
+      updateMap(a1, symbol)
+    }
+  }
+
   override def defConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
     val (_, node, _) = aNode
     val data = node.getData
