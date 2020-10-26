@@ -52,6 +52,7 @@ expr_struct_duplicate
 port_duplicate_param
 ports_ok
 redef_array
+redef_component_struct
 redef_constant
 redef_constant_in_module
 redef_constant_module
