@@ -16,6 +16,9 @@ array_string_size_default_ok
 array_struct_default_ok
 array_struct_no_default_ok
 component_ok
+component_struct_format_not_numeric
+component_struct_undef_type
+component_struct_undef_constant
 constant_uses_ok
 cycle_array
 cycle_constant_1
