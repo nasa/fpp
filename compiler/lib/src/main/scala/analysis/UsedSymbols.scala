@@ -11,6 +11,9 @@ object UsedSymbols extends UseAnalyzer {
 
   override def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified) =
     addSymbol(a, node)
+  
+  override def portUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
+    addSymbol(a, node)
 
   private def addSymbol[T](a: Analysis, node: AstNode[T]) = {
     val symbol = a.useDefMap(node.getId)

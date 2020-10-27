@@ -11,3 +11,7 @@ module M {
   array S_use = [3] S
   constant E_use = E.X
 }
+
+passive component P {
+  # sync input port p : P
+}

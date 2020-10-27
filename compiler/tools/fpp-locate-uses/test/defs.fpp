@@ -11,3 +11,5 @@ module M {
   struct S { x: U32 }
   type T
 } 
+
+port P
