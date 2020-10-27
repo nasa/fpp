@@ -2,6 +2,7 @@ tests="
 array_array_default_error
 array_array_default_ok
 array_array_no_default_ok
+array_default_ok
 array_enum_default_error
 array_enum_default_ok
 array_enum_no_default_ok
@@ -15,6 +16,11 @@ array_invalid_size
 array_string_size_default_ok
 array_struct_default_ok
 array_struct_no_default_ok
+component_array_default_error
+component_array_format_not_numeric
+component_array_ok
+component_array_undef_constant
+component_array_undef_type
 component_ok
 component_struct_default_error
 component_struct_format_not_numeric
@@ -53,6 +59,7 @@ expr_struct_duplicate
 port_duplicate_param
 ports_ok
 redef_array
+redef_component_array
 redef_component_struct
 redef_constant
 redef_constant_in_module
