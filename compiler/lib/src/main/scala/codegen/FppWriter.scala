@@ -104,6 +104,73 @@ object FppWriter extends AstVisitor with LineUtils {
     List(Line.blank, line("}"))
   }
 
+  override def specCommandAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecCommand]]) = {
+    val (_, node, _) = aNode
+    val data = node.getData
+    val kind = data.kind match {
+      case Ast.SpecCommand.Async => "async"
+      case Ast.SpecCommand.Guarded => "guarded"
+      case Ast.SpecCommand.Sync => "sync"
+    }
+    lines(s"$kind command ${ident(data.name)}").
+      join ("") (formalParamList(data.params)).
+      joinOpt (data.opcode) (" opcode ") (exprNode).
+      joinOpt (data.priority) (" priority ") (exprNode).
+      joinOpt (data.queueFull) (" ") (applyToData(queueFull))
+  }
+
+  override def specEventAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecEvent]]) = {
+    val (_, node, _) = aNode
+    val data = node.getData
+    val severity = data.severity match {
+      case Ast.SpecEvent.ActivityHigh => "activity high"
+      case Ast.SpecEvent.ActivityLow => "activity low"
+      case Ast.SpecEvent.Command => "command"
+      case Ast.SpecEvent.Diagnostic => "diagnostic"
+      case Ast.SpecEvent.Fatal => "fatal"
+      case Ast.SpecEvent.WarningHigh => "warning high"
+      case Ast.SpecEvent.WarningLow => "warning low"
+    }
+    lines(s"event ${ident(data.name)}").
+      join ("") (formalParamList(data.params)).
+      join (" severity ") (lines(severity)).
+      joinOpt (data.id) (" id ") (exprNode).
+      joinOpt (data.format) (" format ") (applyToData(string)).
+      joinOpt (data.throttle) (" throttle ") (exprNode)
+  }
+
+  override def specInternalPortAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecInternalPort]]) = {
+    val (_, node, _) = aNode
+    val data = node.getData
+    lines(s"internal port ${ident(data.name)}").
+      join ("") (formalParamList(data.params)).
+      joinOpt (data.priority) (" priority ") (exprNode).
+      joinOpt (data.queueFull) (" queue full ") (queueFull)
+  }
+
+  override def specParamAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecParam]]) = {
+    val (_, node, _) = aNode
+    val data = node.getData
+    lines(s"param ${ident(data.name)}").
+      join (": ") (typeNameNode(data.typeName)).
+      joinOpt (data.default) (" default ") (exprNode).
+      joinOpt (data.id) (" id ") (exprNode).
+      joinOpt (data.setOpcode) (" set opcode ") (exprNode).
+      joinOpt (data.saveOpcode) (" save opcode ") (exprNode)
+  }
+
+  override def specPortInstanceAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]]) = {
+    val (_, node, _) = aNode
+    // TODO
+    default(in)
+  }
+
+  override def specTlmChannelAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]) = {
+    val (_, node, _) = aNode
+    // TODO
+    default(in)
+  }
+
   override def defStructAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
     val (_, node, _) = aNode
     val data = node.getData
@@ -264,6 +331,15 @@ object FppWriter extends AstVisitor with LineUtils {
       case Ast.QualIdent.Qualified(qualifier, name) => 
         qualIdentString(qualifier.getData) ++ "." ++ ident(name.getData)
     }
+
+  private def queueFull(qf: Ast.QueueFull) = {
+    val s = qf match {
+      case Ast.QueueFull.Assert => "assert"
+      case Ast.QueueFull.Block => "block"
+      case Ast.QueueFull.Drop => "drop"
+    }
+    lines(s)
+  }
 
   private def string(s: String) = s.split("\n").toList match {
     case Nil => lines("\"\"")

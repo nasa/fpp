@@ -71,7 +71,7 @@ The following port instances are *input port instances*:
 
 * Any general port with `input` in its name.
 
-* Special ports `command recv` and `command resp`.
+* Special port `command recv`.
 
 The others are *output port instances*.
 
