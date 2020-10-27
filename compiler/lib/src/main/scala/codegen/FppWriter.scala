@@ -25,6 +25,12 @@ object FppWriter extends AstVisitor with LineUtils {
 
   private implicit def lift(ls: List[Line]) = JoinOps(ls)
 
+  def componentMember(member: Ast.ComponentMember) = {
+    val (a1, _, a2) = member.node
+    val l = matchComponentMember((), member)
+    annotate(a1, l, a2)
+  }
+
   def moduleMember(member: Ast.ModuleMember) = {
     val (a1, _, a2) = member.node
     val l = matchModuleMember((), member)
@@ -51,6 +57,19 @@ object FppWriter extends AstVisitor with LineUtils {
       join ("] ") (typeNameNode(data.eltType)).
       joinOpt (data.default) (" default ") (exprNode).
       joinOpt (data.format) (" format ") (applyToData(string))
+  }
+
+  override def defComponentAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefComponent]]) = {
+    val (_, node, _) = aNode
+    val data = node.getData
+    val kind = data.kind match {
+      case Ast.ComponentKind.Active => "active"
+      case Ast.ComponentKind.Passive => "passive"
+      case Ast.ComponentKind.Queued => "queued"
+    }
+    List(line(s"$kind component ${ident(data.name)} {"), Line.blank) ++
+    (Line.blankSeparated (componentMember) (data.members)).map(indentIn) ++
+    List(Line.blank, line("}"))
   }
 
   override def defConstantAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
