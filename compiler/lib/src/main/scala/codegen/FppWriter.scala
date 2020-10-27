@@ -161,14 +161,78 @@ object FppWriter extends AstVisitor with LineUtils {
 
   override def specPortInstanceAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]]) = {
     val (_, node, _) = aNode
-    // TODO
-    default(in)
+    def general(i: Ast.SpecPortInstance.General) = {
+      val kind = i.kind match {
+        case Ast.SpecPortInstance.AsyncInput => "async input"
+        case Ast.SpecPortInstance.GuardedInput => "guarded input"
+        case Ast.SpecPortInstance.Output => "output"
+        case Ast.SpecPortInstance.SyncInput => "sync input"
+      }
+      def brackets(en: AstNode[Ast.Expr]) = lines("").
+        join ("[") (exprNode(en)).addSuffix ("]")
+      def port(portOpt: Option[AstNode[Ast.QualIdent]]) =
+        portOpt match {
+          case Some(qidNode) => qualIdent(qidNode.data)
+          case None => lines("serial")
+        }
+      lines(s"$kind port ${ident(i.name)}:").
+        joinOpt (i.size) (" ") (brackets).
+        join (" ") (port(i.port)).
+        joinOpt (i.priority) (" priority ") (exprNode).
+        joinOpt (i.queueFull) (" ") (queueFull)
+    }
+    def special(i: Ast.SpecPortInstance.Special) = {
+      val kind = i.kind match {
+        case Ast.SpecPortInstance.CommandRecv => "command recv"
+        case Ast.SpecPortInstance.CommandReg => "command reg"
+        case Ast.SpecPortInstance.CommandResp => "command resp"
+        case Ast.SpecPortInstance.Event => "event"
+        case Ast.SpecPortInstance.ParamGet => "param get"
+        case Ast.SpecPortInstance.ParamSet => "param set"
+        case Ast.SpecPortInstance.Telemetry => "telemetry"
+        case Ast.SpecPortInstance.TextEvent => "text event"
+        case Ast.SpecPortInstance.TimeGet => "time get"
+      }
+      lines(s"$kind port ${ident(i.name)}")
+    }
+    node.getData match {
+      case i : Ast.SpecPortInstance.General => general(i)
+      case i : Ast.SpecPortInstance.Special => special(i)
+    }
   }
 
   override def specTlmChannelAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]) = {
     val (_, node, _) = aNode
-    // TODO
-    default(in)
+    val data = node.getData
+    def update(u: Ast.SpecTlmChannel.Update) = {
+      val s = u match {
+        case Ast.SpecTlmChannel.Always => "always"
+        case Ast.SpecTlmChannel.OnChange => "on change"
+      }
+      lines(s)
+    }
+    def limit(l: Ast.SpecTlmChannel.Limit) = {
+      val (k, en) = l
+      val ks = k match {
+        case Ast.SpecTlmChannel.Red => "red"
+        case Ast.SpecTlmChannel.Orange => "orange"
+        case Ast.SpecTlmChannel.Yellow => "yellow"
+      }
+      lines(s"$ks ").join (" ") (exprNode(en))
+    }
+    def optList[T](l: T) = l match {
+      case Nil => None
+      case _ => Some(l)
+    }
+    def limitSeq (name: String) (ls: List[Ast.SpecTlmChannel.Limit]) =
+      line(s"$name {") :: (ls.flatMap(limit).map(indentIn) :+ line("}"))
+    lines(s"telemetry ${ident(data.name)}").
+      join (": ") (typeNameNode(data.typeName)).
+      joinOpt (data.id) (" id ") (exprNode).
+      joinOpt (data.update) (" update ") (update).
+      joinOpt (data.format) (" format ") (applyToData(string)).
+      joinOpt (optList(data.low)) (" low ") (limitSeq("low")).
+      joinOpt (optList(data.high)) (" high ") (limitSeq("high"))
   }
 
   override def defStructAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
