@@ -13,5 +13,5 @@ module M {
 }
 
 passive component P {
-  # sync input port p : P
+  sync input port P_use: P
 }

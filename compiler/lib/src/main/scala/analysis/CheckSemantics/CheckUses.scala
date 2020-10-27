@@ -39,9 +39,9 @@ object CheckUses extends UseAnalyzer {
     visitExprNode(a, node)
   }
 
-  private def visitQualIdentNode(a: Analysis, node: AstNode[Ast.QualIdent]): Result = {
+  private def visitQualIdentNode (ng: NameGroup) (a: Analysis, node: AstNode[Ast.QualIdent]): Result = {
     def visitUnqualified(a: Analysis, node: AstNode[Ast.QualIdent], name: Name.Unqualified) = {
-      val mapping = a.nestedScope.get (NameGroup.Type) _
+      val mapping = a.nestedScope.get (ng) _
       for (symbol <- getSymbolForName(mapping)(node, name)) yield {
         val useDefMap = a.useDefMap + (node.getId -> symbol)
         a.copy(useDefMap = useDefMap)
@@ -54,11 +54,11 @@ object CheckUses extends UseAnalyzer {
       name: AstNode[Ast.Ident]
     ) = {
       for {
-        a <- visitQualIdentNode(a, qualifier)
+        a <- visitQualIdentNode (ng) (a, qualifier)
         symbol <- {
           val symbol = a.useDefMap(qualifier.getId)
           val scope = a.symbolScopeMap(symbol)
-          val mapping = scope.get (NameGroup.Type) _
+          val mapping = scope.get (ng) _
           getSymbolForName(mapping)(name, name.getData)
         }
       } yield {
@@ -73,11 +73,18 @@ object CheckUses extends UseAnalyzer {
     }
   }
 
+  override def portUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
+    for (a <- visitQualIdentNode (NameGroup.Port) (a, node))
+      yield {
+        val symbol = a.useDefMap(node.getId)
+        a.copy(useDefMap = a.useDefMap + (node.getId -> symbol))
+      }
+
   override def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified) = {
     val data = node.getData
     data match {
       case Ast.TypeNameQualIdent(qualIdentNode) => for {
-        a <- visitQualIdentNode(a, qualIdentNode)
+        a <- visitQualIdentNode (NameGroup.Type) (a, qualIdentNode)
       } yield {
         val symbol = a.useDefMap(qualIdentNode.getId)
         a.copy(useDefMap = a.useDefMap + (node.getId -> symbol))

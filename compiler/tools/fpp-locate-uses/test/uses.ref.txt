@@ -1,5 +1,6 @@
 locate constant M.a at "defs.fpp"
 locate constant a at "defs.fpp"
+locate port P at "defs.fpp"
 locate type A at "defs.fpp"
 locate type E at "defs.fpp"
 locate type M.A at "defs.fpp"
