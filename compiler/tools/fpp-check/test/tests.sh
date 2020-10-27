@@ -21,6 +21,10 @@ component_array_format_not_numeric
 component_array_ok
 component_array_undef_constant
 component_array_undef_type
+component_enum_default_error
+component_enum_ok
+component_enum_undef_constant
+component_enum_undef_type
 component_ok
 component_struct_default_error
 component_struct_format_not_numeric
@@ -60,6 +64,7 @@ port_duplicate_param
 ports_ok
 redef_array
 redef_component_array
+redef_component_enum
 redef_component_struct
 redef_constant
 redef_constant_in_module
