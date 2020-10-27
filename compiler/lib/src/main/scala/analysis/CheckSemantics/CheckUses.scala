@@ -91,11 +91,7 @@ object CheckUses extends UseAnalyzer {
   }
 
   override def portUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
-    for (a <- visitQualIdentNode (NameGroup.Port) (a, node))
-      yield {
-        val symbol = a.useDefMap(node.getId)
-        a.copy(useDefMap = a.useDefMap + (node.getId -> symbol))
-      }
+    visitQualIdentNode (NameGroup.Port) (a, node)
 
   override def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified) = {
     val data = node.getData
