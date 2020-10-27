@@ -15,9 +15,18 @@ object FppWriter extends AstVisitor with LineUtils {
 
     def joinNoIndent (sep: String) (ls1: List[Line]) = Line.joinLists (Line.NoIndent) (ls) (sep) (ls1)
 
+    def joinWithBreak[T] (sep: String) (ls1: List[Line]) =
+      Line.addSuffix(ls, " \\") ++ Line.addPrefix(sep, ls1).map(indentIn)
+
     def joinOpt[T] (opt: Option[T]) (sep: String) (f: T => List[Line]) =
       opt match {
         case Some(t) => join (sep) (f(t))
+        case None => ls
+      }
+
+    def joinOptWithBreak[T] (opt: Option[T]) (sep: String) (f: T => List[Line]) =
+      opt match {
+        case Some(t) => joinWithBreak (sep) (f(t))
         case None => ls
       }
 
@@ -164,9 +173,9 @@ object FppWriter extends AstVisitor with LineUtils {
     }
     lines(s"$kind command ${ident(data.name)}").
       join ("") (formalParamList(data.params)).
-      joinOpt (data.opcode) (" opcode ") (exprNode).
-      joinOpt (data.priority) (" priority ") (exprNode).
-      joinOpt (data.queueFull) (" ") (applyToData(queueFull))
+      joinOptWithBreak (data.opcode) ("opcode ") (exprNode).
+      joinOptWithBreak (data.priority) ("priority ") (exprNode).
+      joinOptWithBreak (data.queueFull) ("") (applyToData(queueFull))
   }
 
   override def specEventAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecEvent]]) = {
@@ -183,10 +192,10 @@ object FppWriter extends AstVisitor with LineUtils {
     }
     lines(s"event ${ident(data.name)}").
       join ("") (formalParamList(data.params)).
-      join (" severity ") (lines(severity)).
-      joinOpt (data.id) (" id ") (exprNode).
-      joinOpt (data.format) (" format ") (applyToData(string)).
-      joinOpt (data.throttle) (" throttle ") (exprNode)
+      joinWithBreak ("severity ") (lines(severity)).
+      joinOptWithBreak (data.id) ("id ") (exprNode).
+      joinOptWithBreak (data.format) ("format ") (applyToData(string)).
+      joinOptWithBreak (data.throttle) ("throttle ") (exprNode)
   }
 
   override def specIncludeAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecInclude]]) = {
@@ -200,8 +209,8 @@ object FppWriter extends AstVisitor with LineUtils {
     val data = node.getData
     lines(s"internal port ${ident(data.name)}").
       join ("") (formalParamList(data.params)).
-      joinOpt (data.priority) (" priority ") (exprNode).
-      joinOpt (data.queueFull) (" queue full ") (queueFull)
+      joinOptWithBreak (data.priority) ("priority ") (exprNode).
+      joinOptWithBreak (data.queueFull) ("") (queueFull)
   }
 
   override def specLocAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecLoc]]) = {
@@ -227,8 +236,8 @@ object FppWriter extends AstVisitor with LineUtils {
       join (": ") (typeNameNode(data.typeName)).
       joinOpt (data.default) (" default ") (exprNode).
       joinOpt (data.id) (" id ") (exprNode).
-      joinOpt (data.setOpcode) (" set opcode ") (exprNode).
-      joinOpt (data.saveOpcode) (" save opcode ") (exprNode)
+      joinOptWithBreak (data.setOpcode) ("set opcode ") (exprNode).
+      joinOptWithBreak (data.saveOpcode) ("save opcode ") (exprNode)
   }
 
   override def specPortInstanceAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]]) = {
@@ -250,8 +259,8 @@ object FppWriter extends AstVisitor with LineUtils {
       lines(s"$kind port ${ident(i.name)}:").
         joinOpt (i.size) (" ") (brackets).
         join (" ") (port(i.port)).
-        joinOpt (i.priority) (" priority ") (exprNode).
-        joinOpt (i.queueFull) (" ") (queueFull)
+        joinOptWithBreak (i.priority) ("priority ") (exprNode).
+        joinOptWithBreak (i.queueFull) ("") (queueFull)
     }
     def special(i: Ast.SpecPortInstance.Special) = {
       val kind = i.kind match {
@@ -290,21 +299,21 @@ object FppWriter extends AstVisitor with LineUtils {
         case Ast.SpecTlmChannel.Orange => "orange"
         case Ast.SpecTlmChannel.Yellow => "yellow"
       }
-      lines(s"$ks ").join (" ") (exprNode(en))
+      lines(ks).join (" ") (exprNode(en))
     }
     def optList[T](l: T) = l match {
       case Nil => None
       case _ => Some(l)
     }
-    def limitSeq (name: String) (ls: List[Ast.SpecTlmChannel.Limit]) =
-      line(s"$name {") :: (ls.flatMap(limit).map(indentIn) :+ line("}"))
+    def limitSeq (ls: List[Ast.SpecTlmChannel.Limit]) =
+      line("{") :: (ls.flatMap(limit).map(indentIn) :+ line("}"))
     lines(s"telemetry ${ident(data.name)}").
       join (": ") (typeNameNode(data.typeName)).
       joinOpt (data.id) (" id ") (exprNode).
       joinOpt (data.update) (" update ") (update).
-      joinOpt (data.format) (" format ") (applyToData(string)).
-      joinOpt (optList(data.low)) (" low ") (limitSeq("low")).
-      joinOpt (optList(data.high)) (" high ") (limitSeq("high"))
+      joinOptWithBreak (data.format) ("format ") (applyToData(string)).
+      joinOptWithBreak (optList(data.low)) ("low ") (limitSeq).
+      joinOptWithBreak (optList(data.high)) ("high ") (limitSeq)
   }
 
   override def transUnit(in: Unit, tu: Ast.TransUnit) = tuMemberList(tu.members)
