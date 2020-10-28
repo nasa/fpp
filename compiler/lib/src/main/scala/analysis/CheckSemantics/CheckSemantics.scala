@@ -25,7 +25,7 @@ object CheckSemantics {
       a <- EvalConstantExprs.visitList(a, tul, EvalConstantExprs.transUnit)
       a <- FinalizeTypeDefs.visitList(a, tul, FinalizeTypeDefs.transUnit)
       a <- CheckPortDefs.visitList(a, tul, CheckPortDefs.transUnit)
-      // TODO: Check component definitions
+      a <- CheckComponentDefs.visitList(a, tul, CheckComponentDefs.transUnit)
       // TODO: Check component instance definitions
       // TODO: Check topology definitions
       // TODO: Check init specifiers
