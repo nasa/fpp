@@ -93,17 +93,35 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
     } yield a
   }
 
-  override def specPortInstanceAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecPortInstance]]) = {
-    val (_, node1, _) = node
-    val data = node1.getData
+  override def specPortInstanceAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]]) = {
+    val (_, node, _) = aNode
+    val data = node.getData
     data match {
       case general : Ast.SpecPortInstance.General =>
         for {
           a <- opt(exprNode)(a, general.size)
-          a <- opt(qualIdentNode(portUse))(a, for (port <- general.port) yield port)
+          a <- opt(qualIdentNode(portUse))(a, general.port)
           a <- opt(exprNode)(a, general.priority)
         } yield a
-      case _ => Right(a)
+      case special : Ast.SpecPortInstance.Special => {
+        // Construct the use implied by the special port
+        val name = special.kind match {
+          case Ast.SpecPortInstance.CommandRecv => "Cmd"
+          case Ast.SpecPortInstance.CommandReg => "CmdReg"
+          case Ast.SpecPortInstance.CommandResp => "CmdResponse"
+          case Ast.SpecPortInstance.Event => "Log"
+          case Ast.SpecPortInstance.ParamGet => "PrmGet"
+          case Ast.SpecPortInstance.ParamSet => "PrmSet"
+          case Ast.SpecPortInstance.Telemetry => "Tlm"
+          case Ast.SpecPortInstance.TextEvent => "LogText"
+          case Ast.SpecPortInstance.TimeGet => "Time"
+        }
+        val identList = List("Fw", name)
+        val nodeList = identList.map(AstNode.create(_, node.getId))
+        val qualIdent = Ast.QualIdent.fromNodeList(nodeList)
+        val impliedUse = AstNode.create(qualIdent, node.getId)
+        qualIdentNode(portUse)(a, impliedUse)
+      }
     }
   }
 
