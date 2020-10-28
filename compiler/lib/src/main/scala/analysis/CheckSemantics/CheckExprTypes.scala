@@ -171,22 +171,24 @@ object CheckExprTypes extends UseAnalyzer {
   }
 
   override def specPortInstanceAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]]) = {
-    // TODO: Check expression types for validity
-    super.specPortInstanceAnnotatedNode(a, aNode)
+    val (_, node, _) = aNode
+    val data = node.data
+    data match {
+      case general : Ast.SpecPortInstance.General =>
+        for {
+          a <- super.specPortInstanceAnnotatedNode(a, aNode)
+          _ <- convertNodeToNumericOpt(a, general.size)
+          _ <- convertNodeToNumericOpt(a, general.priority)
+        }
+        yield a
+      case _ => Right(a)
+    }
   }
 
   override def typeNameStringNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameString) =
     for {
       a <- super.typeNameStringNode(a, node, tn)
-      _ <- tn.size match {
-        case Some(e) => {
-          val id = e.id
-          val t = a.typeMap(id)
-          val loc = Locations.get(id)
-          for (_ <- convertToNumeric(loc, t)) yield a
-        }
-        case None => Right(a)
-      }
+      _ <- convertNodeToNumericOpt(a, tn.size)
     } yield a
 
   private def visitUse[T](a: Analysis, node: AstNode[T], use: Name.Qualified): Result = {
@@ -211,6 +213,19 @@ object CheckExprTypes extends UseAnalyzer {
       a.assignType(node -> t)
     }
   }
+
+  private def convertNodeToNumeric[T](a: Analysis, node: AstNode[T]) = {
+    val id = node.getId
+    val t = a.typeMap(id)
+    val loc = Locations.get(id)
+    convertToNumeric(loc, t)
+  }
+
+  private def convertNodeToNumericOpt[T](a: Analysis, nodeOpt: Option[AstNode[T]]) =
+    nodeOpt match {
+      case Some(node) => convertNodeToNumeric(a, node)
+      case None => Right(a)
+    }
 
   private def convertToNumeric(loc: Location, t: Type): Result.Result[Type] = {
     if (t.isNumeric) Right(t) 
