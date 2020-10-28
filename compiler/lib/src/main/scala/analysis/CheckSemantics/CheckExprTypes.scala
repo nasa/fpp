@@ -170,6 +170,11 @@ object CheckExprTypes extends UseAnalyzer {
     } yield a.assignType(node -> t)
   }
 
+  override def specPortInstanceAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]]) = {
+    // TODO: Check expression types for validity
+    super.specPortInstanceAnnotatedNode(a, aNode)
+  }
+
   override def typeNameStringNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameString) =
     for {
       a <- super.typeNameStringNode(a, node, tn)

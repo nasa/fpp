@@ -131,7 +131,7 @@ space on the queue for the message.
 This specifier is valid only for `async input` ports.
 If no specifier appears, then the default behavior is `assert`.
 
-*Special port instancess:*
+*Special port instances:*
 These port instances correspond to the "role ports" in the F Prime XML model.
 Their types and other attributes are specified by F Prime.
 The identifier specifies the name of the port.
