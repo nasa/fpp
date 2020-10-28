@@ -77,14 +77,14 @@ The others are *output port instances*.
 
 ==== Semantics
 
-*General ports:*
+*General port instances:*
 
-. The kind specifies the kind of the port.
+. The kind specifies the kind of the port instance.
 
-. The identifier specifies the name of the port.
+. The identifier specifies the name of the port instance.
 
 . The optional expression _e_ enclosed in brackets specifies the
-number of ports in the port array.
+number of port instances in the port instance array.
 If no such expression appears, the default value is 1.
 The type of _e_ must be <<Type-Checking_Type-Conversion,convertible to>>
 <<Types_Internal-Types_Integer,_Integer_>>.
@@ -131,10 +131,44 @@ space on the queue for the message.
 This specifier is valid only for `async input` ports.
 If no specifier appears, then the default behavior is `assert`.
 
-*Special ports:*
-These correspond to the role ports in the current F Prime implementation.
+*Special port instancess:*
+These port instances correspond to the "role ports" in the F Prime XML model.
 Their types and other attributes are specified by F Prime.
 The identifier specifies the name of the port.
+
+Each special port instance represents an implied use of a port
+as shown in the table below.
+
+|===
+|Special port kind|Implied port use
+
+|`command` `recv`
+|`Fw.Cmd`
+
+|`command` `reg`
+|`Fw.CmdReg`
+
+|`command` `resp`
+|`Fw.CmdResponse`
+
+|`event`
+|`Fw.Log`
+
+|`param` `get`
+|`Fw.PrmGet`
+
+|`param` `set`
+|`Fw.PrmSet`
+
+|`telemetry`
+|`Fw.Tlm`
+
+|`text` `event`
+|`Fw.LogText`
+
+|`time` `get`
+|`Fw.Time`
+|===
 
 ==== Examples
 
