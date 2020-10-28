@@ -31,8 +31,8 @@ object Parser extends Parsers {
     node(specEvent) ^^ { case n => Ast.ComponentMember.SpecEvent(n) } |
     node(specInclude) ^^ { case n => Ast.ComponentMember.SpecInclude(n) } |
     node(specInternalPort) ^^ { case n => Ast.ComponentMember.SpecInternalPort(n) } |
-    node(specParam) ^^ { case n => Ast.ComponentMember.SpecParam(n) } |
     node(specPortInstance) ^^ { case n => Ast.ComponentMember.SpecPortInstance(n) } |
+    node(specParam) ^^ { case n => Ast.ComponentMember.SpecParam(n) } |
     node(specTlmChannel) ^^ { case n => Ast.ComponentMember.SpecTlmChannel(n) } |
     failure("component member expected")
   }

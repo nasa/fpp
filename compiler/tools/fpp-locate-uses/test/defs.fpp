@@ -20,3 +20,17 @@ passive component C1 {
   enum E { X, Y }
   struct S { x: U32 }
 }
+
+# Placeholders for core F Prime ports
+# used in special port instances
+module Fw {
+  port Cmd
+  port CmdReg
+  port CmdResponse
+  port Log
+  port LogText
+  port PrmGet
+  port PrmSet
+  port Time
+  port Tlm
+}

@@ -19,3 +19,15 @@ passive component C2 {
   array C1_S_use = [3] C1.S
   constant C1_E_use = C1.E.X
 }
+
+active component C3 {
+  command recv port cmdIn
+  command reg port cmdRegOut
+  command resp port cmdRespOut
+  event port eventOut
+  param get port paramGetOut
+  param set port paramSetOut
+  telemetry port tlmOut
+  text event port textEventOut
+  time get port timeGetOut
+}
