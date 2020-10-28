@@ -51,7 +51,7 @@ internal port Port1(
 )
 
 @ Port 2
-internal port Port2
+internal port Port2(
     a: U8 @< Parameter a
     b: I32 @< Parameter b
 ) priority 10 drop
