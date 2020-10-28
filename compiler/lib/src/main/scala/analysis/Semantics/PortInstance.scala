@@ -43,12 +43,11 @@ object PortInstance {
     kind: General.Kind,
     size: Int,
     ty: General.Type,
-    aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance.General]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]],
+    instance: Ast.SpecPortInstance.General
   ) extends PortInstance {
 
-    val node = aNode._2
-    val data = node.getData
-    val name = data.name
+    val name = instance.name
 
     override def direction = kind match {
       case General.Kind.Output => Direction.Output
@@ -60,11 +59,11 @@ object PortInstance {
   /** A special port instance */
   case class Special(
     // TODO
-    aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance.Special]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]],
+    instance: Ast.SpecPortInstance.Special
   ) extends PortInstance {
 
-    val node = aNode._2
-    val data = node.getData
+    val name = instance.name
 
     override def direction = Direction.Input
 
