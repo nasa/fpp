@@ -529,7 +529,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Specifying-Models_Location-Specifiers_Included-Files">9.4.4. Included Files</a></li>
 </ul>
 </li>
-<li><a href="#Specifying-Models_Locating-Definitions">9.5. Locating Definitions</a></li>
+<li><a href="#Specifying-Models_Locating-Definitions">9.5. Locating Definitions</a>
+<ul class="sectlevel3">
+<li><a href="#Specifying-Models_Locating-Definitions_Running-fpp-locate-defs">9.5.1. Running fpp-locate-defs</a></li>
+<li><a href="#Specifying-Models_Locating-Definitions_Location-Paths">9.5.2. Location Paths</a></li>
+<li><a href="#Specifying-Models_Locating-Definitions_Included-Definitions">9.5.3. Included Definitions</a></li>
+</ul>
+</li>
 <li><a href="#Specifying-Models_Computing-Dependencies">9.6. Computing Dependencies</a>
 <ul class="sectlevel3">
 <li><a href="#Specifying-Models_Computing-Dependencies_Running-fpp-depend">9.6.1. Running fpp-depend</a></li>
@@ -548,6 +554,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">10.3. Generating C Plus Plus</a></li>
 <li><a href="#Analyzing-and-Translating-Models_Implementing-Abstract-Types">10.4. Implementing Abstract Types</a></li>
 <li><a href="#Analyzing-and-Translating-Models_Translating-XML-to-FPP">10.5. Translating XML to FPP</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Formatting-FPP-Source">10.6. Formatting FPP Source</a></li>
 </ul>
 </li>
 </ul>
@@ -3094,16 +3101,30 @@ then this source text</p>
 </div>
 </div>
 <div class="paragraph">
-<p>defines the constant <code>M.a</code>.</p>
+<p>defines the constant <code>M.a</code>.
+In general you should avoid doing this, because it complicates dependency analysis.
+It is preferable to write <code>include "a.fpp"</code> and wrap the definition stated
+in <code>a.fpp</code> in module <code>M</code>, like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M { constant a = 0 }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>See the section on
+<a href="#Specifying-Models_Locating-Definitions_Included-Definitions">locating
+definitions</a>
+for more details.</p>
 </div>
 <div class="paragraph">
 <p>As an exercise, try this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>% echo "constant a = 0" &gt; a.fpp
+<pre>% echo "module M { constant a = 0 }" &gt; a.fpp
 % fpp-check
-module M { include "a.fpp" }
+include "a.fpp"
 constant b = M.a
 ^D
 %</pre>
@@ -3403,6 +3424,8 @@ definitions for your model.
 When analyzing other files that use the constants, you can use the location
 specifiers to discover dependencies on individual files within <code>Constants</code>.</p>
 </div>
+<div class="sect3">
+<h4 id="Specifying-Models_Locating-Definitions_Running-fpp-locate-defs">9.5.1. Running fpp-locate-defs</h4>
 <div class="paragraph">
 <p>To locate definitions, do the following:</p>
 </div>
@@ -3437,8 +3460,12 @@ Running</p>
 <pre class="prettyprint highlight"><code data-lang="fpp">locate constant a at "Constants/a.fpp"</code></pre>
 </div>
 </div>
+</div>
+<div class="sect3">
+<h4 id="Specifying-Models_Locating-Definitions_Location-Paths">9.5.2. Location Paths</h4>
 <div class="paragraph">
-<p>By default, the location path is relative to the current directory.
+<p>By default, the location path is relative to the current
+directory.
 To specify a different base directory, use the option <code>-d</code>.
 For example, running</p>
 </div>
@@ -3453,6 +3480,130 @@ For example, running</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">locate constant a at "a.fpp"</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Specifying-Models_Locating-Definitions_Included-Definitions">9.5.3. Included Definitions</h4>
+<div class="paragraph">
+<p>When locating definitions, you must take special care with definitions
+that appear in one file and are included in another file via an
+<a href="#Specifying-Models_Include-Specifiers">include specifier</a>.
+For example, suppose file <code>Constants.fpp</code> looks like this:</p>
+</div>
+<div class="listingblock fpp">
+<div class="content">
+<pre class="prettyprint highlight"><code>module Constants {
+
+  constant a = 0
+  constant b = 1
+  include "c.fpp"
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Suppose <code>c.fpp</code> contains the definition <code>constant c = 2</code>.
+If you run <code>find</code> on this directory as described above and provide
+the output to <code>fpp-locate-defs</code>, then you will get the following output:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The definition of constants <code>a</code> and <code>b</code> are located at <code>Constants.fpp</code>.</p>
+</li>
+<li>
+<p>The definition of constant <code>c</code> is located at <code>c.fpp</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For purposes of dependency analysis, this is probably not what you want.
+You probably want uses of <code>c</code> to depend on <code>Constants.fpp</code> (where the
+definition
+of <code>c</code> is included) rather than <code>c.fpp</code> (where the definition of <code>c</code> is
+stated).
+This seems especially likely because the inclusion occurs inside
+the scope of module <code>Constants</code>.
+If you give file <code>c.fpp</code> to the analyzer, it will interpret the
+definition of constant <code>c</code> as having qualified name <code>c</code>.
+But if you give it <code>Constants.fpp</code>, it interpret
+the definition as having qualified name <code>Constants.c</code>.</p>
+</div>
+<div class="paragraph">
+<p>In general, you should avoid including definitions inside modules.
+This is usually not necessary anyway, because we are allowed
+to close and reopen module scopes.
+For example, we could rewrite <code>Constants.fpp</code> like this:</p>
+</div>
+<div class="listingblock fpp">
+<div class="content">
+<pre class="prettyprint highlight"><code>module Constants {
+
+  constant a = 0
+  constant b = 1
+
+}
+
+include "c.fpp"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And we could rewrite <code>c.fpp</code> like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module Constants {
+
+  constant c = 0
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then the dependency analysis works out:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Constants <code>a</code> and <code>b</code> are located at <code>Constants.fpp</code>
+Uses of <code>a</code> and <code>b</code> depend on <code>Constants.fpp</code>.</p>
+</li>
+<li>
+<p>Constant <code>c</code> is located at <code>c.fpp</code></p>
+</li>
+<li>
+<p>Regardless of whether the analyzer sees <code>Constants.fpp</code> or <code>c.fpp</code>,
+the definitions are the same.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If you must include definitions in modules,
+then you should expand the
+included definitions before presenting the results to <code>fpp-locate-defs</code>.
+For example, you could do the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Put <code>Constants.fpp</code> and <code>c.fpp</code> in a separate directory, not
+searched by the <code>find</code> command that looks for FPP files containing
+definitions.</p>
+</li>
+<li>
+<p>Run <code>fpp-format -i Constants.fpp</code> to expand the include specifier.</p>
+</li>
+<li>
+<p>Put the results of step 2 in the directory searched by the <code>find</code> command.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><code>fpp-format</code> is a tool for formatting FPP source files.
+It also can expand include specifiers.
+<code>fpp-format</code> is discussed further in the section on
+<a href="#Analyzing-and-Translating-Models_Formatting-FPP-Source">formatting FPP source</a>.</p>
 </div>
 </div>
 </div>
@@ -4831,12 +4982,66 @@ dependencies in the ordinary way for FPP, as discussed in the
 section on <a href="#Specifying-Models">specifying models</a>.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="Analyzing-and-Translating-Models_Formatting-FPP-Source">10.6. Formatting FPP Source</h3>
+<div class="paragraph">
+<p>The tool <code>fpp-format</code> accepts FPP source files as input
+and rewrites them as formatted output.
+You can use this tool to put your source files into
+a standard form.</p>
+</div>
+<div class="paragraph">
+<p>For example, try this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-format
+array A = [3] U32 default [ 1, 2, 3 ]
+^d
+array A = [3] U32 default [
+                            1
+                            2
+                            3
+                          ]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>fpp-format</code> has reformatted the default value so that each array
+element is on its own line.</p>
+</div>
+<div class="paragraph">
+<p>By default, <code>fpp-format</code> does not resolve include specifiers.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% echo 'constant a = 0' &gt; a.fpp
+% fpp-format
+include "a.fpp"
+^D
+include "a.fpp"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>-i</code> option causes <code>fpp-format</code> to resolve include specifiers.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% echo 'constant a = 0' &gt; a.fpp
+% fpp-format -i
+include "a.fpp"
+^D
+constant a = 0</pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-10-22 15:31:06 -0700
+Last updated 2020-10-28 11:30:32 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

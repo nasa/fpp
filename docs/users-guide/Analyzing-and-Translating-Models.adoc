@@ -777,3 +777,49 @@ become dependencies between FPP source files in the FPP translation.
 Once the XML-to-FPP translation is done, you can handle these
 dependencies in the ordinary way for FPP, as discussed in the
 section on <<Specifying-Models,specifying models>>.
+
+=== Formatting FPP Source
+
+The tool `fpp-format` accepts FPP source files as input
+and rewrites them as formatted output.
+You can use this tool to put your source files into
+a standard form.
+
+For example, try this:
+
+----
+% fpp-format
+array A = [3] U32 default [ 1, 2, 3 ]
+^d
+array A = [3] U32 default [
+                            1
+                            2
+                            3
+                          ]
+----
+
+`fpp-format` has reformatted the default value so that each array
+element is on its own line.
+
+By default, `fpp-format` does not resolve include specifiers.
+For example:
+
+----
+% echo 'constant a = 0' > a.fpp
+% fpp-format
+include "a.fpp"
+^D
+include "a.fpp"
+----
+
+The `-i` option causes `fpp-format` to resolve include specifiers.
+For example:
+
+----
+% echo 'constant a = 0' > a.fpp
+% fpp-format -i
+include "a.fpp"
+^D
+constant a = 0
+----
+
