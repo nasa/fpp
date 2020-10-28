@@ -15,12 +15,7 @@ object CheckExprTypes extends UseAnalyzer {
     val data = node.data
     for {
       a <- super.defArrayAnnotatedNode(a, aNode)
-      _ <- {
-        val id = data.size.getId
-        val t = a.typeMap(id)
-        val loc = Locations.get(id)
-        convertToNumeric(loc, t)
-      }
+      _ <- convertNodeToNumeric(a, data.size)
       _ <- data.default match {
         case Some(defaultNode) => {
           val arrayId = node.getId
@@ -70,21 +65,13 @@ object CheckExprTypes extends UseAnalyzer {
   override def defEnumConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnumConstant]]) = {
     val (_, node, _) = aNode
     val data = node.data
-    data.value match {
-      case Some(e) => {
-        for {
-          a <- super.defEnumConstantAnnotatedNode(a, aNode)
-          _ <- {
-            val exprType = a.typeMap(e.getId)
-            val loc = Locations.get(e.getId)
-            // Just check that the type of the value expression is convertible to numeric
-            // The enum type of the enum constant node is already in the type map
-            convertToNumeric(loc, exprType)
-          }
-        } yield a
-      }
-      case None => Right(a)
+    for {
+      a <- super.defEnumConstantAnnotatedNode(a, aNode)
+      // Just check that the type of the value expression is convertible to numeric
+      // The enum type of the enum constant node is already in the type map
+      _ <- convertNodeToNumericOpt(a, data.value)
     }
+    yield a
   }
 
   override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
