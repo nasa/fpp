@@ -4051,19 +4051,19 @@ of a
 <div class="sect3">
 <h4 id="Specifiers_Port-Instance-Specifiers_Semantics">6.10.2. Semantics</h4>
 <div class="paragraph">
-<p><strong>General ports:</strong></p>
+<p><strong>General port instances:</strong></p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The kind specifies the kind of the port.</p>
+<p>The kind specifies the kind of the port instance.</p>
 </li>
 <li>
-<p>The identifier specifies the name of the port.</p>
+<p>The identifier specifies the name of the port instance.</p>
 </li>
 <li>
 <p>The optional expression <em>e</em> enclosed in brackets specifies the
-number of ports in the port array.
+number of port instances in the port instance array.
 If no such expression appears, the default value is 1.
 The type of <em>e</em> must be <a href="#Type-Checking_Type-Conversion">convertible to</a>
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
@@ -4129,11 +4129,66 @@ If no specifier appears, then the default behavior is <code>assert</code>.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p><strong>Special ports:</strong>
-These correspond to the role ports in the current F Prime implementation.
+<p><strong>Special port instancess:</strong>
+These port instances correspond to the "role ports" in the F Prime XML model.
 Their types and other attributes are specified by F Prime.
 The identifier specifies the name of the port.</p>
 </div>
+<div class="paragraph">
+<p>Each special port instance represents an implied use of a port
+as shown in the table below.
+These ports are defined by the F Prime framework.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Special port kind</th>
+<th class="tableblock halign-left valign-top">Implied port use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>command</code> <code>recv</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.Cmd</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>command</code> <code>reg</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.CmdReg</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>command</code> <code>resp</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.CmdResponse</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>event</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.Log</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>param</code> <code>get</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.PrmGet</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>param</code> <code>set</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.PrmSet</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>telemetry</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.Tlm</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>text</code> <code>event</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.LogText</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>time</code> <code>get</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.Time</code></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Port-Instance-Specifiers_Examples">6.10.3. Examples</h4>
@@ -7647,7 +7702,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-10-27 11:34:25 -0700
+Last updated 2020-10-27 18:20:55 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

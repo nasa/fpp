@@ -138,6 +138,7 @@ The identifier specifies the name of the port.
 
 Each special port instance represents an implied use of a port
 as shown in the table below.
+These ports are defined by the F Prime framework.
 
 |===
 |Special port kind|Implied port use
