@@ -11,8 +11,6 @@ object FinalizeTypeDefs
   with ModuleAnalyzer 
 {
 
-  val maxArraySize = 1000
-
   override def defArrayAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val symbol = Symbol.Array(aNode)
     def visitor(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
@@ -24,20 +22,10 @@ object FinalizeTypeDefs
         // Visit the element type of A, to update its members
         eltType <- TypeVisitor.ty(a, arrayType.anonArray.eltType)
         // Update the size and element type in A
+        size <- a.getArraySize(data.size.getId)
         arrayType <- {
-          val sizeId = data.size.getId
-          val Value.Integer(size) = Analysis.convertValueToType(
-            a.valueMap(sizeId),
-            Type.Integer
-          )
-          if (size >= 0 && size <= maxArraySize) {
-            val anonArray = Type.AnonArray(Some(size.toInt), eltType)
-            Right(arrayType.copy(anonArray = anonArray))
-          }
-          else {
-            val loc = Locations.get(sizeId)
-            Left(SemanticError.InvalidArraySize(loc, size))
-          }
+          val anonArray = Type.AnonArray(Some(size.toInt), eltType)
+          Right(arrayType.copy(anonArray = anonArray))
         }
         // Compute the default value
         default <- data.default match {

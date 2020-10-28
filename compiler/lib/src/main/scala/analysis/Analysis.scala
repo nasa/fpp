@@ -160,6 +160,34 @@ case class Analysis(
     helper(scopeNameList.reverse, name.toIdentList)
   }
 
+  /** Gets an int value from an AST node */
+  def getIntValue(id: AstNode.Id): Result.Result[Int] = {
+    val Value.Integer(v) = Analysis.convertValueToType(
+      valueMap(id),
+      Type.Integer
+    )
+    if (v >= Int.MinValue && v <= Int.MaxValue) {
+      Right(v.intValue)
+    }
+    else {
+      val loc = Locations.get(id)
+      Left(SemanticError.InvalidIntValue(loc, v))
+    }
+  }
+
+  /** Gets an array size from an AST node */
+  def getArraySize(id: AstNode.Id): Result.Result[Int] = {
+    for {
+      v <- getIntValue(id)
+      size <- if (v >= 0 && v <= Error.maxArraySize)
+        Right(v.intValue) else {
+          val loc = Locations.get(id)
+          Left(SemanticError.InvalidArraySize(loc, v))
+        }
+    }
+    yield size
+  }
+
 }
 
 object Analysis {

@@ -318,7 +318,7 @@ object AstWriter extends AstVisitor with LineUtils {
         linesOpt(addPrefix("array size", exprNode), i.size),
         linesOpt(addPrefix("port type", applyToData(qualIdent)), i.port),
         linesOpt(addPrefix("priority", exprNode), i.priority),
-        linesOpt(queueFull, i.queueFull)
+        linesOpt(applyToData(queueFull), i.queueFull)
       ).flatten.map(indentIn)
     }
     def special(i: Ast.SpecPortInstance.Special) = {

@@ -458,7 +458,7 @@ object Parser extends Parsers {
       (colon ~>! opt(index)) ~!
       instanceType ~!
       opt(priority ~>! exprNode) ~!
-      opt(queueFull) ^^ {
+      opt(node(queueFull)) ^^ {
         case kind ~ name ~ size ~ ty ~ priority ~ queueFull =>
           Ast.SpecPortInstance.General(kind, name, size, ty, priority, queueFull)
       }

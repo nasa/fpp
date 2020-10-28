@@ -33,8 +33,10 @@ object PortInstance {
 
     /** A general port type */
     sealed trait Type
-    case class Port(symbol: Option[Symbol.Port]) extends Type
-    case object Serial extends Type
+    object Type {
+      case class DefPort(symbol: Symbol.Port) extends Type
+      case object Serial extends Type
+    }
 
   }
 
@@ -44,10 +46,10 @@ object PortInstance {
     size: Int,
     ty: General.Type,
     aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]],
-    instance: Ast.SpecPortInstance.General
+    general: Ast.SpecPortInstance.General
   ) extends PortInstance {
 
-    val name = instance.name
+    val name = general.name
 
     override def direction = kind match {
       case General.Kind.Output => Direction.Output

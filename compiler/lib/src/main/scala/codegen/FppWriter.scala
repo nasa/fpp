@@ -260,7 +260,7 @@ object FppWriter extends AstVisitor with LineUtils {
         joinOpt (i.size) (" ") (brackets).
         join (" ") (port(i.port)).
         joinOptWithBreak (i.priority) ("priority ") (exprNode).
-        joinOptWithBreak (i.queueFull) ("") (queueFull)
+        joinOptWithBreak (i.queueFull) ("") (applyToData(queueFull))
     }
     def special(i: Ast.SpecPortInstance.Special) = {
       val kind = i.kind match {

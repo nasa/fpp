@@ -394,7 +394,7 @@ object Ast {
       size: Option[AstNode[Expr]],
       port: Option[AstNode[QualIdent]],
       priority: Option[AstNode[Expr]],
-      queueFull: Option[QueueFull]
+      queueFull: Option[AstNode[QueueFull]]
     ) extends SpecPortInstance
 
     /** General port instance kind */

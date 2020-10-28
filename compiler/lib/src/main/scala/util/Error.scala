@@ -61,8 +61,14 @@ sealed trait Error {
         Error.print (Some(loc)) (s"invalid array size $size")
       case SemanticError.InvalidEnumConstants(loc) =>
         Error.print (Some(loc)) ("enum constants must be all explicit or all implied")
+      case SemanticError.InvalidIntValue(loc, v) =>
+        Error.print (Some(loc)) (s"invalid integer value $v")
       case SemanticError.InvalidFormatString(loc, msg) =>
         Error.print (Some(loc)) (s"invalid format string: $msg")
+      case SemanticError.InvalidPriority(loc) =>
+        Error.print (Some(loc)) ("only async input may have a priority")
+      case SemanticError.InvalidQueueFull(loc) =>
+        Error.print (Some(loc)) ("only async input may have queue full behavior")
       case SemanticError.InvalidStringSize(loc, size) =>
         Error.print (Some(loc)) (s"invalid string size $size")
       case SemanticError.InvalidSymbol(name, loc, msg) =>
@@ -157,6 +163,12 @@ object SemanticError {
   final case class InvalidEnumConstants(loc: Location) extends Error
   /** Invalid format string  */
   final case class InvalidFormatString(loc: Location, msg: String) extends Error
+  /** Invalid integer value */
+  final case class InvalidIntValue(loc: Location, v: BigInt) extends Error
+  /** Invalid priority specifier */
+  final case class InvalidPriority(loc: Location) extends Error
+  /** Invalid queue full specifier */
+  final case class InvalidQueueFull(loc: Location) extends Error
   /** Invalid string size */
   final case class InvalidStringSize(loc: Location, size: BigInt) extends Error
   /** Invalid symbol */
@@ -188,6 +200,9 @@ object XmlError {
 }
 
 object Error {
+
+  /** The max array size */
+  val maxArraySize = 1000
 
   private var toolOpt: Option[Tool] = None
 
