@@ -19,18 +19,32 @@ object Ast {
   /** Binary operation */
   sealed trait Binop
   final object Binop {
-    final case object Add extends Binop
-    final case object Div extends Binop
-    final case object Mul extends Binop
-    final case object Sub extends Binop
+    final case object Add extends Binop {
+      override def toString = "+"
+    }
+    final case object Div extends Binop {
+      override def toString = "/"
+    }
+    final case object Mul extends Binop {
+      override def toString = "*"
+    }
+    final case object Sub extends Binop {
+      override def toString = "-"
+    }
   }
 
   /** Component kind */
   sealed trait ComponentKind
   final object ComponentKind {
-    final case object Active extends ComponentKind
-    final case object Passive extends ComponentKind
-    final case object Queued extends ComponentKind
+    final case object Active extends ComponentKind {
+      override def toString = "active"
+    }
+    final case object Passive extends ComponentKind {
+      override def toString = "passive"
+    }
+    final case object Queued extends ComponentKind {
+      override def toString = "queued"
+    }
   }
 
   /** Component member */
@@ -182,8 +196,12 @@ object Ast {
   /** Literal bool */
   sealed trait LiteralBool
   object LiteralBool {
-    final case object True extends LiteralBool
-    final case object False extends LiteralBool
+    final case object True extends LiteralBool {
+      override def toString = "true"
+    }
+    final case object False extends LiteralBool {
+      override def toString = "false"
+    }
   }
 
   /** Port instance identifier */
@@ -266,9 +284,15 @@ object Ast {
   /** Queue full behavior */
   sealed trait QueueFull
   final object QueueFull {
-    final case object Assert extends QueueFull
-    final case object Block extends QueueFull
-    final case object Drop extends QueueFull
+    final case object Assert extends QueueFull {
+      override def toString = "assert"
+    }
+    final case object Block extends QueueFull {
+      override def toString = "block"
+    }
+    final case object Drop extends QueueFull {
+      override def toString = "drop"
+    }
   }
 
   /** Command specifier */
@@ -282,9 +306,15 @@ object Ast {
   )
   object SpecCommand {
     sealed trait Kind
-    final case object Async extends Kind
-    final case object Guarded extends Kind
-    final case object Sync extends Kind
+    final case object Async extends Kind {
+      override def toString = "async"
+    }
+    final case object Guarded extends Kind {
+      override def toString = "guarded"
+    }
+    final case object Sync extends Kind {
+      override def toString = "sync"
+    }
   }
 
   /** Component instance specifier */
@@ -329,13 +359,27 @@ object Ast {
   final object SpecEvent {
     /** Event severity */
     sealed trait Severity
-    final case object ActivityHigh extends Severity
-    final case object ActivityLow extends Severity
-    final case object Command extends Severity
-    final case object Diagnostic extends Severity
-    final case object Fatal extends Severity
-    final case object WarningHigh extends Severity
-    final case object WarningLow extends Severity
+    final case object ActivityHigh extends Severity {
+      override def toString = "activity high"
+    }
+    final case object ActivityLow extends Severity {
+      override def toString = "activity low"
+    }
+    final case object Command extends Severity {
+      override def toString = "command"
+    }
+    final case object Diagnostic extends Severity {
+      override def toString = "diagnostic"
+    }
+    final case object Fatal extends Severity {
+      override def toString = "fatal"
+    }
+    final case object WarningHigh extends Severity {
+      override def toString = "warning high"
+    }
+    final case object WarningLow extends Severity {
+      override def toString = "warning low"
+    }
   }
 
   /** Include specifier */
@@ -365,12 +409,24 @@ object Ast {
   object SpecLoc {
     /** Location specifier kind */
     sealed trait Kind
-    final case object Component extends Kind
-    final case object ComponentInstance extends Kind
-    final case object Constant extends Kind
-    final case object Port extends Kind
-    final case object Topology extends Kind
-    final case object Type extends Kind
+    final case object Component extends Kind {
+      override def toString = "component"
+    }
+    final case object ComponentInstance extends Kind {
+      override def toString = "component instance"
+    }
+    final case object Constant extends Kind {
+      override def toString = "constant"
+    }
+    final case object Port extends Kind {
+      override def toString = "port"
+    }
+    final case object Topology extends Kind {
+      override def toString = "topology"
+    }
+    final case object Type extends Kind {
+      override def toString = "type"
+    }
   }
 
   /** Parameter specifier */
@@ -399,10 +455,18 @@ object Ast {
 
     /** General port instance kind */
     sealed trait GeneralKind
-    final case object AsyncInput extends GeneralKind
-    final case object GuardedInput extends GeneralKind
-    final case object Output extends GeneralKind
-    final case object SyncInput extends GeneralKind
+    final case object AsyncInput extends GeneralKind {
+      override def toString = "async input"
+    }
+    final case object GuardedInput extends GeneralKind {
+      override def toString = "guarded input"
+    }
+    final case object Output extends GeneralKind {
+      override def toString = "output"
+    }
+    final case object SyncInput extends GeneralKind {
+      override def toString = "sync input"
+    }
 
     /** Special port instance */
     final case class Special (
@@ -456,17 +520,27 @@ object Ast {
 
     /** Telemetry update */
     sealed trait Update
-    final case object Always extends Update
-    final case object OnChange extends Update
+    final case object Always extends Update {
+      override def toString = "always"
+    }
+    final case object OnChange extends Update {
+      override def toString = "on change"
+    }
 
     /** Telemetry limit */
     type Limit = (LimitKind, AstNode[Expr])
 
     /** Telemetry limit kind */
     sealed trait LimitKind
-    final case object Red extends LimitKind
-    final case object Orange extends LimitKind
-    final case object Yellow extends LimitKind
+    final case object Red extends LimitKind {
+      override def toString = "red"
+    }
+    final case object Orange extends LimitKind {
+      override def toString = "orange"
+    }
+    final case object Yellow extends LimitKind {
+      override def toString = "yellow"
+    }
 
   }
 
@@ -492,19 +566,39 @@ object Ast {
 
   /** Float type */
   sealed trait TypeFloat
-  final case class F32() extends TypeFloat
-  final case class F64() extends TypeFloat
+  final case class F32() extends TypeFloat {
+    override def toString = "F32"
+  }
+  final case class F64() extends TypeFloat {
+    override def toString = "F64"
+  }
 
   /** Int type */
   sealed trait TypeInt
-  final case class I8() extends TypeInt
-  final case class I16() extends TypeInt
-  final case class I32() extends TypeInt
-  final case class I64() extends TypeInt
-  final case class U8() extends TypeInt
-  final case class U16() extends TypeInt
-  final case class U32() extends TypeInt
-  final case class U64() extends TypeInt
+  final case class I8() extends TypeInt {
+    override def toString = "I8"
+  }
+  final case class I16() extends TypeInt {
+    override def toString = "I16"
+  }
+  final case class I32() extends TypeInt {
+    override def toString = "I32"
+  }
+  final case class I64() extends TypeInt {
+    override def toString = "I64"
+  }
+  final case class U8() extends TypeInt {
+    override def toString = "U8"
+  }
+  final case class U16() extends TypeInt {
+    override def toString = "U16"
+  }
+  final case class U32() extends TypeInt {
+    override def toString = "U32"
+  }
+  final case class U64() extends TypeInt {
+    override def toString = "U64"
+  }
 
   /** Type name */
   sealed trait TypeName
@@ -517,14 +611,20 @@ object Ast {
   /** Unary operation */
   sealed trait Unop
   final object Unop {
-    final case object Minus extends Unop
+    final case object Minus extends Unop {
+      override def toString = "-"
+    }
   }
 
   /** Visibility */
   sealed trait Visibility
   final object Visibility {
-    final case object Private extends Visibility
-    final case object Public extends Visibility
+    final case object Private extends Visibility {
+      override def toString = "private"
+    }
+    final case object Public extends Visibility {
+      override def toString = "public"
+    }
   }
 
 }

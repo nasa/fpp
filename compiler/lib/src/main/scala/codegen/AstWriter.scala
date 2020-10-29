@@ -29,11 +29,7 @@ object AstWriter extends AstVisitor with LineUtils {
   override def defComponentAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.DefComponent]]) = {
     val (_, node, _) = an
     val dc = node.getData
-    val kind = dc.kind match {
-      case Ast.ComponentKind.Active => "active"
-      case Ast.ComponentKind.Passive => "passive"
-      case Ast.ComponentKind.Queued => "queued"
-    }
+    val kind = dc.kind.toString
     lines("def component") ++
     (
       lines("kind " ++ kind) ++ 
@@ -158,15 +154,10 @@ object AstWriter extends AstVisitor with LineUtils {
 
   override def specCommandAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.SpecCommand]]) = {
     val (_, node, _) = an
-    def kind(k: Ast.SpecCommand.Kind) = k match {
-      case Ast.SpecCommand.Async => "async"
-      case Ast.SpecCommand.Guarded => "guarded"
-      case Ast.SpecCommand.Sync => "sync"
-    }
     val sc = node.getData
     lines("spec command") ++
     List(
-      lines("kind " ++ kind(sc.kind)),
+      lines(s"kind ${sc.kind.toString}"),
       addPrefix("name", ident) (sc.name),
       formalParamList(sc.params),
       linesOpt(addPrefix("opcode", exprNode), sc.opcode),
@@ -216,21 +207,12 @@ object AstWriter extends AstVisitor with LineUtils {
 
   override def specEventAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.SpecEvent]]) = {
     val (_, node, _) = an
-    def severity(s: Ast.SpecEvent.Severity) = s match {
-      case Ast.SpecEvent.ActivityHigh => "activity high"
-      case Ast.SpecEvent.ActivityLow => "activity low"
-      case Ast.SpecEvent.Command => "command"
-      case Ast.SpecEvent.Diagnostic => "diagnostic"
-      case Ast.SpecEvent.Fatal => "fatal"
-      case Ast.SpecEvent.WarningHigh => "warning high"
-      case Ast.SpecEvent.WarningLow => "warning low"
-    }
     val se = node.getData
     lines("spec event") ++
     List(
       ident(se.name),
       formalParamList(se.params),
-      lines("severity " ++ severity(se.severity)),
+      lines(s"severity ${se.severity.toString}"),
       linesOpt(addPrefix("id", exprNode), se.id),
       linesOpt(addPrefix("format", applyToData(string)), se.format),
       linesOpt(addPrefix("throttle", exprNode), se.throttle),
@@ -269,14 +251,7 @@ object AstWriter extends AstVisitor with LineUtils {
   override def specLocAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.SpecLoc]]) = {
     val (_, node, _) = an
     val sl = node.getData
-    val kind = sl.kind match {
-      case Ast.SpecLoc.Component => "component"
-      case Ast.SpecLoc.ComponentInstance => "component instance"
-      case Ast.SpecLoc.Constant => "constant"
-      case Ast.SpecLoc.Port => "port"
-      case Ast.SpecLoc.Topology => "topology"
-      case Ast.SpecLoc.Type => "type"
-    }
+    val kind = sl.kind.toString
     lines("spec loc") ++
     (
       lines("kind " ++ kind) ++
@@ -302,18 +277,10 @@ object AstWriter extends AstVisitor with LineUtils {
   override def specPortInstanceAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.SpecPortInstance]]) = {
     val (_, node, _) = an
     def general(i: Ast.SpecPortInstance.General) = {
-      def kind(k: Ast.SpecPortInstance.GeneralKind) = {
-        val s = k match {
-          case Ast.SpecPortInstance.AsyncInput => "async input"
-          case Ast.SpecPortInstance.GuardedInput => "guarded input"
-          case Ast.SpecPortInstance.Output => "output"
-          case Ast.SpecPortInstance.SyncInput => "sync input"
-        }
-        lines("kind " ++ s)
-      }
+      val kind = lines(s"kind ${i.kind.toString}")
       lines("spec port instance general") ++
       List(
-        kind(i.kind),
+        kind,
         ident(i.name),
         linesOpt(addPrefix("array size", exprNode), i.size),
         linesOpt(addPrefix("port type", applyToData(qualIdent)), i.port),
@@ -334,21 +301,10 @@ object AstWriter extends AstVisitor with LineUtils {
 
   override def specTlmChannelAnnotatedNode(in: Unit, an: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]) = {
     val (_, node, _) = an
-    def update(u: Ast.SpecTlmChannel.Update) = {
-      val s = u match {
-        case Ast.SpecTlmChannel.Always => "always"
-        case Ast.SpecTlmChannel.OnChange => "on change"
-      }
-      lines("update " + s)
-    }
-    def kind(k: Ast.SpecTlmChannel.LimitKind) = {
-      val s = k match {
-        case Ast.SpecTlmChannel.Red => "red"
-        case Ast.SpecTlmChannel.Orange => "orange"
-        case Ast.SpecTlmChannel.Yellow => "yellow"
-      }
-      lines(s)
-    }
+    def update(u: Ast.SpecTlmChannel.Update) =
+      lines(s"update ${u.toString}")
+    def kind(k: Ast.SpecTlmChannel.LimitKind) =
+      lines(k.toString)
     def limit(l: Ast.SpecTlmChannel.Limit) = {
       val (k, en) = l
       lines("limit") ++ (
@@ -389,27 +345,11 @@ object AstWriter extends AstVisitor with LineUtils {
 
   override def typeNameBoolNode(in: Unit, node: AstNode[Ast.TypeName]) = lines("bool")
 
-  override def typeNameFloatNode(in: Unit, node: AstNode[Ast.TypeName], tn: Ast.TypeNameFloat) = {
-    val s = tn.name match {
-      case Ast.F32() => "F32"
-      case Ast.F64() => "F64"
-    }
-    lines(s)
-  }
+  override def typeNameFloatNode(in: Unit, node: AstNode[Ast.TypeName], tn: Ast.TypeNameFloat) =
+    lines(tn.name.toString)
 
-  override def typeNameIntNode(in: Unit, node: AstNode[Ast.TypeName], tn: Ast.TypeNameInt) = {
-    val s = tn.name match {
-      case Ast.I8() => "I8"
-      case Ast.I16() => "I16"
-      case Ast.I32() => "I32"
-      case Ast.I64() => "I64"
-      case Ast.U8() => "U8"
-      case Ast.U16() => "U16"
-      case Ast.U32() => "U32"
-      case Ast.U64() => "U64"
-    }
-    lines(s)
-  }
+  override def typeNameIntNode(in: Unit, node: AstNode[Ast.TypeName], tn: Ast.TypeNameInt) =
+    lines(tn.name.toString)
 
   override def typeNameQualIdentNode(in: Unit, node: AstNode[Ast.TypeName], tn: Ast.TypeNameQualIdent) = 
     qualIdent(tn.name.getData)
@@ -440,12 +380,7 @@ object AstWriter extends AstVisitor with LineUtils {
   private def applyToData[A,B](f: A => B): AstNode[A] => B = 
     (a: AstNode[A]) => f(a.getData)
 
-  private def binop(op: Ast.Binop) = op match {
-    case Ast.Binop.Add => lines("binop +")
-    case Ast.Binop.Div => lines("binop /")
-    case Ast.Binop.Mul => lines("binop *")
-    case Ast.Binop.Sub => lines("binop -")
-  }
+  private def binop(op: Ast.Binop) = lines(s"binop ${op.toString}")
 
   private def componentMember(member: Ast.ComponentMember) = {
     val (a1, _, a2) = member.node
@@ -507,12 +442,8 @@ object AstWriter extends AstVisitor with LineUtils {
     }
 
   private def queueFull(qf: Ast.QueueFull) = {
-    val s = qf match {
-      case Ast.QueueFull.Assert => "assert"
-      case Ast.QueueFull.Block => "block"
-      case Ast.QueueFull.Drop => "drop"
-    }
-    lines("queue full " ++ s)
+    val s = qf.toString
+    lines(s"queue full $s")
   }
 
   private def string(s: String) = s.split('\n').map(line).toList
@@ -543,15 +474,9 @@ object AstWriter extends AstVisitor with LineUtils {
   private def typeNameNode(node: AstNode[Ast.TypeName]) =
     addPrefix("type name", matchTypeNameNode((), _)) (node)
 
-  private def unop(op: Ast.Unop) =
-    op match {
-      case Ast.Unop.Minus => lines("unop -")
-    }
+  private def unop(op: Ast.Unop) = lines(s"unop ${op.toString}")
 
-  private def visibility(v: Ast.Visibility) = v match {
-    case Ast.Visibility.Private => "private"
-    case Ast.Visibility.Public => "public"
-  }
+  private def visibility(v: Ast.Visibility) = v.toString
 
   type In = Unit
 
