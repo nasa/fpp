@@ -90,8 +90,9 @@ The type of _e_ must be <<Type-Checking_Type-Conversion,convertible to>>
 <<Types_Internal-Types_Integer,_Integer_>>.
 _e_ must
 <<Evaluation,evaluate>> to a value _n_ after
-<<Evaluation_Type-Conversion,conversion>> to _Integer_,
-and _n_ must be greater than zero.
+<<Evaluation_Type-Conversion,conversion>> to _Integer_.
+_n_ must be greater than zero and less than an implementation-specific maximum 
+value.
 
 . _port-instance-type_ specifies the type of the port instance.
 

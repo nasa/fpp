@@ -1477,8 +1477,9 @@ it.</p>
 <h4 id="Definitions_Array-Definitions_Semantics">5.2.2. Semantics</h4>
 <div class="paragraph">
 <p>The identifier is the name <em>N</em> of the new type.
-The first expression must evaluate to a compile-time constant numeric value
-<em>n</em> whose value is greater than zero and less than or equal to 1000.
+The first expression must evaluate to a compile-time constant numeric value <em>n</em>
+whose value is greater than zero and less than or equal to an
+implementation-specific maximum value.
 <em>type-name</em> names the type <em>T</em> of each array element.</p>
 </div>
 <div class="paragraph">
@@ -4128,8 +4129,9 @@ The type of <em>e</em> must be <a href="#Type-Checking_Type-Conversion">converti
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
 <em>e</em> must
 <a href="#Evaluation">evaluate</a> to a value <em>n</em> after
-<a href="#Evaluation_Type-Conversion">conversion</a> to <em>Integer</em>,
-and <em>n</em> must be greater than zero.</p>
+<a href="#Evaluation_Type-Conversion">conversion</a> to <em>Integer</em>.
+<em>n</em> must be greater than zero and less than an implementation-specific maximum
+value.</p>
 </li>
 <li>
 <p><em>port-instance-type</em> specifies the type of the port instance.</p>
@@ -7761,7 +7763,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-10-28 19:50:50 -0700
+Last updated 2020-10-29 08:26:24 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
