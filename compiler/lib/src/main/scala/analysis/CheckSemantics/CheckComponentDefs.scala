@@ -28,8 +28,6 @@ object CheckComponentDefs
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]]
   ) = {
-    // TODO
-    // Add the instance to the component
     for {
       instance <- PortInstances.fromSpecPortInstance(a, aNode)
       component <- a.component.get.addPortInstance(instance)
