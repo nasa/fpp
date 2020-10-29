@@ -29,7 +29,8 @@ object CheckComponentDefs
     aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]]
   ) = {
     // TODO
-    // Just run the check for now
+    // Check that if the instance is async, the port does not return values
+    // Add the instance to the component
     for {
       _ <- createPortInstance(a, aNode)
     }
