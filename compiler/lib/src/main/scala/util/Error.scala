@@ -70,6 +70,11 @@ sealed trait Error {
         Error.print (Some(loc)) (s"invalid integer value $v")
       case SemanticError.InvalidFormatString(loc, msg) =>
         Error.print (Some(loc)) (s"invalid format string: $msg")
+      case SemanticError.InvalidPortInstance(loc, msg, defLoc) => {
+        Error.print (Some(loc)) (msg)
+        System.err.println(s"port definition is here:")
+        System.err.println(defLoc)
+      }
       case SemanticError.InvalidPriority(loc) =>
         Error.print (Some(loc)) ("only async input may have a priority")
       case SemanticError.InvalidQueueFull(loc) =>
@@ -176,6 +181,8 @@ object SemanticError {
   final case class InvalidFormatString(loc: Location, msg: String) extends Error
   /** Invalid integer value */
   final case class InvalidIntValue(loc: Location, v: BigInt) extends Error
+  /** Invalid port instance */
+  final case class InvalidPortInstance(loc: Location, msg: String, defLoc: Location) extends Error
   /** Invalid priority specifier */
   final case class InvalidPriority(loc: Location) extends Error
   /** Invalid queue full specifier */
