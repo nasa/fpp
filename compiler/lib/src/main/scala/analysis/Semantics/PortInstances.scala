@@ -59,7 +59,7 @@ object PortInstances {
       case specifier : Ast.SpecPortInstance.General =>
         for {
           instance <- general(a, specifier)
-          _ <- checkAsync(instance)
+          _ <- checkAsyncInput(instance)
         } yield instance
       case specifier : Ast.SpecPortInstance.Special =>
         Right(PortInstance.Special(aNode, specifier))
@@ -94,8 +94,8 @@ object PortInstances {
       case None => Ast.QueueFull.Assert
     }
 
-  /** Checks async uses of general ports */
-  private def checkAsync(instance: PortInstance.General) = {
+  /** Checks async input uses of general ports */
+  private def checkAsyncInput(instance: PortInstance.General) = {
     val loc = Locations.get(instance.aNode._2.getId)
     def checkRefParams(defPort: Ast.DefPort, defLoc: Location) = {
       val numRefParams = defPort.params.filter(aNode => {
