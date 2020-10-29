@@ -1606,10 +1606,13 @@ values.</p>
 <p>An <a href="#Specifiers_Include-Specifiers">include specifier</a></p>
 </li>
 <li>
-<p>An <a href="#Specifiers_Internal-Port-Specifiers">internal port specifier</a>.
-All internal ports specified in a component must have distinct names.</p>
+<p>An <a href="#Specifiers_Internal-Port-Specifiers">internal port specifier</a>.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>The command, event, parameter, and telemetry specifiers are collectively
+referred to as <strong>dictionary specifiers</strong>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1621,17 +1624,73 @@ qualified with the component name, as for
 <a href="#Definitions_Module-Definitions">module definitions</a>.</p>
 </div>
 <div class="paragraph">
-<p>The port definitions must satisfy the following rules:</p>
+<p>The port instance specifiers must satisfy the following rules:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>No passive component may have an <code>async</code> <code>input</code> port
-instance definition.</p>
+<p>All names appearing in any general port specifiers and any internal
+port specifiers must be distinct.</p>
 </li>
 <li>
-<p>Each active component must have either a command port
-or at least one <code>async</code> <code>input</code> port.</p>
+<p>No passive component may have an <code>async</code> <code>input</code> port.</p>
+</li>
+<li>
+<p>Each active or queued component must have (a) at least one <code>async</code> <code>input</code>
+port or (b) at least one command.</p>
+</li>
+<li>
+<p>Each component must provide ports as shown in the table below.</p>
+</li>
+</ol>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Condition</th>
+<th class="tableblock halign-left valign-top">Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If there are any command specifiers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">There must be specifiers for ports <code>command recv</code>, <code>command reg</code>, and <code>command resp</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If there are any event specifiers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">There must be specifiers for ports <code>event</code>, <code>text event</code>, and <code>time get</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If there are any parameter specifiers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">There must be specifiers for ports <code>command recv</code>, <code>command reg</code>, <code>command resp</code>,
+<code>param get</code>, and <code>param set</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If there are any telemetry specifiers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">There must be specifiers for ports <code>telemetry</code> and <code>time get</code>.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The dictionary specifiers must satisfy the following rules:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>All commands must have distinct names and opcodes.</p>
+</li>
+<li>
+<p>All events must have distinct names and identifier values.</p>
+</li>
+<li>
+<p>All parameters must have distinct names and identifier values.</p>
+</li>
+<li>
+<p>All telemetry channels must have distinct names and identifier values.</p>
 </li>
 </ol>
 </div>
@@ -4938,7 +4997,7 @@ elements to the common type.</p>
 <h4 id="Expressions_Array-Expressions_Example">9.2.3. Example</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="tnet">constant a = [ 0, 1, 2 ] # a is an array value with elements 0, 1, 2</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = [ 0, 1, 2 ] # a is an array value with elements 0, 1, 2</code></pre>
 </div>
 </div>
 </div>
@@ -7702,7 +7761,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-10-28 11:47:44 -0700
+Last updated 2020-10-28 19:50:50 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

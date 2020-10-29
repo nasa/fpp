@@ -53,7 +53,9 @@ values.
 * An <<Specifiers_Include-Specifiers,include specifier>>
 
 * An <<Specifiers_Internal-Port-Specifiers,internal port specifier>>.
-All internal ports specified in a component must have distinct names.
+
+The command, event, parameter, and telemetry specifiers are collectively
+referred to as *dictionary specifiers*.
 
 ==== Semantics
 
@@ -62,13 +64,44 @@ The definitions inside the body of the component are
 qualified with the component name, as for 
 <<Definitions_Module-Definitions,module definitions>>.
 
-The port definitions must satisfy the following rules:
+The port instance specifiers must satisfy the following rules:
 
-. No passive component may have an `async` `input` port
-instance definition.
+. All names appearing in any general port specifiers and any internal
+port specifiers must be distinct.
 
-. Each active component must have either a command port
-or at least one `async` `input` port.
+. No passive component may have an `async` `input` port.
+
+. Each active or queued component must have (a) at least one `async` `input` 
+port or (b) at least one command.
+
+. Each component must provide ports as shown in the table below.
+
+|===
+|Condition|Requirement
+
+|If there are any command specifiers
+|There must be specifiers for ports `command recv`, `command reg`, and `command resp`.
+
+|If there are any event specifiers
+|There must be specifiers for ports `event`, `text event`, and `time get`.
+
+|If there are any parameter specifiers
+|There must be specifiers for ports `command recv`, `command reg`, `command resp`,
+`param get`, and `param set`.
+
+|If there are any telemetry specifiers
+|There must be specifiers for ports `telemetry` and `time get`.
+|===
+
+The dictionary specifiers must satisfy the following rules:
+
+. All commands must have distinct names and opcodes.
+
+. All events must have distinct names and identifier values.
+
+. All parameters must have distinct names and identifier values.
+
+. All telemetry channels must have distinct names and identifier values.
 
 ==== Examples
 
