@@ -43,6 +43,10 @@ case class Analysis(
   valueMap: Map[AstNode.Id, Value] = Map(),
   /** The set of symbols used. Used during code generation. */
   usedSymbolSet: Set[Symbol] = Set(),
+  /** The map from component symbols to components */
+  componentMap: Map[Symbol, Component] = Map(),
+  /** The component currently under construction */
+  component: Option[Component] = None,
 ) {
 
   /** Add a mapping to the type map */

@@ -322,22 +322,9 @@ object AstWriter extends AstVisitor with LineUtils {
       ).flatten.map(indentIn)
     }
     def special(i: Ast.SpecPortInstance.Special) = {
-      def kind(k: Ast.SpecPortInstance.SpecialKind) = {
-        val s = k match {
-          case Ast.SpecPortInstance.CommandRecv => "command recv"
-          case Ast.SpecPortInstance.CommandReg => "command reg"
-          case Ast.SpecPortInstance.CommandResp => "command resp"
-          case Ast.SpecPortInstance.Event => "event"
-          case Ast.SpecPortInstance.ParamGet => "param get"
-          case Ast.SpecPortInstance.ParamSet => "param set"
-          case Ast.SpecPortInstance.Telemetry => "telemetry"
-          case Ast.SpecPortInstance.TextEvent => "text event"
-          case Ast.SpecPortInstance.TimeGet => "time get"
-        }
-        lines("kind " ++ s)
-      }
+      val kind = lines(s"kind ${i.kind.toString}")
       lines("spec port instance special") ++
-      (kind(i.kind) ++ ident(i.name)).map(indentIn)
+      (kind ++ ident(i.name)).map(indentIn)
     }
     node.getData match {
       case i : Ast.SpecPortInstance.General => general(i)

@@ -412,15 +412,33 @@ object Ast {
 
     /** Special port instance kind */
     sealed trait SpecialKind
-    final case object CommandRecv extends SpecialKind
-    final case object CommandReg extends SpecialKind
-    final case object CommandResp extends SpecialKind
-    final case object Event extends SpecialKind
-    final case object ParamGet extends SpecialKind
-    final case object ParamSet extends SpecialKind
-    final case object Telemetry extends SpecialKind
-    final case object TextEvent extends SpecialKind
-    final case object TimeGet extends SpecialKind
+    final case object CommandRecv extends SpecialKind {
+      override def toString = "command recv"
+    }
+    final case object CommandReg extends SpecialKind {
+      override def toString = "command reg"
+    }
+    final case object CommandResp extends SpecialKind {
+      override def toString = "command resp"
+    }
+    final case object Event extends SpecialKind {
+      override def toString = "event"
+    }
+    final case object ParamGet extends SpecialKind {
+      override def toString = "param get"
+    }
+    final case object ParamSet extends SpecialKind {
+      override def toString = "param set"
+    }
+    final case object Telemetry extends SpecialKind {
+      override def toString = "telemetry"
+    }
+    final case object TextEvent extends SpecialKind {
+      override def toString = "text event"
+    }
+    final case object TimeGet extends SpecialKind {
+      override def toString = "time get"
+    }
 
   }
 

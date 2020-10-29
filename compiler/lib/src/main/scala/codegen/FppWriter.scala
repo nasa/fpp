@@ -263,17 +263,7 @@ object FppWriter extends AstVisitor with LineUtils {
         joinOptWithBreak (i.queueFull) ("") (applyToData(queueFull))
     }
     def special(i: Ast.SpecPortInstance.Special) = {
-      val kind = i.kind match {
-        case Ast.SpecPortInstance.CommandRecv => "command recv"
-        case Ast.SpecPortInstance.CommandReg => "command reg"
-        case Ast.SpecPortInstance.CommandResp => "command resp"
-        case Ast.SpecPortInstance.Event => "event"
-        case Ast.SpecPortInstance.ParamGet => "param get"
-        case Ast.SpecPortInstance.ParamSet => "param set"
-        case Ast.SpecPortInstance.Telemetry => "telemetry"
-        case Ast.SpecPortInstance.TextEvent => "text event"
-        case Ast.SpecPortInstance.TimeGet => "time get"
-      }
+      val kind = i.kind.toString
       lines(s"$kind port ${ident(i.name)}")
     }
     node.getData match {

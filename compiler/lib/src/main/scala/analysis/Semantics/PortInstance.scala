@@ -5,19 +5,31 @@ import fpp.compiler.util._
 
 /** An FPP port instance */
 sealed trait PortInstance {
-  def direction: PortInstance.Direction
+
+  /** Gets the direction of the port instance */
+  def getDirection: Option[PortInstance.Direction]
+
+  /** Gets the location of the port definition */
+  final def getLoc: Location = Locations.get(getNodeId)
+
+  /** Gets the AST node ID of the port definition */
+  def getNodeId: AstNode.Id
+
+  /** Gets the unqualified name of the port instance */
+  def getUnqualifiedName: Name.Unqualified
+
 }
 
-object PortInstance {
+final object PortInstance {
 
   /** A port direction */
   sealed trait Direction
-  object Direction {
-    case object Input extends Direction
-    case object Output extends Direction
+  final object Direction {
+    final case object Input extends Direction
+    final case object Output extends Direction
   }
 
-  object General {
+  final object General {
 
     /** A general port kind */
     sealed trait Kind
@@ -33,41 +45,60 @@ object PortInstance {
 
     /** A general port type */
     sealed trait Type
-    object Type {
-      case class DefPort(symbol: Symbol.Port) extends Type
-      case object Serial extends Type
+    final object Type {
+      final case class DefPort(symbol: Symbol.Port) extends Type
+      final case object Serial extends Type
     }
 
   }
 
   /** A general port instance */
-  case class General(
+  final case class General(
+    aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]],
+    specifier: Ast.SpecPortInstance.General,
     kind: General.Kind,
     size: Int,
     ty: General.Type,
-    aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]],
-    general: Ast.SpecPortInstance.General
   ) extends PortInstance {
 
-    val name = general.name
-
-    override def direction = kind match {
-      case General.Kind.Output => Direction.Output
-      case _ => Direction.Input
+    override def getDirection = kind match {
+      case General.Kind.Output => Some(Direction.Output)
+      case _ => Some(Direction.Input)
     }
+
+    override def getNodeId = aNode._2.getId
+
+    override def getUnqualifiedName = specifier.name
 
   }
 
   /** A special port instance */
-  case class Special(
-    // TODO
+  final case class Special(
     aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]],
-    instance: Ast.SpecPortInstance.Special
+    specifier: Ast.SpecPortInstance.Special,
+    // TODO
   ) extends PortInstance {
 
-    val name = instance.name
+    override def getDirection = Some(Direction.Input)
 
-    override def direction = Direction.Input
+    override def getNodeId = aNode._2.getId
+
+    override def getUnqualifiedName = specifier.name
+
+  }
+
+  final case class Internal(  
+    aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]],
+    specifier: Ast.SpecInternalPort,
+    priority: Option[Int],
+    queueFull: Ast.QueueFull
+  ) extends PortInstance {
+
+    override def getDirection = None
+
+    override def getNodeId = aNode._2.getId
+
+    override def getUnqualifiedName = specifier.name
 
   }
 

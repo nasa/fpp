@@ -41,6 +41,11 @@ sealed trait Error {
         System.err.println(s"previous parameter was here:")
         System.err.println(prevLoc)
       }
+      case SemanticError.DuplicatePortInstance(name, loc, prevLoc) => {
+        Error.print (Some(loc)) (s"duplicate port instance ${name}")
+        System.err.println(s"previous port instance was here:")
+        System.err.println(prevLoc)
+      }
       case SemanticError.DuplicateStructMember(name, loc, prevLoc) => {
         Error.print (Some(loc)) (s"duplicate struct member ${name}")
         System.err.println(s"previous member was here:")
@@ -134,6 +139,12 @@ object SemanticError {
   ) extends Error
   /** Duplicate parameter */
   final case class DuplicateParameter(
+    name: String,
+    loc: Location,
+    prevLoc: Location
+  ) extends Error
+  /** Duplicate port instance */
+  final case class DuplicatePortInstance(
     name: String,
     loc: Location,
     prevLoc: Location
