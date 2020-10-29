@@ -3,7 +3,7 @@ fpp-check
 module E { }
 ^
 error: redefinition of symbol E
-previous definition was here:
+previous definition is here:
 [ local path prefix ]/compiler/tools/fpp-check/test/redef_enum_module.fpp: 1.1
 enum E { X }
 ^

@@ -31,9 +31,10 @@ object CheckComponentDefs
     // TODO
     // Add the instance to the component
     for {
-      _ <- PortInstances.fromSpecPortInstance(a, aNode)
+      instance <- PortInstances.fromSpecPortInstance(a, aNode)
+      component <- a.component.get.addPortInstance(instance)
     }
-    yield a
+    yield a.copy(component = Some(component))
   }
 
 }

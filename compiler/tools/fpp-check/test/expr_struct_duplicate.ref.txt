@@ -3,7 +3,7 @@ fpp-check
 constant s = { x = 1, x = 2 }
                       ^
 error: duplicate struct member x
-previous member was here:
+previous member is here:
 [ local path prefix ]/compiler/tools/fpp-check/test/expr_struct_duplicate.fpp: 1.16
 constant s = { x = 1, x = 2 }
                ^

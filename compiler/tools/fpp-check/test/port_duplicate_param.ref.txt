@@ -3,7 +3,7 @@ fpp-check
   a: F32
   ^
 error: duplicate parameter a
-previous parameter was here:
+previous parameter is here:
 [ local path prefix ]/compiler/tools/fpp-check/test/port_duplicate_param.fpp: 2.3
   a: U32
   ^

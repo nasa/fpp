@@ -3,7 +3,7 @@ fpp-check
   constant x = 1
   ^
 error: redefinition of symbol x
-previous definition was here:
+previous definition is here:
 [ local path prefix ]/compiler/tools/fpp-check/test/redef_constant_in_module.fpp: 2.3
   constant x = 0
   ^

@@ -3,7 +3,7 @@ fpp-check
 module c { }
 ^
 error: redefinition of symbol c
-previous definition was here:
+previous definition is here:
 [ local path prefix ]/compiler/tools/fpp-check/test/redef_constant_module.fpp: 1.1
 constant c = 0
 ^

@@ -3,7 +3,7 @@ fpp-check
   X
   ^
 error: redefinition of symbol X
-previous definition was here:
+previous definition is here:
 [ local path prefix ]/compiler/tools/fpp-check/test/redef_enum_constant.fpp: 2.3
   X
   ^

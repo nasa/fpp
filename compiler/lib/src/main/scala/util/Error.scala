@@ -33,22 +33,22 @@ sealed trait Error {
         Error.print (Some(loc)) ("division by zero")
       case SemanticError.DuplicateEnumValue(value, loc, prevLoc) => {
         Error.print (Some(loc)) (s"duplicate enum value ${value}")
-        System.err.println(s"previous occurrence was here:")
+        System.err.println(s"previous occurrence is here:")
         System.err.println(prevLoc)
       }
       case SemanticError.DuplicateParameter(name, loc, prevLoc) => {
         Error.print (Some(loc)) (s"duplicate parameter ${name}")
-        System.err.println(s"previous parameter was here:")
+        System.err.println(s"previous parameter is here:")
         System.err.println(prevLoc)
       }
       case SemanticError.DuplicatePortInstance(name, loc, prevLoc) => {
         Error.print (Some(loc)) (s"duplicate port instance ${name}")
-        System.err.println(s"previous port instance was here:")
+        System.err.println(s"previous instance is here:")
         System.err.println(prevLoc)
       }
       case SemanticError.DuplicateStructMember(name, loc, prevLoc) => {
         Error.print (Some(loc)) (s"duplicate struct member ${name}")
-        System.err.println(s"previous member was here:")
+        System.err.println(s"previous member is here:")
         System.err.println(prevLoc)
       }
       case SemanticError.EmptyArray(loc) => 
@@ -56,7 +56,7 @@ sealed trait Error {
       case SemanticError.InconsistentSpecLoc(loc, path, prevLoc, prevPath) => {
         Error.print (Some(loc)) (s"inconsistent location path ${path}")
         System.err.println(prevLoc)
-        System.err.println(s"previous path was ${prevPath}")
+        System.err.println(s"previous path is ${prevPath}")
       }
       case SemanticError.IncorrectSpecLoc(loc, specifiedPath, actualLoc) => {
         Error.print (Some(loc)) (s"incorrect location path ${specifiedPath}")
@@ -89,7 +89,7 @@ sealed trait Error {
         Error.print (Some(loc)) ("language feature is not yet implemented")
       case SemanticError.RedefinedSymbol(name, loc, prevLoc) => {
         Error.print (Some(loc)) (s"redefinition of symbol ${name}")
-        System.err.println(s"previous definition was here:")
+        System.err.println(s"previous definition is here:")
         System.err.println(prevLoc)
       }
       case SemanticError.TypeMismatch(loc, msg) => Error.print (Some(loc)) (msg)
