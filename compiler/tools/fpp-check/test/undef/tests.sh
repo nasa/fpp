@@ -5,5 +5,11 @@ constant_3
 constant_component
 enum_constant_1
 enum_constant_2
+port_command_reg
+port_command_resp
+port_command_recv
+port_event
+port_text_event
+port_general
 "
 
