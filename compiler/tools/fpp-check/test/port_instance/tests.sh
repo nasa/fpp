@@ -1,0 +1,8 @@
+tests="
+undef_command_recv
+undef_command_reg
+undef_command_resp
+undef_event
+undef_general
+undef_text_event
+"

@@ -1,0 +1,2 @@
+fpp-check
+error: cannot open file [ local path prefix ]/compiler/tools/fpp-check/test/port_instance/undef_command_reg.fpp

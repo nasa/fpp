@@ -1,1 +1,0 @@
-active component C { }
