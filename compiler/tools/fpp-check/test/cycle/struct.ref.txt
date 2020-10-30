@@ -1,0 +1,8 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/cycle/struct.fpp: 1.1
+struct A { x: B }
+^
+error: encountered a use-def cycle:
+  use B at [ local path prefix ]/compiler/tools/fpp-check/test/cycle/struct.fpp: 1.15 refers to definition B at [ local path prefix ]/compiler/tools/fpp-check/test/cycle/struct.fpp: 2.1
+  use C at [ local path prefix ]/compiler/tools/fpp-check/test/cycle/struct.fpp: 2.15 refers to definition C at [ local path prefix ]/compiler/tools/fpp-check/test/cycle/struct.fpp: 3.1
+  use A at [ local path prefix ]/compiler/tools/fpp-check/test/cycle/struct.fpp: 3.15 refers to definition A at [ local path prefix ]/compiler/tools/fpp-check/test/cycle/struct.fpp: 1.1

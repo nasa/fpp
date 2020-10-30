@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/redef/constant_module.fpp: 2.1
+module c { }
+^
+error: redefinition of symbol c
+previous definition is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/redef/constant_module.fpp: 1.1
+constant c = 0
+^

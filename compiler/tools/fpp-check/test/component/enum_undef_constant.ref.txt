@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/component/enum_undef_constant.fpp: 2.16
+  enum E { X = a }
+               ^
+error: undefined symbol a

@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/struct/default_error.fpp: 4.11
+  default { x = 0, e = E.X, a = [ 1, 2, 3 ], b = 5 }
+          ^
+error: cannot convert { x: Integer, e: enum E, a: [3] Integer, b: Integer } to struct S

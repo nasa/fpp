@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/expr/neg_error.fpp: 1.14
+constant a = - { x = 1 }
+             ^
+error: cannot convert { x: Integer } to a numeric type

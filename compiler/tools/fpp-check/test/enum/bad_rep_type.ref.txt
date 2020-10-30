@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/enum/bad_rep_type.fpp: 2.9
+enum E: A { X = 1 }
+        ^
+error: primitive integer type required

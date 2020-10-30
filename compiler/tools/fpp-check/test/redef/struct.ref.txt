@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/redef/struct.fpp: 2.1
+struct S { y: U32 }
+^
+error: redefinition of symbol S
+previous definition is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/redef/struct.fpp: 1.1
+struct S { x: U32 }
+^

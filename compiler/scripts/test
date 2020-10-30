@@ -1,0 +1,30 @@
+#!/bin/sh
+
+. $COMPILER_ROOT/scripts/test-utils.sh
+
+num_failed=0
+
+{
+  tests=`find . -name run | grep test | sed 's;^\./;;'`
+  for t in $tests
+  do
+    echo "[ $t ]"
+    dir=`dirname $t`
+    base=`basename $t`
+    (cd $dir; ./$base)
+    num_failed=`expr $num_failed + $?`
+  done
+
+  echo 
+  if test $num_failed -eq 0
+  then
+    printf "All tests "
+    echo_green PASSED
+  else
+    printf "$num_failed tests "
+    echo_red FAILED
+  fi
+  echo $num_failed > num_failed.txt
+} 2>&1 | tee test-output.txt
+
+exit `cat num_failed.txt`

@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/component/struct_undef_type.fpp: 2.17
+  struct S { x: T }
+                ^
+error: undefined symbol T

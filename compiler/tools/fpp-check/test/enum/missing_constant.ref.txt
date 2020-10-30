@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/enum/missing_constant.fpp: 1.1
+enum E { }
+^
+error: enum must define at least one constant

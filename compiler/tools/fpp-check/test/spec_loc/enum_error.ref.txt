@@ -1,0 +1,8 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/spec_loc/enum_error.fpp: 1.18
+locate type E at "incorrect.fpp"
+                 ^
+error: incorrect location path [ local path prefix ]/compiler/tools/fpp-check/test/spec_loc/incorrect.fpp
+actual location is [ local path prefix ]/compiler/tools/fpp-check/test/spec_loc/enum_error.fpp: 2.1
+enum E { X }
+^

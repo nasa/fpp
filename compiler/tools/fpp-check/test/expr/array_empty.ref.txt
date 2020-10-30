@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/expr/array_empty.fpp: 1.14
+constant a = [ ]
+             ^
+error: array expression may not be empty

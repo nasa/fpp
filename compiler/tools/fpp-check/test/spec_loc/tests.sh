@@ -1,0 +1,14 @@
+tests="
+abs_type_error
+abs_type_ok
+array_error
+array_ok
+constant_error
+constant_ok
+enum_error
+enum_ok
+port_error
+port_ok
+struct_error
+struct_ok
+"

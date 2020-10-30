@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/expr/array_error.fpp: 3.16
+constant c = [ a, b ]
+               ^
+error: cannot compute common type of { x: Integer, y: F64 } and [2] F64

@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/type/string_size_invalid.fpp: 1.27
+array A = [3] string size -1
+                          ^
+error: invalid string size -1

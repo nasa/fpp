@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/array/format_missing_repl.fpp: 1.26
+array A = [3] U32 format ""
+                         ^
+error: invalid format string: missing replacement field

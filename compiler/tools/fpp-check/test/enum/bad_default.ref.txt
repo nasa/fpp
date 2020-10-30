@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/enum/bad_default.fpp: 1.22
+enum E { X } default 0
+                     ^
+error: cannot convert Integer to enum E

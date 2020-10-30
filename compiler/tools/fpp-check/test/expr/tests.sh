@@ -1,0 +1,12 @@
+tests="
+add_error
+array_empty
+array_error
+array_ok
+div_by_zero
+literal_ok
+neg_error
+neg_ok
+paren_ok
+struct_duplicate
+"

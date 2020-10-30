@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/redef/module_component.fpp: 2.1
+active component M { }
+^
+error: redefinition of symbol M
+previous definition is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/redef/module_component.fpp: 1.1
+module M { }
+^

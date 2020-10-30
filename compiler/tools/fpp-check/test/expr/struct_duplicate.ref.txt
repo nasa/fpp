@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/expr/struct_duplicate.fpp: 1.23
+constant s = { x = 1, x = 2 }
+                      ^
+error: duplicate struct member x
+previous member is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/expr/struct_duplicate.fpp: 1.16
+constant s = { x = 1, x = 2 }
+               ^

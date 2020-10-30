@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/component/enum_undef_type.fpp: 2.12
+  enum E : T { X }
+           ^
+error: undefined symbol T

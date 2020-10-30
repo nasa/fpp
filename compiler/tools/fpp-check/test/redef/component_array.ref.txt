@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/redef/component_array.fpp: 3.1
+array C = [3] U32
+^
+error: redefinition of symbol C
+previous definition is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/redef/component_array.fpp: 1.1
+passive component C { }
+^

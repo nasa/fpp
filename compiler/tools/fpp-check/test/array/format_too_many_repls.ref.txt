@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/array/format_too_many_repls.fpp: 1.26
+array A = [3] U32 format "{} {} {}"
+                         ^
+error: invalid format string: too many replacement fields

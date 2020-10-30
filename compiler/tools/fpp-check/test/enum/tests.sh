@@ -1,0 +1,12 @@
+tests="
+bad_constant
+bad_default
+bad_rep_type
+default_ok
+duplicate_value
+explicit
+implied
+invalid_constants
+invalid_symbol
+missing_constant
+"

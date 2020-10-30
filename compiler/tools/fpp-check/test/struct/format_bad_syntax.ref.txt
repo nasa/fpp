@@ -1,0 +1,8 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/struct/format_bad_syntax.fpp: 1.26
+struct S { x: U32 format "{" }
+                         ^
+error: invalid format string: 
+{
+ ^
+invalid replacement field

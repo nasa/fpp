@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/expr/div_by_zero.fpp: 3.16
+constant c = a/b
+               ^
+error: division by zero

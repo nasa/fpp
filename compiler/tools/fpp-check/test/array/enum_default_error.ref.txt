@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/array/enum_default_error.fpp: 2.25
+array A = [3] E default 0
+                        ^
+error: cannot convert Integer to array A

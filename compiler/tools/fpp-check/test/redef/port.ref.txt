@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/redef/port.fpp: 2.1
+port P(b: string)
+^
+error: redefinition of symbol P
+previous definition is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/redef/port.fpp: 1.1
+port P(a: U32)
+^

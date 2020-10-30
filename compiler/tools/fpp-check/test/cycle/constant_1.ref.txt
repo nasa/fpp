@@ -1,0 +1,8 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/cycle/constant_1.fpp: 1.1
+constant a = b
+^
+error: encountered a use-def cycle:
+  use b at [ local path prefix ]/compiler/tools/fpp-check/test/cycle/constant_1.fpp: 1.14 refers to definition b at [ local path prefix ]/compiler/tools/fpp-check/test/cycle/constant_1.fpp: 2.1
+  use c at [ local path prefix ]/compiler/tools/fpp-check/test/cycle/constant_1.fpp: 2.14 refers to definition c at [ local path prefix ]/compiler/tools/fpp-check/test/cycle/constant_1.fpp: 3.1
+  use a at [ local path prefix ]/compiler/tools/fpp-check/test/cycle/constant_1.fpp: 3.14 refers to definition a at [ local path prefix ]/compiler/tools/fpp-check/test/cycle/constant_1.fpp: 1.1

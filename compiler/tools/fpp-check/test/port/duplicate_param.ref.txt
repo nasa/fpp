@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/port/duplicate_param.fpp: 3.3
+  a: F32
+  ^
+error: duplicate parameter a
+previous parameter is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/port/duplicate_param.fpp: 2.3
+  a: U32
+  ^

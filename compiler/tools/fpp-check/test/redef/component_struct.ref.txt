@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/redef/component_struct.fpp: 3.1
+struct C { }
+^
+error: redefinition of symbol C
+previous definition is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/redef/component_struct.fpp: 1.1
+passive component C { }
+^

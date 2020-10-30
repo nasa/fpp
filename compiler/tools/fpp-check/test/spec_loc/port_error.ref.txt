@@ -1,0 +1,8 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/spec_loc/port_error.fpp: 1.18
+locate port P at "incorrect.fpp"
+                 ^
+error: incorrect location path [ local path prefix ]/compiler/tools/fpp-check/test/spec_loc/incorrect.fpp
+actual location is [ local path prefix ]/compiler/tools/fpp-check/test/spec_loc/port_error.fpp: 3.1
+port P
+^

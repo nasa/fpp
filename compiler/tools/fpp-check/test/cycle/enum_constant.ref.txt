@@ -1,0 +1,8 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/cycle/enum_constant.fpp: 1.10
+enum E { A = B, B = C, C = A }
+         ^
+error: encountered a use-def cycle:
+  use B at [ local path prefix ]/compiler/tools/fpp-check/test/cycle/enum_constant.fpp: 1.14 refers to definition B at [ local path prefix ]/compiler/tools/fpp-check/test/cycle/enum_constant.fpp: 1.17
+  use C at [ local path prefix ]/compiler/tools/fpp-check/test/cycle/enum_constant.fpp: 1.21 refers to definition C at [ local path prefix ]/compiler/tools/fpp-check/test/cycle/enum_constant.fpp: 1.24
+  use A at [ local path prefix ]/compiler/tools/fpp-check/test/cycle/enum_constant.fpp: 1.28 refers to definition A at [ local path prefix ]/compiler/tools/fpp-check/test/cycle/enum_constant.fpp: 1.10

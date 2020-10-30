@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/enum/duplicate_value.fpp: 3.17
+enum E { X = a, Y = b + 1 }
+                ^
+error: duplicate enum value 2
+previous occurrence is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/enum/duplicate_value.fpp: 3.10
+enum E { X = a, Y = b + 1 }
+         ^

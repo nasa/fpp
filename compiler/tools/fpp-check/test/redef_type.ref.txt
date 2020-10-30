@@ -1,9 +1,0 @@
-fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/redef_type.fpp: 2.1
-type T
-^
-error: redefinition of symbol T
-previous definition is here:
-[ local path prefix ]/compiler/tools/fpp-check/test/redef_type.fpp: 1.1
-type T
-^

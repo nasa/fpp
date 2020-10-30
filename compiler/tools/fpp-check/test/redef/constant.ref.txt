@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/redef/constant.fpp: 2.1
+constant x = 1
+^
+error: redefinition of symbol x
+previous definition is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/redef/constant.fpp: 1.1
+constant x = 0
+^

@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/struct/format_missing_repl.fpp: 1.26
+struct s { x: U32 format "" }
+                         ^
+error: invalid format string: missing replacement field

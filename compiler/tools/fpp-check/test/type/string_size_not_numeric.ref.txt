@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/type/string_size_not_numeric.fpp: 1.27
+array A = [3] string size "abc"
+                          ^
+error: cannot convert string to a numeric type

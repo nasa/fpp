@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/component/array_undef_type.fpp: 2.17
+  array A = [3] T
+                ^
+error: undefined symbol T

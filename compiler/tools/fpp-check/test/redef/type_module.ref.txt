@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/redef/type_module.fpp: 2.1
+module T { }
+^
+error: redefinition of symbol T
+previous definition is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/redef/type_module.fpp: 1.1
+type T
+^

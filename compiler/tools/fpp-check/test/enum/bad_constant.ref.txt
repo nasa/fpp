@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/enum/bad_constant.fpp: 1.14
+enum E { X = "abc" }
+             ^
+error: cannot convert string to a numeric type

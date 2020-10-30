@@ -1,0 +1,3 @@
+tests="
+uses_ok
+"

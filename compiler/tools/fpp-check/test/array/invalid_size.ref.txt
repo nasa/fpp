@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/array/invalid_size.fpp: 1.12
+array A = [-1] U32
+           ^
+error: invalid array size -1

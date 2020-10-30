@@ -1,8 +1,0 @@
-fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/cycle_enum.fpp: 1.1
-enum A: B { }
-^
-error: encountered a use-def cycle:
-  use B at [ local path prefix ]/compiler/tools/fpp-check/test/cycle_enum.fpp: 1.9 refers to definition B at /Users/bocchino/JPL/Tools/fpp/compiler/tools/fpp-check/test/cycle_enum.fpp: 2.1
-  use C at [ local path prefix ]/compiler/tools/fpp-check/test/cycle_enum.fpp: 2.9 refers to definition C at /Users/bocchino/JPL/Tools/fpp/compiler/tools/fpp-check/test/cycle_enum.fpp: 3.1
-  use A at [ local path prefix ]/compiler/tools/fpp-check/test/cycle_enum.fpp: 3.9 refers to definition A at /Users/bocchino/JPL/Tools/fpp/compiler/tools/fpp-check/test/cycle_enum.fpp: 1.1

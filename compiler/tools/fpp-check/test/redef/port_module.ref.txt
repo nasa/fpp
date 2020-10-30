@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/redef/port_module.fpp: 2.1
+module P { }
+^
+error: redefinition of symbol P
+previous definition is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/redef/port_module.fpp: 1.1
+port P
+^

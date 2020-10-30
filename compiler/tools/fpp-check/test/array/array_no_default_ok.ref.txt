@@ -1,0 +1,2 @@
+fpp-check
+error: cannot open file [ local path prefix ]/compiler/tools/fpp-check/test/array/array_no_default_ok.fpp

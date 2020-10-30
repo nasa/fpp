@@ -1,0 +1,8 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/array/format_bad_syntax.fpp: 1.26
+array A = [3] U32 format "{"
+                         ^
+error: invalid format string: 
+{
+ ^
+invalid replacement field
