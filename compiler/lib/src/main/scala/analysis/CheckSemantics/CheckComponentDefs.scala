@@ -17,11 +17,7 @@ object CheckComponentDefs
     val a1 = a.copy(component = Some(Component(aNode)))
     for {
       a <- super.defComponentAnnotatedNode(a1, aNode)
-      // TODO: If component is passive, then no async ports
-      // TODO: If component is active or queued, then at least one async input 
-      // port or one command
-      // TODO: Component provides ports required by dictionaries
-      // TODO: No duplicate names in dictionaries
+      _ <- Components.checkValidity(a, a.component.get)
     }
     yield {
       val symbol = Symbol.Component(aNode)
