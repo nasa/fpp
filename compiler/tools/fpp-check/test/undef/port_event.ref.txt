@@ -1,5 +1,0 @@
-fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/undef/port_event.fpp: 3.3
-  event port eventOut
-  ^
-error: undefined symbol Fw

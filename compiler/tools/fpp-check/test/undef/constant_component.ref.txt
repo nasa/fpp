@@ -1,5 +1,0 @@
-fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/undef/constant_component.fpp: 2.16
-  constant b = a
-               ^
-error: undefined symbol a

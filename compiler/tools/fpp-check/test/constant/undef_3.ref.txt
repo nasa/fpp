@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/constant/undef_3.fpp: 2.16
+constant b = M.a
+               ^
+error: undefined symbol a

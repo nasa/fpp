@@ -14,4 +14,11 @@ struct_format_not_numeric
 struct_ok
 struct_undef_type
 struct_undef_constant
+undef_constant
+undef_port_command_recv
+undef_port_command_reg
+undef_port_command_resp
+undef_port_event
+undef_port_general
+undef_port_text_event
 "

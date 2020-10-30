@@ -1,5 +1,0 @@
-fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/undef/port_command_reg.fpp: 3.3
-  command reg port cmdRegOut
-  ^
-error: undefined symbol Fw

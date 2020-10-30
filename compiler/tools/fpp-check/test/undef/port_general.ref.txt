@@ -1,5 +1,0 @@
-fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/undef/port_general.fpp: 3.23
-  async input port p: P
-                      ^
-error: undefined symbol P

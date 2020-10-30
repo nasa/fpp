@@ -9,4 +9,6 @@ implied
 invalid_constants
 invalid_symbol
 missing_constant
+undef_constant_1
+undef_constant_2
 "
