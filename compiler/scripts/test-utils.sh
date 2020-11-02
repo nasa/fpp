@@ -19,7 +19,7 @@ echo_red()
 remove_path_prefix()
 {
   local_path_prefix=`cd ../../../..; echo $PWD`
-  sed "s;$local_path_prefix;[ local path prefix ];"
+  sed "s;$local_path_prefix;[ local path prefix ];g"
 }
 
 # Run a test
