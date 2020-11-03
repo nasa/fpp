@@ -14,5 +14,7 @@ struct_format_not_numeric
 struct_ok
 struct_undef_type
 struct_undef_constant
+sync_input_priority
+sync_input_queue_full
 undef_constant
 "

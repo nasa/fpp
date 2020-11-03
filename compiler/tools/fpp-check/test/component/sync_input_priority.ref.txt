@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/component/sync_input_priority.fpp: 5.33
+  sync input port p: P priority 10
+                                ^
+error: only async input may have a priority
