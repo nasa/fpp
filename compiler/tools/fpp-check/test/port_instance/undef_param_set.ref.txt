@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/port_instance/undef_param_set.fpp: 3.3
+  param set port paramSetOut
+  ^
+error: undefined symbol Fw
