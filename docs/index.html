@@ -1630,8 +1630,8 @@ qualified with the component name, as for
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>All names appearing in any general port specifiers and any internal
-port specifiers must be distinct.</p>
+<p>All names appearing in any general port specifiers, special port specifiers,
+and internal port specifiers must be distinct.</p>
 </li>
 <li>
 <p>No passive component may have an <code>async</code> <code>input</code> port.</p>
@@ -4194,6 +4194,9 @@ If no specifier appears, then the default behavior is <code>assert</code>.</p>
 These port instances correspond to the "role ports" in the F Prime XML model.
 Their types and other attributes are specified by F Prime.
 The identifier specifies the name of the port.</p>
+</div>
+<div class="paragraph">
+<p>There must be at most one of each kind of special port instance.</p>
 </div>
 <div class="paragraph">
 <p>Each special port instance represents an implied use of a port
@@ -7763,7 +7766,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-11-12 09:37:13 -0800
+Last updated 2020-11-12 09:54:32 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

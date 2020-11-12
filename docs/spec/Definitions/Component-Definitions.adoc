@@ -66,8 +66,8 @@ qualified with the component name, as for
 
 The port instance specifiers must satisfy the following rules:
 
-. All names appearing in any general port specifiers and any internal
-port specifiers must be distinct.
+. All names appearing in any general port specifiers, special port specifiers, 
+and internal port specifiers must be distinct.
 
 . No passive component may have an `async` `input` port.
 
