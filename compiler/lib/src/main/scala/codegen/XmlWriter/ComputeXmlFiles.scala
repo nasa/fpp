@@ -30,16 +30,16 @@ object ComputeXmlFiles extends AstStateVisitor {
 
   override def defArrayAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val (_, node1, _) = node
-    val data = node1.getData
-    val loc = Locations.get(node1.getId)
+    val data = node1.data
+    val loc = Locations.get(node1.id)
     val fileName = getArrayFileName(data)
     addMapping(s, fileName, loc)
   }
 
   override def defEnumAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
     val (_, node1, _) = node
-    val data = node1.getData
-    val loc = Locations.get(node1.getId)
+    val data = node1.data
+    val loc = Locations.get(node1.id)
     val fileName = getEnumFileName(data)
     addMapping(s, fileName, loc)
   }
@@ -49,22 +49,22 @@ object ComputeXmlFiles extends AstStateVisitor {
     node: Ast.Annotated[AstNode[Ast.DefModule]]
   ) = {
     val (_, node1, _) = node
-    val data = node1.getData
+    val data = node1.data
     visitList(s, data.members, matchModuleMember)
   }
 
   override def defPortAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefPort]]) = {
     val (_, node1, _) = node
-    val data = node1.getData
-    val loc = Locations.get(node1.getId)
+    val data = node1.data
+    val loc = Locations.get(node1.id)
     val fileName = getPortFileName(data)
     addMapping(s, fileName, loc)
   }
 
   override def defStructAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
     val (_, node1, _) = node
-    val data = node1.getData
-    val loc = Locations.get(node1.getId)
+    val data = node1.data
+    val loc = Locations.get(node1.id)
     val fileName = getStructFileName(data)
     addMapping(s, fileName, loc)
   }

@@ -11,7 +11,7 @@ object CppWriter extends AstStateVisitor with LineUtils {
 
   override def defArrayAnnotatedNode(s: CppWriterState, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     // TODO
     default(s)
   }
@@ -21,7 +21,7 @@ object CppWriter extends AstStateVisitor with LineUtils {
     aNode: Ast.Annotated[AstNode[Ast.DefModule]]
   ) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     val a = s.a.copy(scopeNameList = data.name :: s.a.scopeNameList)
     val s1 = s.copy(a = a)
     visitList(s1, data.members, matchModuleMember)

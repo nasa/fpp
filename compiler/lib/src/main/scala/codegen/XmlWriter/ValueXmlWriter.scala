@@ -39,9 +39,9 @@ object ValueXmlWriter {
     
     override def struct(in: In, v: Value.Struct): Out = {
       val structType = v.getType
-      val data = structType.node._2.getData
+      val data = structType.node._2.data
       val namesList = data.members
-      val memberNames = namesList.map(_._2.getData.name)
+      val memberNames = namesList.map(_._2.data.name)
       val membersMap = v.anonStruct.members
       val members = memberNames.map(membersMap.get(_).get)
       val memberValues = members.map(getValue(in, _))

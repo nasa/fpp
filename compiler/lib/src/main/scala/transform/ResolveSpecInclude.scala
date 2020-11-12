@@ -15,12 +15,12 @@ object ResolveSpecInclude extends AstStateTransformer {
     node: Ast.Annotated[AstNode[Ast.DefComponent]]
   ) = {
     val (pre, node1, post) = node
-    val Ast.DefComponent(kind, name, members) = node1.getData
+    val Ast.DefComponent(kind, name, members) = node1.data
     for { result <- transformList(a, members, componentMember) }
     yield {
       val (a1, members1) = result
       val defComponent = Ast.DefComponent(kind, name, members1.flatten)
-      val node2 = AstNode.create(defComponent, node1.getId)
+      val node2 = AstNode.create(defComponent, node1.id)
       (a1, (pre, node2, post))
     }
   }
@@ -30,12 +30,12 @@ object ResolveSpecInclude extends AstStateTransformer {
     node: Ast.Annotated[AstNode[Ast.DefModule]]
   ) = {
     val (pre, node1, post) = node
-    val Ast.DefModule(name, members) = node1.getData
+    val Ast.DefModule(name, members) = node1.data
     for { result <- transformList(a, members, moduleMember) }
     yield {
       val (a1, members1) = result
       val defModule = Ast.DefModule(name, members1.flatten)
-      val node2 = AstNode.create(defModule, node1.getId)
+      val node2 = AstNode.create(defModule, node1.id)
       (a1, (pre, node2, post))
     }
   }
@@ -71,10 +71,10 @@ object ResolveSpecInclude extends AstStateTransformer {
     parser: Parser.Parser[List[MemberType]],
     transformer: (Analysis, MemberType) => Result[List[MemberType]]
   ): Result[List[MemberType]] = {
-    val spec = node.getData
-    val includingLoc = Locations.get(spec.file.getId)
+    val spec = node.data
+    val includingLoc = Locations.get(spec.file.id)
     for { 
-      path <- includingLoc.relativePath(spec.file.getData) 
+      path <- includingLoc.relativePath(spec.file.data) 
       includedFile <- Right(File.Path(path))
       _ <- checkForCycle(includingLoc, path.toString)
       members <- Parser.parseFile (parser) (Some(includingLoc)) (includedFile)

@@ -347,7 +347,7 @@ object Value {
 
     override def getType = t
 
-    override def toString = anonArray.toString ++ ": " ++ t.node._2.getData.name
+    override def toString = anonArray.toString ++ ": " ++ t.node._2.data.name
 
     override def truncate: Array = Array(anonArray.truncate, t)
 
@@ -371,7 +371,7 @@ object Value {
 
     override def isZero = convertToRepType.isZero
 
-    override def toString = value.toString ++ ": " ++ t.node._2.getData.name
+    override def toString = value.toString ++ ": " ++ t.node._2.data.name
 
     override def unary_- = - convertToRepType
 
@@ -452,7 +452,7 @@ object Value {
 
     override def getType = t
 
-    override def toString = anonStruct.toString ++ ": " ++ t.node._2.getData.name
+    override def toString = anonStruct.toString ++ ": " ++ t.node._2.data.name
 
     override def truncate: Struct = Struct(anonStruct.truncate, t)
 

@@ -11,9 +11,9 @@ object BuildSpecLocMap extends ModuleAnalyzer {
     node: Ast.Annotated[AstNode[Ast.SpecLoc]]
   ) = {
     val specNode = node._2
-    val spec = specNode.getData
+    val spec = specNode.data
     val symbol = spec.symbol
-    val qualifiedName = Name.Qualified.fromIdentList(a.scopeNameList.reverse ++ symbol.getData.toIdentList)
+    val qualifiedName = Name.Qualified.fromIdentList(a.scopeNameList.reverse ++ symbol.data.toIdentList)
     val key = (spec.kind, qualifiedName)
     a.locationSpecifierMap.get(key) match {
       case None => {
@@ -34,9 +34,9 @@ object BuildSpecLocMap extends ModuleAnalyzer {
       path2 <- getPathString(spec2)
       _ <- if (path1 == path2) Right(()) else {
           val e = SemanticError.InconsistentSpecLoc(
-          Locations.get(spec1.file.getId),
+          Locations.get(spec1.file.id),
           path1,
-          Locations.get(spec2.file.getId),
+          Locations.get(spec2.file.id),
           path2
         )
         Left(e)
@@ -45,8 +45,8 @@ object BuildSpecLocMap extends ModuleAnalyzer {
   }
 
   private def getPathString(spec: Ast.SpecLoc): Result.Result[String] = {
-    val loc = Locations.get(spec.file.getId)
-    for { path <- loc.relativePath(spec.file.getData) } 
+    val loc = Locations.get(spec.file.id)
+    for { path <- loc.relativePath(spec.file.data) } 
     yield path.toString
   }
 

@@ -18,7 +18,7 @@ object CheckExprTypes extends UseAnalyzer {
       _ <- convertNodeToNumeric(a, data.size)
       _ <- data.default match {
         case Some(defaultNode) => {
-          val arrayId = node.getId
+          val arrayId = node.id
           val arrayType = a.typeMap(arrayId)
           val defaultId = defaultNode.id
           val defaultType = a.typeMap(defaultId)
@@ -32,11 +32,11 @@ object CheckExprTypes extends UseAnalyzer {
 
   override def defConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
     val (_, node,_) = aNode
-    if (!a.typeMap.contains(node.getId)) {
-      val data = node.getData
+    if (!a.typeMap.contains(node.id)) {
+      val data = node.data
       for (a <- super.defConstantAnnotatedNode(a, aNode))
         yield {
-          val t = a.typeMap(data.value.getId)
+          val t = a.typeMap(data.value.id)
           a.assignType(node -> t)
         }
     }
@@ -50,7 +50,7 @@ object CheckExprTypes extends UseAnalyzer {
       a <- super.defEnumAnnotatedNode(a, aNode)
       _ <- data.default match {
         case Some(defaultNode) => {
-          val enumId = node.getId
+          val enumId = node.id
           val enumType = a.typeMap(enumId)
           val defaultId = defaultNode.id
           val defaultType = a.typeMap(defaultId)
@@ -81,7 +81,7 @@ object CheckExprTypes extends UseAnalyzer {
       a <- super.defStructAnnotatedNode(a, aNode)
       _ <- data.default match {
         case Some(defaultNode) => {
-          val structId = node.getId
+          val structId = node.id
           val structType = a.typeMap(structId)
           val defaultId = defaultNode.id
           val defaultType = a.typeMap(defaultId)
@@ -94,19 +94,19 @@ object CheckExprTypes extends UseAnalyzer {
   }
 
   override def exprArrayNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprArray) = {
-    val loc = Locations.get(node.getId)
+    val loc = Locations.get(node.id)
     val emptyListError = SemanticError.EmptyArray(loc)
     for {
       a <- super.exprArrayNode(a, node, e)
-      t <- a.commonType(e.elts.map(_.getId), emptyListError)
+      t <- a.commonType(e.elts.map(_.id), emptyListError)
     } yield a.assignType(node -> Type.AnonArray(Some(e.elts.size), t))
   }
 
   override def exprBinopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprBinop) = {
-    val loc = Locations.get(node.getId)
+    val loc = Locations.get(node.id)
     for {
       a <- super.exprBinopNode(a, node, e)
-      t <- a.commonType(e.e1.getId, e.e2.getId, loc)
+      t <- a.commonType(e.e1.id, e.e2.id, loc)
       _ <- convertToNumeric(loc, t)
     } yield a.assignType(node -> t)
   }
@@ -125,7 +125,7 @@ object CheckExprTypes extends UseAnalyzer {
 
   override def exprParenNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprParen) = {
     for (a <- super.exprParenNode(a, node, e))
-      yield a.assignType(node -> a.typeMap(e.e.getId))
+      yield a.assignType(node -> a.typeMap(e.e.id))
   }
 
   override def exprStructNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprStruct) = {
@@ -137,7 +137,7 @@ object CheckExprTypes extends UseAnalyzer {
     yield {
       def visitor(members: Type.Struct.Members, node: AstNode[Ast.StructMember]): Type.Struct.Members = {
         val data = node.data
-        val t = a.typeMap(data.value.getId)
+        val t = a.typeMap(data.value.id)
         members + (data.name -> t)
       }
       val empty: Type.Struct.Members = Map()
@@ -147,11 +147,11 @@ object CheckExprTypes extends UseAnalyzer {
   }
 
   override def exprUnopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprUnop) = {
-    val loc = Locations.get(node.getId)
+    val loc = Locations.get(node.id)
     for {
       a <- super.exprUnopNode(a, node, e)
       t <- {
-        val t1 = a.typeMap(e.e.getId)
+        val t1 = a.typeMap(e.e.id)
         convertToNumeric(loc, t1)
       }
     } yield a.assignType(node -> t)
@@ -179,7 +179,7 @@ object CheckExprTypes extends UseAnalyzer {
     } yield a
 
   private def visitUse[T](a: Analysis, node: AstNode[T], use: Name.Qualified): Result = {
-    val symbol = a.useDefMap(node.getId)
+    val symbol = a.useDefMap(node.id)
     for {
       a <- symbol match {
         // Unqualified constant symbol: visit the constant definition
@@ -202,7 +202,7 @@ object CheckExprTypes extends UseAnalyzer {
   }
 
   private def convertNodeToNumeric[T](a: Analysis, node: AstNode[T]) = {
-    val id = node.getId
+    val id = node.id
     val t = a.typeMap(id)
     val loc = Locations.get(id)
     convertToNumeric(loc, t)

@@ -14,7 +14,7 @@ object EnterSymbols
 
   override def defAbsTypeAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAbsType]]) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     val name = data.name
     val symbol = Symbol.AbsType(aNode)
     val nestedScope = a.nestedScope
@@ -24,7 +24,7 @@ object EnterSymbols
 
   override def defArrayAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     val name = data.name
     val symbol = Symbol.Array(aNode)
     val nestedScope = a.nestedScope
@@ -37,7 +37,7 @@ object EnterSymbols
     aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
   ) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     val name = data.name
     val symbol = Symbol.Component(aNode)
     for {
@@ -64,7 +64,7 @@ object EnterSymbols
 
   override def defConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     val name = data.name
     val symbol = Symbol.Constant(aNode)
     val nestedScope = a.nestedScope
@@ -74,7 +74,7 @@ object EnterSymbols
 
   override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     val name = data.name
     val symbol = Symbol.Enum(aNode)
     for {
@@ -100,7 +100,7 @@ object EnterSymbols
 
   override def defEnumConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnumConstant]]) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     val name = data.name
     val symbol = Symbol.EnumConstant(aNode)
     val nestedScope = a.nestedScope
@@ -113,7 +113,7 @@ object EnterSymbols
     aNode: Ast.Annotated[AstNode[Ast.DefModule]]
   ) = {
     val (_, node, _) = aNode
-    val Ast.DefModule(name, members) = node.getData
+    val Ast.DefModule(name, members) = node.data
     val oldScopeNameList = a.scopeNameList
     val newScopeNameList = name :: oldScopeNameList
     val a1 = a.copy(scopeNameList = newScopeNameList)
@@ -125,7 +125,7 @@ object EnterSymbols
         case Some(symbol) => 
           val error = SemanticError.RedefinedSymbol(
             name,
-            Locations.get(node.getId),
+            Locations.get(node.id),
             symbol.getLoc
           )
           Left(error)
@@ -163,7 +163,7 @@ object EnterSymbols
 
   override def defPortAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefPort]]) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     val name = data.name
     val symbol = Symbol.Port(aNode)
     val nestedScope = a.nestedScope
@@ -173,7 +173,7 @@ object EnterSymbols
 
   override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     val name = data.name
     val symbol = Symbol.Struct(aNode)
     val nestedScope = a.nestedScope

@@ -1,10 +1,7 @@
 package fpp.compiler.ast
 
 /** An AST node with an identifier */
-final case class AstNode[+T] private(data: T, id: AstNode.Id) {
-  def getData: T = this.data
-  def getId: AstNode.Id = this.id
-}
+final case class AstNode[+T] private(data: T, id: AstNode.Id)
 
 object AstNode {
 

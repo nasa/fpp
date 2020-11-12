@@ -102,8 +102,8 @@ object Format {
     }
     
     def parseNode(node: AstNode[String]): Result.Result[Format] = {
-      val loc = Locations.get(node.getId)
-      val string = node.getData
+      val loc = Locations.get(node.id)
+      val string = node.data
       parse(parseAllInput(format), string) match {
         case NoSuccess(msg, next) => {
           val msg1 = "\n" ++ next.pos.longString ++ "\n" ++ msg

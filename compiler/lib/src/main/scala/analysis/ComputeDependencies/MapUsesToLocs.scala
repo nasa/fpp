@@ -60,8 +60,8 @@ object MapUsesToLocs extends UseAnalyzer {
       }
     }
     def getFile(specLoc: Ast.SpecLoc): Result.Result[File] = {
-      val loc = Locations.get(specLoc.file.getId)
-      for { path <- loc.relativePath(specLoc.file.getData) } 
+      val loc = Locations.get(specLoc.file.id)
+      for { path <- loc.relativePath(specLoc.file.data) } 
       yield File.Path(path)
     }
     def addDependency(specLoc: Ast.SpecLoc, file: File): Result = {

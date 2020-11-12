@@ -11,8 +11,8 @@ object PortXmlWriter extends AstVisitor with LineUtils {
 
   override def defPortAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefPort]]) = {
     val node = aNode._2
-    val loc = Locations.get(node.getId)
-    val data = node.getData
+    val loc = Locations.get(node.id)
+    val data = node.data
     val tags = {
       val pairs = s.getNamespaceAndName(data.name)
       XmlTags.tags("interface", pairs)
@@ -27,7 +27,7 @@ object PortXmlWriter extends AstVisitor with LineUtils {
       val args = formalParamList(s, data.params)
       val ret = data.returnType match {
         case Some(typeName) =>
-          val t = s.a.typeMap(typeName.getId)
+          val t = s.a.typeMap(typeName.id)
           val pairs = TypeXmlWriter.getPairs(s, t)
           lines(XmlTags.openCloseTag("return", pairs))
         case None => Nil
@@ -53,9 +53,9 @@ object PortXmlWriter extends AstVisitor with LineUtils {
     aNode: Ast.Annotated[AstNode[Ast.FormalParam]]
   ) = {
     val node = aNode._2
-    val data = node.getData
+    val data = node.data
     val pairs = {
-      val t = s.a.typeMap(data.typeName.getId)
+      val t = s.a.typeMap(data.typeName.id)
       val passBy = data.kind match {
         case Ast.FormalParam.Ref => List(("pass_by", "reference"))
         case _ => Nil

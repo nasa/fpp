@@ -107,7 +107,7 @@ trait AstVisitor {
   }
 
   final def matchExprNode(in: In, node: AstNode[Ast.Expr]): Out =
-    node.getData match {
+    node.data match {
       case e : Ast.ExprBinop => exprBinopNode(in, node, e)
       case e : Ast.ExprArray => exprArrayNode(in, node, e)
       case e : Ast.ExprDot => exprDotNode(in, node, e)
@@ -155,7 +155,7 @@ trait AstVisitor {
     matchModuleMember(in, member)
 
   final def matchTypeNameNode(in: In, node: AstNode[Ast.TypeName]): Out =
-    node.getData match {
+    node.data match {
       case Ast.TypeNameBool => typeNameBoolNode(in, node)
       case tn : Ast.TypeNameFloat => typeNameFloatNode(in, node, tn)
       case tn : Ast.TypeNameInt => typeNameIntNode(in, node, tn)

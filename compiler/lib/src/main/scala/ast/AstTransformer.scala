@@ -218,7 +218,7 @@ trait AstTransformer {
   }
 
   final def matchExprNode(in: In, node: AstNode[Ast.Expr]): ResultNode[Ast.Expr] =
-    node.getData match {
+    node.data match {
       case e : Ast.ExprArray => exprArrayNode(in, node, e)
       case e : Ast.ExprBinop => exprBinopNode(in, node, e)
       case e : Ast.ExprDot => exprDotNode(in, node, e)
@@ -302,7 +302,7 @@ trait AstTransformer {
     matchModuleMember(in, member)
 
   final def matchTypeName(in: In, node: AstNode[Ast.TypeName]): ResultNode[Ast.TypeName] =
-    node.getData match {
+    node.data match {
       case Ast.TypeNameBool => typeNameBoolNode(in, node)
       case tn : Ast.TypeNameFloat => typeNameFloatNode(in, node, tn)
       case tn : Ast.TypeNameInt => typeNameIntNode(in, node, tn)

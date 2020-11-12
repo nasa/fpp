@@ -47,7 +47,7 @@ object TypeXmlWriter {
 
   /** Get the size of a type */
   def getSize(s: XmlWriterState, t: Type): Option[String] = t match {
-    case Type.String(Some(node)) => Some(s.a.valueMap(node.getId).toString)
+    case Type.String(Some(node)) => Some(s.a.valueMap(node.id).toString)
     case Type.String(None) => Some(s.defaultStringSize.toString)
     case _ => None
   }

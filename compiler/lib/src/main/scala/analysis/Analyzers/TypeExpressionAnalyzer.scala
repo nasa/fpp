@@ -13,7 +13,7 @@ trait TypeExpressionAnalyzer
 
   def defEnumConstantAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefEnumConstant]]) = {
     val (_, node1, _) = node
-    val data = node1.getData
+    val data = node1.data
     opt(exprNode)(a, data.value)
   }
 
@@ -21,7 +21,7 @@ trait TypeExpressionAnalyzer
 
   def formalParamNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.FormalParam]]): Result = {
     val (_, node1, _) = node
-    val data = node1.getData
+    val data = node1.data
     for {
       a <- typeNameNode(a, data.typeName)
     } yield a
@@ -35,7 +35,7 @@ trait TypeExpressionAnalyzer
     node: Ast.Annotated[AstNode[Ast.StructTypeMember]]
   ): Result = {
     val (_, node1, _) = node
-    val data = node1.getData
+    val data = node1.data
     typeNameNode(a, data.typeName)
   }
 
@@ -46,7 +46,7 @@ trait TypeExpressionAnalyzer
 
   override def defArrayAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val (_, node1, _) = node
-    val data = node1.getData
+    val data = node1.data
     for {
       a <- exprNode(a, data.size)
       a <- typeNameNode(a, data.eltType)
@@ -56,7 +56,7 @@ trait TypeExpressionAnalyzer
 
   override def defComponentInstanceAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefComponentInstance]]) = {
     val (_, node1, _) = node
-    val data = node1.getData
+    val data = node1.data
     for {
       a <- exprNode(a, data.baseId)
       a <- opt(exprNode)(a, data.queueSize)
@@ -67,13 +67,13 @@ trait TypeExpressionAnalyzer
 
   override def defConstantAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
     val (_, node1, _) = node
-    val data = node1.getData
+    val data = node1.data
     exprNode(a, data.value)
   }
 
   override def defEnumAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
     val (_, node1, _) = node
-    val data = node1.getData
+    val data = node1.data
     for {
       a <- opt(typeNameNode)(a, data.typeName)
       a <- visitList(a, data.constants, defEnumConstantAnnotatedNode)
@@ -83,7 +83,7 @@ trait TypeExpressionAnalyzer
 
   override def defPortAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefPort]]) = {
     val (_, node1, _) = node
-    val data = node1.getData
+    val data = node1.data
     for {
       a <- visitList(a, data.params, formalParamNode)
       a <- opt(typeNameNode)(a, data.returnType)
@@ -92,7 +92,7 @@ trait TypeExpressionAnalyzer
 
   override def defStructAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
     val (_, node1, _) = node
-    val data = node1.getData
+    val data = node1.data
     for {
       a <- visitList(a, data.members, structTypeMemberAnnotatedNode)
       a <- opt(exprNode)(a, data.default)
@@ -119,7 +119,7 @@ trait TypeExpressionAnalyzer
 
   override def specCommandAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecCommand]]) = {
     val (_, node1, _) = node
-    val data = node1.getData
+    val data = node1.data
     for {
       a <- visitList(a, data.params, formalParamNode)
       a <- opt(exprNode)(a, data.opcode)
@@ -136,7 +136,7 @@ trait TypeExpressionAnalyzer
       } yield a
     }
     val (_, node1, _) = node
-    val data = node1.getData
+    val data = node1.data
     data match {
       case direct : Ast.SpecConnectionGraph.Direct => visitList(a, direct.connections, connection)
       case pattern : Ast.SpecConnectionGraph.Pattern => exprNode(a, pattern.pattern)
@@ -145,7 +145,7 @@ trait TypeExpressionAnalyzer
 
   override def specEventAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecEvent]]) = {
     val (_, node1, _) = node
-    val data = node1.getData
+    val data = node1.data
     for {
       a <- visitList(a, data.params, formalParamNode)
       a <- opt(exprNode)(a, data.id)
@@ -155,13 +155,13 @@ trait TypeExpressionAnalyzer
 
   override def specInitAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecInit]]) = {
     val (_, node1, _) = node
-    val data = node1.getData
+    val data = node1.data
     exprNode(a, data.phase)
   }
 
   override def specInternalPortAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecInternalPort]]) = {
     val (_, node1, _) = node
-    val data = node1.getData
+    val data = node1.data
     for {
       a <- visitList(a, data.params, formalParamNode)
       a <- opt(exprNode)(a, data.priority)
@@ -170,7 +170,7 @@ trait TypeExpressionAnalyzer
 
   override def specParamAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecParam]]) = {
     val (_, node1, _) = node
-    val data = node1.getData
+    val data = node1.data
     for {
       a <- typeNameNode(a, data.typeName)
       a <- opt(exprNode)(a, data.default)
@@ -182,7 +182,7 @@ trait TypeExpressionAnalyzer
 
   override def specPortInstanceAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecPortInstance]]) = {
     val (_, node1, _) = node
-    val data = node1.getData
+    val data = node1.data
     data match {
       case general : Ast.SpecPortInstance.General =>
         for {
@@ -199,7 +199,7 @@ trait TypeExpressionAnalyzer
       exprNode(a, e)
     }
     val (_, node1, _) = node
-    val data = node1.getData
+    val data = node1.data
     for {
       a <- typeNameNode(a, data.typeName)
       a <- opt(exprNode)(a, data.id)

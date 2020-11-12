@@ -52,13 +52,13 @@ case class Analysis(
   /** Add a mapping to the type map */
   def assignType[T](mapping: (AstNode[T], Type)): Analysis = {
     val node -> t = mapping
-    this.copy(typeMap = this.typeMap + (node.getId -> t))
+    this.copy(typeMap = this.typeMap + (node.id -> t))
   }
 
   /** Add a value to the value map */
   def assignValue[T](mapping: (AstNode[T], Value)): Analysis = {
     val node -> v = mapping
-    this.copy(valueMap = this.valueMap + (node.getId -> v))
+    this.copy(valueMap = this.valueMap + (node.id -> v))
   }
 
   /** Compute the common type for a list of node Ids */
@@ -217,9 +217,9 @@ object Analysis {
         val Right(map) = result
         val name = getName(node.data)
         map.get(name) match {
-          case None => Right(map + (name -> node.getId))
+          case None => Right(map + (name -> node.id))
           case Some(id) => {
-            val loc = Locations.get(node.getId)
+            val loc = Locations.get(node.id)
             val prevLoc = Locations.get(id)
             Left(error(name, loc, prevLoc))
           }

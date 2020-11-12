@@ -23,7 +23,7 @@ object CheckTypeUses extends UseAnalyzer {
         yield {
           val (_, node, _) = aNode
           val data = node.data
-          val eltType = a.typeMap(data.eltType.getId)
+          val eltType = a.typeMap(data.eltType.id)
           val anonArray = Type.AnonArray(None, eltType)
           val t = Type.Array(aNode, anonArray)
           a.assignType(node -> t)
@@ -35,7 +35,7 @@ object CheckTypeUses extends UseAnalyzer {
     def visitor(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
       val (_, node, _) = aNode
       val data = node.data
-      val loc = Locations.get(node.getId)
+      val loc = Locations.get(node.id)
       for {
         a <- super.defEnumAnnotatedNode(a, aNode)
         _ <- data.constants match {
@@ -45,8 +45,8 @@ object CheckTypeUses extends UseAnalyzer {
         repType <- {
           data.typeName match {
             case Some(typeName) => {
-              val repType = a.typeMap(typeName.getId)
-              val loc = Locations.get(typeName.getId)
+              val repType = a.typeMap(typeName.id)
+              val loc = Locations.get(typeName.id)
               repType match {
                 case t : Type.PrimitiveInt => Right(t)
                 case _ => Left(SemanticError.InvalidType(loc, "primitive integer type required"))
@@ -84,7 +84,7 @@ object CheckTypeUses extends UseAnalyzer {
           ): Type.Struct.Members = {
             val (_, node, _) = aNode
             val data = node.data
-            val t = a.typeMap(data.typeName.getId)
+            val t = a.typeMap(data.typeName.id)
             members + (data.name -> t)
           }
           val empty: Type.Struct.Members = Map()
@@ -131,7 +131,7 @@ object CheckTypeUses extends UseAnalyzer {
     visitUse(a, node, use)
 
   private def visitUse[T](a: Analysis, node: AstNode[T], use: Name.Qualified): Result = {
-    val symbol = a.useDefMap(node.getId)
+    val symbol = a.useDefMap(node.id)
     for {
       a <- symbol match {
         case Symbol.AbsType(node) => defAbsTypeAnnotatedNode(a, node)
@@ -151,7 +151,7 @@ object CheckTypeUses extends UseAnalyzer {
     (a: Analysis, aNode: Ast.Annotated[AstNode[T]]): Result =
   {
     val node = aNode._2
-    if (!a.typeMap.contains(node.getId)) visitor(a, aNode)
+    if (!a.typeMap.contains(node.id)) visitor(a, aNode)
     else Right(a)
   }
 

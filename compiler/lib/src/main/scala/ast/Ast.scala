@@ -230,17 +230,17 @@ object Ast {
     /** A qualified identifier */
     case class Qualified(qualifier: AstNode[QualIdent], name: AstNode[Ident]) extends QualIdent {
 
-      def toIdentList = qualifier.getData.toIdentList ++ List(name.getData)
+      def toIdentList = qualifier.data.toIdentList ++ List(name.data)
 
     }
 
     /** Construct a qualified identifier from a node list */
     def fromNodeList(nodeList: QualIdent.NodeList): QualIdent =
       QualIdent.NodeList.split(nodeList) match {
-        case (Nil, name) => QualIdent.Unqualified(name.getData)
+        case (Nil, name) => QualIdent.Unqualified(name.data)
         case (qualifier, name) => {
           val qualifier1 = fromNodeList(qualifier)
-          val node = AstNode.create(qualifier1, QualIdent.NodeList.name(qualifier).getId)
+          val node = AstNode.create(qualifier1, QualIdent.NodeList.name(qualifier).id)
           QualIdent.Qualified(node, name)
         }
       }
@@ -272,8 +272,8 @@ object Ast {
       def fromNodeList(nodeList: NodeList): AstNode[QualIdent] = {
         val qualIdent = QualIdent.fromNodeList(nodeList)
         val node = AstNode.create(qualIdent)
-        val loc = Locations.get(nodeList.head.getId)
-        Locations.put(node.getId, loc)
+        val loc = Locations.get(nodeList.head.id)
+        Locations.put(node.id, loc)
         node
       }
 

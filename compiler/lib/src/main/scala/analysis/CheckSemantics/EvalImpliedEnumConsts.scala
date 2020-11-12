@@ -12,7 +12,7 @@ object EvalImpliedEnumConsts
 
   override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
     val (_, node, _) = aNode
-    val loc = Locations.get(node.getId)
+    val loc = Locations.get(node.id)
     val data = node.data
     val constants = data.constants.map(_._2)
     val numExprs = {
@@ -20,12 +20,12 @@ object EvalImpliedEnumConsts
         case Some(_) => 1
         case None => 0
       }
-      constants.map(_.getData).map(count).fold(0)(_ + _)
+      constants.map(_.data).map(count).fold(0)(_ + _)
     }
     if (numExprs == 0) {
       val (a1, _) = constants.foldLeft((a, 0))( (pair, node) => {
         val (a, intValue) = pair
-        val enumType = a.typeMap(node.getId) match {
+        val enumType = a.typeMap(node.id) match {
           case enumType : Type.Enum => enumType
           case _ => throw InternalError("type of enum definition should be enum type")
         }

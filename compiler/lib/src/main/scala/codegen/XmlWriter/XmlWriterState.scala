@@ -30,15 +30,15 @@ case class XmlWriterState(
           )
           case Symbol.Array(aNode) => Some(
             "import_array_type",
-            ComputeXmlFiles.getArrayFileName(aNode._2.getData)
+            ComputeXmlFiles.getArrayFileName(aNode._2.data)
           )
           case Symbol.Enum(aNode) => Some(
             "import_enum_type",
-            ComputeXmlFiles.getEnumFileName(aNode._2.getData)
+            ComputeXmlFiles.getEnumFileName(aNode._2.data)
           )
           case Symbol.Struct(aNode) => Some(
             "import_serializable_type",
-            ComputeXmlFiles.getStructFileName(aNode._2.getData)
+            ComputeXmlFiles.getStructFileName(aNode._2.data)
           )
           case _ => None
         }

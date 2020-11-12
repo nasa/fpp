@@ -11,37 +11,37 @@ object CheckSpecLocs
 
   override def defAbsTypeAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAbsType]]) = {
     val (_, node, _) = aNode
-    val name = node.getData.name
+    val name = node.data.name
     checkSpecLoc(a, Ast.SpecLoc.Type, name, node)
   }
 
   override def defArrayAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val (_, node, _) = aNode
-    val name = node.getData.name
+    val name = node.data.name
     checkSpecLoc(a, Ast.SpecLoc.Type, name, node)
   }
 
   override def defConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
     val (_, node, _) = aNode
-    val name = node.getData.name
+    val name = node.data.name
     checkSpecLoc(a, Ast.SpecLoc.Constant, name, node)
   }
 
   override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
     val (_, node, _) = aNode
-    val name = node.getData.name
+    val name = node.data.name
     checkSpecLoc(a, Ast.SpecLoc.Type, name, node)
   }
 
   override def defPortAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefPort]]) = {
     val (_, node, _) = aNode
-    val name = node.getData.name
+    val name = node.data.name
     checkSpecLoc(a, Ast.SpecLoc.Port, name, node)
   }
 
   override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
     val (_, node, _) = aNode
-    val name = node.getData.name
+    val name = node.data.name
     checkSpecLoc(a, Ast.SpecLoc.Type, name, node)
   }
 
@@ -52,12 +52,12 @@ object CheckSpecLocs
     node: AstNode[T]
   ): Result = {
     val qualifiedName = Name.Qualified(a.scopeNameList.reverse, name)
-    val actualLoc = Locations.get(node.getId)
+    val actualLoc = Locations.get(node.id)
     a.locationSpecifierMap.get((kind, qualifiedName)) match {
       case Some(specLoc) => {
-        val specifierLoc = Locations.get(specLoc.file.getId)
+        val specifierLoc = Locations.get(specLoc.file.id)
         for {
-          specifiedJavaPath <- specifierLoc.relativePath(specLoc.file.getData)
+          specifiedJavaPath <- specifierLoc.relativePath(specLoc.file.data)
           specifiedPath <- Right(File.Path(specifiedJavaPath).toString)
           actualPath <- Right(actualLoc.file.toString)
           _ <- if (specifiedPath == actualPath) Right(()) 

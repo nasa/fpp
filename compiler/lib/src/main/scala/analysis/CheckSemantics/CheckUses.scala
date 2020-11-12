@@ -11,7 +11,7 @@ object CheckUses extends UseAnalyzer {
       def visitExprIdent(a: Analysis, node: AstNode[Ast.Expr], name: Name.Unqualified) = {
         val mapping = a.nestedScope.get (NameGroup.Value) _
         for (symbol <- getSymbolForName(mapping)(node, name)) yield {
-          val useDefMap = a.useDefMap + (node.getId -> symbol)
+          val useDefMap = a.useDefMap + (node.id -> symbol)
           a.copy(useDefMap = useDefMap)
         }
       }
@@ -19,17 +19,17 @@ object CheckUses extends UseAnalyzer {
         for {
           a <- visitExprNode(a, e)
           symbol <- {
-            val symbol = a.useDefMap(e.getId)
+            val symbol = a.useDefMap(e.id)
             val scope = a.symbolScopeMap(symbol)
             val mapping = scope.get (NameGroup.Value) _
-            getSymbolForName(mapping)(id, id.getData)
+            getSymbolForName(mapping)(id, id.data)
           }
         } yield {
-          val useDefMap = a.useDefMap + (node.getId -> symbol)
+          val useDefMap = a.useDefMap + (node.id -> symbol)
           a.copy(useDefMap = useDefMap)
         }
       }
-      val data = node.getData
+      val data = node.data
       data match {
         case Ast.ExprIdent(name) => visitExprIdent(a, node, name)
         case Ast.ExprDot(e, id) => visitExprDot(a, node, e, id)
@@ -41,7 +41,7 @@ object CheckUses extends UseAnalyzer {
 
   override def defComponentAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefComponent]]) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     for {
       a <- {
         val symbol = Symbol.Component(aNode)
@@ -55,7 +55,7 @@ object CheckUses extends UseAnalyzer {
 
   override def defEnumAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
     val (_, node1, _) = node
-    val data = node1.getData
+    val data = node1.data
     for {
       a <- opt(typeNameNode)(a, data.typeName)
       a <- {
@@ -74,7 +74,7 @@ object CheckUses extends UseAnalyzer {
     aNode: Ast.Annotated[AstNode[Ast.DefModule]]
   ) = {
     val node = aNode._2
-    val Ast.DefModule(name, members) = node.getData
+    val Ast.DefModule(name, members) = node.data
     for {
       symbol <- {
         val mapping = a.nestedScope.get (NameGroup.Value) _
@@ -94,13 +94,13 @@ object CheckUses extends UseAnalyzer {
     visitQualIdentNode (NameGroup.Port) (a, node)
 
   override def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified) = {
-    val data = node.getData
+    val data = node.data
     data match {
       case Ast.TypeNameQualIdent(qualIdentNode) => for {
         a <- visitQualIdentNode (NameGroup.Type) (a, qualIdentNode)
       } yield {
-        val symbol = a.useDefMap(qualIdentNode.getId)
-        a.copy(useDefMap = a.useDefMap + (node.getId -> symbol))
+        val symbol = a.useDefMap(qualIdentNode.id)
+        a.copy(useDefMap = a.useDefMap + (node.id -> symbol))
       }
       case _ => throw InternalError("type use should be qualified identifier")
     }
@@ -112,7 +112,7 @@ object CheckUses extends UseAnalyzer {
     mapping(name) match {
       case Some(symbol) => Right(symbol)
       case None =>
-        val loc = Locations.get(node.getId)
+        val loc = Locations.get(node.id)
         Left(SemanticError.UndefinedSymbol(name, loc))
     }
 
@@ -120,7 +120,7 @@ object CheckUses extends UseAnalyzer {
     def visitUnqualified(a: Analysis, node: AstNode[Ast.QualIdent], name: Name.Unqualified) = {
       val mapping = a.nestedScope.get (ng) _
       for (symbol <- getSymbolForName(mapping)(node, name)) yield {
-        val useDefMap = a.useDefMap + (node.getId -> symbol)
+        val useDefMap = a.useDefMap + (node.id -> symbol)
         a.copy(useDefMap = useDefMap)
       }
     }
@@ -133,17 +133,17 @@ object CheckUses extends UseAnalyzer {
       for {
         a <- visitQualIdentNode (ng) (a, qualifier)
         symbol <- {
-          val symbol = a.useDefMap(qualifier.getId)
+          val symbol = a.useDefMap(qualifier.id)
           val scope = a.symbolScopeMap(symbol)
           val mapping = scope.get (ng) _
-          getSymbolForName(mapping)(name, name.getData)
+          getSymbolForName(mapping)(name, name.data)
         }
       } yield {
-        val useDefMap = a.useDefMap + (node.getId -> symbol)
+        val useDefMap = a.useDefMap + (node.id -> symbol)
         a.copy(useDefMap = useDefMap)
       }
     }
-    val data = node.getData
+    val data = node.data
     data match {
       case Ast.QualIdent.Unqualified(name) => visitUnqualified(a, node, name)
       case Ast.QualIdent.Qualified(qualifier, name) => visitQualified(a, node, qualifier, name)

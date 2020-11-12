@@ -16,7 +16,7 @@ object UsedSymbols extends UseAnalyzer {
     addSymbol(a, node)
 
   private def addSymbol[T](a: Analysis, node: AstNode[T]) = {
-    val symbol = a.useDefMap(node.getId)
+    val symbol = a.useDefMap(node.id)
     Right(a.copy(usedSymbolSet = a.usedSymbolSet + symbol))
   }
 

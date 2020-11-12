@@ -14,7 +14,7 @@ trait EnumAnalyzer extends Analyzer {
     aNode: Ast.Annotated[AstNode[Ast.DefEnum]]
   ) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     val a1 = a.copy(scopeNameList = data.name :: a.scopeNameList)
     for { a2 <- visitList(a1, data.constants, defEnumConstantAnnotatedNode) }
     yield a2.copy(scopeNameList = a.scopeNameList)

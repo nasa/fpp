@@ -26,7 +26,7 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
 
   override def defComponentInstanceAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefComponentInstance]]) = {
     val (_, node1, _) = node
-    val data = node1.getData
+    val data = node1.data
     for {
       a <- qualIdentNode (componentUse) (a, data.component)
       a <- super.defComponentInstanceAnnotatedNode(a, node)
@@ -41,7 +41,7 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
           val use = Name.Qualified.fromIdentList(list)
           Some(use)
         }
-        case Ast.ExprDot(e1, id) => nameOpt(e1.getData, id.getData :: qualifier)
+        case Ast.ExprDot(e1, id) => nameOpt(e1.data, id.data :: qualifier)
         case _ => None
       }
     }
@@ -58,7 +58,7 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
 
   override def specCompInstanceAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecCompInstance]]) = {
     val (_, node1, _) = node
-    val data = node1.getData
+    val data = node1.data
     qualIdentNode (componentInstanceUse) (a, data.instance)
   }
 
@@ -73,7 +73,7 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
       } yield a
     }
     val (_, node1, _) = node
-    val data = node1.getData
+    val data = node1.data
     data match {
       case direct : Ast.SpecConnectionGraph.Direct => visitList(a, direct.connections, connection)
       case pattern : Ast.SpecConnectionGraph.Pattern => for {
@@ -86,7 +86,7 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
 
   override def specInitAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecInit]]) = {
     val (_, node1, _) = node
-    val data = node1.getData
+    val data = node1.data
     for {
       a <- qualIdentNode (componentInstanceUse) (a, data.instance)
       a <- exprNode(a, data.phase)
@@ -95,7 +95,7 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
 
   override def specPortInstanceAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]]) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     data match {
       case general : Ast.SpecPortInstance.General =>
         for {
@@ -117,9 +117,9 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
           case Ast.SpecPortInstance.TimeGet => "Time"
         }
         val identList = List("Fw", name)
-        val nodeList = identList.map(AstNode.create(_, node.getId))
+        val nodeList = identList.map(AstNode.create(_, node.id))
         val qualIdent = Ast.QualIdent.fromNodeList(nodeList)
-        val impliedUse = AstNode.create(qualIdent, node.getId)
+        val impliedUse = AstNode.create(qualIdent, node.id)
         qualIdentNode(portUse)(a, impliedUse)
       }
     }
@@ -127,28 +127,28 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
 
   override def specTopImportAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecTopImport]]) = {
     val (_, node1, _) = node
-    val data = node1.getData
+    val data = node1.data
     qualIdentNode(topologyUse)(a, data.top)
   }
 
   override def specUnusedPortsAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecUnusedPorts]]) = {
     val (_, node1, _) = node
-    val data = node1.getData
+    val data = node1.data
     visitList(a, data.ports, portInstanceIdentifierNode)
   }
 
   override def typeNameQualIdentNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameQualIdent) = {
-    val use = Name.Qualified.fromQualIdent(tn.name.getData)
+    val use = Name.Qualified.fromQualIdent(tn.name.data)
     typeUse(a, node, use)
   }
 
   private def portInstanceIdentifierNode(a: Analysis, node: AstNode[Ast.PortInstanceIdentifier]): Result =
-    qualIdentNode (componentInstanceUse) (a, node.getData.componentInstance)
+    qualIdentNode (componentInstanceUse) (a, node.data.componentInstance)
 
   private def qualIdentNode
     (f: (Analysis, AstNode[Ast.QualIdent], Name.Qualified) => Result) 
     (a: Analysis, qualIdent: AstNode[Ast.QualIdent]): Result = {
-    val use = Name.Qualified.fromQualIdent(qualIdent.getData)
+    val use = Name.Qualified.fromQualIdent(qualIdent.data)
     f(a, qualIdent, use)
   }
 

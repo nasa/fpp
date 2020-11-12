@@ -11,7 +11,7 @@ object CheckPortDefs
 
   override def defPortAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefPort]]) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     for (_ <- Analysis.checkForDuplicateParameter(data.params))
       yield a
   }

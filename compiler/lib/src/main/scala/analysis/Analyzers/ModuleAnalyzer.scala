@@ -11,7 +11,7 @@ trait ModuleAnalyzer extends Analyzer {
     node: Ast.Annotated[AstNode[Ast.DefModule]]
   ) = {
     val (_, node1, _) = node
-    val Ast.DefModule(name, members) = node1.getData
+    val Ast.DefModule(name, members) = node1.data
     val a1 = a.copy(scopeNameList = name :: a.scopeNameList)
     for { a2 <- visitList(a1, members, matchModuleMember) }
     yield a2.copy(scopeNameList = a.scopeNameList)

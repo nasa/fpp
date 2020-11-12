@@ -15,14 +15,14 @@ object FinalizeTypeDefs
     val symbol = Symbol.Array(aNode)
     def visitor(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
       val node = aNode._2
-      val data = node.getData
+      val data = node.data
       // Get the type of this node as an array type A
-      val arrayType @ Type.Array(_, _, _, _) = a.typeMap(node.getId)
+      val arrayType @ Type.Array(_, _, _, _) = a.typeMap(node.id)
       for {
         // Visit the element type of A, to update its members
         eltType <- TypeVisitor.ty(a, arrayType.anonArray.eltType)
         // Update the size and element type in A
-        size <- a.getArraySize(data.size.getId)
+        size <- a.getArraySize(data.size.id)
         arrayType <- {
           val anonArray = Type.AnonArray(Some(size.toInt), eltType)
           Right(arrayType.copy(anonArray = anonArray))
@@ -30,7 +30,7 @@ object FinalizeTypeDefs
         // Compute the default value
         default <- data.default match {
           case Some(defaultNode) => {
-            val id = defaultNode.getId
+            val id = defaultNode.id
             val v = a.valueMap(id)
             val loc = Locations.get(id)
             for (_ <- Analysis.convertTypes(loc, v.getType -> arrayType))
@@ -65,10 +65,10 @@ object FinalizeTypeDefs
     def visitor(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
       val (_, node, _) = aNode
       val data = node.data
-      val enumType @ Type.Enum(_, _, _) = a.typeMap(node.getId)
+      val enumType @ Type.Enum(_, _, _) = a.typeMap(node.id)
       val default = data.default match {
-        case Some(default) => a.valueMap(default.getId)
-        case None => a.valueMap(data.constants.head._2.getId)
+        case Some(default) => a.valueMap(default.id)
+        case None => a.valueMap(data.constants.head._2.id)
       }
       val enumConstant @ Value.EnumConstant(_, _) = default
       val enumType1 = enumType.copy(default = Some(enumConstant))
@@ -81,9 +81,9 @@ object FinalizeTypeDefs
     val symbol = Symbol.Struct(aNode)
     def visitor(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
       val (_, node, _) = aNode
-      val data = node.getData
+      val data = node.data
       // Get the type of this node as a struct type S
-      val structType @ Type.Struct(_, _, _, _) = a.typeMap(node.getId)
+      val structType @ Type.Struct(_, _, _, _) = a.typeMap(node.id)
       for {
         // Visit the anonymous struct type of S, to update its members
         t <- TypeVisitor.ty(a, structType.anonStruct)
@@ -95,7 +95,7 @@ object FinalizeTypeDefs
         // Compute the default value
         default <- data.default match {
           case Some(defaultNode) => {
-            val id = defaultNode.getId
+            val id = defaultNode.id
             val v = a.valueMap(id)
             val loc = Locations.get(id)
             for (_ <- Analysis.convertTypes(loc, v.getType -> structType))
@@ -123,7 +123,7 @@ object FinalizeTypeDefs
               for (format <- formatOpt) yield (name, format)
             }
           }
-          val members = data.members.map(_._2.getData)
+          val members = data.members.map(_._2.data)
           for (pairs <- Result.map(members, mapping)) yield {
             pairs.filter(_.isDefined).map(_.get).toMap
           }
@@ -153,7 +153,7 @@ object FinalizeTypeDefs
   }
 
   private def computeFormat(node: AstNode[String], t: Type): Result.Result[Format] = {
-    val loc = Locations.get(node.getId)
+    val loc = Locations.get(node.id)
     def getField(format: Format) = 
       if (format.fields.size == 0)
         Left(SemanticError.InvalidFormatString(loc, "missing replacement field"))
@@ -161,7 +161,7 @@ object FinalizeTypeDefs
         Left(SemanticError.InvalidFormatString(loc, "too many replacement fields"))
       else Right(format.fields.head._1)
     def checkNumericField(field: Format.Field) = if (field.isNumeric && !t.isNumeric) {
-      val loc = Locations.get(node.getId)
+      val loc = Locations.get(node.id)
       Left(SemanticError.InvalidFormatString(loc, s"type $t is not numeric"))
     } else Right(())
     for {
@@ -181,7 +181,7 @@ object FinalizeTypeDefs
 
     override def array(a: Analysis, t: Type.Array) =
       for (a <- defArrayAnnotatedNode(a, t.node))
-        yield a.typeMap(t.node._2.getId)
+        yield a.typeMap(t.node._2.id)
 
     override def anonArray(a: Analysis, t: Type.AnonArray) =
       for (eltType <- ty(a, t.eltType))
@@ -189,12 +189,12 @@ object FinalizeTypeDefs
 
     override def enum(a: Analysis, t: Type.Enum) = 
       for (a <- defEnumAnnotatedNode(a, t.node))
-        yield a.typeMap(t.node._2.getId)
+        yield a.typeMap(t.node._2.id)
 
     override def string(a: Analysis, t: Type.String) =
       t.size match {
         case Some(e) => {
-          val id = e.getId
+          val id = e.id
           val Value.Integer(size) = Analysis.convertValueToType(
             a.valueMap(id),
             Type.Integer
@@ -210,7 +210,7 @@ object FinalizeTypeDefs
 
     override def struct(a: Analysis, t: Type.Struct) =
       for (a <- defStructAnnotatedNode(a, t.node))
-        yield a.typeMap(t.node._2.getId)
+        yield a.typeMap(t.node._2.id)
 
     override def anonStruct(a: Analysis, t: Type.AnonStruct) = {
       def visitor(member: Type.Struct.Member): Result.Result[Type.Struct.Member] = 

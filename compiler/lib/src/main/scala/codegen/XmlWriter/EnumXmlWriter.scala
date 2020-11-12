@@ -11,8 +11,8 @@ object EnumXmlWriter extends AstVisitor with LineUtils {
 
   override def defEnumAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
     val node = aNode._2
-    val loc = Locations.get(node.getId)
-    val data = node.getData
+    val loc = Locations.get(node.id)
+    val data = node.data
     val tags = {
       val pairs = s.getNamespaceAndName(data.name)
       XmlTags.tags("enum", pairs)
@@ -30,10 +30,10 @@ object EnumXmlWriter extends AstVisitor with LineUtils {
     aNode: Ast.Annotated[AstNode[Ast.DefEnumConstant]]
   ): Line = {
     val node = aNode._2
-    val data = node.getData
+    val data = node.data
     val namePair = ("name", data.name)
     val valuePair = {
-      val Value.EnumConstant(value, _) = s.a.valueMap(node.getId)
+      val Value.EnumConstant(value, _) = s.a.valueMap(node.id)
       ("value", value._2.toString)
     }
     val pairs = AnnotationXmlWriter.singleLineComment(aNode) match {

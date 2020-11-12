@@ -15,9 +15,9 @@ object ConstantCppWriter extends AstVisitor with LineUtils {
     aNode: Ast.Annotated[AstNode[Ast.DefConstant]]
   ) = {
     val node = aNode._2
-    val loc = Locations.get(node.getId)
-    val data = node.getData
-    val value = s.a.valueMap(node.getId)
+    val loc = Locations.get(node.id)
+    val data = node.data
+    val value = s.a.valueMap(node.id)
     val (hppLines, cppLines) = value match {
       case Value.Boolean(b) => writeBooleanConstant(data.name, b.toString)
       case Value.EnumConstant(e, _) => writeIntConstant(data.name, e._2.toString)
@@ -53,7 +53,7 @@ object ConstantCppWriter extends AstVisitor with LineUtils {
     aNode: Ast.Annotated[AstNode[Ast.DefModule]]
   ) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     val members = data.members.flatMap(matchModuleMember(s, _))
     val namespace = CppWriter.namespaceMember(data.name, members)
     List(CppWriter.linesMember(List(Line.blank)), namespace)

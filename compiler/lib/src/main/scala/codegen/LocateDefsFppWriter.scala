@@ -22,7 +22,7 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
     aNode: Ast.Annotated[AstNode[Ast.DefAbsType]]
   ) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     writeSpecLoc(s, Ast.SpecLoc.Type, data.name, node)
   }
 
@@ -31,7 +31,7 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
     aNode: Ast.Annotated[AstNode[Ast.DefArray]]
   ) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     writeSpecLoc(s, Ast.SpecLoc.Type, data.name, node)
   }
 
@@ -40,7 +40,7 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
     aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
   ) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     val s1 = s.copy(scopeNameList = data.name :: s.scopeNameList)
     writeSpecLoc(s, Ast.SpecLoc.Component, data.name, node) ++
       data.members.flatMap(matchComponentMember(s1, _))
@@ -51,7 +51,7 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
     aNode: Ast.Annotated[AstNode[Ast.DefConstant]]
   ) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     writeSpecLoc(s, Ast.SpecLoc.Constant, data.name, node)
   }
 
@@ -60,7 +60,7 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
     aNode: Ast.Annotated[AstNode[Ast.DefEnum]]
   ) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     writeSpecLoc(s, Ast.SpecLoc.Type, data.name, node)
   }
 
@@ -69,7 +69,7 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
     aNode: Ast.Annotated[AstNode[Ast.DefModule]]
   ) = {
     val (_, node, _) = aNode
-    val Ast.DefModule(name, members) = node.getData
+    val Ast.DefModule(name, members) = node.data
     val s1 = s.copy(scopeNameList = name :: s.scopeNameList)
     members.flatMap(matchModuleMember(s1, _))
   }
@@ -79,7 +79,7 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
     aNode: Ast.Annotated[AstNode[Ast.DefPort]]
   ) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     writeSpecLoc(s, Ast.SpecLoc.Port, data.name, node)
   }
 
@@ -88,7 +88,7 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
     aNode: Ast.Annotated[AstNode[Ast.DefStruct]]
   ) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     writeSpecLoc(s, Ast.SpecLoc.Type, data.name, node)
   }
 
@@ -101,7 +101,7 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
     name: String,
     node: AstNode[T]
   ): List[Line] = {
-    val loc = Locations.get(node.getId)
+    val loc = Locations.get(node.id)
     loc.file match {
       case File.Path(path) => {
         val nodeList = (name :: s.scopeNameList).reverse.map(s => AstNode.create(s))

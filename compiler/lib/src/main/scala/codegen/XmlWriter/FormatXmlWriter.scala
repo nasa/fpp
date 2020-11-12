@@ -48,7 +48,7 @@ object FormatXmlWriter {
       case Ast.TypeNameBool => "%s"
       case Ast.TypeNameString(size) => "%s"
     }
-    def integer(t: Integer.Type) = tn.getData match {
+    def integer(t: Integer.Type) = tn.data match {
       case Ast.TypeNameInt(typeInt) => (t, width(typeInt), signedness(typeInt)) match {
         case (Integer.Decimal, 64, Signed) => "%ld"
         case (Integer.Decimal, 64, Unsigned) => "%lu"
@@ -63,7 +63,7 @@ object FormatXmlWriter {
       }
       case _ => default
     }
-    def rational(precision: Option[Int], t: Rational.Type) = tn.getData match {
+    def rational(precision: Option[Int], t: Rational.Type) = tn.data match {
       case Ast.TypeNameFloat(_) => {
         val precisionStr = precision match {
           case Some(p) => s".${p.toString}"

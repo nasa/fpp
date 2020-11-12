@@ -66,7 +66,7 @@ final object PortInstance {
       case _ => Some(Direction.Input)
     }
 
-    override def getNodeId = aNode._2.getId
+    override def getNodeId = aNode._2.id
 
     override def getUnqualifiedName = specifier.name
 
@@ -80,7 +80,7 @@ final object PortInstance {
 
     override def getDirection = Some(Direction.Input)
 
-    override def getNodeId = aNode._2.getId
+    override def getNodeId = aNode._2.id
 
     override def getUnqualifiedName = specifier.name
 
@@ -94,9 +94,9 @@ final object PortInstance {
 
     override def getDirection = None
 
-    override def getNodeId = aNode._2.getId
+    override def getNodeId = aNode._2.id
 
-    override def getUnqualifiedName = aNode._2.getData.name
+    override def getUnqualifiedName = aNode._2.data.name
 
   }
 

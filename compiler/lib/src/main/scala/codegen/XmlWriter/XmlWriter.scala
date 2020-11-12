@@ -11,7 +11,7 @@ object XmlWriter extends AstStateVisitor with LineUtils {
 
   override def defArrayAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     val fileName = ComputeXmlFiles.getArrayFileName(data)
     val lines = ArrayXmlWriter.defArrayAnnotatedNode(s, aNode)
     writeXmlFile(s, fileName, lines)
@@ -19,7 +19,7 @@ object XmlWriter extends AstStateVisitor with LineUtils {
 
   override def defEnumAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     val fileName = ComputeXmlFiles.getEnumFileName(data)
     val lines = EnumXmlWriter.defEnumAnnotatedNode(s, aNode)
     writeXmlFile(s, fileName, lines)
@@ -30,7 +30,7 @@ object XmlWriter extends AstStateVisitor with LineUtils {
     aNode: Ast.Annotated[AstNode[Ast.DefModule]]
   ) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     val a = s.a.copy(scopeNameList = data.name :: s.a.scopeNameList)
     val s1 = s.copy(a = a)
     visitList(s1, data.members, matchModuleMember)
@@ -39,7 +39,7 @@ object XmlWriter extends AstStateVisitor with LineUtils {
 
   override def defPortAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefPort]]) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     val fileName = ComputeXmlFiles.getPortFileName(data)
     val lines = PortXmlWriter.defPortAnnotatedNode(s, aNode)
     writeXmlFile(s, fileName, lines)
@@ -47,8 +47,8 @@ object XmlWriter extends AstStateVisitor with LineUtils {
 
   override def defStructAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
     val (_, node, _) = aNode
-    val loc = Locations.get(node.getId)
-    val data = node.getData
+    val loc = Locations.get(node.id)
+    val data = node.data
     val fileName = ComputeXmlFiles.getStructFileName(data)
     val lines = StructXmlWriter.defStructAnnotatedNode(s, aNode)
     for {

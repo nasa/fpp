@@ -24,7 +24,7 @@ object ComputeCppFiles extends AstStateVisitor {
     node: Ast.Annotated[AstNode[Ast.DefModule]]
   ) = {
     val (_, node1, _) = node
-    val data = node1.getData
+    val data = node1.data
     visitList(s, data.members, matchModuleMember)
   }
 

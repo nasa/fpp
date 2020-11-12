@@ -11,8 +11,8 @@ object ArrayXmlWriter extends AstVisitor with LineUtils {
 
   override def defArrayAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val node = aNode._2
-    val loc = Locations.get(node.getId)
-    val data = node.getData
+    val loc = Locations.get(node.id)
+    val data = node.data
     val tags = {
       val pairs = s.getNamespaceAndName(data.name)
       XmlTags.tags("array", pairs)
@@ -23,7 +23,7 @@ object ArrayXmlWriter extends AstVisitor with LineUtils {
       val s1 = s.copy(a = a1)
       val comment = AnnotationXmlWriter.multilineComment(aNode)
       val imports = s1.writeImportDirectives(loc.file)
-      val arrayType @ Type.Array(_, _, _, _) = s.a.typeMap(node.getId) 
+      val arrayType @ Type.Array(_, _, _, _) = s.a.typeMap(node.id) 
 
       val arrType = {
         val typeName = TypeXmlWriter.getName(s, arrayType.anonArray.eltType)

@@ -11,11 +11,11 @@ object EvalConstantExprs extends UseAnalyzer {
 
   override def defConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
     val (_, node,_) = aNode
-    if (!a.valueMap.contains(node.getId)) {
-      val data = node.getData
+    if (!a.valueMap.contains(node.id)) {
+      val data = node.data
       for (a <- super.defConstantAnnotatedNode(a, aNode))
         yield {
-          val v = a.valueMap(data.value.getId)
+          val v = a.valueMap(data.value.id)
           a.assignValue(node -> v)
         }
     }
@@ -43,22 +43,22 @@ object EvalConstantExprs extends UseAnalyzer {
     }
     for {
       a <- super.defEnumAnnotatedNode(a, aNode)
-      _ <- checkForDuplicateValue(a, aNode._2.getData.constants.map(_._2.getId), Map())
+      _ <- checkForDuplicateValue(a, aNode._2.data.constants.map(_._2.id), Map())
     } yield a
   }
 
   override def defEnumConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnumConstant]]) = {
     val (_, node, _) = aNode
-    if (!a.valueMap.contains(node.getId)) {
+    if (!a.valueMap.contains(node.id)) {
       node.data.value match {
         case Some(e) => 
           for (a <- super.defEnumConstantAnnotatedNode(a, aNode))
             yield {
-              val intValue = Analysis.convertValueToType(a.valueMap(e.getId), Type.Integer) match {
+              val intValue = Analysis.convertValueToType(a.valueMap(e.id), Type.Integer) match {
                 case Value.Integer(intValue) => intValue
                 case _ => throw InternalError("conversion to Integer type should yield Integer value")
               }
-              val enumType = a.typeMap(node.getId) match {
+              val enumType = a.typeMap(node.id) match {
                 case enumType : Type.Enum => enumType
                 case _ => throw InternalError("type of enum constant definition should be enum type")
               }
@@ -75,12 +75,12 @@ object EvalConstantExprs extends UseAnalyzer {
   override def exprArrayNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprArray) =
     for (a <- super.exprArrayNode(a, node, e))
       yield {
-        val eltType = a.typeMap(node.getId) match {
+        val eltType = a.typeMap(node.id) match {
           case Type.AnonArray(_, eltType) => eltType
           case _ => throw InternalError("element type of array expression should be AnonArray")
         }
         def f(node: AstNode[Ast.Expr]) = {
-          val v = a.valueMap(node.getId)
+          val v = a.valueMap(node.id)
           Analysis.convertValueToType(v, eltType)
         }
         val elts = e.elts.map(f)
@@ -92,10 +92,10 @@ object EvalConstantExprs extends UseAnalyzer {
     for {
       a <- super.exprBinopNode(a, node, e)
       v <- e.op match {
-            case Ast.Binop.Add => Right(a.add(e.e1.getId, e.e2.getId))
-            case Ast.Binop.Div => a.div(e.e1.getId, e.e2.getId)
-            case Ast.Binop.Mul => Right(a.mul(e.e1.getId, e.e2.getId))
-            case Ast.Binop.Sub => Right(a.sub(e.e1.getId, e.e2.getId))
+            case Ast.Binop.Add => Right(a.add(e.e1.id, e.e2.id))
+            case Ast.Binop.Div => a.div(e.e1.id, e.e2.id)
+            case Ast.Binop.Mul => Right(a.mul(e.e1.id, e.e2.id))
+            case Ast.Binop.Sub => Right(a.sub(e.e1.id, e.e2.id))
           }
     } yield a.assignValue(node -> v)
 
@@ -128,7 +128,7 @@ object EvalConstantExprs extends UseAnalyzer {
 
   override def exprParenNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprParen) = {
     for (a <- super.exprParenNode(a, node, e))
-      yield a.assignValue(node -> a.valueMap(e.e.getId))
+      yield a.assignValue(node -> a.valueMap(e.e.id))
   }
 
   override def exprStructNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprStruct) =
@@ -136,7 +136,7 @@ object EvalConstantExprs extends UseAnalyzer {
       yield {
         def visitor(members: Value.Struct.Members, node: AstNode[Ast.StructMember]): Value.Struct.Members = {
           val data = node.data
-          val v = a.valueMap(data.value.getId)
+          val v = a.valueMap(data.value.id)
           members + (data.name -> v)
         }
         val empty: Value.Struct.Members = Map()
@@ -146,16 +146,16 @@ object EvalConstantExprs extends UseAnalyzer {
       }
 
   override def exprUnopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprUnop) = {
-    val loc = Locations.get(node.getId)
+    val loc = Locations.get(node.id)
     for (a <- super.exprUnopNode(a, node, e))
       yield {
-        val v = a.neg(e.e.getId)
+        val v = a.neg(e.e.id)
         a.assignValue(node -> v)
       }
   }
 
   private def visitUse[T](a: Analysis, node: AstNode[T], use: Name.Qualified): Result = {
-    val symbol = a.useDefMap(node.getId)
+    val symbol = a.useDefMap(node.id)
     for {
       a <- symbol match {
         case Symbol.EnumConstant(node) => defEnumConstantAnnotatedNode(a, node)

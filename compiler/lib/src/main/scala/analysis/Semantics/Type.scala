@@ -139,8 +139,8 @@ object Type {
     node: Ast.Annotated[AstNode[Ast.DefAbsType]]
   ) extends Type {
     override def getDefaultValue: Option[Value.AbsType] = Some(Value.AbsType(this))
-    override def getDefNodeId = Some(node._2.getId)
-    override def toString = node._2.getData.name
+    override def getDefNodeId = Some(node._2.id)
+    override def toString = node._2.data.name
   }
 
   /** A named array type */
@@ -158,9 +158,9 @@ object Type {
     /** Set the size */
     def setSize(size: Array.Size) = this.copy(anonArray = anonArray.setSize(size))
     override def getArraySize = anonArray.getArraySize
-    override def getDefNodeId = Some(node._2.getId)
+    override def getDefNodeId = Some(node._2.id)
     override def hasNumericMembers = anonArray.hasNumericMembers
-    override def toString = "array " ++ node._2.getData.name
+    override def toString = "array " ++ node._2.data.name
   }
 
   object Array {
@@ -192,10 +192,10 @@ object Type {
     default: Option[Value.EnumConstant] = None
   ) extends Type {
     override def getDefaultValue: Option[Value.EnumConstant] = default
-    override def getDefNodeId = Some(node._2.getId)
+    override def getDefNodeId = Some(node._2.id)
     override def isConvertibleToNumeric = true
     override def isPromotableToArray = true
-    override def toString = "enum " ++ node._2.getData.name
+    override def toString = "enum " ++ node._2.data.name
   }
 
   /** A named struct type */
@@ -210,9 +210,9 @@ object Type {
     formats: Struct.Formats = Map(),
   ) extends Type {
     override def getDefaultValue: Option[Value.Struct] = default
-    override def getDefNodeId = Some(node._2.getId)
+    override def getDefNodeId = Some(node._2.id)
     override def hasNumericMembers = anonStruct.hasNumericMembers
-    override def toString = "struct " ++ node._2.getData.name
+    override def toString = "struct " ++ node._2.data.name
   }
 
   object Struct {

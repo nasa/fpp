@@ -73,8 +73,8 @@ object CheckUseDefCycles extends UseAnalyzer {
   }
 
   private def visitUse[T](a: Analysis, node: AstNode[T], use: Name.Qualified): Result = {
-    val symbol = a.useDefMap(node.getId)
-    val m = UseDefMatching(node.getId, use, symbol)
+    val symbol = a.useDefMap(node.id)
+    val m = UseDefMatching(node.id, use, symbol)
     val a1 = a.copy(useDefMatchingList = m :: a.useDefMatchingList)
     visitDefPre(a1, symbol)
   }

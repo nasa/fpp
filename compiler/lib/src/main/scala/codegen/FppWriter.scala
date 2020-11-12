@@ -60,7 +60,7 @@ object FppWriter extends AstVisitor with LineUtils {
 
   override def defArrayAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     lines(s"array ${ident(data.name)} = [").
       join ("") (exprNode(data.size)).
       join ("] ") (typeNameNode(data.eltType)).
@@ -70,7 +70,7 @@ object FppWriter extends AstVisitor with LineUtils {
 
   override def defComponentAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefComponent]]) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     val kind = data.kind.toString
     List(line(s"$kind component ${ident(data.name)} {"), Line.blank) ++
     (Line.blankSeparated (componentMember) (data.members)).map(indentIn) ++
@@ -79,13 +79,13 @@ object FppWriter extends AstVisitor with LineUtils {
 
   override def defConstantAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     lines(s"constant ${ident(data.name)}").join (" = ") (exprNode(data.value))
   }
 
   override def defEnumAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     lines(s"enum ${ident(data.name)}").
       joinOpt (data.typeName) (": ") (typeNameNode).
       addSuffix(" {") ++
@@ -95,7 +95,7 @@ object FppWriter extends AstVisitor with LineUtils {
 
   override def defModuleAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefModule]]) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     List(line(s"module ${ident(data.name)} {"), Line.blank) ++
     (Line.blankSeparated (moduleMember) (data.members)).map(indentIn) ++
     List(Line.blank, line("}"))
@@ -103,7 +103,7 @@ object FppWriter extends AstVisitor with LineUtils {
 
   override def defPortAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefPort]]) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     lines(s"port ${ident(data.name)}").
       join ("") (formalParamList(data.params)).
       joinOpt (data.returnType) (" -> ") (typeNameNode)
@@ -111,7 +111,7 @@ object FppWriter extends AstVisitor with LineUtils {
 
   override def defStructAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     lines(s"struct ${ident(data.name)} {") ++
     data.members.flatMap(annotateNode(structTypeMember)).map(indentIn) ++ 
     lines("}").joinOpt (data.default) (" default ") (exprNode)
@@ -126,7 +126,7 @@ object FppWriter extends AstVisitor with LineUtils {
     exprNode(e.e1).join (binop(e.op)) (exprNode(e.e2))
   
   override def exprDotNode(in: Unit, node: AstNode[Ast.Expr], e: Ast.ExprDot) =
-    exprNode(e.e).join (".") (lines(e.id.getData))
+    exprNode(e.e).join (".") (lines(e.id.data))
 
   override def exprIdentNode(in: Unit, node: AstNode[Ast.Expr], e: Ast.ExprIdent) = 
     lines(e.value)
@@ -156,7 +156,7 @@ object FppWriter extends AstVisitor with LineUtils {
 
   override def specCommandAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecCommand]]) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     val kind = data.kind.toString
     lines(s"$kind command ${ident(data.name)}").
       join ("") (formalParamList(data.params)).
@@ -167,7 +167,7 @@ object FppWriter extends AstVisitor with LineUtils {
 
   override def specEventAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecEvent]]) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     val severity = data.severity.toString
     lines(s"event ${ident(data.name)}").
       join ("") (formalParamList(data.params)).
@@ -179,13 +179,13 @@ object FppWriter extends AstVisitor with LineUtils {
 
   override def specIncludeAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecInclude]]) = {
     val (_, node, _) = aNode
-    val data = node.getData
-    lines("include").join (" ") (string(data.file.getData))
+    val data = node.data
+    lines("include").join (" ") (string(data.file.data))
   }
 
   override def specInternalPortAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecInternalPort]]) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     lines(s"internal port ${ident(data.name)}").
       join ("") (formalParamList(data.params)).
       joinOptWithBreak (data.priority) ("priority ") (exprNode).
@@ -194,16 +194,16 @@ object FppWriter extends AstVisitor with LineUtils {
 
   override def specLocAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecLoc]]) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     val kind = data.kind.toString
     lines(s"locate ${kind}").
-      join (" ") (qualIdent(data.symbol.getData)).
-      join (" at ") (string(data.file.getData))
+      join (" ") (qualIdent(data.symbol.data)).
+      join (" at ") (string(data.file.data))
   }
 
   override def specParamAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecParam]]) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     lines(s"param ${ident(data.name)}").
       join (": ") (typeNameNode(data.typeName)).
       joinOpt (data.default) (" default ") (exprNode).
@@ -233,7 +233,7 @@ object FppWriter extends AstVisitor with LineUtils {
       val kind = i.kind.toString
       lines(s"$kind port ${ident(i.name)}")
     }
-    node.getData match {
+    node.data match {
       case i : Ast.SpecPortInstance.General => general(i)
       case i : Ast.SpecPortInstance.Special => special(i)
     }
@@ -241,7 +241,7 @@ object FppWriter extends AstVisitor with LineUtils {
 
   override def specTlmChannelAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]) = {
     val (_, node, _) = aNode
-    val data = node.getData
+    val data = node.data
     def update(u: Ast.SpecTlmChannel.Update) = lines(u.toString)
     def limit(l: Ast.SpecTlmChannel.Limit) = {
       val (k, en) = l
@@ -273,7 +273,7 @@ object FppWriter extends AstVisitor with LineUtils {
     lines(tn.name.toString)
 
   override def typeNameQualIdentNode(in: Unit, node: AstNode[Ast.TypeName], tn: Ast.TypeNameQualIdent) = 
-    qualIdent(tn.name.getData)
+    qualIdent(tn.name.data)
 
   override def typeNameStringNode(in: Unit, node: AstNode[Ast.TypeName], tn: Ast.TypeNameString) =
     lines("string").joinOpt (tn.size) (" size ") (exprNode)
@@ -287,11 +287,11 @@ object FppWriter extends AstVisitor with LineUtils {
   private def annotateNode[T](f: T => List[Line]): Ast.Annotated[AstNode[T]] => List[Line] =
     (aNode: Ast.Annotated[AstNode[T]]) => {
       val (a1, node, a2) = aNode
-      annotate(a1, f(node.getData), a2)
+      annotate(a1, f(node.data), a2)
     }
 
   private def applyToData[A,B](f: A => B): AstNode[A] => B = 
-    (a: AstNode[A]) => f(a.getData)
+    (a: AstNode[A]) => f(a.data)
 
   private def binop(op: Ast.Binop) = s" ${op.toString} "
 
@@ -327,7 +327,7 @@ object FppWriter extends AstVisitor with LineUtils {
     qid match {
       case Ast.QualIdent.Unqualified(name) => ident(name)
       case Ast.QualIdent.Qualified(qualifier, name) => 
-        qualIdentString(qualifier.getData) ++ "." ++ ident(name.getData)
+        qualIdentString(qualifier.data) ++ "." ++ ident(name.data)
     }
 
   private def queueFull(qf: Ast.QueueFull) = lines(qf.toString)
