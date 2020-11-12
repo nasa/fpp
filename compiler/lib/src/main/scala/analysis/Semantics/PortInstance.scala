@@ -87,8 +87,7 @@ final object PortInstance {
   }
 
   final case class Internal(  
-    aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]],
-    specifier: Ast.SpecInternalPort,
+    aNode: Ast.Annotated[AstNode[Ast.SpecInternalPort]],
     priority: Option[Int],
     queueFull: Ast.QueueFull
   ) extends PortInstance {
@@ -97,7 +96,7 @@ final object PortInstance {
 
     override def getNodeId = aNode._2.getId
 
-    override def getUnqualifiedName = specifier.name
+    override def getUnqualifiedName = aNode._2.getData.name
 
   }
 

@@ -70,6 +70,8 @@ sealed trait Error {
         Error.print (Some(loc)) (s"invalid integer value $v")
       case SemanticError.InvalidFormatString(loc, msg) =>
         Error.print (Some(loc)) (s"invalid format string: $msg")
+      case SemanticError.InvalidInternalPort(loc, msg) =>
+        Error.print (Some(loc)) (msg)
       case SemanticError.InvalidPortInstance(loc, msg, defLoc) => {
         Error.print (Some(loc)) (msg)
         System.err.println(s"port definition is here:")
@@ -181,6 +183,8 @@ object SemanticError {
   final case class InvalidFormatString(loc: Location, msg: String) extends Error
   /** Invalid integer value */
   final case class InvalidIntValue(loc: Location, v: BigInt) extends Error
+  /** Invalid internal port */
+  final case class InvalidInternalPort(loc: Location, msg: String) extends Error
   /** Invalid port instance */
   final case class InvalidPortInstance(loc: Location, msg: String, defLoc: Location) extends Error
   /** Invalid priority specifier */

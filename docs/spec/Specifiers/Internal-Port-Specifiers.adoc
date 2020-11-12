@@ -27,18 +27,14 @@ _queue-full-behavior_ has the same syntax as for
 
 ==== Semantics
 
-An internal port definition is valid only if the enclosing
-component is active or queued.
-
 The identifier is the name of the port.
 The parameter list specifies the formal parameters of the
 port.
 Each formal parameter is a piece of data carried on the port.
 No formal parameter may be a `ref` parameter.
 
-The optional priority and queue full behavior have the same semantics as the 
-corresponding constructs in <<Specifiers_Port-Instance-Specifiers,port 
-instance definitions>>.
+The optional priority and queue full behavior have the same semantics as in 
+<<Specifiers_Port-Instance-Specifiers,async input port instance specifiers>>.
 
 ==== Examples
 

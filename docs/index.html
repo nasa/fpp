@@ -1625,7 +1625,7 @@ qualified with the component name, as for
 <a href="#Definitions_Module-Definitions">module definitions</a>.</p>
 </div>
 <div class="paragraph">
-<p>The port instance specifiers must satisfy the following rules:</p>
+<p>The component members must satisfy the following rules:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1634,7 +1634,8 @@ qualified with the component name, as for
 and internal port specifiers must be distinct.</p>
 </li>
 <li>
-<p>No passive component may have an <code>async</code> <code>input</code> port.</p>
+<p>No passive component may have an <code>async</code> <code>input</code> port or an internal
+port specifier.</p>
 </li>
 <li>
 <p>Each active or queued component must have (a) at least one <code>async</code> <code>input</code>
@@ -3678,10 +3679,6 @@ to itself.</p>
 <div class="sect3">
 <h4 id="Specifiers_Internal-Port-Specifiers_Semantics">6.7.2. Semantics</h4>
 <div class="paragraph">
-<p>An internal port definition is valid only if the enclosing
-component is active or queued.</p>
-</div>
-<div class="paragraph">
 <p>The identifier is the name of the port.
 The parameter list specifies the formal parameters of the
 port.
@@ -3689,9 +3686,8 @@ Each formal parameter is a piece of data carried on the port.
 No formal parameter may be a <code>ref</code> parameter.</p>
 </div>
 <div class="paragraph">
-<p>The optional priority and queue full behavior have the same semantics as the
-corresponding constructs in <a href="#Specifiers_Port-Instance-Specifiers">port
-instance definitions</a>.</p>
+<p>The optional priority and queue full behavior have the same semantics as in
+<a href="#Specifiers_Port-Instance-Specifiers">async input port instance specifiers</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -7766,7 +7762,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-11-12 09:54:32 -0800
+Last updated 2020-11-12 11:06:11 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
