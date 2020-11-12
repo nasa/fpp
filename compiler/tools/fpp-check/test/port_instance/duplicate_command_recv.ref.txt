@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/port_instance/duplicate_command_recv.fpp: 10.3
+  command recv port p2
+  ^
+error: duplicate port instance command recv
+previous instance is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/port_instance/duplicate_command_recv.fpp: 9.3
+  command recv port p1
+  ^

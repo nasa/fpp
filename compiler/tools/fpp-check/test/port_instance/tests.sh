@@ -3,6 +3,8 @@ async_input_ref_params
 async_input_return_value
 bad_array_size
 bad_priority
+duplicate_command_recv
+duplicate_general
 ok
 sync_input_priority
 sync_input_queue_full
