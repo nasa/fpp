@@ -46,18 +46,16 @@ object PortInstances {
       for {
         _ <- (specifier.kind, specifier.priority) match {
           case (Ast.SpecPortInstance.AsyncInput, _) => Right(())
-          case (_, Some(priority)) =>  {
+          case (_, Some(priority)) =>
             val loc = Locations.get(priority.id)
             Left(SemanticError.InvalidPriority(loc))
-          }
           case (_, None) => Right(())
         }
         _ <- (specifier.kind, specifier.queueFull) match {
           case (Ast.SpecPortInstance.AsyncInput, _) => Right(())
-          case (_, Some(queueFull)) => {
+          case (_, Some(queueFull)) =>
             val loc = Locations.get(queueFull.id)
             Left(SemanticError.InvalidQueueFull(loc))
-          }
           case (_, None) => Right(())
         }
         size <- getSize(a, specifier.size)
@@ -76,10 +74,9 @@ object PortInstances {
             PortInstance.General.Kind.SyncInput
         }
         val ty = specifier.port match {
-          case Some(qid) => {
+          case Some(qid) =>
             val symbol @ Symbol.Port(_) = a.useDefMap(qid.id)
             PortInstance.General.Type.DefPort(symbol)
-          }
           case None => PortInstance.General.Type.Serial
         }
         PortInstance.General(aNode, specifier, kind, size, ty)
