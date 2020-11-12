@@ -47,9 +47,11 @@ object CheckComponentDefs
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecInternalPort]]
   ) = {
-    // TODO: Create port instance pi
-    // TODO: Add pi to port map
-    default(a)
+    for {
+      instance <- PortInstances.fromSpecInternalPort(a, aNode)
+      component <- a.component.get.addPortInstance(instance)
+    }
+    yield a.copy(component = Some(component))
   }
 
   override def specParamAnnotatedNode(
