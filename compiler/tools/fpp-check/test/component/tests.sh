@@ -4,6 +4,10 @@ array_format_not_numeric
 array_ok
 array_undef_constant
 array_undef_type
+async_port_ref_params
+async_port_return_value
+bad_priority
+bad_port_array_size
 enum_default_error
 enum_ok
 enum_undef_constant

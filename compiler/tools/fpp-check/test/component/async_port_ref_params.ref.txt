@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/component/async_port_ref_params.fpp: 5.3
+  async input port p: P
+  ^
+error: async input port may not have ref parameters
+port definition is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/component/async_port_ref_params.fpp: 1.1
+port P(ref a: U32)
+^
