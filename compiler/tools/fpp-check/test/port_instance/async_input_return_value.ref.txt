@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/port_instance/async_input_return_value.fpp: 5.3
+  async input port p: P
+  ^
+error: async input port may not return a value
+port definition is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/port_instance/async_input_return_value.fpp: 1.1
+port P -> U32
+^

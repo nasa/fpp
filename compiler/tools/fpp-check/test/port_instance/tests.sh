@@ -1,4 +1,10 @@
 tests="
+async_input_ref_params
+async_input_return_value
+bad_array_size
+bad_priority
+sync_input_priority
+sync_input_queue_full
 undef_command_recv
 undef_command_reg
 undef_command_resp
