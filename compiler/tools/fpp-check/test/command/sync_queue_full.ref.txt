@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/command/sync_queue_full.fpp: 3.18
+  sync command C drop
+                 ^
+error: only async input may have queue full behavior

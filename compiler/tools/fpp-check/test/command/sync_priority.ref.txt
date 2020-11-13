@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/command/sync_priority.fpp: 3.27
+  sync command C priority 10
+                          ^
+error: only async input may have a priority

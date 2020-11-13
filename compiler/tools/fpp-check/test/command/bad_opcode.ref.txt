@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/command/bad_opcode.fpp: 3.26
+  async command C opcode "abc"
+                         ^
+error: cannot convert string to a numeric type

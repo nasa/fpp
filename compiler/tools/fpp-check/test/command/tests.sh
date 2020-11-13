@@ -1,7 +1,10 @@
 tests="
+bad_opcode
 bad_priority
 duplicate_opcode_explicit
 duplicate_opcode_implicit
 duplicate_param
 ok
+sync_priority
+sync_queue_full
 "
