@@ -279,7 +279,7 @@ object Analysis {
   def displayIdValue(value: Int) = {
     val dec = value.toString
     val hex = Integer.toString(value, 16).toUpperCase
-    s"($dec decimal, $hex hex)"
+    s"($dec dec, $hex hex)"
   }
 
 

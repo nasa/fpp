@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/command/duplicate_param.fpp: 3.26
+  sync command C(a: U32, a: I32)
+                         ^
+error: duplicate parameter a
+previous parameter is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/command/duplicate_param.fpp: 3.18
+  sync command C(a: U32, a: I32)
+                 ^

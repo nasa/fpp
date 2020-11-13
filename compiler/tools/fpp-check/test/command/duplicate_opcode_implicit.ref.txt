@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/command/duplicate_opcode_implicit.fpp: 7.3
+  sync command C3
+  ^
+error: duplicate opcode value (17 dec, 11 hex)
+previous occurrence is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/command/duplicate_opcode_implicit.fpp: 3.3
+  sync command C1 opcode 0x11
+  ^

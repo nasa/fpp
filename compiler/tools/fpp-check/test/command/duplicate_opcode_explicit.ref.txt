@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/command/duplicate_opcode_explicit.fpp: 5.3
+  sync command C2 opcode 0x10
+  ^
+error: duplicate opcode value (16 dec, 10 hex)
+previous occurrence is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/command/duplicate_opcode_explicit.fpp: 3.3
+  sync command C1 opcode 0x10
+  ^
