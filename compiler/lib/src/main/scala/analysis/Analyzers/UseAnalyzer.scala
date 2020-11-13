@@ -93,15 +93,6 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
     } yield a
   }
 
-  override def specInternalPortAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecInternalPort]]) = {
-    val (_, node, _) = aNode
-    val data = node.data
-    for {
-      a <- opt(exprNode)(a, data.priority)
-    }
-    yield a
-  }
-
   override def specPortInstanceAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]]) = {
     val (_, node, _) = aNode
     val data = node.data
