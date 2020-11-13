@@ -27,7 +27,7 @@ object PortInstances {
       _ <- checkRefParams(data.params)
     }
     yield {
-      val queueFull = getQueueFull(data.queueFull)
+      val queueFull = Analysis.getQueueFull(data.queueFull)
       PortInstance.Internal(
         aNode,
         priority,
@@ -64,7 +64,7 @@ object PortInstances {
       yield {
         val kind = specifier.kind match {
           case Ast.SpecPortInstance.AsyncInput =>
-            val queueFull = getQueueFull(specifier.queueFull.map(_.data))
+            val queueFull = Analysis.getQueueFull(specifier.queueFull.map(_.data))
             PortInstance.General.Kind.AsyncInput(priority, queueFull)
           case Ast.SpecPortInstance.GuardedInput =>
             PortInstance.General.Kind.GuardedInput
@@ -100,14 +100,6 @@ object PortInstances {
     sizeOpt match {
       case Some(size) => a.getArraySize(size.id)
       case None => Right(1)
-    }
-
-  /** Gets a queue full behavior from an AST node */
-  private def getQueueFull(queueFullOpt: Option[Ast.QueueFull]):
-    Ast.QueueFull =
-    queueFullOpt match {
-      case Some(queueFull) => queueFull
-      case None => Ast.QueueFull.Assert
     }
 
   /** Checks general async input uses port definitions */
