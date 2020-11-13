@@ -29,9 +29,13 @@ object CheckComponentDefs
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecCommand]]
   ) = {
-    // TODO: Create a new command cmd
-    // TODO: Add cmd to the command map
-    default(a)
+    val data = aNode._2.data
+    for {
+      opcodeOpt <- a.getIntValueOpt(data.opcode)
+      command <- Commands.fromSpecCommand(a, aNode)
+      component <- a.component.get.addCommand(opcodeOpt, command)
+    }
+    yield a.copy(component = Some(component))
   }
 
   override def specEventAnnotatedNode(
@@ -49,7 +53,6 @@ object CheckComponentDefs
   ) = {
     val data = aNode._2.data
     for {
-      _ <- Analysis.checkForDuplicateParameter(data.params)
       instance <- PortInstances.fromSpecInternalPort(a, aNode)
       component <- a.component.get.addPortInstance(instance)
     }

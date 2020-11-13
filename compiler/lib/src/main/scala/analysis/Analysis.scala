@@ -47,8 +47,6 @@ case class Analysis(
   componentMap: Map[Symbol, Component] = Map(),
   /** The component currently under construction */
   component: Option[Component] = None,
-  /** The latest IDs seen */
-  latestIds: Analysis.LatestIds = Analysis.LatestIds()
 ) {
 
   /** Add a mapping to the type map */
@@ -277,10 +275,12 @@ object Analysis {
       case None => Ast.QueueFull.Assert
     }
 
-  /** The latest IDs seen when traversing the AST */
-  final case class LatestIds(
-    opcode: Command.Opcode = 0,
-    // TODO
-  )
+  /** Displays an ID value */
+  def displayIdValue(value: Int) = {
+    val dec = value.toString
+    val hex = Integer.toString(value, 16).toUpperCase
+    s"($dec decimal, $hex hex)"
+  }
+
 
 }
