@@ -47,6 +47,8 @@ case class Analysis(
   componentMap: Map[Symbol, Component] = Map(),
   /** The component currently under construction */
   component: Option[Component] = None,
+  /** The latest IDs seen */
+  latestIds: Analysis.LatestIds = Analysis.LatestIds()
 ) {
 
   /** Add a mapping to the type map */
@@ -274,5 +276,11 @@ object Analysis {
       case Some(queueFull) => queueFull
       case None => Ast.QueueFull.Assert
     }
+
+  /** The latest IDs seen when traversing the AST */
+  final case class LatestIds(
+    opcode: Command.Opcode = 0,
+    // TODO
+  )
 
 }

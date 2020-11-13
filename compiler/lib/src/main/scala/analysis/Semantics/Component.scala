@@ -11,6 +11,8 @@ case class Component(
   portMap: Map[Name.Unqualified, PortInstance] = Map(),
   /** The map from special port kinds to special port instances */
   specialPortMap: Map[Ast.SpecPortInstance.SpecialKind, PortInstance.Special] = Map(),
+  /** The map from command opcodes to commands */
+  commandMap: Map[Command.Opcode, Command] = Map(),
   // TODO
 ) {
 
