@@ -1634,8 +1634,8 @@ qualified with the component name, as for
 and internal port specifiers must be distinct.</p>
 </li>
 <li>
-<p>No passive component may have an <code>async</code> <code>input</code> port or an internal
-port specifier.</p>
+<p>No passive component may have an <code>async</code> <code>input</code> port, an internal
+port specifier, or an <code>async</code> command specifier.</p>
 </li>
 <li>
 <p>Each active or queued component must have (a) at least one <code>async</code> <code>input</code>
@@ -2892,8 +2892,7 @@ create a
 <li>
 <p>The command kind specifies the kind of the command.
 It is similar to the kind of a <a href="#Specifiers_Port-Instance-Specifiers">port instance specifier</a>, except that different commands
-on the same port can have different kinds.
-The kind <code>async</code> is valid only if the component is active or queued.</p>
+on the same port can have different kinds.</p>
 </li>
 <li>
 <p>The identifier names the command.</p>
@@ -7765,7 +7764,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-11-12 16:52:11 -0800
+Last updated 2020-11-13 09:11:22 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

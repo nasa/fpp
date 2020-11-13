@@ -36,7 +36,6 @@ _queue-full-behavior_ is as for
 It is similar to the kind of a <<Specifiers_Port-Instance-Specifiers,
 port instance specifier>>, except that different commands
 on the same port can have different kinds.
-The kind `async` is valid only if the component is active or queued.
 
 * The identifier names the command.
 
