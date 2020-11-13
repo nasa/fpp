@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/command/ref_params.fpp: 3.3
+  async command C(ref a: U32)
+  ^
+error: command may not have ref parameters

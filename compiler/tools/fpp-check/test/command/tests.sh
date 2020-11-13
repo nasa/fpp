@@ -5,6 +5,7 @@ duplicate_opcode_explicit
 duplicate_opcode_implicit
 duplicate_param
 ok
+ref_params
 sync_priority
 sync_queue_full
 "

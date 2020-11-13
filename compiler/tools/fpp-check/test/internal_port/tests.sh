@@ -4,4 +4,5 @@ duplicate
 duplicate_general
 duplicate_param
 ok
+ref_params
 "
