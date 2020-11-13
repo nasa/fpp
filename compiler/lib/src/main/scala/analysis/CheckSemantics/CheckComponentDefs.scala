@@ -47,7 +47,9 @@ object CheckComponentDefs
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecInternalPort]]
   ) = {
+    val data = aNode._2.data
     for {
+      _ <- Analysis.checkForDuplicateParameter(data.params)
       instance <- PortInstances.fromSpecInternalPort(a, aNode)
       component <- a.component.get.addPortInstance(instance)
     }
