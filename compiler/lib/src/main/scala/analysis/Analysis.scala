@@ -179,6 +179,10 @@ case class Analysis(
     }
   }
 
+  /** Gets an optional int value from an AST node */
+  def getIntValueOpt[T](nodeOpt: Option[AstNode[T]]): Result.Result[Option[Int]] = 
+    Result.mapOpt(nodeOpt, (node: AstNode[T]) => getIntValue(node.id))
+
   /** Gets an array size from an AST node */
   def getArraySize(id: AstNode.Id): Result.Result[Int] = {
     for {
@@ -254,6 +258,21 @@ object Analysis {
     v.convertToType(t) match {
       case Some(v) => v
       case None => throw InternalError(s"cannot convert value $v to type $t")
+    }
+
+  /** Gets the number of ref params in a formal param list */
+  def getNumRefParams(params: Ast.FormalParamList) =
+    params.filter(aNode => {
+      val param = aNode._2.data
+      param.kind == Ast.FormalParam.Ref
+    }).size
+
+  /** Gets a queue full behavior from an AST node */
+  def getQueueFull(queueFullOpt: Option[Ast.QueueFull]):
+    Ast.QueueFull =
+    queueFullOpt match {
+      case Some(queueFull) => queueFull
+      case None => Ast.QueueFull.Assert
     }
 
 }

@@ -36,6 +36,16 @@ object Result {
     helper(list.reverse, Nil)
   }
 
+  /** Applies a result function inside an option */
+  def mapOpt[A,B](o: Option[A], f: A => Result[B]): Result[Option[B]] =
+    o match {
+      case Some(a) => f(a) match {
+        case Right(b) => Right(Some(b))
+        case Left(e) => Left(e)
+      }
+      case None => Right(None)
+    }
+
   /** Apply a list of result functions in sequence */
   def seq[A](
     r: Result[A],

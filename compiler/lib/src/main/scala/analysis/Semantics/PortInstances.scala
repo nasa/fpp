@@ -13,7 +13,7 @@ object PortInstances {
     val data = node.data
     val loc = Locations.get(node.id)
     def checkRefParams(params: Ast.FormalParamList) = {
-      val numRefParams = getNumRefParams(params)
+      val numRefParams = Analysis.getNumRefParams(params)
       if (numRefParams != 0) Left(
         SemanticError.InvalidInternalPort(
           loc,
@@ -23,7 +23,7 @@ object PortInstances {
       else Right(())
     }
     for {
-      priority <- getPriority(a, data.priority)
+      priority <- a.getIntValueOpt(data.priority)
       _ <- checkRefParams(data.params)
     }
     yield {
@@ -58,8 +58,8 @@ object PortInstances {
             Left(SemanticError.InvalidQueueFull(loc))
           case (_, None) => Right(())
         }
-        size <- getSize(a, specifier.size)
-        priority <- getPriority(a, specifier.priority)
+        size <- getArraySize(a, specifier.size)
+        priority <- a.getIntValueOpt(specifier.priority)
       }
       yield {
         val kind = specifier.kind match {
@@ -94,19 +94,8 @@ object PortInstances {
       
   }
 
-  /** Gets a priority from an AST node */
-  private def getPriority(a: Analysis, priorityOpt: Option[AstNode[Ast.Expr]]):
-    Result.Result[Option[Int]] = 
-    priorityOpt match {
-      case Some(priority) => a.getIntValue(priority.id) match {
-        case Right(v) => Right(Some(v))
-        case Left(e) => Left(e)
-      }
-      case None => Right(None)
-    }
-
-  /** Gets a size from an AST node */
-  private def getSize(a: Analysis, sizeOpt: Option[AstNode[Ast.Expr]]):
+  /** Gets an array size from an AST node */
+  private def getArraySize(a: Analysis, sizeOpt: Option[AstNode[Ast.Expr]]):
     Result.Result[Int] = 
     sizeOpt match {
       case Some(size) => a.getArraySize(size.id)
@@ -121,18 +110,11 @@ object PortInstances {
       case None => Ast.QueueFull.Assert
     }
 
-  /** Gets the number of ref params in a formal param list */
-  private def getNumRefParams(params: Ast.FormalParamList) =
-    params.filter(aNode => {
-      val param = aNode._2.data
-      param.kind == Ast.FormalParam.Ref
-    }).size
-
   /** Checks general async input uses port definitions */
   private def checkGeneralAsyncInput(instance: PortInstance.General) = {
     val loc = Locations.get(instance.aNode._2.id)
     def checkRefParams(defPort: Ast.DefPort, defLoc: Location) = {
-      val numRefParams = getNumRefParams(defPort.params)
+      val numRefParams = Analysis.getNumRefParams(defPort.params)
       if (numRefParams != 0) Left(
         SemanticError.InvalidPortInstance(
           loc,
