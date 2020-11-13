@@ -54,7 +54,7 @@ definitions
 Future versions of this document will cover additional features of FPP.
 
 *XML limitations:*
-Currently we translate FPP is to F Prime XML and then to {cpp}.
+Currently we translate FPP to F Prime XML and then to {cpp}.
 Some features of FPP are not supported in the XML representation.
 Where a feature is not supported, we will call out this fact in a
 note marked *XML limitation*.
