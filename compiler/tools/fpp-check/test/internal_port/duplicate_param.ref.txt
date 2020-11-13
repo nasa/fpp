@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/internal_port/duplicate_param.fpp: 3.27
+  internal port p(a: U32, a: I32)
+                          ^
+error: duplicate parameter a
+previous parameter is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/internal_port/duplicate_param.fpp: 3.19
+  internal port p(a: U32, a: I32)
+                  ^
