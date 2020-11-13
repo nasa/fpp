@@ -157,6 +157,16 @@ object CheckExprTypes extends UseAnalyzer {
     } yield a.assignType(node -> t)
   }
 
+  override def specInternalPortAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecInternalPort]]) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    for {
+      a <- super.specInternalPortAnnotatedNode(a, aNode)
+      _ <- convertNodeToNumericOpt(a, data.priority)
+    }
+    yield a
+  }
+
   override def specPortInstanceAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]]) = {
     val (_, node, _) = aNode
     val data = node.data

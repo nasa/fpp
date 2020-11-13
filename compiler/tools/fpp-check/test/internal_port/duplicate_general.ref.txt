@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/internal_port/duplicate_general.fpp: 7.3
+  output port p: P
+  ^
+error: duplicate port instance p
+previous instance is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/internal_port/duplicate_general.fpp: 5.3
+  internal port p
+  ^

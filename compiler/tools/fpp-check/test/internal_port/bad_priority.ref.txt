@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/internal_port/bad_priority.fpp: 3.28
+  internal port p priority "abc"
+                           ^
+error: cannot convert string to a numeric type
