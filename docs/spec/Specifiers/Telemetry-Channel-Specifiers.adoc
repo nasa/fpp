@@ -68,15 +68,11 @@ numeric format is allowed if the channel type telemetry channel is a
 for the channel. 
 The following rules apply:
 
-.. If either specifier is present, then
-the type of the
-telemetry channel must <<Types_Types-with-Numeric-Members,have numeric
-members>>.
-
 .. At most one of each kind of limit (red, orange, yellow) may appear
 in each specifier.
 
-.. The type of the expression in each limit must be 
+.. The type of the expression in each limit must be a
+<<Types_Internal-Types_Numeric-Types,numeric type>> and must be
 <<Type-Checking_Type-Conversion,convertible to>> 
 the type of the channel.
 
@@ -87,8 +83,9 @@ as follows:
 <<Types_Internal-Types_Numeric-Types,numeric type>>, then the
 limit is applied directly to _v_.
 
-...  If _T_ has numeric members but is not itself a numeric type
-(e.g., it is an array), then the limit is applied to each member value of _v_.
+...  If _T_ is not itself a numeric type
+(e.g., it is an array), then the limit is applied recursively to each member 
+value of _v_.
 
 ==== Examples
 

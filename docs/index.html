@@ -4410,17 +4410,12 @@ The following rules apply:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>If either specifier is present, then
-the type of the
-telemetry channel must <a href="#Types_Types-with-Numeric-Members">have numeric
-members</a>.</p>
-</li>
-<li>
 <p>At most one of each kind of limit (red, orange, yellow) may appear
 in each specifier.</p>
 </li>
 <li>
-<p>The type of the expression in each limit must be
+<p>The type of the expression in each limit must be a
+<a href="#Types_Internal-Types_Numeric-Types">numeric type</a> and must be
 <a href="#Type-Checking_Type-Conversion">convertible to</a>
 the type of the channel.</p>
 </li>
@@ -4435,8 +4430,9 @@ as follows:</p>
 limit is applied directly to <em>v</em>.</p>
 </li>
 <li>
-<p>If <em>T</em> has numeric members but is not itself a numeric type
-(e.g., it is an array), then the limit is applied to each member value of <em>v</em>.</p>
+<p>If <em>T</em> is not itself a numeric type
+(e.g., it is an array), then the limit is applied recursively to each member
+value of <em>v</em>.</p>
 </li>
 </ol>
 </div>
@@ -7764,7 +7760,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-11-13 15:28:49 -0800
+Last updated 2020-11-13 16:15:29 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

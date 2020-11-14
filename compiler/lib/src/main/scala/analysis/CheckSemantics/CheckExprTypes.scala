@@ -193,6 +193,28 @@ object CheckExprTypes extends UseAnalyzer {
     }
   }
 
+  override def specTlmChannelAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    def checkLimitExpr (a: Analysis) (e: AstNode[Ast.Expr]): Result.Result[Unit] = {
+      val loc = Locations.get(e.id)
+      val limitType = a.typeMap(e.id)
+      val channelType = a.typeMap(data.typeName.id)
+      for {
+        _ <- convertNodeToNumeric(a, e)
+        _ <- Analysis.convertTypes(loc, limitType -> channelType)
+      }
+      yield ()
+    }
+    for {
+      a <- super.specTlmChannelAnnotatedNode(a, aNode)
+      _ <- convertNodeToNumericOpt(a, data.id)
+      _ <- Result.map(data.low.map(_._2), checkLimitExpr(a))
+      _ <- Result.map(data.high.map(_._2), checkLimitExpr(a))
+    }
+    yield a
+  }
+
   override def typeNameStringNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameString) =
     for {
       a <- super.typeNameStringNode(a, node, tn)
