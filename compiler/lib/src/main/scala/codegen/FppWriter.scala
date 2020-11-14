@@ -245,7 +245,7 @@ object FppWriter extends AstVisitor with LineUtils {
     def update(u: Ast.SpecTlmChannel.Update) = lines(u.toString)
     def limit(l: Ast.SpecTlmChannel.Limit) = {
       val (k, en) = l
-      lines(k.toString).join (" ") (exprNode(en))
+      lines(k.data.toString).join (" ") (exprNode(en))
     }
     def optList[T](l: T) = l match {
       case Nil => None

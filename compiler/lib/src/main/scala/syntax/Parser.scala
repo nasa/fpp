@@ -484,7 +484,7 @@ object Parser extends Parsers {
       yellow ^^ { case _ => Ast.SpecTlmChannel.Yellow }
     }
     def limit = {
-      kind ~! exprNode ^^ { case kind ~ e => (kind, e) }
+      node(kind) ~! exprNode ^^ { case kind ~ e => (kind, e) }
     }
     def limitSequence(p: Parser[Token]) = {
       opt(p ~! lbrace ~>! elementSequence(limit, comma) <~! rbrace) ^^ {

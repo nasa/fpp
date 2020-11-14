@@ -308,7 +308,7 @@ object AstWriter extends AstVisitor with LineUtils {
     def limit(l: Ast.SpecTlmChannel.Limit) = {
       val (k, en) = l
       lines("limit") ++ (
-        kind(k) ++
+        kind(k.data) ++
         exprNode(en)
       ).map(indentIn)
     }

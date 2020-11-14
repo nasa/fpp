@@ -528,7 +528,7 @@ object Ast {
     }
 
     /** Telemetry limit */
-    type Limit = (LimitKind, AstNode[Expr])
+    type Limit = (AstNode[LimitKind], AstNode[Expr])
 
     /** Telemetry limit kind */
     sealed trait LimitKind
