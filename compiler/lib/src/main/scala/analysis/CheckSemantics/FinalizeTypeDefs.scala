@@ -46,7 +46,9 @@ object FinalizeTypeDefs
         }
         // Compute the format
         format <- data.format match {
-          case Some(node) => for (format <- computeFormat(node, eltType)) yield Some(format)
+          case Some(node) => for {
+            format <- Analysis.computeFormat(node, List(eltType))
+          } yield Some(format)
           case None => Right(None)
         }
       } 
@@ -116,7 +118,9 @@ object FinalizeTypeDefs
             val t = structType.anonStruct.members(name)
             for {
               formatOpt <- member.format match {
-                case Some(node) => for (format <- computeFormat(node, t)) yield Some(format)
+                case Some(node) => for {
+                  format <- Analysis.computeFormat(node, List(t))
+                } yield Some(format)
                 case None => Right(None)
               }
             } yield {
@@ -150,25 +154,6 @@ object FinalizeTypeDefs
       for (a <- visitor(a, aNode))
         yield a.copy(visitedSymbolSet = a.visitedSymbolSet + symbol)
     else Right(a)
-  }
-
-  private def computeFormat(node: AstNode[String], t: Type): Result.Result[Format] = {
-    val loc = Locations.get(node.id)
-    def getField(format: Format) = 
-      if (format.fields.size == 0)
-        Left(SemanticError.InvalidFormatString(loc, "missing replacement field"))
-      else if (format.fields.size > 1) 
-        Left(SemanticError.InvalidFormatString(loc, "too many replacement fields"))
-      else Right(format.fields.head._1)
-    def checkNumericField(field: Format.Field) = if (field.isNumeric && !t.isNumeric) {
-      val loc = Locations.get(node.id)
-      Left(SemanticError.InvalidFormatString(loc, s"type $t is not numeric"))
-    } else Right(())
-    for {
-      format <- Format.Parser.parseNode(node)
-      field <- getField(format)
-      _ <- checkNumericField(field)
-    } yield format
   }
 
   object TypeVisitor extends TypeVisitor {

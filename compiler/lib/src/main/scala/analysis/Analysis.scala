@@ -244,6 +244,29 @@ object Analysis {
     checkForDuplicateNode (getName) (SemanticError.DuplicateParameter) (nodes.map(_._2))
   }
 
+  /** Compute a format from a format string and alist of types */
+  def computeFormat(node: AstNode[String], ts: List[Type]): Result.Result[Format] = {
+    val loc = Locations.get(node.id)
+    def checkSize(format: Format) =
+      if (format.fields.size < ts.size)
+        Left(SemanticError.InvalidFormatString(loc, "missing replacement field"))
+      else if (format.fields.size > ts.size) 
+        Left(SemanticError.InvalidFormatString(loc, "too many replacement fields"))
+      else Right(())
+    def checkNumericField(pair: (Type, Format.Field)) = {
+      val (t, field) = pair
+      if (field.isNumeric && !t.isNumeric) {
+        val loc = Locations.get(node.id)
+        Left(SemanticError.InvalidFormatString(loc, s"type $t is not numeric"))
+      } else Right(())
+    }
+    for {
+      format <- Format.Parser.parseNode(node)
+      _ <- checkSize(format)
+      _ <- Result.map(ts zip format.fields.map(_._1), checkNumericField)
+    } yield format
+  }
+
   /** Convert one type to another */
   def convertTypes(loc: Location, pair: (Type, Type)): Result.Result[Type] = {
     val (t1 -> t2) = pair
