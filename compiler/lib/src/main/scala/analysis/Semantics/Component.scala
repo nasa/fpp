@@ -15,6 +15,10 @@ case class Component(
   commandMap: Map[Command.Opcode, Command] = Map(),
   /** The next default opcode */
   defaultOpcode: Int = 0,
+  /** The map from telemetry channel IDs to channels */
+  tlmChannelMap: Map[TlmChannel.Id, TlmChannel] = Map(),
+  /** The next default channel ID */
+  defaultTlmChannelId: Int = 0,
   // TODO
 ) {
 
@@ -41,6 +45,22 @@ case class Component(
       case None =>
         val commandMap = this.commandMap + (opcode -> command)
         val component = this.copy(commandMap = commandMap, defaultOpcode = opcode + 1)
+        Right(component)
+    }
+  }
+
+  /** Add a telemetry channel */
+  def addTlmChannel(idOpt: Option[TlmChannel.Id], tlmChannel: TlmChannel): Result.Result[Component] = {
+    val id = idOpt.getOrElse(defaultTlmChannelId)
+    tlmChannelMap.get(id) match {
+      case Some(prevTlmChannel) =>
+        val value = Analysis.displayIdValue(id)
+        val loc = tlmChannel.getLoc
+        val prevLoc = prevTlmChannel.getLoc
+        Left(SemanticError.DuplicateIdValue(value, loc, prevLoc))
+      case None =>
+        val tlmChannelMap = this.tlmChannelMap + (id -> tlmChannel)
+        val component = this.copy(tlmChannelMap = tlmChannelMap, defaultTlmChannelId = id + 1)
         Right(component)
     }
   }

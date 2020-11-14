@@ -33,6 +33,10 @@ sealed trait Error {
         Error.print (Some(loc)) (s"duplicate opcode value ${value}")
         System.err.println(s"previous occurrence is here:")
         System.err.println(prevLoc)
+      case SemanticError.DuplicateIdValue(value, loc, prevLoc) =>
+        Error.print (Some(loc)) (s"duplicate identifier value ${value}")
+        System.err.println(s"previous occurrence is here:")
+        System.err.println(prevLoc)
       case SemanticError.DuplicateEnumValue(value, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate enum value ${value}")
         System.err.println(s"previous occurrence is here:")
@@ -136,8 +140,14 @@ object SemanticError {
   final case class EmptyArray(loc: Location) extends Error
   /** Division by zero */
   final case class DivisionByZero(loc: Location) extends Error
-  /** Duplicate opcode */
+  /** Duplicate opcode value */
   final case class DuplicateOpcodeValue(
+    value: String,
+    loc: Location,
+    prevLoc: Location
+  ) extends Error
+  /** Dupliate ID value */
+  final case class DuplicateIdValue(
     value: String,
     loc: Location,
     prevLoc: Location

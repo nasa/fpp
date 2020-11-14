@@ -83,9 +83,13 @@ object CheckComponentDefs
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]
   ) = {
-    // TODO: Create a new telemetry channel ch
-    // TODO: Add ch to the telemetry map
-    default(a)
+    val data = aNode._2.data
+    for {
+      idOpt <- a.getIntValueOpt(data.id)
+      tlmChannel <- TlmChannels.fromSpecTlmChannel(a, aNode)
+      component <- a.component.get.addTlmChannel(idOpt, tlmChannel)
+    }
+    yield a.copy(component = Some(component))
   }
 
 }
