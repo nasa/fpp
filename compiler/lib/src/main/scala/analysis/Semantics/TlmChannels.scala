@@ -18,15 +18,31 @@ final object TlmChannels {
           data.format, 
           format => Analysis.computeFormat(format, List(channelType))
         )
-        lowLimits <- getLimits(data.low)
-        highLimits <- getLimits(data.high)
+        lowLimits <- computeLimits(a, data.low)
+        highLimits <- computeLimits(a, data.high)
       }
       yield TlmChannel(aNode, update, format, lowLimits, highLimits)
    }
 
-   /** Gets limits */
-   private def getLimits(limits: List[Ast.SpecTlmChannel.Limit]): Result.Result[TlmChannel.Limits] = {
-     Right(Map())
+   /** Computes limits from AST limits */
+   private def computeLimits(
+     a: Analysis,
+     astLimits: List[Ast.SpecTlmChannel.Limit]
+   ): Result.Result[TlmChannel.Limits] = {
+     val limits0: TlmChannel.Limits = Map()
+     Result.foldLeft (astLimits) (limits0) ((limits, limit) => {
+       val kind = limit._1
+       val e = limit._2
+       limits.get(kind.data) match {
+         case Some((id, _)) =>
+           val loc = Locations.get(kind.id)
+           val prevLoc = Locations.get(id)
+           Left(SemanticError.DuplicateLimit(loc, prevLoc))
+         case None =>
+           val v = a.valueMap(e.id)
+           Right(limits + (kind.data -> (kind.id, v)))
+       }
+     })
    }
 
 }

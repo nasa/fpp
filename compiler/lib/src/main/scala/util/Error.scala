@@ -12,16 +12,14 @@ sealed trait Error {
   def print = {
     this match {
       case SyntaxError(loc, msg) => Error.print (Some(loc)) (msg)
-      case CodeGenError.DuplicateCppFile(file, loc, prevLoc) => {
+      case CodeGenError.DuplicateCppFile(file, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate C++ file ${file}")
         System.err.println(s"previous file would be generated here:")
         System.err.println(prevLoc)
-      }
-      case CodeGenError.DuplicateXmlFile(file, loc, prevLoc) => {
+      case CodeGenError.DuplicateXmlFile(file, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate XML file ${file}")
         System.err.println(s"previous file would be generated here:")
         System.err.println(prevLoc)
-      }
       case CodeGenError.EmptyStruct(loc) =>
         Error.print (Some(loc)) (s"cannot write XML for an empty struct")
       case IncludeError.Cycle(loc, msg) => Error.print (Some(loc)) (msg)
@@ -31,42 +29,39 @@ sealed trait Error {
         Error.print (Some(loc)) (s"cannot resolve path $name")
       case SemanticError.DivisionByZero(loc) =>
         Error.print (Some(loc)) ("division by zero")
-      case SemanticError.DuplicateOpcodeValue(value, loc, prevLoc) => {
+      case SemanticError.DuplicateOpcodeValue(value, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate opcode value ${value}")
         System.err.println(s"previous occurrence is here:")
         System.err.println(prevLoc)
-      }
-      case SemanticError.DuplicateEnumValue(value, loc, prevLoc) => {
+      case SemanticError.DuplicateEnumValue(value, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate enum value ${value}")
         System.err.println(s"previous occurrence is here:")
         System.err.println(prevLoc)
-      }
-      case SemanticError.DuplicateParameter(name, loc, prevLoc) => {
+      case SemanticError.DuplicateLimit(loc, prevLoc) =>
+        Error.print (Some(loc)) ("duplicate limit")
+        System.err.println(s"previous occurrence is here:")
+        System.err.println(prevLoc)
+      case SemanticError.DuplicateParameter(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate parameter ${name}")
         System.err.println(s"previous parameter is here:")
         System.err.println(prevLoc)
-      }
-      case SemanticError.DuplicatePortInstance(name, loc, prevLoc) => {
+      case SemanticError.DuplicatePortInstance(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate port instance ${name}")
         System.err.println(s"previous instance is here:")
         System.err.println(prevLoc)
-      }
-      case SemanticError.DuplicateStructMember(name, loc, prevLoc) => {
+      case SemanticError.DuplicateStructMember(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate struct member ${name}")
         System.err.println(s"previous member is here:")
         System.err.println(prevLoc)
-      }
       case SemanticError.EmptyArray(loc) => 
         Error.print (Some(loc)) ("array expression may not be empty")
-      case SemanticError.InconsistentSpecLoc(loc, path, prevLoc, prevPath) => {
+      case SemanticError.InconsistentSpecLoc(loc, path, prevLoc, prevPath) =>
         Error.print (Some(loc)) (s"inconsistent location path ${path}")
         System.err.println(prevLoc)
         System.err.println(s"previous path is ${prevPath}")
-      }
-      case SemanticError.IncorrectSpecLoc(loc, specifiedPath, actualLoc) => {
+      case SemanticError.IncorrectSpecLoc(loc, specifiedPath, actualLoc) =>
         Error.print (Some(loc)) (s"incorrect location path ${specifiedPath}")
         System.err.println(s"actual location is ${actualLoc}")
-      }
       case SemanticError.InvalidArraySize(loc, size) =>
         Error.print (Some(loc)) (s"invalid array size $size")
       case SemanticError.InvalidEnumConstants(loc) =>
@@ -77,11 +72,10 @@ sealed trait Error {
         Error.print (Some(loc)) (s"invalid format string: $msg")
       case SemanticError.InvalidInternalPort(loc, msg) =>
         Error.print (Some(loc)) (msg)
-      case SemanticError.InvalidPortInstance(loc, msg, defLoc) => {
+      case SemanticError.InvalidPortInstance(loc, msg, defLoc) =>
         Error.print (Some(loc)) (msg)
         System.err.println(s"port definition is here:")
         System.err.println(defLoc)
-      }
       case SemanticError.InvalidPriority(loc) =>
         Error.print (Some(loc)) ("only async input may have a priority")
       case SemanticError.InvalidQueueFull(loc) =>
@@ -94,11 +88,10 @@ sealed trait Error {
         Error.print (Some(loc)) (msg)
       case SemanticError.NotImplemented(loc) =>
         Error.print (Some(loc)) ("language feature is not yet implemented")
-      case SemanticError.RedefinedSymbol(name, loc, prevLoc) => {
+      case SemanticError.RedefinedSymbol(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"redefinition of symbol ${name}")
         System.err.println(s"previous definition is here:")
         System.err.println(prevLoc)
-      }
       case SemanticError.TypeMismatch(loc, msg) => Error.print (Some(loc)) (msg)
       case SemanticError.UndefinedSymbol(name, loc) =>
         Error.print (Some(loc)) (s"undefined symbol ${name}")
@@ -152,6 +145,11 @@ object SemanticError {
   /** Duplicate enum value */
   final case class DuplicateEnumValue(
     value: String,
+    loc: Location,
+    prevLoc: Location
+  ) extends Error
+  /** Duplicate telemetry channel limit */
+  final case class DuplicateLimit(
     loc: Location,
     prevLoc: Location
   ) extends Error

@@ -20,6 +20,6 @@ final object TlmChannel {
 
   type Id = Int
 
-  type Limits = Map[Ast.SpecTlmChannel.LimitKind, Value]
+  type Limits = Map[Ast.SpecTlmChannel.LimitKind, (AstNode.Id, Value)]
 
 }
