@@ -3,10 +3,10 @@ package fpp.compiler.analysis
 import fpp.compiler.ast._
 import fpp.compiler.util._
 
-/** Check commands */
+/** Check telemetry channels */
 final object TlmChannels {
 
-  /** Creates a command from a telemetry channel specifier */
+  /** Creates a telemetry channel from a telemetry channel specifier */
   def fromSpecTlmChannel(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]):
     Result.Result[TlmChannel] = {
       val node = aNode._2
