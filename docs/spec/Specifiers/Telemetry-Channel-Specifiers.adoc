@@ -103,14 +103,13 @@ telemetry Channel1: U32 \
   update on change
 
 @ Telemetry channel 2
-telemetry Channel2: F64x3 \
+telemetry Channel2: F64 \
   id 0x02 \
   format "{.3f}"
 
 @ Telemetry channel 3
 telemetry Channel3: F64x3 \
   id 0x03 \
-  format "{.3f}" \
   low { yellow -1, orange -2, red -3 } \
   high { yellow 1, orange 2, red 3 }
 ----
