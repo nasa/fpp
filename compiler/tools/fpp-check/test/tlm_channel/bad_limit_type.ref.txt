@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/tlm_channel/bad_limit_type.fpp: 3.31
+  telemetry T: bool low { red 0 }
+                              ^
+error: cannot convert Integer to bool

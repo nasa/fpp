@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/tlm_channel/limit_not_numeric.fpp: 3.30
+  telemetry T: U32 low { red "abc" }
+                             ^
+error: cannot convert string to a numeric type
