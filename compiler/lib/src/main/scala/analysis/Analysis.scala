@@ -291,12 +291,8 @@ object Analysis {
     }).size
 
   /** Gets a queue full behavior from an AST node */
-  def getQueueFull(queueFullOpt: Option[Ast.QueueFull]):
-    Ast.QueueFull =
-    queueFullOpt match {
-      case Some(queueFull) => queueFull
-      case None => Ast.QueueFull.Assert
-    }
+  def getQueueFull(queueFullOpt: Option[Ast.QueueFull]): Ast.QueueFull =
+    queueFullOpt.getOrElse(Ast.QueueFull.Assert)
 
   /** Displays an ID value */
   def displayIdValue(value: Int) = {
