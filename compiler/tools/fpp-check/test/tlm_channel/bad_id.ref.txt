@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/tlm_channel/bad_id.fpp: 3.23
+  telemetry T: U32 id "abc"
+                      ^
+error: cannot convert string to a numeric type
