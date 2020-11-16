@@ -19,11 +19,14 @@ case class Component(
   tlmChannelMap: Map[TlmChannel.Id, TlmChannel] = Map(),
   /** The next default channel ID */
   defaultTlmChannelId: Int = 0,
-  /** The map from event opcodes to events */
+  /** The map from event IDs to events */
   eventMap: Map[Event.Id, Event] = Map(),
-  /** The next default eventID */
+  /** The next default event ID */
   defaultEventId: Int = 0,
-  // TODO
+  /** The map from parameter IDs to parameters */
+  paramMap: Map[Param.Id, Param] = Map(),
+  /** The next default parameter ID */
+  defaultParamId: Int = 0
 ) {
 
   /** Add a port instance */
@@ -65,6 +68,27 @@ case class Component(
       case None =>
         val eventMap = this.eventMap + (id -> event)
         val component = this.copy(eventMap = eventMap, defaultEventId = id + 1)
+        Right(component)
+    }
+  }
+  
+  /** Add a parameter */
+  def addParam(idOpt: Option[Param.Id], param: Param, defaultOpcode: Command.Opcode): 
+  Result.Result[Component] = {
+    val id = idOpt.getOrElse(defaultParamId)
+    eventMap.get(id) match {
+      case Some(prevParam) =>
+        val value = Analysis.displayIdValue(id)
+        val loc = param.getLoc
+        val prevLoc = prevParam.getLoc
+        Left(SemanticError.DuplicateIdValue(value, loc, prevLoc))
+      case None =>
+        val paramMap = this.paramMap + (id -> param)
+        val component = this.copy(
+          paramMap = paramMap,
+          defaultOpcode = defaultOpcode,
+          defaultParamId = id + 1
+        )
         Right(component)
     }
   }

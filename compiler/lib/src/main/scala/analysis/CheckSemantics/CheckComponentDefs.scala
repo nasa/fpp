@@ -67,9 +67,17 @@ object CheckComponentDefs
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecParam]]
   ) = {
-    // TODO: Create a new parameter p
-    // TODO: Add p to the parameter map
-    default(a)
+    val data = aNode._2.data
+    val component = a.component.get
+    for {
+      idOpt <- a.getIntValueOpt(data.id)
+      param_defaultOpcode <- Params.fromSpecParam(a, aNode, component.defaultOpcode)
+      component <- {
+        val (param, defaultOpcode) = param_defaultOpcode
+        component.addParam(idOpt, param, defaultOpcode)
+      }
+    }
+    yield a.copy(component = Some(component))
   }
 
   override def specPortInstanceAnnotatedNode(

@@ -6,9 +6,10 @@ import fpp.compiler.util._
 /** Check parameters */
 final object Params {
 
-  /** Creates a parameter from a parameter specifier */
-  def fromSpecParam(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecParam]]):
-    Result.Result[Param] = {
+  /** Creates a parameter from a parameter specifier
+   *  Returns the new default opcode */
+  def fromSpecParam(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecParam]], defaultOpcode: Int):
+    Result.Result[(Param, Int)] = {
       val node = aNode._2
       val data = node.data
       def computeDefaultValue(default: AstNode[Ast.Expr]) = {
@@ -19,12 +20,22 @@ final object Params {
         for (_ <- Analysis.convertTypes(loc, defaultType -> paramType))
           yield defaultValue
       }
+      def computeOpcode(intOpt: Option[Int], defaultOpcode: Int) =
+        intOpt match {
+          case Some(i) => (i, defaultOpcode)
+          case None => (defaultOpcode, defaultOpcode + 1)
+        }
       for {
         default <- Result.mapOpt(data.default, computeDefaultValue)
-        setOpcode <- a.getIntValueOpt(data.setOpcode)
-        saveOpcode <- a.getIntValueOpt(data.saveOpcode)
+        setOpcodeOpt <- a.getIntValueOpt(data.setOpcode)
+        saveOpcodeOpt <- a.getIntValueOpt(data.saveOpcode)
       }
-      yield Param(aNode, default, setOpcode, saveOpcode)
+      yield {
+        val (setOpcode, defaultOpcode1) = computeOpcode(setOpcodeOpt, defaultOpcode)
+        val (saveOpcode, defaultOpcode2) = computeOpcode(saveOpcodeOpt, defaultOpcode1)
+        (Param(aNode, default, setOpcode, saveOpcode), defaultOpcode2)
+        // TODO: Add implied commands
+      }
    }
 
 }

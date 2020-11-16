@@ -6,8 +6,8 @@ import fpp.compiler.ast._
 final case class Param(
   aNode: Ast.Annotated[AstNode[Ast.SpecParam]],
   default: Option[Value],
-  setOpcode: Option[Int],
-  saveOpcode: Option[Int]
+  setOpcode: Int,
+  saveOpcode: Int
 ) {
 
   /** Gets the location of the parameter */
