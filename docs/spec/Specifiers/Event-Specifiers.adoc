@@ -93,6 +93,6 @@ event Event2(
 ) \
   severity warning low \
   id 0x02 \
-  format "Saw value {.3f} for case {}" \
+  format "Saw value {} for case {}" \
   throttle 10
 ----
