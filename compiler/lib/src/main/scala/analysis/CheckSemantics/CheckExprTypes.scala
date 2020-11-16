@@ -197,7 +197,7 @@ object CheckExprTypes extends UseAnalyzer {
     }
     for {
       a <- super.specParamAnnotatedNode(a, aNode)
-      _ <- Result.mapOpt(data.default, checkDefault (a) _)
+      _ <- Result.mapOpt(data.default, checkDefault(a))
       _ <- convertNodeToNumericOpt(a, data.id)
       _ <- convertNodeToNumericOpt(a, data.setOpcode)
       _ <- convertNodeToNumericOpt(a, data.saveOpcode)
