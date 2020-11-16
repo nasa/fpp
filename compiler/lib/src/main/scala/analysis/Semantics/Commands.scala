@@ -15,7 +15,7 @@ final object Commands {
       def checkRefParams(params: Ast.FormalParamList) = {
         val numRefParams = Analysis.getNumRefParams(params)
         if (numRefParams != 0) Left(
-          SemanticError.InvalidInternalPort(
+          SemanticError.InvalidCommand(
             loc,
             "command may not have ref parameters",
           )

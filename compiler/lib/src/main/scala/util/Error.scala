@@ -68,12 +68,16 @@ sealed trait Error {
         System.err.println(s"actual location is ${actualLoc}")
       case SemanticError.InvalidArraySize(loc, size) =>
         Error.print (Some(loc)) (s"invalid array size $size")
+      case SemanticError.InvalidCommand(loc, msg) =>
+        Error.print (Some(loc)) (msg)
       case SemanticError.InvalidEnumConstants(loc) =>
         Error.print (Some(loc)) ("enum constants must be all explicit or all implied")
-      case SemanticError.InvalidIntValue(loc, v) =>
-        Error.print (Some(loc)) (s"invalid integer value $v")
+      case SemanticError.InvalidEvent(loc, msg) =>
+        Error.print (Some(loc)) (msg)
       case SemanticError.InvalidFormatString(loc, msg) =>
         Error.print (Some(loc)) (s"invalid format string: $msg")
+      case SemanticError.InvalidIntValue(loc, v) =>
+        Error.print (Some(loc)) (s"invalid integer value $v")
       case SemanticError.InvalidInternalPort(loc, msg) =>
         Error.print (Some(loc)) (msg)
       case SemanticError.InvalidPortInstance(loc, msg, defLoc) =>
@@ -196,8 +200,12 @@ object SemanticError {
   ) extends Error
   /** Invalid array size */
   final case class InvalidArraySize(loc: Location, size: BigInt) extends Error
+  /** Invalid command */
+  final case class InvalidCommand(loc: Location, msg: String) extends Error
   /** Invalid enum constants */
   final case class InvalidEnumConstants(loc: Location) extends Error
+  /** Invalid event */
+  final case class InvalidEvent(loc: Location, msg: String) extends Error
   /** Invalid format string  */
   final case class InvalidFormatString(loc: Location, msg: String) extends Error
   /** Invalid integer value */

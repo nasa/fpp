@@ -6,7 +6,7 @@ import fpp.compiler.ast._
 final case class Event(
   aNode: Ast.Annotated[AstNode[Ast.SpecEvent]],
   format: Option[Format],
-  throttle: Option[Value]
+  throttle: Option[Int]
 ) {
 
   /** Gets the location of the event */
