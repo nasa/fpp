@@ -189,7 +189,7 @@ object CheckExprTypes extends UseAnalyzer {
   override def specParamAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecParam]]) = {
     val (_, node, _) = aNode
     val data = node.data
-    def checkDefault(default: AstNode[Ast.Expr]) = {
+    def checkDefault (a: Analysis) (default: AstNode[Ast.Expr]) = {
       val loc = Locations.get(default.id)
       val defaultType = a.typeMap(default.id)
       val paramType = a.typeMap(data.typeName.id)
@@ -197,7 +197,7 @@ object CheckExprTypes extends UseAnalyzer {
     }
     for {
       a <- super.specParamAnnotatedNode(a, aNode)
-      _ <- Result.mapOpt(data.default, checkDefault)
+      _ <- Result.mapOpt(data.default, checkDefault (a) _)
       _ <- convertNodeToNumericOpt(a, data.id)
       _ <- convertNodeToNumericOpt(a, data.setOpcode)
       _ <- convertNodeToNumericOpt(a, data.saveOpcode)
