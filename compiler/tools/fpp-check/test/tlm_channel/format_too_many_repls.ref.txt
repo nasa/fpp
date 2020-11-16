@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/tlm_channel/format_too_many_repls.fpp: 3.27
+  telemetry T: U32 format "{} {}"
+                          ^
+error: invalid format string: too many replacement fields

@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/tlm_channel/format_missing_repl.fpp: 3.27
+  telemetry T: U32 format "abc"
+                          ^
+error: invalid format string: missing replacement field
