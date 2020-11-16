@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/event/format_too_many_repls.fpp: 3.40
+  event E severity activity low format "{}"
+                                       ^
+error: invalid format string: too many replacement fields

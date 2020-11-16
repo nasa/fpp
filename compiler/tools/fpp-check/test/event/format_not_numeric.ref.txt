@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/event/format_not_numeric.fpp: 3.49
+  event E(a: bool) severity activity low format "{x}"
+                                                ^
+error: invalid format string: type bool is not numeric

@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/event/format_missing_repl.fpp: 3.48
+  event E(a: U32) severity activity low format "abc"
+                                               ^
+error: invalid format string: missing replacement field
