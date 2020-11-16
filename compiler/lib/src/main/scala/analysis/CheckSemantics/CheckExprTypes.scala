@@ -17,14 +17,13 @@ object CheckExprTypes extends UseAnalyzer {
       a <- super.defArrayAnnotatedNode(a, aNode)
       _ <- convertNodeToNumeric(a, data.size)
       _ <- data.default match {
-        case Some(defaultNode) => {
+        case Some(defaultNode) =>
           val arrayId = node.id
           val arrayType = a.typeMap(arrayId)
           val defaultId = defaultNode.id
           val defaultType = a.typeMap(defaultId)
           val loc = Locations.get(defaultId)
           Analysis.convertTypes(loc, defaultType -> arrayType)
-        }
         case None => Right(a)
       }
     } yield a
@@ -49,14 +48,13 @@ object CheckExprTypes extends UseAnalyzer {
     for {
       a <- super.defEnumAnnotatedNode(a, aNode)
       _ <- data.default match {
-        case Some(defaultNode) => {
+        case Some(defaultNode) =>
           val enumId = node.id
           val enumType = a.typeMap(enumId)
           val defaultId = defaultNode.id
           val defaultType = a.typeMap(defaultId)
           val loc = Locations.get(defaultId)
           Analysis.convertTypes(loc, defaultType -> enumType)
-        }
         case None => Right(a)
       }
     } yield a
@@ -80,14 +78,13 @@ object CheckExprTypes extends UseAnalyzer {
     for {
       a <- super.defStructAnnotatedNode(a, aNode)
       _ <- data.default match {
-        case Some(defaultNode) => {
+        case Some(defaultNode) =>
           val structId = node.id
           val structType = a.typeMap(structId)
           val defaultId = defaultNode.id
           val defaultType = a.typeMap(defaultId)
           val loc = Locations.get(defaultId)
           Analysis.convertTypes(loc, defaultType -> structType)
-        }
         case None => Right(a)
       }
     } yield a
@@ -185,6 +182,25 @@ object CheckExprTypes extends UseAnalyzer {
     for {
       a <- super.specInternalPortAnnotatedNode(a, aNode)
       _ <- convertNodeToNumericOpt(a, data.priority)
+    }
+    yield a
+  }
+
+  override def specParamAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecParam]]) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    def checkDefault(default: AstNode[Ast.Expr]) = {
+      val loc = Locations.get(default.id)
+      val defaultType = a.typeMap(default.id)
+      val paramType = a.typeMap(data.typeName.id)
+      Analysis.convertTypes(loc, defaultType -> paramType)
+    }
+    for {
+      a <- super.specParamAnnotatedNode(a, aNode)
+      _ <- Result.mapOpt(data.default, checkDefault)
+      _ <- convertNodeToNumericOpt(a, data.id)
+      _ <- convertNodeToNumericOpt(a, data.setOpcode)
+      _ <- convertNodeToNumericOpt(a, data.saveOpcode)
     }
     yield a
   }
