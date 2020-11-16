@@ -19,6 +19,10 @@ case class Component(
   tlmChannelMap: Map[TlmChannel.Id, TlmChannel] = Map(),
   /** The next default channel ID */
   defaultTlmChannelId: Int = 0,
+  /** The map from event opcodes to events */
+  eventMap: Map[Event.Id, Event] = Map(),
+  /** The next default eventID */
+  defaultEventId: Int = 0,
   // TODO
 ) {
 
@@ -45,6 +49,22 @@ case class Component(
       case None =>
         val commandMap = this.commandMap + (opcode -> command)
         val component = this.copy(commandMap = commandMap, defaultOpcode = opcode + 1)
+        Right(component)
+    }
+  }
+
+  /** Add an event */
+  def addEvent(idOpt: Option[Event.Id], event: Event): Result.Result[Component] = {
+    val id = idOpt.getOrElse(defaultEventId)
+    eventMap.get(id) match {
+      case Some(prevEvent) =>
+        val value = Analysis.displayIdValue(id)
+        val loc = event.getLoc
+        val prevLoc = prevEvent.getLoc
+        Left(SemanticError.DuplicateIdValue(value, loc, prevLoc))
+      case None =>
+        val eventMap = this.eventMap + (id -> event)
+        val component = this.copy(eventMap = eventMap, defaultEventId = id + 1)
         Right(component)
     }
   }

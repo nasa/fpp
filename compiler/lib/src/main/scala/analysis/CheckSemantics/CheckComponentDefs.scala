@@ -42,9 +42,13 @@ object CheckComponentDefs
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecEvent]]
   ) = {
-    // TODO: Create a new event e
-    // TODO: Add e to the event map
-    default(a)
+    val data = aNode._2.data
+    for {
+      idOpt <- a.getIntValueOpt(data.id)
+      event <- Events.fromSpecEvent(a, aNode)
+      component <- a.component.get.addEvent(idOpt, event)
+    }
+    yield a.copy(component = Some(component))
   }
 
   override def specInternalPortAnnotatedNode(
