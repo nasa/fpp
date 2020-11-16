@@ -11,7 +11,7 @@ final case class TlmChannel(
   highLimits: TlmChannel.Limits
 ) {
 
-  /** Gets the location of the command */
+  /** Gets the location of the channel */
   def getLoc = Locations.get(aNode._2.id)
 
 }
