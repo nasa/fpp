@@ -6,7 +6,7 @@ import fpp.compiler.util._
 /** Check events */
 final object Events {
 
-  /** Creates a event from a event specifier */
+  /** Creates a event from an event specifier */
   def fromSpecEvent(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecEvent]]):
     Result.Result[Event] = {
       val node = aNode._2
