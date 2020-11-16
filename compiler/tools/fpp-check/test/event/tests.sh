@@ -1,4 +1,6 @@
 tests="
+bad_id
+bad_throttle
 duplicate_id_explicit
 duplicate_id_implicit
 format_missing_repl
