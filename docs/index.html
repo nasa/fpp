@@ -773,7 +773,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#Types_Types-with-Numeric-Members">16.12. Types with Numeric Members</a></li>
 <li><a href="#Types_Default-Values">16.13. Default Values</a></li>
-<li><a href="#Types_Serialized-Sizes">16.14. Serialized Sizes</a></li>
 </ul>
 </li>
 <li><a href="#Type-Checking">17. Type Checking</a>
@@ -812,6 +811,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Values_Enumeration-Values">18.9. Enumeration Values</a></li>
 <li><a href="#Values_Anonymous-Struct-Values">18.10. Anonymous Struct Values</a></li>
 <li><a href="#Values_Struct-Values">18.11. Struct Values</a></li>
+<li><a href="#Values_Serialized-Sizes">18.12. Serialized Sizes</a></li>
 </ul>
 </li>
 <li><a href="#Evaluation">19. Evaluation</a>
@@ -6601,59 +6601,6 @@ of <em>T</em> must provide a concrete value.</p>
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="Types_Serialized-Sizes">16.14. Serialized Sizes</h3>
-<div class="paragraph">
-<p>Every type <em>T</em> with a syntactic name in FPP has a <strong>serialized size</strong>.
-This is the maximum number of bytes required to
-represent <em>T</em> in the standard F Prime serialized
-format.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>The serialized size of each
-<a href="#Types_Primitive-Numeric-Types">primitive numeric type</a> is
-the byte width of the type.
-For example, the serialized size of <code>F64</code> is 8.</p>
-</li>
-<li>
-<p>The serialized size of
-<a href="#Types_The-Boolean-Type"><code>bool</code></a> is 1.</p>
-</li>
-<li>
-<p>The serialized size of a
-<a href="#Types_String-Types">string type</a> is the number of bytes used to represent the
-length of a string
-plus the maximum string length. These sizes are
-implementation-specific, except that the maximum length
-may be given in the string type.</p>
-</li>
-<li>
-<p>The serialized size of an
-<a href="#Types_Array-Types">array type</a> <em>T</em> is
-the number of elements in the array times the
-serialized size of an element.</p>
-</li>
-<li>
-<p>The serialized size of an
-<a href="#Types_Enum-Types">enum type</a> is the
-byte width of the representation type.</p>
-</li>
-<li>
-<p>The serialized size of a
-<a href="#Types_Struct-Types">struct type</a> <em>T</em> is
-the sum of the serialized sizes of the members.</p>
-</li>
-<li>
-<p>The serialized size of an
-<a href="#Types_Abstract-Types">abstract type</a> <em>T</em> is not specified
-in FPP.
-It is up to the implementer of <em>T</em> to provide the serialized size.</p>
-</li>
-</ul>
-</div>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -7468,6 +7415,56 @@ that refers to a
 <p>All the members must be explicitly assigned values.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="Values_Serialized-Sizes">18.12. Serialized Sizes</h3>
+<div class="paragraph">
+<p>Every value <em>v</em> whose type has a syntactic representation in FPP has a
+<strong>serialized size</strong>.  This is the number of bytes required to represent <em>v</em> in
+the standard F Prime serialized format.  The serialized size <em>s</em> of a value <em>v</em>
+depends on the type <em>T</em> of <em>v</em>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If <em>T</em> is a
+<a href="#Types_Primitive-Numeric-Types">primitive numeric type</a>, then <em>s</em> is the byte
+width of the type.  For example, the serialized size of a value of type <code>F64</code>
+is 8.</p>
+</li>
+<li>
+<p>If <em>T</em> is
+<a href="#Types_The-Boolean-Type"><code>bool</code></a>, then <em>s</em> is 1.</p>
+</li>
+<li>
+<p>If <em>T</em> is a
+<a href="#Types_String-Types">string type</a>, then <em>s</em> is the number of bytes used to
+represent the length of a string plus the length of the string in characters.
+The number of bytes used to represent the length of a string is
+implementation-specific.</p>
+</li>
+<li>
+<p>If <em>T</em> is an
+<a href="#Types_Array-Types">array type</a>, then <em>s</em> is sum of the serialized sizes of
+the elements of <em>v</em>.</p>
+</li>
+<li>
+<p>If <em>T</em> is an
+<a href="#Types_Enum-Types">enum type</a>, then <em>s</em> is the byte width of the
+representation type of <em>T</em>.</p>
+</li>
+<li>
+<p>If <em>T</em> is a
+<a href="#Types_Struct-Types">struct type</a>, then <em>s</em>
+the sum of the serialized sizes of the members of <em>v</em></p>
+</li>
+<li>
+<p>If <em>T</em> is an
+<a href="#Types_Abstract-Types">abstract type</a>, then <em>s</em> is not specified in FPP.  It
+is up to the implementer of <em>T</em> to provide the serialized size.</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -7759,7 +7756,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-11-17 11:49:18 -0800
+Last updated 2020-11-17 13:15:16 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

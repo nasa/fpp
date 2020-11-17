@@ -163,3 +163,40 @@ that refers to a
 . For each stem:[i in [1,n]], stem:[v_i] is a value of type stem:[T_i].
 
 All the members must be explicitly assigned values.
+
+=== Serialized Sizes
+
+Every value _v_ whose type has a syntactic representation in FPP has a
+*serialized size*.  This is the number of bytes required to represent _v_ in
+the standard F Prime serialized format.  The serialized size _s_ of a value _v_
+depends on the type _T_ of _v_:
+
+* If _T_ is a
+<<Types_Primitive-Numeric-Types,primitive numeric type>>, then _s_ is the byte
+width of the type.  For example, the serialized size of a value of type `F64`
+is 8.
+
+* If _T_ is
+<<Types_The-Boolean-Type,`bool`>>, then _s_ is 1.
+
+* If _T_ is a
+<<Types_String-Types,string type>>, then _s_ is the number of bytes used to
+represent the length of a string plus the length of the string in characters.
+The number of bytes used to represent the length of a string is
+implementation-specific.
+
+* If _T_ is an
+<<Types_Array-Types,array type>>, then _s_ is sum of the serialized sizes of
+the elements of _v_.
+
+* If _T_ is an
+<<Types_Enum-Types,enum type>>, then _s_ is the byte width of the
+representation type of _T_.
+
+* If _T_ is a
+<<Types_Struct-Types,struct type>>, then _s_
+the sum of the serialized sizes of the members of _v_
+
+* If _T_ is an
+<<Types_Abstract-Types,abstract type>>, then _s_ is not specified in FPP.  It
+is up to the implementer of _T_ to provide the serialized size.
