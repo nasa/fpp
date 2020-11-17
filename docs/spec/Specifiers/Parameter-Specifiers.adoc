@@ -72,8 +72,8 @@ param Parameter1: U32 \
 
 @ Parameter 2
 param Parameter2: F64 \
-  id 0x00 \
   default 1.0 \
+  id 0x01 \
   set opcode 0x82 \
   save opcode 0x83
 ----
