@@ -6,10 +6,16 @@ import fpp.compiler.util._
 /** Finalize type definitions. Update the types of uses (type names) that refer 
  *  to the definitions. */
 object FinalizeTypeDefs 
-  extends Analyzer
-  with ComponentAnalyzer
-  with ModuleAnalyzer 
+  extends TypeExpressionAnalyzer
 {
+
+  override def exprNode(a: Analysis, node: AstNode[Ast.Expr]): Result = default(a)
+
+  override def typeNameNode(a: Analysis, node: AstNode[Ast.TypeName]) = {
+    val t1 = a.typeMap(node.id)
+    for (t2 <- TypeVisitor.ty(a, t1))
+      yield if (t1 != t2) a.assignType(node -> t2) else a
+  }
 
   override def defArrayAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val symbol = Symbol.Array(aNode)
