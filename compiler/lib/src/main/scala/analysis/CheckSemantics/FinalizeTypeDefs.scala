@@ -51,12 +51,10 @@ object FinalizeTypeDefs
           }
         }
         // Compute the format
-        format <- data.format match {
-          case Some(node) => for {
-            format <- Analysis.computeFormat(node, List(eltType))
-          } yield Some(format)
-          case None => Right(None)
-        }
+        format <- Result.mapOpt(
+          data.format,
+          Analysis.computeFormat(_, List(eltType))
+        )
       } 
       yield {
         // Update the default value and format in A
@@ -123,15 +121,11 @@ object FinalizeTypeDefs
             val name = member.name
             val t = structType.anonStruct.members(name)
             for {
-              formatOpt <- member.format match {
-                case Some(node) => for {
-                  format <- Analysis.computeFormat(node, List(t))
-                } yield Some(format)
-                case None => Right(None)
-              }
-            } yield {
-              for (format <- formatOpt) yield (name, format)
-            }
+              formatOpt <- Result.mapOpt(
+                member.format,
+                node => Analysis.computeFormat(node, List(t))
+              )
+            } yield formatOpt.map(format => (name, format))
           }
           val members = data.members.map(_._2.data)
           for (pairs <- Result.map(members, mapping)) yield {
