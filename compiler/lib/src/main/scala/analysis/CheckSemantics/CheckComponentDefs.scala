@@ -74,7 +74,8 @@ object CheckComponentDefs
       param_defaultOpcode <- Params.fromSpecParam(a, aNode, component.defaultOpcode)
       component <- {
         val (param, defaultOpcode) = param_defaultOpcode
-        component.addParam(idOpt, param, defaultOpcode)
+        val paramType = a.typeMap(data.typeName.id)
+        component.addParam(idOpt, param, paramType, defaultOpcode)
       }
     }
     yield a.copy(component = Some(component))

@@ -12,13 +12,13 @@ final object Params {
     Result.Result[(Param, Int)] = {
       val node = aNode._2
       val data = node.data
+      val paramType = a.typeMap(data.typeName.id)
       def computeDefaultValue(default: AstNode[Ast.Expr]) = {
-        val paramType = a.typeMap(data.typeName.id)
         val defaultValue = a.valueMap(default.id)
         val defaultType = a.typeMap(default.id)
         val loc = Locations.get(default.id)
         for (_ <- Analysis.convertTypes(loc, defaultType -> paramType))
-          yield defaultValue
+          yield Analysis.convertValueToType(defaultValue, defaultType)
       }
       def computeOpcode(intOpt: Option[Int], defaultOpcode: Int) =
         intOpt match {
@@ -34,7 +34,6 @@ final object Params {
         val (setOpcode, defaultOpcode1) = computeOpcode(setOpcodeOpt, defaultOpcode)
         val (saveOpcode, defaultOpcode2) = computeOpcode(saveOpcodeOpt, defaultOpcode1)
         (Param(aNode, default, setOpcode, saveOpcode), defaultOpcode2)
-        // TODO: Add implied commands
       }
    }
 

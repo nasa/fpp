@@ -42,8 +42,14 @@ final object Commands {
         _ <- checkRefParams(data.params)
       }
       yield {
-        val queueFull = Analysis.getQueueFull(data.queueFull.map(_.data))
-        Command(aNode, priority, queueFull)
+        val kind = data.kind match {
+          case Ast.SpecCommand.Async =>
+            val queueFull = Analysis.getQueueFull(data.queueFull.map(_.data))
+            Command.NonParam.Async(priority, queueFull)
+          case Ast.SpecCommand.Guarded => Command.NonParam.Guarded
+          case Ast.SpecCommand.Sync => Command.NonParam.Sync
+        }
+        Command.NonParam(aNode, kind)
       }
    }
 

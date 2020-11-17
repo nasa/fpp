@@ -73,7 +73,7 @@ case class Component(
   }
   
   /** Add a parameter */
-  def addParam(idOpt: Option[Param.Id], param: Param, defaultOpcode: Command.Opcode): 
+  def addParam(idOpt: Option[Param.Id], param: Param, paramType: Type, defaultOpcode: Command.Opcode): 
   Result.Result[Component] = {
     val id = idOpt.getOrElse(defaultParamId)
     eventMap.get(id) match {
@@ -89,7 +89,14 @@ case class Component(
           defaultOpcode = defaultOpcode,
           defaultParamId = id + 1
         )
-        Right(component)
+        val name = param.aNode._2.data.name
+        val setCommand = Command.Param(param.aNode, Command.Param.Get)
+        val saveCommand = Command.Param(param.aNode, Command.Param.Set)
+        for {
+          component <- component.addCommand(Some(param.setOpcode), setCommand)
+          component <- component.addCommand(Some(param.saveOpcode), saveCommand)
+        }
+        yield component
     }
   }
 
