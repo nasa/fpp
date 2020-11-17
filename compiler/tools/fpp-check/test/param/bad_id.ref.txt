@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/param/bad_id.fpp: 3.19
+  param P: U32 id "abc"
+                  ^
+error: cannot convert string to a numeric type
