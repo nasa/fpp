@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/param/bad_default.fpp: 5.26
+  param P: U32x3 default [ 0, 1 ]
+                         ^
+error: cannot convert [2] Integer to array U32x3
