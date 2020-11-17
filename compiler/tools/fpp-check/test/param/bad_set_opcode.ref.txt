@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/param/bad_set_opcode.fpp: 3.27
+  param P: U32 set opcode "abc"
+                          ^
+error: cannot convert string to a numeric type
