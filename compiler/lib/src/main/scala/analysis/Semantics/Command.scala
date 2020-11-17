@@ -9,6 +9,9 @@ sealed trait Command {
   /** Gets the location of the command */
   def getLoc: Location
 
+  /** Gets the name of the command */
+  def getName: String
+
 }
 
 final object Command {
@@ -21,6 +24,7 @@ final object Command {
     kind: NonParam.Kind
   ) extends Command {
     def getLoc = Locations.get(aNode._2.id)
+    def getName = aNode._2.data.name
   }
 
   final object NonParam {
@@ -41,6 +45,13 @@ final object Command {
     kind: Param.Kind,
   ) extends Command {
     def getLoc = Locations.get(aNode._2.id)
+    def getName = {
+      val paramName = aNode._2.data.name.toUpperCase
+      kind match {
+        case Param.Get => s"${paramName}_PARAM_GET"
+        case Param.Set => s"${paramName}_PARAM_SET"
+      }
+    }
   }
 
   final object Param {
