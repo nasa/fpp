@@ -26,10 +26,10 @@ The currently available tools are as follows:
 
 * `fpp-check` (constants, types, enums, and ports only)
 * `fpp-depend`
-* `fpp-format` (constants, types, enums, and ports only)
+* `fpp-format` (no topologies yet)
 * `fpp-from-xml` (types, enums, and ports only)
-* `fpp-locate-defs` (constants, types, enums, and ports only)
-* `fpp-locate-uses` (constants, types, and enums only)
+* `fpp-locate-defs` (no topologies yet)
+* `fpp-locate-uses` (no topologies yet)
 * `fpp-syntax`
 * `fpp-to-cpp` (constants only)
 * `fpp-to-xml` (types, enums, and ports only)
