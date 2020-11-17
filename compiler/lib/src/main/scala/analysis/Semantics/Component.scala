@@ -76,7 +76,7 @@ case class Component(
   def addParam(idOpt: Option[Param.Id], param: Param): 
   Result.Result[Component] = {
     val id = idOpt.getOrElse(defaultParamId)
-    eventMap.get(id) match {
+    paramMap.get(id) match {
       case Some(prevParam) =>
         val value = Analysis.displayIdValue(id)
         val loc = param.getLoc

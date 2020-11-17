@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/param/duplicate_id_implicit.fpp: 7.3
+  param P3: bool
+  ^
+error: duplicate identifier value (17 dec, 11 hex)
+previous occurrence is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/param/duplicate_id_implicit.fpp: 3.3
+  param P1: U32 id 0x11
+  ^
