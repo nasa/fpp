@@ -19,7 +19,6 @@ active component C {
   param P3: U32x3 \
     default 0
     
-
   @ Parameter P4
   param P4: string
 
