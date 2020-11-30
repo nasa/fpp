@@ -1,6 +1,6 @@
 array U32x3 = [3] U32
 
-active component C {
+passive component C {
 
   @ Parameter P1
   param P1: U32 \

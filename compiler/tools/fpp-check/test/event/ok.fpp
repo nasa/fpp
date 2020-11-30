@@ -1,4 +1,4 @@
-active component C {
+passive component C {
 
   @ An array of 3 F64 values
   array F64x3 = [3] F64

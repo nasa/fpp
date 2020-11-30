@@ -105,9 +105,13 @@ object Components {
 
   /** Checks that component has at least one async input port or async command */
   private def checkAsyncInput(a: Analysis, c: Component):
-    Result.Result[Unit] = {
-      // TODO
-      Right(())
+    Result.Result[Unit] = checkNoAsyncInput(a, c) match {
+      case Left(_) => Right(())
+      case _ =>
+        val node = c.aNode._2
+        val kind = node.data.kind
+        val loc = Locations.get(node.id)
+        Left(SemanticError.MissingAsync(kind.toString, loc))
     }
 
   /** Check that component provides ports required by dictionaries */
