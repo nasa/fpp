@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/param/duplicate_name.fpp: 4.3
+  param P: F32
+  ^
+error: duplicate parameter name P
+previous occurrence is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/param/duplicate_name.fpp: 3.3
+  param P: U32
+  ^
