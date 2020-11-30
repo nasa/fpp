@@ -7,14 +7,18 @@ import fpp.compiler.util._
 object Components {
 
   /** Checks whether a component is valid */
-  def checkValidity(a: Analysis, c: Component): Result.Result[Unit] =
+  def checkValidity(a: Analysis, c: Component): Result.Result[Unit] = {
+    val kind = c.aNode._2.data.kind
     for {
       _ <- checkNoDuplicateNames(a, c)
-      _ <- checkPassiveNoAsync(a, c)
-      _ <- checkQueuedAsync(a, c)
+      _ <- kind match {
+        case Ast.ComponentKind.Passive => checkNoAsync(a, c)
+        case _ => checkAsync(a, c)
+      }
       _ <- checkRequiredPorts(a, c)
     }
     yield ()
+  }
 
   /** Checks that there are no duplicate names in dictionaries */
   private def checkNoDuplicateNames(a: Analysis, c: Component):
@@ -68,16 +72,15 @@ object Components {
       yield ()
     }
 
-  /** Checks that if component is passive, then no async ports */
-  private def checkPassiveNoAsync(a: Analysis, c: Component):
+  /** Checks that component has no async ports */
+  private def checkNoAsync(a: Analysis, c: Component):
     Result.Result[Unit] = {
       // TODO
       Right(())
     }
 
-  /** Checks that if component is active or queued, then it has at least
-   *  one async input port or async command */
-  private def checkQueuedAsync(a: Analysis, c: Component):
+  /** Checks that component has at least one async input port or async command */
+  private def checkAsync(a: Analysis, c: Component):
     Result.Result[Unit] = {
       // TODO
       Right(())

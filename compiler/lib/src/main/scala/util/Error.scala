@@ -101,6 +101,8 @@ sealed trait Error {
         Error.print (Some(loc)) (msg)
       case SemanticError.NotImplemented(loc) =>
         Error.print (Some(loc)) ("language feature is not yet implemented")
+      case SemanticError.PassiveAsyncInput(loc) =>
+        Error.print (Some(loc)) ("passive component may not have async input")
       case SemanticError.RedefinedSymbol(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"redefinition of symbol ${name}")
         System.err.println(s"previous definition is here:")
@@ -238,6 +240,8 @@ object SemanticError {
   final case class InvalidType(loc: Location, msg: String) extends Error
   /** Feature not implemented */
   final case class NotImplemented(loc: Location) extends Error
+  /** Passive async input */
+  final case class PassiveAsyncInput(loc: Location) extends Error
   /** Redefined symbol */
   final case class RedefinedSymbol(
     name: String,
