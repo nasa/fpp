@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/command/duplicate_name_param_set.fpp: 5.3
+  async command P_PARAM_SET
+  ^
+error: duplicate command name P_PARAM_SET
+previous occurrence is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/command/duplicate_name_param_set.fpp: 3.3
+  param P: U32
+  ^

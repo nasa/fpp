@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/command/duplicate_name.fpp: 4.3
+  sync command c
+  ^
+error: duplicate command name c
+previous occurrence is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/command/duplicate_name.fpp: 3.3
+  async command c
+  ^
