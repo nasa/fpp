@@ -8,6 +8,12 @@ final case class InternalError(val msg: String) extends Exception {
 /** A data type for handling compilation errors */
 sealed trait Error {
 
+  /** Print the location of a previous occurrence */
+  def printPrevLoc(prevLoc: Location) = {
+    System.err.println("previous occurrence is here:")
+    System.err.println(prevLoc)
+  }
+
   /*** Print the error */
   def print = {
     this match {
@@ -31,24 +37,19 @@ sealed trait Error {
         Error.print (Some(loc)) ("division by zero")
       case SemanticError.DuplicateDictionaryName(kind, name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate ${kind} name ${name}")
-        System.err.println(s"previous occurrence is here:")
-        System.err.println(prevLoc)
+        printPrevLoc(prevLoc)
       case SemanticError.DuplicateEnumValue(value, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate enum value ${value}")
-        System.err.println(s"previous occurrence is here:")
-        System.err.println(prevLoc)
+        printPrevLoc(prevLoc)
       case SemanticError.DuplicateIdValue(value, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate identifier value ${value}")
-        System.err.println(s"previous occurrence is here:")
-        System.err.println(prevLoc)
+        printPrevLoc(prevLoc)
       case SemanticError.DuplicateLimit(loc, prevLoc) =>
         Error.print (Some(loc)) ("duplicate limit")
-        System.err.println(s"previous occurrence is here:")
-        System.err.println(prevLoc)
+        printPrevLoc(prevLoc)
       case SemanticError.DuplicateOpcodeValue(value, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate opcode value ${value}")
-        System.err.println(s"previous occurrence is here:")
-        System.err.println(prevLoc)
+        printPrevLoc(prevLoc)
       case SemanticError.DuplicateParameter(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate parameter ${name}")
         System.err.println(s"previous parameter is here:")
