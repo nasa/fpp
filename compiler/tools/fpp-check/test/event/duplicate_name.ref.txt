@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/event/duplicate_name.fpp: 4.3
+  event E severity activity low
+  ^
+error: duplicate event name E
+previous occurrence is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/event/duplicate_name.fpp: 3.3
+  event E severity activity low
+  ^
