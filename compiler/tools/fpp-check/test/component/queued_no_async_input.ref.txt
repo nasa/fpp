@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/component/queued_no_async_input.fpp: 1.1
+queued component C {
+^
+error: queued component must have async input

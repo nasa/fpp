@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/component/active_no_async_input.fpp: 1.1
+active component C {
+^
+error: active component must have async input
