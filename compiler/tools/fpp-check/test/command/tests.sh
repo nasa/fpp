@@ -8,6 +8,7 @@ duplicate_name_param_set
 duplicate_opcode_explicit
 duplicate_opcode_implicit
 duplicate_param
+missing_ports
 ok
 ref_params
 sync_priority

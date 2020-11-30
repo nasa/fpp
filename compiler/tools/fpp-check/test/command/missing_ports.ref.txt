@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/command/missing_ports.fpp: 1.1
+passive component C {
+^
+error: component with command specifiers must have command recv port
