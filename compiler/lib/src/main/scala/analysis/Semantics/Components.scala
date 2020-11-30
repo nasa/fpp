@@ -117,8 +117,30 @@ object Components {
   /** Check that component provides ports required by dictionaries */
   private def checkRequiredPorts(a: Analysis, c: Component):
     Result.Result[Unit] = {
-      // TODO
-      Right(())
+      def requirePorts(
+        specKind: String,
+        portKinds: List[Ast.SpecPortInstance.SpecialKind]
+      ) = Result.map(
+        portKinds,
+        (portKind: Ast.SpecPortInstance.SpecialKind) => 
+          c.specialPortMap.get(portKind) match {
+            case Some(_) => Right(())
+            case None =>
+              val loc = Locations.get(c.aNode._2.id)
+              Left(SemanticError.MissingPort(loc, specKind, portKind.toString))
+          }
+      )
+      import Ast.SpecPortInstance._
+      for {
+        // TODO: Params
+        _ <- if (c.commandMap.size > 0) requirePorts(
+          "command", 
+          List(CommandRecv, CommandReg, CommandResp)
+        ) else Right(())
+        // TODO: Events
+        // TODO: Telemetry
+      }
+      yield ()
     }
 
 }

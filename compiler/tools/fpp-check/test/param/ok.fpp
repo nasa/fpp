@@ -1,6 +1,18 @@
+module Fw {
+
+  port Cmd
+  port CmdReg
+  port CmdResponse
+
+}
+
 array U32x3 = [3] U32
 
 passive component C {
+
+  command recv port cmdIn
+  command reg port cmdRegOut
+  command resp port cmdResponseOut
 
   @ Parameter P1
   param P1: U32 \

@@ -101,6 +101,8 @@ sealed trait Error {
         Error.print (Some(loc)) (msg)
       case SemanticError.MissingAsync(kind, loc) =>
         Error.print (Some(loc)) (s"$kind component must have async input")
+      case SemanticError.MissingPort(loc, specKind, portKind) =>
+        Error.print (Some(loc)) (s"component with $specKind specifiers must have $portKind port")
       case SemanticError.NotImplemented(loc) =>
         Error.print (Some(loc)) ("language feature is not yet implemented")
       case SemanticError.PassiveAsync(loc) =>
@@ -242,6 +244,8 @@ object SemanticError {
   final case class InvalidType(loc: Location, msg: String) extends Error
   /** Missing async input */
   final case class MissingAsync(kind: String, loc: Location) extends Error
+  /** Missing port */
+  final case class MissingPort(loc: Location, specKind: String, port: String) extends Error
   /** Feature not implemented */
   final case class NotImplemented(loc: Location) extends Error
   /** Passive async input */

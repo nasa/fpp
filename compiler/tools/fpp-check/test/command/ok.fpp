@@ -1,4 +1,16 @@
+module Fw {
+
+  port Cmd
+  port CmdReg
+  port CmdResponse
+
+}
+
 active component C {
+
+  command recv port cmdIn
+  command reg port cmdRegOut
+  command resp port cmdResponseOut
 
   @ A sync command with no parameters
   sync command SyncNoParams opcode 0x00

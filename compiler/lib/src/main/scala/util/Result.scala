@@ -26,14 +26,14 @@ object Result {
   ): Result[List[B]] = {
     def helper(in: List[A], out: List[B]): Result[List[B]] = {
       in match {
-        case Nil => Right(out)
+        case Nil => Right(out.reverse)
         case head :: tail => f(head) match {
           case Left(e) => Left(e)
           case Right(b) => helper(tail, b :: out)
         }
       }
     }
-    helper(list.reverse, Nil)
+    helper(list, Nil)
   }
 
   /** Applies a result function inside an option */
