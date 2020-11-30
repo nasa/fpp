@@ -41,6 +41,12 @@ object Components {
       }
       for {
         _ <- checkDictionary(
+          c.paramMap,
+          "parameter",
+          (param: Param) => param.getName,
+          (param: Param) => param.getLoc
+        )
+        _ <- checkDictionary(
           c.commandMap,
           "command",
           (command: Command) => command.getName,
@@ -51,12 +57,6 @@ object Components {
           "event",
           (event: Event) => event.getName,
           (event: Event) => event.getLoc
-        )
-        _ <- checkDictionary(
-          c.paramMap,
-          "parameter",
-          (param: Param) => param.getName,
-          (param: Param) => param.getLoc
         )
         _ <- checkDictionary(
           c.tlmChannelMap,
