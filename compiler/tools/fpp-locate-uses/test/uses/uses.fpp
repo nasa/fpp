@@ -21,6 +21,7 @@ passive component C2 {
 }
 
 active component C3 {
+  async input port P_use: P
   command recv port cmdIn
   command reg port cmdRegOut
   command resp port cmdRespOut
