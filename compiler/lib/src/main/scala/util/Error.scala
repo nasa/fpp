@@ -99,9 +99,11 @@ sealed trait Error {
         Error.print (Some(loc)) (s"invalid symbol $name: $msg")
       case SemanticError.InvalidType(loc, msg) =>
         Error.print (Some(loc)) (msg)
+      case SemanticError.MissingAsync(kind, loc) =>
+        Error.print (Some(loc)) (s"$kind component must have async input")
       case SemanticError.NotImplemented(loc) =>
         Error.print (Some(loc)) ("language feature is not yet implemented")
-      case SemanticError.PassiveAsyncInput(loc) =>
+      case SemanticError.PassiveAsync(loc) =>
         Error.print (Some(loc)) ("passive component may not have async input")
       case SemanticError.RedefinedSymbol(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"redefinition of symbol ${name}")
@@ -238,10 +240,12 @@ object SemanticError {
   final case class InvalidSymbol(name: String, loc: Location, msg: String) extends Error
   /** Invalid type */
   final case class InvalidType(loc: Location, msg: String) extends Error
+  /** Missing async input */
+  final case class MissingAsync(kind: String, loc: Location) extends Error
   /** Feature not implemented */
   final case class NotImplemented(loc: Location) extends Error
   /** Passive async input */
-  final case class PassiveAsyncInput(loc: Location) extends Error
+  final case class PassiveAsync(loc: Location) extends Error
   /** Redefined symbol */
   final case class RedefinedSymbol(
     name: String,

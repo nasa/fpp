@@ -75,8 +75,32 @@ object Components {
   /** Checks that component has no async ports */
   private def checkNoAsync(a: Analysis, c: Component):
     Result.Result[Unit] = {
-      // TODO
-      Right(())
+      def checkPortInstances() = Result.map(
+        c.portMap.values.toList,
+        (instance: PortInstance) => {
+          val loc = instance.getLoc
+          val error = SemanticError.PassiveAsync(loc)
+          instance match {
+            case PortInstance.General(_, _, PortInstance.General.Kind.AsyncInput(_, _), _, _) =>
+              Left(error)
+            case internal: PortInstance.Internal => Left(error)
+            case _ => Right(())
+          }
+        }
+      )
+      def checkCommands() = Result.map(
+        c.commandMap.values.toList,
+        (command: Command) => command match {
+          case Command.NonParam(_, Command.NonParam.Async(_, _)) =>
+            Left(SemanticError.PassiveAsync(command.getLoc))
+          case _ => Right(())
+        }
+      ) 
+      for {
+        _ <- checkPortInstances()
+        _ <- checkCommands()
+      }
+      yield ()
     }
 
   /** Checks that component has at least one async input port or async command */
