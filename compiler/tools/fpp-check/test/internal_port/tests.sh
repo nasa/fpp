@@ -4,5 +4,6 @@ duplicate
 duplicate_general
 duplicate_param
 ok
+passive
 ref_params
 "

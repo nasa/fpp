@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/internal_port/passive.fpp: 3.3
+  internal port p
+  ^
+error: passive component may not have async input

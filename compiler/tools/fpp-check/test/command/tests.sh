@@ -1,4 +1,5 @@
 tests="
+async_passive
 bad_opcode
 bad_priority
 duplicate_name

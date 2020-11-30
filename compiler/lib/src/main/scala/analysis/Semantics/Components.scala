@@ -12,8 +12,8 @@ object Components {
     for {
       _ <- checkNoDuplicateNames(a, c)
       _ <- kind match {
-        case Ast.ComponentKind.Passive => checkNoAsync(a, c)
-        case _ => checkAsync(a, c)
+        case Ast.ComponentKind.Passive => checkNoAsyncInput(a, c)
+        case _ => checkAsyncInput(a, c)
       }
       _ <- checkRequiredPorts(a, c)
     }
@@ -72,8 +72,8 @@ object Components {
       yield ()
     }
 
-  /** Checks that component has no async ports */
-  private def checkNoAsync(a: Analysis, c: Component):
+  /** Checks that component has no async input ports */
+  private def checkNoAsyncInput(a: Analysis, c: Component):
     Result.Result[Unit] = {
       def checkPortInstances() = Result.map(
         c.portMap.values.toList,
@@ -104,7 +104,7 @@ object Components {
     }
 
   /** Checks that component has at least one async input port or async command */
-  private def checkAsync(a: Analysis, c: Component):
+  private def checkAsyncInput(a: Analysis, c: Component):
     Result.Result[Unit] = {
       // TODO
       Right(())
