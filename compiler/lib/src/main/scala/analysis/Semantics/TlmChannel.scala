@@ -11,6 +11,9 @@ final case class TlmChannel(
   highLimits: TlmChannel.Limits
 ) {
 
+  /** Gets the name of the channel */
+  def getName = aNode._2.data.name
+
   /** Gets the location of the channel */
   def getLoc = Locations.get(aNode._2.id)
 

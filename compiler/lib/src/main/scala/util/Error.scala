@@ -29,20 +29,24 @@ sealed trait Error {
         Error.print (Some(loc)) (s"cannot resolve path $name")
       case SemanticError.DivisionByZero(loc) =>
         Error.print (Some(loc)) ("division by zero")
-      case SemanticError.DuplicateOpcodeValue(value, loc, prevLoc) =>
-        Error.print (Some(loc)) (s"duplicate opcode value ${value}")
-        System.err.println(s"previous occurrence is here:")
-        System.err.println(prevLoc)
-      case SemanticError.DuplicateIdValue(value, loc, prevLoc) =>
-        Error.print (Some(loc)) (s"duplicate identifier value ${value}")
+      case SemanticError.DuplicateDictionaryName(kind, name, loc, prevLoc) =>
+        Error.print (Some(loc)) (s"duplicate ${kind} name ${name}")
         System.err.println(s"previous occurrence is here:")
         System.err.println(prevLoc)
       case SemanticError.DuplicateEnumValue(value, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate enum value ${value}")
         System.err.println(s"previous occurrence is here:")
         System.err.println(prevLoc)
+      case SemanticError.DuplicateIdValue(value, loc, prevLoc) =>
+        Error.print (Some(loc)) (s"duplicate identifier value ${value}")
+        System.err.println(s"previous occurrence is here:")
+        System.err.println(prevLoc)
       case SemanticError.DuplicateLimit(loc, prevLoc) =>
         Error.print (Some(loc)) ("duplicate limit")
+        System.err.println(s"previous occurrence is here:")
+        System.err.println(prevLoc)
+      case SemanticError.DuplicateOpcodeValue(value, loc, prevLoc) =>
+        Error.print (Some(loc)) (s"duplicate opcode value ${value}")
         System.err.println(s"previous occurrence is here:")
         System.err.println(prevLoc)
       case SemanticError.DuplicateParameter(name, loc, prevLoc) =>
@@ -144,8 +148,15 @@ object SemanticError {
   final case class EmptyArray(loc: Location) extends Error
   /** Division by zero */
   final case class DivisionByZero(loc: Location) extends Error
-  /** Duplicate opcode value */
-  final case class DuplicateOpcodeValue(
+  /** Duplicate name in dictionary */
+  final case class DuplicateDictionaryName(
+    kind: String,
+    name: String,
+    loc: Location,
+    prevLoc: Location
+  ) extends Error
+  /** Duplicate enum value */
+  final case class DuplicateEnumValue(
     value: String,
     loc: Location,
     prevLoc: Location
@@ -156,14 +167,14 @@ object SemanticError {
     loc: Location,
     prevLoc: Location
   ) extends Error
-  /** Duplicate enum value */
-  final case class DuplicateEnumValue(
-    value: String,
+  /** Duplicate telemetry channel limit */
+  final case class DuplicateLimit(
     loc: Location,
     prevLoc: Location
   ) extends Error
-  /** Duplicate telemetry channel limit */
-  final case class DuplicateLimit(
+  /** Duplicate opcode value */
+  final case class DuplicateOpcodeValue(
+    value: String,
     loc: Location,
     prevLoc: Location
   ) extends Error

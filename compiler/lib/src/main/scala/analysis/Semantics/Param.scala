@@ -10,6 +10,9 @@ final case class Param(
   saveOpcode: Int
 ) {
 
+  /** Gets the name of the parameter */
+  def getName = aNode._2.data.name
+
   /** Gets the location of the parameter */
   def getLoc = Locations.get(aNode._2.id)
 
