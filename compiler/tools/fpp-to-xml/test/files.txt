@@ -1,6 +1,0 @@
-
-	array_format_bad_syntax.fpp
-	array_format_not_numeric.fpp
-	array_format_too_many_repls.fpp
-	files.txt
-

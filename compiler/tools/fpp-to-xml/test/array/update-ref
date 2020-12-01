@@ -1,9 +1,9 @@
 #!/bin/sh
 
-. ../../../scripts/test-utils.sh
+. ../../../../scripts/test-utils.sh
 
-fpp_to_xml=../../../bin/fpp-to-xml
-fpp_depend=../../../bin/fpp-depend
+fpp_to_xml=../../../../bin/fpp-to-xml
+fpp_depend=../../../../bin/fpp-depend
 
 update()
 {
@@ -18,7 +18,7 @@ update()
   $fpp_to_xml $args $infile.fpp 2>&1 | remove_path_prefix > $outfile.ref.txt
 }
 
-for file in `find . -maxdepth 1 -name '*.ref.txt'`
+for file in `find . -name '*.ref.txt'`
 do
   rm $file
 done

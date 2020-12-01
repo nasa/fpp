@@ -2,7 +2,7 @@
 # enclosed in modules
 
 locate type M.Explicit at "enum_explicit.fpp"
-locate type M1.ArrayOK1 at "array_ok.fpp"
+locate type M1.ArrayOK1 at "array/array_ok.fpp"
 locate type StructOK1 at "struct_ok.fpp"
 
 module M {
