@@ -133,7 +133,11 @@ object Components {
       ) else Right(())
       import Ast.SpecPortInstance._
       for {
-        // TODO: Params
+        _ <- requirePorts(
+          c.paramMap.size,
+          "parameter",
+          List(CommandRecv, CommandReg, CommandResp, ParamGet, ParamSet)
+        )
         _ <- requirePorts(
           c.commandMap.size,
           "command",
