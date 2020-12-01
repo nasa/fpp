@@ -16,16 +16,19 @@ object ComputeXmlFiles extends AstStateVisitor {
 
   type State = Map[String, Location]
 
-  /** Get the generated XML file name for an array definition */
+  /** Gets the generated XML file name for an array definition */
   def getArrayFileName(defArray: Ast.DefArray) = defArray.name ++ "ArrayAi.xml"
 
-  /** Get the generated XML file name for an enum definition */
+  /** Gets the generated XML file name for an enum definition */
   def getEnumFileName(defEnum: Ast.DefEnum) = defEnum.name ++ "EnumAi.xml"
 
-  /** Get the generated XML file name for a port definition */
+  /** Gets the generated XML file name for a component definition */
+  def getComponentFileName(defComponent: Ast.DefComponent) = defComponent.name ++ "ComponentAi.xml"
+
+  /** Gets the generated XML file name for a port definition */
   def getPortFileName(defPort: Ast.DefPort) = defPort.name ++ "PortAi.xml"
 
-  /** Get the generated XML file name for a struct definition */
+  /** Gets the generated XML file name for a struct definition */
   def getStructFileName(defStruct: Ast.DefStruct) = defStruct.name ++ "SerializableAi.xml"
 
   override def defArrayAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefArray]]) = {
@@ -33,6 +36,14 @@ object ComputeXmlFiles extends AstStateVisitor {
     val data = node1.data
     val loc = Locations.get(node1.id)
     val fileName = getArrayFileName(data)
+    addMapping(s, fileName, loc)
+  }
+
+  override def defComponentAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefComponent]]) = {
+    val (_, node1, _) = node
+    val data = node1.data
+    val loc = Locations.get(node1.id)
+    val fileName = getComponentFileName(data)
     addMapping(s, fileName, loc)
   }
 

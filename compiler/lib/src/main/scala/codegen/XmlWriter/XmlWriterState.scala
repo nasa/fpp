@@ -36,6 +36,10 @@ case class XmlWriterState(
             "import_enum_type",
             ComputeXmlFiles.getEnumFileName(aNode._2.data)
           )
+          case Symbol.Port(aNode) => Some(
+            "import_port_type",
+            ComputeXmlFiles.getPortFileName(aNode._2.data)
+          )
           case Symbol.Struct(aNode) => Some(
             "import_serializable_type",
             ComputeXmlFiles.getStructFileName(aNode._2.data)
