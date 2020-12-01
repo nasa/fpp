@@ -9,7 +9,10 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
 
   override def default(s: XmlWriterState) = Nil
 
-  override def defComponentAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefComponent]]) = {
+  override def defComponentAnnotatedNode(
+    s: XmlWriterState,
+    aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
+  ) = {
     // TODO
     default(s)
   }

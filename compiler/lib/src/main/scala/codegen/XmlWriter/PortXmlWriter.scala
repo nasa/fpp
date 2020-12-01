@@ -9,7 +9,10 @@ object PortXmlWriter extends AstVisitor with LineUtils {
 
   override def default(s: XmlWriterState) = Nil
 
-  override def defPortAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefPort]]) = {
+  override def defPortAnnotatedNode(
+    s: XmlWriterState,
+    aNode: Ast.Annotated[AstNode[Ast.DefPort]]
+  ) = {
     val node = aNode._2
     val loc = Locations.get(node.id)
     val data = node.data
@@ -22,7 +25,7 @@ object PortXmlWriter extends AstVisitor with LineUtils {
       val imports = {
         val Right(a1) = UsedSymbols.defPortAnnotatedNode(s.a, aNode)
         val s1 = s.copy(a = a1)
-        s1.writeImportDirectives(loc.file)
+        s1.writeImportDirectives
       }
       val args = formalParamList(s, data.params)
       val ret = data.returnType match {

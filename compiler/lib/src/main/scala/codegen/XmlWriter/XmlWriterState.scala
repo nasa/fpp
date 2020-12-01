@@ -20,7 +20,7 @@ case class XmlWriterState(
     File.removeLongestPrefix(prefixes)(path)
 
   /** Write import directives as lines */
-  def writeImportDirectives(currentFile: File): List[Line] = {
+  def writeImportDirectives: List[Line] = {
     def getDirectiveForSymbol(sym: Symbol): Option[String] =
       for {
         tagFileName <- sym match {

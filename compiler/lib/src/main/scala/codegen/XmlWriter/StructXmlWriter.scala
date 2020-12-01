@@ -11,7 +11,6 @@ object StructXmlWriter extends AstVisitor with LineUtils {
 
   override def defStructAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
     val node = aNode._2
-    val loc = Locations.get(node.id)
     val data = node.data
     val tags = {
       val pairs = s.getNamespaceAndName(data.name)
@@ -21,7 +20,7 @@ object StructXmlWriter extends AstVisitor with LineUtils {
       val Right(a1) = UsedSymbols.defStructAnnotatedNode(s.a, aNode)
       val s1 = s.copy(a = a1)
       val comment = AnnotationXmlWriter.multilineComment(aNode)
-      val imports = s1.writeImportDirectives(loc.file)
+      val imports = s1.writeImportDirectives
       val members = {
         val tags = XmlTags.tags("members")
         val st @ Type.Struct(_, _, _, _) = s.a.typeMap(node.id) 
