@@ -10,5 +10,6 @@ duplicate_save_opcode_explicit
 duplicate_save_opcode_implicit
 duplicate_set_opcode_explicit
 duplicate_set_opcode_implicit
+missing_ports
 ok
 "

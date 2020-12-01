@@ -136,7 +136,7 @@ object Components {
         _ <- requirePorts(
           c.paramMap.size,
           "parameter",
-          List(CommandRecv, CommandReg, CommandResp, ParamGet, ParamSet)
+          List(ParamGet, ParamSet, CommandRecv, CommandReg, CommandResp)
         )
         _ <- requirePorts(
           c.commandMap.size,
