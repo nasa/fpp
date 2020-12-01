@@ -67,6 +67,13 @@ case class XmlWriterState(
     array.toList.map(Line(_))
   }
 
+  /** Write an FPP symbol as XML */
+  def writeSymbol(sym: Symbol): String = {
+    val qualifiedName = a.qualifiedNameMap(sym)
+    val shortName = a.shortName(qualifiedName)
+    shortName.toString.replaceAll("\\.", "::")
+  }
+
   /** Get the enclosing namespace */
   def getNamespace: String = a.scopeNameList.reverse match {
     case Nil => ""

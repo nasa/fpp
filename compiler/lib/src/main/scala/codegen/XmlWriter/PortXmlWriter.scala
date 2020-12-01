@@ -14,7 +14,6 @@ object PortXmlWriter extends AstVisitor with LineUtils {
     aNode: Ast.Annotated[AstNode[Ast.DefPort]]
   ) = {
     val node = aNode._2
-    val loc = Locations.get(node.id)
     val data = node.data
     val tags = {
       val pairs = s.getNamespaceAndName(data.name)

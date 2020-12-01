@@ -13,6 +13,88 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
     s: XmlWriterState,
     aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
   ) = {
+    val symbol = Symbol.Component(aNode)
+    val c = s.a.componentMap(symbol)
+    val pairs = {
+      val data = aNode._2.data
+      s.getNamespaceAndName(data.name) :+ ("kind", data.kind.toString)
+    }
+    val body = {
+      def addBlank(ls: List[Line]) = ls match {
+        case Nil => Nil
+        case _ => Line.blank :: ls
+      }
+      val comment = AnnotationXmlWriter.multilineComment(aNode)
+      List(
+        comment,
+        writeImports(s, c),
+        writePorts(s, c),
+        writeCommands(s, c),
+        writeEvents(s, c),
+        writeParams(s, c),
+        writeTlmChannels(s, c)
+      ).flatMap(addBlank) :+ Line.blank
+    }
+    XmlTags.taggedLines ("component", pairs) (body.map(indentIn))
+  }
+
+  private def writeImports(s: XmlWriterState, c: Component) = {
+    val Right(a1) = UsedSymbols.defComponentAnnotatedNode(s.a, c.aNode)
+    s.copy(a = a1).writeImportDirectives
+  }
+
+  private def writePorts(s: XmlWriterState, c: Component) = {
+    def writeGeneralPort(name: String, general: PortInstance.General) = {
+      import PortInstance.General._
+      def writeKind(kind: Kind) = kind match {
+        case _ : Kind.AsyncInput => "async_input"
+        case Kind.GuardedInput => "guarded_input"
+        case Kind.SyncInput => "sync_input"
+        case Kind.Output => "output"
+      }
+      val data = general.aNode._2.data
+      val pairs = List(
+        ("name", name),
+        ("data_type", "TODO"),
+        ("kind", writeKind(general.kind)),
+        ("max_number", general.size.toString)
+      )
+      val body = {
+        AnnotationXmlWriter.multilineComment(general.aNode)
+      }
+      XmlTags.taggedLines ("port", pairs) (body.map(indentIn))
+    }
+    def writeInternalPort(name: String, internal: PortInstance.Internal) = {
+      lines(s"<!-- TODO: Internal port instance ${name} -->")
+    }
+    def writeSpecialPort(name: String, special: PortInstance.Special) = {
+      lines(s"<!-- TODO: Special port instance ${name} -->")
+    }
+    def writePort(name: String, instance: PortInstance) = instance match {
+      case general: PortInstance.General => writeGeneralPort(name, general)
+      case internal: PortInstance.Internal => writeInternalPort(name, internal)
+      case special: PortInstance.Special => writeSpecialPort(name, special)
+    }
+    c.portMap.keys.toList.sortWith(_ < _).
+      flatMap(key => writePort(key, c.portMap(key)))
+  }
+
+  private def writeCommands(s: XmlWriterState, c: Component) = {
+    // TODO
+    default(s)
+  }
+
+  private def writeEvents(s: XmlWriterState, c: Component) = {
+    // TODO
+    default(s)
+  }
+
+  private def writeParams(s: XmlWriterState, c: Component) = {
+    // TODO
+    default(s)
+  }
+
+  private def writeTlmChannels(s: XmlWriterState, c: Component) = {
     // TODO
     default(s)
   }

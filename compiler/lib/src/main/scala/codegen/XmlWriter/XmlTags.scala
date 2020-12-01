@@ -11,10 +11,16 @@ object XmlTags extends LineUtils {
 
   def quoted(s: String) =  "\"" ++ s ++ "\""
 
-  def taggedLines (tags: (String, String)) (ls: List[Line]) = {
+  def taggedLines (tags: (String, String)) (ls: List[Line]): List[Line] = {
     val (openTag, closeTag) = tags
     (line(openTag) :: ls) :+ line(closeTag)
   }
+
+  def taggedLines (name: String, pairs: List[(String, String)] = Nil) (ls: List[Line]): List[Line] = 
+    ls match {
+      case Nil => lines(openCloseTag(name, pairs))
+      case _ => taggedLines (tags(name, pairs)) (ls)
+    }
 
   def taggedString (tags: (String, String)) (s: String) = {
     val (openTag, closeTag) = tags
