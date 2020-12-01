@@ -1,9 +1,9 @@
 # Due to a bug in the F Prime autocoder, all ports must be
 # enclosed in modules
 
-locate type M.Explicit at "enum_explicit.fpp"
-locate type M1.ArrayOK1 at "array/array_ok.fpp"
-locate type StructOK1 at "struct_ok.fpp"
+locate type M.E at "E.fpp"
+locate type M.A at "A.fpp"
+locate type M.S at "S.fpp"
 
 module M {
 
@@ -21,9 +21,9 @@ module M {
   ) -> F32
 
   port PortOK4(
-    ref a: M1.ArrayOK1
-    ref s: StructOK1
-    ref e: Explicit
+    ref a: A
+    ref s: S
+    ref e: E
   )
 
 }
