@@ -10,5 +10,6 @@ format_missing_repl
 format_not_numeric
 format_too_many_repls
 limit_not_numeric
+missing_ports
 ok
 "

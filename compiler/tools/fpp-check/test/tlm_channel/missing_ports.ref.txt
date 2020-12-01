@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/tlm_channel/missing_ports.fpp: 1.1
+passive component C {
+^
+error: component with telemetry specifiers must have telemetry port
