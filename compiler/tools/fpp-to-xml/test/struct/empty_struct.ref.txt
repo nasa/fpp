@@ -1,0 +1,5 @@
+fpp-to-xml
+[ local path prefix ]/tools/fpp-to-xml/test/struct/empty_struct.fpp: 1.1
+struct S { }
+^
+error: cannot write XML for an empty struct

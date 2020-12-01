@@ -2,15 +2,6 @@ tests="
 duplicate_xml_file
 enum_explicit
 enum_implicit
-empty_struct
 port_kwd_name
 port_ok
-struct_abs_type
-struct_enum_member
-struct_format
-struct_modules
-struct_ok
-struct_output_dir
-struct_string
 "
-

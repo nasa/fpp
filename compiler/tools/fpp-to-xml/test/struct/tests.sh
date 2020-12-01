@@ -1,4 +1,5 @@
 tests="
+empty_struct
 enum_explicit
 struct_abs_type
 struct_enum_member
