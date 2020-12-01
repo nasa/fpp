@@ -7,6 +7,7 @@ duplicate_name
 format_missing_repl
 format_not_numeric
 format_too_many_repls
+missing_ports
 ok
 ref_params
 "

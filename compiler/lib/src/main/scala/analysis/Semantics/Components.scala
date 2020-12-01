@@ -137,7 +137,10 @@ object Components {
           "command", 
           List(CommandRecv, CommandReg, CommandResp)
         ) else Right(())
-        // TODO: Events
+        _ <- if (c.eventMap.size > 0) requirePorts(
+          "event",
+          List(Event, TextEvent, TimeGet)
+        ) else Right(())
         // TODO: Telemetry
       }
       yield ()
