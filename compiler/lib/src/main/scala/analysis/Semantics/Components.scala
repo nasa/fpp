@@ -118,9 +118,10 @@ object Components {
   private def checkRequiredPorts(a: Analysis, c: Component):
     Result.Result[Unit] = {
       def requirePorts(
+        mapSize: Int,
         specKind: String,
         portKinds: List[Ast.SpecPortInstance.SpecialKind]
-      ) = Result.map(
+      ) = if (mapSize > 0) Result.map(
         portKinds,
         (portKind: Ast.SpecPortInstance.SpecialKind) => 
           c.specialPortMap.get(portKind) match {
@@ -129,19 +130,25 @@ object Components {
               val loc = Locations.get(c.aNode._2.id)
               Left(SemanticError.MissingPort(loc, specKind, portKind.toString))
           }
-      )
+      ) else Right(())
       import Ast.SpecPortInstance._
       for {
         // TODO: Params
-        _ <- if (c.commandMap.size > 0) requirePorts(
-          "command", 
+        _ <- requirePorts(
+          c.commandMap.size,
+          "command",
           List(CommandRecv, CommandReg, CommandResp)
-        ) else Right(())
-        _ <- if (c.eventMap.size > 0) requirePorts(
+        )
+        _ <- requirePorts(
+          c.eventMap.size,
           "event",
           List(Event, TextEvent, TimeGet)
-        ) else Right(())
-        // TODO: Telemetry
+        )
+        _ <- requirePorts(
+          c.tlmChannelMap.size,
+          "telemetry",
+          List(Telemetry, TimeGet)
+        )
       }
       yield ()
     }

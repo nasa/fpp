@@ -1,4 +1,14 @@
+module Fw {
+
+  port Time
+  port Tlm
+
+}
+
 passive component C {
+
+  telemetry port tlmOut
+  time get port timeGetOut
 
   @ An array of 3 F64 values
   array F64x3 = [3] F64
