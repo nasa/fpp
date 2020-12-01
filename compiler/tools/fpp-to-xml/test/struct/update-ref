@@ -1,0 +1,103 @@
+#!/bin/sh
+
+. ../../../../scripts/test-utils.sh
+
+fpp_to_xml=../../../../bin/fpp-to-xml
+fpp_depend=../../../../bin/fpp-depend
+
+update()
+{
+  args=$1
+  infile=$2
+  if test -n "$3"
+  then
+    outfile=$3
+  else
+    outfile=$infile
+  fi
+  $fpp_to_xml $args $infile.fpp 2>&1 | remove_path_prefix > $outfile.ref.txt
+}
+
+for file in `find . -maxdepth 1 -name '*.ref.txt'`
+do
+  rm $file
+done
+
+. ./tests.sh
+
+# Default update ref
+for t in $tests
+do
+  echo "
+$t()
+{
+  update '-p '$PWD $t
+}"
+done > default-update-ref.sh
+. ./default-update-ref.sh
+
+move_xml()
+{
+  for file in $@
+  do
+    mv $file'Ai.xml' $file'Ai.ref.xml'
+  done
+}
+
+enum_explicit()
+{
+  update '' enum_explicit
+  mv ExplicitEnumAi.xml ExplicitEnumAi.ref.xml 
+}
+
+struct_abs_type()
+{
+  update "-p $PWD" struct_abs_type
+  mv StructAbsTypeSerializableAi.xml StructAbsTypeSerializableAi.ref.xml 
+}
+
+struct_enum_member()
+{
+  update "-i enum_explicit.fpp -p $PWD" struct_enum_member
+  mv StructEnumMemberSerializableAi.xml StructEnumMemberSerializableAi.ref.xml 
+}
+
+struct_ok()
+{
+  update "-n struct_ok.names.txt -p $PWD" struct_ok
+  mv struct_ok.names.txt struct_ok.names.ref.txt
+  mv StructOK1SerializableAi.xml StructOK1SerializableAi.ref.xml 
+  mv StructOK2SerializableAi.xml StructOK2SerializableAi.ref.xml 
+}
+
+struct_format()
+{
+  update '' struct_format
+  mv StructFormatSerializableAi.xml StructFormatSerializableAi.ref.xml 
+}
+
+struct_modules()
+{
+  update "-p $PWD" struct_modules
+  mv StructModules1SerializableAi.xml StructModules1SerializableAi.ref.xml 
+  mv StructModules2SerializableAi.xml StructModules2SerializableAi.ref.xml 
+  mv StructModules3SerializableAi.xml StructModules3SerializableAi.ref.xml 
+}
+
+struct_output_dir()
+{
+  update '-d output_dir' output_dir/struct_output_dir
+  mv output_dir/StructOutputDirSerializableAi.xml output_dir/StructOutputDirSerializableAi.ref.xml
+}
+
+struct_string()
+{
+  update '' struct_string
+  mv StructStringSerializableAi.xml StructStringSerializableAi.ref.xml 
+}
+
+for t in $tests
+do
+  echo "updating ref output for $t"
+  $t
+done
