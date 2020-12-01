@@ -1,4 +1,5 @@
 tests="
+duplicate_xml_file
 empty_struct
 enum_explicit
 struct_abs_type

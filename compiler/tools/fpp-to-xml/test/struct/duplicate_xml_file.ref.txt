@@ -1,0 +1,9 @@
+fpp-to-xml
+[ local path prefix ]/tools/fpp-to-xml/test/struct/duplicate_xml_file.fpp: 5.1
+struct S { x: U32 }
+^
+error: duplicate XML file SSerializableAi.xml
+previous file would be generated here:
+[ local path prefix ]/tools/fpp-to-xml/test/struct/duplicate_xml_file.fpp: 2.3
+  struct S { x: U32 }
+  ^

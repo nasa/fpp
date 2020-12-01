@@ -2,9 +2,9 @@
 
 . ../../../scripts/utils.sh
 
-clean
-rm -rf default-tests.sh default-update-ref.sh DefaultDict
-for file in `find . -name '*Ai.xml' -or -name '*Ac.*' -or -name '*.names.txt'`
+for target in `find . -mindepth 2 -name clean`
 do
-  rm $file
+  dir=`dirname $target`
+  (cd $dir; ./clean)
 done
+clean
