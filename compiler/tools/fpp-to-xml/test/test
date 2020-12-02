@@ -1,0 +1,5 @@
+#!/bin/sh -e
+
+export COMPILER_ROOT=../..
+cd ..
+$COMPILER_ROOT/scripts/test
