@@ -1,5 +1,5 @@
 #!/bin/sh -e
 
-export COMPILER=$PWD/../../../..
+export COMPILER_ROOT=$PWD/../../../..
 
 sh ../scripts/check-xml.sh

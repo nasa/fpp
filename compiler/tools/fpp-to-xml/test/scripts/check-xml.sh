@@ -6,8 +6,8 @@
 
 pwd=$PWD
 
-fprime_codegen=$COMPILER/scripts/fprime-codegen
-fprime_gcc=$COMPILER/scripts/fprime-gcc
+fprime_codegen=$COMPILER_ROOT/scripts/fprime-codegen
+fprime_gcc=$COMPILER_ROOT/scripts/fprime-gcc
 
 files=`find . -name '*Ai.ref.xml'`
 

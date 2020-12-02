@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-. $COMPILER/scripts/utils.sh
+. $COMPILER_ROOT/scripts/utils.sh
 
 clean
 rm -rf default-tests.sh default-update-ref.sh DefaultDict

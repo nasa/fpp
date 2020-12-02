@@ -1,9 +1,7 @@
 #!/bin/sh
 
-. $COMPILER/scripts/test-utils.sh
-
-fpp_to_xml=$COMPILER/bin/fpp-to-xml
-fpp_depend=$COMPILER/bin/fpp-depend
+fpp_to_xml=$COMPILER_ROOT/bin/fpp-to-xml
+fpp_depend=$COMPILER_ROOT/bin/fpp-depend
 
 update()
 {

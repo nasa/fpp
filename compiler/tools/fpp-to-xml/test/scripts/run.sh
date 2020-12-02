@@ -1,10 +1,8 @@
 #!/bin/sh
 
-export COMPILER=../../../..
+. $COMPILER_ROOT/scripts/test-utils.sh
 
-. $COMPILER/scripts/test-utils.sh
-
-fpp_to_xml=$COMPILER/bin/fpp-to-xml
+fpp_to_xml=$COMPILER_ROOT/bin/fpp-to-xml
 
 compare()
 {
