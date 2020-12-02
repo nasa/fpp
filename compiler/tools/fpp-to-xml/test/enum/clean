@@ -2,4 +2,4 @@
 
 export COMPILER=../../../..
 
-sh ../clean.sh
+sh ../scripts/clean.sh
