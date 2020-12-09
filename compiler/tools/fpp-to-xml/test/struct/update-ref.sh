@@ -1,8 +1,8 @@
 #!/bin/sh
 
-enum_explicit()
+enum()
 {
-  update '' enum_explicit
+  update '' enum
   mv EEnumAi.xml EEnumAi.ref.xml 
 }
 
@@ -14,7 +14,7 @@ struct_abs_type()
 
 struct_enum_member()
 {
-  update "-i enum_explicit.fpp -p $PWD" struct_enum_member
+  update "-i enum.fpp -p $PWD" struct_enum_member
   mv StructEnumMemberSerializableAi.xml StructEnumMemberSerializableAi.ref.xml 
 }
 

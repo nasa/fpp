@@ -1,7 +1,7 @@
 tests="
 duplicate_xml_file
 empty_struct
-enum_explicit
+enum
 struct_abs_type
 struct_enum_member
 struct_format

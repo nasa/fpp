@@ -48,9 +48,9 @@ diff_xml()
   done
 }
 
-enum_explicit()
+enum()
 {
-  run_test '' enum_explicit && \
+  run_test '' enum && \
     diff EEnumAi.xml EEnumAi.ref.xml
 }
 
@@ -62,7 +62,7 @@ struct_abs_type()
 
 struct_enum_member()
 {
-  run_test "-i enum_explicit.fpp -p $PWD" struct_enum_member && \
+  run_test "-i enum.fpp -p $PWD" struct_enum_member && \
   diff -u StructEnumMemberSerializableAi.xml StructEnumMemberSerializableAi.ref.xml
 }
 
