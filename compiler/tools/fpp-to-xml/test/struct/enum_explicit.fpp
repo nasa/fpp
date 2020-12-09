@@ -1,8 +1,7 @@
 module M {
 
-  @ An enum with explicit constant values
-  enum Explicit {
-    X = 1 @< Member X
+  enum E {
+    X = 1
     Y = 2
   }
 

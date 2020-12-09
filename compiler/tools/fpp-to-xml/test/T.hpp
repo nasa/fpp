@@ -5,7 +5,7 @@
 
 //! C++ interface for type T
 //! This simulates a handwritten C++ serializable class
-//! that is represented as an abstract type in the FPP model.
+//! that is represented as an abstract type in an FPP model.
 class T :
   public Fw::Serializable
 {

@@ -1,5 +1,5 @@
 struct StructEnumMember {
 
-  e: M.Explicit
+  e: M.E
 
 }

@@ -51,7 +51,7 @@ diff_xml()
 enum_explicit()
 {
   run_test '' enum_explicit && \
-    diff ExplicitEnumAi.xml ExplicitEnumAi.ref.xml
+    diff EEnumAi.xml EEnumAi.ref.xml
 }
 
 struct_abs_type()

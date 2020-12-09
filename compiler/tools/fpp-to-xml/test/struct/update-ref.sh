@@ -3,7 +3,7 @@
 enum_explicit()
 {
   update '' enum_explicit
-  mv ExplicitEnumAi.xml ExplicitEnumAi.ref.xml 
+  mv EEnumAi.xml EEnumAi.ref.xml 
 }
 
 struct_abs_type()
