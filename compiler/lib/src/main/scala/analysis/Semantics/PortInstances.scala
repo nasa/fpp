@@ -90,7 +90,8 @@ object PortInstances {
             _ <- checkGeneralAsyncInput(instance)
           } yield instance
         case specifier : Ast.SpecPortInstance.Special =>
-          Right(PortInstance.Special(aNode, specifier))
+          val symbol @ Symbol.Port(_) = a.useDefMap(node.id)
+          Right(PortInstance.Special(aNode, specifier, symbol))
       }
         
     }

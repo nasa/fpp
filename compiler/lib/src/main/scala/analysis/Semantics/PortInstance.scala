@@ -75,7 +75,8 @@ final object PortInstance {
   /** A special port instance */
   final case class Special(
     aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]],
-    specifier: Ast.SpecPortInstance.Special
+    specifier: Ast.SpecPortInstance.Special,
+    symbol: Symbol.Port
   ) extends PortInstance {
 
     override def getDirection = Some(Direction.Input)
