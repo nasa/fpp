@@ -1,6 +1,6 @@
 module M {
 
-  active component C1 {
+  active component GeneralPorts1 {
 
     async input port p1: P
     guarded input port p2: P
@@ -9,7 +9,7 @@ module M {
 
   }
 
-  passive component C2 {
+  passive component GeneralPorts2 {
 
     guarded input port p2: P
     sync input port p3: P
@@ -17,7 +17,7 @@ module M {
 
   }
 
-  passive component C3 {
+  passive component GeneralPorts3 {
 
   }
 

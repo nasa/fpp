@@ -1,7 +1,7 @@
-ok()
+general_ports()
 {
-  run_test "-p $PWD -i port.fpp" ok && \
-    diff_xml C1Component C2Component C3Component
+  run_test "-p $PWD -i port.fpp" general_ports && \
+    diff_xml GeneralPorts1Component GeneralPorts2Component GeneralPorts3Component
 }
 
 port()

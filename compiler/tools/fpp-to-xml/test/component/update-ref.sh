@@ -1,7 +1,7 @@
-ok()
+general_ports()
 {
-  update "-p $PWD -i port.fpp" ok
-  move_xml C1Component C2Component C3Component
+  update "-p $PWD -i port.fpp" general_ports
+  move_xml GeneralPorts1Component GeneralPorts2Component GeneralPorts3Component
 }
 
 port()

@@ -1,4 +1,4 @@
 tests="
-ok
+general_ports
 port
 "
