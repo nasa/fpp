@@ -16,7 +16,15 @@ do
   dir=`dirname $file`
   base=`basename $file Ai.ref.xml`
   xml_file=$base'Ai.xml'
+  echo "copying $file to $xml_file"
   cp $file $dir/$xml_file
+done
+
+for file in $files
+do
+  dir=`dirname $file`
+  base=`basename $file Ai.ref.xml`
+  xml_file=$base'Ai.xml'
   cd $dir
   echo "compiling $xml_file"
   $fprime_codegen $xml_file > /dev/null
