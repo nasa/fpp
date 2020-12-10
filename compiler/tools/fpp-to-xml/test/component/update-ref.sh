@@ -1,7 +1,13 @@
+empty()
+{
+  update "-p $PWD" empty
+  move_xml EmptyComponent
+}
+
 general_ports()
 {
   update "-p $PWD -i port.fpp" general_ports
-  move_xml GeneralPorts1Component GeneralPorts2Component GeneralPorts3Component
+  move_xml GeneralPorts1Component GeneralPorts2Component
 }
 
 port()

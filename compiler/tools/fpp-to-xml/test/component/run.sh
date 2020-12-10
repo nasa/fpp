@@ -1,7 +1,13 @@
+empty()
+{
+  run_test "-p $PWD" empty && \
+    diff_xml EmptyComponent
+}
+
 general_ports()
 {
   run_test "-p $PWD -i port.fpp" general_ports && \
-    diff_xml GeneralPorts1Component GeneralPorts2Component GeneralPorts3Component
+    diff_xml GeneralPorts1Component GeneralPorts2Component
 }
 
 port()
