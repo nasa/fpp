@@ -77,7 +77,7 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
     }
     val ports = c.portMap.keys.toList.sortWith(_ < _).
       flatMap(key => writePort(key, c.portMap(key)))
-    XmlTags.taggedLines ("ports") (ports.map(indentIn))
+    XmlTags.taggedLinesOpt ("ports") (ports.map(indentIn))
   }
 
   private def writeInternalInterfaces(s: XmlWriterState, c: Component) = {

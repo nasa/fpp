@@ -16,4 +16,18 @@ then
   exit 1
 fi
 
-gcc -I $FPRIME -I $FPRIME/config -I $FPRIME/Fw/Types/Linux -I . $@
+os=`uname`
+case "$os" in
+  Darwin)
+    os_type=DARWIN
+    ;;
+  Linux)
+    os_type=LINUX
+    ;;
+  *)
+    echo "fprime-gcc: unsupported OS $os" 1>&2
+    exit 1
+    ;;
+esac
+
+gcc '-DTGT_OS_TYPE_'$os_type -I $FPRIME -I $FPRIME/config -I $FPRIME/Fw/Types/Linux -I . $@

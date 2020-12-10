@@ -22,6 +22,12 @@ object XmlTags extends LineUtils {
       case _ => taggedLines (tags(name, pairs)) (ls)
     }
 
+  def taggedLinesOpt (name: String, pairs: List[(String, String)] = Nil) (ls: List[Line]): List[Line] = 
+    ls match {
+      case Nil => Nil
+      case ls1 => taggedLines (name, pairs) (ls1)
+    }
+
   def taggedString (tags: (String, String)) (s: String) = {
     val (openTag, closeTag) = tags
     openTag ++ s ++ closeTag
