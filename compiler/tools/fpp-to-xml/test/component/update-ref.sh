@@ -14,7 +14,11 @@ port()
 {
   update "-p $PWD" port
   move_xml PPort \
-    CmdPort CmdRegPort CmdResponsePort
+    CmdPort CmdRegPort CmdResponsePort \
+    LogPort LogTextPort \
+    PrmGetPort PrmSetPort \
+    TimePort \
+    TlmPort
 }
 
 special_ports()

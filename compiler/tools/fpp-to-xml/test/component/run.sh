@@ -13,7 +13,12 @@ general_ports()
 port()
 {
   run_test "-p $PWD" port && \
-    diff_xml PPort
+    diff_xml PPort \
+      CmdPort CmdRegPort CmdResponsePort \
+      LogPort LogTextPort \
+      PrmGetPort PrmSetPort \
+      TimePort \
+      TlmPort
 }
 
 special_ports()
