@@ -28,14 +28,14 @@ active component C {
   output port p4: P
 
   command recv port cmdIn
-  command reg port cmdIn
-  command resp port cmdIn
+  command reg port cmdRegIn
+  command resp port cmdResponseIn
 
   event port eventOut
   text event port textEventOut
 
   param get port paramGetOut
-  param set port paramGetOut
+  param set port paramSetOut
 
   telemetry port tlmOut
 

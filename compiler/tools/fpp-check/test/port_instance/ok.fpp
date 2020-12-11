@@ -26,11 +26,11 @@ active component C {
   output port s4: serial
 
   command recv port cmdIn
-  command reg port cmdIn
-  command resp port cmdIn
+  command reg port cmdRegIn
+  command resp port cmdResponseIn
   event port eventOut
   param get port paramGetOut
-  param set port paramGetOut
+  param set port paramSetOut
   telemetry port tlmOut
   text event port textEventOut
   time get port timeGetOut
