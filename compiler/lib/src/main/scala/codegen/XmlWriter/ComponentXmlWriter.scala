@@ -80,7 +80,7 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
         special.specifier.kind match {
           case CommandRecv => "Cmd"
           case CommandReg => "CmdRegistration"
-          case CommandResp => "CmdResp"
+          case CommandResp => "CmdResponse"
           case Event => "LogEvent"
           case ParamGet => "ParamGet"
           case ParamSet => "ParamSet"
@@ -93,8 +93,8 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
         ("name", name),
         ("data_type", s.writeSymbol(special.symbol)),
         ("kind", kind),
-        ("max_number", "1"),
-        ("role", role)
+        ("role", role),
+        ("max_number", "1")
       )
       val comment = AnnotationXmlWriter.multilineComment(special.aNode)
       XmlTags.taggedLines ("port", pairs) (comment.map(indentIn))
