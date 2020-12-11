@@ -15,3 +15,9 @@ port()
   run_test "-p $PWD" port && \
     diff_xml PPort
 }
+
+special_ports()
+{
+  run_test "-p $PWD -i port.fpp" special_ports && \
+    diff_xml SpecialPortsComponent
+}

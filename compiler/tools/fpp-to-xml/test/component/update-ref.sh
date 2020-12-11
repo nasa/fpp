@@ -13,5 +13,12 @@ general_ports()
 port()
 {
   update "-p $PWD" port
-  move_xml PPort
+  move_xml PPort \
+    CmdPort CmdRegPort CmdResponsePort
+}
+
+special_ports()
+{
+  update "-p $PWD -i port.fpp" special_ports
+  move_xml SpecialPortsComponent
 }
