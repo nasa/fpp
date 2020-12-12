@@ -34,7 +34,7 @@ The currently available tools are as follows:
 * `fpp-to-cpp` (constants only)
 * `fpp-to-xml` (types, enums, and ports only)
 
-See https://github.jpl.nasa.gov/bocchino/fpp/wiki/Tools
+See https://fprime-community/fpp/wiki/Tools
 for more information.
 
 == Testing
