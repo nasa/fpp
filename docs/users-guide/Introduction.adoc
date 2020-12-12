@@ -35,7 +35,7 @@ the project-specific {cpp} implementation) you get a FSW application.
 *Purpose:* The purpose of this document is to describe FPP in a way that is accessible
 to users, including beginning users.
 A more detailed and precise description is available in
-https://github.jpl.nasa.gov/pages/bocchino/fpp[_The FPP Language
+https://fprime-community.github.io/fpp[_The FPP Language
 Specification_].
 It is recommended that users read this document before consulting that one.
 
