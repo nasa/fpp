@@ -3,7 +3,7 @@
 This repository contains the code and documentation for F Prime Prime (FPP for 
 short).
 FPP is a modeling language for the
-https://github.jpl.nasa.gov/FPRIME/fprime-sw[F Prime flight software 
+https://github.com/nasa/fprime[F Prime flight software 
 framework].
 
 == Contents
@@ -14,9 +14,6 @@ framework].
 
 `compiler`: The FPP analysis and translation tools.
 These tools are in development.
-See the
-https://github.jpl.nasa.gov/bocchino/fpp/wiki/Schedule[schedule]
-for current status.
 
 == Building and Installing
 
@@ -30,9 +27,9 @@ If you want to use FPP, then you should install these tools.
 See `docs/spec/README.adoc`.
 Build these documents from source only if you are developing them.
 Otherwise, read the copies available on the 
-https://github.jpl.nasa.gov/bocchino/fpp/wiki[wiki].
+https://github.com/fprime-community/fpp/wiki[wiki].
 
 == Design and Implementation Status
 
 See the
-https://github.jpl.nasa.gov/bocchino/fpp/wiki[wiki].
+https://github.com/fprime-community/fpp/wiki[wiki].
