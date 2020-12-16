@@ -123,8 +123,32 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
   }
 
   private def writeInternalInterfaces(s: XmlWriterState, c: Component) = {
-    // TODO
-    default(s)
+    def writeInternalPort(name: String, internal: PortInstance.Internal) = {
+      import PortInstance.Internal._
+      val data = internal.aNode._2.data
+      val pairs = {
+        val namePair = ("name", name)
+        val priority = internal.priority match {
+          case Some(priority) => List(("priority", priority.toString))
+          case _ => Nil
+        }
+        val queueFull = ("full", internal.queueFull.toString)
+        (namePair :: priority) :+ queueFull
+      }
+      val body = {
+        val comment = AnnotationXmlWriter.multilineComment(internal.aNode)
+        val args = FormalParamsXmlWriter.formalParamList(s, data.params)
+        comment ++ args
+      }
+      XmlTags.taggedLines ("internal_interface", pairs) (body.map(indentIn))
+    }
+    def writeInternalInterface(name: String, instance: PortInstance) = instance match {
+      case internal: PortInstance.Internal => writeInternalPort(name, internal)
+      case _ => Nil
+    }
+    val ports = c.portMap.keys.toList.sortWith(_ < _).
+      flatMap(key => writeInternalInterface(key, c.portMap(key)))
+    XmlTags.taggedLinesOpt ("internal_interfaces") (ports.map(indentIn))
   }
 
   private def writeCommands(s: XmlWriterState, c: Component) = {
