@@ -10,6 +10,12 @@ general_ports()
     diff_xml GeneralPorts1Component GeneralPorts2Component
 }
 
+internal_ports()
+{
+  run_test "-p $PWD -i port.fpp" internal_ports && \
+    diff_xml InternalPortsComponent
+}
+
 port()
 {
   run_test "-p $PWD" port && \

@@ -10,6 +10,12 @@ general_ports()
   move_xml GeneralPorts1Component GeneralPorts2Component
 }
 
+internal_ports()
+{
+  update "-p $PWD -i port.fpp" internal_ports
+  move_xml InternalPortsComponent
+}
+
 port()
 {
   update "-p $PWD" port
