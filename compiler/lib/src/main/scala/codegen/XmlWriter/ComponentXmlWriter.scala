@@ -58,12 +58,25 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
         case Kind.Output => "output"
       }
       val data = general.aNode._2.data
-      val pairs = List(
-        ("name", name),
-        ("data_type", writeDataType(general.ty)),
-        ("kind", writeKind(general.kind)),
-        ("max_number", general.size.toString)
-      )
+      val pairs = {
+        val pairs1 = List(
+          ("name", name),
+          ("data_type", writeDataType(general.ty)),
+          ("kind", writeKind(general.kind)),
+          ("max_number", general.size.toString)
+        )
+        val priority = general.kind match {
+          case Kind.AsyncInput(Some(priority), _) =>
+            List(("priority", priority.toString))
+          case _ => Nil
+        }
+        val queueFull = general.kind match {
+          case Kind.AsyncInput(_, queueFull) => 
+            List(("full", queueFull.toString))
+          case _ => Nil
+        }
+        pairs1 ++ priority ++ queueFull
+      }
       val comment = AnnotationXmlWriter.multilineComment(general.aNode)
       XmlTags.taggedLines ("port", pairs) (comment.map(indentIn))
     }

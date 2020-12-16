@@ -4,7 +4,7 @@ module M {
   active component GeneralPorts1 {
 
     @ Port p1
-    async input port p1: P
+    async input port p1: P priority 10 drop
     guarded input port p2: P
     sync input port p3: P
     output port p4: [10] P
