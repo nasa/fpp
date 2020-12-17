@@ -3,6 +3,10 @@
 # ----------------------------------------------------------------------
 # Compile ref XML files, to check them for validity
 # ----------------------------------------------------------------------
+# 1. Compile from XML to C++
+# 2. Compile to C++ where feasible. Skip it if the F Prime dependencies
+#    are too complicated.
+# ----------------------------------------------------------------------
 
 pwd=$PWD
 
@@ -35,9 +39,16 @@ for file in $files
 do
   dir=`dirname $file`
   base=`basename $file Ai.ref.xml`
-  cd $dir
+  var='SKIP_CPP_FOR_'$base
+  skip_cpp_cmd='echo $'$var
   cpp_file=$base'Ac.cpp'
-  echo "compiling $cpp_file"
-  $fprime_gcc -c $cpp_file
-  cd $pwd
+  if test -z "`eval $skip_cpp_cmd`"
+    then
+    echo "compiling $cpp_file"
+    cd $dir
+    $fprime_gcc -c $cpp_file
+    cd $pwd
+  else
+    echo "skipping $cpp_file"
+  fi
 done

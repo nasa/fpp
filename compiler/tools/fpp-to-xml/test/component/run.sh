@@ -10,6 +10,12 @@ empty()
     diff_xml EmptyComponent
 }
 
+events()
+{
+  run_test "-p $PWD -i ports.fpp" events && \
+    diff_xml EventsComponent
+}
+
 general_ports()
 {
   run_test "-p $PWD -i ports.fpp" general_ports && \

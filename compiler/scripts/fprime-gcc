@@ -30,4 +30,4 @@ case "$os" in
     ;;
 esac
 
-gcc '-DTGT_OS_TYPE_'$os_type -I $FPRIME -I $FPRIME/config -I $FPRIME/Fw/Types/Linux -I . $@
+gcc '-DTGT_OS_TYPE_'$os_type -I $FPRIME -I $FPRIME/config -I $FPRIME/Fw/Types/Linux -I . -ferror-limit=1 $@

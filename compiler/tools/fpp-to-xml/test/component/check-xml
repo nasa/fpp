@@ -2,4 +2,10 @@
 
 export COMPILER_ROOT=$PWD/../../../..
 
+for file in CommandsComponent EventsComponent
+do
+  export SKIP_CPP_FOR_$file=1
+done
+
+
 sh ../scripts/check-xml.sh

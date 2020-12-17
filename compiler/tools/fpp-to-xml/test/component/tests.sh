@@ -1,6 +1,7 @@
 tests="
 commands
 empty
+events
 general_ports
 internal_ports
 ports

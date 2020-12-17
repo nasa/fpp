@@ -10,6 +10,12 @@ empty()
   move_xml EmptyComponent
 }
 
+events()
+{
+  update "-p $PWD -i ports.fpp" events
+  move_xml EventsComponent
+}
+
 general_ports()
 {
   update "-p $PWD -i ports.fpp" general_ports
