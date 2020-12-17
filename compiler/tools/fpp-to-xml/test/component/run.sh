@@ -1,3 +1,9 @@
+commands()
+{
+  run_test "-p $PWD -i port.fpp" commands && \
+    diff_xml CommandsComponent
+}
+
 empty()
 {
   run_test "-p $PWD" empty && \

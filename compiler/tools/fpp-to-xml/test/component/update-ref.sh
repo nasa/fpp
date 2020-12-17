@@ -1,3 +1,9 @@
+commands()
+{
+  update "-p $PWD -i port.fpp" commands
+  move_xml CommandsComponent
+}
+
 empty()
 {
   update "-p $PWD" empty

@@ -166,7 +166,7 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
       val pairs = {
         val pairs1 = List(
           ("kind", writeKind(nonParam.kind)),
-          ("opcode", Integer.toString(opcode, 16).toUpperCase),
+          ("opcode", s"0x${Integer.toString(opcode, 16).toUpperCase}"),
           ("mnemonic", data.name),
         )
         val priority = nonParam.kind match {
