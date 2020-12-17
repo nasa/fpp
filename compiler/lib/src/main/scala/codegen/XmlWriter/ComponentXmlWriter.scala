@@ -152,8 +152,50 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
   }
 
   private def writeCommands(s: XmlWriterState, c: Component) = {
-    // TODO
-    default(s)
+    import Command._
+    def writeNonParamCommand(opcode: Opcode, nonParam: NonParam) = {
+      import NonParam._
+      val data = nonParam.aNode._2.data
+      def writeKind(kind: NonParam.Kind) = {
+        kind match {
+          case _: Async => "async"
+          case Guarded => "guarded"
+          case Sync => "sync"
+        }
+      }
+      val pairs = {
+        val pairs1 = List(
+          ("kind", writeKind(nonParam.kind)),
+          ("opcode", Integer.toString(opcode, 16).toUpperCase),
+          ("mnemonic", data.name),
+        )
+        val priority = nonParam.kind match {
+          case Async(Some(priority), _) =>
+            List(("priority", priority.toString))
+          case _ => Nil
+        }
+        val queueFull = nonParam.kind match {
+          case Async(_, queueFull) => 
+            List(("full", queueFull.toString))
+          case _ => Nil
+        }
+        pairs1 ++ priority ++ queueFull
+      }
+      val body = {
+        val comment = AnnotationXmlWriter.multilineComment(nonParam.aNode)
+        val args = FormalParamsXmlWriter.formalParamList(s, data.params)
+        comment ++ args
+      }
+      XmlTags.taggedLines ("command", pairs) (body.map(indentIn))
+    }
+    def writeCommand(opcode: Opcode, command: Command) = command match {
+      case nonParam: NonParam => writeNonParamCommand(opcode, nonParam)
+      // Parameter commands are implicit in the XML component representation
+      case param: Param => Nil
+    }
+    val commands = c.commandMap.keys.toList.sortWith(_ < _).
+      flatMap(key => writeCommand(key, c.commandMap(key)))
+    XmlTags.taggedLinesOpt ("commands") (commands.map(indentIn))
   }
 
   private def writeEvents(s: XmlWriterState, c: Component) = {
