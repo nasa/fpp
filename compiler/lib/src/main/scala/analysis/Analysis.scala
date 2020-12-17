@@ -244,7 +244,7 @@ object Analysis {
     checkForDuplicateNode (getName) (SemanticError.DuplicateParameter) (nodes.map(_._2))
   }
 
-  /** Compute a format from a format string and alist of types */
+  /** Compute a format from a format string and a list of types */
   def computeFormat(node: AstNode[String], ts: List[Type]): Result.Result[Format] = {
     val loc = Locations.get(node.id)
     def checkSize(format: Format) =

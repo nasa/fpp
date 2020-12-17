@@ -177,8 +177,7 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
           case _ => Nil
         }
         val queueFull = nonParam.kind match {
-          case Async(_, queueFull) => 
-            List(("full", queueFull.toString))
+          case Async(_, queueFull) => List(("full", queueFull.toString))
           case _ => Nil
         }
         pairs1 ++ priority ++ queueFull
@@ -216,33 +215,30 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
           case WarningLow => "WARNING_LO"
         }
       }
-      /*
       val pairs = {
-        val pairs1 = List(
-          ("kind", writeKind(nonParam.kind)),
-          ("opcode", s"0x${Integer.toString(opcode, 16).toUpperCase}"),
-          ("mnemonic", data.name),
+        val typeNames = data.params.map(_._2.data.typeName)
+        val format = FormatXmlWriter.formatToString(
+          event.format,
+          typeNames
         )
-        val priority = nonParam.kind match {
-          case Async(Some(priority), _) =>
-            List(("priority", priority.toString))
+        val pairs1 = List(
+          ("id", writeId(id)),
+          ("name", data.name),
+          ("severity", writeSeverity(data.severity)),
+          ("format_string", format)
+        )
+        val throttle = event.throttle match {
+          case Some(throttle) => List(("throttle", throttle.toString))
           case _ => Nil
         }
-        val queueFull = nonParam.kind match {
-          case Async(_, queueFull) => 
-            List(("full", queueFull.toString))
-          case _ => Nil
-        }
-        pairs1 ++ priority ++ queueFull
+        pairs1 ++ throttle
       }
       val body = {
-        val comment = AnnotationXmlWriter.multilineComment(nonParam.aNode)
+        val comment = AnnotationXmlWriter.multilineComment(event.aNode)
         val args = FormalParamsXmlWriter.formalParamList(s, data.params)
         comment ++ args
       }
-      XmlTags.taggedLines ("command", pairs) (body.map(indentIn))
-      */
-      Nil
+      XmlTags.taggedLines ("event", pairs) (body.map(indentIn))
     }
     val events = c.eventMap.keys.toList.sortWith(_ < _).
       flatMap(key => writeEvent(key, c.eventMap(key)))
