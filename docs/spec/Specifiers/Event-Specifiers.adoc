@@ -52,7 +52,7 @@ ground. The arguments to the format string are the values bound to the event
 parameters. A numeric format is allowed for any
 argument whose type is a <<Types_Internal-Types_Numeric-Types,numeric type>>.
 
-* The expression _e_ following `throttle` specifies the maximum number
+* The optional expression _e_ following `throttle` specifies the maximum number
 of times to emit the event before throttling it.
 The type of _e_ must be convertible to 
 <<Types_Internal-Types_Integer,_Integer_>>.
