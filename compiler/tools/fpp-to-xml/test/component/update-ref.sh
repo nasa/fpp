@@ -1,6 +1,6 @@
 commands()
 {
-  update "-p $PWD -i port.fpp" commands
+  update "-p $PWD -i ports.fpp" commands
   move_xml CommandsComponent
 }
 
@@ -12,19 +12,19 @@ empty()
 
 general_ports()
 {
-  update "-p $PWD -i port.fpp" general_ports
+  update "-p $PWD -i ports.fpp" general_ports
   move_xml GeneralPorts1Component GeneralPorts2Component
 }
 
 internal_ports()
 {
-  update "-p $PWD -i port.fpp" internal_ports
+  update "-p $PWD -i ports.fpp" internal_ports
   move_xml InternalPortsComponent
 }
 
-port()
+ports()
 {
-  update "-p $PWD" port
+  update "-p $PWD" ports
   move_xml PPort \
     CmdPort CmdRegPort CmdResponsePort \
     LogPort LogTextPort \
@@ -35,6 +35,6 @@ port()
 
 special_ports()
 {
-  update "-p $PWD -i port.fpp" special_ports
+  update "-p $PWD -i ports.fpp" special_ports
   move_xml SpecialPortsComponent
 }

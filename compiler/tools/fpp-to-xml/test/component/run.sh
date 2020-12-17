@@ -1,6 +1,6 @@
 commands()
 {
-  run_test "-p $PWD -i port.fpp" commands && \
+  run_test "-p $PWD -i ports.fpp" commands && \
     diff_xml CommandsComponent
 }
 
@@ -12,19 +12,19 @@ empty()
 
 general_ports()
 {
-  run_test "-p $PWD -i port.fpp" general_ports && \
+  run_test "-p $PWD -i ports.fpp" general_ports && \
     diff_xml GeneralPorts1Component GeneralPorts2Component
 }
 
 internal_ports()
 {
-  run_test "-p $PWD -i port.fpp" internal_ports && \
+  run_test "-p $PWD -i ports.fpp" internal_ports && \
     diff_xml InternalPortsComponent
 }
 
-port()
+ports()
 {
-  run_test "-p $PWD" port && \
+  run_test "-p $PWD" ports && \
     diff_xml PPort \
       CmdPort CmdRegPort CmdResponsePort \
       LogPort LogTextPort \
@@ -35,6 +35,6 @@ port()
 
 special_ports()
 {
-  run_test "-p $PWD -i port.fpp" special_ports && \
+  run_test "-p $PWD -i ports.fpp" special_ports && \
     diff_xml SpecialPortsComponent
 }
