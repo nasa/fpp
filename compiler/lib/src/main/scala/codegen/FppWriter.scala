@@ -173,7 +173,7 @@ object FppWriter extends AstVisitor with LineUtils {
       join ("") (formalParamList(data.params)).
       joinWithBreak ("severity ") (lines(severity)).
       joinOptWithBreak (data.id) ("id ") (exprNode).
-      joinOptWithBreak (data.format) ("format ") (applyToData(string)).
+      joinWithBreak ("format ") (string(data.format.data)).
       joinOptWithBreak (data.throttle) ("throttle ") (exprNode)
   }
 

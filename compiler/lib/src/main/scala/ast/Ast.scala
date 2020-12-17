@@ -353,7 +353,7 @@ object Ast {
     params: FormalParamList,
     severity: SpecEvent.Severity,
     id: Option[AstNode[Expr]],
-    format: Option[AstNode[String]],
+    format: AstNode[String],
     throttle: Option[AstNode[Expr]]
   )
   final object SpecEvent {

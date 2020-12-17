@@ -4,6 +4,6 @@ locate constant b at "b.fpp"
 
 active component C {
 
-  event E(x: T) severity activity low id a throttle b
+  event E(x: T) severity activity low id a format "x={}" throttle b
 
 }

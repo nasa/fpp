@@ -214,7 +214,7 @@ object AstWriter extends AstVisitor with LineUtils {
       formalParamList(se.params),
       lines(s"severity ${se.severity.toString}"),
       linesOpt(addPrefix("id", exprNode), se.id),
-      linesOpt(addPrefix("format", applyToData(string)), se.format),
+      addPrefix("format", string) (se.format.data),
       linesOpt(addPrefix("throttle", exprNode), se.throttle),
     ).flatten.map(indentIn)
   }

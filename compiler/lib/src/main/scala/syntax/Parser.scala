@@ -378,7 +378,7 @@ object Parser extends Parsers {
     }
     (event ~> ident) ~! formalParamList ~! (severity ~>! severityLevel) ~!
     opt(id ~>! exprNode) ~!
-    opt(format ~>! node(literalString)) ~!
+    (format ~>! node(literalString)) ~!
     opt(throttle ~>! exprNode) ^^ {
       case name ~ params ~ severity ~ id ~ format ~ throttle => 
         Ast.SpecEvent(name, params, severity, id, format, throttle)

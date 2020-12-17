@@ -84,7 +84,7 @@ class ParserSpec extends AnyWordSpec {
           telemetry T: U32
           array A = [10] U32
           enum E { X = 0, Y = 1 }
-          event E severity activity low
+          event E severity activity low format "Event E"
           include "a.fpp"
           internal port P
         }""",
@@ -379,16 +379,16 @@ class ParserSpec extends AnyWordSpec {
     parseAllOK(
       Parser.specEvent,
       List(
-        "event E severity activity high",
-        "event E severity activity low",
-        "event E severity command",
-        "event E severity diagnostic",
-        "event E severity fatal",
-        "event E severity warning high",
-        "event E severity warning low",
-        "event E () severity activity high",
-        "event E (x: U32) severity activity high",
-        "event E severity activity high id 0x100",
+        "event E severity activity high format \"event E\"",
+        "event E severity activity low format \"event E\"",
+        "event E severity command format \"event E\"",
+        "event E severity diagnostic format \"event E\"",
+        "event E severity fatal format \"event E\"",
+        "event E severity warning high format \"event E\"",
+        "event E severity warning low format \"event E\"",
+        "event E () severity activity high format \"event E\"",
+        "event E (x: U32) severity activity high format \"x={}\"",
+        "event E severity activity high id 0x100 format \"event E\"",
         "event E (x: U32) severity activity high id 0x100 format \"x={}\"",
         "event E (x: U32) severity activity high id 0x100 format \"x={}\" throttle 10",
       )

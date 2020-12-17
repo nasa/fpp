@@ -5,7 +5,7 @@ import fpp.compiler.ast._
 /** An FPP event */
 final case class Event(
   aNode: Ast.Annotated[AstNode[Ast.SpecEvent]],
-  format: Option[Format],
+  format: Format,
   throttle: Option[Int]
 ) {
 

@@ -21,12 +21,9 @@ final object Events {
       }
       for {
         _ <- checkRefParams(data.params)
-        format <- Result.mapOpt(
-          data.format, 
-          format => Analysis.computeFormat(
-            format,
-            data.params.map(aNode => a.typeMap(aNode._2.data.typeName.id))
-          )
+        format <- Analysis.computeFormat(
+          data.format,
+          data.params.map(aNode => a.typeMap(aNode._2.data.typeName.id))
         )
         throttle <- a.getIntValueOpt(data.throttle)
       }

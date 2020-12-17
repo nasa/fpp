@@ -14,9 +14,7 @@ _]_
 _[_
 `id` <<Expressions,_expression_>>
 _]_
-_[_
 `format` <<Expressions_String-Literals,_string-literal_>>
-_]_
 _[_
 `throttle` <<Expressions,_expression_>>
 _]_
@@ -48,11 +46,10 @@ If _e_ is not present, then the default identifier is either zero (for the
 first
 event appearing in a component) or the previous event identifier plus one.
 
-* The optional string following `format` is a
+* The string following `format` is a
 <<Format-Strings,format string>> that formats the event for display on the
-ground.  The arguments to the format string are the values bound to the event
-parameters.  If there is no format string, then the event is displayed in a
-standard way as a list of argument values.  A numeric format is allowed for any
+ground. The arguments to the format string are the values bound to the event
+parameters. A numeric format is allowed for any
 argument whose type is a <<Types_Internal-Types_Numeric-Types,numeric type>>.
 
 * The expression _e_ following `throttle` specifies the maximum number

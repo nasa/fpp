@@ -151,6 +151,8 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
     XmlTags.taggedLinesOpt ("internal_interfaces") (ports.map(indentIn))
   }
 
+  private def writeId(id: Int) = s"0x${Integer.toString(id, 16).toUpperCase}"
+
   private def writeCommands(s: XmlWriterState, c: Component) = {
     import Command._
     def writeNonParamCommand(opcode: Opcode, nonParam: NonParam) = {
@@ -166,7 +168,7 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
       val pairs = {
         val pairs1 = List(
           ("kind", writeKind(nonParam.kind)),
-          ("opcode", s"0x${Integer.toString(opcode, 16).toUpperCase}"),
+          ("opcode", writeId(opcode)),
           ("mnemonic", data.name),
         )
         val priority = nonParam.kind match {
@@ -199,8 +201,52 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
   }
 
   private def writeEvents(s: XmlWriterState, c: Component) = {
-    // TODO
-    default(s)
+    import Event._
+    def writeEvent(id: Id, event: Event) = {
+      val data = event.aNode._2.data
+      def writeSeverity(severity: Ast.SpecEvent.Severity) = {
+        import Ast.SpecEvent._
+        severity match {
+          case ActivityHigh => "ACTIVITY_HI"
+          case ActivityLow => "ACTIVITY_LO"
+          case Command => "COMMAND"
+          case Diagnostic => "DIAGNOSTIC"
+          case Fatal => "FATAL"
+          case WarningHigh => "WARNING_HI"
+          case WarningLow => "WARNING_LO"
+        }
+      }
+      /*
+      val pairs = {
+        val pairs1 = List(
+          ("kind", writeKind(nonParam.kind)),
+          ("opcode", s"0x${Integer.toString(opcode, 16).toUpperCase}"),
+          ("mnemonic", data.name),
+        )
+        val priority = nonParam.kind match {
+          case Async(Some(priority), _) =>
+            List(("priority", priority.toString))
+          case _ => Nil
+        }
+        val queueFull = nonParam.kind match {
+          case Async(_, queueFull) => 
+            List(("full", queueFull.toString))
+          case _ => Nil
+        }
+        pairs1 ++ priority ++ queueFull
+      }
+      val body = {
+        val comment = AnnotationXmlWriter.multilineComment(nonParam.aNode)
+        val args = FormalParamsXmlWriter.formalParamList(s, data.params)
+        comment ++ args
+      }
+      XmlTags.taggedLines ("command", pairs) (body.map(indentIn))
+      */
+      Nil
+    }
+    val events = c.eventMap.keys.toList.sortWith(_ < _).
+      flatMap(key => writeEvent(key, c.eventMap(key)))
+    XmlTags.taggedLinesOpt ("events") (events.map(indentIn))
   }
 
   private def writeParams(s: XmlWriterState, c: Component) = {
