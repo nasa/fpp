@@ -1,5 +1,5 @@
 module M1 {
-  array ArrayOK1 = [5] U32 default 1 format "{.03f}"
+  array ArrayOK1 = [5] F32 default 1 format "{.03f}"
 }
 
 module M2 {

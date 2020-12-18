@@ -255,9 +255,12 @@ object Analysis {
       else Right(())
     def checkNumericField(pair: (Type, Format.Field)) = {
       val (t, field) = pair
-      if (field.isNumeric && !t.isNumeric) {
+      if (field.isInteger && !t.isInt) {
         val loc = Locations.get(node.id)
-        Left(SemanticError.InvalidFormatString(loc, s"type $t is not numeric"))
+        Left(SemanticError.InvalidFormatString(loc, s"$t is not an integer type"))
+      } else if (field.isRational && !t.isFloat) {
+        val loc = Locations.get(node.id)
+        Left(SemanticError.InvalidFormatString(loc, s"$t is not a floating-point type"))
       } else Right(())
     }
     for {

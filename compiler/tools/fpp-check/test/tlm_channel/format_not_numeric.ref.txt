@@ -2,4 +2,4 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/tlm_channel/format_not_numeric.fpp: 3.28
   telemetry T: bool format "{x}"
                            ^
-error: invalid format string: type bool is not numeric
+error: invalid format string: bool is not an integer type

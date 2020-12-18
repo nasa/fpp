@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/array/format_float_not_int.fpp: 1.26
+array A = [3] F32 format "{x}"
+                         ^
+error: invalid format string: F32 is not an integer type

@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/array/format_int_not_rational.fpp: 1.26
+array A = [3] U32 format "{.3f}"
+                         ^
+error: invalid format string: U32 is not a floating-point type

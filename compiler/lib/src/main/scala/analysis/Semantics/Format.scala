@@ -16,7 +16,9 @@ case class Format(
 object Format {
 
   sealed trait Field extends Positional {
-    def isNumeric = false
+    def isInteger = false
+    def isRational = false
+    final def isNumeric = isInteger || isRational
   }
 
   object Field {
@@ -24,7 +26,7 @@ object Format {
     case object Default extends Field
 
     case class Integer(t: Integer.Type) extends Field {
-      override def isNumeric = true
+      override def isInteger = true
     }
 
     object Integer {
@@ -36,7 +38,7 @@ object Format {
     }
 
     case class Rational(precision: Option[Int], t: Rational.Type) extends Field {
-      override def isNumeric = true
+      override def isRational = true
     }
 
     object Rational {
