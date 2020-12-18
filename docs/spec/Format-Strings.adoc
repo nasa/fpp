@@ -28,7 +28,8 @@ The following replacement fields are allowed:
 It causes the argument to be displayed in a standard way
 for F Prime according to its type.
 
-. If an argument _a_ has <<Types_Internal-Types_Numeric-Types,numeric type>>,
+. If the type of an argument _a_ is an 
+<<Types_Internal-Types_Integer-Types,integer type>>,
 then you can use an *integer replacement field* to convert _a_.
 An integer replacement field is one of the following:
 
@@ -40,7 +41,8 @@ An integer replacement field is one of the following:
 
 .. `{o}`: Display _a_ as an octal integer value.
 
-. If an argument _a_ has <<Types_Internal-Types_Numeric-Types,numeric type>>,
+. If the type of an argument _a_ is a 
+<<Types_Floating-Point-Types,floating-point type>>,
 then you can use a *rational replacement field* to convert _a_.
 A rational replacement field is one of the following:
 

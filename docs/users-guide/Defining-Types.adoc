@@ -183,13 +183,16 @@ e.g., `123.4`.
 (fixed-point notation up to an implementation-dependent size and exponent 
 notation for larger sizes).
 
-For any field except `{}`, the element type must be numeric.
+For field types `x`, `d`, `x`, and `o`, the element type must be an integer
+type.
+For field types `e`, `f`, and `g`, the element type must be a floating-point
+type.
 For example, the following format string is illegal, because
-type `string` is not numeric:
+type `string` is not an integer type:
 
 [source,fpp]
 --------
-array A = [3] string format "{d}" # Illegal: string is not numeric
+array A = [3] string format "{d}" # Illegal: string is not an integer type
 --------
 
 For field types `e`, `f`, and `g`, you can optionally specify a precision

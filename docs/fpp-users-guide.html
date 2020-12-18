@@ -1974,13 +1974,16 @@ notation for larger sizes).</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>For any field except <code>{}</code>, the element type must be numeric.
+<p>For field types <code>x</code>, <code>d</code>, <code>x</code>, and <code>o</code>, the element type must be an integer
+type.
+For field types <code>e</code>, <code>f</code>, and <code>g</code>, the element type must be a floating-point
+type.
 For example, the following format string is illegal, because
-type <code>string</code> is not numeric:</p>
+type <code>string</code> is not an integer type:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">array A = [3] string format "{d}" # Illegal: string is not numeric</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">array A = [3] string format "{d}" # Illegal: string is not an integer type</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -5033,7 +5036,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-12-15 10:45:42 -0800
+Last updated 2020-12-17 18:41:43 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

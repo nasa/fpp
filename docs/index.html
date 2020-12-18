@@ -1488,9 +1488,7 @@ The type of the expression must be
 <div class="paragraph">
 <p>The optional format specifier specifies a <a href="#Format-Strings">format string</a>.
 When displaying the array, the format is applied to each element of the array.
-There is one argument to the format string, which an array member.
-A numeric format is allowed if the array element type is a
-<a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.</p>
+There is one argument to the format string, which an array member.</p>
 </div>
 <div class="paragraph">
 <p>The type name <em>N</em> is not in scope in the body of the definition.</p>
@@ -2317,9 +2315,7 @@ identifier appearing in the struct type member sequence must be distinct.</p>
 <p>The optional format specifier for a struct member specifies a
 <a href="#Format-Strings">format string</a>.
 The format is applied when displaying the struct member.
-There is one argument to the format string, which is the member value.
-A numeric format is allowed if the member type is a
-<a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.</p>
+There is one argument to the format string, which is the member value.</p>
 </div>
 <div class="paragraph">
 <p>The expression following the keyword <em>default</em> is optional.
@@ -4388,9 +4384,7 @@ If the specifier is not present, the default behavior is always.</p>
 </li>
 <li>
 <p>The optional format specifier specifies a <a href="#Format-Strings">format string</a>.
-There is one argument to the format string, which is the channel value.  A
-numeric format is allowed if the channel type telemetry channel is a
-<a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.</p>
+There is one argument to the format string, which is the channel value.  A</p>
 </li>
 <li>
 <p>The optional high and low limit specifiers specify the high and low limits
@@ -5460,7 +5454,8 @@ It causes the argument to be displayed in a standard way
 for F Prime according to its type.</p>
 </li>
 <li>
-<p>If an argument <em>a</em> has <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>,
+<p>If the type of an argument <em>a</em> is an
+<a href="#Types_Internal-Types_Integer-Types">integer type</a>,
 then you can use an <strong>integer replacement field</strong> to convert <em>a</em>.
 An integer replacement field is one of the following:</p>
 <div class="olist loweralpha">
@@ -5481,7 +5476,8 @@ An integer replacement field is one of the following:</p>
 </div>
 </li>
 <li>
-<p>If an argument <em>a</em> has <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>,
+<p>If the type of an argument <em>a</em> is a
+<a href="#Types_Floating-Point-Types">floating-point type</a>,
 then you can use a <strong>rational replacement field</strong> to convert <em>a</em>.
 A rational replacement field is one of the following:</p>
 <div class="olist loweralpha">
@@ -7745,7 +7741,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-12-17 08:16:53 -0800
+Last updated 2020-12-17 18:42:48 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

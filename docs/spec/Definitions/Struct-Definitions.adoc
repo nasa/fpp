@@ -30,8 +30,6 @@ The optional format specifier for a struct member specifies a
 <<Format-Strings,format string>>.
 The format is applied when displaying the struct member.
 There is one argument to the format string, which is the member value.
-A numeric format is allowed if the member type is a
-<<Types_Internal-Types_Numeric-Types,numeric type>>.
 
 The expression following the keyword _default_ is optional.
 If present, it specifies the <<Types_Default-Values,default value>>
