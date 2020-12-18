@@ -44,3 +44,9 @@ special_ports()
   update "-p $PWD -i ports.fpp" special_ports
   move_xml SpecialPortsComponent
 }
+
+telemetry()
+{
+  update "-p $PWD -i ports.fpp" telemetry
+  move_xml TelemetryComponent
+}

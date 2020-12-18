@@ -44,3 +44,9 @@ special_ports()
   run_test "-p $PWD -i ports.fpp" special_ports && \
     diff_xml SpecialPortsComponent
 }
+
+telemetry()
+{
+  run_test "-p $PWD -i ports.fpp" telemetry && \
+    diff_xml TelemetryComponent
+}

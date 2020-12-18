@@ -2,9 +2,15 @@
 
 export COMPILER_ROOT=$PWD/../../../..
 
-for file in CommandsComponent EventsComponent
+skip_cpp_names="
+Commands
+Events
+Telemetry
+"
+
+for name in $skip_cpp_names
 do
-  export SKIP_CPP_FOR_$file=1
+  export SKIP_CPP_FOR_$name'Component'=1
 done
 
 
