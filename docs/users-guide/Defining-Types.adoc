@@ -183,7 +183,7 @@ e.g., `123.4`.
 (fixed-point notation up to an implementation-dependent size and exponent 
 notation for larger sizes).
 
-For field types `x`, `d`, `x`, and `o`, the element type must be an integer
+For field types `c`, `d`, `x`, and `o`, the element type must be an integer
 type.
 For field types `e`, `f`, and `g`, the element type must be a floating-point
 type.
