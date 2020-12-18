@@ -47,8 +47,8 @@ object TypeXmlWriter {
   }
 
   /** Get the key-value pairs for a type */
-  def getPairs(s: XmlWriterState, t: Type): List[(String,String)] = {
-    val name = ("type", getName(s, t))
+  def getPairs(s: XmlWriterState, t: Type, nameTag: String = "type"): List[(String,String)] = {
+    val name = (nameTag, getName(s, t))
     getSize(s, t) match {
       case Some(size) => List(name, ("size", size))
       case None => List(name)

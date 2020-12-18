@@ -21,7 +21,7 @@ final object TlmChannels {
         lowLimits <- computeLimits(a, data.low)
         highLimits <- computeLimits(a, data.high)
       }
-      yield TlmChannel(aNode, update, format, lowLimits, highLimits)
+      yield TlmChannel(aNode, channelType, update, format, lowLimits, highLimits)
    }
 
    /** Computes limits from AST limits */

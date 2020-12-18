@@ -5,6 +5,7 @@ import fpp.compiler.ast._
 /** An FPP telemetry channel */
 final case class TlmChannel(
   aNode: Ast.Annotated[AstNode[Ast.SpecTlmChannel]],
+  channelType: Type,
   update: Ast.SpecTlmChannel.Update,
   format: Option[Format],
   lowLimits: TlmChannel.Limits,

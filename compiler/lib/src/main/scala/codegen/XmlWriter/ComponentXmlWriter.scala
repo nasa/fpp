@@ -251,8 +251,52 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
   }
 
   private def writeTlmChannels(s: XmlWriterState, c: Component) = {
-    // TODO
-    default(s)
+    import TlmChannel._
+    def writeTlmChannel(id: Id, tlmChannel: TlmChannel) = {
+      val data = tlmChannel.aNode._2.data
+      def writeUpdate(update: Ast.SpecTlmChannel.Update) = {
+        import Ast.SpecTlmChannel._
+        update match {
+          case Always => "always"
+          case OnChange => "on_change"
+        }
+      }
+      def writeLimits(name: String, limits: Limits) = {
+        import Ast.SpecTlmChannel._
+        def writeLimit(kind: LimitKind, value: Value) = {
+          val left = s"${name}_${kind.toString}"
+          val right = ValueXmlWriter.getValue(s, value)
+          (left, right)
+        }
+        limits.keys.toList.
+          map(key => writeLimit(key, limits(key)._2)).
+          sortWith((a, b) => a._1 < b._1)
+      }
+      val pairs = List(
+        List(
+          ("id", writeId(id)),
+          ("name", data.name),
+        ),
+        TypeXmlWriter.getPairs(s, tlmChannel.channelType, "data_type"),
+        List(
+          ("update", writeUpdate(tlmChannel.update))
+        ),
+        tlmChannel.format match {
+          case Some(format) => List((
+            "format_string", 
+            FormatXmlWriter.formatToString(format, List(data.typeName))
+          ))
+          case None => Nil
+        },
+        writeLimits("low", tlmChannel.lowLimits),
+        writeLimits("high", tlmChannel.highLimits),
+      ).flatten
+      val comment = AnnotationXmlWriter.multilineComment(tlmChannel.aNode)
+      XmlTags.taggedLines ("channel", pairs) (comment.map(indentIn))
+    }
+    val tlmChannels = c.tlmChannelMap.keys.toList.sortWith(_ < _).
+      flatMap(key => writeTlmChannel(key, c.tlmChannelMap(key)))
+    XmlTags.taggedLinesOpt ("telemetry") (tlmChannels.map(indentIn))
   }
 
   type In = XmlWriterState
