@@ -170,10 +170,20 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
   private def writeParams(s: XmlWriterState, c: Component) = {
     import Param._
     def writeParam(id: Id, param: Param) = {
+      val data = param.aNode._2.data
       val pairs = List(
-        // TODO
-        ("name", "TODO"),
-      )
+        List (
+          ("id", writeId(id)),
+          ("set_opcode", writeId(param.setOpcode)),
+          ("save_opcode", writeId(param.saveOpcode)),
+          ("name", data.name),
+        ),
+        TypeXmlWriter.getPairs(s, param.paramType, "data_type"),
+        param.default match {
+          case Some(value) => List(("default", ValueXmlWriter.getValue(s, value)))
+          case _ => Nil
+        }
+      ).flatten
       val comment = AnnotationXmlWriter.multilineComment(param.aNode)
       XmlTags.taggedLines ("parameter", pairs) (comment.map(indentIn))
     }

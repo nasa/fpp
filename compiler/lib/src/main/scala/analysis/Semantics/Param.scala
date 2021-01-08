@@ -5,6 +5,7 @@ import fpp.compiler.ast._
 /** An FPP parameter */
 final case class Param(
   aNode: Ast.Annotated[AstNode[Ast.SpecParam]],
+  paramType: Type,
   default: Option[Value],
   setOpcode: Int,
   saveOpcode: Int

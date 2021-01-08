@@ -3,7 +3,8 @@ import fpp.compiler.ast._
 
 object Options {
 
-  /** Apply a Option function to each element of a list */
+  /** Apply a function returning Option to each element of a list.
+   *  Stop and return None if any application returns None. */
   def map[A,B](
     list: List[A], 
     f: A => Option[B]
@@ -19,4 +20,5 @@ object Options {
     }
     helper(list.reverse, Nil)
   }
+
 }

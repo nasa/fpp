@@ -33,7 +33,7 @@ final object Params {
       yield {
         val (setOpcode, defaultOpcode1) = computeOpcode(setOpcodeOpt, defaultOpcode)
         val (saveOpcode, defaultOpcode2) = computeOpcode(saveOpcodeOpt, defaultOpcode1)
-        (Param(aNode, default, setOpcode, saveOpcode), defaultOpcode2)
+        (Param(aNode, paramType, default, setOpcode, saveOpcode), defaultOpcode2)
       }
    }
 
