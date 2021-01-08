@@ -39,29 +39,29 @@ constants()
 {
   update "-n constants.names.txt -p $PWD" constants
   mv constants.names.txt constants.names.ref.txt
-  mv FppConstants.hpp FppConstants_constants.ref.hpp
-  mv FppConstants.cpp FppConstants_constants.ref.cpp
+  remove_year < FppConstants.hpp > FppConstants_constants.ref.hpp
+  remove_year < FppConstants.cpp > FppConstants_constants.ref.cpp
 }
 
 constants_guard()
 {
   update "-g GUARD_PREFIX -p $PWD" constants
-  mv FppConstants.hpp FppConstants_constants_guard.ref.hpp
-  mv FppConstants.cpp FppConstants_constants_guard.ref.cpp
+  remove_year < FppConstants.hpp > FppConstants_constants_guard.ref.hpp
+  remove_year < FppConstants.cpp > FppConstants_constants_guard.ref.cpp
 }
 
 constants_output_dir()
 {
   update "-d output_dir -p $PWD" constants output_dir/constants
-  mv output_dir/FppConstants.hpp output_dir/FppConstants.ref.hpp
-  mv output_dir/FppConstants.cpp output_dir/FppConstants.ref.cpp
+  remove_year < output_dir/FppConstants.hpp > output_dir/FppConstants.ref.hpp
+  remove_year < output_dir/FppConstants.cpp > output_dir/FppConstants.ref.cpp
 }
 
 constants_string()
 {
   update "-p $PWD" constants_string
-  mv FppConstants.hpp FppConstants_constants_string.ref.hpp
-  mv FppConstants.cpp FppConstants_constants_string.ref.cpp
+  remove_year < FppConstants.hpp > FppConstants_constants_string.ref.hpp
+  remove_year < FppConstants.cpp > FppConstants_constants_string.ref.cpp
 }
 
 for t in $tests

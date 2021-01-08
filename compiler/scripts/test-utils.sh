@@ -15,6 +15,12 @@ echo_red()
   echo "${RED}${BOLD}$@${NO_COLOR}"
 }
 
+# Remove copyright year
+remove_year()
+{
+  sed 's;// Copyright (C) ....;// Copyright (C) [year];'
+}
+
 # Remove local path prefix
 remove_path_prefix()
 {
