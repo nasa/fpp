@@ -28,6 +28,12 @@ internal_ports()
   move_xml InternalPortsComponent
 }
 
+parameters()
+{
+  update "-p $PWD -i ports.fpp" parameters
+  move_xml ParametersComponent
+}
+
 ports()
 {
   update "-p $PWD" ports

@@ -28,6 +28,12 @@ internal_ports()
     diff_xml InternalPortsComponent
 }
 
+parameters()
+{
+  run_test "-p $PWD -i ports.fpp" parameters && \
+    diff_xml ParametersComponent
+}
+
 ports()
 {
   run_test "-p $PWD" ports && \
