@@ -1,0 +1,8 @@
+*.out.*
+*.diff.txt
+*.names.txt
+default-tests.sh
+default-update-ref.sh
+*.o
+FppConstants.hpp
+FppConstants.cpp
