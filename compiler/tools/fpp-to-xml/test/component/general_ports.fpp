@@ -1,6 +1,6 @@
 module M {
 
-  @ Component GeneralPorts2
+  @ Component GeneralPorts1
   active component GeneralPorts1 {
 
     @ Port p1
@@ -17,7 +17,7 @@ module M {
 
   }
 
-  @ Component GeneralPorts1
+  @ Component GeneralPorts2
   passive component GeneralPorts2 {
 
     @ Port p1

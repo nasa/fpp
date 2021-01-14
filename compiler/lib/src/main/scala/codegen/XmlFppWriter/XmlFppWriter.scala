@@ -125,6 +125,7 @@ object XmlFppWriter extends LineUtils {
       for {
         body <- eltType match {
           case "array" => ArrayXmlFppWriter.writeFile(this)
+          case "component" => ComponentXmlFppWriter.writeFile(this)
           case "enum" => EnumXmlFppWriter.writeFile(this)
           case "interface" => PortXmlFppWriter.writeFile(this)
           case "serializable" => StructXmlFppWriter.writeFile(this)
