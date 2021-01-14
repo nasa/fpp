@@ -119,9 +119,6 @@ object XmlFppWriter extends LineUtils {
         }
       } yield result
 
-    /** Translates an XML type to an FPP type name for arrays */
-    val translateTypeArray = translateType(node => Right(node.text)) _
-
     /** Writes a file as lines */
     def write: Result = {
       val eltType = elem.label
