@@ -32,7 +32,11 @@ object ComponentXmlFppWriter extends LineUtils {
     def componentMemberList(file: XmlFppWriter.File): 
       Result.Result[List[Ast.ComponentMember]] = {
         def mapChildren(
-          args: (String, String, scala.xml.Node => Result.Result[Ast.Annotated[Ast.ComponentMember.Node]])
+          args: (
+            String,
+            String,
+            scala.xml.Node => Result.Result[Ast.Annotated[Ast.ComponentMember.Node]]
+          )
         ): Result.Result[List[Ast.ComponentMember]] = {
           val (parentName, childName, f) = args
           def f1(node: scala.xml.Node) = f(node) match {
