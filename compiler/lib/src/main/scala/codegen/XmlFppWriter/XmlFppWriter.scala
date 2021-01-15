@@ -125,9 +125,11 @@ object XmlFppWriter extends LineUtils {
       for {
         body <- eltType match {
           case "array" => ArrayXmlFppWriter.writeFile(this)
-          case "component" => ComponentXmlFppWriter.writeFile(this)
+          case "commands" => ComponentXmlFppWriter.writeCommandsFile(this)
+          case "component" => ComponentXmlFppWriter.writeComponentFile(this)
           case "enum" => EnumXmlFppWriter.writeFile(this)
           case "interface" => PortXmlFppWriter.writeFile(this)
+          case "ports" => ComponentXmlFppWriter.writePortsFile(this)
           case "serializable" => StructXmlFppWriter.writeFile(this)
           case _ => Left(error(XmlError.SemanticError(_, s"invalid element type $eltType")))
         }
