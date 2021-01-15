@@ -16,23 +16,26 @@ object ComponentXmlFppWriter extends LineUtils {
   private def writeImportedFile
     (nodeGenerator: FppBuilder.NodeGenerator)
     (file: XmlFppWriter.File): XmlFppWriter.Result =
-      for {
-        members <- FppBuilder.mapChildrenOfNodeOpt(
-          file,
-          Some(file.elem),
-          nodeGenerator
-        )
-      }
-      yield Line.blankSeparated (FppWriter.componentMember) (members)
+      for (members <- FppBuilder.mapChildren(file, nodeGenerator))
+        yield Line.blankSeparated (FppWriter.componentMember) (members)
 
   /** Writes a commands file */
-  val writeCommandsFile = writeImportedFile(FppBuilder.NodeGenerator.command) _
+  val writeCommandsFile = writeImportedFile(FppBuilder.NodeGenerator.Command) _
 
-  /** Writes an events file */
-  val writeEventsFile = writeImportedFile(FppBuilder.NodeGenerator.event) _
+  /** Writes a params file */
+  val writeParamsFile = writeImportedFile(FppBuilder.NodeGenerator.Param) _
 
   /** Writes a ports file */
-  val writePortsFile = writeImportedFile(FppBuilder.NodeGenerator.port) _
+  val writePortsFile = writeImportedFile(FppBuilder.NodeGenerator.Port) _
+
+  /** Writes a tlm channels file */
+  val writeTlmChannelsFile = writeImportedFile(FppBuilder.NodeGenerator.TlmChannel) _
+
+  /** Writes an events file */
+  val writeEventsFile = writeImportedFile(FppBuilder.NodeGenerator.Event) _
+
+  /** Writes an internal ports file */
+  val writeInternalPortsFile = writeImportedFile(FppBuilder.NodeGenerator.InternalPort) _
 
   /** Builds FPP for translating Component XML */
   private object FppBuilder {
@@ -51,44 +54,104 @@ object ComponentXmlFppWriter extends LineUtils {
         file
       )
 
-    case class NodeGenerator(childName: String, f: NodeGenerator.Fn)
+    trait NodeGenerator {
+
+      val xmlName: String
+
+      def generate(file: XmlFppWriter.File, node: scala.xml.Node):
+        Result.Result[Ast.Annotated[Ast.ComponentMember.Node]] =
+          Left(file.error(XmlError.SemanticError(_, s"$xmlName not implemented")))
+
+      final def createMember(file: XmlFppWriter.File, node: scala.xml.Node) = 
+        generate(file, node) match {
+          case Left(error) => Left(error)
+          case Right(aNode) => Right(Ast.ComponentMember(aNode))
+        }
+
+    }
 
     case object NodeGenerator {
-      type Fn = (XmlFppWriter.File, scala.xml.Node) => Result.Result[Ast.Annotated[Ast.ComponentMember.Node]]
-      val include = NodeGenerator("import_dictionary", specInclude _)
-      val port = NodeGenerator("port", specPortInstance _)
-      val internalPort = NodeGenerator("internal_interface", specInternalPort _)
-      val command = NodeGenerator("command", specCommand _)
-      val event = NodeGenerator("event", specEvent _)
-      val parameter = NodeGenerator("parameter", specParam _)
-      val tlmChannel = NodeGenerator("channel", specTlmChannel _)
+
+      case object Include extends NodeGenerator {
+        
+        val xmlName = "import_dictionary"
+
+        // TODO: generate
+
+      }
+
+      case object Port extends NodeGenerator {
+
+        val xmlName = "port"
+
+        // TODO: generate
+
+      }
+
+      case object InternalPort extends NodeGenerator {
+
+        val xmlName = "internal_interface"
+
+        // TODO: generate
+
+      }
+
+      case object Command extends NodeGenerator {
+
+        val xmlName = "command"
+
+        // TODO: generate
+
+      }
+
+      case object Event extends NodeGenerator {
+
+        val xmlName = "event"
+
+        // TODO: generate
+
+      }
+
+      case object Param extends NodeGenerator {
+
+        val xmlName = "paramter"
+
+        // TODO: generate
+
+      }
+
+      case object TlmChannel extends NodeGenerator {
+
+        val xmlName = "channel"
+
+        // TODO: generate
+
+      }
+
     }
 
     /** Member list result */
     type MemListRes = Result.Result[List[Ast.ComponentMember]]
 
-    /** Maps a node generator function onto the children of an XML node */
+    /** Maps a node generator onto children at the top level */
+    def mapChildren(file: XmlFppWriter.File, nodeGenerator: NodeGenerator) =
+      mapChildrenOfNodeOpt(file, Some(file.elem), nodeGenerator)
+
+    /** Maps a node generator onto the children of an XML node */
     def mapChildrenOfNodeOpt(
       file: XmlFppWriter.File,
       nodeOpt: Option[scala.xml.Node],
-      nodeGen: NodeGenerator
-    ): MemListRes = {
-      def createMember(f: NodeGenerator.Fn)(node: scala.xml.Node) = f(file, node) match {
-        case Left(error) => Left(error)
-        case Right(aNode) => Right(Ast.ComponentMember(aNode))
-      }
+      nodeGenerator: NodeGenerator
+    ): MemListRes =
       nodeOpt.fold(Right(Nil): MemListRes)(node => {
-        val children = node \ nodeGen.childName
-        Result.map(children.toList, createMember(nodeGen.f))
+        val children = node \ nodeGenerator.xmlName
+        Result.map(children.toList, nodeGenerator.createMember(file, _))
       })
-    }
 
     /** Extracts component members */
     def componentMemberList(file: XmlFppWriter.File): 
       Result.Result[List[Ast.ComponentMember]] = {
-        def mapChildrenOfName(
-          args: (String, NodeGenerator)
-        ): MemListRes = {
+        def mapChildrenOfName(args: (String, NodeGenerator)): MemListRes = {
           val (name, nodeGenerator) = args
           for {
             nodeOpt <- file.getSingleChildOpt(file.elem, name)
@@ -96,59 +159,20 @@ object ComponentXmlFppWriter extends LineUtils {
           } yield result
         }
         for {
-          includes <- mapChildrenOfNodeOpt(
-            file,
-            Some(file.elem),
-            NodeGenerator.include
-          )
+          includes <- mapChildren(file, NodeGenerator.Include)
           lists <- Result.map(
             List(
-              ("ports", NodeGenerator.port),
-              ("internal_interfaces", NodeGenerator.internalPort),
-              ("commands", NodeGenerator.command),
-              ("events", NodeGenerator.event),
-              ("parameters", NodeGenerator.parameter),
-              ("telemetry", NodeGenerator.tlmChannel)
+              ("ports", NodeGenerator.Port),
+              ("internal_interfaces", NodeGenerator.InternalPort),
+              ("commands", NodeGenerator.Command),
+              ("events", NodeGenerator.Event),
+              ("parameters", NodeGenerator.Param),
+              ("telemetry", NodeGenerator.TlmChannel)
             ),
             mapChildrenOfName(_)
           )
         }
         yield (includes :: lists).flatten
-      }
-
-    def specCommand(file: XmlFppWriter.File, node: scala.xml.Node):
-      Result.Result[Ast.Annotated[Ast.ComponentMember.Node]] = {
-        Left(file.error(XmlError.SemanticError(_, "specCommand not implemented")))
-      }
-
-    def specEvent(file: XmlFppWriter.File, node: scala.xml.Node):
-      Result.Result[Ast.Annotated[Ast.ComponentMember.Node]] = {
-        Left(file.error(XmlError.SemanticError(_, "specEvent not implemented")))
-      }
-
-    def specInclude(file: XmlFppWriter.File, node: scala.xml.Node):
-      Result.Result[Ast.Annotated[Ast.ComponentMember.Node]] = {
-        Left(file.error(XmlError.SemanticError(_, "specInclude not implemented")))
-      }
-
-    def specInternalPort(file: XmlFppWriter.File, node: scala.xml.Node):
-      Result.Result[Ast.Annotated[Ast.ComponentMember.Node]] = {
-        Left(file.error(XmlError.SemanticError(_, "specInternalPort not implemented")))
-      }
-
-    def specParam(file: XmlFppWriter.File, node: scala.xml.Node):
-      Result.Result[Ast.Annotated[Ast.ComponentMember.Node]] = {
-        Left(file.error(XmlError.SemanticError(_, "specParam not implemented")))
-      }
-
-    def specPortInstance(file: XmlFppWriter.File, node: scala.xml.Node):
-      Result.Result[Ast.Annotated[Ast.ComponentMember.Node]] = {
-        Left(file.error(XmlError.SemanticError(_, "specPortInstance not implemented")))
-      }
-
-    def specTlmChannel(file: XmlFppWriter.File, node: scala.xml.Node):
-      Result.Result[Ast.Annotated[Ast.ComponentMember.Node]] = {
-        Left(file.error(XmlError.SemanticError(_, "specTlmChannel not implemented")))
       }
 
     /** Translates a component kind */
