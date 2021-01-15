@@ -11,18 +11,17 @@ object ComponentXmlFppWriter extends LineUtils {
     for (tuMember <- FppBuilder.tuMemberList(file))
       yield FppWriter.tuMemberList(tuMember)
 
-  /** Builds FPP for translating Serializable XML */
+  /** Builds FPP for translating Component XML */
   private object FppBuilder {
 
     /** Generates the list of TU members */
     def tuMemberList(file: XmlFppWriter.File): Result.Result[List[Ast.TUMember]] =
       for {
-        enums <- Right(Nil)
         component <- defComponentAnnotated(file)
       }
       yield XmlFppWriter.tuMemberList(
         Nil,
-        enums,
+        Nil,
         component,
         Ast.TUMember.DefComponent(_),
         Ast.ModuleMember.DefComponent(_),
@@ -31,8 +30,68 @@ object ComponentXmlFppWriter extends LineUtils {
 
     /** Extracts component members */
     def componentMemberList(file: XmlFppWriter.File): 
-      Result.Result[List[Ast.ComponentMember]] =
-      Right(Nil)
+      Result.Result[List[Ast.ComponentMember]] = {
+        def mapChildren(
+          args: (String, String, scala.xml.Node => Result.Result[Ast.Annotated[Ast.ComponentMember.Node]])
+        ): Result.Result[List[Ast.ComponentMember]] = {
+          val (parentName, childName, f) = args
+          def f1(node: scala.xml.Node) = f(node) match {
+            case Left(error) => Left(error)
+            case Right(aNode) => Right(Ast.ComponentMember(aNode))
+          }
+          for {
+            parentOpt <- file.getSingleChildOpt(file.elem, parentName)
+            result <- parentOpt.fold(Right(Nil): Result.Result[List[Ast.ComponentMember]])(parent => {
+              val children = parent \ childName
+              Result.map(children.toList, f1)
+            })
+          } yield result
+        }
+        for {
+          list <- Result.map(
+            List(
+              ("ports", "port", specPortInstance(file, _)),
+              ("internal_interfaces", "internal_interface", specInternalPort(file, _)),
+              ("commands", "command", specCommand(file, _)),
+              ("events", "event", specEvent(file, _)),
+              ("parameters", "parameter", specParam(file, _)),
+              ("telemetry", "channel", specTlmChannel(file, _)),
+            ),
+            mapChildren(_)
+          )
+        }
+        yield list.flatten
+      }
+
+    def specCommand(file: XmlFppWriter.File, node: scala.xml.Node):
+      Result.Result[Ast.Annotated[Ast.ComponentMember.SpecCommand]] = {
+        Left(file.error(XmlError.SemanticError(_, "specCommand not implemented")))
+      }
+
+    def specEvent(file: XmlFppWriter.File, node: scala.xml.Node):
+      Result.Result[Ast.Annotated[Ast.ComponentMember.SpecEvent]] = {
+        Left(file.error(XmlError.SemanticError(_, "specEvent not implemented")))
+      }
+
+    def specInternalPort(file: XmlFppWriter.File, node: scala.xml.Node):
+      Result.Result[Ast.Annotated[Ast.ComponentMember.SpecInternalPort]] = {
+        Left(file.error(XmlError.SemanticError(_, "specInternalPort not implemented")))
+      }
+
+    def specParam(file: XmlFppWriter.File, node: scala.xml.Node):
+      Result.Result[Ast.Annotated[Ast.ComponentMember.SpecParam]] = {
+        Left(file.error(XmlError.SemanticError(_, "specParam not implemented")))
+      }
+
+    def specPortInstance(file: XmlFppWriter.File, node: scala.xml.Node):
+      Result.Result[Ast.Annotated[Ast.ComponentMember.Node]] = {
+        Left(file.error(XmlError.SemanticError(_, "specPortInstance not implemented")))
+      }
+
+    def specTlmChannel(file: XmlFppWriter.File, node: scala.xml.Node):
+      Result.Result[Ast.Annotated[Ast.ComponentMember.SpecTlmChannel]] = {
+        Left(file.error(XmlError.SemanticError(_, "specTlmChannel not implemented")))
+      }
 
     /** Translates a component kind */
     def translateKind(file: XmlFppWriter.File, xmlKind: String):

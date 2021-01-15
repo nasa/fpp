@@ -36,6 +36,13 @@ object Result {
     helper(list, Nil)
   }
 
+  /** Applies a result function inside a Result */
+  def mapResult[A,B](r: Result[A], f: A => Result[B]): Result[B] =
+    r match {
+      case Left(left) => Left(left)
+      case Right(right) => f(right)
+    }
+
   /** Applies a result function inside an option */
   def mapOpt[A,B](o: Option[A], f: A => Result[B]): Result[Option[B]] =
     o match {
