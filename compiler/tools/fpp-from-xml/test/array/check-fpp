@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+fpp_syntax=../../../../bin/fpp-syntax
+
+files=`find . -name '*.ref.txt' | egrep -v 'error|missing'`
+for file in $files
+do
+  echo "checking $file"
+  $fpp_syntax < $file
+done
