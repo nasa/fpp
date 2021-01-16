@@ -70,6 +70,17 @@ object ComponentXmlFppWriter extends LineUtils {
 
     }
 
+    def translateQueueFullOpt(file: XmlFppWriter.File, xmlQueueFullOpt: Option[String]):
+      Result.Result[Option[AstNode[Ast.QueueFull]]] = for {
+        queueFullOpt <- xmlQueueFullOpt match {
+          case Some("assert") => Right(Some(Ast.QueueFull.Assert))
+          case Some("block") => Right(Some(Ast.QueueFull.Block))
+          case Some("drop") => Right(Some(Ast.QueueFull.Drop))
+          case Some(xmlQueueFull) => Left(file.semanticError(s"invalid queue full behavior $xmlQueueFull"))
+          case None => Right(None)
+        }
+      } yield queueFullOpt.map(AstNode.create(_))
+
     case object NodeGenerator {
 
       case object Include extends NodeGenerator {
@@ -86,25 +97,35 @@ object ComponentXmlFppWriter extends LineUtils {
 
         def general(file: XmlFppWriter.File, xmlNode: scala.xml.Node) = {
           import Ast.SpecPortInstance._
-          val kind = for {
+          for {
             xmlKind <- file.getAttribute(xmlNode, "kind")
-            result <- xmlKind match {
+            kind <- xmlKind match {
               case "async_input" => Right(AsyncInput)
               case "guarded_input" => Right(GuardedInput)
               case "output" => Right(Output)
               case "sync_input" => Right(SyncInput)
               case _ => Left(file.semanticError(s"invalid port kind $xmlKind"))
             }
-          } yield result
-          for {
-            kind <- kind
             name <- file.getAttribute(xmlNode, "name")
-            size <- Right(None)
-            port <- Right(None)
-            priority <- Right(None)
-            queueFull <- Right(None)
+            xmlPort <- file.getAttribute(xmlNode, "data_type")
+            queueFull <- {
+              val xmlQueueFullOpt = XmlFppWriter.getAttributeOpt(xmlNode, "full")
+              translateQueueFullOpt(file, xmlQueueFullOpt)
+            }
           }
-          yield Ast.SpecPortInstance.General(kind, name, size, port, priority, queueFull)
+          yield {
+            val size = XmlFppWriter.getAttributeOpt(file.elem, "size").map(
+              text => AstNode.create(Ast.ExprLiteralInt(text))
+            )
+            val port = xmlPort match {
+              case "Serial" => None
+              case _ => Some(XmlFppWriter.FppBuilder.translateQualIdent(xmlPort))
+            }
+            val priority = XmlFppWriter.getAttributeOpt(file.elem, "priority").map(
+              text => AstNode.create(Ast.ExprLiteralInt(text))
+            )
+            Ast.SpecPortInstance.General(kind, name, size, port, priority, queueFull)
+          }
         }
 
         def special(file: XmlFppWriter.File, xmlNode: scala.xml.Node, role: String) =
