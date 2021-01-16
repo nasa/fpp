@@ -84,7 +84,46 @@ object ComponentXmlFppWriter extends LineUtils {
 
         val xmlName = "port"
 
-        // TODO: generate
+        def general(file: XmlFppWriter.File, xmlNode: scala.xml.Node) = {
+          import Ast.SpecPortInstance._
+          val kind = for {
+            xmlKind <- file.getAttribute(xmlNode, "kind")
+            result <- xmlKind match {
+              case "async_input" => Right(AsyncInput)
+              case "guarded_input" => Right(GuardedInput)
+              case "output" => Right(Output)
+              case "sync_input" => Right(SyncInput)
+              case _ => Left(file.semanticError(s"invalid port kind $xmlKind"))
+            }
+          } yield result
+          for {
+            kind <- kind
+            name <- file.getAttribute(xmlNode, "name")
+            size <- Right(None)
+            port <- Right(None)
+            priority <- Right(None)
+            queueFull <- Right(None)
+          }
+          yield Ast.SpecPortInstance.General(kind, name, size, port, priority, queueFull)
+        }
+
+        def special(file: XmlFppWriter.File, xmlNode: scala.xml.Node, role: String) =
+          Left(file.error(XmlError.SemanticError(_, s"special not implemented")))
+
+        override def generate(file: XmlFppWriter.File, xmlNode: scala.xml.Node) = {
+          for {
+            comment <- file.getComment(xmlNode)
+            member <- XmlFppWriter.getAttributeOpt(xmlNode, "role") match {
+              case Some(role) => special(file, xmlNode, role)
+              case None => general(file, xmlNode)
+            }
+          }
+          yield {
+            val node = AstNode.create(member)
+            val memberNode = Ast.ComponentMember.SpecPortInstance(node)
+            (comment, memberNode, Nil)
+          }
+        }
 
       }
 

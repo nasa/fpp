@@ -20,13 +20,14 @@ object XmlFppWriter extends LineUtils {
     /** Constructs an error containing the file name */
     def error(e: (String) => Error) = e(name)
 
+    /** Constructs a semantic error with the given message */
+    def semanticError(message: String) = error(XmlError.SemanticError(_, message))
+
     /** Gets an attribute from a node, returning an error if it is not there */
     def getAttribute(node: scala.xml.Node, name: String): Result.Result[String] = 
       getAttributeOpt(node, name) match {
         case Some(s) => Right(s)
-        case None => Left(
-          error(XmlError.SemanticError(_, s"missing attribute $name for node ${node.toString}"))
-        )
+        case None => Left(semanticError(s"missing attribute $name for node ${node.toString}"))
       }
 
     /** Gets a comment from a node, returning an empty list if it is not there */
