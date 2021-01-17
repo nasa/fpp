@@ -1,14 +1,10 @@
 #!/bin/sh -e
 
-# ----------------------------------------------------------------------
-# Compile ref FPP files, to check them for validity
-# ----------------------------------------------------------------------
+. ../../../scripts/utils.sh
 
-fpp_syntax=../../../bin/fpp-syntax
-
-files=`find . -name '*.ref.txt' | egrep -v 'error|missing'`
-for file in $files
+for target in `find . -mindepth 2 -name check-fpp`
 do
-  echo "checking $file"
-  $fpp_syntax < $file
+  dir=`dirname $target`
+  echo "[ $dir ]"
+  (cd $dir; ./check-fpp)
 done
