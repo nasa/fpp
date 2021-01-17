@@ -1,5 +1,7 @@
 #!/bin/sh
 
+export LOCAL_PATH_PREFIX=`cd $COMPILER_ROOT; echo $PWD`
+
 . $COMPILER_ROOT/scripts/test-utils.sh
 
 fpp_from_xml=$COMPILER_ROOT/bin/fpp-from-xml
