@@ -24,10 +24,6 @@ remove_year()
 # Remove local path prefix
 remove_path_prefix()
 {
-  if test -n "$COMPILER_ROOT"
-  then
-    export LOCAL_PATH_PREFIX=`cd $COMPILER_ROOT; echo $PWD`
-  fi
   if test -z "$LOCAL_PATH_PREFIX"
   then
     export LOCAL_PATH_PREFIX=`cd ../../../..; echo $PWD`
