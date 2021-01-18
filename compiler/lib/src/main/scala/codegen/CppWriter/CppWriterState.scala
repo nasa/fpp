@@ -15,7 +15,12 @@ case class CppWriterState(
   pathPrefixes: List[String],
   /** The default string size */
   defaultStringSize: Int,
+  /** The current name prefix */
+  namePrefix: String = ""
 ) {
+
+  /** Adds the name prefix to a name */
+  def addNamePrefix(name: String): String = s"$namePrefix$name"
 
   /** Removes the longest prefix from a Java path */
   def removeLongestPathPrefix(path: File.JavaPath): File.JavaPath =
