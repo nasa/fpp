@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<component namespace="M" name="GeneralPortsActive" kind="active">
+
+  <comment>
+  Component GeneralPortsActive
+  </comment>
+
+  <import_port_type>PPortAi.xml</import_port_type>
+
+  <ports>
+    <port name="p1" data_type="P" kind="async_input" max_number="1" priority="10" full="drop">
+      <comment>
+      Port p1
+      </comment>
+    </port>
+    <port name="p2" data_type="P" kind="guarded_input" max_number="1"/>
+    <port name="p3" data_type="P" kind="sync_input" max_number="1"/>
+    <port name="p4" data_type="P" kind="output" max_number="10"/>
+    <port name="p5" data_type="Serial" kind="async_input" max_number="1" full="assert"/>
+    <port name="p6" data_type="Serial" kind="guarded_input" max_number="1"/>
+    <port name="p7" data_type="Serial" kind="sync_input" max_number="1"/>
+    <port name="p8" data_type="Serial" kind="output" max_number="10"/>
+  </ports>
+
+</component>

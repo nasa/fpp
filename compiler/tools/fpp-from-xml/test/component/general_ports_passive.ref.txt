@@ -1,0 +1,21 @@
+module M {
+
+  @ Component GeneralPortsPassive
+  passive component GeneralPortsPassive {
+
+    @ Port p1
+    guarded input port p1: [1] P
+
+    sync input port p2: [1] P
+
+    output port p3: [10] P
+
+    guarded input port p4: [1] serial
+
+    sync input port p5: [1] serial
+
+    output port p6: [10] serial
+
+  }
+
+}

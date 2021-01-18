@@ -114,14 +114,14 @@ object ComponentXmlFppWriter extends LineUtils {
             }
           }
           yield {
-            val size = XmlFppWriter.getAttributeOpt(file.elem, "size").map(
+            val size = XmlFppWriter.getAttributeOpt(xmlNode, "max_number").map(
               text => AstNode.create(Ast.ExprLiteralInt(text))
             )
             val port = xmlPort match {
               case "Serial" => None
               case _ => Some(XmlFppWriter.FppBuilder.translateQualIdent(xmlPort))
             }
-            val priority = XmlFppWriter.getAttributeOpt(file.elem, "priority").map(
+            val priority = XmlFppWriter.getAttributeOpt(xmlNode, "priority").map(
               text => AstNode.create(Ast.ExprLiteralInt(text))
             )
             Ast.SpecPortInstance.General(kind, name, size, port, priority, queueFull)
