@@ -3,3 +3,4 @@
 export COMPILER_ROOT=../..
 cd ..
 $COMPILER_ROOT/scripts/test
+mv num_failed.txt test-output.txt test
