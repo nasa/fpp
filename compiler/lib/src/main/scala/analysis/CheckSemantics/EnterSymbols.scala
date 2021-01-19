@@ -45,6 +45,7 @@ object EnterSymbols
     val (_, node, _) = aNode
     val data = node.data
     val name = data.name
+    val parentSymbol = a.parentSymbol
     val symbol = Symbol.Component(aNode)
     for {
       nestedScope <- a.nestedScope.put(NameGroup.Component)(name, symbol)
@@ -62,6 +63,7 @@ object EnterSymbols
       val newSymbolScopeMap = a.symbolScopeMap + (symbol -> scope)
       val a1 = a.copy(
         nestedScope = a.nestedScope.pop,
+        parentSymbol = parentSymbol,
         symbolScopeMap = newSymbolScopeMap
       )
       updateMap(a1, symbol)
@@ -88,6 +90,7 @@ object EnterSymbols
     val (_, node, _) = aNode
     val data = node.data
     val name = data.name
+    val parentSymbol = a.parentSymbol
     val symbol = Symbol.Enum(aNode)
     for {
       nestedScope <- a.nestedScope.put(NameGroup.Type)(name, symbol)
@@ -104,6 +107,7 @@ object EnterSymbols
       val newSymbolScopeMap = a.symbolScopeMap + (symbol -> scope)
       val a1 = a.copy(
         nestedScope = a.nestedScope.pop,
+        parentSymbol = parentSymbol,
         symbolScopeMap = newSymbolScopeMap
       )
       updateMap(a1, symbol)
@@ -131,6 +135,7 @@ object EnterSymbols
     val Ast.DefModule(name, members) = node.data
     val oldScopeNameList = a.scopeNameList
     val newScopeNameList = name :: oldScopeNameList
+    val parentSymbol = a.parentSymbol
     val a1 = a.copy(scopeNameList = newScopeNameList)
     for {
       triple <- a1.nestedScope.get (NameGroup.Value) (name) match {
@@ -173,6 +178,7 @@ object EnterSymbols
       val a1 = a.copy(
         scopeNameList = oldScopeNameList,
         nestedScope = a.nestedScope.pop,
+        parentSymbol = parentSymbol,
         symbolScopeMap = newSymbolScopeMap
       )
       updateMap(a1, symbol)

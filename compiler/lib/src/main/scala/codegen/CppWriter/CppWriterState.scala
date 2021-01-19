@@ -15,12 +15,21 @@ case class CppWriterState(
   pathPrefixes: List[String],
   /** The default string size */
   defaultStringSize: Int,
-  /** The current name prefix */
-  namePrefix: String = ""
 ) {
 
-  /** Adds the name prefix to a name */
-  def addNamePrefix(name: String): String = s"$namePrefix$name"
+  /** Adds the component name prefix to a name.
+   *  This is to work around the fact that we can't declare
+   *  constants inside component classes, because we are using
+   *  F Prime XML to generate the component classes. */
+  def addComponentNamePrefix(symbol: Symbol): String = {
+    val name = symbol.getUnqualifiedName
+    a.parentSymbolMap.get(symbol) match {
+      case Some(componentSymbol: Symbol.Component) =>
+        val componentName = componentSymbol.getUnqualifiedName
+        s"${componentName}_$name"
+      case _ => name
+    }
+  }
 
   /** Removes the longest prefix from a Java path */
   def removeLongestPathPrefix(path: File.JavaPath): File.JavaPath =

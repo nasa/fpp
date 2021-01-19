@@ -18,7 +18,7 @@ object ConstantCppWriter extends AstVisitor with LineUtils {
     val loc = Locations.get(node.id)
     val data = node.data
     val value = s.a.valueMap(node.id)
-    val name = s.addNamePrefix(data.name)
+    val name = s.addComponentNamePrefix(Symbol.Constant(aNode))
     val (hppLines, cppLines) = value match {
       case Value.Boolean(b) => writeBooleanConstant(name, b.toString)
       case Value.EnumConstant(e, _) => writeIntConstant(name, e._2.toString)
@@ -66,11 +66,7 @@ object ConstantCppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    // Prefix names in a component with the component name.
-    // This is to work around the fact that the F Prime XML
-    // provides no way to define constants inside classes.
-    val s1 = s.copy(namePrefix = s.addNamePrefix(s"${data.name}_"))
-    val members = data.members.flatMap(matchComponentMember(s1, _))
+    val members = data.members.flatMap(matchComponentMember(s, _))
     members
   }
 
