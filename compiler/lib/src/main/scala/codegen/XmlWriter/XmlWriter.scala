@@ -12,7 +12,7 @@ object XmlWriter extends AstStateVisitor with LineUtils {
   override def defArrayAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val (_, node, _) = aNode
     val data = node.data
-    val fileName = ComputeXmlFiles.getArrayFileName(data)
+    val fileName = ComputeXmlFiles.getArrayFileName(data.name)
     val lines = ArrayXmlWriter.defArrayAnnotatedNode(s, aNode)
     writeXmlFile(s, fileName, lines)
   }
@@ -20,15 +20,23 @@ object XmlWriter extends AstStateVisitor with LineUtils {
   override def defComponentAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefComponent]]) = {
     val (_, node, _) = aNode
     val data = node.data
-    val fileName = ComputeXmlFiles.getComponentFileName(data)
+    val fileName = ComputeXmlFiles.getComponentFileName(data.name)
     val lines = ComponentXmlWriter.defComponentAnnotatedNode(s, aNode)
-    writeXmlFile(s, fileName, lines)
+    for {
+      _ <- {
+        val a = s.a.copy(scopeNameList = data.name :: s.a.scopeNameList)
+        val s1 = s.copy(a = a)
+        visitList(s1, data.members, matchComponentMember)
+      }
+      s <- writeXmlFile(s, fileName, lines)
+    }
+    yield s
   }
 
   override def defEnumAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
     val (_, node, _) = aNode
     val data = node.data
-    val fileName = ComputeXmlFiles.getEnumFileName(data)
+    val fileName = ComputeXmlFiles.getEnumFileName(data.name)
     val lines = EnumXmlWriter.defEnumAnnotatedNode(s, aNode)
     writeXmlFile(s, fileName, lines)
   }
@@ -48,7 +56,7 @@ object XmlWriter extends AstStateVisitor with LineUtils {
   override def defPortAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefPort]]) = {
     val (_, node, _) = aNode
     val data = node.data
-    val fileName = ComputeXmlFiles.getPortFileName(data)
+    val fileName = ComputeXmlFiles.getPortFileName(data.name)
     val lines = PortXmlWriter.defPortAnnotatedNode(s, aNode)
     writeXmlFile(s, fileName, lines)
   }
@@ -57,7 +65,7 @@ object XmlWriter extends AstStateVisitor with LineUtils {
     val (_, node, _) = aNode
     val loc = Locations.get(node.id)
     val data = node.data
-    val fileName = ComputeXmlFiles.getStructFileName(data)
+    val fileName = ComputeXmlFiles.getStructFileName(data.name)
     val lines = StructXmlWriter.defStructAnnotatedNode(s, aNode)
     for {
       _ <- if (data.members.length == 0) Left(CodeGenError.EmptyStruct(loc)) else Right(())

@@ -17,25 +17,25 @@ object ComputeXmlFiles extends AstStateVisitor {
   type State = Map[String, Location]
 
   /** Gets the generated XML file name for an array definition */
-  def getArrayFileName(defArray: Ast.DefArray) = defArray.name ++ "ArrayAi.xml"
+  def getArrayFileName(baseName: String) = baseName ++ "ArrayAi.xml"
 
   /** Gets the generated XML file name for an enum definition */
-  def getEnumFileName(defEnum: Ast.DefEnum) = defEnum.name ++ "EnumAi.xml"
+  def getEnumFileName(baseName: String) = baseName ++ "EnumAi.xml"
 
   /** Gets the generated XML file name for a component definition */
-  def getComponentFileName(defComponent: Ast.DefComponent) = defComponent.name ++ "ComponentAi.xml"
+  def getComponentFileName(baseName: String) = baseName ++ "ComponentAi.xml"
 
   /** Gets the generated XML file name for a port definition */
-  def getPortFileName(defPort: Ast.DefPort) = defPort.name ++ "PortAi.xml"
+  def getPortFileName(baseName: String) = baseName ++ "PortAi.xml"
 
   /** Gets the generated XML file name for a struct definition */
-  def getStructFileName(defStruct: Ast.DefStruct) = defStruct.name ++ "SerializableAi.xml"
+  def getStructFileName(baseName: String) = baseName ++ "SerializableAi.xml"
 
   override def defArrayAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val (_, node1, _) = node
     val data = node1.data
     val loc = Locations.get(node1.id)
-    val fileName = getArrayFileName(data)
+    val fileName = getArrayFileName(data.name)
     addMapping(s, fileName, loc)
   }
 
@@ -43,7 +43,7 @@ object ComputeXmlFiles extends AstStateVisitor {
     val (_, node1, _) = node
     val data = node1.data
     val loc = Locations.get(node1.id)
-    val fileName = getComponentFileName(data)
+    val fileName = getComponentFileName(data.name)
     addMapping(s, fileName, loc)
   }
 
@@ -51,7 +51,7 @@ object ComputeXmlFiles extends AstStateVisitor {
     val (_, node1, _) = node
     val data = node1.data
     val loc = Locations.get(node1.id)
-    val fileName = getEnumFileName(data)
+    val fileName = getEnumFileName(data.name)
     addMapping(s, fileName, loc)
   }
 
@@ -68,7 +68,7 @@ object ComputeXmlFiles extends AstStateVisitor {
     val (_, node1, _) = node
     val data = node1.data
     val loc = Locations.get(node1.id)
-    val fileName = getPortFileName(data)
+    val fileName = getPortFileName(data.name)
     addMapping(s, fileName, loc)
   }
 
@@ -76,7 +76,7 @@ object ComputeXmlFiles extends AstStateVisitor {
     val (_, node1, _) = node
     val data = node1.data
     val loc = Locations.get(node1.id)
-    val fileName = getStructFileName(data)
+    val fileName = getStructFileName(data.name)
     addMapping(s, fileName, loc)
   }
 
