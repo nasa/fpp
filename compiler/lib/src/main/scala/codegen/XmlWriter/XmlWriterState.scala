@@ -69,7 +69,22 @@ case class XmlWriterState(
 
   /** Write an FPP symbol as XML */
   def writeSymbol(sym: Symbol): String = {
-    val qualifiedName = a.qualifiedNameMap(sym)
+    val identList = {
+      def helper(sym: Symbol, head: String, tail: List[String]): List[String] = 
+        a.parentSymbolMap.get(sym) match {
+          case None => head :: tail
+          case Some(ps: Symbol.Component) => 
+            // Prefix a symbol defined inside a component with the component name
+            val head1 = s"${ps.getUnqualifiedName}_$head"
+            a.parentSymbolMap.get(ps) match {
+              case None => head1 :: tail
+              case Some(ps1) => helper(ps1, head1, tail)
+            }
+          case Some(ps) => helper(ps, ps.getUnqualifiedName, head :: tail)
+        }
+      helper(sym, sym.getUnqualifiedName, Nil)
+    }
+    val qualifiedName = Name.Qualified.fromIdentList(identList)
     val shortName = a.shortName(qualifiedName)
     shortName.toString.replaceAll("\\.", "::")
   }
