@@ -79,15 +79,15 @@ object ConstantCppWriter extends AstVisitor with LineUtils {
 
   private def writeBooleanConstant(name: String, value: String) =
     (
-      lines("extern const bool " ++ name ++ ";"),
-      lines("const bool " ++ name ++ " = " ++ value ++ ";")
+      lines(s"extern const bool $name;"),
+      lines(s"const bool $name = $value;")
     )
 
   private def writeIntConstant(name: String, value: String) = {
     val hppLines = {
-      val defLine = line(name ++ " = " ++ value)
+      val defLine = line(s"$name = $value")
       List(
-        line("enum FppConstant_" ++ name ++ " {"),
+        line(s"enum FppConstant_$name {"),
         indentIn(defLine),
         line("};")
       )
@@ -97,14 +97,14 @@ object ConstantCppWriter extends AstVisitor with LineUtils {
 
   private def writeFloatConstant(name: String, value: String) =
     (
-      lines("extern const F64 " ++ name ++ ";"),
-      lines("const F64 " ++ name ++ " = " ++ value ++ ";")
+      lines(s"extern const F64 $name;"),
+      lines(s"const F64 $name = $value;")
     )
 
   private def writeStringConstant(name: String, value: String) = {
     val s = value.replaceAll("\"", "\\\\\"").replaceAll("\n", "\\\\n")
     (
-      lines("extern const char *const " ++ name ++ ";"),
+      lines(s"extern const char *const $name;"),
       lines("const char *const " ++ name ++ " = \"" ++ s ++ "\";")
     )
   }

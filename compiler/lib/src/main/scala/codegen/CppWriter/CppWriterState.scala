@@ -35,19 +35,19 @@ case class CppWriterState(
   /** Constructs an include guard from the prefix and a name */
   def includeGuardFromPrefix(name: String) = {
     val guard = guardPrefix match {
-      case Some(s) => s ++ "_" ++ name
+      case Some(s) => s"${s}_$name"
       case None => name
     }
-    guard ++ "_HPP"
+    s"${guard}_HPP"
   }
 
   /** Constructs an include guard from the enclosing namespace and a name */
   def includeGuardFromNamespace(name: String) = {
     val guard = a.scopeNameList.reverse.mkString("_") match {
       case "" => name
-      case prefix => prefix ++ "_" ++ name
+      case prefix => s"${prefix}_$name"
     }
-    guard ++ "_HPP"
+    s"${guard}_HPP"
   }
 
 }
