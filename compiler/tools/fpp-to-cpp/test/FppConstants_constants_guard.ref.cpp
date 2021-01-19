@@ -33,3 +33,9 @@ namespace M {
   const char *const d = "abc";
 
 }
+
+const F64 C_b = 1.0;
+
+const bool C_c = true;
+
+const char *const C_d = "abc";

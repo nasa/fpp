@@ -64,4 +64,23 @@ namespace M {
 
 }
 
+//! Constant a
+enum FppConstant_C_a {
+  C_a = 0
+};
+
+//! Constant b
+extern const F64 C_b;
+
+//! Constant c
+extern const bool C_c;
+
+//! Constant d
+extern const char *const C_d;
+
+//! Constant e
+enum FppConstant_C_e {
+  C_e = 3
+};
+
 #endif
