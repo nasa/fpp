@@ -12,8 +12,9 @@ object ArrayXmlWriter extends AstVisitor with LineUtils {
   override def defArrayAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val node = aNode._2
     val data = node.data
+    val name = s.getSymbolName(Symbol.Array(aNode))
     val tags = {
-      val pairs = s.getNamespaceAndName(data.name)
+      val pairs = s.getNamespaceAndName(name)
       XmlTags.tags("array", pairs)
     }
 

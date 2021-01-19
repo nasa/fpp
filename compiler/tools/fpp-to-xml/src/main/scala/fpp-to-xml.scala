@@ -33,9 +33,9 @@ object FPPToXml {
         ResolveSpecInclude.transUnit
       )
       tulFiles <- Right(aTulFiles._2)
-      xmlFileMap <- ComputeXmlFiles.visitList(Map(), tulFiles, ComputeXmlFiles.transUnit)
       tulImports <- Result.map(options.imports, Parser.parseFile (Parser.transUnit) (None) _)
       a <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
+      xmlFileMap <- ComputeXmlFiles.visitList(Map(), tulFiles, ComputeXmlFiles.transUnit)
       _ <- options.names match {
         case Some(fileName) => writeXmlFileNames(xmlFileMap.toList.map(_._1), fileName)
         case None => Right(())

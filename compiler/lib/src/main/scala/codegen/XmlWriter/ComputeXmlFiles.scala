@@ -44,7 +44,11 @@ object ComputeXmlFiles extends AstStateVisitor {
     val data = node1.data
     val loc = Locations.get(node1.id)
     val fileName = getComponentFileName(data.name)
-    addMapping(s, fileName, loc)
+    for {
+      s <- visitList(s, data.members, matchComponentMember)
+      s <- addMapping(s, fileName, loc)
+    }
+    yield s
   }
 
   override def defEnumAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
