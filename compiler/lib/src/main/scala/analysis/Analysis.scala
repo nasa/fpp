@@ -24,6 +24,10 @@ case class Analysis(
   nestedScope: NestedScope = NestedScope.empty,
   /** The mapping from symbols to their qualified names */
   qualifiedNameMap: Map[Symbol,Name.Qualified] = Map(),
+  /** The current parent symbol */
+  parentSymbol: Option[Symbol] = None,
+  /** The mapping from symbols to their parent symbols */
+  parentSymbolMap: Map[Symbol,Symbol] = Map(),
   /** The mapping from symbols with scopes to their scopes */
   symbolScopeMap: Map[Symbol,Scope] = Map(),
   /** The mapping from uses (by node ID) to their definitions */

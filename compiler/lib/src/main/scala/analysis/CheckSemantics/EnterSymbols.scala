@@ -12,7 +12,10 @@ object EnterSymbols
   with TopologyAnalyzer
 {
 
-  override def defAbsTypeAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAbsType]]) = {
+  override def defAbsTypeAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefAbsType]]
+  ) = {
     val (_, node, _) = aNode
     val data = node.data
     val name = data.name
@@ -22,7 +25,10 @@ object EnterSymbols
       yield updateMap(a, symbol).copy(nestedScope = nestedScope)
   }
 
-  override def defArrayAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
+  override def defArrayAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefArray]]
+  ) = {
     val (_, node, _) = aNode
     val data = node.data
     val name = data.name
@@ -47,7 +53,7 @@ object EnterSymbols
       a <- {
         val scope = Scope.empty
         val nestedScope1 = nestedScope.push(scope)
-        val a1 = a.copy(nestedScope = nestedScope1)
+        val a1 = a.copy(nestedScope = nestedScope1, parentSymbol = Some(symbol))
         super.defComponentAnnotatedNode(a1, aNode)
       }
     }
@@ -62,7 +68,10 @@ object EnterSymbols
     }
   }
 
-  override def defConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
+  override def defConstantAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefConstant]]
+  ) = {
     val (_, node, _) = aNode
     val data = node.data
     val name = data.name
@@ -72,7 +81,10 @@ object EnterSymbols
       yield updateMap(a, symbol).copy(nestedScope = nestedScope)
   }
 
-  override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
+  override def defEnumAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefEnum]]
+  ) = {
     val (_, node, _) = aNode
     val data = node.data
     val name = data.name
@@ -83,7 +95,7 @@ object EnterSymbols
       a <- {
         val scope = Scope.empty
         val nestedScope1 = nestedScope.push(scope)
-        val a1 = a.copy(nestedScope = nestedScope1)
+        val a1 = a.copy(nestedScope = nestedScope1, parentSymbol = Some(symbol))
         super.defEnumAnnotatedNode(a1, aNode)
       }
     }
@@ -98,7 +110,10 @@ object EnterSymbols
     }
   }
 
-  override def defEnumConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnumConstant]]) = {
+  override def defEnumConstantAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefEnumConstant]]
+  ) = {
     val (_, node, _) = aNode
     val data = node.data
     val name = data.name
@@ -143,8 +158,11 @@ object EnterSymbols
           }
       }
       a <- {
-        val (a2, _, scope) = triple
-        val a3 = a2.copy(nestedScope = a2.nestedScope.push(scope))
+        val (a2, symbol, scope) = triple
+        val a3 = a2.copy(
+          nestedScope = a2.nestedScope.push(scope),
+          parentSymbol = Some(symbol)
+        )
         visitList(a3, members, matchModuleMember)
       }
     }
@@ -161,7 +179,10 @@ object EnterSymbols
     }
   }
 
-  override def defPortAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefPort]]) = {
+  override def defPortAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefPort]]
+  ) = {
     val (_, node, _) = aNode
     val data = node.data
     val name = data.name
@@ -171,7 +192,10 @@ object EnterSymbols
       yield updateMap(a, symbol).copy(nestedScope = nestedScope)
   }
 
-  override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
+  override def defStructAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefStruct]]
+  ) = {
     val (_, node, _) = aNode
     val data = node.data
     val name = data.name
@@ -184,7 +208,14 @@ object EnterSymbols
   private def updateMap(a: Analysis, s: Symbol): Analysis = {
     val identList = (s.getUnqualifiedName :: a.scopeNameList).reverse
     val name = Name.Qualified.fromIdentList(identList)
-    a.copy(qualifiedNameMap = a.qualifiedNameMap + (s -> name))
+    val parentSymbolMap = a.parentSymbol.fold(a.parentSymbolMap)(ps => {
+      a.parentSymbolMap + (s -> ps)
+    })
+    val qualifiedNameMap = a.qualifiedNameMap + (s -> name)
+    a.copy(
+      parentSymbolMap = parentSymbolMap,
+      qualifiedNameMap = qualifiedNameMap
+    )
   }
 
 }
