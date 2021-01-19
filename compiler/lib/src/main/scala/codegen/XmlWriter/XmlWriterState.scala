@@ -13,6 +13,8 @@ case class XmlWriterState(
   prefixes: List[String],
   /** The default string size */
   defaultStringSize: Int,
+  /** The map from strings to locations */
+  locationMap: Map[String, Location] = Map()
 ) {
 
   /** Get the name of a symbol.
@@ -41,19 +43,19 @@ case class XmlWriterState(
           )
           case Symbol.Array(aNode) => Some(
             "import_array_type",
-            ComputeXmlFiles.getArrayFileName(aNode._2.data.name)
+            XmlWriterState.getArrayFileName(aNode._2.data.name)
           )
           case Symbol.Enum(aNode) => Some(
             "import_enum_type",
-            ComputeXmlFiles.getEnumFileName(aNode._2.data.name)
+            XmlWriterState.getEnumFileName(aNode._2.data.name)
           )
           case Symbol.Port(aNode) => Some(
             "import_port_type",
-            ComputeXmlFiles.getPortFileName(aNode._2.data.name)
+            XmlWriterState.getPortFileName(aNode._2.data.name)
           )
           case Symbol.Struct(aNode) => Some(
             "import_serializable_type",
-            ComputeXmlFiles.getStructFileName(aNode._2.data.name)
+            XmlWriterState.getStructFileName(aNode._2.data.name)
           )
           case _ => None
         }
@@ -115,5 +117,24 @@ case class XmlWriterState(
     val namespacePair = ("namespace", namespace)
     if (namespace != "") List(namespacePair, namePair) else List(namePair)
   }
+
+}
+
+case object XmlWriterState {
+
+  /** Gets the generated XML file name for an array definition */
+  def getArrayFileName(baseName: String) = baseName ++ "ArrayAi.xml"
+
+  /** Gets the generated XML file name for an enum definition */
+  def getEnumFileName(baseName: String) = baseName ++ "EnumAi.xml"
+
+  /** Gets the generated XML file name for a component definition */
+  def getComponentFileName(baseName: String) = baseName ++ "ComponentAi.xml"
+
+  /** Gets the generated XML file name for a port definition */
+  def getPortFileName(baseName: String) = baseName ++ "PortAi.xml"
+
+  /** Gets the generated XML file name for a struct definition */
+  def getStructFileName(baseName: String) = baseName ++ "SerializableAi.xml"
 
 }

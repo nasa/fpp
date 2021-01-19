@@ -35,19 +35,22 @@ object FPPToXml {
       tulFiles <- Right(aTulFiles._2)
       tulImports <- Result.map(options.imports, Parser.parseFile (Parser.transUnit) (None) _)
       a <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
-      xmlFileMap <- ComputeXmlFiles.visitList(Map(), tulFiles, ComputeXmlFiles.transUnit)
-      _ <- options.names match {
-        case Some(fileName) => writeXmlFileNames(xmlFileMap.toList.map(_._1), fileName)
-        case None => Right(())
-      }
-      _ <- {
+      s <- {
         val dir = options.dir match {
           case Some(dir1) => dir1
           case None => "."
         }
-        val state = XmlWriterState(a, dir, options.prefixes, options.defaultStringSize)
-        XmlWriter.visitList(state, tulFiles, XmlWriter.transUnit)
+        ComputeXmlFiles.visitList(
+          XmlWriterState(a, dir, options.prefixes, options.defaultStringSize),
+          tulFiles,
+          ComputeXmlFiles.transUnit
+        )
       }
+      _ <- options.names match {
+        case Some(fileName) => writeXmlFileNames(s.locationMap.toList.map(_._1), fileName)
+        case None => Right(())
+      }
+      _ <- XmlWriter.visitList(s, tulFiles, XmlWriter.transUnit)
     } yield ()
   }
 
