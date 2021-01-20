@@ -42,6 +42,8 @@ values.
 All telemetry channels specified in a component must have distinct names and 
 identifier values.
 
+* An <<Definitions_Abstract-Type-Definitions,abstract type definition>>
+
 * An <<Definitions_Array-Definitions,array definition>>
 
 * An <<Definitions_Enum-Definitions,enum definition>>
@@ -52,7 +54,7 @@ values.
 
 * An <<Specifiers_Include-Specifiers,include specifier>>
 
-* An <<Specifiers_Internal-Port-Specifiers,internal port specifier>>.
+* An <<Specifiers_Internal-Port-Specifiers,internal port specifier>>
 
 The command, event, parameter, and telemetry specifiers are collectively
 referred to as *dictionary specifiers*.
