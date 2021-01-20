@@ -59,7 +59,8 @@ telemetry()
 
 types()
 {
-  update "-p $PWD" types
+  update "-p $PWD -n types.names.txt" types
+  mv types.names.txt types.names.ref.txt
   move_xml TypesComponent \
     Types_AArray \
     Types_EEnum \

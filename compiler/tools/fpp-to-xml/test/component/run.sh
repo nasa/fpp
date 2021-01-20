@@ -59,7 +59,8 @@ telemetry()
 
 types()
 {
-  run_test "-p $PWD" types && \
+  run_test "-p $PWD -n types.names.txt" types && \
+    diff -u types.names.txt types.names.ref.txt && \
     diff_xml TypesComponent \
       Types_AArray \
       Types_EEnum \
