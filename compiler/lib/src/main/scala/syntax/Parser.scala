@@ -23,6 +23,7 @@ object Parser extends Parsers {
   }
 
   def componentMemberNode: Parser[Ast.ComponentMember.Node] = {
+    node(defAbsType) ^^ { case n => Ast.ComponentMember.DefAbsType(n) } |
     node(defArray) ^^ { case n => Ast.ComponentMember.DefArray(n) } |
     node(defConstant) ^^ { case n => Ast.ComponentMember.DefConstant(n) } |
     node(defEnum) ^^ { case n => Ast.ComponentMember.DefEnum(n) } |

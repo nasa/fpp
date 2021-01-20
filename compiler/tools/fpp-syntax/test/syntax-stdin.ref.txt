@@ -17,6 +17,31 @@ def module
   def component
     kind active
     ident C
+    def abs type
+      ident T
+    def array
+      ident A
+      size literal int 3
+      type name U32
+    def struct
+      ident S
+      struct type member
+        ident x
+        type name U32
+      struct type member
+        ident y
+        type name F32
+      struct type member
+        ident z
+        type name string
+    def enum
+      ident E
+      def enum constant
+        ident X
+      def enum constant
+        ident Y
+      def enum constant
+        ident Z
     @ Command specifier
     spec command
       kind async
