@@ -26,9 +26,9 @@ case class XmlWriterState(
     def getDirectiveForSymbol(sym: Symbol): Option[String] =
       for {
         tagFileName <- sym match {
-          case Symbol.AbsType(_) => Some(
+          case Symbol.AbsType(aNode) => Some(
             "include_header",
-            sym.getUnqualifiedName ++ ".hpp"
+            getName(Symbol.AbsType(aNode)) ++ ".hpp"
           )
           case Symbol.Array(aNode) => Some(
             "import_array_type",

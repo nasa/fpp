@@ -67,5 +67,6 @@ types()
     Types_SSerializable \
     Types_AUseArray \
     Types_EUseArray \
-    Types_SUseArray
+    Types_SUseArray \
+    Types_TUseArray
 } 
