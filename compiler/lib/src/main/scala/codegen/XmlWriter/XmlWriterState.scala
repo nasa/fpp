@@ -17,9 +17,10 @@ case class XmlWriterState(
   locationMap: Map[String, Location] = Map()
 ) {
 
-  /** Get the name of a symbol.
-   *  If a symbol is defined in a component, then prefix its name
-   *  with the component name. */
+  /** Gets the name of a symbol.
+   *  If a symbol is defined in a component, then we prefix its name
+   *  with the component name. This is to work around the fact that
+   *  we cannot define classes inside components in the F Prime XML. */
   def getSymbolName(symbol: Symbol): String = {
     val name = symbol.getUnqualifiedName
     a.parentSymbolMap.get(symbol) match {
