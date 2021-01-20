@@ -37,7 +37,8 @@ object XmlWriter extends AstStateVisitor with LineUtils {
   override def defEnumAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
     val (_, node, _) = aNode
     val data = node.data
-    val fileName = XmlWriterState.getEnumFileName(data.name)
+    val name = s.getSymbolName(Symbol.Enum(aNode))
+    val fileName = XmlWriterState.getEnumFileName(name)
     val lines = EnumXmlWriter.defEnumAnnotatedNode(s, aNode)
     writeXmlFile(s, fileName, lines)
   }
@@ -66,7 +67,8 @@ object XmlWriter extends AstStateVisitor with LineUtils {
     val (_, node, _) = aNode
     val loc = Locations.get(node.id)
     val data = node.data
-    val fileName = XmlWriterState.getStructFileName(data.name)
+    val name = s.getSymbolName(Symbol.Struct(aNode))
+    val fileName = XmlWriterState.getStructFileName(name)
     val lines = StructXmlWriter.defStructAnnotatedNode(s, aNode)
     for {
       _ <- if (data.members.length == 0) Left(CodeGenError.EmptyStruct(loc)) else Right(())
