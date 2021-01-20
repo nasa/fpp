@@ -1,4 +1,5 @@
 tests="
+abs_type_ok
 active_no_async_input
 array_default_error
 array_format_not_numeric
