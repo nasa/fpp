@@ -17,6 +17,7 @@ passive component C2 {
   array C1_A_use = [3] C1.A
   constant C1_a_use = C1.a
   array C1_S_use = [3] C1.S
+  array C1_T_use = [3] C1.T
   constant C1_E_use = C1.E.X
 }
 

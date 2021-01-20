@@ -19,6 +19,7 @@ passive component C1 {
   constant a = 0
   enum E { X, Y }
   struct S { x: U32 }
+  type T
 }
 
 # Placeholders for core F Prime ports
