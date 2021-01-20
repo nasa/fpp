@@ -64,5 +64,7 @@ types()
       Types_AArray \
       Types_EEnum \
       Types_SSerializable \
-      AArray
+      Types_AUseArray \
+      Types_EUseArray \
+      Types_SUseArray
 }

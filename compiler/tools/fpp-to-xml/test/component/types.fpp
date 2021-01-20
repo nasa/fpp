@@ -4,8 +4,10 @@ passive component Types {
 
   enum E { X }
 
-  struct S { x: U32 }
+  struct S { x: U32, y: F32 }
 
 }
 
-array A = [3] Types.A
+array Types_AUse = [3] Types.A
+array Types_EUse = [3] Types.E
+array Types_SUse = [3] Types.S
