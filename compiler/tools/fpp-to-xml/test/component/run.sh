@@ -56,3 +56,13 @@ telemetry()
   run_test "-p $PWD -i ports.fpp" telemetry && \
     diff_xml TelemetryComponent
 }
+
+types()
+{
+  run_test "-p $PWD" types && \
+    diff_xml TypesComponent \
+      Types_AArray \
+      Types_EEnum \
+      Types_SSerializable \
+      AArray
+}

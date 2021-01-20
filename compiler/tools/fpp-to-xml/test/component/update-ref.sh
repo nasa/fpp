@@ -56,3 +56,13 @@ telemetry()
   update "-p $PWD -i ports.fpp" telemetry
   move_xml TelemetryComponent
 }
+
+types()
+{
+  update "-p $PWD" types
+  move_xml TypesComponent \
+    Types_AArray \
+    Types_EEnum \
+    Types_SSerializable \
+    AArray
+} 

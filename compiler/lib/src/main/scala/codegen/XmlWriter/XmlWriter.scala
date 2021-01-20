@@ -21,7 +21,8 @@ object XmlWriter extends AstStateVisitor with LineUtils {
   override def defComponentAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefComponent]]) = {
     val (_, node, _) = aNode
     val data = node.data
-    val fileName = XmlWriterState.getComponentFileName(data.name)
+    val name = s.getName(Symbol.Component(aNode))
+    val fileName = XmlWriterState.getComponentFileName(name)
     val lines = ComponentXmlWriter.defComponentAnnotatedNode(s, aNode)
     for {
       _ <- {
@@ -58,7 +59,8 @@ object XmlWriter extends AstStateVisitor with LineUtils {
   override def defPortAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefPort]]) = {
     val (_, node, _) = aNode
     val data = node.data
-    val fileName = XmlWriterState.getPortFileName(data.name)
+    val name = s.getName(Symbol.Port(aNode))
+    val fileName = XmlWriterState.getPortFileName(name)
     val lines = PortXmlWriter.defPortAnnotatedNode(s, aNode)
     writeXmlFile(s, fileName, lines)
   }

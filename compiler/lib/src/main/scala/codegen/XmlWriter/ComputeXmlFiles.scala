@@ -29,7 +29,8 @@ object ComputeXmlFiles extends AstStateVisitor {
     val (_, node1, _) = node
     val data = node1.data
     val loc = Locations.get(node1.id)
-    val fileName = XmlWriterState.getComponentFileName(data.name)
+    val name = s.getName(Symbol.Component(node))
+    val fileName = XmlWriterState.getComponentFileName(name)
     for {
       s <- visitList(s, data.members, matchComponentMember)
       s <- addMapping(s, fileName, loc)
@@ -59,7 +60,8 @@ object ComputeXmlFiles extends AstStateVisitor {
     val (_, node1, _) = node
     val data = node1.data
     val loc = Locations.get(node1.id)
-    val fileName = XmlWriterState.getPortFileName(data.name)
+    val name = s.getName(Symbol.Port(node))
+    val fileName = XmlWriterState.getPortFileName(name)
     addMapping(s, fileName, loc)
   }
 

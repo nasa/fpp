@@ -32,19 +32,19 @@ case class XmlWriterState(
           )
           case Symbol.Array(aNode) => Some(
             "import_array_type",
-            XmlWriterState.getArrayFileName(aNode._2.data.name)
+            XmlWriterState.getArrayFileName(getName(Symbol.Array(aNode)))
           )
           case Symbol.Enum(aNode) => Some(
             "import_enum_type",
-            XmlWriterState.getEnumFileName(aNode._2.data.name)
+            XmlWriterState.getEnumFileName(getName(Symbol.Enum(aNode)))
           )
           case Symbol.Port(aNode) => Some(
             "import_port_type",
-            XmlWriterState.getPortFileName(aNode._2.data.name)
+            XmlWriterState.getPortFileName(getName(Symbol.Port(aNode)))
           )
           case Symbol.Struct(aNode) => Some(
             "import_serializable_type",
-            XmlWriterState.getStructFileName(aNode._2.data.name)
+            XmlWriterState.getStructFileName(getName(Symbol.Struct(aNode)))
           )
           case _ => None
         }

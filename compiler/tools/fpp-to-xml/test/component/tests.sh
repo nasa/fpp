@@ -8,4 +8,5 @@ parameters
 ports
 special_ports
 telemetry
+types
 "
