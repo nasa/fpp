@@ -92,6 +92,7 @@ trait AstVisitor {
   final def matchComponentMember(in: In, member: Ast.ComponentMember): Out = {
     val (pre, node, post) =  member.node
     node match {
+      case Ast.ComponentMember.DefAbsType(node1) => defAbsTypeAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.DefArray(node1) => defArrayAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.DefConstant(node1) => defConstantAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.DefEnum(node1) => defEnumAnnotatedNode(in, (pre, node1, post))

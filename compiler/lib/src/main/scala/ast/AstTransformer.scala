@@ -192,6 +192,8 @@ trait AstTransformer {
     }
     val (pre, node, post) =  member.node
     node match {
+      case Ast.ComponentMember.DefAbsType(node1) => 
+        transform(defAbsTypeAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.DefAbsType(_))
       case Ast.ComponentMember.DefArray(node1) => 
         transform(defArrayAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.DefArray(_))
       case Ast.ComponentMember.DefConstant(node1) => 

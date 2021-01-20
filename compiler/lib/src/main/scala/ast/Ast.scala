@@ -51,6 +51,7 @@ object Ast {
   final case class ComponentMember(node: Annotated[ComponentMember.Node])
   object ComponentMember {
     sealed trait Node
+    final case class DefAbsType(node: AstNode[Ast.DefAbsType]) extends Node
     final case class DefArray(node: AstNode[Ast.DefArray]) extends Node
     final case class DefConstant(node: AstNode[Ast.DefConstant]) extends Node
     final case class DefEnum(node: AstNode[Ast.DefEnum]) extends Node
