@@ -17,18 +17,6 @@ case class XmlWriterState(
   locationMap: Map[String, Location] = Map()
 ) {
 
-  /** Gets the name of a symbol.
-   *  If a symbol is defined in a component, then we prefix its name
-   *  with the component name. This is to work around the fact that
-   *  we cannot define classes inside components in the F Prime XML. */
-  def getSymbolName(symbol: Symbol): String = {
-    val name = symbol.getUnqualifiedName
-    a.parentSymbolMap.get(symbol) match {
-      case Some(cs: Symbol.Component) => s"${cs.getUnqualifiedName}_$name"
-      case _ => name
-    }
-  }
-
   /** Removes the longest prefix from a Java path */
   def removeLongestPrefix(path: File.JavaPath): File.JavaPath = 
     File.removeLongestPrefix(prefixes)(path)
@@ -93,7 +81,7 @@ case class XmlWriterState(
               // Skip component symbol names
               // Those appear in the prefixes of definition names
               case cs: Symbol.Component => out
-              case _ => getSymbolName(sym) :: out
+              case _ => getName(sym) :: out
             }
             helper(psOpt, out1)
         }
@@ -104,17 +92,40 @@ case class XmlWriterState(
     shortName.toString.replaceAll("\\.", "::")
   }
 
-  /** Get the enclosing namespace */
-  def getNamespace: String = a.scopeNameList.reverse match {
-    case Nil => ""
-    case head :: Nil => head
-    case head :: tail => tail.foldLeft(head)({ case (s, name) => s ++ "::" ++ name })
+  /** Gets the name associated with a symbol.
+   *  If a symbol is defined in a component, then we prefix its name
+   *  with the component name. This is to work around the fact that
+   *  we cannot define classes inside components in the F Prime XML. */
+  def getName(symbol: Symbol): String = {
+    val name = symbol.getUnqualifiedName
+    a.parentSymbolMap.get(symbol) match {
+      case Some(cs: Symbol.Component) => s"${cs.getUnqualifiedName}_$name"
+      case _ => name
+    }
   }
 
-  /** Get the enclosing namespace and the name */
-  def getNamespaceAndName(name: String): List[(String, String)] = {
-    val namespace = this.getNamespace
-    val namePair = ("name", name)
+  /** Gets the namespace associated with a symbol */
+  def getNamespace(symbol: Symbol): String = {
+    def helper(symbolOpt: Option[Symbol], out: String): String = {
+      symbolOpt match {
+        case None => out
+        case Some(symbol) =>
+          val ps = a.parentSymbolMap.get(symbol)
+          (symbol, out) match {
+            // Don't add the enclosing component to the namespace
+            case (_: Symbol.Component, _) => helper(ps, out)
+            case (_, "") => helper(ps, symbol.getUnqualifiedName)
+            case (_, _) => helper(ps, s"${symbol.getUnqualifiedName}::$out")
+          }
+      }
+    }
+    helper(a.parentSymbolMap.get(symbol), "")
+  }
+
+  /** Gets the namespace and name associated with a symbol */
+  def getNamespaceAndName(symbol: Symbol): List[(String, String)] = {
+    val namespace = getNamespace(symbol)
+    val namePair = ("name", getName(symbol))
     val namespacePair = ("namespace", namespace)
     if (namespace != "") List(namespacePair, namePair) else List(namePair)
   }

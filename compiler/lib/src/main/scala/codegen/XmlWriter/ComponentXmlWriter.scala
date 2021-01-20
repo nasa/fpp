@@ -15,7 +15,7 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
     val c = s.a.componentMap(symbol)
     val pairs = {
       val data = aNode._2.data
-      s.getNamespaceAndName(data.name) :+ ("kind", data.kind.toString)
+      s.getNamespaceAndName(symbol) :+ ("kind", data.kind.toString)
     }
     val body = {
       def addBlank(ls: List[Line]) = ls match {

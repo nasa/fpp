@@ -20,7 +20,7 @@ object ComputeXmlFiles extends AstStateVisitor {
     val (_, node1, _) = node
     val data = node1.data
     val loc = Locations.get(node1.id)
-    val name = s.getSymbolName(Symbol.Array(node))
+    val name = s.getName(Symbol.Array(node))
     val fileName = XmlWriterState.getArrayFileName(name)
     addMapping(s, fileName, loc)
   }
@@ -41,7 +41,7 @@ object ComputeXmlFiles extends AstStateVisitor {
     val (_, node1, _) = node
     val data = node1.data
     val loc = Locations.get(node1.id)
-    val name = s.getSymbolName(Symbol.Enum(node))
+    val name = s.getName(Symbol.Enum(node))
     val fileName = XmlWriterState.getEnumFileName(name)
     addMapping(s, fileName, loc)
   }
@@ -67,7 +67,7 @@ object ComputeXmlFiles extends AstStateVisitor {
     val (_, node1, _) = node
     val data = node1.data
     val loc = Locations.get(node1.id)
-    val name = s.getSymbolName(Symbol.Struct(node))
+    val name = s.getName(Symbol.Struct(node))
     val fileName = XmlWriterState.getStructFileName(name)
     addMapping(s, fileName, loc)
   }

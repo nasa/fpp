@@ -12,9 +12,8 @@ object StructXmlWriter extends AstVisitor with LineUtils {
   override def defStructAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
     val node = aNode._2
     val data = node.data
-    val name = s.getSymbolName(Symbol.Struct(aNode))
     val tags = {
-      val pairs = s.getNamespaceAndName(name)
+      val pairs = s.getNamespaceAndName(Symbol.Struct(aNode))
       XmlTags.tags("serializable", pairs)
     }
     val body = {

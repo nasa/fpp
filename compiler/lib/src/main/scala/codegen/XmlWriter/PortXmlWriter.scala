@@ -16,7 +16,7 @@ object PortXmlWriter extends AstVisitor with LineUtils {
     val node = aNode._2
     val data = node.data
     val tags = {
-      val pairs = s.getNamespaceAndName(data.name)
+      val pairs = s.getNamespaceAndName(Symbol.Port(aNode))
       XmlTags.tags("interface", pairs)
     }
     val body = {
