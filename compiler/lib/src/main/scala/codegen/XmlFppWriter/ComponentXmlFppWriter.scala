@@ -124,12 +124,29 @@ object ComponentXmlFppWriter extends LineUtils {
             val priority = XmlFppWriter.getAttributeOpt(xmlNode, "priority").map(
               text => AstNode.create(Ast.ExprLiteralInt(text))
             )
-            Ast.SpecPortInstance.General(kind, name, size, port, priority, queueFull)
+            General(kind, name, size, port, priority, queueFull)
           }
         }
 
-        def special(file: XmlFppWriter.File, xmlNode: scala.xml.Node, role: String) =
-          Left(file.error(XmlError.SemanticError(_, s"special not implemented")))
+        def special(file: XmlFppWriter.File, xmlNode: scala.xml.Node, role: String) = {
+          import Ast.SpecPortInstance._
+          for {
+            kind <- role match {
+              case "Cmd" => Right(CommandRecv)
+              case "CmdRegistration" => Right(CommandReg)
+              case "CmdResponse" => Right(CommandResp)
+              case "LogEvent" => Right(Ast.SpecPortInstance.Event)
+              case "ParamGet" => Right(ParamGet)
+              case "ParamSet" => Right(ParamSet)
+              case "Telemetry" => Right(Telemetry)
+              case "LogTextEvent" => Right(TextEvent)
+              case "TimeGet" => Right(TimeGet)
+              case _ => Left(file.semanticError(s"invalid role $role"))
+            }
+            name <- file.getAttribute(xmlNode, "name")
+          }
+          yield Special(kind, name)
+        }
 
         override def generate(file: XmlFppWriter.File, xmlNode: scala.xml.Node) = {
           for {
