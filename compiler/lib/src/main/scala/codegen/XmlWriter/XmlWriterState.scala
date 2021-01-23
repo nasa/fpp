@@ -109,11 +109,10 @@ case class XmlWriterState(
       helper(Some(sym), Nil)
     }
     val qualifiedName = Name.Qualified.fromIdentList(identList)
-    val shortName = a.shortName(qualifiedName)
-    shortName.toString.replaceAll("\\.", "::")
+    qualifiedName.toString.replaceAll("\\.", "::")
   }
 
-  /** Gets the name associated with a symbol.
+  /** Gets the unqualified name associated with a symbol.
    *  If a symbol is defined in a component, then we prefix its name
    *  with the component name. This is to work around the fact that
    *  we cannot define classes inside components in the F Prime XML. */
