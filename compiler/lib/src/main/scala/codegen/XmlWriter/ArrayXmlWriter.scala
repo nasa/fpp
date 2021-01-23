@@ -23,7 +23,7 @@ object ArrayXmlWriter extends AstVisitor with LineUtils {
       val imports = s1.writeImportDirectives
       val arrayType @ Type.Array(_, _, _, _) = s.a.typeMap(node.id) 
 
-      val arrType = {
+      val ty = {
         val typeName = TypeXmlWriter.getName(s, arrayType.anonArray.eltType)
         val stringSize = TypeXmlWriter.getSize(s, arrayType.anonArray.eltType)
         val openTag = stringSize match {
@@ -34,7 +34,7 @@ object ArrayXmlWriter extends AstVisitor with LineUtils {
         val tags = openTag ++ typeName ++ closeTag
         List(line(tags))
       }
-      val arrSize = {
+      val size = {
         val tags = XmlTags.tags("size")
         val mappedSize = arrayType.getArraySize match {
           case Some(mappedSize) => mappedSize.toString
@@ -42,7 +42,7 @@ object ArrayXmlWriter extends AstVisitor with LineUtils {
         }
         List(line(XmlTags.taggedString(tags)(mappedSize)))
       }
-      val arrFormat = {
+      val format = {
         val tags = XmlTags.tags("format")
         val format = arrayType.format match {
           case Some(format) => format
@@ -51,27 +51,33 @@ object ArrayXmlWriter extends AstVisitor with LineUtils {
         val s = FormatXmlWriter.formatToString(format, List(data.eltType))
         List(line(XmlTags.taggedString(tags)(s)))
       }
-      val arrDefault = {
+      val default = {
         val defaultTags = XmlTags.tags("default")
-        val ls = arrayType.getDefaultValue.map(arrayTypeDefaultValue(s, _))
-        XmlTags.taggedLines(defaultTags)(ls.get.map(indentIn))
+        val defaultValue = arrayType.getDefaultValue.get
+        val ls = writeDefaultValue(s, defaultValue)
+        XmlTags.taggedLines(defaultTags)(ls.map(indentIn))
       }
-      imports ++ comment ++ arrType ++ arrSize ++ arrFormat ++ arrDefault
+      List(
+        imports,
+        comment,
+        ty,
+        size,
+        format,
+        default
+      ).flatten
     } 
     XmlTags.taggedLines(tags)(body.map(indentIn))
   }
 
-  // Returns list of value lines for each value in array
-  def arrayTypeDefaultValue(
+  /** Writes the default value corresponding to an array value */
+  def writeDefaultValue(
     s: XmlWriterState,
-    defaultValue: Value.Array
+    arrayValue: Value.Array
   ): List[Line] = {
-    val valueTags = XmlTags.tags("value")
-    val elements = defaultValue.anonArray.elements
-    val defaultType = defaultValue.anonArray.getType
-    val valueList = elements.map( ValueXmlWriter.getValue(s, _) )
-    val tags = valueList.map( XmlTags.taggedString(valueTags)(_) )
-    tags.map(line(_))
+    val tags = XmlTags.tags("value")
+    val elements = arrayValue.anonArray.elements
+    val values = elements.map(ValueXmlWriter.getValue(s, _))
+    values.map(XmlTags.taggedString(tags)(_)).map(line)
   }
 
   type In = XmlWriterState

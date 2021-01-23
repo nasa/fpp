@@ -17,3 +17,9 @@ array_struct()
   run_test "-p $PWD" array_struct && \
     diff_xml ArrayStructS1Serializable ArrayStructS2Serializable ArrayStruct1Array ArrayStruct2Array
 }
+
+built_in_type()
+{
+  run_test "-p $PWD" built_in_type && \
+    diff_xml BuiltInTypeArray
+}

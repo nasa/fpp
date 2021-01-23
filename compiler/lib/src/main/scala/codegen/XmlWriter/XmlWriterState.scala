@@ -17,6 +17,21 @@ case class XmlWriterState(
   locationMap: Map[String, Location] = Map()
 ) {
 
+  /** A mapping from special built-in types to their
+   *  default values */
+  val zero = Value.Integer(0)
+  val builtInTypes = Map(
+    "FwBuffSizeType" -> zero,
+    "FwChanIdType" -> zero,
+    "FwEnumStoreType" -> zero,
+    "FwEventIdType" -> zero,
+    "FwOpcodeType" -> zero,
+    "FwPacketDescriptorType" -> zero,
+    "FwPrmIdType" -> zero,
+    "FwTimeBaseStoreType" -> zero,
+    "FwTimeContextStoreType" -> zero,
+  )
+
   /** Removes the longest prefix from a Java path */
   def removeLongestPrefix(path: File.JavaPath): File.JavaPath = 
     File.removeLongestPrefix(prefixes)(path)
@@ -25,11 +40,17 @@ case class XmlWriterState(
   def writeImportDirectives: List[Line] = {
     def getDirectiveForSymbol(sym: Symbol): Option[String] =
       for {
-        tagFileName <- sym match {
-          case Symbol.AbsType(aNode) => Some(
-            "include_header",
-            getName(Symbol.AbsType(aNode)) ++ ".hpp"
-          )
+        tagFileName <-
+        sym match {
+          case Symbol.AbsType(aNode) => 
+            val symbol = Symbol.AbsType(aNode)
+            // Don't import headers for built-in types
+            val cppName = writeSymbol(symbol)
+            if (builtInTypes.contains(cppName)) None
+            else {
+              val name = getName(symbol)
+              Some("include_header", s"${name}.hpp")
+            }
           case Symbol.Array(aNode) => Some(
             "import_array_type",
             XmlWriterState.getArrayFileName(getName(Symbol.Array(aNode)))
