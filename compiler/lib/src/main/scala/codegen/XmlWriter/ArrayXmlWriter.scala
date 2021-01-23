@@ -23,7 +23,7 @@ object ArrayXmlWriter extends AstVisitor with LineUtils {
       val imports = s1.writeImportDirectives
       val arrayType @ Type.Array(_, _, _, _) = s.a.typeMap(node.id) 
 
-      val ty = {
+      val t = {
         val typeName = TypeXmlWriter.getName(s, arrayType.anonArray.eltType)
         val stringSize = TypeXmlWriter.getSize(s, arrayType.anonArray.eltType)
         val openTag = stringSize match {
@@ -60,7 +60,7 @@ object ArrayXmlWriter extends AstVisitor with LineUtils {
       List(
         imports,
         comment,
-        ty,
+        t,
         size,
         format,
         default
