@@ -30,6 +30,9 @@ case class XmlWriterState(
     "FwPrmIdType" -> zero,
     "FwTimeBaseStoreType" -> zero,
     "FwTimeContextStoreType" -> zero,
+    "NATIVE_INT_TYPE" -> zero,
+    "NATIVE_UINT_TYPE" -> zero,
+    "POINTER_CAST" -> zero,
   )
 
   /** Removes the longest prefix from a Java path */
