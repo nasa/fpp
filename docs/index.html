@@ -484,7 +484,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#Definitions_Component-Instance-Definitions_Syntax">5.4.1. Syntax</a></li>
 <li><a href="#Definitions_Component-Instance-Definitions_Semantics">5.4.2. Semantics</a></li>
-<li><a href="#Definitions_Component-Instance-Definitions_Example">5.4.3. Example</a></li>
+<li><a href="#Definitions_Component-Instance-Definitions_Examples">5.4.3. Examples</a></li>
 </ul>
 </li>
 <li><a href="#Definitions_Constant-Definitions">5.5. Constant Definitions</a>
@@ -1820,6 +1820,9 @@ that you can refer to in a
 <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a>
 <code>base</code> <code>id</code> <a href="#Expressions"><em>expression</em></a>
 <em>[</em>
+<code>at</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a>
+<em>]</em>
+<em>[</em>
 <code>queue</code> <code>size</code> <a href="#Expressions"><em>expression</em></a>
 <em>]</em>
 <em>[</em>
@@ -1851,6 +1854,17 @@ The base identifier is used when resolving command opcodes and
 event, telemetry, and parameter identifiers.</p>
 </li>
 <li>
+<p>If present, the string literal following the keyword <code>at</code>
+must specify a file path, relative to the
+<a href="#Translation-Units-and-Models_Locations">location</a>
+of the component instance definition.
+The file path must name a file in the target language (e.g., a C++ header file)
+that provides the implementation associated with the instance.
+If no such path is given, then the translator uses the location
+of the component instance and the name of the component to generate
+a default implementation path.</p>
+</li>
+<li>
 <p>If present, the expression following the keywords <code>queue</code> <code>size</code> must
 have a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.
 It specifies the queue size for active and queued components.
@@ -1875,7 +1889,7 @@ for queued or passive components.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Component-Instance-Definitions_Example">5.4.3. Example</h4>
+<h4 id="Definitions_Component-Instance-Definitions_Examples">5.4.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">instance commandDispatcher: Svc.CommandDispatcher \
@@ -1884,6 +1898,24 @@ for queued or passive components.</p>
   stack size 4096 \
   priority 30</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>This example defines an instance <code>commandDispatcher</code>
+of component <code>Svc.CommandDispatcher</code>.
+It specifies the base identifier, queue size, stack size,
+and priority.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">instance timer: Svc.Timer at "../../Timers/HardwareTimer.hpp"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This example defines an instance <code>timer</code> of component <code>Svc.Timer</code>.
+It specifies that the component implementation is located at
+path <code>../../Timers/HardwareTimer.hpp</code> instead of in the default location for the
+component.
+The path is resolved relative to the location of the instance definition.</p>
 </div>
 </div>
 </div>
@@ -7744,7 +7776,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-01-20 09:50:15 -0800
+Last updated 2021-01-27 10:05:17 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
