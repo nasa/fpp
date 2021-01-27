@@ -143,9 +143,10 @@ def module
     ident c
     component qual ident C
     base id literal int 0x100
-    queue size literal int 0x100
-    stack size literal int 0x100
-    priority literal int 0x100
+    file C.hpp
+    queue size literal int 100
+    stack size literal int 1024
+    priority literal int 10
   @< Component instance definition
   @ Constant definition
   def constant

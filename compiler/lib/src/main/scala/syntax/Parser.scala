@@ -76,11 +76,12 @@ object Parser extends Parsers {
 
   def defComponentInstance: Parser[Ast.DefComponentInstance] = {
     (instance ~>! ident) ~! (colon ~>! node(qualIdent)) ~! (base ~! id ~>! exprNode) ~!
+    opt(at ~>! node(literalString)) ~!
     opt(queue ~! size ~>! exprNode) ~!
     opt(stack ~! size ~>! exprNode) ~!
     opt(priority ~>! exprNode) ^^ {
-      case name ~ typeName ~ baseId ~ queueSize ~ stackSize ~ priority => 
-        Ast.DefComponentInstance(name, typeName, baseId, queueSize, stackSize, priority)
+      case name ~ typeName ~ baseId ~ file ~ queueSize ~ stackSize ~ priority => 
+        Ast.DefComponentInstance(name, typeName, baseId, file, queueSize, stackSize, priority)
     }
   }
 

@@ -89,6 +89,7 @@ object Ast {
     name: Ident,
     component: AstNode[QualIdent],
     baseId: AstNode[Expr],
+    file: Option[AstNode[String]],
     queueSize: Option[AstNode[Expr]],
     stackSize: Option[AstNode[Expr]],
     priority: Option[AstNode[Expr]]
