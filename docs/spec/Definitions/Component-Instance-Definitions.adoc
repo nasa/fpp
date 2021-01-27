@@ -14,6 +14,9 @@ that you can refer to in a
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
 `base` `id` <<Expressions,_expression_>>
 _[_
+`at` <<Expressions_String-Literals,_string-literal_>>
+_]_
+_[_
 `queue` `size` <<Expressions,_expression_>>
 _]_
 _[_
@@ -38,6 +41,16 @@ It associates a base identifier with the component instance.
 The base identifier is used when resolving command opcodes and
 event, telemetry, and parameter identifiers.
 
+* If present, the string literal following the keyword `at`
+must specify a file path, relative to the
+<<Translation-Units-and-Models_Locations,location>>
+of the component instance definition.
+The file path must name a file in the target language (e.g., a C++ header file)
+that provides the implementation associated with the instance.
+If no such path is given, then the translator uses the location
+of the component instance and the name of the component to generate
+a default implementation path.
+
 * If present, the expression following the keywords `queue` `size` must 
 have a <<Types_Internal-Types_Numeric-Types,numeric type>>.
 It specifies the queue size for active and queued components.
@@ -56,7 +69,7 @@ It specifies the thread priority for active components.
 The priority is required for active components and is not allowed
 for queued or passive components.
 
-==== Example
+==== Examples
 
 [source,fpp]
 ----
@@ -66,3 +79,19 @@ instance commandDispatcher: Svc.CommandDispatcher \
   stack size 4096 \
   priority 30
 ----
+
+This example defines an instance `commandDispatcher`
+of component `Svc.CommandDispatcher`.
+It specifies the base identifier, queue size, stack size,
+and priority.
+
+[source,fpp]
+----
+instance timer: Svc.Timer at "../../Timers/HardwareTimer.hpp"
+----
+
+This example defines an instance `timer` of component `Svc.Timer`.
+It specifies that the component implementation is located at
+path `../../Timers/HardwareTimer.hpp` instead of in the default location for the 
+component.
+The path is resolved relative to the location of the instance definition.
