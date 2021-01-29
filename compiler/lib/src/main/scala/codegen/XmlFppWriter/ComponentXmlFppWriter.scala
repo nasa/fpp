@@ -87,7 +87,22 @@ object ComponentXmlFppWriter extends LineUtils {
         
         val xmlName = "import_dictionary"
 
-        // TODO: generate
+        override def generate(file: XmlFppWriter.File, xmlNode: scala.xml.Node) =
+          for {
+            child <- file.getUniqueChild(xmlNode)
+          }
+          yield {
+            val path = child.toString
+            val fileName = path.split("/").toList.reverse.head
+            val fileNameNode = AstNode.create(fileName)
+            val specIncludeNode = AstNode.create(Ast.SpecInclude(fileNameNode))
+            val memberNode = Ast.ComponentMember.SpecInclude(specIncludeNode)
+            val annotation = if (fileName == path) Nil else {
+              val s = s"original path was $path"
+              List(XmlFppWriter.constructNote(s))
+            }
+            (annotation, memberNode, Nil)
+          }
 
       }
 

@@ -68,7 +68,7 @@ object XmlFppWriter extends LineUtils {
         case None => Right(defaultValue)
       }
 
-    /** Gets a single child from a node, returning an error if it is not there */
+    /** Gets a single named child from a node, returning an error if it is not there */
     def getSingleChild(node: scala.xml.Node, name: String): Result.Result[scala.xml.Node] =
       getSingleChildOpt(node, name) match {
         case Right(Some(child)) => Right(child)
@@ -76,12 +76,20 @@ object XmlFppWriter extends LineUtils {
         case Left(e) => Left(e)
       }
 
-    /** Gets an optional single child from a node */
+    /** Gets an optional single named child from a node */
     def getSingleChildOpt(node: scala.xml.Node, name: String): Result.Result[Option[scala.xml.Node]] =
       (node \ name).toList match {
         case head :: Nil => Right(Some(head))
         case Nil => Right(None)
         case _ => Left(error(XmlError.SemanticError(_, s"multiple child nodes $name for node ${node.toString}")))
+      }
+
+    /** Gets the unique child of a node */
+    def getUniqueChild(node: scala.xml.Node): Result.Result[scala.xml.Node] =
+      node.child.size match {
+        case 0 => Left(semanticError(s"missing child for node ${node.toString}"))
+        case 1 => Right(node.child.head)
+        case _ => Left(semanticError(s"too many children of node ${node.toString}"))
       }
 
     /** Reports an invalid attribute */
