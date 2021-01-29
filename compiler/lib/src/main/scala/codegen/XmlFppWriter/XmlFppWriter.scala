@@ -62,7 +62,7 @@ object XmlFppWriter extends LineUtils {
             Right(value.toInt) 
           } catch {
             case _: Exception => Left(
-              error(XmlError.SemanticError(_, s"invalid value $value for node ${node.toString}"))
+              semanticError(s"invalid value $value for node ${node.toString}")
             )
           }
         case None => Right(defaultValue)
@@ -72,7 +72,7 @@ object XmlFppWriter extends LineUtils {
     def getSingleChild(node: scala.xml.Node, name: String): Result.Result[scala.xml.Node] =
       getSingleChildOpt(node, name) match {
         case Right(Some(child)) => Right(child)
-        case Right(None) => Left(error(XmlError.SemanticError(_, s"missing child $name for node ${node.toString}")))
+        case Right(None) => Left(semanticError(s"missing child $name for node ${node.toString}"))
         case Left(e) => Left(e)
       }
 
@@ -81,7 +81,7 @@ object XmlFppWriter extends LineUtils {
       (node \ name).toList match {
         case head :: Nil => Right(Some(head))
         case Nil => Right(None)
-        case _ => Left(error(XmlError.SemanticError(_, s"multiple child nodes $name for node ${node.toString}")))
+        case _ => Left(semanticError(s"multiple child nodes $name for node ${node.toString}"))
       }
 
     /** Gets the unique child of a node */
@@ -94,7 +94,7 @@ object XmlFppWriter extends LineUtils {
 
     /** Reports an invalid attribute */
     def invalidAttribute(name: String, node: scala.xml.Node): Error =
-      error(XmlError.SemanticError(_, s"invalid attribute $name in node ${node.toString}"))
+      semanticError(s"invalid attribute $name in node ${node.toString}")
 
     /** Translates an XML type to an FPP type name */
     def translateType
@@ -144,7 +144,7 @@ object XmlFppWriter extends LineUtils {
           case "ports" => ComponentXmlFppWriter.writePortsFile(this)
           case "serializable" => StructXmlFppWriter.writeFile(this)
           case "telemetry" => ComponentXmlFppWriter.writeTlmChannelsFile(this)
-          case _ => Left(error(XmlError.SemanticError(_, s"invalid element type $eltType")))
+          case _ => Left(semanticError("invalid element type $eltType"))
         }
       }
       yield body

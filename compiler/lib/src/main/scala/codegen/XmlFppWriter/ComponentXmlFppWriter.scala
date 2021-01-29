@@ -60,7 +60,7 @@ object ComponentXmlFppWriter extends LineUtils {
 
       def generate(file: XmlFppWriter.File, node: scala.xml.Node):
         Result.Result[Ast.Annotated[Ast.ComponentMember.Node]] =
-          Left(file.error(XmlError.SemanticError(_, s"$xmlName not implemented")))
+          Left(file.semanticError(s"$xmlName not implemented"))
 
       final def createMember(file: XmlFppWriter.File, node: scala.xml.Node) = 
         generate(file, node) match {
@@ -274,9 +274,7 @@ object ComponentXmlFppWriter extends LineUtils {
         case "active" => Right(Ast.ComponentKind.Active)
         case "passive" => Right(Ast.ComponentKind.Passive)
         case "queued" => Right(Ast.ComponentKind.Queued)
-        case _ => Left(file.error(
-          XmlError.SemanticError(_, s"invalid component kind $xmlKind")
-        ))
+        case _ => Left(file.semanticError(s"invalid component kind $xmlKind"))
       }
 
     /** Translates the component */
