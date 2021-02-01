@@ -33,15 +33,15 @@ object FormalParamsXmlFppWriter extends LineUtils {
     }
 
   /** Extracts enum definitions from argument and return types */
-  def defEnumAnnotatedList(file: XmlFppWriter.File):
+  def defEnumAnnotatedList(file: XmlFppWriter.File, node: scala.xml.Node):
     Result.Result[List[Ast.Annotated[Ast.DefEnum]]] =
     for {
-      nodeOpt <- file.getSingleChildOpt(file.elem, "args")
+      nodeOpt <- file.getSingleChildOpt(node, "args")
       nodes <- nodeOpt match {
         case Some(node) => Right((node \ "arg").toList)
         case None => Right(Nil)
       }
-      retTypeNodeOpt <- file.getSingleChildOpt(file.elem, "return")
+      retTypeNodeOpt <- file.getSingleChildOpt(node, "return")
       nodes <- retTypeNodeOpt match {
         case Some(node) => Right(nodes :+ node)
         case None => Right(nodes)
