@@ -2,11 +2,22 @@
 
 fpp_syntax=../../../../bin/fpp-syntax
 
-skip="|internal_ports"
+includes="internal_ports"
 
-files=`find . -name '*.ref.txt' | egrep -v "error|missing$skip"`
+files=`find . -name '*.ref.txt' | egrep -v "error|missing|$includes"`
 for file in $files
 do
   echo "checking $file"
   $fpp_syntax < $file
+done
+
+files=`find . -name '*.ref.txt' | grep "$includes"`
+for file in $files
+do
+  echo "checking $file"
+  {
+    echo 'passive component C {'
+    cat $file
+    echo '}'
+  } | $fpp_syntax
 done
