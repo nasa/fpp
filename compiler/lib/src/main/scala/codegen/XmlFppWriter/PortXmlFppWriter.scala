@@ -51,7 +51,7 @@ object PortXmlFppWriter extends LineUtils {
       for {
         comment <- file.getComment(file.elem)
         name <- file.getAttribute(file.elem, "name")
-        params <- FormalParamsXmlFppWriter.formalParamList(file)
+        params <- FormalParamsXmlFppWriter.formalParamList(file, file.elem)
         returnType <- returnTypeOpt(file)
       }
       yield (comment, Ast.DefPort(name, params, returnType), Nil)

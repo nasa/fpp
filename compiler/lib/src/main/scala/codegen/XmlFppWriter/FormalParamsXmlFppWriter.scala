@@ -54,9 +54,12 @@ object FormalParamsXmlFppWriter extends LineUtils {
     yield enumOpts.filter(_.isDefined).map(_.get)
 
   /** Extracts formal parameters */
-  def formalParamList(file: XmlFppWriter.File): Result.Result[Ast.FormalParamList] =
+  def formalParamList(
+    file: XmlFppWriter.File,
+    node: scala.xml.Node
+  ): Result.Result[Ast.FormalParamList] =
     for {
-      childOpt <- file.getSingleChildOpt(file.elem, "args")
+      childOpt <- file.getSingleChildOpt(node, "args")
       result <- childOpt match {
         case Some(child) =>
           val args = child \ "arg"

@@ -187,6 +187,7 @@ object ComponentXmlFppWriter extends LineUtils {
           for {
             comment <- file.getComment(xmlNode)
             name <- file.getAttribute(xmlNode, "name")
+            params <- FormalParamsXmlFppWriter.formalParamList(file, xmlNode)
             queueFull <- {
               val xmlQueueFullOpt = XmlFppWriter.getAttributeOpt(xmlNode, "full")
               translateQueueFullOpt(file, xmlQueueFullOpt)
@@ -196,7 +197,7 @@ object ComponentXmlFppWriter extends LineUtils {
             val priority = XmlFppWriter.getAttributeOpt(xmlNode, "priority").map(
               text => AstNode.create(Ast.ExprLiteralInt(text))
             )
-            val internalPort = Ast.SpecInternalPort(name, Nil, priority, queueFull)
+            val internalPort = Ast.SpecInternalPort(name, params, priority, queueFull)
             val node = AstNode.create(internalPort)
             val memberNode = Ast.ComponentMember.SpecInternalPort(node)
             (comment, memberNode, Nil)
