@@ -2,16 +2,19 @@
 
 fpp_syntax=../../../../bin/fpp-syntax
 
-includes="internal_ports"
+# These tests are component fragments
+fragments="commands|internal_ports"
 
-files=`find . -name '*.ref.txt' | egrep -v "error|missing|$includes"`
+# Check whole components
+files=`find . -name '*.ref.txt' | egrep -v "error|missing|$fragments"`
 for file in $files
 do
   echo "checking $file"
   $fpp_syntax < $file
 done
 
-files=`find . -name '*.ref.txt' | grep "$includes"`
+# Check component fragments
+files=`find . -name '*.ref.txt' | egrep "$fragments"`
 for file in $files
 do
   echo "checking $file"

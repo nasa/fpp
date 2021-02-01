@@ -54,19 +54,23 @@ object ComponentXmlFppWriter extends LineUtils {
         file
       )
 
+    /** Component member generator */
     trait MemberGenerator {
 
       val xmlName: String
 
+      /** Generates a member node */
       def generateMemberNode(file: XmlFppWriter.File, node: scala.xml.Node):
         Result.Result[Ast.Annotated[Ast.ComponentMember.Node]] =
           Left(file.semanticError(s"$xmlName not implemented"))
 
+      /** Generates a list of member nodes */
       def generateMemberNodes(file: XmlFppWriter.File, node: scala.xml.Node):
         Result.Result[List[Ast.Annotated[Ast.ComponentMember.Node]]] =
           for (node <- generateMemberNode(file, node))
             yield List(node)
 
+      /** Generates a list of members */
       final def generateMembers(file: XmlFppWriter.File, node: scala.xml.Node) = 
         generateMemberNodes(file, node) match {
           case Left(error) => Left(error)
@@ -75,15 +79,41 @@ object ComponentXmlFppWriter extends LineUtils {
 
     }
 
-    def translateQueueFullOpt(file: XmlFppWriter.File, xmlQueueFullOpt: Option[String]):
-      Result.Result[Option[Ast.QueueFull]] =
+    /** Extracts enum definitions from argument types */
+    def translateArgEnums(file: XmlFppWriter.File, xmlNode: scala.xml.Node):
+      Result.Result[List[Ast.Annotated[Ast.ComponentMember.DefEnum]]] =
+        for (enums <- FormalParamsXmlFppWriter.defEnumAnnotatedList(file, xmlNode))
+        yield enums.map(aNode => (
+          aNode._1,
+          Ast.ComponentMember.DefEnum(AstNode.create(aNode._2)),
+          aNode._3
+        ))
+
+    /** Translates an optional integer attribute */
+    def translateIntegerOpt(xmlNode: scala.xml.Node, name: String) =
+      XmlFppWriter.getAttributeOpt(xmlNode, name).map(
+          text => AstNode.create(Ast.ExprLiteralInt(text))
+      )
+
+    /** Translates an optional queue full attribute */
+    def translateQueueFullOpt(file: XmlFppWriter.File, xmlNode: scala.xml.Node):
+      Result.Result[Option[Ast.QueueFull]] = {
+        val xmlQueueFullOpt = XmlFppWriter.getAttributeOpt(xmlNode, "full")
         xmlQueueFullOpt match {
           case Some("assert") => Right(Some(Ast.QueueFull.Assert))
           case Some("block") => Right(Some(Ast.QueueFull.Block))
           case Some("drop") => Right(Some(Ast.QueueFull.Drop))
-          case Some(xmlQueueFull) => Left(file.semanticError(s"invalid queue full behavior $xmlQueueFull"))
+          case Some(xmlQueueFull) =>
+            Left(file.semanticError(s"invalid queue full behavior $xmlQueueFull"))
           case None => Right(None)
         }
+      }
+
+    /** Translates an optional queue full attribute as an AST node */
+    def translateQueueFullNodeOpt(file: XmlFppWriter.File, xmlNode: scala.xml.Node):
+      Result.Result[Option[AstNode[Ast.QueueFull]]] =
+        for (qfo <- translateQueueFullOpt(file, xmlNode))
+          yield qfo.map(AstNode.create(_))
 
     case object MemberGenerator {
 
@@ -127,10 +157,7 @@ object ComponentXmlFppWriter extends LineUtils {
             }
             name <- file.getAttribute(xmlNode, "name")
             xmlPort <- file.getAttribute(xmlNode, "data_type")
-            queueFull <- {
-              val xmlQueueFullOpt = XmlFppWriter.getAttributeOpt(xmlNode, "full")
-              translateQueueFullOpt(file, xmlQueueFullOpt)
-            }
+            queueFull <- translateQueueFullOpt(file, xmlNode)
           }
           yield {
             val size = XmlFppWriter.getAttributeOpt(xmlNode, "max_number").map(
@@ -140,9 +167,7 @@ object ComponentXmlFppWriter extends LineUtils {
               case "Serial" => None
               case _ => Some(XmlFppWriter.FppBuilder.translateQualIdent(xmlPort))
             }
-            val priority = XmlFppWriter.getAttributeOpt(xmlNode, "priority").map(
-              text => AstNode.create(Ast.ExprLiteralInt(text))
-            )
+            val priority = translateIntegerOpt(xmlNode, "priority")
             General(kind, name, size, port, priority, queueFull.map(AstNode.create(_)))
           }
         }
@@ -190,31 +215,21 @@ object ComponentXmlFppWriter extends LineUtils {
 
         override def generateMemberNodes(file: XmlFppWriter.File, xmlNode: scala.xml.Node) =
           for {
-            enums <- FormalParamsXmlFppWriter.defEnumAnnotatedList(file, xmlNode)
+            annotatedEnumMemberNodes <- translateArgEnums(file, xmlNode)
             comment <- file.getComment(xmlNode)
             name <- file.getAttribute(xmlNode, "name")
             params <- FormalParamsXmlFppWriter.formalParamList(file, xmlNode)
-            queueFull <- {
-              val xmlQueueFullOpt = XmlFppWriter.getAttributeOpt(xmlNode, "full")
-              translateQueueFullOpt(file, xmlQueueFullOpt)
-            }
+            queueFull <- translateQueueFullOpt(file, xmlNode)
           }
           yield {
-            val annotatedEnumMemberNodes = enums.map(aNode => (
-              aNode._1,
-              Ast.ComponentMember.DefEnum(AstNode.create(aNode._2)),
-              aNode._3
-            ))
-            val annotatedPortMemberNodes = {
-              val priority = XmlFppWriter.getAttributeOpt(xmlNode, "priority").map(
-                text => AstNode.create(Ast.ExprLiteralInt(text))
-              )
+            val annotatedPortMemberNode = {
+              val priority = translateIntegerOpt(xmlNode, "priority")
               val internalPort = Ast.SpecInternalPort(name, params, priority, queueFull)
               val node = AstNode.create(internalPort)
               val memberNode = Ast.ComponentMember.SpecInternalPort(node)
-              List((comment, memberNode, Nil))
+              (comment, memberNode, Nil)
             }
-            annotatedEnumMemberNodes ++ annotatedPortMemberNodes
+            annotatedEnumMemberNodes :+ annotatedPortMemberNode
           }
 
       }
@@ -223,7 +238,39 @@ object ComponentXmlFppWriter extends LineUtils {
 
         val xmlName = "command"
 
-        // TODO: generate
+        override def generateMemberNodes(file: XmlFppWriter.File, xmlNode: scala.xml.Node) =
+          for {
+            xmlKind <- file.getAttribute(xmlNode, "kind")
+            kind <- xmlKind match {
+              case "async" => Right(Ast.SpecCommand.Async)
+              case "guarded" => Right(Ast.SpecCommand.Guarded)
+              case "sync" => Right(Ast.SpecCommand.Sync)
+              case _ => Left(file.semanticError(s"invalid command kind $xmlKind"))
+            }
+            annotatedEnumMemberNodes <- translateArgEnums(file, xmlNode)
+            comment <- file.getComment(xmlNode)
+            name <- file.getAttribute(xmlNode, "mnemonic")
+            params <- FormalParamsXmlFppWriter.formalParamList(file, xmlNode)
+            queueFull <- translateQueueFullNodeOpt(file, xmlNode)
+          }
+          yield {
+            val annotatedCommandMemberNode = {
+              val priority = translateIntegerOpt(xmlNode, "priority")
+              val opcode = translateIntegerOpt(xmlNode, "opcode")
+              val command = Ast.SpecCommand(
+                kind,
+                name,
+                params,
+                opcode,
+                priority,
+                queueFull
+              )
+              val node = AstNode.create(command)
+              val memberNode = Ast.ComponentMember.SpecCommand(node)
+              (comment, memberNode, Nil)
+            }
+            annotatedEnumMemberNodes :+ annotatedCommandMemberNode
+          }
 
       }
 
