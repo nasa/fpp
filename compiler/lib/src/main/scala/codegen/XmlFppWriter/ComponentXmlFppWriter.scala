@@ -237,7 +237,7 @@ object ComponentXmlFppWriter extends LineUtils {
 
       case object Param extends MemberGenerator {
 
-        val xmlName = "paramter"
+        val xmlName = "parameter"
 
         // TODO: generate
 
