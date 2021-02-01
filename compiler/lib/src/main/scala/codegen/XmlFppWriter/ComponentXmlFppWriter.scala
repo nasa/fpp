@@ -71,15 +71,14 @@ object ComponentXmlFppWriter extends LineUtils {
     }
 
     def translateQueueFullOpt(file: XmlFppWriter.File, xmlQueueFullOpt: Option[String]):
-      Result.Result[Option[AstNode[Ast.QueueFull]]] = for {
-        queueFullOpt <- xmlQueueFullOpt match {
+      Result.Result[Option[Ast.QueueFull]] =
+        xmlQueueFullOpt match {
           case Some("assert") => Right(Some(Ast.QueueFull.Assert))
           case Some("block") => Right(Some(Ast.QueueFull.Block))
           case Some("drop") => Right(Some(Ast.QueueFull.Drop))
           case Some(xmlQueueFull) => Left(file.semanticError(s"invalid queue full behavior $xmlQueueFull"))
           case None => Right(None)
         }
-      } yield queueFullOpt.map(AstNode.create(_))
 
     case object NodeGenerator {
 
@@ -139,7 +138,7 @@ object ComponentXmlFppWriter extends LineUtils {
             val priority = XmlFppWriter.getAttributeOpt(xmlNode, "priority").map(
               text => AstNode.create(Ast.ExprLiteralInt(text))
             )
-            General(kind, name, size, port, priority, queueFull)
+            General(kind, name, size, port, priority, queueFull.map(AstNode.create(_)))
           }
         }
 
@@ -184,7 +183,24 @@ object ComponentXmlFppWriter extends LineUtils {
 
         val xmlName = "internal_interface"
 
-        // TODO: generate
+        override def generate(file: XmlFppWriter.File, xmlNode: scala.xml.Node) =
+          for {
+            comment <- file.getComment(xmlNode)
+            name <- file.getAttribute(xmlNode, "name")
+            queueFull <- {
+              val xmlQueueFullOpt = XmlFppWriter.getAttributeOpt(xmlNode, "full")
+              translateQueueFullOpt(file, xmlQueueFullOpt)
+            }
+          }
+          yield {
+            val priority = XmlFppWriter.getAttributeOpt(xmlNode, "priority").map(
+              text => AstNode.create(Ast.ExprLiteralInt(text))
+            )
+            val internalPort = Ast.SpecInternalPort(name, Nil, priority, queueFull)
+            val node = AstNode.create(internalPort)
+            val memberNode = Ast.ComponentMember.SpecInternalPort(node)
+            (comment, memberNode, Nil)
+          }
 
       }
 
