@@ -2,5 +2,6 @@ tests="
 general_ports_active
 general_ports_passive
 import_dictionary
+internal_ports
 special_ports
 "

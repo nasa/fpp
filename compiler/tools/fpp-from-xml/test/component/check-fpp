@@ -2,7 +2,9 @@
 
 fpp_syntax=../../../../bin/fpp-syntax
 
-files=`find . -name '*.ref.txt' | egrep -v 'error|missing'`
+skip="|internal_ports"
+
+files=`find . -name '*.ref.txt' | egrep -v "error|missing$skip"`
 for file in $files
 do
   echo "checking $file"

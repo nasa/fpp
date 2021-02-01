@@ -14,28 +14,28 @@ object ComponentXmlFppWriter extends LineUtils {
 
   /** Writes an imported file */
   private def writeImportedFile
-    (nodeGenerator: FppBuilder.NodeGenerator)
+    (memberGenerator: FppBuilder.MemberGenerator)
     (file: XmlFppWriter.File): XmlFppWriter.Result =
-      for (members <- FppBuilder.mapChildren(file, nodeGenerator))
+      for (members <- FppBuilder.mapChildren(file, memberGenerator))
         yield Line.blankSeparated (FppWriter.componentMember) (members)
 
   /** Writes a commands file */
-  val writeCommandsFile = writeImportedFile(FppBuilder.NodeGenerator.Command) _
+  val writeCommandsFile = writeImportedFile(FppBuilder.MemberGenerator.Command) _
 
   /** Writes a params file */
-  val writeParamsFile = writeImportedFile(FppBuilder.NodeGenerator.Param) _
+  val writeParamsFile = writeImportedFile(FppBuilder.MemberGenerator.Param) _
 
   /** Writes a ports file */
-  val writePortsFile = writeImportedFile(FppBuilder.NodeGenerator.Port) _
+  val writePortsFile = writeImportedFile(FppBuilder.MemberGenerator.Port) _
 
   /** Writes a tlm channels file */
-  val writeTlmChannelsFile = writeImportedFile(FppBuilder.NodeGenerator.TlmChannel) _
+  val writeTlmChannelsFile = writeImportedFile(FppBuilder.MemberGenerator.TlmChannel) _
 
   /** Writes an events file */
-  val writeEventsFile = writeImportedFile(FppBuilder.NodeGenerator.Event) _
+  val writeEventsFile = writeImportedFile(FppBuilder.MemberGenerator.Event) _
 
   /** Writes an internal ports file */
-  val writeInternalPortsFile = writeImportedFile(FppBuilder.NodeGenerator.InternalPort) _
+  val writeInternalPortsFile = writeImportedFile(FppBuilder.MemberGenerator.InternalPort) _
 
   /** Builds FPP for translating Component XML */
   private object FppBuilder {
@@ -54,18 +54,23 @@ object ComponentXmlFppWriter extends LineUtils {
         file
       )
 
-    trait NodeGenerator {
+    trait MemberGenerator {
 
       val xmlName: String
 
-      def generate(file: XmlFppWriter.File, node: scala.xml.Node):
+      def generateMemberNode(file: XmlFppWriter.File, node: scala.xml.Node):
         Result.Result[Ast.Annotated[Ast.ComponentMember.Node]] =
           Left(file.semanticError(s"$xmlName not implemented"))
 
-      final def createMember(file: XmlFppWriter.File, node: scala.xml.Node) = 
-        generate(file, node) match {
+      def generateMemberNodes(file: XmlFppWriter.File, node: scala.xml.Node):
+        Result.Result[List[Ast.Annotated[Ast.ComponentMember.Node]]] =
+          for (node <- generateMemberNode(file, node))
+            yield List(node)
+
+      final def generateMembers(file: XmlFppWriter.File, node: scala.xml.Node) = 
+        generateMemberNodes(file, node) match {
           case Left(error) => Left(error)
-          case Right(aNode) => Right(Ast.ComponentMember(aNode))
+          case Right(aNodes) => Right(aNodes.map(Ast.ComponentMember(_)))
         }
 
     }
@@ -80,13 +85,13 @@ object ComponentXmlFppWriter extends LineUtils {
           case None => Right(None)
         }
 
-    case object NodeGenerator {
+    case object MemberGenerator {
 
-      case object Include extends NodeGenerator {
+      case object Include extends MemberGenerator {
         
         val xmlName = "import_dictionary"
 
-        override def generate(file: XmlFppWriter.File, xmlNode: scala.xml.Node) =
+        override def generateMemberNode(file: XmlFppWriter.File, xmlNode: scala.xml.Node) =
           for {
             child <- file.getUniqueChild(xmlNode)
           }
@@ -105,7 +110,7 @@ object ComponentXmlFppWriter extends LineUtils {
 
       }
 
-      case object Port extends NodeGenerator {
+      case object Port extends MemberGenerator {
 
         val xmlName = "port"
 
@@ -162,7 +167,7 @@ object ComponentXmlFppWriter extends LineUtils {
           yield Special(kind, name)
         }
 
-        override def generate(file: XmlFppWriter.File, xmlNode: scala.xml.Node) = {
+        override def generateMemberNode(file: XmlFppWriter.File, xmlNode: scala.xml.Node) = {
           for {
             comment <- file.getComment(xmlNode)
             member <- XmlFppWriter.getAttributeOpt(xmlNode, "role") match {
@@ -179,12 +184,13 @@ object ComponentXmlFppWriter extends LineUtils {
 
       }
 
-      case object InternalPort extends NodeGenerator {
+      case object InternalPort extends MemberGenerator {
 
         val xmlName = "internal_interface"
 
-        override def generate(file: XmlFppWriter.File, xmlNode: scala.xml.Node) =
+        override def generateMemberNodes(file: XmlFppWriter.File, xmlNode: scala.xml.Node) =
           for {
+            enums <- FormalParamsXmlFppWriter.defEnumAnnotatedList(file, xmlNode)
             comment <- file.getComment(xmlNode)
             name <- file.getAttribute(xmlNode, "name")
             params <- FormalParamsXmlFppWriter.formalParamList(file, xmlNode)
@@ -194,18 +200,26 @@ object ComponentXmlFppWriter extends LineUtils {
             }
           }
           yield {
-            val priority = XmlFppWriter.getAttributeOpt(xmlNode, "priority").map(
-              text => AstNode.create(Ast.ExprLiteralInt(text))
-            )
-            val internalPort = Ast.SpecInternalPort(name, params, priority, queueFull)
-            val node = AstNode.create(internalPort)
-            val memberNode = Ast.ComponentMember.SpecInternalPort(node)
-            (comment, memberNode, Nil)
+            val annotatedEnumMemberNodes = enums.map(aNode => (
+              aNode._1,
+              Ast.ComponentMember.DefEnum(AstNode.create(aNode._2)),
+              aNode._3
+            ))
+            val annotatedPortMemberNodes = {
+              val priority = XmlFppWriter.getAttributeOpt(xmlNode, "priority").map(
+                text => AstNode.create(Ast.ExprLiteralInt(text))
+              )
+              val internalPort = Ast.SpecInternalPort(name, params, priority, queueFull)
+              val node = AstNode.create(internalPort)
+              val memberNode = Ast.ComponentMember.SpecInternalPort(node)
+              List((comment, memberNode, Nil))
+            }
+            annotatedEnumMemberNodes ++ annotatedPortMemberNodes
           }
 
       }
 
-      case object Command extends NodeGenerator {
+      case object Command extends MemberGenerator {
 
         val xmlName = "command"
 
@@ -213,7 +227,7 @@ object ComponentXmlFppWriter extends LineUtils {
 
       }
 
-      case object Event extends NodeGenerator {
+      case object Event extends MemberGenerator {
 
         val xmlName = "event"
 
@@ -221,7 +235,7 @@ object ComponentXmlFppWriter extends LineUtils {
 
       }
 
-      case object Param extends NodeGenerator {
+      case object Param extends MemberGenerator {
 
         val xmlName = "paramter"
 
@@ -229,7 +243,7 @@ object ComponentXmlFppWriter extends LineUtils {
 
       }
 
-      case object TlmChannel extends NodeGenerator {
+      case object TlmChannel extends MemberGenerator {
 
         val xmlName = "channel"
 
@@ -242,41 +256,46 @@ object ComponentXmlFppWriter extends LineUtils {
     /** Member list result */
     type MemListRes = Result.Result[List[Ast.ComponentMember]]
 
+    /** Member list list result */
+    type MemListListRes = Result.Result[List[List[Ast.ComponentMember]]]
+
     /** Maps a node generator onto children at the top level */
-    def mapChildren(file: XmlFppWriter.File, nodeGenerator: NodeGenerator) =
-      mapChildrenOfNodeOpt(file, Some(file.elem), nodeGenerator)
+    def mapChildren(file: XmlFppWriter.File, memberGenerator: MemberGenerator) =
+      mapChildrenOfNodeOpt(file, Some(file.elem), memberGenerator)
 
     /** Maps a node generator onto the children of an XML node */
     def mapChildrenOfNodeOpt(
       file: XmlFppWriter.File,
       nodeOpt: Option[scala.xml.Node],
-      nodeGenerator: NodeGenerator
+      memberGenerator: MemberGenerator
     ): MemListRes =
-      nodeOpt.fold(Right(Nil): MemListRes)(node => {
-        val children = node \ nodeGenerator.xmlName
-        Result.map(children.toList, nodeGenerator.createMember(file, _))
-      })
+      for {
+        list <- nodeOpt.fold(Right(Nil): MemListListRes)(node => {
+          val children = node \ memberGenerator.xmlName
+          Result.map(children.toList, memberGenerator.generateMembers(file, _))
+        })
+      } yield list.flatten
 
     /** Extracts component members */
     def componentMemberList(file: XmlFppWriter.File): 
       Result.Result[List[Ast.ComponentMember]] = {
-        def mapChildrenOfName(args: (String, NodeGenerator)): MemListRes = {
-          val (name, nodeGenerator) = args
+        def mapChildrenOfName(args: (String, MemberGenerator)): MemListRes = {
+          val (name, memberGenerator) = args
           for {
             nodeOpt <- file.getSingleChildOpt(file.elem, name)
-            result <- mapChildrenOfNodeOpt(file, nodeOpt, nodeGenerator)
+            result <- mapChildrenOfNodeOpt(file, nodeOpt, memberGenerator)
           } yield result
         }
         for {
-          includes <- mapChildren(file, NodeGenerator.Include)
+          includes <- mapChildren(file, MemberGenerator.Include)
           lists <- Result.map(
             List(
-              ("ports", NodeGenerator.Port),
-              ("internal_interfaces", NodeGenerator.InternalPort),
-              ("commands", NodeGenerator.Command),
-              ("events", NodeGenerator.Event),
-              ("parameters", NodeGenerator.Param),
-              ("telemetry", NodeGenerator.TlmChannel)
+              ("ports", MemberGenerator.Port),
+              ("internal_interfaces", MemberGenerator.InternalPort),
+              ("commands", MemberGenerator.Command),
+              ("events", MemberGenerator.Event),
+              ("parameters", MemberGenerator.Param),
+              ("telemetry", MemberGenerator.TlmChannel)
             ),
             mapChildrenOfName(_)
           )
