@@ -2393,14 +2393,23 @@ We will have more to say about this topic in the section on
 abstract types</a>.</p>
 </div>
 <div class="paragraph">
-<p>Because an abstract type <code>T</code> is opaque in the FPP model, it has
-no values that are expressible in the model.
+<p>In general, an abstract type <code>T</code> is opaque in the FPP model
+and has no values that are expressible in the model.
 Thus, every use of an abstract type <code>T</code> represents the default value
 for <code>T</code>.
 The default value must be provided by the implementation of <code>T</code>
 in the target language.
 In particular, when the target language is C&#43;&#43;, the default
 value is provided by the zero-argument constructor <code>T()</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Built-in types:</strong>
+When translating to XML, there are a few special built-in types that are abstract
+in the model, but that are known to the translator.
+You don&#8217;t have to define C&#43;&#43; classes for these types.
+We will discuss these types further in the section on
+<a href="#Analyzing-and-Translating-Models_Implementing-Abstract-Types">implementing
+abstract types</a>.</p>
 </div>
 </div>
 </div>
@@ -4487,7 +4496,7 @@ This is similar to the <code>-p</code> option for
 <div class="sect2">
 <h3 id="Analyzing-and-Translating-Models_Implementing-Abstract-Types">10.4. Implementing Abstract Types</h3>
 <div class="paragraph">
-<p>When translating to XML and then C&#43;&#43;, an
+<p>Except for a few built-in types (see below), when translating to XML and then C&#43;&#43;, an
 <a href="#Defining-Types_Abstract-Type-Definitions">abstract type definition</a>
 represents a C&#43;&#43; class that you write directly in C&#43;&#43;.
 When you use an abstract type <em>T</em> in an FPP definition <em>D</em> (for example, as the
@@ -4626,6 +4635,38 @@ struct T : public Fw::Serializable { // Extend Fw::Serializable
 
 #endif</pre>
 </div>
+</div>
+<div class="paragraph">
+<p><strong>Built-in types:</strong>
+The following types are abstract in the FPP model but are known to
+the XML translator:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>FwBuffSizeType
+FwChanIdType
+FwEnumStoreType
+FwEventIdType
+FwOpcodeType
+FwPacketDescriptorType
+FwPrmIdType
+FwTimeBaseStoreType
+FwTimeContextStoreType
+NATIVE_INT_TYPE
+NATIVE_UINT_TYPE
+POINTER_CAST</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Each of these types is an alias for a C&#43;&#43; integer type, and each
+has default value zero.</p>
+</div>
+<div class="paragraph">
+<p>The F Prime framework automatically provides the C&#43;&#43; definitions
+for these types.
+You have to declare them as abstract types in the FPP model, but
+once you do that you can use them.
+You don&#8217;t have to define header files for these types.</p>
 </div>
 </div>
 <div class="sect2">
@@ -5036,7 +5077,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-01-20 09:49:54 -0800
+Last updated 2021-02-01 14:16:29 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

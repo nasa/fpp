@@ -386,7 +386,7 @@ This is similar to the `-p` option for
 
 === Implementing Abstract Types
 
-When translating to XML and then {cpp}, an
+Except for a few built-in types (see below), when translating to XML and then {cpp}, an
 <<Defining-Types_Abstract-Type-Definitions,abstract type definition>>
 represents a {cpp} class that you write directly in {cpp}.
 When you use an abstract type _T_ in an FPP definition _D_ (for example, as the 
@@ -501,6 +501,34 @@ struct T : public Fw::Serializable { // Extend Fw::Serializable
 
 #endif
 ----
+
+*Built-in types:*
+The following types are abstract in the FPP model but are known to
+the XML translator:
+
+----
+FwBuffSizeType
+FwChanIdType
+FwEnumStoreType
+FwEventIdType
+FwOpcodeType
+FwPacketDescriptorType
+FwPrmIdType
+FwTimeBaseStoreType
+FwTimeContextStoreType
+NATIVE_INT_TYPE
+NATIVE_UINT_TYPE
+POINTER_CAST
+----
+
+Each of these types is an alias for a {cpp} integer type, and each
+has default value zero.
+
+The F Prime framework automatically provides the {cpp} definitions
+for these types.
+You have to declare them as abstract types in the FPP model, but
+once you do that you can use them.
+You don't have to define header files for these types.
 
 === Translating XML to FPP
 
