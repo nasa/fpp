@@ -493,7 +493,7 @@ object ComponentXmlFppWriter extends LineUtils {
               ("parameters", MemberGenerator.Param),
               ("telemetry", MemberGenerator.TlmChannel)
             ),
-            mapChildrenOfName(_)
+            mapChildrenOfName _
           )
         }
         yield (includes :: lists).flatten
