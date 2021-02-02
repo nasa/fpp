@@ -308,7 +308,18 @@ object XmlFppWriter extends LineUtils {
         case ("true", Ast.TypeNameBool) => Some(Ast.ExprLiteralBool(Ast.LiteralBool.True))
         case ("false", Ast.TypeNameBool) => Some(Ast.ExprLiteralBool(Ast.LiteralBool.False))
         case (_, Ast.TypeNameString(_)) => Some(Ast.ExprLiteralString(xmlValue.replaceAll("^\"|\"$", "")))
-        case _ => None
+        case _ => 
+          if ("[^A-Za-z0-9_:]".r.findAllIn(xmlValue).length > 0)
+            // Not a qualified identifier -- don't translate
+            None
+          else {
+            // C++ qualified identifier. Translate to an FPP qualified identifier.
+            val head :: tail = xmlValue.split("::").toList
+            val e = tail.foldLeft (Ast.ExprIdent(head): Ast.Expr) ((e1, s) =>
+              Ast.ExprDot(AstNode.create(e1), AstNode.create(s))
+            )
+            Some(e)
+          }
       }
       exprOpt.map(AstNode.create(_))
     }

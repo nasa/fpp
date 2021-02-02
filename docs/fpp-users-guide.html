@@ -4772,9 +4772,10 @@ array A = [3] U32 default [
 explicit when translating to XML and back to FPP.</p>
 </div>
 <div class="paragraph">
-<p>Second, to keep the translation simple, only numeric values,
-string values, and Boolean values are translated.
-Values of array, struct, enum, and abstract type are not translated.
+<p>Second, to keep the translation simple, only literal numeric values,
+literal string values, literal Boolean values, and C&#43;&#43; qualified identifiers
+(e.g., <code>a</code> or <code>A::B</code>) are translated.
+Other values (e.g., values specified with C&#43;&#43; constructor calls), are not translated.
 The reason is that the types of these values cannot be easily inferred from the
 XML representation.
 When a default value is not translated, the translator inserts an annotation
@@ -4796,7 +4797,7 @@ array A = [3] T</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The tool cannot translate the abstract type <code>T</code>.
+<p>The tool cannot translate the value <code>T()</code>.
 So it adds an annotation stating that.
 In this case, <code>T()</code> is the default value associated with the
 abstract type <code>T</code>, so using the implicit default is correct.
@@ -4819,7 +4820,7 @@ array B = [2] A</pre>
 <div class="paragraph">
 <p>Here XML representation of the array values <code>[ 1, 2 ]</code> and <code>[ 3, 4 ]</code>
 uses the C&#43;&#43; constructor calls <code>A(1, 2)</code> and <code>A(3, 4)</code>.
-When translating <code>BArrayAi.xml</code> <code>fpp-from-xml</code> doesn&#8217;t know how to translate
+When translating <code>BArrayAi.xml</code>, <code>fpp-from-xml</code> doesn&#8217;t know how to translate
 those values, because it doesn&#8217;t have any information about the type <code>A</code>.
 So it omits the FPP default array value and reports the XML default element
 values in the annotation.
@@ -5077,7 +5078,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-01 14:16:29 -0800
+Last updated 2021-02-02 10:07:00 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

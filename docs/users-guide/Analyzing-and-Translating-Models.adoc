@@ -613,9 +613,10 @@ array A = [3] U32 default [
 Notice that the implicit default value `[ 0, 0, 0 ]` becomes
 explicit when translating to XML and back to FPP.
 
-Second, to keep the translation simple, only numeric values,
-string values, and Boolean values are translated.
-Values of array, struct, enum, and abstract type are not translated.
+Second, to keep the translation simple, only literal numeric values,
+literal string values, literal Boolean values, and {cpp} qualified identifiers 
+(e.g., `a` or `A::B`) are translated.
+Other values (e.g., values specified with {cpp} constructor calls), are not translated.
 The reason is that the types of these values cannot be easily inferred from the 
 XML representation.
 When a default value is not translated, the translator inserts an annotation
@@ -634,7 +635,7 @@ array A = [3] T
 array A = [3] T
 ----
 
-The tool cannot translate the abstract type `T`.
+The tool cannot translate the value `T()`.
 So it adds an annotation stating that.
 In this case, `T()` is the default value associated with the
 abstract type `T`, so using the implicit default is correct.
@@ -654,7 +655,7 @@ array B = [2] A
 
 Here XML representation of the array values `[ 1, 2 ]` and `[ 3, 4 ]`
 uses the {cpp} constructor calls `A(1, 2)` and `A(3, 4)`.
-When translating `BArrayAi.xml` `fpp-from-xml` doesn't know how to translate 
+When translating `BArrayAi.xml`, `fpp-from-xml` doesn't know how to translate 
 those values, because it doesn't have any information about the type `A`.
 So it omits the FPP default array value and reports the XML default element 
 values in the annotation.
