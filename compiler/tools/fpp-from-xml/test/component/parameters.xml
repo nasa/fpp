@@ -1,0 +1,23 @@
+<parameters>
+    <parameter id="0" set_opcode="0" save_opcode="1" name="P1" data_type="U8" default="12">
+        <comment>
+        A test parameter
+        </comment>
+    </parameter>
+    <parameter id="1" set_opcode="2" save_opcode="3" name="P2" data_type="F32" default="13.14">
+        <comment>
+        A test parameter
+        </comment>
+    </parameter>
+    <parameter id="2" set_opcode="4" save_opcode="5" name="P3" data_type="ENUM" default="FILTER_ACTIVITY_LO">
+        <enum name="EventLevel">
+            <item name="FILTER_WARNING_HI"/>
+            <item name="FILTER_WARNING_LO"/>
+            <item name="FILTER_COMMAND"/>
+            <item name="FILTER_ACTIVITY_HI"/>
+            <item name="FILTER_ACTIVITY_LO"/>
+            <item name="FILTER_DIAGNOSTIC"/>
+        </enum>
+    </parameter>
+    <parameter id="3" set_opcode="6" save_opcode="7" name="P4" data_type="T" default="T()"/>
+</parameters>    
