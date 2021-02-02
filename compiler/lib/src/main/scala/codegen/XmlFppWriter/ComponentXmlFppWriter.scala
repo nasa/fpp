@@ -338,23 +338,36 @@ object ComponentXmlFppWriter extends LineUtils {
         override def generateMemberNodes(file: XmlFppWriter.File, xmlNode: scala.xml.Node) = {
           for {
             enumAnnotatedOpt <- XmlFppWriter.FppBuilder.InlineEnumBuilder.defEnumAnnotatedOpt(file)(xmlNode)
-            name <- file.getAttribute(xmlNode, "name")
             comment <- file.getComment(xmlNode)
+            name <- file.getAttribute(xmlNode, "name")
             typeName <- translateType(file)(xmlNode)
           }
           yield {
+            val id = translateIntegerOpt(xmlNode, "id")
+            val xmlDefaultOpt = XmlFppWriter.getAttributeOpt(xmlNode, "default")
+            val defaultOpt = xmlDefaultOpt.flatMap(
+              s => XmlFppWriter.FppBuilder.translateValue(s, typeName)
+            )
+            val defaultNote = (xmlDefaultOpt, defaultOpt) match {
+              case (Some(xmlDefault), None) => 
+                val s = s"could not translate default value $xmlDefault"
+                List(XmlFppWriter.constructNote(s))
+              case _ => Nil
+            }
+            val setOpcode = translateIntegerOpt(xmlNode, "set_opcode")
+            val saveOpcode = translateIntegerOpt(xmlNode, "save_opcode")
             val paramMemberNode = {
               val param = Ast.SpecParam(
                 name,
                 AstNode.create(typeName),
-                None,
-                None,
-                None,
-                None
+                defaultOpt,
+                id,
+                setOpcode,
+                saveOpcode
               )
               val node = AstNode.create(param)
               val memberNode = Ast.ComponentMember.SpecParam(node)
-              (comment, memberNode, Nil)
+              (defaultNote ++ comment, memberNode, Nil)
             }
             enumAnnotatedOpt match {
               case Some(enumAnnotated) => 
