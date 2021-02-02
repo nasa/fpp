@@ -3,7 +3,7 @@
 fpp_syntax=../../../../bin/fpp-syntax
 
 # These tests are component fragments
-fragments="commands|internal_ports"
+fragments="commands|events|internal_ports"
 
 # Check whole components
 files=`find . -name '*.ref.txt' | egrep -v "error|missing|$fragments"`
