@@ -6,4 +6,6 @@ general_ports_passive
 import_dictionary
 internal_ports
 special_ports
+telemetry
+telemetry_bad_limit
 "
