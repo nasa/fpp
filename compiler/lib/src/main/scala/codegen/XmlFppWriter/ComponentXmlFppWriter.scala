@@ -295,22 +295,29 @@ object ComponentXmlFppWriter extends LineUtils {
               case "WARNING_LO" => Right(Ast.SpecEvent.WarningLow)
               case _ => Left(file.semanticError(s"invalid severity $xmlSeverity"))
             }
+            xmlFormat <- file.getAttribute(xmlNode, "format_string")
           }
           yield {
             val annotatedEventMemberNode = {
               val id = translateIntegerOpt(xmlNode, "id")
+              val (formatOpt, note) = 
+                XmlFppWriter.FppBuilder.translateFormatOpt(Some(xmlFormat))
+              val format = formatOpt match {
+                case Some(format) => format
+                case None => "{}"
+              }
               val throttle = translateIntegerOpt(xmlNode, "throttle")
               val event = Ast.SpecEvent(
                 name,
                 params,
                 severity,
                 id,
-                AstNode.create("TODO"),
+                AstNode.create(format),
                 throttle
               )
               val node = AstNode.create(event)
               val memberNode = Ast.ComponentMember.SpecEvent(node)
-              (comment, memberNode, Nil)
+              (note ++ comment, memberNode, Nil)
             }
             annotatedEnumMemberNodes :+ annotatedEventMemberNode
           }
