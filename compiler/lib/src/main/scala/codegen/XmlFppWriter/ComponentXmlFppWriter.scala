@@ -115,6 +115,10 @@ object ComponentXmlFppWriter extends LineUtils {
         for (qfo <- translateQueueFullOpt(file, xmlNode))
           yield qfo.map(AstNode.create(_))
 
+    /** Translates an XML type to an FPP type name */
+    def translateType(file: XmlFppWriter.File) = 
+      file.translateType(node => file.getAttribute(node, "data_type")) _
+
     case object MemberGenerator {
 
       case object Include extends MemberGenerator {
@@ -336,7 +340,68 @@ object ComponentXmlFppWriter extends LineUtils {
 
         val xmlName = "channel"
 
-        // TODO: generate
+        override def generateMemberNode(file: XmlFppWriter.File, xmlNode: scala.xml.Node) = {
+          // Covert a limit kind and a type name to a list of limits
+          // and a list of notes describing what if anything we couldn't 
+          // translate
+          type LimitResult = (List[Ast.SpecTlmChannel.Limit], List[String])
+          def limit(direction: String, typeName: Ast.TypeName): LimitResult = {
+            import Ast.SpecTlmChannel._
+            val pairs = List(
+              (Red, "red"),
+              (Orange, "orange"),
+              (Yellow, "yellow")
+            ).map(pair => {
+              val (kind, name) = pair
+              val xmlName = s"${direction}_$name"
+              XmlFppWriter.getAttributeOpt(xmlNode, xmlName).map((kind, _))
+            }).filter(_.isDefined).map(_.get)
+            val initialResult = (Nil, Nil): LimitResult
+            pairs.foldLeft (initialResult) ((result, pair) => {
+              val (kind, xmlValue) = pair
+              XmlFppWriter.FppBuilder.translateValue(xmlValue, typeName) match {
+                case Some(exprNode) =>
+                  val kindNode = AstNode.create(kind)
+                  (result._1 :+ (kindNode, exprNode), result._2)
+                case None =>
+                  val s = s"could not translate limit value $xmlValue"
+                  val note = List(XmlFppWriter.constructNote(s))
+                  (result._1, result._2 ++ note)
+              }
+            })
+          }
+          for {
+            name <- file.getAttribute(xmlNode, "name")
+            comment <- file.getComment(xmlNode)
+            typeName <- translateType(file)(xmlNode)
+            update <- XmlFppWriter.getAttributeOpt(xmlNode, "update") match {
+              case None => Right(None)
+              case Some("always") => Right(Some(Ast.SpecTlmChannel.Always))
+              case Some("on_change") => Right(Some(Ast.SpecTlmChannel.OnChange))
+              case Some(xmlUpdate) => Left(file.semanticError(s"invalid update specifier $xmlUpdate"))
+            }
+          }
+          yield {
+            val id = translateIntegerOpt(xmlNode, "id")
+            val xmlFormat = XmlFppWriter.getAttributeOpt(xmlNode, "format_string")
+            val (format, formatNote) = 
+              XmlFppWriter.FppBuilder.translateFormatOpt(xmlFormat)
+            val (lowLimits, lowNotes) = limit("low", typeName)
+            val (highLimits, highNotes) = limit("high", typeName)
+            val channel = Ast.SpecTlmChannel(
+              name,
+              AstNode.create(typeName),
+              id,
+              update,
+              format.map(AstNode.create(_)),
+              lowLimits,
+              highLimits
+            )
+            val node = AstNode.create(channel)
+            val memberNode = Ast.ComponentMember.SpecTlmChannel(node)
+            (formatNote ++ lowNotes ++ highNotes ++ comment, memberNode, Nil)
+          }
+        }
 
       }
 
