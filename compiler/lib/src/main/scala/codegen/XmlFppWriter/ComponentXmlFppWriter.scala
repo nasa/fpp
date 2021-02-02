@@ -79,15 +79,18 @@ object ComponentXmlFppWriter extends LineUtils {
 
     }
 
-    /** Extracts enum definitions from argument types */
+    /** Constructs an enum component member */
+    def constructEnumMember(enumAnnotated: Ast.Annotated[Ast.DefEnum]):
+      Ast.Annotated[Ast.ComponentMember.DefEnum] = {
+        val (pre, enum, post) = enumAnnotated
+        (pre, Ast.ComponentMember.DefEnum(AstNode.create(enum)), post)
+      }
+
+    /** Extracts enum definitions in argument types */
     def translateArgEnums(file: XmlFppWriter.File, xmlNode: scala.xml.Node):
       Result.Result[List[Ast.Annotated[Ast.ComponentMember.DefEnum]]] =
         for (enums <- FormalParamsXmlFppWriter.defEnumAnnotatedList(file, xmlNode))
-        yield enums.map(aNode => (
-          aNode._1,
-          Ast.ComponentMember.DefEnum(AstNode.create(aNode._2)),
-          aNode._3
-        ))
+        yield enums.map(constructEnumMember)
 
     /** Translates an optional integer attribute */
     def translateIntegerOpt(xmlNode: scala.xml.Node, name: String) =
@@ -332,7 +335,35 @@ object ComponentXmlFppWriter extends LineUtils {
 
         val xmlName = "parameter"
 
-        // TODO: generate
+        override def generateMemberNodes(file: XmlFppWriter.File, xmlNode: scala.xml.Node) = {
+          for {
+            enumAnnotatedOpt <- XmlFppWriter.FppBuilder.InlineEnumBuilder.defEnumAnnotatedOpt(file)(xmlNode)
+            name <- file.getAttribute(xmlNode, "name")
+            comment <- file.getComment(xmlNode)
+            typeName <- translateType(file)(xmlNode)
+          }
+          yield {
+            val paramMemberNode = {
+              val param = Ast.SpecParam(
+                name,
+                AstNode.create(typeName),
+                None,
+                None,
+                None,
+                None
+              )
+              val node = AstNode.create(param)
+              val memberNode = Ast.ComponentMember.SpecParam(node)
+              (comment, memberNode, Nil)
+            }
+            enumAnnotatedOpt match {
+              case Some(enumAnnotated) => 
+                val enumMemberNode = constructEnumMember(enumAnnotated)
+                List(enumMemberNode, paramMemberNode)
+              case None => List(paramMemberNode)
+            }
+          }
+        }
 
       }
 

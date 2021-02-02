@@ -140,11 +140,11 @@ object XmlFppWriter extends LineUtils {
           case "events" => ComponentXmlFppWriter.writeEventsFile(this)
           case "interface" => PortXmlFppWriter.writeFile(this)
           case "internal_interfaces" => ComponentXmlFppWriter.writeInternalPortsFile(this)
-          case "params" => ComponentXmlFppWriter.writeParamsFile(this)
+          case "parameters" => ComponentXmlFppWriter.writeParamsFile(this)
           case "ports" => ComponentXmlFppWriter.writePortsFile(this)
           case "serializable" => StructXmlFppWriter.writeFile(this)
           case "telemetry" => ComponentXmlFppWriter.writeTlmChannelsFile(this)
-          case _ => Left(semanticError("invalid element type $eltType"))
+          case _ => Left(semanticError(s"invalid element type $eltType"))
         }
       }
       yield body
