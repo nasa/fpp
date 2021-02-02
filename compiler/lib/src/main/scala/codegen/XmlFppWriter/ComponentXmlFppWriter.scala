@@ -278,7 +278,42 @@ object ComponentXmlFppWriter extends LineUtils {
 
         val xmlName = "event"
 
-        // TODO: generate
+        override def generateMemberNodes(file: XmlFppWriter.File, xmlNode: scala.xml.Node) =
+          for {
+            annotatedEnumMemberNodes <- translateArgEnums(file, xmlNode)
+            comment <- file.getComment(xmlNode)
+            name <- file.getAttribute(xmlNode, "name")
+            params <- FormalParamsXmlFppWriter.formalParamList(file, xmlNode)
+            xmlSeverity <- file.getAttribute(xmlNode, "severity")
+            severity <- xmlSeverity match {
+              case "ACTIVITY_HI" => Right(Ast.SpecEvent.ActivityHigh)
+              case "ACTIVITY_LO" => Right(Ast.SpecEvent.ActivityLow)
+              case "COMMAND" => Right(Ast.SpecEvent.Command)
+              case "DIAGNOSTIC" => Right(Ast.SpecEvent.Diagnostic)
+              case "FATAL" => Right(Ast.SpecEvent.Fatal)
+              case "WARNING_HI" => Right(Ast.SpecEvent.WarningHigh)
+              case "WARNING_LO" => Right(Ast.SpecEvent.WarningLow)
+              case _ => Left(file.semanticError(s"invalid severity $xmlSeverity"))
+            }
+          }
+          yield {
+            val annotatedEventMemberNode = {
+              val id = translateIntegerOpt(xmlNode, "id")
+              val throttle = translateIntegerOpt(xmlNode, "throttle")
+              val event = Ast.SpecEvent(
+                name,
+                params,
+                severity,
+                id,
+                AstNode.create("TODO"),
+                throttle
+              )
+              val node = AstNode.create(event)
+              val memberNode = Ast.ComponentMember.SpecEvent(node)
+              (comment, memberNode, Nil)
+            }
+            annotatedEnumMemberNodes :+ annotatedEventMemberNode
+          }
 
       }
 
