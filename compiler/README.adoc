@@ -36,7 +36,7 @@ The currently available tools are as follows:
 
 As of v0.3.0, modeling and translation of constants, types, enums, and ports is 
 supported.
-Topology support is planned for v0.4.0.
+Topology support is planned for the following release.
 
 See https://fprime-community/fpp/wiki/Tools
 for more information.
