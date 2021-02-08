@@ -24,15 +24,19 @@ That way you can run the tools from anywhere.
 
 The currently available tools are as follows:
 
-* `fpp-check` (constants, types, enums, and ports only)
+* `fpp-check`
 * `fpp-depend`
-* `fpp-format` (no topologies yet)
-* `fpp-from-xml` (types, enums, and ports only)
-* `fpp-locate-defs` (no topologies yet)
-* `fpp-locate-uses` (no topologies yet)
+* `fpp-format`
+* `fpp-from-xml`
+* `fpp-locate-defs`
+* `fpp-locate-uses`
 * `fpp-syntax`
-* `fpp-to-cpp` (constants only)
-* `fpp-to-xml` (types, enums, and ports only)
+* `fpp-to-cpp`
+* `fpp-to-xml`
+
+As of v0.3.0, modeling and translation of constants, types, enums, and ports is 
+supported.
+Topology support is planned for v0.4.0.
 
 See https://fprime-community/fpp/wiki/Tools
 for more information.
