@@ -2693,6 +2693,9 @@ definition is ignored when translating to XML.</p>
 <p>A <strong>port definition</strong> defines an F Prime port.
 In F Prime, a port is the endpoint of a connection
 between two component instances.
+Components are the basic units of FSW function in F Prime
+and are described in the
+<a href="#Defining-Components">next section</a>.
 A port definition specifies (1) the name of the port, (2) the type of the data
 carried
 on the port, and (3) an optional return type.</p>
@@ -2938,7 +2941,14 @@ port P(
 <h2 id="Defining-Components">9. Defining Components</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>A <strong>component definition</strong> defines an F Prime component.
+In F Prime, a component is a basic unit of FSW function.
+It is similar to a class in an object-oriented language.
+An F Prime FSW application is divided into several
+<strong>component instances</strong>, each of which instantiates a component.
+The component instances communicate by sending and receiving
+invocations on their
+<a href="#Defining-Ports">ports</a>.</p>
 </div>
 <div class="sect2">
 <h3 id="Defining-Components_General-Ports">9.1. General Ports</h3>
@@ -5156,7 +5166,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-09 08:42:19 -0800
+Last updated 2021-02-09 10:48:48 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

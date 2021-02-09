@@ -1,6 +1,13 @@
 == Defining Components
 
-TODO
+A *component definition* defines an F Prime component.
+In F Prime, a component is a basic unit of FSW function.
+It is similar to a class in an object-oriented language.
+An F Prime FSW application is divided into several
+*component instances*, each of which instantiates a component.
+The component instances communicate by sending and receiving
+invocations on their
+<<Defining-Ports, ports>>.
 
 === General Ports
 

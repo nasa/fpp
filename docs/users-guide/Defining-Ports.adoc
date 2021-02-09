@@ -3,6 +3,9 @@
 A *port definition* defines an F Prime port.
 In F Prime, a port is the endpoint of a connection
 between two component instances.
+Components are the basic units of FSW function in F Prime
+and are described in the
+<<Defining-Components,next section>>.
 A port definition specifies (1) the name of the port, (2) the type of the data 
 carried
 on the port, and (3) an optional return type.
