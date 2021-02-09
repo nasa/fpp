@@ -391,9 +391,9 @@ definitions and their uses.
 
 ==== Included Files
 
-When you write a file that contains definitions and you include that file in another 
-file, the location of
-each definition is the file where the definition occurs,
+When you write a file that contains definitions and you 
+<<Specifying-Models_Include-Specifiers,include that file in another file>>,
+the location of each definition is the file where the definition occurs,
 not the file where it is included.
 For example, suppose that file `a.fpp` contains the definition `constant a = 
 0`,

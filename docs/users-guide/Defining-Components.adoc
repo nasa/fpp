@@ -1,3 +1,39 @@
 == Defining Components
 
 TODO
+
+=== General Ports
+
+TODO
+
+=== Special Ports
+
+TODO
+
+=== Internal Ports
+
+TODO
+
+=== Commands
+
+TODO
+
+=== Events
+
+TODO
+
+=== Telemetry
+
+TODO
+
+=== Parameters
+
+TODO
+
+=== Constants and Types
+
+TODO
+
+=== Include Specifiers
+
+TODO
