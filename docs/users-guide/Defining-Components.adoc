@@ -9,11 +9,119 @@ The component instances communicate by sending and receiving
 invocations on their
 <<Defining-Ports, ports>>.
 
-=== General Ports
+In FPP, as in F Prime, there are three kinds of components:
+active, queued, and passive.
+An active component has a thread of control
+and a message queue.
+A queued component has a message queue, but no thread
+of control; control happens on another thread, such as
+a rate group thread.
+A passive component has no thread of control and no
+message queue.
+
+To define a component, you write the following:
+
+* The component kind: one of `active`, `passive`,
+or `queued`.
+* The keyword `component`.
+* The <<Defining-Constants_Names,name>> of the component.
+* A sequence of *component members* enclosed in curly braces
+`{` ... `}`.
+
+As an example, here is a passive component `C` with no members:
+
+[source,fpp]
+----
+@ An empty passive component
+passive component C {
+
+}
+----
+
+A component definition is an
+<<Writing-Comments-and-Annotations_Annotations,annotatable element>>,
+so you can annotate it, as shown.
+
+The following sections describe the possible component members.
+
+=== Port Instances
+
+A *port instance* is a component member that specifies an instance of an FPP
+<<Defining-Ports, port>> used by the component.
+The port definition provides information common to all uses of the port, such as
+the kind of data carried on the port.
+The port instance provides use-specific information, such
+as the name of the instance and the the direction of invocation
+(input or output).
+
+The simplest port instance specifies a kind, a name, and a type.
+The kind is one of the following:
+
+* `async` `input`: Input to this component that arrives on a message queue, to
+be dispatched on this component's thread (if this component is active)
+or on the thread of another port invocation (if this component is queued).
+
+* `sync` `input`: Input that invokes a handler defined in this component,
+but run on the thread of the caller.
+
+* `guarded` `input`: Similar to sync input, but guarded by a mutual
+exclusion lock.
+
+* `output`: Output transmitted by this component.
+
+The name is the name of the port instance.
+The type refers to a <<Defining-Ports,port definition>>.
+
+As an example, here is a passive component `Adder` that
+adds two floating-point numbers and produces a floating-point result.
+
+[source,fpp]
+----
+@ A port for carrying an F32 value
+port F32Value(value: F32)
+
+@ A passive component for adding two F32 values
+passive component Adder {
+
+  @ Input 1
+  sync input port f32ValueIn1: F32Value
+
+  @ Input 2
+  sync input port f32ValueIn2: F32Value
+
+  @ Output
+  output port f32ValueOut: F32Value
+
+}
+----
+
+There are two sync input port instances and one output port
+instances.
+Each port instance is an
+<<Writing-Comments-and-Annotations_Annotations,annotatable element>>,
+so you can annotate the instances as shown.
+
+==== Rules for Port Instances
 
 TODO
 
-=== Special Ports
+==== Port Instance Arrays
+
+TODO
+
+==== Priorities
+
+TODO
+
+==== Queue Full Behavior
+
+TODO
+
+==== Serial Port Instances
+
+TODO
+
+=== Special Port Instances
 
 TODO
 

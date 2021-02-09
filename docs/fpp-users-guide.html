@@ -518,8 +518,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#Defining-Components">9. Defining Components</a>
 <ul class="sectlevel2">
-<li><a href="#Defining-Components_General-Ports">9.1. General Ports</a></li>
-<li><a href="#Defining-Components_Special-Ports">9.2. Special Ports</a></li>
+<li><a href="#Defining-Components_Port-Instances">9.1. Port Instances</a>
+<ul class="sectlevel3">
+<li><a href="#Defining-Components_Port-Instances_Rules-for-Port-Instances">9.1.1. Rules for Port Instances</a></li>
+<li><a href="#Defining-Components_Port-Instances_Port-Instance-Arrays">9.1.2. Port Instance Arrays</a></li>
+<li><a href="#Defining-Components_Port-Instances_Priorities">9.1.3. Priorities</a></li>
+<li><a href="#Defining-Components_Port-Instances_Queue-Full-Behavior">9.1.4. Queue Full Behavior</a></li>
+<li><a href="#Defining-Components_Port-Instances_Serial-Port-Instances">9.1.5. Serial Port Instances</a></li>
+</ul>
+</li>
+<li><a href="#Defining-Components_Special-Port-Instances">9.2. Special Port Instances</a></li>
 <li><a href="#Defining-Components_Internal-Ports">9.3. Internal Ports</a></li>
 <li><a href="#Defining-Components_Commands">9.4. Commands</a></li>
 <li><a href="#Defining-Components_Events">9.5. Events</a></li>
@@ -2691,7 +2699,7 @@ definition is ignored when translating to XML.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A <strong>port definition</strong> defines an F Prime port.
-In F Prime, a port is the endpoint of a connection
+In F Prime, a port specifies the endpoint of a connection
 between two component instances.
 Components are the basic units of FSW function in F Prime
 and are described in the
@@ -2950,14 +2958,160 @@ The component instances communicate by sending and receiving
 invocations on their
 <a href="#Defining-Ports">ports</a>.</p>
 </div>
+<div class="paragraph">
+<p>In FPP, as in F Prime, there are three kinds of components:
+active, queued, and passive.
+An active component has a thread of control
+and a message queue.
+A queued component has a message queue, but no thread
+of control; control happens on another thread, such as
+a rate group thread.
+A passive component has no thread of control and no
+message queue.</p>
+</div>
+<div class="paragraph">
+<p>To define a component, you write the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The component kind: one of <code>active</code>, <code>passive</code>,
+or <code>queued</code>.</p>
+</li>
+<li>
+<p>The keyword <code>component</code>.</p>
+</li>
+<li>
+<p>The <a href="#Defining-Constants_Names">name</a> of the component.</p>
+</li>
+<li>
+<p>A sequence of <strong>component members</strong> enclosed in curly braces
+<code>{</code> &#8230;&#8203; <code>}</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>As an example, here is a passive component <code>C</code> with no members:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ An empty passive component
+passive component C {
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A component definition is an
+<a href="#Writing-Comments-and-Annotations_Annotations">annotatable element</a>,
+so you can annotate it, as shown.</p>
+</div>
+<div class="paragraph">
+<p>The following sections describe the possible component members.</p>
+</div>
 <div class="sect2">
-<h3 id="Defining-Components_General-Ports">9.1. General Ports</h3>
+<h3 id="Defining-Components_Port-Instances">9.1. Port Instances</h3>
+<div class="paragraph">
+<p>A <strong>port instance</strong> is a component member that specifies an instance of an FPP
+<a href="#Defining-Ports">port</a> used by the component.
+The port definition provides information common to all uses of the port, such as
+the kind of data carried on the port.
+The port instance provides use-specific information, such
+as the name of the instance and the the direction of invocation
+(input or output).</p>
+</div>
+<div class="paragraph">
+<p>The simplest port instance specifies a kind, a name, and a type.
+The kind is one of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>async</code> <code>input</code>: Input to this component that arrives on a message queue, to
+be dispatched on this component&#8217;s thread (if this component is active)
+or on the thread of another port invocation (if this component is queued).</p>
+</li>
+<li>
+<p><code>sync</code> <code>input</code>: Input that invokes a handler defined in this component,
+but run on the thread of the caller.</p>
+</li>
+<li>
+<p><code>guarded</code> <code>input</code>: Similar to sync input, but guarded by a mutual
+exclusion lock.</p>
+</li>
+<li>
+<p><code>output</code>: Output transmitted by this component.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The name is the name of the port instance.
+The type refers to a <a href="#Defining-Ports">port definition</a>.</p>
+</div>
+<div class="paragraph">
+<p>As an example, here is a passive component <code>Adder</code> that
+adds two floating-point numbers and produces a floating-point result.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A port for carrying an F32 value
+port F32Value(value: F32)
+
+@ A passive component for adding two F32 values
+passive component Adder {
+
+  @ Input 1
+  sync input port f32ValueIn1: F32Value
+
+  @ Input 2
+  sync input port f32ValueIn2: F32Value
+
+  @ Output
+  output port f32ValueOut: F32Value
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There are two sync input port instances and one output port
+instances.
+Each port instance is an
+<a href="#Writing-Comments-and-Annotations_Annotations">annotatable element</a>,
+so you can annotate the instances as shown.</p>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Port-Instances_Rules-for-Port-Instances">9.1.1. Rules for Port Instances</h4>
 <div class="paragraph">
 <p>TODO</p>
 </div>
 </div>
+<div class="sect3">
+<h4 id="Defining-Components_Port-Instances_Port-Instance-Arrays">9.1.2. Port Instance Arrays</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Port-Instances_Priorities">9.1.3. Priorities</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Port-Instances_Queue-Full-Behavior">9.1.4. Queue Full Behavior</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Port-Instances_Serial-Port-Instances">9.1.5. Serial Port Instances</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+</div>
 <div class="sect2">
-<h3 id="Defining-Components_Special-Ports">9.2. Special Ports</h3>
+<h3 id="Defining-Components_Special-Port-Instances">9.2. Special Port Instances</h3>
 <div class="paragraph">
 <p>TODO</p>
 </div>
@@ -5166,7 +5320,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-09 10:48:48 -0800
+Last updated 2021-02-09 11:49:52 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

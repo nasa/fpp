@@ -1,7 +1,7 @@
 == Defining Ports
 
 A *port definition* defines an F Prime port.
-In F Prime, a port is the endpoint of a connection
+In F Prime, a port specifies the endpoint of a connection
 between two component instances.
 Components are the basic units of FSW function in F Prime
 and are described in the
