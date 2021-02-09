@@ -45,6 +45,10 @@ enclosed in square brackets `[` ... `]` denoting the size (number of elements) o
 * A type name denoting the element type.
 The available type names are discussed below.
 
+Notice that the size expression precedes the element type, and the whole
+type reads left to right.
+For example, you may read the type `[3] U32` as "array of 3 `U32`."
+
 As for <<Defining-Constants_Expressions_Array-Values,
 array values>>,
 an array type must have size greater than zero and below a limit that is 
