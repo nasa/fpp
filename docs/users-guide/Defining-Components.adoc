@@ -1,6 +1,5 @@
 == Defining Components
 
-A *component definition* defines an F Prime component.
 In F Prime, a component is a basic unit of FSW function.
 It is similar to a class in an object-oriented language.
 An F Prime FSW application is divided into several
@@ -19,6 +18,9 @@ a rate group thread.
 A passive component has no thread of control and no
 message queue.
 
+=== Component Definitions
+
+An FPP *component definition* defines an F Prime component.
 To define a component, you write the following:
 
 * The component kind: one of `active`, `passive`,
@@ -54,6 +56,8 @@ The port instance provides use-specific information, such
 as the name of the instance and the the direction of invocation
 (input or output).
 
+==== Basic Port Instances
+
 The simplest port instance specifies a kind, a name, and a type.
 The kind is one of the following:
 
@@ -72,8 +76,8 @@ exclusion lock.
 The name is the name of the port instance.
 The type refers to a <<Defining-Ports,port definition>>.
 
-As an example, here is a passive component `Adder` that
-adds two floating-point numbers and produces a floating-point result.
+As an example, here is a passive component `F32Adder` that
+adds two `F32` values and produces an `F32` value.
 
 [source,fpp]
 ----
@@ -81,7 +85,7 @@ adds two floating-point numbers and produces a floating-point result.
 port F32Value(value: F32)
 
 @ A passive component for adding two F32 values
-passive component Adder {
+passive component F32Adder {
 
   @ Input 1
   sync input port f32ValueIn1: F32Value
@@ -96,16 +100,112 @@ passive component Adder {
 ----
 
 There are two sync input port instances and one output port
-instances.
+instance.
+We use the keyword `port` to denote a port instance.
+The kind goes first, followed by the keyword `port`, the port instance
+name, a colon, and the port definition.
 Each port instance is an
 <<Writing-Comments-and-Annotations_Annotations,annotatable element>>,
 so you can annotate the instances as shown.
 
+As another example, here is an active version of `F32Adder`
+with `async` input ports:
+
+[source,fpp]
+----
+@ A port for carrying an F32 value
+port F32Value(value: F32)
+
+@ An active component for adding two F32 values
+active component ActiveF32Adder {
+
+  @ Input 1
+  async input port f32ValueIn1: F32Value
+
+  @ Input 2
+  async input port f32ValueIn2: F32Value
+
+  @ Output
+  output port f32ValueOut: F32Value
+
+}
+----
+
 ==== Rules for Port Instances
 
-TODO
+The port instances appearing in a component definition must
+satisfy certain rules.
+These rules ensure that the FPP model makes sense.
 
-==== Port Instance Arrays
+First, no passive component may have an `async` `input`
+port instance.
+This is because a passive component has no message queue,
+so asynchronous input is not possible.
+As an example, if we modify the input ports of our `F32Adder`
+to make them `async`, we get an error.
+
+[source,fpp]
+--------
+port F32Value(value: F32)
+
+# Error: Passive component may not have async input
+passive component ErroneousF32Adder {
+
+  async input port f32ValueIn1: F32Value
+
+  async input port f32ValueIn2: F32Value
+
+  output port f32ValueOut: F32Value
+
+}
+--------
+
+Try presenting this code to `fpp-check` and observe what happens.
+
+Second, an active or queued component _must_ have asynchronous input.
+That means it must have at least one async input port;
+or it must have an internal port (described below);
+or it must have at least one async command (also described below).
+As an example, if we modify the input ports of our `ActiveF32Adder`
+to make them `sync`, we get an error, because
+there is no async input.
+
+[source,fpp]
+--------
+port F32Value(value: F32)
+
+# Error: Active component must have async input
+active component ErroneousActiveF32Adder {
+
+  sync input port f32ValueIn1: F32Value
+
+  sync input port f32ValueIn2: F32Value
+
+  output port f32ValueOut: F32Value
+
+}
+--------
+
+Third, a port definition appearing in an `async` `input` port
+may not have any `ref` parameters or a return type.
+This is because passing a value by reference or returning a value
+makes sense only for synchronous input.
+As an example, this component definition is illegal:
+
+[source,fpp]
+--------
+port P(ref value: U32)
+
+active component Error {
+
+  # Error: port instance p: P is async input and
+  # port P has a ref parameter
+  async input port p: P
+
+}
+--------
+
+==== Arrays of Port Instances
 
 TODO
 
