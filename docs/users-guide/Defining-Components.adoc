@@ -379,7 +379,118 @@ passive component SerialSplitter {
 }
 ----
 
+By using serial ports, you can send several unrelated types
+of data over the same port connection.
+This technique is useful, for example, when communicating across
+a network: on each side of the network connection, a single component
+can act as a hub that routs all data to and from components
+on that side.
+This flexibility comes at the cost that you lose the type
+compile-time type checking provided by port connections with named types.
+For more information about serial ports and their use, see
+the F Prime User's Guide.
+
 === Special Port Instances
+
+A *special port instance* is a port instance that has a special
+behavior in F Prime.
+In writing a
+<<Defining-Components_Port-Instances,general port instance>>
+you specify a port type defined in the FPP model.
+When writing a special port
+instance, you specify a predefined behavior
+defined by the F Prime framework.
+The special port behaviors fall into five groups:
+commands, events, telemetry, parameters, and time.
+
+==== Commands
+
+The special command behaviors, and their keywords, are as follows:
+
+* `command` `recv`: A port for receiving commands.
+* `command` `reg`: A port for sending command registration requests.
+* `command` `resp`: A port for sending command responses.
+
+Collectively, these ports are known as *command ports*.
+To specify a command port, you write one of the keyword pairs
+shown above followed by the keyword `port` and the port name.
+
+As an example, here is a passive component `C` with each
+of the command ports:
+
+[source,fpp]
+----
+@ A component for illustrating command ports
+passive component CommandPorts {
+
+  @ A port for receiving commands
+  command recv port cmdIn
+
+  @ A port for sending command registration requests
+  command reg port cmdRegOut
+
+  @ A port for sending command responses
+  command resp port cmdResponseOut
+
+}
+----
+
+Any component may have at most one of each kind of command
+port.
+If a component receives commands (more on this below),
+then all three ports are required.
+The port names shown in the example above are standard but not
+required; you can use any names you wish.
+
+During translation, each of the command ports is converted into 
+a typed port with a predefined type, as follows:
+
+* `cmd` `recv` uses the type `Fw.Cmd`
+* `cmd` `reg` uses the type `Fw.CmdReg`
+* `cmd` `resp` uses the type `Fw.CmdResponse`
+
+The F Prime framework provides definitions for these ports with
+the correct formal parameters.
+
+For compiling simple examples, you can provide simple
+definitions of these ports with no formal parameters.
+For example, to compile the code shown above, you can
+add the following lines to the beginning of the example:
+
+[source,fpp]
+--------
+module Fw {
+  port Cmd
+  port CmdReg
+  port CmdResponse
+}
+--------
+
+If you don't do this, or something similar, then the code won't compile
+because of the missing ports.
+
+Note that the port definitions shown above are for conveniently compiling
+simple examples only.
+They are not correct for the F Prime framework and will not work
+properly with F Prime XML code generation.
+
+For further information about command registration, receipt, and
+response, and implementation of command handlers, see the
+F Prime User's Guide.
+
+==== Events
+
+TODO
+
+==== Telemetry
+
+TODO
+
+==== Parameters
+
+TODO
+
+==== Time
 
 TODO
 

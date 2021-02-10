@@ -529,7 +529,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Components_Port-Instances_Serial-Port-Instances">9.2.6. Serial Port Instances</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Components_Special-Port-Instances">9.3. Special Port Instances</a></li>
+<li><a href="#Defining-Components_Special-Port-Instances">9.3. Special Port Instances</a>
+<ul class="sectlevel3">
+<li><a href="#Defining-Components_Special-Port-Instances_Commands">9.3.1. Commands</a></li>
+<li><a href="#Defining-Components_Special-Port-Instances_Events">9.3.2. Events</a></li>
+<li><a href="#Defining-Components_Special-Port-Instances_Telemetry">9.3.3. Telemetry</a></li>
+<li><a href="#Defining-Components_Special-Port-Instances_Parameters">9.3.4. Parameters</a></li>
+<li><a href="#Defining-Components_Special-Port-Instances_Time">9.3.5. Time</a></li>
+</ul>
+</li>
 <li><a href="#Defining-Components_Internal-Ports">9.4. Internal Ports</a></li>
 <li><a href="#Defining-Components_Commands">9.5. Commands</a></li>
 <li><a href="#Defining-Components_Events">9.6. Events</a></li>
@@ -3395,12 +3403,161 @@ passive component SerialSplitter {
 }</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>By using serial ports, you can send several unrelated types
+of data over the same port connection.
+This technique is useful, for example, when communicating across
+a network: on each side of the network connection, a single component
+can act as a hub that routs all data to and from components
+on that side.
+This flexibility comes at the cost that you lose the type
+compile-time type checking provided by port connections with named types.
+For more information about serial ports and their use, see
+the F Prime User&#8217;s Guide.</p>
+</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="Defining-Components_Special-Port-Instances">9.3. Special Port Instances</h3>
 <div class="paragraph">
+<p>A <strong>special port instance</strong> is a port instance that has a special
+behavior in F Prime.
+In writing a
+<a href="#Defining-Components_Port-Instances">general port instance</a>
+you specify a port type defined in the FPP model.
+When writing a special port
+instance, you specify a predefined behavior
+defined by the F Prime framework.
+The special port behaviors fall into five groups:
+commands, events, telemetry, parameters, and time.</p>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Special-Port-Instances_Commands">9.3.1. Commands</h4>
+<div class="paragraph">
+<p>The special command behaviors, and their keywords, are as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>command</code> <code>recv</code>: A port for receiving commands.</p>
+</li>
+<li>
+<p><code>command</code> <code>reg</code>: A port for sending command registration requests.</p>
+</li>
+<li>
+<p><code>command</code> <code>resp</code>: A port for sending command responses.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Collectively, these ports are known as <strong>command ports</strong>.
+To specify a command port, you write one of the keyword pairs
+shown above followed by the keyword <code>port</code> and the port name.</p>
+</div>
+<div class="paragraph">
+<p>As an example, here is a passive component <code>C</code> with each
+of the command ports:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A component for illustrating command ports
+passive component CommandPorts {
+
+  @ A port for receiving commands
+  command recv port cmdIn
+
+  @ A port for sending command registration requests
+  command reg port cmdRegOut
+
+  @ A port for sending command responses
+  command resp port cmdResponseOut
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Any component may have at most one of each kind of command
+port.
+If a component receives commands (more on this below),
+then all three ports are required.
+The port names shown in the example above are standard but not
+required; you can use any names you wish.</p>
+</div>
+<div class="paragraph">
+<p>During translation, each of the command ports is converted into
+a typed port with a predefined type, as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>cmd</code> <code>recv</code> uses the type <code>Fw.Cmd</code></p>
+</li>
+<li>
+<p><code>cmd</code> <code>reg</code> uses the type <code>Fw.CmdReg</code></p>
+</li>
+<li>
+<p><code>cmd</code> <code>resp</code> uses the type <code>Fw.CmdResponse</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The F Prime framework provides definitions for these ports with
+the correct formal parameters.</p>
+</div>
+<div class="paragraph">
+<p>For compiling simple examples, you can provide simple
+definitions of these ports with no formal parameters.
+For example, to compile the code shown above, you can
+add the following lines to the beginning of the example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module Fw {
+  port Cmd
+  port CmdReg
+  port CmdResponse
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you don&#8217;t do this, or something similar, then the code won&#8217;t compile
+because of the missing ports.</p>
+</div>
+<div class="paragraph">
+<p>Note that the port definitions shown above are for conveniently compiling
+simple examples only.
+They are not correct for the F Prime framework and will not work
+properly with F Prime XML code generation.</p>
+</div>
+<div class="paragraph">
+<p>For further information about command registration, receipt, and
+response, and implementation of command handlers, see the
+F Prime User&#8217;s Guide.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Special-Port-Instances_Events">9.3.2. Events</h4>
+<div class="paragraph">
 <p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Special-Port-Instances_Telemetry">9.3.3. Telemetry</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Special-Port-Instances_Parameters">9.3.4. Parameters</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Special-Port-Instances_Time">9.3.5. Time</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -5603,7 +5760,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-09 16:18:09 -0800
+Last updated 2021-02-09 18:19:54 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
