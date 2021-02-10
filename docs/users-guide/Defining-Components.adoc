@@ -129,7 +129,7 @@ active component ActiveF32Adder {
 }
 ----
 
-In each case, the actual adding is done in the target language.
+In each case, the adding is done in the target language.
 For example, in the {cpp} implementation, you would generate a
 base class with a virtual handler function, and then override that virtual
 function in a derived class that you write.
@@ -307,7 +307,7 @@ a message queue to overflow, then a *FSW assertion* fails.
 A FSW assertion is a condition that must be true in order
 for FSW execution to proceed safely.
 The behavior of a FSW assertion failure is configurable in the {cpp}
-implementation F Prime framework; typically it causes a FSW
+implementation of the F Prime framework; typically it causes a FSW
 abort and system reset.
 
 Optionally, you can specify the behavior when a message
@@ -381,7 +381,7 @@ passive component SerialSplitter {
 
 By using serial ports, you can send several unrelated types
 of data over the same port connection.
-This technique is useful, for example, when communicating across
+This technique is useful when communicating across
 a network: on each side of the network connection, a single component
 can act as a hub that routs all data to and from components
 on that side.
@@ -400,7 +400,7 @@ you specify a port kind, a port type, and possibly other
 information such as array size and priority.
 Writing a special port instance is a bit different.
 In this case you specify a predefined behavior
-defined by the F Prime framework.
+provided by the F Prime framework.
 The special port behaviors fall into five groups:
 commands, events, telemetry, parameters, and time.
 
@@ -450,11 +450,11 @@ a typed port with a predefined type, as follows:
 * `cmd` `reg` uses the type `Fw.CmdReg`
 * `cmd` `resp` uses the type `Fw.CmdResponse`
 
-The F Prime framework provides definitions for these ports with
-the correct formal parameters.
+The F Prime framework provides definitions for these ports
+in the directory `Fw/Cmd`.
 
 For checking simple examples, you can provide 
-definitions of these ports with no formal parameters.
+simplified definitions of these ports.
 For example, to compile the code shown above, you can
 add the following lines to the beginning of the example:
 
@@ -469,6 +469,7 @@ module Fw {
 
 If you don't do this, or something similar, then the code won't 
 pass through `fpp-check` because of the missing ports.
+(Try it and see.)
 
 Note that the port definitions shown above are for conveniently checking
 simple examples only.
@@ -476,7 +477,7 @@ They are not correct for the F Prime framework and will not work
 properly with F Prime {cpp} code generation.
 
 For further information about command registration, receipt, and
-response, and implementation of command handlers, see the
+response, and implementing command handlers, see the
 F Prime User's Guide.
 
 ==== Events

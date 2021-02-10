@@ -3124,7 +3124,7 @@ active component ActiveF32Adder {
 </div>
 </div>
 <div class="paragraph">
-<p>In each case, the actual adding is done in the target language.
+<p>In each case, the adding is done in the target language.
 For example, in the C&#43;&#43; implementation, you would generate a
 base class with a virtual handler function, and then override that virtual
 function in a derived class that you write.
@@ -3316,7 +3316,7 @@ a message queue to overflow, then a <strong>FSW assertion</strong> fails.
 A FSW assertion is a condition that must be true in order
 for FSW execution to proceed safely.
 The behavior of a FSW assertion failure is configurable in the C&#43;&#43;
-implementation F Prime framework; typically it causes a FSW
+implementation of the F Prime framework; typically it causes a FSW
 abort and system reset.</p>
 </div>
 <div class="paragraph">
@@ -3406,7 +3406,7 @@ passive component SerialSplitter {
 <div class="paragraph">
 <p>By using serial ports, you can send several unrelated types
 of data over the same port connection.
-This technique is useful, for example, when communicating across
+This technique is useful when communicating across
 a network: on each side of the network connection, a single component
 can act as a hub that routs all data to and from components
 on that side.
@@ -3428,7 +3428,7 @@ you specify a port kind, a port type, and possibly other
 information such as array size and priority.
 Writing a special port instance is a bit different.
 In this case you specify a predefined behavior
-defined by the F Prime framework.
+provided by the F Prime framework.
 The special port behaviors fall into five groups:
 commands, events, telemetry, parameters, and time.</p>
 </div>
@@ -3502,12 +3502,12 @@ a typed port with a predefined type, as follows:</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>The F Prime framework provides definitions for these ports with
-the correct formal parameters.</p>
+<p>The F Prime framework provides definitions for these ports
+in the directory <code>Fw/Cmd</code>.</p>
 </div>
 <div class="paragraph">
-<p>For compiling simple examples, you can provide
-definitions of these ports with no formal parameters.
+<p>For checking simple examples, you can provide
+simplified definitions of these ports.
 For example, to compile the code shown above, you can
 add the following lines to the beginning of the example:</p>
 </div>
@@ -3521,18 +3521,19 @@ add the following lines to the beginning of the example:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>If you don&#8217;t do this, or something similar, then the code won&#8217;t compile
-because of the missing ports.</p>
+<p>If you don&#8217;t do this, or something similar, then the code won&#8217;t
+pass through <code>fpp-check</code> because of the missing ports.
+(Try it and see.)</p>
 </div>
 <div class="paragraph">
-<p>Note that the port definitions shown above are for conveniently compiling
+<p>Note that the port definitions shown above are for conveniently checking
 simple examples only.
 They are not correct for the F Prime framework and will not work
-properly with F Prime XML code generation.</p>
+properly with F Prime C&#43;&#43; code generation.</p>
 </div>
 <div class="paragraph">
 <p>For further information about command registration, receipt, and
-response, and implementation of command handlers, see the
+response, and implementing command handlers, see the
 F Prime User&#8217;s Guide.</p>
 </div>
 </div>
@@ -5761,7 +5762,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-09 18:24:25 -0800
+Last updated 2021-02-10 08:20:20 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
