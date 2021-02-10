@@ -524,8 +524,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Components_Port-Instances_Basic-Port-Instances">9.2.1. Basic Port Instances</a></li>
 <li><a href="#Defining-Components_Port-Instances_Rules-for-Port-Instances">9.2.2. Rules for Port Instances</a></li>
 <li><a href="#Defining-Components_Port-Instances_Arrays-of-Port-Instances">9.2.3. Arrays of Port Instances</a></li>
-<li><a href="#Defining-Components_Port-Instances_Priorities">9.2.4. Priorities</a></li>
-<li><a href="#Defining-Components_Port-Instances_Queue-Full-Behavior">9.2.5. Queue Full Behavior</a></li>
+<li><a href="#Defining-Components_Port-Instances_Specifying-Priority">9.2.4. Specifying Priority</a></li>
+<li><a href="#Defining-Components_Port-Instances_Specifying-Queue-Full-Behavior">9.2.5. Specifying Queue Full Behavior</a></li>
 <li><a href="#Defining-Components_Port-Instances_Serial-Port-Instances">9.2.6. Serial Port Instances</a></li>
 </ul>
 </li>
@@ -2956,8 +2956,8 @@ port P(
 <h2 id="Defining-Components">9. Defining Components</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In F Prime, a component is a basic unit of FSW function.
-It is similar to a class in an object-oriented language.
+<p>In F Prime, the <strong>component</strong> is the basic unit of FSW function.
+An F Prime component is similar to a class in an object-oriented language.
 An F Prime FSW application is divided into several
 <strong>component instances</strong>, each of which instantiates a component.
 The component instances communicate by sending and receiving
@@ -2970,16 +2970,16 @@ active, queued, and passive.
 An active component has a thread of control
 and a message queue.
 A queued component has a message queue, but no thread
-of control; control happens on another thread, such as
+of control; control runs on another thread, such as
 a rate group thread.
 A passive component has no thread of control and no
-message queue.</p>
+message queue; it is like a non-threaded function library.</p>
 </div>
 <div class="sect2">
 <h3 id="Defining-Components_Component-Definitions">9.1. Component Definitions</h3>
 <div class="paragraph">
 <p>An FPP <strong>component definition</strong> defines an F Prime component.
-To define a component, you write the following:</p>
+To write a component definition, you write the following:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -3013,10 +3013,8 @@ passive component C {
 <div class="paragraph">
 <p>A component definition is an
 <a href="#Writing-Comments-and-Annotations_Annotations">annotatable element</a>,
-so you can annotate it, as shown.</p>
-</div>
-<div class="paragraph">
-<p>The following sections describe the possible component members.</p>
+so you can annotate it, as shown.
+The following sections describe the possible component members.</p>
 </div>
 </div>
 <div class="sect2">
@@ -3087,9 +3085,8 @@ passive component F32Adder {
 <div class="paragraph">
 <p>There are two sync input port instances and one output port
 instance.
-We use the keyword <code>port</code> to denote a port instance.
-The kind goes first, followed by the keyword <code>port</code>, the port instance
-name, a colon, and the port definition.
+The kind appears first, followed by the keyword <code>port</code>, the port instance
+name, a colon, and the type.
 Each port instance is an
 <a href="#Writing-Comments-and-Annotations_Annotations">annotatable element</a>,
 so you can annotate the instances as shown.</p>
@@ -3119,15 +3116,25 @@ active component ActiveF32Adder {
 </div>
 </div>
 <div class="paragraph">
+<p>In each case, the actual adding is done in the target language.
+For example, in the C&#43;&#43; implementation, you would generate a
+base class with a virtual handler function, and then override that virtual
+function in a derived class that you write.
+For further details about implementing F Prime components, see the
+F Prime User&#8217;s Guide.</p>
+</div>
+<div class="paragraph">
 <p><strong>Note on terminology:</strong> As explained above, there is a technical
-distinction between a <em>port</em> (defined outside any component)
+distinction between a <em>port</em> (defined outside any component, and providing
+the type of a port instance)
 and a <em>port instance</em> (defined inside a component and instantiating
-a port).
+a port type).
 However, it is sometimes useful to refer to a port instance with
 the shorter term "port" when there is no danger of confusion.
-We will occasionally do that in this manual.
-For example, we may say that the <code>F32Adder</code> component has three
-ports: two async input ports and one output port.</p>
+We will do that in this manual.
+For example, we will say that the <code>F32Adder</code> component has three
+ports: two async input ports of type <code>F32Value</code> and one output port
+of type <code>F32Value</code>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -3139,7 +3146,7 @@ These rules ensure that the FPP model makes sense.</p>
 </div>
 <div class="paragraph">
 <p>First, no passive component may have an <code>async</code> <code>input</code>
-port instance.
+port.
 This is because a passive component has no message queue,
 so asynchronous input is not possible.
 As an example, if we modify the input ports of our <code>F32Adder</code>
@@ -3190,7 +3197,7 @@ active component ErroneousActiveF32Adder {
 </div>
 </div>
 <div class="paragraph">
-<p>Third, a port definition appearing in an <code>async</code> <code>input</code> port
+<p>Third, a port type appearing in an <code>async</code> <code>input</code> port
 may not have any <code>ref</code> parameters or a return type.
 This is because passing a value by reference or returning a value
 makes sense only for synchronous input.
@@ -3229,6 +3236,7 @@ Alternatively, you can specify an explicit array size.
 You do that by writing an <a href="#Defining-Constants_Expressions">expression</a>
 enclosed in square brackets <code>[</code> &#8230;&#8203; <code>]</code> denoting the size (number of elements)
 of the array.
+The size expression must evaluate to a numeric value.
 As with <a href="#Defining-Types_Array-Type-Definitions_Writing-an-Array-Type-Definition">array type definitions</a>,
 the size goes before the element type.
 As an example, here is another version of the <code>F32Adder</code> component, this time
@@ -3243,7 +3251,7 @@ port F32Value(value: F32)
 passive component F32Adder {
 
   @ Inputs 0 and 1
-  sync input port f32ValueIn1: [2] F32Value
+  sync input port f32ValueIn: [2] F32Value
 
   @ Output
   output port f32ValueOut: F32Value
@@ -3253,21 +3261,139 @@ passive component F32Adder {
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Port-Instances_Priorities">9.2.4. Priorities</h4>
+<h4 id="Defining-Components_Port-Instances_Specifying-Priority">9.2.4. Specifying Priority</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>For <code>async</code> <code>input</code> ports, you may specify a priority.
+The priority specification is not allowed for other kinds of ports.
+To specify a priority, you write the keyword <code>priority</code> and an
+expression that evaluates to a numeric value after the port type.
+As an example, here is a modified version of the <code>ActiveF32Adder</code>
+with specified priorities:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A port for carrying an F32 value
+port F32Value(value: F32)
+
+@ An active component for adding two F32 values
+@ Uses specified priorities
+active component ActiveF32Adder {
+
+  @ Input 1 at priority 10
+  async input port f32ValueIn1: F32Value priority 10
+
+  @ Input 2 at priority 20
+  async input port f32ValueIn2: F32Value priority 20
+
+  @ Output
+  output port f32ValueOut: F32Value
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If an <code>async</code> <code>input</code> port has no specified priority, then the
+translator uses a default priority.
+The precise meaning of the default priority and of the numeric priorities is
+implementation-specific.
+In general the priorities regulate the order in which elements are dispatched
+from the message queue.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Port-Instances_Queue-Full-Behavior">9.2.5. Queue Full Behavior</h4>
+<h4 id="Defining-Components_Port-Instances_Specifying-Queue-Full-Behavior">9.2.5. Specifying Queue Full Behavior</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>By default, if an invocation of an <code>async</code> <code>input</code> port causes
+a message queue to overflow, then a <strong>FSW assertion</strong> fails.
+A FSW assertion is a condition that must be true in order
+for FSW execution to proceed safely.
+The behavior of a FSW assertion failure is configurable in the C&#43;&#43;
+implementation F Prime framework; typically it causes a FSW
+abort and system reset.</p>
+</div>
+<div class="paragraph">
+<p>Optionally, you can specify the behavior when a message
+received on an <code>async</code> <code>input</code> port causes a queue overflow.
+There are three possible behaviors:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>assert</code>: Fail a FSW assertion (the default behavior).</p>
+</li>
+<li>
+<p><code>block</code>: Block the sender until the queue is available.</p>
+</li>
+<li>
+<p><code>drop</code>: Drop the incoming message and proceed.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>To specify queue full behavior, you write one of the keywords <code>assert</code>,
+<code>block</code>, or <code>drop</code> after the port type and after the priority
+(if any).
+As an example, here is the <code>ActiveF32Adder</code> updated with explicit
+queue full behavior.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A port for carrying an F32 value
+port F32Value(value: F32)
+
+@ An active component for adding two F32 values
+@ Uses specified priorities
+active component ActiveF32Adder {
+
+  @ Input 1 at priority 10: Block on queue full
+  async input port f32ValueIn1: F32Value priority 10 block
+
+  @ Input 2: Drop on queue full
+  async input port f32ValueIn2: F32Value drop
+
+  @ Output
+  output port f32ValueOut: F32Value
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As for priority specifiers, queue full specifiers are allowed only
+for <code>async</code> <code>input</code> ports.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="Defining-Components_Port-Instances_Serial-Port-Instances">9.2.6. Serial Port Instances</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>When writing a port instance, instead of specifying a named port type,
+you may write the keyword <code>serial</code>.
+Doing this specifies a <strong>serial port instance</strong>.
+A serial port instance does not specify the type of data that it carries.
+It may be connected to a port of any type.
+Serial data passes through the port; the data may be converted to or from a
+specific type at the other end of the connection.</p>
+</div>
+<div class="paragraph">
+<p>As an example, here is a passive component for taking a stream
+of serial data and splitting it (i.e., repeating it by copy)
+onto several streams:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ Split factor
+constant splitFactor = 10
+
+@ Component for splitting a serial data stream
+passive component SerialSplitter {
+
+  @ Input
+  sync input port serialIn: serial
+
+  @ Output
+  output port serialOut: [splitFactor] serial
+
+}</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -3336,10 +3462,10 @@ it explains how to assemble a collection of elements into a model.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>We focus on defining constants, types, enums, and ports, because those
+<p>We focus on defining constants, types, enums, ports, and components, because those
 elements of FPP are currently implemented.
 In future versions of this User&#8217;s Guide, we will extend the discussion to cover
-components and topologies.</p>
+topologies.</p>
 </li>
 <li>
 <p>We discuss several tools for specifying and analyzing dependencies between
@@ -3429,19 +3555,15 @@ multiple blocks
 <div class="paragraph">
 <p>As part of an FPP model, you can write one or more <strong>include specifiers</strong>.
 An include specifier is an instruction to include FPP source elements
-from one file into another file.</p>
+from one file into another file.
+Include specifiers may occur at the top level of a model, or inside a
+<a href="#Defining-Components">component definition</a>.</p>
 </div>
 <div class="paragraph">
 <p>The main purpose of include specifiers is to split up large syntactic units
 into several files.
 For example, a component definition may include a telemetry dictionary
-from a separate file.
-In the current version of FPP, only constant and type definitions are
-available.
-Because these definitions are short, include specifiers are less
-useful for writing them.
-However, we describe include specifiers here for completeness, anticipating
-that we will need them in later versions of FPP.</p>
+from a separate file.</p>
 </div>
 <div class="paragraph">
 <p>To write an include specifier, you write the keyword <code>include</code>
@@ -5481,7 +5603,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-09 15:23:43 -0800
+Last updated 2021-02-09 16:18:09 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

@@ -1,7 +1,7 @@
 == Defining Components
 
-In F Prime, a component is a basic unit of FSW function.
-It is similar to a class in an object-oriented language.
+In F Prime, the *component* is the basic unit of FSW function.
+An F Prime component is similar to a class in an object-oriented language.
 An F Prime FSW application is divided into several
 *component instances*, each of which instantiates a component.
 The component instances communicate by sending and receiving
@@ -13,15 +13,15 @@ active, queued, and passive.
 An active component has a thread of control
 and a message queue.
 A queued component has a message queue, but no thread
-of control; control happens on another thread, such as
+of control; control runs on another thread, such as
 a rate group thread.
 A passive component has no thread of control and no
-message queue.
+message queue; it is like a non-threaded function library.
 
 === Component Definitions
 
 An FPP *component definition* defines an F Prime component.
-To define a component, you write the following:
+To write a component definition, you write the following:
 
 * The component kind: one of `active`, `passive`,
 or `queued`.
@@ -43,7 +43,6 @@ passive component C {
 A component definition is an
 <<Writing-Comments-and-Annotations_Annotations,annotatable element>>,
 so you can annotate it, as shown.
-
 The following sections describe the possible component members.
 
 === Port Instances
@@ -101,9 +100,8 @@ passive component F32Adder {
 
 There are two sync input port instances and one output port
 instance.
-We use the keyword `port` to denote a port instance.
-The kind goes first, followed by the keyword `port`, the port instance
-name, a colon, and the port definition.
+The kind appears first, followed by the keyword `port`, the port instance
+name, a colon, and the type.
 Each port instance is an
 <<Writing-Comments-and-Annotations_Annotations,annotatable element>>,
 so you can annotate the instances as shown.
@@ -131,15 +129,24 @@ active component ActiveF32Adder {
 }
 ----
 
+In each case, the actual adding is done in the target language.
+For example, in the {cpp} implementation, you would generate a
+base class with a virtual handler function, and then override that virtual
+function in a derived class that you write.
+For further details about implementing F Prime components, see the
+F Prime User's Guide.
+
 *Note on terminology:* As explained above, there is a technical
-distinction between a _port_ (defined outside any component)
+distinction between a _port_ (defined outside any component, and providing
+the type of a port instance)
 and a _port instance_ (defined inside a component and instantiating
-a port).
+a port type).
 However, it is sometimes useful to refer to a port instance with
 the shorter term "port" when there is no danger of confusion.
-We will occasionally do that in this manual.
-For example, we may say that the `F32Adder` component has three
-ports: two async input ports and one output port.
+We will do that in this manual.
+For example, we will say that the `F32Adder` component has three
+ports: two async input ports of type `F32Value` and one output port
+of type `F32Value`.
 
 ==== Rules for Port Instances
 
@@ -148,7 +155,7 @@ satisfy certain rules.
 These rules ensure that the FPP model makes sense.
 
 First, no passive component may have an `async` `input`
-port instance.
+port.
 This is because a passive component has no message queue,
 so asynchronous input is not possible.
 As an example, if we modify the input ports of our `F32Adder`
@@ -196,7 +203,7 @@ active component ErroneousActiveF32Adder {
 }
 --------
 
-Third, a port definition appearing in an `async` `input` port
+Third, a port type appearing in an `async` `input` port
 may not have any `ref` parameters or a return type.
 This is because passing a value by reference or returning a value
 makes sense only for synchronous input.
@@ -232,6 +239,7 @@ Alternatively, you can specify an explicit array size.
 You do that by writing an <<Defining-Constants_Expressions,expression>>
 enclosed in square brackets `[` ... `]` denoting the size (number of elements) 
 of the array.
+The size expression must evaluate to a numeric value.
 As with <<Defining-Types_Array-Type-Definitions_Writing-an-Array-Type-Definition,
 array type definitions>>,
 the size goes before the element type.
@@ -247,7 +255,7 @@ port F32Value(value: F32)
 passive component F32Adder {
 
   @ Inputs 0 and 1
-  sync input port f32ValueIn1: [2] F32Value
+  sync input port f32ValueIn: [2] F32Value
 
   @ Output
   output port f32ValueOut: F32Value
@@ -255,17 +263,121 @@ passive component F32Adder {
 }
 ----
 
-==== Priorities
+==== Specifying Priority
 
-TODO
+For `async` `input` ports, you may specify a priority.
+The priority specification is not allowed for other kinds of ports.
+To specify a priority, you write the keyword `priority` and an
+expression that evaluates to a numeric value after the port type.
+As an example, here is a modified version of the `ActiveF32Adder`
+with specified priorities:
 
-==== Queue Full Behavior
+[source,fpp]
+----
+@ A port for carrying an F32 value
+port F32Value(value: F32)
 
-TODO
+@ An active component for adding two F32 values
+@ Uses specified priorities
+active component ActiveF32Adder {
+
+  @ Input 1 at priority 10
+  async input port f32ValueIn1: F32Value priority 10
+
+  @ Input 2 at priority 20
+  async input port f32ValueIn2: F32Value priority 20
+
+  @ Output
+  output port f32ValueOut: F32Value
+
+}
+----
+
+If an `async` `input` port has no specified priority, then the
+translator uses a default priority.
+The precise meaning of the default priority and of the numeric priorities is
+implementation-specific.
+In general the priorities regulate the order in which elements are dispatched
+from the message queue.
+
+==== Specifying Queue Full Behavior
+
+By default, if an invocation of an `async` `input` port causes
+a message queue to overflow, then a *FSW assertion* fails.
+A FSW assertion is a condition that must be true in order
+for FSW execution to proceed safely.
+The behavior of a FSW assertion failure is configurable in the {cpp}
+implementation F Prime framework; typically it causes a FSW
+abort and system reset.
+
+Optionally, you can specify the behavior when a message
+received on an `async` `input` port causes a queue overflow.
+There are three possible behaviors:
+
+. `assert`: Fail a FSW assertion (the default behavior).
+. `block`: Block the sender until the queue is available.
+. `drop`: Drop the incoming message and proceed.
+
+To specify queue full behavior, you write one of the keywords `assert`,
+`block`, or `drop` after the port type and after the priority
+(if any).
+As an example, here is the `ActiveF32Adder` updated with explicit
+queue full behavior.
+
+[source,fpp]
+----
+@ A port for carrying an F32 value
+port F32Value(value: F32)
+
+@ An active component for adding two F32 values
+@ Uses specified priorities
+active component ActiveF32Adder {
+
+  @ Input 1 at priority 10: Block on queue full
+  async input port f32ValueIn1: F32Value priority 10 block
+
+  @ Input 2: Drop on queue full
+  async input port f32ValueIn2: F32Value drop
+
+  @ Output
+  output port f32ValueOut: F32Value
+
+}
+----
+
+As for priority specifiers, queue full specifiers are allowed only
+for `async` `input` ports.
 
 ==== Serial Port Instances
 
-TODO
+When writing a port instance, instead of specifying a named port type,
+you may write the keyword `serial`.
+Doing this specifies a *serial port instance*.
+A serial port instance does not specify the type of data that it carries.
+It may be connected to a port of any type.
+Serial data passes through the port; the data may be converted to or from a 
+specific type at the other end of the connection.
+
+As an example, here is a passive component for taking a stream
+of serial data and splitting it (i.e., repeating it by copy)
+onto several streams:
+
+[source,fpp]
+----
+@ Split factor
+constant splitFactor = 10
+
+@ Component for splitting a serial data stream
+passive component SerialSplitter {
+
+  @ Input
+  sync input port serialIn: serial
+
+  @ Output
+  output port serialOut: [splitFactor] serial
+
+}
+----
 
 === Special Port Instances
 
