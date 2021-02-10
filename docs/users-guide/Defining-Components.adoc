@@ -394,11 +394,12 @@ the F Prime User's Guide.
 
 A *special port instance* is a port instance that has a special
 behavior in F Prime.
-In writing a
-<<Defining-Components_Port-Instances,general port instance>>
-you specify a port type defined in the FPP model.
-When writing a special port
-instance, you specify a predefined behavior
+As discussed <<Defining-Components_Port-Instances,above>>,
+when writing a general port instance,
+you specify a port kind, a port type, and possibly other
+information such as array size and priority.
+Writing a special port instance is a bit different.
+In this case you specify a predefined behavior
 defined by the F Prime framework.
 The special port behaviors fall into five groups:
 commands, events, telemetry, parameters, and time.
@@ -452,7 +453,7 @@ a typed port with a predefined type, as follows:
 The F Prime framework provides definitions for these ports with
 the correct formal parameters.
 
-For compiling simple examples, you can provide simple
+For compiling simple examples, you can provide 
 definitions of these ports with no formal parameters.
 For example, to compile the code shown above, you can
 add the following lines to the beginning of the example:

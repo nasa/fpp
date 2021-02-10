@@ -3422,11 +3422,12 @@ the F Prime User&#8217;s Guide.</p>
 <div class="paragraph">
 <p>A <strong>special port instance</strong> is a port instance that has a special
 behavior in F Prime.
-In writing a
-<a href="#Defining-Components_Port-Instances">general port instance</a>
-you specify a port type defined in the FPP model.
-When writing a special port
-instance, you specify a predefined behavior
+As discussed <a href="#Defining-Components_Port-Instances">above</a>,
+when writing a general port instance,
+you specify a port kind, a port type, and possibly other
+information such as array size and priority.
+Writing a special port instance is a bit different.
+In this case you specify a predefined behavior
 defined by the F Prime framework.
 The special port behaviors fall into five groups:
 commands, events, telemetry, parameters, and time.</p>
@@ -3505,7 +3506,7 @@ a typed port with a predefined type, as follows:</p>
 the correct formal parameters.</p>
 </div>
 <div class="paragraph">
-<p>For compiling simple examples, you can provide simple
+<p>For compiling simple examples, you can provide
 definitions of these ports with no formal parameters.
 For example, to compile the code shown above, you can
 add the following lines to the beginning of the example:</p>
@@ -5760,7 +5761,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-09 18:19:54 -0800
+Last updated 2021-02-09 18:24:25 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
