@@ -453,7 +453,7 @@ a typed port with a predefined type, as follows:
 The F Prime framework provides definitions for these ports with
 the correct formal parameters.
 
-For compiling simple examples, you can provide 
+For checking simple examples, you can provide 
 definitions of these ports with no formal parameters.
 For example, to compile the code shown above, you can
 add the following lines to the beginning of the example:
@@ -467,13 +467,13 @@ module Fw {
 }
 --------
 
-If you don't do this, or something similar, then the code won't compile
-because of the missing ports.
+If you don't do this, or something similar, then the code won't 
+pass through `fpp-check` because of the missing ports.
 
-Note that the port definitions shown above are for conveniently compiling
+Note that the port definitions shown above are for conveniently checking
 simple examples only.
 They are not correct for the F Prime framework and will not work
-properly with F Prime XML code generation.
+properly with F Prime {cpp} code generation.
 
 For further information about command registration, receipt, and
 response, and implementation of command handlers, see the
