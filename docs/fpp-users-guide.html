@@ -2826,16 +2826,17 @@ port P(ref a: T)</code></pre>
 In a synchronous invocation, <code>a</code> is passed by reference.
 In an asynchronous invocation, <code>a</code> is passed by value
 (it is serialized onto a queue).
-The <code>ref</code> marking does not cause pass by reference in this case.
-When a parameter is not marked <code>ref</code> (the default case),
-we say that it is a <strong>value parameter</strong>.</p>
+The <code>ref</code> marking does not cause pass by reference in this case.</p>
 </div>
 <div class="paragraph">
 <p>When a reference parameter is used in a synchronous port invocation,
 we say that the parameter has
 <strong>pass-by-reference semantics</strong>.
 In other cases, the parameter is passed by value, and we say that it
-has <strong>pass-by-value semantics</strong>.</p>
+has <strong>pass-by-value semantics</strong>.
+In particular, a parameter is always passed by value if it is not
+marked <code>ref</code>.
+In this case, we say that it is a <strong>value parameter</strong>.</p>
 </div>
 <div class="paragraph">
 <p>There are at least two reasons to use pass-by-reference semantics:</p>
@@ -2906,11 +2907,10 @@ for you. You can achieve pass-by-value semantics in three ways:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Using a value parameter in a synchronous invocation.</p>
+<p>Using a value parameter in a synchronous or asynchronous invocation.</p>
 </li>
 <li>
-<p>Using a value parameter or a reference parameter in an asynchronous
-invocation.</p>
+<p>Using a reference parameter in an asynchronous invocation.</p>
 </li>
 <li>
 <p>Using a reference parameter in a synchronous invocation,
@@ -2924,11 +2924,11 @@ never using the reference again.</p>
 <p><strong>XML limitation:</strong> In the current version of the F Prime XML-to-C&#43;&#43;
 autocoder, if a parameter <code>a</code> of a port <code>P</code> carries a large value,
 then you should mark <code>a</code> <code>ref</code> if you intend to use <code>P</code> in an asynchronous
-context.
+invocation.
 Doing this avoids unnecessary copies that will otherwise occur in the.
 auto-generated code.
-If you also need to use <code>P</code> in a synchronous context, and you need
-pass-by-value semantics in that context, then you can copy the
+If you also need to use <code>P</code> in a synchronous invocation, and you need
+pass-by-value semantics in that invocation, then you can copy the
 data in the handler, as discussed above.</p>
 </div>
 <div class="paragraph">
@@ -2940,9 +2940,9 @@ the optimization automatically, making this use of <code>ref</code> unnecessary.
 <div class="paragraph">
 <p>In summary, given the current state of the XML autocoder, you should
 use a <code>ref</code> parameter if (1) you want pass-by-reference semantics
-in a synchronous context (the intended use of <code>ref</code>); or (2)
+in a synchronous invocation (the intended use of <code>ref</code>); or (2)
 the parameter carries large data and you intend to use it in an asynchronous
-context (the result of an autocoder quirk, which will be fixed in
+invocation (the result of an autocoder quirk, which will be fixed in
 a future version of F Prime).</p>
 </div>
 </div>
@@ -5891,7 +5891,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-12 11:29:16 -0800
+Last updated 2021-02-12 11:36:18 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
