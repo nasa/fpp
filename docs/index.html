@@ -4160,7 +4160,7 @@ value.</p>
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer</a> to a
 <a href="#Definitions_Port-Definitions">port definition <em>D</em></a>.
 If the kind is <code>async input</code>, then <em>D</em>
-may not have any <code>ref</code> parameters and may not specify a return type.</p>
+may not specify a return type.</p>
 </li>
 <li>
 <p>If the type is <code>serial</code>, then the port instance is a <strong>serial
@@ -5427,7 +5427,8 @@ Formal parameters appear, for example, in
 <h3 id="Formal-Parameter-Lists_Semantics">10.2. Semantics</h3>
 <div class="paragraph">
 <p>If present, the keyword <code>ref</code> specifies that the value
-bound to the formal parameter is to be passed by reference.</p>
+bound to the formal parameter is to be passed by reference
+when it is used in a synchronous port invocation.</p>
 </div>
 <div class="paragraph">
 <p>The identifier is the name of the formal parameter.
@@ -7776,7 +7777,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-01 14:16:36 -0800
+Last updated 2021-02-11 17:11:44 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
