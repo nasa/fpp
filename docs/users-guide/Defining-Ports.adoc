@@ -62,7 +62,10 @@ The invocation occurs in {cpp} code that implements the model.
 To invoke a port, you call an auto-generated function.
 The arguments are {cpp} values, and their types must match the
 types of the {cpp} function parameters generated from the FPP port parameters.
-For more information about invoking ports, see the F Prime User's Guide.
+The invocation may be *synchronous* (via a direct function call)
+or *asynchronous* (via a message queue);
+we will discuss these cases further below in the section on
+<<Defining-Components,defining components>>.
 
 The formal parameters form an
 <<Defining-Constants_Multiple-Definitions-and-Element-Sequences,element
@@ -79,6 +82,54 @@ port P(
   t: T
 )
 ----
+
+=== Ref Parameters
+
+You may write the keyword `ref` in front of any formal parameter _p_.
+Doing this specifies that _p_ is a *reference parameter*, i.e.,
+its data is passed by reference when the passing happens in a
+synchronous port invocation.
+For example:
+
+[source,fpp]
+----
+type T
+port P(ref a: T)
+----
+
+In this example, `a` is a reference parameter of type `T`.
+In a synchronous context, `a` is passed by reference.
+In an asynchronous context, it is passed by value, because
+it is serialized onto a queue.
+
+There are at least two reasons to use a `ref` parameter:
+
+. To avoid copying a large data value when sending
+it in a synchronous port invocation.
+For example, if `T` is an image with a large physical
+size, then marking the parameter `a` `ref` saves 
+copying the image when performing a synchronous invocation 
+on the port `P`.
+
+. To return a value to the sender by storing it through
+the reference.
+We discuss this case in the next section on returning
+values.
+
+*XML limitation:* In the current version of the F Prime XML-to-{cpp}
+autocoder, if a parameter `a` of a port `P` passes a large value, 
+you should generally mark `a` `ref` in all cases, for performance
+reasons:
+
+. If `P` is used in a synchronous context, then passing `a` by reference
+will save a copy, as discussed above.
+
+. If `P` is used in an asynchronous context, then 
+the `ref` marking will allow the generated code to avoid some 
+unnecessary copies.
+
+In a future version of the autocoder, we intend to eliminate the
+unnecessary copies in case (2).
 
 === Returning Values
 
@@ -100,23 +151,9 @@ Such a port may be used only in a synchronous context (i.e.,
 as a direct function call, not as a message placed
 on a concurrent queue).
 
-You may also write the keyword `ref` in front of any formal parameter _p_.
-Doing this specifies that _p_ is a *reference parameter*, i.e.,
-its data is passed by reference.
-For example:
-
-[source,fpp]
-----
-port P(ref a: U32)
-----
-
-In this example, `a` is a reference parameter of type `U32`.
-If a port _P_ has one or more parameters marked `ref`, then
-_P_ may be used only in a synchronous context.
-
-`ref` parameters provide another way to return values on the port,
-by assigning to the reference, instead of 
-executing a {cpp} `return` statement.
+In a synchronous context only, `ref` parameters provide another way to return 
+values on the port,
+by assigning to the reference, instead of executing a {cpp} `return` statement.
 As an example, consider the following two port definitions:
 
 [source,fpp]

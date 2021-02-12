@@ -204,19 +204,19 @@ active component ErroneousActiveF32Adder {
 --------
 
 Third, a port type appearing in an `async` `input` port
-may not have any `ref` parameters or a return type.
-This is because passing a value by reference or returning a value
+may not have a return type.
+This is because passing returning a value
 makes sense only for synchronous input.
 As an example, this component definition is illegal:
 
 [source,fpp]
 --------
-port P(ref value: U32)
+port P -> U32
 
 active component Error {
 
   # Error: port instance p: P is async input and
-  # port P has a ref parameter
+  # port P has a return type
   async input port p: P
 
 }
