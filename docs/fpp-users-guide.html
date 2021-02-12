@@ -2808,10 +2808,11 @@ port P(
 <div class="sect2">
 <h3 id="Defining-Ports_Ref-Parameters">8.3. Ref Parameters</h3>
 <div class="paragraph">
-<p>You may write the keyword <code>ref</code> in front of any formal parameter <em>p</em>.
+<p>You may write the keyword <code>ref</code> in front of any formal parameter <em>p</em>
+of a port definition.
 Doing this specifies that <em>p</em> is a <strong>reference parameter</strong>, i.e.,
 its data is passed by reference when the passing happens in a
-synchronous port invocation.
+synchronous invocation.
 For example:</p>
 </div>
 <div class="listingblock">
@@ -2822,22 +2823,30 @@ port P(ref a: T)</code></pre>
 </div>
 <div class="paragraph">
 <p>In this example, <code>a</code> is a reference parameter of type <code>T</code>.
-In a synchronous context, <code>a</code> is passed by reference.
-In an asynchronous context, it is passed by value, because
-it is serialized onto a queue.</p>
+In a synchronous invocation, <code>a</code> is passed by reference.
+In an asynchronous invocation, <code>a</code> is passed by value
+(it is serialized onto a queue).
+The <code>ref</code> marking does not cause pass by reference in this case.
+When a parameter is not marked <code>ref</code> (the default case),
+we say that it is a <strong>value parameter</strong>.</p>
 </div>
 <div class="paragraph">
-<p>There are at least two reasons to use a <code>ref</code> parameter:</p>
+<p>When a reference parameter is used in a synchronous port invocation,
+we say that the parameter has
+<strong>pass-by-reference semantics</strong>.
+In other cases, the parameter is passed by value, and we say that it
+has <strong>pass-by-value semantics</strong>.</p>
+</div>
+<div class="paragraph">
+<p>There are at least two reasons to use pass-by-reference semantics:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>To avoid copying a large data value when sending
-it in a synchronous port invocation.
-For example, if <code>T</code> is an image with a large physical
-size, then marking the parameter <code>a</code> <code>ref</code> saves
-copying the image when performing a synchronous invocation
-on the port <code>P</code>.</p>
+<p>To avoid copying a large data value.
+For example, in the code shown above, if <code>T</code> is an image with a large physical
+size, then the <code>ref</code> marking on parameter <code>a</code> saves a copy of the image when
+performing a synchronous invocation on the port <code>P</code>.</p>
 </li>
 <li>
 <p>To return a value to the sender by storing it through
@@ -2848,27 +2857,93 @@ values.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p><strong>XML limitation:</strong> In the current version of the F Prime XML-to-C&#43;&#43;
-autocoder, if a parameter <code>a</code> of a port <code>P</code> passes a large value,
-you should generally mark <code>a</code> <code>ref</code> in all cases, for performance
-reasons:</p>
+<p>When using pass-by-reference semantics,
+you must carefully manage the
+the use of the data to avoid concurrency bugs
+such as data races.
+Except in special cases that require special expertise (e.g.,
+the implementation of highly concurrent data structures),
+you should enforce the rule that at most
+one component may use any piece of data at any time.
+In particular, if component <code>A</code> passes a reference to component <code>B</code>,
+then component <code>A</code> should not use the reference while
+component <code>B</code> is using it, and vice versa.
+For example:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>If <code>P</code> is used in a synchronous context, then passing <code>a</code> by reference
-will save a copy, as discussed above.</p>
+<p>Suppose component <code>A</code> owns some data <code>D</code> and passes a reference
+to <code>D</code> via a synchronous port call to component <code>B</code>.
+Suppose the port handler in component <code>B</code> uses the data but
+does not store the reference, so that when the handler exits,
+the reference is lost.
+This is a good pattern.
+In this case, we may say that ownership of <code>D</code> resides in <code>A</code>, temporarily
+goes to <code>B</code> for the life of the handler, and goes back to <code>A</code>
+when the handler exits.
+Because the port call is synchronous, the handler in <code>B</code>
+never runs concurrently with any code in <code>A</code> that uses <code>D</code>.
+So at most one of <code>A</code> or <code>B</code> uses <code>D</code> at any time.</p>
 </li>
 <li>
-<p>If <code>P</code> is used in an asynchronous context, then
-the <code>ref</code> marking will allow the generated code to avoid some
-unnecessary copies.</p>
+<p>Suppose instead that the handler in <code>B</code> stores the reference
+into a member variable, so that the reference
+persists after the handler exits.
+If this happens, then you should make sure that <code>A</code> cannot use
+<code>D</code> unless and until <code>B</code> passes ownership of <code>D</code> to <code>A</code> and vice versa.
+For example, you could use state variables of enum type in <code>A</code> and in <code>B</code> to
+track ownership, and you could have a port invocation from <code>A</code> to <code>B</code> pass the
+reference and transfer ownership from <code>A</code> to <code>B</code> and vice versa.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>In a future version of the autocoder, we intend to eliminate the
-unnecessary copies in case (2).</p>
+<p>When you use pass-by-value semantics, you don&#8217;t have to worry
+about these issues, because the framework will copy the data
+for you. You can achieve pass-by-value semantics in three ways:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Using a value parameter in a synchronous invocation.</p>
+</li>
+<li>
+<p>Using a value parameter or a reference parameter in an asynchronous
+invocation.</p>
+</li>
+<li>
+<p>Using a reference parameter in a synchronous invocation,
+immediately coping the data in the handler
+that receives the parameter, and thereafter using the copy,
+never using the reference again.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>XML limitation:</strong> In the current version of the F Prime XML-to-C&#43;&#43;
+autocoder, if a parameter <code>a</code> of a port <code>P</code> carries a large value,
+then you should mark <code>a</code> <code>ref</code> if you intend to use <code>P</code> in an asynchronous
+context.
+Doing this avoids unnecessary copies that will otherwise occur in the.
+auto-generated code.
+If you also need to use <code>P</code> in a synchronous context, and you need
+pass-by-value semantics in that context, then you can copy the
+data in the handler, as discussed above.</p>
+</div>
+<div class="paragraph">
+<p>This use of <code>ref</code> is unfortunate: it is an autocoder optimization
+that has leaked into the model description.
+In a future version of the autocoder, we intend to perform
+the optimization automatically, making this use of <code>ref</code> unnecessary.</p>
+</div>
+<div class="paragraph">
+<p>In summary, given the current state of the XML autocoder, you should
+use a <code>ref</code> parameter if (1) you want pass-by-reference semantics
+in a synchronous context (the intended use of <code>ref</code>); or (2)
+the parameter carries large data and you intend to use it in an asynchronous
+context (the result of an autocoder quirk, which will be fixed in
+a future version of F Prime).</p>
 </div>
 </div>
 <div class="sect2">
@@ -5816,7 +5891,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-11 18:08:55 -0800
+Last updated 2021-02-12 11:29:16 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

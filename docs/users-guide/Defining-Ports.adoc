@@ -85,10 +85,11 @@ port P(
 
 === Ref Parameters
 
-You may write the keyword `ref` in front of any formal parameter _p_.
+You may write the keyword `ref` in front of any formal parameter _p_
+of a port definition.
 Doing this specifies that _p_ is a *reference parameter*, i.e.,
 its data is passed by reference when the passing happens in a
-synchronous port invocation.
+synchronous invocation.
 For example:
 
 [source,fpp]
@@ -98,38 +99,101 @@ port P(ref a: T)
 ----
 
 In this example, `a` is a reference parameter of type `T`.
-In a synchronous context, `a` is passed by reference.
-In an asynchronous context, it is passed by value, because
-it is serialized onto a queue.
+In a synchronous invocation, `a` is passed by reference.
+In an asynchronous invocation, `a` is passed by value
+(it is serialized onto a queue).
+The `ref` marking does not cause pass by reference in this case.
+When a parameter is not marked `ref` (the default case),
+we say that it is a *value parameter*.
 
-There are at least two reasons to use a `ref` parameter:
+When a reference parameter is used in a synchronous port invocation,
+we say that the parameter has 
+*pass-by-reference semantics*.
+In other cases, the parameter is passed by value, and we say that it
+has *pass-by-value semantics*.
 
-. To avoid copying a large data value when sending
-it in a synchronous port invocation.
-For example, if `T` is an image with a large physical
-size, then marking the parameter `a` `ref` saves 
-copying the image when performing a synchronous invocation 
-on the port `P`.
+There are at least two reasons to use pass-by-reference semantics:
+
+. To avoid copying a large data value.
+For example, in the code shown above, if `T` is an image with a large physical
+size, then the `ref` marking on parameter `a` saves a copy of the image when 
+performing a synchronous invocation on the port `P`.
 
 . To return a value to the sender by storing it through
 the reference.
 We discuss this case in the next section on returning
 values.
 
+When using pass-by-reference semantics,
+you must carefully manage the
+the use of the data to avoid concurrency bugs
+such as data races.
+Except in special cases that require special expertise (e.g., 
+the implementation of highly concurrent data structures),
+you should enforce the rule that at most
+one component may use any piece of data at any time.
+In particular, if component `A` passes a reference to component `B`,
+then component `A` should not use the reference while
+component `B` is using it, and vice versa.
+For example:
+
+. Suppose component `A` owns some data `D` and passes a reference
+to `D` via a synchronous port call to component `B`.
+Suppose the port handler in component `B` uses the data but
+does not store the reference, so that when the handler exits,
+the reference is lost.
+This is a good pattern.
+In this case, we may say that ownership of `D` resides in `A`, temporarily
+goes to `B` for the life of the handler, and goes back to `A`
+when the handler exits.
+Because the port call is synchronous, the handler in `B`
+never runs concurrently with any code in `A` that uses `D`.
+So at most one of `A` or `B` uses `D` at any time.
+
+. Suppose instead that the handler in `B` stores the reference
+into a member variable, so that the reference
+persists after the handler exits.
+If this happens, then you should make sure that `A` cannot use
+`D` unless and until `B` passes ownership of `D` to `A` and vice versa.
+For example, you could use state variables of enum type in `A` and in `B` to 
+track ownership, and you could have a port invocation from `A` to `B` pass the 
+reference and transfer ownership from `A` to `B` and vice versa.
+
+When you use pass-by-value semantics, you don't have to worry
+about these issues, because the framework will copy the data
+for you. You can achieve pass-by-value semantics in three ways:
+
+. Using a value parameter in a synchronous invocation.
+
+. Using a value parameter or a reference parameter in an asynchronous 
+invocation.
+
+. Using a reference parameter in a synchronous invocation,
+immediately coping the data in the handler
+that receives the parameter, and thereafter using the copy,
+never using the reference again.
+
 *XML limitation:* In the current version of the F Prime XML-to-{cpp}
-autocoder, if a parameter `a` of a port `P` passes a large value, 
-you should generally mark `a` `ref` in all cases, for performance
-reasons:
+autocoder, if a parameter `a` of a port `P` carries a large value, 
+then you should mark `a` `ref` if you intend to use `P` in an asynchronous
+context.
+Doing this avoids unnecessary copies that will otherwise occur in the.
+auto-generated code.
+If you also need to use `P` in a synchronous context, and you need
+pass-by-value semantics in that context, then you can copy the
+data in the handler, as discussed above.
 
-. If `P` is used in a synchronous context, then passing `a` by reference
-will save a copy, as discussed above.
+This use of `ref` is unfortunate: it is an autocoder optimization
+that has leaked into the model description.
+In a future version of the autocoder, we intend to perform
+the optimization automatically, making this use of `ref` unnecessary.
 
-. If `P` is used in an asynchronous context, then 
-the `ref` marking will allow the generated code to avoid some 
-unnecessary copies.
-
-In a future version of the autocoder, we intend to eliminate the
-unnecessary copies in case (2).
+In summary, given the current state of the XML autocoder, you should
+use a `ref` parameter if (1) you want pass-by-reference semantics
+in a synchronous context (the intended use of `ref`); or (2)
+the parameter carries large data and you intend to use it in an asynchronous
+context (the result of an autocoder quirk, which will be fixed in
+a future version of F Prime).
 
 === Returning Values
 
