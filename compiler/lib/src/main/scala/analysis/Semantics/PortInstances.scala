@@ -107,17 +107,6 @@ object PortInstances {
   /** Checks general async input uses port definitions */
   private def checkGeneralAsyncInput(instance: PortInstance.General) = {
     val loc = Locations.get(instance.aNode._2.id)
-    def checkRefParams(defPort: Ast.DefPort, defLoc: Location) = {
-      val numRefParams = Analysis.getNumRefParams(defPort.params)
-      if (numRefParams != 0) Left(
-        SemanticError.InvalidPortInstance(
-          loc,
-          "async input port may not have ref parameters",
-          defLoc
-        )
-      )
-      else Right(())
-    }
     def checkReturnType(defPort: Ast.DefPort, defLoc: Location) = {
       defPort.returnType match {
         case Some(_) => Left(
@@ -138,10 +127,7 @@ object PortInstances {
         val node = symbol.node._2
         val defPort = node.data
         val defLoc = Locations.get(node.id)
-        for {
-          _ <- checkRefParams(defPort, defLoc)
-          _ <- checkReturnType(defPort, defLoc)
-        } yield ()
+        checkReturnType(defPort, defLoc)
       }
       case _ => Right(())
     }
