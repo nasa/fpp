@@ -22,7 +22,8 @@ _[_ `ref` _]_
 === Semantics
 
 If present, the keyword `ref` specifies that the value
-bound to the formal parameter is to be passed by reference.
+bound to the formal parameter is to be passed by reference
+when it is used in a synchronous port invocation.
 
 The identifier is the name of the formal parameter.
 No two parameters in the same formal parameter list

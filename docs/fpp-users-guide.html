@@ -512,8 +512,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#Defining-Ports_Port-Names">8.1. Port Names</a></li>
 <li><a href="#Defining-Ports_Formal-Parameters">8.2. Formal Parameters</a></li>
-<li><a href="#Defining-Ports_Returning-Values">8.3. Returning Values</a></li>
-<li><a href="#Defining-Ports_Annotating-a-Port-Definition">8.4. Annotating a Port Definition</a></li>
+<li><a href="#Defining-Ports_Ref-Parameters">8.3. Ref Parameters</a></li>
+<li><a href="#Defining-Ports_Returning-Values">8.4. Returning Values</a></li>
+<li><a href="#Defining-Ports_Annotating-a-Port-Definition">8.5. Annotating a Port Definition</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Components">9. Defining Components</a>
@@ -2781,7 +2782,10 @@ The invocation occurs in C&#43;&#43; code that implements the model.
 To invoke a port, you call an auto-generated function.
 The arguments are C&#43;&#43; values, and their types must match the
 types of the C&#43;&#43; function parameters generated from the FPP port parameters.
-For more information about invoking ports, see the F Prime User&#8217;s Guide.</p>
+The invocation may be <strong>synchronous</strong> (via a direct function call)
+or <strong>asynchronous</strong> (via a message queue);
+we will discuss these cases further below in the section on
+<a href="#Defining-Components">defining components</a>.</p>
 </div>
 <div class="paragraph">
 <p>The formal parameters form an
@@ -2802,7 +2806,73 @@ port P(
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Ports_Returning-Values">8.3. Returning Values</h3>
+<h3 id="Defining-Ports_Ref-Parameters">8.3. Ref Parameters</h3>
+<div class="paragraph">
+<p>You may write the keyword <code>ref</code> in front of any formal parameter <em>p</em>.
+Doing this specifies that <em>p</em> is a <strong>reference parameter</strong>, i.e.,
+its data is passed by reference when the passing happens in a
+synchronous port invocation.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">type T
+port P(ref a: T)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this example, <code>a</code> is a reference parameter of type <code>T</code>.
+In a synchronous context, <code>a</code> is passed by reference.
+In an asynchronous context, it is passed by value, because
+it is serialized onto a queue.</p>
+</div>
+<div class="paragraph">
+<p>There are at least two reasons to use a <code>ref</code> parameter:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>To avoid copying a large data value when sending
+it in a synchronous port invocation.
+For example, if <code>T</code> is an image with a large physical
+size, then marking the parameter <code>a</code> <code>ref</code> saves
+copying the image when performing a synchronous invocation
+on the port <code>P</code>.</p>
+</li>
+<li>
+<p>To return a value to the sender by storing it through
+the reference.
+We discuss this case in the next section on returning
+values.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>XML limitation:</strong> In the current version of the F Prime XML-to-C&#43;&#43;
+autocoder, if a parameter <code>a</code> of a port <code>P</code> passes a large value,
+you should generally mark <code>a</code> <code>ref</code> in all cases, for performance
+reasons:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If <code>P</code> is used in a synchronous context, then passing <code>a</code> by reference
+will save a copy, as discussed above.</p>
+</li>
+<li>
+<p>If <code>P</code> is used in an asynchronous context, then
+the <code>ref</code> marking will allow the generated code to avoid some
+unnecessary copies.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>In a future version of the autocoder, we intend to eliminate the
+unnecessary copies in case (2).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-Ports_Returning-Values">8.4. Returning Values</h3>
 <div class="paragraph">
 <p>Optionally, you can give the port a return type.
 To do this you write an arrow <code>-></code> and a type
@@ -2824,25 +2894,9 @@ as a direct function call, not as a message placed
 on a concurrent queue).</p>
 </div>
 <div class="paragraph">
-<p>You may also write the keyword <code>ref</code> in front of any formal parameter <em>p</em>.
-Doing this specifies that <em>p</em> is a <strong>reference parameter</strong>, i.e.,
-its data is passed by reference.
-For example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">port P(ref a: U32)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>In this example, <code>a</code> is a reference parameter of type <code>U32</code>.
-If a port <em>P</em> has one or more parameters marked <code>ref</code>, then
-<em>P</em> may be used only in a synchronous context.</p>
-</div>
-<div class="paragraph">
-<p><code>ref</code> parameters provide another way to return values on the port,
-by assigning to the reference, instead of
-executing a C&#43;&#43; <code>return</code> statement.
+<p>In a synchronous context only, <code>ref</code> parameters provide another way to return
+values on the port,
+by assigning to the reference, instead of executing a C&#43;&#43; <code>return</code> statement.
 As an example, consider the following two port definitions:</p>
 </div>
 <div class="listingblock">
@@ -2939,7 +2993,7 @@ port P(ref result: U32) -&gt; Status</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Ports_Annotating-a-Port-Definition">8.4. Annotating a Port Definition</h3>
+<h3 id="Defining-Ports_Annotating-a-Port-Definition">8.5. Annotating a Port Definition</h3>
 <div class="paragraph">
 <p>A port definition is an
 <a href="#Writing-Comments-and-Annotations_Annotations">annotatable element</a>.
@@ -3206,19 +3260,19 @@ active component ErroneousActiveF32Adder {
 </div>
 <div class="paragraph">
 <p>Third, a port type appearing in an <code>async</code> <code>input</code> port
-may not have any <code>ref</code> parameters or a return type.
-This is because passing a value by reference or returning a value
+may not have a return type.
+This is because passing returning a value
 makes sense only for synchronous input.
 As an example, this component definition is illegal:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">port P(ref value: U32)
+<pre class="prettyprint highlight"><code data-lang="fpp">port P -&gt; U32
 
 active component Error {
 
   # Error: port instance p: P is async input and
-  # port P has a ref parameter
+  # port P has a return type
   async input port p: P
 
 }</code></pre>
@@ -5762,7 +5816,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-10 08:20:20 -0800
+Last updated 2021-02-11 18:08:55 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
