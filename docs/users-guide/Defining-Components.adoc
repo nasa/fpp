@@ -205,7 +205,7 @@ active component ErroneousActiveF32Adder {
 
 Third, a port type appearing in an `async` `input` port
 may not have a return type.
-This is because passing returning a value
+This is because returning a value
 makes sense only for synchronous input.
 As an example, this component definition is illegal:
 
