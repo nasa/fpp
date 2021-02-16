@@ -3564,7 +3564,8 @@ commands, events, telemetry, parameters, and time.</p>
 <div class="sect3">
 <h4 id="Defining-Components_Special-Port-Instances_Commands">9.3.1. Commands</h4>
 <div class="paragraph">
-<p>The special command behaviors, and their keywords, are as follows:</p>
+<p>A <strong>command</strong> is an instruction to the spacecraft to do something.
+The special command behaviors, and their keywords, are as follows:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -3585,7 +3586,7 @@ To specify a command port, you write one of the keyword pairs
 shown above followed by the keyword <code>port</code> and the port name.</p>
 </div>
 <div class="paragraph">
-<p>As an example, here is a passive component <code>C</code> with each
+<p>As an example, here is a passive component <code>CommandPorts</code> with each
 of the command ports:</p>
 </div>
 <div class="listingblock">
@@ -3614,7 +3615,7 @@ The port names shown in the example above are standard but not
 required; you can use any names you wish.</p>
 </div>
 <div class="paragraph">
-<p>During translation, each of the command ports is converted into
+<p>During translation, each command port is converted into
 a typed port instance with a predefined port type, as follows:</p>
 </div>
 <div class="ulist">
@@ -3632,13 +3633,9 @@ a typed port instance with a predefined port type, as follows:</p>
 </div>
 <div class="paragraph">
 <p>The F Prime framework provides definitions for these ports
-in the directory <code>Fw/Cmd</code>.</p>
-</div>
-<div class="paragraph">
-<p>For checking simple examples, you can provide
-simplified definitions of these ports.
-For example, to compile the code shown above, you can
-add the following lines to the beginning of the example:</p>
+in the directory <code>Fw/Cmd</code>.
+For checking simple examples, you can use the following
+simplified definitions of these ports:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3650,8 +3647,10 @@ add the following lines to the beginning of the example:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>If you don&#8217;t do this, or something similar, then the code won&#8217;t
-pass through <code>fpp-check</code> because of the missing ports.
+<p>For example, to check the <code>CommandPorts</code> component, you can
+add these lines before the component definition.
+If you don&#8217;t do this, or something similar, then the component
+definition won&#8217;t pass through <code>fpp-check</code> because of the missing ports.
 (Try it and see.)</p>
 </div>
 <div class="paragraph">
@@ -3669,25 +3668,268 @@ F Prime User&#8217;s Guide.</p>
 <div class="sect3">
 <h4 id="Defining-Components_Special-Port-Instances_Events">9.3.2. Events</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>An <strong>event</strong> is a report that something happened, for example,
+that a file was successfully uplinked.
+The special event behaviors, and their keywords, are as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>event</code>: A port for emitting events as serialized bytes.</p>
+</li>
+<li>
+<p><code>text</code> <code>event</code>: A port for emitting events as human-readable
+text (usually used for testing and debugging on the ground).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Collectively, these ports are known as <strong>event ports</strong>.
+To specify an event port, you write one of the keyword groups
+shown above followed by the keyword <code>port</code> and the port name.</p>
+</div>
+<div class="paragraph">
+<p>As an example, here is a passive component <code>EventPorts</code> with each
+of the event ports:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A component for illustrating event ports
+passive component EventPorts {
+
+  @ A port for emitting events
+  event port eventOut
+
+  @ A port for emitting text events
+  text event port textEventOut
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Any component may have at most one of each kind of event
+port.
+If a component emits events (more on this below),
+then (1) an event port is required; and (2) a text event
+port is required if text logging is enabled in the F Prime
+framework.</p>
+</div>
+<div class="paragraph">
+<p>During translation, each event port is converted into
+a typed port instance with a predefined port type, as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>event</code> <code>recv</code> uses the port <code>Fw.Log</code></p>
+</li>
+<li>
+<p><code>text</code> <code>event</code> uses the port <code>Fw.LogText</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The name <code>Log</code> refers to an event log.
+The F Prime framework provides definitions for these ports
+in the directory <code>Fw/Log</code>.
+For checking simple examples, you can use the following
+simplified definitions of these ports:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module Fw {
+  port Log
+  port LogText
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For further information about events in F Prime, see the
+F Prime User&#8217;s Guide.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="Defining-Components_Special-Port-Instances_Telemetry">9.3.3. Telemetry</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p><strong>Telemetry</strong> is data regarding the state of the system.
+A <strong>telemetry port</strong> lets a component emit telemetry.
+To specify a telemetry port, you write the keyword <code>telemetry</code>,
+the keyword <code>port</code>, and the port name.</p>
+</div>
+<div class="paragraph">
+<p>As an example, here is a passive component <code>TelemetryPorts</code> with
+a telemetry port:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A component for illustrating telemetry ports
+passive component TelemetryPorts {
+
+  @ A port for emitting telemetry
+  telemetry port tlmOut
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Any component may have at most one telemetry port.
+If a component emits telemetry (more on this below),
+then a telemetry port is required.</p>
+</div>
+<div class="paragraph">
+<p>During translation, each telemetry port is converted into
+a typed port instance with the predefined port type
+<code>Fw.Tlm</code>.
+The F Prime framework provides a definition for this port
+in the directory <code>Fw/Tlm</code>.
+For checking simple examples, you can use the following
+simplified definition of this port:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module Fw {
+  port Tlm
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For further information about telemetry in F Prime, see the
+F Prime User&#8217;s Guide.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="Defining-Components_Special-Port-Instances_Parameters">9.3.4. Parameters</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>A <strong>parameter</strong> is a configurable constant that may be updated
+from the ground.
+The current parameter values are stored in an F Prime component
+called the <strong>parameter database</strong>.</p>
+</div>
+<div class="paragraph">
+<p>The special parameter behaviors, and their keywords, are as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>param</code> <code>get</code>: A port for getting the current value of a parameter
+from the parameter database.</p>
+</li>
+<li>
+<p><code>param</code> <code>set</code>: A port for setting the current value of a parameter
+in the parameter database.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Collectively, these ports are known as <strong>parameter ports</strong>.
+To specify a parameter port, you write one of the keyword groups
+shown above followed by the keyword <code>port</code> and the port name.</p>
+</div>
+<div class="paragraph">
+<p>As an example, here is a passive component <code>ParamPorts</code> with each
+of the parameter ports:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A component for illustrating parameter ports
+passive component ParamPorts {
+
+  @ A port for getting parameter values
+  param get port prmGetOut
+
+  @ A port for setting parameter values
+  param set port prmSetOut
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Any component may have at most one of each kind of parameter
+port.
+If a component has parameters (more on this below),
+then both parameter ports are required.</p>
+</div>
+<div class="paragraph">
+<p>During translation, each parameter port is converted into
+a typed port instance with a predefined port type, as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>param</code> <code>get</code> uses the port <code>Fw.PrmGet</code></p>
+</li>
+<li>
+<p><code>param</code> <code>set</code> uses the port <code>Fw.PrmSet</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The F Prime framework provides definitions for these ports
+in the directory <code>Fw/Prm</code>.
+For checking simple examples, you can use the following
+simplified definitions of these ports:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module Fw {
+  port PrmGet
+  port PrmSet
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For further information about parameters in F Prime, see the
+F Prime User&#8217;s Guide.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="Defining-Components_Special-Port-Instances_Time">9.3.5. Time</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>A <strong>time get port</strong> lets a component get the system time from a
+time component.
+To specify a time get port, you write the keywords <code>time</code> <code>get</code>,
+the keyword <code>port</code>, and the port name.</p>
+</div>
+<div class="paragraph">
+<p>As an example, here is a passive component <code>TimeGetPorts</code> with
+a time get port:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A component for illustrating time get ports
+passive component TimeGetPorts {
+
+  @ A port for getting the time
+  time get port timeGetOut
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Any component may have at most one time get port.
+If a component emits events or telemetry (more on this below),
+then a time get port is required, so that the events
+and telemetry points can be time stamped.</p>
+</div>
+<div class="paragraph">
+<p>During translation, each time get port is converted into
+a typed port instance with the predefined port type
+<code>Fw.Time</code>.
+The F Prime framework provides a definition for this port
+in the directory <code>Fw/Time</code>.
+For checking simple examples, you can use the following
+simplified definition of this port:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module Fw {
+  port Time
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For further information about time in F Prime, see the
+F Prime User&#8217;s Guide.</p>
 </div>
 </div>
 </div>
@@ -5891,7 +6133,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-15 11:13:28 -0800
+Last updated 2021-02-15 16:03:52 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

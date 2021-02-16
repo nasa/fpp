@@ -406,6 +406,7 @@ commands, events, telemetry, parameters, and time.
 
 ==== Commands
 
+A *command* is an instruction to the spacecraft to do something.
 The special command behaviors, and their keywords, are as follows:
 
 * `command` `recv`: A port for receiving commands.
@@ -416,7 +417,7 @@ Collectively, these ports are known as *command ports*.
 To specify a command port, you write one of the keyword pairs
 shown above followed by the keyword `port` and the port name.
 
-As an example, here is a passive component `C` with each
+As an example, here is a passive component `CommandPorts` with each
 of the command ports:
 
 [source,fpp]
@@ -443,7 +444,7 @@ then all three ports are required.
 The port names shown in the example above are standard but not
 required; you can use any names you wish.
 
-During translation, each of the command ports is converted into 
+During translation, each command port is converted into 
 a typed port instance with a predefined port type, as follows:
 
 * `cmd` `recv` uses the port `Fw.Cmd`
@@ -452,11 +453,8 @@ a typed port instance with a predefined port type, as follows:
 
 The F Prime framework provides definitions for these ports
 in the directory `Fw/Cmd`.
-
-For checking simple examples, you can provide 
-simplified definitions of these ports.
-For example, to compile the code shown above, you can
-add the following lines to the beginning of the example:
+For checking simple examples, you can use the following 
+simplified definitions of these ports:
 
 [source,fpp]
 --------
@@ -467,8 +465,10 @@ module Fw {
 }
 --------
 
-If you don't do this, or something similar, then the code won't 
-pass through `fpp-check` because of the missing ports.
+For example, to check the `CommandPorts` component, you can
+add these lines before the component definition.
+If you don't do this, or something similar, then the component
+definition won't pass through `fpp-check` because of the missing ports.
 (Try it and see.)
 
 Note that the port definitions shown above are for conveniently checking
@@ -482,19 +482,214 @@ F Prime User's Guide.
 
 ==== Events
 
-TODO
+An *event* is a report that something happened, for example,
+that a file was successfully uplinked.
+The special event behaviors, and their keywords, are as follows:
+
+* `event`: A port for emitting events as serialized bytes.
+* `text` `event`: A port for emitting events as human-readable
+text (usually used for testing and debugging on the ground).
+
+Collectively, these ports are known as *event ports*.
+To specify an event port, you write one of the keyword groups
+shown above followed by the keyword `port` and the port name.
+
+As an example, here is a passive component `EventPorts` with each
+of the event ports:
+
+[source,fpp]
+----
+@ A component for illustrating event ports
+passive component EventPorts {
+
+  @ A port for emitting events
+  event port eventOut
+
+  @ A port for emitting text events
+  text event port textEventOut
+
+}
+----
+
+Any component may have at most one of each kind of event
+port.
+If a component emits events (more on this below),
+then (1) an event port is required; and (2) a text event
+port is required if text logging is enabled in the F Prime
+framework.
+
+During translation, each event port is converted into 
+a typed port instance with a predefined port type, as follows:
+
+* `event` `recv` uses the port `Fw.Log`
+* `text` `event` uses the port `Fw.LogText`
+
+The name `Log` refers to an event log.
+The F Prime framework provides definitions for these ports
+in the directory `Fw/Log`.
+For checking simple examples, you can use the following
+simplified definitions of these ports:
+
+[source,fpp]
+--------
+module Fw {
+  port Log
+  port LogText
+}
+--------
+
+For further information about events in F Prime, see the
+F Prime User's Guide.
 
 ==== Telemetry
 
-TODO
+*Telemetry* is data regarding the state of the system.
+A *telemetry port* lets a component emit telemetry.
+To specify a telemetry port, you write the keyword `telemetry`,
+the keyword `port`, and the port name.
+
+As an example, here is a passive component `TelemetryPorts` with 
+a telemetry port:
+
+[source,fpp]
+----
+@ A component for illustrating telemetry ports
+passive component TelemetryPorts {
+
+  @ A port for emitting telemetry
+  telemetry port tlmOut
+
+}
+----
+
+Any component may have at most one telemetry port.
+If a component emits telemetry (more on this below),
+then a telemetry port is required.
+
+During translation, each telemetry port is converted into 
+a typed port instance with the predefined port type
+`Fw.Tlm`.
+The F Prime framework provides a definition for this port
+in the directory `Fw/Tlm`.
+For checking simple examples, you can use the following
+simplified definition of this port:
+
+[source,fpp]
+--------
+module Fw {
+  port Tlm
+}
+--------
+
+For further information about telemetry in F Prime, see the
+F Prime User's Guide.
 
 ==== Parameters
 
-TODO
+A *parameter* is a configurable constant that may be updated
+from the ground.
+The current parameter values are stored in an F Prime component
+called the *parameter database*.
+
+The special parameter behaviors, and their keywords, are as follows:
+
+* `param` `get`: A port for getting the current value of a parameter
+from the parameter database.
+* `param` `set`: A port for setting the current value of a parameter
+in the parameter database.
+
+Collectively, these ports are known as *parameter ports*.
+To specify a parameter port, you write one of the keyword groups
+shown above followed by the keyword `port` and the port name.
+
+As an example, here is a passive component `ParamPorts` with each
+of the parameter ports:
+
+[source,fpp]
+----
+@ A component for illustrating parameter ports
+passive component ParamPorts {
+
+  @ A port for getting parameter values
+  param get port prmGetOut
+
+  @ A port for setting parameter values
+  param set port prmSetOut
+
+}
+----
+
+Any component may have at most one of each kind of parameter
+port.
+If a component has parameters (more on this below),
+then both parameter ports are required.
+
+During translation, each parameter port is converted into 
+a typed port instance with a predefined port type, as follows:
+
+* `param` `get` uses the port `Fw.PrmGet`
+* `param` `set` uses the port `Fw.PrmSet`
+
+The F Prime framework provides definitions for these ports
+in the directory `Fw/Prm`.
+For checking simple examples, you can use the following
+simplified definitions of these ports:
+
+[source,fpp]
+--------
+module Fw {
+  port PrmGet
+  port PrmSet
+}
+--------
+
+For further information about parameters in F Prime, see the
+F Prime User's Guide.
+
 
 ==== Time
 
-TODO
+A *time get port* lets a component get the system time from a
+time component.
+To specify a time get port, you write the keywords `time` `get`,
+the keyword `port`, and the port name.
+
+As an example, here is a passive component `TimeGetPorts` with 
+a time get port:
+
+[source,fpp]
+----
+@ A component for illustrating time get ports
+passive component TimeGetPorts {
+
+  @ A port for getting the time
+  time get port timeGetOut
+
+}
+----
+
+Any component may have at most one time get port.
+If a component emits events or telemetry (more on this below),
+then a time get port is required, so that the events
+and telemetry points can be time stamped.
+
+During translation, each time get port is converted into 
+a typed port instance with the predefined port type
+`Fw.Time`.
+The F Prime framework provides a definition for this port
+in the directory `Fw/Time`.
+For checking simple examples, you can use the following
+simplified definition of this port:
+
+[source,fpp]
+--------
+module Fw {
+  port Time
+}
+--------
+
+For further information about time in F Prime, see the
+F Prime User's Guide.
 
 === Internal Ports
 
