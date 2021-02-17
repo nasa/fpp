@@ -887,20 +887,149 @@ Notice that we defined the three
 <<Defining-Components_Special-Port-Instances_Commands, command ports>>
 for this component.
 All three ports are required for any component that has commands.
-We discuss this and other rules relating to commands in the
-next section.
+As an example, try deleting one or more of the command ports from the
+example above and running the result through `fpp-check`.
 
-==== Rules for Commands
-
-TODO
+`async` commands require a message queue, so
+they are allowed only for active and queued
+components.
+As an example, try making the `Action` component passive and
+running the result through `fpp-check`.
 
 ==== Specifying Formal Parameters
 
-TODO
+When specifying a command, you may specify one or more
+formal parameters.
+The parameters are bound to arguments when the command
+is sent to the spacecraft.
+Different uses of the same command can have different
+argument values.
+
+The formal parameters of a command are the same
+as for a <<Defining-Ports_Formal-Parameters,port definition>>, except
+that none of the parameters may be a
+<<Defining-Ports_Reference-Parameters,reference parameter>>.
+As an example, here is a `Switch` component that has
+two states, `ON` and `OFF`.
+The component has a `SET_STATE` command for
+setting the state.
+The command has a single argument `state`
+that specifies the new state.
+
+[source,fpp]
+----
+@ The state enumeration
+enum State {
+  OFF @< The off state
+  ON @< The on state
+}
+
+@ A switch with on and off state
+active component Switch {
+
+  @ Command registration
+  command reg port cmdRegOut
+
+  @ Command input
+  command recv port cmdIn
+
+  @ Command response
+  command resp port cmdResponseOut
+
+  @ Set the state
+  async command SET_STATE(
+    state: State @< The new state
+  )
+
+}
+----
 
 ==== Specifying the Opcode
 
-TODO
+Every command in an F Prime FSW application has an *opcode*.
+The opcode is a number that uniquely identifies the command.
+When a command is sent to the application, or dispatched
+to a component, the command is identified by its opcode.
+The command name is mainly for purposes of human interaction
+on the ground.
+For sending and dispatching commands, the opcode is used,
+because it is more compact than the sequence of characters
+representing the name.
+
+When specifying a command, you specify its opcode
+relative to the component where the command is defined.
+Typically the opcodes for each component start at zero: that is, the
+opcodes are 0, 1, 2, etc.
+When constructing a component instance, you further resolve the opcode by 
+providing a base opcode for the instance;
+this base opcode is added to the relative opcodes to form
+the final set of opcodes for the instance.
+We will have more to say about this issue in the section on constructing
+topologies of component instances.
+
+If you don't specify an opcode for a command, as in the examples
+in the previous sections, then a default opcode is used.
+The default opcode for the first command in the component is zero.
+Otherwise the default opcode for any command is one more than
+the opcode of the previous command.
+
+To specify an opcode explicitly, you write the keyword `opcode` followed
+by a numerical expression after the command name and after the
+formal parameters, if any.
+Here is an example:
+
+[source,fpp]
+----
+@ Component for illustrating command opcodes
+active component CommandOpcodes {
+
+  @ Command registration
+  command reg port cmdRegOut
+
+  @ Command input
+  command recv port cmdIn
+
+  @ Command response
+  command resp port cmdResponseOut
+
+  @ This command has default opcode 0x0
+  async command C1
+
+  @ This command has explicit opcode 0x10
+  async command C2(a: F32, b: U32) opcode 0x10
+
+  @ This command has default opcode 0x11
+  sync command C3
+
+}
+----
+
+Within a component, the command opcodes must be unique.
+For example, this component is incorrect because
+the opcode zero appears twice:
+
+[source,fpp]
+--------
+@ Component for illustrating a duplicate opcode
+active component DuplicateOpcode {
+
+  @ Command registration
+  command reg port cmdRegOut
+
+  @ Command input
+  command recv port cmdIn
+
+  @ Command response
+  command resp port cmdResponseOut
+
+  @ This command has opcode 0x0
+  async command C1
+
+  @ Oops! This command also has opcode 0x0
+  async command C2 opcode 0x0
+
+}
+--------
 
 ==== Specifying Priority and Queue Full Behavior
 
