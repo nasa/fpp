@@ -4248,7 +4248,7 @@ in the section on constructing topologies of component instances.</p>
 <p>If you specify a command <em>c</em> with no explicit opcode, as in the examples
 shown in the previous sections, then FPP assigns a default opcode
 to <em>c</em>.
-The default opcode for the first command in the component is zero.
+The default opcode for the first command in a component is zero.
 Otherwise the default opcode for any command is one more than
 the opcode of the previous command.</p>
 </div>
@@ -4256,7 +4256,7 @@ the opcode of the previous command.</p>
 <p>It is usually convenient to rely on the default opcodes.
 However, you may wish to specify one or more opcodes explicitly.
 To do this, you write the keyword <code>opcode</code> followed
-by a numerical expression after the command name and after the
+by a numeric expression after the command name and after the
 formal parameters, if any.
 Here is an example:</p>
 </div>
@@ -4318,7 +4318,46 @@ active component DuplicateOpcode {
 <div class="sect3">
 <h4 id="Defining-Components_Commands_Specifying-Priority-and-Queue-Full-Behavior">9.5.4. Specifying Priority and Queue Full Behavior</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>When specifying an async command, you may specify
+<a href="#Defining-Components_Port-Instances_Specifying-Priority">priority</a> and
+<a href="#Defining-Components_Port-Instances_Specifying-Queue-Full-Behavior">queue full behavior</a>
+as for an async input port.
+You put the priority and queue full information after the command name
+and after the formal parameters and opcode, if any.
+Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A component for illustrating priority and queue full behavior for async
+@ commands
+active component PriorityQueueFull {
+
+  @ Command registration
+  command reg port cmdRegOut
+
+  @ Command input
+  command recv port cmdIn
+
+  @ Command response
+  command resp port cmdResponseOut
+
+  @ Command with priority
+  async command C1 priority 10
+
+  @ Command with formal parameters and priority
+  async command C2(a: U32, b: F32) priority 20
+
+  @ Command with formal parameters, opcode, priority, and queue full behavior
+  async command C3(a: string) opcode 0x10 priority 30 drop
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Priority and queue full behavior are allowed only for
+<code>async</code> commands.
+Try changing one of the commands in the previous example
+to <code>sync</code> and see what <code>fpp-check</code> has to say about it.</p>
 </div>
 </div>
 </div>
@@ -6510,7 +6549,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-17 15:01:47 -0800
+Last updated 2021-02-17 15:18:26 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

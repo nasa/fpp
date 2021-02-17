@@ -968,14 +968,14 @@ in the section on constructing topologies of component instances.
 If you specify a command _c_ with no explicit opcode, as in the examples
 shown in the previous sections, then FPP assigns a default opcode
 to _c_.
-The default opcode for the first command in the component is zero.
+The default opcode for the first command in a component is zero.
 Otherwise the default opcode for any command is one more than
 the opcode of the previous command.
 
 It is usually convenient to rely on the default opcodes.
 However, you may wish to specify one or more opcodes explicitly.
 To do this, you write the keyword `opcode` followed
-by a numerical expression after the command name and after the
+by a numeric expression after the command name and after the
 formal parameters, if any.
 Here is an example:
 
@@ -1034,7 +1034,45 @@ active component DuplicateOpcode {
 
 ==== Specifying Priority and Queue Full Behavior
 
-TODO
+When specifying an async command, you may specify
+<<Defining-Components_Port-Instances_Specifying-Priority,priority>> and
+<<Defining-Components_Port-Instances_Specifying-Queue-Full-Behavior,queue full behavior>>
+as for an async input port.
+You put the priority and queue full information after the command name
+and after the formal parameters and opcode, if any.
+Here is an example:
+
+[source,fpp]
+----
+@ A component for illustrating priority and queue full behavior for async 
+@ commands
+active component PriorityQueueFull {
+
+  @ Command registration
+  command reg port cmdRegOut
+
+  @ Command input
+  command recv port cmdIn
+
+  @ Command response
+  command resp port cmdResponseOut
+
+  @ Command with priority
+  async command C1 priority 10
+
+  @ Command with formal parameters and priority
+  async command C2(a: U32, b: F32) priority 20
+
+  @ Command with formal parameters, opcode, priority, and queue full behavior 
+  async command C3(a: string) opcode 0x10 priority 30 drop
+
+}
+----
+
+Priority and queue full behavior are allowed only for
+`async` commands.
+Try changing one of the commands in the previous example
+to `sync` and see what `fpp-check` has to say about it.
 
 === Events
 
