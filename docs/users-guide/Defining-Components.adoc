@@ -8,7 +8,7 @@ The component instances communicate by sending and receiving
 invocations on their
 <<Defining-Ports, ports>>.
 
-In FPP, as in F Prime, there are three kinds of components:
+In F Prime, there are three kinds of components:
 active, queued, and passive.
 An active component has a thread of control
 and a message queue.
@@ -40,10 +40,10 @@ passive component C {
 }
 ----
 
-A component definition is an
-<<Writing-Comments-and-Annotations_Annotations,annotatable element>>,
-so you can annotate it, as shown.
-The following sections describe the possible component members.
+A component definition and each of its members is an
+<<Writing-Comments-and-Annotations_Annotations,annotatable element>>.
+For example, you can annotate the component as shown above.
+The following sections describe the available component members.
 
 === Port Instances
 
@@ -65,10 +65,10 @@ be dispatched on this component's thread (if this component is active)
 or on the thread of another port invocation (if this component is queued).
 
 * `sync` `input`: Input that invokes a handler defined in this component,
-but run on the thread of the caller.
+and run on the thread of the caller.
 
-* `guarded` `input`: Similar to sync input, but guarded by a mutual
-exclusion lock.
+* `guarded` `input`: Similar to sync input, but the handler is 
+guarded by a mutual exclusion lock.
 
 * `output`: Output transmitted by this component.
 
@@ -406,7 +406,7 @@ commands, events, telemetry, parameters, and time.
 
 ==== Commands
 
-A *command* is an instruction to the spacecraft to do something.
+A *command* is an instruction to the spacecraft to perform an action.
 The special command behaviors, and their keywords, are as follows:
 
 * `command` `recv`: A port for receiving commands.
@@ -810,6 +810,99 @@ on this code?
 Try it and see.
 
 === Commands
+
+When defining an F Prime component, you may specify one or more commands.
+When operating the FSW, each command is dispatched to, and handled
+by, an instance of the component where it is defined.
+The handling occurs in a {cpp} command handler that you write
+as part of the component implementation.
+
+For more information about F Prime command dispatch and
+handling, see the F Prime User's Guide.
+Here we concentrate on how to specify commands in FPP.
+
+==== Basic Commands
+
+The simplest command specifies a kind and a name.
+The kind is one of the following:
+
+* `async`: The command arrives on a message queue, to
+be dispatched on this component's thread (if this component is active)
+or on the thread of a port invocation (if this component is queued).
+
+* `sync`: The command invokes a handler defined in this component,
+and run on the thread of the caller.
+
+* `guarded`: Similar to sync input, but the handler is
+guarded by a mutual exclusion lock.
+
+Notice that the kinds of commands are similar to the kinds of
+<<Defining-Components_Port-Instances_Basic-Port-Instances,
+input ports>>.
+The name is the name of the command.
+
+As an example, here is an active component called `Action`
+with two commands: an async command `START` and a sync
+command `STOP`.
+
+[source,fpp]
+----
+@ An active component for performing an action
+active component Action {
+
+  @ Command registration
+  command reg port cmdRegOut
+
+  @ Command input
+  command recv port cmdIn
+
+  @ Command response
+  command resp port cmdResponseOut
+
+  @ Start the action
+  async command START
+
+  @ Stop the action
+  sync command STOP
+
+}
+----
+
+Command `START` is declared `async`.
+That means that when a `START` command is dispatched
+to an instance of this component, it arrives on a queue.
+Later, the F Prime framework takes the message off the queue
+and calls the corresponding handler on the thread
+of the component.
+
+Command `STOP` is declared `sync`.
+That means that the command runs immediately on the
+thread of the invoking component (for example,
+a command dispatcher component).
+Because the command runs immediately, its handler
+should be very short.
+For example, it could set a stop flag and then exit.
+
+Notice that we defined the three
+<<Defining-Components_Special-Port-Instances_Commands, command ports>>
+for this component.
+All three ports are required for any component that has commands.
+We discuss this and other rules relating to commands in the
+next section.
+
+==== Rules for Commands
+
+TODO
+
+==== Specifying Formal Parameters
+
+TODO
+
+==== Specifying the Opcode
+
+TODO
+
+==== Specifying Priority and Queue Full Behavior
 
 TODO
 

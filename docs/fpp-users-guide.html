@@ -540,7 +540,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#Defining-Components_Internal-Ports">9.4. Internal Ports</a></li>
-<li><a href="#Defining-Components_Commands">9.5. Commands</a></li>
+<li><a href="#Defining-Components_Commands">9.5. Commands</a>
+<ul class="sectlevel3">
+<li><a href="#Defining-Components_Commands_Basic-Commands">9.5.1. Basic Commands</a></li>
+<li><a href="#Defining-Components_Commands_Rules-for-Commands">9.5.2. Rules for Commands</a></li>
+<li><a href="#Defining-Components_Commands_Specifying-Formal-Parameters">9.5.3. Specifying Formal Parameters</a></li>
+<li><a href="#Defining-Components_Commands_Specifying-the-Opcode">9.5.4. Specifying the Opcode</a></li>
+<li><a href="#Defining-Components_Commands_Specifying-Priority-and-Queue-Full-Behavior">9.5.5. Specifying Priority and Queue Full Behavior</a></li>
+</ul>
+</li>
 <li><a href="#Defining-Components_Events">9.6. Events</a></li>
 <li><a href="#Defining-Components_Telemetry">9.7. Telemetry</a></li>
 <li><a href="#Defining-Components_Parameters">9.8. Parameters</a></li>
@@ -3102,7 +3110,7 @@ invocations on their
 <a href="#Defining-Ports">ports</a>.</p>
 </div>
 <div class="paragraph">
-<p>In FPP, as in F Prime, there are three kinds of components:
+<p>In F Prime, there are three kinds of components:
 active, queued, and passive.
 An active component has a thread of control
 and a message queue.
@@ -3148,10 +3156,10 @@ passive component C {
 </div>
 </div>
 <div class="paragraph">
-<p>A component definition is an
-<a href="#Writing-Comments-and-Annotations_Annotations">annotatable element</a>,
-so you can annotate it, as shown.
-The following sections describe the possible component members.</p>
+<p>A component definition and each of its members is an
+<a href="#Writing-Comments-and-Annotations_Annotations">annotatable element</a>.
+For example, you can annotate the component as shown above.
+The following sections describe the available component members.</p>
 </div>
 </div>
 <div class="sect2">
@@ -3180,11 +3188,11 @@ or on the thread of another port invocation (if this component is queued).</p>
 </li>
 <li>
 <p><code>sync</code> <code>input</code>: Input that invokes a handler defined in this component,
-but run on the thread of the caller.</p>
+and run on the thread of the caller.</p>
 </li>
 <li>
-<p><code>guarded</code> <code>input</code>: Similar to sync input, but guarded by a mutual
-exclusion lock.</p>
+<p><code>guarded</code> <code>input</code>: Similar to sync input, but the handler is
+guarded by a mutual exclusion lock.</p>
 </li>
 <li>
 <p><code>output</code>: Output transmitted by this component.</p>
@@ -3564,7 +3572,7 @@ commands, events, telemetry, parameters, and time.</p>
 <div class="sect3">
 <h4 id="Defining-Components_Special-Port-Instances_Commands">9.3.1. Commands</h4>
 <div class="paragraph">
-<p>A <strong>command</strong> is an instruction to the spacecraft to do something.
+<p>A <strong>command</strong> is an instruction to the spacecraft to perform an action.
 The special command behaviors, and their keywords, are as follows:</p>
 </div>
 <div class="ulist">
@@ -4063,7 +4071,122 @@ Try it and see.</p>
 <div class="sect2">
 <h3 id="Defining-Components_Commands">9.5. Commands</h3>
 <div class="paragraph">
+<p>When defining an F Prime component, you may specify one or more commands.
+When operating the FSW, each command is dispatched to, and handled
+by, an instance of the component where it is defined.
+The handling occurs in a C&#43;&#43; command handler that you write
+as part of the component implementation.</p>
+</div>
+<div class="paragraph">
+<p>For more information about F Prime command dispatch and
+handling, see the F Prime User&#8217;s Guide.
+Here we concentrate on how to specify commands in FPP.</p>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Commands_Basic-Commands">9.5.1. Basic Commands</h4>
+<div class="paragraph">
+<p>The simplest command specifies a kind and a name.
+The kind is one of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>async</code>: The command arrives on a message queue, to
+be dispatched on this component&#8217;s thread (if this component is active)
+or on the thread of a port invocation (if this component is queued).</p>
+</li>
+<li>
+<p><code>sync</code>: The command invokes a handler defined in this component,
+and run on the thread of the caller.</p>
+</li>
+<li>
+<p><code>guarded</code>: Similar to sync input, but the handler is
+guarded by a mutual exclusion lock.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Notice that the kinds of commands are similar to the kinds of
+<a href="#Defining-Components_Port-Instances_Basic-Port-Instances">input ports</a>.
+The name is the name of the command.</p>
+</div>
+<div class="paragraph">
+<p>As an example, here is an active component called <code>Action</code>
+with two commands: an async command <code>START</code> and a sync
+command <code>STOP</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ An active component for performing an action
+active component Action {
+
+  @ Command registration
+  command reg port cmdRegOut
+
+  @ Command input
+  command recv port cmdIn
+
+  @ Command response
+  command resp port cmdResponseOut
+
+  @ Start the action
+  async command START
+
+  @ Stop the action
+  sync command STOP
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Command <code>START</code> is declared <code>async</code>.
+That means that when a <code>START</code> command is dispatched
+to an instance of this component, it arrives on a queue.
+Later, the F Prime framework takes the message off the queue
+and calls the corresponding handler on the thread
+of the component.</p>
+</div>
+<div class="paragraph">
+<p>Command <code>STOP</code> is declared <code>sync</code>.
+That means that the command runs immediately on the
+thread of the invoking component (for example,
+a command dispatcher component).
+Because the command runs immediately, its handler
+should be very short.
+For example, it could set a stop flag and then exit.</p>
+</div>
+<div class="paragraph">
+<p>Notice that we defined the three
+<a href="#Defining-Components_Special-Port-Instances_Commands">command ports</a>
+for this component.
+All three ports are required for any component that has commands.
+We discuss this and other rules relating to commands in the
+next section.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Commands_Rules-for-Commands">9.5.2. Rules for Commands</h4>
+<div class="paragraph">
 <p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Commands_Specifying-Formal-Parameters">9.5.3. Specifying Formal Parameters</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Commands_Specifying-the-Opcode">9.5.4. Specifying the Opcode</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Commands_Specifying-Priority-and-Queue-Full-Behavior">9.5.5. Specifying Priority and Queue Full Behavior</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -6254,7 +6377,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-16 18:02:17 -0800
+Last updated 2021-02-17 13:22:32 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
