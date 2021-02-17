@@ -948,32 +948,31 @@ active component Switch {
 
 Every command in an F Prime FSW application has an *opcode*.
 The opcode is a number that uniquely identifies the command.
-When a command is sent to the application, or dispatched
-to a component, the command is identified by its opcode.
-The command name is mainly for purposes of human interaction
-on the ground.
-For sending and dispatching commands, the opcode is used,
-because it is more compact than the sequence of characters
-representing the name.
+The F Prime framework uses the opcode when dispatching commands
+because it is a more compact identifier than the name.
+The name is mainly for human interaction on the ground.
 
-When specifying a command, you specify its opcode
-relative to the component where the command is defined.
-Typically the opcodes for each component start at zero: that is, the
+The opcodes associated with each component _C_
+are relative to the component.
+Typically the opcodes start at zero: that is, the
 opcodes are 0, 1, 2, etc.
-When constructing a component instance, you further resolve the opcode by 
-providing a base opcode for the instance;
-this base opcode is added to the relative opcodes to form
-the final set of opcodes for the instance.
-We will have more to say about this issue in the section on constructing
-topologies of component instances.
+When constructing an instance _I_ of component _C_,
+the framework adds a base opcode for _I_ to each relative opcode 
+associated with _C_ to form
+the global opcodes associated with _c_.
+We will have more to say about base and relative opcodes 
+in the section on constructing topologies of component instances.
 
-If you don't specify an opcode for a command, as in the examples
-in the previous sections, then a default opcode is used.
+If you specify a command _c_ with no explicit opcode, as in the examples
+shown in the previous sections, then FPP assigns a default opcode
+to _c_.
 The default opcode for the first command in the component is zero.
 Otherwise the default opcode for any command is one more than
 the opcode of the previous command.
 
-To specify an opcode explicitly, you write the keyword `opcode` followed
+It is often convenient to rely on the default opcodes.
+However, you may wish to specify one or more opcodes explicitly.
+To do this, you write the keyword `opcode` followed
 by a numerical expression after the command name and after the
 formal parameters, if any.
 Here is an example:
