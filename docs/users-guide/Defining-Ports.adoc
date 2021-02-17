@@ -83,7 +83,7 @@ port P(
 )
 ----
 
-=== Ref Parameters
+=== Reference Parameters
 
 You may write the keyword `ref` in front of any formal parameter _p_
 of a port definition.

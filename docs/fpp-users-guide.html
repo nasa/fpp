@@ -512,7 +512,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#Defining-Ports_Port-Names">8.1. Port Names</a></li>
 <li><a href="#Defining-Ports_Formal-Parameters">8.2. Formal Parameters</a></li>
-<li><a href="#Defining-Ports_Ref-Parameters">8.3. Ref Parameters</a></li>
+<li><a href="#Defining-Ports_Reference-Parameters">8.3. Reference Parameters</a></li>
 <li><a href="#Defining-Ports_Returning-Values">8.4. Returning Values</a></li>
 <li><a href="#Defining-Ports_Annotating-a-Port-Definition">8.5. Annotating a Port Definition</a></li>
 </ul>
@@ -2806,7 +2806,7 @@ port P(
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Ports_Ref-Parameters">8.3. Ref Parameters</h3>
+<h3 id="Defining-Ports_Reference-Parameters">8.3. Reference Parameters</h3>
 <div class="paragraph">
 <p>You may write the keyword <code>ref</code> in front of any formal parameter <em>p</em>
 of a port definition.
@@ -3936,7 +3936,128 @@ F Prime User&#8217;s Guide.</p>
 <div class="sect2">
 <h3 id="Defining-Components_Internal-Ports">9.4. Internal Ports</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>An <strong>internal port</strong> is a port that a component can use to send a
+message to itself.
+In the ordinary case, when a component sends a message, it invokes an
+output port that is connected to an async input port.
+When the output port and input port reside in the same component,
+it is simpler to use an internal port.</p>
+</div>
+<div class="paragraph">
+<p>As an example, suppose we have a component
+that needs to send a message to itself.
+We could construct such a component in the following way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A data type T
+type T
+
+@ A port for sending data of type T
+port P(t: T)
+
+@ A component that sends data to itself on an async input port
+active component ExternalSelfMessage {
+
+  @ A port for sending data of type T
+  async input port pIn: P
+
+  @ A port for receiving data of type T
+  output port pOut: P
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This works, but if the only user of <code>pIn</code> is
+<code>ExternalSelfMessage</code>, it is cumbersome.
+We need to declare two ports and connect them.
+Instead, we can use an internal port, like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A data type T
+type T
+
+@ A component that sends data to itself on an internal port
+active component InternalSelfMessage {
+
+  @ An internal port for sending data of type T
+  internal port pInternal(t: T)
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When the implementation of <code>ExternalSelfMessage</code> invokes
+the port <code>pInternal</code>, a message goes on its queue.
+This corresponds to the behavior of <code>pOut</code> in
+<code>ExternalSelfMessage</code>.
+Later, when the framework dispatches the message is dispatched, it
+calls a handler function associated with the port.
+This corresponds to the behavior of <code>pIn</code> in
+<code>ExternalSelfMessage</code>.
+So an internal port is like two ports (an output port
+and an async input port) fused into one.</p>
+</div>
+<div class="paragraph">
+<p>Internal ports are single-use, so they do not use named
+port definitions.
+Instead, when writing an internal port, you provide
+the formal parameters directly.
+Notice that when defining <code>ExternalSelfMessage</code> we
+defined and used the port <code>P</code>, but when defining
+<code>InternalSelfMessage</code> we did not.
+The formal parameters of an internal port are the same
+as for a <a href="#Defining-Ports_Formal-Parameters">port definition</a>, except
+that none of the parameters may be a
+<a href="#Defining-Ports_Reference-Parameters">reference parameter</a>.</p>
+</div>
+<div class="paragraph">
+<p>When specifying an internal port, you may specify
+<a href="#Defining-Components_Port-Instances_Specifying-Priority">priority</a> and
+<a href="#Defining-Components_Port-Instances_Specifying-Queue-Full-Behavior">queue full behavior</a>
+as for an async input port.
+For example, we can add priority and queue full behavior
+to <code>pInternal</code> as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A data type T
+type T
+
+@ A component that sends data to itself on an internal port,
+@ with priority and queue full behavior
+active component InternalSelfMessage {
+
+  @ An internal port for sending data of type T
+  internal port pInternal(t: T) priority 10 drop
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Internal ports generate async input, so they make sense
+only for <code>active</code> and <code>queued</code> components.
+As an example, consider the following component
+definition:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">type T
+
+passive component PassiveInternalPort {
+
+  # Internal ports don't make sense for passive components
+  internal port pInternal(t: T)
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>What do you think will happen if you run <code>fpp-check</code>
+on this code?
+Try it and see.</p>
 </div>
 </div>
 <div class="sect2">
@@ -6133,7 +6254,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-15 16:03:52 -0800
+Last updated 2021-02-16 18:02:17 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

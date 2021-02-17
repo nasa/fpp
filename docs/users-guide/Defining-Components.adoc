@@ -693,7 +693,121 @@ F Prime User's Guide.
 
 === Internal Ports
 
-TODO
+An *internal port* is a port that a component can use to send a
+message to itself.
+In the ordinary case, when a component sends a message, it invokes an
+output port that is connected to an async input port.
+When the output port and input port reside in the same component,
+it is simpler to use an internal port.
+
+As an example, suppose we have a component 
+that needs to send a message to itself.
+We could construct such a component in the following way:
+
+[source,fpp]
+----
+@ A data type T
+type T
+
+@ A port for sending data of type T
+port P(t: T)
+
+@ A component that sends data to itself on an async input port
+active component ExternalSelfMessage {
+
+  @ A port for sending data of type T
+  async input port pIn: P
+
+  @ A port for receiving data of type T
+  output port pOut: P
+
+}
+----
+
+This works, but if the only user of `pIn` is 
+`ExternalSelfMessage`, it is cumbersome.
+We need to declare two ports and connect them.
+Instead, we can use an internal port, like this:
+
+[source,fpp]
+----
+@ A data type T
+type T
+
+@ A component that sends data to itself on an internal port
+active component InternalSelfMessage {
+
+  @ An internal port for sending data of type T
+  internal port pInternal(t: T)
+
+}
+----
+
+When the implementation of `ExternalSelfMessage` invokes
+the port `pInternal`, a message goes on its queue.
+This corresponds to the behavior of `pOut` in
+`ExternalSelfMessage`.
+Later, when the framework dispatches the message is dispatched, it
+calls a handler function associated with the port.
+This corresponds to the behavior of `pIn` in
+`ExternalSelfMessage`.
+So an internal port is like two ports (an output port
+and an async input port) fused into one.
+
+Internal ports are single-use, so they do not use named
+port definitions.
+Instead, when writing an internal port, you provide
+the formal parameters directly.
+Notice that when defining `ExternalSelfMessage` we
+defined and used the port `P`, but when defining
+`InternalSelfMessage` we did not.
+The formal parameters of an internal port are the same
+as for a <<Defining-Ports_Formal-Parameters,port definition>>, except
+that none of the parameters may be a
+<<Defining-Ports_Reference-Parameters,reference parameter>>.
+
+When specifying an internal port, you may specify
+<<Defining-Components_Port-Instances_Specifying-Priority,priority>> and
+<<Defining-Components_Port-Instances_Specifying-Queue-Full-Behavior,queue full behavior>>
+as for an async input port.
+For example, we can add priority and queue full behavior
+to `pInternal` as follows:
+
+[source,fpp]
+----
+@ A data type T
+type T
+
+@ A component that sends data to itself on an internal port,
+@ with priority and queue full behavior
+active component InternalSelfMessage {
+
+  @ An internal port for sending data of type T
+  internal port pInternal(t: T) priority 10 drop
+
+}
+----
+
+Internal ports generate async input, so they make sense
+only for `active` and `queued` components.
+As an example, consider the following component
+definition:
+
+[source,fpp]
+--------
+type T
+
+passive component PassiveInternalPort {
+
+  # Internal ports don't make sense for passive components
+  internal port pInternal(t: T)
+
+}
+--------
+
+What do you think will happen if you run `fpp-check`
+on this code?
+Try it and see.
 
 === Commands
 
