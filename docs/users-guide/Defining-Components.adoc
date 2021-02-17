@@ -959,7 +959,9 @@ opcodes are 0, 1, 2, etc.
 When constructing an instance _I_ of component _C_,
 the framework adds a base opcode for _I_ to each relative opcode 
 associated with _C_ to form
-the global opcodes associated with _c_.
+the global opcodes associated with _I_.
+That way different instances of _C_ can have different opcodes
+for the same commands defined in _C_.
 We will have more to say about base and relative opcodes 
 in the section on constructing topologies of component instances.
 
@@ -970,7 +972,7 @@ The default opcode for the first command in the component is zero.
 Otherwise the default opcode for any command is one more than
 the opcode of the previous command.
 
-It is often convenient to rely on the default opcodes.
+It is usually convenient to rely on the default opcodes.
 However, you may wish to specify one or more opcodes explicitly.
 To do this, you write the keyword `opcode` followed
 by a numerical expression after the command name and after the

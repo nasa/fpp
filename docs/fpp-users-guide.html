@@ -4238,7 +4238,9 @@ opcodes are 0, 1, 2, etc.
 When constructing an instance <em>I</em> of component <em>C</em>,
 the framework adds a base opcode for <em>I</em> to each relative opcode
 associated with <em>C</em> to form
-the global opcodes associated with <em>c</em>.
+the global opcodes associated with <em>I</em>.
+That way different instances of <em>C</em> can have different opcodes
+for the same commands defined in <em>C</em>.
 We will have more to say about base and relative opcodes
 in the section on constructing topologies of component instances.</p>
 </div>
@@ -4251,7 +4253,7 @@ Otherwise the default opcode for any command is one more than
 the opcode of the previous command.</p>
 </div>
 <div class="paragraph">
-<p>It is often convenient to rely on the default opcodes.
+<p>It is usually convenient to rely on the default opcodes.
 However, you may wish to specify one or more opcodes explicitly.
 To do this, you write the keyword <code>opcode</code> followed
 by a numerical expression after the command name and after the
@@ -6508,7 +6510,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-17 14:58:46 -0800
+Last updated 2021-02-17 15:01:47 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
