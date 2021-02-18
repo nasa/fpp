@@ -552,7 +552,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#Defining-Components_Events_Basic-Events">9.6.1. Basic Events</a></li>
 <li><a href="#Defining-Components_Events_Formal-Parameters">9.6.2. Formal Parameters</a></li>
-<li><a href="#Defining-Components_Events_Identifiers">9.6.3. Identifiers</a></li>
+<li><a href="#Defining-Components_Events_Event-Identifiers">9.6.3. Event Identifiers</a></li>
 <li><a href="#Defining-Components_Events_Event-Throttling">9.6.4. Event Throttling</a></li>
 </ul>
 </li>
@@ -3744,9 +3744,7 @@ passive component EventPorts {
 <p>Any component may have at most one of each kind of event
 port.
 If a component emits events (more on this below),
-then (1) an event port is required; and (2) a text event
-port is required if text logging is enabled in the F Prime
-framework.</p>
+then both event ports are required.</p>
 </div>
 <div class="paragraph">
 <p>During translation, each event port is converted into
@@ -4111,7 +4109,8 @@ Here we concentrate on how to specify commands in FPP.</p>
 <div class="sect3">
 <h4 id="Defining-Components_Commands_Basic-Commands">9.5.1. Basic Commands</h4>
 <div class="paragraph">
-<p>The simplest command specifies a kind and a name.
+<p>The simplest command consists of a kind followed by the keyword
+<code>command</code> and a name.
 The kind is one of the following:</p>
 </div>
 <div class="ulist">
@@ -4405,7 +4404,81 @@ Here we concentrate on how to specify events in FPP.</p>
 <div class="sect3">
 <h4 id="Defining-Components_Events_Basic-Events">9.6.1. Basic Events</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>The simplest event consists of the keyword <code>event</code>, a name, a severity,
+and a format string.
+The name is the name of the event.
+A severity is the keyword <code>severity</code> and one of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>activity</code> <code>high</code>: Spacecraft activity of high importance.</p>
+</li>
+<li>
+<p><code>activity</code> <code>low</code>: Spacecraft activity of low importance.</p>
+</li>
+<li>
+<p><code>command</code>: An event related to commanding.
+Primarily used by the command dispatcher.</p>
+</li>
+<li>
+<p><code>diagnostic</code>: An event relating to system diagnosis
+and debugging.</p>
+</li>
+<li>
+<p><code>fatal</code>: An event that causes the system to abort.</p>
+</li>
+<li>
+<p><code>warning</code> <code>high</code>: A warning of high importance.</p>
+</li>
+<li>
+<p><code>warning</code> <code>low</code>: A warning of low importance.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A format is the keyword <code>format</code> and a literal string for
+use in a formatted real-time display or event log.</p>
+</div>
+<div class="paragraph">
+<p>As an example, here is an active component called <code>SimpleEvents</code>
+with a few basic events.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A component for illustrating basic events
+passive component BasicEvents {
+
+  @ Event port
+  event port eventOut
+
+  @ Text event port
+  text event port textEventOut
+
+  @ Time get port
+  time get port timeGetOut
+
+  @ Activity low event
+  event E1 severity activity low format "Event E1 occurred"
+
+  @ Warning low event
+  event E2 severity warning low format "Event E2 occurred"
+
+  @ Warning high event
+  event E3 severity warning high format "Event E3 occurred"
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that we defined the two
+<a href="#Defining-Components_Special-Port-Instances_Event-Ports">event ports</a>
+and a
+<a href="#Defining-Components_Special-Port-Instances_Time-Get-Ports">time get port</a>
+for this component.
+All three ports are required for any component that has events.
+As an example, try deleting one or more of these ports from the
+example above and running the result through <code>fpp-check</code>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -4415,7 +4488,7 @@ Here we concentrate on how to specify events in FPP.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Events_Identifiers">9.6.3. Identifiers</h4>
+<h4 id="Defining-Components_Events_Event-Identifiers">9.6.3. Event Identifiers</h4>
 <div class="paragraph">
 <p>TODO</p>
 </div>
@@ -6609,7 +6682,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-17 17:40:59 -0800
+Last updated 2021-02-17 18:12:34 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

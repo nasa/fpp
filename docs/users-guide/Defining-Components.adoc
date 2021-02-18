@@ -516,9 +516,7 @@ passive component EventPorts {
 Any component may have at most one of each kind of event
 port.
 If a component emits events (more on this below),
-then (1) an event port is required; and (2) a text event
-port is required if text logging is enabled in the F Prime
-framework.
+then both event ports are required.
 
 During translation, each event port is converted into 
 a typed port instance with a predefined port type, as follows:
@@ -825,7 +823,8 @@ Here we concentrate on how to specify commands in FPP.
 
 ==== Basic Commands
 
-The simplest command specifies a kind and a name.
+The simplest command consists of a kind followed by the keyword
+`command` and a name.
 The kind is one of the following:
 
 * `async`: The command arrives on a message queue, to
@@ -1091,13 +1090,76 @@ Here we concentrate on how to specify events in FPP.
 
 ==== Basic Events
 
-TODO
+The simplest event consists of the keyword `event`, a name, a severity, 
+and a format string.
+The name is the name of the event.
+A severity is the keyword `severity` and one of the following:
+
+* `activity` `high`: Spacecraft activity of high importance.
+
+* `activity` `low`: Spacecraft activity of low importance.
+
+* `command`: An event related to commanding.
+Primarily used by the command dispatcher.
+
+* `diagnostic`: An event relating to system diagnosis
+and debugging.
+
+* `fatal`: An event that causes the system to abort.
+
+* `warning` `high`: A warning of high importance.
+
+* `warning` `low`: A warning of low importance.
+
+A format is the keyword `format` and a literal string for 
+use in a formatted real-time display or event log.
+
+As an example, here is an active component called `SimpleEvents`
+with a few basic events.
+
+[source,fpp]
+----
+@ A component for illustrating basic events
+passive component BasicEvents {
+
+  @ Event port 
+  event port eventOut
+
+  @ Text event port
+  text event port textEventOut
+
+  @ Time get port
+  time get port timeGetOut
+
+  @ Activity low event
+  event E1 severity activity low format "Event E1 occurred"
+
+  @ Warning low event
+  event E2 severity warning low format "Event E2 occurred"
+
+  @ Warning high event
+  event E3 severity warning high format "Event E3 occurred"
+
+}
+----
+
+Notice that we defined the two
+<<Defining-Components_Special-Port-Instances_Event-Ports,
+event ports>>
+and a
+<<Defining-Components_Special-Port-Instances_Time-Get-Ports,
+time get port>>
+for this component.
+All three ports are required for any component that has events.
+As an example, try deleting one or more of these ports from the
+example above and running the result through `fpp-check`.
+
 
 ==== Formal Parameters
 
 TODO
 
-==== Identifiers
+==== Event Identifiers
 
 TODO
 
