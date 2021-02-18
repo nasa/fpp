@@ -72,6 +72,23 @@ of width 32 and 64 bits.
 
 * The type name `string`, denoting the type of 
 <<Defining-Constants_Expressions_String-Values,string values>>.
+This type has a default maximum size.
+For example:
++
+[source,fpp]
+----
+# A is an array of 3 strings with default maximum size
+array A = [3] string
+----
+
+* The type name `string size` _e_, where _e_ is a numeric expression
+specifying a maximum string size.
++
+[source,fpp]
+----
+# A is an array of 3 strings with maximum size 40
+array A = [3] string size 40
+----
 
 * A name associated with another type definition.
 In particular, an array definition may have another array definition as

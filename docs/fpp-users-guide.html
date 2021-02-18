@@ -1877,7 +1877,25 @@ of width 32 and 64 bits.</p>
 </li>
 <li>
 <p>The type name <code>string</code>, denoting the type of
-<a href="#Defining-Constants_Expressions_String-Values">string values</a>.</p>
+<a href="#Defining-Constants_Expressions_String-Values">string values</a>.
+This type has a default maximum size.
+For example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp"># A is an array of 3 strings with default maximum size
+array A = [3] string</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>The type name <code>string size</code> <em>e</em>, where <em>e</em> is a numeric expression
+specifying a maximum string size.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp"># A is an array of 3 strings with maximum size 40
+array A = [3] string size 40</code></pre>
+</div>
+</div>
 </li>
 <li>
 <p>A name associated with another type definition.
@@ -6549,7 +6567,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-17 15:18:26 -0800
+Last updated 2021-02-17 16:20:59 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
