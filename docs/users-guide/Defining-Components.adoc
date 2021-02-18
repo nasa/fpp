@@ -747,17 +747,16 @@ When the implementation of `ExternalSelfMessage` invokes
 the port `pInternal`, a message goes on its queue.
 This corresponds to the behavior of `pOut` in
 `ExternalSelfMessage`.
-Later, when the framework dispatches the message is dispatched, it
+Later, when the framework dispatches the message, it
 calls a handler function associated with the port.
 This corresponds to the behavior of `pIn` in
 `ExternalSelfMessage`.
 So an internal port is like two ports (an output port
 and an async input port) fused into one.
 
-Internal ports are single-use, so they do not use named
-port definitions.
-Instead, when writing an internal port, you provide
-the formal parameters directly.
+When writing an internal port, you do not use a named
+port definition.
+Instead, you provide the formal parameters directly.
 Notice that when defining `ExternalSelfMessage` we
 defined and used the port `P`, but when defining
 `InternalSelfMessage` we did not.

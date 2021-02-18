@@ -4025,7 +4025,7 @@ active component InternalSelfMessage {
 the port <code>pInternal</code>, a message goes on its queue.
 This corresponds to the behavior of <code>pOut</code> in
 <code>ExternalSelfMessage</code>.
-Later, when the framework dispatches the message is dispatched, it
+Later, when the framework dispatches the message, it
 calls a handler function associated with the port.
 This corresponds to the behavior of <code>pIn</code> in
 <code>ExternalSelfMessage</code>.
@@ -4033,10 +4033,9 @@ So an internal port is like two ports (an output port
 and an async input port) fused into one.</p>
 </div>
 <div class="paragraph">
-<p>Internal ports are single-use, so they do not use named
-port definitions.
-Instead, when writing an internal port, you provide
-the formal parameters directly.
+<p>When writing an internal port, you do not use a named
+port definition.
+Instead, you provide the formal parameters directly.
 Notice that when defining <code>ExternalSelfMessage</code> we
 defined and used the port <code>P</code>, but when defining
 <code>InternalSelfMessage</code> we did not.
@@ -6682,7 +6681,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-17 18:12:34 -0800
+Last updated 2021-02-17 22:25:54 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
