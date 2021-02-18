@@ -532,11 +532,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#Defining-Components_Special-Port-Instances">9.3. Special Port Instances</a>
 <ul class="sectlevel3">
-<li><a href="#Defining-Components_Special-Port-Instances_Commands">9.3.1. Commands</a></li>
-<li><a href="#Defining-Components_Special-Port-Instances_Events">9.3.2. Events</a></li>
-<li><a href="#Defining-Components_Special-Port-Instances_Telemetry">9.3.3. Telemetry</a></li>
-<li><a href="#Defining-Components_Special-Port-Instances_Parameters">9.3.4. Parameters</a></li>
-<li><a href="#Defining-Components_Special-Port-Instances_Time">9.3.5. Time</a></li>
+<li><a href="#Defining-Components_Special-Port-Instances_Command-Ports">9.3.1. Command Ports</a></li>
+<li><a href="#Defining-Components_Special-Port-Instances_Event-Ports">9.3.2. Event Ports</a></li>
+<li><a href="#Defining-Components_Special-Port-Instances_Telemetry-Ports">9.3.3. Telemetry Ports</a></li>
+<li><a href="#Defining-Components_Special-Port-Instances_Parameter-Ports">9.3.4. Parameter Ports</a></li>
+<li><a href="#Defining-Components_Special-Port-Instances_Time-Get-Ports">9.3.5. Time Get Ports</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Components_Internal-Ports">9.4. Internal Ports</a></li>
@@ -3589,7 +3589,7 @@ The special port behaviors fall into five groups:
 commands, events, telemetry, parameters, and time.</p>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Special-Port-Instances_Commands">9.3.1. Commands</h4>
+<h4 id="Defining-Components_Special-Port-Instances_Command-Ports">9.3.1. Command Ports</h4>
 <div class="paragraph">
 <p>A <strong>command</strong> is an instruction to the spacecraft to perform an action.
 The special command behaviors, and their keywords, are as follows:</p>
@@ -3693,7 +3693,7 @@ F Prime User&#8217;s Guide.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Special-Port-Instances_Events">9.3.2. Events</h4>
+<h4 id="Defining-Components_Special-Port-Instances_Event-Ports">9.3.2. Event Ports</h4>
 <div class="paragraph">
 <p>An <strong>event</strong> is a report that something happened, for example,
 that a file was successfully uplinked.
@@ -3776,7 +3776,7 @@ F Prime User&#8217;s Guide.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Special-Port-Instances_Telemetry">9.3.3. Telemetry</h4>
+<h4 id="Defining-Components_Special-Port-Instances_Telemetry-Ports">9.3.3. Telemetry Ports</h4>
 <div class="paragraph">
 <p><strong>Telemetry</strong> is data regarding the state of the system.
 A <strong>telemetry port</strong> lets a component emit telemetry.
@@ -3825,7 +3825,7 @@ F Prime User&#8217;s Guide.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Special-Port-Instances_Parameters">9.3.4. Parameters</h4>
+<h4 id="Defining-Components_Special-Port-Instances_Parameter-Ports">9.3.4. Parameter Ports</h4>
 <div class="paragraph">
 <p>A <strong>parameter</strong> is a configurable constant that may be updated
 from the ground.
@@ -3910,7 +3910,7 @@ F Prime User&#8217;s Guide.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Special-Port-Instances_Time">9.3.5. Time</h4>
+<h4 id="Defining-Components_Special-Port-Instances_Time-Get-Ports">9.3.5. Time Get Ports</h4>
 <div class="paragraph">
 <p>A <strong>time get port</strong> lets a component get the system time from a
 time component.
@@ -4176,7 +4176,7 @@ For example, it could set a stop flag and then exit.</p>
 </div>
 <div class="paragraph">
 <p>Notice that we defined the three
-<a href="#Defining-Components_Special-Port-Instances_Commands">command ports</a>
+<a href="#Defining-Components_Special-Port-Instances_Command-Ports">command ports</a>
 for this component.
 All three ports are required for any component that has commands.
 As an example, try deleting one or more of the command ports from the
@@ -6569,7 +6569,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-17 16:26:41 -0800
+Last updated 2021-02-17 17:30:19 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

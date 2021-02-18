@@ -406,7 +406,7 @@ provided by the F Prime framework.
 The special port behaviors fall into five groups:
 commands, events, telemetry, parameters, and time.
 
-==== Commands
+==== Command Ports
 
 A *command* is an instruction to the spacecraft to perform an action.
 The special command behaviors, and their keywords, are as follows:
@@ -482,7 +482,7 @@ For further information about command registration, receipt, and
 response, and implementing command handlers, see the
 F Prime User's Guide.
 
-==== Events
+==== Event Ports
 
 An *event* is a report that something happened, for example,
 that a file was successfully uplinked.
@@ -543,7 +543,7 @@ module Fw {
 For further information about events in F Prime, see the
 F Prime User's Guide.
 
-==== Telemetry
+==== Telemetry Ports
 
 *Telemetry* is data regarding the state of the system.
 A *telemetry port* lets a component emit telemetry.
@@ -586,7 +586,7 @@ module Fw {
 For further information about telemetry in F Prime, see the
 F Prime User's Guide.
 
-==== Parameters
+==== Parameter Ports
 
 A *parameter* is a configurable constant that may be updated
 from the ground.
@@ -649,7 +649,7 @@ For further information about parameters in F Prime, see the
 F Prime User's Guide.
 
 
-==== Time
+==== Time Get Ports
 
 A *time get port* lets a component get the system time from a
 time component.
@@ -886,7 +886,8 @@ should be very short.
 For example, it could set a stop flag and then exit.
 
 Notice that we defined the three
-<<Defining-Components_Special-Port-Instances_Commands, command ports>>
+<<Defining-Components_Special-Port-Instances_Command-Ports,
+command ports>>
 for this component.
 All three ports are required for any component that has commands.
 As an example, try deleting one or more of the command ports from the
