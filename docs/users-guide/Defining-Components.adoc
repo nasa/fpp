@@ -265,7 +265,7 @@ passive component F32Adder {
 }
 ----
 
-==== Specifying Priority
+==== Priority
 
 For `async` `input` ports, you may specify a priority.
 The priority specification is not allowed for other kinds of ports.
@@ -302,7 +302,7 @@ implementation-specific.
 In general the priorities regulate the order in which elements are dispatched
 from the message queue.
 
-==== Specifying Queue Full Behavior
+==== Queue Full Behavior
 
 By default, if an invocation of an `async` `input` port causes
 a message queue to overflow, then a *FSW assertion* fails.
@@ -769,8 +769,8 @@ that none of the parameters may be a
 <<Defining-Ports_Reference-Parameters,reference parameter>>.
 
 When specifying an internal port, you may specify
-<<Defining-Components_Port-Instances_Specifying-Priority,priority>> and
-<<Defining-Components_Port-Instances_Specifying-Queue-Full-Behavior,queue full behavior>>
+<<Defining-Components_Port-Instances_Priority,priority>> and
+<<Defining-Components_Port-Instances_Queue-Full-Behavior,queue full behavior>>
 as for an async input port.
 For example, we can add priority and queue full behavior
 to `pInternal` as follows:
@@ -819,7 +819,7 @@ by, an instance of the component where it is defined.
 The handling occurs in a {cpp} command handler that you write
 as part of the component implementation.
 
-For more information about F Prime command dispatch and
+For complete information about F Prime command dispatch and
 handling, see the F Prime User's Guide.
 Here we concentrate on how to specify commands in FPP.
 
@@ -899,7 +899,7 @@ components.
 As an example, try making the `Action` component passive and
 running the result through `fpp-check`.
 
-==== Specifying Formal Parameters
+==== Formal Parameters
 
 When specifying a command, you may specify one or more
 formal parameters.
@@ -947,7 +947,7 @@ active component Switch {
 }
 ----
 
-==== Specifying the Opcode
+==== Opcodes
 
 Every command in an F Prime FSW application has an *opcode*.
 The opcode is a number that uniquely identifies the command.
@@ -1035,11 +1035,11 @@ active component DuplicateOpcode {
 }
 --------
 
-==== Specifying Priority and Queue Full Behavior
+==== Priority and Queue Full Behavior
 
 When specifying an async command, you may specify
-<<Defining-Components_Port-Instances_Specifying-Priority,priority>> and
-<<Defining-Components_Port-Instances_Specifying-Queue-Full-Behavior,queue full behavior>>
+<<Defining-Components_Port-Instances_Priority,priority>> and
+<<Defining-Components_Port-Instances_Queue-Full-Behavior,queue full behavior>>
 as for an async input port.
 You put the priority and queue full information after the command name
 and after the formal parameters and opcode, if any.
@@ -1078,6 +1078,30 @@ Try changing one of the commands in the previous example
 to `sync` and see what `fpp-check` has to say about it.
 
 === Events
+
+When defining an F Prime component, you may specify one or more events.
+The F Prime framework converts each event into a {cpp}
+function that you can call from the component implementation.
+Calling the function emits a serialized event report that
+you can store in an on-board file system or send to the ground.
+
+For complete information about F Prime event
+handling, see the F Prime User's Guide.
+Here we concentrate on how to specify events in FPP.
+
+==== Basic Events
+
+TODO
+
+==== Formal Parameters
+
+TODO
+
+==== Identifiers
+
+TODO
+
+==== Event Throttling
 
 TODO
 

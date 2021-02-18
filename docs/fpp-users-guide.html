@@ -525,8 +525,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Components_Port-Instances_Basic-Port-Instances">9.2.1. Basic Port Instances</a></li>
 <li><a href="#Defining-Components_Port-Instances_Rules-for-Port-Instances">9.2.2. Rules for Port Instances</a></li>
 <li><a href="#Defining-Components_Port-Instances_Arrays-of-Port-Instances">9.2.3. Arrays of Port Instances</a></li>
-<li><a href="#Defining-Components_Port-Instances_Specifying-Priority">9.2.4. Specifying Priority</a></li>
-<li><a href="#Defining-Components_Port-Instances_Specifying-Queue-Full-Behavior">9.2.5. Specifying Queue Full Behavior</a></li>
+<li><a href="#Defining-Components_Port-Instances_Priority">9.2.4. Priority</a></li>
+<li><a href="#Defining-Components_Port-Instances_Queue-Full-Behavior">9.2.5. Queue Full Behavior</a></li>
 <li><a href="#Defining-Components_Port-Instances_Serial-Port-Instances">9.2.6. Serial Port Instances</a></li>
 </ul>
 </li>
@@ -543,12 +543,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Components_Commands">9.5. Commands</a>
 <ul class="sectlevel3">
 <li><a href="#Defining-Components_Commands_Basic-Commands">9.5.1. Basic Commands</a></li>
-<li><a href="#Defining-Components_Commands_Specifying-Formal-Parameters">9.5.2. Specifying Formal Parameters</a></li>
-<li><a href="#Defining-Components_Commands_Specifying-the-Opcode">9.5.3. Specifying the Opcode</a></li>
-<li><a href="#Defining-Components_Commands_Specifying-Priority-and-Queue-Full-Behavior">9.5.4. Specifying Priority and Queue Full Behavior</a></li>
+<li><a href="#Defining-Components_Commands_Formal-Parameters">9.5.2. Formal Parameters</a></li>
+<li><a href="#Defining-Components_Commands_Opcodes">9.5.3. Opcodes</a></li>
+<li><a href="#Defining-Components_Commands_Priority-and-Queue-Full-Behavior">9.5.4. Priority and Queue Full Behavior</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Components_Events">9.6. Events</a></li>
+<li><a href="#Defining-Components_Events">9.6. Events</a>
+<ul class="sectlevel3">
+<li><a href="#Defining-Components_Events_Basic-Events">9.6.1. Basic Events</a></li>
+<li><a href="#Defining-Components_Events_Formal-Parameters">9.6.2. Formal Parameters</a></li>
+<li><a href="#Defining-Components_Events_Identifiers">9.6.3. Identifiers</a></li>
+<li><a href="#Defining-Components_Events_Event-Throttling">9.6.4. Event Throttling</a></li>
+</ul>
+</li>
 <li><a href="#Defining-Components_Telemetry">9.7. Telemetry</a></li>
 <li><a href="#Defining-Components_Parameters">9.8. Parameters</a></li>
 <li><a href="#Defining-Components_Constants-and-Types">9.9. Constants and Types</a></li>
@@ -3425,7 +3432,7 @@ passive component F32Adder {
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Port-Instances_Specifying-Priority">9.2.4. Specifying Priority</h4>
+<h4 id="Defining-Components_Port-Instances_Priority">9.2.4. Priority</h4>
 <div class="paragraph">
 <p>For <code>async</code> <code>input</code> ports, you may specify a priority.
 The priority specification is not allowed for other kinds of ports.
@@ -3465,7 +3472,7 @@ from the message queue.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Port-Instances_Specifying-Queue-Full-Behavior">9.2.5. Specifying Queue Full Behavior</h4>
+<h4 id="Defining-Components_Port-Instances_Queue-Full-Behavior">9.2.5. Queue Full Behavior</h4>
 <div class="paragraph">
 <p>By default, if an invocation of an <code>async</code> <code>input</code> port causes
 a message queue to overflow, then a <strong>FSW assertion</strong> fails.
@@ -4042,8 +4049,8 @@ that none of the parameters may be a
 </div>
 <div class="paragraph">
 <p>When specifying an internal port, you may specify
-<a href="#Defining-Components_Port-Instances_Specifying-Priority">priority</a> and
-<a href="#Defining-Components_Port-Instances_Specifying-Queue-Full-Behavior">queue full behavior</a>
+<a href="#Defining-Components_Port-Instances_Priority">priority</a> and
+<a href="#Defining-Components_Port-Instances_Queue-Full-Behavior">queue full behavior</a>
 as for an async input port.
 For example, we can add priority and queue full behavior
 to <code>pInternal</code> as follows:</p>
@@ -4097,7 +4104,7 @@ The handling occurs in a C&#43;&#43; command handler that you write
 as part of the component implementation.</p>
 </div>
 <div class="paragraph">
-<p>For more information about F Prime command dispatch and
+<p>For complete information about F Prime command dispatch and
 handling, see the F Prime User&#8217;s Guide.
 Here we concentrate on how to specify commands in FPP.</p>
 </div>
@@ -4191,7 +4198,7 @@ running the result through <code>fpp-check</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Commands_Specifying-Formal-Parameters">9.5.2. Specifying Formal Parameters</h4>
+<h4 id="Defining-Components_Commands_Formal-Parameters">9.5.2. Formal Parameters</h4>
 <div class="paragraph">
 <p>When specifying a command, you may specify one or more
 formal parameters.
@@ -4242,7 +4249,7 @@ active component Switch {
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Commands_Specifying-the-Opcode">9.5.3. Specifying the Opcode</h4>
+<h4 id="Defining-Components_Commands_Opcodes">9.5.3. Opcodes</h4>
 <div class="paragraph">
 <p>Every command in an F Prime FSW application has an <strong>opcode</strong>.
 The opcode is a number that uniquely identifies the command.
@@ -4336,11 +4343,11 @@ active component DuplicateOpcode {
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Commands_Specifying-Priority-and-Queue-Full-Behavior">9.5.4. Specifying Priority and Queue Full Behavior</h4>
+<h4 id="Defining-Components_Commands_Priority-and-Queue-Full-Behavior">9.5.4. Priority and Queue Full Behavior</h4>
 <div class="paragraph">
 <p>When specifying an async command, you may specify
-<a href="#Defining-Components_Port-Instances_Specifying-Priority">priority</a> and
-<a href="#Defining-Components_Port-Instances_Specifying-Queue-Full-Behavior">queue full behavior</a>
+<a href="#Defining-Components_Port-Instances_Priority">priority</a> and
+<a href="#Defining-Components_Port-Instances_Queue-Full-Behavior">queue full behavior</a>
 as for an async input port.
 You put the priority and queue full information after the command name
 and after the formal parameters and opcode, if any.
@@ -4384,7 +4391,40 @@ to <code>sync</code> and see what <code>fpp-check</code> has to say about it.</p
 <div class="sect2">
 <h3 id="Defining-Components_Events">9.6. Events</h3>
 <div class="paragraph">
+<p>When defining an F Prime component, you may specify one or more events.
+The F Prime framework converts each event into a C&#43;&#43;
+function that you can call from the component implementation.
+Calling the function emits a serialized event report that
+you can store in an on-board file system or send to the ground.</p>
+</div>
+<div class="paragraph">
+<p>For complete information about F Prime event
+handling, see the F Prime User&#8217;s Guide.
+Here we concentrate on how to specify events in FPP.</p>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Events_Basic-Events">9.6.1. Basic Events</h4>
+<div class="paragraph">
 <p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Events_Formal-Parameters">9.6.2. Formal Parameters</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Events_Identifiers">9.6.3. Identifiers</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Events_Event-Throttling">9.6.4. Event Throttling</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -6569,7 +6609,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-17 17:30:19 -0800
+Last updated 2021-02-17 17:40:59 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
