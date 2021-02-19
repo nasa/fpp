@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/invalid_symbols/module_as_port.fpp: 5.20
+    output port p: M
+                   ^
+error: invalid symbol M: not a port symbol

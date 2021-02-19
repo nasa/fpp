@@ -138,11 +138,15 @@ object EnterSymbols
     val parentSymbol = a.parentSymbol
     val a1 = a.copy(scopeNameList = newScopeNameList)
     for {
-      triple <- a1.nestedScope.get (NameGroup.Value) (name) match {
+      triple <- a1.nestedScope.innerScope.get (NameGroup.Value) (name) match {
         case Some(symbol: Symbol.Module) => 
+          // We found a module symbol with the same name at the current level.
+          // Re-open the scope.
           val scope = a1.symbolScopeMap(symbol)
           Right((a1, symbol, scope))
         case Some(symbol) => 
+          // We found a non-module symbol with the same name at the current level.
+          // This is an error.
           val error = SemanticError.RedefinedSymbol(
             name,
             Locations.get(node.id),
@@ -150,6 +154,8 @@ object EnterSymbols
           )
           Left(error)
         case None => 
+          // We did not find a symbol with the same name at the current level.
+          // Create a new module symbol now.
           val symbol = Symbol.Module(aNode)
           val scope = Scope.empty
           for {

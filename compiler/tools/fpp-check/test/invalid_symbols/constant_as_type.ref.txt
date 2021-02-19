@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/invalid_symbols/constant_as_type.fpp: 2.15
+array A = [3] a
+              ^
+error: undefined symbol a

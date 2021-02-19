@@ -1,0 +1,9 @@
+tests="
+constant_as_qualifier
+constant_as_type
+module_as_constant
+module_as_port
+module_as_type
+module_hides_constant
+type_as_constant
+"

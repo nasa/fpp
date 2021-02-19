@@ -140,10 +140,15 @@ object CheckTypeUses extends UseAnalyzer {
         case Symbol.Struct(node) => defStructAnnotatedNode(a, node)
         case _ => Right(a)
       }
-    } yield {
-      val t = a.typeMap(symbol.getNodeId)
-      a.assignType(node -> t)
-    }
+      t <- a.typeMap.get(symbol.getNodeId) match {
+        case Some(t) => Right(t)
+        case None => Left(SemanticError.InvalidSymbol(
+          symbol.getUnqualifiedName,
+          Locations.get(node.id),
+          "not a type symbol"
+        ))
+      }
+    } yield a.assignType(node -> t)
   }
 
   private def visitIfNeeded[T]
