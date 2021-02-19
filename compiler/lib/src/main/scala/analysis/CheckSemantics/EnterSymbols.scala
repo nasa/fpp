@@ -137,6 +137,10 @@ object EnterSymbols
     val newScopeNameList = name :: oldScopeNameList
     val parentSymbol = a.parentSymbol
     val a1 = a.copy(scopeNameList = newScopeNameList)
+    // Create a fresh symbol.
+    // We will do this if (1) we don't find a pre-existing
+    // module with the same name; or (2) the pre-existing
+    // module is at a different level.
     def freshSymbol = {
       val symbol = Symbol.Module(aNode)
       val scope = Scope.empty
@@ -154,12 +158,16 @@ object EnterSymbols
       triple <- a1.nestedScope.get (NameGroup.Value) (name) match {
         case Some(symbol: Symbol.Module) => 
           if (a.parentSymbolMap.get(symbol) == a.parentSymbol) {
+            // We found a module with the same name at the same level.
+            // Re-open the scope.
             val scope = a1.symbolScopeMap(symbol)
             Right((a1, symbol, scope))
           }
           else freshSymbol
         case Some(symbol) => 
           if (a.parentSymbolMap.get(symbol) == a.parentSymbol) {
+            // We found a non-module with the same name at the same level.
+            // This is an error.
             val error = SemanticError.RedefinedSymbol(
               name,
               Locations.get(node.id),
