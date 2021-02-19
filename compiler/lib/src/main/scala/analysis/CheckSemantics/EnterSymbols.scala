@@ -137,30 +137,38 @@ object EnterSymbols
     val newScopeNameList = name :: oldScopeNameList
     val parentSymbol = a.parentSymbol
     val a1 = a.copy(scopeNameList = newScopeNameList)
+    def freshSymbol = {
+      val symbol = Symbol.Module(aNode)
+      val scope = Scope.empty
+      for {
+        nestedScope <- Result.foldLeft (NameGroup.groups) (a1.nestedScope) (
+          (ns, ng) => ns.put (ng) (name, symbol)
+        )
+      }
+      yield {
+        val a = a1.copy(nestedScope = nestedScope)
+        (a, symbol, scope)
+      }
+    }
     for {
       triple <- a1.nestedScope.get (NameGroup.Value) (name) match {
         case Some(symbol: Symbol.Module) => 
-          val scope = a1.symbolScopeMap(symbol)
-          Right((a1, symbol, scope))
+          if (a.parentSymbolMap.get(symbol) == a.parentSymbol) {
+            val scope = a1.symbolScopeMap(symbol)
+            Right((a1, symbol, scope))
+          }
+          else freshSymbol
         case Some(symbol) => 
-          val error = SemanticError.RedefinedSymbol(
-            name,
-            Locations.get(node.id),
-            symbol.getLoc
-          )
-          Left(error)
-        case None => 
-          val symbol = Symbol.Module(aNode)
-          val scope = Scope.empty
-          for {
-            nestedScope <- Result.foldLeft (NameGroup.groups) (a1.nestedScope) (
-              (ns, ng) => ns.put (ng) (name, symbol)
+          if (a.parentSymbolMap.get(symbol) == a.parentSymbol) {
+            val error = SemanticError.RedefinedSymbol(
+              name,
+              Locations.get(node.id),
+              symbol.getLoc
             )
+            Left(error)
           }
-          yield {
-            val a = a1.copy(nestedScope = nestedScope)
-            (a, symbol, scope)
-          }
+          else freshSymbol
+        case None => freshSymbol
       }
       a <- {
         val (a2, symbol, scope) = triple
