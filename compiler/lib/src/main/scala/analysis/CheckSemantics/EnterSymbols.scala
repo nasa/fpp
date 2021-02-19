@@ -137,46 +137,36 @@ object EnterSymbols
     val newScopeNameList = name :: oldScopeNameList
     val parentSymbol = a.parentSymbol
     val a1 = a.copy(scopeNameList = newScopeNameList)
-    // Create a fresh symbol.
-    // We will do this if (1) we don't find a pre-existing
-    // module with the same name; or (2) the pre-existing
-    // module is at a different level.
-    def freshSymbol = {
-      val symbol = Symbol.Module(aNode)
-      val scope = Scope.empty
-      for {
-        nestedScope <- Result.foldLeft (NameGroup.groups) (a1.nestedScope) (
-          (ns, ng) => ns.put (ng) (name, symbol)
-        )
-      }
-      yield {
-        val a = a1.copy(nestedScope = nestedScope)
-        (a, symbol, scope)
-      }
-    }
     for {
-      triple <- a1.nestedScope.get (NameGroup.Value) (name) match {
+      triple <- a1.nestedScope.innerScope.get (NameGroup.Value) (name) match {
         case Some(symbol: Symbol.Module) => 
-          if (a.parentSymbolMap.get(symbol) == a.parentSymbol) {
-            // We found a module with the same name at the same level.
-            // Re-open the scope.
-            val scope = a1.symbolScopeMap(symbol)
-            Right((a1, symbol, scope))
-          }
-          else freshSymbol
+          // We found a module symbol with the same name at the same level.
+          // Re-open the scope.
+          val scope = a1.symbolScopeMap(symbol)
+          Right((a1, symbol, scope))
         case Some(symbol) => 
-          if (a.parentSymbolMap.get(symbol) == a.parentSymbol) {
-            // We found a non-module with the same name at the same level.
-            // This is an error.
-            val error = SemanticError.RedefinedSymbol(
-              name,
-              Locations.get(node.id),
-              symbol.getLoc
+          // We found a non-module symbol with the same name at the same level.
+          // This is an error.
+          val error = SemanticError.RedefinedSymbol(
+            name,
+            Locations.get(node.id),
+            symbol.getLoc
+          )
+          Left(error)
+        case None => 
+          // We did not find a symbol with the same name at this level.
+          // Create a new module symbol now.
+          val symbol = Symbol.Module(aNode)
+          val scope = Scope.empty
+          for {
+            nestedScope <- Result.foldLeft (NameGroup.groups) (a1.nestedScope) (
+              (ns, ng) => ns.put (ng) (name, symbol)
             )
-            Left(error)
           }
-          else freshSymbol
-        case None => freshSymbol
+          yield {
+            val a = a1.copy(nestedScope = nestedScope)
+            (a, symbol, scope)
+          }
       }
       a <- {
         val (a2, symbol, scope) = triple
