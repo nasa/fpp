@@ -177,7 +177,7 @@ never using the reference again.
 autocoder, if a parameter `a` of a port `P` carries a large value, 
 then you should mark `a` `ref` if you intend to use `P` in an asynchronous
 invocation.
-Doing this avoids unnecessary copies that will otherwise occur in the.
+Doing this avoids unnecessary copies that will otherwise occur in the
 auto-generated code.
 If you also need to use `P` in a synchronous invocation, and you need
 pass-by-value semantics in that invocation, then you can copy the
