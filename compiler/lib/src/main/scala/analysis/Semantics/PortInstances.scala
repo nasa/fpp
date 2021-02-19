@@ -61,6 +61,18 @@ object PortInstances {
           }
           size <- getArraySize(a, specifier.size)
           priority <- a.getIntValueOpt(specifier.priority)
+          ty <- specifier.port match {
+            case Some(qid) => a.useDefMap(qid.id) match {
+              case symbol @ Symbol.Port(_) => 
+                Right(PortInstance.General.Type.DefPort(symbol))
+              case symbol => Left(SemanticError.InvalidSymbol(
+                symbol.getUnqualifiedName,
+                Locations.get(qid.id),
+                "not a port symbol"
+              ))
+            }
+            case None => Right(PortInstance.General.Type.Serial)
+          }
         }
         yield {
           val kind = specifier.kind match {
@@ -73,12 +85,6 @@ object PortInstances {
               PortInstance.General.Kind.Output
             case Ast.SpecPortInstance.SyncInput =>
               PortInstance.General.Kind.SyncInput
-          }
-          val ty = specifier.port match {
-            case Some(qid) =>
-              val symbol @ Symbol.Port(_) = a.useDefMap(qid.id)
-              PortInstance.General.Type.DefPort(symbol)
-            case None => PortInstance.General.Type.Serial
           }
           PortInstance.General(aNode, specifier, kind, size, ty)
         }

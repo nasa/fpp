@@ -18,9 +18,18 @@ object CheckUses extends UseAnalyzer {
       def visitExprDot(a: Analysis, node: AstNode[Ast.Expr], e: AstNode[Ast.Expr], id: AstNode[String]) = {
         for {
           a <- visitExprNode(a, e)
-          symbol <- {
+          scope <- {
             val symbol = a.useDefMap(e.id)
-            val scope = a.symbolScopeMap(symbol)
+            a.symbolScopeMap.get(symbol) match {
+              case Some(scope) => Right(scope)
+              case None => Left(SemanticError.InvalidSymbol(
+                symbol.getUnqualifiedName,
+                Locations.get(node.id),
+                "not a qualifier"
+              ))
+            }
+          }
+          symbol <- {
             val mapping = scope.get (NameGroup.Value) _
             getSymbolForName(mapping)(id, id.data)
           }
