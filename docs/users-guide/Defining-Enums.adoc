@@ -50,7 +50,7 @@ enum Decision { YES, NO, MAYBE }
 
 There must be at least one enumerated constant.
 
-=== Using a Enum Definition
+=== Using an Enum Definition
 
 Once you have defined an enum, you can use the enum as a type and the 
 enumerated constants as constants of that type.
