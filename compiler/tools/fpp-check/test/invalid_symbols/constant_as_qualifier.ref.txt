@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/invalid_symbols/constant_as_qualifier.fpp: 2.14
+constant b = a.c
+             ^
+error: invalid symbol a: not a qualifier
