@@ -262,7 +262,8 @@ object CheckExprTypes extends UseAnalyzer {
         case _ => Left(SemanticError.InvalidSymbol(
           symbol.getUnqualifiedName,
           Locations.get(node.id),
-          "not a constant symbol"
+          "not a constant symbol",
+          symbol.getLoc
         ))
       }
     } yield {

@@ -145,7 +145,8 @@ object CheckTypeUses extends UseAnalyzer {
         case None => Left(SemanticError.InvalidSymbol(
           symbol.getUnqualifiedName,
           Locations.get(node.id),
-          "not a type symbol"
+          "not a type symbol",
+          symbol.getLoc
         ))
       }
     } yield a.assignType(node -> t)

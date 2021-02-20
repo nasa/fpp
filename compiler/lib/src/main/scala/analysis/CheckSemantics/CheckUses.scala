@@ -25,7 +25,8 @@ object CheckUses extends UseAnalyzer {
               case None => Left(SemanticError.InvalidSymbol(
                 symbol.getUnqualifiedName,
                 Locations.get(node.id),
-                "not a qualifier"
+                "not a qualifier",
+                symbol.getLoc
               ))
             }
           }

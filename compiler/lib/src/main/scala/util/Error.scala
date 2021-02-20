@@ -20,11 +20,11 @@ sealed trait Error {
       case SyntaxError(loc, msg) => Error.print (Some(loc)) (msg)
       case CodeGenError.DuplicateCppFile(file, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate C++ file ${file}")
-        System.err.println(s"previous file would be generated here:")
+        System.err.println("previous file would be generated here:")
         System.err.println(prevLoc)
       case CodeGenError.DuplicateXmlFile(file, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate XML file ${file}")
-        System.err.println(s"previous file would be generated here:")
+        System.err.println("previous file would be generated here:")
         System.err.println(prevLoc)
       case CodeGenError.EmptyStruct(loc) =>
         Error.print (Some(loc)) (s"cannot write XML for an empty struct")
@@ -52,15 +52,15 @@ sealed trait Error {
         printPrevLoc(prevLoc)
       case SemanticError.DuplicateParameter(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate parameter ${name}")
-        System.err.println(s"previous parameter is here:")
+        System.err.println("previous parameter is here:")
         System.err.println(prevLoc)
       case SemanticError.DuplicatePortInstance(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate port instance ${name}")
-        System.err.println(s"previous instance is here:")
+        System.err.println("previous instance is here:")
         System.err.println(prevLoc)
       case SemanticError.DuplicateStructMember(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate struct member ${name}")
-        System.err.println(s"previous member is here:")
+        System.err.println("previous member is here:")
         System.err.println(prevLoc)
       case SemanticError.EmptyArray(loc) => 
         Error.print (Some(loc)) ("array expression may not be empty")
@@ -95,8 +95,10 @@ sealed trait Error {
         Error.print (Some(loc)) ("only async input may have queue full behavior")
       case SemanticError.InvalidStringSize(loc, size) =>
         Error.print (Some(loc)) (s"invalid string size $size")
-      case SemanticError.InvalidSymbol(name, loc, msg) =>
+      case SemanticError.InvalidSymbol(name, loc, msg, defLoc) =>
         Error.print (Some(loc)) (s"invalid symbol $name: $msg")
+        System.err.println("symbol is defined here:")
+        System.err.println(defLoc)
       case SemanticError.InvalidType(loc, msg) =>
         Error.print (Some(loc)) (msg)
       case SemanticError.MissingAsync(kind, loc) =>
@@ -109,7 +111,7 @@ sealed trait Error {
         Error.print (Some(loc)) ("passive component may not have async input")
       case SemanticError.RedefinedSymbol(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"redefinition of symbol ${name}")
-        System.err.println(s"previous definition is here:")
+        System.err.println("previous definition is here:")
         System.err.println(prevLoc)
       case SemanticError.TypeMismatch(loc, msg) => Error.print (Some(loc)) (msg)
       case SemanticError.UndefinedSymbol(name, loc) =>
@@ -239,7 +241,12 @@ object SemanticError {
   /** Invalid string size */
   final case class InvalidStringSize(loc: Location, size: BigInt) extends Error
   /** Invalid symbol */
-  final case class InvalidSymbol(name: String, loc: Location, msg: String) extends Error
+  final case class InvalidSymbol(
+    name: String,
+    loc: Location,
+    msg: String,
+    defLoc: Location
+  ) extends Error
   /** Invalid type */
   final case class InvalidType(loc: Location, msg: String) extends Error
   /** Missing async input */
