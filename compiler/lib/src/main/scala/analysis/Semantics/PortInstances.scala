@@ -68,7 +68,8 @@ object PortInstances {
               case symbol => Left(SemanticError.InvalidSymbol(
                 symbol.getUnqualifiedName,
                 Locations.get(qid.id),
-                "not a port symbol"
+                "not a port symbol",
+                symbol.getLoc
               ))
             }
             case None => Right(PortInstance.General.Type.Serial)
