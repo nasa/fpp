@@ -889,7 +889,7 @@ command ports>>
 for this component.
 All three ports are required for any component that has commands.
 As an example, try deleting one or more of the command ports from the
-example above and running the result through `fpp-check`.
+code above and running the result through `fpp-check`.
 
 `async` commands require a message queue, so
 they are allowed only for active and queued
@@ -1113,7 +1113,7 @@ and debugging.
 A format is the keyword `format` and a literal string for 
 use in a formatted real-time display or event log.
 
-As an example, here is an active component called `SimpleEvents`
+As an example, here is an active component called `BasicEvents`
 with a few basic events.
 
 [source,fpp]
@@ -1151,8 +1151,7 @@ time get port>>
 for this component.
 All three ports are required for any component that has events.
 As an example, try deleting one or more of these ports from the
-example above and running the result through `fpp-check`.
-
+code above and running the result through `fpp-check`.
 
 ==== Formal Parameters
 
@@ -1323,6 +1322,81 @@ Typically, the canceling happens via a FSW command.
 For details, see the F Prime User's Guide.
 
 === Telemetry
+
+When defining an F Prime component, you may specify one or more
+*telemetry channels*.
+A telemetry channel consists of a data type and an identifier.
+The F Prime framework converts each telemetry into a {cpp}
+function that you can call from the component implementation.
+Calling the function emits a value on the channel.
+Each emitted value is called a
+*telemetry point*.
+You can store the telemetry points in an on-board file system
+or send them the ground.
+
+For complete information about F Prime telemetry
+handling, see the F Prime User's Guide.
+Here we concentrate on how to specify telemetry channels in FPP.
+
+==== Basic Telemetry
+
+The simplest telemetry channel consists of the keyword `telemetry`,
+a name, and a data type.
+The name is the name of the event.
+The data type is the type of data carried on the telemetry
+channel.
+
+As an example, here is an active component called `BasicTelemetry`
+with a few basic events.
+
+[source,fpp]
+----
+@ An array of 3 F64 values
+array F64x3 = [3] F64
+
+@ A component for illustrating basic telemetry channels
+passive component BasicTelemetry {
+
+  @ Telemetry port 
+  telemetry port tlmOut
+
+  @ Time get port
+  time get port timeGetOut
+
+  @ Telemetry channel 1
+  telemetry Channel1: U32
+
+  @ Telemetry channel 2
+  telemetry Channel2: F64
+
+  @ Telemetry channel 3
+  telemetry Channel3: F64x3
+
+}
+----
+
+Notice that we defined a
+<<Defining-Components_Special-Port-Instances_Telemetry-Ports,
+telemetry port>>
+and a
+<<Defining-Components_Special-Port-Instances_Time-Get-Ports,
+time get port>>
+for this component.
+Both ports are required for any component that has telemetry.
+
+==== Identifiers
+
+TODO
+
+==== Update Frequency
+
+TODO
+
+==== Format Strings
+
+TODO
+
+==== Low and High Limits
 
 TODO
 

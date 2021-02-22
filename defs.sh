@@ -9,6 +9,8 @@ if test -z "$LEVEL"; then
   export LEVEL=.
 fi
 
+export LEVEL=`cd $LEVEL; echo $PWD`
+
 redo-ifchange $LEVEL/defs.sh
 
 # Echo args to stderr

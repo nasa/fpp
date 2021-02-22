@@ -10,7 +10,7 @@ exec 1>&2
 
 dir=`dirname $2`
 base=`basename $2`
-infile=$dir/../$base.adoc
+infile=$base.adoc
 built_in_ports_fpp=../../built_in_ports.fpp
 redo-ifchange $infile scripts/extract.awk
 mkdir $3
