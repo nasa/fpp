@@ -4608,7 +4608,56 @@ passive component EventIdentifiers {
 <div class="sect3">
 <h4 id="Defining-Components_Events_Throttling">9.6.4. Throttling</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>Sometimes it is necessary to throttle events, to ensure that
+they do not flood the system.
+For example, suppose that the FSW requests some resource <em>R</em>
+at a rate <em>r</em> of several times per second.
+Suppose further that if <em>R</em> is unavailable, then the FSW
+emits a warning event.
+In this case, we typically do not want the FSW to emit an unbounded number
+of warnings at rate <em>r</em>; instead, we want it to emit a single warning
+or a few warnings.</p>
+</div>
+<div class="paragraph">
+<p>To achieve this behavior, you can write the keyword <code>throttle</code> and a
+numeric expression after the format string.
+The expression must evaluate to a constant value <em>n</em>.
+After the component has emitted the event <em>n</em> times, it will
+stop emitting the event.
+Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ Component for illustrating event throttling
+passive component EventThrottling {
+
+  @ Event port
+  event port eventOut
+
+  @ Text event port
+  text event port textEventOut
+
+  @ Time get port
+  time get port timeGetOut
+
+  @ Event E
+  event E severity warning high \
+    id 0x10 \
+    format "Event E occurred" \
+    throttle 10
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this example, event <code>E</code> will be throttled after the component
+has emitted it ten times.</p>
+</div>
+<div class="paragraph">
+<p>Once an event is throttled, the event will not be emitted again
+until the throttling is canceled.
+Typically, the canceling happens via a FSW command.
+For details, see the F Prime User&#8217;s Guide.</p>
 </div>
 </div>
 </div>
@@ -6794,7 +6843,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-22 09:07:11 -0800
+Last updated 2021-02-22 09:24:20 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

@@ -1274,7 +1274,53 @@ Within a component, the event identifiers must be unique.
 
 ==== Throttling
 
-TODO
+Sometimes it is necessary to throttle events, to ensure that
+they do not flood the system.
+For example, suppose that the FSW requests some resource _R_
+at a rate _r_ of several times per second.
+Suppose further that if _R_ is unavailable, then the FSW
+emits a warning event.
+In this case, we typically do not want the FSW to emit an unbounded number
+of warnings at rate _r_; instead, we want it to emit a single warning
+or a few warnings.
+
+To achieve this behavior, you can write the keyword `throttle` and a
+numeric expression after the format string.
+The expression must evaluate to a constant value _n_.
+After the component has emitted the event _n_ times, it will
+stop emitting the event.
+Here is an example:
+
+[source,fpp]
+----
+@ Component for illustrating event throttling
+passive component EventThrottling {
+
+  @ Event port 
+  event port eventOut
+
+  @ Text event port
+  text event port textEventOut
+
+  @ Time get port
+  time get port timeGetOut
+
+  @ Event E
+  event E severity warning high \
+    id 0x10 \
+    format "Event E occurred" \
+    throttle 10
+
+}
+----
+
+In this example, event `E` will be throttled after the component
+has emitted it ten times.
+
+Once an event is throttled, the event will not be emitted again
+until the throttling is canceled.
+Typically, the canceling happens via a FSW command.
+For details, see the F Prime User's Guide.
 
 === Telemetry
 
