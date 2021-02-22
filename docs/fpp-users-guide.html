@@ -552,8 +552,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#Defining-Components_Events_Basic-Events">9.6.1. Basic Events</a></li>
 <li><a href="#Defining-Components_Events_Formal-Parameters">9.6.2. Formal Parameters</a></li>
-<li><a href="#Defining-Components_Events_Event-Identifiers">9.6.3. Event Identifiers</a></li>
-<li><a href="#Defining-Components_Events_Event-Throttling">9.6.4. Event Throttling</a></li>
+<li><a href="#Defining-Components_Events_Identifiers">9.6.3. Identifiers</a></li>
+<li><a href="#Defining-Components_Events_Throttling">9.6.4. Throttling</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Components_Telemetry">9.7. Telemetry</a></li>
@@ -4529,17 +4529,17 @@ passive component EventParameters {
   @ Time get port
   time get port timeGetOut
 
-  @ Event 1
+  @ Event E1
   @ Sample output: "Event 1 occurred with argument 42"
-  event Event1(
+  event E1(
     arg1: U32 @&lt; Argument 1
   ) \
     severity activity high \
     format "Event 1 occurred with argument {}"
 
-  @ Event 2
+  @ Event E2
   @ Sample output: "Saw value [ 0.001, 0.002, 0.003 ] for case A"
-  event Event2(
+  event E2(
     case: Case @&lt; The case
     value: F64x3 @&lt; The value
   ) \
@@ -4551,13 +4551,62 @@ passive component EventParameters {
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Events_Event-Identifiers">9.6.3. Event Identifiers</h4>
+<h4 id="Defining-Components_Events_Identifiers">9.6.3. Identifiers</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>Every event in an F Prime FSW application has a unique
+numeric identifier.
+As for
+<a href="#Defining-Components_Commands_Opcodes">command opcodes</a>,
+the event identifiers for a component are specified
+relative to the component, usually starting from
+zero and counting up by one.
+As for command opcodes, if you omit the identifier, then
+FPP assigns a default identifier: zero for the first
+event in the component; otherwise one more than the
+identifier of the previous event.</p>
+</div>
+<div class="paragraph">
+<p>If you wish, you may explicitly specify one or more identifiers.
+To do this, you write the keyword <code>id</code> followed
+by a numeric expression immediately before the keyword <code>format</code>.
+Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ Component for illustrating event identifiers
+passive component EventIdentifiers {
+
+  @ Event port
+  event port eventOut
+
+  @ Text event port
+  text event port textEventOut
+
+  @ Time get port
+  time get port timeGetOut
+
+  @ Event E1
+  event E1 severity activity low \
+    id 0x10 \
+    format "Event E1 occurred"
+
+  @ Event E2
+  event Event2(
+    count: U32 @&lt; The count
+  ) \
+    severity activity high \
+    id 0x11 \
+    format "The count is {}"
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Within a component, the event identifiers must be unique.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Events_Event-Throttling">9.6.4. Event Throttling</h4>
+<h4 id="Defining-Components_Events_Throttling">9.6.4. Throttling</h4>
 <div class="paragraph">
 <p>TODO</p>
 </div>
@@ -6745,7 +6794,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-22 08:53:02 -0800
+Last updated 2021-02-22 09:07:11 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

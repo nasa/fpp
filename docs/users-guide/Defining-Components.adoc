@@ -1201,17 +1201,17 @@ passive component EventParameters {
   @ Time get port
   time get port timeGetOut
 
-  @ Event 1
+  @ Event E1
   @ Sample output: "Event 1 occurred with argument 42"
-  event Event1(
+  event E1(
     arg1: U32 @< Argument 1
   ) \
     severity activity high \
     format "Event 1 occurred with argument {}"
 
-  @ Event 2
+  @ Event E2
   @ Sample output: "Saw value [ 0.001, 0.002, 0.003 ] for case A"
-  event Event2(
+  event E2(
     case: Case @< The case
     value: F64x3 @< The value
   ) \
@@ -1221,11 +1221,58 @@ passive component EventParameters {
 }
 ----
 
-==== Event Identifiers
+==== Identifiers
 
-TODO
+Every event in an F Prime FSW application has a unique
+numeric identifier.
+As for
+<<Defining-Components_Commands_Opcodes,command opcodes>>,
+the event identifiers for a component are specified
+relative to the component, usually starting from
+zero and counting up by one.
+As for command opcodes, if you omit the identifier, then
+FPP assigns a default identifier: zero for the first
+event in the component; otherwise one more than the 
+identifier of the previous event.
 
-==== Event Throttling
+If you wish, you may explicitly specify one or more identifiers.
+To do this, you write the keyword `id` followed
+by a numeric expression immediately before the keyword `format`.
+Here is an example:
+
+[source,fpp]
+----
+@ Component for illustrating event identifiers
+passive component EventIdentifiers {
+
+  @ Event port 
+  event port eventOut
+
+  @ Text event port
+  text event port textEventOut
+
+  @ Time get port
+  time get port timeGetOut
+
+  @ Event E1
+  event E1 severity activity low \
+    id 0x10 \
+    format "Event E1 occurred"
+
+  @ Event E2
+  event Event2(
+    count: U32 @< The count
+  ) \
+    severity activity high \
+    id 0x11 \
+    format "The count is {}"
+
+}
+----
+
+Within a component, the event identifiers must be unique.
+
+==== Throttling
 
 TODO
 
