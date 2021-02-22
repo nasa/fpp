@@ -4622,7 +4622,7 @@ or a few warnings.</p>
 <p>To achieve this behavior, you can write the keyword <code>throttle</code> and a
 numeric expression after the format string.
 The expression must evaluate to a constant value <em>n</em>.
-After the component has emitted the event <em>n</em> times, it will
+After an instance of the component has emitted the event <em>n</em> times, it will
 stop emitting the event.
 Here is an example:</p>
 </div>
@@ -4651,11 +4651,11 @@ passive component EventThrottling {
 </div>
 <div class="paragraph">
 <p>In this example, event <code>E</code> will be throttled after the component
-has emitted it ten times.</p>
+instance has emitted it ten times.</p>
 </div>
 <div class="paragraph">
-<p>Once an event is throttled, the event will not be emitted again
-until the throttling is canceled.
+<p>Once an event is throttled, the component instance will no longer
+emit the event until the throttling is canceled.
 Typically, the canceling happens via a FSW command.
 For details, see the F Prime User&#8217;s Guide.</p>
 </div>
@@ -6843,7 +6843,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-22 09:24:20 -0800
+Last updated 2021-02-22 09:26:03 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

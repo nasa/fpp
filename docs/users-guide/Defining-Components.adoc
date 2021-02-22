@@ -1287,7 +1287,7 @@ or a few warnings.
 To achieve this behavior, you can write the keyword `throttle` and a
 numeric expression after the format string.
 The expression must evaluate to a constant value _n_.
-After the component has emitted the event _n_ times, it will
+After an instance of the component has emitted the event _n_ times, it will
 stop emitting the event.
 Here is an example:
 
@@ -1315,10 +1315,10 @@ passive component EventThrottling {
 ----
 
 In this example, event `E` will be throttled after the component
-has emitted it ten times.
+instance has emitted it ten times.
 
-Once an event is throttled, the event will not be emitted again
-until the throttling is canceled.
+Once an event is throttled, the component instance will no longer
+emit the event until the throttling is canceled.
 Typically, the canceling happens via a FSW command.
 For details, see the F Prime User's Guide.
 
