@@ -964,7 +964,7 @@ the global opcodes associated with _I_.
 That way different instances of _C_ can have different opcodes
 for the same commands defined in _C_.
 We will have more to say about base and relative opcodes 
-in the section on constructing topologies of component instances.
+when we describe topologies of component instances.
 
 If you specify a command _c_ with no explicit opcode, as in the examples
 shown in the previous sections, then FPP assigns a default opcode
@@ -1094,9 +1094,9 @@ and a format string.
 The name is the name of the event.
 A severity is the keyword `severity` and one of the following:
 
-* `activity` `high`: Spacecraft activity of high importance.
+* `activity` `high`: Spacecraft activity of greater importance.
 
-* `activity` `low`: Spacecraft activity of low importance.
+* `activity` `low`: Spacecraft activity of lesser importance.
 
 * `command`: An event related to commanding.
 Primarily used by the command dispatcher.
@@ -1106,9 +1106,9 @@ and debugging.
 
 * `fatal`: An event that causes the system to abort.
 
-* `warning` `high`: A warning of high importance.
+* `warning` `high`: A warning of greater importance.
 
-* `warning` `low`: A warning of low importance.
+* `warning` `low`: A warning of lesser importance.
 
 A format is the keyword `format` and a literal string for 
 use in a formatted real-time display or event log.
@@ -1156,7 +1156,70 @@ example above and running the result through `fpp-check`.
 
 ==== Formal Parameters
 
-TODO
+When specifying an event, you may specify one or more
+formal parameters.
+The parameters are bound to arguments when the component
+instance emits the event.
+The argument values appear in the formatted text
+that describes the event.
+
+The formal parameters of an event are the same
+as for a <<Defining-Ports_Formal-Parameters,port definition>>, except
+that none of the parameters may be a
+<<Defining-Ports_Reference-Parameters,reference parameter>>.
+For each formal parameter, there must be a corresponding
+replacement field in the format string.
+The replacement fields for event format strings are the same as for
+format strings in
+<<Defining-Types_Array-Type-Definitions_Format-Strings,
+type definitions>>.
+The replacement fields in the format string match the event
+parameters, one for one and in the same order.
+
+As an example, here is a component with two events,
+each of which has formal parameters.
+Notice how the replacement fields in the event format
+strings correspond to the formal parameters.
+
+[source,fpp]
+----
+@ An enumeration of cases
+enum Case { A, B, C }
+
+@ An array of 3 F64 values
+array F64x3 = [3] F64
+
+@ A component for illustrating event formal parameters
+passive component EventParameters {
+
+  @ Event port 
+  event port eventOut
+
+  @ Text event port
+  text event port textEventOut
+
+  @ Time get port
+  time get port timeGetOut
+
+  @ Event 1
+  @ Sample output: "Event 1 occurred with argument 42"
+  event Event1(
+    arg1: U32 @< Argument 1
+  ) \
+    severity activity high \
+    format "Event 1 occurred with argument {}"
+
+  @ Event 2
+  @ Sample output: "Saw value [ 0.001, 0.002, 0.003 ] for case A"
+  event Event2(
+    case: Case @< The case
+    value: F64x3 @< The value
+  ) \
+    severity warning low \
+    format "Saw value {} for case {}" \
+
+}
+----
 
 ==== Event Identifiers
 

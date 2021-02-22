@@ -4267,7 +4267,7 @@ the global opcodes associated with <em>I</em>.
 That way different instances of <em>C</em> can have different opcodes
 for the same commands defined in <em>C</em>.
 We will have more to say about base and relative opcodes
-in the section on constructing topologies of component instances.</p>
+when we describe topologies of component instances.</p>
 </div>
 <div class="paragraph">
 <p>If you specify a command <em>c</em> with no explicit opcode, as in the examples
@@ -4411,10 +4411,10 @@ A severity is the keyword <code>severity</code> and one of the following:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>activity</code> <code>high</code>: Spacecraft activity of high importance.</p>
+<p><code>activity</code> <code>high</code>: Spacecraft activity of greater importance.</p>
 </li>
 <li>
-<p><code>activity</code> <code>low</code>: Spacecraft activity of low importance.</p>
+<p><code>activity</code> <code>low</code>: Spacecraft activity of lesser importance.</p>
 </li>
 <li>
 <p><code>command</code>: An event related to commanding.
@@ -4428,10 +4428,10 @@ and debugging.</p>
 <p><code>fatal</code>: An event that causes the system to abort.</p>
 </li>
 <li>
-<p><code>warning</code> <code>high</code>: A warning of high importance.</p>
+<p><code>warning</code> <code>high</code>: A warning of greater importance.</p>
 </li>
 <li>
-<p><code>warning</code> <code>low</code>: A warning of low importance.</p>
+<p><code>warning</code> <code>low</code>: A warning of lesser importance.</p>
 </li>
 </ul>
 </div>
@@ -4483,7 +4483,71 @@ example above and running the result through <code>fpp-check</code>.</p>
 <div class="sect3">
 <h4 id="Defining-Components_Events_Formal-Parameters">9.6.2. Formal Parameters</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>When specifying an event, you may specify one or more
+formal parameters.
+The parameters are bound to arguments when the component
+instance emits the event.
+The argument values appear in the formatted text
+that describes the event.</p>
+</div>
+<div class="paragraph">
+<p>The formal parameters of an event are the same
+as for a <a href="#Defining-Ports_Formal-Parameters">port definition</a>, except
+that none of the parameters may be a
+<a href="#Defining-Ports_Reference-Parameters">reference parameter</a>.
+For each formal parameter, there must be a corresponding
+replacement field in the format string.
+The replacement fields for event format strings are the same as for
+format strings in
+<a href="#Defining-Types_Array-Type-Definitions_Format-Strings">type definitions</a>.
+The replacement fields in the format string match the event
+parameters, one for one and in the same order.</p>
+</div>
+<div class="paragraph">
+<p>As an example, here is a component with two events,
+each of which has formal parameters.
+Notice how the replacement fields in the event format
+strings correspond to the formal parameters.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ An enumeration of cases
+enum Case { A, B, C }
+
+@ An array of 3 F64 values
+array F64x3 = [3] F64
+
+@ A component for illustrating event formal parameters
+passive component EventParameters {
+
+  @ Event port
+  event port eventOut
+
+  @ Text event port
+  text event port textEventOut
+
+  @ Time get port
+  time get port timeGetOut
+
+  @ Event 1
+  @ Sample output: "Event 1 occurred with argument 42"
+  event Event1(
+    arg1: U32 @&lt; Argument 1
+  ) \
+    severity activity high \
+    format "Event 1 occurred with argument {}"
+
+  @ Event 2
+  @ Sample output: "Saw value [ 0.001, 0.002, 0.003 ] for case A"
+  event Event2(
+    case: Case @&lt; The case
+    value: F64x3 @&lt; The value
+  ) \
+    severity warning low \
+    format "Saw value {} for case {}" \
+
+}</code></pre>
+</div>
 </div>
 </div>
 <div class="sect3">
@@ -6681,7 +6745,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-19 15:10:56 -0800
+Last updated 2021-02-22 08:53:02 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
