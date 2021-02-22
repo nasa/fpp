@@ -1229,12 +1229,13 @@ As for
 the event identifiers for a component are specified
 relative to the component, usually starting from
 zero and counting up by one.
-As for command opcodes, if you omit the identifier, then
+If you omit the identifier, then
 FPP assigns a default identifier: zero for the first
 event in the component; otherwise one more than the 
 identifier of the previous event.
 
-If you wish, you may explicitly specify one or more identifiers.
+If you wish, you may explicitly specify one or more event
+identifiers.
 To do this, you write the keyword `id` followed
 by a numeric expression immediately before the keyword `format`.
 Here is an example:
@@ -1254,17 +1255,24 @@ passive component EventIdentifiers {
   time get port timeGetOut
 
   @ Event E1
+  @ Its identifier is 0x00
   event E1 severity activity low \
     id 0x10 \
     format "Event E1 occurred"
 
   @ Event E2
+  @ Its identifier is 0x10
   event Event2(
     count: U32 @< The count
   ) \
     severity activity high \
     id 0x11 \
     format "The count is {}"
+
+  @ Event E3
+  @ Its identifier is 0x11
+  event E3 severity activity high \
+    format "event E3 occurred"
 
 }
 ----
@@ -1306,7 +1314,6 @@ passive component EventThrottling {
 
   @ Event E
   event E severity warning high \
-    id 0x10 \
     format "Event E occurred" \
     throttle 10
 
@@ -1386,7 +1393,56 @@ Both ports are required for any component that has telemetry.
 
 ==== Identifiers
 
-TODO
+Every telemetry channel in an F Prime FSW application has a unique
+numeric identifier.
+As for
+<<Defining-Components_Commands_Opcodes,command opcodes>>
+and
+<<Defining-Components_Events_Identifiers,event identifiers>>,
+the telemetry channel identifiers for a component are specified
+relative to the component, usually starting from
+zero and counting up by one.
+If you omit the identifier, then
+FPP assigns a default identifier: zero for the first
+event in the component; otherwise one more than the 
+identifier of the previous event.
+
+If you wish, you may explicitly specify one or more 
+telemetry channel identifiers.
+To do this, you write the keyword `id` followed
+by a numeric expression immediately after the data type.
+Here is an example:
+
+[source,fpp]
+----
+@ An array of 3 F64 values
+array F64x3 = [3] F64
+
+@ Component for illustrating telemetry channel identifiers
+passive component TlmIdentifiers {
+
+  @ Telemetry port
+  telemetry port tlmOut
+
+  @ Time get port
+  time get port timeGetOut
+
+  @ Telemetry channel 1
+  @ Its implied identifier is 0x00
+  telemetry Channel1: U32
+
+  @ Telemetry channel 2
+  @ Its identifier is 0x10
+  telemetry Channel2: F64 id 0x10
+
+  @ Telemetry channel 3
+  @ Its implied identifier is 0x11
+  telemetry Channel3: F64x3
+
+}
+----
+
+Within a component, the telemetry channel identifiers must be unique.
 
 ==== Update Frequency
 
