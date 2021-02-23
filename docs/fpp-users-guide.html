@@ -562,7 +562,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Components_Telemetry_Identifiers">9.7.2. Identifiers</a></li>
 <li><a href="#Defining-Components_Telemetry_Update-Frequency">9.7.3. Update Frequency</a></li>
 <li><a href="#Defining-Components_Telemetry_Format-Strings">9.7.4. Format Strings</a></li>
-<li><a href="#Defining-Components_Telemetry_Low-and-High-Limits">9.7.5. Low and High Limits</a></li>
+<li><a href="#Defining-Components_Telemetry_Limits">9.7.5. Limits</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Components_Parameters">9.8. Parameters</a></li>
@@ -4924,9 +4924,73 @@ passive component TlmFormat {
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Telemetry_Low-and-High-Limits">9.7.5. Low and High Limits</h4>
+<h4 id="Defining-Components_Telemetry_Limits">9.7.5. Limits</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>You may specify <strong>limits</strong>, or bounds, on the expected values
+carried on a telemetry channel.
+There are two kinds of limits: <code>low</code> (meaning that the
+values are expected to stay above the limit) and <code>high</code>
+(meaning that the values are expected to stay below the limit).
+Within each kind, there are three levels of severity:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>yellow</code>: Crossing the limit is of low concern.</p>
+</li>
+<li>
+<p><code>orange</code>: Crossing the limit is of medium concern.</p>
+</li>
+<li>
+<p><code>red</code>: Crossing the limit is of high concern.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The ground data system can display an appropriate warning
+when a telemetry point crosses a limit.</p>
+</div>
+<div class="paragraph">
+<p>The limit specifiers come after the type name, identifier,
+update specifier, and format string.
+You specify the low limits (if any) first, and then the high limits.
+For the low limits, you write the keyword <code>low</code> followed by a
+list of limits in curly braces <code>{ &#8230;&#8203; }</code>.
+For the high limits, you do the same  thing but use the keyword
+<code>high</code>.
+Each limit is a severity keyword followed by a numeric expression.
+Here are some examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ Component for illustrating telemetry channel limits
+passive component TlmLimits {
+
+  @ Telemetry port
+  telemetry port tlmOut
+
+  @ Time get port
+  time get port timeGetOut
+
+  @ Telemetry channel 1
+  telemetry Channel1: U32 \
+    low { red 0, orange 1, yellow 2 }
+
+  @ Telemetry channel 2
+  telemetry Channel2: F64 id 0x10 \
+    update on change \
+    format "{.3f}" \
+    low { red -3, orange -2, yellow -1 } \
+    high { red 3, orange 2, yellow 1 }
+
+  @ Telemetry channel 3
+  telemetry Channel3: F64\
+    update always \
+    format "{e}" \
+    high { red 3, orange 2, yellow 1 }
+
+}</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -7106,7 +7170,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-22 17:23:52 -0800
+Last updated 2021-02-22 17:49:24 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

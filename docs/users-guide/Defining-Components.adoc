@@ -1554,9 +1554,65 @@ passive component TlmFormat {
 }
 ----
 
-==== Low and High Limits
+==== Limits
 
-TODO
+You may specify *limits*, or bounds, on the expected values 
+carried on a telemetry channel.
+There are two kinds of limits: `low` (meaning that the
+values are expected to stay above the limit) and `high`
+(meaning that the values are expected to stay below the limit).
+Within each kind, there are three levels of severity:
+
+* `yellow`: Crossing the limit is of low concern.
+
+* `orange`: Crossing the limit is of medium concern.
+
+* `red`: Crossing the limit is of high concern.
+
+The ground data system can display an appropriate warning
+when a telemetry point crosses a limit.
+
+The limit specifiers come after the type name, identifier,
+update specifier, and format string.
+You specify the low limits (if any) first, and then the high limits.
+For the low limits, you write the keyword `low` followed by a
+list of limits in curly braces `{ ... }`.
+For the high limits, you do the same  thing but use the keyword
+`high`.
+Each limit is a severity keyword followed by a numeric expression.
+Here are some examples:
+
+
+[source,fpp]
+----
+@ Component for illustrating telemetry channel limits
+passive component TlmLimits {
+
+  @ Telemetry port
+  telemetry port tlmOut
+
+  @ Time get port
+  time get port timeGetOut
+
+  @ Telemetry channel 1
+  telemetry Channel1: U32 \
+    low { red 0, orange 1, yellow 2 }
+
+  @ Telemetry channel 2
+  telemetry Channel2: F64 id 0x10 \
+    update on change \
+    format "{.3f}" \
+    low { red -3, orange -2, yellow -1 } \
+    high { red 3, orange 2, yellow 1 }
+
+  @ Telemetry channel 3
+  telemetry Channel3: F64\
+    update always \
+    format "{e}" \
+    high { red 3, orange 2, yellow 1 }
+
+}
+----
 
 === Parameters
 
