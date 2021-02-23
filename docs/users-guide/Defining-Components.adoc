@@ -1459,20 +1459,19 @@ telemetry function.
 * `on` `change`: Emit a telemetry point whenever
 (a) the component instance calls the corresponding
 telemetry function and (b) the telemetry value
-is different from the previous value emitted
-on that channel.
+is different from the value seen the last time
+the function was called.
 
 Emitting telemetry on change can reduce unnecessary
 activity in the system.
-For example, suppose a telemetry point counts
-the number of times that some event has occurred
+For example, suppose a telemetry channel _C_ counts
+the number of times that some event _E_ occurs
 in a periodic task,
-and suppose the event occurs relatively rarely.
-Always emitting the telemetry will cause a new
-telemetry point to be updated (and possibly logged,
-transmitted to the ground, etc.) on every cycle.
-Emitting the telemetry on change will cause an update
-only when there is a new value.
+and suppose that _E_ does not occur on every cycle.
+If you declare channel _C_ `on` `change`, then your implementation
+can call the telemetry emit function for _C_ on every
+cycle, and telemetry will be emitted only when
+_E_ occurs.
 
 To specify an update frequency, you write the keyword `update`
 and one of the frequency selectors shown above.
@@ -1568,7 +1567,7 @@ Within each kind, there are three levels of severity:
 
 * `red`: Crossing the limit is of high concern.
 
-The ground data system can display an appropriate warning
+The F Prime ground data system displays an appropriate warning
 when a telemetry point crosses a limit.
 
 The limit specifiers come after the type name, identifier,

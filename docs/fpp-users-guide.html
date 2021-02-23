@@ -4821,23 +4821,22 @@ telemetry function.</p>
 <p><code>on</code> <code>change</code>: Emit a telemetry point whenever
 (a) the component instance calls the corresponding
 telemetry function and (b) the telemetry value
-is different from the previous value emitted
-on that channel.</p>
+is different from the value seen the last time
+the function was called.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
 <p>Emitting telemetry on change can reduce unnecessary
 activity in the system.
-For example, suppose a telemetry point counts
-the number of times that some event has occurred
+For example, suppose a telemetry channel <em>C</em> counts
+the number of times that some event <em>E</em> occurs
 in a periodic task,
-and suppose the event occurs relatively rarely.
-Always emitting the telemetry will cause a new
-telemetry point to be updated (and possibly logged,
-transmitted to the ground, etc.) on every cycle.
-Emitting the telemetry on change will cause an update
-only when there is a new value.</p>
+and suppose that <em>E</em> does not occur on every cycle.
+If you declare channel <em>C</em> <code>on</code> <code>change</code>, then your implementation
+can call the telemetry emit function for <em>C</em> on every
+cycle, and telemetry will be emitted only when
+<em>E</em> occurs.</p>
 </div>
 <div class="paragraph">
 <p>To specify an update frequency, you write the keyword <code>update</code>
@@ -4946,7 +4945,7 @@ Within each kind, there are three levels of severity:</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>The ground data system can display an appropriate warning
+<p>The F Prime ground data system displays an appropriate warning
 when a telemetry point crosses a limit.</p>
 </div>
 <div class="paragraph">
@@ -7182,7 +7181,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-22 18:19:02 -0800
+Last updated 2021-02-23 08:33:37 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
