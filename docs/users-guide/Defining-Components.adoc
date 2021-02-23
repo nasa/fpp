@@ -1457,8 +1457,8 @@ whenever the component instance calls the corresponding
 telemetry function.
 
 * `on` `change`: Emit a telemetry point whenever
-(a) the component instance calls the corresponding
-telemetry function and (b) the telemetry value
+(1) the component instance calls the corresponding
+telemetry function and (2) the telemetry value
 is different from the value seen the last time
 the function was called.
 
