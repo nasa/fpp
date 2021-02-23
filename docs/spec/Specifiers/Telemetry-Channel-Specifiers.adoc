@@ -60,7 +60,7 @@ is emitted always or on change.
 If the specifier is not present, the default behavior is always.
 
 . The optional format specifier specifies a <<Format-Strings,format string>>.
-There is one argument to the format string, which is the channel value.  A
+There is one argument to the format string, which is the channel value.
 
 . The optional high and low limit specifiers specify the high and low limits
 for the channel. 

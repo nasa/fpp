@@ -556,7 +556,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Components_Events_Throttling">9.6.4. Throttling</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Components_Telemetry">9.7. Telemetry</a></li>
+<li><a href="#Defining-Components_Telemetry">9.7. Telemetry</a>
+<ul class="sectlevel3">
+<li><a href="#Defining-Components_Telemetry_Basic-Telemetry">9.7.1. Basic Telemetry</a></li>
+<li><a href="#Defining-Components_Telemetry_Identifiers">9.7.2. Identifiers</a></li>
+<li><a href="#Defining-Components_Telemetry_Update-Frequency">9.7.3. Update Frequency</a></li>
+<li><a href="#Defining-Components_Telemetry_Format-Strings">9.7.4. Format Strings</a></li>
+<li><a href="#Defining-Components_Telemetry_Low-and-High-Limits">9.7.5. Low and High Limits</a></li>
+</ul>
+</li>
 <li><a href="#Defining-Components_Parameters">9.8. Parameters</a></li>
 <li><a href="#Defining-Components_Constants-and-Types">9.9. Constants and Types</a></li>
 <li><a href="#Defining-Components_Include-Specifiers">9.10. Include Specifiers</a></li>
@@ -4185,7 +4193,7 @@ For example, it could set a stop flag and then exit.</p>
 for this component.
 All three ports are required for any component that has commands.
 As an example, try deleting one or more of the command ports from the
-example above and running the result through <code>fpp-check</code>.</p>
+code above and running the result through <code>fpp-check</code>.</p>
 </div>
 <div class="paragraph">
 <p><code>async</code> commands require a message queue, so
@@ -4440,7 +4448,7 @@ and debugging.</p>
 use in a formatted real-time display or event log.</p>
 </div>
 <div class="paragraph">
-<p>As an example, here is an active component called <code>SimpleEvents</code>
+<p>As an example, here is an active component called <code>BasicEvents</code>
 with a few basic events.</p>
 </div>
 <div class="listingblock">
@@ -4477,7 +4485,7 @@ and a
 for this component.
 All three ports are required for any component that has events.
 As an example, try deleting one or more of these ports from the
-example above and running the result through <code>fpp-check</code>.</p>
+code above and running the result through <code>fpp-check</code>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -4560,13 +4568,14 @@ As for
 the event identifiers for a component are specified
 relative to the component, usually starting from
 zero and counting up by one.
-As for command opcodes, if you omit the identifier, then
+If you omit the identifier, then
 FPP assigns a default identifier: zero for the first
 event in the component; otherwise one more than the
 identifier of the previous event.</p>
 </div>
 <div class="paragraph">
-<p>If you wish, you may explicitly specify one or more identifiers.
+<p>If you wish, you may explicitly specify one or more event
+identifiers.
 To do this, you write the keyword <code>id</code> followed
 by a numeric expression immediately before the keyword <code>format</code>.
 Here is an example:</p>
@@ -4586,17 +4595,24 @@ passive component EventIdentifiers {
   time get port timeGetOut
 
   @ Event E1
+  @ Its identifier is 0x00
   event E1 severity activity low \
     id 0x10 \
     format "Event E1 occurred"
 
   @ Event E2
+  @ Its identifier is 0x10
   event Event2(
     count: U32 @&lt; The count
   ) \
     severity activity high \
     id 0x11 \
     format "The count is {}"
+
+  @ Event E3
+  @ Its identifier is 0x11
+  event E3 severity activity high \
+    format "event E3 occurred"
 
 }</code></pre>
 </div>
@@ -4642,7 +4658,6 @@ passive component EventThrottling {
 
   @ Event E
   event E severity warning high \
-    id 0x10 \
     format "Event E occurred" \
     throttle 10
 
@@ -4664,7 +4679,255 @@ For details, see the F Prime User&#8217;s Guide.</p>
 <div class="sect2">
 <h3 id="Defining-Components_Telemetry">9.7. Telemetry</h3>
 <div class="paragraph">
+<p>When defining an F Prime component, you may specify one or more
+<strong>telemetry channels</strong>.
+A telemetry channel consists of a data type and an identifier.
+The F Prime framework converts each telemetry into a C&#43;&#43;
+function that you can call from the component implementation.
+Calling the function emits a value on the channel.
+Each emitted value is called a
+<strong>telemetry point</strong>.
+You can store the telemetry points in an on-board file system
+or send them the ground.</p>
+</div>
+<div class="paragraph">
+<p>For complete information about F Prime telemetry
+handling, see the F Prime User&#8217;s Guide.
+Here we concentrate on how to specify telemetry channels in FPP.</p>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Telemetry_Basic-Telemetry">9.7.1. Basic Telemetry</h4>
+<div class="paragraph">
+<p>The simplest telemetry channel consists of the keyword <code>telemetry</code>,
+a name, and a data type.
+The name is the name of the event.
+The data type is the type of data carried on the telemetry
+channel.</p>
+</div>
+<div class="paragraph">
+<p>As an example, here is an active component called <code>BasicTelemetry</code>
+with a few basic events.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ An array of 3 F64 values
+array F64x3 = [3] F64
+
+@ A component for illustrating basic telemetry channels
+passive component BasicTelemetry {
+
+  @ Telemetry port
+  telemetry port tlmOut
+
+  @ Time get port
+  time get port timeGetOut
+
+  @ Telemetry channel 1
+  telemetry Channel1: U32
+
+  @ Telemetry channel 2
+  telemetry Channel2: F64
+
+  @ Telemetry channel 3
+  telemetry Channel3: F64x3
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that we defined a
+<a href="#Defining-Components_Special-Port-Instances_Telemetry-Ports">telemetry port</a>
+and a
+<a href="#Defining-Components_Special-Port-Instances_Time-Get-Ports">time get port</a>
+for this component.
+Both ports are required for any component that has telemetry.</p>
+</div>
+<div class="paragraph">
+<p><strong>XML limitation:</strong> The F Prime XML format does not currently support
+telemetry of <code>string</code> type.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Telemetry_Identifiers">9.7.2. Identifiers</h4>
+<div class="paragraph">
+<p>Every telemetry channel in an F Prime FSW application has a unique
+numeric identifier.
+As for
+<a href="#Defining-Components_Commands_Opcodes">command opcodes</a>
+and
+<a href="#Defining-Components_Events_Identifiers">event identifiers</a>,
+the telemetry channel identifiers for a component are specified
+relative to the component, usually starting from
+zero and counting up by one.
+If you omit the identifier, then
+FPP assigns a default identifier: zero for the first
+event in the component; otherwise one more than the
+identifier of the previous event.</p>
+</div>
+<div class="paragraph">
+<p>If you wish, you may explicitly specify one or more
+telemetry channel identifiers.
+To do this, you write the keyword <code>id</code> followed
+by a numeric expression immediately after the data type.
+Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ An array of 3 F64 values
+array F64x3 = [3] F64
+
+@ Component for illustrating telemetry channel identifiers
+passive component TlmIdentifiers {
+
+  @ Telemetry port
+  telemetry port tlmOut
+
+  @ Time get port
+  time get port timeGetOut
+
+  @ Telemetry channel 1
+  @ Its implied identifier is 0x00
+  telemetry Channel1: U32
+
+  @ Telemetry channel 2
+  @ Its identifier is 0x10
+  telemetry Channel2: F64 id 0x10
+
+  @ Telemetry channel 3
+  @ Its implied identifier is 0x11
+  telemetry Channel3: F64x3
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Within a component, the telemetry channel identifiers must be unique.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Telemetry_Update-Frequency">9.7.3. Update Frequency</h4>
+<div class="paragraph">
+<p>When writing a telemetry channel, you can specify how
+often the the telemetry is emitted.
+There are two possibilities:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>always</code>: Emit a telemetry point on the channel
+whenever the component instance calls the corresponding
+telemetry function.</p>
+</li>
+<li>
+<p><code>on</code> <code>change</code>: Emit a telemetry point whenever
+(a) the component instance calls the corresponding
+telemetry function and (b) the telemetry value
+is different from the previous value emitted
+on that channel.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Emitting telemetry on change can reduce unnecessary
+activity in the system.
+For example, suppose a telemetry point counts
+the number of times that some event has occurred
+in a periodic task,
+and suppose the event occurs relatively rarely.
+Always emitting the telemetry will cause a new
+telemetry point to be updated (and possibly logged,
+transmitted to the ground, etc.) on every cycle.
+Emitting the telemetry on change will cause an update
+only when there is a new value.</p>
+</div>
+<div class="paragraph">
+<p>To specify an update frequency, you write the keyword <code>update</code>
+and one of the frequency selectors shown above.
+The update specifier goes after
+the type name and after the channel identifier, if any.
+If you don&#8217;t specify an update frequency, then the default
+value is <code>always</code>.
+Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ An array of 3 F64 values
+array F64x3 = [3] F64
+
+@ Component for illustrating telemetry channel update specifiers
+passive component TlmUpdate {
+
+  @ Telemetry port
+  telemetry port tlmOut
+
+  @ Time get port
+  time get port timeGetOut
+
+  @ Telemetry channel 1
+  @ Always emitted
+  telemetry Channel1: U32
+
+  @ Telemetry channel 2
+  @ Emitted on change
+  telemetry Channel2: F64 id 0x10 update on change
+
+  @ Telemetry channel 3
+  @ Always emitted
+  telemetry Channel3: F64x3 update always
+
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Telemetry_Format-Strings">9.7.4. Format Strings</h4>
+<div class="paragraph">
+<p>When writing a telemetry channel, you may specify how the channel
+is formatted.
+To do this, you write the keyword <code>format</code> and a format string
+with one
+<a href="#Defining-Types_Array-Type-Definitions_Format-Strings">replacement field</a>.
+The replacement field must match the type of the telemetry
+channel.
+The format specifier comes after the type name, after the
+channel identifier, and after the update specifier.</p>
+</div>
+<div class="paragraph">
+<p>Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ Component for illustrating telemetry channel format specifiers
+passive component TlmFormat {
+
+  @ Telemetry port
+  telemetry port tlmOut
+
+  @ Time get port
+  time get port timeGetOut
+
+  @ Telemetry channel 1
+  telemetry Channel1: U32 format "{x}"
+
+  @ Telemetry channel 2
+  telemetry Channel2: F64 id 0x10 \
+    update on change \
+    format "{.3f}"
+
+  @ Telemetry channel 3
+  telemetry Channel3: F64\
+    update always \
+    format "{e}"
+
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Telemetry_Low-and-High-Limits">9.7.5. Low and High Limits</h4>
+<div class="paragraph">
 <p>TODO</p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -6843,7 +7106,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-22 09:26:03 -0800
+Last updated 2021-02-22 17:23:52 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

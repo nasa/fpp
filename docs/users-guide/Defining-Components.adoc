@@ -1391,6 +1391,9 @@ time get port>>
 for this component.
 Both ports are required for any component that has telemetry.
 
+*XML limitation:* The F Prime XML format does not currently support 
+telemetry of `string` type.
+
 ==== Identifiers
 
 Every telemetry channel in an F Prime FSW application has a unique
@@ -1446,11 +1449,110 @@ Within a component, the telemetry channel identifiers must be unique.
 
 ==== Update Frequency
 
-TODO
+When writing a telemetry channel, you can specify how
+often the the telemetry is emitted.
+There are two possibilities:
+
+* `always`: Emit a telemetry point on the channel
+whenever the component instance calls the corresponding
+telemetry function.
+
+* `on` `change`: Emit a telemetry point whenever
+(a) the component instance calls the corresponding
+telemetry function and (b) the telemetry value
+is different from the previous value emitted
+on that channel.
+
+Emitting telemetry on change can reduce unnecessary
+activity in the system.
+For example, suppose a telemetry point counts
+the number of times that some event has occurred
+in a periodic task,
+and suppose the event occurs relatively rarely.
+Always emitting the telemetry will cause a new
+telemetry point to be updated (and possibly logged,
+transmitted to the ground, etc.) on every cycle.
+Emitting the telemetry on change will cause an update
+only when there is a new value.
+
+To specify an update frequency, you write the keyword `update`
+and one of the frequency selectors shown above.
+The update specifier goes after
+the type name and after the channel identifier, if any.
+If you don't specify an update frequency, then the default
+value is `always`.
+Here is an example:
+
+[source,fpp]
+----
+@ An array of 3 F64 values
+array F64x3 = [3] F64
+
+@ Component for illustrating telemetry channel update specifiers
+passive component TlmUpdate {
+
+  @ Telemetry port
+  telemetry port tlmOut
+
+  @ Time get port
+  time get port timeGetOut
+
+  @ Telemetry channel 1
+  @ Always emitted
+  telemetry Channel1: U32
+
+  @ Telemetry channel 2
+  @ Emitted on change
+  telemetry Channel2: F64 id 0x10 update on change
+
+  @ Telemetry channel 3
+  @ Always emitted
+  telemetry Channel3: F64x3 update always
+
+}
+----
 
 ==== Format Strings
 
-TODO
+When writing a telemetry channel, you may specify how the channel
+is formatted.
+To do this, you write the keyword `format` and a format string
+with one 
+<<Defining-Types_Array-Type-Definitions_Format-Strings,
+replacement field>>.
+The replacement field must match the type of the telemetry
+channel.
+The format specifier comes after the type name, after the
+channel identifier, and after the update specifier.
+
+Here is an example:
+
+[source,fpp]
+----
+@ Component for illustrating telemetry channel format specifiers
+passive component TlmFormat {
+
+  @ Telemetry port
+  telemetry port tlmOut
+
+  @ Time get port
+  time get port timeGetOut
+
+  @ Telemetry channel 1
+  telemetry Channel1: U32 format "{x}"
+
+  @ Telemetry channel 2
+  telemetry Channel2: F64 id 0x10 \
+    update on change \
+    format "{.3f}"
+
+  @ Telemetry channel 3
+  telemetry Channel3: F64\
+    update always \
+    format "{e}"
+
+}
+----
 
 ==== Low and High Limits
 
