@@ -538,7 +538,7 @@ Now suppose that the target language is {cpp}.
 Then the following happens when generating code:
 
 * The definition `type T` does not cause any code to be generated.
-* The definition `array A = ...` causes a {cpp} class `A`
+* The definition `array A =` ... causes a {cpp} class `A`
 to be generated.
 By F Prime convention, the generated files are `AArrayAc.hpp` and `AArrayAc.cpp`.
 * File `AArrayAc.hpp` includes a header file `T.hpp`.
@@ -555,13 +555,13 @@ In general, an abstract type `T` is opaque in the FPP model
 and has no values that are expressible in the model.
 Thus, every use of an abstract type `T` represents the default value
 for `T`.
-The default value must be provided by the implementation of `T`
-in the target language.
+The implementation of `T` in the target language
+provides the default value.
 In particular, when the target language is {cpp}, the default
-value is provided by the zero-argument constructor `T()`.
+value is the zero-argument constructor `T()`.
 
 *Built-in types:*
-When translating to XML, there are a few special built-in types that are abstract
+When translating to XML, there are a few special types that are abstract
 in the model, but that are known to the translator.
 You don't have to define {cpp} classes for these types.
 We will discuss these types further in the section on 

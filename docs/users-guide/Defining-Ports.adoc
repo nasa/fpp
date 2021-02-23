@@ -88,7 +88,7 @@ port P(
 You may write the keyword `ref` in front of any formal parameter _p_
 of a port definition.
 Doing this specifies that _p_ is a *reference parameter*, i.e.,
-its data is passed by reference when the passing happens in a
+its data is passed by reference when the passing occurs in a
 synchronous invocation.
 For example:
 

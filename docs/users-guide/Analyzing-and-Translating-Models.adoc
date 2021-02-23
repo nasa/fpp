@@ -540,14 +540,14 @@ Its purpose is to address the following case:
 . You wish to translate the model to FPP in order to use FPP as the source 
 language going forward.
 
-Currently translation for types, enumerations, and ports is available.
+Currently translation for types, enumerations, ports, and
+components is available.
 You can convert these elements of your XML model to FPP now.
-To integrate these elements with other model
-elements (components and topologies) written directly in XML, use the
+To integrate these elements with topologies written directly in XML, use the
 <<Analyzing-and-Translating-Models_Generating-XML,FPP to XML translation 
 described above>> to generate XML from the FPP part.
-Later, when more of FPP becomes available, you can translate more
-of your model to FPP.
+Later, when topologies are available in FPP becomes available, you can 
+translate them.
 
 The XML-to-FPP translation is designed to do most of the work in translating an 
 XML model into FPP.

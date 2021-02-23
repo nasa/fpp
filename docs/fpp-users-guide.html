@@ -2454,7 +2454,7 @@ Then the following happens when generating code:</p>
 <p>The definition <code>type T</code> does not cause any code to be generated.</p>
 </li>
 <li>
-<p>The definition <code>array A = &#8230;&#8203;</code> causes a C&#43;&#43; class <code>A</code>
+<p>The definition <code>array A =</code> &#8230;&#8203; causes a C&#43;&#43; class <code>A</code>
 to be generated.
 By F Prime convention, the generated files are <code>AArrayAc.hpp</code> and <code>AArrayAc.cpp</code>.</p>
 </li>
@@ -2477,14 +2477,14 @@ abstract types</a>.</p>
 and has no values that are expressible in the model.
 Thus, every use of an abstract type <code>T</code> represents the default value
 for <code>T</code>.
-The default value must be provided by the implementation of <code>T</code>
-in the target language.
+The implementation of <code>T</code> in the target language
+provides the default value.
 In particular, when the target language is C&#43;&#43;, the default
-value is provided by the zero-argument constructor <code>T()</code>.</p>
+value is the zero-argument constructor <code>T()</code>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Built-in types:</strong>
-When translating to XML, there are a few special built-in types that are abstract
+When translating to XML, there are a few special types that are abstract
 in the model, but that are known to the translator.
 You don&#8217;t have to define C&#43;&#43; classes for these types.
 We will discuss these types further in the section on
@@ -2851,7 +2851,7 @@ port P(
 <p>You may write the keyword <code>ref</code> in front of any formal parameter <em>p</em>
 of a port definition.
 Doing this specifies that <em>p</em> is a <strong>reference parameter</strong>, i.e.,
-its data is passed by reference when the passing happens in a
+its data is passed by reference when the passing occurs in a
 synchronous invocation.
 For example:</p>
 </div>
@@ -4103,9 +4103,9 @@ Try it and see.</p>
 <h3 id="Defining-Components_Commands">9.5. Commands</h3>
 <div class="paragraph">
 <p>When defining an F Prime component, you may specify one or more commands.
-When operating the FSW, each command is dispatched to, and handled
-by, an instance of the component where it is defined.
-The handling occurs in a C&#43;&#43; command handler that you write
+When you are operating the FSW, F Prime dispatches each command to
+an instance of the component where it is defined.
+The command is handled in a C&#43;&#43; command handler that you write
 as part of the component implementation.</p>
 </div>
 <div class="paragraph">
@@ -4552,7 +4552,7 @@ passive component EventParameters {
     value: F64x3 @&lt; The value
   ) \
     severity warning low \
-    format "Saw value {} for case {}" \
+    format "Saw value {} for case {}"
 
 }</code></pre>
 </div>
@@ -4807,8 +4807,7 @@ passive component TlmIdentifiers {
 <div class="sect3">
 <h4 id="Defining-Components_Telemetry_Update-Frequency">9.7.3. Update Frequency</h4>
 <div class="paragraph">
-<p>When writing a telemetry channel, you can specify how
-often the the telemetry is emitted.
+<p>You can specify how often the a telemetry is emitted.
 There are two possibilities:</p>
 </div>
 <div class="ulist">
@@ -4882,8 +4881,8 @@ passive component TlmUpdate {
 <div class="sect3">
 <h4 id="Defining-Components_Telemetry_Format-Strings">9.7.4. Format Strings</h4>
 <div class="paragraph">
-<p>When writing a telemetry channel, you may specify how the channel
-is formatted.
+<p>You may specify how a telemetry channel is formatted in the
+ground display.
 To do this, you write the keyword <code>format</code> and a format string
 with one
 <a href="#Defining-Types_Array-Type-Definitions_Format-Strings">replacement field</a>.
@@ -4929,8 +4928,8 @@ passive component TlmFormat {
 <p>You may specify <strong>limits</strong>, or bounds, on the expected values
 carried on a telemetry channel.
 There are two kinds of limits: <code>low</code> (meaning that the
-values are expected to stay above the limit) and <code>high</code>
-(meaning that the values are expected to stay below the limit).
+values on the channel should stay above the limit) and <code>high</code>
+(meaning that the values should stay below the limit).
 Within each kind, there are three levels of severity:</p>
 </div>
 <div class="ulist">
@@ -4991,6 +4990,19 @@ passive component TlmLimits {
 
 }</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Each limit must be a numeric value.
+The type of the telemetry channel must be (1) a numeric
+type; or (2) an array or struct type each of whose members
+has a numeric type; or (3) an array or struct type
+each of whose members satisfies condition (1) or
+condition (2).</p>
+</div>
+<div class="paragraph">
+<p><strong>XML limitation:</strong> The F Prime XML representation does
+not currently allow limits for telemetry channels
+of array or struct type.</p>
 </div>
 </div>
 </div>
@@ -6780,14 +6792,14 @@ language going forward.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>Currently translation for types, enumerations, and ports is available.
+<p>Currently translation for types, enumerations, ports, and
+components is available.
 You can convert these elements of your XML model to FPP now.
-To integrate these elements with other model
-elements (components and topologies) written directly in XML, use the
+To integrate these elements with topologies written directly in XML, use the
 <a href="#Analyzing-and-Translating-Models_Generating-XML">FPP to XML translation
 described above</a> to generate XML from the FPP part.
-Later, when more of FPP becomes available, you can translate more
-of your model to FPP.</p>
+Later, when topologies are available in FPP becomes available, you can
+translate them.</p>
 </div>
 <div class="paragraph">
 <p>The XML-to-FPP translation is designed to do most of the work in translating an
@@ -7170,7 +7182,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-22 17:49:24 -0800
+Last updated 2021-02-22 18:19:02 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

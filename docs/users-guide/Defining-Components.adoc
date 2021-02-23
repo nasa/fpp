@@ -811,9 +811,9 @@ Try it and see.
 === Commands
 
 When defining an F Prime component, you may specify one or more commands.
-When operating the FSW, each command is dispatched to, and handled
-by, an instance of the component where it is defined.
-The handling occurs in a {cpp} command handler that you write
+When you are operating the FSW, F Prime dispatches each command to 
+an instance of the component where it is defined.
+The command is handled in a {cpp} command handler that you write
 as part of the component implementation.
 
 For complete information about F Prime command dispatch and
@@ -1215,7 +1215,7 @@ passive component EventParameters {
     value: F64x3 @< The value
   ) \
     severity warning low \
-    format "Saw value {} for case {}" \
+    format "Saw value {} for case {}"
 
 }
 ----
@@ -1449,8 +1449,7 @@ Within a component, the telemetry channel identifiers must be unique.
 
 ==== Update Frequency
 
-When writing a telemetry channel, you can specify how
-often the the telemetry is emitted.
+You can specify how often the a telemetry is emitted.
 There are two possibilities:
 
 * `always`: Emit a telemetry point on the channel
@@ -1514,8 +1513,8 @@ passive component TlmUpdate {
 
 ==== Format Strings
 
-When writing a telemetry channel, you may specify how the channel
-is formatted.
+You may specify how a telemetry channel is formatted in the
+ground display.
 To do this, you write the keyword `format` and a format string
 with one 
 <<Defining-Types_Array-Type-Definitions_Format-Strings,
@@ -1559,8 +1558,8 @@ passive component TlmFormat {
 You may specify *limits*, or bounds, on the expected values 
 carried on a telemetry channel.
 There are two kinds of limits: `low` (meaning that the
-values are expected to stay above the limit) and `high`
-(meaning that the values are expected to stay below the limit).
+values on the channel should stay above the limit) and `high`
+(meaning that the values should stay below the limit).
 Within each kind, there are three levels of severity:
 
 * `yellow`: Crossing the limit is of low concern.
@@ -1613,6 +1612,17 @@ passive component TlmLimits {
 
 }
 ----
+
+Each limit must be a numeric value.
+The type of the telemetry channel must be (1) a numeric
+type; or (2) an array or struct type each of whose members
+has a numeric type; or (3) an array or struct type
+each of whose members satisfies condition (1) or 
+condition (2).
+
+*XML limitation:* The F Prime XML representation does
+not currently allow limits for telemetry channels
+of array or struct type.
 
 === Parameters
 
