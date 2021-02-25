@@ -4159,6 +4159,10 @@ command <code>STOP</code>.</p>
 <pre class="prettyprint highlight"><code data-lang="fpp">@ An active component for performing an action
 active component Action {
 
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
   @ Command registration
   command reg port cmdRegOut
 
@@ -4167,6 +4171,10 @@ active component Action {
 
   @ Command response
   command resp port cmdResponseOut
+
+  # ----------------------------------------------------------------------
+  # Commands
+  # ----------------------------------------------------------------------
 
   @ Start the action
   async command START
@@ -4243,6 +4251,10 @@ enum State {
 @ A switch with on and off state
 active component Switch {
 
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
   @ Command registration
   command reg port cmdRegOut
 
@@ -4251,6 +4263,10 @@ active component Switch {
 
   @ Command response
   command resp port cmdResponseOut
+
+  # ----------------------------------------------------------------------
+  # Commands
+  # ----------------------------------------------------------------------
 
   @ Set the state
   async command SET_STATE(
@@ -4305,6 +4321,10 @@ Here is an example:</p>
 <pre class="prettyprint highlight"><code data-lang="fpp">@ Component for illustrating command opcodes
 active component CommandOpcodes {
 
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
   @ Command registration
   command reg port cmdRegOut
 
@@ -4314,14 +4334,18 @@ active component CommandOpcodes {
   @ Command response
   command resp port cmdResponseOut
 
+  # ----------------------------------------------------------------------
+  # Commands
+  # ----------------------------------------------------------------------
+
   @ This command has default opcode 0x0
-  async command C1
+  async command COMMAND_1
 
   @ This command has explicit opcode 0x10
-  async command C2(a: F32, b: U32) opcode 0x10
+  async command COMMAND_2(a: F32, b: U32) opcode 0x10
 
   @ This command has default opcode 0x11
-  sync command C3
+  sync command COMMAND_3
 
 }</code></pre>
 </div>
@@ -4336,6 +4360,10 @@ the opcode zero appears twice:</p>
 <pre class="prettyprint highlight"><code data-lang="fpp">@ Component for illustrating a duplicate opcode
 active component DuplicateOpcode {
 
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
   @ Command registration
   command reg port cmdRegOut
 
@@ -4345,11 +4373,15 @@ active component DuplicateOpcode {
   @ Command response
   command resp port cmdResponseOut
 
+  # ----------------------------------------------------------------------
+  # Commands
+  # ----------------------------------------------------------------------
+
   @ This command has opcode 0x0
-  async command C1
+  async command COMMAND_1
 
   @ Oops! This command also has opcode 0x0
-  async command C2 opcode 0x0
+  async command COMMAND_2 opcode 0x0
 
 }</code></pre>
 </div>
@@ -4372,6 +4404,10 @@ Here is an example:</p>
 @ commands
 active component PriorityQueueFull {
 
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
   @ Command registration
   command reg port cmdRegOut
 
@@ -4381,14 +4417,18 @@ active component PriorityQueueFull {
   @ Command response
   command resp port cmdResponseOut
 
+  # ----------------------------------------------------------------------
+  # Commands
+  # ----------------------------------------------------------------------
+
   @ Command with priority
-  async command C1 priority 10
+  async command COMMAND_1 priority 10
 
   @ Command with formal parameters and priority
-  async command C2(a: U32, b: F32) priority 20
+  async command COMMAND_2(a: U32, b: F32) priority 20
 
   @ Command with formal parameters, opcode, priority, and queue full behavior
-  async command C3(a: string) opcode 0x10 priority 30 drop
+  async command COMMAND_3(a: string) opcode 0x10 priority 30 drop
 
 }</code></pre>
 </div>
@@ -4463,6 +4503,10 @@ with a few basic events.</p>
 <pre class="prettyprint highlight"><code data-lang="fpp">@ A component for illustrating basic events
 passive component BasicEvents {
 
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
   @ Event port
   event port eventOut
 
@@ -4472,14 +4516,18 @@ passive component BasicEvents {
   @ Time get port
   time get port timeGetOut
 
+  # ----------------------------------------------------------------------
+  # Events
+  # ----------------------------------------------------------------------
+
   @ Activity low event
-  event E1 severity activity low format "Event E1 occurred"
+  event Event1 severity activity low format "Event 1 occurred"
 
   @ Warning low event
-  event E2 severity warning low format "Event E2 occurred"
+  event Event2 severity warning low format "Event 2 occurred"
 
   @ Warning high event
-  event E3 severity warning high format "Event E3 occurred"
+  event Event3 severity warning high format "Event 3 occurred"
 
 }</code></pre>
 </div>
@@ -4535,6 +4583,10 @@ array F64x3 = [3] F64
 @ A component for illustrating event formal parameters
 passive component EventParameters {
 
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
   @ Event port
   event port eventOut
 
@@ -4544,17 +4596,21 @@ passive component EventParameters {
   @ Time get port
   time get port timeGetOut
 
-  @ Event E1
+  # ----------------------------------------------------------------------
+  # Events
+  # ----------------------------------------------------------------------
+
+  @ Event 1
   @ Sample output: "Event 1 occurred with argument 42"
-  event E1(
+  event Event1(
     arg1: U32 @&lt; Argument 1
   ) \
     severity activity high \
     format "Event 1 occurred with argument {}"
 
-  @ Event E2
+  @ Event 2
   @ Sample output: "Saw value [ 0.001, 0.002, 0.003 ] for case A"
-  event E2(
+  event Event2(
     case: Case @&lt; The case
     value: F64x3 @&lt; The value
   ) \
@@ -4592,6 +4648,10 @@ Here is an example:</p>
 <pre class="prettyprint highlight"><code data-lang="fpp">@ Component for illustrating event identifiers
 passive component EventIdentifiers {
 
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
   @ Event port
   event port eventOut
 
@@ -4601,13 +4661,17 @@ passive component EventIdentifiers {
   @ Time get port
   time get port timeGetOut
 
-  @ Event E1
-  @ Its identifier is 0x00
-  event E1 severity activity low \
-    id 0x10 \
-    format "Event E1 occurred"
+  # ----------------------------------------------------------------------
+  # Events
+  # ----------------------------------------------------------------------
 
-  @ Event E2
+  @ Event 1
+  @ Its identifier is 0x00
+  event Event1 severity activity low \
+    id 0x10 \
+    format "Event 1 occurred"
+
+  @ Event 2
   @ Its identifier is 0x10
   event Event2(
     count: U32 @&lt; The count
@@ -4616,10 +4680,10 @@ passive component EventIdentifiers {
     id 0x11 \
     format "The count is {}"
 
-  @ Event E3
+  @ Event 3
   @ Its identifier is 0x11
-  event E3 severity activity high \
-    format "event E3 occurred"
+  event Event3 severity activity high \
+    format "Event 3 occurred"
 
 }</code></pre>
 </div>
@@ -4654,6 +4718,10 @@ Here is an example:</p>
 <pre class="prettyprint highlight"><code data-lang="fpp">@ Component for illustrating event throttling
 passive component EventThrottling {
 
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
   @ Event port
   event port eventOut
 
@@ -4663,9 +4731,13 @@ passive component EventThrottling {
   @ Time get port
   time get port timeGetOut
 
-  @ Event E
-  event E severity warning high \
-    format "Event E occurred" \
+  # ----------------------------------------------------------------------
+  # Events
+  # ----------------------------------------------------------------------
+
+  @ Event 1
+  event Event1 severity warning high \
+    format "Event 1 occurred" \
     throttle 10
 
 }</code></pre>
@@ -4722,11 +4794,19 @@ array F64x3 = [3] F64
 @ A component for illustrating basic telemetry channels
 passive component BasicTelemetry {
 
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
   @ Telemetry port
   telemetry port tlmOut
 
   @ Time get port
   time get port timeGetOut
+
+  # ----------------------------------------------------------------------
+  # Telemetry
+  # ----------------------------------------------------------------------
 
   @ Telemetry channel 1
   telemetry Channel1: U32
@@ -4785,11 +4865,19 @@ array F64x3 = [3] F64
 @ Component for illustrating telemetry channel identifiers
 passive component TlmIdentifiers {
 
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
   @ Telemetry port
   telemetry port tlmOut
 
   @ Time get port
   time get port timeGetOut
+
+  # ----------------------------------------------------------------------
+  # Telemetry
+  # ----------------------------------------------------------------------
 
   @ Telemetry channel 1
   @ Its implied identifier is 0x00
@@ -4820,12 +4908,12 @@ There are two possibilities:</p>
 <ul>
 <li>
 <p><code>always</code>: Emit a telemetry point on <em>C</em>
-whenever the component instance calls the
-function <em>F</em> for emitting telemetry on <em>C</em>.</p>
+whenever the component implementation calls the
+auto-generated function <em>F</em> that emits telemetry on <em>C</em>.</p>
 </li>
 <li>
 <p><code>on</code> <code>change</code>: Emit a telemetry point whenever
-(1) the component instance calls <em>F</em> and (2) either (a)
+(1) the implementation calls <em>F</em> and (2) either (a)
 <em>F</em> has not been called before or
 (b) the last time that <em>F</em> was called, the argument
 to <em>F</em> had a different value.</p>
@@ -4861,11 +4949,19 @@ array F64x3 = [3] F64
 @ Component for illustrating telemetry channel update specifiers
 passive component TlmUpdate {
 
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
   @ Telemetry port
   telemetry port tlmOut
 
   @ Time get port
   time get port timeGetOut
+
+  # ----------------------------------------------------------------------
+  # Telemetry
+  # ----------------------------------------------------------------------
 
   @ Telemetry channel 1
   @ Always emitted
@@ -4904,11 +5000,19 @@ channel identifier, and after the update specifier.</p>
 <pre class="prettyprint highlight"><code data-lang="fpp">@ Component for illustrating telemetry channel format specifiers
 passive component TlmFormat {
 
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
   @ Telemetry port
   telemetry port tlmOut
 
   @ Time get port
   time get port timeGetOut
+
+  # ----------------------------------------------------------------------
+  # Telemetry
+  # ----------------------------------------------------------------------
 
   @ Telemetry channel 1
   telemetry Channel1: U32 format "{x}"
@@ -4970,11 +5074,19 @@ Here are some examples:</p>
 <pre class="prettyprint highlight"><code data-lang="fpp">@ Component for illustrating telemetry channel limits
 passive component TlmLimits {
 
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
   @ Telemetry port
   telemetry port tlmOut
 
   @ Time get port
   time get port timeGetOut
+
+  # ----------------------------------------------------------------------
+  # Telemetry
+  # ----------------------------------------------------------------------
 
   @ Telemetry channel 1
   telemetry Channel1: U32 \
@@ -7512,7 +7624,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-25 11:22:36 -0800
+Last updated 2021-02-25 11:47:57 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

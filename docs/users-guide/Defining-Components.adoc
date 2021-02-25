@@ -67,7 +67,7 @@ or on the thread of another port invocation (if this component is queued).
 * `sync` `input`: Input that invokes a handler defined in this component,
 and run on the thread of the caller.
 
-* `guarded` `input`: Similar to sync input, but the handler is 
+* `guarded` `input`: Similar to sync input, but the handler is
 guarded by a mutual exclusion lock.
 
 * `output`: Output transmitted by this component.
@@ -232,16 +232,16 @@ and go up by one at each successive element.
 and the indices start at zero.)
 
 If you don't specify a size for the array, as shown in
-the previous sections, then the array has size one, and there is a single port 
+the previous sections, then the array has size one, and there is a single port
 instance with port number zero.
-Thus a port instance specifier with no array size acts like a singleton 
+Thus a port instance specifier with no array size acts like a singleton
 element.
 Alternatively, you can specify an explicit array size.
 You do that by writing an <<Defining-Constants_Expressions,expression>>
-enclosed in square brackets `[` ... `]` denoting the size (number of elements) 
+enclosed in square brackets `[` ... `]` denoting the size (number of elements)
 of the array.
 The size expression must evaluate to a numeric value.
-As with 
+As with
 <<Defining-Types_Array-Type-Definitions_Writing-an-Array-Type-Definition,
 array type definitions>>,
 the size goes before the element type.
@@ -357,7 +357,7 @@ you may write the keyword `serial`.
 Doing this specifies a *serial port instance*.
 A serial port instance does not specify the type of data that it carries.
 It may be connected to a port of any type.
-Serial data passes through the port; the data may be converted to or from a 
+Serial data passes through the port; the data may be converted to or from a
 specific type at the other end of the connection.
 
 As an example, here is a passive component for taking a stream
@@ -446,7 +446,7 @@ then all three ports are required.
 The port names shown in the example above are standard but not
 required; you can use any names you wish.
 
-During translation, each command port is converted into 
+During translation, each command port is converted into
 a typed port instance with a predefined port type, as follows:
 
 * `cmd` `recv` uses the port `Fw.Cmd`
@@ -455,7 +455,7 @@ a typed port instance with a predefined port type, as follows:
 
 The F Prime framework provides definitions for these ports
 in the directory `Fw/Cmd`.
-For checking simple examples, you can use the following 
+For checking simple examples, you can use the following
 simplified definitions of these ports:
 
 [source,fpp]
@@ -518,7 +518,7 @@ port.
 If a component emits events (more on this below),
 then both event ports are required.
 
-During translation, each event port is converted into 
+During translation, each event port is converted into
 a typed port instance with a predefined port type, as follows:
 
 * `event` `recv` uses the port `Fw.Log`
@@ -548,7 +548,7 @@ A *telemetry port* lets a component emit telemetry.
 To specify a telemetry port, you write the keyword `telemetry`,
 the keyword `port`, and the port name.
 
-As an example, here is a passive component `TelemetryPorts` with 
+As an example, here is a passive component `TelemetryPorts` with
 a telemetry port:
 
 [source,fpp]
@@ -566,7 +566,7 @@ Any component may have at most one telemetry port.
 If a component emits telemetry (more on this below),
 then a telemetry port is required.
 
-During translation, each telemetry port is converted into 
+During translation, each telemetry port is converted into
 a typed port instance with the predefined port type
 `Fw.Tlm`.
 The F Prime framework provides a definition for this port
@@ -624,7 +624,7 @@ port.
 If a component has parameters (more on this below),
 then both parameter ports are required.
 
-During translation, each parameter port is converted into 
+During translation, each parameter port is converted into
 a typed port instance with a predefined port type, as follows:
 
 * `param` `get` uses the port `Fw.PrmGet`
@@ -654,7 +654,7 @@ time component.
 To specify a time get port, you write the keywords `time` `get`,
 the keyword `port`, and the port name.
 
-As an example, here is a passive component `TimeGetPorts` with 
+As an example, here is a passive component `TimeGetPorts` with
 a time get port:
 
 [source,fpp]
@@ -673,7 +673,7 @@ If a component emits events or telemetry (more on this below),
 then a time get port is required, so that the events
 and telemetry points can be time stamped.
 
-During translation, each time get port is converted into 
+During translation, each time get port is converted into
 a typed port instance with the predefined port type
 `Fw.Time`.
 The F Prime framework provides a definition for this port
@@ -700,7 +700,7 @@ output port that is connected to an async input port.
 When the output port and input port reside in the same component,
 it is simpler to use an internal port.
 
-As an example, suppose we have a component 
+As an example, suppose we have a component
 that needs to send a message to itself.
 We could construct such a component in the following way:
 
@@ -724,7 +724,7 @@ active component ExternalSelfMessage {
 }
 ----
 
-This works, but if the only user of `pIn` is 
+This works, but if the only user of `pIn` is
 `ExternalSelfMessage`, it is cumbersome.
 We need to declare two ports and connect them.
 Instead, we can use an internal port, like this:
@@ -811,7 +811,7 @@ Try it and see.
 === Commands
 
 When defining an F Prime component, you may specify one or more commands.
-When you are operating the FSW, F Prime dispatches each command to 
+When you are operating the FSW, F Prime dispatches each command to
 an instance of the component where it is defined.
 The command is handled in a {cpp} command handler that you write
 as part of the component implementation.
@@ -850,6 +850,10 @@ command `STOP`.
 @ An active component for performing an action
 active component Action {
 
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
   @ Command registration
   command reg port cmdRegOut
 
@@ -858,6 +862,10 @@ active component Action {
 
   @ Command response
   command resp port cmdResponseOut
+
+  # ----------------------------------------------------------------------
+  # Commands
+  # ----------------------------------------------------------------------
 
   @ Start the action
   async command START
@@ -928,6 +936,10 @@ enum State {
 @ A switch with on and off state
 active component Switch {
 
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
   @ Command registration
   command reg port cmdRegOut
 
@@ -936,6 +948,10 @@ active component Switch {
 
   @ Command response
   command resp port cmdResponseOut
+
+  # ----------------------------------------------------------------------
+  # Commands
+  # ----------------------------------------------------------------------
 
   @ Set the state
   async command SET_STATE(
@@ -958,12 +974,12 @@ are relative to the component.
 Typically the opcodes start at zero: that is, the
 opcodes are 0, 1, 2, etc.
 When constructing an instance _I_ of component _C_,
-the framework adds a base opcode for _I_ to each relative opcode 
+the framework adds a base opcode for _I_ to each relative opcode
 associated with _C_ to form
 the global opcodes associated with _I_.
 That way different instances of _C_ can have different opcodes
 for the same commands defined in _C_.
-We will have more to say about base and relative opcodes 
+We will have more to say about base and relative opcodes
 when we describe topologies of component instances.
 
 If you specify a command _c_ with no explicit opcode, as in the examples
@@ -985,6 +1001,10 @@ Here is an example:
 @ Component for illustrating command opcodes
 active component CommandOpcodes {
 
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
   @ Command registration
   command reg port cmdRegOut
 
@@ -994,14 +1014,18 @@ active component CommandOpcodes {
   @ Command response
   command resp port cmdResponseOut
 
+  # ----------------------------------------------------------------------
+  # Commands
+  # ----------------------------------------------------------------------
+
   @ This command has default opcode 0x0
-  async command C1
+  async command COMMAND_1
 
   @ This command has explicit opcode 0x10
-  async command C2(a: F32, b: U32) opcode 0x10
+  async command COMMAND_2(a: F32, b: U32) opcode 0x10
 
   @ This command has default opcode 0x11
-  sync command C3
+  sync command COMMAND_3
 
 }
 ----
@@ -1015,6 +1039,10 @@ the opcode zero appears twice:
 @ Component for illustrating a duplicate opcode
 active component DuplicateOpcode {
 
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
   @ Command registration
   command reg port cmdRegOut
 
@@ -1024,11 +1052,15 @@ active component DuplicateOpcode {
   @ Command response
   command resp port cmdResponseOut
 
+  # ----------------------------------------------------------------------
+  # Commands
+  # ----------------------------------------------------------------------
+
   @ This command has opcode 0x0
-  async command C1
+  async command COMMAND_1
 
   @ Oops! This command also has opcode 0x0
-  async command C2 opcode 0x0
+  async command COMMAND_2 opcode 0x0
 
 }
 --------
@@ -1045,9 +1077,13 @@ Here is an example:
 
 [source,fpp]
 ----
-@ A component for illustrating priority and queue full behavior for async 
+@ A component for illustrating priority and queue full behavior for async
 @ commands
 active component PriorityQueueFull {
+
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
 
   @ Command registration
   command reg port cmdRegOut
@@ -1058,14 +1094,18 @@ active component PriorityQueueFull {
   @ Command response
   command resp port cmdResponseOut
 
+  # ----------------------------------------------------------------------
+  # Commands
+  # ----------------------------------------------------------------------
+
   @ Command with priority
-  async command C1 priority 10
+  async command COMMAND_1 priority 10
 
   @ Command with formal parameters and priority
-  async command C2(a: U32, b: F32) priority 20
+  async command COMMAND_2(a: U32, b: F32) priority 20
 
-  @ Command with formal parameters, opcode, priority, and queue full behavior 
-  async command C3(a: string) opcode 0x10 priority 30 drop
+  @ Command with formal parameters, opcode, priority, and queue full behavior
+  async command COMMAND_3(a: string) opcode 0x10 priority 30 drop
 
 }
 ----
@@ -1089,7 +1129,7 @@ Here we concentrate on how to specify events in FPP.
 
 ==== Basic Events
 
-The simplest event consists of the keyword `event`, a name, a severity, 
+The simplest event consists of the keyword `event`, a name, a severity,
 and a format string.
 The name is the name of the event.
 A severity is the keyword `severity` and one of the following:
@@ -1110,7 +1150,7 @@ and debugging.
 
 * `warning` `low`: A warning of lesser importance.
 
-A format is the keyword `format` and a literal string for 
+A format is the keyword `format` and a literal string for
 use in a formatted real-time display or event log.
 
 As an example, here is an active component called `BasicEvents`
@@ -1121,7 +1161,11 @@ with a few basic events.
 @ A component for illustrating basic events
 passive component BasicEvents {
 
-  @ Event port 
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
+  @ Event port
   event port eventOut
 
   @ Text event port
@@ -1130,14 +1174,18 @@ passive component BasicEvents {
   @ Time get port
   time get port timeGetOut
 
+  # ----------------------------------------------------------------------
+  # Events
+  # ----------------------------------------------------------------------
+
   @ Activity low event
-  event E1 severity activity low format "Event E1 occurred"
+  event Event1 severity activity low format "Event 1 occurred"
 
   @ Warning low event
-  event E2 severity warning low format "Event E2 occurred"
+  event Event2 severity warning low format "Event 2 occurred"
 
   @ Warning high event
-  event E3 severity warning high format "Event E3 occurred"
+  event Event3 severity warning high format "Event 3 occurred"
 
 }
 ----
@@ -1191,7 +1239,11 @@ array F64x3 = [3] F64
 @ A component for illustrating event formal parameters
 passive component EventParameters {
 
-  @ Event port 
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
+  @ Event port
   event port eventOut
 
   @ Text event port
@@ -1200,17 +1252,21 @@ passive component EventParameters {
   @ Time get port
   time get port timeGetOut
 
-  @ Event E1
+  # ----------------------------------------------------------------------
+  # Events
+  # ----------------------------------------------------------------------
+
+  @ Event 1
   @ Sample output: "Event 1 occurred with argument 42"
-  event E1(
+  event Event1(
     arg1: U32 @< Argument 1
   ) \
     severity activity high \
     format "Event 1 occurred with argument {}"
 
-  @ Event E2
+  @ Event 2
   @ Sample output: "Saw value [ 0.001, 0.002, 0.003 ] for case A"
-  event E2(
+  event Event2(
     case: Case @< The case
     value: F64x3 @< The value
   ) \
@@ -1231,7 +1287,7 @@ relative to the component, usually starting from
 zero and counting up by one.
 If you omit the identifier, then
 FPP assigns a default identifier: zero for the first
-event in the component; otherwise one more than the 
+event in the component; otherwise one more than the
 identifier of the previous event.
 
 If you wish, you may explicitly specify one or more event
@@ -1245,7 +1301,11 @@ Here is an example:
 @ Component for illustrating event identifiers
 passive component EventIdentifiers {
 
-  @ Event port 
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
+  @ Event port
   event port eventOut
 
   @ Text event port
@@ -1254,13 +1314,17 @@ passive component EventIdentifiers {
   @ Time get port
   time get port timeGetOut
 
-  @ Event E1
-  @ Its identifier is 0x00
-  event E1 severity activity low \
-    id 0x10 \
-    format "Event E1 occurred"
+  # ----------------------------------------------------------------------
+  # Events
+  # ----------------------------------------------------------------------
 
-  @ Event E2
+  @ Event 1
+  @ Its identifier is 0x00
+  event Event1 severity activity low \
+    id 0x10 \
+    format "Event 1 occurred"
+
+  @ Event 2
   @ Its identifier is 0x10
   event Event2(
     count: U32 @< The count
@@ -1269,10 +1333,10 @@ passive component EventIdentifiers {
     id 0x11 \
     format "The count is {}"
 
-  @ Event E3
+  @ Event 3
   @ Its identifier is 0x11
-  event E3 severity activity high \
-    format "event E3 occurred"
+  event Event3 severity activity high \
+    format "Event 3 occurred"
 
 }
 ----
@@ -1303,7 +1367,11 @@ Here is an example:
 @ Component for illustrating event throttling
 passive component EventThrottling {
 
-  @ Event port 
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
+  @ Event port
   event port eventOut
 
   @ Text event port
@@ -1312,9 +1380,13 @@ passive component EventThrottling {
   @ Time get port
   time get port timeGetOut
 
-  @ Event E
-  event E severity warning high \
-    format "Event E occurred" \
+  # ----------------------------------------------------------------------
+  # Events
+  # ----------------------------------------------------------------------
+
+  @ Event 1
+  event Event1 severity warning high \
+    format "Event 1 occurred" \
     throttle 10
 
 }
@@ -1363,11 +1435,19 @@ array F64x3 = [3] F64
 @ A component for illustrating basic telemetry channels
 passive component BasicTelemetry {
 
-  @ Telemetry port 
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
+  @ Telemetry port
   telemetry port tlmOut
 
   @ Time get port
   time get port timeGetOut
+
+  # ----------------------------------------------------------------------
+  # Telemetry
+  # ----------------------------------------------------------------------
 
   @ Telemetry channel 1
   telemetry Channel1: U32
@@ -1390,7 +1470,7 @@ time get port>>
 for this component.
 Both ports are required for any component that has telemetry.
 
-*XML limitation:* The F Prime XML format does not currently support 
+*XML limitation:* The F Prime XML format does not currently support
 telemetry of `string` type.
 
 ==== Identifiers
@@ -1406,10 +1486,10 @@ relative to the component, usually starting from
 zero and counting up by one.
 If you omit the identifier, then
 FPP assigns a default identifier: zero for the first
-event in the component; otherwise one more than the 
+event in the component; otherwise one more than the
 identifier of the previous channel.
 
-If you wish, you may explicitly specify one or more 
+If you wish, you may explicitly specify one or more
 telemetry channel identifiers.
 To do this, you write the keyword `id` followed
 by a numeric expression immediately after the data type.
@@ -1423,11 +1503,19 @@ array F64x3 = [3] F64
 @ Component for illustrating telemetry channel identifiers
 passive component TlmIdentifiers {
 
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
   @ Telemetry port
   telemetry port tlmOut
 
   @ Time get port
   time get port timeGetOut
+
+  # ----------------------------------------------------------------------
+  # Telemetry
+  # ----------------------------------------------------------------------
 
   @ Telemetry channel 1
   @ Its implied identifier is 0x00
@@ -1452,13 +1540,13 @@ You can specify how often the telemetry is emitted on a channel _C_.
 There are two possibilities:
 
 * `always`: Emit a telemetry point on _C_
-whenever the component instance calls the 
-function _F_ for emitting telemetry on _C_.
+whenever the component implementation calls the
+auto-generated function _F_ that emits telemetry on _C_.
 
 * `on` `change`: Emit a telemetry point whenever
-(1) the component instance calls _F_ and (2) either (a) 
+(1) the implementation calls _F_ and (2) either (a)
 _F_ has not been called before or
-(b) the last time that _F_ was called, the argument 
+(b) the last time that _F_ was called, the argument
 to _F_ had a different value.
 
 Emitting telemetry on change can reduce unnecessary
@@ -1488,11 +1576,19 @@ array F64x3 = [3] F64
 @ Component for illustrating telemetry channel update specifiers
 passive component TlmUpdate {
 
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
   @ Telemetry port
   telemetry port tlmOut
 
   @ Time get port
   time get port timeGetOut
+
+  # ----------------------------------------------------------------------
+  # Telemetry
+  # ----------------------------------------------------------------------
 
   @ Telemetry channel 1
   @ Always emitted
@@ -1514,7 +1610,7 @@ passive component TlmUpdate {
 You may specify how a telemetry channel is formatted in the
 ground display.
 To do this, you write the keyword `format` and a format string
-with one 
+with one
 <<Defining-Types_Array-Type-Definitions_Format-Strings,
 replacement field>>.
 The replacement field must match the type of the telemetry
@@ -1529,11 +1625,19 @@ Here is an example:
 @ Component for illustrating telemetry channel format specifiers
 passive component TlmFormat {
 
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
   @ Telemetry port
   telemetry port tlmOut
 
   @ Time get port
   time get port timeGetOut
+
+  # ----------------------------------------------------------------------
+  # Telemetry
+  # ----------------------------------------------------------------------
 
   @ Telemetry channel 1
   telemetry Channel1: U32 format "{x}"
@@ -1553,7 +1657,7 @@ passive component TlmFormat {
 
 ==== Limits
 
-You may specify *limits*, or bounds, on the expected values 
+You may specify *limits*, or bounds, on the expected values
 carried on a telemetry channel.
 There are two kinds of limits: `low` (meaning that the
 values on the channel should stay above the limit) and `high`
@@ -1585,11 +1689,19 @@ Here are some examples:
 @ Component for illustrating telemetry channel limits
 passive component TlmLimits {
 
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
   @ Telemetry port
   telemetry port tlmOut
 
   @ Time get port
   time get port timeGetOut
+
+  # ----------------------------------------------------------------------
+  # Telemetry
+  # ----------------------------------------------------------------------
 
   @ Telemetry channel 1
   telemetry Channel1: U32 \
@@ -1615,7 +1727,7 @@ Each limit must be a numeric value.
 The type of the telemetry channel must be (1) a numeric
 type; or (2) an array or struct type each of whose members
 has a numeric type; or (3) an array or struct type
-each of whose members satisfies condition (1) or 
+each of whose members satisfies condition (1) or
 condition (2).
 
 *XML limitation:* The F Prime XML representation does
@@ -1634,7 +1746,7 @@ for a hardware device or a software algorithm.
 F Prime has special support for parameters, including a parameter
 database component for storing parameters in a non-volatile
 manner (e.g., on a file system).
-For complete information about F Prime parameters, see the F Prime User's 
+For complete information about F Prime parameters, see the F Prime User's
 Guide.
 Here we concentrate on how to specify parameters in FPP.
 
@@ -1659,7 +1771,7 @@ passive component BasicParams {
   # ----------------------------------------------------------------------
   # Ports
   # ----------------------------------------------------------------------
- 
+
   @ Command receive port
   command recv port cmdIn
 
@@ -1669,14 +1781,14 @@ passive component BasicParams {
   @ Command response port
   command resp port cmdResponseOut
 
-  @ Parameter get port 
+  @ Parameter get port
   param get port prmGetOut
 
   @ Parameter set port
   param set port prmSetOut
 
   # ----------------------------------------------------------------------
-  # Parameters 
+  # Parameters
   # ----------------------------------------------------------------------
 
   @ Parameter 1
@@ -1736,7 +1848,7 @@ passive component ParamDefaults {
   # ----------------------------------------------------------------------
   # Ports
   # ----------------------------------------------------------------------
- 
+
   @ Command receive port
   command recv port cmdIn
 
@@ -1746,14 +1858,14 @@ passive component ParamDefaults {
   @ Command response port
   command resp port cmdResponseOut
 
-  @ Parameter get port 
+  @ Parameter get port
   param get port prmGetOut
 
   @ Parameter set port
   param set port prmSetOut
 
   # ----------------------------------------------------------------------
-  # Parameters 
+  # Parameters
   # ----------------------------------------------------------------------
 
   @ Parameter 1
@@ -1783,10 +1895,10 @@ relative to the component, usually starting from
 zero and counting up by one.
 If you omit the identifier, then
 FPP assigns a default identifier: zero for the first
-event in the component; otherwise one more than the 
+event in the component; otherwise one more than the
 identifier of the previous parameter.
 
-If you wish, you may explicitly specify one or more 
+If you wish, you may explicitly specify one or more
 parameter identifiers.
 To do this, you write the keyword `id` followed
 by a numeric expression after the data type
@@ -1804,7 +1916,7 @@ passive component ParamIdentifiers {
   # ----------------------------------------------------------------------
   # Ports
   # ----------------------------------------------------------------------
- 
+
   @ Command receive port
   command recv port cmdIn
 
@@ -1814,14 +1926,14 @@ passive component ParamIdentifiers {
   @ Command response port
   command resp port cmdResponseOut
 
-  @ Parameter get port 
+  @ Parameter get port
   param get port prmGetOut
 
   @ Parameter set port
   param set port prmSetOut
 
   # ----------------------------------------------------------------------
-  # Parameters 
+  # Parameters
   # ----------------------------------------------------------------------
 
   @ Parameter 1
@@ -1886,7 +1998,7 @@ passive component ParamOpcodes {
   # ----------------------------------------------------------------------
   # Ports
   # ----------------------------------------------------------------------
- 
+
   @ Command receive port
   command recv port cmdIn
 
@@ -1896,14 +2008,14 @@ passive component ParamOpcodes {
   @ Command response port
   command resp port cmdResponseOut
 
-  @ Parameter get port 
+  @ Parameter get port
   param get port prmGetOut
 
   @ Parameter set port
   param set port prmSetOut
 
   # ----------------------------------------------------------------------
-  # Parameters 
+  # Parameters
   # ----------------------------------------------------------------------
 
   @ Parameter 1
