@@ -47,8 +47,9 @@ A telemetry limit is one of the following:
 
 . The type name specifies the type of the telemetry channel.
 
-. The optional expression _e_ after the keyword `id` specifies the channel
-identifier.  If _e_ is present, then the type of _e_ must be
+. The optional expression _e_ after the keyword `id` specifies the
+numeric identifier for the channel.
+If _e_ is present, then the type of _e_ must be
 <<Type-Checking_Type-Conversion,convertible to>>
 <<Types_Internal-Types_Integer,_Integer_>>.
 If _e_ is not present, then the

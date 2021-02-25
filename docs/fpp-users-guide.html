@@ -4707,9 +4707,8 @@ Here we concentrate on how to specify telemetry channels in FPP.</p>
 <div class="paragraph">
 <p>The simplest telemetry channel consists of the keyword <code>telemetry</code>,
 a name, and a data type.
-The name is the name of the event.
-The data type is the type of data carried on the telemetry
-channel.</p>
+The name is the name of the channel.
+The data type is the type of data carried on the channel.</p>
 </div>
 <div class="paragraph">
 <p>As an example, here is an active component called <code>BasicTelemetry</code>
@@ -5033,7 +5032,76 @@ Here we concentrate on how to specify parameters in FPP.</p>
 <div class="sect3">
 <h4 id="Defining-Components_Parameters_Basic-Parameters">9.8.1. Basic Parameters</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>The simplest parameter consists of the keyword <code>param</code>,
+a name, and a data type.
+The name is the name of the parameter.
+The data type is the type of data stored in the parameter.</p>
+</div>
+<div class="paragraph">
+<p>As an example, here is an active component called <code>BasicParams</code>
+with a few basic parameters.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ An array of 3 F64 values
+array F64x3 = [3] F64
+
+@ A component for illustrating basic parameters
+passive component BasicParams {
+
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
+  @ Command receive port
+  command recv port cmdIn
+
+  @ Command registration port
+  command reg port cmdRegOut
+
+  @ Command response port
+  command resp port cmdResponseOut
+
+  @ Parameter get port
+  param get port prmGetOut
+
+  @ Parameter set port
+  param set port prmSetOut
+
+  # ----------------------------------------------------------------------
+  # Parameters
+  # ----------------------------------------------------------------------
+
+  @ Parameter 1
+  param Param1: U32
+
+  @ Parameter 2
+  param Param2: F64
+
+  @ Parameter 3
+  param Param3: F64x3
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that we defined the two
+<a href="#Defining-Components_Special-Port-Instances_Parameter-Ports">parameter ports</a>
+for this component.
+Both ports are required for any component that has parameters.</p>
+</div>
+<div class="paragraph">
+<p>Notice also that we defined the
+<a href="#Defining-Components_Special-Port-Instances_Command-Ports">command ports</a>
+for this component.
+When you add one or more parameters to a component,
+F Prime automatically generates commands for (1)
+setting the local parameter in the component and (2) saving
+the local parameter to a system-wide parameter database.
+Therefore, any component that has parameters must have
+the command ports.
+Try deleting one or more of the command ports from the example
+above and see what <code>fpp-check</code> does.</p>
 </div>
 </div>
 <div class="sect3">
@@ -7225,7 +7293,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-23 09:15:13 -0800
+Last updated 2021-02-25 09:25:39 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

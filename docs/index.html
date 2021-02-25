@@ -2926,7 +2926,8 @@ If there are no parameters, the list may be omitted.
 <code>ref</code> may not appear in any of the parameters.</p>
 </li>
 <li>
-<p>The optional expression <em>e</em> following <code>opcode</code> specifies the command opcode.
+<p>The optional expression <em>e</em> following <code>opcode</code> specifies the numeric
+opcode for the command.
 If <em>e</em> is present, its type must be convertible to
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
 If <em>e</em> is not present, then the default opcode is either zero (for the first
@@ -3412,7 +3413,8 @@ If there are no parameters, the list may be omitted.
 <code>ref</code> may not appear in any of the parameters.</p>
 </li>
 <li>
-<p>The optional expression <em>e</em> following <code>id</code> specifies the event identifier.
+<p>The optional expression <em>e</em> following <code>id</code> specifies the numeric
+identifier for the event.
 If <em>e</em> is present, then type of <em>e</em> must be convertible to
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
 If <em>e</em> is not present, then the default identifier is either zero (for the
@@ -3942,8 +3944,8 @@ If <em>e</em> is not present, then the default value is the
 <a href="#Types_Default-Values">default value associated with <em>T</em></a>.</p>
 </li>
 <li>
-<p>The optional expression <em>e</em> after the keyword <code>id</code> specifies the channel
-identifier.
+<p>The optional expression <em>e</em> after the keyword <code>id</code> specifies the
+numeric identifier for the parameter.
 If <em>e</em> is present, then the type of <em>e</em> must be
 <a href="#Type-Checking_Type-Conversion">convertible to</a>
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
@@ -4404,8 +4406,9 @@ A telemetry limit is one of the following:</p>
 <p>The type name specifies the type of the telemetry channel.</p>
 </li>
 <li>
-<p>The optional expression <em>e</em> after the keyword <code>id</code> specifies the channel
-identifier.  If <em>e</em> is present, then the type of <em>e</em> must be
+<p>The optional expression <em>e</em> after the keyword <code>id</code> specifies the
+numeric identifier for the channel.
+If <em>e</em> is present, then the type of <em>e</em> must be
 <a href="#Type-Checking_Type-Conversion">convertible to</a>
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
 If <em>e</em> is not present, then the
@@ -7777,7 +7780,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-23 09:13:11 -0800
+Last updated 2021-02-25 09:33:29 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
