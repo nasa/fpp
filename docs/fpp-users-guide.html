@@ -5374,7 +5374,8 @@ parameter <em>P</em> according to the following rules:</p>
 component, then the set opcode is 0, and the save opcode is 1.</p>
 </li>
 <li>
-<p>Otherwise, let <em>o</em> be the previous opcode in the component
+<p>Otherwise, let <em>o</em> be the previous opcode defined
+in the component
 (either a command opcode or a parameter save opcode).
 Then the set opcode is <em>o</em> + 1, and the save opcode is
 <em>o</em> + 2.</p>
@@ -5563,11 +5564,11 @@ The name scoping mechanism emphasizes the hierarchical relationship
 and prevents name clashes.</p>
 </div>
 <div class="paragraph">
-<p><strong>XML limitation:</strong> In general, a qualified name such as <code>Switch.State</code>
+<p><strong>XML limitation:</strong> In most cases, a qualified name such as <code>Switch.State</code>
 in FPP becomes a qualified name such as <code>Switch::State</code> when translating
 to C&#43;&#43;.
 However, the F Prime XML format does not currently support the declaration
-of constants and types as members of components.
+of constants and types as members of C&#43;&#43; components.
 Therefore, when translating the previous example through XML to C&#43;&#43;,
 the following occurs:</p>
 </div>
@@ -7751,7 +7752,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-25 13:28:01 -0800
+Last updated 2021-02-25 14:00:00 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

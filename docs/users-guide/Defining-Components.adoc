@@ -1968,7 +1968,8 @@ parameter _P_ according to the following rules:
 * If no command or parameter appears before _P_ in the
 component, then the set opcode is 0, and the save opcode is 1.
 
-* Otherwise, let _o_ be the previous opcode in the component
+* Otherwise, let _o_ be the previous opcode defined
+in the component
 (either a command opcode or a parameter save opcode).
 Then the set opcode is _o_ + 1, and the save opcode is
 _o_ + 2.
@@ -2142,11 +2143,11 @@ when the definition logically belongs to the component.
 The name scoping mechanism emphasizes the hierarchical relationship
 and prevents name clashes.
 
-*XML limitation:* In general, a qualified name such as `Switch.State`
+*XML limitation:* In most cases, a qualified name such as `Switch.State`
 in FPP becomes a qualified name such as `Switch::State` when translating
 to {cpp}.
 However, the F Prime XML format does not currently support the declaration
-of constants and types as members of components.
+of constants and types as members of {cpp} components.
 Therefore, when translating the previous example through XML to {cpp}, 
 the following occurs:
 
