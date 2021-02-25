@@ -30,8 +30,11 @@ _]_
 specifies a default value for the parameter.
 If _e_ is present, then the type of _e_ must be 
 <<Type-Checking_Type-Conversion,convertible to>> _T_.
-If _e_ is not present, then the default value is the
-<<Types_Default-Values,default value associated with _T_>>.
+If _e_ is not present, then there is no default value for
+the parameter: 
+When the parameter is used, then either (1) a value is
+available in the parameter database or (2) the use is
+invalid.
 
 * The optional expression _e_ after the keyword `id` specifies the 
 numeric identifier for the parameter.

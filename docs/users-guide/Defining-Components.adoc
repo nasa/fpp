@@ -1407,7 +1407,7 @@ zero and counting up by one.
 If you omit the identifier, then
 FPP assigns a default identifier: zero for the first
 event in the component; otherwise one more than the 
-identifier of the previous event.
+identifier of the previous channel.
 
 If you wish, you may explicitly specify one or more 
 telemetry channel identifiers.
@@ -1448,18 +1448,18 @@ Within a component, the telemetry channel identifiers must be unique.
 
 ==== Update Frequency
 
-You can specify how often the a telemetry is emitted.
+You can specify how often the telemetry is emitted on a channel _C_.
 There are two possibilities:
 
-* `always`: Emit a telemetry point on the channel
-whenever the component instance calls the corresponding
-telemetry function.
+* `always`: Emit a telemetry point on _C_
+whenever the component instance calls the 
+function _F_ for emitting telemetry on _C_.
 
 * `on` `change`: Emit a telemetry point whenever
-(1) the component instance calls the corresponding
-telemetry function and (2) the telemetry value
-is different from the value seen the last time
-the function was called.
+(1) the component instance calls _F_ and (2) either (a) 
+_F_ has not been called before or
+(b) the last time that _F_ was called, the argument 
+to _F_ had a different value.
 
 Emitting telemetry on change can reduce unnecessary
 activity in the system.
@@ -1712,11 +1712,134 @@ above and see what `fpp-check` does.
 
 ==== Default Values
 
-TODO
+You can specify a default value for any parameter.
+This is the value that F Prime will use if no value is
+available in the parameter database.
+If you don't specify a default value, and no value is
+available in the database, then attempting to get
+the parameter produces an invalid value.
+What happens then is up to the FSW implementation.
+By providing default values for your parameters,
+you can avoid handling this case.
+
+Here is the example from the previous section, updated
+to include default values for the parameters:
+
+[source,fpp]
+----
+@ An array of 3 F64 values
+array F64x3 = [3] F64
+
+@ A component for illustrating default parameter values
+passive component ParamDefaults {
+
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+ 
+  @ Command receive port
+  command recv port cmdIn
+
+  @ Command registration port
+  command reg port cmdRegOut
+
+  @ Command response port
+  command resp port cmdResponseOut
+
+  @ Parameter get port 
+  param get port prmGetOut
+
+  @ Parameter set port
+  param set port prmSetOut
+
+  # ----------------------------------------------------------------------
+  # Parameters 
+  # ----------------------------------------------------------------------
+
+  @ Parameter 1
+  param Param1: U32 default 1
+
+  @ Parameter 2
+  param Param2: F64 default 2.0
+
+  @ Parameter 3
+  param Param3: F64x3 default [ 1.0, 2.0, 3.0 ]
+
+}
+----
 
 ==== Identifiers
 
-TODO
+Every parameter in an F Prime FSW application has a unique
+numeric identifier.
+As for
+<<Defining-Components_Commands_Opcodes,command opcodes>>,
+<<Defining-Components_Events_Identifiers,event identifiers>>,
+and
+<<Defining-Components_Telemetry_Identifiers,
+telemetry channel identifiers>>,
+the parameter identifiers for a component are specified
+relative to the component, usually starting from
+zero and counting up by one.
+If you omit the identifier, then
+FPP assigns a default identifier: zero for the first
+event in the component; otherwise one more than the 
+identifier of the previous parameter.
+
+If you wish, you may explicitly specify one or more 
+parameter identifiers.
+To do this, you write the keyword `id` followed
+by a numeric expression after the data type
+and after the default value, if any.
+Here is an example:
+
+[source,fpp]
+----
+@ An array of 3 F64 values
+array F64x3 = [3] F64
+
+@ A component for illustrating default parameter identifiers
+passive component ParamIdentifiers {
+
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+ 
+  @ Command receive port
+  command recv port cmdIn
+
+  @ Command registration port
+  command reg port cmdRegOut
+
+  @ Command response port
+  command resp port cmdResponseOut
+
+  @ Parameter get port 
+  param get port prmGetOut
+
+  @ Parameter set port
+  param set port prmSetOut
+
+  # ----------------------------------------------------------------------
+  # Parameters 
+  # ----------------------------------------------------------------------
+
+  @ Parameter 1
+  @ Its implied identifier is 0x00
+  param Param1: U32 default 1
+
+  @ Parameter 2
+  @ Its identifier is 0x10
+  param Param2: F64 default 2.0 id 0x10
+
+  @ Parameter 3
+  @ Its implied identifier is 0x11
+  param Param3: F64x3 default [ 1.0, 2.0, 3.0 ]
+
+}
+----
+
+Within a component, the parameter identifiers must be unique.
 
 ==== Set and Save Opcodes
 

@@ -4768,7 +4768,7 @@ zero and counting up by one.
 If you omit the identifier, then
 FPP assigns a default identifier: zero for the first
 event in the component; otherwise one more than the
-identifier of the previous event.</p>
+identifier of the previous channel.</p>
 </div>
 <div class="paragraph">
 <p>If you wish, you may explicitly specify one or more
@@ -4813,22 +4813,22 @@ passive component TlmIdentifiers {
 <div class="sect3">
 <h4 id="Defining-Components_Telemetry_Update-Frequency">9.7.3. Update Frequency</h4>
 <div class="paragraph">
-<p>You can specify how often the a telemetry is emitted.
+<p>You can specify how often the telemetry is emitted on a channel <em>C</em>.
 There are two possibilities:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>always</code>: Emit a telemetry point on the channel
-whenever the component instance calls the corresponding
-telemetry function.</p>
+<p><code>always</code>: Emit a telemetry point on <em>C</em>
+whenever the component instance calls the
+function <em>F</em> for emitting telemetry on <em>C</em>.</p>
 </li>
 <li>
 <p><code>on</code> <code>change</code>: Emit a telemetry point whenever
-(1) the component instance calls the corresponding
-telemetry function and (2) the telemetry value
-is different from the value seen the last time
-the function was called.</p>
+(1) the component instance calls <em>F</em> and (2) either (a)
+<em>F</em> has not been called before or
+(b) the last time that <em>F</em> was called, the argument
+to <em>F</em> had a different value.</p>
 </li>
 </ul>
 </div>
@@ -5107,13 +5107,138 @@ above and see what <code>fpp-check</code> does.</p>
 <div class="sect3">
 <h4 id="Defining-Components_Parameters_Default-Values">9.8.2. Default Values</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>You can specify a default value for any parameter.
+This is the value that F Prime will use if no value is
+available in the parameter database.
+If you don&#8217;t specify a default value, and no value is
+available in the database, then attempting to get
+the parameter produces an invalid value.
+What happens then is up to the FSW implementation.
+By providing default values for your parameters,
+you can avoid handling this case.</p>
+</div>
+<div class="paragraph">
+<p>Here is the example from the previous section, updated
+to include default values for the parameters:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ An array of 3 F64 values
+array F64x3 = [3] F64
+
+@ A component for illustrating default parameter values
+passive component ParamDefaults {
+
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
+  @ Command receive port
+  command recv port cmdIn
+
+  @ Command registration port
+  command reg port cmdRegOut
+
+  @ Command response port
+  command resp port cmdResponseOut
+
+  @ Parameter get port
+  param get port prmGetOut
+
+  @ Parameter set port
+  param set port prmSetOut
+
+  # ----------------------------------------------------------------------
+  # Parameters
+  # ----------------------------------------------------------------------
+
+  @ Parameter 1
+  param Param1: U32 default 1
+
+  @ Parameter 2
+  param Param2: F64 default 2.0
+
+  @ Parameter 3
+  param Param3: F64x3 default [ 1.0, 2.0, 3.0 ]
+
+}</code></pre>
+</div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="Defining-Components_Parameters_Identifiers">9.8.3. Identifiers</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>Every parameter in an F Prime FSW application has a unique
+numeric identifier.
+As for
+<a href="#Defining-Components_Commands_Opcodes">command opcodes</a>,
+<a href="#Defining-Components_Events_Identifiers">event identifiers</a>,
+and
+<a href="#Defining-Components_Telemetry_Identifiers">telemetry channel identifiers</a>,
+the parameter identifiers for a component are specified
+relative to the component, usually starting from
+zero and counting up by one.
+If you omit the identifier, then
+FPP assigns a default identifier: zero for the first
+event in the component; otherwise one more than the
+identifier of the previous parameter.</p>
+</div>
+<div class="paragraph">
+<p>If you wish, you may explicitly specify one or more
+parameter identifiers.
+To do this, you write the keyword <code>id</code> followed
+by a numeric expression after the data type
+and after the default value, if any.
+Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ An array of 3 F64 values
+array F64x3 = [3] F64
+
+@ A component for illustrating default parameter identifiers
+passive component ParamIdentifiers {
+
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
+  @ Command receive port
+  command recv port cmdIn
+
+  @ Command registration port
+  command reg port cmdRegOut
+
+  @ Command response port
+  command resp port cmdResponseOut
+
+  @ Parameter get port
+  param get port prmGetOut
+
+  @ Parameter set port
+  param set port prmSetOut
+
+  # ----------------------------------------------------------------------
+  # Parameters
+  # ----------------------------------------------------------------------
+
+  @ Parameter 1
+  @ Its implied identifier is 0x00
+  param Param1: U32 default 1
+
+  @ Parameter 2
+  @ Its identifier is 0x10
+  param Param2: F64 default 2.0 id 0x10
+
+  @ Parameter 3
+  @ Its implied identifier is 0x11
+  param Param3: F64x3 default [ 1.0, 2.0, 3.0 ]
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Within a component, the parameter identifiers must be unique.</p>
 </div>
 </div>
 <div class="sect3">
@@ -7293,7 +7418,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-25 09:25:39 -0800
+Last updated 2021-02-25 10:21:16 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
