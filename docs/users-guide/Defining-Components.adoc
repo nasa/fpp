@@ -2044,7 +2044,120 @@ passive component ParamOpcodes {
 
 === Constants and Types
 
-TODO
+You can write a <<Defining-Constants,constant definition>>
+or <<Defining-Types,type definition>>
+as a component member.
+When you do this, the component qualifies
+the name of the constant or type, similarly to the way that a
+<<Defining-Modules,module>> qualifies the names of the
+definitions it contains.
+For example, if you define a type `T` inside a component
+`C`, then
+
+* Inside the definition of `C`, you can refer to the
+type as `T`.
+
+* Outside the definition of `C`, you must refer to the
+type as `C.T`.
+
+As an example, here is the `SerialSplitter` component
+from the section on 
+<<Defining-Components_Port-Instances_Serial-Port-Instances,
+serial port instances>>, where we have moved the
+definition of the constant `splitFactor`
+into the definition of the component.
+
+[source,fpp]
+----
+@ Component for splitting a serial data stream
+passive component SerialSplitter {
+
+  # ----------------------------------------------------------------------
+  # Constants 
+  # ----------------------------------------------------------------------
+
+  @ Split factor
+  constant splitFactor = 10
+
+  # ----------------------------------------------------------------------
+  # Ports 
+  # ----------------------------------------------------------------------
+
+  @ Input
+  sync input port serialIn: serial
+
+  @ Output
+  output port serialOut: [splitFactor] serial
+
+}
+----
+
+As another example, here is the `Switch` component from the section on
+<<Defining-Components_Commands_Formal-Parameters,
+command formal parameters>>, where we have moved the definition of
+the enum `State` into the component:
+
+[source,fpp]
+----
+@ A switch with on and off state
+active component Switch {
+
+  # ----------------------------------------------------------------------
+  # Types 
+  # ----------------------------------------------------------------------
+
+  @ The state enumeration
+  enum State {
+    OFF @< The off state
+    ON @< The on state
+  }
+
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
+  @ Command registration
+  command reg port cmdRegOut
+
+  @ Command input
+  command recv port cmdIn
+
+  @ Command response
+  command resp port cmdResponseOut
+
+  # ----------------------------------------------------------------------
+  # Commands
+  # ----------------------------------------------------------------------
+
+  @ Set the state
+  async command SET_STATE(
+    state: State @< The new state
+  )
+
+}
+----
+
+In general, it is a good idea to state a definition inside a component
+when the definition logically belongs to the component.
+The name scoping mechanism emphasizes the hierarchical relationship
+and prevents name clashes.
+
+*XML limitation:* In general, a qualified name such as `Switch.State`
+in FPP becomes a qualified name such as `Switch::State` when translating
+to {cpp}.
+However, the F Prime XML format does not currently support the declaration
+of constants and types as members of components.
+Therefore, when translating the previous example through XML to {cpp}, 
+the following occurs:
+
+. The component `Switch` becomes an auto-generated {cpp} class
+`SwitchComponentBase`.
+
+. The type `State` becomes a {cpp} class `Switch_State`.
+
+We will have more to say about this issue in the section on
+<<Analyzing-and-Translating-Models_Generating-XML,
+generating XML>>.
 
 === Include Specifiers
 

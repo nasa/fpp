@@ -5457,7 +5457,134 @@ passive component ParamOpcodes {
 <div class="sect2">
 <h3 id="Defining-Components_Constants-and-Types">9.9. Constants and Types</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>You can write a <a href="#Defining-Constants">constant definition</a>
+or <a href="#Defining-Types">type definition</a>
+as a component member.
+When you do this, the component qualifies
+the name of the constant or type, similarly to the way that a
+<a href="#Defining-Modules">module</a> qualifies the names of the
+definitions it contains.
+For example, if you define a type <code>T</code> inside a component
+<code>C</code>, then</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Inside the definition of <code>C</code>, you can refer to the
+type as <code>T</code>.</p>
+</li>
+<li>
+<p>Outside the definition of <code>C</code>, you must refer to the
+type as <code>C.T</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>As an example, here is the <code>SerialSplitter</code> component
+from the section on
+<a href="#Defining-Components_Port-Instances_Serial-Port-Instances">serial port instances</a>, where we have moved the
+definition of the constant <code>splitFactor</code>
+into the definition of the component.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ Component for splitting a serial data stream
+passive component SerialSplitter {
+
+  # ----------------------------------------------------------------------
+  # Constants
+  # ----------------------------------------------------------------------
+
+  @ Split factor
+  constant splitFactor = 10
+
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
+  @ Input
+  sync input port serialIn: serial
+
+  @ Output
+  output port serialOut: [splitFactor] serial
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As another example, here is the <code>Switch</code> component from the section on
+<a href="#Defining-Components_Commands_Formal-Parameters">command formal parameters</a>, where we have moved the definition of
+the enum <code>State</code> into the component:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A switch with on and off state
+active component Switch {
+
+  # ----------------------------------------------------------------------
+  # Types
+  # ----------------------------------------------------------------------
+
+  @ The state enumeration
+  enum State {
+    OFF @&lt; The off state
+    ON @&lt; The on state
+  }
+
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
+  @ Command registration
+  command reg port cmdRegOut
+
+  @ Command input
+  command recv port cmdIn
+
+  @ Command response
+  command resp port cmdResponseOut
+
+  # ----------------------------------------------------------------------
+  # Commands
+  # ----------------------------------------------------------------------
+
+  @ Set the state
+  async command SET_STATE(
+    state: State @&lt; The new state
+  )
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In general, it is a good idea to state a definition inside a component
+when the definition logically belongs to the component.
+The name scoping mechanism emphasizes the hierarchical relationship
+and prevents name clashes.</p>
+</div>
+<div class="paragraph">
+<p><strong>XML limitation:</strong> In general, a qualified name such as <code>Switch.State</code>
+in FPP becomes a qualified name such as <code>Switch::State</code> when translating
+to C&#43;&#43;.
+However, the F Prime XML format does not currently support the declaration
+of constants and types as members of components.
+Therefore, when translating the previous example through XML to C&#43;&#43;,
+the following occurs:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The component <code>Switch</code> becomes an auto-generated C&#43;&#43; class
+<code>SwitchComponentBase</code>.</p>
+</li>
+<li>
+<p>The type <code>State</code> becomes a C&#43;&#43; class <code>Switch_State</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>We will have more to say about this issue in the section on
+<a href="#Analyzing-and-Translating-Models_Generating-XML">generating XML</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -7624,7 +7751,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-25 11:47:57 -0800
+Last updated 2021-02-25 13:28:01 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
