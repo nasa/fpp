@@ -1715,7 +1715,7 @@ passive component TlmLimits {
     high { red 3, orange 2, yellow 1 }
 
   @ Telemetry channel 3
-  telemetry Channel3: F64\
+  telemetry Channel3: F64 \
     update always \
     format "{e}" \
     high { red 3, orange 2, yellow 1 }
