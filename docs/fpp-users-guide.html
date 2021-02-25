@@ -565,7 +565,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Components_Telemetry_Limits">9.7.5. Limits</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Components_Parameters">9.8. Parameters</a></li>
+<li><a href="#Defining-Components_Parameters">9.8. Parameters</a>
+<ul class="sectlevel3">
+<li><a href="#Defining-Components_Parameters_Basic-Parameters">9.8.1. Basic Parameters</a></li>
+<li><a href="#Defining-Components_Parameters_Default-Values">9.8.2. Default Values</a></li>
+<li><a href="#Defining-Components_Parameters_Identifiers">9.8.3. Identifiers</a></li>
+<li><a href="#Defining-Components_Parameters_Set-and-Save-Opcodes">9.8.4. Set and Save Opcodes</a></li>
+</ul>
+</li>
 <li><a href="#Defining-Components_Constants-and-Types">9.9. Constants and Types</a></li>
 <li><a href="#Defining-Components_Include-Specifiers">9.10. Include Specifiers</a></li>
 </ul>
@@ -5008,7 +5015,44 @@ of array or struct type.</p>
 <div class="sect2">
 <h3 id="Defining-Components_Parameters">9.8. Parameters</h3>
 <div class="paragraph">
+<p>When defining an F Prime component, you may specify one or more
+<strong>parameters</strong>.
+A parameter is a typed constant value that you can update
+by command.
+For example, it could be a configuration constant
+for a hardware device or a software algorithm.</p>
+</div>
+<div class="paragraph">
+<p>F Prime has special support for parameters, including a parameter
+database component for storing parameters in a non-volatile
+manner (e.g., on a file system).
+For complete information about F Prime parameters, see the F Prime User&#8217;s
+Guide.
+Here we concentrate on how to specify parameters in FPP.</p>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Parameters_Basic-Parameters">9.8.1. Basic Parameters</h4>
+<div class="paragraph">
 <p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Parameters_Default-Values">9.8.2. Default Values</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Parameters_Identifiers">9.8.3. Identifiers</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Parameters_Set-and-Save-Opcodes">9.8.4. Set and Save Opcodes</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -7181,7 +7225,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-23 08:38:01 -0800
+Last updated 2021-02-23 09:15:13 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

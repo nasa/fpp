@@ -1349,9 +1349,8 @@ Here we concentrate on how to specify telemetry channels in FPP.
 
 The simplest telemetry channel consists of the keyword `telemetry`,
 a name, and a data type.
-The name is the name of the event.
-The data type is the type of data carried on the telemetry
-channel.
+The name is the name of the channel.
+The data type is the type of data carried on the channel.
 
 As an example, here is an active component called `BasicTelemetry`
 with a few basic events.
@@ -1624,6 +1623,102 @@ not currently allow limits for telemetry channels
 of array or struct type.
 
 === Parameters
+
+When defining an F Prime component, you may specify one or more
+*parameters*.
+A parameter is a typed constant value that you can update
+by command.
+For example, it could be a configuration constant
+for a hardware device or a software algorithm.
+
+F Prime has special support for parameters, including a parameter
+database component for storing parameters in a non-volatile
+manner (e.g., on a file system).
+For complete information about F Prime parameters, see the F Prime User's 
+Guide.
+Here we concentrate on how to specify parameters in FPP.
+
+==== Basic Parameters
+
+The simplest parameter consists of the keyword `param`,
+a name, and a data type.
+The name is the name of the parameter.
+The data type is the type of data stored in the parameter.
+
+As an example, here is an active component called `BasicParams`
+with a few basic parameters.
+
+[source,fpp]
+----
+@ An array of 3 F64 values
+array F64x3 = [3] F64
+
+@ A component for illustrating basic parameters
+passive component BasicParams {
+
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+ 
+  @ Command receive port
+  command recv port cmdIn
+
+  @ Command registration port
+  command reg port cmdRegOut
+
+  @ Command response port
+  command resp port cmdResponseOut
+
+  @ Parameter get port 
+  param get port prmGetOut
+
+  @ Parameter set port
+  param set port prmSetOut
+
+  # ----------------------------------------------------------------------
+  # Parameters 
+  # ----------------------------------------------------------------------
+
+  @ Parameter 1
+  param Param1: U32
+
+  @ Parameter 2
+  param Param2: F64
+
+  @ Parameter 3
+  param Param3: F64x3
+
+}
+----
+
+Notice that we defined the two
+<<Defining-Components_Special-Port-Instances_Parameter-Ports,
+parameter ports>>
+for this component.
+Both ports are required for any component that has parameters.
+
+Notice also that we defined the
+<<Defining-Components_Special-Port-Instances_Command-Ports,
+command ports>>
+for this component.
+When you add one or more parameters to a component,
+F Prime automatically generates commands for (1)
+setting the local parameter in the component and (2) saving
+the local parameter to a system-wide parameter database.
+Therefore, any component that has parameters must have
+the command ports.
+Try deleting one or more of the command ports from the example
+above and see what `fpp-check` does.
+
+==== Default Values
+
+TODO
+
+==== Identifiers
+
+TODO
+
+==== Set and Save Opcodes
 
 TODO
 
