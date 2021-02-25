@@ -5244,7 +5244,97 @@ passive component ParamIdentifiers {
 <div class="sect3">
 <h4 id="Defining-Components_Parameters_Set-and-Save-Opcodes">9.8.4. Set and Save Opcodes</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>Each parameter that you specify has two implied commands: one
+for setting the value bound to the parameter locally in the
+component, and one for saving the current local value
+to the system-wide parameter database.
+The opcodes for these implied commands are called the <strong>set and
+save opcodes</strong> for the parameter.</p>
+</div>
+<div class="paragraph">
+<p>By default, FPP generates set and save opcodes for a
+parameter <em>P</em> according to the following rules:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If no command or parameter appears before <em>P</em> in the
+component, then the set opcode is 0, and the save opcode is 1.</p>
+</li>
+<li>
+<p>Otherwise, let <em>o</em> be the previous opcode in the component
+(either a command opcode or a parameter save opcode).
+Then the set opcode is <em>o</em> + 1, and the save opcode is
+<em>o</em> + 2.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If you wish, you may specify either or both of the set and
+save opcodes explicitly.
+To specify the set opcode, you write the keywords <code>set</code> <code>opcode</code>
+and a numeric expression.
+To specify the save opcode, you write the keywords <code>save</code> <code>opcode</code>
+and a numeric expression.
+The set and save opcodes come after the type name, default
+parameter value, and parameter identifier.
+If both are present, the set opcode comes first.
+Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ An array of 3 F64 values
+array F64x3 = [3] F64
+
+@ A component for illustrating parameter set and save opcodes
+passive component ParamOpcodes {
+
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
+  @ Command receive port
+  command recv port cmdIn
+
+  @ Command registration port
+  command reg port cmdRegOut
+
+  @ Command response port
+  command resp port cmdResponseOut
+
+  @ Parameter get port
+  param get port prmGetOut
+
+  @ Parameter set port
+  param set port prmSetOut
+
+  # ----------------------------------------------------------------------
+  # Parameters
+  # ----------------------------------------------------------------------
+
+  @ Parameter 1
+  @ Its implied set opcode is 0x00
+  @ Its implied save opcode is 0x01
+  param Param1: U32 default 1
+
+  @ Parameter 2
+  @ Its set opcode is 0x10
+  @ Its save opcode is 0x11
+  param Param2: F64 \
+    default 2.0 \
+    id 0x10 \
+    set opcode 0x10 \
+    save opcode 0x11
+
+  @ Parameter 3
+  @ Its set opcode is 0x12
+  @ Its save opcode is 0x20
+  param Param3: F64x3 \
+    default [ 1.0, 2.0, 3.0 ] \
+    save opcode 0x20
+
+}</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -7418,7 +7508,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-25 10:21:16 -0800
+Last updated 2021-02-25 10:51:10 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
