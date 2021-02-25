@@ -2156,6 +2156,8 @@ the following occurs:
 
 . The type `State` becomes a {cpp} class `Switch_State`.
 
+Similarly, the FPP constant `SerialSplitter.splitFactor`
+becomes a {cpp} constant `SerialSplitter_SplitFactor`.
 We will have more to say about this issue in the section on
 <<Analyzing-and-Translating-Models_Generating-XML,
 generating XML>>.
