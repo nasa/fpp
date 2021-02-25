@@ -2146,7 +2146,7 @@ and prevents name clashes.
 *XML limitation:* In most cases, a qualified name such as `Switch.State`
 in FPP becomes a qualified name such as `Switch::State` when translating
 to {cpp}.
-However, the F Prime XML format does not currently support the declaration
+However, the F Prime XML format does not currently support the definition
 of constants and types as members of {cpp} components.
 Therefore, when translating the previous example through XML to {cpp}, 
 the following occurs:
