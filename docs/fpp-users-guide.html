@@ -5278,7 +5278,11 @@ To specify the save opcode, you write the keywords <code>save</code> <code>opcod
 and a numeric expression.
 The set and save opcodes come after the type name, default
 parameter value, and parameter identifier.
-If both are present, the set opcode comes first.
+If both are present, the set opcode comes first.</p>
+</div>
+<div class="paragraph">
+<p>When you specify an explicit set or save opcode <em>o</em>, the
+default value for the next opcode is <em>o</em> + 1.
 Here is an example:</p>
 </div>
 <div class="listingblock">
@@ -7508,7 +7512,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-25 10:51:10 -0800
+Last updated 2021-02-25 11:22:36 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

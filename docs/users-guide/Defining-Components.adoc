@@ -1870,6 +1870,9 @@ and a numeric expression.
 The set and save opcodes come after the type name, default
 parameter value, and parameter identifier.
 If both are present, the set opcode comes first.
+
+When you specify an explicit set or save opcode _o_, the
+default value for the next opcode is _o_ + 1.
 Here is an example:
 
 [source,fpp]
