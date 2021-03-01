@@ -73,8 +73,11 @@ or translation.
 . The string literal must specify the path of an FPP source file, relative to the
 <<Translation-Units-and-Models_Locations,location>>
 of the specifier.
-The file must exist and must contain the definition, after resolving
-<<Specifiers_Include-Specifiers,include specifiers>>.
+The file must exist.
+After resolving 
+<<Specifiers_Include-Specifiers,include specifiers>>,
+the file must contain the definition referred to in the
+location specifier.
 
 . Multiple location specifiers for the same definition are allowed in a single
 <<Translation-Units-and-Models_Models,model>>, so long as the locations are all 
