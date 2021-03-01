@@ -7,6 +7,7 @@ constant_error
 constant_ok
 enum_error
 enum_ok
+include_ok
 port_error
 port_ok
 struct_error

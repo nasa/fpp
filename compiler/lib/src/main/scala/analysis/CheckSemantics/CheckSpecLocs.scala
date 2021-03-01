@@ -52,7 +52,7 @@ object CheckSpecLocs
     node: AstNode[T]
   ): Result = {
     val qualifiedName = Name.Qualified(a.scopeNameList.reverse, name)
-    val actualLoc = Locations.get(node.id)
+    val actualLoc = Locations.get(node.id).tuLocation
     a.locationSpecifierMap.get((kind, qualifiedName)) match {
       case Some(specLoc) => {
         val specifierLoc = Locations.get(specLoc.file.id)

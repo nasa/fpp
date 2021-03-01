@@ -109,6 +109,14 @@ constant a = 0
 constant b = a
 ----
 
+To see this, run `fpp-format -i` with the two lines
+above as standard input.
+`fpp-format` is a tool for formatting FPP source files.
+It also can expand include specifiers.
+`fpp-format` is discussed further in the section on
+<<Analyzing-and-Translating-Models_Formatting-FPP-Source,
+formatting FPP source>>.
+
 As mentioned above, the path is relative to the directory
 of the file containing the include specifier.
 So if `a.fpp` is located in a subdirectory `A`, you could write this:
@@ -389,13 +397,13 @@ definitions and their uses.
 
 When you write a file that contains definitions and you 
 <<Specifying-Models_Include-Specifiers,include that file in another file>>,
-the location of each definition is the file where the definition occurs,
-not the file where it is included.
+the location of each definition is the file where the definition is
+included, not the file where the definition appears.
 For example, suppose that file `a.fpp` contains the definition `constant a = 
 0`,
 and suppose that file `b.fpp` contains the include specifier `include "a.fpp"`.
 When analyzing `b.fpp`, the location of the definition of the constant `a`
-is `a.fpp`, not `b.fpp`.
+is `b.fpp`, not `a.fpp`.
 
 === Locating Definitions
 
@@ -454,8 +462,8 @@ locate constant a at "a.fpp"
 
 ==== Included Definitions
 
-When locating definitions, you must take special care with definitions
-that appear in one file and are included in another file via an
+Consider the case where you write a definition in one file and
+include that file in another file via an
 <<Specifying-Models_Include-Specifiers,include specifier>>.
 For example, suppose file `Constants.fpp` looks like this:
 
@@ -464,85 +472,23 @@ For example, suppose file `Constants.fpp` looks like this:
 module Constants {
 
   constant a = 0
-  constant b = 1
-  include "c.fpp"
+  include "b.fpp"
 
 }
 ----
 
-Suppose `c.fpp` contains the definition `constant c = 2`.
+Suppose `b.fpp` contains the definition `constant c = 1`.
 If you run `find` on this directory as described above and provide
 the output to `fpp-locate-defs`, then you will get the following output:
 
-* The definition of constants `a` and `b` are located at `Constants.fpp`.
-* The definition of constant `c` is located at `c.fpp`.
+. The definition of constant `a` is located at `Constants.fpp`.
+. The definition of constant `b` is also located at `Constants.fpp`.
 
-For purposes of dependency analysis, this is probably not what you want.
-You probably want uses of `c` to depend on `Constants.fpp` (where the 
+For purposes of dependency analysis, this is what you want.
+You want uses of `b` to depend on `Constants.fpp` (where the 
 definition
-of `c` is included) rather than `c.fpp` (where the definition of `c` is 
+of `b` is included) rather than `b.fpp` (where the definition of `c` is 
 stated).
-This seems especially likely because the inclusion occurs inside
-the scope of module `Constants`.
-If you give file `c.fpp` to the analyzer, it will interpret the 
-definition of constant `c` as having qualified name `c`.
-But if you give it `Constants.fpp`, it interpret
-the definition as having qualified name `Constants.c`.
-
-In general, you should avoid including definitions inside modules.
-This is usually not necessary anyway, because we are allowed
-to close and reopen module scopes.
-For example, we could rewrite `Constants.fpp` like this:
-
-[source.fpp]
-----
-module Constants {
-
-  constant a = 0
-  constant b = 1
-
-}
-
-include "c.fpp"
-----
-
-And we could rewrite `c.fpp` like this:
-
-[source,fpp]
-----
-module Constants {
-
-  constant c = 0
-
-}
-----
-
-Then the dependency analysis works out:
-
-* Constants `a` and `b` are located at `Constants.fpp`
-Uses of `a` and `b` depend on `Constants.fpp`.
-
-* Constant `c` is located at `c.fpp`
-
-* Regardless of whether the analyzer sees `Constants.fpp` or `c.fpp`,
-the definitions are the same.
-
-If you must include definitions in modules,
-then you should expand the
-included definitions before presenting the results to `fpp-locate-defs`.
-For example, you could do the following:
-
-. Put `Constants.fpp` and `c.fpp` in a separate directory, not
-searched by the `find` command that looks for FPP files containing
-definitions.
-. Run `fpp-format -i Constants.fpp` to expand the include specifier.
-. Put the results of step 2 in the directory searched by the `find` command.
-
-`fpp-format` is a tool for formatting FPP source files.
-It also can expand include specifiers.
-`fpp-format` is discussed further in the section on
-<<Analyzing-and-Translating-Models_Formatting-FPP-Source,
-formatting FPP source>>.
 
 === Computing Dependencies
 
