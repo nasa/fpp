@@ -1,0 +1,2 @@
+locate constant M.a at "include.fpp"
+locate constant M.b at "include.fpp"
