@@ -477,7 +477,7 @@ module Constants {
 }
 ----
 
-Suppose `b.fpp` contains the definition `constant c = 1`.
+Suppose `b.fpp` contains the definition `constant b = 1`.
 If you run `find` on this directory as described above and provide
 the output to `fpp-locate-defs`, then you will get the following output:
 
@@ -487,7 +487,7 @@ the output to `fpp-locate-defs`, then you will get the following output:
 For purposes of dependency analysis, this is what you want.
 You want uses of `b` to depend on `Constants.fpp` (where the 
 definition
-of `b` is included) rather than `b.fpp` (where the definition of `c` is 
+of `b` is included) rather than `b.fpp` (where the definition of `b` is 
 stated).
 
 === Computing Dependencies

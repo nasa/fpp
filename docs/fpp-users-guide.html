@@ -6190,7 +6190,7 @@ For example, suppose file <code>Constants.fpp</code> looks like this:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Suppose <code>b.fpp</code> contains the definition <code>constant c = 1</code>.
+<p>Suppose <code>b.fpp</code> contains the definition <code>constant b = 1</code>.
 If you run <code>find</code> on this directory as described above and provide
 the output to <code>fpp-locate-defs</code>, then you will get the following output:</p>
 </div>
@@ -6208,7 +6208,7 @@ the output to <code>fpp-locate-defs</code>, then you will get the following outp
 <p>For purposes of dependency analysis, this is what you want.
 You want uses of <code>b</code> to depend on <code>Constants.fpp</code> (where the
 definition
-of <code>b</code> is included) rather than <code>b.fpp</code> (where the definition of <code>c</code> is
+of <code>b</code> is included) rather than <code>b.fpp</code> (where the definition of <code>b</code> is
 stated).</p>
 </div>
 </div>
@@ -7296,8 +7296,8 @@ You can convert these elements of your XML model to FPP now.
 To integrate these elements with topologies written directly in XML, use the
 <a href="#Analyzing-and-Translating-Models_Generating-XML">FPP to XML translation
 described above</a> to generate XML from the FPP part.
-Later, when topologies are available in FPP becomes available, you can
-translate them.</p>
+Later, when topologies are available in FPP, you can
+complete the translation.</p>
 </div>
 <div class="paragraph">
 <p>The XML-to-FPP translation is designed to do most of the work in translating an
@@ -7636,7 +7636,7 @@ a standard form.</p>
 <div class="content">
 <pre>% fpp-format
 array A = [3] U32 default [ 1, 2, 3 ]
-^d
+^D
 array A = [3] U32 default [
                             1
                             2
@@ -7680,7 +7680,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-01 08:40:03 -0800
+Last updated 2021-03-01 08:54:29 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
