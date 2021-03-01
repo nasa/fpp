@@ -495,7 +495,7 @@ stated).
 Given files _F_ and location specifiers _L_ that locate the definitions used in 
 _F_, you can
 generate the dependencies of _F_.
-The tool for doing this is is called `fpp-depend`.
+The tool for doing this is called `fpp-depend`.
 
 ==== Running fpp-depend
 
