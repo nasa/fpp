@@ -491,7 +491,7 @@ of `b` is included) rather than `b.fpp` (where the definition of `b` is
 stated).
 
 When running a `find` command to find files containing definitions,
-you should exclude included files.
+you should exclude any files that are included in other files.
 For example, if your included FPP files all end with the suffix
 `.included.fpp`, then you can run the following command to
 find non-included FPP files at or below the current directory:
