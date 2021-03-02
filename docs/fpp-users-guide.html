@@ -6211,6 +6211,25 @@ definition
 of <code>b</code> is included) rather than <code>b.fpp</code> (where the definition of <code>b</code> is
 stated).</p>
 </div>
+<div class="paragraph">
+<p>When running a <code>find</code> command to find files containing definitions,
+you should exclude included files.
+For example, if your included FPP files all end with the suffix
+<code>.included.fpp</code>, then you can run the following command to
+find non-included FPP files at or below the current directory:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>find . -name '*.fpp' | grep -v '\.included\.fpp$'</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that <code>find</code> takes a file glob and <code>grep</code> takes
+a regular expression as input.
+The <code>-v</code> (reverse) option to <code>grep</code> excludes files matching
+the pattern.
+The <code>$</code> symbol in the pattern matches the end of the file name.</p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -7680,7 +7699,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-01 09:32:04 -0800
+Last updated 2021-03-02 08:36:48 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

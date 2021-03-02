@@ -490,6 +490,22 @@ definition
 of `b` is included) rather than `b.fpp` (where the definition of `b` is 
 stated).
 
+When running a `find` command to find files containing definitions,
+you should exclude included files.
+For example, if your included FPP files all end with the suffix
+`.included.fpp`, then you can run the following command to
+find non-included FPP files at or below the current directory:
+
+----
+find . -name '*.fpp' | grep -v '\.included\.fpp$'
+----
+
+Notice that `find` takes a file glob and `grep` takes
+a regular expression as input.
+The `-v` (reverse) option to `grep` excludes files matching
+the pattern.
+The `$` symbol in the pattern matches the end of the file name.
+
 === Computing Dependencies
 
 Given files _F_ and location specifiers _L_ that locate the definitions used in 
