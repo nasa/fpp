@@ -109,8 +109,8 @@ constant a = 0
 constant b = a
 ----
 
-To see this, run `fpp-format -i` with the two lines
-above as standard input.
+To see this create files `a.fpp` and `b.fpp` as described
+above and run `fpp-format -i b.fpp`.
 `fpp-format` is a tool for formatting FPP source files.
 It also can expand include specifiers.
 `fpp-format` is discussed further in the section on
