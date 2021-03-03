@@ -1470,7 +1470,7 @@ time get port>>
 for this component.
 Both ports are required for any component that has telemetry.
 
-*XML limitation:* The F Prime XML format does not currently support
+*XML limitation:* The F Prime XML format does not support
 telemetry of `string` type.
 
 ==== Identifiers
@@ -1731,7 +1731,7 @@ each of whose members satisfies condition (1) or
 condition (2).
 
 *XML limitation:* The F Prime XML representation does
-not currently allow limits for telemetry channels
+not allow limits for telemetry channels
 of array or struct type.
 
 === Parameters
@@ -2146,7 +2146,7 @@ and prevents name clashes.
 *XML limitation:* In most cases, a qualified name such as `Switch.State`
 in FPP becomes a qualified name such as `Switch::State` when translating
 to {cpp}.
-However, the F Prime XML format does not currently support the definition
+However, the F Prime XML format does not support the definition
 of constants and types as members of {cpp} components.
 Therefore, when translating the previous example through XML to {cpp}, 
 the following occurs:

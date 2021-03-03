@@ -241,7 +241,7 @@ an automatic default of 80.
 you can provide FPP source on standard input, as described
 for <<Analyzing-and-Translating-Models_Checking-Models,`fpp-check`>>.
 
-*XML limitations:* The XML translation currently has several
+*XML limitations:* The XML translation has several
 limitations.
 For more information, see the text marked *XML limitations* in the following 
 sections:
