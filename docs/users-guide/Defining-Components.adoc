@@ -544,7 +544,7 @@ F Prime User's Guide.
 ==== Telemetry Ports
 
 *Telemetry* is data regarding the state of the system.
-A *telemetry port* lets a component emit telemetry.
+A *telemetry port* allows a component to emit telemetry.
 To specify a telemetry port, you write the keyword `telemetry`,
 the keyword `port`, and the port name.
 
@@ -649,7 +649,7 @@ F Prime User's Guide.
 
 ==== Time Get Ports
 
-A *time get port* lets a component get the system time from a
+A *time get port* allows a component to get the system time from a
 time component.
 To specify a time get port, you write the keywords `time` `get`,
 the keyword `port`, and the port name.
@@ -811,8 +811,10 @@ Try it and see.
 === Commands
 
 When defining an F Prime component, you may specify one or more commands.
-When you are operating the FSW, F Prime dispatches each command to
-an instance of the component where it is defined.
+When you are operating the FSW, you use the F Prime Ground Data System
+or another ground data system to send commands to the FSW.
+On receipt of a command _C_, a Command Dispatcher component instance
+dispatches _C_ to the an instance of the component where it is defined.
 The command is handled in a {cpp} command handler that you write
 as part of the component implementation.
 
@@ -2164,4 +2166,45 @@ generating XML>>.
 
 === Include Specifiers
 
-TODO
+Component definitions can become long, especially when there
+are many commands, events, telemetry channels, and parameters.
+In this case it is useful to break up the component
+definition into several files.
+
+For example, suppose you are defining a component with
+many commands, and you wish to place the commands in a
+separate file `Commands.fpp`.
+Inside the component definition, you can write the
+following component member:
+
+[source,fpp]
+--------
+include "Commands.fpp"
+--------
+
+This construct is called an *include specifier*.
+During analysis and translation, the include specifier
+is replaced with the commands specified 
+in `Commands.fpp`, just as if you had written them
+at the point where you wrote the include specifier.
+This replacement is called expanding or resolving the
+include specifier.
+You can use the same technique for events, telemetry,
+parameters, or any other component members.
+
+The text enclosed in quotation marks after the keyword
+`include` is a path name relative to the directory of the
+file in which the include specifier appears.
+The file must exist and must contain component members
+that can validly appear at the point where the include
+specifier appears.
+For example, if `Commands.fpp` contains invalid syntax
+or syntax that may not appear inside a component,
+or if the file `Commands.fpp` does not exist, then
+the specifier `include "Commands.fpp"` is not valid.
+
+Include specifiers are perhaps most useful when defining
+components, but they can also appear at the top level of a
+model, or inside a module definition.
+We discuss include specifiers further in the section on
+<<Specifying-Models_Include-Specifiers,specifying models>>.

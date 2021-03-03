@@ -3799,7 +3799,7 @@ F Prime User&#8217;s Guide.</p>
 <h4 id="Defining-Components_Special-Port-Instances_Telemetry-Ports">9.3.3. Telemetry Ports</h4>
 <div class="paragraph">
 <p><strong>Telemetry</strong> is data regarding the state of the system.
-A <strong>telemetry port</strong> lets a component emit telemetry.
+A <strong>telemetry port</strong> allows a component to emit telemetry.
 To specify a telemetry port, you write the keyword <code>telemetry</code>,
 the keyword <code>port</code>, and the port name.</p>
 </div>
@@ -3932,7 +3932,7 @@ F Prime User&#8217;s Guide.</p>
 <div class="sect3">
 <h4 id="Defining-Components_Special-Port-Instances_Time-Get-Ports">9.3.5. Time Get Ports</h4>
 <div class="paragraph">
-<p>A <strong>time get port</strong> lets a component get the system time from a
+<p>A <strong>time get port</strong> allows a component to get the system time from a
 time component.
 To specify a time get port, you write the keywords <code>time</code> <code>get</code>,
 the keyword <code>port</code>, and the port name.</p>
@@ -4110,8 +4110,10 @@ Try it and see.</p>
 <h3 id="Defining-Components_Commands">9.5. Commands</h3>
 <div class="paragraph">
 <p>When defining an F Prime component, you may specify one or more commands.
-When you are operating the FSW, F Prime dispatches each command to
-an instance of the component where it is defined.
+When you are operating the FSW, you use the F Prime Ground Data System
+or another ground data system to send commands to the FSW.
+On receipt of a command <em>C</em>, a Command Dispatcher component instance
+dispatches <em>C</em> to the an instance of the component where it is defined.
 The command is handled in a C&#43;&#43; command handler that you write
 as part of the component implementation.</p>
 </div>
@@ -5593,7 +5595,52 @@ We will have more to say about this issue in the section on
 <div class="sect2">
 <h3 id="Defining-Components_Include-Specifiers">9.10. Include Specifiers</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>Component definitions can become long, especially when there
+are many commands, events, telemetry channels, and parameters.
+In this case it is useful to break up the component
+definition into several files.</p>
+</div>
+<div class="paragraph">
+<p>For example, suppose you are defining a component with
+many commands, and you wish to place the commands in a
+separate file <code>Commands.fpp</code>.
+Inside the component definition, you can write the
+following component member:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">include "Commands.fpp"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This construct is called an <strong>include specifier</strong>.
+During analysis and translation, the include specifier
+is replaced with the commands specified
+in <code>Commands.fpp</code>, just as if you had written them
+at the point where you wrote the include specifier.
+This replacement is called expanding or resolving the
+include specifier.
+You can use the same technique for events, telemetry,
+parameters, or any other component members.</p>
+</div>
+<div class="paragraph">
+<p>The text enclosed in quotation marks after the keyword
+<code>include</code> is a path name relative to the directory of the
+file in which the include specifier appears.
+The file must exist and must contain component members
+that can validly appear at the point where the include
+specifier appears.
+For example, if <code>Commands.fpp</code> contains invalid syntax
+or syntax that may not appear inside a component,
+or if the file <code>Commands.fpp</code> does not exist, then
+the specifier <code>include "Commands.fpp"</code> is not valid.</p>
+</div>
+<div class="paragraph">
+<p>Include specifiers are perhaps most useful when defining
+components, but they can also appear at the top level of a
+model, or inside a module definition.
+We discuss include specifiers further in the section on
+<a href="#Specifying-Models_Include-Specifiers">specifying models</a>.</p>
 </div>
 </div>
 </div>
@@ -5707,8 +5754,9 @@ multiple blocks
 <p>As part of an FPP model, you can write one or more <strong>include specifiers</strong>.
 An include specifier is an instruction to include FPP source elements
 from one file into another file.
-Include specifiers may occur at the top level of a model, or inside a
-<a href="#Defining-Components">component definition</a>.</p>
+Include specifiers may occur at the top level of a model,
+inside a <a href="#Defining-Modules">module definition</a>,
+or inside a <a href="#Defining-Components">component definition</a>.</p>
 </div>
 <div class="paragraph">
 <p>The main purpose of include specifiers is to split up large syntactic units
@@ -5802,23 +5850,7 @@ then this source text</p>
 </div>
 <div class="paragraph">
 <p>defines the constant <code>M.a</code>.
-In general you should avoid doing this, because it complicates dependency analysis.
-It is preferable to write <code>include "a.fpp"</code> and wrap the definition stated
-in <code>a.fpp</code> in module <code>M</code>, like this:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module M { constant a = 0 }</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>See the section on
-<a href="#Specifying-Models_Locating-Definitions_Included-Definitions">locating
-definitions</a>
-for more details.</p>
-</div>
-<div class="paragraph">
-<p>As an exercise, try this:</p>
+As an exercise, try this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -5835,7 +5867,7 @@ constant b = M.a
 </div>
 <div class="paragraph">
 <p>In any case, an included file must contain complete syntactic
-units that could appear at the top level or at the module level.
+units that could appear at the point where the include specifier appears.
 For example, an included file may contain one or more constant
 definitions or type definitions.
 It may not contain a bare identifier <code>a</code>, as this is not a valid top-level
@@ -7711,7 +7743,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-03 08:55:26 -0800
+Last updated 2021-03-03 09:36:12 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

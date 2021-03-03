@@ -73,8 +73,9 @@ multiple blocks
 As part of an FPP model, you can write one or more *include specifiers*.
 An include specifier is an instruction to include FPP source elements
 from one file into another file.
-Include specifiers may occur at the top level of a model, or inside a
-<<Defining-Components, component definition>>.
+Include specifiers may occur at the top level of a model, 
+inside a <<Defining-Modules,module definition>>,
+or inside a <<Defining-Components,component definition>>.
 
 The main purpose of include specifiers is to split up large syntactic units 
 into several files.
@@ -152,20 +153,6 @@ module M { include "a.fpp" }
 --------
 
 defines the constant `M.a`.
-In general you should avoid doing this, because it complicates dependency analysis.
-It is preferable to write `include "a.fpp"` and wrap the definition stated
-in `a.fpp` in module `M`, like this:
-
-[source,fpp]
-----
-module M { constant a = 0 }
-----
-
-See the section on
-<<Specifying-Models_Locating-Definitions_Included-Definitions,locating 
-definitions>>
-for more details.
-
 As an exercise, try this:
 
 ----
@@ -180,7 +167,7 @@ constant b = M.a
 The check should pass.
 
 In any case, an included file must contain complete syntactic
-units that could appear at the top level or at the module level.
+units that could appear at the point where the include specifier appears.
 For example, an included file may contain one or more constant
 definitions or type definitions.
 It may not contain a bare identifier `a`, as this is not a valid top-level
