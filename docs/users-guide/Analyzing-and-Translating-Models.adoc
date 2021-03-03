@@ -668,32 +668,90 @@ That way, you can manually construct a default value in FPP.
 The following F Prime XML formats may include definitions of arrays
 and enumerations:
 
-* The F Prime Serializable XML format can
-contain arrays and enumerations as member types.
+* In the Prime Serializable XML format,
+arrays and enumerations may appear as member types.
 The array sizes and enumerated constants are specified inline, as
 part of the member definition.
 
-* The F Prime Port XML format can contain enumerations
-as the types arguments or as the return type.
+* In the Port XML format, enumerations may appear
+as the types of arguments or as the return type.
 Again the enumerated constants are specified inline.
 
-* The F Prime XML format for commands and for events can
-contain enumerations as the types of arguments.
+* In the XML formats for commands and for events, 
+enumerations may appear as the types of arguments.
+
+* In the XML formats for telemetry channels and for
+parameters, enumerations may appear as the types of
+data elements.
 
 FPP does not represent these inline array and enum definitions directly.
 In FPP, array and enum definitions are always named, so they can be reused.
-Therefore, when translating an F Prime XML file file that 
+Therefore, when translating an F Prime XML file that 
 contains inline definitions, `fpp-to-xml` does the following: (1) translate
 each inline definition to a named FPP array or enum; and (2) use the 
 corresponding named types in the translated FPP struct or port.
 
 For example, here is an F Prime Serializable XML type
-`N::S` containing a member `m` that is an array of 10 `U32`
+`N::S1` containing a member `m` whose type is an enum
+`E` with three enumerated constants `A`, `B`, and `C`:
+
+----
+cat > S1SerializableAi.xml
+<serializable namespace="N" name="S2">
+  <members>
+    <member name="m" type="ENUM">
+      <enum name="E">
+        <item name="A"/>
+        <item name="B"/>
+        <item name="C"/>
+      </enum>
+    </member>
+  </members>
+</serializable>
+^D
+----
+
+Running `fpp-from-xml` yields the following:
+
+----
+% fpp-from-xml S1SerializableAi.xml
+module N {
+
+  enum E {
+    A = 0
+    B = 1
+    C = 2
+  }
+
+  struct S2 {
+    m: E
+  }
+
+}
+----
+
+Notice the following:
+
+. The tool translates namespace `N` in XML to module `N` in FPP.
+
+. The tool translates Serializable type `N::S1` in XML to 
+struct type `N.S1` in FPP.
+
+. The translator generates an enum type `N.E` to represent the
+type of member `m` of struct `N.S1`.
+
+. The translator assigns member `m` of struct `N.S1` the type `N.E`.
+
+Inline arrays are handled similarly, except that the array
+type has no name in the XML representation, so the translator
+generates one.
+For example, here is an F Prime Serializable XML type
+`N::S2` containing a member `m` that is an array of 10 `U32`
 values:
 
 ----
-% cat > SSerializableAi.xml
-<serializable namespace="N" name="S">
+% cat > S2SerializableAi.xml
+<serializable namespace="N" name="S2">
   <members>
     <member name="m" type="U32" size="10"/>
   </members>
@@ -724,9 +782,6 @@ Notice the following:
 . The translator has generated an array type `N.S_m` to represent the
 type of member `m` of struct `N.S`.
 . The translator has given member `m` of struct `N.S` the type `N.S_m`.
-
-The handling of inline enumeration types and of formal parameters in ports is 
-similar.
 
 If you wish to translate an XML model to FPP, and that model contains
 inline arrays or enums, then we suggest the following procedure:

@@ -7514,39 +7514,111 @@ and enumerations:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>The F Prime Serializable XML format can
-contain arrays and enumerations as member types.
+<p>In the Prime Serializable XML format,
+arrays and enumerations may appear as member types.
 The array sizes and enumerated constants are specified inline, as
 part of the member definition.</p>
 </li>
 <li>
-<p>The F Prime Port XML format can contain enumerations
-as the types arguments or as the return type.
+<p>In the Port XML format, enumerations may appear
+as the types of arguments or as the return type.
 Again the enumerated constants are specified inline.</p>
 </li>
 <li>
-<p>The F Prime XML format for commands and for events can
-contain enumerations as the types of arguments.</p>
+<p>In the XML formats for commands and for events,
+enumerations may appear as the types of arguments.</p>
+</li>
+<li>
+<p>In the XML formats for telemetry channels and for
+parameters, enumerations may appear as the types of
+data elements.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
 <p>FPP does not represent these inline array and enum definitions directly.
 In FPP, array and enum definitions are always named, so they can be reused.
-Therefore, when translating an F Prime XML file file that
+Therefore, when translating an F Prime XML file that
 contains inline definitions, <code>fpp-to-xml</code> does the following: (1) translate
 each inline definition to a named FPP array or enum; and (2) use the
 corresponding named types in the translated FPP struct or port.</p>
 </div>
 <div class="paragraph">
 <p>For example, here is an F Prime Serializable XML type
-<code>N::S</code> containing a member <code>m</code> that is an array of 10 <code>U32</code>
+<code>N::S1</code> containing a member <code>m</code> whose type is an enum
+<code>E</code> with three enumerated constants <code>A</code>, <code>B</code>, and <code>C</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>cat &gt; S1SerializableAi.xml
+&lt;serializable namespace="N" name="S2"&gt;
+  &lt;members&gt;
+    &lt;member name="m" type="ENUM"&gt;
+      &lt;enum name="E"&gt;
+        &lt;item name="A"/&gt;
+        &lt;item name="B"/&gt;
+        &lt;item name="C"/&gt;
+      &lt;/enum&gt;
+    &lt;/member&gt;
+  &lt;/members&gt;
+&lt;/serializable&gt;
+^D</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Running <code>fpp-from-xml</code> yields the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-from-xml S1SerializableAi.xml
+module N {
+
+  enum E {
+    A = 0
+    B = 1
+    C = 2
+  }
+
+  struct S2 {
+    m: E
+  }
+
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The tool translates namespace <code>N</code> in XML to module <code>N</code> in FPP.</p>
+</li>
+<li>
+<p>The tool translates Serializable type <code>N::S1</code> in XML to
+struct type <code>N.S1</code> in FPP.</p>
+</li>
+<li>
+<p>The translator generates an enum type <code>N.E</code> to represent the
+type of member <code>m</code> of struct <code>N.S1</code>.</p>
+</li>
+<li>
+<p>The translator assigns member <code>m</code> of struct <code>N.S1</code> the type <code>N.E</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Inline arrays are handled similarly, except that the array
+type has no name in the XML representation, so the translator
+generates one.
+For example, here is an F Prime Serializable XML type
+<code>N::S2</code> containing a member <code>m</code> that is an array of 10 <code>U32</code>
 values:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>% cat &gt; SSerializableAi.xml
-&lt;serializable namespace="N" name="S"&gt;
+<pre>% cat &gt; S2SerializableAi.xml
+&lt;serializable namespace="N" name="S2"&gt;
   &lt;members&gt;
     &lt;member name="m" type="U32" size="10"/&gt;
   &lt;/members&gt;
@@ -7591,10 +7663,6 @@ type of member <code>m</code> of struct <code>N.S</code>.</p>
 <p>The translator has given member <code>m</code> of struct <code>N.S</code> the type <code>N.S_m</code>.</p>
 </li>
 </ol>
-</div>
-<div class="paragraph">
-<p>The handling of inline enumeration types and of formal parameters in ports is
-similar.</p>
 </div>
 <div class="paragraph">
 <p>If you wish to translate an XML model to FPP, and that model contains
@@ -7762,7 +7830,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-03 14:02:41 -0800
+Last updated 2021-03-03 14:29:06 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
