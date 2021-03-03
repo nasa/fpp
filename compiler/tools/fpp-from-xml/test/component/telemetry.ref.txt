@@ -19,4 +19,10 @@ telemetry C5: I32 id 0x4 update always \
     yellow 1
   }
 
+enum E {
+  A = 0
+  B = 1
+  C = 2
+}
+
 telemetry C6: E id 0x5 update always

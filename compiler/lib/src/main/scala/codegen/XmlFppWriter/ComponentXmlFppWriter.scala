@@ -384,7 +384,7 @@ object ComponentXmlFppWriter extends LineUtils {
 
         val xmlName = "channel"
 
-        override def generateMemberNode(file: XmlFppWriter.File, xmlNode: scala.xml.Node) = {
+        override def generateMemberNodes(file: XmlFppWriter.File, xmlNode: scala.xml.Node) = {
           type Limits = List[Ast.SpecTlmChannel.Limit]
           def translateLimits(
             direction: String,
@@ -413,6 +413,7 @@ object ComponentXmlFppWriter extends LineUtils {
             })
           }
           for {
+            enumAnnotatedOpt <- XmlFppWriter.FppBuilder.InlineEnumBuilder.defEnumAnnotatedOpt(file)(xmlNode)
             name <- file.getAttribute(xmlNode, "name")
             comment <- file.getComment(xmlNode)
             typeName <- translateType(file)(xmlNode)
@@ -441,7 +442,13 @@ object ComponentXmlFppWriter extends LineUtils {
             )
             val node = AstNode.create(channel)
             val memberNode = Ast.ComponentMember.SpecTlmChannel(node)
-            (formatNote ++ comment, memberNode, Nil)
+            val tlmChannelMemberNode = (formatNote ++ comment, memberNode, Nil)
+            enumAnnotatedOpt match {
+              case Some(enumAnnotated) => 
+                val enumMemberNode = constructEnumMember(enumAnnotated)
+                List(enumMemberNode, tlmChannelMemberNode)
+              case None => List(tlmChannelMemberNode)
+            }
           }
         }
 
