@@ -18,3 +18,5 @@ telemetry C5: I32 id 0x4 update always \
     orange 2
     yellow 1
   }
+
+telemetry C6: E id 0x5 update always
