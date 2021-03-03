@@ -50,6 +50,9 @@ For example, group types separately from ports.
 ** You can group files according to their role in the FSW.
 For example, group framework files separately from application files.
 
+* If the definition of a constant or type is logically part of a component,
+then make the definition a member of the component.
+
 There is still the usual requirement that a syntactic unit must begin and end 
 in the same file.
 For example:
@@ -167,7 +170,7 @@ constant b = M.a
 The check should pass.
 
 In any case, an included file must contain complete syntactic
-units that could appear at the point where the include specifier appears.
+units that may legally appear at the point where the include specifier appears.
 For example, an included file may contain one or more constant
 definitions or type definitions.
 It may not contain a bare identifier `a`, as this is not a valid top-level

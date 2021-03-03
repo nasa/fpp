@@ -60,16 +60,16 @@ halts with nonzero status.
 
 === Generating XML
 
-The current strategy is to generate
+Our current strategy is to generate
 F Prime XML, and then to run the generated XML through the F Prime
 Python autocoders to generate {cpp}.
-In a future version of FPP, we will streamline this process.
+In a future version of FPP, we will simplify this process.
 
 *XML file names:* The table <<xml-file-names>> shows how FPP definitions are 
 translated
 to F Prime XML files.
 The table shows types, enums, and ports because those are the features
-currently implemented.
+implemented today.
 As we implement more of FPP, we will extend this table.
 
 [[xml-file-names]]
@@ -77,10 +77,14 @@ As we implement more of FPP, we will extend this table.
 |===
 |FPP Definition|F Prime XML File
 
-|Array _A_|_A_ `ArrayAi.xml`
-|Enum _E_|_E_ `EnumAi.xml`
-|Struct _S_|_S_ `SerializableAi.xml`
+|Array _A_ outside any component|_A_ `ArrayAi.xml`
+|Array _A_ in component _C_|_C_ `_` _A_ `ArrayAi.xml`
+|Enum _E_ outside any component|_E_ `EnumAi.xml`
+|Enum _E_ in component _C_|_C_ `_` _E_ `EnumAi.xml`
+|Struct _S_ outside any component|_S_ `SerializableAi.xml`
+|Struct _S_ in component _C_|_C_ `_` _S_ `SerializableAi.xml`
 |Port _P_|_P_ `PortAi.xml`
+|Component _C_|_C_ `ComponentAi.xml`
 |===
 
 For example, the FPP array definition
@@ -90,7 +94,10 @@ For example, the FPP array definition
 array A = [3] U32
 ----
 
-is translated to the file `AArrayAi.xml`.
+is translated to the file `AArrayAi.xml` when it appears outside
+any component definition.
+Inside the definition of component `C`, it is translated to
+the file `C_AArrayAi.xml`.
 
 *Tool name:* The tool for translating FPP definitions to XML files
 is called `fpp-to-xml`.
@@ -243,12 +250,8 @@ for <<Analyzing-and-Translating-Models_Checking-Models,`fpp-check`>>.
 
 *XML limitations:* The XML translation has several
 limitations.
-For more information, see the text marked *XML limitations* in the following 
-sections:
-
-* <<Defining-Types_Struct-Type-Definitions,Struct Type Definitions>>
-
-* <<Defining-Enums,Defining Enums>>
+For more information, see the text marked *XML limitations* elsewhere
+in this manual.
 
 === Generating C Plus Plus
 
@@ -671,12 +674,15 @@ The array sizes and enumerated constants are specified inline, as
 part of the member definition.
 
 * The F Prime Port XML format can contain enumerations
-as parameter types or as the return type.
+as the types arguments or as the return type.
 Again the enumerated constants are specified inline.
+
+* The F Prime XML format for commands and for events can
+contain enumerations as the types of arguments.
 
 FPP does not represent these inline array and enum definitions directly.
 In FPP, array and enum definitions are always named, so they can be reused.
-Therefore, when translating a Serializable XML file or Port XML file that 
+Therefore, when translating an F Prime XML file file that 
 contains inline definitions, `fpp-to-xml` does the following: (1) translate
 each inline definition to a named FPP array or enum; and (2) use the 
 corresponding named types in the translated FPP struct or port.

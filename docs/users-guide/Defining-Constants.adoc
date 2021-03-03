@@ -81,10 +81,12 @@ For example:
 ==== Reserved Words
 
 Certain sequences of letters such as `constant` are called out as *reserved 
-words* in FPP.
+words* (also called keywords) in FPP.
 Each reserved word has a special meaning, such as introducing a constant 
 declaration.
 _The FPP Language Specification_ has a complete list of reserved words.
+In this document, we will introduce reserved words as needed to explain
+the language features.
 
 Using a reserved word as a name in the ordinary way causes a parsing error.
 For example, this code is incorrect:
@@ -247,7 +249,7 @@ It evaluates to an array of two floating-point values.
 If you are not sure whether a type conversion is allowed, you can
 ask `fpp-check`.
 For example: can we convert a Boolean value to an integer value?
-In older languages like C and {cpp} we can, but in most other languages
+In older languages like C and {cpp} we can, but in many newer languages
 we can't. Here is the answer in FPP:
 
 ----

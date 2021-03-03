@@ -896,10 +896,12 @@ the input ended where it expected an expression.</p>
 <h4 id="Defining-Constants_Names_Reserved-Words">3.2.1. Reserved Words</h4>
 <div class="paragraph">
 <p>Certain sequences of letters such as <code>constant</code> are called out as <strong>reserved
-words</strong> in FPP.
+words</strong> (also called keywords) in FPP.
 Each reserved word has a special meaning, such as introducing a constant
 declaration.
-<em>The FPP Language Specification</em> has a complete list of reserved words.</p>
+<em>The FPP Language Specification</em> has a complete list of reserved words.
+In this document, we will introduce reserved words as needed to explain
+the language features.</p>
 </div>
 <div class="paragraph">
 <p>Using a reserved word as a name in the ordinary way causes a parsing error.
@@ -1109,7 +1111,7 @@ an integer value to a floating-point value, so the following code is allowed:</p
 <p>If you are not sure whether a type conversion is allowed, you can
 ask <code>fpp-check</code>.
 For example: can we convert a Boolean value to an integer value?
-In older languages like C and C&#43;&#43; we can, but in most other languages
+In older languages like C and C&#43;&#43; we can, but in many newer languages
 we can&#8217;t. Here is the answer in FPP:</p>
 </div>
 <div class="listingblock">
@@ -5719,6 +5721,10 @@ For example, group framework files separately from application files.</p>
 </ul>
 </div>
 </li>
+<li>
+<p>If the definition of a constant or type is logically part of a component,
+then make the definition a member of the component.</p>
+</li>
 </ul>
 </div>
 <div class="paragraph">
@@ -5867,7 +5873,7 @@ constant b = M.a
 </div>
 <div class="paragraph">
 <p>In any case, an included file must contain complete syntactic
-units that could appear at the point where the include specifier appears.
+units that may legally appear at the point where the include specifier appears.
 For example, an included file may contain one or more constant
 definitions or type definitions.
 It may not contain a bare identifier <code>a</code>, as this is not a valid top-level
@@ -6705,17 +6711,17 @@ halts with nonzero status.</p>
 <div class="sect2">
 <h3 id="Analyzing-and-Translating-Models_Generating-XML">11.2. Generating XML</h3>
 <div class="paragraph">
-<p>The current strategy is to generate
+<p>Our current strategy is to generate
 F Prime XML, and then to run the generated XML through the F Prime
 Python autocoders to generate C&#43;&#43;.
-In a future version of FPP, we will streamline this process.</p>
+In a future version of FPP, we will simplify this process.</p>
 </div>
 <div class="paragraph">
 <p><strong>XML file names:</strong> The table <a href="#xml-file-names">XML File Names</a> shows how FPP definitions are
 translated
 to F Prime XML files.
 The table shows types, enums, and ports because those are the features
-currently implemented.
+implemented today.
 As we implement more of FPP, we will extend this table.</p>
 </div>
 <table id="xml-file-names" class="tableblock frame-all grid-all stretch">
@@ -6732,20 +6738,36 @@ As we implement more of FPP, we will extend this table.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Array <em>A</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array <em>A</em> outside any component</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>A</em> <code>ArrayAi.xml</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enum <em>E</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array <em>A</em> in component <em>C</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>C</em> <code><em></code> _A</em> <code>ArrayAi.xml</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enum <em>E</em> outside any component</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>E</em> <code>EnumAi.xml</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Struct <em>S</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enum <em>E</em> in component <em>C</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>C</em> <code><em></code> _E</em> <code>EnumAi.xml</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Struct <em>S</em> outside any component</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>S</em> <code>SerializableAi.xml</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Struct <em>S</em> in component <em>C</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>C</em> <code><em></code> _S</em> <code>SerializableAi.xml</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Port <em>P</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>P</em> <code>PortAi.xml</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Component <em>C</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>C</em> <code>ComponentAi.xml</code></p></td>
 </tr>
 </tbody>
 </table>
@@ -6758,7 +6780,10 @@ As we implement more of FPP, we will extend this table.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>is translated to the file <code>AArrayAi.xml</code>.</p>
+<p>is translated to the file <code>AArrayAi.xml</code> when it appears outside
+any component definition.
+Inside the definition of component <code>C</code>, it is translated to
+the file <code>C_AArrayAi.xml</code>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Tool name:</strong> The tool for translating FPP definitions to XML files
@@ -6964,18 +6989,8 @@ for <a href="#Analyzing-and-Translating-Models_Checking-Models"><code>fpp-check<
 <div class="paragraph">
 <p><strong>XML limitations:</strong> The XML translation has several
 limitations.
-For more information, see the text marked <strong>XML limitations</strong> in the following
-sections:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#Defining-Types_Struct-Type-Definitions">Struct Type Definitions</a></p>
-</li>
-<li>
-<p><a href="#Defining-Enums">Defining Enums</a></p>
-</li>
-</ul>
+For more information, see the text marked <strong>XML limitations</strong> elsewhere
+in this manual.</p>
 </div>
 </div>
 <div class="sect2">
@@ -7506,15 +7521,19 @@ part of the member definition.</p>
 </li>
 <li>
 <p>The F Prime Port XML format can contain enumerations
-as parameter types or as the return type.
+as the types arguments or as the return type.
 Again the enumerated constants are specified inline.</p>
+</li>
+<li>
+<p>The F Prime XML format for commands and for events can
+contain enumerations as the types of arguments.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
 <p>FPP does not represent these inline array and enum definitions directly.
 In FPP, array and enum definitions are always named, so they can be reused.
-Therefore, when translating a Serializable XML file or Port XML file that
+Therefore, when translating an F Prime XML file file that
 contains inline definitions, <code>fpp-to-xml</code> does the following: (1) translate
 each inline definition to a named FPP array or enum; and (2) use the
 corresponding named types in the translated FPP struct or port.</p>
@@ -7743,7 +7762,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-03 09:36:12 -0800
+Last updated 2021-03-03 14:02:41 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
