@@ -5590,8 +5590,10 @@ the following occurs:</p>
 <div class="paragraph">
 <p>Similarly, the FPP constant <code>SerialSplitter.splitFactor</code>
 becomes a C&#43;&#43; constant <code>SerialSplitter_SplitFactor</code>.
-We will have more to say about this issue in the section on
-<a href="#Analyzing-and-Translating-Models_Generating-XML">generating XML</a>.</p>
+We will have more to say about this issue in the sections on
+<a href="#Analyzing-and-Translating-Models_Generating-XML">generating XML</a>
+and
+<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">generating C&#43;&#43;</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -6772,7 +6774,7 @@ As we implement more of FPP, we will extend this table.</p>
 </tbody>
 </table>
 <div class="paragraph">
-<p>For example, the FPP array definition</p>
+<p>For example, consider the FPP array definition</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -6780,10 +6782,26 @@ As we implement more of FPP, we will extend this table.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>is translated to the file <code>AArrayAi.xml</code> when it appears outside
-any component definition.
+<p>Outside of any component definition, this definition is translated to
+an XML array with name <code>A</code> defined in a file <code>AArrayAi.xml</code>.
 Inside the definition of component <code>C</code>, it is translated to
-the file <code>C_AArrayAi.xml</code>.</p>
+an XML array with name <code>C_A</code> defined in the file <code>C_AArrayAi.xml</code>.
+In either case the namespace in the XML file is given by the enclosing
+FPP modules, if any.
+For example, the following code</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+
+  array A = [3] U32
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>becomes an array with name <code>A</code> and namespace <code>M</code> in file
+<code>AArrayAi.xml</code>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Tool name:</strong> The tool for translating FPP definitions to XML files
@@ -7123,6 +7141,25 @@ works
 Notice how the FPP annotations are translated to comments.
 (We also remarked on this in the section on
 <a href="#Writing-Comments-and-Annotations_Annotations">writing annotations</a>.)</p>
+</div>
+<div class="paragraph">
+<p><strong>Constants defined inside components:</strong>
+As noted in the section on
+<a href="#Defining-Components_Constants-and-Types">defining components</a>,
+when you define a constant <code>c</code> inside a component <code>C</code>,
+the name of the corresponding constant in the generated C&#43;&#43;
+code is <code>C_a</code>.
+As an example, run the following code through <code>fpp-to-cpp</code>
+and examine the results:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">passive component C {
+
+  constant c = 0
+
+}</code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p><strong>Setting the include guard prefix:</strong> By default, the include guard
@@ -7498,7 +7535,7 @@ array B = [2] A</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Here XML representation of the array values <code>[ 1, 2 ]</code> and <code>[ 3, 4 ]</code>
+<p>Here the XML representation of the array values <code>[ 1, 2 ]</code> and <code>[ 3, 4 ]</code>
 uses the C&#43;&#43; constructor calls <code>A(1, 2)</code> and <code>A(3, 4)</code>.
 When translating <code>BArrayAi.xml</code>, <code>fpp-from-xml</code> doesn&#8217;t know how to translate
 those values, because it doesn&#8217;t have any information about the type <code>A</code>.
@@ -7508,21 +7545,18 @@ That way, you can manually construct a default value in FPP.</p>
 </div>
 <div class="paragraph">
 <p><strong>Inline array and enum definitions:</strong>
-The following F Prime XML formats may include definitions of arrays
-and enumerations:</p>
+The following F Prime XML formats may include inline
+definitions of arrays and enumerations:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>In the Prime Serializable XML format,
-arrays and enumerations may appear as member types.
-The array sizes and enumerated constants are specified inline, as
-part of the member definition.</p>
+<p>In the Serializable XML format,
+arrays and enumerations may appear as member types.</p>
 </li>
 <li>
 <p>In the Port XML format, enumerations may appear
-as the types of arguments or as the return type.
-Again the enumerated constants are specified inline.</p>
+as the types of arguments or as the return type.</p>
 </li>
 <li>
 <p>In the XML formats for commands and for events,
@@ -7534,6 +7568,11 @@ parameters, enumerations may appear as the types of
 data elements.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>In each case, the array sizes and enumerated constants are specified
+inline, as
+part of the definition of the member, argument, return type, etc.</p>
 </div>
 <div class="paragraph">
 <p>FPP does not represent these inline array and enum definitions directly.
@@ -7551,7 +7590,7 @@ corresponding named types in the translated FPP struct or port.</p>
 <div class="listingblock">
 <div class="content">
 <pre>cat &gt; S1SerializableAi.xml
-&lt;serializable namespace="N" name="S2"&gt;
+&lt;serializable namespace="N" name="S1"&gt;
   &lt;members&gt;
     &lt;member name="m" type="ENUM"&gt;
       &lt;enum name="E"&gt;
@@ -7566,7 +7605,11 @@ corresponding named types in the translated FPP struct or port.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Running <code>fpp-from-xml</code> yields the following:</p>
+<p>(The formula <code>cat &gt;</code> <em>file</em> lets us enter input to
+the console and have it written to <em>file</em>.)</p>
+</div>
+<div class="paragraph">
+<p>Running <code>fpp-from-xml</code> on this file yields the following:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -7579,7 +7622,7 @@ module N {
     C = 2
   }
 
-  struct S2 {
+  struct S1 {
     m: E
   }
 
@@ -7595,20 +7638,21 @@ module N {
 <p>The tool translates namespace <code>N</code> in XML to module <code>N</code> in FPP.</p>
 </li>
 <li>
-<p>The tool translates Serializable type <code>N::S1</code> in XML to
-struct type <code>N.S1</code> in FPP.</p>
+<p>The tool translates Serializable type <code>N::S1</code> to
+struct type <code>N.S1</code> (that is, struct type <code>S1</code> defined
+in module <code>N</code>).</p>
 </li>
 <li>
-<p>The translator generates an enum type <code>N.E</code> to represent the
+<p>The tool generates an enum type <code>N.E</code> to represent the
 type of member <code>m</code> of struct <code>N.S1</code>.</p>
 </li>
 <li>
-<p>The translator assigns member <code>m</code> of struct <code>N.S1</code> the type <code>N.E</code>.</p>
+<p>The tool assigns member <code>m</code> of struct <code>N.S1</code> the type <code>N.E</code>.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>Inline arrays are handled similarly, except that the array
+<p>The tool handles inline arrays similarly, except that the array
 type has no name in the XML representation, so the translator
 generates one.
 For example, here is an F Prime Serializable XML type
@@ -7631,13 +7675,13 @@ values:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>% fpp-from-xml SSerializableAi.xml
+<pre>% fpp-from-xml S2SerializableAi.xml
 module N {
 
-  array S_m = [10] U32
+  array S2_m = [10] U32
 
-  struct S {
-    m: S_m
+  struct S2 {
+    m: S2_m
   }
 
 }</pre>
@@ -7649,18 +7693,19 @@ module N {
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The namespace <code>N</code> in the XML is translated to module <code>N</code> in FPP.</p>
+<p>The tool translates namespace <code>N</code> in XML to module <code>N</code> in FPP.</p>
 </li>
 <li>
-<p>The Serializable type <code>N::S</code> in the XML is translated to the struct type
-<code>N.S</code> in FPP.</p>
+<p>The tool translates Serializable type <code>N::S2</code> to the struct type
+<code>N.S2</code>.</p>
 </li>
 <li>
-<p>The translator has generated an array type <code>N.S_m</code> to represent the
-type of member <code>m</code> of struct <code>N.S</code>.</p>
+<p>The tool generates an array type <code>N.S2_m</code> to represent the
+type of member <code>m</code> of struct <code>N.S2</code>.
+The name <code>S2_m</code> is generated by the translator.</p>
 </li>
 <li>
-<p>The translator has given member <code>m</code> of struct <code>N.S</code> the type <code>N.S_m</code>.</p>
+<p>The tool gives member <code>m</code> of struct <code>N.S2</code> the type <code>N.S2_m</code>.</p>
 </li>
 </ol>
 </div>
@@ -7830,7 +7875,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-03 14:29:06 -0800
+Last updated 2021-03-03 18:26:21 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
