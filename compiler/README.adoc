@@ -34,12 +34,11 @@ The currently available tools are as follows:
 * `fpp-to-cpp`
 * `fpp-to-xml`
 
-As of v0.3.0, modeling and translation of constants, types, enums, and ports is 
-supported.
+As of v0.3.0, modeling and translation of constants, types, enums, ports,
+and components is supported.
 Topology support is planned for the following release.
 
-See https://fprime-community/fpp/wiki/Tools
-for more information.
+See https://fprime-community/fpp/wiki/Tools for more information.
 
 == Testing
 
