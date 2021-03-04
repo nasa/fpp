@@ -1,6 +1,7 @@
 == Defining Constants
 
-In an FPP model, a *constant definition* associates a name with a value,
+The simplest FPP model consists of one or more *constant definitions*.
+A constant definition associates a name with a value,
 so that elsewhere you can use the name instead of re-computing or restating the 
 value.
 Using named constants makes the model easier to understand (the name
@@ -143,6 +144,8 @@ _The FPP Language Specification_ has all the details.
 
 This section describes the expressions that you can write as part of a constant
 definition.
+Expressions appear in other FPP elements as well, so we will refer back
+to this section in later sections of the manual.
 
 ==== Primitive Values
 

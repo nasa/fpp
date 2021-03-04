@@ -772,9 +772,8 @@ Notice the following:
 
 . The tool translates namespace `N` in XML to module `N` in FPP.
 
-. The tool translates Serializable type `N::S1` to 
-struct type `N.S1` (that is, struct type `S1` defined
-in module `N`).
+. The tool translates Serializable type `S1` in namespace `N`
+to struct type `S1` in module `N`.
 
 . The tool generates an enum type `N.E` to represent the
 type of member `m` of struct `N.S1`.
@@ -817,8 +816,8 @@ Notice the following:
 
 . The tool translates namespace `N` in XML to module `N` in FPP.
 
-. The tool translates Serializable type `N::S2` to the struct type 
-`N.S2`.
+. The tool translates Serializable type `S2` in namespace `N` to the struct 
+type `S2` in module `N`.
 
 . The tool generates an array type `N.S2_m` to represent the
 type of member `m` of struct `N.S2`.
@@ -831,6 +830,7 @@ inline arrays or enums, then we suggest the following procedure:
 
 . Run `fpp-from-xml` on the XML model as described above to convert all of the
 inline definitions to named XML types.
+
 . Refactor your XML model and FSW implementation to use the XML types generated 
 in step 1.
 This may require changes to your {cpp} code.
@@ -842,6 +842,7 @@ Do this step incrementally, making sure that all your regression tests pass at
 each step.
 During this step, you can replace auto-generated names such as `S_m`
 with more meaningful names.
+
 . Once you have the XML model in the required form, run `fpp-from-xml`
 again to generate an FPP model _M_.
 If you have done step 2 correctly, then you should be able to

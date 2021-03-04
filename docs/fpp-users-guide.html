@@ -709,6 +709,20 @@ note marked <strong>XML limitation</strong>.
 A future version of FPP will generate C&#43;&#43; directly and will support
 all the features described here.</p>
 </div>
+<div class="paragraph">
+<p><strong>Overview:</strong> The rest of this document proceeds as follows.
+Section 2 explains how to get up and running with FPP.
+Sections 3 through 9 describe the elements of an FPP
+model, starting with the simplest elements (constants
+and types) and working towards the most complex (components
+and topologies).
+Section 10 explains how to specify complete models of realistic
+size; for example it covers the management of dependencies
+between the files that describe a model.
+Section 11 explains how to analyze FPP models and how
+to translate FPP models to and from F Prime XML
+and to C&#43;&#43;.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -768,7 +782,8 @@ to get a feel for how FPP works.</p>
 <h2 id="Defining-Constants">3. Defining Constants</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In an FPP model, a <strong>constant definition</strong> associates a name with a value,
+<p>The simplest FPP model consists of one or more <strong>constant definitions</strong>.
+A constant definition associates a name with a value,
 so that elsewhere you can use the name instead of re-computing or restating the
 value.
 Using named constants makes the model easier to understand (the name
@@ -967,7 +982,9 @@ can have the same name, but an array type and a
 <h3 id="Defining-Constants_Expressions">3.3. Expressions</h3>
 <div class="paragraph">
 <p>This section describes the expressions that you can write as part of a constant
-definition.</p>
+definition.
+Expressions appear in other FPP elements as well, so we will refer back
+to this section in later sections of the manual.</p>
 </div>
 <div class="sect3">
 <h4 id="Defining-Constants_Expressions_Primitive-Values">3.3.1. Primitive Values</h4>
@@ -7638,9 +7655,8 @@ module N {
 <p>The tool translates namespace <code>N</code> in XML to module <code>N</code> in FPP.</p>
 </li>
 <li>
-<p>The tool translates Serializable type <code>N::S1</code> to
-struct type <code>N.S1</code> (that is, struct type <code>S1</code> defined
-in module <code>N</code>).</p>
+<p>The tool translates Serializable type <code>S1</code> in namespace <code>N</code>
+to struct type <code>S1</code> in module <code>N</code>.</p>
 </li>
 <li>
 <p>The tool generates an enum type <code>N.E</code> to represent the
@@ -7696,8 +7712,8 @@ module N {
 <p>The tool translates namespace <code>N</code> in XML to module <code>N</code> in FPP.</p>
 </li>
 <li>
-<p>The tool translates Serializable type <code>N::S2</code> to the struct type
-<code>N.S2</code>.</p>
+<p>The tool translates Serializable type <code>S2</code> in namespace <code>N</code> to the struct
+type <code>S2</code> in module <code>N</code>.</p>
 </li>
 <li>
 <p>The tool generates an array type <code>N.S2_m</code> to represent the
@@ -7875,7 +7891,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-03 18:26:21 -0800
+Last updated 2021-03-04 09:01:03 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

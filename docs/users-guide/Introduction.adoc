@@ -60,3 +60,15 @@ note marked *XML limitation*.
 A future version of FPP will generate {cpp} directly and will support
 all the features described here.
 
+*Overview:* The rest of this document proceeds as follows.
+Section 2 explains how to get up and running with FPP.
+Sections 3 through 9 describe the elements of an FPP
+model, starting with the simplest elements (constants
+and types) and working towards the most complex (components
+and topologies).
+Section 10 explains how to specify complete models of realistic
+size; for example it covers the management of dependencies
+between the files that describe a model.
+Section 11 explains how to analyze FPP models and how
+to translate FPP models to and from F Prime XML
+and to {cpp}.
