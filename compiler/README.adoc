@@ -42,9 +42,12 @@ See https://fprime-community/fpp/wiki/Tools for more information.
 
 == Testing
 
-* Run `./install` or `./sbt test` to run all unit tests.
+There are two kinds of tests: unit tests written in Scala and
+unit tests that exercise the command-line tools.
 
-* Run `./test` to run all integration tests.
+* Run `./install` or `./sbt test` to run all Scala unit tests.
+
+* Run `./test` to run all command-line unit tests.
 Do this after running `./install`.
 If you update the build, rerun `./install` before running `./test`.
 
@@ -52,7 +55,8 @@ If you update the build, rerun `./install` before running `./test`.
 
 . Start up the sbt shell.
 
-. In the shell, run `compile` to compile everything, `test` to run all unit tests,
+. In the shell, run `compile` to compile everything, `test` to run all 
+Scala unit tests,
 and `assembly` to create jar files.
 The `install` script runs these commands automatically.
 It also moves the jar files to the install directory and puts executable
