@@ -21,7 +21,8 @@ that defines the value associated with the constant definition.
 
 To write a constant definition, you write the keyword `constant`,
 an equals sign, and an expression.
-The next section describes all the expressions you can write.
+A <<Defining-Constants_Expressions,later section>>
+describes all the expressions you can write.
 Here is an example that uses an integer literal expression representing
 the value 42:
 
