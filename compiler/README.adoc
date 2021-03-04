@@ -8,7 +8,7 @@
 == Installing
 
 To install in the `bin` directory, run `./install`.
-This step also runs all the unit tests.
+This step also runs all the Scala unit tests.
 To install to a different directory, run `./install` _dir-name_.
 
 Once you have installed the FPP compiler to a directory `FPP_INSTALL_DIR`, you
