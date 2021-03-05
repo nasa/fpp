@@ -128,9 +128,9 @@ object CheckTypeUses extends UseAnalyzer {
     Right(a.assignType(node -> Type.String(tn.size)))
 
   override def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified) =
-    visitUse(a, node, use)
+    visitUse(a, node)
 
-  private def visitUse[T](a: Analysis, node: AstNode[T], use: Name.Qualified): Result = {
+  private def visitUse[T](a: Analysis, node: AstNode[T]): Result = {
     val symbol = a.useDefMap(node.id)
     for {
       a <- symbol match {

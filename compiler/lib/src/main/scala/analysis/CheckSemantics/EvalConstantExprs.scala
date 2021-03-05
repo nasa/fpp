@@ -7,7 +7,7 @@ import fpp.compiler.util._
 object EvalConstantExprs extends UseAnalyzer {
 
   override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) = 
-    visitUse(a, node, use)
+    visitUse(a, node)
 
   override def defConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
     val (_, node,_) = aNode
@@ -146,7 +146,6 @@ object EvalConstantExprs extends UseAnalyzer {
       }
 
   override def exprUnopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprUnop) = {
-    val loc = Locations.get(node.id)
     for (a <- super.exprUnopNode(a, node, e))
       yield {
         val v = a.neg(e.e.id)
@@ -154,7 +153,7 @@ object EvalConstantExprs extends UseAnalyzer {
       }
   }
 
-  private def visitUse[T](a: Analysis, node: AstNode[T], use: Name.Qualified): Result = {
+  private def visitUse[T](a: Analysis, node: AstNode[T]): Result = {
     val symbol = a.useDefMap(node.id)
     for {
       a <- symbol match {

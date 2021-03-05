@@ -15,7 +15,6 @@ object ConstantCppWriter extends AstVisitor with LineUtils {
     aNode: Ast.Annotated[AstNode[Ast.DefConstant]]
   ) = {
     val node = aNode._2
-    val loc = Locations.get(node.id)
     val data = node.data
     val value = s.a.valueMap(node.id)
     val name = s.addComponentNamePrefix(Symbol.Constant(aNode))

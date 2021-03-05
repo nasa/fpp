@@ -10,18 +10,18 @@ object Components {
   def checkValidity(a: Analysis, c: Component): Result.Result[Unit] = {
     val kind = c.aNode._2.data.kind
     for {
-      _ <- checkNoDuplicateNames(a, c)
+      _ <- checkNoDuplicateNames(c)
       _ <- kind match {
-        case Ast.ComponentKind.Passive => checkNoAsyncInput(a, c)
+        case Ast.ComponentKind.Passive => checkNoAsyncInput(c)
         case _ => checkAsyncInput(a, c)
       }
-      _ <- checkRequiredPorts(a, c)
+      _ <- checkRequiredPorts(c)
     }
     yield ()
   }
 
   /** Checks that there are no duplicate names in dictionaries */
-  private def checkNoDuplicateNames(a: Analysis, c: Component):
+  private def checkNoDuplicateNames(c: Component):
     Result.Result[Unit] = {
       def checkDictionary[Id,Value](
         dictionary: Map[Id,Value],
@@ -73,7 +73,7 @@ object Components {
     }
 
   /** Checks that component has no async input ports */
-  private def checkNoAsyncInput(a: Analysis, c: Component):
+  private def checkNoAsyncInput(c: Component):
     Result.Result[Unit] = {
       def checkPortInstances() = Result.map(
         c.portMap.values.toList,
@@ -105,7 +105,7 @@ object Components {
 
   /** Checks that component has at least one async input port or async command */
   private def checkAsyncInput(a: Analysis, c: Component):
-    Result.Result[Unit] = checkNoAsyncInput(a, c) match {
+    Result.Result[Unit] = checkNoAsyncInput(c) match {
       case Left(_) => Right(())
       case _ =>
         val node = c.aNode._2
@@ -115,7 +115,7 @@ object Components {
     }
 
   /** Check that component provides ports required by dictionaries */
-  private def checkRequiredPorts(a: Analysis, c: Component):
+  private def checkRequiredPorts(c: Component):
     Result.Result[Unit] = {
       def requirePorts(
         mapSize: Int,

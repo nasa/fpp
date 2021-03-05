@@ -74,7 +74,6 @@ object CppDocHppWriter extends CppDocWriter {
 
   override def visitConstructor(in: Input, constructor: CppDoc.Class.Constructor) = {
     val unqualifiedClassName = in.getEnclosingClassUnqualified
-    val qualifiedClassName = in.getEnclosingClassQualified
     val outputLines = {
       val lines1 = CppDocWriter.writeDoxygenCommentOpt(constructor.comment)
       val lines2 = {
@@ -100,7 +99,6 @@ object CppDocHppWriter extends CppDocWriter {
 
   override def visitDestructor(in: Input, destructor: CppDoc.Class.Destructor) = {
     val unqualifiedClassName = in.getEnclosingClassUnqualified
-    val qualifiedClassName = in.getEnclosingClassQualified
     val outputLines = {
       val lines1 = CppDocWriter.writeDoxygenCommentOpt(destructor.comment)
       val lines2 = destructor.virtualQualifier match {

@@ -474,7 +474,6 @@ object Parser extends Parsers {
   }
 
   def specTlmChannel: Parser[Ast.SpecTlmChannel] = {
-    val Channel = Ast.SpecTlmChannel
     def updateSetting = {
       always ^^ { case _ => Ast.SpecTlmChannel.Always } |
       on ~! change ^^ { case _ => Ast.SpecTlmChannel.OnChange } |

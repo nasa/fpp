@@ -8,7 +8,7 @@ import fpp.compiler.util._
 object CheckExprTypes extends UseAnalyzer {
 
   override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) = 
-    visitUse(a, node, use)
+    visitUse(a, node)
 
   override def defArrayAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val (_, node, _) = aNode
@@ -248,7 +248,7 @@ object CheckExprTypes extends UseAnalyzer {
       _ <- convertNodeToNumericOpt(a, tn.size)
     } yield a
 
-  private def visitUse[T](a: Analysis, node: AstNode[T], use: Name.Qualified): Result = {
+  private def visitUse[T](a: Analysis, node: AstNode[T]): Result = {
     val symbol = a.useDefMap(node.id)
     for {
       a <- symbol match {
