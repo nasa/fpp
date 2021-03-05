@@ -52,8 +52,8 @@ Do this after running `./install`.
 If you update the build, rerun `./install` before running `./test`.
 
 Some of the command-line unit tests run `scalac` (the Scala compiler).
-To run these tests, you will need a Scala
-installation available on the command line.
+To run these tests, you will need Scala 2.11 or greater
+installed and available on the command line.
 
 == Development
 
