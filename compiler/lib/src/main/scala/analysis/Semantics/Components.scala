@@ -13,7 +13,7 @@ object Components {
       _ <- checkNoDuplicateNames(c)
       _ <- kind match {
         case Ast.ComponentKind.Passive => checkNoAsyncInput(c)
-        case _ => checkAsyncInput(a, c)
+        case _ => checkAsyncInput(c)
       }
       _ <- checkRequiredPorts(c)
     }
@@ -104,7 +104,7 @@ object Components {
     }
 
   /** Checks that component has at least one async input port or async command */
-  private def checkAsyncInput(a: Analysis, c: Component):
+  private def checkAsyncInput(c: Component):
     Result.Result[Unit] = checkNoAsyncInput(c) match {
       case Left(_) => Right(())
       case _ =>
