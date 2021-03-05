@@ -47,7 +47,7 @@ uses_dir()
 
 stdin()
 {
-  $fpp_locate_uses -i defs.fpp < uses/uses.fpp | sort > stdin.ref.txt
+  $fpp_locate_uses -i defs.fpp < uses/uses.fpp > stdin.ref.txt
 }
 
 for t in $tests

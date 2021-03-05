@@ -49,7 +49,7 @@ uses_dir()
 
 stdin()
 {
-  $fpp_locate_uses -i defs.fpp < uses/uses.fpp | sort > stdin.out.txt
+  $fpp_locate_uses -i defs.fpp < uses/uses.fpp > stdin.out.txt
   compare stdin
 }
 

@@ -45,11 +45,15 @@ See https://fprime-community/fpp/wiki/Tools for more information.
 There are two kinds of tests: unit tests written in Scala and
 unit tests that exercise the command-line tools.
 
-* Run `./install` or `./sbt test` to run all Scala unit tests.
+. Run `./install` or `./sbt test` to run all Scala unit tests.
 
-* Run `./test` to run all command-line unit tests.
+. Run `./test` to run all command-line unit tests.
 Do this after running `./install`.
 If you update the build, rerun `./install` before running `./test`.
+
+Some of the command-line unit tests run `scalac` (the Scala compiler).
+To run these tests, you will need a Scala
+installation available on the command line.
 
 == Development
 
