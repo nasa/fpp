@@ -2,3 +2,4 @@
 *.hpp
 *.hpp.gch
 *.o
+build_log.txt
