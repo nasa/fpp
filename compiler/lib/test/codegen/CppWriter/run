@@ -4,10 +4,9 @@
 
 cpp_doc_ok()
 {
-  ./build
-  ./hpp > C.hpp
-  ./cpp > C.cpp
-
+  ./build && \
+  ./hpp > C.hpp && \
+  ./cpp > C.cpp && \
   gcc -c C.cpp
 }
 
