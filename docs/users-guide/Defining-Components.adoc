@@ -1472,9 +1472,6 @@ time get port>>
 for this component.
 Both ports are required for any component that has telemetry.
 
-*XML limitation:* The F Prime XML format does not support
-telemetry of `string` type.
-
 ==== Identifiers
 
 Every telemetry channel in an F Prime FSW application has a unique
