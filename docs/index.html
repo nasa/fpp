@@ -990,6 +990,7 @@ fatal
 format
 get
 guarded
+health
 high
 id
 import
@@ -1007,7 +1008,6 @@ orange
 output
 param
 passive
-pattern
 phase
 port
 priority
@@ -2475,7 +2475,7 @@ may or may not be present, and if they are present their meaning is ignored.</p>
 <a href="#Specifiers_Component-Instance-Specifiers">instances</a> (both public and
 private) appearing in <em>D</em> and all
 <a href="#Specifiers_Connection-Graph-Specifiers">connection graphs</a> appearing in
-<em>D</em>, after resolving all graph pattern pattern specifiers to direct graph
+<em>D</em>, after resolving all graph pattern specifiers to direct graph
 specifiers and merging each set of connection graphs with the same name into
 a single graph.
 For example, the two connection graphs</p>
@@ -2575,29 +2575,30 @@ The translator just picks a legal one.
 See Example 4 below.</p>
 </div>
 <div class="paragraph">
-<p><strong>Special numbering:</strong> Particular translation strategies may apply
-special numbering passes. For example:</p>
+<p><strong>Special numbering:</strong> The analyzer applies the following special numbering
+passes:</p>
 </div>
-<div class="ulist">
-<ul>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>There may be a numbering pass to ensure
-that the indices of the command registration connections coming into the
-command dispatcher match the indices of the command connections going out
-of the command dispatcher.</p>
+<p><strong>Command registration:</strong> Renumber the command registration connections
+going into and out of the command dispatcher.</p>
 </li>
 <li>
-<p>There may be a numbering pass to ensure
-that the indices of the command connections going out of the sequencer
-match the indices of the command response connections coming into the
-sequencer.</p>
+<p><strong>Command sequences:</strong> Renumber the command connections out of the
+command sequencer
+and the command response connections into the sequencer.</p>
 </li>
 <li>
-<p>There may be a numbering pass to ensure that the index of each
-ping output port of the Health instance matches the index of the corresponding
-ping input port of the Health instance.</p>
+<p><strong>Health pings:</strong> Renumber the ping input and ping output connections
+of the Health component instance.</p>
 </li>
-</ul>
+</ol>
+</div>
+<div class="paragraph">
+<p>In each case, the numbering algorithm ensures that the port number
+of each input connection matches the port number of the corresponding
+output connection.</p>
 </div>
 </div>
 <div class="sect4">
@@ -2654,9 +2655,9 @@ topology CDH {
   # Connection patterns
   # ----------------------------------------------------------------------
 
-  connections pattern COMMANDS instance commandDispatcher
-  connections pattern EVENTS instance eventLogger
-  connections pattern TIME instance timeSource
+  command connections instance commandDispatcher
+  event connections instance eventLogger
+  time connections instance timeSource
 
   # ----------------------------------------------------------------------
   # Connection graphs
@@ -2753,9 +2754,9 @@ topology AttitudeControl {
   # Connection patterns
   # ----------------------------------------------------------------------
 
-  connections instance commandDispatcher pattern COMMANDS
-  connections instance eventLogger pattern EVENTS
-  connections instance timeSource pattern TIME
+  command connections instance commandDispatcher
+  event connections instance eventLogger
+  time connections instance timeSource
 
 
   # ----------------------------------------------------------------------
@@ -3095,12 +3096,12 @@ another.</p>
 </li>
 <li>
 <p>A <strong>graph pattern specifier:</strong>
+<em>pattern-kind</em>
 <code>connections</code>
 <code>instance</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a>
 <em>[</em>
 <code>{</code> <em>instance-sequence</em> <code>}</code>
-<em>]</em>
-<code>pattern</code> <a href="#Expressions"><em>expression</em></a></p>
+<em>]</em></p>
 </li>
 </ul>
 </div>
@@ -3125,6 +3126,28 @@ A connection is the following:</p>
 <a href="#Expressions"><em>expression</em></a>
 <code>]</code>
 <em>]</em></p>
+</div>
+<div class="paragraph">
+<p><em>pattern-kind</em> is one of the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>command</code></p>
+</li>
+<li>
+<p><code>event</code></p>
+</li>
+<li>
+<p><code>health</code></p>
+</li>
+<li>
+<p><code>telemetry</code></p>
+</li>
+<li>
+<p><code>time</code></p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p><em>instance-sequence</em> is an
@@ -3202,17 +3225,12 @@ to any port at the other end.</p>
 <p><strong>Graph pattern specifiers.</strong>
 A graph pattern specifier indirectly specifies one or more named connection
 graphs
-by specifying a source component, a set of target components,
-and a pattern for connecting the source component to each of the
-target components.</p>
+by specifying a source component instance, a set of target component
+instances, and a pattern for connecting the source instance to each of the
+target instances.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
-<li>
-<p>The expression following the keyword <code>pattern</code> must have
-a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.
-It provides an integer identifier for a connection pattern.</p>
-</li>
 <li>
 <p>The qualified identifier following the keyword <code>instance</code> must
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
@@ -3235,49 +3253,57 @@ that are valid for the pattern.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>The meaning of the pattern identifiers depends on the translation context.
-Typical patterns include the following:</p>
+<p>The meaning of specifier depends on the pattern kind, as follows:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><code>COMMANDS</code>: The source instance <em>I</em> is a command dispatcher.
+<p><code>command</code>: The source instance <em>I</em> is a command dispatcher.
 The following connection graphs are generated:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
 <p>A connection graph named <code>Command</code> consisting of all connections
-from the output port of type <code>Fw::Cmd</code> of <em>I</em> to the input port of type
-<code>Fw::Cmd</code> of each target component.</p>
+from the output port of type <code>Fw::Cmd</code> of <em>I</em> to the command input port
+of each target component.</p>
 </li>
 <li>
 <p>A connection graph named <code>CommandRegistration</code> consisting of all
-connections from the output port of type <code>Fw::CmdReg</code> of each target component
-to the input port of type <code>Fw::Cmd</code> of <em>I</em>.</p>
+connections from the command registration output port of
+each target component
+to the command registration input port of <em>I</em>.</p>
 </li>
 <li>
 <p>A connection graph named <code>CommandResponse</code> consisting of all connections
-from the output port of type <code>Fw::CmdResp</code> of each target component
-to the input port of type <code>Fw::CmdResp</code> of <em>I</em>.</p>
+from the command response output port of each target component
+to the command response input port of <em>I</em>.</p>
 </li>
 </ol>
 </div>
 </li>
 <li>
-<p><code>EVENTS</code>: The source instance <em>I</em> is an active logger.
+<p><code>event</code>: The source instance <em>I</em> is an active logger.
 The generated connection graph has name <code>Events</code> and contains
-all connections for sending events to <em>I</em>.</p>
+all connections for sending events to <em>I</em> through an event
+output port.</p>
 </li>
 <li>
-<p><code>HEALTH</code>: The source instance <em>I</em> is a health component.
+<p><code>health</code>: The source instance <em>I</em> is a health component.
 The generated connection graph has name <code>Health</code> and contains
-all connections between the health component and the ping
-ports of the target components.</p>
+all connections between the health component and ping
+ports of the target components of type <code>Svc.Ping</code>.</p>
 </li>
 <li>
-<p><code>TIME</code>: The source instance <em>I</em> is a time component.
+<p><code>telemetry</code>: The source instance <em>I</em> is a telemetry database.
+The generated connection graph has name <code>Telemetry</code>
+and contains all connections for sending telemetry to <em>I</em>
+through a telemetry output port.</p>
+</li>
+<li>
+<p><code>time</code>: The source instance <em>I</em> is a time component.
 The generated connection graph has name <code>Time</code> and contains
-all connections for getting the time from <em>I</em>.</p>
+all connections for getting the time from <em>I</em> through
+a time get output port.</p>
 </li>
 </ol>
 </div>
@@ -3303,7 +3329,7 @@ timeSource</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">connections pattern COMMAND instance commandDispatcher</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">command connections instance commandDispatcher</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -7787,7 +7813,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-02 08:30:46 -0800
+Last updated 2021-03-10 14:17:02 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

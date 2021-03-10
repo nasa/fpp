@@ -59,7 +59,7 @@ may or may not be present, and if they are present their meaning is ignored.
 <<Specifiers_Component-Instance-Specifiers,instances>> (both public and
 private) appearing in _D_ and all
 <<Specifiers_Connection-Graph-Specifiers,connection graphs>> appearing in
-_D_, after resolving all graph pattern pattern specifiers to direct graph
+_D_, after resolving all graph pattern specifiers to direct graph
 specifiers and merging each set of connection graphs with the same name into
 a single graph.
 For example, the two connection graphs
@@ -135,22 +135,22 @@ Therefore, in general multiple assignments are possible.
 The translator just picks a legal one.
 See Example 4 below.
 
-*Special numbering:* Particular translation strategies may apply
-special numbering passes. For example:
+*Special numbering:* The analyzer applies the following special numbering 
+passes:
 
-* There may be a numbering pass to ensure
-that the indices of the command registration connections coming into the 
-command dispatcher match the indices of the command connections going out
-of the command dispatcher.
+. *Command registration:* Renumber the command registration connections
+going into and out of the command dispatcher.
 
-* There may be a numbering pass to ensure
-that the indices of the command connections going out of the sequencer
-match the indices of the command response connections coming into the 
-sequencer.
+. *Command sequences:* Renumber the command connections out of the 
+command sequencer
+and the command response connections into the sequencer.
 
-* There may be a numbering pass to ensure that the index of each 
-ping output port of the Health instance matches the index of the corresponding 
-ping input port of the Health instance.
+. *Health pings:* Renumber the ping input and ping output connections
+of the Health component instance.
+
+In each case, the numbering algorithm ensures that the port number
+of each input connection matches the port number of the corresponding
+output connection.
 
 ===== Checking for Unconnected Ports
 
@@ -197,9 +197,9 @@ topology CDH {
   # Connection patterns
   # ----------------------------------------------------------------------
 
-  connections pattern COMMANDS instance commandDispatcher
-  connections pattern EVENTS instance eventLogger
-  connections pattern TIME instance timeSource
+  command connections instance commandDispatcher
+  event connections instance eventLogger
+  time connections instance timeSource
 
   # ---------------------------------------------------------------------- 
   # Connection graphs
@@ -295,9 +295,9 @@ topology AttitudeControl {
   # Connection patterns
   # ----------------------------------------------------------------------
 
-  connections instance commandDispatcher pattern COMMANDS
-  connections instance eventLogger pattern EVENTS
-  connections instance timeSource pattern TIME
+  command connections instance commandDispatcher
+  event connections instance eventLogger
+  time connections instance timeSource
 
 
   # ----------------------------------------------------------------------

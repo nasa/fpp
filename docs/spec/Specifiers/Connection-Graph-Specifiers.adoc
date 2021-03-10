@@ -21,12 +21,12 @@ A connection graph specifier is one of the following:
 `{` _connection-sequence_ `}`
 
 * A *graph pattern specifier:*
+_pattern-kind_
 `connections` 
 `instance` <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
 _[_
 `{` _instance-sequence_ `}`
 _]_
-`pattern` <<Expressions,_expression_>>
 
 _connection-sequence_ is an
 <<Element-Sequences,element sequence>> in 
@@ -47,6 +47,18 @@ _[_
 <<Expressions,_expression_>>
 `]`
 _]_
+
+_pattern-kind_ is one of the following:
+
+. `command`
+
+. `event`
+
+. `health`
+
+. `telemetry`
+
+. `time`
 
 _instance-sequence_ is an
 <<Element-Sequences,element sequence>> in 
@@ -100,13 +112,9 @@ to any port at the other end.
 *Graph pattern specifiers.*
 A graph pattern specifier indirectly specifies one or more named connection 
 graphs
-by specifying a source component, a set of target components,
-and a pattern for connecting the source component to each of the
-target components.
-
-. The expression following the keyword `pattern` must have
-a <<Types_Internal-Types_Numeric-Types,numeric type>>.
-It provides an integer identifier for a connection pattern.
+by specifying a source component instance, a set of target component
+instances, and a pattern for connecting the source instance to each of the
+target instances.
 
 . The qualified identifier following the keyword `instance` must
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
@@ -125,36 +133,43 @@ pattern. If no instance sequence appears, then the target instances are
 all instances specified directly in the enclosing topology (not via import)
 that are valid for the pattern.
 
-The meaning of the pattern identifiers depends on the translation context.
-Typical patterns include the following:
+The meaning of specifier depends on the pattern kind, as follows:
 
-. `COMMANDS`: The source instance _I_ is a command dispatcher.
+. `command`: The source instance _I_ is a command dispatcher.
 The following connection graphs are generated:
 
 .. A connection graph named `Command` consisting of all connections
-from the output port of type `Fw::Cmd` of _I_ to the input port of type 
-`Fw::Cmd` of each target component.
+from the output port of type `Fw::Cmd` of _I_ to the command input port
+of each target component.
 
 .. A connection graph named `CommandRegistration` consisting of all
-connections from the output port of type `Fw::CmdReg` of each target component
-to the input port of type `Fw::Cmd` of _I_.
+connections from the command registration output port of 
+each target component
+to the command registration input port of _I_.
 
 .. A connection graph named `CommandResponse` consisting of all connections 
-from the output port of type `Fw::CmdResp` of each target component
-to the input port of type `Fw::CmdResp` of _I_.
+from the command response output port of each target component
+to the command response input port of _I_.
 
-. `EVENTS`: The source instance _I_ is an active logger.
+. `event`: The source instance _I_ is an active logger.
 The generated connection graph has name `Events` and contains
-all connections for sending events to _I_.
+all connections for sending events to _I_ through an event
+output port.
 
-. `HEALTH`: The source instance _I_ is a health component.
+. `health`: The source instance _I_ is a health component.
 The generated connection graph has name `Health` and contains
-all connections between the health component and the ping
-ports of the target components.
+all connections between the health component and ping
+ports of the target components of type `Svc.Ping`.
 
-. `TIME`: The source instance _I_ is a time component.
+. `telemetry`: The source instance _I_ is a telemetry database.
+The generated connection graph has name `Telemetry`
+and contains all connections for sending telemetry to _I_
+through a telemetry output port.
+
+. `time`: The source instance _I_ is a time component.
 The generated connection graph has name `Time` and contains
-all connections for getting the time from _I_.
+all connections for getting the time from _I_ through
+a time get output port.
 
 ==== Example
 
@@ -175,7 +190,7 @@ Here is a graph pattern specifier:
 
 [source,fpp]
 ----
-connections pattern COMMAND instance commandDispatcher
+command connections instance commandDispatcher
 ----
 
 It is equivalent to the following direct graph specifiers:
