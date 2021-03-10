@@ -37,6 +37,7 @@ object Token {
   final case class FORMAT() extends Token
   final case class GET() extends Token
   final case class GUARDED() extends Token
+  final case class HEALTH() extends Token
   final case class HIGH() extends Token
   final case class I16() extends Token
   final case class I32() extends Token
@@ -66,7 +67,6 @@ object Token {
   final case class OUTPUT() extends Token
   final case class PARAM() extends Token
   final case class PASSIVE() extends Token
-  final case class PATTERN() extends Token
   final case class PHASE() extends Token
   final case class PLUS() extends Token
   final case class PORT() extends Token

@@ -139,7 +139,7 @@ trait TypeExpressionAnalyzer
     val data = node1.data
     data match {
       case direct : Ast.SpecConnectionGraph.Direct => visitList(a, direct.connections, connection)
-      case pattern : Ast.SpecConnectionGraph.Pattern => exprNode(a, pattern.pattern)
+      case pattern => Right(a)
     }
   }
 

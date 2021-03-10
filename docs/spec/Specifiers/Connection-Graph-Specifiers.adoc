@@ -152,7 +152,7 @@ from the command response output port of each target component
 to the command response input port of _I_.
 
 . `event`: The source instance _I_ is an active logger.
-The generated connection graph has name `Events` and contains
+The generated connection graph has name `Event` and contains
 all connections for sending events to _I_ through an event
 output port.
 

@@ -239,11 +239,11 @@ def module
     @< Direct connection graph specifier
     @ Graph pattern specifier
     spec connection graph pattern
+      kind Command
       source qual ident i1
       target qual ident i2
       target qual ident i3
       target qual ident i4
-      pattern ident COMMAND
     @< Graph pattern specifier
     @ Topology import specifier
     spec top import

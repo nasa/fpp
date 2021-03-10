@@ -354,14 +354,25 @@ object Parser extends Parsers {
       }
     }
     def patternGraph = {
+      def patternKind = {
+        command ^^ { case _ => Ast.SpecConnectionGraph.Pattern.Command } |
+        event ^^ { case _ => Ast.SpecConnectionGraph.Pattern.Event } |
+        health ^^ { case _ => Ast.SpecConnectionGraph.Pattern.Health } |
+        telemetry ^^ { case _ => Ast.SpecConnectionGraph.Pattern.Telemetry } |
+        time ^^ { case _ => Ast.SpecConnectionGraph.Pattern.Time }
+      }
       def instanceSequence = {
         opt(lbrace ~>! elementSequence(node(qualIdent), comma) <~! rbrace) ^^ {
           case Some(elements) => elements
           case None => Nil
         }
       }
-      (connections ~ instance ~>! node(qualIdent)) ~! instanceSequence ~! (pattern ~>! exprNode) ^^ {
-        case source ~ targets ~ pattern => Ast.SpecConnectionGraph.Pattern(source, targets, pattern)
+      patternKind ~! (connections ~! instance ~>! node(qualIdent)) ~! instanceSequence ^^ {
+        case kind ~ source ~ targets => Ast.SpecConnectionGraph.Pattern(
+          kind,
+          source,
+          targets
+        )
       }
     }
     directGraph | patternGraph | failure("connection graph expected")
@@ -677,6 +688,8 @@ object Parser extends Parsers {
 
   private def guarded = accept("guarded", { case t : Token.GUARDED => t })
 
+  private def health = accept("health", { case t : Token.HEALTH => t })
+
   private def high = accept("high", { case t : Token.HIGH => t })
 
   private def id = accept("id", { case t : Token.ID => t })
@@ -730,8 +743,6 @@ object Parser extends Parsers {
   private def param = accept("param", { case t : Token.PARAM => t })
 
   private def passive = accept("passive", { case t : Token.PASSIVE => t })
-
-  private def pattern = accept("pattern", { case t : Token.PATTERN => t })
 
   private def phase = accept("phase", { case t : Token.PHASE => t })
 

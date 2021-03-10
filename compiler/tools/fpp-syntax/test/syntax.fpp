@@ -119,7 +119,7 @@ module DefinitionsAndSpecifiers {
     @< Direct connection graph specifier
 
     @ Graph pattern specifier
-    connections instance i1 { i2, i3, i4 } pattern COMMAND
+    command connections instance i1 { i2, i3, i4 }
     @< Graph pattern specifier
 
     @ Topology import specifier

@@ -33,6 +33,7 @@ fatal
 format
 get
 guarded
+health
 high
 id
 import
@@ -50,7 +51,6 @@ orange
 output
 param
 passive
-pattern
 phase
 port
 priority

@@ -334,10 +334,19 @@ object Ast {
       connections: List[Connection]
     ) extends SpecConnectionGraph
 
+    final object Pattern {
+      sealed trait Kind
+      final case object Command extends Kind
+      final case object Event extends Kind
+      final case object Health extends Kind
+      final case object Telemetry extends Kind
+      final case object Time extends Kind
+    }
+
     final case class Pattern(
+      kind: Pattern.Kind,
       source: AstNode[QualIdent],
       targets: List[AstNode[QualIdent]],
-      pattern: AstNode[Expr]
     ) extends SpecConnectionGraph
 
     /** Connection */

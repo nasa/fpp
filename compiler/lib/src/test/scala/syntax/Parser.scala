@@ -368,9 +368,9 @@ class ParserSpec extends AnyWordSpec {
     parseAllOK(
       Parser.specConnectionGraph,
       List(
-        "connections instance a.b pattern P",
-        "connections instance a.b {} pattern P",
-        "connections instance a.b { c.d } pattern P"
+        "command connections instance a.b",
+        "command connections instance a.b {}",
+        "command connections instance a.b { c.d }"
       )
     )
   }

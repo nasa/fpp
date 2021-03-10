@@ -194,9 +194,9 @@ object AstWriter extends AstVisitor with LineUtils {
     def pattern(g: Ast.SpecConnectionGraph.Pattern) = {
       def target(qid: AstNode[Ast.QualIdent]) = addPrefix("target", qualIdent) (qid.data)
       lines("spec connection graph pattern") ++ (
+        lines("kind " ++ g.kind.toString) ++
         addPrefix("source", qualIdent) (g.source.data) ++
-        g.targets.map(target).flatten ++
-        addPrefix("pattern", exprNode) (g.pattern)
+        g.targets.map(target).flatten
       ).map(indentIn)
     }
     val (_, node, _) = aNode

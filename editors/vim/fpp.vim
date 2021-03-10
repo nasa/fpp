@@ -32,6 +32,7 @@ syn keyword fppKeyword fatal
 syn keyword fppKeyword format
 syn keyword fppKeyword get
 syn keyword fppKeyword guarded
+syn keyword fppKeyword health
 syn keyword fppKeyword high
 syn keyword fppKeyword id
 syn keyword fppKeyword import
@@ -49,7 +50,6 @@ syn keyword fppKeyword orange
 syn keyword fppKeyword output
 syn keyword fppKeyword param
 syn keyword fppKeyword passive
-syn keyword fppKeyword pattern
 syn keyword fppKeyword phase
 syn keyword fppKeyword port
 syn keyword fppKeyword priority
