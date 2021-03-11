@@ -70,7 +70,7 @@ def module
     @ General port instance specifier
     spec port instance general
       kind sync input
-      ident p
+      ident p1
       array size literal int 10
       port type qual ident P
       priority literal int 10
@@ -81,6 +81,16 @@ def module
       kind command recv
       ident cmdIn
     @< Special port instance specifier
+    spec port instance general
+      kind output
+      ident p2
+      array size literal int 10
+      port type qual ident P
+    @ Port matching specifier
+    spec port matching
+      ident p1
+      ident p2
+    @< Port matching specifier
     @ Telemetry channel specifier
     spec tlm channel
       ident T

@@ -487,6 +487,15 @@ class ParserSpec extends AnyWordSpec {
     )
   }
 
+  "spec port matching OK" should {
+    parseAllOK(
+      Parser.specPortMatching,
+      List(
+        "match p1 with p2",
+      )
+    )
+  }
+
   "spec tlm channel OK" should {
     parseAllOK(
       Parser.specTlmChannel,

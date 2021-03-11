@@ -26,12 +26,17 @@ module DefinitionsAndSpecifiers {
     @< Parameter specifier
     
     @ General port instance specifier
-    sync input port p: [10] P priority 10 assert
+    sync input port p1: [10] P priority 10 assert
     @< General port instance specifier
 
     @ Special port instance specifier
     command recv port cmdIn
     @< Special port instance specifier
+
+    output port p2: [10] P
+    @ Port matching specifier
+    match p1 with p2
+    @< Port matching specifier
 
     @ Telemetry channel specifier
     telemetry T: U32 id 0x00 update on change format "{} s" \

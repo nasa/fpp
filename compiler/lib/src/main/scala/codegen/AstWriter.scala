@@ -300,6 +300,16 @@ object AstWriter extends AstVisitor with LineUtils {
     }
   }
 
+  override def specPortMatchingAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecPortMatching]]) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("spec port matching") ++
+    List(
+        ident(data.port1.data),
+        ident(data.port2.data),
+    ).flatten.map(indentIn)
+  }
+
   override def specTlmChannelAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]) = {
     val (_, node, _) = aNode
     def update(u: Ast.SpecTlmChannel.Update) =

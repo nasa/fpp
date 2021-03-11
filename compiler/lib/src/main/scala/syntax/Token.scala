@@ -59,6 +59,7 @@ object Token {
   final case class LOCATE() extends Token
   final case class LOW() extends Token
   final case class LPAREN() extends Token
+  final case class MATCH() extends Token
   final case class MINUS() extends Token
   final case class MODULE() extends Token
   final case class ON() extends Token
@@ -111,5 +112,6 @@ object Token {
   final case class UNUSED() extends Token
   final case class UPDATE() extends Token
   final case class WARNING() extends Token
+  final case class WITH() extends Token
   final case class YELLOW() extends Token
 }

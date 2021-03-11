@@ -44,6 +44,7 @@ instance
 internal
 locate
 low
+match
 module
 on
 opcode
@@ -80,4 +81,5 @@ type
 unused
 update
 warning
+with
 yellow

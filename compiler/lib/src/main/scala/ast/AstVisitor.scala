@@ -71,6 +71,8 @@ trait AstVisitor {
 
   def specPortInstanceAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecPortInstance]]): Out = default(in)
 
+  def specPortMatchingAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecPortMatching]]): Out = default(in)
+
   def specTlmChannelAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]): Out = default(in)
 
   def specTopImportAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecTopImport]]): Out = default(in)
@@ -103,6 +105,7 @@ trait AstVisitor {
       case Ast.ComponentMember.SpecInternalPort(node1) => specInternalPortAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.SpecParam(node1) => specParamAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.SpecPortInstance(node1) => specPortInstanceAnnotatedNode(in, (pre, node1, post))
+      case Ast.ComponentMember.SpecPortMatching(node1) => specPortMatchingAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.SpecTlmChannel(node1) => specTlmChannelAnnotatedNode(in, (pre, node1, post))
     }
   }

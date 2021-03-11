@@ -33,6 +33,7 @@ object Parser extends Parsers {
     node(specInclude) ^^ { case n => Ast.ComponentMember.SpecInclude(n) } |
     node(specInternalPort) ^^ { case n => Ast.ComponentMember.SpecInternalPort(n) } |
     node(specPortInstance) ^^ { case n => Ast.ComponentMember.SpecPortInstance(n) } |
+    node(specPortMatching) ^^ { case n => Ast.ComponentMember.SpecPortMatching(n) } |
     node(specParam) ^^ { case n => Ast.ComponentMember.SpecParam(n) } |
     node(specTlmChannel) ^^ { case n => Ast.ComponentMember.SpecTlmChannel(n) } |
     failure("component member expected")
@@ -484,11 +485,17 @@ object Parser extends Parsers {
     general | special
   }
 
+  def specPortMatching: Parser[Ast.SpecPortMatching] = {
+    fppMatch ~>! node(ident) ~! (fppWith ~>! node(ident)) ^^ {
+      case port1 ~ port2 => Ast.SpecPortMatching(port1, port2)
+    }
+  }
+
   def specTlmChannel: Parser[Ast.SpecTlmChannel] = {
     def updateSetting = {
       always ^^ { case _ => Ast.SpecTlmChannel.Always } |
       on ~! change ^^ { case _ => Ast.SpecTlmChannel.OnChange } |
-      failure("update setting expected")
+      failure("update kind expected")
     }
     def kind = {
       orange ^^ { case _ => Ast.SpecTlmChannel.Orange } |
@@ -728,6 +735,8 @@ object Parser extends Parsers {
 
   private def lparen = accept("(", { case t : Token.LPAREN => t })
 
+  private def fppMatch = accept("match", { case t : Token.MATCH => t })
+
   private def minus = accept("-", { case t : Token.MINUS => t })
 
   private def module = accept("module", { case t : Token.MODULE => t })
@@ -823,6 +832,8 @@ object Parser extends Parsers {
   private def update = accept("update", { case t : Token.UPDATE => t })
 
   private def warning = accept("warning", { case t : Token.WARNING => t })
+
+  private def fppWith = accept("with", { case t : Token.WITH => t })
 
   private def yellow = accept("yellow", { case t : Token.YELLOW => t })
 

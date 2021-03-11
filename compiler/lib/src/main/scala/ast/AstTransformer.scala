@@ -147,6 +147,11 @@ trait AstTransformer {
     node: Ast.Annotated[AstNode[Ast.SpecPortInstance]]
   ): ResultAnnotatedNode[Ast.SpecPortInstance] = Right(default(in), node)
 
+  def specPortMatchingAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.SpecPortMatching]]
+  ): ResultAnnotatedNode[Ast.SpecPortMatching] = Right(default(in), node)
+
   def specTlmChannelAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]
@@ -214,6 +219,8 @@ trait AstTransformer {
         transform(specParamAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.SpecParam(_))
       case Ast.ComponentMember.SpecPortInstance(node1) => 
         transform(specPortInstanceAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.SpecPortInstance(_))
+      case Ast.ComponentMember.SpecPortMatching(node1) => 
+        transform(specPortMatchingAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.SpecPortMatching(_))
       case Ast.ComponentMember.SpecTlmChannel(node1) => 
         transform(specTlmChannelAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.SpecTlmChannel(_))
     }

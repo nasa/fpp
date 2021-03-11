@@ -232,6 +232,7 @@ object Lexer extends RegexParsers {
     ("internal", (u: Unit) => Token.INTERNAL()),
     ("locate", (u: Unit) => Token.LOCATE()),
     ("low", (u: Unit) => Token.LOW()),
+    ("match", (u: Unit) => Token.MATCH()),
     ("module", (u: Unit) => Token.MODULE()),
     ("on", (u: Unit) => Token.ON()),
     ("opcode", (u: Unit) => Token.OPCODE()),
@@ -269,6 +270,7 @@ object Lexer extends RegexParsers {
     ("unused", (u: Unit) => Token.UNUSED()),
     ("update", (u: Unit) => Token.UPDATE()),
     ("warning", (u: Unit) => Token.WARNING()),
+    ("with", (u: Unit) => Token.WITH()),
     ("yellow", (u: Unit) => Token.YELLOW()),
   )
 

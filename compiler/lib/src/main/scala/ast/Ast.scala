@@ -62,6 +62,7 @@ object Ast {
     final case class SpecInternalPort(node: AstNode[Ast.SpecInternalPort]) extends Node
     final case class SpecParam(node: AstNode[Ast.SpecParam]) extends Node
     final case class SpecPortInstance(node: AstNode[Ast.SpecPortInstance]) extends Node
+    final case class SpecPortMatching(node: AstNode[Ast.SpecPortMatching]) extends Node
     final case class SpecTlmChannel(node: AstNode[Ast.SpecTlmChannel]) extends Node
   }
 
@@ -516,6 +517,12 @@ object Ast {
     }
 
   }
+
+  /** Port matching specifier */
+  final case class SpecPortMatching(
+    port1: AstNode[Ident],
+    port2: AstNode[Ident]
+  )
 
   /** Telemetry channel specifier */
   final case class SpecTlmChannel(

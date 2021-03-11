@@ -406,6 +406,7 @@ object FppWriter extends AstVisitor with LineUtils {
     "internal",
     "locate",
     "low",
+    "match",
     "module",
     "on",
     "opcode",
@@ -443,6 +444,7 @@ object FppWriter extends AstVisitor with LineUtils {
     "unused",
     "update",
     "warning",
+    "with",
     "yellow",
   )
 

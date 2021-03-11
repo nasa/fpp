@@ -43,6 +43,7 @@ syn keyword fppKeyword instance
 syn keyword fppKeyword internal
 syn keyword fppKeyword locate
 syn keyword fppKeyword low
+syn keyword fppKeyword match
 syn keyword fppKeyword module
 syn keyword fppKeyword on
 syn keyword fppKeyword opcode
@@ -79,6 +80,7 @@ syn keyword fppKeyword type
 syn keyword fppKeyword unused
 syn keyword fppKeyword update
 syn keyword fppKeyword warning
+syn keyword fppKeyword with
 syn keyword fppKeyword yellow
 
 syn match fppOperator      /\//
