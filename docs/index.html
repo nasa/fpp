@@ -1844,8 +1844,8 @@ that you can refer to in a
 </div>
 <div class="sect3">
 <h4 id="Definitions_Component-Instance-Definitions_Semantics">5.4.2. Semantics</h4>
-<div class="ulist">
-<ul>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p>The identifier names the component instance.</p>
 </li>
@@ -1858,9 +1858,32 @@ a
 <li>
 <p>The expression following the keywords <code>base</code> <code>id</code> must have a
 <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.
-It associates a base identifier with the component instance.
-The base identifier is used when resolving command opcodes and
-event, telemetry, and parameter identifiers.</p>
+It associates a base identifier with the component instance.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>After evaluating constants, the base identifier must be greater than or
+equal to zero.</p>
+</li>
+<li>
+<p>For each component instance, for each
+command, event, telemetry, or parameter identifier,
+the identifier associated with the instance
+is computed by adding the base identifier specified here to the relative
+identifier specified in the component.
+For this purpose, command opcodes are identifiers.</p>
+</li>
+<li>
+<p>For each instance, this procedure creates a range of identifiers,
+from the base identifier to the largest identifier associated
+with the instance.</p>
+</li>
+<li>
+<p>No instance may have a base identifier that lies within
+the identifier range of another instance.</p>
+</li>
+</ol>
+</div>
 </li>
 <li>
 <p>If present, the string literal following the keyword <code>at</code>
@@ -1894,7 +1917,7 @@ It specifies the thread priority for active components.
 The priority is required for active components and is not allowed
 for queued or passive components.</p>
 </li>
-</ul>
+</ol>
 </div>
 </div>
 <div class="sect3">
@@ -7901,7 +7924,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-10 20:05:21 -0800
+Last updated 2021-03-11 10:41:35 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

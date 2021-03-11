@@ -28,20 +28,35 @@ _]_
 
 ==== Semantics
 
-* The identifier names the component instance.
+. The identifier names the component instance.
 
-* The qualified identifier must
+. The qualified identifier must
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
 a
 <<Definitions_Component-Definitions,component definition _D_>>.
 
-* The expression following the keywords `base` `id` must have a
+. The expression following the keywords `base` `id` must have a
 <<Types_Internal-Types_Numeric-Types,numeric type>>.
 It associates a base identifier with the component instance.
-The base identifier is used when resolving command opcodes and
-event, telemetry, and parameter identifiers.
 
-* If present, the string literal following the keyword `at`
+.. After evaluating constants, the base identifier must be greater than or 
+equal to zero.
+
+.. For each component instance, for each
+command, event, telemetry, or parameter identifier,
+the identifier associated with the instance
+is computed by adding the base identifier specified here to the relative 
+identifier specified in the component.
+For this purpose, command opcodes are identifiers.
+
+.. For each instance, this procedure creates a range of identifiers,
+from the base identifier to the largest identifier associated
+with the instance.
+
+.. No instance may have a base identifier that lies within
+the identifier range of another instance.
+
+. If present, the string literal following the keyword `at`
 must specify a file path, relative to the
 <<Translation-Units-and-Models_Locations,location>>
 of the component instance definition.
@@ -51,19 +66,19 @@ If no such path is given, then the translator uses the location
 of the component instance and the name of the component to generate
 a default implementation path.
 
-* If present, the expression following the keywords `queue` `size` must 
+. If present, the expression following the keywords `queue` `size` must 
 have a <<Types_Internal-Types_Numeric-Types,numeric type>>.
 It specifies the queue size for active and queued components.
 The queue size is required for active and queued components
 and is not allowed for passive components.
 
-* If present, the expression following the keywords `stack` `size` must
+. If present, the expression following the keywords `stack` `size` must
 have a <<Types_Internal-Types_Numeric-Types,numeric type>>.
 It specifies the stack size in bytes for active components.
 The stack size is required for active components and is not allowed
 for queued or passive components.
 
-* If present, the expression following the keyword `priority` must
+. If present, the expression following the keyword `priority` must
 have a <<Types_Internal-Types_Numeric-Types,numeric type>>.
 It specifies the thread priority for active components.
 The priority is required for active components and is not allowed
