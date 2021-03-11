@@ -70,6 +70,19 @@ object EnterSymbols
     }
   }
 
+  override def defComponentInstanceAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefComponentInstance]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    val name = data.name
+    val symbol = Symbol.ComponentInstance(aNode)
+    val nestedScope = a.nestedScope
+    for (nestedScope <- nestedScope.put(NameGroup.ComponentInstance)(name, symbol))
+      yield updateMap(a, symbol).copy(nestedScope = nestedScope)
+  }
+
   override def defConstantAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefConstant]]
