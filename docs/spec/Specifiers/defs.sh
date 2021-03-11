@@ -18,6 +18,7 @@ Internal-Port-Specifiers.adoc
 Location-Specifiers.adoc
 Parameter-Specifiers.adoc
 Port-Instance-Specifiers.adoc
+Port-Matching-Specifiers.adoc
 Telemetry-Channel-Specifiers.adoc
 Topology-Import-Specifiers.adoc
 Unused-Port-Specifiers.adoc

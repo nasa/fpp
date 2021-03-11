@@ -1,0 +1,48 @@
+=== Port Matching Specifiers
+
+A *port matching specifier* is part of a
+<<Definitions_Component-Definitions,component definition>>.
+It specifies that when the component is instantiated and
+connected into a topology, the corresponding port numbers
+of two of its port instances should match.
+For example, a port matching specifier could specify that
+for a health monitoring component, any component connected
+to its ping output port at index _n_ should also be connected
+to its ping input port at the same index _n_.
+
+==== Syntax
+
+`match` 
+<<Lexical-Elements_Identifiers,_identifier_>>
+`with`
+<<Lexical-Elements_Identifiers,_identifier_>>
+
+==== Semantics
+
+. Each of the identifiers must name a
+<<Specifiers_Port-Instance-Specifiers,port instance>>
+specified in the enclosing component.
+
+. The two port instances must be distinct and must have the same
+array size.
+
+==== Example
+
+[source,fpp]
+----
+queued component Health {
+
+  @ Number of ping ports
+  constant numPingPorts = 10
+
+  @ Ping output port
+  output port pingOut: [numPingPorts] Svc.Ping
+
+  @ Ping input port
+  async input port pingIn: [numPingPorts] Svc.Ping
+
+  @ Corresponding port numbers of pingOut and pingIn must match
+  match pingOut with pingIn
+
+}
+----

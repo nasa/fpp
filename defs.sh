@@ -2,7 +2,7 @@
 # defs.sh: definitions common to all subdirectories
 # ----------------------------------------------------------------------
 
-export VERSION=v0.3.0
+export VERSION=v1.0.0
 
 # Users of this file should set LEVEL first
 if test -z "$LEVEL"; then

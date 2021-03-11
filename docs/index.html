@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.10">
-<title>The F Prime Prime (FPP) Language Specification, v0.3.0</title>
+<title>The F Prime Prime (FPP) Language Specification, v1.0.0</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -438,7 +438,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>The F Prime Prime (FPP) Language Specification, v0.3.0</h1>
+<h1>The F Prime Prime (FPP) Language Specification, v1.0.0</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -612,25 +612,32 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Specifiers_Port-Instance-Specifiers_Examples">6.10.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Telemetry-Channel-Specifiers">6.11. Telemetry Channel Specifiers</a>
+<li><a href="#Specifiers_Port-Matching-Specifiers">6.11. Port Matching Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Telemetry-Channel-Specifiers_Syntax">6.11.1. Syntax</a></li>
-<li><a href="#Specifiers_Telemetry-Channel-Specifiers_Semantics">6.11.2. Semantics</a></li>
-<li><a href="#Specifiers_Telemetry-Channel-Specifiers_Examples">6.11.3. Examples</a></li>
+<li><a href="#Specifiers_Port-Matching-Specifiers_Syntax">6.11.1. Syntax</a></li>
+<li><a href="#Specifiers_Port-Matching-Specifiers_Semantics">6.11.2. Semantics</a></li>
+<li><a href="#Specifiers_Port-Matching-Specifiers_Example">6.11.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Topology-Import-Specifiers">6.12. Topology Import Specifiers</a>
+<li><a href="#Specifiers_Telemetry-Channel-Specifiers">6.12. Telemetry Channel Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Topology-Import-Specifiers_Syntax">6.12.1. Syntax</a></li>
-<li><a href="#Specifiers_Topology-Import-Specifiers_Semantics">6.12.2. Semantics</a></li>
-<li><a href="#Specifiers_Topology-Import-Specifiers_Example">6.12.3. Example</a></li>
+<li><a href="#Specifiers_Telemetry-Channel-Specifiers_Syntax">6.12.1. Syntax</a></li>
+<li><a href="#Specifiers_Telemetry-Channel-Specifiers_Semantics">6.12.2. Semantics</a></li>
+<li><a href="#Specifiers_Telemetry-Channel-Specifiers_Examples">6.12.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Unused-Port-Specifiers">6.13. Unused Port Specifiers</a>
+<li><a href="#Specifiers_Topology-Import-Specifiers">6.13. Topology Import Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Unused-Port-Specifiers_Syntax">6.13.1. Syntax</a></li>
-<li><a href="#Specifiers_Unused-Port-Specifiers_Semantics">6.13.2. Semantics</a></li>
-<li><a href="#Specifiers_Unused-Port-Specifiers_Example">6.13.3. Example</a></li>
+<li><a href="#Specifiers_Topology-Import-Specifiers_Syntax">6.13.1. Syntax</a></li>
+<li><a href="#Specifiers_Topology-Import-Specifiers_Semantics">6.13.2. Semantics</a></li>
+<li><a href="#Specifiers_Topology-Import-Specifiers_Example">6.13.3. Example</a></li>
+</ul>
+</li>
+<li><a href="#Specifiers_Unused-Port-Specifiers">6.14. Unused Port Specifiers</a>
+<ul class="sectlevel3">
+<li><a href="#Specifiers_Unused-Port-Specifiers_Syntax">6.14.1. Syntax</a></li>
+<li><a href="#Specifiers_Unused-Port-Specifiers_Semantics">6.14.2. Semantics</a></li>
+<li><a href="#Specifiers_Unused-Port-Specifiers_Example">6.14.3. Example</a></li>
 </ul>
 </li>
 </ul>
@@ -1001,6 +1008,7 @@ instance
 internal
 locate
 low
+match
 module
 on
 opcode
@@ -1038,6 +1046,7 @@ type
 unused
 update
 warning
+with
 yellow</code></pre>
 </div>
 </div>
@@ -2575,30 +2584,52 @@ The translator just picks a legal one.
 See Example 4 below.</p>
 </div>
 <div class="paragraph">
-<p><strong>Special numbering:</strong> The analyzer applies the following special numbering
-passes:</p>
+<p><strong>Matched numbering:</strong> FPP automatically matches port numbers
+as follows, for each instance <em>I</em> in the topology:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><strong>Command registration:</strong> Renumber the command registration connections
-going into and out of the command dispatcher.</p>
+<p>Let <em>C</em> be the component definition in the type of <em>I</em>.</p>
 </li>
 <li>
-<p><strong>Command sequences:</strong> Renumber the command connections out of the
-command sequencer
-and the command response connections into the sequencer.</p>
+<p>For each
+<a href="#Specifiers_Port-Matching-Specifiers">port matching specifier</a>
+<code>match</code> <em>P1</em> <code>with</code> <em>P2</em> appearing in the definition of <em>C</em>:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>For each connection <em>c2</em> with an endpoint at a port number of <em>I.P2</em>:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Let <em>I'</em> be the component instance at the other end
+of <em>c2</em>.</p>
 </li>
 <li>
-<p><strong>Health pings:</strong> Renumber the ping input and ping output connections
-of the Health component instance.</p>
+<p>Check that there is no connection other than <em>c2</em> between
+any port number of <em>I.P2</em> and <em>I'</em>.</p>
+</li>
+<li>
+<p>Check that there is one and only one connection <em>c1</em> between
+any port number of <em>I.P1</em>  and <em>I'</em>.</p>
+</li>
+<li>
+<p>Reassign the ports of <em>c1</em> so that <em>c1</em> is connected
+to <em>I.P1</em> at the same number that <em>c2</em> is connected
+to <em>I.P2</em>.</p>
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p>In each case, the numbering algorithm ensures that the port number
-of each input connection matches the port number of the corresponding
-output connection.</p>
+</li>
+<li>
+<p>Check that there are no connections out of <em>I.P1</em>
+except the ones matching <em>I.P2</em>.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect4">
@@ -4368,13 +4399,74 @@ time get port timeGetOut</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Telemetry-Channel-Specifiers">6.11. Telemetry Channel Specifiers</h3>
+<h3 id="Specifiers_Port-Matching-Specifiers">6.11. Port Matching Specifiers</h3>
+<div class="paragraph">
+<p>A <strong>port matching specifier</strong> is part of a
+<a href="#Definitions_Component-Definitions">component definition</a>.
+It specifies that when the component is instantiated and
+connected into a topology, the corresponding port numbers
+of two of its port instances should match.
+For example, a port matching specifier could specify that
+for a health monitoring component, any component connected
+to its ping output port at index <em>n</em> should also be connected
+to its ping input port at the same index <em>n</em>.</p>
+</div>
+<div class="sect3">
+<h4 id="Specifiers_Port-Matching-Specifiers_Syntax">6.11.1. Syntax</h4>
+<div class="paragraph">
+<p><code>match</code>
+<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<code>with</code>
+<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Specifiers_Port-Matching-Specifiers_Semantics">6.11.2. Semantics</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Each of the identifiers must name a
+<a href="#Specifiers_Port-Instance-Specifiers">port instance</a>
+specified in the enclosing component.</p>
+</li>
+<li>
+<p>The two port instances must be distinct and must have the same
+array size.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Specifiers_Port-Matching-Specifiers_Example">6.11.3. Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">queued component Health {
+
+  @ Number of ping ports
+  constant numPingPorts = 10
+
+  @ Ping output port
+  output port pingOut: [numPingPorts] Svc.Ping
+
+  @ Ping input port
+  async input port pingIn: [numPingPorts] Svc.Ping
+
+  @ Corresponding port numbers of pingOut and pingIn must match
+  match pingOut with pingIn
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Specifiers_Telemetry-Channel-Specifiers">6.12. Telemetry Channel Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>telemetry channel definition</strong> defines a telemetry channel as part of a
 <a href="#Definitions_Component-Definitions">component definition</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Telemetry-Channel-Specifiers_Syntax">6.11.1. Syntax</h4>
+<h4 id="Specifiers_Telemetry-Channel-Specifiers_Syntax">6.12.1. Syntax</h4>
 <div class="paragraph">
 <p><code>telemetry</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <code>:</code> <a href="#Type-Names"><em>type-name</em></a>
@@ -4429,7 +4521,7 @@ A telemetry limit is one of the following:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Telemetry-Channel-Specifiers_Semantics">6.11.2. Semantics</h4>
+<h4 id="Specifiers_Telemetry-Channel-Specifiers_Semantics">6.12.2. Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4498,7 +4590,7 @@ value of <em>v</em>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Telemetry-Channel-Specifiers_Examples">6.11.3. Examples</h4>
+<h4 id="Specifiers_Telemetry-Channel-Specifiers_Examples">6.12.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">@ An array of 3 F64 values
@@ -4527,18 +4619,18 @@ telemetry Channel3: F64x3 \
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Topology-Import-Specifiers">6.12. Topology Import Specifiers</h3>
+<h3 id="Specifiers_Topology-Import-Specifiers">6.13. Topology Import Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>topology import specifier</strong> imports one topology into another one.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Topology-Import-Specifiers_Syntax">6.12.1. Syntax</h4>
+<h4 id="Specifiers_Topology-Import-Specifiers_Syntax">6.13.1. Syntax</h4>
 <div class="paragraph">
 <p><code>import</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Topology-Import-Specifiers_Semantics">6.12.2. Semantics</h4>
+<h4 id="Specifiers_Topology-Import-Specifiers_Semantics">6.13.2. Semantics</h4>
 <div class="paragraph">
 <p>The qualified identifier must
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
@@ -4612,7 +4704,7 @@ and connections \$C''_i\$.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Topology-Import-Specifiers_Example">6.12.3. Example</h4>
+<h4 id="Specifiers_Topology-Import-Specifiers_Example">6.13.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">topology A {
@@ -4700,14 +4792,14 @@ of its connections appear in topology <code>B</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Unused-Port-Specifiers">6.13. Unused Port Specifiers</h3>
+<h3 id="Specifiers_Unused-Port-Specifiers">6.14. Unused Port Specifiers</h3>
 <div class="paragraph">
 <p>An <strong>unused port specifier</strong> specifies that one or more ports in a
 <a href="#Definitions_Topology-Definitions">topology definition</a>
 may be unused.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Unused-Port-Specifiers_Syntax">6.13.1. Syntax</h4>
+<h4 id="Specifiers_Unused-Port-Specifiers_Syntax">6.14.1. Syntax</h4>
 <div class="paragraph">
 <p><code>unused</code> <code>{</code> <em>unused-port-sequence</em> <code>}</code></p>
 </div>
@@ -4720,7 +4812,7 @@ and the terminating punctuation is a comma.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Unused-Port-Specifiers_Semantics">6.13.2. Semantics</h4>
+<h4 id="Specifiers_Unused-Port-Specifiers_Semantics">6.14.2. Semantics</h4>
 <div class="paragraph">
 <p>For each port instance identifier <em>Q</em> <code>.</code> <em>P</em> appearing in
 <em>unused-port-sequence</em>,
@@ -4734,7 +4826,7 @@ or through
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Unused-Port-Specifiers_Example">6.13.3. Example</h4>
+<h4 id="Specifiers_Unused-Port-Specifiers_Example">6.14.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">unused {
@@ -7813,7 +7905,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-10 15:12:56 -0800
+Last updated 2021-03-10 17:05:43 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

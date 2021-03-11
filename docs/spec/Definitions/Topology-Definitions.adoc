@@ -135,22 +135,32 @@ Therefore, in general multiple assignments are possible.
 The translator just picks a legal one.
 See Example 4 below.
 
-*Special numbering:* The analyzer applies the following special numbering 
-passes:
+*Matched numbering:* FPP automatically matches port numbers
+as follows, for each instance _I_ in the topology:
 
-. *Command registration:* Renumber the command registration connections
-going into and out of the command dispatcher.
+. Let _C_ be the component definition in the type of _I_.
 
-. *Command sequences:* Renumber the command connections out of the 
-command sequencer
-and the command response connections into the sequencer.
+. For each 
+<<Specifiers_Port-Matching-Specifiers,port matching specifier>>
+`match` _P1_ `with` _P2_ appearing in the definition of _C_:
 
-. *Health pings:* Renumber the ping input and ping output connections
-of the Health component instance.
+..  For each connection _c2_ with an endpoint at a port number of _I.P2_:
 
-In each case, the numbering algorithm ensures that the port number
-of each input connection matches the port number of the corresponding
-output connection.
+... Let _I'_ be the component instance at the other end
+of _c2_.
+
+... Check that there is no connection other than _c2_ between 
+any port number of _I.P2_ and _I'_.
+
+... Check that there is one and only one connection _c1_ between
+any port number of _I.P1_  and _I'_.
+
+... Reassign the ports of _c1_ so that _c1_ is connected
+to _I.P1_ at the same number that _c2_ is connected
+to _I.P2_.
+
+.. Check that there are no connections out of _I.P1_
+except the ones matching _I.P2_.
 
 ===== Checking for Unconnected Ports
 

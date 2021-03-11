@@ -439,6 +439,7 @@ var IN_GLOBAL_SCOPE = false;
           "internal," +
           "locate," +
           "low," +
+          "match," +
           "module," +
           "on," +
           "opcode," +
@@ -475,6 +476,7 @@ var IN_GLOBAL_SCOPE = false;
           "unused," +
           "update," +
           "warning," +
+          "with," +
           "yellow"
       ];
       var FLOW_CONTROL_KEYWORDS = ["break,continue,do,else,for,if,return,while"];
