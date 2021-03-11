@@ -51,6 +51,8 @@ case class Analysis(
   componentMap: Map[Symbol, Component] = Map(),
   /** The component currently under construction */
   component: Option[Component] = None,
+  /** The map from component instance symbols to component instances */
+  componentInstanceMap: Map[Symbol, ComponentInstance] = Map()
 ) {
 
   /** Add a mapping to the type map */

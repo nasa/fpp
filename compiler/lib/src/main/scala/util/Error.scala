@@ -75,6 +75,8 @@ sealed trait Error {
         Error.print (Some(loc)) (s"invalid array size $size")
       case SemanticError.InvalidCommand(loc, msg) =>
         Error.print (Some(loc)) (msg)
+      case SemanticError.InvalidDefComponentInstance(name, loc, msg) =>
+        Error.print (Some(loc)) (s"invalid component instance definition $name: $msg")
       case SemanticError.InvalidEnumConstants(loc) =>
         Error.print (Some(loc)) ("enum constants must be all explicit or all implied")
       case SemanticError.InvalidEvent(loc, msg) =>
@@ -224,6 +226,8 @@ object SemanticError {
   final case class InvalidArraySize(loc: Location, size: BigInt) extends Error
   /** Invalid command */
   final case class InvalidCommand(loc: Location, msg: String) extends Error
+  /** Invalid component instance definition */
+  final case class InvalidDefComponentInstance(name: String, loc: Location, msg: String) extends Error
   /** Invalid enum constants */
   final case class InvalidEnumConstants(loc: Location) extends Error
   /** Invalid event */
