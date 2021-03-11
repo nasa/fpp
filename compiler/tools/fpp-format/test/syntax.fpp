@@ -9,6 +9,56 @@ module DefinitionsAndSpecifiers {
   array A = [10] U32 default 0 format "{} counts"
   @< Array definition
 
+  @ Component definition
+  active component C {
+
+    type T
+    array A = [3] U32
+    struct S { x: U32, y: F32, z: string }
+    enum E { X, Y, Z }
+
+    @ Command specifier
+    async command C(a: U32, b: F32) opcode 0x00 priority 10 assert
+    @< Command specifier
+
+    @ Parameter specifier
+    param P: U32 default 0 id 0x00 set opcode 0x01 save opcode 0x02
+    @< Parameter specifier
+    
+    @ General port instance specifier
+    sync input port p1: [10] P priority 10 assert
+    @< General port instance specifier
+
+    @ Special port instance specifier
+    command recv port cmdIn
+    @< Special port instance specifier
+
+    output port p2: [10] P
+    @ Port matching specifier
+    match p1 with p2
+    @< Port matching specifier
+
+    @ Telemetry channel specifier
+    telemetry T: U32 id 0x00 update on change format "{} s" \
+      low { red 0, orange 1, yellow 2 } \
+      high { yellow 10, orange 11, red 12 }
+    @< Telemetry channel specifier
+
+    @ Event specifier
+    event E(a: U32, b: F32) severity activity low id 0x00 format "{} counts" throttle 10
+    @< Event specifier
+
+    @ Internal port specifier
+    internal port I(a: U32, b: F32) priority 10 assert
+    @< Internal port specifier
+
+  }
+  @< Component definition
+
+  @ Component instance definition
+  instance c: C base id 0x100 at "C.hpp" queue size 100 stack size 1024 priority 10
+  @< Component instance definition
+
   @ Constant definition
   constant x = 0
   @< Constant definition
@@ -36,6 +86,13 @@ module DefinitionsAndSpecifiers {
   include "constant.fpp"
   @< Include specifier
 
+  @ Init specifier
+  init i phase CONSTRUCTION """
+  line 1
+    line 2
+  line 3
+  """
+
   @ Port definition
   port P(a: U32, b: F32) -> U32
   @< Port definition
@@ -51,8 +108,38 @@ module DefinitionsAndSpecifiers {
   }
   @< Struct definition
 
+  @ Topology definition
+  topology T {
+
+    @ Public instance specifier
+    instance i1
+    @< Public instance specifier
+
+    @ Private instance specifier
+    private instance i2
+    @< Private instance specifier
+
+    @ Direct connection graph specifier
+    connections C { i1.p[0] -> i2.p[1] }
+    @< Direct connection graph specifier
+
+    @ Graph pattern specifier
+    command connections instance i1 { i2, i3, i4 }
+    @< Graph pattern specifier
+
+    @ Topology import specifier
+    import T1
+    @< Topology import specifier
+
+    @ Unused port specifier
+    unused { a.p, b.p, c.p }
+    @< Unused port specifier
+
+  }
+  @< Topology definition
+
   @ Location specifier
-  locate constant x at "constant.fpp"
+  locate instance i at "instances.fpp"
   @< Location specifier
 
 }

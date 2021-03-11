@@ -239,6 +239,17 @@ object FppWriter extends AstVisitor with LineUtils {
     }
   }
 
+  override def specPortMatchingAnnotatedNode(
+    in: Unit,
+    aNode: Ast.Annotated[AstNode[Ast.SpecPortMatching]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    val port1 = data.port1.data
+    val port2 = data.port2.data
+    lines(s"match $port1 with $port2")
+  }
+
   override def specTlmChannelAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]) = {
     val (_, node, _) = aNode
     val data = node.data

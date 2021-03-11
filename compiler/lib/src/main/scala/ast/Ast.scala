@@ -425,7 +425,7 @@ object Ast {
       override def toString = "component"
     }
     final case object ComponentInstance extends Kind {
-      override def toString = "component instance"
+      override def toString = "instance"
     }
     final case object Constant extends Kind {
       override def toString = "constant"

@@ -268,7 +268,7 @@ def module
   @< Topology definition
   @ Location specifier
   spec loc
-    kind component instance
+    kind instance
     symbol qual ident i
     file instances.fpp
   @< Location specifier
