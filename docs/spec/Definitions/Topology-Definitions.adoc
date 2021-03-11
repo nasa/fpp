@@ -152,15 +152,12 @@ of _c2_.
 ... Check that there is no connection other than _c2_ between 
 any port number of _I.P2_ and _I'_.
 
-... Check that there is one and only one connection _c1_ between
+... Check that there is at most one one connection _c1_ between
 any port number of _I.P1_  and _I'_.
 
 ... Reassign the ports of _c1_ so that _c1_ is connected
 to _I.P1_ at the same number that _c2_ is connected
 to _I.P2_.
-
-.. Check that there are no connections out of _I.P1_
-except the ones matching _I.P2_.
 
 ===== Checking for Unconnected Ports
 

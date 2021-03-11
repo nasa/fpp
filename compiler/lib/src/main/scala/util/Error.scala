@@ -89,6 +89,8 @@ sealed trait Error {
         Error.print (Some(loc)) (msg)
         System.err.println(s"port definition is here:")
         System.err.println(defLoc)
+      case SemanticError.InvalidPortMatching(loc, msg) =>
+        Error.print (Some(loc)) (s"invalid port matching: $msg")
       case SemanticError.InvalidPriority(loc) =>
         Error.print (Some(loc)) ("only async input may have a priority")
       case SemanticError.InvalidQueueFull(loc) =>
@@ -234,6 +236,8 @@ object SemanticError {
   final case class InvalidInternalPort(loc: Location, msg: String) extends Error
   /** Invalid port instance */
   final case class InvalidPortInstance(loc: Location, msg: String, defLoc: Location) extends Error
+  /** Invalid port matching */
+  final case class InvalidPortMatching(loc: Location, msg: String) extends Error
   /** Invalid priority specifier */
   final case class InvalidPriority(loc: Location) extends Error
   /** Invalid queue full specifier */

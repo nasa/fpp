@@ -20,7 +20,7 @@ to its ping input port at the same index _n_.
 ==== Semantics
 
 . Each of the identifiers must name a
-<<Specifiers_Port-Instance-Specifiers,port instance>>
+<<Specifiers_Port-Instance-Specifiers,general port instance>>
 specified in the enclosing component.
 
 . The two port instances must be distinct and must have the same

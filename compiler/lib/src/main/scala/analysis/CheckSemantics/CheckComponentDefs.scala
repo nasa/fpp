@@ -17,11 +17,11 @@ object CheckComponentDefs
     val a1 = a.copy(component = Some(Component(aNode)))
     for {
       a <- super.defComponentAnnotatedNode(a1, aNode)
-      _ <- Components.checkValidity(a, a.component.get)
+      c <- a.component.get.complete
     }
     yield {
       val symbol = Symbol.Component(aNode)
-      a.copy(componentMap = a.componentMap + (symbol -> a.component.get))
+      a.copy(componentMap = a.componentMap + (symbol -> c))
     }
   }
 
@@ -89,6 +89,16 @@ object CheckComponentDefs
       component <- a.component.get.addPortInstance(instance)
     }
     yield a.copy(component = Some(component))
+  }
+
+  override def specPortMatchingAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecPortMatching]]
+  ) = {
+    val component = a.component.get
+    val list = aNode._2 :: component.specPortMatchingList
+    val component1 = component.copy(specPortMatchingList = list)
+    Right(a.copy(component = Some(component1)))
   }
 
   override def specTlmChannelAnnotatedNode(
