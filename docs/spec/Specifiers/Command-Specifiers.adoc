@@ -46,7 +46,8 @@ If there are no parameters, the list may be omitted.
 * The optional expression _e_ following `opcode` specifies the numeric
 opcode for the command.
 If _e_ is present, its type must be convertible to 
-<<Types_Internal-Types_Integer,_Integer_>>.
+<<Types_Internal-Types_Integer,_Integer_>>, and _e_ must evaluate
+to a nonnegative integer.
 If _e_ is not present, then the default opcode is either zero (for the first
 opcode appearing in a component) or the previous opcode plus one.
 

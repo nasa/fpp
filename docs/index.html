@@ -2981,7 +2981,8 @@ If there are no parameters, the list may be omitted.
 <p>The optional expression <em>e</em> following <code>opcode</code> specifies the numeric
 opcode for the command.
 If <em>e</em> is present, its type must be convertible to
-<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>, and <em>e</em> must evaluate
+to a nonnegative integer.
 If <em>e</em> is not present, then the default opcode is either zero (for the first
 opcode appearing in a component) or the previous opcode plus one.</p>
 </li>
@@ -3493,7 +3494,8 @@ If there are no parameters, the list may be omitted.
 <p>The optional expression <em>e</em> following <code>id</code> specifies the numeric
 identifier for the event.
 If <em>e</em> is present, then type of <em>e</em> must be convertible to
-<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>, and <em>e</em> must evaluate
+to a nonnegative integer.
 If <em>e</em> is not present, then the default identifier is either zero (for the
 first
 event appearing in a component) or the previous event identifier plus one.</p>
@@ -4032,7 +4034,8 @@ invalid.</p>
 numeric identifier for the parameter.
 If <em>e</em> is present, then the type of <em>e</em> must be
 <a href="#Type-Checking_Type-Conversion">convertible to</a>
-<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>, and <em>e</em> must evaluate
+to a nonnegative integer.
 If <em>e</em> is not present, then the
 default identifier is either zero (for the first parameter appearing in a
 component) or the previous parameter identifier plus one.</p>
@@ -4555,7 +4558,8 @@ A telemetry limit is one of the following:</p>
 numeric identifier for the channel.
 If <em>e</em> is present, then the type of <em>e</em> must be
 <a href="#Type-Checking_Type-Conversion">convertible to</a>
-<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>, and <em>e</em> must evaluate
+to a nonnegative integer.
 If <em>e</em> is not present, then the
 default identifier is either zero (for the first channel appearing in a
 component) or the previous channel identifier plus one.</p>
@@ -7925,7 +7929,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-11 17:25:54 -0800
+Last updated 2021-03-12 14:37:49 -0800
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
