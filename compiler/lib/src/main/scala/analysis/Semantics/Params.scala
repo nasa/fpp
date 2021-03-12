@@ -27,8 +27,8 @@ final object Params {
         }
       for {
         default <- Result.mapOpt(data.default, computeDefaultValue)
-        setOpcodeOpt <- a.getIntValueOpt(data.setOpcode)
-        saveOpcodeOpt <- a.getIntValueOpt(data.saveOpcode)
+        setOpcodeOpt <- a.getNonnegativeIntValueOpt(data.setOpcode)
+        saveOpcodeOpt <- a.getNonnegativeIntValueOpt(data.saveOpcode)
       }
       yield {
         val (setOpcode, defaultOpcode1) = computeOpcode(setOpcodeOpt, defaultOpcode)

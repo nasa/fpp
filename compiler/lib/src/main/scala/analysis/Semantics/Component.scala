@@ -33,6 +33,14 @@ case class Component(
   defaultParamId: Int = 0
 ) {
 
+  /** Gets the max identifier */
+  def getMaxId: Int = Vector(
+    commandMap,
+    eventMap,
+    paramMap,
+    tlmChannelMap
+  ).maxBy(map => if (map.size == 0) 0 else map.keys.max).size
+
   /** Add a command */
   def addCommand(
     opcodeOpt: Option[Command.Opcode],

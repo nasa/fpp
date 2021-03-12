@@ -8,6 +8,7 @@ final case class ComponentInstance(
   aNode: Ast.Annotated[AstNode[Ast.DefComponentInstance]],
   component: Component,
   baseId: Int,
+  maxId: Int,
   file: Option[String],
   queueSize: Option[Int],
   stackSize: Option[Int],

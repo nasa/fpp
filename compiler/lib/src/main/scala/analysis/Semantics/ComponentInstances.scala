@@ -18,7 +18,7 @@ object ComponentInstances {
     val component = a.componentMap(componentSymbol)
     val componentKind = component.aNode._2.data.kind
     for {
-      baseId <- a.getIntValue(data.baseId.id)
+      baseId <- a.getNonnegativeIntValue(data.baseId.id)
       file <- Result.mapOpt(data.file, getFile)
       queueSize <- getQueueSize(
         a,
@@ -41,10 +41,12 @@ object ComponentInstances {
       )("priority", data.priority)
     }
     yield {
+      val maxId = baseId + component.getMaxId
       ComponentInstance(
         aNode,
         component,
         baseId,
+        maxId,
         file,
         queueSize,
         stackSize,
@@ -88,7 +90,7 @@ object ComponentInstances {
       )
       case (Ast.ComponentKind.Passive, None) =>
         Right(None)
-      case (_, Some(_)) => a.getIntValueOpt(nodeOpt)
+      case (_, Some(_)) => a.getNonnegativeIntValueOpt(nodeOpt)
       case _ => invalid(
         name,
         loc,
@@ -113,12 +115,12 @@ object ComponentInstances {
         s"active component requires $kind"
       )
       case (Ast.ComponentKind.Active, Some(_)) =>
-        a.getIntValueOpt(nodeOpt)
+        a.getNonnegativeIntValueOpt(nodeOpt)
       case (_, None) => Right(None)
       case (_, Some(node)) => invalid(
         name,
         Locations.get(node.id),
-        s"$componentKind component may not have queue size"
+        s"$componentKind component may not have $kind"
       )
     }
 

@@ -181,13 +181,31 @@ case class Analysis(
     }
     else {
       val loc = Locations.get(id)
-      Left(SemanticError.InvalidIntValue(loc, v))
+      Left(SemanticError.InvalidIntValue(loc, v, "value out of range"))
     }
   }
 
+  /** Gets a nonnegative int value from an AST node */
+  def getNonnegativeIntValue(id: AstNode.Id): Result.Result[Int] = {
+    for {
+      v <- getIntValue(id)
+      v <- if (v >= 0) Right(v)
+           else Left(SemanticError.InvalidIntValue(
+             Locations.get(id),
+             v,
+             "value may not be negative"
+           ))
+    }
+    yield v
+  }
+ 
   /** Gets an optional int value from an AST node */
   def getIntValueOpt[T](nodeOpt: Option[AstNode[T]]): Result.Result[Option[Int]] = 
     Result.mapOpt(nodeOpt, (node: AstNode[T]) => getIntValue(node.id))
+
+  /** Gets an optional nonnegative int value from an AST ndoe */
+  def getNonnegativeIntValueOpt[T](nodeOpt: Option[AstNode[T]]): Result.Result[Option[Int]] = 
+    Result.mapOpt(nodeOpt, (node: AstNode[T]) => getNonnegativeIntValue(node.id))
 
   /** Gets an array size from an AST node */
   def getArraySize(id: AstNode.Id): Result.Result[Int] = {
@@ -248,6 +266,13 @@ object Analysis {
   def checkForDuplicateParameter(nodes: Ast.FormalParamList): Result.Result[Unit] = {
     def getName(param: Ast.FormalParam) = param.name
     checkForDuplicateNode (getName) (SemanticError.DuplicateParameter) (nodes.map(_._2))
+  }
+
+  /** Check that int value is nonnegative */
+  def checkForNegativeValue(id: AstNode.Id, v: Int): Result.Result[Int] = {
+    val loc = Locations.get(id)
+    if (v >= 0) Right(v) else
+    Left(SemanticError.InvalidIntValue(loc, v, "value may not be negative"))
   }
 
   /** Compute a format from a format string and a list of types */

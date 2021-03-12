@@ -26,7 +26,8 @@ object CheckSemantics {
       a <- FinalizeTypeDefs.visitList(a, tul, FinalizeTypeDefs.transUnit)
       a <- CheckPortDefs.visitList(a, tul, CheckPortDefs.transUnit)
       a <- CheckComponentDefs.visitList(a, tul, CheckComponentDefs.transUnit)
-      // TODO: Check component instance definitions
+      a <- CheckComponentInstanceDefs.visitList(a, tul, CheckComponentInstanceDefs.transUnit)
+      _ <- CheckComponentInstanceDefs.checkIdRanges(a)
       // TODO: Check topology definitions
       // TODO: Check init specifiers
       a <- BuildSpecLocMap.visitList(a, tul, BuildSpecLocMap.transUnit)
