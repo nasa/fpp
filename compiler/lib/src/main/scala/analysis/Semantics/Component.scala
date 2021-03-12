@@ -34,12 +34,17 @@ case class Component(
 ) {
 
   /** Gets the max identifier */
-  def getMaxId: Int = Vector(
-    commandMap,
-    eventMap,
-    paramMap,
-    tlmChannelMap
-  ).maxBy(map => if (map.size == 0) 0 else map.keys.max).size
+  def getMaxId: Int = {
+    def maxInMap[T](map: Map[Int, T]): Int =
+      if (map.size == 0) -1 else map.keys.max
+    val maxMap = Vector(
+      commandMap,
+      eventMap,
+      paramMap,
+      tlmChannelMap
+    ).maxBy(maxInMap)
+    maxInMap(maxMap)
+  }
 
   /** Add a command */
   def addCommand(

@@ -52,6 +52,7 @@ For this purpose, command opcodes are identifiers.
 .. For each instance, this procedure creates a range of identifiers,
 from the base identifier to the largest identifier associated
 with the instance.
+If the component has no identifiers, then this range is empty.
 
 .. No instance may have a base identifier that lies within
 the identifier range of another instance.

@@ -84,7 +84,8 @@ sealed trait Error {
       case SemanticError.InvalidFormatString(loc, msg) =>
         Error.print (Some(loc)) (s"invalid format string: $msg")
       case SemanticError.InvalidIntValue(loc, v, msg) =>
-        Error.print (Some(loc)) (s"invalid integer value $v: $msg")
+        Error.print (Some(loc)) (s"invalid integer value $v")
+        System.err.print(msg)
       case SemanticError.InvalidInternalPort(loc, msg) =>
         Error.print (Some(loc)) (msg)
       case SemanticError.InvalidPortInstance(loc, msg, defLoc) =>
@@ -111,6 +112,16 @@ sealed trait Error {
         Error.print (Some(loc)) (s"component with $specKind specifiers must have $portKind port")
       case SemanticError.NotImplemented(loc) =>
         Error.print (Some(loc)) ("language feature is not yet implemented")
+      case SemanticError.OverlappingIdRanges(
+        maxId1, name1, loc1, baseId2, name2, loc2
+      ) =>
+        Error.print (None) (
+          s"max ID $maxId1 for instance $name1 conflicts with base ID $baseId2 for instance $name2"
+        )
+        System.err.println(s"$name1 is defined here")
+        System.err.println(loc1)
+        System.err.println(s"$name2 is defined here")
+        System.err.println(loc2)
       case SemanticError.PassiveAsync(loc) =>
         Error.print (Some(loc)) ("passive component may not have async input")
       case SemanticError.RedefinedSymbol(name, loc, prevLoc) =>
@@ -263,6 +274,15 @@ object SemanticError {
   final case class MissingPort(loc: Location, specKind: String, port: String) extends Error
   /** Feature not implemented */
   final case class NotImplemented(loc: Location) extends Error
+  /** Overlapping ID ranges */
+  final case class OverlappingIdRanges(
+    maxId1: Int,
+    name1: String,
+    loc1: Location,
+    baseId2: Int,
+    name2: String,
+    loc2: Location
+  ) extends Error
   /** Passive async input */
   final case class PassiveAsync(loc: Location) extends Error
   /** Redefined symbol */
