@@ -102,7 +102,7 @@ object ComponentInstances {
       case _ => invalid(
         name,
         loc,
-        s"$componentKind component requires queue size"
+        s"$componentKind component must have queue size"
       )
     }
   }
@@ -120,7 +120,7 @@ object ComponentInstances {
       case (Ast.ComponentKind.Active, None) => invalid(
         name,
         loc,
-        s"active component requires $kind"
+        s"active component must have $kind"
       )
       case (Ast.ComponentKind.Active, Some(_)) =>
         a.getNonnegativeIntValueOpt(nodeOpt)

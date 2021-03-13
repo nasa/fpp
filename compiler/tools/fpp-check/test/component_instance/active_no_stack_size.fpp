@@ -7,6 +7,5 @@ active component C {
 }
 
 instance c: C base id 0x100 \
-  stack size 10 * 1024 \
+  queue size 10 \
   priority 10
-
