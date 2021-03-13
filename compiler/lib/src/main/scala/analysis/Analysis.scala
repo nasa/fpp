@@ -48,11 +48,11 @@ case class Analysis(
   /** The set of symbols used. Used during code generation. */
   usedSymbolSet: Set[Symbol] = Set(),
   /** The map from component symbols to components */
-  componentMap: Map[Symbol, Component] = Map(),
+  componentMap: Map[Symbol.Component, Component] = Map(),
   /** The component currently under construction */
   component: Option[Component] = None,
   /** The map from component instance symbols to component instances */
-  componentInstanceMap: Map[Symbol, ComponentInstance] = Map()
+  componentInstanceMap: Map[Symbol.ComponentInstance, ComponentInstance] = Map()
 ) {
 
   /** Add a mapping to the type map */
