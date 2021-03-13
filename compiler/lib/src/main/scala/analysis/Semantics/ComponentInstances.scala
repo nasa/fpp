@@ -14,10 +14,18 @@ object ComponentInstances {
     val node = aNode._2
     val data = node.data
     val loc = Locations.get(node.id)
-    val componentSymbol = a.useDefMap(data.component.id)
-    val component = a.componentMap(componentSymbol)
-    val componentKind = component.aNode._2.data.kind
     for {
+      component <- a.useDefMap(data.component.id) match {
+        case componentSymbol: Symbol.Component => 
+          Right(a.componentMap(componentSymbol))
+        case symbol => Left(SemanticError.InvalidSymbol(
+          symbol.getUnqualifiedName,
+          loc,
+          "not a component symbol",
+          Locations.get(symbol.getNodeId)
+        ))
+      }
+      componentKind <- Right(component.aNode._2.data.kind)
       baseId <- a.getNonnegativeIntValue(data.baseId.id)
       file <- Result.mapOpt(data.file, getFile)
       queueSize <- getQueueSize(
