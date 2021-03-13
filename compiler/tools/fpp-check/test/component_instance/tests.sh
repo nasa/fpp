@@ -3,6 +3,10 @@ active_no_priority
 active_no_queue_size
 active_no_stack_size
 ok
+passive_priority
 passive_queue_size
+passive_stack_size
+queued_priority
 queued_no_queue_size
+queued_stack_size
 "
