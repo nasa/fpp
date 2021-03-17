@@ -2553,10 +2553,6 @@ For example, the two connection graphs</p>
 </ol>
 </div>
 </li>
-<li>
-<p>Check that no two connections go from the same output
-port at the same port number.</p>
-</li>
 </ol>
 </div>
 </div>
@@ -4709,21 +4705,21 @@ with name \$N_i\$.</p>
 <li>
 <p>Let \$C_i\$ be the set of
 <a href="#Specifiers_Connection-Graph-Specifiers">connections</a>
-of \$G_i\$.</p>
+of \$G_i\$ such that each of the two instances at
+the ends of the connection is in <em>I''</em>.</p>
 </li>
 <li>
 <p>Let \$C'_i\$ be the set of
 <a href="#Specifiers_Connection-Graph-Specifiers">connections</a>
-of \$G'_i\$.</p>
+of \$G'_i\$ such that each of the two the instances at
+the ends of the connection is in <em>I''</em>.</p>
 </li>
 <li>
 <p>Let \$C''_i\$ be the disjoint union of \$C_i\$ and \$C'_i\$.
 That means that if \$C_i\$ contains <em>n</em> connections between port
 <em>p</em> and port <em>p'</em>, and \$C'_i\$ contains <em>m</em> connections between
 port <em>p</em> and port <em>p'</em>, then \$C_i\$ contains <em>n + m</em> connections
-between port <em>p</em> and port <em>p'</em>.
-When computing this disjoint union, it is an error if two or more
-connections have the same specified port number at the same end point.</p>
+between port <em>p</em> and port <em>p'</em>.</p>
 </li>
 <li>
 <p>Let \$G''_i\$ be the connection graph with name \$N_i\$
@@ -4731,6 +4727,10 @@ and connections \$C''_i\$.</p>
 </li>
 </ol>
 </div>
+</li>
+<li>
+<p>Let <em>T''</em> Be the topology consisting of the instances <em>I''</em>
+and the connection graphs \$G''_i\$.</p>
 </li>
 </ol>
 </div>
@@ -7937,7 +7937,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-16 18:58:40 -0700
+Last updated 2021-03-16 21:40:39 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

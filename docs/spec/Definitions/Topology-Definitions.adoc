@@ -95,9 +95,6 @@ _T'_ into _T_.
 
 .. Let _T_ = _T''_.
 
-. Check that no two connections go from the same output
-port at the same port number.
-
 ===== Automatic Numbering of Array Indices
 
 *General numbering:* FPP automatically numbers the array indices appearing in 
