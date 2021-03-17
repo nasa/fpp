@@ -106,6 +106,9 @@ object CheckUses extends UseAnalyzer {
   override def portUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     visitQualIdentNode (NameGroup.Port) (a, node)
 
+  override def topologyUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
+    visitQualIdentNode (NameGroup.Topology) (a, node)
+
   override def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified) = {
     val data = node.data
     data match {
