@@ -36,12 +36,14 @@ object CheckTopologyDefs
       instance <- a.useDefMap(instanceNode.id) match {
         case cis: Symbol.ComponentInstance =>
           Right(a.componentInstanceMap(cis))
-        case s => Left(SemanticError.InvalidSymbol(
+        case s => Left(
+          SemanticError.InvalidSymbol(
             s.getUnqualifiedName,
             Locations.get(instanceNode.id),
             "not a component instance symbol",
             s.getLoc
-        ))
+          )
+        )
       }
       topology <- a.topology.get.addUniqueInstance(
         instance,
