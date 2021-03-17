@@ -1,0 +1,5 @@
+topology T {
+
+  instance c
+
+}
