@@ -44,6 +44,9 @@ sealed trait Error {
       case SemanticError.DuplicateIdValue(value, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate identifier value ${value}")
         printPrevLoc(prevLoc)
+      case SemanticError.DuplicateInstance(name, loc, prevLoc) =>
+        Error.print (Some(loc)) (s"duplicate instance $name")
+        printPrevLoc(prevLoc)
       case SemanticError.DuplicateLimit(loc, prevLoc) =>
         Error.print (Some(loc)) ("duplicate limit")
         printPrevLoc(prevLoc)
@@ -188,6 +191,12 @@ object SemanticError {
   /** Dupliate ID value */
   final case class DuplicateIdValue(
     value: String,
+    loc: Location,
+    prevLoc: Location
+  ) extends Error
+  /** Dupliate instance */
+  final case class DuplicateInstance(
+    name: String,
     loc: Location,
     prevLoc: Location
   ) extends Error
