@@ -1,5 +1,5 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/component_instance/queued_stack_size.fpp: 11.14
+[ local path prefix ]/compiler/tools/fpp-check/test/component_instance_def/queued_stack_size.fpp: 11.14
   stack size 10 * 1024
              ^
 error: invalid component instance definition c: queued component may not have stack size
