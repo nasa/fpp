@@ -29,6 +29,8 @@ of _T'_.
 That means that if either or both of _I_ and _I'_ contain the 
 instance _S_,
 then _I''_ contains the instance _S_ once.
+An instance is public in _I''_ if it is public in _I_
+or _I'_ or both; otherwise it is private.
 
 . For each
 <<Specifiers_Connection-Graph-Specifiers,connection graph name>> stem:[N_i]
