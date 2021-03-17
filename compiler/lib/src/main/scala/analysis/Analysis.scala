@@ -52,7 +52,11 @@ case class Analysis(
   /** The component currently under construction */
   component: Option[Component] = None,
   /** The map from component instance symbols to component instances */
-  componentInstanceMap: Map[Symbol.ComponentInstance, ComponentInstance] = Map()
+  componentInstanceMap: Map[Symbol.ComponentInstance, ComponentInstance] = Map(),
+  /** The map from topology symbols to topologies */
+  topologyMap: Map[Symbol.Topology, Topology] = Map(),
+  /** The topology currently under construction */
+  topology: Option[Topology] = None
 ) {
 
   /** Add a mapping to the type map */

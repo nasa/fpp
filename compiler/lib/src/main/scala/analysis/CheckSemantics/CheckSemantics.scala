@@ -28,7 +28,7 @@ object CheckSemantics {
       a <- CheckComponentDefs.visitList(a, tul, CheckComponentDefs.transUnit)
       a <- CheckComponentInstanceDefs.visitList(a, tul, CheckComponentInstanceDefs.transUnit)
       _ <- CheckComponentInstanceDefs.checkIdRanges(a)
-      // TODO: Check topology definitions
+      a <- CheckTopologyDefs.visitList(a, tul, CheckTopologyDefs.transUnit)
       // TODO: Check init specifiers
       a <- BuildSpecLocMap.visitList(a, tul, BuildSpecLocMap.transUnit)
       a <- CheckSpecLocs.visitList(a, tul, CheckSpecLocs.transUnit)

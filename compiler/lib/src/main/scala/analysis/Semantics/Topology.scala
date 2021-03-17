@@ -34,7 +34,7 @@ case class Topology(
   /** Add an instance that may already be there */
   def addMergedInstance(
     instance: ComponentInstance,
-    visibility: Ast.Visibility,
+    vis: Ast.Visibility,
     loc: Location
   ): Topology = {
     def mergeVisibility(v1: Ast.Visibility, v2: Ast.Visibility) =
@@ -43,13 +43,19 @@ case class Topology(
           Ast.Visibility.Private
         case _ => Ast.Visibility.Public
       }
-    val mergedVisibility = instanceMap.get(instance) match {
-      case Some((prevVisibility, _)) => 
-        mergeVisibility(prevVisibility, visibility)
-      case None => visibility
+    val (mergedVis, mergedLoc) = instanceMap.get(instance) match {
+      case Some((prevVis, prevLoc)) => 
+        // Merge the visibility and use the previous location
+        (mergeVisibility(prevVis, vis), prevLoc)
+      case None => (vis, loc)
     }
-    val map = instanceMap + (instance -> (mergedVisibility, loc))
+    val map = instanceMap + (instance -> (mergedVis, mergedLoc))
     this.copy(instanceMap = map)
   }
+
+  /** Complete a topology definition */
+  def complete: Result.Result[Topology] =
+    //TODO
+    Right(this)
 
 }
