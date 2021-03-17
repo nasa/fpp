@@ -230,6 +230,19 @@ object EnterSymbols
       yield updateMap(a, symbol).copy(nestedScope = nestedScope)
   }
 
+  override def defTopologyAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    val name = data.name
+    val symbol = Symbol.Topology(aNode)
+    val nestedScope = a.nestedScope
+    for (nestedScope <- nestedScope.put(NameGroup.Topology)(name, symbol))
+      yield updateMap(a, symbol).copy(nestedScope = nestedScope)
+  }
+
   private def updateMap(a: Analysis, s: Symbol): Analysis = {
     val identList = (s.getUnqualifiedName :: a.scopeNameList).reverse
     val name = Name.Qualified.fromIdentList(identList)
