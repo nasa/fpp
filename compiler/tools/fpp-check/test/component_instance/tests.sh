@@ -9,4 +9,5 @@ passive_stack_size
 queued_priority
 queued_no_queue_size
 queued_stack_size
+undef_component
 "
