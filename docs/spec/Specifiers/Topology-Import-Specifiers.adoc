@@ -46,22 +46,25 @@ with name stem:[N_i].
 
 .. Let stem:[C_i] be the set of 
 <<Specifiers_Connection-Graph-Specifiers,connections>>
-of stem:[G_i].
+of stem:[G_i] such that each of the two instances at
+the ends of the connection is in _I''_.
 
 .. Let stem:[C'_i] be the set of
 <<Specifiers_Connection-Graph-Specifiers,connections>>
-of stem:[G'_i].
+of stem:[G'_i] such that each of the two the instances at
+the ends of the connection is in _I''_.
 
 .. Let stem:[C''_i] be the disjoint union of stem:[C_i] and stem:[C'_i].
 That means that if stem:[C_i] contains _n_ connections between port
 _p_ and port _p'_, and stem:[C'_i] contains _m_ connections between
 port _p_ and port _p'_, then stem:[C_i] contains _n + m_ connections
 between port _p_ and port _p'_.
-When computing this disjoint union, it is an error if two or more
-connections have the same specified port number at the same end point.
 
 .. Let stem:[G''_i] be the connection graph with name stem:[N_i]
 and connections stem:[C''_i].
+
+. Let _T''_ Be the topology consisting of the instances _I''_
+and the connection graphs stem:[G''_i].
 
 ==== Example
 
