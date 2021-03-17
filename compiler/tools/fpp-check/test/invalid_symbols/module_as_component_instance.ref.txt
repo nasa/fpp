@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/invalid_symbols/module_as_component_instance.fpp: 5.14
+    instance M
+             ^
+error: invalid symbol M: not a component instance symbol
+symbol is defined here:
+[ local path prefix ]/compiler/tools/fpp-check/test/invalid_symbols/module_as_component_instance.fpp: 1.1
+module M {
+^
