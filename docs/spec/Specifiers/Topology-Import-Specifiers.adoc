@@ -55,6 +55,8 @@ That means that if stem:[C_i] contains _n_ connections between port
 _p_ and port _p'_, and stem:[C'_i] contains _m_ connections between
 port _p_ and port _p'_, then stem:[C_i] contains _n + m_ connections
 between port _p_ and port _p'_.
+When computing this disjoint union, it is an error if two or more
+connections have the same specified port number at the same end point.
 
 .. Let stem:[G''_i] be the connection graph with name stem:[N_i]
 and connections stem:[C''_i].

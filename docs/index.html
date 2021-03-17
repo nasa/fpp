@@ -2481,9 +2481,8 @@ according to the following algorithm:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Resolve <em>D</em> to an
-<a href="#Definitions_Topology-Definitions_Semantics_Resolving-to-an-Unnumbered-Topology">unnumbered
-topology</a> <em>T'</em>.</p>
+<p>Resolve <em>D</em> to a
+<a href="#Definitions_Topology-Definitions_Semantics_Resolving-to-a-Partially-Numbered-Topology">partially numbered topology</a> <em>T'</em>.</p>
 </li>
 <li>
 <p>Apply
@@ -2496,10 +2495,11 @@ to <em>T'</em>.</p>
 </ol>
 </div>
 <div class="sect4">
-<h5 id="Definitions_Topology-Definitions_Semantics_Resolving-to-an-Unnumbered-Topology">Resolving to an Unnumbered Topology</h5>
+<h5 id="Definitions_Topology-Definitions_Semantics_Resolving-to-a-Partially-Numbered-Topology">Resolving to a Partially Numbered Topology</h5>
 <div class="paragraph">
-<p>An <strong>unnumbered topology</strong> is a topology in which port array index expressions
-may or may not be present, and if they are present their meaning is ignored.</p>
+<p>A <strong>partially numbered topology</strong> is a topology in which port array index expressions
+(a) may or may not be present and (b) are present if and only if they
+are specified in the model source.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -2540,7 +2540,7 @@ For example, the two connection graphs</p>
 <ol class="loweralpha" type="a">
 <li>
 <p>Let <em>T'</em> be the topology given by resolving the topology definition named in
-<em>S</em> to an unnumbered topology.</p>
+<em>S</em> to a partially numbered topology.</p>
 </li>
 <li>
 <p>Let <em>T''</em> be the result of
@@ -2552,6 +2552,10 @@ For example, the two connection graphs</p>
 </li>
 </ol>
 </div>
+</li>
+<li>
+<p>Check that no two connections go from the same output
+port at the same port number.</p>
 </li>
 </ol>
 </div>
@@ -4715,7 +4719,9 @@ of \$G'_i\$.</p>
 That means that if \$C_i\$ contains <em>n</em> connections between port
 <em>p</em> and port <em>p'</em>, and \$C'_i\$ contains <em>m</em> connections between
 port <em>p</em> and port <em>p'</em>, then \$C_i\$ contains <em>n + m</em> connections
-between port <em>p</em> and port <em>p'</em>.</p>
+between port <em>p</em> and port <em>p'</em>.
+When computing this disjoint union, it is an error if two or more
+connections have the same specified port number at the same end point.</p>
 </li>
 <li>
 <p>Let \$G''_i\$ be the connection graph with name \$N_i\$
@@ -7929,7 +7935,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-12 14:37:49 -0800
+Last updated 2021-03-16 18:18:49 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

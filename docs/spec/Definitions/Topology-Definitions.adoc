@@ -38,9 +38,9 @@ instance specifier>>
 A topology definition _D_ must be resolvable to a topology _T_,
 according to the following algorithm:
 
-. Resolve _D_ to an
-<<Definitions_Topology-Definitions_Semantics_Resolving-to-an-Unnumbered-Topology,unnumbered
-topology>> _T'_.
+. Resolve _D_ to a
+<<Definitions_Topology-Definitions_Semantics_Resolving-to-a-Partially-Numbered-Topology,
+partially numbered topology>> _T'_.
 
 . Apply 
 <<Definitions_Topology-Definitions_Semantics_Automatic-Numbering-of-Array-Indices,
@@ -50,10 +50,11 @@ to _T'_.
 . <<Definitions_Topology-Definitions_Semantics_Checking-for-Unconnected-Ports,
 Check for unconnected ports>> in _T'_.
 
-===== Resolving to an Unnumbered Topology
+===== Resolving to a Partially Numbered Topology
 
-An *unnumbered topology* is a topology in which port array index expressions
-may or may not be present, and if they are present their meaning is ignored.
+A *partially numbered topology* is a topology in which port array index expressions
+(a) may or may not be present and (b) are present if and only if they
+are specified in the model source.
 
 . Let _T_ be the topology given by all
 <<Specifiers_Component-Instance-Specifiers,instances>> (both public and
@@ -86,13 +87,16 @@ connections C { a.b -> c.d, e.f -> g.h }
 . For each import specifier _S_ appearing in _D_, do the following:
 
 .. Let _T'_ be the topology given by resolving the topology definition named in
-_S_ to an unnumbered topology.
+_S_ to a partially numbered topology.
 
 .. Let _T''_ be the result of 
 <<Specifiers_Topology-Import-Specifiers,importing>>
 _T'_ into _T_.
 
 .. Let _T_ = _T''_.
+
+. Check that no two connections go from the same output
+port at the same port number.
 
 ===== Automatic Numbering of Array Indices
 
