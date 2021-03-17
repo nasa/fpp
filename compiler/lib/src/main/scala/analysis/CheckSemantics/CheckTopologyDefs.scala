@@ -29,9 +29,27 @@ object CheckTopologyDefs
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecCompInstance]]
   ) = {
-    val data = aNode._2.data
-    // TODO
-    Right(a)
+    val node = aNode._2
+    val visibility = node.data.visibility
+    val instanceNode = node.data.instance
+    for {
+      instance <- a.useDefMap(instanceNode.id) match {
+        case cis: Symbol.ComponentInstance =>
+          Right(a.componentInstanceMap(cis))
+        case s => Left(SemanticError.InvalidSymbol(
+            s.getUnqualifiedName,
+            Locations.get(instanceNode.id),
+            "not a component instance symbol",
+            s.getLoc
+        ))
+      }
+      topology <- a.topology.get.addUniqueInstance(
+        instance,
+        visibility,
+        Locations.get(node.id)
+      )
+    }
+    yield a.copy(topology = Some(topology))
   }
 
 }
