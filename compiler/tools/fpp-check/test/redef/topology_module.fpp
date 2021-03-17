@@ -1,0 +1,2 @@
+topology M { }
+module M { }

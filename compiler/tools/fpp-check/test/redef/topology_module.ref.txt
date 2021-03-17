@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/redef/topology_module.fpp: 2.1
+module M { }
+^
+error: redefinition of symbol M
+previous definition is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/redef/topology_module.fpp: 1.1
+topology M { }
+^

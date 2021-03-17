@@ -15,10 +15,12 @@ module_component_instance
 module_constant
 module_enum
 module_port
+module_topology
 module_type
 port
 port_module
 struct
+topology_module
 type
 type_module
 "
