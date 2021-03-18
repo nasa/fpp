@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/component_instance_spec/duplicate_instance.fpp: 10.3
+  instance c
+  ^
+error: duplicate instance c
+previous occurrence is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/component_instance_spec/duplicate_instance.fpp: 9.3
+  instance c
+  ^
