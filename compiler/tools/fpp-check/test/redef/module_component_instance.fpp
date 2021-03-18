@@ -1,2 +1,3 @@
+passive component C { }
 module M { }
-instance m: M base id 0
+instance M: C base id 0
