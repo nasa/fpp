@@ -8,7 +8,5 @@ case class PortInstanceIdentifier(
   /** The AST node defining the identifier */
   node: AstNode[Ast.PortInstanceIdentifier],
   /** The component instance */
-  componentInstance: ComponentInstance,
-  /** The port instance name */
-  portName: String
+  componentInstance: ComponentInstance
 )

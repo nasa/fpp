@@ -174,6 +174,36 @@ case class Analysis(
     helper(scopeNameList.reverse, name.toIdentList)
   }
 
+  /** Gets a component instance symbol from the component map */
+  def getComponentInstanceSymbol(id: AstNode.Id):
+    Result.Result[Symbol.ComponentInstance] =
+    this.useDefMap(id) match {
+      case cis: Symbol.ComponentInstance => Right(cis)
+      case s => Left(
+        SemanticError.InvalidSymbol(
+          s.getUnqualifiedName,
+          Locations.get(id),
+          "not a component instance symbol",
+          s.getLoc
+        )
+      )
+    }
+
+  /** Gets a topology symbol from the topology map */
+  def getTopologySymbol(id: AstNode.Id):
+    Result.Result[Symbol.Topology] =
+    this.useDefMap(id) match {
+      case ts: Symbol.Topology => Right(ts)
+      case s => Left(
+        SemanticError.InvalidSymbol(
+          s.getUnqualifiedName,
+          Locations.get(id),
+          "not a topology symbol",
+          s.getLoc
+        )
+      )
+    }
+
   /** Gets an int value from an AST node */
   def getIntValue(id: AstNode.Id): Result.Result[Int] = {
     val Value.Integer(v) = Analysis.convertValueToType(

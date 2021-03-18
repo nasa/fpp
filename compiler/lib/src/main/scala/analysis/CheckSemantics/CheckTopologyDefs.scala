@@ -49,18 +49,8 @@ object CheckTopologyDefs
     val visibility = node.data.visibility
     val instanceNode = node.data.instance
     for {
-      instance <- a.useDefMap(instanceNode.id) match {
-        case cis: Symbol.ComponentInstance =>
-          Right(a.componentInstanceMap(cis))
-        case s => Left(
-          SemanticError.InvalidSymbol(
-            s.getUnqualifiedName,
-            Locations.get(instanceNode.id),
-            "not a component instance symbol",
-            s.getLoc
-          )
-        )
-      }
+      cis <- a.getComponentInstanceSymbol(instanceNode.id)
+      instance <- Right(a.componentInstanceMap(cis))
       topology <- a.topology.get.addUniqueInstance(
         instance,
         visibility,
@@ -77,18 +67,8 @@ object CheckTopologyDefs
     val node = aNode._2
     val topNode = node.data.top
     for {
-      importedTop <- a.useDefMap(topNode.id) match {
-        case ts: Symbol.Topology =>
-          Right(a.topologyMap(ts))
-        case s => Left(
-          SemanticError.InvalidSymbol(
-            s.getUnqualifiedName,
-            Locations.get(topNode.id),
-            "not a topology symbol",
-            s.getLoc
-          )
-        )
-      }
+      ts <- a.getTopologySymbol(topNode.id)
+      importedTop <- Right(a.topologyMap(ts))
       topology <- a.topology.get.addImportedTopology(
         importedTop,
         Locations.get(node.id)
