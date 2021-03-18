@@ -45,9 +45,8 @@ object Name {
     def fromIdent(id: Ast.Ident) = Qualified(Nil, id)
 
     /** Create a qualified name from a qualified identifier */
-    def fromQualIdent(qualIdent: Ast.QualIdent) = fromIdentList(qualIdent.toIdentList)
-
-
+    def fromQualIdent(qualIdent: Ast.QualIdent) =
+      fromIdentList(qualIdent.toIdentList)
 
   }
 

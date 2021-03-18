@@ -6,6 +6,12 @@ import fpp.compiler.util._
 /** Check component instances */
 object ComponentInstances {
 
+  /** Gets the qualified name of a component instance */
+  def getQualifiedName(a: Analysis, ci: ComponentInstance) = {
+    val symbol = Symbol.ComponentInstance(ci.aNode)
+    a.qualifiedNameMap(symbol)
+  }
+
   /** Creates a component instance from a component instance definition */
   def fromDefComponentInstance(
     a: Analysis,
