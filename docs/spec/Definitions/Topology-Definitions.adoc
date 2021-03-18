@@ -86,13 +86,11 @@ connections C { a.b -> c.d, e.f -> g.h }
 
 . For each import specifier _S_ appearing in _D_, do the following:
 
-.. Check that the topology definition named in _S_ has not already
-been transitively imported into _T_.
-For example, if topology _C_ imports _B_ and _B_ imports _A_, then it is
-an error for _C_ to separately import _A_.
-
 .. Let _T'_ be the topology given by resolving the topology definition named in
 _S_ to a partially numbered topology.
+
+.. Check that neither _S_ nor any topology imported by _S_ has already
+been imported into _T_.
 
 .. Let _T''_ be the result of 
 <<Specifiers_Topology-Import-Specifiers,importing>>

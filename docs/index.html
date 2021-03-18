@@ -2539,14 +2539,12 @@ For example, the two connection graphs</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Check that the topology definition named in <em>S</em> has not already
-been transitively imported into <em>T</em>.
-For example, if topology <em>C</em> imports <em>B</em> and <em>B</em> imports <em>A</em>, then it is
-an error for <em>C</em> to separately import <em>A</em>.</p>
-</li>
-<li>
 <p>Let <em>T'</em> be the topology given by resolving the topology definition named in
 <em>S</em> to a partially numbered topology.</p>
+</li>
+<li>
+<p>Check that neither <em>S</em> nor any topology imported by <em>S</em> has already
+been imported into <em>T</em>.</p>
 </li>
 <li>
 <p>Let <em>T''</em> be the result of
@@ -7943,7 +7941,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-17 17:07:50 -0700
+Last updated 2021-03-17 17:19:32 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

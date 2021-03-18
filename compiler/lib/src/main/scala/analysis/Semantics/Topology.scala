@@ -8,7 +8,7 @@ case class Topology(
   /** The AST node defining the topology */
   aNode: Ast.Annotated[AstNode[Ast.DefTopology]],
   /** The imported topologies */
-  importedTopologySet: Set[Topology] = Set(),
+  importedTopologyMap: Map[Topology, Location] = Map(),
   /** The instances of this topology */
   instanceMap: Map[ComponentInstance, (Ast.Visibility, Location)] = Map(),
   // TODO
