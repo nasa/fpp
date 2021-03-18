@@ -1,0 +1,5 @@
+topology B {
+
+  import A
+
+}
