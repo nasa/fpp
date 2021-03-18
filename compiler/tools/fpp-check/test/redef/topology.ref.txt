@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/redef/topology.fpp: 2.1
+topology T { }
+^
+error: redefinition of symbol T
+previous definition is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/redef/topology.fpp: 1.1
+topology T { }
+^

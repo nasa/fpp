@@ -1,7 +1,9 @@
 tests="
 array
+component
 component_array
 component_enum
+component_instance
 component_instance_module
 component_struct
 constant
@@ -20,6 +22,7 @@ module_type
 port
 port_module
 struct
+topology
 topology_module
 type
 type_module

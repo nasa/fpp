@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/invalid_symbols/module_as_topology.fpp: 5.12
+    import M
+           ^
+error: invalid symbol M: not a topology symbol
+symbol is defined here:
+[ local path prefix ]/compiler/tools/fpp-check/test/invalid_symbols/module_as_topology.fpp: 1.1
+module M {
+^

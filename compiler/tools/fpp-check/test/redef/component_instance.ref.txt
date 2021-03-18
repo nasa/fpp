@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/redef/component_instance.fpp: 6.1
+instance c: C base id 0x200
+^
+error: redefinition of symbol c
+previous definition is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/redef/component_instance.fpp: 5.1
+instance c: C base id 0x100
+^
