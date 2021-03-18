@@ -65,6 +65,10 @@ sealed trait Error {
         Error.print (Some(loc)) (s"duplicate struct member ${name}")
         System.err.println("previous member is here:")
         System.err.println(prevLoc)
+      case SemanticError.DuplicateTopology(name, loc, prevLoc) =>
+        Error.print (Some(loc)) (s"duplicate topology ${name}")
+        System.err.println("previous instance is here:")
+        System.err.println(prevLoc)
       case SemanticError.EmptyArray(loc) => 
         Error.print (Some(loc)) ("array expression may not be empty")
       case SemanticError.InconsistentSpecLoc(loc, path, prevLoc, prevPath) =>
@@ -113,8 +117,6 @@ sealed trait Error {
         Error.print (Some(loc)) (s"$kind component must have async input")
       case SemanticError.MissingPort(loc, specKind, portKind) =>
         Error.print (Some(loc)) (s"component with $specKind specifiers must have $portKind port")
-      case SemanticError.NotImplemented(loc) =>
-        Error.print (Some(loc)) ("language feature is not yet implemented")
       case SemanticError.OverlappingIdRanges(
         maxId1, name1, loc1, baseId2, name2, loc2
       ) =>
@@ -194,7 +196,7 @@ object SemanticError {
     loc: Location,
     prevLoc: Location
   ) extends Error
-  /** Dupliate instance */
+  /** Duplicate instance */
   final case class DuplicateInstance(
     name: String,
     loc: Location,
@@ -225,6 +227,12 @@ object SemanticError {
   ) extends Error
   /** Duplicate struct member */
   final case class DuplicateStructMember(
+    name: String,
+    loc: Location,
+    prevLoc: Location
+  ) extends Error
+  /** Duplicate topology */
+  final case class DuplicateTopology(
     name: String,
     loc: Location,
     prevLoc: Location
@@ -281,8 +289,6 @@ object SemanticError {
   final case class MissingAsync(kind: String, loc: Location) extends Error
   /** Missing port */
   final case class MissingPort(loc: Location, specKind: String, port: String) extends Error
-  /** Feature not implemented */
-  final case class NotImplemented(loc: Location) extends Error
   /** Overlapping ID ranges */
   final case class OverlappingIdRanges(
     maxId1: Int,

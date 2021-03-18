@@ -14,21 +14,22 @@ case class Topology(
   // TODO
 ) {
 
-  /** Add an instance that must be unique */
-  def addUniqueInstance(
-    instance: ComponentInstance,
-    visibility: Ast.Visibility,
+  /** Add an imported topology */
+  def addImportedTopology(
+    topology: Topology,
     loc: Location
   ): Result.Result[Topology] =
-    instanceMap.get(instance) match {
-      case Some((_, prevLoc)) => Left(
-        SemanticError.DuplicateInstance(
-          instance.aNode._2.data.name,
+    importedTopologyMap.get(topology) match {
+      case Some(prevLoc) => Left(
+        SemanticError.DuplicateTopology(
+          topology.aNode._2.data.name,
           loc,
           prevLoc
         )
       )
-      case None => Right(addMergedInstance(instance, visibility, loc))
+      case None =>
+        val map = importedTopologyMap + (topology -> loc)
+        Right(this.copy(importedTopologyMap = map))
     }
 
   /** Add an instance that may already be there */
@@ -52,6 +53,23 @@ case class Topology(
     val map = instanceMap + (instance -> (mergedVis, mergedLoc))
     this.copy(instanceMap = map)
   }
+
+  /** Add an instance that must be unique */
+  def addUniqueInstance(
+    instance: ComponentInstance,
+    visibility: Ast.Visibility,
+    loc: Location
+  ): Result.Result[Topology] =
+    instanceMap.get(instance) match {
+      case Some((_, prevLoc)) => Left(
+        SemanticError.DuplicateInstance(
+          instance.aNode._2.data.name,
+          loc,
+          prevLoc
+        )
+      )
+      case None => Right(addMergedInstance(instance, visibility, loc))
+    }
 
   /** Complete a topology definition */
   def complete: Result.Result[Topology] =
