@@ -99,6 +99,8 @@ sealed trait Error {
         Error.print (Some(loc)) (msg)
         System.err.println(s"port definition is here:")
         System.err.println(defLoc)
+      case SemanticError.InvalidPortInstanceId(loc, portName, componentName) =>
+        Error.print (Some(loc)) (s"$portName is not a port instance of $componentName")
       case SemanticError.InvalidPortMatching(loc, msg) =>
         Error.print (Some(loc)) (s"invalid port matching: $msg")
       case SemanticError.InvalidPriority(loc) =>
@@ -268,6 +270,8 @@ object SemanticError {
   final case class InvalidInternalPort(loc: Location, msg: String) extends Error
   /** Invalid port instance */
   final case class InvalidPortInstance(loc: Location, msg: String, defLoc: Location) extends Error
+  /** Invalid port instance */
+  final case class InvalidPortInstanceId(loc: Location, portName: String, componentName: String) extends Error
   /** Invalid port matching */
   final case class InvalidPortMatching(loc: Location, msg: String) extends Error
   /** Invalid priority specifier */

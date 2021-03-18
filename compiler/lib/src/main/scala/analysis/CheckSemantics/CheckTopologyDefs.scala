@@ -49,8 +49,7 @@ object CheckTopologyDefs
     val visibility = node.data.visibility
     val instanceNode = node.data.instance
     for {
-      cis <- a.getComponentInstanceSymbol(instanceNode.id)
-      instance <- Right(a.componentInstanceMap(cis))
+      instance <- a.getComponentInstance(instanceNode.id)
       topology <- a.topology.get.addUniqueInstance(
         instance,
         visibility,
@@ -67,8 +66,7 @@ object CheckTopologyDefs
     val node = aNode._2
     val topNode = node.data.top
     for {
-      ts <- a.getTopologySymbol(topNode.id)
-      importedTop <- Right(a.topologyMap(ts))
+      importedTop <- a.getTopology(topNode.id)
       topology <- a.topology.get.addImportedTopology(
         importedTop,
         Locations.get(node.id)

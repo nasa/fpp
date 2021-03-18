@@ -174,11 +174,11 @@ case class Analysis(
     helper(scopeNameList.reverse, name.toIdentList)
   }
 
-  /** Gets a component instance symbol from the component map */
-  def getComponentInstanceSymbol(id: AstNode.Id):
-    Result.Result[Symbol.ComponentInstance] =
+  /** Gets a component instance from the component instance map */
+  def getComponentInstance(id: AstNode.Id): Result.Result[ComponentInstance] =
     this.useDefMap(id) match {
-      case cis: Symbol.ComponentInstance => Right(cis)
+      case cis: Symbol.ComponentInstance =>
+        Right(this.componentInstanceMap(cis))
       case s => Left(
         SemanticError.InvalidSymbol(
           s.getUnqualifiedName,
@@ -189,11 +189,11 @@ case class Analysis(
       )
     }
 
-  /** Gets a topology symbol from the topology map */
-  def getTopologySymbol(id: AstNode.Id):
-    Result.Result[Symbol.Topology] =
+  /** Gets a topology from the topology map */
+  def getTopology(id: AstNode.Id): Result.Result[Topology] =
     this.useDefMap(id) match {
-      case ts: Symbol.Topology => Right(ts)
+      case ts: Symbol.Topology =>
+        Right(this.topologyMap(ts))
       case s => Left(
         SemanticError.InvalidSymbol(
           s.getUnqualifiedName,

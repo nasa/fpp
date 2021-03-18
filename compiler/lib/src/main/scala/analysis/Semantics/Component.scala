@@ -46,6 +46,19 @@ case class Component(
     maxInMap(maxMap)
   }
 
+  /** Gets a port instance by name */
+  def getPortInstance(name: AstNode[Ast.Ident]): Result.Result[PortInstance] =
+    portMap.get(name.data) match {
+      case Some(portInstance) => Right(portInstance)
+      case None => Left(
+        SemanticError.InvalidPortInstanceId(
+          Locations.get(name.id),
+          name.data,
+          aNode._2.data.name
+        )
+      )
+    }
+
   /** Add a command */
   def addCommand(
     opcodeOpt: Option[Command.Opcode],
