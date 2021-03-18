@@ -15,16 +15,7 @@ object ComponentInstances {
     val data = node.data
     val loc = Locations.get(node.id)
     for {
-      component <- a.useDefMap(data.component.id) match {
-        case componentSymbol: Symbol.Component => 
-          Right(a.componentMap(componentSymbol))
-        case symbol => Left(SemanticError.InvalidSymbol(
-          symbol.getUnqualifiedName,
-          loc,
-          "not a component symbol",
-          Locations.get(symbol.getNodeId)
-        ))
-      }
+      component <- a.getComponent(data.component.id)
       componentKind <- Right(component.aNode._2.data.kind)
       baseId <- a.getNonnegativeIntValue(data.baseId.id)
       file <- Result.mapOpt(data.file, getFile)

@@ -174,6 +174,20 @@ case class Analysis(
     helper(scopeNameList.reverse, name.toIdentList)
   }
 
+  /** Gets a component from the component map */
+  def getComponent(id: AstNode.Id): Result.Result[Component] =
+    this.useDefMap(id) match {
+      case cs: Symbol.Component => Right(this.componentMap(cs))
+      case s => Left(
+        SemanticError.InvalidSymbol(
+          s.getUnqualifiedName,
+          Locations.get(id),
+          "not a component symbol",
+          s.getLoc
+        )
+      )
+    }
+
   /** Gets a component instance from the component instance map */
   def getComponentInstance(id: AstNode.Id): Result.Result[ComponentInstance] =
     this.useDefMap(id) match {
