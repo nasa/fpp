@@ -54,4 +54,31 @@ object CheckTopologyDefs
     yield a.copy(topology = Some(topology))
   }
 
+  override def specTopImportAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTopImport]]
+  ) = {
+    val node = aNode._2
+    val topNode = node.data.top
+    for {
+      importedTop <- a.useDefMap(topNode.id) match {
+        case ts: Symbol.Topology =>
+          Right(a.topologyMap(ts))
+        case s => Left(
+          SemanticError.InvalidSymbol(
+            s.getUnqualifiedName,
+            Locations.get(topNode.id),
+            "not a topology symbol",
+            s.getLoc
+          )
+        )
+      }
+      topology <- a.topology.get.addImportedTopology(
+        importedTop,
+        Locations.get(node.id)
+      )
+    }
+    yield a.copy(topology = Some(topology))
+  }
+
 }
