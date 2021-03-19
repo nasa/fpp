@@ -278,7 +278,11 @@ object SemanticError {
     toLoc: Location
   ) extends Error
   /** Invalid component instance definition */
-  final case class InvalidDefComponentInstance(name: String, loc: Location, msg: String) extends Error
+  final case class InvalidDefComponentInstance(
+    name: String,
+    loc: Location,
+    msg: String
+  ) extends Error
   /** Invalid enum constants */
   final case class InvalidEnumConstants(loc: Location) extends Error
   /** Invalid event */
@@ -286,15 +290,31 @@ object SemanticError {
   /** Invalid format string  */
   final case class InvalidFormatString(loc: Location, msg: String) extends Error
   /** Invalid integer value */
-  final case class InvalidIntValue(loc: Location, v: BigInt, msg: String) extends Error
+  final case class InvalidIntValue(
+    loc: Location,
+    v: BigInt,
+    msg: String
+  ) extends Error
   /** Invalid internal port */
   final case class InvalidInternalPort(loc: Location, msg: String) extends Error
   /** Invalid port instance */
-  final case class InvalidPortInstance(loc: Location, msg: String, defLoc: Location) extends Error
+  final case class InvalidPortInstance(
+    loc: Location,
+    msg: String,
+    defLoc: Location
+  ) extends Error
   /** Invalid port instance identifier */
-  final case class InvalidPortInstanceId(loc: Location, portName: String, componentName: String) extends Error
+  final case class InvalidPortInstanceId(
+    loc: Location,
+    portName: String,
+    componentName: String
+  ) extends Error
   /** Invalid port kind */
-  final case class InvalidPortKind(loc: Location, msg: String, specLoc: Location) extends Error
+  final case class InvalidPortKind(
+    loc: Location,
+    msg: String,
+    specLoc: Location
+  ) extends Error
   /** Invalid port matching */
   final case class InvalidPortMatching(loc: Location, msg: String) extends Error
   /** Invalid port number */
@@ -323,7 +343,11 @@ object SemanticError {
   /** Missing async input */
   final case class MissingAsync(kind: String, loc: Location) extends Error
   /** Missing port */
-  final case class MissingPort(loc: Location, specKind: String, port: String) extends Error
+  final case class MissingPort(
+    loc: Location,
+    specKind: String,
+    port: String
+  ) extends Error
   /** Overlapping ID ranges */
   final case class OverlappingIdRanges(
     maxId1: Int,
