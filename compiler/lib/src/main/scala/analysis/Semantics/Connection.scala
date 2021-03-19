@@ -11,7 +11,33 @@ case class Connection(
   from: Connection.Endpoint,
   /** The to endpoint */
   to: Connection.Endpoint
-)
+) {
+
+  /** Checks the types of a connection */
+  def checkTypes: Result.Result[Unit] = {
+    val fromType = from.portInstanceIdentifier.portInstance.getType
+    val toType = to.portInstanceIdentifier.portInstance.getType
+    if (PortInstance.Type.areCompatible(fromType, toType)) 
+      Right(())
+    else {
+      val msg = s"mismatched port types ($fromType and $toType)"
+      Left(SemanticError.InvalidConnection(loc, msg))
+    }
+  }
+
+  /** Checks the directions of a connection */
+  def checkDirections: Result.Result[Unit] = {
+    val fromDirection = from.portInstanceIdentifier.portInstance.getDirection
+    val toDirection = to.portInstanceIdentifier.portInstance.getDirection
+    if (PortInstance.Direction.areCompatible(fromDirection -> toDirection)) 
+      Right(())
+    else {
+      val msg = s"invalid directions $fromDirection -> $toDirection (should be output -> input)"
+      Left(SemanticError.InvalidConnection(loc, msg))
+    }
+  }
+
+}
 
 object Connection {
 

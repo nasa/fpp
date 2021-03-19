@@ -195,9 +195,9 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
   private def writePorts(s: XmlWriterState, c: Component) = {
     def writeGeneralPort(name: String, general: PortInstance.General) = {
       import PortInstance.General._
-      def writeDataType(ty: PortInstance.General.Type) = ty match {
-        case Type.DefPort(symbol) => s.writeSymbol(symbol)
-        case Type.Serial => "Serial"
+      def writeDataType(ty: PortInstance.Type) = ty match {
+        case PortInstance.Type.DefPort(symbol) => s.writeSymbol(symbol)
+        case PortInstance.Type.Serial => "Serial"
       }
       def writeKind(kind: Kind) = kind match {
         case _ : Kind.AsyncInput => "async_input"

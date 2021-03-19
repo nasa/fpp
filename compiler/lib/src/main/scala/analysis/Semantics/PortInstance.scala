@@ -7,7 +7,10 @@ import fpp.compiler.util._
 sealed trait PortInstance {
 
   /** Gets the direction of the port instance */
-  def getDirection: Option[PortInstance.Direction]
+  def getDirection: Option[PortInstance.Direction] = None
+
+  /** Gets the type of the port instance */
+  def getType: Option[PortInstance.Type] = None
 
   /** Gets the location of the port definition */
   final def getLoc: Location = Locations.get(getNodeId)
@@ -22,11 +25,52 @@ sealed trait PortInstance {
 
 final object PortInstance {
 
+  /** A port instance type */
+  sealed trait Type
+  final object Type {
+    final case class DefPort(symbol: Symbol.Port) extends Type {
+      override def toString = symbol.getUnqualifiedName
+    }
+    final case object Serial extends Type {
+      override def toString = "serial"
+    }
+    /** Show a type option */
+    def show(typeOpt: Option[Type]) = typeOpt match {
+      case Some(t) => t.toString
+      case None => "none"
+    }
+    /** Check whether types are compatible */
+    def areCompatible(to1: Option[Type], to2: Option[Type]): Boolean = 
+      (to1, to2) match {
+        case (Some(Type.Serial), _) => true
+        case (_, Some(Type.Serial)) => true
+        case (Some(t1), Some(t2)) => t1 == t2
+        case _ => false
+      }
+  }
+
   /** A port direction */
   sealed trait Direction
   final object Direction {
-    final case object Input extends Direction
-    final case object Output extends Direction
+    final case object Input extends Direction {
+      override def toString = "input"
+    }
+    final case object Output extends Direction {
+      override def toString = "output"
+    }
+    /** Show a direction option */
+    def show(dirOpt: Option[Direction]) = dirOpt match {
+      case Some(t) => t.toString
+      case None => "none"
+    }
+    /** Check whether directions are compatible */
+    def areCompatible(dirs: (Option[Direction], Option[Direction])): Boolean = {
+      val (out -> in) = dirs
+      (out, in) match {
+        case (Some(Output), Some(Input)) => true
+        case _ => false
+      }
+    }
   }
 
   final object General {
@@ -43,13 +87,6 @@ final object PortInstance {
       case object SyncInput extends Kind
     }
 
-    /** A general port type */
-    sealed trait Type
-    final object Type {
-      final case class DefPort(symbol: Symbol.Port) extends Type
-      final case object Serial extends Type
-    }
-
   }
 
   /** A general port instance */
@@ -58,7 +95,7 @@ final object PortInstance {
     specifier: Ast.SpecPortInstance.General,
     kind: General.Kind,
     size: Int,
-    ty: General.Type,
+    ty: Type,
   ) extends PortInstance {
 
     override def getDirection = kind match {
@@ -67,6 +104,8 @@ final object PortInstance {
     }
 
     override def getNodeId = aNode._2.id
+
+    override def getType = Some(ty)
 
     override def getUnqualifiedName = specifier.name
 
@@ -79,9 +118,19 @@ final object PortInstance {
     symbol: Symbol.Port
   ) extends PortInstance {
 
-    override def getDirection = Some(Direction.Input)
+    override def getDirection = {
+      import Ast.SpecPortInstance._
+      val direction = specifier.kind match {
+        case CommandRecv => Direction.Input
+        case CommandResp => Direction.Input
+        case _ => Direction.Output
+      }
+      Some(direction)
+    }
 
     override def getNodeId = aNode._2.id
+
+    override def getType = Some(Type.DefPort(symbol))
 
     override def getUnqualifiedName = specifier.name
 
@@ -92,8 +141,6 @@ final object PortInstance {
     priority: Option[Int],
     queueFull: Ast.QueueFull
   ) extends PortInstance {
-
-    override def getDirection = None
 
     override def getNodeId = aNode._2.id
 
@@ -159,7 +206,7 @@ final object PortInstance {
           ty <- specifier.port match {
             case Some(qid) => a.useDefMap(qid.id) match {
               case symbol @ Symbol.Port(_) => 
-                Right(PortInstance.General.Type.DefPort(symbol))
+                Right(PortInstance.Type.DefPort(symbol))
               case symbol => Left(SemanticError.InvalidSymbol(
                 symbol.getUnqualifiedName,
                 Locations.get(qid.id),
@@ -167,7 +214,7 @@ final object PortInstance {
                 symbol.getLoc
               ))
             }
-            case None => Right(PortInstance.General.Type.Serial)
+            case None => Right(PortInstance.Type.Serial)
           }
         }
         yield {
@@ -224,7 +271,7 @@ final object PortInstance {
     (instance.kind, instance.ty) match {
       case (
         kind: PortInstance.General.Kind.AsyncInput,
-        PortInstance.General.Type.DefPort(symbol)
+        PortInstance.Type.DefPort(symbol)
       ) => {
         val node = symbol.node._2
         val defPort = node.data
