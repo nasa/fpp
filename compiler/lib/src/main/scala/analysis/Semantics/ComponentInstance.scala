@@ -6,6 +6,7 @@ import fpp.compiler.util._
 /** An FPP component instance */
 final case class ComponentInstance(
   aNode: Ast.Annotated[AstNode[Ast.DefComponentInstance]],
+  qualifiedName: Name.Qualified,
   component: Component,
   baseId: Int,
   maxId: Int,
@@ -15,14 +16,7 @@ final case class ComponentInstance(
   priority: Option[Int]
 )
 
-
 object ComponentInstance {
-
-  /** Gets the qualified name of a component instance */
-  def getQualifiedName(a: Analysis, ci: ComponentInstance) = {
-    val symbol = Symbol.ComponentInstance(ci.aNode)
-    a.qualifiedNameMap(symbol)
-  }
 
   /** Creates a component instance from a component instance definition */
   def fromDefComponentInstance(
@@ -59,8 +53,11 @@ object ComponentInstance {
     }
     yield {
       val maxId = baseId + component.getMaxId
+      val symbol = Symbol.ComponentInstance(aNode)
+      val qualifiedName = a.qualifiedNameMap(symbol)
       ComponentInstance(
         aNode,
+        qualifiedName,
         component,
         baseId,
         maxId,

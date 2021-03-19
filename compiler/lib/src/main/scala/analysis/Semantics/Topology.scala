@@ -11,6 +11,10 @@ case class Topology(
   importedTopologyMap: Map[Topology, Location] = Map(),
   /** The instances of this topology */
   instanceMap: Map[ComponentInstance, (Ast.Visibility, Location)] = Map(),
+  /** The connection patterns of this topology */
+  patternMap: Map[Ast.SpecConnectionGraph.Pattern.Kind, ConnectionPattern] = Map(),
+  /** The connection graphs of this topology */
+  connectionGraphMap: Map[Name.Unqualified, List[Connection]] = Map(),
   // TODO
 ) {
 

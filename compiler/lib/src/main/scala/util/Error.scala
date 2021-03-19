@@ -105,6 +105,8 @@ sealed trait Error {
         Error.print (Some(loc)) (s"$portName is not a port instance of $componentName")
       case SemanticError.InvalidPortMatching(loc, msg) =>
         Error.print (Some(loc)) (s"invalid port matching: $msg")
+      case SemanticError.InvalidPortNumber(loc, portNumber, port, size) =>
+        Error.print (Some(loc)) (s"invalid port number $portNumber for port $port (max is ${size - 1})")
       case SemanticError.InvalidPriority(loc) =>
         Error.print (Some(loc)) ("only async input may have a priority")
       case SemanticError.InvalidQueueFull(loc) =>
@@ -278,6 +280,8 @@ object SemanticError {
   final case class InvalidPortInstanceId(loc: Location, portName: String, componentName: String) extends Error
   /** Invalid port matching */
   final case class InvalidPortMatching(loc: Location, msg: String) extends Error
+  /** Invalid port number */
+  final case class InvalidPortNumber(loc: Location, portNumber: Int, port: String, size: Int) extends Error
   /** Invalid priority specifier */
   final case class InvalidPriority(loc: Location) extends Error
   /** Invalid queue full specifier */

@@ -9,6 +9,9 @@ sealed trait PortInstance {
   /** Gets the direction of the port instance */
   def getDirection: Option[PortInstance.Direction] = None
 
+  /** Gets the size of the port array */
+  def getSize: Int = 1
+
   /** Gets the type of the port instance */
   def getType: Option[PortInstance.Type] = None
 
@@ -104,6 +107,8 @@ final object PortInstance {
     }
 
     override def getNodeId = aNode._2.id
+
+    override def getSize = size
 
     override def getType = Some(ty)
 

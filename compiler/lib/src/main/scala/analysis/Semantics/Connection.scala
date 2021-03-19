@@ -54,9 +54,9 @@ object Connection {
   }
 
   /** The lexical ordering on connections */
-  case class LexicalOrdering(a: Analysis) extends Ordering[Connection] {
+  object LexicalOrdering extends Ordering[Connection] {
     def compare(c1: Connection, c2: Connection) = {
-      val eo = Endpoint.LexicalOrdering(a)
+      val eo = Endpoint.LexicalOrdering
       if (eo.lt(c1.from, c2.from)) -1
       else if (eo.gt(c1.from, c2.from)) 1
       else eo.compare(c1.to, c2.to)
@@ -70,8 +70,19 @@ object Connection {
     portInstanceIdentifier: PortInstanceIdentifier,
     /** The port number */
     portNumber: Option[Int]
-  )
+  ) {
 
+    /** Check that port number is in bounds for the size */
+    def checkPortNumber(loc: Location): Result.Result[Unit] = portNumber match {
+      case Some(n) =>
+        val size = portInstanceIdentifier.portInstance.getSize
+        val name = portInstanceIdentifier.getQualifiedName.toString
+        if (n < size) Right(())
+        else Left(SemanticError.InvalidPortNumber(loc, n, name, size))
+      case None => Right(())
+    }
+
+  }
 
   object Endpoint {
 
@@ -86,17 +97,11 @@ object Connection {
     } yield Endpoint(pid, pn)
 
     /** The lexical ordering on endpoints */
-    case class LexicalOrdering(a: Analysis) extends Ordering[Endpoint] {
+    object LexicalOrdering extends Ordering[Endpoint] {
 
       def compare(e1: Endpoint, e2: Endpoint) = {
-        val name1 = PortInstanceIdentifier.getQualifiedName(
-          a,
-          e1.portInstanceIdentifier
-        ).toString
-        val name2 = PortInstanceIdentifier.getQualifiedName(
-          a,
-          e2.portInstanceIdentifier
-        ).toString
+        val name1 = e1.portInstanceIdentifier.getQualifiedName.toString
+        val name2 = e2.portInstanceIdentifier.getQualifiedName.toString
         if (name1 < name2) -1
         else if (name1 > name2) 1
         else (e1.portNumber, e2.portNumber) match {
