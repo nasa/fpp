@@ -2507,9 +2507,8 @@ are specified in the model source.</p>
 <p>Let <em>T</em> be the topology given by all
 <a href="#Specifiers_Component-Instance-Specifiers">instances</a> (both public and
 private) appearing in <em>D</em> and all
-<a href="#Specifiers_Connection-Graph-Specifiers">connection graphs</a> appearing in
-<em>D</em>, after resolving all graph pattern specifiers to direct graph
-specifiers and merging each set of connection graphs with the same name into
+<a href="#Specifiers_Connection-Graph-Specifiers">direct connection graphs</a> appearing in
+<em>D</em>, after merging each set of connection graphs with the same name into
 a single graph.
 For example, the two connection graphs</p>
 <div class="listingblock">
@@ -2556,6 +2555,16 @@ been imported into <em>T</em>.</p>
 </li>
 </ol>
 </div>
+</li>
+<li>
+<p>Resolve
+<a href="#Specifiers_Connection-Graph-Specifiers">pattern graph specifiers</a>,
+adding connections to <em>T</em>.
+Add only connections that are not already present in <em>T</em>.
+For example, if a command pattern indicates a command
+registration connection between two ports, and there is already
+a command registration connection between those ports, then
+do not add the connection.</p>
 </li>
 </ol>
 </div>
@@ -7944,7 +7953,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-18 14:29:55 -0700
+Last updated 2021-03-18 23:46:35 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

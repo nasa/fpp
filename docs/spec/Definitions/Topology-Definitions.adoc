@@ -59,9 +59,8 @@ are specified in the model source.
 . Let _T_ be the topology given by all
 <<Specifiers_Component-Instance-Specifiers,instances>> (both public and
 private) appearing in _D_ and all
-<<Specifiers_Connection-Graph-Specifiers,connection graphs>> appearing in
-_D_, after resolving all graph pattern specifiers to direct graph
-specifiers and merging each set of connection graphs with the same name into
+<<Specifiers_Connection-Graph-Specifiers,direct connection graphs>> appearing in
+_D_, after merging each set of connection graphs with the same name into
 a single graph.
 For example, the two connection graphs
 +
@@ -97,6 +96,15 @@ been imported into _T_.
 _T'_ into _T_.
 
 .. Let _T_ = _T''_.
+
+. Resolve 
+<<Specifiers_Connection-Graph-Specifiers,pattern graph specifiers>>,
+adding connections to _T_.
+Add only connections that are not already present in _T_.
+For example, if a command pattern indicates a command
+registration connection between two ports, and there is already
+a command registration connection between those ports, then
+do not add the connection.
 
 ===== Automatic Numbering of Array Indices
 
