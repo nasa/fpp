@@ -32,7 +32,7 @@ object CheckComponentDefs
     val data = aNode._2.data
     for {
       opcodeOpt <- a.getIntValueOpt(data.opcode)
-      command <- Commands.fromSpecCommand(a, aNode)
+      command <- Command.fromSpecCommand(a, aNode)
       component <- a.component.get.addCommand(opcodeOpt, command)
     }
     yield a.copy(component = Some(component))
@@ -45,7 +45,7 @@ object CheckComponentDefs
     val data = aNode._2.data
     for {
       idOpt <- a.getIntValueOpt(data.id)
-      event <- Events.fromSpecEvent(a, aNode)
+      event <- Event.fromSpecEvent(a, aNode)
       component <- a.component.get.addEvent(idOpt, event)
     }
     yield a.copy(component = Some(component))
@@ -57,7 +57,7 @@ object CheckComponentDefs
   ) = {
     val data = aNode._2.data
     for {
-      instance <- PortInstances.fromSpecInternalPort(a, aNode)
+      instance <- PortInstance.fromSpecInternalPort(a, aNode)
       component <- a.component.get.addPortInstance(instance)
     }
     yield a.copy(component = Some(component))
@@ -71,7 +71,7 @@ object CheckComponentDefs
     val component = a.component.get
     for {
       idOpt <- a.getIntValueOpt(data.id)
-      param_defaultOpcode <- Params.fromSpecParam(a, aNode, component.defaultOpcode)
+      param_defaultOpcode <- Param.fromSpecParam(a, aNode, component.defaultOpcode)
       component <- {
         val (param, defaultOpcode) = param_defaultOpcode
         component.copy(defaultOpcode = defaultOpcode).addParam(idOpt, param)
@@ -85,7 +85,7 @@ object CheckComponentDefs
     aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]]
   ) = {
     for {
-      instance <- PortInstances.fromSpecPortInstance(a, aNode)
+      instance <- PortInstance.fromSpecPortInstance(a, aNode)
       component <- a.component.get.addPortInstance(instance)
     }
     yield a.copy(component = Some(component))
@@ -108,7 +108,7 @@ object CheckComponentDefs
     val data = aNode._2.data
     for {
       idOpt <- a.getIntValueOpt(data.id)
-      tlmChannel <- TlmChannels.fromSpecTlmChannel(a, aNode)
+      tlmChannel <- TlmChannel.fromSpecTlmChannel(a, aNode)
       component <- a.component.get.addTlmChannel(idOpt, tlmChannel)
     }
     yield a.copy(component = Some(component))
