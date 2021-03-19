@@ -18,6 +18,24 @@ case class Topology(
   // TODO
 ) {
 
+  /** Add a connection */
+  def addConnection(
+    graphName: Name.Unqualified,
+    connection: Connection
+  ): Topology = {
+    // TODO
+    this
+  }
+
+  /** Add a pattern */
+  def addPattern(
+    kind: Ast.SpecConnectionGraph.Pattern.Kind,
+    pattern: ConnectionPattern
+  ): Result.Result[Topology] = {
+    // TODO
+    Right(this)
+  }
+
   /** Add an imported topology */
   def addImportedTopology(
     topology: Topology,
