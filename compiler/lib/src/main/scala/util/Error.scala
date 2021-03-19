@@ -82,8 +82,12 @@ sealed trait Error {
         Error.print (Some(loc)) (s"invalid array size $size")
       case SemanticError.InvalidCommand(loc, msg) =>
         Error.print (Some(loc)) (msg)
-      case SemanticError.InvalidConnection(loc, msg) =>
+      case SemanticError.InvalidConnection(loc, msg, fromLoc, toLoc) =>
         Error.print (Some(loc)) (msg)
+        System.err.println("from port is specified here:")
+        System.err.println(fromLoc)
+        System.err.println("to port is specified here:")
+        System.err.println(toLoc)
       case SemanticError.InvalidDefComponentInstance(name, loc, msg) =>
         Error.print (Some(loc)) (s"invalid component instance definition $name: $msg")
       case SemanticError.InvalidEnumConstants(loc) =>
@@ -103,10 +107,16 @@ sealed trait Error {
         System.err.println(defLoc)
       case SemanticError.InvalidPortInstanceId(loc, portName, componentName) =>
         Error.print (Some(loc)) (s"$portName is not a port instance of $componentName")
+      case SemanticError.InvalidPortKind(loc, msg, specLoc) =>
+        Error.print (Some(loc)) (msg)
+        System.err.println(s"port instance is specified here:")
+        System.err.println(specLoc)
       case SemanticError.InvalidPortMatching(loc, msg) =>
         Error.print (Some(loc)) (s"invalid port matching: $msg")
-      case SemanticError.InvalidPortNumber(loc, portNumber, port, size) =>
+      case SemanticError.InvalidPortNumber(loc, portNumber, port, size, specLoc) =>
         Error.print (Some(loc)) (s"invalid port number $portNumber for port $port (max is ${size - 1})")
+        System.err.println(s"port instance is specified here:")
+        System.err.println(specLoc)
       case SemanticError.InvalidPriority(loc) =>
         Error.print (Some(loc)) ("only async input may have a priority")
       case SemanticError.InvalidQueueFull(loc) =>
@@ -261,7 +271,12 @@ object SemanticError {
   /** Invalid command */
   final case class InvalidCommand(loc: Location, msg: String) extends Error
   /** Invalid connection */
-  final case class InvalidConnection(loc: Location, msg: String) extends Error
+  final case class InvalidConnection(
+    loc: Location,
+    msg: String,
+    fromLoc: Location,
+    toLoc: Location
+  ) extends Error
   /** Invalid component instance definition */
   final case class InvalidDefComponentInstance(name: String, loc: Location, msg: String) extends Error
   /** Invalid enum constants */
@@ -276,12 +291,20 @@ object SemanticError {
   final case class InvalidInternalPort(loc: Location, msg: String) extends Error
   /** Invalid port instance */
   final case class InvalidPortInstance(loc: Location, msg: String, defLoc: Location) extends Error
-  /** Invalid port instance */
+  /** Invalid port instance identifier */
   final case class InvalidPortInstanceId(loc: Location, portName: String, componentName: String) extends Error
+  /** Invalid port kind */
+  final case class InvalidPortKind(loc: Location, msg: String, specLoc: Location) extends Error
   /** Invalid port matching */
   final case class InvalidPortMatching(loc: Location, msg: String) extends Error
   /** Invalid port number */
-  final case class InvalidPortNumber(loc: Location, portNumber: Int, port: String, size: Int) extends Error
+  final case class InvalidPortNumber(
+    loc: Location,
+    portNumber: Int,
+    port: String,
+    size: Int,
+    specLoc: Location
+  ) extends Error
   /** Invalid priority specifier */
   final case class InvalidPriority(loc: Location) extends Error
   /** Invalid queue full specifier */

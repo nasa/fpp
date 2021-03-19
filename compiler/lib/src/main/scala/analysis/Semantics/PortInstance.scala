@@ -15,10 +15,10 @@ sealed trait PortInstance {
   /** Gets the type of the port instance */
   def getType: Option[PortInstance.Type] = None
 
-  /** Gets the location of the port definition */
+  /** Gets the location of the port instance */
   final def getLoc: Location = Locations.get(getNodeId)
 
-  /** Gets the AST node ID of the port definition */
+  /** Gets the AST node ID of the port instance */
   def getNodeId: AstNode.Id
 
   /** Gets the unqualified name of the port instance */
