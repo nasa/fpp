@@ -13,7 +13,7 @@ object CheckComponentInstanceDefs
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefComponentInstance]]
   ) = for {
-    componentInstance <- ComponentInstances.fromDefComponentInstance(
+    componentInstance <- ComponentInstance.fromDefComponentInstance(
       a,
       aNode
     )

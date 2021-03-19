@@ -55,7 +55,7 @@ object Connection {
       port: AstNode[Ast.PortInstanceIdentifier],
       portNumber: Option[AstNode[Ast.Expr]]
     ): Result.Result[Endpoint] = for {
-      pid <- PortInstanceIdentifiers.fromNode(a, port)
+      pid <- PortInstanceIdentifier.fromNode(a, port)
       pn <- a.getIntValueOpt(portNumber)
     } yield Endpoint(pid, pn)
 
@@ -63,11 +63,11 @@ object Connection {
     case class LexicalOrdering(a: Analysis) extends Ordering[Endpoint] {
 
       def compare(e1: Endpoint, e2: Endpoint) = {
-        val name1 = PortInstanceIdentifiers.getQualifiedName(
+        val name1 = PortInstanceIdentifier.getQualifiedName(
           a,
           e1.portInstanceIdentifier
         ).toString
-        val name2 = PortInstanceIdentifiers.getQualifiedName(
+        val name2 = PortInstanceIdentifier.getQualifiedName(
           a,
           e2.portInstanceIdentifier
         ).toString
