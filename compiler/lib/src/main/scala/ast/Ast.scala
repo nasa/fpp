@@ -337,11 +337,21 @@ object Ast {
 
     final object Pattern {
       sealed trait Kind
-      final case object Command extends Kind
-      final case object Event extends Kind
-      final case object Health extends Kind
-      final case object Telemetry extends Kind
-      final case object Time extends Kind
+      final case object Command extends Kind {
+        override def toString = "command"
+      }
+      final case object Event extends Kind {
+        override def toString = "event"
+      }
+      final case object Health extends Kind {
+        override def toString = "health"
+      }
+      final case object Telemetry extends Kind {
+        override def toString = "telemetry"
+      }
+      final case object Time extends Kind {
+        override def toString = "time"
+      }
     }
 
     final case class Pattern(

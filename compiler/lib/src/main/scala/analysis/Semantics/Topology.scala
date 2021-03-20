@@ -32,9 +32,18 @@ case class Topology(
   def addPattern(
     kind: Ast.SpecConnectionGraph.Pattern.Kind,
     pattern: ConnectionPattern
-  ): Result.Result[Topology] = {
-    // TODO
-    Right(this)
+  ): Result.Result[Topology] = patternMap.get(kind) match {
+    case Some(prevPattern) =>
+      Left(
+        SemanticError.DuplicatePattern(
+          kind.toString,
+          Locations.get(pattern.aNode._2.id),
+          Locations.get(prevPattern.aNode._2.id)
+        )
+      )
+    case None =>
+      val map = patternMap + (kind -> pattern)
+      Right(this.copy(patternMap = patternMap))
   }
 
   /** Add an imported topology */

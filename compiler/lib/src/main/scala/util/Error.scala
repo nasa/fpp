@@ -57,8 +57,8 @@ sealed trait Error {
         Error.print (Some(loc)) (s"duplicate parameter ${name}")
         System.err.println("previous parameter is here:")
         System.err.println(prevLoc)
-      case SemanticError.DuplicatePattern(name, loc, prevLoc) =>
-        Error.print (Some(loc)) (s"duplicate pattern ${name}")
+      case SemanticError.DuplicatePattern(kind, loc, prevLoc) =>
+        Error.print (Some(loc)) (s"duplicate $kind pattern")
         printPrevLoc(prevLoc)
       case SemanticError.DuplicatePortInstance(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate port instance ${name}")
@@ -239,7 +239,7 @@ object SemanticError {
   ) extends Error
   /** Duplicate pattern */
   final case class DuplicatePattern(
-    name: String,
+    kind: String,
     loc: Location,
     prevLoc: Location
   ) extends Error
