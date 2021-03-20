@@ -59,6 +59,14 @@ object CheckTopologyDefs
     yield a.copy(topology = Some(topology))
   }
 
+  override def specConnectionGraphAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecConnectionGraph]]
+  ) = {
+    // TODO
+    Right(a)
+  }
+
   override def specTopImportAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecTopImport]]
