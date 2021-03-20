@@ -57,6 +57,9 @@ sealed trait Error {
         Error.print (Some(loc)) (s"duplicate parameter ${name}")
         System.err.println("previous parameter is here:")
         System.err.println(prevLoc)
+      case SemanticError.DuplicatePattern(name, loc, prevLoc) =>
+        Error.print (Some(loc)) (s"duplicate pattern ${name}")
+        printPrevLoc(prevLoc)
       case SemanticError.DuplicatePortInstance(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate port instance ${name}")
         System.err.println("previous instance is here:")
@@ -67,8 +70,7 @@ sealed trait Error {
         System.err.println(prevLoc)
       case SemanticError.DuplicateTopology(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate topology ${name}")
-        System.err.println("previous instance is here:")
-        System.err.println(prevLoc)
+        printPrevLoc(prevLoc)
       case SemanticError.EmptyArray(loc) => 
         Error.print (Some(loc)) ("array expression may not be empty")
       case SemanticError.InconsistentSpecLoc(loc, path, prevLoc, prevPath) =>
@@ -231,6 +233,12 @@ object SemanticError {
   ) extends Error
   /** Duplicate parameter */
   final case class DuplicateParameter(
+    name: String,
+    loc: Location,
+    prevLoc: Location
+  ) extends Error
+  /** Duplicate pattern */
+  final case class DuplicatePattern(
     name: String,
     loc: Location,
     prevLoc: Location

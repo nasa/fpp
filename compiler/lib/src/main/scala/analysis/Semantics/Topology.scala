@@ -23,8 +23,9 @@ case class Topology(
     graphName: Name.Unqualified,
     connection: Connection
   ): Topology = {
-    // TODO
-    this
+    val connections = connectionGraphMap.getOrElse(graphName, Nil)
+    val map = connectionGraphMap + (graphName -> (connection :: connections))
+    this.copy(connectionGraphMap = map)
   }
 
   /** Add a pattern */
