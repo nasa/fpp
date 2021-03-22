@@ -15,7 +15,10 @@ case class Topology(
   patternMap: Map[Ast.SpecConnectionGraph.Pattern.Kind, ConnectionPattern] = Map(),
   /** The connection graphs of this topology */
   connectionGraphMap: Map[Name.Unqualified, List[Connection]] = Map(),
-  // TODO
+  /** The set of port instances declared as unused */
+  declaredUnusedPortSet: Set[PortInstanceIdentifier] = Set(),
+  /** The set of port instances actually unused */
+  unusedPortSet: Set[PortInstanceIdentifier] = Set()
 ) {
 
   /** Add a connection */
