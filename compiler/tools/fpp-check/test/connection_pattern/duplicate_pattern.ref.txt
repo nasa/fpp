@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/connection_pattern/duplicate_pattern.fpp: 7.3
+  health connections instance $health
+  ^
+error: duplicate health pattern
+previous occurrence is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/connection_pattern/duplicate_pattern.fpp: 6.3
+  health connections instance $health
+  ^

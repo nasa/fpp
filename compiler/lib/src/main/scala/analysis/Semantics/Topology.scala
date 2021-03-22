@@ -42,8 +42,8 @@ case class Topology(
         )
       )
     case None =>
-      val map = patternMap + (kind -> pattern)
-      Right(this.copy(patternMap = patternMap))
+      val pm = patternMap + (kind -> pattern)
+      Right(this.copy(patternMap = pm))
   }
 
   /** Add an imported topology */
