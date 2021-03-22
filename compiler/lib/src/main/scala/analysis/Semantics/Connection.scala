@@ -58,14 +58,13 @@ case class Connection(
 
 object Connection {
 
-  /** Constructs a connection from an AST node */
-  def fromNode(a: Analysis, node: AstNode[Ast.SpecConnectionGraph.Connection]):
+  /** Constructs a connection from an AST connection */
+  def fromAst(a: Analysis, connection: Ast.SpecConnectionGraph.Connection):
     Result.Result[Connection] = {
-      val data = node.data
-      val loc = Locations.get(node.id)
+      val loc = Locations.get(connection.fromPort.id)
       for {
-        from <- Endpoint.fromAst(a, data.fromPort, data.fromIndex)
-        to <- Endpoint.fromAst(a, data.toPort, data.toIndex)
+        from <- Endpoint.fromAst(a, connection.fromPort, connection.fromIndex)
+        to <- Endpoint.fromAst(a, connection.toPort, connection.toIndex)
       }
       yield Connection(loc, from, to)
   }

@@ -63,8 +63,20 @@ object CheckTopologyDefs
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecConnectionGraph]]
   ) = {
-    // TODO
-    Right(a)
+    for {
+      topology <- aNode._2.data match {
+        case direct: Ast.SpecConnectionGraph.Direct =>
+          Result.foldLeft (direct.connections) (a.topology.get) ((t, ast) =>
+            for (c <- Connection.fromAst(a, ast))
+              yield t.addConnection(direct.name, c)
+          )
+        case pattern: Ast.SpecConnectionGraph.Pattern => 
+          for {
+            p <- ConnectionPattern.fromSpecConnectionGraph(a, aNode, pattern)
+            t <- a.topology.get.addPattern(pattern.kind, p)
+          } yield t
+      }
+    } yield a.copy(topology = Some(topology))
   }
 
   override def specTopImportAnnotatedNode(
