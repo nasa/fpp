@@ -40,9 +40,11 @@ case class Connection(
     if (PortInstance.Direction.areCompatible(fromDirection -> toDirection)) 
       Right(())
     else {
+      val fromDirString = PortInstance.Direction.show(fromDirection)
+      val toDirString = PortInstance.Direction.show(toDirection)
+      val msg = s"invalid directions $fromDirString -> $toDirString (should be output -> input)"
       val fromLoc = fromInstance.getLoc
       val toLoc = toInstance.getLoc
-      val msg = s"invalid directions $fromDirection -> $toDirection (should be output -> input)"
       Left(SemanticError.InvalidConnection(loc, msg, fromLoc, toLoc))
     }
   }
@@ -65,8 +67,11 @@ object Connection {
       for {
         from <- Endpoint.fromAst(a, connection.fromPort, connection.fromIndex)
         to <- Endpoint.fromAst(a, connection.toPort, connection.toIndex)
+        connection <- Right(Connection(loc, from, to))
+        _ <- connection.checkTypes
+        _ <- connection.checkDirections
       }
-      yield Connection(loc, from, to)
+      yield connection
   }
 
   /** A connection endpoint */
@@ -121,7 +126,12 @@ object Connection {
         case _ => Right(())
       }
       pn <- a.getIntValueOpt(portNumber)
-    } yield Endpoint(pid, pn)
+      endpoint <- Right(Endpoint(pid, pn))
+      _ <- portNumber match {
+        case Some(pn) => endpoint.checkPortNumber(Locations.get(pn.id))
+        case None => Right(())
+      }
+    } yield endpoint
 
     /** The lexical ordering on endpoints */
     object LexicalOrdering extends Ordering[Endpoint] {
