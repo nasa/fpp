@@ -1,6 +1,9 @@
 tests="
 invalid_directions
 invalid_port_instance
+invalid_port_number
+internal_port
 mismatched_port_types
 ok
+undef_instance
 "

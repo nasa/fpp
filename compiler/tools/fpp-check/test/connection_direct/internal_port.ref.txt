@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/connection_direct/internal_port.fpp: 12.5
+    c.pInternal -> c.pIn
+    ^
+error: cannot connect to internal port
+port instance is specified here:
+[ local path prefix ]/compiler/tools/fpp-check/test/connection_direct/internal_port.fpp: 3.3
+  internal port pInternal
+  ^

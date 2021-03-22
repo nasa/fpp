@@ -1,0 +1,13 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/connection_direct/invalid_directions.fpp: 9.5
+    c.pIn -> c.pOut
+    ^
+error: invalid directions input -> output (should be output -> input)
+from port is specified here:
+[ local path prefix ]/compiler/tools/fpp-check/test/connection_direct/invalid_directions.fpp: 4.3
+  sync input port pIn: P
+  ^
+to port is specified here:
+[ local path prefix ]/compiler/tools/fpp-check/test/connection_direct/invalid_directions.fpp: 3.3
+  output port pOut: P
+  ^

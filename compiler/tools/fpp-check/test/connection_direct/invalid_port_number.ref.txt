@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/connection_direct/invalid_port_number.fpp: 9.12
+    c.pOut[1] -> c.pIn
+           ^
+error: invalid port number 1 for port c.pOut (max is 0)
+port instance is specified here:
+[ local path prefix ]/compiler/tools/fpp-check/test/connection_direct/invalid_port_number.fpp: 3.3
+  output port pOut: P
+  ^
