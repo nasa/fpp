@@ -103,9 +103,11 @@ object CheckTopologyDefs
     val data = node.data
     for {
       topology <- Result.foldLeft (data.ports) (a.topology.get) ((t, pidNode) =>
-        for (pid <- PortInstanceIdentifier.fromNode(a, pidNode))
-          yield t.copy(declaredUnusedPortSet = t.declaredUnusedPortSet + pid)
-        )
+        for {
+          pid <- PortInstanceIdentifier.fromNode(a, pidNode)
+          _ <- pid.portInstance.requireConnectionAt(Locations.get(pidNode.id))
+        } yield t.copy(declaredUnusedPortSet = t.declaredUnusedPortSet + pid)
+      )
     }
     yield a.copy(topology = Some(topology))
   }

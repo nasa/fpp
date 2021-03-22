@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/unused_ports/invalid_port_kind.fpp: 12.5
+    c.pInternal
+    ^
+error: cannot connect to internal port
+port instance is specified here:
+[ local path prefix ]/compiler/tools/fpp-check/test/unused_ports/invalid_port_kind.fpp: 2.3
+  internal port pInternal
+  ^

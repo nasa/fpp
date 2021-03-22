@@ -115,16 +115,7 @@ object Connection {
       portNumber: Option[AstNode[Ast.Expr]]
     ): Result.Result[Endpoint] = for {
       pid <- PortInstanceIdentifier.fromNode(a, port)
-      _ <- pid.portInstance match {
-        case _: PortInstance.Internal => Left(
-          SemanticError.InvalidPortKind(
-            Locations.get(port.id),
-            "cannot connect to internal port",
-            pid.portInstance.getLoc
-          )
-        )
-        case _ => Right(())
-      }
+      _ <- pid.portInstance.requireConnectionAt(Locations.get(port.id))
       pn <- a.getIntValueOpt(portNumber)
       endpoint <- Right(Endpoint(pid, pn))
       _ <- portNumber match {

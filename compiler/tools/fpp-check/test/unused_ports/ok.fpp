@@ -14,7 +14,7 @@ passive component C {
   command resp port cmdResponseOut
 }
 
-instance c: C base id 0x200
+instance c: C base id 0x100
 
 topology T {
   unused {

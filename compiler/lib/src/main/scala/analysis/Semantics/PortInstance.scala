@@ -24,6 +24,11 @@ sealed trait PortInstance {
   /** Gets the unqualified name of the port instance */
   def getUnqualifiedName: Name.Unqualified
 
+  /** Checks whether a port instance may be connected */
+  def requireConnectionAt(
+    loc: Location // The location whether the connection is requested
+  ): Result.Result[Unit] = Right(())
+
 }
 
 final object PortInstance {
@@ -150,6 +155,13 @@ final object PortInstance {
     override def getNodeId = aNode._2.id
 
     override def getUnqualifiedName = aNode._2.data.name
+
+    override def requireConnectionAt(loc: Location) = Left(
+      SemanticError.InvalidPortKind(
+        loc,
+        "cannot connect to internal port",
+        this.getLoc
+      ))
 
   }
 

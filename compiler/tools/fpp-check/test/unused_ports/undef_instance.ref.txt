@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/unused_ports/undef_instance.fpp: 3.5
+    c.pIn
+    ^
+error: undefined symbol c
