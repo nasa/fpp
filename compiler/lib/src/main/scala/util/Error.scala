@@ -114,7 +114,7 @@ sealed trait Error {
         System.err.println(s"port instance is specified here:")
         System.err.println(specLoc)
       case SemanticError.InvalidPortMatching(loc, msg) =>
-        Error.print (Some(loc)) (s"invalid port matching: $msg")
+        Error.print (Some(loc)) (msg)
       case SemanticError.InvalidPortNumber(loc, portNumber, port, size, specLoc) =>
         Error.print (Some(loc)) (s"invalid port number $portNumber for port $port (max is ${size - 1})")
         System.err.println(s"port instance is specified here:")

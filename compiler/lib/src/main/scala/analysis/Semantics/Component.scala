@@ -370,21 +370,18 @@ case class Component(
       val name = node.data
       val componentName = this.aNode._2.data.name
       val loc = Locations.get(node.id)
-      this.portMap.get(name) match {
-        case Some(instance: PortInstance.General) => Right(instance)
-        case None => Left(
-          SemanticError.InvalidPortMatching(
-            loc,
-            s"$name is not a port instance of component $componentName"
+      for {
+        instance <- getPortInstance(node)
+        general <- instance match {
+          case general: PortInstance.General => Right(general)
+          case _ => Left(
+            SemanticError.InvalidPortMatching(
+              loc,
+              s"$name is not a valid port instance for matching"
+            )
           )
-        )
-        case _ => Left(
-          SemanticError.InvalidPortMatching(
-            loc,
-            s"$name is not a valid port instance for matching"
-          )
-        )
-      }
+        }
+      } yield general
     }
     def checkSizes(
       instance1: PortInstance.General,
@@ -396,7 +393,7 @@ case class Component(
       else Left(
         SemanticError.InvalidPortMatching(
           loc,
-          s"mismatched sizes ($size1 vs. $size2)"
+          s"mismatched port sizes ($size1 vs. $size2)"
         )
       )
     }
