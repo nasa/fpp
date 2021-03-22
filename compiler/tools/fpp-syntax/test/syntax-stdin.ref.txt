@@ -250,7 +250,7 @@ def module
     @< Direct connection graph specifier
     @ Graph pattern specifier
     spec connection graph pattern
-      kind Command
+      kind command
       source qual ident i1
       target qual ident i2
       target qual ident i3
