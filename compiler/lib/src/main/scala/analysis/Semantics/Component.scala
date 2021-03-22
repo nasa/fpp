@@ -83,7 +83,7 @@ case class Component(
     for {
       c <- updatePortMap(instance)
       c <- instance match {
-        case special : PortInstance.Special => c.updateSpecialPortMap(special)
+        case special: PortInstance.Special => c.updateSpecialPortMap(special)
         case _ => Right(c)
       }
     }

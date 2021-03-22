@@ -1,0 +1,13 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/connection_direct/mismatched_port_types.fpp: 13.5
+    c1.pOut -> c2.pIn
+    ^
+error: cannot connect port types P1 and P2
+from port is specified here:
+[ local path prefix ]/compiler/tools/fpp-check/test/connection_direct/mismatched_port_types.fpp: 4.3
+  output port pOut: P1
+  ^
+to port is specified here:
+[ local path prefix ]/compiler/tools/fpp-check/test/connection_direct/mismatched_port_types.fpp: 7.3
+  sync input port pIn: P2
+  ^
