@@ -108,7 +108,7 @@ sealed trait Error {
         System.err.println(s"port definition is here:")
         System.err.println(defLoc)
       case SemanticError.InvalidPortInstanceId(loc, portName, componentName) =>
-        Error.print (Some(loc)) (s"$portName is not a port instance of $componentName")
+        Error.print (Some(loc)) (s"$portName is not a port instance of component $componentName")
       case SemanticError.InvalidPortKind(loc, msg, specLoc) =>
         Error.print (Some(loc)) (msg)
         System.err.println(s"port instance is specified here:")
