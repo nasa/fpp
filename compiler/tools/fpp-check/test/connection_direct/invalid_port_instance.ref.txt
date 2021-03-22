@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/connection_direct/invalid_port_instance.fpp: 6.7
+    c.out -> c.in
+      ^
+error: out is not a port instance of component C
