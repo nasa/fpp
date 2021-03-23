@@ -106,8 +106,8 @@ case class Topology(
       case None => Right(addMergedInstance(instance, vis, loc))
     }
 
-  /** Complete a topology definition */
-  def complete(a: Analysis): Result.Result[Topology] =
+  /** Resolve a topology definition */
+  def resolve(a: Analysis): Result.Result[Topology] =
     Result.seq(
       Right(this),
       List(

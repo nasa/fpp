@@ -20,18 +20,18 @@ object CheckTopologyDefs
         // Topology is not in the map: visit it
         val a1 = a.copy(topology = Some(Topology(aNode)))
         for {
-          // Visit topology members and compute top
+          // Visit topology members and compute unresolved top
           a <- super.defTopologyAnnotatedNode(a1, aNode)
           top <- Right(a.topology.get)
           a <- {
-            // Visit topologies imported by top
+            // Resolve topologies imported by top, updating a
             val tops = top.importedTopologyMap.toList
             Result.foldLeft (tops) (a) ((a, tl) => {
               defTopologyAnnotatedNode(a, tl._1.node)
             })
           }
-          // Complete top
-          top <- top.complete(a)
+          // Use the updated analysis to resolve top
+          top <- top.resolve(a)
         }
         yield a.copy(topologyMap = a.topologyMap + (symbol -> top))
       case _ => {
