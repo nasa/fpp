@@ -73,19 +73,10 @@ case class Topology(
     vis: Ast.Visibility,
     loc: Location
   ): Topology = {
-    def mergeVisibility(v1: Ast.Visibility, v2: Ast.Visibility) =
-      (v1, v2) match {
-        case (Ast.Visibility.Private, Ast.Visibility.Private) =>
-          Ast.Visibility.Private
-        case _ => Ast.Visibility.Public
-      }
-    val (mergedVis, mergedLoc) = instanceMap.get(instance) match {
-      case Some((prevVis, prevLoc)) => 
-        // Merge the visibility and use the previous location
-        (mergeVisibility(prevVis, vis), prevLoc)
-      case None => (vis, loc)
-    }
-    val map = instanceMap + (instance -> (mergedVis, mergedLoc))
+    // Use the previous location, if it exists
+    // Use the new visibility
+    val mergedLoc = instanceMap.get(instance).map(_._2).getOrElse(loc)
+    val map = instanceMap + (instance -> (vis, mergedLoc))
     this.copy(instanceMap = map)
   }
 
@@ -147,7 +138,11 @@ case class Topology(
       val from = a.topologyMap(fromSymbol)
       from.instanceMap.foldLeft (into) ((t, entry) => {
         val (instance, (vis, loc)) = entry
-        t.addMergedInstance(instance, vis, loc)
+        vis match {
+          case Ast.Visibility.Public =>
+            t.addMergedInstance(instance, vis, loc)
+          case Ast.Visibility.Private => t
+        }
       })
     }
     val t = importedTopologyMap.keys.foldLeft (this) ((into, from) =>

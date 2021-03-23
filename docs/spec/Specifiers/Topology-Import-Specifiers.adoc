@@ -26,11 +26,11 @@ of _T_.
 of _T'_.
 
 . Let _I''_ be the set union of _I_ and _I'_.
-That means that if either or both of _I_ and _I'_ contain the 
-instance _S_,
+That means that if either or both of _I_ and _I'_ contain the instance _S_,
 then _I''_ contains the instance _S_ once.
-An instance is public in _I''_ if it is public in _I_
-or _I'_ or both; otherwise it is private.
+Each instance in _I''_ has (a) the same visibility as in
+_I_, if the instance is present there; otherwise (b)
+the same visibility as in _I'_.
 
 . For each
 <<Specifiers_Connection-Graph-Specifiers,connection graph name>> stem:[N_i]
