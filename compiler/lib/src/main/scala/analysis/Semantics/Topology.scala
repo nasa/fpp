@@ -111,7 +111,7 @@ case class Topology(
     Result.seq(
       Right(this),
       List(
-        _.resolveToPartiallyNumbered(a),
+        _.resolvePartiallyNumbered(a),
         _.computePortNumbers,
         _.computeUnusedPorts
       )
@@ -150,14 +150,14 @@ case class Topology(
         t.addMergedInstance(instance, vis, loc)
       })
     }
-    val t = importedTopologyMap.keys.foldLeft (this) ((into, from) => {
+    val t = importedTopologyMap.keys.foldLeft (this) ((into, from) =>
       importInstances(into, from)
-    })
+    )
     Right(t)
   }
 
   /** Resolve this topology to a partially numbered topology */
-  private def resolveToPartiallyNumbered(a: Analysis): Result.Result[Topology] =
+  private def resolvePartiallyNumbered(a: Analysis): Result.Result[Topology] =
     Result.seq(
       Right(this),
       List(
