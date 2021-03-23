@@ -108,7 +108,54 @@ case class Topology(
 
   /** Complete a topology definition */
   def complete: Result.Result[Topology] =
-    //TODO
+    Result.seq(
+      Right(this),
+      List(
+        _.resolveToPartiallyNumbered,
+        _.computePortNumbers,
+        _.computeUnusedPorts
+      )
+    )
+
+  /** Compute the unused ports for this topology */
+  private def computeUnusedPorts: Result.Result[Topology] = {
+    // TODO
     Right(this)
+  }
+
+  /** Fill in the port numbers for this topology */
+  private def computePortNumbers: Result.Result[Topology] = {
+    // TODO
+    Right(this)
+  }
+
+  /** Resolve the connection patterns of this topology */
+  private def resolvePatterns: Result.Result[Topology] = {
+    // TODO
+    Right(this)
+  }
+
+  /** Resolve the direct connections of this topology */
+  private def resolveDirectConnections: Result.Result[Topology] = {
+    // TODO
+    Right(this)
+  }
+
+  /** Resolve the instances of this topology */
+  private def resolveInstances: Result.Result[Topology] = {
+    // TODO
+    Right(this)
+  }
+
+  /** Resolve this topology to a partially numbered topology */
+  private def resolveToPartiallyNumbered: Result.Result[Topology] =
+    Result.seq(
+      Right(this),
+      List(
+        _.resolveInstances,
+        _.resolveDirectConnections,
+        _.resolvePatterns
+      )
+    )
 
 }
