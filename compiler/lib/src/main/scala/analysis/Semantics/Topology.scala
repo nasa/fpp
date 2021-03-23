@@ -8,7 +8,7 @@ case class Topology(
   /** The AST node defining the topology */
   aNode: Ast.Annotated[AstNode[Ast.DefTopology]],
   /** The imported topologies */
-  importedTopologyMap: Map[Topology, Location] = Map(),
+  importedTopologyMap: Map[Symbol.Topology, Location] = Map(),
   /** The instances of this topology */
   instanceMap: Map[ComponentInstance, (Ast.Visibility, Location)] = Map(),
   /** The connection patterns of this topology */
@@ -51,19 +51,19 @@ case class Topology(
 
   /** Add an imported topology */
   def addImportedTopology(
-    topology: Topology,
+    symbol: Symbol.Topology,
     loc: Location
   ): Result.Result[Topology] =
-    importedTopologyMap.get(topology) match {
+    importedTopologyMap.get(symbol) match {
       case Some(prevLoc) => Left(
         SemanticError.DuplicateTopology(
-          topology.aNode._2.data.name,
+          symbol.getUnqualifiedName,
           loc,
           prevLoc
         )
       )
       case None =>
-        val map = importedTopologyMap + (topology -> loc)
+        val map = importedTopologyMap + (symbol -> loc)
         Right(this.copy(importedTopologyMap = map))
     }
 
@@ -92,7 +92,7 @@ case class Topology(
   /** Add an instance that must be unique */
   def addUniqueInstance(
     instance: ComponentInstance,
-    visibility: Ast.Visibility,
+    vis: Ast.Visibility,
     loc: Location
   ): Result.Result[Topology] =
     instanceMap.get(instance) match {
@@ -103,15 +103,15 @@ case class Topology(
           prevLoc
         )
       )
-      case None => Right(addMergedInstance(instance, visibility, loc))
+      case None => Right(addMergedInstance(instance, vis, loc))
     }
 
   /** Complete a topology definition */
-  def complete: Result.Result[Topology] =
+  def complete(a: Analysis): Result.Result[Topology] =
     Result.seq(
       Right(this),
       List(
-        _.resolveToPartiallyNumbered,
+        _.resolveToPartiallyNumbered(a),
         _.computePortNumbers,
         _.computeUnusedPorts
       )
@@ -142,17 +142,26 @@ case class Topology(
   }
 
   /** Resolve the instances of this topology */
-  private def resolveInstances: Result.Result[Topology] = {
-    // TODO
-    Right(this)
+  private def resolveInstances(a: Analysis): Result.Result[Topology] = {
+    def importInstances(into: Topology, fromSymbol: Symbol.Topology) = {
+      val from = a.topologyMap(fromSymbol)
+      from.instanceMap.foldLeft (into) ((t, entry) => {
+        val (instance, (vis, loc)) = entry
+        t.addMergedInstance(instance, vis, loc)
+      })
+    }
+    val t = importedTopologyMap.keys.foldLeft (this) ((into, from) => {
+      importInstances(into, from)
+    })
+    Right(t)
   }
 
   /** Resolve this topology to a partially numbered topology */
-  private def resolveToPartiallyNumbered: Result.Result[Topology] =
+  private def resolveToPartiallyNumbered(a: Analysis): Result.Result[Topology] =
     Result.seq(
       Right(this),
       List(
-        _.resolveInstances,
+        _.resolveInstances(a),
         _.resolveDirectConnections,
         _.resolvePatterns
       )

@@ -27,11 +27,11 @@ object CheckTopologyDefs
             // Visit topologies imported by top
             val tops = top.importedTopologyMap.toList
             Result.foldLeft (tops) (a) ((a, tl) => {
-              defTopologyAnnotatedNode(a, tl._1.aNode)
+              defTopologyAnnotatedNode(a, tl._1.node)
             })
           }
           // Complete top
-          top <- top.complete
+          top <- top.complete(a)
         }
         yield a.copy(topologyMap = a.topologyMap + (symbol -> top))
       case _ => {
@@ -86,9 +86,9 @@ object CheckTopologyDefs
     val node = aNode._2
     val topNode = node.data.top
     for {
-      importedTop <- a.getTopology(topNode.id)
+      ts <- a.getTopologySymbol(topNode.id)
       topology <- a.topology.get.addImportedTopology(
-        importedTop,
+        ts,
         Locations.get(node.id)
       )
     }

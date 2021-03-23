@@ -203,11 +203,10 @@ case class Analysis(
       )
     }
 
-  /** Gets a topology from the topology map */
-  def getTopology(id: AstNode.Id): Result.Result[Topology] =
+  /** Gets a topology symbol from use-def map */
+  def getTopologySymbol(id: AstNode.Id): Result.Result[Symbol.Topology] =
     this.useDefMap(id) match {
-      case ts: Symbol.Topology =>
-        Right(this.topologyMap(ts))
+      case ts: Symbol.Topology => Right(ts)
       case s => Left(
         SemanticError.InvalidSymbol(
           s.getUnqualifiedName,
