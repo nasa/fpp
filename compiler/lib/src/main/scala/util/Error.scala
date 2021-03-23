@@ -84,6 +84,8 @@ sealed trait Error {
         Error.print (Some(loc)) (s"invalid array size $size")
       case SemanticError.InvalidCommand(loc, msg) =>
         Error.print (Some(loc)) (msg)
+      case SemanticError.InvalidComponentInstance(loc, instanceName, topName) =>
+        Error.print (Some(loc)) (s"instance $instanceName is not a member of topology $topName")
       case SemanticError.InvalidConnection(loc, msg, fromLoc, toLoc) =>
         Error.print (Some(loc)) (msg)
         System.err.println("from port is specified here:")
@@ -278,6 +280,12 @@ object SemanticError {
   final case class InvalidArraySize(loc: Location, size: BigInt) extends Error
   /** Invalid command */
   final case class InvalidCommand(loc: Location, msg: String) extends Error
+  /** Invalid component instance */
+  final case class InvalidComponentInstance(
+    loc: Location,
+    instanceName: String,
+    topName: String
+  ) extends Error
   /** Invalid connection */
   final case class InvalidConnection(
     loc: Location,

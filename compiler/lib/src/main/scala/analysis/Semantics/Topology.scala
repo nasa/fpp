@@ -128,27 +128,61 @@ case class Topology(
 
   /** Resolve the direct connections of this topology */
   private def resolveDirectConnections: Result.Result[Topology] = {
-    // TODO
-    Right(this)
+    def endpointIsPublic(endpoint: Connection.Endpoint) = {
+      val instance = endpoint.portInstanceIdentifier.componentInstance
+      for {
+        vis <- instanceMap.get(instance) match {
+          case Some ((vis, _)) => Right(vis)
+          case None => Left(
+            SemanticError.InvalidComponentInstance(
+              endpoint.loc,
+              instance.aNode._2.data.name,
+              this.aNode._2.data.name
+            )
+          )
+        }
+      } yield vis == Ast.Visibility.Public
+    }
+    def connectionIsPublic(connection: Connection) =
+      for {
+        fromIsPublic <- endpointIsPublic(connection.from)
+        toIsPublic <- endpointIsPublic(connection.to)
+      } yield fromIsPublic && toIsPublic
+    def importConnection(
+      t: Topology,
+      graphName: Name.Unqualified,
+      connection: Connection
+    ) = 
+      for (public <- connectionIsPublic(connection))
+        yield if (public)
+          t.addConnection(graphName, connection)
+        else t
+    def importConnections(
+      t: Topology,
+      mapEntry: (Name.Unqualified, List[Connection])
+    ) = {
+      val (graphName, connections) = mapEntry
+      Result.foldLeft (connections) (t) ((t, c) => importConnection(t, graphName, c))
+    }
+    Result.foldLeft (connectionGraphMap.toList) (this) (importConnections)
   }
 
   /** Resolve the instances of this topology */
   private def resolveInstances(a: Analysis): Result.Result[Topology] = {
-    def importInstances(into: Topology, fromSymbol: Symbol.Topology) = {
-      val from = a.topologyMap(fromSymbol)
-      from.instanceMap.foldLeft (into) ((t, entry) => {
-        val (instance, (vis, loc)) = entry
-        vis match {
-          case Ast.Visibility.Public =>
-            t.addMergedInstance(instance, vis, loc)
-          case Ast.Visibility.Private => t
-        }
-      })
+    def importInstance(
+      t: Topology,
+      mapEntry: (ComponentInstance, (Ast.Visibility, Location))
+    ) = {
+      val (instance, (vis, loc)) = mapEntry
+      vis match {
+        case Ast.Visibility.Public =>
+          t.addMergedInstance(instance, vis, loc)
+        case Ast.Visibility.Private => t
+      }
     }
-    val t = importedTopologyMap.keys.foldLeft (this) ((into, from) =>
-      importInstances(into, from)
-    )
-    Right(t)
+    def importInstances(into: Topology, fromSymbol: Symbol.Topology) =
+      a.topologyMap(fromSymbol).instanceMap.foldLeft (into) (importInstance)
+    Right(importedTopologyMap.keys.foldLeft (this) (importInstances))
   }
 
   /** Resolve this topology to a partially numbered topology */

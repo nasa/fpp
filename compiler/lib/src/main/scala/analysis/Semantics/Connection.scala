@@ -5,8 +5,6 @@ import fpp.compiler.util._
 
 /** An FPP connection */
 case class Connection(
-  /** The location where the connection is defined */
-  loc: Location,
   /** The from endpoint */
   from: Connection.Endpoint,
   /** The to endpoint */
@@ -27,7 +25,7 @@ case class Connection(
       val msg = s"cannot connect port types $fromTypeString and $toTypeString"
       val fromLoc = fromInstance.getLoc
       val toLoc = toInstance.getLoc
-      Left(SemanticError.InvalidConnection(loc, msg, fromLoc, toLoc))
+      Left(SemanticError.InvalidConnection(getLoc, msg, fromLoc, toLoc))
     }
   }
 
@@ -45,7 +43,7 @@ case class Connection(
       val msg = s"invalid directions $fromDirString -> $toDirString (should be output -> input)"
       val fromLoc = fromInstance.getLoc
       val toLoc = toInstance.getLoc
-      Left(SemanticError.InvalidConnection(loc, msg, fromLoc, toLoc))
+      Left(SemanticError.InvalidConnection(getLoc, msg, fromLoc, toLoc))
     }
   }
 
@@ -55,6 +53,9 @@ case class Connection(
     if (fromCompare != 0) fromCompare
     else this.to.compare(that.to)
   }
+
+  /** Gets the location of the connection */
+  def getLoc: Location = from.loc
 
 }
 
@@ -67,7 +68,7 @@ object Connection {
       for {
         from <- Endpoint.fromAst(a, connection.fromPort, connection.fromIndex)
         to <- Endpoint.fromAst(a, connection.toPort, connection.toIndex)
-        connection <- Right(Connection(loc, from, to))
+        connection <- Right(Connection(from, to))
         _ <- connection.checkTypes
         _ <- connection.checkDirections
       }
@@ -76,6 +77,8 @@ object Connection {
 
   /** A connection endpoint */
   case class Endpoint(
+    /** The location where the endpoint is defined */
+    loc: Location,
     /** The port instance identifier */
     portInstanceIdentifier: PortInstanceIdentifier,
     /** The port number */
@@ -117,7 +120,7 @@ object Connection {
       pid <- PortInstanceIdentifier.fromNode(a, port)
       _ <- pid.portInstance.requireConnectionAt(Locations.get(port.id))
       pn <- a.getIntValueOpt(portNumber)
-      endpoint <- Right(Endpoint(pid, pn))
+      endpoint <- Right(Endpoint(Locations.get(port.id), pid, pn))
       _ <- portNumber match {
         case Some(pn) => endpoint.checkPortNumber(Locations.get(pn.id))
         case None => Right(())
