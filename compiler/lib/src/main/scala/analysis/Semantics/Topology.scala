@@ -15,6 +15,10 @@ case class Topology(
   patternMap: Map[Ast.SpecConnectionGraph.Pattern.Kind, ConnectionPattern] = Map(),
   /** The connection graphs of this topology */
   connectionGraphMap: Map[Name.Unqualified, List[Connection]] = Map(),
+  /** The output connections going from each port */
+  outputConnectionMap: Map[PortInstanceIdentifier, Set[Connection]] = Map(),
+  /** The input connections going to each port */
+  inputConnectionMap: Map[PortInstanceIdentifier, Set[Connection]] = Map(),
   /** The set of port instances declared as unused */
   declaredUnusedPortSet: Set[PortInstanceIdentifier] = Set(),
   /** The set of port instances actually unused */
@@ -26,9 +30,25 @@ case class Topology(
     graphName: Name.Unqualified,
     connection: Connection
   ): Topology = {
-    val connections = connectionGraphMap.getOrElse(graphName, Nil)
-    val map = connectionGraphMap + (graphName -> (connection :: connections))
-    this.copy(connectionGraphMap = map)
+    val cgMap = {
+      val connections = connectionGraphMap.getOrElse(graphName, Nil)
+      connectionGraphMap + (graphName -> (connection :: connections))
+    }
+    val ocMap = {
+      val pid = connection.from.portInstanceIdentifier
+      val connections = outputConnectionMap.getOrElse(pid, Set())
+      outputConnectionMap + (pid -> (connections + connection))
+    }
+    val icMap = {
+      val pid = connection.to.portInstanceIdentifier
+      val connections = inputConnectionMap.getOrElse(pid, Set())
+      inputConnectionMap + (pid -> (connections + connection))
+    }
+    this.copy(
+      connectionGraphMap = cgMap,
+      outputConnectionMap = ocMap,
+      inputConnectionMap = icMap
+    )
   }
 
   /** Add a pattern */
@@ -97,17 +117,6 @@ case class Topology(
       case None => Right(addMergedInstance(instance, vis, loc))
     }
 
-  /** Resolve a topology definition */
-  def resolve(a: Analysis): Result.Result[Topology] =
-    Result.seq(
-      Right(this),
-      List(
-        _.resolvePartiallyNumbered(a),
-        _.computePortNumbers,
-        _.computeUnusedPorts
-      )
-    )
-
   /** Compute the unused ports for this topology */
   private def computeUnusedPorts: Result.Result[Topology] = {
     // TODO
@@ -119,6 +128,25 @@ case class Topology(
     // TODO
     Right(this)
   }
+
+  /** Get the connections from a port */
+  def getConnectionsFrom(pid: PortInstanceIdentifier): Set[Connection] =
+    outputConnectionMap.getOrElse(pid, Set())
+
+  /** Get the connections to a port */
+  def getConnectionsTo(pid: PortInstanceIdentifier): Set[Connection] =
+    inputConnectionMap.getOrElse(pid, Set())
+
+  /** Resolve a topology definition */
+  def resolve(a: Analysis): Result.Result[Topology] =
+    Result.seq(
+      Right(this),
+      List(
+        _.resolvePartiallyNumbered(a),
+        _.computePortNumbers,
+        _.computeUnusedPorts
+      )
+    )
 
   /** Resolve the connection patterns of this topology */
   private def resolvePatterns: Result.Result[Topology] = {
