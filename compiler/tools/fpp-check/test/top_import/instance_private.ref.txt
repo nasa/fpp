@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/top_import/instance_private.fpp: 10.5
+    c.pOut -> c.pIn
+    ^
+error: instance c is not a member of topology B
