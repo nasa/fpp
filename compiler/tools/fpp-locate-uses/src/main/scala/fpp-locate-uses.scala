@@ -46,7 +46,7 @@ object FPPLocateUses {
     val loc = Locations.get(s.getNodeId)
     loc.file match {
       case File.Path(path) => {
-        val name = a.qualifiedNameMap(s)
+        val name = a.getQualifiedName(s)
         val nameList = {
           s match {
             case _: Symbol.EnumConstant => name.qualifier

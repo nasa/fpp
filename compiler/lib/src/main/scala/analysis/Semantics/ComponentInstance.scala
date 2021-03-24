@@ -54,7 +54,7 @@ object ComponentInstance {
     yield {
       val maxId = baseId + component.getMaxId
       val symbol = Symbol.ComponentInstance(aNode)
-      val qualifiedName = a.qualifiedNameMap(symbol)
+      val qualifiedName = a.getQualifiedName(symbol)
       ComponentInstance(
         aNode,
         qualifiedName,

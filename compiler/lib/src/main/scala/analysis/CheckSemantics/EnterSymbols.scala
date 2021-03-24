@@ -244,16 +244,10 @@ object EnterSymbols
   }
 
   private def updateMap(a: Analysis, s: Symbol): Analysis = {
-    val identList = (s.getUnqualifiedName :: a.scopeNameList).reverse
-    val name = Name.Qualified.fromIdentList(identList)
-    val parentSymbolMap = a.parentSymbol.fold(a.parentSymbolMap)(ps => {
+    val parentSymbolMap = a.parentSymbol.fold (a.parentSymbolMap) (ps =>
       a.parentSymbolMap + (s -> ps)
-    })
-    val qualifiedNameMap = a.qualifiedNameMap + (s -> name)
-    a.copy(
-      parentSymbolMap = parentSymbolMap,
-      qualifiedNameMap = qualifiedNameMap
     )
+    a.copy(parentSymbolMap = parentSymbolMap)
   }
 
 }

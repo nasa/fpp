@@ -22,8 +22,6 @@ case class Analysis(
   scopeNameList: List[Name.Unqualified] = List(),
   /** The current nested scope for symbol lookup */
   nestedScope: NestedScope = NestedScope.empty,
-  /** The mapping from symbols to their qualified names */
-  qualifiedNameMap: Map[Symbol,Name.Qualified] = Map(),
   /** The current parent symbol */
   parentSymbol: Option[Symbol] = None,
   /** The mapping from symbols to their parent symbols */
@@ -58,6 +56,18 @@ case class Analysis(
   /** The topology currently under construction */
   topology: Option[Topology] = None
 ) {
+
+  /** Gets the qualified name of a symbol */
+  def getQualifiedName(s: Symbol): Name.Qualified = {
+    def getIdentList(so: Option[Symbol], out: List[Ast.Ident]): List[Ast.Ident] =
+      so match {
+        case Some(s) =>
+          val so1 = parentSymbolMap.get(s)
+          getIdentList(so1, s.getUnqualifiedName :: out)
+        case None => out
+      }
+    Name.Qualified.fromIdentList(getIdentList(Some(s), Nil))
+  }
 
   /** Add a mapping to the type map */
   def assignType[T](mapping: (AstNode[T], Type)): Analysis = {

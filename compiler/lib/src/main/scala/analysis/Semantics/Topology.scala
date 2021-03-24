@@ -149,9 +149,23 @@ case class Topology(
     )
 
   /** Resolve the connection patterns of this topology */
-  private def resolvePatterns: Result.Result[Topology] = {
-    // TODO
-    Right(this)
+  private def resolvePatterns(a: Analysis): Result.Result[Topology] = {
+    import Ast.SpecConnectionGraph._
+    def getGraphName(kind: Pattern.Kind) = kind match {
+      case Pattern.Command => "Command"
+      case Pattern.Event => "Event"
+      case Pattern.Health => "Health"
+      case Pattern.Telemetry => "Telemetry"
+      case Pattern.Time => "Time"
+    }
+    Result.foldLeft (patternMap.values.toList) (this) ((t, p) => {
+      val instances = instanceMap.keys.toList
+      for (connections <- PatternResolver.resolve(a, p, instances))
+        yield {
+          val name = getGraphName(p.pattern.kind)
+          connections.foldLeft (t) ((t, c) => t.addConnection(name, c))
+        }
+    })
   }
 
   /** Resolve the direct connections of this topology */
@@ -220,7 +234,7 @@ case class Topology(
       List(
         _.resolveInstances(a),
         _.resolveDirectConnections,
-        _.resolvePatterns
+        _.resolvePatterns(a)
       )
     )
 
