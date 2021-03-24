@@ -4,7 +4,7 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 
 /** A class for resolving connection patterns */
-sealed trait PatternResolver {
+private sealed trait PatternResolver {
 
   /** The type of a source */
   type Source
@@ -107,7 +107,7 @@ object PatternResolver {
         )
     }
 
-  final case class Time(
+  private final case class Time(
     a: Analysis,
     pattern: ConnectionPattern,
     instances: Iterable[ComponentInstance]
