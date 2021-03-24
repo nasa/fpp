@@ -86,6 +86,18 @@ object PatternResolver {
   private def getPortsForInstance(instance: ComponentInstance) =
     instance.component.portMap.values
 
+  private def missingPort[T](
+    loc: Location,
+    kind: String,
+    instanceName: Name.Unqualified
+  ): Result.Result[T] =
+    Left(
+      SemanticError.InvalidPattern(
+        loc,
+        s"could not find $kind port for instance $instanceName"
+      )
+    )
+
   private def resolveToSinglePort(
     ports: Iterable[PortInstance],
     kind: String,
@@ -134,7 +146,7 @@ object PatternResolver {
     instances: Iterable[ComponentInstance]
   ) extends SingleConnection {
 
-    override def resolveSource: Result.Result[Source] = {
+    override def resolveSource = {
       def isTimeGetIn(pi: PortInstance): Boolean = 
         (pi.getType, pi.getDirection) match {
           case (
@@ -154,19 +166,11 @@ object PatternResolver {
       } yield PortInstanceIdentifier(ci, pii)
     }
 
-    override def resolveTarget(target: (ComponentInstance, Location)):
-    Result.Result[Target] = {
+    override def resolveTarget(target: (ComponentInstance, Location)) = {
       val (ci, loc) = target
       ci.component.specialPortMap.get(Ast.SpecPortInstance.TimeGet) match { 
         case Some(pi) => Right(PortInstanceIdentifier(ci, pi))
-        case None =>
-          val instanceName = ci.getUnqualifiedName
-          Left(
-            SemanticError.InvalidPattern(
-              loc,
-              s"could not find time get port for instance $instanceName"
-            )
-          )
+        case None => missingPort(loc, "time get", ci.getUnqualifiedName)
       }
     }
 
