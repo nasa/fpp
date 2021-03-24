@@ -346,6 +346,9 @@ object Ast {
       final case object Health extends Kind {
         override def toString = "health"
       }
+      final case object Param extends Kind {
+        override def toString = "param"
+      }
       final case object Telemetry extends Kind {
         override def toString = "telemetry"
       }

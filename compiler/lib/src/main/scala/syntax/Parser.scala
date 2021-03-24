@@ -359,6 +359,7 @@ object Parser extends Parsers {
         command ^^ { case _ => Ast.SpecConnectionGraph.Pattern.Command } |
         event ^^ { case _ => Ast.SpecConnectionGraph.Pattern.Event } |
         health ^^ { case _ => Ast.SpecConnectionGraph.Pattern.Health } |
+        param ^^ { case _ => Ast.SpecConnectionGraph.Pattern.Param } |
         telemetry ^^ { case _ => Ast.SpecConnectionGraph.Pattern.Telemetry } |
         time ^^ { case _ => Ast.SpecConnectionGraph.Pattern.Time }
       }

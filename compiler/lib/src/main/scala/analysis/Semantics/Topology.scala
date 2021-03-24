@@ -201,9 +201,10 @@ case class Topology(
   private def resolvePatterns(a: Analysis): Result.Result[Topology] = {
     import Ast.SpecConnectionGraph._
     def getGraphName(kind: Pattern.Kind) = kind match {
-      case Pattern.Command => "Command"
-      case Pattern.Event => "Event"
+      case Pattern.Command => "Commands"
+      case Pattern.Event => "Events"
       case Pattern.Health => "Health"
+      case Pattern.Param => "Parameters"
       case Pattern.Telemetry => "Telemetry"
       case Pattern.Time => "Time"
     }
