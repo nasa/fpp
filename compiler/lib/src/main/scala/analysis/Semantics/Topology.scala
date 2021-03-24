@@ -209,7 +209,7 @@ case class Topology(
       case Pattern.Time => "Time"
     }
     Result.foldLeft (patternMap.values.toList) (this) ((t, p) => {
-      val instances = instanceMap.keys.toList
+      val instances = instanceMap.keys
       for {
         _ <- checkPatternInstances(p)
         connections <- PatternResolver.resolve(a, p, instances)

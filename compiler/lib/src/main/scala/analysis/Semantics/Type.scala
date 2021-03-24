@@ -271,7 +271,10 @@ object Type {
     members: Struct.Members
   ) extends Type {
     override def getDefaultValue: Option[Value.AnonStruct] = {
-      def defaultMembers(in: List[Struct.Member], out: Value.Struct.Members): Option[Value.Struct.Members] =
+      def defaultMembers(
+        in: List[Struct.Member],
+        out: Value.Struct.Members
+      ): Option[Value.Struct.Members] =
         in match {
           case Nil => Some(out)
           case (m -> t) :: tail => t.getDefaultValue match {
@@ -284,7 +287,8 @@ object Type {
     }
     override def hasNumericMembers = members.values.forall(_.hasNumericMembers)
     override def toString = {
-      def memberToString(member: Struct.Member) = member._1 ++ ": " ++ member._2.toString
+      def memberToString(member: Struct.Member) =
+        member._1 ++ ": " ++ member._2.toString
       members.size match {
         case 0 => "{ }"
         case _ => "{ " ++ members.map(memberToString).mkString(", ") ++ " }"

@@ -19,7 +19,7 @@ sealed trait PatternResolver {
   val pattern: ConnectionPattern
 
   /** The component instances in scope */
-  val instances: List[ComponentInstance]
+  val instances: Iterable[ComponentInstance]
 
   /** Resolve the source */
   def resolveSource: Result.Result[Source]
@@ -28,23 +28,23 @@ sealed trait PatternResolver {
   def resolveTarget(target: (ComponentInstance, Location)): Result.Result[Target]
 
   /** Generate the connections for a source and target */
-  def getConnectionsForTarget(source: Source, target: Target): List[Connection]
+  def getConnectionsForTarget(source: Source, target: Target): Iterable[Connection]
 
   /** Resolve the pattern to a list of connections */
-  final def resolve: Result.Result[List[Connection]] =
+  final def resolve: Result.Result[Iterable[Connection]] =
     for {
       source <- resolveSource
       targets <- resolveTargets
     }
     yield targets.flatMap(getConnectionsForTarget(source, _))
 
-  private def resolveTargets: Result.Result[List[Target]] =
+  private def resolveTargets: Result.Result[Iterable[Target]] =
     pattern.targets.size match {
       case 0 => resolveImplicitTargets
       case _ => resolveExplicitTargets
     }
 
-  private def resolveImplicitTargets: Result.Result[List[Target]] = {
+  private def resolveImplicitTargets: Result.Result[Iterable[Target]] = {
     val loc = pattern.getLoc
     val targets = instances.map(ti => resolveTarget((ti, loc))).
       filter(_.isRight).map(Result.expectRight)
@@ -65,8 +65,8 @@ object PatternResolver {
   def resolve(
     a: Analysis,
     pattern: ConnectionPattern,
-    instances: List[ComponentInstance]
-  ): Result.Result[List[Connection]] = {
+    instances: Iterable[ComponentInstance]
+  ): Result.Result[Iterable[Connection]] = {
     import Ast.SpecConnectionGraph._
     val toDo = None
     val resolverOpt: Option[PatternResolver] = pattern.ast.kind match {
@@ -110,7 +110,7 @@ object PatternResolver {
   final case class Time(
     a: Analysis,
     pattern: ConnectionPattern,
-    instances: List[ComponentInstance]
+    instances: Iterable[ComponentInstance]
   ) extends PatternResolver {
 
     type Source = PortInstanceIdentifier
