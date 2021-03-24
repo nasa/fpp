@@ -56,6 +56,8 @@ _pattern-kind_ is one of the following:
 
 . `health`
 
+. `param`
+
 . `telemetry`
 
 . `time`
@@ -162,6 +164,13 @@ output port.
 The generated connection graph has name `Health` and contains
 all connections between the health component and ping
 ports of the target components of type `Svc.Ping`.
+
+. `param`: The source instance _I_ is a parameter database
+component.
+The generate connection graph has name `Parameters`
+and contains all connections for (a) getting 
+parameters from the database and (b) saving
+parameters to the database.
 
 . `telemetry`: The source instance _I_ is a telemetry database.
 The generated connection graph has name `Telemetry`

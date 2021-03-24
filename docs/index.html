@@ -3207,6 +3207,9 @@ A connection is the following:</p>
 <p><code>health</code></p>
 </li>
 <li>
+<p><code>param</code></p>
+</li>
+<li>
 <p><code>telemetry</code></p>
 </li>
 <li>
@@ -3360,6 +3363,14 @@ output port.</p>
 The generated connection graph has name <code>Health</code> and contains
 all connections between the health component and ping
 ports of the target components of type <code>Svc.Ping</code>.</p>
+</li>
+<li>
+<p><code>param</code>: The source instance <em>I</em> is a parameter database
+component.
+The generate connection graph has name <code>Parameters</code>
+and contains all connections for (a) getting
+parameters from the database and (b) saving
+parameters to the database.</p>
 </li>
 <li>
 <p><code>telemetry</code>: The source instance <em>I</em> is a telemetry database.
@@ -7953,7 +7964,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-23 08:50:58 -0700
+Last updated 2021-03-23 22:08:08 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

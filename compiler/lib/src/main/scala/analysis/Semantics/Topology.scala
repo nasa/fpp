@@ -16,9 +16,9 @@ case class Topology(
   /** The connection graphs of this topology */
   connectionGraphMap: Map[Name.Unqualified, List[Connection]] = Map(),
   /** The output connections going from each port */
-  outputConnectionMap: Map[PortInstanceIdentifier, Set[Connection]] = Map(),
+  outputConnectionMap: Map[PortInstanceIdentifier, Set[PortInstanceIdentifier]] = Map(),
   /** The input connections going to each port */
-  inputConnectionMap: Map[PortInstanceIdentifier, Set[Connection]] = Map(),
+  inputConnectionMap: Map[PortInstanceIdentifier, Set[PortInstanceIdentifier]] = Map(),
   /** The set of port instances declared as unused */
   declaredUnusedPortSet: Set[PortInstanceIdentifier] = Set(),
   /** The set of port instances actually unused */
@@ -38,14 +38,16 @@ case class Topology(
       connectionGraphMap + (graphName -> (connection :: connections))
     }
     val ocMap = {
-      val pid = connection.from.portInstanceIdentifier
-      val connections = outputConnectionMap.getOrElse(pid, Set())
-      outputConnectionMap + (pid -> (connections + connection))
+      val from = connection.from.portInstanceIdentifier
+      val connections = outputConnectionMap.getOrElse(from, Set())
+      val to = connection.to.portInstanceIdentifier
+      outputConnectionMap + (from -> (connections + to))
     }
     val icMap = {
-      val pid = connection.to.portInstanceIdentifier
-      val connections = inputConnectionMap.getOrElse(pid, Set())
-      inputConnectionMap + (pid -> (connections + connection))
+      val to = connection.to.portInstanceIdentifier
+      val connections = inputConnectionMap.getOrElse(to, Set())
+      val from = connection.from.portInstanceIdentifier
+      inputConnectionMap + (to -> (connections + from))
     }
     this.copy(
       connectionGraphMap = cgMap,
@@ -133,12 +135,21 @@ case class Topology(
   }
 
   /** Get the connections from a port */
-  def getConnectionsFrom(pid: PortInstanceIdentifier): Set[Connection] =
-    outputConnectionMap.getOrElse(pid, Set())
+  def getConnectionsFrom(from: PortInstanceIdentifier): Set[PortInstanceIdentifier] =
+    outputConnectionMap.getOrElse(from, Set())
 
   /** Get the connections to a port */
-  def getConnectionsTo(pid: PortInstanceIdentifier): Set[Connection] =
-    inputConnectionMap.getOrElse(pid, Set())
+  def getConnectionsTo(to: PortInstanceIdentifier): Set[PortInstanceIdentifier] =
+    inputConnectionMap.getOrElse(to, Set())
+
+  /** Check whether a connection exists */
+  def connectionExists(
+    from: PortInstanceIdentifier,
+    to: PortInstanceIdentifier
+  ) = outputConnectionMap.get(from) match {
+    case Some(set) => set.contains(to)
+    case None => false
+  }
 
   /** Check the instances of a pattern */
   private def checkPatternInstances(pattern: ConnectionPattern) =
@@ -159,7 +170,7 @@ case class Topology(
     }
     yield ()
 
-  /** Look up a component instance */
+  /** Look up a component instance used at a location */
   private def lookUpInstanceAt(
     instance: ComponentInstance,
     loc: Location
@@ -204,7 +215,17 @@ case class Topology(
       }
       yield {
         val name = getGraphName(p.ast.kind)
-        connections.foldLeft (t) ((t, c) => t.addConnection(name, c))
+        connections.foldLeft (t) ((t, c) => {
+          if (
+            // Skip this connection if we already imported it
+            // Or if the user entered it manually
+            !connectionExists(
+              c.from.portInstanceIdentifier,
+              c.to.portInstanceIdentifier
+            )
+          ) t.addConnection(name, c)
+          else t
+        })
       }
     })
   }
