@@ -168,17 +168,19 @@ object Type {
     type Size = scala.Int
 
     /** Check whether two array sizes match */
-    def sizesMatch(size1: Option[Size], size2: Option[Size]): Boolean = (size1, size2) match {
-      case (None, _) => true
-      case (_, None) => true
-      case (Some(n1), Some(n2)) => n1 == n2
-    }
+    def sizesMatch(size1: Option[Size], size2: Option[Size]): Boolean = 
+      (size1, size2) match {
+        case (None, _) => true
+        case (_, None) => true
+        case (Some(n1), Some(n2)) => n1 == n2
+      }
 
     /** Compute a common array size */
-    def commonSize(size1: Option[Size], size2: Option[Size]): Option[Size] = (size1, size2) match {
-      case (Some(n1), Some(n2)) => if (n1 == n2) Some(n1) else None
-      case _ => None
-    }
+    def commonSize(size1: Option[Size], size2: Option[Size]): Option[Size] =
+      (size1, size2) match {
+        case (Some(n1), Some(n2)) => if (n1 == n2) Some(n1) else None
+        case _ => None
+      }
 
   }
 
@@ -224,7 +226,8 @@ object Type {
     type Formats = Map[Name.Unqualified, Format]
 
     /** Resolve a member map, generating a new member map */
-    def resolveMembers (resolver: Member => Option[Member]) (members: Members): Option[Members] = {
+    def resolveMembers (resolver: Member => Option[Member]) (members: Members): 
+    Option[Members] = {
       def helper(
         in: List[Member], 
         out: Members
@@ -285,7 +288,8 @@ object Type {
       for (members <- defaultMembers(members.toList, Map()))
         yield Value.AnonStruct(members)
     }
-    override def hasNumericMembers = members.values.forall(_.hasNumericMembers)
+    override def hasNumericMembers = 
+      members.values.forall(_.hasNumericMembers)
     override def toString = {
       def memberToString(member: Struct.Member) =
         member._1 ++ ": " ++ member._2.toString
@@ -349,12 +353,15 @@ object Type {
           case None => false
         }
       pair match {
-        case Struct(_, anonStruct1, _, _) -> _ => anonStruct1.isConvertibleTo(t2)
-        case _ -> Struct(_, anonStruct2, _, _) => t1.isConvertibleTo(anonStruct2)
+        case Struct(_, anonStruct1, _, _) -> _ => 
+          anonStruct1.isConvertibleTo(t2)
+        case _ -> Struct(_, anonStruct2, _, _) => 
+          t1.isConvertibleTo(anonStruct2)
         case AnonStruct(members1) -> AnonStruct(members2) => 
           members1.forall(memberExistsIn(members2) _)
         case _ -> AnonStruct(members2) =>
-            t1.isPromotableToStruct && members2.values.forall(t1.isConvertibleTo(_))
+          t1.isPromotableToStruct &&
+          members2.values.forall(t1.isConvertibleTo(_))
         case _ => false
       }
     }
@@ -403,16 +410,21 @@ object Type {
         else None
       }
       pair match {
-        case (_, Array(_, anonArray2, _, _)) => commonType(t1, anonArray2)
-        case (Array(_, anonArray1, _, _), _) => commonType(anonArray1, t2)
+        case (_, Array(_, anonArray2, _, _)) =>
+          commonType(t1, anonArray2)
+        case (Array(_, anonArray1, _, _), _) =>
+          commonType(anonArray1, t2)
         case (AnonArray(size1, eltType1), AnonArray(size2, eltType2)) =>
           if (Array.sizesMatch(size1, size2)) {
             val size = Array.commonSize(size1, size2)
-            for (eltType <- commonType(eltType1, eltType2)) yield AnonArray(size, eltType)
+            for (eltType <- commonType(eltType1, eltType2)) 
+              yield AnonArray(size, eltType)
           }
           else None
-        case _ -> (anonArray : AnonArray) => singleAnonArray(anonArray, t1)
-        case (anonArray : AnonArray) -> _ => singleAnonArray(anonArray, t2)
+        case _ -> (anonArray : AnonArray) =>
+          singleAnonArray(anonArray, t1)
+        case (anonArray : AnonArray) -> _ =>
+          singleAnonArray(anonArray, t2)
         case _ => None
       }
     }
@@ -423,24 +435,28 @@ object Type {
         def resolveT1Member(member: Struct.Member): Option[Struct.Member] = {
           val name1 -> ty1 = member
           members2.get(name1) match {
-            case Some(ty2) => for (ty <- commonType(ty1, ty2)) yield (name1 -> ty)
+            case Some(ty2) => 
+              for (ty <- commonType(ty1, ty2))
+                yield (name1 -> ty)
             case None => Some(member)
           }
         }
         /** Resolve each member of t1 against the corresponding member of t2, if it exists */
         def resolveT1Members = Struct.resolveMembers (resolveT1Member) _
-        for (t1ResolvedMembers <- resolveT1Members(members1)) yield {
-          def pred(member: Struct.Member) = !members1.contains(member._1)
-          val t2ResolvedMembers = members2.filter(pred)
-          AnonStruct(t1ResolvedMembers ++ t2ResolvedMembers)
-        }
+        for (t1ResolvedMembers <- resolveT1Members(members1)) 
+          yield {
+            def pred(member: Struct.Member) = !members1.contains(member._1)
+            val t2ResolvedMembers = members2.filter(pred)
+            AnonStruct(t1ResolvedMembers ++ t2ResolvedMembers)
+          }
       }
       /** Handle the case of a single anonymous struct in either position */
       def singleAnonStruct(members: Struct.Members, other: Type) = {
         if (other.isPromotableToStruct) {
           /** Resolve a member of t2 against t1 */
           def resolveMember(member: Struct.Member): Option[Struct.Member] =
-            for (t <- commonType(other, member._2)) yield (member._1 -> t)
+            for (t <- commonType(other, member._2))
+              yield (member._1 -> t)
           /** Resolve all members of t2 against t1 */
           def resolveMembers = Struct.resolveMembers (resolveMember) _
           for (resolvedMembers <- resolveMembers(members))
@@ -449,11 +465,16 @@ object Type {
         else None
       }
       pair match {
-        case (_, Struct(_, anonStruct2, _, _)) => commonType(t1, anonStruct2)
-        case (Struct(_, anonStruct1, _, _), _) => commonType(anonStruct1, t2)
-        case AnonStruct(members1) -> AnonStruct(members2) => twoAnonStructs(members1, members2)
-        case _ -> AnonStruct(members) => singleAnonStruct(members, t1)
-        case AnonStruct(members) -> _ => singleAnonStruct(members, t2)
+        case (_, Struct(_, anonStruct2, _, _)) =>
+          commonType(t1, anonStruct2)
+        case (Struct(_, anonStruct1, _, _), _) =>
+          commonType(anonStruct1, t2)
+        case AnonStruct(members1) -> AnonStruct(members2) =>
+          twoAnonStructs(members1, members2)
+        case _ -> AnonStruct(members) =>
+          singleAnonStruct(members, t1)
+        case AnonStruct(members) -> _ =>
+          singleAnonStruct(members, t2)
         case _ => None
       }
     }
