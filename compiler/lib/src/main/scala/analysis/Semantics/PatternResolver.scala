@@ -83,11 +83,14 @@ object PatternResolver {
     }
   }
 
+  private def getPortsForInstance(instance: ComponentInstance) =
+    instance.component.portMap.values
+
   private def resolveToSinglePort(
+    ports: Iterable[PortInstance],
     kind: String,
     loc: Location,
-    instanceName: String,
-    ports: Iterable[PortInstance]
+    instanceName: String
   ): Result.Result[PortInstance] =
     ports.size match {
       case 1 => Right(ports.head)
@@ -107,15 +110,29 @@ object PatternResolver {
         )
     }
 
-  private final case class Time(
-    a: Analysis,
-    pattern: ConnectionPattern,
-    instances: Iterable[ComponentInstance]
-  ) extends PatternResolver {
+  /** Resolve a pattern with one connection */
+  private trait SingleConnection extends PatternResolver {
 
     type Source = PortInstanceIdentifier
 
     type Target = PortInstanceIdentifier
+
+    override def getConnectionsForTarget(
+      source: Source,
+      target: Target
+    ): List[Connection] = {
+      val loc = pattern.getLoc
+      val from = Connection.Endpoint(loc, target)
+      val to = Connection.Endpoint(loc, source)
+      List(Connection(from, to))
+    }
+  }
+
+  private final case class Time(
+    a: Analysis,
+    pattern: ConnectionPattern,
+    instances: Iterable[ComponentInstance]
+  ) extends SingleConnection {
 
     override def resolveSource: Result.Result[Source] = {
       def isTimeGetIn(pi: PortInstance): Boolean = 
@@ -126,24 +143,19 @@ object PatternResolver {
           ) => a.getQualifiedName(s).toString == "Fw.Time"
           case _ => false
         }
-      val source = pattern.source._1
-      val allPorts = source.component.portMap.values
-      val timeGetInPorts = allPorts.filter(isTimeGetIn)
-      val loc = Locations.get(pattern.ast.source.id)
-      val instanceName = source.getUnqualifiedName
+      val (ci, loc) = pattern.source
       for {
-        pi <- resolveToSinglePort(
+        pii <- resolveToSinglePort(
+          getPortsForInstance(ci).filter(isTimeGetIn),
           "time get in",
           loc,
-          instanceName,
-          timeGetInPorts
+          ci.getUnqualifiedName
         )
-      } yield PortInstanceIdentifier(source, pi)
+      } yield PortInstanceIdentifier(ci, pii)
     }
 
-    override def resolveTarget(
-      target: (ComponentInstance, Location)
-    ): Result.Result[Target] = {
+    override def resolveTarget(target: (ComponentInstance, Location)):
+    Result.Result[Target] = {
       val (ci, loc) = target
       ci.component.specialPortMap.get(Ast.SpecPortInstance.TimeGet) match { 
         case Some(pi) => Right(PortInstanceIdentifier(ci, pi))
@@ -156,16 +168,6 @@ object PatternResolver {
             )
           )
       }
-    }
-
-    override def getConnectionsForTarget(
-      source: Source,
-      target: Target
-    ): List[Connection] = {
-      val loc = pattern.getLoc
-      val from = Connection.Endpoint(loc, target)
-      val to = Connection.Endpoint(loc, source)
-      List(Connection(from, to))
     }
 
   }
