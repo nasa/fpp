@@ -10,10 +10,14 @@ case class ConnectionPattern(
   /** The AST pattern */
   ast: Ast.SpecConnectionGraph.Pattern,
   /** The source instance */
-  source: ComponentInstance,
+  source: (ComponentInstance, Location),
   /** The target instances */
-  targets: Set[ComponentInstance]
-)
+  targets: Set[(ComponentInstance, Location)]
+) {
+
+  def getLoc = Locations.get(aNode._2.id)
+
+}
 
 object ConnectionPattern {
 
@@ -24,7 +28,8 @@ object ConnectionPattern {
     pattern: Ast.SpecConnectionGraph.Pattern
   ): Result.Result[ConnectionPattern] = {
     def getInstance(node: AstNode[Ast.QualIdent]) =
-      a.getComponentInstance(node.id)
+      for (instance <- a.getComponentInstance(node.id))
+        yield (instance, Locations.get(node.id))
     for {
       source <- getInstance(pattern.source)
       targetList <- Result.map(pattern.targets, getInstance)

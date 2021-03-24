@@ -25,10 +25,7 @@ sealed trait PatternResolver {
   def resolveSource: Result.Result[Source]
 
   /** Resolve a target */
-  def resolveTarget(
-    loc: Location, /** The location where the target was declared */
-    target: ComponentInstance /** The target */
-  ): Result.Result[Target]
+  def resolveTarget(target: (ComponentInstance, Location)): Result.Result[Target]
 
   /** Generate the connections for a source and target */
   def getConnectionsForTarget(source: Source, target: Target): List[Connection]
@@ -48,8 +45,8 @@ sealed trait PatternResolver {
     }
 
   private def resolveImplicitTargets: Result.Result[List[Target]] = {
-    val loc = Locations.get(pattern.aNode._2.id)
-    val targets = instances.map(target => resolveTarget(loc, target)).
+    val loc = pattern.getLoc
+    val targets = instances.map(ti => resolveTarget((ti, loc))).
       filter(_.isRight).map(Result.expectRight)
     Right(targets)
   }
@@ -57,7 +54,7 @@ sealed trait PatternResolver {
   private def resolveExplicitTargets: Result.Result[List[Target]] =
     Result.map(
       pattern.targets.toList,
-      target => resolveTarget(Locations.get(target.aNode._2.id), target)
+      resolveTarget
     )
 
 }
@@ -98,7 +95,7 @@ object PatternResolver {
           s"could not find $kind port for instance $instanceName"
         )
       )
-      case _ => {
+      case _ =>
         val portNames = ports.map(_.getUnqualifiedName).mkString(", ")
         Left(
           SemanticError.InvalidPattern(
@@ -106,7 +103,6 @@ object PatternResolver {
             s"ambiguous pattern: instance $instanceName has $kind ports $portNames"
           )
         )
-      }
     }
 
   final case class Time(
@@ -128,7 +124,7 @@ object PatternResolver {
           ) => a.getQualifiedName(s).toString == "Fw.Time"
           case _ => false
         }
-      val source = pattern.source
+      val source = pattern.source._1
       val allPorts = source.component.portMap.values
       val timeGetInPorts = allPorts.filter(isTimeGetIn)
       val loc = Locations.get(pattern.ast.source.id)
@@ -144,27 +140,31 @@ object PatternResolver {
     }
 
     override def resolveTarget(
-      loc: Location,
-      target: ComponentInstance
+      target: (ComponentInstance, Location)
     ): Result.Result[Target] = {
-      target.component.specialPortMap.get(Ast.SpecPortInstance.TimeGet) match { 
-        case Some(pi) => Right(PortInstanceIdentifier(target, pi))
-        case None => {
-          val instanceName = target.getUnqualifiedName
+      val (ci, loc) = target
+      ci.component.specialPortMap.get(Ast.SpecPortInstance.TimeGet) match { 
+        case Some(pi) => Right(PortInstanceIdentifier(ci, pi))
+        case None =>
+          val instanceName = ci.getUnqualifiedName
           Left(
             SemanticError.InvalidPattern(
               loc,
               s"could not find time get port for instance $instanceName"
             )
           )
-        }
       }
     }
 
     override def getConnectionsForTarget(
       source: Source,
       target: Target
-    ): List[Connection] = ???
+    ): List[Connection] = {
+      val loc = pattern.getLoc
+      val from = Connection.Endpoint(loc, target)
+      val to = Connection.Endpoint(loc, source)
+      List(Connection(from, to))
+    }
 
   }
 

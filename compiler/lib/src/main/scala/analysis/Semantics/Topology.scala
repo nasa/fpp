@@ -25,6 +25,9 @@ case class Topology(
   unusedPortSet: Set[PortInstanceIdentifier] = Set()
 ) {
 
+  /** Gets the unqualified name of the topology */
+  def getUnqualifiedName = aNode._2.data.name
+
   /** Add a connection */
   def addConnection(
     graphName: Name.Unqualified,
@@ -60,8 +63,8 @@ case class Topology(
       Left(
         SemanticError.DuplicatePattern(
           kind.toString,
-          Locations.get(pattern.aNode._2.id),
-          Locations.get(prevPattern.aNode._2.id)
+          pattern.getLoc,
+          prevPattern.getLoc
         )
       )
     case None =>
@@ -109,7 +112,7 @@ case class Topology(
     instanceMap.get(instance) match {
       case Some((_, prevLoc)) => Left(
         SemanticError.DuplicateInstance(
-          instance.aNode._2.data.name,
+          instance.getUnqualifiedName,
           loc,
           prevLoc
         )
@@ -137,6 +140,41 @@ case class Topology(
   def getConnectionsTo(pid: PortInstanceIdentifier): Set[Connection] =
     inputConnectionMap.getOrElse(pid, Set())
 
+  /** Check the instances of a pattern */
+  private def checkPatternInstances(pattern: ConnectionPattern) =
+    for {
+      // Check the source
+      _ <- {
+        val (instance, loc) = pattern.source
+        lookUpInstanceAt(instance, loc)
+      }
+      // Check the targets
+      _ <- Result.map(
+        pattern.targets.toList,
+        (pair: (ComponentInstance, Location)) => {
+          val (instance, loc) = pair
+          lookUpInstanceAt(instance, loc)
+        }
+      )
+    }
+    yield ()
+
+  /** Look up a component instance */
+  private def lookUpInstanceAt(
+    instance: ComponentInstance,
+    loc: Location
+  ): Result.Result[(Ast.Visibility, Location)] =
+    instanceMap.get(instance) match {
+      case Some(result) => Right(result)
+      case None => Left(
+        SemanticError.InvalidComponentInstance(
+          loc,
+          instance.getUnqualifiedName,
+          this.getUnqualifiedName
+        )
+      )
+    }
+
   /** Resolve a topology definition */
   def resolve(a: Analysis): Result.Result[Topology] =
     Result.seq(
@@ -160,11 +198,14 @@ case class Topology(
     }
     Result.foldLeft (patternMap.values.toList) (this) ((t, p) => {
       val instances = instanceMap.keys.toList
-      for (connections <- PatternResolver.resolve(a, p, instances))
-        yield {
-          val name = getGraphName(p.ast.kind)
-          connections.foldLeft (t) ((t, c) => t.addConnection(name, c))
-        }
+      for {
+        _ <- checkPatternInstances(p)
+        connections <- PatternResolver.resolve(a, p, instances)
+      }
+      yield {
+        val name = getGraphName(p.ast.kind)
+        connections.foldLeft (t) ((t, c) => t.addConnection(name, c))
+      }
     })
   }
 
@@ -172,18 +213,8 @@ case class Topology(
   private def resolveDirectConnections: Result.Result[Topology] = {
     def endpointIsPublic(endpoint: Connection.Endpoint) = {
       val instance = endpoint.portInstanceIdentifier.componentInstance
-      for {
-        vis <- instanceMap.get(instance) match {
-          case Some ((vis, _)) => Right(vis)
-          case None => Left(
-            SemanticError.InvalidComponentInstance(
-              endpoint.loc,
-              instance.aNode._2.data.name,
-              this.aNode._2.data.name
-            )
-          )
-        }
-      } yield vis == Ast.Visibility.Public
+      for (pair <- lookUpInstanceAt(instance, endpoint.loc))
+        yield pair._1 == Ast.Visibility.Public
     }
     def connectionIsPublic(connection: Connection) =
       for {

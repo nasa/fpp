@@ -82,7 +82,7 @@ object Connection {
     /** The port instance identifier */
     portInstanceIdentifier: PortInstanceIdentifier,
     /** The port number */
-    portNumber: Option[Int]
+    portNumber: Option[Int] = None
   ) extends Ordered[Endpoint] {
 
     def compare(that: Endpoint) = {

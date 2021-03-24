@@ -11,11 +11,19 @@ case class PortInstanceIdentifier(
   portInstance: PortInstance
 ) {
 
-  /** Gets the qualified name of a port instance identifier */
+  /** Gets the qualified name */
   def getQualifiedName = {
-    val qn = componentInstance.qualifiedName
-    val identList = qn.toIdentList
+    val componentName = componentInstance.qualifiedName
+    val identList = componentName.toIdentList
     Name.Qualified.fromIdentList(identList :+ portInstance.getUnqualifiedName)
+  }
+
+  /** Gets the unqualified name */
+  def getUnqualifiedName = {
+    val componentName = componentInstance.getUnqualifiedName
+    val portName = portInstance.getUnqualifiedName
+    val identList = List(componentName, portName)
+    Name.Qualified.fromIdentList(identList)
   }
 
 }
