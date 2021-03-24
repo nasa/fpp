@@ -68,11 +68,12 @@ object PatternResolver {
     instances: List[ComponentInstance]
   ): Result.Result[List[Connection]] = {
     import Ast.SpecConnectionGraph._
+    val toDo = None
     val resolverOpt: Option[PatternResolver] = pattern.ast.kind match {
-      case Pattern.Command => None
-      case Pattern.Event => None
-      case Pattern.Health => None
-      case Pattern.Telemetry => None
+      case Pattern.Command => toDo
+      case Pattern.Event => toDo
+      case Pattern.Health => toDo
+      case Pattern.Telemetry => toDo
       case Pattern.Time => Some(PatternResolver.Time(a, pattern, instances))
     }
     resolverOpt match {
