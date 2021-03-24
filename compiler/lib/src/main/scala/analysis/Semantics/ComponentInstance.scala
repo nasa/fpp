@@ -14,7 +14,12 @@ final case class ComponentInstance(
   queueSize: Option[Int],
   stackSize: Option[Int],
   priority: Option[Int]
-)
+) {
+
+  /** Gets the unqualified name of the component instance */
+  def getUnqualifiedName = aNode._2.data.name
+
+}
 
 object ComponentInstance {
 

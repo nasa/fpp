@@ -105,6 +105,8 @@ sealed trait Error {
         System.err.print(msg)
       case SemanticError.InvalidInternalPort(loc, msg) =>
         Error.print (Some(loc)) (msg)
+      case SemanticError.InvalidPattern(loc, msg) =>
+        Error.print (Some(loc)) (msg)
       case SemanticError.InvalidPortInstance(loc, msg, defLoc) =>
         Error.print (Some(loc)) (msg)
         System.err.println(s"port definition is here:")
@@ -313,6 +315,11 @@ object SemanticError {
   ) extends Error
   /** Invalid internal port */
   final case class InvalidInternalPort(loc: Location, msg: String) extends Error
+  /** Invalid connection pattern */
+  final case class InvalidPattern(
+    loc: Location,
+    msg: String
+  ) extends Error
   /** Invalid port instance */
   final case class InvalidPortInstance(
     loc: Location,

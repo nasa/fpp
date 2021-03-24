@@ -162,7 +162,7 @@ case class Topology(
       val instances = instanceMap.keys.toList
       for (connections <- PatternResolver.resolve(a, p, instances))
         yield {
-          val name = getGraphName(p.pattern.kind)
+          val name = getGraphName(p.ast.kind)
           connections.foldLeft (t) ((t, c) => t.addConnection(name, c))
         }
     })

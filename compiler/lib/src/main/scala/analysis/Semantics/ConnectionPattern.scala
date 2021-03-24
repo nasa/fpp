@@ -8,7 +8,7 @@ case class ConnectionPattern(
   /** The AST node specifying the pattern */
   aNode: Ast.Annotated[AstNode[Ast.SpecConnectionGraph]],
   /** The AST pattern */
-  pattern: Ast.SpecConnectionGraph.Pattern,
+  ast: Ast.SpecConnectionGraph.Pattern,
   /** The source instance */
   source: ComponentInstance,
   /** The target instances */

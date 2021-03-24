@@ -7,8 +7,6 @@ import fpp.compiler.util._
 case class PortInstanceIdentifier(
   /** The component instance */
   componentInstance: ComponentInstance,
-  /** The port name */
-  portName: Name.Unqualified,
   /** The port instance */
   portInstance: PortInstance
 ) {
@@ -17,7 +15,7 @@ case class PortInstanceIdentifier(
   def getQualifiedName = {
     val qn = componentInstance.qualifiedName
     val identList = qn.toIdentList
-    Name.Qualified.fromIdentList(identList :+ portName)
+    Name.Qualified.fromIdentList(identList :+ portInstance.getUnqualifiedName)
   }
 
 }
@@ -38,7 +36,6 @@ object PortInstanceIdentifier {
       }
       yield PortInstanceIdentifier(
         componentInstance,
-        node.data.portName.data,
         portInstance
       )
     }
