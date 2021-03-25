@@ -38,7 +38,8 @@ private sealed trait PatternResolver {
     }
     yield targets.flatMap(getConnectionsForTarget(source, _))
 
-  def findGeneralPort(
+  /** Gets the specified general port from a component instance */
+  def getGeneralPort(
     ciUse: (ComponentInstance, Location),
     kind: String,
     direction: PortInstance.Direction,
@@ -92,20 +93,16 @@ object PatternResolver {
     instances: Iterable[ComponentInstance]
   ): Result.Result[Iterable[Connection]] = {
     import Ast.SpecConnectionGraph._
-    val toDo = None
-    val resolverOpt: Option[PatternResolver] = pattern.ast.kind match {
-      case Pattern.Command => toDo
-      case Pattern.Event => Some(PatternResolver.event(a, pattern, instances))
-      case Pattern.Health => Some(PatternResolver.Health(a, pattern, instances))
-      case Pattern.Param => Some(PatternResolver.Param(a, pattern, instances))
-      case Pattern.Telemetry => Some(PatternResolver.telemetry(a, pattern, instances))
-      case Pattern.TextEvent => Some(PatternResolver.textEvent(a, pattern, instances))
-      case Pattern.Time => Some(PatternResolver.time(a, pattern, instances))
+    val resolver = pattern.ast.kind match {
+      case Pattern.Command => PatternResolver.Command(a, pattern, instances)
+      case Pattern.Event => PatternResolver.event(a, pattern, instances)
+      case Pattern.Health => PatternResolver.Health(a, pattern, instances)
+      case Pattern.Param => PatternResolver.Param(a, pattern, instances)
+      case Pattern.Telemetry => PatternResolver.telemetry(a, pattern, instances)
+      case Pattern.TextEvent => PatternResolver.textEvent(a, pattern, instances)
+      case Pattern.Time => PatternResolver.time(a, pattern, instances)
     }
-    resolverOpt match {
-      case Some(resolver) => resolver.resolve
-      case None => Right(Nil)
-    }
+    resolver.resolve
   }
 
   private def connect(
@@ -133,7 +130,7 @@ object PatternResolver {
       )
     )
 
-  private def findSpecialPort(
+  private def getSpecialPort(
     ciUse: (ComponentInstance, Location),
     kind: Ast.SpecPortInstance.SpecialKind
   ): Result.Result[PortInstanceIdentifier] = {
@@ -163,6 +160,83 @@ object PatternResolver {
         )
     }
 
+  /** Resolve a command pattern */
+  private final case class Command(
+    a: Analysis,
+    pattern: ConnectionPattern,
+    instances: Iterable[ComponentInstance],
+  ) extends PatternResolver {
+
+    case class Source(
+      cmdRegIn: PortInstanceIdentifier,
+      cmdOut: PortInstanceIdentifier,
+      cmdResponseIn: PortInstanceIdentifier
+    )
+
+    case class Target(
+      cmdRegOut: PortInstanceIdentifier,
+      cmdIn: PortInstanceIdentifier,
+      cmdResponseOut: PortInstanceIdentifier
+    )
+
+    def getCmdRegIn = getGeneralPort(
+      pattern.source,
+      "command reg",
+      PortInstance.Direction.Input,
+      "Fw.CmdReg"
+    )
+
+    def getCmdOut = getGeneralPort(
+      pattern.source,
+      "command send",
+      PortInstance.Direction.Output,
+      "Fw.Cmd"
+    )
+
+    def getCmdResponseIn = getGeneralPort(
+      pattern.source,
+      "command resp",
+      PortInstance.Direction.Input,
+      "Fw.CmdResponse"
+    )
+
+    def getCmdRegOut(targetUse: (ComponentInstance, Location)) =
+      getSpecialPort(targetUse, Ast.SpecPortInstance.CommandReg)
+
+    def getCmdIn(targetUse: (ComponentInstance, Location)) =
+      getSpecialPort(targetUse, Ast.SpecPortInstance.CommandRecv)
+
+    def getCmdResponseOut(targetUse: (ComponentInstance, Location)) =
+      getSpecialPort(targetUse, Ast.SpecPortInstance.CommandResp)
+
+    override def resolveSource =
+      for {
+        cmdRegIn <- getCmdRegIn
+        cmdOut <- getCmdOut
+        cmdResponseIn <- getCmdResponseIn
+      } yield Source(cmdRegIn, cmdOut, cmdResponseIn)
+
+    override def resolveTarget(targetUse: (ComponentInstance, Location)) =
+      for {
+        cmdRegOut <- getCmdRegOut(targetUse)
+        cmdIn <- getCmdIn(targetUse)
+        cmdResponseOut <- getCmdResponseOut(targetUse)
+      } yield Target(cmdRegOut, cmdIn, cmdResponseOut)
+
+    override def getConnectionsForTarget(
+      source: Source,
+      target: Target
+    ): List[Connection] = {
+      val loc = pattern.getLoc
+      List(
+        connect(loc, target.cmdRegOut, source.cmdRegIn),
+        connect(loc, source.cmdOut, target.cmdIn),
+        connect(loc, target.cmdResponseOut, source.cmdResponseIn)
+      )
+    }
+
+  }
+
   /** Resolve a pattern involving connections from a special 
    *  target port */
   private final case class FromSpecialTargetPort(
@@ -177,7 +251,7 @@ object PatternResolver {
 
     type Target = PortInstanceIdentifier
 
-    override def resolveSource = findGeneralPort(
+    override def resolveSource = getGeneralPort(
       pattern.source,
       kind.toString,
       PortInstance.Direction.Input,
@@ -185,7 +259,7 @@ object PatternResolver {
     )
 
     override def resolveTarget(targetUse: (ComponentInstance, Location)) =
-      findSpecialPort(targetUse, kind)
+      getSpecialPort(targetUse, kind)
 
     override def getConnectionsForTarget(
       source: Source,
@@ -248,7 +322,7 @@ object PatternResolver {
     private def getPingPort(
       ciUse: (ComponentInstance, Location),
       direction: PortInstance.Direction
-    ) = findGeneralPort(ciUse, "ping", direction, "Svc.Ping")
+    ) = getGeneralPort(ciUse, "ping", direction, "Svc.Ping")
 
     private def getPingPorts(ciUse: (ComponentInstance, Location)) =
       for {
@@ -301,14 +375,14 @@ object PatternResolver {
       prmSetOut: PortInstanceIdentifier
     )
 
-    def getPrmGetIn = findGeneralPort(
+    def getPrmGetIn = getGeneralPort(
       pattern.source,
       "param get",
       PortInstance.Direction.Input,
       "Fw.PrmGet"
     )
 
-    def getPrmSetIn = findGeneralPort(
+    def getPrmSetIn = getGeneralPort(
       pattern.source,
       "param set",
       PortInstance.Direction.Input,
@@ -316,10 +390,10 @@ object PatternResolver {
     )
 
     def getPrmGetOut(targetUse: (ComponentInstance, Location)) =
-      findSpecialPort(targetUse, Ast.SpecPortInstance.ParamGet)
+      getSpecialPort(targetUse, Ast.SpecPortInstance.ParamGet)
 
     def getPrmSetOut(targetUse: (ComponentInstance, Location)) =
-      findSpecialPort(targetUse, Ast.SpecPortInstance.ParamSet)
+      getSpecialPort(targetUse, Ast.SpecPortInstance.ParamSet)
 
     override def resolveSource = for {
       prmGetIn <- getPrmGetIn
@@ -340,44 +414,6 @@ object PatternResolver {
       List(
         connect(loc, target.prmGetOut, source.prmGetIn),
         connect(loc, target.prmSetOut, source.prmSetIn)
-      )
-    }
-
-  }
-
-  /** Resolve a command pattern */
-  private final case class Command(
-    a: Analysis,
-    pattern: ConnectionPattern,
-    instances: Iterable[ComponentInstance],
-  ) extends PatternResolver {
-
-    case class Source(
-      cmdRegIn: PortInstanceIdentifier,
-      cmdOut: PortInstanceIdentifier,
-      cmdResponseIn: PortInstanceIdentifier
-    )
-
-    case class Target(
-      cmdRegOut: PortInstanceIdentifier,
-      cmdIn: PortInstanceIdentifier,
-      cmdResponseOut: PortInstanceIdentifier
-    )
-
-    override def resolveSource = ???
-
-    override def resolveTarget(targetUse: (ComponentInstance, Location)) =
-      ???
-
-    override def getConnectionsForTarget(
-      source: Source,
-      target: Target
-    ): List[Connection] = {
-      val loc = pattern.getLoc
-      List(
-        connect(loc, target.cmdRegOut, source.cmdRegIn),
-        connect(loc, source.cmdOut, target.cmdIn),
-        connect(loc, target.cmdResponseOut, source.cmdResponseIn)
       )
     }
 
