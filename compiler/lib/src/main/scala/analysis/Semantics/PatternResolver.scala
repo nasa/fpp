@@ -38,6 +38,33 @@ private sealed trait PatternResolver {
     }
     yield targets.flatMap(getConnectionsForTarget(source, _))
 
+  def findGeneralPort(
+    ciUse: (ComponentInstance, Location),
+    kind: String,
+    direction: PortInstance.Direction,
+    portTypeName: String,
+  ): Result.Result[PortInstanceIdentifier] = {
+    def hasConnectorPort(pi: PortInstance): Boolean = {
+      (pi.getType, pi.getDirection) match {
+        case (
+          Some(PortInstance.Type.DefPort(s)),
+          Some(d)
+        ) => a.getQualifiedName(s).toString == portTypeName &&
+             d == direction
+        case _ => false
+      }
+    }
+    val (ci, loc) = ciUse
+    for {
+      pii <- PatternResolver.resolveToSinglePort(
+        PatternResolver.getPortsForInstance(ci).filter(hasConnectorPort),
+        s"$kind $direction",
+        loc,
+        ci.getUnqualifiedName
+      )
+    } yield PortInstanceIdentifier(ci, pii)
+  }
+
   private def resolveTargets: Result.Result[Iterable[Target]] =
     pattern.targets.size match {
       case 0 => resolveImplicitTargets
@@ -73,7 +100,7 @@ object PatternResolver {
       case Pattern.Command => toDo
       case Pattern.Event => Some(PatternResolver.event(a, pattern, instances))
       case Pattern.Health => Some(PatternResolver.Health(a, pattern, instances))
-      case Pattern.Param => toDo
+      case Pattern.Param => Some(PatternResolver.Param(a, pattern, instances))
       case Pattern.Telemetry => Some(PatternResolver.telemetry(a, pattern, instances))
       case Pattern.TextEvent => Some(PatternResolver.textEvent(a, pattern, instances))
       case Pattern.Time => Some(PatternResolver.time(a, pattern, instances))
@@ -120,34 +147,6 @@ object PatternResolver {
     }
   }
 
-  private def findGeneralPort(
-    a: Analysis,
-    ciUse: (ComponentInstance, Location),
-    kind: String,
-    direction: PortInstance.Direction,
-    portTypeName: String,
-  ): Result.Result[PortInstanceIdentifier] = {
-    def hasConnectorPort(pi: PortInstance): Boolean = {
-      (pi.getType, pi.getDirection) match {
-        case (
-          Some(PortInstance.Type.DefPort(s)),
-          Some(d)
-        ) => a.getQualifiedName(s).toString == portTypeName &&
-             d == direction
-        case _ => false
-      }
-    }
-    val (ci, loc) = ciUse
-    for {
-      pii <- resolveToSinglePort(
-        getPortsForInstance(ci).filter(hasConnectorPort),
-        s"$kind $direction",
-        loc,
-        ci.getUnqualifiedName
-      )
-    } yield PortInstanceIdentifier(ci, pii)
-  }
-
   private def resolveToSinglePort(
     ports: Iterable[PortInstance],
     kind: String,
@@ -182,7 +181,6 @@ object PatternResolver {
     type Target = PortInstanceIdentifier
 
     override def resolveSource = findGeneralPort(
-      a,
       pattern.source,
       kind.toString,
       PortInstance.Direction.Input,
@@ -253,7 +251,7 @@ object PatternResolver {
     private def getPingPort(
       ciUse: (ComponentInstance, Location),
       direction: PortInstance.Direction
-    ) = findGeneralPort(a, ciUse, "ping", direction, "Svc.Ping")
+    ) = findGeneralPort(ciUse, "ping", direction, "Svc.Ping")
 
     private def getPingPorts(ciUse: (ComponentInstance, Location)) =
       for {
@@ -306,10 +304,36 @@ object PatternResolver {
       prmSetOut: PortInstanceIdentifier
     )
 
-    override def resolveSource = ???
+    def getPrmGetIn = findGeneralPort(
+      pattern.source,
+      "param get",
+      PortInstance.Direction.Input,
+      "Fw.PrmGet"
+    )
+
+    def getPrmSetIn = findGeneralPort(
+      pattern.source,
+      "param set",
+      PortInstance.Direction.Input,
+      "Fw.PrmSet"
+    )
+
+    def getPrmGetOut(targetUse: (ComponentInstance, Location)) =
+      findSpecialPort(targetUse, Ast.SpecPortInstance.ParamGet)
+
+    def getPrmSetOut(targetUse: (ComponentInstance, Location)) =
+      findSpecialPort(targetUse, Ast.SpecPortInstance.ParamSet)
+
+    override def resolveSource = for {
+      prmGetIn <- getPrmGetIn
+      prmSetIn <- getPrmSetIn
+    } yield Source(prmGetIn, prmSetIn)
 
     override def resolveTarget(targetUse: (ComponentInstance, Location)) =
-      ???
+      for {
+        prmGetOut <- getPrmGetOut(targetUse)
+        prmSetOut <- getPrmSetOut(targetUse)
+      } yield Target(prmGetOut, prmSetOut)
 
     override def getConnectionsForTarget(
       source: Source,
