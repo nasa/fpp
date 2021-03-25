@@ -71,12 +71,12 @@ object PatternResolver {
     val toDo = None
     val resolverOpt: Option[PatternResolver] = pattern.ast.kind match {
       case Pattern.Command => toDo
-      case Pattern.Event => toDo
+      case Pattern.Event => Some(PatternResolver.event(a, pattern, instances))
       case Pattern.Health => toDo
       case Pattern.Param => toDo
-      case Pattern.Telemetry => toDo
-      case Pattern.TextEvent => toDo
-      case Pattern.Time => Some(PatternResolver.Time(a, pattern, instances))
+      case Pattern.Telemetry => Some(PatternResolver.telemetry(a, pattern, instances))
+      case Pattern.TextEvent => Some(PatternResolver.textEvent(a, pattern, instances))
+      case Pattern.Time => Some(PatternResolver.time(a, pattern, instances))
     }
     resolverOpt match {
       case Some(resolver) => resolver.resolve
@@ -95,7 +95,7 @@ object PatternResolver {
     Left(
       SemanticError.InvalidPattern(
         loc,
-        s"could not find $kind port for instance $instanceName"
+        s"instance $instanceName has no $kind port"
       )
     )
 
@@ -107,12 +107,7 @@ object PatternResolver {
   ): Result.Result[PortInstance] =
     ports.size match {
       case 1 => Right(ports.head)
-      case 0 => Left(
-        SemanticError.InvalidPattern(
-          loc,
-          s"could not find $kind port for instance $instanceName"
-        )
-      )
+      case 0 => missingPort(loc, kind, instanceName)
       case _ =>
         val portNames = ports.map(_.getUnqualifiedName).mkString(", ")
         Left(
@@ -123,12 +118,47 @@ object PatternResolver {
         )
     }
 
-  /** Resolve a pattern with one connection */
-  private trait SingleConnection extends PatternResolver {
+  /** Resolve a pattern involving connections from a special 
+   *  target port */
+  private final case class FromSpecialTargetPort(
+    a: Analysis,
+    pattern: ConnectionPattern,
+    instances: Iterable[ComponentInstance],
+    kind: Ast.SpecPortInstance.SpecialKind,
+    portTypeName: String
+  ) extends PatternResolver {
 
     type Source = PortInstanceIdentifier
 
     type Target = PortInstanceIdentifier
+
+    override def resolveSource = {
+      def hasInputPort(pi: PortInstance): Boolean = 
+        (pi.getType, pi.getDirection) match {
+          case (
+            Some(PortInstance.Type.DefPort(s)),
+            Some(PortInstance.Direction.Input)
+          ) => a.getQualifiedName(s).toString == portTypeName
+          case _ => false
+        }
+      val (ci, loc) = pattern.source
+      for {
+        pii <- resolveToSinglePort(
+          getPortsForInstance(ci).filter(hasInputPort),
+          s"$kind in",
+          loc,
+          ci.getUnqualifiedName
+        )
+      } yield PortInstanceIdentifier(ci, pii)
+    }
+
+    override def resolveTarget(target: (ComponentInstance, Location)) = {
+      val (ci, loc) = target
+      ci.component.specialPortMap.get(kind) match { 
+        case Some(pi) => Right(PortInstanceIdentifier(ci, pi))
+        case None => missingPort(loc, kind.toString, ci.getUnqualifiedName)
+      }
+    }
 
     override def getConnectionsForTarget(
       source: Source,
@@ -139,42 +169,47 @@ object PatternResolver {
       val to = Connection.Endpoint(loc, source)
       List(Connection(from, to))
     }
+
   }
 
-  private final case class Time(
+  private def event(
     a: Analysis,
     pattern: ConnectionPattern,
     instances: Iterable[ComponentInstance]
-  ) extends SingleConnection {
+  ) = FromSpecialTargetPort(
+    a, pattern, instances,
+    Ast.SpecPortInstance.Event,
+    "Fw.Log"
+  )
 
-    override def resolveSource = {
-      def isTimeGetIn(pi: PortInstance): Boolean = 
-        (pi.getType, pi.getDirection) match {
-          case (
-            Some(PortInstance.Type.DefPort(s)),
-            Some(PortInstance.Direction.Input)
-          ) => a.getQualifiedName(s).toString == "Fw.Time"
-          case _ => false
-        }
-      val (ci, loc) = pattern.source
-      for {
-        pii <- resolveToSinglePort(
-          getPortsForInstance(ci).filter(isTimeGetIn),
-          "time get in",
-          loc,
-          ci.getUnqualifiedName
-        )
-      } yield PortInstanceIdentifier(ci, pii)
-    }
+  private def telemetry(
+    a: Analysis,
+    pattern: ConnectionPattern,
+    instances: Iterable[ComponentInstance]
+  ) = FromSpecialTargetPort(
+    a, pattern, instances,
+    Ast.SpecPortInstance.Telemetry,
+    "Fw.Tlm"
+  )
 
-    override def resolveTarget(target: (ComponentInstance, Location)) = {
-      val (ci, loc) = target
-      ci.component.specialPortMap.get(Ast.SpecPortInstance.TimeGet) match { 
-        case Some(pi) => Right(PortInstanceIdentifier(ci, pi))
-        case None => missingPort(loc, "time get", ci.getUnqualifiedName)
-      }
-    }
+  private def textEvent(
+    a: Analysis,
+    pattern: ConnectionPattern,
+    instances: Iterable[ComponentInstance]
+  ) = FromSpecialTargetPort(
+    a, pattern, instances,
+    Ast.SpecPortInstance.Event,
+    "Fw.LogText"
+  )
 
-  }
+  private def time(
+    a: Analysis,
+    pattern: ConnectionPattern,
+    instances: Iterable[ComponentInstance]
+  ) = FromSpecialTargetPort(
+    a, pattern, instances,
+    Ast.SpecPortInstance.TimeGet,
+    "Fw.Time"
+  )
 
 }
