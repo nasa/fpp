@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/connection_pattern/command_missing_source_port.fpp: 21.34
+    command connections instance commands { c }
+                                 ^
+error: instance commands has no command reg input port

@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/connection_pattern/command_two_source_ports.fpp: 23.34
+    command connections instance commands { c }
+                                 ^
+error: ambiguous pattern: instance commands has command reg input ports cmdRegIn, cmdRegIn1
