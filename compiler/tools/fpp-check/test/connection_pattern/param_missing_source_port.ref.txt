@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/connection_pattern/param_missing_source_port.fpp: 18.32
+    param connections instance parameters { c }
+                               ^
+error: instance parameters has no param get input port

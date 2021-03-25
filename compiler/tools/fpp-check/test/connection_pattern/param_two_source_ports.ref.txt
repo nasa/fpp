@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/connection_pattern/param_two_source_ports.fpp: 20.32
+    param connections instance parameters { c }
+                               ^
+error: ambiguous pattern: instance parameters has param get input ports prmGetIn, prmGetIn1
