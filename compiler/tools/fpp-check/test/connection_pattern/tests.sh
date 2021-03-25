@@ -7,6 +7,7 @@ event_two_source_ports
 health_duplicate_port
 health_missing_port
 health_ok
+param_ok
 telemetry_missing_source_port
 telemetry_missing_target_port
 telemetry_ok

@@ -4,7 +4,6 @@ module Svc {
 module M {
   passive component Health {
     sync input port pingIn: Svc.Ping
-    #sync input port pingIn1: Svc.Ping
     output port pingOut: Svc.Ping
   }
   passive component C {
