@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/connection_pattern/text_event_missing_target_port.fpp: 18.50
+    text event connections instance textEvents { c }
+                                                 ^
+error: instance c has no text event port

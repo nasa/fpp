@@ -294,7 +294,7 @@ object PatternResolver {
     instances: Iterable[ComponentInstance]
   ) = FromSpecialTargetPort(
     a, pattern, instances,
-    Ast.SpecPortInstance.Event,
+    Ast.SpecPortInstance.TextEvent,
     "Fw.LogText"
   )
 

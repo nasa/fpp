@@ -7,6 +7,10 @@ event_two_source_ports
 health_duplicate_port
 health_missing_port
 health_ok
+text_event_missing_source_port
+text_event_missing_target_port
+text_event_ok
+text_event_two_source_ports
 time_missing_source_port
 time_missing_target_port
 time_ok

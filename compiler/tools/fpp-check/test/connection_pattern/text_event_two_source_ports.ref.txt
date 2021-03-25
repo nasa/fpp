@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/connection_pattern/text_event_two_source_ports.fpp: 19.37
+    text event connections instance textEvents { c }
+                                    ^
+error: ambiguous pattern: instance textEvents has text event input ports textEventIn, textEventIn1
