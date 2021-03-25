@@ -121,8 +121,8 @@ FPP automatically assigns port numbers as follows.
 *Check output port numbers:*
 At each output port _p_ of each component instance _I_, check that
 
-. The number of connections at each output port is in bounds for the 
-size of _p_.
+. The number of connections is in bounds for the 
+size of _I_ `.` _p_.
 
 . There is no pair of connections stem:[c_1] and stem:[c_2]
 at the same port number of _I_ `.` _p_.
