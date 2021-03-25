@@ -7,7 +7,7 @@ import fpp.compiler.util._
 case class Topology(
   /** The AST node defining the topology */
   aNode: Ast.Annotated[AstNode[Ast.DefTopology]],
-  /** The imported topologies */
+  /** The directly imported topologies */
   importedTopologyMap: Map[Symbol.Topology, Location] = Map(),
   /** The instances of this topology */
   instanceMap: Map[ComponentInstance, (Ast.Visibility, Location)] = Map(),
