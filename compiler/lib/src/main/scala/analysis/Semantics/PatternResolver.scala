@@ -25,7 +25,7 @@ private sealed trait PatternResolver {
   def resolveSource: Result.Result[Source]
 
   /** Resolve a target */
-  def resolveTarget(target: (ComponentInstance, Location)): Result.Result[Target]
+  def resolveTarget(targetUse: (ComponentInstance, Location)): Result.Result[Target]
 
   /** Generate the connections for a source and target */
   def getConnectionsForTarget(source: Source, target: Target): Iterable[Connection]
@@ -46,7 +46,7 @@ private sealed trait PatternResolver {
 
   private def resolveImplicitTargets: Result.Result[Iterable[Target]] = {
     val loc = pattern.getLoc
-    val targets = instances.map(ti => resolveTarget((ti, loc))).
+    val targets = instances.map(i => resolveTarget((i, loc))).
       filter(_.isRight).map(Result.expectRight)
     Right(targets)
   }
@@ -72,7 +72,7 @@ object PatternResolver {
     val resolverOpt: Option[PatternResolver] = pattern.ast.kind match {
       case Pattern.Command => toDo
       case Pattern.Event => Some(PatternResolver.event(a, pattern, instances))
-      case Pattern.Health => toDo
+      case Pattern.Health => Some(PatternResolver.Health(a, pattern, instances))
       case Pattern.Param => toDo
       case Pattern.Telemetry => Some(PatternResolver.telemetry(a, pattern, instances))
       case Pattern.TextEvent => Some(PatternResolver.textEvent(a, pattern, instances))
@@ -82,6 +82,16 @@ object PatternResolver {
       case Some(resolver) => resolver.resolve
       case None => Right(Nil)
     }
+  }
+
+  private def connect(
+    loc: Location,
+    fromPii: PortInstanceIdentifier,
+    toPii: PortInstanceIdentifier
+  ) = {
+    val from = Connection.Endpoint(loc, fromPii)
+    val to = Connection.Endpoint(loc, fromPii)
+    Connection(from, to)
   }
 
   private def getPortsForInstance(instance: ComponentInstance) =
@@ -117,14 +127,16 @@ object PatternResolver {
     direction: PortInstance.Direction,
     portTypeName: String,
   ): Result.Result[PortInstanceIdentifier] = {
-    def hasConnectorPort(pi: PortInstance): Boolean = 
+    def hasConnectorPort(pi: PortInstance): Boolean = {
       (pi.getType, pi.getDirection) match {
         case (
           Some(PortInstance.Type.DefPort(s)),
-          Some(direction)
-        ) => a.getQualifiedName(s).toString == portTypeName
+          Some(d)
+        ) => a.getQualifiedName(s).toString == portTypeName &&
+             d == direction
         case _ => false
       }
+    }
     val (ci, loc) = ciUse
     for {
       pii <- resolveToSinglePort(
@@ -177,18 +189,13 @@ object PatternResolver {
       portTypeName
     )
 
-    override def resolveTarget(target: (ComponentInstance, Location)) =
-      findSpecialPort(target, kind)
+    override def resolveTarget(targetUse: (ComponentInstance, Location)) =
+      findSpecialPort(targetUse, kind)
 
     override def getConnectionsForTarget(
       source: Source,
       target: Target
-    ): List[Connection] = {
-      val loc = pattern.getLoc
-      val from = Connection.Endpoint(loc, target)
-      val to = Connection.Endpoint(loc, source)
-      List(Connection(from, to))
-    }
+    ): List[Connection] = List(connect(pattern.getLoc, target, source))
 
   }
 
@@ -231,5 +238,62 @@ object PatternResolver {
     Ast.SpecPortInstance.TimeGet,
     "Fw.Time"
   )
+
+  /** Resolve a health pattern */
+  private final case class Health(
+    a: Analysis,
+    pattern: ConnectionPattern,
+    instances: Iterable[ComponentInstance],
+  ) extends PatternResolver {
+
+    type Source = Health.PingPorts
+
+    type Target = Health.PingPorts
+
+    private def getPingPort(
+      ciUse: (ComponentInstance, Location),
+      direction: PortInstance.Direction
+    ) =
+      findGeneralPort(
+        a,
+        pattern.source,
+        "ping",
+        direction,
+        "Svc.Ping"
+      )
+
+    private def getPingPorts(ciUse: (ComponentInstance, Location)) =
+      for {
+        pingIn <- getPingPort(ciUse, PortInstance.Direction.Input)
+        pingOut <- getPingPort(ciUse, PortInstance.Direction.Output)
+      }
+      yield Health.PingPorts(pingIn, pingOut)
+
+    override def resolveSource = getPingPorts(pattern.source)
+
+    override def resolveTarget(targetUse: (ComponentInstance, Location)) =
+      getPingPorts(targetUse)
+
+    override def getConnectionsForTarget(
+      source: Source,
+      target: Target
+    ): List[Connection] = {
+      val loc = pattern.getLoc
+      List(
+        connect(loc, source.pingOut, target.pingIn),
+        connect(loc, target.pingOut, source.pingIn)
+      )
+    }
+
+  }
+
+  private final object Health {
+
+    final case class PingPorts(
+      pingIn: PortInstanceIdentifier,
+      pingOut: PortInstanceIdentifier
+    )
+
+  }
 
 }
