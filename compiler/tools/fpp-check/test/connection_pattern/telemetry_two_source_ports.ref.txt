@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/connection_pattern/telemetry_two_source_ports.fpp: 19.36
+    telemetry connections instance $telemetry { c }
+                                   ^
+error: ambiguous pattern: instance telemetry has telemetry input ports tlmIn, tlmIn1
