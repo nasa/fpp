@@ -16,6 +16,6 @@ module M {
   topology T {
     instance $health
     instance c
-    health connections instance $health
+    health connections instance $health { c }
   }
 }

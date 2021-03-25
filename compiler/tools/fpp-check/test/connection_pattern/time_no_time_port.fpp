@@ -3,7 +3,7 @@ module Fw {
 }
 module M {
   passive component Time {
-    sync input port timeGetIn: Fw.Time
+
   }
   passive component C {
     time get port timeGetOut
