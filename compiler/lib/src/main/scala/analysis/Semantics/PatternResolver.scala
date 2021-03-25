@@ -253,14 +253,7 @@ object PatternResolver {
     private def getPingPort(
       ciUse: (ComponentInstance, Location),
       direction: PortInstance.Direction
-    ) =
-      findGeneralPort(
-        a,
-        pattern.source,
-        "ping",
-        direction,
-        "Svc.Ping"
-      )
+    ) = findGeneralPort(a, ciUse, "ping", direction, "Svc.Ping")
 
     private def getPingPorts(ciUse: (ComponentInstance, Location)) =
       for {
@@ -293,6 +286,79 @@ object PatternResolver {
       pingIn: PortInstanceIdentifier,
       pingOut: PortInstanceIdentifier
     )
+
+  }
+
+  /** Resolve a param pattern */
+  private final case class Param(
+    a: Analysis,
+    pattern: ConnectionPattern,
+    instances: Iterable[ComponentInstance],
+  ) extends PatternResolver {
+
+    case class Source(
+      prmGetIn: PortInstanceIdentifier,
+      prmSetIn: PortInstanceIdentifier
+    )
+
+    case class Target(
+      prmGetOut: PortInstanceIdentifier,
+      prmSetOut: PortInstanceIdentifier
+    )
+
+    override def resolveSource = ???
+
+    override def resolveTarget(targetUse: (ComponentInstance, Location)) =
+      ???
+
+    override def getConnectionsForTarget(
+      source: Source,
+      target: Target
+    ): List[Connection] = {
+      val loc = pattern.getLoc
+      List(
+        connect(loc, target.prmGetOut, source.prmGetIn),
+        connect(loc, target.prmSetOut, source.prmSetIn)
+      )
+    }
+
+  }
+
+  /** Resolve a command pattern */
+  private final case class Command(
+    a: Analysis,
+    pattern: ConnectionPattern,
+    instances: Iterable[ComponentInstance],
+  ) extends PatternResolver {
+
+    case class Source(
+      cmdRegIn: PortInstanceIdentifier,
+      cmdOut: PortInstanceIdentifier,
+      cmdResponseIn: PortInstanceIdentifier
+    )
+
+    case class Target(
+      cmdRegOut: PortInstanceIdentifier,
+      cmdIn: PortInstanceIdentifier,
+      cmdResponseOut: PortInstanceIdentifier
+    )
+
+    override def resolveSource = ???
+
+    override def resolveTarget(targetUse: (ComponentInstance, Location)) =
+      ???
+
+    override def getConnectionsForTarget(
+      source: Source,
+      target: Target
+    ): List[Connection] = {
+      val loc = pattern.getLoc
+      List(
+        connect(loc, target.cmdRegOut, source.cmdRegIn),
+        connect(loc, source.cmdOut, target.cmdIn),
+        connect(loc, target.cmdResponseOut, source.cmdResponseIn)
+      )
+    }
 
   }
 
