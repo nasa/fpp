@@ -2486,7 +2486,7 @@ according to the following algorithm:</p>
 </li>
 <li>
 <p>Apply
-<a href="#Definitions_Topology-Definitions_Semantics_Automatic-Numbering-of-Array-Indices">automatic numbering of array indices</a>
+<a href="#Definitions_Topology-Definitions_Semantics_Automatic-Numbering-of-Ports">automatic numbering of ports</a>
 to <em>T'</em>.</p>
 </li>
 <li>
@@ -2497,12 +2497,22 @@ to <em>T'</em>.</p>
 <div class="sect4">
 <h5 id="Definitions_Topology-Definitions_Semantics_Resolving-to-a-Partially-Numbered-Topology">Resolving to a Partially Numbered Topology</h5>
 <div class="paragraph">
-<p>A <strong>partially numbered topology</strong> is a topology in which port array index expressions
-(a) may or may not be present and (b) are present if and only if they
-are specified in the model source.</p>
+<p>A <strong>partially numbered topology</strong> is a topology in which port number
+assignments may or may not exist for each connection.
+A port number assignment exists if
+it is specified in the model source.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
+<li>
+<p>For each endpoint <em>E</em> (output or input) in each connection <em>C</em>
+appearing in <em>D</em>,
+if <em>E</em> has a port number  expression <em>e</em> in the FPP source, then
+<a href="#Evaluation">evaluate</a> <em>e</em>,
+<a href="#Type-Checking_Type-Conversion">convert</a> the result to a value <em>n</em> of type
+<em>Integer</em>, and assign the port number <em>n</em> at that position.
+Check that <em>n</em> is in bounds for the port instance being numbered.</p>
+</li>
 <li>
 <p>Let <em>T</em> be the topology given by all
 <a href="#Specifiers_Component-Instance-Specifiers">instances</a> (both public and
@@ -2570,26 +2580,23 @@ do not add the connection.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="Definitions_Topology-Definitions_Semantics_Automatic-Numbering-of-Array-Indices">Automatic Numbering of Array Indices</h5>
+<h5 id="Definitions_Topology-Definitions_Semantics_Automatic-Numbering-of-Ports">Automatic Numbering of Ports</h5>
 <div class="paragraph">
-<p><strong>General numbering:</strong> FPP automatically numbers the array indices appearing in
-the <a href="#Specifiers_Connection-Graph-Specifiers">connections</a>
-of a topology <em>T</em> as follows.</p>
+<p>FPP automatically assigns port numbers as follows.</p>
+</div>
+<div class="paragraph">
+<p><strong>Check output port numbers:</strong>
+At each output port <em>p</em> of each component instance <em>I</em>, check that</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>For each position <em>P</em> (output or input) in each connection <em>C</em>,
-if <em>P</em> has an array index expression <em>e</em> in the FPP source, then
-<a href="#Evaluation">evaluate</a> <em>e</em>,
-<a href="#Type-Checking_Type-Conversion">convert</a> the result to a value <em>n</em> of type
-<em>Integer</em>, and assign the index <em>n</em> at that position.
-Check that <em>n</em> is in bounds for the
-<a href="#Definitions_Port-Definitions">port</a> being indexed.</p>
+<p>The number of connections at each output port is in bounds for the
+size of <em>p</em>.</p>
 </li>
 <li>
-<p>Check that in <em>C</em> there is no pair of connections \$c_1\$ and \$c_2\$
-with the same output port instance <em>i</em> and the same port array index at <em>i</em>.
+<p>There is no pair of connections \$c_1\$ and \$c_2\$
+at the same port number of <em>I</em> <code>.</code> <em>p</em>.
 For example, the following pair of connections is not allowed:</p>
 <div class="listingblock">
 <div class="content">
@@ -2598,71 +2605,92 @@ a.p[0] -&gt; c.p</code></pre>
 </div>
 </div>
 </li>
-<li>
-<p>For each output position <em>P</em> in each connection <em>C</em>,
-if no index is already assigned, then assign the smallest available index at
-position <em>P</em>.
-An index is available if (1) it is in bounds for the
-<a href="#Definitions_Port-Definitions">port</a> being indexed; and (2)
-it is not already assigned to the same port in the topology.
-If no index is available, throw an error.</p>
-</li>
-<li>
-<p>For each input position <em>P</em> in each connection <em>C</em>,
-if no index is already assigned, then assign the index zero.</p>
-</li>
 </ol>
 </div>
 <div class="paragraph">
-<p>Note that in step 3, the order of traversal of the output positions is
-not specified in the FPP source.
-Therefore, in general multiple assignments are possible.
-The translator just picks a legal one.
-See Example 4 below.</p>
-</div>
-<div class="paragraph">
-<p><strong>Matched numbering:</strong> FPP automatically matches port numbers
-as follows, for each instance <em>I</em> in the topology:</p>
+<p><strong>Apply matched numbering:</strong>
+Assign matching numbers to matched pairs of ports.
+For each instance <em>I</em> in the topology with component type
+<em>C</em>, for each
+<a href="#Specifiers_Port-Matching-Specifiers">port matching specifier</a>
+<code>match</code> \$p_1\$ <code>with</code> \$p_2\$ appearing in the definition of <em>C</em>:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Let <em>C</em> be the component definition in the type of <em>I</em>.</p>
-</li>
-<li>
-<p>For each
-<a href="#Specifiers_Port-Matching-Specifiers">port matching specifier</a>
-<code>match</code> <em>P1</em> <code>with</code> <em>P2</em> appearing in the definition of <em>C</em>:</p>
+<p>For each connection \$c_1\$ with an endpoint at <em>I</em> <code>.</code> \$p_1\$:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>For each connection <em>c2</em> with an endpoint at a port number of <em>I.P2</em>:</p>
-<div class="olist lowerroman">
-<ol class="lowerroman" type="i">
-<li>
-<p>Let <em>I'</em> be the component instance at the other end
-of <em>c2</em>.</p>
+<p>Let <em>I'</em> be the component instance at the other endpoint
+of \$c_1\$.</p>
 </li>
 <li>
-<p>Check that there is no connection other than <em>c2</em> between
-any port number of <em>I.P2</em> and <em>I'</em>.</p>
-</li>
-<li>
-<p>Check that there is at most one one connection <em>c1</em> between
-any port number of <em>I.P1</em>  and <em>I'</em>.</p>
-</li>
-<li>
-<p>Reassign the ports of <em>c1</em> so that <em>c1</em> is connected
-to <em>I.P1</em> at the same number that <em>c2</em> is connected
-to <em>I.P2</em>.</p>
+<p>Check that there is one and only one connection
+\$c_2\$ from <em>I'</em> to <em>I</em> <code>.</code> \$p_2\$.</p>
 </li>
 </ol>
 </div>
 </li>
-</ol>
-</div>
+<li>
+<p>Check that the connections \$c_2\$ computed in the previous
+step are all the connections at <em>I</em> <code>.</code> \$p_2\$.</p>
+</li>
+<li>
+<p>For each pair \$(c_1,c_2)\$ that has both port numbers assigned,
+check that the port numbers match.
+For each pair \$(c_1,c_2)\$ that has exactly one port number assigned,
+assign the other one to match.</p>
+</li>
+<li>
+<p>For each pair \$(c_1,c_2)\$ that does not yet have assigned
+port numbers, find the lowest available port number
+and assign it at <em>I</em> <code>.</code> \$p_1\$ and <em>I</em> <code>.</code> \$p_2\$.
+A port number is available if (a) it is in bounds for the
+port instance being numbered; and (b)
+it is not already assigned to the same port instance
+in the topology.</p>
 </li>
 </ol>
+</div>
+<div class="paragraph">
+<p>Note that in the last step</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The two ports \$p_1\$ and <em>I</em> <code>.</code> \$p_2\$.
+have the same array size and
+the same port numbers assigned so far, so the lowest
+available port number is the same for both.</p>
+</li>
+<li>
+<p>Because the order of traversing the ports is
+not specified in the FPP source,
+in general multiple number assignments are possible.
+The translator picks a legal one.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Apply general numbering:</strong>
+Fill in any remaining port numbers.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>For each output endpoint <em>P</em> in each connection <em>C</em>,
+if no port number is already assigned, then assign the lowest available port
+number at position <em>P</em>.</p>
+</li>
+<li>
+<p>For each input endpoint <em>P</em> in each connection <em>C</em>, if no port number is
+already assigned, then assign the port number zero.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>See Example 4 below.</p>
 </div>
 </div>
 <div class="sect4">
@@ -2876,7 +2904,7 @@ topology Release {
 <p><strong>Example 4.</strong></p>
 </div>
 <div class="paragraph">
-<p>Here is one topology that can result from automatic numbering of array indices
+<p>Here is one topology that can result from automatic numbering of ports
 applied to topology <code>B</code> in the
 <a href="#Specifiers_Topology-Import-Specifiers_Example">example for topology import
 specifiers</a>:</p>
@@ -7973,7 +8001,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-24 17:07:08 -0700
+Last updated 2021-03-25 14:04:08 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
