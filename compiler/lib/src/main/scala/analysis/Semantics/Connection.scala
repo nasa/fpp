@@ -99,7 +99,7 @@ object Connection {
     /** Check that port number is in bounds for the size */
     def checkPortNumber(loc: Location): Result.Result[Unit] = portNumber match {
       case Some(n) =>
-        val size = portInstanceIdentifier.portInstance.getSize
+        val size = portInstanceIdentifier.portInstance.getArraySize
         val specLoc = portInstanceIdentifier.portInstance.getLoc
         val name = portInstanceIdentifier.getQualifiedName.toString
         if (n < size) Right(())

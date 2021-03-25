@@ -6,11 +6,11 @@ import fpp.compiler.util._
 /** An FPP port instance */
 sealed trait PortInstance {
 
+  /** Gets the size of the port array */
+  def getArraySize: Int = 1
+
   /** Gets the direction of the port instance */
   def getDirection: Option[PortInstance.Direction] = None
-
-  /** Gets the size of the port array */
-  def getSize: Int = 1
 
   /** Gets the type of the port instance */
   def getType: Option[PortInstance.Type] = None
@@ -111,9 +111,9 @@ final object PortInstance {
       case _ => Some(Direction.Input)
     }
 
-    override def getNodeId = aNode._2.id
+    override def getArraySize = size
 
-    override def getSize = size
+    override def getNodeId = aNode._2.id
 
     override def getType = Some(ty)
 

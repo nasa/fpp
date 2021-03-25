@@ -173,8 +173,8 @@ the same port numbers assigned so far, so the lowest
 available port number is the same for both.
 
 * Because the order of traversing the ports is
-not specified in the FPP source,
-in general multiple number assignments are possible.
+not specified in the FPP source, multiple numberings are
+possible.
 The translator picks a legal one.
 
 *Apply general numbering:* 
