@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/connection_pattern/event_two_source_ports.fpp: 19.32
+    event connections instance events { c }
+                               ^
+error: ambiguous pattern: instance events has event input ports eventIn, eventIn1
