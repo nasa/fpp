@@ -1,5 +1,5 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/connection_pattern/time_no_time_port.fpp: 16.31
+[ local path prefix ]/compiler/tools/fpp-check/test/connection_pattern/time_no_time_in_port.fpp: 16.31
     time connections instance $time { c }
                               ^
 error: instance time has no time get input port
