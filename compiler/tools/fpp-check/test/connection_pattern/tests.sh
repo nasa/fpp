@@ -1,6 +1,7 @@
 tests="
 duplicate_pattern
 health_ok
+time_no_time_get_port
 time_no_time_in_port
 time_two_time_in_ports
 time_ok
