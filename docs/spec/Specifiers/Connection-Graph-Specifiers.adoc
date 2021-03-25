@@ -155,8 +155,9 @@ to the command registration input port of _I_.
 from the command response output port of each target component
 to the command response input port of _I_.
 
-. `event`: The source instance _I_ is an active logger.
-The generated connection graph has name `Event` and contains
+. `event`: The source instance _I_ is an event logger
+with an input port of type `Fw.Log`.
+The generated connection graph has name `Events` and contains
 all connections for sending events to _I_ through an event
 output port.
 
@@ -172,10 +173,17 @@ and contains all connections for (a) getting
 parameters from the database and (b) saving
 parameters to the database.
 
-. `telemetry`: The source instance _I_ is a telemetry database.
+. `telemetry`: The source instance _I_ is a telemetry database
+with an input port of type `Fw.Tlm`.
 The generated connection graph has name `Telemetry`
 and contains all connections for sending telemetry to _I_
 through a telemetry output port.
+
+. `text event`: The source instance _I_ is a text event
+logger with an input port of type `Fw.LogText`.
+The generated connection graph has name `TextEvents` and contains
+all connections for sending events to _I_ through an event
+output port.
 
 . `time`: The source instance _I_ is a time component.
 The generated connection graph has name `Time` and contains

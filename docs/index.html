@@ -3353,8 +3353,9 @@ to the command response input port of <em>I</em>.</p>
 </div>
 </li>
 <li>
-<p><code>event</code>: The source instance <em>I</em> is an active logger.
-The generated connection graph has name <code>Event</code> and contains
+<p><code>event</code>: The source instance <em>I</em> is an event logger
+with an input port of type <code>Fw.Log</code>.
+The generated connection graph has name <code>Events</code> and contains
 all connections for sending events to <em>I</em> through an event
 output port.</p>
 </li>
@@ -3373,10 +3374,18 @@ parameters from the database and (b) saving
 parameters to the database.</p>
 </li>
 <li>
-<p><code>telemetry</code>: The source instance <em>I</em> is a telemetry database.
+<p><code>telemetry</code>: The source instance <em>I</em> is a telemetry database
+with an input port of type <code>Fw.Tlm</code>.
 The generated connection graph has name <code>Telemetry</code>
 and contains all connections for sending telemetry to <em>I</em>
 through a telemetry output port.</p>
+</li>
+<li>
+<p><code>text event</code>: The source instance <em>I</em> is a text event
+logger with an input port of type <code>Fw.LogText</code>.
+The generated connection graph has name <code>TextEvents</code> and contains
+all connections for sending events to <em>I</em> through an event
+output port.</p>
 </li>
 <li>
 <p><code>time</code>: The source instance <em>I</em> is a time component.
@@ -7964,7 +7973,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-23 22:08:08 -0700
+Last updated 2021-03-24 17:07:08 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
