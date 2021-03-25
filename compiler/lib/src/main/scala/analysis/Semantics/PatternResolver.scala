@@ -237,7 +237,7 @@ object PatternResolver {
 
   }
 
-  /** Resolve a pattern involving connections from a special 
+  /** Resolve a pattern involving connections from a single special 
    *  target port */
   private final case class FromSpecialTargetPort(
     a: Analysis,

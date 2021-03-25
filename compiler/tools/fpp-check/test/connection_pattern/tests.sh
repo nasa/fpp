@@ -1,11 +1,12 @@
 tests="
 duplicate_pattern
+event_ok
 health_duplicate_port
 health_missing_port
 health_ok
-time_no_time_get_port
-time_no_time_in_port
-time_two_time_in_ports
+time_missing_target_port
+time_missing_source_port
+time_two_source_ports
 time_ok
 undef_source
 undef_target
