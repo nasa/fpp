@@ -2609,17 +2609,23 @@ a.p[0] -&gt; c.p</code></pre>
 <div class="paragraph">
 <p><strong>Apply matched numbering:</strong>
 Assign matching numbers to matched pairs of ports.
-For each instance <em>I</em> in the topology with component type
-<em>C</em>, for each
-<a href="#Specifiers_Port-Matching-Specifiers">port matching specifier</a>
-<code>match</code> \$p_1\$ <code>with</code> \$p_2\$ appearing in the definition of <em>C</em>:</p>
+For each instance <em>I</em> in the topology:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>For each connection \$c_1\$ with an endpoint at <em>I</em> <code>.</code> \$p_1\$:</p>
+<p>Let <em>C</em> be the component type of <em>I</em>.</p>
+</li>
+<li>
+<p>For each
+<a href="#Specifiers_Port-Matching-Specifiers">port matching specifier</a>
+<code>match</code> \$p_1\$ <code>with</code> \$p_2\$ appearing in the definition of <em>C</em>:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
+<li>
+<p>For each connection \$c_1\$ with an endpoint at <em>I</em> <code>.</code> \$p_1\$:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
 <li>
 <p>Let <em>I'</em> be the component instance at the other endpoint
 of \$c_1\$.</p>
@@ -2649,6 +2655,9 @@ A port number is available if (a) it is in bounds for the
 port instance being numbered; and (b)
 it is not already assigned to the same port instance
 in the topology.</p>
+</li>
+</ol>
+</div>
 </li>
 </ol>
 </div>
@@ -2702,7 +2711,7 @@ check for unused ports in <em>T</em> as follows:</p>
 <ol class="arabic">
 <li>
 <p>For each instance <em>I</em> appearing in <em>T</em>, for each port <em>P</em> of <em>I</em>,
-if (a) there is no connection to or from any index of <em>P</em> and (b)
+if (a) there is no connection to or from any port number of <em>P</em> and (b)
 <em>P</em> does not appear in any
 <a href="#Specifiers_Unused-Port-Specifiers">unused port specifier</a> of <em>D</em>,
 then issue a warning.</p>
@@ -3283,8 +3292,8 @@ or through
 </li>
 <li>
 <p>The optional expression <em>e</em> following the identifier, if it is present,
-represents a
-port array index.
+represents a port number, i.e., an index into an
+array of port instances.
 The type of <em>e</em> must be a
 <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>, and
 <em>e</em> must
@@ -4494,8 +4503,8 @@ connected into a topology, the corresponding port numbers
 of two of its port instances should match.
 For example, a port matching specifier could specify that
 for a health monitoring component, any component connected
-to its ping output port at index <em>n</em> should also be connected
-to its ping input port at the same index <em>n</em>.</p>
+to its ping output port at port number <em>n</em> should also be connected
+to its ping input port at the same port number <em>n</em>.</p>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Port-Matching-Specifiers_Syntax">6.11.1. Syntax</h4>
@@ -8000,7 +8009,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-25 14:48:20 -0700
+Last updated 2021-03-25 14:57:02 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

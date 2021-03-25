@@ -7,8 +7,8 @@ connected into a topology, the corresponding port numbers
 of two of its port instances should match.
 For example, a port matching specifier could specify that
 for a health monitoring component, any component connected
-to its ping output port at index _n_ should also be connected
-to its ping input port at the same index _n_.
+to its ping output port at port number _n_ should also be connected
+to its ping input port at the same port number _n_.
 
 ==== Syntax
 

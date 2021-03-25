@@ -89,8 +89,8 @@ or through
 <<Specifiers_Topology-Import-Specifiers,import>>.
 
 ... The optional expression _e_ following the identifier, if it is present, 
-represents a
-port array index.
+represents a port number, i.e., an index into an
+array of port instances.
 The type of _e_ must be a
 <<Types_Internal-Types_Numeric-Types,numeric type>>, and
 _e_ must
