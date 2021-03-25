@@ -110,10 +110,10 @@ object PatternResolver {
     }
   }
 
-  private def findConnectorForSpecialPort(
+  private def findGeneralPort(
     a: Analysis,
     ciUse: (ComponentInstance, Location),
-    kind: Ast.SpecPortInstance.SpecialKind,
+    kind: String,
     direction: PortInstance.Direction,
     portTypeName: String,
   ): Result.Result[PortInstanceIdentifier] = {
@@ -129,7 +129,7 @@ object PatternResolver {
     for {
       pii <- resolveToSinglePort(
         getPortsForInstance(ci).filter(hasConnectorPort),
-        s"$kind in",
+        s"$kind $direction",
         loc,
         ci.getUnqualifiedName
       )
@@ -169,10 +169,10 @@ object PatternResolver {
 
     type Target = PortInstanceIdentifier
 
-    override def resolveSource = findConnectorForSpecialPort(
+    override def resolveSource = findGeneralPort(
       a,
       pattern.source,
-      kind,
+      kind.toString,
       PortInstance.Direction.Input,
       portTypeName
     )
