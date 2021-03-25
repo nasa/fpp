@@ -1,4 +1,5 @@
 tests="
+command_ok
 duplicate_pattern
 event_missing_source_port
 event_missing_target_port
