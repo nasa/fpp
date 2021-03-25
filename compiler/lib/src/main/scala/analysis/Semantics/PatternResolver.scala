@@ -79,10 +79,7 @@ private sealed trait PatternResolver {
   }
 
   private def resolveExplicitTargets: Result.Result[List[Target]] =
-    Result.map(
-      pattern.targets.toList,
-      resolveTarget
-    )
+    Result.map(pattern.targets.toList, resolveTarget)
 
 }
 
