@@ -16,9 +16,13 @@ case class Topology(
   /** The connection graphs of this topology */
   connectionGraphMap: Map[Name.Unqualified, List[Connection]] = Map(),
   /** The output connections going from each port */
-  outputConnectionMap: Map[PortInstanceIdentifier, Set[PortInstanceIdentifier]] = Map(),
+  outputConnectionMap: Map[PortInstanceIdentifier, Set[Connection]] = Map(),
   /** The input connections going to each port */
-  inputConnectionMap: Map[PortInstanceIdentifier, Set[PortInstanceIdentifier]] = Map(),
+  inputConnectionMap: Map[PortInstanceIdentifier, Set[Connection]] = Map(),
+  /** The mapping of connections to from port numbers */
+  fromPortNumberMap: Map[Connection, Int] = Map(),
+  /** The mapping of connections to to port numbers */
+  toPortNumberMap: Map[Connection, Int] = Map(),
   /** The set of port instances declared as unused */
   declaredUnusedPortSet: Set[PortInstanceIdentifier] = Set(),
   /** The set of port instances actually unused */
@@ -40,19 +44,27 @@ case class Topology(
     val ocMap = {
       val from = connection.from.portInstanceIdentifier
       val connections = outputConnectionMap.getOrElse(from, Set())
-      val to = connection.to.portInstanceIdentifier
-      outputConnectionMap + (from -> (connections + to))
+      outputConnectionMap + (from -> (connections + connection))
     }
     val icMap = {
       val to = connection.to.portInstanceIdentifier
       val connections = inputConnectionMap.getOrElse(to, Set())
-      val from = connection.from.portInstanceIdentifier
-      inputConnectionMap + (to -> (connections + from))
+      inputConnectionMap + (to -> (connections + connection))
+    }
+    val fpnMap = connection.from.portNumber match {
+      case Some(n) => fromPortNumberMap + (connection -> n)
+      case None => fromPortNumberMap
+    }
+    val tpnMap = connection.to.portNumber match {
+      case Some(n) => toPortNumberMap + (connection -> n)
+      case None => toPortNumberMap
     }
     this.copy(
       connectionGraphMap = cgMap,
       outputConnectionMap = ocMap,
-      inputConnectionMap = icMap
+      inputConnectionMap = icMap,
+      fromPortNumberMap = fpnMap,
+      toPortNumberMap = tpnMap
     )
   }
 
@@ -135,21 +147,26 @@ case class Topology(
   }
 
   /** Get the connections from a port */
-  def getConnectionsFrom(from: PortInstanceIdentifier): Set[PortInstanceIdentifier] =
+  def getConnectionsFrom(from: PortInstanceIdentifier): Set[Connection] =
     outputConnectionMap.getOrElse(from, Set())
 
   /** Get the connections to a port */
-  def getConnectionsTo(to: PortInstanceIdentifier): Set[PortInstanceIdentifier] =
+  def getConnectionsTo(to: PortInstanceIdentifier): Set[Connection] =
     inputConnectionMap.getOrElse(to, Set())
 
-  /** Check whether a connection exists */
-  def connectionExists(
+  /** Get the connections between two ports */
+  def getConnectionsBetween(
     from: PortInstanceIdentifier,
     to: PortInstanceIdentifier
-  ) = outputConnectionMap.get(from) match {
-    case Some(set) => set.contains(to)
-    case None => false
-  }
+    ): Set[Connection] = getConnectionsFrom(from).filter(c => {
+      c.to.portInstanceIdentifier == to
+    })
+
+  /** Check whether a connection exists between two ports*/
+  def connectionExistsBetween(
+    from: PortInstanceIdentifier,
+    to: PortInstanceIdentifier
+  ) = getConnectionsBetween(from, to).size > 0
 
   /** Check the instances of a pattern */
   private def checkPatternInstances(pattern: ConnectionPattern) =
@@ -221,7 +238,7 @@ case class Topology(
           if (
             // Skip this connection if we already imported it
             // Or if the user entered it manually
-            !connectionExists(
+            !connectionExistsBetween(
               c.from.portInstanceIdentifier,
               c.to.portInstanceIdentifier
             )
