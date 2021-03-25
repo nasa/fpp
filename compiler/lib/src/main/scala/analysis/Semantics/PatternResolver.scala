@@ -99,6 +99,43 @@ object PatternResolver {
       )
     )
 
+  private def findSpecialPort(
+    ciUse: (ComponentInstance, Location),
+    kind: Ast.SpecPortInstance.SpecialKind
+  ): Result.Result[PortInstanceIdentifier] = {
+    val (ci, loc) = ciUse
+    ci.component.specialPortMap.get(kind) match { 
+      case Some(pi) => Right(PortInstanceIdentifier(ci, pi))
+      case None => missingPort(loc, kind.toString, ci.getUnqualifiedName)
+    }
+  }
+
+  private def findConnectorForSpecialPort(
+    a: Analysis,
+    ciUse: (ComponentInstance, Location),
+    kind: Ast.SpecPortInstance.SpecialKind,
+    direction: PortInstance.Direction,
+    portTypeName: String,
+  ): Result.Result[PortInstanceIdentifier] = {
+    def hasConnectorPort(pi: PortInstance): Boolean = 
+      (pi.getType, pi.getDirection) match {
+        case (
+          Some(PortInstance.Type.DefPort(s)),
+          Some(direction)
+        ) => a.getQualifiedName(s).toString == portTypeName
+        case _ => false
+      }
+    val (ci, loc) = ciUse
+    for {
+      pii <- resolveToSinglePort(
+        getPortsForInstance(ci).filter(hasConnectorPort),
+        s"$kind in",
+        loc,
+        ci.getUnqualifiedName
+      )
+    } yield PortInstanceIdentifier(ci, pii)
+  }
+
   private def resolveToSinglePort(
     ports: Iterable[PortInstance],
     kind: String,
@@ -132,33 +169,16 @@ object PatternResolver {
 
     type Target = PortInstanceIdentifier
 
-    override def resolveSource = {
-      def hasInputPort(pi: PortInstance): Boolean = 
-        (pi.getType, pi.getDirection) match {
-          case (
-            Some(PortInstance.Type.DefPort(s)),
-            Some(PortInstance.Direction.Input)
-          ) => a.getQualifiedName(s).toString == portTypeName
-          case _ => false
-        }
-      val (ci, loc) = pattern.source
-      for {
-        pii <- resolveToSinglePort(
-          getPortsForInstance(ci).filter(hasInputPort),
-          s"$kind in",
-          loc,
-          ci.getUnqualifiedName
-        )
-      } yield PortInstanceIdentifier(ci, pii)
-    }
+    override def resolveSource = findConnectorForSpecialPort(
+      a,
+      pattern.source,
+      kind,
+      PortInstance.Direction.Input,
+      portTypeName
+    )
 
-    override def resolveTarget(target: (ComponentInstance, Location)) = {
-      val (ci, loc) = target
-      ci.component.specialPortMap.get(kind) match { 
-        case Some(pi) => Right(PortInstanceIdentifier(ci, pi))
-        case None => missingPort(loc, kind.toString, ci.getUnqualifiedName)
-      }
-    }
+    override def resolveTarget(target: (ComponentInstance, Location)) =
+      findSpecialPort(target, kind)
 
     override def getConnectionsForTarget(
       source: Source,
