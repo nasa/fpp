@@ -1,6 +1,6 @@
 tests="
 duplicate_pattern
-ok
+health_ok
 undef_source
 undef_target
 "
