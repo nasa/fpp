@@ -206,6 +206,7 @@ case class Topology(
       case Pattern.Health => "Health"
       case Pattern.Param => "Parameters"
       case Pattern.Telemetry => "Telemetry"
+      case Pattern.TextEvent => "TextEvents"
       case Pattern.Time => "Time"
     }
     Result.foldLeft (patternMap.values.toList) (this) ((t, p) => {

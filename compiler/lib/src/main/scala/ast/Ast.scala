@@ -352,6 +352,9 @@ object Ast {
       final case object Telemetry extends Kind {
         override def toString = "telemetry"
       }
+      final case object TextEvent extends Kind {
+        override def toString = "text event"
+      }
       final case object Time extends Kind {
         override def toString = "time"
       }

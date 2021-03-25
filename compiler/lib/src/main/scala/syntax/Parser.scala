@@ -361,6 +361,7 @@ object Parser extends Parsers {
         health ^^ { case _ => Ast.SpecConnectionGraph.Pattern.Health } |
         param ^^ { case _ => Ast.SpecConnectionGraph.Pattern.Param } |
         telemetry ^^ { case _ => Ast.SpecConnectionGraph.Pattern.Telemetry } |
+        text ~ event ^^ { case _ => Ast.SpecConnectionGraph.Pattern.TextEvent } |
         time ^^ { case _ => Ast.SpecConnectionGraph.Pattern.Time }
       }
       def instanceSequence = {

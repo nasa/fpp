@@ -75,6 +75,7 @@ object PatternResolver {
       case Pattern.Health => toDo
       case Pattern.Param => toDo
       case Pattern.Telemetry => toDo
+      case Pattern.TextEvent => toDo
       case Pattern.Time => Some(PatternResolver.Time(a, pattern, instances))
     }
     resolverOpt match {
