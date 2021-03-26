@@ -24,8 +24,8 @@ object CheckTopologyDefs
           a <- super.defTopologyAnnotatedNode(a1, aNode)
           top <- Right(a.topology.get)
           a <- {
-            // Resolve topologies imported by top, updating a
-            val tops = top.importedTopologyMap.toList
+            // Resolve topologies directly imported by top, updating a
+            val tops = top.directImportMap.toList
             Result.foldLeft (tops) (a) ((a, tl) => {
               defTopologyAnnotatedNode(a, tl._1.node)
             })

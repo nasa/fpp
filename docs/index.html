@@ -2517,14 +2517,6 @@ Check that <em>n</em> is in bounds for the port instance being numbered.</p>
 <p>Recursively resolve all the topologies directly imported into <em>D</em>.</p>
 </li>
 <li>
-<p>Compute the set <em>S</em> of topologies transitively imported into <em>T</em>.</p>
-</li>
-<li>
-<p>For each topology <em>T'</em> in <em>S</em>,
-<a href="#Specifiers_Topology-Import-Specifiers">import the instances</a>
-of <em>T'</em> into <em>T</em>.</p>
-</li>
-<li>
 <p>Construct the connection graphs of <em>T</em> given by the
 <a href="#Specifiers_Connection-Graph-Specifiers">direct connection graphs</a>
 appearing in
@@ -2556,6 +2548,14 @@ For example, the two connection graphs</p>
 <p>Check that the connections are between port instances
 present in <em>T</em>, as computed in step 4.</p>
 </div>
+</li>
+<li>
+<p>Compute the set <em>S</em> of topologies transitively imported into <em>T</em>.</p>
+</li>
+<li>
+<p>For each topology <em>T'</em> in <em>S</em>,
+<a href="#Specifiers_Topology-Import-Specifiers">import the instances</a>
+of <em>T'</em> into <em>T</em>.</p>
 </li>
 <li>
 <p>For each topology <em>T'</em> in <em>S</em>,
@@ -8015,7 +8015,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-25 17:46:54 -0700
+Last updated 2021-03-25 18:53:10 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

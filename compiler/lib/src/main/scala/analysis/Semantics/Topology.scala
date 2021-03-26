@@ -8,13 +8,17 @@ case class Topology(
   /** The AST node defining the topology */
   aNode: Ast.Annotated[AstNode[Ast.DefTopology]],
   /** The directly imported topologies */
-  importedTopologyMap: Map[Symbol.Topology, Location] = Map(),
+  directImportMap: Map[Symbol.Topology, Location] = Map(),
+  /** The transitively imported topologies */
+  transitiveImportSet: Set[Symbol.Topology] = Set(),
   /** The instances of this topology */
   instanceMap: Map[ComponentInstance, (Ast.Visibility, Location)] = Map(),
   /** The connection patterns of this topology */
   patternMap: Map[Ast.SpecConnectionGraph.Pattern.Kind, ConnectionPattern] = Map(),
   /** The connection graphs of this topology */
   connectionGraphMap: Map[Name.Unqualified, List[Connection]] = Map(),
+  /** The imported connections */
+  importedConnections: Set[Connection] = Set(),
   /** The output connections going from each port */
   outputConnectionMap: Map[PortInstanceIdentifier, Set[Connection]] = Map(),
   /** The input connections going to each port */
@@ -68,6 +72,17 @@ case class Topology(
     )
   }
 
+  /** Add an imported connection */
+  def addImportedConnection(
+    graphName: Name.Unqualified,
+    connection: Connection
+  ): Topology =
+    if (!importedConnections.contains(connection))
+      addConnection(graphName, connection).copy(
+        importedConnections = importedConnections + connection
+      )
+    else this
+
   /** Add a pattern */
   def addPattern(
     kind: Ast.SpecConnectionGraph.Pattern.Kind,
@@ -91,7 +106,7 @@ case class Topology(
     symbol: Symbol.Topology,
     loc: Location
   ): Result.Result[Topology] =
-    importedTopologyMap.get(symbol) match {
+    directImportMap.get(symbol) match {
       case Some(prevLoc) => Left(
         SemanticError.DuplicateTopology(
           symbol.getUnqualifiedName,
@@ -100,8 +115,8 @@ case class Topology(
         )
       )
       case None =>
-        val map = importedTopologyMap + (symbol -> loc)
-        Right(this.copy(importedTopologyMap = map))
+        val map = directImportMap + (symbol -> loc)
+        Right(this.copy(directImportMap = map))
     }
 
   /** Add an instance that may already be there */
@@ -110,11 +125,17 @@ case class Topology(
     vis: Ast.Visibility,
     loc: Location
   ): Topology = {
+    import Ast.Visibility._
+    // Public overrides private
+    val pairOpt = instanceMap.get(instance)
+    val mergedVis = (vis, pairOpt) match {
+      case (Public, _) => Public
+      case (_, Some((Public, _))) => Public
+      case _ => Private
+    }
     // Use the previous location, if it exists
-    // Use the new visibility
-    // TODO: Revise rule per change in spec
-    val mergedLoc = instanceMap.get(instance).map(_._2).getOrElse(loc)
-    val map = instanceMap + (instance -> (vis, mergedLoc))
+    val mergedLoc = pairOpt.map(_._2).getOrElse(loc)
+    val map = instanceMap + (instance -> (mergedVis, mergedLoc))
     this.copy(instanceMap = map)
   }
 
@@ -250,8 +271,8 @@ case class Topology(
     })
   }
 
-  /** Resolve the direct connections of this topology */
-  private def resolveDirectConnections: Result.Result[Topology] = {
+  /** Resolve the imported connections of this topology */
+  private def resolveImportedConnections: Result.Result[Topology] = {
     def endpointIsPublic(endpoint: Connection.Endpoint) = {
       val instance = endpoint.portInstanceIdentifier.componentInstance
       for (pair <- lookUpInstanceAt(instance, endpoint.loc))
@@ -269,7 +290,7 @@ case class Topology(
     ) = 
       for (public <- connectionIsPublic(connection))
         yield if (public)
-          t.addConnection(graphName, connection)
+          t.addImportedConnection(graphName, connection)
         else t
     def importConnections(
       t: Topology,
@@ -296,18 +317,30 @@ case class Topology(
     }
     def importInstances(into: Topology, fromSymbol: Symbol.Topology) =
       a.topologyMap(fromSymbol).instanceMap.foldLeft (into) (importInstance)
-    Right(importedTopologyMap.keys.foldLeft (this) (importInstances))
+    Right(directImportMap.keys.foldLeft (this) (importInstances))
+  }
+
+  /** Compute the transitively imported topologies */
+  private def computeTransitiveImports(a: Analysis) = {
+    val tis = directImportMap.keys.foldLeft (Set[Symbol.Topology]()) ((tis, ts) => {
+      val s = Symbol.Topology(aNode)
+      val t = a.topologyMap(ts)
+      tis.union(t.transitiveImportSet) + s
+    })
+    this.copy(transitiveImportSet = tis)
   }
 
   /** Resolve this topology to a partially numbered topology */
-  private def resolvePartiallyNumbered(a: Analysis): Result.Result[Topology] =
+  private def resolvePartiallyNumbered(a: Analysis): Result.Result[Topology] = {
+    val t = this.computeTransitiveImports(a)
     Result.seq(
-      Right(this),
+      Right(t),
       List(
         _.resolveInstances(a),
-        _.resolveDirectConnections,
+        _.resolveImportedConnections,
         _.resolvePatterns(a)
       )
     )
+  }
 
 }

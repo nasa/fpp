@@ -67,12 +67,6 @@ Check that _n_ is in bounds for the port instance being numbered.
 
 . Recursively resolve all the topologies directly imported into _D_.
 
-. Compute the set _S_ of topologies transitively imported into _T_.
-
-. For each topology _T'_ in _S_, 
-<<Specifiers_Topology-Import-Specifiers,import the instances>>
-of _T'_ into _T_.
-
 . Construct the connection graphs of _T_ given by the
 <<Specifiers_Connection-Graph-Specifiers,direct connection graphs>>
 appearing in
@@ -101,6 +95,12 @@ connections C { a.b -> c.d, e.f -> g.h }
 +
 Check that the connections are between port instances
 present in _T_, as computed in step 4.
+
+. Compute the set _S_ of topologies transitively imported into _T_.
+
+. For each topology _T'_ in _S_, 
+<<Specifiers_Topology-Import-Specifiers,import the instances>>
+of _T'_ into _T_.
 
 . For each topology _T'_ in _S_, 
 <<Specifiers_Topology-Import-Specifiers,import the connections>>
