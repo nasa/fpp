@@ -286,13 +286,13 @@ case class Topology(
       }
       yield {
         val name = getGraphName(p.ast.kind)
-        connections.foldLeft (t) ((t, c) => {
+        connections.foldLeft (t) ((t, c) =>
           // Skip this connection if it already exists
           // For example, it could be imported
           if (!connectionExistsBetween(c.from.port, c.to.port))
             t.addLocalConnection(name, c)
           else t
-        })
+        )
       }
     })
   }
@@ -306,29 +306,17 @@ case class Topology(
       vis == Ast.Visibility.Public
     }
     // Check whether a connection is public
-    def connectionIsPublic(connection: Connection) =
+    def isPublic(connection: Connection) =
       endpointIsPublic(connection.from) &&
       endpointIsPublic(connection.to)
-    // Import connections
-    def importConnections(
-      into: Topology,
-      name: Name.Unqualified,
-      connections: Iterable[Connection]
-    ) = connections.foldLeft (into) ((t, c) =>
-      if (connectionIsPublic(c)) 
-        into.addConnection(name, c)
-      else into
-    )
-    // Import connections from a topology
-    def fromTopology(from: Topology, into: Topology) =
-      from.localConnectionMap.foldLeft (into) ((t, nc) => {
-        val (name, connections) = nc
-        importConnections(t, name, connections)
-      })
     // Import connections from transitively imported topologies
-    val result = transitiveImportSet.foldLeft (this) ((into, from) => 
-      fromTopology(a.topologyMap(from), into)
-    )
+    val result = transitiveImportSet.
+      map(a.topologyMap(_).localConnectionMap).flatten.
+      foldLeft (this) ({ case (t, (name, cs)) =>
+        cs.foldLeft (t) ((t1, c) =>
+          if (isPublic(c)) t1.addConnection(name, c) else t1
+        )
+      })
     Right(result)
   }
 
