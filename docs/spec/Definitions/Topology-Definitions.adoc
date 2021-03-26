@@ -93,14 +93,15 @@ are treated as the single graph
 connections C { a.b -> c.d, e.f -> g.h }
 ----
 +
-Check that the connections are between port instances
-present in _T_, as computed in step 4.
 
 . Compute the set _S_ of topologies transitively imported into _T_.
 
 . For each topology _T'_ in _S_, 
 <<Specifiers_Topology-Import-Specifiers,import the instances>>
 of _T'_ into _T_.
+
+. Check that the connections discovered in step 3 are between port 
+instances present in _T_.
 
 . For each topology _T'_ in _S_, 
 <<Specifiers_Topology-Import-Specifiers,import the connections>>

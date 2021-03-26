@@ -73,15 +73,13 @@ case class Topology(
   }
 
   /** Add an imported connection */
-  def addImportedConnection(
+  def addImportedConnection (
     graphName: Name.Unqualified,
     connection: Connection
   ): Topology =
-    if (!importedConnections.contains(connection))
-      addConnection(graphName, connection).copy(
-        importedConnections = importedConnections + connection
-      )
-    else this
+    addConnection(graphName, connection).copy(
+      importedConnections = importedConnections + connection
+    )
 
   /** Add a pattern */
   def addPattern(
@@ -258,8 +256,7 @@ case class Topology(
         val name = getGraphName(p.ast.kind)
         connections.foldLeft (t) ((t, c) => {
           if (
-            // Skip this connection if we already imported it
-            // Or if the user entered it manually
+            // Skip this connection if it already exists
             !connectionExistsBetween(
               c.from.portInstanceIdentifier,
               c.to.portInstanceIdentifier
@@ -272,34 +269,67 @@ case class Topology(
   }
 
   /** Resolve the imported connections of this topology */
-  private def resolveImportedConnections: Result.Result[Topology] = {
+  private def resolveImportedConnections(a: Analysis): Result.Result[Topology] = {
+    // Check whether an endpoint is public
     def endpointIsPublic(endpoint: Connection.Endpoint) = {
       val instance = endpoint.portInstanceIdentifier.componentInstance
-      for (pair <- lookUpInstanceAt(instance, endpoint.loc))
-        yield pair._1 == Ast.Visibility.Public
+      val (vis, _) = instanceMap(instance)
+      vis == Ast.Visibility.Public
     }
+    // Check whether a connection is public
     def connectionIsPublic(connection: Connection) =
-      for {
-        fromIsPublic <- endpointIsPublic(connection.from)
-        toIsPublic <- endpointIsPublic(connection.to)
-      } yield fromIsPublic && toIsPublic
-    def importConnection(
-      t: Topology,
+      endpointIsPublic(connection.from) &&
+      endpointIsPublic(connection.to)
+    // Import one connection
+    def importConnection (
+      from: Topology,
+      into: Topology,
       graphName: Name.Unqualified,
       connection: Connection
     ) = 
-      for (public <- connectionIsPublic(connection))
-        yield if (public)
-          t.addImportedConnection(graphName, connection)
-        else t
-    def importConnections(
-      t: Topology,
-      mapEntry: (Name.Unqualified, List[Connection])
+      if (
+        connectionIsPublic(connection) &&
+        !from.importedConnections.contains(connection)
+      ) into.addImportedConnection(graphName, connection)
+      else into
+    // Import connections from a name group
+    def fromNameGroup (from: Topology) (
+      into: Topology,
+      nameGroup: (Name.Unqualified, List[Connection])
     ) = {
-      val (graphName, connections) = mapEntry
-      Result.foldLeft (connections) (t) ((t, c) => importConnection(t, graphName, c))
+      val (graphName, connections) = nameGroup
+      connections.foldLeft (into) ((into, c) => 
+        importConnection(from, into, graphName, c)
+      )
     }
-    Result.foldLeft (connectionGraphMap.toList) (this) (importConnections)
+    // Import connections from a topology
+    def fromTopology (from: Topology, into: Topology) =
+      from.connectionGraphMap.foldLeft (into) (fromNameGroup(from))
+    // Import connections from transitively imported topologies
+    val result = transitiveImportSet.foldLeft (this) ((into, from) => 
+      fromTopology(a.topologyMap(from), into)
+    )
+    Right(result)
+  }
+
+  /** Check that connection instances are legal */
+  private def checkConnectionInstances: Result.Result[Topology] = {
+    def checkConnection(c: Connection) = {
+      val fromInstance = c.from.portInstanceIdentifier.componentInstance
+      val toInstance = c.to.portInstanceIdentifier.componentInstance
+      for {
+        _ <- lookUpInstanceAt(fromInstance, c.from.loc)
+        _ <- lookUpInstanceAt(toInstance, c.to.loc)
+      }
+      yield ()
+    }
+    for {
+      _ <- Result.map(
+        connectionGraphMap.toList.map(_._2).flatten,
+        checkConnection
+      )
+    }
+    yield this
   }
 
   /** Resolve the instances of this topology */
@@ -323,9 +353,8 @@ case class Topology(
   /** Compute the transitively imported topologies */
   private def computeTransitiveImports(a: Analysis) = {
     val tis = directImportMap.keys.foldLeft (Set[Symbol.Topology]()) ((tis, ts) => {
-      val s = Symbol.Topology(aNode)
       val t = a.topologyMap(ts)
-      tis.union(t.transitiveImportSet) + s
+      tis.union(t.transitiveImportSet) + ts
     })
     this.copy(transitiveImportSet = tis)
   }
@@ -337,7 +366,8 @@ case class Topology(
       Right(t),
       List(
         _.resolveInstances(a),
-        _.resolveImportedConnections,
+        _.checkConnectionInstances,
+        _.resolveImportedConnections(a),
         _.resolvePatterns(a)
       )
     )
