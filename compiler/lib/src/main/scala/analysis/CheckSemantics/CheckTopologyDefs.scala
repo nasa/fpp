@@ -68,7 +68,7 @@ object CheckTopologyDefs
         case direct: Ast.SpecConnectionGraph.Direct =>
           Result.foldLeft (direct.connections) (a.topology.get) ((t, ast) =>
             for (c <- Connection.fromAst(a, ast))
-              yield t.addConnection(direct.name, c)
+              yield t.addLocalConnection(direct.name, c)
           )
         case pattern: Ast.SpecConnectionGraph.Pattern => 
           for {

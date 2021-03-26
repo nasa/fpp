@@ -15,10 +15,10 @@ case class Topology(
   instanceMap: Map[ComponentInstance, (Ast.Visibility, Location)] = Map(),
   /** The connection patterns of this topology */
   patternMap: Map[Ast.SpecConnectionGraph.Pattern.Kind, ConnectionPattern] = Map(),
-  /** The connection graphs of this topology */
-  connectionGraphMap: Map[Name.Unqualified, List[Connection]] = Map(),
-  /** The imported connections */
-  importedConnections: Set[Connection] = Set(),
+  /** The connections of this topology */
+  connectionMap: Map[Name.Unqualified, List[Connection]] = Map(),
+  /** The connections defined locally, not imported */
+  localConnectionMap: Map[Name.Unqualified, List[Connection]] = Map(),
   /** The output connections going from each port */
   outputConnectionMap: Map[PortInstanceIdentifier, Set[Connection]] = Map(),
   /** The input connections going to each port */
@@ -39,8 +39,8 @@ case class Topology(
     connection: Connection
   ): Topology = {
     val cgMap = {
-      val connections = connectionGraphMap.getOrElse(graphName, Nil)
-      connectionGraphMap + (graphName -> (connection :: connections))
+      val connections = connectionMap.getOrElse(graphName, Nil)
+      connectionMap + (graphName -> (connection :: connections))
     }
     val ocMap = {
       val from = connection.from.port
@@ -61,7 +61,7 @@ case class Topology(
       case None => toPortNumberMap
     }
     this.copy(
-      connectionGraphMap = cgMap,
+      connectionMap = cgMap,
       outputConnectionMap = ocMap,
       inputConnectionMap = icMap,
       fromPortNumberMap = fpnMap,
@@ -87,14 +87,17 @@ case class Topology(
       Right(this.copy(patternMap = pm))
   }
 
-  /** Add an imported connection */
-  def addImportedConnection (
+  /** Add a local connection */
+  def addLocalConnection (
     graphName: Name.Unqualified,
     connection: Connection
-  ): Topology =
-    addConnection(graphName, connection).copy(
-      importedConnections = importedConnections + connection
-    )
+  ): Topology = {
+    val lcMap = {
+      val connections = localConnectionMap.getOrElse(graphName, Nil)
+      localConnectionMap + (graphName -> (connection :: connections))
+    }
+    addConnection(graphName, connection).copy(localConnectionMap = lcMap)
+  }
 
   /** Add an imported topology */
   def addImportedTopology(
@@ -164,7 +167,7 @@ case class Topology(
     }
     for {
       _ <- Result.map(
-        connectionGraphMap.toList.map(_._2).flatten,
+        connectionMap.toList.map(_._2).flatten,
         checkConnection
       )
     }
@@ -287,7 +290,7 @@ case class Topology(
           // Skip this connection if it already exists
           // For example, it could be imported
           if (!connectionExistsBetween(c.from.port, c.to.port))
-            t.addConnection(name, c)
+            t.addLocalConnection(name, c)
           else t
         })
       }
@@ -306,31 +309,22 @@ case class Topology(
     def connectionIsPublic(connection: Connection) =
       endpointIsPublic(connection.from) &&
       endpointIsPublic(connection.to)
-    // Import one connection
-    def importConnection (
-      from: Topology,
+    // Import connections
+    def importConnections(
       into: Topology,
-      graphName: Name.Unqualified,
-      connection: Connection
-    ) = 
-      if (
-        connectionIsPublic(connection) &&
-        !from.importedConnections.contains(connection)
-      ) into.addImportedConnection(graphName, connection)
+      name: Name.Unqualified,
+      connections: Iterable[Connection]
+    ) = connections.foldLeft (into) ((t, c) =>
+      if (connectionIsPublic(c)) 
+        into.addConnection(name, c)
       else into
-    // Import connections from a connection graph
-    def fromGraph (from: Topology) (
-      into: Topology,
-      graph: (Name.Unqualified, List[Connection])
-    ) = {
-      val (graphName, connections) = graph
-      connections.foldLeft (into) ((into, c) => 
-        importConnection(from, into, graphName, c)
-      )
-    }
+    )
     // Import connections from a topology
-    def fromTopology (from: Topology, into: Topology) =
-      from.connectionGraphMap.foldLeft (into) (fromGraph(from))
+    def fromTopology(from: Topology, into: Topology) =
+      from.localConnectionMap.foldLeft (into) ((t, nc) => {
+        val (name, connections) = nc
+        importConnections(t, name, connections)
+      })
     // Import connections from transitively imported topologies
     val result = transitiveImportSet.foldLeft (this) ((into, from) => 
       fromTopology(a.topologyMap(from), into)
