@@ -43,12 +43,12 @@ case class Topology(
       connectionGraphMap + (graphName -> (connection :: connections))
     }
     val ocMap = {
-      val from = connection.from.portInstanceIdentifier
+      val from = connection.from.port
       val connections = outputConnectionMap.getOrElse(from, Set())
       outputConnectionMap + (from -> (connections + connection))
     }
     val icMap = {
-      val to = connection.to.portInstanceIdentifier
+      val to = connection.to.port
       val connections = inputConnectionMap.getOrElse(to, Set())
       inputConnectionMap + (to -> (connections + connection))
     }
@@ -121,12 +121,12 @@ case class Topology(
     loc: Location
   ): Topology = {
     import Ast.Visibility._
-    // Public overrides private
+    // Private overrides public
     val pairOpt = instanceMap.get(instance)
     val mergedVis = (vis, pairOpt) match {
-      case (Public, _) => Public
-      case (_, Some((Public, _))) => Public
-      case _ => Private
+      case (Private, _) => Private
+      case (_, Some((Private, _))) => Private
+      case _ => Public
     }
     // Use the previous location, if it exists
     val mergedLoc = pairOpt.map(_._2).getOrElse(loc)
@@ -154,8 +154,8 @@ case class Topology(
   /** Check that connection instances are legal */
   private def checkConnectionInstances: Result.Result[Topology] = {
     def checkConnection(c: Connection) = {
-      val fromInstance = c.from.portInstanceIdentifier.componentInstance
-      val toInstance = c.to.portInstanceIdentifier.componentInstance
+      val fromInstance = c.from.port.componentInstance
+      val toInstance = c.to.port.componentInstance
       for {
         _ <- lookUpInstanceAt(fromInstance, c.from.loc)
         _ <- lookUpInstanceAt(toInstance, c.to.loc)
@@ -222,7 +222,7 @@ case class Topology(
     from: PortInstanceIdentifier,
     to: PortInstanceIdentifier
     ): Set[Connection] = getConnectionsFrom(from).filter(c => {
-      c.to.portInstanceIdentifier == to
+      c.to.port == to
     })
 
   /** Get the connections from a port */
@@ -284,14 +284,10 @@ case class Topology(
       yield {
         val name = getGraphName(p.ast.kind)
         connections.foldLeft (t) ((t, c) => {
-          if (
-            // Skip this connection if it already exists
-            // For example, it could be imported
-            !connectionExistsBetween(
-              c.from.portInstanceIdentifier,
-              c.to.portInstanceIdentifier
-            )
-          ) t.addConnection(name, c)
+          // Skip this connection if it already exists
+          // For example, it could be imported
+          if (!connectionExistsBetween(c.from.port, c.to.port))
+            t.addConnection(name, c)
           else t
         })
       }
@@ -302,7 +298,7 @@ case class Topology(
   private def resolveImportedConnections(a: Analysis): Result.Result[Topology] = {
     // Check whether an endpoint is public
     def endpointIsPublic(endpoint: Connection.Endpoint) = {
-      val instance = endpoint.portInstanceIdentifier.componentInstance
+      val instance = endpoint.port.componentInstance
       val (vis, _) = instanceMap(instance)
       vis == Ast.Visibility.Public
     }
@@ -322,19 +318,19 @@ case class Topology(
         !from.importedConnections.contains(connection)
       ) into.addImportedConnection(graphName, connection)
       else into
-    // Import connections from a name group
-    def fromNameGroup (from: Topology) (
+    // Import connections from a connection graph
+    def fromGraph (from: Topology) (
       into: Topology,
-      nameGroup: (Name.Unqualified, List[Connection])
+      graph: (Name.Unqualified, List[Connection])
     ) = {
-      val (graphName, connections) = nameGroup
+      val (graphName, connections) = graph
       connections.foldLeft (into) ((into, c) => 
         importConnection(from, into, graphName, c)
       )
     }
     // Import connections from a topology
     def fromTopology (from: Topology, into: Topology) =
-      from.connectionGraphMap.foldLeft (into) (fromNameGroup(from))
+      from.connectionGraphMap.foldLeft (into) (fromGraph(from))
     // Import connections from transitively imported topologies
     val result = transitiveImportSet.foldLeft (this) ((into, from) => 
       fromTopology(a.topologyMap(from), into)

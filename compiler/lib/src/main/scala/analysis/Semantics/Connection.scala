@@ -13,9 +13,9 @@ case class Connection(
 
   /** Checks the types of a connection */
   def checkTypes: Result.Result[Unit] = {
-    val fromInstance = from.portInstanceIdentifier.portInstance
+    val fromInstance = from.port.portInstance
     val fromType = fromInstance.getType
-    val toInstance = to.portInstanceIdentifier.portInstance
+    val toInstance = to.port.portInstance
     val toType = toInstance.getType
     if (PortInstance.Type.areCompatible(fromType, toType)) 
       Right(())
@@ -31,9 +31,9 @@ case class Connection(
 
   /** Checks the directions of a connection */
   def checkDirections: Result.Result[Unit] = {
-    val fromInstance = from.portInstanceIdentifier.portInstance
+    val fromInstance = from.port.portInstance
     val fromDirection = fromInstance.getDirection
-    val toInstance = to.portInstanceIdentifier.portInstance
+    val toInstance = to.port.portInstance
     val toDirection = toInstance.getDirection
     if (PortInstance.Direction.areCompatible(fromDirection -> toDirection)) 
       Right(())
@@ -80,14 +80,14 @@ object Connection {
     /** The location where the endpoint is defined */
     loc: Location,
     /** The port instance identifier */
-    portInstanceIdentifier: PortInstanceIdentifier,
+    port: PortInstanceIdentifier,
     /** The port number */
     portNumber: Option[Int] = None
   ) extends Ordered[Endpoint] {
 
     def compare(that: Endpoint) = {
-      val name1 = this.portInstanceIdentifier.getQualifiedName.toString
-      val name2 = that.portInstanceIdentifier.getQualifiedName.toString
+      val name1 = this.port.getQualifiedName.toString
+      val name2 = that.port.getQualifiedName.toString
       val nameCompare = name1.compare(name2)
       if (nameCompare != 0) nameCompare
       else (this.portNumber, that.portNumber) match {
@@ -99,9 +99,9 @@ object Connection {
     /** Check that port number is in bounds for the size */
     def checkPortNumber(loc: Location): Result.Result[Unit] = portNumber match {
       case Some(n) =>
-        val size = portInstanceIdentifier.portInstance.getArraySize
-        val specLoc = portInstanceIdentifier.portInstance.getLoc
-        val name = portInstanceIdentifier.getQualifiedName.toString
+        val size = port.portInstance.getArraySize
+        val specLoc = port.portInstance.getLoc
+        val name = port.getQualifiedName.toString
         if (n < size) Right(())
         else Left(SemanticError.InvalidPortNumber(loc, n, name, size, specLoc))
       case None => Right(())
@@ -131,8 +131,8 @@ object Connection {
     object LexicalOrdering extends Ordering[Endpoint] {
 
       def compare(e1: Endpoint, e2: Endpoint) = {
-        val name1 = e1.portInstanceIdentifier.getQualifiedName.toString
-        val name2 = e2.portInstanceIdentifier.getQualifiedName.toString
+        val name1 = e1.port.getQualifiedName.toString
+        val name2 = e2.port.getQualifiedName.toString
         if (name1 < name2) -1
         else if (name1 > name2) 1
         else (e1.portNumber, e2.portNumber) match {

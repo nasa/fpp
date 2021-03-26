@@ -28,8 +28,8 @@ of _T'_.
 . Let _I''_ be the set union of _I_ and _I'_.
 That means that if either or both of _I_ and _I'_ contain the instance _S_,
 then _I''_ contains the instance _S_ once.
-Each instance in _I''_ has public visibility if it is public
-in either _I_ or _I'_, otherwise private visibility.
+Each instance in _I''_ has private visibility if it is private
+in either _I_ or _I'_, otherwise public visibility.
 
 *Importing connections:*
 FPP uses the following algorithm to import the connections
