@@ -33,9 +33,6 @@ case class Topology(
   unusedPortSet: Set[PortInstanceIdentifier] = Set()
 ) {
 
-  /** Gets the unqualified name of the topology */
-  def getUnqualifiedName = aNode._2.data.name
-
   /** Add a connection */
   def addConnection(
     graphName: Name.Unqualified,
@@ -72,15 +69,6 @@ case class Topology(
     )
   }
 
-  /** Add an imported connection */
-  def addImportedConnection (
-    graphName: Name.Unqualified,
-    connection: Connection
-  ): Topology =
-    addConnection(graphName, connection).copy(
-      importedConnections = importedConnections + connection
-    )
-
   /** Add a pattern */
   def addPattern(
     kind: Ast.SpecConnectionGraph.Pattern.Kind,
@@ -98,6 +86,15 @@ case class Topology(
       val pm = patternMap + (kind -> pattern)
       Right(this.copy(patternMap = pm))
   }
+
+  /** Add an imported connection */
+  def addImportedConnection (
+    graphName: Name.Unqualified,
+    connection: Connection
+  ): Topology =
+    addConnection(graphName, connection).copy(
+      importedConnections = importedConnections + connection
+    )
 
   /** Add an imported topology */
   def addImportedTopology(
@@ -154,39 +151,25 @@ case class Topology(
       case None => Right(addMergedInstance(instance, vis, loc))
     }
 
-  /** Compute the unused ports for this topology */
-  private def computeUnusedPorts: Result.Result[Topology] = {
-    // TODO
-    Right(this)
+  /** Check that connection instances are legal */
+  private def checkConnectionInstances: Result.Result[Topology] = {
+    def checkConnection(c: Connection) = {
+      val fromInstance = c.from.portInstanceIdentifier.componentInstance
+      val toInstance = c.to.portInstanceIdentifier.componentInstance
+      for {
+        _ <- lookUpInstanceAt(fromInstance, c.from.loc)
+        _ <- lookUpInstanceAt(toInstance, c.to.loc)
+      }
+      yield ()
+    }
+    for {
+      _ <- Result.map(
+        connectionGraphMap.toList.map(_._2).flatten,
+        checkConnection
+      )
+    }
+    yield this
   }
-
-  /** Fill in the port numbers for this topology */
-  private def computePortNumbers: Result.Result[Topology] = {
-    // TODO
-    Right(this)
-  }
-
-  /** Get the connections from a port */
-  def getConnectionsFrom(from: PortInstanceIdentifier): Set[Connection] =
-    outputConnectionMap.getOrElse(from, Set())
-
-  /** Get the connections to a port */
-  def getConnectionsTo(to: PortInstanceIdentifier): Set[Connection] =
-    inputConnectionMap.getOrElse(to, Set())
-
-  /** Get the connections between two ports */
-  def getConnectionsBetween(
-    from: PortInstanceIdentifier,
-    to: PortInstanceIdentifier
-    ): Set[Connection] = getConnectionsFrom(from).filter(c => {
-      c.to.portInstanceIdentifier == to
-    })
-
-  /** Check whether a connection exists between two ports*/
-  def connectionExistsBetween(
-    from: PortInstanceIdentifier,
-    to: PortInstanceIdentifier
-  ) = getConnectionsBetween(from, to).size > 0
 
   /** Check the instances of a pattern */
   private def checkPatternInstances(pattern: ConnectionPattern) =
@@ -206,6 +189,52 @@ case class Topology(
       )
     }
     yield ()
+
+  /** Check whether a connection exists between two ports*/
+  def connectionExistsBetween(
+    from: PortInstanceIdentifier,
+    to: PortInstanceIdentifier
+  ) = getConnectionsBetween(from, to).size > 0
+
+  /** Compute the transitively imported topologies */
+  private def computeTransitiveImports(a: Analysis) = {
+    val tis = directImportMap.keys.foldLeft (Set[Symbol.Topology]()) ((tis, ts) => {
+      val t = a.topologyMap(ts)
+      tis.union(t.transitiveImportSet) + ts
+    })
+    this.copy(transitiveImportSet = tis)
+  }
+
+  /** Compute the unused ports for this topology */
+  private def computeUnusedPorts: Result.Result[Topology] = {
+    // TODO
+    Right(this)
+  }
+
+  /** Fill in the port numbers for this topology */
+  private def computePortNumbers: Result.Result[Topology] = {
+    // TODO
+    Right(this)
+  }
+
+  /** Get the connections between two ports */
+  def getConnectionsBetween(
+    from: PortInstanceIdentifier,
+    to: PortInstanceIdentifier
+    ): Set[Connection] = getConnectionsFrom(from).filter(c => {
+      c.to.portInstanceIdentifier == to
+    })
+
+  /** Get the connections from a port */
+  def getConnectionsFrom(from: PortInstanceIdentifier): Set[Connection] =
+    outputConnectionMap.getOrElse(from, Set())
+
+  /** Get the connections to a port */
+  def getConnectionsTo(to: PortInstanceIdentifier): Set[Connection] =
+    inputConnectionMap.getOrElse(to, Set())
+
+  /** Gets the unqualified name of the topology */
+  def getUnqualifiedName = aNode._2.data.name
 
   /** Look up a component instance used at a location */
   private def lookUpInstanceAt(
@@ -257,6 +286,7 @@ case class Topology(
         connections.foldLeft (t) ((t, c) => {
           if (
             // Skip this connection if it already exists
+            // For example, it could be imported
             !connectionExistsBetween(
               c.from.portInstanceIdentifier,
               c.to.portInstanceIdentifier
@@ -312,26 +342,6 @@ case class Topology(
     Right(result)
   }
 
-  /** Check that connection instances are legal */
-  private def checkConnectionInstances: Result.Result[Topology] = {
-    def checkConnection(c: Connection) = {
-      val fromInstance = c.from.portInstanceIdentifier.componentInstance
-      val toInstance = c.to.portInstanceIdentifier.componentInstance
-      for {
-        _ <- lookUpInstanceAt(fromInstance, c.from.loc)
-        _ <- lookUpInstanceAt(toInstance, c.to.loc)
-      }
-      yield ()
-    }
-    for {
-      _ <- Result.map(
-        connectionGraphMap.toList.map(_._2).flatten,
-        checkConnection
-      )
-    }
-    yield this
-  }
-
   /** Resolve the instances of this topology */
   private def resolveInstances(a: Analysis): Result.Result[Topology] = {
     def importInstance(
@@ -348,15 +358,6 @@ case class Topology(
     def importInstances(into: Topology, fromSymbol: Symbol.Topology) =
       a.topologyMap(fromSymbol).instanceMap.foldLeft (into) (importInstance)
     Right(directImportMap.keys.foldLeft (this) (importInstances))
-  }
-
-  /** Compute the transitively imported topologies */
-  private def computeTransitiveImports(a: Analysis) = {
-    val tis = directImportMap.keys.foldLeft (Set[Symbol.Topology]()) ((tis, ts) => {
-      val t = a.topologyMap(ts)
-      tis.union(t.transitiveImportSet) + ts
-    })
-    this.copy(transitiveImportSet = tis)
   }
 
   /** Resolve this topology to a partially numbered topology */
