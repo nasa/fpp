@@ -2514,10 +2514,20 @@ if <em>E</em> has a port number  expression <em>e</em> in the FPP source, then
 Check that <em>n</em> is in bounds for the port instance being numbered.</p>
 </li>
 <li>
-<p>Let <em>T</em> be the topology given by all
-<a href="#Specifiers_Component-Instance-Specifiers">instances</a> (both public and
-private) appearing in <em>D</em> and all
-<a href="#Specifiers_Connection-Graph-Specifiers">direct connection graphs</a> appearing in
+<p>Recursively resolve all the topologies directly imported into <em>D</em>.</p>
+</li>
+<li>
+<p>Compute the set <em>S</em> of topologies transitively imported into <em>T</em>.</p>
+</li>
+<li>
+<p>For each topology <em>T'</em> in <em>S</em>,
+<a href="#Specifiers_Topology-Import-Specifiers">import the instances</a>
+of <em>T'</em> into <em>T</em>.</p>
+</li>
+<li>
+<p>Construct the connection graphs of <em>T</em> given by the
+<a href="#Specifiers_Connection-Graph-Specifiers">direct connection graphs</a>
+appearing in
 <em>D</em>, after merging each set of connection graphs with the same name into
 a single graph.
 For example, the two connection graphs</p>
@@ -2542,32 +2552,19 @@ For example, the two connection graphs</p>
 <pre class="prettyprint highlight"><code data-lang="fpp">connections C { a.b -&gt; c.d, e.f -&gt; g.h }</code></pre>
 </div>
 </div>
-</li>
-<li>
-<p>For each import specifier <em>S</em> appearing in <em>D</em>, do the following:</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Check that <em>S</em> has not already been imported into <em>T</em>.</p>
-</li>
-<li>
-<p>Let <em>T'</em> be the topology given by resolving the topology definition named in
-<em>S</em> to a partially numbered topology.</p>
-</li>
-<li>
-<p>Let <em>T''</em> be the result of
-<a href="#Specifiers_Topology-Import-Specifiers">importing</a>
-<em>T'</em> into <em>T</em>.</p>
-</li>
-<li>
-<p>Let <em>T</em> = <em>T''</em>.</p>
-</li>
-</ol>
+<div class="paragraph">
+<p>Check that the connections are between port instances
+present in <em>T</em>, as computed in step 4.</p>
 </div>
 </li>
 <li>
+<p>For each topology <em>T'</em> in <em>S</em>,
+<a href="#Specifiers_Topology-Import-Specifiers">import the connections</a>
+of <em>T'</em> into <em>T</em>.</p>
+</li>
+<li>
 <p>Resolve
-<a href="#Specifiers_Connection-Graph-Specifiers">pattern graph specifiers</a>,
+<a href="#Specifiers_Connection-Graph-Specifiers">graph pattern specifiers</a>,
 adding connections to <em>T</em>.
 Add only connections that are not already present in <em>T</em>.
 For example, if a command pattern indicates a command
@@ -4734,9 +4731,9 @@ a
 <a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
 </div>
 <div class="paragraph">
-<p>FPP uses the following algorithm to compute import a topology <em>T'</em> into a
-topology <em>T</em>,
-producing a new topology <em>T''</em>:</p>
+<p><strong>Importing instances:</strong>
+FPP uses the following algorithm to import the instances
+of topology <em>T'</em> into topology <em>T</em>:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -4754,10 +4751,18 @@ of <em>T'</em>.</p>
 <p>Let <em>I''</em> be the set union of <em>I</em> and <em>I'</em>.
 That means that if either or both of <em>I</em> and <em>I'</em> contain the instance <em>S</em>,
 then <em>I''</em> contains the instance <em>S</em> once.
-Each instance in <em>I''</em> has (a) the same visibility as in
-<em>I</em>, if the instance is present there; otherwise (b)
-the same visibility as in <em>I'</em>.</p>
+Each instance in <em>I''</em> has public visibility if it is public
+in either <em>I</em> or <em>I'</em>, otherwise private visibility.</p>
 </li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Importing connections:</strong>
+FPP uses the following algorithm to import the connections
+of topology <em>T'</em> into topology <em>T</em>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p>For each
 <a href="#Specifiers_Connection-Graph-Specifiers">connection graph name</a> \$N_i\$
@@ -4784,7 +4789,9 @@ the ends of the connection is in <em>I''</em>.</p>
 <p>Let \$C'_i\$ be the set of
 <a href="#Specifiers_Connection-Graph-Specifiers">connections</a>
 of \$G'_i\$ such that each of the two the instances at
-the ends of the connection is in <em>I''</em>.</p>
+the ends of the connection is in <em>I''</em>, and the connection
+is defined by a direct or pattern specifier in <em>T'</em>
+(i.e., not imported into <em>T'</em> from another topology).</p>
 </li>
 <li>
 <p>Let \$C''_i\$ be the disjoint union of \$C_i\$ and \$C'_i\$.
@@ -4801,8 +4808,7 @@ and connections \$C''_i\$.</p>
 </div>
 </li>
 <li>
-<p>Let <em>T''</em> Be the topology consisting of the instances <em>I''</em>
-and the connection graphs \$G''_i\$.</p>
+<p>Return the connection graphs \$G''_i\$.</p>
 </li>
 </ol>
 </div>
@@ -8009,7 +8015,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-25 14:58:21 -0700
+Last updated 2021-03-25 17:46:54 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

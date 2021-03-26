@@ -65,10 +65,17 @@ if _E_ has a port number  expression _e_ in the FPP source, then
 _Integer_, and assign the port number _n_ at that position.
 Check that _n_ is in bounds for the port instance being numbered.
 
-. Let _T_ be the topology given by all
-<<Specifiers_Component-Instance-Specifiers,instances>> (both public and
-private) appearing in _D_ and all
-<<Specifiers_Connection-Graph-Specifiers,direct connection graphs>> appearing in
+. Recursively resolve all the topologies directly imported into _D_.
+
+. Compute the set _S_ of topologies transitively imported into _T_.
+
+. For each topology _T'_ in _S_, 
+<<Specifiers_Topology-Import-Specifiers,import the instances>>
+of _T'_ into _T_.
+
+. Construct the connection graphs of _T_ given by the
+<<Specifiers_Connection-Graph-Specifiers,direct connection graphs>>
+appearing in
 _D_, after merging each set of connection graphs with the same name into
 a single graph.
 For example, the two connection graphs
@@ -91,22 +98,16 @@ are treated as the single graph
 ----
 connections C { a.b -> c.d, e.f -> g.h }
 ----
++
+Check that the connections are between port instances
+present in _T_, as computed in step 4.
 
-. For each import specifier _S_ appearing in _D_, do the following:
-
-.. Check that _S_ has not already been imported into _T_.
-
-.. Let _T'_ be the topology given by resolving the topology definition named in
-_S_ to a partially numbered topology.
-
-.. Let _T''_ be the result of 
-<<Specifiers_Topology-Import-Specifiers,importing>>
-_T'_ into _T_.
-
-.. Let _T_ = _T''_.
+. For each topology _T'_ in _S_, 
+<<Specifiers_Topology-Import-Specifiers,import the connections>>
+of _T'_ into _T_.
 
 . Resolve 
-<<Specifiers_Connection-Graph-Specifiers,pattern graph specifiers>>,
+<<Specifiers_Connection-Graph-Specifiers,graph pattern specifiers>>,
 adding connections to _T_.
 Add only connections that are not already present in _T_.
 For example, if a command pattern indicates a command

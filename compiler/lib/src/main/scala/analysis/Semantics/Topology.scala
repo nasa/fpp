@@ -112,6 +112,7 @@ case class Topology(
   ): Topology = {
     // Use the previous location, if it exists
     // Use the new visibility
+    // TODO: Revise rule per change in spec
     val mergedLoc = instanceMap.get(instance).map(_._2).getOrElse(loc)
     val map = instanceMap + (instance -> (vis, mergedLoc))
     this.copy(instanceMap = map)

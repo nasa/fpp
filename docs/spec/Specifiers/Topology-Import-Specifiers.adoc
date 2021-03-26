@@ -13,9 +13,9 @@ The qualified identifier must
 a
 <<Definitions_Topology-Definitions,topology definition>>.
 
-FPP uses the following algorithm to compute import a topology _T'_ into a 
-topology _T_,
-producing a new topology _T''_:
+*Importing instances:*
+FPP uses the following algorithm to import the instances
+of topology _T'_ into topology _T_:
 
 . Let _I_ be the set of 
 <<Specifiers_Component-Instance-Specifiers,instances>>
@@ -28,9 +28,12 @@ of _T'_.
 . Let _I''_ be the set union of _I_ and _I'_.
 That means that if either or both of _I_ and _I'_ contain the instance _S_,
 then _I''_ contains the instance _S_ once.
-Each instance in _I''_ has (a) the same visibility as in
-_I_, if the instance is present there; otherwise (b)
-the same visibility as in _I'_.
+Each instance in _I''_ has public visibility if it is public
+in either _I_ or _I'_, otherwise private visibility.
+
+*Importing connections:*
+FPP uses the following algorithm to import the connections
+of topology _T'_ into topology _T_.
 
 . For each
 <<Specifiers_Connection-Graph-Specifiers,connection graph name>> stem:[N_i]
@@ -52,7 +55,9 @@ the ends of the connection is in _I''_.
 .. Let stem:[C'_i] be the set of
 <<Specifiers_Connection-Graph-Specifiers,connections>>
 of stem:[G'_i] such that each of the two the instances at
-the ends of the connection is in _I''_.
+the ends of the connection is in _I''_, and the connection
+is defined by a direct or pattern specifier in _T'_ 
+(i.e., not imported into _T'_ from another topology).
 
 .. Let stem:[C''_i] be the disjoint union of stem:[C_i] and stem:[C'_i].
 That means that if stem:[C_i] contains _n_ connections between port
@@ -63,8 +68,7 @@ between port _p_ and port _p'_.
 .. Let stem:[G''_i] be the connection graph with name stem:[N_i]
 and connections stem:[C''_i].
 
-. Let _T''_ Be the topology consisting of the instances _I''_
-and the connection graphs stem:[G''_i].
+. Return the connection graphs stem:[G''_i].
 
 ==== Example
 
