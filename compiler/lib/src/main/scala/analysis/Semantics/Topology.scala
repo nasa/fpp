@@ -166,6 +166,16 @@ case class Topology(
     Right(this)
   }
 
+  /** Check output ports */
+  private def checkOutputPorts: Result.Result[Topology] =
+    Result.foldLeft (outputConnectionMap.toList) (this) ({
+      case (_, (pii, s)) => for {
+        _ <- checkOutputSizeBounds(pii, s)
+        _ <- checkDuplicateOutputPorts(pii, s)
+      }
+      yield this
+    })
+
   /** Check that connection instances are legal */
   private def checkConnectionInstances: Result.Result[Topology] = {
     def checkConnection(c: Connection) = {
@@ -192,8 +202,26 @@ case class Topology(
     pii: PortInstanceIdentifier,
     connections: Set[Connection]
   ): Result.Result[Unit] = {
-    // TODO
-    Right(())
+    val portNumMap: Map[Int, Connection] = Map()
+    for {
+      _ <- Result.foldLeft (connections.toList) (portNumMap) ((m, c) =>
+          c.from.portNumber match {
+            case Some(portNum) => {
+              m.get(portNum) match {
+                case Some(prevC) => 
+                  val loc = c.from.loc
+                  val prevLoc = prevC.from.loc
+                  Left(
+                    SemanticError.DuplicateOutputPort(loc, portNum, prevLoc)
+                  )
+                case None => Right(m + (portNum -> c))
+              }
+            }
+            case None => Right(m)
+          }
+      )
+    }
+    yield ()
   }
 
   /** Check the bounds on the number of output connections */
@@ -219,16 +247,6 @@ case class Topology(
       )
     }
   }
-
-  /** Check output ports */
-  private def checkOutputPorts: Result.Result[Topology] =
-    Result.foldLeft (outputConnectionMap.toList) (this) ({
-      case (_, (pii, s)) => for {
-        _ <- checkOutputSizeBounds(pii, s)
-        _ <- checkDuplicateOutputPorts(pii, s)
-      }
-      yield this
-    })
 
   /** Check the instances of a pattern */
   private def checkPatternInstances(pattern: ConnectionPattern) =

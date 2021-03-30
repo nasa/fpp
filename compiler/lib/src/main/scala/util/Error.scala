@@ -53,6 +53,9 @@ sealed trait Error {
       case SemanticError.DuplicateOpcodeValue(value, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate opcode value ${value}")
         printPrevLoc(prevLoc)
+      case SemanticError.DuplicateOutputPort(loc, portNum, prevLoc) =>
+        Error.print (Some(loc)) (s"duplicate connection at output port $portNum")
+        printPrevLoc(prevLoc)
       case SemanticError.DuplicateParameter(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate parameter ${name}")
         System.err.println("previous parameter is here:")
@@ -237,6 +240,12 @@ object SemanticError {
   final case class DuplicateOpcodeValue(
     value: String,
     loc: Location,
+    prevLoc: Location
+  ) extends Error
+  /** Duplicate output port */
+  final case class DuplicateOutputPort(
+    loc: Location,
+    portNum: Int,
     prevLoc: Location
   ) extends Error
   /** Duplicate parameter */
