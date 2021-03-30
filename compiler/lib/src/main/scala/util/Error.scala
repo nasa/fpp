@@ -119,8 +119,8 @@ sealed trait Error {
         System.err.println(specLoc)
       case SemanticError.InvalidPortMatching(loc, msg) =>
         Error.print (Some(loc)) (msg)
-      case SemanticError.InvalidPortNumber(loc, portNumber, port, size, specLoc) =>
-        Error.print (Some(loc)) (s"invalid port number $portNumber for port $port (max is ${size - 1})")
+      case SemanticError.InvalidPortNumber(loc, portNumber, port, arraySize, specLoc) =>
+        Error.print (Some(loc)) (s"invalid port number $portNumber for port $port (max is ${arraySize - 1})")
         System.err.println(s"port instance is specified here:")
         System.err.println(specLoc)
       case SemanticError.InvalidPriority(loc) =>
@@ -155,6 +155,10 @@ sealed trait Error {
         Error.print (Some(loc)) (s"redefinition of symbol ${name}")
         System.err.println("previous definition is here:")
         System.err.println(prevLoc)
+      case SemanticError.TooManyOutputPorts(loc, numPorts, arraySize, instanceLoc) =>
+        Error.print (Some(loc)) (s"too many ports connected here (found $numPorts, max is $arraySize)")
+        System.err.println("component instance is here:")
+        System.err.println(instanceLoc)
       case SemanticError.TypeMismatch(loc, msg) => Error.print (Some(loc)) (msg)
       case SemanticError.UndefinedSymbol(name, loc) =>
         Error.print (Some(loc)) (s"undefined symbol ${name}")
@@ -388,12 +392,19 @@ object SemanticError {
     loc: Location,
     prevLoc: Location
   ) extends Error
+  /** Too many output ports */
+  final case class TooManyOutputPorts(
+    loc: Location,
+    numPorts: Int,
+    arraySize: Int,
+    instanceLoc: Location
+  ) extends Error
+  /** Type mismatch */
+  final case class TypeMismatch(loc: Location, msg: String) extends Error
   /** Undefined symbol */
   final case class UndefinedSymbol(name: String, loc: Location) extends Error
   /** Use-def cycle */
   final case class UseDefCycle(loc: Location, msg: String) extends Error
-  /** Type mismatch */
-  final case class TypeMismatch(loc: Location, msg: String) extends Error
 }
 
 /** An F Prime XML error */

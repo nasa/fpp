@@ -156,11 +156,13 @@ case class Topology(
 
   /** Apply general numbering */
   private def applyGeneralNumbering: Result.Result[Topology] = {
+    // TODO
     Right(this)
   }
 
   /** Apply matched numbering */
   private def applyMatchedNumbering: Result.Result[Topology] = {
+    // TODO
     Right(this)
   }
 
@@ -187,13 +189,33 @@ case class Topology(
   /** Check that there are no duplicate port numbers at any output
    *  ports. */
   private def checkDuplicateOutputPorts: Result.Result[Topology] = {
+    // TODO
     Right(this)
   }
 
   /** Check the bounds on the number of output connections */
-  private def checkOutputSizeBounds: Result.Result[Topology] = {
-    Right(this)
-  }
+  private def checkOutputSizeBounds: Result.Result[Topology] =
+    Result.foldLeft (outputConnectionMap.toList) (this) ({ 
+      case (t, (pii, s)) => {
+        val pi = pii.portInstance
+        val arraySize = pi.getArraySize
+        val numPorts = s.size
+        if (s.size <= arraySize)
+          Right(t)
+        else {
+          val loc = pi.getLoc
+          val instanceLoc = pii.componentInstance.getLoc
+          Left(
+            SemanticError.TooManyOutputPorts(
+              loc,
+              numPorts,
+              arraySize,
+              instanceLoc
+            )
+          )
+        }
+      } 
+    })
 
   /** Check the instances of a pattern */
   private def checkPatternInstances(pattern: ConnectionPattern) =
@@ -251,9 +273,7 @@ case class Topology(
   def getConnectionsBetween(
     from: PortInstanceIdentifier,
     to: PortInstanceIdentifier
-    ): Set[Connection] = getConnectionsFrom(from).filter(c => {
-      c.to.port == to
-    })
+    ): Set[Connection] = getConnectionsFrom(from).filter(c => c.to.port == to)
 
   /** Get the connections from a port */
   def getConnectionsFrom(from: PortInstanceIdentifier): Set[Connection] =

@@ -19,6 +19,9 @@ final case class ComponentInstance(
   /** Gets the unqualified name of the component instance */
   def getUnqualifiedName = aNode._2.data.name
 
+  /** Gets the location of the component instance */
+  def getLoc: Location = Locations.get(aNode._2.id)
+
 }
 
 object ComponentInstance {
