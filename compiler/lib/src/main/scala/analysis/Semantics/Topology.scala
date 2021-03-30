@@ -69,6 +69,18 @@ case class Topology(
     )
   }
 
+  /** Add a local connection */
+  def addLocalConnection (
+    graphName: Name.Unqualified,
+    connection: Connection
+  ): Topology = {
+    val lcMap = {
+      val connections = localConnectionMap.getOrElse(graphName, Nil)
+      localConnectionMap + (graphName -> (connection :: connections))
+    }
+    addConnection(graphName, connection).copy(localConnectionMap = lcMap)
+  }
+
   /** Add a pattern */
   def addPattern(
     kind: Ast.SpecConnectionGraph.Pattern.Kind,
@@ -85,18 +97,6 @@ case class Topology(
     case None =>
       val pm = patternMap + (kind -> pattern)
       Right(this.copy(patternMap = pm))
-  }
-
-  /** Add a local connection */
-  def addLocalConnection (
-    graphName: Name.Unqualified,
-    connection: Connection
-  ): Topology = {
-    val lcMap = {
-      val connections = localConnectionMap.getOrElse(graphName, Nil)
-      localConnectionMap + (graphName -> (connection :: connections))
-    }
-    addConnection(graphName, connection).copy(localConnectionMap = lcMap)
   }
 
   /** Add an imported topology */
@@ -154,6 +154,16 @@ case class Topology(
       case None => Right(addMergedInstance(instance, vis, loc))
     }
 
+  /** Apply general numbering */
+  private def applyGeneralNumbering: Result.Result[Topology] = {
+    Right(this)
+  }
+
+  /** Apply matched numbering */
+  private def applyMatchedNumbering: Result.Result[Topology] = {
+    Right(this)
+  }
+
   /** Check that connection instances are legal */
   private def checkConnectionInstances: Result.Result[Topology] = {
     def checkConnection(c: Connection) = {
@@ -172,6 +182,17 @@ case class Topology(
       )
     }
     yield this
+  }
+
+  /** Check that there are no duplicate port numbers at any output
+   *  ports. */
+  private def checkDuplicateOutputPorts: Result.Result[Topology] = {
+    Right(this)
+  }
+
+  /** Check the bounds on the number of output connections */
+  private def checkOutputSizeBounds: Result.Result[Topology] = {
+    Right(this)
   }
 
   /** Check the instances of a pattern */
@@ -215,10 +236,16 @@ case class Topology(
   }
 
   /** Fill in the port numbers for this topology */
-  private def computePortNumbers: Result.Result[Topology] = {
-    // TODO
-    Right(this)
-  }
+  private def computePortNumbers: Result.Result[Topology] =
+    Result.seq(
+      Right(this),
+      List(
+        _.checkOutputSizeBounds,
+        _.checkDuplicateOutputPorts,
+        _.applyMatchedNumbering,
+        _.applyGeneralNumbering
+      )
+    )
 
   /** Get the connections between two ports */
   def getConnectionsBetween(
