@@ -1,7 +1,7 @@
 port P
 passive component C1 {
-  output port pOut: [4] P
-  output port serialOut: serial
+  output port pOut: [2] P
+  output port serialOut: [2] serial
 }
 passive component C2 {
   sync input port pIn: P
