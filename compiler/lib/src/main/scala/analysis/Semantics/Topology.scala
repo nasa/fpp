@@ -188,33 +188,45 @@ case class Topology(
 
   /** Check that there are no duplicate port numbers at any output
    *  ports. */
-  private def checkDuplicateOutputPorts: Result.Result[Topology] = {
+  private def checkDuplicateOutputPorts(
+    pii: PortInstanceIdentifier,
+    connections: Set[Connection]
+  ): Result.Result[Unit] = {
     // TODO
-    Right(this)
+    Right(())
   }
 
   /** Check the bounds on the number of output connections */
-  private def checkOutputSizeBounds: Result.Result[Topology] =
-    Result.foldLeft (outputConnectionMap.toList) (this) ({ 
-      case (t, (pii, s)) => {
-        val pi = pii.portInstance
-        val arraySize = pi.getArraySize
-        val numPorts = s.size
-        if (s.size <= arraySize)
-          Right(t)
-        else {
-          val loc = pi.getLoc
-          val instanceLoc = pii.componentInstance.getLoc
-          Left(
-            SemanticError.TooManyOutputPorts(
-              loc,
-              numPorts,
-              arraySize,
-              instanceLoc
-            )
-          )
-        }
-      } 
+  private def checkOutputSizeBounds(
+    pii: PortInstanceIdentifier,
+    connections: Set[Connection]
+  ): Result.Result[Unit] = {
+    val pi = pii.portInstance
+    val arraySize = pi.getArraySize
+    val numPorts = connections.size
+    if (numPorts <= arraySize)
+      Right(())
+    else {
+      val loc = pi.getLoc
+      val instanceLoc = pii.componentInstance.getLoc
+      Left(
+        SemanticError.TooManyOutputPorts(
+          loc,
+          numPorts,
+          arraySize,
+          instanceLoc
+        )
+      )
+    }
+  }
+
+  /** Check output ports */
+  private def checkOutputPorts: Result.Result[Topology] =
+    Result.foldLeft (outputConnectionMap.toList) (this) ({
+      case (_, (pii, s)) => for {
+        _ <- checkOutputSizeBounds(pii, s)
+      }
+      yield this
     })
 
   /** Check the instances of a pattern */
@@ -262,7 +274,7 @@ case class Topology(
     Result.seq(
       Right(this),
       List(
-        _.checkOutputSizeBounds,
+        _.checkOutputPorts,
         _.checkDuplicateOutputPorts,
         _.applyMatchedNumbering,
         _.applyGeneralNumbering
