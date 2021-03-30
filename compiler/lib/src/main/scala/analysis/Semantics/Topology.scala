@@ -225,6 +225,7 @@ case class Topology(
     Result.foldLeft (outputConnectionMap.toList) (this) ({
       case (_, (pii, s)) => for {
         _ <- checkOutputSizeBounds(pii, s)
+        _ <- checkDuplicateOutputPorts(pii, s)
       }
       yield this
     })
@@ -275,7 +276,6 @@ case class Topology(
       Right(this),
       List(
         _.checkOutputPorts,
-        _.checkDuplicateOutputPorts,
         _.applyMatchedNumbering,
         _.applyGeneralNumbering
       )
