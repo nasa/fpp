@@ -160,10 +160,112 @@ case class Topology(
     Right(this)
   }
 
+  /** Get the connetions at a port instance */
+  private def getConnectionsAt(pii: PortInstanceIdentifier) = {
+    import PortInstance.Direction._
+    val pi = pii.portInstance
+    pi.getDirection.get match {
+      case Input => inputConnectionMap.getOrElse(pii, Set())
+      case Output => outputConnectionMap.getOrElse(pii, Set())
+    }
+  }
+
   /** Apply matched numbering */
   private def applyMatchedNumbering: Result.Result[Topology] = {
-    // TODO
-    Right(this)
+    // Handle one port matching
+    def handlePortMatching(
+      t: Topology,
+      ci: ComponentInstance,
+      portMatching: Component.PortMatching
+    ) = {
+      type ConnectionPair = (Connection, Connection)
+      val pii1 = PortInstanceIdentifier(ci, portMatching.instance1)
+      val cs1 = getConnectionsAt(pii1)
+      val pii2 = PortInstanceIdentifier(ci, portMatching.instance1)
+      // Find the connection c2 matching c1
+      // 1. Find piiRemote1 such that c1 connects pii1 to piiRemote1
+      // 2. Find c2 such that c2 connects piiRemote2 to pii2
+      def findC2(c1: Connection): Result.Result[Connection] = {
+        val piiRemote1 = pii1.getOtherEndpoint(c1).port
+        val ciRemote = piiRemote1.componentInstance
+        val componentRemote = ciRemote.component
+        val c2Opt: Option[Connection] = None
+        val remotePorts = componentRemote.portMap.values.toList
+        for {
+          c2Opt <- Result.foldLeft (remotePorts) (c2Opt) ((c2Opt, piRemote2) => {
+            val piiRemote2 = PortInstanceIdentifier(ciRemote, piRemote2)
+            val connections2 = getConnectionsAt(piiRemote2)
+            Result.foldLeft (connections2.toList) (c2Opt) ((c2Opt, c) => {
+              val candidate = piiRemote2.getOtherEndpoint(c).port
+              if (candidate == pii2)
+                c2Opt match {
+                  // Found conflicting matches c and cPrev
+                  case Some(cPrev) => ??? 
+                  // Found a match, return it
+                  case None => Right(Some(c))
+                }
+              // No match, move on
+              else Right(c2Opt)
+            })
+          })
+          c2 <- c2Opt match {
+            // Got one and only one match
+            case Some(c2) => Right(c2)
+            // Found no match
+            case None => ???
+          }
+        }
+        yield c2
+      }
+      // Compute all connection pairs in the matching
+      def computeConnectionPairs(cs: Iterable[Connection]) = {
+        val set: Set[ConnectionPair] = Set()
+        Result.foldLeft (cs.toList) (set) ((set, c1) => {
+          for (c2 <- findC2(c1))
+            yield set + ((c1, c2))
+        })
+      }
+      // Check that all connections at pii2 are represented in the pairs
+      def excludeUnmatchedConnections(matchedPairs: Set[ConnectionPair]) = {
+        val matchedConnections = matchedPairs.map(_._2)
+        Result.foldLeft (getConnectionsAt(pii2).toList) (()) ((u, c) => {
+          if (matchedConnections.contains(c))
+            Right(())
+          else
+            // Missing connection
+            ???
+        })
+      }
+      // For each pair (c1, c2), check that numbers match and/or
+      // assign numbers
+      def assignNumbers(pairs: Set[ConnectionPair]) = {
+        // TODO
+        // Compute the set S of used port numbers in (c1, _)
+        // Set the next number n to the smallest number not in S
+        // For each (c1, c2)
+        // * If c1 and c2 both have numbers, check that they match
+        // * Otherwise if c1 has a number then assign it to c2
+        // * Otherwise if c2 has a number then assign it to c1
+        // * Otherwise assign n, add n to S, and increment n
+        //   until it is not in S.
+        Right(t)
+      }
+      for {
+        pairs <- computeConnectionPairs(cs1)
+        _ <- excludeUnmatchedConnections(pairs)
+        t <- assignNumbers(pairs)
+      }
+      yield t
+    }
+    // Handle one instance: fold over port matchings
+    def handleInstance(t: Topology, ci: ComponentInstance) =
+      Result.foldLeft (ci.component.portMatchingList) (t) ((u, pm) =>
+        handlePortMatching(t, ci, pm)
+      )
+    // Fold over instances
+    Result.foldLeft (instanceMap.keys.toList) (this) ((t, ci) =>
+      handleInstance(t, ci)
+    )
   }
 
   /** Check output ports */

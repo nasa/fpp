@@ -26,6 +26,24 @@ case class PortInstanceIdentifier(
     Name.Qualified.fromIdentList(identList)
   }
 
+  /** Get this endpoint of a port connection at a port instance */
+  def getThisEndpoint(c: Connection) = {
+    import PortInstance.Direction._
+    portInstance.getDirection.get match {
+      case Input => c.to
+      case Output => c.from
+    }
+  }
+
+  /** Get the other endpoint of a port connection at a port instance */
+  def getOtherEndpoint(c: Connection) = {
+    import PortInstance.Direction._
+    portInstance.getDirection.get match {
+      case Input => c.from
+      case Output => c.to
+    }
+  }
+
 }
 
 object PortInstanceIdentifier {
