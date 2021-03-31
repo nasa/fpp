@@ -154,6 +154,23 @@ case class Topology(
       case None => Right(addMergedInstance(instance, vis, loc))
     }
 
+  /** Assigns a port number to a connection at a port instance */
+  def assignPortNumber(
+    pi: PortInstance,
+    c: Connection,
+    n: Int
+  ): Topology = {
+    import PortInstance.Direction._
+    pi.getDirection.get match {
+      case Input => this.copy(
+        toPortNumberMap = this.toPortNumberMap + (c -> n)
+      )
+      case Output => this.copy(
+        fromPortNumberMap = this.fromPortNumberMap + (c -> n)
+      )
+    }
+  }
+
   /** Check whether a connection exists between two ports*/
   def connectionExistsBetween(
     from: PortInstanceIdentifier,

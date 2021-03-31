@@ -46,7 +46,6 @@ object MatchedPortNumbering {
     // match and/or assign numbers
     def assignNumbers(state: State): Result.Result[State] = {
       val (map1, map2) = (state.map1, state.map2)
-      // Fold over map1
       for {
         result <- Result.foldLeft (map1.toList) (state) ( { 
           case (state, (ci, c1)) => {
