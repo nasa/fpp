@@ -72,6 +72,7 @@ object ResolvePortNumbers {
   def resolve(t: Topology): Result.Result[Topology] =
     for {
       _ <- checkOutputPorts(t)
+      _ <- MatchedPortNumbering.apply(t)
     }
     yield t
 //    Result.seq(
