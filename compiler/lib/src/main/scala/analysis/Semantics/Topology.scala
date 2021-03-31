@@ -161,91 +161,13 @@ case class Topology(
   }
 
   /** Get the connetions at a port instance */
-  private def getConnectionsAt(pii: PortInstanceIdentifier) = {
+  def getConnectionsAt(pii: PortInstanceIdentifier) = {
     import PortInstance.Direction._
     val pi = pii.portInstance
     pi.getDirection.get match {
       case Input => inputConnectionMap.getOrElse(pii, Set())
       case Output => outputConnectionMap.getOrElse(pii, Set())
     }
-  }
-
-  /** Apply matched numbering */
-  private def applyMatchedNumbering: Result.Result[Topology] = {
-    // Handle one port matching
-    def handlePortMatching(
-      t: Topology,
-      ci: ComponentInstance,
-      portMatching: Component.PortMatching
-    ) = {
-      type ConnectionMap = Map[ComponentInstance, Connection]
-      // Map remote components to connections at pi
-      def constructMap(pi: PortInstance) = {
-        val empty: ConnectionMap = Map()
-        val pii = PortInstanceIdentifier(ci, portMatching.instance1)
-        val cs = getConnectionsAt(pii).toList.sorted
-        Result.foldLeft (cs) (empty) ((m, c) => {
-          val piiRemote1 = pii.getOtherEndpoint(c).port
-          val ciRemote = piiRemote1.componentInstance
-          m.get(ciRemote) match {
-            case Some(cPrev) => ??? // Duplicate connection
-            case None => Right(m + (ciRemote -> c))
-          }
-        })
-      }
-      // Check for missing connections
-      def checkForMissingConnections(
-        map1: ConnectionMap,
-        map2: ConnectionMap
-      ): Result.Result[Unit] = {
-        // Ensure that map2 contains everything in map1
-        def helper(map1: ConnectionMap, map2: ConnectionMap) =
-          Result.foldLeft (map1.keys.toList) (()) ((u, ci) =>
-            if (map2.contains(ci))
-              Right(())
-            else
-              ??? // Missing connection
-          )
-        // Ensure that the two sets of keys match
-        if (map1.size >= map2.size)
-          helper(map1, map2)
-        else
-          helper(map2, map1)
-      }
-      // For each pair of connections (c1, c2), check that numbers 
-      // match and/or assign numbers
-      def assignNumbers(
-        map1: ConnectionMap,
-        map2: ConnectionMap
-      ) = {
-        // TODO
-        // Compute the set S of used port numbers in (c1, _)
-        // Set the next number n to the smallest number not in S
-        // For each (c1, c2)
-        // * If c1 and c2 both have numbers, check that they match
-        // * Otherwise if c1 has a number then assign it to c2
-        // * Otherwise if c2 has a number then assign it to c1
-        // * Otherwise assign n, add n to S, and increment n
-        //   until it is not in S.
-        Right(t)
-      }
-      for {
-        map1 <- constructMap(portMatching.instance1)
-        map2 <- constructMap(portMatching.instance2)
-        _ <- checkForMissingConnections(map1, map2)
-        t <- assignNumbers(map1, map2)
-      }
-      yield t
-    }
-    // Handle one instance: fold over port matchings
-    def handleInstance(t: Topology, ci: ComponentInstance) =
-      Result.foldLeft (ci.component.portMatchingList) (t) ((u, pm) =>
-        handlePortMatching(t, ci, pm)
-      )
-    // Handle topology: fold over instances
-    Result.foldLeft (instanceMap.keys.toList) (this) ((t, ci) =>
-      handleInstance(t, ci)
-    )
   }
 
   /** Check output ports */
@@ -376,7 +298,7 @@ case class Topology(
       Right(this),
       List(
         _.checkOutputPorts,
-        _.applyMatchedNumbering,
+        Topology.MatchedNumbering.apply(_),
         _.applyGeneralNumbering
       )
     )
@@ -509,6 +431,131 @@ case class Topology(
         _.resolvePatterns(a)
       )
     )
+  }
+
+}
+
+object Topology {
+
+  /** Compute matched numbering */
+  object MatchedNumbering {
+
+    // Handle one port matching
+    def handlePortMatching(
+      t: Topology,
+      ci: ComponentInstance,
+      portMatching: Component.PortMatching
+    ) = {
+      type ConnectionMap = Map[ComponentInstance, Connection]
+      // Map remote components to connections at pi
+      def constructMap(pi: PortInstance) = {
+        val empty: ConnectionMap = Map()
+        val pii = PortInstanceIdentifier(ci, portMatching.instance1)
+        val cs = t.getConnectionsAt(pii).toList.sorted
+        Result.foldLeft (cs) (empty) ((m, c) => {
+          val piiRemote = pii.getOtherEndpoint(c).port
+          val ciRemote = piiRemote.componentInstance
+          m.get(ciRemote) match {
+            case Some(cPrev) => ??? // Duplicate connection
+            case None => Right(m + (ciRemote -> c))
+          }
+        })
+      }
+      // Check for missing connections
+      def checkForMissingConnections(
+        map1: ConnectionMap,
+        map2: ConnectionMap
+      ): Result.Result[Unit] = {
+        // Ensure that map2 contains everything in map1
+        def helper(map1: ConnectionMap, map2: ConnectionMap) =
+          Result.foldLeft (map1.keys.toList) (()) ((u, ci) =>
+            if (map2.contains(ci))
+              Right(())
+            else
+              ??? // Missing connection
+          )
+        // Ensure that the two sets of keys match
+        if (map1.size >= map2.size)
+          helper(map1, map2)
+        else
+          helper(map2, map1)
+      }
+      // For each pair of connections (c1, c2), check that numbers 
+      // match and/or assign numbers
+      def assignNumbers(
+        t: Topology,
+        map1: ConnectionMap,
+        map2: ConnectionMap
+      ) = {
+        // Assign a port number to a connection at a port instance
+        def assignPortNumber(pi: PortInstance, c: Connection, n: Int) = {
+          import PortInstance.Direction._
+          pi.getDirection.get match {
+            case Input => t.copy(
+              toPortNumberMap = t.toPortNumberMap + (c -> n)
+            )
+            case Output => t.copy(
+              fromPortNumberMap = t.fromPortNumberMap + (c -> n)
+            )
+          }
+        }
+        // Handle a connection pair
+        case class ConnectionState(
+          t: Topology,
+          usedPortNumbers: Set[Int] = Set(),
+          nextPortNumber: Int = 0
+        )
+        def handleConnectionPair(
+          state: ConnectionState,
+          c1: Connection,
+          c2: Connection
+        ) = {
+          // TODO
+          // * If c1 and c2 both have numbers, check that they match
+          // * Otherwise if c1 has a number then assign it to c2
+          // * Otherwise if c2 has a number then assign it to c1
+          // * Otherwise assign n, add n to S, and increment n
+          //   until it is not in S.
+          Right(state)
+        }
+        // Compute the set S of used port numbers in (c1, _)
+        // TODO
+        // Set the next number n to the smallest number not in S
+        // TODO
+        // Handle a connection pair
+        val state0 = ConnectionState(t)
+        for {
+          result <- Result.foldLeft (map1.toList) (state0) ( { 
+            case (state, (ci, c1)) => {
+              val c2 = map2(ci)
+              handleConnectionPair(state, c1, c2)
+            }
+          })
+        }
+        yield result.t
+      }
+      for {
+        map1 <- constructMap(portMatching.instance1)
+        map2 <- constructMap(portMatching.instance2)
+        _ <- checkForMissingConnections(map1, map2)
+        t <- assignNumbers(t, map1, map2)
+      }
+      yield t
+    }
+
+    /** Apply matched numbering */
+    def apply(t: Topology): Result.Result[Topology] = {
+      // Handle one instance: fold over port matchings
+      def handleInstance(t: Topology, ci: ComponentInstance) =
+        Result.foldLeft (ci.component.portMatchingList) (t) ((u, pm) =>
+          handlePortMatching(t, ci, pm)
+        )
+      // Handle topology: fold over instances
+      Result.foldLeft (t.instanceMap.keys.toList) (t) ((t, ci) =>
+        handleInstance(t, ci)
+      )
+    }
+
   }
 
 }
