@@ -15,7 +15,6 @@ object ResolveTopology {
 //    Result.seq(
 //      Right(this),
 //      List(
-//        _.resolvePartiallyNumbered(a),
 //        _.computePortNumbers,
 //        _.computeUnusedPorts
 //      )
