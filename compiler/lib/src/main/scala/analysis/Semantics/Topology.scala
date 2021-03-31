@@ -180,26 +180,6 @@ case class Topology(
       yield this
     })
 
-  /** Check that connection instances are legal */
-  private def checkConnectionInstances: Result.Result[Topology] = {
-    def checkConnection(c: Connection) = {
-      val fromInstance = c.from.port.componentInstance
-      val toInstance = c.to.port.componentInstance
-      for {
-        _ <- lookUpInstanceAt(fromInstance, c.from.loc)
-        _ <- lookUpInstanceAt(toInstance, c.to.loc)
-      }
-      yield ()
-    }
-    for {
-      _ <- Result.map(
-        connectionMap.toList.map(_._2).flatten,
-        checkConnection
-      )
-    }
-    yield this
-  }
-
   /** Check that there are no duplicate port numbers at any output
    *  ports. */
   private def checkDuplicateOutputPorts(
@@ -252,39 +232,11 @@ case class Topology(
     }
   }
 
-  /** Check the instances of a pattern */
-  private def checkPatternInstances(pattern: ConnectionPattern) =
-    for {
-      // Check the source
-      _ <- {
-        val (instance, loc) = pattern.source
-        lookUpInstanceAt(instance, loc)
-      }
-      // Check the targets
-      _ <- Result.map(
-        pattern.targets.toList,
-        (pair: (ComponentInstance, Location)) => {
-          val (instance, loc) = pair
-          lookUpInstanceAt(instance, loc)
-        }
-      )
-    }
-    yield ()
-
   /** Check whether a connection exists between two ports*/
   def connectionExistsBetween(
     from: PortInstanceIdentifier,
     to: PortInstanceIdentifier
   ) = getConnectionsBetween(from, to).size > 0
-
-  /** Compute the transitively imported topologies */
-  private def computeTransitiveImports(a: Analysis) = {
-    val tis = directImportMap.keys.foldLeft (Set[Symbol.Topology]()) ((tis, ts) => {
-      val t = a.topologyMap(ts)
-      tis.union(t.transitiveImportSet) + ts
-    })
-    this.copy(transitiveImportSet = tis)
-  }
 
   /** Compute the unused ports for this topology */
   private def computeUnusedPorts: Result.Result[Topology] = {
@@ -321,7 +273,7 @@ case class Topology(
   def getUnqualifiedName = aNode._2.data.name
 
   /** Look up a component instance used at a location */
-  private def lookUpInstanceAt(
+  def lookUpInstanceAt(
     instance: ComponentInstance,
     loc: Location
   ): Result.Result[(Ast.Visibility, Location)] =
@@ -341,97 +293,10 @@ case class Topology(
     Result.seq(
       Right(this),
       List(
-        _.resolvePartiallyNumbered(a),
         _.computePortNumbers,
         _.computeUnusedPorts
       )
     )
-
-  /** Resolve the connection patterns of this topology */
-  private def resolvePatterns(a: Analysis): Result.Result[Topology] = {
-    import Ast.SpecConnectionGraph._
-    def getGraphName(kind: Pattern.Kind) = kind match {
-      case Pattern.Command => "Commands"
-      case Pattern.Event => "Events"
-      case Pattern.Health => "Health"
-      case Pattern.Param => "Parameters"
-      case Pattern.Telemetry => "Telemetry"
-      case Pattern.TextEvent => "TextEvents"
-      case Pattern.Time => "Time"
-    }
-    Result.foldLeft (patternMap.values.toList) (this) ((t, p) => {
-      val instances = instanceMap.keys
-      for {
-        _ <- checkPatternInstances(p)
-        connections <- PatternResolver.resolve(a, p, instances)
-      }
-      yield {
-        val name = getGraphName(p.ast.kind)
-        connections.foldLeft (t) ((t, c) =>
-          // Skip this connection if it already exists
-          // For example, it could be imported
-          if (!connectionExistsBetween(c.from.port, c.to.port))
-            t.addLocalConnection(name, c)
-          else t
-        )
-      }
-    })
-  }
-
-  /** Resolve the imported connections of this topology */
-  private def resolveImportedConnections(a: Analysis): Result.Result[Topology] = {
-    // Check whether an endpoint is public
-    def endpointIsPublic(endpoint: Connection.Endpoint) = {
-      val instance = endpoint.port.componentInstance
-      val (vis, _) = instanceMap(instance)
-      vis == Ast.Visibility.Public
-    }
-    // Check whether a connection is public
-    def isPublic(connection: Connection) =
-      endpointIsPublic(connection.from) &&
-      endpointIsPublic(connection.to)
-    // Import connections from transitively imported topologies
-    val result = transitiveImportSet.
-      map(a.topologyMap(_).localConnectionMap).flatten.
-      foldLeft (this) ({ case (t, (name, cs)) =>
-        cs.foldLeft (t) ((t1, c) =>
-          if (isPublic(c)) t1.addConnection(name, c) else t1
-        )
-      })
-    Right(result)
-  }
-
-  /** Resolve the instances of this topology */
-  private def resolveInstances(a: Analysis): Result.Result[Topology] = {
-    def importInstance(
-      t: Topology,
-      mapEntry: (ComponentInstance, (Ast.Visibility, Location))
-    ) = {
-      val (instance, (vis, loc)) = mapEntry
-      vis match {
-        case Ast.Visibility.Public =>
-          t.addMergedInstance(instance, vis, loc)
-        case Ast.Visibility.Private => t
-      }
-    }
-    def importInstances(into: Topology, fromSymbol: Symbol.Topology) =
-      a.topologyMap(fromSymbol).instanceMap.foldLeft (into) (importInstance)
-    Right(directImportMap.keys.foldLeft (this) (importInstances))
-  }
-
-  /** Resolve this topology to a partially numbered topology */
-  private def resolvePartiallyNumbered(a: Analysis): Result.Result[Topology] = {
-    val t = this.computeTransitiveImports(a)
-    Result.seq(
-      Right(t),
-      List(
-        _.resolveInstances(a),
-        _.checkConnectionInstances,
-        _.resolveImportedConnections(a),
-        _.resolvePatterns(a)
-      )
-    )
-  }
 
 }
 

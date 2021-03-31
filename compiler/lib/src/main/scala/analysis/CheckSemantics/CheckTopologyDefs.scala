@@ -31,6 +31,8 @@ object CheckTopologyDefs
             })
           }
           // Use the updated analysis to resolve top
+          // TODO
+          top <- ResolveTopology.resolve(a, top)
           top <- top.resolve(a)
         }
         yield a.copy(topologyMap = a.topologyMap + (symbol -> top))
