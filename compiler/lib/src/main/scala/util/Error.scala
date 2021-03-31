@@ -8,6 +8,12 @@ final case class InternalError(val msg: String) extends Exception {
 /** A data type for handling compilation errors */
 sealed trait Error {
 
+  /** Print the location of a port matching */
+  def printMatchingLoc(matchingLoc: Location) = {
+    System.err.println("port matching is specified here:")
+    System.err.println(matchingLoc)
+  }
+
   /** Print the location of a previous occurrence */
   def printPrevLoc(prevLoc: Location) = {
     System.err.println("previous occurrence is here:")
@@ -35,6 +41,14 @@ sealed trait Error {
         Error.print (Some(loc)) (s"cannot resolve path $name")
       case SemanticError.DivisionByZero(loc) =>
         Error.print (Some(loc)) ("division by zero")
+      case SemanticError.DuplicateConnection(
+        loc,
+        prevLoc,
+        matchingLoc
+      ) => 
+        Error.print (Some(loc)) ("duplicate connection")
+        printPrevLoc(prevLoc)
+        printMatchingLoc(matchingLoc)
       case SemanticError.DuplicateDictionaryName(kind, name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate ${kind} name ${name}")
         printPrevLoc(prevLoc)
@@ -138,8 +152,22 @@ sealed trait Error {
         System.err.println(defLoc)
       case SemanticError.InvalidType(loc, msg) =>
         Error.print (Some(loc)) (msg)
+      case SemanticError.MismatchedPortNumbers(
+        p1Loc: Location,
+        p1Number: Int,
+        p2Loc: Location,
+        p2Number: Int,
+        matchingLoc: Location
+      ) =>
+        Error.print (Some(p1Loc)) (s"mismatched port numbers ($p1Number vs. $p2Number)")
+        System.err.println("other port number is here:")
+        System.err.println(p2Loc)
+        printMatchingLoc(matchingLoc)
       case SemanticError.MissingAsync(kind, loc) =>
         Error.print (Some(loc)) (s"$kind component must have async input")
+      case SemanticError.MissingConnection(loc, matchingLoc) =>
+        Error.print (Some(loc)) ("no match for this connection")
+        printMatchingLoc(matchingLoc)
       case SemanticError.MissingPort(loc, specKind, portKind) =>
         Error.print (Some(loc)) (s"component with $specKind specifiers must have $portKind port")
       case SemanticError.OverlappingIdRanges(
@@ -206,6 +234,12 @@ object SemanticError {
   final case class EmptyArray(loc: Location) extends Error
   /** Division by zero */
   final case class DivisionByZero(loc: Location) extends Error
+  /** Duplicate connection */
+  final case class DuplicateConnection(
+    loc: Location,
+    prevLoc: Location,
+    matchingLoc: Location
+  ) extends Error
   /** Duplicate name in dictionary */
   final case class DuplicateDictionaryName(
     kind: String,
@@ -376,8 +410,21 @@ object SemanticError {
   ) extends Error
   /** Invalid type */
   final case class InvalidType(loc: Location, msg: String) extends Error
+  /** Mismatched port numbers */
+  final case class MismatchedPortNumbers(
+    p1Loc: Location,
+    p1Number: Int,
+    p2Loc: Location,
+    p2Number: Int,
+    matchingLoc: Location
+  ) extends Error
   /** Missing async input */
   final case class MissingAsync(kind: String, loc: Location) extends Error
+  /** Missing connection */
+  final case class MissingConnection(
+    loc: Location,
+    matchingLoc: Location
+  ) extends Error
   /** Missing port */
   final case class MissingPort(
     loc: Location,

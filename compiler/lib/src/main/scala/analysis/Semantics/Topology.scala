@@ -171,6 +171,15 @@ case class Topology(
     }
   }
 
+  /**  Get the port number of a connection at a port instance */
+  def getPortNumber(pi: PortInstance, c: Connection): Option[Int] = {
+    import PortInstance.Direction._
+    pi.getDirection.get match {
+      case Input => toPortNumberMap.get(c)
+      case Output => fromPortNumberMap.get(c)
+    }
+  }
+
   /** Check whether a connection exists between two ports*/
   def connectionExistsBetween(
     from: PortInstanceIdentifier,

@@ -21,49 +21,77 @@ object MatchedPortNumbering {
     pi2: PortInstance,
     // The map from component instances to connections for port 2
     map2: ConnectionMap,
-    // Numbering state
-    numberingState: PortNumberingState
+    // Port numbering state
+    numbering: PortNumberingState
   )
 
   private object State {
 
     // Number a connection pair
-    def numberConnectionPair(
+    private def numberConnectionPair(
+      matchingLoc: Location,
       state: State,
       c1: Connection,
       c2: Connection
-    ) = {
-      // TODO
-      // * If c1 and c2 both have numbers, check that they match
-      // * Otherwise if c1 has a number then assign it to c2
-      // * Otherwise if c2 has a number then assign it to c1
-      // * Otherwise assign n, add n to S, and increment n
-      //   until it is not in S.
-      Right(state)
+    ): Result.Result[State] = {
+      val t = state.t
+      val pi1 = state.pi1
+      val n1Opt = t.getPortNumber(pi1, c1)
+      val pi2 = state.pi2
+      val n2Opt = t.getPortNumber(pi2, c2)
+      (n1Opt, n2Opt) match {
+        case (Some(n1), Some(n2)) =>
+          // Both ports have a number: check that they match
+          if (n1 == n2)
+            Right(state)
+          else {
+            // Error: numbers don't match
+            val p1Loc = c1.getThisEndpoint(pi1).loc
+            val p2Loc = c2.getThisEndpoint(pi2).loc
+            Left(
+              SemanticError.MismatchedPortNumbers(
+                p1Loc,
+                n1,
+                p2Loc,
+                n2,
+                matchingLoc
+              )
+            )
+          }
+        case (Some(n1), None) =>
+          // Only pi1 has a number: assign it to pi2
+          val t1 = t.assignPortNumber(pi2, c2, n1)
+          Right(state.copy(t = t1))
+        case (None, Some(n2)) =>
+          // Only pi2 has a number: assign it to pi1
+          val t1 = t.assignPortNumber(pi1, c1, n2)
+          Right(state.copy(t = t1))
+        case (None, None) =>
+          // Neither port has a number: assign a new one
+          val n = state.numbering.nextPortNumber
+          val t1 = t.assignPortNumber(pi1, c1, n).
+            assignPortNumber(pi2, c2, n)
+          val numbering = state.numbering.usePortNumber
+          Right(state.copy(t = t1, numbering = numbering))
+      }
     }
 
     // For each pair of connections (c1, c2), check that numbers 
     // match and/or assign numbers
-    def assignNumbers(state: State): Result.Result[State] = {
+    def assignNumbers(
+      matchingLoc: Location,
+      state: State
+    ): Result.Result[State] = {
       val (map1, map2) = (state.map1, state.map2)
       for {
         result <- Result.foldLeft (map1.toList) (state) ( { 
-          case (state, (ci, c1)) => {
+          case (s, (ci, c1)) => {
             val c2 = map2(ci)
-            numberConnectionPair(state, c1, c2)
+            numberConnectionPair(matchingLoc, s, c1, c2)
           }
         })
       }
       yield result
-    }
-
-    // Get the port number of a connection at a port instance
-    def getPortNumber(t: Topology, pi: PortInstance, c: Connection) = {
-      import PortInstance.Direction._
-      pi.getDirection.get match {
-        case Input => t.toPortNumberMap(c)
-        case Output => t.fromPortNumberMap(c)
-      }
     }
 
     def initial(
@@ -75,7 +103,7 @@ object MatchedPortNumbering {
     ) = {
       // Compute the set of used port numbers in map1
       val usedPortNumbers = map1.values.foldLeft (Set[Int]()) ((s, c) =>
-        s + getPortNumber(t, pi1, c)
+        s + t.getPortNumber(pi1, c).get
       )
       // Set the next number n to the smallest number not in S
       val nextPortNumber = PortNumberingState.getNextNumber(0, usedPortNumbers)
@@ -103,6 +131,7 @@ object MatchedPortNumbering {
 
   // Check for missing connections
   private def checkForMissingConnections(
+    matchingLoc: Location,
     map1: ConnectionMap,
     map2: ConnectionMap
   ): Result.Result[Unit] = {
@@ -111,8 +140,10 @@ object MatchedPortNumbering {
       Result.foldLeft (map1.keys.toList) (()) ((u, ci) =>
         if (map2.contains(ci))
           Right(())
-        else
-          ??? // Missing connection
+        else {
+          val loc = ci.getLoc
+          Left(SemanticError.MissingConnection(loc, matchingLoc))
+        }
       )
     // Ensure that the two sets of keys match
     if (map1.size >= map2.size)
@@ -128,28 +159,35 @@ object MatchedPortNumbering {
     portMatching: Component.PortMatching
   ) = {
     // Map remote components to connections at pi
-    def constructMap(pi: PortInstance) = {
+    def constructMap(loc: Location, pi: PortInstance) = {
       val empty: ConnectionMap = Map()
       val pii = PortInstanceIdentifier(ci, pi)
       val cs = t.getConnectionsAt(pii).toList.sorted
       Result.foldLeft (cs) (empty) ((m, c) => {
-        val piiRemote = pii.getOtherEndpoint(c).port
+        val piiRemote = c.getOtherEndpoint(pi).port
         val ciRemote = piiRemote.componentInstance
         m.get(ciRemote) match {
-          case Some(cPrev) => ??? // Duplicate connection
+          case Some(cPrev) => Left(
+            SemanticError.DuplicateConnection(
+              c.getLoc,
+              cPrev.getLoc,
+              portMatching.getLoc
+            )
+          )
           case None => Right(m + (ciRemote -> c))
         }
       })
     }
     val pi1 = portMatching.instance1
     val pi2 = portMatching.instance2
+    val loc = portMatching.getLoc
     for {
-      map1 <- constructMap(pi1)
-      map2 <- constructMap(pi2)
-      _ <- checkForMissingConnections(map1, map2)
+      map1 <- constructMap(loc, pi1)
+      map2 <- constructMap(loc, pi2)
+      _ <- checkForMissingConnections(loc, map1, map2)
       state <- {
         val state = State.initial(t, pi1, map1, pi2, map2)
-        State.assignNumbers(state)
+        State.assignNumbers(loc, state)
       }
     }
     yield state.t

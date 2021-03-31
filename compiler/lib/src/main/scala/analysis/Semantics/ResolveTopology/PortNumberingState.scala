@@ -9,7 +9,20 @@ case class PortNumberingState(
   usedPortNumbers: Set[Int],
   /** The next port number */
   nextPortNumber: Int
-) 
+) {
+
+  /** Marks the next port number as used and generates
+   *  a new one */
+  def usePortNumber = {
+    val s = usedPortNumbers + nextPortNumber
+    val n = PortNumberingState.getNextNumber(
+      nextPortNumber,
+      usedPortNumbers
+    )
+    PortNumberingState(s, n)
+  }
+
+}
 
 object PortNumberingState {
 

@@ -57,6 +57,24 @@ case class Connection(
   /** Gets the location of the connection */
   def getLoc: Location = from.loc
 
+  /** Get this endpoint of a port connection at a port instance */
+  def getThisEndpoint(pi: PortInstance) = {
+    import PortInstance.Direction._
+    pi.getDirection.get match {
+      case Input => to
+      case Output => from
+    }
+  }
+
+  /** Get the other endpoint of a port connection at a port instance */
+  def getOtherEndpoint(pi: PortInstance) = {
+    import PortInstance.Direction._
+    pi.getDirection.get match {
+      case Input => from
+      case Output => to
+    }
+  }
+
 }
 
 object Connection {

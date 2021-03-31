@@ -96,7 +96,7 @@ object CheckComponentDefs
     aNode: Ast.Annotated[AstNode[Ast.SpecPortMatching]]
   ) = {
     val component = a.component.get
-    val list = aNode._2 :: component.specPortMatchingList
+    val list = aNode :: component.specPortMatchingList
     val component1 = component.copy(specPortMatchingList = list)
     Right(a.copy(component = Some(component1)))
   }

@@ -26,7 +26,7 @@ case class Component(
   /** The map from parameter IDs to parameters */
   paramMap: Map[Param.Id, Param] = Map(),
   /** The list of port matching specifiers */
-  specPortMatchingList: List[AstNode[Ast.SpecPortMatching]] = Nil,
+  specPortMatchingList: List[Ast.Annotated[AstNode[Ast.SpecPortMatching]]] = Nil,
   /** The list of port matching constraints */
   portMatchingList: List[Component.PortMatching] = Nil,
   /** The next default parameter ID */
@@ -354,8 +354,9 @@ case class Component(
     yield this.copy(portMatchingList = list)
 
   /** Constructs a port matching from a specifier */
-  private def constructPortMatching(node: AstNode[Ast.SpecPortMatching]):
+  private def constructPortMatching(aNode: Ast.Annotated[AstNode[Ast.SpecPortMatching]]):
     Result.Result[Component.PortMatching] = {
+    val node = aNode._2
     val loc = Locations.get(node.id)
     def checkNames(
       name1: String,
@@ -405,7 +406,7 @@ case class Component(
       instance2 <- getInstance(port2)
       _ <- checkSizes(instance1, instance2)
     }
-    yield Component.PortMatching(instance1, instance2)
+    yield Component.PortMatching(aNode, instance1, instance2)
   }
 
 }
@@ -414,8 +415,14 @@ object Component {
 
   /** A port matching */
   final case class PortMatching(
+    aNode: Ast.Annotated[AstNode[Ast.SpecPortMatching]],
     instance1: PortInstance.General,
     instance2: PortInstance.General
-  )
+  ) {
+
+    /** Gets the location of a port matching */
+    def getLoc = Locations.get(aNode._2.id)
+
+  }
 
 }
