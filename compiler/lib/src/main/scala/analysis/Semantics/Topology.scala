@@ -170,68 +170,6 @@ case class Topology(
     }
   }
 
-  /** Check output ports */
-  private def checkOutputPorts: Result.Result[Topology] =
-    Result.foldLeft (outputConnectionMap.toList) (this) ({
-      case (_, (pii, s)) => for {
-        _ <- checkOutputSizeBounds(pii, s)
-        _ <- checkDuplicateOutputPorts(pii, s)
-      }
-      yield this
-    })
-
-  /** Check that there are no duplicate port numbers at any output
-   *  ports. */
-  private def checkDuplicateOutputPorts(
-    pii: PortInstanceIdentifier,
-    connections: Set[Connection]
-  ): Result.Result[Unit] = {
-    val portNumMap: Map[Int, Connection] = Map()
-    for {
-      _ <- Result.foldLeft (connections.toList) (portNumMap) ((m, c) =>
-          c.from.portNumber match {
-            case Some(portNum) => {
-              m.get(portNum) match {
-                case Some(prevC) => 
-                  val loc = c.from.loc
-                  val prevLoc = prevC.from.loc
-                  Left(
-                    SemanticError.DuplicateOutputPort(loc, portNum, prevLoc)
-                  )
-                case None => Right(m + (portNum -> c))
-              }
-            }
-            case None => Right(m)
-          }
-      )
-    }
-    yield ()
-  }
-
-  /** Check the bounds on the number of output connections */
-  private def checkOutputSizeBounds(
-    pii: PortInstanceIdentifier,
-    connections: Set[Connection]
-  ): Result.Result[Unit] = {
-    val pi = pii.portInstance
-    val arraySize = pi.getArraySize
-    val numPorts = connections.size
-    if (numPorts <= arraySize)
-      Right(())
-    else {
-      val loc = pi.getLoc
-      val instanceLoc = pii.componentInstance.getLoc
-      Left(
-        SemanticError.TooManyOutputPorts(
-          loc,
-          numPorts,
-          arraySize,
-          instanceLoc
-        )
-      )
-    }
-  }
-
   /** Check whether a connection exists between two ports*/
   def connectionExistsBetween(
     from: PortInstanceIdentifier,
@@ -249,7 +187,7 @@ case class Topology(
     Result.seq(
       Right(this),
       List(
-        _.checkOutputPorts,
+        //_.checkOutputPorts,
         Topology.Numbering.Matched.apply(_),
         _.applyGeneralNumbering
       )

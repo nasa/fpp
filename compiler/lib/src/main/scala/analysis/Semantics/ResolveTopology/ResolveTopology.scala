@@ -9,6 +9,7 @@ object ResolveTopology {
   def resolve(a: Analysis, t: Topology): Result.Result[Topology] =
     for {
       t <- ResolvePartiallyNumbered.resolve(a, t)
+      t <- ResolvePortNumbers.resolve(t)
       // TODO
     }
     yield t
