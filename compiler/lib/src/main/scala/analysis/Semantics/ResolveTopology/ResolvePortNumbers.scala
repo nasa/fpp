@@ -73,15 +73,8 @@ object ResolvePortNumbers {
     for {
       _ <- checkOutputPorts(t)
       _ <- MatchedPortNumbering.apply(t)
+      _ <- GeneralPortNumbering.apply(t)
     }
     yield t
-//    Result.seq(
-//      Right(this),
-//      List(
-//        _.checkOutputPorts,
-//        Topology.Numbering.Matched.apply(_),
-//        _.applyGeneralNumbering
-//      )
-//    )
 
 }

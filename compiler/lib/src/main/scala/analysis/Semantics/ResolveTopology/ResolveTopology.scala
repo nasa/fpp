@@ -10,15 +10,8 @@ object ResolveTopology {
     for {
       t <- ResolvePartiallyNumbered.resolve(a, t)
       t <- ResolvePortNumbers.resolve(t)
-      // TODO
+      t <- ResolveUnusedPorts.resolve(t)
     }
     yield t
-//    Result.seq(
-//      Right(this),
-//      List(
-//        _.computePortNumbers,
-//        _.computeUnusedPorts
-//      )
-//    )
 
 }
