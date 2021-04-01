@@ -268,7 +268,7 @@ case class Analysis(
   def getArraySize(id: AstNode.Id): Result.Result[Int] = {
     for {
       v <- getIntValue(id)
-      size <- if (v >= 0 && v <= Error.maxArraySize)
+      size <- if (v >= 1 && v <= Error.maxArraySize)
         Right(v.intValue) else {
           val loc = Locations.get(id)
           Left(SemanticError.InvalidArraySize(loc, v))
