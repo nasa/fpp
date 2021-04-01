@@ -213,6 +213,15 @@ case class Topology(
   /** Gets the unqualified name of the topology */
   def getUnqualifiedName = aNode._2.data.name
 
+  /** Gets the set of used port numbers */
+  def getUsedPortNumbers(pi: PortInstance, cs: Iterable[Connection]) = 
+    cs.foldLeft (Set[Int]()) ((s, c) =>
+      getPortNumber(pi, c) match {
+        case Some(n) => s + n
+        case None => s
+      }
+    )
+
   /** Look up a component instance used at a location */
   def lookUpInstanceAt(
     instance: ComponentInstance,

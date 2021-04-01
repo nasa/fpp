@@ -68,10 +68,9 @@ object MatchedPortNumbering {
           Right(state.copy(t = t1))
         case (None, None) =>
           // Neither port has a number: assign a new one
-          val n = state.numbering.nextPortNumber
+          val (numbering, n) = state.numbering.getPortNumber
           val t1 = t.assignPortNumber(pi1, c1, n).
             assignPortNumber(pi2, c2, n)
-          val numbering = state.numbering.usePortNumber
           Right(state.copy(t = t1, numbering = numbering))
       }
     }
@@ -102,21 +101,14 @@ object MatchedPortNumbering {
       map2: ConnectionMap
     ) = {
       // Compute the set S of used port numbers in map1
-      val usedPortNumbers = map1.values.foldLeft (Set[Int]()) ((s, c) =>
-        t.getPortNumber(pi1, c) match {
-          case Some(n) => s + n
-          case None => s
-        }
-      )
-      // Set the next number n to the smallest number not in S
-      val nextPortNumber = PortNumberingState.getNextNumber(0, usedPortNumbers)
+      val usedPortNumbers = t.getUsedPortNumbers(pi1, map1.values)
       State(
         t,
         pi1,
         map1,
         pi2,
         map2,
-        PortNumberingState(usedPortNumbers, nextPortNumber)
+        PortNumberingState.initial(usedPortNumbers)
       )
     }
 

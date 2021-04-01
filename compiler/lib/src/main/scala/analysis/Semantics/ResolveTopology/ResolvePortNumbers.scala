@@ -73,7 +73,7 @@ object ResolvePortNumbers {
     for {
       _ <- checkOutputPorts(t)
       _ <- MatchedPortNumbering.apply(t)
-      _ <- GeneralPortNumbering.apply(t)
+      _ <- Right(GeneralPortNumbering.apply(t))
     }
     yield t
 

@@ -4,7 +4,7 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 
 /** Port numbering state */
-case class PortNumberingState(
+case class PortNumberingState private (
   /** The used port numbers */
   usedPortNumbers: Set[Int],
   /** The next port number */
@@ -22,9 +22,21 @@ case class PortNumberingState(
     PortNumberingState(s, n)
   }
 
+  /** Gets the next port number and updates the state */
+  def getPortNumber: (PortNumberingState, Int) = {
+    val s = usePortNumber
+    (s, nextPortNumber)
+  }
+
 }
 
 object PortNumberingState {
+
+  /** Construct an initial state */
+  def initial(usedPortNumbers: Set[Int]) = {
+    val nextPortNumber = getNextNumber(0, usedPortNumbers)
+    PortNumberingState(usedPortNumbers, nextPortNumber)
+  }
 
   /** Gets the next available port number */
   def getNextNumber(from: Int, used: Set[Int]): Int = {
