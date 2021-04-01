@@ -9,7 +9,7 @@ object MatchedPortNumbering {
   // A mapping from component instances to connections
   private type ConnectionMap = Map[ComponentInstance, Connection]
 
-  // State for numbering ports
+  // State for matched numbering
   private case class State private(
     // The topology
     t: Topology,
@@ -103,7 +103,10 @@ object MatchedPortNumbering {
     ) = {
       // Compute the set of used port numbers in map1
       val usedPortNumbers = map1.values.foldLeft (Set[Int]()) ((s, c) =>
-        s + t.getPortNumber(pi1, c).get
+        t.getPortNumber(pi1, c) match {
+          case Some(n) => s + n
+          case None => s
+        }
       )
       // Set the next number n to the smallest number not in S
       val nextPortNumber = PortNumberingState.getNextNumber(0, usedPortNumbers)
@@ -137,14 +140,14 @@ object MatchedPortNumbering {
   ): Result.Result[Unit] = {
     // Ensure that map2 contains everything in map1
     def helper(map1: ConnectionMap, map2: ConnectionMap) =
-      Result.foldLeft (map1.keys.toList) (()) ((u, ci) =>
+      Result.foldLeft (map1.toList) (()) ({ case (u, (ci, c)) =>
         if (map2.contains(ci))
           Right(())
         else {
-          val loc = ci.getLoc
+          val loc = c.getLoc
           Left(SemanticError.MissingConnection(loc, matchingLoc))
         }
-      )
+      })
     // Ensure that the two sets of keys match
     if (map1.size >= map2.size)
       helper(map1, map2)

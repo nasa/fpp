@@ -160,7 +160,7 @@ sealed trait Error {
         matchingLoc: Location
       ) =>
         Error.print (Some(p1Loc)) (s"mismatched port numbers ($p1Number vs. $p2Number)")
-        System.err.println("other port number is here:")
+        System.err.println("conflicting port number is here:")
         System.err.println(p2Loc)
         printMatchingLoc(matchingLoc)
       case SemanticError.MissingAsync(kind, loc) =>
@@ -188,7 +188,7 @@ sealed trait Error {
         System.err.println(prevLoc)
       case SemanticError.TooManyOutputPorts(loc, numPorts, arraySize, instanceLoc) =>
         Error.print (Some(loc)) (s"too many ports connected here (found $numPorts, max is $arraySize)")
-        System.err.println("component instance is here:")
+        System.err.println("for this component instance:")
         System.err.println(instanceLoc)
       case SemanticError.TypeMismatch(loc, msg) => Error.print (Some(loc)) (msg)
       case SemanticError.UndefinedSymbol(name, loc) =>
