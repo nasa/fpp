@@ -1,0 +1,13 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/port_numbering/mismatched_port_numbers.fpp: 29.16
+    c2.pOut -> c1.pIn[1]
+               ^
+error: mismatched port numbers (1 vs. 0)
+conflicting port number is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/port_numbering/mismatched_port_numbers.fpp: 28.5
+    c1.pOut[0] -> c2.pIn
+    ^
+port matching is specified here:
+[ local path prefix ]/compiler/tools/fpp-check/test/port_numbering/mismatched_port_numbers.fpp: 8.3
+  match pIn with pOut
+  ^

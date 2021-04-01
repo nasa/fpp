@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/port_numbering/too_many_output_ports.fpp: 5.3
+  output port pOut: P
+  ^
+error: too many ports connected here (found 2, max is 1)
+for this component instance:
+[ local path prefix ]/compiler/tools/fpp-check/test/port_numbering/too_many_output_ports.fpp: 15.1
+instance c1: C1 base id 0x100
+^

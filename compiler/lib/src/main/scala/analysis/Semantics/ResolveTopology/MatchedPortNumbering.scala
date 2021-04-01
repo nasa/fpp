@@ -101,7 +101,7 @@ object MatchedPortNumbering {
       pi2: PortInstance,
       map2: ConnectionMap
     ) = {
-      // Compute the set of used port numbers in map1
+      // Compute the set S of used port numbers in map1
       val usedPortNumbers = map1.values.foldLeft (Set[Int]()) ((s, c) =>
         t.getPortNumber(pi1, c) match {
           case Some(n) => s + n

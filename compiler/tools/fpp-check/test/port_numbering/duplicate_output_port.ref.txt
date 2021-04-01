@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/port_numbering/duplicate_output_port.fpp: 25.5
+    c1.pOut[0] -> c2.pIn
+    ^
+error: duplicate connection at output port 0
+previous occurrence is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/port_numbering/duplicate_output_port.fpp: 24.5
+    c1.pOut[0] -> c2.pIn
+    ^
