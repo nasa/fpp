@@ -452,7 +452,6 @@ object FppWriter extends AstVisitor with LineUtils {
     "topology",
     "true",
     "type",
-    "unused",
     "update",
     "warning",
     "with",
