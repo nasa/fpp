@@ -23,6 +23,9 @@ component instance definition _D_>>.
 a <<Types_Internal-Types_Numeric-Types,numeric type>>.
 It provides an integer identifier for an initialization phase.
 
+* Each component instance may have at most one init specifier
+for each distinct numeric phase.
+
 * The code string specifies some code in a target language
 that is associated with the instance.
 
