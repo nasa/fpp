@@ -633,13 +633,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Specifiers_Topology-Import-Specifiers_Example">6.13.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Unused-Port-Specifiers">6.14. Unused Port Specifiers</a>
-<ul class="sectlevel3">
-<li><a href="#Specifiers_Unused-Port-Specifiers_Syntax">6.14.1. Syntax</a></li>
-<li><a href="#Specifiers_Unused-Port-Specifiers_Semantics">6.14.2. Semantics</a></li>
-<li><a href="#Specifiers_Unused-Port-Specifiers_Example">6.14.3. Example</a></li>
-</ul>
-</li>
 </ul>
 </li>
 <li><a href="#Port-Instance-Identifiers">7. Port Instance Identifiers</a>
@@ -1043,7 +1036,6 @@ time
 topology
 true
 type
-unused
 update
 warning
 with
@@ -2466,9 +2458,6 @@ instance specifier</a></p>
 <li>
 <p>An <a href="#Specifiers_Include-Specifiers">include specifier</a></p>
 </li>
-<li>
-<p>An <a href="#Specifiers_Unused-Port-Specifiers">unused port specifier</a></p>
-</li>
 </ul>
 </div>
 </div>
@@ -2488,9 +2477,6 @@ according to the following algorithm:</p>
 <p>Apply
 <a href="#Definitions_Topology-Definitions_Semantics_Automatic-Numbering-of-Ports">automatic numbering of ports</a>
 to <em>T'</em>.</p>
-</li>
-<li>
-<p><a href="#Definitions_Topology-Definitions_Semantics_Checking-for-Unconnected-Ports">Check for unconnected ports</a> in <em>T'</em>.</p>
 </li>
 </ol>
 </div>
@@ -2698,24 +2684,6 @@ already assigned, then assign the port number zero.</p>
 <p>See Example 4 below.</p>
 </div>
 </div>
-<div class="sect4">
-<h5 id="Definitions_Topology-Definitions_Semantics_Checking-for-Unconnected-Ports">Checking for Unconnected Ports</h5>
-<div class="paragraph">
-<p>After resolving a topology definition <em>D</em> to a numbered topology <em>T</em>,
-check for unused ports in <em>T</em> as follows:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>For each instance <em>I</em> appearing in <em>T</em>, for each port <em>P</em> of <em>I</em>,
-if (a) there is no connection to or from any port number of <em>P</em> and (b)
-<em>P</em> does not appear in any
-<a href="#Specifiers_Unused-Port-Specifiers">unused port specifier</a> of <em>D</em>,
-then issue a warning.</p>
-</li>
-</ol>
-</div>
-</div>
 </div>
 <div class="sect3">
 <h4 id="Definitions_Topology-Definitions_Examples">5.11.3. Examples</h4>
@@ -2786,34 +2754,6 @@ topology CDH {
 
   connections Uplink {
     socketGroundInterface.comCmdOut -&gt; commandDispatcher.comCmdIn
-  }
-
-  # ----------------------------------------------------------------------
-  # Unused ports
-  # ----------------------------------------------------------------------
-
-  unused {
-    commandDispatcher.pingIn
-    commandDispatcher.pingOut
-    commandSequencer.pingIn
-    commandSequencer.pingOut
-    engineeringRateGroup.pingIn
-    engineeringRateGroup.pingOut
-    engineeringTelemetryLogger.bufferSendIn
-    engineeringTelemetryLogger.bufferSendOut
-    engineeringTelemetryLogger.pingIn
-    engineeringTelemetryLogger.pingOut
-    eventLogger.pingIn
-    eventLogger.pingOut
-    socketGroundInterface.fileDownlinkBufferSendIn
-    socketGroundInterface.fileDownlinkBufferSendOut
-    socketGroundInterface.fileUplinkBufferGet
-    socketGroundInterface.fileUplinkBufferSendOut
-    telemetryDatabase.comTlmOut
-    telemetryDatabase.pingIn
-    telemetryDatabase.pingOut
-    telemetryDatabase.schedIn
-    telemetryDatabase.tlmGetIn
   }
 
 }</code></pre>
@@ -4901,54 +4841,6 @@ of its connections appear in topology <code>B</code>.</p>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="Specifiers_Unused-Port-Specifiers">6.14. Unused Port Specifiers</h3>
-<div class="paragraph">
-<p>An <strong>unused port specifier</strong> specifies that one or more ports in a
-<a href="#Definitions_Topology-Definitions">topology definition</a>
-may be unused.</p>
-</div>
-<div class="sect3">
-<h4 id="Specifiers_Unused-Port-Specifiers_Syntax">6.14.1. Syntax</h4>
-<div class="paragraph">
-<p><code>unused</code> <code>{</code> <em>unused-port-sequence</em> <code>}</code></p>
-</div>
-<div class="paragraph">
-<p><em>unused-port-sequence</em> is an
-<a href="#Element-Sequences">element sequence</a> in
-which each element is a
-<a href="#Port-Instance-Identifiers">port instance identifier</a>,
-and the terminating punctuation is a comma.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Specifiers_Unused-Port-Specifiers_Semantics">6.14.2. Semantics</h4>
-<div class="paragraph">
-<p>For each port instance identifier <em>Q</em> <code>.</code> <em>P</em> appearing in
-<em>unused-port-sequence</em>,
- <em>Q</em> must
-<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
-a component instance that is available in the enclosing topology,
-either through
-<a href="#Specifiers_Component-Instance-Specifiers">direct specification</a>
-or through
-<a href="#Specifiers_Topology-Import-Specifiers">import</a>.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Specifiers_Unused-Port-Specifiers_Example">6.14.3. Example</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">unused {
-  a.p1
-  a.p2
-  b.p
-  c.p
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -4958,9 +4850,7 @@ or through
 <p>A <strong>port instance identifier</strong> identifies a port instance
 that is part of a component instance.
 Port instance identifiers appear in
-<a href="#Specifiers_Connection-Graph-Specifiers">connection graph specifiers</a>
-and in
-<a href="#Specifiers_Unused-Port-Specifiers">unused port specifiers</a>.</p>
+<a href="#Specifiers_Connection-Graph-Specifiers">connection graph specifiers</a>.</p>
 </div>
 <div class="sect2">
 <h3 id="Port-Instance-Identifiers_Syntax">7.1. Syntax</h3>
@@ -8015,7 +7905,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-25 20:46:38 -0700
+Last updated 2021-04-07 09:29:09 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

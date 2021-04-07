@@ -3,9 +3,7 @@
 A *port instance identifier* identifies a port instance
 that is part of a component instance.
 Port instance identifiers appear in
-<<Specifiers_Connection-Graph-Specifiers,connection graph specifiers>>
-and in
-<<Specifiers_Unused-Port-Specifiers,unused port specifiers>>.
+<<Specifiers_Connection-Graph-Specifiers,connection graph specifiers>>.
 
 === Syntax
 
