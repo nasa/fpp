@@ -23,16 +23,13 @@ object FPPCheck {
       tul <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
       a <- CheckSemantics.tuList(a, tul)
       _ <- options.unconnectedFile match {
-        case Some(file) => writeUnconnected(a, file)
+        case Some(file) => writeUnconnectedPorts(a, file)
         case None => Right(())
       }
     } yield a
   }
 
-  def mapSet[T](set: Set[T], f: String => Unit) =
-    set.map(_.toString).toArray.sortWith(_ < _).map(f)
-
-  def writeUnconnected(a: Analysis, fileName: String): Result.Result[Unit] = {
+  def writeUnconnectedPorts(a: Analysis, fileName: String): Result.Result[Unit] = {
     val file = File.fromString(fileName)
     for (writer <- file.openWrite())
       yield { 
@@ -41,7 +38,9 @@ object FPPCheck {
           if (set.size > 0) {
             val name = a.getQualifiedName(s)
             writer.println(s"Topology ${name}:")
-            set.map(_.toString).toArray.sortWith(_ < _).map(str => s"  $str")
+            set.map(_.getQualifiedName.toString).
+              toArray.sortWith(_ < _).
+              map(str => writer.println(s"  $str"))
             writer.println("")
           }
           else

@@ -45,14 +45,14 @@ object GeneralPortNumbering {
   /** Apply general numbering */
   def apply(t: Topology): Topology = {
     // Fold over instances and ports
-    t.instanceMap.keys.foldLeft (t) ((t, ci) =>
-      ci.component.portMap.values.foldLeft (t) ((u, pi) => {
+    t.instanceMap.keys.foldLeft (t) ((t1, ci) =>
+      ci.component.portMap.values.foldLeft (t1) ((t2, pi) => {
         import PortInstance.Direction._
         val pii = PortInstanceIdentifier(ci, pi)
         pi.getDirection match {
-          case Some(Input) => numberInputPortArray(t, pii)
-          case Some(Output) => numberOutputPortArray(t, pii)
-          case None => t
+          case Some(Input) => numberInputPortArray(t2, pii)
+          case Some(Output) => numberOutputPortArray(t2, pii)
+          case None => t2
         }
       })
     )
