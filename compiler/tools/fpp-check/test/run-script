@@ -39,4 +39,9 @@ $t()
 done > default-tests.sh
 . ./default-tests.sh
 
+if test -f run.sh
+then
+  . run.sh
+fi
+
 run_suite $tests

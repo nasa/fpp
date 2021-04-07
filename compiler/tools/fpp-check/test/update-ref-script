@@ -37,6 +37,11 @@ $t()
 done > default-update-ref.sh
 . ./default-update-ref.sh
 
+if test -f update-ref.sh
+then
+  . update-ref.sh
+fi
+
 for t in $tests
 do
   echo "updating ref output for $t"
