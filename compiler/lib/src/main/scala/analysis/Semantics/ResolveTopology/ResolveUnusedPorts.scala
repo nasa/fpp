@@ -6,9 +6,18 @@ import fpp.compiler.util._
 /** Resolve unused ports */
 object ResolveUnusedPorts {
 
-  /** Compute the ports of t that are actually unused */
-  def resolve(t: Topology): Result.Result[Topology] =
-    // TODO
-    Right(t)
+  /** Compute the unused ports of t */
+  def resolve(t: Topology): Topology = {
+    // Fold over instances and ports
+    t.instanceMap.keys.foldLeft (t) ((t, ci) =>
+      ci.component.portMap.values.foldLeft (t) ((u, pi) => {
+        val pii = PortInstanceIdentifier(ci, pi)
+        if (t.getConnectionsAt(pii).size == 0)
+          t.copy(unusedPortSet = t.unusedPortSet + pii)
+        else
+          t
+      })
+    )
+  }
 
 }

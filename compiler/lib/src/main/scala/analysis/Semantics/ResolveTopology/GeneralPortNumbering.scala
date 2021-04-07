@@ -7,7 +7,7 @@ import fpp.compiler.util._
 object GeneralPortNumbering {
 
   // Number an input port array
-  def numberInputPortArray(
+  private def numberInputPortArray(
     t: Topology,
     pii: PortInstanceIdentifier
   ): Topology = {
@@ -21,7 +21,7 @@ object GeneralPortNumbering {
   }
 
   // Number an output port array
-  def numberOutputPortArray(
+  private def numberOutputPortArray(
     t: Topology,
     pii: PortInstanceIdentifier
   ): Topology = {
