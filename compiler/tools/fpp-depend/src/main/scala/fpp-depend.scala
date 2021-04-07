@@ -73,7 +73,7 @@ object FPPDepend {
     import builder._
     OParser.sequence(
       programName(name),
-      head(name, "0.1"),
+      head(name, "1.0.0"),
       opt[Unit]('i', "include")
         .action((_, c) => c.copy(include = true))
         .text("count included files as dependencies"),

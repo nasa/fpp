@@ -91,7 +91,7 @@ object FPPToCpp {
     import builder._
     OParser.sequence(
       programName(name),
-      head(name, "0.1"),
+      head(name, Version.v),
       help('h', "help").text("print this message and exit"),
       opt[String]('d', "directory")
         .valueName("<dir>")

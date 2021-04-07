@@ -69,7 +69,7 @@ object FPPFormat {
     import builder._
     OParser.sequence(
       programName(name),
-      head(name, "0.1"),
+      head(name, Version.v),
       opt[Unit]('i', "include")
         .action((_, c) => c.copy(include = true))
         .text("resolve include specifiers"),

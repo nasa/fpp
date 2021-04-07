@@ -10,7 +10,7 @@ object ResolveTopology {
     for {
       t <- ResolvePartiallyNumbered.resolve(a, t)
       t <- ResolvePortNumbers.resolve(t)
-      t <- Right(ResolveUnusedPorts.resolve(t))
+      t <- Right(ResolveUnconnectedPorts.resolve(t))
     }
     yield t
 

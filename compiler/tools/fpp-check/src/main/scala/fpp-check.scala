@@ -10,6 +10,7 @@ object FPPCheck {
 
   case class Options(
     files: List[File] = List(),
+    unconnectedFile: Option[String] = None
   )
 
   def command(options: Options) = {
@@ -21,7 +22,33 @@ object FPPCheck {
     for {
       tul <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
       a <- CheckSemantics.tuList(a, tul)
+      _ <- options.unconnectedFile match {
+        case Some(file) => writeUnconnected(a, file)
+        case None => Right(())
+      }
     } yield a
+  }
+
+  def mapSet[T](set: Set[T], f: String => Unit) =
+    set.map(_.toString).toArray.sortWith(_ < _).map(f)
+
+  def writeUnconnected(a: Analysis, fileName: String): Result.Result[Unit] = {
+    val file = File.fromString(fileName)
+    for (writer <- file.openWrite())
+      yield { 
+        a.topologyMap.map({ case (s, t) => {
+          val set = t.unconnectedPortSet
+          if (set.size > 0) {
+            val name = a.getQualifiedName(s)
+            writer.println(s"Topology ${name}:")
+            set.map(_.toString).toArray.sortWith(_ < _).map(str => s"  $str")
+            writer.println("")
+          }
+          else
+            ()
+        }})
+        writer.close()
+      }
   }
 
   def main(args: Array[String]) = {
@@ -47,8 +74,12 @@ object FPPCheck {
     import builder._
     OParser.sequence(
       programName(name),
-      head(name, "0.1"),
+      head(name, Version.v),
       help('h', "help").text("print this message and exit"),
+      opt[String]('u', "unconnected")
+        .valueName("<file>")
+        .action((m, c) => c.copy(unconnectedFile = Some(m)))
+        .text("write unconnected ports to file"),
       arg[String]("file ...")
         .unbounded()
         .optional()

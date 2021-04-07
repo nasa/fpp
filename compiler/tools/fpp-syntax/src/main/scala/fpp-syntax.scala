@@ -75,7 +75,7 @@ object FPPSyntax {
     import builder._
     OParser.sequence(
       programName(name),
-      head(name, "0.1"),
+      head(name, Version.v),
       opt[Unit]('a', "ast")
         .action((_, c) => c.copy(ast = true))
         .text("print the abstract syntax tree (ast)"),

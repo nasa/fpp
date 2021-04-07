@@ -106,7 +106,7 @@ object FPPLocateUses {
     import builder._
     OParser.sequence(
       programName(name),
-      head(name, "0.1"),
+      head(name, Version.v),
       opt[String]('d', "directory")
         .valueName("<dir>")
         .action((d, c) => c.copy(dir = Some(d)))
