@@ -180,7 +180,6 @@ object Ast {
     final case class SpecConnectionGraph(node: AstNode[Ast.SpecConnectionGraph]) extends Node
     final case class SpecInclude(node: AstNode[Ast.SpecInclude]) extends Node
     final case class SpecTopImport(node: AstNode[Ast.SpecTopImport]) extends Node
-    final case class SpecUnusedPorts(node: AstNode[Ast.SpecUnusedPorts]) extends Node
   }
 
   /** Formal parameter */
@@ -580,9 +579,6 @@ object Ast {
 
   /** Topology import specifier */
   final case class SpecTopImport(top: AstNode[QualIdent])
-
-  /** Unused port specifier */
-  final case class SpecUnusedPorts(ports: List[AstNode[PortInstanceIdentifier]])
 
   /** Struct member */
   final case class StructMember(name: Ident, value: AstNode[Expr])

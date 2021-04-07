@@ -27,9 +27,7 @@ case class Topology(
   fromPortNumberMap: Map[Connection, Int] = Map(),
   /** The mapping of connections to to port numbers */
   toPortNumberMap: Map[Connection, Int] = Map(),
-  /** The set of port instances declared as unused */
-  declaredUnusedPortSet: Set[PortInstanceIdentifier] = Set(),
-  /** The set of port instances actually unused */
+  /** The unused  port instances */
   unusedPortSet: Set[PortInstanceIdentifier] = Set()
 ) {
 

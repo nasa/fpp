@@ -77,8 +77,6 @@ trait AstVisitor {
 
   def specTopImportAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecTopImport]]): Out = default(in)
 
-  def specUnusedPortsAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecUnusedPorts]]): Out = default(in)
-
   def transUnit(in: In, tu: Ast.TransUnit): Out = default(in)
 
   def typeNameBoolNode(in: In, node: AstNode[Ast.TypeName]): Out = default(in)
@@ -151,7 +149,6 @@ trait AstVisitor {
       case Ast.TopologyMember.SpecConnectionGraph(node1) => specConnectionGraphAnnotatedNode(in, (pre, node1, post))
       case Ast.TopologyMember.SpecInclude(node1) => specIncludeAnnotatedNode(in, (pre, node1, post))
       case Ast.TopologyMember.SpecTopImport(node1) => specTopImportAnnotatedNode(in, (pre, node1, post))
-      case Ast.TopologyMember.SpecUnusedPorts(node1) => specUnusedPortsAnnotatedNode(in, (pre, node1, post))
     }
   }
 

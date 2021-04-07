@@ -130,12 +130,6 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
     qualIdentNode(topologyUse)(a, data.top)
   }
 
-  override def specUnusedPortsAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecUnusedPorts]]) = {
-    val (_, node1, _) = node
-    val data = node1.data
-    visitList(a, data.ports, portInstanceIdentifierNode)
-  }
-
   override def typeNameQualIdentNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameQualIdent) = {
     val use = Name.Qualified.fromQualIdent(tn.name.data)
     typeUse(a, node, use)

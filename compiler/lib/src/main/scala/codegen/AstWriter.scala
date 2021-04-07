@@ -345,13 +345,6 @@ object AstWriter extends AstVisitor with LineUtils {
     qualIdent(data.top.data).map(indentIn)
   }
 
-  override def specUnusedPortsAnnotatedNode(in: Unit, aNode: Ast.Annotated[AstNode[Ast.SpecUnusedPorts]]) =  {
-    val (_, node, _) = aNode
-    val data = node.data
-    lines("spec unused ports") ++
-    data.ports.map(applyToData(portInstanceIdentifier)).flatten.map(indentIn)
-  }
-
   override def transUnit(in: Unit, tu: Ast.TransUnit) = tu.members.map(tuMember).flatten
 
   override def typeNameBoolNode(in: Unit, node: AstNode[Ast.TypeName]) = lines("bool")

@@ -95,21 +95,4 @@ object CheckTopologyDefs
     yield a.copy(topology = Some(topology))
   }
 
-  override def specUnusedPortsAnnotatedNode(
-    a: Analysis,
-    aNode: Ast.Annotated[AstNode[Ast.SpecUnusedPorts]]
-  ) = {
-    val node = aNode._2
-    val data = node.data
-    for {
-      topology <- Result.foldLeft (data.ports) (a.topology.get) ((t, pidNode) =>
-        for {
-          pid <- PortInstanceIdentifier.fromNode(a, pidNode)
-          _ <- pid.portInstance.requireConnectionAt(Locations.get(pidNode.id))
-        } yield t.copy(declaredUnusedPortSet = t.declaredUnusedPortSet + pid)
-      )
-    }
-    yield a.copy(topology = Some(topology))
-  }
-
 }

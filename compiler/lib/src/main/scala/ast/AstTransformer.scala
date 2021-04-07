@@ -162,11 +162,6 @@ trait AstTransformer {
     node: Ast.Annotated[AstNode[Ast.SpecTopImport]]
   ): ResultAnnotatedNode[Ast.SpecTopImport] = Right(default(in), node)
 
-  def specUnusedPortsAnnotatedNode(
-    in: In,
-    node: Ast.Annotated[AstNode[Ast.SpecUnusedPorts]]
-  ): ResultAnnotatedNode[Ast.SpecUnusedPorts] = Right(default(in), node)
-
   def transUnit(in: In, tu: Ast.TransUnit): Result[Ast.TransUnit] =
     Right(default(in), tu)
 
@@ -302,8 +297,6 @@ trait AstTransformer {
         transform(specIncludeAnnotatedNode(in, (pre, node1, post)), Ast.TopologyMember.SpecInclude(_))
       case Ast.TopologyMember.SpecTopImport(node1) => 
         transform(specTopImportAnnotatedNode(in, (pre, node1, post)), Ast.TopologyMember.SpecTopImport(_))
-      case Ast.TopologyMember.SpecUnusedPorts(node1) => 
-        transform(specUnusedPortsAnnotatedNode(in, (pre, node1, post)), Ast.TopologyMember.SpecUnusedPorts(_))
     }
   }
 
