@@ -260,12 +260,6 @@ def module
     spec top import
       qual ident T1
     @< Topology import specifier
-    @ Unused port specifier
-    spec unused ports
-      qual ident a.p
-      qual ident b.p
-      qual ident c.p
-    @< Unused port specifier
   @< Topology definition
   @ Location specifier
   spec loc

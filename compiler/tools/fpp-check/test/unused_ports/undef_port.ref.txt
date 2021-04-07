@@ -1,5 +1,0 @@
-fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/unused_ports/undef_port.fpp: 9.7
-    c.pIn
-      ^
-error: pIn is not a port instance of component C

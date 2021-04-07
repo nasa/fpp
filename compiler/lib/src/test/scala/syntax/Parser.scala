@@ -203,7 +203,6 @@ class ParserSpec extends AnyWordSpec {
           connections C {}
           import T
           include "a.fpp"
-          unused {}
         }""",
         """topology T {
           @ Pre
@@ -553,18 +552,6 @@ class ParserSpec extends AnyWordSpec {
       List(
         "import a",
         "import a.b",
-      )
-    )
-  }
-
-  "spec unused ports OK" should {
-    parseAllOK(
-      Parser.specUnusedPorts,
-      List(
-        "unused {}",
-        "unused { a.b }",
-        "unused { a.b.c }",
-        "unused { a.b.c, d.e.f }",
       )
     )
   }

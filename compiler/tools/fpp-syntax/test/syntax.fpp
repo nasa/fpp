@@ -131,10 +131,6 @@ module DefinitionsAndSpecifiers {
     import T1
     @< Topology import specifier
 
-    @ Unused port specifier
-    unused { a.p, b.p, c.p }
-    @< Unused port specifier
-
   }
   @< Topology definition
 

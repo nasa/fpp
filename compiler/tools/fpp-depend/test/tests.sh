@@ -35,6 +35,5 @@ spec_param
 spec_port_instance
 spec_tlm_channel
 spec_top_import
-spec_unused_ports
 "
 

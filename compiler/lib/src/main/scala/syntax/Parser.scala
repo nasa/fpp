@@ -534,12 +534,6 @@ object Parser extends Parsers {
   def specTopImport: Parser[Ast.SpecTopImport] =
     importToken ~>! node(qualIdent) ^^ { case top => Ast.SpecTopImport(top) }
 
-  def specUnusedPorts: Parser[Ast.SpecUnusedPorts] = {
-    unused ~! lbrace ~>! elementSequence(node(portInstanceIdentifier), comma) <~! rbrace ^^ {
-      case ports => Ast.SpecUnusedPorts(ports)
-    }
-  }
-
   def structTypeMember: Parser[Ast.StructTypeMember] = {
     ident ~! (colon ~>! node(typeName)) ~! opt(format ~>! node(literalString)) ^^ {
       case name ~ typeName ~ format => Ast.StructTypeMember(name, typeName, format)
@@ -551,7 +545,6 @@ object Parser extends Parsers {
     node(specConnectionGraph) ^^ { case n => Ast.TopologyMember.SpecConnectionGraph(n) } |
     node(specInclude) ^^ { case n => Ast.TopologyMember.SpecInclude(n) } |
     node(specTopImport) ^^ { case n => Ast.TopologyMember.SpecTopImport(n) } |
-    node(specUnusedPorts) ^^ { case n => Ast.TopologyMember.SpecUnusedPorts(n) } |
     failure("topology member expected")
   }
 
@@ -828,8 +821,6 @@ object Parser extends Parsers {
   private def trueToken = accept("true", { case t : Token.TRUE => t })
 
   private def typeToken = accept("type", { case t : Token.TYPE => t })
-
-  private def unused = accept("unused", { case t : Token.UNUSED => t })
 
   private def update = accept("update", { case t : Token.UPDATE => t })
 

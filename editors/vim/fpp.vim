@@ -77,7 +77,6 @@ syn keyword fppKeyword time
 syn keyword fppKeyword topology
 syn keyword fppKeyword true
 syn keyword fppKeyword type
-syn keyword fppKeyword unused
 syn keyword fppKeyword update
 syn keyword fppKeyword warning
 syn keyword fppKeyword with
