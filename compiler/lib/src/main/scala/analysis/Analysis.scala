@@ -56,7 +56,7 @@ case class Analysis(
   /** The topology currently under construction */
   topology: Option[Topology] = None,
   /** The map from component instance symbols to phases to init specifiers */
-  initSpecifierMap: Map[Symbol.ComponentInstance, Map[Int, InitSpecifier]] = Map()
+  initSpecifierMap: Map[ComponentInstance, Map[Int, InitSpecifier]] = Map()
 ) {
 
   /** Gets the qualified name of a symbol */
@@ -200,11 +200,11 @@ case class Analysis(
       )
     }
 
-  /** Gets a component instance from the component instance map */
-  def getComponentInstance(id: AstNode.Id): Result.Result[ComponentInstance] =
+  /** Gets a component instance symbol from the use-def map */
+  def getComponentInstanceSymbol(id: AstNode.Id):
+  Result.Result[Symbol.ComponentInstance] =
     this.useDefMap(id) match {
-      case cis: Symbol.ComponentInstance =>
-        Right(this.componentInstanceMap(cis))
+      case cis: Symbol.ComponentInstance => Right(cis)
       case s => Left(
         SemanticError.InvalidSymbol(
           s.getUnqualifiedName,
@@ -214,6 +214,11 @@ case class Analysis(
         )
       )
     }
+
+  /** Gets a component instance from the component instance map */
+  def getComponentInstance(id: AstNode.Id): Result.Result[ComponentInstance] =
+    for (cis <- getComponentInstanceSymbol(id))
+      yield this.componentInstanceMap(cis)
 
   /** Gets a topology symbol from use-def map */
   def getTopologySymbol(id: AstNode.Id): Result.Result[Symbol.Topology] =

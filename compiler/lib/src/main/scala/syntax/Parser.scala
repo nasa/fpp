@@ -616,7 +616,7 @@ object Parser extends Parsers {
   ): Parser[List[T]] = {
     def terminator = punct | eol
     def prefix0 = elt ^^ { case elt => (Nil, elt) }
-    def prefix1 = rep1(preAnnotation) ~! elt ^^ { case al ~ elt => (al, elt) }
+    def prefix1 = rep1(preAnnotation <~ rep(eol)) ~! elt ^^ { case al ~ elt => (al, elt) }
     def prefix = prefix0 | prefix1
     def punctTerminatedElt = (prefix <~ terminator) ~ rep(postAnnotation) ^^ {
       case (al1, elt) ~ al2 => (al1, elt, al2)
@@ -625,7 +625,7 @@ object Parser extends Parsers {
       case (al1, elt) ~ al2 => (al1, elt, al2)
     }
     def terminatedElt = punctTerminatedElt | annotationTerminatedElt
-    def unterminatedElt = rep(preAnnotation) ~ elt ^^ {
+    def unterminatedElt = rep(preAnnotation <~ rep(eol)) ~ elt ^^ {
       case al ~ elt => (al, elt, Nil)
     }
     def elts = rep(terminatedElt) ~ opt(unterminatedElt) ^^ {
