@@ -449,8 +449,9 @@ object FppWriter extends AstVisitor with LineUtils {
     in: Unit,
     aNode: Ast.Annotated[AstNode[Ast.SpecTopImport]]
   ) = {
-    // TODO
-    Nil
+    val (_, node, _) = aNode
+    val data = node.data
+    Line.addPrefix("import ", qualIdent(data.top.data))
   }
 
   override def transUnit(
