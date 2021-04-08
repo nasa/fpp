@@ -29,7 +29,7 @@ object CheckSemantics {
       a <- CheckComponentInstanceDefs.visitList(a, tul, CheckComponentInstanceDefs.transUnit)
       _ <- CheckComponentInstanceDefs.checkIdRanges(a)
       a <- CheckTopologyDefs.visitList(a, tul, CheckTopologyDefs.transUnit)
-      a <- CheckInitSpecs.visitList(a, tul, CheckTopologyDefs.transUnit)
+      a <- CheckInitSpecs.visitList(a, tul, CheckInitSpecs.transUnit)
       a <- BuildSpecLocMap.visitList(a, tul, BuildSpecLocMap.transUnit)
       a <- CheckSpecLocs.visitList(a, tul, CheckSpecLocs.transUnit)
     }

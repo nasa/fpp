@@ -58,6 +58,9 @@ sealed trait Error {
       case SemanticError.DuplicateIdValue(value, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate identifier value ${value}")
         printPrevLoc(prevLoc)
+      case SemanticError.DuplicateInitSpecifier(phase, loc, prevLoc) =>
+        Error.print (Some(loc)) (s"duplicate initialization for phase ${phase}")
+        printPrevLoc(prevLoc)
       case SemanticError.DuplicateInstance(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate instance $name")
         printPrevLoc(prevLoc)
@@ -256,6 +259,12 @@ object SemanticError {
   /** Dupliate ID value */
   final case class DuplicateIdValue(
     value: String,
+    loc: Location,
+    prevLoc: Location
+  ) extends Error
+  /** Duplicate init specifier */
+  final case class DuplicateInitSpecifier(
+    phase: Int,
     loc: Location,
     prevLoc: Location
   ) extends Error

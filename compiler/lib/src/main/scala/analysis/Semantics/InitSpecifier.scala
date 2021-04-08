@@ -10,6 +10,13 @@ final case class InitSpecifier(
   phase: Int
 ) {
 
+  /** Gets the location for this init specifier */
+  def getLoc = Locations.get(aNode._2.id)
+
+}
+
+object InitSpecifier {
+
   /** Creates an init specifier from an AST node */
   def fromNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecInit]]): 
     Result.Result[InitSpecifier] = {
