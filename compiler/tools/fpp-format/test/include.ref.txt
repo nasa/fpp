@@ -87,7 +87,12 @@ module DefinitionsAndSpecifiers {
 
   } @< Component definition
 
-  @ Component instance definition @< Component instance definition
+  @ Component instance definition
+  instance c: C base id 0x100 \
+    at "C.hpp" \
+    queue size 100 \
+    stack size 1024 \
+    priority 10 @< Component instance definition
 
   @ Constant definition
   constant x = 0 @< Constant definition
@@ -111,6 +116,11 @@ module DefinitionsAndSpecifiers {
   constant x = 0 @< Included constant
 
   @ Init specifier
+  init i phase CONSTRUCTION """
+                            line 1
+                            line 2
+                            line 3
+                            """
 
   @ Port definition
   port P(
@@ -126,7 +136,31 @@ module DefinitionsAndSpecifiers {
     y: F32 format "{} m/s" @< y
   } @< Struct definition
 
-  @ Topology definition @< Topology definition
+  @ Topology definition
+  topology T {
+
+    @ Public instance specifier
+    instance i1 @< Public instance specifier
+
+    @ Private instance specifier
+    private instance i2 @< Private instance specifier
+
+    @ Direct connection graph specifier
+    connections C {
+      i1.p[0] -> i2.p[1]
+    } @< Direct connection graph specifier
+
+    @ Graph pattern specifier
+    command connections instance i1 {
+      i2
+      i3
+      i4
+    } @< Graph pattern specifier
+
+    @ Topology import specifier
+    import T1 @< Topology import specifier
+
+  } @< Topology definition
 
   @ Location specifier
   locate instance i at "instances.fpp" @< Location specifier
