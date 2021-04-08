@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/spec_init/duplicate_phase.fpp: 11.1
+init c phase 0 \
+^
+error: duplicate initialization for phase 0
+previous occurrence is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/spec_init/duplicate_phase.fpp: 7.1
+init c phase 0 \
+^
