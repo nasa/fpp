@@ -11,10 +11,10 @@ depending on the kind of sequence.
 
 For each element _e_ in the sequence:
 
-* You can always terminate _e_ with a sequence of one or more line breaks. In 
+* You can always terminate _e_ with a sequence of one or more newlines. In 
 this case no terminating punctuation is required.
 
-* You can omit the line break. In this case the terminating punctuation
+* You can omit the newline. In this case the terminating punctuation
 is required, unless the element is last in the sequence or
 the element is followed by a
 <<Comments-and-Annotations_Annotations,post-annotation>>.

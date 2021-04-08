@@ -1119,7 +1119,8 @@ treated as an identifier and not as a reserved word.</p>
 <h3 id="Lexical-Elements_End-of-Line-Tokens">3.4. End-of-Line Tokens</h3>
 <div class="paragraph">
 <p>An <strong>end-of-line token</strong> is a sequence of one or more <strong>newlines</strong>.
-A newline is the NL character (ASCII code 0x0A), optionally preceded by a CR
+A newline (or line break) is the NL character (ASCII code 0x0A),
+optionally preceded by a CR
 character (ASCII code 0x0D). End-of-line tokens separate the elements of
 <a href="#Element-Sequences">element sequences</a>.</p>
 </div>
@@ -1127,8 +1128,20 @@ character (ASCII code 0x0D). End-of-line tokens separate the elements of
 <div class="sect2">
 <h3 id="Lexical-Elements_Comments">3.5. Comments</h3>
 <div class="paragraph">
-<p>The lexer converts each <a href="#Comments-and-Annotations_Comments">comment</a>
-to an <a href="#Lexical-Elements_End-of-Line-Tokens">end-of-line token</a>.</p>
+<p>The lexer ignores <a href="#Comments-and-Annotations_Comments">comments</a>.
+Specifically:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A comment followed by a <a href="#Lexical-Elements_End-of-Line-Tokens">newline</a> is treated as
+an newline.</p>
+</li>
+<li>
+<p>A comment at the end of a file, not followed by a newline, is
+treated as no text.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -1315,11 +1328,11 @@ depending on the kind of sequence.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>You can always terminate <em>e</em> with a sequence of one or more line breaks. In
+<p>You can always terminate <em>e</em> with a sequence of one or more newlines. In
 this case no terminating punctuation is required.</p>
 </li>
 <li>
-<p>You can omit the line break. In this case the terminating punctuation
+<p>You can omit the newline. In this case the terminating punctuation
 is required, unless the element is last in the sequence or
 the element is followed by a
 <a href="#Comments-and-Annotations_Annotations">post-annotation</a>.</p>
@@ -7915,7 +7928,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-04-07 18:06:30 -0700
+Last updated 2021-04-08 10:42:30 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

@@ -16,6 +16,7 @@ object Lexer extends RegexParsers {
   }
 
   def ignore: Parser[Unit] = {
+    // Ignore a comment not followed by a newline
     def comment: Parser[Unit] = unitParser(newlinesOpt ~ "#[^\r\n]*".r)
     def spaces: Parser[Unit] = unitParser(" +".r)
     def escapedNewline: Parser[Unit] = unitParser("\\" ~ newline)
@@ -94,7 +95,10 @@ object Lexer extends RegexParsers {
     }
   }
 
-  def newline: Parser[Unit] = unitParser(" *\r?\n *".r)
+  def newline: Parser[Unit] = 
+    // Convert a comment followed by a newline to a newline
+    //unitParser("( *#[^\r\n]*)? *\r?\n *".r)
+    unitParser(" *(#[^\r\n]*)?\r?\n *".r)
 
   def parseAllInput[T](p: Parser[T]) = new Parser[T] {
     def dropWhile(in: Input, p: Char => Boolean): Input = {
