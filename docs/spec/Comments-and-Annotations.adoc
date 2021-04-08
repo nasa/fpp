@@ -61,6 +61,10 @@ post-annotation must occur immediately after an
 <<Comments-and-Annotations_Annotations_Where-Annotations-Can-Occur,
 annotatable element>> _e_. It is attached to _e_ during translation.
 
+You may follow either kind of annotation by one or more blank
+lines.
+In this case the blank lines are ignored.
+
 ===== Example
 
 [source,fpp]

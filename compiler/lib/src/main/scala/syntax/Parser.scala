@@ -618,10 +618,10 @@ object Parser extends Parsers {
     def prefix0 = elt ^^ { case elt => (Nil, elt) }
     def prefix1 = rep1(preAnnotation <~ rep(eol)) ~! elt ^^ { case al ~ elt => (al, elt) }
     def prefix = prefix0 | prefix1
-    def punctTerminatedElt = (prefix <~ terminator) ~ rep(postAnnotation) ^^ {
+    def punctTerminatedElt = (prefix <~ terminator) ~ rep(postAnnotation <~ rep(eol)) ^^ {
       case (al1, elt) ~ al2 => (al1, elt, al2)
     }
-    def annotationTerminatedElt = prefix ~ rep1(postAnnotation) ^^ {
+    def annotationTerminatedElt = prefix ~ rep1(postAnnotation <~ rep(eol)) ^^ {
       case (al1, elt) ~ al2 => (al1, elt, al2)
     }
     def terminatedElt = punctTerminatedElt | annotationTerminatedElt

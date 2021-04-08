@@ -1127,7 +1127,8 @@ character (ASCII code 0x0D). End-of-line tokens separate the elements of
 <div class="sect2">
 <h3 id="Lexical-Elements_Comments">3.5. Comments</h3>
 <div class="paragraph">
-<p><a href="#Comments-and-Annotations_Comments">Comments</a> are ignored during lexing.</p>
+<p>The lexer converts each <a href="#Comments-and-Annotations_Comments">comment</a>
+to an <a href="#Lexical-Elements_End-of-Line-Tokens">end-of-line token</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -5765,6 +5766,11 @@ Whitespace characters after the initial <code>@&lt;</code> are ignored. A
 post-annotation must occur immediately after an
 <a href="#Comments-and-Annotations_Annotations_Where-Annotations-Can-Occur">annotatable element</a> <em>e</em>. It is attached to <em>e</em> during translation.</p>
 </div>
+<div class="paragraph">
+<p>You may follow either kind of annotation by one or more blank
+lines.
+In this case the blank lines are ignored.</p>
+</div>
 <div class="sect4">
 <h5 id="Comments-and-Annotations_Annotations_Kinds-of-Annotations_Example">Example</h5>
 <div class="listingblock">
@@ -7909,7 +7915,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-04-07 16:50:00 -0700
+Last updated 2021-04-07 18:06:30 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

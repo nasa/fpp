@@ -178,7 +178,8 @@ character (ASCII code 0x0D). End-of-line tokens separate the elements of
 
 === Comments
 
-<<Comments-and-Annotations_Comments,Comments>> are ignored during lexing.
+The lexer converts each <<Comments-and-Annotations_Comments,comment>>
+to an <<Lexical-Elements_End-of-Line-Tokens,end-of-line token>>.
 
 === Whitespace and Non-Printable Characters
 
