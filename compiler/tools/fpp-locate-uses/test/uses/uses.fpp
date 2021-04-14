@@ -33,3 +33,21 @@ active component C3 {
   text event port textEventOut
   time get port timeGetOut
 }
+
+instance c12: C1 base id 0x200
+
+topology T2 {
+  import T1
+  instance c11
+}
+
+module M {
+
+  instance c12: C1 base id 0x200
+
+  topology T2 {
+    import T1
+    instance c11
+  }
+
+}
