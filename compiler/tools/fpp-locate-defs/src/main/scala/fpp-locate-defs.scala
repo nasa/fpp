@@ -24,8 +24,15 @@ object FPPLocateDefs {
       case list => list
     }
     for {
-      tul <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
-      a_tul <- ResolveSpecInclude.transformList(Analysis(), tul, ResolveSpecInclude.transUnit)
+      tul <- Result.map(
+        files,
+        Parser.parseFile (Parser.transUnit) (None) _
+      )
+      a_tul <- ResolveSpecInclude.transformList(
+        Analysis(),
+        tul,
+        ResolveSpecInclude.transUnit
+      )
     }
     yield {
       val (_, tul) = a_tul
@@ -37,7 +44,7 @@ object FPPLocateDefs {
 
   def main(args: Array[String]) = {
     Error.setTool(Tool(name))
-    for { options <- OParser.parse(oparser, args, Options()) }
+    for (options <- OParser.parse(oparser, args, Options()))
     yield {
       command(options) match {
         case Left(error) => {

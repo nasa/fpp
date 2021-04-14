@@ -17,3 +17,9 @@ passive component C {
   enum E { X, Y, Z }
   struct S { x: U32 }
 }
+
+instance c: C base id 0x100
+
+topology T { 
+
+}
