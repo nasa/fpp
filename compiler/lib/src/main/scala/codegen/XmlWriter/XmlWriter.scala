@@ -76,7 +76,7 @@ object XmlWriter extends AstStateVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     val name = s.getName(Symbol.Topology(aNode))
-    val fileName = XmlWriterState.getEnumFileName(name)
+    val fileName = XmlWriterState.getTopologyFileName(name)
     val lines = TopologyXmlWriter.defTopologyAnnotatedNode(s, aNode)
     writeXmlFile(s, fileName, lines)
   }
