@@ -58,6 +58,10 @@ case class XmlWriterState(
             "import_array_type",
             XmlWriterState.getArrayFileName(getName(Symbol.Array(aNode)))
           )
+          case Symbol.Component(aNode) => Some(
+            "import_component_type",
+            XmlWriterState.getComponentFileName(getName(Symbol.Component(aNode)))
+          )
           case Symbol.Enum(aNode) => Some(
             "import_enum_type",
             XmlWriterState.getEnumFileName(getName(Symbol.Enum(aNode)))
@@ -158,18 +162,21 @@ case class XmlWriterState(
 case object XmlWriterState {
 
   /** Gets the generated XML file name for an array definition */
-  def getArrayFileName(baseName: String) = baseName ++ "ArrayAi.xml"
+  def getArrayFileName(baseName: String) = s"${baseName}ArrayAi.xml"
 
   /** Gets the generated XML file name for an enum definition */
-  def getEnumFileName(baseName: String) = baseName ++ "EnumAi.xml"
+  def getEnumFileName(baseName: String) = s"${baseName}EnumAi.xml"
 
   /** Gets the generated XML file name for a component definition */
-  def getComponentFileName(baseName: String) = baseName ++ "ComponentAi.xml"
+  def getComponentFileName(baseName: String) = s"${baseName}ComponentAi.xml"
 
   /** Gets the generated XML file name for a port definition */
-  def getPortFileName(baseName: String) = baseName ++ "PortAi.xml"
+  def getPortFileName(baseName: String) = s"${baseName}PortAi.xml"
 
   /** Gets the generated XML file name for a struct definition */
-  def getStructFileName(baseName: String) = baseName ++ "SerializableAi.xml"
+  def getStructFileName(baseName: String) = s"${baseName}SerializableAi.xml"
+
+  /** Gets the generated XML file name for a topology definition */
+  def getTopologyFileName(baseName: String) = s"${baseName}TopologyAppAi.xml"
 
 }

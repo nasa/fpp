@@ -74,6 +74,15 @@ object ComputeXmlFiles extends AstStateVisitor {
     addMapping(s, fileName, loc)
   }
 
+  override def defTopologyAnnotatedNode(s: State, aNode: Ast.Annotated[AstNode[Ast.DefTopology]]) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    val loc = Locations.get(node.id)
+    val name = s.getName(Symbol.Topology(aNode))
+    val fileName = XmlWriterState.getTopologyFileName(name)
+    addMapping(s, fileName, loc)
+  }
+
   override def transUnit(s: State, tu: Ast.TransUnit) =
     visitList(s, tu.members, matchTuMember)
 

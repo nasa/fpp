@@ -25,11 +25,7 @@ object XmlWriter extends AstStateVisitor with LineUtils {
     val fileName = XmlWriterState.getComponentFileName(name)
     val lines = ComponentXmlWriter.defComponentAnnotatedNode(s, aNode)
     for {
-      _ <- {
-        val a = s.a.copy(scopeNameList = data.name :: s.a.scopeNameList)
-        val s1 = s.copy(a = a)
-        visitList(s1, data.members, matchComponentMember)
-      }
+      _ <- visitList(s, data.members, matchComponentMember)
       s <- writeXmlFile(s, fileName, lines)
     }
     yield s
@@ -50,9 +46,7 @@ object XmlWriter extends AstStateVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    val a = s.a.copy(scopeNameList = data.name :: s.a.scopeNameList)
-    val s1 = s.copy(a = a)
-    visitList(s1, data.members, matchModuleMember)
+    visitList(s, data.members, matchModuleMember)
     Right(s)
   }
 
@@ -76,6 +70,15 @@ object XmlWriter extends AstStateVisitor with LineUtils {
       _ <- if (data.members.length == 0) Left(CodeGenError.EmptyStruct(loc)) else Right(())
       s <- writeXmlFile(s, fileName, lines)
     } yield s
+  }
+
+  override def defTopologyAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefTopology]]) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    val name = s.getName(Symbol.Topology(aNode))
+    val fileName = XmlWriterState.getEnumFileName(name)
+    val lines = TopologyXmlWriter.defTopologyAnnotatedNode(s, aNode)
+    writeXmlFile(s, fileName, lines)
   }
 
   override def transUnit(s: XmlWriterState, tu: Ast.TransUnit) = 
