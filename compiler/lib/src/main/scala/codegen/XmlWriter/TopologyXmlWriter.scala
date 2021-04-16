@@ -41,7 +41,7 @@ object TopologyXmlWriter extends AstVisitor with LineUtils {
         ("name", s.getName(cis)),
         ("type", cs.getUnqualifiedName),
         ("base_id", XmlWriterState.writeId(ci.baseId)),
-        ("base_id_window", XmlWriterState.writeId(ci.maxId - ci.baseId + 1))
+        ("base_id_window", (ci.maxId - ci.baseId + 1).toString)
       )
       XmlTags.taggedLines ("instance", pairs) (Nil)
     }
