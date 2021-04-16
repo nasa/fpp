@@ -22,16 +22,9 @@ object TopologyXmlWriter extends AstVisitor with LineUtils {
       }
       List(
         writeImports(s, t),
-        /*
-        writePorts(s, c),
-        writeInternalInterfaces(s, c),
-        writeCommands(s, c),
-        writeEvents(s, c),
-        writeParams(s, c),
-        writeTlmChannels(s, c)
-        */
+        writeInstances(s, t),
+        writeConnections(s, t)
       ).flatMap(addBlank) :+ Line.blank
-      Nil
     }
     XmlTags.taggedLines ("assembly", pairs) (body.map(indentIn))
   }
@@ -39,16 +32,26 @@ object TopologyXmlWriter extends AstVisitor with LineUtils {
   override def default(s: XmlWriterState) = Nil
 
   private def writeImports(s: XmlWriterState, t: Topology) = {
-    /*
-    val Right(a1) = UsedSymbols.defTopologyAnnotatedNode(s.a, t.aNode)
-    // Import only components
-    val uss = a1.usedSymbolSet.filter(s => s match {
-      case _: Symbol.Component => true
-      case _ => false
-    })
-    val a2 = a1.copy(usedSymbolSet = uss)
-    s.copy(a = a1).writeImportDirectives
-    */
+    val symbols = t.instanceMap.keys.map(ci => Symbol.Component(ci.component.aNode))
+    s.writeImportDirectives(symbols)
+  }
+
+  private def writeInstances(s: XmlWriterState, t: Topology) = {
+    def writeInstance(ci: ComponentInstance) = {
+      val cis = Symbol.ComponentInstance(ci.aNode)
+      val cs = Symbol.Component(ci.component.aNode)
+      val pairs = s.getNamespaceAndName(cis) ++ List(
+        ("type", s.writeSymbol(cs)),
+        ("base_id", XmlWriterState.writeId(ci.baseId)),
+        ("base_id_window", XmlWriterState.writeId(ci.maxId - ci.baseId + 1))
+      )
+      XmlTags.taggedLines ("instance", pairs) (Nil)
+    }
+    t.instanceMap.keys.flatMap(writeInstance).toList
+  }
+
+  private def writeConnections(s: XmlWriterState, t: Topology) = {
+    // TODO
     Nil
   }
 

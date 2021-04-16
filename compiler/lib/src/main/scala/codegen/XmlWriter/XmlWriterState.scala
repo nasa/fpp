@@ -43,8 +43,7 @@ case class XmlWriterState(
   def writeImportDirectives(usedSymbols: Iterable[Symbol]): List[Line] = {
     def getDirectiveForSymbol(sym: Symbol): Option[String] =
       for {
-        tagFileName <-
-        sym match {
+        tagFileName <- sym match {
           case Symbol.AbsType(aNode) => 
             val symbol = Symbol.AbsType(aNode)
             // Don't import headers for built-in types
@@ -99,23 +98,35 @@ case class XmlWriterState(
 
   /** Write an FPP symbol as XML */
   def writeSymbol(sym: Symbol): String = {
-    val identList = {
-      def helper(symOpt: Option[Symbol], out: List[String]): List[String] =
-        symOpt match {
-          case None => out
-          case Some(sym) => 
-            val psOpt = a.parentSymbolMap.get(sym)
-            val out1 = sym match {
-              // Skip component symbol names
-              // Those appear in the prefixes of definition names
-              case cs: Symbol.Component => out
-              case _ => getName(sym) :: out
-            }
-            helper(psOpt, out1)
+    // Skip component names in qualifiers
+    // Those appear in the prefixes of definition names
+    def removeComponentQualifiers(
+      symOpt: Option[Symbol],
+      out: List[String]
+    ): List[String] = symOpt match {
+      case None => out
+      case Some(sym) => 
+        val psOpt = a.parentSymbolMap.get(sym)
+        val out1 = sym match {
+          case cs: Symbol.Component => out
+          case _ => getName(sym) :: out
         }
-      helper(Some(sym), Nil)
+        removeComponentQualifiers(psOpt, out1)
     }
-    val qualifiedName = Name.Qualified.fromIdentList(identList)
+    val qualifiedName = sym match {
+      // For component symbols, use the qualified name
+      case cs: Symbol.Component => a.getQualifiedName(cs)
+      // For other symbols, remove component qualifiers
+      case _ => {
+        val identList = removeComponentQualifiers(Some(sym), Nil)
+        Name.Qualified.fromIdentList(identList)
+      }
+    }
+    writeQualifiedName(qualifiedName)
+  }
+
+  /** Writes an FPP qualified name as XML */
+  def writeQualifiedName(qualifiedName: Name.Qualified) = {
     qualifiedName.toString.replaceAll("\\.", "::")
   }
 
@@ -178,5 +189,8 @@ case object XmlWriterState {
 
   /** Gets the generated XML file name for a topology definition */
   def getTopologyFileName(baseName: String) = s"${baseName}TopologyAppAi.xml"
+
+  /** Write an identifier */
+  def writeId(id: Int) = s"0x${Integer.toString(id, 16).toUpperCase}"
 
 }

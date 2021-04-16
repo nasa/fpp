@@ -54,7 +54,7 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
       val pairs = {
         val pairs1 = List(
           ("kind", writeKind(nonParam.kind)),
-          ("opcode", writeId(opcode)),
+          ("opcode", XmlWriterState.writeId(opcode)),
           ("mnemonic", data.name),
         )
         val priority = nonParam.kind match {
@@ -108,7 +108,7 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
           typeNames
         )
         val pairs1 = List(
-          ("id", writeId(id)),
+          ("id", XmlWriterState.writeId(id)),
           ("name", data.name),
           ("severity", writeSeverity(data.severity)),
           ("format_string", format)
@@ -130,8 +130,6 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
       flatMap(key => writeEvent(key, c.eventMap(key)))
     XmlTags.taggedLinesOpt ("events") (events.map(indentIn))
   }
-
-  private def writeId(id: Int) = s"0x${Integer.toString(id, 16).toUpperCase}"
 
   private def writeImports(s: XmlWriterState, c: Component) = {
     val Right(a) = UsedSymbols.defComponentAnnotatedNode(s.a, c.aNode)
@@ -173,9 +171,9 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
       val data = param.aNode._2.data
       val pairs = List(
         List (
-          ("id", writeId(id)),
-          ("set_opcode", writeId(param.setOpcode)),
-          ("save_opcode", writeId(param.saveOpcode)),
+          ("id", XmlWriterState.writeId(id)),
+          ("set_opcode", XmlWriterState.writeId(param.setOpcode)),
+          ("save_opcode", XmlWriterState.writeId(param.saveOpcode)),
           ("name", data.name),
         ),
         TypeXmlWriter.getPairs(s, param.paramType, "data_type"),
@@ -294,7 +292,7 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
       }
       val pairs = List(
         List(
-          ("id", writeId(id)),
+          ("id", XmlWriterState.writeId(id)),
           ("name", data.name),
         ),
         TypeXmlWriter.getPairs(s, tlmChannel.channelType, "data_type"),
