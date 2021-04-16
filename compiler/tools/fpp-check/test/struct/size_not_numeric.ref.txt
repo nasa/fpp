@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/struct/size_not_numeric.fpp: 1.16
+struct S { x: ["abc"] U32 }
+               ^
+error: cannot convert string to a numeric type

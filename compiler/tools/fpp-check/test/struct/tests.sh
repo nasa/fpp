@@ -7,5 +7,7 @@ format_not_numeric
 format_numeric
 format_ok
 format_too_many_repls
+invalid_size
 no_default_ok
+size_not_numeric
 "
