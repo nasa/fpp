@@ -39,20 +39,29 @@ object StructXmlWriter extends AstVisitor with LineUtils {
     val node = aNode._2
     val data = node.data
     val t = s.a.typeMap(data.typeName.id)
-    val pairs = ("name", data.name) :: TypeXmlWriter.getPairs(s, t)
-    val pairs1 = {
-      val format = structType.formats.get(data.name) match {
-        case Some(format) => format
-        case None => Format("", List((Format.Field.Default,"")))
+    val pairs = {
+      val nameAndType = ("name", data.name) :: TypeXmlWriter.getPairs(s, t)
+      val size = (t, structType.sizes.get(data.name)) match {
+        // We cannot represent arrays of strings in XML
+        case (_: Type.String, _) => Nil
+        case (_, Some(n)) => List(("size", n.toString))
+        case _ => Nil
       }
-      val s = FormatXmlWriter.formatToString(format, List(data.typeName))
-      pairs :+ ("format", s)
+      val format = {
+        val format = structType.formats.get(data.name) match {
+          case Some(format) => format
+          case None => Format("", List((Format.Field.Default,"")))
+        }
+        val s = FormatXmlWriter.formatToString(format, List(data.typeName))
+        List(("format", s))
+      }
+      val comment = AnnotationXmlWriter.singleLineComment(aNode) match {
+        case Some(comment) => List(comment)
+        case None => Nil
+      }
+      nameAndType ++ size ++ format ++ comment
     }
-    val pairs2 = AnnotationXmlWriter.singleLineComment(aNode) match {
-      case Some(comment) => pairs1 :+ comment
-      case None => pairs1
-    }
-    line(XmlTags.openCloseTag("member", pairs2))
+    line(XmlTags.openCloseTag("member", pairs))
   }
 
   type In = XmlWriterState

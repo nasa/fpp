@@ -3,7 +3,7 @@
 struct StructOK1 {
   @ Member annotation, line 1.
   @ Member annotation, line 2.
-  mF32: F32
+  mF32: [3] F32
   mF64: F64
   mI16: I16
   mI32: I32
