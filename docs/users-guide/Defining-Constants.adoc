@@ -219,14 +219,7 @@ Here are some rules for writing array values:
 
 . An array value must have at least one element.
 That is, `[]` is not a valid array value.
-. There is an upper limit on the number of elements
-in an array value.
-FPP arrays are designed to encode small, fixed-size arrays, e.g.,
-for command arguments or telemetry channels.
-They are not designed to encode large computational arrays.
-The upper limit on array size is implementation-defined.
-If you use FPP arrays as intended, you are unlikely to hit the limit;
-if you do, the checker will complain. 
+. An array value may have at most 1024 elements.
 . The types of the elements must match.
 For example, the following code is illegal, because the value `1` (which has type `Integer`)
 and the value `"abcd"` (which has type `string`) are incompatible:

@@ -1485,8 +1485,7 @@ it.</p>
 <div class="paragraph">
 <p>The identifier is the name <em>N</em> of the new type.
 The first expression must evaluate to a compile-time constant numeric value <em>n</em>
-whose value is greater than zero and less than or equal to an
-implementation-specific maximum value.
+whose value is greater than zero and less than or equal to 1024.
 <em>type-name</em> names the type <em>T</em> of each array element.</p>
 </div>
 <div class="paragraph">
@@ -4264,8 +4263,7 @@ The type of <em>e</em> must be <a href="#Type-Checking_Type-Conversion">converti
 <em>e</em> must
 <a href="#Evaluation">evaluate</a> to a value <em>n</em> after
 <a href="#Evaluation_Type-Conversion">conversion</a> to <em>Integer</em>.
-<em>n</em> must be greater than zero and less than an implementation-specific maximum
-value.</p>
+<em>n</em> must be greater than zero and less than 1024.</p>
 </li>
 <li>
 <p><em>port-instance-type</em> specifies the type of the port instance.</p>
@@ -6588,7 +6586,7 @@ are called the <strong>primitive types</strong>.</p>
 <p>The <strong>string types</strong> correspond to the
 <a href="#Type-Names_String-Type-Names">string type names</a>.
 A string type is written <code>string</code> or <code>string size</code> <em>n</em>,
-where <em>n</em> is a nonnegative integer value.
+where <em>n</em> is an integer value greater than zero.
 There is one string type <code>string</code> and one string type <code>string</code> <em>n</em>
 for each legal value of <em>n</em>.</p>
 </div>
@@ -7928,7 +7926,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-04-08 10:42:30 -0700
+Last updated 2021-04-16 10:51:59 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

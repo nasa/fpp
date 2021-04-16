@@ -1086,14 +1086,7 @@ at zero.</p>
 That is, <code>[]</code> is not a valid array value.</p>
 </li>
 <li>
-<p>There is an upper limit on the number of elements
-in an array value.
-FPP arrays are designed to encode small, fixed-size arrays, e.g.,
-for command arguments or telemetry channels.
-They are not designed to encode large computational arrays.
-The upper limit on array size is implementation-defined.
-If you use FPP arrays as intended, you are unlikely to hit the limit;
-if you do, the checker will complain.</p>
+<p>An array value may have at most 1024 elements.</p>
 </li>
 <li>
 <p>The types of the elements must match.
@@ -7888,7 +7881,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-11 09:49:59 -0800
+Last updated 2021-04-16 10:54:12 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
