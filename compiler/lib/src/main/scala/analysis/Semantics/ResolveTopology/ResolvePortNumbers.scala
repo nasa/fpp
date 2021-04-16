@@ -72,8 +72,8 @@ object ResolvePortNumbers {
   def resolve(t: Topology): Result.Result[Topology] =
     for {
       _ <- checkOutputPorts(t)
-      _ <- MatchedPortNumbering.apply(t)
-      _ <- Right(GeneralPortNumbering.apply(t))
+      t <- MatchedPortNumbering.apply(t)
+      t <- Right(GeneralPortNumbering.apply(t))
     }
     yield t
 

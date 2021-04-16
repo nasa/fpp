@@ -36,8 +36,10 @@ object TopologyXmlWriter extends AstVisitor with LineUtils {
     def writeInstance(ci: ComponentInstance) = {
       val cis = Symbol.ComponentInstance(ci.aNode)
       val cs = Symbol.Component(ci.component.aNode)
-      val pairs = s.getNamespaceAndName(cis) ++ List(
-        ("type", s.writeSymbol(cs)),
+      val pairs = List(
+        ("namespace", s.getNamespace(cs)),
+        ("name", s.getName(cis)),
+        ("type", cs.getUnqualifiedName),
         ("base_id", XmlWriterState.writeId(ci.baseId)),
         ("base_id_window", XmlWriterState.writeId(ci.maxId - ci.baseId + 1))
       )
@@ -47,11 +49,37 @@ object TopologyXmlWriter extends AstVisitor with LineUtils {
   }
 
   private def writeConnections(s: XmlWriterState, t: Topology) = {
+    def getPairs(
+      endpoint: Connection.Endpoint,
+      portNumber: Int
+    ): List[(String, String)] = {
+      val pii = endpoint.port
+      List(
+        ("component", pii.componentInstance.getUnqualifiedName),
+        ("port", pii.portInstance.getUnqualifiedName),
+        ("type", "[unused]"),
+        ("num", portNumber.toString)
+      )
+    }
+    def writeConnection(c: Connection) = {
+      val pairs = List(("name", "[unused]"))
+      val body = {
+        val fromPortNumber = t.fromPortNumberMap(c)
+        val toPortNumber = t.toPortNumberMap(c)
+        val source = XmlTags.taggedLines (
+          "source", getPairs(c.from, fromPortNumber)
+        ) (Nil)
+        val target = XmlTags.taggedLines (
+          "target", getPairs(c.to, toPortNumber)
+        ) (Nil)
+        source ++ target
+      }
+      XmlTags.taggedLines ("connection", pairs) (body.map(indentIn))
+    }
     def writeGraph(graphName: String): List[Line] = {
       List (
         XmlWriterState.writeComment(s"@FPL START $graphName"),
-        // TODO
-        Nil,
+        t.connectionMap(graphName).flatMap(writeConnection),
         XmlWriterState.writeComment(s"@FPL END")
       ).flatten
     }
