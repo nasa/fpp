@@ -9,7 +9,7 @@ sealed trait Type {
   /** Get the default value */
   def getDefaultValue: Option[Value]
 
-  /** Get the array size, if it exists and is known */
+  /** Get the array size */
   def getArraySize: Option[Type.Array.Size] = None
 
   /** Get the definition node identifier, if any */
@@ -190,7 +190,7 @@ object Type {
     node: Ast.Annotated[AstNode[Ast.DefEnum]],
     /** The representation type */
     repType: Type.PrimitiveInt,
-    /** The default value, if known */
+    /** The default value */
     default: Option[Value.EnumConstant] = None
   ) extends Type {
     override def getDefaultValue: Option[Value.EnumConstant] = default
@@ -206,9 +206,9 @@ object Type {
     node: Ast.Annotated[AstNode[Ast.DefStruct]],
     /** The structurally equivalent anonymous struct type */
     anonStruct: AnonStruct,
-    /** The default value, if known */
+    /** The default value */
     default: Option[Value.Struct] = None,
-    /** The known member formats */
+    /** The member formats */
     formats: Struct.Formats = Map(),
   ) extends Type {
     override def getDefaultValue: Option[Value.Struct] = default
@@ -246,7 +246,7 @@ object Type {
 
   /** An anonymous array type */
   case class AnonArray(
-    /** The array size, if known */
+    /** The array size */
     size: Option[Array.Size],
     /** The element type */
     eltType: Type

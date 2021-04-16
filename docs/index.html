@@ -1504,9 +1504,6 @@ The type of the expression must be
 When displaying the array, the format is applied to each element of the array.
 There is one argument to the format string, which an array member.</p>
 </div>
-<div class="paragraph">
-<p>The type name <em>N</em> is not in scope in the body of the definition.</p>
-</div>
 </div>
 <div class="sect3">
 <h4 id="Definitions_Array-Definitions_Examples">5.2.3. Examples</h4>
@@ -2370,7 +2367,11 @@ punctuation is a comma.
 A <strong>struct type member</strong> has the following syntax:</p>
 </div>
 <div class="paragraph">
-<p><a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>:</code> <a href="#Type-Names"><em>type-name</em></a>
+<p><a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>:</code>
+<em>[</em>
+<code>[</code> <a href="#Expressions"><em>expression</em></a> <code>]</code>
+<em>]</em>
+<a href="#Type-Names"><em>type-name</em></a>
 <em>[</em>
 <code>format</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a>
 <em>]</em></p>
@@ -2380,25 +2381,38 @@ A <strong>struct type member</strong> has the following syntax:</p>
 <h4 id="Definitions_Struct-Definitions_Semantics">5.10.2. Semantics</h4>
 <div class="paragraph">
 <p>The identifier is the name <em>N</em> of the type.  The definition associates the name
-<em>N</em> with a type, <em>T'</em> representing a structure with named members, each
+<em>N</em> with a
+<a href="#Types_Struct-Types">struct type</a> <em>T</em> representing a structure with named members, each
 of the specified type.  Each
 identifier appearing in the struct type member sequence must be distinct.</p>
+</div>
+<div class="paragraph">
+<p>The optional expression <code>[</code> <em>e</em> <code>]</code> for a struct member specifies the
+<strong>size</strong> of the member, i.e., the number of elements stored in the member.
+If present, <em>e</em> must have a
+<a href="#Types_Internal-Types_Numeric-Types">numeric type</a>, and it must
+evaluate to a value greater than zero after conversion to
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
+If <em>e</em> is not present, then default size is one.
+If a member <em>m</em> has size greater than one, then <em>m</em>
+is translated to an array in the implementation language.</p>
 </div>
 <div class="paragraph">
 <p>The optional format specifier for a struct member specifies a
 <a href="#Format-Strings">format string</a>.
 The format is applied when displaying the struct member.
-There is one argument to the format string, which is the member value.</p>
+There is one argument to the format string, which is the member value.
+If the size of the member is greater than one, then the
+translator applies the format to each element.</p>
 </div>
 <div class="paragraph">
-<p>The expression following the keyword <em>default</em> is optional.
+<p>The expression following the keyword <code>default</code> is optional.
 If present, it specifies the <a href="#Types_Default-Values">default value</a>
 associated with the type.
 The type of the expression must be
-<a href="#Type-Checking_Type-Conversion">convertible to</a> <em>T'</em>.</p>
-</div>
-<div class="paragraph">
-<p>The type name <em>N</em> is not in scope in the body of the definition.</p>
+<a href="#Type-Checking_Type-Conversion">convertible to</a> <em>T</em>.
+If the expression specifies a value for a member with size
+greater than one, then the value is applied to each element.</p>
 </div>
 </div>
 <div class="sect3">
@@ -2423,7 +2437,15 @@ struct B {
 struct C {
   x: U32 format "{} counts"
   y: F32 format "{} m/s"
-}</code></pre>
+}
+
+# Defines a struct type D with member x
+# After translation, x is an array of 3 U32 elements
+# The associated FPP struct type is { x: U32 }
+# The default value of D stores 1 into each of the 3 elements of x
+struct D {
+  x: [3] U32
+} default { x = 1 }</code></pre>
 </div>
 </div>
 </div>
@@ -7177,7 +7199,12 @@ may be converted to an anonymous array type
 \$T_1\$ may be converted to \$T_2\$ if the conversion
 is allowed after replacing the struct type or types with
 structurally equivalent
-<a href="#Types_Internal-Types_Anonymous-Struct-Types">anonymous struct types</a>.</p>
+<a href="#Types_Internal-Types_Anonymous-Struct-Types">anonymous struct types</a>.
+For purposes of structural equivalence, the member sizes of
+struct types are ignored.
+For example, the struct type <code>S</code> defined by <code>struct S { x: [3] U32 }</code>
+is structurally equivalent to the anonymous struct type
+<code>{ x: U32 }</code>.</p>
 </li>
 <li>
 <p>An anonymous struct type
@@ -7926,7 +7953,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-04-16 10:51:59 -0700
+Last updated 2021-04-16 11:45:06 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

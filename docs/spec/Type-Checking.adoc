@@ -294,6 +294,11 @@ stem:[T_1] may be converted to stem:[T_2] if the conversion
 is allowed after replacing the struct type or types with
 structurally equivalent 
 <<Types_Internal-Types_Anonymous-Struct-Types,anonymous struct types>>.
+For purposes of structural equivalence, the member sizes of
+struct types are ignored.
+For example, the struct type `S` defined by `struct S { x: [3] U32 }`
+is structurally equivalent to the anonymous struct type
+`{ x: U32 }`.
 
 . An anonymous struct type 
 stem:[T =]_{_ stem:[m_1] _:_ stem:[T_1] _,_ 
