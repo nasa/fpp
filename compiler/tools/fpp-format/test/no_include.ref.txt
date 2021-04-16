@@ -15,7 +15,7 @@ module DefinitionsAndSpecifiers {
     array A = [3] U32
 
     struct S {
-      x: U32
+      x: [3] U32
       y: F32
       z: string
     }

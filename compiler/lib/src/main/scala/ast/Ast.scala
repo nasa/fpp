@@ -586,6 +586,7 @@ object Ast {
   /** Struct type member */
   final case class StructTypeMember(
     name: Ident,
+    size: Option[AstNode[Expr]],
     typeName: AstNode[TypeName],
     format: Option[AstNode[String]]
   )

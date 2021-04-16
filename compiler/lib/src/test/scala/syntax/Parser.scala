@@ -183,6 +183,7 @@ class ParserSpec extends AnyWordSpec {
         "struct S { x: U32, y: F32 }",
         "struct S { x: U32 format \"{} steps\", y: F32 format \"{} m/s\" }",
         "struct S { x: U32, y: F32 } default { x = 1, y = 2 }",
+        "struct S { x: [3] U32 }",
         """struct S { 
           @ Pre
           x: U32 @< Post

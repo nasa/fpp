@@ -566,8 +566,9 @@ object FppWriter extends AstVisitor with LineUtils {
     lines(ident(member.name)).join (" = ") (exprNode(member.value))
 
   private def structTypeMember(member: Ast.StructTypeMember) =
-    lines(ident(member.name)).
-      join (": ") (typeNameNode(member.typeName)).
+    lines(s"${ident(member.name)}:").
+      joinOpt (member.size) (" ") (bracketExprNode).
+      join (" ") (typeNameNode(member.typeName)).
       joinOpt (member.format) (" format ") (applyToData(string))
 
   private def portInstanceId(pii: Ast.PortInstanceIdentifier) =

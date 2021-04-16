@@ -27,6 +27,7 @@ def module
       ident S
       struct type member
         ident x
+        array size literal int 3
         type name U32
       struct type member
         ident y

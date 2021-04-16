@@ -50,6 +50,7 @@ object StructXmlFppWriter extends LineUtils {
         val (fppFormatOpt, pre) = XmlFppWriter.FppBuilder.translateFormatOpt(xmlFormatOpt)
         val data = Ast.StructTypeMember(
           memberName,
+          None, // TODO
           AstNode.create(memberType),
           fppFormatOpt.map(AstNode.create(_))
         )

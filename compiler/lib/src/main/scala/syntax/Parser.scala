@@ -535,8 +535,8 @@ object Parser extends Parsers {
     importToken ~>! node(qualIdent) ^^ { case top => Ast.SpecTopImport(top) }
 
   def structTypeMember: Parser[Ast.StructTypeMember] = {
-    ident ~! (colon ~>! node(typeName)) ~! opt(format ~>! node(literalString)) ^^ {
-      case name ~ typeName ~ format => Ast.StructTypeMember(name, typeName, format)
+    ident ~! (colon ~>! opt(index)) ~! node(typeName) ~! opt(format ~>! node(literalString)) ^^ {
+      case name ~ size ~ typeName ~ format => Ast.StructTypeMember(name, size, typeName, format)
     }
   }
 

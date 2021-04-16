@@ -14,7 +14,7 @@ module DefinitionsAndSpecifiers {
 
     type T
     array A = [3] U32
-    struct S { x: U32, y: F32, z: string }
+    struct S { x: [3] U32, y: F32, z: string }
     enum E { X, Y, Z }
 
     @ Command specifier
