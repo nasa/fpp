@@ -47,7 +47,6 @@ object ComponentXmlFppWriter extends LineUtils {
       }
       yield XmlFppWriter.tuMemberList(
         Nil,
-        Nil,
         component,
         Ast.TUMember.DefComponent(_),
         Ast.ModuleMember.DefComponent(_),

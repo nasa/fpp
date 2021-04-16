@@ -187,16 +187,14 @@ object XmlFppWriter extends LineUtils {
     file: XmlFppWriter.File
   ) = tuMemberList(
     Nil,
-    Nil,
     aT,
     tumConstructor,
     moduleConstructor,
     file
   ).head
 
-  /** Builds a TU member list with extracted arrays and enums */
+  /** Builds a TU member list with extracted enums */
   def tuMemberList[T](
-    arrays: List[Ast.Annotated[Ast.DefArray]],
     enums: List[Ast.Annotated[Ast.DefEnum]],
     aT: Ast.Annotated[T],
     tumConstructor: AstNode[T] => Ast.TUMember.Node,
@@ -208,16 +206,14 @@ object XmlFppWriter extends LineUtils {
     val moduleNames = XmlFppWriter.getAttributeNamespace(file.elem)
     val memberNodes = moduleNames match {
       case Nil => {
-        val arrays1 = arrays.map(transform(Ast.TUMember.DefArray))
         val enums1 = enums.map(transform(Ast.TUMember.DefEnum))
         val aT1 = transform(tumConstructor)(aT)
-        (arrays1 ++ enums1) :+ aT1
+        enums1 :+ aT1
       }
       case head :: tail => {
-        val arrays1 = arrays.map(transform(Ast.ModuleMember.DefArray))
         val enums1 = enums.map(transform(Ast.ModuleMember.DefEnum))
         val aT1 = transform(moduleConstructor)(aT)
-        val aNodeList1 = (arrays1 ++ enums1) :+ aT1
+        val aNodeList1 = enums1 :+ aT1
         val aNodeList2 = XmlFppWriter.FppBuilder.encloseWithModuleMemberModules(tail.reverse)(aNodeList1)
         List(XmlFppWriter.FppBuilder.encloseWithTuMemberModule(head)(aNodeList2))
       }

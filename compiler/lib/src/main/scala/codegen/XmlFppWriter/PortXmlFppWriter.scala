@@ -32,12 +32,10 @@ object PortXmlFppWriter extends LineUtils {
     /** Generates the list of TU members */
     def tuMemberList(file: XmlFppWriter.File): Result.Result[List[Ast.TUMember]] =
       for {
-        arrays <- Right(Nil)
         enums <- FormalParamsXmlFppWriter.defEnumAnnotatedList(file, file.elem)
         port <- defPortAnnotated(file)
       }
       yield XmlFppWriter.tuMemberList(
-        arrays,
         enums,
         port,
         Ast.TUMember.DefPort(_),
