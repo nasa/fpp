@@ -250,7 +250,7 @@ case class Analysis(
   }
 
   /** Gets a nonnegative int value from an AST node */
-  def getNonnegativeIntValue(id: AstNode.Id): Result.Result[Int] = {
+  def getNonnegativeIntValue(id: AstNode.Id): Result.Result[Int] =
     for {
       v <- getIntValue(id)
       v <- if (v >= 0) Right(v)
@@ -261,7 +261,6 @@ case class Analysis(
            ))
     }
     yield v
-  }
  
   /** Gets an optional int value from an AST node */
   def getIntValueOpt[T](nodeOpt: Option[AstNode[T]]): Result.Result[Option[Int]] = 
@@ -271,8 +270,8 @@ case class Analysis(
   def getNonnegativeIntValueOpt[T](nodeOpt: Option[AstNode[T]]): Result.Result[Option[Int]] = 
     Result.mapOpt(nodeOpt, (node: AstNode[T]) => getNonnegativeIntValue(node.id))
 
-  /** Gets an array size from an AST node */
-  def getArraySize(id: AstNode.Id): Result.Result[Int] = {
+  /** Gets a bounded array size from an AST node */
+  def getBoundedArraySize(id: AstNode.Id): Result.Result[Int] =
     for {
       v <- getIntValue(id)
       size <- if (v >= 1 && v <= Error.maxArraySize)
@@ -282,7 +281,22 @@ case class Analysis(
         }
     }
     yield size
-  }
+
+  /** Gets an optional unbounded array size */
+  def getUnboundedArraySizeOpt[T](nodeOpt: Option[AstNode[T]]): Result.Result[Option[Int]] = 
+    Result.mapOpt(nodeOpt, (node: AstNode[T]) => getUnboundedArraySize(node.id))
+
+  /** Gets an unbounded array size from an AST node */
+  def getUnboundedArraySize(id: AstNode.Id): Result.Result[Int] =
+    for {
+      v <- getIntValue(id)
+      size <- if (v >= 1)
+        Right(v.intValue) else {
+          val loc = Locations.get(id)
+          Left(SemanticError.InvalidArraySize(loc, v))
+        }
+    }
+    yield size
 
 }
 

@@ -208,6 +208,8 @@ object Type {
     anonStruct: AnonStruct,
     /** The default value */
     default: Option[Value.Struct] = None,
+    /** The member sizes */
+    sizes: Struct.Sizes = Map(),
     /** The member formats */
     formats: Struct.Formats = Map(),
   ) extends Type {
@@ -224,6 +226,8 @@ object Type {
     type Members = Map[Name.Unqualified, Type]
 
     type Formats = Map[Name.Unqualified, Format]
+
+    type Sizes = Map[Name.Unqualified, scala.Int]
 
     /** Resolve a member map, generating a new member map */
     def resolveMembers (resolver: Member => Option[Member]) (members: Members): 
@@ -353,9 +357,9 @@ object Type {
           case None => false
         }
       pair match {
-        case Struct(_, anonStruct1, _, _) -> _ => 
+        case Struct(_, anonStruct1, _, _, _) -> _ => 
           anonStruct1.isConvertibleTo(t2)
-        case _ -> Struct(_, anonStruct2, _, _) => 
+        case _ -> Struct(_, anonStruct2, _, _, _) => 
           t1.isConvertibleTo(anonStruct2)
         case AnonStruct(members1) -> AnonStruct(members2) => 
           members1.forall(memberExistsIn(members2) _)
@@ -465,9 +469,9 @@ object Type {
         else None
       }
       pair match {
-        case (_, Struct(_, anonStruct2, _, _)) =>
+        case (_, Struct(_, anonStruct2, _, _, _)) =>
           commonType(t1, anonStruct2)
-        case (Struct(_, anonStruct1, _, _), _) =>
+        case (Struct(_, anonStruct1, _, _, _), _) =>
           commonType(anonStruct1, t2)
         case AnonStruct(members1) -> AnonStruct(members2) =>
           twoAnonStructs(members1, members2)

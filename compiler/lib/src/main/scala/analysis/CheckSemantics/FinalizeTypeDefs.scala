@@ -28,7 +28,7 @@ object FinalizeTypeDefs
         // Visit the element type of A, to update its members
         eltType <- TypeVisitor.ty(a, arrayType.anonArray.eltType)
         // Update the size and element type in A
-        size <- a.getArraySize(data.size.id)
+        size <- a.getBoundedArraySize(data.size.id)
         arrayType <- {
           val anonArray = Type.AnonArray(Some(size.toInt), eltType)
           Right(arrayType.copy(anonArray = anonArray))
@@ -89,7 +89,7 @@ object FinalizeTypeDefs
       val (_, node, _) = aNode
       val data = node.data
       // Get the type of this node as a struct type S
-      val structType @ Type.Struct(_, _, _, _) = a.typeMap(node.id)
+      val structType @ Type.Struct(_, _, _, _, _) = a.typeMap(node.id)
       for {
         // Visit the anonymous struct type of S, to update its members
         t <- TypeVisitor.ty(a, structType.anonStruct)
@@ -115,6 +115,16 @@ object FinalizeTypeDefs
             Right(Value.Struct(anonStruct, structType))
           }
         }
+        members <- Right(data.members.map(_._2.data))
+        // Compute the sizes
+        sizes <- {
+          def mapping(member: Ast.StructTypeMember) = for {
+            intOpt <- a.getUnboundedArraySizeOpt(member.size)
+          } yield (intOpt.map(n => (member.name, n)))
+          for (pairs <- Result.map(members, mapping)) yield {
+            pairs.filter(_.isDefined).map(_.get).toMap
+          }
+        }
         // Compute the formats
         formats <- {
           def mapping(member: Ast.StructTypeMember) = {
@@ -127,15 +137,18 @@ object FinalizeTypeDefs
               )
             } yield formatOpt.map(format => (name, format))
           }
-          val members = data.members.map(_._2.data)
           for (pairs <- Result.map(members, mapping)) yield {
             pairs.filter(_.isDefined).map(_.get).toMap
           }
         }
       } 
       yield {
-        // Update the default value and formats in S
-        val structType1 = structType.copy(default = Some(default), formats = formats)
+        // Update the default value, sizes, and formats in S
+        val structType1 = structType.copy(
+          default = Some(default),
+          sizes = sizes,
+          formats = formats
+        )
         // Update S in the type map
         a.assignType(node -> structType1)
       }

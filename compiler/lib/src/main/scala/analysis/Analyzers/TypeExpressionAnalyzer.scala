@@ -36,7 +36,10 @@ trait TypeExpressionAnalyzer
   ): Result = {
     val (_, node1, _) = node
     val data = node1.data
-    typeNameNode(a, data.typeName)
+    for {
+      a <- opt(exprNode)(a, data.size)
+      a <- typeNameNode(a, data.typeName)
+    } yield a
   }
 
   def typeNameNode(a: Analysis, node: AstNode[Ast.TypeName]) = matchTypeNameNode(a, node)

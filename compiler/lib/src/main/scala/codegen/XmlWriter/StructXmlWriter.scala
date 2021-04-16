@@ -22,7 +22,7 @@ object StructXmlWriter extends AstVisitor with LineUtils {
       val imports = s.writeImportDirectives(a.usedSymbolSet)
       val members = {
         val tags = XmlTags.tags("members")
-        val st @ Type.Struct(_, _, _, _) = s.a.typeMap(node.id) 
+        val st @ Type.Struct(_, _, _, _, _) = s.a.typeMap(node.id) 
         val ls = data.members.map(structTypeMemberAnnotatedNode(s, st, _))
         XmlTags.taggedLines(tags)(ls.map(indentIn))
       }

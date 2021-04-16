@@ -252,7 +252,23 @@ object CheckExprTypes extends UseAnalyzer {
     yield a
   }
 
-  override def typeNameStringNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameString) =
+  override def structTypeMemberAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.StructTypeMember]]
+  ): Result = {
+    val (_, node, _) = aNode
+    val data = node.data
+    for {
+      a <- super.structTypeMemberAnnotatedNode(a, aNode)
+      _ <- convertNodeToNumericOpt(a, data.size)
+    } yield a
+  }
+
+  override def typeNameStringNode(
+    a: Analysis,
+    node: AstNode[Ast.TypeName],
+    tn: Ast.TypeNameString
+  ) =
     for {
       a <- super.typeNameStringNode(a, node, tn)
       _ <- convertNodeToNumericOpt(a, tn.size)

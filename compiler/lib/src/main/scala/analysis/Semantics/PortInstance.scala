@@ -266,7 +266,7 @@ final object PortInstance {
   private def getArraySize(a: Analysis, sizeOpt: Option[AstNode[Ast.Expr]]):
     Result.Result[Int] = 
       sizeOpt match {
-        case Some(size) => a.getArraySize(size.id)
+        case Some(size) => a.getBoundedArraySize(size.id)
         case None => Right(1)
       }
 
