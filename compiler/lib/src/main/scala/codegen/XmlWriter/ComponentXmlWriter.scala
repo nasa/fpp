@@ -18,10 +18,6 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
       s.getNamespaceAndName(symbol) :+ ("kind", data.kind.toString)
     }
     val body = {
-      def addBlank(ls: List[Line]) = ls match {
-        case Nil => Nil
-        case _ => Line.blank :: ls
-      }
       val comment = AnnotationXmlWriter.multilineComment(aNode)
       List(
         comment,
@@ -32,7 +28,7 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
         writeEvents(s, c),
         writeParams(s, c),
         writeTlmChannels(s, c)
-      ).flatMap(addBlank) :+ Line.blank
+      ).flatMap(XmlWriterState.addBlankPrefix) :+ Line.blank
     }
     XmlTags.taggedLines ("component", pairs) (body.map(indentIn))
   }

@@ -170,7 +170,7 @@ case class XmlWriterState(
 
 }
 
-case object XmlWriterState {
+case object XmlWriterState extends LineUtils {
 
   /** Gets the generated XML file name for an array definition */
   def getArrayFileName(baseName: String) = s"${baseName}ArrayAi.xml"
@@ -190,7 +190,17 @@ case object XmlWriterState {
   /** Gets the generated XML file name for a topology definition */
   def getTopologyFileName(baseName: String) = s"${baseName}TopologyAppAi.xml"
 
+  /** Write an XML comment */
+  def writeComment(comment: String): List[Line] = 
+    Line.addPrefixAndSuffix("<!-- ", lines(comment), " -->")
+
   /** Write an identifier */
-  def writeId(id: Int) = s"0x${Integer.toString(id, 16).toUpperCase}"
+  def writeId(id: Int): String = s"0x${Integer.toString(id, 16).toUpperCase}"
+
+  /** Add a blank line prefix to a list of lines */
+  def addBlankPrefix(ls: List[Line]) = ls match {
+    case Nil => Nil
+    case _ => Line.blank :: ls
+  }
 
 }

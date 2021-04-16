@@ -15,7 +15,7 @@ case class Topology(
   instanceMap: Map[ComponentInstance, (Ast.Visibility, Location)] = Map(),
   /** The connection patterns of this topology */
   patternMap: Map[Ast.SpecConnectionGraph.Pattern.Kind, ConnectionPattern] = Map(),
-  /** The connections of this topology */
+  /** The connections of this topology, indexed by graph name */
   connectionMap: Map[Name.Unqualified, List[Connection]] = Map(),
   /** The connections defined locally, not imported */
   localConnectionMap: Map[Name.Unqualified, List[Connection]] = Map(),

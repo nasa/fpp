@@ -16,15 +16,11 @@ object TopologyXmlWriter extends AstVisitor with LineUtils {
     val data = aNode._2.data
     val pairs = List(("name", s.getName(symbol)))
     val body = {
-      def addBlank(ls: List[Line]) = ls match {
-        case Nil => Nil
-        case _ => Line.blank :: ls
-      }
       List(
         writeImports(s, t),
         writeInstances(s, t),
         writeConnections(s, t)
-      ).flatMap(addBlank) :+ Line.blank
+      ).flatMap(XmlWriterState.addBlankPrefix) :+ Line.blank
     }
     XmlTags.taggedLines ("assembly", pairs) (body.map(indentIn))
   }
@@ -51,8 +47,15 @@ object TopologyXmlWriter extends AstVisitor with LineUtils {
   }
 
   private def writeConnections(s: XmlWriterState, t: Topology) = {
-    // TODO
-    Nil
+    def writeGraph(graphName: String): List[Line] = {
+      List (
+        XmlWriterState.writeComment(s"@FPL START $graphName"),
+        // TODO
+        Nil,
+        XmlWriterState.writeComment(s"@FPL END")
+      ).flatten
+    }
+    Line.blankSeparated (writeGraph) (t.connectionMap.keys.toList.sorted)
   }
 
   type In = XmlWriterState
