@@ -40,7 +40,7 @@ case class XmlWriterState(
     File.removeLongestPrefix(prefixes)(path)
 
   /** Write import directives as lines */
-  def writeImportDirectives: List[Line] = {
+  def writeImportDirectives(usedSymbols: Iterable[Symbol]): List[Line] = {
     def getDirectiveForSymbol(sym: Symbol): Option[String] =
       for {
         tagFileName <-
@@ -91,8 +91,8 @@ case class XmlWriterState(
         val tags = XmlTags.tags(tagName)
         XmlTags.taggedString(tags)(path.toString)
       }
-    val set = a.usedSymbolSet.map(getDirectiveForSymbol(_)).filter(_.isDefined).map(_.get)
-    val array = set.toArray
+    val array = usedSymbols.map(getDirectiveForSymbol(_)).
+      filter(_.isDefined).map(_.get).toArray
     scala.util.Sorting.quickSort(array)
     array.toList.map(Line(_))
   }

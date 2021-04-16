@@ -134,8 +134,8 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
   private def writeId(id: Int) = s"0x${Integer.toString(id, 16).toUpperCase}"
 
   private def writeImports(s: XmlWriterState, c: Component) = {
-    val Right(a1) = UsedSymbols.defComponentAnnotatedNode(s.a, c.aNode)
-    s.copy(a = a1).writeImportDirectives
+    val Right(a) = UsedSymbols.defComponentAnnotatedNode(s.a, c.aNode)
+    s.writeImportDirectives(a.usedSymbolSet)
   }
 
   private def writeInternalInterfaces(s: XmlWriterState, c: Component) = {

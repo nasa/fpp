@@ -17,10 +17,9 @@ object ArrayXmlWriter extends AstVisitor with LineUtils {
       XmlTags.tags("array", pairs)
     }
     val body = {
-      val Right(a1) = UsedSymbols.defArrayAnnotatedNode(s.a, aNode)
-      val s1 = s.copy(a = a1)
+      val Right(a) = UsedSymbols.defArrayAnnotatedNode(s.a, aNode)
       val comment = AnnotationXmlWriter.multilineComment(aNode)
-      val imports = s1.writeImportDirectives
+      val imports = s.writeImportDirectives(a.usedSymbolSet)
       val arrayType @ Type.Array(_, _, _, _) = s.a.typeMap(node.id) 
 
       val t = {
