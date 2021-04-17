@@ -49,6 +49,16 @@ Notice that the size expression precedes the element type, and the whole
 type reads left to right.
 For example, you may read the type `[3] U32` as "array of 3 `U32`."
 
+The size may be any legal expression.
+It doesn't have to be a literal integer.
+For example:
+
+[source,fpp]
+----
+constant numElements = 10
+array A = [numElements] U32
+----
+
 As for <<Defining-Constants_Expressions_Array-Values,
 array values>>,
 an array type must have size greater than zero and less than
@@ -409,10 +419,11 @@ values for the struct members.
 Therefore, any default values specified in FPP structs are ignored
 when translating to F Prime XML.
 
-==== Member Sizes
+==== Member Arrays
 
-For any struct member, you can include an optional size.
-To do this, write the size enclosed in square brackets 
+For any struct member, you can specify that the member
+is an array of elements.
+To do this you, write an array the size enclosed in square brackets 
 before the member type.
 For example:
 
@@ -423,14 +434,44 @@ struct S {
 }
 ----
 
-This definition says that struct `S` has one element `x`
-consisting of 3 `U32` values.
-When this type is translated to {cpp}, the member `x`
-will become an array of size three.
-If you don't specify a size, then by default the member
-is a single element, not an array.
+This definition says that struct `S` has one element `x`,
+which is an array consisting of three `U32` values.
+We call this array a *member array*.
 
-Struct member sizes are ignored when checking the types of default values.
+*Member arrays vs. array types:*
+Member arrays let you include an array
+of elements as a member of a struct type,
+without defining a separate
+<<Defining-Types_Array-Type-Definitions,named array type>>.
+Also:
+
+* Member arrays generate less code than named arrays.
+Whereas a member size array is a native {cpp} array,
+each named array is a {cpp} class.
+
+* The size of a member array is not limited to 256 elements.
+
+On the other hand, defining a named array is usually 
+a good choice when
+
+* You want to define a small reusable array.
+
+* You want to use the array outside of any structure.
+
+* You want the convenience of a generated array class,
+which has a richer interface than the bare
+{cpp} array.
+
+In particular, the generated array class provides 
+*bounds-checked* access operations:
+it causes a runtime failure if an out-of-bounds access
+occurs.
+The bounds checking provides an additional degree of memory
+safety when accessing array elements.
+
+*Member arrays and default values:*
+FPP ignores member array sizes when checking the types of 
+default values.
 For example, this code is accepted:
 
 [source,fpp]
@@ -440,8 +481,10 @@ struct S {
 } default { x = 10 }
 ----
 
-The member `x` of the struct `S` gets three copies of the value
+In principle, the member `x` of the struct `S` gets three copies of the value
 10 specified for `x` in the default value expression.
+However, as noted above, in any case the XML translation ignores
+this default value.
 
 *XML limitation:*
 The F Prime XML representation does not support arrays of
