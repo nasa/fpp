@@ -483,7 +483,7 @@ object XmlError {
 object Error {
 
   /** The max array size */
-  val maxArraySize = 1000
+  val maxArraySize = 256
 
   private var toolOpt: Option[Tool] = None
 

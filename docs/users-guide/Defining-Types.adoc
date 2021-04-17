@@ -51,9 +51,8 @@ For example, you may read the type `[3] U32` as "array of 3 `U32`."
 
 As for <<Defining-Constants_Expressions_Array-Values,
 array values>>,
-an array type must have size greater than zero and below a limit that is 
-implementation-dependent
-and is guaranteed to be large enough for practical purposes.
+an array type must have size greater than zero and less than
+or equal to 256.
 
 ==== Type Names
 
@@ -410,9 +409,75 @@ values for the struct members.
 Therefore, any default values specified in FPP structs are ignored
 when translating to F Prime XML.
 
+==== Member Sizes
+
+For any struct member, you can include an optional size.
+To do this, write the size enclosed in square brackets 
+before the member type.
+For example:
+
+[source,fpp]
+----
+struct S {
+  x: [3] U32
+}
+----
+
+This definition says that struct `S` has one element `x`
+consisting of 3 `U32` values.
+When this type is translated to {cpp}, the member `x`
+will become an array of size three.
+If you don't specify a size, then by default the member
+is a single element, not an array.
+
+Struct member sizes are ignored when checking the types of default values.
+For example, this code is accepted:
+
+[source,fpp]
+----
+struct S {
+  x: [3] U32
+} default { x = 10 }
+----
+
+The member `x` of the struct `S` gets three copies of the value
+10 specified for `x` in the default value expression.
+
+*XML limitation:*
+The F Prime XML representation does not support arrays of
+strings.
+Therefore, if you include a size expression in a struct
+member with `string` type, the size expression is ignored
+when translating to XML.
+In a future version of F Prime, we will correct this
+inconsistency.
+
+*XML limitation:*
+When a struct type `S` contains an array member `m`,
+the F Prime XML autocoder 
+does not provide a constructor for initializing `m` with a single
+element value.
+As a result, some combinations of nested types may not work properly.
+For example, this code is legal in FPP, but the generated {cpp} will
+not be correct:
+
+[source,fpp]
+----
+struct S {
+  x: [3] U32
+  y: F32
+}
+array A = [3] S
+----
+
+The problem is that the constructor for `A`
+initializes its members with a constructor `S(0, 0)`
+that does not exist.
+In a future version of F Prime, we will correct this issue.
+
 ==== Member Format Strings
 
-For any member, you can include an optional format.
+For any struct member, you can include an optional format.
 To this, write the keyword `format` and a format string.
 The format string for a struct member has the same form as for an
 <<Defining-Types_Array-Type-Definitions_Format-Strings,array member>>.
@@ -437,6 +502,20 @@ Channel { name = "momentum", offset = 0x400 }
 
 If you don't specify a format for a struct member, then the system uses the default 
 format for the type of that member.
+
+If the member has a size greater than one, then the format
+is applied to each element.
+For example:
+
+[source,fpp]
+----
+struct Telemetry {
+  velocity: [3] F32 format "{} m/s"
+}
+----
+
+The format string is applied to each of the three
+elements of the member `velocity`.
 
 ==== Struct Types Containing Named Types
 
