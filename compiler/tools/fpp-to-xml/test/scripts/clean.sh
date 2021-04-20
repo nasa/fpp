@@ -4,7 +4,7 @@
 
 clean
 rm -rf default-tests.sh default-update-ref.sh DefaultDict
-for file in `find . -name '*Ai.xml' -or -name '*Ac.*' -or -name '*.names.txt'`
+for file in `find . -name '*Ai.xml' -or -name '*Ac.*' -or -name '*.names.txt' -or -name '*.csv'`
 do
   rm $file
 done
