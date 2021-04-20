@@ -111,7 +111,7 @@ object PatternResolver {
     toPii: PortInstanceIdentifier
   ) = {
     val from = Connection.Endpoint(loc, fromPii)
-    val to = Connection.Endpoint(loc, fromPii)
+    val to = Connection.Endpoint(loc, toPii)
     Connection(from, to)
   }
 

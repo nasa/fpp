@@ -11,6 +11,8 @@ case class PortInstanceIdentifier(
   portInstance: PortInstance
 ) {
 
+  override def toString = getQualifiedName.toString
+
   /** Gets the qualified name */
   def getQualifiedName = {
     val componentName = componentInstance.qualifiedName
