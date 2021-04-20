@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+export COMPILER_ROOT=$PWD/../../../..
+
+skip_cpp_names="
+"
+
+for name in $skip_cpp_names
+do
+  export SKIP_CPP_FOR_$name'Component'=1
+done
+
+sh ../scripts/check-xml.sh
