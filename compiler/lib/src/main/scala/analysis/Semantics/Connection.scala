@@ -110,7 +110,7 @@ object Connection {
       case None => port.toString
     }
 
-    def compare(that: Endpoint) = {
+    override def compare(that: Endpoint) = {
       val name1 = this.port.getQualifiedName.toString
       val name2 = that.port.getQualifiedName.toString
       val nameCompare = name1.compare(name2)

@@ -14,13 +14,18 @@ final case class ComponentInstance(
   queueSize: Option[Int],
   stackSize: Option[Int],
   priority: Option[Int]
-) {
+) extends Ordered[ComponentInstance] {
 
   /** Gets the unqualified name of the component instance */
   def getUnqualifiedName = aNode._2.data.name
 
   /** Gets the location of the component instance */
   def getLoc: Location = Locations.get(aNode._2.id)
+
+  override def compare(that: ComponentInstance) = {
+    if (this.baseId != that.baseId) this.baseId - that.baseId
+    else this.getUnqualifiedName.compare(that.getUnqualifiedName)
+  }
 
 }
 

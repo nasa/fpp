@@ -45,7 +45,7 @@ object TopologyXmlWriter extends AstVisitor with LineUtils {
       )
       XmlTags.taggedLines ("instance", pairs) (Nil)
     }
-    t.instanceMap.keys.flatMap(writeInstance).toList
+    t.instanceMap.keys.toArray.sorted.flatMap(writeInstance).toList
   }
 
   private def writeConnections(s: XmlWriterState, t: Topology) = {
@@ -79,7 +79,7 @@ object TopologyXmlWriter extends AstVisitor with LineUtils {
     def writeGraph(graphName: String): List[Line] = {
       List (
         XmlWriterState.writeComment(s"@FPL START $graphName"),
-        t.connectionMap(graphName).flatMap(writeConnection),
+        t.connectionMap(graphName).sorted.flatMap(writeConnection),
         XmlWriterState.writeComment(s"@FPL END")
       ).flatten
     }
