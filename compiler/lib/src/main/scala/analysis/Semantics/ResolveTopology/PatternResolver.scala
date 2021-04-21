@@ -339,13 +339,16 @@ object PatternResolver {
     override def getConnectionsForTarget(
       source: Source,
       target: Target
-    ): List[Connection] = {
-      val loc = pattern.getLoc
-      List(
-        connect(loc, source.pingOut, target.pingIn),
-        connect(loc, target.pingOut, source.pingIn)
-      )
-    }
+    ): List[Connection] =
+      // Health component does not ping itself
+      if (source.pingOut.componentInstance != target.pingIn.componentInstance) {
+        val loc = pattern.getLoc
+        List(
+          connect(loc, source.pingOut, target.pingIn),
+          connect(loc, target.pingOut, source.pingIn)
+        )
+      }
+      else Nil
 
   }
 
