@@ -134,7 +134,6 @@ final object PortInstance {
       import Ast.SpecPortInstance._
       val direction = specifier.kind match {
         case CommandRecv => Direction.Input
-        case CommandResp => Direction.Input
         case _ => Direction.Output
       }
       Some(direction)

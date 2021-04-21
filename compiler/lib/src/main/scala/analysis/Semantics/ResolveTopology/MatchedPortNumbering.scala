@@ -83,7 +83,7 @@ object MatchedPortNumbering {
     ): Result.Result[State] = {
       val (map1, map2) = (state.map1, state.map2)
       for {
-        result <- Result.foldLeft (map1.toList) (state) ( { 
+        result <- Result.foldLeft (map1.toList) (state) ({
           case (s, (ci, c1)) => {
             val c2 = map2(ci)
             numberConnectionPair(matchingLoc, s, c1, c2)
@@ -118,7 +118,7 @@ object MatchedPortNumbering {
   def apply(t: Topology): Result.Result[Topology] = {
     // Fold over instances and matchings
     Result.foldLeft (t.instanceMap.keys.toList) (t) ((t, ci) =>
-      Result.foldLeft (ci.component.portMatchingList) (t) ((u, pm) =>
+      Result.foldLeft (ci.component.portMatchingList) (t) ((t, pm) =>
         handlePortMatching(t, ci, pm)
       )
     )
