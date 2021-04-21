@@ -35,7 +35,7 @@ object PortNumberingState {
   /** Construct an initial state */
   def initial(usedPortNumbers: Set[Int]) = {
     val nextPortNumber = getNextNumber(0, usedPortNumbers)
-    PortNumberingState(usedPortNumbers, nextPortNumber)
+    PortNumberingState(usedPortNumbers + nextPortNumber, nextPortNumber)
   }
 
   /** Gets the next available port number */

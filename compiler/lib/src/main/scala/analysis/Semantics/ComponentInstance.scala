@@ -16,6 +16,8 @@ final case class ComponentInstance(
   priority: Option[Int]
 ) extends Ordered[ComponentInstance] {
 
+  override def toString = qualifiedName.toString
+
   /** Gets the unqualified name of the component instance */
   def getUnqualifiedName = aNode._2.data.name
 

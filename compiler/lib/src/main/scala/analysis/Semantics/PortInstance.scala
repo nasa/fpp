@@ -6,6 +6,8 @@ import fpp.compiler.util._
 /** An FPP port instance */
 sealed trait PortInstance {
 
+  override def toString = getUnqualifiedName.toString
+
   /** Gets the size of the port array */
   def getArraySize: Int = 1
 
