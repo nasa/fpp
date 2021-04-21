@@ -28,10 +28,11 @@ private sealed trait PatternResolver {
   def resolveTarget(targetUse: (ComponentInstance, Location)): Result.Result[Target]
 
   /** Generate the connections for a source and target */
-  def getConnectionsForTarget(source: Source, target: Target): Iterable[Connection]
+  def getConnectionsForTarget(source: Source, target: Target):
+    Iterable[PatternResolver.NamedConnection]
 
   /** Resolve the pattern to a list of connections */
-  final def resolve: Result.Result[Iterable[Connection]] =
+  final def resolve: Result.Result[Iterable[PatternResolver.NamedConnection]] =
     for {
       source <- resolveSource
       targets <- resolveTargets
@@ -86,12 +87,15 @@ private sealed trait PatternResolver {
 
 object PatternResolver {
 
+  /** A named connection */
+  type NamedConnection = (String, Connection)
+
   /** Resolve a pattern */
   def resolve(
     a: Analysis,
     pattern: ConnectionPattern,
     instances: Iterable[ComponentInstance]
-  ): Result.Result[Iterable[Connection]] = {
+  ): Result.Result[Iterable[NamedConnection]] = {
     import Ast.SpecConnectionGraph._
     val resolver = pattern.ast.kind match {
       case Pattern.Command => PatternResolver.Command(a, pattern, instances)
@@ -226,12 +230,12 @@ object PatternResolver {
     override def getConnectionsForTarget(
       source: Source,
       target: Target
-    ): List[Connection] = {
+    ): List[NamedConnection] = {
       val loc = pattern.getLoc
       List(
-        connect(loc, target.cmdRegOut, source.cmdRegIn),
-        connect(loc, source.cmdOut, target.cmdIn),
-        connect(loc, target.cmdResponseOut, source.cmdResponseIn)
+        ("CommandRegistration", connect(loc, target.cmdRegOut, source.cmdRegIn)),
+        ("Command", connect(loc, source.cmdOut, target.cmdIn)),
+        ("CommandResponse", connect(loc, target.cmdResponseOut, source.cmdResponseIn))
       )
     }
 
@@ -244,7 +248,8 @@ object PatternResolver {
     pattern: ConnectionPattern,
     instances: Iterable[ComponentInstance],
     kind: Ast.SpecPortInstance.SpecialKind,
-    portTypeName: String
+    portTypeName: String,
+    graphName: String
   ) extends PatternResolver {
 
     type Source = PortInstanceIdentifier
@@ -264,7 +269,9 @@ object PatternResolver {
     override def getConnectionsForTarget(
       source: Source,
       target: Target
-    ): List[Connection] = List(connect(pattern.getLoc, target, source))
+    ): List[PatternResolver.NamedConnection] = List(
+      (graphName, connect(pattern.getLoc, target, source))
+    )
 
   }
 
@@ -275,7 +282,8 @@ object PatternResolver {
   ) = FromSpecialTargetPort(
     a, pattern, instances,
     Ast.SpecPortInstance.Event,
-    "Fw.Log"
+    "Fw.Log",
+    "Events"
   )
 
   private def telemetry(
@@ -285,7 +293,8 @@ object PatternResolver {
   ) = FromSpecialTargetPort(
     a, pattern, instances,
     Ast.SpecPortInstance.Telemetry,
-    "Fw.Tlm"
+    "Fw.Tlm",
+    "Telemetry"
   )
 
   private def textEvent(
@@ -295,7 +304,8 @@ object PatternResolver {
   ) = FromSpecialTargetPort(
     a, pattern, instances,
     Ast.SpecPortInstance.TextEvent,
-    "Fw.LogText"
+    "Fw.LogText",
+    "TextEvents"
   )
 
   private def time(
@@ -305,7 +315,8 @@ object PatternResolver {
   ) = FromSpecialTargetPort(
     a, pattern, instances,
     Ast.SpecPortInstance.TimeGet,
-    "Fw.Time"
+    "Fw.Time",
+    "Time"
   )
 
   /** Resolve a health pattern */
@@ -339,14 +350,14 @@ object PatternResolver {
     override def getConnectionsForTarget(
       source: Source,
       target: Target
-    ): List[Connection] =
+    ): List[PatternResolver.NamedConnection] =
       // Health component does not ping itself
       if (source.pingOut.componentInstance != target.pingIn.componentInstance) {
         val loc = pattern.getLoc
         List(
           connect(loc, source.pingOut, target.pingIn),
           connect(loc, target.pingOut, source.pingIn)
-        )
+        ).map(c => ("Health", c))
       }
       else Nil
 
@@ -412,12 +423,12 @@ object PatternResolver {
     override def getConnectionsForTarget(
       source: Source,
       target: Target
-    ): List[Connection] = {
+    ): List[PatternResolver.NamedConnection] = {
       val loc = pattern.getLoc
       List(
         connect(loc, target.prmGetOut, source.prmGetIn),
         connect(loc, target.prmSetOut, source.prmSetIn)
-      )
+      ).map(c => ("Parameters", c))
     }
 
   }

@@ -57,15 +57,6 @@ object ResolvePartiallyNumbered {
   /** Resolve the connection patterns of t  */
   private def resolvePatterns(a: Analysis, t: Topology): Result.Result[Topology] = {
     import Ast.SpecConnectionGraph._
-    def getGraphName(kind: Pattern.Kind) = kind match {
-      case Pattern.Command => "Commands"
-      case Pattern.Event => "Events"
-      case Pattern.Health => "Health"
-      case Pattern.Param => "Parameters"
-      case Pattern.Telemetry => "Telemetry"
-      case Pattern.TextEvent => "TextEvents"
-      case Pattern.Time => "Time"
-    }
     Result.foldLeft (t.patternMap.values.toList) (t) ((t, p) => {
       val instances = t.instanceMap.keys
       for {
@@ -73,14 +64,13 @@ object ResolvePartiallyNumbered {
         connections <- PatternResolver.resolve(a, p, instances)
       }
       yield {
-        val name = getGraphName(p.ast.kind)
-        connections.foldLeft (t) ((t, c) =>
+        connections.foldLeft (t) ({ case (t, (name, c)) =>
           // Skip this connection if it already exists
           // For example, it could be imported
           if (!t.connectionExistsBetween(c.from.port, c.to.port))
             t.addLocalConnection(name, c)
           else t
-        )
+        })
       }
     })
   }
