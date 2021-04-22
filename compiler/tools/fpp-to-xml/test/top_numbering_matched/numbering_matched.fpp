@@ -33,7 +33,7 @@ module M {
       target1.pOut -> source.pIn
 
       source.pOut -> target2.pIn
-      target2.pOut -> source.pIn
+      target2.pOut -> source.pIn[2]
 
       source.pOut -> target3.pIn
       target3.pOut -> source.pIn
