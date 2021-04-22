@@ -14,11 +14,11 @@ case class PortNumberingState private (
   /** Marks the next port number as used and generates
    *  a new one */
   def usePortNumber = {
-    val s = usedPortNumbers + nextPortNumber
     val n = PortNumberingState.getNextNumber(
       nextPortNumber,
       usedPortNumbers
     )
+    val s = usedPortNumbers + n
     PortNumberingState(s, n)
   }
 

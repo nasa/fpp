@@ -1,0 +1,7 @@
+#!/bin/sh -e
+
+export COMPILER_ROOT=$PWD/../../../..
+
+export SKIP_CPP_FOR_TTopologyApp=1
+
+sh ../scripts/check-xml.sh
