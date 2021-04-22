@@ -29,7 +29,7 @@ module M {
 
     connections C {
 
-      source.pOut -> target1.pIn
+      source.pOut[1] -> target1.pIn
       target1.pOut -> source.pIn
 
       source.pOut -> target2.pIn
