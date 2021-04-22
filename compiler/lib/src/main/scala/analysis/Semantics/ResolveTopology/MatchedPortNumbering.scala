@@ -34,9 +34,6 @@ object MatchedPortNumbering {
       c1: Connection,
       c2: Connection
     ): Result.Result[State] = {
-      System.out.println("numberConnectionPair")
-      System.out.println(s"  c1: $c1")
-      System.out.println(s"  c2: $c2")
       val t = state.t
       val pi1 = state.pi1
       val n1Opt = t.getPortNumber(pi1, c1)
@@ -62,17 +59,14 @@ object MatchedPortNumbering {
             )
           }
         case (Some(n1), None) =>
-          System.out.println("  p1 has a number")
           // Only pi1 has a number: assign it to pi2
           val t1 = t.assignPortNumber(pi2, c2, n1)
           Right(state.copy(t = t1))
         case (None, Some(n2)) =>
-          System.out.println("  p2 has a number")
           // Only pi2 has a number: assign it to pi1
           val t1 = t.assignPortNumber(pi1, c1, n2)
           Right(state.copy(t = t1))
         case (None, None) =>
-          System.out.println("  neither port has a number")
           // Neither port has a number: assign a new one
           val (numbering, n) = state.numbering.getPortNumber
           val t1 = t.assignPortNumber(pi1, c1, n).
@@ -106,13 +100,9 @@ object MatchedPortNumbering {
       pi2: PortInstance,
       map2: ConnectionMap
     ) = {
-      System.out.println("  State.initial")
-      System.out.println(s"    map1: $map1")
-      System.out.println(s"    map2: $map2")
       // Compute the used port numbers
       val usedPortNumbers = t.getUsedPortNumbers(pi1, map1.values) ++
         t.getUsedPortNumbers(pi2, map2.values)
-      System.out.println(s"    usedPortNumbers: $usedPortNumbers")
       State(
         t,
         pi1,
