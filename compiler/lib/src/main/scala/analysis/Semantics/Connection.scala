@@ -152,23 +152,6 @@ object Connection {
       }
     } yield endpoint
 
-    /** The lexical ordering on endpoints */
-    object LexicalOrdering extends Ordering[Endpoint] {
-
-      def compare(e1: Endpoint, e2: Endpoint) = {
-        val name1 = e1.port.getQualifiedName.toString
-        val name2 = e2.port.getQualifiedName.toString
-        if (name1 < name2) -1
-        else if (name1 > name2) 1
-        else (e1.portNumber, e2.portNumber) match {
-          case (Some (n1), Some (n2)) => n1 - n2
-          case _ => 0
-        }
-      }
-
-    }
-
-
   }
 
 }
