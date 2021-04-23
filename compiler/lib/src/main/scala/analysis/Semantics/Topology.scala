@@ -31,6 +31,19 @@ case class Topology(
   unconnectedPortSet: Set[PortInstanceIdentifier] = Set()
 ) {
 
+  /** Sort connections */
+  def sortConnections(connections: Seq[Connection]): Seq[Connection] = {
+    // Resolve the port numbers so we can use them to sort
+    def resolveNumbers(c: Connection) = {
+      val fromNumber = getPortNumber(c.from.port.portInstance, c)
+      val toNumber = getPortNumber(c.to.port.portInstance, c)
+      val from = c.from.copy(portNumber = fromNumber)
+      val to = c.to.copy(portNumber = toNumber)
+      c.copy(from = from, to = to)
+    }
+    connections.map(c => (c, resolveNumbers(c))).sortWith(_._2 < _._2).map(_._1)
+  }
+
   /** Add a connection */
   def addConnection(
     graphName: Name.Unqualified,

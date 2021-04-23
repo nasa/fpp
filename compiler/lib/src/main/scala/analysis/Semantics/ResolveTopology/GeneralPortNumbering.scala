@@ -33,7 +33,7 @@ object GeneralPortNumbering {
       t.getPortNumber(pi, c) match {
         case Some(n) => (s, t)
         case None => {
-          val (s1, n) = state.getPortNumber
+          val (s1, n) = s.getPortNumber
           val t1 = t.assignPortNumber(pi, c, n)
           (s1, t1)
         }
