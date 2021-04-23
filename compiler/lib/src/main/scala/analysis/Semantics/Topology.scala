@@ -23,9 +23,9 @@ case class Topology(
   outputConnectionMap: Map[PortInstanceIdentifier, Set[Connection]] = Map(),
   /** The input connections going to each port */
   inputConnectionMap: Map[PortInstanceIdentifier, Set[Connection]] = Map(),
-  /** The mapping of connections to from port numbers */
+  /** The mapping between connections and from port numbers */
   fromPortNumberMap: Map[Connection, Int] = Map(),
-  /** The mapping of connections to to port numbers */
+  /** The mapping between connections and to port numbers */
   toPortNumberMap: Map[Connection, Int] = Map(),
   /** The unconnected port instances */
   unconnectedPortSet: Set[PortInstanceIdentifier] = Set()
