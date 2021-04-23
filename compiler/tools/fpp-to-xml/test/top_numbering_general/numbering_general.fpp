@@ -1,15 +1,13 @@
 module M {
 
-  constant numPorts = 10
-
   port P
 
   passive component Source {
-    output port pOut: [numPorts] P
+    output port pOut: [5] P
   }
 
   passive component Target {
-    sync input port pIn: P
+    sync input port pIn: [2] P
   }
 
   instance source: Source base id 0x100
@@ -23,6 +21,8 @@ module M {
     connections C {
 
       source.pOut -> target.pIn
+      source.pOut -> target.pIn
+      source.pOut[1] -> target.pIn[1]
       source.pOut -> target.pIn
       source.pOut -> target.pIn
 
