@@ -78,22 +78,24 @@ object ResolvePartiallyNumbered {
   /** Resolve the imported connections of t */
   private def resolveImportedConnections(a: Analysis, t: Topology): 
   Result.Result[Topology] = {
-    // Check whether an endpoint is public
-    def endpointIsPublic(endpoint: Connection.Endpoint) = {
+    // Check whether an instance exists
+    def endpointExists(endpoint: Connection.Endpoint) = {
       val instance = endpoint.port.componentInstance
-      val (vis, _) = t.instanceMap(instance)
-      vis == Ast.Visibility.Public
+      t.instanceMap.get(instance) match {
+        case Some(_) => true
+        case None => false
+      }
     }
-    // Check whether a connection is public
-    def isPublic(connection: Connection) =
-      endpointIsPublic(connection.from) &&
-      endpointIsPublic(connection.to)
+    // Check whether a connection exists
+    def exists(connection: Connection) =
+      endpointExists(connection.from) &&
+      endpointExists(connection.to)
     // Import connections from transitively imported topologies
     val result = t.transitiveImportSet.
       map(a.topologyMap(_).localConnectionMap).flatten.
       foldLeft (t) ({ case (t, (name, cs)) =>
         cs.foldLeft (t) ((t1, c) =>
-          if (isPublic(c)) t1.addConnection(name, c) else t1
+          if (exists(c)) t1.addConnection(name, c) else t1
         )
       })
     Right(result)
