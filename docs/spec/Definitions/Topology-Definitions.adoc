@@ -189,7 +189,7 @@ number at position _P_.
 . For each input endpoint _P_ in each connection _C_, if no port number is 
 already assigned, then assign the port number zero.
 
-See Example 4 below.
+See Example 4 in the <<Definitions_Topology-Definitions_Examples,Examples section>>.
 
 ===== Names of Connections
 
@@ -384,7 +384,7 @@ topology Release {
 
 *Example 4.*
 
-Here is one topology that can result from automatic numbering of ports
+Here is the topology that results from automatic numbering of ports
 applied to topology `B` in the
 <<Specifiers_Topology-Import-Specifiers_Example,example for topology import
 specifiers>>:
@@ -414,10 +414,3 @@ topology B {
 
 }
 ----
-
-In general, where there are multiple connections to a single port array, the 
-exact assignment of indices is not specified by the automatic numbering 
-algorithm.
-Another valid topology would reverse the assignment of 0 and 1 to `a.p1 
-pass:[->] c.p` and `a.p1 pass:[->] d.p`.
-
