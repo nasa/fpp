@@ -82,8 +82,9 @@ object MatchedPortNumbering {
       state: State
     ): Result.Result[State] = {
       val (map1, map2) = (state.map1, state.map2)
+      val list1 = map1.toList.sortWith(_._2 < _._2)
       for {
-        result <- Result.foldLeft (map1.toList) (state) ({
+        result <- Result.foldLeft (list1) (state) ({
           case (s, (ci, c1)) => {
             val c2 = map2(ci)
             numberConnectionPair(matchingLoc, s, c1, c2)
