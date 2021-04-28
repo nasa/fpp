@@ -157,7 +157,10 @@ check that the port numbers match.
 For each pair stem:[(c_1,c_2)] that has exactly one port number assigned,
 assign the other one to match.
  
-.. For each pair stem:[(c_1,c_2)] that does not yet have assigned
+.. Traverse the pairs stem:[(c_1,c_2)] according to the
+<<Definitions_Topology-Definitions_Semantics_Ordering-of-Connections,
+order>> of the connections stem:[c_1], least to greatest.
+For each pair stem:[(c_1,c_2)] that does not yet have assigned
 port numbers, find the lowest available port number
 and assign it at _I_ `.` stem:[p_1] and _I_ `.` stem:[p_2].
 A port number is available if (a) it is in bounds for the 
@@ -165,20 +168,18 @@ port instance being numbered; and (b)
 it is not already assigned to the same port instance
 in the topology.
 
-Note that in the last step
-
-* The two ports stem:[p_1] and _I_ `.` stem:[p_2].
+Note that in the last step,
+the two ports _I_ `.` stem:[p_1] and _I_ `.` stem:[p_2].
 have the same array size and
 the same port numbers assigned so far, so the lowest
 available port number is the same for both.
 
-* Because the order of traversing the ports is
-not specified in the FPP source, multiple numberings are
-possible.
-The translator picks a legal one.
-
 *Apply general numbering:* 
 Fill in any remaining port numbers.
+
+. Traverse the connections
+<<Definitions_Topology-Definitions_Semantics_Ordering-of-Connections,
+in order>>, least to greatest.
 
 . For each output endpoint _P_ in each connection _C_,
 if no port number is already assigned, then assign the lowest available port 
@@ -189,6 +190,40 @@ number at position _P_.
 already assigned, then assign the port number zero.
 
 See Example 4 below.
+
+===== Names of Connections
+
+The fully qualified name of a connection _I_ `.` _p_
+is _Q_ `.` _p_, where _Q_ is the
+<<Scoping-of-Names_Names-of-Definitions,fully qualified name>>
+of the instance _I_.
+
+===== Ordering of Connections
+
+For purposes of numbering, FPP orders connections
+stem:[c_1] and stem:[c_2] as follows:
+
+. Let connection stem:[c_1] be stem:[I_1] `.` stem:[p_1] `pass:[->]`
+stem:[I'_1] `.` stem:[p'_1],
+ignoring any port numbers that may be assigned to the endpoints.
+
+. Let connection stem:[c_2] be stem:[I_2] `.` stem:[p_2] `pass:[->]`
+stem:[I'_2] `.` stem:[p'_2].
+
+. If the
+<<Definitions_Topology-Definitions_Semantics_Names-of-Connections,
+fully qualified name>>
+of stem:[I_1] `.` stem:[p_1] is lexically less
+than (respectively greater than) the fully qualified name of
+stem:[I_2] `.` stem:[p_2], then
+stem:[c_1] is less than (respectively greater than) stem:[c_2].
+
+. Otherwise if the fully qualified name of stem:[I'_2] `.` stem:[p'_2]
+is lexically less than (respectively greater than) the fully qualified name of
+stem:[I'_2] `.` stem:[p'_2], then stem:[c_1]
+is less than (respectively greater than) stem:[c_2].
+
+. Otherwise stem:[c_1] and stem:[c_2] are equal.
 
 ==== Examples
 

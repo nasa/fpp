@@ -2666,7 +2666,9 @@ For each pair \$(c_1,c_2)\$ that has exactly one port number assigned,
 assign the other one to match.</p>
 </li>
 <li>
-<p>For each pair \$(c_1,c_2)\$ that does not yet have assigned
+<p>Traverse the pairs \$(c_1,c_2)\$ according to the
+<a href="#Definitions_Topology-Definitions_Semantics_Ordering-of-Connections">order</a> of the connections \$c_1\$, least to greatest.
+For each pair \$(c_1,c_2)\$ that does not yet have assigned
 port numbers, find the lowest available port number
 and assign it at <em>I</em> <code>.</code> \$p_1\$ and <em>I</em> <code>.</code> \$p_2\$.
 A port number is available if (a) it is in bounds for the
@@ -2680,23 +2682,11 @@ in the topology.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>Note that in the last step</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>The two ports \$p_1\$ and <em>I</em> <code>.</code> \$p_2\$.
+<p>Note that in the last step,
+the two ports <em>I</em> <code>.</code> \$p_1\$ and <em>I</em> <code>.</code> \$p_2\$.
 have the same array size and
 the same port numbers assigned so far, so the lowest
 available port number is the same for both.</p>
-</li>
-<li>
-<p>Because the order of traversing the ports is
-not specified in the FPP source, multiple numberings are
-possible.
-The translator picks a legal one.</p>
-</li>
-</ul>
 </div>
 <div class="paragraph">
 <p><strong>Apply general numbering:</strong>
@@ -2704,6 +2694,10 @@ Fill in any remaining port numbers.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
+<li>
+<p>Traverse the connections
+<a href="#Definitions_Topology-Definitions_Semantics_Ordering-of-Connections">in order</a>, least to greatest.</p>
+</li>
 <li>
 <p>For each output endpoint <em>P</em> in each connection <em>C</em>,
 if no port number is already assigned, then assign the lowest available port
@@ -2717,6 +2711,52 @@ already assigned, then assign the port number zero.</p>
 </div>
 <div class="paragraph">
 <p>See Example 4 below.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="Definitions_Topology-Definitions_Semantics_Names-of-Connections">Names of Connections</h5>
+<div class="paragraph">
+<p>The fully qualified name of a connection <em>I</em> <code>.</code> <em>p</em>
+is <em>Q</em> <code>.</code> <em>p</em>, where <em>Q</em> is the
+<a href="#Scoping-of-Names_Names-of-Definitions">fully qualified name</a>
+of the instance <em>I</em>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="Definitions_Topology-Definitions_Semantics_Ordering-of-Connections">Ordering of Connections</h5>
+<div class="paragraph">
+<p>For purposes of numbering, FPP orders connections
+\$c_1\$ and \$c_2\$ as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Let connection \$c_1\$ be \$I_1\$ <code>.</code> \$p_1\$ <code>-></code>
+\$I'_1\$ <code>.</code> \$p'_1\$,
+ignoring any port numbers that may be assigned to the endpoints.</p>
+</li>
+<li>
+<p>Let connection \$c_2\$ be \$I_2\$ <code>.</code> \$p_2\$ <code>-></code>
+\$I'_2\$ <code>.</code> \$p'_2\$.</p>
+</li>
+<li>
+<p>If the
+<a href="#Definitions_Topology-Definitions_Semantics_Names-of-Connections">fully qualified name</a>
+of \$I_1\$ <code>.</code> \$p_1\$ is lexically less
+than (respectively greater than) the fully qualified name of
+\$I_2\$ <code>.</code> \$p_2\$, then
+\$c_1\$ is less than (respectively greater than) \$c_2\$.</p>
+</li>
+<li>
+<p>Otherwise if the fully qualified name of \$I'_2\$ <code>.</code> \$p'_2\$
+is lexically less than (respectively greater than) the fully qualified name of
+\$I'_2\$ <code>.</code> \$p'_2\$, then \$c_1\$
+is less than (respectively greater than) \$c_2\$.</p>
+</li>
+<li>
+<p>Otherwise \$c_1\$ and \$c_2\$ are equal.</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -7953,7 +7993,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-04-16 17:00:30 -0700
+Last updated 2021-04-28 16:10:42 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
