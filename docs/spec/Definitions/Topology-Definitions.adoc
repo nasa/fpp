@@ -207,33 +207,31 @@ the component definition associated with _I_.
 * _n_ is an optional port number that is present if and only
 if it appears in the model source.
 
-*Connections:* A *connection* is stem:[e_1] `pass:[->]` 
-stem:[e_2],
-where stem:[e_1] and stem:[e_2] are the connection endpoints.
+When a connection endpoint _e_ has the form _I_ `.` _p_ `[` _n_ `]`,
+we say that the endpoint *has source port number* _n_.
 
-*The fully qualified name of a connection endpoint:*
-Each connection endpoint _I_ `.` _p_ or _I_ `.` _p_ `[` _n_ `]`
-has a *fully qualified name*.
+Each connection endpoint has a *fully qualified name*.
 The fully qualified name is _Q_ `.` _p_, where _Q_ is the
 <<Scoping-of-Names_Names-of-Definitions,fully qualified name>>
 of the instance _I_.
 
-*Ordering of connection endpoints:*
 FPP orders connection endpoints stem:[e_1] and stem:[e_2] as follows:
 
 . If the fully qualified name of stem:[e_1] is lexically less
 than (respectively greater than) the fully qualified name of
 stem:[e_2], then stem:[e_1] is less than (respectively greater than) stem:[e_2].
 
-. Otherwise if stem:[e_1] and stem:[e_2] have assigned port numbers
-port numbers stem:[n_1] and stem:[n_2] in the model source,
+. Otherwise if stem:[e_1] and stem:[e_2] have source port numbers
+port numbers stem:[n_1] and stem:[n_2],
 then the ordering of stem:[e_1]
 and stem:[e_2] is the same as the numerical ordering of stem:[n_1]
 and stem:[n_2].
 
 . Otherwise stem:[e_1] and stem:[e_2] are equal in the ordering.
 
-*Ordering of connections:*
+*Connections:* A *connection* is stem:[e_1] `pass:[->]` 
+stem:[e_2],
+where stem:[e_1] and stem:[e_2] are the connection endpoints.
 FPP orders connections stem:[c_1] and stem:[c_2] as follows:
 
 . Let connection stem:[c_1] be stem:[e_1] `pass:[->]`

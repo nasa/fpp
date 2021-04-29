@@ -2741,21 +2741,17 @@ if it appears in the model source.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p><strong>Connections:</strong> A <strong>connection</strong> is \$e_1\$ <code>-></code>
-\$e_2\$,
-where \$e_1\$ and \$e_2\$ are the connection endpoints.</p>
+<p>When a connection endpoint <em>e</em> has the form <em>I</em> <code>.</code> <em>p</em> <code>[</code> <em>n</em> <code>]</code>,
+we say that the endpoint <strong>has source port number</strong> <em>n</em>.</p>
 </div>
 <div class="paragraph">
-<p><strong>The fully qualified name of a connection endpoint:</strong>
-Each connection endpoint <em>I</em> <code>.</code> <em>p</em> or <em>I</em> <code>.</code> <em>p</em> <code>[</code> <em>n</em> <code>]</code>
-has a <strong>fully qualified name</strong>.
+<p>Each connection endpoint has a <strong>fully qualified name</strong>.
 The fully qualified name is <em>Q</em> <code>.</code> <em>p</em>, where <em>Q</em> is the
 <a href="#Scoping-of-Names_Names-of-Definitions">fully qualified name</a>
 of the instance <em>I</em>.</p>
 </div>
 <div class="paragraph">
-<p><strong>Ordering of connection endpoints:</strong>
-FPP orders connection endpoints \$e_1\$ and \$e_2\$ as follows:</p>
+<p>FPP orders connection endpoints \$e_1\$ and \$e_2\$ as follows:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -2765,8 +2761,8 @@ than (respectively greater than) the fully qualified name of
 \$e_2\$, then \$e_1\$ is less than (respectively greater than) \$e_2\$.</p>
 </li>
 <li>
-<p>Otherwise if \$e_1\$ and \$e_2\$ have assigned port numbers
-port numbers \$n_1\$ and \$n_2\$ in the model source,
+<p>Otherwise if \$e_1\$ and \$e_2\$ have source port numbers
+port numbers \$n_1\$ and \$n_2\$,
 then the ordering of \$e_1\$
 and \$e_2\$ is the same as the numerical ordering of \$n_1\$
 and \$n_2\$.</p>
@@ -2777,7 +2773,9 @@ and \$n_2\$.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p><strong>Ordering of connections:</strong>
+<p><strong>Connections:</strong> A <strong>connection</strong> is \$e_1\$ <code>-></code>
+\$e_2\$,
+where \$e_1\$ and \$e_2\$ are the connection endpoints.
 FPP orders connections \$c_1\$ and \$c_2\$ as follows:</p>
 </div>
 <div class="olist arabic">
@@ -8033,7 +8031,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-04-28 17:21:29 -0700
+Last updated 2021-04-28 17:32:32 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
