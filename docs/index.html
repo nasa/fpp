@@ -1855,7 +1855,9 @@ that you can refer to in a
 <p>The qualified identifier must
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
 a
-<a href="#Definitions_Component-Definitions">component definition <em>D</em></a>.</p>
+<a href="#Definitions_Component-Definitions">component definition <em>D</em></a>.
+This component definition is called the component definition
+<strong>associated with</strong> the component instance.</p>
 </li>
 <li>
 <p>The expression following the keywords <code>base</code> <code>id</code> must have a
@@ -2714,47 +2716,92 @@ already assigned, then assign the port number zero.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="Definitions_Topology-Definitions_Semantics_Names-of-Connections">Names of Connections</h5>
+<h5 id="Definitions_Topology-Definitions_Semantics_Ordering-of-Connections">Ordering of Connections</h5>
 <div class="paragraph">
-<p>The fully qualified name of a connection <em>I</em> <code>.</code> <em>p</em>
-is <em>Q</em> <code>.</code> <em>p</em>, where <em>Q</em> is the
+<p>For purposes of port numbering, FPP orders connections as follows.</p>
+</div>
+<div class="paragraph">
+<p><strong>Connection endpoints:</strong>
+A <strong>connection endpoint</strong> is <em>I</em> <code>.</code> <em>p</em> or <em>I</em> <code>.</code> <em>p</em> <code>[</code> <em>n</em> <code>]</code>, where</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>I</em> refers to a
+<a href="#Definitions_Component-Instance-Definitions">component instance</a>.</p>
+</li>
+<li>
+<p><em>p</em> is an identifier that names a port instance specified in
+the component definition associated with <em>I</em>.</p>
+</li>
+<li>
+<p><em>n</em> is an optional port number that is present if and only
+if it appears in the model source.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Connections:</strong> A <strong>connection</strong> is \$e_1\$ <code>-></code>
+\$e_2\$,
+where \$e_1\$ and \$e_2\$ are the connection endpoints.</p>
+</div>
+<div class="paragraph">
+<p><strong>The fully qualified name of a connection endpoint:</strong>
+Each connection endpoint <em>I</em> <code>.</code> <em>p</em> or <em>I</em> <code>.</code> <em>p</em> <code>[</code> <em>n</em> <code>]</code>
+has a <strong>fully qualified name</strong>.
+The fully qualified name is <em>Q</em> <code>.</code> <em>p</em>, where <em>Q</em> is the
 <a href="#Scoping-of-Names_Names-of-Definitions">fully qualified name</a>
 of the instance <em>I</em>.</p>
 </div>
-</div>
-<div class="sect4">
-<h5 id="Definitions_Topology-Definitions_Semantics_Ordering-of-Connections">Ordering of Connections</h5>
 <div class="paragraph">
-<p>For purposes of numbering, FPP orders connections
-\$c_1\$ and \$c_2\$ as follows:</p>
+<p><strong>Ordering of connection endpoints:</strong>
+FPP orders connection endpoints \$e_1\$ and \$e_2\$ as follows:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Let connection \$c_1\$ be \$I_1\$ <code>.</code> \$p_1\$ <code>-></code>
-\$I'_1\$ <code>.</code> \$p'_1\$,
-ignoring any port numbers that may be assigned to the endpoints.</p>
-</li>
-<li>
-<p>Let connection \$c_2\$ be \$I_2\$ <code>.</code> \$p_2\$ <code>-></code>
-\$I'_2\$ <code>.</code> \$p'_2\$.</p>
-</li>
-<li>
-<p>If the
-<a href="#Definitions_Topology-Definitions_Semantics_Names-of-Connections">fully qualified name</a>
-of \$I_1\$ <code>.</code> \$p_1\$ is lexically less
+<p>If the fully qualified name of \$e_1\$ is lexically less
 than (respectively greater than) the fully qualified name of
-\$I_2\$ <code>.</code> \$p_2\$, then
-\$c_1\$ is less than (respectively greater than) \$c_2\$.</p>
+\$e_2\$, then \$e_1\$ is less than (respectively greater than) \$e_2\$.</p>
 </li>
 <li>
-<p>Otherwise if the fully qualified name of \$I'_2\$ <code>.</code> \$p'_2\$
-is lexically less than (respectively greater than) the fully qualified name of
-\$I'_2\$ <code>.</code> \$p'_2\$, then \$c_1\$
-is less than (respectively greater than) \$c_2\$.</p>
+<p>Otherwise if \$e_1\$ and \$e_2\$ have assigned port numbers
+port numbers \$n_1\$ and \$n_2\$ in the model source,
+then the ordering of \$e_1\$
+and \$e_2\$ is the same as the numerical ordering of \$n_1\$
+and \$n_2\$.</p>
 </li>
 <li>
-<p>Otherwise \$c_1\$ and \$c_2\$ are equal.</p>
+<p>Otherwise \$e_1\$ and \$e_2\$ are equal in the ordering.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Ordering of connections:</strong>
+FPP orders connections \$c_1\$ and \$c_2\$ as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Let connection \$c_1\$ be \$e_1\$ <code>-></code>
+\$e'_1\$.</p>
+</li>
+<li>
+<p>Let connection \$c_2\$ be \$e_2\$ <code>-></code>
+\$e'_2\$.</p>
+</li>
+<li>
+<p>If \$e_1\$ is less than (respectively greater than)
+\$e_2\$,
+then \$c_1\$ is less than (respectively greater than) \$c_2\$.</p>
+</li>
+<li>
+<p>Otherwise if \$e'_1\$ is less than (respectively greater than)
+\$e'_2\$, then \$c_1\$ is less than (respectively greater than)
+\$c_2\$.</p>
+</li>
+<li>
+<p>Otherwise \$c_1\$ and \$c_2\$ are equal in the ordering.</p>
 </li>
 </ol>
 </div>
@@ -7986,7 +8033,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-04-28 16:23:37 -0700
+Last updated 2021-04-28 17:21:29 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

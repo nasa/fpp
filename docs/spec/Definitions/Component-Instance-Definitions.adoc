@@ -34,6 +34,8 @@ _]_
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
 a
 <<Definitions_Component-Definitions,component definition _D_>>.
+This component definition is called the component definition
+*associated with* the component instance.
 
 . The expression following the keywords `base` `id` must have a
 <<Types_Internal-Types_Numeric-Types,numeric type>>.
