@@ -91,7 +91,7 @@ The type of _e_ must be <<Type-Checking_Type-Conversion,convertible to>>
 _e_ must
 <<Evaluation,evaluate>> to a value _n_ after
 <<Evaluation_Type-Conversion,conversion>> to _Integer_.
-_n_ must be greater than zero and less than 256.
+_n_ must be greater than zero.
 
 . _port-instance-type_ specifies the type of the port instance.
 
