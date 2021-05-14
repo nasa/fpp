@@ -77,8 +77,8 @@ object EnumXmlFppWriter extends LineUtils {
           val aT = (a, data, Nil)
           XmlFppWriter.tuMember(
             aT,
-            Ast.TUMember.DefEnum(_),
-            Ast.ModuleMember.DefEnum(_),
+            Ast.TUMember.DefEnum,
+            Ast.ModuleMember.DefEnum,
             file
           )
         }

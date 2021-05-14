@@ -239,7 +239,7 @@ object XmlFppWriter extends LineUtils {
       (name: String)
       (members: List[Ast.Annotated[Ast.ModuleMember.Node]]): 
       Ast.Annotated[Ast.TUMember.Node] =
-        encloseWithModule(Ast.TUMember.DefModule(_))(name)(members)
+        encloseWithModule(Ast.TUMember.DefModule)(name)(members)
 
     /** Encloses a list of module members with zero more modules inside a module */
     def encloseWithModuleMemberModules
@@ -251,7 +251,7 @@ object XmlFppWriter extends LineUtils {
         (name: String)
         (members: List[Ast.Annotated[Ast.ModuleMember.Node]]):
         List[Ast.Annotated[Ast.ModuleMember.Node]] =
-          List(encloseWithModule(Ast.ModuleMember.DefModule(_))(name)(members))
+          List(encloseWithModule(Ast.ModuleMember.DefModule)(name)(members))
       names match {
         case Nil => members
         case head :: tail => encloseWithModuleMemberModules(tail)(

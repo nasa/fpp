@@ -68,8 +68,8 @@ object ArrayXmlFppWriter extends LineUtils {
       for (array <- defArrayAnnotated(file))
         yield XmlFppWriter.tuMember(
           array,
-          Ast.TUMember.DefArray(_),
-          Ast.ModuleMember.DefArray(_),
+          Ast.TUMember.DefArray,
+          Ast.ModuleMember.DefArray,
           file
         )
 
