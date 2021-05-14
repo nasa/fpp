@@ -84,10 +84,12 @@ object StructXmlFppWriter extends LineUtils {
       }
       yield XmlFppWriter.tuMemberList(
         enums,
+        Ast.TUMember.DefEnum,
+        Ast.ModuleMember.DefEnum,
         struct,
-        Ast.TUMember.DefStruct(_),
-        Ast.ModuleMember.DefStruct(_),
-        file
+        Ast.TUMember.DefStruct,
+        Ast.ModuleMember.DefStruct,
+        file,
       )
 
     /** Translates the struct type */

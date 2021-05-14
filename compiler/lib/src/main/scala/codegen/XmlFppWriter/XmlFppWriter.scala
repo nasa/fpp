@@ -134,6 +134,7 @@ object XmlFppWriter extends LineUtils {
       for {
         body <- eltType match {
           case "array" => ArrayXmlFppWriter.writeFile(this)
+          case "assembly" => TopologyXmlFppWriter.writeFile(this)
           case "commands" => ComponentXmlFppWriter.writeCommandsFile(this)
           case "component" => ComponentXmlFppWriter.writeComponentFile(this)
           case "enum" => EnumXmlFppWriter.writeFile(this)
@@ -179,43 +180,52 @@ object XmlFppWriter extends LineUtils {
       yield Line.blankSeparated (identity[List[Line]]) (files)
   }
 
-  /** Builds a single TU member */
+  /** Builds a TU member from a single annotated element */
   def tuMember[T](
     aT: Ast.Annotated[T],
     tumConstructor: AstNode[T] => Ast.TUMember.Node,
     moduleConstructor: AstNode[T] => Ast.ModuleMember.Node,
     file: XmlFppWriter.File
   ) = tuMemberList(
-    Nil,
+    Nil: List[Ast.Annotated[Ast.DefEnum]],
+    Ast.TUMember.DefEnum,
+    Ast.ModuleMember.DefEnum,
     aT,
     tumConstructor,
     moduleConstructor,
     file
   ).head
 
-  /** Builds a TU member list with extracted enums */
-  def tuMemberList[T](
-    enums: List[Ast.Annotated[Ast.DefEnum]],
-    aT: Ast.Annotated[T],
-    tumConstructor: AstNode[T] => Ast.TUMember.Node,
-    moduleConstructor: AstNode[T] => Ast.ModuleMember.Node,
-    file: XmlFppWriter.File
+  /** Transforms an annotated AST node */
+  def transformNode[A,B](transform: AstNode[A] => B)(a: Ast.Annotated[A]) = 
+    (a._1, transform(AstNode.create(a._2)), a._3)
+
+  /** Builds a list of TU members from a list of annotated A elements
+   *  followed by a single annotated B element */
+  def tuMemberList[A,B](
+    aNodesA: List[Ast.Annotated[A]],
+    tumConstructorA: AstNode[A] => Ast.TUMember.Node,
+    moduleConstructorA: AstNode[A] => Ast.ModuleMember.Node,
+    aNodeB: Ast.Annotated[B],
+    tumConstructorB: AstNode[B] => Ast.TUMember.Node,
+    moduleConstructorB: AstNode[B] => Ast.ModuleMember.Node,
+    file: XmlFppWriter.File,
   ): List[Ast.TUMember] = {
-    def transform[A,B](construct: AstNode[A] => B)(a: Ast.Annotated[A]) = 
-      (a._1, construct(AstNode.create(a._2)), a._3)
     val moduleNames = XmlFppWriter.getAttributeNamespace(file.elem)
     val memberNodes = moduleNames match {
       case Nil => {
-        val enums1 = enums.map(transform(Ast.TUMember.DefEnum))
-        val aT1 = transform(tumConstructor)(aT)
-        enums1 :+ aT1
+        // Generate a list of TU members
+        val aNodesA1 = aNodesA.map(transformNode(tumConstructorA))
+        val aNodeB1 = transformNode(tumConstructorB)(aNodeB)
+        aNodesA1 :+ aNodeB1
       }
       case head :: tail => {
-        val enums1 = enums.map(transform(Ast.ModuleMember.DefEnum))
-        val aT1 = transform(moduleConstructor)(aT)
-        val aNodeList1 = enums1 :+ aT1
-        val aNodeList2 = XmlFppWriter.FppBuilder.encloseWithModuleMemberModules(tail.reverse)(aNodeList1)
-        List(XmlFppWriter.FppBuilder.encloseWithTuMemberModule(head)(aNodeList2))
+        // Generate a TU member consisting of one or more modules enclosing module members
+        val aNodesA1 = aNodesA.map(transformNode(moduleConstructorA))
+        val aNodeB1 = transformNode(moduleConstructorB)(aNodeB)
+        val members = aNodesA1 :+ aNodeB1
+        val members1 = XmlFppWriter.FppBuilder.encloseWithModuleMemberModules(tail.reverse)(members)
+        List(XmlFppWriter.FppBuilder.encloseWithTuMemberModule(head)(members1))
       }
     }
     memberNodes.map(Ast.TUMember(_))

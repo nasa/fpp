@@ -9,8 +9,8 @@ object ComponentXmlFppWriter extends LineUtils {
 
   /** Writes a component file */
   def writeComponentFile(file: XmlFppWriter.File): XmlFppWriter.Result =
-    for (tuMemberList <- FppBuilder.tuMemberList(file))
-      yield FppWriter.tuMemberList(tuMemberList)
+    for (tuMember <- FppBuilder.tuMember(file))
+      yield FppWriter.tuMember(tuMember)
 
   /** Writes an imported file */
   private def writeImportedFile
@@ -41,15 +41,14 @@ object ComponentXmlFppWriter extends LineUtils {
   private object FppBuilder {
 
     /** Generates the list of TU members */
-    def tuMemberList(file: XmlFppWriter.File): Result.Result[List[Ast.TUMember]] =
+    def tuMember(file: XmlFppWriter.File): Result.Result[Ast.TUMember] =
       for {
         component <- defComponentAnnotated(file)
       }
-      yield XmlFppWriter.tuMemberList(
-        Nil,
+      yield XmlFppWriter.tuMember(
         component,
-        Ast.TUMember.DefComponent(_),
-        Ast.ModuleMember.DefComponent(_),
+        Ast.TUMember.DefComponent,
+        Ast.ModuleMember.DefComponent,
         file
       )
 
