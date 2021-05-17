@@ -14,6 +14,22 @@ object TopologyXmlFppWriter extends LineUtils {
   /** Builds FPP for translating topology XML */
   private object FppBuilder {
 
+    /** Generates the list of TU members */
+    def tuMemberList(file: XmlFppWriter.File): Result.Result[List[Ast.TUMember]] =
+      for {
+        instances <- defComponentInstanceAnnotatedList(file)
+        top <- defTopologyAnnotated(file)
+      }
+      yield XmlFppWriter.tuMemberList(
+        instances,
+        Ast.TUMember.DefComponentInstance,
+        Ast.ModuleMember.DefComponentInstance,
+        top,
+        Ast.TUMember.DefTopology,
+        Ast.ModuleMember.DefTopology,
+        file,
+      )
+
     /** Translates a component instance definition */
     def defComponentInstanceAnnotated(
       file: XmlFppWriter.File,
@@ -73,11 +89,66 @@ object TopologyXmlFppWriter extends LineUtils {
         Result.map(instances.toList, specCompInstanceAnnotated(file, _))
       }
 
+    type Endpoint = (
+      AstNode[Ast.PortInstanceIdentifier],
+      Option[AstNode[Ast.Expr]]
+    )
+
+    /** Translates a connection endpoint */
+    def endpoint(
+      file: XmlFppWriter.File,
+      node: scala.xml.Node
+    ): Result.Result[Endpoint] =
+      for {
+        xmlInstance <- file.getAttribute(node, "component")
+        port <- file.getAttribute(node, "port")
+        portNumber <- file.getAttribute(node, "num")
+      }
+      yield {
+        val pii = Ast.PortInstanceIdentifier(
+          XmlFppWriter.FppBuilder.translateQualIdent(xmlInstance),
+          AstNode.create(port)
+        )
+        val e = Ast.ExprLiteralInt(portNumber)
+        (AstNode.create(pii), Some(AstNode.create(e)))
+      }
+
+    /** Translates a connection */
+    def connection(
+      file: XmlFppWriter.File,
+      node: scala.xml.Node
+    ): Result.Result[Ast.SpecConnectionGraph.Connection] =
+      for {
+        xmlSource <- file.getSingleChild(node, "source")
+        from <- endpoint(file, xmlSource)
+        xmlTarget <- file.getSingleChild(node, "target")
+        to <- endpoint(file, xmlTarget)
+      }
+      yield {
+        Ast.SpecConnectionGraph.Connection(
+          from._1,
+          from._2,
+          to._1,
+          to._2
+        )
+      }
+
+    /** Translates the connections */
+    def connectionList(file: XmlFppWriter.File):
+      Result.Result[List[Ast.SpecConnectionGraph.Connection]] = { 
+        val connections = file.elem \ "connection"
+        Result.map(connections.toList, connection(file, _))
+      }
+
     /** Translates the connection graph */
     def specConnectionGraphAnnotated(file: XmlFppWriter.File):
       Result.Result[Ast.Annotated[Ast.SpecConnectionGraph]] =
-        // TODO
-        Right((Nil, Ast.SpecConnectionGraph.Direct("XML", Nil), Nil))
+        for (connections <- connectionList(file))
+          yield (
+            Nil,
+            Ast.SpecConnectionGraph.Direct("XML", connections),
+            Nil
+          )
 
     /** Translates the topology */
     def defTopologyAnnotated(file: XmlFppWriter.File):
@@ -105,22 +176,6 @@ object TopologyXmlFppWriter extends LineUtils {
         val members = instanceMembers :+ graphMember
         (Nil, Ast.DefTopology(name, members), Nil)
       }
-
-    /** Generates the list of TU members */
-    def tuMemberList(file: XmlFppWriter.File): Result.Result[List[Ast.TUMember]] =
-      for {
-        instances <- defComponentInstanceAnnotatedList(file)
-        top <- defTopologyAnnotated(file)
-      }
-      yield XmlFppWriter.tuMemberList(
-        instances,
-        Ast.TUMember.DefComponentInstance,
-        Ast.ModuleMember.DefComponentInstance,
-        top,
-        Ast.TUMember.DefTopology,
-        Ast.ModuleMember.DefTopology,
-        file,
-      )
 
   }
 
