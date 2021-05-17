@@ -265,8 +265,12 @@ object XmlFppWriter extends LineUtils {
       Ast.TypeNameQualIdent(translateQualIdent(xmlType))
 
     /** Translates a qualified identifier */
-    def translateQualIdent(xmlType: String) = 
-      AstNode.create(Ast.QualIdent.fromNodeList(xmlType.split("::").toList.map(AstNode.create(_))))
+    def translateQualIdent(xmlQid: String) = 
+      AstNode.create(
+        Ast.QualIdent.fromNodeList(
+          xmlQid.split("::").toList.map(AstNode.create(_))
+        )
+      )
 
     /** Translates an XML format */
     def translateFormat(xmlFormat: String): Option[String] = {

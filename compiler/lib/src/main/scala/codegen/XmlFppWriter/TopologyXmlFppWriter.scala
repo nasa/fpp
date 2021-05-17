@@ -44,26 +44,72 @@ object TopologyXmlFppWriter extends LineUtils {
         )
       }
 
-    /** Translates the component instances definitions */
-    def defComponentInstanceList(file: XmlFppWriter.File):
+    /** Translates a component instance specifier */
+    def specCompInstanceAnnotated(
+      file: XmlFppWriter.File,
+      node: scala.xml.Node
+    ): Result.Result[Ast.Annotated[Ast.SpecCompInstance]] =
+      for (name <- file.getAttribute(node, "name"))
+        yield {
+          val qid = XmlFppWriter.FppBuilder.translateQualIdent(name)
+          (
+            Nil,
+            Ast.SpecCompInstance(Ast.Visibility.Public, qid),
+            Nil
+          )
+        }
+
+    /** Translates the component instance definitions */
+    def defComponentInstanceAnnotatedList(file: XmlFppWriter.File):
       Result.Result[List[Ast.Annotated[Ast.DefComponentInstance]]] = { 
         val instances = file.elem \ "instance"
         Result.map(instances.toList, defComponentInstanceAnnotated(file, _))
       }
+
+    /** Translates the component instance specifiers */
+    def specCompInstanceAnnotatedList(file: XmlFppWriter.File):
+      Result.Result[List[Ast.Annotated[Ast.SpecCompInstance]]] = {
+        val instances = file.elem \ "instance"
+        Result.map(instances.toList, specCompInstanceAnnotated(file, _))
+      }
+
+    /** Translates the connection graph */
+    def specConnectionGraphAnnotated(file: XmlFppWriter.File):
+      Result.Result[Ast.Annotated[Ast.SpecConnectionGraph]] =
+        // TODO
+        Right((Nil, Ast.SpecConnectionGraph.Direct("XML", Nil), Nil))
 
     /** Translates the topology */
     def defTopologyAnnotated(file: XmlFppWriter.File):
       Result.Result[Ast.Annotated[Ast.DefTopology]] = 
       for {
         name <- file.getAttribute(file.elem, "name")
-        members <- Right(Nil) // TODO
+        instancesAnnotated <- specCompInstanceAnnotatedList(file)
+        graphAnnotated <- specConnectionGraphAnnotated(file)
       }
-      yield (Nil, Ast.DefTopology(name, members), Nil)
+      yield {
+        def member[T]
+        (memberNodeConstructor: AstNode[T] => Ast.TopologyMember.Node)
+        (ta: Ast.Annotated[T]) = {
+          val (a1, t, a2) = ta
+          val node = AstNode.create(t)
+          val memberNode = memberNodeConstructor(node)
+          Ast.TopologyMember(a1, memberNode, a2)
+        }
+        val instanceMembers = instancesAnnotated.map(
+          member(Ast.TopologyMember.SpecCompInstance)
+        )
+        val graphMember = member(Ast.TopologyMember.SpecConnectionGraph)(
+          graphAnnotated
+        )
+        val members = instanceMembers :+ graphMember
+        (Nil, Ast.DefTopology(name, members), Nil)
+      }
 
     /** Generates the list of TU members */
     def tuMemberList(file: XmlFppWriter.File): Result.Result[List[Ast.TUMember]] =
       for {
-        instances <- defComponentInstanceList(file)
+        instances <- defComponentInstanceAnnotatedList(file)
         top <- defTopologyAnnotated(file)
       }
       yield XmlFppWriter.tuMemberList(
