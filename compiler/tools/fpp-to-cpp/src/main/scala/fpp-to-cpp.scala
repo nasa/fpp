@@ -35,14 +35,9 @@ object FPPToCpp {
         ResolveSpecInclude.transUnit
       )
       tulFiles <- Right(aTulFiles._2)
-      cppFileMap <- ComputeCppFiles.visitList(Map(), tulFiles, ComputeCppFiles.transUnit)
       tulImports <- Result.map(options.imports, Parser.parseFile (Parser.transUnit) (None) _)
       a <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
-      _ <- options.names match {
-        case Some(fileName) => writeCppFileNames(cppFileMap.toList.map(_._1), fileName)
-        case None => Right(())
-      }
-      _ <- {
+      s <- {
         val dir = options.dir match {
           case Some(dir1) => dir1
           case None => "."
@@ -55,6 +50,10 @@ object FPPToCpp {
           options.defaultStringSize
         )
         CppWriter.tuList(state, tulFiles)
+      }
+      _ <- options.names match {
+        case Some(fileName) => writeCppFileNames(s.fileNames.toList.sorted, fileName)
+        case None => Right(())
       }
     } yield ()
   }

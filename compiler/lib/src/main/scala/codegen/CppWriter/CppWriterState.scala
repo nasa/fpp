@@ -15,6 +15,8 @@ case class CppWriterState(
   pathPrefixes: List[String],
   /** The default string size */
   defaultStringSize: Int,
+  /** The set of C++ file names */
+  fileNames: Set[String] = Set()
 ) {
 
   /** Adds the component name prefix to a name.
@@ -30,6 +32,10 @@ case class CppWriterState(
       case _ => name
     }
   }
+
+  /** Add .cpp and .hpp file names */
+  def addFileNames(baseName: String): CppWriterState =
+    this.copy(fileNames = fileNames + s"$baseName.cpp" + s"$baseName.hpp")
 
   /** Removes the longest prefix from a Java path */
   def removeLongestPathPrefix(path: File.JavaPath): File.JavaPath =
