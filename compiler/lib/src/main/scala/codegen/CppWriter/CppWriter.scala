@@ -7,9 +7,12 @@ import fpp.compiler.util._
 /** Writes out C++ */
 object CppWriter extends LineUtils {
 
-  def tuList(s: CppWriterState, tul: List[Ast.TransUnit]) = {
-    writeConstants(s, tul)
-  }
+  def tuList(s: CppWriterState, tul: List[Ast.TransUnit]) =
+    for {
+      _ <- ConstantCppWriter.write(s, tul)
+      // TODO: Write topologies
+    }
+    yield ()
 
   def createCppDoc(fileName: String, includeGuard: String, members: List[CppDoc.Member]) = {
     val hppFile = CppDoc.HppFile(s"$fileName.hpp", includeGuard)
@@ -27,32 +30,12 @@ object CppWriter extends LineUtils {
   def namespaceMember(name: String, members: List[CppDoc.Namespace.Member]) =
     CppDoc.Member.Namespace(CppDoc.Namespace(name, members))
 
-  private def writeConstants(s: CppWriterState, tuList: List[Ast.TransUnit]) =
-    tuList.flatMap(ConstantCppWriter.transUnit(s, _)) match {
-      case Nil => Right(())
-      case constantMembers => 
-        val fileName = ComputeCppFiles.getConstantsName
-        val hppHeaderLines = {
-          val headers = List("Fw/Types/BasicTypes.hpp")
-          Line.blank :: headers.map(headerLine)
-        }
-        val cppHeaderLines = {
-          val path = s.getRelativePath(s"$fileName.hpp")
-          val headers = List(path.toString)
-          Line.blank :: headers.map(headerLine)
-        }
-        val members = linesMember(hppHeaderLines) :: 
-          linesMember(cppHeaderLines, CppDoc.Lines.Cpp) :: 
-          constantMembers
-        val includeGuard = s.includeGuardFromPrefix(fileName)
-        val cppDoc = createCppDoc(fileName, includeGuard, members)
-        writeCppDoc(s, cppDoc)
-      }
-
-  private def writeCppDoc(s: CppWriterState, cppDoc: CppDoc) = {
-    writeHppFile(s, cppDoc)
-    writeCppFile(s, cppDoc)
-  }
+  def writeCppDoc(s: CppWriterState, cppDoc: CppDoc) =
+    for {
+      _ <- writeHppFile(s, cppDoc)
+      _ <- writeCppFile(s, cppDoc)
+    }
+    yield ()
 
   private def writeCppFile(s: CppWriterState, cppDoc: CppDoc) = {
     val lines = CppDocCppWriter.visitCppDoc(cppDoc)
@@ -64,7 +47,11 @@ object CppWriter extends LineUtils {
     writeLinesToFile(s, cppDoc.hppFile.name, lines)
   }
 
-  private def writeLinesToFile(s: CppWriterState, fileName: String, lines: List[Line]) = {
+  private def writeLinesToFile(
+    s: CppWriterState,
+    fileName: String,
+    lines: List[Line]
+  ) = {
     val path = java.nio.file.Paths.get(s.dir, fileName)
     val file = File.Path(path)
     for (writer <- file.openWrite()) yield { 
