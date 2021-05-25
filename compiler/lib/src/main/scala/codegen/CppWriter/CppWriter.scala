@@ -19,7 +19,7 @@ object CppWriter extends LineUtils {
   }
 
   def tuList(s: CppWriterState, tul: List[Ast.TransUnit]) = {
-    writeConstants(s, tul)
+    ConstantCppWriter.write(s, tul)
   }
 
   def createCppDoc(fileName: String, includeGuard: String, members: List[CppDoc.Member]) = {
@@ -27,7 +27,10 @@ object CppWriter extends LineUtils {
     CppDoc(hppFile, s"$fileName.cpp", members)
   }
 
-  def headerLine(s: String) = line("#include \"" ++ s ++ "\"")
+  def headerLine(s: String) = {
+    val q = "\""
+    line(s"#include $q$s$q")
+  }
 
   def linesMember(content: List[Line], output: CppDoc.Lines.Output = CppDoc.Lines.Hpp) = 
     CppDoc.Member.Lines(CppDoc.Lines(content, output))
@@ -35,29 +38,7 @@ object CppWriter extends LineUtils {
   def namespaceMember(name: String, members: List[CppDoc.Namespace.Member]) =
     CppDoc.Member.Namespace(CppDoc.Namespace(name, members))
 
-  private def writeConstants(s: CppWriterState, tuList: List[Ast.TransUnit]) =
-    tuList.flatMap(ConstantCppWriter.transUnit(s, _)) match {
-      case Nil => Right(s)
-      case constantMembers =>
-        val fileName = FileNames.constants
-        val hppHeaderLines = {
-          val headers = List("Fw/Types/BasicTypes.hpp")
-          Line.blank :: headers.map(headerLine)
-        }
-        val cppHeaderLines = {
-          val path = s.getRelativePath(s"$fileName.hpp")
-          val headers = List(path.toString)
-          Line.blank :: headers.map(headerLine)
-        }
-        val members = linesMember(hppHeaderLines) :: 
-          linesMember(cppHeaderLines, CppDoc.Lines.Cpp) :: 
-          constantMembers
-        val includeGuard = s.includeGuardFromPrefix(fileName)
-        val cppDoc = createCppDoc(fileName, includeGuard, members)
-        writeCppDoc(s.addFileNames(fileName), cppDoc)
-    }
-
-  private def writeCppDoc(s: CppWriterState, cppDoc: CppDoc) = {
+  def writeCppDoc(s: CppWriterState, cppDoc: CppDoc) = {
     writeHppFile(s, cppDoc)
     writeCppFile(s, cppDoc)
   }
@@ -72,7 +53,11 @@ object CppWriter extends LineUtils {
     writeLinesToFile(s, cppDoc.hppFile.name, lines)
   }
 
-  private def writeLinesToFile(s: CppWriterState, fileName: String, lines: List[Line]) = {
+  private def writeLinesToFile(
+    s: CppWriterState,
+    fileName: String,
+    lines: List[Line]
+  ) = {
     val path = java.nio.file.Paths.get(s.dir, fileName)
     val file = File.Path(path)
     for (writer <- file.openWrite()) yield { 
