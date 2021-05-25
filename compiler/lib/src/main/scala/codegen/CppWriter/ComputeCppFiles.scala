@@ -6,50 +6,27 @@ import fpp.compiler.util._
 
 /** ====================================================================== 
  *  Computes the names of the C++ files to generate
+ *  ====================================================================== 
  *  Checks for duplicates that would cause a name collision. 
  *  ======================================================================*/
 object ComputeCppFiles extends AstStateVisitor {
 
   type State = Map[String, Option[Location]]
 
-  /** Generated C++ file names */
-  object Names {
+  /** Gets the generated C++ file name for constant definitions */
+  def getConstantsName = "FppConstants"
 
-    /** Constant definitions */
-    val constants = "FppConstants"
-    
-    /** Topology definitions */
-    val topology = "Topology"
-
-  }
-
-  override def defComponentAnnotatedNode(
-    s: State,
-    aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
-  ) = {
-    val (_, node, _) = aNode
-    val data = node.data
-    visitList(s, data.members, matchComponentMember)
-  }
-
-  override def defConstantAnnotatedNode(
-    s: State,
-    node: Ast.Annotated[AstNode[Ast.DefConstant]]
-  ) = addMappings(s, Names.constants)
+  override def defConstantAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefConstant]]) =
+    addMappings(s, getConstantsName)
 
   override def defModuleAnnotatedNode(
     s: State,
-    aNode: Ast.Annotated[AstNode[Ast.DefModule]]
+    node: Ast.Annotated[AstNode[Ast.DefModule]]
   ) = {
-    val (_, node, _) = aNode
-    val data = node.data
+    val (_, node1, _) = node
+    val data = node1.data
     visitList(s, data.members, matchModuleMember)
   }
- 
-  override def defTopologyAnnotatedNode(
-    s: State,
-    aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
-  ) = addMappings(s, Names.topology)
 
   override def transUnit(s: State, tu: Ast.TransUnit) =
     visitList(s, tu.members, matchTuMember)

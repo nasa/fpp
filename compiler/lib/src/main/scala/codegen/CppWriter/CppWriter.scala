@@ -43,7 +43,7 @@ object CppWriter extends AstStateVisitor with LineUtils {
     CppDoc.Member.Namespace(CppDoc.Namespace(name, members))
 
   private def writeConstants(s: CppWriterState, tuList: List[Ast.TransUnit]) = {
-    val fileName = ComputeCppFiles.Names.constants
+    val fileName = ComputeCppFiles.getConstantsName
     val constantMembers = tuList.flatMap(ConstantCppWriter.transUnit(s, _))
     val hppHeaderLines = {
       val headers = List("Fw/Types/BasicTypes.hpp")
