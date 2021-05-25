@@ -50,20 +50,11 @@ case class CppWriterState(
     s"${guard}_HPP"
   }
 
-  /** Constructs an include guard from a qualified name */
+  /** Constructs an include guard from a qualified name and a kind */
   def includeGuardFromQualifiedName(s: Symbol, kind: String) = {
     val name = a.getQualifiedName(s)
     val guardName = name.toString.replaceAll("\\.", "_")
-    s"${guardName}${kind}_HPP"
-  }
-
-  /** Constructs an include guard from the enclosing namespace and a name */
-  def includeGuardFromNamespace(name: String) = {
-    val guard = a.scopeNameList.reverse.mkString("_") match {
-      case "" => name
-      case prefix => s"${prefix}_$name"
-    }
-    s"${guard}_HPP"
+    s"${guardName}_${kind}_HPP"
   }
 
 }
