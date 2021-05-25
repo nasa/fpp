@@ -16,6 +16,15 @@ object ComputeCppFiles extends AstStateVisitor {
   /** Gets the generated C++ file name for constant definitions */
   def getConstantsName = "FppConstants"
 
+  override def defComponentAnnotatedNode(
+    s: State,
+    node: Ast.Annotated[AstNode[Ast.DefComponent]]
+  ) = {
+    val (_, node1, _) = node
+    val data = node1.data
+    visitList(s, data.members, matchComponentMember)
+  }
+
   override def defConstantAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefConstant]]) =
     addMappings(s, getConstantsName)
 
