@@ -14,7 +14,11 @@ object CppWriter extends LineUtils {
     }
     yield ()
 
-  def createCppDoc(fileName: String, includeGuard: String, members: List[CppDoc.Member]) = {
+  def createCppDoc(
+    fileName: String,
+    includeGuard: String,
+    members: List[CppDoc.Member]
+  ) = {
     val hppFile = CppDoc.HppFile(s"$fileName.hpp", includeGuard)
     CppDoc(hppFile, s"$fileName.cpp", members)
   }
@@ -24,11 +28,15 @@ object CppWriter extends LineUtils {
     line(s"#include $q$s$q")
   }
 
-  def linesMember(content: List[Line], output: CppDoc.Lines.Output = CppDoc.Lines.Hpp) = 
-    CppDoc.Member.Lines(CppDoc.Lines(content, output))
+  def linesMember(
+    content: List[Line],
+    output: CppDoc.Lines.Output = CppDoc.Lines.Hpp
+  ) = CppDoc.Member.Lines(CppDoc.Lines(content, output))
 
-  def namespaceMember(name: String, members: List[CppDoc.Namespace.Member]) =
-    CppDoc.Member.Namespace(CppDoc.Namespace(name, members))
+  def namespaceMember(
+    name: String,
+    members: List[CppDoc.Namespace.Member]
+  ) = CppDoc.Member.Namespace(CppDoc.Namespace(name, members))
 
   def writeCppDoc(s: CppWriterState, cppDoc: CppDoc) =
     for {

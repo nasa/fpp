@@ -13,7 +13,7 @@ object ConstantCppWriter {
     tuList.flatMap(Visitor.transUnit(s, _)) match {
       case Nil => Right(())
       case constantMembers => 
-        val fileName = ComputeCppFiles.getConstantsName
+        val fileName = ComputeCppFiles.FileNames.getConstants
         val hppHeaderLines = {
           val headers = List("Fw/Types/BasicTypes.hpp")
           Line.blank :: headers.map(CppWriter.headerLine)
@@ -123,9 +123,10 @@ object ConstantCppWriter {
 
     private def writeStringConstant(name: String, value: String) = {
       val s = value.replaceAll("\"", "\\\\\"").replaceAll("\n", "\\\\n")
+      val q = "\""
       (
         lines(s"extern const char *const $name;"),
-        lines("const char *const " ++ name ++ " = \"" ++ s ++ "\";")
+        lines(s"const char *const $name = $q$s$q;")
       )
     }
 
