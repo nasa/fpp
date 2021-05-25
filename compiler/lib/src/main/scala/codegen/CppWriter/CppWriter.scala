@@ -5,12 +5,36 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 
 /** Writes out C++ */
-object CppWriter extends LineUtils {
+object CppWriter extends AstStateVisitor with LineUtils {
+
+  type State = CppWriterState
+
+  override def defModuleAnnotatedNode(
+    s: CppWriterState,
+    aNode: Ast.Annotated[AstNode[Ast.DefModule]]
+  ) = {
+    val node = aNode._2
+    val data = node.data
+    visitList(s, data.members, matchModuleMember)
+  }
+
+  override def defTopologyAnnotatedNode(
+    s: CppWriterState,
+    aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
+  ) = {
+    val node = aNode._2
+    val data = node.data
+    val cppDoc = TopologyCppWriter.defTopologyAnnotatedNode(s, aNode)
+    writeCppDoc(s, cppDoc)
+  }
+
+  override def transUnit(s: CppWriterState, tu: Ast.TransUnit) = 
+    visitList(s, tu.members, matchTuMember)
 
   def tuList(s: CppWriterState, tul: List[Ast.TransUnit]) =
     for {
       _ <- ConstantCppWriter.write(s, tul)
-      // TODO: Write topologies
+      _ <- visitList(s, tul, transUnit)
     }
     yield ()
 
@@ -43,7 +67,7 @@ object CppWriter extends LineUtils {
       _ <- writeHppFile(s, cppDoc)
       _ <- writeCppFile(s, cppDoc)
     }
-    yield ()
+    yield s
 
   private def writeCppFile(s: CppWriterState, cppDoc: CppDoc) = {
     val lines = CppDocCppWriter.visitCppDoc(cppDoc)
