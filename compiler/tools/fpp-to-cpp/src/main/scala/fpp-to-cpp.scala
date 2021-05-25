@@ -101,7 +101,7 @@ object FPPToCpp {
         .valueName("<file1>,<file2>...")
         .action((i, c) => c.copy(imports = i.toList.map(File.fromString(_))))
         .text("files to import"),
-      opt[String]('g', "guard prefix")
+      opt[String]('g', "guard-prefix")
         .valueName("<prefix>")
         .action((g, c) => c.copy(guardPrefix = Some(g)))
         .text("prefix for generated include guards"),
@@ -109,7 +109,7 @@ object FPPToCpp {
         .valueName("<file>")
         .action((n, c) => c.copy(names = Some(n)))
         .text("write names of generated files to <file>"),
-      opt[Seq[String]]('p', "path prefixes")
+      opt[Seq[String]]('p', "path-prefixes")
         .valueName("<prefix1>,<prefix2>...")
         .action((p, c) => c.copy(pathPrefixes = p.toList))
         .text("path prefixes to delete from imported files"),
