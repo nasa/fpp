@@ -106,7 +106,7 @@ object FPPToXml {
         .text("path prefixes to delete from imported files"),
       opt[Int]('s', "size")
         .valueName("<size>")
-        .validate(s => if (s > 0 && s <= 1024) success else failure("<size> must be between 1 and 1024"))
+        .validate(s => if (s > 0) success else failure("size must be greater than zero"))
         .action((s, c) => c.copy(defaultStringSize = s))
         .text("default string size"),
       arg[String]("file ...")

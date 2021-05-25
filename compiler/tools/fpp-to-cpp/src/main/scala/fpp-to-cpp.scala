@@ -35,11 +35,11 @@ object FPPToCpp {
         ResolveSpecInclude.transUnit
       )
       tulFiles <- Right(aTulFiles._2)
-      xmlFileMap <- ComputeCppFiles.visitList(Map(), tulFiles, ComputeCppFiles.transUnit)
+      cppFileMap <- ComputeCppFiles.visitList(Map(), tulFiles, ComputeCppFiles.transUnit)
       tulImports <- Result.map(options.imports, Parser.parseFile (Parser.transUnit) (None) _)
       a <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
       _ <- options.names match {
-        case Some(fileName) => writeCppFileNames(xmlFileMap.toList.map(_._1), fileName)
+        case Some(fileName) => writeCppFileNames(cppFileMap.toList.map(_._1), fileName)
         case None => Right(())
       }
       _ <- {
@@ -115,7 +115,7 @@ object FPPToCpp {
         .text("path prefixes to delete from imported files"),
       opt[Int]('s', "size")
         .valueName("<size>")
-        .validate(s => if (s > 0 && s <= 1024) success else failure("<size> must be between 1 and 1024"))
+        .validate(s => if (s > 0) success else failure("size must be greater than zero"))
         .action((s, c) => c.copy(defaultStringSize = s))
         .text("default string size"),
       opt[Unit]('t', "template")
