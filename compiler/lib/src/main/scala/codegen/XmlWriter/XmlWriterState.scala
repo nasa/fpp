@@ -191,10 +191,4 @@ case object XmlWriterState extends LineUtils {
   /** Write an identifier */
   def writeId(id: Int): String = s"0x${Integer.toString(id, 16).toUpperCase}"
 
-  /** Add a blank line prefix to a list of lines */
-  def addBlankPrefix(ls: List[Line]) = ls match {
-    case Nil => Nil
-    case _ => Line.blank :: ls
-  }
-
 }

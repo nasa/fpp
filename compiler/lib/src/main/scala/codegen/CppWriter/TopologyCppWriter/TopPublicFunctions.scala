@@ -10,6 +10,6 @@ case class TopPublicFunctions(
   aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
 ) {
 
-  def generateMembers: List[CppDoc.Member] = Nil
+  def getMembers: List[CppDoc.Member] = Nil
 
 }

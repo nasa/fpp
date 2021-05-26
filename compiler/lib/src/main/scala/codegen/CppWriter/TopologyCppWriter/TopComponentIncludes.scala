@@ -10,6 +10,6 @@ case class TopComponentIncludes(
   aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
 ) {
 
-  def generateMembers: List[CppDoc.Member] = Nil
+  def getLines: List[Line] = Nil
 
 }

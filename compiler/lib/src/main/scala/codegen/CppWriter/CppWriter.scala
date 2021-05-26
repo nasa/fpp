@@ -24,7 +24,7 @@ object CppWriter extends AstStateVisitor with LineUtils {
   ) = {
     val node = aNode._2
     val data = node.data
-    val cppDoc = TopologyCppWriter.defTopologyAnnotatedNode(s, aNode)
+    val cppDoc = TopologyCppWriter(s, aNode).write
     writeCppDoc(s, cppDoc)
   }
 
