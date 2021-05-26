@@ -71,6 +71,13 @@ case class Analysis(
     Name.Qualified.fromIdentList(getIdentList(Some(s), Nil))
   }
 
+  /** Gets the list of enclosing identifiers for a symbol */
+  def getEnclosingNames(s: Symbol): List[Ast.Ident] =
+    parentSymbolMap.get(s) match {
+      case Some(s1) => getQualifiedName(s1).toIdentList
+      case None => Nil
+    }
+
   /** Add a mapping to the type map */
   def assignType[T](mapping: (AstNode[T], Type)): Analysis = {
     val node -> t = mapping
@@ -168,23 +175,6 @@ case class Analysis(
         case None => throw InternalError("negation failed")
       }
     }
-
-  /** Computes a short qualified name
-   *  Deletes the longest prefix provided by the enclosing scope */
-  def shortName(name: Name.Qualified): Name.Qualified = {
-    def helper(prefix: List[String], resultList: List[String]): Name.Qualified  = {
-      val result = Name.Qualified.fromIdentList(resultList)
-      (prefix, resultList) match {
-        case (Nil, _) => result
-        case (_, _ :: Nil) => result
-        case (head1 :: tail1, head2 :: tail2) => 
-          if (head1 == head2) helper(tail1, tail2)
-          else name
-        case _ => name
-      }
-    }
-    helper(scopeNameList.reverse, name.toIdentList)
-  }
 
   /** Gets a component from the component map */
   def getComponent(id: AstNode.Id): Result.Result[Component] =

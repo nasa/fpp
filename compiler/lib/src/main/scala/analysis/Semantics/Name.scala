@@ -26,6 +26,21 @@ object Name {
     /** Convert a qualified name to an identifier list */
     def toIdentList = (base :: qualifier).reverse
 
+    /** Computes a short qualified name
+     *  Deletes the longest prefix provided by the enclosing scope */
+    def shortName(enclosingNames: List[Ast.Ident]): Name.Qualified = {
+      def helper(prefix: List[String], resultList: List[String]): 
+        Name.Qualified  = {
+          val result = Name.Qualified.fromIdentList(resultList)
+          (prefix, resultList) match {
+            case (head1 :: tail1, head2 :: tail2) => 
+              if (head1 == head2) helper(tail1, tail2) else result
+            case _ => result
+          }
+        }
+      helper(enclosingNames, this.toIdentList)
+    }
+
   }
 
   object Qualified {
