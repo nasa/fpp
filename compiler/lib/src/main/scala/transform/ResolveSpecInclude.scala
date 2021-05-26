@@ -73,8 +73,8 @@ object ResolveSpecInclude extends AstStateTransformer {
   ): Result[List[MemberType]] = {
     val spec = node.data
     val includingLoc = Locations.get(spec.file.id)
+    val path = includingLoc.getRelativePath(spec.file.data) 
     for { 
-      path <- includingLoc.relativePath(spec.file.data) 
       includedFile <- Right(File.Path(path))
       _ <- checkForCycle(includingLoc, path.toString)
       members <- Parser.parseFile (parser) (Some(includingLoc)) (includedFile)

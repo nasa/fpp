@@ -34,40 +34,18 @@ final case class Location(
   }
 
   /** Get the path of a file that is a neighbor to this location */
-  def getNeighborPath(fileName: String): Result.Result[java.nio.file.Path] =
-    for (dir <- dirPath)
-      yield java.nio.file.Paths.get(dir.toString, fileName)
+  def getNeighborPath(fileName: String): java.nio.file.Path =
+    java.nio.file.Paths.get(getDirPath.toString, fileName)
 
   /** Get the directory path associated with the location */
-  def dirPath: Result.Result[java.nio.file.Path] = 
-    try {
-      val path = file match {
-        case File.Path(p) => p.getParent()
-        case File.StdIn => java.nio.file.Paths.get("").toAbsolutePath().normalize()
-      }
-      Right(path)
-    }
-    catch {
-      case _: Exception => Left(FileError.CannotResolvePath(this, "directory"))
+  def getDirPath: java.nio.file.Path =
+    file match {
+      case File.Path(p) => p.getParent
+      case File.StdIn => java.nio.file.Paths.get("").toAbsolutePath.normalize
     }
 
   /** Resolve a path relative to the path of this location */
-  def getRelativePath(path: String): java.nio.file.Path = {
-    val p = Result.expectRight(this.dirPath)
-    p.resolve(path).normalize()
-  }
-
-  /** Resolve a path relative to the path of this location */
-  def relativePath(path: String): Result.Result[java.nio.file.Path] = {
-    val p = Result.expectRight(this.dirPath)
-    Right(p.resolve(path).normalize())
-  }
-//    try {
-//      for { p <- this.dirPath }
-//      yield { p.resolve(path).normalize() }
-//    }
-//    catch {
-//      case _: Exception => Left(FileError.CannotResolvePath(this, path))
-//    }
+  def getRelativePath(path: String): java.nio.file.Path =
+    getDirPath.resolve(path).normalize
 
 }

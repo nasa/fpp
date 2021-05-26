@@ -29,25 +29,24 @@ object BuildSpecLocMap extends ModuleAnalyzer {
     spec1: Ast.SpecLoc,
     spec2: Ast.SpecLoc
   ): Result.Result[Unit] = {
-    for {
-      path1 <- getPathString(spec1)
-      path2 <- getPathString(spec2)
-      _ <- if (path1 == path2) Right(()) else {
-          val e = SemanticError.InconsistentSpecLoc(
-          Locations.get(spec1.file.id),
-          path1,
-          Locations.get(spec2.file.id),
-          path2
-        )
-        Left(e)
-      }
-    } yield ()
+    val path1 = getPathString(spec1)
+    val path2 = getPathString(spec2)
+    if (path1 == path2)
+      Right(())
+    else Left(
+      SemanticError.InconsistentSpecLoc(
+        Locations.get(spec1.file.id),
+        path1,
+        Locations.get(spec2.file.id),
+        path2
+      )
+    )
   }
 
-  private def getPathString(spec: Ast.SpecLoc): Result.Result[String] = {
+  private def getPathString(spec: Ast.SpecLoc): String = {
     val loc = Locations.get(spec.file.id)
-    for { path <- loc.relativePath(spec.file.data) } 
-    yield path.toString
+    val path = loc.getRelativePath(spec.file.data)
+    path.toString
   }
 
 }

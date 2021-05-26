@@ -45,7 +45,7 @@ object ComponentInstance {
       component <- a.getComponent(data.component.id)
       componentKind <- Right(component.aNode._2.data.kind)
       baseId <- a.getNonnegativeIntValue(data.baseId.id)
-      file <- Result.mapOpt(data.file, getFile)
+      file <- Right(data.file.map(getFile))
       queueSize <- getQueueSize(
         a,
         data.name,
@@ -94,14 +94,11 @@ object ComponentInstance {
   )
 
   /** Gets the file */
-  private def getFile(node: AstNode[String]):
-    Result.Result[String] = {
-      val loc = Locations.get(node.id)
-      for {
-        javaPath <- loc.relativePath(node.data)
-      }
-      yield File.Path(javaPath).toString
-    }
+  private def getFile(node: AstNode[String]): String = {
+    val loc = Locations.get(node.id)
+    val javaPath = loc.getRelativePath(node.data)
+    File.Path(javaPath).toString
+  }
   
   /** Gets the queue size */
   private def getQueueSize(

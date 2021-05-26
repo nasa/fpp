@@ -79,7 +79,7 @@ case class XmlWriterState(
       yield {
         val loc = sym.getLoc
         val (tagName, fileName) = tagFileName
-        val fullPath = Result.expectRight(loc.getNeighborPath(fileName))
+        val fullPath = loc.getNeighborPath(fileName)
         val path = removeLongestPrefix(fullPath)
         val tags = XmlTags.tags(tagName)
         XmlTags.taggedString(tags)(path.toString)
