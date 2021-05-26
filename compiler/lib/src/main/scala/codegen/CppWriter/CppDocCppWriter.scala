@@ -61,7 +61,10 @@ object CppDocCppWriter extends CppDocWriter {
   override def visitCppDoc(cppDoc: CppDoc): Output = {
     val in = Input(cppDoc.hppFile, cppDoc.cppFileName)
     List(
-      CppDocWriter.writeBanner(in.cppFileName),
+      CppDocWriter.writeBanner(
+        in.cppFileName,
+        s"cpp file for ${cppDoc.description}"
+      ),
       cppDoc.members.map(visitMember(in, _)).flatten,
     ).flatten
   }

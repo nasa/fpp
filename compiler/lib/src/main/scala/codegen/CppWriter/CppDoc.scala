@@ -2,6 +2,8 @@ package fpp.compiler.codegen
 
 /** A C++ document representing an .hpp file and a .cpp file */
 case class CppDoc(
+  /** The description */
+  description: String,
   /** The hpp file */
   hppFile: CppDoc.HppFile,
   /** The cpp file name */

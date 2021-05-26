@@ -4,6 +4,7 @@ import CppDoc._
 object Program extends LineUtils {
 
   val cppDoc = CppDoc(
+    description = "CppDoc test",
     hppFile = HppFile("C.hpp", "N_C_HPP"),
     cppFileName = "C.cpp",
     members = List(

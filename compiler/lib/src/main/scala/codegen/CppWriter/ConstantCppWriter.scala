@@ -27,7 +27,12 @@ object ConstantCppWriter {
           CppWriter.linesMember(cppHeaderLines, CppDoc.Lines.Cpp) :: 
           constantMembers
         val includeGuard = s.includeGuardFromPrefix(fileName)
-        val cppDoc = CppWriter.createCppDoc(fileName, includeGuard, members)
+        val cppDoc = CppWriter.createCppDoc(
+          "FPP constants",
+          fileName,
+          includeGuard,
+          members
+        )
         CppWriter.writeCppDoc(s, cppDoc)
       }
 

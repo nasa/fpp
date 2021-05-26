@@ -39,12 +39,13 @@ object CppWriter extends AstStateVisitor with LineUtils {
     yield ()
 
   def createCppDoc(
+    description: String,
     fileName: String,
     includeGuard: String,
     members: List[CppDoc.Member]
   ) = {
     val hppFile = CppDoc.HppFile(s"$fileName.hpp", includeGuard)
-    CppDoc(hppFile, s"$fileName.cpp", members)
+    CppDoc(description, hppFile, s"$fileName.cpp", members)
   }
 
   def headerLine(s: String) = {
