@@ -79,13 +79,7 @@ case class XmlWriterState(
       yield {
         val loc = sym.getLoc
         val (tagName, fileName) = tagFileName
-        val fullPath = loc.file match {
-          case File.Path(p) => {
-            val dir = p.getParent
-            java.nio.file.Paths.get(dir.toString, fileName)
-          }
-          case _ => java.nio.file.Paths.get(fileName).toAbsolutePath
-        }
+        val fullPath = Result.expectRight(loc.getNeighborPath(fileName))
         val path = removeLongestPrefix(fullPath)
         val tags = XmlTags.tags(tagName)
         XmlTags.taggedString(tags)(path.toString)

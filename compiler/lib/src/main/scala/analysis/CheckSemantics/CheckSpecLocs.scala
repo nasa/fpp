@@ -56,14 +56,11 @@ object CheckSpecLocs
     a.locationSpecifierMap.get((kind, qualifiedName)) match {
       case Some(specLoc) => {
         val specifierLoc = Locations.get(specLoc.file.id)
-        for {
-          specifiedJavaPath <- specifierLoc.relativePath(specLoc.file.data)
-          specifiedPath <- Right(File.Path(specifiedJavaPath).toString)
-          actualPath <- Right(actualLoc.file.toString)
-          _ <- if (specifiedPath == actualPath) Right(()) 
-            else Left(SemanticError.IncorrectSpecLoc(specifierLoc, specifiedPath, actualLoc))
-        }
-        yield a
+        val specifiedJavaPath = specifierLoc.getRelativePath(specLoc.file.data)
+        val specifiedPath = File.Path(specifiedJavaPath).toString
+        val actualPath = actualLoc.file.toString
+        if (specifiedPath == actualPath) Right(a)
+          else Left(SemanticError.IncorrectSpecLoc(specifierLoc, specifiedPath, actualLoc))
       }
       case None => Right(a)
     }
