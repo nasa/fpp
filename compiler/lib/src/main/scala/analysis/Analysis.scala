@@ -224,6 +224,11 @@ case class Analysis(
       )
     }
 
+  /** Gets a topology from the topology map */
+  def getTopology(id: AstNode.Id): Result.Result[Topology] =
+    for (ts <- getTopologySymbol(id))
+      yield this.topologyMap(ts)
+
   /** Gets an int value from an AST node */
   def getIntValue(id: AstNode.Id): Result.Result[Int] = {
     val Value.Integer(v) = Analysis.convertValueToType(
