@@ -15,6 +15,7 @@ case class TopConstants(
       "Constants",
       flattenWithBlankPrefix(
         List(
+          getComponentConfigLines,
           getBaseIdLines,
           getInstanceIdLines,
           getPriorityLines,
@@ -25,13 +26,28 @@ case class TopConstants(
       )
     )
 
+  private def getComponentConfigLines: List[Line] = {
+    val getCode = getCodeForPhase (CppWriter.Phases.configConstants) _
+    val pairs = instances.map(ci => (ci, getCode(ci))).
+      filter(_._2.isDefined).map(p => (p._1, p._2.get))
+    wrapInNamespace(
+      "ConfigConstants",
+      pairs.flatMap({ case (ci, code) => {
+        wrapInNamespace(
+          getShortName(ci.qualifiedName).toString,
+          lines(code)
+        )
+      }})
+    )
+  }
+
   private def getBaseIdLines: List[Line] = {
     wrapInNamespace(
       "BaseIds",
       wrapInEnum(
-        t.instanceMap.keys.toList.map(ci => {
+        instances.map(ci => {
           val name = getShortName(ci.qualifiedName)
-          val value = CppWriterState.writeId(ci.baseId)
+          val value = CppWriter.writeId(ci.baseId)
           line(s"$name = $value,")
         })
       )

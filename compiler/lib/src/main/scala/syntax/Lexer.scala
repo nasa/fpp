@@ -68,12 +68,18 @@ object Lexer extends RegexParsers {
     }
     positionedString ^^ { 
       case ps @ PositionedString(s) => {
-        val col = ps.pos.column
+        val col = {
+          def recurse(s: String, n: Int): Int =
+            if (s.length == 0) n
+            else if (s.head == ' ') recurse(s.tail, n + 1)
+            else n
+          recurse(s, 0)
+        }
         def stripPrefix(s: String): String = {
           def recurse(pos: Int, s: String): String = {
-            if (s.length == 0 || pos >= col) { s }
-            else if (s.head == ' ') { recurse(pos+1, s.tail) }
-            else { s }
+            if (s.length == 0 || pos >= col) s
+            else if (s.head == ' ') recurse(pos+1, s.tail)
+            else s
           }
           recurse(0, s)
         }

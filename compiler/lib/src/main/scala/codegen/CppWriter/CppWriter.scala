@@ -95,4 +95,24 @@ object CppWriter extends AstStateVisitor with LineUtils {
     }
   }
 
+  /** Constructs a C++ identifier from a qualified name */
+  def identFromQualifiedName(name: Name.Qualified) =
+    name.toString.replaceAll("\\.", "_")
+
+  /** Writes an identifier */
+  def writeId(id: Int): String = s"0x${Integer.toString(id, 16).toUpperCase}"
+
+  /** The phases of code generation */
+  object Phases {
+
+    /** Configuration constants */
+    val configConstants = 0
+
+    /** Configuration objects */
+    val configObjects = 1
+
+    // TODO
+
+  }
+
 }

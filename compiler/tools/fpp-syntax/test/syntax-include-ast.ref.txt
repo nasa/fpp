@@ -196,7 +196,7 @@ def module
     instance qual ident i
     phase ident CONSTRUCTION
     code line 1
-         line 2
+           line 2
          line 3
   @ Port definition
   def port
