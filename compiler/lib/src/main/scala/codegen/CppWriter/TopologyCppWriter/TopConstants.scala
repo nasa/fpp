@@ -29,15 +29,17 @@ case class TopConstants(
   private def getComponentConfigLines: List[Line] = {
     val getCode = getCodeForPhase (CppWriter.Phases.configConstants) _
     val pairs = instances.map(ci => (ci, getCode(ci))).
-      filter(_._2.isDefined).map(p => (p._1, p._2.get))
+      filter(_._2.isDefined).map { 
+        case (ci, codeOpt) => (ci, codeOpt.get)
+      }
     wrapInNamespace(
       "ConfigConstants",
-      pairs.flatMap({ case (ci, code) => {
-        wrapInNamespace(
+      pairs.flatMap { 
+        case (ci, code) => wrapInNamespace(
           getShortName(ci.qualifiedName).toString,
           lines(code)
         )
-      }})
+      }
     )
   }
 
