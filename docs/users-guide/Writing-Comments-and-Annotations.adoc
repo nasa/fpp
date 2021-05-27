@@ -70,7 +70,7 @@ The meaning of the annotations is tool-specific.  A typical use is to
 concatenate the pre and post annotations into a list of lines and emit them as
 a comment.  For example, if you send the code immediately above through the
 tool <<Analyzing-and-Translating-Models_Generating-C-Plus-Plus,`fpp-to-cpp`>>,
-it should generate a file `FppConstants.hpp`. If you examine that file, 
+it should generate a file `FppConstantsAc.hpp`. If you examine that file, 
 you should see, in relevant part, the following code:
 
 [source,cpp]

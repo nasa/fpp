@@ -14,7 +14,7 @@ case class TopologyCppWriter(
     val node = aNode._2
     val data = node.data
     val fileName = ComputeCppFiles.FileNames.getTopology(data.name)
-    val includeGuard = s.includeGuardFromQualifiedName(symbol, "Topology")
+    val includeGuard = s.includeGuardFromQualifiedName(symbol, fileName)
     CppWriter.createCppDoc(
       s"${data.name} topology",
       fileName,

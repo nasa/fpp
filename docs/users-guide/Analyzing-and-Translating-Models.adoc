@@ -306,7 +306,7 @@ In the future it will do more.
 
 `fpp-to-cpp` extracts <<Defining-Constants,constant definitions>>
 from the source files _F_.
-It generates files `FppConstants.hpp` and `FppConstants.cpp`
+It generates files `FppConstantsAc.hpp` and `FppConstantsAc.cpp`
 containing {cpp} translations of the constants.
 By including and/or linking against these files,
 you can use constants defined in the FPP model
@@ -357,7 +357,7 @@ constant d = "abcd"
 ^D
 ----
 
-You should see files `FppConstants.hpp` and `FppConstants.cpp`
+You should see files `FppConstantsAc.hpp` and `FppConstantsAc.cpp`
 in the current directory.
 Examine them to confirm your understanding of how the translation
 works
@@ -384,7 +384,7 @@ passive component C {
 ----
 
 *Setting the include guard prefix:* By default, the include guard
-for `FppConstants.hpp` is `FppConstants_HPP`.
+for `FppConstantsAc.hpp` is `FppConstantsAc_HPP`.
 This works fine if you generate one constant file
 for your whole model.
 However, if you generate separate constant files for
@@ -398,9 +398,9 @@ reported as undefined.
 
 To avoid this problem, use the option `-g` _guard-prefix_.
 This options says to add _guard-prefix_ to the include
-guard for `FppConstants.hpp`.
+guard for `FppConstantsAc.hpp`.
 For example, if you run `fpp-to-cpp -g Commands ...`,
-then the include guard will be `Commands_FppConstants_HPP`.
+then the include guard will be `Commands_FppConstantsAc_HPP`.
 
 *More options:* The following additional options are available
 when running `fpp-to-cpp`:
