@@ -14,6 +14,8 @@ case class TopologyCppWriter(
 
   val namespace = s.getNamespace(symbol)
 
+  val name = aNode._2.data.name
+
   def write: CppDoc = {
     val node = aNode._2
     val data = node.data
@@ -28,16 +30,26 @@ case class TopologyCppWriter(
   }
 
   private def getMembers: List[CppDoc.Member] = {
-    val includes = CppWriter.linesMember(
-      addBlankPrefix(TopComponentIncludes(s, aNode).getLines)
-    )
+    val includes = {
+      val strings = (
+        TopComponentIncludes(s, aNode).getHeaderStrings :+
+        CppWriter.headerString(
+          s.getRelativePath(s"${name}TopologyDefs.hpp").toString
+        )
+      ).sorted
+      CppWriter.linesMember(addBlankPrefix(strings.map(line)))
+    }
     val hppLines = CppWriter.linesMember(
       addBlankPrefix(TopConstants(s, aNode).getLines)
     )
     val cppLines = CppWriter.linesMember(
       Line.blank ::
+      CppWriter.headerLine(
+        s.getRelativePath(s"${name}Topology.hpp").toString
+      ) ::
+      Line.blank ::
+      line("namespace {") ::
       List(
-        lines("namespace {"),
         flattenWithBlankPrefix(
           List(
             TopConfigObjects(s, aNode).getLines,

@@ -10,14 +10,14 @@ case class TopComponentIncludes(
   aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
 ) {
 
-  def getLines: List[Line] = {
+  def getHeaderStrings: List[String] = {
     val node = aNode._2
     val t = s.a.topologyMap(Symbol.Topology(aNode))
-    t.instanceMap.keys.toList.map(getHeaderLine)
+    t.instanceMap.keys.toList.map(getHeaderString)
   }
 
-  private def getHeaderLine(ci: ComponentInstance): Line =
-    CppWriter.headerLine(getIncludePath(ci))
+  private def getHeaderString(ci: ComponentInstance): String =
+    CppWriter.headerString(getIncludePath(ci))
 
   private def getIncludePath(ci: ComponentInstance): String =
     ci.file match {

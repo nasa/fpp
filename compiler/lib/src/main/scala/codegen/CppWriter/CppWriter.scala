@@ -48,10 +48,12 @@ object CppWriter extends AstStateVisitor with LineUtils {
     CppDoc(description, hppFile, s"$fileName.cpp", members)
   }
 
-  def headerLine(s: String) = {
+  def headerString(s: String) = {
     val q = "\""
-    line(s"#include $q$s$q")
+    s"#include $q$s$q"
   }
+
+  def headerLine(s: String) = line(headerString(s))
 
   def linesMember(
     content: List[Line],
