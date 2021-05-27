@@ -55,20 +55,14 @@ object Lexer extends RegexParsers {
   }
 
   def literalStringMulti: Parser[Token] = positioned {
-    final case class PositionedString(s: String) extends Positional
-    def positionedString: Parser[PositionedString] = positioned {
-      "\"\"\"([^\\\\\"]*(\\\\(\")?)?)*\"\"\"".r ^^ { 
-        case s => {
-          val s1 = "\\\\\"".r.replaceAllIn(s, "\"")
+    "\"\"\"([^\\\\\"]*(\\\\(\")?)?)*\"\"\"".r ^^ { 
+      case s0 => {
+        val s = {
+          val s1 = "\\\\\"".r.replaceAllIn(s0, "\"")
           val s2 = s1.drop(3).dropRight(3)
-          val s3 = "^\\n".r.replaceAllIn(s2, "")
-          PositionedString(s3)
+          "^\\n".r.replaceAllIn(s2, "")
         }
-      }
-    }
-    positionedString ^^ { 
-      case ps @ PositionedString(s) => {
-        val col = {
+        val numInitialSpaces = {
           def recurse(s: String, n: Int): Int =
             if (s.length == 0) n
             else if (s.head == ' ') recurse(s.tail, n + 1)
@@ -77,8 +71,8 @@ object Lexer extends RegexParsers {
         }
         def stripPrefix(s: String): String = {
           def recurse(pos: Int, s: String): String = {
-            if (s.length == 0 || pos >= col) s
-            else if (s.head == ' ') recurse(pos+1, s.tail)
+            if (s.length == 0 || pos >= numInitialSpaces) s
+            else if (s.head == ' ') recurse(pos + 1, s.tail)
             else s
           }
           recurse(0, s)
