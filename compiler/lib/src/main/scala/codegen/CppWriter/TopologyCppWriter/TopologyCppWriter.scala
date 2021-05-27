@@ -41,7 +41,7 @@ case class TopologyCppWriter(
         List(
           Line.blank,
           CppWriter.headerLine(
-            s.getRelativePath(s"${name}Topology.hpp").toString
+            s.getRelativePath(s"${name}TopologyAc.hpp").toString
           )
         ),
         CppDoc.Lines.Cpp
