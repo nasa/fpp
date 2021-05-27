@@ -50,10 +50,13 @@ case class CppWriterState(
     s"${guard}_HPP"
   }
 
+  /** Constructs a C++ identifier from a qualified symbol name */
+  def identFromQualifiedSymbolName(s: Symbol) =
+    CppWriterState.identFromQualifiedName(a.getQualifiedName(s))
+
   /** Constructs an include guard from a qualified name and a kind */
   def includeGuardFromQualifiedName(s: Symbol, kind: String) = {
-    val name = a.getQualifiedName(s)
-    val guardName = name.toString.replaceAll("\\.", "_")
+    val guardName = identFromQualifiedSymbolName(s)
     s"${guardName}_${kind}_HPP"
   }
 
@@ -68,3 +71,15 @@ case class CppWriterState(
     )
 
 }
+
+object CppWriterState {
+
+  /** Constructs a C++ identifier from a qualified name */
+  def identFromQualifiedName(name: Name.Qualified) =
+    name.toString.replaceAll("\\.", "_")
+
+  /** Writes an identifier */
+  def writeId(id: Int): String = s"0x${Integer.toString(id, 16).toUpperCase}"
+
+}
+

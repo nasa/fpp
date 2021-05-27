@@ -8,7 +8,7 @@ import fpp.compiler.util._
 case class TopComponentIncludes(
   s: CppWriterState,
   aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
-) {
+) extends TopologyCppWriterUtils(s, aNode) {
 
   def getHeaderStrings: List[String] = {
     val node = aNode._2

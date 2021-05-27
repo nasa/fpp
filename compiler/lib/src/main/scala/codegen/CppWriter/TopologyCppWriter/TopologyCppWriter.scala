@@ -8,13 +8,7 @@ import fpp.compiler.util._
 case class TopologyCppWriter(
   s: CppWriterState,
   aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
-) extends LineUtils {
-
-  val symbol = Symbol.Topology(aNode)
-
-  val namespace = s.getNamespace(symbol)
-
-  val name = aNode._2.data.name
+) extends TopologyCppWriterUtils(s, aNode) {
 
   def write: CppDoc = {
     val node = aNode._2
@@ -30,23 +24,30 @@ case class TopologyCppWriter(
   }
 
   private def getMembers: List[CppDoc.Member] = {
-    val includes = {
+    val hppIncludes = {
       val strings = (
         TopComponentIncludes(s, aNode).getHeaderStrings :+
         CppWriter.headerString(
           s.getRelativePath(s"${name}TopologyDefs.hpp").toString
         )
       ).sorted
-      CppWriter.linesMember(addBlankPrefix(strings.map(line)))
+      CppWriter.linesMember(Line.blank :: strings.map(line))
     }
     val hppLines = CppWriter.linesMember(
-      addBlankPrefix(TopConstants(s, aNode).getLines)
+      TopConstants(s, aNode).getLines
     )
+    val cppIncludes = {
+      CppWriter.linesMember(
+        List(
+          Line.blank,
+          CppWriter.headerLine(
+            s.getRelativePath(s"${name}Topology.hpp").toString
+          )
+        ),
+        CppDoc.Lines.Cpp
+      )
+    }
     val cppLines = CppWriter.linesMember(
-      Line.blank ::
-      CppWriter.headerLine(
-        s.getRelativePath(s"${name}Topology.hpp").toString
-      ) ::
       Line.blank ::
       line("namespace {") ::
       List(
@@ -65,10 +66,11 @@ case class TopologyCppWriter(
     val defs = hppLines :: cppLines :: publicFunctions
     namespace match {
       case Some(ns) => List(
-        includes,
+        hppIncludes,
+        cppIncludes,
         CppWriter.namespaceMember(ns, defs)
       )
-      case None => includes :: defs
+      case None => hppIncludes :: cppIncludes :: defs
     }
   }
 
