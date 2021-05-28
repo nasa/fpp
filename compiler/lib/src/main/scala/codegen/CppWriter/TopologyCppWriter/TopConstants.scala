@@ -57,8 +57,15 @@ case class TopConstants(
   }
 
   private def getInstanceIdLines: List[Line] = {
-    // TODO
-    Nil
+    wrapInNamespace(
+      "InstanceIds",
+      wrapInEnum(
+        instances.map(ci => {
+          val name = getShortName(ci.qualifiedName)
+          line(s"$name,")
+        })
+      )
+    )
   }
 
   private def getPriorityLines: List[Line] = {
