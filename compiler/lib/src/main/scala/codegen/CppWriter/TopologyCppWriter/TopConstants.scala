@@ -69,8 +69,20 @@ case class TopConstants(
   }
 
   private def getPriorityLines: List[Line] = {
-    // TODO
-    Nil
+    wrapInNamespace(
+      "Priorities",
+      wrapInEnum(
+        instances.map(ci => {
+          ci.priority.map(
+            priority => {
+              val name = getShortName(ci.qualifiedName)
+              val value = priority.toString
+              line(s"$name = $priority,")
+            }
+          )
+        }).filter(_.isDefined).map(_.get)
+      )
+    )
   }
 
   private def getQueueSizeLines: List[Line] = {
