@@ -81,7 +81,7 @@ case class TopConstants(
       ci => ci.priority.map(
         priority => {
           val name = getShortName(ci.qualifiedName)
-          val value = priority.toString
+          val value = priority
           s"$name = $priority"
         }
       )
@@ -93,7 +93,7 @@ case class TopConstants(
       ci => ci.queueSize.map(
         queueSize => {
           val name = getShortName(ci.qualifiedName)
-          val value = queueSize.toString
+          val value = queueSize
           s"$name = $queueSize"
         }
       )
@@ -105,15 +105,25 @@ case class TopConstants(
       ci => ci.stackSize.map(
         stackSize => {
           val name = getShortName(ci.qualifiedName)
-          val value = stackSize.toString
+          val value = stackSize
           s"$name = $stackSize"
         }
       )
     )
 
-  private def getTaskIdLines: List[Line] = {
-    // TODO
-    Nil
-  }
+  private def getTaskIdLines: List[Line] =
+    generateEnum(
+      "TaskIds",
+      ci => {
+        val c = ci.component
+        val kind = c.aNode._2.data.kind
+        kind match {
+          case Ast.ComponentKind.Active => 
+            val name = getShortName(ci.qualifiedName)
+            Some(name.toString)
+          case _ => None
+        }
+      }
+    )
 
 }
