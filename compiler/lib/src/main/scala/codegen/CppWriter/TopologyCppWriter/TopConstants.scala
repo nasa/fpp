@@ -43,44 +43,47 @@ case class TopConstants(
     )
   }
 
-  private def getBaseIdLines: List[Line] = {
+  private def generateEnum(
+    namespace: String,
+    f: ComponentInstance => Option[String]
+  ): List[Line] = {
     wrapInNamespace(
-      "BaseIds",
+      namespace,
       wrapInEnum(
-        instances.map(ci => {
-          val name = getShortName(ci.qualifiedName)
-          val value = CppWriter.writeId(ci.baseId)
-          line(s"$name = $value,")
-        })
+        instances.map(f).filter(_.isDefined).
+        map(_.get).map(s => line(s"$s,"))
       )
     )
   }
 
-  private def getInstanceIdLines: List[Line] = {
-    wrapInNamespace(
-      "InstanceIds",
-      wrapInEnum(
-        instances.map(ci => {
-          val name = getShortName(ci.qualifiedName)
-          line(s"$name,")
-        })
-      )
+  private def getBaseIdLines: List[Line] =
+    generateEnum(
+      "BaseIds",
+      ci => {
+        val name = getShortName(ci.qualifiedName)
+        val value = CppWriter.writeId(ci.baseId)
+        Some(s"$name = $value")
+      }
     )
-  }
+
+  private def getInstanceIdLines: List[Line] =
+    generateEnum(
+      "InstanceIds",
+      ci => {
+        val name = getShortName(ci.qualifiedName)
+        Some(s"$name")
+      }
+    )
 
   private def getPriorityLines: List[Line] = {
-    wrapInNamespace(
+    generateEnum(
       "Priorities",
-      wrapInEnum(
-        instances.map(ci => {
-          ci.priority.map(
-            priority => {
-              val name = getShortName(ci.qualifiedName)
-              val value = priority.toString
-              line(s"$name = $priority,")
-            }
-          )
-        }).filter(_.isDefined).map(_.get)
+      ci => ci.priority.map(
+        priority => {
+          val name = getShortName(ci.qualifiedName)
+          val value = priority.toString
+          s"$name = $priority"
+        }
       )
     )
   }
