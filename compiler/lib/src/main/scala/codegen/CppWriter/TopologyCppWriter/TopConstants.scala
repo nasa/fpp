@@ -75,7 +75,7 @@ case class TopConstants(
       }
     )
 
-  private def getPriorityLines: List[Line] = {
+  private def getPriorityLines: List[Line] =
     generateEnum(
       "Priorities",
       ci => ci.priority.map(
@@ -86,17 +86,30 @@ case class TopConstants(
         }
       )
     )
-  }
 
-  private def getQueueSizeLines: List[Line] = {
-    // TODO
-    Nil
-  }
+  private def getQueueSizeLines: List[Line] =
+    generateEnum(
+      "QueueSizes",
+      ci => ci.queueSize.map(
+        queueSize => {
+          val name = getShortName(ci.qualifiedName)
+          val value = queueSize.toString
+          s"$name = $queueSize"
+        }
+      )
+    )
 
-  private def getStackSizeLines: List[Line] = {
-    // TODO
-    Nil
-  }
+  private def getStackSizeLines: List[Line] =
+    generateEnum(
+      "StackSizes",
+      ci => ci.stackSize.map(
+        stackSize => {
+          val name = getShortName(ci.qualifiedName)
+          val value = stackSize.toString
+          s"$name = $stackSize"
+        }
+      )
+    )
 
   private def getTaskIdLines: List[Line] = {
     // TODO
