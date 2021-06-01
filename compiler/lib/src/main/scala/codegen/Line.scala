@@ -57,16 +57,16 @@ object Line {
       }
     }
 
-  /* Add a prefix to a nonempty list of lines */
-  def addPrefix (prefix: Line) (ll: List[Line]): List[Line] =
+  /* Add a prefix line to a nonempty list of lines */
+  def addPrefixLine (prefix: Line) (ll: List[Line]): List[Line] =
     ll match {
       case Nil => ll
       case _ => prefix :: ll
     }
 
   /* Flatten a list of list of lines with a prefix line */
-  def flattenWithPrefix (prefix: Line) (lll: List[List[Line]]): List[Line] =
-    lll.flatMap(addPrefix(prefix))
+  def flattenWithPrefixLine (prefix: Line) (lll: List[List[Line]]): List[Line] =
+    lll.flatMap(addPrefixLine(prefix))
 
   /* Join two lists of lines with separator string */
   def joinLists (mode: IndentMode) (lines1: List[Line]) (sep: String) (lines2: List[Line]): List[Line] =

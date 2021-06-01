@@ -17,8 +17,8 @@ trait LineUtils {
       case None => Nil
     }
 
-  val addBlankPrefix = Line.addPrefix (Line.blank) _
+  val addBlankPrefix = Line.addPrefixLine (Line.blank) _
 
-  val flattenWithBlankPrefix = Line.flattenWithPrefix (Line.blank) _
+  val flattenWithBlankPrefix = Line.flattenWithPrefixLine (Line.blank) _
 
 }
