@@ -19,6 +19,8 @@ trait LineUtils {
 
   val addBlankPrefix = Line.addPrefixLine (Line.blank) _
 
+  val addBlankPostfix = Line.addPostfixLine (Line.blank) _
+
   val flattenWithBlankPrefix = Line.flattenWithPrefixLine (Line.blank) _
 
 }

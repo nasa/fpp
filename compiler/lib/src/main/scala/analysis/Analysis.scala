@@ -293,6 +293,22 @@ case class Analysis(
     }
     yield size
 
+  /** Checks whether a port instance is the specified general port */
+  def isGeneralPort(
+    pi: PortInstance,
+    direction: PortInstance.Direction,
+    portTypeName: String
+  ): Boolean = {
+    (pi.getType, pi.getDirection) match {
+      case (
+        Some(PortInstance.Type.DefPort(s)),
+        Some(d)
+      ) => getQualifiedName(s).toString == portTypeName &&
+           d == direction
+      case _ => false
+    }
+  }
+
 }
 
 object Analysis {
@@ -407,6 +423,5 @@ object Analysis {
     val hex = Integer.toString(value, 16).toUpperCase
     s"($dec dec, $hex hex)"
   }
-
 
 }

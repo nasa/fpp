@@ -31,6 +31,12 @@ abstract class TopologyCppWriterUtils(
     name.shortName(ens)
   }
 
+  def getNameAsIdent(name: Name.Qualified) =
+    CppWriter.identFromQualifiedName(getShortName(name))
+
+  def getNameAsQualIdent(name: Name.Qualified) =
+    CppWriter.translateQualifiedName(getShortName(name))
+
   def wrapInScope(
     s1: String,
     ll: List[Line],
@@ -39,6 +45,9 @@ abstract class TopologyCppWriterUtils(
     case Nil => Nil
     case _ => List(lines(s1), ll.map(indentIn), lines(s2)).flatten
   }
+
+  def wrapInAnonymousNamespace(ll: List[Line]): List[Line] =
+    wrapInScope("namespace {", ll, "}")
 
   def wrapInNamespace(namespace: String, ll: List[Line]): List[Line] =
     wrapInScope(s"namespace $namespace {", ll, "}")

@@ -49,17 +49,15 @@ case class TopologyCppWriter(
     }
     val cppLines = CppWriter.linesMember(
       Line.blank ::
-      line("namespace {") ::
-      List(
-        flattenWithBlankPrefix(
+      wrapInAnonymousNamespace(
+        addBlankPostfix(
           List(
             TopConfigObjects(s, aNode).getLines,
             TopComponentInstances(s, aNode).getLines,
             TopPrivateFunctions(s, aNode).getLines
-          )
-        ).map(indentIn),
-        Line.blank :: lines("}")
-      ).flatten,
+          ).flatten
+        )
+      ),
       CppDoc.Lines.Cpp
     )
     val publicFunctions = TopPublicFunctions(s, aNode).getMembers

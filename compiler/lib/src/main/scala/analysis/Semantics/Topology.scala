@@ -198,7 +198,7 @@ case class Topology(
   def getConnectionsTo(to: PortInstanceIdentifier): Set[Connection] =
     inputConnectionMap.getOrElse(to, Set())
 
-  /** Get the connetions at a port instance */
+  /** Get the connections at a port instance */
   def getConnectionsAt(pii: PortInstanceIdentifier) = {
     import PortInstance.Direction._
     val pi = pii.portInstance

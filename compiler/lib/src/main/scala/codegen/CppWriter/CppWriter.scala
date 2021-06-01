@@ -99,6 +99,10 @@ object CppWriter extends AstStateVisitor with LineUtils {
   def identFromQualifiedName(name: Name.Qualified) =
     name.toString.replaceAll("\\.", "_")
 
+  /** Translates a qualified name to C++ */
+  def translateQualifiedName(name: Name.Qualified) =
+    name.toString.replaceAll("\\.", "::")
+
   /** Writes an identifier */
   def writeId(id: Int): String = s"0x${Integer.toString(id, 16).toUpperCase}"
 

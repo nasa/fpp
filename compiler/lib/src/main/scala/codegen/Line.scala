@@ -64,6 +64,13 @@ object Line {
       case _ => prefix :: ll
     }
 
+  /* Add a postfix line to a nonempty list of lines */
+  def addPostfixLine (postfix: Line) (ll: List[Line]): List[Line] =
+    ll match {
+      case Nil => ll
+      case _ => ll :+ postfix
+    }
+
   /* Flatten a list of list of lines with a prefix line */
   def flattenWithPrefixLine (prefix: Line) (lll: List[List[Line]]): List[Line] =
     lll.flatMap(addPrefixLine(prefix))

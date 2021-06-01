@@ -46,20 +46,12 @@ private sealed trait PatternResolver {
     direction: PortInstance.Direction,
     portTypeName: String,
   ): Result.Result[PortInstanceIdentifier] = {
-    def hasConnectorPort(pi: PortInstance): Boolean = {
-      (pi.getType, pi.getDirection) match {
-        case (
-          Some(PortInstance.Type.DefPort(s)),
-          Some(d)
-        ) => a.getQualifiedName(s).toString == portTypeName &&
-             d == direction
-        case _ => false
-      }
-    }
+    def isGeneralPort(pi: PortInstance) =
+      a.isGeneralPort(pi, direction, portTypeName)
     val (ci, loc) = ciUse
     for {
       pii <- PatternResolver.resolveToSinglePort(
-        PatternResolver.getPortsForInstance(ci).filter(hasConnectorPort),
+        ci.component.portMap.values.filter(isGeneralPort),
         s"$kind $direction",
         loc,
         ci.getUnqualifiedName
@@ -118,9 +110,6 @@ object PatternResolver {
     val to = Connection.Endpoint(loc, toPii)
     Connection(from, to)
   }
-
-  private def getPortsForInstance(instance: ComponentInstance) =
-    instance.component.portMap.values
 
   private def missingPort[T](
     loc: Location,

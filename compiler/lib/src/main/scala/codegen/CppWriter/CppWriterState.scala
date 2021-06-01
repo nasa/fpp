@@ -67,14 +67,10 @@ case class CppWriterState(
     s"${guard}_HPP"
   }
 
-  /** Translates a qualified name to C++ */
-  def translateQualifiedName(name: Name.Qualified) =
-    name.toString.replaceAll("\\.", "::")
-
   /** Gets the C++ namespace associated with a symbol */
   def getNamespace(symbol: Symbol): Option[String] =
     a.parentSymbolMap.get(symbol).map(
-      s => translateQualifiedName(a.getQualifiedName(s))
+      s => CppWriter.translateQualifiedName(a.getQualifiedName(s))
     )
 
 }

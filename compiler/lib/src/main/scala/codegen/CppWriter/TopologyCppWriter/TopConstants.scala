@@ -36,7 +36,7 @@ case class TopConstants(
       "ConfigConstants",
       pairs.flatMap { 
         case (ci, code) => wrapInNamespace(
-          getShortName(ci.qualifiedName).toString,
+          getNameAsIdent(ci.qualifiedName),
           lines(code)
         )
       }
@@ -60,7 +60,7 @@ case class TopConstants(
     generateEnum(
       "BaseIds",
       ci => {
-        val name = getShortName(ci.qualifiedName)
+        val name = getNameAsIdent(ci.qualifiedName)
         val value = CppWriter.writeId(ci.baseId)
         Some(s"$name = $value")
       }
@@ -70,7 +70,7 @@ case class TopConstants(
     generateEnum(
       "InstanceIds",
       ci => {
-        val name = getShortName(ci.qualifiedName)
+        val name = getNameAsIdent(ci.qualifiedName)
         Some(s"$name")
       }
     )
@@ -80,7 +80,7 @@ case class TopConstants(
       "Priorities",
       ci => ci.priority.map(
         priority => {
-          val name = getShortName(ci.qualifiedName)
+          val name = getNameAsIdent(ci.qualifiedName)
           val value = priority
           s"$name = $priority"
         }
@@ -92,7 +92,7 @@ case class TopConstants(
       "QueueSizes",
       ci => ci.queueSize.map(
         queueSize => {
-          val name = getShortName(ci.qualifiedName)
+          val name = getNameAsIdent(ci.qualifiedName)
           val value = queueSize
           s"$name = $queueSize"
         }
@@ -104,7 +104,7 @@ case class TopConstants(
       "StackSizes",
       ci => ci.stackSize.map(
         stackSize => {
-          val name = getShortName(ci.qualifiedName)
+          val name = getNameAsIdent(ci.qualifiedName)
           val value = stackSize
           s"$name = $stackSize"
         }
@@ -119,7 +119,7 @@ case class TopConstants(
         val kind = c.aNode._2.data.kind
         kind match {
           case Ast.ComponentKind.Active => 
-            val name = getShortName(ci.qualifiedName)
+            val name = getNameAsIdent(ci.qualifiedName)
             Some(name.toString)
           case _ => None
         }
