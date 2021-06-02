@@ -97,7 +97,7 @@ case class TopConfigObjects(
               s"$qualIdent.getObjName()"
             )
           // Dummy entry for unconnected port
-          case None => List("0", "0", "UNCONNECTED")
+          case None => List("0", "0", "")
         }
         wrapInScope("{", ss.map(line), "},")
       }
