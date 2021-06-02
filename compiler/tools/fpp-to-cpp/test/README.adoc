@@ -4,7 +4,7 @@ This is the test directory for the `fpp-to-cpp` tool.
 
 === Running Tests
 
-To run the tests, execute `run` in this directory.
+To run the tests, execute `./test` in this directory.
 All the tests should pass.
 
 === Developing Tests

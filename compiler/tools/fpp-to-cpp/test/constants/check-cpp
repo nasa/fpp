@@ -4,9 +4,9 @@
 # Compile ref C++ files, to check them for validity
 # ----------------------------------------------------------------------
 
-fprime_gcc=../../../scripts/fprime-gcc
+fprime_gcc=../../../../scripts/fprime-gcc
 
-for file in `find . -name 'FppConstants_*.ref.cpp'`
+for file in `find . -name 'FppConstantsAc_*.ref.cpp'`
 do
   echo "compiling $file"
   base=`echo $file | sed 's;\.cpp;;'`
