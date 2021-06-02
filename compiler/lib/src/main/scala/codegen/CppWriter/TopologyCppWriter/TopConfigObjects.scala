@@ -54,42 +54,60 @@ case class TopConfigObjects(
 
   private def getHealthCode(ci: ComponentInstance): Option[List[Line]] =
     for {
+      // Get the ping out port
       pingOutPort <- {
         def isPingOutPort(pi: PortInstance) =
           s.a.isGeneralPort(pi, PortInstance.Direction.Output, "Svc.Ping")
         ci.component.portMap.values.filter(isPingOutPort) match {
+          // Found it
           case p :: _ => Some(p)
+          // No ping out port: abort
           case _ => None
         }
       }
-      cis <- {
+      // Map the port numbers to ports, and compute the max port number
+      mapAndMaxNum <- {
         val pii = PortInstanceIdentifier(ci, pingOutPort)
-        val cs = t.getConnectionsFrom(pii).toList
-        cs match {
-          case c :: _ => Some(cs.map(_.to.port.componentInstance))
-          case _ => None
+        val m0: Map[Int, ComponentInstance] = Map()
+        val mn = t.getConnectionsFrom(pii).foldLeft ((m0, 0)) {
+          case ((m, n), c) => 
+            val n1 = t.getPortNumber(pii.portInstance, c).get
+            (
+              m + (n1 -> c.to.port.componentInstance),
+              if (n1 > n) n1 else n
+            )
         }
+        // Abort if the map is empty.
+        // In this case there are no ping connections.
+        if (mn._1.size > 0) Some(mn) else None
       }
     }
     yield {
-      def getEntryLines(ci: ComponentInstance) = {
-        val name = ci.qualifiedName
-        val ident = getNameAsIdent(name)
-        val qualIdent = getNameAsQualIdent(name)
-        wrapInScope(
-          "{",
-          List(
-            s"PingEntries::$ident::WARN,",
-            s"PingEntries::$ident::FATAL,",
-            s"$qualIdent.getObjName()"
-          ).map(line),
-          "},"
-        )
+      // Get the lines for a ping port entry
+      def getEntryLines(ciOpt: Option[ComponentInstance]) = {
+        val ss = ciOpt match {
+          // Entry for connected port
+          case Some(ci) =>
+            val name = ci.qualifiedName
+            val ident = getNameAsIdent(name)
+            val qualIdent = getNameAsQualIdent(name)
+            List(
+              s"PingEntries::$ident::WARN,",
+              s"PingEntries::$ident::FATAL,",
+              s"$qualIdent.getObjName()"
+            )
+          // Dummy entry for unconnected port
+          case None => List("0", "0", "UNCONNECTED")
+        }
+        wrapInScope("{", ss.map(line), "},")
       }
-      val entryLines = Nil
+      val (map, maxNum) = mapAndMaxNum
       wrapInScope(
         "Svc::HealthImpl::PingEntry pingEntries[] = {",
-        cis.flatMap(getEntryLines),
+        // Loop over all ports in the range 0..maxNum.
+        // Entries are positional, so we must generate code 
+        // for any unconnected entries in this range.
+        List.range(0, maxNum+1).flatMap(n => getEntryLines(map.get(n))),
         "}"
       )
     }
