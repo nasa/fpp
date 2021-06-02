@@ -85,8 +85,12 @@ object ConstantCppWriter {
       val (_, node, _) = aNode
       val data = node.data
       val members = data.members.flatMap(matchModuleMember(s, _))
-      val namespace = CppWriter.namespaceMember(data.name, members)
-      List(CppWriter.linesMember(List(Line.blank)), namespace)
+      members match {
+        case Nil => Nil
+        case _ =>
+          val namespace = CppWriter.namespaceMember(data.name, members)
+          List(CppWriter.linesMember(List(Line.blank)), namespace)
+      }
     }
 
     override def defComponentAnnotatedNode(

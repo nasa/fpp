@@ -4,5 +4,5 @@
 default-tests.sh
 default-update-ref.sh
 *.o
-FppConstants.hpp
-FppConstants.cpp
+*Ac.hpp
+*Ac.cpp
