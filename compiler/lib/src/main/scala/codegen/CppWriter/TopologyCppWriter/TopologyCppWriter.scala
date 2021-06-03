@@ -37,12 +37,11 @@ case class TopologyCppWriter(
       TopConstants(s, aNode).getLines
     )
     val cppIncludes = {
+      val fileName = s"${ComputeCppFiles.FileNames.getTopology(name)}.hpp"
       CppWriter.linesMember(
         List(
           Line.blank,
-          CppWriter.headerLine(
-            s.getRelativePath(s"${name}TopologyAc.hpp").toString
-          )
+          CppWriter.headerLine(s.getRelativePath(fileName).toString)
         ),
         CppDoc.Lines.Cpp
       )
