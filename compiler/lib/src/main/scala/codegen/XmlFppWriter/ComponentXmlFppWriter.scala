@@ -132,11 +132,12 @@ object ComponentXmlFppWriter extends LineUtils {
           }
           yield {
             val path = child.toString
-            val fileName = path.split("/").toList.reverse.head
+            val fppPath = path.replaceAll("\\.xml$", ".fpp")
+            val fileName = fppPath.split("/").toList.reverse.head
             val fileNameNode = AstNode.create(fileName)
             val specIncludeNode = AstNode.create(Ast.SpecInclude(fileNameNode))
             val memberNode = Ast.ComponentMember.SpecInclude(specIncludeNode)
-            val annotation = if (fileName == path) Nil else {
+            val annotation = if (fileName == fppPath) Nil else {
               val s = s"original path was $path"
               List(XmlFppWriter.constructNote(s))
             }
