@@ -1,1 +1,1 @@
-include "subdir/constant.fpp"
+include "subdir/constant.fppi"

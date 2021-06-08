@@ -1,5 +1,5 @@
 active component C {
 
-  include "constant.fpp"
+  include "constant.fppi"
 
 }

@@ -1,6 +1,6 @@
 module M {
 
   constant a = 1
-  include "b.fpp"
+  include "b.fppi"
 
 }

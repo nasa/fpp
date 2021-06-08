@@ -188,7 +188,7 @@ def module
   @< Module definition
   @ Include specifier
   spec include
-    file constant.fpp
+    file constant.fppi
   @< Include specifier
   @ Init specifier
   spec init

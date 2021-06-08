@@ -1,5 +1,5 @@
 module M {
 
-  include "constant.fpp"
+  include "constant.fppi"
 
 }

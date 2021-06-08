@@ -1,2 +1,2 @@
-[ local path prefix ]/compiler/tools/fpp-depend/test/locate_constant_include_3.fpp
-[ local path prefix ]/compiler/tools/fpp-depend/test/locate_constant_include_2.fpp
+[ local path prefix ]/compiler/tools/fpp-depend/test/locate_constant_include_3.fppi
+[ local path prefix ]/compiler/tools/fpp-depend/test/locate_constant_include_2.fppi

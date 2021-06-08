@@ -83,7 +83,7 @@ module DefinitionsAndSpecifiers {
   @< Module definition
 
   @ Include specifier
-  include "constant.fpp"
+  include "constant.fppi"
   @< Include specifier
 
   @ Init specifier

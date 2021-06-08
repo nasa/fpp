@@ -1,3 +1,3 @@
-include "included1.fpp"
-include "included2.fpp"
-include "included3.fpp"
+include "included1.fppi"
+include "included2.fppi"
+include "included3.fppi"

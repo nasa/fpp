@@ -113,7 +113,7 @@ module DefinitionsAndSpecifiers {
   } @< Module definition
 
   @ Include specifier
-  include "constant.fpp" @< Include specifier
+  include "constant.fppi" @< Include specifier
 
   @ Init specifier
   init i phase CONSTRUCTION """

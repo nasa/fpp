@@ -1,1 +1,1 @@
-include "this-file-should-not-exist.fpp"
+include "this-file-should-not-exist.fppi"
