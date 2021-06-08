@@ -3717,6 +3717,10 @@ specifier appears.</p>
 </li>
 </ol>
 </div>
+<div class="paragraph">
+<p>The suffix <code>.fppi</code> is conventional for included files, to distinguish them
+from files presented directly for analysis or translation.</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Include-Specifiers_Examples">6.5.3. Examples</h4>
@@ -3724,7 +3728,7 @@ specifier appears.</p>
 <p><strong>Example 1.</strong></p>
 </div>
 <div class="paragraph">
-<p>File <code>a.fpp</code> contains the following:</p>
+<p>File <code>a.fppi</code> contains the following:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3736,7 +3740,7 @@ specifier appears.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">include "a.fpp"
+<pre class="prettyprint highlight"><code data-lang="fpp">include "a.fppi"
 constant b = a</code></pre>
 </div>
 </div>
@@ -3753,7 +3757,7 @@ constant b = a</code></pre>
 <p><strong>Example 2.</strong></p>
 </div>
 <div class="paragraph">
-<p>File <code>a.fpp</code> contains the following:</p>
+<p>File <code>a.fppi</code> contains the following:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3765,7 +3769,7 @@ constant b = a</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module M { include "a.fpp" }
+<pre class="prettyprint highlight"><code data-lang="fpp">module M { include "a.fppi" }
 b = M.a</code></pre>
 </div>
 </div>
@@ -8034,7 +8038,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-05-25 11:51:16 -0700
+Last updated 2021-06-08 10:59:56 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

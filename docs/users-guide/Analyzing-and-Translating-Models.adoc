@@ -891,11 +891,11 @@ By default, `fpp-format` does not resolve include specifiers.
 For example:
 
 ----
-% echo 'constant a = 0' > a.fpp
+% echo 'constant a = 0' > a.fppi
 % fpp-format
-include "a.fpp"
+include "a.fppi"
 ^D
-include "a.fpp"
+include "a.fppi"
 ----
 
 The `-i` option causes `fpp-format` to resolve include specifiers.
@@ -904,7 +904,7 @@ For example:
 ----
 % echo 'constant a = 0' > a.fpp
 % fpp-format -i
-include "a.fpp"
+include "a.fppi"
 ^D
 constant a = 0
 ----

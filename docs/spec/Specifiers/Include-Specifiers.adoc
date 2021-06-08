@@ -24,11 +24,14 @@ During parsing, the translator does the following:
 in the enclosing translation unit at the point where the include
 specifier appears.
 
+The suffix `.fppi` is conventional for included files, to distinguish them
+from files presented directly for analysis or translation.
+
 ==== Examples
 
 *Example 1.*
 
-File `a.fpp` contains the following:
+File `a.fppi` contains the following:
 
 [source,fpp]
 ----
@@ -39,7 +42,7 @@ File `b.fpp` contains the following:
 
 [source,fpp]
 ----
-include "a.fpp"
+include "a.fppi"
 constant b = a
 ----
 
@@ -53,7 +56,7 @@ constant b = a
 
 *Example 2.*
 
-File `a.fpp` contains the following:
+File `a.fppi` contains the following:
 
 [source,fpp]
 ----
@@ -64,7 +67,7 @@ File `b.fpp` contains the following:
 
 [source,fpp]
 ----
-module M { include "a.fpp" }
+module M { include "a.fppi" }
 b = M.a
 ----
 

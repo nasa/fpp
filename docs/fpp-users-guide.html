@@ -5767,20 +5767,21 @@ definition into several files.</p>
 <div class="paragraph">
 <p>For example, suppose you are defining a component with
 many commands, and you wish to place the commands in a
-separate file <code>Commands.fpp</code>.
+separate file <code>Commands.fppi</code>.
+The suffix <code>.fppi</code> is conventional for included FPP files.
 Inside the component definition, you can write the
 following component member:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">include "Commands.fpp"</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">include "Commands.fppi"</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>This construct is called an <strong>include specifier</strong>.
 During analysis and translation, the include specifier
 is replaced with the commands specified
-in <code>Commands.fpp</code>, just as if you had written them
+in <code>Commands.fppi</code>, just as if you had written them
 at the point where you wrote the include specifier.
 This replacement is called expanding or resolving the
 include specifier.
@@ -5794,10 +5795,10 @@ file in which the include specifier appears.
 The file must exist and must contain component members
 that can validly appear at the point where the include
 specifier appears.
-For example, if <code>Commands.fpp</code> contains invalid syntax
+For example, if <code>Commands.fppi</code> contains invalid syntax
 or syntax that may not appear inside a component,
-or if the file <code>Commands.fpp</code> does not exist, then
-the specifier <code>include "Commands.fpp"</code> is not valid.</p>
+or if the file <code>Commands.fppi</code> does not exist, then
+the specifier <code>include "Commands.fppi"</code> is not valid.</p>
 </div>
 <div class="paragraph">
 <p>Include specifiers are perhaps most useful when defining
@@ -5935,10 +5936,12 @@ from a separate file.</p>
 <div class="paragraph">
 <p>To write an include specifier, you write the keyword <code>include</code>
 followed by string denoting a file path.
-The path is relative to the file in which the include specifier appears.</p>
+The path is relative to the file in which the include specifier appears.
+By convention, included FPP files end in <code>.fppi</code> to distinguish
+them from <code>.fpp</code> files that are directly analyzed and translated.</p>
 </div>
 <div class="paragraph">
-<p>For example, suppose that the file <code>a.fpp</code> contains the definition</p>
+<p>For example, suppose that the file <code>a.fppi</code> contains the definition</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -5946,11 +5949,11 @@ The path is relative to the file in which the include specifier appears.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>In a file <code>b.fpp</code> in the same directory, you could write this:</p>
+<p>In a file <code>b.fppi</code> in the same directory, you could write this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">include "a.fpp"
+<pre class="prettyprint highlight"><code data-lang="fpp">include "a.fppi"
 constant b = a</code></pre>
 </div>
 </div>
@@ -5970,7 +5973,7 @@ constant b = a</code></pre>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Create files <code>a.fpp</code> and <code>b.fpp</code> as described
+<p>Create files <code>a.fppi</code> and <code>b.fpp</code> as described
 above.</p>
 </li>
 <li>
@@ -5987,20 +5990,20 @@ It also can expand include specifiers.
 <div class="paragraph">
 <p>As mentioned above, the path is relative to the directory
 of the file containing the include specifier.
-So if <code>a.fpp</code> is located in a subdirectory <code>A</code>, you could write this:</p>
+So if <code>a.fppi</code> is located in a subdirectory <code>A</code>, you could write this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">include "A/a.fpp"
+<pre class="prettyprint highlight"><code data-lang="fpp">include "A/a.fppi"
 constant b = a</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>And if <code>a.fpp</code> is located in the parent directory, you could write this:</p>
+<p>And if <code>a.fppi</code> is located in the parent directory, you could write this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">include "../a.fpp"
+<pre class="prettyprint highlight"><code data-lang="fpp">include "../a.fppi"
 constant b = a</code></pre>
 </div>
 </div>
@@ -6008,12 +6011,12 @@ constant b = a</code></pre>
 <p>You can write an include specifier inside a module.
 In this case, any definitions in the included file are treated as occurring
 inside the module.
-For example, if <code>a.fpp</code> contains the definition <code>constant a = 0</code>,
+For example, if <code>a.fppi</code> contains the definition <code>constant a = 0</code>,
 then this source text</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module M { include "a.fpp" }</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">module M { include "a.fppi" }</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -6022,9 +6025,9 @@ As an exercise, try this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>% echo "module M { constant a = 0 }" &gt; a.fpp
+<pre>% echo "module M { constant a = 0 }" &gt; a.fppi
 % fpp-check
-include "a.fpp"
+include "a.fppi"
 constant b = M.a
 ^D
 %</pre>
@@ -6050,14 +6053,14 @@ an identifier into a constant definition:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>% echo a &gt; a.fpp
+<pre>% echo a &gt; a.fppi
 % fpp-check
-module M { constant include "a.fpp" = 0 }
+module M { constant include "a.fppi" = 0 }
 constant b = M.a
 ^D
 fpp-check
 stdin: 1.21
-module M { constant include "a.fpp" = 0 }
+module M { constant include "a.fppi" = 0 }
                     ^
 error: identifier expected
 %</pre>
@@ -6304,11 +6307,11 @@ definitions and their uses.</p>
 <a href="#Specifying-Models_Include-Specifiers">include that file in another file</a>,
 the location of each definition is the file where the definition is
 included, not the file where the definition appears.
-For example, suppose that file <code>a.fpp</code> contains the definition <code>constant a =
-0</code>,
-and suppose that file <code>b.fpp</code> contains the include specifier <code>include "a.fpp"</code>.
+For example, suppose that file <code>a.fppi</code> contains the
+definition <code>constant a = 0</code>,
+and suppose that file <code>b.fpp</code> contains the include specifier <code>include "a.fppi"</code>.
 When analyzing <code>b.fpp</code>, the location of the definition of the constant <code>a</code>
-is <code>b.fpp</code>, not <code>a.fpp</code>.</p>
+is <code>b.fpp</code>, not <code>a.fppi</code>.</p>
 </div>
 </div>
 </div>
@@ -6396,13 +6399,13 @@ For example, suppose file <code>Constants.fpp</code> looks like this:</p>
 <pre class="prettyprint highlight"><code>module Constants {
 
   constant a = 0
-  include "b.fpp"
+  include "b.fppi"
 
 }</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Suppose <code>b.fpp</code> contains the definition <code>constant b = 1</code>.
+<p>Suppose <code>b.fppi</code> contains the definition <code>constant b = 1</code>.
 If you run <code>find</code> on this directory as described above and provide
 the output to <code>fpp-locate-defs</code>, then you will get the following output:</p>
 </div>
@@ -6426,21 +6429,16 @@ stated).</p>
 <div class="paragraph">
 <p>When running a <code>find</code> command to find files containing definitions,
 you should exclude any files that are included in other files.
-For example, if your included FPP files all end with the suffix
-<code>.included.fpp</code>, then you can run the following command to
-find non-included FPP files at or below the current directory:</p>
+If your main FPP files end with <code>.fpp</code> and your included FPP files end with
+<code>.fppi</code>, then running</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>find . -name '*.fpp' | grep -v '\.included\.fpp$'</pre>
+<pre>find . -name '*.fpp'</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Notice that <code>find</code> takes a file glob and <code>grep</code> takes
-a regular expression as input.
-The <code>-v</code> (reverse) option to <code>grep</code> excludes files matching
-the pattern.
-The <code>$</code> symbol in the pattern matches the end of the file name.</p>
+<p>will pick up just the main files.</p>
 </div>
 </div>
 </div>
@@ -6651,16 +6649,16 @@ the dependency <code>[path-prefix]/b.fpp</code> to standard output.</p>
 <div class="paragraph">
 <p>Suppose file <code>a.fpp</code> contains the
 <a href="#Specifying-Models_Include-Specifiers">include specifier</a>
-<code>include "b.fpp"</code>.
+<code>include "b.fppi"</code>.
 Then there are two options for computing the dependencies of <code>a.fpp</code>:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><code>a.fpp</code> does not depend on <code>b.fpp</code>.</p>
+<p><code>a.fpp</code> does not depend on <code>b.fppi</code>.</p>
 </li>
 <li>
-<p><code>a.fpp</code> does depend on <code>b.fpp</code>.</p>
+<p><code>a.fpp</code> does depend on <code>b.fppi</code>.</p>
 </li>
 </ol>
 </div>
@@ -6668,15 +6666,15 @@ Then there are two options for computing the dependencies of <code>a.fpp</code>:
 <p>Option 1 is what you want for assembling the input
 to FPP analysis and translation tools such as <code>fpp-check</code>.
 In this case, when analyzing <code>a.fpp</code>, the tool will resolve the include
-specifier and include the contents of <code>b.fpp</code>. So <code>b.fpp</code> should
+specifier and include the contents of <code>b.fppi</code>. So <code>b.fppi</code> should
 not be included as a separate input to the analysis.</p>
 </div>
 <div class="paragraph">
 <p>On the other hand, suppose you are constructing a list of dependencies
 for a build system such as the F Prime CMake system.
 In this case, the build system doesn&#8217;t know anything about FPP include specifiers.
-However, it needs to know that <code>a.fpp</code> does depend on <code>b.fpp</code> in the sense that
-if <code>b.fpp</code> is modified, then <code>a.fpp</code> should be analyzed or translated again.
+However, it needs to know that <code>a.fpp</code> does depend on <code>b.fppi</code> in the sense that
+if <code>b.fppi</code> is modified, then <code>a.fpp</code> should be analyzed or translated again.
 So in this case we want option 2.</p>
 </div>
 <div class="paragraph">
@@ -6684,9 +6682,9 @@ So in this case we want option 2.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>% echo 'include "b.fpp"' &gt; a.fpp
-% rm -f b.fpp
-% touch b.fpp
+<pre>% echo 'include "b.fppi"' &gt; a.fpp
+% rm -f b.fppi
+% touch b.fppi
 % fpp-depend a.fpp</pre>
 </div>
 </div>
@@ -6695,11 +6693,11 @@ So in this case we want option 2.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>% echo 'include "b.fpp"' &gt; a.fpp
-% rm -f b.fpp
-% touch b.fpp
+<pre>% echo 'include "b.fppi"' &gt; a.fpp
+% rm -f b.fppi
+% touch b.fppi
 % fpp-depend -i a.fpp
-[path-prefix]/b.fpp</pre>
+[path-prefix]/b.fppi</pre>
 </div>
 </div>
 </div>
@@ -7947,11 +7945,11 @@ For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>% echo 'constant a = 0' &gt; a.fpp
+<pre>% echo 'constant a = 0' &gt; a.fppi
 % fpp-format
-include "a.fpp"
+include "a.fppi"
 ^D
-include "a.fpp"</pre>
+include "a.fppi"</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -7962,7 +7960,7 @@ For example:</p>
 <div class="content">
 <pre>% echo 'constant a = 0' &gt; a.fpp
 % fpp-format -i
-include "a.fpp"
+include "a.fppi"
 ^D
 constant a = 0</pre>
 </div>
@@ -7973,7 +7971,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-05-26 19:42:15 -0700
+Last updated 2021-06-08 10:57:20 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

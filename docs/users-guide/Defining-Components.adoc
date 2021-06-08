@@ -2173,19 +2173,20 @@ definition into several files.
 
 For example, suppose you are defining a component with
 many commands, and you wish to place the commands in a
-separate file `Commands.fpp`.
+separate file `Commands.fppi`.
+The suffix `.fppi` is conventional for included FPP files.
 Inside the component definition, you can write the
 following component member:
 
 [source,fpp]
 --------
-include "Commands.fpp"
+include "Commands.fppi"
 --------
 
 This construct is called an *include specifier*.
 During analysis and translation, the include specifier
 is replaced with the commands specified 
-in `Commands.fpp`, just as if you had written them
+in `Commands.fppi`, just as if you had written them
 at the point where you wrote the include specifier.
 This replacement is called expanding or resolving the
 include specifier.
@@ -2198,10 +2199,10 @@ file in which the include specifier appears.
 The file must exist and must contain component members
 that can validly appear at the point where the include
 specifier appears.
-For example, if `Commands.fpp` contains invalid syntax
+For example, if `Commands.fppi` contains invalid syntax
 or syntax that may not appear inside a component,
-or if the file `Commands.fpp` does not exist, then
-the specifier `include "Commands.fpp"` is not valid.
+or if the file `Commands.fppi` does not exist, then
+the specifier `include "Commands.fppi"` is not valid.
 
 Include specifiers are perhaps most useful when defining
 components, but they can also appear at the top level of a

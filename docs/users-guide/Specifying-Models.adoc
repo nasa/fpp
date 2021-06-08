@@ -88,19 +88,21 @@ from a separate file.
 To write an include specifier, you write the keyword `include`
 followed by string denoting a file path.
 The path is relative to the file in which the include specifier appears.
+By convention, included FPP files end in `.fppi` to distinguish
+them from `.fpp` files that are directly analyzed and translated.
 
-For example, suppose that the file `a.fpp` contains the definition
+For example, suppose that the file `a.fppi` contains the definition
 
 [source,fpp]
 ----
 constant a = 0
 ----
 
-In a file `b.fpp` in the same directory, you could write this:
+In a file `b.fppi` in the same directory, you could write this:
 
 [source,fpp]
 --------
-include "a.fpp"
+include "a.fppi"
 constant b = a
 --------
 
@@ -115,7 +117,7 @@ constant b = a
 
 To see this, do the following:
 
-. Create files `a.fpp` and `b.fpp` as described
+. Create files `a.fppi` and `b.fpp` as described
 above.
 
 . Run `fpp-format -i b.fpp`.
@@ -128,40 +130,40 @@ formatting FPP source>>.
 
 As mentioned above, the path is relative to the directory
 of the file containing the include specifier.
-So if `a.fpp` is located in a subdirectory `A`, you could write this:
+So if `a.fppi` is located in a subdirectory `A`, you could write this:
 
 [source,fpp]
 --------
-include "A/a.fpp"
+include "A/a.fppi"
 constant b = a
 --------
 
-And if `a.fpp` is located in the parent directory, you could write this:
+And if `a.fppi` is located in the parent directory, you could write this:
 
 [source,fpp]
 --------
-include "../a.fpp"
+include "../a.fppi"
 constant b = a
 --------
 
 You can write an include specifier inside a module.
 In this case, any definitions in the included file are treated as occurring 
 inside the module.
-For example, if `a.fpp` contains the definition `constant a = 0`,
+For example, if `a.fppi` contains the definition `constant a = 0`,
 then this source text
 
 [source,fpp]
 --------
-module M { include "a.fpp" }
+module M { include "a.fppi" }
 --------
 
 defines the constant `M.a`.
 As an exercise, try this:
 
 ----
-% echo "module M { constant a = 0 }" > a.fpp
+% echo "module M { constant a = 0 }" > a.fppi
 % fpp-check
-include "a.fpp"
+include "a.fppi"
 constant b = M.a
 ^D
 %
@@ -183,14 +185,14 @@ For example, here is the result of a failed attempt to include
 an identifier into a constant definition:
 
 ----
-% echo a > a.fpp
+% echo a > a.fppi
 % fpp-check
-module M { constant include "a.fpp" = 0 }
+module M { constant include "a.fppi" = 0 }
 constant b = M.a
 ^D
 fpp-check
 stdin: 1.21
-module M { constant include "a.fpp" = 0 }
+module M { constant include "a.fppi" = 0 }
                     ^
 error: identifier expected
 %
@@ -394,11 +396,11 @@ When you write a file that contains definitions and you
 <<Specifying-Models_Include-Specifiers,include that file in another file>>,
 the location of each definition is the file where the definition is
 included, not the file where the definition appears.
-For example, suppose that file `a.fpp` contains the definition `constant a = 
-0`,
-and suppose that file `b.fpp` contains the include specifier `include "a.fpp"`.
+For example, suppose that file `a.fppi` contains the
+definition `constant a = 0`,
+and suppose that file `b.fpp` contains the include specifier `include "a.fppi"`.
 When analyzing `b.fpp`, the location of the definition of the constant `a`
-is `b.fpp`, not `a.fpp`.
+is `b.fpp`, not `a.fppi`.
 
 === Locating Definitions
 
@@ -467,12 +469,12 @@ For example, suppose file `Constants.fpp` looks like this:
 module Constants {
 
   constant a = 0
-  include "b.fpp"
+  include "b.fppi"
 
 }
 ----
 
-Suppose `b.fpp` contains the definition `constant b = 1`.
+Suppose `b.fppi` contains the definition `constant b = 1`.
 If you run `find` on this directory as described above and provide
 the output to `fpp-locate-defs`, then you will get the following output:
 
@@ -487,19 +489,14 @@ stated).
 
 When running a `find` command to find files containing definitions,
 you should exclude any files that are included in other files.
-For example, if your included FPP files all end with the suffix
-`.included.fpp`, then you can run the following command to
-find non-included FPP files at or below the current directory:
+If your main FPP files end with `.fpp` and your included FPP files end with
+`.fppi`, then running
 
 ----
-find . -name '*.fpp' | grep -v '\.included\.fpp$'
+find . -name '*.fpp'
 ----
 
-Notice that `find` takes a file glob and `grep` takes
-a regular expression as input.
-The `-v` (reverse) option to `grep` excludes files matching
-the pattern.
-The `$` symbol in the pattern matches the end of the file name.
+will pick up just the main files.
 
 === Computing Dependencies
 
@@ -669,42 +666,42 @@ the dependency `[path-prefix]/b.fpp` to standard output.
 
 Suppose file `a.fpp` contains the
 <<Specifying-Models_Include-Specifiers,include specifier>>
-`include "b.fpp"`.
+`include "b.fppi"`.
 Then there are two options for computing the dependencies of `a.fpp`:
 
-. `a.fpp` does not depend on `b.fpp`.
-. `a.fpp` does depend on `b.fpp`.
+. `a.fpp` does not depend on `b.fppi`.
+. `a.fpp` does depend on `b.fppi`.
 
 Option 1 is what you want for assembling the input
 to FPP analysis and translation tools such as `fpp-check`.
 In this case, when analyzing `a.fpp`, the tool will resolve the include
-specifier and include the contents of `b.fpp`. So `b.fpp` should
+specifier and include the contents of `b.fppi`. So `b.fppi` should
 not be included as a separate input to the analysis.
 
 On the other hand, suppose you are constructing a list of dependencies
 for a build system such as the F Prime CMake system.
 In this case, the build system doesn't know anything about FPP include specifiers.
-However, it needs to know that `a.fpp` does depend on `b.fpp` in the sense that
-if `b.fpp` is modified, then `a.fpp` should be analyzed or translated again.
+However, it needs to know that `a.fpp` does depend on `b.fppi` in the sense that
+if `b.fppi` is modified, then `a.fpp` should be analyzed or translated again.
 So in this case we want option 2.
 
 By default, `fpp-depend` provides option 1:
 
 ----
-% echo 'include "b.fpp"' > a.fpp
-% rm -f b.fpp
-% touch b.fpp
+% echo 'include "b.fppi"' > a.fpp
+% rm -f b.fppi
+% touch b.fppi
 % fpp-depend a.fpp
 ----
 
 To get option 2, use the `-i` option to `fpp-depend`:
 
 ----
-% echo 'include "b.fpp"' > a.fpp
-% rm -f b.fpp
-% touch b.fpp
+% echo 'include "b.fppi"' > a.fpp
+% rm -f b.fppi
+% touch b.fppi
 % fpp-depend -i a.fpp
-[path-prefix]/b.fpp
+[path-prefix]/b.fppi
 ----
 
 === Locating Uses
