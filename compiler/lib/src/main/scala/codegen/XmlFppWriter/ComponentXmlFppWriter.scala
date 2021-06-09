@@ -132,7 +132,7 @@ object ComponentXmlFppWriter extends LineUtils {
           }
           yield {
             val path = child.toString
-            val fppPath = path.replaceAll("\\.xml$", ".fpp")
+            val fppPath = path.replaceAll("\\.xml$", ".fppi")
             val fileName = fppPath.split("/").toList.reverse.head
             val fileNameNode = AstNode.create(fileName)
             val specIncludeNode = AstNode.create(Ast.SpecInclude(fileNameNode))
