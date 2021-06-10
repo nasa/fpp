@@ -49,7 +49,7 @@ module DefinitionsAndSpecifiers {
     @< Event specifier
 
     @ Internal port specifier
-    internal port I(a: U32, b: F32) priority 10 assert
+    internal port I(ref a: U32, b: F32) priority 10 assert
     @< Internal port specifier
 
   }
