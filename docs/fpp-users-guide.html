@@ -2915,10 +2915,11 @@ use appears inside the enum where it is defined.</p>
 </div>
 <div class="paragraph">
 <p><strong>XML limitation:</strong>
-The F Prime XML format does not represent default values
+Until recently, the F Prime XML format did not represent default values
 for enums.
 Therefore, any default value that you specify in an enum
-definition is ignored when translating to XML.</p>
+definition is ignored when translating to XML.
+We will remove this limitation soon.</p>
 </div>
 </div>
 </div>
@@ -4221,9 +4222,14 @@ Notice that when defining <code>ExternalSelfMessage</code> we
 defined and used the port <code>P</code>, but when defining
 <code>InternalSelfMessage</code> we did not.
 The formal parameters of an internal port are the same
-as for a <a href="#Defining-Ports_Formal-Parameters">port definition</a>, except
-that none of the parameters may be a
-<a href="#Defining-Ports_Reference-Parameters">reference parameter</a>.</p>
+as for a <a href="#Defining-Ports_Formal-Parameters">port definition</a>.
+In particular, you may write the keyword <code>ref</code> in front of any formal
+parameter.
+Values are never actually passed by reference to an internal port,
+because they go through a queue.
+However, as in the case of port definitions, writing <code>ref</code> causes the XML
+autocoder to generate
+code that is more efficient for passing large values.</p>
 </div>
 <div class="paragraph">
 <p>When specifying an internal port, you may specify
@@ -7971,7 +7977,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-06-08 10:57:20 -0700
+Last updated 2021-06-09 18:45:40 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
