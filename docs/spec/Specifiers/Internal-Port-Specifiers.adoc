@@ -31,9 +31,13 @@ The identifier is the name of the port.
 The parameter list specifies the formal parameters of the
 port.
 Each formal parameter is a piece of data carried on the port.
-
 The names of the formal parameters must be distinct.
-No formal parameter may be a `ref` parameter.
+
+The annotation `ref` may appear in a formal parameter _P_.
+In this case _P_ is still passed by value, but functions internal
+to the auto-generated {cpp} implementation use references 
+instead of values.
+See _The FPP User's Guide_ for more details.
 
 The optional priority and queue full behavior have the same semantics as in 
 <<Specifiers_Port-Instance-Specifiers,async input port instance specifiers>>.

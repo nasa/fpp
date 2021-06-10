@@ -27,6 +27,10 @@ Each formal parameter is a piece of data carried on the port.
 If there are no formal parameters, then the parameter list
 may be omitted.
 
+* If the annotation `ref` appears in a formal parameter _P_,
+then _P_ is passed by reference in a synchronous port invocation
+and by value in an asynchronous port invocation.
+
 * The optional type name appearing after the arrow specifies
 an optional return type for the port.
 If present, the return type is the type of the data returned
