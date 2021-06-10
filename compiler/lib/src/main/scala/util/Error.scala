@@ -123,8 +123,6 @@ sealed trait Error {
       case SemanticError.InvalidIntValue(loc, v, msg) =>
         Error.print (Some(loc)) (s"invalid integer value $v")
         System.err.print(msg)
-      case SemanticError.InvalidInternalPort(loc, msg) =>
-        Error.print (Some(loc)) (msg)
       case SemanticError.InvalidPattern(loc, msg) =>
         Error.print (Some(loc)) (msg)
       case SemanticError.InvalidPortInstance(loc, msg, defLoc) =>
@@ -369,8 +367,6 @@ object SemanticError {
     v: BigInt,
     msg: String
   ) extends Error
-  /** Invalid internal port */
-  final case class InvalidInternalPort(loc: Location, msg: String) extends Error
   /** Invalid connection pattern */
   final case class InvalidPattern(
     loc: Location,
