@@ -5,6 +5,7 @@ module M {
   enum Phases {
     configConstants
     configObjects
+    instances
   }
 
   active component C1 { 
@@ -27,6 +28,10 @@ module M {
 
   init c1 phase Phases.configObjects """
   U32 x = 0;
+  """
+
+  init c1 phase Phases.instances """
+  C1 c1(\"c1\", 0, 1)
   """
 
   topology Basic {

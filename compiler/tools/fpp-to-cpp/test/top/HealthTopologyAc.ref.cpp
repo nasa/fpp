@@ -38,6 +38,19 @@ namespace Svc {
 
     }
 
+    // ----------------------------------------------------------------------
+    // Component instances
+    // ----------------------------------------------------------------------
+
+    // health
+    Health health(FW_OPTIONAL_NAME("health"));
+
+    // c1
+    C c1(FW_OPTIONAL_NAME("c1"));
+
+    // c2
+    C c2(FW_OPTIONAL_NAME("c2"));
+
   }
 
 }
