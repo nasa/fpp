@@ -26,12 +26,12 @@ namespace Svc {
           {
             PingEntries::c1::WARN,
             PingEntries::c1::FATAL,
-            c1.getObjName()
+            "c1"
           },
           {
             PingEntries::c2::WARN,
             PingEntries::c2::FATAL,
-            c2.getObjName()
+            "c2"
           },
         }
       }

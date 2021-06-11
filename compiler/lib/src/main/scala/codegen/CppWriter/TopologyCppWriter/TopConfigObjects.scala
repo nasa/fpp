@@ -94,7 +94,7 @@ case class TopConfigObjects(
             List(
               s"PingEntries::$ident::WARN,",
               s"PingEntries::$ident::FATAL,",
-              s"$qualIdent.getObjName()"
+              s"$q$ident$q"
             )
           // Dummy entry for unconnected port
           case None => List("0", "0", "")
