@@ -55,7 +55,7 @@ object Lexer extends RegexParsers {
   }
 
   def literalStringMulti: Parser[Token] = positioned {
-    "\"\"\"([^\\\\\"]*(\\\\(\")?)?)*\"\"\"".r ^^ { 
+    "\"\"\"([^\\\\\"]*(\\\\(\")?)?|\"{1,2}[^\"])*\"\"\"".r ^^ { 
       case s0 => {
         val s = {
           val s1 = "\\\\\"".r.replaceAllIn(s0, "\"")

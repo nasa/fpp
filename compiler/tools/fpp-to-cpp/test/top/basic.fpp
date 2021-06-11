@@ -31,7 +31,7 @@ module M {
   """
 
   init c1 phase Phases.instances """
-  C1 c1(\"c1\", 0, 1)
+  C1 c1("c1", 0, 1)
   """
 
   topology Basic {

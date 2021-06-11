@@ -118,6 +118,8 @@ class LexerSpec extends AnyWordSpec {
       "\"\"\"\\\" abc\"\"\"",
       "\"\"\"abc \\\"\"\"\"",
       "\"\"\"abc \\\" abc\"\"\"",
+      "\"\"\"abc \" abc\"\"\"",
+      "\"\"\"abc \"\" abc\"\"\"",
     )
     literals.foreach { s => s"lex $s to a string literal" in lex(s) }
   }
