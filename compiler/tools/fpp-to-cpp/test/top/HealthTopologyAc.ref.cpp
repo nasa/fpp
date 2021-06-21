@@ -52,9 +52,10 @@ namespace Svc {
     C c2(FW_OPTIONAL_NAME("c2"));
 
     // ----------------------------------------------------------------------
-    // Initialize components
+    // Private functions
     // ----------------------------------------------------------------------
 
+    // Initialize components
     void initComponents(const TopologyState& state) {
       health.init(InstanceIDs::health);
       c1.init(InstanceIDs::c1);

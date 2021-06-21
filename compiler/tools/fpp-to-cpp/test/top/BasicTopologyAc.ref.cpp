@@ -32,18 +32,24 @@ namespace M {
     // ----------------------------------------------------------------------
 
     // c1
-    C1 c1("c1", 0, 1)
+    C1 c1();
 
     // c2
     C2 c2(FW_OPTIONAL_NAME("c2"));
 
     // ----------------------------------------------------------------------
-    // Initialize components
+    // Private functions
     // ----------------------------------------------------------------------
 
+    // Initialize components
     void initComponents(const TopologyState& state) {
-      c1.init(QueueSizes::c1, InstanceIDs::c1);
+      c1.init();
       c2.init(InstanceIDs::c2);
+    }
+
+    // Configure components
+    void configComponents(const TopologyState& state) {
+      c1.config();
     }
 
   }

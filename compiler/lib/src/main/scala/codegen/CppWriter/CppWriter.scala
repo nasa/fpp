@@ -121,6 +121,9 @@ object CppWriter extends AstStateVisitor with LineUtils {
     /** Initialize components */
     val initComponents = 3
 
+    /** Configure components */
+    val configComponents = 4
+
     // TODO
 
   }

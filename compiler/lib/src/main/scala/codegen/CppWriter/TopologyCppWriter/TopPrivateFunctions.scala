@@ -10,20 +10,21 @@ case class TopPrivateFunctions(
   aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
 ) extends TopologyCppWriterUtils(s, aNode) {
 
-  def getLines: List[Line] = {
+  def getLines: List[Line] = addBannerComment(
+    "Private functions",
     List(
-      addBannerComment("Initialize components", getInitComponentsLines),
-      addBannerComment("Configure components", getConfigComponentsLines),
-      addBannerComment("Set component base IDs", getSetBaseIDsLines),
-      addBannerComment("Connect components", getConnectComponentsLines),
-      addBannerComment("Register commands", getRegisterCommandsLines),
-      addBannerComment("Load parameters", getLoadParametersLines),
-      addBannerComment("Start tasks", getStartTasksLines),
-      addBannerComment("Stop tasks", getStopTasksLines),
-      addBannerComment("Free threads", getFreeThreadsLines),
-      addBannerComment("Tear down components", getTearDownComponentsLines),
+      addComment("Initialize components", getInitComponentsLines),
+      addComment("Configure components", getConfigComponentsLines),
+      addComment("Set component base IDs", getSetBaseIDsLines),
+      addComment("Connect components", getConnectComponentsLines),
+      addComment("Register commands", getRegCommandsLines),
+      addComment("Load parameters", getLoadParametersLines),
+      addComment("Start tasks", getStartTasksLines),
+      addComment("Stop tasks", getStopTasksLines),
+      addComment("Free threads", getFreeThreadsLines),
+      addComment("Tear down components", getTearDownComponentsLines),
     ).flatten
-  }
+  )
 
   private def getInitComponentsLines: List[Line] = {
     def getCode(ci: ComponentInstance): List[Line] = {
@@ -37,21 +38,26 @@ case class TopPrivateFunctions(
         }
       )
     }
-    addBlankPrefix(
-      List (
-        lines("void initComponents(const TopologyState& state) {"),
-        instances.flatMap(getCode).map(indentIn),
-        lines("}")
-      ).flatten
+    wrapInScope(
+      "void initComponents(const TopologyState& state) {",
+      instances.flatMap(getCode),
+      "}"
     )
   }
 
   private def getConfigComponentsLines: List[Line] = {
-    // TODO
-    Nil
+    def getCode(ci: ComponentInstance): List[Line] = {
+      val name = getNameAsIdent(ci.qualifiedName)
+      getCodeLinesForPhase (CppWriter.Phases.configComponents) (ci).getOrElse(Nil)
+    }
+    wrapInScope(
+      "void configComponents(const TopologyState& state) {",
+      instances.flatMap(getCode),
+      "}"
+    )
   }
 
-  private def getRegisterCommandsLines: List[Line] = {
+  private def getRegCommandsLines: List[Line] = {
     // TODO
     Nil
   }

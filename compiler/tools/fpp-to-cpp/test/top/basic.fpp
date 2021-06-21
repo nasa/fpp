@@ -6,6 +6,8 @@ module M {
     configConstants
     configObjects
     instances
+    initComponents
+    configComponents
   }
 
   active component C1 { 
@@ -31,7 +33,15 @@ module M {
   """
 
   init c1 phase Phases.instances """
-  C1 c1("c1", 0, 1)
+  C1 c1();
+  """
+
+  init c1 phase Phases.initComponents """
+  c1.init();
+  """
+
+  init c1 phase Phases.configComponents """
+  c1.config();
   """
 
   topology Basic {
