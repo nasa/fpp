@@ -26,6 +26,12 @@ abstract class TopologyCppWriterUtils(
       case _ => CppDocWriter.writeBannerComment(comment) ++ ll
     }
 
+  def getComponentName(ci: ComponentInstance): Name.Qualified =
+    s.a.getQualifiedName(Symbol.Component(ci.component.aNode))
+
+  def getComponentNameAsQualIdent(ci: ComponentInstance): String =
+    getNameAsQualIdent(getComponentName(ci))
+
   def getShortName(name: Name.Qualified) = {
     val ens = s.a.getEnclosingNames(symbol)
     name.shortName(ens)
