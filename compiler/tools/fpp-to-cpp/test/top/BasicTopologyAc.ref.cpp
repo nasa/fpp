@@ -37,6 +37,15 @@ namespace M {
     // c2
     C2 c2(FW_OPTIONAL_NAME("c2"));
 
+    // ----------------------------------------------------------------------
+    // Initialize components
+    // ----------------------------------------------------------------------
+
+    void initComponents(const TopologyState& state) {
+      c1.init(QueueSizes::c1, InstanceIDs::c1);
+      c2.init(InstanceIDs::c2);
+    }
+
   }
 
 }

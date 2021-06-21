@@ -69,7 +69,7 @@ abstract class TopologyCppWriterUtils(
     getSpecifierForPhase(phase)(ci).map(is => is.aNode._2.data.code)
 
   def getCodeLinesForPhase (phase: Int) (ci: ComponentInstance): Option[List[Line]] = (
-    getCodeForPhase (CppWriter.Phases.instances) (ci)
+    getCodeForPhase (phase) (ci)
   ).map(lines)
 
 

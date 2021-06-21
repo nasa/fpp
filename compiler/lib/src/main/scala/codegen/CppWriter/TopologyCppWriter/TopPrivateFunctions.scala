@@ -26,8 +26,24 @@ case class TopPrivateFunctions(
   }
 
   private def getInitComponentsLines: List[Line] = {
-    // TODO
-    Nil
+    def getCode(ci: ComponentInstance): List[Line] = {
+      val name = getNameAsIdent(ci.qualifiedName)
+      getCodeLinesForPhase (CppWriter.Phases.initComponents) (ci).getOrElse(
+        ci.component.aNode._2.data.kind match {
+          case Ast.ComponentKind.Passive => 
+            lines(s"$name.init(InstanceIDs::$name);")
+          case _ =>
+            lines(s"$name.init(QueueSizes::$name, InstanceIDs::$name);")
+        }
+      )
+    }
+    addBlankPrefix(
+      List (
+        lines("void initComponents(const TopologyState& state) {"),
+        instances.flatMap(getCode).map(indentIn),
+        lines("}")
+      ).flatten
+    )
   }
 
   private def getConfigComponentsLines: List[Line] = {
