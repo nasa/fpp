@@ -37,14 +37,18 @@ namespace M {
     // c2
     C2 c2(FW_OPTIONAL_NAME("c2"));
 
+    // c3
+    C2 c3(FW_OPTIONAL_NAME("c3"));
+
     // ----------------------------------------------------------------------
     // Private functions
     // ----------------------------------------------------------------------
 
     // Initialize components
     void initComponents(const TopologyState& state) {
-      c1.init();
+      c1.init(QueueSizes::c1, InstanceIDs::c1);
       c2.init(InstanceIDs::c2);
+      c3.init();
     }
 
     // Configure components
@@ -56,6 +60,7 @@ namespace M {
     void setBaseIds() {
       c1.setidBase(0x100);
       c2.setidBase(0x200);
+      c3.setidBase(0x300);
     }
 
     // Connect components

@@ -35,6 +35,7 @@ namespace M {
     enum {
       c1 = 0x100,
       c2 = 0x200,
+      c3 = 0x300,
     }
   }
 
@@ -42,6 +43,7 @@ namespace M {
     enum {
       c1,
       c2,
+      c3,
     }
   }
 

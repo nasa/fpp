@@ -16,6 +16,7 @@ module M {
 
   instance c1: C1 base id 0x100 queue size 10 stack size 1024 priority 1
   instance c2: C2 base id 0x200
+  instance c3: C2 base id 0x300
 
   init c1 phase Phases.configConstants """
   enum {
@@ -32,8 +33,8 @@ module M {
   C1 c1();
   """
 
-  init c1 phase Phases.initComponents """
-  c1.init();
+  init c3 phase Phases.initComponents """
+  c3.init();
   """
 
   init c1 phase Phases.configComponents """
@@ -44,6 +45,7 @@ module M {
 
     instance c1
     instance c2
+    instance c3
 
     connections C {
 
