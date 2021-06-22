@@ -52,6 +52,12 @@ namespace M {
       c1.config();
     }
 
+    // Set component base IDs
+    void setBaseIds() {
+      c1.setidBase(0x100);
+      c2.setidBase(0x200);
+    }
+
   }
 
 }

@@ -57,17 +57,23 @@ case class TopPrivateFunctions(
     )
   }
 
-  private def getRegCommandsLines: List[Line] = {
-    // TODO
-    Nil
-  }
-
-  private def getSetBaseIDsLines: List[Line] = {
-    // TODO
-    Nil
-  }
+  private def getSetBaseIDsLines: List[Line] =
+    wrapInScope(
+      "void setBaseIds() {",
+      instances.map(ci => {
+        val name = getNameAsIdent(ci.qualifiedName)
+        val id = CppWriter.writeId(ci.baseId)
+        line(s"$name.setidBase($id);")
+      }),
+      "}"
+    )
 
   private def getConnectComponentsLines: List[Line] = {
+    // TODO
+    Nil
+  }
+
+  private def getRegCommandsLines: List[Line] = {
     // TODO
     Nil
   }

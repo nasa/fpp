@@ -62,6 +62,13 @@ namespace Svc {
       c2.init(InstanceIDs::c2);
     }
 
+    // Set component base IDs
+    void setBaseIds() {
+      health.setidBase(0x100);
+      c1.setidBase(0x200);
+      c2.setidBase(0x300);
+    }
+
   }
 
 }
