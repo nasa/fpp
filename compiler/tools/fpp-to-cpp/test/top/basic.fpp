@@ -2,14 +2,6 @@ module M {
 
   port P
 
-  enum Phases {
-    configConstants
-    configObjects
-    instances
-    initComponents
-    configComponents
-  }
-
   active component C1 {
 
     async input port p: P

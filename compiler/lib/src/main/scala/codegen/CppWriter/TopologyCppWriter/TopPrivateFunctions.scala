@@ -78,11 +78,13 @@ case class TopPrivateFunctions(
     def writeConnection(c: Connection) = {
       val out = getPortInfo(c.from.port, c)
       val in = getPortInfo(c.to.port, c)
-      List(
-        line(s"${out._1}.set_${out._2}_OutputPort("),
-        indentIn(line(s"${out._3},")),
-        indentIn(line(s"${in._1}_get_${in._2}_InputPort(${in._3})")),
-        line(");")
+      wrapInScope(
+        s"${out._1}.set_${out._2}_OutputPort(",
+        List(
+          s"${out._3},",
+          s"${in._1}_get_${in._2}_InputPort(${in._3})"
+        ).map(line),
+        ");"
       )
     }
     wrapInScope(
@@ -97,13 +99,39 @@ case class TopPrivateFunctions(
   }
 
   private def getRegCommandsLines: List[Line] = {
-    // TODO
-    Nil
+    def getCode(ci: ComponentInstance): List[Line] = {
+      getCodeLinesForPhase (CppWriter.Phases.regCommands) (ci).getOrElse(
+        ci.component.commandMap.size match {
+          case 0 => Nil
+          case _ =>
+            val name = getNameAsIdent(ci.qualifiedName)
+            lines(s"$name.regCommands();")
+        }
+      )
+    }
+    wrapInScope(
+      "void regCommands() {",
+      instances.flatMap(getCode),
+      "}"
+    )
   }
 
   private def getLoadParametersLines: List[Line] = {
-    // TODO
-    Nil
+    def getCode(ci: ComponentInstance): List[Line] = {
+      getCodeLinesForPhase (CppWriter.Phases.loadParameters) (ci).getOrElse(
+        ci.component.paramMap.size match {
+          case 0 => Nil
+          case _ =>
+            val name = getNameAsIdent(ci.qualifiedName)
+            lines(s"$name.loadParameters();")
+        }
+      )
+    }
+    wrapInScope(
+      "void loadParameters() {",
+      instances.flatMap(getCode),
+      "}"
+    )
   }
 
   private def getStartTasksLines: List[Line] = {
