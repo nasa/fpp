@@ -58,6 +58,17 @@ namespace M {
       c2.setidBase(0x200);
     }
 
+    // Connect components
+    void connectComponents() {
+
+      // C
+      c2.set_p_OutputPort(
+        0,
+        c1_get_p_InputPort(0)
+      );
+
+    }
+
   }
 
 }

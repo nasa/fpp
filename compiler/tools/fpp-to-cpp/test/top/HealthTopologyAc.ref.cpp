@@ -69,6 +69,29 @@ namespace Svc {
       c2.setidBase(0x300);
     }
 
+    // Connect components
+    void connectComponents() {
+
+      // Health
+      c2.set_pingOut_OutputPort(
+        0,
+        health_get_pingIn_InputPort(1)
+      );
+      health.set_pingOut_OutputPort(
+        1,
+        c2_get_pingIn_InputPort(0)
+      );
+      c1.set_pingOut_OutputPort(
+        0,
+        health_get_pingIn_InputPort(0)
+      );
+      health.set_pingOut_OutputPort(
+        0,
+        c1_get_pingIn_InputPort(0)
+      );
+
+    }
+
   }
 
 }

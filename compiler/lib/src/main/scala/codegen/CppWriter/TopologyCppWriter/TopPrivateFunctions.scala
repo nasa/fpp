@@ -69,8 +69,31 @@ case class TopPrivateFunctions(
     )
 
   private def getConnectComponentsLines: List[Line] = {
-    // TODO
-    Nil
+    def getPortInfo(pii: PortInstanceIdentifier, c: Connection) = {
+      val instanceName = getNameAsIdent(pii.componentInstance.qualifiedName)
+      val portName = pii.portInstance.getUnqualifiedName
+      val portNumber = t.getPortNumber(pii.portInstance, c).get
+      (instanceName, portName, portNumber)
+    }
+    def writeConnection(c: Connection) = {
+      val out = getPortInfo(c.from.port, c)
+      val in = getPortInfo(c.to.port, c)
+      List(
+        line(s"${out._1}.set_${out._2}_OutputPort("),
+        indentIn(line(s"${out._3},")),
+        indentIn(line(s"${in._1}_get_${in._2}_InputPort(${in._3})")),
+        line(");")
+      )
+    }
+    wrapInScope(
+      "void connectComponents() {",
+      t.connectionMap.toList.flatMap { 
+        case (name, cs) => addBlankPostfix(
+          addComment(name, cs.flatMap(writeConnection))
+        )
+      },
+      "}"
+    )
   }
 
   private def getRegCommandsLines: List[Line] = {

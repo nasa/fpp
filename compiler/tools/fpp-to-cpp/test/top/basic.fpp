@@ -10,13 +10,17 @@ module M {
     configComponents
   }
 
-  active component C1 { 
+  active component C1 {
 
     async input port p: P
-  
+
   }
 
-  passive component C2 { }
+  passive component C2 {
+
+    output port p: P
+
+  }
 
   instance c1: C1 base id 0x100 queue size 10 stack size 1024 priority 1
   instance c2: C2 base id 0x200
@@ -48,6 +52,12 @@ module M {
 
     instance c1
     instance c2
+
+    connections C {
+
+      c2.p -> c1.p
+
+    }
 
   }
 
