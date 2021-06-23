@@ -17,6 +17,7 @@ module M {
   instance active1: Active base id 0x100 queue size 10 stack size 1024 priority 1
   instance active2: Active base id 0x200 queue size 10 stack size 1024 priority 1
   instance passive1: Passive base id 0x300
+  instance passive2: Passive base id 0x400
 
   init active2 phase Phases.configConstants """
   enum {
@@ -62,10 +63,17 @@ module M {
     instance active1
     instance active2
     instance passive1
+    instance passive2
 
-    connections C {
+    connections C1 {
 
       passive1.p -> active1.p
+
+    }
+
+    connections C2 {
+
+      passive2.p -> active2.p
 
     }
 

@@ -40,6 +40,9 @@ namespace M {
     // passive1
     Passive passive1(FW_OPTIONAL_NAME("passive1"));
 
+    // passive2
+    Passive passive2(FW_OPTIONAL_NAME("passive2"));
+
     // ----------------------------------------------------------------------
     // Private functions
     // ----------------------------------------------------------------------
@@ -49,6 +52,7 @@ namespace M {
       active1.init(QueueSizes::active1, InstanceIDs::active1);
       active2.initSpecial();
       passive1.init(InstanceIDs::passive1);
+      passive2.init(InstanceIDs::passive2);
     }
 
     // Configure components
@@ -61,15 +65,22 @@ namespace M {
       active1.setidBase(0x100);
       active2.setidBase(0x200);
       passive1.setidBase(0x300);
+      passive2.setidBase(0x400);
     }
 
     // Connect components
     void connectComponents() {
 
-      // C
+      // C1
       passive1.set_p_OutputPort(
         0,
         active1_get_p_InputPort(0)
+      );
+
+      // C2
+      passive2.set_p_OutputPort(
+        0,
+        active2_get_p_InputPort(0)
       );
 
     }

@@ -89,11 +89,11 @@ case class TopPrivateFunctions(
     }
     wrapInScope(
       "void connectComponents() {",
-      t.connectionMap.toList.flatMap { 
-        case (name, cs) => addBlankPostfix(
-          addComment(name, cs.flatMap(writeConnection))
-        )
-      },
+      addBlankPostfix(
+        t.connectionMap.toList.flatMap { 
+          case (name, cs) => addComment(name, cs.flatMap(writeConnection))
+        }
+      ),
       "}"
     )
   }

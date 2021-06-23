@@ -36,6 +36,7 @@ namespace M {
       active1 = 0x100,
       active2 = 0x200,
       passive1 = 0x300,
+      passive2 = 0x400,
     }
   }
 
@@ -44,6 +45,7 @@ namespace M {
       active1,
       active2,
       passive1,
+      passive2,
     }
   }
 
