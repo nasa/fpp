@@ -143,8 +143,8 @@ case class TopPrivateFunctions(
             wrapInScope(
               s"$name.start(",
               List(
-                s"TaskIDs::$name",
-                s"Priorities::$name",
+                s"TaskIDs::$name,",
+                s"Priorities::$name,",
                 s"StackSizes::$name"
               ).map(line),
               ");"
@@ -160,8 +160,20 @@ case class TopPrivateFunctions(
   }
 
   private def getStopTasksLines: List[Line] = {
-    // TODO
-    Nil
+    def getCode(ci: ComponentInstance): List[Line] =
+      getCodeLinesForPhase (CppWriter.Phases.startTasks) (ci).getOrElse {
+        ci.component.aNode._2.data.kind match {
+          case Ast.ComponentKind.Active =>
+            val name = getNameAsIdent(ci.qualifiedName)
+            lines(s"$name.exit();")
+          case _ => Nil
+        }
+      }
+    wrapInScope(
+      "void stopTasks(const TopologyState& state) {",
+      instances.flatMap(getCode),
+      "}"
+    )
   }
 
   private def getFreeThreadsLines: List[Line] = {
