@@ -12,9 +12,9 @@
 #ifndef M_BasicTopologyAc_HPP
 #define M_BasicTopologyAc_HPP
 
+#include "Active.hpp"
 #include "BasicTopologyDefs.hpp"
-#include "C1.hpp"
-#include "C2.hpp"
+#include "Passive.hpp"
 
 namespace M {
 
@@ -23,7 +23,7 @@ namespace M {
   // ----------------------------------------------------------------------
 
   namespace ConfigConstants {
-    namespace c1 {
+    namespace active2 {
       enum {
         X = 0,
         Y = 1
@@ -33,41 +33,45 @@ namespace M {
 
   namespace BaseIds {
     enum {
-      c1 = 0x100,
-      c2 = 0x200,
-      c3 = 0x300,
+      active1 = 0x100,
+      active2 = 0x200,
+      passive1 = 0x300,
     }
   }
 
   namespace InstanceIds {
     enum {
-      c1,
-      c2,
-      c3,
+      active1,
+      active2,
+      passive1,
     }
   }
 
   namespace Priorities {
     enum {
-      c1 = 1,
+      active1 = 1,
+      active2 = 1,
     }
   }
 
   namespace QueueSizes {
     enum {
-      c1 = 10,
+      active1 = 10,
+      active2 = 10,
     }
   }
 
   namespace StackSizes {
     enum {
-      c1 = 1024,
+      active1 = 1024,
+      active2 = 1024,
     }
   }
 
   namespace TaskIds {
     enum {
-      c1,
+      active1,
+      active2,
     }
   }
 

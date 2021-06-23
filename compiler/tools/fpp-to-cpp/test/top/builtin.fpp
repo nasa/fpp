@@ -14,4 +14,6 @@ enum Phases {
   configComponents
   regCommands
   loadParameters
+  startTasks
+  stopTasks
 }

@@ -161,7 +161,7 @@ case class TopPrivateFunctions(
 
   private def getStopTasksLines: List[Line] = {
     def getCode(ci: ComponentInstance): List[Line] =
-      getCodeLinesForPhase (CppWriter.Phases.startTasks) (ci).getOrElse {
+      getCodeLinesForPhase (CppWriter.Phases.stopTasks) (ci).getOrElse {
         ci.component.aNode._2.data.kind match {
           case Ast.ComponentKind.Active =>
             val name = getNameAsIdent(ci.qualifiedName)

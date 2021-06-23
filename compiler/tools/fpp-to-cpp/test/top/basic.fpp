@@ -2,54 +2,62 @@ module M {
 
   port P
 
-  active component C1 {
+  active component Active {
 
     async input port p: P
 
   }
 
-  passive component C2 {
+  passive component Passive {
 
     output port p: P
 
   }
 
-  instance c1: C1 base id 0x100 queue size 10 stack size 1024 priority 1
-  instance c2: C2 base id 0x200
-  instance c3: C2 base id 0x300
+  instance active1: Active base id 0x100 queue size 10 stack size 1024 priority 1
+  instance active2: Active base id 0x200 queue size 10 stack size 1024 priority 1
+  instance passive1: Passive base id 0x300
 
-  init c1 phase Phases.configConstants """
+  init active2 phase Phases.configConstants """
   enum {
     X = 0,
     Y = 1
   };
   """
 
-  init c1 phase Phases.configObjects """
+  init active2 phase Phases.configObjects """
   U32 x = 0;
   """
 
-  init c1 phase Phases.instances """
-  C1 c1();
+  init active2 phase Phases.instances """
+  Active active1();
   """
 
-  init c3 phase Phases.initComponents """
-  c3.init();
+  init active2 phase Phases.initComponents """
+  active2.initSpecial();
   """
 
-  init c1 phase Phases.configComponents """
-  c1.config();
+  init active2 phase Phases.configComponents """
+  active2.config();
+  """
+
+  init active2 phase Phases.startTasks """
+  active2.startSpecial();
+  """
+
+  init active2 phase Phases.stopTasks """
+  active2.stopSpecial();
   """
 
   topology Basic {
 
-    instance c1
-    instance c2
-    instance c3
+    instance active1
+    instance active2
+    instance passive1
 
     connections C {
 
-      c2.p -> c1.p
+      passive1.p -> active1.p
 
     }
 

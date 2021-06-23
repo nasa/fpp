@@ -21,7 +21,7 @@ namespace M {
 
     namespace ConfigObjects {
 
-      namespace c1 {
+      namespace active2 {
         U32 x = 0;
       }
 
@@ -31,14 +31,14 @@ namespace M {
     // Component instances
     // ----------------------------------------------------------------------
 
-    // c1
-    C1 c1();
+    // active1
+    Active active1(FW_OPTIONAL_NAME("active1"));
 
-    // c2
-    C2 c2(FW_OPTIONAL_NAME("c2"));
+    // active2
+    Active active1();
 
-    // c3
-    C2 c3(FW_OPTIONAL_NAME("c3"));
+    // passive1
+    Passive passive1(FW_OPTIONAL_NAME("passive1"));
 
     // ----------------------------------------------------------------------
     // Private functions
@@ -46,46 +46,48 @@ namespace M {
 
     // Initialize components
     void initComponents(const TopologyState& state) {
-      c1.init(QueueSizes::c1, InstanceIDs::c1);
-      c2.init(InstanceIDs::c2);
-      c3.init();
+      active1.init(QueueSizes::active1, InstanceIDs::active1);
+      active2.initSpecial();
+      passive1.init(InstanceIDs::passive1);
     }
 
     // Configure components
     void configComponents(const TopologyState& state) {
-      c1.config();
+      active2.config();
     }
 
     // Set component base IDs
     void setBaseIds() {
-      c1.setidBase(0x100);
-      c2.setidBase(0x200);
-      c3.setidBase(0x300);
+      active1.setidBase(0x100);
+      active2.setidBase(0x200);
+      passive1.setidBase(0x300);
     }
 
     // Connect components
     void connectComponents() {
 
       // C
-      c2.set_p_OutputPort(
+      passive1.set_p_OutputPort(
         0,
-        c1_get_p_InputPort(0)
+        active1_get_p_InputPort(0)
       );
 
     }
 
     // Start tasks
     void startTasks(const TopologyState& state) {
-      c1.start(
-        TaskIDs::c1,
-        Priorities::c1,
-        StackSizes::c1
+      active1.start(
+        TaskIDs::active1,
+        Priorities::active1,
+        StackSizes::active1
       );
+      active2.startSpecial();
     }
 
     // Stop tasks
     void stopTasks(const TopologyState& state) {
-      c1.exit();
+      active1.exit();
+      active2.stopSpecial();
     }
 
   }
