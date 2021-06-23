@@ -130,6 +130,9 @@ object CppWriter extends AstStateVisitor with LineUtils {
     /** Load parameters */
     val loadParameters = 6
 
+    /** Start tasks */
+    val startTasks = 7
+
     // TODO
 
   }

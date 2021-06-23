@@ -74,6 +74,15 @@ namespace M {
 
     }
 
+    // Start tasks
+    void startTasks(const TopologyState& state) {
+      c1.start(
+        TaskIDs::c1
+        Priorities::c1
+        StackSizes::c1
+      );
+    }
+
   }
 
 }
