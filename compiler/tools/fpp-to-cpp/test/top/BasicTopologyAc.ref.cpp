@@ -90,6 +90,12 @@ namespace M {
       active2.stopSpecial();
     }
 
+    // Free threads
+    void freeThreads(const TopologyState& state) {
+      active1.ActiveComponentBase::join(NULL);
+      active2.freeSpecial();
+    }
+
   }
 
 }

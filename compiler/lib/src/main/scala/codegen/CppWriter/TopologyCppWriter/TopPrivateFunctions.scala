@@ -177,8 +177,20 @@ case class TopPrivateFunctions(
   }
 
   private def getFreeThreadsLines: List[Line] = {
-    // TODO
-    Nil
+    def getCode(ci: ComponentInstance): List[Line] =
+      getCodeLinesForPhase (CppWriter.Phases.freeThreads) (ci).getOrElse {
+        ci.component.aNode._2.data.kind match {
+          case Ast.ComponentKind.Active =>
+            val name = getNameAsIdent(ci.qualifiedName)
+            lines(s"$name.ActiveComponentBase::join(NULL);")
+          case _ => Nil
+        }
+      }
+    wrapInScope(
+      "void freeThreads(const TopologyState& state) {",
+      instances.flatMap(getCode),
+      "}"
+    )
   }
 
   private def getTearDownComponentsLines: List[Line] = {

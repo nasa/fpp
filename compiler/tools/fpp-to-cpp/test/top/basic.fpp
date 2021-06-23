@@ -49,6 +49,10 @@ module M {
   active2.stopSpecial();
   """
 
+  init active2 phase Phases.freeThreads """
+  active2.freeSpecial();
+  """
+
   topology Basic {
 
     instance active1

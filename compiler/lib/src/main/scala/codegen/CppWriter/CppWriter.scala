@@ -136,6 +136,9 @@ object CppWriter extends AstStateVisitor with LineUtils {
     /** Start tasks */
     val stopTasks = 8
 
+    /** Free threads */
+    val freeThreads = 9
+
     // TODO
 
   }
