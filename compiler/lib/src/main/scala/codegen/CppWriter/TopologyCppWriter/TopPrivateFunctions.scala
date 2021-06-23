@@ -194,8 +194,15 @@ case class TopPrivateFunctions(
   }
 
   private def getTearDownComponentsLines: List[Line] = {
-    // TODO
-    Nil
+    def getCode(ci: ComponentInstance): List[Line] = {
+      val name = getNameAsIdent(ci.qualifiedName)
+      getCodeLinesForPhase (CppWriter.Phases.tearDownComponents) (ci).getOrElse(Nil)
+    }
+    wrapInScope(
+      "void tearDownComponents(const TopologyState& state) {",
+      instances.flatMap(getCode),
+      "}"
+    )
   }
 
 }

@@ -96,6 +96,11 @@ namespace M {
       active2.freeSpecial();
     }
 
+    // Tear down components
+    void tearDownComponents(const TopologyState& state) {
+      active2.tearDown();
+    }
+
   }
 
 }

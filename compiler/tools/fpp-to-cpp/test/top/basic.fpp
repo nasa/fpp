@@ -53,6 +53,10 @@ module M {
   active2.freeSpecial();
   """
 
+  init active2 phase Phases.tearDownComponents """
+  active2.tearDown();
+  """
+
   topology Basic {
 
     instance active1

@@ -139,6 +139,9 @@ object CppWriter extends AstStateVisitor with LineUtils {
     /** Free threads */
     val freeThreads = 9
 
+    /** Tear down components */
+    val tearDownComponents = 10
+
     // TODO
 
   }
