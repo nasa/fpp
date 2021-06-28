@@ -1,3 +1,8 @@
+#tests="
+#include
+#included_dep_i
+#locate_constant_include_i
+#"
 tests="
 def_array
 def_component_instance
@@ -36,4 +41,3 @@ spec_port_instance
 spec_tlm_channel
 spec_top_import
 "
-

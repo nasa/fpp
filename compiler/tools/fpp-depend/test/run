@@ -40,12 +40,16 @@ done > default-tests.sh
 # Custom tests
 include()
 {
-  run_test -i include
+  run_test '-i tmp.out.txt' include
+  remove_path_prefix < tmp.out.txt > include_output.out.txt
+  compare include_output
 }
 
 included_dep_i()
 {
-  run_test -i included_dep included_dep_i
+  run_test '-i tmp.out.txt' included_dep included_dep_i
+  remove_path_prefix < tmp.out.txt > included_dep_i_output.out.txt
+  compare included_dep_i_output
 }
 
 locate_constant_include_no_i()
@@ -55,7 +59,9 @@ locate_constant_include_no_i()
 
 locate_constant_include_i()
 {
-  run_test -i locate_constant_include_1 locate_constant_include_i
+  run_test '-i tmp.out.txt' locate_constant_include_1 locate_constant_include_i
+  remove_path_prefix < tmp.out.txt > locate_constant_include_i_output.out.txt
+  compare locate_constant_include_i_output
 }
 
 missing()
