@@ -694,15 +694,23 @@ By default, `fpp-depend` provides option 1:
 % fpp-depend a.fpp
 ----
 
-To get option 2, use the `-i` option to `fpp-depend`:
+To get option 2, use the `-i` option to `fpp-depend`.
+It takes as an argument the name of a file, and it writes the included dependencies 
+(if any) to that file.
 
 ----
 % echo 'include "b.fppi"' > a.fpp
 % rm -f b.fppi
 % touch b.fppi
-% fpp-depend -i a.fpp
+% fpp-depend -i included.txt a.fpp
+% cat included.txt
 [path-prefix]/b.fppi
 ----
+
+In practice, you usually run `fpp-depend` with the `-i` _file_ option
+enabled.
+Then option 1 corresponds to the output of the tool, and option 2 corresponds
+to the output plus the contents of _file_.
 
 === Locating Uses
 
