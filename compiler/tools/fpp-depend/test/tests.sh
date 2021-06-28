@@ -1,8 +1,3 @@
-#tests="
-#include
-#included_dep_i
-#locate_constant_include_i
-#"
 tests="
 def_array
 def_component_instance
