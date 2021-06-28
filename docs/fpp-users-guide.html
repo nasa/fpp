@@ -6695,16 +6695,25 @@ So in this case we want option 2.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>To get option 2, use the <code>-i</code> option to <code>fpp-depend</code>:</p>
+<p>To get option 2, use the <code>-i</code> option to <code>fpp-depend</code>.
+It takes as an argument the name of a file, and it writes the included dependencies
+(if any) to that file.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre>% echo 'include "b.fppi"' &gt; a.fpp
 % rm -f b.fppi
 % touch b.fppi
-% fpp-depend -i a.fpp
+% fpp-depend -i included.txt a.fpp
+% cat included.txt
 [path-prefix]/b.fppi</pre>
 </div>
+</div>
+<div class="paragraph">
+<p>In practice, you usually run <code>fpp-depend</code> with the <code>-i</code> <em>file</em> option
+enabled.
+Then option 1 corresponds to the output of the tool, and option 2 corresponds
+to the output plus the contents of <em>file</em>.</p>
 </div>
 </div>
 </div>
@@ -7977,7 +7986,7 @@ constant a = 0</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-06-09 18:45:40 -0700
+Last updated 2021-06-28 15:51:06 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
