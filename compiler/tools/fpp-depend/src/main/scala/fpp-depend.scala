@@ -9,8 +9,8 @@ import scopt.OParser
 object FPPDepend {
 
   case class Options(
-    include: Boolean = false,
     files: List[File] = List(),
+    includedFile: Option[String] = None,
     missingFile: Option[String] = None
   )
 
@@ -28,23 +28,23 @@ object FPPDepend {
       a <- ComputeDependencies.tuList(a, tul)
       _ <- {
         mapSet(a.dependencyFileSet, System.out.println(_))
-        options.include match {
-          case true => mapSet(a.includedFileSet, System.out.println(_))
-          case false => ()
+        options.includedFile match {
+          case Some(file) => writeFiles(a, a.includedFileSet, file)
+          case None => Right(())
         }
         options.missingFile match {
-          case Some(file) => writeMissingDeps(a, file)
+          case Some(file) => writeFiles(a, a.missingDependencyFileSet, file)
           case None => Right(())
         }
       }
     } yield ()
   }
 
-  def writeMissingDeps(a: Analysis, fileName: String): Result.Result[Unit] = {
+  def writeFiles(a: Analysis, files: Set[File], fileName: String): Result.Result[Unit] = {
     val file = File.fromString(fileName)
     for { writer <- file.openWrite() 
     } yield { 
-      mapSet(a.missingDependencyFileSet, writer.println(_))
+      mapSet(files, writer.println(_))
       writer.close()
       ()
     }
@@ -74,9 +74,10 @@ object FPPDepend {
     OParser.sequence(
       programName(name),
       head(name, "1.0.0"),
-      opt[Unit]('i', "include")
-        .action((_, c) => c.copy(include = true))
-        .text("count included files as dependencies"),
+      opt[String]('i', "included")
+        .valueName("<file>")
+        .action((m, c) => c.copy(includedFile = Some(m)))
+        .text("write included dependencies to file"),
       opt[String]('m', "missing")
         .valueName("<file>")
         .action((m, c) => c.copy(missingFile = Some(m)))
