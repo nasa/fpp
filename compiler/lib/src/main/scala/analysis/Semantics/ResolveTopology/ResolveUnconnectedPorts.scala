@@ -12,10 +12,13 @@ object ResolveUnconnectedPorts {
     t.instanceMap.keys.foldLeft (t) ((t1, ci) =>
       ci.component.portMap.values.foldLeft (t1) ((t2, pi) => {
         val pii = PortInstanceIdentifier(ci, pi)
-        if (t2.getConnectionsAt(pii).size == 0)
-          t2.copy(unconnectedPortSet = t2.unconnectedPortSet + pii)
-        else
-          t2
+        val direction = pi.getDirection
+        val n = t2.getConnectionsAt(pii).size
+        (direction, n) match {
+          case (Some(_), 0) =>
+            t2.copy(unconnectedPortSet = t2.unconnectedPortSet + pii)
+          case _ => t2
+        }
       })
     )
   }

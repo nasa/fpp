@@ -1,3 +1,0 @@
-Topology M.T1:
-  M.c.p
-
