@@ -142,8 +142,6 @@ object CppWriter extends AstStateVisitor with LineUtils {
     /** Tear down components */
     val tearDownComponents = 10
 
-    // TODO
-
   }
 
 }
