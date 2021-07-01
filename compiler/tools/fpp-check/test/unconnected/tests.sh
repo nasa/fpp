@@ -1,3 +1,4 @@
 tests="
 basic
+internal
 "
