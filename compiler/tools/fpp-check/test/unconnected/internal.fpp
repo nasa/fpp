@@ -2,7 +2,7 @@ module M {
 
   active component C {
 
-    internal port P
+    internal port p
 
   }
 
