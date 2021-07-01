@@ -202,9 +202,10 @@ case class Topology(
   def getConnectionsAt(pii: PortInstanceIdentifier) = {
     import PortInstance.Direction._
     val pi = pii.portInstance
-    pi.getDirection.get match {
-      case Input => inputConnectionMap.getOrElse(pii, Set())
-      case Output => outputConnectionMap.getOrElse(pii, Set())
+    pi.getDirection match {
+      case Some(Input) => inputConnectionMap.getOrElse(pii, Set())
+      case Some(Output) => outputConnectionMap.getOrElse(pii, Set())
+      case None => Set()
     }
   }
 
