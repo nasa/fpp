@@ -77,6 +77,16 @@ namespace M {
     }
   }
 
+  // ----------------------------------------------------------------------
+  // Public interface functions
+  // ----------------------------------------------------------------------
+
+  //! Set up the topology
+  void setup();
+
+  //! Tear down the topology
+  void teardown();
+
 }
 
 #endif

@@ -10,6 +10,37 @@ case class TopPublicFunctions(
   aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
 ) {
 
-  def getMembers: List[CppDoc.Member] = Nil
+  def getMembers: List[CppDoc.Member] = List(
+    getBannerComment,
+    getSetupFn,
+    getTeardownFn
+  )
+
+  private def getBannerComment = CppDoc.Member.Lines(
+    CppDoc.Lines(
+      CppDocWriter.writeBannerComment("Public interface functions"),
+      CppDoc.Lines.Both
+    )
+  )
+
+  private def getSetupFn = CppDoc.Member.Function(
+    CppDoc.Function(
+      Some("Set up the topology"),
+      "setup",
+      Nil,
+      CppDoc.Type("void"),
+      Nil
+    )
+  )
+
+  private def getTeardownFn = CppDoc.Member.Function(
+    CppDoc.Function(
+      Some("Tear down the topology"),
+      "teardown",
+      Nil,
+      CppDoc.Type("void"),
+      Nil
+    )
+  )
 
 }
