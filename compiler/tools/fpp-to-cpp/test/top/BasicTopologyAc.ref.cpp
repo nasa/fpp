@@ -118,11 +118,11 @@ namespace M {
   // Public interface functions
   // ----------------------------------------------------------------------
 
-  setup() {
+  setup(const TopologyState& state) {
 
   }
 
-  teardown() {
+  teardown(const TopologyState& state) {
 
   }
 

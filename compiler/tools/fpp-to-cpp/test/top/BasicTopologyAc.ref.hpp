@@ -82,10 +82,14 @@ namespace M {
   // ----------------------------------------------------------------------
 
   //! Set up the topology
-  void setup();
+  void setup(
+      const TopologyState& state //!< The topology state
+  );
 
   //! Tear down the topology
-  void teardown();
+  void teardown(
+      const TopologyState& state //!< The topology state
+  );
 
 }
 

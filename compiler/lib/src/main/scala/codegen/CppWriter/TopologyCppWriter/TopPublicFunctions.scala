@@ -16,6 +16,14 @@ case class TopPublicFunctions(
     getTeardownFn
   )
 
+  private val params = List(
+    CppDoc.Function.Param(
+      CppDoc.Type("const TopologyState&"),
+      "state",
+      Some("The topology state")
+    )
+  )
+
   private def getBannerComment = CppDoc.Member.Lines(
     CppDoc.Lines(
       CppDocWriter.writeBannerComment("Public interface functions"),
@@ -27,7 +35,7 @@ case class TopPublicFunctions(
     CppDoc.Function(
       Some("Set up the topology"),
       "setup",
-      Nil,
+      params,
       CppDoc.Type("void"),
       Nil
     )
@@ -37,7 +45,7 @@ case class TopPublicFunctions(
     CppDoc.Function(
       Some("Tear down the topology"),
       "teardown",
-      Nil,
+      params,
       CppDoc.Type("void"),
       Nil
     )
