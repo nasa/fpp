@@ -62,7 +62,7 @@ namespace M {
   }
 
   teardown(const TopologyState& state) {
-
+    tearDownComponents(state);
   }
 
 }

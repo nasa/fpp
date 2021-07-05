@@ -127,7 +127,9 @@ namespace M {
   }
 
   teardown(const TopologyState& state) {
-
+    stopTasks(state);
+    freeThreads(state);
+    tearDownComponents(state);
   }
 
 }

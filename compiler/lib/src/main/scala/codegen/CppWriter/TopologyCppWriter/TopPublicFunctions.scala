@@ -66,7 +66,16 @@ case class TopPublicFunctions(
       "teardown",
       params,
       CppDoc.Type("void"),
-      Nil
+      List(
+        activeInstances.size match {
+          case 0 => Nil
+          case _ => List(
+            line("stopTasks(state);"),
+            line("freeThreads(state);"),
+          )
+        },
+        lines("tearDownComponents(state);"),
+      ).flatten
     )
   )
 
