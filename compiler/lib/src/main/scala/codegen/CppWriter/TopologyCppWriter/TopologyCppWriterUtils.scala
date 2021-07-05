@@ -20,6 +20,21 @@ abstract class TopologyCppWriterUtils(
 
   val instances = t.instanceMap.keys.toList.sorted
 
+  def isActive(ci: ComponentInstance) =
+    ci.component.aNode._2.data.kind == Ast.ComponentKind.Active
+
+  val activeInstances = instances.filter(isActive)
+
+  def hasCommands(ci: ComponentInstance) =
+    ci.component.commandMap.size > 0
+
+  val commandInstances = instances.filter(hasCommands)
+
+  def hasParams(ci: ComponentInstance) =
+    ci.component.paramMap.size > 0
+
+  val paramInstances = instances.filter(hasParams)
+
   def addBannerComment(comment: String, ll: List[Line]): List[Line] =
     ll match {
       case Nil => Nil

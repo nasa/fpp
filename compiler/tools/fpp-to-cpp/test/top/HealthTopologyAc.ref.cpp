@@ -99,7 +99,10 @@ namespace Svc {
   // ----------------------------------------------------------------------
 
   setup(const TopologyState& state) {
-
+    initComponents(state);
+    configComponents(state);
+    setBaseIds();
+    connectComponents();
   }
 
   teardown(const TopologyState& state) {

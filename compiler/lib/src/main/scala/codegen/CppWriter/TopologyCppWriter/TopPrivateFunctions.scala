@@ -101,12 +101,11 @@ case class TopPrivateFunctions(
   private def getRegCommandsLines: List[Line] = {
     def getCode(ci: ComponentInstance): List[Line] = {
       getCodeLinesForPhase (CppWriter.Phases.regCommands) (ci).getOrElse(
-        ci.component.commandMap.size match {
-          case 0 => Nil
-          case _ =>
-            val name = getNameAsIdent(ci.qualifiedName)
-            lines(s"$name.regCommands();")
+        if (hasCommands(ci)) {
+          val name = getNameAsIdent(ci.qualifiedName)
+          lines(s"$name.regCommands();")
         }
+        else Nil
       )
     }
     wrapInScope(
@@ -119,12 +118,11 @@ case class TopPrivateFunctions(
   private def getLoadParametersLines: List[Line] = {
     def getCode(ci: ComponentInstance): List[Line] = {
       getCodeLinesForPhase (CppWriter.Phases.loadParameters) (ci).getOrElse(
-        ci.component.paramMap.size match {
-          case 0 => Nil
-          case _ =>
-            val name = getNameAsIdent(ci.qualifiedName)
-            lines(s"$name.loadParameters();")
+        if (hasParams(ci)) {
+          val name = getNameAsIdent(ci.qualifiedName)
+          lines(s"$name.loadParameters();")
         }
+        else Nil
       )
     }
     wrapInScope(
@@ -137,20 +135,19 @@ case class TopPrivateFunctions(
   private def getStartTasksLines: List[Line] = {
     def getCode(ci: ComponentInstance): List[Line] =
       getCodeLinesForPhase (CppWriter.Phases.startTasks) (ci).getOrElse {
-        ci.component.aNode._2.data.kind match {
-          case Ast.ComponentKind.Active =>
-            val name = getNameAsIdent(ci.qualifiedName)
-            wrapInScope(
-              s"$name.start(",
-              List(
-                s"TaskIDs::$name,",
-                s"Priorities::$name,",
-                s"StackSizes::$name"
-              ).map(line),
-              ");"
-            )
-          case _ => Nil
+        if (isActive(ci)) {
+          val name = getNameAsIdent(ci.qualifiedName)
+          wrapInScope(
+            s"$name.start(",
+            List(
+              s"TaskIDs::$name,",
+              s"Priorities::$name,",
+              s"StackSizes::$name"
+            ).map(line),
+            ");"
+          )
         }
+        else Nil
       }
     wrapInScope(
       "void startTasks(const TopologyState& state) {",
@@ -162,12 +159,11 @@ case class TopPrivateFunctions(
   private def getStopTasksLines: List[Line] = {
     def getCode(ci: ComponentInstance): List[Line] =
       getCodeLinesForPhase (CppWriter.Phases.stopTasks) (ci).getOrElse {
-        ci.component.aNode._2.data.kind match {
-          case Ast.ComponentKind.Active =>
-            val name = getNameAsIdent(ci.qualifiedName)
-            lines(s"$name.exit();")
-          case _ => Nil
+        if (isActive(ci)) {
+          val name = getNameAsIdent(ci.qualifiedName)
+          lines(s"$name.exit();")
         }
+        else Nil
       }
     wrapInScope(
       "void stopTasks(const TopologyState& state) {",
@@ -179,12 +175,11 @@ case class TopPrivateFunctions(
   private def getFreeThreadsLines: List[Line] = {
     def getCode(ci: ComponentInstance): List[Line] =
       getCodeLinesForPhase (CppWriter.Phases.freeThreads) (ci).getOrElse {
-        ci.component.aNode._2.data.kind match {
-          case Ast.ComponentKind.Active =>
-            val name = getNameAsIdent(ci.qualifiedName)
-            lines(s"$name.ActiveComponentBase::join(NULL);")
-          case _ => Nil
+        if (isActive(ci)) {
+          val name = getNameAsIdent(ci.qualifiedName)
+          lines(s"$name.ActiveComponentBase::join(NULL);")
         }
+        else Nil
       }
     wrapInScope(
       "void freeThreads(const TopologyState& state) {",

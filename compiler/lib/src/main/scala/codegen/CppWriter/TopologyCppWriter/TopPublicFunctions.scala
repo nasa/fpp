@@ -8,7 +8,7 @@ import fpp.compiler.util._
 case class TopPublicFunctions(
   s: CppWriterState,
   aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
-) {
+) extends TopologyCppWriterUtils(s, aNode) {
 
   def getMembers: List[CppDoc.Member] = List(
     getBannerComment,
@@ -37,7 +37,26 @@ case class TopPublicFunctions(
       "setup",
       params,
       CppDoc.Type("void"),
-      Nil
+      List(
+        List(
+          line("initComponents(state);"),
+          line("configComponents(state);"),
+          line("setBaseIds();"),
+          line("connectComponents();"),
+        ),
+        commandInstances.size match {
+          case 0 => Nil
+          case _ => lines("regCommands();")
+        },
+        paramInstances.size match {
+          case 0 => Nil
+          case _ => lines("loadParameters();")
+        },
+        activeInstances.size match {
+          case 0 => Nil
+          case _ => lines("startTasks(state);")
+        }
+      ).flatten
     )
   )
 
