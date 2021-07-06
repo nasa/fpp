@@ -10,9 +10,11 @@ case class TopPrivateFunctions(
   aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
 ) extends TopologyCppWriterUtils(s, aNode) {
 
-  def getLines: List[Line] = addBannerComment(
-    "Private functions",
-    List(
+  /** Compute the set of defined function names and the list
+   *  of lines defining the functions */
+  def getLines: (Set[String], List[Line]) = {
+    // Get pairs of (function name, function lines)
+    val pairs = List(
       getInitComponentsLines,
       getConfigComponentsLines,
       getSetBaseIdsLines,
@@ -23,10 +25,21 @@ case class TopPrivateFunctions(
       getStopTasksLines,
       getFreeThreadsLines,
       getTearDownComponentsLines,
-    ).flatten
-  )
+    )
+    // Compute the set of names with nonempty lines
+    val fns = pairs.foldLeft (Set[String]()) {
+      case (set, (_, Nil)) => set
+      case (set, (name, _)) => set + name
+    }
+    // Extract the lines
+    val ll = addBannerComment(
+      "Private functions",
+      pairs.map(_._2).flatten
+    )
+    (fns, ll)
+  }
 
-  private def getInitComponentsLines: List[Line] = {
+  private def getInitComponentsLines: (String, List[Line]) = {
     def getCode(ci: ComponentInstance): List[Line] = {
       val name = getNameAsIdent(ci.qualifiedName)
       getCodeLinesForPhase (CppWriter.Phases.initComponents) (ci).getOrElse(
@@ -38,36 +51,41 @@ case class TopPrivateFunctions(
         }
       )
     }
-    addComment(
+    val name = "initComponents"
+    val ll = addComment(
       "Initialize components",
       wrapInScope(
-        "void initComponents(const TopologyState& state) {",
+        s"void $name(const TopologyState& state) {",
         instances.flatMap(getCode),
         "}"
       )
     )
+    (name, ll)
   }
 
-  private def getConfigComponentsLines: List[Line] = {
+  private def getConfigComponentsLines: (String, List[Line]) = {
     def getCode(ci: ComponentInstance): List[Line] = {
       val name = getNameAsIdent(ci.qualifiedName)
       getCodeLinesForPhase (CppWriter.Phases.configComponents) (ci).getOrElse(Nil)
     }
-    addComment(
+    val name = "configComponents"
+    val ll = addComment(
       "Configure components",
       wrapInScope(
-        "void configComponents(const TopologyState& state) {",
+        s"void $name(const TopologyState& state) {",
         instances.flatMap(getCode),
         "}"
       )
     )
+    (name, ll)
   }
 
-  private def getSetBaseIdsLines: List[Line] =
-    addComment(
+  private def getSetBaseIdsLines: (String, List[Line]) = {
+    val name = "setBaseIds"
+    val ll = addComment(
       "Set component base IDs",
       wrapInScope(
-        "void setBaseIds() {",
+        s"void $name() {",
         instances.map(ci => {
           val name = getNameAsIdent(ci.qualifiedName)
           val id = CppWriter.writeId(ci.baseId)
@@ -76,8 +94,10 @@ case class TopPrivateFunctions(
         "}"
       )
     )
+    (name, ll)
+  }
 
-  private def getConnectComponentsLines: List[Line] = {
+  private def getConnectComponentsLines: (String, List[Line]) = {
     def getPortInfo(pii: PortInstanceIdentifier, c: Connection) = {
       val instanceName = getNameAsIdent(pii.componentInstance.qualifiedName)
       val portName = pii.portInstance.getUnqualifiedName
@@ -96,10 +116,11 @@ case class TopPrivateFunctions(
         ");"
       )
     }
-    addComment(
+    val name = "connectComponents"
+    val ll = addComment(
       "Connect components",
       wrapInScope(
-        "void connectComponents() {",
+        s"void $name() {",
         addBlankPostfix(
           t.connectionMap.toList.flatMap { 
             case (name, cs) => addComment(name, cs.flatMap(writeConnection))
@@ -108,9 +129,10 @@ case class TopPrivateFunctions(
         "}"
       )
     )
+    (name, ll)
   }
 
-  private def getRegCommandsLines: List[Line] = {
+  private def getRegCommandsLines: (String, List[Line]) = {
     def getCode(ci: ComponentInstance): List[Line] = {
       getCodeLinesForPhase (CppWriter.Phases.regCommands) (ci).getOrElse(
         if (hasCommands(ci)) {
@@ -120,17 +142,19 @@ case class TopPrivateFunctions(
         else Nil
       )
     }
-    addComment(
+    val name = "regCommands"
+    val ll = addComment(
       "Register commands",
       wrapInScope(
-        "void regCommands() {",
+        s"void $name() {",
         instances.flatMap(getCode),
         "}"
       )
     )
+    (name, ll)
   }
 
-  private def getLoadParametersLines: List[Line] = {
+  private def getLoadParametersLines: (String, List[Line]) = {
     def getCode(ci: ComponentInstance): List[Line] = {
       getCodeLinesForPhase (CppWriter.Phases.loadParameters) (ci).getOrElse(
         if (hasParams(ci)) {
@@ -140,17 +164,19 @@ case class TopPrivateFunctions(
         else Nil
       )
     }
-    addComment(
+    val name = "loadParameters"
+    val ll = addComment(
       "Load parameters",
       wrapInScope(
-        "void loadParameters() {",
+        s"void $name() {",
         instances.flatMap(getCode),
         "}"
       )
     )
+    (name, ll)
   }
 
-  private def getStartTasksLines: List[Line] = {
+  private def getStartTasksLines: (String, List[Line]) = {
     def getCode(ci: ComponentInstance): List[Line] =
       getCodeLinesForPhase (CppWriter.Phases.startTasks) (ci).getOrElse {
         if (isActive(ci)) {
@@ -167,17 +193,19 @@ case class TopPrivateFunctions(
         }
         else Nil
       }
-    addComment(
+    val name = "startTasks"
+    val ll = addComment(
       "Start tasks",
       wrapInScope(
-        "void startTasks(const TopologyState& state) {",
+        s"void $name(const TopologyState& state) {",
         instances.flatMap(getCode),
         "}"
       )
     )
+    (name, ll)
   }
 
-  private def getStopTasksLines: List[Line] = {
+  private def getStopTasksLines: (String, List[Line]) = {
     def getCode(ci: ComponentInstance): List[Line] =
       getCodeLinesForPhase (CppWriter.Phases.stopTasks) (ci).getOrElse {
         if (isActive(ci)) {
@@ -186,7 +214,8 @@ case class TopPrivateFunctions(
         }
         else Nil
       }
-    addComment(
+    val name = "stopTasks"
+    val ll = addComment(
       "Stop tasks",
       wrapInScope(
         "void stopTasks(const TopologyState& state) {",
@@ -194,9 +223,10 @@ case class TopPrivateFunctions(
         "}"
       )
     )
+    (name, ll)
   }
 
-  private def getFreeThreadsLines: List[Line] = {
+  private def getFreeThreadsLines: (String, List[Line]) = {
     def getCode(ci: ComponentInstance): List[Line] =
       getCodeLinesForPhase (CppWriter.Phases.freeThreads) (ci).getOrElse {
         if (isActive(ci)) {
@@ -205,29 +235,33 @@ case class TopPrivateFunctions(
         }
         else Nil
       }
-    addComment(
+    val name = "freeThreads"
+    val ll = addComment(
       "Free threads",
       wrapInScope(
-        "void freeThreads(const TopologyState& state) {",
+        s"void $name(const TopologyState& state) {",
         instances.flatMap(getCode),
         "}"
       )
     )
+    (name, ll)
   }
 
-  private def getTearDownComponentsLines: List[Line] = {
+  private def getTearDownComponentsLines: (String, List[Line]) = {
     def getCode(ci: ComponentInstance): List[Line] = {
       val name = getNameAsIdent(ci.qualifiedName)
       getCodeLinesForPhase (CppWriter.Phases.tearDownComponents) (ci).getOrElse(Nil)
     }
-    addComment(
+    val name = "tearDownComponents"
+    val ll = addComment(
       "Tear down components",
       wrapInScope(
-        "void tearDownComponents(const TopologyState& state) {",
+        s"void $name(const TopologyState& state) {",
         instances.flatMap(getCode),
         "}"
       )
     )
+    (name, ll)
   }
 
 }

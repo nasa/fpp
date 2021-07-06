@@ -7,7 +7,8 @@ import fpp.compiler.util._
 /** Writes out C++ for topology public functions */
 case class TopPublicFunctions(
   s: CppWriterState,
-  aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
+  aNode: Ast.Annotated[AstNode[Ast.DefTopology]],
+  privateFns: Set[String]
 ) extends TopologyCppWriterUtils(s, aNode) {
 
   def getMembers: List[CppDoc.Member] = List(
@@ -31,6 +32,13 @@ case class TopPublicFunctions(
     )
   )
 
+  private def writeFnCall(pair: (String, String)): List[Line] = {
+    val (name, argument) = pair
+    if (privateFns.contains(name))
+      lines(s"$name($argument);")
+    else Nil
+  }
+
   private def getSetupFn = CppDoc.Member.Function(
     CppDoc.Function(
       Some("Set up the topology"),
@@ -38,25 +46,14 @@ case class TopPublicFunctions(
       params,
       CppDoc.Type("void"),
       List(
-        List(
-          line("initComponents(state);"),
-          line("configComponents(state);"),
-          line("setBaseIds();"),
-          line("connectComponents();"),
-        ),
-        commandInstances.size match {
-          case 0 => Nil
-          case _ => lines("regCommands();")
-        },
-        paramInstances.size match {
-          case 0 => Nil
-          case _ => lines("loadParameters();")
-        },
-        activeInstances.size match {
-          case 0 => Nil
-          case _ => lines("startTasks(state);")
-        }
-      ).flatten
+        ("initComponents", "state"),
+        ("configComponents", "state"),
+        ("setBaseIds", ""),
+        ("connectComponents", ""),
+        ("regCommands", ""),
+        ("loadParameters", ""),
+        ("startTasks", "state"),
+      ).flatMap(writeFnCall)
     )
   )
 
@@ -67,15 +64,10 @@ case class TopPublicFunctions(
       params,
       CppDoc.Type("void"),
       List(
-        activeInstances.size match {
-          case 0 => Nil
-          case _ => List(
-            line("stopTasks(state);"),
-            line("freeThreads(state);"),
-          )
-        },
-        lines("tearDownComponents(state);"),
-      ).flatten
+        ("stopTasks", "state"),
+        ("freeThreads", "state"),
+        ("tearDownComponents" ,"state"),
+      ).flatMap(writeFnCall)
     )
   )
 

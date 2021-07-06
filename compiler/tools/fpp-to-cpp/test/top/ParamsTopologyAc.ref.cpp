@@ -61,15 +61,13 @@ namespace M {
 
   setup(const TopologyState& state) {
     initComponents(state);
-    configComponents(state);
     setBaseIds();
-    connectComponents();
     regCommands();
     loadParameters();
   }
 
   teardown(const TopologyState& state) {
-    tearDownComponents(state);
+
   }
 
 }

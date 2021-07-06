@@ -46,6 +46,7 @@ case class TopologyCppWriter(
         CppDoc.Lines.Cpp
       )
     }
+    val (privateFns, privateFnLines) = TopPrivateFunctions(s, aNode).getLines
     val cppLines = CppWriter.linesMember(
       Line.blank ::
       wrapInAnonymousNamespace(
@@ -53,13 +54,13 @@ case class TopologyCppWriter(
           List(
             TopConfigObjects(s, aNode).getLines,
             TopComponentInstances(s, aNode).getLines,
-            TopPrivateFunctions(s, aNode).getLines
+            privateFnLines
           ).flatten
         )
       ),
       CppDoc.Lines.Cpp
     )
-    val publicFunctions = TopPublicFunctions(s, aNode).getMembers
+    val publicFunctions = TopPublicFunctions(s, aNode, privateFns).getMembers
     val defs = hppLines :: cppLines :: publicFunctions
     namespace match {
       case Some(ns) => List(
