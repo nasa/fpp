@@ -14,8 +14,10 @@ module M {
 
   }
 
-  instance active1: Active base id 0x100 queue size 10 stack size 1024 priority 1
-  instance active2: Active base id 0x200 queue size 10 stack size 1024 priority 1
+  instance active1: Active base id 0x100 \
+    queue size 10 stack size 1024 priority 1
+  instance active2: Active base id 0x200 \
+    queue size 10 stack size 1024 priority 1
   instance passive1: Passive base id 0x300
   instance passive2: Passive base id 0x400
 
