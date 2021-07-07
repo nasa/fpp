@@ -1,0 +1,7 @@
+#!/bin/sh -e
+
+for dir in `cat subdirs.txt`
+do
+  echo "cleaning $dir"
+  $dir/clean
+done

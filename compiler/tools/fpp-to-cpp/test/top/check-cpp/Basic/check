@@ -1,0 +1,19 @@
+#!/bin/sh -e
+
+echo '  removing old files'
+./clean
+
+dir=`cd ../..; echo $PWD`
+
+echo '  generating XML'
+fpp-to-xml -p $dir -i ../../builtin.fpp ../../basic.fpp
+
+echo '  generating C++'
+for file in ActiveComponent PassiveComponent PPort
+do
+  fprime-codegen $file'Ai.xml' > /dev/null
+done
+fpp-to-cpp -p $dir,$PWD -i ../../builtin.fpp ../../basic.fpp
+
+echo '  compiling C++'
+fprime-gcc -c BasicTopologyAc.cpp
