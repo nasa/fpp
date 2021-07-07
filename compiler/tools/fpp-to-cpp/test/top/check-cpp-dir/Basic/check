@@ -13,7 +13,10 @@ for file in ActiveComponent PassiveComponent PPort
 do
   fprime-codegen $file'Ai.xml' > /dev/null
 done
-fpp-to-cpp -p $dir,$PWD -i ../../builtin.fpp ../../basic.fpp
+for suffix in hpp cpp
+do
+  cp ../../BasicTopologyAc.ref.$suffix BasicTopologyAc.$suffix
+done
 
 echo '  compiling C++'
 fprime-gcc -c BasicTopologyAc.cpp
