@@ -1,0 +1,3 @@
+#!/bin/sh -e
+
+(cd check-cpp-dir; ./check)
