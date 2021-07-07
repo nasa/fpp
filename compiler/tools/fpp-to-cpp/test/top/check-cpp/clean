@@ -2,6 +2,5 @@
 
 for dir in `cat subdirs.txt`
 do
-  echo "cleaning $dir"
-  $dir/clean
+  (cd $dir; echo "cleaning $PWD"; ./clean)
 done

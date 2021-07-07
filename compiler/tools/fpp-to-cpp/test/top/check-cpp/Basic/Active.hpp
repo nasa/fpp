@@ -19,7 +19,7 @@ namespace M {
 
       }
 
-      void init(int a, int b) {
+      void init(U32 queueSize, U32 instanceId) {
 
       }
 

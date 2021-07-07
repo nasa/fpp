@@ -15,7 +15,7 @@ namespace M {
 
       }
 
-      void init(int a) {
+      void init(U32 instanceId) {
 
       }
 

@@ -8,3 +8,4 @@ for file in `find . -name '*out.*' -or -name '*.names.txt' -or -name '*o' -or -n
 do
   rm $file
 done
+(cd check-cpp; ./clean)
