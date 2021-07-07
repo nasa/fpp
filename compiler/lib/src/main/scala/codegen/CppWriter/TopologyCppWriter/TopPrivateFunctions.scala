@@ -45,9 +45,9 @@ case class TopPrivateFunctions(
       getCodeLinesForPhase (CppWriter.Phases.initComponents) (ci).getOrElse(
         ci.component.aNode._2.data.kind match {
           case Ast.ComponentKind.Passive => 
-            lines(s"$name.init(InstanceIDs::$name);")
+            lines(s"$name.init(InstanceIds::$name);")
           case _ =>
-            lines(s"$name.init(QueueSizes::$name, InstanceIDs::$name);")
+            lines(s"$name.init(QueueSizes::$name, InstanceIds::$name);")
         }
       )
     }
@@ -83,13 +83,13 @@ case class TopPrivateFunctions(
   private def getSetBaseIdsLines: (String, List[Line]) = {
     val name = "setBaseIds"
     val ll = addComment(
-      "Set component base IDs",
+      "Set component base Ids",
       wrapInScope(
         s"void $name() {",
         instances.map(ci => {
           val name = getNameAsIdent(ci.qualifiedName)
           val id = CppWriter.writeId(ci.baseId)
-          line(s"$name.setidBase($id);")
+          line(s"$name.setIdBase($id);")
         }),
         "}"
       )
@@ -111,7 +111,7 @@ case class TopPrivateFunctions(
         s"${out._1}.set_${out._2}_OutputPort(",
         List(
           s"${out._3},",
-          s"${in._1}_get_${in._2}_InputPort(${in._3})"
+          s"${in._1}.get_${in._2}_InputPort(${in._3})"
         ).map(line),
         ");"
       )
@@ -184,7 +184,7 @@ case class TopPrivateFunctions(
           wrapInScope(
             s"$name.start(",
             List(
-              s"TaskIDs::$name,",
+              s"TaskIds::$name,",
               s"Priorities::$name,",
               s"StackSizes::$name"
             ).map(line),

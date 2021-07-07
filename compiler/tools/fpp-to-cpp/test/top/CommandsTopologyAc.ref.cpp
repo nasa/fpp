@@ -31,14 +31,14 @@ namespace M {
 
     // Initialize components
     void initComponents(const TopologyState& state) {
-      c1.init(InstanceIDs::c1);
-      c2.init(InstanceIDs::c2);
+      c1.init(InstanceIds::c1);
+      c2.init(InstanceIds::c2);
     }
 
-    // Set component base IDs
+    // Set component base Ids
     void setBaseIds() {
-      c1.setidBase(0x100);
-      c2.setidBase(0x200);
+      c1.setIdBase(0x100);
+      c2.setIdBase(0x200);
     }
 
     // Register commands
@@ -53,13 +53,13 @@ namespace M {
   // Public interface functions
   // ----------------------------------------------------------------------
 
-  setup(const TopologyState& state) {
+  void setup(const TopologyState& state) {
     initComponents(state);
     setBaseIds();
     regCommands();
   }
 
-  teardown(const TopologyState& state) {
+  void teardown(const TopologyState& state) {
 
   }
 

@@ -57,16 +57,16 @@ namespace Svc {
 
     // Initialize components
     void initComponents(const TopologyState& state) {
-      health.init(InstanceIDs::health);
-      c1.init(InstanceIDs::c1);
-      c2.init(InstanceIDs::c2);
+      health.init(InstanceIds::health);
+      c1.init(InstanceIds::c1);
+      c2.init(InstanceIds::c2);
     }
 
-    // Set component base IDs
+    // Set component base Ids
     void setBaseIds() {
-      health.setidBase(0x100);
-      c1.setidBase(0x200);
-      c2.setidBase(0x300);
+      health.setIdBase(0x100);
+      c1.setIdBase(0x200);
+      c2.setIdBase(0x300);
     }
 
     // Connect components
@@ -75,19 +75,19 @@ namespace Svc {
       // Health
       c2.set_pingOut_OutputPort(
         0,
-        health_get_pingIn_InputPort(1)
+        health.get_pingIn_InputPort(1)
       );
       health.set_pingOut_OutputPort(
         1,
-        c2_get_pingIn_InputPort(0)
+        c2.get_pingIn_InputPort(0)
       );
       c1.set_pingOut_OutputPort(
         0,
-        health_get_pingIn_InputPort(0)
+        health.get_pingIn_InputPort(0)
       );
       health.set_pingOut_OutputPort(
         0,
-        c1_get_pingIn_InputPort(0)
+        c1.get_pingIn_InputPort(0)
       );
 
     }
@@ -98,13 +98,13 @@ namespace Svc {
   // Public interface functions
   // ----------------------------------------------------------------------
 
-  setup(const TopologyState& state) {
+  void setup(const TopologyState& state) {
     initComponents(state);
     setBaseIds();
     connectComponents();
   }
 
-  teardown(const TopologyState& state) {
+  void teardown(const TopologyState& state) {
 
   }
 

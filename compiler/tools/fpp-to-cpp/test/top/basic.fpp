@@ -33,7 +33,7 @@ module M {
   """
 
   init active2 phase Phases.instances """
-  Active active1();
+  Active active2;
   """
 
   init active2 phase Phases.initComponents """

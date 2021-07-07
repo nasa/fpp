@@ -35,7 +35,7 @@ namespace M {
     Active active1(FW_OPTIONAL_NAME("active1"));
 
     // active2
-    Active active1();
+    Active active2;
 
     // passive1
     Passive passive1(FW_OPTIONAL_NAME("passive1"));
@@ -49,10 +49,10 @@ namespace M {
 
     // Initialize components
     void initComponents(const TopologyState& state) {
-      active1.init(QueueSizes::active1, InstanceIDs::active1);
+      active1.init(QueueSizes::active1, InstanceIds::active1);
       active2.initSpecial();
-      passive1.init(InstanceIDs::passive1);
-      passive2.init(InstanceIDs::passive2);
+      passive1.init(InstanceIds::passive1);
+      passive2.init(InstanceIds::passive2);
     }
 
     // Configure components
@@ -60,12 +60,12 @@ namespace M {
       active2.config();
     }
 
-    // Set component base IDs
+    // Set component base Ids
     void setBaseIds() {
-      active1.setidBase(0x100);
-      active2.setidBase(0x200);
-      passive1.setidBase(0x300);
-      passive2.setidBase(0x400);
+      active1.setIdBase(0x100);
+      active2.setIdBase(0x200);
+      passive1.setIdBase(0x300);
+      passive2.setIdBase(0x400);
     }
 
     // Connect components
@@ -74,13 +74,13 @@ namespace M {
       // C1
       passive1.set_p_OutputPort(
         0,
-        active1_get_p_InputPort(0)
+        active1.get_p_InputPort(0)
       );
 
       // C2
       passive2.set_p_OutputPort(
         0,
-        active2_get_p_InputPort(0)
+        active2.get_p_InputPort(0)
       );
 
     }
@@ -88,7 +88,7 @@ namespace M {
     // Start tasks
     void startTasks(const TopologyState& state) {
       active1.start(
-        TaskIDs::active1,
+        TaskIds::active1,
         Priorities::active1,
         StackSizes::active1
       );
@@ -118,7 +118,7 @@ namespace M {
   // Public interface functions
   // ----------------------------------------------------------------------
 
-  setup(const TopologyState& state) {
+  void setup(const TopologyState& state) {
     initComponents(state);
     configComponents(state);
     setBaseIds();
@@ -126,7 +126,7 @@ namespace M {
     startTasks(state);
   }
 
-  teardown(const TopologyState& state) {
+  void teardown(const TopologyState& state) {
     stopTasks(state);
     freeThreads(state);
     tearDownComponents(state);
