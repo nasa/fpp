@@ -74,7 +74,7 @@ abstract class TopologyCppWriterUtils(
     wrapInScope(s"namespace $namespace {", ll, "}")
 
   def wrapInEnum(ll: List[Line]): List[Line] =
-    wrapInScope("enum {", ll, "}")
+    wrapInScope("enum {", ll, "};")
 
   def getSpecifierForPhase (phase: Int) (ci: ComponentInstance): 
     Option[InitSpecifier] = s.a.initSpecifierMap.getOrElse(ci, Map()).

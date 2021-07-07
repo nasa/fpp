@@ -27,7 +27,7 @@ namespace Svc {
       health = 0x100,
       c1 = 0x200,
       c2 = 0x300,
-    }
+    };
   }
 
   namespace InstanceIds {
@@ -35,7 +35,7 @@ namespace Svc {
       health,
       c1,
       c2,
-    }
+    };
   }
 
   // ----------------------------------------------------------------------

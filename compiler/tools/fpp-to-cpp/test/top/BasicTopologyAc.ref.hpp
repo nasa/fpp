@@ -37,7 +37,7 @@ namespace M {
       active2 = 0x200,
       passive1 = 0x300,
       passive2 = 0x400,
-    }
+    };
   }
 
   namespace InstanceIds {
@@ -46,35 +46,35 @@ namespace M {
       active2,
       passive1,
       passive2,
-    }
+    };
   }
 
   namespace Priorities {
     enum {
       active1 = 1,
       active2 = 1,
-    }
+    };
   }
 
   namespace QueueSizes {
     enum {
       active1 = 10,
       active2 = 10,
-    }
+    };
   }
 
   namespace StackSizes {
     enum {
       active1 = 1024,
       active2 = 1024,
-    }
+    };
   }
 
   namespace TaskIds {
     enum {
       active1,
       active2,
-    }
+    };
   }
 
   // ----------------------------------------------------------------------
