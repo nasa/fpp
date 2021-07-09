@@ -9,14 +9,14 @@
 // All rights reserved.
 // ======================================================================
 
-#ifndef Svc_HealthTopologyAc_HPP
-#define Svc_HealthTopologyAc_HPP
+#ifndef M_HealthTopologyAc_HPP
+#define M_HealthTopologyAc_HPP
 
 #include "C.hpp"
-#include "Health.hpp"
+#include "HealthImpl.hpp"
 #include "HealthTopologyDefs.hpp"
 
-namespace Svc {
+namespace M {
 
   // ----------------------------------------------------------------------
   // Constants

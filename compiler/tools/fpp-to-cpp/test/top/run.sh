@@ -13,7 +13,7 @@ commands()
 
 health()
 {
-  run_test "-p $PWD" health && \
+  run_test "-i builtin.fpp -p $PWD" health && \
     diff_cpp HealthTopology
 }
 

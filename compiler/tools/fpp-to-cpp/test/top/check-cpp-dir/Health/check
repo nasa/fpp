@@ -1,0 +1,22 @@
+#!/bin/sh -e
+
+echo '  removing old files'
+./clean
+
+dir=`cd ../..; echo $PWD`
+
+echo '  generating XML'
+fpp-to-xml -p $dir -i ../../builtin.fpp ../../health.fpp
+
+echo '  generating C++'
+for file in CComponent HealthComponent PingPort
+do
+  fprime-codegen $file'Ai.xml' > /dev/null
+done
+for suffix in hpp cpp
+do
+  cp ../../HealthTopologyAc.ref.$suffix HealthTopologyAc.$suffix
+done
+
+echo '  compiling C++'
+fprime-gcc -c HealthTopologyAc.cpp

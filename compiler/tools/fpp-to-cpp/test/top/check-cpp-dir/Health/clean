@@ -1,0 +1,6 @@
+#!/bin/sh -e
+
+for file in `find . -name '*~' -or -name '*Ac.*' -or -name '*Ai.xml' -or -name '*.o'`
+do
+  rm $file
+done

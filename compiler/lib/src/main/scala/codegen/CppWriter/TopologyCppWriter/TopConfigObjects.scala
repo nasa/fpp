@@ -108,7 +108,7 @@ case class TopConfigObjects(
         // Entries are positional, so we must generate code 
         // for any unconnected entries in this range.
         List.range(0, maxNum+1).flatMap(n => getEntryLines(map.get(n))),
-        "}"
+        "};"
       )
     }
 

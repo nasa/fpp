@@ -11,7 +11,7 @@
 
 #include "HealthTopologyAc.hpp"
 
-namespace Svc {
+namespace M {
 
   namespace {
 
@@ -33,7 +33,7 @@ namespace Svc {
             PingEntries::c2::FATAL,
             "c2"
           },
-        }
+        };
       }
 
     }
@@ -43,7 +43,7 @@ namespace Svc {
     // ----------------------------------------------------------------------
 
     // health
-    Health health(FW_OPTIONAL_NAME("health"));
+    Svc::HealthImpl health(FW_OPTIONAL_NAME("health"));
 
     // c1
     C c1(FW_OPTIONAL_NAME("c1"));

@@ -13,7 +13,7 @@ commands()
 
 health()
 {
-  update "-p $PWD" health
+  update "-i builtin.fpp -p $PWD" health
   move_cpp HealthTopology
 }
 
