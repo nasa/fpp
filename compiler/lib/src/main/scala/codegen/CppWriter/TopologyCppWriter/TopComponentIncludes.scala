@@ -19,15 +19,16 @@ case class TopComponentIncludes(
   private def getHeaderString(ci: ComponentInstance): String =
     CppWriter.headerString(getIncludePath(ci))
 
-  private def getIncludePath(ci: ComponentInstance): String =
-    ci.file match {
-      case Some(file) => file
+  private def getIncludePath(ci: ComponentInstance): String = {
+    val path = ci.file match {
+      case Some(file) => File.getJavaPath(file)
       case None =>
         val c = ci.component
         val node = c.aNode._2
         val loc = Locations.get(node.id)
-        val fullPath = loc.getNeighborPath(s"${node.data.name}.hpp")
-        s.removeLongestPathPrefix(fullPath).toString
+        loc.getNeighborPath(s"${node.data.name}.hpp")
     }
+    s.removeLongestPathPrefix(path).toString
+  }
 
 }

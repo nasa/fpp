@@ -53,11 +53,12 @@ object File {
   /** Standard input */
   final case object StdIn extends File
 
+  /** Get the Java path associated with a string */
+  def getJavaPath(s: String): JavaPath =
+    java.nio.file.Paths.get(s).toAbsolutePath.normalize
+
   /** Construct a file from a string representing a file path */
-  def fromString(s: String): File = {
-    val p = java.nio.file.Paths.get(s).toAbsolutePath.normalize
-    File.Path(p)
-  }
+  def fromString(s: String): File = Path(getJavaPath(s))
 
   /** Remove the longest prefix from a Java path */
   def removeLongestPrefix(prefixes: List[String])(path: JavaPath): JavaPath = {
