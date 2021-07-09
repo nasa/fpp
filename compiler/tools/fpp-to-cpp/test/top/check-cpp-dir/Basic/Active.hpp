@@ -34,7 +34,7 @@ namespace M {
       void startSpecial() {
 
       }
-      
+
       void p_handler(NATIVE_INT_TYPE portNum) {
 
       }
