@@ -12,6 +12,7 @@ pwd=$PWD
 
 fprime_codegen=$COMPILER_ROOT/scripts/fprime-codegen
 fprime_gcc=$COMPILER_ROOT/scripts/fprime-gcc
+test_dir="$COMPILER_ROOT/tools/fpp-to-xml/test"
 
 files=`find . -name '*Ai.ref.xml'`
 
@@ -46,7 +47,7 @@ do
     then
     echo "compiling $cpp_file"
     cd $dir
-    $fprime_gcc -c $cpp_file
+    $fprime_gcc -I $test_dir -c $cpp_file
     cd $pwd
   else
     echo "skipping $cpp_file"

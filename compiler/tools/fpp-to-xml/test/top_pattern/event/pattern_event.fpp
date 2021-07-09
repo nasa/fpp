@@ -1,5 +1,6 @@
 module Fw {
-  port Time
+  type Time
+  port Time($time: Fw.Time)
   port Log
 }
 module M {
