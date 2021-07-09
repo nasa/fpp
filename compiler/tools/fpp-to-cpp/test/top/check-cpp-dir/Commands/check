@@ -7,7 +7,7 @@ dir=`cd ../..; echo $PWD`
 
 echo '  generating XML'
 fpp-to-xml -p $dir -i ../../builtin.fpp ../../commands.fpp
-cp Fw/Cmd/*Ai.xml .
+cp ../Fw/Cmd/*Ai.xml .
 
 echo '  generating C++'
 for file in CComponent CmdPort CmdRegPort CmdResponsePort
@@ -20,4 +20,4 @@ do
 done
 
 echo '  compiling C++'
-fprime-gcc -I . -c CommandsTopologyAc.cpp
+fprime-gcc -I .. -c CommandsTopologyAc.cpp

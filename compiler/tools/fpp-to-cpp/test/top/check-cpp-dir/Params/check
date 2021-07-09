@@ -1,0 +1,24 @@
+#!/bin/sh -e
+
+echo '  removing old files'
+./clean
+
+dir=`cd ../..; echo $PWD`
+
+echo '  generating XML'
+fpp-to-xml -p $dir ../../builtin.fpp ../../params.fpp
+cp ../Fw/Cmd/*Ai.xml .
+cp ../Fw/Prm/*Ai.xml .
+
+echo '  generating C++'
+for file in CComponent CmdPort CmdRegPort CmdResponsePort PrmGetPort PrmSetPort
+do
+  fprime-codegen $file'Ai.xml' > /dev/null
+done
+for suffix in hpp cpp
+do
+  cp ../../ParamsTopologyAc.ref.$suffix ParamsTopologyAc.$suffix
+done
+
+echo '  compiling C++'
+fprime-gcc -I .. -c ParamsTopologyAc.cpp
