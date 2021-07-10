@@ -103,7 +103,7 @@ namespace M {
 
     // Free threads
     void freeThreads(const TopologyState& state) {
-      active1.ActiveComponentBase::join(NULL);
+      (void) active1.ActiveComponentBase::join(NULL);
       active2.freeSpecial();
     }
 
