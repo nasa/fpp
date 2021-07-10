@@ -62,14 +62,10 @@ case class TopologyCppWriter(
     )
     val publicFunctions = TopPublicFunctions(s, aNode, privateFns).getMembers
     val defs = hppLines :: cppLines :: publicFunctions
-    namespace match {
-      case Some(ns) => List(
-        hppIncludes,
-        cppIncludes,
-        CppWriter.namespaceMember(ns, defs)
-      )
-      case None => hppIncludes :: cppIncludes :: defs
-    }
+    List(
+      List(hppIncludes, cppIncludes),
+      CppWriter.wrapInNamespaces(namespaceIdentList, defs)
+    ).flatten
   }
 
 }

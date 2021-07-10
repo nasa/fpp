@@ -62,8 +62,17 @@ object CppWriter extends AstStateVisitor with LineUtils {
 
   def namespaceMember(
     name: String,
-    members: List[CppDoc.Namespace.Member]
+    members: List[CppDoc.Member]
   ) = CppDoc.Member.Namespace(CppDoc.Namespace(name, members))
+
+  def wrapInNamespaces(
+    namespaceNames: List[String],
+    members: List[CppDoc.Member]
+  ): List[CppDoc.Member] = namespaceNames match {
+    case Nil => members
+    case head :: tail =>
+      List(namespaceMember(head, wrapInNamespaces(tail, members)))
+  }
 
   def writeCppDoc(s: CppWriterState, cppDoc: CppDoc) =
     for {

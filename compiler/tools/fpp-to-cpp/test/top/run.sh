@@ -17,6 +17,18 @@ health()
     diff_cpp HealthTopology
 }
 
+nested_namespaces()
+{
+  run_test "-p $PWD" nested_namespaces && \
+    diff_cpp NestedNamespacesTopology
+}
+
+no_namespace()
+{
+  run_test "-p $PWD" no_namespace && \
+    diff_cpp NoNamespaceTopology
+}
+
 params()
 {
   run_test "-i builtin.fpp -p $PWD" params && \

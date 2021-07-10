@@ -17,6 +17,18 @@ health()
   move_cpp HealthTopology
 }
 
+nested_namespaces()
+{
+  update "-p $PWD" nested_namespaces
+  move_cpp NestedNamespacesTopology
+}
+
+no_namespace()
+{
+  update "-p $PWD" no_namespace
+  move_cpp NoNamespaceTopology
+}
+
 params()
 {
   update "-i builtin.fpp -p $PWD" params

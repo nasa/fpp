@@ -95,10 +95,7 @@ object CppDoc {
   }
 
   /** A C++ namespace */
-  case class Namespace(name: String, members: List[Namespace.Member])
-  object Namespace {
-    type Member = CppDoc.Member
-  }
+  case class Namespace(name: String, members: List[Member])
 
   /** A C++ type. The .cpp spelling of the type can be different from the .hpp type. 
    *  E.g., the .cpp version may need more qualifiers. */

@@ -73,4 +73,12 @@ case class CppWriterState(
       s => CppWriter.translateQualifiedName(a.getQualifiedName(s))
     )
 
+  /** Gets the list of identifiers representing the namespace
+   *  associated with a symbol */
+  def getNamespaceIdentList(symbol: Symbol): List[String] =
+    a.parentSymbolMap.get(symbol) match {
+      case Some(s) => a.getQualifiedName(s).toIdentList
+      case None => Nil
+    }
+
 }

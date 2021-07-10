@@ -31,7 +31,7 @@ trait CppDocVisitor {
     }
   }
 
-  def visitNamespaceMember(in: Input, member: CppDoc.Namespace.Member): Output =
+  def visitNamespaceMember(in: Input, member: CppDoc.Member): Output =
     visitMember(in, member)
 
   def visitClassMember(in: Input, member: CppDoc.Class.Member): Output = {

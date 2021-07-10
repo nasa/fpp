@@ -12,7 +12,7 @@ abstract class TopologyCppWriterUtils(
 
   val symbol = Symbol.Topology(aNode)
 
-  val namespace = s.getNamespace(symbol)
+  val namespaceIdentList = s.getNamespaceIdentList(symbol)
 
   val name = aNode._2.data.name
 
