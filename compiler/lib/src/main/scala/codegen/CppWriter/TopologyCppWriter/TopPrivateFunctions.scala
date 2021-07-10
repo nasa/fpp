@@ -20,6 +20,7 @@ case class TopPrivateFunctions(
       getSetBaseIdsLines,
       getConnectComponentsLines,
       getRegCommandsLines,
+      getReadParametersLines,
       getLoadParametersLines,
       getStartTasksLines,
       getStopTasksLines,
@@ -145,6 +146,21 @@ case class TopPrivateFunctions(
     val name = "regCommands"
     val ll = addComment(
       "Register commands",
+      wrapInScope(
+        s"void $name() {",
+        instances.flatMap(getCode),
+        "}"
+      )
+    )
+    (name, ll)
+  }
+
+  private def getReadParametersLines: (String, List[Line]) = {
+    def getCode(ci: ComponentInstance): List[Line] =
+      getCodeLinesForPhase (CppWriter.Phases.readParameters) (ci).getOrElse(Nil)
+    val name = "readParameters"
+    val ll = addComment(
+      "Read parameters",
       wrapInScope(
         s"void $name() {",
         instances.flatMap(getCode),

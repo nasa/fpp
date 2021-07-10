@@ -47,6 +47,11 @@ namespace M {
       c2.regCommands();
     }
 
+    // Read parameters
+    void readParameters() {
+      c1.readParamFile();
+    }
+
     // Load parameters
     void loadParameters() {
       c1.loadParamsSpecial();

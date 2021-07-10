@@ -127,20 +127,23 @@ object CppWriter extends AstStateVisitor with LineUtils {
     /** Register commands */
     val regCommands = 5
 
+    /** Read parameters */
+    val readParameters = 6
+
     /** Load parameters */
-    val loadParameters = 6
+    val loadParameters = 7
 
     /** Start tasks */
-    val startTasks = 7
+    val startTasks = 8
 
     /** Start tasks */
-    val stopTasks = 8
+    val stopTasks = 9
 
     /** Free threads */
-    val freeThreads = 9
+    val freeThreads = 10
 
     /** Tear down components */
-    val tearDownComponents = 10
+    val tearDownComponents = 11
 
   }
 
