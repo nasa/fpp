@@ -33,7 +33,6 @@ enum FppConstant_e {
   e = 3
 };
 
-
 namespace M {
 
   //! Constant a

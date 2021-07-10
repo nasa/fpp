@@ -89,7 +89,7 @@ object ConstantCppWriter {
         case Nil => Nil
         case _ =>
           val namespace = CppWriter.namespaceMember(data.name, members)
-          List(CppWriter.linesMember(List(Line.blank)), namespace)
+          List(namespace)
       }
     }
 
