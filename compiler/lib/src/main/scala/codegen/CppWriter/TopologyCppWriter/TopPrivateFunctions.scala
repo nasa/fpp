@@ -113,7 +113,7 @@ case class TopPrivateFunctions(
         List(
           s"${out._3},",
           s"${in._1}.get_${in._2}_InputPort(${in._3})"
-        ).map(line),
+        ).map(line).map(indentIn),
         ");"
       )
     }

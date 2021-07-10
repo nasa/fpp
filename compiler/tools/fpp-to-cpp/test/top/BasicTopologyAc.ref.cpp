@@ -73,14 +73,14 @@ namespace M {
 
       // C1
       passive1.set_p_OutputPort(
-        0,
-        active1.get_p_InputPort(0)
+          0,
+          active1.get_p_InputPort(0)
       );
 
       // C2
       passive2.set_p_OutputPort(
-        0,
-        active2.get_p_InputPort(0)
+          0,
+          active2.get_p_InputPort(0)
       );
 
     }

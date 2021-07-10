@@ -74,20 +74,20 @@ namespace M {
 
       // Health
       c2.set_pingOut_OutputPort(
-        0,
-        health.get_pingIn_InputPort(1)
+          0,
+          health.get_pingIn_InputPort(1)
       );
       health.set_pingOut_OutputPort(
-        1,
-        c2.get_pingIn_InputPort(0)
+          1,
+          c2.get_pingIn_InputPort(0)
       );
       c1.set_pingOut_OutputPort(
-        0,
-        health.get_pingIn_InputPort(0)
+          0,
+          health.get_pingIn_InputPort(0)
       );
       health.set_pingOut_OutputPort(
-        0,
-        c1.get_pingIn_InputPort(0)
+          0,
+          c1.get_pingIn_InputPort(0)
       );
 
     }
