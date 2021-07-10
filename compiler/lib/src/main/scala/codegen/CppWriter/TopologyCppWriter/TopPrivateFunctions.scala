@@ -124,7 +124,10 @@ case class TopPrivateFunctions(
         s"void $name() {",
         addBlankPostfix(
           t.connectionMap.toList.sortWith(_._1 < _._1).flatMap {
-            case (name, cs) => addComment(name, cs.sorted.flatMap(writeConnection))
+            case (name, cs) => addComment(
+              name,
+              t.sortConnections(cs).flatMap(writeConnection).toList
+            )
           }
         ),
         "}"
