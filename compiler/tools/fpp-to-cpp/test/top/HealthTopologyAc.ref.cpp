@@ -73,21 +73,21 @@ namespace M {
     void connectComponents() {
 
       // Health
+      c1.set_pingOut_OutputPort(
+          0,
+          health.get_pingIn_InputPort(0)
+      );
       c2.set_pingOut_OutputPort(
           0,
           health.get_pingIn_InputPort(1)
       );
       health.set_pingOut_OutputPort(
-          1,
-          c2.get_pingIn_InputPort(0)
-      );
-      c1.set_pingOut_OutputPort(
-          0,
-          health.get_pingIn_InputPort(0)
-      );
-      health.set_pingOut_OutputPort(
           0,
           c1.get_pingIn_InputPort(0)
+      );
+      health.set_pingOut_OutputPort(
+          1,
+          c2.get_pingIn_InputPort(0)
       );
 
     }

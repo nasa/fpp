@@ -124,7 +124,7 @@ case class TopPrivateFunctions(
         s"void $name() {",
         addBlankPostfix(
           t.connectionMap.toList.flatMap { 
-            case (name, cs) => addComment(name, cs.flatMap(writeConnection))
+            case (name, cs) => addComment(name, cs.sorted.flatMap(writeConnection))
           }
         ),
         "}"
