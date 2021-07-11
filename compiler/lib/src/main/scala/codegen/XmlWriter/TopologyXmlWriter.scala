@@ -45,7 +45,13 @@ object TopologyXmlWriter extends AstVisitor with LineUtils {
       )
       XmlTags.taggedLines ("instance", pairs) (Nil)
     }
-    t.instanceMap.keys.toArray.sorted.flatMap(writeInstance).toList
+    val instances = t.instanceMap.keys.toArray.sortWith {
+      case (a, b) => 
+        if (a.baseId != b.baseId) a.baseId < b.baseId
+        else a < b
+    }
+    //t.instanceMap.keys.toArray.sorted.flatMap(writeInstance).toList
+    instances.flatMap(writeInstance).toList
   }
 
   private def writeConnections(s: XmlWriterState, t: Topology) = {
