@@ -32,9 +32,9 @@ namespace M {
 
   namespace InstanceIds {
     enum {
-      health,
       c1,
       c2,
+      health,
     };
   }
 

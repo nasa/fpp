@@ -45,12 +45,13 @@ case class TopConstants(
 
   private def generateEnum(
     namespace: String,
-    f: ComponentInstance => Option[String]
+    f: ComponentInstance => Option[String],
+    il: List[ComponentInstance] = instances
   ): List[Line] = {
     wrapInNamespace(
       namespace,
       wrapInEnum(
-        instances.map(f).filter(_.isDefined).
+        il.map(f).filter(_.isDefined).
         map(_.get).map(s => line(s"$s,"))
       )
     )
@@ -63,7 +64,8 @@ case class TopConstants(
         val name = getNameAsIdent(ci.qualifiedName)
         val value = CppWriter.writeId(ci.baseId)
         Some(s"$name = $value")
-      }
+      },
+      instancesByBaseId
     )
 
   private def getInstanceIdLines: List[Line] =

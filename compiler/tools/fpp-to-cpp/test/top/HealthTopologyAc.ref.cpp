@@ -42,14 +42,14 @@ namespace M {
     // Component instances
     // ----------------------------------------------------------------------
 
-    // health
-    Svc::HealthImpl health(FW_OPTIONAL_NAME("health"));
-
     // c1
     C c1(FW_OPTIONAL_NAME("c1"));
 
     // c2
     C c2(FW_OPTIONAL_NAME("c2"));
+
+    // health
+    Svc::HealthImpl health(FW_OPTIONAL_NAME("health"));
 
     // ----------------------------------------------------------------------
     // Private functions
@@ -57,9 +57,9 @@ namespace M {
 
     // Initialize components
     void initComponents(const TopologyState& state) {
-      health.init(InstanceIds::health);
       c1.init(InstanceIds::c1);
       c2.init(InstanceIds::c2);
+      health.init(InstanceIds::health);
     }
 
     // Set component base Ids

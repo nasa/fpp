@@ -87,7 +87,7 @@ case class TopPrivateFunctions(
       "Set component base Ids",
       wrapInScope(
         s"void $name() {",
-        instances.map(ci => {
+        instancesByBaseId.map(ci => {
           val name = getNameAsIdent(ci.qualifiedName)
           val id = CppWriter.writeId(ci.baseId)
           line(s"$name.setIdBase($id);")

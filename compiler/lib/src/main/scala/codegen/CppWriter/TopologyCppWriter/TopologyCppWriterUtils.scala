@@ -20,6 +20,11 @@ abstract class TopologyCppWriterUtils(
 
   val instances = t.instanceMap.keys.toList.sorted
 
+  val instancesByBaseId = instances.sortWith {
+    case (a, b) => if (a.baseId != b.baseId) a.baseId < b.baseId
+    else a < b
+  }
+
   def isActive(ci: ComponentInstance) =
     ci.component.aNode._2.data.kind == Ast.ComponentKind.Active
 

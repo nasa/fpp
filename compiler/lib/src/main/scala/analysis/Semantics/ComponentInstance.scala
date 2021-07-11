@@ -24,10 +24,8 @@ final case class ComponentInstance(
   /** Gets the location of the component instance */
   def getLoc: Location = Locations.get(aNode._2.id)
 
-  override def compare(that: ComponentInstance) = {
-    if (this.baseId != that.baseId) this.baseId - that.baseId
-    else this.getUnqualifiedName.compare(that.getUnqualifiedName)
-  }
+  override def compare(that: ComponentInstance) =
+    this.qualifiedName.toString.compare(that.qualifiedName.toString)
 
 }
 
