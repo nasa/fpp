@@ -183,7 +183,7 @@ The lexer ignores <<Comments-and-Annotations_Comments,comments>>.
 Specifically:
 
 * A comment followed by a <<Lexical-Elements_End-of-Line-Tokens,newline>> is treated as 
-an newline.
+a newline.
 
 * A comment at the end of a file, not followed by a newline, is 
 treated as no text.
