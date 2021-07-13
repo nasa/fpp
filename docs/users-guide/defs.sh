@@ -19,6 +19,8 @@ Defining-Types.adoc
 Defining-Enums.adoc
 Defining-Ports.adoc
 Defining-Components.adoc
+Defining-Component-Instances.adoc
+Defining-Topologies.adoc
 Specifying-Models.adoc
 Analyzing-and-Translating-Models.adoc
 "
