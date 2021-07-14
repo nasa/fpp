@@ -68,6 +68,7 @@ namespace M {
     initComponents(state);
     setBaseIds();
     regCommands();
+    readParameters();
     loadParameters();
   }
 

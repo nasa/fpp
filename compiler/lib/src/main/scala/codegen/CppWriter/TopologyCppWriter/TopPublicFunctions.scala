@@ -51,6 +51,7 @@ case class TopPublicFunctions(
         ("setBaseIds", ""),
         ("connectComponents", ""),
         ("regCommands", ""),
+        ("readParameters", ""),
         ("loadParameters", ""),
         ("startTasks", "state"),
       ).flatMap(writeFnCall)
