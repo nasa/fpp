@@ -8,11 +8,11 @@ case class XmlWriterState(
   /** The result of semantic analysis */
   a: Analysis,
   /** The output directory */
-  dir: String,
+  dir: String = ".",
   /** The list of include prefixes */
-  prefixes: List[String],
+  prefixes: List[String] = Nil,
   /** The default string size */
-  defaultStringSize: Int,
+  defaultStringSize: Int = XmlWriterState.defaultDefaultStringSize,
   /** The map from strings to locations */
   locationMap: Map[String, Location] = Map()
 ) {
@@ -165,6 +165,9 @@ case class XmlWriterState(
 }
 
 case object XmlWriterState extends LineUtils {
+
+  /** The default default string size */
+  val defaultDefaultStringSize = 80
 
   /** Gets the generated XML file name for an array definition */
   def getArrayFileName(baseName: String) = s"${baseName}ArrayAi.xml"

@@ -17,7 +17,7 @@ object FPPToCpp {
     guardPrefix: Option[String] = None,
     names: Option[String] = None,
     pathPrefixes: List[String] = Nil,
-    defaultStringSize: Int = 80,
+    defaultStringSize: Int = CppWriterState.defaultDefaultStringSize,
     template: Boolean = false,
   )
 
@@ -63,7 +63,7 @@ object FPPToCpp {
     val file = File.fromString(fileName)
     for { writer <- file.openWrite() 
     } yield { 
-      cppFiles.map(_.toString).sortWith(_ < _).map(writer.println(_))
+      cppFiles.sorted.map(writer.println(_))
       writer.close()
     }
   }

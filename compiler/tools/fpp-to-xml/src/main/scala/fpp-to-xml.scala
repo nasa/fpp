@@ -16,7 +16,7 @@ object FPPToXml {
     imports: List[File] = Nil,
     names: Option[String] = None,
     prefixes: List[String] = Nil,
-    defaultStringSize: Int = 80,
+    defaultStringSize: Int = XmlWriterState.defaultDefaultStringSize,
   )
 
   def command(options: Options) = {
@@ -58,7 +58,7 @@ object FPPToXml {
     val file = File.fromString(fileName)
     for { writer <- file.openWrite() 
     } yield { 
-      xmlFiles.map(_.toString).sortWith(_ < _).map(writer.println(_))
+      xmlFiles.sorted.map(writer.println(_))
       writer.close()
     }
   }

@@ -421,6 +421,47 @@ To specify multiple prefixes, separate them with commas (and no spaces).
 This is similar to the `-p` option for
 <<Analyzing-and-Translating-Models_Generating-XML, `fpp-to-xml`>>.
 
+=== Identifying Generated Files
+
+As discussed in the previous section, the `-n` option
+of `fpp-to-xml` and `fpp-to-cpp` lets you collect the names of
+files generated from an FPP model as those files are generated.
+However, sometimes you need to know the names of the generated
+files up front.
+For example, the CMake build tool writes out a Makefile rule
+for every generated file, and it does this as an initial step
+before generating any files.
+
+In this case, you can use the tool `fpp-filenames`.
+Like `fpp-check`, `fpp-filenames` reads the files
+provided as command-line arguments if there are any;
+otherwise it reads from standard input.
+The FPP source presented to `fpp-filenames` need not be a complete
+model (i.e., it may contain undefined symbols).
+The tool parses the FPP source that you give it.
+It identifies all definitions in the source that would cause
+XML files to be generated when running `fpp-to-xml`
+or would cause {cpp} files to be generated when running
+`fpp-to-cpp`.
+Then it writes the names of those files to standard output.
+
+For example:
+
+----
+% fpp-filenames
+array A = [3] U32
+^D
+AArrayAi.xml
+----
+
+----
+% fpp-filenames
+constant a = 0
+^D
+FppConstantsAc.cpp
+FppConstantsAc.hpp
+----
+
 === Implementing Abstract Types
 
 Except for a few built-in types (see below), when translating to XML and then {cpp}, an
@@ -909,3 +950,20 @@ include "a.fppi"
 constant a = 0
 ----
 
+`fpp-format` has one big limitation: it goes through
+the FPP parser, so it deletes all
+<<Writing-Comments-and-Annotations_Comments,comments>>
+from the program
+(<<Writing-Comments-and-Annotations_Annotations,annotations>>
+are preserved).
+To preserve comments on their own lines that precede
+annotatable elements, you can run this script:
+
+[source,bash]
+----
+#!/bin/sh
+sed 's/^\( *\)#/\1@ #/' | fpp-format $@ | sed 's/^\( *\)@ #/\1#/'
+----
+
+It converts comments to annotations, runs `fpp-format`, and converts the 
+annotations back to comments.
