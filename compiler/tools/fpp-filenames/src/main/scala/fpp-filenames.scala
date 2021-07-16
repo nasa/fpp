@@ -2,7 +2,9 @@ package fpp.compiler.tools
 
 import fpp.compiler.analysis._
 import fpp.compiler.ast._
+import fpp.compiler.codegen._
 import fpp.compiler.syntax._
+import fpp.compiler.transform._
 import fpp.compiler.util._
 import scopt.OParser
 
@@ -10,7 +12,6 @@ object FPPFilenames {
 
   case class Options(
     files: List[File] = List(),
-    unconnectedFile: Option[String] = None
   )
 
   def command(options: Options) = {
@@ -21,34 +22,37 @@ object FPPFilenames {
     val a = Analysis(inputFileSet = options.files.toSet)
     for {
       tul <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
-      a <- CheckSemantics.tuList(a, tul)
-      _ <- options.unconnectedFile match {
-        case Some(file) => writeUnconnectedPorts(a, file)
-        case None => Right(())
-      }
-    } yield a
+      aTul <- ResolveSpecInclude.transformList(
+        a,
+        tul,
+        ResolveSpecInclude.transUnit
+      )
+      a <- Right(aTul._1)
+      tul <- Right(aTul._2)
+      a <- EnterSymbols.visitList(a, tul, EnterSymbols.transUnit)
+      xmlFiles <- getXmlFiles(a, tul)
+      cppFiles <- getCppFiles(tul)
+    } yield {
+      val files = xmlFiles ++ cppFiles
+      files.sorted.map(System.out.println)
+    }
   }
 
-  def writeUnconnectedPorts(a: Analysis, fileName: String): Result.Result[Unit] = {
-    val file = File.fromString(fileName)
-    for (writer <- file.openWrite())
-      yield { 
-        a.topologyMap.map({ case (s, t) => {
-          val set = t.unconnectedPortSet
-          if (set.size > 0) {
-            val name = a.getQualifiedName(s)
-            writer.println(s"Topology ${name}:")
-            set.map(_.getQualifiedName.toString).
-              toArray.sortWith(_ < _).
-              map(str => writer.println(s"  $str"))
-            writer.println("")
-          }
-          else
-            ()
-        }})
-        writer.close()
-      }
-  }
+  def getCppFiles(tul: List[Ast.TransUnit]) =
+    for {
+      s <- ComputeCppFiles.visitList(Map(), tul, ComputeCppFiles.transUnit)
+    }
+    yield s.toList.map(_._1)
+
+  def getXmlFiles(a: Analysis, tul: List[Ast.TransUnit]) =
+    for {
+      s <- ComputeXmlFiles.visitList(
+        XmlWriterState(a),
+        tul,
+        ComputeXmlFiles.transUnit
+      )
+    }
+    yield s.locationMap.toList.map(_._1)
 
   def main(args: Array[String]) = {
     Error.setTool(Tool(name))
@@ -75,10 +79,6 @@ object FPPFilenames {
       programName(name),
       head(name, Version.v),
       help('h', "help").text("print this message and exit"),
-      opt[String]('u', "unconnected")
-        .valueName("<file>")
-        .action((m, c) => c.copy(unconnectedFile = Some(m)))
-        .text("write unconnected ports to file"),
       arg[String]("file ...")
         .unbounded()
         .optional()
