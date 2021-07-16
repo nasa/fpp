@@ -8028,13 +8028,33 @@ include "a.fppi"
 constant a = 0</pre>
 </div>
 </div>
+<div class="paragraph">
+<p><code>fpp-format</code> has one big limitation: it goes through
+the FPP parser, so it deletes all
+<a href="#Writing-Comments-and-Annotations_Comments">comments</a>
+from the program
+(<a href="#Writing-Comments-and-Annotations_Annotations">annotations</a>
+are preserved).
+To preserve comments on their own lines that precede
+annotatable elements, you can run this script:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">#!/bin/sh
+sed 's/^\( *\)#/\1@ #/' | fpp-format $@ | sed 's/^\( *\)@ #/\1#/'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It converts comments to annotations, runs <code>fpp-format</code>, and converts the
+annotations back to comments.</p>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-15 18:28:48 -0700
+Last updated 2021-07-15 18:42:08 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
