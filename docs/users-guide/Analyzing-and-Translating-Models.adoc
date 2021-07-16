@@ -950,3 +950,20 @@ include "a.fppi"
 constant a = 0
 ----
 
+`fpp-format` has one big limitation: it goes through
+the FPP parser, so it deletes all
+<<Writing-Comments-and-Annotations_Comments,comments>>
+from the program
+(<<Writing-Comments-and-Annotations_Annotations,annotations>>
+are preserved).
+To preserve comments on their own lines that precede
+annotatable elements, you can run this script:
+
+[source,bash]
+----
+#!/bin/sh
+sed 's/^\( *\)#/\1@ #/' | fpp-format $@ | sed 's/^\( *\)@ #/\1#/'
+----
+
+It converts comments to annotations, runs `fpp-format`, and converts the 
+annotations back to comments.
