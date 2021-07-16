@@ -17,7 +17,7 @@ object FPPToCpp {
     guardPrefix: Option[String] = None,
     names: Option[String] = None,
     pathPrefixes: List[String] = Nil,
-    defaultStringSize: Int = 80,
+    defaultStringSize: Int = CppWriterState.defaultDefaultStringSize,
     template: Boolean = false,
   )
 

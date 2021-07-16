@@ -14,7 +14,7 @@ case class CppWriterState(
   /** The list of include path prefixes */
   pathPrefixes: List[String],
   /** The default string size */
-  defaultStringSize: Int,
+  defaultStringSize: Int = CppWriterState.defaultDefaultStringSize,
 ) {
 
   /** Adds the component name prefix to a name.
@@ -80,5 +80,12 @@ case class CppWriterState(
       case Some(s) => a.getQualifiedName(s).toIdentList
       case None => Nil
     }
+
+}
+
+object CppWriterState {
+
+  /** The default default string size */
+  val defaultDefaultStringSize = 80
 
 }
