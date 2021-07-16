@@ -8,12 +8,11 @@ framework].
 
 == Contents
 
-`docs`: The FPP Specification and User's Guide.
+`docs`: The FPP User's Guide and language specification.
 
 `editors`: Syntax highlighting for code editors. Currently vim is supported.
 
 `compiler`: The FPP analysis and translation tools.
-These tools are in development.
 
 == Building and Installing
 

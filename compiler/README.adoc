@@ -22,10 +22,11 @@ should put `FPP_INSTALL_DIR` in your shell path. For example, in bash:
 
 That way you can run the tools from anywhere.
 
-The currently available tools are as follows:
+The available tools are as follows:
 
 * `fpp-check`
 * `fpp-depend`
+* `fpp-filenames`
 * `fpp-format`
 * `fpp-from-xml`
 * `fpp-locate-defs`
@@ -33,10 +34,6 @@ The currently available tools are as follows:
 * `fpp-syntax`
 * `fpp-to-cpp`
 * `fpp-to-xml`
-
-As of v0.3.0, modeling and translation of constants, types, enums, ports,
-and components is supported.
-Topology support is planned for the following release.
 
 See https://fprime-community/fpp/wiki/Tools for more information.
 
