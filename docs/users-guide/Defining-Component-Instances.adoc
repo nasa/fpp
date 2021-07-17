@@ -265,7 +265,7 @@ This location can occur automatically in many cases.
 In other cases, you have to specify the location manually.
 
 *Automatic location:*
-The translator can automatically locate the header file if it
+The FPP translator can automatically locate the header file if it
 conforms to the following rules:
 
 . The header file is named `Name.fpp`, where `Name`
@@ -326,8 +326,8 @@ instance linuxTime: Svc.Time base id 0x4500 \
   at "../../Svc/LinuxTime/LinuxTimeImpl.hpp"
 ----
 
-This definition specifies that the implementation header file
-is `Svc/LinuxTime/LinuxTimeImpl.hpp`.
+This definition says to use implementation header file
+`Svc/LinuxTime/LinuxTimeImpl.hpp`.
 
 === Init Specifiers
 
