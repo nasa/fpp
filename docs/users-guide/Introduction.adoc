@@ -36,22 +36,6 @@ https://fprime-community.github.io/fpp[_The FPP Language
 Specification_].
 It is recommended that users read this document before consulting that one.
 
-*Scope:* This document covers the following features of FPP, which are the
-currently implemented features in the FPP compiler:
-
-* Constant definitions
-
-* Type and enum definitions
-
-* Port definitions
-
-* Component definitions
-
-* Specifying, analyzing, and translating models containing these kinds of
-definitions
-
-A future version of this document will cover FPP topologies.
-
 *XML limitations:*
 Currently we translate FPP to F Prime XML and then to {cpp}.
 Some features of FPP are not supported in the XML representation.
@@ -62,13 +46,13 @@ all the features described here.
 
 *Overview:* The rest of this document proceeds as follows.
 Section 2 explains how to get up and running with FPP.
-Sections 3 through 9 describe the elements of an FPP
+Sections 3 through 11 describe the elements of an FPP
 model, starting with the simplest elements (constants
 and types) and working towards the most complex (components
 and topologies).
-Section 10 explains how to specify complete models of realistic
+Section 12 explains how to specify complete models of realistic
 size; for example it covers the management of dependencies
 between the files that describe a model.
-Section 11 explains how to analyze FPP models and how
+Section 13 explains how to analyze FPP models and how
 to translate FPP models to and from F Prime XML
 and to {cpp}.

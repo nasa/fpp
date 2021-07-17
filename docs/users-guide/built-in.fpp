@@ -14,4 +14,7 @@ module Fw {
 
 module Svc {
   port Sched
+  passive component Time {
+
+  }
 }

@@ -693,33 +693,6 @@ Specification</em></a>.
 It is recommended that users read this document before consulting that one.</p>
 </div>
 <div class="paragraph">
-<p><strong>Scope:</strong> This document covers the following features of FPP, which are the
-currently implemented features in the FPP compiler:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Constant definitions</p>
-</li>
-<li>
-<p>Type and enum definitions</p>
-</li>
-<li>
-<p>Port definitions</p>
-</li>
-<li>
-<p>Component definitions</p>
-</li>
-<li>
-<p>Specifying, analyzing, and translating models containing these kinds of
-definitions</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>A future version of this document will cover FPP topologies.</p>
-</div>
-<div class="paragraph">
 <p><strong>XML limitations:</strong>
 Currently we translate FPP to F Prime XML and then to C&#43;&#43;.
 Some features of FPP are not supported in the XML representation.
@@ -731,14 +704,14 @@ all the features described here.</p>
 <div class="paragraph">
 <p><strong>Overview:</strong> The rest of this document proceeds as follows.
 Section 2 explains how to get up and running with FPP.
-Sections 3 through 9 describe the elements of an FPP
+Sections 3 through 11 describe the elements of an FPP
 model, starting with the simplest elements (constants
 and types) and working towards the most complex (components
 and topologies).
-Section 10 explains how to specify complete models of realistic
+Section 12 explains how to specify complete models of realistic
 size; for example it covers the management of dependencies
 between the files that describe a model.
-Section 11 explains how to analyze FPP models and how
+Section 13 explains how to analyze FPP models and how
 to translate FPP models to and from F Prime XML
 and to C&#43;&#43;.</p>
 </div>
@@ -5923,13 +5896,13 @@ opcode or identifier for the instance.</p>
 module FSW {
 
   @ Temperature sensor instance
-  instance tempSensor: Sensors.EngineTemp base id 0x100
+  instance engineTemp: Sensors.EngineTemp base id 0x100
 
 }</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Here we have defined a passive component <code>Sensors.EngineTemp</code> with three ports:
+<p>We have defined a passive component <code>Sensors.EngineTemp</code> with three ports:
 a schedule input port for driving the component periodically on a rate group,
 a time get port for getting the time, and a telemetry port
 for reporting telemetry.
@@ -5940,7 +5913,7 @@ We have given the component two telemetry channels:
 and <code>WarpCoreTemp</code> for reporting the temperature of the warp core.</p>
 </div>
 <div class="paragraph">
-<p>Next we have defined an instance <code>FSW.tempSensor</code> of component <code>Sensors.EngineTemp</code>.
+<p>Next we have defined an instance <code>FSW.engineTemp</code> of component <code>Sensors.EngineTemp</code>.
 Because the instance definition is in a different module from the
 component definition, we must refer to the component by its
 qualified name <code>Sensors.EngineTemp</code>.
@@ -5948,7 +5921,7 @@ If we wrote</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">instance tempSensor: EngineTemp base id 0x100</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">instance engineTemp: EngineTemp base id 0x100</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -5956,13 +5929,13 @@ If we wrote</p>
 (try it and see).</p>
 </div>
 <div class="paragraph">
-<p>We have specified that the base identifier of instance <code>FSW.tempSensor</code>
+<p>We have specified that the base identifier of instance <code>FSW.engineTemp</code>
 is the hexadecimal number 0x100 (256 decimal).
 In the component definition, the telemetry channel <code>ImpulseDriveTemp</code>
 has relative identifier 0, and the telemetry channel <code>WarpCoreTemp</code>
 has relative identifier 1.
 Therefore the corresponding telemetry channels for the instance
-<code>FSW.tempSensor</code> have identifiers 0x100 and 0x101 (256 and 257)
+<code>FSW.engineTemp</code> have identifiers 0x100 and 0x101 (256 and 257)
 respectively.</p>
 </div>
 <div class="paragraph">
@@ -5984,18 +5957,18 @@ identifier range of <em>I</em>.</p>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">module FSW {
 
-  @ Temperature sensor instance 1
-  instance tempSensor1: Sensors.EngineTemp base id 0x100
+  @ Temperature sensor for left engine
+  instance leftEngineTemp: Sensors.EngineTemp base id 0x100
 
-  @ Temperature sensor instance 2
-  instance tempSensor2: Sensors.EngineTemp base id 0x101
+  @ Temperature sensor for right engine
+  instance rightEngineTemp: Sensors.EngineTemp base id 0x101
 
 }</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The base identifier 0x101 for <code>tempSensor2</code> is inside the
-identifier range for <code>tempSensor1</code>, which goes from
+<p>The base identifier 0x101 for <code>rightEngineTemp</code> is inside the
+identifier range for <code>leftEngineTemp</code>, which goes from
 0x100 to 0x101, inclusive.</p>
 </div>
 </div>
@@ -6004,7 +5977,7 @@ identifier range for <code>tempSensor1</code>, which goes from
 <div class="paragraph">
 <p>Instantiating a queued component is just like instantiating
 a passive component, except that you must also specify
-a queue size.
+a queue size for the instance.
 You do this by writing the keywords <code>queue</code> <code>size</code> and
 the queue size after the base identifier.
 Here is an example:</p>
@@ -6044,7 +6017,7 @@ Here is an example:</p>
 module FSW {
 
   @ Temperature sensor instance
-  instance tempSensor: Sensors.EngineTemp base id 0x100 \
+  instance engineTemp: Sensors.EngineTemp base id 0x100 \
     queue size 10
 
 }</code></pre>
@@ -6108,7 +6081,7 @@ module FSW {
 </div>
 </div>
 <div class="paragraph">
-<p>Here we have defined an active component <code>Utils.DataCompressor</code>
+<p>We have defined an active component <code>Utils.DataCompressor</code>
 for compressing data.
 We have defined an instance of this component called
 <code>FSW.dataCompressor</code>.
@@ -6122,7 +6095,89 @@ the default queue and stack sizes.</p>
 <div class="sect3">
 <h4 id="Defining-Component-Instances_Component-Instance-Definitions_Specifying-Header-Files">10.1.4. Specifying Header Files</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>When you define a component instance <em>I</em>, the FPP translator needs
+to locate the header file for the C&#43;&#43;
+implementation associated with <em>I</em>.
+This location can occur automatically in many cases.
+In other cases, you have to specify the location manually.</p>
+</div>
+<div class="paragraph">
+<p><strong>Automatic location:</strong>
+The translator can automatically locate the header file if it
+conforms to the following rules:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The header file is named <code>Name.fpp</code>, where <code>Name</code>
+is the name of the component in the FPP model, without
+any module qualifiers.</p>
+</li>
+<li>
+<p>The header
+file is located in the same directory as the FPP
+source file that defines the component.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For example, the F Prime repository contains a reference FSW implementation
+with instances defined in the file <code>Ref/Top/init.fpp</code>.
+One of the instances is <code>SG1</code>.
+Its definition reads as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">instance SG1: Ref.SignalGen base id 0x2100 \
+  queue size Default.queueSize</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The FPP component <code>Ref.SignalGen</code> is
+defined in the directory <code>Ref/SignalGen/SignalGen.fpp</code>,
+and the implementation header file is
+<code>Ref/SignalGen/SignalGen.hpp</code>.
+In this case, the header file follows rules (1) and (2)
+stated above, so the FPP translator can automatically locate
+the file.</p>
+</div>
+<div class="paragraph">
+<p><strong>Manual specification:</strong>
+If the implementation header file does not follow
+rules (1) and (2) stated above, then you must specify
+the name and location of the header file by hand.
+You do that by writing the keyword <code>at</code> followed by the
+header file path enclosed in quotation marks.
+The header file path is relative to the directory
+containing the source file that defines the component
+instance.</p>
+</div>
+<div class="paragraph">
+<p>For example, the F Prime repository has a directory
+<code>Svc/Time</code> that contains an FPP model for a component
+<code>Svc.Time</code>.
+Because the C&#43;&#43; implementation for this component
+is platform-specific, the directory <code>Svc/Time</code> doesn&#8217;t
+contain any implementation.
+Instead, when instantiating the component, you have to
+provide the header file to an implementation located
+in a different directory.</p>
+</div>
+<div class="paragraph">
+<p>The F Prime repository also provides a Linux-specific implementation
+of the <code>Time</code> component in the directory <code>Svc/LinuxTime</code>.
+The file <code>Ref/Top/init.fpp</code> contains an instance definition
+<code>linuxTime</code> that reads as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">instance linuxTime: Svc.Time base id 0x4500 \
+  at "../../Svc/LinuxTime/LinuxTimeImpl.hpp"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This definition specifies that the implementation header file
+is <code>Svc/LinuxTime/LinuxTimeImpl.hpp</code>.</p>
 </div>
 </div>
 </div>
@@ -8379,7 +8434,7 @@ annotations back to comments.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-16 17:56:00 -0700
+Last updated 2021-07-16 21:28:47 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

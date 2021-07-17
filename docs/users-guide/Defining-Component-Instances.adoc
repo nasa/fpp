@@ -74,12 +74,12 @@ module Sensors {
 module FSW {
 
   @ Temperature sensor instance
-  instance tempSensor: Sensors.EngineTemp base id 0x100
+  instance engineTemp: Sensors.EngineTemp base id 0x100
 
 }
 ----
 
-Here we have defined a passive component `Sensors.EngineTemp` with three ports:
+We have defined a passive component `Sensors.EngineTemp` with three ports:
 a schedule input port for driving the component periodically on a rate group,
 a time get port for getting the time, and a telemetry port
 for reporting telemetry.
@@ -89,7 +89,7 @@ We have given the component two telemetry channels:
 `ImpulseDriveTemp` for reporting the temperature of the impulse drive,
 and `WarpCoreTemp` for reporting the temperature of the warp core.
 
-Next we have defined an instance `FSW.tempSensor` of component `Sensors.EngineTemp`.
+Next we have defined an instance `FSW.engineTemp` of component `Sensors.EngineTemp`.
 Because the instance definition is in a different module from the
 component definition, we must refer to the component by its
 qualified name `Sensors.EngineTemp`.
@@ -97,19 +97,19 @@ If we wrote
 
 [source,fpp]
 --------
-instance tempSensor: EngineTemp base id 0x100
+instance engineTemp: EngineTemp base id 0x100
 --------
 
 the FPP compiler would complain that the symbol `EngineTemp` is undefined
 (try it and see).
 
-We have specified that the base identifier of instance `FSW.tempSensor`
+We have specified that the base identifier of instance `FSW.engineTemp`
 is the hexadecimal number 0x100 (256 decimal).
 In the component definition, the telemetry channel `ImpulseDriveTemp`
 has relative identifier 0, and the telemetry channel `WarpCoreTemp`
 has relative identifier 1.
 Therefore the corresponding telemetry channels for the instance
-`FSW.tempSensor` have identifiers 0x100 and 0x101 (256 and 257)
+`FSW.engineTemp` have identifiers 0x100 and 0x101 (256 and 257)
 respectively.
 
 For consistency, the base identifier is required for all component instances,
@@ -129,24 +129,24 @@ For example, this code is illegal:
 -------
 module FSW {
 
-  @ Temperature sensor instance 1
-  instance tempSensor1: Sensors.EngineTemp base id 0x100
+  @ Temperature sensor for left engine
+  instance leftEngineTemp: Sensors.EngineTemp base id 0x100
 
-  @ Temperature sensor instance 2
-  instance tempSensor2: Sensors.EngineTemp base id 0x101
+  @ Temperature sensor for right engine
+  instance rightEngineTemp: Sensors.EngineTemp base id 0x101
 
 }
 -------
 
-The base identifier 0x101 for `tempSensor2` is inside the
-identifier range for `tempSensor1`, which goes from
+The base identifier 0x101 for `rightEngineTemp` is inside the
+identifier range for `leftEngineTemp`, which goes from
 0x100 to 0x101, inclusive.
 
 ==== Queued Components
 
 Instantiating a queued component is just like instantiating
 a passive component, except that you must also specify
-a queue size.
+a queue size for the instance.
 You do this by writing the keywords `queue` `size` and
 the queue size after the base identifier.
 Here is an example:
@@ -186,7 +186,7 @@ module Sensors {
 module FSW {
 
   @ Temperature sensor instance
-  instance tempSensor: Sensors.EngineTemp base id 0x100 \
+  instance engineTemp: Sensors.EngineTemp base id 0x100 \
     queue size 10
 
 }
@@ -246,7 +246,7 @@ module FSW {
 }
 ----
 
-Here we have defined an active component `Utils.DataCompressor`
+We have defined an active component `Utils.DataCompressor`
 for compressing data.
 We have defined an instance of this component called
 `FSW.dataCompressor`.
@@ -258,7 +258,76 @@ the default queue and stack sizes.
 
 ==== Specifying Header Files
 
-TODO
+When you define a component instance _I_, the FPP translator needs
+to locate the header file for the {cpp}
+implementation associated with _I_.
+This location can occur automatically in many cases.
+In other cases, you have to specify the location manually.
+
+*Automatic location:*
+The translator can automatically locate the header file if it
+conforms to the following rules:
+
+. The header file is named `Name.fpp`, where `Name`
+is the name of the component in the FPP model, without
+any module qualifiers.
+
+. The header
+file is located in the same directory as the FPP
+source file that defines the component.
+
+For example, the F Prime repository contains a reference FSW implementation
+with instances defined in the file `Ref/Top/init.fpp`.
+One of the instances is `SG1`.
+Its definition reads as follows:
+
+[source,fpp]
+--------
+instance SG1: Ref.SignalGen base id 0x2100 \
+  queue size Default.queueSize
+--------
+
+The FPP component `Ref.SignalGen` is
+defined in the directory `Ref/SignalGen/SignalGen.fpp`,
+and the implementation header file is
+`Ref/SignalGen/SignalGen.hpp`.
+In this case, the header file follows rules (1) and (2)
+stated above, so the FPP translator can automatically locate
+the file.
+
+*Manual specification:*
+If the implementation header file does not follow
+rules (1) and (2) stated above, then you must specify
+the name and location of the header file by hand.
+You do that by writing the keyword `at` followed by the
+header file path enclosed in quotation marks.
+The header file path is relative to the directory
+containing the source file that defines the component
+instance.
+
+For example, the F Prime repository has a directory
+`Svc/Time` that contains an FPP model for a component
+`Svc.Time`.
+Because the {cpp} implementation for this component
+is platform-specific, the directory `Svc/Time` doesn't
+contain any implementation.
+Instead, when instantiating the component, you have to
+provide the header file to an implementation located
+in a different directory.
+
+The F Prime repository also provides a Linux-specific implementation
+of the `Time` component in the directory `Svc/LinuxTime`.
+The file `Ref/Top/init.fpp` contains an instance definition
+`linuxTime` that reads as follows:
+
+[source,fpp]
+----
+instance linuxTime: Svc.Time base id 0x4500 \
+  at "../../Svc/LinuxTime/LinuxTimeImpl.hpp"
+----
+
+This definition specifies that the implementation header file
+is `Svc/LinuxTime/LinuxTimeImpl.hpp`.
 
 === Init Specifiers
 
