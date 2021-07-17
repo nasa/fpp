@@ -61,11 +61,11 @@ module Sensors {
     @ Time get port
     time get port timeGetOut
 
-    @ Impulse drive temperature
-    telemetry ImpulseDriveTemp: F32
+    @ Impulse engine temperature
+    telemetry ImpulseTemp: F32
 
     @ Warp core temperature
-    telemetry WarpCoreTemp: F32
+    telemetry WarpTemp: F32
 
   }
 
@@ -73,7 +73,7 @@ module Sensors {
 
 module FSW {
 
-  @ Temperature sensor instance
+  @ Engine temperature instance
   instance engineTemp: Sensors.EngineTemp base id 0x100
 
 }
@@ -86,8 +86,8 @@ for reporting telemetry.
 (For more information on rate groups and the use of `Svc.Sched`
 ports, see the F Prime documentation.)
 We have given the component two telemetry channels:
-`ImpulseDriveTemp` for reporting the temperature of the impulse drive,
-and `WarpCoreTemp` for reporting the temperature of the warp core.
+`ImpulseTemp` for reporting the temperature of the impulse engine,
+and `WarpTemp` for reporting the temperature of the warp core.
 
 Next we have defined an instance `FSW.engineTemp` of component `Sensors.EngineTemp`.
 Because the instance definition is in a different module from the
@@ -105,8 +105,8 @@ the FPP compiler would complain that the symbol `EngineTemp` is undefined
 
 We have specified that the base identifier of instance `FSW.engineTemp`
 is the hexadecimal number 0x100 (256 decimal).
-In the component definition, the telemetry channel `ImpulseDriveTemp`
-has relative identifier 0, and the telemetry channel `WarpCoreTemp`
+In the component definition, the telemetry channel `ImpulseTemp`
+has relative identifier 0, and the telemetry channel `WarpTemp`
 has relative identifier 1.
 Therefore the corresponding telemetry channels for the instance
 `FSW.engineTemp` have identifiers 0x100 and 0x101 (256 and 257)
@@ -129,10 +129,10 @@ For example, this code is illegal:
 -------
 module FSW {
 
-  @ Temperature sensor for left engine
+  @ Temperature sensor for the left engine
   instance leftEngineTemp: Sensors.EngineTemp base id 0x100
 
-  @ Temperature sensor for right engine
+  @ Temperature sensor for the right engine
   instance rightEngineTemp: Sensors.EngineTemp base id 0x101
 
 }
@@ -173,11 +173,11 @@ module Sensors {
     @ Time get port
     time get port timeGetOut
 
-    @ Impulse drive temperature
-    telemetry ImpulseDriveTemp: F32
+    @ Impulse engine temperature
+    telemetry ImpulseTemp: F32
 
     @ Warp core temperature
-    telemetry WarpCoreTemp: F32
+    telemetry WarpTemp: F32
 
   }
 
@@ -185,7 +185,7 @@ module Sensors {
 
 module FSW {
 
-  @ Temperature sensor instance
+  @ Engine temperature sensor
   instance engineTemp: Sensors.EngineTemp base id 0x100 \
     queue size 10
 

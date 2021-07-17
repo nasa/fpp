@@ -5883,11 +5883,11 @@ opcode or identifier for the instance.</p>
     @ Time get port
     time get port timeGetOut
 
-    @ Impulse drive temperature
-    telemetry ImpulseDriveTemp: F32
+    @ Impulse engine temperature
+    telemetry ImpulseTemp: F32
 
     @ Warp core temperature
-    telemetry WarpCoreTemp: F32
+    telemetry WarpTemp: F32
 
   }
 
@@ -5895,7 +5895,7 @@ opcode or identifier for the instance.</p>
 
 module FSW {
 
-  @ Temperature sensor instance
+  @ Engine temperature instance
   instance engineTemp: Sensors.EngineTemp base id 0x100
 
 }</code></pre>
@@ -5909,8 +5909,8 @@ for reporting telemetry.
 (For more information on rate groups and the use of <code>Svc.Sched</code>
 ports, see the F Prime documentation.)
 We have given the component two telemetry channels:
-<code>ImpulseDriveTemp</code> for reporting the temperature of the impulse drive,
-and <code>WarpCoreTemp</code> for reporting the temperature of the warp core.</p>
+<code>ImpulseTemp</code> for reporting the temperature of the impulse engine,
+and <code>WarpTemp</code> for reporting the temperature of the warp core.</p>
 </div>
 <div class="paragraph">
 <p>Next we have defined an instance <code>FSW.engineTemp</code> of component <code>Sensors.EngineTemp</code>.
@@ -5931,8 +5931,8 @@ If we wrote</p>
 <div class="paragraph">
 <p>We have specified that the base identifier of instance <code>FSW.engineTemp</code>
 is the hexadecimal number 0x100 (256 decimal).
-In the component definition, the telemetry channel <code>ImpulseDriveTemp</code>
-has relative identifier 0, and the telemetry channel <code>WarpCoreTemp</code>
+In the component definition, the telemetry channel <code>ImpulseTemp</code>
+has relative identifier 0, and the telemetry channel <code>WarpTemp</code>
 has relative identifier 1.
 Therefore the corresponding telemetry channels for the instance
 <code>FSW.engineTemp</code> have identifiers 0x100 and 0x101 (256 and 257)
@@ -5957,10 +5957,10 @@ identifier range of <em>I</em>.</p>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">module FSW {
 
-  @ Temperature sensor for left engine
+  @ Temperature sensor for the left engine
   instance leftEngineTemp: Sensors.EngineTemp base id 0x100
 
-  @ Temperature sensor for right engine
+  @ Temperature sensor for the right engine
   instance rightEngineTemp: Sensors.EngineTemp base id 0x101
 
 }</code></pre>
@@ -6004,11 +6004,11 @@ Here is an example:</p>
     @ Time get port
     time get port timeGetOut
 
-    @ Impulse drive temperature
-    telemetry ImpulseDriveTemp: F32
+    @ Impulse engine temperature
+    telemetry ImpulseTemp: F32
 
     @ Warp core temperature
-    telemetry WarpCoreTemp: F32
+    telemetry WarpTemp: F32
 
   }
 
@@ -6016,7 +6016,7 @@ Here is an example:</p>
 
 module FSW {
 
-  @ Temperature sensor instance
+  @ Engine temperature sensor
   instance engineTemp: Sensors.EngineTemp base id 0x100 \
     queue size 10
 
@@ -8421,7 +8421,7 @@ annotations back to comments.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-16 21:34:38 -0700
+Last updated 2021-07-16 21:41:44 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
