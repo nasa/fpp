@@ -5898,8 +5898,8 @@ opcode or identifier for the instance.</p>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">module Sensors {
 
-  @ A component for sensing temperature
-  passive component TempSensor {
+  @ A component for sensing engine temperature
+  passive component EngineTemp {
 
     @ Schedule input port
     sync input port schedIn: Svc.Sched
@@ -5923,29 +5923,36 @@ opcode or identifier for the instance.</p>
 module FSW {
 
   @ Temperature sensor instance
-  instance tempSensor: Sensors.TempSensor base id 0x100
+  instance tempSensor: Sensors.EngineTemp base id 0x100
 
 }</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Here we have defined a passive component <code>Sensors.TempSensor</code> with three ports:
+<p>Here we have defined a passive component <code>Sensors.EngineTemp</code> with three ports:
 a schedule input port for driving the component periodically on a rate group,
 a time get port for getting the time, and a telemetry port
 for reporting telemetry.
-(For more information on rate groups and the use of <code>schedIn</code> or <code>run</code>
+(For more information on rate groups and the use of <code>Svc.Sched</code>
 ports, see the F Prime documentation.)
 We have given the component two telemetry channels:
 <code>ImpulseDriveTemp</code> for reporting the temperature of the impulse drive,
 and <code>WarpCoreTemp</code> for reporting the temperature of the warp core.</p>
 </div>
 <div class="paragraph">
-<p>Next we have defined an instance <code>FSW.tempSensor</code> of component <code>Sensors.TempSensor</code>.
+<p>Next we have defined an instance <code>FSW.tempSensor</code> of component <code>Sensors.EngineTemp</code>.
 Because the instance definition is in a different module from the
 component definition, we must refer to the component by its
-qualified name <code>Sensors.TempSensor</code>.
-If we wrote <code>instance tempSensor: TempSensor base id 0x100</code>,
-the FPP compiler would complain that the symbol <code>TempSensor</code> is undefined
+qualified name <code>Sensors.EngineTemp</code>.
+If we wrote</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">instance tempSensor: EngineTemp base id 0x100</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>the FPP compiler would complain that the symbol <code>EngineTemp</code> is undefined
 (try it and see).</p>
 </div>
 <div class="paragraph">
@@ -8231,7 +8238,7 @@ annotations back to comments.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-16 17:18:30 -0700
+Last updated 2021-07-16 17:27:48 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

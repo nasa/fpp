@@ -49,8 +49,8 @@ Here is an example:
 ----
 module Sensors {
 
-  @ A component for sensing temperature
-  passive component TempSensor {
+  @ A component for sensing engine temperature
+  passive component EngineTemp {
 
     @ Schedule input port
     sync input port schedIn: Svc.Sched
@@ -74,27 +74,33 @@ module Sensors {
 module FSW {
 
   @ Temperature sensor instance
-  instance tempSensor: Sensors.TempSensor base id 0x100
+  instance tempSensor: Sensors.EngineTemp base id 0x100
 
 }
 ----
 
-Here we have defined a passive component `Sensors.TempSensor` with three ports:
+Here we have defined a passive component `Sensors.EngineTemp` with three ports:
 a schedule input port for driving the component periodically on a rate group,
 a time get port for getting the time, and a telemetry port
 for reporting telemetry.
-(For more information on rate groups and the use of `schedIn` or `run`
+(For more information on rate groups and the use of `Svc.Sched`
 ports, see the F Prime documentation.)
 We have given the component two telemetry channels:
 `ImpulseDriveTemp` for reporting the temperature of the impulse drive,
 and `WarpCoreTemp` for reporting the temperature of the warp core.
 
-Next we have defined an instance `FSW.tempSensor` of component `Sensors.TempSensor`.
+Next we have defined an instance `FSW.tempSensor` of component `Sensors.EngineTemp`.
 Because the instance definition is in a different module from the
 component definition, we must refer to the component by its
-qualified name `Sensors.TempSensor`.
-If we wrote `instance tempSensor: TempSensor base id 0x100`,
-the FPP compiler would complain that the symbol `TempSensor` is undefined
+qualified name `Sensors.EngineTemp`.
+If we wrote
+
+[source,fpp]
+--------
+instance tempSensor: EngineTemp base id 0x100
+--------
+
+the FPP compiler would complain that the symbol `EngineTemp` is undefined
 (try it and see).
 
 We have specified that the base identifier of instance `FSW.tempSensor`
