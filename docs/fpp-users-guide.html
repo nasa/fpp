@@ -5910,7 +5910,7 @@ opcode or identifier for the instance.</p>
     @ Time get port
     time get port timeGetOut
 
-    @ Impulse driver temperature
+    @ Impulse drive temperature
     telemetry ImpulseDriveTemp: F32
 
     @ Warp core temperature
@@ -5965,17 +5965,158 @@ Therefore the corresponding telemetry channels for the instance
 <code>FSW.tempSensor</code> have identifiers 0x100 and 0x101 (256 and 257)
 respectively.</p>
 </div>
+<div class="paragraph">
+<p>For consistency, the base identifier is required for all component instances,
+even instances that have no commands, events telemetry,
+or parameters.
+For each component instance <em>I</em>, the range of numbers between the base
+identifier and the base identifier plus the largest relative identifier
+is called the <strong>identifier range</strong> of <em>I</em>.
+All the numbers in the identifier range of <em>I</em> are reserved for
+instance <em>I</em> (even if they are not all used).
+No other component instance may have a base identifier in the
+identifier range of <em>I</em>.</p>
+</div>
+<div class="paragraph">
+<p>For example, this code is illegal:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module FSW {
+
+  @ Temperature sensor instance 1
+  instance tempSensor1: Sensors.EngineTemp base id 0x100
+
+  @ Temperature sensor instance 2
+  instance tempSensor2: Sensors.EngineTemp base id 0x101
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The base identifier 0x101 for <code>tempSensor2</code> is inside the
+identifier range for <code>tempSensor1</code>, which goes from
+0x100 to 0x101, inclusive.</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="Defining-Component-Instances_Component-Instance-Definitions_Queued-Components">10.1.2. Queued Components</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>Instantiating a queued component is just like instantiating
+a passive component, except that you must also specify
+a queue size.
+You do this by writing the keywords <code>queue</code> <code>size</code> and
+the queue size after the base identifier.
+Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module Sensors {
+
+  @ A port for calibration input
+  port Calibration(cal: F32)
+
+  @ A component for sensing engine temperature
+  queued component EngineTemp {
+
+    @ Schedule input port
+    sync input port schedIn: Svc.Sched
+
+    @ Calibration input
+    async input port calibrationIn: Calibration
+
+    @ Telemetry port
+    telemetry port tlmOut
+
+    @ Time get port
+    time get port timeGetOut
+
+    @ Impulse drive temperature
+    telemetry ImpulseDriveTemp: F32
+
+    @ Warp core temperature
+    telemetry WarpCoreTemp: F32
+
+  }
+
+}
+
+module FSW {
+
+  @ Temperature sensor instance
+  instance tempSensor: Sensors.EngineTemp base id 0x100 \
+    queue size 10
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the component definition, we have revised the example from the previous
+section so that
+the <code>EngineTemp</code> component is queued instead of passive,
+and we have added an async input port for calibration input.
+In the component instance definition, we have specified a queue size of 10.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="Defining-Component-Instances_Component-Instance-Definitions_Active-Components">10.1.3. Active Components</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>Instantiating an active component is again like instantiating a passive
+component, except that you must specify a queue size (because the
+component has a queue) and a thread stack size and thread priority
+(because the component has a thread).
+You specify the queue size in the same way as for a queued component.
+You specify the stack size by writing the keywords <code>stack</code> <code>size</code>
+and the stack size.
+You specify the priority by writing the keyword <code>priority</code>
+and a numeric priority.
+Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module Utils {
+
+  @ A component for compressing data
+  active component DataCompressor {
+
+    @ Uncompressed input data
+    async input port bufferSendIn: Fw.BufferSend
+
+    @ Compressed output data
+    output port bufferSendOut: Fw.BufferSend
+
+  }
+
+}
+
+module FSW {
+
+  module Default {
+    @ Default queue size
+    constant queueSize = 10
+    @ Default stack size
+    constant stackSize = 10 * 1024
+  }
+
+  @ Data compressor instance
+  instance dataCompressor: Utils.DataCompressor base id 0x100 \
+    queue size Default.queueSize \
+    stack size Default.stackSize \
+    priority 30
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here we have defined an active component <code>Utils.DataCompressor</code>
+for compressing data.
+We have defined an instance of this component called
+<code>FSW.dataCompressor</code>.
+Our instance has base identifier 0x100, the default
+queue size, the default stack size, and priority 30.
+We have used
+<a href="#Defining-Constants">constant definitions</a> for
+the default queue and stack sizes.</p>
 </div>
 </div>
 <div class="sect3">
@@ -8238,7 +8379,7 @@ annotations back to comments.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-16 17:27:48 -0700
+Last updated 2021-07-16 17:56:00 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

@@ -1,5 +1,6 @@
 # Placeholders for built-in ports
 module Fw {
+  port BufferSend
   port Cmd
   port CmdReg
   port CmdResponse
