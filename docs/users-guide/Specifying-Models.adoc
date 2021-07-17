@@ -5,14 +5,7 @@ of FPP models.
 This section takes a broader view:
 it explains how to assemble a collection of elements into a model.
 
-In the discussion below
-
-* We focus on defining constants, types, enums, ports, and components, because those 
-elements of FPP are currently implemented.
-In future versions of this User's Guide, we will extend the discussion to cover
-topologies.
-
-* We discuss several tools for specifying and analyzing dependencies between
+We discuss several tools for specifying and analyzing dependencies between
 model files.
 Here we focus on how to use the tools, and we summarize their most important
 features.
