@@ -10,3 +10,7 @@ module Fw {
   port Time
   port Tlm
 }
+
+module Svc {
+  port Sched
+}

@@ -1,3 +1,123 @@
 == Defining Component Instances
 
+As discussed in the previous section, in F Prime you
+define components and instantiate them.
+Then you construct a *topology*, which is a graph
+that specifies the connections between the components.
+This section explains how to define component instances.
+In the next section, we will explain how to
+construct topologies.
+
+=== Component Instance Definitions
+
+To instantiate a component, you write a *component instance definition*.
+The form of a component instance definition depends on the kind
+of the component you are instantiating: passive, queued, or active.
+
+==== Passive Components
+
+To instantiate a passive component, you write the following:
+
+* The keyword `instance`.
+
+* The <<Defining-Constants_Names,name>> of the instance.
+
+* A colon `:`.
+
+* The name of a <<Defining-Components_Component-Definitions,component definition>>.
+
+* The keywords `base` `id`.
+
+* An <<Defining-Constants_Expressions,expression>> denoting
+the *base identifier* associated with the component instance.
+
+The base identifier must resolve to a number.
+The FPP translator adds this number to each of the component-relative
+<<Defining-Components_Commands_Opcodes,command opcodes>>,
+<<Defining-Components_Events_Identifiers,event identifiers>>,
+<<Defining-Components_Telemetry_Identifiers,telemetry channel identifiers>>,
+and
+<<Defining-Components_Parameters_Identifiers,parameter identifiers>>
+specified in the component, as discussed in the previous section.
+The base identifier for the instance plus the component-relative
+opcode or identifier for the component gives the corresponding
+opcode or identifier for the instance.
+
+Here is an example:
+
+[source,fpp]
+----
+module Sensors {
+
+  @ A component for sensing temperature
+  passive component TempSensor {
+
+    @ Schedule input port
+    sync input port schedIn: Svc.Sched
+
+    @ Telemetry port
+    telemetry port tlmOut
+
+    @ Time get port
+    time get port timeGetOut
+
+    @ Impulse driver temperature
+    telemetry ImpulseDriveTemp: F32
+
+    @ Warp core temperature
+    telemetry WarpCoreTemp: F32
+
+  }
+
+}
+
+module FSW {
+
+  @ Temperature sensor instance
+  instance tempSensor: Sensors.TempSensor base id 0x100
+
+}
+----
+
+Here we have defined a passive component `Sensors.TempSensor` with three ports:
+a schedule input port for driving the component periodically on a rate group,
+a time get port for getting the time, and a telemetry port
+for reporting telemetry.
+(For more information on rate groups and the use of `schedIn` or `run`
+ports, see the F Prime documentation.)
+We have given the component two telemetry channels:
+`ImpulseDriveTemp` for reporting the temperature of the impulse drive,
+and `WarpCoreTemp` for reporting the temperature of the warp core.
+
+Next we have defined an instance `FSW.tempSensor` of component `Sensors.TempSensor`.
+Because the instance definition is in a different module from the
+component definition, we must refer to the component by its
+qualified name `Sensors.TempSensor`.
+If we wrote `instance tempSensor: TempSensor base id 0x100`,
+the FPP compiler would complain that the symbol `TempSensor` is undefined
+(try it and see).
+
+We have specified that the base identifier of instance `FSW.tempSensor`
+is the hexadecimal number 0x100 (256 decimal).
+In the component definition, the telemetry channel `ImpulseDriveTemp`
+has relative identifier 0, and the telemetry channel `WarpCoreTemp`
+has relative identifier 1.
+Therefore the corresponding telemetry channels for the instance
+`FSW.tempSensor` have identifiers 0x100 and 0x101 (256 and 257)
+respectively.
+
+==== Queued Components
+
+TODO
+
+==== Active Components
+
+TODO
+
+==== Specifying Header Files
+
+TODO
+
+=== Init Specifiers
+
 TODO

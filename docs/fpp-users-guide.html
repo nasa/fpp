@@ -581,7 +581,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Components_Include-Specifiers">9.10. Include Specifiers</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Component-Instances">10. Defining Component Instances</a></li>
+<li><a href="#Defining-Component-Instances">10. Defining Component Instances</a>
+<ul class="sectlevel2">
+<li><a href="#Defining-Component-Instances_Component-Instance-Definitions">10.1. Component Instance Definitions</a>
+<ul class="sectlevel3">
+<li><a href="#Defining-Component-Instances_Component-Instance-Definitions_Passive-Components">10.1.1. Passive Components</a></li>
+<li><a href="#Defining-Component-Instances_Component-Instance-Definitions_Queued-Components">10.1.2. Queued Components</a></li>
+<li><a href="#Defining-Component-Instances_Component-Instance-Definitions_Active-Components">10.1.3. Active Components</a></li>
+<li><a href="#Defining-Component-Instances_Component-Instance-Definitions_Specifying-Header-Files">10.1.4. Specifying Header Files</a></li>
+</ul>
+</li>
+<li><a href="#Defining-Component-Instances_Init-Specifiers">10.2. Init Specifiers</a></li>
+</ul>
+</li>
 <li><a href="#Defining-Topologies">11. Defining Topologies</a></li>
 <li><a href="#Specifying-Models">12. Specifying Models</a>
 <ul class="sectlevel2">
@@ -4475,7 +4487,7 @@ the global opcodes associated with <em>I</em>.
 That way different instances of <em>C</em> can have different opcodes
 for the same commands defined in <em>C</em>.
 We will have more to say about base and relative opcodes
-when we describe topologies of component instances.</p>
+when we describe component instances and topologies.</p>
 </div>
 <div class="paragraph">
 <p>If you specify a command <em>c</em> with no explicit opcode, as in the examples
@@ -5823,7 +5835,154 @@ We discuss include specifiers further in the section on
 <h2 id="Defining-Component-Instances">10. Defining Component Instances</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<p>As discussed in the previous section, in F Prime you
+define components and instantiate them.
+Then you construct a <strong>topology</strong>, which is a graph
+that specifies the connections between the components.
+This section explains how to define component instances.
+In the next section, we will explain how to
+construct topologies.</p>
+</div>
+<div class="sect2">
+<h3 id="Defining-Component-Instances_Component-Instance-Definitions">10.1. Component Instance Definitions</h3>
+<div class="paragraph">
+<p>To instantiate a component, you write a <strong>component instance definition</strong>.
+The form of a component instance definition depends on the kind
+of the component you are instantiating: passive, queued, or active.</p>
+</div>
+<div class="sect3">
+<h4 id="Defining-Component-Instances_Component-Instance-Definitions_Passive-Components">10.1.1. Passive Components</h4>
+<div class="paragraph">
+<p>To instantiate a passive component, you write the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The keyword <code>instance</code>.</p>
+</li>
+<li>
+<p>The <a href="#Defining-Constants_Names">name</a> of the instance.</p>
+</li>
+<li>
+<p>A colon <code>:</code>.</p>
+</li>
+<li>
+<p>The name of a <a href="#Defining-Components_Component-Definitions">component definition</a>.</p>
+</li>
+<li>
+<p>The keywords <code>base</code> <code>id</code>.</p>
+</li>
+<li>
+<p>An <a href="#Defining-Constants_Expressions">expression</a> denoting
+the <strong>base identifier</strong> associated with the component instance.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The base identifier must resolve to a number.
+The FPP translator adds this number to each of the component-relative
+<a href="#Defining-Components_Commands_Opcodes">command opcodes</a>,
+<a href="#Defining-Components_Events_Identifiers">event identifiers</a>,
+<a href="#Defining-Components_Telemetry_Identifiers">telemetry channel identifiers</a>,
+and
+<a href="#Defining-Components_Parameters_Identifiers">parameter identifiers</a>
+specified in the component, as discussed in the previous section.
+The base identifier for the instance plus the component-relative
+opcode or identifier for the component gives the corresponding
+opcode or identifier for the instance.</p>
+</div>
+<div class="paragraph">
+<p>Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module Sensors {
+
+  @ A component for sensing temperature
+  passive component TempSensor {
+
+    @ Schedule input port
+    sync input port schedIn: Svc.Sched
+
+    @ Telemetry port
+    telemetry port tlmOut
+
+    @ Time get port
+    time get port timeGetOut
+
+    @ Impulse driver temperature
+    telemetry ImpulseDriveTemp: F32
+
+    @ Warp core temperature
+    telemetry WarpCoreTemp: F32
+
+  }
+
+}
+
+module FSW {
+
+  @ Temperature sensor instance
+  instance tempSensor: Sensors.TempSensor base id 0x100
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here we have defined a passive component <code>Sensors.TempSensor</code> with three ports:
+a schedule input port for driving the component periodically on a rate group,
+a time get port for getting the time, and a telemetry port
+for reporting telemetry.
+(For more information on rate groups and the use of <code>schedIn</code> or <code>run</code>
+ports, see the F Prime documentation.)
+We have given the component two telemetry channels:
+<code>ImpulseDriveTemp</code> for reporting the temperature of the impulse drive,
+and <code>WarpCoreTemp</code> for reporting the temperature of the warp core.</p>
+</div>
+<div class="paragraph">
+<p>Next we have defined an instance <code>FSW.tempSensor</code> of component <code>Sensors.TempSensor</code>.
+Because the instance definition is in a different module from the
+component definition, we must refer to the component by its
+qualified name <code>Sensors.TempSensor</code>.
+If we wrote <code>instance tempSensor: TempSensor base id 0x100</code>,
+the FPP compiler would complain that the symbol <code>TempSensor</code> is undefined
+(try it and see).</p>
+</div>
+<div class="paragraph">
+<p>We have specified that the base identifier of instance <code>FSW.tempSensor</code>
+is the hexadecimal number 0x100 (256 decimal).
+In the component definition, the telemetry channel <code>ImpulseDriveTemp</code>
+has relative identifier 0, and the telemetry channel <code>WarpCoreTemp</code>
+has relative identifier 1.
+Therefore the corresponding telemetry channels for the instance
+<code>FSW.tempSensor</code> have identifiers 0x100 and 0x101 (256 and 257)
+respectively.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Component-Instances_Component-Instance-Definitions_Queued-Components">10.1.2. Queued Components</h4>
+<div class="paragraph">
 <p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Component-Instances_Component-Instance-Definitions_Active-Components">10.1.3. Active Components</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Component-Instances_Component-Instance-Definitions_Specifying-Header-Files">10.1.4. Specifying Header Files</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-Component-Instances_Init-Specifiers">10.2. Init Specifiers</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
 </div>
 </div>
 </div>
@@ -8072,7 +8231,7 @@ annotations back to comments.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-15 18:54:15 -0700
+Last updated 2021-07-16 17:18:30 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

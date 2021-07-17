@@ -987,7 +987,7 @@ the global opcodes associated with _I_.
 That way different instances of _C_ can have different opcodes
 for the same commands defined in _C_.
 We will have more to say about base and relative opcodes
-when we describe topologies of component instances.
+when we describe component instances and topologies.
 
 If you specify a command _c_ with no explicit opcode, as in the examples
 shown in the previous sections, then FPP assigns a default opcode
