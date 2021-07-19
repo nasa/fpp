@@ -64,9 +64,9 @@ namespace M {
 
     // Set component base Ids
     void setBaseIds() {
-      health.setIdBase(0x100);
-      c1.setIdBase(0x200);
-      c2.setIdBase(0x300);
+      health.setIdBase(BaseIds::health);
+      c1.setIdBase(BaseIds::c1);
+      c2.setIdBase(BaseIds::c2);
     }
 
     // Connect components

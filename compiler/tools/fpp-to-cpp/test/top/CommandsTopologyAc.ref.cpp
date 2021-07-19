@@ -37,8 +37,8 @@ namespace M {
 
     // Set component base Ids
     void setBaseIds() {
-      c1.setIdBase(0x100);
-      c2.setIdBase(0x200);
+      c1.setIdBase(BaseIds::c1);
+      c2.setIdBase(BaseIds::c2);
     }
 
     // Register commands

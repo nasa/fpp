@@ -89,8 +89,7 @@ case class TopPrivateFunctions(
         s"void $name() {",
         instancesByBaseId.map(ci => {
           val name = getNameAsIdent(ci.qualifiedName)
-          val id = CppWriter.writeId(ci.baseId)
-          line(s"$name.setIdBase($id);")
+          line(s"$name.setIdBase(BaseIds::$name);")
         }),
         "}"
       )

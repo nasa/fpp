@@ -62,10 +62,10 @@ namespace M {
 
     // Set component base Ids
     void setBaseIds() {
-      active1.setIdBase(0x100);
-      active2.setIdBase(0x200);
-      passive1.setIdBase(0x300);
-      passive2.setIdBase(0x400);
+      active1.setIdBase(BaseIds::active1);
+      active2.setIdBase(BaseIds::active2);
+      passive1.setIdBase(BaseIds::passive1);
+      passive2.setIdBase(BaseIds::passive2);
     }
 
     // Connect components
