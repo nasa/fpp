@@ -1022,6 +1022,15 @@ constant b = 0xABCD</code></pre>
 <h4 id="Defining-Constants_Expressions_String-Values">3.3.2. String Values</h4>
 <div class="paragraph">
 <p>A <strong>string value</strong> represents a string of characters.
+There are two kinds of string values:
+single-line strings and multiline strings.</p>
+</div>
+<div class="paragraph">
+<p><strong>Single-line strings:</strong>
+A single-line string represents a string of characters
+that does not contain a newline character.
+It is written as a string of characters enclosed in double quotation
+marks <code>"</code>.
 For example:</p>
 </div>
 <div class="listingblock">
@@ -1035,6 +1044,49 @@ For example:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">constant s = "\"This is a quotation within a string,\" he said."</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Multiline strings:</strong>
+A multiline strings represents a string of characters
+that may contain a newline character.
+It is enclosed in sequences of three double quotation
+marks <code>"""</code>.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant s = """
+             This is a multiline string.
+
+             It has three lines."""</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When interpreting a multiline string, FPP ignores the newline
+character at the start of the string, if any.
+On each line, any blanks to the left of the column where the first
+<code>"""</code> appears are suppressed.
+For example, the string shown above consists of three lines and starts
+with <code>This</code>.</p>
+</div>
+<div class="paragraph">
+<p>Literal quotation marks are allowed inside a multiline string:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant s = """
+             "This is a quotation within a string," he said."""</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To embed a literal sequence <code>"""</code> in a multiline string, escape
+one of the <code>"</code> characters:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant s = """
+             Here is a triple-quote character: ""\"."""</code></pre>
 </div>
 </div>
 </div>
@@ -8633,7 +8685,7 @@ annotations back to comments.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-19 13:09:41 -0700
+Last updated 2021-07-19 13:22:00 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

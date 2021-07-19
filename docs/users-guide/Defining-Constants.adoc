@@ -174,6 +174,14 @@ If you get an error, make sure you understand why.
 ==== String Values
 
 A *string value* represents a string of characters.
+There are two kinds of string values:
+single-line strings and multiline strings.
+
+*Single-line strings:*
+A single-line string represents a string of characters
+that does not contain a newline character.
+It is written as a string of characters enclosed in double quotation
+marks `"`.
 For example:
 
 [source,fpp]
@@ -186,6 +194,45 @@ To put the double-quote character in a string, escape it, like this:
 [source,fpp]
 ----
 constant s = "\"This is a quotation within a string,\" he said."
+----
+
+*Multiline strings:*
+A multiline strings represents a string of characters
+that may contain a newline character.
+It is enclosed in sequences of three double quotation
+marks `"""`.
+For example:
+
+[source,fpp]
+----
+constant s = """
+             This is a multiline string.
+             
+             It has three lines."""
+----
+
+When interpreting a multiline string, FPP ignores the newline
+character at the start of the string, if any.
+On each line, any blanks to the left of the column where the first
+`"""` appears are suppressed.
+For example, the string shown above consists of three lines and starts
+with `This`.
+
+Literal quotation marks are allowed inside a multiline string:
+
+[source,fpp]
+----
+constant s = """
+             "This is a quotation within a string," he said."""
+----
+
+To embed a literal sequence `"""` in a multiline string, escape
+one of the `"` characters:
+
+[source,fpp]
+----
+constant s = """
+             Here is a triple-quote character: ""\"."""
 ----
 
 ==== Array Values
