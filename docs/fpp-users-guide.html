@@ -6184,7 +6184,219 @@ The file <code>Ref/Top/init.fpp</code> contains an instance definition
 <div class="sect2">
 <h3 id="Defining-Component-Instances_Init-Specifiers">10.2. Init Specifiers</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>In an F Prime FSW application, each component instance <em>I</em>
+has some associated C&#43;&#43; code
+for setting up <em>I</em> when FSW starts up
+and tearing down <em>I</em> when FSW exits.
+Much of this code can be inferred from the FPP model,
+but some of it is implementation-specific.
+For example, each instance of the standard F Prime command sequencer
+component has a method <code>allocateBuffer</code> that the FSW must
+call during setup to allocate the sequence buffer
+for that instance.
+The FPP model does not represent this function;
+instead, you have to provide
+the function call directly in C&#43;&#43;.</p>
+</div>
+<div class="paragraph">
+<p>To do this, you use an <strong>init specifier</strong>.
+An init specifier names a
+<a href="#Defining-Component-Instances_Component-Instance-Definitions">component instance definition</a>, names a phase
+of the setup or teardown process, and
+provides a snippet of literal C&#43;&#43; code.
+The FPP translator pastes the snippet into the setup
+or teardown code according to the phase named in
+the specifier.
+(Strictly speaking, the init specifier should be called
+a "setup or teardown specifier."
+However, most of the code is in fact initialization code,
+and so FPP uses "init" as a shorthand name.)</p>
+</div>
+<div class="paragraph">
+<p>The FPP translator uses init specifiers when it generates
+code for an F Prime topology.
+We will have more to say about topology generation in the
+next section.
+For now, you just need to know the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A topology is a unit of an FPP model that specifies the top-level
+structure of an F Prime application (the component instances
+and their connections).</p>
+</li>
+<li>
+<p>Each topology has a name, which we will refer to here generically as <em>T</em>.</p>
+</li>
+<li>
+<p>When generating C&#43;&#43; code for topology <em>T</em>, the code generator produces
+files <em>T</em> <code>TopologyAc.hpp</code> and <em>T</em> <code>TopologyAc.cpp</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>We will use the letter <em>I</em> to refer generically to the name of a component
+instance.</p>
+</div>
+<div class="paragraph">
+<p><strong>Phases:</strong>
+Table <a href="#init-specifier-phases">Init Specifier Phases</a> shows the setup and teardown phases
+recognized by the FPP code generator.
+In this table, <em>T</em> is the name of a topology and <em>I</em> is the
+name of a component instance.
+The columns of the table have the following meanings:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Phase:</strong> The symbol denoting the setup or teardown phase.
+These symbols are the enumerated constants of the
+<a href="#Defining-Enums">enum</a> <code>Fpp.ToCpp.Phases</code> defined in
+<code>Fpp/ToCpp.fpp</code> in the F Prime repository.</p>
+</li>
+<li>
+<p><strong>Generated File:</strong> The generated file for topology <em>T</em>
+that contains the definition:
+either <em>T</em> <code>TopologyAc.hpp</code> (for compile-time symbols)
+or <em>T</em> <code>TopologyAc.cpp</code> (for link-time symbols).</p>
+</li>
+<li>
+<p><strong>Intended Use:</strong> The intended use of the C&#43;&#43; code snippet
+associated with the instance <em>I</em> and the phase.</p>
+</li>
+<li>
+<p><strong>Where Placed:</strong> Where FPP places the code snippet
+in the generated file.</p>
+</li>
+<li>
+<p><strong>Default Code:</strong> Whether FPP generates default code if
+there is no init specifier for instance <em>I</em>
+and this phase.
+If there is an init specifier, then it replaces any
+default code.</p>
+</li>
+</ul>
+</div>
+<table id="init-specifier-phases" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Init Specifier Phases</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Phase</th>
+<th class="tableblock halign-left valign-top">Generated File</th>
+<th class="tableblock halign-left valign-top">Intended Use</th>
+<th class="tableblock halign-left valign-top">Where Placed</th>
+<th class="tableblock halign-left valign-top">Default Code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>configConstants</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>T</em> <code>TopologyAc.hpp</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C&#43;&#43; constants for use in constructing and
+initializing an instance <em>I</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">In the namespace <code>ConfigConstants::</code> <em>I</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>configObjects</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>T</em> <code>TopologyAc.cpp</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Statically declared C&#43;&#43; objects for use in
+constructing and initializing instance <em>I</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">In the namespace <code>ConfigObjects::</code> <em>I</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>instances</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>T</em> <code>TopologyAc.cpp</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A constructor for an instance <em>I</em> that has a non-standard
+constructor format.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">In an anonymous (file-private) namespace.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The standard constructor call for <em>I</em>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>initComponents</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>T</em> <code>TopologyAc.cpp</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Initialization code for an instance <em>I</em> that has a non-standard
+initialization format.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">In the file-private function <code>initComponents</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The standard call to <code>init</code> for <em>I</em>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>configComponents</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>T</em> <code>TopologyAc.cpp</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementation-specific configuration code for an instance <em>I</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">In the file-private function <code>configComponents</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>regCommands</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>T</em> <code>TopologyAc.cpp</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Code for registering commands of <em>I</em> with the command dispatcher.
+Required only if <em>I</em> has a
+non-standard command registration format.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">In the file-private function <code>regCommands</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The standard call to <code>regCommands</code> if <em>I</em> has commands;
+otherwise none.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>readParameters</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>T</em> <code>TopologyAc.cpp</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The method call for reading parameters from a file.
+Ordinarily used only when <em>I</em> is the parameter database.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">In the file-private function <code>readParameters</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>loadParameters</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>T</em> <code>TopologyAc.cpp</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Code for loading parameter values from the parameter database.
+Required only if <em>I</em> has a non-standard parameter-loading
+format.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">In the file-private function <code>loadParameters</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The standard call to <code>loadParameters</code> if <em>I</em>
+has parameters; otherwise none.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>startTasks</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>T</em> <code>TopologyAc.cpp</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>stopTasks</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>T</em> <code>TopologyAc.cpp</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>freeThreads</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>T</em> <code>TopologyAc.cpp</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tearDownComponents</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>T</em> <code>TopologyAc.cpp</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Writing init specifiers:</strong>
+TODO</p>
 </div>
 </div>
 </div>
@@ -7268,7 +7480,7 @@ implemented today.
 As we implement more of FPP, we will extend this table.</p>
 </div>
 <table id="xml-file-names" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. XML File Names</caption>
+<caption class="title">Table 2. XML File Names</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -8421,7 +8633,7 @@ annotations back to comments.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-16 21:41:44 -0700
+Last updated 2021-07-19 13:09:41 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

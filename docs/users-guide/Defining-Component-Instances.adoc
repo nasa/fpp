@@ -331,4 +331,171 @@ This definition says to use implementation header file
 
 === Init Specifiers
 
+In an F Prime FSW application, each component instance _I_
+has some associated {cpp} code
+for setting up _I_ when FSW starts up
+and tearing down _I_ when FSW exits.
+Much of this code can be inferred from the FPP model,
+but some of it is implementation-specific.
+For example, each instance of the standard F Prime command sequencer
+component has a method `allocateBuffer` that the FSW must 
+call during setup to allocate the sequence buffer
+for that instance.
+The FPP model does not represent this function;
+instead, you have to provide
+the function call directly in {cpp}.
+
+To do this, you use an *init specifier*.
+An init specifier names a
+<<Defining-Component-Instances_Component-Instance-Definitions,
+component instance definition>>, names a phase
+of the setup or teardown process, and
+provides a snippet of literal {cpp} code.
+The FPP translator pastes the snippet into the setup
+or teardown code according to the phase named in
+the specifier.
+(Strictly speaking, the init specifier should be called
+a "setup or teardown specifier."
+However, most of the code is in fact initialization code,
+and so FPP uses "init" as a shorthand name.)
+
+The FPP translator uses init specifiers when it generates
+code for an F Prime topology.
+We will have more to say about topology generation in the
+next section.
+For now, you just need to know the following:
+
+. A topology is a unit of an FPP model that specifies the top-level
+structure of an F Prime application (the component instances
+and their connections).
+
+. Each topology has a name, which we will refer to here generically as _T_.
+
+. When generating {cpp} code for topology _T_, the code generator produces
+files _T_ `TopologyAc.hpp` and _T_ `TopologyAc.cpp`.
+
+We will use the letter _I_ to refer generically to the name of a component
+instance.
+
+*Phases:*
+Table <<init-specifier-phases>> shows the setup and teardown phases 
+recognized by the FPP code generator.
+In this table, _T_ is the name of a topology and _I_ is the
+name of a component instance.
+The columns of the table have the following meanings:
+
+* *Phase:* The symbol denoting the setup or teardown phase.
+These symbols are the enumerated constants of the
+<<Defining-Enums,enum>> `Fpp.ToCpp.Phases` defined in
+`Fpp/ToCpp.fpp` in the F Prime repository.
+
+* *Generated File:* The generated file for topology _T_
+that contains the definition:
+either _T_ `TopologyAc.hpp` (for compile-time symbols)
+or _T_ `TopologyAc.cpp` (for link-time symbols).
+
+* *Intended Use:* The intended use of the {cpp} code snippet
+associated with the instance _I_ and the phase.
+
+* *Where Placed:* Where FPP places the code snippet
+in the generated file.
+
+* *Default Code:* Whether FPP generates default code if 
+there is no init specifier for instance _I_
+and this phase.
+If there is an init specifier, then it replaces any
+default code.
+
+[[init-specifier-phases]]
+.Init Specifier Phases
+|===
+|Phase|Generated File|Intended Use|Where Placed|Default Code
+
+|`configConstants`
+|_T_ `TopologyAc.hpp`
+|{cpp} constants for use in constructing and
+initializing an instance _I_.
+|In the namespace `ConfigConstants::` _I_.
+|None.
+
+|`configObjects`
+|_T_ `TopologyAc.cpp`
+|Statically declared {cpp} objects for use in
+constructing and initializing instance _I_.
+|In the namespace `ConfigObjects::` _I_.
+|None.
+
+|`instances`
+|_T_ `TopologyAc.cpp`
+|A constructor for an instance _I_ that has a non-standard
+constructor format.
+|In an anonymous (file-private) namespace.
+|The standard constructor call for _I_.
+
+|`initComponents`
+|_T_ `TopologyAc.cpp`
+|Initialization code for an instance _I_ that has a non-standard
+initialization format.
+|In the file-private function `initComponents`.
+|The standard call to `init` for _I_.
+
+|`configComponents`
+|_T_ `TopologyAc.cpp`
+|Implementation-specific configuration code for an instance _I_.
+|In the file-private function `configComponents`.
+|None.
+
+|`regCommands`
+|_T_ `TopologyAc.cpp`
+|Code for registering commands of _I_ with the command dispatcher.
+Required only if _I_ has a
+non-standard command registration format.
+|In the file-private function `regCommands`.
+|The standard call to `regCommands` if _I_ has commands;
+otherwise none.
+
+|`readParameters`
+|_T_ `TopologyAc.cpp`
+|The method call for reading parameters from a file.
+Ordinarily used only when _I_ is the parameter database.
+|In the file-private function `readParameters`.
+|None.
+
+|`loadParameters`
+|_T_ `TopologyAc.cpp`
+|Code for loading parameter values from the parameter database.
+Required only if _I_ has a non-standard parameter-loading
+format.
+|In the file-private function `loadParameters`.
+|The standard call to `loadParameters` if _I_
+has parameters; otherwise none.
+
+|`startTasks`
+|_T_ `TopologyAc.cpp`
+|
+|
+|
+
+|`stopTasks`
+|_T_ `TopologyAc.cpp`
+|
+|
+|
+
+|`freeThreads`
+|_T_ `TopologyAc.cpp`
+|
+|
+|
+
+|`tearDownComponents`
+|_T_ `TopologyAc.cpp`
+|
+|
+|
+
+|===
+
+*Writing init specifiers:*
 TODO
+
