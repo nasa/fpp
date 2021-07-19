@@ -40,7 +40,7 @@ object Lexer extends RegexParsers {
 
   def literalFloat: Parser[Token] = positioned {
     (
-      "[0-9]+[Ee][+-]?[0-9]+".r | 
+      "[0-9]+[Ee][+-]?[0-9]+".r |
       raw"[0-9]*\.[0-9]+([Ee][+-]?[0-9]+)?".r |
       raw"[0-9]+\.[0-9]*([Ee][+-]?[0-9]+)?".r
     ) ^^ { Token.LITERAL_FLOAT(_) }
@@ -55,10 +55,10 @@ object Lexer extends RegexParsers {
   }
 
   def literalStringMulti: Parser[Token] = positioned {
-    "\"\"\"([^\\\\\"]*(\\\\(\")?)?|\"{1,2}[^\"])*\"\"\"".r ^^ { 
+    "\"\"\"([^\"]*\"{1,2}[^\"])*[^\"]*\"\"\"".r ^^ {
       case s0 => {
         val s = {
-          val s1 = "\\\\\"".r.replaceAllIn(s0, "\"")
+          val s1 = "\\\\q".r.replaceAllIn(s0, "\"")
           val s2 = s1.drop(3).dropRight(3)
           "^\\n".r.replaceAllIn(s2, "")
         }
@@ -86,18 +86,17 @@ object Lexer extends RegexParsers {
   }
 
   def literalStringSingle: Parser[Token] = positioned {
-    "\"([^\\\\\"\r\n]*(\\\\(\")?)?)*\"".r ^^ { 
+    "\"[^\"]*\"".r ^^ {
       case s => {
-        val s1 = "\\\\\"".r.replaceAllIn(s, "\"")
+        val s1 = "\\\\q".r.replaceAllIn(s, "\"")
         val s2 = s1.drop(1).dropRight(1)
         Token.LITERAL_STRING(s2)
       }
     }
   }
 
-  def newline: Parser[Unit] = 
+  def newline: Parser[Unit] =
     // Convert a comment followed by a newline to a newline
-    //unitParser("( *#[^\r\n]*)? *\r?\n *".r)
     unitParser(" *(#[^\r\n]*)?\r?\n *".r)
 
   def parseAllInput[T](p: Parser[T]) = new Parser[T] {
@@ -152,9 +151,9 @@ object Lexer extends RegexParsers {
 
   def token: Parser[Token] = positioned {
     reservedWord |
-    identifier | 
+    identifier |
     literalFloat |
-    literalInt | 
+    literalInt |
     literalString |
     postAnnotation |
     preAnnotation |

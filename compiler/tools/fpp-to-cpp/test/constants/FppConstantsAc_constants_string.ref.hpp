@@ -20,4 +20,7 @@ extern const char *const s1;
 //! Escaped newlines
 extern const char *const s2;
 
+//! Escaped backslashes
+extern const char *const s3;
+
 #endif

@@ -193,7 +193,7 @@ To put the double-quote character in a string, escape it, like this:
 
 [source,fpp]
 ----
-constant s = "\"This is a quotation within a string,\" he said."
+constant s = "\qThis is a quotation within a string,\q he said."
 ----
 
 *Multiline strings:*

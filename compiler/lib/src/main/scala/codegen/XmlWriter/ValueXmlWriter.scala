@@ -30,7 +30,7 @@ object ValueXmlWriter {
 
     override def boolean(s: XmlWriterState, v: Value.Boolean) = v.value.toString
 
-    override def default(s: XmlWriterState, v: Value) = 
+    override def default(s: XmlWriterState, v: Value) =
       throw new InternalError("visitor not defined")
 
     override def enumConstant(s: XmlWriterState, v: Value.EnumConstant): String =
@@ -42,8 +42,9 @@ object ValueXmlWriter {
 
     override def primitiveInt(s: XmlWriterState, v: Value.PrimitiveInt) = v.value.toString
 
-    override def string(s: XmlWriterState, v: Value.String) = "\"" ++ v.value.toString ++ "\""
-    
+    override def string(s: XmlWriterState, v: Value.String) =
+      "\"" ++ v.value.toString.replaceAll("\\\\", "\\\\\\\\").replaceAll("\"", "\\\\\"") ++ "\""
+
     override def struct(s: XmlWriterState, v: Value.Struct): String = {
       val structType = v.getType
       val data = structType.node._2.data
@@ -57,7 +58,7 @@ object ValueXmlWriter {
     }
 
   }
- 
+
   /** Get the c++ value for a type */
   def getValue(s: XmlWriterState, v: Value): String = {
     Visitor.value(s, v)

@@ -5462,17 +5462,47 @@ force evaluation order.</p>
 <h3 id="Expressions_String-Literals">9.9. String Literals</h3>
 <div class="paragraph">
 <p>A <strong>string literal expression</strong> is a single-line string literal
-or a multiline string literal.</p>
+or a multiline string literal.
+In this section</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Literal string</strong> means a literal string appearing
+in the FPP source text.</p>
+</li>
+<li>
+<p><strong>Interpreted string</strong> means the sequence
+of characters represented by the literal string.</p>
+</li>
+<li>
+<p><strong>String interpretation</strong> is the process of converting a literal
+string to an interpreted string.</p>
+</li>
+</ul>
 </div>
 <div class="sect3">
 <h4 id="Expressions_String-Literals_Single-Line-String-Literals">9.9.1. Single-Line String Literals</h4>
 <div class="paragraph">
 <p>A <strong>single-line string literal</strong> is a sequence of characters enclosed in double
-quotes.
-The newline character is not allowed.
-The double quote character is not allowed, except that the character
-sequence <code>\"</code>
-represents a single double quote character.</p>
+quote characters <code>"</code>.
+Inside a single-line string literal</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The newline character is not allowed.</p>
+</li>
+<li>
+<p>The literal double quote character <code>"</code> is not allowed.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For any single-line string literal <em>s</em>, the
+corresponding interpreted string <em>s'</em>
+is identical to <em>s</em>, except that any character sequence <code>\q</code> in <em>s</em>
+becomes a double quote character <code>"</code> in <em>s'</em>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Examples:</strong></p>
@@ -5483,7 +5513,7 @@ represents a single double quote character.</p>
 <p><code>"abc"</code> is a valid string consisting of the characters <code>a</code>, <code>b</code>, and <code>c</code>.</p>
 </li>
 <li>
-<p><code>"ab\""</code> is a valid string consisting of the characters <code>a</code>, <code>b</code>, and <code>"</code>.</p>
+<p><code>"ab\q"</code> is a valid string consisting of the characters <code>a</code>, <code>b</code>, and <code>"</code>.</p>
 </li>
 <li>
 <p><code>"abc</code> is not a valid string, because it is missing the terminating double quote.</p>
@@ -5499,22 +5529,27 @@ unmatched double quote character.</p>
 <h4 id="Expressions_String-Literals_Multiline-String-Literals">9.9.2. Multiline String Literals</h4>
 <div class="paragraph">
 <p>A <strong>multiline string literal</strong> is a sequence of characters enclosed in triple double
-quotes <code>"""</code>
-Newline is allowed.
+quotes <code>"""</code>.
 Inside a multiline string literal</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The character sequence <code>\"</code> is interpreted
-as a double quote character.</p>
+<p>The newline character is allowed.</p>
 </li>
 <li>
-<p>A sequence of three double quote characters in a row is not allowed
-inside the string. To include a sequence of three double quote
-characters in the output, you must precede one of the characters with <code>\</code>.</p>
+<p>The literal double quote character <code>"</code> is allowed, except that no
+sequence of three such characters in a row is allowed.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>For any multiline string literal <em>s</em>, the corresponding interpreted string <em>s'</em>
+is identical to <em>s</em> except that any character sequence <code>\q</code> in <em>s</em>
+becomes a double quote character <code>"</code> in <em>s'</em>.
+In particular, you can include a sequence of three double quote
+characters in <em>s'</em> string by writing at least one of
+those characters as <code>\q</code> in <em>s</em>.</p>
 </div>
 <div class="paragraph">
 <p>Whitespace inside a multiline string literal is trimmed as follows:</p>
@@ -5523,11 +5558,11 @@ characters in the output, you must precede one of the characters with <code>\</c
 <ul>
 <li>
 <p>The first newline after the first <code>"""</code> (if it exists) is omitted
-from the output string.</p>
+from the interpreted string.</p>
 </li>
 <li>
 <p>Any whitespace occurring in columns to the left of the first <code>"""</code>
-is omitted from the output string.</p>
+is omitted from the interpreted string.</p>
 </li>
 </ul>
 </div>
@@ -5544,7 +5579,7 @@ is omitted from the output string.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>The output string consists of the following lines, each terminated by a newline:</p>
+<p>The interpreted string consists of the following lines, each terminated by a newline:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -8048,7 +8083,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-12 09:50:14 -0700
+Last updated 2021-07-19 15:44:45 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

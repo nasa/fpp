@@ -6,7 +6,7 @@ module M2 {
   array ArrayOK2 = [3] M1.ArrayOK1
 }
 
-array ArrayOK3 = [2] string default ["string1", "string2"]
+array ArrayOK3 = [2] string default ["string1", "\q\"]
 
 module M3 {
   array ArrayOK4 = [4] ArrayOK3 @< Array with array arg

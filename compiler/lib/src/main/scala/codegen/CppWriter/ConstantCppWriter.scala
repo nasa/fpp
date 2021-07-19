@@ -131,7 +131,8 @@ object ConstantCppWriter {
       )
 
     private def writeStringConstant(name: String, value: String) = {
-      val s = value.replaceAll("\"", "\\\\\"").replaceAll("\n", "\\\\n")
+      val s = value.replaceAll("\\\\", "\\\\\\\\").
+        replaceAll("\"", "\\\\\"").replaceAll("\n", "\\\\n")
       val q = "\""
       (
         lines(s"extern const char *const $name;"),
