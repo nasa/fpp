@@ -591,7 +591,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Component-Instances_Component-Instance-Definitions_Specifying-Header-Files">10.1.4. Specifying Header Files</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Component-Instances_Init-Specifiers">10.2. Init Specifiers</a></li>
+<li><a href="#Defining-Component-Instances_Init-Specifiers">10.2. Init Specifiers</a>
+<ul class="sectlevel3">
+<li><a href="#Defining-Component-Instances_Init-Specifiers_Phases">10.2.1. Phases</a></li>
+<li><a href="#Defining-Component-Instances_Init-Specifiers_Writing-Init-Specifiers">10.2.2. Writing Init Specifiers</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#Defining-Topologies">11. Defining Topologies</a></li>
@@ -6265,6 +6270,8 @@ a "setup or teardown specifier."
 However, most of the code is in fact initialization code,
 and so FPP uses "init" as a shorthand name.)</p>
 </div>
+<div class="sect3">
+<h4 id="Defining-Component-Instances_Init-Specifiers_Phases">10.2.1. Phases</h4>
 <div class="paragraph">
 <p>The FPP translator uses init specifiers when it generates
 code for an F Prime topology.
@@ -6289,12 +6296,9 @@ files <em>T</em> <code>TopologyAc.hpp</code> and <em>T</em> <code>TopologyAc.cpp
 </ol>
 </div>
 <div class="paragraph">
-<p>We will use the letter <em>I</em> to refer generically to the name of a component
-instance.</p>
-</div>
-<div class="paragraph">
-<p><strong>Phases:</strong>
-Table <a href="#init-specifier-phases">Init Specifier Phases</a> shows the setup and teardown phases
+<p>The generated code in <em>T</em> <code>TopologyAc.hpp</code> and <em>T</em> <code>TopologyAc.cpp</code>
+is divided into several phases.
+Table <a href="#init-specifier-phases">Init Specifier Phases</a> shows the phases
 recognized by the FPP code generator.
 In this table, <em>T</em> is the name of a topology and <em>I</em> is the
 name of a component instance.
@@ -6325,7 +6329,7 @@ in the generated file.</p>
 <li>
 <p><strong>Default Code:</strong> Whether FPP generates default code if
 there is no init specifier for instance <em>I</em>
-and this phase.
+and for this phase.
 If there is an init specifier, then it replaces any
 default code.</p>
 </li>
@@ -6392,7 +6396,8 @@ initialization format.</p></td>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>regCommands</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>T</em> <code>TopologyAc.cpp</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Code for registering commands of <em>I</em> with the command dispatcher.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Code for registering the commands of <em>I</em> (if any)
+with the command dispatcher.
 Required only if <em>I</em> has a
 non-standard command registration format.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">In the file-private function <code>regCommands</code>.</p></td>
@@ -6402,7 +6407,7 @@ otherwise none.</p></td>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>readParameters</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>T</em> <code>TopologyAc.cpp</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The method call for reading parameters from a file.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Code for reading parameters from a file.
 Ordinarily used only when <em>I</em> is the parameter database.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">In the file-private function <code>readParameters</code>.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">None.</p></td>
@@ -6420,36 +6425,71 @@ has parameters; otherwise none.</p></td>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>startTasks</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>T</em> <code>TopologyAc.cpp</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Code for starting the task (if any) of <em>I</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">In the file-private function <code>startTasks</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The standard call to <code>startTasks</code> if <em>I</em>
+is an active component; otherwise none.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>stopTasks</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>T</em> <code>TopologyAc.cpp</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Code for stopping the task (if any) of <em>I</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">In the file-private function <code>stopTasks</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The standard call to <code>exit</code> if <em>I</em>
+is an active component; otherwise none.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>freeThreads</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>T</em> <code>TopologyAc.cpp</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Code for freeing the thread associated with <em>I</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">In the file-private function <code>freeThreads</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The standard call to <code>join</code> if <em>I</em> is an
+active component; otherwise none.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>tearDownComponents</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>T</em> <code>TopologyAc.cpp</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Code for deallocating the allocated memory
+(if any) associated with <em>I</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">In the file-private function <code>tearDownComponents</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None.</p></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p><strong>Writing init specifiers:</strong>
-TODO</p>
+<p>The most often used phases are <code>configConstants</code>, <code>configObjects</code>,
+and <code>configComponents</code>.
+These phases often require implementation-specific input that
+cannot be provided in any other way, except to write an init specifier.</p>
+</div>
+<div class="paragraph">
+<p>In theory you should never have to write code for <code>instances</code>
+or <code>initComponents</code>&#8201;&#8212;&#8201;this code can be be standardized&#8201;&#8212;&#8201;but in practice not all F Prime components conform to the standard,
+so you may have to override the default.</p>
+</div>
+<div class="paragraph">
+<p>You will typically not have to write code for <code>regCommands</code>,
+<code>readParameters</code>, and <code>loadParameters</code>&#8201;&#8212;&#8201;the framework can generate
+this code automatically&#8201;&#8212;&#8201;except that the parameter database
+needs one line of special code for reading its parameters.</p>
+</div>
+<div class="paragraph">
+<p>You typically have to write code for <code>startTasks</code>, <code>stopTasks</code>,
+and <code>freeThreads</code> only if you use a component that manages its
+own F Prime task in a non-standard way.
+If you use a standard F Prime active component, then this
+code is generated automatically.</p>
+</div>
+<div class="paragraph">
+<p>Code for <code>tearDownComponents</code> is required only if a component
+needs to deallocate memory or release resources on program exit.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Component-Instances_Init-Specifiers_Writing-Init-Specifiers">10.2.2. Writing Init Specifiers</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
 </div>
 </div>
 </div>
@@ -8686,7 +8726,7 @@ annotations back to comments.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-19 15:45:51 -0700
+Last updated 2021-07-19 16:08:40 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
