@@ -161,7 +161,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines(s"struct ${ident(data.name)} {") ++
-    data.members.flatMap(annotateNode(structTypeMember)).map(indentIn) ++ 
+    data.members.flatMap(annotateNode(structTypeMember)).map(indentIn) ++
     lines("}").joinOpt (data.default) (" default ") (exprNode)
   }
 
@@ -191,7 +191,7 @@ object FppWriter extends AstVisitor with LineUtils {
     node: AstNode[Ast.Expr],
     e: Ast.ExprBinop
   ) = exprNode(e.e1).join (binop(e.op)) (exprNode(e.e2))
-  
+
   override def exprDotNode(
     in: Unit,
     node: AstNode[Ast.Expr],
@@ -215,7 +215,7 @@ object FppWriter extends AstVisitor with LineUtils {
     node: AstNode[Ast.Expr],
     e: Ast.ExprLiteralFloat
   ) = lines(e.value)
-  
+
   override def exprLiteralIntNode(
     in: Unit,
     node: AstNode[Ast.Expr],
@@ -284,7 +284,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     def direct(scg: Ast.SpecConnectionGraph.Direct) = {
       lines(s"connections ${ident(scg.name)} {") ++
-      scg.connections.flatMap(connection).map(indentIn) ++ 
+      scg.connections.flatMap(connection).map(indentIn) ++
       lines("}")
     }
     def pattern(scg: Ast.SpecConnectionGraph.Pattern) = {
@@ -505,12 +505,12 @@ object FppWriter extends AstVisitor with LineUtils {
       annotate(a1, f(node.data), a2)
     }
 
-  private def applyToData[A,B](f: A => B): AstNode[A] => B = 
+  private def applyToData[A,B](f: A => B): AstNode[A] => B =
     (a: AstNode[A]) => f(a.data)
 
   private def binop(op: Ast.Binop) = s" ${op.toString} "
 
-  private def bracketExprNode(en: AstNode[Ast.Expr]) = 
+  private def bracketExprNode(en: AstNode[Ast.Expr]) =
     Line.addPrefixAndSuffix("[", exprNode(en), "]")
 
   private def defEnumConstant(dec: Ast.DefEnumConstant) =
@@ -534,7 +534,7 @@ object FppWriter extends AstVisitor with LineUtils {
   private def formalParamList(fpl: Ast.FormalParamList) =
     fpl match {
       case Nil => Nil
-      case _ => 
+      case _ =>
         lines("(") ++
         fpl.flatMap(annotateNode(formalParam)).map(indentIn) ++
         lines(")")
@@ -546,21 +546,18 @@ object FppWriter extends AstVisitor with LineUtils {
   private def qualIdentString(qid: Ast.QualIdent): String =
     qid match {
       case Ast.QualIdent.Unqualified(name) => ident(name)
-      case Ast.QualIdent.Qualified(qualifier, name) => 
+      case Ast.QualIdent.Qualified(qualifier, name) =>
         qualIdentString(qualifier.data) ++ "." ++ ident(name.data)
     }
 
   private def queueFull(qf: Ast.QueueFull) = lines(qf.toString)
 
-  private def string(s: String) = s.split("\n").toList match {
-    case Nil => lines("\"\"")
-    case s :: Nil => lines("\"" ++ s.replaceAll("\"", "\\\"") ++ "\"")
-    case ss => {
-      lines("\"\"\"") ++
-      ss.map((s: String) => line(s.replaceAll("\"\"\"", "\\\"\"\""))) ++
-      lines("\"\"\"")
+  private def string(s: String) =
+    s.replaceAll("\"", "\\\\q").split("\n").toList match {
+      case Nil => lines("\"\"")
+      case s :: Nil => lines("\"" ++ s ++ "\"")
+      case ss => lines("\"\"\"") ++ ss.map(line) ++ lines("\"\"\"")
     }
-  }
 
   private def structMember(member: Ast.StructMember) =
     lines(ident(member.name)).join (" = ") (exprNode(member.value))

@@ -15,9 +15,9 @@ false
 
 # String literals
 "This is a single-line string"
-"abc \""
-"\" abc"
-"abc \" abc"
+"abc \q"
+"\q abc"
+"abc \q abc"
 
 """
 This is a multi-line string.
@@ -25,6 +25,6 @@ This is the second line.
 """
 
 """abc"""
-"""\""""
-"""abc \" abc"""
-"""abc \""""
+"""\q"""
+"""abc \q abc"""
+"""abc \q"""

@@ -111,13 +111,13 @@ class LexerSpec extends AnyWordSpec {
     }
     val literals = List(
       "\"abc\"",
-      "\"\\\" abc\"",
-      "\"abc \\\"\"",
-      "\"abc \\\" abc\"",
+      "\"\\q abc\"",
+      "\"abc \\q\"",
+      "\"abc \\q abc\"",
       "\"\"\"abc\"\"\"",
-      "\"\"\"\\\" abc\"\"\"",
-      "\"\"\"abc \\\"\"\"\"",
-      "\"\"\"abc \\\" abc\"\"\"",
+      "\"\"\"\\q abc\"\"\"",
+      "\"\"\"abc \\q\"\"\"",
+     "\"\"\"abc \\q abc\"\"\"",
       "\"\"\"abc \" abc\"\"\"",
       "\"\"\"abc \"\" abc\"\"\"",
     )
