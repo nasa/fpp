@@ -86,7 +86,6 @@ object Lexer extends RegexParsers {
   }
 
   def literalStringSingle: Parser[Token] = positioned {
-    //"\"([^\\\\\"\r\n]*(\\\\(\")?)?)*\"".r ^^ {
     "\"[^\"]*\"".r ^^ {
       case s => {
         val s1 = "\\\\q".r.replaceAllIn(s, "\"")
