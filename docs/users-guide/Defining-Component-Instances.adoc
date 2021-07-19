@@ -514,16 +514,16 @@ so you may have to override the default.
 You will typically not have to write code for `regCommands`,
 `readParameters`, and `loadParameters` -- the framework can generate
 this code automatically -- except that the parameter database
-needs one line of special code for reading its parameters.
+instance needs one line of special code for reading its parameters.
 
 You typically have to write code for `startTasks`, `stopTasks`,
-and `freeThreads` only if you use a component that manages its
-own F Prime task in a non-standard way.
-If you use a standard F Prime active component, then this
-code is generated automatically.
+and `freeThreads` only if you use a component whose user-written
+implementation manages its own F Prime task.
+If you use a standard F Prime active component, then the framework
+manages the task, and this code is generated automatically.
 
 Code for `tearDownComponents` is required only if a component
-needs to deallocate memory or release resources on program exit.
+instance needs to deallocate memory or release resources on program exit.
 
 ==== Writing Init Specifiers
 

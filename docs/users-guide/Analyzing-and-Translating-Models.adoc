@@ -608,6 +608,18 @@ You have to declare them as abstract types in the FPP model, but
 once you do that you can use them.
 You don't have to define header files for these types.
 
+=== Implementing Deployments
+
+TODO
+
+* Main function
+
+* TopologyDefs.hpp and TopologyDefs.cpp
+
+** Health configuration
+
+** User-specified types, constants, and variables
+
 === Translating XML to FPP
 
 The FPP tool suite provides a capability to translate F Prime

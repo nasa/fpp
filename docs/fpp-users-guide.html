@@ -638,8 +638,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">13.3. Generating C Plus Plus</a></li>
 <li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files">13.4. Identifying Generated Files</a></li>
 <li><a href="#Analyzing-and-Translating-Models_Implementing-Abstract-Types">13.5. Implementing Abstract Types</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Translating-XML-to-FPP">13.6. Translating XML to FPP</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Formatting-FPP-Source">13.7. Formatting FPP Source</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Implementing-Deployments">13.6. Implementing Deployments</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Translating-XML-to-FPP">13.7. Translating XML to FPP</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Formatting-FPP-Source">13.8. Formatting FPP Source</a></li>
 </ul>
 </li>
 </ul>
@@ -6471,18 +6472,18 @@ so you may have to override the default.</p>
 <p>You will typically not have to write code for <code>regCommands</code>,
 <code>readParameters</code>, and <code>loadParameters</code>&#8201;&#8212;&#8201;the framework can generate
 this code automatically&#8201;&#8212;&#8201;except that the parameter database
-needs one line of special code for reading its parameters.</p>
+instance needs one line of special code for reading its parameters.</p>
 </div>
 <div class="paragraph">
 <p>You typically have to write code for <code>startTasks</code>, <code>stopTasks</code>,
-and <code>freeThreads</code> only if you use a component that manages its
-own F Prime task in a non-standard way.
-If you use a standard F Prime active component, then this
-code is generated automatically.</p>
+and <code>freeThreads</code> only if you use a component whose user-written
+implementation manages its own F Prime task.
+If you use a standard F Prime active component, then the framework
+manages the task, and this code is generated automatically.</p>
 </div>
 <div class="paragraph">
 <p>Code for <code>tearDownComponents</code> is required only if a component
-needs to deallocate memory or release resources on program exit.</p>
+instance needs to deallocate memory or release resources on program exit.</p>
 </div>
 </div>
 <div class="sect3">
@@ -8280,7 +8281,33 @@ You don&#8217;t have to define header files for these types.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Translating-XML-to-FPP">13.6. Translating XML to FPP</h3>
+<h3 id="Analyzing-and-Translating-Models_Implementing-Deployments">13.6. Implementing Deployments</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Main function</p>
+</li>
+<li>
+<p>TopologyDefs.hpp and TopologyDefs.cpp</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Health configuration</p>
+</li>
+<li>
+<p>User-specified types, constants, and variables</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Analyzing-and-Translating-Models_Translating-XML-to-FPP">13.7. Translating XML to FPP</h3>
 <div class="paragraph">
 <p>The FPP tool suite provides a capability to translate F Prime
 XML files to FPP.
@@ -8648,7 +8675,7 @@ section on <a href="#Specifying-Models">specifying models</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Formatting-FPP-Source">13.7. Formatting FPP Source</h3>
+<h3 id="Analyzing-and-Translating-Models_Formatting-FPP-Source">13.8. Formatting FPP Source</h3>
 <div class="paragraph">
 <p>The tool <code>fpp-format</code> accepts FPP source files as input
 and rewrites them as formatted output.
@@ -8726,7 +8753,7 @@ annotations back to comments.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-19 16:08:40 -0700
+Last updated 2021-07-19 16:16:43 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
