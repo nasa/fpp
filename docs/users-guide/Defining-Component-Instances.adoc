@@ -359,6 +359,8 @@ a "setup or teardown specifier."
 However, most of the code is in fact initialization code,
 and so FPP uses "init" as a shorthand name.)
 
+==== Phases
+
 The FPP translator uses init specifiers when it generates
 code for an F Prime topology.
 We will have more to say about topology generation in the
@@ -374,11 +376,9 @@ and their connections).
 . When generating {cpp} code for topology _T_, the code generator produces
 files _T_ `TopologyAc.hpp` and _T_ `TopologyAc.cpp`.
 
-We will use the letter _I_ to refer generically to the name of a component
-instance.
-
-*Phases:*
-Table <<init-specifier-phases>> shows the setup and teardown phases 
+The generated code in _T_ `TopologyAc.hpp` and _T_ `TopologyAc.cpp`
+is divided into several phases.
+Table <<init-specifier-phases>> shows the phases 
 recognized by the FPP code generator.
 In this table, _T_ is the name of a topology and _I_ is the
 name of a component instance.
@@ -402,7 +402,7 @@ in the generated file.
 
 * *Default Code:* Whether FPP generates default code if 
 there is no init specifier for instance _I_
-and this phase.
+and for this phase.
 If there is an init specifier, then it replaces any
 default code.
 
@@ -447,7 +447,8 @@ initialization format.
 
 |`regCommands`
 |_T_ `TopologyAc.cpp`
-|Code for registering commands of _I_ with the command dispatcher.
+|Code for registering the commands of _I_ (if any)
+with the command dispatcher.
 Required only if _I_ has a
 non-standard command registration format.
 |In the file-private function `regCommands`.
@@ -456,7 +457,7 @@ otherwise none.
 
 |`readParameters`
 |_T_ `TopologyAc.cpp`
-|The method call for reading parameters from a file.
+|Code for reading parameters from a file.
 Ordinarily used only when _I_ is the parameter database.
 |In the file-private function `readParameters`.
 |None.
@@ -472,30 +473,59 @@ has parameters; otherwise none.
 
 |`startTasks`
 |_T_ `TopologyAc.cpp`
-|
-|
-|
+|Code for starting the task (if any) of _I_.
+|In the file-private function `startTasks`.
+|The standard call to `startTasks` if _I_
+is an active component; otherwise none.
 
 |`stopTasks`
 |_T_ `TopologyAc.cpp`
-|
-|
-|
+|Code for stopping the task (if any) of _I_.
+|In the file-private function `stopTasks`.
+|The standard call to `exit` if _I_
+is an active component; otherwise none.
 
 |`freeThreads`
 |_T_ `TopologyAc.cpp`
-|
-|
-|
+|Code for freeing the thread associated with _I_.
+|In the file-private function `freeThreads`.
+|The standard call to `join` if _I_ is an
+active component; otherwise none.
 
 |`tearDownComponents`
 |_T_ `TopologyAc.cpp`
-|
-|
-|
+|Code for deallocating the allocated memory
+(if any) associated with _I_.
+|In the file-private function `tearDownComponents`.
+|None.
 
 |===
 
-*Writing init specifiers:*
+The most often used phases are `configConstants`, `configObjects`,
+and `configComponents`.
+These phases often require implementation-specific input that
+cannot be provided in any other way, except to write an init specifier.
+
+In theory you should never have to write code for `instances`
+or `initComponents` -- this code can be be standardized --
+but in practice not all F Prime components conform to the standard,
+so you may have to override the default.
+
+You will typically not have to write code for `regCommands`,
+`readParameters`, and `loadParameters` -- the framework can generate
+this code automatically -- except that the parameter database
+needs one line of special code for reading its parameters.
+
+You typically have to write code for `startTasks`, `stopTasks`,
+and `freeThreads` only if you use a component that manages its
+own F Prime task in a non-standard way.
+If you use a standard F Prime active component, then this
+code is generated automatically.
+
+Code for `tearDownComponents` is required only if a component
+needs to deallocate memory or release resources on program exit.
+
+==== Writing Init Specifiers
+
 TODO
 
