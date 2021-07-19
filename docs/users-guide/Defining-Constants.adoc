@@ -189,7 +189,8 @@ For example:
 constant s = "This is a string."
 ----
 
-To put the double-quote character in a string, escape it, like this:
+To put the double-quote character in a string, write the double quote
+character as `\q`, like this:
 
 [source,fpp]
 ----
@@ -226,13 +227,13 @@ constant s = """
              "This is a quotation within a string," he said."""
 ----
 
-To embed a literal sequence `"""` in a multiline string, escape
-one of the `"` characters:
+To embed a literal character sequence `"""` in a multiline string, write
+at least one of the `"` characters as `\q`:
 
 [source,fpp]
 ----
 constant s = """
-             Here is a triple-quote character: ""\"."""
+             Here are three double-quote characters in a row: \q\q\q"""
 ----
 
 ==== Array Values

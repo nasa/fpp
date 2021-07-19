@@ -1039,7 +1039,8 @@ For example:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>To put the double-quote character in a string, escape it, like this:</p>
+<p>To put the double-quote character in a string, write the double quote
+character as <code>\q</code>, like this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1080,13 +1081,13 @@ with <code>This</code>.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>To embed a literal sequence <code>"""</code> in a multiline string, escape
-one of the <code>"</code> characters:</p>
+<p>To embed a literal character sequence <code>"""</code> in a multiline string, write
+at least one of the <code>"</code> characters as <code>\q</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">constant s = """
-             Here is a triple-quote character: ""\"."""</code></pre>
+             Here are three double-quote characters in a row: \q\q\q"""</code></pre>
 </div>
 </div>
 </div>
@@ -8685,7 +8686,7 @@ annotations back to comments.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-19 15:45:06 -0700
+Last updated 2021-07-19 15:45:51 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
