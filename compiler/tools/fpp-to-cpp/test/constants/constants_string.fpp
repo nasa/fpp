@@ -1,5 +1,5 @@
 @ Escaped quotation marks
-constant s1 = "\"Hello,\" he said."
+constant s1 = "\qHello,\q he said."
 
 @ Escaped newlines
 constant s2 = """Line 1.
