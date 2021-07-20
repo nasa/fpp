@@ -43,7 +43,10 @@ object ValueXmlWriter {
     override def primitiveInt(s: XmlWriterState, v: Value.PrimitiveInt) = v.value.toString
 
     override def string(s: XmlWriterState, v: Value.String) =
-      "\"" ++ v.value.toString.replaceAll("\\\\", "\\\\\\\\").replaceAll("\"", "\\\\\"") ++ "\""
+      "\"" ++ 
+      v.value.toString.replaceAll("\\\\", "\\\\\\\\").
+        replaceAll("\"", "\\\\\"").replaceAll("\n", "\\\\n") ++ 
+      "\""
 
     override def struct(s: XmlWriterState, v: Value.Struct): String = {
       val structType = v.getType

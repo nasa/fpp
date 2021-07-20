@@ -65,6 +65,9 @@ from the interpreted string.
 * Any whitespace occurring in columns to the left of the first `"""`
 is omitted from the interpreted string.
 
+* Any trailing newline characters are omitted from the
+interpreted string.
+
 *Example:*
 
 [source,fpp]
