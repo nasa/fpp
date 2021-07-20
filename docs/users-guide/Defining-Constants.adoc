@@ -209,13 +209,14 @@ For example:
 constant s = """
              This is a multiline string.
              
-             It has three lines."""
+             It has three lines.
+             """
 ----
 
-When interpreting a multiline string, FPP ignores the newline
-character at the start of the string, if any.
-On each line, any blanks to the left of the column where the first
-`"""` appears are suppressed.
+When interpreting a multiline string, FPP ignores nay newline
+characters at the start and end of the string.
+FPP also ignores any blanks to the left of the column where
+the first `"""` appears.
 For example, the string shown above consists of three lines and starts
 with `This`.
 
@@ -224,16 +225,19 @@ Literal quotation marks are allowed inside a multiline string:
 [source,fpp]
 ----
 constant s = """
-             "This is a quotation within a string," he said."""
+             "This is a quotation within a string," he said.
+             """
 ----
 
 To embed a literal character sequence `"""` in a multiline string, write
-at least one of the `"` characters as `\q`:
+at least one of the `"` characters as `\q`.
+For example:
 
 [source,fpp]
 ----
 constant s = """
-             Here are three double-quote characters in a row: \q\q\q"""
+             Here are three double-quote characters in a row: \q\q\q
+             """
 ----
 
 ==== Array Values

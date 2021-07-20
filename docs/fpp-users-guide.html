@@ -1066,14 +1066,15 @@ For example:</p>
 <pre class="prettyprint highlight"><code data-lang="fpp">constant s = """
              This is a multiline string.
 
-             It has three lines."""</code></pre>
+             It has three lines.
+             """</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>When interpreting a multiline string, FPP ignores the newline
-character at the start of the string, if any.
-On each line, any blanks to the left of the column where the first
-<code>"""</code> appears are suppressed.
+<p>When interpreting a multiline string, FPP ignores nay newline
+characters at the start and end of the string.
+FPP also ignores any blanks to the left of the column where
+the first <code>"""</code> appears.
 For example, the string shown above consists of three lines and starts
 with <code>This</code>.</p>
 </div>
@@ -1083,17 +1084,20 @@ with <code>This</code>.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">constant s = """
-             "This is a quotation within a string," he said."""</code></pre>
+             "This is a quotation within a string," he said.
+             """</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>To embed a literal character sequence <code>"""</code> in a multiline string, write
-at least one of the <code>"</code> characters as <code>\q</code>:</p>
+at least one of the <code>"</code> characters as <code>\q</code>.
+For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">constant s = """
-             Here are three double-quote characters in a row: \q\q\q"""</code></pre>
+             Here are three double-quote characters in a row: \q\q\q
+             """</code></pre>
 </div>
 </div>
 </div>
@@ -6475,9 +6479,9 @@ this code automatically&#8201;&#8212;&#8201;except that the parameter database
 instance needs one line of special code for reading its parameters.</p>
 </div>
 <div class="paragraph">
-<p>You typically have to write code for <code>startTasks</code>, <code>stopTasks</code>,
-and <code>freeThreads</code> only if you use a component whose user-written
-implementation manages its own F Prime task.
+<p>Code for <code>startTasks</code>, <code>stopTasks</code>,
+and <code>freeThreads</code> is required only if the user-written implementation of
+a component instance manages its own F Prime task.
 If you use a standard F Prime active component, then the framework
 manages the task, and this code is generated automatically.</p>
 </div>
@@ -6489,7 +6493,109 @@ instance needs to deallocate memory or release resources on program exit.</p>
 <div class="sect3">
 <h4 id="Defining-Component-Instances_Init-Specifiers_Writing-Init-Specifiers">10.2.2. Writing Init Specifiers</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>To write an init specifier, you write the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The keyword <code>init</code>.</p>
+</li>
+<li>
+<p>The name of a
+<a href="#Defining-Component-Instances_Component-Instance-Definitions">component instance</a>.</p>
+</li>
+<li>
+<p>The keyword <code>phase</code>.</p>
+</li>
+<li>
+<p>The
+<a href="#Defining-Component-Instances_Init-Specifiers_Phases">phase</a>
+of the init specifier.</p>
+</li>
+<li>
+<p>A
+<a href="#Defining-Constants_Expressions_String-Values">string</a>
+that provides the code snippet.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>It is usually convenient, but not required, to use a multiline string
+for the code snippet.</p>
+</div>
+<div class="paragraph">
+<p>As an example, here are the init specifiers for the
+command sequencer instance <code>cmdSeq</code> from the F Prime reference
+deployment located at <code>Ref/Top/init.fpp</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">init cmdSeq phase Fpp.ToCpp.Phases.configConstants """
+enum {
+  BUFFER_SIZE = 5*1024
+};
+
+"""
+
+init cmdSeq phase Fpp.ToCpp.Phases.instances """
+Svc::CmdSequencerComponentImpl cmdSeq(FW_OPTIONAL_NAME("cmdSeq"));
+"""
+
+init cmdSeq phase Fpp.ToCpp.Phases.configComponents """
+    cmdSeq.allocateBuffer(
+        0,
+        Allocation::mallocator,
+        ConfigConstants::cmdSeq::BUFFER_SIZE
+    );
+"""
+
+init cmdSeq phase Fpp.ToCpp.Phases.tearDownComponents """
+cmdSeq.deallocateBuffer(Allocation::mallocator);
+"""</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The code for <code>configConstants</code> provides a constant <code>BUFFER_SIZE</code>
+that is used in the <code>configComponents</code> phase.
+The code for the <code>instances</code> phase provides the standard constructor,
+except that the name of the component type is <code>CmdSequencerComponentImpl</code>
+instead of <code>CmdSequencer</code>, so we have to write out the constructor.
+The code for <code>configComponents</code> calls <code>allocateBuffer</code>, passing
+in an allocator object that is declared elsewhere.
+(In the section on
+<a href="#Analyzing-and-Translating-Models_Implementing-Deployments">implementing deployments</a>, we will explain where this allocator
+object is declared.)
+The code for <code>tearDownComponents</code> calls <code>deallocateBuffer</code> to
+deallocate the sequence buffer, passing in the allocator
+object again.</p>
+</div>
+<div class="paragraph">
+<p>As another example, here are the init specifiers for the parameter
+database instance <code>prmDb</code> from the Ref deployment:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">init prmDb phase Fpp.ToCpp.Phases.instances """
+Svc::PrmDbImpl prmDb(FW_OPTIONAL_NAME("prmDb"), "PrmDb.dat");
+"""
+
+init prmDb phase Fpp.ToCpp.Phases.readParameters """
+prmDb.readParamFile();
+"""</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We provide code for the <code>instances</code> phase because the constructor
+call for this component is nonstandard&#8201;&#8212;&#8201;it takes the parameter
+file name as an argument.
+In the <code>readParameters</code> phase we provide the code for reading the parameters
+from the file.
+As discussed above, this code is needed only for the parameter database
+instance.</p>
+</div>
+<div class="paragraph">
+<p>For more examples of init specifiers in action, see the rest of
+the file <code>Ref/Top/init.fpp</code> in the F Prime repository.</p>
 </div>
 </div>
 </div>
@@ -8753,7 +8859,7 @@ annotations back to comments.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-19 16:16:43 -0700
+Last updated 2021-07-19 18:02:25 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

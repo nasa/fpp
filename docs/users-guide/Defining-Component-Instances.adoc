@@ -516,9 +516,9 @@ You will typically not have to write code for `regCommands`,
 this code automatically -- except that the parameter database
 instance needs one line of special code for reading its parameters.
 
-You typically have to write code for `startTasks`, `stopTasks`,
-and `freeThreads` only if you use a component whose user-written
-implementation manages its own F Prime task.
+Code for `startTasks`, `stopTasks`,
+and `freeThreads` is required only if the user-written implementation of
+a component instance manages its own F Prime task.
 If you use a standard F Prime active component, then the framework
 manages the task, and this code is generated automatically.
 
@@ -527,5 +527,93 @@ instance needs to deallocate memory or release resources on program exit.
 
 ==== Writing Init Specifiers
 
-TODO
+To write an init specifier, you write the following:
 
+* The keyword `init`.
+
+* The name of a
+<<Defining-Component-Instances_Component-Instance-Definitions,
+component instance>>.
+
+* The keyword `phase`.
+
+* The
+<<Defining-Component-Instances_Init-Specifiers_Phases, phase>>
+of the init specifier.
+
+* A
+<<Defining-Constants_Expressions_String-Values, string>>
+that provides the code snippet.
+
+It is usually convenient, but not required, to use a multiline string
+for the code snippet.
+
+As an example, here are the init specifiers for the
+command sequencer instance `cmdSeq` from the F Prime reference
+deployment located at `Ref/Top/init.fpp`:
+
+[source,fpp]
+--------
+init cmdSeq phase Fpp.ToCpp.Phases.configConstants """
+enum {
+  BUFFER_SIZE = 5*1024
+};
+
+"""
+
+init cmdSeq phase Fpp.ToCpp.Phases.instances """
+Svc::CmdSequencerComponentImpl cmdSeq(FW_OPTIONAL_NAME("cmdSeq"));
+"""
+
+init cmdSeq phase Fpp.ToCpp.Phases.configComponents """
+    cmdSeq.allocateBuffer(
+        0,
+        Allocation::mallocator,
+        ConfigConstants::cmdSeq::BUFFER_SIZE
+    );
+"""
+
+init cmdSeq phase Fpp.ToCpp.Phases.tearDownComponents """
+cmdSeq.deallocateBuffer(Allocation::mallocator);
+"""
+--------
+
+The code for `configConstants` provides a constant `BUFFER_SIZE`
+that is used in the `configComponents` phase.
+The code for the `instances` phase provides the standard constructor,
+except that the name of the component type is `CmdSequencerComponentImpl`
+instead of `CmdSequencer`, so we have to write out the constructor.
+The code for `configComponents` calls `allocateBuffer`, passing
+in an allocator object that is declared elsewhere.
+(In the section on
+<<Analyzing-and-Translating-Models_Implementing-Deployments,
+implementing deployments>>, we will explain where this allocator
+object is declared.)
+The code for `tearDownComponents` calls `deallocateBuffer` to
+deallocate the sequence buffer, passing in the allocator
+object again.
+
+As another example, here are the init specifiers for the parameter
+database instance `prmDb` from the Ref deployment:
+
+[source,fpp]
+--------
+init prmDb phase Fpp.ToCpp.Phases.instances """
+Svc::PrmDbImpl prmDb(FW_OPTIONAL_NAME("prmDb"), "PrmDb.dat");
+"""
+
+init prmDb phase Fpp.ToCpp.Phases.readParameters """
+prmDb.readParamFile();
+"""
+--------
+
+We provide code for the `instances` phase because the constructor 
+call for this component is nonstandard -- it takes the parameter
+file name as an argument.
+In the `readParameters` phase we provide the code for reading the parameters
+from the file.
+As discussed above, this code is needed only for the parameter database
+instance.
+
+For more examples of init specifiers in action, see the rest of
+the file `Ref/Top/init.fpp` in the F Prime repository.
