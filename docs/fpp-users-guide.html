@@ -6637,9 +6637,9 @@ the file <code>Ref/Top/init.fpp</code> in the F Prime repository.</p>
 <div class="paragraph">
 <p>In F Prime, a <strong>topology</strong> or connection graph is the
 highest level of software architecture in a FSW application.
-A topology specifies the
+A topology specifies what
 <a href="#Defining-Component-Instances">component instances</a>
-used in the application and how their
+are used in the application and how their
 <a href="#Defining-Components_Port-Instances">port instances</a>
 are connected.</p>
 </div>
@@ -6649,7 +6649,7 @@ of top-level C&#43;&#43; code that you write by hand.
 In the section on
 <a href="#Analyzing-and-Translating-Models_Implementing-Deployments">implementing deployments</a>, we will explain more about the top-level
 C&#43;&#43; code.
-In this section we explain how to use FPP to define a topology.</p>
+In this section we explain how to define a topology in FPP.</p>
 </div>
 <div class="sect2">
 <h3 id="Defining-Topologies_A-Simple-Example">11.1. A Simple Example</h3>
@@ -6725,7 +6725,17 @@ if the instance is defined inside a
 <a href="#Defining-Modules">module</a>; in this simple
 example it is not.
 Each instance specifier states that the instance it names
-is part of the topology.</p>
+is part of the topology.
+The instances appearing in the list must be distinct.
+For example, this is not correct:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">topology T {
+  instance c1
+  instance c1 # Error: duplicate instance c1
+}</code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p>A graph specifier specifies one or more connections
@@ -6750,15 +6760,16 @@ An endpoint is the name of a component instance
 and the name of a port of that component instance.</p>
 </div>
 <div class="paragraph">
-<p>In this example there are two connection graphs and two connections:</p>
+<p>In this example there are two connection graphs, each containing
+one connection:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>A connection from <code>c1.pOut</code> to <code>c2.pIn</code> in connection graph <code>C1</code>.</p>
+<p>A connection graph <code>C1</code> containing a connection from <code>c1.pOut</code> to <code>c2.pIn</code>.</p>
 </li>
 <li>
-<p>A connection from <code>c2.pOut</code> to <code>c1.pIn</code> in connection graph <code>C2</code>.</p>
+<p>A connection graph <code>C2</code> containing a connection from <code>c2.pOut</code> to <code>c1.pIn</code>.</p>
 </li>
 </ol>
 </div>
@@ -6775,19 +6786,7 @@ terminating punctuation is a semicolon.</p>
 <div class="paragraph">
 <p>In general, an FPP topology consists of a list of instances
 and a set of named connection graphs.
-The instances appearing in the list must be distinct.
-For example, this is not correct:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">topology T {
-  instance c1
-  instance c1 # Error: duplicate instance c1
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>There are two ways to specify connection graphs:
+There are two ways to specify connection graphs:
 <strong>direct graph specifiers</strong> and <strong>pattern graph specifiers</strong>.</p>
 </div>
 <div class="sect3">
@@ -9145,7 +9144,7 @@ annotations back to comments.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-20 23:25:42 -0700
+Last updated 2021-07-21 08:15:19 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

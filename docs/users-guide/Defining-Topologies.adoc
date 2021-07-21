@@ -2,9 +2,9 @@
 
 In F Prime, a *topology* or connection graph is the
 highest level of software architecture in a FSW application.
-A topology specifies the
+A topology specifies what
 <<Defining-Component-Instances,component instances>>
-used in the application and how their
+are used in the application and how their
 <<Defining-Components_Port-Instances,port instances>>
 are connected.
 
@@ -14,7 +14,7 @@ In the section on
 <<Analyzing-and-Translating-Models_Implementing-Deployments,
 implementing deployments>>, we will explain more about the top-level
 {cpp} code.
-In this section we explain how to use FPP to define a topology.
+In this section we explain how to define a topology in FPP.
 
 === A Simple Example
 
@@ -81,6 +81,16 @@ if the instance is defined inside a
 example it is not.
 Each instance specifier states that the instance it names
 is part of the topology.
+The instances appearing in the list must be distinct.
+For example, this is not correct:
+
+[source,fpp]
+--------
+topology T {
+  instance c1
+  instance c1 # Error: duplicate instance c1
+}
+--------
 
 A graph specifier specifies one or more connections
 between component instances.
@@ -102,11 +112,12 @@ An endpoint is the name of a component instance
 (which in general may be a qualified name), a dot,
 and the name of a port of that component instance.
 
-In this example there are two connection graphs and two connections:
+In this example there are two connection graphs, each containing
+one connection:
 
-. A connection from `c1.pOut` to `c2.pIn` in connection graph `C1`.
+. A connection graph `C1` containing a connection from `c1.pOut` to `c2.pIn`.
 
-. A connection from `c2.pOut` to `c1.pIn` in connection graph `C2`.
+. A connection graph `C2` containing a connection from `c2.pOut` to `c1.pIn`.
 
 As shown, topologies and their members are
 <<Writing-Comments-and-Annotations_Annotations,annotatable elements>>.
@@ -119,17 +130,6 @@ terminating punctuation is a semicolon.
 
 In general, an FPP topology consists of a list of instances
 and a set of named connection graphs.
-The instances appearing in the list must be distinct.
-For example, this is not correct:
-
-[source,fpp]
---------
-topology T {
-  instance c1
-  instance c1 # Error: duplicate instance c1
-}
---------
-
 There are two ways to specify connection graphs:
 *direct graph specifiers* and *pattern graph specifiers*.
 
