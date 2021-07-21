@@ -1,3 +1,55 @@
 == Defining Topologies
 
+In F Prime, a *topology* is the highest level of software architecture
+in a FSW application.
+A topology specifies the
+<<Defining-Component-Instances,component instances>>
+used in the application and how their
+<<Defining-Components_Port-Instances,port instances>>
+are connected.
+
+An F Prime FSW application consists of a topology plus a small amount
+of top-level {cpp} code that you write by hand.
+In the section on
+<<Analyzing-and-Translating-Models_Implementing-Deployments,
+implementing deployments>>, we will explain more about the top-level
+{cpp} code.
+In this section we explain how to use FPP to define a topology.
+
+=== A Simple Example
+
+TODO
+
+=== Specifying Connections
+
+==== Direct Specifiers
+
+TODO
+
+==== Pattern Specifiers
+
+TODO
+
+=== Port Numbering
+
+==== Explicit Numbering
+
+TODO
+
+==== Matched Numbering
+
+TODO
+
+==== Default Numbering
+
+TODO
+
+=== Importing Topologies
+
+==== Resolving Connections
+
+TODO
+
+==== Private Instances
+
 TODO
