@@ -52,7 +52,11 @@ The following sections describe the available component members.
 === Port Instances
 
 A *port instance* is a component member that specifies an instance of an FPP
-<<Defining-Ports, port>> used by the component.
+<<Defining-Ports, port>> used by the instances of the component.
+Component instances use their port instances to communicate
+with other component instances.
+
+A port instance instantiates a port.
 The port definition provides information common to all uses of the port, such as
 the kind of data carried on the port.
 The port instance provides use-specific information, such

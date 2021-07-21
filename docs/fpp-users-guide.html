@@ -617,7 +617,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#Defining-Topologies_Importing-Topologies">11.4. Importing Topologies</a>
 <ul class="sectlevel3">
-<li><a href="#Defining-Topologies_Importing-Topologies_Resolving-Connections">11.4.1. Resolving Connections</a></li>
+<li><a href="#Defining-Topologies_Importing-Topologies_Merging-Connection-Graphs">11.4.1. Merging Connection Graphs</a></li>
 <li><a href="#Defining-Topologies_Importing-Topologies_Private-Instances">11.4.2. Private Instances</a></li>
 </ul>
 </li>
@@ -3449,7 +3449,12 @@ The following sections describe the available component members.</p>
 <h3 id="Defining-Components_Port-Instances">9.2. Port Instances</h3>
 <div class="paragraph">
 <p>A <strong>port instance</strong> is a component member that specifies an instance of an FPP
-<a href="#Defining-Ports">port</a> used by the component.
+<a href="#Defining-Ports">port</a> used by the instances of the component.
+Component instances use their port instances to communicate
+with other component instances.</p>
+</div>
+<div class="paragraph">
+<p>A port instance instantiates a port.
 The port definition provides information common to all uses of the port, such as
 the kind of data carried on the port.
 The port instance provides use-specific information, such
@@ -6632,9 +6637,9 @@ the file <code>Ref/Top/init.fpp</code> in the F Prime repository.</p>
 <div class="paragraph">
 <p>In F Prime, a <strong>topology</strong> or connection graph is the
 highest level of software architecture in a FSW application.
-A topology specifies what
+A topology specifies the
 <a href="#Defining-Component-Instances">component instances</a>
-are used in the application and how their
+used in the application and how their
 <a href="#Defining-Components_Port-Instances">port instances</a>
 are connected.</p>
 </div>
@@ -6761,8 +6766,8 @@ and the name of a port of that component instance.</p>
 <p>As shown, topologies and their members are
 <a href="#Writing-Comments-and-Annotations_Annotations">annotatable elements</a>.
 The topology members form an
-<a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">element sequence</a> with a semicolon as the optional
-terminating punctuation.</p>
+<a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">element sequence</a> in which the optional
+terminating punctuation is a semicolon.</p>
 </div>
 </div>
 <div class="sect2">
@@ -6838,8 +6843,8 @@ connections C {
 </div>
 <div class="paragraph">
 <p>The members of a direct graph specifier form an
-<a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">element sequence</a> with a comma as the optional
-terminating punctuation.</p>
+<a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">element sequence</a> in which the optional
+terminating punctuation is a comma.</p>
 </div>
 </div>
 <div class="sect3">
@@ -6873,7 +6878,7 @@ terminating punctuation.</p>
 <div class="sect2">
 <h3 id="Defining-Topologies_Importing-Topologies">11.4. Importing Topologies</h3>
 <div class="sect3">
-<h4 id="Defining-Topologies_Importing-Topologies_Resolving-Connections">11.4.1. Resolving Connections</h4>
+<h4 id="Defining-Topologies_Importing-Topologies_Merging-Connection-Graphs">11.4.1. Merging Connection Graphs</h4>
 <div class="paragraph">
 <p>TODO</p>
 </div>
@@ -9140,7 +9145,7 @@ annotations back to comments.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-20 20:00:06 -0700
+Last updated 2021-07-20 23:25:42 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

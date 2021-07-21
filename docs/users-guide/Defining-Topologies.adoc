@@ -2,9 +2,9 @@
 
 In F Prime, a *topology* or connection graph is the
 highest level of software architecture in a FSW application.
-A topology specifies what
+A topology specifies the
 <<Defining-Component-Instances,component instances>>
-are used in the application and how their
+used in the application and how their
 <<Defining-Components_Port-Instances,port instances>>
 are connected.
 
@@ -112,8 +112,8 @@ As shown, topologies and their members are
 <<Writing-Comments-and-Annotations_Annotations,annotatable elements>>.
 The topology members form an
 <<Defining-Constants_Multiple-Definitions-and-Element-Sequences,
-element sequence>> with a semicolon as the optional
-terminating punctuation.
+element sequence>> in which the optional
+terminating punctuation is a semicolon.
 
 === Connection Graphs
 
@@ -184,8 +184,8 @@ connections C {
 
 The members of a direct graph specifier form an 
 <<Defining-Constants_Multiple-Definitions-and-Element-Sequences,
-element sequence>> with a comma as the optional
-terminating punctuation.
+element sequence>> in which the optional
+terminating punctuation is a comma.
 
 ==== Pattern Graph Specifiers
 
@@ -207,7 +207,7 @@ TODO
 
 === Importing Topologies
 
-==== Resolving Connections
+==== Merging Connection Graphs
 
 TODO
 
