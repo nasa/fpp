@@ -20,7 +20,7 @@ A connection graph specifier is one of the following:
 <<Lexical-Elements_Identifiers,_identifier_>>
 `{` _connection-sequence_ `}`
 
-* A *graph pattern specifier:*
+* A *pattern graph specifier:*
 _pattern-kind_
 `connections` 
 `instance` <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
@@ -111,8 +111,8 @@ to an
 except that a `serial` port at either end can be connected
 to any port at the other end.
 
-*Graph pattern specifiers.*
-A graph pattern specifier indirectly specifies one or more named connection 
+*Pattern graph specifiers.*
+A pattern graph specifier indirectly specifies one or more named connection 
 graphs
 by specifying a source component instance, a set of target component
 instances, and a pattern for connecting the source instance to each of the
@@ -205,7 +205,7 @@ telemetryDatabase
 timeSource
 ----
 
-Here is a graph pattern specifier:
+Here is a pattern graph specifier:
 
 [source,fpp]
 ----

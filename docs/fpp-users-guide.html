@@ -602,17 +602,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Topologies">11. Defining Topologies</a>
 <ul class="sectlevel2">
 <li><a href="#Defining-Topologies_A-Simple-Example">11.1. A Simple Example</a></li>
-<li><a href="#Defining-Topologies_Specifying-Connections">11.2. Specifying Connections</a>
+<li><a href="#Defining-Topologies_Connection-Graphs">11.2. Connection Graphs</a>
 <ul class="sectlevel3">
-<li><a href="#Defining-Topologies_Specifying-Connections_Direct-Specifiers">11.2.1. Direct Specifiers</a></li>
-<li><a href="#Defining-Topologies_Specifying-Connections_Pattern-Specifiers">11.2.2. Pattern Specifiers</a></li>
+<li><a href="#Defining-Topologies_Connection-Graphs_Direct-Graph-Specifiers">11.2.1. Direct Graph Specifiers</a></li>
+<li><a href="#Defining-Topologies_Connection-Graphs_Pattern-Graph-Specifiers">11.2.2. Pattern Graph Specifiers</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Topologies_Port-Numbering">11.3. Port Numbering</a>
 <ul class="sectlevel3">
 <li><a href="#Defining-Topologies_Port-Numbering_Explicit-Numbering">11.3.1. Explicit Numbering</a></li>
 <li><a href="#Defining-Topologies_Port-Numbering_Matched-Numbering">11.3.2. Matched Numbering</a></li>
-<li><a href="#Defining-Topologies_Port-Numbering_Default-Numbering">11.3.3. Default Numbering</a></li>
+<li><a href="#Defining-Topologies_Port-Numbering_General-Numbering">11.3.3. General Numbering</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Topologies_Importing-Topologies">11.4. Importing Topologies</a>
@@ -3439,6 +3439,9 @@ passive component C {
 <p>A component definition and each of its members is an
 <a href="#Writing-Comments-and-Annotations_Annotations">annotatable element</a>.
 For example, you can annotate the component as shown above.
+The members of a component form an
+<a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">element sequence</a> with a semicolon as the optional
+terminating punctuation.
 The following sections describe the available component members.</p>
 </div>
 </div>
@@ -6627,11 +6630,11 @@ the file <code>Ref/Top/init.fpp</code> in the F Prime repository.</p>
 <h2 id="Defining-Topologies">11. Defining Topologies</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In F Prime, a <strong>topology</strong> is the highest level of software architecture
-in a FSW application.
-A topology specifies the
+<p>In F Prime, a <strong>topology</strong> or connection graph is the
+highest level of software architecture in a FSW application.
+A topology specifies what
 <a href="#Defining-Component-Instances">component instances</a>
-used in the application and how their
+are used in the application and how their
 <a href="#Defining-Components_Port-Instances">port instances</a>
 are connected.</p>
 </div>
@@ -6646,19 +6649,201 @@ In this section we explain how to use FPP to define a topology.</p>
 <div class="sect2">
 <h3 id="Defining-Topologies_A-Simple-Example">11.1. A Simple Example</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>We begin with a simple example that shows how many of the pieces
+fit together.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">port P
+
+passive component C {
+  sync input port pIn: P
+  output port pOut: P
+}
+
+instance c1: C base id 0x100
+instance c2: C base id 0x200
+
+@ A simple topology
+topology Simple {
+
+  @ This specifier says that instance c1 is part of the topology
+  instance c1
+  @ This specifier says that instance c2 is part of the topology
+  instance c2
+
+  @ This code specifies a connection graph C1
+  connections C1 {
+    c1.pOut -&gt; c2.pIn
+  }
+
+  @ This code specifies a connection graph C2
+  connections C2 {
+    c2.pOut -&gt; c1.pIn
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this example, we define a <a href="#Defining-Ports">port</a> <code>P</code>.
+Then we define a <a href="#Defining-Components">passive component</a> <code>C</code>
+with an input port and an output port, both of type <code>P</code>.
+We define two  <a href="#Defining-Component-Instances">instances</a> of
+<code>C</code>, <code>c1</code> and <code>c2</code>.
+We put these instances into a topology called <code>Simple</code>.</p>
+</div>
+<div class="paragraph">
+<p>As shown, to define a topology, you write the keyword <code>topology</code>,
+the name of the topology, and the members of the topology
+definition enclosed in curly braces.
+In this case, the topology has two kinds of members:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Two <strong>instance specifiers</strong> specifying that instances
+<code>c1</code> and <code>c2</code> are part of the topology.</p>
+</li>
+<li>
+<p>Two <strong>graph specifiers</strong> that specify connection graphs
+named <code>C1</code> and <code>C2</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>As shown, to write an instance specifier, you write the
+keyword <code>instance</code> and the name of a component instance
+definition.
+In general the name may be a qualified name such as <code>A.B</code>
+if the instance is defined inside a
+<a href="#Defining-Modules">module</a>; in this simple
+example it is not.
+Each instance specifier states that the instance it names
+is part of the topology.</p>
+</div>
+<div class="paragraph">
+<p>A graph specifier specifies one or more connections
+between component instances.
+Each graph specifier has a name.
+By dividing the connections of a topology into named
+graphs, you can organize the connections in a meaningful way.
+For example you can have one graph group
+for connections that send commands, another one
+for connections that send telemetry, and so forth.
+We will have more to say about this in a later section.</p>
+</div>
+<div class="paragraph">
+<p>As shown, to write a graph specifier, you may write the keyword <code>connections</code>
+followed by the name of the graph; then you may list
+the connections inside curly braces.
+(In the next section, we will explain another way to write a graph specifier.)
+Each connection consists of an endpoint, an arrow <code>-></code>,
+and another endpoint.
+An endpoint is the name of a component instance
+(which in general may be a qualified name), a dot,
+and the name of a port of that component instance.</p>
+</div>
+<div class="paragraph">
+<p>In this example there are two connection graphs and two connections:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A connection from <code>c1.pOut</code> to <code>c2.pIn</code> in connection graph <code>C1</code>.</p>
+</li>
+<li>
+<p>A connection from <code>c2.pOut</code> to <code>c1.pIn</code> in connection graph <code>C2</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>As shown, topologies and their members are
+<a href="#Writing-Comments-and-Annotations_Annotations">annotatable elements</a>.
+The topology members form an
+<a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">element sequence</a> with a semicolon as the optional
+terminating punctuation.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Topologies_Specifying-Connections">11.2. Specifying Connections</h3>
-<div class="sect3">
-<h4 id="Defining-Topologies_Specifying-Connections_Direct-Specifiers">11.2.1. Direct Specifiers</h4>
+<h3 id="Defining-Topologies_Connection-Graphs">11.2. Connection Graphs</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>In general, an FPP topology consists of a list of instances
+and a set of named connection graphs.
+The instances appearing in the list must be distinct.
+For example, this is not correct:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">topology T {
+  instance c1
+  instance c1 # Error: duplicate instance c1
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There are two ways to specify connection graphs:
+<strong>direct graph specifiers</strong> and <strong>pattern graph specifiers</strong>.</p>
+</div>
+<div class="sect3">
+<h4 id="Defining-Topologies_Connection-Graphs_Direct-Graph-Specifiers">11.2.1. Direct Graph Specifiers</h4>
+<div class="paragraph">
+<p>A direct graph specifier provides a name and a list
+of connections.
+We illustrated direct graph specifiers in the
+previous section, where the simple topology example
+included direct graph specifiers for graphs named
+<code>C1</code> and <code>C2</code>.
+Here are some more details about direct graph specifiers.</p>
+</div>
+<div class="paragraph">
+<p>Each instance named in a connection must be part of the
+instance list in the topology.
+For example, if you write a connection <code>a.b -> c.d</code> inside
+a topology <code>T</code>, and the specifier <code>instance a</code> does not
+appear inside topology <code>T</code>, then you will get an error&#8201;&#8212;&#8201;even if <code>a</code> is a valid instance name for the FPP model.
+The reason for this rule is that in flight code we need
+to be very careful about which instances are included
+in the application.
+Naming all the instances also lets us check for
+<a href="#Analyzing-and-Translating-Models_Checking-Models">unconnected ports</a>.</p>
+</div>
+<div class="paragraph">
+<p>You may use the same name in more than one direct
+graph specifier in the same topology.
+If you do this, then all specifiers with the same
+name are combined into a single graph with that name.
+For example, this code</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">connections C {
+  a.p -&gt; b.p
+}
+connections C {
+  c.p -&gt; d.p
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>is equivalent to this code:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">connections C {
+  a.p -&gt; b.p
+  c.p -&gt; d.p
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The members of a direct graph specifier form an
+<a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">element sequence</a> with a comma as the optional
+terminating punctuation.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Topologies_Specifying-Connections_Pattern-Specifiers">11.2.2. Pattern Specifiers</h4>
+<h4 id="Defining-Topologies_Connection-Graphs_Pattern-Graph-Specifiers">11.2.2. Pattern Graph Specifiers</h4>
 <div class="paragraph">
 <p>TODO</p>
 </div>
@@ -6679,7 +6864,7 @@ In this section we explain how to use FPP to define a topology.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Topologies_Port-Numbering_Default-Numbering">11.3.3. Default Numbering</h4>
+<h4 id="Defining-Topologies_Port-Numbering_General-Numbering">11.3.3. General Numbering</h4>
 <div class="paragraph">
 <p>TODO</p>
 </div>
@@ -7754,6 +7939,9 @@ Otherwise it prints an error message to standard error and
 halts with nonzero status.</p>
 </li>
 </ol>
+</div>
+<div class="paragraph">
+<p>TODO: Checking for unconnected ports</p>
 </div>
 </div>
 <div class="sect2">
@@ -8952,7 +9140,7 @@ annotations back to comments.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-20 17:37:47 -0700
+Last updated 2021-07-20 19:58:07 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

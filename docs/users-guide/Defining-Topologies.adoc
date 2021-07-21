@@ -1,10 +1,10 @@
 == Defining Topologies
 
-In F Prime, a *topology* is the highest level of software architecture
-in a FSW application.
-A topology specifies the
+In F Prime, a *topology* or connection graph is the
+highest level of software architecture in a FSW application.
+A topology specifies what
 <<Defining-Component-Instances,component instances>>
-used in the application and how their
+are used in the application and how their
 <<Defining-Components_Port-Instances,port instances>>
 are connected.
 
@@ -18,15 +18,176 @@ In this section we explain how to use FPP to define a topology.
 
 === A Simple Example
 
-TODO
+We begin with a simple example that shows how many of the pieces
+fit together.
 
-=== Specifying Connections
+[source,fpp]
+----
+port P
 
-==== Direct Specifiers
+passive component C {
+  sync input port pIn: P
+  output port pOut: P
+}
 
-TODO
+instance c1: C base id 0x100
+instance c2: C base id 0x200
 
-==== Pattern Specifiers
+@ A simple topology
+topology Simple {
+
+  @ This specifier says that instance c1 is part of the topology
+  instance c1
+  @ This specifier says that instance c2 is part of the topology
+  instance c2
+
+  @ This code specifies a connection graph C1
+  connections C1 {
+    c1.pOut -> c2.pIn
+  }
+
+  @ This code specifies a connection graph C2
+  connections C2 {
+    c2.pOut -> c1.pIn
+  }
+
+}
+----
+
+In this example, we define a <<Defining-Ports,port>> `P`.
+Then we define a <<Defining-Components,passive component>> `C`
+with an input port and an output port, both of type `P`.
+We define two  <<Defining-Component-Instances,instances>> of
+`C`, `c1` and `c2`.
+We put these instances into a topology called `Simple`.
+
+As shown, to define a topology, you write the keyword `topology`,
+the name of the topology, and the members of the topology
+definition enclosed in curly braces.
+In this case, the topology has two kinds of members:
+
+. Two *instance specifiers* specifying that instances
+`c1` and `c2` are part of the topology.
+
+. Two *graph specifiers* that specify connection graphs
+named `C1` and `C2`.
+
+As shown, to write an instance specifier, you write the 
+keyword `instance` and the name of a component instance
+definition.
+In general the name may be a qualified name such as `A.B`
+if the instance is defined inside a
+<<Defining-Modules,module>>; in this simple
+example it is not.
+Each instance specifier states that the instance it names
+is part of the topology.
+
+A graph specifier specifies one or more connections
+between component instances.
+Each graph specifier has a name.
+By dividing the connections of a topology into named
+graphs, you can organize the connections in a meaningful way.
+For example you can have one graph group
+for connections that send commands, another one
+for connections that send telemetry, and so forth.
+We will have more to say about this in a later section.
+
+As shown, to write a graph specifier, you may write the keyword `connections`
+followed by the name of the graph; then you may list
+the connections inside curly braces.
+(In the next section, we will explain another way to write a graph specifier.)
+Each connection consists of an endpoint, an arrow `pass:[->]`,
+and another endpoint.
+An endpoint is the name of a component instance
+(which in general may be a qualified name), a dot,
+and the name of a port of that component instance.
+
+In this example there are two connection graphs and two connections:
+
+. A connection from `c1.pOut` to `c2.pIn` in connection graph `C1`.
+
+. A connection from `c2.pOut` to `c1.pIn` in connection graph `C2`.
+
+As shown, topologies and their members are
+<<Writing-Comments-and-Annotations_Annotations,annotatable elements>>.
+The topology members form an
+<<Defining-Constants_Multiple-Definitions-and-Element-Sequences,
+element sequence>> with a semicolon as the optional
+terminating punctuation.
+
+=== Connection Graphs
+
+In general, an FPP topology consists of a list of instances
+and a set of named connection graphs.
+The instances appearing in the list must be distinct.
+For example, this is not correct:
+
+[source,fpp]
+--------
+topology T {
+  instance c1
+  instance c1 # Error: duplicate instance c1
+}
+--------
+
+There are two ways to specify connection graphs:
+*direct graph specifiers* and *pattern graph specifiers*.
+
+==== Direct Graph Specifiers
+
+A direct graph specifier provides a name and a list
+of connections.
+We illustrated direct graph specifiers in the 
+previous section, where the simple topology example
+included direct graph specifiers for graphs named
+`C1` and `C2`.
+Here are some more details about direct graph specifiers.
+
+Each instance named in a connection must be part of the
+instance list in the topology.
+For example, if you write a connection `a.b pass:[->] c.d` inside
+a topology `T`, and the specifier `instance a` does not
+appear inside topology `T`, then you will get an error --
+even if `a` is a valid instance name for the FPP model.
+The reason for this rule is that in flight code we need
+to be very careful about which instances are included
+in the application.
+Naming all the instances also lets us check for
+<<Analyzing-and-Translating-Models_Checking-Models,
+unconnected ports>>.
+
+You may use the same name in more than one direct
+graph specifier in the same topology.
+If you do this, then all specifiers with the same
+name are combined into a single graph with that name.
+For example, this code
+
+[source,fpp]
+--------
+connections C {
+  a.p -> b.p
+}
+connections C {
+  c.p -> d.p
+}
+--------
+
+is equivalent to this code:
+
+[source,fpp]
+--------
+connections C {
+  a.p -> b.p
+  c.p -> d.p
+}
+--------
+
+The members of a direct graph specifier form an 
+<<Defining-Constants_Multiple-Definitions-and-Element-Sequences,
+element sequence>> with a comma as the optional
+terminating punctuation.
+
+==== Pattern Graph Specifiers
 
 TODO
 
@@ -40,7 +201,7 @@ TODO
 
 TODO
 
-==== Default Numbering
+==== General Numbering
 
 TODO
 

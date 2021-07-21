@@ -58,6 +58,8 @@ If everything checks out, the tool silently returns zero status.
 Otherwise it prints an error message to standard error and
 halts with nonzero status.
 
+TODO: Checking for unconnected ports
+
 === Generating XML
 
 Our current strategy is to generate

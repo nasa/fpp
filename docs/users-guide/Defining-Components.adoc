@@ -43,6 +43,10 @@ passive component C {
 A component definition and each of its members is an
 <<Writing-Comments-and-Annotations_Annotations,annotatable element>>.
 For example, you can annotate the component as shown above.
+The members of a component form an
+<<Defining-Constants_Multiple-Definitions-and-Element-Sequences,
+element sequence>> with a semicolon as the optional
+terminating punctuation.
 The following sections describe the available component members.
 
 === Port Instances
