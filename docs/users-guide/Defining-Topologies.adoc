@@ -8,8 +8,9 @@ are used in the application and how their
 <<Defining-Components_Port-Instances,port instances>>
 are connected.
 
-An F Prime FSW application consists of a topology plus a small amount
-of top-level {cpp} code that you write by hand.
+An F Prime FSW application consists of a topology _T_;
+all the types, ports, and components used by _T_;
+and a small amount of top-level {cpp} code that you write by hand.
 In the section on
 <<Analyzing-and-Translating-Models_Implementing-Deployments,
 implementing deployments>>, we will explain more about the top-level

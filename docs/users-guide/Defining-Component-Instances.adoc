@@ -565,11 +565,11 @@ Svc::CmdSequencerComponentImpl cmdSeq(FW_OPTIONAL_NAME("cmdSeq"));
 """
 
 init cmdSeq phase Fpp.ToCpp.Phases.configComponents """
-    cmdSeq.allocateBuffer(
-        0,
-        Allocation::mallocator,
-        ConfigConstants::cmdSeq::BUFFER_SIZE
-    );
+cmdSeq.allocateBuffer(
+    0,
+    Allocation::mallocator,
+    ConfigConstants::cmdSeq::BUFFER_SIZE
+);
 """
 
 init cmdSeq phase Fpp.ToCpp.Phases.tearDownComponents """

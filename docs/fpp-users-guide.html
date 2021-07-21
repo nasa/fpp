@@ -6572,11 +6572,11 @@ Svc::CmdSequencerComponentImpl cmdSeq(FW_OPTIONAL_NAME("cmdSeq"));
 """
 
 init cmdSeq phase Fpp.ToCpp.Phases.configComponents """
-    cmdSeq.allocateBuffer(
-        0,
-        Allocation::mallocator,
-        ConfigConstants::cmdSeq::BUFFER_SIZE
-    );
+cmdSeq.allocateBuffer(
+    0,
+    Allocation::mallocator,
+    ConfigConstants::cmdSeq::BUFFER_SIZE
+);
 """
 
 init cmdSeq phase Fpp.ToCpp.Phases.tearDownComponents """
@@ -6644,8 +6644,9 @@ are used in the application and how their
 are connected.</p>
 </div>
 <div class="paragraph">
-<p>An F Prime FSW application consists of a topology plus a small amount
-of top-level C&#43;&#43; code that you write by hand.
+<p>An F Prime FSW application consists of a topology <em>T</em>;
+all the types, ports, and components used by <em>T</em>;
+and a small amount of top-level C&#43;&#43; code that you write by hand.
 In the section on
 <a href="#Analyzing-and-Translating-Models_Implementing-Deployments">implementing deployments</a>, we will explain more about the top-level
 C&#43;&#43; code.
@@ -9144,7 +9145,7 @@ annotations back to comments.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-21 08:15:19 -0700
+Last updated 2021-07-21 08:26:58 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
