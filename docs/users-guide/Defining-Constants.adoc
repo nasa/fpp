@@ -213,7 +213,7 @@ constant s = """
              """
 ----
 
-When interpreting a multiline string, FPP ignores nay newline
+When interpreting a multiline string, FPP ignores any newline
 characters at the start and end of the string.
 FPP also ignores any blanks to the left of the column where
 the first `"""` appears.
