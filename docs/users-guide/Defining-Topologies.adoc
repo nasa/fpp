@@ -73,7 +73,7 @@ In this case, the topology has two kinds of members:
 . Two *graph specifiers* that specify connection graphs
 named `C1` and `C2`.
 
-As shown, to write an instance specifier, you write the 
+As shown, to write an instance specifier, you write the
 keyword `instance` and the name of a component instance
 definition.
 In general the name may be a qualified name such as `A.B`
@@ -138,7 +138,7 @@ There are two ways to specify connection graphs:
 
 A direct graph specifier provides a name and a list
 of connections.
-We illustrated direct graph specifiers in the 
+We illustrated direct graph specifiers in the
 previous section, where the simple topology example
 included direct graph specifiers for graphs named
 `C1` and `C2`.
@@ -183,7 +183,7 @@ connections C {
 }
 --------
 
-The members of a direct graph specifier form an 
+The members of a direct graph specifier form an
 <<Defining-Constants_Multiple-Definitions-and-Element-Sequences,
 element sequence>> in which the optional
 terminating punctuation is a comma.
@@ -209,7 +209,7 @@ the `timeGetPort` port of the `Svc.Time` instance.
 
 Suppose you are constructing a topology in which
 (1) `sysTime` is an instance of `Svc.Time`; and (2)
-each of the instances 
+each of the instances
 `a`, `b`, `c`, etc., has a
 <<Defining-Components_Special-Port-Instances_Time-Get-Ports, time get port>>
 `timeGetOut` port connected to `sysTime.timeGetPort`,
@@ -290,7 +290,7 @@ The command pattern specifier generates three connection graphs:
 |
 |`Command`
 |All connections from the unique output port of type `Fw::Cmd`
-of the source instance to the 
+of the source instance to the
 <<Defining-Components_Special-Port-Instances_Command-Ports,
 `command` `recv` port>>
 of each target instance.
@@ -299,7 +299,7 @@ of each target instance.
 |An instance of `Svc.CommandDispatcher` or a similar component for
 dispatching commands.
 |`CommandRegistration`
-|All connections from the 
+|All connections from the
 <<Defining-Components_Special-Port-Instances_Command-Ports,
 `command` `reg` port>> of each target instance to the
 unique input port of type `Fw.CmdReg` of the source instance.
