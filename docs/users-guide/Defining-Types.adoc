@@ -670,8 +670,8 @@ a header file `T.hpp`.
 This header file must define `T` in a way that is compatible
 with the way that `T` is used in `A`.
 We will have more to say about this topic in the section on
-<<Analyzing-and-Translating-Models_Implementing-Abstract-Types,implementing
-abstract types>>.
+<<Writing-C-Plus-Plus-Implementations_Implementing-Abstract-Types,
+implementing abstract types>>.
 
 In general, an abstract type `T` is opaque in the FPP model
 and has no values that are expressible in the model.
@@ -687,5 +687,5 @@ When translating to XML, there are a few special types that are abstract
 in the model, but that are known to the translator.
 You don't have to define {cpp} classes for these types.
 We will discuss these types further in the section on 
-<<Analyzing-and-Translating-Models_Implementing-Abstract-Types,implementing
-abstract types>>.
+<<Writing-C-Plus-Plus-Implementations_Implementing-Abstract-Types,
+implementing abstract types>>.

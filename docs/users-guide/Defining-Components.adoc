@@ -234,7 +234,7 @@ active component Error {
 
 When you specify a port instance as part of an FPP component, you
 are actually specifying an _array_ of port instances.
-Each instance has a _port number_, where the port numbers start at zero
+Each instance has a *port number*, where the port numbers start at zero
 and go up by one at each successive element.
 (Another way to say this is that the port numbers are the array indices,
 and the indices start at zero.)

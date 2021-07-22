@@ -360,7 +360,7 @@ Then in file `b.fpp` we could write this:
 locate constant M.a at "M.fpp"
 ----
 
-Optionally, we may enclose the locate specifier in the module `M`, like
+Optionally, we may enclose the location specifier in the module `M`, like
 this:
 
 [source,fpp]
@@ -368,7 +368,7 @@ this:
 module M { locate constant a at "M.fpp" }
 ----
 
-A locate specifier written inside a module this way has its definition name
+A location specifier written inside a module this way has its definition name
 implicitly qualified with the module name.
 For example, the name `a` appearing in the example above is automatically
 resolved to `M.a`.

@@ -658,12 +658,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#Analyzing-and-Translating-Models_Checking-Models">13.1. Checking Models</a></li>
 <li><a href="#Analyzing-and-Translating-Models_Generating-XML">13.2. Generating XML</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">13.3. Generating C Plus Plus</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">13.3. Generating C Plus Plus</a>
+<ul class="sectlevel3">
+<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions">13.3.1. Constant Definitions</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">13.3.2. Topology Definitions</a></li>
+</ul>
+</li>
 <li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files">13.4. Identifying Generated Files</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Implementing-Abstract-Types">13.5. Implementing Abstract Types</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Implementing-Deployments">13.6. Implementing Deployments</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Translating-XML-to-FPP">13.7. Translating XML to FPP</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Formatting-FPP-Source">13.8. Formatting FPP Source</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Translating-XML-to-FPP">13.5. Translating XML to FPP</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Formatting-FPP-Source">13.6. Formatting FPP Source</a></li>
+</ul>
+</li>
+<li><a href="#Writing-C-Plus-Plus-Implementations">14. Writing C Plus Plus Implementations</a>
+<ul class="sectlevel2">
+<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Abstract-Types">14.1. Implementing Abstract Types</a></li>
+<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments">14.2. Implementing Deployments</a></li>
 </ul>
 </li>
 </ul>
@@ -724,10 +733,11 @@ It is recommended that users read this document before consulting that one.</p>
 <div class="paragraph">
 <p><strong>XML limitations:</strong>
 Currently we translate FPP to F Prime XML and then to C&#43;&#43;.
-Some features of FPP are not supported in the XML representation.
+Some features of FPP are not supported in the XML representation,
+or were not supported until very recently.
 Where a feature is not supported, we will call out this fact in a
 note marked <strong>XML limitation</strong>.
-A future version of FPP will generate C&#43;&#43; directly and will support
+A future release of FPP will generate C&#43;&#43; directly and will support
 all the features described here.</p>
 </div>
 <div class="paragraph">
@@ -2716,8 +2726,7 @@ a header file <code>T.hpp</code>.
 This header file must define <code>T</code> in a way that is compatible
 with the way that <code>T</code> is used in <code>A</code>.
 We will have more to say about this topic in the section on
-<a href="#Analyzing-and-Translating-Models_Implementing-Abstract-Types">implementing
-abstract types</a>.</p>
+<a href="#Writing-C-Plus-Plus-Implementations_Implementing-Abstract-Types">implementing abstract types</a>.</p>
 </div>
 <div class="paragraph">
 <p>In general, an abstract type <code>T</code> is opaque in the FPP model
@@ -2735,8 +2744,7 @@ When translating to XML, there are a few special types that are abstract
 in the model, but that are known to the translator.
 You don&#8217;t have to define C&#43;&#43; classes for these types.
 We will discuss these types further in the section on
-<a href="#Analyzing-and-Translating-Models_Implementing-Abstract-Types">implementing
-abstract types</a>.</p>
+<a href="#Writing-C-Plus-Plus-Implementations_Implementing-Abstract-Types">implementing abstract types</a>.</p>
 </div>
 </div>
 </div>
@@ -3655,7 +3663,7 @@ active component Error {
 <div class="paragraph">
 <p>When you specify a port instance as part of an FPP component, you
 are actually specifying an <em>array</em> of port instances.
-Each instance has a <em>port number</em>, where the port numbers start at zero
+Each instance has a <strong>port number</strong>, where the port numbers start at zero
 and go up by one at each successive element.
 (Another way to say this is that the port numbers are the array indices,
 and the indices start at zero.)</p>
@@ -6593,7 +6601,7 @@ instead of <code>CmdSequencer</code>, so we have to write out the constructor.
 The code for <code>configComponents</code> calls <code>allocateBuffer</code>, passing
 in an allocator object that is declared elsewhere.
 (In the section on
-<a href="#Analyzing-and-Translating-Models_Implementing-Deployments">implementing deployments</a>, we will explain where this allocator
+<a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments">implementing deployments</a>, we will explain where this allocator
 object is declared.)
 The code for <code>tearDownComponents</code> calls <code>deallocateBuffer</code> to
 deallocate the sequence buffer, passing in the allocator
@@ -6648,7 +6656,7 @@ are connected.</p>
 all the types, ports, and components used by <em>T</em>;
 and a small amount of top-level C&#43;&#43; code that you write by hand.
 In the section on
-<a href="#Analyzing-and-Translating-Models_Implementing-Deployments">implementing deployments</a>, we will explain more about the top-level
+<a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments">implementing deployments</a>, we will explain more about the top-level
 C&#43;&#43; code.
 In this section we explain how to define a topology in FPP.</p>
 </div>
@@ -7627,7 +7635,7 @@ For example, suppose the file <code>M.fpp</code> contains the following:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Optionally, we may enclose the locate specifier in the module <code>M</code>, like
+<p>Optionally, we may enclose the location specifier in the module <code>M</code>, like
 this:</p>
 </div>
 <div class="listingblock">
@@ -7636,7 +7644,7 @@ this:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>A locate specifier written inside a module this way has its definition name
+<p>A location specifier written inside a module this way has its definition name
 implicitly qualified with the module name.
 For example, the name <code>a</code> appearing in the example above is automatically
 resolved to <code>M.a</code>.</p>
@@ -8243,11 +8251,7 @@ In a future version of FPP, we will simplify this process.</p>
 </div>
 <div class="paragraph">
 <p><strong>XML file names:</strong> The table <a href="#xml-file-names">XML File Names</a> shows how FPP definitions are
-translated
-to F Prime XML files.
-The table shows types, enums, and ports because those are the features
-implemented today.
-As we implement more of FPP, we will extend this table.</p>
+translated to F Prime XML files.</p>
 </div>
 <table id="xml-file-names" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 3. XML File Names</caption>
@@ -8293,6 +8297,10 @@ As we implement more of FPP, we will extend this table.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Component <em>C</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>C</em> <code>ComponentAi.xml</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Topology <em>T</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>T</em> <code>TopologyAppAi.xml</code></p></td>
 </tr>
 </tbody>
 </table>
@@ -8540,10 +8548,31 @@ in this manual.</p>
 <p>As discussed in the previous section, our current strategy is to generate XML
 and to use the F Prime autocoders to generate
 C&#43;&#43;.
-However, we make an exception for constant definitions: for those, we generate
-C&#43;&#43; directly from FPP.
+As of the current version of FPP, we make two exceptions to this rule:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>For
+<a href="#Defining-Constants">constant definitions</a>,
+we generate C&#43;&#43; directly from FPP.
 The reason is that the F Prime XML representation has no way to specify
 symbolic constants.</p>
+</li>
+<li>
+<p>For
+<a href="#Defining-Topologies">topology definitions</a>,
+we generate both XML and C&#43;&#43; from FPP.
+The reason is that FPP
+<a href="#Defining-Component-Instances_Component-Instance-Definitions">instance definitions</a>
+and
+<a href="#Defining-Component-Instances_Init-Specifiers">init specifiers</a>
+provide more complete C&#43;&#43; code generation than is available
+via F Prime XML.
+However, we still use the F Prime XML to generate dictionaries
+for the F Prime ground data system.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p><strong>Tool name:</strong> The tool for translating FPP to C&#43;&#43; is called
@@ -8580,12 +8609,8 @@ See that section for examples of the procedure.</p>
 <code>fpp-to-cpp</code>
 either through named files or through standard input.</p>
 </div>
-<div class="paragraph">
-<p><strong>Tool behavior:</strong>
-For now this tool just generates C&#43;&#43; constants.
-In the future it will do more.
-(Eventually, it will replace <code>fpp-to-xml</code> and the Python C&#43;&#43; autocoders.)</p>
-</div>
+<div class="sect3">
+<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions">13.3.1. Constant Definitions</h4>
 <div class="paragraph">
 <p><code>fpp-to-cpp</code> extracts <a href="#Defining-Constants">constant definitions</a>
 from the source files <em>F</em>.
@@ -8733,6 +8758,13 @@ This is similar to the <code>-p</code> option for
 </ul>
 </div>
 </div>
+<div class="sect3">
+<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">13.3.2. Topology Definitions</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+</div>
 <div class="sect2">
 <h3 id="Analyzing-and-Translating-Models_Identifying-Generated-Files">13.4. Identifying Generated Files</h3>
 <div class="paragraph">
@@ -8781,209 +8813,7 @@ FppConstantsAc.hpp</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Implementing-Abstract-Types">13.5. Implementing Abstract Types</h3>
-<div class="paragraph">
-<p>Except for a few built-in types (see below), when translating to XML and then C&#43;&#43;, an
-<a href="#Defining-Types_Abstract-Type-Definitions">abstract type definition</a>
-represents a C&#43;&#43; class that you write directly in C&#43;&#43;.
-When you use an abstract type <em>T</em> in an FPP definition <em>D</em> (for example, as the
-member type of an array definition)
-and you translate <em>D</em> to XML, then the generated XML node for <em>D</em> contains an
-<code>include_header</code> node that
-includes a header file for <em>T</em>.</p>
-</div>
-<div class="paragraph">
-<p>As an example, try this:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% fpp-to-xml -p $PWD
-type T
-array A = [3] T
-^D</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Notice that we used the option <code>-p $PWD</code>.
-This is to make the generated include path relative to the current directory.</p>
-</div>
-<div class="paragraph">
-<p>Now run</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% cat AArrayAi.xml</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>You should see the following line in the generated XML:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="xml">&lt;include_header&gt;T.hpp&lt;/include_header&gt;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This line says that when the F Prime autocoder translates this XML file
-to a C&#43;&#43; class, in order to compile that class, a header file <code>T.hpp</code>
-must exist in the current directory. It is up to you to provide that header
-file.</p>
-</div>
-<div class="paragraph">
-<p>When implementing an abstract type <code>T</code> in C&#43;&#43;, you must define
-a class that extends <code>Fw::Serializable</code> from the F Prime framework.
-Your class definition must include the following:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>An implementation of the virtual function</p>
-<div class="listingblock">
-<div class="content">
-<pre>Fw::SerializeStatus T::serialize(Fw::SerializeBufferBase&amp;) const</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>that specifies how to <strong>serialize</strong> a class instance (i.e., convert a class
-instance to a byte string).</p>
-</div>
-</li>
-<li>
-<p>An implementation of the function</p>
-<div class="listingblock">
-<div class="content">
-<pre>Fw::SerializeStatus T::serialize(Fw::SerializeBufferBase&amp;)</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>that specifies how to <strong>deserialize</strong> a class instance (i.e., reconstruct a class
-instance from a byte string).</p>
-</div>
-</li>
-<li>
-<p>A constant <code>T::SERIALIZED_SIZE</code> that specifies the size in bytes
-of a byte string serialized from the class.</p>
-</li>
-<li>
-<p>A zero-argument constructor <code>T()</code>.</p>
-</li>
-<li>
-<p>An overloaded equality operator</p>
-<div class="listingblock">
-<div class="content">
-<pre>bool operator==(const T&amp; that) const;</pre>
-</div>
-</div>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Here is a minimal complete implementation of an abstract type <code>T</code>.
-It has one member variable <code>x</code> of type <code>U32</code> and no methods other than
-those required by F Prime.
-We have made <code>T</code> a C&#43;&#43; struct (rather than a class) so that
-all members are public by default.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>// A minimal implementation of abstract type T
-
-#ifndef T_HPP
-#define T_HPP
-
-// Include Fw/Types/Serializable.fpp from the F Prime framework
-#include "Fw/Types/Serializable.hpp"
-
-struct T : public Fw::Serializable { // Extend Fw::Serializable
-
-  // Define some shorthand for F Prime types
-  typedef Fw::SerializeStatus SS;
-  typedef Fw::SerializeBufferBase B;
-
-  // Define the constant SERIALIZED_SIZE
-  enum Constants { SERIALIZED_SIZE = sizeof(U32) };
-
-  // Provide a zero-argument constructor
-  T() : x(0) { }
-
-  // Define a comparison operator
-  bool operator==(const T&amp; that) const { return this-&gt;x == that.x; }
-
-  // Define the virtual serialize method
-  SS serialize(B&amp; b) const { return b.serialize(x); }
-
-  // Define the virtual deserialize method
-  SS deserialize(B&amp; b) { return b.deserialize(x); }
-
-  // Provide some data
-  U32 x;
-
-};
-
-#endif</pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Built-in types:</strong>
-The following types are abstract in the FPP model but are known to
-the XML translator:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>FwBuffSizeType
-FwChanIdType
-FwEnumStoreType
-FwEventIdType
-FwOpcodeType
-FwPacketDescriptorType
-FwPrmIdType
-FwTimeBaseStoreType
-FwTimeContextStoreType
-NATIVE_INT_TYPE
-NATIVE_UINT_TYPE
-POINTER_CAST</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Each of these types is an alias for a C&#43;&#43; integer type, and each
-has default value zero.</p>
-</div>
-<div class="paragraph">
-<p>The F Prime framework automatically provides the C&#43;&#43; definitions
-for these types.
-You have to declare them as abstract types in the FPP model, but
-once you do that you can use them.
-You don&#8217;t have to define header files for these types.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Implementing-Deployments">13.6. Implementing Deployments</h3>
-<div class="paragraph">
-<p>TODO</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Main function</p>
-</li>
-<li>
-<p>TopologyDefs.hpp and TopologyDefs.cpp</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Health configuration</p>
-</li>
-<li>
-<p>User-specified types, constants, and variables</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Translating-XML-to-FPP">13.7. Translating XML to FPP</h3>
+<h3 id="Analyzing-and-Translating-Models_Translating-XML-to-FPP">13.5. Translating XML to FPP</h3>
 <div class="paragraph">
 <p>The FPP tool suite provides a capability to translate F Prime
 XML files to FPP.
@@ -9351,7 +9181,7 @@ section on <a href="#Specifying-Models">specifying models</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Formatting-FPP-Source">13.8. Formatting FPP Source</h3>
+<h3 id="Analyzing-and-Translating-Models_Formatting-FPP-Source">13.6. Formatting FPP Source</h3>
 <div class="paragraph">
 <p>The tool <code>fpp-format</code> accepts FPP source files as input
 and rewrites them as formatted output.
@@ -9426,10 +9256,253 @@ annotations back to comments.</p>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="Writing-C-Plus-Plus-Implementations">14. Writing C Plus Plus Implementations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When constructing an F Prime deployment in C&#43;&#43;, there are generally
+four kinds of implementations you have to write:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Implementations of
+<a href="#Defining-Types_Abstract-Type-Definitions">abstract types</a>.
+These are types that are named in the FPP model but are defined
+directly in C&#43;&#43;.</p>
+</li>
+<li>
+<p>Implementations of
+<a href="#Defining-Components">components</a>.</p>
+</li>
+<li>
+<p>Implementations of any libraries used by the component implementations,
+e.g., algorithm libraries or hardware device driver libraries.</p>
+</li>
+<li>
+<p>A top-level implementation including a <code>main</code> function for running
+the FSW application.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Implementing a component involves filling out the API provided by
+the C&#43;&#43; component base class.
+This process is covered in detail in the F Prime user&#8217;s guide;
+we won&#8217;t cover it further here.
+Similarly, implementing libraries is unrelated to FPP, so we
+won&#8217;t cover it in this manual.
+Here we focus on items (1) and (4): implementing abstract types
+and implementing deployments.</p>
+</div>
+<div class="sect2">
+<h3 id="Writing-C-Plus-Plus-Implementations_Implementing-Abstract-Types">14.1. Implementing Abstract Types</h3>
+<div class="paragraph">
+<p>Except for a few built-in types (see below), when translating to XML and then C&#43;&#43;, an
+<a href="#Defining-Types_Abstract-Type-Definitions">abstract type definition</a>
+represents a C&#43;&#43; class that you write directly in C&#43;&#43;.
+When you use an abstract type <em>T</em> in an FPP definition <em>D</em> (for example, as the
+member type of an array definition)
+and you translate <em>D</em> to XML, then the generated XML node for <em>D</em> contains an
+<code>include_header</code> node that
+includes a header file for <em>T</em>.</p>
+</div>
+<div class="paragraph">
+<p>As an example, try this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-to-xml -p $PWD
+type T
+array A = [3] T
+^D</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that we used the option <code>-p $PWD</code>.
+This is to make the generated include path relative to the current directory.</p>
+</div>
+<div class="paragraph">
+<p>Now run</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% cat AArrayAi.xml</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should see the following line in the generated XML:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="xml">&lt;include_header&gt;T.hpp&lt;/include_header&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This line says that when the F Prime autocoder translates this XML file
+to a C&#43;&#43; class, in order to compile that class, a header file <code>T.hpp</code>
+must exist in the current directory. It is up to you to provide that header
+file.</p>
+</div>
+<div class="paragraph">
+<p>When implementing an abstract type <code>T</code> in C&#43;&#43;, you must define
+a class that extends <code>Fw::Serializable</code> from the F Prime framework.
+Your class definition must include the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>An implementation of the virtual function</p>
+<div class="listingblock">
+<div class="content">
+<pre>Fw::SerializeStatus T::serialize(Fw::SerializeBufferBase&amp;) const</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>that specifies how to <strong>serialize</strong> a class instance (i.e., convert a class
+instance to a byte string).</p>
+</div>
+</li>
+<li>
+<p>An implementation of the function</p>
+<div class="listingblock">
+<div class="content">
+<pre>Fw::SerializeStatus T::serialize(Fw::SerializeBufferBase&amp;)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>that specifies how to <strong>deserialize</strong> a class instance (i.e., reconstruct a class
+instance from a byte string).</p>
+</div>
+</li>
+<li>
+<p>A constant <code>T::SERIALIZED_SIZE</code> that specifies the size in bytes
+of a byte string serialized from the class.</p>
+</li>
+<li>
+<p>A zero-argument constructor <code>T()</code>.</p>
+</li>
+<li>
+<p>An overloaded equality operator</p>
+<div class="listingblock">
+<div class="content">
+<pre>bool operator==(const T&amp; that) const;</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Here is a minimal complete implementation of an abstract type <code>T</code>.
+It has one member variable <code>x</code> of type <code>U32</code> and no methods other than
+those required by F Prime.
+We have made <code>T</code> a C&#43;&#43; struct (rather than a class) so that
+all members are public by default.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>// A minimal implementation of abstract type T
+
+#ifndef T_HPP
+#define T_HPP
+
+// Include Fw/Types/Serializable.fpp from the F Prime framework
+#include "Fw/Types/Serializable.hpp"
+
+struct T : public Fw::Serializable { // Extend Fw::Serializable
+
+  // Define some shorthand for F Prime types
+  typedef Fw::SerializeStatus SS;
+  typedef Fw::SerializeBufferBase B;
+
+  // Define the constant SERIALIZED_SIZE
+  enum Constants { SERIALIZED_SIZE = sizeof(U32) };
+
+  // Provide a zero-argument constructor
+  T() : x(0) { }
+
+  // Define a comparison operator
+  bool operator==(const T&amp; that) const { return this-&gt;x == that.x; }
+
+  // Define the virtual serialize method
+  SS serialize(B&amp; b) const { return b.serialize(x); }
+
+  // Define the virtual deserialize method
+  SS deserialize(B&amp; b) { return b.deserialize(x); }
+
+  // Provide some data
+  U32 x;
+
+};
+
+#endif</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Built-in types:</strong>
+The following types are abstract in the FPP model but are known to
+the XML translator:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>FwBuffSizeType
+FwChanIdType
+FwEnumStoreType
+FwEventIdType
+FwOpcodeType
+FwPacketDescriptorType
+FwPrmIdType
+FwTimeBaseStoreType
+FwTimeContextStoreType
+NATIVE_INT_TYPE
+NATIVE_UINT_TYPE
+POINTER_CAST</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Each of these types is an alias for a C&#43;&#43; integer type, and each
+has default value zero.</p>
+</div>
+<div class="paragraph">
+<p>The F Prime framework automatically provides the C&#43;&#43; definitions
+for these types.
+You have to declare them as abstract types in the FPP model, but
+once you do that you can use them.
+You don&#8217;t have to define header files for these types.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments">14.2. Implementing Deployments</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Main function</p>
+</li>
+<li>
+<p>TopologyDefs.hpp and TopologyDefs.cpp</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Health configuration</p>
+</li>
+<li>
+<p>User-specified types, constants, and variables</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-21 17:30:54 -0700
+Last updated 2021-07-21 18:29:38 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

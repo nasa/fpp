@@ -38,10 +38,11 @@ It is recommended that users read this document before consulting that one.
 
 *XML limitations:*
 Currently we translate FPP to F Prime XML and then to {cpp}.
-Some features of FPP are not supported in the XML representation.
+Some features of FPP are not supported in the XML representation,
+or were not supported until very recently.
 Where a feature is not supported, we will call out this fact in a
 note marked *XML limitation*.
-A future version of FPP will generate {cpp} directly and will support
+A future release of FPP will generate {cpp} directly and will support
 all the features described here.
 
 *Overview:* The rest of this document proceeds as follows.

@@ -23,4 +23,5 @@ Defining-Component-Instances.adoc
 Defining-Topologies.adoc
 Specifying-Models.adoc
 Analyzing-and-Translating-Models.adoc
+Writing-C-Plus-Plus-Implementations.adoc
 "

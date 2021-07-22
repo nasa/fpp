@@ -585,7 +585,7 @@ instead of `CmdSequencer`, so we have to write out the constructor.
 The code for `configComponents` calls `allocateBuffer`, passing
 in an allocator object that is declared elsewhere.
 (In the section on
-<<Analyzing-and-Translating-Models_Implementing-Deployments,
+<<Writing-C-Plus-Plus-Implementations_Implementing-Deployments,
 implementing deployments>>, we will explain where this allocator
 object is declared.)
 The code for `tearDownComponents` calls `deallocateBuffer` to

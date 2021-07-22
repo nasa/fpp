@@ -68,11 +68,7 @@ Python autocoders to generate {cpp}.
 In a future version of FPP, we will simplify this process.
 
 *XML file names:* The table <<xml-file-names>> shows how FPP definitions are 
-translated
-to F Prime XML files.
-The table shows types, enums, and ports because those are the features
-implemented today.
-As we implement more of FPP, we will extend this table.
+translated to F Prime XML files.
 
 [[xml-file-names]]
 .XML File Names
@@ -87,6 +83,7 @@ As we implement more of FPP, we will extend this table.
 |Struct _S_ in component _C_|_C_ `_` _S_ `SerializableAi.xml`
 |Port _P_|_P_ `PortAi.xml`
 |Component _C_|_C_ `ComponentAi.xml`
+|Topology _T_|_T_ `TopologyAppAi.xml`
 |===
 
 For example, consider the FPP array definition
@@ -276,10 +273,27 @@ in this manual.
 As discussed in the previous section, our current strategy is to generate XML 
 and to use the F Prime autocoders to generate
 {cpp}.
-However, we make an exception for constant definitions: for those, we generate 
-{cpp} directly from FPP.
+As of the current version of FPP, we make two exceptions to this rule:
+
+. For
+<<Defining-Constants,constant definitions>>,
+we generate {cpp} directly from FPP.
 The reason is that the F Prime XML representation has no way to specify 
 symbolic constants.
+
+. For
+<<Defining-Topologies,topology definitions>>,
+we generate both XML and {cpp} from FPP.
+The reason is that FPP
+<<Defining-Component-Instances_Component-Instance-Definitions,
+instance definitions>>
+and
+<<Defining-Component-Instances_Init-Specifiers,
+init specifiers>>
+provide more complete {cpp} code generation than is available
+via F Prime XML.
+However, we still use the F Prime XML to generate dictionaries
+for the F Prime ground data system.
 
 *Tool name:* The tool for translating FPP to {cpp} is called
 `fpp-to-cpp`.
@@ -301,10 +315,7 @@ See that section for examples of the procedure.
 `fpp-to-cpp`
 either through named files or through standard input.
 
-*Tool behavior:*
-For now this tool just generates {cpp} constants.
-In the future it will do more.
-(Eventually, it will replace `fpp-to-xml` and the Python {cpp} autocoders.)
+==== Constant Definitions
 
 `fpp-to-cpp` extracts <<Defining-Constants,constant definitions>>
 from the source files _F_.
@@ -423,6 +434,10 @@ To specify multiple prefixes, separate them with commas (and no spaces).
 This is similar to the `-p` option for
 <<Analyzing-and-Translating-Models_Generating-XML, `fpp-to-xml`>>.
 
+==== Topology Definitions
+
+TODO
+
 === Identifying Generated Files
 
 As discussed in the previous section, the `-n` option
@@ -463,164 +478,6 @@ constant a = 0
 FppConstantsAc.cpp
 FppConstantsAc.hpp
 ----
-
-=== Implementing Abstract Types
-
-Except for a few built-in types (see below), when translating to XML and then {cpp}, an
-<<Defining-Types_Abstract-Type-Definitions,abstract type definition>>
-represents a {cpp} class that you write directly in {cpp}.
-When you use an abstract type _T_ in an FPP definition _D_ (for example, as the 
-member type of an array definition)
-and you translate _D_ to XML, then the generated XML node for _D_ contains an 
-`include_header` node that
-includes a header file for _T_.
-
-As an example, try this:
-
-----
-% fpp-to-xml -p $PWD
-type T
-array A = [3] T
-^D
-----
-
-Notice that we used the option `-p $PWD`.
-This is to make the generated include path relative to the current directory.
-
-Now run
-
-----
-% cat AArrayAi.xml
-----
-
-You should see the following line in the generated XML:
-
-[source,xml]
-----
-<include_header>T.hpp</include_header>
-----
-
-This line says that when the F Prime autocoder translates this XML file
-to a {cpp} class, in order to compile that class, a header file `T.hpp`
-must exist in the current directory. It is up to you to provide that header
-file.
-
-When implementing an abstract type `T` in {cpp}, you must define
-a class that extends `Fw::Serializable` from the F Prime framework.
-Your class definition must include the following:
-
-* An implementation of the virtual function
-+
-----
-Fw::SerializeStatus T::serialize(Fw::SerializeBufferBase&) const
-----
-+
-that specifies how to *serialize* a class instance (i.e., convert a class 
-instance to a byte string).
-
-* An implementation of the function
-+
-----
-Fw::SerializeStatus T::serialize(Fw::SerializeBufferBase&)
-----
-+
-that specifies how to *deserialize* a class instance (i.e., reconstruct a class
-instance from a byte string).
-
-* A constant `T::SERIALIZED_SIZE` that specifies the size in bytes
-of a byte string serialized from the class.
-
-* A zero-argument constructor `T()`.
-
-* An overloaded equality operator
-+
-----
-bool operator==(const T& that) const;
-----
-
-Here is a minimal complete implementation of an abstract type `T`.
-It has one member variable `x` of type `U32` and no methods other than
-those required by F Prime.
-We have made `T` a {cpp} struct (rather than a class) so that
-all members are public by default.
-
-----
-// A minimal implementation of abstract type T
-
-#ifndef T_HPP
-#define T_HPP
-
-// Include Fw/Types/Serializable.fpp from the F Prime framework
-#include "Fw/Types/Serializable.hpp"
-
-struct T : public Fw::Serializable { // Extend Fw::Serializable
-
-  // Define some shorthand for F Prime types
-  typedef Fw::SerializeStatus SS;
-  typedef Fw::SerializeBufferBase B;
-
-  // Define the constant SERIALIZED_SIZE
-  enum Constants { SERIALIZED_SIZE = sizeof(U32) };
-
-  // Provide a zero-argument constructor
-  T() : x(0) { }
-
-  // Define a comparison operator
-  bool operator==(const T& that) const { return this->x == that.x; }
-
-  // Define the virtual serialize method
-  SS serialize(B& b) const { return b.serialize(x); }
-
-  // Define the virtual deserialize method
-  SS deserialize(B& b) { return b.deserialize(x); }
-
-  // Provide some data
-  U32 x;
-
-};
-
-#endif
-----
-
-*Built-in types:*
-The following types are abstract in the FPP model but are known to
-the XML translator:
-
-----
-FwBuffSizeType
-FwChanIdType
-FwEnumStoreType
-FwEventIdType
-FwOpcodeType
-FwPacketDescriptorType
-FwPrmIdType
-FwTimeBaseStoreType
-FwTimeContextStoreType
-NATIVE_INT_TYPE
-NATIVE_UINT_TYPE
-POINTER_CAST
-----
-
-Each of these types is an alias for a {cpp} integer type, and each
-has default value zero.
-
-The F Prime framework automatically provides the {cpp} definitions
-for these types.
-You have to declare them as abstract types in the FPP model, but
-once you do that you can use them.
-You don't have to define header files for these types.
-
-=== Implementing Deployments
-
-TODO
-
-* Main function
-
-* TopologyDefs.hpp and TopologyDefs.cpp
-
-** Health configuration
-
-** User-specified types, constants, and variables
 
 === Translating XML to FPP
 
