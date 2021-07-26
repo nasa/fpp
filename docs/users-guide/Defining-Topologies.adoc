@@ -473,9 +473,139 @@ time connections instance sysTime { a, b }
 
 === Port Numbering
 
+As discussed in the
+<<Defining-Components_Port-Instances_Arrays-of-Port-Instances,
+section on defining components>>,
+each port instance is actually an array of one or more port instances.
+When the size of the array exceeds one, you
+have to specify the port number (i.e., the array index)
+of each connection going into or out of the port instance.
+In FPP, there are three ways to specify port numbers:
+explicit numbering, matched numbering, and general numbering.
+
 ==== Explicit Numbering
 
-TODO
+To use explicit numbering, you provide an explicit port number
+for a connection endpoint.
+You write the port number as a 
+<<Defining-Constants_Expressions,numeric expression>>
+in square brackets, immediately following the port name.
+The port numbers start at zero.
+
+For example, the `RateGroups` graph of the reference topology in the F Prime 
+repository defines the rate group connections.
+It contains the following connection:
+
+[source,fpp]
+--------
+rateGroupDriverComp.CycleOut[Ports.RateGroups.rateGroup1] -> rateGroup1Comp.CycleIn
+rateGroup1Comp.RateGroupMemberOut[0] -> SG1.schedIn
+rateGroup1Comp.RateGroupMemberOut[1] -> SG2.schedIn
+rateGroup1Comp.RateGroupMemberOut[2] -> chanTlm.Run
+rateGroup1Comp.RateGroupMemberOut[3] -> fileDownlink.Run
+--------
+
+The first line says to connect the port at index
+`Ports.RateGroups.rateGroup1` of `rateGroupDriverComp.CycleOut`
+to `rateGroup1Comp.CycleIn`.
+The symbol `Ports.RateGroups.rateGroup1` is an enumerated constant, defined
+like this:
+
+[source,fpp]
+----
+module Ports {
+
+  enum RateGroups {
+    rateGroup1
+    rateGroup2
+    rateGroup3
+  }
+
+}
+----
+
+The second and following lines say to connect the ports of
+`rateGroup1Comp.RateGroupMemberOut` at the indices 0, 1, 2, and 3
+in the manner shown.
+
+As another example, the `Downlink` graph of the reference topology 
+contains the following connection:
+
+[source,fpp]
+--------
+downlink.framedAllocate -> staticMemory.bufferAllocate[Ports.StaticMemory.downlink]
+--------
+
+This line says to connect `downlink.framedAllocate` to
+`staticMemory.bufferAllocate` at index
+`Port.StaticMemory.downlink`.
+Again the port index is a symbolic constant.
+
+If you wish, you may write two explicit port numbers,
+one at each endpoint.
+For example:
+
+[source,fpp]
+--------
+a.b[0] -> c.d[1]
+--------
+
+Here are some rules to keep in mind when using explicit numbering:
+
+. You can write any numeric expression as a port number.
+Each port number must be in bounds for the port (greater than
+zero and less than the size of the port array).
+If you write a port number that is out of bounds, you will get an error.
+
+. Use symbolic constants judiciously.
+Avoid scattering "magic" literal
+constants throughout the topology definition.
+For example:
+
+.. The Ref topology uses the symbolic constants
+`Ports.RateGroups.rateGroup1` and `Ports.StaticMemory.downlink`, as shown
+above.
+Because these constants appear in several different places, it is 
+better to use symbolic constants here.
+Using literal constants would decrease readability and increase
+the chance of using incorrect or inconsistent numbers.
+
+.. The Ref topology uses the literal constants 0, 1, 2, and 3
+to connect the ports of `rateGroup1Comp.RateGroupMemberOut`.
+Here there are no obvious names to associate with the numbers, 
+the numbers go in sequence, and all the numbers appear together in one place.
+So there is no clear benefit to giving them names.
+
+. Remember that in F Prime, multiple connections can go to the same
+input port, but only one connection can go from each output port.
+For example, this code is allowed:
++
+[source,fpp]
+--------
+c1.p1 -> c2.p[0]
+c1.p2 -> c2.p[0] # OK: Two connections into c2.p[0]
+--------
++
+But this code is incorrect:
++
+[source,fpp]
+--------
+c1.p[0] -> c2.p1
+c1.p[0] -> c2.p2 # Error: Two connections out of c1.p[0]
+--------
+
+. Use explicit numbering as little as possible.
+Instead, use matched numbering or general numbering
+(described in the next sections) and let FPP
+do the numbering for you.
+In particular, avoid writing zero indices such as
+`c.p[0]` except in cases where you need to control the assignment
+of numbers, such as in the rate group example shown above.
+In other cases, write `c.p` and let FPP infer
+the zero index.
+For example, this is what we did in the section on
+<<Defining-Topologies_Connection-Graphs_Direct-Graph-Specifiers,
+direct graph specifiers>>.
 
 ==== Matched Numbering
 
