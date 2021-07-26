@@ -42,8 +42,8 @@ Some features of FPP are not supported in the XML representation,
 or were not supported until very recently.
 Where a feature is not supported, we will call out this fact in a
 note marked *XML limitation*.
-A future release of FPP will generate {cpp} directly and will support
-all the features described here.
+As we continue to develop FPP, we will phase in support
+for all the features described here.
 
 *Overview:* The rest of this document proceeds as follows.
 Section 2 explains how to get up and running with FPP.

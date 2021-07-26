@@ -501,8 +501,8 @@ active component; otherwise none.
 
 |===
 
-The most often used phases are `configConstants`, `configObjects`,
-and `configComponents`.
+You will most often need to write code for `configConstants`,
+`configObjects`, and `configComponents`.
 These phases often require implementation-specific input that
 cannot be provided in any other way, except to write an init specifier.
 
