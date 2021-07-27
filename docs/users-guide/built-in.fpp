@@ -13,6 +13,7 @@ module Fw {
 }
 
 module Svc {
+  port Ping
   port Sched
   passive component Time {
 

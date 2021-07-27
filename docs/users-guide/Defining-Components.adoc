@@ -2222,3 +2222,71 @@ components, but they can also appear at the top level of a
 model, or inside a module definition.
 We discuss include specifiers further in the section on
 <<Specifying-Models_Include-Specifiers,specifying models>>.
+
+=== Matched Ports
+
+Some F Prime components employ the following pattern:
+
+. The component has a pair of port arrays, say `p1` and `p2`.
+The two arrays have the same number of ports.
+
+. For every connection between `p1` and another component
+instance, there must be a matching connection between that
+component instance and `p2`.
+
+. The matched pairs in item 2 must be connected to the
+same port numbers at `p1` and `p2`.
+
+In this case we call `p1` and `p2` a pair of
+*matched ports*.
+For example:
+
+* The standard Command Dispatcher component has matched ports
+`compCmdReg` for receiving command registration and
+`compCmdSend` for sending commands.
+
+* The standard Health component has matched ports
+`PingSend` for sending health ping messages and
+`PingReturn` for receiving responses to the ping messages.
+
+FPP provides special support for this pattern.
+Inside a component definition, you can write
+`match p1 with p2`, where `p1` and `p2` are the names of
+<<Defining-Components_Port-Instances,port instances>>
+defined in the component.
+When you do this, the following occurs:
+
+.  The FPP translator checks that `p1` and `p2` have
+the same number of ports.
+If not, an error occurs.
+
+.  When
+<<Defining-Topologies_Port-Numbering_Matched-Numbering,
+automatically numbering a topology>>, the
+translator ensures that the port numbers match in the manner
+described above.
+
+For example, here is a simplified version of the Health
+component:
+
+[source,fpp]
+----
+@ Number of health ping ports
+constant numPingPorts = 10
+
+queued component Health {
+
+  @ Ping output port
+  output port pingOut: [numPingPorts] Svc.Ping
+
+  @ Ping input port
+  async input port pingIn: [numPingPorts] Svc.Ping
+
+  @ Corresponding port numbers of pingOut and pingIn must match
+  match pingOut with pingIn
+
+}
+----
+
+This component defines a pair of matched ports
+`pingOut` and `pingIn`.
