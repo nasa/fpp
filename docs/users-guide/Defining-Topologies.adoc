@@ -610,7 +610,9 @@ direct graph specifiers>>.
 ==== Matched Numbering
 
 *Automatic matching:*
-After resolving the explicit port numbering, the FPP translator applies
+After resolving
+<<Defining-Topologies_Port-Numbering_Explicit-Numbering,
+explicit numbering>>, the FPP translator applies
 *matched numbering*.
 In this step, the translator numbers all pairs of
 <<Defining-Components_Matched-Ports,matched ports>>.
@@ -683,14 +685,51 @@ allocation and deallocation requests for the same memory
 go to the same port.
 But the allocation request comes from `comm`,
 and the deallocation request comes from `uplink`.
-Since the allocation and deallocation connections involve different
+Since the allocation and deallocation connections go to different
 component instances, we can't used automatic matched numbering.
 Instead we define a symbolic constant `Ports.StaticMemory.uplink`
 and use that twice to do the matching by hand.
 
 ==== General Numbering
 
-TODO
+After resolving 
+<<Defining-Topologies_Port-Numbering_Explicit-Numbering,
+explicit numbering>> and
+<<Defining-Topologies_Port-Numbering_Matched-Numbering,
+matched numbering>>,
+the FPP translator applies
+*general numbering*.
+In this step, the translator uses the following algorithm to
+fill in any remaining unassigned
+port numbers:
+
+. Traverse the connections in a deterministic order.
+The order is fully described in _The FPP Language Specification_.
+
+. For each connection
+
+.. If the output port number is unassigned, then set it to the
+lowest available port number.
+
+.. If the input port number is unassigned, then set it to zero.
+
+For example, consider the following connections:
+
+[source,fpp]
+--------
+a.p -> b.p
+a.p -> c.p
+--------
+
+After general numbering, the connections could be numbered
+as follows:
+
+[source,fpp]
+--------
+a.p[0] -> b.p[0]
+a.p[1] -> c.p[0]
+--------
+
 
 === Importing Topologies
 

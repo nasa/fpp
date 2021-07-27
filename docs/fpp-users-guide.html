@@ -7436,7 +7436,8 @@ For example, this is what we did in the section on
 <h4 id="Defining-Topologies_Port-Numbering_Matched-Numbering">11.3.2. Matched Numbering</h4>
 <div class="paragraph">
 <p><strong>Automatic matching:</strong>
-After resolving the explicit port numbering, the FPP translator applies
+After resolving
+<a href="#Defining-Topologies_Port-Numbering_Explicit-Numbering">explicit numbering</a>, the FPP translator applies
 <strong>matched numbering</strong>.
 In this step, the translator numbers all pairs of
 <a href="#Defining-Components_Matched-Ports">matched ports</a>.</p>
@@ -7520,7 +7521,7 @@ allocation and deallocation requests for the same memory
 go to the same port.
 But the allocation request comes from <code>comm</code>,
 and the deallocation request comes from <code>uplink</code>.
-Since the allocation and deallocation connections involve different
+Since the allocation and deallocation connections go to different
 component instances, we can&#8217;t used automatic matched numbering.
 Instead we define a symbolic constant <code>Ports.StaticMemory.uplink</code>
 and use that twice to do the matching by hand.</p>
@@ -7529,7 +7530,55 @@ and use that twice to do the matching by hand.</p>
 <div class="sect3">
 <h4 id="Defining-Topologies_Port-Numbering_General-Numbering">11.3.3. General Numbering</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>After resolving
+<a href="#Defining-Topologies_Port-Numbering_Explicit-Numbering">explicit numbering</a> and
+<a href="#Defining-Topologies_Port-Numbering_Matched-Numbering">matched numbering</a>,
+the FPP translator applies
+<strong>general numbering</strong>.
+In this step, the translator uses the following algorithm to
+fill in any remaining unassigned
+port numbers:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Traverse the connections in a deterministic order.
+The order is fully described in <em>The FPP Language Specification</em>.</p>
+</li>
+<li>
+<p>For each connection</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>If the output port number is unassigned, then set it to the
+lowest available port number.</p>
+</li>
+<li>
+<p>If the input port number is unassigned, then set it to zero.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For example, consider the following connections:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">a.p -&gt; b.p
+a.p -&gt; c.p</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After general numbering, the connections could be numbered
+as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">a.p[0] -&gt; b.p[0]
+a.p[1] -&gt; c.p[0]</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -9868,7 +9917,7 @@ You don&#8217;t have to define header files for these types.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-27 14:41:52 -0700
+Last updated 2021-07-27 15:01:17 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
