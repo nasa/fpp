@@ -609,7 +609,84 @@ direct graph specifiers>>.
 
 ==== Matched Numbering
 
-TODO
+*Automatic matching:*
+After resolving the explicit port numbering, the FPP translator applies
+*matched numbering*.
+In this step, the translator numbers all pairs of
+<<Defining-Components_Matched-Ports,matched ports>>.
+
+Matched numbering is essential for resolving the command and health
+<<Defining-Topologies_Connection-Graphs_Pattern-Graph-Specifiers,
+patterns>>, each of which has matched ports.
+You can also use matched numbering in conjunction with direct
+graph specifiers.
+For example, the Ref topology contains the following connections:
+
+[source,fpp]
+--------
+connections Sequencer {
+  cmdSeq.comCmdOut -> cmdDisp.seqCmdBuff
+  cmdDisp.seqCmdStatus -> cmdSeq.cmdResponseIn
+}
+
+connection Uplink {
+  ...
+  uplink.comOut -> cmdDisp.seqCmdBuff
+  cmdDisp.seqCmdStatus -> uplink.cmdResponseIn
+  ...
+}
+--------
+
+The port `cmdDisp.seqCmdBuff` port of the command dispatcher receives
+command input from the command sequencer or from the ground.
+The corresponding command response goes out on
+port `cmdDisp.seqCmdStatus`.
+These two ports are matched in the definition of the Command
+Sequencer component.
+
+When you use matched numbering with direct graph specifiers, you
+must obey the following rules:
+
+. When a component has the matching specifier
+`match p1 with p2`, for every connection between `p1`
+and another component, there must be a corresponding
+connection between that other component and `p2`.
+
+. You can use explicit numbering, and the automatic matching
+will work around the numbers you supply if it can.
+However, you may not do this in a way that makes the matching impossible.
+For example, you may not connect `p1[0]` to another component
+and `p2[1]` to the same component, because this connection
+forces a mismatch.
+
+If you violate these rules, you will get an error during
+analysis.
+
+*Manual matching:*
+Automatic matched numbering works when each matched pair of connections
+goes between the same two components, one of which
+has a matched pair of ports.
+If the matching does not follow this pattern than automatic matched
+numbering will not work, and you will need to use explicit port
+numbers to express the matching.
+For example, the Ref topology contains these connections:
+
+[source,fpp]
+--------
+comm.allocate -> staticMemory.bufferAllocate[Ports.StaticMemory.uplink]
+comm.$recv -> uplink.framedIn
+uplink.framedDeallocate -> staticMemory.bufferDeallocate[Ports.StaticMemory.uplink]
+--------
+
+In this case the `staticMemory` instance requires that pairs of
+allocation and deallocation requests for the same memory
+go to the same port.
+But the allocation request comes from `comm`,
+and the deallocation request comes from `uplink`.
+Since the allocation and deallocation connections involve different
+component instances, we can't used automatic matched numbering.
+Instead we define a symbolic constant `Ports.StaticMemory.uplink`
+and use that twice to do the matching by hand.
 
 ==== General Numbering
 

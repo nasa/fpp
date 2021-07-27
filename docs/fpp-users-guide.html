@@ -576,6 +576,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#Defining-Components_Constants-and-Types">9.9. Constants and Types</a></li>
 <li><a href="#Defining-Components_Include-Specifiers">9.10. Include Specifiers</a></li>
+<li><a href="#Defining-Components_Matched-Ports">9.11. Matched Ports</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Component-Instances">10. Defining Component Instances</a>
@@ -5901,6 +5902,98 @@ We discuss include specifiers further in the section on
 <a href="#Specifying-Models_Include-Specifiers">specifying models</a>.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="Defining-Components_Matched-Ports">9.11. Matched Ports</h3>
+<div class="paragraph">
+<p>Some F Prime components employ the following pattern:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The component has a pair of port arrays, say <code>p1</code> and <code>p2</code>.
+The two arrays have the same number of ports.</p>
+</li>
+<li>
+<p>For every connection between <code>p1</code> and another component
+instance, there must be a matching connection between that
+component instance and <code>p2</code>.</p>
+</li>
+<li>
+<p>The matched pairs in item 2 must be connected to the
+same port numbers at <code>p1</code> and <code>p2</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>In this case we call <code>p1</code> and <code>p2</code> a pair of
+<strong>matched ports</strong>.
+For example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The standard Command Dispatcher component has matched ports
+<code>compCmdReg</code> for receiving command registration and
+<code>compCmdSend</code> for sending commands.</p>
+</li>
+<li>
+<p>The standard Health component has matched ports
+<code>PingSend</code> for sending health ping messages and
+<code>PingReturn</code> for receiving responses to the ping messages.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>FPP provides special support for matched ports.
+Inside a component definition, you can write
+<code>match p1 with p2</code>, where <code>p1</code> and <code>p2</code> are the names of
+<a href="#Defining-Components_Port-Instances">port instances</a>
+defined in the component.
+When you do this, the following occurs:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The FPP translator checks that <code>p1</code> and <code>p2</code> have
+the same number of ports.
+If not, an error occurs.</p>
+</li>
+<li>
+<p>When
+<a href="#Defining-Topologies_Port-Numbering_Matched-Numbering">automatically numbering a topology</a>, the
+translator ensures that the port numbers match in the manner
+described above.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For example, here is a simplified version of the Health
+component:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ Number of health ping ports
+constant numPingPorts = 10
+
+queued component Health {
+
+  @ Ping output port
+  output port pingOut: [numPingPorts] Svc.Ping
+
+  @ Ping input port
+  async input port pingIn: [numPingPorts] Svc.Ping
+
+  @ Corresponding port numbers of pingOut and pingIn must match
+  match pingOut with pingIn
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This component defines a pair of matched ports
+<code>pingOut</code> and <code>pingIn</code>.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -7342,7 +7435,95 @@ For example, this is what we did in the section on
 <div class="sect3">
 <h4 id="Defining-Topologies_Port-Numbering_Matched-Numbering">11.3.2. Matched Numbering</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p><strong>Automatic matching:</strong>
+After resolving the explicit port numbering, the FPP translator applies
+<strong>matched numbering</strong>.
+In this step, the translator numbers all pairs of
+<a href="#Defining-Components_Matched-Ports">matched ports</a>.</p>
+</div>
+<div class="paragraph">
+<p>Matched numbering is essential for resolving the command and health
+<a href="#Defining-Topologies_Connection-Graphs_Pattern-Graph-Specifiers">patterns</a>, each of which has matched ports.
+You can also use matched numbering in conjunction with direct
+graph specifiers.
+For example, the Ref topology contains the following connections:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">connections Sequencer {
+  cmdSeq.comCmdOut -&gt; cmdDisp.seqCmdBuff
+  cmdDisp.seqCmdStatus -&gt; cmdSeq.cmdResponseIn
+}
+
+connection Uplink {
+  ...
+  uplink.comOut -&gt; cmdDisp.seqCmdBuff
+  cmdDisp.seqCmdStatus -&gt; uplink.cmdResponseIn
+  ...
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The port <code>cmdDisp.seqCmdBuff</code> port of the command dispatcher receives
+command input from the command sequencer or from the ground.
+The corresponding command response goes out on
+port <code>cmdDisp.seqCmdStatus</code>.
+These two ports are matched in the definition of the Command
+Sequencer component.</p>
+</div>
+<div class="paragraph">
+<p>When you use matched numbering with direct graph specifiers, you
+must obey the following rules:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>When a component has the matching specifier
+<code>match p1 with p2</code>, for every connection between <code>p1</code>
+and another component, there must be a corresponding
+connection between that other component and <code>p2</code>.</p>
+</li>
+<li>
+<p>You can use explicit numbering, and the automatic matching
+will work around the numbers you supply if it can.
+However, you may not do this in a way that makes the matching impossible.
+For example, you may not connect <code>p1[0]</code> to another component
+and <code>p2[1]</code> to the same component, because this connection
+forces a mismatch.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>If you violate these rules, you will get an error during
+analysis.</p>
+</div>
+<div class="paragraph">
+<p><strong>Manual matching:</strong>
+Automatic matched numbering works when each matched pair of connections
+goes between the same two components, one of which
+has a matched pair of ports.
+If the matching does not follow this pattern than automatic matched
+numbering will not work, and you will need to use explicit port
+numbers to express the matching.
+For example, the Ref topology contains these connections:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">comm.allocate -&gt; staticMemory.bufferAllocate[Ports.StaticMemory.uplink]
+comm.$recv -&gt; uplink.framedIn
+uplink.framedDeallocate -&gt; staticMemory.bufferDeallocate[Ports.StaticMemory.uplink]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this case the <code>staticMemory</code> instance requires that pairs of
+allocation and deallocation requests for the same memory
+go to the same port.
+But the allocation request comes from <code>comm</code>,
+and the deallocation request comes from <code>uplink</code>.
+Since the allocation and deallocation connections involve different
+component instances, we can&#8217;t used automatic matched numbering.
+Instead we define a symbolic constant <code>Ports.StaticMemory.uplink</code>
+and use that twice to do the matching by hand.</p>
 </div>
 </div>
 <div class="sect3">
@@ -9687,7 +9868,7 @@ You don&#8217;t have to define header files for these types.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-26 11:46:50 -0700
+Last updated 2021-07-27 14:41:52 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

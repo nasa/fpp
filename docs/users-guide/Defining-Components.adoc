@@ -2249,7 +2249,7 @@ For example:
 `PingSend` for sending health ping messages and
 `PingReturn` for receiving responses to the ping messages.
 
-FPP provides special support for this pattern.
+FPP provides special support for matched ports.
 Inside a component definition, you can write
 `match p1 with p2`, where `p1` and `p2` are the names of
 <<Defining-Components_Port-Instances,port instances>>
