@@ -957,7 +957,7 @@ Resolution works bottom-up on the import graph:
 for example, first we resolve `C`, and then we resolve `B`,
 and then we resolve `A`.
 
-There may be no cycles in the import graph.
+Cycles in the import graph are not allowed.
 For example, if `A` imports `B` and `B` imports `C`
 and `C` imports `A`, you will get an error.
 

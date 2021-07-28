@@ -7855,7 +7855,7 @@ for example, first we resolve <code>C</code>, and then we resolve <code>B</code>
 and then we resolve <code>A</code>.</p>
 </div>
 <div class="paragraph">
-<p>There may be no cycles in the import graph.
+<p>Cycles in the import graph are not allowed.
 For example, if <code>A</code> imports <code>B</code> and <code>B</code> imports <code>C</code>
 and <code>C</code> imports <code>A</code>, you will get an error.</p>
 </div>
@@ -7886,7 +7886,7 @@ several files into a model.</p>
 <div class="paragraph">
 <p>We discuss several tools for specifying and analyzing dependencies between
 model files.
-Here we focus on how to use the tools, and we summarize their most important
+We focus on how to use the tools, and we summarize their most important
 features.
 We do not attempt to cover every feature of every tool.
 For more comprehensive coverage, see
@@ -10193,7 +10193,7 @@ You don&#8217;t have to define header files for these types.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-27 18:13:46 -0700
+Last updated 2021-07-28 08:33:26 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

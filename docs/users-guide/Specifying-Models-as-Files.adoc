@@ -8,7 +8,7 @@ several files into a model.
 
 We discuss several tools for specifying and analyzing dependencies between
 model files.
-Here we focus on how to use the tools, and we summarize their most important
+We focus on how to use the tools, and we summarize their most important
 features.
 We do not attempt to cover every feature of every tool.
 For more comprehensive coverage, see
