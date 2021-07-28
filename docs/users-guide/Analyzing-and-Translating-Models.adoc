@@ -1,6 +1,7 @@
 == Analyzing and Translating Models
 
-The previous section explained how to specify an FPP model:
+The previous section explained how to specify an FPP model
+as a collection of files:
 how to divide a model into source files and how to compute the
 dependencies of one or more files on other files.
 This section explains the next step: how to perform analysis and

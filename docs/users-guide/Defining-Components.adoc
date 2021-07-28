@@ -2219,7 +2219,8 @@ the specifier `include "Commands.fppi"` is not valid.
 
 Include specifiers are perhaps most useful when defining
 components, but they can also appear at the top level of a
-model, or inside a module definition.
+model, inside a module definition, or inside a
+topology definition.
 We discuss include specifiers further in the section on
 <<Specifying-Models_Include-Specifiers,specifying models>>.
 

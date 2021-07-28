@@ -615,10 +615,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#Defining-Topologies_Importing-Topologies">11.4. Importing Topologies</a>
 <ul class="sectlevel3">
-<li><a href="#Defining-Topologies_Importing-Topologies_Merging-Connection-Graphs">11.4.1. Merging Connection Graphs</a></li>
+<li><a href="#Defining-Topologies_Importing-Topologies_Importing-Instances-and-Connections">11.4.1. Importing Instances and Connections</a></li>
 <li><a href="#Defining-Topologies_Importing-Topologies_Private-Instances">11.4.2. Private Instances</a></li>
+<li><a href="#Defining-Topologies_Importing-Topologies_Multiple-Imports">11.4.3. Multiple Imports</a></li>
+<li><a href="#Defining-Topologies_Importing-Topologies_Transitive-Imports">11.4.4. Transitive Imports</a></li>
 </ul>
 </li>
+<li><a href="#Defining-Topologies_Include-Specifiers">11.5. Include Specifiers</a></li>
 </ul>
 </li>
 <li><a href="#Specifying-Models">12. Specifying Models</a>
@@ -5897,7 +5900,8 @@ the specifier <code>include "Commands.fppi"</code> is not valid.</p>
 <div class="paragraph">
 <p>Include specifiers are perhaps most useful when defining
 components, but they can also appear at the top level of a
-model, or inside a module definition.
+model, inside a module definition, or inside a
+topology definition.
 We discuss include specifiers further in the section on
 <a href="#Specifying-Models_Include-Specifiers">specifying models</a>.</p>
 </div>
@@ -7456,7 +7460,7 @@ For example, the Ref topology contains the following connections:</p>
   cmdDisp.seqCmdStatus -&gt; cmdSeq.cmdResponseIn
 }
 
-connection Uplink {
+connections Uplink {
   ...
   uplink.comOut -&gt; cmdDisp.seqCmdBuff
   cmdDisp.seqCmdStatus -&gt; uplink.cmdResponseIn
@@ -7503,7 +7507,7 @@ analysis.</p>
 Automatic matched numbering works when each matched pair of connections
 goes between the same two components, one of which
 has a matched pair of ports.
-If the matching does not follow this pattern than automatic matched
+If the matching does not follow this pattern, then automatic matched
 numbering will not work, and you will need to use explicit port
 numbers to express the matching.
 For example, the Ref topology contains these connections:</p>
@@ -7584,17 +7588,287 @@ a.p[1] -&gt; c.p[0]</code></pre>
 </div>
 <div class="sect2">
 <h3 id="Defining-Topologies_Importing-Topologies">11.4. Importing Topologies</h3>
-<div class="sect3">
-<h4 id="Defining-Topologies_Importing-Topologies_Merging-Connection-Graphs">11.4.1. Merging Connection Graphs</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>It is often useful to decompose a flight software project
+into several topologies.
+For example, a project might have the following topologies:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A topology for command and data handling (CDH) with
+components such as a command dispatcher, an event logger, a telemetry data
+base,
+a parameter database, and components for managing files.</p>
+</li>
+<li>
+<p>Various subsystem topologies, for example power, thermal,
+attitude control, etc.</p>
+</li>
+<li>
+<p>A release topology.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Each of the subsystem topologies might include the CDH topology.
+The release topology might include the CDH topology
+and each of the subsystem topologies.
+Further, to enable modular testing, it is useful for
+each topology to be able to run on its own.</p>
+</div>
+<div class="paragraph">
+<p>In FPP, the way we accomplish these goals is to <strong>import</strong>
+one topology into another one.
+In this section of the User Guide, we explain how to do that.</p>
+</div>
+<div class="sect3">
+<h4 id="Defining-Topologies_Importing-Topologies_Importing-Instances-and-Connections">11.4.1. Importing Instances and Connections</h4>
+<div class="paragraph">
+<p>To import a topology <code>A</code> into a topology <code>B</code>, you write
+<code>import A</code> inside topology <code>B</code>, like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">topology B {
+
+  import A
+
+  ...
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You may add instances and connections as usual to <code>B</code>, as shown
+by the dots.</p>
+</div>
+<div class="paragraph">
+<p>When you do this, the FPP translator does the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Resolve <code>A</code>:</strong> Resolve all pattern graph
+specifiers in <code>A</code>, and resolve all explicit port numbers in <code>A</code>.
+Call the resulting topology <code>T</code>.</p>
+</li>
+<li>
+<p><strong>Form the instances of <code>B</code>:</strong>
+Take the union of the instances specified in <code>T</code> and
+the instances specified in <code>B</code>, counting any duplicates once.
+These are the instances of <code>B</code>.</p>
+</li>
+<li>
+<p><strong>Form the connections of <code>B</code>:</strong>
+Take the union of the connection graphs specified in <code>T</code> and
+the connection graphs specified in <code>B</code>.
+If each of <code>T</code> and <code>B</code> has a connection between the same
+ports, then each becomes a separate connection in <code>B</code>.</p>
+</li>
+<li>
+<p><strong>Resolve <code>B</code>:</strong> Resolve the pattern graph specifies of <code>B</code>.
+Apply matched numbering and general numbering to <code>B</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For example, suppose topologies <code>A</code> and <code>B</code> are defined
+as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">topology A {
+
+  instance a
+  instance b
+
+  connections C1 {
+    a.p1 -&gt; b.p
+  }
+
+}
+
+topology B {
+
+  import A
+
+  instance c
+
+  connections C1 {
+    a.p1 -&gt; c.p
+  }
+
+  connections C2 {
+    a.p2 -&gt; c.p
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After import resolution, <code>B</code> is equivalent to this topology:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">topology B {
+
+  instance a
+  instance b
+  instance c
+
+  connections C1 {
+    a.p1 -&gt; b.p
+    a.p1 -&gt; c.p
+  }
+
+  connections C2 {
+    a.p2 -&gt; c.p
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that the <code>C1</code> connections of <code>A</code> are merged with the <code>C1</code>
+connections of <code>B</code>.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="Defining-Topologies_Importing-Topologies_Private-Instances">11.4.2. Private Instances</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>Often when importing topology <code>A</code> into topology <code>B</code>, you
+want to include one or more instances in <code>A</code> that exist just
+for running <code>A</code>, but that you don&#8217;t want imported into <code>B</code>.
+For example, <code>A</code> could have an instance <code>cStub</code> which is a stub version of
+a component <code>c</code> that is fully implemented in <code>B</code>.
+In this case</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>When running <code>A</code> you may need <code>cStub</code>; the topology
+may not run or may not even compile without it.</p>
+</li>
+<li>
+<p>When importing <code>A</code> into <code>B</code> you don&#8217;t want to import
+<code>cStub</code>, because it is superseded by the real implementation <code>c</code> in <code>B</code>.
+Also, any connections to <code>cStub</code> in <code>A</code> should be replaced
+by connections to <code>c</code> in <code>B</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To handle this case, you can make <code>cStub</code> a <strong>private</strong> instance
+of <code>A</code> and <code>c</code> an instance of <code>B</code>.
+When you import <code>B</code> into <code>A</code>, <code>cStub</code> will not become an instance
+of <code>B</code>.
+Further, no connections in <code>A</code> involving <code>cStub</code> will be imported
+into <code>B</code>.</p>
+</div>
+<div class="paragraph">
+<p>As an example, suppose we revise topology <code>A</code> from the previous
+section as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">topology A {
+
+  instance a
+  instance b
+  private instance d
+
+  connections C1 {
+    a.p1 -&gt; b.p
+  }
+
+  connections C2 {
+    a.p1 -&gt; d.p
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that we have added an instance <code>d</code> to topology
+<code>A</code>, and we have declared <code>d</code> private to <code>A</code>.
+We have also added a new connection to <code>d</code> in the
+connection graph <code>C2</code>.</p>
+</div>
+<div class="paragraph">
+<p>Now suppose that we use the same definition of <code>B</code> given
+in the previous section.
+After import resolution, <code>B</code> will still be equivalent
+to the topology shown at the end of the last section:
+we have added an instance and a connection to <code>A</code>,
+but the instance is private and the connection goes
+from a private instance, so neither the instance nor
+the connection is imported into <code>B</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Topologies_Importing-Topologies_Multiple-Imports">11.4.3. Multiple Imports</h4>
+<div class="paragraph">
+<p>Multiple imports are allowed.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">topology A {
+
+  import B
+  import C
+
+  ...
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This has the obvious meaning: both topology <code>B</code> and
+topology <code>C</code> are imported into topology <code>A</code>, according
+to the rules described above.</p>
+</div>
+<div class="paragraph">
+<p>Each topology may appear at most once in the import list.
+For example, this is incorrect:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">topology A {
+
+  import B
+  import B # Error: B imported twice
+
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Topologies_Importing-Topologies_Transitive-Imports">11.4.4. Transitive Imports</h4>
+<div class="paragraph">
+<p>In general, transitive imports are allowed.
+For example, topology <code>A</code> may import topology <code>B</code>,
+and topology <code>B</code> may import topology <code>C</code>.
+Resolution works bottom-up on the import graph:
+for example, first we resolve <code>C</code>, and then we resolve <code>B</code>,
+and then we resolve <code>A</code>.</p>
+</div>
+<div class="paragraph">
+<p>There may be no cycles in the import graph.
+For example, if <code>A</code> imports <code>B</code> and <code>B</code> imports <code>C</code>
+and <code>C</code> imports <code>A</code>, you will get an error.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-Topologies_Include-Specifiers">11.5. Include Specifiers</h3>
+<div class="paragraph">
+<p>You can include code from another file in a topology definition.
+You do this by writing an <strong>include specifier</strong>.
+We will explain more about this in the section on
+<a href="#Specifying-Models_Include-Specifiers">include specifiers</a>
+below.</p>
 </div>
 </div>
 </div>
@@ -7603,10 +7877,11 @@ a.p[1] -&gt; c.p[0]</code></pre>
 <h2 id="Specifying-Models">12. Specifying Models</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The previous sections have explained the individual syntactic elements
+<p>The previous sections have explained the syntactic and semantic elements
 of FPP models.
-This section takes a broader view:
-it explains how to assemble a collection of elements into a model.</p>
+This section takes a more file-centric view:
+it explains how to assemble a collection of elements specified in
+several files into a model.</p>
 </div>
 <div class="paragraph">
 <p>We discuss several tools for specifying and analyzing dependencies between
@@ -7701,7 +7976,8 @@ An include specifier is an instruction to include FPP source elements
 from one file into another file.
 Include specifiers may occur at the top level of a model,
 inside a <a href="#Defining-Modules">module definition</a>,
-or inside a <a href="#Defining-Components">component definition</a>.</p>
+inside a <a href="#Defining-Components">component definition</a>,
+or inside a <a href="#Defining-Topologies">topology definition</a>.</p>
 </div>
 <div class="paragraph">
 <p>The main purpose of include specifiers is to split up large syntactic units
@@ -8571,7 +8847,8 @@ for the location specifiers.</p>
 <h2 id="Analyzing-and-Translating-Models">13. Analyzing and Translating Models</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The previous section explained how to specify an FPP model:
+<p>The previous section explained how to specify an FPP model
+as a collection of files:
 how to divide a model into source files and how to compute the
 dependencies of one or more files on other files.
 This section explains the next step: how to perform analysis and
@@ -9917,7 +10194,7 @@ You don&#8217;t have to define header files for these types.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-27 15:01:17 -0700
+Last updated 2021-07-27 18:04:00 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

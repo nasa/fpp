@@ -1,9 +1,10 @@
 == Specifying Models
 
-The previous sections have explained the individual syntactic elements
+The previous sections have explained the syntactic and semantic elements
 of FPP models.
-This section takes a broader view:
-it explains how to assemble a collection of elements into a model.
+This section takes a more file-centric view:
+it explains how to assemble a collection of elements specified in
+several files into a model.
 
 We discuss several tools for specifying and analyzing dependencies between
 model files.
@@ -71,7 +72,8 @@ An include specifier is an instruction to include FPP source elements
 from one file into another file.
 Include specifiers may occur at the top level of a model, 
 inside a <<Defining-Modules,module definition>>,
-or inside a <<Defining-Components,component definition>>.
+inside a <<Defining-Components,component definition>>,
+or inside a <<Defining-Topologies,topology definition>>.
 
 The main purpose of include specifiers is to split up large syntactic units 
 into several files.
