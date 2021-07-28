@@ -21,7 +21,7 @@ Defining-Ports.adoc
 Defining-Components.adoc
 Defining-Component-Instances.adoc
 Defining-Topologies.adoc
-Specifying-Models.adoc
+Specifying-Models-as-Files.adoc
 Analyzing-and-Translating-Models.adoc
 Writing-C-Plus-Plus-Implementations.adoc
 "

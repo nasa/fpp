@@ -2222,7 +2222,8 @@ components, but they can also appear at the top level of a
 model, inside a module definition, or inside a
 topology definition.
 We discuss include specifiers further in the section on
-<<Specifying-Models_Include-Specifiers,specifying models>>.
+<<Specifying-Models-as-Files_Include-Specifiers,
+specifying models as files>>.
 
 === Matched Ports
 

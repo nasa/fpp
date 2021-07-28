@@ -1,4 +1,4 @@
-== Specifying Models
+== Specifying Models as Files
 
 The previous sections have explained the syntactic and semantic elements
 of FPP models.
@@ -274,7 +274,7 @@ Although it is possible to write location specifiers by hand,
 you should usually not do so.
 Instead, you should write definitions and let the tools discover their 
 locations, as described
-in the section on <<Specifying-Models_Locating-Definitions,locating 
+in the section on <<Specifying-Models-as-Files_Locating-Definitions,locating 
 definitions>>.
 
 ==== Syntax
@@ -321,7 +321,7 @@ locate type E at "E.fpp"
 ==== Path Names
 
 As with
-<<Specifying-Models_Include-Specifiers,include specifiers>>,
+<<Specifying-Models-as-Files_Include-Specifiers,include specifiers>>,
 the path name in a location specifier _L_ is relative to the
 location of the file where _L_ appears.
 For example, suppose the file `b.fpp` appears in the file system in some 
@@ -388,7 +388,7 @@ definitions and their uses.
 ==== Included Files
 
 When you write a file that contains definitions and you 
-<<Specifying-Models_Include-Specifiers,include that file in another file>>,
+<<Specifying-Models-as-Files_Include-Specifiers,include that file in another file>>,
 the location of each definition is the file where the definition is
 included, not the file where the definition appears.
 For example, suppose that file `a.fppi` contains the
@@ -456,7 +456,7 @@ locate constant a at "a.fpp"
 
 Consider the case where you write a definition in one file and
 include that file in another file via an
-<<Specifying-Models_Include-Specifiers,include specifier>>.
+<<Specifying-Models-as-Files_Include-Specifiers,include specifier>>.
 For example, suppose file `Constants.fpp` looks like this:
 
 [source.fpp]
@@ -660,7 +660,7 @@ the dependency `[path-prefix]/b.fpp` to standard output.
 ==== Included Files
 
 Suppose file `a.fpp` contains the
-<<Specifying-Models_Include-Specifiers,include specifier>>
+<<Specifying-Models-as-Files_Include-Specifiers,include specifier>>
 `include "b.fppi"`.
 Then there are two options for computing the dependencies of `a.fpp`:
 
@@ -733,13 +733,13 @@ Then `fpp-locate-uses -i a.fpp,b.fpp c.fpp` generates the output `locate a at
 "a.fpp"`
 
 Note that unlike in the case of 
-<<Specifying-Models_Computing-Dependencies,dependency analysis>>,
+<<Specifying-Models-as-Files_Computing-Dependencies,dependency analysis>>,
 the inputs _D_ and _F_ to `fpp-locate-uses` must form a complete model.
 There must be no name used in _D_ or in _F_ that is not defined somewhere in 
 _D_ or in _F_.
 If _D_ is the output of running `fpp-depend` on _F_, and there are no
-<<Specifying-Models_Computing-Dependencies_Missing-Dependencies,missing 
-dependencies>>,
+<<Specifying-Models-as-Files_Computing-Dependencies_Missing-Dependencies,
+missing dependencies>>,
 then this property should hold.
 
 With `fpp-locate-uses`, you can automatically derive the equivalent of the `import`

@@ -227,7 +227,7 @@ connections Time {
 --------
 
 This works, but it is tedious and repetitive. So FPP provides
-a better way. Instead, you can use a *pattern graph specifier*
+a better way: you can use a *pattern graph specifier*
 to specify this common pattern.
 You can write
 
@@ -966,5 +966,5 @@ and `C` imports `A`, you will get an error.
 You can include code from another file in a topology definition.
 You do this by writing an *include specifier*.
 We will explain more about this in the section on
-<<Specifying-Models_Include-Specifiers,include specifiers>>
+<<Specifying-Models-as-Files_Include-Specifiers,include specifiers>>
 below.

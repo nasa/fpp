@@ -40,7 +40,7 @@ you terminate the program with control-C.
 For larger models, the usual procedure for running `fpp-check` is as follows:
 
 . Identify one or more files _F_ that you want to check.
-. <<Specifying-Models_Computing-Dependencies,Compute the dependencies>> _D_ of _F_.
+. <<Specifying-Models-as-Files_Computing-Dependencies,Compute the dependencies>> _D_ of _F_.
 . Run `fpp-check` _D_ _F_.
 
 All the files _D_ and all the files _F_ are specified as file arguments,
@@ -49,7 +49,7 @@ separated by spaces.
 When you run `fpp-check`, the following occurs:
 
 . The tool parses all the input files, recursively resolving 
-<<Specifying-Models_Include-Specifiers,include specifiers>> as it goes.
+<<Specifying-Models-as-Files_Include-Specifiers,include specifiers>> as it goes.
 If there are any parse errors or any problems resolving include files (for 
 example, a missing file), it prints an error message to standard error and 
 halts with nonzero status.
@@ -122,7 +122,7 @@ is called `fpp-to-xml`.
 The usual procedure for running `fpp-to-xml` is as follows:
 
 . Identify one or more files _F_ that you want to translate.
-. <<Specifying-Models_Computing-Dependencies,Compute the dependencies>> _D_ of _F_.
+. <<Specifying-Models-as-Files_Computing-Dependencies,Compute the dependencies>> _D_ of _F_.
 . If _D_ is empty, then run `fpp-to-xml` _F_.
 . Otherwise run `fpp-to-xml -i` _D1_ `,` ... `,` _Dn_ _F_, where _Di_ are the
 names of the dependencies.
@@ -163,7 +163,7 @@ When one FPP definition `A` depends on another definition `B`,
 the generated XML file for `A` contains an XML node that imports
 the generated XML file for `B`.
 The tool constructs the import path from the
-<<Specifying-Models_Locating-Definitions,location>> of the imported FPP symbol.
+<<Specifying-Models-as-Files_Locating-Definitions,location>> of the imported FPP symbol.
 
 For example, suppose the file `[path prefix]/A/A.fpp` contains the following
 definition, where `[path prefix]` represents the path prefix of directory
@@ -303,7 +303,7 @@ for the F Prime ground data system.
 The usual procedure for running `fpp-to-cpp` is as follows:
 
 . Identify one or more files _F_ that you want to translate.
-. <<Specifying-Models_Computing-Dependencies,Compute the dependencies>> _D_ of _F_.
+. <<Specifying-Models-as-Files_Computing-Dependencies,Compute the dependencies>> _D_ of _F_.
 . If _D_ is empty, then run `fpp-to-cpp` _F_.
 . Otherwise run `fpp-to-cpp -i` _D1_ `,` ... `,` _Dn_ _F_, where _Di_ are the
 names of the dependencies.
@@ -775,7 +775,7 @@ These directives represent dependencies between XML files, which
 become dependencies between FPP source files in the FPP translation.
 Once the XML-to-FPP translation is done, you can handle these
 dependencies in the ordinary way for FPP, as discussed in the
-section on <<Specifying-Models,specifying models>>.
+section on <<Specifying-Models-as-Files,specifying models as files>>.
 
 === Formatting FPP Source
 
