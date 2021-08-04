@@ -51,7 +51,7 @@ Sections 3 through 11 describe the elements of an FPP
 model, starting with the simplest elements (constants
 and types) and working towards the most complex (components
 and topologies).
-Section 12 explains how to specify a models as a collection
+Section 12 explains how to specify a model as a collection
 of files: for example, it covers the management of dependencies
 between files.
 Section 13 explains how to analyze FPP models and how
