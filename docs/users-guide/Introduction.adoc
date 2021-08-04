@@ -51,9 +51,11 @@ Sections 3 through 11 describe the elements of an FPP
 model, starting with the simplest elements (constants
 and types) and working towards the most complex (components
 and topologies).
-Section 12 explains how to specify complete models of realistic
-size; for example it covers the management of dependencies
-between the files that describe a model.
+Section 12 explains how to specify a models as a collection
+of files: for example, it covers the management of dependencies
+between files.
 Section 13 explains how to analyze FPP models and how
 to translate FPP models to and from F Prime XML
 and to {cpp}.
+Section 14 explains how to write a FSW implementation
+against the code generated from an FPP model.
