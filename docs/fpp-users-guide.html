@@ -8924,7 +8924,99 @@ halts with nonzero status.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>TODO: Checking for unconnected ports</p>
+<p><strong>Checking for unconnected port instances:</strong>
+It is often useful to check for port instances that appear
+in a topology but that have no connections.
+For example, the following is a useful procedure for adding component instances
+and connections to a topology:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Add the component instances.
+In general this will introduce new port instances,
+which will initially be unconnected.</p>
+</li>
+<li>
+<p>Check for unconnected port instances.</p>
+</li>
+<li>
+<p>Add some or all of the connections identified
+in step 2.</p>
+</li>
+<li>
+<p>Rerun steps 2 and 3 until there are no more
+missing connections, or you are certain that the
+missing connections are valid for your design.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>To check for unconnected port instances (step 2 in the procedure above),
+run <code>fpp-check</code> with the option <code>-u</code> <em>file</em>, where <em>file</em> is
+the name of an output file.
+<code>fpp-check</code> will write the names of all unconnected port instances
+to the file.
+For this purpose, a port instance array is considered unconnected
+if none of its port numbers are connected.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code>% fpp-check -u unconnected.txt
+port P
+
+passive component C {
+  sync input port pIn: P
+  output port pOut: [2] P
+}
+
+instance c: C base id 0x100
+
+topology T1 {
+
+  instance c
+
+}
+
+topology T2 {
+
+  instance c
+
+  connections C {
+    c.pOut -&gt; c.pIn
+  }
+
+}
+^D
+% cat unconnected.txt
+Topology T1:
+  c.pIn
+  c.pOut</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this example, component instance <code>c</code> has the following port instances:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Two output port instances <code>c.pOut[0]</code> and <code>c.pOut[1]</code>.</p>
+</li>
+<li>
+<p>One input port instance <code>c.pIn</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Topology <code>T1</code> uses instance <code>c</code> and does not connect any port number of
+<code>c.pOut</code> or <code>c.pIn</code>.
+So the output written to <code>unconnected.txt</code> reports that fact.
+On the other hand, in topology <code>T2</code>, both <code>c.pOut</code> and <code>c.pIn</code>
+are considered connected (so not reported as unconnected)
+even though <code>c.Out</code> has two ports and only one of them is connected.</p>
 </div>
 </div>
 <div class="sect2">
@@ -9473,13 +9565,14 @@ section on
 <p>On the command line, run <code>fpp-to-cpp -p $PWD</code>.</p>
 </li>
 <li>
-<p>Paste the text of the <a href="#Defining-Topologies_A-Simple-Example">simple topology example</a>.</p>
+<p>Copy the text of the <a href="#Defining-Topologies_A-Simple-Example">simple topology example</a> and paste it into the terminal.</p>
 </li>
 <li>
 <p>Press return, control-D, and return.</p>
 </li>
 <li>
-<p>Examine the files <code>SimpleTopologyAc.hpp</code> and <code>SimpleTopologyAc.cpp</code>.</p>
+<p>Examine the generated files <code>SimpleTopologyAc.hpp</code>
+and <code>SimpleTopologyAc.cpp</code>.</p>
 </li>
 </ul>
 </div>
@@ -10253,7 +10346,7 @@ You don&#8217;t have to define header files for these types.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-08-06 08:41:08 -0700
+Last updated 2021-08-06 09:38:08 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
