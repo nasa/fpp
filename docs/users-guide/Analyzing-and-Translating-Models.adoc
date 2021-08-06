@@ -384,7 +384,7 @@ As noted in the section on
 <<Defining-Components_Constants-and-Types,defining components>>,
 when you define a constant `c` inside a component `C`,
 the name of the corresponding constant in the generated {cpp}
-code is `C_a`.
+code is `C_c`.
 As an example, run the following code through `fpp-to-cpp`
 and examine the results:
 
