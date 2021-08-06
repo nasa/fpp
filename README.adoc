@@ -3,8 +3,7 @@
 This repository contains the code and documentation for F Prime Prime (FPP for 
 short).
 FPP is a modeling language for the
-https://github.com/nasa/fprime[F Prime flight software 
-framework].
+https://nasa.github.io/fprime/[F Prime flight software framework].
 
 == Contents
 
