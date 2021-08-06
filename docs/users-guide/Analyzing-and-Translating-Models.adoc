@@ -490,15 +490,6 @@ Its purpose is to address the following case:
 . You wish to translate the model to FPP in order to use FPP as the source 
 language going forward.
 
-Currently translation for types, enumerations, ports, and
-components is available.
-You can convert these elements of your XML model to FPP now.
-To integrate these elements with topologies written directly in XML, use the
-<<Analyzing-and-Translating-Models_Generating-XML,FPP to XML translation 
-described above>> to generate XML from the FPP part.
-Later, when topologies are available in FPP, you can 
-complete the translation.
-
 The XML-to-FPP translation is designed to do most of the work in translating an 
 XML model into FPP.
 As discussed below, some manual effort will still be required,
@@ -541,7 +532,7 @@ if you provide no explicit default value, then an implicit default is used.
 By contrast, in F Prime XML, (1) you _must_ supply default values for array
 elements, and (2) you _may not_ supply default values for struct members
 or enumerations. (This is an inconsistency in the XML 
-representation that we intend to fix in a future version of F Prime.)
+representation that we will fix in an upcoming version of F Prime.)
 To keep the translation simple, if default values are present in the XML
 representation, then `fpp-from-xml` translates them to explicit values,
 even if they could be made implicit.
@@ -768,14 +759,37 @@ array A = [1] F32 default [
                           ]
 ----
 
-*Import and include directives:*
-Import and include directives appearing in the XML source are ignored
-in the translation.
+*Import directives:*
+XML directives that import symbols (such as `import_port_type`)
+are ignored in the translation.
 These directives represent dependencies between XML files, which
 become dependencies between FPP source files in the FPP translation.
 Once the XML-to-FPP translation is done, you can handle these
 dependencies in the ordinary way for FPP, as discussed in the
 section on <<Specifying-Models-as-Files,specifying models as files>>.
+
+XML directives that import XML dictionaries are translated
+to 
+<<Specifying-Models-as-Files_Include-Specifiers,include specifiers>>.
+For example, suppose that `CComponentAi.xml` defines component `C`
+and contains the directive
+
+[source,xml]
+----
+<import_dictionary>Commands.xml</import_dictionary>
+----
+
+Running `fpp-from-xml` on `CComponentAi.xml` produces an
+FPP definition of a component `C`; the component definition
+contains the include specifier
+
+[source,fpp]
+-----
+include "Commands.fppi"
+-----
+
+Separately, you can use `fpp-to-xml` to translate `Commands.xml`
+to `Commands.fppi`.
 
 === Formatting FPP Source
 

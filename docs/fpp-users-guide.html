@@ -9524,16 +9524,6 @@ language going forward.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>Currently translation for types, enumerations, ports, and
-components is available.
-You can convert these elements of your XML model to FPP now.
-To integrate these elements with topologies written directly in XML, use the
-<a href="#Analyzing-and-Translating-Models_Generating-XML">FPP to XML translation
-described above</a> to generate XML from the FPP part.
-Later, when topologies are available in FPP, you can
-complete the translation.</p>
-</div>
-<div class="paragraph">
 <p>The XML-to-FPP translation is designed to do most of the work in translating an
 XML model into FPP.
 As discussed below, some manual effort will still be required,
@@ -9582,7 +9572,7 @@ if you provide no explicit default value, then an implicit default is used.
 By contrast, in F Prime XML, (1) you <em>must</em> supply default values for array
 elements, and (2) you <em>may not</em> supply default values for struct members
 or enumerations. (This is an inconsistency in the XML
-representation that we intend to fix in a future version of F Prime.)
+representation that we will fix in an upcoming version of F Prime.)
 To keep the translation simple, if default values are present in the XML
 representation, then <code>fpp-from-xml</code> translates them to explicit values,
 even if they could be made implicit.</p>
@@ -9863,14 +9853,40 @@ array A = [1] F32 default [
 </div>
 </div>
 <div class="paragraph">
-<p><strong>Import and include directives:</strong>
-Import and include directives appearing in the XML source are ignored
-in the translation.
+<p><strong>Import directives:</strong>
+XML directives that import symbols (such as <code>import_port_type</code>)
+are ignored in the translation.
 These directives represent dependencies between XML files, which
 become dependencies between FPP source files in the FPP translation.
 Once the XML-to-FPP translation is done, you can handle these
 dependencies in the ordinary way for FPP, as discussed in the
 section on <a href="#Specifying-Models-as-Files">specifying models as files</a>.</p>
+</div>
+<div class="paragraph">
+<p>XML directives that import XML dictionaries are translated
+to
+<a href="#Specifying-Models-as-Files_Include-Specifiers">include specifiers</a>.
+For example, suppose that <code>CComponentAi.xml</code> defines component <code>C</code>
+and contains the directive</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="xml">&lt;import_dictionary&gt;Commands.xml&lt;/import_dictionary&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Running <code>fpp-from-xml</code> on <code>CComponentAi.xml</code> produces an
+FPP definition of a component <code>C</code>; the component definition
+contains the include specifier</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">include "Commands.fppi"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Separately, you can use <code>fpp-to-xml</code> to translate <code>Commands.xml</code>
+to <code>Commands.fppi</code>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -10195,7 +10211,7 @@ You don&#8217;t have to define header files for these types.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-08-03 21:48:21 -0700
+Last updated 2021-08-05 17:44:25 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
