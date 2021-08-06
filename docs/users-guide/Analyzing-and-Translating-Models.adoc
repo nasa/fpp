@@ -437,7 +437,47 @@ This is similar to the `-p` option for
 
 ==== Topology Definitions
 
-TODO
+`fpp-to-cpp` also extracts <<Defining-Topologies,topology definitions>>
+from the source files.
+For each topology _T_ defined in the source files, `fpp-to-cpp`
+writes files _T_ `TopologyAc.hpp` and _T_ `TopologyAc.cpp`.
+These files define two public functions:
+`setup` for setting up the topology, and
+`teardown`, for tearing down the topology.
+The function definitions come from the definition of _T_ and
+from the
+<<Defining-Component-Instances_Init-Specifiers, init specifiers>>
+for the component instances used in _T_.
+You can call these functions from a handwritten `main`
+function.
+We will explain how to write this `main` function in the
+section on 
+<<Writing-C-Plus-Plus-Implementations_Implementing-Deployments,
+implementing deployments>>.
+
+As an example, you can do the following:
+
+* On the command line, run `fpp-to-cpp -p $PWD`.
+
+* Paste the text of the <<Defining-Topologies_A-Simple-Example,
+simple topology example>>.
+
+* Press return, control-D, and return.
+
+* Examine the files `SimpleTopologyAc.hpp` and `SimpleTopologyAc.cpp`.
+
+You can examine the files `RefTopologyAc.hpp` and `RefTopologyAc.cpp`
+in the F Prime repository.
+Currently these files are checked in at `Ref/Top`.
+Once we have integrated FPP with CMake, these files will be auto-generated
+by CMake and will be located at `Ref/build-fprime-automatic-native/F-Prime/Ref/Top`.
+
+*Options:*
+When translating topologies,
+the `-d`, `-n`, and `-p` options work in the same way as for
+translating constants.
+The `-g` option is ignored, because
+the include guard prefix comes from the name of the topology.
 
 === Identifying Generated Files
 

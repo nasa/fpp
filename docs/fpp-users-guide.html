@@ -6370,12 +6370,12 @@ The file <code>Ref/Top/init.fpp</code> contains an instance definition
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">instance linuxTime: Svc.Time base id 0x4500 \
-  at "../../Svc/LinuxTime/LinuxTimeImpl.hpp"</code></pre>
+  at "../../Svc/LinuxTime/LinuxTime.hpp"</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>This definition says to use implementation header file
-<code>Svc/LinuxTime/LinuxTimeImpl.hpp</code>.</p>
+<code>Svc/LinuxTime/LinuxTime.hpp</code>.</p>
 </div>
 </div>
 </div>
@@ -6671,10 +6671,6 @@ enum {
 };
 """
 
-init cmdSeq phase Fpp.ToCpp.Phases.instances """
-Svc::CmdSequencerComponentImpl cmdSeq(FW_OPTIONAL_NAME("cmdSeq"));
-"""
-
 init cmdSeq phase Fpp.ToCpp.Phases.configComponents """
 cmdSeq.allocateBuffer(
     0,
@@ -6691,9 +6687,6 @@ cmdSeq.deallocateBuffer(Allocation::mallocator);
 <div class="paragraph">
 <p>The code for <code>configConstants</code> provides a constant <code>BUFFER_SIZE</code>
 that is used in the <code>configComponents</code> phase.
-The code for the <code>instances</code> phase provides the standard constructor,
-except that the name of the component type is <code>CmdSequencerComponentImpl</code>
-instead of <code>CmdSequencer</code>, so we have to write out the constructor.
 The code for <code>configComponents</code> calls <code>allocateBuffer</code>, passing
 in an allocator object that is declared elsewhere.
 (In the section on
@@ -6710,7 +6703,7 @@ database instance <code>prmDb</code> from the Ref deployment:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">init prmDb phase Fpp.ToCpp.Phases.instances """
-Svc::PrmDbImpl prmDb(FW_OPTIONAL_NAME("prmDb"), "PrmDb.dat");
+Svc::PrmDb prmDb(FW_OPTIONAL_NAME("prmDb"), "PrmDb.dat");
 """
 
 init prmDb phase Fpp.ToCpp.Phases.readParameters """
@@ -9454,7 +9447,56 @@ This is similar to the <code>-p</code> option for
 <div class="sect3">
 <h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">13.3.2. Topology Definitions</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p><code>fpp-to-cpp</code> also extracts <a href="#Defining-Topologies">topology definitions</a>
+from the source files.
+For each topology <em>T</em> defined in the source files, <code>fpp-to-cpp</code>
+writes files <em>T</em> <code>TopologyAc.hpp</code> and <em>T</em> <code>TopologyAc.cpp</code>.
+These files define two public functions:
+<code>setup</code> for setting up the topology, and
+<code>teardown</code>, for tearing down the topology.
+The function definitions come from the definition of <em>T</em> and
+from the
+<a href="#Defining-Component-Instances_Init-Specifiers">init specifiers</a>
+for the component instances used in <em>T</em>.
+You can call these functions from a handwritten <code>main</code>
+function.
+We will explain how to write this <code>main</code> function in the
+section on
+<a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments">implementing deployments</a>.</p>
+</div>
+<div class="paragraph">
+<p>As an example, you can do the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>On the command line, run <code>fpp-to-cpp -p $PWD</code>.</p>
+</li>
+<li>
+<p>Paste the text of the <a href="#Defining-Topologies_A-Simple-Example">simple topology example</a>.</p>
+</li>
+<li>
+<p>Press return, control-D, and return.</p>
+</li>
+<li>
+<p>Examine the files <code>SimpleTopologyAc.hpp</code> and <code>SimpleTopologyAc.cpp</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can examine the files <code>RefTopologyAc.hpp</code> and <code>RefTopologyAc.cpp</code>
+in the F Prime repository.
+Currently these files are checked in at <code>Ref/Top</code>.
+Once we have integrated FPP with CMake, these files will be auto-generated
+by CMake and will be located at <code>Ref/build-fprime-automatic-native/F-Prime/Ref/Top</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Options:</strong>
+When translating topologies,
+the <code>-d</code>, <code>-n</code>, and <code>-p</code> options work in the same way as for
+translating constants.
+The <code>-g</code> option is ignored, because
+the include guard prefix comes from the name of the topology.</p>
 </div>
 </div>
 </div>
@@ -10211,7 +10253,7 @@ You don&#8217;t have to define header files for these types.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-08-05 17:55:36 -0700
+Last updated 2021-08-06 08:41:08 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
