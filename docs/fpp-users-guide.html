@@ -675,7 +675,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Abstract-Types">14.1. Implementing Abstract Types</a></li>
 <li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments">14.2. Implementing Deployments</a>
 <ul class="sectlevel3">
-<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Topology-Definitions">14.2.1. Topology Definitions</a></li>
+<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Application-Specific-Definitions">14.2.1. Application-Specific Definitions</a></li>
 <li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments_The-Main-Function">14.2.2. The Main Function</a></li>
 </ul>
 </li>
@@ -10334,12 +10334,25 @@ You don&#8217;t have to define header files for these types.</p>
 <h3 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments">14.2. Implementing Deployments</h3>
 <div class="paragraph">
 <p>At the highest level of an F Prime implementation, you write
-two units of C&#43;&#43; code:
-topology definitions and the main function.
-We describe each of these code units below.</p>
+two units of C&#43;&#43; code:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Application-specific definitions visible
+both to the <code>main</code> function and to the auto-generated
+topology code.</p>
+</li>
+<li>
+<p>The <code>main</code> function.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>We describe each of these code units below.</p>
 </div>
 <div class="sect3">
-<h4 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Topology-Definitions">14.2.1. Topology Definitions</h4>
+<h4 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Application-Specific-Definitions">14.2.1. Application-Specific Definitions</h4>
 <div class="paragraph">
 <p>As discussed in the section on
 <a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">generating C&#43;&#43; topology definitions</a>, when you translate an FPP
@@ -10347,9 +10360,35 @@ topology <em>T</em> to C&#43;&#43;, the result goes into files
 <em>T</em> <code>TopologyAc.hpp</code> and <em>T</em> <code>TopologyAc.cpp</code>.
 The generated file <em>T</em> <code>TopologyAc.hpp</code> includes a file
 <em>T</em> <code>TopologyDefs.hpp</code>.
-As part of the C&#43;&#43; implementation, you must write the file
-<em>T</em> <code>TopologyDefs.hpp</code>, following the description below.
-It must be located in the same directory where the topology <em>T</em> is defined.</p>
+The purpose of this file inclusion is as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><em>T</em> <code>TopologyDefs.hpp</code> is not auto-generated.
+You must write it by hand as part of your C&#43;&#43; implementation.</p>
+</li>
+<li>
+<p>Because <em>T</em> <code>TopologyAc.cpp</code> includes <em>T</em> <code>TopologyAc.hpp</code>
+and <em>T</em> <code>TopologyAc.hpp</code> includes <em>T</em> <code>TopologyDefs.hpp</code>,
+the handwritten definitions in <em>T</em> <code>TopologyDefs.hpp</code> are visible
+to the auto-generated code in <em>T</em> <code>TopologyAc.hpp</code> and
+<code>TopologyAc.cpp</code>.</p>
+</li>
+<li>
+<p>You can also include <em>T</em> <code>TopologyDefs.hpp</code> in your main
+function (described in the next section) to make its
+definitions visible there.
+That way <code>main</code> and the auto-generated topology
+code can share these custom definitions.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><em>T</em> <code>TopologyDefs.hpp</code>
+must be located in the same directory where the topology <em>T</em> is defined.
+When writing the file <em>T</em> <code>TopologyDefs.hpp</code>, you should
+follow the description given below.</p>
 </div>
 <div class="paragraph">
 <p><strong>Topology state:</strong>
@@ -10372,15 +10411,14 @@ You can read this value in the code associated with your
 <div class="paragraph">
 <p>In the F Prime Ref example, <code>TopologyState</code>
 is a struct with two member variables: a C-style string
-<code>hostName</code> that stores a host name and U32 value <code>portNumber</code> that stores
-a port number.
+<code>hostName</code> that stores a host name and <code>U32</code> value <code>portNumber</code>
+that stores a port number.
 The main function defined in <code>Main.cpp</code> parses the command-line
 arguments to the application, uses the result to create an object
 <code>state</code> of type <code>TopologyState</code>, and passes the <code>state</code> object
 into the functions for setting up and tearing down the topology.
-The generated code passes the <code>state</code> object into the topology setup and
-teardown functions.
-The <code>startTasks</code> phase for the <code>comm</code> function uses it in the following way:</p>
+The <code>startTasks</code> phase for the <code>comm</code> function uses the <code>state</code>
+object in the following way:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -10520,7 +10558,7 @@ corresponding link-time symbols are defined in
 <div class="paragraph">
 <p>You must write a main function that performs application-specific
 and system-specific tasks such as parsing command-line arguments,
-handling signals, and returning an exit code to the system on exit.
+handling signals, and returning a numeric code to the system on exit.
 Your main code can use the following public interface provided
 by <em>T</em> <code>TopologyAc.hpp</code>:</p>
 </div>
@@ -10589,7 +10627,7 @@ F Prime repository.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-08-09 14:05:33 -0700
+Last updated 2021-08-09 14:34:05 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

@@ -176,10 +176,16 @@ You don't have to define header files for these types.
 
 At the highest level of an F Prime implementation, you write
 two units of {cpp} code:
-topology definitions and the main function.
+
+. Application-specific definitions visible 
+both to the `main` function and to the auto-generated
+topology code.
+
+. The `main` function.
+
 We describe each of these code units below.
 
-==== Topology Definitions
+==== Application-Specific Definitions
 
 As discussed in the section on
 <<Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions,
@@ -188,9 +194,27 @@ topology _T_ to {cpp}, the result goes into files
 _T_ `TopologyAc.hpp` and _T_ `TopologyAc.cpp`.
 The generated file _T_ `TopologyAc.hpp` includes a file 
 _T_ `TopologyDefs.hpp`.
-As part of the {cpp} implementation, you must write the file
-_T_ `TopologyDefs.hpp`, following the description below.
-It must be located in the same directory where the topology _T_ is defined.
+The purpose of this file inclusion is as follows:
+
+.  _T_ `TopologyDefs.hpp` is not auto-generated.
+You must write it by hand as part of your {cpp} implementation.
+
+. Because _T_ `TopologyAc.cpp` includes _T_ `TopologyAc.hpp`
+and _T_ `TopologyAc.hpp` includes _T_ `TopologyDefs.hpp`,
+the handwritten definitions in _T_ `TopologyDefs.hpp` are visible
+to the auto-generated code in _T_ `TopologyAc.hpp` and
+`TopologyAc.cpp`.
+
+. You can also include _T_ `TopologyDefs.hpp` in your main
+function (described in the next section) to make its
+definitions visible there.
+That way `main` and the auto-generated topology
+code can share these custom definitions.
+
+_T_ `TopologyDefs.hpp`
+must be located in the same directory where the topology _T_ is defined.
+When writing the file _T_ `TopologyDefs.hpp`, you should
+follow the description given below.
 
 *Topology state:*
 _T_ `TopologyDefs.hpp` must define a type
@@ -211,15 +235,14 @@ init specifiers>>.
 
 In the F Prime Ref example, `TopologyState`
 is a struct with two member variables: a C-style string
-`hostName` that stores a host name and U32 value `portNumber` that stores
-a port number.
+`hostName` that stores a host name and `U32` value `portNumber`
+that stores a port number.
 The main function defined in `Main.cpp` parses the command-line
 arguments to the application, uses the result to create an object
 `state` of type `TopologyState`, and passes the `state` object
 into the functions for setting up and tearing down the topology.
-The generated code passes the `state` object into the topology setup and
-teardown functions.
-The `startTasks` phase for the `comm` function uses it in the following way:
+The `startTasks` phase for the `comm` function uses the `state`
+object in the following way:
 
 [source,fpp]
 --------
@@ -336,7 +359,7 @@ corresponding link-time symbols are defined in
 
 You must write a main function that performs application-specific
 and system-specific tasks such as parsing command-line arguments,
-handling signals, and returning an exit code to the system on exit.
+handling signals, and returning a numeric code to the system on exit.
 Your main code can use the following public interface provided
 by _T_ `TopologyAc.hpp`:
 
