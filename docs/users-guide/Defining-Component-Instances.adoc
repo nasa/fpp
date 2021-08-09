@@ -607,5 +607,15 @@ from the file.
 As discussed above, this code is needed only for the parameter database
 instance.
 
+When writing init specifiers, you may read (but not modify) a special value
+`state` that you define in a handwritten main function.
+This value lets you pass application-specific information from the
+handwritten code to the auto-generated code.
+We will explain the special `state` value further in the
+section on <<Writing-C-Plus-Plus-Implementations_Implementing-Deployments,
+implementing deployments>>.
+
 For more examples of init specifiers in action, see the rest of
 the file `Ref/Top/init.fpp` in the F Prime repository.
+In particular, the init specifiers for the `comm` component
+use the `state` value that we just mentioned.

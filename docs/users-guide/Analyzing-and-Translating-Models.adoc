@@ -552,7 +552,8 @@ by CMake and will be located at `Ref/build-fprime-automatic-native/F-Prime/Ref/T
 *Options:*
 When translating topologies,
 the `-d`, `-n`, and `-p` options work in the same way as for
-translating constants.
+<<Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions,
+translating constant definitions>>.
 The `-g` option is ignored, because
 the include guard prefix comes from the name of the topology.
 
