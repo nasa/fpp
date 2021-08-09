@@ -32,7 +32,7 @@ the project-specific {cpp} implementation) you get a FSW application.
 *Purpose:* The purpose of this document is to describe FPP in a way that is accessible
 to users, including beginning users.
 A more detailed and precise description is available in
-https://fprime-community.github.io/fpp[_The FPP Language
+https://fprime-community.github.io/fpp/fpp-spec.html[_The FPP Language
 Specification_].
 It is recommended that users read this document before consulting that one.
 
@@ -55,7 +55,6 @@ Section 12 explains how to specify a model as a collection
 of files: for example, it covers the management of dependencies
 between files.
 Section 13 explains how to analyze FPP models and how
-to translate FPP models to and from F Prime XML
-and to {cpp}.
-Section 14 explains how to write a FSW implementation
+to translate FPP models XML, to {cpp}, and from XML.
+Section 14 explains how to write a {cpp} implementation
 against the code generated from an FPP model.
