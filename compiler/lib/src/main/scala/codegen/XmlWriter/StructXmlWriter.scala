@@ -24,7 +24,7 @@ object StructXmlWriter extends AstVisitor with LineUtils {
         val tags = XmlTags.tags("members")
         val st @ Type.Struct(_, _, _, _, _) = s.a.typeMap(node.id) 
         val ls = data.members.map(structTypeMemberAnnotatedNode(s, st, _))
-        XmlTags.taggedLines(tags)(ls.map(indentIn))
+        XmlTags.taggedLines(tags)(ls.flatten.map(indentIn))
       }
       comment ++ imports ++ members
     }
@@ -61,7 +61,12 @@ object StructXmlWriter extends AstVisitor with LineUtils {
       }
       nameAndType ++ size ++ format ++ comment
     }
-    line(XmlTags.openCloseTag("member", pairs))
+    val body = {
+      val tags = (XmlTags.openTag("default"), XmlTags.closeTag("default"))
+      val defaultValue = structType.getDefaultValue.get.anonStruct.members.get(data.name)
+      indentIn (line(XmlTags.taggedString (tags) (ValueXmlWriter.getValue(s, defaultValue.get))))
+    }
+    XmlTags.taggedLines("member", pairs) (List(body))
   }
 
   type In = XmlWriterState
