@@ -12,9 +12,11 @@ object EnumXmlWriter extends AstVisitor with LineUtils {
   override def defEnumAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
     val node = aNode._2
     val data = node.data
+    val enumType @ Type.Enum(_, _, _) = s.a.typeMap(node.id)
     val tags = {
       val pairs = s.getNamespaceAndName(Symbol.Enum(aNode))
-      XmlTags.tags("enum", pairs)
+      val pairsWithRepType = pairs ++ List(("serialize_type", TypeXmlWriter.getName(s, enumType.repType)))
+      XmlTags.tags("enum", pairsWithRepType)
     }
     val body = {
       val comment = AnnotationXmlWriter.multilineComment(aNode)
