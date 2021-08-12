@@ -34,7 +34,7 @@ object ArrayXmlWriter extends AstVisitor with LineUtils {
         List(line(tags))
       }
       val size = {
-        val tags = XmlTags.tags("size")
+        val tags = XmlTags.tags("array_length")
         val mappedSize = arrayType.getArraySize match {
           case Some(mappedSize) => mappedSize.toString
           case None => "0"
