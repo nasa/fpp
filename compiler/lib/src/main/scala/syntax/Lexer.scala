@@ -177,6 +177,8 @@ object Lexer extends RegexParsers {
         Left(SyntaxError(loc, msg))
       }
       case Success(result, _) => Right(result)
+      // Work around bug in Scala 2.13 compiler
+      case _ => throw new InternalError("This cannot happen")
     }
   }
 

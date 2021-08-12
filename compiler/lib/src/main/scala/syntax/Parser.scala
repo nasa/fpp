@@ -303,6 +303,8 @@ object Parser extends Parsers {
         Left(SyntaxError(loc,msg))
       }
       case Success(result, next) => Right(result)
+      // Work around bug in Scala 2.13 compiler
+      case _ => throw new InternalError("This cannot happen")
     }
   }
 
