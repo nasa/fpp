@@ -2,7 +2,7 @@
 
 name := "fpp-compiler"
 organization in ThisBuild := "gov.nasa.jpl"
-scalaVersion in ThisBuild := "2.13.1"
+scalaVersion in ThisBuild := "2.13.4"
 
 lazy val settings = Seq(
   scalacOptions ++= Seq(
@@ -25,6 +25,7 @@ lazy val root = (project in file("."))
   .aggregate(
     lib,
     fpp_check,
+/*
     fpp_depend,
     fpp_filenames,
     fpp_format,
@@ -34,58 +35,62 @@ lazy val root = (project in file("."))
     fpp_syntax,
     fpp_to_cpp,
     fpp_to_xml,
+*/
   )
 
 lazy val lib = project
   .settings(settings)
+  .enablePlugins(ScalaNativePlugin)
 
 lazy val fpp_check = (project in file("tools/fpp-check"))
   .settings(settings)
   .dependsOn(lib)
-  .enablePlugins(AssemblyPlugin)
+  .enablePlugins(ScalaNativePlugin)
 
+/*
 lazy val fpp_depend = (project in file("tools/fpp-depend"))
   .settings(settings)
   .dependsOn(lib)
-  .enablePlugins(AssemblyPlugin)
+  .enablePlugins(ScalaNativePlugin)
 
 lazy val fpp_filenames = (project in file("tools/fpp-filenames"))
   .settings(settings)
   .dependsOn(lib)
-  .enablePlugins(AssemblyPlugin)
+  .enablePlugins(ScalaNativePlugin)
 
 lazy val fpp_format = (project in file("tools/fpp-format"))
   .settings(settings)
   .dependsOn(lib)
-  .enablePlugins(AssemblyPlugin)
+  .enablePlugins(ScalaNativePlugin)
 
 lazy val fpp_syntax = (project in file("tools/fpp-syntax"))
   .settings(settings)
   .dependsOn(lib)
-  .enablePlugins(AssemblyPlugin)
+  .enablePlugins(ScalaNativePlugin)
 
 lazy val fpp_from_xml = (project in file("tools/fpp-from-xml"))
   .settings(settings)
   .dependsOn(lib)
-  .enablePlugins(AssemblyPlugin)
+  .enablePlugins(ScalaNativePlugin)
 
 lazy val fpp_locate_defs = (project in file("tools/fpp-locate-defs"))
   .settings(settings)
   .dependsOn(lib)
-  .enablePlugins(AssemblyPlugin)
+  .enablePlugins(ScalaNativePlugin)
 
 lazy val fpp_locate_uses = (project in file("tools/fpp-locate-uses"))
   .settings(settings)
   .dependsOn(lib)
-  .enablePlugins(AssemblyPlugin)
+  .enablePlugins(ScalaNativePlugin)
 
 lazy val fpp_to_cpp = (project in file("tools/fpp-to-cpp"))
   .settings(settings)
   .dependsOn(lib)
-  .enablePlugins(AssemblyPlugin)
+  .enablePlugins(ScalaNativePlugin)
 
 lazy val fpp_to_xml = (project in file("tools/fpp-to-xml"))
   .settings(settings)
   .dependsOn(lib)
-  .enablePlugins(AssemblyPlugin)
+  .enablePlugins(ScalaNativePlugin)
+*/
 
