@@ -17,12 +17,11 @@ lazy val settings = Seq(
     "org.scala-lang.modules" %%% "scala-xml" % "2.0.1",
     "org.scalatest" % "scalatest_2.13" % "3.1.0" % "test",
   ),
+  nativeConfig ~= {
+    _.withMode(Mode.releaseFast)
+  },
   testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-oNCXELOPQRM"),
 )
-
-nativeConfig ~= {
-  _.withMode(Mode.releaseFast)
-}
 
 lazy val root = (project in file("."))
   .settings(settings)
