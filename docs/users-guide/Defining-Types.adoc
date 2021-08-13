@@ -412,13 +412,6 @@ struct S1 { x: U32, y: string } default { z = 1 } # Error: member z does not mat
 struct S2 { x: U32, y: string } default { x = "abc" } # Error: type of member x does not match
 --------
 
-*XML limitation:*
-FPP structs are translated to F Prime Serializable XML types.
-The F Prime Serializable XML format does not support default
-values for the struct members.
-Therefore, any default values specified in FPP structs are ignored
-when translating to F Prime XML.
-
 ==== Member Arrays
 
 For any struct member, you can specify that the member
