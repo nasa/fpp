@@ -13,6 +13,8 @@ class LexerSpec extends AnyWordSpec {
       Lexer.parse(Lexer.tokens, reader) match {
         case Lexer.Success(_, _) => assert(false)
         case Lexer.NoSuccess(msg, next) => ()
+        // Suppress false compiler warning
+        case _ => throw new InternalError("This cannot happen")
       }
     }
     val dir = new File("lib/src/test/input/syntax/lexer/error")
@@ -48,6 +50,8 @@ class LexerSpec extends AnyWordSpec {
           println(next.pos.longString)
           assert(false)
         }
+        // Suppress false compiler warning
+        case _ => throw new InternalError("This cannot happen")
       }
     }
     val dir = new File("lib/src/test/input/syntax/lexer/ok")
