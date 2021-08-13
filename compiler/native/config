@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+compiler=`(cd ../..; echo $PWD)`
+for dir in lib tools
+do
+  if ! test -e $dir
+  then
+    ln -s $compiler/$dir $dir
+  fi
+done
