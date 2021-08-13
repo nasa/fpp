@@ -18,7 +18,7 @@ lazy val settings = Seq(
     "org.scalatest" % "scalatest_2.13" % "3.1.0" % "test",
   ),
   nativeConfig ~= {
-    _.withMode(Mode.releaseFast)
+    _.withMode(Mode.releaseFast).withLTO(LTO.thin)
   },
   testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-oNCXELOPQRM"),
 )
