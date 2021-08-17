@@ -476,9 +476,10 @@ time connections instance sysTime { a, b }
 As discussed in the
 <<Defining-Components_Port-Instances_Arrays-of-Port-Instances,
 section on defining components>>,
-each port instance is actually an array of one or more port instances.
+each named port instance is actually an array of
+one or more port instances.
 When the size of the array exceeds one, you
-have to specify the port number (i.e., the array index)
+must specify the port number (i.e., the array index)
 of each connection going into or out of the port instance.
 In FPP, there are three ways to specify port numbers:
 explicit numbering, matched numbering, and general numbering.
