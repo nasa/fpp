@@ -1,4 +1,5 @@
 tests="
 explicit
 implicit
+default
 "

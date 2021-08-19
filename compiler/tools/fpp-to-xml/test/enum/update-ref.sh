@@ -9,3 +9,9 @@ implicit()
   update '' implicit
   mv ImplicitEnumAi.xml ImplicitEnumAi.ref.xml 
 }
+
+default()
+{
+  update '' default
+  mv DefaultEnumAi.xml DefaultEnumAi.ref.xml 
+}

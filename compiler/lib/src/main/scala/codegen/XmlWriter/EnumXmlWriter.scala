@@ -15,8 +15,8 @@ object EnumXmlWriter extends AstVisitor with LineUtils {
     val enumType = s.a.typeMap(node.id)
     val tags = {
       val pairs = s.getNamespaceAndName(Symbol.Enum(aNode))
-      val pairsWithDefault = pairs ++ List(("default",
-        ValueXmlWriter.getValue(s, enumType.getDefaultValue.get)))
+      val defaultValue = ValueXmlWriter.getValue(s, enumType.getDefaultValue.get)
+      val pairsWithDefault = pairs :+ ("default", defaultValue)
       XmlTags.tags("enum", pairsWithDefault)
     }
     val body = {
