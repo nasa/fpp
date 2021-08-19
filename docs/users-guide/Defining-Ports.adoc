@@ -100,7 +100,7 @@ The following example illustrates how parameters are passed.
 ----
 type T
 port P1(a: U32) # a is always passed by value
-port P3(t: T) # t is passed by value for asynchronous invocations and by const reference for synchronous invocations
+port P2(t: T) # t is passed by value for asynchronous invocations and by const reference for synchronous invocations
 ----
 
 === Reference Parameters
