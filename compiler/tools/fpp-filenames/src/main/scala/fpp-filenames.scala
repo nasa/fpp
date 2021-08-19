@@ -26,31 +26,10 @@ object FPPFilenames {
         tul,
         ResolveSpecInclude.transUnit
       )
-      tul <- Right(aTul._2)
-      a <- EnterSymbols.visitList(Analysis(), tul, EnterSymbols.transUnit)
-      xmlFiles <- getXmlFiles(a, tul)
-      cppFiles <- getCppFiles(tul)
-    } yield {
-      val files = xmlFiles ++ cppFiles
-      files.sorted.map(System.out.println)
+      files <- ComputeGeneratedFiles.getFiles(aTul._2)
     }
+    yield files.sorted.map(System.out.println)
   }
-
-  def getCppFiles(tul: List[Ast.TransUnit]) =
-    for {
-      s <- ComputeCppFiles.visitList(Map(), tul, ComputeCppFiles.transUnit)
-    }
-    yield s.toList.map(_._1)
-
-  def getXmlFiles(a: Analysis, tul: List[Ast.TransUnit]) =
-    for {
-      s <- ComputeXmlFiles.visitList(
-        XmlWriterState(a),
-        tul,
-        ComputeXmlFiles.transUnit
-      )
-    }
-    yield s.locationMap.toList.map(_._1)
 
   def main(args: Array[String]) = {
     Error.setTool(Tool(name))
