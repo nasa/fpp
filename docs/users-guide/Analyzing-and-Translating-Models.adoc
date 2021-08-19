@@ -598,6 +598,27 @@ FppConstantsAc.cpp
 FppConstantsAc.hpp
 ----
 
+Alternatively, you can use the option `-g` _file_ to
+<<Specifying-Models-as-Files_Computing-Dependencies,`fpp-depend`>>.
+This option writes the generated file names to the file _file_
+as part of the dependency analysis.
+For example:
+
+----
+% fpp-depend -g generated.txt
+array A = [3] U32
+^D
+% cat generated.txt
+AArrayAi.xml
+----
+
+The output is the same as for `fpp-filenames`, but this way you can
+run one tool (`fpp-depend`) instead of two (`fpp-depend` and
+`fpp-filenames`).
+Since FPP is implemented in Scala, and there is some overhead
+associated with starting up a tool, running `fpp-depend -g` _file_ 
+may help your build go faster.
+
 === Translating XML to FPP
 
 The FPP tool suite provides a capability to translate F Prime

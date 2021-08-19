@@ -9656,6 +9656,30 @@ FppConstantsAc.cpp
 FppConstantsAc.hpp</pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Alternatively, you can use the option <code>-g</code> <em>file</em> to
+<a href="#Specifying-Models-as-Files_Computing-Dependencies"><code>fpp-depend</code></a>.
+This option writes the generated file names to the file <em>file</em>
+as part of the dependency analysis.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-depend -g generated.txt
+array A = [3] U32
+^D
+% cat generated.txt
+AArrayAi.xml</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The output is the same as for <code>fpp-filenames</code>, but this way you can
+run one tool (<code>fpp-depend</code>) instead of two (<code>fpp-depend</code> and
+<code>fpp-filenames</code>).
+Since FPP is implemented in Scala, and there is some overhead
+associated with starting up a tool, running <code>fpp-depend -g</code> <em>file</em>
+may help your build go faster.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="Analyzing-and-Translating-Models_Translating-XML-to-FPP">13.5. Translating XML to FPP</h3>
@@ -10629,7 +10653,7 @@ F Prime repository.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-08-16 17:56:10 -0700
+Last updated 2021-08-19 14:29:19 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
