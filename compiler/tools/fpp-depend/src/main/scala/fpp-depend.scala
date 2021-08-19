@@ -9,7 +9,9 @@ import scopt.OParser
 object FPPDepend {
 
   case class Options(
+    directFile: Option[String] = None,
     files: List[File] = List(),
+    generatedFile: Option[String] = None,
     includedFile: Option[String] = None,
     missingFile: Option[String] = None
   )
@@ -73,7 +75,15 @@ object FPPDepend {
     import builder._
     OParser.sequence(
       programName(name),
-      head(name, "1.0.0"),
+      head(name, Version.v),
+      opt[String]('d', "direct")
+        .valueName("<file>")
+        .action((m, c) => c.copy(directFile = Some(m)))
+        .text("write direct dependencies to file"),
+      opt[String]('g', "generated")
+        .valueName("<file>")
+        .action((m, c) => c.copy(generatedFile = Some(m)))
+        .text("write names of generated files to file"),
       opt[String]('i', "included")
         .valueName("<file>")
         .action((m, c) => c.copy(includedFile = Some(m)))

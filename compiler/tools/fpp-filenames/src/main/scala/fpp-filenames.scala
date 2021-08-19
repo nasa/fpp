@@ -19,17 +19,15 @@ object FPPFilenames {
       case Nil => List(File.StdIn)
       case list => list
     }
-    val a = Analysis(inputFileSet = options.files.toSet)
     for {
       tul <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
       aTul <- ResolveSpecInclude.transformList(
-        a,
+        Analysis(),
         tul,
         ResolveSpecInclude.transUnit
       )
-      a <- Right(aTul._1)
       tul <- Right(aTul._2)
-      a <- EnterSymbols.visitList(a, tul, EnterSymbols.transUnit)
+      a <- EnterSymbols.visitList(Analysis(), tul, EnterSymbols.transUnit)
       xmlFiles <- getXmlFiles(a, tul)
       cppFiles <- getCppFiles(tul)
     } yield {
