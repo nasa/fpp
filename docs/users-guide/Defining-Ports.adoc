@@ -83,6 +83,26 @@ port P(
 )
 ----
 
+FPP uses the following logic when passing arguments through ports.
+
+[width="15%"]
+|=======
+| |Synchronous port invocation |Asynchronous port invocation
+|Primitive type |Pass by value |Pass by value
+|Non-primitive type |Pass by const reference |Pass by value
+|=======
+
+For asynchronous ports, arguments are always passed by value. For synchronous ports, primitive arguments pass by value and non-primitive types pass by const reference. The passing by const reference is an optimizaton to avoid copying large values between function calls. Primitive types are types that hold <<Defining-Constants_Expressions_Primitive-Values,primitive values>>. This pass by logic can be modified with reference parameters.
+
+The following example illustrates how parameters are passed.
+
+[source,fpp]
+----
+type T
+port P1(a: U32) # a is always passed by value
+port P3(t: T) # t is passed by value for asynchronous invocations and by const reference for synchronous invocations
+----
+
 === Reference Parameters
 
 You may write the keyword `ref` in front of any formal parameter _p_
@@ -104,23 +124,7 @@ In an asynchronous invocation, `a` is passed by value
 (it is serialized onto a queue).
 The `ref` marking does not cause pass by reference in this case.
 
-When a reference parameter is used in a synchronous port invocation,
-we say that the parameter has 
-*pass-by-reference semantics*.
-Furthermore, when `ref` is not specified and we say the parameter pass-by type is unspecified and we opt for the default behavior. If the parameter is used in a synchronous port invocation and is a primitive type, the parameter is passed by value and has *pass-by-value semantics*. If it is not a primitive type, it is passed by const reference.
-When any parameter is used in an asynchronous invocation, the parameter is passed by value, and we say that it
-has *pass-by-value semantics*.
-In this case, we say that it is a *value parameter*.
-
-This logic is summarized by the following table:
-
-[width="15%"]
-|=======
-| |Synchronous port invocation |Asynchronous port invocation
-|`ref` |Pass-by reference |Pass-by value
-|No `ref` and primitive type |Pass-by value |Pass-by value
-|No `ref` and non-primitive type |Pass-by const reference |Pass-by value
-|=======
+When a reference parameter is used in a synchronous port invocation, we say that the parameter has pass-by-reference semantics. However, when a reference parameter is used in an asynchronous port invocation, the parameter has pass-by-value semantics.
 
 There are at least two reasons to use pass-by-reference semantics:
 
