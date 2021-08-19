@@ -15,7 +15,8 @@ object EnumXmlWriter extends AstVisitor with LineUtils {
     val enumType @ Type.Enum(_, _, _) = s.a.typeMap(node.id)
     val tags = {
       val pairs = s.getNamespaceAndName(Symbol.Enum(aNode))
-      val pairsWithRepType = pairs ++ List(("serialize_type", TypeXmlWriter.getName(s, enumType.repType)))
+      val serializeType = TypeXmlWriter.getName(s, enumType.repType)
+      val pairsWithRepType = pairs :+ ("serialize_type", serializeType)
       XmlTags.tags("enum", pairsWithRepType)
     }
     val body = {

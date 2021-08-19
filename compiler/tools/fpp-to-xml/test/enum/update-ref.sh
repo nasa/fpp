@@ -9,3 +9,9 @@ implicit()
   update '' implicit
   mv ImplicitEnumAi.xml ImplicitEnumAi.ref.xml 
 }
+
+serialize_type()
+{
+  update '' serialize_type
+  mv SerializeTypeEnumAi.xml SerializeTypeEnumAi.ref.xml 
+}
