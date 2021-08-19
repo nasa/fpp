@@ -51,3 +51,9 @@ struct_string()
   update '' struct_string
   mv StructStringSerializableAi.xml StructStringSerializableAi.ref.xml 
 }
+
+struct_string_array()
+{
+  update '' struct_string_array
+  mv StructStringArraySerializableAi.xml StructStringArraySerializableAi.ref.xml 
+}

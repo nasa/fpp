@@ -9,5 +9,6 @@ struct_modules
 struct_ok
 struct_output_dir
 struct_string
+struct_string_array
 "
 

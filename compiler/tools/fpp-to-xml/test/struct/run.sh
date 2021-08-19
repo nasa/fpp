@@ -100,4 +100,10 @@ struct_string()
     diff StructStringSerializableAi.xml StructStringSerializableAi.ref.xml
 }
 
+struct_string_array()
+{
+  run_test '' struct_string_array && \
+    diff StructStringArraySerializableAi.xml StructStringArraySerializableAi.ref.xml
+}
+
 run_suite $tests
