@@ -23,3 +23,9 @@ built_in_type()
   run_test "-p $PWD" built_in_type && \
     diff_xml BuiltInTypeArray
 }
+
+array_struct_with_array()
+{
+  run_test "-p $PWD" array_struct_with_array && \
+    diff_xml ArrayStructS3Serializable ArrayStruct3Array
+}
