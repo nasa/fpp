@@ -12,6 +12,12 @@ struct_abs_type()
   mv StructAbsTypeSerializableAi.xml StructAbsTypeSerializableAi.ref.xml 
 }
 
+struct_default()
+{
+  update "-p $PWD" struct_default
+  mv StructDefaultSerializableAi.xml StructDefaultSerializableAi.ref.xml 
+}
+
 struct_enum_member()
 {
   update "-i enum.fpp -p $PWD" struct_enum_member
