@@ -36,6 +36,14 @@ done > default-update-ref.sh
 . ./default-update-ref.sh
 
 # Custom update ref
+filenames() {
+  update '-g filenames_output.ref.txt' filenames
+}
+
+filenames_include() {
+  update '-g filenames_include_output.ref.txt' filenames_include
+}
+
 include() {
   update '-i tmp.out.txt' include
   remove_path_prefix < tmp.out.txt > include_output.ref.txt

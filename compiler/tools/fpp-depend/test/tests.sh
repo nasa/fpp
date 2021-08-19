@@ -13,6 +13,8 @@ expr_ident
 expr_paren
 expr_struct
 expr_unop
+filenames
+filenames_include
 include
 included_dep
 included_dep_i
