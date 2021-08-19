@@ -54,6 +54,10 @@ included_dep_i() {
   remove_path_prefix < tmp.out.txt > included_dep_i_output.ref.txt
 }
 
+input() {
+  update '' 'input_1.fpp input_2' input
+}
+
 locate_constant_include_i() {
   update '-i tmp.out.txt' locate_constant_include_1 locate_constant_include_i
   remove_path_prefix < tmp.out.txt > locate_constant_include_i_output.ref.txt

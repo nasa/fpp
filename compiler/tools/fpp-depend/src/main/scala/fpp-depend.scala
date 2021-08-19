@@ -30,7 +30,7 @@ object FPPDepend {
     for {
       tul <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
       aTul <- ResolveSpecInclude.transformList(
-        Analysis(),
+        a,
         tul,
         ResolveSpecInclude.transUnit
       )

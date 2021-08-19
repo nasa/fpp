@@ -18,6 +18,7 @@ filenames_include
 include
 included_dep
 included_dep_i
+input
 locate_constant_1
 locate_constant_consistent
 locate_constant_include_i

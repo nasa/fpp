@@ -64,6 +64,11 @@ included_dep_i()
   compare included_dep_i_output
 }
 
+input()
+{
+  run_test '' 'input_1.fpp input_2' input
+}
+
 locate_constant_include_no_i()
 {
   run_test '' locate_constant_include_1 locate_constant_include_no_i
