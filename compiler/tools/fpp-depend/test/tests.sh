@@ -5,6 +5,7 @@ def_constant
 def_enum
 def_port
 def_struct
+direct
 enum_constant
 expr_array
 expr_binop

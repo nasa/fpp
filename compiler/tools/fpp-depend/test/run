@@ -38,6 +38,13 @@ done > default-tests.sh
 . ./default-tests.sh
 
 # Custom tests
+direct()
+{
+  run_test '-d tmp.out.txt' direct_a direct
+  remove_path_prefix < tmp.out.txt > direct_output.out.txt
+  compare direct_output
+}
+
 filenames()
 {
   run_test '-g filenames_output.out.txt' filenames

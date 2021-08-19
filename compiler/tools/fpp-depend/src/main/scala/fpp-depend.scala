@@ -38,7 +38,7 @@ object FPPDepend {
       tul <- Right(aTul._2)
       a <- ComputeDependencies.tuList(a, tul)
       _ <- options.directFile match {
-        case Some(file) => Right(()) //TODO
+        case Some(file) => writeFiles(a.directDependencyFileSet, file)
         case None => Right(())
       }
       _ <- options.generatedFile match {
