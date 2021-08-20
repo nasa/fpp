@@ -65,7 +65,7 @@ object StructXmlWriter extends AstVisitor with LineUtils {
       val tags = (XmlTags.openTag("default"), XmlTags.closeTag("default"))
       val defaultValue = structType.getDefaultValue.get.anonStruct.members.get(data.name)
       val writableDefaultValue = ValueXmlWriter.getValue(s, defaultValue.get)
-      List(line(XmlTags.taggedString (tags) (writableDefaultValue)))
+      lines(XmlTags.taggedString (tags) (writableDefaultValue))
     }
     XmlTags.taggedLines("member", pairs) (body.map(indentIn))
   }
