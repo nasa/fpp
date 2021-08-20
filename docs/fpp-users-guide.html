@@ -652,6 +652,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Transitive-Dependencies">12.6.2. Transitive Dependencies</a></li>
 <li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Missing-Dependencies">12.6.3. Missing Dependencies</a></li>
 <li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Included-Files">12.6.4. Included Files</a></li>
+<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Dependencies-Between-Build-Modules">12.6.5. Dependencies Between Build Modules</a></li>
 </ul>
 </li>
 <li><a href="#Specifying-Models-as-Files_Locating-Uses">12.7. Locating Uses</a></li>
@@ -8628,10 +8629,10 @@ locate constant b at "b.fpp"</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Notice that there is a direct dependence of <code>c.fpp</code> on <code>b.fpp</code>
-and a transitive dependence of <code>c.fpp</code> on <code>a.fpp</code>.
-The transitive dependence occurs because there is a direct dependence
-of <code>c.fpp</code> on <code>b.fpp</code> and a direct dependence of <code>b.fpp</code> on <code>a.fpp</code>.</p>
+<p>Notice that there is a direct dependency of <code>c.fpp</code> on <code>b.fpp</code>
+and a transitive dependency of <code>c.fpp</code> on <code>a.fpp</code>.
+The transitive dependency occurs because there is a direct dependency
+of <code>c.fpp</code> on <code>b.fpp</code> and a direct dependency of <code>b.fpp</code> on <code>a.fpp</code>.</p>
 </div>
 <div class="paragraph">
 <p>Running <code>fpp-depend</code> on <code>locations.fpp</code> and <code>c.fpp</code>
@@ -8655,7 +8656,7 @@ Then the following facts are true:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><code>fpp-depend</code> can see the direct dependence of <code>c.fpp</code> on <code>b.fpp</code>.</p>
+<p><code>fpp-depend</code> can see the direct dependency of <code>c.fpp</code> on <code>b.fpp</code>.</p>
 </li>
 <li>
 <p><code>fpp-depend</code> can see that <code>b.fpp</code> does not exist.
@@ -8772,6 +8773,100 @@ It takes as an argument the name of a file, and it writes the included dependenc
 enabled.
 Then option 1 corresponds to the output of the tool, and option 2 corresponds
 to the output plus the contents of <em>file</em>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Dependencies-Between-Build-Modules">12.6.5. Dependencies Between Build Modules</h4>
+<div class="paragraph">
+<p>As discussed
+<a href="#Specifying-Models-as-Files_Computing-Dependencies_Transitive-Dependencies">above</a>, the standard output of <code>fpp-depend</code> reports transitive dependencies.
+This is ordinarily what you want (a) for computing the input to an FPP
+analysis tool and (b) for managing dependencies between files in a build.
+For example, suppose that  <code>a.fpp</code> depends on <code>b.fpp</code> and <code>b.fpp</code> depends on <code>c.fpp</code>.
+When running analysis or code generation on <code>a.fpp</code>, you will need to import
+<code>b.fpp</code> and <code>c.fpp</code> (see the
+<a href="#Specifying-Models-as-Files_Locating-Uses">next section</a>
+for an example).
+Further, if you have a build rule for translating <code>a.fpp</code> to XML, then you probably want to
+re-run that rule if <code>c.fpp</code> changes.
+Therefore you need to report a dependency of <code>a.fpp</code> on <code>c.fpp</code>.</p>
+</div>
+<div class="paragraph">
+<p>However, suppose that your build system divides the FPP files into groups
+of files called <strong>build modules</strong>, and it manages dependencies between
+the modules.
+This is how the F Prime CMake system works.
+In this case, assuming there is no direct dependency from <code>a.fpp</code> to <code>c.fpp</code>,
+you may <em>not</em> want to report a dependency from <code>a.fpp</code> to <code>c.fpp</code>
+to the build system:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If <code>a.fpp</code> and <code>c.fpp</code> are in the same build module, then they
+are in the same node of the dependency graph.
+So there is no dependency to manage.</p>
+</li>
+<li>
+<p>Otherwise, it suffices to report the file dependencies (a) from <code>a.fpp</code>
+to <code>b.fpp</code> and (b) from <code>b.fpp</code> to <code>c.fpp</code>.
+We can let the build system infer (a) the direct dependency from the module
+containing <code>a.fpp</code> to the module containing <code>b.fpp</code>; (b) the direct
+dependency from the module
+containing <code>b.fpp</code> to the module containing <code>c.fpp</code>; and (c)
+the transitive dependency from the module containing <code>a.fpp</code>
+to the module containing <code>c.fpp</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>To compute direct dependencies, run <code>fpp-depend</code> with the option
+<code>-d</code> <em>file</em>.
+The tool will write a list of direct dependencies to <em>file</em>.
+Because direct dependencies are build dependencies,
+any
+<a href="#Specifying-Models-as-Files_Computing-Dependencies_Included-Files">included files</a>
+will appear in the list.
+For this purpose, an included file is (a) any file included by an
+input file to <code>fpp-depend</code>; or (b) any file included
+by such a file, and so forth.</p>
+</div>
+<div class="paragraph">
+<p>When setting up a build based on build modules, you will typically
+use <code>fpp-depend</code> as follows, for each module <em>M</em> in the build:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Let <em>S</em> be the list of source files in <em>M</em>.</p>
+</li>
+<li>
+<p>Run <code>fpp-depend -m missing.txt -d direct.txt</code> <em>S</em> and use the
+output as follows:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>The standard output reports the FPP source files to import
+when running FPP analysis tools on the module.</p>
+</li>
+<li>
+<p><code>missing.txt</code> reports missing dependencies.</p>
+</li>
+<li>
+<p><code>direct.txt</code> reports direct dependencies.
+Use those to construct module dependencies for the build system.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>You can also use the <code>-g</code> option to identify generated files;
+we discuss this option
+<a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files">below</a>.
+Note that we do not use the <code>-i</code> option to <code>fpp-depend</code>, because the relevant
+included files are already present in <code>direct.txt</code>.</p>
 </div>
 </div>
 </div>
@@ -10653,7 +10748,7 @@ F Prime repository.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-08-19 14:29:19 -0700
+Last updated 2021-08-20 09:18:00 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

@@ -598,10 +598,10 @@ And suppose that file `c.fpp` contains the following definition:
 constant c = b
 --------
 
-Notice that there is a direct dependence of `c.fpp` on `b.fpp`
-and a transitive dependence of `c.fpp` on `a.fpp`.
-The transitive dependence occurs because there is a direct dependence
-of `c.fpp` on `b.fpp` and a direct dependence of `b.fpp` on `a.fpp`.
+Notice that there is a direct dependency of `c.fpp` on `b.fpp`
+and a transitive dependency of `c.fpp` on `a.fpp`.
+The transitive dependency occurs because there is a direct dependency
+of `c.fpp` on `b.fpp` and a direct dependency of `b.fpp` on `a.fpp`.
 
 Running `fpp-depend` on `locations.fpp` and `c.fpp`
 produces both dependencies:
@@ -618,7 +618,7 @@ Suppose we construct the files `locations.fpp` and `a.fpp`, `b.fpp`, and `c.fpp`
 as described in the previous section, but then we temporarily remove `b.fpp`.
 Then the following facts are true:
 
-. `fpp-depend` can see the direct dependence of `c.fpp` on `b.fpp`.
+. `fpp-depend` can see the direct dependency of `c.fpp` on `b.fpp`.
 . `fpp-depend` can see that `b.fpp` does not exist.
 In this case we say that `b.fpp` is a *missing dependency*.
 . `fpp-depend` cannot see that `b.fpp` depends on `a.fpp` (that dependency
@@ -706,6 +706,77 @@ In practice, you usually run `fpp-depend` with the `-i` _file_ option
 enabled.
 Then option 1 corresponds to the output of the tool, and option 2 corresponds
 to the output plus the contents of _file_.
+
+==== Dependencies Between Build Modules
+
+As discussed
+<<Specifying-Models-as-Files_Computing-Dependencies_Transitive-Dependencies,
+above>>, the standard output of `fpp-depend` reports transitive dependencies.
+This is ordinarily what you want (a) for computing the input to an FPP
+analysis tool and (b) for managing dependencies between files in a build.
+For example, suppose that  `a.fpp` depends on `b.fpp` and `b.fpp` depends on `c.fpp`.
+When running analysis or code generation on `a.fpp`, you will need to import
+`b.fpp` and `c.fpp` (see the
+<<Specifying-Models-as-Files_Locating-Uses,next section>>
+for an example).
+Further, if you have a build rule for translating `a.fpp` to XML, then you probably want to
+re-run that rule if `c.fpp` changes.
+Therefore you need to report a dependency of `a.fpp` on `c.fpp`.
+
+However, suppose that your build system divides the FPP files into groups
+of files called *build modules*, and it manages dependencies between
+the modules.
+This is how the F Prime CMake system works.
+In this case, assuming there is no direct dependency from `a.fpp` to `c.fpp`,
+you may _not_ want to report a dependency from `a.fpp` to `c.fpp`
+to the build system:
+
+. If `a.fpp` and `c.fpp` are in the same build module, then they
+are in the same node of the dependency graph.
+So there is no dependency to manage.
+
+. Otherwise, it suffices to report the file dependencies (a) from `a.fpp`
+to `b.fpp` and (b) from `b.fpp` to `c.fpp`.
+We can let the build system infer (a) the direct dependency from the module
+containing `a.fpp` to the module containing `b.fpp`; (b) the direct
+dependency from the module
+containing `b.fpp` to the module containing `c.fpp`; and (c)
+the transitive dependency from the module containing `a.fpp`
+to the module containing `c.fpp`.
+
+To compute direct dependencies, run `fpp-depend` with the option
+`-d` _file_.
+The tool will write a list of direct dependencies to _file_.
+Because direct dependencies are build dependencies,
+any 
+<<Specifying-Models-as-Files_Computing-Dependencies_Included-Files,
+included files>>
+will appear in the list.
+For this purpose, an included file is (a) any file included by an
+input file to `fpp-depend`; or (b) any file included
+by such a file, and so forth.
+
+When setting up a build based on build modules, you will typically
+use `fpp-depend` as follows, for each module _M_ in the build:
+
+. Let _S_ be the list of source files in _M_.
+
+. Run `fpp-depend -m missing.txt -d direct.txt` _S_ and use the
+output as follows:
+
+.. The standard output reports the FPP source files to import
+when running FPP analysis tools on the module.
+
+.. `missing.txt` reports missing dependencies.
+
+.. `direct.txt` reports direct dependencies.
+Use those to construct module dependencies for the build system.
+
+You can also use the `-g` option to identify generated files;
+we discuss this option
+<<Analyzing-and-Translating-Models_Identifying-Generated-Files,below>>.
+Note that we do not use the `-i` option to `fpp-depend`, because the relevant
+included files are already present in `direct.txt`.
 
 === Locating Uses
 
