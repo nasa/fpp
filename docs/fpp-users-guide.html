@@ -2960,15 +2960,6 @@ the enum name, separated from the name by a colon, like this:</p>
 Each of the enumerated constants is represented as a <code>U8</code> value
 in C&#43;&#43;.</p>
 </div>
-<div class="paragraph">
-<p><strong>XML limitation:</strong> The F Prime XML format does not support the concept
-of a representation type for enums.
-Instead, all enums have a single representation type specified
-by a C&#43;&#43; preprocessor definition named <code>FwEnumStoreType</code>.
-So when translating an enum <code>E</code> to F Prime XML, the translator ignores the
-representation type
-specified for <code>E</code> in the FPP model.</p>
-</div>
 </div>
 <div class="sect2">
 <h3 id="Defining-Enums_The-Default-Value">7.5. The Default Value</h3>
@@ -10748,7 +10739,7 @@ F Prime repository.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-08-20 14:41:38 -0700
+Last updated 2021-08-20 17:44:48 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
