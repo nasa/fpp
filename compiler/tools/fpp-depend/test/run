@@ -38,6 +38,25 @@ done > default-tests.sh
 . ./default-tests.sh
 
 # Custom tests
+direct()
+{
+  run_test '-d tmp.out.txt' direct_a direct
+  remove_path_prefix < tmp.out.txt > direct_output.out.txt
+  compare direct_output
+}
+
+filenames()
+{
+  run_test '-g filenames_output.out.txt' filenames
+  compare filenames_output
+}
+
+filenames_include()
+{
+  run_test '-g filenames_include_output.out.txt' filenames_include
+  compare filenames_include_output
+}
+
 include()
 {
   run_test '-i tmp.out.txt' include
@@ -50,6 +69,11 @@ included_dep_i()
   run_test '-i tmp.out.txt' included_dep included_dep_i
   remove_path_prefix < tmp.out.txt > included_dep_i_output.out.txt
   compare included_dep_i_output
+}
+
+input()
+{
+  run_test '' 'input_1.fpp input_2' input
 }
 
 locate_constant_include_no_i()

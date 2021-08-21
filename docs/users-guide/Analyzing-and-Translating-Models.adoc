@@ -1,6 +1,7 @@
 == Analyzing and Translating Models
 
-The previous section explained how to specify an FPP model:
+The previous section explained how to specify an FPP model
+as a collection of files:
 how to divide a model into source files and how to compute the
 dependencies of one or more files on other files.
 This section explains the next step: how to perform analysis and
@@ -39,7 +40,7 @@ you terminate the program with control-C.
 For larger models, the usual procedure for running `fpp-check` is as follows:
 
 . Identify one or more files _F_ that you want to check.
-. <<Specifying-Models_Computing-Dependencies,Compute the dependencies>> _D_ of _F_.
+. <<Specifying-Models-as-Files_Computing-Dependencies,Compute the dependencies>> _D_ of _F_.
 . Run `fpp-check` _D_ _F_.
 
 All the files _D_ and all the files _F_ are specified as file arguments,
@@ -48,7 +49,7 @@ separated by spaces.
 When you run `fpp-check`, the following occurs:
 
 . The tool parses all the input files, recursively resolving 
-<<Specifying-Models_Include-Specifiers,include specifiers>> as it goes.
+<<Specifying-Models-as-Files_Include-Specifiers,include specifiers>> as it goes.
 If there are any parse errors or any problems resolving include files (for 
 example, a missing file), it prints an error message to standard error and 
 halts with nonzero status.
@@ -58,7 +59,83 @@ If everything checks out, the tool silently returns zero status.
 Otherwise it prints an error message to standard error and
 halts with nonzero status.
 
-TODO: Checking for unconnected ports
+*Checking for unconnected port instances:*
+It is often useful to check for port instances that appear
+in a topology but that have no connections.
+For example, the following is a useful procedure for adding component instances
+and connections to a topology:
+
+. Add the component instances.
+In general this will introduce new port instances,
+which will initially be unconnected.
+
+. Check for unconnected port instances.
+
+. Add some or all of the connections identified
+in step 2.
+
+. Rerun steps 2 and 3 until there are no more
+missing connections, or you are certain that the
+missing connections are valid for your design.
+
+To check for unconnected port instances (step 2 in the procedure above),
+run `fpp-check` with the option `-u` _file_, where _file_ is
+the name of an output file.
+`fpp-check` will write the names of all unconnected port instances
+to the file.
+For this purpose, a port instance array is considered unconnected
+if none of its port numbers are connected.
+
+For example:
+
+[source]
+----
+% fpp-check -u unconnected.txt
+port P
+
+passive component C {
+  sync input port pIn: P
+  output port pOut: [2] P
+}
+
+instance c: C base id 0x100
+
+topology T1 {
+
+  instance c
+
+}
+
+topology T2 {
+
+  instance c
+
+  connections C {
+    c.pOut -> c.pIn
+  }
+
+}
+^D
+% cat unconnected.txt
+Topology T1:
+  c.pIn
+  c.pOut
+
+----
+
+In this example, component instance `c` has the following port instances:
+
+* Two output port instances `c.pOut[0]` and `c.pOut[1]`.
+
+* One input port instance `c.pIn`.
+
+Topology `T1` uses instance `c` and does not connect any port number of
+`c.pOut` or `c.pIn`.
+So the output written to `unconnected.txt` reports that fact.
+On the other hand, in topology `T2`, both `c.pOut` and `c.pIn`
+are considered connected (so not reported as unconnected)
+even though `c.Out` has two ports and only one of them is connected.
+
 
 === Generating XML
 
@@ -121,7 +198,7 @@ is called `fpp-to-xml`.
 The usual procedure for running `fpp-to-xml` is as follows:
 
 . Identify one or more files _F_ that you want to translate.
-. <<Specifying-Models_Computing-Dependencies,Compute the dependencies>> _D_ of _F_.
+. <<Specifying-Models-as-Files_Computing-Dependencies,Compute the dependencies>> _D_ of _F_.
 . If _D_ is empty, then run `fpp-to-xml` _F_.
 . Otherwise run `fpp-to-xml -i` _D1_ `,` ... `,` _Dn_ _F_, where _Di_ are the
 names of the dependencies.
@@ -162,7 +239,7 @@ When one FPP definition `A` depends on another definition `B`,
 the generated XML file for `A` contains an XML node that imports
 the generated XML file for `B`.
 The tool constructs the import path from the
-<<Specifying-Models_Locating-Definitions,location>> of the imported FPP symbol.
+<<Specifying-Models-as-Files_Locating-Definitions,location>> of the imported FPP symbol.
 
 For example, suppose the file `[path prefix]/A/A.fpp` contains the following
 definition, where `[path prefix]` represents the path prefix of directory
@@ -302,7 +379,7 @@ for the F Prime ground data system.
 The usual procedure for running `fpp-to-cpp` is as follows:
 
 . Identify one or more files _F_ that you want to translate.
-. <<Specifying-Models_Computing-Dependencies,Compute the dependencies>> _D_ of _F_.
+. <<Specifying-Models-as-Files_Computing-Dependencies,Compute the dependencies>> _D_ of _F_.
 . If _D_ is empty, then run `fpp-to-cpp` _F_.
 . Otherwise run `fpp-to-cpp -i` _D1_ `,` ... `,` _Dn_ _F_, where _Di_ are the
 names of the dependencies.
@@ -383,7 +460,7 @@ As noted in the section on
 <<Defining-Components_Constants-and-Types,defining components>>,
 when you define a constant `c` inside a component `C`,
 the name of the corresponding constant in the generated {cpp}
-code is `C_a`.
+code is `C_c`.
 As an example, run the following code through `fpp-to-cpp`
 and examine the results:
 
@@ -436,7 +513,49 @@ This is similar to the `-p` option for
 
 ==== Topology Definitions
 
-TODO
+`fpp-to-cpp` also extracts <<Defining-Topologies,topology definitions>>
+from the source files.
+For each topology _T_ defined in the source files, `fpp-to-cpp`
+writes files _T_ `TopologyAc.hpp` and _T_ `TopologyAc.cpp`.
+These files define two public functions:
+`setup` for setting up the topology, and
+`teardown`, for tearing down the topology.
+The function definitions come from the definition of _T_ and
+from the
+<<Defining-Component-Instances_Init-Specifiers, init specifiers>>
+for the component instances used in _T_.
+You can call these functions from a handwritten `main`
+function.
+We will explain how to write this `main` function in the
+section on 
+<<Writing-C-Plus-Plus-Implementations_Implementing-Deployments,
+implementing deployments>>.
+
+As an example, you can do the following:
+
+* On the command line, run `fpp-to-cpp -p $PWD`.
+
+* Copy the text of the <<Defining-Topologies_A-Simple-Example,
+simple topology example>> and paste it into the terminal.
+
+* Press return, control-D, and return.
+
+* Examine the generated files `SimpleTopologyAc.hpp`
+and `SimpleTopologyAc.cpp`.
+
+You can examine the files `RefTopologyAc.hpp` and `RefTopologyAc.cpp`
+in the F Prime repository.
+Currently these files are checked in at `Ref/Top`.
+Once we have integrated FPP with CMake, these files will be auto-generated
+by CMake and will be located at `Ref/build-fprime-automatic-native/F-Prime/Ref/Top`.
+
+*Options:*
+When translating topologies,
+the `-d`, `-n`, and `-p` options work in the same way as for
+<<Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions,
+translating constant definitions>>.
+The `-g` option is ignored, because
+the include guard prefix comes from the name of the topology.
 
 === Identifying Generated Files
 
@@ -479,6 +598,27 @@ FppConstantsAc.cpp
 FppConstantsAc.hpp
 ----
 
+Alternatively, you can use the option `-g` _file_ to
+<<Specifying-Models-as-Files_Computing-Dependencies,`fpp-depend`>>.
+This option writes the generated file names to the file _file_
+as part of the dependency analysis.
+For example:
+
+----
+% fpp-depend -g generated.txt
+array A = [3] U32
+^D
+% cat generated.txt
+AArrayAi.xml
+----
+
+The output is the same as for `fpp-filenames`, but this way you can
+run one tool (`fpp-depend`) instead of two (`fpp-depend` and
+`fpp-filenames`).
+Since FPP is implemented in Scala, and there is some overhead
+associated with starting up a tool, running `fpp-depend -g` _file_ 
+may help your build go faster.
+
 === Translating XML to FPP
 
 The FPP tool suite provides a capability to translate F Prime
@@ -488,15 +628,6 @@ Its purpose is to address the following case:
 . You have already developed an F Prime model in XML.
 . You wish to translate the model to FPP in order to use FPP as the source 
 language going forward.
-
-Currently translation for types, enumerations, ports, and
-components is available.
-You can convert these elements of your XML model to FPP now.
-To integrate these elements with topologies written directly in XML, use the
-<<Analyzing-and-Translating-Models_Generating-XML,FPP to XML translation 
-described above>> to generate XML from the FPP part.
-Later, when topologies are available in FPP, you can 
-complete the translation.
 
 The XML-to-FPP translation is designed to do most of the work in translating an 
 XML model into FPP.
@@ -540,7 +671,7 @@ if you provide no explicit default value, then an implicit default is used.
 By contrast, in F Prime XML, (1) you _must_ supply default values for array
 elements, and (2) you _may not_ supply default values for struct members
 or enumerations. (This is an inconsistency in the XML 
-representation that we intend to fix in a future version of F Prime.)
+representation that we will fix in an upcoming version of F Prime.)
 To keep the translation simple, if default values are present in the XML
 representation, then `fpp-from-xml` translates them to explicit values,
 even if they could be made implicit.
@@ -767,14 +898,37 @@ array A = [1] F32 default [
                           ]
 ----
 
-*Import and include directives:*
-Import and include directives appearing in the XML source are ignored
-in the translation.
+*Import directives:*
+XML directives that import symbols (such as `import_port_type`)
+are ignored in the translation.
 These directives represent dependencies between XML files, which
 become dependencies between FPP source files in the FPP translation.
 Once the XML-to-FPP translation is done, you can handle these
 dependencies in the ordinary way for FPP, as discussed in the
-section on <<Specifying-Models,specifying models>>.
+section on <<Specifying-Models-as-Files,specifying models as files>>.
+
+XML directives that import XML dictionaries are translated
+to 
+<<Specifying-Models-as-Files_Include-Specifiers,include specifiers>>.
+For example, suppose that `CComponentAi.xml` defines component `C`
+and contains the directive
+
+[source,xml]
+----
+<import_dictionary>Commands.xml</import_dictionary>
+----
+
+Running `fpp-from-xml` on `CComponentAi.xml` produces an
+FPP definition of a component `C`; the component definition
+contains the include specifier
+
+[source,fpp]
+-----
+include "Commands.fppi"
+-----
+
+Separately, you can use `fpp-to-xml` to translate `Commands.xml`
+to `Commands.fppi`.
 
 === Formatting FPP Source
 
