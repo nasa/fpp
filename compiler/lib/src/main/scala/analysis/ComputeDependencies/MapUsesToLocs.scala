@@ -65,7 +65,15 @@ object MapUsesToLocs extends UseAnalyzer {
       File.Path(path)
     }
     def addDependency(specLoc: Ast.SpecLoc, file: File): Result = {
-      val a1 = a.copy(dependencyFileSet = a.dependencyFileSet + file)
+      val dependencyFileSet = a.dependencyFileSet + file
+      val directDependencyFileSet = a.level match {
+        case 1 => a.directDependencyFileSet + file
+        case _ => a.directDependencyFileSet
+      }
+      val a1 = a.copy(
+        dependencyFileSet = dependencyFileSet,
+        directDependencyFileSet = directDependencyFileSet
+      )
       val result = for {
         tu <- Parser.parseFile (Parser.transUnit) (None) (file)
         pair <- ResolveSpecInclude.transUnit(a1, tu)

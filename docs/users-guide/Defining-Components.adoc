@@ -827,7 +827,7 @@ When defining an F Prime component, you may specify one or more commands.
 When you are operating the FSW, you use the F Prime Ground Data System
 or another ground data system to send commands to the FSW.
 On receipt of a command _C_, a Command Dispatcher component instance
-dispatches _C_ to the an instance of the component where it is defined.
+dispatches _C_ to the component instance where that command is implemented.
 The command is handled in a {cpp} command handler that you write
 as part of the component implementation.
 

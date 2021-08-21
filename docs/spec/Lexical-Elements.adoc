@@ -294,18 +294,14 @@ constant a = 1 +
   2
 ----
 
-To simplify parsing, the following symbols consume sequences of newlines that
-precede them, without creating an
-<<Lexical-Elements_End-of-Line-Tokens,end-of-line token>>:
+=== Collapsing of Newlines
 
-[source,fpp]
-----
-)
-]
-}
-----
-
-For example, this code
+To simplify parsing, the lexer may collapse a sequence of one or more
+<<Lexical-Elements_End-of-Line-Tokens,end-of-line tokens>>
+into a single token, or into no token, if
+the operation does not change the meaning of the result according
+to the parse rules.
+For example, the lexer may treat this code
 
 [source,fpp]
 ----
@@ -313,10 +309,22 @@ constant a = [
   1
   2
   3
+
 ]
 ----
 
-is parsed as if it were this:
+as if it were this
+
+[source,fpp]
+----
+constant a = [
+  1
+  2
+  3 
+]
+----
+
+or this
 
 [source,fpp]
 ----
@@ -325,3 +333,7 @@ constant a = [
   2
   3 ]
 ----
+
+According to the rules for
+<<Element-Sequences,parsing element sequences>>,
+all three code sections are equivalent.
