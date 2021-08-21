@@ -7,8 +7,14 @@ import fpp.compiler.util._
 case class Analysis(
   /** The set of files presented to the analyzer */
   inputFileSet: Set[File] = Set(),
-  /** The set of files on which the analysis depends */
+  /** The recursive level of the analysis */
+  level: Int = 0,
+  /** The set of files on which the analysis transitively depends.
+   *  Does not contain included files. */
   dependencyFileSet: Set[File] = Set(),
+  /** The set of files on which the analysis directly depends.
+   *  Does contain included files. */
+  directDependencyFileSet: Set[File] = Set(),
   /** The set of dependency files that could not be opened */
   missingDependencyFileSet: Set[File] = Set(),
   /** The set of files included when parsing input */

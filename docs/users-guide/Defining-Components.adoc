@@ -827,7 +827,7 @@ When defining an F Prime component, you may specify one or more commands.
 When you are operating the FSW, you use the F Prime Ground Data System
 or another ground data system to send commands to the FSW.
 On receipt of a command _C_, a Command Dispatcher component instance
-dispatches _C_ to the an instance of the component where it is defined.
+dispatches _C_ to the component instance where that command is implemented.
 The command is handled in a {cpp} command handler that you write
 as part of the component implementation.
 
@@ -2219,9 +2219,11 @@ the specifier `include "Commands.fppi"` is not valid.
 
 Include specifiers are perhaps most useful when defining
 components, but they can also appear at the top level of a
-model, or inside a module definition.
+model, inside a module definition, or inside a
+topology definition.
 We discuss include specifiers further in the section on
-<<Specifying-Models_Include-Specifiers,specifying models>>.
+<<Specifying-Models-as-Files_Include-Specifiers,
+specifying models as files>>.
 
 === Matched Ports
 

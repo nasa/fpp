@@ -19,40 +19,17 @@ object FPPFilenames {
       case Nil => List(File.StdIn)
       case list => list
     }
-    val a = Analysis(inputFileSet = options.files.toSet)
     for {
       tul <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
       aTul <- ResolveSpecInclude.transformList(
-        a,
+        Analysis(),
         tul,
         ResolveSpecInclude.transUnit
       )
-      a <- Right(aTul._1)
-      tul <- Right(aTul._2)
-      a <- EnterSymbols.visitList(a, tul, EnterSymbols.transUnit)
-      xmlFiles <- getXmlFiles(a, tul)
-      cppFiles <- getCppFiles(tul)
-    } yield {
-      val files = xmlFiles ++ cppFiles
-      files.sorted.map(System.out.println)
+      files <- ComputeGeneratedFiles.getFiles(aTul._2)
     }
+    yield files.sorted.map(System.out.println)
   }
-
-  def getCppFiles(tul: List[Ast.TransUnit]) =
-    for {
-      s <- ComputeCppFiles.visitList(Map(), tul, ComputeCppFiles.transUnit)
-    }
-    yield s.toList.map(_._1)
-
-  def getXmlFiles(a: Analysis, tul: List[Ast.TransUnit]) =
-    for {
-      s <- ComputeXmlFiles.visitList(
-        XmlWriterState(a),
-        tul,
-        ComputeXmlFiles.transUnit
-      )
-    }
-    yield s.locationMap.toList.map(_._1)
 
   def main(args: Array[String]) = {
     Error.setTool(Tool(name))
