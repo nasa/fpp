@@ -5,6 +5,7 @@ def_constant
 def_enum
 def_port
 def_struct
+direct
 enum_constant
 expr_array
 expr_binop
@@ -13,9 +14,12 @@ expr_ident
 expr_paren
 expr_struct
 expr_unop
+filenames
+filenames_include
 include
 included_dep
 included_dep_i
+input
 locate_constant_1
 locate_constant_consistent
 locate_constant_include_i

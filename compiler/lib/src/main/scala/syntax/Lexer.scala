@@ -177,6 +177,8 @@ object Lexer extends RegexParsers {
         Left(SyntaxError(loc, msg))
       }
       case Success(result, _) => Right(result)
+      // Suppress false compiler warning
+      case _ => throw new InternalError("This cannot happen")
     }
   }
 

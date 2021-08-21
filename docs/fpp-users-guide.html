@@ -4,25 +4,23 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.15">
+<meta name="generator" content="Asciidoctor 2.0.16">
 <title>The F Prime Prime (FPP) User&#8217;s Guide, v1.0.0</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
-/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
-/* Uncomment @import statement to use as custom stylesheet */
-/*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
-article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}
-audio,video{display:inline-block}
-audio:not([controls]){display:none;height:0}
-html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+/*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment the following line when using as a custom stylesheet */
+/* @import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"; */
+html{font-family:sans-serif;-webkit-text-size-adjust:100%}
 a{background:none}
 a:focus{outline:thin dotted}
 a:active,a:hover{outline:0}
 h1{font-size:2em;margin:.67em 0}
-abbr[title]{border-bottom:1px dotted}
 b,strong{font-weight:bold}
+abbr{font-size:.9em}
+abbr[title]{cursor:help;border-bottom:1px dotted #dddddf;text-decoration:none}
 dfn{font-style:italic}
-hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}
+hr{height:0}
 mark{background:#ff0;color:#000}
 code,kbd,pre,samp{font-family:monospace;font-size:1em}
 pre{white-space:pre-wrap}
@@ -34,20 +32,22 @@ sub{bottom:-.25em}
 img{border:0}
 svg:not(:root){overflow:hidden}
 figure{margin:0}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
 fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
 legend{border:0;padding:0}
 button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
 button,input{line-height:normal}
 button,select{text-transform:none}
-button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
 button[disabled],html input[disabled]{cursor:default}
-input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}
+input[type=checkbox],input[type=radio]{padding:0}
 button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
 textarea{overflow:auto;vertical-align:top}
 table{border-collapse:collapse;border-spacing:0}
-*,*::before,*::after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
+*,::before,::after{box-sizing:border-box}
 html,body{font-size:100%}
-body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;line-height:1;position:relative;cursor:auto;-moz-tab-size:4;-o-tab-size:4;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
 a:hover{cursor:pointer}
 img,object,embed{max-width:100%;height:auto}
 object,embed{height:100%}
@@ -67,7 +67,7 @@ div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,
 a{color:#2156a5;text-decoration:underline;line-height:inherit}
 a:hover,a:focus{color:#1d4b8f}
 a img{border:0}
-p{font-family:inherit;font-weight:400;font-size:1em;line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p{line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
 p aside{font-size:.875em;line-height:1.35;font-style:italic}
 h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
 h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
@@ -76,14 +76,14 @@ h2{font-size:1.6875em}
 h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
 h4,h5{font-size:1.125em}
 h6{font-size:1em}
-hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em;height:0}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em}
 em,i{font-style:italic;line-height:inherit}
 strong,b{font-weight:bold;line-height:inherit}
 small{font-size:60%;line-height:inherit}
 code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
-ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
 ul,ol{margin-left:1.5em}
-ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
 ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
 ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
@@ -91,8 +91,6 @@ ul.disc{list-style-type:disc}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
-abbr,acronym{text-transform:uppercase;font-size:90%;color:rgba(0,0,0,.8);border-bottom:1px dotted #ddd;cursor:help}
-abbr{text-transform:none}
 blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
 blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
 @media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
@@ -100,7 +98,7 @@ h1{font-size:2.75em}
 h2{font-size:2.3125em}
 h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
 h4{font-size:1.4375em}}
-table{background:#fff;margin-bottom:1.25em;border:solid 1px #dedede;word-wrap:normal}
+table{background:#fff;margin-bottom:1.25em;border:1px solid #dedede;word-wrap:normal}
 table thead,table tfoot{background:#f7f8f7}
 table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
 table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
@@ -115,7 +113,7 @@ h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title str
 :not(pre).nobreak{word-wrap:normal}
 :not(pre).nowrap{white-space:nowrap}
 :not(pre).pre-wrap{white-space:pre-wrap}
-:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
 pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
 pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
 pre>code{display:block}
@@ -123,7 +121,7 @@ pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
 em em{font-style:normal}
 strong strong{font-weight:400}
 .keyseq{color:rgba(51,51,51,.8)}
-kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;border-radius:3px;box-shadow:0 1px 0 rgba(0,0,0,.2),inset 0 0 0 .1em #fff;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
 .keyseq kbd:first-child{margin-left:0}
 .keyseq kbd:last-child{margin-right:0}
 .menuseq,.menuref{color:#000}
@@ -135,7 +133,7 @@ b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
 b.button::before{content:"[";padding:0 3px 0 2px}
 b.button::after{content:"]";padding:0 2px 0 3px}
 p a>code:hover{color:rgba(0,0,0,.9)}
-#header,#content,#footnotes,#footer{width:100%;margin-left:auto;margin-right:auto;margin-top:0;margin-bottom:0;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header,#content,#footnotes,#footer{width:100%;margin:0 auto;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
 #header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
 #header::after,#content::after,#footnotes::after,#footer::after{clear:both}
 #content{margin-top:1.25em}
@@ -143,7 +141,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
 #header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
-#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
 #header .details br{display:none}
@@ -177,11 +175,11 @@ body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9
 #toc.toc2>ul{font-size:.95em}
 #toc.toc2 ul ul{padding-left:1.25em}
 body.toc2.toc-right{padding-left:0;padding-right:20em}}
-#content #toc{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+#content #toc{border:1px solid #e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;border-radius:4px}
 #content #toc>:first-child{margin-top:0}
 #content #toc>:last-child{margin-bottom:0}
 #footer{max-width:none;background:rgba(0,0,0,.8);padding:1.25em}
-#footer-text{color:rgba(255,255,255,.8);line-height:1.44}
+#footer-text{color:hsla(0,0%,100%,.8);line-height:1.44}
 #content{margin-bottom:.625em}
 .sect1{padding-bottom:.625em}
 @media screen and (min-width:768px){#content{margin-bottom:1.25em}
@@ -194,29 +192,32 @@ body.toc2.toc-right{padding-left:0;padding-right:20em}}
 #content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
 #content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
 details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
-details>summary:first-of-type{cursor:pointer;display:list-item;outline:none;margin-bottom:.75em}
+details{margin-left:1.25rem}
+details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;-webkit-tap-highlight-color:transparent}
+details>summary::before{content:"";border:solid transparent;border-left:solid;border-width:.3em 0 .3em .5em;position:absolute;top:.5em;left:-1.25rem;transform:translateX(15%)}
+details[open]>summary::before{border:solid transparent;border-top:solid;border-width:.5em .3em 0;transform:translateY(15%)}
+details>summary::after{content:"";width:1.25rem;height:1em;position:absolute;top:.3em;left:-1.25rem}
 .admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
 table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
-.paragraph.lead>p,#preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
-table.tableblock #preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:inherit}
+.paragraph.lead>p,#preamble>.sectionbody>[class=paragraph]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
 .admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
 .admonitionblock>table td.icon{text-align:center;width:80px}
 .admonitionblock>table td.icon img{max-width:none}
 .admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
-.exampleblock>.content{border-style:solid;border-width:1px;border-color:#e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;-webkit-border-radius:4px;border-radius:4px}
+.exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
 .exampleblock>.content>:first-child{margin-top:0}
 .exampleblock>.content>:last-child{margin-bottom:0}
-.sidebarblock{border-style:solid;border-width:1px;border-color:#dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;-webkit-border-radius:4px;border-radius:4px}
+.sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
 .sidebarblock>:first-child{margin-top:0}
 .sidebarblock>:last-child{margin-bottom:0}
 .sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
 .exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
-.literalblock pre,.listingblock>.content>pre{-webkit-border-radius:4px;border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
+.literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
 @media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
 @media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
-.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class="highlight"],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
 .literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
 .listingblock>.content{position:relative}
 .listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
@@ -224,7 +225,7 @@ table.tableblock #preamble>.sectionbody>[class="paragraph"]:first-of-type p{font
 .listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
 .listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
 .listingblock pre.highlightjs{padding:0}
-.listingblock pre.highlightjs>code{padding:1em;-webkit-border-radius:4px;border-radius:4px}
+.listingblock pre.highlightjs>code{padding:1em;border-radius:4px}
 .listingblock pre.prettyprint{border-width:0}
 .prettyprint{background:#f7f7f8}
 pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
@@ -234,8 +235,8 @@ pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
 table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
 table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
 table.linenotable td.code{padding-left:.75em}
-table.linenotable td.linenos{border-right:1px solid currentColor;opacity:.35;padding-right:.5em}
-pre.pygments .lineno{border-right:1px solid currentColor;opacity:.35;display:inline-block;margin-right:.75em}
+table.linenotable td.linenos{border-right:1px solid;opacity:.35;padding-right:.5em}
+pre.pygments .lineno{border-right:1px solid;opacity:.35;display:inline-block;margin-right:.75em}
 pre.pygments .lineno::before{content:"";margin-right:-.125em}
 .quoteblock{margin:0 1em 1.25em 1.5em;display:table}
 .quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
@@ -245,7 +246,7 @@ pre.pygments .lineno::before{content:"";margin-right:-.125em}
 .quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
 .quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
 .verseblock{margin:0 1em 1.25em}
-.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans-serif;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
 .verseblock pre strong{font-weight:400}
 .verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
 .quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
@@ -293,10 +294,10 @@ ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ul
 ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
 ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
 ul.unstyled,ol.unstyled{margin-left:0}
-ul.checklist{margin-left:.625em}
-ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
-ul.checklist li>p:first-child>input[type="checkbox"]:first-child{margin-right:.25em}
-ul.inline{display:-ms-flexbox;display:-webkit-box;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.checklist>li>p:first-child{margin-left:-1em}
+ul.checklist>li>p:first-child>.fa-square-o:first-child,ul.checklist>li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist>li>p:first-child>input[type=checkbox]:first-child{margin-right:.25em}
+ul.inline{display:flex;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
 ul.inline>li{margin-left:1.25em}
 .unstyled dl dt{font-weight:400;font-style:normal}
 ol.arabic{list-style-type:decimal}
@@ -315,7 +316,7 @@ td.hdlist2{word-wrap:anywhere}
 .colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
 .colist td:not([class]):first-child img{max-width:none}
 .colist td:not([class]):last-child{padding:.25em 0}
-.thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
 .imageblock.left{margin:.25em .625em 1.25em 0}
 .imageblock.right{margin:.25em 0 1.25em .625em}
 .imageblock>.title{margin-bottom:0}
@@ -383,7 +384,7 @@ a span.icon>.fa{cursor:inherit}
 .admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
 .admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
 .admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
-.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);-webkit-border-radius:50%;border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
 .conum[data-value] *{color:#fff!important}
 .conum[data-value]+b{display:none}
 .conum[data-value]::after{content:attr(data-value)}
@@ -391,19 +392,20 @@ pre .conum[data-value]{position:relative;top:-.125em}
 b.conum *{color:inherit!important}
 .conum:not([data-value]):empty{display:none}
 dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
-h1,h2,p,td.content,span.alt{letter-spacing:-.01em}
+h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
 p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
-p,blockquote,dt,td.content,span.alt{font-size:1.0625rem}
+p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
 p{margin-bottom:1.25rem}
 .sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
-.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;-webkit-box-shadow:0 1px 4px #e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
 .print-only{display:none!important}
 @page{margin:1.25cm .75cm}
-@media print{*{-webkit-box-shadow:none!important;box-shadow:none!important;text-shadow:none!important}
+@media print{*{box-shadow:none!important;text-shadow:none!important}
 html{font-size:80%}
 a{color:inherit!important;text-decoration:underline!important}
 a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
 a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]{border-bottom:1px dotted}
 abbr[title]::after{content:" (" attr(title) ")"}
 pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
 thead{display:table-header-group}
@@ -427,7 +429,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .print-only{display:block!important}
 .hide-for-print{display:none!important}
 .show-for-print{display:inherit!important}}
-@media print,amzn-kf8{#header>h1:first-child{margin-top:1.25rem}
+@media amzn-kf8,print{#header>h1:first-child{margin-top:1.25rem}
 .sect1{padding:0!important}
 .sect1+.sect1{border:0}
 #footer{background:none}
@@ -615,41 +617,45 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#Defining-Topologies_Importing-Topologies">11.4. Importing Topologies</a>
 <ul class="sectlevel3">
-<li><a href="#Defining-Topologies_Importing-Topologies_Merging-Connection-Graphs">11.4.1. Merging Connection Graphs</a></li>
+<li><a href="#Defining-Topologies_Importing-Topologies_Importing-Instances-and-Connections">11.4.1. Importing Instances and Connections</a></li>
 <li><a href="#Defining-Topologies_Importing-Topologies_Private-Instances">11.4.2. Private Instances</a></li>
+<li><a href="#Defining-Topologies_Importing-Topologies_Multiple-Imports">11.4.3. Multiple Imports</a></li>
+<li><a href="#Defining-Topologies_Importing-Topologies_Transitive-Imports">11.4.4. Transitive Imports</a></li>
 </ul>
 </li>
+<li><a href="#Defining-Topologies_Include-Specifiers">11.5. Include Specifiers</a></li>
 </ul>
 </li>
-<li><a href="#Specifying-Models">12. Specifying Models</a>
+<li><a href="#Specifying-Models-as-Files">12. Specifying Models as Files</a>
 <ul class="sectlevel2">
-<li><a href="#Specifying-Models_Dividing-Models-into-Files">12.1. Dividing Models into Files</a></li>
-<li><a href="#Specifying-Models_Include-Specifiers">12.2. Include Specifiers</a></li>
-<li><a href="#Specifying-Models_Dependencies">12.3. Dependencies</a></li>
-<li><a href="#Specifying-Models_Location-Specifiers">12.4. Location Specifiers</a>
+<li><a href="#Specifying-Models-as-Files_Dividing-Models-into-Files">12.1. Dividing Models into Files</a></li>
+<li><a href="#Specifying-Models-as-Files_Include-Specifiers">12.2. Include Specifiers</a></li>
+<li><a href="#Specifying-Models-as-Files_Dependencies">12.3. Dependencies</a></li>
+<li><a href="#Specifying-Models-as-Files_Location-Specifiers">12.4. Location Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifying-Models_Location-Specifiers_Syntax">12.4.1. Syntax</a></li>
-<li><a href="#Specifying-Models_Location-Specifiers_Path-Names">12.4.2. Path Names</a></li>
-<li><a href="#Specifying-Models_Location-Specifiers_Definition-Names">12.4.3. Definition Names</a></li>
-<li><a href="#Specifying-Models_Location-Specifiers_Included-Files">12.4.4. Included Files</a></li>
+<li><a href="#Specifying-Models-as-Files_Location-Specifiers_Syntax">12.4.1. Syntax</a></li>
+<li><a href="#Specifying-Models-as-Files_Location-Specifiers_Path-Names">12.4.2. Path Names</a></li>
+<li><a href="#Specifying-Models-as-Files_Location-Specifiers_Definition-Names">12.4.3. Definition Names</a></li>
+<li><a href="#Specifying-Models-as-Files_Location-Specifiers_Included-Files">12.4.4. Included Files</a></li>
 </ul>
 </li>
-<li><a href="#Specifying-Models_Locating-Definitions">12.5. Locating Definitions</a>
+<li><a href="#Specifying-Models-as-Files_Locating-Definitions">12.5. Locating Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Specifying-Models_Locating-Definitions_Running-fpp-locate-defs">12.5.1. Running fpp-locate-defs</a></li>
-<li><a href="#Specifying-Models_Locating-Definitions_Location-Paths">12.5.2. Location Paths</a></li>
-<li><a href="#Specifying-Models_Locating-Definitions_Included-Definitions">12.5.3. Included Definitions</a></li>
+<li><a href="#Specifying-Models-as-Files_Locating-Definitions_Running-fpp-locate-defs">12.5.1. Running fpp-locate-defs</a></li>
+<li><a href="#Specifying-Models-as-Files_Locating-Definitions_Location-Paths">12.5.2. Location Paths</a></li>
+<li><a href="#Specifying-Models-as-Files_Locating-Definitions_Included-Definitions">12.5.3. Included Definitions</a></li>
 </ul>
 </li>
-<li><a href="#Specifying-Models_Computing-Dependencies">12.6. Computing Dependencies</a>
+<li><a href="#Specifying-Models-as-Files_Computing-Dependencies">12.6. Computing Dependencies</a>
 <ul class="sectlevel3">
-<li><a href="#Specifying-Models_Computing-Dependencies_Running-fpp-depend">12.6.1. Running fpp-depend</a></li>
-<li><a href="#Specifying-Models_Computing-Dependencies_Transitive-Dependencies">12.6.2. Transitive Dependencies</a></li>
-<li><a href="#Specifying-Models_Computing-Dependencies_Missing-Dependencies">12.6.3. Missing Dependencies</a></li>
-<li><a href="#Specifying-Models_Computing-Dependencies_Included-Files">12.6.4. Included Files</a></li>
+<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Running-fpp-depend">12.6.1. Running fpp-depend</a></li>
+<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Transitive-Dependencies">12.6.2. Transitive Dependencies</a></li>
+<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Missing-Dependencies">12.6.3. Missing Dependencies</a></li>
+<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Included-Files">12.6.4. Included Files</a></li>
+<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Dependencies-Between-Build-Modules">12.6.5. Dependencies Between Build Modules</a></li>
 </ul>
 </li>
-<li><a href="#Specifying-Models_Locating-Uses">12.7. Locating Uses</a></li>
+<li><a href="#Specifying-Models-as-Files_Locating-Uses">12.7. Locating Uses</a></li>
 </ul>
 </li>
 <li><a href="#Analyzing-and-Translating-Models">13. Analyzing and Translating Models</a>
@@ -670,7 +676,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Writing-C-Plus-Plus-Implementations">14. Writing C Plus Plus Implementations</a>
 <ul class="sectlevel2">
 <li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Abstract-Types">14.1. Implementing Abstract Types</a></li>
-<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments">14.2. Implementing Deployments</a></li>
+<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments">14.2. Implementing Deployments</a>
+<ul class="sectlevel3">
+<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Application-Specific-Definitions">14.2.1. Application-Specific Definitions</a></li>
+<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments_The-Main-Function">14.2.2. The Main Function</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -682,8 +693,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <div class="paragraph">
 <p>This document describes <strong>F Prime Prime</strong>, also known as FPP or F Double Prime.
-FPP is a modeling language for the <a href="https://github.com/nasa/fprime">F Prime
-flight software framework</a>.
+FPP is a modeling language for the
+<a href="https://nasa.github.io/fprime/">F Prime flight software framework</a>.
 A <a href="https://digitalcommons.usu.edu/smallsat/2018/all2018/328/">paper presented at
 SmallSat 2018</a>
 provides an overview of F Prime.</p>
@@ -724,9 +735,9 @@ the project-specific C&#43;&#43; implementation) you get a FSW application.</p>
 <p><strong>Purpose:</strong> The purpose of this document is to describe FPP in a way that is accessible
 to users, including beginning users.
 A more detailed and precise description is available in
-<a href="https://fprime-community.github.io/fpp"><em>The FPP Language
+<a href="https://fprime-community.github.io/fpp/fpp-spec.html"><em>The FPP Language
 Specification</em></a>.
-It is recommended that users read this document before consulting that one.</p>
+We recommend that you read this document before consulting that one.</p>
 </div>
 <div class="paragraph">
 <p><strong>XML limitations:</strong>
@@ -745,12 +756,13 @@ Sections 3 through 11 describe the elements of an FPP
 model, starting with the simplest elements (constants
 and types) and working towards the most complex (components
 and topologies).
-Section 12 explains how to specify complete models of realistic
-size; for example it covers the management of dependencies
-between the files that describe a model.
+Section 12 explains how to specify a model as a collection
+of files: for example, it covers the management of dependencies
+between files.
 Section 13 explains how to analyze FPP models and how
-to translate FPP models to and from F Prime XML
-and to C&#43;&#43;.</p>
+to translate FPP models to XML, to C&#43;&#43;, and from XML.
+Section 14 explains how to write a C&#43;&#43; implementation
+against the code generated from an FPP model.</p>
 </div>
 </div>
 </div>
@@ -802,7 +814,7 @@ The second operation names <code>file.fpp</code> as an input file of <code>fpp-c
 <p>Most of the examples in the following sections are complete FPP models.
 You can run the models through
 <code>fpp-check</code> by typing or pasting them into a file or into standard input.
-It is recommended that you to this for at least a few of the examples,
+We recommend that you to this for at least a few of the examples,
 to get a feel for how FPP works.</p>
 </div>
 </div>
@@ -2539,7 +2551,7 @@ In a future version of F Prime, we will correct this issue.</p>
 <h4 id="Defining-Types_Struct-Type-Definitions_Member-Format-Strings">6.2.5. Member Format Strings</h4>
 <div class="paragraph">
 <p>For any struct member, you can include an optional format.
-To this, write the keyword <code>format</code> and a format string.
+To do this, write the keyword <code>format</code> and a format string.
 The format string for a struct member has the same form as for an
 <a href="#Defining-Types_Array-Type-Definitions_Format-Strings">array member</a>.
 For example, the following struct definition specifies
@@ -4373,7 +4385,7 @@ Try it and see.</p>
 When you are operating the FSW, you use the F Prime Ground Data System
 or another ground data system to send commands to the FSW.
 On receipt of a command <em>C</em>, a Command Dispatcher component instance
-dispatches <em>C</em> to the an instance of the component where it is defined.
+dispatches <em>C</em> to the component instance where that command is implemented.
 The command is handled in a C&#43;&#43; command handler that you write
 as part of the component implementation.</p>
 </div>
@@ -5897,9 +5909,10 @@ the specifier <code>include "Commands.fppi"</code> is not valid.</p>
 <div class="paragraph">
 <p>Include specifiers are perhaps most useful when defining
 components, but they can also appear at the top level of a
-model, or inside a module definition.
+model, inside a module definition, or inside a
+topology definition.
 We discuss include specifiers further in the section on
-<a href="#Specifying-Models_Include-Specifiers">specifying models</a>.</p>
+<a href="#Specifying-Models-as-Files_Include-Specifiers">specifying models as files</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -6364,12 +6377,12 @@ The file <code>Ref/Top/init.fpp</code> contains an instance definition
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">instance linuxTime: Svc.Time base id 0x4500 \
-  at "../../Svc/LinuxTime/LinuxTimeImpl.hpp"</code></pre>
+  at "../../Svc/LinuxTime/LinuxTime.hpp"</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>This definition says to use implementation header file
-<code>Svc/LinuxTime/LinuxTimeImpl.hpp</code>.</p>
+<code>Svc/LinuxTime/LinuxTime.hpp</code>.</p>
 </div>
 </div>
 </div>
@@ -6665,10 +6678,6 @@ enum {
 };
 """
 
-init cmdSeq phase Fpp.ToCpp.Phases.instances """
-Svc::CmdSequencerComponentImpl cmdSeq(FW_OPTIONAL_NAME("cmdSeq"));
-"""
-
 init cmdSeq phase Fpp.ToCpp.Phases.configComponents """
 cmdSeq.allocateBuffer(
     0,
@@ -6685,9 +6694,6 @@ cmdSeq.deallocateBuffer(Allocation::mallocator);
 <div class="paragraph">
 <p>The code for <code>configConstants</code> provides a constant <code>BUFFER_SIZE</code>
 that is used in the <code>configComponents</code> phase.
-The code for the <code>instances</code> phase provides the standard constructor,
-except that the name of the component type is <code>CmdSequencerComponentImpl</code>
-instead of <code>CmdSequencer</code>, so we have to write out the constructor.
 The code for <code>configComponents</code> calls <code>allocateBuffer</code>, passing
 in an allocator object that is declared elsewhere.
 (In the section on
@@ -6704,7 +6710,7 @@ database instance <code>prmDb</code> from the Ref deployment:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">init prmDb phase Fpp.ToCpp.Phases.instances """
-Svc::PrmDbImpl prmDb(FW_OPTIONAL_NAME("prmDb"), "PrmDb.dat");
+Svc::PrmDb prmDb(FW_OPTIONAL_NAME("prmDb"), "PrmDb.dat");
 """
 
 init prmDb phase Fpp.ToCpp.Phases.readParameters """
@@ -6722,8 +6728,18 @@ As discussed above, this code is needed only for the parameter database
 instance.</p>
 </div>
 <div class="paragraph">
+<p>When writing init specifiers, you may read (but not modify) a special value
+<code>state</code> that you define in a handwritten main function.
+This value lets you pass application-specific information from the
+handwritten code to the auto-generated code.
+We will explain the special <code>state</code> value further in the
+section on <a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments">implementing deployments</a>.</p>
+</div>
+<div class="paragraph">
 <p>For more examples of init specifiers in action, see the rest of
-the file <code>Ref/Top/init.fpp</code> in the F Prime repository.</p>
+the file <code>Ref/Top/init.fpp</code> in the F Prime repository.
+In particular, the init specifiers for the <code>comm</code> component
+use the <code>state</code> value that we just mentioned.</p>
 </div>
 </div>
 </div>
@@ -6987,7 +7003,7 @@ the result might look like this:</p>
 </div>
 <div class="paragraph">
 <p>This works, but it is tedious and repetitive. So FPP provides
-a better way. Instead, you can use a <strong>pattern graph specifier</strong>
+a better way: you can use a <strong>pattern graph specifier</strong>
 to specify this common pattern.
 You can write</p>
 </div>
@@ -7278,9 +7294,10 @@ each on its own line, or you can separate them with commas:</p>
 <div class="paragraph">
 <p>As discussed in the
 <a href="#Defining-Components_Port-Instances_Arrays-of-Port-Instances">section on defining components</a>,
-each port instance is actually an array of one or more port instances.
+each named port instance is actually an array of
+one or more port instances.
 When the size of the array exceeds one, you
-have to specify the port number (i.e., the array index)
+must specify the port number (i.e., the array index)
 of each connection going into or out of the port instance.
 In FPP, there are three ways to specify port numbers:
 explicit numbering, matched numbering, and general numbering.</p>
@@ -7456,7 +7473,7 @@ For example, the Ref topology contains the following connections:</p>
   cmdDisp.seqCmdStatus -&gt; cmdSeq.cmdResponseIn
 }
 
-connection Uplink {
+connections Uplink {
   ...
   uplink.comOut -&gt; cmdDisp.seqCmdBuff
   cmdDisp.seqCmdStatus -&gt; uplink.cmdResponseIn
@@ -7503,7 +7520,7 @@ analysis.</p>
 Automatic matched numbering works when each matched pair of connections
 goes between the same two components, one of which
 has a matched pair of ports.
-If the matching does not follow this pattern than automatic matched
+If the matching does not follow this pattern, then automatic matched
 numbering will not work, and you will need to use explicit port
 numbers to express the matching.
 For example, the Ref topology contains these connections:</p>
@@ -7584,41 +7601,312 @@ a.p[1] -&gt; c.p[0]</code></pre>
 </div>
 <div class="sect2">
 <h3 id="Defining-Topologies_Importing-Topologies">11.4. Importing Topologies</h3>
-<div class="sect3">
-<h4 id="Defining-Topologies_Importing-Topologies_Merging-Connection-Graphs">11.4.1. Merging Connection Graphs</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>It is often useful to decompose a flight software project
+into several topologies.
+For example, a project might have the following topologies:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A topology for command and data handling (CDH) with
+components such as a command dispatcher, an event logger, a telemetry data
+base,
+a parameter database, and components for managing files.</p>
+</li>
+<li>
+<p>Various subsystem topologies, for example power, thermal,
+attitude control, etc.</p>
+</li>
+<li>
+<p>A release topology.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Each of the subsystem topologies might include the CDH topology.
+The release topology might include the CDH topology
+and each of the subsystem topologies.
+Further, to enable modular testing, it is useful for
+each topology to be able to run on its own.</p>
+</div>
+<div class="paragraph">
+<p>In FPP, the way we accomplish these goals is to <strong>import</strong>
+one topology into another one.
+In this section of the User Guide, we explain how to do that.</p>
+</div>
+<div class="sect3">
+<h4 id="Defining-Topologies_Importing-Topologies_Importing-Instances-and-Connections">11.4.1. Importing Instances and Connections</h4>
+<div class="paragraph">
+<p>To import a topology <code>A</code> into a topology <code>B</code>, you write
+<code>import A</code> inside topology <code>B</code>, like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">topology B {
+
+  import A
+
+  ...
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You may add instances and connections as usual to <code>B</code>, as shown
+by the dots.</p>
+</div>
+<div class="paragraph">
+<p>When you do this, the FPP translator does the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Resolve <code>A</code>:</strong> Resolve all pattern graph
+specifiers in <code>A</code>, and resolve all explicit port numbers in <code>A</code>.
+Call the resulting topology <code>T</code>.</p>
+</li>
+<li>
+<p><strong>Form the instances of <code>B</code>:</strong>
+Take the union of the instances specified in <code>T</code> and
+the instances specified in <code>B</code>, counting any duplicates once.
+These are the instances of <code>B</code>.</p>
+</li>
+<li>
+<p><strong>Form the connections of <code>B</code>:</strong>
+Take the union of the connection graphs specified in <code>T</code> and
+the connection graphs specified in <code>B</code>.
+If each of <code>T</code> and <code>B</code> has a connection between the same
+ports, then each becomes a separate connection in <code>B</code>.</p>
+</li>
+<li>
+<p><strong>Resolve <code>B</code>:</strong> Resolve the pattern graph specifies of <code>B</code>.
+Apply matched numbering and general numbering to <code>B</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For example, suppose topologies <code>A</code> and <code>B</code> are defined
+as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">topology A {
+
+  instance a
+  instance b
+
+  connections C1 {
+    a.p1 -&gt; b.p
+  }
+
+}
+
+topology B {
+
+  import A
+
+  instance c
+
+  connections C1 {
+    a.p1 -&gt; c.p
+  }
+
+  connections C2 {
+    a.p2 -&gt; c.p
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After import resolution, <code>B</code> is equivalent to this topology:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">topology B {
+
+  instance a
+  instance b
+  instance c
+
+  connections C1 {
+    a.p1 -&gt; b.p
+    a.p1 -&gt; c.p
+  }
+
+  connections C2 {
+    a.p2 -&gt; c.p
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that the <code>C1</code> connections of <code>A</code> are merged with the <code>C1</code>
+connections of <code>B</code>.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="Defining-Topologies_Importing-Topologies_Private-Instances">11.4.2. Private Instances</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>Often when importing topology <code>A</code> into topology <code>B</code>, you
+want to include one or more instances in <code>A</code> that exist just
+for running <code>A</code>, but that you don&#8217;t want imported into <code>B</code>.
+For example, <code>A</code> could have an instance <code>cStub</code> which is a stub version of
+a component <code>c</code> that is fully implemented in <code>B</code>.
+In this case</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>When running <code>A</code> you may need <code>cStub</code>; the topology
+may not run or may not even compile without it.</p>
+</li>
+<li>
+<p>When importing <code>A</code> into <code>B</code> you don&#8217;t want to import
+<code>cStub</code>, because it is superseded by the real implementation <code>c</code> in <code>B</code>.
+Also, any connections to <code>cStub</code> in <code>A</code> should be replaced
+by connections to <code>c</code> in <code>B</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To handle this case, you can make <code>cStub</code> a <strong>private</strong> instance
+of <code>A</code> and <code>c</code> an instance of <code>B</code>.
+When you import <code>B</code> into <code>A</code>, <code>cStub</code> will not become an instance
+of <code>B</code>.
+Further, no connections in <code>A</code> involving <code>cStub</code> will be imported
+into <code>B</code>.</p>
+</div>
+<div class="paragraph">
+<p>As an example, suppose we revise topology <code>A</code> from the previous
+section as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">topology A {
+
+  instance a
+  instance b
+  private instance d
+
+  connections C1 {
+    a.p1 -&gt; b.p
+  }
+
+  connections C2 {
+    a.p1 -&gt; d.p
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that we have added an instance <code>d</code> to topology
+<code>A</code>, and we have declared <code>d</code> private to <code>A</code>.
+We have also added a new connection to <code>d</code> in the
+connection graph <code>C2</code>.</p>
+</div>
+<div class="paragraph">
+<p>Now suppose that we use the same definition of <code>B</code> given
+in the previous section.
+After import resolution, <code>B</code> will still be equivalent
+to the topology shown at the end of the last section:
+we have added an instance and a connection to <code>A</code>,
+but the instance is private and the connection goes
+from a private instance, so neither the instance nor
+the connection is imported into <code>B</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Topologies_Importing-Topologies_Multiple-Imports">11.4.3. Multiple Imports</h4>
+<div class="paragraph">
+<p>Multiple imports are allowed.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">topology A {
+
+  import B
+  import C
+
+  ...
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This has the obvious meaning: both topology <code>B</code> and
+topology <code>C</code> are imported into topology <code>A</code>, according
+to the rules described above.</p>
+</div>
+<div class="paragraph">
+<p>Each topology may appear at most once in the import list.
+For example, this is incorrect:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">topology A {
+
+  import B
+  import B # Error: B imported twice
+
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Topologies_Importing-Topologies_Transitive-Imports">11.4.4. Transitive Imports</h4>
+<div class="paragraph">
+<p>In general, transitive imports are allowed.
+For example, topology <code>A</code> may import topology <code>B</code>,
+and topology <code>B</code> may import topology <code>C</code>.
+Resolution works bottom-up on the import graph:
+for example, first we resolve <code>C</code>, and then we resolve <code>B</code>,
+and then we resolve <code>A</code>.</p>
+</div>
+<div class="paragraph">
+<p>Cycles in the import graph are not allowed.
+For example, if <code>A</code> imports <code>B</code> and <code>B</code> imports <code>C</code>
+and <code>C</code> imports <code>A</code>, you will get an error.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-Topologies_Include-Specifiers">11.5. Include Specifiers</h3>
+<div class="paragraph">
+<p>You can include code from another file in a topology definition.
+You do this by writing an <strong>include specifier</strong>.
+We will explain more about this in the section on
+<a href="#Specifying-Models-as-Files_Include-Specifiers">include specifiers</a>
+below.</p>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Specifying-Models">12. Specifying Models</h2>
+<h2 id="Specifying-Models-as-Files">12. Specifying Models as Files</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The previous sections have explained the individual syntactic elements
+<p>The previous sections have explained the syntactic and semantic elements
 of FPP models.
-This section takes a broader view:
-it explains how to assemble a collection of elements into a model.</p>
+This section takes a more file-centric view:
+it explains how to assemble a collection of elements specified in
+several files into a model.</p>
 </div>
 <div class="paragraph">
 <p>We discuss several tools for specifying and analyzing dependencies between
 model files.
-Here we focus on how to use the tools, and we summarize their most important
+We focus on how to use the tools, and we summarize their most important
 features.
 We do not attempt to cover every feature of every tool.
 For more comprehensive coverage, see
 <a href="https://github.com/fprime-community/fpp/wiki/Tools">the FPP wiki</a>.</p>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models_Dividing-Models-into-Files">12.1. Dividing Models into Files</h3>
+<h3 id="Specifying-Models-as-Files_Dividing-Models-into-Files">12.1. Dividing Models into Files</h3>
 <div class="paragraph">
 <p>Unlike F Prime XML, FPP does not require any particular division of model
 elements into files.
@@ -7694,14 +7982,15 @@ multiple blocks
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models_Include-Specifiers">12.2. Include Specifiers</h3>
+<h3 id="Specifying-Models-as-Files_Include-Specifiers">12.2. Include Specifiers</h3>
 <div class="paragraph">
 <p>As part of an FPP model, you can write one or more <strong>include specifiers</strong>.
 An include specifier is an instruction to include FPP source elements
 from one file into another file.
 Include specifiers may occur at the top level of a model,
 inside a <a href="#Defining-Modules">module definition</a>,
-or inside a <a href="#Defining-Components">component definition</a>.</p>
+inside a <a href="#Defining-Components">component definition</a>,
+or inside a <a href="#Defining-Topologies">topology definition</a>.</p>
 </div>
 <div class="paragraph">
 <p>The main purpose of include specifiers is to split up large syntactic units
@@ -7844,7 +8133,7 @@ error: identifier expected
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models_Dependencies">12.3. Dependencies</h3>
+<h3 id="Specifying-Models-as-Files_Dependencies">12.3. Dependencies</h3>
 <div class="paragraph">
 <p>Whenever a model spans two or more files, one file <em>F</em> may use
 one or more definitions appearing in other files.
@@ -7941,7 +8230,7 @@ the CMake build process included in the F Prime distribution.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models_Location-Specifiers">12.4. Location Specifiers</h3>
+<h3 id="Specifying-Models-as-Files_Location-Specifiers">12.4. Location Specifiers</h3>
 <div class="paragraph">
 <p>A location specifier is a unit of syntax in an FPP model.
 It specifies the location of a definition used in the model.</p>
@@ -7951,11 +8240,11 @@ It specifies the location of a definition used in the model.</p>
 you should usually not do so.
 Instead, you should write definitions and let the tools discover their
 locations, as described
-in the section on <a href="#Specifying-Models_Locating-Definitions">locating
+in the section on <a href="#Specifying-Models-as-Files_Locating-Definitions">locating
 definitions</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models_Location-Specifiers_Syntax">12.4.1. Syntax</h4>
+<h4 id="Specifying-Models-as-Files_Location-Specifiers_Syntax">12.4.1. Syntax</h4>
 <div class="paragraph">
 <p>A location specifier consists of the keyword <code>locate</code>, a kind of definition,
 the name of a definition, and a string representing a file path.
@@ -8001,10 +8290,10 @@ locate type E at "E.fpp"</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models_Location-Specifiers_Path-Names">12.4.2. Path Names</h4>
+<h4 id="Specifying-Models-as-Files_Location-Specifiers_Path-Names">12.4.2. Path Names</h4>
 <div class="paragraph">
 <p>As with
-<a href="#Specifying-Models_Include-Specifiers">include specifiers</a>,
+<a href="#Specifying-Models-as-Files_Include-Specifiers">include specifiers</a>,
 the path name in a location specifier <em>L</em> is relative to the
 location of the file where <em>L</em> appears.
 For example, suppose the file <code>b.fpp</code> appears in the file system in some
@@ -8030,7 +8319,7 @@ Then in <code>b.fpp</code> we could write this:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models_Location-Specifiers_Definition-Names">12.4.3. Definition Names</h4>
+<h4 id="Specifying-Models-as-Files_Location-Specifiers_Definition-Names">12.4.3. Definition Names</h4>
 <div class="paragraph">
 <p>The definition name appearing after the keyword <code>locate</code>
 may be a qualified name.
@@ -8077,10 +8366,10 @@ definitions and their uses.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models_Location-Specifiers_Included-Files">12.4.4. Included Files</h4>
+<h4 id="Specifying-Models-as-Files_Location-Specifiers_Included-Files">12.4.4. Included Files</h4>
 <div class="paragraph">
 <p>When you write a file that contains definitions and you
-<a href="#Specifying-Models_Include-Specifiers">include that file in another file</a>,
+<a href="#Specifying-Models-as-Files_Include-Specifiers">include that file in another file</a>,
 the location of each definition is the file where the definition is
 included, not the file where the definition appears.
 For example, suppose that file <code>a.fppi</code> contains the
@@ -8092,7 +8381,7 @@ is <code>b.fpp</code>, not <code>a.fppi</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models_Locating-Definitions">12.5. Locating Definitions</h3>
+<h3 id="Specifying-Models-as-Files_Locating-Definitions">12.5. Locating Definitions</h3>
 <div class="paragraph">
 <p>Given a collection of FPP source files <em>F</em>, you can generate location specifiers
 for all the definitions in <em>F</em>.
@@ -8104,7 +8393,7 @@ When analyzing other files that use the constants, you can use the location
 specifiers to discover dependencies on individual files within <code>Constants</code>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models_Locating-Definitions_Running-fpp-locate-defs">12.5.1. Running fpp-locate-defs</h4>
+<h4 id="Specifying-Models-as-Files_Locating-Definitions_Running-fpp-locate-defs">12.5.1. Running fpp-locate-defs</h4>
 <div class="paragraph">
 <p>To locate definitions, do the following:</p>
 </div>
@@ -8141,7 +8430,7 @@ Running</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models_Locating-Definitions_Location-Paths">12.5.2. Location Paths</h4>
+<h4 id="Specifying-Models-as-Files_Locating-Definitions_Location-Paths">12.5.2. Location Paths</h4>
 <div class="paragraph">
 <p>By default, the location path is relative to the current
 directory.
@@ -8163,11 +8452,11 @@ For example, running</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models_Locating-Definitions_Included-Definitions">12.5.3. Included Definitions</h4>
+<h4 id="Specifying-Models-as-Files_Locating-Definitions_Included-Definitions">12.5.3. Included Definitions</h4>
 <div class="paragraph">
 <p>Consider the case where you write a definition in one file and
 include that file in another file via an
-<a href="#Specifying-Models_Include-Specifiers">include specifier</a>.
+<a href="#Specifying-Models-as-Files_Include-Specifiers">include specifier</a>.
 For example, suppose file <code>Constants.fpp</code> looks like this:</p>
 </div>
 <div class="listingblock fpp">
@@ -8219,7 +8508,7 @@ If your main FPP files end with <code>.fpp</code> and your included FPP files en
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models_Computing-Dependencies">12.6. Computing Dependencies</h3>
+<h3 id="Specifying-Models-as-Files_Computing-Dependencies">12.6. Computing Dependencies</h3>
 <div class="paragraph">
 <p>Given files <em>F</em> and location specifiers <em>L</em> that locate the definitions used in
 <em>F</em>, you can
@@ -8227,7 +8516,7 @@ generate the dependencies of <em>F</em>.
 The tool for doing this is called <code>fpp-depend</code>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models_Computing-Dependencies_Running-fpp-depend">12.6.1. Running fpp-depend</h4>
+<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Running-fpp-depend">12.6.1. Running fpp-depend</h4>
 <div class="paragraph">
 <p>To run <code>fpp-depend</code>, you pass it as input (1) files <em>F</em> that you want to
 analyze
@@ -8299,7 +8588,7 @@ So the following is equivalent:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models_Computing-Dependencies_Transitive-Dependencies">12.6.2. Transitive Dependencies</h4>
+<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Transitive-Dependencies">12.6.2. Transitive Dependencies</h4>
 <div class="paragraph">
 <p><code>fpp-depend</code> computes dependencies transitively.
 This means that if <em>A</em> depends on <em>B</em> and <em>B</em>
@@ -8340,10 +8629,10 @@ locate constant b at "b.fpp"</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Notice that there is a direct dependence of <code>c.fpp</code> on <code>b.fpp</code>
-and a transitive dependence of <code>c.fpp</code> on <code>a.fpp</code>.
-The transitive dependence occurs because there is a direct dependence
-of <code>c.fpp</code> on <code>b.fpp</code> and a direct dependence of <code>b.fpp</code> on <code>a.fpp</code>.</p>
+<p>Notice that there is a direct dependency of <code>c.fpp</code> on <code>b.fpp</code>
+and a transitive dependency of <code>c.fpp</code> on <code>a.fpp</code>.
+The transitive dependency occurs because there is a direct dependency
+of <code>c.fpp</code> on <code>b.fpp</code> and a direct dependency of <code>b.fpp</code> on <code>a.fpp</code>.</p>
 </div>
 <div class="paragraph">
 <p>Running <code>fpp-depend</code> on <code>locations.fpp</code> and <code>c.fpp</code>
@@ -8358,7 +8647,7 @@ produces both dependencies:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models_Computing-Dependencies_Missing-Dependencies">12.6.3. Missing Dependencies</h4>
+<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Missing-Dependencies">12.6.3. Missing Dependencies</h4>
 <div class="paragraph">
 <p>Suppose we construct the files <code>locations.fpp</code> and <code>a.fpp</code>, <code>b.fpp</code>, and <code>c.fpp</code>
 as described in the previous section, but then we temporarily remove <code>b.fpp</code>.
@@ -8367,7 +8656,7 @@ Then the following facts are true:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><code>fpp-depend</code> can see the direct dependence of <code>c.fpp</code> on <code>b.fpp</code>.</p>
+<p><code>fpp-depend</code> can see the direct dependency of <code>c.fpp</code> on <code>b.fpp</code>.</p>
 </li>
 <li>
 <p><code>fpp-depend</code> can see that <code>b.fpp</code> does not exist.
@@ -8421,10 +8710,10 @@ the dependency <code>[path-prefix]/b.fpp</code> to standard output.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models_Computing-Dependencies_Included-Files">12.6.4. Included Files</h4>
+<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Included-Files">12.6.4. Included Files</h4>
 <div class="paragraph">
 <p>Suppose file <code>a.fpp</code> contains the
-<a href="#Specifying-Models_Include-Specifiers">include specifier</a>
+<a href="#Specifying-Models-as-Files_Include-Specifiers">include specifier</a>
 <code>include "b.fppi"</code>.
 Then there are two options for computing the dependencies of <code>a.fpp</code>:</p>
 </div>
@@ -8486,9 +8775,103 @@ Then option 1 corresponds to the output of the tool, and option 2 corresponds
 to the output plus the contents of <em>file</em>.</p>
 </div>
 </div>
+<div class="sect3">
+<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Dependencies-Between-Build-Modules">12.6.5. Dependencies Between Build Modules</h4>
+<div class="paragraph">
+<p>As discussed
+<a href="#Specifying-Models-as-Files_Computing-Dependencies_Transitive-Dependencies">above</a>, the standard output of <code>fpp-depend</code> reports transitive dependencies.
+This is ordinarily what you want (a) for computing the input to an FPP
+analysis tool and (b) for managing dependencies between files in a build.
+For example, suppose that  <code>a.fpp</code> depends on <code>b.fpp</code> and <code>b.fpp</code> depends on <code>c.fpp</code>.
+When running analysis or code generation on <code>a.fpp</code>, you will need to import
+<code>b.fpp</code> and <code>c.fpp</code> (see the
+<a href="#Specifying-Models-as-Files_Locating-Uses">next section</a>
+for an example).
+Further, if you have a build rule for translating <code>a.fpp</code> to XML, then you probably want to
+re-run that rule if <code>c.fpp</code> changes.
+Therefore you need to report a dependency of <code>a.fpp</code> on <code>c.fpp</code>.</p>
+</div>
+<div class="paragraph">
+<p>However, suppose that your build system divides the FPP files into groups
+of files called <strong>build modules</strong>, and it manages dependencies between
+the modules.
+This is how the F Prime CMake system works.
+In this case, assuming there is no direct dependency from <code>a.fpp</code> to <code>c.fpp</code>,
+you may <em>not</em> want to report a dependency from <code>a.fpp</code> to <code>c.fpp</code>
+to the build system:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If <code>a.fpp</code> and <code>c.fpp</code> are in the same build module, then they
+are in the same node of the dependency graph.
+So there is no dependency to manage.</p>
+</li>
+<li>
+<p>Otherwise, it suffices to report the file dependencies (a) from <code>a.fpp</code>
+to <code>b.fpp</code> and (b) from <code>b.fpp</code> to <code>c.fpp</code>.
+We can let the build system infer (a) the direct dependency from the module
+containing <code>a.fpp</code> to the module containing <code>b.fpp</code>; (b) the direct
+dependency from the module
+containing <code>b.fpp</code> to the module containing <code>c.fpp</code>; and (c)
+the transitive dependency from the module containing <code>a.fpp</code>
+to the module containing <code>c.fpp</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>To compute direct dependencies, run <code>fpp-depend</code> with the option
+<code>-d</code> <em>file</em>.
+The tool will write a list of direct dependencies to <em>file</em>.
+Because direct dependencies are build dependencies,
+any
+<a href="#Specifying-Models-as-Files_Computing-Dependencies_Included-Files">included files</a>
+will appear in the list.
+For this purpose, an included file is (a) any file included by an
+input file to <code>fpp-depend</code>; or (b) any file included
+by such a file, and so forth.</p>
+</div>
+<div class="paragraph">
+<p>When setting up a build based on build modules, you will typically
+use <code>fpp-depend</code> as follows, for each module <em>M</em> in the build:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Let <em>S</em> be the list of source files in <em>M</em>.</p>
+</li>
+<li>
+<p>Run <code>fpp-depend -m missing.txt -d direct.txt</code> <em>S</em> and use the
+output as follows:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>The standard output reports the FPP source files to import
+when running FPP analysis tools on the module.</p>
+</li>
+<li>
+<p><code>missing.txt</code> reports missing dependencies.</p>
+</li>
+<li>
+<p><code>direct.txt</code> reports direct dependencies.
+Use those to construct module dependencies for the build system.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>You can also use the <code>-g</code> option to identify generated files;
+we discuss this option
+<a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files">below</a>.
+Note that we do not use the <code>-i</code> option to <code>fpp-depend</code>, because the relevant
+included files are already present in <code>direct.txt</code>.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models_Locating-Uses">12.7. Locating Uses</h3>
+<h3 id="Specifying-Models-as-Files_Locating-Uses">12.7. Locating Uses</h3>
 <div class="paragraph">
 <p>Given a collection of files <em>F</em> and their dependencies <em>D</em>, you can generate
 the locations of the definitions appearing in <em>D</em> and used in <em>F</em>.
@@ -8518,13 +8901,12 @@ Then <code>fpp-locate-uses -i a.fpp,b.fpp c.fpp</code> generates the output <cod
 </div>
 <div class="paragraph">
 <p>Note that unlike in the case of
-<a href="#Specifying-Models_Computing-Dependencies">dependency analysis</a>,
+<a href="#Specifying-Models-as-Files_Computing-Dependencies">dependency analysis</a>,
 the inputs <em>D</em> and <em>F</em> to <code>fpp-locate-uses</code> must form a complete model.
 There must be no name used in <em>D</em> or in <em>F</em> that is not defined somewhere in
 <em>D</em> or in <em>F</em>.
 If <em>D</em> is the output of running <code>fpp-depend</code> on <em>F</em>, and there are no
-<a href="#Specifying-Models_Computing-Dependencies_Missing-Dependencies">missing
-dependencies</a>,
+<a href="#Specifying-Models-as-Files_Computing-Dependencies_Missing-Dependencies">missing dependencies</a>,
 then this property should hold.</p>
 </div>
 <div class="paragraph">
@@ -8571,7 +8953,8 @@ for the location specifiers.</p>
 <h2 id="Analyzing-and-Translating-Models">13. Analyzing and Translating Models</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The previous section explained how to specify an FPP model:
+<p>The previous section explained how to specify an FPP model
+as a collection of files:
 how to divide a model into source files and how to compute the
 dependencies of one or more files on other files.
 This section explains the next step: how to perform analysis and
@@ -8621,7 +9004,7 @@ you terminate the program with control-C.</p>
 <p>Identify one or more files <em>F</em> that you want to check.</p>
 </li>
 <li>
-<p><a href="#Specifying-Models_Computing-Dependencies">Compute the dependencies</a> <em>D</em> of <em>F</em>.</p>
+<p><a href="#Specifying-Models-as-Files_Computing-Dependencies">Compute the dependencies</a> <em>D</em> of <em>F</em>.</p>
 </li>
 <li>
 <p>Run <code>fpp-check</code> <em>D</em> <em>F</em>.</p>
@@ -8639,7 +9022,7 @@ separated by spaces.</p>
 <ol class="arabic">
 <li>
 <p>The tool parses all the input files, recursively resolving
-<a href="#Specifying-Models_Include-Specifiers">include specifiers</a> as it goes.
+<a href="#Specifying-Models-as-Files_Include-Specifiers">include specifiers</a> as it goes.
 If there are any parse errors or any problems resolving include files (for
 example, a missing file), it prints an error message to standard error and
 halts with nonzero status.</p>
@@ -8653,7 +9036,99 @@ halts with nonzero status.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>TODO: Checking for unconnected ports</p>
+<p><strong>Checking for unconnected port instances:</strong>
+It is often useful to check for port instances that appear
+in a topology but that have no connections.
+For example, the following is a useful procedure for adding component instances
+and connections to a topology:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Add the component instances.
+In general this will introduce new port instances,
+which will initially be unconnected.</p>
+</li>
+<li>
+<p>Check for unconnected port instances.</p>
+</li>
+<li>
+<p>Add some or all of the connections identified
+in step 2.</p>
+</li>
+<li>
+<p>Rerun steps 2 and 3 until there are no more
+missing connections, or you are certain that the
+missing connections are valid for your design.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>To check for unconnected port instances (step 2 in the procedure above),
+run <code>fpp-check</code> with the option <code>-u</code> <em>file</em>, where <em>file</em> is
+the name of an output file.
+<code>fpp-check</code> will write the names of all unconnected port instances
+to the file.
+For this purpose, a port instance array is considered unconnected
+if none of its port numbers are connected.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code>% fpp-check -u unconnected.txt
+port P
+
+passive component C {
+  sync input port pIn: P
+  output port pOut: [2] P
+}
+
+instance c: C base id 0x100
+
+topology T1 {
+
+  instance c
+
+}
+
+topology T2 {
+
+  instance c
+
+  connections C {
+    c.pOut -&gt; c.pIn
+  }
+
+}
+^D
+% cat unconnected.txt
+Topology T1:
+  c.pIn
+  c.pOut</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this example, component instance <code>c</code> has the following port instances:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Two output port instances <code>c.pOut[0]</code> and <code>c.pOut[1]</code>.</p>
+</li>
+<li>
+<p>One input port instance <code>c.pIn</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Topology <code>T1</code> uses instance <code>c</code> and does not connect any port number of
+<code>c.pOut</code> or <code>c.pIn</code>.
+So the output written to <code>unconnected.txt</code> reports that fact.
+On the other hand, in topology <code>T2</code>, both <code>c.pOut</code> and <code>c.pIn</code>
+are considered connected (so not reported as unconnected)
+even though <code>c.Out</code> has two ports and only one of them is connected.</p>
 </div>
 </div>
 <div class="sect2">
@@ -8763,7 +9238,7 @@ The usual procedure for running <code>fpp-to-xml</code> is as follows:</p>
 <p>Identify one or more files <em>F</em> that you want to translate.</p>
 </li>
 <li>
-<p><a href="#Specifying-Models_Computing-Dependencies">Compute the dependencies</a> <em>D</em> of <em>F</em>.</p>
+<p><a href="#Specifying-Models-as-Files_Computing-Dependencies">Compute the dependencies</a> <em>D</em> of <em>F</em>.</p>
 </li>
 <li>
 <p>If <em>D</em> is empty, then run <code>fpp-to-xml</code> <em>F</em>.</p>
@@ -8823,7 +9298,7 @@ When one FPP definition <code>A</code> depends on another definition <code>B</co
 the generated XML file for <code>A</code> contains an XML node that imports
 the generated XML file for <code>B</code>.
 The tool constructs the import path from the
-<a href="#Specifying-Models_Locating-Definitions">location</a> of the imported FPP symbol.</p>
+<a href="#Specifying-Models-as-Files_Locating-Definitions">location</a> of the imported FPP symbol.</p>
 </div>
 <div class="paragraph">
 <p>For example, suppose the file <code>[path prefix]/A/A.fpp</code> contains the following
@@ -9003,7 +9478,7 @@ The usual procedure for running <code>fpp-to-cpp</code> is as follows:</p>
 <p>Identify one or more files <em>F</em> that you want to translate.</p>
 </li>
 <li>
-<p><a href="#Specifying-Models_Computing-Dependencies">Compute the dependencies</a> <em>D</em> of <em>F</em>.</p>
+<p><a href="#Specifying-Models-as-Files_Computing-Dependencies">Compute the dependencies</a> <em>D</em> of <em>F</em>.</p>
 </li>
 <li>
 <p>If <em>D</em> is empty, then run <code>fpp-to-cpp</code> <em>F</em>.</p>
@@ -9111,7 +9586,7 @@ As noted in the section on
 <a href="#Defining-Components_Constants-and-Types">defining components</a>,
 when you define a constant <code>c</code> inside a component <code>C</code>,
 the name of the corresponding constant in the generated C&#43;&#43;
-code is <code>C_a</code>.
+code is <code>C_c</code>.
 As an example, run the following code through <code>fpp-to-cpp</code>
 and examine the results:</p>
 </div>
@@ -9176,7 +9651,57 @@ This is similar to the <code>-p</code> option for
 <div class="sect3">
 <h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">13.3.2. Topology Definitions</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p><code>fpp-to-cpp</code> also extracts <a href="#Defining-Topologies">topology definitions</a>
+from the source files.
+For each topology <em>T</em> defined in the source files, <code>fpp-to-cpp</code>
+writes files <em>T</em> <code>TopologyAc.hpp</code> and <em>T</em> <code>TopologyAc.cpp</code>.
+These files define two public functions:
+<code>setup</code> for setting up the topology, and
+<code>teardown</code>, for tearing down the topology.
+The function definitions come from the definition of <em>T</em> and
+from the
+<a href="#Defining-Component-Instances_Init-Specifiers">init specifiers</a>
+for the component instances used in <em>T</em>.
+You can call these functions from a handwritten <code>main</code>
+function.
+We will explain how to write this <code>main</code> function in the
+section on
+<a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments">implementing deployments</a>.</p>
+</div>
+<div class="paragraph">
+<p>As an example, you can do the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>On the command line, run <code>fpp-to-cpp -p $PWD</code>.</p>
+</li>
+<li>
+<p>Copy the text of the <a href="#Defining-Topologies_A-Simple-Example">simple topology example</a> and paste it into the terminal.</p>
+</li>
+<li>
+<p>Press return, control-D, and return.</p>
+</li>
+<li>
+<p>Examine the generated files <code>SimpleTopologyAc.hpp</code>
+and <code>SimpleTopologyAc.cpp</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can examine the files <code>RefTopologyAc.hpp</code> and <code>RefTopologyAc.cpp</code>
+in the F Prime repository.
+Currently these files are checked in at <code>Ref/Top</code>.
+Once we have integrated FPP with CMake, these files will be auto-generated
+by CMake and will be located at <code>Ref/build-fprime-automatic-native/F-Prime/Ref/Top</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Options:</strong>
+When translating topologies,
+the <code>-d</code>, <code>-n</code>, and <code>-p</code> options work in the same way as for
+<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions">translating constant definitions</a>.
+The <code>-g</code> option is ignored, because
+the include guard prefix comes from the name of the topology.</p>
 </div>
 </div>
 </div>
@@ -9226,6 +9751,30 @@ FppConstantsAc.cpp
 FppConstantsAc.hpp</pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Alternatively, you can use the option <code>-g</code> <em>file</em> to
+<a href="#Specifying-Models-as-Files_Computing-Dependencies"><code>fpp-depend</code></a>.
+This option writes the generated file names to the file <em>file</em>
+as part of the dependency analysis.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-depend -g generated.txt
+array A = [3] U32
+^D
+% cat generated.txt
+AArrayAi.xml</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The output is the same as for <code>fpp-filenames</code>, but this way you can
+run one tool (<code>fpp-depend</code>) instead of two (<code>fpp-depend</code> and
+<code>fpp-filenames</code>).
+Since FPP is implemented in Scala, and there is some overhead
+associated with starting up a tool, running <code>fpp-depend -g</code> <em>file</em>
+may help your build go faster.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="Analyzing-and-Translating-Models_Translating-XML-to-FPP">13.5. Translating XML to FPP</h3>
@@ -9244,16 +9793,6 @@ Its purpose is to address the following case:</p>
 language going forward.</p>
 </li>
 </ol>
-</div>
-<div class="paragraph">
-<p>Currently translation for types, enumerations, ports, and
-components is available.
-You can convert these elements of your XML model to FPP now.
-To integrate these elements with topologies written directly in XML, use the
-<a href="#Analyzing-and-Translating-Models_Generating-XML">FPP to XML translation
-described above</a> to generate XML from the FPP part.
-Later, when topologies are available in FPP, you can
-complete the translation.</p>
 </div>
 <div class="paragraph">
 <p>The XML-to-FPP translation is designed to do most of the work in translating an
@@ -9304,7 +9843,7 @@ if you provide no explicit default value, then an implicit default is used.
 By contrast, in F Prime XML, (1) you <em>must</em> supply default values for array
 elements, and (2) you <em>may not</em> supply default values for struct members
 or enumerations. (This is an inconsistency in the XML
-representation that we intend to fix in a future version of F Prime.)
+representation that we will fix in an upcoming version of F Prime.)
 To keep the translation simple, if default values are present in the XML
 representation, then <code>fpp-from-xml</code> translates them to explicit values,
 even if they could be made implicit.</p>
@@ -9585,14 +10124,40 @@ array A = [1] F32 default [
 </div>
 </div>
 <div class="paragraph">
-<p><strong>Import and include directives:</strong>
-Import and include directives appearing in the XML source are ignored
-in the translation.
+<p><strong>Import directives:</strong>
+XML directives that import symbols (such as <code>import_port_type</code>)
+are ignored in the translation.
 These directives represent dependencies between XML files, which
 become dependencies between FPP source files in the FPP translation.
 Once the XML-to-FPP translation is done, you can handle these
 dependencies in the ordinary way for FPP, as discussed in the
-section on <a href="#Specifying-Models">specifying models</a>.</p>
+section on <a href="#Specifying-Models-as-Files">specifying models as files</a>.</p>
+</div>
+<div class="paragraph">
+<p>XML directives that import XML dictionaries are translated
+to
+<a href="#Specifying-Models-as-Files_Include-Specifiers">include specifiers</a>.
+For example, suppose that <code>CComponentAi.xml</code> defines component <code>C</code>
+and contains the directive</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="xml">&lt;import_dictionary&gt;Commands.xml&lt;/import_dictionary&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Running <code>fpp-from-xml</code> on <code>CComponentAi.xml</code> produces an
+FPP definition of a component <code>C</code>; the component definition
+contains the include specifier</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">include "Commands.fppi"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Separately, you can use <code>fpp-to-xml</code> to translate <code>Commands.xml</code>
+to <code>Commands.fppi</code>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -9889,27 +10454,293 @@ You don&#8217;t have to define header files for these types.</p>
 <div class="sect2">
 <h3 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments">14.2. Implementing Deployments</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>At the highest level of an F Prime implementation, you write
+two units of C&#43;&#43; code:</p>
 </div>
-<div class="ulist">
-<ul>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>Main function</p>
+<p>Application-specific definitions visible
+both to the <code>main</code> function and to the auto-generated
+topology code.</p>
 </li>
 <li>
-<p>TopologyDefs.hpp and TopologyDefs.cpp</p>
-<div class="ulist">
-<ul>
+<p>The <code>main</code> function.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>We describe each of these code units below.</p>
+</div>
+<div class="sect3">
+<h4 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Application-Specific-Definitions">14.2.1. Application-Specific Definitions</h4>
+<div class="paragraph">
+<p>As discussed in the section on
+<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">generating C&#43;&#43; topology definitions</a>, when you translate an FPP
+topology <em>T</em> to C&#43;&#43;, the result goes into files
+<em>T</em> <code>TopologyAc.hpp</code> and <em>T</em> <code>TopologyAc.cpp</code>.
+The generated file <em>T</em> <code>TopologyAc.hpp</code> includes a file
+<em>T</em> <code>TopologyDefs.hpp</code>.
+The purpose of this file inclusion is as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>Health configuration</p>
+<p><em>T</em> <code>TopologyDefs.hpp</code> is not auto-generated.
+You must write it by hand as part of your C&#43;&#43; implementation.</p>
 </li>
 <li>
-<p>User-specified types, constants, and variables</p>
+<p>Because <em>T</em> <code>TopologyAc.cpp</code> includes <em>T</em> <code>TopologyAc.hpp</code>
+and <em>T</em> <code>TopologyAc.hpp</code> includes <em>T</em> <code>TopologyDefs.hpp</code>,
+the handwritten definitions in <em>T</em> <code>TopologyDefs.hpp</code> are visible
+to the auto-generated code in <em>T</em> <code>TopologyAc.hpp</code> and
+<code>TopologyAc.cpp</code>.</p>
 </li>
-</ul>
+<li>
+<p>You can also include <em>T</em> <code>TopologyDefs.hpp</code> in your main
+function (described in the next section) to make its
+definitions visible there.
+That way <code>main</code> and the auto-generated topology
+code can share these custom definitions.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><em>T</em> <code>TopologyDefs.hpp</code>
+must be located in the same directory where the topology <em>T</em> is defined.
+When writing the file <em>T</em> <code>TopologyDefs.hpp</code>, you should
+follow the description given below.</p>
+</div>
+<div class="paragraph">
+<p><strong>Topology state:</strong>
+<em>T</em> <code>TopologyDefs.hpp</code> must define a type
+<code>TopologyState</code> in the C&#43;&#43; namespace
+corresponding to the FPP module where the topology <em>T</em> is defined.
+For example, in <code>Ref/Top/topology.fpp</code> in the
+F Prime repository, the FPP topology <code>Ref</code> is defined in the FPP
+module <code>Ref</code>, and so in <code>RefTopologyDefs.hpp</code>, the type <code>TopologyState</code>
+is defined in the namespace <code>Ref</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>TopologyState</code> may be any type.
+Usually it is a struct or class.
+The C&#43;&#43; code generated by FPP passes a value <code>state</code> of type <code>TopologyState</code> into
+each of the functions for setting up and tearing down topologies.
+You can read this value in the code associated with your
+<a href="#Defining-Component-Instances_Init-Specifiers">init specifiers</a>.</p>
+</div>
+<div class="paragraph">
+<p>In the F Prime Ref example, <code>TopologyState</code>
+is a struct with two member variables: a C-style string
+<code>hostName</code> that stores a host name and <code>U32</code> value <code>portNumber</code>
+that stores a port number.
+The main function defined in <code>Main.cpp</code> parses the command-line
+arguments to the application, uses the result to create an object
+<code>state</code> of type <code>TopologyState</code>, and passes the <code>state</code> object
+into the functions for setting up and tearing down the topology.
+The <code>startTasks</code> phase for the <code>comm</code> function uses the <code>state</code>
+object in the following way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">init comm phase Fpp.ToCpp.Phases.startTasks """
+// Initialize socket server if and only if there is a valid specification
+if (state.hostName != NULL &amp;&amp; state.portNumber != 0) {
+    Fw::EightyCharString name("ReceiveTask");
+    // Uplink is configured for receive so a socket task is started
+    comm.configure(state.hostName, state.portNumber);
+    comm.startSocketTask(
+        name,
+        ConfigConstants::comm::PRIORITY,
+        ConfigConstants::comm::STACK_SIZE
+    );
+}
+"""</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this code snippet, the expressions <code>state.hostName</code> and <code>state.portNumber</code>
+refer to the <code>hostName</code> and <code>portNumber</code> member variables of the
+state object passed in from the main function.</p>
+</div>
+<div class="paragraph">
+<p>The <code>state</code> object is passed in to the setup and teardown functions
+via <code>const</code> reference.
+Therefore, you may read, but not write, the <code>state</code> object in the
+code associated with the init specifiers.</p>
+</div>
+<div class="paragraph">
+<p><strong>Health ping entries:</strong>
+If your topology uses an instance of the standard component <code>Svc::Health</code> for
+monitoring
+the health of components with threads, then <em>T</em> <code>TopologyDefs.hpp</code>
+must define the <strong>health ping entries</strong> used by the health component instance.
+The health ping entries specify the time in seconds to wait for the
+receipt of a health ping before declaring a timeout.
+For each component being monitored, there are two timeout intervals:
+a warning interval and a fatal interval.
+If the warning interval passes without a health ping, then a warning event occurs.
+If the fatal interval passes without a health ping, then a fatal event occurs.</p>
+</div>
+<div class="paragraph">
+<p>You must specify the health ping entries in the namespace corresponding
+to the FPP module where <em>T</em> is defined.
+To specify the health ping entries, you do the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open a namespace <code>PingEntries</code>.</p>
+</li>
+<li>
+<p>In that namespace, open a namespace corresponding to the name
+of each component instance with health ping ports.</p>
+</li>
+<li>
+<p>Inside namespace in item 2, define a C&#43;&#43; enumeration with
+the following constants <code>WARN</code> and <code>FATAL</code>.
+Set <code>WARN</code> equal to the warning interval for the enclosing
+component instance.
+Set <code>FATAL</code> equal to the fatal interval.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For example, here are the health ping entries from <code>Ref/Top/RefTopologyDefs.hpp</code>
+in the F Prime repository:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="cpp">namespace Ref {
+
+  ...
+
+  namespace PingEntries {
+    namespace blockDrv { enum { WARN = 3, FATAL = 5 }; }
+    namespace chanTlm { enum { WARN = 3, FATAL = 5 }; }
+    namespace cmdDisp { enum { WARN = 3, FATAL = 5 }; }
+    namespace cmdSeq { enum { WARN = 3, FATAL = 5 }; }
+    namespace eventLogger { enum { WARN = 3, FATAL = 5 }; }
+    namespace fileDownlink { enum { WARN = 3, FATAL = 5 }; }
+    namespace fileManager { enum { WARN = 3, FATAL = 5 }; }
+    namespace fileUplink { enum { WARN = 3, FATAL = 5 }; }
+    namespace pingRcvr { enum { WARN = 3, FATAL = 5 }; }
+    namespace prmDb { enum { WARN = 3, FATAL = 5 }; }
+    namespace rateGroup1Comp { enum { WARN = 3, FATAL = 5 }; }
+    namespace rateGroup2Comp { enum { WARN = 3, FATAL = 5 }; }
+    namespace rateGroup3Comp { enum { WARN = 3, FATAL = 5 }; }
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Other definitions:</strong>
+You can put any compile-time definitions you wish into <em>T</em> <code>TopologyAc.hpp</code>
+If you need link-time definitions (e.g., to declare variables with storage),
+you can put them in <em>T</em> <code>TopologyAc.cpp</code>, but this is not required.</p>
+</div>
+<div class="paragraph">
+<p>For example, <code>Ref/Top/RefTopologyAc.hpp</code> declares the following
+variables:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A variable <code>Ref::Allocation::mallocator</code> of type <code>Fw::MallocAllocator</code>.
+It provides an allocator used in the setup and teardown
+of several component instances.</p>
+</li>
+<li>
+<p>A component instance <code>blockDrv</code> of type <code>Drv::BlockDriver</code>.
+This is one of the component instances in the Ref topology.
+It is declared here, instead of being declared in <code>RefTopologyAc.cpp</code>,
+so that it is visible in the main function.
+In the <code>instances</code> phase, the init specifier for this instance
+overrides the standard instance declaration with a comment:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">init blockDrv phase Fpp.ToCpp.Phases.instances """
+// Declared in RefTopologyDefs.cpp
+"""</code></pre>
+</div>
 </div>
 </li>
-</ul>
+</ol>
+</div>
+<div class="paragraph">
+<p>Both of these declarations refer to link-time symbols; the
+corresponding link-time symbols are defined in
+<code>RefTopologyDefs.cpp</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments_The-Main-Function">14.2.2. The Main Function</h4>
+<div class="paragraph">
+<p>You must write a main function that performs application-specific
+and system-specific tasks such as parsing command-line arguments,
+handling signals, and returning a numeric code to the system on exit.
+Your main code can use the following public interface provided
+by <em>T</em> <code>TopologyAc.hpp</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="cpp">// ----------------------------------------------------------------------
+// Public interface functions
+// ----------------------------------------------------------------------
+
+//! Set up the topology
+void setup(
+    const TopologyState&amp; state //!&lt; The topology state
+);
+
+//! Tear down the topology
+void teardown(
+    const TopologyState&amp; state //!&lt; The topology state
+);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>These functions reside in the C&#43;&#43; namespace corresponding to
+the FPP module where the topology <em>T</em> is defined.</p>
+</div>
+<div class="paragraph">
+<p>On Linux, a typical main function might work this way:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Parse command-line arguments. Use the result to construct
+a <code>TopologyState</code> object <code>state</code>.</p>
+</li>
+<li>
+<p>Set up a signal handler to catch signals.</p>
+</li>
+<li>
+<p>Call <em>T</em> <code>::setup</code>, passing in the <code>state</code> object, to
+construct and initialize the topology.</p>
+</li>
+<li>
+<p>Start the topology running, e.g., by looping in the main thread
+until a signal is handled, or by calling a start function on a
+timer component.</p>
+</li>
+<li>
+<p>Call <em>T</em> <code>::teardown</code>, passing in the <code>state</code> object, to
+tear down the topology.</p>
+</li>
+<li>
+<p>Wait some time for all the threads to exit.</p>
+</li>
+<li>
+<p>Exit the main thread.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For an example like this, see <code>Ref/Top/Main.cpp</code> in the
+F Prime repository.</p>
+</div>
 </div>
 </div>
 </div>
@@ -9917,7 +10748,7 @@ You don&#8217;t have to define header files for these types.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-27 15:01:17 -0700
+Last updated 2021-08-20 14:41:38 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
