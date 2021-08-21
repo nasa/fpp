@@ -92,7 +92,7 @@ FPP uses the following logic when passing arguments through ports.
 |Non-primitive type |Pass by const reference |Pass by value
 |=======
 
-For asynchronous ports, arguments are always passed by value. For synchronous ports, primitive arguments pass by value and non-primitive types pass by const reference. The passing by const reference is an optimizaton to avoid copying large values between function calls. Primitive types are types that hold <<Defining-Constants_Expressions_Primitive-Values,primitive values>>. This pass by logic can be modified with reference parameters.
+For asynchronous ports, arguments are always passed by value. For synchronous ports, primitive arguments pass by value and non-primitive types pass by const reference. The passing by const reference is an optimization to avoid copying large values between function calls. Primitive types are types that hold <<Defining-Constants_Expressions_Primitive-Values,primitive values>>. This pass by logic can be modified with reference parameters.
 
 The following example illustrates how parameters are passed.
 
