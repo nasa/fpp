@@ -2521,31 +2521,6 @@ when translating to XML.
 In a future version of F Prime, we will correct this
 inconsistency.</p>
 </div>
-<div class="paragraph">
-<p><strong>XML limitation:</strong>
-When a struct type <code>S</code> contains an array member <code>m</code>,
-the F Prime XML autocoder
-does not provide a constructor for initializing <code>m</code> with a single
-element value.
-As a result, some combinations of nested types may not work properly.
-For example, this code is legal in FPP, but the generated C&#43;&#43; will
-not be correct:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">struct S {
-  x: [3] U32
-  y: F32
-}
-array A = [3] S</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The problem is that the constructor for <code>A</code>
-initializes its members with a constructor <code>S(0, 0)</code>
-that does not exist.
-In a future version of F Prime, we will correct this issue.</p>
-</div>
 </div>
 <div class="sect3">
 <h4 id="Defining-Types_Struct-Type-Definitions_Member-Format-Strings">6.2.5. Member Format Strings</h4>
@@ -10740,7 +10715,7 @@ F Prime repository.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-08-20 17:43:18 -0700
+Last updated 2021-08-21 15:55:36 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
