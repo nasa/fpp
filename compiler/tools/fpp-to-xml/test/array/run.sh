@@ -18,14 +18,14 @@ array_struct()
     diff_xml ArrayStructS1Serializable ArrayStructS2Serializable ArrayStruct1Array ArrayStruct2Array
 }
 
+array_struct_member_array()
+{
+  run_test "-p $PWD" array_struct_member_array && \
+    diff_xml ArrayStructMemberArraySerializable ArrayStructMemberArrayArray
+}
+
 built_in_type()
 {
   run_test "-p $PWD" built_in_type && \
     diff_xml BuiltInTypeArray
-}
-
-array_struct_with_array()
-{
-  run_test "-p $PWD" array_struct_with_array && \
-    diff_xml ArrayStructS3Serializable ArrayStruct3Array
 }

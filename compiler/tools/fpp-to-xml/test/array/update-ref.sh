@@ -19,14 +19,14 @@ array_struct()
   move_xml ArrayStructS1Serializable ArrayStructS2Serializable ArrayStruct1Array ArrayStruct2Array
 }
 
+
+array_struct_member_array()
+{
+  update "-p $PWD" array_struct_member_array
+  move_xml ArrayStructMemberArraySerializable ArrayStructMemberArrayArray
+}
 built_in_type()
 {
   update "-p $PWD" built_in_type
   move_xml BuiltInTypeArray
-}
-
-array_struct_with_array()
-{
-  update "-p $PWD" array_struct_with_array
-  move_xml ArrayStructS3Serializable ArrayStruct3Array
 }
