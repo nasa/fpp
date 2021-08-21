@@ -323,11 +323,11 @@ The file `Ref/Top/init.fpp` contains an instance definition
 [source,fpp]
 ----
 instance linuxTime: Svc.Time base id 0x4500 \
-  at "../../Svc/LinuxTime/LinuxTimeImpl.hpp"
+  at "../../Svc/LinuxTime/LinuxTime.hpp"
 ----
 
 This definition says to use implementation header file
-`Svc/LinuxTime/LinuxTimeImpl.hpp`.
+`Svc/LinuxTime/LinuxTime.hpp`.
 
 === Init Specifiers
 
@@ -560,10 +560,6 @@ enum {
 };
 """
 
-init cmdSeq phase Fpp.ToCpp.Phases.instances """
-Svc::CmdSequencerComponentImpl cmdSeq(FW_OPTIONAL_NAME("cmdSeq"));
-"""
-
 init cmdSeq phase Fpp.ToCpp.Phases.configComponents """
 cmdSeq.allocateBuffer(
     0,
@@ -579,9 +575,6 @@ cmdSeq.deallocateBuffer(Allocation::mallocator);
 
 The code for `configConstants` provides a constant `BUFFER_SIZE`
 that is used in the `configComponents` phase.
-The code for the `instances` phase provides the standard constructor,
-except that the name of the component type is `CmdSequencerComponentImpl`
-instead of `CmdSequencer`, so we have to write out the constructor.
 The code for `configComponents` calls `allocateBuffer`, passing
 in an allocator object that is declared elsewhere.
 (In the section on
@@ -598,7 +591,7 @@ database instance `prmDb` from the Ref deployment:
 [source,fpp]
 --------
 init prmDb phase Fpp.ToCpp.Phases.instances """
-Svc::PrmDbImpl prmDb(FW_OPTIONAL_NAME("prmDb"), "PrmDb.dat");
+Svc::PrmDb prmDb(FW_OPTIONAL_NAME("prmDb"), "PrmDb.dat");
 """
 
 init prmDb phase Fpp.ToCpp.Phases.readParameters """
@@ -614,5 +607,15 @@ from the file.
 As discussed above, this code is needed only for the parameter database
 instance.
 
+When writing init specifiers, you may read (but not modify) a special value
+`state` that you define in a handwritten main function.
+This value lets you pass application-specific information from the
+handwritten code to the auto-generated code.
+We will explain the special `state` value further in the
+section on <<Writing-C-Plus-Plus-Implementations_Implementing-Deployments,
+implementing deployments>>.
+
 For more examples of init specifiers in action, see the rest of
 the file `Ref/Top/init.fpp` in the F Prime repository.
+In particular, the init specifiers for the `comm` component
+use the `state` value that we just mentioned.

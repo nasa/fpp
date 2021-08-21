@@ -1,0 +1,15 @@
+= F Prime Prime (FPP)
+
+FPP is a modeling language for the https://nasa.github.io/fprime/[F Prime 
+flight software framework].
+To use FPP, you write a model in the source language; then you use the FPP 
+tools to generate XML and {cpp}. Compared to writing XML by hand, FPP provides 
+a cleaner and more succinct syntax, a well-defined semantics, good error 
+checking and reporting, and better integration between the model and the 
+generated code.
+
+For more information on FPP, see the following resources:
+
+* https://github.com/fprime-community/fpp[The FPP repository on GitHub].
+
+* https://github.com/fprime-community/fpp/wiki[The FPP wiki].
