@@ -2415,14 +2415,6 @@ then FPP will fill in the member and give it the default value:</p>
 <pre class="prettyprint highlight"><code data-lang="fpp">struct S2 { x: U32, y: string } default { x = "abc" } # Error: type of member x does not match</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p><strong>XML limitation:</strong>
-FPP structs are translated to F Prime Serializable XML types.
-The F Prime Serializable XML format does not support default
-values for the struct members.
-Therefore, any default values specified in FPP structs are ignored
-when translating to F Prime XML.</p>
-</div>
 </div>
 <div class="sect3">
 <h4 id="Defining-Types_Struct-Type-Definitions_Member-Arrays">6.2.4. Member Arrays</h4>
@@ -10748,7 +10740,7 @@ F Prime repository.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-08-20 14:41:38 -0700
+Last updated 2021-08-20 17:44:04 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
