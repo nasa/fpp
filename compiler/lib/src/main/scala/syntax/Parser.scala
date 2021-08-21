@@ -303,6 +303,8 @@ object Parser extends Parsers {
         Left(SyntaxError(loc,msg))
       }
       case Success(result, next) => Right(result)
+      // Suppress false compiler warning
+      case _ => throw new InternalError("This cannot happen")
     }
   }
 

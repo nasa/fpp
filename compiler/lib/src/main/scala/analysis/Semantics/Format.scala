@@ -112,6 +112,8 @@ object Format {
           Left(SemanticError.InvalidFormatString(loc, msg1))
         }
         case Success(result, _) => Right(result)
+        // Suppress false compiler warning
+        case _ => throw new InternalError("This cannot happen")
       }
     }
 

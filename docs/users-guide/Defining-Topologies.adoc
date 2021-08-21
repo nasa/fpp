@@ -227,7 +227,7 @@ connections Time {
 --------
 
 This works, but it is tedious and repetitive. So FPP provides
-a better way. Instead, you can use a *pattern graph specifier*
+a better way: you can use a *pattern graph specifier*
 to specify this common pattern.
 You can write
 
@@ -476,9 +476,10 @@ time connections instance sysTime { a, b }
 As discussed in the
 <<Defining-Components_Port-Instances_Arrays-of-Port-Instances,
 section on defining components>>,
-each port instance is actually an array of one or more port instances.
+each named port instance is actually an array of
+one or more port instances.
 When the size of the array exceeds one, you
-have to specify the port number (i.e., the array index)
+must specify the port number (i.e., the array index)
 of each connection going into or out of the port instance.
 In FPP, there are three ways to specify port numbers:
 explicit numbering, matched numbering, and general numbering.
@@ -631,7 +632,7 @@ connections Sequencer {
   cmdDisp.seqCmdStatus -> cmdSeq.cmdResponseIn
 }
 
-connection Uplink {
+connections Uplink {
   ...
   uplink.comOut -> cmdDisp.seqCmdBuff
   cmdDisp.seqCmdStatus -> uplink.cmdResponseIn
@@ -668,7 +669,7 @@ analysis.
 Automatic matched numbering works when each matched pair of connections
 goes between the same two components, one of which
 has a matched pair of ports.
-If the matching does not follow this pattern than automatic matched
+If the matching does not follow this pattern, then automatic matched
 numbering will not work, and you will need to use explicit port
 numbers to express the matching.
 For example, the Ref topology contains these connections:
@@ -733,10 +734,238 @@ a.p[1] -> c.p[0]
 
 === Importing Topologies
 
-==== Merging Connection Graphs
+It is often useful to decompose a flight software project
+into several topologies.
+For example, a project might have the following topologies:
 
-TODO
+. A topology for command and data handling (CDH) with
+components such as a command dispatcher, an event logger, a telemetry data 
+base,
+a parameter database, and components for managing files.
+
+. Various subsystem topologies, for example power, thermal,
+attitude control, etc.
+
+. A release topology.
+
+Each of the subsystem topologies might include the CDH topology.
+The release topology might include the CDH topology
+and each of the subsystem topologies.
+Further, to enable modular testing, it is useful for 
+each topology to be able to run on its own.
+
+In FPP, the way we accomplish these goals is to *import*
+one topology into another one.
+In this section of the User Guide, we explain how to do that.
+
+==== Importing Instances and Connections
+
+To import a topology `A` into a topology `B`, you write
+`import A` inside topology `B`, like this:
+
+[source,fpp]
+--------
+topology B {
+  
+  import A
+
+  ...
+
+}
+--------
+
+You may add instances and connections as usual to `B`, as shown
+by the dots.
+
+When you do this, the FPP translator does the following:
+
+. *Resolve `A`:* Resolve all pattern graph
+specifiers in `A`, and resolve all explicit port numbers in `A`.
+Call the resulting topology `T`.
+
+. *Form the instances of `B`:*
+Take the union of the instances specified in `T` and
+the instances specified in `B`, counting any duplicates once.
+These are the instances of `B`.
+
+. *Form the connections of `B`:*
+Take the union of the connection graphs specified in `T` and
+the connection graphs specified in `B`.
+If each of `T` and `B` has a connection between the same
+ports, then each becomes a separate connection in `B`.
+
+. *Resolve `B`:* Resolve the pattern graph specifies of `B`.
+Apply matched numbering and general numbering to `B`.
+
+For example, suppose topologies `A` and `B` are defined
+as follows:
+
+[source,fpp]
+--------
+topology A {
+
+  instance a
+  instance b
+
+  connections C1 {
+    a.p1 -> b.p
+  }
+
+}
+
+topology B {
+
+  import A
+
+  instance c
+
+  connections C1 {
+    a.p1 -> c.p
+  }
+
+  connections C2 {
+    a.p2 -> c.p
+  }
+
+}
+--------
+
+After import resolution, `B` is equivalent to this topology:
+
+[source,fpp]
+--------
+topology B {
+
+  instance a
+  instance b
+  instance c
+
+  connections C1 {
+    a.p1 -> b.p
+    a.p1 -> c.p
+  }
+
+  connections C2 {
+    a.p2 -> c.p
+  }
+
+}
+--------
+
+Notice that the `C1` connections of `A` are merged with the `C1`
+connections of `B`.
 
 ==== Private Instances
 
-TODO
+Often when importing topology `A` into topology `B`, you
+want to include one or more instances in `A` that exist just
+for running `A`, but that you don't want imported into `B`.
+For example, `A` could have an instance `cStub` which is a stub version of 
+a component `c` that is fully implemented in `B`.
+In this case
+
+* When running `A` you may need `cStub`; the topology
+may not run or may not even compile without it.
+
+* When importing `A` into `B` you don't want to import
+`cStub`, because it is superseded by the real implementation `c` in `B`.
+Also, any connections to `cStub` in `A` should be replaced
+by connections to `c` in `B`.
+
+To handle this case, you can make `cStub` a *private* instance
+of `A` and `c` an instance of `B`.
+When you import `B` into `A`, `cStub` will not become an instance
+of `B`.
+Further, no connections in `A` involving `cStub` will be imported
+into `B`.
+
+As an example, suppose we revise topology `A` from the previous
+section as follows:
+
+[source,fpp]
+--------
+topology A {
+
+  instance a
+  instance b
+  private instance d
+
+  connections C1 {
+    a.p1 -> b.p
+  }
+
+  connections C2 {
+    a.p1 -> d.p
+  }
+
+}
+--------
+
+Notice that we have added an instance `d` to topology
+`A`, and we have declared `d` private to `A`.
+We have also added a new connection to `d` in the
+connection graph `C2`.
+
+Now suppose that we use the same definition of `B` given 
+in the previous section.
+After import resolution, `B` will still be equivalent
+to the topology shown at the end of the last section:
+we have added an instance and a connection to `A`,
+but the instance is private and the connection goes
+from a private instance, so neither the instance nor
+the connection is imported into `B`.
+
+==== Multiple Imports
+
+Multiple imports are allowed.
+For example:
+
+[source,fpp]
+--------
+topology A {
+
+  import B
+  import C
+
+  ...
+
+}
+--------
+
+This has the obvious meaning: both topology `B` and
+topology `C` are imported into topology `A`, according
+to the rules described above.
+
+Each topology may appear at most once in the import list.
+For example, this is incorrect:
+
+[source,fpp]
+--------
+topology A {
+
+  import B
+  import B # Error: B imported twice
+
+}
+--------
+
+==== Transitive Imports
+
+In general, transitive imports are allowed.
+For example, topology `A` may import topology `B`,
+and topology `B` may import topology `C`.
+Resolution works bottom-up on the import graph:
+for example, first we resolve `C`, and then we resolve `B`,
+and then we resolve `A`.
+
+Cycles in the import graph are not allowed.
+For example, if `A` imports `B` and `B` imports `C`
+and `C` imports `A`, you will get an error.
+
+=== Include Specifiers
+
+You can include code from another file in a topology definition.
+You do this by writing an *include specifier*.
+We will explain more about this in the section on
+<<Specifying-Models-as-Files_Include-Specifiers,include specifiers>>
+below.

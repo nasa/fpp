@@ -521,7 +521,7 @@ In a future version of F Prime, we will correct this issue.
 ==== Member Format Strings
 
 For any struct member, you can include an optional format.
-To this, write the keyword `format` and a format string.
+To do this, write the keyword `format` and a format string.
 The format string for a struct member has the same form as for an
 <<Defining-Types_Array-Type-Definitions_Format-Strings,array member>>.
 For example, the following struct definition specifies
