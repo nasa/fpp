@@ -37,5 +37,5 @@ The second operation names `file.fpp` as an input file of `fpp-check`.
 Most of the examples in the following sections are complete FPP models.
 You can run the models through
 `fpp-check` by typing or pasting them into a file or into standard input.
-It is recommended that you to this for at least a few of the examples,
+We recommend that you to this for at least a few of the examples,
 to get a feel for how FPP works.

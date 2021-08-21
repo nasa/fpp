@@ -2,20 +2,24 @@ package fpp.compiler.tools
 
 import fpp.compiler.analysis._
 import fpp.compiler.ast._
+import fpp.compiler.codegen._
 import fpp.compiler.syntax._
+import fpp.compiler.transform._
 import fpp.compiler.util._
 import scopt.OParser
 
 object FPPDepend {
 
   case class Options(
+    directFile: Option[String] = None,
     files: List[File] = List(),
+    generatedFile: Option[String] = None,
     includedFile: Option[String] = None,
     missingFile: Option[String] = None
   )
 
-  def mapSet[T](set: Set[T], f: String => Unit) =
-    set.map(_.toString).toArray.sortWith(_ < _).map(f)
+  def mapIterable[T](it: Iterable[T], f: String => Unit) =
+    it.map(_.toString).toArray.sortWith(_ < _).map(f)
 
   def command(options: Options) = {
     val files = options.files.reverse match {
@@ -25,26 +29,40 @@ object FPPDepend {
     val a = Analysis(inputFileSet = options.files.toSet)
     for {
       tul <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
+      aTul <- ResolveSpecInclude.transformList(
+        a,
+        tul,
+        ResolveSpecInclude.transUnit
+      )
+      a <- Right(aTul._1)
+      tul <- Right(aTul._2)
       a <- ComputeDependencies.tuList(a, tul)
-      _ <- {
-        mapSet(a.dependencyFileSet, System.out.println(_))
-        options.includedFile match {
-          case Some(file) => writeFiles(a, a.includedFileSet, file)
-          case None => Right(())
-        }
-        options.missingFile match {
-          case Some(file) => writeFiles(a, a.missingDependencyFileSet, file)
-          case None => Right(())
-        }
+      _ <- options.directFile match {
+        case Some(file) => writeFiles(a.directDependencyFileSet, file)
+        case None => Right(())
       }
-    } yield ()
+      _ <- options.generatedFile match {
+        case Some(file) =>
+          for (files <- ComputeGeneratedFiles.getFiles(tul))
+            yield writeFiles(files, file)
+        case None => Right(())
+      }
+      _ <- options.includedFile match {
+        case Some(file) => writeFiles(a.includedFileSet, file)
+        case None => Right(())
+      }
+      _ <- options.missingFile match {
+        case Some(file) => writeFiles(a.missingDependencyFileSet, file)
+        case None => Right(())
+      }
+    } yield mapIterable(a.dependencyFileSet, System.out.println(_))
   }
 
-  def writeFiles(a: Analysis, files: Set[File], fileName: String): Result.Result[Unit] = {
+  def writeFiles[T](files: Iterable[T], fileName: String): Result.Result[Unit] = {
     val file = File.fromString(fileName)
     for { writer <- file.openWrite() 
     } yield { 
-      mapSet(files, writer.println(_))
+      mapIterable(files, writer.println(_))
       writer.close()
       ()
     }
@@ -73,7 +91,15 @@ object FPPDepend {
     import builder._
     OParser.sequence(
       programName(name),
-      head(name, "1.0.0"),
+      head(name, Version.v),
+      opt[String]('d', "direct")
+        .valueName("<file>")
+        .action((m, c) => c.copy(directFile = Some(m)))
+        .text("write direct dependencies to file"),
+      opt[String]('g', "generated")
+        .valueName("<file>")
+        .action((m, c) => c.copy(generatedFile = Some(m)))
+        .text("write names of generated files to file"),
       opt[String]('i', "included")
         .valueName("<file>")
         .action((m, c) => c.copy(includedFile = Some(m)))
