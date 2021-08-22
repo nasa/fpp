@@ -669,9 +669,8 @@ First, in FPP, every definition has a default value, but
 the default value need not be given explicitly:
 if you provide no explicit default value, then an implicit default is used.
 By contrast, in F Prime XML, (1) you _must_ supply default values for array
-elements, and (2) you _may not_ supply default values for struct members
-or enumerations. (This is an inconsistency in the XML 
-representation that we will fix in an upcoming version of F Prime.)
+elements, and (2) you _may_ supply default values for struct members
+or enumerations. 
 To keep the translation simple, if default values are present in the XML
 representation, then `fpp-from-xml` translates them to explicit values,
 even if they could be made implicit.
