@@ -474,10 +474,8 @@ struct S {
 } default { x = 10 }
 ----
 
-In principle, the member `x` of the struct `S` gets three copies of the value
+The member `x` of the struct `S` gets three copies of the value
 10 specified for `x` in the default value expression.
-However, as noted above, in any case the XML translation ignores
-this default value.
 
 *XML limitation:*
 The F Prime XML representation does not support arrays of
@@ -485,8 +483,7 @@ strings.
 Therefore, if you include a size expression in a struct
 member with `string` type, the size expression is ignored
 when translating to XML.
-In a future version of F Prime, we will correct this
-inconsistency.
+We will fix this inconsistency soon.
 
 ==== Member Format Strings
 
