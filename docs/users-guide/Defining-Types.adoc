@@ -488,29 +488,6 @@ when translating to XML.
 In a future version of F Prime, we will correct this
 inconsistency.
 
-*XML limitation:*
-When a struct type `S` contains an array member `m`,
-the F Prime XML autocoder 
-does not provide a constructor for initializing `m` with a single
-element value.
-As a result, some combinations of nested types may not work properly.
-For example, this code is legal in FPP, but the generated {cpp} will
-not be correct:
-
-[source,fpp]
-----
-struct S {
-  x: [3] U32
-  y: F32
-}
-array A = [3] S
-----
-
-The problem is that the constructor for `A`
-initializes its members with a constructor `S(0, 0)`
-that does not exist.
-In a future version of F Prime, we will correct this issue.
-
 ==== Member Format Strings
 
 For any struct member, you can include an optional format.
