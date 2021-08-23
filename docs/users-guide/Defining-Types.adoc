@@ -412,13 +412,6 @@ struct S1 { x: U32, y: string } default { z = 1 } # Error: member z does not mat
 struct S2 { x: U32, y: string } default { x = "abc" } # Error: type of member x does not match
 --------
 
-*XML limitation:*
-FPP structs are translated to F Prime Serializable XML types.
-The F Prime Serializable XML format does not support default
-values for the struct members.
-Therefore, any default values specified in FPP structs are ignored
-when translating to F Prime XML.
-
 ==== Member Arrays
 
 For any struct member, you can specify that the member
@@ -494,29 +487,6 @@ member with `string` type, the size expression is ignored
 when translating to XML.
 In a future version of F Prime, we will correct this
 inconsistency.
-
-*XML limitation:*
-When a struct type `S` contains an array member `m`,
-the F Prime XML autocoder 
-does not provide a constructor for initializing `m` with a single
-element value.
-As a result, some combinations of nested types may not work properly.
-For example, this code is legal in FPP, but the generated {cpp} will
-not be correct:
-
-[source,fpp]
-----
-struct S {
-  x: [3] U32
-  y: F32
-}
-array A = [3] S
-----
-
-The problem is that the constructor for `A`
-initializes its members with a constructor `S(0, 0)`
-that does not exist.
-In a future version of F Prime, we will correct this issue.
 
 ==== Member Format Strings
 

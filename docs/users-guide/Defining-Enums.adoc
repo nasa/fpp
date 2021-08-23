@@ -198,10 +198,3 @@ enum Decision { YES, NO, MAYBE } default MAYBE
 Notice that when using the constant `MAYBE` as a default value, we
 don't need to qualify it with the enum name, because the
 use appears inside the enum where it is defined.
-
-*XML limitation:*
-Until recently, the F Prime XML format did not represent default values
-for enums.
-Therefore, any default value that you specify in an enum
-definition is ignored when translating to XML.
-We will remove this limitation soon.

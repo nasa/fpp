@@ -1,3 +1,9 @@
+default()
+{
+  run_test '' default && \
+    diff DefaultEnumAi.xml DefaultEnumAi.ref.xml
+}
+
 explicit()
 {
   run_test '' explicit && \
