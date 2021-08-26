@@ -17,7 +17,6 @@ fi
 wd=`dirname $0`
 cd $wd
 
-
 dir=`dirname $dest`
 dir=`cd $dir; pwd`
 base=`basename $dest`
