@@ -93,7 +93,8 @@ object Ast {
     file: Option[AstNode[String]],
     queueSize: Option[AstNode[Expr]],
     stackSize: Option[AstNode[Expr]],
-    priority: Option[AstNode[Expr]]
+    priority: Option[AstNode[Expr]],
+    initSpecs: List[Annotated[AstNode[SpecInit]]]
   )
 
   /** Constant definition */
@@ -413,6 +414,12 @@ object Ast {
   final case class SpecInclude(file: AstNode[String])
 
   /** Init specifier */
+  final case class SpecInit(
+    phase: AstNode[Expr],
+    code: String
+  )
+
+  /** Old-style init specifier */
   final case class SpecInitOld(
     instance: AstNode[QualIdent],
     phase: AstNode[Expr],

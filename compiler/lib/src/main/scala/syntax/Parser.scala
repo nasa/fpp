@@ -76,13 +76,30 @@ object Parser extends Parsers {
   }
 
   def defComponentInstance: Parser[Ast.DefComponentInstance] = {
+    def initSpecSequence = {
+      def id(x: Ast.Annotated[AstNode[Ast.SpecInit]]) = x
+      opt(lbrace ~>! annotatedElementSequence(node(specInit), semi, id) <~! rbrace) ^^ {
+        case Some(elements) => elements
+        case None => Nil
+      }
+    }
     (instance ~>! ident) ~! (colon ~>! node(qualIdent)) ~! (base ~! id ~>! exprNode) ~!
     opt(at ~>! node(literalString)) ~!
     opt(queue ~! size ~>! exprNode) ~!
     opt(stack ~! size ~>! exprNode) ~!
-    opt(priority ~>! exprNode) ^^ {
-      case name ~ typeName ~ baseId ~ file ~ queueSize ~ stackSize ~ priority => 
-        Ast.DefComponentInstance(name, typeName, baseId, file, queueSize, stackSize, priority)
+    opt(priority ~>! exprNode) ~!
+    initSpecSequence ^^ {
+      case name ~ typeName ~ baseId ~ file ~ queueSize ~ stackSize ~ priority ~ initSpecSequence => 
+        Ast.DefComponentInstance(
+          name,
+          typeName,
+          baseId,
+          file,
+          queueSize,
+          stackSize,
+          priority,
+          initSpecSequence
+        )
     }
   }
 
@@ -405,6 +422,12 @@ object Parser extends Parsers {
 
   def specInclude: Parser[Ast.SpecInclude] = {
     include ~>! node(literalString) ^^ { case file => Ast.SpecInclude(file) }
+  }
+
+  def specInit: Parser[Ast.SpecInit] = {
+    (phase ~>! exprNode) ~! literalString ^^ {
+      case phase ~ code => Ast.SpecInit(phase, code)
+    }
   }
 
   def specInitOld: Parser[Ast.SpecInitOld] = {
