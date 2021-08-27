@@ -1,23 +1,17 @@
 === Init Specifiers
 
-An *init specifier* associates some initialization
-code with a 
+An *init specifier* associates some code with a 
 <<Definitions_Component-Instance-Definitions,
 component instance>>.
+Usually this is intialization code, hence the name.
+It may also serve another purpose (e.g., teardown).
 
 ==== Syntax
 
-`init` <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
 `phase` <<Expressions,_expression_>>
 <<Expressions_String-Literals,_string-literal_>>
 
 ==== Semantics
-
-* The qualified identifier must 
-<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
-a
-<<Definitions_Component-Instance-Definitions,
-component instance definition _D_>>.
 
 * The expression following the keyword `phase` must have
 a <<Types_Internal-Types_Numeric-Types,numeric type>>.
@@ -44,16 +38,27 @@ enum Phases {
   BEFORE_CONNECTIONS
   @ After connections are established
   AFTER_CONNECTIONS
+  @ When components are deallocated
+  TEARDOWN
 }
 
-init commandDispatcher phase BEFORE_CONNECTIONS \
-"""
-commandDispatcher.init(QueueDepth::commandDispatcher);
-"""
+instance commandDispatcher: Svc.CommandDispatcher \
+  base id 0x100 \
+  queue size 10 \
+  stack size 4096 \
+  priority 30 \
+{
+
+  phase BEFORE_CONNECTIONS  """
+  commandDispatcher.init(QueueDepth::commandDispatcher);
+  """
+
+}
 ----
 
 In this example, the code generator provides three phases,
-`CONSTRUCTION`, `BEFORE_CONNECTIONS`, and `AFTER_CONNECTIONS`.
+`CONSTRUCTION`, `BEFORE_CONNECTIONS`, `AFTER_CONNECTIONS`,
+and `TEARDOWN`.
 In the `CONSTRUCTION` phase, the code generator generates
 a default constructor invocation that looks like this:
 
@@ -62,7 +67,7 @@ a default constructor invocation that looks like this:
 Svc::CommandDispatcher commandDispatcher("commandDispatcher");
 ----
 
-By default, the code generator would generate this code
+By default, the code generator might generate this code
 to run before connections are established:
 
 [source,c++]

@@ -997,7 +997,6 @@ high
 id
 import
 include
-init
 input
 instance
 internal
@@ -1857,7 +1856,17 @@ that you can refer to in a
 <em>]</em>
 <em>[</em>
 <code>priority</code> <a href="#Expressions"><em>expression</em></a>
+<em>]</em>
+<em>[</em>
+<code>{</code> <em>init-specifier-sequence</em> <code>}</code>
 <em>]</em></p>
+</div>
+<div class="paragraph">
+<p><em>init-specifier-sequence</em> is an
+<a href="#Element-Sequences">element sequence</a> in
+which each element is an
+<a href="#Specifiers_Init-Specifiers">init specifier</a>,
+and the terminating punctuation is a semicolon.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1937,6 +1946,13 @@ have a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.
 It specifies the thread priority for active components.
 The priority is required for active components and is not allowed
 for queued or passive components.</p>
+</li>
+<li>
+<p>If present, the init specifiers govern C&#43;&#43; code generation for
+the component instance being defined.
+See the section on
+<a href="#Specifiers_Init-Specifiers">init specifiers</a>
+for further information.</p>
 </li>
 </ol>
 </div>
@@ -2259,9 +2275,6 @@ A module member is one of the following:</p>
 </li>
 <li>
 <p>An <a href="#Specifiers_Include-Specifiers">include specifier</a></p>
-</li>
-<li>
-<p>An <a href="#Specifiers_Init-Specifiers">init specifier</a></p>
 </li>
 </ul>
 </div>
@@ -3805,15 +3818,15 @@ b = M.a</code></pre>
 <div class="sect2">
 <h3 id="Specifiers_Init-Specifiers">6.6. Init Specifiers</h3>
 <div class="paragraph">
-<p>An <strong>init specifier</strong> associates some initialization
-code with a
-<a href="#Definitions_Component-Instance-Definitions">component instance</a>.</p>
+<p>An <strong>init specifier</strong> associates some code with a
+<a href="#Definitions_Component-Instance-Definitions">component instance</a>.
+Usually this is intialization code, hence the name.
+It may also serve another purpose (e.g., teardown).</p>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Init-Specifiers_Syntax">6.6.1. Syntax</h4>
 <div class="paragraph">
-<p><code>init</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a>
-<code>phase</code> <a href="#Expressions"><em>expression</em></a>
+<p><code>phase</code> <a href="#Expressions"><em>expression</em></a>
 <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </div>
 </div>
@@ -3821,12 +3834,6 @@ code with a
 <h4 id="Specifiers_Init-Specifiers_Semantics">6.6.2. Semantics</h4>
 <div class="ulist">
 <ul>
-<li>
-<p>The qualified identifier must
-<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
-a
-<a href="#Definitions_Component-Instance-Definitions">component instance definition <em>D</em></a>.</p>
-</li>
 <li>
 <p>The expression following the keyword <code>phase</code> must have
 a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.
@@ -3859,17 +3866,28 @@ enum Phases {
   BEFORE_CONNECTIONS
   @ After connections are established
   AFTER_CONNECTIONS
+  @ When components are deallocated
+  TEARDOWN
 }
 
-init commandDispatcher phase BEFORE_CONNECTIONS \
-"""
-commandDispatcher.init(QueueDepth::commandDispatcher);
-"""</code></pre>
+instance commandDispatcher: Svc.CommandDispatcher \
+  base id 0x100 \
+  queue size 10 \
+  stack size 4096 \
+  priority 30 \
+{
+
+  phase BEFORE_CONNECTIONS  """
+  commandDispatcher.init(QueueDepth::commandDispatcher);
+  """
+
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>In this example, the code generator provides three phases,
-<code>CONSTRUCTION</code>, <code>BEFORE_CONNECTIONS</code>, and <code>AFTER_CONNECTIONS</code>.
+<code>CONSTRUCTION</code>, <code>BEFORE_CONNECTIONS</code>, <code>AFTER_CONNECTIONS</code>,
+and <code>TEARDOWN</code>.
 In the <code>CONSTRUCTION</code> phase, the code generator generates
 a default constructor invocation that looks like this:</p>
 </div>
@@ -3879,7 +3897,7 @@ a default constructor invocation that looks like this:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>By default, the code generator would generate this code
+<p>By default, the code generator might generate this code
 to run before connections are established:</p>
 </div>
 <div class="listingblock">
@@ -8100,7 +8118,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-08-20 17:42:25 -0700
+Last updated 2021-08-27 14:53:53 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
