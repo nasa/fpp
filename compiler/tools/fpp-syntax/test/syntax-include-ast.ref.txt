@@ -158,6 +158,12 @@ def module
     queue size literal int 100
     stack size literal int 1024
     priority literal int 10
+    @ Init specifier
+    spec init
+      phase ident CONSTRUCTION
+      code line 1
+             line 2
+           line 3
   @< Component instance definition
   @ Constant definition
   def constant

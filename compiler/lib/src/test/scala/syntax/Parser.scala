@@ -106,6 +106,7 @@ class ParserSpec extends AnyWordSpec {
         "instance i: C base id 0x100 queue size 10",
         "instance i: C base id 0x100 queue size 10 stack size 1024 ",
         "instance i: C base id 0x100 queue size 10 stack size 1024 priority 3",
+        "instance i: C base id 0x100 queue size 10 stack size 1024 priority 3 { phase 0 \"code\" }",
       )
     )
   }

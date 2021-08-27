@@ -61,6 +61,8 @@ trait AstVisitor {
 
   def specIncludeAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecInclude]]): Out = default(in)
 
+  def specInitAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecInit]]): Out = default(in)
+
   def specInitOldAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecInitOld]]): Out = default(in)
 
   def specInternalPortAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecInternalPort]]): Out = default(in)

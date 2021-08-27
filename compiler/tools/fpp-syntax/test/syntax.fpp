@@ -56,7 +56,14 @@ module DefinitionsAndSpecifiers {
   @< Component definition
 
   @ Component instance definition
-  instance c: C base id 0x100 at "C.hpp" queue size 100 stack size 1024 priority 10
+  instance c: C base id 0x100 at "C.hpp" queue size 100 stack size 1024 priority 10 {
+    @ Init specifier
+    phase CONSTRUCTION """
+    line 1
+      line 2
+    line 3
+    """
+  }
   @< Component instance definition
 
   @ Constant definition

@@ -122,6 +122,11 @@ trait AstTransformer {
     node: Ast.Annotated[AstNode[Ast.SpecInclude]]
   ): ResultAnnotatedNode[Ast.SpecInclude] = Right(default(in), node)
 
+  def specInitAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.SpecInit]]
+  ): ResultAnnotatedNode[Ast.SpecInit] = Right(default(in), node)
+
   def specInitOldAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.SpecInitOld]]
