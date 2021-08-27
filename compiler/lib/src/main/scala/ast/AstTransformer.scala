@@ -122,10 +122,10 @@ trait AstTransformer {
     node: Ast.Annotated[AstNode[Ast.SpecInclude]]
   ): ResultAnnotatedNode[Ast.SpecInclude] = Right(default(in), node)
 
-  def specInitAnnotatedNode(
+  def specInitOldAnnotatedNode(
     in: In,
-    node: Ast.Annotated[AstNode[Ast.SpecInit]]
-  ): ResultAnnotatedNode[Ast.SpecInit] = Right(default(in), node)
+    node: Ast.Annotated[AstNode[Ast.SpecInitOld]]
+  ): ResultAnnotatedNode[Ast.SpecInitOld] = Right(default(in), node)
 
   def specInternalPortAnnotatedNode(
     in: In, 
@@ -270,8 +270,8 @@ trait AstTransformer {
         transform(defTopologyAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefTopology(_))
       case Ast.ModuleMember.SpecInclude(node1) => 
         transform(specIncludeAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.SpecInclude(_))
-      case Ast.ModuleMember.SpecInit(node1) => 
-        transform(specInitAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.SpecInit(_))
+      case Ast.ModuleMember.SpecInitOld(node1) => 
+        transform(specInitOldAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.SpecInitOld(_))
       case Ast.ModuleMember.SpecLoc(node1) => 
         transform(specLocAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.SpecLoc(_))
     }

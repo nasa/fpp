@@ -406,7 +406,7 @@ class ParserSpec extends AnyWordSpec {
 
   "spec init OK" should {
     parseAllOK(
-      Parser.specInit,
+      Parser.specInitOld,
       List(
         "init a.b phase 0 \"string\"",
       )

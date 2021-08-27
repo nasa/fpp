@@ -61,7 +61,7 @@ trait AstVisitor {
 
   def specIncludeAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecInclude]]): Out = default(in)
 
-  def specInitAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecInit]]): Out = default(in)
+  def specInitOldAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecInitOld]]): Out = default(in)
 
   def specInternalPortAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecInternalPort]]): Out = default(in)
 
@@ -137,7 +137,7 @@ trait AstVisitor {
       case Ast.ModuleMember.DefStruct(node1) => defStructAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.DefTopology(node1) => defTopologyAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.SpecInclude(node1) => specIncludeAnnotatedNode(in, (pre, node1, post))
-      case Ast.ModuleMember.SpecInit(node1) => specInitAnnotatedNode(in, (pre, node1, post))
+      case Ast.ModuleMember.SpecInitOld(node1) => specInitOldAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.SpecLoc(node1) => specLocAnnotatedNode(in, (pre, node1, post))
     }
   }

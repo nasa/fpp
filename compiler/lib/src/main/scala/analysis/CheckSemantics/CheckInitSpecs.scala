@@ -9,9 +9,9 @@ object CheckInitSpecs
   with ModuleAnalyzer
 {
 
-  override def specInitAnnotatedNode(
+  override def specInitOldAnnotatedNode(
     a: Analysis,
-    aNode: Ast.Annotated[AstNode[Ast.SpecInit]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecInitOld]]
   ) = for {
     is <- InitSpecifier.fromNode(a, aNode)
     map <- {

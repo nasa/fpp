@@ -331,9 +331,9 @@ object FppWriter extends AstVisitor with LineUtils {
     lines("include").join (" ") (string(data.file.data))
   }
 
-  override def specInitAnnotatedNode(
+  override def specInitOldAnnotatedNode(
     in: Unit,
-    aNode: Ast.Annotated[AstNode[Ast.SpecInit]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecInitOld]]
   ) = {
     val (_, node, _) = aNode
     val data = node.data

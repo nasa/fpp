@@ -156,7 +156,7 @@ trait TypeExpressionAnalyzer
     } yield a
   }
 
-  override def specInitAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecInit]]) = {
+  override def specInitOldAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecInitOld]]) = {
     val (_, node1, _) = node
     val data = node1.data
     exprNode(a, data.phase)

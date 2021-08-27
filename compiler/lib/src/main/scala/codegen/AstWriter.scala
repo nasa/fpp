@@ -316,9 +316,9 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("spec include") ++ fileString(data.file.data).map(indentIn)
   }
 
-  override def specInitAnnotatedNode(
+  override def specInitOldAnnotatedNode(
     in: Unit,
-    aNode: Ast.Annotated[AstNode[Ast.SpecInit]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecInitOld]]
   ) = {
     val (_, node, _) = aNode
     val data = node.data

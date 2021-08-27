@@ -5,7 +5,7 @@ import fpp.compiler.util._
 
 /** An FPP init specifier */
 final case class InitSpecifier(
-  aNode: Ast.Annotated[AstNode[Ast.SpecInit]],
+  aNode: Ast.Annotated[AstNode[Ast.SpecInitOld]],
   instance: ComponentInstance,
   phase: Int
 ) {
@@ -18,7 +18,7 @@ final case class InitSpecifier(
 object InitSpecifier {
 
   /** Creates an init specifier from an AST node */
-  def fromNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecInit]]): 
+  def fromNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecInitOld]]): 
     Result.Result[InitSpecifier] = {
       val node = aNode._2
       val data = node.data
