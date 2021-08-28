@@ -55,8 +55,20 @@ module DefinitionsAndSpecifiers {
   }
   @< Component definition
 
+  @ Simple component instance definition
+  instance c1: C1 base id 0x100
+  @< Simple component instance definition
+
   @ Component instance definition
-  instance c: C base id 0x100 at "C.hpp" queue size 100 stack size 1024 priority 10
+  instance c2: C2 base id 0x200 at "C2.hpp" queue size 100 stack size 1024 priority 10 {
+    @ Init specifier
+    phase CONSTRUCTION """
+    line 1
+      line 2
+    line 3
+    """
+    @< Init specifier
+  }
   @< Component instance definition
 
   @ Constant definition
@@ -92,6 +104,7 @@ module DefinitionsAndSpecifiers {
     line 2
   line 3
   """
+  @< Init specifier
 
   @ Port definition
   port P(a: U32, b: F32) -> U32
