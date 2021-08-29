@@ -135,7 +135,6 @@ object Ast {
     final case class DefStruct(node: AstNode[Ast.DefStruct]) extends Node
     final case class DefTopology(node: AstNode[Ast.DefTopology]) extends Node
     final case class SpecInclude(node: AstNode[Ast.SpecInclude]) extends Node
-    final case class SpecInitOld(node: AstNode[Ast.SpecInitOld]) extends Node
     final case class SpecLoc(node: AstNode[Ast.SpecLoc]) extends Node
   }
 
@@ -415,13 +414,6 @@ object Ast {
 
   /** Init specifier */
   final case class SpecInit(
-    phase: AstNode[Expr],
-    code: String
-  )
-
-  /** Old-style init specifier */
-  final case class SpecInitOld(
-    instance: AstNode[QualIdent],
     phase: AstNode[Expr],
     code: String
   )

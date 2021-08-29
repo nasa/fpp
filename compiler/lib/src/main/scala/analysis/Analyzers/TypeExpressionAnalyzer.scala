@@ -162,12 +162,6 @@ trait TypeExpressionAnalyzer
     exprNode(a, data.phase)
   }
 
-  override def specInitOldAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecInitOld]]) = {
-    val (_, node1, _) = node
-    val data = node1.data
-    exprNode(a, data.phase)
-  }
-
   override def specInternalPortAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecInternalPort]]) = {
     val (_, node1, _) = node
     val data = node1.data

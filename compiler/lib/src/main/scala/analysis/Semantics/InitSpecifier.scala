@@ -30,19 +30,4 @@ object InitSpecifier {
       yield InitSpecifier(aNode, instance, phase)
     }
 
-  /** Creates an init specifier from an old-style AST node */
-  def fromOldNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecInitOld]]):
-    Result.Result[InitSpecifier] = {
-      val node = aNode._2
-      val data = node.data
-      val specInit = Ast.SpecInit(data.phase, data.code)
-      val specInitNode = AstNode.create(specInit, node.id)
-      val specInitANode = (aNode._1, specInitNode, aNode._3)
-      for {
-        instance <- a.getComponentInstance(data.instance.id)
-        phase <- a.getIntValue(data.phase.id)
-      }
-      yield InitSpecifier(specInitANode, instance, phase)
-    }
-
 }

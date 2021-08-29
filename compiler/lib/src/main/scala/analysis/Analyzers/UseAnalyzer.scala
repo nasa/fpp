@@ -83,15 +83,6 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
     }
   }
 
-  override def specInitOldAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecInitOld]]) = {
-    val (_, node1, _) = node
-    val data = node1.data
-    for {
-      a <- qualIdentNode (componentInstanceUse) (a, data.instance)
-      a <- exprNode(a, data.phase)
-    } yield a
-  }
-
   override def specPortInstanceAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]]) = {
     val (_, node, _) = aNode
     val data = node.data
