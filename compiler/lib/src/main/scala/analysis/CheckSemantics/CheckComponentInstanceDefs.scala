@@ -12,17 +12,36 @@ object CheckComponentInstanceDefs
   override def defComponentInstanceAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefComponentInstance]]
-  ) = for {
-    componentInstance <- ComponentInstance.fromDefComponentInstance(
-      a,
-      aNode
-    )
-  }
-  yield {
-    val symbol = Symbol.ComponentInstance(aNode)
-    val map = a.componentInstanceMap + (symbol -> componentInstance)
-    a.copy(componentInstanceMap = map)
-  }
+  ) =
+    for {
+      ci <- ComponentInstance.fromDefComponentInstance(
+        a,
+        aNode
+      )
+      a <- visitList(
+        a.copy(componentInstance = Some(ci)),
+        aNode._2.data.initSpecs,
+        specInitAnnotatedNode
+      )
+    }
+    yield {
+      val symbol = Symbol.ComponentInstance(aNode)
+      val map = a.componentInstanceMap + (symbol -> a.componentInstance.get)
+      a.copy(componentInstanceMap = map)
+    }
+
+  override def specInitAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecInit]]
+  ) =
+    for {
+      ci <- Right(a.componentInstance.get)
+      is <- InitSpecifier.fromNode(a, ci, aNode)
+      ci <- ci.addInitSpecifier(is)
+    }
+    yield {
+      a.copy(componentInstance = Some(ci))
+    }
 
   /** Ensure that ID ranges do not overlap */
   def checkIdRanges(a: Analysis): Result.Result[Unit] = {
