@@ -13,7 +13,7 @@ object CheckInitSpecs
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecInitOld]]
   ) = for {
-    is <- InitSpecifier.fromNode(a, aNode)
+    is <- InitSpecifier.fromOldNode(a, aNode)
     map <- {
       val map1 = a.initSpecifierMap.getOrElse(is.instance, Map())
       map1.get(is.phase) match {
