@@ -204,14 +204,6 @@ def module
     ident x
     literal int 0
   @< Included constant
-  @ Init specifier
-  spec init
-    instance qual ident i
-    phase ident CONSTRUCTION
-    code line 1
-           line 2
-         line 3
-  @< Init specifier
   @ Port definition
   def port
     ident P

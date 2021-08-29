@@ -126,13 +126,6 @@ module DefinitionsAndSpecifiers {
   @ Included constant
   constant x = 0 @< Included constant
 
-  @ Init specifier
-  init i phase CONSTRUCTION """
-                            line 1
-                              line 2
-                            line 3
-                            """ @< Init specifier
-
   @ Port definition
   port P(
           a: U32

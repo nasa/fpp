@@ -270,7 +270,6 @@ object Parser extends Parsers {
     node(defStruct) ^^ { case n => Ast.ModuleMember.DefStruct(n) } |
     node(defTopology) ^^ { case n => Ast.ModuleMember.DefTopology(n) } |
     node(specInclude) ^^ { case n => Ast.ModuleMember.SpecInclude(n) } |
-    node(specInitOld) ^^ { case n => Ast.ModuleMember.SpecInitOld(n) } |
     node(specLoc) ^^ { case n => Ast.ModuleMember.SpecLoc(n) } |
     failure("module member expected")
   }
@@ -427,12 +426,6 @@ object Parser extends Parsers {
   def specInit: Parser[Ast.SpecInit] = {
     (phase ~>! exprNode) ~! literalString ^^ {
       case phase ~ code => Ast.SpecInit(phase, code)
-    }
-  }
-
-  def specInitOld: Parser[Ast.SpecInitOld] = {
-    (init ~>! node(qualIdent)) ~! (phase ~>! exprNode) ~! literalString ^^ {
-      case instance ~ phase ~ code => Ast.SpecInitOld(instance, phase, code)
     }
   }
 

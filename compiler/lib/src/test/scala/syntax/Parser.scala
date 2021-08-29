@@ -154,7 +154,6 @@ class ParserSpec extends AnyWordSpec {
           array A = [10] U32
           enum E { X, Y }
           include "a.fpp"
-          init i phase P "x = 5"
         }""",
         """module M {
           @ Pre
@@ -405,15 +404,6 @@ class ParserSpec extends AnyWordSpec {
     )
   }
 
-  "spec init OK" should {
-    parseAllOK(
-      Parser.specInitOld,
-      List(
-        "init a.b phase 0 \"string\"",
-      )
-    )
-  }
-
   "spec internal port OK" should {
     parseAllOK(
       Parser.specInternalPort,
@@ -604,7 +594,6 @@ class ParserSpec extends AnyWordSpec {
         array A = [10] U32
         enum E { X, Y }
         include "a.fpp"
-        init i phase P "x = 5"
         """,
         """
         @ Pre

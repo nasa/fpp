@@ -98,14 +98,6 @@ module DefinitionsAndSpecifiers {
   include "constant.fppi"
   @< Include specifier
 
-  @ Init specifier
-  init i phase CONSTRUCTION """
-  line 1
-    line 2
-  line 3
-  """
-  @< Init specifier
-
   @ Port definition
   port P(a: U32, b: F32) -> U32
   @< Port definition

@@ -1,5 +1,0 @@
-fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/spec_init_old/undef_phase.fpp: 7.14
-init c phase P "c phase P"
-             ^
-error: undefined symbol P
