@@ -65,6 +65,7 @@ trait TypeExpressionAnalyzer
       a <- opt(exprNode)(a, data.queueSize)
       a <- opt(exprNode)(a, data.stackSize)
       a <- opt(exprNode)(a, data.priority)
+      a <- visitList(a, data.initSpecs, specInitAnnotatedNode)
     } yield a
   }
 
@@ -154,6 +155,11 @@ trait TypeExpressionAnalyzer
       a <- opt(exprNode)(a, data.id)
       a <- opt(exprNode)(a, data.throttle)
     } yield a
+  }
+
+  override def specInitAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecInit]]) = {
+    val data = aNode._2.data
+    exprNode(a, data.phase)
   }
 
   override def specInitOldAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecInitOld]]) = {
