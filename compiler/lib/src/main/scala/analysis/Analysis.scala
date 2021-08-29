@@ -61,7 +61,9 @@ case class Analysis(
   topologyMap: Map[Symbol.Topology, Topology] = Map(),
   /** The topology currently under construction */
   topology: Option[Topology] = None,
-  /** The map from component instance symbols to phases to init specifiers */
+  /** The component instance being analyzed */
+  componentInstance: Option[ComponentInstance] = None,
+  /** The map from component instances to phases to init specifiers */
   initSpecifierMap: Map[ComponentInstance, Map[Int, InitSpecifier]] = Map()
 ) {
 
