@@ -34,7 +34,9 @@ active component C3 {
   time get port timeGetOut
 }
 
-instance c12: C1 base id 0x200
+instance c12: C1 base id 0x200 {
+  phase Phases.setup "code"
+}
 
 topology T2 {
   import T1
@@ -43,7 +45,9 @@ topology T2 {
 
 module M {
 
-  instance c12: C1 base id 0x200
+  instance c12: C1 base id 0x200 {
+    phase Phases.teardown "code"
+  }
 
   topology T2 {
     import T1
