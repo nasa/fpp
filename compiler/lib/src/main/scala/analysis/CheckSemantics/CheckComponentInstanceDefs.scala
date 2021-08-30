@@ -35,9 +35,8 @@ object CheckComponentInstanceDefs
     aNode: Ast.Annotated[AstNode[Ast.SpecInit]]
   ) =
     for {
-      ci <- Right(a.componentInstance.get)
-      is <- InitSpecifier.fromNode(a, ci, aNode)
-      ci <- ci.addInitSpecifier(is)
+      is <- InitSpecifier.fromNode(a, aNode)
+      ci <- a.componentInstance.get.addInitSpecifier(is)
     }
     yield {
       a.copy(componentInstance = Some(ci))
