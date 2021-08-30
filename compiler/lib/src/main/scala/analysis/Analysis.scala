@@ -63,8 +63,6 @@ case class Analysis(
   topology: Option[Topology] = None,
   /** The component instance being analyzed */
   componentInstance: Option[ComponentInstance] = None,
-  /** The map from component instances to phases to init specifiers */
-  initSpecifierMap: Map[ComponentInstance, Map[Int, InitSpecifier]] = Map()
 ) {
 
   /** Gets the qualified name of a symbol */
