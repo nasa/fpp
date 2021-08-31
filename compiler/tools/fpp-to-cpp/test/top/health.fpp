@@ -16,13 +16,16 @@ module M {
   }
 
   instance $health: Svc.Health base id 0x100 \
-    at "HealthImpl.hpp"
+    at "HealthImpl.hpp" {
+
+    phase Phases.instances """
+    Svc::HealthImpl health(FW_OPTIONAL_NAME("health"));
+    """
+
+  }
+
   instance c1: C base id 0x200
   instance c2: C base id 0x300
-
-  init $health phase Phases.instances """
-  Svc::HealthImpl health(FW_OPTIONAL_NAME("health"));
-  """
 
   topology Health {
     instance $health

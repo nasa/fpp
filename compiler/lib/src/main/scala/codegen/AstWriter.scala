@@ -62,6 +62,7 @@ object AstWriter extends AstVisitor with LineUtils {
       linesOpt(addPrefix("queue size", exprNode), data.queueSize),
       linesOpt(addPrefix("stack size", exprNode), data.stackSize),
       linesOpt(addPrefix("priority", exprNode), data.priority),
+      data.initSpecs.map(annotateNode(specInit)).flatten
     ).flatten.map(indentIn)
   }
 
@@ -314,20 +315,6 @@ object AstWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines("spec include") ++ fileString(data.file.data).map(indentIn)
-  }
-
-  override def specInitAnnotatedNode(
-    in: Unit,
-    aNode: Ast.Annotated[AstNode[Ast.SpecInit]]
-  ) = {
-    val (_, node, _) = aNode
-    val data = node.data
-    lines("spec init") ++
-    List(
-      addPrefix("instance", qualIdent) (data.instance.data),
-      addPrefix("phase", exprNode) (data.phase),
-      addPrefix("code", string) (data.code)
-    ).flatten.map(indentIn)
   }
 
   override def specInternalPortAnnotatedNode(
@@ -589,6 +576,14 @@ object AstWriter extends AstVisitor with LineUtils {
   private def queueFull(qf: Ast.QueueFull) = {
     val s = qf.toString
     lines(s"queue full $s")
+  }
+
+  private def specInit(si: Ast.SpecInit) = {
+    lines("spec init") ++
+    List(
+      addPrefix("phase", exprNode) (si.phase),
+      addPrefix("code", string) (si.code)
+    ).flatten.map(indentIn)
   }
 
   private def string(s: String) = s.split('\n').map(line).toList

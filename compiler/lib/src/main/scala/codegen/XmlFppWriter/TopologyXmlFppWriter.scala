@@ -54,7 +54,8 @@ object TopologyXmlFppWriter extends LineUtils {
             None,
             None,
             None,
-            None
+            None,
+            Nil
           ),
           Nil
         )

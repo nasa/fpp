@@ -93,7 +93,8 @@ object Ast {
     file: Option[AstNode[String]],
     queueSize: Option[AstNode[Expr]],
     stackSize: Option[AstNode[Expr]],
-    priority: Option[AstNode[Expr]]
+    priority: Option[AstNode[Expr]],
+    initSpecs: List[Annotated[AstNode[SpecInit]]]
   )
 
   /** Constant definition */
@@ -134,7 +135,6 @@ object Ast {
     final case class DefStruct(node: AstNode[Ast.DefStruct]) extends Node
     final case class DefTopology(node: AstNode[Ast.DefTopology]) extends Node
     final case class SpecInclude(node: AstNode[Ast.SpecInclude]) extends Node
-    final case class SpecInit(node: AstNode[Ast.SpecInit]) extends Node
     final case class SpecLoc(node: AstNode[Ast.SpecLoc]) extends Node
   }
 
@@ -414,7 +414,6 @@ object Ast {
 
   /** Init specifier */
   final case class SpecInit(
-    instance: AstNode[QualIdent],
     phase: AstNode[Expr],
     code: String
   )

@@ -13,10 +13,26 @@ final case class ComponentInstance(
   file: Option[String],
   queueSize: Option[Int],
   stackSize: Option[Int],
-  priority: Option[Int]
+  priority: Option[Int],
+  initSpecifierMap: Map[Int, InitSpecifier] = Map()
 ) extends Ordered[ComponentInstance] {
 
   override def toString = qualifiedName.toString
+
+  /** Adds an init specifier */
+  def addInitSpecifier(initSpecifier: InitSpecifier):
+  Result.Result[ComponentInstance] = {
+    val phase = initSpecifier.phase
+    initSpecifierMap.get(initSpecifier.phase) match {
+      case Some(prevSpec) =>
+        val loc = initSpecifier.getLoc
+        val prevLoc = prevSpec.getLoc
+        Left(SemanticError.DuplicateInitSpecifier(phase, loc, prevLoc))
+      case None =>
+        val map = initSpecifierMap + (phase -> initSpecifier)
+        Right(this.copy(initSpecifierMap = map))
+    }
+  }
 
   /** Gets the unqualified name of the component instance */
   def getUnqualifiedName = aNode._2.data.name

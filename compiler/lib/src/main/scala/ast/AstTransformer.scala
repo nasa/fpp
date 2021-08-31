@@ -270,8 +270,6 @@ trait AstTransformer {
         transform(defTopologyAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefTopology(_))
       case Ast.ModuleMember.SpecInclude(node1) => 
         transform(specIncludeAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.SpecInclude(_))
-      case Ast.ModuleMember.SpecInit(node1) => 
-        transform(specInitAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.SpecInit(_))
       case Ast.ModuleMember.SpecLoc(node1) => 
         transform(specLocAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.SpecLoc(_))
     }

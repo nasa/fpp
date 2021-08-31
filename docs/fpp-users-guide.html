@@ -588,13 +588,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Component-Instances_Component-Instance-Definitions_Passive-Components">10.1.1. Passive Components</a></li>
 <li><a href="#Defining-Component-Instances_Component-Instance-Definitions_Queued-Components">10.1.2. Queued Components</a></li>
 <li><a href="#Defining-Component-Instances_Component-Instance-Definitions_Active-Components">10.1.3. Active Components</a></li>
-<li><a href="#Defining-Component-Instances_Component-Instance-Definitions_Specifying-Header-Files">10.1.4. Specifying Header Files</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Component-Instances_Init-Specifiers">10.2. Init Specifiers</a>
+<li><a href="#Defining-Component-Instances_Specifying-Header-Files">10.2. Specifying Header Files</a></li>
+<li><a href="#Defining-Component-Instances_Init-Specifiers">10.3. Init Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Defining-Component-Instances_Init-Specifiers_Phases">10.2.1. Phases</a></li>
-<li><a href="#Defining-Component-Instances_Init-Specifiers_Writing-Init-Specifiers">10.2.2. Writing Init Specifiers</a></li>
+<li><a href="#Defining-Component-Instances_Init-Specifiers_Execution-Phases">10.3.1. Execution Phases</a></li>
+<li><a href="#Defining-Component-Instances_Init-Specifiers_Writing-Init-Specifiers">10.3.2. Writing Init Specifiers</a></li>
 </ul>
 </li>
 </ul>
@@ -6235,8 +6235,9 @@ We have used
 the default queue and stack sizes.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="Defining-Component-Instances_Component-Instance-Definitions_Specifying-Header-Files">10.1.4. Specifying Header Files</h4>
+</div>
+<div class="sect2">
+<h3 id="Defining-Component-Instances_Specifying-Header-Files">10.2. Specifying Header Files</h3>
 <div class="paragraph">
 <p>When you define a component instance <em>I</em>, the FPP translator needs
 to locate the header file for the C&#43;&#43;
@@ -6252,7 +6253,7 @@ conforms to the following rules:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The header file is named <code>Name.fpp</code>, where <code>Name</code>
+<p>The name of the header file is <code>Name.hpp</code>, where <code>Name</code>
 is the name of the component in the FPP model, without
 any module qualifiers.</p>
 </li>
@@ -6265,7 +6266,7 @@ source file that defines the component.</p>
 </div>
 <div class="paragraph">
 <p>For example, the F Prime repository contains a reference FSW implementation
-with instances defined in the file <code>Ref/Top/init.fpp</code>.
+with instances defined in the file <code>Ref/Top/instances.fpp</code>.
 One of the instances is <code>SG1</code>.
 Its definition reads as follows:</p>
 </div>
@@ -6309,8 +6310,8 @@ in a different directory.</p>
 <div class="paragraph">
 <p>The F Prime repository also provides a Linux-specific implementation
 of the <code>Time</code> component in the directory <code>Svc/LinuxTime</code>.
-The file <code>Ref/Top/init.fpp</code> contains an instance definition
-<code>linuxTime</code> that reads as follows:</p>
+The file <code>Ref/Top/instances.fpp</code> contains an instance definition
+<code>linuxTime</code> that reads in part as follows:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -6323,9 +6324,8 @@ The file <code>Ref/Top/init.fpp</code> contains an instance definition
 <code>Svc/LinuxTime/LinuxTime.hpp</code>.</p>
 </div>
 </div>
-</div>
 <div class="sect2">
-<h3 id="Defining-Component-Instances_Init-Specifiers">10.2. Init Specifiers</h3>
+<h3 id="Defining-Component-Instances_Init-Specifiers">10.3. Init Specifiers</h3>
 <div class="paragraph">
 <p>In an F Prime FSW application, each component instance <em>I</em>
 has some associated C&#43;&#43; code
@@ -6342,10 +6342,10 @@ instead, you have to provide
 the function call directly in C&#43;&#43;.</p>
 </div>
 <div class="paragraph">
-<p>To do this, you use an <strong>init specifier</strong>.
-An init specifier names a
-<a href="#Defining-Component-Instances_Component-Instance-Definitions">component instance definition</a>, names a phase
-of the setup or teardown process, and
+<p>To do this, you write one or more <strong>init specifiers</strong>
+as part of a component instance definition.
+An init specifier names a phase
+of the setup or teardown process and
 provides a snippet of literal C&#43;&#43; code.
 The FPP translator pastes the snippet into the setup
 or teardown code according to the phase named in
@@ -6356,7 +6356,7 @@ However, most of the code is in fact initialization code,
 and so FPP uses "init" as a shorthand name.)</p>
 </div>
 <div class="sect3">
-<h4 id="Defining-Component-Instances_Init-Specifiers_Phases">10.2.1. Phases</h4>
+<h4 id="Defining-Component-Instances_Init-Specifiers_Execution-Phases">10.3.1. Execution Phases</h4>
 <div class="paragraph">
 <p>The FPP translator uses init specifiers when it generates
 code for an F Prime topology.
@@ -6382,8 +6382,8 @@ files <em>T</em> <code>TopologyAc.hpp</code> and <em>T</em> <code>TopologyAc.cpp
 </div>
 <div class="paragraph">
 <p>The generated code in <em>T</em> <code>TopologyAc.hpp</code> and <em>T</em> <code>TopologyAc.cpp</code>
-is divided into several phases.
-Table <a href="#init-specifier-phases">Init Specifier Phases</a> shows the phases
+is divided into several phases of execution.
+Table <a href="#execution-phases">Execution Phases</a> shows the execution phases
 recognized by the FPP code generator.
 In this table, <em>T</em> is the name of a topology and <em>I</em> is the
 name of a component instance.
@@ -6392,7 +6392,7 @@ The columns of the table have the following meanings:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Phase:</strong> The symbol denoting the setup or teardown phase.
+<p><strong>Phase:</strong> The symbol denoting the execution phase.
 These symbols are the enumerated constants of the
 <a href="#Defining-Enums">enum</a> <code>Fpp.ToCpp.Phases</code> defined in
 <code>Fpp/ToCpp.fpp</code> in the F Prime repository.</p>
@@ -6420,8 +6420,8 @@ default code.</p>
 </li>
 </ul>
 </div>
-<table id="init-specifier-phases" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. Init Specifier Phases</caption>
+<table id="execution-phases" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Execution Phases</caption>
 <colgroup>
 <col style="width: 20%;">
 <col style="width: 20%;">
@@ -6571,25 +6571,27 @@ instance needs to deallocate memory or release resources on program exit.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Component-Instances_Init-Specifiers_Writing-Init-Specifiers">10.2.2. Writing Init Specifiers</h4>
+<h4 id="Defining-Component-Instances_Init-Specifiers_Writing-Init-Specifiers">10.3.2. Writing Init Specifiers</h4>
+<div class="paragraph">
+<p>You may write one or more init specifiers as part of a component
+instance definition.
+The instance specifiers, if any, come at the end of the
+definition and must be enclosed in curly braces.
+The instances specifiers form an
+<a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">element sequence</a>
+with a semicolon as the optional terminating punctuation.</p>
+</div>
 <div class="paragraph">
 <p>To write an init specifier, you write the following:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The keyword <code>init</code>.</p>
-</li>
-<li>
-<p>The name of a
-<a href="#Defining-Component-Instances_Component-Instance-Definitions">component instance</a>.</p>
-</li>
-<li>
 <p>The keyword <code>phase</code>.</p>
 </li>
 <li>
 <p>The
-<a href="#Defining-Component-Instances_Init-Specifiers_Phases">phase</a>
+<a href="#Defining-Component-Instances_Init-Specifiers_Execution-Phases">execution phase</a>
 of the init specifier.</p>
 </li>
 <li>
@@ -6604,29 +6606,37 @@ that provides the code snippet.</p>
 for the code snippet.</p>
 </div>
 <div class="paragraph">
-<p>As an example, here are the init specifiers for the
+<p>As an example, here is the component instance definition for the
 command sequencer instance <code>cmdSeq</code> from the F Prime reference
-deployment located at <code>Ref/Top/init.fpp</code>:</p>
+deployment located at <code>Ref/Top/instances.fpp</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">init cmdSeq phase Fpp.ToCpp.Phases.configConstants """
-enum {
-  BUFFER_SIZE = 5*1024
-};
-"""
+<pre class="prettyprint highlight"><code data-lang="fpp">instance cmdSeq: Svc.CmdSequencer base id 0x0600 \
+  queue size Default.queueSize \
+  stack size Default.stackSize \
+  priority 100 \
+{
 
-init cmdSeq phase Fpp.ToCpp.Phases.configComponents """
-cmdSeq.allocateBuffer(
-    0,
-    Allocation::mallocator,
-    ConfigConstants::cmdSeq::BUFFER_SIZE
-);
-"""
+  phase Fpp.ToCpp.Phases.configConstants """
+  enum {
+    BUFFER_SIZE = 5*1024
+  };
+  """
 
-init cmdSeq phase Fpp.ToCpp.Phases.tearDownComponents """
-cmdSeq.deallocateBuffer(Allocation::mallocator);
-"""</code></pre>
+  phase Fpp.ToCpp.Phases.configComponents """
+  cmdSeq.allocateBuffer(
+      0,
+      Allocation::mallocator,
+      ConfigConstants::cmdSeq::BUFFER_SIZE
+  );
+  """
+
+  phase Fpp.ToCpp.Phases.tearDownComponents """
+  cmdSeq.deallocateBuffer(Allocation::mallocator);
+  """
+
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -6642,25 +6652,33 @@ deallocate the sequence buffer, passing in the allocator
 object again.</p>
 </div>
 <div class="paragraph">
-<p>As another example, here are the init specifiers for the parameter
+<p>As another example, here is the instance definition for the parameter
 database instance <code>prmDb</code> from the Ref deployment:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">init prmDb phase Fpp.ToCpp.Phases.instances """
-Svc::PrmDb prmDb(FW_OPTIONAL_NAME("prmDb"), "PrmDb.dat");
-"""
+<pre class="prettyprint highlight"><code data-lang="fpp">instance prmDb: Svc.PrmDb base id 0x0D00 \
+  queue size Default.queueSize \
+  stack size Default.stackSize \
+  priority 96 \
+{
 
-init prmDb phase Fpp.ToCpp.Phases.readParameters """
-prmDb.readParamFile();
-"""</code></pre>
+  phase Fpp.ToCpp.Phases.instances """
+  Svc::PrmDb prmDb(FW_OPTIONAL_NAME("prmDb"), "PrmDb.dat");
+  """
+
+  phase Fpp.ToCpp.Phases.readParameters """
+  prmDb.readParamFile();
+  """
+
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>We provide code for the <code>instances</code> phase because the constructor
+<p>Here we provide code for the <code>instances</code> phase because the constructor
 call for this component is nonstandard&#8201;&#8212;&#8201;it takes the parameter
 file name as an argument.
-In the <code>readParameters</code> phase we provide the code for reading the parameters
+In the <code>readParameters</code> phase, we provide the code for reading the parameters
 from the file.
 As discussed above, this code is needed only for the parameter database
 instance.</p>
@@ -6675,7 +6693,7 @@ section on <a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployment
 </div>
 <div class="paragraph">
 <p>For more examples of init specifiers in action, see the rest of
-the file <code>Ref/Top/init.fpp</code> in the F Prime repository.
+the file <code>Ref/Top/instances.fpp</code> in the F Prime repository.
 In particular, the init specifiers for the <code>comm</code> component
 use the <code>state</code> value that we just mentioned.</p>
 </div>
@@ -10685,7 +10703,7 @@ F Prime repository.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-08-23 09:18:06 -0700
+Last updated 2021-08-31 11:50:03 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

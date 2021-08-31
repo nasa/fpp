@@ -12,12 +12,15 @@ module M {
 
   }
 
-  instance c1: C base id 0x100
-  instance c2: C base id 0x200
+  instance c1: C base id 0x100 {
 
-  init c1 phase Phases.regCommands """
-  c1.regCommandsSpecial();
-  """
+    phase Phases.regCommands """
+    c1.regCommandsSpecial();
+    """
+
+  }
+
+  instance c2: C base id 0x200
 
   topology Commands {
 

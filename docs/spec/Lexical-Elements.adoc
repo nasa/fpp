@@ -71,7 +71,6 @@ high
 id
 import
 include
-init
 input
 instance
 internal
