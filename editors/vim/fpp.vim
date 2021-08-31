@@ -37,7 +37,6 @@ syn keyword fppKeyword high
 syn keyword fppKeyword id
 syn keyword fppKeyword import
 syn keyword fppKeyword include
-syn keyword fppKeyword init
 syn keyword fppKeyword input
 syn keyword fppKeyword instance
 syn keyword fppKeyword internal

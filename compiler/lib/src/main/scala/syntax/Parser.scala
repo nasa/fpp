@@ -721,8 +721,6 @@ object Parser extends Parsers {
 
   private def include = accept("include", { case t : Token.INCLUDE => t })
   
-  private def init = accept("init", { case t : Token.INIT => t })
-
   private def input = accept("input", { case t : Token.INPUT => t })
 
   private def instance = accept("instance", { case t : Token.INSTANCE => t })

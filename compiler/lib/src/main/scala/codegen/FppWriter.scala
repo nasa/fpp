@@ -629,7 +629,6 @@ object FppWriter extends AstVisitor with LineUtils {
     "id",
     "import",
     "include",
-    "init",
     "input",
     "instance",
     "internal",

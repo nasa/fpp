@@ -231,7 +231,6 @@ object Lexer extends RegexParsers {
     ("id", (u: Unit) => Token.ID()),
     ("import", (u: Unit) => Token.IMPORT()),
     ("include", (u: Unit) => Token.INCLUDE()),
-    ("init", (u: Unit) => Token.INIT()),
     ("input", (u: Unit) => Token.INPUT()),
     ("instance", (u: Unit) => Token.INSTANCE()),
     ("internal", (u: Unit) => Token.INTERNAL()),

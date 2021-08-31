@@ -47,7 +47,6 @@ object Token {
   final case class IDENTIFIER(str: String) extends Token
   final case class IMPORT() extends Token
   final case class INCLUDE() extends Token
-  final case class INIT() extends Token
   final case class INPUT() extends Token
   final case class INSTANCE() extends Token
   final case class INTERNAL() extends Token

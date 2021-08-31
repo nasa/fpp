@@ -433,7 +433,6 @@ var IN_GLOBAL_SCOPE = false;
           "id," +
           "import," +
           "include," +
-          "init," +
           "input," +
           "instance," +
           "internal," +
