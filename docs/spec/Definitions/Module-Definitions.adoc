@@ -40,8 +40,6 @@ A module member is one of the following:
 
 * An <<Specifiers_Include-Specifiers,include specifier>>
 
-* An <<Specifiers_Init-Specifiers,init specifier>>
-
 ==== Semantics
 
 A module definition _D_ qualifies the names of all the definitions

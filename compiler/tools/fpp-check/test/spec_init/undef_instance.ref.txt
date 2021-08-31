@@ -1,5 +1,0 @@
-fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/spec_init/undef_instance.fpp: 1.6
-init c0 phase 0 "c0 phase 0"
-     ^
-error: undefined symbol c0

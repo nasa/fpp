@@ -53,16 +53,16 @@ case class Analysis(
   usedSymbolSet: Set[Symbol] = Set(),
   /** The map from component symbols to components */
   componentMap: Map[Symbol.Component, Component] = Map(),
-  /** The component currently under construction */
+  /** The component under construction */
   component: Option[Component] = None,
   /** The map from component instance symbols to component instances */
   componentInstanceMap: Map[Symbol.ComponentInstance, ComponentInstance] = Map(),
+  /** The component instance under construction */
+  componentInstance: Option[ComponentInstance] = None,
   /** The map from topology symbols to topologies */
   topologyMap: Map[Symbol.Topology, Topology] = Map(),
-  /** The topology currently under construction */
+  /** The topology under construction */
   topology: Option[Topology] = None,
-  /** The map from component instance symbols to phases to init specifiers */
-  initSpecifierMap: Map[ComponentInstance, Map[Int, InitSpecifier]] = Map()
 ) {
 
   /** Gets the qualified name of a symbol */

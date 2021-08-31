@@ -76,13 +76,30 @@ object Parser extends Parsers {
   }
 
   def defComponentInstance: Parser[Ast.DefComponentInstance] = {
+    def initSpecSequence = {
+      def id(x: Ast.Annotated[AstNode[Ast.SpecInit]]) = x
+      opt(lbrace ~>! annotatedElementSequence(node(specInit), semi, id) <~! rbrace) ^^ {
+        case Some(elements) => elements
+        case None => Nil
+      }
+    }
     (instance ~>! ident) ~! (colon ~>! node(qualIdent)) ~! (base ~! id ~>! exprNode) ~!
     opt(at ~>! node(literalString)) ~!
     opt(queue ~! size ~>! exprNode) ~!
     opt(stack ~! size ~>! exprNode) ~!
-    opt(priority ~>! exprNode) ^^ {
-      case name ~ typeName ~ baseId ~ file ~ queueSize ~ stackSize ~ priority => 
-        Ast.DefComponentInstance(name, typeName, baseId, file, queueSize, stackSize, priority)
+    opt(priority ~>! exprNode) ~!
+    initSpecSequence ^^ {
+      case name ~ typeName ~ baseId ~ file ~ queueSize ~ stackSize ~ priority ~ initSpecSequence => 
+        Ast.DefComponentInstance(
+          name,
+          typeName,
+          baseId,
+          file,
+          queueSize,
+          stackSize,
+          priority,
+          initSpecSequence
+        )
     }
   }
 
@@ -253,7 +270,6 @@ object Parser extends Parsers {
     node(defStruct) ^^ { case n => Ast.ModuleMember.DefStruct(n) } |
     node(defTopology) ^^ { case n => Ast.ModuleMember.DefTopology(n) } |
     node(specInclude) ^^ { case n => Ast.ModuleMember.SpecInclude(n) } |
-    node(specInit) ^^ { case n => Ast.ModuleMember.SpecInit(n) } |
     node(specLoc) ^^ { case n => Ast.ModuleMember.SpecLoc(n) } |
     failure("module member expected")
   }
@@ -408,8 +424,8 @@ object Parser extends Parsers {
   }
 
   def specInit: Parser[Ast.SpecInit] = {
-    (init ~>! node(qualIdent)) ~! (phase ~>! exprNode) ~! literalString ^^ {
-      case instance ~ phase ~ code => Ast.SpecInit(instance, phase, code)
+    (phase ~>! exprNode) ~! literalString ^^ {
+      case phase ~ code => Ast.SpecInit(phase, code)
     }
   }
 

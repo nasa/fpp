@@ -18,7 +18,10 @@ object FppWriter extends AstVisitor with LineUtils {
       Line.joinLists (Line.NoIndent) (ls) (sep) (ls1)
 
     def joinWithBreak[T] (sep: String) (ls1: List[Line]) =
-      Line.addSuffix(ls, " \\") ++ Line.addPrefix(sep, ls1).map(indentIn)
+      (sep, ls1) match {
+        case ("", Nil) => ls
+        case _ => Line.addSuffix(ls, " \\") ++ Line.addPrefix(sep, ls1).map(indentIn)
+      }
 
     def joinOpt[T] (opt: Option[T]) (sep: String) (f: T => List[Line]) =
       opt match {
@@ -99,6 +102,8 @@ object FppWriter extends AstVisitor with LineUtils {
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefComponentInstance]]
   ) = {
+    def initSpecs(list: List[Ast.Annotated[AstNode[Ast.SpecInit]]]) =
+      addBracesIfNonempty(list.flatMap(annotateNode(specInit)))
     val (_, node, _) = aNode
     val data = node.data
     lines(s"instance ${ident(data.name)}").
@@ -107,7 +112,8 @@ object FppWriter extends AstVisitor with LineUtils {
       joinOptWithBreak (data.file) ("at ") (applyToData(string)).
       joinOptWithBreak (data.queueSize) ("queue size ") (exprNode).
       joinOptWithBreak (data.stackSize) ("stack size ") (exprNode).
-      joinOptWithBreak (data.priority) ("priority ") (exprNode)
+      joinOptWithBreak (data.priority) ("priority ") (exprNode).
+      joinWithBreak ("") (initSpecs(data.initSpecs))
   }
 
   override def defConstantAnnotatedNode(
@@ -127,9 +133,9 @@ object FppWriter extends AstVisitor with LineUtils {
     val data = node.data
     lines(s"enum ${ident(data.name)}").
       joinOpt (data.typeName) (": ") (typeNameNode).
-      addSuffix(" {") ++
-    data.constants.flatMap(annotateNode(defEnumConstant)).map(indentIn) ++
-    lines("}")
+      joinNoIndent (" ") (
+        addBraces(data.constants.flatMap(annotateNode(defEnumConstant)))
+      )
   }
 
   override def defModuleAnnotatedNode(
@@ -160,9 +166,11 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"struct ${ident(data.name)} {") ++
-    data.members.flatMap(annotateNode(structTypeMember)).map(indentIn) ++
-    lines("}").joinOpt (data.default) (" default ") (exprNode)
+    lines(s"struct ${ident(data.name)}").
+    joinNoIndent (" ") (
+      addBraces(data.members.flatMap(annotateNode(structTypeMember)))
+    ).
+    joinOpt (data.default) (" default ") (exprNode)
   }
 
   override def defTopologyAnnotatedNode(
@@ -238,10 +246,7 @@ object FppWriter extends AstVisitor with LineUtils {
     in: Unit,
     node: AstNode[Ast.Expr],
     e: Ast.ExprStruct
-  ) =
-    lines("{") ++
-    e.members.flatMap(applyToData(structMember)).map(indentIn) ++
-    lines("}")
+  ) = addBraces(e.members.flatMap(applyToData(structMember)))
 
   override def exprUnopNode(
     in: Unit,
@@ -282,23 +287,18 @@ object FppWriter extends AstVisitor with LineUtils {
     aNode: Ast.Annotated[AstNode[Ast.SpecConnectionGraph]]
   ) = {
     val (_, node, _) = aNode
-    def direct(scg: Ast.SpecConnectionGraph.Direct) = {
-      lines(s"connections ${ident(scg.name)} {") ++
-      scg.connections.flatMap(connection).map(indentIn) ++
-      lines("}")
-    }
+    def direct(scg: Ast.SpecConnectionGraph.Direct) =
+      lines(s"connections ${ident(scg.name)}").
+      joinNoIndent (" ") (
+        addBraces(scg.connections.flatMap(connection))
+      )
     def pattern(scg: Ast.SpecConnectionGraph.Pattern) = {
-      def targets(instances: List[AstNode[Ast.QualIdent]]) = instances match {
-        case Nil => Nil
-        case _ =>
-          lines("{") ++
-          instances.flatMap(applyToData(qualIdent)).map(indentIn) ++
-          lines("}")
-      }
       Line.addPrefix(
         s"${scg.kind.toString} connections instance ",
         qualIdent(scg.source.data).
-        joinNoIndent (" ") (targets(scg.targets))
+        joinNoIndent (" ") (
+          addBracesIfNonempty(scg.targets.flatMap(applyToData(qualIdent)))
+        )
       )
     }
     node.data match {
@@ -329,17 +329,6 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines("include").join (" ") (string(data.file.data))
-  }
-
-  override def specInitAnnotatedNode(
-    in: Unit,
-    aNode: Ast.Annotated[AstNode[Ast.SpecInit]]
-  ) = {
-    val (_, node, _) = aNode
-    val data = node.data
-    Line.addPrefix("init ", qualIdent(data.instance.data)).
-    join(" phase ") (exprNode(data.phase)).
-    join (" ") (string(data.code))
   }
 
   override def specInternalPortAnnotatedNode(
@@ -435,7 +424,7 @@ object FppWriter extends AstVisitor with LineUtils {
       case _ => Some(l)
     }
     def limitSeq (ls: List[Ast.SpecTlmChannel.Limit]) =
-      line("{") :: (ls.flatMap(limit).map(indentIn) :+ line("}"))
+      addBraces(ls.flatMap(limit))
     lines(s"telemetry ${ident(data.name)}").
       join (": ") (typeNameNode(data.typeName)).
       joinOpt (data.id) (" id ") (exprNode).
@@ -487,6 +476,15 @@ object FppWriter extends AstVisitor with LineUtils {
     node: AstNode[Ast.TypeName],
     tn: Ast.TypeNameString
   ) = lines("string").joinOpt (tn.size) (" size ") (exprNode)
+
+  private def addBraces(ls: List[Line]): List[Line] =
+    line("{") :: (ls.map(indentIn) :+ line("}"))
+
+  private def addBracesIfNonempty(ls: List[Line]): List[Line] =
+    ls match {
+      case Nil => Nil
+      case _ => addBraces(ls)
+    }
 
   private def annotate(
     pre: List[String],
@@ -551,6 +549,10 @@ object FppWriter extends AstVisitor with LineUtils {
     }
 
   private def queueFull(qf: Ast.QueueFull) = lines(qf.toString)
+
+  private def specInit(si: Ast.SpecInit) =
+    Line.addPrefix("phase ", exprNode(si.phase)).
+    join (" ") (string(si.code))
 
   private def string(s: String) =
     s.replaceAll("\"", "\\\\q").split("\n").toList match {

@@ -3,10 +3,6 @@ package fpp.compiler.codegen
 /** Utilities for writing lines */
 trait LineUtils {
 
-  val q = "\""
-
-  val indentIncrement = 2
-
   def indentIn(line: Line) = line.indentIn(indentIncrement)
 
   def line(s: String) = Line(s)
@@ -18,6 +14,10 @@ trait LineUtils {
       case Some(x) => f(x)
       case None => Nil
     }
+
+  val q = "\""
+
+  val indentIncrement = 2
 
   val addBlankPrefix = Line.addPrefixLine (Line.blank) _
 

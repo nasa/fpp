@@ -15,6 +15,7 @@ module Fw {
 array A = [3] U32
 constant a = 0
 enum E { X, Y }
+enum Phases { setup, teardown }
 struct S { x: U32 }
 type T
 

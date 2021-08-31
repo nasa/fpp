@@ -25,6 +25,15 @@ _]_
 _[_
 `priority` <<Expressions,_expression_>>
 _]_
+_[_
+`{` _init-specifier-sequence_ `}`
+_]_
+
+_init-specifier-sequence_ is an
+<<Element-Sequences,element sequence>> in 
+which each element is an
+<<Specifiers_Init-Specifiers,init specifier>>,
+and the terminating punctuation is a semicolon.
 
 ==== Semantics
 
@@ -86,6 +95,12 @@ have a <<Types_Internal-Types_Numeric-Types,numeric type>>.
 It specifies the thread priority for active components.
 The priority is required for active components and is not allowed
 for queued or passive components.
+
+. If present, the init specifiers govern {cpp} code generation for
+the component instance being defined.
+See the section on 
+<<Specifiers_Init-Specifiers,init specifiers>>
+for further information.
 
 ==== Examples
 

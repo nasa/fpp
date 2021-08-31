@@ -149,15 +149,28 @@ def module
       queue full assert
     @< Internal port specifier
   @< Component definition
+  @ Simple component instance definition
+  def component instance
+    ident c1
+    component qual ident C1
+    base id literal int 0x100
+  @< Simple component instance definition
   @ Component instance definition
   def component instance
-    ident c
-    component qual ident C
-    base id literal int 0x100
-    file C.hpp
+    ident c2
+    component qual ident C2
+    base id literal int 0x200
+    file C2.hpp
     queue size literal int 100
     stack size literal int 1024
     priority literal int 10
+    @ Init specifier
+    spec init
+      phase ident CONSTRUCTION
+      code line 1
+             line 2
+           line 3
+    @< Init specifier
   @< Component instance definition
   @ Constant definition
   def constant
@@ -190,13 +203,6 @@ def module
   spec include
     file constant.fppi
   @< Include specifier
-  @ Init specifier
-  spec init
-    instance qual ident i
-    phase ident CONSTRUCTION
-    code line 1
-           line 2
-         line 3
   @ Port definition
   def port
     ident P

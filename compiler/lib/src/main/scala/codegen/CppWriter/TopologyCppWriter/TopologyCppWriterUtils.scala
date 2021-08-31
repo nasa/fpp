@@ -82,8 +82,7 @@ abstract class TopologyCppWriterUtils(
     wrapInScope("enum {", ll, "};")
 
   def getSpecifierForPhase (phase: Int) (ci: ComponentInstance): 
-    Option[InitSpecifier] = s.a.initSpecifierMap.getOrElse(ci, Map()).
-      get(phase)
+    Option[InitSpecifier] = ci.initSpecifierMap.get(phase)
 
   def getCodeForPhase (phase: Int)(ci: ComponentInstance): Option[String] =
     getSpecifierForPhase(phase)(ci).map(is => is.aNode._2.data.code)
