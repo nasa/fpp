@@ -197,6 +197,16 @@ character as `\q`, like this:
 constant s = "\qThis is a quotation within a string,\q he said."
 ----
 
+To encode the character `\` followed by the character `q`, write
+the backslash character as `\b`, like this:
+
+[source,fpp]
+----
+constant s = "\q\bq\bb"
+----
+
+This string represents the literal character sequence `"`, `\`, `q`, `\`, `b`.
+
 *Multiline strings:*
 A multiline strings represents a string of characters
 that may contain a newline character.
@@ -239,6 +249,8 @@ constant s = """
              Here are three double-quote characters in a row: \q\q\q
              """
 ----
+
+As in a single-line string, `\b` means `\`.
 
 ==== Array Values
 

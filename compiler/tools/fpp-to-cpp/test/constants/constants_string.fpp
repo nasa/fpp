@@ -6,4 +6,4 @@ constant s2 = """Line 1.
 Line 2."""
 
 @ Escaped backslashes
-constant s3 = "\"
+constant s3 = "\b"
