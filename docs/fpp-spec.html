@@ -5514,7 +5514,8 @@ string to an interpreted string.</p>
 <p>A <strong>newline character</strong> is the NL character (ASCII code 0x0A).</p>
 </li>
 <li>
-<p>An <strong>newline character</strong> is the NL character (ASCII code 0x0A).</p>
+<p>An <strong>extended newline character</strong> is the NL character (ASCII code 0x0A),
+optionally preceded by a CR character (ASCII code 0x0D).</p>
 </li>
 </ul>
 </div>
@@ -5605,15 +5606,15 @@ of the interpreted string is <em>c</em>.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The first newline after the first <code>"""</code> (if it exists) is deleted
-from the interpreted string.</p>
+<p>The first extended newline character, if any, after the first <code>"""</code> is
+deleted from the interpreted string.</p>
 </li>
 <li>
 <p>Any whitespace occurring in columns to the left of the first <code>"""</code>
 is deleted from the result of step 1.</p>
 </li>
 <li>
-<p>Any leading and trailing newline characters are deleted from the
+<p>Any leading and trailing extended newline characters are deleted from the
 result of step 2.</p>
 </li>
 </ol>
@@ -8147,7 +8148,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-09-22 11:49:07 -0700
+Last updated 2021-09-22 13:06:35 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

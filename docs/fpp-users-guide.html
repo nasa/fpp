@@ -1089,24 +1089,29 @@ For example:</p>
 </div>
 <div class="paragraph">
 <p>To put the double-quote character in a string, write the double quote
-character as <code>\q</code>, like this:</p>
+character as <code>\"</code>, like this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">constant s = "\qThis is a quotation within a string,\q he said."</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">constant s = "\"This is a quotation within a string,\" he said."</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>To encode the character <code>\</code> followed by the character <code>q</code>, write
-the backslash character as <code>\b</code>, like this:</p>
+<p>To encode the character <code>\</code> followed by the character <code>"</code>, write
+the backslash character as <code>\\</code>, like this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">constant s = "\q\bq\bb"</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">constant s = "\\\""</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>This string represents the literal character sequence <code>"</code>, <code>\</code>, <code>q</code>, <code>\</code>, <code>b</code>.</p>
+<p>This string represents the literal character sequence <code>\</code>, <code>"</code>.</p>
+</div>
+<div class="paragraph">
+<p>In general, the sequence <code>\</code> followed by a character <em>c</em>
+is translated to <em>c</em>.
+This sequence is called an <strong>escape sequence</strong>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Multiline strings:</strong>
@@ -1144,19 +1149,15 @@ with <code>This</code>.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>To embed a literal character sequence <code>"""</code> in a multiline string, write
-at least one of the <code>"</code> characters as <code>\q</code>.
+<p>Escape sequences work as for single-line strings.
 For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">constant s = """
-             Here are three double-quote characters in a row: \q\q\q
+             Here are three double-quote characters in a row: \"\"\"
              """</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>As in a single-line string, <code>\b</code> means <code>\</code>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -10727,7 +10728,7 @@ F Prime repository.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-09-21 23:09:07 -0700
+Last updated 2021-09-22 13:03:11 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

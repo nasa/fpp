@@ -15,7 +15,8 @@ string to an interpreted string.
 
 * A *newline character* is the NL character (ASCII code 0x0A).
 
-* An *newline character* is the NL character (ASCII code 0x0A).
+* An *extended newline character* is the NL character (ASCII code 0x0A),
+optionally preceded by a CR character (ASCII code 0x0D).
 
 ==== Single-Line String Literals
 
@@ -71,13 +72,13 @@ of the interpreted string is _c_.
 
 Whitespace inside a multiline string literal is trimmed as follows:
 
-. The first newline after the first `"""` (if it exists) is deleted
-from the interpreted string.
+. The first extended newline character, if any, after the first `"""` is 
+deleted from the interpreted string.
 
 . Any whitespace occurring in columns to the left of the first `"""`
 is deleted from the result of step 1.
 
-. Any leading and trailing newline characters are deleted from the
+. Any leading and trailing extended newline characters are deleted from the
 result of step 2.
 
 *Example 1*
