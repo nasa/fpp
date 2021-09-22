@@ -6,7 +6,7 @@ def constant
   literal string \
 def constant
   ident s2
-  literal string \q
+  literal string \"
 def constant
   ident s2
-  literal string "b
+  literal string "\
