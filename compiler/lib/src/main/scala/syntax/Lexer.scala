@@ -73,7 +73,7 @@ object Lexer extends RegexParsers {
           }
           recurse(0, s)
         }
-        val ss  = s.split("\\r?\\n").toList
+        val ss  = s.split("\\r?\\n").dropWhile(_.length == 0).toList
         val ss1 = ss.map(stripPrefix)
         val s1 = ss1.mkString("\n")
         Token.LITERAL_STRING(s1)
