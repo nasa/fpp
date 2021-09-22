@@ -24,15 +24,24 @@ Inside a single-line string literal
 * The literal double quote character `"` is not allowed.
 
 For any single-line string literal _s_, the
-corresponding interpreted string _s'_
-is identical to _s_, except that any character sequence `\q` in _s_
-becomes a double quote character `"` in _s'_.
+corresponding interpreted string _s'_ is formed by
+as follows:
+
+. Let _s''_ be the result of replacing every character sequence
+`\q` in _s_ with `"`.
+
+. Let _s'_ be the result of replacing every character sequence
+`\b` in _s''_ with `\`.
 
 *Examples:*
 
 * `"abc"` is a valid string consisting of the characters `a`, `b`, and `c`.
 
 * `"ab\q"` is a valid string consisting of the characters `a`, `b`, and `"`.
+
+* `"ab\bq"` is a valid string consisting of the characters `a`, `b`, `\`, and `q`.
+
+* `"ab\c"` is a valid string consisting of the characters `a`, `b`, `\`, and `c`.
 
 * `"abc` is not a valid string, because it is missing the terminating double quote.
 
@@ -51,8 +60,8 @@ Inside a multiline string literal
 sequence of three such characters in a row is allowed.
 
 For any multiline string literal _s_, the corresponding interpreted string _s'_
-is identical to _s_ except that any character sequence `\q` in _s_
-becomes a double quote character `"` in _s'_.
+is identical to _s_, after substituting for `\q` and `\b` as specified
+for single-line string literals.
 In particular, you can include a sequence of three double quote
 characters in _s'_ string by writing at least one of
 those characters as `\q` in _s_.

@@ -3820,7 +3820,7 @@ b = M.a</code></pre>
 <div class="paragraph">
 <p>An <strong>init specifier</strong> associates some code with a
 <a href="#Definitions_Component-Instance-Definitions">component instance</a>.
-Usually this is intialization code, hence the name.
+Usually this is initialization code, hence the name.
 It may also serve another purpose (e.g., teardown).</p>
 </div>
 <div class="sect3">
@@ -5531,9 +5531,20 @@ Inside a single-line string literal</p>
 </div>
 <div class="paragraph">
 <p>For any single-line string literal <em>s</em>, the
-corresponding interpreted string <em>s'</em>
-is identical to <em>s</em>, except that any character sequence <code>\q</code> in <em>s</em>
-becomes a double quote character <code>"</code> in <em>s'</em>.</p>
+corresponding interpreted string <em>s'</em> is formed by
+as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Let <em>s''</em> be the result of replacing every character sequence
+<code>\q</code> in <em>s</em> with <code>"</code>.</p>
+</li>
+<li>
+<p>Let <em>s'</em> be the result of replacing every character sequence
+<code>\b</code> in <em>s''</em> with <code>\</code>.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p><strong>Examples:</strong></p>
@@ -5545,6 +5556,12 @@ becomes a double quote character <code>"</code> in <em>s'</em>.</p>
 </li>
 <li>
 <p><code>"ab\q"</code> is a valid string consisting of the characters <code>a</code>, <code>b</code>, and <code>"</code>.</p>
+</li>
+<li>
+<p><code>"ab\bq"</code> is a valid string consisting of the characters <code>a</code>, <code>b</code>, <code>\</code>, and <code>q</code>.</p>
+</li>
+<li>
+<p><code>"ab\c"</code> is a valid string consisting of the characters <code>a</code>, <code>b</code>, <code>\</code>, and <code>c</code>.</p>
 </li>
 <li>
 <p><code>"abc</code> is not a valid string, because it is missing the terminating double quote.</p>
@@ -5576,8 +5593,8 @@ sequence of three such characters in a row is allowed.</p>
 </div>
 <div class="paragraph">
 <p>For any multiline string literal <em>s</em>, the corresponding interpreted string <em>s'</em>
-is identical to <em>s</em> except that any character sequence <code>\q</code> in <em>s</em>
-becomes a double quote character <code>"</code> in <em>s'</em>.
+is identical to <em>s</em>, after substituting for <code>\q</code> and <code>\b</code> as specified
+for single-line string literals.
 In particular, you can include a sequence of three double quote
 characters in <em>s'</em> string by writing at least one of
 those characters as <code>\q</code> in <em>s</em>.</p>
@@ -8118,7 +8135,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-08-31 11:49:42 -0700
+Last updated 2021-09-21 22:53:21 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
