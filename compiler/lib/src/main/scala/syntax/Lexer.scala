@@ -98,9 +98,9 @@ object Lexer extends RegexParsers {
       case object Escaping extends State
       def parse(s: State, in: Input, out: StringBuilder): ParseResult[String] =
         if (in.atEnd)
-          Failure("unterminated string", in)
+          Failure("unterminated string at end of input", in)
         else if (numEndMarks == 1 && in.first == '\n')
-          Failure("illegal newline in string", in.rest)
+          Failure("unterminated string before newline", in.rest)
         else s match {
           case Reading(marks) => in.first match {
             case '"' =>
