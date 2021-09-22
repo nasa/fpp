@@ -85,41 +85,6 @@ object Lexer extends RegexParsers {
     "\"" ~>! stringContent(1) ^^ { case s => Token.LITERAL_STRING(s) }
   }
 
-  def stringContent(numEndMarks: Int): Parser[String] =
-    new Parser[String] {
-      /** The state of the string parser */
-      trait State
-      /** Reading state */
-      case class Reading(
-        /** The number of consecutive marks read so far */
-        marks: String
-      ) extends State
-      /** The escaping state immediately after \ */
-      case object Escaping extends State
-      def parse(s: State, in: Input, out: StringBuilder): ParseResult[String] =
-        if (in.atEnd)
-          Failure("unterminated string at end of input", in)
-        else if (numEndMarks == 1 && in.first == '\n')
-          Failure("unterminated string before newline", in.rest)
-        else s match {
-          case Reading(marks) => in.first match {
-            case '"' =>
-              if (marks.length >= numEndMarks)
-                throw new InternalError(
-                  s"marks.length=$marks.length, numEndMarks=$numEndMarks"
-                )
-              else if (marks.length + 1 == numEndMarks)
-                Success(out.result(), in.rest)
-              else parse(Reading(marks + "\""), in.rest, out)
-            case '\\' => parse(Escaping, in.rest, out.append(marks))
-            case c =>
-              parse(Reading(""), in.rest, out.append(marks).append(c))
-          }
-          case Escaping => parse(Reading(""), in.rest, out.append(in.first))
-        }
-      def apply(in: Input) = parse(Reading(""), in, new StringBuilder())
-    }
-
   def newline: Parser[Unit] =
     // Convert a comment followed by a newline to a newline
     unitParser(" *(#[^\r\n]*)?\r?\n *".r)
@@ -164,6 +129,41 @@ object Lexer extends RegexParsers {
     }
     (reservedWords map f).foldRight (internalError) ((x, y) => y | x)
   }
+
+  def stringContent(numEndMarks: Int): Parser[String] =
+    new Parser[String] {
+      /** The state of the string parser */
+      trait State
+      /** Reading state */
+      case class Reading(
+        /** The number of consecutive marks read so far */
+        marks: String
+      ) extends State
+      /** The escaping state immediately after \ */
+      case object Escaping extends State
+      def parse(s: State, in: Input, out: StringBuilder): ParseResult[String] =
+        if (in.atEnd)
+          Failure("unterminated string at end of input", in)
+        else if (numEndMarks == 1 && in.first == '\n')
+          Failure("unterminated string before newline", in.rest)
+        else s match {
+          case Reading(marks) => in.first match {
+            case '"' =>
+              if (marks.length >= numEndMarks)
+                throw new InternalError(
+                  s"marks.length=$marks.length, numEndMarks=$numEndMarks"
+                )
+              else if (marks.length + 1 == numEndMarks)
+                Success(out.result(), in.rest)
+              else parse(Reading(marks + "\""), in.rest, out)
+            case '\\' => parse(Escaping, in.rest, out.append(marks))
+            case c =>
+              parse(Reading(""), in.rest, out.append(marks).append(c))
+          }
+          case Escaping => parse(Reading(""), in.rest, out.append(in.first))
+        }
+      def apply(in: Input) = parse(Reading(""), in, new StringBuilder())
+    }
 
   def symbol: Parser[Token] = positioned {
     type PSTP = (Parser[Unit], String, Unit => Token, Parser[Unit])
