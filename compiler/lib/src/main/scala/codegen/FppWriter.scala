@@ -555,11 +555,12 @@ object FppWriter extends AstVisitor with LineUtils {
     join (" ") (string(si.code))
 
   private def string(s: String) =
-    s.replaceAll("\"", "\\\\q").split("\n").toList match {
-      case Nil => lines("\"\"")
-      case s :: Nil => lines("\"" ++ s ++ "\"")
-      case ss => lines("\"\"\"") ++ ss.map(line) ++ lines("\"\"\"")
-    }
+    s.replaceAll("\\\\", "\\\\b").replaceAll("\"", "\\\\q").
+      split("\n").toList match {
+        case Nil => lines("\"\"")
+        case s :: Nil => lines("\"" ++ s ++ "\"")
+        case ss => lines("\"\"\"") ++ ss.map(line) ++ lines("\"\"\"")
+      }
 
   private def structMember(member: Ast.StructMember) =
     lines(ident(member.name)).join (" = ") (exprNode(member.value))

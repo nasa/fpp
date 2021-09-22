@@ -88,7 +88,8 @@ object Lexer extends RegexParsers {
   def literalStringSingle: Parser[Token] = positioned {
     "\"[^\"]*\"".r ^^ {
       case s => {
-        val s1 = "\\\\q".r.replaceAllIn(s, "\"")
+        val s1 = s.replaceAll("\\\\q", "\"").
+          replaceAll("\\\\b", "\\\\")
         val s2 = s1.drop(1).dropRight(1)
         Token.LITERAL_STRING(s2)
       }
