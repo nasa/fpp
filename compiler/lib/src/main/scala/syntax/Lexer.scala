@@ -99,6 +99,8 @@ object Lexer extends RegexParsers {
       def parse(s: State, in: Input, out: StringBuilder): ParseResult[String] =
         if (in.atEnd)
           Failure("unterminated string", in)
+        else if (numEndMarks == 1 && in.first == '\n')
+          Failure("illegal newline in string", in.rest)
         else s match {
           case Reading(marks) => in.first match {
             case '"' =>
@@ -111,16 +113,9 @@ object Lexer extends RegexParsers {
               else parse(Reading(marks + "\""), in.rest, out)
             case '\\' => parse(Escaping, in.rest, out.append(marks))
             case c =>
-              if (numEndMarks == 1 && c == '\n')
-                Failure("illegal newline in string", in.rest)
-              else
-                parse(Reading(""), in.rest, out.append(marks).append(c))
+              parse(Reading(""), in.rest, out.append(marks).append(c))
           }
-          case Escaping => in.first match {
-            case 'q' => parse(Reading(""), in.rest, out.append('\"'))
-            case 'b' => parse(Reading(""), in.rest, out.append('\\'))
-            case c => parse(Reading(""), in.rest, out.append("\\" + c))
-          }
+          case Escaping => parse(Reading(""), in.rest, out.append(in.first))
         }
       def apply(in: Input) = parse(Reading(""), in, new StringBuilder())
     }

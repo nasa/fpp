@@ -1,7 +1,7 @@
-constant s1 = "\q"
+constant s1 = "\""
 
-constant s2 = "\b"
+constant s2 = "\\"
 
-constant s2 = "\bq"
+constant s2 = "\\q"
 
-constant s2 = "\qb"
+constant s2 = "\"b"

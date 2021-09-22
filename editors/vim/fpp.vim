@@ -111,8 +111,8 @@ syn match fppNumber /\v<0[xX]\x+/
 syn match fppIdentifier    /\v\$?[_A-Za-z][_A-Za-z0-9]*/
 
 " strings
-:syntax region String matchgroup=String start=+"+  end=+"+
-:syntax region String matchgroup=String start=+"""+ skip=/\("[^"]\|""[^"]\)/ end=+"""+
+:syntax region String matchgroup=String start=+"+ skip=/\\./ end=+"+
+:syntax region String matchgroup=String start=+"""+ skip=/\(\\.\|"[^"]\|""[^"]\)/ end=+"""+
 
 hi def link fppAnnotation  Special
 hi def link fppComment     Comment

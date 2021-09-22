@@ -6,7 +6,7 @@ module M2 {
   array ArrayOK2 = [3] M1.ArrayOK1
 }
 
-array ArrayOK3 = [2] string default ["\q\b", """
+array ArrayOK3 = [2] string default ["\"\\", """
 abc
 def
 """]
