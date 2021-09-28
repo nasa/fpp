@@ -74,7 +74,7 @@ object ComponentInstance {
         loc,
         componentKind
       )(
-        "stack size", 
+        "stack size",
         a.getNonnegativeIntValueOpt,
         data.stackSize
       )
@@ -129,7 +129,7 @@ object ComponentInstance {
     val javaPath = loc.getRelativePath(node.data)
     File.Path(javaPath).toString
   }
-  
+
   /** Gets the queue size */
   private def getQueueSize(
     a: Analysis,
@@ -189,10 +189,9 @@ object ComponentInstance {
      loc: Location,
      componentKind: Ast.ComponentKind
    )
-   (nodeOpt: Option[AstNode[Ast.Expr]]):
-  Result.Result[Option[Int]] =
+   (nodeOpt: Option[AstNode[Ast.Expr]]): Result.Result[Option[Int]] =
     (componentKind, nodeOpt) match {
-      case (Ast.ComponentKind.Active, Some(_)) => 
+      case (Ast.ComponentKind.Active, Some(_)) =>
         a.getIntValueOpt(nodeOpt)
       case (_, Some(node)) => invalid(
         name,
