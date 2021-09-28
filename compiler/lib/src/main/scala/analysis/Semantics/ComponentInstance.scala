@@ -14,6 +14,7 @@ final case class ComponentInstance(
   queueSize: Option[Int],
   stackSize: Option[Int],
   priority: Option[Int],
+  cpu: Option[Int],
   initSpecifierMap: Map[Int, InitSpecifier] = Map()
 ) extends Ordered[ComponentInstance] {
 
@@ -72,13 +73,27 @@ object ComponentInstance {
         data.name,
         loc,
         componentKind
-      )("stack size", data.stackSize)
+      )(
+        "stack size", 
+        a.getNonnegativeIntValueOpt,
+        data.stackSize
+      )
       priority <- getStackSizeOrPriority(
         a,
         data.name,
         loc,
         componentKind,
-      )("priority", data.priority)
+      )(
+        "priority",
+        a.getIntValueOpt,
+        data.priority
+      )
+      cpu <- getCPU(
+        a,
+        data.name,
+        loc,
+        componentKind,
+      )(data.cpu)
     }
     yield {
       val maxId = baseId + component.getMaxId
@@ -93,7 +108,8 @@ object ComponentInstance {
         file,
         queueSize,
         stackSize,
-        priority
+        priority,
+        cpu
       )
     }
   }
@@ -146,22 +162,44 @@ object ComponentInstance {
     loc: Location,
     componentKind: Ast.ComponentKind
   )
-  (kind: String, nodeOpt: Option[AstNode[Ast.Expr]]):
-  Result.Result[Option[Int]] =
+  (
+    kind: String,
+    getValue: Option[AstNode[Ast.Expr]] => Result.Result[Option[Int]],
+    nodeOpt: Option[AstNode[Ast.Expr]]
+  ): Result.Result[Option[Int]] =
     (componentKind, nodeOpt) match {
       case (Ast.ComponentKind.Active, None) => invalid(
         name,
         loc,
         s"active component must have $kind"
       )
-      case (Ast.ComponentKind.Active, Some(_)) =>
-        a.getNonnegativeIntValueOpt(nodeOpt)
+      case (Ast.ComponentKind.Active, Some(_)) => getValue(nodeOpt)
       case (_, None) => Right(None)
       case (_, Some(node)) => invalid(
         name,
         Locations.get(node.id),
         s"$componentKind component may not have $kind"
       )
+    }
+
+   /** Get CPU */
+   private def getCPU(
+     a: Analysis,
+     name: String,
+     loc: Location,
+     componentKind: Ast.ComponentKind
+   )
+   (nodeOpt: Option[AstNode[Ast.Expr]]):
+  Result.Result[Option[Int]] =
+    (componentKind, nodeOpt) match {
+      case (Ast.ComponentKind.Active, Some(_)) => 
+        a.getIntValueOpt(nodeOpt)
+      case (_, Some(node)) => invalid(
+        name,
+        Locations.get(node.id),
+        s"$componentKind component may not have CPU affinity"
+      )
+      case _ => Right(None)
     }
 
 }

@@ -82,13 +82,17 @@ of the component instance and the name of the component to generate
 a default implementation path.
 
 . If present, the expression following the keywords `queue` `size` must 
-have a <<Types_Internal-Types_Numeric-Types,numeric type>>.
+have a <<Types_Internal-Types_Numeric-Types,numeric type>>
+and must evaluate to a nonnegative integer after
+<<Type-Checking_Type-Conversion,type conversion>>.
 It specifies the queue size for active and queued components.
 The queue size is required for active and queued components
 and is not allowed for passive components.
 
 . If present, the expression following the keywords `stack` `size` must
-have a <<Types_Internal-Types_Numeric-Types,numeric type>>.
+have a <<Types_Internal-Types_Numeric-Types,numeric type>>
+and must evaluate to a nonnegative integer after
+<<Type-Checking_Type-Conversion,type conversion>>.
 It specifies the stack size in bytes for active components.
 The stack size is required for active components and is not allowed
 for queued or passive components.
