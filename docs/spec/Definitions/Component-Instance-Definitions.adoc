@@ -53,8 +53,8 @@ This component definition is called the component definition
 <<Types_Internal-Types_Numeric-Types,numeric type>>.
 It associates a base identifier with the component instance.
 
-.. After evaluating constants, the base identifier must be greater than or 
-equal to zero.
+.. The base identifier must evaluate to a nonnegative integer after
+<<Type-Checking_Type-Conversion,type conversion>>.
 
 .. For each component instance, for each
 command, event, telemetry, or parameter identifier,
