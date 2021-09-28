@@ -65,6 +65,7 @@ trait TypeExpressionAnalyzer
       a <- opt(exprNode)(a, data.queueSize)
       a <- opt(exprNode)(a, data.stackSize)
       a <- opt(exprNode)(a, data.priority)
+      a <- opt(exprNode)(a, data.cpu)
       a <- visitList(a, data.initSpecs, specInitAnnotatedNode)
     } yield a
   }

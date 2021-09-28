@@ -35,6 +35,11 @@ $t()
 done > default-update-ref.sh
 . ./default-update-ref.sh
 
+escaped_strings()
+{
+  update '' escaped_strings
+}
+
 no_include()
 {
   update '' syntax no_include

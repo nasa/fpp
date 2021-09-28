@@ -96,6 +96,7 @@ module DefinitionsAndSpecifiers {
     queue size 100 \
     stack size 1024 \
     priority 10 \
+    cpu 0 \
     {
       @ Init specifier
       phase CONSTRUCTION """

@@ -90,7 +90,8 @@ namespace M {
       active1.start(
         TaskIds::active1,
         Priorities::active1,
-        StackSizes::active1
+        StackSizes::active1,
+        CPUs::active1
       );
       active2.startSpecial();
     }

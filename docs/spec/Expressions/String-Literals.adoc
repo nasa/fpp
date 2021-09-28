@@ -13,62 +13,85 @@ of characters represented by the literal string.
 * *String interpretation* is the process of converting a literal
 string to an interpreted string.
 
+* A *newline character* is the NL character (ASCII code 0x0A).
+
+* An *extended newline character* is the NL character (ASCII code 0x0A),
+optionally preceded by a CR character (ASCII code 0x0D).
+
 ==== Single-Line String Literals
 
-A *single-line string literal* is a sequence of characters enclosed in double
+A *single-line string literal* is a sequence of *single-line literal characters*
+enclosed in double
 quote characters `"`.
-Inside a single-line string literal
+A single-line literal character is one of the following:
 
-* The newline character is not allowed.
+* Any character other than the newline character, `"`, or `\`.
 
-* The literal double quote character `"` is not allowed.
+* `\` followed by any character _c_ other than the newline character.
+In this case we say that the character _c_ is *escaped*.
 
-For any single-line string literal _s_, the
-corresponding interpreted string _s'_
-is identical to _s_, except that any character sequence `\q` in _s_
-becomes a double quote character `"` in _s'_.
+The characters of the interpreted string correspond one-to-one
+to the literal characters of the string, in the same order,
+according to the following rule:
+if the literal character is _c_ or `\` _c_, then the corresponding character
+of the interpreted string is _c_.
 
 *Examples:*
 
 * `"abc"` is a valid string consisting of the characters `a`, `b`, and `c`.
 
-* `"ab\q"` is a valid string consisting of the characters `a`, `b`, and `"`.
+* `"ab\""` is a valid string consisting of the characters `a`, `b`, and `"`.
 
-* `"abc` is not a valid string, because it is missing the terminating double quote.
+* `"ab\\\""` is a valid string consisting of the characters `a`, `b`, `\`, and `"`.
+
+* `"ab\c"` is a valid string consisting of the characters `a`, `b`, `c`.
+
+* `"abc` is not a valid string, because it is missing the terminating `"`.
+
+* `"\"` is not a valid string, because it is missing the terminating `"`.
 
 * `"ab"c"` is the valid string `"ab"` followed by the identifier `c` and an
 unmatched double quote character.
 
 ==== Multiline String Literals
 
-A *multiline string literal* is a sequence of characters enclosed in triple double
-quotes `"""`.
-Inside a multiline string literal
+A *multiline string literal* is a sequence of *multiline literal characters* enclosed 
+in sequences `"""` of three double quote characters.
+A multiline literal character is one of the following:
 
-* The newline character is allowed.
+* Any character other than `"` or `\`.
 
-* The literal double quote character `"` is allowed, except that no
-sequence of three such characters in a row is allowed.
+* `\` followed by any character.
 
-For any multiline string literal _s_, the corresponding interpreted string _s'_
-is identical to _s_ except that any character sequence `\q` in _s_
-becomes a double quote character `"` in _s'_.
-In particular, you can include a sequence of three double quote
-characters in _s'_ string by writing at least one of
-those characters as `\q` in _s_.
+Before trimming whitespace,
+the characters of the interpreted string correspond one-to-one
+to the literal characters of the string, in the same order,
+according to the following rule:
+if the literal character is _c_ or `\` _c_, then the corresponding character
+of the interpreted string is _c_.
 
 Whitespace inside a multiline string literal is trimmed as follows:
 
-* The first newline after the first `"""` (if it exists) is omitted
-from the interpreted string.
+. The first extended newline character, if any, after the first `"""` is 
+deleted from the interpreted string.
 
-* Any whitespace occurring in columns to the left of the first `"""`
-is omitted from the interpreted string.
+. Any whitespace occurring in columns to the left of the first `"""`
+is deleted from the result of step 1.
 
-* Any trailing newline characters are omitted from the
-interpreted string.
+. Any leading and trailing extended newline characters are deleted from the
+result of step 2.
 
-*Example:*
+*Example 1*
+
+[source,fpp]
+----
+constant s = """\"\"\""""
+----
+
+The string literal uses escaped quotation marks.
+The value of the string constant `s` is `"""`.
+
+*Example 2*
 
 [source,fpp]
 ----

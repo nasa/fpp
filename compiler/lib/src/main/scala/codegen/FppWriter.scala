@@ -113,6 +113,7 @@ object FppWriter extends AstVisitor with LineUtils {
       joinOptWithBreak (data.queueSize) ("queue size ") (exprNode).
       joinOptWithBreak (data.stackSize) ("stack size ") (exprNode).
       joinOptWithBreak (data.priority) ("priority ") (exprNode).
+      joinOptWithBreak (data.cpu) ("cpu ") (exprNode).
       joinWithBreak ("") (initSpecs(data.initSpecs))
   }
 
@@ -555,11 +556,12 @@ object FppWriter extends AstVisitor with LineUtils {
     join (" ") (string(si.code))
 
   private def string(s: String) =
-    s.replaceAll("\"", "\\\\q").split("\n").toList match {
-      case Nil => lines("\"\"")
-      case s :: Nil => lines("\"" ++ s ++ "\"")
-      case ss => lines("\"\"\"") ++ ss.map(line) ++ lines("\"\"\"")
-    }
+    s.replaceAll("\\\\", "\\\\\\\\").replaceAll("\"", "\\\\\"").
+      split("\n").toList match {
+        case Nil => lines("\"\"")
+        case s :: Nil => lines("\"" ++ s ++ "\"")
+        case ss => lines("\"\"\"") ++ ss.map(line) ++ lines("\"\"\"")
+      }
 
   private def structMember(member: Ast.StructMember) =
     lines(ident(member.name)).join (" = ") (exprNode(member.value))
@@ -629,7 +631,6 @@ object FppWriter extends AstVisitor with LineUtils {
     "id",
     "import",
     "include",
-    "init",
     "input",
     "instance",
     "internal",

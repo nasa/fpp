@@ -115,15 +115,17 @@ class LexerSpec extends AnyWordSpec {
     }
     val literals = List(
       "\"abc\"",
-      "\"\\q abc\"",
-      "\"abc \\q\"",
-      "\"abc \\q abc\"",
+      "\"\\\" abc\"",
+      "\"abc \\\"\"",
+      "\"abc \\\" abc\"",
       "\"\"\"abc\"\"\"",
-      "\"\"\"\\q abc\"\"\"",
-      "\"\"\"abc \\q\"\"\"",
-     "\"\"\"abc \\q abc\"\"\"",
+      "\"\"\"\\\" abc\"\"\"",
+      "\"\"\"abc \\\"\"\"\"",
+      "\"\"\"abc \\\" abc\"\"\"",
       "\"\"\"abc \" abc\"\"\"",
       "\"\"\"abc \"\" abc\"\"\"",
+      "\"\\\\q\"",
+      "\"\"\"\\\\q\"\"\""
     )
     literals.foreach { s => s"lex $s to a string literal" in lex(s) }
   }

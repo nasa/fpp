@@ -62,6 +62,7 @@ object AstWriter extends AstVisitor with LineUtils {
       linesOpt(addPrefix("queue size", exprNode), data.queueSize),
       linesOpt(addPrefix("stack size", exprNode), data.stackSize),
       linesOpt(addPrefix("priority", exprNode), data.priority),
+      linesOpt(addPrefix("cpu", exprNode), data.cpu),
       data.initSpecs.map(annotateNode(specInit)).flatten
     ).flatten.map(indentIn)
   }

@@ -23,6 +23,7 @@ command
 component
 connections
 constant
+cpu
 default
 diagnostic
 drop
@@ -38,7 +39,6 @@ high
 id
 import
 include
-init
 input
 instance
 internal
@@ -66,6 +66,7 @@ resp
 save
 serial
 set
+severity
 size
 stack
 string
@@ -78,7 +79,6 @@ time
 topology
 true
 type
-unused
 update
 warning
 with

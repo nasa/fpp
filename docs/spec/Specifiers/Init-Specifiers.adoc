@@ -3,7 +3,7 @@
 An *init specifier* associates some code with a 
 <<Definitions_Component-Instance-Definitions,
 component instance>>.
-Usually this is intialization code, hence the name.
+Usually this is initialization code, hence the name.
 It may also serve another purpose (e.g., teardown).
 
 ==== Syntax

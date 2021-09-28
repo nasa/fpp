@@ -22,6 +22,7 @@ syn keyword fppKeyword command
 syn keyword fppKeyword component
 syn keyword fppKeyword connections
 syn keyword fppKeyword constant
+syn keyword fppKeyword cpu
 syn keyword fppKeyword default
 syn keyword fppKeyword diagnostic
 syn keyword fppKeyword drop
@@ -37,7 +38,6 @@ syn keyword fppKeyword high
 syn keyword fppKeyword id
 syn keyword fppKeyword import
 syn keyword fppKeyword include
-syn keyword fppKeyword init
 syn keyword fppKeyword input
 syn keyword fppKeyword instance
 syn keyword fppKeyword internal
@@ -112,8 +112,8 @@ syn match fppNumber /\v<0[xX]\x+/
 syn match fppIdentifier    /\v\$?[_A-Za-z][_A-Za-z0-9]*/
 
 " strings
-:syntax region String matchgroup=String start=+"+  end=+"+
-:syntax region String matchgroup=String start=+"""+ skip=/\("[^"]\|""[^"]\)/ end=+"""+
+:syntax region String matchgroup=String start=+"+ skip=/\\./ end=+"+
+:syntax region String matchgroup=String start=+"""+ skip=/\(\\.\|"[^"]\|""[^"]\)/ end=+"""+
 
 hi def link fppAnnotation  Special
 hi def link fppComment     Comment
