@@ -22,6 +22,7 @@ syn keyword fppKeyword command
 syn keyword fppKeyword component
 syn keyword fppKeyword connections
 syn keyword fppKeyword constant
+syn keyword fppKeyword cpu
 syn keyword fppKeyword default
 syn keyword fppKeyword diagnostic
 syn keyword fppKeyword drop

@@ -26,6 +26,9 @@ _[_
 `priority` <<Expressions,_expression_>>
 _]_
 _[_
+`cpu` <<Expressions,_expression_>>
+_]_
+_[_
 `{` _init-specifier-sequence_ `}`
 _]_
 
@@ -96,6 +99,12 @@ It specifies the thread priority for active components.
 The priority is required for active components and is not allowed
 for queued or passive components.
 
+. If present, the expression following the keyword `cpu` must
+have a <<Types_Internal-Types_Numeric-Types,numeric type>>.
+It specifies the CPU affinity for active components.
+The CPU affinity is optional for active components and is not allowed
+for queued or passive components.
+
 . If present, the init specifiers govern {cpp} code generation for
 the component instance being defined.
 See the section on 
@@ -110,13 +119,14 @@ instance commandDispatcher: Svc.CommandDispatcher \
   base id 0x100 \
   queue size 10 \
   stack size 4096 \
-  priority 30
+  priority 30 \
+  cpu 0
 ----
 
 This example defines an instance `commandDispatcher`
 of component `Svc.CommandDispatcher`.
 It specifies the base identifier, queue size, stack size,
-and priority.
+priority, and CPU.
 
 [source,fpp]
 ----

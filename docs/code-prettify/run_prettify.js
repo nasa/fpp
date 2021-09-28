@@ -419,6 +419,7 @@ var IN_GLOBAL_SCOPE = false;
           "component," +
           "connections," +
           "constant," +
+          "cpu," +
           "default," +
           "diagnostic," +
           "drop," +

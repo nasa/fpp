@@ -982,6 +982,7 @@ command
 component
 connections
 constant
+cpu
 default
 diagnostic
 drop
@@ -1858,6 +1859,9 @@ that you can refer to in a
 <code>priority</code> <a href="#Expressions"><em>expression</em></a>
 <em>]</em>
 <em>[</em>
+<code>cpu</code> <a href="#Expressions"><em>expression</em></a>
+<em>]</em>
+<em>[</em>
 <code>{</code> <em>init-specifier-sequence</em> <code>}</code>
 <em>]</em></p>
 </div>
@@ -1948,6 +1952,13 @@ The priority is required for active components and is not allowed
 for queued or passive components.</p>
 </li>
 <li>
+<p>If present, the expression following the keyword <code>cpu</code> must
+have a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.
+It specifies the CPU affinity for active components.
+The CPU affinity is optional for active components and is not allowed
+for queued or passive components.</p>
+</li>
+<li>
 <p>If present, the init specifiers govern C&#43;&#43; code generation for
 the component instance being defined.
 See the section on
@@ -1965,14 +1976,15 @@ for further information.</p>
   base id 0x100 \
   queue size 10 \
   stack size 4096 \
-  priority 30</code></pre>
+  priority 30 \
+  cpu 0</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>This example defines an instance <code>commandDispatcher</code>
 of component <code>Svc.CommandDispatcher</code>.
 It specifies the base identifier, queue size, stack size,
-and priority.</p>
+priority, and CPU.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -8148,7 +8160,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-09-22 13:06:35 -0700
+Last updated 2021-09-27 18:06:58 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
