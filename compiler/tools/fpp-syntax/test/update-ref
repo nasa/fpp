@@ -28,6 +28,7 @@ update "" parse-error
 update "" syntax
 update "" syntax-kwd-names
 update -a empty
+update -a escaped-strings
 update -a syntax syntax-ast
 update -i cycle-1 include-cycle-1
 update -i cycle-2 include-cycle-2

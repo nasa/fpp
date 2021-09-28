@@ -26,6 +26,9 @@ _[_
 `priority` <<Expressions,_expression_>>
 _]_
 _[_
+`cpu` <<Expressions,_expression_>>
+_]_
+_[_
 `{` _init-specifier-sequence_ `}`
 _]_
 
@@ -50,8 +53,8 @@ This component definition is called the component definition
 <<Types_Internal-Types_Numeric-Types,numeric type>>.
 It associates a base identifier with the component instance.
 
-.. After evaluating constants, the base identifier must be greater than or 
-equal to zero.
+.. The base identifier must evaluate to a nonnegative integer after
+<<Type-Checking_Type-Conversion,type conversion>>.
 
 .. For each component instance, for each
 command, event, telemetry, or parameter identifier,
@@ -79,13 +82,17 @@ of the component instance and the name of the component to generate
 a default implementation path.
 
 . If present, the expression following the keywords `queue` `size` must 
-have a <<Types_Internal-Types_Numeric-Types,numeric type>>.
+have a <<Types_Internal-Types_Numeric-Types,numeric type>>
+and must evaluate to a nonnegative integer after
+<<Type-Checking_Type-Conversion,type conversion>>.
 It specifies the queue size for active and queued components.
 The queue size is required for active and queued components
 and is not allowed for passive components.
 
 . If present, the expression following the keywords `stack` `size` must
-have a <<Types_Internal-Types_Numeric-Types,numeric type>>.
+have a <<Types_Internal-Types_Numeric-Types,numeric type>>
+and must evaluate to a nonnegative integer after
+<<Type-Checking_Type-Conversion,type conversion>>.
 It specifies the stack size in bytes for active components.
 The stack size is required for active components and is not allowed
 for queued or passive components.
@@ -94,6 +101,12 @@ for queued or passive components.
 have a <<Types_Internal-Types_Numeric-Types,numeric type>>.
 It specifies the thread priority for active components.
 The priority is required for active components and is not allowed
+for queued or passive components.
+
+. If present, the expression following the keyword `cpu` must
+have a <<Types_Internal-Types_Numeric-Types,numeric type>>.
+It specifies the CPU affinity for active components.
+The CPU affinity is optional for active components and is not allowed
 for queued or passive components.
 
 . If present, the init specifiers govern {cpp} code generation for
@@ -110,13 +123,14 @@ instance commandDispatcher: Svc.CommandDispatcher \
   base id 0x100 \
   queue size 10 \
   stack size 4096 \
-  priority 30
+  priority 30 \
+  cpu 0
 ----
 
 This example defines an instance `commandDispatcher`
 of component `Svc.CommandDispatcher`.
 It specifies the base identifier, queue size, stack size,
-and priority.
+priority, and CPU.
 
 [source,fpp]
 ----

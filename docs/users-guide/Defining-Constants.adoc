@@ -190,12 +190,26 @@ constant s = "This is a string."
 ----
 
 To put the double-quote character in a string, write the double quote
-character as `\q`, like this:
+character as `\"`, like this:
 
 [source,fpp]
 ----
-constant s = "\qThis is a quotation within a string,\q he said."
+constant s = "\"This is a quotation within a string,\" he said."
 ----
+
+To encode the character `\` followed by the character `"`, write
+the backslash character as `\\`, like this:
+
+[source,fpp]
+----
+constant s = "\\\""
+----
+
+This string represents the literal character sequence `\`, `"`.
+
+In general, the sequence `\` followed by a character _c_ 
+is translated to _c_.
+This sequence is called an *escape sequence*.
 
 *Multiline strings:*
 A multiline strings represents a string of characters
@@ -229,14 +243,13 @@ constant s = """
              """
 ----
 
-To embed a literal character sequence `"""` in a multiline string, write
-at least one of the `"` characters as `\q`.
+Escape sequences work as for single-line strings.
 For example:
 
 [source,fpp]
 ----
 constant s = """
-             Here are three double-quote characters in a row: \q\q\q
+             Here are three double-quote characters in a row: \"\"\"
              """
 ----
 

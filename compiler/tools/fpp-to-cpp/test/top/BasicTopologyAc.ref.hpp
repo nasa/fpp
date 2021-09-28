@@ -40,6 +40,12 @@ namespace M {
     };
   }
 
+  namespace CPUs {
+    enum {
+      active1 = 0,
+    };
+  }
+
   namespace InstanceIds {
     enum {
       active1,

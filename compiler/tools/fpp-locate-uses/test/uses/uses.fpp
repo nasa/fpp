@@ -34,7 +34,13 @@ active component C3 {
   time get port timeGetOut
 }
 
-instance c12: C1 base id 0x200 {
+instance c12: C1 \
+  base id base_id_def \
+  queue size queue_size_def \
+  stack size stack_size_def \
+  priority priority_def \
+  cpu cpu_def \
+{
   phase Phases.setup "code"
 }
 

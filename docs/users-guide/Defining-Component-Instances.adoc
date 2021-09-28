@@ -256,6 +256,32 @@ We have used
 <<Defining-Constants,constant definitions>> for
 the default queue and stack sizes.
 
+*CPU affinity:*
+When defining an active component, you may specify
+a *CPU affinity*.
+The CPU affinity is a number whose meaning depends on
+the platform.
+Usually it is an instruction to the operating system
+to run the thread of the active component on a particular
+CPU, identified by number.
+
+To specify CPU affinity, you write the keyword `cpu`
+and the CPU number after the priority specifier.
+For example:
+
+[source,fpp]
+--------
+instance dataCompressor: Utils.DataCompressor base id 0x100 \
+  queue size Default.queueSize \
+  stack size Default.stackSize \
+  priority 30 \
+  cpu 0
+--------
+
+This example is the same as the previous `dataCompressor`
+instance, except that we have specified that the thread
+associated with the instance should run on CPU 0.
+
 === Specifying Header Files
 
 When you define a component instance _I_, the FPP translator needs

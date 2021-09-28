@@ -55,13 +55,9 @@ object Lexer extends RegexParsers {
   }
 
   def literalStringMulti: Parser[Token] = positioned {
-    "\"\"\"([^\"]*\"{1,2}[^\"])*[^\"]*\"\"\"".r ^^ {
+    "\"\"\"" ~>! stringContent(3) ^^ {
       case s0 => {
-        val s = {
-          val s1 = "\\\\q".r.replaceAllIn(s0, "\"")
-          val s2 = s1.drop(3).dropRight(3)
-          "^\\n".r.replaceAllIn(s2, "")
-        }
+        val s = "^\\r?\\n".r.replaceAllIn(s0, "")
         val numInitialSpaces = {
           def recurse(s: String, n: Int): Int =
             if (s.length == 0) n
@@ -77,7 +73,7 @@ object Lexer extends RegexParsers {
           }
           recurse(0, s)
         }
-        val ss  = s.split("\\r?\\n").toList
+        val ss  = s.split("\\r?\\n").dropWhile(_.length == 0).toList
         val ss1 = ss.map(stripPrefix)
         val s1 = ss1.mkString("\n")
         Token.LITERAL_STRING(s1)
@@ -86,13 +82,7 @@ object Lexer extends RegexParsers {
   }
 
   def literalStringSingle: Parser[Token] = positioned {
-    "\"[^\"]*\"".r ^^ {
-      case s => {
-        val s1 = "\\\\q".r.replaceAllIn(s, "\"")
-        val s2 = s1.drop(1).dropRight(1)
-        Token.LITERAL_STRING(s2)
-      }
-    }
+    "\"" ~>! stringContent(1) ^^ { case s => Token.LITERAL_STRING(s) }
   }
 
   def newline: Parser[Unit] =
@@ -139,6 +129,41 @@ object Lexer extends RegexParsers {
     }
     (reservedWords map f).foldRight (internalError) ((x, y) => y | x)
   }
+
+  def stringContent(numEndMarks: Int): Parser[String] =
+    new Parser[String] {
+      /** The state of the string parser */
+      trait State
+      /** Reading state */
+      case class Reading(
+        /** The number of consecutive marks read so far */
+        marks: String
+      ) extends State
+      /** The escaping state immediately after \ */
+      case object Escaping extends State
+      def parse(s: State, in: Input, out: StringBuilder): ParseResult[String] =
+        if (in.atEnd)
+          Failure("unterminated string at end of input", in)
+        else if (numEndMarks == 1 && in.first == '\n')
+          Failure("unterminated string before newline", in.rest)
+        else s match {
+          case Reading(marks) => in.first match {
+            case '"' =>
+              if (marks.length >= numEndMarks)
+                throw new InternalError(
+                  s"marks.length=$marks.length, numEndMarks=$numEndMarks"
+                )
+              else if (marks.length + 1 == numEndMarks)
+                Success(out.result(), in.rest)
+              else parse(Reading(marks + "\""), in.rest, out)
+            case '\\' => parse(Escaping, in.rest, out.append(marks))
+            case c =>
+              parse(Reading(""), in.rest, out.append(marks).append(c))
+          }
+          case Escaping => parse(Reading(""), in.rest, out.append(in.first))
+        }
+      def apply(in: Input) = parse(Reading(""), in, new StringBuilder())
+    }
 
   def symbol: Parser[Token] = positioned {
     type PSTP = (Parser[Unit], String, Unit => Token, Parser[Unit])
@@ -216,6 +241,7 @@ object Lexer extends RegexParsers {
     ("component", (u: Unit) => Token.COMPONENT()),
     ("connections", (u: Unit) => Token.CONNECTIONS()),
     ("constant", (u: Unit) => Token.CONSTANT()),
+    ("cpu", (u: Unit) => Token.CPU()),
     ("default", (u: Unit) => Token.DEFAULT()),
     ("diagnostic", (u: Unit) => Token.DIAGNOSTIC()),
     ("drop", (u: Unit) => Token.DROP()),
@@ -231,7 +257,6 @@ object Lexer extends RegexParsers {
     ("id", (u: Unit) => Token.ID()),
     ("import", (u: Unit) => Token.IMPORT()),
     ("include", (u: Unit) => Token.INCLUDE()),
-    ("init", (u: Unit) => Token.INIT()),
     ("input", (u: Unit) => Token.INPUT()),
     ("instance", (u: Unit) => Token.INSTANCE()),
     ("internal", (u: Unit) => Token.INTERNAL()),

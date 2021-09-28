@@ -28,6 +28,11 @@ empty()
   run_test -a empty
 }
 
+escaped_strings()
+{
+  run_test -a escaped-strings
+}
+
 include_component()
 {
   run_test -ia include-component
@@ -118,6 +123,7 @@ two_input_files()
 tests="
 comments
 empty
+escaped_strings
 include_component
 include_constant_1
 include_cycle_1

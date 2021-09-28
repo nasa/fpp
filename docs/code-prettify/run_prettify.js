@@ -419,6 +419,7 @@ var IN_GLOBAL_SCOPE = false;
           "component," +
           "connections," +
           "constant," +
+          "cpu," +
           "default," +
           "diagnostic," +
           "drop," +
@@ -433,7 +434,6 @@ var IN_GLOBAL_SCOPE = false;
           "id," +
           "import," +
           "include," +
-          "init," +
           "input," +
           "instance," +
           "internal," +
