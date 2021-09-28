@@ -164,6 +164,7 @@ def module
     queue size literal int 100
     stack size literal int 1024
     priority literal int 10
+    cpu literal int 0
     @ Init specifier
     spec init
       phase ident CONSTRUCTION

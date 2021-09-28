@@ -113,6 +113,7 @@ object FppWriter extends AstVisitor with LineUtils {
       joinOptWithBreak (data.queueSize) ("queue size ") (exprNode).
       joinOptWithBreak (data.stackSize) ("stack size ") (exprNode).
       joinOptWithBreak (data.priority) ("priority ") (exprNode).
+      joinOptWithBreak (data.cpu) ("cpu ") (exprNode).
       joinWithBreak ("") (initSpecs(data.initSpecs))
   }
 

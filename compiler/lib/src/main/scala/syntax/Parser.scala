@@ -88,8 +88,9 @@ object Parser extends Parsers {
     opt(queue ~! size ~>! exprNode) ~!
     opt(stack ~! size ~>! exprNode) ~!
     opt(priority ~>! exprNode) ~!
+    opt(cpu ~>! exprNode) ~!
     initSpecSequence ^^ {
-      case name ~ typeName ~ baseId ~ file ~ queueSize ~ stackSize ~ priority ~ initSpecSequence => 
+      case name ~ typeName ~ baseId ~ file ~ queueSize ~ stackSize ~ priority ~ cpu ~ initSpecSequence => 
         Ast.DefComponentInstance(
           name,
           typeName,
@@ -98,6 +99,7 @@ object Parser extends Parsers {
           queueSize,
           stackSize,
           priority,
+          cpu,
           initSpecSequence
         )
     }
@@ -679,6 +681,8 @@ object Parser extends Parsers {
 
   private def constant = accept("constant", { case t : Token.CONSTANT => t })
 
+  private def cpu = accept("cpu", { case t : Token.CPU => t })
+
   private def default = accept("default", { case t : Token.DEFAULT => t })
 
   private def diagnostic = accept("diagnostic", { case t : Token.DIAGNOSTIC => t })
@@ -703,6 +707,10 @@ object Parser extends Parsers {
   private def fatal = accept("fatal", { case t : Token.FATAL => t })
 
   private def format = accept("format", { case t : Token.FORMAT => t })
+
+  private def fppMatch = accept("match", { case t : Token.MATCH => t })
+
+  private def fppWith = accept("with", { case t : Token.WITH => t })
 
   private def get = accept("get", { case t : Token.GET => t })
 
@@ -745,8 +753,6 @@ object Parser extends Parsers {
   private def low = accept("low", { case t : Token.LOW => t })
 
   private def lparen = accept("(", { case t : Token.LPAREN => t })
-
-  private def fppMatch = accept("match", { case t : Token.MATCH => t })
 
   private def minus = accept("-", { case t : Token.MINUS => t })
 
@@ -841,8 +847,6 @@ object Parser extends Parsers {
   private def update = accept("update", { case t : Token.UPDATE => t })
 
   private def warning = accept("warning", { case t : Token.WARNING => t })
-
-  private def fppWith = accept("with", { case t : Token.WITH => t })
 
   private def yellow = accept("yellow", { case t : Token.YELLOW => t })
 

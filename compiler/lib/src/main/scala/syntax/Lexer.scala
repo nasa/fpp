@@ -241,6 +241,7 @@ object Lexer extends RegexParsers {
     ("component", (u: Unit) => Token.COMPONENT()),
     ("connections", (u: Unit) => Token.CONNECTIONS()),
     ("constant", (u: Unit) => Token.CONSTANT()),
+    ("cpu", (u: Unit) => Token.CPU()),
     ("default", (u: Unit) => Token.DEFAULT()),
     ("diagnostic", (u: Unit) => Token.DIAGNOSTIC()),
     ("drop", (u: Unit) => Token.DROP()),

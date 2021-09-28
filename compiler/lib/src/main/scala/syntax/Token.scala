@@ -22,6 +22,7 @@ object Token {
   final case class COMPONENT() extends Token
   final case class CONNECTIONS() extends Token
   final case class CONSTANT() extends Token
+  final case class CPU() extends Token
   final case class DEFAULT() extends Token
   final case class DIAGNOSTIC() extends Token
   final case class DOT() extends Token

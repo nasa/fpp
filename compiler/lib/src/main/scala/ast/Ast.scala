@@ -94,6 +94,7 @@ object Ast {
     queueSize: Option[AstNode[Expr]],
     stackSize: Option[AstNode[Expr]],
     priority: Option[AstNode[Expr]],
+    cpu: Option[AstNode[Expr]],
     initSpecs: List[Annotated[AstNode[SpecInit]]]
   )
 
