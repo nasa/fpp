@@ -6259,6 +6259,35 @@ We have used
 <a href="#Defining-Constants">constant definitions</a> for
 the default queue and stack sizes.</p>
 </div>
+<div class="paragraph">
+<p><strong>CPU affinity:</strong>
+When defining an active component, you may specify
+a <strong>CPU affinity</strong>.
+The CPU affinity is a number whose meaning depends on
+the platform.
+Usually it is an instruction to the operating system
+to run the thread of the active component on a particular
+CPU, identified by number.</p>
+</div>
+<div class="paragraph">
+<p>To specify CPU affinity, you write the keyword <code>cpu</code>
+and the CPU number after the priority specifier.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">instance dataCompressor: Utils.DataCompressor base id 0x100 \
+  queue size Default.queueSize \
+  stack size Default.stackSize \
+  priority 30 \
+  cpu 0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This example is the same as the previous <code>dataCompressor</code>
+instance, except that we have specified that the thread
+associated with the instance should run on CPU 0.</p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -10728,7 +10757,7 @@ F Prime repository.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-09-27 18:07:55 -0700
+Last updated 2021-09-28 09:30:11 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
