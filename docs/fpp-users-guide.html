@@ -3086,8 +3086,7 @@ The handler function is part of the implementation of the component
 In this way <code>c1</code> can send data to <code>c2</code> or request
 that <code>c2</code> take some action.
 Each input port may be <strong>synchronous</strong> or <strong>asynchronous</strong>.
-A synchronous invocation calls a handler function that does
-work.
+A synchronous invocation directly calls a handler function.
 An asynchronous invocation calls a short function that puts
 a message on a queue for later dispatch.
 Dispatching the message calls the handler function.</p>
@@ -10889,7 +10888,7 @@ F Prime repository.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-09-29 15:20:52 -0700
+Last updated 2021-09-29 15:22:51 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

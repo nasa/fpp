@@ -93,8 +93,7 @@ The handler function is part of the implementation of the component
 In this way `c1` can send data to `c2` or request
 that `c2` take some action.
 Each input port may be *synchronous* or *asynchronous*.
-A synchronous invocation calls a handler function that does
-work.
+A synchronous invocation directly calls a handler function.
 An asynchronous invocation calls a short function that puts
 a message on a queue for later dispatch.
 Dispatching the message calls the handler function.
