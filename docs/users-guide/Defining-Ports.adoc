@@ -372,7 +372,7 @@ a reference as a member.
 
 When using pass-by-reference semantics,
 you must carefully manage the
-the use of the data to avoid concurrency bugs
+use of the data to avoid concurrency bugs
 such as data races.
 This is especially true for references that can modify
 shared data.
