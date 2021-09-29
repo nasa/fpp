@@ -259,7 +259,7 @@ We discuss this pattern in the section on
 
 === Returning Values
 
-Optionally, you can give the port a return type.
+Optionally, you can give a port definition a return type.
 To do this you write an arrow `pass:[->]` and a type
 after the name and the formal parameters, if any.
 For example:
