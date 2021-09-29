@@ -181,7 +181,7 @@ At this point, any value parameter is passed by
 copying the value out of the queue and onto the stack.
 Any `const` reference parameter is passed by
 (1) copying data out of the queue and onto the stack and
-(2) then providing a reference to the data on the stack.
+(2) then providing a `const` reference to the data on the stack.
 For example:
 
 [source,cpp]
