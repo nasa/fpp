@@ -6,7 +6,7 @@ between two component instances.
 Components are the basic units of FSW function in F Prime
 and are described in the
 <<Defining-Components,next section>>.
-A port definition specifies (1) the name of the port, (2) the type of the data 
+A port definition specifies (1) the name of the port, (2) the type of the data
 carried
 on the port, and (3) an optional return type.
 
@@ -30,7 +30,7 @@ This kind of port can be useful for sending or receiving a triggering event.
 More often, a port will carry data.
 To specify the data, you write *formal parameters*
 enclosed in parentheses.
-The formal parameters of a port definition are similar to the formal parameters 
+The formal parameters of a port definition are similar to the formal parameters
 of a function in a programming
 language: each one has a name and a type, and you may write
 zero or more of them.
@@ -102,7 +102,7 @@ Dispatching the message calls the handler function.
 *Translating handler functions:*
 In FPP, each output port `pOut` or input port `pIn` has a *port type*.
 This port type refers to an FPP port definition `P`.
-In the {cpp} translation, the signature of a handler function 
+In the {cpp} translation, the signature of a handler function
 `pIn_handler` for `pIn`
 is derived from `P`.
 In particular, the {cpp} formal parameters of `pIn_handler`
@@ -112,7 +112,7 @@ correspond to the
 When generating the handler function `pIn_handler`, F
 Prime translates each formal parameter _p_ of `P` in the following way:
 
-. If _p_ carries a 
+. If _p_ carries a
 <<Defining-Constants_Expressions_Primitive-Values,primitive value>>,
 then _p_ is translated to a {cpp} value parameter.
 
@@ -198,7 +198,7 @@ Note that unlike in the synchronous case, const references
 in parameters refer to data owned by the handler
 (residing on the handler stack),
 not data owned by the invoking component.
-Note also that the values must be small enough to permit 
+Note also that the values must be small enough to permit
 placement on the queue and on the stack.
 
 If you want the handler and the invoking component to share data
@@ -207,7 +207,7 @@ for the queue and the stack, then you can use a data structure
 that contains a pointer or a reference as a member.
 For example, `T` could have a member that stores a reference
 or a pointer to shared data.
-F Prime provides a type `Fw::Buffer` that stores a 
+F Prime provides a type `Fw::Buffer` that stores a
 pointer to a shared data buffer.
 
 === Reference Parameters
@@ -277,7 +277,7 @@ Such a port may be used only in a synchronous context (i.e.,
 as a direct function call, not as a message placed
 on a concurrent queue).
 
-In a synchronous context only, `ref` parameters provide another way to return 
+In a synchronous context only, `ref` parameters provide another way to return
 values on the port,
 by assigning to the reference, instead of executing a {cpp} `return` statement.
 As an example, consider the following two port definitions:
@@ -351,7 +351,7 @@ Status C::pIn_handler(U32& result) {
   if (...) {
     ...
     result = ...
-    status = Status::SUCCEED; 
+    status = Status::SUCCEED;
   }
   return status;
 }
@@ -359,7 +359,7 @@ Status C::pIn_handler(U32& result) {
 
 === Pass-by-Reference Semantics
 
-Whenever a {cpp} formal parameter _p_ enables sharing of data between 
+Whenever a {cpp} formal parameter _p_ enables sharing of data between
 an invoking component and a handler function `pIn_handler`,
 we say that _p_ has *pass-by-reference semantics*.
 Pass-by-reference semantics occurs in the following cases:
@@ -377,7 +377,7 @@ such as data races.
 This is especially true for references that can modify
 shared data.
 
-Except in special cases that require special expertise (e.g., 
+Except in special cases that require special expertise (e.g.,
 the implementation of highly concurrent data structures),
 you should enforce the rule that at most
 one component may use any piece of data at any time.
@@ -404,8 +404,8 @@ into a member variable, so that the reference
 persists after the handler exits.
 If this happens, then you should make sure that `A` cannot use
 `D` unless and until `B` passes ownership of `D` to `A` and vice versa.
-For example, you could use state variables of enum type in `A` and in `B` to 
-track ownership, and you could have a port invocation from `A` to `B` pass the 
+For example, you could use state variables of enum type in `A` and in `B` to
+track ownership, and you could have a port invocation from `A` to `B` pass the
 reference and transfer ownership from `A` to `B` and vice versa.
 
 === Annotating a Port Definition
