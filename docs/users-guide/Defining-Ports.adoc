@@ -56,17 +56,6 @@ type T
 port P(e: E, t: T)
 ----
 
-Each formal parameter of a port _P_ becomes bound to an argument (a value) when 
-_P_ is *invoked*.
-The invocation occurs in {cpp} code that implements the model.
-To invoke a port, you call an auto-generated function.
-The arguments are {cpp} values, and their types must match the
-types of the {cpp} function parameters generated from the FPP port parameters.
-The invocation may be *synchronous* (via a direct function call)
-or *asynchronous* (via a message queue);
-we will discuss these cases further below in the section on
-<<Defining-Components,defining components>>.
-
 The formal parameters form an
 <<Defining-Constants_Multiple-Definitions-and-Element-Sequences,element
 sequence>> in which the optional terminating punctuation is a comma.  As usual
@@ -83,108 +72,190 @@ port P(
 )
 ----
 
-FPP uses the following logic when passing arguments through ports.
+=== Handler Functions
 
-[width="15%"]
-|=======
-| |Synchronous port invocation |Asynchronous port invocation
-|Primitive type |Pass by value |Pass by value
-|Non-primitive type |Pass by const reference |Pass by value
-|=======
+As discussed further in the sections on
+<<Defining-Components,defining components>>
+and
+<<Defining-Component-Instances,instantiating components>>,
+when constructing an F Prime application, you
+instantiate port definitions as *output ports* and
+*input ports* of component instances.
+Output ports are connected to input ports.
+For each output port `pOut` of a component instance `c1`,
+there is a corresponding auto-generated function that the
+implementation of `c1` can call in order to *invoke* `pOut`.
+If `pOut` is connected to an input
+port `pIn` of component instance `c2`, then invoking `pOut` calls a
+*handler function* `pIn_handler` associated with `pIn`.
+The handler function is part of the implementation of the component
+`C2` that `c2` instantiates.
+In this way `c1` can send data to `c2` or request
+that `c2` take some action.
+Each input port may be *synchronous* or *asynchronous*.
+A synchronous invocation calls a handler function that does
+work.
+An asynchronous invocation calls a short function that puts
+a message on a queue for later dispatch.
+Dispatching the message calls the handler function.
 
-For asynchronous ports, arguments are always passed by value. For synchronous ports, primitive arguments pass by value and non-primitive types pass by const reference. The passing by const reference is an optimization to avoid copying large values between function calls. Primitive types are types that hold <<Defining-Constants_Expressions_Primitive-Values,primitive values>>. This pass by logic can be modified with reference parameters.
+*Translating handler functions:*
+In FPP, each output port `pOut` or input port `pIn` has a *port type*.
+This port type refers to an FPP port definition `P`.
+In the {cpp} translation, the signature of a handler function 
+`pIn_handler` for `pIn`
+is derived from `P`.
+In particular, the {cpp} formal parameters of `pIn_handler`
+correspond to the
+<<Defining-Ports_Formal-Parameters,FPP formal parameters>> of `P`.
 
-The following example illustrates how parameters are passed.
+When generating the handler function `pIn_handler`, F
+Prime translates each formal parameter _p_ of `P` in the following way:
+
+. If _p_ carries a 
+<<Defining-Constants_Expressions_Primitive-Values,primitive value>>,
+then _p_ is translated to a {cpp} value parameter.
+
+. Otherwise _p_ is translated to a {cpp} `const` reference
+parameter.
+
+As an example, suppose that `P` looks like this:
 
 [source,fpp]
 ----
 type T
-port P1(a: U32) # a is always passed by value
-port P2(t: T) # t is passed by value for asynchronous invocations and by const reference for synchronous invocations
+port P(a: U32, b: T)
 ----
+
+Then the signature of `pIn_handler` might look like this:
+
+[source,cpp]
+----
+virtual void pIn_handler(U32 a, const T& b);
+----
+
+*Calling handler functions:*
+Suppose again that output port `pOut` of component instance `c1`
+is connected to input port `pIn` of component instance `c2`.
+Suppose that the implementation of `c1` invokes `pOut`.
+Doing this calls the `pIn` handler for `c2`.
+What happens next depends on whether `pIn` is synchronous
+or asynchronous.
+
+If `pIn` is synchronous, then the invocation is a direct
+function call.
+Any value parameter is passed by copying the value on
+the stack.
+Any `const` reference parameter provides a reference to
+the data passed in by `c1` at the point of invocation.
+For example, if `pIn` has the port type `P` shown above,
+then the implementation of `pIn_handler` might look like this:
+
+[source,cpp]
+----
+// Assume pIn is a synchronous input port
+void C2::pIn_handler(U32 a, const T& b) {
+  // a is a local copy of a U32 value
+  // b is a const reference to T data passed in by c1
+}
+----
+
+Usually the `const` reference is what you want, for efficiency reasons.
+If you want a local copy of the data, you can make one.
+For example:
+
+[source,cpp]
+----
+// Copy b into b1
+auto b1 = b
+----
+
+Now `b1` has the same data that the parameter `b` would have
+if it were passed by value.
+
+If `pIn` is asynchronous, then the invocation does not
+call the handler directly. Instead, it calls
+a function that puts a message on a queue.
+The handler is called when the message is dispatched.
+At this point, any value parameter is passed by
+copying the value out of the queue and onto the stack.
+Any `const` reference parameter is passed by
+(1) copying data out of the queue and onto the stack and
+(2) then providing a reference to the data on the stack.
+For example:
+
+[source,cpp]
+----
+// Assume pIn is an asynchronous input port
+void C2::pIn_handler(U32 a, const T& b) {
+  // a is a local copy of a U32 value
+  // b is a const reference to T data copied across the queue
+  // and owned by this component
+}
+----
+
+Note that unlike in the synchronous case, const references
+in parameters refer to data owned by the handler
+(residing on the handler stack),
+not data owned by the invoking component.
+Note also that the values must be small enough to permit 
+placement on the queue and on the stack.
+
+If you want the handler and the invoking component to share data
+passed in as a parameter, or if the data values are too large
+for the queue and the stack, then you can use a data structure
+that contains a pointer or a reference as a member.
+For example, `T` could have a member that stores a reference
+or a pointer to shared data.
+F Prime provides a type `Fw::Buffer` that stores a 
+pointer to a shared data buffer.
 
 === Reference Parameters
 
 You may write the keyword `ref` in front of any formal parameter _p_
 of a port definition.
-Doing this specifies that _p_ is a *reference parameter*, i.e.,
-its data is passed by reference when the passing occurs in a
-synchronous invocation.
-For example:
+Doing this specifies that _p_ is a *reference parameter*.
+Each reference parameter in an FPP port becomes a mutable
+{cpp} reference at the corresponding place in the
+handler function signature.
+For example, suppose this port definition
 
 [source,fpp]
 ----
 type T
-port P(ref a: T)
+port P(a: T, ref b: T)
 ----
 
-In this example, `a` is a reference parameter of type `T`.
-In a synchronous invocation, `a` is passed by reference.
-In an asynchronous invocation, `a` is passed by value
-(it is serialized onto a queue).
-The `ref` marking does not cause pass by reference in this case.
+appears as the type of an input port `pIn` of component `C`.
+The generated code for `C` might contain a handler function with a
+signature like this:
 
-When a reference parameter is used in a synchronous port invocation, we say that the parameter has pass-by-reference semantics. However, when a reference parameter is used in an asynchronous port invocation, the parameter has pass-by-value semantics.
+[source,cpp]
+----
+virtual void pIn_handler(const T& a, T& b);
+----
 
-There are at least two reasons to use pass-by-reference semantics:
+Notice that parameter `a` is not marked `ref`, so it is
+translated to `const T& a`, as discussed in the previous section.
+On the other hand, parameter `b` is marked ref, so it
+is translated to `T& a`.
 
-. To avoid copying a large data value.
-For example, in the code shown above, if `T` is an image with a large physical
-size, then the `ref` marking on parameter `a` saves a copy of the image when 
-performing a synchronous invocation on the port `P`.
+Apart from the mutability, a reference parameter has the same
+behavior as a `const` reference parameter, as described in
+the previous section.
+In particular:
 
-. To return a value to the sender by storing it through
+* When `pIn` is synchronous, a reference parameter _p_ of `pIn_handler`
+refers to the data passed in by the invoking component.
+
+* When `pIn` is asynchronous, a reference parameter _p_ of `pIn_handler`
+refers to data copied out of the queue and placed on the local stack.
+
+The main reason to use a reference parameter is to
+return a value to the sender by storing it through
 the reference.
-We discuss this case in the next section on returning
-values.
-
-When using pass-by-reference semantics,
-you must carefully manage the
-the use of the data to avoid concurrency bugs
-such as data races.
-Except in special cases that require special expertise (e.g., 
-the implementation of highly concurrent data structures),
-you should enforce the rule that at most
-one component may use any piece of data at any time.
-In particular, if component `A` passes a reference to component `B`,
-then component `A` should not use the reference while
-component `B` is using it, and vice versa.
-For example:
-
-. Suppose component `A` owns some data `D` and passes a reference
-to `D` via a synchronous port call to component `B`.
-Suppose the port handler in component `B` uses the data but
-does not store the reference, so that when the handler exits,
-the reference is lost.
-This is a good pattern.
-In this case, we may say that ownership of `D` resides in `A`, temporarily
-goes to `B` for the life of the handler, and goes back to `A`
-when the handler exits.
-Because the port call is synchronous, the handler in `B`
-never runs concurrently with any code in `A` that uses `D`.
-So at most one of `A` or `B` uses `D` at any time.
-
-. Suppose instead that the handler in `B` stores the reference
-into a member variable, so that the reference
-persists after the handler exits.
-If this happens, then you should make sure that `A` cannot use
-`D` unless and until `B` passes ownership of `D` to `A` and vice versa.
-For example, you could use state variables of enum type in `A` and in `B` to 
-track ownership, and you could have a port invocation from `A` to `B` pass the 
-reference and transfer ownership from `A` to `B` and vice versa.
-
-When you use pass-by-value semantics, you don't have to worry
-about these issues, because the framework will copy the data
-for you. You can achieve pass-by-value semantics in three ways:
-
-. Using a value parameter in a synchronous or asynchronous invocation.
-
-. Using a reference parameter in an asynchronous invocation.
-
-. Using a reference parameter in a synchronous invocation,
-immediately coping the data in the handler
-that receives the parameter, and thereafter using the copy,
-never using the reference again.
+We discuss this pattern in the section on
+<<Defining-Ports_Returning-Values,returning values>>.
 
 === Returning Values
 
@@ -232,7 +303,7 @@ via the {cpp} `return` statement.
 For example:
 +
 ----
-T P1_handler() {
+T C::p1In_handler() {
   ...
   return T(1, 2, 3);
 }
@@ -246,7 +317,7 @@ its fields).
 For example:
 +
 ----
-void P2_handler(T& t) {
+void C::p2In_handler(T& t) {
   ...
   t = T(1, 2, 3);
 }
@@ -275,7 +346,7 @@ port P(ref result: U32) -> Status
 A handler for `P` might look like this:
 
 ----
-Status P_handler(U32& result) {
+Status C::pIn_handler(U32& result) {
   Status status = Status::FAIL;
   if (...) {
     ...
@@ -285,6 +356,57 @@ Status P_handler(U32& result) {
   return status;
 }
 ----
+
+=== Pass-by-Reference Semantics
+
+Whenever a {cpp} formal parameter _p_ enables sharing of data between 
+an invoking component and a handler function `pIn_handler`,
+we say that _p_ has *pass-by-reference semantics*.
+Pass-by-reference semantics occurs in the following cases:
+
+. _p_ has reference or `const` reference type,
+and the port `pIn` is synchronous.
+
+. _p_ has a type _T_ that contains a pointer or
+a reference as a member.
+
+When using pass-by-reference semantics,
+you must carefully manage the
+the use of the data to avoid concurrency bugs
+such as data races.
+This is especially true for references that can modify
+shared data.
+
+Except in special cases that require special expertise (e.g., 
+the implementation of highly concurrent data structures),
+you should enforce the rule that at most
+one component may use any piece of data at any time.
+In particular, if component `A` passes a reference to component `B`,
+then component `A` should not use the reference while
+component `B` is using it, and vice versa.
+For example:
+
+. Suppose component `A` owns some data `D` and passes a reference
+to `D` via a synchronous port call to component `B`.
+Suppose the port handler in component `B` uses the data but
+does not store the reference, so that when the handler exits,
+the reference is lost.
+This is a good pattern.
+In this case, we may say that ownership of `D` resides in `A`, temporarily
+goes to `B` for the life of the handler, and goes back to `A`
+when the handler exits.
+Because the port call is synchronous, the handler in `B`
+never runs concurrently with any code in `A` that uses `D`.
+So at most one of `A` or `B` uses `D` at any time.
+
+. Suppose instead that the handler in `B` stores the reference
+into a member variable, so that the reference
+persists after the handler exits.
+If this happens, then you should make sure that `A` cannot use
+`D` unless and until `B` passes ownership of `D` to `A` and vice versa.
+For example, you could use state variables of enum type in `A` and in `B` to 
+track ownership, and you could have a port invocation from `A` to `B` pass the 
+reference and transfer ownership from `A` to `B` and vice versa.
 
 === Annotating a Port Definition
 
