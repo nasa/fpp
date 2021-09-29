@@ -223,7 +223,7 @@ For example, suppose this port definition
 [source,fpp]
 ----
 type T
-port P(a: T, ref b: T)
+port P(a: U32, b: T, ref c: T)
 ----
 
 appears as the type of an input port `pIn` of component `C`.
@@ -232,13 +232,13 @@ signature like this:
 
 [source,cpp]
 ----
-virtual void pIn_handler(const T& a, T& b);
+virtual void pIn_handler(U32 a, const T& b, T& c);
 ----
 
-Notice that parameter `a` is not marked `ref`, so it is
-translated to `const T& a`, as discussed in the previous section.
-On the other hand, parameter `b` is marked ref, so it
-is translated to `T& a`.
+Notice that parameter `b` is not marked `ref`, so it is
+translated to `const T& b`, as discussed in the previous section.
+On the other hand, parameter `c` is marked ref, so it
+is translated to `T& c`.
 
 Apart from the mutability, a reference parameter has the same
 behavior as a `const` reference parameter, as described in

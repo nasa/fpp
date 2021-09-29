@@ -3235,7 +3235,7 @@ For example, suppose this port definition</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">type T
-port P(a: T, ref b: T)</code></pre>
+port P(a: U32, b: T, ref c: T)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3245,14 +3245,14 @@ signature like this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="cpp">virtual void pIn_handler(const T&amp; a, T&amp; b);</code></pre>
+<pre class="prettyprint highlight"><code data-lang="cpp">virtual void pIn_handler(U32 a, const T&amp; b, T&amp; c);</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Notice that parameter <code>a</code> is not marked <code>ref</code>, so it is
-translated to <code>const T&amp; a</code>, as discussed in the previous section.
-On the other hand, parameter <code>b</code> is marked ref, so it
-is translated to <code>T&amp; a</code>.</p>
+<p>Notice that parameter <code>b</code> is not marked <code>ref</code>, so it is
+translated to <code>const T&amp; b</code>, as discussed in the previous section.
+On the other hand, parameter <code>c</code> is marked ref, so it
+is translated to <code>T&amp; c</code>.</p>
 </div>
 <div class="paragraph">
 <p>Apart from the mutability, a reference parameter has the same
@@ -10889,7 +10889,7 @@ F Prime repository.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-09-29 11:45:17 -0700
+Last updated 2021-09-29 11:47:24 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
