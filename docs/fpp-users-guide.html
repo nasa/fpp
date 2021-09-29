@@ -515,9 +515,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#Defining-Ports_Port-Names">8.1. Port Names</a></li>
 <li><a href="#Defining-Ports_Formal-Parameters">8.2. Formal Parameters</a></li>
-<li><a href="#Defining-Ports_Reference-Parameters">8.3. Reference Parameters</a></li>
-<li><a href="#Defining-Ports_Returning-Values">8.4. Returning Values</a></li>
-<li><a href="#Defining-Ports_Annotating-a-Port-Definition">8.5. Annotating a Port Definition</a></li>
+<li><a href="#Defining-Ports_Handler-Functions">8.3. Handler Functions</a></li>
+<li><a href="#Defining-Ports_Reference-Parameters">8.4. Reference Parameters</a></li>
+<li><a href="#Defining-Ports_Returning-Values">8.5. Returning Values</a></li>
+<li><a href="#Defining-Ports_Pass-by-Reference-Semantics">8.6. Pass-by-Reference Semantics</a></li>
+<li><a href="#Defining-Ports_Annotating-a-Port-Definition">8.7. Annotating a Port Definition</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Components">9. Defining Components</a>
@@ -3036,18 +3038,6 @@ port P(e: E, t: T)</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Each formal parameter of a port <em>P</em> becomes bound to an argument (a value) when
-<em>P</em> is <strong>invoked</strong>.
-The invocation occurs in C&#43;&#43; code that implements the model.
-To invoke a port, you call an auto-generated function.
-The arguments are C&#43;&#43; values, and their types must match the
-types of the C&#43;&#43; function parameters generated from the FPP port parameters.
-The invocation may be <strong>synchronous</strong> (via a direct function call)
-or <strong>asynchronous</strong> (via a message queue);
-we will discuss these cases further below in the section on
-<a href="#Defining-Components">defining components</a>.</p>
-</div>
-<div class="paragraph">
 <p>The formal parameters form an
 <a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">element
 sequence</a> in which the optional terminating punctuation is a comma.  As usual
@@ -3066,150 +3056,224 @@ port P(
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Ports_Reference-Parameters">8.3. Reference Parameters</h3>
+<h3 id="Defining-Ports_Handler-Functions">8.3. Handler Functions</h3>
 <div class="paragraph">
-<p>You may write the keyword <code>ref</code> in front of any formal parameter <em>p</em>
-of a port definition.
-Doing this specifies that <em>p</em> is a <strong>reference parameter</strong>, i.e.,
-its data is passed by reference when the passing occurs in a
-synchronous invocation.
-For example:</p>
+<p>As discussed further in the sections on
+<a href="#Defining-Components">defining components</a>
+and
+<a href="#Defining-Component-Instances">instantiating components</a>,
+when constructing an F Prime application, you
+instantiate port definitions as <strong>output ports</strong> and
+<strong>input ports</strong> of component instances.
+Output ports are connected to input ports.
+For each output port <code>pOut</code> of a component instance <code>c1</code>,
+there is a corresponding auto-generated function that the
+implementation of <code>c1</code> can call in order to <strong>invoke</strong> <code>pOut</code>.
+If <code>pOut</code> is connected to an input
+port <code>pIn</code> of component instance <code>c2</code>, then invoking <code>pOut</code> calls a
+<strong>handler function</strong> <code>pIn_handler</code> associated with <code>pIn</code>.
+The handler function is part of the implementation of the component
+<code>C2</code> that <code>c2</code> instantiates.
+In this way <code>c1</code> can send data to <code>c2</code> or request
+that <code>c2</code> take some action.
+Each input port may be <strong>synchronous</strong> or <strong>asynchronous</strong>.
+A synchronous invocation directly calls a handler function.
+An asynchronous invocation calls a short function that puts
+a message on a queue for later dispatch.
+Dispatching the message calls the handler function.</p>
+</div>
+<div class="paragraph">
+<p><strong>Translating handler functions:</strong>
+In FPP, each output port <code>pOut</code> or input port <code>pIn</code> has a <strong>port type</strong>.
+This port type refers to an FPP port definition <code>P</code>.
+In the C&#43;&#43; translation, the signature of a handler function
+<code>pIn_handler</code> for <code>pIn</code>
+is derived from <code>P</code>.
+In particular, the C&#43;&#43; formal parameters of <code>pIn_handler</code>
+correspond to the
+<a href="#Defining-Ports_Formal-Parameters">FPP formal parameters</a> of <code>P</code>.</p>
+</div>
+<div class="paragraph">
+<p>When generating the handler function <code>pIn_handler</code>, F
+Prime translates each formal parameter <em>p</em> of <code>P</code> in the following way:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If <em>p</em> carries a
+<a href="#Defining-Constants_Expressions_Primitive-Values">primitive value</a>,
+then <em>p</em> is translated to a C&#43;&#43; value parameter.</p>
+</li>
+<li>
+<p>Otherwise <em>p</em> is translated to a C&#43;&#43; <code>const</code> reference
+parameter.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>As an example, suppose that <code>P</code> looks like this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">type T
-port P(ref a: T)</code></pre>
+port P(a: U32, b: T)</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>In this example, <code>a</code> is a reference parameter of type <code>T</code>.
-In a synchronous invocation, <code>a</code> is passed by reference.
-In an asynchronous invocation, <code>a</code> is passed by value
-(it is serialized onto a queue).
-The <code>ref</code> marking does not cause pass by reference in this case.</p>
+<p>Then the signature of <code>pIn_handler</code> might look like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="cpp">virtual void pIn_handler(U32 a, const T&amp; b);</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>When a reference parameter is used in a synchronous port invocation,
-we say that the parameter has
-<strong>pass-by-reference semantics</strong>.
-In other cases, the parameter is passed by value, and we say that it
-has <strong>pass-by-value semantics</strong>.
-In particular, a parameter is always passed by value if it is not
-marked <code>ref</code>.
-In this case, we say that it is a <strong>value parameter</strong>.</p>
+<p><strong>Calling handler functions:</strong>
+Suppose again that output port <code>pOut</code> of component instance <code>c1</code>
+is connected to input port <code>pIn</code> of component instance <code>c2</code>.
+Suppose that the implementation of <code>c1</code> invokes <code>pOut</code>.
+Doing this calls the <code>pIn</code> handler for <code>c2</code>.
+What happens next depends on whether <code>pIn</code> is synchronous
+or asynchronous.</p>
 </div>
 <div class="paragraph">
-<p>There are at least two reasons to use pass-by-reference semantics:</p>
+<p>If <code>pIn</code> is synchronous, then the invocation is a direct
+function call.
+Any value parameter is passed by copying the value on
+the stack.
+Any <code>const</code> reference parameter provides a reference to
+the data passed in by <code>c1</code> at the point of invocation.
+For example, if <code>pIn</code> has the port type <code>P</code> shown above,
+then the implementation of <code>pIn_handler</code> might look like this:</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>To avoid copying a large data value.
-For example, in the code shown above, if <code>T</code> is an image with a large physical
-size, then the <code>ref</code> marking on parameter <code>a</code> saves a copy of the image when
-performing a synchronous invocation on the port <code>P</code>.</p>
-</li>
-<li>
-<p>To return a value to the sender by storing it through
-the reference.
-We discuss this case in the next section on returning
-values.</p>
-</li>
-</ol>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="cpp">// Assume pIn is a synchronous input port
+void C2::pIn_handler(U32 a, const T&amp; b) {
+  // a is a local copy of a U32 value
+  // b is a const reference to T data passed in by c1
+}</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>When using pass-by-reference semantics,
-you must carefully manage the
-the use of the data to avoid concurrency bugs
-such as data races.
-Except in special cases that require special expertise (e.g.,
-the implementation of highly concurrent data structures),
-you should enforce the rule that at most
-one component may use any piece of data at any time.
-In particular, if component <code>A</code> passes a reference to component <code>B</code>,
-then component <code>A</code> should not use the reference while
-component <code>B</code> is using it, and vice versa.
+<p>Usually the <code>const</code> reference is what you want, for efficiency reasons.
+If you want a local copy of the data, you can make one.
 For example:</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Suppose component <code>A</code> owns some data <code>D</code> and passes a reference
-to <code>D</code> via a synchronous port call to component <code>B</code>.
-Suppose the port handler in component <code>B</code> uses the data but
-does not store the reference, so that when the handler exits,
-the reference is lost.
-This is a good pattern.
-In this case, we may say that ownership of <code>D</code> resides in <code>A</code>, temporarily
-goes to <code>B</code> for the life of the handler, and goes back to <code>A</code>
-when the handler exits.
-Because the port call is synchronous, the handler in <code>B</code>
-never runs concurrently with any code in <code>A</code> that uses <code>D</code>.
-So at most one of <code>A</code> or <code>B</code> uses <code>D</code> at any time.</p>
-</li>
-<li>
-<p>Suppose instead that the handler in <code>B</code> stores the reference
-into a member variable, so that the reference
-persists after the handler exits.
-If this happens, then you should make sure that <code>A</code> cannot use
-<code>D</code> unless and until <code>B</code> passes ownership of <code>D</code> to <code>A</code> and vice versa.
-For example, you could use state variables of enum type in <code>A</code> and in <code>B</code> to
-track ownership, and you could have a port invocation from <code>A</code> to <code>B</code> pass the
-reference and transfer ownership from <code>A</code> to <code>B</code> and vice versa.</p>
-</li>
-</ol>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="cpp">// Copy b into b1
+auto b1 = b</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>When you use pass-by-value semantics, you don&#8217;t have to worry
-about these issues, because the framework will copy the data
-for you. You can achieve pass-by-value semantics in three ways:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Using a value parameter in a synchronous or asynchronous invocation.</p>
-</li>
-<li>
-<p>Using a reference parameter in an asynchronous invocation.</p>
-</li>
-<li>
-<p>Using a reference parameter in a synchronous invocation,
-immediately coping the data in the handler
-that receives the parameter, and thereafter using the copy,
-never using the reference again.</p>
-</li>
-</ol>
+<p>Now <code>b1</code> has the same data that the parameter <code>b</code> would have
+if it were passed by value.</p>
 </div>
 <div class="paragraph">
-<p><strong>XML limitation:</strong> In the current version of the F Prime XML-to-C&#43;&#43;
-autocoder, if a parameter <code>a</code> of a port <code>P</code> carries a large value,
-then you should mark <code>a</code> <code>ref</code> if you intend to use <code>P</code> in an asynchronous
-invocation.
-Doing this avoids unnecessary copies that will otherwise occur in the
-auto-generated code.
-If you also need to use <code>P</code> in a synchronous invocation, and you need
-pass-by-value semantics in that invocation, then you can copy the
-data in the handler, as discussed above.</p>
+<p>If <code>pIn</code> is asynchronous, then the invocation does not
+call the handler directly. Instead, it calls
+a function that puts a message on a queue.
+The handler is called when the message is dispatched.
+At this point, any value parameter is passed by
+copying the value out of the queue and onto the stack.
+Any <code>const</code> reference parameter is passed by
+(1) copying data out of the queue and onto the stack and
+(2) then providing a <code>const</code> reference to the data on the stack.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="cpp">// Assume pIn is an asynchronous input port
+void C2::pIn_handler(U32 a, const T&amp; b) {
+  // a is a local copy of a U32 value
+  // b is a const reference to T data copied across the queue
+  // and owned by this component
+}</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>This use of <code>ref</code> is unfortunate: it is an autocoder optimization
-that has leaked into the model description.
-In a future version of the autocoder, we intend to perform
-the optimization automatically, making this use of <code>ref</code> unnecessary.</p>
+<p>Note that unlike in the synchronous case, const references
+in parameters refer to data owned by the handler
+(residing on the handler stack),
+not data owned by the invoking component.
+Note also that the values must be small enough to permit
+placement on the queue and on the stack.</p>
 </div>
 <div class="paragraph">
-<p>In summary, given the current state of the XML autocoder, you should
-use a <code>ref</code> parameter if (1) you want pass-by-reference semantics
-in a synchronous invocation (the intended use of <code>ref</code>); or (2)
-the parameter carries large data and you intend to use it in an asynchronous
-invocation (the result of an autocoder quirk, which will be fixed in
-a future version of F Prime).</p>
+<p>If you want the handler and the invoking component to share data
+passed in as a parameter, or if the data values are too large
+for the queue and the stack, then you can use a data structure
+that contains a pointer or a reference as a member.
+For example, <code>T</code> could have a member that stores a reference
+or a pointer to shared data.
+F Prime provides a type <code>Fw::Buffer</code> that stores a
+pointer to a shared data buffer.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Ports_Returning-Values">8.4. Returning Values</h3>
+<h3 id="Defining-Ports_Reference-Parameters">8.4. Reference Parameters</h3>
 <div class="paragraph">
-<p>Optionally, you can give the port a return type.
+<p>You may write the keyword <code>ref</code> in front of any formal parameter <em>p</em>
+of a port definition.
+Doing this specifies that <em>p</em> is a <strong>reference parameter</strong>.
+Each reference parameter in an FPP port becomes a mutable
+C&#43;&#43; reference at the corresponding place in the
+handler function signature.
+For example, suppose this port definition</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">type T
+port P(a: U32, b: T, ref c: T)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>appears as the type of an input port <code>pIn</code> of component <code>C</code>.
+The generated code for <code>C</code> might contain a handler function with a
+signature like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="cpp">virtual void pIn_handler(U32 a, const T&amp; b, T&amp; c);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that parameter <code>b</code> is not marked <code>ref</code>, so it is
+translated to <code>const T&amp; b</code>, as discussed in the previous section.
+On the other hand, parameter <code>c</code> is marked ref, so it
+is translated to <code>T&amp; c</code>.</p>
+</div>
+<div class="paragraph">
+<p>Apart from the mutability, a reference parameter has the same
+behavior as a <code>const</code> reference parameter, as described in
+the previous section.
+In particular:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>When <code>pIn</code> is synchronous, a reference parameter <em>p</em> of <code>pIn_handler</code>
+refers to the data passed in by the invoking component.</p>
+</li>
+<li>
+<p>When <code>pIn</code> is asynchronous, a reference parameter <em>p</em> of <code>pIn_handler</code>
+refers to data copied out of the queue and placed on the local stack.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The main reason to use a reference parameter is to
+return a value to the sender by storing it through
+the reference.
+We discuss this pattern in the section on
+<a href="#Defining-Ports_Returning-Values">returning values</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-Ports_Returning-Values">8.5. Returning Values</h3>
+<div class="paragraph">
+<p>Optionally, you can give a port definition a return type.
 To do this you write an arrow <code>-></code> and a type
 after the name and the formal parameters, if any.
 For example:</p>
@@ -3262,7 +3326,7 @@ via the C&#43;&#43; <code>return</code> statement.
 For example:</p>
 <div class="listingblock">
 <div class="content">
-<pre>T P1_handler() {
+<pre>T C::p1In_handler() {
   ...
   return T(1, 2, 3);
 }</pre>
@@ -3278,7 +3342,7 @@ its fields).
 For example:</p>
 <div class="listingblock">
 <div class="content">
-<pre>void P2_handler(T&amp; t) {
+<pre>void C::p2In_handler(T&amp; t) {
   ...
   t = T(1, 2, 3);
 }</pre>
@@ -3315,7 +3379,7 @@ port P(ref result: U32) -&gt; Status</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>Status P_handler(U32&amp; result) {
+<pre>Status C::pIn_handler(U32&amp; result) {
   Status status = Status::FAIL;
   if (...) {
     ...
@@ -3328,7 +3392,74 @@ port P(ref result: U32) -&gt; Status</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Ports_Annotating-a-Port-Definition">8.5. Annotating a Port Definition</h3>
+<h3 id="Defining-Ports_Pass-by-Reference-Semantics">8.6. Pass-by-Reference Semantics</h3>
+<div class="paragraph">
+<p>Whenever a C&#43;&#43; formal parameter <em>p</em> enables sharing of data between
+an invoking component and a handler function <code>pIn_handler</code>,
+we say that <em>p</em> has <strong>pass-by-reference semantics</strong>.
+Pass-by-reference semantics occurs in the following cases:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><em>p</em> has reference or <code>const</code> reference type,
+and the port <code>pIn</code> is synchronous.</p>
+</li>
+<li>
+<p><em>p</em> has a type <em>T</em> that contains a pointer or
+a reference as a member.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>When using pass-by-reference semantics,
+you must carefully manage the
+use of the data to avoid concurrency bugs
+such as data races.
+This is especially true for references that can modify
+shared data.</p>
+</div>
+<div class="paragraph">
+<p>Except in special cases that require special expertise (e.g.,
+the implementation of highly concurrent data structures),
+you should enforce the rule that at most
+one component may use any piece of data at any time.
+In particular, if component <code>A</code> passes a reference to component <code>B</code>,
+then component <code>A</code> should not use the reference while
+component <code>B</code> is using it, and vice versa.
+For example:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Suppose component <code>A</code> owns some data <code>D</code> and passes a reference
+to <code>D</code> via a synchronous port call to component <code>B</code>.
+Suppose the port handler in component <code>B</code> uses the data but
+does not store the reference, so that when the handler exits,
+the reference is lost.
+This is a good pattern.
+In this case, we may say that ownership of <code>D</code> resides in <code>A</code>, temporarily
+goes to <code>B</code> for the life of the handler, and goes back to <code>A</code>
+when the handler exits.
+Because the port call is synchronous, the handler in <code>B</code>
+never runs concurrently with any code in <code>A</code> that uses <code>D</code>.
+So at most one of <code>A</code> or <code>B</code> uses <code>D</code> at any time.</p>
+</li>
+<li>
+<p>Suppose instead that the handler in <code>B</code> stores the reference
+into a member variable, so that the reference
+persists after the handler exits.
+If this happens, then you should make sure that <code>A</code> cannot use
+<code>D</code> unless and until <code>B</code> passes ownership of <code>D</code> to <code>A</code> and vice versa.
+For example, you could use state variables of enum type in <code>A</code> and in <code>B</code> to
+track ownership, and you could have a port invocation from <code>A</code> to <code>B</code> pass the
+reference and transfer ownership from <code>A</code> to <code>B</code> and vice versa.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-Ports_Annotating-a-Port-Definition">8.7. Annotating a Port Definition</h3>
 <div class="paragraph">
 <p>A port definition is an
 <a href="#Writing-Comments-and-Annotations_Annotations">annotatable element</a>.
@@ -10748,7 +10879,7 @@ F Prime repository.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-09-28 13:11:54 -0700
+Last updated 2021-09-29 15:38:24 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
