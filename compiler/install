@@ -38,7 +38,7 @@ fpp-to-xml
 commit=`git log | awk 'NR == 1 { print $2 }'`
 util=lib/src/main/scala/util
 echo "Updating commit to $commit"
-sed -i .bak -e "s/val commit = .*/val commit = \"$commit\"/" \
+sed -i.bak -e "s/val commit = .*/val commit = \"$commit\"/" \
   $util/Version.scala
 
 echo "Building jar files"
