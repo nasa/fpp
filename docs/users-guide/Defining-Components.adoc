@@ -769,9 +769,9 @@ Notice that when defining `ExternalSelfMessage` we
 defined and used the port `P`, but when defining
 `InternalSelfMessage` we did not.
 The formal parameters of an internal port work in the same way
-as for a <<Defining-Ports_Formal-Parameters,port definition>>.
-The FPP formal parameters are translated to the {cpp}
-formal parameters of a handler function in the same way.
+as for a <<Defining-Ports_Formal-Parameters,port definition>>,
+except that none of the parameters may be a
+<<Defining-Ports_Reference-Parameters,reference parameter>>.
 
 When specifying an internal port, you may specify
 <<Defining-Components_Port-Instances_Priority,priority>> and
