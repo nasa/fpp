@@ -79,7 +79,7 @@ module DefinitionsAndSpecifiers {
 
     @ Internal port specifier
     internal port I(
-                     ref a: U32
+                     a: U32
                      b: F32
                    ) \
       priority 10 \
