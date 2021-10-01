@@ -4415,15 +4415,10 @@ Instead, you provide the formal parameters directly.
 Notice that when defining <code>ExternalSelfMessage</code> we
 defined and used the port <code>P</code>, but when defining
 <code>InternalSelfMessage</code> we did not.
-The formal parameters of an internal port are the same
+The formal parameters of an internal port work in the same way
 as for a <a href="#Defining-Ports_Formal-Parameters">port definition</a>.
-In particular, you may write the keyword <code>ref</code> in front of any formal
-parameter.
-Values are never actually passed by reference to an internal port,
-because they go through a queue.
-However, as in the case of port definitions, writing <code>ref</code> causes the XML
-autocoder to generate
-code that is more efficient for passing large values.</p>
+The FPP formal parameters are translated to the C&#43;&#43;
+formal parameters of a handler function in the same way.</p>
 </div>
 <div class="paragraph">
 <p>When specifying an internal port, you may specify
@@ -10888,7 +10883,7 @@ F Prime repository.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-09-29 15:22:51 -0700
+Last updated 2021-09-30 22:46:19 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

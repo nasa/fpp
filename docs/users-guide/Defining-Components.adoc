@@ -768,15 +768,10 @@ Instead, you provide the formal parameters directly.
 Notice that when defining `ExternalSelfMessage` we
 defined and used the port `P`, but when defining
 `InternalSelfMessage` we did not.
-The formal parameters of an internal port are the same
+The formal parameters of an internal port work in the same way
 as for a <<Defining-Ports_Formal-Parameters,port definition>>.
-In particular, you may write the keyword `ref` in front of any formal 
-parameter.
-Values are never actually passed by reference to an internal port,
-because they go through a queue.
-However, as in the case of port definitions, writing `ref` causes the XML 
-autocoder to generate
-code that is more efficient for passing large values.
+The FPP formal parameters are translated to the {cpp}
+formal parameters of a handler function in the same way.
 
 When specifying an internal port, you may specify
 <<Defining-Components_Port-Instances_Priority,priority>> and
