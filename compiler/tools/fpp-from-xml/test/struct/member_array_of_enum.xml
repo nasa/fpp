@@ -4,7 +4,7 @@
   Top-level comment, line 2
   </comment>
   <members>
-    <member name="m" type="ENUM" size="3" format="the value is %d">
+    <member name="m" type="ENUM" array_size="3" format="the value is %d">
       <enum name="E">
         <item name="X"/>
         <item name="Y"/>
