@@ -42,7 +42,7 @@ object StructXmlWriter extends AstVisitor with LineUtils {
     val pairs = {
       val nameAndType = ("name", data.name) :: TypeXmlWriter.getPairs(s, t)
       val size = (t, structType.sizes.get(data.name)) match {
-        case (_, Some(n)) => List(("array_length", n.toString))
+        case (_, Some(n)) => List(("array_size", n.toString))
         case _ => Nil
       }
       val format = {
