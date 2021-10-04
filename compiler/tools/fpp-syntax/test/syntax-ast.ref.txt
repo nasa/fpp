@@ -138,7 +138,7 @@ def module
     spec internal port
       ident I
       formal param
-        kind ref
+        kind value
         ident a
         type name U32
       formal param

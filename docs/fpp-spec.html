@@ -3968,15 +3968,8 @@ to itself.</p>
 The parameter list specifies the formal parameters of the
 port.
 Each formal parameter is a piece of data carried on the port.
-The names of the formal parameters must be distinct.</p>
-</div>
-<div class="paragraph">
-<p>The annotation <code>ref</code> may appear in a formal parameter <em>P</em>.
-In this case <em>P</em> is still passed by value, but functions internal
-to the auto-generated C&#43;&#43; implementation use references instead of values.
-See <a href="https://fprime-community.github.io/fpp/fpp-users-guide.html"><em>The FPP User&#8217;s
-Guide</em></a>
-for more details.</p>
+The names of the formal parameters must be distinct.
+No formal parameter may be a <code>ref</code> parameter.</p>
 </div>
 <div class="paragraph">
 <p>The optional priority and queue full behavior have the same semantics as in
@@ -8164,7 +8157,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-09-28 13:11:27 -0700
+Last updated 2021-10-04 09:29:12 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

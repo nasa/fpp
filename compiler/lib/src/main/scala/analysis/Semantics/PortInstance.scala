@@ -172,9 +172,20 @@ final object PortInstance {
       val node = aNode._2
       val data = node.data
       val loc = Locations.get(node.id)
+      def checkRefParams(params: Ast.FormalParamList) = {
+        val numRefParams = Analysis.getNumRefParams(params)
+        if (numRefParams != 0) Left(
+          SemanticError.InvalidInternalPort(
+            loc,
+            "internal port may not have ref parameters",
+          )
+        )
+        else Right(())
+      }
       for {
         priority <- a.getIntValueOpt(data.priority)
         _ <- Analysis.checkForDuplicateParameter(data.params)
+        _ <- checkRefParams(data.params)
       }
       yield {
         val queueFull = Analysis.getQueueFull(data.queueFull)
