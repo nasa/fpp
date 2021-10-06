@@ -1914,6 +1914,32 @@ module M {
 }</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p><strong>XML limitation:</strong> The F Prime XML format supports
+only one level of C&#43;&#43; namespaces.
+Therefore nested modules are not translated properly.
+As a workaround, you can use an underscore prefix.
+For example, instead of writing</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module A {
+  module B {
+
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>you can write</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module A_B {
+
+}</code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -10874,7 +10900,7 @@ F Prime repository.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-10-04 12:47:49 -0700
+Last updated 2021-10-06 10:24:45 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
