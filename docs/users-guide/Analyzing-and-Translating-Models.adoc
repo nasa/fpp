@@ -991,3 +991,43 @@ sed 's/^\( *\)#/\1@ #/' | fpp-format $@ | sed 's/^\( *\)@ #/\1#/'
 
 It converts comments to annotations, runs `fpp-format`, and converts the 
 annotations back to comments.
+
+=== Visualizing Topologies
+
+When FPP translates a topology _T_ to XML, as discussed in the section on
+<<Analyzing-and-Translating-Models_Generating-XML,generating XML>>,
+it adds special comments that can be read by a companion tool called
+`fprime-layout`.
+`fprime-layout` reads a topology XML file and produces a
+*topology visualization*, i.e., a graphical rendering of the topology
+in which the components are shapes, the ports are smaller shapes,
+and the connections are arrows between the ports.
+`fprime-layout` produces one visualization for each
+<<Defining-Topologies_Connection-Graphs,connection graph>> in the 
+topology.
+
+Topology visualization is an important part of the FPP work flow:
+
+* It provides a graphical representation of the instances and
+connections in each connection graph.
+This graphical representation is a useful complement to the
+textual representation provided by the FPP source.
+
+* It makes explicit information that is only implicit in the
+FPP source, e.g., the auto-generated port numbers of the connections and
+the auto-generated connections of the pattern graph specifiers.
+
+Using `fprime-layout`, you can do the following:
+
+* Extract the connection graphs from a topology XML file.
+
+* Render the connection graphs as EPS (Encapsulated PostScript),
+generating one EPS file for each connection graph.
+
+* Generate a set of layouts, one for each connection graph,
+and view the layouts in a browser.
+
+See the https://github.com/fprime-community/fprime-layout[`fprime-layout`
+repository] for more details.
+
+
