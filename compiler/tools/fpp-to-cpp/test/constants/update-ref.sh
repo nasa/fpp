@@ -5,10 +5,17 @@ constants()
   move_cpp FppConstants _constants
 }
 
-constants_guard()
+constants_guard_dir()
+{
+  dir=`cd ../../..; echo $PWD`
+  update "-p $dir" constants
+  move_cpp FppConstants _constants_guard_dir
+}
+
+constants_guard_prefix()
 {
   update "-g GUARD_PREFIX -p $PWD" constants
-  move_cpp FppConstants _constants_guard
+  move_cpp FppConstants _constants_guard_prefix
 }
 
 constants_output_dir()

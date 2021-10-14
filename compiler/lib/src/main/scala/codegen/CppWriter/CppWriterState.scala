@@ -43,11 +43,12 @@ case class CppWriterState(
 
   /** Constructs an include guard from the prefix and a name */
   def includeGuardFromPrefix(name: String) = {
-    val guard = guardPrefix match {
-      case Some(s) => s"${s}_$name"
-      case None => name
+    val rawPrefix = guardPrefix.getOrElse(getRelativePath(".").toString)
+    val prefix = "[^A-Za-z0-9_]".r.replaceAllIn(rawPrefix, "_")
+    prefix match {
+      case "" =>  s"${name}_HPP"
+      case _ => s"${prefix}_${name}_HPP"
     }
-    s"${guard}_HPP"
   }
 
   /** Constructs a C++ identifier from a qualified symbol name */
