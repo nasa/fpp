@@ -256,7 +256,7 @@ case class TopPrivateFunctions(
       getCodeLinesForPhase (CppWriter.Phases.freeThreads) (ci).getOrElse {
         if (isActive(ci)) {
           val name = getNameAsIdent(ci.qualifiedName)
-          lines(s"(void) $name.ActiveComponentBase::join(NULL);")
+          lines(s"(void) $name.ActiveComponentBase::join(nullptr);")
         }
         else Nil
       }
