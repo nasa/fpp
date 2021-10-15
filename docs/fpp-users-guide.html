@@ -9764,17 +9764,19 @@ This is similar to the <code>-p</code> option for
 </div>
 <div class="paragraph">
 <p><strong>The include guard prefix:</strong> By default, the include guard
-for <code>FppConstantsAc.hpp</code> is <em>prefix</em> <code>_FppConstantsAc_HPP</code>,
-where <em>prefix</em> is derived from the absolute path of the current
+for <code>FppConstantsAc.hpp</code> is <em>guard-prefix</em> <code>_FppConstantsAc_HPP</code>,
+where <em>guard-prefix</em> is the absolute path of the current
 directory, after replacing non-identifier characters with underscores.
 For example, if the current directory is <code>/home/user</code>, then
-the prefix is <code>_home_user</code>.</p>
+the guard prefix is <code>_home_user</code>, and the include guard is
+<code>_home_user_FppConstantsAc_HPP</code>.</p>
 </div>
 <div class="paragraph">
-<p>The <code>-p</code> option, if present, is applied to the include guard
+<p>The <code>-p</code> option, if present, is applied to the guard
 prefix.
 For example, if you run <code>fpp-to-cpp -p $PWD &#8230;&#8203;</code> then
-the prefix will be empty.</p>
+the guard prefix will be empty.
+In this case, the guard is <code>FppConstantsAc_HPP</code>.</p>
 </div>
 <div class="paragraph">
 <p>If you wish to use a different prefix entirely, use the option
@@ -10958,7 +10960,7 @@ F Prime repository.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-10-14 17:18:23 -0700
+Last updated 2021-10-14 17:28:20 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

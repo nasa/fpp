@@ -482,16 +482,18 @@ This is similar to the `-p` option for
 <<Analyzing-and-Translating-Models_Generating-XML, `fpp-to-xml`>>.
 
 *The include guard prefix:* By default, the include guard
-for `FppConstantsAc.hpp` is _prefix_ `pass:[_]FppConstantsAc_HPP`,
-where _prefix_ is derived from the absolute path of the current
+for `FppConstantsAc.hpp` is _guard-prefix_ `pass:[_]FppConstantsAc_HPP`,
+where _guard-prefix_ is the absolute path of the current
 directory, after replacing non-identifier characters with underscores.
 For example, if the current directory is `/home/user`, then
-the prefix is `pass:[_]home_user`.
+the guard prefix is `pass:[_]home_user`, and the include guard is
+`pass:[_]home_user_FppConstantsAc_HPP`.
 
-The `-p` option, if present, is applied to the include guard
+The `-p` option, if present, is applied to the guard
 prefix.
 For example, if you run `fpp-to-cpp -p $PWD ...` then
-the prefix will be empty.
+the guard prefix will be empty.
+In this case, the guard is `FppConstantsAc_HPP`.
 
 If you wish to use a different prefix entirely, use the option
 `-g` _guard-prefix_.
