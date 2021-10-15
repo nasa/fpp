@@ -9754,23 +9754,31 @@ and examine the results:</p>
 </div>
 </div>
 <div class="paragraph">
-<p><strong>Setting the include guard prefix:</strong> By default, the include guard
-for <code>FppConstantsAc.hpp</code> is <code>FppConstantsAc_HPP</code>.
-This works fine if you generate one constant file
-for your whole model.
-However, if you generate separate constant files for
-separate source files in your model, then having multiple
-files with the same guard is not a good idea.
-If one compilation step tries to include both files, then the second
-inclusion will fail.
-This will likely cause a compilation failure,
-because symbols defined in the excluded file will be
-reported as undefined.</p>
+<p><strong>Generated header paths:</strong>
+The option <code>-p</code> <em>path-prefixes</em> removes the longest of one or more
+path prefixes from any generated header paths (for example,
+the path to <code>FppConstants.hpp</code> that is included in <code>FppConstants.cpp</code>).
+To specify multiple prefixes, separate them with commas (and no spaces).
+This is similar to the <code>-p</code> option for
+<a href="#Analyzing-and-Translating-Models_Generating-XML"><code>fpp-to-xml</code></a>.</p>
 </div>
 <div class="paragraph">
-<p>To avoid this problem, use the option <code>-g</code> <em>guard-prefix</em>.
-This options says to add <em>guard-prefix</em> to the include
-guard for <code>FppConstantsAc.hpp</code>.
+<p><strong>The include guard prefix:</strong> By default, the include guard
+for <code>FppConstantsAc.hpp</code> is <em>prefix</em> <code>_FppConstantsAc_HPP</code>,
+where <em>prefix</em> is derived from the absolute path of the current
+directory, after replacing non-identifier characters with underscores.
+For example, if the current directory is <code>/home/user</code>, then
+the prefix is <code>_home_user</code>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>-p</code> option, if present, is applied to the include guard
+prefix.
+For example, if you run <code>fpp-to-cpp -p $PWD &#8230;&#8203;</code> then
+the prefix will be empty.</p>
+</div>
+<div class="paragraph">
+<p>If you wish to use a different prefix entirely, use the option
+<code>-g</code> <em>guard-prefix</em>.
 For example, if you run <code>fpp-to-cpp -g Commands &#8230;&#8203;</code>,
 then the include guard will be <code>Commands_FppConstantsAc_HPP</code>.</p>
 </div>
@@ -9790,13 +9798,6 @@ This is similar to the <code>-d</code> option for
 <p><code>-n</code> <em>file</em> : Write the names of the generated XML files
 to <em>file</em>.
 This is similar to the <code>-n</code> option for
-<a href="#Analyzing-and-Translating-Models_Generating-XML"><code>fpp-to-xml</code></a>.</p>
-</li>
-<li>
-<p><code>-p</code> <em>path-prefixes</em> : Remove the longest of one or more path prefixes from
-generated header paths.
-To specify multiple prefixes, separate them with commas (and no spaces).
-This is similar to the <code>-p</code> option for
 <a href="#Analyzing-and-Translating-Models_Generating-XML"><code>fpp-to-xml</code></a>.</p>
 </li>
 </ul>
@@ -10957,7 +10958,7 @@ F Prime repository.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-10-06 10:41:16 -0700
+Last updated 2021-10-14 17:18:23 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

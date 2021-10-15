@@ -112,7 +112,7 @@ object FPPToCpp {
       opt[Seq[String]]('p', "path-prefixes")
         .valueName("<prefix1>,<prefix2>...")
         .action((p, c) => c.copy(pathPrefixes = p.toList))
-        .text("path prefixes to delete from imported files"),
+        .text("prefixes to delete from generated file paths"),
       opt[Int]('s', "size")
         .valueName("<size>")
         .validate(s => if (s > 0) success else failure("size must be greater than zero"))

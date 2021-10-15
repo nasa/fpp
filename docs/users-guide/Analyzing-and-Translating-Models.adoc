@@ -473,22 +473,28 @@ passive component C {
 }
 ----
 
-*Setting the include guard prefix:* By default, the include guard
-for `FppConstantsAc.hpp` is `FppConstantsAc_HPP`.
-This works fine if you generate one constant file
-for your whole model.
-However, if you generate separate constant files for
-separate source files in your model, then having multiple
-files with the same guard is not a good idea.
-If one compilation step tries to include both files, then the second
-inclusion will fail.
-This will likely cause a compilation failure,
-because symbols defined in the excluded file will be
-reported as undefined.
+*Generated header paths:*
+The option `-p` _path-prefixes_ removes the longest of one or more
+path prefixes from any generated header paths (for example,
+the path to `FppConstants.hpp` that is included in `FppConstants.cpp`).
+To specify multiple prefixes, separate them with commas (and no spaces).
+This is similar to the `-p` option for
+<<Analyzing-and-Translating-Models_Generating-XML, `fpp-to-xml`>>.
 
-To avoid this problem, use the option `-g` _guard-prefix_.
-This options says to add _guard-prefix_ to the include
-guard for `FppConstantsAc.hpp`.
+*The include guard prefix:* By default, the include guard
+for `FppConstantsAc.hpp` is _prefix_ `pass:[_]FppConstantsAc_HPP`,
+where _prefix_ is derived from the absolute path of the current
+directory, after replacing non-identifier characters with underscores.
+For example, if the current directory is `/home/user`, then
+the prefix is `pass:[_]home_user`.
+
+The `-p` option, if present, is applied to the include guard
+prefix.
+For example, if you run `fpp-to-cpp -p $PWD ...` then
+the prefix will be empty.
+
+If you wish to use a different prefix entirely, use the option
+`-g` _guard-prefix_.
 For example, if you run `fpp-to-cpp -g Commands ...`,
 then the include guard will be `Commands_FppConstantsAc_HPP`.
 
@@ -503,12 +509,6 @@ This is similar to the `-d` option for
 * `-n` _file_ : Write the names of the generated XML files
 to _file_.
 This is similar to the `-n` option for
-<<Analyzing-and-Translating-Models_Generating-XML, `fpp-to-xml`>>.
-
-* `-p` _path-prefixes_ : Remove the longest of one or more path prefixes from
-generated header paths.
-To specify multiple prefixes, separate them with commas (and no spaces).
-This is similar to the `-p` option for
 <<Analyzing-and-Translating-Models_Generating-XML, `fpp-to-xml`>>.
 
 ==== Topology Definitions
