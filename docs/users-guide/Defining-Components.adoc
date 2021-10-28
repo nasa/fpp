@@ -457,9 +457,9 @@ required; you can use any names you wish.
 During translation, each command port is converted into
 a typed port instance with a predefined port type, as follows:
 
-* `cmd` `recv` uses the port `Fw.Cmd`
-* `cmd` `reg` uses the port `Fw.CmdReg`
-* `cmd` `resp` uses the port `Fw.CmdResponse`
+* `command` `recv` uses the port `Fw.Cmd`
+* `command` `reg` uses the port `Fw.CmdReg`
+* `command` `resp` uses the port `Fw.CmdResponse`
 
 The F Prime framework provides definitions for these ports
 in the directory `Fw/Cmd`.
