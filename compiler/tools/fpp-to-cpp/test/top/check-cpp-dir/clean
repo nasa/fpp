@@ -1,5 +1,11 @@
 #!/bin/sh -e
 
+echo "removing Ac files"
+for file in `find . -name '*Ac.*'`
+do
+  rm $file
+done
+
 for dir in `cat subdirs.txt`
 do
   (cd $dir; echo "cleaning $PWD"; ./clean)
