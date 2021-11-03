@@ -41,18 +41,20 @@ mkdir -p $dest
 echo "Installing tools1 at $dest"
 for tool in $tools1
 do
+  echo "  Installing $tool"
   file=`find tools/$tool/target -name "*-out"`
   cp $file $dest/$tool
 done
 
 echo "Building native2 files"
-(cd native/native1; ../config; sbt nativeLink)
+(cd native/native2; ../config; sbt nativeLink)
 
 mkdir -p $dest
 
 echo "Installing tools2 at $dest"
 for tool in $tools2
 do
+  echo "  Installing $tool"
   file=`find tools/$tool/target -name "*-out"`
   cp $file $dest/$tool
 done
