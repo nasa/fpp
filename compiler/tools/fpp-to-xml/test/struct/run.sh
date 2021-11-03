@@ -60,6 +60,12 @@ struct_abs_type()
   diff -u StructAbsTypeSerializableAi.xml StructAbsTypeSerializableAi.ref.xml
 }
 
+struct_default()
+{
+  run_test "-p $PWD" struct_default && \
+  diff -u StructDefaultSerializableAi.xml StructDefaultSerializableAi.ref.xml
+}
+
 struct_enum_member()
 {
   run_test "-i enum.fpp -p $PWD" struct_enum_member && \
@@ -98,6 +104,12 @@ struct_string()
 {
   run_test '' struct_string && \
     diff StructStringSerializableAi.xml StructStringSerializableAi.ref.xml
+}
+
+struct_string_array()
+{
+  run_test '' struct_string_array && \
+    diff StructStringArraySerializableAi.xml StructStringArraySerializableAi.ref.xml
 }
 
 run_suite $tests

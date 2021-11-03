@@ -23,8 +23,8 @@ object StructXmlWriter extends AstVisitor with LineUtils {
       val members = {
         val tags = XmlTags.tags("members")
         val st @ Type.Struct(_, _, _, _, _) = s.a.typeMap(node.id) 
-        val ls = data.members.map(structTypeMemberAnnotatedNode(s, st, _))
-        XmlTags.taggedLines(tags)(ls.map(indentIn))
+        val ls = data.members.flatMap(structTypeMemberAnnotatedNode(s, st, _))
+        XmlTags.taggedLines (tags) (ls.map(indentIn))
       }
       comment ++ imports ++ members
     }
@@ -42,9 +42,7 @@ object StructXmlWriter extends AstVisitor with LineUtils {
     val pairs = {
       val nameAndType = ("name", data.name) :: TypeXmlWriter.getPairs(s, t)
       val size = (t, structType.sizes.get(data.name)) match {
-        // We cannot represent arrays of strings in XML
-        case (_: Type.String, _) => Nil
-        case (_, Some(n)) => List(("size", n.toString))
+        case (_, Some(n)) => List(("array_size", n.toString))
         case _ => Nil
       }
       val format = {
@@ -61,7 +59,14 @@ object StructXmlWriter extends AstVisitor with LineUtils {
       }
       nameAndType ++ size ++ format ++ comment
     }
-    line(XmlTags.openCloseTag("member", pairs))
+    val body = {
+      val defaultValue = structType.getDefaultValue.get.
+        anonStruct.members(data.name)
+      val xmlDefaultValue = ValueXmlWriter.getValue(s, defaultValue)
+      val tags = XmlTags.tags("default")
+      lines(XmlTags.taggedString (tags) (xmlDefaultValue))
+    }
+    XmlTags.taggedLines("member", pairs) (body.map(indentIn))
   }
 
   type In = XmlWriterState

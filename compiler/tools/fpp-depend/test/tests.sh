@@ -33,7 +33,6 @@ spec_comp_instance
 spec_connection_graph_direct
 spec_connection_graph_pattern
 spec_event
-spec_init
 spec_internal_port
 spec_param
 spec_port_instance

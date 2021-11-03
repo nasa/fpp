@@ -982,6 +982,7 @@ command
 component
 connections
 constant
+cpu
 default
 diagnostic
 drop
@@ -997,7 +998,6 @@ high
 id
 import
 include
-init
 input
 instance
 internal
@@ -1857,7 +1857,20 @@ that you can refer to in a
 <em>]</em>
 <em>[</em>
 <code>priority</code> <a href="#Expressions"><em>expression</em></a>
+<em>]</em>
+<em>[</em>
+<code>cpu</code> <a href="#Expressions"><em>expression</em></a>
+<em>]</em>
+<em>[</em>
+<code>{</code> <em>init-specifier-sequence</em> <code>}</code>
 <em>]</em></p>
+</div>
+<div class="paragraph">
+<p><em>init-specifier-sequence</em> is an
+<a href="#Element-Sequences">element sequence</a> in
+which each element is an
+<a href="#Specifiers_Init-Specifiers">init specifier</a>,
+and the terminating punctuation is a semicolon.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1882,8 +1895,8 @@ It associates a base identifier with the component instance.</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>After evaluating constants, the base identifier must be greater than or
-equal to zero.</p>
+<p>The base identifier must evaluate to a nonnegative integer after
+<a href="#Type-Checking_Type-Conversion">type conversion</a>.</p>
 </li>
 <li>
 <p>For each component instance, for each
@@ -1919,14 +1932,18 @@ a default implementation path.</p>
 </li>
 <li>
 <p>If present, the expression following the keywords <code>queue</code> <code>size</code> must
-have a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.
+have a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>
+and must evaluate to a nonnegative integer after
+<a href="#Type-Checking_Type-Conversion">type conversion</a>.
 It specifies the queue size for active and queued components.
 The queue size is required for active and queued components
 and is not allowed for passive components.</p>
 </li>
 <li>
 <p>If present, the expression following the keywords <code>stack</code> <code>size</code> must
-have a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.
+have a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>
+and must evaluate to a nonnegative integer after
+<a href="#Type-Checking_Type-Conversion">type conversion</a>.
 It specifies the stack size in bytes for active components.
 The stack size is required for active components and is not allowed
 for queued or passive components.</p>
@@ -1937,6 +1954,20 @@ have a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.
 It specifies the thread priority for active components.
 The priority is required for active components and is not allowed
 for queued or passive components.</p>
+</li>
+<li>
+<p>If present, the expression following the keyword <code>cpu</code> must
+have a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.
+It specifies the CPU affinity for active components.
+The CPU affinity is optional for active components and is not allowed
+for queued or passive components.</p>
+</li>
+<li>
+<p>If present, the init specifiers govern C&#43;&#43; code generation for
+the component instance being defined.
+See the section on
+<a href="#Specifiers_Init-Specifiers">init specifiers</a>
+for further information.</p>
 </li>
 </ol>
 </div>
@@ -1949,14 +1980,15 @@ for queued or passive components.</p>
   base id 0x100 \
   queue size 10 \
   stack size 4096 \
-  priority 30</code></pre>
+  priority 30 \
+  cpu 0</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>This example defines an instance <code>commandDispatcher</code>
 of component <code>Svc.CommandDispatcher</code>.
 It specifies the base identifier, queue size, stack size,
-and priority.</p>
+priority, and CPU.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2259,9 +2291,6 @@ A module member is one of the following:</p>
 </li>
 <li>
 <p>An <a href="#Specifiers_Include-Specifiers">include specifier</a></p>
-</li>
-<li>
-<p>An <a href="#Specifiers_Init-Specifiers">init specifier</a></p>
 </li>
 </ul>
 </div>
@@ -3805,15 +3834,15 @@ b = M.a</code></pre>
 <div class="sect2">
 <h3 id="Specifiers_Init-Specifiers">6.6. Init Specifiers</h3>
 <div class="paragraph">
-<p>An <strong>init specifier</strong> associates some initialization
-code with a
-<a href="#Definitions_Component-Instance-Definitions">component instance</a>.</p>
+<p>An <strong>init specifier</strong> associates some code with a
+<a href="#Definitions_Component-Instance-Definitions">component instance</a>.
+Usually this is initialization code, hence the name.
+It may also serve another purpose (e.g., teardown).</p>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Init-Specifiers_Syntax">6.6.1. Syntax</h4>
 <div class="paragraph">
-<p><code>init</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a>
-<code>phase</code> <a href="#Expressions"><em>expression</em></a>
+<p><code>phase</code> <a href="#Expressions"><em>expression</em></a>
 <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </div>
 </div>
@@ -3821,12 +3850,6 @@ code with a
 <h4 id="Specifiers_Init-Specifiers_Semantics">6.6.2. Semantics</h4>
 <div class="ulist">
 <ul>
-<li>
-<p>The qualified identifier must
-<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
-a
-<a href="#Definitions_Component-Instance-Definitions">component instance definition <em>D</em></a>.</p>
-</li>
 <li>
 <p>The expression following the keyword <code>phase</code> must have
 a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.
@@ -3859,17 +3882,28 @@ enum Phases {
   BEFORE_CONNECTIONS
   @ After connections are established
   AFTER_CONNECTIONS
+  @ When components are deallocated
+  TEARDOWN
 }
 
-init commandDispatcher phase BEFORE_CONNECTIONS \
-"""
-commandDispatcher.init(QueueDepth::commandDispatcher);
-"""</code></pre>
+instance commandDispatcher: Svc.CommandDispatcher \
+  base id 0x100 \
+  queue size 10 \
+  stack size 4096 \
+  priority 30 \
+{
+
+  phase BEFORE_CONNECTIONS  """
+  commandDispatcher.init(QueueDepth::commandDispatcher);
+  """
+
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>In this example, the code generator provides three phases,
-<code>CONSTRUCTION</code>, <code>BEFORE_CONNECTIONS</code>, and <code>AFTER_CONNECTIONS</code>.
+<code>CONSTRUCTION</code>, <code>BEFORE_CONNECTIONS</code>, <code>AFTER_CONNECTIONS</code>,
+and <code>TEARDOWN</code>.
 In the <code>CONSTRUCTION</code> phase, the code generator generates
 a default constructor invocation that looks like this:</p>
 </div>
@@ -3879,7 +3913,7 @@ a default constructor invocation that looks like this:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>By default, the code generator would generate this code
+<p>By default, the code generator might generate this code
 to run before connections are established:</p>
 </div>
 <div class="listingblock">
@@ -3934,15 +3968,8 @@ to itself.</p>
 The parameter list specifies the formal parameters of the
 port.
 Each formal parameter is a piece of data carried on the port.
-The names of the formal parameters must be distinct.</p>
-</div>
-<div class="paragraph">
-<p>The annotation <code>ref</code> may appear in a formal parameter <em>P</em>.
-In this case <em>P</em> is still passed by value, but functions internal
-to the auto-generated C&#43;&#43; implementation use references instead of values.
-See <a href="https://fprime-community.github.io/fpp/fpp-users-guide.html"><em>The FPP User&#8217;s
-Guide</em></a>
-for more details.</p>
+The names of the formal parameters must be distinct.
+No formal parameter may be a <code>ref</code> parameter.</p>
 </div>
 <div class="paragraph">
 <p>The optional priority and queue full behavior have the same semantics as in
@@ -5492,30 +5519,40 @@ of characters represented by the literal string.</p>
 <p><strong>String interpretation</strong> is the process of converting a literal
 string to an interpreted string.</p>
 </li>
+<li>
+<p>A <strong>newline character</strong> is the NL character (ASCII code 0x0A).</p>
+</li>
+<li>
+<p>An <strong>extended newline character</strong> is the NL character (ASCII code 0x0A),
+optionally preceded by a CR character (ASCII code 0x0D).</p>
+</li>
 </ul>
 </div>
 <div class="sect3">
 <h4 id="Expressions_String-Literals_Single-Line-String-Literals">9.9.1. Single-Line String Literals</h4>
 <div class="paragraph">
-<p>A <strong>single-line string literal</strong> is a sequence of characters enclosed in double
+<p>A <strong>single-line string literal</strong> is a sequence of <strong>single-line literal characters</strong>
+enclosed in double
 quote characters <code>"</code>.
-Inside a single-line string literal</p>
+A single-line literal character is one of the following:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The newline character is not allowed.</p>
+<p>Any character other than the newline character, <code>"</code>, or <code>\</code>.</p>
 </li>
 <li>
-<p>The literal double quote character <code>"</code> is not allowed.</p>
+<p><code>\</code> followed by any character <em>c</em> other than the newline character.
+In this case we say that the character <em>c</em> is <strong>escaped</strong>.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>For any single-line string literal <em>s</em>, the
-corresponding interpreted string <em>s'</em>
-is identical to <em>s</em>, except that any character sequence <code>\q</code> in <em>s</em>
-becomes a double quote character <code>"</code> in <em>s'</em>.</p>
+<p>The characters of the interpreted string correspond one-to-one
+to the literal characters of the string, in the same order,
+according to the following rule:
+if the literal character is <em>c</em> or <code>\</code> <em>c</em>, then the corresponding character
+of the interpreted string is <em>c</em>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Examples:</strong></p>
@@ -5526,10 +5563,19 @@ becomes a double quote character <code>"</code> in <em>s'</em>.</p>
 <p><code>"abc"</code> is a valid string consisting of the characters <code>a</code>, <code>b</code>, and <code>c</code>.</p>
 </li>
 <li>
-<p><code>"ab\q"</code> is a valid string consisting of the characters <code>a</code>, <code>b</code>, and <code>"</code>.</p>
+<p><code>"ab\""</code> is a valid string consisting of the characters <code>a</code>, <code>b</code>, and <code>"</code>.</p>
 </li>
 <li>
-<p><code>"abc</code> is not a valid string, because it is missing the terminating double quote.</p>
+<p><code>"ab\\\""</code> is a valid string consisting of the characters <code>a</code>, <code>b</code>, <code>\</code>, and <code>"</code>.</p>
+</li>
+<li>
+<p><code>"ab\c"</code> is a valid string consisting of the characters <code>a</code>, <code>b</code>, <code>c</code>.</p>
+</li>
+<li>
+<p><code>"abc</code> is not a valid string, because it is missing the terminating <code>"</code>.</p>
+</li>
+<li>
+<p><code>"\"</code> is not a valid string, because it is missing the terminating <code>"</code>.</p>
 </li>
 <li>
 <p><code>"ab"c"</code> is the valid string <code>"ab"</code> followed by the identifier <code>c</code> and an
@@ -5541,50 +5587,61 @@ unmatched double quote character.</p>
 <div class="sect3">
 <h4 id="Expressions_String-Literals_Multiline-String-Literals">9.9.2. Multiline String Literals</h4>
 <div class="paragraph">
-<p>A <strong>multiline string literal</strong> is a sequence of characters enclosed in triple double
-quotes <code>"""</code>.
-Inside a multiline string literal</p>
+<p>A <strong>multiline string literal</strong> is a sequence of <strong>multiline literal characters</strong> enclosed
+in sequences <code>"""</code> of three double quote characters.
+A multiline literal character is one of the following:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The newline character is allowed.</p>
+<p>Any character other than <code>"</code> or <code>\</code>.</p>
 </li>
 <li>
-<p>The literal double quote character <code>"</code> is allowed, except that no
-sequence of three such characters in a row is allowed.</p>
+<p><code>\</code> followed by any character.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>For any multiline string literal <em>s</em>, the corresponding interpreted string <em>s'</em>
-is identical to <em>s</em> except that any character sequence <code>\q</code> in <em>s</em>
-becomes a double quote character <code>"</code> in <em>s'</em>.
-In particular, you can include a sequence of three double quote
-characters in <em>s'</em> string by writing at least one of
-those characters as <code>\q</code> in <em>s</em>.</p>
+<p>Before trimming whitespace,
+the characters of the interpreted string correspond one-to-one
+to the literal characters of the string, in the same order,
+according to the following rule:
+if the literal character is <em>c</em> or <code>\</code> <em>c</em>, then the corresponding character
+of the interpreted string is <em>c</em>.</p>
 </div>
 <div class="paragraph">
 <p>Whitespace inside a multiline string literal is trimmed as follows:</p>
 </div>
-<div class="ulist">
-<ul>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>The first newline after the first <code>"""</code> (if it exists) is omitted
-from the interpreted string.</p>
+<p>The first extended newline character, if any, after the first <code>"""</code> is
+deleted from the interpreted string.</p>
 </li>
 <li>
 <p>Any whitespace occurring in columns to the left of the first <code>"""</code>
-is omitted from the interpreted string.</p>
+is deleted from the result of step 1.</p>
 </li>
 <li>
-<p>Any trailing newline characters are omitted from the
-interpreted string.</p>
+<p>Any leading and trailing extended newline characters are deleted from the
+result of step 2.</p>
 </li>
-</ul>
+</ol>
 </div>
 <div class="paragraph">
-<p><strong>Example:</strong></p>
+<p><strong>Example 1</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant s = """\"\"\""""</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The string literal uses escaped quotation marks.
+The value of the string constant <code>s</code> is <code>"""</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example 2</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -8100,7 +8157,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-08-20 14:40:44 -0700
+Last updated 2021-10-04 12:46:51 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

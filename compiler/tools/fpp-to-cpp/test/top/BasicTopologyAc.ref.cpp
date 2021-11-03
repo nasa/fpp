@@ -90,7 +90,8 @@ namespace M {
       active1.start(
         TaskIds::active1,
         Priorities::active1,
-        StackSizes::active1
+        StackSizes::active1,
+        CPUs::active1
       );
       active2.startSpecial();
     }
@@ -103,7 +104,7 @@ namespace M {
 
     // Free threads
     void freeThreads(const TopologyState& state) {
-      (void) active1.ActiveComponentBase::join(NULL);
+      (void) active1.ActiveComponentBase::join(nullptr);
       active2.freeSpecial();
     }
 

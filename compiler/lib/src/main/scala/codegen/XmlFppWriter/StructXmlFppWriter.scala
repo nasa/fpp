@@ -30,10 +30,8 @@ object StructXmlFppWriter extends LineUtils {
         memberType <- translateType(file)(node)
       }
       yield {
-        val xmlSizeOpt = XmlFppWriter.getAttributeOpt(node, "size")
+        val xmlSizeOpt = XmlFppWriter.getAttributeOpt(node, "array_size")
         val sizeOpt = (memberType, xmlSizeOpt) match {
-          // XML uses size for string length
-          case (_: Ast.TypeNameString, _) => None
           case (_, Some(size)) => Some(size)
           case _ => None
         }

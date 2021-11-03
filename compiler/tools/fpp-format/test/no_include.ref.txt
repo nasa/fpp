@@ -79,7 +79,7 @@ module DefinitionsAndSpecifiers {
 
     @ Internal port specifier
     internal port I(
-                     ref a: U32
+                     a: U32
                      b: F32
                    ) \
       priority 10 \
@@ -87,12 +87,24 @@ module DefinitionsAndSpecifiers {
 
   } @< Component definition
 
+  @ Simple component instance definition
+  instance c1: C1 base id 0x100 @< Simple component instance definition
+
   @ Component instance definition
-  instance c: C base id 0x100 \
-    at "C.hpp" \
+  instance c2: C2 base id 0x200 \
+    at "C2.hpp" \
     queue size 100 \
     stack size 1024 \
-    priority 10 @< Component instance definition
+    priority 10 \
+    cpu 0 \
+    {
+      @ Init specifier
+      phase CONSTRUCTION """
+                         line 1
+                           line 2
+                         line 3
+                         """ @< Init specifier
+    } @< Component instance definition
 
   @ Constant definition
   constant x = 0 @< Constant definition
@@ -114,13 +126,6 @@ module DefinitionsAndSpecifiers {
 
   @ Include specifier
   include "constant.fppi" @< Include specifier
-
-  @ Init specifier
-  init i phase CONSTRUCTION """
-                            line 1
-                              line 2
-                            line 3
-                            """
 
   @ Port definition
   port P(

@@ -106,6 +106,8 @@ class ParserSpec extends AnyWordSpec {
         "instance i: C base id 0x100 queue size 10",
         "instance i: C base id 0x100 queue size 10 stack size 1024 ",
         "instance i: C base id 0x100 queue size 10 stack size 1024 priority 3",
+        "instance i: C base id 0x100 queue size 10 stack size 1024 priority 3 { phase 0 \"code\" }",
+        "instance i: C base id 0x100 queue size 10 stack size 1024 priority 3 cpu 0 { phase 0 \"code\" }",
       )
     )
   }
@@ -153,7 +155,6 @@ class ParserSpec extends AnyWordSpec {
           array A = [10] U32
           enum E { X, Y }
           include "a.fpp"
-          init i phase P "x = 5"
         }""",
         """module M {
           @ Pre
@@ -404,15 +405,6 @@ class ParserSpec extends AnyWordSpec {
     )
   }
 
-  "spec init OK" should {
-    parseAllOK(
-      Parser.specInit,
-      List(
-        "init a.b phase 0 \"string\"",
-      )
-    )
-  }
-
   "spec internal port OK" should {
     parseAllOK(
       Parser.specInternalPort,
@@ -603,7 +595,6 @@ class ParserSpec extends AnyWordSpec {
         array A = [10] U32
         enum E { X, Y }
         include "a.fpp"
-        init i phase P "x = 5"
         """,
         """
         @ Pre

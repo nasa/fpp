@@ -13,10 +13,27 @@ final case class ComponentInstance(
   file: Option[String],
   queueSize: Option[Int],
   stackSize: Option[Int],
-  priority: Option[Int]
+  priority: Option[Int],
+  cpu: Option[Int],
+  initSpecifierMap: Map[Int, InitSpecifier] = Map()
 ) extends Ordered[ComponentInstance] {
 
   override def toString = qualifiedName.toString
+
+  /** Adds an init specifier */
+  def addInitSpecifier(initSpecifier: InitSpecifier):
+  Result.Result[ComponentInstance] = {
+    val phase = initSpecifier.phase
+    initSpecifierMap.get(initSpecifier.phase) match {
+      case Some(prevSpec) =>
+        val loc = initSpecifier.getLoc
+        val prevLoc = prevSpec.getLoc
+        Left(SemanticError.DuplicateInitSpecifier(phase, loc, prevLoc))
+      case None =>
+        val map = initSpecifierMap + (phase -> initSpecifier)
+        Right(this.copy(initSpecifierMap = map))
+    }
+  }
 
   /** Gets the unqualified name of the component instance */
   def getUnqualifiedName = aNode._2.data.name
@@ -56,13 +73,27 @@ object ComponentInstance {
         data.name,
         loc,
         componentKind
-      )("stack size", data.stackSize)
+      )(
+        "stack size",
+        a.getNonnegativeIntValueOpt,
+        data.stackSize
+      )
       priority <- getStackSizeOrPriority(
         a,
         data.name,
         loc,
         componentKind,
-      )("priority", data.priority)
+      )(
+        "priority",
+        a.getIntValueOpt,
+        data.priority
+      )
+      cpu <- getCPU(
+        a,
+        data.name,
+        loc,
+        componentKind,
+      )(data.cpu)
     }
     yield {
       val maxId = baseId + component.getMaxId
@@ -77,7 +108,8 @@ object ComponentInstance {
         file,
         queueSize,
         stackSize,
-        priority
+        priority,
+        cpu
       )
     }
   }
@@ -97,7 +129,7 @@ object ComponentInstance {
     val javaPath = loc.getRelativePath(node.data)
     File.Path(javaPath).toString
   }
-  
+
   /** Gets the queue size */
   private def getQueueSize(
     a: Analysis,
@@ -130,22 +162,43 @@ object ComponentInstance {
     loc: Location,
     componentKind: Ast.ComponentKind
   )
-  (kind: String, nodeOpt: Option[AstNode[Ast.Expr]]):
-  Result.Result[Option[Int]] =
+  (
+    kind: String,
+    getValue: Option[AstNode[Ast.Expr]] => Result.Result[Option[Int]],
+    nodeOpt: Option[AstNode[Ast.Expr]]
+  ): Result.Result[Option[Int]] =
     (componentKind, nodeOpt) match {
       case (Ast.ComponentKind.Active, None) => invalid(
         name,
         loc,
         s"active component must have $kind"
       )
-      case (Ast.ComponentKind.Active, Some(_)) =>
-        a.getNonnegativeIntValueOpt(nodeOpt)
+      case (Ast.ComponentKind.Active, Some(_)) => getValue(nodeOpt)
       case (_, None) => Right(None)
       case (_, Some(node)) => invalid(
         name,
         Locations.get(node.id),
         s"$componentKind component may not have $kind"
       )
+    }
+
+   /** Get CPU */
+   private def getCPU(
+     a: Analysis,
+     name: String,
+     loc: Location,
+     componentKind: Ast.ComponentKind
+   )
+   (nodeOpt: Option[AstNode[Ast.Expr]]): Result.Result[Option[Int]] =
+    (componentKind, nodeOpt) match {
+      case (Ast.ComponentKind.Active, Some(_)) =>
+        a.getIntValueOpt(nodeOpt)
+      case (_, Some(node)) => invalid(
+        name,
+        Locations.get(node.id),
+        s"$componentKind component may not have CPU affinity"
+      )
+      case _ => Right(None)
     }
 
 }

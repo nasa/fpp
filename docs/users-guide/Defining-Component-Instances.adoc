@@ -256,7 +256,33 @@ We have used
 <<Defining-Constants,constant definitions>> for
 the default queue and stack sizes.
 
-==== Specifying Header Files
+*CPU affinity:*
+When defining an active component, you may specify
+a *CPU affinity*.
+The CPU affinity is a number whose meaning depends on
+the platform.
+Usually it is an instruction to the operating system
+to run the thread of the active component on a particular
+CPU, identified by number.
+
+To specify CPU affinity, you write the keyword `cpu`
+and the CPU number after the priority specifier.
+For example:
+
+[source,fpp]
+--------
+instance dataCompressor: Utils.DataCompressor base id 0x100 \
+  queue size Default.queueSize \
+  stack size Default.stackSize \
+  priority 30 \
+  cpu 0
+--------
+
+This example is the same as the previous `dataCompressor`
+instance, except that we have specified that the thread
+associated with the instance should run on CPU 0.
+
+=== Specifying Header Files
 
 When you define a component instance _I_, the FPP translator needs
 to locate the header file for the {cpp}
@@ -268,7 +294,7 @@ In other cases, you have to specify the location manually.
 The FPP translator can automatically locate the header file if it
 conforms to the following rules:
 
-. The header file is named `Name.fpp`, where `Name`
+. The name of the header file is `Name.hpp`, where `Name`
 is the name of the component in the FPP model, without
 any module qualifiers.
 
@@ -277,7 +303,7 @@ file is located in the same directory as the FPP
 source file that defines the component.
 
 For example, the F Prime repository contains a reference FSW implementation
-with instances defined in the file `Ref/Top/init.fpp`.
+with instances defined in the file `Ref/Top/instances.fpp`.
 One of the instances is `SG1`.
 Its definition reads as follows:
 
@@ -317,8 +343,8 @@ in a different directory.
 
 The F Prime repository also provides a Linux-specific implementation
 of the `Time` component in the directory `Svc/LinuxTime`.
-The file `Ref/Top/init.fpp` contains an instance definition
-`linuxTime` that reads as follows:
+The file `Ref/Top/instances.fpp` contains an instance definition
+`linuxTime` that reads in part as follows:
 
 [source,fpp]
 ----
@@ -345,11 +371,10 @@ The FPP model does not represent this function;
 instead, you have to provide
 the function call directly in {cpp}.
 
-To do this, you use an *init specifier*.
-An init specifier names a
-<<Defining-Component-Instances_Component-Instance-Definitions,
-component instance definition>>, names a phase
-of the setup or teardown process, and
+To do this, you write one or more *init specifiers*
+as part of a component instance definition.
+An init specifier names a phase
+of the setup or teardown process and
 provides a snippet of literal {cpp} code.
 The FPP translator pastes the snippet into the setup
 or teardown code according to the phase named in
@@ -359,7 +384,7 @@ a "setup or teardown specifier."
 However, most of the code is in fact initialization code,
 and so FPP uses "init" as a shorthand name.)
 
-==== Phases
+==== Execution Phases
 
 The FPP translator uses init specifiers when it generates
 code for an F Prime topology.
@@ -377,14 +402,14 @@ and their connections).
 files _T_ `TopologyAc.hpp` and _T_ `TopologyAc.cpp`.
 
 The generated code in _T_ `TopologyAc.hpp` and _T_ `TopologyAc.cpp`
-is divided into several phases.
-Table <<init-specifier-phases>> shows the phases 
+is divided into several phases of execution.
+Table <<execution-phases>> shows the execution phases 
 recognized by the FPP code generator.
 In this table, _T_ is the name of a topology and _I_ is the
 name of a component instance.
 The columns of the table have the following meanings:
 
-* *Phase:* The symbol denoting the setup or teardown phase.
+* *Phase:* The symbol denoting the execution phase.
 These symbols are the enumerated constants of the
 <<Defining-Enums,enum>> `Fpp.ToCpp.Phases` defined in
 `Fpp/ToCpp.fpp` in the F Prime repository.
@@ -406,8 +431,8 @@ and for this phase.
 If there is an init specifier, then it replaces any
 default code.
 
-[[init-specifier-phases]]
-.Init Specifier Phases
+[[execution-phases]]
+.Execution Phases
 |===
 |Phase|Generated File|Intended Use|Where Placed|Default Code
 
@@ -527,18 +552,21 @@ instance needs to deallocate memory or release resources on program exit.
 
 ==== Writing Init Specifiers
 
+You may write one or more init specifiers as part of a component
+instance definition.
+The instance specifiers, if any, come at the end of the
+definition and must be enclosed in curly braces.
+The instances specifiers form an 
+<<Defining-Constants_Multiple-Definitions-and-Element-Sequences,element sequence>>
+with a semicolon as the optional terminating punctuation. 
+
 To write an init specifier, you write the following:
-
-* The keyword `init`.
-
-* The name of a
-<<Defining-Component-Instances_Component-Instance-Definitions,
-component instance>>.
 
 * The keyword `phase`.
 
 * The
-<<Defining-Component-Instances_Init-Specifiers_Phases, phase>>
+<<Defining-Component-Instances_Init-Specifiers_Execution-Phases,
+execution phase>>
 of the init specifier.
 
 * A
@@ -548,29 +576,37 @@ that provides the code snippet.
 It is usually convenient, but not required, to use a multiline string
 for the code snippet.
 
-As an example, here are the init specifiers for the
+As an example, here is the component instance definition for the
 command sequencer instance `cmdSeq` from the F Prime reference
-deployment located at `Ref/Top/init.fpp`:
+deployment located at `Ref/Top/instances.fpp`:
 
 [source,fpp]
 --------
-init cmdSeq phase Fpp.ToCpp.Phases.configConstants """
-enum {
-  BUFFER_SIZE = 5*1024
-};
-"""
+instance cmdSeq: Svc.CmdSequencer base id 0x0600 \
+  queue size Default.queueSize \
+  stack size Default.stackSize \
+  priority 100 \
+{
 
-init cmdSeq phase Fpp.ToCpp.Phases.configComponents """
-cmdSeq.allocateBuffer(
-    0,
-    Allocation::mallocator,
-    ConfigConstants::cmdSeq::BUFFER_SIZE
-);
-"""
+  phase Fpp.ToCpp.Phases.configConstants """
+  enum {
+    BUFFER_SIZE = 5*1024
+  };
+  """
 
-init cmdSeq phase Fpp.ToCpp.Phases.tearDownComponents """
-cmdSeq.deallocateBuffer(Allocation::mallocator);
-"""
+  phase Fpp.ToCpp.Phases.configComponents """
+  cmdSeq.allocateBuffer(
+      0,
+      Allocation::mallocator,
+      ConfigConstants::cmdSeq::BUFFER_SIZE
+  );
+  """
+
+  phase Fpp.ToCpp.Phases.tearDownComponents """
+  cmdSeq.deallocateBuffer(Allocation::mallocator);
+  """
+
+}
 --------
 
 The code for `configConstants` provides a constant `BUFFER_SIZE`
@@ -585,24 +621,32 @@ The code for `tearDownComponents` calls `deallocateBuffer` to
 deallocate the sequence buffer, passing in the allocator
 object again.
 
-As another example, here are the init specifiers for the parameter
+As another example, here is the instance definition for the parameter
 database instance `prmDb` from the Ref deployment:
 
 [source,fpp]
 --------
-init prmDb phase Fpp.ToCpp.Phases.instances """
-Svc::PrmDb prmDb(FW_OPTIONAL_NAME("prmDb"), "PrmDb.dat");
-"""
+instance prmDb: Svc.PrmDb base id 0x0D00 \
+  queue size Default.queueSize \
+  stack size Default.stackSize \
+  priority 96 \
+{
 
-init prmDb phase Fpp.ToCpp.Phases.readParameters """
-prmDb.readParamFile();
-"""
+  phase Fpp.ToCpp.Phases.instances """
+  Svc::PrmDb prmDb(FW_OPTIONAL_NAME("prmDb"), "PrmDb.dat");
+  """
+
+  phase Fpp.ToCpp.Phases.readParameters """
+  prmDb.readParamFile();
+  """
+
+}
 --------
 
-We provide code for the `instances` phase because the constructor 
+Here we provide code for the `instances` phase because the constructor 
 call for this component is nonstandard -- it takes the parameter
 file name as an argument.
-In the `readParameters` phase we provide the code for reading the parameters
+In the `readParameters` phase, we provide the code for reading the parameters
 from the file.
 As discussed above, this code is needed only for the parameter database
 instance.
@@ -616,6 +660,6 @@ section on <<Writing-C-Plus-Plus-Implementations_Implementing-Deployments,
 implementing deployments>>.
 
 For more examples of init specifiers in action, see the rest of
-the file `Ref/Top/init.fpp` in the F Prime repository.
+the file `Ref/Top/instances.fpp` in the F Prime repository.
 In particular, the init specifiers for the `comm` component
 use the `state` value that we just mentioned.

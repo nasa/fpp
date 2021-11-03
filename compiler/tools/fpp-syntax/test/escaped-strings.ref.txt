@@ -1,0 +1,12 @@
+def constant
+  ident s1
+  literal string "
+def constant
+  ident s2
+  literal string \
+def constant
+  ident s2
+  literal string \"
+def constant
+  ident s2
+  literal string "\

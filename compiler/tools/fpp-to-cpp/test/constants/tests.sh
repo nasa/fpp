@@ -1,6 +1,7 @@
 tests="
 constants
-constants_guard
+constants_guard_dir
+constants_guard_prefix
 constants_output_dir
 constants_string
 "

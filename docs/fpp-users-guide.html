@@ -515,9 +515,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#Defining-Ports_Port-Names">8.1. Port Names</a></li>
 <li><a href="#Defining-Ports_Formal-Parameters">8.2. Formal Parameters</a></li>
-<li><a href="#Defining-Ports_Reference-Parameters">8.3. Reference Parameters</a></li>
-<li><a href="#Defining-Ports_Returning-Values">8.4. Returning Values</a></li>
-<li><a href="#Defining-Ports_Annotating-a-Port-Definition">8.5. Annotating a Port Definition</a></li>
+<li><a href="#Defining-Ports_Handler-Functions">8.3. Handler Functions</a></li>
+<li><a href="#Defining-Ports_Reference-Parameters">8.4. Reference Parameters</a></li>
+<li><a href="#Defining-Ports_Returning-Values">8.5. Returning Values</a></li>
+<li><a href="#Defining-Ports_Pass-by-Reference-Semantics">8.6. Pass-by-Reference Semantics</a></li>
+<li><a href="#Defining-Ports_Annotating-a-Port-Definition">8.7. Annotating a Port Definition</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Components">9. Defining Components</a>
@@ -588,13 +590,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Component-Instances_Component-Instance-Definitions_Passive-Components">10.1.1. Passive Components</a></li>
 <li><a href="#Defining-Component-Instances_Component-Instance-Definitions_Queued-Components">10.1.2. Queued Components</a></li>
 <li><a href="#Defining-Component-Instances_Component-Instance-Definitions_Active-Components">10.1.3. Active Components</a></li>
-<li><a href="#Defining-Component-Instances_Component-Instance-Definitions_Specifying-Header-Files">10.1.4. Specifying Header Files</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Component-Instances_Init-Specifiers">10.2. Init Specifiers</a>
+<li><a href="#Defining-Component-Instances_Specifying-Header-Files">10.2. Specifying Header Files</a></li>
+<li><a href="#Defining-Component-Instances_Init-Specifiers">10.3. Init Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Defining-Component-Instances_Init-Specifiers_Phases">10.2.1. Phases</a></li>
-<li><a href="#Defining-Component-Instances_Init-Specifiers_Writing-Init-Specifiers">10.2.2. Writing Init Specifiers</a></li>
+<li><a href="#Defining-Component-Instances_Init-Specifiers_Execution-Phases">10.3.1. Execution Phases</a></li>
+<li><a href="#Defining-Component-Instances_Init-Specifiers_Writing-Init-Specifiers">10.3.2. Writing Init Specifiers</a></li>
 </ul>
 </li>
 </ul>
@@ -671,6 +673,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files">13.4. Identifying Generated Files</a></li>
 <li><a href="#Analyzing-and-Translating-Models_Translating-XML-to-FPP">13.5. Translating XML to FPP</a></li>
 <li><a href="#Analyzing-and-Translating-Models_Formatting-FPP-Source">13.6. Formatting FPP Source</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Visualizing-Topologies">13.7. Visualizing Topologies</a></li>
 </ul>
 </li>
 <li><a href="#Writing-C-Plus-Plus-Implementations">14. Writing C Plus Plus Implementations</a>
@@ -1089,12 +1092,29 @@ For example:</p>
 </div>
 <div class="paragraph">
 <p>To put the double-quote character in a string, write the double quote
-character as <code>\q</code>, like this:</p>
+character as <code>\"</code>, like this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">constant s = "\qThis is a quotation within a string,\q he said."</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">constant s = "\"This is a quotation within a string,\" he said."</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>To encode the character <code>\</code> followed by the character <code>"</code>, write
+the backslash character as <code>\\</code>, like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant s = "\\\""</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This string represents the literal character sequence <code>\</code>, <code>"</code>.</p>
+</div>
+<div class="paragraph">
+<p>In general, the sequence <code>\</code> followed by a character <em>c</em>
+is translated to <em>c</em>.
+This sequence is called an <strong>escape sequence</strong>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Multiline strings:</strong>
@@ -1132,14 +1152,13 @@ with <code>This</code>.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>To embed a literal character sequence <code>"""</code> in a multiline string, write
-at least one of the <code>"</code> characters as <code>\q</code>.
+<p>Escape sequences work as for single-line strings.
 For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">constant s = """
-             Here are three double-quote characters in a row: \q\q\q
+             Here are three double-quote characters in a row: \"\"\"
              """</code></pre>
 </div>
 </div>
@@ -1896,6 +1915,32 @@ module M {
 }</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p><strong>XML limitation:</strong> The F Prime XML format supports
+only one level of C&#43;&#43; namespaces.
+Therefore nested modules are not translated properly to C&#43;&#43;.
+As a workaround, you can use an underscore prefix.
+For example, instead of writing</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module A {
+  module B {
+
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>you can write</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module A_B {
+
+}</code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -2415,14 +2460,6 @@ then FPP will fill in the member and give it the default value:</p>
 <pre class="prettyprint highlight"><code data-lang="fpp">struct S2 { x: U32, y: string } default { x = "abc" } # Error: type of member x does not match</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p><strong>XML limitation:</strong>
-FPP structs are translated to F Prime Serializable XML types.
-The F Prime Serializable XML format does not support default
-values for the struct members.
-Therefore, any default values specified in FPP structs are ignored
-when translating to F Prime XML.</p>
-</div>
 </div>
 <div class="sect3">
 <h4 id="Defining-Types_Struct-Type-Definitions_Member-Arrays">6.2.4. Member Arrays</h4>
@@ -2506,45 +2543,8 @@ For example, this code is accepted:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>In principle, the member <code>x</code> of the struct <code>S</code> gets three copies of the value
-10 specified for <code>x</code> in the default value expression.
-However, as noted above, in any case the XML translation ignores
-this default value.</p>
-</div>
-<div class="paragraph">
-<p><strong>XML limitation:</strong>
-The F Prime XML representation does not support arrays of
-strings.
-Therefore, if you include a size expression in a struct
-member with <code>string</code> type, the size expression is ignored
-when translating to XML.
-In a future version of F Prime, we will correct this
-inconsistency.</p>
-</div>
-<div class="paragraph">
-<p><strong>XML limitation:</strong>
-When a struct type <code>S</code> contains an array member <code>m</code>,
-the F Prime XML autocoder
-does not provide a constructor for initializing <code>m</code> with a single
-element value.
-As a result, some combinations of nested types may not work properly.
-For example, this code is legal in FPP, but the generated C&#43;&#43; will
-not be correct:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">struct S {
-  x: [3] U32
-  y: F32
-}
-array A = [3] S</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The problem is that the constructor for <code>A</code>
-initializes its members with a constructor <code>S(0, 0)</code>
-that does not exist.
-In a future version of F Prime, we will correct this issue.</p>
+<p>The member <code>x</code> of the struct <code>S</code> gets three copies of the value
+10 specified for <code>x</code> in the default value expression.</p>
 </div>
 </div>
 <div class="sect3">
@@ -2960,15 +2960,6 @@ the enum name, separated from the name by a colon, like this:</p>
 Each of the enumerated constants is represented as a <code>U8</code> value
 in C&#43;&#43;.</p>
 </div>
-<div class="paragraph">
-<p><strong>XML limitation:</strong> The F Prime XML format does not support the concept
-of a representation type for enums.
-Instead, all enums have a single representation type specified
-by a C&#43;&#43; preprocessor definition named <code>FwEnumStoreType</code>.
-So when translating an enum <code>E</code> to F Prime XML, the translator ignores the
-representation type
-specified for <code>E</code> in the FPP model.</p>
-</div>
 </div>
 <div class="sect2">
 <h3 id="Defining-Enums_The-Default-Value">7.5. The Default Value</h3>
@@ -3004,14 +2995,6 @@ definitions, like this:</p>
 <p>Notice that when using the constant <code>MAYBE</code> as a default value, we
 don&#8217;t need to qualify it with the enum name, because the
 use appears inside the enum where it is defined.</p>
-</div>
-<div class="paragraph">
-<p><strong>XML limitation:</strong>
-Until recently, the F Prime XML format did not represent default values
-for enums.
-Therefore, any default value that you specify in an enum
-definition is ignored when translating to XML.
-We will remove this limitation soon.</p>
 </div>
 </div>
 </div>
@@ -3082,18 +3065,6 @@ port P(e: E, t: T)</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Each formal parameter of a port <em>P</em> becomes bound to an argument (a value) when
-<em>P</em> is <strong>invoked</strong>.
-The invocation occurs in C&#43;&#43; code that implements the model.
-To invoke a port, you call an auto-generated function.
-The arguments are C&#43;&#43; values, and their types must match the
-types of the C&#43;&#43; function parameters generated from the FPP port parameters.
-The invocation may be <strong>synchronous</strong> (via a direct function call)
-or <strong>asynchronous</strong> (via a message queue);
-we will discuss these cases further below in the section on
-<a href="#Defining-Components">defining components</a>.</p>
-</div>
-<div class="paragraph">
 <p>The formal parameters form an
 <a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">element
 sequence</a> in which the optional terminating punctuation is a comma.  As usual
@@ -3112,150 +3083,224 @@ port P(
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Ports_Reference-Parameters">8.3. Reference Parameters</h3>
+<h3 id="Defining-Ports_Handler-Functions">8.3. Handler Functions</h3>
 <div class="paragraph">
-<p>You may write the keyword <code>ref</code> in front of any formal parameter <em>p</em>
-of a port definition.
-Doing this specifies that <em>p</em> is a <strong>reference parameter</strong>, i.e.,
-its data is passed by reference when the passing occurs in a
-synchronous invocation.
-For example:</p>
+<p>As discussed further in the sections on
+<a href="#Defining-Components">defining components</a>
+and
+<a href="#Defining-Component-Instances">instantiating components</a>,
+when constructing an F Prime application, you
+instantiate port definitions as <strong>output ports</strong> and
+<strong>input ports</strong> of component instances.
+Output ports are connected to input ports.
+For each output port <code>pOut</code> of a component instance <code>c1</code>,
+there is a corresponding auto-generated function that the
+implementation of <code>c1</code> can call in order to <strong>invoke</strong> <code>pOut</code>.
+If <code>pOut</code> is connected to an input
+port <code>pIn</code> of component instance <code>c2</code>, then invoking <code>pOut</code> calls a
+<strong>handler function</strong> <code>pIn_handler</code> associated with <code>pIn</code>.
+The handler function is part of the implementation of the component
+<code>C2</code> that <code>c2</code> instantiates.
+In this way <code>c1</code> can send data to <code>c2</code> or request
+that <code>c2</code> take some action.
+Each input port may be <strong>synchronous</strong> or <strong>asynchronous</strong>.
+A synchronous invocation directly calls a handler function.
+An asynchronous invocation calls a short function that puts
+a message on a queue for later dispatch.
+Dispatching the message calls the handler function.</p>
+</div>
+<div class="paragraph">
+<p><strong>Translating handler functions:</strong>
+In FPP, each output port <code>pOut</code> or input port <code>pIn</code> has a <strong>port type</strong>.
+This port type refers to an FPP port definition <code>P</code>.
+In the C&#43;&#43; translation, the signature of a handler function
+<code>pIn_handler</code> for <code>pIn</code>
+is derived from <code>P</code>.
+In particular, the C&#43;&#43; formal parameters of <code>pIn_handler</code>
+correspond to the
+<a href="#Defining-Ports_Formal-Parameters">FPP formal parameters</a> of <code>P</code>.</p>
+</div>
+<div class="paragraph">
+<p>When generating the handler function <code>pIn_handler</code>, F
+Prime translates each formal parameter <em>p</em> of <code>P</code> in the following way:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If <em>p</em> carries a
+<a href="#Defining-Constants_Expressions_Primitive-Values">primitive value</a>,
+then <em>p</em> is translated to a C&#43;&#43; value parameter.</p>
+</li>
+<li>
+<p>Otherwise <em>p</em> is translated to a C&#43;&#43; <code>const</code> reference
+parameter.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>As an example, suppose that <code>P</code> looks like this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">type T
-port P(ref a: T)</code></pre>
+port P(a: U32, b: T)</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>In this example, <code>a</code> is a reference parameter of type <code>T</code>.
-In a synchronous invocation, <code>a</code> is passed by reference.
-In an asynchronous invocation, <code>a</code> is passed by value
-(it is serialized onto a queue).
-The <code>ref</code> marking does not cause pass by reference in this case.</p>
+<p>Then the signature of <code>pIn_handler</code> might look like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="cpp">virtual void pIn_handler(U32 a, const T&amp; b);</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>When a reference parameter is used in a synchronous port invocation,
-we say that the parameter has
-<strong>pass-by-reference semantics</strong>.
-In other cases, the parameter is passed by value, and we say that it
-has <strong>pass-by-value semantics</strong>.
-In particular, a parameter is always passed by value if it is not
-marked <code>ref</code>.
-In this case, we say that it is a <strong>value parameter</strong>.</p>
+<p><strong>Calling handler functions:</strong>
+Suppose again that output port <code>pOut</code> of component instance <code>c1</code>
+is connected to input port <code>pIn</code> of component instance <code>c2</code>.
+Suppose that the implementation of <code>c1</code> invokes <code>pOut</code>.
+Doing this calls the <code>pIn</code> handler for <code>c2</code>.
+What happens next depends on whether <code>pIn</code> is synchronous
+or asynchronous.</p>
 </div>
 <div class="paragraph">
-<p>There are at least two reasons to use pass-by-reference semantics:</p>
+<p>If <code>pIn</code> is synchronous, then the invocation is a direct
+function call.
+Any value parameter is passed by copying the value on
+the stack.
+Any <code>const</code> reference parameter provides a reference to
+the data passed in by <code>c1</code> at the point of invocation.
+For example, if <code>pIn</code> has the port type <code>P</code> shown above,
+then the implementation of <code>pIn_handler</code> might look like this:</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>To avoid copying a large data value.
-For example, in the code shown above, if <code>T</code> is an image with a large physical
-size, then the <code>ref</code> marking on parameter <code>a</code> saves a copy of the image when
-performing a synchronous invocation on the port <code>P</code>.</p>
-</li>
-<li>
-<p>To return a value to the sender by storing it through
-the reference.
-We discuss this case in the next section on returning
-values.</p>
-</li>
-</ol>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="cpp">// Assume pIn is a synchronous input port
+void C2::pIn_handler(U32 a, const T&amp; b) {
+  // a is a local copy of a U32 value
+  // b is a const reference to T data passed in by c1
+}</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>When using pass-by-reference semantics,
-you must carefully manage the
-the use of the data to avoid concurrency bugs
-such as data races.
-Except in special cases that require special expertise (e.g.,
-the implementation of highly concurrent data structures),
-you should enforce the rule that at most
-one component may use any piece of data at any time.
-In particular, if component <code>A</code> passes a reference to component <code>B</code>,
-then component <code>A</code> should not use the reference while
-component <code>B</code> is using it, and vice versa.
+<p>Usually the <code>const</code> reference is what you want, for efficiency reasons.
+If you want a local copy of the data, you can make one.
 For example:</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Suppose component <code>A</code> owns some data <code>D</code> and passes a reference
-to <code>D</code> via a synchronous port call to component <code>B</code>.
-Suppose the port handler in component <code>B</code> uses the data but
-does not store the reference, so that when the handler exits,
-the reference is lost.
-This is a good pattern.
-In this case, we may say that ownership of <code>D</code> resides in <code>A</code>, temporarily
-goes to <code>B</code> for the life of the handler, and goes back to <code>A</code>
-when the handler exits.
-Because the port call is synchronous, the handler in <code>B</code>
-never runs concurrently with any code in <code>A</code> that uses <code>D</code>.
-So at most one of <code>A</code> or <code>B</code> uses <code>D</code> at any time.</p>
-</li>
-<li>
-<p>Suppose instead that the handler in <code>B</code> stores the reference
-into a member variable, so that the reference
-persists after the handler exits.
-If this happens, then you should make sure that <code>A</code> cannot use
-<code>D</code> unless and until <code>B</code> passes ownership of <code>D</code> to <code>A</code> and vice versa.
-For example, you could use state variables of enum type in <code>A</code> and in <code>B</code> to
-track ownership, and you could have a port invocation from <code>A</code> to <code>B</code> pass the
-reference and transfer ownership from <code>A</code> to <code>B</code> and vice versa.</p>
-</li>
-</ol>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="cpp">// Copy b into b1
+auto b1 = b</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>When you use pass-by-value semantics, you don&#8217;t have to worry
-about these issues, because the framework will copy the data
-for you. You can achieve pass-by-value semantics in three ways:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Using a value parameter in a synchronous or asynchronous invocation.</p>
-</li>
-<li>
-<p>Using a reference parameter in an asynchronous invocation.</p>
-</li>
-<li>
-<p>Using a reference parameter in a synchronous invocation,
-immediately coping the data in the handler
-that receives the parameter, and thereafter using the copy,
-never using the reference again.</p>
-</li>
-</ol>
+<p>Now <code>b1</code> has the same data that the parameter <code>b</code> would have
+if it were passed by value.</p>
 </div>
 <div class="paragraph">
-<p><strong>XML limitation:</strong> In the current version of the F Prime XML-to-C&#43;&#43;
-autocoder, if a parameter <code>a</code> of a port <code>P</code> carries a large value,
-then you should mark <code>a</code> <code>ref</code> if you intend to use <code>P</code> in an asynchronous
-invocation.
-Doing this avoids unnecessary copies that will otherwise occur in the
-auto-generated code.
-If you also need to use <code>P</code> in a synchronous invocation, and you need
-pass-by-value semantics in that invocation, then you can copy the
-data in the handler, as discussed above.</p>
+<p>If <code>pIn</code> is asynchronous, then the invocation does not
+call the handler directly. Instead, it calls
+a function that puts a message on a queue.
+The handler is called when the message is dispatched.
+At this point, any value parameter is passed by
+copying the value out of the queue and onto the stack.
+Any <code>const</code> reference parameter is passed by
+(1) copying data out of the queue and onto the stack and
+(2) then providing a <code>const</code> reference to the data on the stack.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="cpp">// Assume pIn is an asynchronous input port
+void C2::pIn_handler(U32 a, const T&amp; b) {
+  // a is a local copy of a U32 value
+  // b is a const reference to T data copied across the queue
+  // and owned by this component
+}</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>This use of <code>ref</code> is unfortunate: it is an autocoder optimization
-that has leaked into the model description.
-In a future version of the autocoder, we intend to perform
-the optimization automatically, making this use of <code>ref</code> unnecessary.</p>
+<p>Note that unlike in the synchronous case, const references
+in parameters refer to data owned by the handler
+(residing on the handler stack),
+not data owned by the invoking component.
+Note also that the values must be small enough to permit
+placement on the queue and on the stack.</p>
 </div>
 <div class="paragraph">
-<p>In summary, given the current state of the XML autocoder, you should
-use a <code>ref</code> parameter if (1) you want pass-by-reference semantics
-in a synchronous invocation (the intended use of <code>ref</code>); or (2)
-the parameter carries large data and you intend to use it in an asynchronous
-invocation (the result of an autocoder quirk, which will be fixed in
-a future version of F Prime).</p>
+<p>If you want the handler and the invoking component to share data
+passed in as a parameter, or if the data values are too large
+for the queue and the stack, then you can use a data structure
+that contains a pointer or a reference as a member.
+For example, <code>T</code> could have a member that stores a reference
+or a pointer to shared data.
+F Prime provides a type <code>Fw::Buffer</code> that stores a
+pointer to a shared data buffer.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Ports_Returning-Values">8.4. Returning Values</h3>
+<h3 id="Defining-Ports_Reference-Parameters">8.4. Reference Parameters</h3>
 <div class="paragraph">
-<p>Optionally, you can give the port a return type.
+<p>You may write the keyword <code>ref</code> in front of any formal parameter <em>p</em>
+of a port definition.
+Doing this specifies that <em>p</em> is a <strong>reference parameter</strong>.
+Each reference parameter in an FPP port becomes a mutable
+C&#43;&#43; reference at the corresponding place in the
+handler function signature.
+For example, suppose this port definition</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">type T
+port P(a: U32, b: T, ref c: T)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>appears as the type of an input port <code>pIn</code> of component <code>C</code>.
+The generated code for <code>C</code> might contain a handler function with a
+signature like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="cpp">virtual void pIn_handler(U32 a, const T&amp; b, T&amp; c);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that parameter <code>b</code> is not marked <code>ref</code>, so it is
+translated to <code>const T&amp; b</code>, as discussed in the previous section.
+On the other hand, parameter <code>c</code> is marked ref, so it
+is translated to <code>T&amp; c</code>.</p>
+</div>
+<div class="paragraph">
+<p>Apart from the mutability, a reference parameter has the same
+behavior as a <code>const</code> reference parameter, as described in
+the previous section.
+In particular:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>When <code>pIn</code> is synchronous, a reference parameter <em>p</em> of <code>pIn_handler</code>
+refers to the data passed in by the invoking component.</p>
+</li>
+<li>
+<p>When <code>pIn</code> is asynchronous, a reference parameter <em>p</em> of <code>pIn_handler</code>
+refers to data copied out of the queue and placed on the local stack.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The main reason to use a reference parameter is to
+return a value to the sender by storing it through
+the reference.
+We discuss this pattern in the section on
+<a href="#Defining-Ports_Returning-Values">returning values</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-Ports_Returning-Values">8.5. Returning Values</h3>
+<div class="paragraph">
+<p>Optionally, you can give a port definition a return type.
 To do this you write an arrow <code>-></code> and a type
 after the name and the formal parameters, if any.
 For example:</p>
@@ -3308,7 +3353,7 @@ via the C&#43;&#43; <code>return</code> statement.
 For example:</p>
 <div class="listingblock">
 <div class="content">
-<pre>T P1_handler() {
+<pre>T C::p1In_handler() {
   ...
   return T(1, 2, 3);
 }</pre>
@@ -3324,7 +3369,7 @@ its fields).
 For example:</p>
 <div class="listingblock">
 <div class="content">
-<pre>void P2_handler(T&amp; t) {
+<pre>void C::p2In_handler(T&amp; t) {
   ...
   t = T(1, 2, 3);
 }</pre>
@@ -3361,7 +3406,7 @@ port P(ref result: U32) -&gt; Status</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>Status P_handler(U32&amp; result) {
+<pre>Status C::pIn_handler(U32&amp; result) {
   Status status = Status::FAIL;
   if (...) {
     ...
@@ -3374,7 +3419,74 @@ port P(ref result: U32) -&gt; Status</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Ports_Annotating-a-Port-Definition">8.5. Annotating a Port Definition</h3>
+<h3 id="Defining-Ports_Pass-by-Reference-Semantics">8.6. Pass-by-Reference Semantics</h3>
+<div class="paragraph">
+<p>Whenever a C&#43;&#43; formal parameter <em>p</em> enables sharing of data between
+an invoking component and a handler function <code>pIn_handler</code>,
+we say that <em>p</em> has <strong>pass-by-reference semantics</strong>.
+Pass-by-reference semantics occurs in the following cases:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><em>p</em> has reference or <code>const</code> reference type,
+and the port <code>pIn</code> is synchronous.</p>
+</li>
+<li>
+<p><em>p</em> has a type <em>T</em> that contains a pointer or
+a reference as a member.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>When using pass-by-reference semantics,
+you must carefully manage the
+use of the data to avoid concurrency bugs
+such as data races.
+This is especially true for references that can modify
+shared data.</p>
+</div>
+<div class="paragraph">
+<p>Except in special cases that require special expertise (e.g.,
+the implementation of highly concurrent data structures),
+you should enforce the rule that at most
+one component may use any piece of data at any time.
+In particular, if component <code>A</code> passes a reference to component <code>B</code>,
+then component <code>A</code> should not use the reference while
+component <code>B</code> is using it, and vice versa.
+For example:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Suppose component <code>A</code> owns some data <code>D</code> and passes a reference
+to <code>D</code> via a synchronous port call to component <code>B</code>.
+Suppose the port handler in component <code>B</code> uses the data but
+does not store the reference, so that when the handler exits,
+the reference is lost.
+This is a good pattern.
+In this case, we may say that ownership of <code>D</code> resides in <code>A</code>, temporarily
+goes to <code>B</code> for the life of the handler, and goes back to <code>A</code>
+when the handler exits.
+Because the port call is synchronous, the handler in <code>B</code>
+never runs concurrently with any code in <code>A</code> that uses <code>D</code>.
+So at most one of <code>A</code> or <code>B</code> uses <code>D</code> at any time.</p>
+</li>
+<li>
+<p>Suppose instead that the handler in <code>B</code> stores the reference
+into a member variable, so that the reference
+persists after the handler exits.
+If this happens, then you should make sure that <code>A</code> cannot use
+<code>D</code> unless and until <code>B</code> passes ownership of <code>D</code> to <code>A</code> and vice versa.
+For example, you could use state variables of enum type in <code>A</code> and in <code>B</code> to
+track ownership, and you could have a port invocation from <code>A</code> to <code>B</code> pass the
+reference and transfer ownership from <code>A</code> to <code>B</code> and vice versa.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-Ports_Annotating-a-Port-Definition">8.7. Annotating a Port Definition</h3>
 <div class="paragraph">
 <p>A port definition is an
 <a href="#Writing-Comments-and-Annotations_Annotations">annotatable element</a>.
@@ -3937,13 +4049,13 @@ a typed port instance with a predefined port type, as follows:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>cmd</code> <code>recv</code> uses the port <code>Fw.Cmd</code></p>
+<p><code>command</code> <code>recv</code> uses the port <code>Fw.Cmd</code></p>
 </li>
 <li>
-<p><code>cmd</code> <code>reg</code> uses the port <code>Fw.CmdReg</code></p>
+<p><code>command</code> <code>reg</code> uses the port <code>Fw.CmdReg</code></p>
 </li>
 <li>
-<p><code>cmd</code> <code>resp</code> uses the port <code>Fw.CmdResponse</code></p>
+<p><code>command</code> <code>resp</code> uses the port <code>Fw.CmdResponse</code></p>
 </li>
 </ul>
 </div>
@@ -4321,15 +4433,10 @@ Instead, you provide the formal parameters directly.
 Notice that when defining <code>ExternalSelfMessage</code> we
 defined and used the port <code>P</code>, but when defining
 <code>InternalSelfMessage</code> we did not.
-The formal parameters of an internal port are the same
-as for a <a href="#Defining-Ports_Formal-Parameters">port definition</a>.
-In particular, you may write the keyword <code>ref</code> in front of any formal
-parameter.
-Values are never actually passed by reference to an internal port,
-because they go through a queue.
-However, as in the case of port definitions, writing <code>ref</code> causes the XML
-autocoder to generate
-code that is more efficient for passing large values.</p>
+The formal parameters of an internal port work in the same way
+as for a <a href="#Defining-Ports_Formal-Parameters">port definition</a>,
+except that none of the parameters may be a
+<a href="#Defining-Ports_Reference-Parameters">reference parameter</a>.</p>
 </div>
 <div class="paragraph">
 <p>When specifying an internal port, you may specify
@@ -6296,9 +6403,39 @@ We have used
 <a href="#Defining-Constants">constant definitions</a> for
 the default queue and stack sizes.</p>
 </div>
+<div class="paragraph">
+<p><strong>CPU affinity:</strong>
+When defining an active component, you may specify
+a <strong>CPU affinity</strong>.
+The CPU affinity is a number whose meaning depends on
+the platform.
+Usually it is an instruction to the operating system
+to run the thread of the active component on a particular
+CPU, identified by number.</p>
 </div>
-<div class="sect3">
-<h4 id="Defining-Component-Instances_Component-Instance-Definitions_Specifying-Header-Files">10.1.4. Specifying Header Files</h4>
+<div class="paragraph">
+<p>To specify CPU affinity, you write the keyword <code>cpu</code>
+and the CPU number after the priority specifier.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">instance dataCompressor: Utils.DataCompressor base id 0x100 \
+  queue size Default.queueSize \
+  stack size Default.stackSize \
+  priority 30 \
+  cpu 0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This example is the same as the previous <code>dataCompressor</code>
+instance, except that we have specified that the thread
+associated with the instance should run on CPU 0.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-Component-Instances_Specifying-Header-Files">10.2. Specifying Header Files</h3>
 <div class="paragraph">
 <p>When you define a component instance <em>I</em>, the FPP translator needs
 to locate the header file for the C&#43;&#43;
@@ -6314,7 +6451,7 @@ conforms to the following rules:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The header file is named <code>Name.fpp</code>, where <code>Name</code>
+<p>The name of the header file is <code>Name.hpp</code>, where <code>Name</code>
 is the name of the component in the FPP model, without
 any module qualifiers.</p>
 </li>
@@ -6327,7 +6464,7 @@ source file that defines the component.</p>
 </div>
 <div class="paragraph">
 <p>For example, the F Prime repository contains a reference FSW implementation
-with instances defined in the file <code>Ref/Top/init.fpp</code>.
+with instances defined in the file <code>Ref/Top/instances.fpp</code>.
 One of the instances is <code>SG1</code>.
 Its definition reads as follows:</p>
 </div>
@@ -6371,8 +6508,8 @@ in a different directory.</p>
 <div class="paragraph">
 <p>The F Prime repository also provides a Linux-specific implementation
 of the <code>Time</code> component in the directory <code>Svc/LinuxTime</code>.
-The file <code>Ref/Top/init.fpp</code> contains an instance definition
-<code>linuxTime</code> that reads as follows:</p>
+The file <code>Ref/Top/instances.fpp</code> contains an instance definition
+<code>linuxTime</code> that reads in part as follows:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -6385,9 +6522,8 @@ The file <code>Ref/Top/init.fpp</code> contains an instance definition
 <code>Svc/LinuxTime/LinuxTime.hpp</code>.</p>
 </div>
 </div>
-</div>
 <div class="sect2">
-<h3 id="Defining-Component-Instances_Init-Specifiers">10.2. Init Specifiers</h3>
+<h3 id="Defining-Component-Instances_Init-Specifiers">10.3. Init Specifiers</h3>
 <div class="paragraph">
 <p>In an F Prime FSW application, each component instance <em>I</em>
 has some associated C&#43;&#43; code
@@ -6404,10 +6540,10 @@ instead, you have to provide
 the function call directly in C&#43;&#43;.</p>
 </div>
 <div class="paragraph">
-<p>To do this, you use an <strong>init specifier</strong>.
-An init specifier names a
-<a href="#Defining-Component-Instances_Component-Instance-Definitions">component instance definition</a>, names a phase
-of the setup or teardown process, and
+<p>To do this, you write one or more <strong>init specifiers</strong>
+as part of a component instance definition.
+An init specifier names a phase
+of the setup or teardown process and
 provides a snippet of literal C&#43;&#43; code.
 The FPP translator pastes the snippet into the setup
 or teardown code according to the phase named in
@@ -6418,7 +6554,7 @@ However, most of the code is in fact initialization code,
 and so FPP uses "init" as a shorthand name.)</p>
 </div>
 <div class="sect3">
-<h4 id="Defining-Component-Instances_Init-Specifiers_Phases">10.2.1. Phases</h4>
+<h4 id="Defining-Component-Instances_Init-Specifiers_Execution-Phases">10.3.1. Execution Phases</h4>
 <div class="paragraph">
 <p>The FPP translator uses init specifiers when it generates
 code for an F Prime topology.
@@ -6444,8 +6580,8 @@ files <em>T</em> <code>TopologyAc.hpp</code> and <em>T</em> <code>TopologyAc.cpp
 </div>
 <div class="paragraph">
 <p>The generated code in <em>T</em> <code>TopologyAc.hpp</code> and <em>T</em> <code>TopologyAc.cpp</code>
-is divided into several phases.
-Table <a href="#init-specifier-phases">Init Specifier Phases</a> shows the phases
+is divided into several phases of execution.
+Table <a href="#execution-phases">Execution Phases</a> shows the execution phases
 recognized by the FPP code generator.
 In this table, <em>T</em> is the name of a topology and <em>I</em> is the
 name of a component instance.
@@ -6454,7 +6590,7 @@ The columns of the table have the following meanings:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Phase:</strong> The symbol denoting the setup or teardown phase.
+<p><strong>Phase:</strong> The symbol denoting the execution phase.
 These symbols are the enumerated constants of the
 <a href="#Defining-Enums">enum</a> <code>Fpp.ToCpp.Phases</code> defined in
 <code>Fpp/ToCpp.fpp</code> in the F Prime repository.</p>
@@ -6482,8 +6618,8 @@ default code.</p>
 </li>
 </ul>
 </div>
-<table id="init-specifier-phases" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. Init Specifier Phases</caption>
+<table id="execution-phases" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Execution Phases</caption>
 <colgroup>
 <col style="width: 20%;">
 <col style="width: 20%;">
@@ -6633,25 +6769,27 @@ instance needs to deallocate memory or release resources on program exit.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Component-Instances_Init-Specifiers_Writing-Init-Specifiers">10.2.2. Writing Init Specifiers</h4>
+<h4 id="Defining-Component-Instances_Init-Specifiers_Writing-Init-Specifiers">10.3.2. Writing Init Specifiers</h4>
+<div class="paragraph">
+<p>You may write one or more init specifiers as part of a component
+instance definition.
+The instance specifiers, if any, come at the end of the
+definition and must be enclosed in curly braces.
+The instances specifiers form an
+<a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">element sequence</a>
+with a semicolon as the optional terminating punctuation.</p>
+</div>
 <div class="paragraph">
 <p>To write an init specifier, you write the following:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The keyword <code>init</code>.</p>
-</li>
-<li>
-<p>The name of a
-<a href="#Defining-Component-Instances_Component-Instance-Definitions">component instance</a>.</p>
-</li>
-<li>
 <p>The keyword <code>phase</code>.</p>
 </li>
 <li>
 <p>The
-<a href="#Defining-Component-Instances_Init-Specifiers_Phases">phase</a>
+<a href="#Defining-Component-Instances_Init-Specifiers_Execution-Phases">execution phase</a>
 of the init specifier.</p>
 </li>
 <li>
@@ -6666,29 +6804,37 @@ that provides the code snippet.</p>
 for the code snippet.</p>
 </div>
 <div class="paragraph">
-<p>As an example, here are the init specifiers for the
+<p>As an example, here is the component instance definition for the
 command sequencer instance <code>cmdSeq</code> from the F Prime reference
-deployment located at <code>Ref/Top/init.fpp</code>:</p>
+deployment located at <code>Ref/Top/instances.fpp</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">init cmdSeq phase Fpp.ToCpp.Phases.configConstants """
-enum {
-  BUFFER_SIZE = 5*1024
-};
-"""
+<pre class="prettyprint highlight"><code data-lang="fpp">instance cmdSeq: Svc.CmdSequencer base id 0x0600 \
+  queue size Default.queueSize \
+  stack size Default.stackSize \
+  priority 100 \
+{
 
-init cmdSeq phase Fpp.ToCpp.Phases.configComponents """
-cmdSeq.allocateBuffer(
-    0,
-    Allocation::mallocator,
-    ConfigConstants::cmdSeq::BUFFER_SIZE
-);
-"""
+  phase Fpp.ToCpp.Phases.configConstants """
+  enum {
+    BUFFER_SIZE = 5*1024
+  };
+  """
 
-init cmdSeq phase Fpp.ToCpp.Phases.tearDownComponents """
-cmdSeq.deallocateBuffer(Allocation::mallocator);
-"""</code></pre>
+  phase Fpp.ToCpp.Phases.configComponents """
+  cmdSeq.allocateBuffer(
+      0,
+      Allocation::mallocator,
+      ConfigConstants::cmdSeq::BUFFER_SIZE
+  );
+  """
+
+  phase Fpp.ToCpp.Phases.tearDownComponents """
+  cmdSeq.deallocateBuffer(Allocation::mallocator);
+  """
+
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -6704,25 +6850,33 @@ deallocate the sequence buffer, passing in the allocator
 object again.</p>
 </div>
 <div class="paragraph">
-<p>As another example, here are the init specifiers for the parameter
+<p>As another example, here is the instance definition for the parameter
 database instance <code>prmDb</code> from the Ref deployment:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">init prmDb phase Fpp.ToCpp.Phases.instances """
-Svc::PrmDb prmDb(FW_OPTIONAL_NAME("prmDb"), "PrmDb.dat");
-"""
+<pre class="prettyprint highlight"><code data-lang="fpp">instance prmDb: Svc.PrmDb base id 0x0D00 \
+  queue size Default.queueSize \
+  stack size Default.stackSize \
+  priority 96 \
+{
 
-init prmDb phase Fpp.ToCpp.Phases.readParameters """
-prmDb.readParamFile();
-"""</code></pre>
+  phase Fpp.ToCpp.Phases.instances """
+  Svc::PrmDb prmDb(FW_OPTIONAL_NAME("prmDb"), "PrmDb.dat");
+  """
+
+  phase Fpp.ToCpp.Phases.readParameters """
+  prmDb.readParamFile();
+  """
+
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>We provide code for the <code>instances</code> phase because the constructor
+<p>Here we provide code for the <code>instances</code> phase because the constructor
 call for this component is nonstandard&#8201;&#8212;&#8201;it takes the parameter
 file name as an argument.
-In the <code>readParameters</code> phase we provide the code for reading the parameters
+In the <code>readParameters</code> phase, we provide the code for reading the parameters
 from the file.
 As discussed above, this code is needed only for the parameter database
 instance.</p>
@@ -6737,7 +6891,7 @@ section on <a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployment
 </div>
 <div class="paragraph">
 <p>For more examples of init specifiers in action, see the rest of
-the file <code>Ref/Top/init.fpp</code> in the F Prime repository.
+the file <code>Ref/Top/instances.fpp</code> in the F Prime repository.
 In particular, the init specifiers for the <code>comm</code> component
 use the <code>state</code> value that we just mentioned.</p>
 </div>
@@ -9600,23 +9754,33 @@ and examine the results:</p>
 </div>
 </div>
 <div class="paragraph">
-<p><strong>Setting the include guard prefix:</strong> By default, the include guard
-for <code>FppConstantsAc.hpp</code> is <code>FppConstantsAc_HPP</code>.
-This works fine if you generate one constant file
-for your whole model.
-However, if you generate separate constant files for
-separate source files in your model, then having multiple
-files with the same guard is not a good idea.
-If one compilation step tries to include both files, then the second
-inclusion will fail.
-This will likely cause a compilation failure,
-because symbols defined in the excluded file will be
-reported as undefined.</p>
+<p><strong>Generated header paths:</strong>
+The option <code>-p</code> <em>path-prefixes</em> removes the longest of one or more
+path prefixes from any generated header paths (for example,
+the path to <code>FppConstants.hpp</code> that is included in <code>FppConstants.cpp</code>).
+To specify multiple prefixes, separate them with commas (and no spaces).
+This is similar to the <code>-p</code> option for
+<a href="#Analyzing-and-Translating-Models_Generating-XML"><code>fpp-to-xml</code></a>.</p>
 </div>
 <div class="paragraph">
-<p>To avoid this problem, use the option <code>-g</code> <em>guard-prefix</em>.
-This options says to add <em>guard-prefix</em> to the include
-guard for <code>FppConstantsAc.hpp</code>.
+<p><strong>The include guard prefix:</strong> By default, the include guard
+for <code>FppConstantsAc.hpp</code> is <em>guard-prefix</em> <code>_FppConstantsAc_HPP</code>,
+where <em>guard-prefix</em> is the absolute path of the current
+directory, after replacing non-identifier characters with underscores.
+For example, if the current directory is <code>/home/user</code>, then
+the guard prefix is <code>_home_user</code>, and the include guard is
+<code>_home_user_FppConstantsAc_HPP</code>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>-p</code> option, if present, is applied to the guard
+prefix.
+For example, if you run <code>fpp-to-cpp -p $PWD &#8230;&#8203;</code> then
+the guard prefix will be empty.
+In this case, the guard is <code>FppConstantsAc_HPP</code>.</p>
+</div>
+<div class="paragraph">
+<p>If you wish to use a different prefix entirely, use the option
+<code>-g</code> <em>guard-prefix</em>.
 For example, if you run <code>fpp-to-cpp -g Commands &#8230;&#8203;</code>,
 then the include guard will be <code>Commands_FppConstantsAc_HPP</code>.</p>
 </div>
@@ -9636,13 +9800,6 @@ This is similar to the <code>-d</code> option for
 <p><code>-n</code> <em>file</em> : Write the names of the generated XML files
 to <em>file</em>.
 This is similar to the <code>-n</code> option for
-<a href="#Analyzing-and-Translating-Models_Generating-XML"><code>fpp-to-xml</code></a>.</p>
-</li>
-<li>
-<p><code>-p</code> <em>path-prefixes</em> : Remove the longest of one or more path prefixes from
-generated header paths.
-To specify multiple prefixes, separate them with commas (and no spaces).
-This is similar to the <code>-p</code> option for
 <a href="#Analyzing-and-Translating-Models_Generating-XML"><code>fpp-to-xml</code></a>.</p>
 </li>
 </ul>
@@ -9841,9 +9998,8 @@ values.</p>
 the default value need not be given explicitly:
 if you provide no explicit default value, then an implicit default is used.
 By contrast, in F Prime XML, (1) you <em>must</em> supply default values for array
-elements, and (2) you <em>may not</em> supply default values for struct members
-or enumerations. (This is an inconsistency in the XML
-representation that we will fix in an upcoming version of F Prime.)
+elements, and (2) you <em>may</em> supply default values for struct members
+or enumerations.
 To keep the translation simple, if default values are present in the XML
 representation, then <code>fpp-from-xml</code> translates them to explicit values,
 even if they could be made implicit.</p>
@@ -10232,6 +10388,62 @@ sed 's/^\( *\)#/\1@ #/' | fpp-format $@ | sed 's/^\( *\)@ #/\1#/'</code></pre>
 <div class="paragraph">
 <p>It converts comments to annotations, runs <code>fpp-format</code>, and converts the
 annotations back to comments.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Analyzing-and-Translating-Models_Visualizing-Topologies">13.7. Visualizing Topologies</h3>
+<div class="paragraph">
+<p>When FPP translates a topology <em>T</em> to XML, as discussed in the section on
+<a href="#Analyzing-and-Translating-Models_Generating-XML">generating XML</a>,
+it adds special comments that can be read by a companion tool called
+<code>fprime-layout</code>.
+<code>fprime-layout</code> reads a topology XML file and produces a
+<strong>topology visualization</strong>, i.e., a graphical rendering of the topology
+in which the components are shapes, the ports are smaller shapes,
+and the connections are arrows between the ports.
+<code>fprime-layout</code> produces one visualization for each
+<a href="#Defining-Topologies_Connection-Graphs">connection graph</a> in the
+topology.</p>
+</div>
+<div class="paragraph">
+<p>Topology visualization is an important part of the FPP work flow:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>It provides a graphical representation of the instances and
+connections in each connection graph.
+This graphical representation is a useful complement to the
+textual representation provided by the FPP source.</p>
+</li>
+<li>
+<p>It makes explicit information that is only implicit in the
+FPP source, e.g., the auto-generated port numbers of the connections and
+the auto-generated connections of the pattern graph specifiers.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Using <code>fprime-layout</code>, you can do the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Extract the connection graphs from a topology XML file.</p>
+</li>
+<li>
+<p>Render the connection graphs as EPS (Encapsulated PostScript),
+generating one EPS file for each connection graph.</p>
+</li>
+<li>
+<p>Generate a set of layouts, one for each connection graph,
+and view the layouts in a browser.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://github.com/fprime-community/fprime-layout"><code>fprime-layout</code>
+repository</a> for more details.</p>
 </div>
 </div>
 </div>
@@ -10748,7 +10960,7 @@ F Prime repository.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-08-20 14:41:38 -0700
+Last updated 2021-10-28 14:53:42 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

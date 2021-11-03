@@ -16,10 +16,12 @@ then
   exit 1
 fi
 
+unset os_flags
 os=`uname`
 case "$os" in
   Darwin)
     os_type=DARWIN
+    os_flags='-Wno-nullability-completeness'
     ;;
   Linux)
     os_type=LINUX
@@ -30,4 +32,4 @@ case "$os" in
     ;;
 esac
 
-gcc '-DTGT_OS_TYPE_'$os_type -I $FPRIME -I $FPRIME/config -I $FPRIME/Fw/Types/Linux -I . -ferror-limit=1 $@
+g++ --std=c++11 $os_flags -DTGT_OS_TYPE_$os_type -I $FPRIME -I $FPRIME/config -I $FPRIME/Fw/Types/Linux -I . -ferror-limit=1 $@

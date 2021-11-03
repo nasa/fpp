@@ -17,6 +17,7 @@ case class TopConstants(
         List(
           getComponentConfigLines,
           getBaseIdLines,
+          getCPULines,
           getInstanceIdLines,
           getPriorityLines,
           getQueueSizeLines,
@@ -66,6 +67,18 @@ case class TopConstants(
         Some(s"$name = $value")
       },
       instancesByBaseId
+    )
+
+  private def getCPULines: List[Line] =
+    generateEnum(
+      "CPUs",
+      ci => ci.cpu.map(
+        cpu => {
+          val name = getNameAsIdent(ci.qualifiedName)
+          val value = cpu
+          s"$name = $cpu"
+        }
+      )
     )
 
   private def getInstanceIdLines: List[Line] =

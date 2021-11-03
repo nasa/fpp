@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/internal_port/ref_params.fpp: 3.3
+  internal port p(ref a: U32)
+  ^
+error: internal port may not have ref parameters

@@ -13,5 +13,5 @@ do
   dest_base=`echo $base | sed 's;\(.*FppConstantsAc\).*;\1;'`
   cp $base.hpp $dest_base.hpp
   cp $base.cpp $dest_base.cpp
-  $fprime_gcc -c $dest_base.cpp
+  $fprime_gcc -I../../.. -c $dest_base.cpp
 done

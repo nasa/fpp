@@ -15,6 +15,7 @@ module Fw {
 array A = [3] U32
 constant a = 0
 enum E { X, Y }
+enum Phases { setup, teardown }
 struct S { x: U32 }
 type T
 
@@ -28,7 +29,8 @@ module M {
 
 port P
 
-passive component C1 {
+active component C1 {
+  async input port pIn: P
   array A = [3] U32
   constant a = 0
   enum E { X, Y }
@@ -36,7 +38,11 @@ passive component C1 {
   type T
 }
 
-instance c11: C1 base id 0x100
+instance c11: C1 \
+  base id 0x100 \
+  queue size 10 \
+  stack size 1024 \
+  priority 10
 
 topology T1 {
 
@@ -59,3 +65,9 @@ module M {
   }
 
 }
+
+constant base_id_def = 0x200
+constant queue_size_def = 10
+constant stack_size_def = 10
+constant priority_def = 10
+constant cpu_def = 0

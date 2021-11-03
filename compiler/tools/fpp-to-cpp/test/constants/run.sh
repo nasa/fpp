@@ -5,10 +5,17 @@ constants()
     diff_cpp FppConstants _constants
 }
 
-constants_guard()
+constants_guard_dir()
+{
+  dir=`cd ../../..; echo $PWD`
+  run_test "-p $dir" constants && \
+    diff_cpp FppConstants _constants_guard_dir
+}
+
+constants_guard_prefix()
 {
   run_test "-g GUARD_PREFIX -p $PWD" constants && \
-    diff_cpp FppConstants _constants_guard
+    diff_cpp FppConstants _constants_guard_prefix
 }
 
 constants_output_dir()

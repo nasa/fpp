@@ -56,6 +56,7 @@ command
 component
 connections
 constant
+cpu
 default
 diagnostic
 drop
@@ -71,7 +72,6 @@ high
 id
 import
 include
-init
 input
 instance
 internal
