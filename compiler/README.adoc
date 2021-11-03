@@ -35,7 +35,7 @@ The available tools are as follows:
 * `fpp-to-cpp`
 * `fpp-to-xml`
 
-See https://fprime-community/fpp/wiki/Tools for more information.
+See https://github.com/fprime-community/fpp/wiki/Tools for more information.
 
 == Testing
 
