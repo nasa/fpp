@@ -32,7 +32,7 @@ The type of the expression must be
 
 The optional format specifier specifies a <<Format-Strings,format string>>.
 When displaying the array, the format is applied to each element of the array.
-There is one argument to the format string, which an array member.  
+There is one argument to the format string, which is an array member.  
 
 ==== Examples
 
