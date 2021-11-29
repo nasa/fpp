@@ -102,7 +102,7 @@ namespace M {
       active3.start(
         static_cast<NATIVE_UINT_TYPE>(Priorities::active3),
         static_cast<NATIVE_UINT_TYPE>(StackSizes::active3),
-        Os::Task::TASK_DEFAULT,
+        Os::Task::TASK_DEFAULT, // Default CPU
         static_cast<NATIVE_UINT_TYPE>(TaskIds::active3)
       );
     }

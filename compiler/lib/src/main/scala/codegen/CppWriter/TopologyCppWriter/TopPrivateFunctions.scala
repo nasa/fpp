@@ -200,8 +200,8 @@ case class TopPrivateFunctions(
         if (isActive(ci)) {
           val name = getNameAsIdent(ci.qualifiedName)
           val cpu = ci.cpu match {
-            case Some(_) => s"static_cast<NATIVE_UINT_TYPE>(CPUs::$name)"
-            case None => "Os::Task::TASK_DEFAULT"
+            case Some(_) => s"static_cast<NATIVE_UINT_TYPE>(CPUs::$name),"
+            case None => "Os::Task::TASK_DEFAULT, // Default CPU"
           }
           wrapInScope(
             s"$name.start(",
@@ -209,7 +209,7 @@ case class TopPrivateFunctions(
               List(
                 s"static_cast<NATIVE_UINT_TYPE>(Priorities::$name),",
                 s"static_cast<NATIVE_UINT_TYPE>(StackSizes::$name),",
-                s"${cpu},",
+                s"${cpu}",
                 s"static_cast<NATIVE_UINT_TYPE>(TaskIds::$name)",
               )
             ).map(line),
