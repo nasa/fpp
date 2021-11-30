@@ -792,7 +792,8 @@ The currently recognized framework dependencies are as follows:
 
 * `Fw_Comp` if the FPP model defines a passive component.
 * `Fw_CompQueued` if the model defines a queued or active component.
-* `Os` if the model uses a guarded input port specifier.
+* `Os` if the model defines a queued or active component or
+uses a guarded input port specifier.
 
 Each dependency corresponds to a build module (i.e., a
 statically compiled library) of the F Prime framework.

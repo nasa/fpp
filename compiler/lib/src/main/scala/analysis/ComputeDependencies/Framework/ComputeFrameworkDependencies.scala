@@ -14,10 +14,23 @@ object ComputeFrameworkDependencies extends AstStateVisitor {
     val (_, node, _) = aNode
     val data = node.data
     val d = data.kind match {
-      case Ast.ComponentKind.Passive => FrameworkDependency.FwComp
-      case _ => FrameworkDependency.FwCompQueued
+      case Ast.ComponentKind.Passive =>
+        List(FrameworkDependency.FwComp)
+      case _ => List(
+        FrameworkDependency.FwCompQueued,
+        FrameworkDependency.Os
+      )
     }
-    visitList(s + d, data.members, matchComponentMember)
+    visitList(s ++ d, data.members, matchComponentMember)
+  }
+
+  override def defModuleAnnotatedNode(
+    s: State,
+    aNode: Ast.Annotated[AstNode[Ast.DefModule]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    visitList(s, data.members, matchModuleMember)
   }
 
   override def specPortInstanceAnnotatedNode(
