@@ -11,6 +11,7 @@ To install in the `bin` directory, run `./install`.
 This step also runs all the Scala unit tests.
 To install to a different directory, run `./install` _dir-name_.
 
+*Setting the shell path:*
 Once you have installed the FPP compiler to a directory `FPP_INSTALL_DIR`, you
 should put `FPP_INSTALL_DIR` in your shell path. For example, in bash:
 
@@ -22,7 +23,7 @@ should put `FPP_INSTALL_DIR` in your shell path. For example, in bash:
 
 That way you can run the tools from anywhere.
 
-The available tools are as follows:
+*Available tools:* The available tools are as follows:
 
 * `fpp-check`
 * `fpp-depend`
@@ -36,6 +37,21 @@ The available tools are as follows:
 * `fpp-to-xml`
 
 See https://github.com/fprime-community/fpp/wiki/Tools for more information.
+
+*Installing with custom sbt flags:*
+For some installations, you may need to pass special flags
+to `sbt`.
+For example, when installing FPP inside a Docker image,
+you may need to use the flags `--batch -Dsbt.server.forcestart=true`.
+
+To do this, set the environment variable `FPP_SBT_FLAGS`.
+For example:
+
+[source,bash]
+----
+% export FPP_SBT_FLAGS='--batch -Dsbt.server.forcestart=true'
+% ./install
+----
 
 == Testing
 

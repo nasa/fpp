@@ -1,5 +1,12 @@
 #!/bin/sh -e
 
+# ----------------------------------------------------------------------
+# FPP installer
+# ----------------------------------------------------------------------
+# To pass flags to sbt, set the environment variable
+# FPP_SBT_FLAGS
+# ----------------------------------------------------------------------
+
 if test $# -gt 1
 then
   echo 'usage: install dest-dir' 1>&2
@@ -42,7 +49,9 @@ sed -i.bak -e "s/val commit = .*/val commit = \"$commit\"/" \
   $util/Version.scala
 
 echo "Building jar files"
-sbt assembly
+cmd="sbt $FPP_SBT_FLAGS assembly"
+echo $cmd
+$cmd
 
 echo "Restoring Version.scala"
 cp $util/Version.scala.bak $util/Version.scala
