@@ -10,6 +10,7 @@
 
 pwd=$PWD
 
+export FPRIME_GCC_FLAGS="$FPRIME_GCC_FLAGS -Wno-gnu-zero-variadic-macro-arguments -Wno-unused-parameter"
 fprime_codegen=$COMPILER_ROOT/scripts/fprime-codegen
 fprime_gcc=$COMPILER_ROOT/scripts/fprime-gcc
 test_dir="$COMPILER_ROOT/tools/fpp-to-xml/test"

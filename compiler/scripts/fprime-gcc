@@ -32,4 +32,4 @@ case "$os" in
     ;;
 esac
 
-g++ --std=c++11 $os_flags -DTGT_OS_TYPE_$os_type -I $FPRIME -I $FPRIME/config -I $FPRIME/Fw/Types/Linux -I . -ferror-limit=1 $@
+g++ --std=c++11 -Wall -Wextra -Wpedantic -Wconversion $os_flags -DTGT_OS_TYPE_$os_type -I $FPRIME -I $FPRIME/config -I $FPRIME/Fw/Types/Linux -I . -ferror-limit=1 $FPRIME_GCC_FLAGS $@
