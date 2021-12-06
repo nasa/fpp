@@ -37,6 +37,9 @@ namespace M {
     // active2
     Active active2;
 
+    // active3
+    Active active3(FW_OPTIONAL_NAME("active3"));
+
     // passive1
     Passive passive1(FW_OPTIONAL_NAME("passive1"));
 
@@ -51,6 +54,7 @@ namespace M {
     void initComponents(const TopologyState& state) {
       active1.init(QueueSizes::active1, InstanceIds::active1);
       active2.initSpecial();
+      active3.init(QueueSizes::active3, InstanceIds::active3);
       passive1.init(InstanceIds::passive1);
       passive2.init(InstanceIds::passive2);
     }
@@ -64,6 +68,7 @@ namespace M {
     void setBaseIds() {
       active1.setIdBase(BaseIds::active1);
       active2.setIdBase(BaseIds::active2);
+      active3.setIdBase(BaseIds::active3);
       passive1.setIdBase(BaseIds::passive1);
       passive2.setIdBase(BaseIds::passive2);
     }
@@ -88,24 +93,32 @@ namespace M {
     // Start tasks
     void startTasks(const TopologyState& state) {
       active1.start(
-        TaskIds::active1,
-        Priorities::active1,
-        StackSizes::active1,
-        CPUs::active1
+        static_cast<NATIVE_UINT_TYPE>(Priorities::active1),
+        static_cast<NATIVE_UINT_TYPE>(StackSizes::active1),
+        static_cast<NATIVE_UINT_TYPE>(CPUs::active1),
+        static_cast<NATIVE_UINT_TYPE>(TaskIds::active1)
       );
       active2.startSpecial();
+      active3.start(
+        static_cast<NATIVE_UINT_TYPE>(Priorities::active3),
+        static_cast<NATIVE_UINT_TYPE>(StackSizes::active3),
+        Os::Task::TASK_DEFAULT, // Default CPU
+        static_cast<NATIVE_UINT_TYPE>(TaskIds::active3)
+      );
     }
 
     // Stop tasks
     void stopTasks(const TopologyState& state) {
       active1.exit();
       active2.stopSpecial();
+      active3.exit();
     }
 
     // Free threads
     void freeThreads(const TopologyState& state) {
       (void) active1.ActiveComponentBase::join(nullptr);
       active2.freeSpecial();
+      (void) active3.ActiveComponentBase::join(nullptr);
     }
 
     // Tear down components

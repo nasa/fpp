@@ -16,6 +16,8 @@ expr_struct
 expr_unop
 filenames
 filenames_include
+framework
+framework_include
 include
 included_dep
 included_dep_i

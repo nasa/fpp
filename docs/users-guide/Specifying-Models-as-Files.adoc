@@ -778,6 +778,28 @@ we discuss this option
 Note that we do not use the `-i` option to `fpp-depend`, because the relevant
 included files are already present in `direct.txt`.
 
+==== Framework Dependencies
+
+Certain FPP constructs imply dependencies on parts of the F Prime framework
+that may not be available on all platforms.
+For example, use of a
+<<Defining-Components_Port-Instances_Basic-Port-Instances,guarded input port>>
+requires that an operating system provides a mutex lock.
+
+To report framework dependencies, run `fpp-depend` with the option
+`-f` _file_, where _file_ is the name of an output file.
+The currently recognized framework dependencies are as follows:
+
+* `Fw_Comp` if the FPP model defines a passive component.
+* `Fw_CompQueued` if the model defines a queued or active component.
+* `Os` if the model defines a queued or active component or
+uses a guarded input port specifier.
+
+Each dependency corresponds to a build module (i.e., a
+statically compiled library) of the F Prime framework.
+`fpp-depend` writes the dependencies in the order that they must
+be provided to the linker.
+
 === Locating Uses
 
 Given a collection of files _F_ and their dependencies _D_, you can generate

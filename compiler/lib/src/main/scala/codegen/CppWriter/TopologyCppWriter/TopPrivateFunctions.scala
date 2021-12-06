@@ -199,19 +199,19 @@ case class TopPrivateFunctions(
       getCodeLinesForPhase (CppWriter.Phases.startTasks) (ci).getOrElse {
         if (isActive(ci)) {
           val name = getNameAsIdent(ci.qualifiedName)
-          val stackSize = s"StackSizes::$name"
-          val cpu = s"CPUs::$name"
-          val stackSizeAndCPU = ci.cpu match {
-            case Some(_) => List(s"$stackSize,", cpu)
-            case None => List(stackSize)
+          val cpu = ci.cpu match {
+            case Some(_) => s"static_cast<NATIVE_UINT_TYPE>(CPUs::$name),"
+            case None => "Os::Task::TASK_DEFAULT, // Default CPU"
           }
           wrapInScope(
             s"$name.start(",
             (
               List(
-                s"TaskIds::$name,",
-                s"Priorities::$name,"
-              ) ++ stackSizeAndCPU
+                s"static_cast<NATIVE_UINT_TYPE>(Priorities::$name),",
+                s"static_cast<NATIVE_UINT_TYPE>(StackSizes::$name),",
+                s"${cpu}",
+                s"static_cast<NATIVE_UINT_TYPE>(TaskIds::$name)",
+              )
             ).map(line),
             ");"
           )
