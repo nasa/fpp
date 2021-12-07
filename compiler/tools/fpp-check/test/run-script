@@ -41,7 +41,7 @@ done > default-tests.sh
 
 if test -f run.sh
 then
-  . run.sh
+  . ./run.sh
 fi
 
 run_suite $tests

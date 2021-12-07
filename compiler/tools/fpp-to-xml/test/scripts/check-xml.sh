@@ -10,7 +10,20 @@
 
 pwd=$PWD
 
-export FPRIME_GCC_FLAGS="$FPRIME_GCC_FLAGS -Wno-gnu-zero-variadic-macro-arguments -Wno-unused-parameter"
+if test `uname` = Darwin
+then
+export FPRIME_GCC_FLAGS="
+$FPRIME_GCC_FLAGS
+-Wno-gnu-zero-variadic-macro-arguments
+-Wno-unused-parameter
+"
+else
+export FPRIME_GCC_FLAGS="
+$FPRIME_GCC_FLAGS
+-Wno-variadic-macros
+-Wno-unused-parameter
+"
+fi
 fprime_codegen=$COMPILER_ROOT/scripts/fprime-codegen
 fprime_gcc=$COMPILER_ROOT/scripts/fprime-gcc
 test_dir="$COMPILER_ROOT/tools/fpp-to-xml/test"
