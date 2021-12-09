@@ -10971,7 +10971,7 @@ construct and initialize the topology.</p>
 <li>
 <p>Start the topology running, e.g., by looping in the main thread
 until a signal is handled, or by calling a start function on a
-timer component.
+timer component (see, e.g., <code>Svc::LinuxTimer</code>).
 The loop or timer typically runs until a signal is caught, e.g.,
 when the user presses control-C at the console.</p>
 </li>
@@ -10979,6 +10979,13 @@ when the user presses control-C at the console.</p>
 <p>On catching a signal</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
+<li>
+<p>Set a flag that causes the main loop to exit or the timer
+to stop.
+This flag must be a volatile and atomic variable (e.g.,
+<code>volatile std::atomic_bool</code>) because it is accessed
+concurrently by signal handlers and threads.</p>
+</li>
 <li>
 <p>Call <em>T</em> <code>::teardown</code>, passing in the <code>state</code> object, to
 tear down the topology.</p>
@@ -11005,7 +11012,7 @@ F Prime repository.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-12-09 07:18:38 -0800
+Last updated 2021-12-09 07:26:46 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
