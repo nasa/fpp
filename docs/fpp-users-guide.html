@@ -655,6 +655,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Missing-Dependencies">12.6.3. Missing Dependencies</a></li>
 <li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Included-Files">12.6.4. Included Files</a></li>
 <li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Dependencies-Between-Build-Modules">12.6.5. Dependencies Between Build Modules</a></li>
+<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Framework-Dependencies">12.6.6. Framework Dependencies</a></li>
 </ul>
 </li>
 <li><a href="#Specifying-Models-as-Files_Locating-Uses">12.7. Locating Uses</a></li>
@@ -9023,6 +9024,41 @@ Note that we do not use the <code>-i</code> option to <code>fpp-depend</code>, b
 included files are already present in <code>direct.txt</code>.</p>
 </div>
 </div>
+<div class="sect3">
+<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Framework-Dependencies">12.6.6. Framework Dependencies</h4>
+<div class="paragraph">
+<p>Certain FPP constructs imply dependencies on parts of the F Prime framework
+that may not be available on all platforms.
+For example, use of a
+<a href="#Defining-Components_Port-Instances_Basic-Port-Instances">guarded input port</a>
+requires that an operating system provides a mutex lock.</p>
+</div>
+<div class="paragraph">
+<p>To report framework dependencies, run <code>fpp-depend</code> with the option
+<code>-f</code> <em>file</em>, where <em>file</em> is the name of an output file.
+The currently recognized framework dependencies are as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Fw_Comp</code> if the FPP model defines a passive component.</p>
+</li>
+<li>
+<p><code>Fw_CompQueued</code> if the model defines a queued or active component.</p>
+</li>
+<li>
+<p><code>Os</code> if the model defines a queued or active component or
+uses a guarded input port specifier.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Each dependency corresponds to a build module (i.e., a
+statically compiled library) of the F Prime framework.
+<code>fpp-depend</code> writes the dependencies in the order that they must
+be provided to the linker.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="Specifying-Models-as-Files_Locating-Uses">12.7. Locating Uses</h3>
@@ -10960,7 +10996,7 @@ F Prime repository.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-11-12 10:09:46 -0800
+Last updated 2021-12-09 07:12:00 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
