@@ -396,13 +396,17 @@ construct and initialize the topology.
 . Start the topology running, e.g., by looping in the main thread
 until a signal is handled, or by calling a start function on a
 timer component.
+The loop or timer typically runs until a signal is caught, e.g.,
+when the user presses control-C at the console.
 
-. Call _T_ `::teardown`, passing in the `state` object, to
+. On catching a signal
+
+.. Call _T_ `::teardown`, passing in the `state` object, to
 tear down the topology.
 
-. Wait some time for all the threads to exit.
+.. Wait some time for all the threads to exit.
 
-. Exit the main thread.
+.. Exit the main thread.
 
 For an example like this, see `Ref/Top/Main.cpp` in the
 F Prime repository.

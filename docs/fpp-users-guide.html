@@ -10971,8 +10971,14 @@ construct and initialize the topology.</p>
 <li>
 <p>Start the topology running, e.g., by looping in the main thread
 until a signal is handled, or by calling a start function on a
-timer component.</p>
+timer component.
+The loop or timer typically runs until a signal is caught, e.g.,
+when the user presses control-C at the console.</p>
 </li>
+<li>
+<p>On catching a signal</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
 <li>
 <p>Call <em>T</em> <code>::teardown</code>, passing in the <code>state</code> object, to
 tear down the topology.</p>
@@ -10982,6 +10988,9 @@ tear down the topology.</p>
 </li>
 <li>
 <p>Exit the main thread.</p>
+</li>
+</ol>
+</div>
 </li>
 </ol>
 </div>
@@ -10996,7 +11005,7 @@ F Prime repository.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-12-09 07:12:00 -0800
+Last updated 2021-12-09 07:18:38 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
