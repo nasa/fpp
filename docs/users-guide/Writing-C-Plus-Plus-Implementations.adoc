@@ -235,7 +235,7 @@ init specifiers>>.
 
 In the F Prime Ref example, `TopologyState`
 is a struct with two member variables: a C-style string
-`hostName` that stores a host name and `U32` value `portNumber`
+`hostName` that stores a host name and a `U32` value `portNumber`
 that stores a port number.
 The main function defined in `Main.cpp` parses the command-line
 arguments to the application, uses the result to create an object
