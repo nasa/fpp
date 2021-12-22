@@ -42,7 +42,7 @@ fpp-to-cpp
 fpp-to-xml
 "
 
-commit=`git log | awk 'NR == 1 { print $2 }'`
+commit=`git describe --tags --always`
 util=lib/src/main/scala/util
 echo "Updating commit to $commit"
 sed -i.bak -e "s/val commit = .*/val commit = \"$commit\"/" \
@@ -65,6 +65,6 @@ do
   cp $jar $dest/$tool.jar
   echo '#!/bin/sh
 
-  java -jar '$dest'/'$tool'.jar $@' > $dest/$tool
+  java -jar '$dest'/'$tool'.jar "$@"' > $dest/$tool
   chmod +x $dest/$tool
 done

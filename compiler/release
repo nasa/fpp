@@ -1,0 +1,55 @@
+#!/bin/sh -e
+
+# ----------------------------------------------------------------------
+# FPP release builder
+# ----------------------------------------------------------------------
+# To pass flags to sbt, set the environment variable
+# FPP_SBT_FLAGS
+# ----------------------------------------------------------------------
+
+DIRECTORY=`dirname $0`
+FAST_BIN="${DIRECTORY}/fast-fpp-`uname`-`uname -m`"
+NATIVE_IMAGE=`which native-image || exit 0`
+JAVA_PATH=`which java || exit 0`
+
+# Looking for native-image
+if [ ! -x "${NATIVE_IMAGE}" ]
+then
+    echo "[ERROR] native-image not found, install Graal JVM, native-image, and ensure it runs on your system" 1>&2
+    exit 1
+fi
+JAVA_DIR=`dirname "${JAVA_PATH}"`
+NATIVE_DIR=`dirname "${NATIVE_IMAGE}"`
+
+if [ "${JAVA_DIR}" != "${NATIVE_DIR}" ]
+then
+    echo "[ERROR] Java and native-image found in different paths. This will result in a failed build." 1>&2
+    echo "[ERROR] Make sure Graal JVM is on the path and native-image was installed with 'gu install native-image'" 1>&2
+    echo "[ERROR] Java Path: ${JAVA_DIR}" 1>&2
+    echo "[ERROR] Native Path: ${NATIVE_IMAGE}" 1>&2
+    exit 2
+fi
+mkdir -p "${FAST_BIN}"
+
+
+
+
+# Install locally
+${DIRECTORY}/install
+
+for item in ${DIRECTORY}/bin/*.jar
+do
+    IMAGE_NAME=`basename $item`
+    IMAGE_NAME=`echo $IMAGE_NAME | cut -f 1 -d '.'`
+    OUTPUT="${FAST_BIN}/${IMAGE_NAME}"
+    echo "Building Fast Version of ${IMAGE_NAME}"
+    native-image --no-fallback --install-exit-handlers -jar "${item}" "${OUTPUT}"
+    if [ $? -ne 0 ]
+    then
+        echo "[ERROR] Failed to build ${IMAGE_NAME}"
+        exit 1
+    fi
+done
+rm "${FAST_BIN}"/*.txt
+tar -czf "${FAST_BIN}.tar.gz" "${FAST_BIN}"
+echo "[INFO] Release archive built, prepare for Hyper Drive"
