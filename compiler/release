@@ -8,7 +8,7 @@
 # ----------------------------------------------------------------------
 
 DIRECTORY=`dirname $0`
-FAST_BIN="${DIRECTORY}/fast-fpp-`uname`-`uname -m`"
+NATIVE_BIN="${DIRECTORY}/native-fpp-`uname`-`uname -m`"
 NATIVE_IMAGE=`which native-image || exit 0`
 JAVA_PATH=`which java || exit 0`
 
@@ -29,7 +29,7 @@ then
     echo "[ERROR] Native Path: ${NATIVE_IMAGE}" 1>&2
     exit 2
 fi
-mkdir -p "${FAST_BIN}"
+mkdir -p "${NATIVE_BIN}"
 
 
 
@@ -41,7 +41,7 @@ for item in ${DIRECTORY}/bin/*.jar
 do
     IMAGE_NAME=`basename $item`
     IMAGE_NAME=`echo $IMAGE_NAME | cut -f 1 -d '.'`
-    OUTPUT="${FAST_BIN}/${IMAGE_NAME}"
+    OUTPUT="${NATIVE_BIN}/${IMAGE_NAME}"
     echo "Building Fast Version of ${IMAGE_NAME}"
     native-image --no-fallback --install-exit-handlers -jar "${item}" "${OUTPUT}"
     if [ $? -ne 0 ]
@@ -50,6 +50,6 @@ do
         exit 1
     fi
 done
-rm "${FAST_BIN}"/*.txt
-tar -czf "${FAST_BIN}.tar.gz" "${FAST_BIN}"
+rm "${NATIVE_BIN}"/*.txt
+tar -czf "${NATIVE_BIN}.tar.gz" "${NATIVE_BIN}"
 echo "[INFO] Release archive built, prepare for Hyper Drive"
