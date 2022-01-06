@@ -18,7 +18,7 @@ echo_red()
 # Remove copyright year
 remove_year()
 {
-  sed 's;// Copyright (C) ....;// Copyright (C) [year];'
+  sed 's;// Copyright (c) ....;// Copyright (C) [year];'
 }
 
 # Remove local path prefix

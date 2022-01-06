@@ -4,7 +4,7 @@
 // \brief  hpp file for Basic topology
 //
 // \copyright
-// Copyright (c) 2021 California Institute of Technology.
+// Copyright (C) [year] California Institute of Technology.
 // U.S. Government sponsorship acknowledged.
 // All rights reserved.
 // ======================================================================
