@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-compiler=`(cd ../..; echo $PWD)`
+compiler=`(cd ..; echo $PWD)`
 for dir in lib tools
 do
   if ! test -e $dir
