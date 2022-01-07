@@ -36,7 +36,13 @@ object ValueXmlWriter {
     override def enumConstant(s: XmlWriterState, v: Value.EnumConstant): String =
       TypeXmlWriter.getName(s, v.getType) ++ "::" ++ v.value._1.toString
 
-    override def float(s: XmlWriterState, v: Value.Float): String = v.value.toString
+    override def float(s: XmlWriterState, v: Value.Float): String = {
+      val s = v.value.toString
+      v.kind match {
+        case Type.Float.F32 => s"${s}f"
+        case Type.Float.F64 => s
+      }
+    }
 
     override def integer(s: XmlWriterState, v: Value.Integer): String = v.value.toString
 

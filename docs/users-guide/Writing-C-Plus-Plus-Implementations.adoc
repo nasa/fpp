@@ -235,7 +235,7 @@ init specifiers>>.
 
 In the F Prime Ref example, `TopologyState`
 is a struct with two member variables: a C-style string
-`hostName` that stores a host name and `U32` value `portNumber`
+`hostName` that stores a host name and a `U32` value `portNumber`
 that stores a port number.
 The main function defined in `Main.cpp` parses the command-line
 arguments to the application, uses the result to create an object
@@ -395,14 +395,24 @@ construct and initialize the topology.
 
 . Start the topology running, e.g., by looping in the main thread
 until a signal is handled, or by calling a start function on a
-timer component.
+timer component (see, e.g., `Svc::LinuxTimer`).
+The loop or timer typically runs until a signal is caught, e.g.,
+when the user presses control-C at the console.
 
-. Call _T_ `::teardown`, passing in the `state` object, to
+. On catching a signal
+
+.. Set a flag that causes the main loop to exit or the timer
+to stop.
+This flag must be a volatile and atomic variable (e.g.,
+`volatile std::atomic_bool`) because it is accessed
+concurrently by signal handlers and threads.
+
+.. Call _T_ `::teardown`, passing in the `state` object, to
 tear down the topology.
 
-. Wait some time for all the threads to exit.
+.. Wait some time for all the threads to exit.
 
-. Exit the main thread.
+.. Exit the main thread.
 
 For an example like this, see `Ref/Top/Main.cpp` in the
 F Prime repository.

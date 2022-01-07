@@ -49,6 +49,14 @@ filenames_include() {
   update '-g filenames_include_output.ref.txt' filenames_include
 }
 
+framework() {
+  update '-f framework_output.ref.txt' framework
+}
+
+framework_include() {
+  update '-f framework_include_output.ref.txt' framework_include
+}
+
 include() {
   update '-i tmp.out.txt' include
   remove_path_prefix < tmp.out.txt > include_output.ref.txt

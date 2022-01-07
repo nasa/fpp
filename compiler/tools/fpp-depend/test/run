@@ -57,6 +57,18 @@ filenames_include()
   compare filenames_include_output
 }
 
+framework()
+{
+  run_test '-f framework_output.out.txt' framework
+  compare framework_output
+}
+
+framework_include()
+{
+  run_test '-f framework_include_output.out.txt' framework_include
+  compare framework_include_output
+}
+
 include()
 {
   run_test '-i tmp.out.txt' include

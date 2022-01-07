@@ -212,9 +212,9 @@ is translated to _c_.
 This sequence is called an *escape sequence*.
 
 *Multiline strings:*
-A multiline strings represents a string of characters
+A multiline string represents a string of characters
 that may contain a newline character.
-It is enclosed in sequences of three double quotation
+It is enclosed in a pair of sequences of three double quotation
 marks `"""`.
 For example:
 

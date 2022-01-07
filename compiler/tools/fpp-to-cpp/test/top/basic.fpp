@@ -61,6 +61,9 @@ module M {
     """
 
   }
+  instance active3: Active base id 0x300 \
+    at "Active.hpp" \
+    queue size 10 stack size 1024 priority 1
 
   instance passive1: Passive base id 0x300
   instance passive2: Passive base id 0x400
@@ -69,6 +72,7 @@ module M {
 
     instance active1
     instance active2
+    instance active3
     instance passive1
     instance passive2
 
