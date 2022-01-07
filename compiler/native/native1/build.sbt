@@ -31,11 +31,11 @@ lazy val root = (project in file("."))
     fpp_depend,
     fpp_filenames,
     fpp_format,
+    fpp_locate_defs,
+    fpp_locate_uses,
+    fpp_syntax,
+    fpp_to_xml,
   )
-
-lazy val lib = project
-  .settings(settings)
-  .enablePlugins(ScalaNativePlugin)
 
 lazy val fpp_check = (project in file("tools/fpp-check"))
   .settings(settings)
@@ -55,5 +55,29 @@ lazy val fpp_filenames = (project in file("tools/fpp-filenames"))
 lazy val fpp_format = (project in file("tools/fpp-format"))
   .settings(settings)
   .dependsOn(lib)
+  .enablePlugins(ScalaNativePlugin)
+
+lazy val fpp_locate_defs = (project in file("tools/fpp-locate-defs"))
+  .settings(settings)
+  .dependsOn(lib)
+  .enablePlugins(ScalaNativePlugin)
+
+lazy val fpp_locate_uses = (project in file("tools/fpp-locate-uses"))
+  .settings(settings)
+  .dependsOn(lib)
+  .enablePlugins(ScalaNativePlugin)
+
+lazy val fpp_syntax = (project in file("tools/fpp-syntax"))
+  .settings(settings)
+  .dependsOn(lib)
+  .enablePlugins(ScalaNativePlugin)
+
+lazy val fpp_to_xml = (project in file("tools/fpp-to-xml"))
+  .settings(settings)
+  .dependsOn(lib)
+  .enablePlugins(ScalaNativePlugin)
+
+lazy val lib = project
+  .settings(settings)
   .enablePlugins(ScalaNativePlugin)
 

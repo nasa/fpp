@@ -19,14 +19,11 @@ dir=`cd $dir; pwd`
 base=`basename $dest`
 dest=$dir/$base
 
-tools1="
+tools="
 fpp-check
 fpp-depend
 fpp-filenames
 fpp-format
-"
-
-tools2="
 fpp-locate-defs
 fpp-locate-uses
 fpp-syntax
@@ -38,24 +35,10 @@ echo "Building native1 files"
 
 mkdir -p $dest
 
-echo "Installing tools1 at $dest"
-for tool in $tools1
+echo "Installing tools at $dest"
+for tool in $tools
 do
   echo "  Installing $tool"
   file=`find tools/$tool/target -name "*-out"`
   cp $file $dest/$tool
 done
-
-echo "Building native2 files"
-(cd native/native2; ../config; sbt nativeLink)
-
-mkdir -p $dest
-
-echo "Installing tools2 at $dest"
-for tool in $tools2
-do
-  echo "  Installing $tool"
-  file=`find tools/$tool/target -name "*-out"`
-  cp $file $dest/$tool
-done
-
