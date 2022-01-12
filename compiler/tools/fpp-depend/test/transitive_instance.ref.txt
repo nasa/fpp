@@ -1,0 +1,2 @@
+[ local path prefix ]/compiler/tools/fpp-depend/test/transitive_instance_B.fpp
+[ local path prefix ]/compiler/tools/fpp-depend/test/transitive_instance_P.fpp
