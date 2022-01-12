@@ -71,6 +71,7 @@ object MapUsesToLocs extends UseAnalyzer {
         case _ => a.directDependencyFileSet
       }
       val a1 = a.copy(
+        scopeNameList = Nil,
         dependencyFileSet = dependencyFileSet,
         directDependencyFileSet = directDependencyFileSet
       )
@@ -78,7 +79,7 @@ object MapUsesToLocs extends UseAnalyzer {
         tu <- Parser.parseFile (Parser.transUnit) (None) (file)
         pair <- ResolveSpecInclude.transUnit(a1, tu)
         a2 <- ComputeDependencies.tuList(pair._1, List(pair._2))
-      } yield a2
+      } yield a2.copy(scopeNameList = a1.scopeNameList)
       result match {
         case Left(FileError.CannotOpen(_, _)) => {
           val a = a1.copy(missingDependencyFileSet = a1.missingDependencyFileSet + file)
