@@ -71,14 +71,16 @@ object MapUsesToLocs extends UseAnalyzer {
         case _ => a.directDependencyFileSet
       }
       val a1 = a.copy(
-        scopeNameList = Nil,
         dependencyFileSet = dependencyFileSet,
         directDependencyFileSet = directDependencyFileSet
       )
       val result = for {
         tu <- Parser.parseFile (Parser.transUnit) (None) (file)
         pair <- ResolveSpecInclude.transUnit(a1, tu)
-        a2 <- ComputeDependencies.tuList(pair._1, List(pair._2))
+        a2 <- ComputeDependencies.tuList(
+          pair._1.copy(scopeNameList = Nil),
+          List(pair._2)
+        )
       } yield a2.copy(scopeNameList = a1.scopeNameList)
       result match {
         case Left(FileError.CannotOpen(_, _)) => {
