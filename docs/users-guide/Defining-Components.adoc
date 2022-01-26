@@ -529,7 +529,7 @@ then both event ports are required.
 During translation, each event port is converted into
 a typed port instance with a predefined port type, as follows:
 
-* `event` `recv` uses the port `Fw.Log`
+* `event` uses the port `Fw.Log`
 * `text` `event` uses the port `Fw.LogText`
 
 The name `Log` refers to an event log.
