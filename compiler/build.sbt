@@ -1,8 +1,8 @@
 // See https://pbassiner.github.io/blog/defining_multi-project_builds_with_sbt.html
 
 name := "fpp-compiler"
-organization in ThisBuild := "gov.nasa.jpl"
-scalaVersion in ThisBuild := "2.13.6"
+ThisBuild / organization := "gov.nasa.jpl"
+ThisBuild / scalaVersion := "2.13.6"
 
 lazy val settings = Seq(
   scalacOptions ++= Seq(
@@ -10,7 +10,7 @@ lazy val settings = Seq(
     "-unchecked",
   ),
   libraryDependencies ++= dependencies, 
-  testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-oNCXELOPQRM"),
+  Test / testOptions += Tests.Argument(TestFrameworks.ScalaTest, "-oNCXELOPQRM"),
 )
 
 lazy val dependencies = Seq(
