@@ -94,13 +94,13 @@ have a <<Types_Internal-Types_Numeric-Types,numeric type>>
 and must evaluate to a nonnegative integer after
 <<Type-Checking_Type-Conversion,type conversion>>.
 It specifies the stack size in bytes for active components.
-The stack size is required for active components and is not allowed
+The stack size is optional for active components and is not allowed
 for queued or passive components.
 
 . If present, the expression following the keyword `priority` must
 have a <<Types_Internal-Types_Numeric-Types,numeric type>>.
 It specifies the thread priority for active components.
-The priority is required for active components and is not allowed
+The priority is optional for active components and is not allowed
 for queued or passive components.
 
 . If present, the expression following the keyword `cpu` must
