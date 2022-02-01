@@ -60,8 +60,6 @@ namespace M {
   namespace Priorities {
     enum {
       active1 = 1,
-      active2 = 1,
-      active3 = 1,
     };
   }
 
@@ -76,8 +74,6 @@ namespace M {
   namespace StackSizes {
     enum {
       active1 = 1024,
-      active2 = 1024,
-      active3 = 1024,
     };
   }
 

@@ -100,8 +100,8 @@ namespace M {
       );
       active2.startSpecial();
       active3.start(
-        static_cast<NATIVE_UINT_TYPE>(Priorities::active3),
-        static_cast<NATIVE_UINT_TYPE>(StackSizes::active3),
+        Os::Task::TASK_DEFAULT, // Default priority
+        Os::Task::TASK_DEFAULT, // Default stack size
         Os::Task::TASK_DEFAULT, // Default CPU
         static_cast<NATIVE_UINT_TYPE>(TaskIds::active3)
       );

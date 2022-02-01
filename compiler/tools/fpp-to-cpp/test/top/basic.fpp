@@ -18,7 +18,7 @@ module M {
     at "Active.hpp" \
     queue size 10 stack size 1024 priority 1 cpu 0
   instance active2: Active base id 0x200 \
-    queue size 10 stack size 1024 priority 1 \
+    queue size 10 \
   {
 
     phase Phases.configConstants """
@@ -63,7 +63,7 @@ module M {
   }
   instance active3: Active base id 0x300 \
     at "Active.hpp" \
-    queue size 10 stack size 1024 priority 1
+    queue size 10
 
   instance passive1: Passive base id 0x300
   instance passive2: Passive base id 0x400
