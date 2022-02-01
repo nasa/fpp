@@ -86,11 +86,15 @@ object ComponentInstance {
         a.getIntValueOpt,
         data.priority
       )
-      cpu <- getCPU(
+      cpu <- getActiveAttribute(
         a,
         data.name,
         componentKind,
-      )(data.cpu)
+      )(
+        "CPU affinity",
+        a.getIntValueOpt,
+        data.cpu
+      )
     }
     yield {
       val maxId = baseId + component.getMaxId
@@ -171,23 +175,6 @@ object ComponentInstance {
         s"$componentKind component may not have $kind"
       )
       case (_, None) => Right(None)
-    }
-
-   /** Get CPU */
-   private def getCPU(
-     a: Analysis,
-     name: String,
-     componentKind: Ast.ComponentKind
-   )
-   (nodeOpt: Option[AstNode[Ast.Expr]]): Result.Result[Option[Int]] =
-    (componentKind, nodeOpt) match {
-      case (Ast.ComponentKind.Active, Some(_)) => a.getIntValueOpt(nodeOpt)
-      case (_, Some(node)) => invalid(
-        name,
-        Locations.get(node.id),
-        s"$componentKind component may not have CPU affinity"
-      )
-      case _ => Right(None)
     }
 
 }
