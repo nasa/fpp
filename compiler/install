@@ -42,10 +42,10 @@ fpp-to-cpp
 fpp-to-xml
 "
 
-commit=`git log | awk 'NR == 1 { print $2 }'`
+version=`git describe --tags --always`
 util=lib/src/main/scala/util
-echo "Updating commit to $commit"
-sed -i.bak -e "s/val commit = .*/val commit = \"$commit\"/" \
+echo "Updating version to $version"
+sed -i.bak -e "s/val v = .*/val v = \"$version\"/" \
   $util/Version.scala
 
 echo "Building jar files"
