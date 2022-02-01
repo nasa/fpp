@@ -68,20 +68,18 @@ object ComponentInstance {
         componentKind,
         data.queueSize
       )
-      stackSize <- getStackSizeOrPriority(
+      stackSize <- getActiveAttribute(
         a,
         data.name,
-        loc,
         componentKind
       )(
         "stack size",
         a.getNonnegativeIntValueOpt,
         data.stackSize
       )
-      priority <- getStackSizeOrPriority(
+      priority <- getActiveAttribute(
         a,
         data.name,
-        loc,
         componentKind,
       )(
         "priority",
@@ -91,7 +89,6 @@ object ComponentInstance {
       cpu <- getCPU(
         a,
         data.name,
-        loc,
         componentKind,
       )(data.cpu)
     }
@@ -155,11 +152,10 @@ object ComponentInstance {
     }
   }
 
-  /** Get stack size or priority */
-  private def getStackSizeOrPriority(
+  /** Get an attribute for an active component */
+  private def getActiveAttribute(
     a: Analysis,
     name: String,
-    loc: Location,
     componentKind: Ast.ComponentKind
   )
   (
@@ -168,31 +164,24 @@ object ComponentInstance {
     nodeOpt: Option[AstNode[Ast.Expr]]
   ): Result.Result[Option[Int]] =
     (componentKind, nodeOpt) match {
-      case (Ast.ComponentKind.Active, None) => invalid(
-        name,
-        loc,
-        s"active component must have $kind"
-      )
       case (Ast.ComponentKind.Active, Some(_)) => getValue(nodeOpt)
-      case (_, None) => Right(None)
       case (_, Some(node)) => invalid(
         name,
         Locations.get(node.id),
         s"$componentKind component may not have $kind"
       )
+      case (_, None) => Right(None)
     }
 
    /** Get CPU */
    private def getCPU(
      a: Analysis,
      name: String,
-     loc: Location,
      componentKind: Ast.ComponentKind
    )
    (nodeOpt: Option[AstNode[Ast.Expr]]): Result.Result[Option[Int]] =
     (componentKind, nodeOpt) match {
-      case (Ast.ComponentKind.Active, Some(_)) =>
-        a.getIntValueOpt(nodeOpt)
+      case (Ast.ComponentKind.Active, Some(_)) => a.getIntValueOpt(nodeOpt)
       case (_, Some(node)) => invalid(
         name,
         Locations.get(node.id),
