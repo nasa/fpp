@@ -145,14 +145,9 @@ object ComponentInstance {
         Locations.get(node.id),
         "passive component may not have queue size"
       )
-      case (Ast.ComponentKind.Passive, None) =>
-        Right(None)
       case (_, Some(_)) => a.getNonnegativeIntValueOpt(nodeOpt)
-      case _ => invalid(
-        name,
-        loc,
-        s"$componentKind component must have queue size"
-      )
+      case (_, None) =>
+        Right(None)
     }
   }
 
