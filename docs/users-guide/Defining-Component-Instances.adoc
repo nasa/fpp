@@ -200,15 +200,22 @@ In the component instance definition, we have specified a queue size of 10.
 
 ==== Active Components
 
-Instantiating an active component is again like instantiating a passive
-component, except that you must specify a queue size (because the
-component has a queue) and a thread stack size and thread priority
-(because the component has a thread).
+Instantiating an active component is like instantiating a queued
+component, except that you may specify additional parameters
+that configure the OS thread associated with each component instance.
+
+*Queue size, stack size, and priority:*
+When instantiating an active component, you _must_
+specify a queue size, and you _may_ specify either or both of
+a stack size and priority.
 You specify the queue size in the same way as for a queued component.
 You specify the stack size by writing the keywords `stack` `size`
-and the stack size.
+and the desired stack size in bytes.
 You specify the priority by writing the keyword `priority`
 and a numeric priority.
+The priority number is passed to the OS operation for creating
+the thread, and its meaning is OS-specific.
+
 Here is an example:
 
 [source,fpp]
@@ -256,6 +263,20 @@ We have used
 <<Defining-Constants,constant definitions>> for
 the default queue and stack sizes.
 
+We could also have omitted either or both of the stack size and priority
+specifiers.
+When you omit the stack size or priority from a component instance
+definition, F Prime supplies a default value appropriate to the
+target platform.
+With implicit stack size and priority, the `dataCompressor`
+instance looks like this:
+
+[source,fpp]
+--------
+instance dataCompressor: Utils.DataCompressor base id 0x100 \
+  queue size Default.queueSize
+--------
+
 *CPU affinity:*
 When defining an active component, you may specify
 a *CPU affinity*.
@@ -266,7 +287,8 @@ to run the thread of the active component on a particular
 CPU, identified by number.
 
 To specify CPU affinity, you write the keyword `cpu`
-and the CPU number after the priority specifier.
+and the CPU number after the queue size, the stack size (if any),
+and the priority specifier (if any).
 For example:
 
 [source,fpp]
@@ -281,6 +303,15 @@ instance dataCompressor: Utils.DataCompressor base id 0x100 \
 This example is the same as the previous `dataCompressor`
 instance, except that we have specified that the thread
 associated with the instance should run on CPU 0.
+
+With implicit stack size and priority, the example looks like this:
+
+[source,fpp]
+--------
+instance dataCompressor: Utils.DataCompressor base id 0x100 \
+  queue size Default.queueSize \
+  cpu 0
+--------
 
 === Specifying Header Files
 
