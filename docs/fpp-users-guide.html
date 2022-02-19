@@ -6347,16 +6347,25 @@ In the component instance definition, we have specified a queue size of 10.</p>
 <div class="sect3">
 <h4 id="Defining-Component-Instances_Component-Instance-Definitions_Active-Components">10.1.3. Active Components</h4>
 <div class="paragraph">
-<p>Instantiating an active component is again like instantiating a passive
-component, except that you must specify a queue size (because the
-component has a queue) and a thread stack size and thread priority
-(because the component has a thread).
+<p>Instantiating an active component is like instantiating a queued
+component, except that you may specify additional parameters
+that configure the OS thread associated with each component instance.</p>
+</div>
+<div class="paragraph">
+<p><strong>Queue size, stack size, and priority:</strong>
+When instantiating an active component, you <em>must</em>
+specify a queue size, and you <em>may</em> specify either or both of
+a stack size and priority.
 You specify the queue size in the same way as for a queued component.
 You specify the stack size by writing the keywords <code>stack</code> <code>size</code>
-and the stack size.
+and the desired stack size in bytes.
 You specify the priority by writing the keyword <code>priority</code>
 and a numeric priority.
-Here is an example:</p>
+The priority number is passed to the OS operation for creating
+the thread, and its meaning is OS-specific.</p>
+</div>
+<div class="paragraph">
+<p>Here is an example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -6405,6 +6414,21 @@ We have used
 the default queue and stack sizes.</p>
 </div>
 <div class="paragraph">
+<p>We could also have omitted either or both of the stack size and priority
+specifiers.
+When you omit the stack size or priority from a component instance
+definition, F Prime supplies a default value appropriate to the
+target platform.
+With implicit stack size and priority, the <code>dataCompressor</code>
+instance looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">instance dataCompressor: Utils.DataCompressor base id 0x100 \
+  queue size Default.queueSize</code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p><strong>CPU affinity:</strong>
 When defining an active component, you may specify
 a <strong>CPU affinity</strong>.
@@ -6416,7 +6440,8 @@ CPU, identified by number.</p>
 </div>
 <div class="paragraph">
 <p>To specify CPU affinity, you write the keyword <code>cpu</code>
-and the CPU number after the priority specifier.
+and the CPU number after the queue size, the stack size (if any),
+and the priority specifier (if any).
 For example:</p>
 </div>
 <div class="listingblock">
@@ -6432,6 +6457,16 @@ For example:</p>
 <p>This example is the same as the previous <code>dataCompressor</code>
 instance, except that we have specified that the thread
 associated with the instance should run on CPU 0.</p>
+</div>
+<div class="paragraph">
+<p>With implicit stack size and priority, the example looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">instance dataCompressor: Utils.DataCompressor base id 0x100 \
+  queue size Default.queueSize \
+  cpu 0</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -11012,7 +11047,7 @@ F Prime repository.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-02-01 19:58:30 -0800
+Last updated 2022-02-18 17:16:10 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
