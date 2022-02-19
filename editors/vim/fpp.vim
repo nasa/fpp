@@ -82,7 +82,7 @@ syn keyword fppKeyword warning
 syn keyword fppKeyword with
 syn keyword fppKeyword yellow
 
-syn match fppOperator      /\//
+syn match fppOperator      /\\/
 
 " types
 syn keyword fppType        F32
