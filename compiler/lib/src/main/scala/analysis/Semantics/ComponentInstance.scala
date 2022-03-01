@@ -55,7 +55,6 @@ object ComponentInstance {
   ): Result.Result[ComponentInstance] = {
     val node = aNode._2
     val data = node.data
-    val loc = Locations.get(node.id)
     for {
       component <- a.getComponent(data.component.id)
       componentKind <- Right(component.aNode._2.data.kind)
@@ -64,12 +63,10 @@ object ComponentInstance {
       queueSize <- getQueueSize(
         a,
         data.name,
-        loc,
         componentKind,
         data.queueSize
       )
       stackSize <- getActiveAttribute(
-        a,
         data.name,
         componentKind
       )(
@@ -78,7 +75,6 @@ object ComponentInstance {
         data.stackSize
       )
       priority <- getActiveAttribute(
-        a,
         data.name,
         componentKind,
       )(
@@ -87,7 +83,6 @@ object ComponentInstance {
         data.priority
       )
       cpu <- getActiveAttribute(
-        a,
         data.name,
         componentKind,
       )(
@@ -135,7 +130,6 @@ object ComponentInstance {
   private def getQueueSize(
     a: Analysis,
     name: String,
-    loc: Location,
     componentKind: Ast.ComponentKind,
     nodeOpt: Option[AstNode[Ast.Expr]]
   ): Result.Result[Option[Int]] = {
@@ -153,7 +147,6 @@ object ComponentInstance {
 
   /** Get an attribute for an active component */
   private def getActiveAttribute(
-    a: Analysis,
     name: String,
     componentKind: Ast.ComponentKind
   )

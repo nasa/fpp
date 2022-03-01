@@ -83,8 +83,7 @@ object Connection {
 
   /** Constructs a connection from an AST connection */
   def fromAst(a: Analysis, connection: Ast.SpecConnectionGraph.Connection):
-    Result.Result[Connection] = {
-      val loc = Locations.get(connection.fromPort.id)
+    Result.Result[Connection] =
       for {
         from <- Endpoint.fromAst(a, connection.fromPort, connection.fromIndex)
         to <- Endpoint.fromAst(a, connection.toPort, connection.toIndex)
@@ -93,7 +92,6 @@ object Connection {
         _ <- connection.checkDirections
       }
       yield connection
-  }
 
   /** A connection endpoint */
   case class Endpoint(

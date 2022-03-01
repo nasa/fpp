@@ -75,7 +75,6 @@ case class TopConstants(
       ci => ci.cpu.map(
         cpu => {
           val name = getNameAsIdent(ci.qualifiedName)
-          val value = cpu
           s"$name = $cpu"
         }
       )
@@ -96,7 +95,6 @@ case class TopConstants(
       ci => ci.priority.map(
         priority => {
           val name = getNameAsIdent(ci.qualifiedName)
-          val value = priority
           s"$name = $priority"
         }
       )
@@ -108,7 +106,6 @@ case class TopConstants(
       ci => ci.queueSize.map(
         queueSize => {
           val name = getNameAsIdent(ci.qualifiedName)
-          val value = queueSize
           s"$name = $queueSize"
         }
       )
@@ -120,7 +117,6 @@ case class TopConstants(
       ci => ci.stackSize.map(
         stackSize => {
           val name = getNameAsIdent(ci.qualifiedName)
-          val value = stackSize
           s"$name = $stackSize"
         }
       )

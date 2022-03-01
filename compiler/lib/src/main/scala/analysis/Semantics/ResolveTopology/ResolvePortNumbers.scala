@@ -11,7 +11,7 @@ object ResolvePortNumbers {
     Result.foldLeft (t.outputConnectionMap.toList) (()) ({
       case (_, (pii, s)) => for {
         _ <- checkOutputSizeBounds(pii, s)
-        _ <- checkDuplicateOutputPorts(pii, s)
+        _ <- checkDuplicateOutputPorts(s)
       }
       yield ()
     })
@@ -19,7 +19,6 @@ object ResolvePortNumbers {
   /** Check that there are no duplicate port numbers at any output
    *  ports. */
   private def checkDuplicateOutputPorts(
-    pii: PortInstanceIdentifier,
     connections: Set[Connection]
   ): Result.Result[Unit] = {
     val portNumMap: Map[Int, Connection] = Map()

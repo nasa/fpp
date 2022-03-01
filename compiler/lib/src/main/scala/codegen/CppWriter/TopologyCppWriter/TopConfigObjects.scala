@@ -90,7 +90,6 @@ case class TopConfigObjects(
           case Some(ci) =>
             val name = ci.qualifiedName
             val ident = getNameAsIdent(name)
-            val qualIdent = getNameAsQualIdent(name)
             List(
               s"PingEntries::$ident::WARN,",
               s"PingEntries::$ident::FATAL,",

@@ -369,7 +369,6 @@ case class Component(
     def getInstance(node: AstNode[String]):
     Result.Result[PortInstance.General] = {
       val name = node.data
-      val componentName = this.aNode._2.data.name
       val loc = Locations.get(node.id)
       for {
         instance <- getPortInstance(node)

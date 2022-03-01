@@ -11,7 +11,6 @@ case class TopComponentIncludes(
 ) extends TopologyCppWriterUtils(s, aNode) {
 
   def getHeaderStrings: List[String] = {
-    val node = aNode._2
     val t = s.a.topologyMap(Symbol.Topology(aNode))
     t.instanceMap.keys.toList.map(getHeaderString).distinct
   }
