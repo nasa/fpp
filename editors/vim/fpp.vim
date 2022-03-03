@@ -6,6 +6,8 @@
 "
 setl cinwords=component,enum,module,struct,topology
 setl cindent
+setl shiftwidth=2
+setl expandtab
 
 " keywords
 syn keyword fppKeyword active
