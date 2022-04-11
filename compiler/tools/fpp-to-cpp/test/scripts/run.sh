@@ -41,9 +41,9 @@ diff_cpp()
 {
   file=$1
   target_suffix=$2
-  remove_year < $file'Ac'.hpp > $file'Ac'$target_suffix.out.hpp && \
+  cp $file'Ac'.hpp $file'Ac'$target_suffix.out.hpp && \
   diff -u $file'Ac'$target_suffix.out.hpp $file'Ac'$target_suffix.ref.hpp && \
-  remove_year < $file'Ac'.cpp > $file'Ac'$target_suffix.out.cpp && \
+  cp $file'Ac'.cpp $file'Ac'$target_suffix.out.cpp && \
   diff -u $file'Ac'$target_suffix.out.cpp $file'Ac'$target_suffix.ref.cpp
 }
 
