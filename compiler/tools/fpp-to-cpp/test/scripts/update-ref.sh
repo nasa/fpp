@@ -41,7 +41,7 @@ move_cpp()
   target_suffix=$2
   for suffix in hpp cpp
   do
-    remove_year < $file'Ac.'$suffix > $file'Ac'$target_suffix'.ref.'$suffix
+    cp $file'Ac.'$suffix $file'Ac'$target_suffix'.ref.'$suffix
   done
 }
 
