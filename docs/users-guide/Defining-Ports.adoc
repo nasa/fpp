@@ -86,7 +86,7 @@ For each output port `pOut` of a component instance `c1`,
 there is a corresponding auto-generated function that the
 implementation of `c1` can call in order to *invoke* `pOut`.
 If `pOut` is connected to an input
-port `pIn` of component instance `c2`, then invoking `pOut` calls a
+port `pIn` of component instance `c2`, then invoking `pOut` runs a
 *handler function* `pIn_handler` associated with `pIn`.
 The handler function is part of the implementation of the component
 `C2` that `c2` instantiates.
@@ -137,12 +137,11 @@ virtual void pIn_handler(U32 a, const T& b);
 Suppose again that output port `pOut` of component instance `c1`
 is connected to input port `pIn` of component instance `c2`.
 Suppose that the implementation of `c1` invokes `pOut`.
-Doing this calls the `pIn` handler for `c2`.
 What happens next depends on whether `pIn` is synchronous
 or asynchronous.
 
 If `pIn` is synchronous, then the invocation is a direct
-function call.
+call of the `pIn` handler function.
 Any value parameter is passed by copying the value on
 the stack.
 Any `const` reference parameter provides a reference to
