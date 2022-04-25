@@ -40,10 +40,18 @@ We recommend that you read this document before consulting that one.
 Currently we translate FPP to F Prime XML and then to {cpp}.
 Some features of FPP are not supported in the XML representation,
 or were not supported until very recently.
-Where a feature is not supported, we will call out this fact in a
+Where a feature is not supported in XML, we will call out this fact in a
 note marked *XML limitation*.
 As we continue to develop FPP, we will phase in support
 for all the features described here.
+
+*GDS limitations:*
+It is currently possible to construct FPP models that are not
+fully supported by the F Prime Ground Data System (GDS).
+Where an FPP feature is not supported in the GDS, we will call out this
+fact in a note marked *GDS limitation.*
+If you plan to use the F Prime GDS, then you should avoid using
+any feature so marked in your FPP models.
 
 *Overview:* The rest of this document proceeds as follows.
 Section 2 explains how to get up and running with FPP.

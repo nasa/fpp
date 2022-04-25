@@ -971,6 +971,11 @@ active component Switch {
 }
 ----
 
+*GDS limitation:* The F Prime GDS does not currently support the
+use of <<Defining-Types_Array-Type-Definitions, array types>> or
+<<Defining-Types_Struct-Type-Definitions, struct types>> in the formal parameters
+of commands.
+
 ==== Opcodes
 
 Every command in an F Prime FSW application has an *opcode*.
@@ -1828,6 +1833,13 @@ Therefore, any component that has parameters must have
 the command ports.
 Try deleting one or more of the command ports from the example
 above and see what `fpp-check` does.
+
+*GDS limitation:* The F Prime GDS does not currently support the
+use of <<Defining-Types_Array-Type-Definitions, array types>> or
+<<Defining-Types_Struct-Type-Definitions, struct types>> as the
+types of parameters.
+In particular, parameter `Param3` in the example above will
+not work with the F Prime GDS.
 
 ==== Default Values
 
