@@ -3,6 +3,7 @@ package fpp.compiler.codegen
 import fpp.compiler.analysis._
 import fpp.compiler.ast._
 import fpp.compiler.util._
+import CppDoc._
 
 /** Writes out C++ for enum definitions */
 case class EnumCppWriter(
@@ -79,6 +80,48 @@ case class EnumCppWriter(
   }
 
   private def getClassMembers: List[CppDoc.Class.Member] =
+    List(
+      getConstantMembers,
+      getTypeMembers,
+      getConstructorMembers,
+      getInstanceMethodMembers,
+      getInstanceVariableMembers
+    ).flatten
+
+  private def getConstantMembers: List[CppDoc.Class.Member] =
+    List(
+      Class.Member.Lines(
+        Lines(
+          CppDocHppWriter.writeAccessTag("public") ++
+          CppDocWriter.writeBannerComment("Constants")
+        )
+      )
+    )
+    
+
+  private def getTypeMembers: List[CppDoc.Class.Member] =
+    List(
+      Class.Member.Lines(
+        Lines(
+          CppDocHppWriter.writeAccessTag("public") ++
+          CppDocWriter.writeBannerComment("Types")
+        )
+      )
+    )
+
+  private def getConstructorMembers: List[CppDoc.Class.Member] = {
+    // TODO
     Nil
+  }
+
+  private def getInstanceMethodMembers: List[CppDoc.Class.Member] = {
+    // TODO
+    Nil
+  }
+
+  private def getInstanceVariableMembers: List[CppDoc.Class.Member] = {
+    // TODO
+    Nil
+  }
 
 }
