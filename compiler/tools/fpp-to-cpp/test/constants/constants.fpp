@@ -10,10 +10,10 @@ constant c = true
 @ Constant d
 constant d = "abc"
 
-enum E { X = 3 }
+enum E1 { X = 3 }
 
 @ Constant e
-constant e = E.X
+constant e = E1.X
 
 module M {
 
@@ -29,10 +29,10 @@ module M {
   @ Constant d
   constant d = "abc"
 
-  enum E { X = 3 }
+  enum E2 { X = 3 }
 
   @ Constant e
-  constant e = E.X
+  constant e = E2.X
 
 }
 
@@ -50,9 +50,9 @@ passive component C {
   @ Constant d
   constant d = "abc"
 
-  enum E { X = 3 }
+  enum E3 { X = 3 }
 
   @ Constant e
-  constant e = E.X
+  constant e = E3.X
 
 }

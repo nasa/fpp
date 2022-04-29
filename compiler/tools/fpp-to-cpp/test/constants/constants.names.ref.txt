@@ -1,2 +1,8 @@
+E1EnumAc.cpp
+E1EnumAc.hpp
+E2EnumAc.cpp
+E2EnumAc.hpp
+E3EnumAc.cpp
+E3EnumAc.hpp
 FppConstantsAc.cpp
 FppConstantsAc.hpp
