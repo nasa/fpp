@@ -3,7 +3,6 @@ package fpp.compiler.codegen
 import fpp.compiler.analysis._
 import fpp.compiler.ast._
 import fpp.compiler.util._
-import CppDoc._
 
 /** Writes out C++ for enum definitions */
 case class EnumCppWriter(
@@ -20,6 +19,8 @@ case class EnumCppWriter(
   val fileName = ComputeCppFiles.FileNames.getEnum(data.name)
 
   val symbol = Symbol.Enum(aNode)
+
+  val enumType @ Type.Enum(_, _, _) = s.a.typeMap(node.id)
 
   val namespaceIdentList = s.getNamespaceIdentList(symbol)
 
@@ -38,7 +39,7 @@ case class EnumCppWriter(
     val cppIncludes = getCppIncludes
     val cls = CppDoc.Member.Class(
       CppDoc.Class(
-        Some(s"\\brief The class definition of enum ${data.name}"),
+        AnnotationCppWriter.asStringOpt(aNode),
         data.name,
         Some("public Fw::Serializable"),
         getClassMembers
@@ -90,8 +91,8 @@ case class EnumCppWriter(
 
   private def getConstantMembers: List[CppDoc.Class.Member] =
     List(
-      Class.Member.Lines(
-        Lines(
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
           CppDocHppWriter.writeAccessTag("public") ++
           CppDocWriter.writeBannerComment("Constants")
         )
@@ -101,8 +102,8 @@ case class EnumCppWriter(
 
   private def getTypeMembers: List[CppDoc.Class.Member] =
     List(
-      Class.Member.Lines(
-        Lines(
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
           CppDocHppWriter.writeAccessTag("public") ++
           CppDocWriter.writeBannerComment("Types")
         )
