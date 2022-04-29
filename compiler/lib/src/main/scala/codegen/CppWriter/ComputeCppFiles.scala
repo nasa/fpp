@@ -18,6 +18,9 @@ object ComputeCppFiles extends AstStateVisitor {
     /** Gets the C++ file name for generated constants */
     def getConstants = "FppConstantsAc"
 
+    /** Gets the C++ file name for generated enums */
+    def getEnum(baseName: String) = s"${baseName}EnumAc"
+
     /** Gets the C++ file name for generated topologies */
     def getTopology(baseName: String) = s"${baseName}TopologyAc"
 
@@ -36,6 +39,16 @@ object ComputeCppFiles extends AstStateVisitor {
     s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefConstant]]
   ) = addMappings(s, FileNames.getConstants, None)
+
+  override def defEnumAnnotatedNode(
+    s: State,
+    aNode: Ast.Annotated[AstNode[Ast.DefEnum]]
+  ) = {
+    val node = aNode._2
+    val name = node.data.name
+    val loc = Locations.get(node.id)
+    addMappings(s, FileNames.getEnum(name), Some(loc))
+  }
 
   override def defModuleAnnotatedNode(
     s: State,

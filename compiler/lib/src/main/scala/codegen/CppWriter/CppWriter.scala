@@ -9,6 +9,16 @@ object CppWriter extends AstStateVisitor with LineUtils {
 
   type State = CppWriterState
 
+  override def defEnumAnnotatedNode(
+    s: CppWriterState,
+    aNode: Ast.Annotated[AstNode[Ast.DefEnum]]
+  ) = {
+    val node = aNode._2
+    val data = node.data
+    val cppDoc = EnumCppWriter(s, aNode).write
+    writeCppDoc(s, cppDoc)
+  }
+
   override def defModuleAnnotatedNode(
     s: CppWriterState,
     aNode: Ast.Annotated[AstNode[Ast.DefModule]]
@@ -51,6 +61,10 @@ object CppWriter extends AstStateVisitor with LineUtils {
   def headerString(s: String) = {
     val q = "\""
     s"#include $q$s$q"
+  }
+
+  def systemHeaderString(s: String) = {
+    s"#include <$s>"
   }
 
   def headerLine(s: String) = line(headerString(s))
