@@ -8,7 +8,7 @@ import fpp.compiler.util._
 case class EnumCppWriter(
   s: CppWriterState,
   aNode: Ast.Annotated[AstNode[Ast.DefEnum]]
-) extends LineUtils {
+) extends CppWriterLineUtils {
 
   val node = aNode._2
 
@@ -23,6 +23,14 @@ case class EnumCppWriter(
   val enumType @ Type.Enum(_, _, _) = s.a.typeMap(node.id)
 
   val namespaceIdentList = s.getNamespaceIdentList(symbol)
+
+  val repTypeName = {
+    // FIXME
+    val xmlWriterState = XmlWriterState(s.a)
+    TypeXmlWriter.getName(xmlWriterState, enumType.repType)
+  }
+
+  val numConstants = data.constants.size
 
   def write: CppDoc = {
     val includeGuard = s.includeGuardFromQualifiedName(symbol, fileName)
@@ -94,23 +102,27 @@ case class EnumCppWriter(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
           CppDocHppWriter.writeAccessTag("public") ++
-          CppDocWriter.writeBannerComment("Constants")
+          CppDocWriter.writeBannerComment("Constants") ++
+          addBlankPrefix(
+            wrapInEnum(
+              List(
+                "//! The serialized size of each enumerated constant",
+                s"SERIALIZED_SIZE = sizeof($repTypeName),",
+                "//! The number of enumerated constants",
+                s"NUM_CONSTANTS = $numConstants,"
+              ).map(line)
+            )
+          )
         )
       )
     )
-    
 
   private def getTypeMembers: List[CppDoc.Class.Member] =
     List(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
           CppDocHppWriter.writeAccessTag("public") ++
-          CppDocWriter.writeBannerComment("Types") ++
-          List(
-            line("enum {"),
-            //indentIn(defLine),
-            line("};")
-          )
+          CppDocWriter.writeBannerComment("Types")
         )
       )
     )
