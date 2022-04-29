@@ -71,7 +71,7 @@ case class CppWriterState(
   /** Gets the C++ namespace associated with a symbol */
   def getNamespace(symbol: Symbol): Option[String] =
     a.parentSymbolMap.get(symbol).map(
-      s => CppWriter.translateQualifiedName(a.getQualifiedName(s))
+      s => CppWriter.writeQualifiedName(a.getQualifiedName(s))
     )
 
   /** Gets the list of identifiers representing the namespace

@@ -61,7 +61,7 @@ abstract class TopologyCppWriterUtils(
     CppWriter.identFromQualifiedName(getShortName(name))
 
   def getNameAsQualIdent(name: Name.Qualified) =
-    CppWriter.translateQualifiedName(getShortName(name))
+    CppWriter.writeQualifiedName(getShortName(name))
 
   def getSpecifierForPhase (phase: Int) (ci: ComponentInstance): 
     Option[InitSpecifier] = ci.initSpecifierMap.get(phase)
