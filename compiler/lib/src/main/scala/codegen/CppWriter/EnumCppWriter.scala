@@ -105,7 +105,12 @@ case class EnumCppWriter(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
           CppDocHppWriter.writeAccessTag("public") ++
-          CppDocWriter.writeBannerComment("Types")
+          CppDocWriter.writeBannerComment("Types") ++
+          List(
+            line("enum {"),
+            //indentIn(defLine),
+            line("};")
+          )
         )
       )
     )
