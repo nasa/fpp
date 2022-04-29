@@ -17,6 +17,9 @@ case class XmlWriterState(
   locationMap: Map[String, Location] = Map()
 ) {
 
+  /** CppWriterState for writing C++ */
+  private val cppWriterState = CppWriterState(a)
+
   /** A mapping from special built-in types to their
    *  default values */
   val zero = Value.Integer(0)
@@ -91,50 +94,10 @@ case class XmlWriterState(
   }
 
   /** Write an FPP symbol as XML */
-  def writeSymbol(sym: Symbol): String = {
-    // Skip component names in qualifiers
-    // Those appear in the prefixes of definition names
-    def removeComponentQualifiers(
-      symOpt: Option[Symbol],
-      out: List[String]
-    ): List[String] = symOpt match {
-      case None => out
-      case Some(sym) => 
-        val psOpt = a.parentSymbolMap.get(sym)
-        val out1 = sym match {
-          case cs: Symbol.Component => out
-          case _ => getName(sym) :: out
-        }
-        removeComponentQualifiers(psOpt, out1)
-    }
-    val qualifiedName = sym match {
-      // For component symbols, use the qualified name
-      case cs: Symbol.Component => a.getQualifiedName(cs)
-      // For other symbols, remove component qualifiers
-      case _ => {
-        val identList = removeComponentQualifiers(Some(sym), Nil)
-        Name.Qualified.fromIdentList(identList)
-      }
-    }
-    writeQualifiedName(qualifiedName)
-  }
+  def writeSymbol(symbol: Symbol): String = cppWriterState.writeSymbol(symbol)
 
-  /** Writes an FPP qualified name as XML */
-  def writeQualifiedName(qualifiedName: Name.Qualified) = {
-    qualifiedName.toString.replaceAll("\\.", "::")
-  }
-
-  /** Gets the unqualified name associated with a symbol.
-   *  If a symbol is defined in a component, then we prefix its name
-   *  with the component name. This is to work around the fact that
-   *  we cannot define classes inside components in the F Prime XML. */
-  def getName(symbol: Symbol): String = {
-    val name = symbol.getUnqualifiedName
-    a.parentSymbolMap.get(symbol) match {
-      case Some(cs: Symbol.Component) => s"${cs.getUnqualifiedName}_$name"
-      case _ => name
-    }
-  }
+  /** Gets the unqualified name associated with a symbol. */
+  def getName(symbol: Symbol): String = cppWriterState.getName(symbol)
 
   /** Gets the namespace associated with a symbol */
   def getNamespace(symbol: Symbol): String = {

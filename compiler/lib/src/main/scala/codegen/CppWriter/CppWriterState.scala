@@ -8,11 +8,11 @@ case class CppWriterState(
   /** The result of semantic analysis */
   a: Analysis,
   /** The output directory */
-  dir: String,
+  dir: String = ".",
   /** The include guard prefix */
-  guardPrefix: Option[String],
+  guardPrefix: Option[String] = None,
   /** The list of include path prefixes */
-  pathPrefixes: List[String],
+  pathPrefixes: List[String] = Nil,
   /** The default string size */
   defaultStringSize: Int = CppWriterState.defaultDefaultStringSize,
 ) {
@@ -81,6 +81,47 @@ case class CppWriterState(
       case Some(s) => a.getQualifiedName(s).toIdentList
       case None => Nil
     }
+
+  /** Gets the unqualified name associated with a symbol.
+   *  If a symbol is defined in a component, then we prefix its name
+   *  with the component name. This is to work around the fact that
+   *  we cannot define classes inside components in the F Prime XML. */
+  def getName(symbol: Symbol): String = {
+    val name = symbol.getUnqualifiedName
+    a.parentSymbolMap.get(symbol) match {
+      case Some(cs: Symbol.Component) => s"${cs.getUnqualifiedName}_$name"
+      case _ => name
+    }
+  }
+
+  /** Write an FPP symbol as C++ */
+  def writeSymbol(sym: Symbol): String = {
+    // Skip component names in qualifiers
+    // Those appear in the prefixes of definition names
+    def removeComponentQualifiers(
+      symOpt: Option[Symbol],
+      out: List[String]
+    ): List[String] = symOpt match {
+      case None => out
+      case Some(sym) => 
+        val psOpt = a.parentSymbolMap.get(sym)
+        val out1 = sym match {
+          case cs: Symbol.Component => out
+          case _ => getName(sym) :: out
+        }
+        removeComponentQualifiers(psOpt, out1)
+    }
+    val qualifiedName = sym match {
+      // For component symbols, use the qualified name
+      case cs: Symbol.Component => a.getQualifiedName(cs)
+      // For other symbols, remove component qualifiers
+      case _ => {
+        val identList = removeComponentQualifiers(Some(sym), Nil)
+        Name.Qualified.fromIdentList(identList)
+      }
+    }
+    CppWriter.writeQualifiedName(qualifiedName)
+  }
 
 }
 
