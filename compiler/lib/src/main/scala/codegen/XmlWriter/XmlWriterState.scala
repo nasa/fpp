@@ -18,7 +18,7 @@ case class XmlWriterState(
 ) {
 
   /** CppWriterState for writing C++ */
-  private val cppWriterState = CppWriterState(a)
+  val cppWriterState = CppWriterState(a)
 
   /** A mapping from special built-in types to their
    *  default values */

@@ -6,38 +6,9 @@ import fpp.compiler.util._
 /** Write an FPP type as XML */
 object TypeXmlWriter {
 
-  private object NameVisitor extends TypeVisitor {
-
-    override def absType(s: XmlWriterState, t: Type.AbsType) =
-      s.writeSymbol(Symbol.AbsType(t.node))
-
-    override def array(s: XmlWriterState, t: Type.Array) =
-      s.writeSymbol(Symbol.Array(t.node))
-
-    override def boolean(s: XmlWriterState) = "bool"
-
-    override def default(s: XmlWriterState, t: Type) = throw new InternalError("visitor not defined")
-
-    override def enum(s: XmlWriterState, t: Type.Enum) =
-      s.writeSymbol(Symbol.Enum(t.node))
-
-    override def float(s: XmlWriterState, t: Type.Float) = t.toString
-
-    override def primitiveInt(s: XmlWriterState, t: Type.PrimitiveInt) = t.toString
-
-    override def string(s: XmlWriterState, t: Type.String) = "string"
-
-    override def struct(s: XmlWriterState, t: Type.Struct) =
-      s.writeSymbol(Symbol.Struct(t.node))
-
-    type In = XmlWriterState
-
-    type Out = String
-
-  }
-
   /** Get the name of a type */
-  def getName(s: XmlWriterState, t: Type): String = NameVisitor.ty(s, t)
+  def getName(s: XmlWriterState, t: Type): String = 
+    TypeCppWriter(s.cppWriterState).write(t)
 
   /** Get the size of a type */
   def getSize(s: XmlWriterState, t: Type): Option[String] = t match {

@@ -24,11 +24,9 @@ case class EnumCppWriter(
 
   val namespaceIdentList = s.getNamespaceIdentList(symbol)
 
-  val repTypeName = {
-    // FIXME
-    val xmlWriterState = XmlWriterState(s.a)
-    TypeXmlWriter.getName(xmlWriterState, enumType.repType)
-  }
+  val typeCppWriter = TypeCppWriter(s)
+
+  val repTypeName = typeCppWriter.write(enumType.repType)
 
   val numConstants = data.constants.size
 
