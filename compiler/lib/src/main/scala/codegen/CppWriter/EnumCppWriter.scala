@@ -145,9 +145,7 @@ case class EnumCppWriter(
   private def getMemberFunctionMembers: List[CppDoc.Class.Member] =
     List(
       CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          CppDocHppWriter.writeAccessTag("public")
-        )
+        CppDoc.Lines(CppDocHppWriter.writeAccessTag("public"))
       ),
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
@@ -161,9 +159,7 @@ case class EnumCppWriter(
   private def getMemberVariableMembers: List[CppDoc.Class.Member] =
     List(
       CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          CppDocHppWriter.writeAccessTag("public")
-        )
+        CppDoc.Lines(CppDocHppWriter.writeAccessTag("public"))
       ),
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
