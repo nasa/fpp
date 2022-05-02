@@ -10,7 +10,7 @@ import fpp.compiler.util._
  *  ======================================================================*/
 object ComputeCppFiles extends AstStateVisitor {
 
-  type State = Map[String, Option[Location]]
+  type State = CppWriterState
 
   /** Names of generated C++ files */
   object FileNames {
@@ -78,16 +78,17 @@ object ComputeCppFiles extends AstStateVisitor {
     fileName: String,
     locOpt: Option[Location]
   ) = {
+    val m = s.locationMap
     for {
-      s <- addHppMapping(s, fileName, locOpt)
-      s <- addCppMapping(s, fileName, locOpt)
+      m <- addHppMapping(m, fileName, locOpt)
+      m <- addCppMapping(m, fileName, locOpt)
     }
-    yield s
+    yield s.copy(locationMap = m)
   }
 
   /** Adds a mapping for an hpp file  */
   private def addHppMapping(
-    s: State,
+    s: Map[String, Option[Location]],
     fileName: String,
     locOpt: Option[Location]
   ) =
@@ -95,14 +96,14 @@ object ComputeCppFiles extends AstStateVisitor {
 
   /** Adds a mapping for a cpp file  */
   private def addCppMapping(
-    s: State,
+    s: Map[String, Option[Location]],
     fileName: String,
     locOpt: Option[Location]
   ) = addMapping(s, (s"$fileName.cpp" -> locOpt))
 
   /** Adds a mapping for one file */
   private def addMapping(
-    s: State,
+    s: Map[String, Option[Location]],
     mapping: (String, Option[Location])
   ) = {
     val (fileName, locOpt) = mapping

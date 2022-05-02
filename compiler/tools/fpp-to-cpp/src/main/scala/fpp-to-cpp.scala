@@ -35,11 +35,20 @@ object FPPToCpp {
         ResolveSpecInclude.transUnit
       )
       tulFiles <- Right(aTulFiles._2)
-      cppFileMap <- ComputeCppFiles.visitList(Map(), tulFiles, ComputeCppFiles.transUnit)
-      tulImports <- Result.map(options.imports, Parser.parseFile (Parser.transUnit) (None) _)
+      s <- ComputeCppFiles.visitList(
+        CppWriterState(a),
+        tulFiles,
+        ComputeCppFiles.transUnit
+      )
+      tulImports <- Result.map(
+        options.imports,
+        Parser.parseFile (Parser.transUnit) (None) _
+      )
       a <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
       _ <- options.names match {
-        case Some(fileName) => writeCppFileNames(cppFileMap.toList.map(_._1), fileName)
+        case Some(fileName) => writeCppFileNames(
+          s.locationMap.toList.map(_._1), fileName
+        )
         case None => Right(())
       }
       _ <- {

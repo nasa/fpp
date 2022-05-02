@@ -15,6 +15,8 @@ case class CppWriterState(
   pathPrefixes: List[String] = Nil,
   /** The default string size */
   defaultStringSize: Int = CppWriterState.defaultDefaultStringSize,
+  /** The map from strings to locations */
+  locationMap: Map[String, Option[Location]] = Map(),
 ) {
 
   /** Adds the component name prefix to a name.

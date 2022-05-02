@@ -11,15 +11,19 @@ object ComputeGeneratedFiles {
     for {
       a <- EnterSymbols.visitList(Analysis(), tul, EnterSymbols.transUnit)
       xmlFiles <- getXmlFiles(a, tul)
-      cppFiles <- getCppFiles(tul)
+      cppFiles <- getCppFiles(a, tul)
     } 
     yield xmlFiles ++ cppFiles
 
-  def getCppFiles(tul: List[Ast.TransUnit]) =
+  def getCppFiles(a: Analysis, tul: List[Ast.TransUnit]) =
     for {
-      s <- ComputeCppFiles.visitList(Map(), tul, ComputeCppFiles.transUnit)
+      s <- ComputeCppFiles.visitList(
+        CppWriterState(a),
+        tul,
+        ComputeCppFiles.transUnit
+      )
     }
-    yield s.toList.map(_._1)
+    yield s.locationMap.toList.map(_._1)
 
   def getXmlFiles(a: Analysis, tul: List[Ast.TransUnit]) =
     for {
