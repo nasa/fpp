@@ -1,8 +1,12 @@
 AArrayAi.xml
 CComponentAi.xml
 C_AArrayAi.xml
+C_EEnumAc.cpp
+C_EEnumAc.hpp
 C_EEnumAi.xml
 C_SSerializableAi.xml
+EEnumAc.cpp
+EEnumAc.hpp
 EEnumAi.xml
 FppConstantsAc.cpp
 FppConstantsAc.hpp

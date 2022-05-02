@@ -14,11 +14,11 @@ case class EnumCppWriter(
 
   val data = node.data
 
-  val name = aNode._2.data.name
-
-  val fileName = ComputeCppFiles.FileNames.getEnum(data.name)
-
   val symbol = Symbol.Enum(aNode)
+
+  val name = s.getName(symbol)
+
+  val fileName = ComputeCppFiles.FileNames.getEnum(name)
 
   val enumType @ Type.Enum(_, _, _) = s.a.typeMap(node.id)
 
@@ -33,7 +33,7 @@ case class EnumCppWriter(
   def write: CppDoc = {
     val includeGuard = s.includeGuardFromQualifiedName(symbol, fileName)
     CppWriter.createCppDoc(
-      s"${data.name} enum",
+      s"$name enum",
       fileName,
       includeGuard,
       getMembers
@@ -46,7 +46,7 @@ case class EnumCppWriter(
     val cls = CppDoc.Member.Class(
       CppDoc.Class(
         AnnotationCppWriter.asStringOpt(aNode),
-        data.name,
+        name,
         Some("public Fw::Serializable"),
         getClassMembers
       )

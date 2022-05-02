@@ -45,7 +45,7 @@ object ComputeCppFiles extends AstStateVisitor {
     aNode: Ast.Annotated[AstNode[Ast.DefEnum]]
   ) = {
     val node = aNode._2
-    val name = node.data.name
+    val name = s.getName(Symbol.Enum(aNode))
     val loc = Locations.get(node.id)
     addMappings(s, FileNames.getEnum(name), Some(loc))
   }
