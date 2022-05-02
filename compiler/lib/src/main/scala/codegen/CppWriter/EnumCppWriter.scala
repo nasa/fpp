@@ -91,8 +91,8 @@ case class EnumCppWriter(
       getConstantMembers,
       getTypeMembers,
       getConstructorMembers,
-      getInstanceMethodMembers,
-      getInstanceVariableMembers
+      getMemberFunctionMembers,
+      getMemberVariableMembers
     ).flatten
 
   private def getConstantMembers: List[CppDoc.Class.Member] =
@@ -120,24 +120,58 @@ case class EnumCppWriter(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
           CppDocHppWriter.writeAccessTag("public") ++
-          CppDocWriter.writeBannerComment("Types")
+          CppDocWriter.writeBannerComment("Types") ++
+          addBlankPrefix(lines("// TODO"))
         )
       )
     )
 
-  private def getConstructorMembers: List[CppDoc.Class.Member] = {
-    // TODO
-    Nil
-  }
+  private def getConstructorMembers: List[CppDoc.Class.Member] =
+    List(
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          CppDocHppWriter.writeAccessTag("public")
+        )
+      ),
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          CppDocWriter.writeBannerComment("Constructors") ++
+          addBlankPrefix(lines("// TODO")),
+          CppDoc.Lines.Both
+        )
+      )
+    )
 
-  private def getInstanceMethodMembers: List[CppDoc.Class.Member] = {
-    // TODO
-    Nil
-  }
+  private def getMemberFunctionMembers: List[CppDoc.Class.Member] =
+    List(
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          CppDocHppWriter.writeAccessTag("public")
+        )
+      ),
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          CppDocWriter.writeBannerComment("Member functions") ++
+          addBlankPrefix(lines("// TODO")),
+          CppDoc.Lines.Both
+        )
+      )
+    )
 
-  private def getInstanceVariableMembers: List[CppDoc.Class.Member] = {
-    // TODO
-    Nil
-  }
+  private def getMemberVariableMembers: List[CppDoc.Class.Member] =
+    List(
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          CppDocHppWriter.writeAccessTag("public")
+        )
+      ),
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          CppDocWriter.writeBannerComment("Member variables") ++
+          addBlankPrefix(lines("// TODO")),
+          CppDoc.Lines.Both
+        )
+      )
+    )
 
 }
