@@ -84,17 +84,19 @@ object Parser extends Parsers {
       }
     }
     (instance ~>! ident) ~! (colon ~>! node(qualIdent)) ~! (base ~! id ~>! exprNode) ~!
+    opt(typeToken ~>! node(literalString)) ~!
     opt(at ~>! node(literalString)) ~!
     opt(queue ~! size ~>! exprNode) ~!
     opt(stack ~! size ~>! exprNode) ~!
     opt(priority ~>! exprNode) ~!
     opt(cpu ~>! exprNode) ~!
     initSpecSequence ^^ {
-      case name ~ typeName ~ baseId ~ file ~ queueSize ~ stackSize ~ priority ~ cpu ~ initSpecSequence => 
+      case name ~ typeName ~ baseId ~ concreteType ~ file ~ queueSize ~ stackSize ~ priority ~ cpu ~ initSpecSequence => 
         Ast.DefComponentInstance(
           name,
           typeName,
           baseId,
+          concreteType,
           file,
           queueSize,
           stackSize,

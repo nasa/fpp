@@ -109,6 +109,7 @@ object FppWriter extends AstVisitor with LineUtils {
     lines(s"instance ${ident(data.name)}").
       join (": ") (qualIdent(data.component.data)).
       join (" base id ") (exprNode(data.baseId)).
+      joinOptWithBreak (data.concreteType) ("type ") (applyToData(string)).
       joinOptWithBreak (data.file) ("at ") (applyToData(string)).
       joinOptWithBreak (data.queueSize) ("queue size ") (exprNode).
       joinOptWithBreak (data.stackSize) ("stack size ") (exprNode).

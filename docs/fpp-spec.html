@@ -1849,6 +1849,9 @@ that you can refer to in a
 <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a>
 <code>base</code> <code>id</code> <a href="#Expressions"><em>expression</em></a>
 <em>[</em>
+<code>type</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a>
+<em>]</em>
+<em>[</em>
 <code>at</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a>
 <em>]</em>
 <em>[</em>
@@ -1887,8 +1890,9 @@ and the terminating punctuation is a semicolon.</p>
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
 a
 <a href="#Definitions_Component-Definitions">component definition <em>D</em></a>.
-This component definition is called the component definition
-<strong>associated with</strong> the component instance.</p>
+This component definition <em>D</em> is called the component definition
+<strong>associated with</strong> the component instance <em>I</em>.
+We also say that <em>I</em> is an instance of <em>D</em>.</p>
 </li>
 <li>
 <p>The expression following the keywords <code>base</code> <code>id</code> must have a
@@ -1922,11 +1926,41 @@ the identifier range of another instance.</p>
 </div>
 </li>
 <li>
+<p>If present, the string literal following the keyword <code>type</code>
+names the concrete type of the instance.
+The type must be a valid type in the target language (e.g., a type name
+in C&#43;&#43;).
+If the concrete type name is not present, then the code generator
+infers the concrete type name from the component name when
+generating the constructor for the instance.
+For example:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Suppose an FPP model has a component <code>C</code> defined in module <code>M</code>.
+Suppose <em>I</em> is an instance of component <code>M.C</code>.
+By default, the concrete type name associated with <em>I</em> is <code>M::C</code>.</p>
+</li>
+<li>
+<p>Specifying <code>type "M::D"</code> causes FPP to generate a
+constructor for <em>I</em> with name <code>"M::D"</code> instead of <code>"M::C"</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Specifying a concrete type is useful in cases where the name
+of the component implementation does not match the component
+name, e.g., because there are several implementations of the
+same FPP component.</p>
+</div>
+</li>
+<li>
 <p>If present, the string literal following the keyword <code>at</code>
 must specify a file path, relative to the
 <a href="#Translation-Units-and-Models_Locations">location</a>
 of the component instance definition.
-The file path must name a file in the target language (e.g., a C++ header file)
+The file path must name a file in the target language (e.g., a C&#43;&#43;
+header file)
 that provides the implementation associated with the instance.
 If no such path is given, then the translator uses the location
 of the component instance and the name of the component to generate
@@ -8159,7 +8193,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-04-25 15:44:16 -0700
+Last updated 2022-05-05 14:58:09 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

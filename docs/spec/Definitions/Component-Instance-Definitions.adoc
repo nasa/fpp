@@ -49,8 +49,9 @@ and the terminating punctuation is a semicolon.
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
 a
 <<Definitions_Component-Definitions,component definition _D_>>.
-This component definition is called the component definition
-*associated with* the component instance.
+This component definition _D_ is called the component definition
+*associated with* the component instance _I_.
+We also say that _I_ is an instance of _D_.
 
 . The expression following the keywords `base` `id` must have a
 <<Types_Internal-Types_Numeric-Types,numeric type>>.
@@ -87,14 +88,14 @@ For example:
 Suppose _I_ is an instance of component `M.C`.
 By default, the concrete type name associated with _I_ is `M::C`.
 
-.. Specifying a `type "M::D"` causes FPP to generate a
+.. Specifying `type "M::D"` causes FPP to generate a
 constructor for _I_ with name `"M::D"` instead of `"M::C"`.
 
 +
 Specifying a concrete type is useful in cases where the name
-of the component implementation does not match the component name, e.g.,
-because there
-are several implementations of the same FPP component.
+of the component implementation does not match the component
+name, e.g., because there are several implementations of the
+same FPP component.
 
 . If present, the string literal following the keyword `at`
 must specify a file path, relative to the
