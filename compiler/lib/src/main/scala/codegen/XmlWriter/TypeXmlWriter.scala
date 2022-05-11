@@ -18,7 +18,7 @@ object TypeXmlWriter {
 
     override def default(s: XmlWriterState, t: Type) = throw new InternalError("visitor not defined")
 
-    override def enum(s: XmlWriterState, t: Type.Enum) =
+    override def enumeration(s: XmlWriterState, t: Type.Enum) =
       s.writeSymbol(Symbol.Enum(t.node))
 
     override def float(s: XmlWriterState, t: Type.Float) = t.toString

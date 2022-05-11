@@ -15,7 +15,7 @@ trait TypeVisitor {
 
   def default(in: In, t: Type): Out
 
-  def enum(in: In, t: Type.Enum): Out = default(in, t)
+  def enumeration(in: In, t: Type.Enum): Out = default(in, t)
 
   def float(in: In, t: Type.Float): Out = default(in, t)
 
@@ -36,7 +36,7 @@ trait TypeVisitor {
       case t : Type.AnonStruct => anonStruct(in, t)
       case t : Type.Array => array(in, t)
       case Type.Boolean => boolean(in)
-      case t : Type.Enum => enum(in, t)
+      case t : Type.Enum => enumeration(in, t)
       case t : Type.Float => float(in, t)
       case Type.Integer => integer(in)
       case t : Type.PrimitiveInt => primitiveInt(in, t)
