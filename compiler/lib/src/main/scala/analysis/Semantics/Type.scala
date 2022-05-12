@@ -400,7 +400,7 @@ object Type {
       case (String(_), String(_)) => Some(String(None))
       case _ => None
     }
-    def enum() = pair match {
+    def enumeration() = pair match {
       case (Enum(_, repType, _), _) => commonType(repType, t2)
       case (_, Enum(_, repType, _)) => commonType(t1, repType)
       case _ => None
@@ -486,7 +486,7 @@ object Type {
       identical,
       numeric,
       string,
-      enum,
+      enumeration,
       array,
       struct
     )
