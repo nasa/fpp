@@ -80,8 +80,8 @@ object ComponentXmlFppWriter extends LineUtils {
     /** Constructs an enum component member */
     def constructEnumMember(enumAnnotated: Ast.Annotated[Ast.DefEnum]):
       Ast.Annotated[Ast.ComponentMember.DefEnum] = {
-        val (pre, enum, post) = enumAnnotated
-        (pre, Ast.ComponentMember.DefEnum(AstNode.create(enum)), post)
+        val (pre, e, post) = enumAnnotated
+        (pre, Ast.ComponentMember.DefEnum(AstNode.create(e)), post)
       }
 
     /** Extracts enum definitions in argument types */

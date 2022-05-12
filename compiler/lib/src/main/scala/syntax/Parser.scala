@@ -116,7 +116,7 @@ object Parser extends Parsers {
   def defEnum: Parser[Ast.DefEnum] = {
     def id(x: Ast.Annotated[AstNode[Ast.DefEnumConstant]]) = x
     def constants = annotatedElementSequence(node(defEnumConstant), comma, id)
-    (enum ~>! ident) ~! 
+    (enumeration ~>! ident) ~!
     opt(colon ~>! node(typeName)) ~! 
     (lbrace ~>! constants <~! rbrace) ~!
     opt(default ~>! exprNode) ^^ {
@@ -698,7 +698,7 @@ object Parser extends Parsers {
   private def elementSequence[E,S](elt: Parser[E], sep: Parser[S]): Parser[List[E]] =
     repsep(elt, sep | eol) <~ opt(sep)
 
-  private def enum = accept("enum", { case t : Token.ENUM => t })
+  private def enumeration = accept("enum", { case t : Token.ENUM => t })
 
   private def eol = accept("end of line", { case t : Token.EOL => t })
 
