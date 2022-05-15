@@ -355,12 +355,12 @@ object Analysis {
   def checkForDuplicateStructMember[T]
     (getName: T => Name.Unqualified)
     (nodes: List[AstNode[T]]): Result.Result[Unit] =
-    checkForDuplicateNode (getName) (SemanticError.DuplicateStructMember) (nodes)
+    checkForDuplicateNode (getName) (SemanticError.DuplicateStructMember.apply) (nodes)
 
   /** Check for duplicate parameter */
   def checkForDuplicateParameter(nodes: Ast.FormalParamList): Result.Result[Unit] = {
     def getName(param: Ast.FormalParam) = param.name
-    checkForDuplicateNode (getName) (SemanticError.DuplicateParameter) (nodes.map(_._2))
+    checkForDuplicateNode (getName) (SemanticError.DuplicateParameter.apply) (nodes.map(_._2))
   }
 
   /** Check that int value is nonnegative */

@@ -20,7 +20,7 @@ final case class Param(
 
 }
 
-final object Param {
+object Param {
 
   type Id = Int
 

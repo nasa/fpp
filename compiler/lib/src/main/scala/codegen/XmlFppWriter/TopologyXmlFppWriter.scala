@@ -22,11 +22,11 @@ object TopologyXmlFppWriter extends LineUtils {
       }
       yield XmlFppWriter.tuMemberList(
         instances,
-        Ast.TUMember.DefComponentInstance,
-        Ast.ModuleMember.DefComponentInstance,
+        Ast.TUMember.DefComponentInstance.apply,
+        Ast.ModuleMember.DefComponentInstance.apply,
         top,
-        Ast.TUMember.DefTopology,
-        Ast.ModuleMember.DefTopology,
+        Ast.TUMember.DefTopology.apply,
+        Ast.ModuleMember.DefTopology.apply,
         file,
       )
 
@@ -170,9 +170,9 @@ object TopologyXmlFppWriter extends LineUtils {
           Ast.TopologyMember(a1, memberNode, a2)
         }
         val instanceMembers = instancesAnnotated.map(
-          member(Ast.TopologyMember.SpecCompInstance)
+          member(Ast.TopologyMember.SpecCompInstance.apply)
         )
-        val graphMember = member(Ast.TopologyMember.SpecConnectionGraph)(
+        val graphMember = member(Ast.TopologyMember.SpecConnectionGraph.apply)(
           graphAnnotated
         )
         val members = instanceMembers :+ graphMember

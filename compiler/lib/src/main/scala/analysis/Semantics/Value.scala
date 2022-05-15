@@ -35,7 +35,7 @@ sealed trait Value {
   }
 
   /** Generic binary operation */
-  def binop(op: Value.Binop)(v: Value): Option[Value] = None
+  protected[analysis] def binop(op: Value.Binop)(v: Value): Option[Value] = None
 
   /** Get the type of the value */
   def getType: Type
@@ -108,7 +108,7 @@ object Value {
     extends Value
   {
 
-    override def binop(op: Binop)(v: Value): Option[Value] = v match {
+    override protected[analysis] def binop(op: Binop)(v: Value): Option[Value] = v match {
       case PrimitiveInt(value1, kind1) => {
         val result1 = op.intOp(value, value1)
         val result2 = if (kind1 == kind) PrimitiveInt(result1, kind) else Integer(result1)
@@ -169,7 +169,7 @@ object Value {
       (value >= - (u64Bound / 2) && value < u64Bound)
     }
 
-    override def binop(op: Binop)(v: Value): Option[Value] = v match {
+    override protected[analysis] def binop(op: Binop)(v: Value): Option[Value] = v match {
       case PrimitiveInt(value1, kind1) => {
         val result = op.intOp(value, value1)
         Some(Integer(result))
@@ -205,7 +205,7 @@ object Value {
   /** Floating-point values */
   case class Float(value: Double, kind: Type.Float.Kind) extends Value {
 
-    override def binop(op: Binop)(v: Value): Option[Value] = v match {
+    override protected[analysis] def binop(op: Binop)(v: Value): Option[Value] = v match {
       case PrimitiveInt(value1, kind1) => {
         val result = op.doubleOp(value, value1.toDouble)
         Some(Float(result.toFloat, Type.Float.F64))
@@ -357,7 +357,7 @@ object Value {
   /** Enum constant values */
   case class EnumConstant(value: (Name.Unqualified, BigInt), t: Type.Enum) extends Value {
 
-    override def binop(op: Binop)(v: Value): Option[Value] = convertToRepType.binop(op)(v)
+    override protected[analysis] def binop(op: Binop)(v: Value): Option[Value] = convertToRepType.binop(op)(v)
 
     /** Convert the enum to the representation type */
     def convertToRepType: PrimitiveInt = PrimitiveInt(value._2, t.repType.kind)
@@ -451,7 +451,7 @@ object Value {
         case _ => None
       }
 
-    override def getType = t
+    override def getType: Type.Struct = t
 
     override def toString: lang.String = anonStruct.toString ++ ": " ++ t.node._2.data.name
 
@@ -468,14 +468,14 @@ object Value {
   }
 
   /** Binary operations */
-  private case class Binop(
+  protected[analysis] case class Binop(
     /** The integer operation */
     intOp: Binop.Op[BigInt], 
     /** The double-precision floating point operation */
     doubleOp: Binop.Op[Double]
   )
 
-  private object Binop {
+  protected[analysis] object Binop {
 
     /** A binary operation */
     type Op[T] = (T, T) => T

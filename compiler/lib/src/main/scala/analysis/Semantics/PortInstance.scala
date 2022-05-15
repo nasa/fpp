@@ -6,7 +6,7 @@ import fpp.compiler.util._
 /** An FPP port instance */
 sealed trait PortInstance {
 
-  override def toString = getUnqualifiedName.toString
+  override def toString: String = getUnqualifiedName.toString
 
   /** Gets the size of the port array */
   def getArraySize: Int = 1
@@ -33,16 +33,16 @@ sealed trait PortInstance {
 
 }
 
-final object PortInstance {
+object PortInstance {
 
   /** A port instance type */
   sealed trait Type
-  final object Type {
+  object Type {
     final case class DefPort(symbol: Symbol.Port) extends Type {
-      override def toString = symbol.getUnqualifiedName
+      override def toString: String = symbol.getUnqualifiedName
     }
-    final case object Serial extends Type {
-      override def toString = "serial"
+    case object Serial extends Type {
+      override def toString: String = "serial"
     }
     /** Show a type option */
     def show(typeOpt: Option[Type]): String = typeOpt match {
@@ -61,12 +61,12 @@ final object PortInstance {
 
   /** A port direction */
   sealed trait Direction
-  final object Direction {
-    final case object Input extends Direction {
-      override def toString = "input"
+  object Direction {
+    case object Input extends Direction {
+      override def toString: String = "input"
     }
-    final case object Output extends Direction {
-      override def toString = "output"
+    case object Output extends Direction {
+      override def toString: String = "output"
     }
     /** Show a direction option */
     def show(dirOpt: Option[Direction]): String = dirOpt match {
@@ -83,7 +83,7 @@ final object PortInstance {
     }
   }
 
-  final object General {
+  object General {
 
     /** A general port kind */
     sealed trait Kind

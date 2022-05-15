@@ -21,7 +21,7 @@ final case class TlmChannel(
 
 }
 
-final object TlmChannel {
+object TlmChannel {
 
   type Id = Int
 

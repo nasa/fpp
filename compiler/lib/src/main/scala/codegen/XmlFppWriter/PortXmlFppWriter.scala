@@ -38,11 +38,11 @@ object PortXmlFppWriter extends LineUtils {
       }
       yield XmlFppWriter.tuMemberList(
         enums,
-        Ast.TUMember.DefEnum,
-        Ast.ModuleMember.DefEnum,
+        Ast.TUMember.DefEnum.apply,
+        Ast.ModuleMember.DefEnum.apply,
         port,
-        Ast.TUMember.DefPort,
-        Ast.ModuleMember.DefPort,
+        Ast.TUMember.DefPort.apply,
+        Ast.ModuleMember.DefPort.apply,
         file
       )
 

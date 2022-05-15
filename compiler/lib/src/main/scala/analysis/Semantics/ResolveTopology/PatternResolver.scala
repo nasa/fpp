@@ -352,7 +352,7 @@ object PatternResolver {
 
   }
 
-  private final object Health {
+  private object Health {
 
     final case class PingPorts(
       pingIn: PortInstanceIdentifier,

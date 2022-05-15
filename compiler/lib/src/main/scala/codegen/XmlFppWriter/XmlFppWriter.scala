@@ -188,8 +188,8 @@ object XmlFppWriter extends LineUtils {
     file: XmlFppWriter.File
   ): Ast.TUMember = tuMemberList(
     Nil: List[Ast.Annotated[Ast.DefEnum]],
-    Ast.TUMember.DefEnum,
-    Ast.ModuleMember.DefEnum,
+    Ast.TUMember.DefEnum.apply,
+    Ast.ModuleMember.DefEnum.apply,
     aT,
     tumConstructor,
     moduleConstructor,
@@ -239,7 +239,7 @@ object XmlFppWriter extends LineUtils {
       (name: String)
       (members: List[Ast.Annotated[Ast.ModuleMember.Node]]): 
       Ast.Annotated[Ast.TUMember.Node] =
-        encloseWithModule(Ast.TUMember.DefModule)(name)(members)
+        encloseWithModule(Ast.TUMember.DefModule.apply)(name)(members)
 
     /** Encloses a list of module members with zero more modules inside a module */
     def encloseWithModuleMemberModules
@@ -251,7 +251,7 @@ object XmlFppWriter extends LineUtils {
         (name: String)
         (members: List[Ast.Annotated[Ast.ModuleMember.Node]]):
         List[Ast.Annotated[Ast.ModuleMember.Node]] =
-          List(encloseWithModule(Ast.ModuleMember.DefModule)(name)(members))
+          List(encloseWithModule(Ast.ModuleMember.DefModule.apply)(name)(members))
       names match {
         case Nil => members
         case head :: tail => encloseWithModuleMemberModules(tail)(

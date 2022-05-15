@@ -14,7 +14,7 @@ sealed trait Command {
 
 }
 
-final object Command {
+object Command {
 
   type Opcode = Int
 
@@ -27,7 +27,7 @@ final object Command {
     def getName = aNode._2.data.name
   }
 
-  final object NonParam {
+  object NonParam {
 
     sealed trait Kind
     case class Async(
@@ -54,7 +54,7 @@ final object Command {
     }
   }
 
-  final object Param {
+  object Param {
 
     sealed trait Kind
     case object Get extends Kind

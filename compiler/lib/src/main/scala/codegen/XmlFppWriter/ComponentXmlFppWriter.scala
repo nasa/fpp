@@ -48,8 +48,8 @@ object ComponentXmlFppWriter extends LineUtils {
       }
       yield XmlFppWriter.tuMember(
         component,
-        Ast.TUMember.DefComponent,
-        Ast.ModuleMember.DefComponent,
+        Ast.TUMember.DefComponent.apply,
+        Ast.ModuleMember.DefComponent.apply,
         file
       )
 

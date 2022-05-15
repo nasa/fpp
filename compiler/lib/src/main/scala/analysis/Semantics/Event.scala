@@ -18,7 +18,7 @@ final case class Event(
 
 }
 
-final object Event {
+object Event {
 
   type Id = Int
 
