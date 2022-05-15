@@ -11,7 +11,7 @@ case class Connection(
   to: Connection.Endpoint
 ) extends Ordered[Connection] {
 
-  override def toString = s"${from.toString} -> ${to.toString}"
+  override def toString: String = s"${from.toString} -> ${to.toString}"
 
   /** Checks the types of a connection */
   def checkTypes: Result.Result[Unit] = {
@@ -50,7 +50,7 @@ case class Connection(
   }
 
   /** Compare two connections */
-  def compare(that: Connection) = {
+  def compare(that: Connection): Int = {
     val fromCompare = this.from.compare(that.from)
     if (fromCompare != 0) fromCompare
     else this.to.compare(that.to)
@@ -60,7 +60,7 @@ case class Connection(
   def getLoc: Location = from.loc
 
   /** Get this endpoint of a port connection at a port instance */
-  def getThisEndpoint(pi: PortInstance) = {
+  def getThisEndpoint(pi: PortInstance): Connection.Endpoint = {
     import PortInstance.Direction._
     pi.getDirection.get match {
       case Input => to
@@ -69,7 +69,7 @@ case class Connection(
   }
 
   /** Get the other endpoint of a port connection at a port instance */
-  def getOtherEndpoint(pi: PortInstance) = {
+  def getOtherEndpoint(pi: PortInstance): Connection.Endpoint = {
     import PortInstance.Direction._
     pi.getDirection.get match {
       case Input => from
@@ -103,12 +103,12 @@ object Connection {
     portNumber: Option[Int] = None
   ) extends Ordered[Endpoint] {
 
-    override def toString = portNumber match {
+    override def toString: String = portNumber match {
       case Some(n) => s"${port.toString}[${n.toString}]"
       case None => port.toString
     }
 
-    override def compare(that: Endpoint) = {
+    override def compare(that: Endpoint): Int = {
       val name1 = this.port.getQualifiedName.toString
       val name2 = that.port.getQualifiedName.toString
       val nameCompare = name1.compare(name2)

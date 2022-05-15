@@ -12,7 +12,7 @@ trait EnumAnalyzer extends Analyzer {
   override def defEnumAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefEnum]]
-  ) = {
+  ): Either[Error,Analysis] = {
     val (_, node, _) = aNode
     val data = node.data
     val a1 = a.copy(scopeNameList = data.name :: a.scopeNameList)

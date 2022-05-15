@@ -24,7 +24,7 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
   /** A use of a type definition */
   def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified): Result = default(a)
 
-  override def defComponentInstanceAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefComponentInstance]]) = {
+  override def defComponentInstanceAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefComponentInstance]]): Either[Error,State] = {
     val (_, node1, _) = node
     val data = node1.data
     for {
@@ -33,7 +33,7 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
     } yield a
   }
 
-  override def exprDotNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprDot) = {
+  override def exprDotNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprDot): Result = {
     def nameOpt(e: Ast.Expr, qualifier: List[Name.Unqualified]): Option[Name.Qualified] = {
       e match {
         case Ast.ExprIdent(id) => {
@@ -51,19 +51,19 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
     }
   }
 
-  override def exprIdentNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprIdent) = {
+  override def exprIdentNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprIdent): Result = {
     val use = Name.Qualified(Nil, e.value)
     constantUse(a, node, use)
   }
 
-  override def specCompInstanceAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecCompInstance]]) = {
+  override def specCompInstanceAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecCompInstance]]): Result = {
     val (_, node1, _) = node
     val data = node1.data
     qualIdentNode (componentInstanceUse) (a, data.instance)
   }
 
   override def specConnectionGraphAnnotatedNode(
-    a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecConnectionGraph]]) = {
+    a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecConnectionGraph]]): Out = {
     def connection(a: Analysis, connection: Ast.SpecConnectionGraph.Connection): Result = {
       for {
         a <- portInstanceIdentifierNode(a, connection.fromPort)
@@ -83,7 +83,7 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
     }
   }
 
-  override def specPortInstanceAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]]) = {
+  override def specPortInstanceAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]]): Out = {
     val (_, node, _) = aNode
     val data = node.data
     data match {
@@ -115,13 +115,13 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
     }
   }
 
-  override def specTopImportAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecTopImport]]) = {
+  override def specTopImportAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecTopImport]]): Result = {
     val (_, node1, _) = node
     val data = node1.data
     qualIdentNode(topologyUse)(a, data.top)
   }
 
-  override def typeNameQualIdentNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameQualIdent) = {
+  override def typeNameQualIdentNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameQualIdent): Result = {
     val use = Name.Qualified.fromQualIdent(tn.name.data)
     typeUse(a, node, use)
   }

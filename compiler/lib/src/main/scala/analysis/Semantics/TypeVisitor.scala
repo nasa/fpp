@@ -11,7 +11,7 @@ trait TypeVisitor {
 
   def array(in: In, t: Type.Array): Out = default(in, t)
 
-  def boolean(in: In) = default(in, Type.Boolean)
+  def boolean(in: In): Out = default(in, Type.Boolean)
 
   def default(in: In, t: Type): Out
 

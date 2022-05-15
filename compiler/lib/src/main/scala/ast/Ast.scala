@@ -226,14 +226,14 @@ object Ast {
     /** An unqualified identifier */
     case class Unqualified(name: Ident) extends QualIdent {
 
-      def toIdentList = List(name)
+      def toIdentList: List[Ident] = List(name)
 
     }
 
     /** A qualified identifier */
     case class Qualified(qualifier: AstNode[QualIdent], name: AstNode[Ident]) extends QualIdent {
 
-      def toIdentList = qualifier.data.toIdentList ++ List(name.data)
+      def toIdentList: List[Ident] = qualifier.data.toIdentList ++ List(name.data)
 
     }
 
@@ -255,16 +255,16 @@ object Ast {
     object NodeList {
 
       /** Split a qualified identifier list into qualifier and name */
-      def split(nodeList: NodeList) = nodeList.reverse match {
+      def split(nodeList: NodeList): (List[AstNode[Ident]], AstNode[Ident]) = nodeList.reverse match {
         case head :: tail => (tail.reverse, head)
         case Nil => throw InternalError("node list should not be empty")
       }
 
       /** Get the qualifier */
-      def qualifier(nodeList: NodeList) = split(nodeList)._1
+      def qualifier(nodeList: NodeList): List[AstNode[Ident]] = split(nodeList)._1
 
       /** Get the unqualified name*/
-      def name(nodeList: NodeList) = split(nodeList)._2
+      def name(nodeList: NodeList): AstNode[Ident] = split(nodeList)._2
 
     }
 

@@ -5,12 +5,12 @@ import java.time.Year
 /** Write a CppDoc to an hpp file */
 object CppDocHppWriter extends CppDocWriter {
 
-  def addParamComment(s: String, commentOpt: Option[String]) = commentOpt match {
+  def addParamComment(s: String, commentOpt: Option[String]): String = commentOpt match {
     case Some(comment) => s"$s //!< ${"\n".r.replaceAllIn(comment, " ")}"
     case None => s
   }
 
-  def closeIncludeGuard = lines(
+  def closeIncludeGuard: List[Line] = lines(
     """|
        |#endif"""
   )
@@ -23,24 +23,24 @@ object CppDocHppWriter extends CppDocWriter {
     )
   }
 
-  def paramString(p: CppDoc.Function.Param) = {
+  def paramString(p: CppDoc.Function.Param): String = {
     val s1 = CppDocCppWriter.paramString(p)
     val s2 = addParamComment(s1, p.comment)
     s2
   }
 
-  def paramStringComma(p: CppDoc.Function.Param) = {
+  def paramStringComma(p: CppDoc.Function.Param): String = {
     val s1 = CppDocCppWriter.paramStringComma(p)
     val s2 = addParamComment(s1, p.comment)
     s2
   }
 
-  def writeAccessTag(tag: String) = List(
+  def writeAccessTag(tag: String): List[Line] = List(
     Line.blank,
     line(s"$tag:").indentOut(2)
   )
 
-  def writeParams(prefix: String, params: List[CppDoc.Function.Param]) = {
+  def writeParams(prefix: String, params: List[CppDoc.Function.Param]): List[Line] = {
     if (params.length == 0) lines(s"$prefix()")
     else if (params.length == 1 && params.head.comment.isEmpty)
       lines(s"$prefix(" ++ CppDocCppWriter.paramString(params.head) ++ ")")
@@ -72,7 +72,7 @@ object CppDocHppWriter extends CppDocWriter {
     commentLines ++ openLines ++ bodyLines ++ closeLines
   }
 
-  override def visitConstructor(in: Input, constructor: CppDoc.Class.Constructor) = {
+  override def visitConstructor(in: Input, constructor: CppDoc.Class.Constructor): List[Line] = {
     val unqualifiedClassName = in.getEnclosingClassUnqualified
     val outputLines = {
       val lines1 = CppDocWriter.writeDoxygenCommentOpt(constructor.comment)
@@ -100,7 +100,7 @@ object CppDocHppWriter extends CppDocWriter {
     ).flatten
   }
 
-  override def visitDestructor(in: Input, destructor: CppDoc.Class.Destructor) = {
+  override def visitDestructor(in: Input, destructor: CppDoc.Class.Destructor): List[Line] = {
     val unqualifiedClassName = in.getEnclosingClassUnqualified
     val outputLines = {
       val lines1 = CppDocWriter.writeDoxygenCommentOpt(destructor.comment)
@@ -113,7 +113,7 @@ object CppDocHppWriter extends CppDocWriter {
     outputLines
   }
 
-  override def visitFunction(in: Input, function: CppDoc.Function) = {
+  override def visitFunction(in: Input, function: CppDoc.Function): List[Line] = {
     import CppDoc.Function._
     val outputLines = {
       val lines1 = CppDocWriter.writeDoxygenCommentOpt(function.comment)
@@ -145,7 +145,7 @@ object CppDocHppWriter extends CppDocWriter {
     outputLines
   }
 
-  override def visitLines(in: Input, lines: CppDoc.Lines) = {
+  override def visitLines(in: Input, lines: CppDoc.Lines): Output = {
     val content = lines.content
     lines.output match {
       case CppDoc.Lines.Hpp => content

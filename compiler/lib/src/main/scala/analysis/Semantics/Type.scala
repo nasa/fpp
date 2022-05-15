@@ -2,6 +2,7 @@ package fpp.compiler.analysis
 
 import fpp.compiler.ast._
 import fpp.compiler.util._
+import java.lang
 
 /** An FPP Type */
 sealed trait Type {
@@ -40,7 +41,7 @@ sealed trait Type {
   final def isNumeric: Boolean = isInt || isFloat
 
   /** Is this type convertible to type t? */
-  final def isConvertibleTo(t: Type) = Type.mayBeConverted(this -> t)
+  final def isConvertibleTo(t: Type): Boolean = Type.mayBeConverted(this -> t)
 
 }
 
@@ -61,7 +62,7 @@ object Type {
     extends Type with Primitive with Int
   {
     override def getDefaultValue: Option[Value.PrimitiveInt] = Some(Value.PrimitiveInt(0, kind))
-    override def toString = kind match {
+    override def toString: lang.String = kind match {
       case PrimitiveInt.I8 => "I8"
       case PrimitiveInt.I16 => "I16"
       case PrimitiveInt.I32 => "I32"
@@ -85,27 +86,27 @@ object Type {
     case object U64 extends Kind
   }
 
-  val I8 = PrimitiveInt(PrimitiveInt.I8)
-  val I16 = PrimitiveInt(PrimitiveInt.I16)
-  val I32 = PrimitiveInt(PrimitiveInt.I32)
-  val I64 = PrimitiveInt(PrimitiveInt.I64)
-  val U8 = PrimitiveInt(PrimitiveInt.U8)
-  val U16 = PrimitiveInt(PrimitiveInt.U16)
-  val U32 = PrimitiveInt(PrimitiveInt.U32)
-  val U64 = PrimitiveInt(PrimitiveInt.U64)
+  val I8: PrimitiveInt = PrimitiveInt(PrimitiveInt.I8)
+  val I16: PrimitiveInt = PrimitiveInt(PrimitiveInt.I16)
+  val I32: PrimitiveInt = PrimitiveInt(PrimitiveInt.I32)
+  val I64: PrimitiveInt = PrimitiveInt(PrimitiveInt.I64)
+  val U8: PrimitiveInt = PrimitiveInt(PrimitiveInt.U8)
+  val U16: PrimitiveInt = PrimitiveInt(PrimitiveInt.U16)
+  val U32: PrimitiveInt = PrimitiveInt(PrimitiveInt.U32)
+  val U64: PrimitiveInt = PrimitiveInt(PrimitiveInt.U64)
 
   /** Floating-point types */
   case class Float(kind: Float.Kind) extends Type with Primitive {
     override def getDefaultValue: Option[Value.Float] = Some(Value.Float(0, kind))
     override def isFloat = true
-    override def toString = kind match {
+    override def toString: lang.String = kind match {
       case Float.F32 => "F32"
       case Float.F64 => "F64"
     }
   }
 
-  val F32 = Float(Float.F32)
-  val F64 = Float(Float.F64)
+  val F32: Float = Float(Float.F32)
+  val F64: Float = Float(Float.F64)
 
   object Float {
     sealed trait Kind
@@ -116,21 +117,21 @@ object Type {
   /** The Boolean type */
   case object Boolean extends Type with Primitive {
     override def getDefaultValue: Option[Value.Boolean] = Some(Value.Boolean(false))
-    override def toString = "bool"
+    override def toString: lang.String = "bool"
     override def isPromotableToArray = true
   }
 
   /** The type of a string */
   case class String(size: Option[AstNode[Ast.Expr]]) extends Type {
     override def getDefaultValue: Option[Value.String] = Some(Value.String(""))
-    override def toString = "string"
+    override def toString: lang.String = "string"
     override def isPromotableToArray = true
   }
 
   /** The type of arbitrary-width integers */
   case object Integer extends Type with Int {
     override def getDefaultValue: Option[Value.Integer] = Some(Value.Integer(0))
-    override def toString = "Integer"
+    override def toString: lang.String = "Integer"
   }
   
   /** An abstract type */
@@ -139,8 +140,8 @@ object Type {
     node: Ast.Annotated[AstNode[Ast.DefAbsType]]
   ) extends Type {
     override def getDefaultValue: Option[Value.AbsType] = Some(Value.AbsType(this))
-    override def getDefNodeId = Some(node._2.id)
-    override def toString = node._2.data.name
+    override def getDefNodeId: Some[AstNode.Id] = Some(node._2.id)
+    override def toString: lang.String = node._2.data.name
   }
 
   /** A named array type */
@@ -156,11 +157,11 @@ object Type {
   ) extends Type {
     override def getDefaultValue: Option[Value.Array] = default
     /** Set the size */
-    def setSize(size: Array.Size) = this.copy(anonArray = anonArray.setSize(size))
+    def setSize(size: Array.Size): Array = this.copy(anonArray = anonArray.setSize(size))
     override def getArraySize = anonArray.getArraySize
-    override def getDefNodeId = Some(node._2.id)
+    override def getDefNodeId: Some[AstNode.Id] = Some(node._2.id)
     override def hasNumericMembers = anonArray.hasNumericMembers
-    override def toString = "array " ++ node._2.data.name
+    override def toString: lang.String = "array " ++ node._2.data.name
   }
 
   object Array {
@@ -194,10 +195,10 @@ object Type {
     default: Option[Value.EnumConstant] = None
   ) extends Type {
     override def getDefaultValue: Option[Value.EnumConstant] = default
-    override def getDefNodeId = Some(node._2.id)
+    override def getDefNodeId: Some[AstNode.Id] = Some(node._2.id)
     override def isConvertibleToNumeric = true
     override def isPromotableToArray = true
-    override def toString = "enum " ++ node._2.data.name
+    override def toString: lang.String = "enum " ++ node._2.data.name
   }
 
   /** A named struct type */
@@ -214,9 +215,9 @@ object Type {
     formats: Struct.Formats = Map(),
   ) extends Type {
     override def getDefaultValue: Option[Value.Struct] = default
-    override def getDefNodeId = Some(node._2.id)
+    override def getDefNodeId: Some[AstNode.Id] = Some(node._2.id)
     override def hasNumericMembers = anonStruct.hasNumericMembers
-    override def toString = "struct " ++ node._2.data.name
+    override def toString: lang.String = "struct " ++ node._2.data.name
   }
 
   object Struct {
@@ -256,7 +257,7 @@ object Type {
     eltType: Type
   ) extends Type {
     /** Set the size */
-    def setSize(size: Array.Size) = this.copy(size = Some(size))
+    def setSize(size: Array.Size): AnonArray = this.copy(size = Some(size))
     override def getDefaultValue: Option[Value.AnonArray] = for {
       size <- size
       elt <- eltType.getDefaultValue
@@ -266,7 +267,7 @@ object Type {
     }
     override def getArraySize = size
     override def hasNumericMembers = eltType.hasNumericMembers
-    override def toString = size match {
+    override def toString: lang.String = size match {
       case Some(n) => "[" ++ n.toString ++ "] " ++ eltType.toString
       case None => "array of " ++ eltType.toString
     }
@@ -292,9 +293,9 @@ object Type {
       for (members <- defaultMembers(members.toList, Map()))
         yield Value.AnonStruct(members)
     }
-    override def hasNumericMembers = 
+    override def hasNumericMembers: Boolean = 
       members.values.forall(_.hasNumericMembers)
-    override def toString = {
+    override def toString: lang.String = {
       def memberToString(member: Struct.Member) =
         member._1 ++ ": " ++ member._2.toString
       members.size match {

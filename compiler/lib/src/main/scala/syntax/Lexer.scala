@@ -89,7 +89,8 @@ object Lexer extends RegexParsers {
     // Convert a comment followed by a newline to a newline
     unitParser(" *(#[^\r\n]*)?\r?\n *".r)
 
-  def parseAllInput[T](p: Parser[T]) = new Parser[T] {
+  def parseAllInput[T](p: Parser[T]): parseAllInput[T] = new parseAllInput[T](p)
+  class parseAllInput[T](p: Parser[T]) extends Parser[T] {
     def dropWhile(in: Input, p: Char => Boolean): Input = {
       if (in.atEnd) in
       else if (p(in.first)) dropWhile(in.rest, p)
@@ -207,15 +208,15 @@ object Lexer extends RegexParsers {
     }
   }
 
-  val internalError = failure("internal error"): Parser[Token]
+  val internalError: Parser[Token] = failure("internal error"): Parser[Token]
 
-  val newlines = unitParser(rep1(newline))
+  val newlines: Parser[Unit] = unitParser(rep1(newline))
 
-  val newlinesOpt = unitParser(rep(newline))
+  val newlinesOpt: Parser[Unit] = unitParser(rep(newline))
 
-  val nothing = success(())
+  val nothing: Parser[Unit] = success(())
 
-  val reservedWords = List(
+  val reservedWords: List[(String, Unit => Token)] = List(
     ("F32", (u: Unit) => Token.F32()),
     ("F64", (u: Unit) => Token.F64()),
     ("I16", (u: Unit) => Token.I16()),
@@ -303,7 +304,7 @@ object Lexer extends RegexParsers {
     ("yellow", (u: Unit) => Token.YELLOW()),
   )
 
-  val symbols = List(
+  val symbols: List[(Parser[Unit], String, Unit => Token, Parser[Unit])] = List(
     (newlinesOpt, ")", (u: Unit) => Token.RPAREN(), nothing),
     (newlinesOpt, "]", (u: Unit) => Token.RBRACKET(), nothing),
     (newlinesOpt, "}", (u: Unit) => Token.RBRACE(), nothing),

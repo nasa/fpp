@@ -172,44 +172,44 @@ object PatternResolver {
       cmdResponseOut: PortInstanceIdentifier
     )
 
-    def getCmdRegIn = getGeneralPort(
+    def getCmdRegIn: Result.Result[PortInstanceIdentifier] = getGeneralPort(
       pattern.source,
       "command reg",
       PortInstance.Direction.Input,
       "Fw.CmdReg"
     )
 
-    def getCmdOut = getGeneralPort(
+    def getCmdOut: Result.Result[PortInstanceIdentifier] = getGeneralPort(
       pattern.source,
       "command send",
       PortInstance.Direction.Output,
       "Fw.Cmd"
     )
 
-    def getCmdResponseIn = getGeneralPort(
+    def getCmdResponseIn: Result.Result[PortInstanceIdentifier] = getGeneralPort(
       pattern.source,
       "command resp",
       PortInstance.Direction.Input,
       "Fw.CmdResponse"
     )
 
-    def getCmdRegOut(targetUse: (ComponentInstance, Location)) =
+    def getCmdRegOut(targetUse: (ComponentInstance, Location)): Result.Result[PortInstanceIdentifier] =
       getSpecialPort(targetUse, Ast.SpecPortInstance.CommandReg)
 
-    def getCmdIn(targetUse: (ComponentInstance, Location)) =
+    def getCmdIn(targetUse: (ComponentInstance, Location)): Result.Result[PortInstanceIdentifier] =
       getSpecialPort(targetUse, Ast.SpecPortInstance.CommandRecv)
 
-    def getCmdResponseOut(targetUse: (ComponentInstance, Location)) =
+    def getCmdResponseOut(targetUse: (ComponentInstance, Location)): Result.Result[PortInstanceIdentifier] =
       getSpecialPort(targetUse, Ast.SpecPortInstance.CommandResp)
 
-    override def resolveSource =
+    override def resolveSource: Either[Error,Source] =
       for {
         cmdRegIn <- getCmdRegIn
         cmdOut <- getCmdOut
         cmdResponseIn <- getCmdResponseIn
       } yield Source(cmdRegIn, cmdOut, cmdResponseIn)
 
-    override def resolveTarget(targetUse: (ComponentInstance, Location)) =
+    override def resolveTarget(targetUse: (ComponentInstance, Location)): Either[Error,Target] =
       for {
         cmdRegOut <- getCmdRegOut(targetUse)
         cmdIn <- getCmdIn(targetUse)
@@ -245,14 +245,14 @@ object PatternResolver {
 
     type Target = PortInstanceIdentifier
 
-    override def resolveSource = getGeneralPort(
+    override def resolveSource: Result.Result[PortInstanceIdentifier] = getGeneralPort(
       pattern.source,
       kind.toString,
       PortInstance.Direction.Input,
       portTypeName
     )
 
-    override def resolveTarget(targetUse: (ComponentInstance, Location)) =
+    override def resolveTarget(targetUse: (ComponentInstance, Location)): Result.Result[PortInstanceIdentifier] =
       getSpecialPort(targetUse, kind)
 
     override def getConnectionsForTarget(
@@ -331,9 +331,9 @@ object PatternResolver {
       }
       yield Health.PingPorts(pingIn, pingOut)
 
-    override def resolveSource = getPingPorts(pattern.source)
+    override def resolveSource: Either[Error,Health.PingPorts] = getPingPorts(pattern.source)
 
-    override def resolveTarget(targetUse: (ComponentInstance, Location)) =
+    override def resolveTarget(targetUse: (ComponentInstance, Location)): Either[Error,Health.PingPorts] =
       getPingPorts(targetUse)
 
     override def getConnectionsForTarget(
@@ -378,32 +378,32 @@ object PatternResolver {
       prmSetOut: PortInstanceIdentifier
     )
 
-    def getPrmGetIn = getGeneralPort(
+    def getPrmGetIn: Result.Result[PortInstanceIdentifier] = getGeneralPort(
       pattern.source,
       "param get",
       PortInstance.Direction.Input,
       "Fw.PrmGet"
     )
 
-    def getPrmSetIn = getGeneralPort(
+    def getPrmSetIn: Result.Result[PortInstanceIdentifier] = getGeneralPort(
       pattern.source,
       "param set",
       PortInstance.Direction.Input,
       "Fw.PrmSet"
     )
 
-    def getPrmGetOut(targetUse: (ComponentInstance, Location)) =
+    def getPrmGetOut(targetUse: (ComponentInstance, Location)): Result.Result[PortInstanceIdentifier] =
       getSpecialPort(targetUse, Ast.SpecPortInstance.ParamGet)
 
-    def getPrmSetOut(targetUse: (ComponentInstance, Location)) =
+    def getPrmSetOut(targetUse: (ComponentInstance, Location)): Result.Result[PortInstanceIdentifier] =
       getSpecialPort(targetUse, Ast.SpecPortInstance.ParamSet)
 
-    override def resolveSource = for {
+    override def resolveSource: Either[Error,Source] = for {
       prmGetIn <- getPrmGetIn
       prmSetIn <- getPrmSetIn
     } yield Source(prmGetIn, prmSetIn)
 
-    override def resolveTarget(targetUse: (ComponentInstance, Location)) =
+    override def resolveTarget(targetUse: (ComponentInstance, Location)): Either[Error,Target] =
       for {
         prmGetOut <- getPrmGetOut(targetUse)
         prmSetOut <- getPrmSetOut(targetUse)

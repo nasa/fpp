@@ -9,7 +9,7 @@ object EnumXmlWriter extends AstVisitor with LineUtils {
 
   override def default(s: XmlWriterState) = Nil
 
-  override def defEnumAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
+  override def defEnumAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]): List[Line] = {
     val node = aNode._2
     val data = node.data
     val enumType @ Type.Enum(_, _, _) = s.a.typeMap(node.id)

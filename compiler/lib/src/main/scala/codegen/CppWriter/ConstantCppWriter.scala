@@ -9,7 +9,7 @@ import fpp.compiler.util._
 object ConstantCppWriter {
 
   /** Writes out constant hpp and cpp */
-  def write(s: CppWriterState, tuList: List[Ast.TransUnit]) =
+  def write(s: CppWriterState, tuList: List[Ast.TransUnit]): Either[Error,Any] =
     tuList.flatMap(Visitor.transUnit(s, _)) match {
       case Nil => Right(())
       case constantMembers => 
@@ -43,7 +43,7 @@ object ConstantCppWriter {
     override def defConstantAnnotatedNode(
       s: CppWriterState,
       aNode: Ast.Annotated[AstNode[Ast.DefConstant]]
-    ) = {
+    ): List[CppDoc.Member.Lines] = {
       val node = aNode._2
       val data = node.data
       val value = s.a.valueMap(node.id)
@@ -81,7 +81,7 @@ object ConstantCppWriter {
     override def defModuleAnnotatedNode(
       s: CppWriterState,
       aNode: Ast.Annotated[AstNode[Ast.DefModule]]
-    ) = {
+    ): Out = {
       val (_, node, _) = aNode
       val data = node.data
       val members = data.members.flatMap(matchModuleMember(s, _))
@@ -96,14 +96,14 @@ object ConstantCppWriter {
     override def defComponentAnnotatedNode(
       s: CppWriterState,
       aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
-    ) = {
+    ): List[CppDoc.Member] = {
       val (_, node, _) = aNode
       val data = node.data
       val members = data.members.flatMap(matchComponentMember(s, _))
       members
     }
 
-    override def transUnit(s: CppWriterState, tu: Ast.TransUnit) =
+    override def transUnit(s: CppWriterState, tu: Ast.TransUnit): List[CppDoc.Member] =
       tu.members.flatMap(matchTuMember(s, _))
 
     private def writeBooleanConstant(name: String, value: String) =

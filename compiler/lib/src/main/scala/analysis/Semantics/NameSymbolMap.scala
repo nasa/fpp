@@ -28,9 +28,9 @@ private case class NameSymbolMapImpl(map: Map[Name.Unqualified,Symbol] = Map())
   extends NameSymbolMap
 {
 
-  def apply(name: Name.Unqualified) = map(name)
+  def apply(name: Name.Unqualified): Symbol = map(name)
 
-  def put(name: Name.Unqualified, symbol: Symbol) = {
+  def put(name: Name.Unqualified, symbol: Symbol): Result.Result[NameSymbolMap] = {
     map.get(name) match {
       case Some(prevSymbol) => {
         val loc = symbol.getLoc
@@ -41,6 +41,6 @@ private case class NameSymbolMapImpl(map: Map[Name.Unqualified,Symbol] = Map())
     }
   }
 
-  def get(name: Name.Unqualified) = map.get(name)
+  def get(name: Name.Unqualified): Option[Symbol] = map.get(name)
 
 }

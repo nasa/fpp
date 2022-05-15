@@ -11,7 +11,7 @@ trait ValueVisitor {
 
   def array(in: In, v: Value.Array): Out = default(in, v)
 
-  def boolean(in: In, v: Value.Boolean) = default(in, v)
+  def boolean(in: In, v: Value.Boolean): Out = default(in, v)
 
   def default(in: In, v: Value): Out
 

@@ -4,6 +4,7 @@ import fpp.compiler.ast._
 import fpp.compiler.analysis
 import fpp.compiler.codegen._
 import fpp.compiler.util._
+import scala.xml.Node
 
 /** Writes out an F Prime XML array as FPP source */
 object ArrayXmlFppWriter extends LineUtils {
@@ -15,7 +16,7 @@ object ArrayXmlFppWriter extends LineUtils {
   private object FppBuilder {
 
     /** Translates an XML type to an FPP type name */
-    def translateType(file: XmlFppWriter.File) = file.translateType(node => Right(node.text)) _
+    def translateType(file: XmlFppWriter.File): Node => Result.Result[Ast.TypeName] = file.translateType(node => Right(node.text)) _
 
     /** Translates a block of default values from FPP to XML */
     def translateDefaults(node: scala.xml.Node, tn: Ast.TypeName): (Option[AstNode[Ast.Expr]], List[String]) = {

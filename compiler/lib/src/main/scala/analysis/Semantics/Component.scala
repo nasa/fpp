@@ -341,7 +341,7 @@ case class Component(
   }
 
   /** Complete a component definition */
-  def complete = for {
+  def complete: Either[Error,Component] = for {
     c <- this.constructPortMatchingList
     _ <- c.checkValidity
   } yield c
@@ -419,10 +419,10 @@ object Component {
     instance2: PortInstance.General
   ) {
 
-    override def toString = s"match $instance1 with $instance2"
+    override def toString: String = s"match $instance1 with $instance2"
 
     /** Gets the location of a port matching */
-    def getLoc = Locations.get(aNode._2.id)
+    def getLoc: Location = Locations.get(aNode._2.id)
 
   }
 

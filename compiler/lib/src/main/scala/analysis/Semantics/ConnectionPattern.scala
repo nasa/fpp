@@ -15,7 +15,7 @@ case class ConnectionPattern(
   targets: Set[(ComponentInstance, Location)]
 ) {
 
-  def getLoc = Locations.get(aNode._2.id)
+  def getLoc: Location = Locations.get(aNode._2.id)
 
 }
 

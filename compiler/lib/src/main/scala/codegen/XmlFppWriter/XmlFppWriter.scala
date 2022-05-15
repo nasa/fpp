@@ -18,10 +18,10 @@ object XmlFppWriter extends LineUtils {
   ) {
 
     /** Constructs an error containing the file name */
-    def error(e: (String) => Error) = e(name)
+    def error(e: (String) => Error): Error = e(name)
 
     /** Constructs a semantic error with the given message */
-    def semanticError(message: String) = error(XmlError.SemanticError(_, message))
+    def semanticError(message: String): Error = error(XmlError.SemanticError(_, message))
 
     /** Gets an attribute from a node, returning an error if it is not there */
     def getAttribute(node: scala.xml.Node, name: String): Result.Result[String] = 
@@ -154,7 +154,7 @@ object XmlFppWriter extends LineUtils {
   }
 
   /** Constructs a translator note */
-  def constructNote(s: String) = "FPP from XML: " ++ s
+  def constructNote(s: String): String = "FPP from XML: " ++ s
 
   /** Gets an attribute comment */
   def getAttributeComment(node: scala.xml.Node): List[String] =
@@ -175,7 +175,7 @@ object XmlFppWriter extends LineUtils {
     node.attribute(name).map(_.toList.head.toString)
   
   /** Writes a file list */
-  def writeFileList(fileList: List[File]) = {
+  def writeFileList(fileList: List[File]): Either[Error,List[Line]] = {
     for (files <- Result.map(fileList, (file: File) => file.write))
       yield Line.blankSeparated (identity[List[Line]]) (files)
   }
@@ -186,7 +186,7 @@ object XmlFppWriter extends LineUtils {
     tumConstructor: AstNode[T] => Ast.TUMember.Node,
     moduleConstructor: AstNode[T] => Ast.ModuleMember.Node,
     file: XmlFppWriter.File
-  ) = tuMemberList(
+  ): Ast.TUMember = tuMemberList(
     Nil: List[Ast.Annotated[Ast.DefEnum]],
     Ast.TUMember.DefEnum,
     Ast.ModuleMember.DefEnum,
@@ -197,7 +197,7 @@ object XmlFppWriter extends LineUtils {
   ).head
 
   /** Transforms an annotated AST node */
-  def transformNode[A,B](transform: AstNode[A] => B)(a: Ast.Annotated[A]) = 
+  def transformNode[A,B](transform: AstNode[A] => B)(a: Ast.Annotated[A]): (List[String], B, List[String]) = 
     (a._1, transform(AstNode.create(a._2)), a._3)
 
   /** Builds a list of TU members from a list of annotated A elements
@@ -261,11 +261,11 @@ object XmlFppWriter extends LineUtils {
     }
 
     /** Translates a qualified identifier type */
-    def translateQualIdentType(xmlType: String) = 
+    def translateQualIdentType(xmlType: String): Ast.TypeNameQualIdent = 
       Ast.TypeNameQualIdent(translateQualIdent(xmlType))
 
     /** Translates a qualified identifier */
-    def translateQualIdent(xmlQid: String) = 
+    def translateQualIdent(xmlQid: String): AstNode[Ast.QualIdent] = 
       AstNode.create(
         Ast.QualIdent.fromNodeList(
           xmlQid.split("::").toList.map(AstNode.create(_))

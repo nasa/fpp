@@ -2,6 +2,7 @@ package fpp.compiler.analysis
 
 import fpp.compiler.ast._
 import fpp.compiler.util._
+import java.lang
 
 /** An FPP value */
 sealed trait Value {
@@ -107,7 +108,7 @@ object Value {
     extends Value
   {
 
-    override def binop(op: Binop)(v: Value) = v match {
+    override def binop(op: Binop)(v: Value): Option[Value] = v match {
       case PrimitiveInt(value1, kind1) => {
         val result1 = op.intOp(value, value1)
         val result2 = if (kind1 == kind) PrimitiveInt(result1, kind) else Integer(result1)
@@ -123,7 +124,7 @@ object Value {
       case _ => None
     }
 
-    override def convertToDistinctType(t: Type) =
+    override def convertToDistinctType(t: Type): Option[Value] =
       t match {
         case Type.PrimitiveInt(kind1) => Some(PrimitiveInt(value, kind1))
         case Type.Integer => Some(Integer(value))
@@ -131,11 +132,11 @@ object Value {
         case _ => promoteToAggregate(t)
       }
 
-    override def getType = Type.PrimitiveInt(kind)
+    override def getType: Type.PrimitiveInt = Type.PrimitiveInt(kind)
 
-    override def isZero = (value == 0)
+    override def isZero: scala.Boolean = (value == 0)
 
-    override def toString = value.toString + ": " + kind.toString
+    override def toString: lang.String = value.toString + ": " + kind.toString
 
     override def truncate: PrimitiveInt = {
       def truncateUnsigned(v: BigInt, shiftAmt: Int) = {
@@ -163,12 +164,12 @@ object Value {
   /** Integer values */
   case class Integer(value: BigInt) extends Value {
     
-    def fitsInU64Width = {
+    def fitsInU64Width: scala.Boolean = {
       val u64Bound = BigInt(1) << 64
       (value >= - (u64Bound / 2) && value < u64Bound)
     }
 
-    override def binop(op: Binop)(v: Value) = v match {
+    override def binop(op: Binop)(v: Value): Option[Value] = v match {
       case PrimitiveInt(value1, kind1) => {
         val result = op.intOp(value, value1)
         Some(Integer(result))
@@ -183,7 +184,7 @@ object Value {
       case _ => None
     }
 
-    override def convertToDistinctType(t: Type) =
+    override def convertToDistinctType(t: Type): Option[Value] =
       t match {
         case Type.PrimitiveInt(kind1) => Some(PrimitiveInt(value, kind1))
         case Type.Integer => Some(Integer(value))
@@ -193,9 +194,9 @@ object Value {
 
     override def getType = Type.Integer
 
-    override def isZero = (value == 0)
+    override def isZero: scala.Boolean = (value == 0)
 
-    override def toString = value.toString
+    override def toString: lang.String = value.toString
 
     override def unary_- = Some(Integer(-value))
 
@@ -204,7 +205,7 @@ object Value {
   /** Floating-point values */
   case class Float(value: Double, kind: Type.Float.Kind) extends Value {
 
-    override def binop(op: Binop)(v: Value) = v match {
+    override def binop(op: Binop)(v: Value): Option[Value] = v match {
       case PrimitiveInt(value1, kind1) => {
         val result = op.doubleOp(value, value1.toDouble)
         Some(Float(result.toFloat, Type.Float.F64))
@@ -225,18 +226,18 @@ object Value {
       case _ => None
     }
 
-    override def isZero = (Math.abs(value) < Float.EPSILON)
+    override def isZero: scala.Boolean = (Math.abs(value) < Float.EPSILON)
 
-    override def convertToDistinctType(t: Type) =
+    override def convertToDistinctType(t: Type): Option[Value] =
       t match {
         case Type.PrimitiveInt(kind1) => Some(PrimitiveInt(value.intValue, kind1))
         case Type.Integer => Some(Integer(value.intValue))
         case Type.Float(kind1) => Some(Float(value, kind1))
         case _ => promoteToAggregate(t)
       }
-    override def getType = Type.Float(kind)
+    override def getType: Type.Float = Type.Float(kind)
 
-    override def toString = value.toString + ": " + kind.toString
+    override def toString: lang.String = value.toString + ": " + kind.toString
 
     override def truncate: Value = kind match {
       case Type.Float.F32 => Float(value.toFloat, kind)
@@ -257,26 +258,26 @@ object Value {
   /** Boolean values */
   case class Boolean(value: scala.Boolean) extends Value {
 
-    override def convertToDistinctType(t: Type) = promoteToAggregate(t)
+    override def convertToDistinctType(t: Type): Option[Value] = promoteToAggregate(t)
 
     override def getType = Type.Boolean
 
-    override def toString = value.toString
+    override def toString: lang.String = value.toString
 
   }
 
   /** String values */
   case class String(value: java.lang.String) extends Value {
 
-    override def convertToDistinctType(t: Type) =
+    override def convertToDistinctType(t: Type): Option[Value] =
       t match {
         case Type.String(_) => Some(this)
         case _ => promoteToAggregate(t)
       }
 
-    override def getType = Type.String(None)
+    override def getType: Type.String = Type.String(None)
 
-    override def toString = "\"" + value.toString + "\""
+    override def toString: lang.String = "\"" + value.toString + "\""
 
   }
 
@@ -305,16 +306,16 @@ object Value {
         yield Array(anonArray, arrayType)
     }
 
-    override def convertToDistinctType(t: Type) =
+    override def convertToDistinctType(t: Type): Option[Value] =
       t match {
         case anonArrayType : Type.AnonArray => convertToAnonArray(anonArrayType)
         case arrayType : Type.Array => convertToArray(arrayType)
         case _ => None
       }
 
-    override def getType = Type.AnonArray(Some(elements.size), elements.head.getType)
+    override def getType: Type.AnonArray = Type.AnonArray(Some(elements.size), elements.head.getType)
 
-    override def toString = "[ " ++ elements.mkString(", ") ++ " ]"
+    override def toString: lang.String = "[ " ++ elements.mkString(", ") ++ " ]"
 
     override def truncate: AnonArray = AnonArray(elements.map(_.truncate))
 
@@ -325,7 +326,7 @@ object Value {
     
     override def getType = t
 
-    override def toString = s"value of type $t"
+    override def toString: lang.String = s"value of type $t"
 
   }
 
@@ -338,7 +339,7 @@ object Value {
     def convertToArray(arrayType: Type.Array): Option[Value.Array] =
       anonArray.convertToArray(arrayType)
 
-    override def convertToDistinctType(t: Type) =
+    override def convertToDistinctType(t: Type): Option[Value] =
       t match {
         case anonArrayType : Type.AnonArray => convertToAnonArray(anonArrayType)
         case arrayType : Type.Array => convertToArray(arrayType)
@@ -347,7 +348,7 @@ object Value {
 
     override def getType = t
 
-    override def toString = anonArray.toString ++ ": " ++ t.node._2.data.name
+    override def toString: lang.String = anonArray.toString ++ ": " ++ t.node._2.data.name
 
     override def truncate: Array = Array(anonArray.truncate, t)
 
@@ -356,12 +357,12 @@ object Value {
   /** Enum constant values */
   case class EnumConstant(value: (Name.Unqualified, BigInt), t: Type.Enum) extends Value {
 
-    override def binop(op: Binop)(v: Value) = convertToRepType.binop(op)(v)
+    override def binop(op: Binop)(v: Value): Option[Value] = convertToRepType.binop(op)(v)
 
     /** Convert the enum to the representation type */
     def convertToRepType: PrimitiveInt = PrimitiveInt(value._2, t.repType.kind)
 
-    override def convertToDistinctType(t: Type) =
+    override def convertToDistinctType(t: Type): Option[Value] =
       convertToRepType.convertToDistinctType(t) match {
         case Some(v) => Some(v)
         case None => promoteToAggregate(t)
@@ -371,7 +372,7 @@ object Value {
 
     override def isZero = convertToRepType.isZero
 
-    override def toString = value.toString ++ ": " ++ t.node._2.data.name
+    override def toString: lang.String = value.toString ++ ": " ++ t.node._2.data.name
 
     override def unary_- = - convertToRepType
 
@@ -405,20 +406,20 @@ object Value {
         yield Struct(anonStruct, structType)
     }
 
-    override def convertToDistinctType(t: Type) =
+    override def convertToDistinctType(t: Type): Option[Value] =
       t match {
         case anonStructType : Type.AnonStruct => convertToAnonStruct(anonStructType)
         case structType : Type.Struct => convertToStruct(structType)
         case _ => None
       }
 
-    override def getType = {
+    override def getType: Type.AnonStruct = {
       def f(member: Struct.Member): Type.Struct.Member = (member._1, member._2.getType)
       val typeMembers = members.map(f)
       Type.AnonStruct(typeMembers)
     }
 
-    override def toString = {
+    override def toString: lang.String = {
       def memberToString(member: Struct.Member) = member._1 ++ " = " ++ member._2.toString
       members.size match {
         case 0 => "{ }"
@@ -443,7 +444,7 @@ object Value {
       anonStruct.convertToAnonStruct(anonStructType)
     def convertToStruct(structType: Type.Struct): Option[Value.Struct] =
       anonStruct.convertToStruct(structType)
-    override def convertToDistinctType(t: Type) =
+    override def convertToDistinctType(t: Type): Option[Value] =
       t match {
         case anonStructType : Type.AnonStruct => convertToAnonStruct(anonStructType)
         case structType : Type.Struct => convertToStruct(structType)
@@ -452,7 +453,7 @@ object Value {
 
     override def getType = t
 
-    override def toString = anonStruct.toString ++ ": " ++ t.node._2.data.name
+    override def toString: lang.String = anonStruct.toString ++ ": " ++ t.node._2.data.name
 
     override def truncate: Struct = Struct(anonStruct.truncate, t)
 

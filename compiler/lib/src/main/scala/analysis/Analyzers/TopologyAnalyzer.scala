@@ -9,7 +9,7 @@ trait TopologyAnalyzer extends Analyzer {
   override def defTopologyAnnotatedNode(
     a: Analysis,
     node: Ast.Annotated[AstNode[Ast.DefTopology]]
-  ) = {
+  ): Either[Error,Analysis] = {
     val (_, node1, _) = node
     val Ast.DefTopology(name, members) = node1.data
     val a1 = a.copy(scopeNameList = name :: a.scopeNameList)

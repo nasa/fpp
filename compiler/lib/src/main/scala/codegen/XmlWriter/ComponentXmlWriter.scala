@@ -10,7 +10,7 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
   override def defComponentAnnotatedNode(
     s: XmlWriterState,
     aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
-  ) = {
+  ): List[Line] = {
     val symbol = Symbol.Component(aNode)
     val c = s.a.componentMap(symbol)
     val pairs = {

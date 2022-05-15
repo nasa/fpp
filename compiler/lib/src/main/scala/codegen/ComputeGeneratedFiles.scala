@@ -15,13 +15,13 @@ object ComputeGeneratedFiles {
     } 
     yield xmlFiles ++ cppFiles
 
-  def getCppFiles(tul: List[Ast.TransUnit]) =
+  def getCppFiles(tul: List[Ast.TransUnit]): Either[Error,List[String]] =
     for {
       s <- ComputeCppFiles.visitList(Map(), tul, ComputeCppFiles.transUnit)
     }
     yield s.toList.map(_._1)
 
-  def getXmlFiles(a: Analysis, tul: List[Ast.TransUnit]) =
+  def getXmlFiles(a: Analysis, tul: List[Ast.TransUnit]): Either[Error,List[String]] =
     for {
       s <- ComputeXmlFiles.visitList(
         XmlWriterState(a),

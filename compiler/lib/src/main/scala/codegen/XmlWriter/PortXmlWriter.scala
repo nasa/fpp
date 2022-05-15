@@ -12,7 +12,7 @@ object PortXmlWriter extends AstVisitor with LineUtils {
   override def defPortAnnotatedNode(
     s: XmlWriterState,
     aNode: Ast.Annotated[AstNode[Ast.DefPort]]
-  ) = {
+  ): List[Line] = {
     val node = aNode._2
     val data = node.data
     val tags = {

@@ -11,13 +11,13 @@ object FinalizeTypeDefs
 
   override def exprNode(a: Analysis, node: AstNode[Ast.Expr]): Result = default(a)
 
-  override def typeNameNode(a: Analysis, node: AstNode[Ast.TypeName]) = {
+  override def typeNameNode(a: Analysis, node: AstNode[Ast.TypeName]): Either[Error,State] = {
     val t1 = a.typeMap(node.id)
     for (t2 <- TypeVisitor.ty(a, t1))
       yield if (t1 != t2) a.assignType(node -> t2) else a
   }
 
-  override def defArrayAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
+  override def defArrayAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]): Result = {
     val symbol = Symbol.Array(aNode)
     def visitor(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
       val node = aNode._2
@@ -66,7 +66,7 @@ object FinalizeTypeDefs
     visitIfNeeded(symbol, visitor)(a, aNode)
   }
 
-  override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
+  override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]): Result = {
     val symbol = Symbol.Enum(aNode)
     def visitor(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
       val (_, node, _) = aNode
@@ -83,7 +83,7 @@ object FinalizeTypeDefs
     visitIfNeeded(symbol, visitor)(a, aNode)
   }
 
-  override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
+  override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]): Result = {
     val symbol = Symbol.Struct(aNode)
     def visitor(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
       val (_, node, _) = aNode
@@ -156,7 +156,7 @@ object FinalizeTypeDefs
     visitIfNeeded(symbol, visitor)(a, aNode)
   }
 
-  override def transUnit(a: Analysis, tu: Ast.TransUnit) =
+  override def transUnit(a: Analysis, tu: Ast.TransUnit): Result =
     super.transUnit(a.copy(visitedSymbolSet = Set()), tu)
 
   private def visitIfNeeded[T]
@@ -175,21 +175,21 @@ object FinalizeTypeDefs
 
     type Out = Result.Result[Type]
 
-    override def default(a: Analysis, t: Type) = Right(t)
+    override def default(a: Analysis, t: Type): Out = Right(t)
 
-    override def array(a: Analysis, t: Type.Array) =
+    override def array(a: Analysis, t: Type.Array): Either[Error,Type] =
       for (a <- defArrayAnnotatedNode(a, t.node))
         yield a.typeMap(t.node._2.id)
 
-    override def anonArray(a: Analysis, t: Type.AnonArray) =
+    override def anonArray(a: Analysis, t: Type.AnonArray): Either[Error,Type.AnonArray] =
       for (eltType <- ty(a, t.eltType))
         yield Type.AnonArray(t.size, eltType)
 
-    override def enumeration(a: Analysis, t: Type.Enum) =
+    override def enumeration(a: Analysis, t: Type.Enum): Either[Error,Type] =
       for (a <- defEnumAnnotatedNode(a, t.node))
         yield a.typeMap(t.node._2.id)
 
-    override def string(a: Analysis, t: Type.String) =
+    override def string(a: Analysis, t: Type.String): Out =
       t.size match {
         case Some(e) => {
           val id = e.id
@@ -206,11 +206,11 @@ object FinalizeTypeDefs
         case None => Right(t)
       }
 
-    override def struct(a: Analysis, t: Type.Struct) =
+    override def struct(a: Analysis, t: Type.Struct): Either[Error,Type] =
       for (a <- defStructAnnotatedNode(a, t.node))
         yield a.typeMap(t.node._2.id)
 
-    override def anonStruct(a: Analysis, t: Type.AnonStruct) = {
+    override def anonStruct(a: Analysis, t: Type.AnonStruct): Either[Error,Type.AnonStruct] = {
       def visitor(member: Type.Struct.Member): Result.Result[Type.Struct.Member] = 
         for (memberType <- ty(a, member._2)) yield member._1 -> memberType
       for (members <- Result.map(t.members.toList, visitor))

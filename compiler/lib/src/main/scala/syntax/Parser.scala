@@ -293,7 +293,7 @@ object Parser extends Parsers {
     }
   }
 
-  def parseAllInput[T](p: Parser[T]) = new Parser[T] {
+  def parseAllInput[T](p: Parser[T]): Parser[T] = new Parser[T] {
     def apply(in: Input) = {
       val r = p(in) 
       r match {
@@ -605,7 +605,7 @@ object Parser extends Parsers {
     }
   }
 
-  override def commit[T](p: => Parser[T]) = Parser{ in =>
+  override def commit[T](p: => Parser[T]): Parser[T] = Parser{ in =>
     def setError(e: Error) = {
       error match {
         case None => { error = Some(e) }

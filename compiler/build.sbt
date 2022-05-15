@@ -15,9 +15,9 @@ lazy val settings = Seq(
 
 lazy val dependencies = Seq(
   "com.github.scopt" %% "scopt" % "4.0.1",
-  "org.scala-lang.modules" %% "scala-parser-combinators" % "2.0.0",
-  "org.scala-lang.modules" %% "scala-xml" % "2.0.1",
-  "org.scalatest" % "scalatest_2.13" % "3.1.0" % "test",
+  "org.scala-lang.modules" %% "scala-parser-combinators" % "2.1.1",
+  "org.scala-lang.modules" %% "scala-xml" % "2.1.0",
+  "org.scalatest" %% "scalatest" % "3.2.12" % "test",
 )
 
 lazy val root = (project in file("."))

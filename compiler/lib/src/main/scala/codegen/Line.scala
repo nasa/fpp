@@ -9,21 +9,21 @@ object Line {
 
   val stdout = new java.io.PrintWriter(System.out, true)
 
-  def addPrefix(prefix: String, ls: List[Line]) =
+  def addPrefix(prefix: String, ls: List[Line]): List[Line] =
     joinLists(Line.NoIndent)(List(Line(prefix)))("")(ls)
 
-  def addPrefixAndSuffix(prefix: String, ls: List[Line], suffix: String) =
+  def addPrefixAndSuffix(prefix: String, ls: List[Line], suffix: String): List[Line] =
     addPrefix(prefix, addSuffix(ls, suffix))
 
-  def addPrefixIndent(prefix: String, ls: List[Line]) =
+  def addPrefixIndent(prefix: String, ls: List[Line]): List[Line] =
     joinLists(Line.Indent)(List(Line(prefix)))("")(ls)
 
-  def addSuffix(ls: List[Line], suffix: String) =
+  def addSuffix(ls: List[Line], suffix: String): List[Line] =
     joinLists(Line.NoIndent)(ls)("")(List(Line(suffix)))
 
   def blank: Line = Line()
 
-  def write (writer: java.io.PrintWriter) (line: Line) = {
+  def write (writer: java.io.PrintWriter) (line: Line): Unit = {
     writer.println(line.toString)
   }
 
@@ -99,19 +99,19 @@ object Line {
 case class Line(string: String = "", indent: Indentation = Indentation(0)) {
 
   /** Convert the line to a formatted string */
-  override def toString = string match {
+  override def toString: String = string match {
     case "" => ""
     case _ => indent.toString ++ string
   }
 
   /** Indent in */
-  def indentIn(n: Int) = this.copy(indent = indent.indentIn(n))
+  def indentIn(n: Int): Line = this.copy(indent = indent.indentIn(n))
 
   /** Indent out */
-  def indentOut(n: Int) = this.copy(indent = indent.indentOut(n))
+  def indentOut(n: Int): Line = this.copy(indent = indent.indentOut(n))
 
   /** Absolute indent */
-  def indent(n: Int) = this.copy(indent = Indentation(n))
+  def indent(n: Int): Line = this.copy(indent = Indentation(n))
 
   /** Get the size of a line.
    *  Includes the indentation, but not the newline */

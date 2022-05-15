@@ -10,7 +10,7 @@ object ComputeFrameworkDependencies extends AstStateVisitor {
   override def defComponentAnnotatedNode(
     s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
-  ) = {
+  ): Result = {
     val (_, node, _) = aNode
     val data = node.data
     val d = data.kind match {
@@ -27,7 +27,7 @@ object ComputeFrameworkDependencies extends AstStateVisitor {
   override def defModuleAnnotatedNode(
     s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefModule]]
-  ) = {
+  ): Result = {
     val (_, node, _) = aNode
     val data = node.data
     visitList(s, data.members, matchModuleMember)
@@ -36,7 +36,7 @@ object ComputeFrameworkDependencies extends AstStateVisitor {
   override def specPortInstanceAnnotatedNode(
     s: State,
     aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]]
-  ) = {
+  ): Out = {
     val (_, node, _) = aNode
     node.data match {
       case general: Ast.SpecPortInstance.General =>
@@ -49,7 +49,7 @@ object ComputeFrameworkDependencies extends AstStateVisitor {
     }
   }
 
-  override def transUnit(s: State, tu: Ast.TransUnit) = 
+  override def transUnit(s: State, tu: Ast.TransUnit): Result = 
     visitList(s, tu.members, matchTuMember)
 
 }

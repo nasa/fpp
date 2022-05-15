@@ -12,7 +12,7 @@ object CppWriter extends AstStateVisitor with LineUtils {
   override def defModuleAnnotatedNode(
     s: CppWriterState,
     aNode: Ast.Annotated[AstNode[Ast.DefModule]]
-  ) = {
+  ): Result = {
     val node = aNode._2
     val data = node.data
     visitList(s, data.members, matchModuleMember)
@@ -21,17 +21,17 @@ object CppWriter extends AstStateVisitor with LineUtils {
   override def defTopologyAnnotatedNode(
     s: CppWriterState,
     aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
-  ) = {
+  ): Either[Error,CppWriterState] = {
     val node = aNode._2
     val data = node.data
     val cppDoc = TopologyCppWriter(s, aNode).write
     writeCppDoc(s, cppDoc)
   }
 
-  override def transUnit(s: CppWriterState, tu: Ast.TransUnit) = 
+  override def transUnit(s: CppWriterState, tu: Ast.TransUnit): Result = 
     visitList(s, tu.members, matchTuMember)
 
-  def tuList(s: CppWriterState, tul: List[Ast.TransUnit]) =
+  def tuList(s: CppWriterState, tul: List[Ast.TransUnit]): Either[Error,Unit] =
     for {
       _ <- ConstantCppWriter.write(s, tul)
       _ <- visitList(s, tul, transUnit)
@@ -43,27 +43,27 @@ object CppWriter extends AstStateVisitor with LineUtils {
     fileName: String,
     includeGuard: String,
     members: List[CppDoc.Member]
-  ) = {
+  ): CppDoc = {
     val hppFile = CppDoc.HppFile(s"$fileName.hpp", includeGuard)
     CppDoc(description, hppFile, s"$fileName.cpp", members)
   }
 
-  def headerString(s: String) = {
+  def headerString(s: String): String = {
     val q = "\""
     s"#include $q$s$q"
   }
 
-  def headerLine(s: String) = line(headerString(s))
+  def headerLine(s: String): Line = line(headerString(s))
 
   def linesMember(
     content: List[Line],
     output: CppDoc.Lines.Output = CppDoc.Lines.Hpp
-  ) = CppDoc.Member.Lines(CppDoc.Lines(content, output))
+  ): CppDoc.Member.Lines = CppDoc.Member.Lines(CppDoc.Lines(content, output))
 
   def namespaceMember(
     name: String,
     members: List[CppDoc.Member]
-  ) = CppDoc.Member.Namespace(CppDoc.Namespace(name, members))
+  ): CppDoc.Member.Namespace = CppDoc.Member.Namespace(CppDoc.Namespace(name, members))
 
   def wrapInNamespaces(
     namespaceNames: List[String],
@@ -74,7 +74,7 @@ object CppWriter extends AstStateVisitor with LineUtils {
       List(namespaceMember(head, wrapInNamespaces(tail, members)))
   }
 
-  def writeCppDoc(s: CppWriterState, cppDoc: CppDoc) =
+  def writeCppDoc(s: CppWriterState, cppDoc: CppDoc): Either[Error,CppWriterState] =
     for {
       _ <- writeHppFile(s, cppDoc)
       _ <- writeCppFile(s, cppDoc)
@@ -105,11 +105,11 @@ object CppWriter extends AstStateVisitor with LineUtils {
   }
 
   /** Constructs a C++ identifier from a qualified name */
-  def identFromQualifiedName(name: Name.Qualified) =
+  def identFromQualifiedName(name: Name.Qualified): String =
     name.toString.replaceAll("\\.", "_")
 
   /** Translates a qualified name to C++ */
-  def translateQualifiedName(name: Name.Qualified) =
+  def translateQualifiedName(name: Name.Qualified): String =
     name.toString.replaceAll("\\.", "::")
 
   /** Writes an identifier */

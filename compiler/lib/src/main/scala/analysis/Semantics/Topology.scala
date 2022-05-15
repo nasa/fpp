@@ -182,7 +182,7 @@ case class Topology(
   def connectionExistsBetween(
     from: PortInstanceIdentifier,
     to: PortInstanceIdentifier
-  ) = getConnectionsBetween(from, to).size > 0
+  ): Boolean = getConnectionsBetween(from, to).size > 0
 
   /** Get the connections between two ports */
   def getConnectionsBetween(
@@ -199,7 +199,7 @@ case class Topology(
     inputConnectionMap.getOrElse(to, Set())
 
   /** Get the connections at a port instance */
-  def getConnectionsAt(pii: PortInstanceIdentifier) = {
+  def getConnectionsAt(pii: PortInstanceIdentifier): Set[_ <: Connection] = {
     import PortInstance.Direction._
     val pi = pii.portInstance
     pi.getDirection match {
@@ -213,7 +213,7 @@ case class Topology(
   def getUnqualifiedName = aNode._2.data.name
 
   /** Gets the set of used port numbers */
-  def getUsedPortNumbers(pi: PortInstance, cs: Iterable[Connection]) = 
+  def getUsedPortNumbers(pi: PortInstance, cs: Iterable[Connection]): Set[Int] = 
     cs.foldLeft (Set[Int]()) ((s, c) =>
       getPortNumber(pi, c) match {
         case Some(n) => s + n
@@ -238,7 +238,7 @@ case class Topology(
     }
 
   /** Resolve the numbers in a connection */
-  def resolveNumbers(c: Connection) = {
+  def resolveNumbers(c: Connection): Connection = {
     val fromNumber = getPortNumber(c.from.port.portInstance, c)
     val toNumber = getPortNumber(c.to.port.portInstance, c)
     val from = c.from.copy(portNumber = fromNumber)

@@ -10,7 +10,7 @@ object TopologyXmlWriter extends AstVisitor with LineUtils {
   override def defTopologyAnnotatedNode(
     s: XmlWriterState,
     aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
-  ) = {
+  ): List[Line] = {
     val symbol = Symbol.Topology(aNode)
     val t = s.a.topologyMap(symbol)
     val data = aNode._2.data

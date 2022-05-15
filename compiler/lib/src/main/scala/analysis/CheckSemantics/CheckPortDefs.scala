@@ -9,7 +9,7 @@ object CheckPortDefs
   with ModuleAnalyzer
 {
 
-  override def defPortAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefPort]]) = {
+  override def defPortAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefPort]]): Either[Error,State] = {
     val (_, node, _) = aNode
     val data = node.data
     for (_ <- Analysis.checkForDuplicateParameter(data.params))

@@ -8,13 +8,13 @@ import fpp.compiler.util._
 /** Map uses to locations */
 object MapUsesToLocs extends UseAnalyzer {
 
-  override def componentInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
+  override def componentInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result =
     analyzeUse(a, Ast.SpecLoc.ComponentInstance, use)
 
-  override def componentUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
+  override def componentUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result =
     analyzeUse(a, Ast.SpecLoc.Component, use)
 
-  override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) =
+  override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified): Either[Error,State] =
     for {
       // Analyze as a constant
       a <- analyzeUse(a, Ast.SpecLoc.Constant, use)
@@ -28,13 +28,13 @@ object MapUsesToLocs extends UseAnalyzer {
       }
     } yield a
 
-  override def portUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
+  override def portUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result =
     analyzeUse(a, Ast.SpecLoc.Port, use)
 
-  override def topologyUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
+  override def topologyUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result =
     analyzeUse(a, Ast.SpecLoc.Topology, use)
 
-  override def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified) =
+  override def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified): Result =
     analyzeUse(a, Ast.SpecLoc.Type, use)
 
   private def analyzeUse(a: Analysis, kind: Ast.SpecLoc.Kind, use: Name.Qualified): Result = {

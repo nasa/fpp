@@ -5,11 +5,11 @@ import java.time.Year
 /** Write a CppDoc to a cpp file */
 object CppDocCppWriter extends CppDocWriter {
 
-  def paramString(p: CppDoc.Function.Param) = s"${p.t.hppType} ${p.name}"
+  def paramString(p: CppDoc.Function.Param): String = s"${p.t.hppType} ${p.name}"
 
-  def paramStringComma(p: CppDoc.Function.Param) = s"${paramString(p)},"
+  def paramStringComma(p: CppDoc.Function.Param): String = s"${paramString(p)},"
 
-  def writeParams(prefix: String, params: List[CppDoc.Function.Param]) = {
+  def writeParams(prefix: String, params: List[CppDoc.Function.Param]): List[Line] = {
     if (params.length == 0) lines(s"$prefix()")
     else if (params.length == 1)
       lines(s"$prefix(" ++ paramString(params.head) ++ ")")
@@ -27,7 +27,7 @@ object CppDocCppWriter extends CppDocWriter {
     c.members.map(visitClassMember(in1, _)).flatten
   }
 
-  override def visitConstructor(in: Input, constructor: CppDoc.Class.Constructor) = {
+  override def visitConstructor(in: Input, constructor: CppDoc.Class.Constructor): List[Line] = {
     val unqualifiedClassName = in.getEnclosingClassUnqualified
     val qualifiedClassName = in.getEnclosingClassQualified
     val outputLines = {
@@ -69,7 +69,7 @@ object CppDocCppWriter extends CppDocWriter {
     ).flatten
   }
 
-  override def visitDestructor(in: Input, destructor: CppDoc.Class.Destructor) = {
+  override def visitDestructor(in: Input, destructor: CppDoc.Class.Destructor): List[Line] = {
     val unqualifiedClassName = in.getEnclosingClassUnqualified
     val qualifiedClassName = in.getEnclosingClassQualified
     val outputLines = {
@@ -81,7 +81,7 @@ object CppDocCppWriter extends CppDocWriter {
     outputLines
   }
 
-  override def visitFunction(in: Input, function: CppDoc.Function) = {
+  override def visitFunction(in: Input, function: CppDoc.Function): List[Line] = {
     val contentLines = {
       val startLines = {
         val prototypeLines = {
@@ -111,7 +111,7 @@ object CppDocCppWriter extends CppDocWriter {
     Line.blank :: contentLines
   }
 
-  override def visitLines(in: Input, lines: CppDoc.Lines) = {
+  override def visitLines(in: Input, lines: CppDoc.Lines): Output = {
     val content = lines.content
     lines.output match {
       case CppDoc.Lines.Hpp => Nil

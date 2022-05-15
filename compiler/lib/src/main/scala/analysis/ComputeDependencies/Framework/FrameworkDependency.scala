@@ -23,7 +23,7 @@ object FrameworkDependency {
     FwComp
   ).zipWithIndex.toMap
 
-  def sort(s: Seq[FrameworkDependency]) =
+  def sort(s: Seq[FrameworkDependency]): Seq[FrameworkDependency] =
     s.sortWith((a, b) => orderMap(a) < orderMap(b))
 
 }

@@ -100,7 +100,7 @@ object MatchedPortNumbering {
       map1: ConnectionMap,
       pi2: PortInstance,
       map2: ConnectionMap
-    ) = {
+    ): State = {
       // Compute the used port numbers
       val usedPortNumbers = t.getUsedPortNumbers(pi1, map1.values) ++
         t.getUsedPortNumbers(pi2, map2.values)

@@ -16,7 +16,7 @@ object ComputeXmlFiles extends AstStateVisitor {
 
   type State = XmlWriterState
 
-  override def defArrayAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefArray]]) = {
+  override def defArrayAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefArray]]): Either[CodeGenError.DuplicateXmlFile,XmlWriterState] = {
     val (_, node1, _) = node
     val data = node1.data
     val loc = Locations.get(node1.id)
@@ -25,7 +25,7 @@ object ComputeXmlFiles extends AstStateVisitor {
     addMapping(s, fileName, loc)
   }
 
-  override def defComponentAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefComponent]]) = {
+  override def defComponentAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefComponent]]): Either[Error,XmlWriterState] = {
     val (_, node1, _) = node
     val data = node1.data
     val loc = Locations.get(node1.id)
@@ -38,7 +38,7 @@ object ComputeXmlFiles extends AstStateVisitor {
     yield s
   }
 
-  override def defEnumAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
+  override def defEnumAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefEnum]]): Either[CodeGenError.DuplicateXmlFile,XmlWriterState] = {
     val (_, node1, _) = node
     val data = node1.data
     val loc = Locations.get(node1.id)
@@ -50,13 +50,13 @@ object ComputeXmlFiles extends AstStateVisitor {
   override def defModuleAnnotatedNode(
     s: State,
     node: Ast.Annotated[AstNode[Ast.DefModule]]
-  ) = {
+  ): Result = {
     val (_, node1, _) = node
     val data = node1.data
     visitList(s, data.members, matchModuleMember)
   }
 
-  override def defPortAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefPort]]) = {
+  override def defPortAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefPort]]): Either[CodeGenError.DuplicateXmlFile,XmlWriterState] = {
     val (_, node1, _) = node
     val data = node1.data
     val loc = Locations.get(node1.id)
@@ -65,7 +65,7 @@ object ComputeXmlFiles extends AstStateVisitor {
     addMapping(s, fileName, loc)
   }
 
-  override def defStructAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
+  override def defStructAnnotatedNode(s: State, node: Ast.Annotated[AstNode[Ast.DefStruct]]): Either[CodeGenError.DuplicateXmlFile,XmlWriterState] = {
     val (_, node1, _) = node
     val data = node1.data
     val loc = Locations.get(node1.id)
@@ -74,7 +74,7 @@ object ComputeXmlFiles extends AstStateVisitor {
     addMapping(s, fileName, loc)
   }
 
-  override def defTopologyAnnotatedNode(s: State, aNode: Ast.Annotated[AstNode[Ast.DefTopology]]) = {
+  override def defTopologyAnnotatedNode(s: State, aNode: Ast.Annotated[AstNode[Ast.DefTopology]]): Either[CodeGenError.DuplicateXmlFile,XmlWriterState] = {
     val (_, node, _) = aNode
     val data = node.data
     val loc = Locations.get(node.id)
@@ -83,7 +83,7 @@ object ComputeXmlFiles extends AstStateVisitor {
     addMapping(s, fileName, loc)
   }
 
-  override def transUnit(s: State, tu: Ast.TransUnit) =
+  override def transUnit(s: State, tu: Ast.TransUnit): Result =
     visitList(s, tu.members, matchTuMember)
 
   private def addMapping(s: State, fileName: String, loc: Location) =

@@ -30,7 +30,7 @@ object ValueXmlWriter {
 
     override def boolean(s: XmlWriterState, v: Value.Boolean) = v.value.toString
 
-    override def default(s: XmlWriterState, v: Value) =
+    override def default(s: XmlWriterState, v: Value): Out =
       throw new InternalError("visitor not defined")
 
     override def enumConstant(s: XmlWriterState, v: Value.EnumConstant): String =
@@ -48,7 +48,7 @@ object ValueXmlWriter {
 
     override def primitiveInt(s: XmlWriterState, v: Value.PrimitiveInt) = v.value.toString
 
-    override def string(s: XmlWriterState, v: Value.String) =
+    override def string(s: XmlWriterState, v: Value.String): String =
       "\"" ++ 
       v.value.toString.replaceAll("\\\\", "\\\\\\\\").
         replaceAll("\"", "\\\\\"").replaceAll("\n", "\\\\n") ++ 

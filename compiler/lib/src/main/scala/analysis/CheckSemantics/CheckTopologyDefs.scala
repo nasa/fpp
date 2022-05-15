@@ -13,7 +13,7 @@ object CheckTopologyDefs
   override def defTopologyAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
-  ) = {
+  ): Either[Error,Analysis] = {
     val symbol = Symbol.Topology(aNode)
     a.topologyMap.get(symbol) match {
       case None =>
@@ -44,7 +44,7 @@ object CheckTopologyDefs
   override def specCompInstanceAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecCompInstance]]
-  ) = {
+  ): Either[Error,Analysis] = {
     val node = aNode._2
     val visibility = node.data.visibility
     val instanceNode = node.data.instance
@@ -62,7 +62,7 @@ object CheckTopologyDefs
   override def specConnectionGraphAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecConnectionGraph]]
-  ) = {
+  ): Either[Error,Analysis] = {
     for {
       topology <- aNode._2.data match {
         case direct: Ast.SpecConnectionGraph.Direct =>
@@ -82,7 +82,7 @@ object CheckTopologyDefs
   override def specTopImportAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecTopImport]]
-  ) = {
+  ): Either[Error,Analysis] = {
     val node = aNode._2
     val topNode = node.data.top
     for {

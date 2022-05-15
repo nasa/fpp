@@ -9,7 +9,7 @@ object ArrayXmlWriter extends AstVisitor with LineUtils {
 
   override def default(s: XmlWriterState) = Nil
 
-  override def defArrayAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
+  override def defArrayAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefArray]]): List[Line] = {
     val node = aNode._2
     val data = node.data
     val tags = {

@@ -9,37 +9,37 @@ object CheckSpecLocs
   with ModuleAnalyzer 
 {
 
-  override def defAbsTypeAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAbsType]]) = {
+  override def defAbsTypeAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAbsType]]): Result = {
     val (_, node, _) = aNode
     val name = node.data.name
     checkSpecLoc(a, Ast.SpecLoc.Type, name, node)
   }
 
-  override def defArrayAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
+  override def defArrayAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]): Result = {
     val (_, node, _) = aNode
     val name = node.data.name
     checkSpecLoc(a, Ast.SpecLoc.Type, name, node)
   }
 
-  override def defConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
+  override def defConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]): Result = {
     val (_, node, _) = aNode
     val name = node.data.name
     checkSpecLoc(a, Ast.SpecLoc.Constant, name, node)
   }
 
-  override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
+  override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]): Result = {
     val (_, node, _) = aNode
     val name = node.data.name
     checkSpecLoc(a, Ast.SpecLoc.Type, name, node)
   }
 
-  override def defPortAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefPort]]) = {
+  override def defPortAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefPort]]): Result = {
     val (_, node, _) = aNode
     val name = node.data.name
     checkSpecLoc(a, Ast.SpecLoc.Port, name, node)
   }
 
-  override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
+  override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]): Result = {
     val (_, node, _) = aNode
     val name = node.data.name
     checkSpecLoc(a, Ast.SpecLoc.Type, name, node)

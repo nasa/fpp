@@ -413,7 +413,7 @@ object Analysis {
     }
 
   /** Gets the number of ref params in a formal param list */
-  def getNumRefParams(params: Ast.FormalParamList) =
+  def getNumRefParams(params: Ast.FormalParamList): Int =
     params.filter(aNode => {
       val param = aNode._2.data
       param.kind == Ast.FormalParam.Ref
@@ -424,7 +424,7 @@ object Analysis {
     queueFullOpt.getOrElse(Ast.QueueFull.Assert)
 
   /** Displays an ID value */
-  def displayIdValue(value: Int) = {
+  def displayIdValue(value: Int): String = {
     val dec = value.toString
     val hex = Integer.toString(value, 16).toUpperCase
     s"($dec dec, $hex hex)"

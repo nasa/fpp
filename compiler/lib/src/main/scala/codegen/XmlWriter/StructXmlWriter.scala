@@ -9,7 +9,7 @@ object StructXmlWriter extends AstVisitor with LineUtils {
 
   override def default(s: XmlWriterState) = Nil
 
-  override def defStructAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
+  override def defStructAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]): List[Line] = {
     val node = aNode._2
     val data = node.data
     val tags = {
@@ -35,7 +35,7 @@ object StructXmlWriter extends AstVisitor with LineUtils {
     s: XmlWriterState,
     structType: Type.Struct,
     aNode: Ast.Annotated[AstNode[Ast.StructTypeMember]]
-  ) = {
+  ): List[Line] = {
     val node = aNode._2
     val data = node.data
     val t = s.a.typeMap(data.typeName.id)

@@ -37,30 +37,30 @@ private case class NestedScopeImpl(scopes: List[Scope] = List(Scope.empty))
   extends NestedScope
 {
 
-  def apply (nameGroup: NameGroup) (name: Name.Unqualified) = get(nameGroup)(name) match {
+  def apply (nameGroup: NameGroup) (name: Name.Unqualified): Symbol = get(nameGroup)(name) match {
     case Some(symbol) => symbol
     case _ => throw new InternalError(s"could not find symbol for name ${name}")
   }
 
-  def splitScopes = scopes match {
+  def splitScopes: (Scope, List[Scope]) = scopes match {
     case head :: tail => (head, tail)
     case _ => throw new InternalError("empty scope stack")
   }
 
-  def push(scope: Scope) = NestedScopeImpl(scope :: this.scopes)
+  def push(scope: Scope): NestedScopeImpl = NestedScopeImpl(scope :: this.scopes)
 
-  def pop = {
+  def pop: NestedScopeImpl = {
     val (_, tail) = splitScopes
     NestedScopeImpl(tail)
   }
 
-  def put (nameGroup: NameGroup) (name: Name.Unqualified, symbol: Symbol) = {
+  def put (nameGroup: NameGroup) (name: Name.Unqualified, symbol: Symbol): Either[Error,NestedScopeImpl] = {
     val (head, tail) = splitScopes
     for (scope <- head.put(nameGroup)(name, symbol)) 
       yield NestedScopeImpl(scope :: tail)
   }
 
-  def get (nameGroup: NameGroup) (name: Name.Unqualified) = {
+  def get (nameGroup: NameGroup) (name: Name.Unqualified): Option[Symbol] = {
     def helper(scopes: List[Scope]): Option[Symbol] =
       scopes match {
         case Nil => None

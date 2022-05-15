@@ -9,7 +9,7 @@ trait ModuleAnalyzer extends Analyzer {
   override def defModuleAnnotatedNode(
     a: Analysis,
     node: Ast.Annotated[AstNode[Ast.DefModule]]
-  ) = {
+  ): Either[Error,Analysis] = {
     val (_, node1, _) = node
     val Ast.DefModule(name, members) = node1.data
     val a1 = a.copy(scopeNameList = name :: a.scopeNameList)
