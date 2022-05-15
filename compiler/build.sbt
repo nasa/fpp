@@ -2,7 +2,7 @@
 
 name := "fpp-compiler"
 ThisBuild / organization := "gov.nasa.jpl"
-ThisBuild / scalaVersion := "2.13.6"
+ThisBuild / scalaVersion := "3.1.2"
 
 lazy val settings = Seq(
   scalacOptions ++= Seq(
