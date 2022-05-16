@@ -7,12 +7,16 @@ import fpp.compiler.util._
 /** Write out F Prime XML for port definitions */
 object PortXmlWriter extends AstVisitor with LineUtils {
 
-  override def default(s: XmlWriterState) = Nil
+  type In = XmlWriterState
+
+  type Out = List[Line]
+
+  override def default(s: In) = Nil
 
   override def defPortAnnotatedNode(
-    s: XmlWriterState,
+    s: In,
     aNode: Ast.Annotated[AstNode[Ast.DefPort]]
-  ): List[Line] = {
+  ) = {
     val node = aNode._2
     val data = node.data
     val tags = {
@@ -37,9 +41,5 @@ object PortXmlWriter extends AstVisitor with LineUtils {
     }
     XmlTags.taggedLines(tags)(body.map(indentIn))
   }
-
-  type In = XmlWriterState
-
-  type Out = List[Line]
 
 }

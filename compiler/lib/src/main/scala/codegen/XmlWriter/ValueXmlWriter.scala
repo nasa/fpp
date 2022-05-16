@@ -13,7 +13,7 @@ object ValueXmlWriter {
 
     type Out = String
 
-    override def absType(s: XmlWriterState, v: Value.AbsType) = {
+    override def absType(s: In, v: Value.AbsType) = {
       val aNode = v.t.node
       val cppName = s.writeSymbol(Symbol.AbsType(aNode))
       s.builtInTypes.get(cppName) match {
@@ -22,21 +22,21 @@ object ValueXmlWriter {
       }
     }
 
-    override def array(s: XmlWriterState, v: Value.Array) = {
+    override def array(s: In, v: Value.Array) = {
       val elements = v.anonArray.elements.map(getValue(s, _))
       val stringify = elements.mkString(", ")
       TypeXmlWriter.getName(s, v.getType) ++ "(" ++ stringify ++ ")"
     }
 
-    override def boolean(s: XmlWriterState, v: Value.Boolean) = v.value.toString
+    override def boolean(s: In, v: Value.Boolean) = v.value.toString
 
-    override def default(s: XmlWriterState, v: Value) =
+    override def default(s: In, v: Value) =
       throw new InternalError("visitor not defined")
 
-    override def enumConstant(s: XmlWriterState, v: Value.EnumConstant) =
+    override def enumConstant(s: In, v: Value.EnumConstant) =
       TypeXmlWriter.getName(s, v.getType) ++ "::" ++ v.value._1.toString
 
-    override def float(s: XmlWriterState, v: Value.Float) = {
+    override def float(s: In, v: Value.Float) = {
       val s = v.value.toString
       v.kind match {
         case Type.Float.F32 => s"${s}f"
@@ -44,17 +44,17 @@ object ValueXmlWriter {
       }
     }
 
-    override def integer(s: XmlWriterState, v: Value.Integer) = v.value.toString
+    override def integer(s: In, v: Value.Integer) = v.value.toString
 
-    override def primitiveInt(s: XmlWriterState, v: Value.PrimitiveInt) = v.value.toString
+    override def primitiveInt(s: In, v: Value.PrimitiveInt) = v.value.toString
 
-    override def string(s: XmlWriterState, v: Value.String) =
+    override def string(s: In, v: Value.String) =
       "\"" ++ 
       v.value.toString.replaceAll("\\\\", "\\\\\\\\").
         replaceAll("\"", "\\\\\"").replaceAll("\n", "\\\\n") ++ 
       "\""
 
-    override def struct(s: XmlWriterState, v: Value.Struct) = {
+    override def struct(s: In, v: Value.Struct) = {
       val structType = v.getType
       val data = structType.node._2.data
       val namesList = data.members

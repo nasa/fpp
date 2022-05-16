@@ -12,7 +12,7 @@ object CppWriter extends AstStateVisitor with LineUtils {
   override def defModuleAnnotatedNode(
     s: CppWriterState,
     aNode: Ast.Annotated[AstNode[Ast.DefModule]]
-  ): Result = {
+  ) = {
     val node = aNode._2
     val data = node.data
     visitList(s, data.members, matchModuleMember)
@@ -21,7 +21,7 @@ object CppWriter extends AstStateVisitor with LineUtils {
   override def defTopologyAnnotatedNode(
     s: CppWriterState,
     aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
-  ): Either[Error,CppWriterState] = {
+  ) = {
     val node = aNode._2
     val data = node.data
     val cppDoc = TopologyCppWriter(s, aNode).write

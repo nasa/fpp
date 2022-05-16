@@ -8,12 +8,14 @@ import fpp.compiler.util._
 /** Resolve include specifiers */
 object ResolveSpecInclude extends AstStateTransformer {
 
-  def default(a: Analysis) = a
+  type State = Analysis
+
+  def default(a: In) = a
 
   override def defComponentAnnotatedNode(
-    a: Analysis,
+    a: In,
     node: Ast.Annotated[AstNode[Ast.DefComponent]]
-  ): Either[Error,(Out, (List[String], AstNode[Ast.DefComponent], List[String]))] = {
+  ) = {
     val (pre, node1, post) = node
     val Ast.DefComponent(kind, name, members) = node1.data
     for { result <- transformList(a, members, componentMember) }
@@ -26,9 +28,9 @@ object ResolveSpecInclude extends AstStateTransformer {
   }
 
   override def defModuleAnnotatedNode(
-    a: Analysis,
+    a: In,
     node: Ast.Annotated[AstNode[Ast.DefModule]]
-  ): Either[Error,(Out, (List[String], AstNode[Ast.DefModule], List[String]))] = {
+  ) = {
     val (pre, node1, post) = node
     val Ast.DefModule(name, members) = node1.data
     for { result <- transformList(a, members, moduleMember) }
@@ -40,7 +42,7 @@ object ResolveSpecInclude extends AstStateTransformer {
     }
   }
 
-  override def transUnit(a: Analysis, tu: Ast.TransUnit): Either[Error,(Out, Ast.TransUnit)] = {
+  override def transUnit(a: In, tu: Ast.TransUnit) = {
     for { result <- transformList(a, tu.members, tuMember) } 
     yield (result._1, Ast.TransUnit(result._2.flatten))
   }
@@ -129,7 +131,5 @@ object ResolveSpecInclude extends AstStateTransformer {
   }
 
   private def tuMember(a: Analysis, tum: Ast.TUMember) = moduleMember(a, tum)
-
-  type State = Analysis
 
 }

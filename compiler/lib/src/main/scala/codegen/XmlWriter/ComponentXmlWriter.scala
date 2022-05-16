@@ -7,10 +7,14 @@ import fpp.compiler.util._
 /** Write out F Prime XML for component definitions */
 object ComponentXmlWriter extends AstVisitor with LineUtils {
 
+  type In = XmlWriterState
+
+  type Out = List[Line]
+
   override def defComponentAnnotatedNode(
     s: XmlWriterState,
     aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
-  ): List[Line] = {
+  ) = {
     val symbol = Symbol.Component(aNode)
     val c = s.a.componentMap(symbol)
     val pairs = {
@@ -312,9 +316,5 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
       flatMap(key => writeTlmChannel(key, c.tlmChannelMap(key)))
     XmlTags.taggedLinesOpt ("telemetry") (tlmChannels.map(indentIn))
   }
-
-  type In = XmlWriterState
-
-  type Out = List[Line]
 
 }

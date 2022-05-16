@@ -3,7 +3,7 @@ package fpp.compiler.util
 /** A file used in compilation */
 sealed trait File {
 
-  override def toString: String = this match {
+  override def toString = this match {
     case File.Path(p) => p.normalize().toString
     case File.StdIn => "stdin"
   }

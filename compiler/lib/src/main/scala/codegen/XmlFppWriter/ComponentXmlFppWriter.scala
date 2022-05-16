@@ -127,7 +127,7 @@ object ComponentXmlFppWriter extends LineUtils {
         
         val xmlName = "import_dictionary"
 
-        override def generateMemberNode(file: XmlFppWriter.File, xmlNode: scala.xml.Node): Either[Error,(List[String], Ast.ComponentMember.SpecInclude, Nil.type)] =
+        override def generateMemberNode(file: XmlFppWriter.File, xmlNode: scala.xml.Node) =
           for {
             child <- file.getUniqueChild(xmlNode)
           }
@@ -199,7 +199,7 @@ object ComponentXmlFppWriter extends LineUtils {
           yield Special(kind, name)
         }
 
-        override def generateMemberNode(file: XmlFppWriter.File, xmlNode: scala.xml.Node): Either[Error,(List[String], Ast.ComponentMember.SpecPortInstance, Nil.type)] = {
+        override def generateMemberNode(file: XmlFppWriter.File, xmlNode: scala.xml.Node) = {
           for {
             comment <- file.getComment(xmlNode)
             member <- XmlFppWriter.getAttributeOpt(xmlNode, "role") match {
@@ -220,7 +220,7 @@ object ComponentXmlFppWriter extends LineUtils {
 
         val xmlName = "internal_interface"
 
-        override def generateMemberNodes(file: XmlFppWriter.File, xmlNode: scala.xml.Node): Either[Error,List[(List[String], Ast.ComponentMember.Node, List[String])]] =
+        override def generateMemberNodes(file: XmlFppWriter.File, xmlNode: scala.xml.Node) =
           for {
             annotatedEnumMemberNodes <- translateArgEnums(file, xmlNode)
             comment <- file.getComment(xmlNode)
@@ -245,7 +245,7 @@ object ComponentXmlFppWriter extends LineUtils {
 
         val xmlName = "command"
 
-        override def generateMemberNodes(file: XmlFppWriter.File, xmlNode: scala.xml.Node): Either[Error,List[(List[String], Ast.ComponentMember.Node, List[String])]] =
+        override def generateMemberNodes(file: XmlFppWriter.File, xmlNode: scala.xml.Node) =
           for {
             xmlKind <- file.getAttribute(xmlNode, "kind")
             kind <- xmlKind match {
@@ -285,7 +285,7 @@ object ComponentXmlFppWriter extends LineUtils {
 
         val xmlName = "event"
 
-        override def generateMemberNodes(file: XmlFppWriter.File, xmlNode: scala.xml.Node): Either[Error,List[(List[String], Ast.ComponentMember.Node, List[String])]] =
+        override def generateMemberNodes(file: XmlFppWriter.File, xmlNode: scala.xml.Node) =
           for {
             annotatedEnumMemberNodes <- translateArgEnums(file, xmlNode)
             comment <- file.getComment(xmlNode)

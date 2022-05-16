@@ -9,7 +9,7 @@ final case class Location(
   includingLoc: Option[Location] = None /* Location where this location is included */
 ) {
 
-  override def toString: String = {
+  override def toString = {
     def showIncludes(locOpt: Option[Location], s: String): String = { 
       locOpt match {
         case None => s

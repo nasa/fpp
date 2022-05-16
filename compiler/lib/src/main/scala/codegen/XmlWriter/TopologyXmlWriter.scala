@@ -7,10 +7,14 @@ import fpp.compiler.util._
 /** Write out F Prime XML for topology definitions */
 object TopologyXmlWriter extends AstVisitor with LineUtils {
 
+  type In = XmlWriterState
+
+  type Out = List[Line]
+
   override def defTopologyAnnotatedNode(
-    s: XmlWriterState,
+    s: In,
     aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
-  ): List[Line] = {
+  ) = {
     val symbol = Symbol.Topology(aNode)
     val t = s.a.topologyMap(symbol)
     val data = aNode._2.data
@@ -25,14 +29,14 @@ object TopologyXmlWriter extends AstVisitor with LineUtils {
     XmlTags.taggedLines ("assembly", pairs) (body.map(indentIn))
   }
 
-  override def default(s: XmlWriterState) = Nil
+  override def default(s: In) = Nil
 
-  private def writeImports(s: XmlWriterState, t: Topology) = {
+  private def writeImports(s: In, t: Topology) = {
     val symbols = t.instanceMap.keys.map(ci => Symbol.Component(ci.component.aNode))
     s.writeImportDirectives(symbols)
   }
 
-  private def writeInstances(s: XmlWriterState, t: Topology) = {
+  private def writeInstances(s: In, t: Topology) = {
     def writeInstance(ci: ComponentInstance) = {
       val cis = Symbol.ComponentInstance(ci.aNode)
       val cs = Symbol.Component(ci.component.aNode)
@@ -54,7 +58,7 @@ object TopologyXmlWriter extends AstVisitor with LineUtils {
     instances.flatMap(writeInstance).toList
   }
 
-  private def writeConnections(s: XmlWriterState, t: Topology) = {
+  private def writeConnections(s: In, t: Topology) = {
     def getPairs(
       endpoint: Connection.Endpoint,
       portNumber: Int
@@ -91,9 +95,5 @@ object TopologyXmlWriter extends AstVisitor with LineUtils {
     }
     Line.blankSeparated (writeGraph) (t.connectionMap.keys.toList.sorted)
   }
-
-  type In = XmlWriterState
-
-  type Out = List[Line]
 
 }

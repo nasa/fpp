@@ -50,7 +50,7 @@ object ComputeXmlFiles extends AstStateVisitor {
   override def defModuleAnnotatedNode(
     s: State,
     node: Ast.Annotated[AstNode[Ast.DefModule]]
-  ): Result = {
+  ) = {
     val (_, node1, _) = node
     val data = node1.data
     visitList(s, data.members, matchModuleMember)
