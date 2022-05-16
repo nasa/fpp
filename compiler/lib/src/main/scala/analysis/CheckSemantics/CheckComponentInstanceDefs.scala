@@ -12,7 +12,7 @@ object CheckComponentInstanceDefs
   override def defComponentInstanceAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefComponentInstance]]
-  ): Either[Error,Analysis] =
+  ) =
     for {
       ci <- ComponentInstance.fromDefComponentInstance(
         a,
@@ -33,7 +33,7 @@ object CheckComponentInstanceDefs
   override def specInitAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecInit]]
-  ): Either[Error,Analysis] =
+  ) =
     for {
       is <- InitSpecifier.fromNode(a, aNode)
       ci <- a.componentInstance.get.addInitSpecifier(is)

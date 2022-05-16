@@ -14,7 +14,7 @@ object Name {
   ) {
 
     /** Convert a qualified name to a string */
-    override def toString: String = {
+    override def toString = {
       def f(s1: String, s2: String) = s1 ++ "." ++ s2
       def convertQualifier = qualifier match {
         case Nil => ""

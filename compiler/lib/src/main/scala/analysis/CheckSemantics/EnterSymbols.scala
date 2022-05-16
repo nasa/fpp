@@ -15,7 +15,7 @@ object EnterSymbols
   override def defAbsTypeAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefAbsType]]
-  ): Either[Error,Analysis] = {
+  ) = {
     val (_, node, _) = aNode
     val data = node.data
     val name = data.name
@@ -28,7 +28,7 @@ object EnterSymbols
   override def defArrayAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefArray]]
-  ): Either[Error,Analysis] = {
+  ) = {
     val (_, node, _) = aNode
     val data = node.data
     val name = data.name
@@ -41,7 +41,7 @@ object EnterSymbols
   override def defComponentAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
-  ): Either[Error,Analysis] = {
+  ) = {
     val (_, node, _) = aNode
     val data = node.data
     val name = data.name
@@ -73,7 +73,7 @@ object EnterSymbols
   override def defComponentInstanceAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefComponentInstance]]
-  ): Either[Error,Analysis] = {
+  ) = {
     val (_, node, _) = aNode
     val data = node.data
     val name = data.name
@@ -86,7 +86,7 @@ object EnterSymbols
   override def defConstantAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefConstant]]
-  ): Either[Error,Analysis] = {
+  ) = {
     val (_, node, _) = aNode
     val data = node.data
     val name = data.name
@@ -99,7 +99,7 @@ object EnterSymbols
   override def defEnumAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefEnum]]
-  ): Either[Error,Analysis] = {
+  ) = {
     val (_, node, _) = aNode
     val data = node.data
     val name = data.name
@@ -130,7 +130,7 @@ object EnterSymbols
   override def defEnumConstantAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefEnumConstant]]
-  ): Either[Error,Analysis] = {
+  ) = {
     val (_, node, _) = aNode
     val data = node.data
     val name = data.name
@@ -143,7 +143,7 @@ object EnterSymbols
   override def defModuleAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefModule]]
-  ): Either[Error,Analysis] = {
+  ) = {
     val (_, node, _) = aNode
     val Ast.DefModule(name, members) = node.data
     val oldScopeNameList = a.scopeNameList
@@ -207,7 +207,7 @@ object EnterSymbols
   override def defPortAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefPort]]
-  ): Either[Error,Analysis] = {
+  ) = {
     val (_, node, _) = aNode
     val data = node.data
     val name = data.name
@@ -220,7 +220,7 @@ object EnterSymbols
   override def defStructAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefStruct]]
-  ): Either[Error,Analysis] = {
+  ) = {
     val (_, node, _) = aNode
     val data = node.data
     val name = data.name
@@ -233,7 +233,7 @@ object EnterSymbols
   override def defTopologyAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
-  ): Either[Error,Analysis] = {
+  ) = {
     val (_, node, _) = aNode
     val data = node.data
     val name = data.name

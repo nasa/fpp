@@ -185,7 +185,7 @@ object FppWriter extends AstVisitor with LineUtils {
     List(Line.blank, line("}"))
   }
 
-  override def default(in: Unit): Out =
+  override def default(in: Unit) =
     throw new InternalError("FppWriter: Visitor not implemented")
 
   override def exprArrayNode(

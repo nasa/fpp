@@ -8,17 +8,17 @@ object TypeXmlWriter {
 
   private object NameVisitor extends TypeVisitor {
 
-    override def absType(s: XmlWriterState, t: Type.AbsType): String =
+    override def absType(s: XmlWriterState, t: Type.AbsType) =
       s.writeSymbol(Symbol.AbsType(t.node))
 
-    override def array(s: XmlWriterState, t: Type.Array): String =
+    override def array(s: XmlWriterState, t: Type.Array) =
       s.writeSymbol(Symbol.Array(t.node))
 
     override def boolean(s: XmlWriterState) = "bool"
 
-    override def default(s: XmlWriterState, t: Type): Out = throw new InternalError("visitor not defined")
+    override def default(s: XmlWriterState, t: Type) = throw new InternalError("visitor not defined")
 
-    override def enumeration(s: XmlWriterState, t: Type.Enum): String =
+    override def enumeration(s: XmlWriterState, t: Type.Enum) =
       s.writeSymbol(Symbol.Enum(t.node))
 
     override def float(s: XmlWriterState, t: Type.Float) = t.toString
@@ -27,7 +27,7 @@ object TypeXmlWriter {
 
     override def string(s: XmlWriterState, t: Type.String) = "string"
 
-    override def struct(s: XmlWriterState, t: Type.Struct): String =
+    override def struct(s: XmlWriterState, t: Type.Struct) =
       s.writeSymbol(Symbol.Struct(t.node))
 
     type In = XmlWriterState

@@ -9,7 +9,7 @@ object BuildSpecLocMap extends ModuleAnalyzer {
   override def specLocAnnotatedNode(
     a: Analysis,
     node: Ast.Annotated[AstNode[Ast.SpecLoc]]
-  ): Out = {
+  ) = {
     val specNode = node._2
     val spec = specNode.data
     val symbol = spec.symbol

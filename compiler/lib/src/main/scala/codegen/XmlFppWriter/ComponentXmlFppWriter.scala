@@ -335,7 +335,7 @@ object ComponentXmlFppWriter extends LineUtils {
 
         val xmlName = "parameter"
 
-        override def generateMemberNodes(file: XmlFppWriter.File, xmlNode: scala.xml.Node): Either[Error,List[Ast.Annotated[Ast.ComponentMember.Node]]] = {
+        override def generateMemberNodes(file: XmlFppWriter.File, xmlNode: scala.xml.Node) = {
           for {
             enumAnnotatedOpt <- XmlFppWriter.FppBuilder.InlineEnumBuilder.defEnumAnnotatedOpt(file)(xmlNode)
             comment <- file.getComment(xmlNode)
@@ -384,7 +384,7 @@ object ComponentXmlFppWriter extends LineUtils {
 
         val xmlName = "channel"
 
-        override def generateMemberNodes(file: XmlFppWriter.File, xmlNode: scala.xml.Node): Either[Error,List[Ast.Annotated[Ast.ComponentMember.Node]]] = {
+        override def generateMemberNodes(file: XmlFppWriter.File, xmlNode: scala.xml.Node) = {
           type Limits = List[Ast.SpecTlmChannel.Limit]
           def translateLimits(
             direction: String,

@@ -44,10 +44,10 @@ trait TypeExpressionAnalyzer
 
   def typeNameNode(a: Analysis, node: AstNode[Ast.TypeName]): Out = matchTypeNameNode(a, node)
 
-  override def typeNameStringNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameString): Out =
+  override def typeNameStringNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameString) =
     opt(exprNode)(a, tn.size)
 
-  override def defArrayAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefArray]]): Either[Error,State] = {
+  override def defArrayAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val (_, node1, _) = node
     val data = node1.data
     for {
@@ -57,7 +57,7 @@ trait TypeExpressionAnalyzer
     } yield a
   }
 
-  override def defComponentInstanceAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefComponentInstance]]): Either[Error,State] = {
+  override def defComponentInstanceAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefComponentInstance]]) = {
     val (_, node1, _) = node
     val data = node1.data
     for {
@@ -70,13 +70,13 @@ trait TypeExpressionAnalyzer
     } yield a
   }
 
-  override def defConstantAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefConstant]]): Result = {
+  override def defConstantAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
     val (_, node1, _) = node
     val data = node1.data
     exprNode(a, data.value)
   }
 
-  override def defEnumAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefEnum]]): Either[Error,State] = {
+  override def defEnumAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
     val (_, node1, _) = node
     val data = node1.data
     for {
@@ -86,7 +86,7 @@ trait TypeExpressionAnalyzer
     } yield a
   }
 
-  override def defPortAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefPort]]): Either[Error,State] = {
+  override def defPortAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefPort]]) = {
     val (_, node1, _) = node
     val data = node1.data
     for {
@@ -95,7 +95,7 @@ trait TypeExpressionAnalyzer
     } yield a
   }
 
-  override def defStructAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefStruct]]): Either[Error,State] = {
+  override def defStructAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
     val (_, node1, _) = node
     val data = node1.data
     for {
@@ -104,25 +104,25 @@ trait TypeExpressionAnalyzer
     } yield a
   }
 
-  override def exprArrayNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprArray): Result =
+  override def exprArrayNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprArray) =
     visitList(a, e.elts, exprNode)
 
-  override def exprBinopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprBinop): Either[Error,State] =
+  override def exprBinopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprBinop) =
     for {
       a <- exprNode(a, e.e1)
       a <- exprNode(a, e.e2)
     } yield a
   
-  override def exprDotNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprDot): Result = exprNode(a, e.e)
+  override def exprDotNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprDot) = exprNode(a, e.e)
 
-  override def exprParenNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprParen): Result = exprNode(a, e.e)
+  override def exprParenNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprParen) = exprNode(a, e.e)
 
-  override def exprStructNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprStruct): Result =
+  override def exprStructNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprStruct) =
     visitList(a, e.members, structMemberNode)
 
-  override def exprUnopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprUnop): Result = exprNode(a, e.e)
+  override def exprUnopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprUnop) = exprNode(a, e.e)
 
-  override def specCommandAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecCommand]]): Either[Error,State] = {
+  override def specCommandAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecCommand]]) = {
     val (_, node1, _) = node
     val data = node1.data
     for {
@@ -133,7 +133,7 @@ trait TypeExpressionAnalyzer
   }
 
   override def specConnectionGraphAnnotatedNode(
-    a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecConnectionGraph]]): Out = {
+    a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecConnectionGraph]]) = {
     def connection(a: Analysis, connection: Ast.SpecConnectionGraph.Connection): Result = {
       for {
         a <- opt(exprNode)(a, connection.fromIndex)
@@ -148,7 +148,7 @@ trait TypeExpressionAnalyzer
     }
   }
 
-  override def specEventAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecEvent]]): Either[Error,State] = {
+  override def specEventAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecEvent]]) = {
     val (_, node1, _) = node
     val data = node1.data
     for {
@@ -158,12 +158,12 @@ trait TypeExpressionAnalyzer
     } yield a
   }
 
-  override def specInitAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecInit]]): Result = {
+  override def specInitAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecInit]]) = {
     val data = aNode._2.data
     exprNode(a, data.phase)
   }
 
-  override def specInternalPortAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecInternalPort]]): Either[Error,State] = {
+  override def specInternalPortAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecInternalPort]]) = {
     val (_, node1, _) = node
     val data = node1.data
     for {
@@ -172,7 +172,7 @@ trait TypeExpressionAnalyzer
     } yield a
   }
 
-  override def specParamAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecParam]]): Either[Error,State] = {
+  override def specParamAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecParam]]) = {
     val (_, node1, _) = node
     val data = node1.data
     for {
@@ -184,7 +184,7 @@ trait TypeExpressionAnalyzer
     } yield a
   }
 
-  override def specPortInstanceAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecPortInstance]]): Out = {
+  override def specPortInstanceAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecPortInstance]]) = {
     val (_, node1, _) = node
     val data = node1.data
     data match {
@@ -197,7 +197,7 @@ trait TypeExpressionAnalyzer
     }
   }
 
-  override def specTlmChannelAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]): Either[Error,State] = {
+  override def specTlmChannelAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]) = {
     def limit(a: Analysis, value: Ast.SpecTlmChannel.Limit) = {
       val (_, e) = value
       exprNode(a, e)

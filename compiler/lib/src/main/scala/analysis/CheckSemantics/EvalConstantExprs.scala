@@ -6,10 +6,10 @@ import fpp.compiler.util._
 /** Compute the values of constants symbols and expressions */
 object EvalConstantExprs extends UseAnalyzer {
 
-  override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified): Result = 
+  override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) = 
     visitUse(a, node)
 
-  override def defConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]): Result = {
+  override def defConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
     val (_, node,_) = aNode
     if (!a.valueMap.contains(node.id)) {
       val data = node.data
@@ -22,7 +22,7 @@ object EvalConstantExprs extends UseAnalyzer {
     else Right(a)
   }
 
-  override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]): Either[Error,State] = {
+  override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
     def checkForDuplicateValue(
       a: Analysis,
       ids: List[AstNode.Id],
@@ -47,7 +47,7 @@ object EvalConstantExprs extends UseAnalyzer {
     } yield a
   }
 
-  override def defEnumConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnumConstant]]): Result = {
+  override def defEnumConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnumConstant]]) = {
     val (_, node, _) = aNode
     if (!a.valueMap.contains(node.id)) {
       node.data.value match {
@@ -72,7 +72,7 @@ object EvalConstantExprs extends UseAnalyzer {
     else Right(a)
   }
 
-  override def exprArrayNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprArray): Either[Error,Analysis] =
+  override def exprArrayNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprArray) =
     for (a <- super.exprArrayNode(a, node, e))
       yield {
         val eltType = a.typeMap(node.id) match {
@@ -88,7 +88,7 @@ object EvalConstantExprs extends UseAnalyzer {
         a.assignValue(node -> v)
       }
 
-  override def exprBinopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprBinop): Either[Error,Analysis] =
+  override def exprBinopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprBinop) =
     for {
       a <- super.exprBinopNode(a, node, e)
       v <- e.op match {
@@ -99,7 +99,7 @@ object EvalConstantExprs extends UseAnalyzer {
           }
     } yield a.assignValue(node -> v)
 
-  override def exprLiteralBoolNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralBool): Out = {
+  override def exprLiteralBoolNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralBool) = {
     val b = e.value match {
       case Ast.LiteralBool.True => true
       case Ast.LiteralBool.False => false
@@ -109,29 +109,29 @@ object EvalConstantExprs extends UseAnalyzer {
   }
 
 
-  override def exprLiteralFloatNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralFloat): Out = {
+  override def exprLiteralFloatNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralFloat) = {
     val v = Value.Float(e.value.toDouble, Type.Float.F64)
     Right(a.assignValue(node -> v))
   }
 
-  override def exprLiteralIntNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralInt): Out = {
+  override def exprLiteralIntNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralInt) = {
     val bigInt = if (e.value.startsWith("0x") || e.value.startsWith("0X"))
       BigInt(e.value.substring(2, e.value.length), 16) else BigInt(e.value)
     val v = Value.Integer(bigInt)
     Right(a.assignValue(node -> v))
   }
   
-  override def exprLiteralStringNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralString): Out = {
+  override def exprLiteralStringNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralString) = {
     val v = Value.String(e.value)
     Right(a.assignValue(node -> v))
   }
 
-  override def exprParenNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprParen): Either[Error,Analysis] = {
+  override def exprParenNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprParen) = {
     for (a <- super.exprParenNode(a, node, e))
       yield a.assignValue(node -> a.valueMap(e.e.id))
   }
 
-  override def exprStructNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprStruct): Either[Error,Analysis] =
+  override def exprStructNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprStruct) =
     for (a <- super.exprStructNode(a, node, e))
       yield {
         def visitor(members: Value.Struct.Members, node: AstNode[Ast.StructMember]): Value.Struct.Members = {
@@ -145,7 +145,7 @@ object EvalConstantExprs extends UseAnalyzer {
         a.assignValue(node -> v)
       }
 
-  override def exprUnopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprUnop): Either[Error,Analysis] = {
+  override def exprUnopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprUnop) = {
     for (a <- super.exprUnopNode(a, node, e))
       yield {
         val v = a.neg(e.e.id)

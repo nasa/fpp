@@ -61,8 +61,8 @@ object Type {
   case class PrimitiveInt(kind: PrimitiveInt.Kind) 
     extends Type with Primitive with Int
   {
-    override def getDefaultValue: Option[Value.PrimitiveInt] = Some(Value.PrimitiveInt(0, kind))
-    override def toString: lang.String = kind match {
+    override def getDefaultValue = Some(Value.PrimitiveInt(0, kind))
+    override def toString = kind match {
       case PrimitiveInt.I8 => "I8"
       case PrimitiveInt.I16 => "I16"
       case PrimitiveInt.I32 => "I32"
@@ -97,9 +97,9 @@ object Type {
 
   /** Floating-point types */
   case class Float(kind: Float.Kind) extends Type with Primitive {
-    override def getDefaultValue: Option[Value.Float] = Some(Value.Float(0, kind))
+    override def getDefaultValue = Some(Value.Float(0, kind))
     override def isFloat = true
-    override def toString: lang.String = kind match {
+    override def toString = kind match {
       case Float.F32 => "F32"
       case Float.F64 => "F64"
     }
@@ -116,22 +116,22 @@ object Type {
 
   /** The Boolean type */
   case object Boolean extends Type with Primitive {
-    override def getDefaultValue: Option[Value.Boolean] = Some(Value.Boolean(false))
-    override def toString: lang.String = "bool"
+    override def getDefaultValue = Some(Value.Boolean(false))
+    override def toString = "bool"
     override def isPromotableToArray = true
   }
 
   /** The type of a string */
   case class String(size: Option[AstNode[Ast.Expr]]) extends Type {
-    override def getDefaultValue: Option[Value.String] = Some(Value.String(""))
-    override def toString: lang.String = "string"
+    override def getDefaultValue = Some(Value.String(""))
+    override def toString = "string"
     override def isPromotableToArray = true
   }
 
   /** The type of arbitrary-width integers */
   case object Integer extends Type with Int {
-    override def getDefaultValue: Option[Value.Integer] = Some(Value.Integer(0))
-    override def toString: lang.String = "Integer"
+    override def getDefaultValue = Some(Value.Integer(0))
+    override def toString = "Integer"
   }
   
   /** An abstract type */
@@ -139,9 +139,9 @@ object Type {
     /** The AST node giving the definition */
     node: Ast.Annotated[AstNode[Ast.DefAbsType]]
   ) extends Type {
-    override def getDefaultValue: Option[Value.AbsType] = Some(Value.AbsType(this))
-    override def getDefNodeId: Some[AstNode.Id] = Some(node._2.id)
-    override def toString: lang.String = node._2.data.name
+    override def getDefaultValue = Some(Value.AbsType(this))
+    override def getDefNodeId = Some(node._2.id)
+    override def toString = node._2.data.name
   }
 
   /** A named array type */
@@ -159,9 +159,9 @@ object Type {
     /** Set the size */
     def setSize(size: Array.Size): Array = this.copy(anonArray = anonArray.setSize(size))
     override def getArraySize = anonArray.getArraySize
-    override def getDefNodeId: Some[AstNode.Id] = Some(node._2.id)
+    override def getDefNodeId = Some(node._2.id)
     override def hasNumericMembers = anonArray.hasNumericMembers
-    override def toString: lang.String = "array " ++ node._2.data.name
+    override def toString = "array " ++ node._2.data.name
   }
 
   object Array {
@@ -198,7 +198,7 @@ object Type {
     override def getDefNodeId: Some[AstNode.Id] = Some(node._2.id)
     override def isConvertibleToNumeric = true
     override def isPromotableToArray = true
-    override def toString: lang.String = "enum " ++ node._2.data.name
+    override def toString = "enum " ++ node._2.data.name
   }
 
   /** A named struct type */
@@ -217,7 +217,7 @@ object Type {
     override def getDefaultValue: Option[Value.Struct] = default
     override def getDefNodeId: Some[AstNode.Id] = Some(node._2.id)
     override def hasNumericMembers = anonStruct.hasNumericMembers
-    override def toString: lang.String = "struct " ++ node._2.data.name
+    override def toString = "struct " ++ node._2.data.name
   }
 
   object Struct {
@@ -267,7 +267,7 @@ object Type {
     }
     override def getArraySize = size
     override def hasNumericMembers = eltType.hasNumericMembers
-    override def toString: lang.String = size match {
+    override def toString = size match {
       case Some(n) => "[" ++ n.toString ++ "] " ++ eltType.toString
       case None => "array of " ++ eltType.toString
     }
@@ -293,9 +293,9 @@ object Type {
       for (members <- defaultMembers(members.toList, Map()))
         yield Value.AnonStruct(members)
     }
-    override def hasNumericMembers: Boolean = 
+    override def hasNumericMembers =
       members.values.forall(_.hasNumericMembers)
-    override def toString: lang.String = {
+    override def toString = {
       def memberToString(member: Struct.Member) =
         member._1 ++ ": " ++ member._2.toString
       members.size match {

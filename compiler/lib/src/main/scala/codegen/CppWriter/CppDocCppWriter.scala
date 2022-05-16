@@ -20,14 +20,14 @@ object CppDocCppWriter extends CppDocWriter {
     }
   }
 
-  override def visitClass(in: Input, c: CppDoc.Class): Output = {
+  override def visitClass(in: Input, c: CppDoc.Class) = {
     val name = c.name
     val newClassNameList = name :: in.classNameList
     val in1 = in.copy(classNameList = newClassNameList)
     c.members.map(visitClassMember(in1, _)).flatten
   }
 
-  override def visitConstructor(in: Input, constructor: CppDoc.Class.Constructor): List[Line] = {
+  override def visitConstructor(in: Input, constructor: CppDoc.Class.Constructor) = {
     val unqualifiedClassName = in.getEnclosingClassUnqualified
     val qualifiedClassName = in.getEnclosingClassQualified
     val outputLines = {
@@ -58,7 +58,7 @@ object CppDocCppWriter extends CppDocWriter {
     outputLines
   }
 
-  override def visitCppDoc(cppDoc: CppDoc): Output = {
+  override def visitCppDoc(cppDoc: CppDoc) = {
     val in = Input(cppDoc.hppFile, cppDoc.cppFileName)
     List(
       CppDocWriter.writeBanner(
@@ -69,7 +69,7 @@ object CppDocCppWriter extends CppDocWriter {
     ).flatten
   }
 
-  override def visitDestructor(in: Input, destructor: CppDoc.Class.Destructor): List[Line] = {
+  override def visitDestructor(in: Input, destructor: CppDoc.Class.Destructor) = {
     val unqualifiedClassName = in.getEnclosingClassUnqualified
     val qualifiedClassName = in.getEnclosingClassQualified
     val outputLines = {
@@ -81,7 +81,7 @@ object CppDocCppWriter extends CppDocWriter {
     outputLines
   }
 
-  override def visitFunction(in: Input, function: CppDoc.Function): List[Line] = {
+  override def visitFunction(in: Input, function: CppDoc.Function) = {
     val contentLines = {
       val startLines = {
         val prototypeLines = {
@@ -111,7 +111,7 @@ object CppDocCppWriter extends CppDocWriter {
     Line.blank :: contentLines
   }
 
-  override def visitLines(in: Input, lines: CppDoc.Lines): Output = {
+  override def visitLines(in: Input, lines: CppDoc.Lines) = {
     val content = lines.content
     lines.output match {
       case CppDoc.Lines.Hpp => Nil
@@ -120,7 +120,7 @@ object CppDocCppWriter extends CppDocWriter {
     }
   }
 
-  override def visitNamespace(in: Input, namespace: CppDoc.Namespace): Output = {
+  override def visitNamespace(in: Input, namespace: CppDoc.Namespace) = {
     val name = namespace.name
     val startLines = List(Line.blank, line(s"namespace $name {"))
     val outputLines = namespace.members.map(visitNamespaceMember(in, _)).flatten

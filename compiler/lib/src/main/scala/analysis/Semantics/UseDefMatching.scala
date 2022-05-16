@@ -12,7 +12,7 @@ case class UseDefMatching(
   symbol: Symbol
 ) {
 
-  override def toString: String = {
+  override def toString = {
     val useLoc = Locations.get(nodeId)
     val defLoc = symbol.getLoc
     val defName = symbol.getUnqualifiedName

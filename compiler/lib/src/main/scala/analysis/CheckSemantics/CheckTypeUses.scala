@@ -8,7 +8,7 @@ import fpp.compiler.util._
  *  default value expressions are still unevaluated. */
 object CheckTypeUses extends UseAnalyzer {
 
-  override def defAbsTypeAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAbsType]]): Result = {
+  override def defAbsTypeAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAbsType]]) = {
     def visitor(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAbsType]]) = {
       val t = Type.AbsType(aNode)
       val node = aNode._2
@@ -17,7 +17,7 @@ object CheckTypeUses extends UseAnalyzer {
     visitIfNeeded(visitor)(a, aNode)
   }
 
-  override def defArrayAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]): Result = {
+  override def defArrayAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     def visitor(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) =
       for (a <- super.defArrayAnnotatedNode(a, aNode))
         yield {
@@ -31,7 +31,7 @@ object CheckTypeUses extends UseAnalyzer {
     visitIfNeeded(visitor)(a, aNode)
   }
 
-  override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]): Result = {
+  override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
     def visitor(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
       val (_, node, _) = aNode
       val data = node.data
@@ -68,7 +68,7 @@ object CheckTypeUses extends UseAnalyzer {
     visitIfNeeded(visitor)(a, aNode)
   }
 
-  override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]): Result = {
+  override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
     def visitor(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
       val (_, node, _) = aNode
       val data = node.data
@@ -97,12 +97,12 @@ object CheckTypeUses extends UseAnalyzer {
     visitIfNeeded(visitor)(a, aNode)
   }
 
-  override def exprNode(a: Analysis, node: AstNode[Ast.Expr]): Result = default(a)
+  override def exprNode(a: Analysis, node: AstNode[Ast.Expr]) = default(a)
 
-  override def typeNameBoolNode(a: Analysis, node: AstNode[Ast.TypeName]): Out =
+  override def typeNameBoolNode(a: Analysis, node: AstNode[Ast.TypeName]) =
     Right(a.assignType(node -> Type.Boolean))
 
-  override def typeNameFloatNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameFloat): Out = {
+  override def typeNameFloatNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameFloat) = {
     val t = tn.name match {
       case Ast.F32() => Type.F32
       case Ast.F64() => Type.F64
@@ -110,7 +110,7 @@ object CheckTypeUses extends UseAnalyzer {
     Right(a.assignType(node -> t))
   }
 
-  override def typeNameIntNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameInt): Out = {
+  override def typeNameIntNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameInt) = {
     val t = tn.name match {
       case Ast.I8() => Type.I8
       case Ast.I16() => Type.I16
@@ -124,10 +124,10 @@ object CheckTypeUses extends UseAnalyzer {
     Right(a.assignType(node -> t))
   }
 
-  override def typeNameStringNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameString): Out =
+  override def typeNameStringNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameString) =
     Right(a.assignType(node -> Type.String(tn.size)))
 
-  override def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified): Result =
+  override def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified) =
     visitUse(a, node)
 
   private def visitUse[T](a: Analysis, node: AstNode[T]): Result = {

@@ -10,7 +10,7 @@ object EvalImpliedEnumConsts
   with ComponentAnalyzer
 {
 
-  override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]): Out = {
+  override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
     val (_, node, _) = aNode
     val loc = Locations.get(node.id)
     val data = node.data

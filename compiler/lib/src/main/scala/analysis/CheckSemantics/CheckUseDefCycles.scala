@@ -6,43 +6,43 @@ import fpp.compiler.util._
 /** Check for use-def cycles */
 object CheckUseDefCycles extends UseAnalyzer {
 
-  override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified): Result =
+  override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) =
     visitUse(a, node, use)
 
-  override def defArrayAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefArray]]): Result = {
+  override def defArrayAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val symbol = Symbol.Array(node)
     visitDefPost(a, symbol, node, super.defArrayAnnotatedNode)
   }
 
-  override def defConstantAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefConstant]]): Result = {
+  override def defConstantAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
     val symbol = Symbol.Constant(node)
     visitDefPost(a, symbol, node, super.defConstantAnnotatedNode)
   }
 
-  override def defEnumAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefEnum]]): Result = {
+  override def defEnumAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
     val symbol = Symbol.Enum(node)
     visitDefPost(a, symbol, node, super.defEnumAnnotatedNode)
   }
 
-  override def defEnumConstantAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefEnumConstant]]): Result = {
+  override def defEnumConstantAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefEnumConstant]]) = {
     val symbol = Symbol.EnumConstant(node)
     visitDefPost(a, symbol, node, super.defEnumConstantAnnotatedNode)
   }
 
-  override def defStructAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefStruct]]): Result = {
+  override def defStructAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
     val symbol = Symbol.Struct(node)
     visitDefPost(a, symbol, node, super.defStructAnnotatedNode)
   }
 
-  override def defTopologyAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefTopology]]): Result = {
+  override def defTopologyAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefTopology]]) = {
     val symbol = Symbol.Topology(node)
     visitDefPost(a, symbol, node, super.defTopologyAnnotatedNode)
   }
 
-  override def topologyUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result =
+  override def topologyUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     visitUse(a, node, use)
 
-  override def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified): Result =
+  override def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified) =
     visitUse(a, node, use)
 
   private def error(a: Analysis, symbol: Symbol): Result = {

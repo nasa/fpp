@@ -28,7 +28,7 @@ private case class ScopeImpl(map: Map[NameGroup,NameSymbolMap] = Map())
   extends Scope
 {
 
-  def apply (nameGroup: NameGroup) (name: Name.Unqualified): Symbol = 
+  override def apply (nameGroup: NameGroup) (name: Name.Unqualified) =
     getNameSymbolMap(nameGroup)(name)
 
   /** Get the name-symbol map for a name group */
@@ -38,13 +38,13 @@ private case class ScopeImpl(map: Map[NameGroup,NameSymbolMap] = Map())
       case None => NameSymbolMap.empty
     }
 
-  def put (nameGroup: NameGroup) (name: Name.Unqualified, symbol: Symbol): Either[Error,ScopeImpl] = {
+  override def put (nameGroup: NameGroup) (name: Name.Unqualified, symbol: Symbol) = {
     val nsm = getNameSymbolMap(nameGroup)
     for (nsm <- nsm.put(name, symbol)) 
       yield this.copy(map = this.map + (nameGroup -> nsm))
   }
 
-  def get (nameGroup: NameGroup) (name: Name.Unqualified): Option[Symbol] =
+  override def get (nameGroup: NameGroup) (name: Name.Unqualified) =
     getNameSymbolMap(nameGroup).get(name)
 
 }

@@ -10,37 +10,37 @@ object UsedSymbols extends UseAnalyzer {
     a: Analysis,
     node: AstNode[Ast.QualIdent],
     use: Name.Qualified
-  ): Result = addSymbol(a, node)
+  ) = addSymbol(a, node)
 
   override def componentInstanceUse(
     a: Analysis,
     node: AstNode[Ast.QualIdent],
     use: Name.Qualified
-  ): Result = addSymbol(a, node)
+  ) = addSymbol(a, node)
 
   override def constantUse(
     a: Analysis,
     node: AstNode[Ast.Expr],
     use: Name.Qualified
-  ): Result = addSymbol(a, node)
+  ) = addSymbol(a, node)
 
   override def topologyUse(
     a: Analysis,
     node: AstNode[Ast.QualIdent],
     use: Name.Qualified
-  ): Result = addSymbol(a, node)
+  ) = addSymbol(a, node)
 
   override def typeUse(
     a: Analysis,
     node: AstNode[Ast.TypeName],
     use: Name.Qualified
-  ): Result = addSymbol(a, node)
+  ) = addSymbol(a, node)
   
   override def portUse(
     a: Analysis,
     node: AstNode[Ast.QualIdent],
     use: Name.Qualified
-  ): Result = addSymbol(a, node)
+  ) = addSymbol(a, node)
 
   private def addSymbol[T](a: Analysis, node: AstNode[T]) = {
     val symbol = a.useDefMap(node.id)

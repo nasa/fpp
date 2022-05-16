@@ -7,10 +7,10 @@ import fpp.compiler.util._
  *  and default values */
 object CheckExprTypes extends UseAnalyzer {
 
-  override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified): Result = 
+  override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) =
     visitUse(a, node)
 
-  override def defArrayAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]): Either[Error,State] = {
+  override def defArrayAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val (_, node, _) = aNode
     val data = node.data
     for {
@@ -29,7 +29,7 @@ object CheckExprTypes extends UseAnalyzer {
     } yield a
   }
 
-  override def defConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]): Result = {
+  override def defConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
     val (_, node,_) = aNode
     if (!a.typeMap.contains(node.id)) {
       val data = node.data
@@ -42,7 +42,7 @@ object CheckExprTypes extends UseAnalyzer {
     else Right(a)
   }
 
-  override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]): Either[Error,State] = {
+  override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
     val (_, node, _) = aNode
     val data = node.data
     for {
@@ -60,7 +60,7 @@ object CheckExprTypes extends UseAnalyzer {
     } yield a
   }
 
-  override def defEnumConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnumConstant]]): Either[Error,State] = {
+  override def defEnumConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnumConstant]]) = {
     val (_, node, _) = aNode
     val data = node.data
     for {
@@ -72,7 +72,7 @@ object CheckExprTypes extends UseAnalyzer {
     yield a
   }
 
-  override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]): Either[Error,State] = {
+  override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
     val (_, node, _) = aNode
     val data = node.data
     for {
@@ -90,7 +90,7 @@ object CheckExprTypes extends UseAnalyzer {
     } yield a
   }
 
-  override def exprArrayNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprArray): Either[Error,Analysis] = {
+  override def exprArrayNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprArray) = {
     val loc = Locations.get(node.id)
     val emptyListError = SemanticError.EmptyArray(loc)
     for {
@@ -99,7 +99,7 @@ object CheckExprTypes extends UseAnalyzer {
     } yield a.assignType(node -> Type.AnonArray(Some(e.elts.size), t))
   }
 
-  override def exprBinopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprBinop): Either[Error,State] = {
+  override def exprBinopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprBinop) = {
     val loc = Locations.get(node.id)
     for {
       a <- super.exprBinopNode(a, node, e)
@@ -108,24 +108,24 @@ object CheckExprTypes extends UseAnalyzer {
     } yield a.assignType(node -> t)
   }
 
-  override def exprLiteralBoolNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralBool): Out =
+  override def exprLiteralBoolNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralBool) =
     Right(a.assignType(node -> Type.Boolean))
 
-  override def exprLiteralFloatNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralFloat): Out =
+  override def exprLiteralFloatNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralFloat) =
     Right(a.assignType(node -> Type.F64))
 
-  override def exprLiteralIntNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralInt): Out =
+  override def exprLiteralIntNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralInt) =
     Right(a.assignType(node -> Type.Integer))
   
-  override def exprLiteralStringNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralString): Out =
+  override def exprLiteralStringNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralString) =
     Right(a.assignType(node -> Type.String(None)))
 
-  override def exprParenNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprParen): Either[Error,Analysis] = {
+  override def exprParenNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprParen) = {
     for (a <- super.exprParenNode(a, node, e))
       yield a.assignType(node -> a.typeMap(e.e.id))
   }
 
-  override def exprStructNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprStruct): Either[Error,State] = {
+  override def exprStructNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprStruct) = {
     def getName(member: Ast.StructMember) = member.name
     for {
       _ <- Analysis.checkForDuplicateStructMember(getName)(e.members)
@@ -143,7 +143,7 @@ object CheckExprTypes extends UseAnalyzer {
     }
   }
 
-  override def exprUnopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprUnop): Either[Error,Analysis] = {
+  override def exprUnopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprUnop) = {
     val loc = Locations.get(node.id)
     for {
       a <- super.exprUnopNode(a, node, e)
@@ -154,7 +154,7 @@ object CheckExprTypes extends UseAnalyzer {
     } yield a.assignType(node -> t)
   }
 
-  override def specCommandAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecCommand]]): Either[Error,State] = {
+  override def specCommandAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecCommand]]) = {
     val (_, node, _) = aNode
     val data = node.data
     for {
@@ -165,7 +165,7 @@ object CheckExprTypes extends UseAnalyzer {
     yield a
   }
 
-  override def specEventAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecEvent]]): Either[Error,State] = {
+  override def specEventAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecEvent]]) = {
     val (_, node, _) = aNode
     val data = node.data
     for {
@@ -176,7 +176,7 @@ object CheckExprTypes extends UseAnalyzer {
     yield a
   }
 
-  override def specInitAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecInit]]): Either[Error,State] = {
+  override def specInitAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecInit]]) = {
     val (_, node, _) = aNode
     val data = node.data
     for {
@@ -186,7 +186,7 @@ object CheckExprTypes extends UseAnalyzer {
     yield a
   }
 
-  override def specInternalPortAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecInternalPort]]): Either[Error,State] = {
+  override def specInternalPortAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecInternalPort]]) = {
     val (_, node, _) = aNode
     val data = node.data
     for {
@@ -196,7 +196,7 @@ object CheckExprTypes extends UseAnalyzer {
     yield a
   }
 
-  override def specParamAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecParam]]): Either[Error,State] = {
+  override def specParamAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecParam]]) = {
     val (_, node, _) = aNode
     val data = node.data
     def checkDefault (a: Analysis) (default: AstNode[Ast.Expr]) = {
@@ -215,7 +215,7 @@ object CheckExprTypes extends UseAnalyzer {
     yield a
   }
 
-  override def specPortInstanceAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]]): Out = {
+  override def specPortInstanceAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]]) = {
     val (_, node, _) = aNode
     val data = node.data
     data match {
@@ -230,7 +230,7 @@ object CheckExprTypes extends UseAnalyzer {
     }
   }
 
-  override def specTlmChannelAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]): Either[Error,State] = {
+  override def specTlmChannelAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]) = {
     val (_, node, _) = aNode
     val data = node.data
     def checkLimitExpr (a: Analysis) (e: AstNode[Ast.Expr]): Result.Result[Unit] = {
@@ -268,7 +268,7 @@ object CheckExprTypes extends UseAnalyzer {
     a: Analysis,
     node: AstNode[Ast.TypeName],
     tn: Ast.TypeNameString
-  ): Either[Error,State] =
+  ) =
     for {
       a <- super.typeNameStringNode(a, node, tn)
       _ <- convertNodeToNumericOpt(a, tn.size)

@@ -226,14 +226,14 @@ object Ast {
     /** An unqualified identifier */
     case class Unqualified(name: Ident) extends QualIdent {
 
-      def toIdentList: List[Ident] = List(name)
+      override def toIdentList = List(name)
 
     }
 
     /** A qualified identifier */
     case class Qualified(qualifier: AstNode[QualIdent], name: AstNode[Ident]) extends QualIdent {
 
-      def toIdentList: List[Ident] = qualifier.data.toIdentList ++ List(name.data)
+      override def toIdentList = qualifier.data.toIdentList ++ List(name.data)
 
     }
 

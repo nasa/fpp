@@ -51,7 +51,7 @@ object CppDocHppWriter extends CppDocWriter {
     }
   }
 
-  override def visitClass(in: Input, c: CppDoc.Class): Output = {
+  override def visitClass(in: Input, c: CppDoc.Class) = {
     val name = c.name
     val commentLines = CppDocWriter.writeDoxygenCommentOpt(c.comment)
     val openLines = c.superclassDecls match {
@@ -72,7 +72,7 @@ object CppDocHppWriter extends CppDocWriter {
     commentLines ++ openLines ++ bodyLines ++ closeLines
   }
 
-  override def visitConstructor(in: Input, constructor: CppDoc.Class.Constructor): List[Line] = {
+  override def visitConstructor(in: Input, constructor: CppDoc.Class.Constructor) = {
     val unqualifiedClassName = in.getEnclosingClassUnqualified
     val outputLines = {
       val lines1 = CppDocWriter.writeDoxygenCommentOpt(constructor.comment)
@@ -85,7 +85,7 @@ object CppDocHppWriter extends CppDocWriter {
     outputLines
   }
 
-  override def visitCppDoc(cppDoc: CppDoc): Output = {
+  override def visitCppDoc(cppDoc: CppDoc) = {
     val hppFile = cppDoc.hppFile
     val cppFileName = cppDoc.cppFileName
     val in = Input(hppFile, cppFileName)
@@ -100,7 +100,7 @@ object CppDocHppWriter extends CppDocWriter {
     ).flatten
   }
 
-  override def visitDestructor(in: Input, destructor: CppDoc.Class.Destructor): List[Line] = {
+  override def visitDestructor(in: Input, destructor: CppDoc.Class.Destructor) = {
     val unqualifiedClassName = in.getEnclosingClassUnqualified
     val outputLines = {
       val lines1 = CppDocWriter.writeDoxygenCommentOpt(destructor.comment)
@@ -113,7 +113,7 @@ object CppDocHppWriter extends CppDocWriter {
     outputLines
   }
 
-  override def visitFunction(in: Input, function: CppDoc.Function): List[Line] = {
+  override def visitFunction(in: Input, function: CppDoc.Function) = {
     import CppDoc.Function._
     val outputLines = {
       val lines1 = CppDocWriter.writeDoxygenCommentOpt(function.comment)
@@ -145,7 +145,7 @@ object CppDocHppWriter extends CppDocWriter {
     outputLines
   }
 
-  override def visitLines(in: Input, lines: CppDoc.Lines): Output = {
+  override def visitLines(in: Input, lines: CppDoc.Lines) = {
     val content = lines.content
     lines.output match {
       case CppDoc.Lines.Hpp => content
@@ -154,7 +154,7 @@ object CppDocHppWriter extends CppDocWriter {
     }
   }
 
-  override def visitNamespace(in: Input, namespace: CppDoc.Namespace): Output = {
+  override def visitNamespace(in: Input, namespace: CppDoc.Namespace) = {
     val name = namespace.name
     val startLines = List(Line.blank, line(s"namespace $name {"))
     val outputLines = namespace.members.map(visitNamespaceMember(in, _)).flatten

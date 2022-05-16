@@ -9,7 +9,7 @@ trait ComponentAnalyzer extends Analyzer {
   override def defComponentAnnotatedNode(
     a: Analysis,
     node: Ast.Annotated[AstNode[Ast.DefComponent]]
-  ): Either[Error,Analysis] = {
+  ) = {
     val (_, node1, _) = node
     val Ast.DefComponent(kind, name, members) = node1.data
     val a1 = a.copy(scopeNameList = name :: a.scopeNameList)

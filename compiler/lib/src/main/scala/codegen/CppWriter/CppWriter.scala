@@ -28,7 +28,7 @@ object CppWriter extends AstStateVisitor with LineUtils {
     writeCppDoc(s, cppDoc)
   }
 
-  override def transUnit(s: CppWriterState, tu: Ast.TransUnit): Result = 
+  override def transUnit(s: CppWriterState, tu: Ast.TransUnit) =
     visitList(s, tu.members, matchTuMember)
 
   def tuList(s: CppWriterState, tul: List[Ast.TransUnit]): Either[Error,Unit] =

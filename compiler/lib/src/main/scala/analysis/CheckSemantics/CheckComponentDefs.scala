@@ -13,7 +13,7 @@ object CheckComponentDefs
   override def defComponentAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
-  ): Either[Error,Analysis] = {
+  ) = {
     val a1 = a.copy(component = Some(Component(aNode)))
     for {
       a <- super.defComponentAnnotatedNode(a1, aNode)
@@ -28,7 +28,7 @@ object CheckComponentDefs
   override def specCommandAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecCommand]]
-  ): Either[Error,Analysis] = {
+  ) = {
     val data = aNode._2.data
     for {
       opcodeOpt <- a.getIntValueOpt(data.opcode)
@@ -41,7 +41,7 @@ object CheckComponentDefs
   override def specEventAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecEvent]]
-  ): Either[Error,Analysis] = {
+  ) = {
     val data = aNode._2.data
     for {
       idOpt <- a.getIntValueOpt(data.id)
@@ -54,7 +54,7 @@ object CheckComponentDefs
   override def specInternalPortAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecInternalPort]]
-  ): Either[Error,Analysis] = {
+  ) = {
     val data = aNode._2.data
     for {
       instance <- PortInstance.fromSpecInternalPort(a, aNode)
@@ -66,7 +66,7 @@ object CheckComponentDefs
   override def specParamAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecParam]]
-  ): Either[Error,Analysis] = {
+  ) = {
     val data = aNode._2.data
     val component = a.component.get
     for {
@@ -83,7 +83,7 @@ object CheckComponentDefs
   override def specPortInstanceAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]]
-  ): Either[Error,Analysis] = {
+  ) = {
     for {
       instance <- PortInstance.fromSpecPortInstance(a, aNode)
       component <- a.component.get.addPortInstance(instance)
@@ -94,7 +94,7 @@ object CheckComponentDefs
   override def specPortMatchingAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecPortMatching]]
-  ): Out = {
+  ) = {
     val component = a.component.get
     val list = aNode :: component.specPortMatchingList
     val component1 = component.copy(specPortMatchingList = list)
@@ -104,7 +104,7 @@ object CheckComponentDefs
   override def specTlmChannelAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]
-  ): Either[Error,Analysis] = {
+  ) = {
     val data = aNode._2.data
     for {
       idOpt <- a.getIntValueOpt(data.id)

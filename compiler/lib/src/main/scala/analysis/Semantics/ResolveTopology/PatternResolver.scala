@@ -202,14 +202,14 @@ object PatternResolver {
     def getCmdResponseOut(targetUse: (ComponentInstance, Location)): Result.Result[PortInstanceIdentifier] =
       getSpecialPort(targetUse, Ast.SpecPortInstance.CommandResp)
 
-    override def resolveSource: Either[Error,Source] =
+    override def resolveSource =
       for {
         cmdRegIn <- getCmdRegIn
         cmdOut <- getCmdOut
         cmdResponseIn <- getCmdResponseIn
       } yield Source(cmdRegIn, cmdOut, cmdResponseIn)
 
-    override def resolveTarget(targetUse: (ComponentInstance, Location)): Either[Error,Target] =
+    override def resolveTarget(targetUse: (ComponentInstance, Location)) =
       for {
         cmdRegOut <- getCmdRegOut(targetUse)
         cmdIn <- getCmdIn(targetUse)
@@ -219,7 +219,7 @@ object PatternResolver {
     override def getConnectionsForTarget(
       source: Source,
       target: Target
-    ): List[NamedConnection] = {
+    ) = {
       val loc = pattern.getLoc
       List(
         ("CommandRegistration", connect(loc, target.cmdRegOut, source.cmdRegIn)),
@@ -245,20 +245,20 @@ object PatternResolver {
 
     type Target = PortInstanceIdentifier
 
-    override def resolveSource: Result.Result[PortInstanceIdentifier] = getGeneralPort(
+    override def resolveSource = getGeneralPort(
       pattern.source,
       kind.toString,
       PortInstance.Direction.Input,
       portTypeName
     )
 
-    override def resolveTarget(targetUse: (ComponentInstance, Location)): Result.Result[PortInstanceIdentifier] =
+    override def resolveTarget(targetUse: (ComponentInstance, Location)) =
       getSpecialPort(targetUse, kind)
 
     override def getConnectionsForTarget(
       source: Source,
       target: Target
-    ): List[PatternResolver.NamedConnection] = List(
+    ) = List(
       (graphName, connect(pattern.getLoc, target, source))
     )
 
@@ -331,15 +331,15 @@ object PatternResolver {
       }
       yield Health.PingPorts(pingIn, pingOut)
 
-    override def resolveSource: Either[Error,Health.PingPorts] = getPingPorts(pattern.source)
+    override def resolveSource = getPingPorts(pattern.source)
 
-    override def resolveTarget(targetUse: (ComponentInstance, Location)): Either[Error,Health.PingPorts] =
+    override def resolveTarget(targetUse: (ComponentInstance, Location)) =
       getPingPorts(targetUse)
 
     override def getConnectionsForTarget(
       source: Source,
       target: Target
-    ): List[PatternResolver.NamedConnection] =
+    ) =
       // Health component does not ping itself
       if (source.pingOut.componentInstance != target.pingIn.componentInstance) {
         val loc = pattern.getLoc
@@ -398,12 +398,12 @@ object PatternResolver {
     def getPrmSetOut(targetUse: (ComponentInstance, Location)): Result.Result[PortInstanceIdentifier] =
       getSpecialPort(targetUse, Ast.SpecPortInstance.ParamSet)
 
-    override def resolveSource: Either[Error,Source] = for {
+    override def resolveSource = for {
       prmGetIn <- getPrmGetIn
       prmSetIn <- getPrmSetIn
     } yield Source(prmGetIn, prmSetIn)
 
-    override def resolveTarget(targetUse: (ComponentInstance, Location)): Either[Error,Target] =
+    override def resolveTarget(targetUse: (ComponentInstance, Location)) =
       for {
         prmGetOut <- getPrmGetOut(targetUse)
         prmSetOut <- getPrmSetOut(targetUse)
@@ -412,7 +412,7 @@ object PatternResolver {
     override def getConnectionsForTarget(
       source: Source,
       target: Target
-    ): List[PatternResolver.NamedConnection] = {
+    ) = {
       val loc = pattern.getLoc
       List(
         connect(loc, target.prmGetOut, source.prmGetIn),

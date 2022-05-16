@@ -26,7 +26,7 @@ object ComputeCppFiles extends AstStateVisitor {
   override def defComponentAnnotatedNode(
     s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
-  ): Result = {
+  ) = {
     val node = aNode._2
     val data = node.data
     visitList(s, data.members, matchComponentMember)
@@ -35,12 +35,12 @@ object ComputeCppFiles extends AstStateVisitor {
   override def defConstantAnnotatedNode(
     s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefConstant]]
-  ): Either[CodeGenError.DuplicateCppFile,Map[String,Option[Location]]] = addMappings(s, FileNames.getConstants, None)
+  ) = addMappings(s, FileNames.getConstants, None)
 
   override def defModuleAnnotatedNode(
     s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefModule]]
-  ): Result = {
+  ) = {
     val node = aNode._2
     val data = node.data
     visitList(s, data.members, matchModuleMember)
@@ -49,14 +49,14 @@ object ComputeCppFiles extends AstStateVisitor {
   override def defTopologyAnnotatedNode(
     s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
-  ): Either[CodeGenError.DuplicateCppFile,Map[String,Option[Location]]] = {
+  ) = {
     val node = aNode._2
     val name = node.data.name
     val loc = Locations.get(node.id)
     addMappings(s, FileNames.getTopology(name), Some(loc))
   }
 
-  override def transUnit(s: State, tu: Ast.TransUnit): Result =
+  override def transUnit(s: State, tu: Ast.TransUnit) =
     visitList(s, tu.members, matchTuMember)
 
   /** Adds mappings for hpp and cppfiles */

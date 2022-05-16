@@ -110,7 +110,7 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
     writeSpecLoc(s, Ast.SpecLoc.Topology, data.name, node)
   }
 
-  override def transUnit(s: State, tu: Ast.TransUnit): List[Line] = 
+  override def transUnit(s: State, tu: Ast.TransUnit) =
     tu.members.flatMap(matchModuleMember(s, _))
 
   private def writeSpecLoc[T](

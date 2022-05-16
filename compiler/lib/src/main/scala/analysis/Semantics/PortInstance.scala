@@ -39,10 +39,10 @@ object PortInstance {
   sealed trait Type
   object Type {
     final case class DefPort(symbol: Symbol.Port) extends Type {
-      override def toString: String = symbol.getUnqualifiedName
+      override def toString = symbol.getUnqualifiedName
     }
     case object Serial extends Type {
-      override def toString: String = "serial"
+      override def toString = "serial"
     }
     /** Show a type option */
     def show(typeOpt: Option[Type]): String = typeOpt match {
@@ -63,10 +63,10 @@ object PortInstance {
   sealed trait Direction
   object Direction {
     case object Input extends Direction {
-      override def toString: String = "input"
+      override def toString = "input"
     }
     case object Output extends Direction {
-      override def toString: String = "output"
+      override def toString = "output"
     }
     /** Show a direction option */
     def show(dirOpt: Option[Direction]): String = dirOpt match {
@@ -117,7 +117,7 @@ object PortInstance {
 
     override def getNodeId = aNode._2.id
 
-    override def getType: Some[Type] = Some(ty)
+    override def getType = Some(ty)
 
     override def getUnqualifiedName = specifier.name
 
@@ -130,7 +130,7 @@ object PortInstance {
     symbol: Symbol.Port
   ) extends PortInstance {
 
-    override def getDirection: Some[Direction] = {
+    override def getDirection = {
       import Ast.SpecPortInstance._
       val direction = specifier.kind match {
         case CommandRecv => Direction.Input
@@ -141,7 +141,7 @@ object PortInstance {
 
     override def getNodeId = aNode._2.id
 
-    override def getType: Some[Type.DefPort] = Some(Type.DefPort(symbol))
+    override def getType = Some(Type.DefPort(symbol))
 
     override def getUnqualifiedName = specifier.name
 
@@ -157,7 +157,7 @@ object PortInstance {
 
     override def getUnqualifiedName = aNode._2.data.name
 
-    override def requireConnectionAt(loc: Location): Result.Result[Unit] = Left(
+    override def requireConnectionAt(loc: Location) = Left(
       SemanticError.InvalidPortKind(
         loc,
         "cannot connect to internal port",

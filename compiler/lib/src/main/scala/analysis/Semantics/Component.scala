@@ -419,7 +419,7 @@ object Component {
     instance2: PortInstance.General
   ) {
 
-    override def toString: String = s"match $instance1 with $instance2"
+    override def toString = s"match $instance1 with $instance2"
 
     /** Gets the location of a port matching */
     def getLoc: Location = Locations.get(aNode._2.id)
