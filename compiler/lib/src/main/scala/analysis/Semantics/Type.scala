@@ -195,7 +195,7 @@ object Type {
     default: Option[Value.EnumConstant] = None
   ) extends Type {
     override def getDefaultValue: Option[Value.EnumConstant] = default
-    override def getDefNodeId: Some[AstNode.Id] = Some(node._2.id)
+    override def getDefNodeId = Some(node._2.id)
     override def isConvertibleToNumeric = true
     override def isPromotableToArray = true
     override def toString = "enum " ++ node._2.data.name
@@ -215,7 +215,7 @@ object Type {
     formats: Struct.Formats = Map(),
   ) extends Type {
     override def getDefaultValue: Option[Value.Struct] = default
-    override def getDefNodeId: Some[AstNode.Id] = Some(node._2.id)
+    override def getDefNodeId = Some(node._2.id)
     override def hasNumericMembers = anonStruct.hasNumericMembers
     override def toString = "struct " ++ node._2.data.name
   }

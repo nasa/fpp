@@ -99,7 +99,7 @@ object Line {
 case class Line(string: String = "", indent: Indentation = Indentation(0)) {
 
   /** Convert the line to a formatted string */
-  override def toString: String = string match {
+  override def toString = string match {
     case "" => ""
     case _ => indent.toString ++ string
   }

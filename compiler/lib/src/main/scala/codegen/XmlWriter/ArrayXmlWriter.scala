@@ -7,9 +7,13 @@ import fpp.compiler.util._
 /** Write out F Prime XML for array definitions */
 object ArrayXmlWriter extends AstVisitor with LineUtils {
 
-  override def default(s: XmlWriterState) = Nil
+  type In = XmlWriterState
 
-  override def defArrayAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
+  type Out = List[Line]
+
+  override def default(s: In) = Nil
+
+  override def defArrayAnnotatedNode(s: In, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val node = aNode._2
     val data = node.data
     val tags = {
@@ -70,17 +74,13 @@ object ArrayXmlWriter extends AstVisitor with LineUtils {
 
   /** Writes the default value corresponding to an array value */
   def writeDefaultValue(
-    s: XmlWriterState,
+    s: In,
     arrayValue: Value.Array
-  ): List[Line] = {
+  ): Out = {
     val tags = XmlTags.tags("value")
     val elements = arrayValue.anonArray.elements
     val values = elements.map(ValueXmlWriter.getValue(s, _))
     values.map(XmlTags.taggedString(tags)(_)).map(line)
   }
-
-  type In = XmlWriterState
-
-  type Out = List[Line]
 
 }

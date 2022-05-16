@@ -6,7 +6,7 @@ import fpp.compiler.util._
 /** An FPP port instance */
 sealed trait PortInstance {
 
-  override def toString: String = getUnqualifiedName.toString
+  override def toString = getUnqualifiedName.toString
 
   /** Gets the size of the port array */
   def getArraySize: Int = 1
@@ -108,7 +108,7 @@ object PortInstance {
     ty: Type,
   ) extends PortInstance {
 
-    override def getDirection: Option[Direction] = kind match {
+    override def getDirection = kind match {
       case General.Kind.Output => Some(Direction.Output)
       case _ => Some(Direction.Input)
     }

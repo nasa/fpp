@@ -7,9 +7,13 @@ import fpp.compiler.util._
 /** Write out F Prime XML for enum definitions */
 object EnumXmlWriter extends AstVisitor with LineUtils {
 
-  override def default(s: XmlWriterState) = Nil
+  type In = XmlWriterState
 
-  override def defEnumAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
+  type Out = List[Line]
+  
+  override def default(s: In) = Nil
+
+  override def defEnumAnnotatedNode(s: In, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
     val node = aNode._2
     val data = node.data
     val enumType @ Type.Enum(_, _, _) = s.a.typeMap(node.id)
@@ -33,7 +37,7 @@ object EnumXmlWriter extends AstVisitor with LineUtils {
   }
 
   def defEnumConstantAnnotatedNode(
-    s: XmlWriterState,
+    s: In,
     aNode: Ast.Annotated[AstNode[Ast.DefEnumConstant]]
   ): Line = {
     val node = aNode._2
@@ -49,9 +53,5 @@ object EnumXmlWriter extends AstVisitor with LineUtils {
     }
     line(XmlTags.openCloseTag("item", pairs))
   }
-
-  type In = XmlWriterState
-
-  type Out = List[Line]
 
 }

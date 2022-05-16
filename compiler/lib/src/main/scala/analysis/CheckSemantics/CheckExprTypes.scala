@@ -255,7 +255,7 @@ object CheckExprTypes extends UseAnalyzer {
   override def structTypeMemberAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.StructTypeMember]]
-  ): Result = {
+  ) = {
     val (_, node, _) = aNode
     val data = node.data
     for {
