@@ -3,53 +3,52 @@
 # ----------------------------------------------------------------------
 # FPP release builder
 # ----------------------------------------------------------------------
-# To pass flags to sbt, set the environment variable
-# FPP_SBT_FLAGS
+# To use this script, you must first install GraalVM and native-image.
+# See README.adoc.
 # ----------------------------------------------------------------------
 
-DIRECTORY=`dirname $0`
-NATIVE_BIN="${DIRECTORY}/native-fpp-`uname`-`uname -m`"
-NATIVE_IMAGE=`which native-image || exit 0`
-JAVA_PATH=`which java || exit 0`
+directory=`dirname $0`
+native_bin="$directory/native-fpp-`uname`-`uname -m`"
+native_image=`which native-image || exit 0`
+java_path=`which java || exit 0`
 
 # Looking for native-image
-if [ ! -x "${NATIVE_IMAGE}" ]
+if [ ! -x "$native_image" ]
 then
-    echo "[ERROR] native-image not found, install Graal JVM, native-image, and ensure it runs on your system" 1>&2
+    echo "release: native-image not found" 1>&2
+    echo "  Install Graal VM; then install native-image." 1>&2
+    echo "  Put Graal VM java and native-image first in your PATH." 1>&2
     exit 1
 fi
-JAVA_DIR=`dirname "${JAVA_PATH}"`
-NATIVE_DIR=`dirname "${NATIVE_IMAGE}"`
+java_dir=`dirname "$java_path"`
+native_dir=`dirname "$native_image"`
 
-if [ "${JAVA_DIR}" != "${NATIVE_DIR}" ]
+if [ "$java_dir" != "$native_dir" ]
 then
-    echo "[ERROR] Java and native-image found in different paths. This will result in a failed build." 1>&2
-    echo "[ERROR] Make sure Graal JVM is on the path and native-image was installed with 'gu install native-image'" 1>&2
-    echo "[ERROR] Java Path: ${JAVA_DIR}" 1>&2
-    echo "[ERROR] Native Path: ${NATIVE_IMAGE}" 1>&2
+    echo "release: Found java and native-image in different directory paths. These paths must match:" 1>&2
+    echo "  java path: $java_dir" 1>&2
+    echo "  native-image path: $native_dir" 1>&2
     exit 2
 fi
-mkdir -p "${NATIVE_BIN}"
-
-
-
+mkdir -p "$native_bin"
 
 # Install locally
-${DIRECTORY}/install
+$directory/install
 
-for item in ${DIRECTORY}/bin/*.jar
+for item in $directory/bin/*.jar
 do
-    IMAGE_NAME=`basename $item`
-    IMAGE_NAME=`echo $IMAGE_NAME | cut -f 1 -d '.'`
-    OUTPUT="${NATIVE_BIN}/${IMAGE_NAME}"
-    echo "Building Fast Version of ${IMAGE_NAME}"
-    native-image --no-fallback --install-exit-handlers -jar "${item}" "${OUTPUT}"
+    image_name=`basename $item`
+    image_name=`echo $image_name | cut -f 1 -d '.'`
+    output="$native_bin/$image_name"
+    echo "Building $output"
+    native-image --no-fallback --install-exit-handlers -jar "$item" "$output"
     if [ $? -ne 0 ]
     then
-        echo "[ERROR] Failed to build ${IMAGE_NAME}"
+        echo "release: Failed to build $output"
         exit 1
     fi
 done
-rm "${NATIVE_BIN}"/*.txt
-tar -czf "${NATIVE_BIN}.tar.gz" "${NATIVE_BIN}"
-echo "[INFO] Release archive built, prepare for Hyper Drive"
+rm "$native_bin"/*.txt
+release_tgz="$native_bin.tar.gz"
+tar -czf "$release_tgz" "$native_bin"
+echo "Release archive built at $release_tgz"
