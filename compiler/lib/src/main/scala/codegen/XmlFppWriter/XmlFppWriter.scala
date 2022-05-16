@@ -175,7 +175,7 @@ object XmlFppWriter extends LineUtils {
     node.attribute(name).map(_.toList.head.toString)
   
   /** Writes a file list */
-  def writeFileList(fileList: List[File]): Either[Error,List[Line]] = {
+  def writeFileList(fileList: List[File]): Result.Result[List[Line]] = {
     for (files <- Result.map(fileList, (file: File) => file.write))
       yield Line.blankSeparated (identity[List[Line]]) (files)
   }

@@ -10,7 +10,7 @@ object CppWriter extends AstStateVisitor with LineUtils {
   type State = CppWriterState
 
   override def defModuleAnnotatedNode(
-    s: CppWriterState,
+    s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefModule]]
   ) = {
     val node = aNode._2
@@ -19,7 +19,7 @@ object CppWriter extends AstStateVisitor with LineUtils {
   }
 
   override def defTopologyAnnotatedNode(
-    s: CppWriterState,
+    s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
   ) = {
     val node = aNode._2
@@ -28,10 +28,10 @@ object CppWriter extends AstStateVisitor with LineUtils {
     writeCppDoc(s, cppDoc)
   }
 
-  override def transUnit(s: CppWriterState, tu: Ast.TransUnit) =
+  override def transUnit(s: State, tu: Ast.TransUnit) =
     visitList(s, tu.members, matchTuMember)
 
-  def tuList(s: CppWriterState, tul: List[Ast.TransUnit]): Either[Error,Unit] =
+  def tuList(s: State, tul: List[Ast.TransUnit]): Result.Result[Unit] =
     for {
       _ <- ConstantCppWriter.write(s, tul)
       _ <- visitList(s, tul, transUnit)
@@ -74,25 +74,25 @@ object CppWriter extends AstStateVisitor with LineUtils {
       List(namespaceMember(head, wrapInNamespaces(tail, members)))
   }
 
-  def writeCppDoc(s: CppWriterState, cppDoc: CppDoc): Either[Error,CppWriterState] =
+  def writeCppDoc(s: State, cppDoc: CppDoc): Result.Result[State] =
     for {
       _ <- writeHppFile(s, cppDoc)
       _ <- writeCppFile(s, cppDoc)
     }
     yield s
 
-  private def writeCppFile(s: CppWriterState, cppDoc: CppDoc) = {
+  private def writeCppFile(s: State, cppDoc: CppDoc) = {
     val lines = CppDocCppWriter.visitCppDoc(cppDoc)
     writeLinesToFile(s, cppDoc.cppFileName, lines)
   }
 
-  private def writeHppFile(s: CppWriterState, cppDoc: CppDoc) = {
+  private def writeHppFile(s: State, cppDoc: CppDoc) = {
     val lines = CppDocHppWriter.visitCppDoc(cppDoc)
     writeLinesToFile(s, cppDoc.hppFile.name, lines)
   }
 
   private def writeLinesToFile(
-    s: CppWriterState,
+    s: State,
     fileName: String,
     lines: List[Line]
   ) = {

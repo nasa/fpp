@@ -341,7 +341,7 @@ case class Component(
   }
 
   /** Complete a component definition */
-  def complete: Either[Error,Component] = for {
+  def complete: Result.Result[Component] = for {
     c <- this.constructPortMatchingList
     _ <- c.checkValidity
   } yield c

@@ -70,7 +70,7 @@ object ComponentXmlFppWriter extends LineUtils {
             yield List(node)
 
       /** Generates a list of members */
-      final def generateMembers(file: XmlFppWriter.File, node: scala.xml.Node): Either[Error,List[Ast.ComponentMember]] = 
+      final def generateMembers(file: XmlFppWriter.File, node: scala.xml.Node): Result.Result[List[Ast.ComponentMember]] =
         generateMemberNodes(file, node) match {
           case Left(error) => Left(error)
           case Right(aNodes) => Right(aNodes.map(Ast.ComponentMember(_)))
@@ -151,7 +151,7 @@ object ComponentXmlFppWriter extends LineUtils {
 
         val xmlName = "port"
 
-        def general(file: XmlFppWriter.File, xmlNode: scala.xml.Node): Either[Error,Ast.SpecPortInstance.General] = {
+        def general(file: XmlFppWriter.File, xmlNode: scala.xml.Node): Result.Result[Ast.SpecPortInstance.General] = {
           import Ast.SpecPortInstance._
           for {
             xmlKind <- file.getAttribute(xmlNode, "kind")
@@ -179,7 +179,7 @@ object ComponentXmlFppWriter extends LineUtils {
           }
         }
 
-        def special(file: XmlFppWriter.File, xmlNode: scala.xml.Node, role: String): Either[Error,Ast.SpecPortInstance.Special] = {
+        def special(file: XmlFppWriter.File, xmlNode: scala.xml.Node, role: String): Result.Result[Ast.SpecPortInstance.Special] = {
           import Ast.SpecPortInstance._
           for {
             kind <- role match {

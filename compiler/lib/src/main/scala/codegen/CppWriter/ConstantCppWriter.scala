@@ -9,7 +9,7 @@ import fpp.compiler.util._
 object ConstantCppWriter {
 
   /** Writes out constant hpp and cpp */
-  def write(s: CppWriterState, tuList: List[Ast.TransUnit]): Either[Error,Any] =
+  def write(s: CppWriterState, tuList: List[Ast.TransUnit]): Result.Result[Any] =
     tuList.flatMap(Visitor.transUnit(s, _)) match {
       case Nil => Right(())
       case constantMembers => 
