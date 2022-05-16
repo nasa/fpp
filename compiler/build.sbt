@@ -8,6 +8,7 @@ lazy val settings = Seq(
   scalacOptions ++= Seq(
     "-deprecation",
     "-unchecked",
+    "-Xfatal-warnings"
   ),
   libraryDependencies ++= dependencies, 
   Test / testOptions += Tests.Argument(TestFrameworks.ScalaTest, "-oNCXELOPQRM"),

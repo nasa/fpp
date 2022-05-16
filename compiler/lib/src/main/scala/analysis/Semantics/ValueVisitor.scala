@@ -42,7 +42,6 @@ trait ValueVisitor {
       case v : Value.EnumConstant => enumConstant(in, v)
       case v : Value.AnonStruct => anonStruct(in, v)
       case v : Value.Struct => struct(in, v)
-      case _ => default(in, v)
     }
   }
 

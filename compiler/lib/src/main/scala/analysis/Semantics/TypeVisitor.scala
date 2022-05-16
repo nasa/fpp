@@ -42,7 +42,6 @@ trait TypeVisitor {
       case t : Type.PrimitiveInt => primitiveInt(in, t)
       case t : Type.String => string(in, t)
       case t : Type.Struct => struct(in, t)
-      case _ => default(in, t)
     }
 
   type In
