@@ -42,7 +42,7 @@ trait TypeExpressionAnalyzer
     } yield a
   }
 
-  def typeNameNode(a: Analysis, node: AstNode[Ast.TypeName]): Out = matchTypeNameNode(a, node)
+  def typeNameNode(a: Analysis, node: AstNode[Ast.TypeName]): Result = matchTypeNameNode(a, node)
 
   override def typeNameStringNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameString) =
     opt(exprNode)(a, tn.size)

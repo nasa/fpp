@@ -3,6 +3,10 @@ package fpp.compiler.analysis
 /** Visit a type */
 trait TypeVisitor {
 
+  type In
+
+  type Out
+
   def absType(in: In, t: Type.AbsType): Out = default(in, t)
 
   def anonArray(in: In, t: Type.AnonArray): Out = default(in, t)
@@ -43,9 +47,4 @@ trait TypeVisitor {
       case t : Type.String => string(in, t)
       case t : Type.Struct => struct(in, t)
     }
-
-  type In
-
-  type Out
-
 }
