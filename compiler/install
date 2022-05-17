@@ -7,6 +7,8 @@
 # FPP_SBT_FLAGS
 # ----------------------------------------------------------------------
 
+scala_version="2.13"
+
 if test $# -gt 1
 then
   echo 'usage: install dest-dir' 1>&2
@@ -61,7 +63,8 @@ mkdir -p $dest
 echo "Installing tools at $dest"
 for tool in $tools
 do
-  jar=`find tools/$tool -name "*$name*assembly*.jar"`
+  jar=`find tools/$tool -name "*$name*assembly*.jar" | grep "target/scala-$scala_version"`
+  echo "  $jar"
   cp $jar $dest/$tool.jar
   echo '#!/bin/sh
 
