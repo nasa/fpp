@@ -96,6 +96,7 @@ To use the `release` script, you must carry out the following steps:
 
 . Install GraalVM.
 For example, using MacPorts on Mac OS:
++
 [source,bash]
 ----
 % sudo port install openjdk11-graalvm
@@ -104,6 +105,7 @@ For example, using MacPorts on Mac OS:
 . Set the global environment variable `JAVA_HOME` to the `Home` directory
 associated with the GraalVM installation in step 1.
 For example, on Mac OS:
++
 [source,bash]
 ----
 % export JAVA_HOME=Library/Java/JavaVirtualMachines/openjdk11-graalvm/Contents/Home
@@ -118,6 +120,7 @@ of sync, and the native image build may not work.
 . Put `$JAVA_HOME/bin` first in your `PATH` variable, so that the
 system finds `java` and `native-image` at `$JAVA_HOME/bin`.
 For example:
++
 [source,bash]
 ----
 % export PATH=$JAVA_HOME/bin:$PATH
