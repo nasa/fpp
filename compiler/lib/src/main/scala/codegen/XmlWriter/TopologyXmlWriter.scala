@@ -12,7 +12,7 @@ object TopologyXmlWriter extends AstVisitor with LineUtils {
   type Out = List[Line]
 
   override def defTopologyAnnotatedNode(
-    s: In,
+    s: XmlWriterState,
     aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
   ) = {
     val symbol = Symbol.Topology(aNode)
@@ -29,14 +29,14 @@ object TopologyXmlWriter extends AstVisitor with LineUtils {
     XmlTags.taggedLines ("assembly", pairs) (body.map(indentIn))
   }
 
-  override def default(s: In) = Nil
+  override def default(s: XmlWriterState) = Nil
 
-  private def writeImports(s: In, t: Topology) = {
+  private def writeImports(s: XmlWriterState, t: Topology) = {
     val symbols = t.instanceMap.keys.map(ci => Symbol.Component(ci.component.aNode))
     s.writeImportDirectives(symbols)
   }
 
-  private def writeInstances(s: In, t: Topology) = {
+  private def writeInstances(s: XmlWriterState, t: Topology) = {
     def writeInstance(ci: ComponentInstance) = {
       val cis = Symbol.ComponentInstance(ci.aNode)
       val cs = Symbol.Component(ci.component.aNode)
@@ -58,7 +58,7 @@ object TopologyXmlWriter extends AstVisitor with LineUtils {
     instances.flatMap(writeInstance).toList
   }
 
-  private def writeConnections(s: In, t: Topology) = {
+  private def writeConnections(s: XmlWriterState, t: Topology) = {
     def getPairs(
       endpoint: Connection.Endpoint,
       portNumber: Int

@@ -14,7 +14,7 @@ trait AstStateVisitor extends AstVisitor {
   type Result = Result.Result[State]
 
   /** Default state transformation */
-  override def default(s: In) = Right(s)
+  override def default(s: State) = Right(s)
 
   /** Visit a list in sequence, threading state */
   def visitList[T](
