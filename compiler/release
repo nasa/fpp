@@ -3,52 +3,48 @@
 # ----------------------------------------------------------------------
 # FPP release builder
 # ----------------------------------------------------------------------
-# To use this script, you must first install GraalVM and native-image.
+# To use this script, you must first
+#
+# 1. Install GraalVM and native-image.
+#
+# 2. Set the environment variable GRAALVM_JAVA_HOME.
+#
 # See README.adoc.
 # ----------------------------------------------------------------------
 
+if test -z "$GRAALVM_JAVA_HOME"
+then
+  echo "release: environment variable GRAALVM_JAVA_HOME is not set" 1>&2
+  exit 1
+fi
+
 directory=`dirname $0`
 native_bin="$directory/native-fpp-`uname`-`uname -m`"
-native_image=`which native-image || exit 0`
-java_path=`which java || exit 0`
+native_image="$GRAALVM_JAVA_HOME/bin/native-image"
 
-# Looking for native-image
-if [ ! -x "$native_image" ]
-then
-    echo "release: native-image not found" 1>&2
-    echo "  Install Graal VM; then install native-image." 1>&2
-    echo "  Put Graal VM java and native-image first in your PATH." 1>&2
-    exit 1
-fi
-java_dir=`dirname "$java_path"`
-native_dir=`dirname "$native_image"`
-
-if [ "$java_dir" != "$native_dir" ]
-then
-    echo "release: Found java and native-image in different directory paths. These paths must match:" 1>&2
-    echo "  java path: $java_dir" 1>&2
-    echo "  native-image path: $native_dir" 1>&2
-    exit 2
-fi
 mkdir -p "$native_bin"
 
-# Install locally
+# Install jar files here
 $directory/install
 
-for item in $directory/bin/*.jar
+# Convert jar files to binaries
+for jar_file in $directory/bin/*.jar
 do
-    image_name=`basename $item`
-    image_name=`echo $image_name | cut -f 1 -d '.'`
-    output="$native_bin/$image_name"
-    echo "Building $output"
-    native-image --no-fallback --install-exit-handlers -jar "$item" "$output"
+    out_file=$native_bin/`basename $jar_file .jar`
+    echo "Building $out_file"
+    "$native_image" --no-fallback --install-exit-handlers -jar "$jar_file" "$out_file"
     if [ $? -ne 0 ]
     then
-        echo "release: Failed to build $output"
+        echo "release: Failed to build $out_file"
         exit 1
     fi
 done
+
+# Clean up native directory
 rm "$native_bin"/*.txt
+
+# Create tar ball
 release_tgz="$native_bin.tar.gz"
 tar -czf "$release_tgz" "$native_bin"
+
 echo "Release archive built at $release_tgz"
