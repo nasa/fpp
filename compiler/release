@@ -47,4 +47,4 @@ rm "$native_bin"/*.txt
 release_tgz="$native_bin.tar.gz"
 tar -czf "$release_tgz" "$native_bin"
 
-echo "Release archive built at $release_tgz"
+echo "Release archive written to $release_tgz"
