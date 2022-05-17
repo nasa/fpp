@@ -84,3 +84,39 @@ shell scripts there.
 To clean the repository, run `./clean` in this directory.
 This will run `sbt clean` and delete generated build
 and test artifacts.
+
+== Building Native Binaries
+
+You can use the `release` script in this directory to build native
+binaries of the FPP tools.
+The script uses the `native-image` tool of GraalVM to convert JAR
+files to native binaries.
+
+To use the `release` script, you must carry out the following steps:
+
+. Install GraalVM.
+For example, using MacPorts on Mac OS:
++
+[source,bash]
+----
+% sudo port install openjdk11-graalvm
+----
+
+. Set the global environment variable `GRAALVM_JAVA_HOME` to the `Home` directory
+associated with the GraalVM installation in step 1.
+For example, on Mac OS:
++
+[source,bash]
+----
+% export GRAALVM_JAVA_HOME=Library/Java/JavaVirtualMachines/openjdk11-graalvm/Contents/Home
+----
+
+. Run `sudo $GRAALVM_JAVA_HOME/bin/gu install native-image`
+*You must rerun this step every time you update or reinstall GraalVM (step 1).*
+If you update or reinstall GraalVM, and you forget to re-install `native-image`,
+then your GraalVM installation and your `native-image` installation will be out
+of sync, and the native image build may not work.
+
+. Run `./release` in this directory.
+The script will build the native binary tools and install them at
+`native-fpp-[platform name]`.
