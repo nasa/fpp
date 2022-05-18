@@ -1,0 +1,20 @@
+[
+{
+  "name":"java.lang.ClassValue"
+},
+{
+  "name":"java.lang.String[]"
+},
+{
+  "name":"java.lang.invoke.VarHandle",
+  "methods":[{"name":"releaseFence","parameterTypes":[] }]
+},
+{
+  "name":"scopt.OParser$",
+  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+},
+{
+  "name":"sun.misc.Unsafe",
+  "allDeclaredFields":true
+}
+]
