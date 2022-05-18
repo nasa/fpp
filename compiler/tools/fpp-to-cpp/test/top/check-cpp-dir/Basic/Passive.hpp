@@ -21,6 +21,9 @@ namespace M {
 
   };
 
+  // Simulate a concrete implementation
+  typedef Passive ConcretePassive;
+
 }
 
 #endif

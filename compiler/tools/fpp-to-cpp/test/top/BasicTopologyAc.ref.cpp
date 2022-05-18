@@ -39,7 +39,7 @@ namespace M {
     Passive passive1(FW_OPTIONAL_NAME("passive1"));
 
     // passive2
-    Passive passive2(FW_OPTIONAL_NAME("passive2"));
+    ConcretePassive passive2(FW_OPTIONAL_NAME("passive2"));
 
     // ----------------------------------------------------------------------
     // Private functions
