@@ -10,10 +10,10 @@ object ResolveSpecInclude extends AstStateTransformer {
 
   type State = Analysis
 
-  def default(a: In) = a
+  def default(a: Analysis) = a
 
   override def defComponentAnnotatedNode(
-    a: In,
+    a: Analysis,
     node: Ast.Annotated[AstNode[Ast.DefComponent]]
   ) = {
     val (pre, node1, post) = node
@@ -28,7 +28,7 @@ object ResolveSpecInclude extends AstStateTransformer {
   }
 
   override def defModuleAnnotatedNode(
-    a: In,
+    a: Analysis,
     node: Ast.Annotated[AstNode[Ast.DefModule]]
   ) = {
     val (pre, node1, post) = node
@@ -42,7 +42,7 @@ object ResolveSpecInclude extends AstStateTransformer {
     }
   }
 
-  override def transUnit(a: In, tu: Ast.TransUnit) = {
+  override def transUnit(a: Analysis, tu: Ast.TransUnit) = {
     for { result <- transformList(a, tu.members, tuMember) } 
     yield (result._1, Ast.TransUnit(result._2.flatten))
   }

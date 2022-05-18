@@ -9,7 +9,7 @@ object XmlWriter extends AstStateVisitor with LineUtils {
 
   type State = XmlWriterState
 
-  override def defArrayAnnotatedNode(s: In, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
+  override def defArrayAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val (_, node, _) = aNode
     val data = node.data
     val name = s.getName(Symbol.Array(aNode))
@@ -18,7 +18,7 @@ object XmlWriter extends AstStateVisitor with LineUtils {
     writeXmlFile(s, fileName, lines)
   }
 
-  override def defComponentAnnotatedNode(s: In, aNode: Ast.Annotated[AstNode[Ast.DefComponent]]) = {
+  override def defComponentAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefComponent]]) = {
     val (_, node, _) = aNode
     val data = node.data
     val name = s.getName(Symbol.Component(aNode))
@@ -31,7 +31,7 @@ object XmlWriter extends AstStateVisitor with LineUtils {
     yield s
   }
 
-  override def defEnumAnnotatedNode(s: In, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
+  override def defEnumAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
     val (_, node, _) = aNode
     val data = node.data
     val name = s.getName(Symbol.Enum(aNode))
@@ -41,7 +41,7 @@ object XmlWriter extends AstStateVisitor with LineUtils {
   }
 
   override def defModuleAnnotatedNode(
-    s: In,
+    s: XmlWriterState,
     aNode: Ast.Annotated[AstNode[Ast.DefModule]]
   ) = {
     val (_, node, _) = aNode
@@ -49,7 +49,7 @@ object XmlWriter extends AstStateVisitor with LineUtils {
     visitList(s, data.members, matchModuleMember)
   }
 
-  override def defPortAnnotatedNode(s: In, aNode: Ast.Annotated[AstNode[Ast.DefPort]]) = {
+  override def defPortAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefPort]]) = {
     val (_, node, _) = aNode
     val data = node.data
     val name = s.getName(Symbol.Port(aNode))
@@ -58,7 +58,7 @@ object XmlWriter extends AstStateVisitor with LineUtils {
     writeXmlFile(s, fileName, lines)
   }
 
-  override def defStructAnnotatedNode(s: In, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
+  override def defStructAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
     val (_, node, _) = aNode
     val loc = Locations.get(node.id)
     val data = node.data
@@ -71,7 +71,7 @@ object XmlWriter extends AstStateVisitor with LineUtils {
     } yield s
   }
 
-  override def defTopologyAnnotatedNode(s: In, aNode: Ast.Annotated[AstNode[Ast.DefTopology]]) = {
+  override def defTopologyAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefTopology]]) = {
     val (_, node, _) = aNode
     val data = node.data
     val name = s.getName(Symbol.Topology(aNode))
@@ -80,7 +80,7 @@ object XmlWriter extends AstStateVisitor with LineUtils {
     writeXmlFile(s, fileName, lines)
   }
 
-  override def transUnit(s: In, tu: Ast.TransUnit) =
+  override def transUnit(s: XmlWriterState, tu: Ast.TransUnit) =
     visitList(s, tu.members, matchTuMember)
 
   private def writeXmlHeader(fileName: String) = lines(
@@ -93,7 +93,7 @@ object XmlWriter extends AstStateVisitor with LineUtils {
         |"""
   )
 
-  private def writeXmlFile(s: In, fileName: String, lines: List[Line]) = {
+  private def writeXmlFile(s: XmlWriterState, fileName: String, lines: List[Line]) = {
     val path = java.nio.file.Paths.get(s.dir, fileName)
     val file = File.Path(path)
     val headerLines = writeXmlHeader(fileName)
