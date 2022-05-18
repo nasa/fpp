@@ -12,7 +12,7 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
   type Out = List[Line]
 
   override def defComponentAnnotatedNode(
-    s: In,
+    s: XmlWriterState,
     aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
   ) = {
     val symbol = Symbol.Component(aNode)
@@ -37,9 +37,9 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
     XmlTags.taggedLines ("component", pairs) (body.map(indentIn))
   }
 
-  override def default(s: In) = Nil
+  override def default(s: XmlWriterState) = Nil
 
-  private def writeCommands(s: In, c: Component) = {
+  private def writeCommands(s: XmlWriterState, c: Component) = {
     import Command._
     def writeNonParamCommand(opcode: Opcode, nonParam: NonParam) = {
       import NonParam._
@@ -85,7 +85,7 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
     XmlTags.taggedLinesOpt ("commands") (commands.map(indentIn))
   }
 
-  private def writeEvents(s: In, c: Component) = {
+  private def writeEvents(s: XmlWriterState, c: Component) = {
     import Event._
     def writeEvent(id: Id, event: Event) = {
       val data = event.aNode._2.data
@@ -131,12 +131,12 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
     XmlTags.taggedLinesOpt ("events") (events.map(indentIn))
   }
 
-  private def writeImports(s: In, c: Component) = {
+  private def writeImports(s: XmlWriterState, c: Component) = {
     val Right(a) = UsedSymbols.defComponentAnnotatedNode(s.a, c.aNode)
     s.writeImportDirectives(a.usedSymbolSet)
   }
 
-  private def writeInternalInterfaces(s: In, c: Component) = {
+  private def writeInternalInterfaces(s: XmlWriterState, c: Component) = {
     def writeInternalPort(name: String, internal: PortInstance.Internal) = {
       import PortInstance.Internal._
       val data = internal.aNode._2.data
@@ -165,7 +165,7 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
     XmlTags.taggedLinesOpt ("internal_interfaces") (ports.map(indentIn))
   }
 
-  private def writeParams(s: In, c: Component) = {
+  private def writeParams(s: XmlWriterState, c: Component) = {
     import Param._
     def writeParam(id: Id, param: Param) = {
       val data = param.aNode._2.data
@@ -190,7 +190,7 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
     XmlTags.taggedLinesOpt ("parameters") (params.map(indentIn))
   }
 
-  private def writePorts(s: In, c: Component) = {
+  private def writePorts(s: XmlWriterState, c: Component) = {
     def writeGeneralPort(name: String, general: PortInstance.General) = {
       import PortInstance.General._
       def writeDataType(ty: PortInstance.Type) = ty match {
@@ -268,7 +268,7 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
     XmlTags.taggedLinesOpt ("ports") (ports.map(indentIn))
   }
 
-  private def writeTlmChannels(s: In, c: Component) = {
+  private def writeTlmChannels(s: XmlWriterState, c: Component) = {
     import TlmChannel._
     def writeTlmChannel(id: Id, tlmChannel: TlmChannel) = {
       val data = tlmChannel.aNode._2.data

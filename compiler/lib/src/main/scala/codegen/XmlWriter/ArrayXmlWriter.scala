@@ -11,9 +11,9 @@ object ArrayXmlWriter extends AstVisitor with LineUtils {
 
   type Out = List[Line]
 
-  override def default(s: In) = Nil
+  override def default(s: XmlWriterState) = Nil
 
-  override def defArrayAnnotatedNode(s: In, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
+  override def defArrayAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val node = aNode._2
     val data = node.data
     val tags = {
@@ -74,7 +74,7 @@ object ArrayXmlWriter extends AstVisitor with LineUtils {
 
   /** Writes the default value corresponding to an array value */
   def writeDefaultValue(
-    s: In,
+    s: XmlWriterState,
     arrayValue: Value.Array
   ): Out = {
     val tags = XmlTags.tags("value")

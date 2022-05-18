@@ -42,10 +42,10 @@ object ConstantCppWriter {
 
     type Out = List[CppDoc.Member]
 
-    override def default(s: In) = Nil
+    override def default(s: CppWriterState) = Nil
 
     override def defConstantAnnotatedNode(
-      s: In,
+      s: CppWriterState,
       aNode: Ast.Annotated[AstNode[Ast.DefConstant]]
     ) = {
       val node = aNode._2
@@ -83,7 +83,7 @@ object ConstantCppWriter {
     }
 
     override def defModuleAnnotatedNode(
-      s: In,
+      s: CppWriterState,
       aNode: Ast.Annotated[AstNode[Ast.DefModule]]
     ) = {
       val (_, node, _) = aNode
@@ -98,7 +98,7 @@ object ConstantCppWriter {
     }
 
     override def defComponentAnnotatedNode(
-      s: In,
+      s: CppWriterState,
       aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
     ) = {
       val (_, node, _) = aNode
@@ -107,7 +107,7 @@ object ConstantCppWriter {
       members
     }
 
-    override def transUnit(s: In, tu: Ast.TransUnit) =
+    override def transUnit(s: CppWriterState, tu: Ast.TransUnit) =
       tu.members.flatMap(matchTuMember(s, _))
 
     private def writeBooleanConstant(name: String, value: String) =

@@ -19,10 +19,10 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
     val scopeNameList: List[Name.Unqualified] = Nil
   )
 
-  override def default(s: In) = Nil
+  override def default(s: State) = Nil
 
   override def defAbsTypeAnnotatedNode(
-    s: In,
+    s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefAbsType]]
   ) = {
     val (_, node, _) = aNode
@@ -31,7 +31,7 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
   }
 
   override def defArrayAnnotatedNode(
-    s: In,
+    s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefArray]]
   ) = {
     val (_, node, _) = aNode
@@ -40,7 +40,7 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
   }
 
   override def defComponentAnnotatedNode(
-    s: In,
+    s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
   ) = {
     val (_, node, _) = aNode
@@ -51,7 +51,7 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
   }
 
   override def defComponentInstanceAnnotatedNode(
-    s: In,
+    s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefComponentInstance]]
   ) = {
     val (_, node, _) = aNode
@@ -60,7 +60,7 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
   }
 
   override def defConstantAnnotatedNode(
-    s: In,
+    s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefConstant]]
   ) = {
     val (_, node, _) = aNode
@@ -69,7 +69,7 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
   }
 
   override def defEnumAnnotatedNode(
-    s: In,
+    s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefEnum]]
   ) = {
     val (_, node, _) = aNode
@@ -78,7 +78,7 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
   }
 
   override def defModuleAnnotatedNode(
-    s: In,
+    s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefModule]]
   ) = {
     val (_, node, _) = aNode
@@ -88,7 +88,7 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
   }
 
   override def defPortAnnotatedNode(
-    s: In,
+    s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefPort]]
   ) = {
     val (_, node, _) = aNode
@@ -97,7 +97,7 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
   }
 
   override def defStructAnnotatedNode(
-    s: In,
+    s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefStruct]]
   ) = {
     val (_, node, _) = aNode
@@ -106,7 +106,7 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
   }
 
   override def defTopologyAnnotatedNode(
-    s: In,
+    s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
   ) = {
     val (_, node, _) = aNode
@@ -114,11 +114,11 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
     writeSpecLoc(s, Ast.SpecLoc.Topology, data.name, node)
   }
 
-  override def transUnit(s: In, tu: Ast.TransUnit) =
+  override def transUnit(s: State, tu: Ast.TransUnit) =
     tu.members.flatMap(matchModuleMember(s, _))
 
   private def writeSpecLoc[T](
-    s: In,
+    s: State,
     kind: Ast.SpecLoc.Kind,
     name: String,
     node: AstNode[T]

@@ -11,10 +11,10 @@ object PortXmlWriter extends AstVisitor with LineUtils {
 
   type Out = List[Line]
 
-  override def default(s: In) = Nil
+  override def default(s: XmlWriterState) = Nil
 
   override def defPortAnnotatedNode(
-    s: In,
+    s: XmlWriterState,
     aNode: Ast.Annotated[AstNode[Ast.DefPort]]
   ) = {
     val node = aNode._2

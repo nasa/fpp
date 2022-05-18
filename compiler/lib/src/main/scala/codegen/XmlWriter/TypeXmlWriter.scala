@@ -12,26 +12,26 @@ object TypeXmlWriter {
 
     type Out = String
 
-    override def absType(s: In, t: Type.AbsType) =
+    override def absType(s: XmlWriterState, t: Type.AbsType) =
       s.writeSymbol(Symbol.AbsType(t.node))
 
-    override def array(s: In, t: Type.Array) =
+    override def array(s: XmlWriterState, t: Type.Array) =
       s.writeSymbol(Symbol.Array(t.node))
 
-    override def boolean(s: In) = "bool"
+    override def boolean(s: XmlWriterState) = "bool"
 
-    override def default(s: In, t: Type) = throw new InternalError("visitor not defined")
+    override def default(s: XmlWriterState, t: Type) = throw new InternalError("visitor not defined")
 
-    override def enumeration(s: In, t: Type.Enum) =
+    override def enumeration(s: XmlWriterState, t: Type.Enum) =
       s.writeSymbol(Symbol.Enum(t.node))
 
-    override def float(s: In, t: Type.Float) = t.toString
+    override def float(s: XmlWriterState, t: Type.Float) = t.toString
 
-    override def primitiveInt(s: In, t: Type.PrimitiveInt) = t.toString
+    override def primitiveInt(s: XmlWriterState, t: Type.PrimitiveInt) = t.toString
 
-    override def string(s: In, t: Type.String) = "string"
+    override def string(s: XmlWriterState, t: Type.String) = "string"
 
-    override def struct(s: In, t: Type.Struct) =
+    override def struct(s: XmlWriterState, t: Type.Struct) =
       s.writeSymbol(Symbol.Struct(t.node))
 
   }
