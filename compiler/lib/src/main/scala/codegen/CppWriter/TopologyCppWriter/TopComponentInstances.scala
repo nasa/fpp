@@ -20,8 +20,8 @@ case class TopComponentInstances(
   private def getComponentInstanceLines: List[Line] = {
     def getCode(ci: ComponentInstance): List[Line] = {
       val componentName = {
-        val concreteType = ci.aNode._2.data.concreteType.map(_.data)
-        concreteType.getOrElse(getComponentNameAsQualIdent(ci))
+        val implType = ci.aNode._2.data.implType.map(_.data)
+        implType.getOrElse(getComponentNameAsQualIdent(ci))
       }
       val instanceName = getNameAsIdent(ci.qualifiedName)
       Line.addPrefixLine (line(s"// $instanceName")) (
