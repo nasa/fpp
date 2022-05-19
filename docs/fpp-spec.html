@@ -1927,11 +1927,11 @@ the identifier range of another instance.</p>
 </li>
 <li>
 <p>If present, the string literal following the keyword <code>type</code>
-names the concrete type of the instance.
+names the implementation type of the instance.
 The type must be a valid type in the target language (e.g., a type name
 in C&#43;&#43;).
-If the concrete type name is not present, then the code generator
-infers the concrete type name from the component name when
+If the implementation type is not present, then the code generator
+infers the name of the implementation type from the component name when
 generating the constructor for the instance.
 For example:</p>
 <div class="olist loweralpha">
@@ -1939,7 +1939,7 @@ For example:</p>
 <li>
 <p>Suppose an FPP model has a component <code>C</code> defined in module <code>M</code>.
 Suppose <em>I</em> is an instance of component <code>M.C</code>.
-By default, the concrete type name associated with <em>I</em> is <code>M::C</code>.</p>
+By default, the implementation type associated with <em>I</em> is <code>M::C</code>.</p>
 </li>
 <li>
 <p>Specifying <code>type "M::D"</code> causes FPP to generate a
@@ -1948,7 +1948,7 @@ constructor for <em>I</em> with name <code>"M::D"</code> instead of <code>"M::C"
 </ol>
 </div>
 <div class="paragraph">
-<p>Specifying a concrete type is useful in cases where the name
+<p>Specifying an implementation type is useful in cases where the name
 of the component implementation does not match the component
 name, e.g., because there are several implementations of the
 same FPP component.</p>
@@ -8193,7 +8193,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-05-18 14:23:36 -0700
+Last updated 2022-05-18 18:25:09 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
