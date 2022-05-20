@@ -60,8 +60,8 @@ case class TopologyCppWriter(
       ),
       CppDoc.Lines.Cpp
     )
-    val publicFunctions = TopPublicFunctions(s, aNode, privateFns).getMembers
-    val defs = hppLines :: cppLines :: publicFunctions
+    val setupTeardownFns = TopSetupTeardownFns(s, aNode, privateFns).getMembers
+    val defs = hppLines :: cppLines :: setupTeardownFns
     List(
       List(hppIncludes, cppIncludes),
       CppWriter.wrapInNamespaces(namespaceIdentList, defs)
