@@ -67,7 +67,7 @@ do
   echo "  $jar"
   cp $jar $dest/$tool.jar
   echo '#!/bin/sh
-
-  java -jar '$dest'/'$tool'.jar "$@"' > $dest/$tool
+  LOCAL_DIR="`dirname $0`"
+  java -jar "${LOCAL_DIR}/'$tool'.jar" "$@"' > $dest/$tool
   chmod +x $dest/$tool
 done
