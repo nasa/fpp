@@ -31,7 +31,7 @@ namespace M {
   }
 
   // ----------------------------------------------------------------------
-  // Public interface functions
+  // Setup and teardown functions
   // ----------------------------------------------------------------------
 
   //! Set up the topology

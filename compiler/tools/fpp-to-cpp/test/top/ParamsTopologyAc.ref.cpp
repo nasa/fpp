@@ -56,7 +56,7 @@ namespace M {
   }
 
   // ----------------------------------------------------------------------
-  // Public interface functions
+  // Setup and teardown functions
   // ----------------------------------------------------------------------
 
   void setup(const TopologyState& state) {
