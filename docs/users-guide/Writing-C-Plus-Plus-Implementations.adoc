@@ -83,7 +83,7 @@ instance to a byte string).
 * An implementation of the function
 +
 ----
-Fw::SerializeStatus T::serialize(Fw::SerializeBufferBase&)
+Fw::SerializeStatus T::deserialize(Fw::SerializeBufferBase&)
 ----
 +
 that specifies how to *deserialize* a class instance (i.e., reconstruct a class
