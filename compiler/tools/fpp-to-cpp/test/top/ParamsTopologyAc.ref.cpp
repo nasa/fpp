@@ -20,16 +20,6 @@ namespace M {
     // c2
     C c2(FW_OPTIONAL_NAME("c2"));
 
-    // ----------------------------------------------------------------------
-    // Private functions
-    // ----------------------------------------------------------------------
-
-    // Load parameters
-    void loadParameters() {
-      c1.loadParamsSpecial();
-      c2.loadParameters();
-    }
-
   }
 
   // ----------------------------------------------------------------------
@@ -53,6 +43,11 @@ namespace M {
 
   void readParameters() {
     c1.readParamFile();
+  }
+
+  void loadParameters() {
+    c1.loadParamsSpecial();
+    c2.loadParameters();
   }
 
   // ----------------------------------------------------------------------

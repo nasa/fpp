@@ -48,6 +48,9 @@ namespace M {
   //! Read parameters
   void readParameters();
 
+  //! Load parameters
+  void loadParameters();
+
   // ----------------------------------------------------------------------
   // Setup and teardown functions
   // ----------------------------------------------------------------------

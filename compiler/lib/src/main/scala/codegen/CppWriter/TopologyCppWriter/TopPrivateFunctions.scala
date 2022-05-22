@@ -15,7 +15,6 @@ case class TopPrivateFunctions(
   def getLines: (Set[String], List[Line]) = {
     // Get pairs of (function name, function lines)
     val pairs = List(
-      getLoadParametersLines,
       getStartTasksLines,
       getStopTasksLines,
       getFreeThreadsLines,
@@ -32,28 +31,6 @@ case class TopPrivateFunctions(
       pairs.map(_._2).flatten
     )
     (fns, ll)
-  }
-
-  private def getLoadParametersLines: (String, List[Line]) = {
-    def getCode(ci: ComponentInstance): List[Line] = {
-      getCodeLinesForPhase (CppWriter.Phases.loadParameters) (ci).getOrElse(
-        if (hasParams(ci)) {
-          val name = getNameAsIdent(ci.qualifiedName)
-          lines(s"$name.loadParameters();")
-        }
-        else Nil
-      )
-    }
-    val name = "loadParameters"
-    val ll = addComment(
-      "Load parameters",
-      wrapInScope(
-        s"void $name() {",
-        instances.flatMap(getCode),
-        "}"
-      )
-    )
-    (name, ll)
   }
 
   private def getStartTasksLines: (String, List[Line]) = {
