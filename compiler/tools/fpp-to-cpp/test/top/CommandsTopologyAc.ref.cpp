@@ -24,12 +24,6 @@ namespace M {
     // Private functions
     // ----------------------------------------------------------------------
 
-    // Set component base Ids
-    void setBaseIds() {
-      c1.setIdBase(BaseIds::c1);
-      c2.setIdBase(BaseIds::c2);
-    }
-
     // Register commands
     void regCommands() {
       c1.regCommandsSpecial();
@@ -45,6 +39,11 @@ namespace M {
   void initComponents(const TopologyState& state) {
     c1.init(InstanceIds::c1);
     c2.init(InstanceIds::c2);
+  }
+
+  void setBaseIds() {
+    c1.setIdBase(BaseIds::c1);
+    c2.setIdBase(BaseIds::c2);
   }
 
   // ----------------------------------------------------------------------

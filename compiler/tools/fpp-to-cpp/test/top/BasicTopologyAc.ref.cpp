@@ -45,20 +45,6 @@ namespace M {
     // Private functions
     // ----------------------------------------------------------------------
 
-    // Configure components
-    void configComponents(const TopologyState& state) {
-      active2.config();
-    }
-
-    // Set component base Ids
-    void setBaseIds() {
-      active1.setIdBase(BaseIds::active1);
-      active2.setIdBase(BaseIds::active2);
-      active3.setIdBase(BaseIds::active3);
-      passive1.setIdBase(BaseIds::passive1);
-      passive2.setIdBase(BaseIds::passive2);
-    }
-
     // Connect components
     void connectComponents() {
 
@@ -124,6 +110,18 @@ namespace M {
     active3.init(QueueSizes::active3, InstanceIds::active3);
     passive1.init(InstanceIds::passive1);
     passive2.init(InstanceIds::passive2);
+  }
+
+  void configComponents(const TopologyState& state) {
+    active2.config();
+  }
+
+  void setBaseIds() {
+    active1.setIdBase(BaseIds::active1);
+    active2.setIdBase(BaseIds::active2);
+    active3.setIdBase(BaseIds::active3);
+    passive1.setIdBase(BaseIds::passive1);
+    passive2.setIdBase(BaseIds::passive2);
   }
 
   // ----------------------------------------------------------------------

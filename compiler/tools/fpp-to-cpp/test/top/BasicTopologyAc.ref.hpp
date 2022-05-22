@@ -89,6 +89,14 @@ namespace M {
       const TopologyState& state //!< The topology state
   );
 
+  //! Configure components
+  void configComponents(
+      const TopologyState& state //!< The topology state
+  );
+
+  //! Set component base Ids
+  void setBaseIds();
+
   // ----------------------------------------------------------------------
   // Setup and teardown functions
   // ----------------------------------------------------------------------

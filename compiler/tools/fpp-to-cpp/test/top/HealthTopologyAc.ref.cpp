@@ -50,13 +50,6 @@ namespace M {
     // Private functions
     // ----------------------------------------------------------------------
 
-    // Set component base Ids
-    void setBaseIds() {
-      health.setIdBase(BaseIds::health);
-      c1.setIdBase(BaseIds::c1);
-      c2.setIdBase(BaseIds::c2);
-    }
-
     // Connect components
     void connectComponents() {
 
@@ -90,6 +83,12 @@ namespace M {
     c1.init(InstanceIds::c1);
     c2.init(InstanceIds::c2);
     health.init(InstanceIds::health);
+  }
+
+  void setBaseIds() {
+    health.setIdBase(BaseIds::health);
+    c1.setIdBase(BaseIds::c1);
+    c2.setIdBase(BaseIds::c2);
   }
 
   // ----------------------------------------------------------------------
