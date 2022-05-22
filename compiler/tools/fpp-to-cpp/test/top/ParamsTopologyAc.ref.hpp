@@ -45,6 +45,9 @@ namespace M {
   //! Register commands
   void regCommands();
 
+  //! Read parameters
+  void readParameters();
+
   // ----------------------------------------------------------------------
   // Setup and teardown functions
   // ----------------------------------------------------------------------

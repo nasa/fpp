@@ -24,11 +24,6 @@ namespace M {
     // Private functions
     // ----------------------------------------------------------------------
 
-    // Read parameters
-    void readParameters() {
-      c1.readParamFile();
-    }
-
     // Load parameters
     void loadParameters() {
       c1.loadParamsSpecial();
@@ -54,6 +49,10 @@ namespace M {
   void regCommands() {
     c1.regCommands();
     c2.regCommands();
+  }
+
+  void readParameters() {
+    c1.readParamFile();
   }
 
   // ----------------------------------------------------------------------
