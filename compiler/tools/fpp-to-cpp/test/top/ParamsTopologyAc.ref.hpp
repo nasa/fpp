@@ -42,6 +42,9 @@ namespace M {
   //! Set component base Ids
   void setBaseIds();
 
+  //! Register commands
+  void regCommands();
+
   // ----------------------------------------------------------------------
   // Setup and teardown functions
   // ----------------------------------------------------------------------

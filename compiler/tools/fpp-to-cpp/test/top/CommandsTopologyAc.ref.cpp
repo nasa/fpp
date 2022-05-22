@@ -20,16 +20,6 @@ namespace M {
     // c2
     C c2(FW_OPTIONAL_NAME("c2"));
 
-    // ----------------------------------------------------------------------
-    // Private functions
-    // ----------------------------------------------------------------------
-
-    // Register commands
-    void regCommands() {
-      c1.regCommandsSpecial();
-      c2.regCommands();
-    }
-
   }
 
   // ----------------------------------------------------------------------
@@ -44,6 +34,11 @@ namespace M {
   void setBaseIds() {
     c1.setIdBase(BaseIds::c1);
     c2.setIdBase(BaseIds::c2);
+  }
+
+  void regCommands() {
+    c1.regCommandsSpecial();
+    c2.regCommands();
   }
 
   // ----------------------------------------------------------------------

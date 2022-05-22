@@ -24,12 +24,6 @@ namespace M {
     // Private functions
     // ----------------------------------------------------------------------
 
-    // Register commands
-    void regCommands() {
-      c1.regCommands();
-      c2.regCommands();
-    }
-
     // Read parameters
     void readParameters() {
       c1.readParamFile();
@@ -55,6 +49,11 @@ namespace M {
   void setBaseIds() {
     c1.setIdBase(BaseIds::c1);
     c2.setIdBase(BaseIds::c2);
+  }
+
+  void regCommands() {
+    c1.regCommands();
+    c2.regCommands();
   }
 
   // ----------------------------------------------------------------------
