@@ -15,7 +15,6 @@ case class TopPrivateFunctions(
   def getLines: (Set[String], List[Line]) = {
     // Get pairs of (function name, function lines)
     val pairs = List(
-      getFreeThreadsLines,
       getTearDownComponentsLines,
     )
     // Compute the set of names with nonempty lines
@@ -29,27 +28,6 @@ case class TopPrivateFunctions(
       pairs.map(_._2).flatten
     )
     (fns, ll)
-  }
-
-  private def getFreeThreadsLines: (String, List[Line]) = {
-    def getCode(ci: ComponentInstance): List[Line] =
-      getCodeLinesForPhase (CppWriter.Phases.freeThreads) (ci).getOrElse {
-        if (isActive(ci)) {
-          val name = getNameAsIdent(ci.qualifiedName)
-          lines(s"(void) $name.ActiveComponentBase::join(nullptr);")
-        }
-        else Nil
-      }
-    val name = "freeThreads"
-    val ll = addComment(
-      "Free threads",
-      wrapInScope(
-        s"void $name(const TopologyState& state) {",
-        instances.flatMap(getCode),
-        "}"
-      )
-    )
-    (name, ll)
   }
 
   private def getTearDownComponentsLines: (String, List[Line]) = {

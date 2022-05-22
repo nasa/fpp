@@ -24,7 +24,7 @@ case class TopHelperFns(
       getLoadParametersFn,
       getStartTasksFn,
       getStopTasksFn,
-      //getFreeThreadsFn,
+      getFreeThreadsFn,
       //getTearDownComponentsFn,
     )
     // Compute the set of names with nonempty lines
@@ -243,6 +243,25 @@ case class TopHelperFns(
     val name = "stopTasks"
     val memberOpt = getFnMemberOpt(
       "Stop tasks",
+      name,
+      stateParams,
+      instances.flatMap(getCode)
+    )
+    (name, memberOpt)
+  }
+
+  private def getFreeThreadsFn = {
+    def getCode(ci: ComponentInstance): List[Line] =
+      getCodeLinesForPhase (CppWriter.Phases.freeThreads) (ci).getOrElse {
+        if (isActive(ci)) {
+          val name = getNameAsIdent(ci.qualifiedName)
+          lines(s"(void) $name.ActiveComponentBase::join(nullptr);")
+        }
+        else Nil
+      }
+    val name = "freeThreads"
+    val memberOpt = getFnMemberOpt(
+      "Free threads",
       name,
       stateParams,
       instances.flatMap(getCode)

@@ -45,13 +45,6 @@ namespace M {
     // Private functions
     // ----------------------------------------------------------------------
 
-    // Free threads
-    void freeThreads(const TopologyState& state) {
-      (void) active1.ActiveComponentBase::join(nullptr);
-      active2.freeSpecial();
-      (void) active3.ActiveComponentBase::join(nullptr);
-    }
-
     // Tear down components
     void tearDownComponents(const TopologyState& state) {
       active2.tearDown();
@@ -118,6 +111,12 @@ namespace M {
     active1.exit();
     active2.stopSpecial();
     active3.exit();
+  }
+
+  void freeThreads(const TopologyState& state) {
+    (void) active1.ActiveComponentBase::join(nullptr);
+    active2.freeSpecial();
+    (void) active3.ActiveComponentBase::join(nullptr);
   }
 
   // ----------------------------------------------------------------------

@@ -110,6 +110,11 @@ namespace M {
       const TopologyState& state //!< The topology state
   );
 
+  //! Free threads
+  void freeThreads(
+      const TopologyState& state //!< The topology state
+  );
+
   // ----------------------------------------------------------------------
   // Setup and teardown functions
   // ----------------------------------------------------------------------
