@@ -15,7 +15,6 @@ case class TopPrivateFunctions(
   def getLines: (Set[String], List[Line]) = {
     // Get pairs of (function name, function lines)
     val pairs = List(
-      getStopTasksLines,
       getFreeThreadsLines,
       getTearDownComponentsLines,
     )
@@ -30,27 +29,6 @@ case class TopPrivateFunctions(
       pairs.map(_._2).flatten
     )
     (fns, ll)
-  }
-
-  private def getStopTasksLines: (String, List[Line]) = {
-    def getCode(ci: ComponentInstance): List[Line] =
-      getCodeLinesForPhase (CppWriter.Phases.stopTasks) (ci).getOrElse {
-        if (isActive(ci)) {
-          val name = getNameAsIdent(ci.qualifiedName)
-          lines(s"$name.exit();")
-        }
-        else Nil
-      }
-    val name = "stopTasks"
-    val ll = addComment(
-      "Stop tasks",
-      wrapInScope(
-        "void stopTasks(const TopologyState& state) {",
-        instances.flatMap(getCode),
-        "}"
-      )
-    )
-    (name, ll)
   }
 
   private def getFreeThreadsLines: (String, List[Line]) = {

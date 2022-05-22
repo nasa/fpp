@@ -105,6 +105,11 @@ namespace M {
       const TopologyState& state //!< The topology state
   );
 
+  //! Stop tasks
+  void stopTasks(
+      const TopologyState& state //!< The topology state
+  );
+
   // ----------------------------------------------------------------------
   // Setup and teardown functions
   // ----------------------------------------------------------------------

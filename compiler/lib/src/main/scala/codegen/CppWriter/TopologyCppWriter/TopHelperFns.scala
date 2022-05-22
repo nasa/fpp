@@ -23,7 +23,7 @@ case class TopHelperFns(
       getReadParametersFn,
       getLoadParametersFn,
       getStartTasksFn,
-      //getStopTasksFn,
+      getStopTasksFn,
       //getFreeThreadsFn,
       //getTearDownComponentsFn,
     )
@@ -224,6 +224,25 @@ case class TopHelperFns(
     val name = "startTasks"
     val memberOpt = getFnMemberOpt(
       "Start tasks",
+      name,
+      stateParams,
+      instances.flatMap(getCode)
+    )
+    (name, memberOpt)
+  }
+
+  private def getStopTasksFn = {
+    def getCode(ci: ComponentInstance): List[Line] =
+      getCodeLinesForPhase (CppWriter.Phases.stopTasks) (ci).getOrElse {
+        if (isActive(ci)) {
+          val name = getNameAsIdent(ci.qualifiedName)
+          lines(s"$name.exit();")
+        }
+        else Nil
+      }
+    val name = "stopTasks"
+    val memberOpt = getFnMemberOpt(
+      "Stop tasks",
       name,
       stateParams,
       instances.flatMap(getCode)

@@ -45,13 +45,6 @@ namespace M {
     // Private functions
     // ----------------------------------------------------------------------
 
-    // Stop tasks
-    void stopTasks(const TopologyState& state) {
-      active1.exit();
-      active2.stopSpecial();
-      active3.exit();
-    }
-
     // Free threads
     void freeThreads(const TopologyState& state) {
       (void) active1.ActiveComponentBase::join(nullptr);
@@ -119,6 +112,12 @@ namespace M {
       Os::Task::TASK_DEFAULT, // Default CPU
       static_cast<NATIVE_UINT_TYPE>(TaskIds::active3)
     );
+  }
+
+  void stopTasks(const TopologyState& state) {
+    active1.exit();
+    active2.stopSpecial();
+    active3.exit();
   }
 
   // ----------------------------------------------------------------------
