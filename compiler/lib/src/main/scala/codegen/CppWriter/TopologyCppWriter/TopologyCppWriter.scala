@@ -48,14 +48,14 @@ case class TopologyCppWriter(
     }
     val cppLines = CppWriter.linesMember(
       Line.blank ::
-      wrapInAnonymousNamespace(
-        addBlankPostfix(
-          List(
+      List(
+        wrapInAnonymousNamespace(
+          addBlankPostfix(
             TopConfigObjects(s, aNode).getLines,
-            TopComponentInstances(s, aNode).getLines
-          ).flatten
-        )
-      ),
+          )
+        ),
+        TopComponentInstances(s, aNode).getLines
+      ).flatten,
       CppDoc.Lines.Cpp
     )
     val (helperFnNames, helperFns) = TopHelperFns(s, aNode).getMembers

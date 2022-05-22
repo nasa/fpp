@@ -33,20 +33,20 @@ namespace M {
 
     }
 
-    // ----------------------------------------------------------------------
-    // Component instances
-    // ----------------------------------------------------------------------
-
-    // c1
-    C c1(FW_OPTIONAL_NAME("c1"));
-
-    // c2
-    C c2(FW_OPTIONAL_NAME("c2"));
-
-    // health
-    Svc::HealthImpl health(FW_OPTIONAL_NAME("health"));
-
   }
+
+  // ----------------------------------------------------------------------
+  // Component instances
+  // ----------------------------------------------------------------------
+
+  // c1
+  C c1(FW_OPTIONAL_NAME("c1"));
+
+  // c2
+  C c2(FW_OPTIONAL_NAME("c2"));
+
+  // health
+  Svc::HealthImpl health(FW_OPTIONAL_NAME("health"));
 
   // ----------------------------------------------------------------------
   // Helper functions
