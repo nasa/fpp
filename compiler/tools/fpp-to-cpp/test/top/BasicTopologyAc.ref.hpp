@@ -100,6 +100,11 @@ namespace M {
   //! Connect components
   void connectComponents();
 
+  //! Start tasks
+  void startTasks(
+      const TopologyState& state //!< The topology state
+  );
+
   // ----------------------------------------------------------------------
   // Setup and teardown functions
   // ----------------------------------------------------------------------

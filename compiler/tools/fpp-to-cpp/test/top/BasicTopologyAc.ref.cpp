@@ -45,23 +45,6 @@ namespace M {
     // Private functions
     // ----------------------------------------------------------------------
 
-    // Start tasks
-    void startTasks(const TopologyState& state) {
-      active1.start(
-        static_cast<NATIVE_UINT_TYPE>(Priorities::active1),
-        static_cast<NATIVE_UINT_TYPE>(StackSizes::active1),
-        static_cast<NATIVE_UINT_TYPE>(CPUs::active1),
-        static_cast<NATIVE_UINT_TYPE>(TaskIds::active1)
-      );
-      active2.startSpecial();
-      active3.start(
-        Os::Task::TASK_DEFAULT, // Default priority
-        Os::Task::TASK_DEFAULT, // Default stack size
-        Os::Task::TASK_DEFAULT, // Default CPU
-        static_cast<NATIVE_UINT_TYPE>(TaskIds::active3)
-      );
-    }
-
     // Stop tasks
     void stopTasks(const TopologyState& state) {
       active1.exit();
@@ -119,6 +102,22 @@ namespace M {
     passive2.set_p_OutputPort(
         0,
         active2.get_p_InputPort(0)
+    );
+  }
+
+  void startTasks(const TopologyState& state) {
+    active1.start(
+      static_cast<NATIVE_UINT_TYPE>(Priorities::active1),
+      static_cast<NATIVE_UINT_TYPE>(StackSizes::active1),
+      static_cast<NATIVE_UINT_TYPE>(CPUs::active1),
+      static_cast<NATIVE_UINT_TYPE>(TaskIds::active1)
+    );
+    active2.startSpecial();
+    active3.start(
+      Os::Task::TASK_DEFAULT, // Default priority
+      Os::Task::TASK_DEFAULT, // Default stack size
+      Os::Task::TASK_DEFAULT, // Default CPU
+      static_cast<NATIVE_UINT_TYPE>(TaskIds::active3)
     );
   }
 

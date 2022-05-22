@@ -15,7 +15,6 @@ case class TopPrivateFunctions(
   def getLines: (Set[String], List[Line]) = {
     // Get pairs of (function name, function lines)
     val pairs = List(
-      getStartTasksLines,
       getStopTasksLines,
       getFreeThreadsLines,
       getTearDownComponentsLines,
@@ -31,50 +30,6 @@ case class TopPrivateFunctions(
       pairs.map(_._2).flatten
     )
     (fns, ll)
-  }
-
-  private def getStartTasksLines: (String, List[Line]) = {
-    def getCode(ci: ComponentInstance): List[Line] =
-      getCodeLinesForPhase (CppWriter.Phases.startTasks) (ci).getOrElse {
-        if (isActive(ci)) {
-          val name = getNameAsIdent(ci.qualifiedName)
-          val priority = ci.priority match {
-            case Some(_) => s"static_cast<NATIVE_UINT_TYPE>(Priorities::$name),"
-            case None => "Os::Task::TASK_DEFAULT, // Default priority"
-          }
-          val stackSize = ci.stackSize match {
-            case Some(_) => s"static_cast<NATIVE_UINT_TYPE>(StackSizes::$name),"
-            case None => "Os::Task::TASK_DEFAULT, // Default stack size"
-          }
-          val cpu = ci.cpu match {
-            case Some(_) => s"static_cast<NATIVE_UINT_TYPE>(CPUs::$name),"
-            case None => "Os::Task::TASK_DEFAULT, // Default CPU"
-          }
-          wrapInScope(
-            s"$name.start(",
-            (
-              List(
-                priority,
-                stackSize,
-                cpu,
-                s"static_cast<NATIVE_UINT_TYPE>(TaskIds::$name)",
-              )
-            ).map(line),
-            ");"
-          )
-        }
-        else Nil
-      }
-    val name = "startTasks"
-    val ll = addComment(
-      "Start tasks",
-      wrapInScope(
-        s"void $name(const TopologyState& state) {",
-        instances.flatMap(getCode),
-        "}"
-      )
-    )
-    (name, ll)
   }
 
   private def getStopTasksLines: (String, List[Line]) = {

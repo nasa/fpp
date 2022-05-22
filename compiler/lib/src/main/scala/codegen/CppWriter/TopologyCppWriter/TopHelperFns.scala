@@ -22,7 +22,7 @@ case class TopHelperFns(
       getRegCommandsFn,
       getReadParametersFn,
       getLoadParametersFn,
-      //getStartTasksFn,
+      getStartTasksFn,
       //getStopTasksFn,
       //getFreeThreadsFn,
       //getTearDownComponentsFn,
@@ -184,6 +184,48 @@ case class TopHelperFns(
       "Load parameters",
       name,
       Nil,
+      instances.flatMap(getCode)
+    )
+    (name, memberOpt)
+  }
+
+  private def getStartTasksFn = {
+    def getCode(ci: ComponentInstance): List[Line] =
+      getCodeLinesForPhase (CppWriter.Phases.startTasks) (ci).getOrElse {
+        if (isActive(ci)) {
+          val name = getNameAsIdent(ci.qualifiedName)
+          val priority = ci.priority match {
+            case Some(_) => s"static_cast<NATIVE_UINT_TYPE>(Priorities::$name),"
+            case None => "Os::Task::TASK_DEFAULT, // Default priority"
+          }
+          val stackSize = ci.stackSize match {
+            case Some(_) => s"static_cast<NATIVE_UINT_TYPE>(StackSizes::$name),"
+            case None => "Os::Task::TASK_DEFAULT, // Default stack size"
+          }
+          val cpu = ci.cpu match {
+            case Some(_) => s"static_cast<NATIVE_UINT_TYPE>(CPUs::$name),"
+            case None => "Os::Task::TASK_DEFAULT, // Default CPU"
+          }
+          wrapInScope(
+            s"$name.start(",
+            (
+              List(
+                priority,
+                stackSize,
+                cpu,
+                s"static_cast<NATIVE_UINT_TYPE>(TaskIds::$name)",
+              )
+            ).map(line),
+            ");"
+          )
+        }
+        else Nil
+      }
+    val name = "startTasks"
+    val memberOpt = getFnMemberOpt(
+      "Start tasks",
+      name,
+      stateParams,
       instances.flatMap(getCode)
     )
     (name, memberOpt)
