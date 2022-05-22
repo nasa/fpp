@@ -24,12 +24,6 @@ namespace M {
     // Private functions
     // ----------------------------------------------------------------------
 
-    // Initialize components
-    void initComponents(const TopologyState& state) {
-      c1.init(InstanceIds::c1);
-      c2.init(InstanceIds::c2);
-    }
-
     // Set component base Ids
     void setBaseIds() {
       c1.setIdBase(BaseIds::c1);
@@ -53,6 +47,15 @@ namespace M {
       c2.loadParameters();
     }
 
+  }
+
+  // ----------------------------------------------------------------------
+  // Helper functions
+  // ----------------------------------------------------------------------
+
+  void initComponents(const TopologyState& state) {
+    c1.init(InstanceIds::c1);
+    c2.init(InstanceIds::c2);
   }
 
   // ----------------------------------------------------------------------

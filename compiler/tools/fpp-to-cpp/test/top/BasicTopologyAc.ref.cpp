@@ -45,15 +45,6 @@ namespace M {
     // Private functions
     // ----------------------------------------------------------------------
 
-    // Initialize components
-    void initComponents(const TopologyState& state) {
-      active1.init(QueueSizes::active1, InstanceIds::active1);
-      active2.initSpecial();
-      active3.init(QueueSizes::active3, InstanceIds::active3);
-      passive1.init(InstanceIds::passive1);
-      passive2.init(InstanceIds::passive2);
-    }
-
     // Configure components
     void configComponents(const TopologyState& state) {
       active2.config();
@@ -121,6 +112,18 @@ namespace M {
       active2.tearDown();
     }
 
+  }
+
+  // ----------------------------------------------------------------------
+  // Helper functions
+  // ----------------------------------------------------------------------
+
+  void initComponents(const TopologyState& state) {
+    active1.init(QueueSizes::active1, InstanceIds::active1);
+    active2.initSpecial();
+    active3.init(QueueSizes::active3, InstanceIds::active3);
+    passive1.init(InstanceIds::passive1);
+    passive2.init(InstanceIds::passive2);
   }
 
   // ----------------------------------------------------------------------

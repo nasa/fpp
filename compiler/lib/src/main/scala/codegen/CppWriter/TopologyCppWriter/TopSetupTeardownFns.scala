@@ -8,7 +8,7 @@ import fpp.compiler.util._
 case class TopSetupTeardownFns(
   s: CppWriterState,
   aNode: Ast.Annotated[AstNode[Ast.DefTopology]],
-  privateFns: Set[String]
+  helperFnNames: Set[String] /** The names of the generated helper functions */
 ) extends TopologyCppWriterUtils(s, aNode) {
 
   def getMembers: List[CppDoc.Member] = List(
@@ -34,7 +34,7 @@ case class TopSetupTeardownFns(
 
   private def writeFnCall(pair: (String, String)): List[Line] = {
     val (name, argument) = pair
-    if (privateFns.contains(name))
+    if (helperFnNames.contains(name))
       lines(s"$name($argument);")
     else Nil
   }

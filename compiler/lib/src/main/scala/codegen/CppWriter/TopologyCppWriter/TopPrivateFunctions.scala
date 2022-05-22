@@ -15,7 +15,6 @@ case class TopPrivateFunctions(
   def getLines: (Set[String], List[Line]) = {
     // Get pairs of (function name, function lines)
     val pairs = List(
-      getInitComponentsLines,
       getConfigComponentsLines,
       getSetBaseIdsLines,
       getConnectComponentsLines,
@@ -38,30 +37,6 @@ case class TopPrivateFunctions(
       pairs.map(_._2).flatten
     )
     (fns, ll)
-  }
-
-  private def getInitComponentsLines: (String, List[Line]) = {
-    def getCode(ci: ComponentInstance): List[Line] = {
-      val name = getNameAsIdent(ci.qualifiedName)
-      getCodeLinesForPhase (CppWriter.Phases.initComponents) (ci).getOrElse(
-        ci.component.aNode._2.data.kind match {
-          case Ast.ComponentKind.Passive => 
-            lines(s"$name.init(InstanceIds::$name);")
-          case _ =>
-            lines(s"$name.init(QueueSizes::$name, InstanceIds::$name);")
-        }
-      )
-    }
-    val name = "initComponents"
-    val ll = addComment(
-      "Initialize components",
-      wrapInScope(
-        s"void $name(const TopologyState& state) {",
-        instances.flatMap(getCode),
-        "}"
-      )
-    )
-    (name, ll)
   }
 
   private def getConfigComponentsLines: (String, List[Line]) = {
