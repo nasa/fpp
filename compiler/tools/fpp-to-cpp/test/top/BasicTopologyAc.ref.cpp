@@ -28,19 +28,14 @@ namespace M {
   // Component instances
   // ----------------------------------------------------------------------
 
-  // active1
   Active active1(FW_OPTIONAL_NAME("active1"));
 
-  // active2
   Active active2;
 
-  // active3
   Active active3(FW_OPTIONAL_NAME("active3"));
 
-  // passive1
   Passive passive1(FW_OPTIONAL_NAME("passive1"));
 
-  // passive2
   ConcretePassive passive2(FW_OPTIONAL_NAME("passive2"));
 
   // ----------------------------------------------------------------------

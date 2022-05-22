@@ -8,7 +8,7 @@
 #define M_HealthTopologyAc_HPP
 
 #include "C.hpp"
-#include "HealthImpl.hpp"
+#include "Health.hpp"
 #include "HealthTopologyDefs.hpp"
 
 namespace M {
@@ -32,6 +32,19 @@ namespace M {
       health,
     };
   }
+
+  // ----------------------------------------------------------------------
+  // Component instances
+  // ----------------------------------------------------------------------
+
+  //! c1
+  extern C c1;
+
+  //! c2
+  extern C c2;
+
+  //! health
+  extern Svc::Health health;
 
   // ----------------------------------------------------------------------
   // Helper functions

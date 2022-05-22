@@ -17,7 +17,7 @@ namespace M {
     namespace ConfigObjects {
 
       namespace health {
-        Svc::HealthImpl::PingEntry pingEntries[] = {
+        Svc::Health::PingEntry pingEntries[] = {
           {
             PingEntries::c1::WARN,
             PingEntries::c1::FATAL,
@@ -39,14 +39,11 @@ namespace M {
   // Component instances
   // ----------------------------------------------------------------------
 
-  // c1
   C c1(FW_OPTIONAL_NAME("c1"));
 
-  // c2
   C c2(FW_OPTIONAL_NAME("c2"));
 
-  // health
-  Svc::HealthImpl health(FW_OPTIONAL_NAME("health"));
+  Svc::Health health(FW_OPTIONAL_NAME("health"));
 
   // ----------------------------------------------------------------------
   // Helper functions

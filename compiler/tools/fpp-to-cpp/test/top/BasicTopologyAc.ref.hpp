@@ -81,6 +81,25 @@ namespace M {
   }
 
   // ----------------------------------------------------------------------
+  // Component instances
+  // ----------------------------------------------------------------------
+
+  //! active1
+  extern Active active1;
+
+  //! active2
+  extern Active active2;
+
+  //! active3
+  extern Active active3;
+
+  //! passive1
+  extern Passive passive1;
+
+  //! passive2
+  extern ConcretePassive passive2;
+
+  // ----------------------------------------------------------------------
   // Helper functions
   // ----------------------------------------------------------------------
 
