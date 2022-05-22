@@ -41,15 +41,6 @@ namespace M {
     // passive2
     ConcretePassive passive2(FW_OPTIONAL_NAME("passive2"));
 
-    // ----------------------------------------------------------------------
-    // Private functions
-    // ----------------------------------------------------------------------
-
-    // Tear down components
-    void tearDownComponents(const TopologyState& state) {
-      active2.tearDown();
-    }
-
   }
 
   // ----------------------------------------------------------------------
@@ -117,6 +108,10 @@ namespace M {
     (void) active1.ActiveComponentBase::join(nullptr);
     active2.freeSpecial();
     (void) active3.ActiveComponentBase::join(nullptr);
+  }
+
+  void tearDownComponents(const TopologyState& state) {
+    active2.tearDown();
   }
 
   // ----------------------------------------------------------------------

@@ -46,23 +46,21 @@ case class TopologyCppWriter(
         CppDoc.Lines.Cpp
       )
     }
-    val (privateFnNames, privateFnLines) = TopPrivateFunctions(s, aNode).getLines
     val cppLines = CppWriter.linesMember(
       Line.blank ::
       wrapInAnonymousNamespace(
         addBlankPostfix(
           List(
             TopConfigObjects(s, aNode).getLines,
-            TopComponentInstances(s, aNode).getLines,
-            privateFnLines
+            TopComponentInstances(s, aNode).getLines
           ).flatten
         )
       ),
       CppDoc.Lines.Cpp
     )
     val (helperFnNames, helperFns) = TopHelperFns(s, aNode).getMembers
-    val fnNames = privateFnNames ++ helperFnNames
-    val setupTeardownFns = TopSetupTeardownFns(s, aNode, fnNames).getMembers
+    val setupTeardownFns = TopSetupTeardownFns(s, aNode, helperFnNames).
+      getMembers
     val defs = hppLines :: cppLines :: (helperFns ++ setupTeardownFns)
     List(
       List(hppIncludes, cppIncludes),

@@ -115,6 +115,11 @@ namespace M {
       const TopologyState& state //!< The topology state
   );
 
+  //! Tear down components
+  void tearDownComponents(
+      const TopologyState& state //!< The topology state
+  );
+
   // ----------------------------------------------------------------------
   // Setup and teardown functions
   // ----------------------------------------------------------------------
