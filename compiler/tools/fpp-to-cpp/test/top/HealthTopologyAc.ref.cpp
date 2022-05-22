@@ -46,33 +46,6 @@ namespace M {
     // health
     Svc::HealthImpl health(FW_OPTIONAL_NAME("health"));
 
-    // ----------------------------------------------------------------------
-    // Private functions
-    // ----------------------------------------------------------------------
-
-    // Connect components
-    void connectComponents() {
-
-      // Health
-      c1.set_pingOut_OutputPort(
-          0,
-          health.get_pingIn_InputPort(0)
-      );
-      c2.set_pingOut_OutputPort(
-          0,
-          health.get_pingIn_InputPort(1)
-      );
-      health.set_pingOut_OutputPort(
-          0,
-          c1.get_pingIn_InputPort(0)
-      );
-      health.set_pingOut_OutputPort(
-          1,
-          c2.get_pingIn_InputPort(0)
-      );
-
-    }
-
   }
 
   // ----------------------------------------------------------------------
@@ -89,6 +62,27 @@ namespace M {
     health.setIdBase(BaseIds::health);
     c1.setIdBase(BaseIds::c1);
     c2.setIdBase(BaseIds::c2);
+  }
+
+  void connectComponents() {
+
+    // Health
+    c1.set_pingOut_OutputPort(
+        0,
+        health.get_pingIn_InputPort(0)
+    );
+    c2.set_pingOut_OutputPort(
+        0,
+        health.get_pingIn_InputPort(1)
+    );
+    health.set_pingOut_OutputPort(
+        0,
+        c1.get_pingIn_InputPort(0)
+    );
+    health.set_pingOut_OutputPort(
+        1,
+        c2.get_pingIn_InputPort(0)
+    );
   }
 
   // ----------------------------------------------------------------------

@@ -45,23 +45,6 @@ namespace M {
     // Private functions
     // ----------------------------------------------------------------------
 
-    // Connect components
-    void connectComponents() {
-
-      // C1
-      passive1.set_p_OutputPort(
-          0,
-          active1.get_p_InputPort(0)
-      );
-
-      // C2
-      passive2.set_p_OutputPort(
-          0,
-          active2.get_p_InputPort(0)
-      );
-
-    }
-
     // Start tasks
     void startTasks(const TopologyState& state) {
       active1.start(
@@ -122,6 +105,21 @@ namespace M {
     active3.setIdBase(BaseIds::active3);
     passive1.setIdBase(BaseIds::passive1);
     passive2.setIdBase(BaseIds::passive2);
+  }
+
+  void connectComponents() {
+
+    // C1
+    passive1.set_p_OutputPort(
+        0,
+        active1.get_p_InputPort(0)
+    );
+
+    // C2
+    passive2.set_p_OutputPort(
+        0,
+        active2.get_p_InputPort(0)
+    );
   }
 
   // ----------------------------------------------------------------------

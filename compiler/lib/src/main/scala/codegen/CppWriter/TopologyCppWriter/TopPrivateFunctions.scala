@@ -15,8 +15,6 @@ case class TopPrivateFunctions(
   def getLines: (Set[String], List[Line]) = {
     // Get pairs of (function name, function lines)
     val pairs = List(
-      //getSetBaseIdsLines,
-      getConnectComponentsLines,
       getRegCommandsLines,
       getReadParametersLines,
       getLoadParametersLines,
@@ -36,44 +34,6 @@ case class TopPrivateFunctions(
       pairs.map(_._2).flatten
     )
     (fns, ll)
-  }
-
-  private def getConnectComponentsLines: (String, List[Line]) = {
-    def getPortInfo(pii: PortInstanceIdentifier, c: Connection) = {
-      val instanceName = getNameAsIdent(pii.componentInstance.qualifiedName)
-      val portName = pii.portInstance.getUnqualifiedName
-      val portNumber = t.getPortNumber(pii.portInstance, c).get
-      (instanceName, portName, portNumber)
-    }
-    def writeConnection(c: Connection) = {
-      val out = getPortInfo(c.from.port, c)
-      val in = getPortInfo(c.to.port, c)
-      wrapInScope(
-        s"${out._1}.set_${out._2}_OutputPort(",
-        List(
-          s"${out._3},",
-          s"${in._1}.get_${in._2}_InputPort(${in._3})"
-        ).map(line).map(indentIn),
-        ");"
-      )
-    }
-    val name = "connectComponents"
-    val ll = addComment(
-      "Connect components",
-      wrapInScope(
-        s"void $name() {",
-        addBlankPostfix(
-          t.connectionMap.toList.sortWith(_._1 < _._1).flatMap {
-            case (name, cs) => addComment(
-              name,
-              t.sortConnections(cs).flatMap(writeConnection).toList
-            )
-          }
-        ),
-        "}"
-      )
-    )
-    (name, ll)
   }
 
   private def getRegCommandsLines: (String, List[Line]) = {

@@ -97,6 +97,9 @@ namespace M {
   //! Set component base Ids
   void setBaseIds();
 
+  //! Connect components
+  void connectComponents();
+
   // ----------------------------------------------------------------------
   // Setup and teardown functions
   // ----------------------------------------------------------------------
