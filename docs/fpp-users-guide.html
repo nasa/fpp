@@ -683,6 +683,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Application-Specific-Definitions">14.2.1. Application-Specific Definitions</a></li>
 <li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments_The-Main-Function">14.2.2. The Main Function</a></li>
+<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Public-Symbols">14.2.3. Public Symbols</a></li>
 </ul>
 </li>
 </ul>
@@ -11080,13 +11081,75 @@ tear down the topology.</p>
 F Prime repository.</p>
 </div>
 </div>
+<div class="sect3">
+<h4 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Public-Symbols">14.2.3. Public Symbols</h4>
+<div class="paragraph">
+<p>The header file <em>T</em> <code>TopologyAc.hpp</code> declares several public
+symbols that you can use when writing your main function.</p>
+</div>
+<div class="paragraph">
+<p><strong>Instance variables:</strong>
+Each component instance used in the topology is declared as
+an <code>extern</code> variable, so you can refer to any component instance
+in the main function.
+For example, the main function in the <code>Ref</code> topology
+calls the method <code>callIsr</code> of the <code>blockDrv</code> (block driver)
+component instance, in order to simulate an interrupt service
+routine (ISR) call triggered by a hardware interrupt.</p>
+</div>
+<div class="paragraph">
+<p><strong>Helper functions:</strong>
+The auto-generated <code>setup</code> function calls the following auto-generated
+helper functions:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="cpp">void initComponents(const TopologyState&amp; state);
+void configComponents(const TopologyState&amp; state);
+void setBaseIds();
+void connectComponents();
+void regCommands();
+void readParameters();
+void loadParameters();
+void startTasks(const TopologyState&amp; state);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The auto-generated <code>teardown</code> function calls the following
+auto-generated helper functions:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="cpp">void stopTasks(const TopologyState&amp; state);
+void freeThreads(const TopologyState&amp; state);
+void tearDownComponents(const TopologyState&amp; state);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The helper functions are declared as public symbols in <em>T</em>
+<code>TopologyAc.hpp</code>, so if you wish, you may write your own versions
+of <code>setup</code> and <code>teardown</code> that call these functions directly.
+The FPP modeling is designed so that you don&#8217;t have to do this;
+you can put any custom C&#43;&#43; code for setup or teardown into
+<a href="#Defining-Component-Instances_Init-Specifiers">init specifiers</a>
+and let the FPP translator generate complete <code>setup</code> and <code>teardown</code>
+functions that you simply call, as described above.
+Using init specifiers generally produces cleaner integration between
+the model and the C&#43;&#43; code: you write the custom
+C&#43;&#43; code once, any topology <em>T</em> that uses an instance <em>I</em> will pick
+up the custom C&#43;&#43; code for <em>I</em>, and the FPP translator will automatically
+put the code for <em>I</em> into the correct place in <em>T</em> <code>TopologyAc.cpp</code>.
+However, if you wish to write the custom code directly into your main
+function, you may.</p>
+</div>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-05-23 08:30:57 -0700
+Last updated 2022-05-23 09:00:43 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

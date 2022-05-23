@@ -397,3 +397,59 @@ tear down the topology.
 
 For an example like this, see `Ref/Top/Main.cpp` in the
 F Prime repository.
+
+==== Public Symbols
+
+The header file _T_ `TopologyAc.hpp` declares several public
+symbols that you can use when writing your main function.
+
+*Instance variables:*
+Each component instance used in the topology is declared as
+an `extern` variable, so you can refer to any component instance
+in the main function.
+For example, the main function in the `Ref` topology
+calls the method `callIsr` of the `blockDrv` (block driver)
+component instance, in order to simulate an interrupt service
+routine (ISR) call triggered by a hardware interrupt.
+
+*Helper functions:*
+The auto-generated `setup` function calls the following auto-generated
+helper functions:
+
+[source,cpp]
+----
+void initComponents(const TopologyState& state);
+void configComponents(const TopologyState& state);
+void setBaseIds();
+void connectComponents();
+void regCommands();
+void readParameters();
+void loadParameters();
+void startTasks(const TopologyState& state);
+----
+
+The auto-generated `teardown` function calls the following
+auto-generated helper functions:
+
+[source,cpp]
+----
+void stopTasks(const TopologyState& state);
+void freeThreads(const TopologyState& state);
+void tearDownComponents(const TopologyState& state);
+----
+
+The helper functions are declared as public symbols in _T_ 
+`TopologyAc.hpp`, so if you wish, you may write your own versions
+of `setup` and `teardown` that call these functions directly.
+The FPP modeling is designed so that you don't have to do this;
+you can put any custom {cpp} code for setup or teardown into 
+<<Defining-Component-Instances_Init-Specifiers,init specifiers>>
+and let the FPP translator generate complete `setup` and `teardown`
+functions that you simply call, as described above.
+Using init specifiers generally produces cleaner integration between
+the model and the {cpp} code: you write the custom
+{cpp} code once, any topology _T_ that uses an instance _I_ will pick
+up the custom {cpp} code for _I_, and the FPP translator will automatically
+put the code for _I_ into the correct place in _T_ `TopologyAc.cpp`.
+However, if you wish to write the custom code directly into your main
+function, you may.
