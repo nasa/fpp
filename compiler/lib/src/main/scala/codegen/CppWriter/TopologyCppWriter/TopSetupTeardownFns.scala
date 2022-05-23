@@ -4,11 +4,11 @@ import fpp.compiler.analysis._
 import fpp.compiler.ast._
 import fpp.compiler.util._
 
-/** Writes out C++ for topology public functions */
-case class TopPublicFunctions(
+/** Writes out C++ for setup and teardown functions */
+case class TopSetupTeardownFns(
   s: CppWriterState,
   aNode: Ast.Annotated[AstNode[Ast.DefTopology]],
-  privateFns: Set[String]
+  helperFnNames: Set[String] /** The names of the generated helper functions */
 ) extends TopologyCppWriterUtils(s, aNode) {
 
   def getMembers: List[CppDoc.Member] = List(
@@ -27,14 +27,14 @@ case class TopPublicFunctions(
 
   private def getBannerComment = CppDoc.Member.Lines(
     CppDoc.Lines(
-      CppDocWriter.writeBannerComment("Public interface functions"),
+      CppDocWriter.writeBannerComment("Setup and teardown functions"),
       CppDoc.Lines.Both
     )
   )
 
   private def writeFnCall(pair: (String, String)): List[Line] = {
     val (name, argument) = pair
-    if (privateFns.contains(name))
+    if (helperFnNames.contains(name))
       lines(s"$name($argument);")
     else Nil
   }

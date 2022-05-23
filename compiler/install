@@ -69,8 +69,8 @@ do
   echo "  $jar"
   cp $jar $dest/$tool.jar
   echo '#!/bin/sh
-
   # See https://www.graalvm.org/22.1/reference-manual/native-image/Agent/
-  java -agentlib:native-image-agent=config-merge-dir='$meta' -jar '$dest'/'$tool'.jar "$@"' > $dest/$tool
+  #java -agentlib:native-image-agent=config-merge-dir='$meta' -jar '$dest'/'$tool'.jar "$@"' > $dest/$tool
+  java -jar "`dirname $0`/'$tool'.jar" "$@"' > $dest/$tool
   chmod +x $dest/$tool
 done

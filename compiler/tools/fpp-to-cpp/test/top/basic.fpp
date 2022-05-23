@@ -66,7 +66,7 @@ module M {
     queue size 10
 
   instance passive1: Passive base id 0x300
-  instance passive2: Passive base id 0x400
+  instance passive2: Passive base id 0x400 type "ConcretePassive"
 
   topology Basic {
 
