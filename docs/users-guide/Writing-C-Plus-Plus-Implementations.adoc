@@ -330,7 +330,7 @@ You can put any compile-time definitions you wish into _T_ `TopologyAc.hpp`
 If you need link-time definitions (e.g., to declare variables with storage),
 you can put them in _T_ `TopologyAc.cpp`, but this is not required.
 
-For example, `Ref/Top/RefTopologyAc.hpp` declares 
+For example, `Ref/Top/RefTopologyAc.hpp` declares
 a variable `Ref::Allocation::mallocator` of type `Fw::MallocAllocator`.
 It provides an allocator used in the setup and teardown
 of several component instances.
@@ -438,11 +438,11 @@ void freeThreads(const TopologyState& state);
 void tearDownComponents(const TopologyState& state);
 ----
 
-The helper functions are declared as public symbols in _T_ 
+The helper functions are declared as public symbols in _T_
 `TopologyAc.hpp`, so if you wish, you may write your own versions
 of `setup` and `teardown` that call these functions directly.
 The FPP modeling is designed so that you don't have to do this;
-you can put any custom {cpp} code for setup or teardown into 
+you can put any custom {cpp} code for setup or teardown into
 <<Defining-Component-Instances_Init-Specifiers,init specifiers>>
 and let the FPP translator generate complete `setup` and `teardown`
 functions that you simply call, as described above.
