@@ -330,30 +330,11 @@ You can put any compile-time definitions you wish into _T_ `TopologyAc.hpp`
 If you need link-time definitions (e.g., to declare variables with storage),
 you can put them in _T_ `TopologyAc.cpp`, but this is not required.
 
-For example, `Ref/Top/RefTopologyAc.hpp` declares the following
-variables:
-
-. A variable `Ref::Allocation::mallocator` of type `Fw::MallocAllocator`.
+For example, `Ref/Top/RefTopologyAc.hpp` declares 
+a variable `Ref::Allocation::mallocator` of type `Fw::MallocAllocator`.
 It provides an allocator used in the setup and teardown
 of several component instances.
-
-. A component instance `blockDrv` of type `Drv::BlockDriver`.
-This is one of the component instances in the Ref topology.
-It is declared here, instead of being declared in `RefTopologyAc.cpp`,
-so that it is visible in the main function.
-In the `instances` phase, the init specifier for this instance
-overrides the standard instance declaration with a comment:
-+
-[source,fpp]
---------
-init blockDrv phase Fpp.ToCpp.Phases.instances """
-// Declared in RefTopologyDefs.cpp
-"""
---------
-
-Both of these declarations refer to link-time symbols; the
-corresponding link-time symbols are defined in
-`RefTopologyDefs.cpp`.
+The corresponding link-time symbol is defined in `RefTopologyDefs.cpp`.
 
 ==== The Main Function
 

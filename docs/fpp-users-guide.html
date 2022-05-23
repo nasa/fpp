@@ -10989,37 +10989,11 @@ If you need link-time definitions (e.g., to declare variables with storage),
 you can put them in <em>T</em> <code>TopologyAc.cpp</code>, but this is not required.</p>
 </div>
 <div class="paragraph">
-<p>For example, <code>Ref/Top/RefTopologyAc.hpp</code> declares the following
-variables:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>A variable <code>Ref::Allocation::mallocator</code> of type <code>Fw::MallocAllocator</code>.
+<p>For example, <code>Ref/Top/RefTopologyAc.hpp</code> declares
+a variable <code>Ref::Allocation::mallocator</code> of type <code>Fw::MallocAllocator</code>.
 It provides an allocator used in the setup and teardown
-of several component instances.</p>
-</li>
-<li>
-<p>A component instance <code>blockDrv</code> of type <code>Drv::BlockDriver</code>.
-This is one of the component instances in the Ref topology.
-It is declared here, instead of being declared in <code>RefTopologyAc.cpp</code>,
-so that it is visible in the main function.
-In the <code>instances</code> phase, the init specifier for this instance
-overrides the standard instance declaration with a comment:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">init blockDrv phase Fpp.ToCpp.Phases.instances """
-// Declared in RefTopologyDefs.cpp
-"""</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Both of these declarations refer to link-time symbols; the
-corresponding link-time symbols are defined in
-<code>RefTopologyDefs.cpp</code>.</p>
+of several component instances.
+The corresponding link-time symbol is defined in <code>RefTopologyDefs.cpp</code>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -11112,7 +11086,7 @@ F Prime repository.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-05-19 21:12:41 -0700
+Last updated 2022-05-23 08:30:57 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
