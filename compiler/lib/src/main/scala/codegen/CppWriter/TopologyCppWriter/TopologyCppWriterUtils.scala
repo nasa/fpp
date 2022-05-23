@@ -14,7 +14,7 @@ abstract class TopologyCppWriterUtils(
 
   val namespaceIdentList: List[String] = s.getNamespaceIdentList(symbol)
 
-  val name = aNode._2.data.name
+  val name: String = aNode._2.data.name
 
   val t: Topology = s.a.topologyMap(symbol)
 
@@ -84,10 +84,12 @@ abstract class TopologyCppWriterUtils(
   def getSpecifierForPhase (phase: Int) (ci: ComponentInstance): 
     Option[InitSpecifier] = ci.initSpecifierMap.get(phase)
 
-  def getCodeForPhase (phase: Int)(ci: ComponentInstance): Option[String] =
+  def getCodeForPhase (phase: Int)(ci: ComponentInstance):
+    Option[String] =
     getSpecifierForPhase(phase)(ci).map(is => is.aNode._2.data.code)
 
-  def getCodeLinesForPhase (phase: Int) (ci: ComponentInstance): Option[List[Line]] = (
+  def getCodeLinesForPhase (phase: Int) (ci: ComponentInstance):
+    Option[List[Line]] = (
     getCodeForPhase (phase) (ci)
   ).map(lines)
 

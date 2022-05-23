@@ -62,6 +62,7 @@ object AstWriter extends AstVisitor with LineUtils {
       ident(data.name),
       addPrefix("component", qualIdent) (data.component.data),
       addPrefix("base id", exprNode) (data.baseId),
+      linesOpt(addPrefix("type", applyToData(string)), data.implType),
       linesOpt(applyToData(fileString), data.file),
       linesOpt(addPrefix("queue size", exprNode), data.queueSize),
       linesOpt(addPrefix("stack size", exprNode), data.stackSize),

@@ -102,7 +102,7 @@ case class TopConfigObjects(
       }
       val (map, maxNum) = mapAndMaxNum
       wrapInScope(
-        "Svc::HealthImpl::PingEntry pingEntries[] = {",
+        "Svc::Health::PingEntry pingEntries[] = {",
         // Loop over all ports in the range 0..maxNum.
         // Entries are positional, so we must generate code 
         // for any unconnected entries in this range.

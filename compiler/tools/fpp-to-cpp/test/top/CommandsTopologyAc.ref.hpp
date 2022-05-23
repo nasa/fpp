@@ -31,7 +31,32 @@ namespace M {
   }
 
   // ----------------------------------------------------------------------
-  // Public interface functions
+  // Component instances
+  // ----------------------------------------------------------------------
+
+  //! c1
+  extern C c1;
+
+  //! c2
+  extern C c2;
+
+  // ----------------------------------------------------------------------
+  // Helper functions
+  // ----------------------------------------------------------------------
+
+  //! Initialize components
+  void initComponents(
+      const TopologyState& state //!< The topology state
+  );
+
+  //! Set component base Ids
+  void setBaseIds();
+
+  //! Register commands
+  void regCommands();
+
+  // ----------------------------------------------------------------------
+  // Setup and teardown functions
   // ----------------------------------------------------------------------
 
   //! Set up the topology

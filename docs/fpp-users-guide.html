@@ -591,7 +591,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Component-Instances_Component-Instance-Definitions_Active-Components">10.1.3. Active Components</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Component-Instances_Specifying-Header-Files">10.2. Specifying Header Files</a></li>
+<li><a href="#Defining-Component-Instances_Specifying-the-Implementation">10.2. Specifying the Implementation</a></li>
 <li><a href="#Defining-Component-Instances_Init-Specifiers">10.3. Init Specifiers</a>
 <ul class="sectlevel3">
 <li><a href="#Defining-Component-Instances_Init-Specifiers_Execution-Phases">10.3.1. Execution Phases</a></li>
@@ -683,6 +683,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Application-Specific-Definitions">14.2.1. Application-Specific Definitions</a></li>
 <li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments_The-Main-Function">14.2.2. The Main Function</a></li>
+<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Public-Symbols">14.2.3. Public Symbols</a></li>
 </ul>
 </li>
 </ul>
@@ -6492,18 +6493,62 @@ associated with the instance should run on CPU 0.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Component-Instances_Specifying-Header-Files">10.2. Specifying Header Files</h3>
+<h3 id="Defining-Component-Instances_Specifying-the-Implementation">10.2. Specifying the Implementation</h3>
 <div class="paragraph">
 <p>When you define a component instance <em>I</em>, the FPP translator needs
-to locate the header file for the C&#43;&#43;
-implementation associated with <em>I</em>.
-This location can occur automatically in many cases.
-In other cases, you have to specify the location manually.</p>
+to know the following information about the C&#43;&#43; implementation of <em>I</em>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The type (i.e., the name of the C&#43;&#43; class) that defines the
+implementation.</p>
+</li>
+<li>
+<p>The location of the C&#43;&#43; header file that declares the implementation
+class.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
-<p><strong>Automatic location:</strong>
-The FPP translator can automatically locate the header file if it
-conforms to the following rules:</p>
+<p>In most cases, the translator can infer this information.
+However, in some cases you must specify it manually.</p>
+</div>
+<div class="paragraph">
+<p><strong>The implementation type:</strong>
+The FPP translator can automatically infer the implementation
+type if its qualified C&#43;&#43; class name matches the qualified
+name of the FPP component.
+For example, the C&#43;&#43; class name <code>A::B</code> matches the FPP component
+name <code>A.B</code>.</p>
+</div>
+<div class="paragraph">
+<p>If the names do not match, then you must provide the type
+associated with the implementation.
+You do this by writing the keyword <code>type</code> after the base identifier,
+followed by a <a href="#Defining-Constants_Expressions_String-Values">string</a>
+specifying the implementation type.</p>
+</div>
+<div class="paragraph">
+<p>For example, suppose we have a C&#43;&#43; class <code>Utils::SpecialDataCompressor</code>,
+which is a specialized implementation of the FPP component
+<code>Utils.DataCompressor</code>.
+By default, when we specify <code>Utils.DataCompressor</code> as the component name, the
+translator infers <code>Utils::DataCompressor</code> as the implementation type.
+Here is how we specify the implementation type <code>Utils::SpecialDataCompressor</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">instance dataCompressor: Utils.DataCompressor base id 0x100 \
+  type "Utils::SpecialDataCompressor" \
+  queue size Default.queueSize \
+  cpu 0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>The header file:</strong>
+The FPP translator can automatically locate the header file for <em>I</em>
+if it conforms to the following rules:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -6513,8 +6558,7 @@ is the name of the component in the FPP model, without
 any module qualifiers.</p>
 </li>
 <li>
-<p>The header
-file is located in the same directory as the FPP
+<p>The header file is located in the same directory as the FPP
 source file that defines the component.</p>
 </li>
 </ol>
@@ -6534,27 +6578,26 @@ Its definition reads as follows:</p>
 <div class="paragraph">
 <p>The FPP component <code>Ref.SignalGen</code> is
 defined in the directory <code>Ref/SignalGen/SignalGen.fpp</code>,
-and the implementation header file is
-<code>Ref/SignalGen/SignalGen.hpp</code>.
+and the implementation class <code>Ref::SignalGen</code> is declared in
+the header file <code>Ref/SignalGen/SignalGen.hpp</code>.
 In this case, the header file follows rules (1) and (2)
 stated above, so the FPP translator can automatically locate
 the file.</p>
 </div>
 <div class="paragraph">
-<p><strong>Manual specification:</strong>
-If the implementation header file does not follow
+<p>If the implementation header file does not follow
 rules (1) and (2) stated above, then you must specify
 the name and location of the header file by hand.
-You do that by writing the keyword <code>at</code> followed by the
-header file path enclosed in quotation marks.
+You do that by writing the keyword <code>at</code> followed by
+a <a href="#Defining-Constants_Expressions_String-Values">string</a>
+specifying the header file path.
 The header file path is relative to the directory
 containing the source file that defines the component
 instance.</p>
 </div>
 <div class="paragraph">
 <p>For example, the F Prime repository has a directory
-<code>Svc/Time</code> that contains an FPP model for a component
-<code>Svc.Time</code>.
+<code>Svc/Time</code> that contains an FPP model for a component <code>Svc.Time</code>.
 Because the C&#43;&#43; implementation for this component
 is platform-specific, the directory <code>Svc/Time</code> doesn&#8217;t
 contain any implementation.
@@ -6566,17 +6609,19 @@ in a different directory.</p>
 <p>The F Prime repository also provides a Linux-specific implementation
 of the <code>Time</code> component in the directory <code>Svc/LinuxTime</code>.
 The file <code>Ref/Top/instances.fpp</code> contains an instance definition
-<code>linuxTime</code> that reads in part as follows:</p>
+<code>linuxTime</code> that reads as follows:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">instance linuxTime: Svc.Time base id 0x4500 \
+  type "Svc::LinuxTime" \
   at "../../Svc/LinuxTime/LinuxTime.hpp"</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>This definition says to use implementation header file
-<code>Svc/LinuxTime/LinuxTime.hpp</code>.</p>
+<p>This definition says to use the implementation of the component
+<code>Svc.Time</code> with C&#43;&#43; type name <code>Svc::LinuxTime</code> defined in the header
+file <code>../../Svc/LinuxTime/LinuxTime.hpp</code>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -9521,7 +9566,7 @@ but you don&#8217;t want to translate them.
 Only the files <em>F</em> provided as arguments are translated.</p>
 </div>
 <div class="paragraph">
-<p><strong>Tool behavior:</strong> When you run <code>fpp-check</code>, the following occurs:</p>
+<p><strong>Tool behavior:</strong> When you run <code>fpp-to-xml</code>, the following occurs:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -10651,7 +10696,7 @@ instance to a byte string).</p>
 <p>An implementation of the function</p>
 <div class="listingblock">
 <div class="content">
-<pre>Fw::SerializeStatus T::serialize(Fw::SerializeBufferBase&amp;)</pre>
+<pre>Fw::SerializeStatus T::deserialize(Fw::SerializeBufferBase&amp;)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -10945,37 +10990,11 @@ If you need link-time definitions (e.g., to declare variables with storage),
 you can put them in <em>T</em> <code>TopologyAc.cpp</code>, but this is not required.</p>
 </div>
 <div class="paragraph">
-<p>For example, <code>Ref/Top/RefTopologyAc.hpp</code> declares the following
-variables:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>A variable <code>Ref::Allocation::mallocator</code> of type <code>Fw::MallocAllocator</code>.
+<p>For example, <code>Ref/Top/RefTopologyAc.hpp</code> declares
+a variable <code>Ref::Allocation::mallocator</code> of type <code>Fw::MallocAllocator</code>.
 It provides an allocator used in the setup and teardown
-of several component instances.</p>
-</li>
-<li>
-<p>A component instance <code>blockDrv</code> of type <code>Drv::BlockDriver</code>.
-This is one of the component instances in the Ref topology.
-It is declared here, instead of being declared in <code>RefTopologyAc.cpp</code>,
-so that it is visible in the main function.
-In the <code>instances</code> phase, the init specifier for this instance
-overrides the standard instance declaration with a comment:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">init blockDrv phase Fpp.ToCpp.Phases.instances """
-// Declared in RefTopologyDefs.cpp
-"""</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Both of these declarations refer to link-time symbols; the
-corresponding link-time symbols are defined in
-<code>RefTopologyDefs.cpp</code>.</p>
+of several component instances.
+The corresponding link-time symbol is defined in <code>RefTopologyDefs.cpp</code>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -11062,13 +11081,75 @@ tear down the topology.</p>
 F Prime repository.</p>
 </div>
 </div>
+<div class="sect3">
+<h4 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Public-Symbols">14.2.3. Public Symbols</h4>
+<div class="paragraph">
+<p>The header file <em>T</em> <code>TopologyAc.hpp</code> declares several public
+symbols that you can use when writing your main function.</p>
+</div>
+<div class="paragraph">
+<p><strong>Instance variables:</strong>
+Each component instance used in the topology is declared as
+an <code>extern</code> variable, so you can refer to any component instance
+in the main function.
+For example, the main function in the <code>Ref</code> topology
+calls the method <code>callIsr</code> of the <code>blockDrv</code> (block driver)
+component instance, in order to simulate an interrupt service
+routine (ISR) call triggered by a hardware interrupt.</p>
+</div>
+<div class="paragraph">
+<p><strong>Helper functions:</strong>
+The auto-generated <code>setup</code> function calls the following auto-generated
+helper functions:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="cpp">void initComponents(const TopologyState&amp; state);
+void configComponents(const TopologyState&amp; state);
+void setBaseIds();
+void connectComponents();
+void regCommands();
+void readParameters();
+void loadParameters();
+void startTasks(const TopologyState&amp; state);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The auto-generated <code>teardown</code> function calls the following
+auto-generated helper functions:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="cpp">void stopTasks(const TopologyState&amp; state);
+void freeThreads(const TopologyState&amp; state);
+void tearDownComponents(const TopologyState&amp; state);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The helper functions are declared as public symbols in <em>T</em>
+<code>TopologyAc.hpp</code>, so if you wish, you may write your own versions
+of <code>setup</code> and <code>teardown</code> that call these functions directly.
+The FPP modeling is designed so that you don&#8217;t have to do this;
+you can put any custom C&#43;&#43; code for setup or teardown into
+<a href="#Defining-Component-Instances_Init-Specifiers">init specifiers</a>
+and let the FPP translator generate complete <code>setup</code> and <code>teardown</code>
+functions that you simply call, as described above.
+Using init specifiers generally produces cleaner integration between
+the model and the C&#43;&#43; code: you write the custom
+C&#43;&#43; code once, any topology <em>T</em> that uses an instance <em>I</em> will pick
+up the custom C&#43;&#43; code for <em>I</em>, and the FPP translator will automatically
+put the code for <em>I</em> into the correct place in <em>T</em> <code>TopologyAc.cpp</code>.
+However, if you wish to write the custom code directly into your main
+function, you may.</p>
+</div>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-04-25 15:51:07 -0700
+Last updated 2022-05-23 09:45:54 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

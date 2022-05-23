@@ -313,24 +313,57 @@ instance dataCompressor: Utils.DataCompressor base id 0x100 \
   cpu 0
 --------
 
-=== Specifying Header Files
+=== Specifying the Implementation
 
 When you define a component instance _I_, the FPP translator needs
-to locate the header file for the {cpp}
-implementation associated with _I_.
-This location can occur automatically in many cases.
-In other cases, you have to specify the location manually.
+to know the following information about the {cpp} implementation of _I_:
 
-*Automatic location:*
-The FPP translator can automatically locate the header file if it
-conforms to the following rules:
+. The type (i.e., the name of the {cpp} class) that defines the
+implementation.
+
+. The location of the {cpp} header file that declares the implementation
+class.
+
+In most cases, the translator can infer this information.
+However, in some cases you must specify it manually.
+
+*The implementation type:*
+The FPP translator can automatically infer the implementation
+type if its qualified {cpp} class name matches the qualified
+name of the FPP component.
+For example, the {cpp} class name `A::B` matches the FPP component
+name `A.B`.
+
+If the names do not match, then you must provide the type
+associated with the implementation.
+You do this by writing the keyword `type` after the base identifier,
+followed by a <<Defining-Constants_Expressions_String-Values, string>>
+specifying the implementation type.
+
+For example, suppose we have a {cpp} class `Utils::SpecialDataCompressor`,
+which is a specialized implementation of the FPP component
+`Utils.DataCompressor`.
+By default, when we specify `Utils.DataCompressor` as the component name, the
+translator infers `Utils::DataCompressor` as the implementation type.
+Here is how we specify the implementation type `Utils::SpecialDataCompressor`:
+
+[source,fpp]
+--------
+instance dataCompressor: Utils.DataCompressor base id 0x100 \
+  type "Utils::SpecialDataCompressor" \
+  queue size Default.queueSize \
+  cpu 0
+--------
+
+*The header file:*
+The FPP translator can automatically locate the header file for _I_
+if it conforms to the following rules:
 
 . The name of the header file is `Name.hpp`, where `Name`
 is the name of the component in the FPP model, without
 any module qualifiers.
 
-. The header
-file is located in the same directory as the FPP
+. The header file is located in the same directory as the FPP
 source file that defines the component.
 
 For example, the F Prime repository contains a reference FSW implementation
@@ -346,25 +379,24 @@ instance SG1: Ref.SignalGen base id 0x2100 \
 
 The FPP component `Ref.SignalGen` is
 defined in the directory `Ref/SignalGen/SignalGen.fpp`,
-and the implementation header file is
-`Ref/SignalGen/SignalGen.hpp`.
+and the implementation class `Ref::SignalGen` is declared in
+the header file `Ref/SignalGen/SignalGen.hpp`.
 In this case, the header file follows rules (1) and (2)
 stated above, so the FPP translator can automatically locate
 the file.
 
-*Manual specification:*
 If the implementation header file does not follow
 rules (1) and (2) stated above, then you must specify
 the name and location of the header file by hand.
-You do that by writing the keyword `at` followed by the
-header file path enclosed in quotation marks.
+You do that by writing the keyword `at` followed by 
+a <<Defining-Constants_Expressions_String-Values, string>>
+specifying the header file path.
 The header file path is relative to the directory
 containing the source file that defines the component
 instance.
 
 For example, the F Prime repository has a directory
-`Svc/Time` that contains an FPP model for a component
-`Svc.Time`.
+`Svc/Time` that contains an FPP model for a component `Svc.Time`.
 Because the {cpp} implementation for this component
 is platform-specific, the directory `Svc/Time` doesn't
 contain any implementation.
@@ -375,16 +407,18 @@ in a different directory.
 The F Prime repository also provides a Linux-specific implementation
 of the `Time` component in the directory `Svc/LinuxTime`.
 The file `Ref/Top/instances.fpp` contains an instance definition
-`linuxTime` that reads in part as follows:
+`linuxTime` that reads as follows:
 
 [source,fpp]
 ----
 instance linuxTime: Svc.Time base id 0x4500 \
+  type "Svc::LinuxTime" \
   at "../../Svc/LinuxTime/LinuxTime.hpp"
 ----
 
-This definition says to use implementation header file
-`Svc/LinuxTime/LinuxTime.hpp`.
+This definition says to use the implementation of the component
+`Svc.Time` with {cpp} type name `Svc::LinuxTime` defined in the header
+file `../../Svc/LinuxTime/LinuxTime.hpp`.
 
 === Init Specifiers
 
