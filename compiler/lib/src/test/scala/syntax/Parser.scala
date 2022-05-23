@@ -103,11 +103,13 @@ class ParserSpec extends AnyWordSpec {
       Parser.defComponentInstance,
       List(
         "instance i: C base id 0x100",
-        "instance i: C base id 0x100 queue size 10",
-        "instance i: C base id 0x100 queue size 10 stack size 1024 ",
-        "instance i: C base id 0x100 queue size 10 stack size 1024 priority 3",
-        "instance i: C base id 0x100 queue size 10 stack size 1024 priority 3 { phase 0 \"code\" }",
-        "instance i: C base id 0x100 queue size 10 stack size 1024 priority 3 cpu 0 { phase 0 \"code\" }",
+        "instance i: C base id 0x100 type \"T\"",
+        "instance i: C base id 0x100 type \"T\" at \"file.hpp\"",
+        "instance i: C base id 0x100 type \"T\" at \"file.hpp\" queue size 10",
+        "instance i: C base id 0x100 type \"T\" at \"file.hpp\" queue size 10 stack size 1024",
+        "instance i: C base id 0x100 type \"T\" at \"file.hpp\" queue size 10 stack size 1024 priority 3",
+        "instance i: C base id 0x100 type \"T\" at \"file.hpp\" queue size 10 stack size 1024 priority 3 cpu 0",
+        "instance i: C base id 0x100 type \"T\" at \"file.hpp\" queue size 10 stack size 1024 priority 3 cpu 0 { phase 0 \"code\" }",
       )
     )
   }

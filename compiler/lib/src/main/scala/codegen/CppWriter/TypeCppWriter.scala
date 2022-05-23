@@ -20,7 +20,7 @@ case class TypeCppWriter(
 
     override def default(s: CppWriterState, t: Type) = throw new InternalError("visitor not defined")
 
-    override def enum(s: CppWriterState, t: Type.Enum) =
+    override def enumeration(s: CppWriterState, t: Type.Enum) =
       s.writeSymbol(Symbol.Enum(t.node))
 
     override def float(s: CppWriterState, t: Type.Float) = t.toString

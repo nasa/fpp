@@ -185,7 +185,7 @@ object FinalizeTypeDefs
       for (eltType <- ty(a, t.eltType))
         yield Type.AnonArray(t.size, eltType)
 
-    override def enum(a: Analysis, t: Type.Enum) = 
+    override def enumeration(a: Analysis, t: Type.Enum) =
       for (a <- defEnumAnnotatedNode(a, t.node))
         yield a.typeMap(t.node._2.id)
 

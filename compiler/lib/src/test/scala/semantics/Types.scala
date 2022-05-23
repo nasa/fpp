@@ -23,7 +23,7 @@ object Types {
     Array(anode, anonArray)
   }
 
-  def enum(name: Ast.Ident, repType: Type.PrimitiveInt = I32, id: AstNode.Id = 0) = {
+  def enumeration(name: Ast.Ident, repType: Type.PrimitiveInt = I32, id: AstNode.Id = 0) = {
     val d = Ast.DefEnum(name, None, List(), None)
     val anode = annotatedNode(d, id)
     Enum(anode, repType)
@@ -37,7 +37,7 @@ object Types {
 
   val defaultAbsType = absType("T", 0)
   val defaultArray = array("A", AnonArray(None, I32), 1)
-  val defaultEnum = enum("E", I32, 2)
+  val defaultEnum = enumeration("E", I32, 2)
   val defaultStruct = struct("S", AnonStruct(Map()), 3)
 
 }

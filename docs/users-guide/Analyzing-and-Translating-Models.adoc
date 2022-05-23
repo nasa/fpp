@@ -223,7 +223,7 @@ This option tells the tool that you want to read the files in _D_ for their symb
 but you don't want to translate them.
 Only the files _F_ provided as arguments are translated.
 
-*Tool behavior:* When you run `fpp-check`, the following occurs:
+*Tool behavior:* When you run `fpp-to-xml`, the following occurs:
 
 . The tool runs the same analysis 
 <<Analyzing-and-Translating-Models_Checking-Models,as for `fpp-check`>>.

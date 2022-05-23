@@ -8,7 +8,7 @@
 #define M_HealthTopologyAc_HPP
 
 #include "C.hpp"
-#include "HealthImpl.hpp"
+#include "Health.hpp"
 #include "HealthTopologyDefs.hpp"
 
 namespace M {
@@ -34,7 +34,35 @@ namespace M {
   }
 
   // ----------------------------------------------------------------------
-  // Public interface functions
+  // Component instances
+  // ----------------------------------------------------------------------
+
+  //! c1
+  extern C c1;
+
+  //! c2
+  extern C c2;
+
+  //! health
+  extern Svc::Health health;
+
+  // ----------------------------------------------------------------------
+  // Helper functions
+  // ----------------------------------------------------------------------
+
+  //! Initialize components
+  void initComponents(
+      const TopologyState& state //!< The topology state
+  );
+
+  //! Set component base Ids
+  void setBaseIds();
+
+  //! Connect components
+  void connectComponents();
+
+  // ----------------------------------------------------------------------
+  // Setup and teardown functions
   // ----------------------------------------------------------------------
 
   //! Set up the topology

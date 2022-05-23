@@ -60,7 +60,7 @@ module DefinitionsAndSpecifiers {
   @< Simple component instance definition
 
   @ Component instance definition
-  instance c2: C2 base id 0x200 at "C2.hpp" queue size 100 stack size 1024 priority 10 cpu 0 {
+  instance c2: C2 base id 0x200 type "T" at "C2.hpp" queue size 100 stack size 1024 priority 10 cpu 0 {
     @ Init specifier
     phase CONSTRUCTION """
     line 1

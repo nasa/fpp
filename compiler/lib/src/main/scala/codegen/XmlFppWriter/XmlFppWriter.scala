@@ -117,8 +117,8 @@ object XmlFppWriter extends LineUtils {
             case "U8" => Right(Ast.TypeNameInt(Ast.U8()))
             case "bool" => Right(Ast.TypeNameBool)
             case "ENUM" => for {
-              enum <- getSingleChild(node, "enum")
-              name <- getAttribute(enum, "name")
+              enumeration <- getSingleChild(node, "enum")
+              name <- getAttribute(enumeration, "name")
             } yield FppBuilder.translateQualIdentType(name)
             case "string" => Right(Ast.TypeNameString(
               sizeOpt.map((size: String) => AstNode.create(Ast.ExprLiteralInt(size)))
