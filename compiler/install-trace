@@ -1,0 +1,18 @@
+#!/bin/sh -e
+
+# ----------------------------------------------------------------------
+# Install tools that run the GraalVM tracing agent
+# See https://www.graalvm.org/22.1/reference-manual/native-image/Agent/
+# ----------------------------------------------------------------------
+
+if test -z "$GRAALVM_JAVA_HOME"
+then
+  echo "trace: environment variable GRAALVM_JAVA_HOME is not set" 1>&2
+  exit 1
+fi
+
+dir=`pwd`
+
+export FPP_INSTALL_JAVA="$GRAALVM_JAVA_HOME/bin/java -agentlib:native-image-agent=config-merge-dir=$dir/lib/src/main/resources/META-INF/native-image"
+
+$dir/install "$@"
