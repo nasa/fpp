@@ -3,3 +3,4 @@ num_failed.txt
 target/
 test-output.txt
 *.o
+native-fpp-Linux-x86_64

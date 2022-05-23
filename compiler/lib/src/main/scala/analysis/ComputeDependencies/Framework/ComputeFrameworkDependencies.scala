@@ -49,7 +49,7 @@ object ComputeFrameworkDependencies extends AstStateVisitor {
     }
   }
 
-  override def transUnit(s: State, tu: Ast.TransUnit) = 
+  override def transUnit(s: State, tu: Ast.TransUnit) =
     visitList(s, tu.members, matchTuMember)
 
 }

@@ -9,13 +9,13 @@ import Type._
 /** Helper functions and values for types */
 object Types {
 
-  def absType(name: Ast.Ident, id: AstNode.Id = 0) = {
+  def absType(name: Ast.Ident, id: AstNode.Id = 0): AbsType = {
     val d = Ast.DefAbsType(name)
     val anode = annotatedNode(d, id)
     AbsType(anode)
   }
 
-  def array(name: Ast.Ident, anonArray: AnonArray = AnonArray(None, U32), id: AstNode.Id = 0) = {
+  def array(name: Ast.Ident, anonArray: AnonArray = AnonArray(None, U32), id: AstNode.Id = 0): Array = {
     val size = AstNode.create(Ast.ExprLiteralInt("1"))
     val eltType = AstNode.create(Ast.TypeNameInt(Ast.U32()))
     val d = Ast.DefArray(name, size, eltType, None, None)
@@ -23,21 +23,21 @@ object Types {
     Array(anode, anonArray)
   }
 
-  def enumeration(name: Ast.Ident, repType: Type.PrimitiveInt = I32, id: AstNode.Id = 0) = {
+  def enumeration(name: Ast.Ident, repType: Type.PrimitiveInt = I32, id: AstNode.Id = 0): Enum = {
     val d = Ast.DefEnum(name, None, List(), None)
     val anode = annotatedNode(d, id)
     Enum(anode, repType)
   }
 
-  def struct(name: Ast.Ident, anonStruct: AnonStruct = AnonStruct(Map()), id: AstNode.Id = 0) = {
+  def struct(name: Ast.Ident, anonStruct: AnonStruct = AnonStruct(Map()), id: AstNode.Id = 0): Struct = {
     val d = Ast.DefStruct(name, List(), None)
     val anode = annotatedNode(d, id)
     Struct(anode, anonStruct)
   }
 
-  val defaultAbsType = absType("T", 0)
-  val defaultArray = array("A", AnonArray(None, I32), 1)
-  val defaultEnum = enumeration("E", I32, 2)
-  val defaultStruct = struct("S", AnonStruct(Map()), 3)
+  val defaultAbsType: AbsType = absType("T", 0)
+  val defaultArray: Array = array("A", AnonArray(None, I32), 1)
+  val defaultEnum: Enum = enumeration("E", I32, 2)
+  val defaultStruct: Struct = struct("S", AnonStruct(Map()), 3)
 
 }

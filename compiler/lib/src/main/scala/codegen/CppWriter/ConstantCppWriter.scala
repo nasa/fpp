@@ -9,7 +9,7 @@ import fpp.compiler.util._
 object ConstantCppWriter {
 
   /** Writes out constant hpp and cpp */
-  def write(s: CppWriterState, tuList: List[Ast.TransUnit]) =
+  def write(s: CppWriterState, tuList: List[Ast.TransUnit]): Result.Result[Any] =
     tuList.flatMap(Visitor.transUnit(s, _)) match {
       case Nil => Right(())
       case constantMembers => 
@@ -37,6 +37,10 @@ object ConstantCppWriter {
       }
 
   private object Visitor extends AstVisitor with LineUtils {
+
+    type In = CppWriterState
+
+    type Out = List[CppDoc.Member]
 
     override def default(s: CppWriterState) = Nil
 
@@ -139,10 +143,6 @@ object ConstantCppWriter {
         lines(s"const char *const $name = $q$s$q;")
       )
     }
-
-    type In = CppWriterState
-
-    type Out = List[CppDoc.Member]
 
   }
 

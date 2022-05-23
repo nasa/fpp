@@ -11,7 +11,7 @@ trait TypeExpressionAnalyzer
   with TopologyAnalyzer
 {
 
-  def defEnumConstantAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefEnumConstant]]) = {
+  def defEnumConstantAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefEnumConstant]]): Result = {
     val (_, node1, _) = node
     val data = node1.data
     opt(exprNode)(a, data.value)
@@ -42,9 +42,9 @@ trait TypeExpressionAnalyzer
     } yield a
   }
 
-  def typeNameNode(a: Analysis, node: AstNode[Ast.TypeName]) = matchTypeNameNode(a, node)
+  def typeNameNode(a: Analysis, node: AstNode[Ast.TypeName]): Result = matchTypeNameNode(a, node)
 
-  override def typeNameStringNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameString): Out =
+  override def typeNameStringNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameString) =
     opt(exprNode)(a, tn.size)
 
   override def defArrayAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefArray]]) = {

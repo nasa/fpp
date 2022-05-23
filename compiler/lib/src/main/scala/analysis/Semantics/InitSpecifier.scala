@@ -10,7 +10,7 @@ final case class InitSpecifier(
 ) {
 
   /** Gets the location for this init specifier */
-  def getLoc = Locations.get(aNode._2.id)
+  def getLoc: Location = Locations.get(aNode._2.id)
 
 }
 

@@ -2,12 +2,13 @@
 
 name := "fpp-compiler"
 ThisBuild / organization := "gov.nasa.jpl"
-ThisBuild / scalaVersion := "2.13.6"
+ThisBuild / scalaVersion := "3.1.2"
 
 lazy val settings = Seq(
   scalacOptions ++= Seq(
     "-deprecation",
     "-unchecked",
+    "-Xfatal-warnings"
   ),
   libraryDependencies ++= dependencies, 
   Test / testOptions += Tests.Argument(TestFrameworks.ScalaTest, "-oNCXELOPQRM"),
@@ -15,9 +16,9 @@ lazy val settings = Seq(
 
 lazy val dependencies = Seq(
   "com.github.scopt" %% "scopt" % "4.0.1",
-  "org.scala-lang.modules" %% "scala-parser-combinators" % "2.0.0",
-  "org.scala-lang.modules" %% "scala-xml" % "2.0.1",
-  "org.scalatest" % "scalatest_2.13" % "3.1.0" % "test",
+  "org.scala-lang.modules" %% "scala-parser-combinators" % "2.1.1",
+  "org.scala-lang.modules" %% "scala-xml" % "2.1.0",
+  "org.scalatest" %% "scalatest" % "3.2.12" % "test",
 )
 
 lazy val root = (project in file("."))

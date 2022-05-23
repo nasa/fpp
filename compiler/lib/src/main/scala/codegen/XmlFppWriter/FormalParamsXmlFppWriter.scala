@@ -3,12 +3,13 @@ package fpp.compiler.codegen
 import fpp.compiler.ast._
 import fpp.compiler.codegen._
 import fpp.compiler.util._
+import scala.xml.Node
 
 /** Writes out F Prime XML arguments as FPP formal parameters */
 object FormalParamsXmlFppWriter extends LineUtils {
 
   /** Translates an XML type to an FPP type name */
-  def translateType(file: XmlFppWriter.File) = 
+  def translateType(file: XmlFppWriter.File): Node => Result.Result[Ast.TypeName] = 
     file.translateType(node => file.getAttribute(node, "type")) _
 
   /** Extracts a formal parameter */

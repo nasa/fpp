@@ -6,10 +6,10 @@ import fpp.compiler.analysis._
 /** General helpers */
 object Helpers {
 
-  def annotate[T](x: T) = (List(), x, List())
+  def annotate[T](x: T): (List[Nothing], T, List[Nothing]) = (List(), x, List())
 
-  def annotatedNode[T](x: T, id: AstNode.Id) = annotate(AstNode.create(x, id))
+  def annotatedNode[T](x: T, id: AstNode.Id): (List[Nothing], AstNode[T], List[Nothing]) = annotate(AstNode.create(x, id))
 
-  def duplicate[T](x: T) = (x, x)
+  def duplicate[T](x: T): (T, T) = (x, x)
 
 }

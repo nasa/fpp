@@ -17,11 +17,11 @@ final case class TlmChannel(
   def getName = aNode._2.data.name
 
   /** Gets the location of the channel */
-  def getLoc = Locations.get(aNode._2.id)
+  def getLoc: Location = Locations.get(aNode._2.id)
 
 }
 
-final object TlmChannel {
+object TlmChannel {
 
   type Id = Int
 

@@ -3,6 +3,10 @@ package fpp.compiler.analysis
 /** Visit a Value */
 trait ValueVisitor {
 
+  type In
+
+  type Out
+
   def absType(in: In, v: Value.AbsType): Out = default(in, v)
 
   def anonArray(in: In, v: Value.AnonArray): Out = default(in, v)
@@ -11,7 +15,7 @@ trait ValueVisitor {
 
   def array(in: In, v: Value.Array): Out = default(in, v)
 
-  def boolean(in: In, v: Value.Boolean) = default(in, v)
+  def boolean(in: In, v: Value.Boolean): Out = default(in, v)
 
   def default(in: In, v: Value): Out
 
@@ -42,12 +46,7 @@ trait ValueVisitor {
       case v : Value.EnumConstant => enumConstant(in, v)
       case v : Value.AnonStruct => anonStruct(in, v)
       case v : Value.Struct => struct(in, v)
-      case _ => default(in, v)
     }
   }
-
-  type In
-
-  type Out
 
 }

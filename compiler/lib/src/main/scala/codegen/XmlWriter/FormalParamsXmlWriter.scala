@@ -10,7 +10,7 @@ object FormalParamsXmlWriter extends LineUtils {
   def formalParamList(
     s: XmlWriterState,
     params: Ast.FormalParamList
-  ) = params match {
+  ): List[Line] = params match {
     case Nil => Nil
     case _ =>
       val ls = params.flatMap(formalParamAnnotatedNode(s, _))
@@ -21,7 +21,7 @@ object FormalParamsXmlWriter extends LineUtils {
   def formalParamAnnotatedNode(
     s: XmlWriterState,
     aNode: Ast.Annotated[AstNode[Ast.FormalParam]]
-  ) = {
+  ): List[Line] = {
     val node = aNode._2
     val data = node.data
     val pairs = {

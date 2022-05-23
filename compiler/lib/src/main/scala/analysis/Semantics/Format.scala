@@ -18,7 +18,7 @@ object Format {
   sealed trait Field extends Positional {
     def isInteger = false
     def isRational = false
-    final def isNumeric = isInteger || isRational
+    final def isNumeric: Boolean = isInteger || isRational
   }
 
   object Field {
@@ -89,7 +89,8 @@ object Format {
       case prefix ~ fields => Format(prefix, fields.map({ case field ~ string => (field, string) }))
     }
 
-    def parseAllInput[T](p: Parser[T]) = new Parser[T] {
+    def parseAllInput[T](p: Parser[T]): parseAllInput[T] = new parseAllInput[T](p)
+    class parseAllInput[T](p: Parser[T]) extends Parser[T] {
       def dropWhile(in: Input, p: Char => Boolean): Input = {
         if (in.atEnd) in
         else if (p(in.first)) dropWhile(in.rest, p)

@@ -9,7 +9,7 @@ object FinalizeTypeDefs
   extends TypeExpressionAnalyzer
 {
 
-  override def exprNode(a: Analysis, node: AstNode[Ast.Expr]): Result = default(a)
+  override def exprNode(a: Analysis, node: AstNode[Ast.Expr]) = default(a)
 
   override def typeNameNode(a: Analysis, node: AstNode[Ast.TypeName]) = {
     val t1 = a.typeMap(node.id)

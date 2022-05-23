@@ -8,6 +8,10 @@ import scala.language.implicitConversions
 /** Writes out the locations of definitions */
 object LocateDefsFppWriter extends AstVisitor with LineUtils {
 
+  type In = State
+
+  type Out = List[Line]
+
   case class State(
     /** The base directory for constructing location specifiers */
     val baseDir: Option[String],
@@ -110,7 +114,7 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
     writeSpecLoc(s, Ast.SpecLoc.Topology, data.name, node)
   }
 
-  override def transUnit(s: State, tu: Ast.TransUnit) = 
+  override def transUnit(s: State, tu: Ast.TransUnit) =
     tu.members.flatMap(matchModuleMember(s, _))
 
   private def writeSpecLoc[T](
@@ -118,7 +122,7 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
     kind: Ast.SpecLoc.Kind,
     name: String,
     node: AstNode[T]
-  ): List[Line] = {
+  ): Out = {
     val loc = Locations.get(node.id).tuLocation
     loc.file match {
       case File.Path(path) => {
@@ -138,9 +142,5 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
       case File.StdIn => Nil
     }
   }
-
-  type In = State
-
-  type Out = List[Line]
 
 }

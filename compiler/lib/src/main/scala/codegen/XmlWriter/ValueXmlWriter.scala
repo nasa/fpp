@@ -13,7 +13,7 @@ object ValueXmlWriter {
 
     type Out = String
 
-    override def absType(s: XmlWriterState, v: Value.AbsType): String = {
+    override def absType(s: XmlWriterState, v: Value.AbsType) = {
       val aNode = v.t.node
       val cppName = s.writeSymbol(Symbol.AbsType(aNode))
       s.builtInTypes.get(cppName) match {
@@ -22,7 +22,7 @@ object ValueXmlWriter {
       }
     }
 
-    override def array(s: XmlWriterState, v: Value.Array): String = {
+    override def array(s: XmlWriterState, v: Value.Array) = {
       val elements = v.anonArray.elements.map(getValue(s, _))
       val stringify = elements.mkString(", ")
       TypeXmlWriter.getName(s, v.getType) ++ "(" ++ stringify ++ ")"
@@ -33,10 +33,10 @@ object ValueXmlWriter {
     override def default(s: XmlWriterState, v: Value) =
       throw new InternalError("visitor not defined")
 
-    override def enumConstant(s: XmlWriterState, v: Value.EnumConstant): String =
+    override def enumConstant(s: XmlWriterState, v: Value.EnumConstant) =
       TypeXmlWriter.getName(s, v.getType) ++ "::" ++ v.value._1.toString
 
-    override def float(s: XmlWriterState, v: Value.Float): String = {
+    override def float(s: XmlWriterState, v: Value.Float) = {
       val s = v.value.toString
       v.kind match {
         case Type.Float.F32 => s"${s}f"
@@ -44,7 +44,7 @@ object ValueXmlWriter {
       }
     }
 
-    override def integer(s: XmlWriterState, v: Value.Integer): String = v.value.toString
+    override def integer(s: XmlWriterState, v: Value.Integer) = v.value.toString
 
     override def primitiveInt(s: XmlWriterState, v: Value.PrimitiveInt) = v.value.toString
 
@@ -54,7 +54,7 @@ object ValueXmlWriter {
         replaceAll("\"", "\\\\\"").replaceAll("\n", "\\\\n") ++ 
       "\""
 
-    override def struct(s: XmlWriterState, v: Value.Struct): String = {
+    override def struct(s: XmlWriterState, v: Value.Struct) = {
       val structType = v.getType
       val data = structType.node._2.data
       val namesList = data.members

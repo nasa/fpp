@@ -50,7 +50,7 @@ case class Connection(
   }
 
   /** Compare two connections */
-  def compare(that: Connection) = {
+  override def compare(that: Connection) = {
     val fromCompare = this.from.compare(that.from)
     if (fromCompare != 0) fromCompare
     else this.to.compare(that.to)
@@ -60,7 +60,7 @@ case class Connection(
   def getLoc: Location = from.loc
 
   /** Get this endpoint of a port connection at a port instance */
-  def getThisEndpoint(pi: PortInstance) = {
+  def getThisEndpoint(pi: PortInstance): Connection.Endpoint = {
     import PortInstance.Direction._
     pi.getDirection.get match {
       case Input => to
@@ -69,7 +69,7 @@ case class Connection(
   }
 
   /** Get the other endpoint of a port connection at a port instance */
-  def getOtherEndpoint(pi: PortInstance) = {
+  def getOtherEndpoint(pi: PortInstance): Connection.Endpoint = {
     import PortInstance.Direction._
     pi.getDirection.get match {
       case Input => from
