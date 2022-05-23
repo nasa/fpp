@@ -15,14 +15,7 @@ module M {
     output port pingOut: Svc.Ping
   }
 
-  instance $health: Svc.Health base id 0x100 \
-    at "HealthImpl.hpp" {
-
-    phase Phases.instances """
-    Svc::HealthImpl health(FW_OPTIONAL_NAME("health"));
-    """
-
-  }
+  instance $health: Svc.Health base id 0x100
 
   instance c1: C base id 0x200
   instance c2: C base id 0x300

@@ -7,7 +7,7 @@ import fpp.compiler.util._
  *  and default values */
 object CheckExprTypes extends UseAnalyzer {
 
-  override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) = 
+  override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) =
     visitUse(a, node)
 
   override def defArrayAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
@@ -255,7 +255,7 @@ object CheckExprTypes extends UseAnalyzer {
   override def structTypeMemberAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.StructTypeMember]]
-  ): Result = {
+  ) = {
     val (_, node, _) = aNode
     val data = node.data
     for {

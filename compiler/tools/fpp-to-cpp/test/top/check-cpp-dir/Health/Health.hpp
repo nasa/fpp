@@ -1,11 +1,11 @@
-#ifndef M_HealthImpl_HPP
-#define M_HealthImpl_HPP
+#ifndef M_Health_HPP
+#define M_Health_HPP
 
 #include "HealthComponentAc.hpp"
 
 namespace Svc {
 
-  class HealthImpl :
+  class Health :
     public HealthComponentBase
   {
 
@@ -17,7 +17,7 @@ namespace Svc {
         const char* c;
       } PingEntry;
 
-      HealthImpl(const char* name) {
+      Health(const char* name) {
 
       }
 

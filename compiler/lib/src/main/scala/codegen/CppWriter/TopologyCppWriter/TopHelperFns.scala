@@ -4,43 +4,52 @@ import fpp.compiler.analysis._
 import fpp.compiler.ast._
 import fpp.compiler.util._
 
-/** Writes out C++ for topology private functions */
-case class TopPrivateFunctions(
+/** Writes out C++ for topology helper functions */
+case class TopHelperFns(
   s: CppWriterState,
   aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
 ) extends TopologyCppWriterUtils(s, aNode) {
 
   /** Compute the set of defined function names and the list
-   *  of lines defining the functions */
-  def getLines: (Set[String], List[Line]) = {
-    // Get pairs of (function name, function lines)
+   *  of CppDoc members defining the functions */
+  def getMembers: (Set[String], List[CppDoc.Member]) = {
+    // Get pairs of (function name, function member)
     val pairs = List(
-      getInitComponentsLines,
-      getConfigComponentsLines,
-      getSetBaseIdsLines,
-      getConnectComponentsLines,
-      getRegCommandsLines,
-      getReadParametersLines,
-      getLoadParametersLines,
-      getStartTasksLines,
-      getStopTasksLines,
-      getFreeThreadsLines,
-      getTearDownComponentsLines,
+      getInitComponentsFn,
+      getConfigComponentsFn,
+      getSetBaseIdsFn,
+      getConnectComponentsFn,
+      getRegCommandsFn,
+      getReadParametersFn,
+      getLoadParametersFn,
+      getStartTasksFn,
+      getStopTasksFn,
+      getFreeThreadsFn,
+      getTearDownComponentsFn,
     )
     // Compute the set of names with nonempty lines
-    val fns = pairs.foldLeft (Set[String]()) {
-      case (set, (_, Nil)) => set
+    val fnNames = pairs.foldLeft (Set[String]()) {
+      case (set, (_, None)) => set
       case (set, (name, _)) => set + name
     }
-    // Extract the lines
-    val ll = addBannerComment(
-      "Private functions",
-      pairs.map(_._2).flatten
-    )
-    (fns, ll)
+    // Add the banner comment
+    val fnMembers = pairs.map(_._2).filter(_.isDefined).map(_.get)
+    val members = fnMembers match {
+      case Nil => Nil
+      case _ => getBannerComment :: fnMembers
+    }
+    (fnNames, members)
   }
 
-  private def getInitComponentsLines: (String, List[Line]) = {
+  private val stateParams = List(
+    CppDoc.Function.Param(
+      CppDoc.Type("const TopologyState&"),
+      "state",
+      Some("The topology state")
+    )
+  )
+
+  private def getInitComponentsFn = {
     def getCode(ci: ComponentInstance): List[Line] = {
       val name = getNameAsIdent(ci.qualifiedName)
       getCodeLinesForPhase (CppWriter.Phases.initComponents) (ci).getOrElse(
@@ -53,51 +62,46 @@ case class TopPrivateFunctions(
       )
     }
     val name = "initComponents"
-    val ll = addComment(
+    val memberOpt = getFnMemberOpt(
       "Initialize components",
-      wrapInScope(
-        s"void $name(const TopologyState& state) {",
-        instances.flatMap(getCode),
-        "}"
-      )
+      name,
+      stateParams,
+      instances.flatMap(getCode)
     )
-    (name, ll)
+    (name, memberOpt)
   }
 
-  private def getConfigComponentsLines: (String, List[Line]) = {
+  private def getConfigComponentsFn = {
     def getCode(ci: ComponentInstance): List[Line] = {
       val name = getNameAsIdent(ci.qualifiedName)
       getCodeLinesForPhase (CppWriter.Phases.configComponents) (ci).getOrElse(Nil)
     }
     val name = "configComponents"
-    val ll = addComment(
+    val memberOpt = getFnMemberOpt(
       "Configure components",
-      wrapInScope(
-        s"void $name(const TopologyState& state) {",
-        instances.flatMap(getCode),
-        "}"
-      )
+      name,
+      stateParams,
+      instances.flatMap(getCode)
     )
-    (name, ll)
+    (name, memberOpt)
   }
 
-  private def getSetBaseIdsLines: (String, List[Line]) = {
+  private def getSetBaseIdsFn = {
     val name = "setBaseIds"
-    val ll = addComment(
+    val body = instancesByBaseId.map(ci => {
+      val name = getNameAsIdent(ci.qualifiedName)
+      line(s"$name.setIdBase(BaseIds::$name);")
+    })
+    val memberOpt = getFnMemberOpt(
       "Set component base Ids",
-      wrapInScope(
-        s"void $name() {",
-        instancesByBaseId.map(ci => {
-          val name = getNameAsIdent(ci.qualifiedName)
-          line(s"$name.setIdBase(BaseIds::$name);")
-        }),
-        "}"
-      )
+      name,
+      Nil,
+      body
     )
-    (name, ll)
+    (name, memberOpt)
   }
 
-  private def getConnectComponentsLines: (String, List[Line]) = {
+  private def getConnectComponentsFn = {
     def getPortInfo(pii: PortInstanceIdentifier, c: Connection) = {
       val instanceName = getNameAsIdent(pii.componentInstance.qualifiedName)
       val portName = pii.portInstance.getUnqualifiedName
@@ -117,25 +121,22 @@ case class TopPrivateFunctions(
       )
     }
     val name = "connectComponents"
-    val ll = addComment(
-      "Connect components",
-      wrapInScope(
-        s"void $name() {",
-        addBlankPostfix(
-          t.connectionMap.toList.sortWith(_._1 < _._1).flatMap {
-            case (name, cs) => addComment(
-              name,
-              t.sortConnections(cs).flatMap(writeConnection).toList
-            )
-          }
-        ),
-        "}"
+    val body = t.connectionMap.toList.sortWith(_._1 < _._1).flatMap {
+      case (name, cs) => addComment(
+        name,
+        t.sortConnections(cs).flatMap(writeConnection).toList
       )
+    }
+    val memberOpt = getFnMemberOpt(
+      "Connect components",
+      name,
+      Nil,
+      body
     )
-    (name, ll)
+    (name, memberOpt)
   }
 
-  private def getRegCommandsLines: (String, List[Line]) = {
+  private def getRegCommandsFn = {
     def getCode(ci: ComponentInstance): List[Line] = {
       getCodeLinesForPhase (CppWriter.Phases.regCommands) (ci).getOrElse(
         if (hasCommands(ci)) {
@@ -146,33 +147,29 @@ case class TopPrivateFunctions(
       )
     }
     val name = "regCommands"
-    val ll = addComment(
+    val memberOpt = getFnMemberOpt(
       "Register commands",
-      wrapInScope(
-        s"void $name() {",
-        instances.flatMap(getCode),
-        "}"
-      )
+      name,
+      Nil,
+      instances.flatMap(getCode)
     )
-    (name, ll)
+    (name, memberOpt)
   }
 
-  private def getReadParametersLines: (String, List[Line]) = {
+  private def getReadParametersFn = {
     def getCode(ci: ComponentInstance): List[Line] =
       getCodeLinesForPhase (CppWriter.Phases.readParameters) (ci).getOrElse(Nil)
     val name = "readParameters"
-    val ll = addComment(
+    val memberOpt = getFnMemberOpt(
       "Read parameters",
-      wrapInScope(
-        s"void $name() {",
-        instances.flatMap(getCode),
-        "}"
-      )
+      name,
+      Nil,
+      instances.flatMap(getCode)
     )
-    (name, ll)
+    (name, memberOpt)
   }
 
-  private def getLoadParametersLines: (String, List[Line]) = {
+  private def getLoadParametersFn = {
     def getCode(ci: ComponentInstance): List[Line] = {
       getCodeLinesForPhase (CppWriter.Phases.loadParameters) (ci).getOrElse(
         if (hasParams(ci)) {
@@ -183,18 +180,16 @@ case class TopPrivateFunctions(
       )
     }
     val name = "loadParameters"
-    val ll = addComment(
+    val memberOpt = getFnMemberOpt(
       "Load parameters",
-      wrapInScope(
-        s"void $name() {",
-        instances.flatMap(getCode),
-        "}"
-      )
+      name,
+      Nil,
+      instances.flatMap(getCode)
     )
-    (name, ll)
+    (name, memberOpt)
   }
 
-  private def getStartTasksLines: (String, List[Line]) = {
+  private def getStartTasksFn = {
     def getCode(ci: ComponentInstance): List[Line] =
       getCodeLinesForPhase (CppWriter.Phases.startTasks) (ci).getOrElse {
         if (isActive(ci)) {
@@ -227,18 +222,16 @@ case class TopPrivateFunctions(
         else Nil
       }
     val name = "startTasks"
-    val ll = addComment(
+    val memberOpt = getFnMemberOpt(
       "Start tasks",
-      wrapInScope(
-        s"void $name(const TopologyState& state) {",
-        instances.flatMap(getCode),
-        "}"
-      )
+      name,
+      stateParams,
+      instances.flatMap(getCode)
     )
-    (name, ll)
+    (name, memberOpt)
   }
 
-  private def getStopTasksLines: (String, List[Line]) = {
+  private def getStopTasksFn = {
     def getCode(ci: ComponentInstance): List[Line] =
       getCodeLinesForPhase (CppWriter.Phases.stopTasks) (ci).getOrElse {
         if (isActive(ci)) {
@@ -248,18 +241,16 @@ case class TopPrivateFunctions(
         else Nil
       }
     val name = "stopTasks"
-    val ll = addComment(
+    val memberOpt = getFnMemberOpt(
       "Stop tasks",
-      wrapInScope(
-        "void stopTasks(const TopologyState& state) {",
-        instances.flatMap(getCode),
-        "}"
-      )
+      name,
+      stateParams,
+      instances.flatMap(getCode)
     )
-    (name, ll)
+    (name, memberOpt)
   }
 
-  private def getFreeThreadsLines: (String, List[Line]) = {
+  private def getFreeThreadsFn = {
     def getCode(ci: ComponentInstance): List[Line] =
       getCodeLinesForPhase (CppWriter.Phases.freeThreads) (ci).getOrElse {
         if (isActive(ci)) {
@@ -269,32 +260,55 @@ case class TopPrivateFunctions(
         else Nil
       }
     val name = "freeThreads"
-    val ll = addComment(
+    val memberOpt = getFnMemberOpt(
       "Free threads",
-      wrapInScope(
-        s"void $name(const TopologyState& state) {",
-        instances.flatMap(getCode),
-        "}"
-      )
+      name,
+      stateParams,
+      instances.flatMap(getCode)
     )
-    (name, ll)
+    (name, memberOpt)
   }
 
-  private def getTearDownComponentsLines: (String, List[Line]) = {
+  private def getTearDownComponentsFn = {
     def getCode(ci: ComponentInstance): List[Line] = {
       val name = getNameAsIdent(ci.qualifiedName)
       getCodeLinesForPhase (CppWriter.Phases.tearDownComponents) (ci).getOrElse(Nil)
     }
     val name = "tearDownComponents"
-    val ll = addComment(
+    val memberOpt = getFnMemberOpt(
       "Tear down components",
-      wrapInScope(
-        s"void $name(const TopologyState& state) {",
-        instances.flatMap(getCode),
-        "}"
+      name,
+      stateParams,
+      instances.flatMap(getCode)
+    )
+    (name, memberOpt)
+  }
+
+  private def getFnMemberOpt(
+    comment: String,
+    name: String,
+    params: List[CppDoc.Function.Param],
+    body: List[Line]
+  ) = body match {
+    case Nil => None
+    case ll => Some(
+      CppDoc.Member.Function(
+        CppDoc.Function(
+          Some(comment),
+          name,
+          params,
+          CppDoc.Type("void"),
+          ll
+        )
       )
     )
-    (name, ll)
   }
+
+  private def getBannerComment = CppDoc.Member.Lines(
+    CppDoc.Lines(
+      CppDocWriter.writeBannerComment("Helper functions"),
+      CppDoc.Lines.Both
+    )
+  )
 
 }

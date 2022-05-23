@@ -8,6 +8,8 @@ import fpp.compiler.util._
 /** Resolve include specifiers */
 object ResolveSpecInclude extends AstStateTransformer {
 
+  type State = Analysis
+
   def default(a: Analysis) = a
 
   override def defComponentAnnotatedNode(
@@ -129,7 +131,5 @@ object ResolveSpecInclude extends AstStateTransformer {
   }
 
   private def tuMember(a: Analysis, tum: Ast.TUMember) = moduleMember(a, tum)
-
-  type State = Analysis
 
 }

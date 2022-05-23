@@ -3,6 +3,10 @@ package fpp.compiler.analysis
 /** Visit a type */
 trait TypeVisitor {
 
+  type In
+
+  type Out
+
   def absType(in: In, t: Type.AbsType): Out = default(in, t)
 
   def anonArray(in: In, t: Type.AnonArray): Out = default(in, t)
@@ -11,11 +15,11 @@ trait TypeVisitor {
 
   def array(in: In, t: Type.Array): Out = default(in, t)
 
-  def boolean(in: In) = default(in, Type.Boolean)
+  def boolean(in: In): Out = default(in, Type.Boolean)
 
   def default(in: In, t: Type): Out
 
-  def enum(in: In, t: Type.Enum): Out = default(in, t)
+  def enumeration(in: In, t: Type.Enum): Out = default(in, t)
 
   def float(in: In, t: Type.Float): Out = default(in, t)
 
@@ -36,17 +40,11 @@ trait TypeVisitor {
       case t : Type.AnonStruct => anonStruct(in, t)
       case t : Type.Array => array(in, t)
       case Type.Boolean => boolean(in)
-      case t : Type.Enum => enum(in, t)
+      case t : Type.Enum => enumeration(in, t)
       case t : Type.Float => float(in, t)
       case Type.Integer => integer(in)
       case t : Type.PrimitiveInt => primitiveInt(in, t)
       case t : Type.String => string(in, t)
       case t : Type.Struct => struct(in, t)
-      case _ => default(in, t)
     }
-
-  type In
-
-  type Out
-
 }

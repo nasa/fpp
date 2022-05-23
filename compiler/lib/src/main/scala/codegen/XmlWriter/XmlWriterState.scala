@@ -19,8 +19,8 @@ case class XmlWriterState(
 
   /** A mapping from special built-in types to their
    *  default values */
-  val zero = Value.Integer(0)
-  val builtInTypes = Map(
+  val zero: Value.Integer = Value.Integer(0)
+  val builtInTypes: Map[String,Value.Integer] = Map(
     "FwBuffSizeType" -> zero,
     "FwChanIdType" -> zero,
     "FwEnumStoreType" -> zero,
@@ -120,7 +120,7 @@ case class XmlWriterState(
   }
 
   /** Writes an FPP qualified name as XML */
-  def writeQualifiedName(qualifiedName: Name.Qualified) = {
+  def writeQualifiedName(qualifiedName: Name.Qualified): String = {
     qualifiedName.toString.replaceAll("\\.", "::")
   }
 
@@ -170,22 +170,22 @@ case object XmlWriterState extends LineUtils {
   val defaultDefaultStringSize = 80
 
   /** Gets the generated XML file name for an array definition */
-  def getArrayFileName(baseName: String) = s"${baseName}ArrayAi.xml"
+  def getArrayFileName(baseName: String): String = s"${baseName}ArrayAi.xml"
 
   /** Gets the generated XML file name for an enum definition */
-  def getEnumFileName(baseName: String) = s"${baseName}EnumAi.xml"
+  def getEnumFileName(baseName: String): String = s"${baseName}EnumAi.xml"
 
   /** Gets the generated XML file name for a component definition */
-  def getComponentFileName(baseName: String) = s"${baseName}ComponentAi.xml"
+  def getComponentFileName(baseName: String): String = s"${baseName}ComponentAi.xml"
 
   /** Gets the generated XML file name for a port definition */
-  def getPortFileName(baseName: String) = s"${baseName}PortAi.xml"
+  def getPortFileName(baseName: String): String = s"${baseName}PortAi.xml"
 
   /** Gets the generated XML file name for a struct definition */
-  def getStructFileName(baseName: String) = s"${baseName}SerializableAi.xml"
+  def getStructFileName(baseName: String): String = s"${baseName}SerializableAi.xml"
 
   /** Gets the generated XML file name for a topology definition */
-  def getTopologyFileName(baseName: String) = s"${baseName}TopologyAppAi.xml"
+  def getTopologyFileName(baseName: String): String = s"${baseName}TopologyAppAi.xml"
 
   /** Write an XML comment */
   def writeComment(comment: String): List[Line] = 

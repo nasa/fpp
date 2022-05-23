@@ -10,7 +10,7 @@ object CppWriter extends AstStateVisitor with LineUtils {
   type State = CppWriterState
 
   override def defModuleAnnotatedNode(
-    s: CppWriterState,
+    s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefModule]]
   ) = {
     val node = aNode._2
@@ -19,7 +19,7 @@ object CppWriter extends AstStateVisitor with LineUtils {
   }
 
   override def defTopologyAnnotatedNode(
-    s: CppWriterState,
+    s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
   ) = {
     val node = aNode._2
@@ -28,10 +28,10 @@ object CppWriter extends AstStateVisitor with LineUtils {
     writeCppDoc(s, cppDoc)
   }
 
-  override def transUnit(s: CppWriterState, tu: Ast.TransUnit) = 
+  override def transUnit(s: State, tu: Ast.TransUnit) =
     visitList(s, tu.members, matchTuMember)
 
-  def tuList(s: CppWriterState, tul: List[Ast.TransUnit]) =
+  def tuList(s: State, tul: List[Ast.TransUnit]): Result.Result[Unit] =
     for {
       _ <- ConstantCppWriter.write(s, tul)
       _ <- visitList(s, tul, transUnit)
@@ -43,27 +43,27 @@ object CppWriter extends AstStateVisitor with LineUtils {
     fileName: String,
     includeGuard: String,
     members: List[CppDoc.Member]
-  ) = {
+  ): CppDoc = {
     val hppFile = CppDoc.HppFile(s"$fileName.hpp", includeGuard)
     CppDoc(description, hppFile, s"$fileName.cpp", members)
   }
 
-  def headerString(s: String) = {
+  def headerString(s: String): String = {
     val q = "\""
     s"#include $q$s$q"
   }
 
-  def headerLine(s: String) = line(headerString(s))
+  def headerLine(s: String): Line = line(headerString(s))
 
   def linesMember(
     content: List[Line],
     output: CppDoc.Lines.Output = CppDoc.Lines.Hpp
-  ) = CppDoc.Member.Lines(CppDoc.Lines(content, output))
+  ): CppDoc.Member.Lines = CppDoc.Member.Lines(CppDoc.Lines(content, output))
 
   def namespaceMember(
     name: String,
     members: List[CppDoc.Member]
-  ) = CppDoc.Member.Namespace(CppDoc.Namespace(name, members))
+  ): CppDoc.Member.Namespace = CppDoc.Member.Namespace(CppDoc.Namespace(name, members))
 
   def wrapInNamespaces(
     namespaceNames: List[String],
@@ -74,25 +74,25 @@ object CppWriter extends AstStateVisitor with LineUtils {
       List(namespaceMember(head, wrapInNamespaces(tail, members)))
   }
 
-  def writeCppDoc(s: CppWriterState, cppDoc: CppDoc) =
+  def writeCppDoc(s: State, cppDoc: CppDoc): Result.Result[State] =
     for {
       _ <- writeHppFile(s, cppDoc)
       _ <- writeCppFile(s, cppDoc)
     }
     yield s
 
-  private def writeCppFile(s: CppWriterState, cppDoc: CppDoc) = {
+  private def writeCppFile(s: State, cppDoc: CppDoc) = {
     val lines = CppDocCppWriter.visitCppDoc(cppDoc)
     writeLinesToFile(s, cppDoc.cppFileName, lines)
   }
 
-  private def writeHppFile(s: CppWriterState, cppDoc: CppDoc) = {
+  private def writeHppFile(s: State, cppDoc: CppDoc) = {
     val lines = CppDocHppWriter.visitCppDoc(cppDoc)
     writeLinesToFile(s, cppDoc.hppFile.name, lines)
   }
 
   private def writeLinesToFile(
-    s: CppWriterState,
+    s: State,
     fileName: String,
     lines: List[Line]
   ) = {
@@ -105,11 +105,11 @@ object CppWriter extends AstStateVisitor with LineUtils {
   }
 
   /** Constructs a C++ identifier from a qualified name */
-  def identFromQualifiedName(name: Name.Qualified) =
+  def identFromQualifiedName(name: Name.Qualified): String =
     name.toString.replaceAll("\\.", "_")
 
   /** Translates a qualified name to C++ */
-  def translateQualifiedName(name: Name.Qualified) =
+  def translateQualifiedName(name: Name.Qualified): String =
     name.toString.replaceAll("\\.", "::")
 
   /** Writes an identifier */

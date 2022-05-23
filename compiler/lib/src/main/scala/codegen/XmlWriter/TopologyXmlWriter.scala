@@ -7,6 +7,10 @@ import fpp.compiler.util._
 /** Write out F Prime XML for topology definitions */
 object TopologyXmlWriter extends AstVisitor with LineUtils {
 
+  type In = XmlWriterState
+
+  type Out = List[Line]
+
   override def defTopologyAnnotatedNode(
     s: XmlWriterState,
     aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
@@ -91,9 +95,5 @@ object TopologyXmlWriter extends AstVisitor with LineUtils {
     }
     Line.blankSeparated (writeGraph) (t.connectionMap.keys.toList.sorted)
   }
-
-  type In = XmlWriterState
-
-  type Out = List[Line]
 
 }

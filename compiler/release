@@ -3,53 +3,48 @@
 # ----------------------------------------------------------------------
 # FPP release builder
 # ----------------------------------------------------------------------
-# To pass flags to sbt, set the environment variable
-# FPP_SBT_FLAGS
+# To use this script, you must first
+#
+# 1. Install GraalVM and native-image.
+#
+# 2. Set the environment variable GRAALVM_JAVA_HOME.
+#
+# See README.adoc.
 # ----------------------------------------------------------------------
 
-DIRECTORY=`dirname $0`
-NATIVE_BIN="${DIRECTORY}/native-fpp-`uname`-`uname -m`"
-NATIVE_IMAGE=`which native-image || exit 0`
-JAVA_PATH=`which java || exit 0`
-
-# Looking for native-image
-if [ ! -x "${NATIVE_IMAGE}" ]
+if test -z "$GRAALVM_JAVA_HOME"
 then
-    echo "[ERROR] native-image not found, install Graal JVM, native-image, and ensure it runs on your system" 1>&2
-    exit 1
+  echo "release: environment variable GRAALVM_JAVA_HOME is not set" 1>&2
+  exit 1
 fi
-JAVA_DIR=`dirname "${JAVA_PATH}"`
-NATIVE_DIR=`dirname "${NATIVE_IMAGE}"`
 
-if [ "${JAVA_DIR}" != "${NATIVE_DIR}" ]
-then
-    echo "[ERROR] Java and native-image found in different paths. This will result in a failed build." 1>&2
-    echo "[ERROR] Make sure Graal JVM is on the path and native-image was installed with 'gu install native-image'" 1>&2
-    echo "[ERROR] Java Path: ${JAVA_DIR}" 1>&2
-    echo "[ERROR] Native Path: ${NATIVE_IMAGE}" 1>&2
-    exit 2
-fi
-mkdir -p "${NATIVE_BIN}"
+directory=`dirname $0`
+native_bin="$directory/native-fpp-`uname`-`uname -m`"
+native_image="$GRAALVM_JAVA_HOME/bin/native-image"
 
+mkdir -p "$native_bin"
 
+# Install jar files here
+$directory/install
 
-
-# Install locally
-${DIRECTORY}/install
-
-for item in ${DIRECTORY}/bin/*.jar
+# Convert jar files to binaries
+for jar_file in $directory/bin/*.jar
 do
-    IMAGE_NAME=`basename $item`
-    IMAGE_NAME=`echo $IMAGE_NAME | cut -f 1 -d '.'`
-    OUTPUT="${NATIVE_BIN}/${IMAGE_NAME}"
-    echo "Building Fast Version of ${IMAGE_NAME}"
-    native-image --no-fallback --install-exit-handlers -jar "${item}" "${OUTPUT}"
+    out_file=$native_bin/`basename $jar_file .jar`
+    echo "Building $out_file"
+    "$native_image" --no-fallback --install-exit-handlers -jar "$jar_file" "$out_file"
     if [ $? -ne 0 ]
     then
-        echo "[ERROR] Failed to build ${IMAGE_NAME}"
+        echo "release: Failed to build $out_file"
         exit 1
     fi
 done
-rm "${NATIVE_BIN}"/*.txt
-tar -czf "${NATIVE_BIN}.tar.gz" "${NATIVE_BIN}"
-echo "[INFO] Release archive built, prepare for Hyper Drive"
+
+# Clean up native directory
+rm "$native_bin"/*.txt
+
+# Create tar ball
+release_tgz="$native_bin.tar.gz"
+tar -czf "$release_tgz" "$native_bin"
+
+echo "Release archive written to $release_tgz"

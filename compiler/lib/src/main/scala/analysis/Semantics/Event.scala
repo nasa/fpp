@@ -14,11 +14,11 @@ final case class Event(
   def getName = aNode._2.data.name
 
   /** Gets the location of the event */
-  def getLoc = Locations.get(aNode._2.id)
+  def getLoc: Location = Locations.get(aNode._2.id)
 
 }
 
-final object Event {
+object Event {
 
   type Id = Int
 

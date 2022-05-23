@@ -33,19 +33,19 @@ sealed trait PortInstance {
 
 }
 
-final object PortInstance {
+object PortInstance {
 
   /** A port instance type */
   sealed trait Type
-  final object Type {
+  object Type {
     final case class DefPort(symbol: Symbol.Port) extends Type {
       override def toString = symbol.getUnqualifiedName
     }
-    final case object Serial extends Type {
+    case object Serial extends Type {
       override def toString = "serial"
     }
     /** Show a type option */
-    def show(typeOpt: Option[Type]) = typeOpt match {
+    def show(typeOpt: Option[Type]): String = typeOpt match {
       case Some(t) => t.toString
       case None => "none"
     }
@@ -61,15 +61,15 @@ final object PortInstance {
 
   /** A port direction */
   sealed trait Direction
-  final object Direction {
-    final case object Input extends Direction {
+  object Direction {
+    case object Input extends Direction {
       override def toString = "input"
     }
-    final case object Output extends Direction {
+    case object Output extends Direction {
       override def toString = "output"
     }
     /** Show a direction option */
-    def show(dirOpt: Option[Direction]) = dirOpt match {
+    def show(dirOpt: Option[Direction]): String = dirOpt match {
       case Some(t) => t.toString
       case None => "none"
     }
@@ -83,7 +83,7 @@ final object PortInstance {
     }
   }
 
-  final object General {
+  object General {
 
     /** A general port kind */
     sealed trait Kind

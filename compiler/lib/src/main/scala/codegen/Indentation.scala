@@ -16,9 +16,9 @@ case class Indentation(n: Int) {
   def toInt: Int = n
 
   /** Indent in by the given space count */
-  def indentIn(incr: Int) = Indentation(n + incr)
+  def indentIn(incr: Int): Indentation = Indentation(n + incr)
 
   /** Indent out by the given space count */
-  def indentOut(incr: Int) = Indentation(n - incr)
+  def indentOut(incr: Int): Indentation = Indentation(n - incr)
 
 }

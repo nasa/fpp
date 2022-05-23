@@ -42,7 +42,7 @@ case class CppWriterState(
   }
 
   /** Constructs an include guard from the prefix and a name */
-  def includeGuardFromPrefix(name: String) = {
+  def includeGuardFromPrefix(name: String): String = {
     val rawPrefix = guardPrefix.getOrElse(getRelativePath(".").toString)
     val prefix = "[^A-Za-z0-9_]".r.replaceAllIn(rawPrefix, "_")
     prefix match {
@@ -52,11 +52,11 @@ case class CppWriterState(
   }
 
   /** Constructs a C++ identifier from a qualified symbol name */
-  def identFromQualifiedSymbolName(s: Symbol) =
+  def identFromQualifiedSymbolName(s: Symbol): String =
     CppWriter.identFromQualifiedName(a.getQualifiedName(s))
 
   /** Constructs an include guard from a qualified name and a kind */
-  def includeGuardFromQualifiedName(s: Symbol, name: String) = {
+  def includeGuardFromQualifiedName(s: Symbol, name: String): String = {
     val guard = a.getEnclosingNames(s) match {
       case Nil => name
       case names => 

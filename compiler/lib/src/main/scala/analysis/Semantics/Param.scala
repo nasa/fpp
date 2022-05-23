@@ -16,11 +16,11 @@ final case class Param(
   def getName = aNode._2.data.name
 
   /** Gets the location of the parameter */
-  def getLoc = Locations.get(aNode._2.id)
+  def getLoc: Location = Locations.get(aNode._2.id)
 
 }
 
-final object Param {
+object Param {
 
   type Id = Int
 

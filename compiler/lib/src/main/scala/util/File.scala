@@ -51,7 +51,7 @@ object File {
   final case class Path(path: JavaPath) extends File
 
   /** Standard input */
-  final case object StdIn extends File
+  case object StdIn extends File
 
   /** Get the Java path associated with a string */
   def getJavaPath(s: String): JavaPath =

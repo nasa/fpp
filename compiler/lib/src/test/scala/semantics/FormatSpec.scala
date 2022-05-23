@@ -8,7 +8,7 @@ import Helpers._
 
 class FormatSpec extends AnyWordSpec {
 
-  def parse(s: String) = Format.Parser.parse(Format.Parser.parseAllInput(Format.Parser.format), s)
+  def parse(s: String): Format.Parser.ParseResult[Format] = Format.Parser.parse(Format.Parser.parseAllInput(Format.Parser.format), s)
 
   "format" should {
     val ok = List(

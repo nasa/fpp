@@ -5,12 +5,12 @@ import java.time.Year
 /** Write a CppDoc to an hpp file */
 object CppDocHppWriter extends CppDocWriter {
 
-  def addParamComment(s: String, commentOpt: Option[String]) = commentOpt match {
+  def addParamComment(s: String, commentOpt: Option[String]): String = commentOpt match {
     case Some(comment) => s"$s //!< ${"\n".r.replaceAllIn(comment, " ")}"
     case None => s
   }
 
-  def closeIncludeGuard = lines(
+  def closeIncludeGuard: List[Line] = lines(
     """|
        |#endif"""
   )
@@ -23,24 +23,24 @@ object CppDocHppWriter extends CppDocWriter {
     )
   }
 
-  def paramString(p: CppDoc.Function.Param) = {
+  def paramString(p: CppDoc.Function.Param): String = {
     val s1 = CppDocCppWriter.paramString(p)
     val s2 = addParamComment(s1, p.comment)
     s2
   }
 
-  def paramStringComma(p: CppDoc.Function.Param) = {
+  def paramStringComma(p: CppDoc.Function.Param): String = {
     val s1 = CppDocCppWriter.paramStringComma(p)
     val s2 = addParamComment(s1, p.comment)
     s2
   }
 
-  def writeAccessTag(tag: String) = List(
+  def writeAccessTag(tag: String): List[Line] = List(
     Line.blank,
     line(s"$tag:").indentOut(2)
   )
 
-  def writeParams(prefix: String, params: List[CppDoc.Function.Param]) = {
+  def writeParams(prefix: String, params: List[CppDoc.Function.Param]): List[Line] = {
     if (params.length == 0) lines(s"$prefix()")
     else if (params.length == 1 && params.head.comment.isEmpty)
       lines(s"$prefix(" ++ CppDocCppWriter.paramString(params.head) ++ ")")
@@ -51,7 +51,7 @@ object CppDocHppWriter extends CppDocWriter {
     }
   }
 
-  override def visitClass(in: Input, c: CppDoc.Class): Output = {
+  override def visitClass(in: Input, c: CppDoc.Class) = {
     val name = c.name
     val commentLines = CppDocWriter.writeDoxygenCommentOpt(c.comment)
     val openLines = c.superclassDecls match {
@@ -85,7 +85,7 @@ object CppDocHppWriter extends CppDocWriter {
     outputLines
   }
 
-  override def visitCppDoc(cppDoc: CppDoc): Output = {
+  override def visitCppDoc(cppDoc: CppDoc) = {
     val hppFile = cppDoc.hppFile
     val cppFileName = cppDoc.cppFileName
     val in = Input(hppFile, cppFileName)
@@ -154,7 +154,7 @@ object CppDocHppWriter extends CppDocWriter {
     }
   }
 
-  override def visitNamespace(in: Input, namespace: CppDoc.Namespace): Output = {
+  override def visitNamespace(in: Input, namespace: CppDoc.Namespace) = {
     val name = namespace.name
     val startLines = List(Line.blank, line(s"namespace $name {"))
     val outputLines = namespace.members.map(visitNamespaceMember(in, _)).flatten

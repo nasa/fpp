@@ -160,6 +160,7 @@ def module
     ident c2
     component qual ident C2
     base id literal int 0x200
+    type T
     file C2.hpp
     queue size literal int 100
     stack size literal int 1024

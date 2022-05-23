@@ -14,6 +14,9 @@ that you can refer to in a
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
 `base` `id` <<Expressions,_expression_>>
 _[_
+`type` <<Expressions_String-Literals,_string-literal_>>
+_]_
+_[_
 `at` <<Expressions_String-Literals,_string-literal_>>
 _]_
 _[_
@@ -33,7 +36,7 @@ _[_
 _]_
 
 _init-specifier-sequence_ is an
-<<Element-Sequences,element sequence>> in 
+<<Element-Sequences,element sequence>> in
 which each element is an
 <<Specifiers_Init-Specifiers,init specifier>>,
 and the terminating punctuation is a semicolon.
@@ -46,8 +49,9 @@ and the terminating punctuation is a semicolon.
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
 a
 <<Definitions_Component-Definitions,component definition _D_>>.
-This component definition is called the component definition
-*associated with* the component instance.
+This component definition _D_ is called the component definition
+*associated with* the component instance _I_.
+We also say that _I_ is an instance of _D_.
 
 . The expression following the keywords `base` `id` must have a
 <<Types_Internal-Types_Numeric-Types,numeric type>>.
@@ -59,7 +63,7 @@ It associates a base identifier with the component instance.
 .. For each component instance, for each
 command, event, telemetry, or parameter identifier,
 the identifier associated with the instance
-is computed by adding the base identifier specified here to the relative 
+is computed by adding the base identifier specified here to the relative
 identifier specified in the component.
 For this purpose, command opcodes are identifiers.
 
@@ -71,17 +75,40 @@ If the component has no identifiers, then this range is empty.
 .. No instance may have a base identifier that lies within
 the identifier range of another instance.
 
+. If present, the string literal following the keyword `type`
+names the implementation type of the instance.
+The type must be a valid type in the target language (e.g., a type name
+in {cpp}).
+If the implementation type is not present, then the code generator
+infers the name of the implementation type from the component name when
+generating the constructor for the instance.
+For example:
+
+.. Suppose an FPP model has a component `C` defined in module `M`.
+Suppose _I_ is an instance of component `M.C`.
+By default, the implementation type associated with _I_ is `M::C`.
+
+.. Specifying `type "M::D"` causes FPP to generate a
+constructor for _I_ with name `"M::D"` instead of `"M::C"`.
+
++
+Specifying an implementation type is useful in cases where the name
+of the component implementation does not match the component
+name, e.g., because there are several implementations of the
+same FPP component.
+
 . If present, the string literal following the keyword `at`
 must specify a file path, relative to the
 <<Translation-Units-and-Models_Locations,location>>
 of the component instance definition.
-The file path must name a file in the target language (e.g., a C++ header file)
+The file path must name a file in the target language (e.g., a {cpp}
+header file)
 that provides the implementation associated with the instance.
 If no such path is given, then the translator uses the location
 of the component instance and the name of the component to generate
 a default implementation path.
 
-. If present, the expression following the keywords `queue` `size` must 
+. If present, the expression following the keywords `queue` `size` must
 have a <<Types_Internal-Types_Numeric-Types,numeric type>>
 and must evaluate to a nonnegative integer after
 <<Type-Checking_Type-Conversion,type conversion>>.
@@ -111,7 +138,7 @@ for queued or passive components.
 
 . If present, the init specifiers govern {cpp} code generation for
 the component instance being defined.
-See the section on 
+See the section on
 <<Specifiers_Init-Specifiers,init specifiers>>
 for further information.
 
@@ -139,6 +166,6 @@ instance timer: Svc.Timer at "../../Timers/HardwareTimer.hpp"
 
 This example defines an instance `timer` of component `Svc.Timer`.
 It specifies that the component implementation is located at
-path `../../Timers/HardwareTimer.hpp` instead of in the default location for the 
+path `../../Timers/HardwareTimer.hpp` instead of in the default location for the
 component.
 The path is resolved relative to the location of the instance definition.
