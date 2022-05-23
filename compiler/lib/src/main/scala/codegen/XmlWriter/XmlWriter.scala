@@ -80,7 +80,7 @@ object XmlWriter extends AstStateVisitor with LineUtils {
     writeXmlFile(s, fileName, lines)
   }
 
-  override def transUnit(s: XmlWriterState, tu: Ast.TransUnit) = 
+  override def transUnit(s: XmlWriterState, tu: Ast.TransUnit) =
     visitList(s, tu.members, matchTuMember)
 
   private def writeXmlHeader(fileName: String) = lines(

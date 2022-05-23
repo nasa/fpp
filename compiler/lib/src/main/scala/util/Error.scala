@@ -9,19 +9,19 @@ final case class InternalError(val msg: String) extends Exception {
 sealed trait Error {
 
   /** Print the location of a port matching */
-  def printMatchingLoc(matchingLoc: Location) = {
+  def printMatchingLoc(matchingLoc: Location): Unit = {
     System.err.println("port matching is specified here:")
     System.err.println(matchingLoc)
   }
 
   /** Print the location of a previous occurrence */
-  def printPrevLoc(prevLoc: Location) = {
+  def printPrevLoc(prevLoc: Location): Unit = {
     System.err.println("previous occurrence is here:")
     System.err.println(prevLoc)
   }
 
   /*** Print the error */
-  def print = {
+  def print: Unit = {
     this match {
       case SyntaxError(loc, msg) => Error.print (Some(loc)) (msg)
       case CodeGenError.DuplicateCppFile(file, loc, prevLoc) =>
@@ -488,10 +488,10 @@ object Error {
   private var toolOpt: Option[Tool] = None
 
   /** Set the tool */
-  def setTool(t: Tool) = { toolOpt = Some(t) }
+  def setTool(t: Tool): Unit = { toolOpt = Some(t) }
 
   /** Print an optional value */
-  def printOpt[T](opt: T) = {
+  def printOpt[T](opt: T): Unit = {
     opt match {
       case Some(t) => System.err.println(t.toString)
       case _ => ()
@@ -499,10 +499,10 @@ object Error {
   }
 
   /** Print the tool */
-  def printTool = printOpt(toolOpt)
+  def printTool: Unit = printOpt(toolOpt)
 
   /** Print an optional location and a message */
-  def print (locOpt: Option[Location]) (msg: String) = {
+  def print (locOpt: Option[Location]) (msg: String): Unit = {
     printTool
     printOpt(locOpt)
     System.err.print("error: ")
@@ -510,7 +510,7 @@ object Error {
   }
 
   /** Print an XML file and a message */
-  def printXml (file: String) (msg: String) = {
+  def printXml (file: String) (msg: String): Unit = {
     printTool
     System.err.println(s"file: $file")
     System.err.print("error: ")

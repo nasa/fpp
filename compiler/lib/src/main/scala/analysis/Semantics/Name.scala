@@ -24,7 +24,7 @@ object Name {
     }
 
     /** Convert a qualified name to an identifier list */
-    def toIdentList = (base :: qualifier).reverse
+    def toIdentList: List[Unqualified] = (base :: qualifier).reverse
 
     /** Computes a short qualified name
      *  Deletes the longest prefix provided by the enclosing scope */
@@ -46,10 +46,10 @@ object Name {
   object Qualified {
 
     /** Create a qualified name from a string */
-    def fromString(s: String) = fromIdentList(s.split(".").toList)
+    def fromString(s: String): Qualified = fromIdentList(s.split(".").toList)
 
     /** Create a qualified name A.B.C from an identifer list [ A, B, C ] */
-    def fromIdentList(il: List[Ast.Ident]) = {
+    def fromIdentList(il: List[Ast.Ident]): Qualified = {
       il.reverse match {
         case head :: tail => Qualified(tail.reverse, head)
         case _ => throw new InternalError("empty identifier list")
@@ -57,10 +57,10 @@ object Name {
     }
 
     /** Create a qualified name from an identifier */
-    def fromIdent(id: Ast.Ident) = Qualified(Nil, id)
+    def fromIdent(id: Ast.Ident): Qualified = Qualified(Nil, id)
 
     /** Create a qualified name from a qualified identifier */
-    def fromQualIdent(qualIdent: Ast.QualIdent) =
+    def fromQualIdent(qualIdent: Ast.QualIdent): Qualified =
       fromIdentList(qualIdent.toIdentList)
 
   }

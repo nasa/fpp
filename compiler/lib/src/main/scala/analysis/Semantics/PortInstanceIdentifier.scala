@@ -14,14 +14,14 @@ case class PortInstanceIdentifier(
   override def toString = getQualifiedName.toString
 
   /** Gets the qualified name */
-  def getQualifiedName = {
+  def getQualifiedName: Name.Qualified = {
     val componentName = componentInstance.qualifiedName
     val identList = componentName.toIdentList
     Name.Qualified.fromIdentList(identList :+ portInstance.getUnqualifiedName)
   }
 
   /** Gets the unqualified name */
-  def getUnqualifiedName = {
+  def getUnqualifiedName: Name.Qualified = {
     val componentName = componentInstance.getUnqualifiedName
     val portName = portInstance.getUnqualifiedName
     val identList = List(componentName, portName)

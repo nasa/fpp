@@ -1,0 +1,73 @@
+[
+{
+  "name":"com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"fpp.compiler.analysis.ComponentInstance[]"
+},
+{
+  "name":"fpp.compiler.analysis.Connection[]"
+},
+{
+  "name":"fpp.compiler.analysis.Format$Parser$",
+  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+},
+{
+  "name":"fpp.compiler.codegen.CppDocCppWriter$",
+  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+},
+{
+  "name":"fpp.compiler.codegen.CppDocHppWriter$",
+  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+},
+{
+  "name":"fpp.compiler.codegen.Line[]"
+},
+{
+  "name":"fpp.compiler.syntax.Lexer$",
+  "fields":[{"name":"0bitmap$2", "allowUnsafeAccess":true}]
+},
+{
+  "name":"fpp.compiler.syntax.Lexer$$anon$1",
+  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+},
+{
+  "name":"fpp.compiler.syntax.Parser$",
+  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+},
+{
+  "name":"java.lang.ClassValue"
+},
+{
+  "name":"java.lang.String[]"
+},
+{
+  "name":"java.lang.invoke.VarHandle",
+  "methods":[{"name":"releaseFence","parameterTypes":[] }]
+},
+{
+  "name":"scala.util.parsing.input.OffsetPosition",
+  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+},
+{
+  "name":"scala.util.parsing.input.OffsetPosition$",
+  "fields":[{"name":"0bitmap$2", "allowUnsafeAccess":true}]
+},
+{
+  "name":"scala.xml.XML$",
+  "fields":[{"name":"0bitmap$2", "allowUnsafeAccess":true}]
+},
+{
+  "name":"scala.xml.parsing.FactoryAdapter",
+  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+},
+{
+  "name":"scopt.OParser$",
+  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+},
+{
+  "name":"sun.misc.Unsafe",
+  "allDeclaredFields":true
+}
+]

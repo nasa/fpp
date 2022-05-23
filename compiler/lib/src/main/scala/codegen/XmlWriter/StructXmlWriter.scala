@@ -7,6 +7,10 @@ import fpp.compiler.util._
 /** Write out F Prime XML for struct definitions */
 object StructXmlWriter extends AstVisitor with LineUtils {
 
+  type In = XmlWriterState
+
+  type Out = List[Line]
+
   override def default(s: XmlWriterState) = Nil
 
   override def defStructAnnotatedNode(s: XmlWriterState, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
@@ -35,7 +39,7 @@ object StructXmlWriter extends AstVisitor with LineUtils {
     s: XmlWriterState,
     structType: Type.Struct,
     aNode: Ast.Annotated[AstNode[Ast.StructTypeMember]]
-  ) = {
+  ): Out = {
     val node = aNode._2
     val data = node.data
     val t = s.a.typeMap(data.typeName.id)
@@ -68,9 +72,5 @@ object StructXmlWriter extends AstVisitor with LineUtils {
     }
     XmlTags.taggedLines("member", pairs) (body.map(indentIn))
   }
-
-  type In = XmlWriterState
-
-  type Out = List[Line]
 
 }

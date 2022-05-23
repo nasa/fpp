@@ -8,6 +8,10 @@ object TypeXmlWriter {
 
   private object NameVisitor extends TypeVisitor {
 
+    type In = XmlWriterState
+
+    type Out = String
+
     override def absType(s: XmlWriterState, t: Type.AbsType) =
       s.writeSymbol(Symbol.AbsType(t.node))
 
@@ -29,10 +33,6 @@ object TypeXmlWriter {
 
     override def struct(s: XmlWriterState, t: Type.Struct) =
       s.writeSymbol(Symbol.Struct(t.node))
-
-    type In = XmlWriterState
-
-    type Out = String
 
   }
 

@@ -9,10 +9,10 @@ import scala.util.parsing.input.{NoPosition, Position, Reader}
 object Parser extends Parsers {
 
   class TokenReader(tokens: Seq[Token]) extends Reader[Token] {
-    override def first: Token = tokens.head
-    override def atEnd: Boolean = tokens.isEmpty
-    override def pos: Position = tokens.headOption.map(_.pos).getOrElse(NoPosition)
-    override def rest: Reader[Token] = new TokenReader(tokens.tail)
+    override def first = tokens.head
+    override def atEnd = tokens.isEmpty
+    override def pos = tokens.headOption.map(_.pos).getOrElse(NoPosition)
+    override def rest = new TokenReader(tokens.tail)
   }
 
   def componentKind: Parser[Ast.ComponentKind] = {
@@ -295,7 +295,7 @@ object Parser extends Parsers {
     }
   }
 
-  def parseAllInput[T](p: Parser[T]) = new Parser[T] {
+  def parseAllInput[T](p: Parser[T]): Parser[T] = new Parser[T] {
     def apply(in: Input) = {
       val r = p(in)
       r match {

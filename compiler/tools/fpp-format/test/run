@@ -3,6 +3,7 @@
 . ../../../scripts/test-utils.sh
 
 fpp_format=../../../bin/fpp-format
+fpp_syntax=../../../bin/fpp-syntax
 
 compare()
 {
@@ -40,19 +41,19 @@ done > default-tests.sh
 include()
 {
   run_test '-i' syntax include && \
-    fpp-syntax include.out.txt
+    $fpp_syntax include.out.txt
 }
 
 kwd_names()
 {
   run_test '' kwd_names && \
-    fpp-syntax kwd_names.out.txt
+    $fpp_syntax kwd_names.out.txt
 }
 
 no_include()
 {
   run_test '' syntax no_include && \
-    fpp-syntax no_include.out.txt
+    $fpp_syntax no_include.out.txt
 }
 
 run_suite $tests

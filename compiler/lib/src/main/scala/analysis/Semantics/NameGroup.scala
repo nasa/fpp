@@ -11,7 +11,7 @@ object NameGroup {
   case object Type extends NameGroup
   case object Value extends NameGroup
 
-  val groups = List(
+  val groups: List[NameGroup] = List(
     ComponentInstance,
     Component,
     Port,

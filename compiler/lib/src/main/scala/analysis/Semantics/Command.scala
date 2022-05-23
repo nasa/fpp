@@ -14,7 +14,7 @@ sealed trait Command {
 
 }
 
-final object Command {
+object Command {
 
   type Opcode = Int
 
@@ -23,11 +23,11 @@ final object Command {
     aNode: Ast.Annotated[AstNode[Ast.SpecCommand]],
     kind: NonParam.Kind
   ) extends Command {
-    def getLoc = Locations.get(aNode._2.id)
-    def getName = aNode._2.data.name
+    override def getLoc = Locations.get(aNode._2.id)
+    override def getName = aNode._2.data.name
   }
 
-  final object NonParam {
+  object NonParam {
 
     sealed trait Kind
     case class Async(
@@ -44,8 +44,8 @@ final object Command {
     aNode: Ast.Annotated[AstNode[Ast.SpecParam]],
     kind: Param.Kind,
   ) extends Command {
-    def getLoc = Locations.get(aNode._2.id)
-    def getName = {
+    override def getLoc = Locations.get(aNode._2.id)
+    override def getName = {
       val paramName = aNode._2.data.name.toUpperCase
       kind match {
         case Param.Get => s"${paramName}_PARAM_GET"
@@ -54,7 +54,7 @@ final object Command {
     }
   }
 
-  final object Param {
+  object Param {
 
     sealed trait Kind
     case object Get extends Kind

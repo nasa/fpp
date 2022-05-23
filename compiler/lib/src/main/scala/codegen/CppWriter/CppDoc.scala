@@ -104,7 +104,7 @@ object CppDoc {
     cppType: Option[String] = None
   ) {
 
-    def getCppType = cppType match {
+    def getCppType: String = cppType match {
       case Some(t) => t
       case None => hppType
     }

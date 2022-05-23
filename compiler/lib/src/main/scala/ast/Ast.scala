@@ -18,31 +18,31 @@ object Ast {
 
   /** Binary operation */
   sealed trait Binop
-  final object Binop {
-    final case object Add extends Binop {
+  object Binop {
+    case object Add extends Binop {
       override def toString = "+"
     }
-    final case object Div extends Binop {
+    case object Div extends Binop {
       override def toString = "/"
     }
-    final case object Mul extends Binop {
+    case object Mul extends Binop {
       override def toString = "*"
     }
-    final case object Sub extends Binop {
+    case object Sub extends Binop {
       override def toString = "-"
     }
   }
 
   /** Component kind */
   sealed trait ComponentKind
-  final object ComponentKind {
-    final case object Active extends ComponentKind {
+  object ComponentKind {
+    case object Active extends ComponentKind {
       override def toString = "active"
     }
-    final case object Passive extends ComponentKind {
+    case object Passive extends ComponentKind {
       override def toString = "passive"
     }
-    final case object Queued extends ComponentKind {
+    case object Queued extends ComponentKind {
       override def toString = "queued"
     }
   }
@@ -190,20 +190,20 @@ object Ast {
     name: Ident,
     typeName: AstNode[TypeName]
   )
-  final object FormalParam {
+  object FormalParam {
     /** Formal parameter kind */
     sealed trait Kind
-    final case object Ref extends Kind
-    final case object Value extends Kind
+    case object Ref extends Kind
+    case object Value extends Kind
   }
 
   /** Literal bool */
   sealed trait LiteralBool
   object LiteralBool {
-    final case object True extends LiteralBool {
+    case object True extends LiteralBool {
       override def toString = "true"
     }
-    final case object False extends LiteralBool {
+    case object False extends LiteralBool {
       override def toString = "false"
     }
   }
@@ -227,14 +227,14 @@ object Ast {
     /** An unqualified identifier */
     case class Unqualified(name: Ident) extends QualIdent {
 
-      def toIdentList = List(name)
+      override def toIdentList = List(name)
 
     }
 
     /** A qualified identifier */
     case class Qualified(qualifier: AstNode[QualIdent], name: AstNode[Ident]) extends QualIdent {
 
-      def toIdentList = qualifier.data.toIdentList ++ List(name.data)
+      override def toIdentList = qualifier.data.toIdentList ++ List(name.data)
 
     }
 
@@ -256,16 +256,16 @@ object Ast {
     object NodeList {
 
       /** Split a qualified identifier list into qualifier and name */
-      def split(nodeList: NodeList) = nodeList.reverse match {
+      def split(nodeList: NodeList): (List[AstNode[Ident]], AstNode[Ident]) = nodeList.reverse match {
         case head :: tail => (tail.reverse, head)
         case Nil => throw InternalError("node list should not be empty")
       }
 
       /** Get the qualifier */
-      def qualifier(nodeList: NodeList) = split(nodeList)._1
+      def qualifier(nodeList: NodeList): List[AstNode[Ident]] = split(nodeList)._1
 
       /** Get the unqualified name*/
-      def name(nodeList: NodeList) = split(nodeList)._2
+      def name(nodeList: NodeList): AstNode[Ident] = split(nodeList)._2
 
     }
 
@@ -287,14 +287,14 @@ object Ast {
 
   /** Queue full behavior */
   sealed trait QueueFull
-  final object QueueFull {
-    final case object Assert extends QueueFull {
+  object QueueFull {
+    case object Assert extends QueueFull {
       override def toString = "assert"
     }
-    final case object Block extends QueueFull {
+    case object Block extends QueueFull {
       override def toString = "block"
     }
-    final case object Drop extends QueueFull {
+    case object Drop extends QueueFull {
       override def toString = "drop"
     }
   }
@@ -310,13 +310,13 @@ object Ast {
   )
   object SpecCommand {
     sealed trait Kind
-    final case object Async extends Kind {
+    case object Async extends Kind {
       override def toString = "async"
     }
-    final case object Guarded extends Kind {
+    case object Guarded extends Kind {
       override def toString = "guarded"
     }
-    final case object Sync extends Kind {
+    case object Sync extends Kind {
       override def toString = "sync"
     }
   }
@@ -329,34 +329,34 @@ object Ast {
 
   /** Connection graph specifier */
   sealed trait SpecConnectionGraph
-  final object SpecConnectionGraph {
+  object SpecConnectionGraph {
 
     final case class Direct(
       name: Ident,
       connections: List[Connection]
     ) extends SpecConnectionGraph
 
-    final object Pattern {
+    object Pattern {
       sealed trait Kind
-      final case object Command extends Kind {
+      case object Command extends Kind {
         override def toString = "command"
       }
-      final case object Event extends Kind {
+      case object Event extends Kind {
         override def toString = "event"
       }
-      final case object Health extends Kind {
+      case object Health extends Kind {
         override def toString = "health"
       }
-      final case object Param extends Kind {
+      case object Param extends Kind {
         override def toString = "param"
       }
-      final case object Telemetry extends Kind {
+      case object Telemetry extends Kind {
         override def toString = "telemetry"
       }
-      final case object TextEvent extends Kind {
+      case object TextEvent extends Kind {
         override def toString = "text event"
       }
-      final case object Time extends Kind {
+      case object Time extends Kind {
         override def toString = "time"
       }
     }
@@ -385,28 +385,28 @@ object Ast {
     format: AstNode[String],
     throttle: Option[AstNode[Expr]]
   )
-  final object SpecEvent {
+  object SpecEvent {
     /** Event severity */
     sealed trait Severity
-    final case object ActivityHigh extends Severity {
+    case object ActivityHigh extends Severity {
       override def toString = "activity high"
     }
-    final case object ActivityLow extends Severity {
+    case object ActivityLow extends Severity {
       override def toString = "activity low"
     }
-    final case object Command extends Severity {
+    case object Command extends Severity {
       override def toString = "command"
     }
-    final case object Diagnostic extends Severity {
+    case object Diagnostic extends Severity {
       override def toString = "diagnostic"
     }
-    final case object Fatal extends Severity {
+    case object Fatal extends Severity {
       override def toString = "fatal"
     }
-    final case object WarningHigh extends Severity {
+    case object WarningHigh extends Severity {
       override def toString = "warning high"
     }
-    final case object WarningLow extends Severity {
+    case object WarningLow extends Severity {
       override def toString = "warning low"
     }
   }
@@ -437,22 +437,22 @@ object Ast {
   object SpecLoc {
     /** Location specifier kind */
     sealed trait Kind
-    final case object Component extends Kind {
+    case object Component extends Kind {
       override def toString = "component"
     }
-    final case object ComponentInstance extends Kind {
+    case object ComponentInstance extends Kind {
       override def toString = "instance"
     }
-    final case object Constant extends Kind {
+    case object Constant extends Kind {
       override def toString = "constant"
     }
-    final case object Port extends Kind {
+    case object Port extends Kind {
       override def toString = "port"
     }
-    final case object Topology extends Kind {
+    case object Topology extends Kind {
       override def toString = "topology"
     }
-    final case object Type extends Kind {
+    case object Type extends Kind {
       override def toString = "type"
     }
   }
@@ -483,16 +483,16 @@ object Ast {
 
     /** General port instance kind */
     sealed trait GeneralKind
-    final case object AsyncInput extends GeneralKind {
+    case object AsyncInput extends GeneralKind {
       override def toString = "async input"
     }
-    final case object GuardedInput extends GeneralKind {
+    case object GuardedInput extends GeneralKind {
       override def toString = "guarded input"
     }
-    final case object Output extends GeneralKind {
+    case object Output extends GeneralKind {
       override def toString = "output"
     }
-    final case object SyncInput extends GeneralKind {
+    case object SyncInput extends GeneralKind {
       override def toString = "sync input"
     }
 
@@ -504,31 +504,31 @@ object Ast {
 
     /** Special port instance kind */
     sealed trait SpecialKind
-    final case object CommandRecv extends SpecialKind {
+    case object CommandRecv extends SpecialKind {
       override def toString = "command recv"
     }
-    final case object CommandReg extends SpecialKind {
+    case object CommandReg extends SpecialKind {
       override def toString = "command reg"
     }
-    final case object CommandResp extends SpecialKind {
+    case object CommandResp extends SpecialKind {
       override def toString = "command resp"
     }
-    final case object Event extends SpecialKind {
+    case object Event extends SpecialKind {
       override def toString = "event"
     }
-    final case object ParamGet extends SpecialKind {
+    case object ParamGet extends SpecialKind {
       override def toString = "param get"
     }
-    final case object ParamSet extends SpecialKind {
+    case object ParamSet extends SpecialKind {
       override def toString = "param set"
     }
-    final case object Telemetry extends SpecialKind {
+    case object Telemetry extends SpecialKind {
       override def toString = "telemetry"
     }
-    final case object TextEvent extends SpecialKind {
+    case object TextEvent extends SpecialKind {
       override def toString = "text event"
     }
-    final case object TimeGet extends SpecialKind {
+    case object TimeGet extends SpecialKind {
       override def toString = "time get"
     }
 
@@ -550,14 +550,14 @@ object Ast {
     low: List[SpecTlmChannel.Limit],
     high: List[SpecTlmChannel.Limit]
   )
-  final object SpecTlmChannel {
+  object SpecTlmChannel {
 
     /** Telemetry update */
     sealed trait Update
-    final case object Always extends Update {
+    case object Always extends Update {
       override def toString = "always"
     }
-    final case object OnChange extends Update {
+    case object OnChange extends Update {
       override def toString = "on change"
     }
 
@@ -566,13 +566,13 @@ object Ast {
 
     /** Telemetry limit kind */
     sealed trait LimitKind
-    final case object Red extends LimitKind {
+    case object Red extends LimitKind {
       override def toString = "red"
     }
-    final case object Orange extends LimitKind {
+    case object Orange extends LimitKind {
       override def toString = "orange"
     }
-    final case object Yellow extends LimitKind {
+    case object Yellow extends LimitKind {
       override def toString = "yellow"
     }
 
@@ -637,24 +637,24 @@ object Ast {
   final case class TypeNameFloat(name: TypeFloat) extends TypeName
   final case class TypeNameInt(name: TypeInt) extends TypeName
   final case class TypeNameQualIdent(name: AstNode[QualIdent]) extends TypeName
-  final case object TypeNameBool extends TypeName
+  case object TypeNameBool extends TypeName
   final case class TypeNameString(size: Option[AstNode[Expr]]) extends TypeName
 
   /** Unary operation */
   sealed trait Unop
-  final object Unop {
-    final case object Minus extends Unop {
+  object Unop {
+    case object Minus extends Unop {
       override def toString = "-"
     }
   }
 
   /** Visibility */
   sealed trait Visibility
-  final object Visibility {
-    final case object Private extends Visibility {
+  object Visibility {
+    case object Private extends Visibility {
       override def toString = "private"
     }
-    final case object Public extends Visibility {
+    case object Public extends Visibility {
       override def toString = "public"
     }
   }

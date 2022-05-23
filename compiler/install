@@ -7,7 +7,7 @@
 # FPP_SBT_FLAGS
 # ----------------------------------------------------------------------
 
-scala_version="2.13"
+scala_version="3.1.2"
 
 if test $# -gt 1
 then
@@ -25,6 +25,8 @@ fi
 
 wd=`dirname $0`
 cd $wd
+top=`pwd`
+meta=$top/lib/src/main/resources/META-INF/native-image
 
 dir=`dirname $dest`
 dir=`cd $dir; pwd`
@@ -62,6 +64,8 @@ mkdir -p $dest
 
 echo "Installing tools at $dest"
 for tool in $tools
+# See https://www.graalvm.org/22.1/reference-manual/native-image/Agent/
+#java -agentlib:native-image-agent=config-merge-dir='$meta' -jar '$dest'/'$tool'.jar "$@"' > $dest/$tool
 do
   jar=`find tools/$tool -name "*$name*assembly*.jar" | grep "target/scala-$scala_version"`
   echo "  $jar"

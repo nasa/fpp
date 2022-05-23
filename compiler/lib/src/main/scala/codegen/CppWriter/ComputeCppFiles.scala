@@ -19,7 +19,7 @@ object ComputeCppFiles extends AstStateVisitor {
     def getConstants = "FppConstantsAc"
 
     /** Gets the C++ file name for generated topologies */
-    def getTopology(baseName: String) = s"${baseName}TopologyAc"
+    def getTopology(baseName: String): String = s"${baseName}TopologyAc"
 
   }
 

@@ -5,11 +5,11 @@ import java.time.Year
 /** Write a CppDoc to a cpp file */
 object CppDocCppWriter extends CppDocWriter {
 
-  def paramString(p: CppDoc.Function.Param) = s"${p.t.hppType} ${p.name}"
+  def paramString(p: CppDoc.Function.Param): String = s"${p.t.hppType} ${p.name}"
 
-  def paramStringComma(p: CppDoc.Function.Param) = s"${paramString(p)},"
+  def paramStringComma(p: CppDoc.Function.Param): String = s"${paramString(p)},"
 
-  def writeParams(prefix: String, params: List[CppDoc.Function.Param]) = {
+  def writeParams(prefix: String, params: List[CppDoc.Function.Param]): List[Line] = {
     if (params.length == 0) lines(s"$prefix()")
     else if (params.length == 1)
       lines(s"$prefix(" ++ paramString(params.head) ++ ")")
@@ -20,7 +20,7 @@ object CppDocCppWriter extends CppDocWriter {
     }
   }
 
-  override def visitClass(in: Input, c: CppDoc.Class): Output = {
+  override def visitClass(in: Input, c: CppDoc.Class) = {
     val name = c.name
     val newClassNameList = name :: in.classNameList
     val in1 = in.copy(classNameList = newClassNameList)
@@ -58,7 +58,7 @@ object CppDocCppWriter extends CppDocWriter {
     outputLines
   }
 
-  override def visitCppDoc(cppDoc: CppDoc): Output = {
+  override def visitCppDoc(cppDoc: CppDoc) = {
     val in = Input(cppDoc.hppFile, cppDoc.cppFileName)
     List(
       CppDocWriter.writeBanner(
@@ -120,7 +120,7 @@ object CppDocCppWriter extends CppDocWriter {
     }
   }
 
-  override def visitNamespace(in: Input, namespace: CppDoc.Namespace): Output = {
+  override def visitNamespace(in: Input, namespace: CppDoc.Namespace) = {
     val name = namespace.name
     val startLines = List(Line.blank, line(s"namespace $name {"))
     val outputLines = namespace.members.map(visitNamespaceMember(in, _)).flatten
