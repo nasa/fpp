@@ -64,13 +64,13 @@ mkdir -p $dest
 
 echo "Installing tools at $dest"
 for tool in $tools
+# See https://www.graalvm.org/22.1/reference-manual/native-image/Agent/
+#java -agentlib:native-image-agent=config-merge-dir='$meta' -jar '$dest'/'$tool'.jar "$@"' > $dest/$tool
 do
   jar=`find tools/$tool -name "*$name*assembly*.jar" | grep "target/scala-$scala_version"`
   echo "  $jar"
   cp $jar $dest/$tool.jar
   echo '#!/bin/sh
-  # See https://www.graalvm.org/22.1/reference-manual/native-image/Agent/
-  #java -agentlib:native-image-agent=config-merge-dir='$meta' -jar '$dest'/'$tool'.jar "$@"' > $dest/$tool
   java -jar "`dirname $0`/'$tool'.jar" "$@"' > $dest/$tool
   chmod +x $dest/$tool
 done
