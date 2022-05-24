@@ -87,10 +87,12 @@ and test artifacts.
 
 == Building Native Binaries
 
+*Running the release script:*
 You can use the `release` script in this directory to build native
 binaries of the FPP tools.
-The script uses the `native-image` tool of GraalVM to convert JAR
-files to native binaries.
+The script uses the `native-image` tool of GraalVM to convert JVM (Java
+Virtual Machine) programs stored as Java Archive (JAR) files to
+native binaries.
 
 To use the `release` script, you must carry out the following steps:
 
@@ -120,3 +122,23 @@ of sync, and the native image build may not work.
 . Run `./release` in this directory.
 The script will build the native binary tools and install them at
 `native-fpp-[platform name]`.
+
+*Running the tracing agent:*
+Before running `native-image` on a JVM program, you must first run the
+JVM program with a tracing agent enabled and record the results,
+The directory `lib/src/main/resources/META-INF` stores the results of
+running the FPP unit tests with the tracing agent enabled.
+Occasionally when developing FPP, you may need to re-run the tracing
+agent to capture new runtime behavior.
+To do that, use the following procedure:
+
+. Run `./install-trace` to install JVM versions of the FPP tools with
+tracing enabled in the `bin` directory.
+
+. Run `./test` to use the installed tools to run the unit tests.
+This will run the tracing agent and update the trace files.
+
+. Commit the updated trace files to the repository.
+
+Remember to run `./install` to install the standard version
+of the tools if you no longer want to run the tracing agent.

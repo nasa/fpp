@@ -5,9 +5,21 @@
 # ----------------------------------------------------------------------
 # To pass flags to sbt, set the environment variable
 # FPP_SBT_FLAGS
+#
+# To override the java command and/or set java flags, set the
+# environment variable
+# FPP_INSTALL_JAVA
 # ----------------------------------------------------------------------
 
 scala_version="3.1.2"
+
+if test -n "$FPP_INSTALL_JAVA"
+then
+  java=$FPP_INSTALL_JAVA
+else
+  java=java
+fi
+echo "java command: $java"
 
 if test $# -gt 1
 then
@@ -25,8 +37,6 @@ fi
 
 wd=`dirname $0`
 cd $wd
-top=`pwd`
-meta=$top/lib/src/main/resources/META-INF/native-image
 
 dir=`dirname $dest`
 dir=`cd $dir; pwd`
@@ -64,13 +74,11 @@ mkdir -p $dest
 
 echo "Installing tools at $dest"
 for tool in $tools
-# See https://www.graalvm.org/22.1/reference-manual/native-image/Agent/
-#java -agentlib:native-image-agent=config-merge-dir='$meta' -jar '$dest'/'$tool'.jar "$@"' > $dest/$tool
 do
   jar=`find tools/$tool -name "*$name*assembly*.jar" | grep "target/scala-$scala_version"`
   echo "  $jar"
   cp $jar $dest/$tool.jar
   echo '#!/bin/sh
-  java -jar "`dirname $0`/'$tool'.jar" "$@"' > $dest/$tool
+  '$java' -jar "`dirname $0`/'$tool'.jar" "$@"' > $dest/$tool
   chmod +x $dest/$tool
 done
