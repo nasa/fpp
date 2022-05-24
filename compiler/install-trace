@@ -11,7 +11,8 @@ then
   exit 1
 fi
 
-merge_dir="`pwd`/lib/src/main/resources/META-INF/native-image"
+dir="`pwd`"
+merge_dir="$dir/lib/src/main/resources/META-INF/native-image"
 
 export FPP_INSTALL_JAVA="$GRAALVM_JAVA_HOME/bin/java -agentlib:native-image-agent=config-merge-dir=$merge_dir"
 
