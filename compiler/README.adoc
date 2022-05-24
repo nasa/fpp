@@ -124,11 +124,10 @@ The script will build the native binary tools and install them at
 `native-fpp-[platform name]`.
 
 *Running the tracing agent:*
-To compile a JVM program to a native binary, you must
-first run the program with a tracing agent enabled and record the results,
-so that `native-image` can see the results when it runs.
+Before running `native-image` on a JVM program, you must first run the
+JVM program with a tracing agent enabled and record the results,
 The directory `lib/src/main/resources/META-INF` stores the results of
-running the unit tests with the tracing agent enabled.
+running the FPP unit tests with the tracing agent enabled.
 Occasionally when developing FPP, you may need to re-run the tracing
 agent to capture new runtime behavior.
 To do that, use the following procedure:
@@ -141,5 +140,5 @@ This will run the tracing agent and update the trace files.
 
 . Commit the updated trace files to the repository.
 
-Remember to re-run `./install` to install the standard version
+Remember to run `./install` to install the standard version
 of the tools if you no longer want to run the tracing agent.
