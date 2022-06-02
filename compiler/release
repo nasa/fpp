@@ -17,7 +17,7 @@ then
   echo "release: environment variable GRAALVM_JAVA_HOME is not set" 1>&2
   exit 1
 fi
-
+export PATH="$GRAALVM_JAVA_HOME/bin:${PATH}"
 directory=`dirname $0`
 native_bin="$directory/native-fpp-`uname`-`uname -m`"
 native_image="$GRAALVM_JAVA_HOME/bin/native-image"

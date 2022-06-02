@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+# inputs: path(s) to file to release
+#
+auth="Authorization: token ${GITHUB_TOKEN}"
+content="Content-Type:application/octet-stream"
+release="$(python -c "import json; print(json.load(open('${GITHUB_EVENT_PATH}', 'r'))['release']['id'])")"
+
+# Upload every file
+for file in "$@"
+do
+    url="https://uploads.github.com/repos/${GITHUB_REPOSITORY}/releases/${release}/assets?name=$( basename "${file}" )"
+    echo "Publishing: ${file} to ${url}"
+    curl -sSL -XPOST -H "${auth}" --upload-file "${file}" --header "${content}" "${url}" || exit $?
+done
+exit 0

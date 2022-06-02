@@ -1,31 +1,24 @@
 name: Build Native Images
 on:
-  create:
-    tags:
-      - v*
-  push:
-    branch: ["main"]
+  release:
+    types: [published]
 jobs:
   Build-Native-Images:
     strategy:
       matrix:
-        os: ["macos-latest", "ubuntu-latest"]
+        os: ["ubuntu-latest", "macos-latest"]
     runs-on: ${{ matrix.os }}
     steps:
     - name: "Checkout F´ Repository"
       uses: actions/checkout@v2
       with:
         fetch-depth: 0
-    - name: Setup Graal VM and PATH
-      run: |
-        echo "${GRAALVM_11_ROOT}" >> $GITHUB_PATH
     - name: Image Build Step
       working-directory: ./compiler
-      run: GRAALVM_JAVA_HOME="${GRAALVM_11_ROOT}" ./release
-    # Archive the outputs
-    - name: 'Archive Tar'
-      uses: actions/upload-artifact@v2
-      with:
-        name: images-${{ matrix.os }}
-        path: compiler/fpp-native*.tar.gz
-        retention-days: 5
+      run: |
+        GRAALVM_JAVA_HOME="$( ${GITHUB_WORKSPACE}/.github/workflows/env-setup )" ./release
+        mv native-fpp-*.tar.gz "${GITHUB_WORKSPACE}"
+    - name: Publish Release Binaries
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: ${GITHUB_WORKSPACE}/.github/workflows/publish native-fpp-*.tar.gz
