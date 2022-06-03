@@ -6,10 +6,10 @@ jobs:
   Build-Native-Images:
     strategy:
       matrix:
-        os: ["ubuntu-latest", "macos-latest"]
+        os: ["ubuntu-latest", "macos-10.15"]
     runs-on: ${{ matrix.os }}
     steps:
-    - name: "Checkout F´ Repository"
+    - name: "Checkout FPP Repository"
       uses: actions/checkout@v2
       with:
         fetch-depth: 0
@@ -22,3 +22,18 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: ${GITHUB_WORKSPACE}/.github/workflows/publish native-fpp-*.tar.gz
+  Build-PyPI-Package:
+    needs: Build-Native-Images
+    runs-on: ubuntu-latest
+    steps:
+    - name: "Checkout FPP Repository"
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: Test PyPI
+      uses: ./.github/actions/pypi
+      env:
+        TWINE_PASSWORD: ${{ secrets.TESTPYPI_CREDENTIAL }}
+      with:
+        steps: "sdist"
+

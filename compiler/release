@@ -27,6 +27,7 @@ mkdir -p "$native_bin"
 # Install jar files here
 $directory/install
 
+cc --version
 # Convert jar files to binaries
 for jar_file in $directory/bin/*.jar
 do
@@ -38,6 +39,11 @@ do
         echo "release: Failed to build $out_file"
         exit 1
     fi
+    if ! $out_file --help
+    then
+        echo "release: Failed, $out_file not executable"
+        exit 1
+    fi
 done
 
 # Clean up native directory
@@ -47,4 +53,4 @@ rm "$native_bin"/*.txt
 release_tgz="$native_bin.tar.gz"
 tar -czf "$release_tgz" "$native_bin"
 
-echo "Release archive written to $release_tgz"
+echo "Release archive written to $release_tgz with size `du -hs $release_tgz`"

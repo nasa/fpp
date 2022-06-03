@@ -1,0 +1,29 @@
+name: 'Publish PYPI Package'
+description: 'Publish an F´ PYPI Package'
+inputs:
+  location:
+    required: true
+    default: $GITHUB_WORKSPACE
+  steps:
+    required: true
+    default: "sdist bdist_wheel"
+  repo:
+    required: true
+    default: "testpypi"
+runs:
+  using: "composite"
+  steps:
+  - run: pip3 install -U pip wheel setuptools setuptools_scm twine
+    shell: bash
+  - run: |
+      cd ${{ inputs.location }}
+      python3 setup.py ${{ inputs.steps }}
+    shell: bash
+  - run: |
+      cd ${{ inputs.location }}
+      twine check dist/*
+    shell: bash
+  - run: |
+      cd ${{ inputs.location }}
+      twine upload -r ${{ inputs.repo }} -u "__token__" dist/*
+    shell: bash
