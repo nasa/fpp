@@ -174,8 +174,12 @@ case class EnumCppWriter(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
           CppDocWriter.writeBannerComment("Member variables") ++
-          addBlankPrefix(lines("// TODO")),
-          CppDoc.Lines.Both
+          addBlankPrefix(
+            List(
+              "//! The enumeration value",
+              "t e;"
+            ).map(line)
+          )
         )
       )
     )
