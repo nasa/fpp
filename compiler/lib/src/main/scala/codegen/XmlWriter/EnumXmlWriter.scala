@@ -36,7 +36,7 @@ object EnumXmlWriter extends AstVisitor with LineUtils {
     XmlTags.taggedLines(tags)(body.map(indentIn))
   }
 
-  def defEnumConstantAnnotatedNode(
+  private def defEnumConstantAnnotatedNode(
     s: XmlWriterState,
     aNode: Ast.Annotated[AstNode[Ast.DefEnumConstant]]
   ): Line = {

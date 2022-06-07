@@ -73,7 +73,7 @@ case class EnumCppWriter(
     val systemStrings = List("cstring", "limits")
     val strings = List(
       "Fw/Types/Assert.hpp",
-      s.getRelativePath(fileName).toString
+      s"${s.getRelativePath(fileName).toString}.hpp"
     )
     CppWriter.linesMember(
       List(
@@ -115,16 +115,26 @@ case class EnumCppWriter(
       )
     )
 
-  private def getTypeMembers: List[CppDoc.Class.Member] =
+  private def getTypeMembers: List[CppDoc.Class.Member] = {
+    val enumMembers = data.constants.flatMap(aNode => {
+      val node = aNode._2
+      val Value.EnumConstant(value, _) = s.a.valueMap(node.id)
+      val valueString = value._2.toString
+      val name = node.data.name
+      AnnotationCppWriter.writePreComment(aNode) ++
+      lines(s"$name = $valueString,")
+    })
+    val body = wrapInScope("typedef enum {", enumMembers, s"} t;")
     List(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
           CppDocHppWriter.writeAccessTag("public") ++
           CppDocWriter.writeBannerComment("Types") ++
-          addBlankPrefix(lines("// TODO"))
+          addBlankPrefix(body)
         )
       )
     )
+  }
 
   private def getConstructorMembers: List[CppDoc.Class.Member] =
     List(
