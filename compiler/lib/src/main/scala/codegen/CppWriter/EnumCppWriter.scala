@@ -91,8 +91,8 @@ case class EnumCppWriter(
 
   private def getClassMembers: List[CppDoc.Class.Member] =
     List(
-      getConstantMembers,
       getTypeMembers,
+      getConstantMembers,
       getConstructorMembers,
       getOperatorMembers,
       getMemberFunctionMembers,
@@ -108,8 +108,8 @@ case class EnumCppWriter(
           addBlankPrefix(
             wrapInEnum(
               lines(
-                s"""|//! The serialized size of each enumerated constant"
-                    |SERIALIZED_SIZE = sizeof($repTypeName),
+                s"""|//! The serialized size of each enumerated constant
+                    |SERIALIZED_SIZE = sizeof(SerialType),
                     |//! The number of enumerated constants
                     |NUM_CONSTANTS = $numConstants,"""
               )
@@ -120,22 +120,32 @@ case class EnumCppWriter(
     )
 
   private def getTypeMembers: List[CppDoc.Class.Member] = {
-    val enumMembers = data.constants.flatMap(aNode => {
-      val node = aNode._2
-      val Value.EnumConstant(value, _) = s.a.valueMap(node.id)
-      val valueString = value._2.toString
-      val name = node.data.name
-      AnnotationCppWriter.writePreComment(aNode) ++
-      lines(s"$name = $valueString,")
-    })
-    val body = line("//! The raw enum type") ::
-      wrapInScope("typedef enum {", enumMembers, s"} t;")
     List(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
-          CppDocHppWriter.writeAccessTag("public") ++
-          CppDocWriter.writeBannerComment("Types") ++
-          addBlankPrefix(body)
+          List(
+            CppDocHppWriter.writeAccessTag("public"),
+            CppDocWriter.writeBannerComment("Types"),
+            lines(
+              s"""|
+                  |//! The serial representation type
+                  |typedef $repTypeName SerialType;
+                  |
+                  |//! The raw enum type"""
+            ),
+            wrapInScope(
+              "typedef enum {",
+              data.constants.flatMap(aNode => {
+                val node = aNode._2
+                val Value.EnumConstant(value, _) = s.a.valueMap(node.id)
+                val valueString = value._2.toString
+                val name = node.data.name
+                AnnotationCppWriter.writePreComment(aNode) ++
+                lines(s"$name = $valueString,")
+              }),
+              "} t;"
+            )
+          ).flatten
         )
       )
     )
