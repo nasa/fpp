@@ -242,11 +242,49 @@ case class EnumCppWriter(
       CppDoc.Class.Member.Function(
         CppDoc.Function(
           Some(s"Conversion operator"),
-          s"operator $repTypeName",
+          s"operator t",
           Nil,
           CppDoc.Type(""),
           List(
             line("return this->e;"),
+          ),
+          CppDoc.Function.NonSV,
+          CppDoc.Function.Const
+        )
+      ),
+      CppDoc.Class.Member.Function(
+        CppDoc.Function(
+          Some(s"Equality operator"),
+          "operator==",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type(s"const $name&"),
+              "other",
+              Some("The other object"),
+            ),
+          ),
+          CppDoc.Type("bool"),
+          List(
+            line("return this->e == other.e;"),
+          ),
+          CppDoc.Function.NonSV,
+          CppDoc.Function.Const
+        )
+      ),
+      CppDoc.Class.Member.Function(
+        CppDoc.Function(
+          Some(s"Inequality operator"),
+          "operator!=",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type(s"const $name&"),
+              "other",
+              Some("The other object"),
+            ),
+          ),
+          CppDoc.Type("bool"),
+          List(
+            line("return !(*this == other);"),
           ),
           CppDoc.Function.NonSV,
           CppDoc.Function.Const
