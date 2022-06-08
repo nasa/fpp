@@ -66,7 +66,7 @@ object CppDocCppWriter extends CppDocWriter {
         s"cpp file for ${cppDoc.description}"
       ),
       cppDoc.members.map(visitMember(in, _)).flatten,
-    ).flatten
+    ).flatten.map(CppDocWriter.leftAlignDirective)
   }
 
   override def visitDestructor(in: Input, destructor: CppDoc.Class.Destructor) = {

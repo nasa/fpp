@@ -290,6 +290,65 @@ case class EnumCppWriter(
           CppDoc.Function.Const
         )
       ),
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          lines("\n#ifdef BUILD_UT"),
+          CppDoc.Lines.Both
+        )
+      ),
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          lines(
+            s"""|//! Ostream operator
+                |friend std::ostream& operator<<(
+                |    std::ostream& os, //!< The ostream
+                |    const $name& obj //!< The object
+                |);"""
+            )
+        )
+      ),
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          wrapInScope(
+            s"std::ostream& operator<<(std::ostream& os, const $name& obj) {",
+            List(
+              lines(
+                s"""|os << "$name::";
+                    |const $name::t e = obj.e;"""
+              ),
+              wrapInScope(
+                "switch (e) {",
+                data.constants.flatMap(aNode => {
+                  val enumName = aNode._2.data.name
+                  lines(
+                    s"""|case $name::$enumName:
+                        |  os << "$enumName";
+                        |  break;"""
+                  )
+                }) ++
+                lines(
+                  """|default:
+                     |  os << "[invalid]";
+                     |  break;"""
+                ),
+                "}"
+              ),
+              lines(
+                """|os << " (" << e << ")";
+                   |return os;"""
+              )
+            ).flatten,
+            "}"
+          ),
+          CppDoc.Lines.Cpp
+        )
+      ),
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          lines("#endif"),
+          CppDoc.Lines.Both
+        )
+      ),
     )
 
   private def getMemberFunctionMembers: List[CppDoc.Class.Member] =

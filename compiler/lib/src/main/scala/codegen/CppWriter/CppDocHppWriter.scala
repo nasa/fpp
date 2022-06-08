@@ -97,7 +97,7 @@ object CppDocHppWriter extends CppDocWriter {
       openIncludeGuard(hppFile.includeGuard),
       cppDoc.members.map(visitMember(in, _)).flatten,
       closeIncludeGuard
-    ).flatten
+    ).flatten.map(CppDocWriter.leftAlignDirective)
   }
 
   override def visitDestructor(in: Input, destructor: CppDoc.Class.Destructor) = {
