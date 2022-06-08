@@ -20,7 +20,7 @@ object EnumXmlWriter extends AstVisitor with LineUtils {
     val tags = {
       val namespaceAndName = s.getNamespaceAndName(Symbol.Enum(aNode))
       val serializeType = TypeXmlWriter.getName(s, enumType.repType)
-      val defaultValue = ValueXmlWriter.getValue(s, enumType.getDefaultValue.get).
+      val defaultValue = ValueXmlWriter.write(s, enumType.getDefaultValue.get).
         replaceAll("^.*::", "")
       val pairs = namespaceAndName ++ List(
         ("serialize_type", serializeType),

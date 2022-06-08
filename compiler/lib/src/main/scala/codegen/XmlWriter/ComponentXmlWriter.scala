@@ -178,7 +178,7 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
         ),
         TypeXmlWriter.getPairs(s, param.paramType, "data_type"),
         param.default match {
-          case Some(value) => List(("default", ValueXmlWriter.getValue(s, value)))
+          case Some(value) => List(("default", ValueXmlWriter.write(s, value)))
           case _ => Nil
         }
       ).flatten
@@ -283,7 +283,7 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
         import Ast.SpecTlmChannel._
         def writeLimit(kind: LimitKind, value: Value) = {
           val left = s"${name}_${kind.toString}"
-          val right = ValueXmlWriter.getValue(s, value)
+          val right = ValueXmlWriter.write(s, value)
           (left, right)
         }
         limits.keys.toList.

@@ -79,7 +79,7 @@ object ArrayXmlWriter extends AstVisitor with LineUtils {
   ): Out = {
     val tags = XmlTags.tags("value")
     val elements = arrayValue.anonArray.elements
-    val values = elements.map(ValueXmlWriter.getValue(s, _))
+    val values = elements.map(ValueXmlWriter.write(s, _))
     values.map(XmlTags.taggedString(tags)(_)).map(line)
   }
 
