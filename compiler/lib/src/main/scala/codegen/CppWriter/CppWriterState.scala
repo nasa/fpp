@@ -132,4 +132,22 @@ object CppWriterState {
   /** The default default string size */
   val defaultDefaultStringSize = 80
 
+  /** A mapping from special built-in types to their
+   *  default values */
+  val zero: Value.Integer = Value.Integer(0)
+  val builtInTypes: Map[String,Value.Integer] = Map(
+    "FwBuffSizeType" -> zero,
+    "FwChanIdType" -> zero,
+    "FwEnumStoreType" -> zero,
+    "FwEventIdType" -> zero,
+    "FwOpcodeType" -> zero,
+    "FwPacketDescriptorType" -> zero,
+    "FwPrmIdType" -> zero,
+    "FwTimeBaseStoreType" -> zero,
+    "FwTimeContextStoreType" -> zero,
+    "NATIVE_INT_TYPE" -> zero,
+    "NATIVE_UINT_TYPE" -> zero,
+    "POINTER_CAST" -> zero,
+  )
+
 }

@@ -20,24 +20,6 @@ case class XmlWriterState(
   /** CppWriterState for writing C++ */
   val cppWriterState = CppWriterState(a)
 
-  /** A mapping from special built-in types to their
-   *  default values */
-  val zero: Value.Integer = Value.Integer(0)
-  val builtInTypes: Map[String,Value.Integer] = Map(
-    "FwBuffSizeType" -> zero,
-    "FwChanIdType" -> zero,
-    "FwEnumStoreType" -> zero,
-    "FwEventIdType" -> zero,
-    "FwOpcodeType" -> zero,
-    "FwPacketDescriptorType" -> zero,
-    "FwPrmIdType" -> zero,
-    "FwTimeBaseStoreType" -> zero,
-    "FwTimeContextStoreType" -> zero,
-    "NATIVE_INT_TYPE" -> zero,
-    "NATIVE_UINT_TYPE" -> zero,
-    "POINTER_CAST" -> zero,
-  )
-
   /** Removes the longest prefix from a Java path */
   def removeLongestPrefix(path: File.JavaPath): File.JavaPath = 
     File.removeLongestPrefix(prefixes)(path)
@@ -51,7 +33,7 @@ case class XmlWriterState(
             val symbol = Symbol.AbsType(aNode)
             // Don't import headers for built-in types
             val cppName = writeSymbol(symbol)
-            if (builtInTypes.contains(cppName)) None
+            if (CppWriterState.builtInTypes.contains(cppName)) None
             else {
               val name = getName(symbol)
               Some("include_header", s"${name}.hpp")

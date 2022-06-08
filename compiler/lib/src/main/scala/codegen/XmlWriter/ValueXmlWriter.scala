@@ -16,7 +16,7 @@ object ValueXmlWriter {
     override def absType(s: XmlWriterState, v: Value.AbsType) = {
       val aNode = v.t.node
       val cppName = s.writeSymbol(Symbol.AbsType(aNode))
-      s.builtInTypes.get(cppName) match {
+      CppWriterState.builtInTypes.get(cppName) match {
         case Some(v) => getValue(s, v)
         case None => TypeXmlWriter.getName(s, v.getType) ++ "()"
       }

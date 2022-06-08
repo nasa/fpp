@@ -145,9 +145,16 @@ case class EnumCppWriter(
       ),
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
-          CppDocWriter.writeBannerComment("Constructors") ++
-          addBlankPrefix(lines("// TODO")),
+          CppDocWriter.writeBannerComment("Constructors"),
           CppDoc.Lines.Both
+        )
+      ),
+      CppDoc.Class.Member.Constructor(
+        CppDoc.Class.Constructor(
+          Some(s"Construct $name object with default initialization"),
+          Nil,
+          Nil,
+          lines("this->e = ...;")
         )
       )
     )

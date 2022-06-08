@@ -42,3 +42,11 @@ case class TypeCppWriter(
   def write(t: Type): String = NameVisitor.ty(s, t)
 
 }
+
+object TypeCppWriter {
+
+  /** Get the name of a type */
+  def getName(s: CppWriterState, t: Type): String =
+    TypeCppWriter(s).write(t)
+
+}

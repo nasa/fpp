@@ -8,7 +8,7 @@ object TypeXmlWriter {
 
   /** Get the name of a type */
   def getName(s: XmlWriterState, t: Type): String = 
-    TypeCppWriter(s.cppWriterState).write(t)
+    TypeCppWriter.getName(s.cppWriterState, t)
 
   /** Get the size of a type */
   def getSize(s: XmlWriterState, t: Type): Option[String] = t match {
