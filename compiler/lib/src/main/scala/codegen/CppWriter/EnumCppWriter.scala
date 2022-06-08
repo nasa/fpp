@@ -94,6 +94,7 @@ case class EnumCppWriter(
       getConstantMembers,
       getTypeMembers,
       getConstructorMembers,
+      getOperatorMembers,
       getMemberFunctionMembers,
       getMemberVariableMembers
     ).flatten
@@ -155,7 +156,7 @@ case class EnumCppWriter(
       ),
       CppDoc.Class.Member.Constructor(
         CppDoc.Class.Constructor(
-          Some(s"Construct $name object with default initialization"),
+          Some(s"Constructor (default initialization)"),
           Nil,
           Nil,
           lines(s"this->e = $defaultValue;")
@@ -163,7 +164,7 @@ case class EnumCppWriter(
       ),
       CppDoc.Class.Member.Constructor(
         CppDoc.Class.Constructor(
-          Some(s"Construct $name object and initialize its value"),
+          Some(s"Constructor (user-provided initialization)"),
           List(
             CppDoc.Function.Param(
               CppDoc.Type("const t"),
@@ -191,20 +192,20 @@ case class EnumCppWriter(
       ),
     )
 
-  private def getMemberFunctionMembers: List[CppDoc.Class.Member] =
+  private def getOperatorMembers: List[CppDoc.Class.Member] =
     List(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(CppDocHppWriter.writeAccessTag("public"))
       ),
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
-          CppDocWriter.writeBannerComment("Member functions"),
+          CppDocWriter.writeBannerComment("Operators"),
           CppDoc.Lines.Both
         )
       ),
       CppDoc.Class.Member.Function(
         CppDoc.Function(
-          Some(s"Copy assignment operator"),
+          Some(s"Copy assignment operator (object)"),
           "operator=",
           List(
             CppDoc.Function.Param(
@@ -218,6 +219,38 @@ case class EnumCppWriter(
             line("this->e = other.e;"),
             line("return *this;"),
           )
+        )
+      ),
+      CppDoc.Class.Member.Function(
+        CppDoc.Function(
+          Some(s"Copy assignment operator (raw enum)"),
+          "operator=",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("t"),
+              "e",
+              Some("The enum value"),
+            ),
+          ),
+          CppDoc.Type(s"$name&"),
+          List(
+            line("this->e = e;"),
+            line("return *this;"),
+          )
+        )
+      ),
+    )
+
+  private def getMemberFunctionMembers: List[CppDoc.Class.Member] =
+    List(
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(CppDocHppWriter.writeAccessTag("public"))
+      ),
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          CppDocWriter.writeBannerComment("Member functions") ++
+          addBlankPrefix(lines("// TODO")),
+          CppDoc.Lines.Both
         )
       ),
     )
