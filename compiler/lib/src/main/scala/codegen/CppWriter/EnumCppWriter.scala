@@ -22,6 +22,9 @@ case class EnumCppWriter(
 
   val enumType @ Type.Enum(_, _, _) = s.a.typeMap(node.id)
 
+  val defaultValue = ValueCppWriter.write(s, enumType.getDefaultValue.get).
+    replaceAll("^.*::", "")
+
   val namespaceIdentList = s.getNamespaceIdentList(symbol)
 
   val typeCppWriter = TypeCppWriter(s)
@@ -154,9 +157,37 @@ case class EnumCppWriter(
           Some(s"Construct $name object with default initialization"),
           Nil,
           Nil,
-          lines("this->e = ...;")
+          lines(s"this->e = $defaultValue;")
         )
-      )
+      ),
+      CppDoc.Class.Member.Constructor(
+        CppDoc.Class.Constructor(
+          Some(s"Construct $name object and initialize its value"),
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("const t"),
+              "e",
+              Some("The enum value")
+            )
+          ),
+          Nil,
+          lines("this->e = e;")
+        )
+      ),
+      CppDoc.Class.Member.Constructor(
+        CppDoc.Class.Constructor(
+          Some(s"Copy constructor"),
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type(s"const $name&"),
+              "other",
+              Some("The other object")
+            )
+          ),
+          Nil,
+          lines("this->e = other.e;")
+        )
+      ),
     )
 
   private def getMemberFunctionMembers: List[CppDoc.Class.Member] =
