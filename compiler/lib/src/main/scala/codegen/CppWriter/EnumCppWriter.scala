@@ -127,7 +127,8 @@ case class EnumCppWriter(
       AnnotationCppWriter.writePreComment(aNode) ++
       lines(s"$name = $valueString,")
     })
-    val body = wrapInScope("typedef enum {", enumMembers, s"} t;")
+    val body = line("//! The raw enum type") ::
+      wrapInScope("typedef enum {", enumMembers, s"} t;")
     List(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
@@ -197,11 +198,28 @@ case class EnumCppWriter(
       ),
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
-          CppDocWriter.writeBannerComment("Member functions") ++
-          addBlankPrefix(lines("// TODO")),
+          CppDocWriter.writeBannerComment("Member functions"),
           CppDoc.Lines.Both
         )
-      )
+      ),
+      CppDoc.Class.Member.Function(
+        CppDoc.Function(
+          Some(s"Copy assignment operator"),
+          "operator=",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type(s"const $name&"),
+              "other",
+              Some("The other object"),
+            ),
+          ),
+          CppDoc.Type(s"$name&"),
+          List(
+            line("this->e = other.e;"),
+            line("return *this;"),
+          )
+        )
+      ),
     )
 
   private def getMemberVariableMembers: List[CppDoc.Class.Member] =
@@ -214,7 +232,7 @@ case class EnumCppWriter(
           CppDocWriter.writeBannerComment("Member variables") ++
           addBlankPrefix(
             List(
-              "//! The enumeration value",
+              "//! The raw enum value",
               "t e;"
             ).map(line)
           )
