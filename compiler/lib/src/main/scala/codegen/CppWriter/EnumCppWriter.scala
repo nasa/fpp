@@ -107,12 +107,12 @@ case class EnumCppWriter(
           CppDocWriter.writeBannerComment("Constants") ++
           addBlankPrefix(
             wrapInEnum(
-              List(
-                "//! The serialized size of each enumerated constant",
-                s"SERIALIZED_SIZE = sizeof($repTypeName),",
-                "//! The number of enumerated constants",
-                s"NUM_CONSTANTS = $numConstants,"
-              ).map(line)
+              lines(
+                s"""|//! The serialized size of each enumerated constant"
+                    |SERIALIZED_SIZE = sizeof($repTypeName),
+                    |//! The number of enumerated constants
+                    |NUM_CONSTANTS = $numConstants,"""
+              )
             )
           )
         )
