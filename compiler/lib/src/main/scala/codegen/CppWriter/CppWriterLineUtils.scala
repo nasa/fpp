@@ -3,6 +3,15 @@ package fpp.compiler.codegen
 /** Utilities for writing C++ lines */
 trait CppWriterLineUtils extends LineUtils {
 
+  def wrapInDirective(
+    s1: String,
+    ll: List[Line],
+    s2: String
+  ): List[Line] = ll match {
+    case Nil => Nil
+    case _ => List(lines(s"#$s1"), ll, lines(s"#$s2")).flatten
+  }
+
   def wrapInScope(
     s1: String,
     ll: List[Line],

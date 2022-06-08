@@ -239,6 +239,19 @@ case class EnumCppWriter(
           )
         )
       ),
+      CppDoc.Class.Member.Function(
+        CppDoc.Function(
+          Some(s"Conversion operator"),
+          s"operator $repTypeName",
+          Nil,
+          CppDoc.Type(""),
+          List(
+            line("return this->e;"),
+          ),
+          CppDoc.Function.NonSV,
+          CppDoc.Function.Const
+        )
+      ),
     )
 
   private def getMemberFunctionMembers: List[CppDoc.Class.Member] =

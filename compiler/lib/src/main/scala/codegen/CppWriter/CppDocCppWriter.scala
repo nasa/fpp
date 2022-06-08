@@ -92,14 +92,18 @@ object CppDocCppWriter extends CppDocWriter {
             case NonConst => lines1
           }
         }
-        val retType = function.retType.getCppType
+        val retType = function.retType.getCppType match {
+          case "" => ""
+          case t => s"$t "
+
+        }
         in.classNameList match {
           case head :: _ => {
-            val line1 = line(s"$retType $head ::")
+            val line1 = line(s"$retType$head ::")
             line1 :: prototypeLines.map(indentIn(_))
           }
           case Nil =>
-            Line.addPrefix(s"$retType ", prototypeLines)
+            Line.addPrefix(retType, prototypeLines)
         }
       }
       val bodyLines = CppDocWriter.writeFunctionBody(function.body)

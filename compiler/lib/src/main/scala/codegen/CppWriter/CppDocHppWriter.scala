@@ -125,7 +125,11 @@ object CppDocHppWriter extends CppDocWriter {
             case Static => "static "
             case _ => ""
           }
-          prefix1 ++ s"${function.retType.hppType} ${function.name}"
+          val retType = function.retType.hppType match {
+            case "" => ""
+            case t => s"$t "
+          }
+          prefix1 ++ s"${retType}${function.name}"
         }
         val lines1 = {
           val lines1 = writeParams(prefix, function.params)
