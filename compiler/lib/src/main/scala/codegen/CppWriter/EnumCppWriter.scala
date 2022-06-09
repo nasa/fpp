@@ -344,33 +344,12 @@ case class EnumCppWriter(
         CppDoc.Lines(
           wrapInScope(
             s"\nstd::ostream& operator<<(std::ostream& os, const $name& obj) {",
-            List(
-              lines(
-                s"""|os << "$name::";
-                    |const $name::t e = obj.e;"""
-              ),
-              wrapInScope(
-                "switch (e) {",
-                data.constants.flatMap(aNode => {
-                  val enumName = aNode._2.data.name
-                  lines(
-                    s"""|case $name::$enumName:
-                        |  os << "$enumName";
-                        |  break;"""
-                  )
-                }) ++
-                lines(
-                  """|default:
-                     |  os << "[invalid]";
-                     |  break;"""
-                ),
-                "}"
-              ),
-              lines(
-                """|os << " (" << e << ")";
-                   |return os;"""
-              )
-            ).flatten,
+            lines(
+              """|Fw::String s;
+                 |obj.toString(s);
+                 |os << s;
+                 |return os;"""
+            ),
             "}"
           ),
           CppDoc.Lines.Cpp
@@ -422,7 +401,12 @@ case class EnumCppWriter(
             )
           ),
           CppDoc.Type("Fw::SerializeStatus"),
-          lines("// TODO\nreturn Fw::FW_SERIALIZE_OK;"),
+          lines(
+            s"""|const Fw::SerializeStatus status = buffer.serialize(
+                |    static_cast<$repTypeName>(this->e)
+                |);
+                |return status;"""
+          ),
           CppDoc.Function.NonSV,
           CppDoc.Function.Const
         )
@@ -439,7 +423,17 @@ case class EnumCppWriter(
             )
           ),
           CppDoc.Type("Fw::SerializeStatus"),
-          lines("// TODO\nreturn Fw::FW_SERIALIZE_OK;"),
+          lines(
+            s"""|$repTypeName es;
+                |Fw::SerializeStatus status = buffer.deserialize(es);
+                |if (status == Fw::FW_SERIALIZE_OK) {
+                |  this->e = static_cast<t>(es);
+                |}
+                |if (!this->isValid()) {
+                |  status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
+                |}
+                |return status;"""
+          )
         )
       ),
       CppDoc.Class.Member.Lines(
@@ -460,7 +454,31 @@ case class EnumCppWriter(
             )
           ),
           CppDoc.Type("void"),
-          lines("// TODO"),
+          List(
+            lines(
+              s"""|Fw::String s;"""
+            ),
+            wrapInScope(
+              "switch (e) {",
+              data.constants.flatMap(aNode => {
+                val enumName = aNode._2.data.name
+                lines(
+                  s"""|case $enumName:
+                      |  s = "$enumName";
+                      |  break;"""
+                )
+              }) ++
+              lines(
+                """|default:
+                   |  s = "[invalid]";
+                   |  break;"""
+              ),
+              "}"
+            ),
+            lines(
+              """|sb.format("%s (%d)", s.toChar(), e);"""
+            )
+          ).flatten,
           CppDoc.Function.NonSV,
           CppDoc.Function.Const
         )
