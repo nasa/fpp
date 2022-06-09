@@ -331,7 +331,8 @@ case class EnumCppWriter(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
           lines(
-            s"""|//! Ostream operator
+            s"""|
+                |//! Ostream operator
                 |friend std::ostream& operator<<(
                 |    std::ostream& os, //!< The ostream
                 |    const $name& obj //!< The object
@@ -342,7 +343,7 @@ case class EnumCppWriter(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
           wrapInScope(
-            s"std::ostream& operator<<(std::ostream& os, const $name& obj) {",
+            s"\nstd::ostream& operator<<(std::ostream& os, const $name& obj) {",
             List(
               lines(
                 s"""|os << "$name::";
@@ -377,7 +378,7 @@ case class EnumCppWriter(
       ),
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
-          lines("#endif"),
+          lines("\n#endif"),
           CppDoc.Lines.Both
         )
       ),
@@ -407,6 +408,67 @@ case class EnumCppWriter(
           ),
           CppDoc.Function.NonSV,
           CppDoc.Function.Const
+        )
+      ),
+      CppDoc.Class.Member.Function(
+        CppDoc.Function(
+          Some(s"Serialize raw enum value to serial rep type"),
+          "serialize",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::SerializeBufferBase&"),
+              "buffer",
+              Some("The serial buffer")
+            )
+          ),
+          CppDoc.Type("Fw::SerializeStatus"),
+          lines("// TODO\nreturn Fw::FW_SERIALIZE_OK;"),
+          CppDoc.Function.NonSV,
+          CppDoc.Function.Const
+        )
+      ),
+      CppDoc.Class.Member.Function(
+        CppDoc.Function(
+          Some(s"Deserialize raw enum value from serial rep type"),
+          "deserialize",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::SerializeBufferBase&"),
+              "buffer",
+              Some("The serial buffer")
+            )
+          ),
+          CppDoc.Type("Fw::SerializeStatus"),
+          lines("// TODO\nreturn Fw::FW_SERIALIZE_OK;"),
+        )
+      ),
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          lines("\n#if FW_SERIALIZABLE_TO_STRING || BUILD_UT"),
+          CppDoc.Lines.Both
+        )
+      ),
+      CppDoc.Class.Member.Function(
+        CppDoc.Function(
+          Some(s"Convert enum to string"),
+          "toString",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::StringBase&"),
+              "sb",
+              Some("The StringBase object to hold the result")
+            )
+          ),
+          CppDoc.Type("void"),
+          lines("// TODO"),
+          CppDoc.Function.NonSV,
+          CppDoc.Function.Const
+        )
+      ),
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          lines("\n#endif"),
+          CppDoc.Lines.Both
         )
       ),
     )
