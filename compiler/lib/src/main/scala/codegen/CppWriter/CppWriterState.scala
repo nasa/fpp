@@ -61,7 +61,7 @@ case class CppWriterState(
   def includeGuardFromQualifiedName(s: Symbol, name: String): String = {
     val guard = a.getEnclosingNames(s) match {
       case Nil => name
-      case names => 
+      case names =>
         val prefix = CppWriter.identFromQualifiedName(
           Name.Qualified.fromIdentList(names)
         )
@@ -105,7 +105,7 @@ case class CppWriterState(
       out: List[String]
     ): List[String] = symOpt match {
       case None => out
-      case Some(sym) => 
+      case Some(sym) =>
         val psOpt = a.parentSymbolMap.get(sym)
         val out1 = sym match {
           case cs: Symbol.Component => out

@@ -7,7 +7,7 @@ import fpp.compiler.util._
 object TypeXmlWriter {
 
   /** Get the name of a type */
-  def getName(s: XmlWriterState, t: Type): String = 
+  def getName(s: XmlWriterState, t: Type): String =
     TypeCppWriter.getName(s.cppWriterState, t)
 
   /** Get the size of a type */
