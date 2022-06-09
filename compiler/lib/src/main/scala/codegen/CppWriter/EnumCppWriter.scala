@@ -130,7 +130,7 @@ case class EnumCppWriter(
           addBlankPrefix(
             wrapInEnum(
               lines(
-                s"""|//! The serialized size of each enumerated constant
+                s"""|//! The size of the serial representation
                     |SERIALIZED_SIZE = sizeof(SerialType),
                     |//! The number of enumerated constants
                     |NUM_CONSTANTS = $numConstants,"""
@@ -165,8 +165,13 @@ case class EnumCppWriter(
                 AnnotationCppWriter.writePreComment(aNode) ++
                 lines(s"$name = $valueString,")
               }),
-              "} t;"
-            )
+              "} T;"
+            ),
+            lines(
+              s"""|
+                  |//! For backwards compatibility
+                  |typedef T t;"""
+            ),
           ).flatten
         )
       )
@@ -188,7 +193,7 @@ case class EnumCppWriter(
       ),
       CppDoc.Class.Member.Constructor(
         CppDoc.Class.Constructor(
-          Some(s"Constructor (default initialization)"),
+          Some(s"Constructor (default value of $defaultValue)"),
           Nil,
           Nil,
           lines(s"this->e = $defaultValue;")
@@ -196,12 +201,12 @@ case class EnumCppWriter(
       ),
       CppDoc.Class.Member.Constructor(
         CppDoc.Class.Constructor(
-          Some(s"Constructor (user-provided initialization)"),
+          Some(s"Constructor (user-provided value)"),
           List(
             CppDoc.Function.Param(
-              CppDoc.Type("const t"),
+              CppDoc.Type("const T"),
               "e",
-              Some("The enum value")
+              Some("The raw enum value")
             )
           ),
           Nil,
@@ -214,12 +219,12 @@ case class EnumCppWriter(
           List(
             CppDoc.Function.Param(
               CppDoc.Type(s"const $name&"),
-              "other",
-              Some("The other object")
+              "obj",
+              Some("The source object")
             )
           ),
           Nil,
-          lines("this->e = other.e;")
+          lines("this->e = obj.e;")
         )
       ),
     )
@@ -242,13 +247,13 @@ case class EnumCppWriter(
           List(
             CppDoc.Function.Param(
               CppDoc.Type(s"const $name&"),
-              "other",
-              Some("The other object"),
+              "obj",
+              Some("The source object"),
             ),
           ),
           CppDoc.Type(s"$name&"),
           List(
-            line("this->e = other.e;"),
+            line("this->e = obj.e;"),
             line("return *this;"),
           )
         )
@@ -259,7 +264,7 @@ case class EnumCppWriter(
           "operator=",
           List(
             CppDoc.Function.Param(
-              CppDoc.Type("t"),
+              CppDoc.Type("T"),
               "e",
               Some("The enum value"),
             ),
@@ -291,13 +296,13 @@ case class EnumCppWriter(
           List(
             CppDoc.Function.Param(
               CppDoc.Type(s"const $name&"),
-              "other",
+              "obj",
               Some("The other object"),
             ),
           ),
           CppDoc.Type("bool"),
           List(
-            line("return this->e == other.e;"),
+            line("return this->e == obj.e;"),
           ),
           CppDoc.Function.NonSV,
           CppDoc.Function.Const
@@ -310,13 +315,13 @@ case class EnumCppWriter(
           List(
             CppDoc.Function.Param(
               CppDoc.Type(s"const $name&"),
-              "other",
+              "obj",
               Some("The other object"),
             ),
           ),
           CppDoc.Type("bool"),
           List(
-            line("return !(*this == other);"),
+            line("return !(*this == obj);"),
           ),
           CppDoc.Function.NonSV,
           CppDoc.Function.Const
@@ -391,7 +396,7 @@ case class EnumCppWriter(
       ),
       CppDoc.Class.Member.Function(
         CppDoc.Function(
-          Some(s"Serialize raw enum value to serial rep type"),
+          Some(s"Serialize raw enum value to SerialType"),
           "serialize",
           List(
             CppDoc.Function.Param(
@@ -403,7 +408,7 @@ case class EnumCppWriter(
           CppDoc.Type("Fw::SerializeStatus"),
           lines(
             s"""|const Fw::SerializeStatus status = buffer.serialize(
-                |    static_cast<$repTypeName>(this->e)
+                |    static_cast<SerialType>(this->e)
                 |);
                 |return status;"""
           ),
@@ -413,7 +418,7 @@ case class EnumCppWriter(
       ),
       CppDoc.Class.Member.Function(
         CppDoc.Function(
-          Some(s"Deserialize raw enum value from serial rep type"),
+          Some(s"Deserialize raw enum value from SerialType"),
           "deserialize",
           List(
             CppDoc.Function.Param(
@@ -424,13 +429,13 @@ case class EnumCppWriter(
           ),
           CppDoc.Type("Fw::SerializeStatus"),
           lines(
-            s"""|$repTypeName es;
+            s"""|SerialType es;
                 |Fw::SerializeStatus status = buffer.deserialize(es);
                 |if (status == Fw::FW_SERIALIZE_OK) {
-                |  this->e = static_cast<t>(es);
-                |}
-                |if (!this->isValid()) {
-                |  status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
+                |  this->e = static_cast<T>(es);
+                |  if (!this->isValid()) {
+                |    status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
+                |  }
                 |}
                 |return status;"""
           )
@@ -502,7 +507,7 @@ case class EnumCppWriter(
           addBlankPrefix(
             List(
               "//! The raw enum value",
-              "t e;"
+              "T e;"
             ).map(line)
           )
         )
@@ -525,6 +530,7 @@ object EnumCppWriter {
 
   private type Interval = (Bound, Bound)
 
+  /** The state for computing invervals */
   private case class IntervalState(
     /** The current list of intervals */
     intervals: List[Interval] = Nil,
