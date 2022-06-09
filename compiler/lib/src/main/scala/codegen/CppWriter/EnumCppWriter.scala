@@ -10,28 +10,50 @@ case class EnumCppWriter(
   aNode: Ast.Annotated[AstNode[Ast.DefEnum]]
 ) extends CppWriterLineUtils {
 
-  val node = aNode._2
+  private val node = aNode._2
 
-  val data = node.data
+  private val data = node.data
 
-  val symbol = Symbol.Enum(aNode)
+  private val symbol = Symbol.Enum(aNode)
 
-  val name = s.getName(symbol)
+  private val name = s.getName(symbol)
 
-  val fileName = ComputeCppFiles.FileNames.getEnum(name)
+  private val fileName = ComputeCppFiles.FileNames.getEnum(name)
 
-  val enumType @ Type.Enum(_, _, _) = s.a.typeMap(node.id)
+  private val enumType @ Type.Enum(_, _, _) = s.a.typeMap(node.id)
 
-  val defaultValue = ValueCppWriter.write(s, enumType.getDefaultValue.get).
+  private val defaultValue = ValueCppWriter.write(s, enumType.getDefaultValue.get).
     replaceAll("^.*::", "")
 
-  val namespaceIdentList = s.getNamespaceIdentList(symbol)
+  private val namespaceIdentList = s.getNamespaceIdentList(symbol)
 
-  val typeCppWriter = TypeCppWriter(s)
+  private val typeCppWriter = TypeCppWriter(s)
 
-  val repTypeName = typeCppWriter.write(enumType.repType)
+  private val repTypeName = typeCppWriter.write(enumType.repType)
 
-  val numConstants = data.constants.size
+  private val numConstants = data.constants.size
+
+  /** The set of enumerated constants, expressed as a list of
+   *  closed intervals. For example, the set of enumerated constants
+   *  { 0, 1, 3 } yields the list { [ 0, 1 ], [ 3, 3 ] }. */
+  private val intervals = {
+    val values = data.constants.map(aNode => {
+      val Value.EnumConstant(value, _) = s.a.valueMap(aNode._2.id)
+      value._2
+    }).sorted
+    val state = values.foldLeft (EnumCppWriter.IntervalState()) ((s, v) => {
+        s.lastInterval match {
+          case None => s.copy(lastInterval = Some(v,v))
+          case Some(lower, upper) =>
+            if (v == upper + 1) s.copy(lastInterval = Some(lower, v))
+            else s.copy(
+              intervals = (lower, upper) :: s.intervals,
+              lastInterval = Some(v,v)
+            )
+        }
+    })
+    (state.lastInterval.get :: state.intervals).reverse
+  }
 
   def write: CppDoc = {
     val includeGuard = s.includeGuardFromQualifiedName(symbol, fileName)
@@ -368,9 +390,23 @@ case class EnumCppWriter(
       ),
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
-          CppDocWriter.writeBannerComment("Member functions") ++
-          addBlankPrefix(lines("// TODO")),
+          CppDocWriter.writeBannerComment("Member functions"),
           CppDoc.Lines.Both
+        )
+      ),
+      CppDoc.Class.Member.Function(
+        CppDoc.Function(
+          Some(s"Check raw enum value for validity"),
+          "isValid",
+          Nil,
+          CppDoc.Type("bool"),
+          Line.addPrefixAndSuffix(
+            "return ",
+            writeIntervals(intervals),
+            ";"
+          ),
+          CppDoc.Function.NonSV,
+          CppDoc.Function.Const
         )
       ),
     )
@@ -392,5 +428,27 @@ case class EnumCppWriter(
         )
       )
     )
+
+  private def writeInterval(c: EnumCppWriter.Interval) = {
+    val (lower, upper) = c
+    s"((e >= ${lower.toString}) && (e <= ${upper.toString}))"
+  }
+
+  private def writeIntervals(cs: List[EnumCppWriter.Interval]) =
+    line(writeInterval(cs.head)) ::
+    cs.tail.map(c => line(s"|| ${writeInterval(c)}")).map(indentIn)
+
+}
+
+object EnumCppWriter {
+
+  private type Interval = (BigInt, BigInt)
+
+  private case class IntervalState(
+    /** The current list of intervals */
+    intervals: List[Interval] = Nil,
+    /** The last interval computed */
+    lastInterval: Option[Interval] = None,
+  )
 
 }
