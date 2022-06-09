@@ -39,13 +39,13 @@ case class EnumCppWriter(
   private val intervals = {
     val values = data.constants.map(aNode => {
       val Value.EnumConstant(value, _) = s.a.valueMap(aNode._2.id)
-      value._2
-    }).sorted
+      value
+    }).sortWith(_._2 < _._2)
     val state = values.foldLeft (EnumCppWriter.IntervalState()) ((s, v) => {
         s.lastInterval match {
           case None => s.copy(lastInterval = Some(v,v))
           case Some(lower, upper) =>
-            if (v == upper + 1) s.copy(lastInterval = Some(lower, v))
+            if (v._2 == upper._2 + 1) s.copy(lastInterval = Some(lower, v))
             else s.copy(
               intervals = (lower, upper) :: s.intervals,
               lastInterval = Some(v,v)
@@ -431,18 +431,19 @@ case class EnumCppWriter(
 
   private def writeInterval(c: EnumCppWriter.Interval) = {
     val (lower, upper) = c
-    s"((e >= ${lower.toString}) && (e <= ${upper.toString}))"
+    s"((e >= ${lower._1}) && (e <= ${upper._1}))"
   }
 
   private def writeIntervals(cs: List[EnumCppWriter.Interval]) =
     line(writeInterval(cs.head)) ::
     cs.tail.map(c => line(s"|| ${writeInterval(c)}")).map(indentIn)
-
 }
 
 object EnumCppWriter {
 
-  private type Interval = (BigInt, BigInt)
+  private type Bound = (Name.Unqualified, BigInt)
+
+  private type Interval = (Bound, Bound)
 
   private case class IntervalState(
     /** The current list of intervals */
