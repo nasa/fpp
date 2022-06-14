@@ -52,5 +52,7 @@ rm "$native_bin"/*.txt
 # Create tar ball
 release_tgz="$native_bin.tar.gz"
 tar -czf "$release_tgz" "$native_bin"
-
+sync
+sync
+sync
 echo "Release archive written to $release_tgz with size `du -hs $release_tgz`"
