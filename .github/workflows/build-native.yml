@@ -16,7 +16,8 @@ jobs:
     - name: Image Build Step
       working-directory: ./compiler
       run: |
-        GRAALVM_JAVA_HOME="$( ${GITHUB_WORKSPACE}/.github/workflows/env-setup )" ./release
+        . ${GITHUB_WORKSPACE}/.github/workflows/env-setup
+        ./release
         mv native-fpp-*.tar.gz "${GITHUB_WORKSPACE}"
     - name: Publish Release Binaries
       env:

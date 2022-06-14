@@ -17,17 +17,43 @@ then
   echo "release: environment variable GRAALVM_JAVA_HOME is not set" 1>&2
   exit 1
 fi
-export PATH="$GRAALVM_JAVA_HOME/bin:${PATH}"
 directory=`dirname $0`
 native_bin="$directory/native-fpp-`uname`-`uname -m`"
 native_image="$GRAALVM_JAVA_HOME/bin/native-image"
+meta_inf_dir="$directory/lib/src/main/resources/META-INF/native-image/"
+# Clean-up META-INF
+rm -rf "$meta_inf_dir"
 
+# Make directories
+mkdir -p "$meta_inf_dir"
 mkdir -p "$native_bin"
 
-# Install jar files here
-$directory/install
-
+# Versioning information
+echo "C compiler version"
 cc --version
+echo "Java version"
+java --version
+echo "Native Image Version"
+native-image --version
+
+
+# Install jar files here
+$directory/install-trace
+# Test a run before running test
+$directory/bin/fpp-locate-defs tools/fpp-locate-defs/test/defs/defs-1.fpp tools/fpp-locate-defs/test/defs/defs-2.fpp 1>/dev/null
+if [ $? -ne 0 ]
+then
+    echo "[ERROR] Failed to run tracable JAR"
+    exit 1
+fi
+
+# Trace through testing
+$directory/test
+if [ $? -ne 0 ]
+then
+    echo "[WARNING] Failed to run tests"
+fi
+
 # Convert jar files to binaries
 for jar_file in $directory/bin/*.jar
 do
@@ -39,7 +65,7 @@ do
         echo "release: Failed to build $out_file"
         exit 1
     fi
-    if ! $out_file --help
+    if ! $out_file --help 1>/dev/null
     then
         echo "release: Failed, $out_file not executable"
         exit 1
@@ -52,7 +78,5 @@ rm "$native_bin"/*.txt
 # Create tar ball
 release_tgz="$native_bin.tar.gz"
 tar -czf "$release_tgz" "$native_bin"
-sync
-sync
-sync
+sync; sync; sync;
 echo "Release archive written to $release_tgz with size `du -hs $release_tgz`"
