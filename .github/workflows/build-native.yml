@@ -31,14 +31,14 @@ jobs:
       with:
         fetch-depth: 0
     - name: Test PyPI
-      uses: ./.github/actions/pypi
+      uses: fprime-community/publish-pypi@main
       env:
         TWINE_PASSWORD: ${{ secrets.TESTPYPI_CREDENTIAL }}
       with:
         package: "fprime-fpp"
         steps: "sdist"
     - name: PyPI
-      uses: ./.github/actions/pypi
+      uses: fprime-community/publish-pypi@main
       env:
         TWINE_PASSWORD: ${{ secrets.PYPI_CREDENTIAL }}
       with:
