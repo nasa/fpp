@@ -35,5 +35,13 @@ jobs:
       env:
         TWINE_PASSWORD: ${{ secrets.TESTPYPI_CREDENTIAL }}
       with:
+        package: "fprime-fpp"
         steps: "sdist"
-
+    - name: PyPI
+      uses: ./.github/actions/pypi
+      env:
+        TWINE_PASSWORD: ${{ secrets.PYPI_CREDENTIAL }}
+      with:
+        repo: "pypi"
+        package: "fprime-fpp"
+        steps: "sdist"

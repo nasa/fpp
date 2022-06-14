@@ -1,6 +1,8 @@
 name: 'Publish PYPI Package'
 description: 'Publish an F´ PYPI Package'
 inputs:
+  package:
+    required: true
   location:
     required: true
     default: $GITHUB_WORKSPACE
@@ -17,13 +19,5 @@ runs:
     shell: bash
   - run: |
       cd ${{ inputs.location }}
-      python3 setup.py ${{ inputs.steps }}
-    shell: bash
-  - run: |
-      cd ${{ inputs.location }}
-      twine check dist/*
-    shell: bash
-  - run: |
-      cd ${{ inputs.location }}
-      twine upload -r ${{ inputs.repo }} -u "__token__" dist/*
+      ${{ inputs.location }}/.github/actions/pypi/package "${{ inputs.package }}" "${{ inputs.repo }}" ${{ inputs.steps }}
     shell: bash
