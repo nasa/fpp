@@ -45,9 +45,15 @@ then
     args="--index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/"
 fi
 
-pip install ${args} "${package}==${version}"
-if (( $? != 0 ))
-then
-    echo "[ERROR] Failed to install package with: ${args} ${package}==${version}"
-    exit 4
-fi
+# Retry logic as PyPI requires a bit to catch up
+for retry in 1 2 3
+do
+    pip install ${args} "${package}==${version}"
+    if (( $? == 0 ))
+    then
+        exit 0
+    fi
+    echo "[ERROR] Failed to install package with: ${args} ${package}==${version}. Retrying."
+    sleep 30
+done
+exit 4
