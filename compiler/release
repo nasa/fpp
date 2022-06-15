@@ -21,8 +21,6 @@ directory=`dirname $0`
 native_bin="$directory/native-fpp-`uname`-`uname -m`"
 native_image="$GRAALVM_JAVA_HOME/bin/native-image"
 meta_inf_dir="$directory/lib/src/main/resources/META-INF/native-image/"
-# Clean-up META-INF
-rm -rf "$meta_inf_dir"
 
 # Make directories
 mkdir -p "$meta_inf_dir"
@@ -53,7 +51,7 @@ if [ $? -ne 0 ]
 then
     echo "[WARNING] Failed to run tests"
 fi
-
+sync; sync; sync;
 # Convert jar files to binaries
 for jar_file in $directory/bin/*.jar
 do
@@ -65,15 +63,18 @@ do
         echo "release: Failed to build $out_file"
         exit 1
     fi
+    sync; sync; sync;
     if ! $out_file --help 1>/dev/null
     then
         echo "release: Failed, $out_file not executable"
         exit 1
     fi
 done
+sync; sync; sync;
 
 # Clean up native directory
 rm "$native_bin"/*.txt
+sync; sync; sync;
 
 # Create tar ball
 release_tgz="$native_bin.tar.gz"
