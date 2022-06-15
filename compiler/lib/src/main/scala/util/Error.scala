@@ -122,7 +122,7 @@ sealed trait Error {
         Error.print (Some(loc)) (s"invalid format string: $msg")
       case SemanticError.InvalidIntValue(loc, v, msg) =>
         Error.print (Some(loc)) (s"invalid integer value $v")
-        System.err.print(msg)
+        System.err.println(msg)
       case SemanticError.InvalidInternalPort(loc, msg) =>
         Error.print (Some(loc)) (msg)
       case SemanticError.InvalidPattern(loc, msg) =>
