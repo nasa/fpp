@@ -80,4 +80,10 @@ sync; sync; sync;
 release_tgz="$native_bin.tar.gz"
 tar -czf "$release_tgz" "$native_bin"
 sync; sync; sync;
+# Check if file size too small
+if [ `stat -f %z $release_tgz` -lt 55846858 ]
+then
+    echo "Release archive $release_tgz too small with size `du -hs $release_tgz`"
+    exit 99
+fi
 echo "Release archive written to $release_tgz with size `du -hs $release_tgz`"
