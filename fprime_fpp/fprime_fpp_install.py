@@ -74,7 +74,7 @@ __FPP_TOOLS_VERSION__ = setup_version()
 WORKING_DIR = Path(tempfile.gettempdir()) / "__FPP_WORKING_DIR__"
 FPP_ARTIFACT_PREFIX = "native-fpp"
 FPP_COMPRESSION_EXT = ".tar.gz"
-GITHUB_URL = "https://github.com/LeStarch/fpp"
+GITHUB_URL = "https://github.com/fprime-community/fpp"
 GITHUB_RELEASE_URL = "{GITHUB_URL}/releases/download/{version}/{artifact_string}"
 SBT_URL = "https://github.com/sbt/sbt/releases/download/v1.6.2/sbt-1.6.2.tgz"
 
