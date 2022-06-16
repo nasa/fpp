@@ -92,7 +92,12 @@ def safe_chdir(path):
 
 def get_artifact_string(version: str) -> str:
     """Gets the platform string for the package. e.g. Darwin-x86_64"""
-    return f"{ FPP_ARTIFACT_PREFIX }-{ platform.system() }-{ platform.machine() }{ FPP_COMPRESSION_EXT }"
+    system = platform.system()
+    architecture = platform.machine()
+    # Always use x86 variants for Darwin
+    if system == "Darwin":
+        architecture = "x86_64"
+    return f"{ FPP_ARTIFACT_PREFIX }-{ system }-{ architecture }{ FPP_COMPRESSION_EXT }"
 
 
 def wget(url: str):
