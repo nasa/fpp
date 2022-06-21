@@ -41,7 +41,7 @@ $directory/install-trace
 $directory/bin/fpp-locate-defs tools/fpp-locate-defs/test/defs/defs-1.fpp tools/fpp-locate-defs/test/defs/defs-2.fpp 1>/dev/null
 if [ $? -ne 0 ]
 then
-    echo "[ERROR] Failed to run tracable JAR"
+    echo "[ERROR] Failed to run JAR with tracing enabled"
     exit 1
 fi
 
