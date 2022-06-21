@@ -1,12 +1,14 @@
 #!/bin/sh -e
 
+fpp_to_xml=../../../../../../bin/fpp-to-xml
+
 echo '  removing old files'
 ./clean
 
 dir=`cd ../..; echo $PWD`
 
 echo '  generating XML'
-fpp-to-xml -p $dir -i ../../builtin.fpp ../../basic.fpp
+$fpp_to_xml -p $dir -i ../../builtin.fpp ../../basic.fpp
 
 echo '  generating C++'
 for file in ActiveComponent PassiveComponent PPort
