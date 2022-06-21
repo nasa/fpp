@@ -1,5 +1,17 @@
 [
 {
+  "name":"[Lfpp.compiler.analysis.ComponentInstance;"
+},
+{
+  "name":"[Lfpp.compiler.analysis.Connection;"
+},
+{
+  "name":"[Lfpp.compiler.codegen.Line;"
+},
+{
+  "name":"[Ljava.lang.String;"
+},
+{
   "name":"com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
@@ -11,30 +23,30 @@
 },
 {
   "name":"fpp.compiler.analysis.Format$Parser$",
-  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$1"}]
 },
 {
   "name":"fpp.compiler.codegen.CppDocCppWriter$",
-  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$1"}]
 },
 {
   "name":"fpp.compiler.codegen.CppDocHppWriter$",
-  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$1"}]
 },
 {
   "name":"fpp.compiler.codegen.Line[]"
 },
 {
   "name":"fpp.compiler.syntax.Lexer$",
-  "fields":[{"name":"0bitmap$2", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$2"}]
 },
 {
   "name":"fpp.compiler.syntax.Lexer$$anon$1",
-  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$1"}]
 },
 {
   "name":"fpp.compiler.syntax.Parser$",
-  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$1"}]
 },
 {
   "name":"java.lang.ClassValue"
@@ -48,23 +60,23 @@
 },
 {
   "name":"scala.util.parsing.input.OffsetPosition",
-  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$1"}]
 },
 {
   "name":"scala.util.parsing.input.OffsetPosition$",
-  "fields":[{"name":"0bitmap$2", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$2"}]
 },
 {
   "name":"scala.xml.XML$",
-  "fields":[{"name":"0bitmap$2", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$2"}]
 },
 {
   "name":"scala.xml.parsing.FactoryAdapter",
-  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$1"}]
 },
 {
   "name":"scopt.OParser$",
-  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$1"}]
 },
 {
   "name":"sun.misc.Unsafe",

@@ -1,3 +1,8 @@
 .*
 *.bak
 *~
+*.egg-info
+__SHADOW__
+__pycache__
+dist/
+fprim_fpp/fpp_version_info.py

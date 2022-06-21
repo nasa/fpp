@@ -1,0 +1,19 @@
+#!/bin/bash
+graal_ver="22.1.0"
+graal_os="$( uname -s | tr "[:upper:]" "[:lower:]")"
+graal_ar="graalvm-ce-java11-${graal_os}-amd64-${graal_ver}.tar.gz"
+graal_dir="$(pwd)/graalvm-ce-java11-${graal_ver}"
+graal_url="https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-${graal_ver}/${graal_ar}"
+
+# Download Graal
+curl -L "${graal_url}" | tar -xz
+graal_bin="${graal_dir}/bin"
+if [ ! -d "${graal_bin}" ]
+then
+    graal_bin="${graal_dir}/Contents/Home/bin"
+fi
+export PATH="${graal_bin}:${PATH}"
+export GRAALVM_JAVA_HOME="$(dirname ${graal_bin})"
+# Install native image
+${graal_bin}/gu install native-image
+
