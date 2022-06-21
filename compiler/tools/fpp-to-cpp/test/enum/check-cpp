@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# ----------------------------------------------------------------------
+# Compile ref C++ files, to check them for validity
+# ----------------------------------------------------------------------
+
+fprime_gcc=../../../../scripts/fprime-gcc
+
+for file in `find . -name '*Ac.ref.cpp'`
+do
+  echo "compiling $file"
+  base=`echo $file | sed 's;\.cpp;;'`
+  dest_base=`echo $base | sed 's;\(.*Ac\).*;\1;'`
+  cp $base.hpp $dest_base.hpp
+  cp $base.cpp $dest_base.cpp
+  $fprime_gcc -I../../.. -c $dest_base.cpp
+done
