@@ -123,6 +123,10 @@ of sync, and the native image build may not work.
 The script will build the native binary tools and install them at
 `native-fpp-[platform name]`.
 
+. The previous step installs FPP tools with the tracing agent enabled
+(see below).
+To install the standard version of the FPP tools, run `./install`.
+
 *Running the tracing agent:*
 Before running `native-image` on a JVM program, you must first run the
 JVM program with a tracing agent enabled and record the results,
