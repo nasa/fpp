@@ -9,6 +9,16 @@ object CppWriter extends AstStateVisitor with LineUtils {
 
   type State = CppWriterState
 
+  override def defArrayAnnotatedNode(
+    s: CppWriterState,
+    aNode: Ast.Annotated[AstNode[Ast.DefArray]]
+  ) = {
+    val node = aNode._2
+    val data = node.data
+    val cppDoc = ArrayCppWriter(s, aNode).write
+    writeCppDoc(s, cppDoc)
+  }
+
   override def defEnumAnnotatedNode(
     s: CppWriterState,
     aNode: Ast.Annotated[AstNode[Ast.DefEnum]]

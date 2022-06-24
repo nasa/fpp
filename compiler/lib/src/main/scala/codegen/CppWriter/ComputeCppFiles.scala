@@ -18,6 +18,9 @@ object ComputeCppFiles extends AstStateVisitor {
     /** Gets the C++ file name for generated constants */
     def getConstants = "FppConstantsAc"
 
+    /** Gets the C++ file name for generated arrays */
+    def getArray(baseName: String) = s"${baseName}ArrayAc"
+
     /** Gets the C++ file name for generated enums */
     def getEnum(baseName: String) = s"${baseName}EnumAc"
 
