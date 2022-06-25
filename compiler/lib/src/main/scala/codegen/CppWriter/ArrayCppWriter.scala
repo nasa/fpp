@@ -22,8 +22,6 @@ case class ArrayCppWriter (
 
   private val arrayType @ Type.Array(_, _, _, _) = s.a.typeMap(node.id)
 
-  private val defaultValue = ValueCppWriter.write(s, arrayType.getDefaultValue.get)
-
   private val namespaceIdentList = s.getNamespaceIdentList(symbol)
 
   private val typeCppWriter = TypeCppWriter(s)
@@ -31,6 +29,17 @@ case class ArrayCppWriter (
   private val eltTypeName = typeCppWriter.write(arrayType.anonArray.eltType)
 
   private val arraySize = arrayType.getArraySize.get
+
+  private def getDefaultValues: List[String] = {
+    val defaultValue = arrayType.getDefaultValue match {
+      case Some(a) => Some(a.anonArray)
+      case None => arrayType.anonArray.getDefaultValue
+    }
+    defaultValue match {
+      case Some(a) => a.elements.map(v => ValueCppWriter.write(s, v))
+      case None => Nil // TODO: Get unspecified default value
+    }
+  }
 
   def write: CppDoc = {
     val includeGuard = s.includeGuardFromQualifiedName(symbol, fileName)
@@ -93,13 +102,19 @@ case class ArrayCppWriter (
     List(
       getTypeMembers,
       getConstantMembers,
-//      getConstructorMembers,
-//      getOperatorMembers,
-//      getMemberFunctionMembers,
-//      getMemberVariableMembers
+      getConstructorMembers,
+      getMemberVariableMembers
     ).flatten
 
-  private def getTypeMembers: List[CppDoc.Class.Member] = {
+  private def indexIterator(ll: List[Line]): List[Line] =
+    wrapInForLoop(
+      "U32 index = 0",
+      "index < SIZE",
+      "index++",
+      ll,
+    )
+
+  private def getTypeMembers: List[CppDoc.Class.Member] =
     List(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
@@ -115,9 +130,8 @@ case class ArrayCppWriter (
         )
       )
     )
-  }
 
-  private def getConstantMembers: List[CppDoc.Class.Member] = {
+  private def getConstantMembers: List[CppDoc.Class.Member] =
     List(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
@@ -136,5 +150,108 @@ case class ArrayCppWriter (
         )
       )
     )
+
+  private def getConstructorMembers: List[CppDoc.Class.Member] = {
+    val defaultValues = getDefaultValues
+    List(
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          CppDocHppWriter.writeAccessTag("public")
+        )
+      ),
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          CppDocWriter.writeBannerComment("Constructors"),
+          CppDoc.Lines.Both
+        )
+      ),
+      CppDoc.Class.Member.Constructor(
+        CppDoc.Class.Constructor(
+          Some("Constructor (default value)"),
+          Nil,
+          List("Serializable()"),
+          wrapInScope(
+            s"*this = $name(",
+            defaultValues.dropRight(1).map(v => line(s"$v,")) ++
+            lines(s"${defaultValues.last}"),
+            ");",
+          ),
+        )
+      ),
+      CppDoc.Class.Member.Constructor(
+        CppDoc.Class.Constructor(
+          Some("Constructor (user-provided value)"),
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("const ElementType"),
+              "(&a)[SIZE]",
+              Some("The array"),
+            )
+          ),
+          List("Serializable()"),
+          indexIterator(lines("this->elements[index] = a[index];")),
+        )
+      ),
+      CppDoc.Class.Member.Constructor(
+        CppDoc.Class.Constructor(
+          Some("Constructor (single element)"),
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("const ElementType&"),
+              "e",
+              Some("The element"),
+            )
+          ),
+          List("Serializable()"),
+          indexIterator(lines("this->elements[index] = e;")),
+        )
+      ),
+      CppDoc.Class.Member.Constructor(
+        CppDoc.Class.Constructor(
+          Some("Constructor (multiple elements)"),
+          List.range(1, arraySize + 1).map(i => CppDoc.Function.Param(
+            CppDoc.Type("const ElementType"),
+            s"(&e$i)",
+            Some(s"Element $i"),
+          )),
+          List("Serializable()"),
+          List.range(1, arraySize + 1).map(i => line(
+            s"this->elements[${i - 1}] = e$i;"
+          )),
+        )
+      ),
+      CppDoc.Class.Member.Constructor(
+        CppDoc.Class.Constructor(
+          Some("Copy Constructor"),
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type(s"const $name&"),
+              "obj",
+              Some("The source object"),
+            )
+          ),
+          List("Serializable()"),
+          indexIterator(lines("this->elements[index] = obj.elements[index];")),
+        )
+      ),
+    )
   }
+
+  private def getMemberVariableMembers: List[CppDoc.Class.Member] =
+    List(
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(CppDocHppWriter.writeAccessTag("private"))
+      ),
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          CppDocWriter.writeBannerComment("Member variables") ++
+            addBlankPrefix(
+              lines(
+                s"""|//! The array elements
+                    |ElementType elements[SIZE];"""
+              )
+            )
+        )
+      )
+    )
 }
