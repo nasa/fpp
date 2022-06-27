@@ -30,6 +30,14 @@ case class ArrayCppWriter (
 
   private val arraySize = arrayType.getArraySize.get
 
+  private val formatStr = FormatCppWriter.write(
+    arrayType.format match {
+      case Some(f) => f
+      case None => Format("", List((Format.Field.Default, "")))
+    },
+    data.eltType
+  )
+
   private def getDefaultValues: List[String] = {
     val defaultValue = arrayType.getDefaultValue match {
       case Some(a) => Some(a.anonArray)
@@ -104,16 +112,9 @@ case class ArrayCppWriter (
       getConstantMembers,
       getConstructorMembers,
       getOperatorMembers,
-      getMemberVariableMembers
+      getMemberFunctionMembers,
+      getMemberVariableMembers,
     ).flatten
-
-  private def indexIterator(ll: List[Line]): List[Line] =
-    wrapInForLoop(
-      "U32 index = 0",
-      "index < SIZE",
-      "index++",
-      ll,
-    )
 
   private def getTypeMembers: List[CppDoc.Class.Member] =
     List(
@@ -424,6 +425,123 @@ case class ArrayCppWriter (
       ),
     )
 
+  private def getMemberFunctionMembers: List[CppDoc.Class.Member] =
+    List(
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(CppDocHppWriter.writeAccessTag("public"))
+      ),
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          CppDocWriter.writeBannerComment("Member functions"),
+          CppDoc.Lines.Both
+        )
+      ),
+      CppDoc.Class.Member.Function(
+        CppDoc.Function(
+          Some("Serialization"),
+          "serialize",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::SerializeBufferBase&"),
+              "buffer",
+              Some("The serial buffer"),
+            )
+          ),
+          CppDoc.Type("Fw::SerializeStatus"),
+          List(
+            lines("Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;"),
+            indexIterator(
+              line("status = buffer.serialize((*this)[index]);") ::
+                wrapInIf("status != Fw::FW_SERIALIZE_OK", lines("return status;")),
+            ),
+            lines("return status;"),
+          ).flatten,
+          CppDoc.Function.NonSV,
+          CppDoc.Function.Const
+        )
+      ),
+      CppDoc.Class.Member.Function(
+        CppDoc.Function(
+          Some("Deserialization"),
+          "deserialize",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::SerializeBufferBase&"),
+              "buffer",
+              Some("The serial buffer"),
+            )
+          ),
+          CppDoc.Type("Fw::SerializeStatus"),
+          List(
+            lines("Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;"),
+            indexIterator(
+              line("status = buffer.deserialize((*this)[index]);") ::
+                wrapInIf("status != Fw::FW_SERIALIZE_OK", lines("return status;")),
+            ),
+            lines("return status;"),
+          ).flatten,
+        )
+      ),
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          lines("\n#if FW_ARRAY_TO_STRING || BUILD_UT"),
+          CppDoc.Lines.Both
+        )
+      ),
+      CppDoc.Class.Member.Function(
+        CppDoc.Function(
+          Some("Convert array to string"),
+          "toString",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::StringBase&"),
+              "sb",
+              Some("The StringBase object to hold the result")
+            )
+          ),
+          CppDoc.Type("void"),
+          List(
+            wrapInScope(
+              "static const char *formatString = \"[ \"",
+              List.fill(arraySize - 1)(line(s"\"$formatStr \"")) ++
+                lines(s"\"$formatStr ]\";"),
+              ""
+            ),
+            List(
+              line("// Declare strings to hold any serializable toString() arguments"),
+              line("char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];"),
+            ),
+            wrapInScope(
+              "(void) snprintf(",
+              List(
+                List(
+                  line("outputString,"),
+                  line("FW_ARRAY_TO_STRING_BUFFER_SIZE,"),
+                  line("formatString,"),
+                ),
+                List.range(0, arraySize - 1).map(i => line(s"this->elements[$i],")),
+                lines(s"this->elements[${arraySize - 1}]"),
+              ).flatten,
+              ");"
+            ),
+            List(
+              Line.blank,
+              line("outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate"),
+              line("sb = outputString;"),
+            )
+          ).flatten,
+          CppDoc.Function.NonSV,
+          CppDoc.Function.Const,
+        )
+      ),
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          lines("\n#endif"),
+          CppDoc.Lines.Both
+        )
+      ),
+    )
+
   private def getMemberVariableMembers: List[CppDoc.Class.Member] =
     List(
       CppDoc.Class.Member.Lines(
@@ -440,5 +558,13 @@ case class ArrayCppWriter (
             )
         )
       )
+    )
+
+  private def indexIterator(ll: List[Line]): List[Line] =
+    wrapInForLoop(
+      "U32 index = 0",
+      "index < SIZE",
+      "index++",
+      ll,
     )
 }
