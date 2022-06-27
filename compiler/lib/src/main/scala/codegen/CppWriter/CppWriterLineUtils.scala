@@ -24,4 +24,7 @@ trait CppWriterLineUtils extends LineUtils {
   def wrapInForLoop(init: String, condition: String, step: String, body: List[Line]): List[Line] =
     wrapInScope(s"for ($init; $condition; $step) {", body, "}")
 
+  def wrapInIf(condition: String, body: List[Line]): List[Line] =
+    wrapInScope(s"if ($condition) {", body, "}")
+
 }
