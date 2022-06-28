@@ -19,7 +19,8 @@ case class TopologyCppWriter(
       s"${data.name} topology",
       fileName,
       includeGuard,
-      getMembers
+      getMembers,
+      s.toolName
     )
   }
 

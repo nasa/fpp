@@ -61,7 +61,8 @@ object FPPToCpp {
           dir,
           options.guardPrefix,
           options.pathPrefixes,
-          options.defaultStringSize
+          options.defaultStringSize,
+          Some(name)
         )
         CppWriter.tuList(state, tulFiles)
       }

@@ -31,7 +31,8 @@ object ConstantCppWriter {
           "FPP constants",
           fileName,
           includeGuard,
-          members
+          members,
+          s.toolName
         )
         CppWriter.writeCppDoc(s, cppDoc)
       }

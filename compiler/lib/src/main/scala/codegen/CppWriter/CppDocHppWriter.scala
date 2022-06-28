@@ -92,6 +92,7 @@ object CppDocHppWriter extends CppDocWriter {
     List(
       CppDocWriter.writeBanner(
         in.hppFile.name,
+        cppDoc.toolName,
         s"hpp file for ${cppDoc.description}"
       ),
       openIncludeGuard(hppFile.includeGuard),
