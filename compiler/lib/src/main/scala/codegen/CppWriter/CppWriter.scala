@@ -52,10 +52,11 @@ object CppWriter extends AstStateVisitor with LineUtils {
     description: String,
     fileName: String,
     includeGuard: String,
-    members: List[CppDoc.Member]
+    members: List[CppDoc.Member],
+    toolName: Option[String]
   ): CppDoc = {
     val hppFile = CppDoc.HppFile(s"$fileName.hpp", includeGuard)
-    CppDoc(description, hppFile, s"$fileName.cpp", members)
+    CppDoc(description, hppFile, s"$fileName.cpp", members, toolName)
   }
 
   def headerString(s: String): String = {

@@ -61,7 +61,8 @@ case class EnumCppWriter(
       s"$name enum",
       fileName,
       includeGuard,
-      getMembers
+      getMembers,
+      s.toolName
     )
   }
 

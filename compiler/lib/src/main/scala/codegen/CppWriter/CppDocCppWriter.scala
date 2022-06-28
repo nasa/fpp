@@ -63,6 +63,7 @@ object CppDocCppWriter extends CppDocWriter {
     List(
       CppDocWriter.writeBanner(
         in.cppFileName,
+        cppDoc.toolName,
         s"cpp file for ${cppDoc.description}"
       ),
       cppDoc.members.map(visitMember(in, _)).flatten,

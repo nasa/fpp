@@ -9,7 +9,9 @@ case class CppDoc(
   /** The cpp file name */
   cppFileName: String,
   /** The members */
-  members: List[CppDoc.Member]
+  members: List[CppDoc.Member],
+  /** An optional tool-name */
+  toolName: Option[String] = None
 )
 
 object CppDoc {
