@@ -53,10 +53,7 @@ case class ArrayCppWriter (
       case Some(a) => Some(a.anonArray)
       case None => arrayType.anonArray.getDefaultValue
     }
-    defaultValue match {
-      case Some(a) => a.elements.map(ValueCppWriter.write(s, _))
-      case None => Nil // TODO: Get unspecified default value
-    }
+    defaultValue.get.elements.map(ValueCppWriter.write(s, _))
   }
 
   def write: CppDoc = {
@@ -144,7 +141,10 @@ case class ArrayCppWriter (
       )
     )
 
-  private def getConstantMembers: List[CppDoc.Class.Member] =
+  private def getConstantMembers: List[CppDoc.Class.Member] = {
+    val serializedSizeStr =
+      if eltType.isPrimitive then "sizeof(ElementType)"
+      else s"$eltTypeName::SERIALIZED_SIZE"
     List(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
@@ -156,13 +156,14 @@ case class ArrayCppWriter (
                 s"""|//! The size of the array
                     |SIZE = $arraySize;
                     |//! The size of the serial representation
-                    |SERIALIZED_SIZE = SIZE * sizeof(ElementType),"""
+                    |SERIALIZED_SIZE = SIZE * $serializedSizeStr,"""
               )
             )
           )
         )
       )
     )
+  }
 
   private def getConstructorMembers: List[CppDoc.Class.Member] = {
     val defaultValues = getDefaultValues
@@ -183,12 +184,15 @@ case class ArrayCppWriter (
           Some("Constructor (default value)"),
           Nil,
           List("Serializable()"),
-          wrapInScope(
-            s"*this = $name(",
-            defaultValues.dropRight(1).map(v => line(s"$v,")) ++
-            lines(s"${defaultValues.last}"),
-            ");",
-          ),
+          List(
+            lines("// Construct using element-wise constructor"),
+            wrapInScope(
+              s"*this = $name(",
+              defaultValues.dropRight(1).map(v => line(s"$v,")) ++
+                lines(s"${defaultValues.last}"),
+              ");",
+            ),
+          ).flatten
         )
       ),
       CppDoc.Class.Member.Constructor(
