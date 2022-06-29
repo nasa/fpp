@@ -95,11 +95,10 @@ object CppDocCppWriter extends CppDocWriter {
         val retType = function.retType.getCppType match {
           case "" => ""
           case t => s"$t "
-
         }
         in.classNameList match {
-          case head :: _ => {
-            val line1 = line(s"$retType$head ::")
+          case _ :: _ => {
+            val line1 = line(s"$retType${in.getEnclosingClassQualified} ::")
             line1 :: prototypeLines.map(indentIn(_))
           }
           case Nil =>
