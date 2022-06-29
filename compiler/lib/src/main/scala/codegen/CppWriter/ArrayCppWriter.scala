@@ -8,7 +8,11 @@ import fpp.compiler.util._
 case class ArrayCppWriter (
   s: CppWriterState,
   aNode: Ast.Annotated[AstNode[Ast.DefArray]]
-) extends CppWriterLineUtils {
+) extends AstVisitor with CppWriterLineUtils {
+
+  type In = CppWriterState
+
+  type Out = List[Line]
 
   private val node = aNode._2
 
@@ -28,16 +32,24 @@ case class ArrayCppWriter (
 
   private val eltType = arrayType.anonArray.eltType
 
-  private val eltTypeName = typeCppWriter.write(eltType)
-
   private val arraySize = arrayType.getArraySize.get
 
-  private val maxStrSize = eltType match {
+  private val maxStrSize: Option[Int] = eltType match {
     case Type.String(size) => size match {
-      case Some(node) => 80 // TODO: get user-specified max size
-      case None => 80
+      case Some(typeNode) => s.a.valueMap(typeNode.id) match {
+        case Value.EnumConstant(value, _) => Some(value._2.toInt)
+        case Value.PrimitiveInt(value, _) => Some(value.toInt)
+        case Value.Integer(value) => Some(value.toInt)
+        case _ => None
+      }
+      case None => Some(s.defaultStringSize)
     }
-    case _ => Nil
+    case _ => None
+  }
+
+  private val eltTypeName = eltType match {
+    case Type.String(_) => s"StringSize$maxStrSize" // Name of generated string class
+    case _ => typeCppWriter.write(eltType)
   }
 
   private val formatStr = FormatCppWriter.write(
@@ -47,6 +59,13 @@ case class ArrayCppWriter (
     },
     data.eltType
   )
+
+  override def default(s: CppWriterState) = Nil
+
+  override def defArrayAnnotatedNode(s: CppWriterState, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
+    val Right(a) = UsedSymbols.defArrayAnnotatedNode(s.a, aNode)
+    s.writeIncludeDirectives(a.usedSymbolSet)
+  }
 
   private def getDefaultValues: List[String] = {
     val defaultValue = arrayType.getDefaultValue match {
@@ -90,24 +109,30 @@ case class ArrayCppWriter (
       "Fw/Types/String.hpp"
     )
     CppWriter.linesMember(
-      Line.blank ::
-        strings.map(CppWriter.headerString).map(line)
+      List(
+        Line.blank ::
+          strings.map(CppWriter.headerString).map(line),
+        Line.blank ::
+          defArrayAnnotatedNode(s, aNode),
+      ).flatten
     )
   }
 
   private def getCppIncludes: CppDoc.Member = {
     val systemStrings = List("cstring", "cstdio")
-    val strings = List(
+    val fwStrings = List(
       "Fw/Types/Assert.hpp",
       "Fw/Types/StringUtils.hpp",
-      s"${s.getRelativePath(fileName).toString}.hpp"
     )
+    val headerString = s"${s.getRelativePath(fileName).toString}.hpp"
     CppWriter.linesMember(
       List(
         List(Line.blank),
         systemStrings.map(CppWriter.systemHeaderString).map(line),
         List(Line.blank),
-        strings.map(CppWriter.headerString).map(line)
+        fwStrings.map(CppWriter.headerString).map(line),
+        List(Line.blank),
+        lines(CppWriter.headerString(headerString)),
       ).flatten,
       CppDoc.Lines.Cpp
     )
@@ -123,6 +148,12 @@ case class ArrayCppWriter (
       getMemberFunctionMembers,
       getMemberVariableMembers,
     ).flatten
+
+  // Generate a nested string class of the specified size for arrays of strings
+  private def getStringClass: List[CppDoc.Class.Member] = eltType match {
+    case Type.String(_) => StringCppWriter(List(maxStrSize.get)).write
+    case _ => Nil
+  }
 
   private def getTypeMembers: List[CppDoc.Class.Member] =
     List(
@@ -149,12 +180,12 @@ case class ArrayCppWriter (
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
           CppDocHppWriter.writeAccessTag("public") ++
-          CppDocWriter.writeBannerComment("Types") ++
+          CppDocWriter.writeBannerComment("Constants") ++
           addBlankPrefix(
             wrapInEnum(
               lines(
                 s"""|//! The size of the array
-                    |SIZE = $arraySize;
+                    |SIZE = $arraySize,
                     |//! The size of the serial representation
                     |SERIALIZED_SIZE = SIZE * $serializedSizeStr,"""
               )
@@ -314,7 +345,7 @@ case class ArrayCppWriter (
               Some("The source object"),
             ),
           ),
-          CppDoc.Type("A&"),
+          CppDoc.Type(s"$name&"),
           List(
             wrapInIf("this == &obj", lines("return *this;")),
             Line.blank ::
@@ -334,7 +365,7 @@ case class ArrayCppWriter (
               Some("The source array"),
             ),
           ),
-          CppDoc.Type("A&"),
+          CppDoc.Type(s"$name&"),
           List(
             indexIterator(lines("this->elements[index] = a[index];")),
             lines("return *this;"),
@@ -352,7 +383,7 @@ case class ArrayCppWriter (
               Some("The element"),
             ),
           ),
-          CppDoc.Type("A&"),
+          CppDoc.Type(s"$name&"),
           List(
             indexIterator(lines("this->elements[index] = e")),
             lines("return *this;"),
@@ -361,7 +392,7 @@ case class ArrayCppWriter (
       ),
       CppDoc.Class.Member.Function(
         CppDoc.Function(
-          Some("Equality operatord"),
+          Some("Equality operator"),
           "operator==",
           List(
             CppDoc.Function.Param(
@@ -384,7 +415,7 @@ case class ArrayCppWriter (
       ),
       CppDoc.Class.Member.Function(
         CppDoc.Function(
-          Some("Equality operatord"),
+          Some("Inequality operator"),
           "operator!=",
           List(
             CppDoc.Function.Param(
@@ -573,196 +604,6 @@ case class ArrayCppWriter (
             )
         )
       )
-    )
-
-  private def getStringClass: List[CppDoc.Class.Member] = eltType match {
-    case Type.String(_) =>
-      List(
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            CppDocHppWriter.writeAccessTag("public")
-          )
-        ),
-        CppDoc.Class.Member.Class(
-          CppDoc.Class(
-            None,
-            s"${name}String",
-            Some("public Fw::StringBase"),
-            getStringClassMembers
-          )
-        )
-      )
-    case _ => Nil
-  }
-
-  private def getStringClassMembers: List[CppDoc.Class.Member] =
-    List(
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          List(
-            CppDocHppWriter.writeAccessTag("public"),
-            addBlankPrefix(wrapInEnum(lines(
-              s"SERIALIZED_SIZE = $maxStrSize + sizeof(FwBuffSizeType); //!< Size of buffer + storage of two size words"
-            ))),
-          ).flatten
-        )
-      ),
-      CppDoc.Class.Member.Constructor(
-        CppDoc.Class.Constructor(
-          Some("Default constructor"),
-          Nil,
-          List("StringBase()"),
-          lines("this->m_buf[0] = 0;")
-        )
-      ),
-      CppDoc.Class.Member.Constructor(
-        CppDoc.Class.Constructor(
-          Some("Char array constructor"),
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type("const char*"),
-              "src",
-              None
-            )
-          ),
-          List("StringBase()"),
-          lines(
-            "Fw::StringUtils::string_copy(this->m_buf, src, sizeof(this->m_buf));"
-          )
-        )
-      ),
-      CppDoc.Class.Member.Constructor(
-        CppDoc.Class.Constructor(
-          Some("String base constructor"),
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type("const Fw::StringBase&"),
-              "src",
-              None
-            )
-          ),
-          List("StringBase()"),
-          lines(
-            "Fw::StringUtils::string_copy(this->m_buf, src.toChar(), sizeof(this->m_buf));"
-          )
-        )
-      ),
-      CppDoc.Class.Member.Constructor(
-        CppDoc.Class.Constructor(
-          Some("Copy constructor"),
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type(s"const ${name}String&"),
-              "src",
-              None
-            )
-          ),
-          List("StringBase()"),
-          lines(
-            "Fw::StringUtils::string_copy(this->m_buf, src.toChar(), sizeof(this->m_buf));"
-          )
-        )
-      ),
-      CppDoc.Class.Member.Destructor(
-        CppDoc.Class.Destructor(
-          Some("Destructor"),
-          Nil
-        )
-      ),
-      CppDoc.Class.Member.Function(
-        CppDoc.Function(
-          Some("Copy assignment operator"),
-          "operator=",
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type(s"const ${name}String&"),
-              "other",
-              None
-            )
-          ),
-          CppDoc.Type(s"${name}String&"),
-          List(
-            wrapInIf("this == &other", lines("return *this;")),
-            List(
-              Line.blank,
-              line("Fw::StringUtils::string_copy(this->m_buf, other.toChar(), sizeof(this->m_buf));"),
-              line("return *this;"),
-            ),
-          ).flatten
-        )
-      ),
-      CppDoc.Class.Member.Function(
-        CppDoc.Function(
-          Some("String base assignment operator"),
-          "operator=",
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type("const Fw::StringBase&"),
-              "other",
-              None
-            )
-          ),
-          CppDoc.Type(s"${name}String&"),
-          List(
-            wrapInIf("this == &other", lines("return *this;")),
-            List(
-              Line.blank,
-              line("Fw::StringUtils::string_copy(this->m_buf, other.toChar(), sizeof(this->m_buf));"),
-              line("return *this;"),
-            ),
-          ).flatten
-        )
-      ),
-      CppDoc.Class.Member.Function(
-        CppDoc.Function(
-          Some("char* assignment operator"),
-          "operator=",
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type("const char*"),
-              "other",
-              None
-            )
-          ),
-          CppDoc.Type(s"${name}String&"),
-          List(
-            line("Fw::StringUtils::string_copy(this->m_buf, other, sizeof(this->m_buf));"),
-            line("return *this;"),
-          )
-        )
-      ),
-      CppDoc.Class.Member.Function(
-        CppDoc.Function(
-          Some("Retrieves char buffer of string"),
-          "toChar",
-          Nil,
-          CppDoc.Type("const char*"),
-          lines("return this->m_buf;"),
-          CppDoc.Function.NonSV,
-          CppDoc.Function.Const
-        )
-      ),
-      CppDoc.Class.Member.Function(
-        CppDoc.Function(
-          None,
-          "getCapacity",
-          Nil,
-          CppDoc.Type("NATIVE_UINT_TYPE"),
-          lines("return sizeof(this->m_buf);"),
-          CppDoc.Function.NonSV,
-          CppDoc.Function.Const
-        )
-      ),
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          List(
-            CppDocHppWriter.writeAccessTag("private"),
-            addBlankPrefix(lines(
-              s"char m_buf[$maxStrSize]; //!< Buffer for string storage"
-            )),
-          ).flatten
-        )
-      ),
     )
 
   private def indexIterator(ll: List[Line]): List[Line] =
