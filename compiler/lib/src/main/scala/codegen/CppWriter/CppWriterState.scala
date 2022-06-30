@@ -1,7 +1,8 @@
 package fpp.compiler.codegen
 
-import fpp.compiler.analysis._
-import fpp.compiler.util._
+import fpp.compiler.analysis.*
+import fpp.compiler.codegen.CppWriterState.builtInTypes
+import fpp.compiler.util.*
 
 /** C++ Writer state */
 case class CppWriterState(
@@ -129,32 +130,34 @@ case class CppWriterState(
 
   /** Write include directives as lines */
   def writeIncludeDirectives(usedSymbols: Iterable[Symbol]): List[Line] = {
+    def getHeaderStr(file: File.JavaPath) =
+      Some(CppWriter.headerString(s"${file.toString}.hpp"))
     def getDirectiveforSymbol(sym: Symbol): Option[String] = sym match {
+      case Symbol.AbsType(node) => getName(Symbol.AbsType(node)) match {
+        case builtInTypeName if builtInTypes.contains(builtInTypeName) => None
+        case name => getHeaderStr(getRelativePath(name))
+      }
       case Symbol.Array(node) =>
-        val file = getRelativePath(ComputeCppFiles.FileNames.getArray(getName(Symbol.Array(node))))
-        Some(CppWriter.headerString(s"${file}.hpp"))
+        getHeaderStr(getRelativePath(ComputeCppFiles.FileNames.getArray(getName(Symbol.Array(node)))))
       case Symbol.Component(node) =>
-        val file = getRelativePath(ComputeCppFiles.FileNames.getComponent(getName(Symbol.Component(node))))
-        Some(CppWriter.headerString(s"${file}.hpp"))
-      case Symbol.Constant(node) =>
-        val file = getRelativePath(ComputeCppFiles.FileNames.getConstants)
-        Some(CppWriter.headerString(s"${file}.hpp"))
+        getHeaderStr(getRelativePath(ComputeCppFiles.FileNames.getComponent(getName(Symbol.Component(node)))))
+      case Symbol.Constant(_) =>
+        getHeaderStr(getRelativePath(ComputeCppFiles.FileNames.getConstants))
       case Symbol.Enum(node) =>
-        val file = getRelativePath(ComputeCppFiles.FileNames.getEnum(getName(Symbol.Enum(node))))
-        Some(CppWriter.headerString(s"${file}.hpp"))
+        getHeaderStr(getRelativePath(ComputeCppFiles.FileNames.getEnum(getName(Symbol.Enum(node)))))
       case Symbol.Port(node) =>
-        val file = getRelativePath(ComputeCppFiles.FileNames.getPort(getName(Symbol.Port(node))))
-        Some(CppWriter.headerString(s"${file}.hpp"))
+        getHeaderStr(getRelativePath(ComputeCppFiles.FileNames.getPort(getName(Symbol.Port(node)))))
       case Symbol.Struct(node) =>
-        val file = getRelativePath(ComputeCppFiles.FileNames.getStruct(getName(Symbol.Struct(node))))
-        Some(CppWriter.headerString(s"${file}.hpp"))
+        getHeaderStr(getRelativePath(ComputeCppFiles.FileNames.getStruct(getName(Symbol.Struct(node)))))
       case Symbol.Topology(node) =>
-        val file = getRelativePath(ComputeCppFiles.FileNames.getTopology(getName(Symbol.Topology(node))))
-        Some(CppWriter.headerString(s"${file}.hpp"))
+        getHeaderStr(getRelativePath(ComputeCppFiles.FileNames.getTopology(getName(Symbol.Topology(node)))))
       case _ => None
     }
 
-    usedSymbols.toList.map(getDirectiveforSymbol(_).get).map(Line(_))
+    usedSymbols.map(getDirectiveforSymbol(_)).filter(_.isDefined).map(_.get).toList match {
+      case Nil => Nil
+      case strings => strings.map(Line(_))
+    }
   }
 
 }
