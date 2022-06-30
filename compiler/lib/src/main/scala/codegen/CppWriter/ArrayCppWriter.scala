@@ -48,7 +48,7 @@ case class ArrayCppWriter (
   }
 
   private val eltTypeName = eltType match {
-    case Type.String(_) => s"StringSize$maxStrSize" // Name of generated string class
+    case Type.String(_) => s"StringSize${maxStrSize.get}" // Name of generated string class
     case _ => typeCppWriter.write(eltType)
   }
 
@@ -174,7 +174,7 @@ case class ArrayCppWriter (
 
   private def getConstantMembers: List[CppDoc.Class.Member] = {
     val serializedSizeStr =
-      if eltType.isPrimitive then "sizeof(ElementType)"
+      if eltType.isPrimitive || CppWriterState.builtInTypes.contains(eltTypeName) then "sizeof(ElementType)"
       else s"$eltTypeName::SERIALIZED_SIZE"
     List(
       CppDoc.Class.Member.Lines(
@@ -307,7 +307,7 @@ case class ArrayCppWriter (
               Some("The subscript index"),
             ),
           ),
-          CppDoc.Type("ElementType&"),
+          CppDoc.Type("ElementType&", Some(s"$name::ElementType&")),
           List(
             line("FW_ASSERT(i < SIZE);"),
             line("return this->elements[i];"),
@@ -325,7 +325,7 @@ case class ArrayCppWriter (
               Some("The subscript index"),
             ),
           ),
-          CppDoc.Type("const ElementType&"),
+          CppDoc.Type("const ElementType&", Some(s"const $name::ElementType&")),
           List(
             line("FW_ASSERT(i < SIZE);"),
             line("return this->elements[i];"),
@@ -385,7 +385,7 @@ case class ArrayCppWriter (
           ),
           CppDoc.Type(s"$name&"),
           List(
-            indexIterator(lines("this->elements[index] = e")),
+            indexIterator(lines("this->elements[index] = e;")),
             lines("return *this;"),
           ).flatten
         )
@@ -404,7 +404,7 @@ case class ArrayCppWriter (
           CppDoc.Type("bool"),
           List(
             indexIterator(wrapInIf(
-              "(*this)[index] != other[index]",
+              "(*this)[index] != obj[index]",
               lines("return false;"),
             )),
             lines("return true;"),
