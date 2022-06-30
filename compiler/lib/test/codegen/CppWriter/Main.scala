@@ -34,6 +34,60 @@ object Program extends LineUtils {
                   ),
                   Class.Member.Lines(
                     lines = Lines(
+                      content = CppDocWriter.writeBannerComment("Nested class"),
+                      output = Lines.Both
+                    )
+                  ),
+                  Class.Member.Class(
+                    CppDoc.Class(
+                      comment = None,
+                      name = "N",
+                      superclassDecls = None,
+                      members = List(
+                        Class.Member.Lines(
+                          lines = Lines(
+                            content = CppDocHppWriter.writeAccessTag("public")
+                          )
+                        ),
+                        Class.Member.Constructor(
+                          constructor = Class.Constructor(
+                            comment = Some("This is line 1.\nThis is line 2."),
+                            params = Nil,
+                            initializers = Nil,
+                            body = lines("// line1\n// line2")
+                          )
+                        ),
+                        Class.Member.Destructor(
+                          Class.Destructor(
+                            comment = Some("This is line 1.\nThis is line 2."),
+                            body = lines("// Body line 1\n// Body line 2")
+                          )
+                        ),
+                        Class.Member.Function(
+                          Function(
+                            comment = Some("This is line 1.\nThis is line 2."),
+                            name = "f",
+                            params = List(
+                              Function.Param(
+                                Type("const double", None),
+                                "x",
+                                Some("This is parameter x")
+                              ),
+                              Function.Param(
+                                Type("const int", None),
+                                "y",
+                                Some("This is parameter y")
+                              )
+                            ),
+                            retType = Type("void", None),
+                            body = Nil
+                          )
+                        ),
+                      )
+                    )
+                  ),
+                  Class.Member.Lines(
+                    lines = Lines(
                       content = CppDocWriter.writeBannerComment("Consructors and destructors"),
                       output = Lines.Both
                     )
