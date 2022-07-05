@@ -410,7 +410,7 @@ case class ArrayCppWriter (
           CppDoc.Type("bool"),
           List(
             indexIterator(wrapInIf(
-              "(*this)[index] != obj[index]",
+              "!((*this)[index] == obj[index])",
               lines("return false;"),
             )),
             lines("return true;"),
