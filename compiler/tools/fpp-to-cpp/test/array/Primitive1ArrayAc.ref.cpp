@@ -123,7 +123,7 @@ namespace M {
     operator==(const Primitive1& obj) const
   {
     for (U32 index = 0; index < SIZE; index++) {
-      if ((*this)[index] != obj[index]) {
+      if (!((*this)[index] == obj[index])) {
         return false;
       }
     }
