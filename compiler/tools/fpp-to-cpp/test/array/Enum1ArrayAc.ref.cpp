@@ -181,14 +181,21 @@ void Enum1 ::
     "%s "
     "%s ]";
 
+  // Call toString for arrays and serializable types
+  Fw::String str0;
+  Fw::String str1;
+
+  this->elements[0].toString(str0);
+  this->elements[1].toString(str1);
+
   // Declare strings to hold any serializable toString() arguments
   char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];
   (void) snprintf(
     outputString,
     FW_ARRAY_TO_STRING_BUFFER_SIZE,
     formatString,
-    this->elements[0],
-    this->elements[1]
+    str0.toChar(),
+    str1.toChar()
   );
 
   outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate

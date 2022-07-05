@@ -1,19 +1,26 @@
 primitive()
 {
   run_test "-p $PWD" primitive && \
-    diff_cpp Primitive1Array Primitive2Array PrimitiveArrayArray
+    diff_cpp Primitive1Array 
+    diff_cpp Primitive2Array 
+    diff_cpp PrimitiveArrayArray
 }
 
 string()
 {
   run_test "-p $PWD" string && \
-    diff_cpp String1Array String2Array StringArrayArray
+    diff_cpp String1Array 
+    diff_cpp String2Array 
+    diff_cpp StringArrayArray
 }
 
 enum()
 {
   run_test "-p $PWD" enum && \
-    diff_cpp E1Enum E2Enum Enum1Array Enum2Array
+    diff_cpp E1Enum 
+    diff_cpp E2Enum 
+    diff_cpp Enum1Array 
+    diff_cpp Enum2Array
 }
 
 builtin_type()

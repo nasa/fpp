@@ -30,7 +30,7 @@ class String1 :
       public:
 
         enum {
-          SERIALIZED_SIZE = 80 + sizeof(FwBuffSizeType); //!< Size of buffer + storage of two size words
+          SERIALIZED_SIZE = 80 + sizeof(FwBuffSizeType) //!< Size of buffer + storage of two size words
         };
 
         //! Default constructor

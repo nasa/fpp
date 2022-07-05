@@ -50,7 +50,7 @@ String1::StringSize80 ::
 
 }
 
-StringSize80& StringSize80 ::
+String1::StringSize80& String1::StringSize80 ::
   operator=(const StringSize80& other)
 {
   if (this == &other) {
@@ -61,7 +61,7 @@ StringSize80& StringSize80 ::
   return *this;
 }
 
-StringSize80& StringSize80 ::
+String1::StringSize80& String1::StringSize80 ::
   operator=(const Fw::StringBase& other)
 {
   if (this == &other) {
@@ -72,20 +72,20 @@ StringSize80& StringSize80 ::
   return *this;
 }
 
-StringSize80& StringSize80 ::
+String1::StringSize80& String1::StringSize80 ::
   operator=(const char* other)
 {
   Fw::StringUtils::string_copy(this->m_buf, other, sizeof(this->m_buf));
   return *this;
 }
 
-const char* StringSize80 ::
+const char* String1::StringSize80 ::
   toChar() const
 {
   return this->m_buf;
 }
 
-NATIVE_UINT_TYPE StringSize80 ::
+NATIVE_UINT_TYPE String1::StringSize80 ::
   getCapacity() const
 {
   return sizeof(this->m_buf);
@@ -264,15 +264,24 @@ void String1 ::
     "%s "
     "%s ]";
 
+  // Call toString for arrays and serializable types
+  Fw::String str0;
+  Fw::String str1;
+  Fw::String str2;
+
+  this->elements[0].toString(str0);
+  this->elements[1].toString(str1);
+  this->elements[2].toString(str2);
+
   // Declare strings to hold any serializable toString() arguments
   char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];
   (void) snprintf(
     outputString,
     FW_ARRAY_TO_STRING_BUFFER_SIZE,
     formatString,
-    this->elements[0],
-    this->elements[1],
-    this->elements[2]
+    str0.toChar(),
+    str1.toChar(),
+    str2.toChar()
   );
 
   outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
