@@ -5,17 +5,27 @@ import fpp.compiler.ast.*
 import fpp.compiler.codegen
 import fpp.compiler.util.*
 
-/** Write a C++ string class of a given size */
+/** Write C++ string classes of given sizees */
 case class StringCppWriter(
-  sizes: List[Int]
+  /** List of string sizes. One class will be generated per distinct size. */
+  sizes: List[Int],
+  /** Enclosing class name, including any qualifiers */
+  enclosingClassQualified: Option[String] = None
 ) extends CppWriterLineUtils {
 
-  def write: List[CppDoc.Class.Member] =
-    CppDoc.Class.Member.Lines(
-      CppDoc.Lines(
-        CppDocHppWriter.writeAccessTag("public")
-      )
-    ) ::
+  def write: List[CppDoc.Class.Member] = {
+    // Write access tag if these classes appear inside another class
+    val accessTag = enclosingClassQualified match {
+      case Some(_) =>
+        CppDoc.Class.Member.Lines(
+          CppDoc.Lines(
+            CppDocHppWriter.writeAccessTag("public")
+          )
+        )
+      case None => CppDoc.Class.Member.Lines(CppDoc.Lines(Nil))
+    }
+
+    accessTag ::
       sizes.distinct.flatMap(size => {
         val name = s"StringSize${size.toString}"
         List(
@@ -30,6 +40,7 @@ case class StringCppWriter(
           )
         )
       })
+  }
 
   def writeClass(size: Int, name: String): CppDoc.Class = {
     CppDoc.Class(
@@ -47,7 +58,7 @@ case class StringCppWriter(
           List(
             CppDocHppWriter.writeAccessTag("public"),
             addBlankPrefix(wrapInEnum(lines(
-              s"SERIALIZED_SIZE = $size + sizeof(FwBuffSizeType); //!< Size of buffer + storage of two size words"
+              s"SERIALIZED_SIZE = $size + sizeof(FwBuffSizeType) //!< Size of buffer + storage of two size words"
             ))),
           ).flatten
         )
@@ -125,7 +136,7 @@ case class StringCppWriter(
               None
             )
           ),
-          CppDoc.Type(s"$name&"),
+          CppDoc.Type(s"$name&", getCppType(s"$name&")),
           List(
             wrapInIf("this == &other", lines("return *this;")),
             List(
@@ -147,7 +158,7 @@ case class StringCppWriter(
               None
             )
           ),
-          CppDoc.Type(s"$name&"),
+          CppDoc.Type(s"$name&", getCppType(s"$name&")),
           List(
             wrapInIf("this == &other", lines("return *this;")),
             List(
@@ -169,7 +180,7 @@ case class StringCppWriter(
               None
             )
           ),
-          CppDoc.Type(s"$name&"),
+          CppDoc.Type(s"$name&", getCppType(s"$name&")),
           List(
             line("Fw::StringUtils::string_copy(this->m_buf, other, sizeof(this->m_buf));"),
             line("return *this;"),
@@ -209,5 +220,10 @@ case class StringCppWriter(
         )
       )
     )
+
+  private def getCppType(name: String) = enclosingClassQualified match {
+    case Some(qualifier) => Some(s"$qualifier::$name")
+    case None => None
+  }
 
 }

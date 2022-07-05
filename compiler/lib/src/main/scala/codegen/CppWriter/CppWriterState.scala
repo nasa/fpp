@@ -134,7 +134,7 @@ case class CppWriterState(
       Some(CppWriter.headerString(s"${file.toString}.hpp"))
     def getDirectiveforSymbol(sym: Symbol): Option[String] = sym match {
       case Symbol.AbsType(node) => getName(Symbol.AbsType(node)) match {
-        case builtInTypeName if builtInTypes.contains(builtInTypeName) => None
+        case name if isBuiltInType(name) => None
         case name => getHeaderStr(getRelativePath(name))
       }
       case Symbol.Array(node) =>
@@ -154,11 +154,14 @@ case class CppWriterState(
       case _ => None
     }
 
-    usedSymbols.map(getDirectiveforSymbol(_)).filter(_.isDefined).map(_.get).toList match {
+    usedSymbols.map(getDirectiveforSymbol).filter(_.isDefined).map(_.get).toList match {
       case Nil => Nil
       case strings => strings.map(Line(_))
     }
   }
+
+  /** Is this a built-in type? */
+  def isBuiltInType(name: String): Boolean = builtInTypes.contains(name)
 
 }
 

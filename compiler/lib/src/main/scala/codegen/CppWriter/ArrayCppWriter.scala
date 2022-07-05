@@ -52,6 +52,8 @@ case class ArrayCppWriter (
     case _ => typeCppWriter.write(eltType)
   }
 
+  private val hasPrimitiveEltType = eltType.isPrimitive || s.isBuiltInType(eltTypeName)
+
   private val formatStr = FormatCppWriter.write(
     arrayType.format match {
       case Some(f) => f
@@ -60,9 +62,12 @@ case class ArrayCppWriter (
     data.eltType
   )
 
-  override def default(s: CppWriterState) = Nil
+  override def default(s: CppWriterState): List[Line] = Nil
 
-  override def defArrayAnnotatedNode(s: CppWriterState, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
+  override def defArrayAnnotatedNode(
+    s: CppWriterState,
+    aNode: Ast.Annotated[AstNode[Ast.DefArray]]
+  ): List[Line] = {
     val Right(a) = UsedSymbols.defArrayAnnotatedNode(s.a, aNode)
     s.writeIncludeDirectives(a.usedSymbolSet)
   }
@@ -81,7 +86,8 @@ case class ArrayCppWriter (
       s"$name array",
       fileName,
       includeGuard,
-      getMembers
+      getMembers,
+      s.toolName
     )
   }
 
@@ -151,7 +157,7 @@ case class ArrayCppWriter (
 
   // Generate a nested string class of the specified size for arrays of strings
   private def getStringClass: List[CppDoc.Class.Member] = eltType match {
-    case Type.String(_) => StringCppWriter(List(maxStrSize.get)).write
+    case Type.String(_) => StringCppWriter(List(maxStrSize.get), Some(name)).write
     case _ => Nil
   }
 
@@ -174,7 +180,7 @@ case class ArrayCppWriter (
 
   private def getConstantMembers: List[CppDoc.Class.Member] = {
     val serializedSizeStr =
-      if eltType.isPrimitive || CppWriterState.builtInTypes.contains(eltTypeName) then "sizeof(ElementType)"
+      if hasPrimitiveEltType then "sizeof(ElementType)"
       else s"$eltTypeName::SERIALIZED_SIZE"
     List(
       CppDoc.Class.Member.Lines(
@@ -471,7 +477,26 @@ case class ArrayCppWriter (
       ),
     )
 
-  private def getMemberFunctionMembers: List[CppDoc.Class.Member] =
+  private def getMemberFunctionMembers: List[CppDoc.Class.Member] = {
+    // Write string initialization for serializable element types in toString()
+    val initStrings =
+      if hasPrimitiveEltType then Nil
+      else List(
+        lines("// Call toString for arrays and serializable types"),
+        List.range(0, arraySize).map(i => line(s"Fw::String str$i;")),
+        List(Line.blank),
+        List.range(0, arraySize).map(i => line(s"this->elements[$i].toString(str$i);")),
+        List(Line.blank),
+      ).flatten
+    // Write format arguments in toString()
+    val formatArgs =
+      if hasPrimitiveEltType then
+        List.range(0, arraySize - 1).map(i => line(s"this->elements[$i],")) ++
+          lines(s"this->elements[${arraySize - 1}]")
+      else
+        List.range(0, arraySize - 1).map(i => line(s"str$i.toChar(),")) ++
+          lines(s"str${arraySize - 1}.toChar()")
+
     List(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(CppDocHppWriter.writeAccessTag("public"))
@@ -553,6 +578,7 @@ case class ArrayCppWriter (
                 lines(s"\"$formatStr ]\";"),
               ""
             ),
+            initStrings,
             List(
               line("// Declare strings to hold any serializable toString() arguments"),
               line("char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];"),
@@ -565,8 +591,7 @@ case class ArrayCppWriter (
                   line("FW_ARRAY_TO_STRING_BUFFER_SIZE,"),
                   line("formatString,"),
                 ),
-                List.range(0, arraySize - 1).map(i => line(s"this->elements[$i],")),
-                lines(s"this->elements[${arraySize - 1}]"),
+                formatArgs,
               ).flatten,
               ");"
             ),
@@ -574,7 +599,7 @@ case class ArrayCppWriter (
               Line.blank,
               line("outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate"),
               line("sb = outputString;"),
-            )
+            ),
           ).flatten,
           CppDoc.Function.NonSV,
           CppDoc.Function.Const,
@@ -587,6 +612,7 @@ case class ArrayCppWriter (
         )
       ),
     )
+  }
 
   private def getMemberVariableMembers: List[CppDoc.Class.Member] =
     List(
@@ -606,6 +632,7 @@ case class ArrayCppWriter (
       )
     )
 
+  // Writes a for loop to iterate over all indices of the array
   private def indexIterator(ll: List[Line]): List[Line] =
     wrapInForLoop(
       "U32 index = 0",
