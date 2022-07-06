@@ -129,7 +129,7 @@ To install the standard version of the FPP tools, run `./install`.
 
 *Running the tracing agent:*
 Before running `native-image` on a JVM program, you must first run the
-JVM program with a tracing agent enabled and record the results,
+JVM program with a tracing agent enabled and record the results.
 The directory `lib/src/main/resources/META-INF` stores the results of
 running the FPP unit tests with the tracing agent enabled.
 Occasionally when developing FPP, you may need to re-run the tracing
