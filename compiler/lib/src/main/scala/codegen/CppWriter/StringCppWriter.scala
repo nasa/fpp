@@ -7,13 +7,31 @@ import fpp.compiler.util.*
 
 /** Write C++ string classes of given sizees */
 case class StringCppWriter(
-  /** List of string sizes. One class will be generated per distinct size. */
-  sizes: List[Int],
+  /** CppWriterState */
+  s: CppWriterState,
   /** Enclosing class name, including any qualifiers */
   enclosingClassQualified: Option[String] = None
 ) extends CppWriterLineUtils {
 
-  def write: List[CppDoc.Class.Member] = {
+  /** Get max string size */
+  def getSize(str: Type.String): Int = str.size match {
+    case Some(typeNode) => s.a.valueMap(typeNode.id) match {
+      case Value.EnumConstant(value, _) => value._2.toInt
+      case Value.PrimitiveInt(value, _) => value.toInt
+      case Value.Integer(value) => value.toInt
+      case _ => s.defaultStringSize
+    }
+    case None => s.defaultStringSize
+  }
+
+  /** Compute the string class name from a String type */
+  def getClassName(str: Type.String): String = s"StringSize${getSize(str)}"
+
+  /** Compute the string class name from a given size */
+  def getClassName(size: Int): String = s"StringSize$size"
+
+  /** Writes the C++ string classes */
+  def write(strTypes: List[Type.String]): List[CppDoc.Class.Member] = {
     // Write access tag if these classes appear inside another class
     val accessTag = enclosingClassQualified match {
       case Some(_) =>
@@ -26,8 +44,8 @@ case class StringCppWriter(
     }
 
     accessTag ::
-      sizes.distinct.flatMap(size => {
-        val name = s"StringSize${size.toString}"
+      strTypes.map(getSize).distinct.flatMap(size => {
+        val name = getClassName(size)
         List(
           CppDoc.Class.Member.Lines(
             CppDoc.Lines(
@@ -36,22 +54,23 @@ case class StringCppWriter(
             )
           ),
           CppDoc.Class.Member.Class(
-            writeClass(size, name)
+            writeClass(size)
           )
         )
       })
   }
 
-  def writeClass(size: Int, name: String): CppDoc.Class = {
+  def writeClass(size: Int): CppDoc.Class = {
     CppDoc.Class(
       None,
-      name,
+      getClassName(size),
       Some("public Fw::StringBase"),
-      getClassMembers(size, name)
+      getClassMembers(size)
     )
   }
 
-  private def getClassMembers(size: Int, name: String): List[CppDoc.Class.Member] =
+  private def getClassMembers(size: Int): List[CppDoc.Class.Member] = {
+    val name = getClassName(size)
     List(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
@@ -220,9 +239,10 @@ case class StringCppWriter(
         )
       )
     )
+  }
 
-  private def getCppType(name: String) = enclosingClassQualified match {
-    case Some(qualifier) => Some(s"$qualifier::$name")
+  private def getCppType(typeName: String) = enclosingClassQualified match {
+    case Some(qualifier) => Some(s"$qualifier::$typeName")
     case None => None
   }
 

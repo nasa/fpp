@@ -30,35 +30,19 @@ case class ArrayCppWriter (
 
   private val typeCppWriter = TypeCppWriter(s)
 
+  private val strCppWriter = StringCppWriter(s, Some(name))
+
   private val eltType = arrayType.anonArray.eltType
 
   private val arraySize = arrayType.getArraySize.get
 
-  private val maxStrSize: Option[Int] = eltType match {
-    case Type.String(size) => size match {
-      case Some(typeNode) => s.a.valueMap(typeNode.id) match {
-        case Value.EnumConstant(value, _) => Some(value._2.toInt)
-        case Value.PrimitiveInt(value, _) => Some(value.toInt)
-        case Value.Integer(value) => Some(value.toInt)
-        case _ => None
-      }
-      case None => Some(s.defaultStringSize)
-    }
-    case _ => None
-  }
-
   private val eltTypeName = eltType match {
-    case Type.String(_) => s"StringSize${maxStrSize.get}" // Name of generated string class
+    case t: Type.String => strCppWriter.getClassName(t)
     case _ => typeCppWriter.write(eltType)
   }
 
-  private val hasPrimitiveEltType = eltType.isPrimitive || s.isBuiltInType(eltTypeName)
-
   private val formatStr = FormatCppWriter.write(
-    arrayType.format match {
-      case Some(f) => f
-      case None => Format("", List((Format.Field.Default, "")))
-    },
+    arrayType.format.getOrElse(Format("", List((Format.Field.Default, "")))),
     data.eltType
   )
 
@@ -125,7 +109,7 @@ case class ArrayCppWriter (
   }
 
   private def getCppIncludes: CppDoc.Member = {
-    val systemStrings = List("cstring", "cstdio")
+    val systemStrings = List("cstring", "cstdio", "cinttypes")
     val fwStrings = List(
       "Fw/Types/Assert.hpp",
       "Fw/Types/StringUtils.hpp",
@@ -157,7 +141,7 @@ case class ArrayCppWriter (
 
   // Generate a nested string class of the specified size for arrays of strings
   private def getStringClass: List[CppDoc.Class.Member] = eltType match {
-    case Type.String(_) => StringCppWriter(List(maxStrSize.get), Some(name)).write
+    case t: Type.String => strCppWriter.write(List(t))
     case _ => Nil
   }
 
@@ -178,10 +162,7 @@ case class ArrayCppWriter (
       )
     )
 
-  private def getConstantMembers: List[CppDoc.Class.Member] = {
-    val serializedSizeStr =
-      if hasPrimitiveEltType then "sizeof(ElementType)"
-      else s"$eltTypeName::SERIALIZED_SIZE"
+  private def getConstantMembers: List[CppDoc.Class.Member] =
     List(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
@@ -193,14 +174,13 @@ case class ArrayCppWriter (
                 s"""|//! The size of the array
                     |SIZE = $arraySize,
                     |//! The size of the serial representation
-                    |SERIALIZED_SIZE = SIZE * $serializedSizeStr,"""
+                    |SERIALIZED_SIZE = SIZE * ${s.getSerializedSizeExpr(eltType, eltTypeName)},"""
               )
             )
           )
         )
       )
     )
-  }
 
   private def getConstructorMembers: List[CppDoc.Class.Member] = {
     val defaultValues = getDefaultValues
@@ -225,8 +205,7 @@ case class ArrayCppWriter (
             lines("// Construct using element-wise constructor"),
             wrapInScope(
               s"*this = $name(",
-              defaultValues.dropRight(1).map(v => line(s"$v,")) ++
-                lines(s"${defaultValues.last}"),
+              lines(defaultValues.map(v => s"$v").mkString(",\n")),
               ");",
             ),
           ).flatten
@@ -478,6 +457,7 @@ case class ArrayCppWriter (
     )
 
   private def getMemberFunctionMembers: List[CppDoc.Class.Member] = {
+    val hasPrimitiveEltType = s.isPrimitive(eltType, eltTypeName)
     // Write string initialization for serializable element types in toString()
     val initStrings =
       if hasPrimitiveEltType then Nil
@@ -491,11 +471,9 @@ case class ArrayCppWriter (
     // Write format arguments in toString()
     val formatArgs =
       if hasPrimitiveEltType then
-        List.range(0, arraySize - 1).map(i => line(s"this->elements[$i],")) ++
-          lines(s"this->elements[${arraySize - 1}]")
+        lines(List.range(0, arraySize).map(i => s"this->elements[$i]").mkString(",\n"))
       else
-        List.range(0, arraySize - 1).map(i => line(s"str$i.toChar(),")) ++
-          lines(s"str${arraySize - 1}.toChar()")
+        lines(List.range(0, arraySize).map(i => s"str$i.toChar()").mkString(",\n"))
 
     List(
       CppDoc.Class.Member.Lines(
@@ -574,8 +552,7 @@ case class ArrayCppWriter (
           List(
             wrapInScope(
               "static const char *formatString = \"[ \"",
-              List.fill(arraySize - 1)(line(s"\"$formatStr \"")) ++
-                lines(s"\"$formatStr ]\";"),
+              lines(List.fill(arraySize)(s"\"$formatStr ").mkString("\"\n") + "]\";"),
               ""
             ),
             initStrings,

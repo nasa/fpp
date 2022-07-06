@@ -161,7 +161,16 @@ case class CppWriterState(
   }
 
   /** Is this a built-in type? */
-  def isBuiltInType(name: String): Boolean = builtInTypes.contains(name)
+  def isBuiltInType(typeName: String): Boolean = builtInTypes.contains(typeName)
+
+  /** Is this a primitive type (not serializable)? */
+  def isPrimitive(t: Type, typeName: String): Boolean  = t.isPrimitive || isBuiltInType(typeName)
+
+  /** Get C++ expression for serialized size */
+  def getSerializedSizeExpr(t: Type, typeName: String): String = {
+    if isPrimitive(t, typeName) then s"sizeof($typeName)"
+    else s"$typeName::SERIALIZED_SIZE"
+  }
 
 }
 
