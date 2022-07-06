@@ -34,3 +34,14 @@ abs_type()
   run_test "-p $PWD" abs_type && \
     diff_cpp AbsTypeArray
 }
+
+struct()
+{
+  run_test "-p $PWD" struct && \
+    diff_cpp S1Serializable
+    diff_cpp S2Serializable
+    diff_cpp S3Serializable
+    diff_cpp Struct1Array
+    diff_cpp Struct2Array
+    diff_cpp Struct3Array
+}
