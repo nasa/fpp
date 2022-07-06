@@ -6,6 +6,7 @@
 
 #include <cstring>
 #include <cstdio>
+#include <cinttypes>
 
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/StringUtils.hpp"

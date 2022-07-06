@@ -1,8 +1,14 @@
 primitive()
 {
   run_test "-p $PWD" primitive && \
-    diff_cpp Primitive1Array 
-    diff_cpp Primitive2Array 
+    diff_cpp PrimitiveBoolArray
+    diff_cpp PrimitiveU8Array
+    diff_cpp PrimitiveU16Array
+    diff_cpp PrimitiveI32Array
+    diff_cpp PrimitiveI64Array
+    diff_cpp PrimitiveF32fArray
+    diff_cpp PrimitiveF32eArray
+    diff_cpp PrimitiveF64Array
     diff_cpp PrimitiveArrayArray
 }
 

@@ -11,7 +11,7 @@
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
-#include "Primitive2ArrayAc.hpp"
+#include "PrimitiveF64ArrayAc.hpp"
 
 //! An array of arrays
 class PrimitiveArray :
@@ -25,7 +25,7 @@ class PrimitiveArray :
     // ----------------------------------------------------------------------
 
     //! The element type
-    typedef M::Primitive2 ElementType;
+    typedef M::PrimitiveF64 ElementType;
 
   public:
 
@@ -37,7 +37,7 @@ class PrimitiveArray :
       //! The size of the array
       SIZE = 5,
       //! The size of the serial representation
-      SERIALIZED_SIZE = SIZE * M::Primitive2::SERIALIZED_SIZE,
+      SERIALIZED_SIZE = SIZE * M::PrimitiveF64::SERIALIZED_SIZE,
     };
 
   public:

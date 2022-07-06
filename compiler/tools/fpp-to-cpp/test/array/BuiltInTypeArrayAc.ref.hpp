@@ -36,7 +36,7 @@ class BuiltInType :
       //! The size of the array
       SIZE = 3,
       //! The size of the serial representation
-      SERIALIZED_SIZE = SIZE * sizeof(ElementType),
+      SERIALIZED_SIZE = SIZE * sizeof(FwOpcodeType),
     };
 
   public:

@@ -1,8 +1,14 @@
 primitive()
 {
   update "-p $PWD" primitive
-  move_cpp Primitive1Array 
-  move_cpp Primitive2Array 
+  move_cpp PrimitiveBoolArray
+  move_cpp PrimitiveU8Array
+  move_cpp PrimitiveU16Array
+  move_cpp PrimitiveI32Array
+  move_cpp PrimitiveI64Array
+  move_cpp PrimitiveF32fArray
+  move_cpp PrimitiveF32eArray
+  move_cpp PrimitiveF64Array
   move_cpp PrimitiveArrayArray
 }
 

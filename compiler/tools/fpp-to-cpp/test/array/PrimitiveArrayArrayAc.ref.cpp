@@ -6,6 +6,7 @@
 
 #include <cstring>
 #include <cstdio>
+#include <cinttypes>
 
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/StringUtils.hpp"
@@ -22,11 +23,11 @@ PrimitiveArray ::
 {
   // Construct using element-wise constructor
   *this = PrimitiveArray(
-    M::Primitive2(1.0f, 1.0f, 1.0f, 1.0f, 1.0f),
-    M::Primitive2(1.0f, 1.0f, 1.0f, 1.0f, 1.0f),
-    M::Primitive2(1.0f, 1.0f, 1.0f, 1.0f, 1.0f),
-    M::Primitive2(1.0f, 1.0f, 1.0f, 1.0f, 1.0f),
-    M::Primitive2(1.0f, 1.0f, 1.0f, 1.0f, 1.0f)
+    M::PrimitiveF64(1.0, 2.0, 3.0, 4.0, 5.0),
+    M::PrimitiveF64(1.0, 2.0, 3.0, 4.0, 5.0),
+    M::PrimitiveF64(1.0, 2.0, 3.0, 4.0, 5.0),
+    M::PrimitiveF64(1.0, 2.0, 3.0, 4.0, 5.0),
+    M::PrimitiveF64(1.0, 2.0, 3.0, 4.0, 5.0)
   );
 }
 
