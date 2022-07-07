@@ -131,26 +131,33 @@ case class CppWriterState(
   /** Write include directives as lines */
   def writeIncludeDirectives(usedSymbols: Iterable[Symbol]): List[Line] = {
     def getHeaderStr(file: File.JavaPath) =
-      Some(CppWriter.headerString(s"${file.toString}.hpp"))
+      CppWriter.headerString(s"${file.toString}.hpp")
     def getDirectiveforSymbol(sym: Symbol): Option[String] = sym match {
       case Symbol.AbsType(node) => getName(Symbol.AbsType(node)) match {
         case name if isBuiltInType(name) => None
-        case name => getHeaderStr(getRelativePath(name))
+        case name => Some(getHeaderStr(getRelativePath(name)))
       }
-      case Symbol.Array(node) =>
+      case Symbol.Array(node) => Some(
         getHeaderStr(getRelativePath(ComputeCppFiles.FileNames.getArray(getName(Symbol.Array(node)))))
-      case Symbol.Component(node) =>
+      )
+      case Symbol.Component(node) => Some(
         getHeaderStr(getRelativePath(ComputeCppFiles.FileNames.getComponent(getName(Symbol.Component(node)))))
-      case Symbol.Constant(_) =>
+      )
+      case Symbol.Constant(_) => Some(
         getHeaderStr(getRelativePath(ComputeCppFiles.FileNames.getConstants))
-      case Symbol.Enum(node) =>
+      )
+      case Symbol.Enum(node) => Some(
         getHeaderStr(getRelativePath(ComputeCppFiles.FileNames.getEnum(getName(Symbol.Enum(node)))))
-      case Symbol.Port(node) =>
+      )
+      case Symbol.Port(node) => Some(
         getHeaderStr(getRelativePath(ComputeCppFiles.FileNames.getPort(getName(Symbol.Port(node)))))
-      case Symbol.Struct(node) =>
+      )
+      case Symbol.Struct(node) => Some(
         getHeaderStr(getRelativePath(ComputeCppFiles.FileNames.getStruct(getName(Symbol.Struct(node)))))
-      case Symbol.Topology(node) =>
+      )
+      case Symbol.Topology(node) => Some(
         getHeaderStr(getRelativePath(ComputeCppFiles.FileNames.getTopology(getName(Symbol.Topology(node)))))
+      )
       case _ => None
     }
 
