@@ -44,9 +44,6 @@ abs_type()
 struct()
 {
   update "-p $PWD" struct
-  move_cpp S1Serializable
-  move_cpp S2Serializable
-  move_cpp S3Serializable
   move_cpp Struct1Array
   move_cpp Struct2Array
   move_cpp Struct3Array

@@ -4,7 +4,8 @@
 
 clean
 rm -f default-tests.sh default-update-ref.sh
-for file in `find . -name '*out.*' -or -name '*.names.txt' -or -name '*o' -or -name '*Ac.cpp' -or -name '*Ac.hpp'`
+for file in `find . -not \( -path ./include -prune \)\
+    \( -name '*out.*' -o -name '*.names.txt' -o -name '*o' -o -name '*Ac.cpp' -o -name '*Ac.hpp' \)`
 do
   rm $file
 done
