@@ -98,20 +98,19 @@ case class ArrayCppWriter (
   }
 
   private def getCppIncludes: CppDoc.Member = {
-    val systemStrings = List("cstring", "cstdio", "cinttypes")
-    val fwStrings = List(
+    val systemHeaders = List(
+      "cstdio",
+      "cstring",
+    ).map(CppWriter.systemHeaderString).map(line)
+    val userHeaders = List(
       "Fw/Types/Assert.hpp",
       "Fw/Types/StringUtils.hpp",
-    )
-    val headerString = s"${s.getRelativePath(fileName).toString}.hpp"
+      s"${s.getRelativePath(fileName).toString}.hpp"
+    ).sorted.map(CppWriter.headerString).map(line)
     CppWriter.linesMember(
       List(
-        List(Line.blank),
-        systemStrings.map(CppWriter.systemHeaderString).map(line),
-        List(Line.blank),
-        fwStrings.map(CppWriter.headerString).map(line),
-        List(Line.blank),
-        lines(CppWriter.headerString(headerString)),
+        Line.blank :: systemHeaders,
+        Line.blank :: userHeaders
       ).flatten,
       CppDoc.Lines.Cpp
     )

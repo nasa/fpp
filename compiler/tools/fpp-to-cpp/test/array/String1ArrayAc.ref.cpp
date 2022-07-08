@@ -4,13 +4,11 @@
 // \brief  cpp file for String1 array
 // ======================================================================
 
-#include <cstring>
 #include <cstdio>
-#include <cinttypes>
+#include <cstring>
 
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/StringUtils.hpp"
-
 #include "String1ArrayAc.hpp"
 
 // ----------------------------------------------------------------------
