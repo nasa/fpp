@@ -243,8 +243,8 @@ case class ArrayCppWriter (
         CppDoc.Class.Constructor(
           Some("Constructor (multiple elements)"),
           List.range(1, arraySize + 1).map(i => CppDoc.Function.Param(
-            CppDoc.Type("const ElementType"),
-            s"(&e$i)",
+            CppDoc.Type("const ElementType&"),
+            s"e$i",
             Some(s"Element $i"),
           )),
           List("Serializable()"),

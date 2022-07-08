@@ -53,11 +53,11 @@ namespace M {
 
   PrimitiveF64 ::
     PrimitiveF64(
-        const ElementType (&e1),
-        const ElementType (&e2),
-        const ElementType (&e3),
-        const ElementType (&e4),
-        const ElementType (&e5)
+        const ElementType& e1,
+        const ElementType& e2,
+        const ElementType& e3,
+        const ElementType& e4,
+        const ElementType& e5
     ) :
       Serializable()
   {

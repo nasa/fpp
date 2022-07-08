@@ -63,11 +63,11 @@ namespace M {
 
       //! Constructor (multiple elements)
       PrimitiveF64(
-          const ElementType (&e1), //!< Element 1
-          const ElementType (&e2), //!< Element 2
-          const ElementType (&e3), //!< Element 3
-          const ElementType (&e4), //!< Element 4
-          const ElementType (&e5) //!< Element 5
+          const ElementType& e1, //!< Element 1
+          const ElementType& e2, //!< Element 2
+          const ElementType& e3, //!< Element 3
+          const ElementType& e4, //!< Element 4
+          const ElementType& e5 //!< Element 5
       );
 
       //! Copy Constructor

@@ -61,8 +61,8 @@ class Enum1 :
 
     //! Constructor (multiple elements)
     Enum1(
-        const ElementType (&e1), //!< Element 1
-        const ElementType (&e2) //!< Element 2
+        const ElementType& e1, //!< Element 1
+        const ElementType& e2 //!< Element 2
     );
 
     //! Copy Constructor

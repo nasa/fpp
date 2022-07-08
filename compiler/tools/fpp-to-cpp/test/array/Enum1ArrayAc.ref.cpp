@@ -48,8 +48,8 @@ Enum1 ::
 
 Enum1 ::
   Enum1(
-      const ElementType (&e1),
-      const ElementType (&e2)
+      const ElementType& e1,
+      const ElementType& e2
   ) :
     Serializable()
 {

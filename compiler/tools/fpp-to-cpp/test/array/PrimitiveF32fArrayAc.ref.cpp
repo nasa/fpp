@@ -51,9 +51,9 @@ namespace M {
 
   PrimitiveF32f ::
     PrimitiveF32f(
-        const ElementType (&e1),
-        const ElementType (&e2),
-        const ElementType (&e3)
+        const ElementType& e1,
+        const ElementType& e2,
+        const ElementType& e3
     ) :
       Serializable()
   {

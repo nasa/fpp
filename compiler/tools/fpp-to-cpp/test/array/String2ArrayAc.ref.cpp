@@ -127,8 +127,8 @@ String2 ::
 
 String2 ::
   String2(
-      const ElementType (&e1),
-      const ElementType (&e2)
+      const ElementType& e1,
+      const ElementType& e2
   ) :
     Serializable()
 {
