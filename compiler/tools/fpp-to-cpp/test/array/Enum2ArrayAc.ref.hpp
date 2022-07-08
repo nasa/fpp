@@ -7,11 +7,10 @@
 #ifndef Enum2ArrayAc_HPP
 #define Enum2ArrayAc_HPP
 
+#include "E2EnumAc.hpp"
 #include "Fw/Types/BasicTypes.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
-
-#include "E2EnumAc.hpp"
 
 class Enum2 :
   public Fw::Serializable

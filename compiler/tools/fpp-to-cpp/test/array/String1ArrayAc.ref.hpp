@@ -11,7 +11,6 @@
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
-
 //! An array of strings
 class String1 :
   public Fw::Serializable

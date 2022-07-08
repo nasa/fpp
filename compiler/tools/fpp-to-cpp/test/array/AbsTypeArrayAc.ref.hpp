@@ -10,7 +10,6 @@
 #include "Fw/Types/BasicTypes.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
-
 #include "T.hpp"
 
 //! An array of abstract type

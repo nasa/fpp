@@ -10,7 +10,6 @@
 #include "Fw/Types/BasicTypes.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
-
 #include "S2SerializableAc.hpp"
 
 //! Array of structs with struct member

@@ -10,7 +10,6 @@
 #include "Fw/Types/BasicTypes.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
-
 #include "String2ArrayAc.hpp"
 
 //! An array of arrays of strings

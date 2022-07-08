@@ -8,11 +8,7 @@ import fpp.compiler.util._
 case class ArrayCppWriter (
   s: CppWriterState,
   aNode: Ast.Annotated[AstNode[Ast.DefArray]]
-) extends AstVisitor with CppWriterLineUtils {
-
-  type In = CppWriterState
-
-  type Out = List[Line]
+) extends CppWriterLineUtils {
 
   private val node = aNode._2
 
@@ -46,12 +42,10 @@ case class ArrayCppWriter (
     data.eltType
   )
 
-  override def default(s: CppWriterState): List[Line] = Nil
-
-  override def defArrayAnnotatedNode(
+  private def writeIncludeDirectives(
     s: CppWriterState,
     aNode: Ast.Annotated[AstNode[Ast.DefArray]]
-  ): List[Line] = {
+  ): List[String] = {
     val Right(a) = UsedSymbols.defArrayAnnotatedNode(s.a, aNode)
     s.writeIncludeDirectives(a.usedSymbolSet)
   }
@@ -93,19 +87,14 @@ case class ArrayCppWriter (
   }
 
   private def getHppIncludes: CppDoc.Member = {
-    val strings = List(
+    val standardHeaders = List(
       "Fw/Types/BasicTypes.hpp",
       "Fw/Types/Serializable.hpp",
       "Fw/Types/String.hpp"
-    )
-    CppWriter.linesMember(
-      List(
-        Line.blank ::
-          strings.map(CppWriter.headerString).map(line),
-        Line.blank ::
-          defArrayAnnotatedNode(s, aNode),
-      ).flatten
-    )
+    ).map(CppWriter.headerString)
+    val symbolHeaders = writeIncludeDirectives(s, aNode)
+    val headers = standardHeaders ++ symbolHeaders
+    CppWriter.linesMember(addBlankPrefix(headers.sorted.map(line)))
   }
 
   private def getCppIncludes: CppDoc.Member = {

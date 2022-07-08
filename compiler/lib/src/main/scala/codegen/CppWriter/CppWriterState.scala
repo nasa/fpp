@@ -129,7 +129,7 @@ case class CppWriterState(
   }
 
   /** Write include directives as lines */
-  def writeIncludeDirectives(usedSymbols: Iterable[Symbol]): List[Line] = {
+  def writeIncludeDirectives(usedSymbols: Iterable[Symbol]): List[String] = {
     def getHeaderStr(file: File.JavaPath) =
       CppWriter.headerString(s"${file.toString}.hpp")
     def getDirectiveforSymbol(sym: Symbol): Option[String] = sym match {
@@ -142,9 +142,6 @@ case class CppWriterState(
       )
       case Symbol.Component(node) => Some(
         getHeaderStr(getRelativePath(ComputeCppFiles.FileNames.getComponent(getName(Symbol.Component(node)))))
-      )
-      case Symbol.Constant(_) => Some(
-        getHeaderStr(getRelativePath(ComputeCppFiles.FileNames.getConstants))
       )
       case Symbol.Enum(node) => Some(
         getHeaderStr(getRelativePath(ComputeCppFiles.FileNames.getEnum(getName(Symbol.Enum(node)))))
@@ -161,10 +158,7 @@ case class CppWriterState(
       case _ => None
     }
 
-    usedSymbols.map(getDirectiveforSymbol).filter(_.isDefined).map(_.get).toList match {
-      case Nil => Nil
-      case strings => strings.map(Line(_))
-    }
+    usedSymbols.map(getDirectiveforSymbol).filter(_.isDefined).map(_.get).toList
   }
 
   /** Is this a built-in type? */
