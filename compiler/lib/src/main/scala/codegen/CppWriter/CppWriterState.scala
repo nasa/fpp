@@ -174,10 +174,14 @@ case class CppWriterState(
   def isPrimitive(t: Type, typeName: String): Boolean  = t.isPrimitive || isBuiltInType(typeName)
 
   /** Get C++ expression for serialized size */
-  def getSerializedSizeExpr(t: Type, typeName: String): String = {
-    if isPrimitive(t, typeName) then s"sizeof($typeName)"
-    else s"$typeName::SERIALIZED_SIZE"
-  }
+  def getSerializedSizeExpr(t: Type, typeName: String): String =
+    (t, isPrimitive(t, typeName))  match {
+      // sizeof(bool) is not defined in C++
+      // F Prime serializes bool as U8
+      case (Type.Boolean, _ )=> "sizeof(U8)"
+      case (_, true) => s"sizeof($typeName)"
+      case _ => s"$typeName::SERIALIZED_SIZE"
+    }
 
 }
 
