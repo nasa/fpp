@@ -18,7 +18,11 @@ https://nasa.github.io/fprime/[F Prime flight software framework].
 === Tools
 
 See `compiler/README.adoc`.
-If you want to use FPP, then you should install these tools.
+To use or develop FPP in a standalone mode, you should install these tools.
+To use FPP as part of F Prime development, you can install the F Prime tool set,
+which includes FPP.
+See the F Prime installation instructions
+https://github.com/nasa/fprime/blob/master/docs/INSTALL.md[here].
 
 === Spec and User's Guide
 
