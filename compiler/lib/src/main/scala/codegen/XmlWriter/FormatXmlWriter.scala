@@ -7,57 +7,31 @@ import fpp.compiler.util._
 /** Write an FPP format as XML */
 object FormatXmlWriter {
 
-  sealed trait Signedness
-  case object Signed extends Signedness
-  case object Unsigned extends Signedness
-
-  def signedness(typeInt: Ast.TypeInt): Signedness = typeInt match {
-    case Ast.I8() => Signed
-    case Ast.I16() => Signed
-    case Ast.I32() => Signed
-    case Ast.I64() => Signed
-    case Ast.U8() => Unsigned
-    case Ast.U16() => Unsigned
-    case Ast.U32() => Unsigned
-    case Ast.U64() => Unsigned
-  }
-
-  def width(typeInt: Ast.TypeInt): Int = typeInt match {
-    case Ast.I8() => 8
-    case Ast.I16() => 16
-    case Ast.I32() => 32
-    case Ast.I64() => 64
-    case Ast.U8() => 8
-    case Ast.U16() => 16
-    case Ast.U32() => 32
-    case Ast.U64() => 64
-  }
-
   /** Convert a format field and type name to a string */
   def fieldToString(f: Format.Field, tn: AstNode[Ast.TypeName]): String = {
     import Format.Field._
     def default = tn.data match {
       case Ast.TypeNameFloat(name) => "%g"
-      case Ast.TypeNameInt(typeInt) => (width(typeInt), signedness(typeInt)) match {
-        case (64, Signed) => "%ld"
-        case (_, Signed) => "%d"
-        case (64, Unsigned) => "%lu"
-        case (_, Unsigned) => "%u"
+      case Ast.TypeNameInt(typeInt) => (TypeUtils.width(typeInt), TypeUtils.signedness(typeInt)) match {
+        case (64, TypeUtils.Signed) => "%ld"
+        case (_, TypeUtils.Signed) => "%d"
+        case (64, TypeUtils.Unsigned) => "%lu"
+        case (_, TypeUtils.Unsigned) => "%u"
       }
       case Ast.TypeNameQualIdent(name) => "%s"
       case Ast.TypeNameBool => "%d"
       case Ast.TypeNameString(size) => "%s"
     }
     def integer(t: Integer.Type) = tn.data match {
-      case Ast.TypeNameInt(typeInt) => (t, width(typeInt), signedness(typeInt)) match {
-        case (Integer.Decimal, 64, Signed) => "%ld"
-        case (Integer.Decimal, 64, Unsigned) => "%lu"
+      case Ast.TypeNameInt(typeInt) => (t, TypeUtils.width(typeInt), TypeUtils.signedness(typeInt)) match {
+        case (Integer.Decimal, 64, TypeUtils.Signed) => "%ld"
+        case (Integer.Decimal, 64, TypeUtils.Unsigned) => "%lu"
         case (Integer.Hexadecimal, 64, _) => "%lx"
         case (Integer.Octal, 64, _) => "%lo"
         case (Integer.Character, 64, _) => default
         case (Integer.Character, _, _) => "%c"
-        case (Integer.Decimal, _, Signed) => "%d"
-        case (Integer.Decimal, _, Unsigned) => "%u"
+        case (Integer.Decimal, _, TypeUtils.Signed) => "%d"
+        case (Integer.Decimal, _, TypeUtils.Unsigned) => "%u"
         case (Integer.Hexadecimal, _, _) => "%x"
         case (Integer.Octal, _, _) => "%o"
       }

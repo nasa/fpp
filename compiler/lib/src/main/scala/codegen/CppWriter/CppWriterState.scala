@@ -1,7 +1,8 @@
 package fpp.compiler.codegen
 
-import fpp.compiler.analysis._
-import fpp.compiler.util._
+import fpp.compiler.analysis.*
+import fpp.compiler.codegen.CppWriterState.builtInTypes
+import fpp.compiler.util.*
 
 /** C++ Writer state */
 case class CppWriterState(
@@ -125,6 +126,57 @@ case class CppWriterState(
       }
     }
     CppWriter.writeQualifiedName(qualifiedName)
+  }
+
+  /** Write include directives as lines */
+  def writeIncludeDirectives(usedSymbols: Iterable[Symbol]): List[Line] = {
+    def getHeaderStr(file: File.JavaPath) =
+      CppWriter.headerString(s"${file.toString}.hpp")
+    def getDirectiveforSymbol(sym: Symbol): Option[String] = sym match {
+      case Symbol.AbsType(node) => getName(Symbol.AbsType(node)) match {
+        case name if isBuiltInType(name) => None
+        case name => Some(getHeaderStr(getRelativePath(name)))
+      }
+      case Symbol.Array(node) => Some(
+        getHeaderStr(getRelativePath(ComputeCppFiles.FileNames.getArray(getName(Symbol.Array(node)))))
+      )
+      case Symbol.Component(node) => Some(
+        getHeaderStr(getRelativePath(ComputeCppFiles.FileNames.getComponent(getName(Symbol.Component(node)))))
+      )
+      case Symbol.Constant(_) => Some(
+        getHeaderStr(getRelativePath(ComputeCppFiles.FileNames.getConstants))
+      )
+      case Symbol.Enum(node) => Some(
+        getHeaderStr(getRelativePath(ComputeCppFiles.FileNames.getEnum(getName(Symbol.Enum(node)))))
+      )
+      case Symbol.Port(node) => Some(
+        getHeaderStr(getRelativePath(ComputeCppFiles.FileNames.getPort(getName(Symbol.Port(node)))))
+      )
+      case Symbol.Struct(node) => Some(
+        getHeaderStr(getRelativePath(ComputeCppFiles.FileNames.getStruct(getName(Symbol.Struct(node)))))
+      )
+      case Symbol.Topology(node) => Some(
+        getHeaderStr(getRelativePath(ComputeCppFiles.FileNames.getTopology(getName(Symbol.Topology(node)))))
+      )
+      case _ => None
+    }
+
+    usedSymbols.map(getDirectiveforSymbol).filter(_.isDefined).map(_.get).toList match {
+      case Nil => Nil
+      case strings => strings.map(Line(_))
+    }
+  }
+
+  /** Is this a built-in type? */
+  def isBuiltInType(typeName: String): Boolean = builtInTypes.contains(typeName)
+
+  /** Is this a primitive type (not serializable)? */
+  def isPrimitive(t: Type, typeName: String): Boolean  = t.isPrimitive || isBuiltInType(typeName)
+
+  /** Get C++ expression for serialized size */
+  def getSerializedSizeExpr(t: Type, typeName: String): String = {
+    if isPrimitive(t, typeName) then s"sizeof($typeName)"
+    else s"$typeName::SERIALIZED_SIZE"
   }
 
 }
