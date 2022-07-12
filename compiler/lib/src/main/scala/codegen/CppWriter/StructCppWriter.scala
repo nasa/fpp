@@ -29,17 +29,17 @@ case class StructCppWriter(
 
   private val members = structType.anonStruct.members
 
+  private val typeMembers = data.members
+
   private val sizes = structType.sizes
 
   private val formats = structType.formats
 
   // Map from member names to C++ type names
-  private val membersNamed = members.map((n, t) => t match {
+  private val membersNamedList = members.map((n, t) => t match {
     case strType: Type.String => n -> strCppWriter.getClassName(strType)
     case otherType => n -> typeCppWriter.write(otherType)
-  })
-
-  private val membersNamedList = membersNamed.toList
+  }).toList
 
   private val memberNames = members.keys.toList
 
@@ -57,8 +57,20 @@ case class StructCppWriter(
       case None => structType.anonStruct.getDefaultValue
     }
     defaultValue.get.members.map((n, t) =>
-      (n, ValueCppWriter.write(s, t))
-    ).toList
+      n -> ValueCppWriter.write(s, t)
+    )
+  }
+
+  private def getFormatStr(n: String) =
+    if formats.contains(n) then formats(n)
+    else Format("", List((Format.Field.Default, "")))
+
+  private def isPrimitiveOrString(member: (String, String)) = member match {
+    case (n, tn) => (sizes.contains(n), members(n)) match {
+        case (false, _: Type.String) => false
+        case (false, t) if s.isPrimitive(t, tn) => false
+        case _ => true
+    }
   }
 
   def write: CppDoc = {
@@ -153,8 +165,8 @@ case class StructCppWriter(
                 List(
                   lines("//! The size of the serial representation"),
                   lines("SERIALIZED_SIZE ="),
-                  lines(members.map((n, t) =>
-                    s.getSerializedSizeExpr(t, membersNamed(n)) + (
+                  lines(membersNamedList.map((n, tn) =>
+                    s.getSerializedSizeExpr(members(n), tn) + (
                       if sizes.contains(n) then s" * ${sizes(n)}"
                       else ""
                     )).mkString(" +\n")).map(indentIn),
@@ -184,18 +196,23 @@ case class StructCppWriter(
           Some("Constructor (default value)"),
           Nil,
           "Serializable()" ::
-            defaultValues
+            membersNamedList
               .filterNot((n, _) => sizes.contains(n))
-              .map((n, v) => members(n) match {
-                case Type.String(_) => s"$n($v)"
-                case t if s.isPrimitive(t, n) => s"$n($v)"
-                case _ => s"$n(${v.split("\\(")(1)}"
-              }),
-          defaultValues.flatMap((n, v) =>
-            if sizes.contains(n) then
-              iterateN(sizes(n), lines(s"this->$n[i] = $v;"))
-            else Nil
+              .map((n, tn) =>
+                if isPrimitiveOrString((n, tn)) then s"$n(${defaultValues(n)})"
+                else s"$n(${defaultValues(n).split("\\(")(1)}"
+              ),
+          memberNames.filter(sizes.contains).flatMap(n =>
+            iterateN(sizes(n), lines(s"this->$n[i] = ${defaultValues(n)};"))
           )
+        )
+      ),
+      CppDoc.Class.Member.Constructor(
+        CppDoc.Class.Constructor(
+          Some("Member constructor"),
+          membersNamedList.map(writeMemberAsParam),
+          Nil,
+          writeSetCall("")
         )
       ),
       CppDoc.Class.Member.Constructor(
@@ -209,34 +226,74 @@ case class StructCppWriter(
             )
           ),
           List("Serializable()"),
-          lines(
-            s"set(" +
-              memberNames.map(n => s"obj->$n").mkString(", ") +
-              ");"
-          )
+          writeSetCall("obj.")
         )
       ),
-      CppDoc.Class.Member.Constructor(
-        CppDoc.Class.Constructor(
-          Some("Member constructor"),
-          writeMembersAsParams,
-          Nil,
-          lines(
-            s"set(" +
-              memberNames.map(n => s"$n").mkString(", ") +
-              ");"
-          )
-        )
-      )
     )
   }
 
   private def getOperatorMembers: List[CppDoc.Class.Member] =
     List(
-
+      CppDoc.Class.Member.Function(
+        CppDoc.Function(
+          Some("Copy assignment operator"),
+          "operator=",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type(s"const $name&"),
+              "obj",
+              Some("The source object")
+            ),
+          ),
+          CppDoc.Type(s"$name&"),
+          List(
+            wrapInIf("this == &obj", lines("return *this;")),
+            Line.blank :: writeSetCall("obj."),
+            lines("return *this;"),
+          ).flatten
+        )
+      ),
+      CppDoc.Class.Member.Function(
+        CppDoc.Function(
+          Some("Equality operator"),
+          "operator==",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type(s"const $name&"),
+              "obj",
+              Some("The other object")
+            )
+          ),
+          CppDoc.Type("bool"),
+          wrapInScope(
+            "return (",
+            lines(memberNames.map(n =>
+              s"(this->$n == obj.$n)"
+            ).mkString(" &&\n")),
+            ");"
+          ),
+          CppDoc.Function.NonSV,
+          CppDoc.Function.Const
+        ),
+      ),
     )
 
-  private def getMemberFunctionMembers: List[CppDoc.Class.Member] =
+  private def getMemberFunctionMembers: List[CppDoc.Class.Member] = {
+    val toStringMemberNames =
+      membersNamedList.filterNot(isPrimitiveOrString).map((n, _) => n)
+    val initStrings = toStringMemberNames match {
+      case Nil => Nil
+      case names =>
+        List(
+          Line.blank ::
+            lines("// Declare strings to hold any serializable toString() arguments"),
+          names.map(n => line(s"Fw::String str_$n;")),
+          Line.blank ::
+            lines("// Call toString for arrays and serializable types"),
+          names.map(n => line(s"this->$n.toString(str_$n);")),
+        ).flatten
+    }
+
     List(
       List(
         CppDoc.Class.Member.Lines(
@@ -245,6 +302,118 @@ case class StructCppWriter(
         CppDoc.Class.Member.Lines(
           CppDoc.Lines(
             CppDocWriter.writeBannerComment("Member functions"),
+            CppDoc.Lines.Both
+          )
+        ),
+        CppDoc.Class.Member.Function(
+          CppDoc.Function(
+            Some("Serialization"),
+            "serialize",
+            List(
+              CppDoc.Function.Param(
+                CppDoc.Type("Fw::SerializeBufferBase&"),
+                "buffer",
+                Some("The serial buffer")
+              )
+            ),
+            CppDoc.Type("Fw::SerializeStatus"),
+            List(
+              lines("Fw::SerializeStatus status;"),
+              Line.blank :: memberNames.flatMap(n =>
+                line(s"status = buffer.serialize(this->$n);") ::
+                  wrapInIf(
+                    "status != Fw::FW_SERIALIZE_OK",
+                    lines("return status;")
+                  )
+              ),
+              Line.blank :: lines("return status;"),
+            ).flatten,
+            CppDoc.Function.NonSV,
+            CppDoc.Function.Const
+          ),
+        ),
+        CppDoc.Class.Member.Function(
+          CppDoc.Function(
+            Some("Deserialization"),
+            "deserialize",
+            List(
+              CppDoc.Function.Param(
+                CppDoc.Type("Fw::SerializeBufferBase&"),
+                "buffer",
+                Some("The serial buffer")
+              )
+            ),
+            CppDoc.Type("Fw::SerializeStatus"),
+            List(
+              lines("Fw::SerializeStatus status;"),
+              Line.blank :: memberNames.flatMap(n =>
+                line(s"status = buffer.deserialize(this->$n);") ::
+                  wrapInIf(
+                    "status != Fw::FW_SERIALIZE_OK",
+                    lines("return status;")
+                  )
+              ),
+              Line.blank :: lines("return status;"),
+            ).flatten
+          )
+        ),
+        CppDoc.Class.Member.Lines(
+          CppDoc.Lines(
+            lines("\n#if FW_SERIALIZABLE_TO_STRING || BUILD_UT"),
+            CppDoc.Lines.Both
+          )
+        ),
+        CppDoc.Class.Member.Function(
+          CppDoc.Function(
+            Some("Convert struct to string"),
+            "toString",
+            List(
+              CppDoc.Function.Param(
+                CppDoc.Type("Fw::StringBase&"),
+                "sb",
+                Some("The StringBase object to hold the result")
+              )
+            ),
+            CppDoc.Type("void"),
+            List(
+              lines("static const char* formatString ="),
+              lines(typeMembers.map(m => FormatCppWriter.write(
+                getFormatStr(m._2.data.name),
+                m._2.data.typeName
+              )).mkString("\"(", " \"\n\"", ")\";")).map(indentIn),
+              initStrings,
+              Line.blank ::
+                lines("char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];"),
+              wrapInScope(
+                "(void) snprintf(",
+                List(
+                  List(
+                    line("outputString,"),
+                    line("FW_ARRAY_TO_STRING_BUFFER_SIZE,"),
+                    line("formatString,"),
+                  ),
+                  lines(membersNamedList.map((n, tn) =>
+                    (sizes.contains(n), members(n)) match {
+                      case (false, _: Type.String) => s"this->$n.toChar()"
+                      case (false, t) if s.isPrimitive(t, tn) => s"this->$n"
+                      case _ => s"str_$n.toChar()"
+                  }).mkString(",\n")),
+                ).flatten,
+                ");"
+              ),
+              List(
+                Line.blank,
+                line("outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate"),
+                line("sb = outputString;"),
+              ),
+            ).flatten,
+            CppDoc.Function.NonSV,
+            CppDoc.Function.Const
+          )
+        ),
+        CppDoc.Class.Member.Lines(
+          CppDoc.Lines(
+            lines("\n#endif"),
             CppDoc.Lines.Both
           )
         ),
@@ -262,6 +431,7 @@ case class StructCppWriter(
         )
       ) :: getSetterFunctionMembers,
     ).flatten
+  }
 
   private def getGetterFunctionMembers: List[CppDoc.Class.Member] =
     membersNamedList.map((n, tn) =>
@@ -271,7 +441,7 @@ case class StructCppWriter(
           s"get$n",
           Nil,
           writeMemberAsReturnType((n, tn)),
-          lines(s"return this->$n"),
+          lines(s"return this->$n;"),
           CppDoc.Function.NonSV,
           CppDoc.Function.Const
         )
@@ -283,7 +453,7 @@ case class StructCppWriter(
       CppDoc.Function(
         Some("Set all values"),
         "set",
-        writeMembersAsParams,
+        membersNamedList.map(writeMemberAsParam),
         CppDoc.Type("void"),
         memberNames.flatMap(n =>
           if sizes.contains(n) then
@@ -339,9 +509,6 @@ case class StructCppWriter(
         )
   }
 
-  private def writeMembersAsParams =
-    membersNamedList.map(writeMemberAsParam)
-
   private def writeMemberAsReturnType(member: (String, String)) = member match {
     case (n, tn) =>
       if sizes.contains(n) then
@@ -349,6 +516,11 @@ case class StructCppWriter(
       else
         CppDoc.Type(s"const $tn&", Some(s"const $name::$tn&"))
   }
+
+  private def writeSetCall(prefix: String) =
+    lines(
+      s"set(${memberNames.map(n => s"$prefix$n").mkString(", ")});"
+    )
 
   // Writes a for loop that iterates n times
   private def iterateN(n: Int, ll: List[Line]) =
