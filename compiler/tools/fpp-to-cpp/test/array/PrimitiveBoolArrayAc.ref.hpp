@@ -11,8 +11,6 @@
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
-#include "FppConstantsAc.hpp"
-
 namespace M {
 
   class PrimitiveBool :

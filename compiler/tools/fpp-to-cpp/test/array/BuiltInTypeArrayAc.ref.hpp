@@ -11,7 +11,6 @@
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
-
 //! An array of a built-in type
 class BuiltInType :
   public Fw::Serializable

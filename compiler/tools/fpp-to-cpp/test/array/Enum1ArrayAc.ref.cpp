@@ -4,14 +4,12 @@
 // \brief  cpp file for Enum1 array
 // ======================================================================
 
-#include <cstring>
 #include <cstdio>
-#include <cinttypes>
-
-#include "Fw/Types/Assert.hpp"
-#include "Fw/Types/StringUtils.hpp"
+#include <cstring>
 
 #include "Enum1ArrayAc.hpp"
+#include "Fw/Types/Assert.hpp"
+#include "Fw/Types/StringUtils.hpp"
 
 // ----------------------------------------------------------------------
 // Constructors

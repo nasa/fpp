@@ -11,7 +11,6 @@
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
-
 //! An array of strings with specified default value and format string
 class String2 :
   public Fw::Serializable
