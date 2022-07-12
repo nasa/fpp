@@ -38,7 +38,7 @@ namespace M {
         //! The size of the array
         SIZE = 3,
         //! The size of the serial representation
-        SERIALIZED_SIZE = SIZE * sizeof(bool),
+        SERIALIZED_SIZE = SIZE * sizeof(U8),
       };
 
     public:
