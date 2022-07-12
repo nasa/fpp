@@ -446,13 +446,18 @@ case class ArrayCppWriter (
 
   private def getMemberFunctionMembers: List[CppDoc.Class.Member] = {
     val hasPrimitiveEltType = s.isPrimitive(eltType, eltTypeName)
+    val hasStringEltType= eltType match {
+      case _: Type.String => true
+      case _ => false
+    }
     // Write string initialization for serializable element types in toString()
     val initStrings =
-      if hasPrimitiveEltType then Nil
+      if hasPrimitiveEltType || hasStringEltType then Nil
       else List(
-        lines("// Call toString for arrays and serializable types"),
+        lines("// Declare strings to hold any serializable toString() arguments"),
         List.range(0, arraySize).map(i => line(s"Fw::String str$i;")),
-        List(Line.blank),
+        Line.blank ::
+          lines("// Call toString for arrays and serializable types"),
         List.range(0, arraySize).map(i => line(s"this->elements[$i].toString(str$i);")),
         List(Line.blank),
       ).flatten
@@ -460,8 +465,10 @@ case class ArrayCppWriter (
     val formatArgs =
       if hasPrimitiveEltType then
         lines(List.range(0, arraySize).map(i => s"this->elements[$i]").mkString(",\n"))
+      else if hasStringEltType then
+        lines(List.range(0, arraySize).map(i => s"this->elements[$i].toChar()").mkString(",\n"))
       else
-        lines(List.range(0, arraySize).map(i => s"str$i.toChar()").mkString(",\n"))
+          lines(List.range(0, arraySize).map(i => s"str$i.toChar()").mkString(",\n"))
 
     List(
       CppDoc.Class.Member.Lines(
@@ -544,10 +551,7 @@ case class ArrayCppWriter (
               ""
             ),
             initStrings,
-            List(
-              line("// Declare strings to hold any serializable toString() arguments"),
-              line("char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];"),
-            ),
+            lines("char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];"),
             wrapInScope(
               "(void) snprintf(",
               List(

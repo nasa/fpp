@@ -184,16 +184,16 @@ void Struct2 ::
     "%s "
     "%s ]";
 
-  // Call toString for arrays and serializable types
+  // Declare strings to hold any serializable toString() arguments
   Fw::String str0;
   Fw::String str1;
   Fw::String str2;
 
+  // Call toString for arrays and serializable types
   this->elements[0].toString(str0);
   this->elements[1].toString(str1);
   this->elements[2].toString(str2);
 
-  // Declare strings to hold any serializable toString() arguments
   char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];
   (void) snprintf(
     outputString,
