@@ -184,7 +184,6 @@ void BuiltInType ::
     "%s "
     "%s ]";
 
-  // Declare strings to hold any serializable toString() arguments
   char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];
   (void) snprintf(
     outputString,

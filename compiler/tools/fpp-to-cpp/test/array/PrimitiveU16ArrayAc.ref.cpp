@@ -186,7 +186,6 @@ namespace M {
       "%" PRIu16 " "
       "%" PRIu16 " ]";
 
-    // Declare strings to hold any serializable toString() arguments
     char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];
     (void) snprintf(
       outputString,
