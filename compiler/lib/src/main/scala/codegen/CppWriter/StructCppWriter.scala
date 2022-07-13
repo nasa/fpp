@@ -54,7 +54,7 @@ case class StructCppWriter(
   private def writeIncludeDirectives(
     s: CppWriterState,
     aNode: Ast.Annotated[AstNode[Ast.DefStruct]]
-  ): List[Line] = {
+  ): List[String] = {
     val Right(a) = UsedSymbols.defStructAnnotatedNode(s.a, aNode)
     s.writeIncludeDirectives(a.usedSymbolSet)
   }
@@ -114,12 +114,10 @@ case class StructCppWriter(
       "Fw/Types/BasicTypes.hpp",
       "Fw/Types/Serializable.hpp",
       "Fw/Types/String.hpp"
-    ).map(CppWriter.headerString).map(line)
+    ).map(CppWriter.headerString)
     val symbolHeaders = writeIncludeDirectives(s, aNode)
     val headers = userHeaders ++ symbolHeaders
-    CppWriter.linesMember(
-      addBlankPrefix(headers)
-    )
+    CppWriter.linesMember(addBlankPrefix(headers.sorted.map(line)))
   }
 
   private def getCppIncludes: CppDoc.Member = {
