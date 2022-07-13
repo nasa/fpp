@@ -10,7 +10,6 @@
 #include "Fw/Types/BasicTypes.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
-
 #include "S3SerializableAc.hpp"
 
 //! An array of structs with array member

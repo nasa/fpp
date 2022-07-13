@@ -8,11 +8,7 @@ import fpp.compiler.util._
 case class ArrayCppWriter (
   s: CppWriterState,
   aNode: Ast.Annotated[AstNode[Ast.DefArray]]
-) extends AstVisitor with CppWriterLineUtils {
-
-  type In = CppWriterState
-
-  type Out = List[Line]
+) extends CppWriterLineUtils {
 
   private val node = aNode._2
 
@@ -46,12 +42,10 @@ case class ArrayCppWriter (
     data.eltType
   )
 
-  override def default(s: CppWriterState): List[Line] = Nil
-
-  override def defArrayAnnotatedNode(
+  private def writeIncludeDirectives(
     s: CppWriterState,
     aNode: Ast.Annotated[AstNode[Ast.DefArray]]
-  ): List[Line] = {
+  ): List[String] = {
     val Right(a) = UsedSymbols.defArrayAnnotatedNode(s.a, aNode)
     s.writeIncludeDirectives(a.usedSymbolSet)
   }
@@ -93,36 +87,30 @@ case class ArrayCppWriter (
   }
 
   private def getHppIncludes: CppDoc.Member = {
-    val strings = List(
+    val standardHeaders = List(
       "Fw/Types/BasicTypes.hpp",
       "Fw/Types/Serializable.hpp",
       "Fw/Types/String.hpp"
-    )
-    CppWriter.linesMember(
-      List(
-        Line.blank ::
-          strings.map(CppWriter.headerString).map(line),
-        Line.blank ::
-          defArrayAnnotatedNode(s, aNode),
-      ).flatten
-    )
+    ).map(CppWriter.headerString)
+    val symbolHeaders = writeIncludeDirectives(s, aNode)
+    val headers = standardHeaders ++ symbolHeaders
+    CppWriter.linesMember(addBlankPrefix(headers.sorted.map(line)))
   }
 
   private def getCppIncludes: CppDoc.Member = {
-    val systemStrings = List("cstring", "cstdio", "cinttypes")
-    val fwStrings = List(
+    val systemHeaders = List(
+      "cstdio",
+      "cstring",
+    ).map(CppWriter.systemHeaderString).map(line)
+    val userHeaders = List(
       "Fw/Types/Assert.hpp",
       "Fw/Types/StringUtils.hpp",
-    )
-    val headerString = s"${s.getRelativePath(fileName).toString}.hpp"
+      s"${s.getRelativePath(fileName).toString}.hpp"
+    ).sorted.map(CppWriter.headerString).map(line)
     CppWriter.linesMember(
       List(
-        List(Line.blank),
-        systemStrings.map(CppWriter.systemHeaderString).map(line),
-        List(Line.blank),
-        fwStrings.map(CppWriter.headerString).map(line),
-        List(Line.blank),
-        lines(CppWriter.headerString(headerString)),
+        Line.blank :: systemHeaders,
+        Line.blank :: userHeaders
       ).flatten,
       CppDoc.Lines.Cpp
     )

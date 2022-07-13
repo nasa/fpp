@@ -4,13 +4,11 @@
 // \brief  cpp file for PrimitiveI64 array
 // ======================================================================
 
-#include <cstring>
 #include <cstdio>
-#include <cinttypes>
+#include <cstring>
 
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/StringUtils.hpp"
-
 #include "PrimitiveI64ArrayAc.hpp"
 
 namespace M {

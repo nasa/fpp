@@ -7,11 +7,10 @@
 #ifndef Enum1ArrayAc_HPP
 #define Enum1ArrayAc_HPP
 
+#include "E1EnumAc.hpp"
 #include "Fw/Types/BasicTypes.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
-
-#include "E1EnumAc.hpp"
 
 //! Array with enum argument
 class Enum1 :

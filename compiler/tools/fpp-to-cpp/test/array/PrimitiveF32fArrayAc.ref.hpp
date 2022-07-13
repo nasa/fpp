@@ -11,8 +11,6 @@
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
-#include "FppConstantsAc.hpp"
-
 namespace M {
 
   //! An array of F32 with format string
