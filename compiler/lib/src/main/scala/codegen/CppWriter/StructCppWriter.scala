@@ -35,13 +35,21 @@ case class StructCppWriter(
 
   private val formats = structType.formats
 
-  // Map from member names to C++ type names
-  private val membersNamedList = members.map((n, t) => t match {
-    case strType: Type.String => n -> strCppWriter.getClassName(strType)
-    case otherType => n -> typeCppWriter.write(otherType)
-  }).toList
+  // List of tuples (<memberName>, <memberTypeName>)
+  // Preserves ordering of struct members
+  private val memberList = typeMembers.map((_, node, _) => {
+    val n = node.data.name
+    members(n) match {
+      case t: Type.String => (n, strCppWriter.getClassName(t))
+      case t => (n, typeCppWriter.write(t))
+    }
+  })
 
-  private val memberNames = members.keys.toList
+  private val memberNames = memberList.map((n, _) => n)
+
+  private val arrayMemberNames = memberNames.filter(sizes.contains)
+
+  private val nonArrayMemberNames = memberNames.filterNot(sizes.contains)
 
   private def writeIncludeDirectives(
     s: CppWriterState,
@@ -67,9 +75,9 @@ case class StructCppWriter(
 
   private def isPrimitiveOrString(member: (String, String)) = member match {
     case (n, tn) => (sizes.contains(n), members(n)) match {
-        case (false, _: Type.String) => false
-        case (false, t) if s.isPrimitive(t, tn) => false
-        case _ => true
+        case (false, _: Type.String) => true
+        case (false, t) if s.isPrimitive(t, tn) => true
+        case _ => false
     }
   }
 
@@ -165,7 +173,7 @@ case class StructCppWriter(
                 List(
                   lines("//! The size of the serial representation"),
                   lines("SERIALIZED_SIZE ="),
-                  lines(membersNamedList.map((n, tn) =>
+                  lines(memberList.map((n, tn) =>
                     s.getSerializedSizeExpr(members(n), tn) + (
                       if sizes.contains(n) then s" * ${sizes(n)}"
                       else ""
@@ -179,6 +187,20 @@ case class StructCppWriter(
 
   private def getConstructorMembers: List[CppDoc.Class.Member] = {
     val defaultValues = getDefaultValues
+    // Only write this constructor if the struct contains an array
+    val scalarConstructor =
+      if sizes.isEmpty then None
+      else Some(
+        CppDoc.Class.Member.Constructor(
+          CppDoc.Class.Constructor(
+            Some("Member constructor (scalar values for arrays)"),
+            memberList.map(writeMemberAsParamScalar),
+            writeInitializerList(n => n),
+            writeArraySetters(n => n)
+          )
+        )
+      )
+
     List(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
@@ -195,24 +217,20 @@ case class StructCppWriter(
         CppDoc.Class.Constructor(
           Some("Constructor (default value)"),
           Nil,
-          "Serializable()" ::
-            membersNamedList
-              .filterNot((n, _) => sizes.contains(n))
-              .map((n, tn) =>
-                if isPrimitiveOrString((n, tn)) then s"$n(${defaultValues(n)})"
-                else s"$n(${defaultValues(n).split("\\(")(1)}"
-              ),
-          memberNames.filter(sizes.contains).flatMap(n =>
-            iterateN(sizes(n), lines(s"this->$n[i] = ${defaultValues(n)};"))
-          )
+          "Serializable()" :: nonArrayMemberNames.map(n => {
+            val defVal = defaultValues(n)
+            if defVal.contains("(") then s"$n(${defVal.split("\\(")(1)}"
+            else s"$n($defVal)"
+          }),
+          writeArraySetters(defaultValues)
         )
       ),
       CppDoc.Class.Member.Constructor(
         CppDoc.Class.Constructor(
           Some("Member constructor"),
-          membersNamedList.map(writeMemberAsParam),
-          Nil,
-          writeSetCall("")
+          memberList.map(writeMemberAsParam),
+          writeInitializerList(n => n),
+          writeArraySetters(n => s"$n[i]")
         )
       ),
       CppDoc.Class.Member.Constructor(
@@ -225,11 +243,12 @@ case class StructCppWriter(
               Some("The source object")
             )
           ),
-          List("Serializable()"),
-          writeSetCall("obj.")
+          writeInitializerList(n => s"obj.$n"),
+          writeArraySetters(n => s"obj.$n[i]")
         )
       ),
-    )
+    ) ++
+      scalarConstructor
   }
 
   private def getOperatorMembers: List[CppDoc.Class.Member] =
@@ -276,23 +295,64 @@ case class StructCppWriter(
           CppDoc.Function.Const
         ),
       ),
+      CppDoc.Class.Member.Function(
+        CppDoc.Function(
+          Some("Inequality operator"),
+          "operator!=",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type(s"const $name&"),
+              "obj",
+              Some("The other object")
+            )
+          ),
+          CppDoc.Type("bool"),
+          lines("return !(*this == obj);"),
+          CppDoc.Function.NonSV,
+          CppDoc.Function.Const
+        ),
+      ),
     )
 
   private def getMemberFunctionMembers: List[CppDoc.Class.Member] = {
     val toStringMemberNames =
-      membersNamedList.filterNot(isPrimitiveOrString).map((n, _) => n)
+      memberList.filter((n, tn) => members(n) match {
+        case _: Type.String => false
+        case t if s.isPrimitive(t, tn) => false
+        case _ => true
+      }).map((n, _) => n)
     val initStrings = toStringMemberNames match {
       case Nil => Nil
       case names =>
         List(
           Line.blank ::
             lines("// Declare strings to hold any serializable toString() arguments"),
-          names.map(n => line(s"Fw::String str_$n;")),
+          names.flatMap(n =>
+            if sizes.contains(n) then
+              List.range(0, sizes(n)).map(i => line(s"Fw::String ${n}Str$i;"))
+            else
+              lines(s"Fw::String ${n}Str;")
+          ),
           Line.blank ::
             lines("// Call toString for arrays and serializable types"),
-          names.map(n => line(s"this->$n.toString(str_$n);")),
+          names.flatMap(n =>
+            if sizes.contains(n) then
+              List.range(0, sizes(n)).map(i => line(s"this->$n[$i].toString(${n}Str$i);"))
+            else
+              lines(s"this->$n.toString(${n}Str);")
+          ),
         ).flatten
     }
+
+    def writeSerializeStatusCheck =
+      wrapInIf(
+        "status != Fw::FW_SERIALIZE_OK",
+        lines("return status;")
+      )
+    def writeSerializeCall(n: String) =
+      line(s"status = buffer.serialize(this->$n);") :: writeSerializeStatusCheck
+    def writeDeserializeCall(n: String) =
+      line(s"status = buffer.deserialize(this->$n);") :: writeSerializeStatusCheck
 
     List(
       List(
@@ -320,11 +380,10 @@ case class StructCppWriter(
             List(
               lines("Fw::SerializeStatus status;"),
               Line.blank :: memberNames.flatMap(n =>
-                line(s"status = buffer.serialize(this->$n);") ::
-                  wrapInIf(
-                    "status != Fw::FW_SERIALIZE_OK",
-                    lines("return status;")
-                  )
+                if sizes.contains(n) then
+                  iterateN(sizes(n), writeSerializeCall(s"$n[i]"))
+                else
+                  writeSerializeCall(n)
               ),
               Line.blank :: lines("return status;"),
             ).flatten,
@@ -347,11 +406,10 @@ case class StructCppWriter(
             List(
               lines("Fw::SerializeStatus status;"),
               Line.blank :: memberNames.flatMap(n =>
-                line(s"status = buffer.deserialize(this->$n);") ::
-                  wrapInIf(
-                    "status != Fw::FW_SERIALIZE_OK",
-                    lines("return status;")
-                  )
+                if sizes.contains(n) then
+                  iterateN(sizes(n), writeDeserializeCall(s"$n[i]"))
+                else
+                  writeDeserializeCall(n)
               ),
               Line.blank :: lines("return status;"),
             ).flatten
@@ -377,10 +435,23 @@ case class StructCppWriter(
             CppDoc.Type("void"),
             List(
               lines("static const char* formatString ="),
-              lines(typeMembers.map(m => FormatCppWriter.write(
-                getFormatStr(m._2.data.name),
-                m._2.data.typeName
-              )).mkString("\"(", " \"\n\"", ")\";")).map(indentIn),
+              lines(typeMembers.flatMap((_, node, _) => {
+                val n = node.data.name
+                val formatStr = FormatCppWriter.write(
+                  getFormatStr(n),
+                  node.data.typeName
+                )
+                if sizes.contains(n) then {
+                  val size = sizes(n)
+                  if size == 1 then
+                    List(s"$n = [ $formatStr ]")
+                  else
+                    s"$n = [ $formatStr" ::
+                      List.fill(sizes(n) - 2)(formatStr) ++
+                      List(s"$formatStr ]")
+                } else
+                  List(s"$n = $formatStr")
+              }).mkString("\"( \"\n\"", ", \"\n\"", "\"\n\" )\";")).map(indentIn),
               initStrings,
               Line.blank ::
                 lines("char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];"),
@@ -392,11 +463,20 @@ case class StructCppWriter(
                     line("FW_ARRAY_TO_STRING_BUFFER_SIZE,"),
                     line("formatString,"),
                   ),
-                  lines(membersNamedList.map((n, tn) =>
+                  lines(memberList.flatMap((n, tn) =>
                     (sizes.contains(n), members(n)) match {
-                      case (false, _: Type.String) => s"this->$n.toChar()"
-                      case (false, t) if s.isPrimitive(t, tn) => s"this->$n"
-                      case _ => s"str_$n.toChar()"
+                      case (false, _: Type.String) =>
+                        List(s"this->$n.toChar()")
+                      case (false, t) if s.isPrimitive(t, tn) =>
+                        List(s"this->$n")
+                      case (false, _) =>
+                        List(s"${n}Str.toChar()")
+                      case (true, _:Type.String) =>
+                        List.range(0, sizes(n)).map(i => s"this->$n[$i].toChar()")
+                      case (true, t) if s.isPrimitive(t, tn) =>
+                        List.range(0, sizes(n)).map(i => s"this->$n[$i]")
+                      case _ =>
+                        List.range(0, sizes(n)).map(i => s"${n}Str$i.toChar()")
                   }).mkString(",\n")),
                 ).flatten,
                 ");"
@@ -434,7 +514,7 @@ case class StructCppWriter(
   }
 
   private def getGetterFunctionMembers: List[CppDoc.Class.Member] =
-    membersNamedList.map((n, tn) =>
+    memberList.map((n, tn) =>
       CppDoc.Class.Member.Function(
         CppDoc.Function(
           Some(s"Get member $n"),
@@ -453,17 +533,15 @@ case class StructCppWriter(
       CppDoc.Function(
         Some("Set all values"),
         "set",
-        membersNamedList.map(writeMemberAsParam),
+        memberList.map(writeMemberAsParam),
         CppDoc.Type("void"),
-        memberNames.flatMap(n =>
-          if sizes.contains(n) then
-            iterateN(sizes(n), lines(s"this->$n[i] = $n[i];"))
-          else
-            lines(s"this->$n = $n;")
-        )
+        List(
+          nonArrayMemberNames.map(n => line(s"this->$n = $n;")),
+          Line.blank :: writeArraySetters(n => s"$n[i]")
+        ).flatten
       )
     ) ::
-      membersNamedList.map((n, tn) =>
+      memberList.map((n, tn) =>
         CppDoc.Class.Member.Function(
           CppDoc.Function(
             Some(s"Set member $n"),
@@ -472,7 +550,10 @@ case class StructCppWriter(
               writeMemberAsParam((n, tn))
             ),
             CppDoc.Type("void"),
-            lines(s"this->$n = $n;")
+            if sizes.contains(n) then
+              iterateN(sizes(n), lines(s"this->$n[i] = $n[i];"))
+            else
+              lines(s"this->$n = $n;")
           )
         )
       )
@@ -485,7 +566,7 @@ case class StructCppWriter(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
           CppDocWriter.writeBannerComment("Member variables") ++
-            addBlankPrefix(membersNamedList.map((n, tn) =>
+            addBlankPrefix(memberList.map((n, tn) =>
               if sizes.contains(n) then line(s"$tn $n[${sizes(n)}];")
               else line(s"$tn $n;")
             ))
@@ -498,28 +579,60 @@ case class StructCppWriter(
       if sizes.contains(n) then
         CppDoc.Function.Param(
           CppDoc.Type(s"const $tn"),
-          s"(&$n)[${sizes(n)}]",
-          None
+          s"(&$n)[${sizes(n)}]"
+        )
+      else writeMemberAsParamScalar(member)
+  }
+
+  // Writes members as function parameters using scalars for arrays
+  private def writeMemberAsParamScalar(member: (String, String)) = member match {
+    case (n, tn) =>
+      if s.isPrimitive(members(n), tn) then
+        CppDoc.Function.Param(
+          CppDoc.Type(s"$tn"),
+          s"$n"
         )
       else
         CppDoc.Function.Param(
           CppDoc.Type(s"const $tn&"),
-          s"$n",
-          None
+          s"$n"
         )
   }
 
   private def writeMemberAsReturnType(member: (String, String)) = member match {
     case (n, tn) =>
+      val t = members(n)
       if sizes.contains(n) then
-        CppDoc.Type(s"const $tn*", Some(s"const $name::$tn*"))
+        CppDoc.Type(
+          s"const $tn*",
+          t match {
+            case _: Type.String => Some(s"const $name::$tn*")
+            case _ => None
+          }
+        )
+      else if s.isPrimitive(t, tn) then
+        CppDoc.Type(tn)
       else
-        CppDoc.Type(s"const $tn&", Some(s"const $name::$tn&"))
+        CppDoc.Type(
+          s"const $tn&",
+          t match {
+            case _: Type.String => Some(s"const $name::$tn&")
+            case _ => None
+          }
+        )
   }
 
   private def writeSetCall(prefix: String) =
     lines(
       s"set(${memberNames.map(n => s"$prefix$n").mkString(", ")});"
+    )
+
+  private def writeInitializerList(getValue: String => String) =
+    "Serializable()" :: nonArrayMemberNames.map(n => s"$n(${getValue(n)})")
+
+  private def writeArraySetters(getValue: String => String) =
+    arrayMemberNames.flatMap(n =>
+      iterateN(sizes(n), lines(s"this->$n[i] = ${getValue(n)};"))
     )
 
   // Writes a for loop that iterates n times
