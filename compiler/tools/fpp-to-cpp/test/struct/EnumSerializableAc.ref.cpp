@@ -20,15 +20,22 @@ Enum ::
     Serializable(),
     e(M::E::X)
 {
-
+  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+    this->eArr[i] = M::E::X;
+  }
 }
 
 Enum ::
-  Enum(const M::E& e) :
+  Enum(
+      M::E::T e,
+      const Type_of_eArr& eArr
+  ) :
     Serializable(),
     e(e)
 {
-
+  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+    this->eArr[i] = eArr[i];
+  }
 }
 
 Enum ::
@@ -36,7 +43,22 @@ Enum ::
     Serializable(),
     e(obj.e)
 {
+  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+    this->eArr[i] = obj.eArr[i];
+  }
+}
 
+Enum ::
+  Enum(
+      M::E::T e,
+      M::E::T eArr
+  ) :
+    Serializable(),
+    e(e)
+{
+  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+    this->eArr[i] = eArr;
+  }
 }
 
 Enum& Enum ::
@@ -46,16 +68,30 @@ Enum& Enum ::
     return *this;
   }
 
-  set(obj.e);
+  set(obj.e, obj.eArr);
   return *this;
 }
 
 bool Enum ::
   operator==(const Enum& obj) const
 {
-  return (
+  // Compare non-array members
+  if (!(
     (this->e == obj.e)
-  );
+  )) {
+    return false;
+  }
+
+  // Compare array members
+  if (!(this->eArr == obj.eArr)) {
+    for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+      if (!(this->eArr[i] == obj.eArr[i])) {
+        return false;
+      }
+    }
+  }
+
+  return true;
 }
 
 bool Enum ::
@@ -77,6 +113,12 @@ Fw::SerializeStatus Enum ::
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
+  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+    status = buffer.serialize(this->eArr[i]);
+    if (status != Fw::FW_SERIALIZE_OK) {
+      return status;
+    }
+  }
 
   return status;
 }
@@ -90,6 +132,12 @@ Fw::SerializeStatus Enum ::
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
+  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+    status = buffer.deserialize(this->eArr[i]);
+    if (status != Fw::FW_SERIALIZE_OK) {
+      return status;
+    }
+  }
 
   return status;
 }
@@ -101,25 +149,46 @@ void Enum ::
 {
   static const char* formatString =
     "( "
-    "e = %s"
+    "e = %s, "
+    "eArr = [ %s, "
+    "%s, "
+    "%s ]"
     " )";
 
   // Declare strings to hold any serializable toString() arguments
   Fw::String eStr;
+  Fw::String eArrStr[3];
 
   // Call toString for arrays and serializable types
   this->e.toString(eStr);
+  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+    this->eArr[i].toString(eArrStr[i]);
+  }
 
-  char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];
+  char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
   (void) snprintf(
     outputString,
-    FW_ARRAY_TO_STRING_BUFFER_SIZE,
+    FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
     formatString,
-    eStr.toChar()
+    eStr.toChar(),
+    eArrStr[0].toChar(),
+    eArrStr[1].toChar(),
+    eArrStr[2].toChar()
   );
 
-  outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
+  outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
   sb = outputString;
+}
+
+#endif
+
+#ifdef BUILD_UT
+
+std::ostream& operator<<(std::ostream& os, const Enum& obj) {
+  Fw::String s;
+  obj.toString(s);
+  os << s.toChar();
+  return os;
 }
 
 #endif
@@ -128,10 +197,22 @@ void Enum ::
 // Getter functions
 // ----------------------------------------------------------------------
 
-const M::E& Enum ::
-  gete() const
+M::E::T Enum ::
+  get_e() const
 {
-  return this->e;
+  return this->e.e;
+}
+
+Enum::Type_of_eArr& Enum ::
+  get_eArr()
+{
+  return this->eArr;
+}
+
+const Enum::Type_of_eArr& Enum ::
+  get_eArr() const
+{
+  return this->eArr;
 }
 
 // ----------------------------------------------------------------------
@@ -139,14 +220,28 @@ const M::E& Enum ::
 // ----------------------------------------------------------------------
 
 void Enum ::
-  set(const M::E& e)
+  set(
+      M::E::T e,
+      const Type_of_eArr& eArr
+  )
 {
   this->e = e;
 
+  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+    this->eArr[i] = eArr[i];
+  }
 }
 
 void Enum ::
-  sete(const M::E& e)
+  set_e(M::E::T e)
 {
   this->e = e;
+}
+
+void Enum ::
+  set_eArr(const Type_of_eArr& eArr)
+{
+  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+    this->eArr[i] = eArr[i];
+  }
 }

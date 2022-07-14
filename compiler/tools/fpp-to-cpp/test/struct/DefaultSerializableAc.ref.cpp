@@ -213,18 +213,29 @@ void Default ::
     "mF64 = %f"
     " )";
 
-  char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];
+  char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
   (void) snprintf(
     outputString,
-    FW_ARRAY_TO_STRING_BUFFER_SIZE,
+    FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
     formatString,
     this->mU32,
     this->mS1.toChar(),
     this->mF64
   );
 
-  outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
+  outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
   sb = outputString;
+}
+
+#endif
+
+#ifdef BUILD_UT
+
+std::ostream& operator<<(std::ostream& os, const Default& obj) {
+  Fw::String s;
+  obj.toString(s);
+  os << s.toChar();
+  return os;
 }
 
 #endif
@@ -234,19 +245,25 @@ void Default ::
 // ----------------------------------------------------------------------
 
 U32 Default ::
-  getmU32() const
+  get_mU32() const
 {
   return this->mU32;
 }
 
+Default::StringSize40& Default ::
+  get_mS1()
+{
+  return this->mS1;
+}
+
 const Default::StringSize40& Default ::
-  getmS1() const
+  get_mS1() const
 {
   return this->mS1;
 }
 
 F64 Default ::
-  getmF64() const
+  get_mF64() const
 {
   return this->mF64;
 }
@@ -265,23 +282,22 @@ void Default ::
   this->mU32 = mU32;
   this->mS1 = mS1;
   this->mF64 = mF64;
-
 }
 
 void Default ::
-  setmU32(U32 mU32)
+  set_mU32(U32 mU32)
 {
   this->mU32 = mU32;
 }
 
 void Default ::
-  setmS1(const StringSize40& mS1)
+  set_mS1(const StringSize40& mS1)
 {
   this->mS1 = mS1;
 }
 
 void Default ::
-  setmF64(F64 mF64)
+  set_mF64(F64 mF64)
 {
   this->mF64 = mF64;
 }

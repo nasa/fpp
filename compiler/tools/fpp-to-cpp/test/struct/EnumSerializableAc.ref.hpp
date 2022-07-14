@@ -7,14 +7,23 @@
 #ifndef EnumSerializableAc_HPP
 #define EnumSerializableAc_HPP
 
+#include "EEnumAc.hpp"
 #include "Fw/Types/BasicTypes.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
-#include "EEnumAc.hpp"
 
 class Enum :
   public Fw::Serializable
 {
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Types
+    // ----------------------------------------------------------------------
+
+    //! The array member types
+    typedef M::E Type_of_eArr[3];
 
   public:
 
@@ -25,7 +34,8 @@ class Enum :
     enum {
       //! The size of the serial representation
       SERIALIZED_SIZE =
-        M::E::SERIALIZED_SIZE
+        M::E::SERIALIZED_SIZE +
+        M::E::SERIALIZED_SIZE * 3
     };
 
   public:
@@ -38,11 +48,20 @@ class Enum :
     Enum();
 
     //! Member constructor
-    Enum(const M::E& e);
+    Enum(
+        M::E::T e,
+        const Type_of_eArr& eArr
+    );
 
     //! Copy constructor
     Enum(
         const Enum& obj //!< The source object
+    );
+
+    //! Member constructor (scalar values for arrays)
+    Enum(
+        M::E::T e,
+        M::E::T eArr
     );
 
     //! Copy assignment operator
@@ -85,22 +104,44 @@ class Enum :
 
 #endif
 
+#ifdef BUILD_UT
+
+    //! Ostream operator
+    friend std::ostream& operator<<(
+        std::ostream& os, //!< The ostream
+        const Enum& obj //!< The object
+    );
+
+#endif
+
     // ----------------------------------------------------------------------
     // Getter functions
     // ----------------------------------------------------------------------
 
     //! Get member e
-    const M::E& gete() const;
+    M::E::T get_e() const;
+
+    //! Get member eArr
+    Type_of_eArr& get_eArr();
+
+    //! Get member eArr (const)
+    const Type_of_eArr& get_eArr() const;
 
     // ----------------------------------------------------------------------
     // Setter functions
     // ----------------------------------------------------------------------
 
-    //! Set all values
-    void set(const M::E& e);
+    //! Set all members
+    void set(
+        M::E::T e,
+        const Type_of_eArr& eArr
+    );
 
     //! Set member e
-    void sete(const M::E& e);
+    void set_e(M::E::T e);
+
+    //! Set member eArr
+    void set_eArr(const Type_of_eArr& eArr);
 
   private:
 
@@ -109,6 +150,7 @@ class Enum :
     // ----------------------------------------------------------------------
 
     M::E e;
+    M::E eArr[3];
 
 };
 

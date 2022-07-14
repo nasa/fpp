@@ -85,22 +85,35 @@ class AbsType :
 
 #endif
 
+#ifdef BUILD_UT
+
+    //! Ostream operator
+    friend std::ostream& operator<<(
+        std::ostream& os, //!< The ostream
+        const AbsType& obj //!< The object
+    );
+
+#endif
+
     // ----------------------------------------------------------------------
     // Getter functions
     // ----------------------------------------------------------------------
 
     //! Get member t
-    const T& gett() const;
+    T& get_t();
+
+    //! Get member t (const)
+    const T& get_t() const;
 
     // ----------------------------------------------------------------------
     // Setter functions
     // ----------------------------------------------------------------------
 
-    //! Set all values
+    //! Set all members
     void set(const T& t);
 
     //! Set member t
-    void sett(const T& t);
+    void set_t(const T& t);
 
   private:
 

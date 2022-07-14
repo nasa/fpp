@@ -7,4 +7,5 @@ module M {
 
 struct Enum {
   e: M.E
+  eArr: [3] M.E
 }

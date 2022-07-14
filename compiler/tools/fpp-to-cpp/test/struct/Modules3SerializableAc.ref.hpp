@@ -19,13 +19,23 @@ class Modules3 :
   public:
 
     // ----------------------------------------------------------------------
+    // Types
+    // ----------------------------------------------------------------------
+
+    //! The array member types
+    typedef M::Modules1 Type_of_arr[3];
+
+  public:
+
+    // ----------------------------------------------------------------------
     // Constants
     // ----------------------------------------------------------------------
 
     enum {
       //! The size of the serial representation
       SERIALIZED_SIZE =
-        M::Modules1::SERIALIZED_SIZE
+        M::Modules1::SERIALIZED_SIZE +
+        M::Modules1::SERIALIZED_SIZE * 3
     };
 
   public:
@@ -38,11 +48,20 @@ class Modules3 :
     Modules3();
 
     //! Member constructor
-    Modules3(const M::Modules1& x);
+    Modules3(
+        const M::Modules1& x,
+        const Type_of_arr& arr
+    );
 
     //! Copy constructor
     Modules3(
         const Modules3& obj //!< The source object
+    );
+
+    //! Member constructor (scalar values for arrays)
+    Modules3(
+        const M::Modules1& x,
+        const M::Modules1& arr
     );
 
     //! Copy assignment operator
@@ -85,22 +104,47 @@ class Modules3 :
 
 #endif
 
+#ifdef BUILD_UT
+
+    //! Ostream operator
+    friend std::ostream& operator<<(
+        std::ostream& os, //!< The ostream
+        const Modules3& obj //!< The object
+    );
+
+#endif
+
     // ----------------------------------------------------------------------
     // Getter functions
     // ----------------------------------------------------------------------
 
     //! Get member x
-    const M::Modules1& getx() const;
+    M::Modules1& get_x();
+
+    //! Get member x (const)
+    const M::Modules1& get_x() const;
+
+    //! Get member arr
+    Type_of_arr& get_arr();
+
+    //! Get member arr (const)
+    const Type_of_arr& get_arr() const;
 
     // ----------------------------------------------------------------------
     // Setter functions
     // ----------------------------------------------------------------------
 
-    //! Set all values
-    void set(const M::Modules1& x);
+    //! Set all members
+    void set(
+        const M::Modules1& x,
+        const Type_of_arr& arr
+    );
 
     //! Set member x
-    void setx(const M::Modules1& x);
+    void set_x(const M::Modules1& x);
+
+    //! Set member arr
+    void set_arr(const Type_of_arr& arr);
 
   private:
 
@@ -109,6 +153,7 @@ class Modules3 :
     // ----------------------------------------------------------------------
 
     M::Modules1 x;
+    M::Modules1 arr[3];
 
 };
 

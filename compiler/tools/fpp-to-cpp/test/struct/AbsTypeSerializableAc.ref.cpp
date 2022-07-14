@@ -110,16 +110,27 @@ void AbsType ::
   // Call toString for arrays and serializable types
   this->t.toString(tStr);
 
-  char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];
+  char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
   (void) snprintf(
     outputString,
-    FW_ARRAY_TO_STRING_BUFFER_SIZE,
+    FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
     formatString,
     tStr.toChar()
   );
 
-  outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
+  outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
   sb = outputString;
+}
+
+#endif
+
+#ifdef BUILD_UT
+
+std::ostream& operator<<(std::ostream& os, const AbsType& obj) {
+  Fw::String s;
+  obj.toString(s);
+  os << s.toChar();
+  return os;
 }
 
 #endif
@@ -128,8 +139,14 @@ void AbsType ::
 // Getter functions
 // ----------------------------------------------------------------------
 
+T& AbsType ::
+  get_t()
+{
+  return this->t;
+}
+
 const T& AbsType ::
-  gett() const
+  get_t() const
 {
   return this->t;
 }
@@ -142,11 +159,10 @@ void AbsType ::
   set(const T& t)
 {
   this->t = t;
-
 }
 
 void AbsType ::
-  sett(const T& t)
+  set_t(const T& t)
 {
   this->t = t;
 }

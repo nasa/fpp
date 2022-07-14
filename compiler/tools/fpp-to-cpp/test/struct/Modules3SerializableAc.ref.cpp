@@ -20,15 +20,22 @@ Modules3 ::
     Serializable(),
     x(0, 0.0f)
 {
-
+  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+    this->arr[i] = M::Modules1(0, 0.0f);
+  }
 }
 
 Modules3 ::
-  Modules3(const M::Modules1& x) :
+  Modules3(
+      const M::Modules1& x,
+      const Type_of_arr& arr
+  ) :
     Serializable(),
     x(x)
 {
-
+  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+    this->arr[i] = arr[i];
+  }
 }
 
 Modules3 ::
@@ -36,7 +43,22 @@ Modules3 ::
     Serializable(),
     x(obj.x)
 {
+  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+    this->arr[i] = obj.arr[i];
+  }
+}
 
+Modules3 ::
+  Modules3(
+      const M::Modules1& x,
+      const M::Modules1& arr
+  ) :
+    Serializable(),
+    x(x)
+{
+  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+    this->arr[i] = arr;
+  }
 }
 
 Modules3& Modules3 ::
@@ -46,16 +68,30 @@ Modules3& Modules3 ::
     return *this;
   }
 
-  set(obj.x);
+  set(obj.x, obj.arr);
   return *this;
 }
 
 bool Modules3 ::
   operator==(const Modules3& obj) const
 {
-  return (
+  // Compare non-array members
+  if (!(
     (this->x == obj.x)
-  );
+  )) {
+    return false;
+  }
+
+  // Compare array members
+  if (!(this->arr == obj.arr)) {
+    for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+      if (!(this->arr[i] == obj.arr[i])) {
+        return false;
+      }
+    }
+  }
+
+  return true;
 }
 
 bool Modules3 ::
@@ -77,6 +113,12 @@ Fw::SerializeStatus Modules3 ::
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
+  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+    status = buffer.serialize(this->arr[i]);
+    if (status != Fw::FW_SERIALIZE_OK) {
+      return status;
+    }
+  }
 
   return status;
 }
@@ -90,6 +132,12 @@ Fw::SerializeStatus Modules3 ::
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
+  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+    status = buffer.deserialize(this->arr[i]);
+    if (status != Fw::FW_SERIALIZE_OK) {
+      return status;
+    }
+  }
 
   return status;
 }
@@ -101,25 +149,46 @@ void Modules3 ::
 {
   static const char* formatString =
     "( "
-    "x = %s"
+    "x = %s, "
+    "arr = [ %s, "
+    "%s, "
+    "%s ]"
     " )";
 
   // Declare strings to hold any serializable toString() arguments
   Fw::String xStr;
+  Fw::String arrStr[3];
 
   // Call toString for arrays and serializable types
   this->x.toString(xStr);
+  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+    this->arr[i].toString(arrStr[i]);
+  }
 
-  char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];
+  char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
   (void) snprintf(
     outputString,
-    FW_ARRAY_TO_STRING_BUFFER_SIZE,
+    FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
     formatString,
-    xStr.toChar()
+    xStr.toChar(),
+    arrStr[0].toChar(),
+    arrStr[1].toChar(),
+    arrStr[2].toChar()
   );
 
-  outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
+  outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
   sb = outputString;
+}
+
+#endif
+
+#ifdef BUILD_UT
+
+std::ostream& operator<<(std::ostream& os, const Modules3& obj) {
+  Fw::String s;
+  obj.toString(s);
+  os << s.toChar();
+  return os;
 }
 
 #endif
@@ -128,10 +197,28 @@ void Modules3 ::
 // Getter functions
 // ----------------------------------------------------------------------
 
-const M::Modules1& Modules3 ::
-  getx() const
+M::Modules1& Modules3 ::
+  get_x()
 {
   return this->x;
+}
+
+const M::Modules1& Modules3 ::
+  get_x() const
+{
+  return this->x;
+}
+
+Modules3::Type_of_arr& Modules3 ::
+  get_arr()
+{
+  return this->arr;
+}
+
+const Modules3::Type_of_arr& Modules3 ::
+  get_arr() const
+{
+  return this->arr;
 }
 
 // ----------------------------------------------------------------------
@@ -139,14 +226,28 @@ const M::Modules1& Modules3 ::
 // ----------------------------------------------------------------------
 
 void Modules3 ::
-  set(const M::Modules1& x)
+  set(
+      const M::Modules1& x,
+      const Type_of_arr& arr
+  )
 {
   this->x = x;
 
+  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+    this->arr[i] = arr[i];
+  }
 }
 
 void Modules3 ::
-  setx(const M::Modules1& x)
+  set_x(const M::Modules1& x)
 {
   this->x = x;
+}
+
+void Modules3 ::
+  set_arr(const Type_of_arr& arr)
+{
+  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+    this->arr[i] = arr[i];
+  }
 }

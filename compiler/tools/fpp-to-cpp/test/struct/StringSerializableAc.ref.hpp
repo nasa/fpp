@@ -188,31 +188,47 @@ class String :
 
 #endif
 
+#ifdef BUILD_UT
+
+    //! Ostream operator
+    friend std::ostream& operator<<(
+        std::ostream& os, //!< The ostream
+        const String& obj //!< The object
+    );
+
+#endif
+
     // ----------------------------------------------------------------------
     // Getter functions
     // ----------------------------------------------------------------------
 
     //! Get member s1
-    const StringSize80& gets1() const;
+    StringSize80& get_s1();
+
+    //! Get member s1 (const)
+    const StringSize80& get_s1() const;
 
     //! Get member s2
-    const StringSize40& gets2() const;
+    StringSize40& get_s2();
+
+    //! Get member s2 (const)
+    const StringSize40& get_s2() const;
 
     // ----------------------------------------------------------------------
     // Setter functions
     // ----------------------------------------------------------------------
 
-    //! Set all values
+    //! Set all members
     void set(
         const StringSize80& s1,
         const StringSize40& s2
     );
 
     //! Set member s1
-    void sets1(const StringSize80& s1);
+    void set_s1(const StringSize80& s1);
 
     //! Set member s2
-    void sets2(const StringSize40& s2);
+    void set_s2(const StringSize40& s2);
 
   private:
 

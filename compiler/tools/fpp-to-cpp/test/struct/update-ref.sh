@@ -9,6 +9,7 @@ string()
 {
   update "-p $PWD" string
   move_cpp StringSerializable
+  move_cpp StringArraySerializable
 }
 
 enum()
@@ -16,12 +17,6 @@ enum()
   update "-p $PWD" enum
   move_cpp EEnum
   move_cpp EnumSerializable 
-}
-
-array()
-{
-  update "-p $PWD" array
-  move_cpp StringArraySerializable
 }
 
 abs_type()
@@ -34,12 +29,6 @@ empty()
 {
   update "-p $PWD" empty
   move_cpp EmptySerializable
-}
-
-duplicate()
-{
-  update "-p $PWD" duplicate
-  move_cpp DuplicateSerializable
 }
 
 default()

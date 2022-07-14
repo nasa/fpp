@@ -11,4 +11,5 @@ module M {
 
 struct Modules3 {
   x: M.Modules1
+  arr: [3] M.Modules1
 }

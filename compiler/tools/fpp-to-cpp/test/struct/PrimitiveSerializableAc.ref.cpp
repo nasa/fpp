@@ -109,14 +109,14 @@ Primitive ::
     m_bool(false),
     m_string("")
 {
-  for (NATIVE_INT_TYPE i = 0; i < 3; i++) {
+  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
     this->mF32[i] = 0.0f;
   }
 }
 
 Primitive ::
   Primitive(
-      const F32 (&mF32)[3],
+      const Type_of_mF32& mF32,
       F64 mF64,
       I16 mI16,
       I32 mI32,
@@ -142,7 +142,7 @@ Primitive ::
     m_bool(m_bool),
     m_string(m_string)
 {
-  for (NATIVE_INT_TYPE i = 0; i < 3; i++) {
+  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
     this->mF32[i] = mF32[i];
   }
 }
@@ -162,7 +162,7 @@ Primitive ::
     m_bool(obj.m_bool),
     m_string(obj.m_string)
 {
-  for (NATIVE_INT_TYPE i = 0; i < 3; i++) {
+  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
     this->mF32[i] = obj.mF32[i];
   }
 }
@@ -195,7 +195,7 @@ Primitive ::
     m_bool(m_bool),
     m_string(m_string)
 {
-  for (NATIVE_INT_TYPE i = 0; i < 3; i++) {
+  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
     this->mF32[i] = mF32;
   }
 }
@@ -214,8 +214,8 @@ Primitive& Primitive ::
 bool Primitive ::
   operator==(const Primitive& obj) const
 {
-  return (
-    (this->mF32 == obj.mF32) &&
+  // Compare non-array members
+  if (!(
     (this->mF64 == obj.mF64) &&
     (this->mI16 == obj.mI16) &&
     (this->mI32 == obj.mI32) &&
@@ -227,7 +227,20 @@ bool Primitive ::
     (this->mU8 == obj.mU8) &&
     (this->m_bool == obj.m_bool) &&
     (this->m_string == obj.m_string)
-  );
+  )) {
+    return false;
+  }
+
+  // Compare array members
+  if (!(this->mF32 == obj.mF32)) {
+    for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+      if (!(this->mF32[i] == obj.mF32[i])) {
+        return false;
+      }
+    }
+  }
+
+  return true;
 }
 
 bool Primitive ::
@@ -245,7 +258,7 @@ Fw::SerializeStatus Primitive ::
 {
   Fw::SerializeStatus status;
 
-  for (NATIVE_INT_TYPE i = 0; i < 3; i++) {
+  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
     status = buffer.serialize(this->mF32[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
@@ -304,7 +317,7 @@ Fw::SerializeStatus Primitive ::
 {
   Fw::SerializeStatus status;
 
-  for (NATIVE_INT_TYPE i = 0; i < 3; i++) {
+  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
     status = buffer.deserialize(this->mF32[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
@@ -381,10 +394,10 @@ void Primitive ::
     "m_string = %s"
     " )";
 
-  char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];
+  char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
   (void) snprintf(
     outputString,
-    FW_ARRAY_TO_STRING_BUFFER_SIZE,
+    FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
     formatString,
     this->mF32[0],
     this->mF32[1],
@@ -402,8 +415,19 @@ void Primitive ::
     this->m_string.toChar()
   );
 
-  outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
+  outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
   sb = outputString;
+}
+
+#endif
+
+#ifdef BUILD_UT
+
+std::ostream& operator<<(std::ostream& os, const Primitive& obj) {
+  Fw::String s;
+  obj.toString(s);
+  os << s.toChar();
+  return os;
 }
 
 #endif
@@ -412,74 +436,86 @@ void Primitive ::
 // Getter functions
 // ----------------------------------------------------------------------
 
-const F32* Primitive ::
-  getmF32() const
+Primitive::Type_of_mF32& Primitive ::
+  get_mF32()
+{
+  return this->mF32;
+}
+
+const Primitive::Type_of_mF32& Primitive ::
+  get_mF32() const
 {
   return this->mF32;
 }
 
 F64 Primitive ::
-  getmF64() const
+  get_mF64() const
 {
   return this->mF64;
 }
 
 I16 Primitive ::
-  getmI16() const
+  get_mI16() const
 {
   return this->mI16;
 }
 
 I32 Primitive ::
-  getmI32() const
+  get_mI32() const
 {
   return this->mI32;
 }
 
 I64 Primitive ::
-  getmI64() const
+  get_mI64() const
 {
   return this->mI64;
 }
 
 I8 Primitive ::
-  getmI8() const
+  get_mI8() const
 {
   return this->mI8;
 }
 
 U16 Primitive ::
-  getmU16() const
+  get_mU16() const
 {
   return this->mU16;
 }
 
 U32 Primitive ::
-  getmU32() const
+  get_mU32() const
 {
   return this->mU32;
 }
 
 U64 Primitive ::
-  getmU64() const
+  get_mU64() const
 {
   return this->mU64;
 }
 
 U8 Primitive ::
-  getmU8() const
+  get_mU8() const
 {
   return this->mU8;
 }
 
 bool Primitive ::
-  getm_bool() const
+  get_m_bool() const
 {
   return this->m_bool;
 }
 
+Primitive::StringSize80& Primitive ::
+  get_m_string()
+{
+  return this->m_string;
+}
+
 const Primitive::StringSize80& Primitive ::
-  getm_string() const
+  get_m_string() const
 {
   return this->m_string;
 }
@@ -490,7 +526,7 @@ const Primitive::StringSize80& Primitive ::
 
 void Primitive ::
   set(
-      const F32 (&mF32)[3],
+      const Type_of_mF32& mF32,
       F64 mF64,
       I16 mI16,
       I32 mI32,
@@ -516,81 +552,81 @@ void Primitive ::
   this->m_bool = m_bool;
   this->m_string = m_string;
 
-  for (NATIVE_INT_TYPE i = 0; i < 3; i++) {
+  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
     this->mF32[i] = mF32[i];
   }
 }
 
 void Primitive ::
-  setmF32(const F32 (&mF32)[3])
+  set_mF32(const Type_of_mF32& mF32)
 {
-  for (NATIVE_INT_TYPE i = 0; i < 3; i++) {
+  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
     this->mF32[i] = mF32[i];
   }
 }
 
 void Primitive ::
-  setmF64(F64 mF64)
+  set_mF64(F64 mF64)
 {
   this->mF64 = mF64;
 }
 
 void Primitive ::
-  setmI16(I16 mI16)
+  set_mI16(I16 mI16)
 {
   this->mI16 = mI16;
 }
 
 void Primitive ::
-  setmI32(I32 mI32)
+  set_mI32(I32 mI32)
 {
   this->mI32 = mI32;
 }
 
 void Primitive ::
-  setmI64(I64 mI64)
+  set_mI64(I64 mI64)
 {
   this->mI64 = mI64;
 }
 
 void Primitive ::
-  setmI8(I8 mI8)
+  set_mI8(I8 mI8)
 {
   this->mI8 = mI8;
 }
 
 void Primitive ::
-  setmU16(U16 mU16)
+  set_mU16(U16 mU16)
 {
   this->mU16 = mU16;
 }
 
 void Primitive ::
-  setmU32(U32 mU32)
+  set_mU32(U32 mU32)
 {
   this->mU32 = mU32;
 }
 
 void Primitive ::
-  setmU64(U64 mU64)
+  set_mU64(U64 mU64)
 {
   this->mU64 = mU64;
 }
 
 void Primitive ::
-  setmU8(U8 mU8)
+  set_mU8(U8 mU8)
 {
   this->mU8 = mU8;
 }
 
 void Primitive ::
-  setm_bool(bool m_bool)
+  set_m_bool(bool m_bool)
 {
   this->m_bool = m_bool;
 }
 
 void Primitive ::
-  setm_string(const StringSize80& m_string)
+  set_m_string(const StringSize80& m_string)
 {
   this->m_string = m_string;
 }

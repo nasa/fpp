@@ -327,13 +327,13 @@ void Format ::
     "m14 = %.3e, "
     "m15 = %.3f, "
     "m16 = %.3g, "
-    "m17 = %.3g%"
+    "m17 = %.3g%%"
     " )";
 
-  char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];
+  char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
   (void) snprintf(
     outputString,
-    FW_ARRAY_TO_STRING_BUFFER_SIZE,
+    FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
     formatString,
     this->m1,
     this->m2,
@@ -354,8 +354,19 @@ void Format ::
     this->m17
   );
 
-  outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
+  outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
   sb = outputString;
+}
+
+#endif
+
+#ifdef BUILD_UT
+
+std::ostream& operator<<(std::ostream& os, const Format& obj) {
+  Fw::String s;
+  obj.toString(s);
+  os << s.toChar();
+  return os;
 }
 
 #endif
@@ -365,103 +376,103 @@ void Format ::
 // ----------------------------------------------------------------------
 
 I32 Format ::
-  getm1() const
+  get_m1() const
 {
   return this->m1;
 }
 
 U32 Format ::
-  getm2() const
+  get_m2() const
 {
   return this->m2;
 }
 
 I32 Format ::
-  getm3() const
+  get_m3() const
 {
   return this->m3;
 }
 
 U32 Format ::
-  getm4() const
+  get_m4() const
 {
   return this->m4;
 }
 
 I32 Format ::
-  getm5() const
+  get_m5() const
 {
   return this->m5;
 }
 
 U32 Format ::
-  getm6() const
+  get_m6() const
 {
   return this->m6;
 }
 
 I32 Format ::
-  getm7() const
+  get_m7() const
 {
   return this->m7;
 }
 
 U32 Format ::
-  getm8() const
+  get_m8() const
 {
   return this->m8;
 }
 
 I32 Format ::
-  getm9() const
+  get_m9() const
 {
   return this->m9;
 }
 
 U32 Format ::
-  getm10() const
+  get_m10() const
 {
   return this->m10;
 }
 
 F32 Format ::
-  getm11() const
+  get_m11() const
 {
   return this->m11;
 }
 
 F32 Format ::
-  getm12() const
+  get_m12() const
 {
   return this->m12;
 }
 
 F32 Format ::
-  getm13() const
+  get_m13() const
 {
   return this->m13;
 }
 
 F32 Format ::
-  getm14() const
+  get_m14() const
 {
   return this->m14;
 }
 
 F32 Format ::
-  getm15() const
+  get_m15() const
 {
   return this->m15;
 }
 
 F32 Format ::
-  getm16() const
+  get_m16() const
 {
   return this->m16;
 }
 
 F32 Format ::
-  getm17() const
+  get_m17() const
 {
   return this->m17;
 }
@@ -508,107 +519,106 @@ void Format ::
   this->m15 = m15;
   this->m16 = m16;
   this->m17 = m17;
-
 }
 
 void Format ::
-  setm1(I32 m1)
+  set_m1(I32 m1)
 {
   this->m1 = m1;
 }
 
 void Format ::
-  setm2(U32 m2)
+  set_m2(U32 m2)
 {
   this->m2 = m2;
 }
 
 void Format ::
-  setm3(I32 m3)
+  set_m3(I32 m3)
 {
   this->m3 = m3;
 }
 
 void Format ::
-  setm4(U32 m4)
+  set_m4(U32 m4)
 {
   this->m4 = m4;
 }
 
 void Format ::
-  setm5(I32 m5)
+  set_m5(I32 m5)
 {
   this->m5 = m5;
 }
 
 void Format ::
-  setm6(U32 m6)
+  set_m6(U32 m6)
 {
   this->m6 = m6;
 }
 
 void Format ::
-  setm7(I32 m7)
+  set_m7(I32 m7)
 {
   this->m7 = m7;
 }
 
 void Format ::
-  setm8(U32 m8)
+  set_m8(U32 m8)
 {
   this->m8 = m8;
 }
 
 void Format ::
-  setm9(I32 m9)
+  set_m9(I32 m9)
 {
   this->m9 = m9;
 }
 
 void Format ::
-  setm10(U32 m10)
+  set_m10(U32 m10)
 {
   this->m10 = m10;
 }
 
 void Format ::
-  setm11(F32 m11)
+  set_m11(F32 m11)
 {
   this->m11 = m11;
 }
 
 void Format ::
-  setm12(F32 m12)
+  set_m12(F32 m12)
 {
   this->m12 = m12;
 }
 
 void Format ::
-  setm13(F32 m13)
+  set_m13(F32 m13)
 {
   this->m13 = m13;
 }
 
 void Format ::
-  setm14(F32 m14)
+  set_m14(F32 m14)
 {
   this->m14 = m14;
 }
 
 void Format ::
-  setm15(F32 m15)
+  set_m15(F32 m15)
 {
   this->m15 = m15;
 }
 
 void Format ::
-  setm16(F32 m16)
+  set_m16(F32 m16)
 {
   this->m16 = m16;
 }
 
 void Format ::
-  setm17(F32 m17)
+  set_m17(F32 m17)
 {
   this->m17 = m17;
 }

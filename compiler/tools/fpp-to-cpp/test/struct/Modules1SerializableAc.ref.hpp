@@ -90,31 +90,41 @@ namespace M {
 
 #endif
 
+#ifdef BUILD_UT
+
+      //! Ostream operator
+      friend std::ostream& operator<<(
+          std::ostream& os, //!< The ostream
+          const Modules1& obj //!< The object
+      );
+
+#endif
+
       // ----------------------------------------------------------------------
       // Getter functions
       // ----------------------------------------------------------------------
 
       //! Get member x
-      U32 getx() const;
+      U32 get_x() const;
 
       //! Get member y
-      F32 gety() const;
+      F32 get_y() const;
 
       // ----------------------------------------------------------------------
       // Setter functions
       // ----------------------------------------------------------------------
 
-      //! Set all values
+      //! Set all members
       void set(
           U32 x,
           F32 y
       );
 
       //! Set member x
-      void setx(U32 x);
+      void set_x(U32 x);
 
       //! Set member y
-      void sety(F32 y);
+      void set_y(F32 y);
 
     private:
 

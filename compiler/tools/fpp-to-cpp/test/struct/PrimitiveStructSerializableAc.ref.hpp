@@ -85,22 +85,35 @@ class PrimitiveStruct :
 
 #endif
 
+#ifdef BUILD_UT
+
+    //! Ostream operator
+    friend std::ostream& operator<<(
+        std::ostream& os, //!< The ostream
+        const PrimitiveStruct& obj //!< The object
+    );
+
+#endif
+
     // ----------------------------------------------------------------------
     // Getter functions
     // ----------------------------------------------------------------------
 
     //! Get member s1
-    const Primitive& gets1() const;
+    Primitive& get_s1();
+
+    //! Get member s1 (const)
+    const Primitive& get_s1() const;
 
     // ----------------------------------------------------------------------
     // Setter functions
     // ----------------------------------------------------------------------
 
-    //! Set all values
+    //! Set all members
     void set(const Primitive& s1);
 
     //! Set member s1
-    void sets1(const Primitive& s1);
+    void set_s1(const Primitive& s1);
 
   private:
 

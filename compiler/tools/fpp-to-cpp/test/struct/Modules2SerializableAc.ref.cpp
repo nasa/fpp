@@ -112,16 +112,27 @@ namespace M {
     // Call toString for arrays and serializable types
     this->x.toString(xStr);
 
-    char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];
+    char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
     (void) snprintf(
       outputString,
-      FW_ARRAY_TO_STRING_BUFFER_SIZE,
+      FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
       formatString,
       xStr.toChar()
     );
 
-    outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
+    outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
     sb = outputString;
+  }
+
+#endif
+
+#ifdef BUILD_UT
+
+  std::ostream& operator<<(std::ostream& os, const Modules2& obj) {
+    Fw::String s;
+    obj.toString(s);
+    os << s.toChar();
+    return os;
   }
 
 #endif
@@ -130,8 +141,14 @@ namespace M {
   // Getter functions
   // ----------------------------------------------------------------------
 
+  M::Modules1& Modules2 ::
+    get_x()
+  {
+    return this->x;
+  }
+
   const M::Modules1& Modules2 ::
-    getx() const
+    get_x() const
   {
     return this->x;
   }
@@ -144,11 +161,10 @@ namespace M {
     set(const M::Modules1& x)
   {
     this->x = x;
-
   }
 
   void Modules2 ::
-    setx(const M::Modules1& x)
+    set_x(const M::Modules1& x)
   {
     this->x = x;
   }

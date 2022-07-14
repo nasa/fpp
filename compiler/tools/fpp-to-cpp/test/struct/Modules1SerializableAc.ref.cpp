@@ -122,17 +122,28 @@ namespace M {
       "y = %f"
       " )";
 
-    char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];
+    char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
     (void) snprintf(
       outputString,
-      FW_ARRAY_TO_STRING_BUFFER_SIZE,
+      FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
       formatString,
       this->x,
       this->y
     );
 
-    outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
+    outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
     sb = outputString;
+  }
+
+#endif
+
+#ifdef BUILD_UT
+
+  std::ostream& operator<<(std::ostream& os, const Modules1& obj) {
+    Fw::String s;
+    obj.toString(s);
+    os << s.toChar();
+    return os;
   }
 
 #endif
@@ -142,13 +153,13 @@ namespace M {
   // ----------------------------------------------------------------------
 
   U32 Modules1 ::
-    getx() const
+    get_x() const
   {
     return this->x;
   }
 
   F32 Modules1 ::
-    gety() const
+    get_y() const
   {
     return this->y;
   }
@@ -165,17 +176,16 @@ namespace M {
   {
     this->x = x;
     this->y = y;
-
   }
 
   void Modules1 ::
-    setx(U32 x)
+    set_x(U32 x)
   {
     this->x = x;
   }
 
   void Modules1 ::
-    sety(F32 y)
+    set_y(F32 y)
   {
     this->y = y;
   }

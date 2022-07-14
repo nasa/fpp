@@ -178,7 +178,7 @@ StringArray ::
     Serializable(),
     s1("")
 {
-  for (NATIVE_INT_TYPE i = 0; i < 16; i++) {
+  for (NATIVE_UINT_TYPE i = 0; i < 16; i++) {
     this->s2[i] = "";
   }
 }
@@ -186,12 +186,12 @@ StringArray ::
 StringArray ::
   StringArray(
       const StringSize80& s1,
-      const StringSize40 (&s2)[16]
+      const Type_of_s2& s2
   ) :
     Serializable(),
     s1(s1)
 {
-  for (NATIVE_INT_TYPE i = 0; i < 16; i++) {
+  for (NATIVE_UINT_TYPE i = 0; i < 16; i++) {
     this->s2[i] = s2[i];
   }
 }
@@ -201,7 +201,7 @@ StringArray ::
     Serializable(),
     s1(obj.s1)
 {
-  for (NATIVE_INT_TYPE i = 0; i < 16; i++) {
+  for (NATIVE_UINT_TYPE i = 0; i < 16; i++) {
     this->s2[i] = obj.s2[i];
   }
 }
@@ -214,7 +214,7 @@ StringArray ::
     Serializable(),
     s1(s1)
 {
-  for (NATIVE_INT_TYPE i = 0; i < 16; i++) {
+  for (NATIVE_UINT_TYPE i = 0; i < 16; i++) {
     this->s2[i] = s2;
   }
 }
@@ -233,10 +233,23 @@ StringArray& StringArray ::
 bool StringArray ::
   operator==(const StringArray& obj) const
 {
-  return (
-    (this->s1 == obj.s1) &&
-    (this->s2 == obj.s2)
-  );
+  // Compare non-array members
+  if (!(
+    (this->s1 == obj.s1)
+  )) {
+    return false;
+  }
+
+  // Compare array members
+  if (!(this->s2 == obj.s2)) {
+    for (NATIVE_UINT_TYPE i = 0; i < 16; i++) {
+      if (!(this->s2[i] == obj.s2[i])) {
+        return false;
+      }
+    }
+  }
+
+  return true;
 }
 
 bool StringArray ::
@@ -258,7 +271,7 @@ Fw::SerializeStatus StringArray ::
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  for (NATIVE_INT_TYPE i = 0; i < 16; i++) {
+  for (NATIVE_UINT_TYPE i = 0; i < 16; i++) {
     status = buffer.serialize(this->s2[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
@@ -277,7 +290,7 @@ Fw::SerializeStatus StringArray ::
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  for (NATIVE_INT_TYPE i = 0; i < 16; i++) {
+  for (NATIVE_UINT_TYPE i = 0; i < 16; i++) {
     status = buffer.deserialize(this->s2[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
@@ -313,10 +326,10 @@ void StringArray ::
     "%s ]"
     " )";
 
-  char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];
+  char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
   (void) snprintf(
     outputString,
-    FW_ARRAY_TO_STRING_BUFFER_SIZE,
+    FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
     formatString,
     this->s1.toChar(),
     this->s2[0].toChar(),
@@ -337,8 +350,19 @@ void StringArray ::
     this->s2[15].toChar()
   );
 
-  outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
+  outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
   sb = outputString;
+}
+
+#endif
+
+#ifdef BUILD_UT
+
+std::ostream& operator<<(std::ostream& os, const StringArray& obj) {
+  Fw::String s;
+  obj.toString(s);
+  os << s.toChar();
+  return os;
 }
 
 #endif
@@ -347,14 +371,26 @@ void StringArray ::
 // Getter functions
 // ----------------------------------------------------------------------
 
-const StringArray::StringSize80& StringArray ::
-  gets1() const
+StringArray::StringSize80& StringArray ::
+  get_s1()
 {
   return this->s1;
 }
 
-const StringArray::StringSize40* StringArray ::
-  gets2() const
+const StringArray::StringSize80& StringArray ::
+  get_s1() const
+{
+  return this->s1;
+}
+
+StringArray::Type_of_s2& StringArray ::
+  get_s2()
+{
+  return this->s2;
+}
+
+const StringArray::Type_of_s2& StringArray ::
+  get_s2() const
 {
   return this->s2;
 }
@@ -366,26 +402,26 @@ const StringArray::StringSize40* StringArray ::
 void StringArray ::
   set(
       const StringSize80& s1,
-      const StringSize40 (&s2)[16]
+      const Type_of_s2& s2
   )
 {
   this->s1 = s1;
 
-  for (NATIVE_INT_TYPE i = 0; i < 16; i++) {
+  for (NATIVE_UINT_TYPE i = 0; i < 16; i++) {
     this->s2[i] = s2[i];
   }
 }
 
 void StringArray ::
-  sets1(const StringSize80& s1)
+  set_s1(const StringSize80& s1)
 {
   this->s1 = s1;
 }
 
 void StringArray ::
-  sets2(const StringSize40 (&s2)[16])
+  set_s2(const Type_of_s2& s2)
 {
-  for (NATIVE_INT_TYPE i = 0; i < 16; i++) {
+  for (NATIVE_UINT_TYPE i = 0; i < 16; i++) {
     this->s2[i] = s2[i];
   }
 }

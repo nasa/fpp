@@ -9,6 +9,7 @@ string()
 {
   run_test "-p $PWD" string && \
     diff_cpp StringSerializable
+    diff_cpp StringArraySerializable
 }
 
 enum()
@@ -16,12 +17,6 @@ enum()
   run_test "-p $PWD" enum && \
     diff_cpp EEnum
     diff_cpp EnumSerializable 
-}
-
-array()
-{
-  run_test "-p $PWD" array && \
-    diff_cpp StringArraySerializable
 }
 
 abs_type()
@@ -34,12 +29,6 @@ empty()
 {
   run_test "-p $PWD" empty && \
     diff_cpp EmptySerializable
-}
-
-duplicate()
-{
-  run_test "-p $PWD" duplicate && \
-    diff_cpp DuplicateSerializable
 }
 
 default()

@@ -87,22 +87,35 @@ namespace M {
 
 #endif
 
+#ifdef BUILD_UT
+
+      //! Ostream operator
+      friend std::ostream& operator<<(
+          std::ostream& os, //!< The ostream
+          const Modules2& obj //!< The object
+      );
+
+#endif
+
       // ----------------------------------------------------------------------
       // Getter functions
       // ----------------------------------------------------------------------
 
       //! Get member x
-      const M::Modules1& getx() const;
+      M::Modules1& get_x();
+
+      //! Get member x (const)
+      const M::Modules1& get_x() const;
 
       // ----------------------------------------------------------------------
       // Setter functions
       // ----------------------------------------------------------------------
 
-      //! Set all values
+      //! Set all members
       void set(const M::Modules1& x);
 
       //! Set member x
-      void setx(const M::Modules1& x);
+      void set_x(const M::Modules1& x);
 
     private:
 

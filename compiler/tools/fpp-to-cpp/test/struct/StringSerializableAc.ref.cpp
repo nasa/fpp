@@ -278,17 +278,28 @@ void String ::
     "s2 = %s"
     " )";
 
-  char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];
+  char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
   (void) snprintf(
     outputString,
-    FW_ARRAY_TO_STRING_BUFFER_SIZE,
+    FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
     formatString,
     this->s1.toChar(),
     this->s2.toChar()
   );
 
-  outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
+  outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
   sb = outputString;
+}
+
+#endif
+
+#ifdef BUILD_UT
+
+std::ostream& operator<<(std::ostream& os, const String& obj) {
+  Fw::String s;
+  obj.toString(s);
+  os << s.toChar();
+  return os;
 }
 
 #endif
@@ -297,14 +308,26 @@ void String ::
 // Getter functions
 // ----------------------------------------------------------------------
 
-const String::StringSize80& String ::
-  gets1() const
+String::StringSize80& String ::
+  get_s1()
 {
   return this->s1;
 }
 
+const String::StringSize80& String ::
+  get_s1() const
+{
+  return this->s1;
+}
+
+String::StringSize40& String ::
+  get_s2()
+{
+  return this->s2;
+}
+
 const String::StringSize40& String ::
-  gets2() const
+  get_s2() const
 {
   return this->s2;
 }
@@ -321,17 +344,16 @@ void String ::
 {
   this->s1 = s1;
   this->s2 = s2;
-
 }
 
 void String ::
-  sets1(const StringSize80& s1)
+  set_s1(const StringSize80& s1)
 {
   this->s1 = s1;
 }
 
 void String ::
-  sets2(const StringSize40& s2)
+  set_s2(const StringSize40& s2)
 {
   this->s2 = s2;
 }

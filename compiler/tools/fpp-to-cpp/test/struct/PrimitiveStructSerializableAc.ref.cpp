@@ -110,16 +110,27 @@ void PrimitiveStruct ::
   // Call toString for arrays and serializable types
   this->s1.toString(s1Str);
 
-  char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];
+  char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
   (void) snprintf(
     outputString,
-    FW_ARRAY_TO_STRING_BUFFER_SIZE,
+    FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
     formatString,
     s1Str.toChar()
   );
 
-  outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
+  outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
   sb = outputString;
+}
+
+#endif
+
+#ifdef BUILD_UT
+
+std::ostream& operator<<(std::ostream& os, const PrimitiveStruct& obj) {
+  Fw::String s;
+  obj.toString(s);
+  os << s.toChar();
+  return os;
 }
 
 #endif
@@ -128,8 +139,14 @@ void PrimitiveStruct ::
 // Getter functions
 // ----------------------------------------------------------------------
 
+Primitive& PrimitiveStruct ::
+  get_s1()
+{
+  return this->s1;
+}
+
 const Primitive& PrimitiveStruct ::
-  gets1() const
+  get_s1() const
 {
   return this->s1;
 }
@@ -142,11 +159,10 @@ void PrimitiveStruct ::
   set(const Primitive& s1)
 {
   this->s1 = s1;
-
 }
 
 void PrimitiveStruct ::
-  sets1(const Primitive& s1)
+  set_s1(const Primitive& s1)
 {
   this->s1 = s1;
 }
