@@ -1,0 +1,9 @@
+fpp-to-cpp
+[ local path prefix ]/tools/fpp-to-cpp/test/enum/duplicate.fpp: 5.1
+enum Duplicate { X, Y }
+^
+error: duplicate C++ file DuplicateEnumAc.hpp
+previous file would be generated here:
+[ local path prefix ]/tools/fpp-to-cpp/test/enum/duplicate.fpp: 2.3
+  enum Duplicate { X, Y }
+  ^
