@@ -51,15 +51,13 @@ case class StructCppWriter(
 
   private val nonArrayMemberNames = memberNames.filterNot(sizes.contains)
 
-  // Returns map from member name to its default C++ value
+  // Returns map from member name to its default value
   private def getDefaultValues = {
     val defaultValue = structType.getDefaultValue match {
       case Some(s) => Some(s.anonStruct)
       case None => structType.anonStruct.getDefaultValue
     }
-    defaultValue.get.members.map((n, t) =>
-      n -> ValueCppWriter.write(s, t)
-    )
+    defaultValue.get.members
   }
 
   private def getFormatStr(n: String) =
@@ -232,12 +230,13 @@ case class StructCppWriter(
           Some("Constructor (default value)"),
           Nil,
           "Serializable()" :: nonArrayMemberNames.map(n => {
-            val defVal = defaultValues(n)
-            // Parse non-literal default values, e.g. T() for abstract type T
-            if defVal.contains("(") then s"$n(${defVal.split("\\(")(1)}"
-            else s"$n($defVal)"
+            defaultValues(n) match {
+              case v: Value.Struct => s"$n(${ValueCppWriter.writeStructMembers(s, v)})"
+              case _: Value.AbsType => s"$n()"
+              case v => s"$n(${ValueCppWriter.write(s, v)})"
+            }
           }),
-          writeArraySetters(defaultValues)
+          writeArraySetters(n => ValueCppWriter.write(s, defaultValues(n)))
         )
       ),
       CppDoc.Class.Member.Constructor(

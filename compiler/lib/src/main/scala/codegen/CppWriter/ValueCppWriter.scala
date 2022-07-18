@@ -55,17 +55,22 @@ object ValueCppWriter {
       "\""
 
     override def struct(s: CppWriterState, v: Value.Struct) = {
-      val structType = v.getType
-      val data = structType.node._2.data
-      val namesList = data.members
-      val memberNames = namesList.map(_._2.data.name)
-      val membersMap = v.anonStruct.members
-      val members = memberNames.map(membersMap.get(_).get)
-      val memberValues = members.map(write(s, _))
-      val aggregate = memberValues.mkString(", ")
+      val aggregate = writeStructMembers(s, v)
       TypeCppWriter.getName(s, v.getType) ++ "(" ++ aggregate ++ ")"
     }
 
+  }
+
+  /** Write struct members as a comma-separated list of C++ values */
+  def writeStructMembers(s: CppWriterState, v: Value.Struct) = {
+    val structType = v.getType
+    val data = structType.node._2.data
+    val namesList = data.members
+    val memberNames = namesList.map(_._2.data.name)
+    val membersMap = v.anonStruct.members
+    val members = memberNames.map(membersMap.get(_).get)
+    val memberValues = members.map(write(s, _))
+    memberValues.mkString(", ")
   }
 
   /** Write a C++ value */
