@@ -10,7 +10,7 @@
 #include "Fw/Types/BasicTypes.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
-#include "Modules1SerializableAc.hpp"
+#include "Modules2SerializableAc.hpp"
 
 class Modules3 :
   public Fw::Serializable
@@ -23,7 +23,7 @@ class Modules3 :
     // ----------------------------------------------------------------------
 
     //! The array member types
-    typedef M::Modules1 Type_of_arr[3];
+    typedef M::Modules2 Type_of_arr[3];
 
   public:
 
@@ -34,8 +34,8 @@ class Modules3 :
     enum {
       //! The size of the serial representation
       SERIALIZED_SIZE =
-        M::Modules1::SERIALIZED_SIZE +
-        M::Modules1::SERIALIZED_SIZE * 3
+        M::Modules2::SERIALIZED_SIZE +
+        M::Modules2::SERIALIZED_SIZE * 3
     };
 
   public:
@@ -49,7 +49,7 @@ class Modules3 :
 
     //! Member constructor
     Modules3(
-        const M::Modules1& x,
+        const M::Modules2& x,
         const Type_of_arr& arr
     );
 
@@ -60,8 +60,8 @@ class Modules3 :
 
     //! Member constructor (scalar values for arrays)
     Modules3(
-        const M::Modules1& x,
-        const M::Modules1& arr
+        const M::Modules2& x,
+        const M::Modules2& arr
     );
 
     //! Copy assignment operator
@@ -119,10 +119,10 @@ class Modules3 :
     // ----------------------------------------------------------------------
 
     //! Get member x
-    M::Modules1& get_x();
+    M::Modules2& get_x();
 
     //! Get member x (const)
-    const M::Modules1& get_x() const;
+    const M::Modules2& get_x() const;
 
     //! Get member arr
     Type_of_arr& get_arr();
@@ -136,12 +136,12 @@ class Modules3 :
 
     //! Set all members
     void set(
-        const M::Modules1& x,
+        const M::Modules2& x,
         const Type_of_arr& arr
     );
 
     //! Set member x
-    void set_x(const M::Modules1& x);
+    void set_x(const M::Modules2& x);
 
     //! Set member arr
     void set_arr(const Type_of_arr& arr);
@@ -152,8 +152,8 @@ class Modules3 :
     // Member variables
     // ----------------------------------------------------------------------
 
-    M::Modules1 x;
-    M::Modules1 arr[3];
+    M::Modules2 x;
+    M::Modules2 arr[3];
 
 };
 

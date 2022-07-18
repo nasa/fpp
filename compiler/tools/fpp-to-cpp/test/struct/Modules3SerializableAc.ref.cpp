@@ -18,16 +18,16 @@
 Modules3 ::
   Modules3() :
     Serializable(),
-    x(0, 0.0f)
+    x(M::Modules1(0, 0.0f))
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->arr[i] = M::Modules1(0, 0.0f);
+    this->arr[i] = M::Modules2(M::Modules1(0, 0.0f));
   }
 }
 
 Modules3 ::
   Modules3(
-      const M::Modules1& x,
+      const M::Modules2& x,
       const Type_of_arr& arr
   ) :
     Serializable(),
@@ -50,8 +50,8 @@ Modules3 ::
 
 Modules3 ::
   Modules3(
-      const M::Modules1& x,
-      const M::Modules1& arr
+      const M::Modules2& x,
+      const M::Modules2& arr
   ) :
     Serializable(),
     x(x)
@@ -197,13 +197,13 @@ std::ostream& operator<<(std::ostream& os, const Modules3& obj) {
 // Getter functions
 // ----------------------------------------------------------------------
 
-M::Modules1& Modules3 ::
+M::Modules2& Modules3 ::
   get_x()
 {
   return this->x;
 }
 
-const M::Modules1& Modules3 ::
+const M::Modules2& Modules3 ::
   get_x() const
 {
   return this->x;
@@ -227,7 +227,7 @@ const Modules3::Type_of_arr& Modules3 ::
 
 void Modules3 ::
   set(
-      const M::Modules1& x,
+      const M::Modules2& x,
       const Type_of_arr& arr
   )
 {
@@ -239,7 +239,7 @@ void Modules3 ::
 }
 
 void Modules3 ::
-  set_x(const M::Modules1& x)
+  set_x(const M::Modules2& x)
 {
   this->x = x;
 }
