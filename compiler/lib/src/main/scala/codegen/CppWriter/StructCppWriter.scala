@@ -271,20 +271,30 @@ case class StructCppWriter(
       ).mkString(" &&\n"))
     val equalityOpBody =
       // Simplify syntax if there are no array members
-      if sizes.isEmpty then wrapInScope(
-        "return (",
-        nonArrayMemberCheck,
-        ");"
-      )
+      if sizes.isEmpty then
+        if nonArrayMemberNames.length == 1 then
+          lines(s"return ${nonArrayMemberCheck.head};")
+        else wrapInScope(
+          "return (",
+          nonArrayMemberCheck,
+          ");"
+        )
       else List(
         lines("// Compare non-array members"),
-        lines("if (!("),
-        nonArrayMemberCheck.map(indentIn),
-        lines(
-          """|)) {
-             |  return false;
-             |}"""
-        ),
+        if nonArrayMemberNames.length == 1 then
+          wrapInIf(
+            s"!${nonArrayMemberCheck.head}", 
+            lines("return false;")
+          )
+        else List(
+          lines("if (!("),
+          nonArrayMemberCheck.map(indentIn),
+          lines(
+            """|)) {
+               |  return false;
+               |}"""
+          ),
+        ).flatten,
         Line.blank :: lines("// Compare array members"),
         arrayMemberNames.flatMap(n =>
           wrapInIf(

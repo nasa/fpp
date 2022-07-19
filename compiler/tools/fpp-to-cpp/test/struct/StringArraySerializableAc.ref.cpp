@@ -234,9 +234,7 @@ bool StringArray ::
   operator==(const StringArray& obj) const
 {
   // Compare non-array members
-  if (!(
-    (this->s1 == obj.s1)
-  )) {
+  if (!(this->s1 == obj.s1)) {
     return false;
   }
 

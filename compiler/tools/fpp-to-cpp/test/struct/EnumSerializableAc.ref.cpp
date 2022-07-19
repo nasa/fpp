@@ -76,9 +76,7 @@ bool Enum ::
   operator==(const Enum& obj) const
 {
   // Compare non-array members
-  if (!(
-    (this->e == obj.e)
-  )) {
+  if (!(this->e == obj.e)) {
     return false;
   }
 

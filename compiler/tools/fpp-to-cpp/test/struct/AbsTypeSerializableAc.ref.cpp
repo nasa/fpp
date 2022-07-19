@@ -53,9 +53,7 @@ AbsType& AbsType ::
 bool AbsType ::
   operator==(const AbsType& obj) const
 {
-  return (
-    (this->t == obj.t)
-  );
+  return (this->t == obj.t);
 }
 
 bool AbsType ::

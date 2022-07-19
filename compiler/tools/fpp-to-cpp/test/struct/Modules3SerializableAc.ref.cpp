@@ -76,9 +76,7 @@ bool Modules3 ::
   operator==(const Modules3& obj) const
 {
   // Compare non-array members
-  if (!(
-    (this->x == obj.x)
-  )) {
+  if (!(this->x == obj.x)) {
     return false;
   }
 

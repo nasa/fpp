@@ -55,9 +55,7 @@ namespace M {
   bool Modules2 ::
     operator==(const Modules2& obj) const
   {
-    return (
-      (this->x == obj.x)
-    );
+    return (this->x == obj.x);
   }
 
   bool Modules2 ::

@@ -53,9 +53,7 @@ PrimitiveStruct& PrimitiveStruct ::
 bool PrimitiveStruct ::
   operator==(const PrimitiveStruct& obj) const
 {
-  return (
-    (this->s1 == obj.s1)
-  );
+  return (this->s1 == obj.s1);
 }
 
 bool PrimitiveStruct ::
