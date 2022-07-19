@@ -52,6 +52,16 @@ object ComputeCppFiles extends AstStateVisitor {
     aNode: Ast.Annotated[AstNode[Ast.DefConstant]]
   ) = addMappings(s, FileNames.getConstants, None)
 
+  override def defArrayAnnotatedNode(
+    s: State,
+    aNode: Ast.Annotated[AstNode[Ast.DefArray]]
+  ) = {
+    val node = aNode._2
+    val name = s.getName(Symbol.Array(aNode))
+    val loc = Locations.get(node.id)
+    addMappings(s, FileNames.getArray(name), Some(loc))
+  }
+
   override def defEnumAnnotatedNode(
     s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefEnum]]

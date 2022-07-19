@@ -1,4 +1,5 @@
 tests="
+duplicate
 primitive
 string
 enum

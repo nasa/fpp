@@ -1,0 +1,9 @@
+fpp-to-cpp
+[ local path prefix ]/tools/fpp-to-cpp/test/array/duplicate.fpp: 5.1
+array Duplicate = [3] U32
+^
+error: duplicate C++ file DuplicateArrayAc.hpp
+previous file would be generated here:
+[ local path prefix ]/tools/fpp-to-cpp/test/array/duplicate.fpp: 2.3
+  array Duplicate = [3] U32
+  ^

@@ -1,4 +1,5 @@
 tests="
+duplicate
 default
 explicit
 implicit
