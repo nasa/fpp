@@ -156,16 +156,16 @@ class Default :
     // ----------------------------------------------------------------------
 
     //! Get member mU32
-    U32 get_mU32() const;
+    U32 getmU32() const;
 
     //! Get member mS1
-    StringSize40& get_mS1();
+    StringSize40& getmS1();
 
     //! Get member mS1 (const)
-    const StringSize40& get_mS1() const;
+    const StringSize40& getmS1() const;
 
     //! Get member mF64
-    F64 get_mF64() const;
+    F64 getmF64() const;
 
     // ----------------------------------------------------------------------
     // Setter functions
@@ -179,13 +179,13 @@ class Default :
     );
 
     //! Set member mU32
-    void set_mU32(U32 mU32);
+    void setmU32(U32 mU32);
 
     //! Set member mS1
-    void set_mS1(const StringSize40& mS1);
+    void setmS1(const StringSize40& mS1);
 
     //! Set member mF64
-    void set_mF64(F64 mF64);
+    void setmF64(F64 mF64);
 
   private:
 

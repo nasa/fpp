@@ -201,46 +201,46 @@ class Primitive :
     // ----------------------------------------------------------------------
 
     //! Get member mF32
-    Type_of_mF32& get_mF32();
+    Type_of_mF32& getmF32();
 
     //! Get member mF32 (const)
-    const Type_of_mF32& get_mF32() const;
+    const Type_of_mF32& getmF32() const;
 
     //! Get member mF64
-    F64 get_mF64() const;
+    F64 getmF64() const;
 
     //! Get member mI16
-    I16 get_mI16() const;
+    I16 getmI16() const;
 
     //! Get member mI32
-    I32 get_mI32() const;
+    I32 getmI32() const;
 
     //! Get member mI64
-    I64 get_mI64() const;
+    I64 getmI64() const;
 
     //! Get member mI8
-    I8 get_mI8() const;
+    I8 getmI8() const;
 
     //! Get member mU16
-    U16 get_mU16() const;
+    U16 getmU16() const;
 
     //! Get member mU32
-    U32 get_mU32() const;
+    U32 getmU32() const;
 
     //! Get member mU64
-    U64 get_mU64() const;
+    U64 getmU64() const;
 
     //! Get member mU8
-    U8 get_mU8() const;
+    U8 getmU8() const;
 
     //! Get member m_bool
-    bool get_m_bool() const;
+    bool getm_bool() const;
 
     //! Get member m_string
-    StringSize80& get_m_string();
+    StringSize80& getm_string();
 
     //! Get member m_string (const)
-    const StringSize80& get_m_string() const;
+    const StringSize80& getm_string() const;
 
     // ----------------------------------------------------------------------
     // Setter functions
@@ -263,40 +263,40 @@ class Primitive :
     );
 
     //! Set member mF32
-    void set_mF32(const Type_of_mF32& mF32);
+    void setmF32(const Type_of_mF32& mF32);
 
     //! Set member mF64
-    void set_mF64(F64 mF64);
+    void setmF64(F64 mF64);
 
     //! Set member mI16
-    void set_mI16(I16 mI16);
+    void setmI16(I16 mI16);
 
     //! Set member mI32
-    void set_mI32(I32 mI32);
+    void setmI32(I32 mI32);
 
     //! Set member mI64
-    void set_mI64(I64 mI64);
+    void setmI64(I64 mI64);
 
     //! Set member mI8
-    void set_mI8(I8 mI8);
+    void setmI8(I8 mI8);
 
     //! Set member mU16
-    void set_mU16(U16 mU16);
+    void setmU16(U16 mU16);
 
     //! Set member mU32
-    void set_mU32(U32 mU32);
+    void setmU32(U32 mU32);
 
     //! Set member mU64
-    void set_mU64(U64 mU64);
+    void setmU64(U64 mU64);
 
     //! Set member mU8
-    void set_mU8(U8 mU8);
+    void setmU8(U8 mU8);
 
     //! Set member m_bool
-    void set_m_bool(bool m_bool);
+    void setm_bool(bool m_bool);
 
     //! Set member m_string
-    void set_m_string(const StringSize80& m_string);
+    void setm_string(const StringSize80& m_string);
 
   private:
 

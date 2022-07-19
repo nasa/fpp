@@ -102,10 +102,10 @@ namespace M {
       // ----------------------------------------------------------------------
 
       //! Get member x
-      M::Modules1& get_x();
+      M::Modules1& getx();
 
       //! Get member x (const)
-      const M::Modules1& get_x() const;
+      const M::Modules1& getx() const;
 
       // ----------------------------------------------------------------------
       // Setter functions
@@ -115,7 +115,7 @@ namespace M {
       void set(const M::Modules1& x);
 
       //! Set member x
-      void set_x(const M::Modules1& x);
+      void setx(const M::Modules1& x);
 
     private:
 

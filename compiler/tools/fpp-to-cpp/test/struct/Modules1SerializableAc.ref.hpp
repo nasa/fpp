@@ -105,10 +105,10 @@ namespace M {
       // ----------------------------------------------------------------------
 
       //! Get member x
-      U32 get_x() const;
+      U32 getx() const;
 
       //! Get member y
-      F32 get_y() const;
+      F32 gety() const;
 
       // ----------------------------------------------------------------------
       // Setter functions
@@ -121,10 +121,10 @@ namespace M {
       );
 
       //! Set member x
-      void set_x(U32 x);
+      void setx(U32 x);
 
       //! Set member y
-      void set_y(F32 y);
+      void sety(F32 y);
 
     private:
 

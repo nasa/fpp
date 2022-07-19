@@ -119,13 +119,13 @@ class Enum :
     // ----------------------------------------------------------------------
 
     //! Get member e
-    M::E::T get_e() const;
+    M::E::T gete() const;
 
     //! Get member eArr
-    Type_of_eArr& get_eArr();
+    Type_of_eArr& geteArr();
 
     //! Get member eArr (const)
-    const Type_of_eArr& get_eArr() const;
+    const Type_of_eArr& geteArr() const;
 
     // ----------------------------------------------------------------------
     // Setter functions
@@ -138,10 +138,10 @@ class Enum :
     );
 
     //! Set member e
-    void set_e(M::E::T e);
+    void sete(M::E::T e);
 
     //! Set member eArr
-    void set_eArr(const Type_of_eArr& eArr);
+    void seteArr(const Type_of_eArr& eArr);
 
   private:
 

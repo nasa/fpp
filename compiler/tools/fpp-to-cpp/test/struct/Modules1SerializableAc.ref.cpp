@@ -153,13 +153,13 @@ namespace M {
   // ----------------------------------------------------------------------
 
   U32 Modules1 ::
-    get_x() const
+    getx() const
   {
     return this->x;
   }
 
   F32 Modules1 ::
-    get_y() const
+    gety() const
   {
     return this->y;
   }
@@ -179,13 +179,13 @@ namespace M {
   }
 
   void Modules1 ::
-    set_x(U32 x)
+    setx(U32 x)
   {
     this->x = x;
   }
 
   void Modules1 ::
-    set_y(F32 y)
+    sety(F32 y)
   {
     this->y = y;
   }

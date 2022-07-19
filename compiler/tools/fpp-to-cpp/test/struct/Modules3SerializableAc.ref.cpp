@@ -196,25 +196,25 @@ std::ostream& operator<<(std::ostream& os, const Modules3& obj) {
 // ----------------------------------------------------------------------
 
 M::Modules2& Modules3 ::
-  get_x()
+  getx()
 {
   return this->x;
 }
 
 const M::Modules2& Modules3 ::
-  get_x() const
+  getx() const
 {
   return this->x;
 }
 
 Modules3::Type_of_arr& Modules3 ::
-  get_arr()
+  getarr()
 {
   return this->arr;
 }
 
 const Modules3::Type_of_arr& Modules3 ::
-  get_arr() const
+  getarr() const
 {
   return this->arr;
 }
@@ -237,13 +237,13 @@ void Modules3 ::
 }
 
 void Modules3 ::
-  set_x(const M::Modules2& x)
+  setx(const M::Modules2& x)
 {
   this->x = x;
 }
 
 void Modules3 ::
-  set_arr(const Type_of_arr& arr)
+  setarr(const Type_of_arr& arr)
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
     this->arr[i] = arr[i];

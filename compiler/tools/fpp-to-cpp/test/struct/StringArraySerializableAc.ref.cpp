@@ -370,25 +370,25 @@ std::ostream& operator<<(std::ostream& os, const StringArray& obj) {
 // ----------------------------------------------------------------------
 
 StringArray::StringSize80& StringArray ::
-  get_s1()
+  gets1()
 {
   return this->s1;
 }
 
 const StringArray::StringSize80& StringArray ::
-  get_s1() const
+  gets1() const
 {
   return this->s1;
 }
 
 StringArray::Type_of_s2& StringArray ::
-  get_s2()
+  gets2()
 {
   return this->s2;
 }
 
 const StringArray::Type_of_s2& StringArray ::
-  get_s2() const
+  gets2() const
 {
   return this->s2;
 }
@@ -411,13 +411,13 @@ void StringArray ::
 }
 
 void StringArray ::
-  set_s1(const StringSize80& s1)
+  sets1(const StringSize80& s1)
 {
   this->s1 = s1;
 }
 
 void StringArray ::
-  set_s2(const Type_of_s2& s2)
+  sets2(const Type_of_s2& s2)
 {
   for (NATIVE_UINT_TYPE i = 0; i < 16; i++) {
     this->s2[i] = s2[i];

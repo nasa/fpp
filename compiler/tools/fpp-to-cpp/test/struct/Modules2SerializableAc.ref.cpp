@@ -140,13 +140,13 @@ namespace M {
   // ----------------------------------------------------------------------
 
   M::Modules1& Modules2 ::
-    get_x()
+    getx()
   {
     return this->x;
   }
 
   const M::Modules1& Modules2 ::
-    get_x() const
+    getx() const
   {
     return this->x;
   }
@@ -162,7 +162,7 @@ namespace M {
   }
 
   void Modules2 ::
-    set_x(const M::Modules1& x)
+    setx(const M::Modules1& x)
   {
     this->x = x;
   }

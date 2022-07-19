@@ -100,10 +100,10 @@ class AbsType :
     // ----------------------------------------------------------------------
 
     //! Get member t
-    T& get_t();
+    T& gett();
 
     //! Get member t (const)
-    const T& get_t() const;
+    const T& gett() const;
 
     // ----------------------------------------------------------------------
     // Setter functions
@@ -113,7 +113,7 @@ class AbsType :
     void set(const T& t);
 
     //! Set member t
-    void set_t(const T& t);
+    void sett(const T& t);
 
   private:
 

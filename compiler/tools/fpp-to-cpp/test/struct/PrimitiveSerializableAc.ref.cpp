@@ -437,85 +437,85 @@ std::ostream& operator<<(std::ostream& os, const Primitive& obj) {
 // ----------------------------------------------------------------------
 
 Primitive::Type_of_mF32& Primitive ::
-  get_mF32()
+  getmF32()
 {
   return this->mF32;
 }
 
 const Primitive::Type_of_mF32& Primitive ::
-  get_mF32() const
+  getmF32() const
 {
   return this->mF32;
 }
 
 F64 Primitive ::
-  get_mF64() const
+  getmF64() const
 {
   return this->mF64;
 }
 
 I16 Primitive ::
-  get_mI16() const
+  getmI16() const
 {
   return this->mI16;
 }
 
 I32 Primitive ::
-  get_mI32() const
+  getmI32() const
 {
   return this->mI32;
 }
 
 I64 Primitive ::
-  get_mI64() const
+  getmI64() const
 {
   return this->mI64;
 }
 
 I8 Primitive ::
-  get_mI8() const
+  getmI8() const
 {
   return this->mI8;
 }
 
 U16 Primitive ::
-  get_mU16() const
+  getmU16() const
 {
   return this->mU16;
 }
 
 U32 Primitive ::
-  get_mU32() const
+  getmU32() const
 {
   return this->mU32;
 }
 
 U64 Primitive ::
-  get_mU64() const
+  getmU64() const
 {
   return this->mU64;
 }
 
 U8 Primitive ::
-  get_mU8() const
+  getmU8() const
 {
   return this->mU8;
 }
 
 bool Primitive ::
-  get_m_bool() const
+  getm_bool() const
 {
   return this->m_bool;
 }
 
 Primitive::StringSize80& Primitive ::
-  get_m_string()
+  getm_string()
 {
   return this->m_string;
 }
 
 const Primitive::StringSize80& Primitive ::
-  get_m_string() const
+  getm_string() const
 {
   return this->m_string;
 }
@@ -558,7 +558,7 @@ void Primitive ::
 }
 
 void Primitive ::
-  set_mF32(const Type_of_mF32& mF32)
+  setmF32(const Type_of_mF32& mF32)
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
     this->mF32[i] = mF32[i];
@@ -566,67 +566,67 @@ void Primitive ::
 }
 
 void Primitive ::
-  set_mF64(F64 mF64)
+  setmF64(F64 mF64)
 {
   this->mF64 = mF64;
 }
 
 void Primitive ::
-  set_mI16(I16 mI16)
+  setmI16(I16 mI16)
 {
   this->mI16 = mI16;
 }
 
 void Primitive ::
-  set_mI32(I32 mI32)
+  setmI32(I32 mI32)
 {
   this->mI32 = mI32;
 }
 
 void Primitive ::
-  set_mI64(I64 mI64)
+  setmI64(I64 mI64)
 {
   this->mI64 = mI64;
 }
 
 void Primitive ::
-  set_mI8(I8 mI8)
+  setmI8(I8 mI8)
 {
   this->mI8 = mI8;
 }
 
 void Primitive ::
-  set_mU16(U16 mU16)
+  setmU16(U16 mU16)
 {
   this->mU16 = mU16;
 }
 
 void Primitive ::
-  set_mU32(U32 mU32)
+  setmU32(U32 mU32)
 {
   this->mU32 = mU32;
 }
 
 void Primitive ::
-  set_mU64(U64 mU64)
+  setmU64(U64 mU64)
 {
   this->mU64 = mU64;
 }
 
 void Primitive ::
-  set_mU8(U8 mU8)
+  setmU8(U8 mU8)
 {
   this->mU8 = mU8;
 }
 
 void Primitive ::
-  set_m_bool(bool m_bool)
+  setm_bool(bool m_bool)
 {
   this->m_bool = m_bool;
 }
 
 void Primitive ::
-  set_m_string(const StringSize80& m_string)
+  setm_string(const StringSize80& m_string)
 {
   this->m_string = m_string;
 }

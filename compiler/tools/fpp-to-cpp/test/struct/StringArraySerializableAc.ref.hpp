@@ -218,16 +218,16 @@ class StringArray :
     // ----------------------------------------------------------------------
 
     //! Get member s1
-    StringSize80& get_s1();
+    StringSize80& gets1();
 
     //! Get member s1 (const)
-    const StringSize80& get_s1() const;
+    const StringSize80& gets1() const;
 
     //! Get member s2
-    Type_of_s2& get_s2();
+    Type_of_s2& gets2();
 
     //! Get member s2 (const)
-    const Type_of_s2& get_s2() const;
+    const Type_of_s2& gets2() const;
 
     // ----------------------------------------------------------------------
     // Setter functions
@@ -240,10 +240,10 @@ class StringArray :
     );
 
     //! Set member s1
-    void set_s1(const StringSize80& s1);
+    void sets1(const StringSize80& s1);
 
     //! Set member s2
-    void set_s2(const Type_of_s2& s2);
+    void sets2(const Type_of_s2& s2);
 
   private:
 

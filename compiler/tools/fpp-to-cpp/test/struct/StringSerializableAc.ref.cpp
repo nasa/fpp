@@ -309,25 +309,25 @@ std::ostream& operator<<(std::ostream& os, const String& obj) {
 // ----------------------------------------------------------------------
 
 String::StringSize80& String ::
-  get_s1()
+  gets1()
 {
   return this->s1;
 }
 
 const String::StringSize80& String ::
-  get_s1() const
+  gets1() const
 {
   return this->s1;
 }
 
 String::StringSize40& String ::
-  get_s2()
+  gets2()
 {
   return this->s2;
 }
 
 const String::StringSize40& String ::
-  get_s2() const
+  gets2() const
 {
   return this->s2;
 }
@@ -347,13 +347,13 @@ void String ::
 }
 
 void String ::
-  set_s1(const StringSize80& s1)
+  sets1(const StringSize80& s1)
 {
   this->s1 = s1;
 }
 
 void String ::
-  set_s2(const StringSize40& s2)
+  sets2(const StringSize40& s2)
 {
   this->s2 = s2;
 }

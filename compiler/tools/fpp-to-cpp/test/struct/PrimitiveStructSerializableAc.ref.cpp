@@ -138,13 +138,13 @@ std::ostream& operator<<(std::ostream& os, const PrimitiveStruct& obj) {
 // ----------------------------------------------------------------------
 
 Primitive& PrimitiveStruct ::
-  get_s1()
+  gets1()
 {
   return this->s1;
 }
 
 const Primitive& PrimitiveStruct ::
-  get_s1() const
+  gets1() const
 {
   return this->s1;
 }
@@ -160,7 +160,7 @@ void PrimitiveStruct ::
 }
 
 void PrimitiveStruct ::
-  set_s1(const Primitive& s1)
+  sets1(const Primitive& s1)
 {
   this->s1 = s1;
 }

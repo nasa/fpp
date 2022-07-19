@@ -119,16 +119,16 @@ class Modules3 :
     // ----------------------------------------------------------------------
 
     //! Get member x
-    M::Modules2& get_x();
+    M::Modules2& getx();
 
     //! Get member x (const)
-    const M::Modules2& get_x() const;
+    const M::Modules2& getx() const;
 
     //! Get member arr
-    Type_of_arr& get_arr();
+    Type_of_arr& getarr();
 
     //! Get member arr (const)
-    const Type_of_arr& get_arr() const;
+    const Type_of_arr& getarr() const;
 
     // ----------------------------------------------------------------------
     // Setter functions
@@ -141,10 +141,10 @@ class Modules3 :
     );
 
     //! Set member x
-    void set_x(const M::Modules2& x);
+    void setx(const M::Modules2& x);
 
     //! Set member arr
-    void set_arr(const Type_of_arr& arr);
+    void setarr(const Type_of_arr& arr);
 
   private:
 

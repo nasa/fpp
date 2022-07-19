@@ -196,19 +196,19 @@ std::ostream& operator<<(std::ostream& os, const Enum& obj) {
 // ----------------------------------------------------------------------
 
 M::E::T Enum ::
-  get_e() const
+  gete() const
 {
   return this->e.e;
 }
 
 Enum::Type_of_eArr& Enum ::
-  get_eArr()
+  geteArr()
 {
   return this->eArr;
 }
 
 const Enum::Type_of_eArr& Enum ::
-  get_eArr() const
+  geteArr() const
 {
   return this->eArr;
 }
@@ -231,13 +231,13 @@ void Enum ::
 }
 
 void Enum ::
-  set_e(M::E::T e)
+  sete(M::E::T e)
 {
   this->e = e;
 }
 
 void Enum ::
-  set_eArr(const Type_of_eArr& eArr)
+  seteArr(const Type_of_eArr& eArr)
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
     this->eArr[i] = eArr[i];

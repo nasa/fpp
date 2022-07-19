@@ -245,25 +245,25 @@ std::ostream& operator<<(std::ostream& os, const Default& obj) {
 // ----------------------------------------------------------------------
 
 U32 Default ::
-  get_mU32() const
+  getmU32() const
 {
   return this->mU32;
 }
 
 Default::StringSize40& Default ::
-  get_mS1()
+  getmS1()
 {
   return this->mS1;
 }
 
 const Default::StringSize40& Default ::
-  get_mS1() const
+  getmS1() const
 {
   return this->mS1;
 }
 
 F64 Default ::
-  get_mF64() const
+  getmF64() const
 {
   return this->mF64;
 }
@@ -285,19 +285,19 @@ void Default ::
 }
 
 void Default ::
-  set_mU32(U32 mU32)
+  setmU32(U32 mU32)
 {
   this->mU32 = mU32;
 }
 
 void Default ::
-  set_mS1(const StringSize40& mS1)
+  setmS1(const StringSize40& mS1)
 {
   this->mS1 = mS1;
 }
 
 void Default ::
-  set_mF64(F64 mF64)
+  setmF64(F64 mF64)
 {
   this->mF64 = mF64;
 }

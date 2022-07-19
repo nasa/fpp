@@ -138,13 +138,13 @@ std::ostream& operator<<(std::ostream& os, const AbsType& obj) {
 // ----------------------------------------------------------------------
 
 T& AbsType ::
-  get_t()
+  gett()
 {
   return this->t;
 }
 
 const T& AbsType ::
-  get_t() const
+  gett() const
 {
   return this->t;
 }
@@ -160,7 +160,7 @@ void AbsType ::
 }
 
 void AbsType ::
-  set_t(const T& t)
+  sett(const T& t)
 {
   this->t = t;
 }

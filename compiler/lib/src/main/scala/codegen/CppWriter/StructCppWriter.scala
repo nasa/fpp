@@ -283,7 +283,7 @@ case class StructCppWriter(
         lines("// Compare non-array members"),
         if nonArrayMemberNames.length == 1 then
           wrapInIf(
-            s"!${nonArrayMemberCheck.head}", 
+            s"!${nonArrayMemberCheck.head}",
             lines("return false;")
           )
         else List(
@@ -611,7 +611,7 @@ case class StructCppWriter(
   }
 
   private def getGetterFunctionMembers: List[CppDoc.Class.Member] = {
-    def getGetterName(n: String) = s"get_$n"
+    def getGetterName(n: String) = s"get$n"
 
     memberList.flatMap((n, tn) => (sizes.contains(n), members(n)) match {
       case (false, _: Type.Enum) => List(
@@ -683,7 +683,7 @@ case class StructCppWriter(
         CppDoc.Class.Member.Function(
           CppDoc.Function(
             Some(s"Set member $n"),
-            s"set_$n",
+            s"set$n",
             List(
               writeMemberAsParam((n, tn))
             ),
