@@ -81,11 +81,21 @@ case class CppWriterState(
 
   /** Gets the list of identifiers representing the namespace
    *  associated with a symbol */
-  def getNamespaceIdentList(symbol: Symbol): List[String] =
-    a.parentSymbolMap.get(symbol) match {
-      case Some(s) => a.getQualifiedName(s).toIdentList
-      case None => Nil
-    }
+  def getNamespaceIdentList(symbol: Symbol): List[String] = {
+    def getQualifierList(so: Option[Symbol], out: List[String]): List[String] =
+      so match {
+        case Some(s) =>
+          val ps = a.parentSymbolMap.get(s)
+          (s, out) match {
+            // Don't add the enclosing component to the qualifier list
+            case (_: Symbol.Component, _) => getQualifierList(ps, out)
+            case (_, Nil) => getQualifierList(ps, List(s.getUnqualifiedName))
+            case _ => getQualifierList(ps, s.getUnqualifiedName :: out)
+          }
+        case None => out
+      }
+    getQualifierList(a.parentSymbolMap.get(symbol), Nil)
+  }
 
   /** Gets the unqualified name associated with a symbol.
    *  If a symbol is defined in a component, then we prefix its name
