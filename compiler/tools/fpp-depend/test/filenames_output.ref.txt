@@ -8,6 +8,8 @@ C_AArrayAi.xml
 C_EEnumAc.cpp
 C_EEnumAc.hpp
 C_EEnumAi.xml
+C_SSerializableAc.cpp
+C_SSerializableAc.hpp
 C_SSerializableAi.xml
 EEnumAc.cpp
 EEnumAc.hpp
@@ -15,6 +17,8 @@ EEnumAi.xml
 FppConstantsAc.cpp
 FppConstantsAc.hpp
 PPortAi.xml
+SSerializableAc.cpp
+SSerializableAc.hpp
 SSerializableAi.xml
 TTopologyAc.cpp
 TTopologyAc.hpp

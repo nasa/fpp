@@ -1,0 +1,2 @@
+fpp-to-cpp
+error: cannot open file [ local path prefix ]/tools/fpp-to-cpp/test/struct/array.fpp

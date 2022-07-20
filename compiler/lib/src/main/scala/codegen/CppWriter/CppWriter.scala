@@ -38,6 +38,14 @@ object CppWriter extends AstStateVisitor with LineUtils {
     visitList(s, data.members, matchModuleMember)
   }
 
+  override def defStructAnnotatedNode(
+    s: State,
+    aNode: Ast.Annotated[AstNode[Ast.DefStruct]]
+  ) = {
+    val cppDoc = StructCppWriter(s, aNode).write
+    writeCppDoc(s, cppDoc)
+  }
+
   override def defTopologyAnnotatedNode(
     s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefTopology]]

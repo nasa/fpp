@@ -1,0 +1,12 @@
+tests="
+primitive
+string
+enum
+array
+abs_type
+empty
+duplicate
+default
+format
+modules
+"
