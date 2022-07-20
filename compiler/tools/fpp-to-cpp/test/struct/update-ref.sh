@@ -50,3 +50,9 @@ modules()
   move_cpp Modules2Serializable
   move_cpp Modules3Serializable
 }
+
+component()
+{
+  update "-p $PWD" component
+  move_cpp C_SSerializable
+}

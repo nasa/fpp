@@ -21,3 +21,9 @@ serialize_type()
   run_test "-p $PWD" serialize_type && \
     diff_cpp SerializeTypeEnum
 }
+
+component()
+{
+  run_test "-p $PWD" component && \
+    diff_cpp C_EEnum
+}

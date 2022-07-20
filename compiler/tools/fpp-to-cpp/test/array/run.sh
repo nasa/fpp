@@ -48,3 +48,9 @@ struct()
     diff_cpp Struct2Array
     diff_cpp Struct3Array
 }
+
+component()
+{
+  run_test "-p $PWD" component && \
+    diff_cpp C_AArray
+}
