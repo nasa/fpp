@@ -61,6 +61,10 @@ Modules3 ::
   }
 }
 
+// ----------------------------------------------------------------------
+// Operators
+// ----------------------------------------------------------------------
+
 Modules3& Modules3 ::
   operator=(const Modules3& obj)
 {
@@ -97,6 +101,17 @@ bool Modules3 ::
 {
   return !(*this == obj);
 }
+
+#ifdef BUILD_UT
+
+std::ostream& operator<<(std::ostream& os, const Modules3& obj) {
+  Fw::String s;
+  obj.toString(s);
+  os << s.toChar();
+  return os;
+}
+
+#endif
 
 // ----------------------------------------------------------------------
 // Member functions
@@ -176,17 +191,6 @@ void Modules3 ::
 
   outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
   sb = outputString;
-}
-
-#endif
-
-#ifdef BUILD_UT
-
-std::ostream& operator<<(std::ostream& os, const Modules3& obj) {
-  Fw::String s;
-  obj.toString(s);
-  os << s.toChar();
-  return os;
 }
 
 #endif

@@ -41,6 +41,10 @@ namespace M {
 
   }
 
+  // ----------------------------------------------------------------------
+  // Operators
+  // ----------------------------------------------------------------------
+
   Modules2& Modules2 ::
     operator=(const Modules2& obj)
   {
@@ -63,6 +67,17 @@ namespace M {
   {
     return !(*this == obj);
   }
+
+#ifdef BUILD_UT
+
+  std::ostream& operator<<(std::ostream& os, const Modules2& obj) {
+    Fw::String s;
+    obj.toString(s);
+    os << s.toChar();
+    return os;
+  }
+
+#endif
 
   // ----------------------------------------------------------------------
   // Member functions
@@ -120,17 +135,6 @@ namespace M {
 
     outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
     sb = outputString;
-  }
-
-#endif
-
-#ifdef BUILD_UT
-
-  std::ostream& operator<<(std::ostream& os, const Modules2& obj) {
-    Fw::String s;
-    obj.toString(s);
-    os << s.toChar();
-    return os;
   }
 
 #endif

@@ -64,6 +64,12 @@ class Modules3 :
         const M::Modules2& arr
     );
 
+  public:
+
+    // ----------------------------------------------------------------------
+    // Operators
+    // ----------------------------------------------------------------------
+
     //! Copy assignment operator
     Modules3& operator=(
         const Modules3& obj //!< The source object
@@ -78,6 +84,16 @@ class Modules3 :
     bool operator!=(
         const Modules3& obj //!< The other object
     ) const;
+
+#ifdef BUILD_UT
+
+    //! Ostream operator
+    friend std::ostream& operator<<(
+        std::ostream& os, //!< The ostream
+        const Modules3& obj //!< The object
+    );
+
+#endif
 
   public:
 
@@ -101,16 +117,6 @@ class Modules3 :
     void toString(
         Fw::StringBase& sb //!< The StringBase object to hold the result
     ) const;
-
-#endif
-
-#ifdef BUILD_UT
-
-    //! Ostream operator
-    friend std::ostream& operator<<(
-        std::ostream& os, //!< The ostream
-        const Modules3& obj //!< The object
-    );
 
 #endif
 

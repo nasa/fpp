@@ -146,6 +146,12 @@ class Primitive :
         const StringSize80& m_string
     );
 
+  public:
+
+    // ----------------------------------------------------------------------
+    // Operators
+    // ----------------------------------------------------------------------
+
     //! Copy assignment operator
     Primitive& operator=(
         const Primitive& obj //!< The source object
@@ -160,6 +166,16 @@ class Primitive :
     bool operator!=(
         const Primitive& obj //!< The other object
     ) const;
+
+#ifdef BUILD_UT
+
+    //! Ostream operator
+    friend std::ostream& operator<<(
+        std::ostream& os, //!< The ostream
+        const Primitive& obj //!< The object
+    );
+
+#endif
 
   public:
 
@@ -183,16 +199,6 @@ class Primitive :
     void toString(
         Fw::StringBase& sb //!< The StringBase object to hold the result
     ) const;
-
-#endif
-
-#ifdef BUILD_UT
-
-    //! Ostream operator
-    friend std::ostream& operator<<(
-        std::ostream& os, //!< The ostream
-        const Primitive& obj //!< The object
-    );
 
 #endif
 

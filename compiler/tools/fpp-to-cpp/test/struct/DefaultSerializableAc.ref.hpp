@@ -101,6 +101,12 @@ class Default :
         const Default& obj //!< The source object
     );
 
+  public:
+
+    // ----------------------------------------------------------------------
+    // Operators
+    // ----------------------------------------------------------------------
+
     //! Copy assignment operator
     Default& operator=(
         const Default& obj //!< The source object
@@ -115,6 +121,16 @@ class Default :
     bool operator!=(
         const Default& obj //!< The other object
     ) const;
+
+#ifdef BUILD_UT
+
+    //! Ostream operator
+    friend std::ostream& operator<<(
+        std::ostream& os, //!< The ostream
+        const Default& obj //!< The object
+    );
+
+#endif
 
   public:
 
@@ -138,16 +154,6 @@ class Default :
     void toString(
         Fw::StringBase& sb //!< The StringBase object to hold the result
     ) const;
-
-#endif
-
-#ifdef BUILD_UT
-
-    //! Ostream operator
-    friend std::ostream& operator<<(
-        std::ostream& os, //!< The ostream
-        const Default& obj //!< The object
-    );
 
 #endif
 

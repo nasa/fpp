@@ -219,6 +219,10 @@ StringArray ::
   }
 }
 
+// ----------------------------------------------------------------------
+// Operators
+// ----------------------------------------------------------------------
+
 StringArray& StringArray ::
   operator=(const StringArray& obj)
 {
@@ -255,6 +259,17 @@ bool StringArray ::
 {
   return !(*this == obj);
 }
+
+#ifdef BUILD_UT
+
+std::ostream& operator<<(std::ostream& os, const StringArray& obj) {
+  Fw::String s;
+  obj.toString(s);
+  os << s.toChar();
+  return os;
+}
+
+#endif
 
 // ----------------------------------------------------------------------
 // Member functions
@@ -350,17 +365,6 @@ void StringArray ::
 
   outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
   sb = outputString;
-}
-
-#endif
-
-#ifdef BUILD_UT
-
-std::ostream& operator<<(std::ostream& os, const StringArray& obj) {
-  Fw::String s;
-  obj.toString(s);
-  os << s.toChar();
-  return os;
 }
 
 #endif

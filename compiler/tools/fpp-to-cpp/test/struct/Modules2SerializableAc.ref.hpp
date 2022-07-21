@@ -47,6 +47,12 @@ namespace M {
           const Modules2& obj //!< The source object
       );
 
+    public:
+
+      // ----------------------------------------------------------------------
+      // Operators
+      // ----------------------------------------------------------------------
+
       //! Copy assignment operator
       Modules2& operator=(
           const Modules2& obj //!< The source object
@@ -61,6 +67,16 @@ namespace M {
       bool operator!=(
           const Modules2& obj //!< The other object
       ) const;
+
+#ifdef BUILD_UT
+
+      //! Ostream operator
+      friend std::ostream& operator<<(
+          std::ostream& os, //!< The ostream
+          const Modules2& obj //!< The object
+      );
+
+#endif
 
     public:
 
@@ -84,16 +100,6 @@ namespace M {
       void toString(
           Fw::StringBase& sb //!< The StringBase object to hold the result
       ) const;
-
-#endif
-
-#ifdef BUILD_UT
-
-      //! Ostream operator
-      friend std::ostream& operator<<(
-          std::ostream& os, //!< The ostream
-          const Modules2& obj //!< The object
-      );
 
 #endif
 
