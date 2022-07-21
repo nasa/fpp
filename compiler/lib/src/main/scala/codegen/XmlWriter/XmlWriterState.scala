@@ -81,30 +81,14 @@ case class XmlWriterState(
   /** Gets the unqualified name associated with a symbol. */
   def getName(symbol: Symbol): String = cppWriterState.getName(symbol)
 
-  /** Gets the namespace associated with a symbol */
-  def getNamespace(symbol: Symbol): String = {
-    def helper(symbolOpt: Option[Symbol], out: String): String = {
-      symbolOpt match {
-        case None => out
-        case Some(symbol) =>
-          val ps = a.parentSymbolMap.get(symbol)
-          (symbol, out) match {
-            // Don't add the enclosing component to the namespace
-            case (_: Symbol.Component, _) => helper(ps, out)
-            case (_, "") => helper(ps, symbol.getUnqualifiedName)
-            case (_, _) => helper(ps, s"${symbol.getUnqualifiedName}::$out")
-          }
-      }
-    }
-    helper(a.parentSymbolMap.get(symbol), "")
-  }
-
   /** Gets the namespace and name associated with a symbol */
   def getNamespaceAndName(symbol: Symbol): List[(String, String)] = {
-    val namespace = getNamespace(symbol)
+    val namespace = cppWriterState.getNamespace(symbol)
     val namePair = ("name", getName(symbol))
-    val namespacePair = ("namespace", namespace)
-    if (namespace != "") List(namespacePair, namePair) else List(namePair)
+    namespace match {
+      case Some(n) => List(("namespace", n), namePair)
+      case None => List(namePair)
+    }
   }
 
 }
