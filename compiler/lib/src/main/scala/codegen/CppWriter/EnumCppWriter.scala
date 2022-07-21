@@ -280,7 +280,7 @@ case class EnumCppWriter(
       CppDoc.Class.Member.Function(
         CppDoc.Function(
           Some(s"Conversion operator"),
-          s"operator t",
+          s"operator T",
           Nil,
           CppDoc.Type(""),
           List(
@@ -296,14 +296,14 @@ case class EnumCppWriter(
           "operator==",
           List(
             CppDoc.Function.Param(
-              CppDoc.Type(s"const $name&"),
-              "obj",
-              Some("The other object"),
+              CppDoc.Type(s"T"),
+              "e",
+              Some("The other enum value"),
             ),
           ),
           CppDoc.Type("bool"),
           List(
-            line("return this->e == obj.e;"),
+            line("return this->e == e;"),
           ),
           CppDoc.Function.NonSV,
           CppDoc.Function.Const
@@ -315,14 +315,14 @@ case class EnumCppWriter(
           "operator!=",
           List(
             CppDoc.Function.Param(
-              CppDoc.Type(s"const $name&"),
-              "obj",
-              Some("The other object"),
+              CppDoc.Type(s"T"),
+              "e",
+              Some("The other enum value"),
             ),
           ),
           CppDoc.Type("bool"),
           List(
-            line("return !(*this == obj);"),
+            line("return !(*this == e);"),
           ),
           CppDoc.Function.NonSV,
           CppDoc.Function.Const
