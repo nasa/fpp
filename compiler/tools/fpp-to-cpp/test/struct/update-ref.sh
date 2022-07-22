@@ -55,4 +55,5 @@ component()
 {
   update "-p $PWD" component
   move_cpp C_SSerializable
+  move_cpp SSerializable
 }

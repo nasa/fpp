@@ -53,4 +53,5 @@ component()
 {
   update "-p $PWD" component
   move_cpp C_AArray
+  move_cpp AArray
 }

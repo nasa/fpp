@@ -26,4 +26,5 @@ component()
 {
   update "-p $PWD" component
   move_cpp C_EEnum
+  move_cpp EEnum
 }

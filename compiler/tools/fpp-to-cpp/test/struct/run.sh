@@ -55,4 +55,5 @@ component()
 {
   run_test "-p $PWD" component && \
     diff_cpp C_SSerializable
+    diff_cpp SSerializable
 }
