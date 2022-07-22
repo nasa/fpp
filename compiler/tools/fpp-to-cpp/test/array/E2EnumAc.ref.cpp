@@ -51,21 +51,21 @@ E2& E2 ::
 }
 
 E2 ::
-  operator t() const
+  operator T() const
 {
   return this->e;
 }
 
 bool E2 ::
-  operator==(const E2& obj) const
+  operator==(T e) const
 {
-  return this->e == obj.e;
+  return this->e == e;
 }
 
 bool E2 ::
-  operator!=(const E2& obj) const
+  operator!=(T e) const
 {
-  return !(*this == obj);
+  return !(*this == e);
 }
 
 #ifdef BUILD_UT

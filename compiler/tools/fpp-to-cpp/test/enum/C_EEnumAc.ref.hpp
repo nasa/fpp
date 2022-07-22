@@ -82,16 +82,16 @@ class C_E :
     );
 
     //! Conversion operator
-    operator t() const;
+    operator T() const;
 
     //! Equality operator
     bool operator==(
-        const C_E& obj //!< The other object
+        T e //!< The other enum value
     ) const;
 
     //! Inequality operator
     bool operator!=(
-        const C_E& obj //!< The other object
+        T e //!< The other enum value
     ) const;
 
 #ifdef BUILD_UT
