@@ -53,21 +53,21 @@ namespace M {
   }
 
   E1 ::
-    operator t() const
+    operator T() const
   {
     return this->e;
   }
 
   bool E1 ::
-    operator==(const E1& obj) const
+    operator==(T e) const
   {
-    return this->e == obj.e;
+    return this->e == e;
   }
 
   bool E1 ::
-    operator!=(const E1& obj) const
+    operator!=(T e) const
   {
-    return !(*this == obj);
+    return !(*this == e);
   }
 
 #ifdef BUILD_UT

@@ -51,21 +51,21 @@ C_E& C_E ::
 }
 
 C_E ::
-  operator t() const
+  operator T() const
 {
   return this->e;
 }
 
 bool C_E ::
-  operator==(const C_E& obj) const
+  operator==(T e) const
 {
-  return this->e == obj.e;
+  return this->e == e;
 }
 
 bool C_E ::
-  operator!=(const C_E& obj) const
+  operator!=(T e) const
 {
-  return !(*this == obj);
+  return !(*this == e);
 }
 
 #ifdef BUILD_UT

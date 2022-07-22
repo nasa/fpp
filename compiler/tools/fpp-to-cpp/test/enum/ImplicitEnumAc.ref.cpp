@@ -53,21 +53,21 @@ namespace M {
   }
 
   Implicit ::
-    operator t() const
+    operator T() const
   {
     return this->e;
   }
 
   bool Implicit ::
-    operator==(const Implicit& obj) const
+    operator==(T e) const
   {
-    return this->e == obj.e;
+    return this->e == e;
   }
 
   bool Implicit ::
-    operator!=(const Implicit& obj) const
+    operator!=(T e) const
   {
-    return !(*this == obj);
+    return !(*this == e);
   }
 
 #ifdef BUILD_UT
