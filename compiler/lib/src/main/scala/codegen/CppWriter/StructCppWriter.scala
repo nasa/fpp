@@ -312,74 +312,73 @@ case class StructCppWriter(
       ).flatten
 
     List(
-      List(
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            CppDocHppWriter.writeAccessTag("public")
-          )
-        ),
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            CppDocWriter.writeBannerComment("Operators"),
-            CppDoc.Lines.Both
-          )
-        ),
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some("Copy assignment operator"),
-            "operator=",
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type(s"const $name&"),
-                "obj",
-                Some("The source object")
-              ),
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          CppDocHppWriter.writeAccessTag("public")
+        )
+      ),
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          CppDocWriter.writeBannerComment("Operators"),
+          CppDoc.Lines.Both
+        )
+      ),
+      CppDoc.Class.Member.Function(
+        CppDoc.Function(
+          Some("Copy assignment operator"),
+          "operator=",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type(s"const $name&"),
+              "obj",
+              Some("The source object")
             ),
-            CppDoc.Type(s"$name&"),
-            List(
-              wrapInIf("this == &obj", lines("return *this;")),
-              Line.blank :: lines(
-                s"set(${memberNames.map(n => s"obj.$n").mkString(", ")});"
-              ),
-              lines("return *this;"),
-            ).flatten
-          )
-        ),
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some("Equality operator"),
-            "operator==",
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type(s"const $name&"),
-                "obj",
-                Some("The other object")
-              )
-            ),
-            CppDoc.Type("bool"),
-            equalityOpBody,
-            CppDoc.Function.NonSV,
-            CppDoc.Function.Const
           ),
-        ),
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some("Inequality operator"),
-            "operator!=",
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type(s"const $name&"),
-                "obj",
-                Some("The other object")
-              )
+          CppDoc.Type(s"$name&"),
+          List(
+            wrapInIf("this == &obj", lines("return *this;")),
+            Line.blank :: lines(
+              s"set(${memberNames.map(n => s"obj.$n").mkString(", ")});"
             ),
-            CppDoc.Type("bool"),
-            lines("return !(*this == obj);"),
-            CppDoc.Function.NonSV,
-            CppDoc.Function.Const
+            lines("return *this;"),
+          ).flatten
+        )
+      ),
+      CppDoc.Class.Member.Function(
+        CppDoc.Function(
+          Some("Equality operator"),
+          "operator==",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type(s"const $name&"),
+              "obj",
+              Some("The other object")
+            )
           ),
+          CppDoc.Type("bool"),
+          equalityOpBody,
+          CppDoc.Function.NonSV,
+          CppDoc.Function.Const
         ),
       ),
+      CppDoc.Class.Member.Function(
+        CppDoc.Function(
+          Some("Inequality operator"),
+          "operator!=",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type(s"const $name&"),
+              "obj",
+              Some("The other object")
+            )
+          ),
+          CppDoc.Type("bool"),
+          lines("return !(*this == obj);"),
+          CppDoc.Function.NonSV,
+          CppDoc.Function.Const
+        ),
+      ),
+    ) ++ (
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
           List(Line.blank),
@@ -393,8 +392,8 @@ case class StructCppWriter(
              |os << s.toChar();
              |return os;"""
         )
-      ),
-    ).flatten
+      )
+    )
   }
 
   private def getMemberFunctionMembers: List[CppDoc.Class.Member] = {

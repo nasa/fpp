@@ -232,104 +232,103 @@ case class EnumCppWriter(
 
   private def getOperatorMembers: List[CppDoc.Class.Member] =
     List(
-      List(
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(CppDocHppWriter.writeAccessTag("public"))
-        ),
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            CppDocWriter.writeBannerComment("Operators"),
-            CppDoc.Lines.Both
-          )
-        ),
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some(s"Copy assignment operator (object)"),
-            "operator=",
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type(s"const $name&"),
-                "obj",
-                Some("The source object"),
-              ),
-            ),
-            CppDoc.Type(s"$name&"),
-            List(
-              line("this->e = obj.e;"),
-              line("return *this;"),
-            )
-          )
-        ),
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some(s"Copy assignment operator (raw enum)"),
-            "operator=",
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type("T"),
-                "e",
-                Some("The enum value"),
-              ),
-            ),
-            CppDoc.Type(s"$name&"),
-            List(
-              line("this->e = e;"),
-              line("return *this;"),
-            )
-          )
-        ),
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some(s"Conversion operator"),
-            s"operator t",
-            Nil,
-            CppDoc.Type(""),
-            List(
-              line("return this->e;"),
-            ),
-            CppDoc.Function.NonSV,
-            CppDoc.Function.Const
-          )
-        ),
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some(s"Equality operator"),
-            "operator==",
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type(s"const $name&"),
-                "obj",
-                Some("The other object"),
-              ),
-            ),
-            CppDoc.Type("bool"),
-            List(
-              line("return this->e == obj.e;"),
-            ),
-            CppDoc.Function.NonSV,
-            CppDoc.Function.Const
-          )
-        ),
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some(s"Inequality operator"),
-            "operator!=",
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type(s"const $name&"),
-                "obj",
-                Some("The other object"),
-              ),
-            ),
-            CppDoc.Type("bool"),
-            List(
-              line("return !(*this == obj);"),
-            ),
-            CppDoc.Function.NonSV,
-            CppDoc.Function.Const
-          )
-        ),
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(CppDocHppWriter.writeAccessTag("public"))
       ),
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          CppDocWriter.writeBannerComment("Operators"),
+          CppDoc.Lines.Both
+        )
+      ),
+      CppDoc.Class.Member.Function(
+        CppDoc.Function(
+          Some(s"Copy assignment operator (object)"),
+          "operator=",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type(s"const $name&"),
+              "obj",
+              Some("The source object"),
+            ),
+          ),
+          CppDoc.Type(s"$name&"),
+          List(
+            line("this->e = obj.e;"),
+            line("return *this;"),
+          )
+        )
+      ),
+      CppDoc.Class.Member.Function(
+        CppDoc.Function(
+          Some(s"Copy assignment operator (raw enum)"),
+          "operator=",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("T"),
+              "e",
+              Some("The enum value"),
+            ),
+          ),
+          CppDoc.Type(s"$name&"),
+          List(
+            line("this->e = e;"),
+            line("return *this;"),
+          )
+        )
+      ),
+      CppDoc.Class.Member.Function(
+        CppDoc.Function(
+          Some(s"Conversion operator"),
+          s"operator t",
+          Nil,
+          CppDoc.Type(""),
+          List(
+            line("return this->e;"),
+          ),
+          CppDoc.Function.NonSV,
+          CppDoc.Function.Const
+        )
+      ),
+      CppDoc.Class.Member.Function(
+        CppDoc.Function(
+          Some(s"Equality operator"),
+          "operator==",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type(s"const $name&"),
+              "obj",
+              Some("The other object"),
+            ),
+          ),
+          CppDoc.Type("bool"),
+          List(
+            line("return this->e == obj.e;"),
+          ),
+          CppDoc.Function.NonSV,
+          CppDoc.Function.Const
+        )
+      ),
+      CppDoc.Class.Member.Function(
+        CppDoc.Function(
+          Some(s"Inequality operator"),
+          "operator!=",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type(s"const $name&"),
+              "obj",
+              Some("The other object"),
+            ),
+          ),
+          CppDoc.Type("bool"),
+          List(
+            line("return !(*this == obj);"),
+          ),
+          CppDoc.Function.NonSV,
+          CppDoc.Function.Const
+        )
+      )
+    ) ++ (
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
           List(Line.blank),
@@ -343,84 +342,83 @@ case class EnumCppWriter(
              |os << s;
              |return os;"""
         )
-      ),
-    ).flatten
+      )
+    )
 
   private def getMemberFunctionMembers: List[CppDoc.Class.Member] =
     List(
-      List(
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(CppDocHppWriter.writeAccessTag("public"))
-        ),
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            CppDocWriter.writeBannerComment("Member functions"),
-            CppDoc.Lines.Both
-          )
-        ),
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some(s"Check raw enum value for validity"),
-            "isValid",
-            Nil,
-            CppDoc.Type("bool"),
-            Line.addPrefixAndSuffix(
-              "return ",
-              writeIntervals(intervals),
-              ";"
-            ),
-            CppDoc.Function.NonSV,
-            CppDoc.Function.Const
-          )
-        ),
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some(s"Serialize raw enum value to SerialType"),
-            "serialize",
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type("Fw::SerializeBufferBase&"),
-                "buffer",
-                Some("The serial buffer")
-              )
-            ),
-            CppDoc.Type("Fw::SerializeStatus"),
-            lines(
-              s"""|const Fw::SerializeStatus status = buffer.serialize(
-                  |    static_cast<SerialType>(this->e)
-                  |);
-                  |return status;"""
-            ),
-            CppDoc.Function.NonSV,
-            CppDoc.Function.Const
-          )
-        ),
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some(s"Deserialize raw enum value from SerialType"),
-            "deserialize",
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type("Fw::SerializeBufferBase&"),
-                "buffer",
-                Some("The serial buffer")
-              )
-            ),
-            CppDoc.Type("Fw::SerializeStatus"),
-            lines(
-              s"""|SerialType es;
-                  |Fw::SerializeStatus status = buffer.deserialize(es);
-                  |if (status == Fw::FW_SERIALIZE_OK) {
-                  |  this->e = static_cast<T>(es);
-                  |  if (!this->isValid()) {
-                  |    status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
-                  |  }
-                  |}
-                  |return status;"""
-            )
-          )
-        ),
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(CppDocHppWriter.writeAccessTag("public"))
       ),
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          CppDocWriter.writeBannerComment("Member functions"),
+          CppDoc.Lines.Both
+        )
+      ),
+      CppDoc.Class.Member.Function(
+        CppDoc.Function(
+          Some(s"Check raw enum value for validity"),
+          "isValid",
+          Nil,
+          CppDoc.Type("bool"),
+          Line.addPrefixAndSuffix(
+            "return ",
+            writeIntervals(intervals),
+            ";"
+          ),
+          CppDoc.Function.NonSV,
+          CppDoc.Function.Const
+        )
+      ),
+      CppDoc.Class.Member.Function(
+        CppDoc.Function(
+          Some(s"Serialize raw enum value to SerialType"),
+          "serialize",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::SerializeBufferBase&"),
+              "buffer",
+              Some("The serial buffer")
+            )
+          ),
+          CppDoc.Type("Fw::SerializeStatus"),
+          lines(
+            s"""|const Fw::SerializeStatus status = buffer.serialize(
+                |    static_cast<SerialType>(this->e)
+                |);
+                |return status;"""
+          ),
+          CppDoc.Function.NonSV,
+          CppDoc.Function.Const
+        )
+      ),
+      CppDoc.Class.Member.Function(
+        CppDoc.Function(
+          Some(s"Deserialize raw enum value from SerialType"),
+          "deserialize",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::SerializeBufferBase&"),
+              "buffer",
+              Some("The serial buffer")
+            )
+          ),
+          CppDoc.Type("Fw::SerializeStatus"),
+          lines(
+            s"""|SerialType es;
+                |Fw::SerializeStatus status = buffer.deserialize(es);
+                |if (status == Fw::FW_SERIALIZE_OK) {
+                |  this->e = static_cast<T>(es);
+                |  if (!this->isValid()) {
+                |    status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
+                |  }
+                |}
+                |return status;"""
+          )
+        )
+      )
+    ) ++
       wrapClassMembersInIfDirective(
         "\n#if FW_SERIALIZABLE_TO_STRING || BUILD_UT",
         List(
@@ -466,8 +464,7 @@ case class EnumCppWriter(
             )
           )
         )
-      ),
-    ).flatten
+      )
 
   private def getMemberVariableMembers: List[CppDoc.Class.Member] =
     List(

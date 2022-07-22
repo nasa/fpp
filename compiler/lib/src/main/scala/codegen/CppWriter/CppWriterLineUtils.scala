@@ -29,27 +29,40 @@ trait CppWriterLineUtils extends LineUtils {
 
   def wrapMembersInIfDirective(
     directive: String,
-    body: List[CppDoc.Member]
+    body: List[CppDoc.Member],
+    linesOutput: CppDoc.Lines.Output = CppDoc.Lines.Both
   ): List[CppDoc.Member] =
-    wrapInIfDirective(directive, body, CppDoc.Member.Lines.apply)
+    wrapInIfDirective(
+      directive,
+      body,
+      CppDoc.Member.Lines.apply,
+      linesOutput
+    )
 
   def wrapClassMembersInIfDirective(
     directive: String,
-    body: List[CppDoc.Class.Member]
+    body: List[CppDoc.Class.Member],
+    linesOutput: CppDoc.Lines.Output = CppDoc.Lines.Both
   ): List[CppDoc.Class.Member] =
-    wrapInIfDirective(directive, body, CppDoc.Class.Member.Lines.apply)
+    wrapInIfDirective(
+      directive,
+      body,
+      CppDoc.Class.Member.Lines.apply,
+      linesOutput
+    )
 
   def wrapInIfDirective[T](
     directive: String,
     body: List[T],
-    constructMemberLines: CppDoc.Lines => T
+    constructMemberLines: CppDoc.Lines => T,
+    linesOutput: CppDoc.Lines.Output = CppDoc.Lines.Both
   ): List[T] =
     List(
       List(
         constructMemberLines(
           CppDoc.Lines(
             lines(directive),
-            CppDoc.Lines.Both
+            linesOutput
           )
         )
       ),
@@ -58,7 +71,7 @@ trait CppWriterLineUtils extends LineUtils {
         constructMemberLines(
           CppDoc.Lines(
             Line.blank :: lines("#endif"),
-            CppDoc.Lines.Both
+            linesOutput
           )
         )
       ),
