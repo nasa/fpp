@@ -327,46 +327,22 @@ case class EnumCppWriter(
           CppDoc.Function.NonSV,
           CppDoc.Function.Const
         )
-      ),
+      )
+    ) ++ (
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
-          lines("\n#ifdef BUILD_UT"),
+          List(Line.blank),
           CppDoc.Lines.Both
         )
-      ),
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          lines(
-            s"""|
-                |//! Ostream operator
-                |friend std::ostream& operator<<(
-                |    std::ostream& os, //!< The ostream
-                |    const $name& obj //!< The object
-                |);"""
-            )
+      ) :: writeOstreamOperator(
+        name,
+        lines(
+          """|Fw::String s;
+             |obj.toString(s);
+             |os << s;
+             |return os;"""
         )
-      ),
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          wrapInScope(
-            s"\nstd::ostream& operator<<(std::ostream& os, const $name& obj) {",
-            lines(
-              """|Fw::String s;
-                 |obj.toString(s);
-                 |os << s;
-                 |return os;"""
-            ),
-            "}"
-          ),
-          CppDoc.Lines.Cpp
-        )
-      ),
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          lines("\n#endif"),
-          CppDoc.Lines.Both
-        )
-      ),
+      )
     )
 
   private def getMemberFunctionMembers: List[CppDoc.Class.Member] =
@@ -441,61 +417,54 @@ case class EnumCppWriter(
                 |return status;"""
           )
         )
-      ),
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          lines("\n#if FW_SERIALIZABLE_TO_STRING || BUILD_UT"),
-          CppDoc.Lines.Both
-        )
-      ),
-      CppDoc.Class.Member.Function(
-        CppDoc.Function(
-          Some(s"Convert enum to string"),
-          "toString",
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type("Fw::StringBase&"),
-              "sb",
-              Some("The StringBase object to hold the result")
-            )
-          ),
-          CppDoc.Type("void"),
-          List(
-            lines(
-              s"""|Fw::String s;"""
-            ),
-            wrapInScope(
-              "switch (e) {",
-              data.constants.flatMap(aNode => {
-                val enumName = aNode._2.data.name
-                lines(
-                  s"""|case $enumName:
-                      |  s = "$enumName";
-                      |  break;"""
+      )
+    ) ++
+      wrapClassMembersInIfDirective(
+        "\n#if FW_SERIALIZABLE_TO_STRING || BUILD_UT",
+        List(
+          CppDoc.Class.Member.Function(
+            CppDoc.Function(
+              Some(s"Convert enum to string"),
+              "toString",
+              List(
+                CppDoc.Function.Param(
+                  CppDoc.Type("Fw::StringBase&"),
+                  "sb",
+                  Some("The StringBase object to hold the result")
                 )
-              }) ++
-              lines(
-                """|default:
-                   |  s = "[invalid]";
-                   |  break;"""
               ),
-              "}"
-            ),
-            lines(
-              """|sb.format("%s (%d)", s.toChar(), e);"""
+              CppDoc.Type("void"),
+              List(
+                lines(
+                  s"""|Fw::String s;"""
+                ),
+                wrapInScope(
+                  "switch (e) {",
+                  data.constants.flatMap(aNode => {
+                    val enumName = aNode._2.data.name
+                    lines(
+                      s"""|case $enumName:
+                          |  s = "$enumName";
+                          |  break;"""
+                    )
+                  }) ++
+                    lines(
+                      """|default:
+                         |  s = "[invalid]";
+                         |  break;"""
+                    ),
+                  "}"
+                ),
+                lines(
+                  """|sb.format("%s (%d)", s.toChar(), e);"""
+                )
+              ).flatten,
+              CppDoc.Function.NonSV,
+              CppDoc.Function.Const
             )
-          ).flatten,
-          CppDoc.Function.NonSV,
-          CppDoc.Function.Const
+          )
         )
-      ),
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          lines("\n#endif"),
-          CppDoc.Lines.Both
-        )
-      ),
-    )
+      )
 
   private def getMemberVariableMembers: List[CppDoc.Class.Member] =
     List(

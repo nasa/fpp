@@ -402,46 +402,22 @@ case class ArrayCppWriter (
           CppDoc.Function.NonSV,
           CppDoc.Function.Const,
         )
-      ),
+      )
+    ) ++ (
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
-          lines("\n#ifdef BUILD_UT"),
+          List(Line.blank),
           CppDoc.Lines.Both
         )
-      ),
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          lines(
-            s"""|
-                |//! Ostream operator
-                |friend std::ostream& operator<<(
-                |    std::ostream& os, //!< The ostream
-                |    const $name& obj //!< The object
-                |);"""
-          )
+      ) :: writeOstreamOperator(
+        name,
+        lines(
+          """|Fw::String s;
+             |obj.toString(s);
+             |os << s;
+             |return os;"""
         )
-      ),
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          wrapInScope(
-            s"\nstd::ostream& operator<<(std::ostream& os, const $name& obj) {",
-            lines(
-              """|Fw::String s;
-                 |obj.toString(s);
-                 |os << s;
-                 |return os;"""
-            ),
-            "}"
-          ),
-          CppDoc.Lines.Cpp
-        )
-      ),
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          lines("\n#endif"),
-          CppDoc.Lines.Both
-        )
-      ),
+      )
     )
 
   private def getMemberFunctionMembers: List[CppDoc.Class.Member] = {
@@ -525,62 +501,55 @@ case class ArrayCppWriter (
             lines("return status;"),
           ).flatten,
         )
-      ),
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          lines("\n#if FW_ARRAY_TO_STRING || BUILD_UT"),
-          CppDoc.Lines.Both
-        )
-      ),
-      CppDoc.Class.Member.Function(
-        CppDoc.Function(
-          Some("Convert array to string"),
-          "toString",
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type("Fw::StringBase&"),
-              "sb",
-              Some("The StringBase object to hold the result")
-            )
-          ),
-          CppDoc.Type("void"),
-          List(
-            wrapInScope(
-              "static const char *formatString = \"[ \"",
-              lines(List.fill(arraySize)(s"\"$formatStr ").mkString("\"\n") + "]\";"),
-              ""
-            ),
-            initStrings,
-            lines("char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];"),
-            wrapInScope(
-              "(void) snprintf(",
+      )
+    ) ++
+      wrapClassMembersInIfDirective(
+        "\n#if FW_ARRAY_TO_STRING || BUILD_UT",
+        List(
+          CppDoc.Class.Member.Function(
+            CppDoc.Function(
+              Some("Convert array to string"),
+              "toString",
               List(
-                List(
-                  line("outputString,"),
-                  line("FW_ARRAY_TO_STRING_BUFFER_SIZE,"),
-                  line("formatString,"),
+                CppDoc.Function.Param(
+                  CppDoc.Type("Fw::StringBase&"),
+                  "sb",
+                  Some("The StringBase object to hold the result")
+                )
+              ),
+              CppDoc.Type("void"),
+              List(
+                wrapInScope(
+                  "static const char *formatString = \"[ \"",
+                  lines(List.fill(arraySize)(s"\"$formatStr ").mkString("\"\n") + "]\";"),
+                  ""
                 ),
-                formatArgs,
+                initStrings,
+                lines("char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];"),
+                wrapInScope(
+                  "(void) snprintf(",
+                  List(
+                    List(
+                      line("outputString,"),
+                      line("FW_ARRAY_TO_STRING_BUFFER_SIZE,"),
+                      line("formatString,"),
+                    ),
+                    formatArgs,
+                  ).flatten,
+                  ");"
+                ),
+                List(
+                  Line.blank,
+                  line("outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate"),
+                  line("sb = outputString;"),
+                ),
               ).flatten,
-              ");"
-            ),
-            List(
-              Line.blank,
-              line("outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate"),
-              line("sb = outputString;"),
-            ),
-          ).flatten,
-          CppDoc.Function.NonSV,
-          CppDoc.Function.Const,
+              CppDoc.Function.NonSV,
+              CppDoc.Function.Const,
+            )
+          )
         )
-      ),
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          lines("\n#endif"),
-          CppDoc.Lines.Both
-        )
-      ),
-    )
+      )
   }
 
   private def getMemberVariableMembers: List[CppDoc.Class.Member] =

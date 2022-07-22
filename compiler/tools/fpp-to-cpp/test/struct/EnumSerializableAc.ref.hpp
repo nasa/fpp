@@ -64,6 +64,12 @@ class Enum :
         M::E::T eArr
     );
 
+  public:
+
+    // ----------------------------------------------------------------------
+    // Operators
+    // ----------------------------------------------------------------------
+
     //! Copy assignment operator
     Enum& operator=(
         const Enum& obj //!< The source object
@@ -78,6 +84,16 @@ class Enum :
     bool operator!=(
         const Enum& obj //!< The other object
     ) const;
+
+#ifdef BUILD_UT
+
+    //! Ostream operator
+    friend std::ostream& operator<<(
+        std::ostream& os, //!< The ostream
+        const Enum& obj //!< The object
+    );
+
+#endif
 
   public:
 
@@ -101,16 +117,6 @@ class Enum :
     void toString(
         Fw::StringBase& sb //!< The StringBase object to hold the result
     ) const;
-
-#endif
-
-#ifdef BUILD_UT
-
-    //! Ostream operator
-    friend std::ostream& operator<<(
-        std::ostream& os, //!< The ostream
-        const Enum& obj //!< The object
-    );
 
 #endif
 

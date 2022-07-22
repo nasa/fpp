@@ -148,6 +148,12 @@ class String :
         const String& obj //!< The source object
     );
 
+  public:
+
+    // ----------------------------------------------------------------------
+    // Operators
+    // ----------------------------------------------------------------------
+
     //! Copy assignment operator
     String& operator=(
         const String& obj //!< The source object
@@ -162,6 +168,16 @@ class String :
     bool operator!=(
         const String& obj //!< The other object
     ) const;
+
+#ifdef BUILD_UT
+
+    //! Ostream operator
+    friend std::ostream& operator<<(
+        std::ostream& os, //!< The ostream
+        const String& obj //!< The object
+    );
+
+#endif
 
   public:
 
@@ -185,16 +201,6 @@ class String :
     void toString(
         Fw::StringBase& sb //!< The StringBase object to hold the result
     ) const;
-
-#endif
-
-#ifdef BUILD_UT
-
-    //! Ostream operator
-    friend std::ostream& operator<<(
-        std::ostream& os, //!< The ostream
-        const String& obj //!< The object
-    );
 
 #endif
 

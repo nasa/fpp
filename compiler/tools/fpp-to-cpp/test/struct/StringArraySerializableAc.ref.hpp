@@ -163,6 +163,12 @@ class StringArray :
         const StringSize40& s2
     );
 
+  public:
+
+    // ----------------------------------------------------------------------
+    // Operators
+    // ----------------------------------------------------------------------
+
     //! Copy assignment operator
     StringArray& operator=(
         const StringArray& obj //!< The source object
@@ -177,6 +183,16 @@ class StringArray :
     bool operator!=(
         const StringArray& obj //!< The other object
     ) const;
+
+#ifdef BUILD_UT
+
+    //! Ostream operator
+    friend std::ostream& operator<<(
+        std::ostream& os, //!< The ostream
+        const StringArray& obj //!< The object
+    );
+
+#endif
 
   public:
 
@@ -200,16 +216,6 @@ class StringArray :
     void toString(
         Fw::StringBase& sb //!< The StringBase object to hold the result
     ) const;
-
-#endif
-
-#ifdef BUILD_UT
-
-    //! Ostream operator
-    friend std::ostream& operator<<(
-        std::ostream& os, //!< The ostream
-        const StringArray& obj //!< The object
-    );
 
 #endif
 

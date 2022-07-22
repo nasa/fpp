@@ -78,6 +78,12 @@ class Format :
         const Format& obj //!< The source object
     );
 
+  public:
+
+    // ----------------------------------------------------------------------
+    // Operators
+    // ----------------------------------------------------------------------
+
     //! Copy assignment operator
     Format& operator=(
         const Format& obj //!< The source object
@@ -92,6 +98,16 @@ class Format :
     bool operator!=(
         const Format& obj //!< The other object
     ) const;
+
+#ifdef BUILD_UT
+
+    //! Ostream operator
+    friend std::ostream& operator<<(
+        std::ostream& os, //!< The ostream
+        const Format& obj //!< The object
+    );
+
+#endif
 
   public:
 
@@ -115,16 +131,6 @@ class Format :
     void toString(
         Fw::StringBase& sb //!< The StringBase object to hold the result
     ) const;
-
-#endif
-
-#ifdef BUILD_UT
-
-    //! Ostream operator
-    friend std::ostream& operator<<(
-        std::ostream& os, //!< The ostream
-        const Format& obj //!< The object
-    );
 
 #endif
 

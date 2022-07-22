@@ -312,6 +312,17 @@ case class StructCppWriter(
       ).flatten
 
     List(
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          CppDocHppWriter.writeAccessTag("public")
+        )
+      ),
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          CppDocWriter.writeBannerComment("Operators"),
+          CppDoc.Lines.Both
+        )
+      ),
       CppDoc.Class.Member.Function(
         CppDoc.Function(
           Some("Copy assignment operator"),
@@ -367,6 +378,21 @@ case class StructCppWriter(
           CppDoc.Function.Const
         ),
       ),
+    ) ++ (
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          List(Line.blank),
+          CppDoc.Lines.Both
+        )
+      ) :: writeOstreamOperator(
+        name,
+        lines(
+          """|Fw::String s;
+             |obj.toString(s);
+             |os << s.toChar();
+             |return os;"""
+        )
+      )
     )
   }
 
@@ -473,127 +499,81 @@ case class StructCppWriter(
             ).flatten
           )
         ),
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            lines("\n#if FW_SERIALIZABLE_TO_STRING || BUILD_UT"),
-            CppDoc.Lines.Both
-          )
-        ),
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some("Convert struct to string"),
-            "toString",
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type("Fw::StringBase&"),
-                "sb",
-                Some("The StringBase object to hold the result")
-              )
-            ),
-            CppDoc.Type("void"),
-            List(
-              lines("static const char* formatString ="),
-              lines(typeMembers.flatMap((_, node, _) => {
-                val n = node.data.name
-                val formatStr = FormatCppWriter.write(
-                  getFormatStr(n),
-                  node.data.typeName
-                )
-                if sizes.contains(n) then {
-                  if sizes(n) == 1 then
-                    List(s"$n = [ $formatStr ]")
-                  else
-                    s"$n = [ $formatStr" ::
-                      List.fill(sizes(n) - 2)(formatStr) ++
-                        List(s"$formatStr ]")
-                } else
-                  List(s"$n = $formatStr")
-              }).mkString("\"( \"\n\"", ", \"\n\"", "\"\n\" )\";")).map(indentIn),
-              initStrings,
-              Line.blank ::
-                lines("char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];"),
-              wrapInScope(
-                "(void) snprintf(",
-                List(
-                  List(
-                    line("outputString,"),
-                    line("FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,"),
-                    line("formatString,"),
-                  ),
-                  // Write format arguments
-                  lines(memberList.flatMap((n, tn) =>
-                    (sizes.contains(n), members(n)) match {
-                      case (false, _: Type.String) =>
-                        List(s"this->$n.toChar()")
-                      case (false, t) if s.isPrimitive(t, tn) =>
-                        List(s"this->$n")
-                      case (false, _) =>
-                        List(s"${n}Str.toChar()")
-                      case (true, _: Type.String) =>
-                        List.range(0, sizes(n)).map(i => s"this->$n[$i].toChar()")
-                      case (true, t) if s.isPrimitive(t, tn) =>
-                        List.range(0, sizes(n)).map(i => s"this->$n[$i]")
-                      case _ =>
-                        List.range(0, sizes(n)).map(i => s"${n}Str[$i].toChar()")
-                    }).mkString(",\n")),
-                ).flatten,
-                ");"
-              ),
+      ),
+      wrapClassMembersInIfDirective(
+        "\n#if FW_SERIALIZABLE_TO_STRING || BUILD_UT",
+        List(
+          CppDoc.Class.Member.Function(
+            CppDoc.Function(
+              Some("Convert struct to string"),
+              "toString",
               List(
-                Line.blank,
-                line("outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate"),
-                line("sb = outputString;"),
+                CppDoc.Function.Param(
+                  CppDoc.Type("Fw::StringBase&"),
+                  "sb",
+                  Some("The StringBase object to hold the result")
+                )
               ),
-            ).flatten,
-            CppDoc.Function.NonSV,
-            CppDoc.Function.Const
-          )
-        ),
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            lines("\n#endif"),
-            CppDoc.Lines.Both
-          )
-        ),
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            lines("\n#ifdef BUILD_UT"),
-            CppDoc.Lines.Both
-          )
-        ),
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            lines(
-              s"""|
-                  |//! Ostream operator
-                  |friend std::ostream& operator<<(
-                  |    std::ostream& os, //!< The ostream
-                  |    const $name& obj //!< The object
-                  |);"""
+              CppDoc.Type("void"),
+              List(
+                lines("static const char* formatString ="),
+                lines(typeMembers.flatMap((_, node, _) => {
+                  val n = node.data.name
+                  val formatStr = FormatCppWriter.write(
+                    getFormatStr(n),
+                    node.data.typeName
+                  )
+                  if sizes.contains(n) then {
+                    if sizes(n) == 1 then
+                      List(s"$n = [ $formatStr ]")
+                    else
+                      s"$n = [ $formatStr" ::
+                        List.fill(sizes(n) - 2)(formatStr) ++
+                          List(s"$formatStr ]")
+                  } else
+                    List(s"$n = $formatStr")
+                }).mkString("\"( \"\n\"", ", \"\n\"", "\"\n\" )\";")).map(indentIn),
+                initStrings,
+                Line.blank ::
+                  lines("char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];"),
+                wrapInScope(
+                  "(void) snprintf(",
+                  List(
+                    List(
+                      line("outputString,"),
+                      line("FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,"),
+                      line("formatString,"),
+                    ),
+                    // Write format arguments
+                    lines(memberList.flatMap((n, tn) =>
+                      (sizes.contains(n), members(n)) match {
+                        case (false, _: Type.String) =>
+                          List(s"this->$n.toChar()")
+                        case (false, t) if s.isPrimitive(t, tn) =>
+                          List(s"this->$n")
+                        case (false, _) =>
+                          List(s"${n}Str.toChar()")
+                        case (true, _: Type.String) =>
+                          List.range(0, sizes(n)).map(i => s"this->$n[$i].toChar()")
+                        case (true, t) if s.isPrimitive(t, tn) =>
+                          List.range(0, sizes(n)).map(i => s"this->$n[$i]")
+                        case _ =>
+                          List.range(0, sizes(n)).map(i => s"${n}Str[$i].toChar()")
+                      }).mkString(",\n")),
+                  ).flatten,
+                  ");"
+                ),
+                List(
+                  Line.blank,
+                  line("outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate"),
+                  line("sb = outputString;"),
+                ),
+              ).flatten,
+              CppDoc.Function.NonSV,
+              CppDoc.Function.Const
             )
           )
-        ),
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            wrapInScope(
-              s"\nstd::ostream& operator<<(std::ostream& os, const $name& obj) {",
-              lines(
-                """|Fw::String s;
-                   |obj.toString(s);
-                   |os << s.toChar();
-                   |return os;"""
-              ),
-              "}"
-            ),
-            CppDoc.Lines.Cpp
-          )
-        ),
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            lines("\n#endif"),
-            CppDoc.Lines.Both
-          )
-        ),
+        )
       ),
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(

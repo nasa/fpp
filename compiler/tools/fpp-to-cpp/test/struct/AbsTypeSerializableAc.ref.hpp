@@ -45,6 +45,12 @@ class AbsType :
         const AbsType& obj //!< The source object
     );
 
+  public:
+
+    // ----------------------------------------------------------------------
+    // Operators
+    // ----------------------------------------------------------------------
+
     //! Copy assignment operator
     AbsType& operator=(
         const AbsType& obj //!< The source object
@@ -59,6 +65,16 @@ class AbsType :
     bool operator!=(
         const AbsType& obj //!< The other object
     ) const;
+
+#ifdef BUILD_UT
+
+    //! Ostream operator
+    friend std::ostream& operator<<(
+        std::ostream& os, //!< The ostream
+        const AbsType& obj //!< The object
+    );
+
+#endif
 
   public:
 
@@ -82,16 +98,6 @@ class AbsType :
     void toString(
         Fw::StringBase& sb //!< The StringBase object to hold the result
     ) const;
-
-#endif
-
-#ifdef BUILD_UT
-
-    //! Ostream operator
-    friend std::ostream& operator<<(
-        std::ostream& os, //!< The ostream
-        const AbsType& obj //!< The object
-    );
 
 #endif
 

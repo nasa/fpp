@@ -45,6 +45,12 @@ class PrimitiveStruct :
         const PrimitiveStruct& obj //!< The source object
     );
 
+  public:
+
+    // ----------------------------------------------------------------------
+    // Operators
+    // ----------------------------------------------------------------------
+
     //! Copy assignment operator
     PrimitiveStruct& operator=(
         const PrimitiveStruct& obj //!< The source object
@@ -59,6 +65,16 @@ class PrimitiveStruct :
     bool operator!=(
         const PrimitiveStruct& obj //!< The other object
     ) const;
+
+#ifdef BUILD_UT
+
+    //! Ostream operator
+    friend std::ostream& operator<<(
+        std::ostream& os, //!< The ostream
+        const PrimitiveStruct& obj //!< The object
+    );
+
+#endif
 
   public:
 
@@ -82,16 +98,6 @@ class PrimitiveStruct :
     void toString(
         Fw::StringBase& sb //!< The StringBase object to hold the result
     ) const;
-
-#endif
-
-#ifdef BUILD_UT
-
-    //! Ostream operator
-    friend std::ostream& operator<<(
-        std::ostream& os, //!< The ostream
-        const PrimitiveStruct& obj //!< The object
-    );
 
 #endif
 
