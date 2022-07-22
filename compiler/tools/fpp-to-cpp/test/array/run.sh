@@ -53,4 +53,5 @@ component()
 {
   run_test "-p $PWD" component && \
     diff_cpp C_AArray
+    diff_cpp AArray
 }
