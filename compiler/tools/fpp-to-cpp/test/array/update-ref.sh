@@ -48,3 +48,9 @@ struct()
   move_cpp Struct2Array
   move_cpp Struct3Array
 }
+
+component()
+{
+  update "-p $PWD" component
+  move_cpp C_AArray
+}

@@ -19,6 +19,15 @@ object CppWriter extends AstStateVisitor with LineUtils {
     writeCppDoc(s, cppDoc)
   }
 
+  override def defComponentAnnotatedNode(
+    s: State,
+    aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
+  ) = {
+    val node = aNode._2
+    val data = node.data
+    visitList(s, data.members, matchComponentMember)
+  }
+
   override def defEnumAnnotatedNode(
     s: CppWriterState,
     aNode: Ast.Annotated[AstNode[Ast.DefEnum]]

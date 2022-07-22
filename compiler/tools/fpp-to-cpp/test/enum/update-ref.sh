@@ -21,3 +21,9 @@ serialize_type()
   update "-p $PWD" serialize_type
   move_cpp SerializeTypeEnum
 }
+
+component()
+{
+  update "-p $PWD" component
+  move_cpp C_EEnum
+}

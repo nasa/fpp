@@ -41,7 +41,7 @@ object TopologyXmlWriter extends AstVisitor with LineUtils {
       val cis = Symbol.ComponentInstance(ci.aNode)
       val cs = Symbol.Component(ci.component.aNode)
       val pairs = List(
-        ("namespace", s.getNamespace(cs)),
+        ("namespace", s.cppWriterState.getNamespace(cs).getOrElse("")),
         ("name", s.getName(cis)),
         ("type", cs.getUnqualifiedName),
         ("base_id", XmlWriterState.writeId(ci.baseId)),

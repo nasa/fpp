@@ -75,17 +75,16 @@ case class CppWriterState(
 
   /** Gets the C++ namespace associated with a symbol */
   def getNamespace(symbol: Symbol): Option[String] =
-    a.parentSymbolMap.get(symbol).map(
-      s => CppWriter.writeQualifiedName(a.getQualifiedName(s))
-    )
+    getNamespaceIdentList(symbol) match {
+      case Nil => None
+      case identList => Some(identList.mkString("::"))
+    }
 
   /** Gets the list of identifiers representing the namespace
    *  associated with a symbol */
-  def getNamespaceIdentList(symbol: Symbol): List[String] =
-    a.parentSymbolMap.get(symbol) match {
-      case Some(s) => a.getQualifiedName(s).toIdentList
-      case None => Nil
-    }
+  def getNamespaceIdentList(symbol: Symbol): List[String] = {
+    removeComponentQualifiers(a.parentSymbolMap.get(symbol), Nil)
+  }
 
   /** Gets the unqualified name associated with a symbol.
    *  If a symbol is defined in a component, then we prefix its name
@@ -101,21 +100,6 @@ case class CppWriterState(
 
   /** Write an FPP symbol as C++ */
   def writeSymbol(sym: Symbol): String = {
-    // Skip component names in qualifiers
-    // Those appear in the prefixes of definition names
-    def removeComponentQualifiers(
-      symOpt: Option[Symbol],
-      out: List[String]
-    ): List[String] = symOpt match {
-      case None => out
-      case Some(sym) =>
-        val psOpt = a.parentSymbolMap.get(sym)
-        val out1 = sym match {
-          case cs: Symbol.Component => out
-          case _ => getName(sym) :: out
-        }
-        removeComponentQualifiers(psOpt, out1)
-    }
     val qualifiedName = sym match {
       // For component symbols, use the qualified name
       case cs: Symbol.Component => a.getQualifiedName(cs)
@@ -126,6 +110,22 @@ case class CppWriterState(
       }
     }
     CppWriter.writeQualifiedName(qualifiedName)
+  }
+
+  // Skip component names in qualifiers
+  // Those appear in the prefixes of definition names
+  private def removeComponentQualifiers(
+    symOpt: Option[Symbol],
+    out: List[String]
+  ): List[String] = symOpt match {
+    case None => out
+    case Some(sym) =>
+      val psOpt = a.parentSymbolMap.get(sym)
+      val out1 = sym match {
+        case _: Symbol.Component => out
+        case _ => getName(sym) :: out
+      }
+      removeComponentQualifiers(psOpt, out1)
   }
 
   /** Write include directives as lines */

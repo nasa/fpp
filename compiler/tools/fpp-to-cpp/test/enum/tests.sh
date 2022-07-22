@@ -4,4 +4,5 @@ default
 explicit
 implicit
 serialize_type
+component
 "

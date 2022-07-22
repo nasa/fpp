@@ -50,3 +50,9 @@ modules()
     diff_cpp Modules2Serializable
     diff_cpp Modules3Serializable
 }
+
+component()
+{
+  run_test "-p $PWD" component && \
+    diff_cpp C_SSerializable
+}

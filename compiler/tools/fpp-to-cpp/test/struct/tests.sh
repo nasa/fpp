@@ -9,4 +9,5 @@ duplicate
 default
 format
 modules
+component
 "

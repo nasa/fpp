@@ -6,4 +6,5 @@ enum
 builtin_type
 abs_type
 struct
+component
 "
