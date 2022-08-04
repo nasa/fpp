@@ -157,7 +157,7 @@ case class EnumCppWriter(
                   |//! The raw enum type"""
             ),
             wrapInScope(
-              "typedef enum {",
+              "enum T {",
               data.constants.flatMap(aNode => {
                 val node = aNode._2
                 val Value.EnumConstant(value, _) = s.a.valueMap(node.id)
@@ -166,7 +166,7 @@ case class EnumCppWriter(
                 AnnotationCppWriter.writePreComment(aNode) ++
                 lines(s"$name = $valueString,")
               }),
-              "} T;"
+              "};"
             ),
             lines(
               s"""|
