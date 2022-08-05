@@ -26,12 +26,12 @@ class E2 :
     typedef I32 SerialType;
 
     //! The raw enum type
-    typedef enum {
+    enum T {
       A = 10,
       B = 20,
       C = 30,
       D = 40,
-    } T;
+    };
 
     //! For backwards compatibility
     typedef T t;
