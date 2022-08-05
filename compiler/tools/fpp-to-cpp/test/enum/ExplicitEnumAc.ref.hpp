@@ -28,11 +28,11 @@ namespace M {
       typedef U8 SerialType;
 
       //! The raw enum type
-      typedef enum {
+      enum T {
         //! Member X
         X = 1,
         Y = 2,
-      } T;
+      };
 
       //! For backwards compatibility
       typedef T t;

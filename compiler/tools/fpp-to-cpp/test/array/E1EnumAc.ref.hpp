@@ -27,12 +27,12 @@ namespace M {
       typedef I32 SerialType;
 
       //! The raw enum type
-      typedef enum {
+      enum T {
         //! Example comment
         X = 1,
         Y = 2,
         Z = 9,
-      } T;
+      };
 
       //! For backwards compatibility
       typedef T t;

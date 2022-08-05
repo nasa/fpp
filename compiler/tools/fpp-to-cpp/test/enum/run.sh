@@ -25,6 +25,6 @@ serialize_type()
 component()
 {
   run_test "-p $PWD" component && \
-    diff_cpp C_EEnum
+    diff_cpp C_EEnum && \
     diff_cpp EEnum
 }
