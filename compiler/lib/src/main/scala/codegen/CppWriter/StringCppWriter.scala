@@ -76,9 +76,14 @@ case class StringCppWriter(
         CppDoc.Lines(
           List(
             CppDocHppWriter.writeAccessTag("public"),
-            addBlankPrefix(wrapInEnum(lines(
-              s"SERIALIZED_SIZE = $size + sizeof(FwBuffSizeType) //!< Size of buffer + storage of two size words"
-            ))),
+            addBlankPrefix(
+              wrapInEnum(
+                List(
+                  line("//! The size of the string length plus the size of the string buffer"),
+                  line(s"SERIALIZED_SIZE = sizeof(FwBuffSizeType) + $size")
+                )
+              )
+            ),
           ).flatten
         )
       ),
