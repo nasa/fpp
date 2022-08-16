@@ -30,7 +30,7 @@ namespace M {
         public:
 
           enum {
-            //!< The size of the string length plus the size of the string buffer
+            //! The size of the string length plus the size of the string buffer
             SERIALIZED_SIZE = sizeof(FwBuffSizeType) + 80
           };
 

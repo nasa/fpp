@@ -79,7 +79,7 @@ case class StringCppWriter(
             addBlankPrefix(
               wrapInEnum(
                 List(
-                  line("//!< The size of the string length plus the size of the string buffer"),
+                  line("//! The size of the string length plus the size of the string buffer"),
                   line(s"SERIALIZED_SIZE = sizeof(FwBuffSizeType) + $size")
                 )
               )
