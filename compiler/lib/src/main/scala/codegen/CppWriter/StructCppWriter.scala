@@ -679,7 +679,7 @@ case class StructCppWriter(
   private def getMemberVariableMembers: List[CppDoc.Class.Member] =
     List(
       CppDoc.Class.Member.Lines(
-        CppDoc.Lines(CppDocHppWriter.writeAccessTag("private"))
+        CppDoc.Lines(CppDocHppWriter.writeAccessTag("protected"))
       ),
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(

@@ -265,7 +265,7 @@ class Format :
     //! Set member m17
     void setm17(F32 m17);
 
-  private:
+  protected:
 
     // ----------------------------------------------------------------------
     // Member variables

@@ -118,7 +118,7 @@ class S :
     //! Set member x
     void setx(U32 x);
 
-  private:
+  protected:
 
     // ----------------------------------------------------------------------
     // Member variables

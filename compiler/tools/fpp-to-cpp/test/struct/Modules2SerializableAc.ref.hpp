@@ -123,7 +123,7 @@ namespace M {
       //! Set member x
       void setx(const M::Modules1& x);
 
-    private:
+    protected:
 
       // ----------------------------------------------------------------------
       // Member variables

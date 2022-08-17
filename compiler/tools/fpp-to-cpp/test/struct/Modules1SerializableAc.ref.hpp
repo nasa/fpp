@@ -132,7 +132,7 @@ namespace M {
       //! Set member y
       void sety(F32 y);
 
-    private:
+    protected:
 
       // ----------------------------------------------------------------------
       // Member variables

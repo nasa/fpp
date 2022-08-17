@@ -121,7 +121,7 @@ class AbsType :
     //! Set member t
     void sett(const T& t);
 
-  private:
+  protected:
 
     // ----------------------------------------------------------------------
     // Member variables

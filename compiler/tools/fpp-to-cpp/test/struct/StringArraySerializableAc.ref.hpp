@@ -253,7 +253,7 @@ class StringArray :
     //! Set member s2
     void sets2(const Type_of_s2& s2);
 
-  private:
+  protected:
 
     // ----------------------------------------------------------------------
     // Member variables

@@ -305,7 +305,7 @@ class Primitive :
     //! Set member m_string
     void setm_string(const StringSize80& m_string);
 
-  private:
+  protected:
 
     // ----------------------------------------------------------------------
     // Member variables

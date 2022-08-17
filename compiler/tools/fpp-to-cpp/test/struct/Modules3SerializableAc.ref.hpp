@@ -152,7 +152,7 @@ class Modules3 :
     //! Set member arr
     void setarr(const Type_of_arr& arr);
 
-  private:
+  protected:
 
     // ----------------------------------------------------------------------
     // Member variables
