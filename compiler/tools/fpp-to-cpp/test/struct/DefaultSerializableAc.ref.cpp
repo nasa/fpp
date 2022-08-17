@@ -245,34 +245,6 @@ void Default ::
 #endif
 
 // ----------------------------------------------------------------------
-// Getter functions
-// ----------------------------------------------------------------------
-
-U32 Default ::
-  getmU32() const
-{
-  return this->mU32;
-}
-
-Default::StringSize40& Default ::
-  getmS1()
-{
-  return this->mS1;
-}
-
-const Default::StringSize40& Default ::
-  getmS1() const
-{
-  return this->mS1;
-}
-
-F64 Default ::
-  getmF64() const
-{
-  return this->mF64;
-}
-
-// ----------------------------------------------------------------------
 // Setter functions
 // ----------------------------------------------------------------------
 

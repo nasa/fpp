@@ -125,16 +125,28 @@ class Modules3 :
     // ----------------------------------------------------------------------
 
     //! Get member x
-    M::Modules2& getx();
+    M::Modules2& getx()
+    {
+      return this->x;
+    }
 
     //! Get member x (const)
-    const M::Modules2& getx() const;
+    const M::Modules2& getx() const
+    {
+      return this->x;
+    }
 
     //! Get member arr
-    Type_of_arr& getarr();
+    Type_of_arr& getarr()
+    {
+      return this->arr;
+    }
 
     //! Get member arr (const)
-    const Type_of_arr& getarr() const;
+    const Type_of_arr& getarr() const
+    {
+      return this->arr;
+    }
 
     // ----------------------------------------------------------------------
     // Setter functions

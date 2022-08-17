@@ -309,34 +309,6 @@ void String ::
 #endif
 
 // ----------------------------------------------------------------------
-// Getter functions
-// ----------------------------------------------------------------------
-
-String::StringSize80& String ::
-  gets1()
-{
-  return this->s1;
-}
-
-const String::StringSize80& String ::
-  gets1() const
-{
-  return this->s1;
-}
-
-String::StringSize40& String ::
-  gets2()
-{
-  return this->s2;
-}
-
-const String::StringSize40& String ::
-  gets2() const
-{
-  return this->s2;
-}
-
-// ----------------------------------------------------------------------
 // Setter functions
 // ----------------------------------------------------------------------
 

@@ -127,13 +127,22 @@ namespace S {
       // ----------------------------------------------------------------------
 
       //! Get member mU32Array
-      Type_of_mU32Array& getmU32Array();
+      Type_of_mU32Array& getmU32Array()
+      {
+        return this->mU32Array;
+      }
 
       //! Get member mU32Array (const)
-      const Type_of_mU32Array& getmU32Array() const;
+      const Type_of_mU32Array& getmU32Array() const
+      {
+        return this->mU32Array;
+      }
 
       //! Get member mF64
-      F64 getmF64() const;
+      F64 getmF64() const
+      {
+        return this->mF64;
+      }
 
       // ----------------------------------------------------------------------
       // Setter functions

@@ -370,34 +370,6 @@ void StringArray ::
 #endif
 
 // ----------------------------------------------------------------------
-// Getter functions
-// ----------------------------------------------------------------------
-
-StringArray::StringSize80& StringArray ::
-  gets1()
-{
-  return this->s1;
-}
-
-const StringArray::StringSize80& StringArray ::
-  gets1() const
-{
-  return this->s1;
-}
-
-StringArray::Type_of_s2& StringArray ::
-  gets2()
-{
-  return this->s2;
-}
-
-const StringArray::Type_of_s2& StringArray ::
-  gets2() const
-{
-  return this->s2;
-}
-
-// ----------------------------------------------------------------------
 // Setter functions
 // ----------------------------------------------------------------------
 

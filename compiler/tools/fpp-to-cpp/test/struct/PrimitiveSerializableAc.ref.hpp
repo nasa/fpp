@@ -208,46 +208,88 @@ class Primitive :
     // ----------------------------------------------------------------------
 
     //! Get member mF32
-    Type_of_mF32& getmF32();
+    Type_of_mF32& getmF32()
+    {
+      return this->mF32;
+    }
 
     //! Get member mF32 (const)
-    const Type_of_mF32& getmF32() const;
+    const Type_of_mF32& getmF32() const
+    {
+      return this->mF32;
+    }
 
     //! Get member mF64
-    F64 getmF64() const;
+    F64 getmF64() const
+    {
+      return this->mF64;
+    }
 
     //! Get member mI16
-    I16 getmI16() const;
+    I16 getmI16() const
+    {
+      return this->mI16;
+    }
 
     //! Get member mI32
-    I32 getmI32() const;
+    I32 getmI32() const
+    {
+      return this->mI32;
+    }
 
     //! Get member mI64
-    I64 getmI64() const;
+    I64 getmI64() const
+    {
+      return this->mI64;
+    }
 
     //! Get member mI8
-    I8 getmI8() const;
+    I8 getmI8() const
+    {
+      return this->mI8;
+    }
 
     //! Get member mU16
-    U16 getmU16() const;
+    U16 getmU16() const
+    {
+      return this->mU16;
+    }
 
     //! Get member mU32
-    U32 getmU32() const;
+    U32 getmU32() const
+    {
+      return this->mU32;
+    }
 
     //! Get member mU64
-    U64 getmU64() const;
+    U64 getmU64() const
+    {
+      return this->mU64;
+    }
 
     //! Get member mU8
-    U8 getmU8() const;
+    U8 getmU8() const
+    {
+      return this->mU8;
+    }
 
     //! Get member m_bool
-    bool getm_bool() const;
+    bool getm_bool() const
+    {
+      return this->m_bool;
+    }
 
     //! Get member m_string
-    StringSize80& getm_string();
+    StringSize80& getm_string()
+    {
+      return this->m_string;
+    }
 
     //! Get member m_string (const)
-    const StringSize80& getm_string() const;
+    const StringSize80& getm_string() const
+    {
+      return this->m_string;
+    }
 
     // ----------------------------------------------------------------------
     // Setter functions

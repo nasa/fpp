@@ -163,16 +163,28 @@ class Default :
     // ----------------------------------------------------------------------
 
     //! Get member mU32
-    U32 getmU32() const;
+    U32 getmU32() const
+    {
+      return this->mU32;
+    }
 
     //! Get member mS1
-    StringSize40& getmS1();
+    StringSize40& getmS1()
+    {
+      return this->mS1;
+    }
 
     //! Get member mS1 (const)
-    const StringSize40& getmS1() const;
+    const StringSize40& getmS1() const
+    {
+      return this->mS1;
+    }
 
     //! Get member mF64
-    F64 getmF64() const;
+    F64 getmF64() const
+    {
+      return this->mF64;
+    }
 
     // ----------------------------------------------------------------------
     // Setter functions
