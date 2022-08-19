@@ -196,34 +196,6 @@ void Modules3 ::
 #endif
 
 // ----------------------------------------------------------------------
-// Getter functions
-// ----------------------------------------------------------------------
-
-M::Modules2& Modules3 ::
-  getx()
-{
-  return this->x;
-}
-
-const M::Modules2& Modules3 ::
-  getx() const
-{
-  return this->x;
-}
-
-Modules3::Type_of_arr& Modules3 ::
-  getarr()
-{
-  return this->arr;
-}
-
-const Modules3::Type_of_arr& Modules3 ::
-  getarr() const
-{
-  return this->arr;
-}
-
-// ----------------------------------------------------------------------
 // Setter functions
 // ----------------------------------------------------------------------
 

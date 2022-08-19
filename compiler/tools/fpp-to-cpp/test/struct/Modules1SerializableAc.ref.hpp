@@ -111,10 +111,16 @@ namespace M {
       // ----------------------------------------------------------------------
 
       //! Get member x
-      U32 getx() const;
+      U32 getx() const
+      {
+        return this->x;
+      }
 
       //! Get member y
-      F32 gety() const;
+      F32 gety() const
+      {
+        return this->y;
+      }
 
       // ----------------------------------------------------------------------
       // Setter functions

@@ -125,13 +125,22 @@ class Enum :
     // ----------------------------------------------------------------------
 
     //! Get member e
-    M::E::T gete() const;
+    M::E::T gete() const
+    {
+      return this->e.e;
+    }
 
     //! Get member eArr
-    Type_of_eArr& geteArr();
+    Type_of_eArr& geteArr()
+    {
+      return this->eArr;
+    }
 
     //! Get member eArr (const)
-    const Type_of_eArr& geteArr() const;
+    const Type_of_eArr& geteArr() const
+    {
+      return this->eArr;
+    }
 
     // ----------------------------------------------------------------------
     // Setter functions

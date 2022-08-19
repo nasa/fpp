@@ -55,17 +55,26 @@ namespace M {
       // ----------------------------------------------------------------------
 
       //! Constructor (default value of X)
-      E();
+      E()
+      {
+        this->e = X;
+      }
 
       //! Constructor (user-provided value)
       E(
           const T e //!< The raw enum value
-      );
+      )
+      {
+        this->e = e;
+      }
 
       //! Copy constructor
       E(
           const E& obj //!< The source object
-      );
+      )
+      {
+        this->e = obj.e;
+      }
 
     public:
 
@@ -84,17 +93,22 @@ namespace M {
       );
 
       //! Conversion operator
-      operator T() const;
+      operator T() const
+      {
+        return this->e;
+      }
 
       //! Equality operator
-      bool operator==(
-          T e //!< The other enum value
-      ) const;
+      bool operator==(T e) const
+      {
+        return this->e == e;
+      }
 
       //! Inequality operator
-      bool operator!=(
-          T e //!< The other enum value
-      ) const;
+      bool operator!=(T e) const
+      {
+        return !(*this == e);
+      }
 
 #ifdef BUILD_UT
 

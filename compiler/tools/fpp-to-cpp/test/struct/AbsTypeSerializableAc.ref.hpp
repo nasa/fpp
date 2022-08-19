@@ -106,10 +106,16 @@ class AbsType :
     // ----------------------------------------------------------------------
 
     //! Get member t
-    T& gett();
+    T& gett()
+    {
+      return this->t;
+    }
 
     //! Get member t (const)
-    const T& gett() const;
+    const T& gett() const
+    {
+      return this->t;
+    }
 
     // ----------------------------------------------------------------------
     // Setter functions

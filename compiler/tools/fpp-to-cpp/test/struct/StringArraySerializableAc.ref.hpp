@@ -226,16 +226,28 @@ class StringArray :
     // ----------------------------------------------------------------------
 
     //! Get member s1
-    StringSize80& gets1();
+    StringSize80& gets1()
+    {
+      return this->s1;
+    }
 
     //! Get member s1 (const)
-    const StringSize80& gets1() const;
+    const StringSize80& gets1() const
+    {
+      return this->s1;
+    }
 
     //! Get member s2
-    Type_of_s2& gets2();
+    Type_of_s2& gets2()
+    {
+      return this->s2;
+    }
 
     //! Get member s2 (const)
-    const Type_of_s2& gets2() const;
+    const Type_of_s2& gets2() const
+    {
+      return this->s2;
+    }
 
     // ----------------------------------------------------------------------
     // Setter functions

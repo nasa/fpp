@@ -13,28 +13,6 @@
 namespace M {
 
   // ----------------------------------------------------------------------
-  // Constructors
-  // ----------------------------------------------------------------------
-
-  Explicit ::
-    Explicit()
-  {
-    this->e = X;
-  }
-
-  Explicit ::
-    Explicit(const T e)
-  {
-    this->e = e;
-  }
-
-  Explicit ::
-    Explicit(const Explicit& obj)
-  {
-    this->e = obj.e;
-  }
-
-  // ----------------------------------------------------------------------
   // Operators
   // ----------------------------------------------------------------------
 
@@ -50,24 +28,6 @@ namespace M {
   {
     this->e = e;
     return *this;
-  }
-
-  Explicit ::
-    operator T() const
-  {
-    return this->e;
-  }
-
-  bool Explicit ::
-    operator==(T e) const
-  {
-    return this->e == e;
-  }
-
-  bool Explicit ::
-    operator!=(T e) const
-  {
-    return !(*this == e);
   }
 
 #ifdef BUILD_UT

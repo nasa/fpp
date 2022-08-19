@@ -108,10 +108,16 @@ namespace M {
       // ----------------------------------------------------------------------
 
       //! Get member x
-      M::Modules1& getx();
+      M::Modules1& getx()
+      {
+        return this->x;
+      }
 
       //! Get member x (const)
-      const M::Modules1& getx() const;
+      const M::Modules1& getx() const
+      {
+        return this->x;
+      }
 
       // ----------------------------------------------------------------------
       // Setter functions

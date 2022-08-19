@@ -13,28 +13,6 @@
 namespace M {
 
   // ----------------------------------------------------------------------
-  // Constructors
-  // ----------------------------------------------------------------------
-
-  E1 ::
-    E1()
-  {
-    this->e = X;
-  }
-
-  E1 ::
-    E1(const T e)
-  {
-    this->e = e;
-  }
-
-  E1 ::
-    E1(const E1& obj)
-  {
-    this->e = obj.e;
-  }
-
-  // ----------------------------------------------------------------------
   // Operators
   // ----------------------------------------------------------------------
 
@@ -50,24 +28,6 @@ namespace M {
   {
     this->e = e;
     return *this;
-  }
-
-  E1 ::
-    operator T() const
-  {
-    return this->e;
-  }
-
-  bool E1 ::
-    operator==(T e) const
-  {
-    return this->e == e;
-  }
-
-  bool E1 ::
-    operator!=(T e) const
-  {
-    return !(*this == e);
   }
 
 #ifdef BUILD_UT

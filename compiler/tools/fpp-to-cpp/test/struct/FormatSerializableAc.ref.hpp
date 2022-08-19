@@ -139,55 +139,106 @@ class Format :
     // ----------------------------------------------------------------------
 
     //! Get member m1
-    I32 getm1() const;
+    I32 getm1() const
+    {
+      return this->m1;
+    }
 
     //! Get member m2
-    U32 getm2() const;
+    U32 getm2() const
+    {
+      return this->m2;
+    }
 
     //! Get member m3
-    I32 getm3() const;
+    I32 getm3() const
+    {
+      return this->m3;
+    }
 
     //! Get member m4
-    U32 getm4() const;
+    U32 getm4() const
+    {
+      return this->m4;
+    }
 
     //! Get member m5
-    I32 getm5() const;
+    I32 getm5() const
+    {
+      return this->m5;
+    }
 
     //! Get member m6
-    U32 getm6() const;
+    U32 getm6() const
+    {
+      return this->m6;
+    }
 
     //! Get member m7
-    I32 getm7() const;
+    I32 getm7() const
+    {
+      return this->m7;
+    }
 
     //! Get member m8
-    U32 getm8() const;
+    U32 getm8() const
+    {
+      return this->m8;
+    }
 
     //! Get member m9
-    I32 getm9() const;
+    I32 getm9() const
+    {
+      return this->m9;
+    }
 
     //! Get member m10
-    U32 getm10() const;
+    U32 getm10() const
+    {
+      return this->m10;
+    }
 
     //! Get member m11
-    F32 getm11() const;
+    F32 getm11() const
+    {
+      return this->m11;
+    }
 
     //! Get member m12
-    F32 getm12() const;
+    F32 getm12() const
+    {
+      return this->m12;
+    }
 
     //! Get member m13
-    F32 getm13() const;
+    F32 getm13() const
+    {
+      return this->m13;
+    }
 
     //! Get member m14
-    F32 getm14() const;
+    F32 getm14() const
+    {
+      return this->m14;
+    }
 
     //! Get member m15
-    F32 getm15() const;
+    F32 getm15() const
+    {
+      return this->m15;
+    }
 
     //! Get member m16
-    F32 getm16() const;
+    F32 getm16() const
+    {
+      return this->m16;
+    }
 
     //! Get member m17
-    F32 getm17() const;
+    F32 getm17() const
+    {
+      return this->m17;
+    }
 
     // ----------------------------------------------------------------------
     // Setter functions

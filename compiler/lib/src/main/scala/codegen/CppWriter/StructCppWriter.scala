@@ -578,7 +578,6 @@ case class StructCppWriter(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
           CppDocWriter.writeBannerComment("Getter functions"),
-          CppDoc.Lines.Both
         )
       ) :: getGetterFunctionMembers,
       CppDoc.Class.Member.Lines(
@@ -595,50 +594,56 @@ case class StructCppWriter(
 
     memberList.flatMap((n, tn) => (sizes.contains(n), members(n)) match {
       case (false, _: Type.Enum) => List(
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some(s"Get member $n"),
-            getGetterName(n),
-            Nil,
-            writeMemberAsReturnType((n, tn)),
-            lines(s"return this->$n.e;"),
-            CppDoc.Function.NonSV,
-            CppDoc.Function.Const
+        CppDoc.Class.Member.Lines(
+          CppDoc.Lines(
+            lines(
+              s"""|
+                  |//! Get member $n
+                  |${writeMemberAsReturnType((n, tn))} ${getGetterName(n)}() const
+                  |{
+                  |  return this->$n.e;
+                  |}"""
+            ),
           )
         )
       )
       case (false, t) if s.isPrimitive(t, tn) => List(
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some(s"Get member $n"),
-            getGetterName(n),
-            Nil,
-            writeMemberAsReturnType((n, tn)),
-            lines(s"return this->$n;"),
-            CppDoc.Function.NonSV,
-            CppDoc.Function.Const
+        CppDoc.Class.Member.Lines(
+          CppDoc.Lines(
+            lines(
+              s"""|
+                  |//! Get member $n
+                  |${writeMemberAsReturnType((n, tn))} ${getGetterName(n)}() const
+                  |{
+                  |  return this->$n;
+                  |}"""
+            ),
           )
         )
       )
       case _ => List(
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some(s"Get member $n"),
-            getGetterName(n),
-            Nil,
-            writeMemberAsReturnType((n, tn)),
-            lines(s"return this->$n;")
+        CppDoc.Class.Member.Lines(
+          CppDoc.Lines(
+            lines(
+              s"""|
+                  |//! Get member $n
+                  |${writeMemberAsReturnType((n, tn))} ${getGetterName(n)}()
+                  |{
+                  |  return this->$n;
+                  |}"""
+            ),
           )
         ),
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some(s"Get member $n (const)"),
-            getGetterName(n),
-            Nil,
-            writeMemberAsReturnType((n, tn), true),
-            lines(s"return this->$n;"),
-            CppDoc.Function.NonSV,
-            CppDoc.Function.Const
+        CppDoc.Class.Member.Lines(
+          CppDoc.Lines(
+            lines(
+              s"""|
+                  |//! Get member $n (const)
+                  |${writeMemberAsReturnType((n, tn), true)} ${getGetterName(n)}() const
+                  |{
+                  |  return this->$n;
+                  |}"""
+            ),
           )
         ),
       )
@@ -723,23 +728,10 @@ case class StructCppWriter(
     case (n, tn) =>
       val constStr = if isConst then "const " else ""
       (sizes.contains(n), members(n)) match {
-        case (false, _: Type.Enum) => CppDoc.Type(
-          s"$tn::T"
-        )
-        case (false, _: Type.String) => CppDoc.Type(
-          s"$constStr$tn&",
-          Some(s"$constStr$name::$tn&")
-        )
-        case (false, t) if s.isPrimitive(t, tn) => CppDoc.Type(
-          s"$tn"
-        )
-        case (false, _) => CppDoc.Type(
-          s"$constStr$tn&"
-        )
-        case _ => CppDoc.Type(
-          s"$constStr${getArrayTypeName(n)}&",
-          Some(s"$constStr$name::${getArrayTypeName(n)}&")
-        )
+        case (false, _: Type.Enum) => s"$tn::T"
+        case (false, t) if s.isPrimitive(t, tn) => s"$tn"
+        case (false, _) => s"$constStr$tn&"
+        case _ => s"$constStr${getArrayTypeName(n)}&"
       }
   }
 

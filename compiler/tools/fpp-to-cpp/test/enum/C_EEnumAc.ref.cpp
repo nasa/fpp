@@ -11,28 +11,6 @@
 #include "C_EEnumAc.hpp"
 
 // ----------------------------------------------------------------------
-// Constructors
-// ----------------------------------------------------------------------
-
-C_E ::
-  C_E()
-{
-  this->e = X;
-}
-
-C_E ::
-  C_E(const T e)
-{
-  this->e = e;
-}
-
-C_E ::
-  C_E(const C_E& obj)
-{
-  this->e = obj.e;
-}
-
-// ----------------------------------------------------------------------
 // Operators
 // ----------------------------------------------------------------------
 
@@ -48,24 +26,6 @@ C_E& C_E ::
 {
   this->e = e;
   return *this;
-}
-
-C_E ::
-  operator T() const
-{
-  return this->e;
-}
-
-bool C_E ::
-  operator==(T e) const
-{
-  return this->e == e;
-}
-
-bool C_E ::
-  operator!=(T e) const
-{
-  return !(*this == e);
 }
 
 #ifdef BUILD_UT

@@ -189,43 +189,34 @@ case class EnumCppWriter(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
           CppDocWriter.writeBannerComment("Constructors"),
-          CppDoc.Lines.Both
         )
       ),
-      CppDoc.Class.Member.Constructor(
-        CppDoc.Class.Constructor(
-          Some(s"Constructor (default value of $defaultValue)"),
-          Nil,
-          Nil,
-          lines(s"this->e = $defaultValue;")
-        )
-      ),
-      CppDoc.Class.Member.Constructor(
-        CppDoc.Class.Constructor(
-          Some(s"Constructor (user-provided value)"),
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type("const T"),
-              "e",
-              Some("The raw enum value")
-            )
-          ),
-          Nil,
-          lines("this->e = e;")
-        )
-      ),
-      CppDoc.Class.Member.Constructor(
-        CppDoc.Class.Constructor(
-          Some(s"Copy constructor"),
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type(s"const $name&"),
-              "obj",
-              Some("The source object")
-            )
-          ),
-          Nil,
-          lines("this->e = obj.e;")
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          lines(
+            s"""|
+                |//! Constructor (default value of $defaultValue)
+                |$name()
+                |{
+                |  this->e = $defaultValue;
+                |}
+                |
+                |//! Constructor (user-provided value)
+                |$name(
+                |    const T e //!< The raw enum value
+                |)
+                |{
+                |  this->e = e;
+                |}
+                |
+                |//! Copy constructor
+                |$name(
+                |    const $name& obj //!< The source object
+                |)
+                |{
+                |  this->e = obj.e;
+                |}"""
+          )
         )
       ),
     )
@@ -277,57 +268,30 @@ case class EnumCppWriter(
           )
         )
       ),
-      CppDoc.Class.Member.Function(
-        CppDoc.Function(
-          Some(s"Conversion operator"),
-          s"operator T",
-          Nil,
-          CppDoc.Type(""),
-          List(
-            line("return this->e;"),
-          ),
-          CppDoc.Function.NonSV,
-          CppDoc.Function.Const
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          lines(
+            """|
+               |//! Conversion operator
+               |operator T() const
+               |{
+               |  return this->e;
+               |}
+               |
+               |//! Equality operator
+               |bool operator==(T e) const
+               |{
+               |  return this->e == e;
+               |}
+               |
+               |//! Inequality operator
+               |bool operator!=(T e) const
+               |{
+               |  return !(*this == e);
+               |}"""
+          )
         )
       ),
-      CppDoc.Class.Member.Function(
-        CppDoc.Function(
-          Some(s"Equality operator"),
-          "operator==",
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type(s"T"),
-              "e",
-              Some("The other enum value"),
-            ),
-          ),
-          CppDoc.Type("bool"),
-          List(
-            line("return this->e == e;"),
-          ),
-          CppDoc.Function.NonSV,
-          CppDoc.Function.Const
-        )
-      ),
-      CppDoc.Class.Member.Function(
-        CppDoc.Function(
-          Some(s"Inequality operator"),
-          "operator!=",
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type(s"T"),
-              "e",
-              Some("The other enum value"),
-            ),
-          ),
-          CppDoc.Type("bool"),
-          List(
-            line("return !(*this == e);"),
-          ),
-          CppDoc.Function.NonSV,
-          CppDoc.Function.Const
-        )
-      )
     ) ++ (
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(

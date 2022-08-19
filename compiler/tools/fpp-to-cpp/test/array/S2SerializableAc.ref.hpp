@@ -106,10 +106,16 @@ class S2 :
     // ----------------------------------------------------------------------
 
     //! Get member s1
-    M::S1& gets1();
+    M::S1& gets1()
+    {
+      return this->s1;
+    }
 
     //! Get member s1 (const)
-    const M::S1& gets1() const;
+    const M::S1& gets1() const
+    {
+      return this->s1;
+    }
 
     // ----------------------------------------------------------------------
     // Setter functions
