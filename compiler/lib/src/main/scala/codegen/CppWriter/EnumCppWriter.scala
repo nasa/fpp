@@ -199,28 +199,16 @@ case class EnumCppWriter(
                 |$name()
                 |{
                 |  this->e = $defaultValue;
-                |}"""
-          )
-        )
-      ),
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          lines(
-            s"""|
+                |}
+                |
                 |//! Constructor (user-provided value)
                 |$name(
                 |    const T e //!< The raw enum value
                 |)
                 |{
                 |  this->e = e;
-                |}"""
-          )
-        )
-      ),
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          lines(
-            s"""|
+                |}
+                |
                 |//! Copy constructor
                 |$name(
                 |    const $name& obj //!< The source object
@@ -288,26 +276,14 @@ case class EnumCppWriter(
                |operator T() const
                |{
                |  return this->e;
-               |}"""
-          )
-        )
-      ),
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          lines(
-            """|
+               |}
+               |
                |//! Equality operator
                |bool operator==(T e) const
                |{
                |  return this->e == e;
-               |}"""
-          )
-        )
-      ),
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          lines(
-            """|
+               |}
+               |
                |//! Inequality operator
                |bool operator!=(T e) const
                |{
