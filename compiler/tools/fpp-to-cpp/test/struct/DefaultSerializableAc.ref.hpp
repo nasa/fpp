@@ -194,7 +194,7 @@ class Default :
     //! Set member mF64
     void setmF64(F64 mF64);
 
-  private:
+  protected:
 
     // ----------------------------------------------------------------------
     // Member variables

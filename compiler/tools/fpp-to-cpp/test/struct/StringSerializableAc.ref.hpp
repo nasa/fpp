@@ -238,7 +238,7 @@ class String :
     //! Set member s2
     void sets2(const StringSize40& s2);
 
-  private:
+  protected:
 
     // ----------------------------------------------------------------------
     // Member variables

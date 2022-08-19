@@ -121,7 +121,7 @@ class S2 :
     //! Set member s1
     void sets1(const M::S1& s1);
 
-  private:
+  protected:
 
     // ----------------------------------------------------------------------
     // Member variables

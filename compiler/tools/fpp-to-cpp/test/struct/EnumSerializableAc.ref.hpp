@@ -149,7 +149,7 @@ class Enum :
     //! Set member eArr
     void seteArr(const Type_of_eArr& eArr);
 
-  private:
+  protected:
 
     // ----------------------------------------------------------------------
     // Member variables

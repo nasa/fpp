@@ -277,7 +277,7 @@ namespace M {
       //! Set member mString
       void setmString(const StringSize80& mString);
 
-    private:
+    protected:
 
       // ----------------------------------------------------------------------
       // Member variables

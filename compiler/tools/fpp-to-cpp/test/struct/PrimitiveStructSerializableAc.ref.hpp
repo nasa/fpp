@@ -121,7 +121,7 @@ class PrimitiveStruct :
     //! Set member s1
     void sets1(const Primitive& s1);
 
-  private:
+  protected:
 
     // ----------------------------------------------------------------------
     // Member variables
