@@ -2,8 +2,6 @@
 # defs.sh: definitions common to all subdirectories
 # ----------------------------------------------------------------------
 
-export VERSION="Unreleased, after v1.0.2"
-
 # Users of this file should set LEVEL first
 if test -z "$LEVEL"; then
   export LEVEL=.
@@ -12,6 +10,7 @@ fi
 export LEVEL=`cd $LEVEL; echo $PWD`
 
 redo-ifchange $LEVEL/defs.sh
+. $LEVEL/version.sh
 
 # Echo args to stderr
 echoerr()

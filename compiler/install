@@ -11,6 +11,8 @@
 # FPP_INSTALL_JAVA
 # ----------------------------------------------------------------------
 
+. ../version.sh
+
 scala_version="3.1.2"
 
 if test -n "$FPP_INSTALL_JAVA"
@@ -56,7 +58,14 @@ fpp-to-cpp
 fpp-to-xml
 "
 
-version=`git describe --tags --always`
+if git describe --tags --always > /dev/null 2>&1
+then
+  # Ask git for the current version, if available
+  version=`git describe --tags --always`
+else
+  # Otherwise back to the hard-coded version
+  version=$VERSION
+fi
 util=lib/src/main/scala/util
 echo "Updating version to $version"
 sed -i.bak -e "s/val v = .*/val v = \"$version\"/" \
