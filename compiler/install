@@ -60,10 +60,10 @@ fpp-to-xml
 
 if git describe --tags --always > /dev/null 2>&1
 then
-  # Ask git for the current version, if available
+  # Ask git for the current version, if it is available
   version=`git describe --tags --always`
 else
-  # Otherwise back to the hard-coded version
+  # Otherwise use the hard-coded version
   version=$VERSION
 fi
 util=lib/src/main/scala/util
