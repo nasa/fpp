@@ -64,7 +64,7 @@ then
   version=`git describe --tags --always`
 else
   # Otherwise use the hard-coded version
-  version=$VERSION
+  version="$VERSION"
 fi
 util=lib/src/main/scala/util
 echo "Updating version to $version"
