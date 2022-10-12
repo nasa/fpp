@@ -8,7 +8,7 @@
 #define EnumSerializableAc_HPP
 
 #include "EEnumAc.hpp"
-#include "Fw/Types/BasicTypes.hpp"
+#include "FpConfig.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 

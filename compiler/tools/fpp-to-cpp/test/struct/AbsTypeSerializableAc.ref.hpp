@@ -7,7 +7,7 @@
 #ifndef AbsTypeSerializableAc_HPP
 #define AbsTypeSerializableAc_HPP
 
-#include "Fw/Types/BasicTypes.hpp"
+#include "FpConfig.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 #include "T.hpp"

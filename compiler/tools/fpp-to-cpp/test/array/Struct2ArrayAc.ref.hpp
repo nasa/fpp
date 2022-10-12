@@ -7,7 +7,7 @@
 #ifndef Struct2ArrayAc_HPP
 #define Struct2ArrayAc_HPP
 
-#include "Fw/Types/BasicTypes.hpp"
+#include "FpConfig.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 #include "S2SerializableAc.hpp"

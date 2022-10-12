@@ -7,7 +7,7 @@
 #ifndef PrimitiveStructSerializableAc_HPP
 #define PrimitiveStructSerializableAc_HPP
 
-#include "Fw/Types/BasicTypes.hpp"
+#include "FpConfig.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 #include "PrimitiveSerializableAc.hpp"

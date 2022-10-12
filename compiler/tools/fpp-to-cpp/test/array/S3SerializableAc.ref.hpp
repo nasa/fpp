@@ -7,7 +7,7 @@
 #ifndef S_S3SerializableAc_HPP
 #define S_S3SerializableAc_HPP
 
-#include "Fw/Types/BasicTypes.hpp"
+#include "FpConfig.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 

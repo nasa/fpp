@@ -7,7 +7,7 @@
 #ifndef FppConstantsAc_HPP
 #define FppConstantsAc_HPP
 
-#include "Fw/Types/BasicTypes.hpp"
+#include "FpConfig.hpp"
 
 //! Constant a
 enum FppConstant_a {
