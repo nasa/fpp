@@ -88,7 +88,7 @@ case class ArrayCppWriter (
 
   private def getHppIncludes: CppDoc.Member = {
     val standardHeaders = List(
-      "Fw/Types/BasicTypes.hpp",
+      "FpConfig.hpp",
       "Fw/Types/Serializable.hpp",
       "Fw/Types/String.hpp"
     ).map(CppWriter.headerString)
