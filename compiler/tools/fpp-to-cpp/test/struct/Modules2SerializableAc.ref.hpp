@@ -7,7 +7,7 @@
 #ifndef M_Modules2SerializableAc_HPP
 #define M_Modules2SerializableAc_HPP
 
-#include "Fw/Types/BasicTypes.hpp"
+#include "FpConfig.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 #include "Modules1SerializableAc.hpp"

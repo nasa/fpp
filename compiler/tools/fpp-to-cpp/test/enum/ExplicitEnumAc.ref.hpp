@@ -7,7 +7,7 @@
 #ifndef M_ExplicitEnumAc_HPP
 #define M_ExplicitEnumAc_HPP
 
-#include "Fw/Types/BasicTypes.hpp"
+#include "FpConfig.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 

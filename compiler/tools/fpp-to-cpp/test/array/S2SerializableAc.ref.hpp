@@ -7,7 +7,7 @@
 #ifndef S2SerializableAc_HPP
 #define S2SerializableAc_HPP
 
-#include "Fw/Types/BasicTypes.hpp"
+#include "FpConfig.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 #include "S1SerializableAc.hpp"

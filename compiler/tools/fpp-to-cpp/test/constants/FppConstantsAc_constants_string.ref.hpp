@@ -7,7 +7,7 @@
 #ifndef FppConstantsAc_HPP
 #define FppConstantsAc_HPP
 
-#include "Fw/Types/BasicTypes.hpp"
+#include "FpConfig.hpp"
 
 //! Escaped quotation marks
 extern const char *const s1;

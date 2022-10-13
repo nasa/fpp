@@ -7,7 +7,7 @@
 #ifndef M_PrimitiveF32eArrayAc_HPP
 #define M_PrimitiveF32eArrayAc_HPP
 
-#include "Fw/Types/BasicTypes.hpp"
+#include "FpConfig.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 

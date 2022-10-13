@@ -7,7 +7,7 @@
 #ifndef M_PrimitiveI64ArrayAc_HPP
 #define M_PrimitiveI64ArrayAc_HPP
 
-#include "Fw/Types/BasicTypes.hpp"
+#include "FpConfig.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 

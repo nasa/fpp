@@ -8,7 +8,7 @@
 #define Enum2ArrayAc_HPP
 
 #include "E2EnumAc.hpp"
-#include "Fw/Types/BasicTypes.hpp"
+#include "FpConfig.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 

@@ -7,7 +7,7 @@
 #ifndef M_PrimitiveBoolArrayAc_HPP
 #define M_PrimitiveBoolArrayAc_HPP
 
-#include "Fw/Types/BasicTypes.hpp"
+#include "FpConfig.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
