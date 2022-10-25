@@ -1660,8 +1660,10 @@ values.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>The command, event, parameter, and telemetry specifiers are collectively
-referred to as <strong>dictionary specifiers</strong>.</p>
+<p>The command, event, parameter, and telemetry specifiers
+are collectively referred to as <strong>dictionary specifiers</strong>.
+The record and container specifiers are collectively referred to
+as <strong>data product specifiers</strong>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1741,6 +1743,19 @@ specifier, internal port specifier, or <code>async</code> command specifier.</p>
 </li>
 <li>
 <p>All telemetry channels must have distinct names and identifier values.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The data product specifiers must satisfy the following rules:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>All records must have distinct names and identifier values.</p>
+</li>
+<li>
+<p>All containers must have distinct names and identifier values.</p>
 </li>
 </ol>
 </div>
@@ -4756,7 +4771,7 @@ array size.</p>
 <div class="sect2">
 <h3 id="Specifiers_Record-Specifiers">6.13. Record Specifiers</h3>
 <div class="paragraph">
-<p>A <strong>record specifier</strong> specifies a record as part of a
+<p>A <strong>record specifier</strong> specifies a data product record as part of a
 <a href="#Definitions_Component-Definitions">component definition</a>.
 A record is a unit of data that is stored in a
 <a href="#Specifiers_Container-Specifiers">container</a>.</p>
@@ -8309,7 +8324,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-10-25 10:57:39 -0700
+Last updated 2022-10-25 13:20:38 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

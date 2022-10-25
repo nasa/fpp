@@ -64,8 +64,10 @@ values.
 
 * An <<Specifiers_Internal-Port-Specifiers,internal port specifier>>
 
-The command, event, parameter, and telemetry specifiers are collectively
-referred to as *dictionary specifiers*.
+The command, event, parameter, and telemetry specifiers
+are collectively referred to as *dictionary specifiers*.
+The record and container specifiers are collectively referred to
+as *data product specifiers*.
 
 ==== Semantics
 
@@ -113,6 +115,12 @@ The dictionary specifiers must satisfy the following rules:
 . All parameters must have distinct names and identifier values.
 
 . All telemetry channels must have distinct names and identifier values.
+
+The data product specifiers must satisfy the following rules:
+
+. All records must have distinct names and identifier values.
+
+. All containers must have distinct names and identifier values.
 
 ==== Examples
 
