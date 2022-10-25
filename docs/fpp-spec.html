@@ -4803,14 +4803,15 @@ component) or the previous record identifier plus one.</p>
 array F64x3 = [3] F64
 
 @ Record 0
-@ id is 0x00
+@ Implied id is 0x00
 record Record0: U32
 
 @ Record 1
-record Record1: U32 id 0x01
+record Record1: U32 id 0x02
 
 @ Record 2
-record Record2: F64x3 id 0x02</code></pre>
+@ Implied id is 0x03
+record Record2: F64x3</code></pre>
 </div>
 </div>
 </div>
@@ -8308,7 +8309,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-10-25 10:53:24 -0700
+Last updated 2022-10-25 10:57:39 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

@@ -37,12 +37,13 @@ component) or the previous record identifier plus one.
 array F64x3 = [3] F64
 
 @ Record 0
-@ id is 0x00
+@ Implied id is 0x00
 record Record0: U32
 
 @ Record 1
-record Record1: U32 id 0x01
+record Record1: U32 id 0x02
 
 @ Record 2
-record Record2: F64x3 id 0x02
+@ Implied id is 0x03
+record Record2: F64x3
 ----
