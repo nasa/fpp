@@ -1,0 +1,18 @@
+=== Container Specifiers
+
+A *container specifier* specifies a container as part of a
+<<Definitions_Component-Definitions,component definition>>.
+Containers hold data product records.
+They are units of data that can be downlinked and then deleted.
+
+==== Syntax
+
+TODO
+
+==== Semantics
+
+TODO
+
+==== Examples
+
+TODO
