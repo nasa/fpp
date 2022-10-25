@@ -1615,12 +1615,22 @@ A component member is one of the following:</p>
 All commands specified in a component must have distinct names and opcodes.</p>
 </li>
 <li>
+<p>A <a href="#Specifiers_Container-Specifiers">container specifier</a>.
+All containers specified in a component must have distinct names and identifier
+values.</p>
+</li>
+<li>
 <p>A <a href="#Specifiers_Parameter-Specifiers">parameter specifier</a>.
 All parameters specified in a component must have distinct names and identifier
 values.</p>
 </li>
 <li>
 <p>A <a href="#Specifiers_Port-Instance-Specifiers">port instance specifier</a></p>
+</li>
+<li>
+<p>A <a href="#Specifiers_Record-Specifiers">record specifier</a>.
+All records specified in a component must have distinct names and identifier
+values.</p>
 </li>
 <li>
 <p>A <a href="#Specifiers_Telemetry-Channel-Specifiers">telemetry channel specifier</a>.
@@ -3652,7 +3662,7 @@ definitions</a>.</p>
 <div class="paragraph">
 <p>A <strong>container specifier</strong> specifies a container as part of a
 <a href="#Definitions_Component-Definitions">component definition</a>.
-Containers hold data product records.
+Containers hold <a href="#Specifiers_Record-Specifiers">data product records</a>.
 They are units of data that can be downlinked and then deleted.</p>
 </div>
 <div class="sect3">
@@ -4748,7 +4758,8 @@ array size.</p>
 <div class="paragraph">
 <p>A <strong>record specifier</strong> specifies a record as part of a
 <a href="#Definitions_Component-Definitions">component definition</a>.
-A record is a unit of data that is stored in a container.</p>
+A record is a unit of data that is stored in a
+<a href="#Specifiers_Container-Specifiers">container</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Record-Specifiers_Syntax">6.13.1. Syntax</h4>
@@ -8262,7 +8273,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-10-25 08:49:33 -0700
+Last updated 2022-10-25 09:57:40 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

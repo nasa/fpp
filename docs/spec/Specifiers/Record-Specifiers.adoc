@@ -2,7 +2,8 @@
 
 A *record specifier* specifies a record as part of a
 <<Definitions_Component-Definitions,component definition>>.
-A record is a unit of data that is stored in a container.
+A record is a unit of data that is stored in a
+<<Specifiers_Container-Specifiers,container>>.
 
 ==== Syntax
 
