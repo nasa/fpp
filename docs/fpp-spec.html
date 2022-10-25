@@ -3677,25 +3677,66 @@ definitions</a>.</p>
 <div class="paragraph">
 <p>A <strong>container specifier</strong> specifies a container as part of a
 <a href="#Definitions_Component-Definitions">component definition</a>.
-Containers hold <a href="#Specifiers_Record-Specifiers">data product records</a>.
-They are units of data that can be downlinked and then deleted.</p>
+Containers are units of data that can be downlinked and then deleted.
+They hold <a href="#Specifiers_Record-Specifiers">data product records</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Container-Specifiers_Syntax">6.4.1. Syntax</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p><code>container</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>[</em>
+<code>id</code> <a href="#Expressions"><em>expression</em></a>
+<em>]</em>
+<em>[</em>
+<code>default</code> <code>priority</code> <a href="#Expressions"><em>expression</em></a>
+<em>]</em></p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Container-Specifiers_Semantics">6.4.2. Semantics</h4>
-<div class="paragraph">
-<p>TODO</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The identifier names the container.</p>
+</li>
+<li>
+<p>The optional expression <em>e</em> after the keyword <code>id</code> specifies the
+numeric identifier for the container.
+If <em>e</em> is present, then the type of <em>e</em> must be
+<a href="#Type-Checking_Type-Conversion">convertible to</a>
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>, and <em>e</em> must evaluate
+to a nonnegative integer.
+If <em>e</em> is not present, then the
+default identifier is either zero (for the first container appearing in a
+component) or the previous container identifier plus one.</p>
+</li>
+<li>
+<p>The optional expression <em>e</em> after the keywords <code>default</code> <code>priority</code>
+specifies a downlink priority for the container.
+This priority can be overridden by the command that downlinks the data.
+If <em>e</em> is present, then the type of <em>e</em> must be
+<a href="#Type-Checking_Type-Conversion">convertible to</a>
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>, and <em>e</em> must evaluate
+to a nonnegative integer.</p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Container-Specifiers_Examples">6.4.3. Examples</h4>
-<div class="paragraph">
-<p>TODO</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ Container 0
+@ Implied id is 0x00
+container Container0
+
+@ Container 1
+container Contaner1 id 0x02
+
+@ Container 2
+@ Implied id is 0x03
+container Container2 default priority 10</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -8324,7 +8365,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-10-25 13:20:38 -0700
+Last updated 2022-10-25 13:35:29 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
