@@ -46,7 +46,7 @@ to a nonnegative integer.
 container Container0
 
 @ Container 1
-container Contaner1 id 0x02
+container Container1 id 0x02
 
 @ Container 2
 @ Implied id is 0x03
