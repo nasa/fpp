@@ -313,6 +313,17 @@ object FppWriter extends AstVisitor with LineUtils {
     }
   }
 
+  override def specContainerAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecContainer]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"container ${ident(data.name)}").
+      joinOpt (data.id) (" id ") (exprNode).
+      joinOpt (data.defaultPriority) (" default priority ") (exprNode)
+  }
+
   override def specEventAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecEvent]]
@@ -412,6 +423,17 @@ object FppWriter extends AstVisitor with LineUtils {
     val port1 = data.port1.data
     val port2 = data.port2.data
     lines(s"match $port1 with $port2")
+  }
+
+  override def specRecordAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecRecord]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"record ${ident(data.name)}").
+      join (": ") (typeNameNode(data.typeName)).
+      joinOpt (data.id) (" id ") (exprNode)
   }
 
   override def specTlmChannelAnnotatedNode(
