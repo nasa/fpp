@@ -29,12 +29,14 @@ object Parser extends Parsers {
     node(defEnum) ^^ { case n => Ast.ComponentMember.DefEnum(n) } |
     node(defStruct) ^^ { case n => Ast.ComponentMember.DefStruct(n) } |
     node(specCommand) ^^ { case n => Ast.ComponentMember.SpecCommand(n) } |
+    node(specContainer) ^^ { case n => Ast.ComponentMember.SpecContainer(n) } |
     node(specEvent) ^^ { case n => Ast.ComponentMember.SpecEvent(n) } |
     node(specInclude) ^^ { case n => Ast.ComponentMember.SpecInclude(n) } |
     node(specInternalPort) ^^ { case n => Ast.ComponentMember.SpecInternalPort(n) } |
     node(specPortInstance) ^^ { case n => Ast.ComponentMember.SpecPortInstance(n) } |
     node(specPortMatching) ^^ { case n => Ast.ComponentMember.SpecPortMatching(n) } |
     node(specParam) ^^ { case n => Ast.ComponentMember.SpecParam(n) } |
+    node(specRecord) ^^ { case n => Ast.ComponentMember.SpecRecord(n) } |
     node(specTlmChannel) ^^ { case n => Ast.ComponentMember.SpecTlmChannel(n) } |
     failure("component member expected")
   }
@@ -364,6 +366,18 @@ object Parser extends Parsers {
     }
   }
 
+  def specContainer: Parser[Ast.SpecContainer] = {
+    (container ~> ident) ~!
+    opt(id ~>! exprNode) ~!
+    opt((default ~ priority) ~>! exprNode) ^^ {
+      case name ~ id ~ defaultPriority => Ast.SpecContainer(
+        name,
+        id,
+        defaultPriority
+      )
+    }
+  }
+
   def specCompInstance: Parser[Ast.SpecCompInstance] = {
     visibility ~ (instance ~>! node(qualIdent)) ^^ {
       case visibility ~ instance => Ast.SpecCompInstance(visibility, instance)
@@ -512,6 +526,18 @@ object Parser extends Parsers {
   def specPortMatching: Parser[Ast.SpecPortMatching] = {
     fppMatch ~>! node(ident) ~! (fppWith ~>! node(ident)) ^^ {
       case port1 ~ port2 => Ast.SpecPortMatching(port1, port2)
+    }
+  }
+
+  def specRecord: Parser[Ast.SpecRecord] = {
+    (record ~> ident) ~!
+    (colon ~>! node(typeName)) ~!
+    opt(id ~>! exprNode) ^^ {
+      case name ~ typeName ~ id => Ast.SpecRecord(
+        name,
+        typeName,
+        id
+      )
     }
   }
 
@@ -683,6 +709,8 @@ object Parser extends Parsers {
 
   private def constant = accept("constant", { case t : Token.CONSTANT => t })
 
+  private def container = accept("container", { case t : Token.CONTAINER => t })
+
   private def cpu = accept("cpu", { case t : Token.CPU => t })
 
   private def default = accept("default", { case t : Token.DEFAULT => t })
@@ -795,6 +823,8 @@ object Parser extends Parsers {
   private def rbrace = accept("}", { case t : Token.RBRACE => t })
 
   private def rbracket = accept("]", { case t : Token.RBRACKET => t })
+
+  private def record = accept("record", { case t : Token.RECORD => t })
 
   private def recv = accept("recv", { case t : Token.RECV => t })
 
