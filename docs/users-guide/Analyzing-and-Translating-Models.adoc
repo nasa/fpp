@@ -347,10 +347,10 @@ in this manual.
 
 === Generating C Plus Plus
 
-As discussed in the previous section, our current strategy is to generate XML 
+As discussed in the previous section, our general strategy is to generate XML 
 and to use the F Prime autocoders to generate
 {cpp}.
-As of the current version of FPP, we make two exceptions to this rule:
+As of the current version of FPP, we make the following exceptions to this rule:
 
 . For
 <<Defining-Constants,constant definitions>>,
@@ -371,6 +371,9 @@ provide more complete {cpp} code generation than is available
 via F Prime XML.
 However, we still use the F Prime XML to generate dictionaries
 for the F Prime ground data system.
+
+. We are phasing in direct {cpp} code generation for types, ports,
+and components.
 
 *Tool name:* The tool for translating FPP to {cpp} is called
 `fpp-to-cpp`.
@@ -558,6 +561,13 @@ the `-d`, `-n`, and `-p` options work in the same way as for
 translating constant definitions>>.
 The `-g` option is ignored, because
 the include guard prefix comes from the name of the topology.
+
+==== Other Definitions
+
+We are phasing in direct {cpp} code generation for types, ports, and
+components.
+Currently we have implemented direct {cpp} code generation for types
+(arrays, structs, and enums).
 
 === Identifying Generated Files
 

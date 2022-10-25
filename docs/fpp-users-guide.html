@@ -668,6 +668,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions">13.3.1. Constant Definitions</a></li>
 <li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">13.3.2. Topology Definitions</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Other-Definitions">13.3.3. Other Definitions</a></li>
 </ul>
 </li>
 <li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files">13.4. Identifying Generated Files</a></li>
@@ -701,7 +702,9 @@ FPP is a modeling language for the
 <a href="https://nasa.github.io/fprime/">F Prime flight software framework</a>.
 A <a href="https://digitalcommons.usu.edu/smallsat/2018/all2018/328/">paper presented at
 SmallSat 2018</a>
-provides an overview of F Prime.</p>
+provides an overview of F Prime.
+For more detailed information about F Prime, see the
+<a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F Prime User&#8217;s Guide</a>.</p>
 </div>
 <div class="paragraph">
 <p>The goals of FPP are as follows:</p>
@@ -3597,7 +3600,7 @@ with other component instances.</p>
 The port definition provides information common to all uses of the port, such as
 the kind of data carried on the port.
 The port instance provides use-specific information, such
-as the name of the instance and the the direction of invocation
+as the name of the instance and the direction of invocation
 (input or output).</p>
 </div>
 <div class="sect3">
@@ -3693,13 +3696,13 @@ For example, in the C&#43;&#43; implementation, you would generate a
 base class with a virtual handler function, and then override that virtual
 function in a derived class that you write.
 For further details about implementing F Prime components, see the
-F Prime User&#8217;s Guide.</p>
+<a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F Prime User&#8217;s Guide</a>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Note on terminology:</strong> As explained above, there is a technical
-distinction between a <em>port</em> (defined outside any component, and providing
+distinction between a <em>port type</em> (defined outside any component, and providing
 the type of a port instance)
-and a <em>port instance</em> (defined inside a component and instantiating
+and a <em>port instance</em> (specified inside a component and instantiating
 a port type).
 However, it is sometimes useful to refer to a port instance with
 the shorter term "port" when there is no danger of confusion.
@@ -3979,7 +3982,7 @@ on that side.
 This flexibility comes at the cost that you lose the type
 compile-time type checking provided by port connections with named types.
 For more information about serial ports and their use, see
-the F Prime User&#8217;s Guide.</p>
+the <a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F Prime User&#8217;s Guide</a>.</p>
 </div>
 </div>
 </div>
@@ -4099,7 +4102,7 @@ properly with F Prime C&#43;&#43; code generation.</p>
 <div class="paragraph">
 <p>For further information about command registration, receipt, and
 response, and implementing command handlers, see the
-F Prime User&#8217;s Guide.</p>
+<a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F Prime User&#8217;s Guide</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -4180,7 +4183,7 @@ simplified definitions of these ports:</p>
 </div>
 <div class="paragraph">
 <p>For further information about events in F Prime, see the
-F Prime User&#8217;s Guide.</p>
+<a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F Prime User&#8217;s Guide</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -4229,7 +4232,7 @@ simplified definition of this port:</p>
 </div>
 <div class="paragraph">
 <p>For further information about telemetry in F Prime, see the
-F Prime User&#8217;s Guide.</p>
+<a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F Prime User&#8217;s Guide</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -4314,7 +4317,7 @@ simplified definitions of these ports:</p>
 </div>
 <div class="paragraph">
 <p>For further information about parameters in F Prime, see the
-F Prime User&#8217;s Guide.</p>
+<a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F Prime User&#8217;s Guide</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -4364,7 +4367,7 @@ simplified definition of this port:</p>
 </div>
 <div class="paragraph">
 <p>For further information about time in F Prime, see the
-F Prime User&#8217;s Guide.</p>
+<a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F Prime User&#8217;s Guide</a>.</p>
 </div>
 </div>
 </div>
@@ -4507,7 +4510,8 @@ as part of the component implementation.</p>
 </div>
 <div class="paragraph">
 <p>For complete information about F Prime command dispatch and
-handling, see the F Prime User&#8217;s Guide.
+handling, see the
+<a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F Prime User&#8217;s Guide</a>.
 Here we concentrate on how to specify commands in FPP.</p>
 </div>
 <div class="sect3">
@@ -4848,7 +4852,8 @@ you can store in an on-board file system or send to the ground.</p>
 </div>
 <div class="paragraph">
 <p>For complete information about F Prime event
-handling, see the F Prime User&#8217;s Guide.
+handling, see the
+<a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F Prime User&#8217;s Guide</a>.
 Here we concentrate on how to specify events in FPP.</p>
 </div>
 <div class="sect3">
@@ -5147,7 +5152,8 @@ instance has emitted it ten times.</p>
 <p>Once an event is throttled, the component instance will no longer
 emit the event until the throttling is canceled.
 Typically, the canceling happens via a FSW command.
-For details, see the F Prime User&#8217;s Guide.</p>
+For details, see the
+<a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F Prime User&#8217;s Guide</a>.</p>
 </div>
 </div>
 </div>
@@ -5167,7 +5173,8 @@ or send them the ground.</p>
 </div>
 <div class="paragraph">
 <p>For complete information about F Prime telemetry
-handling, see the F Prime User&#8217;s Guide.
+handling, see the
+<a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F Prime User&#8217;s Guide</a>.
 Here we concentrate on how to specify telemetry channels in FPP.</p>
 </div>
 <div class="sect3">
@@ -5529,8 +5536,8 @@ for a hardware device or a software algorithm.</p>
 <p>F Prime has special support for parameters, including a parameter
 database component for storing parameters in a non-volatile
 manner (e.g., on a file system).
-For complete information about F Prime parameters, see the F Prime User&#8217;s
-Guide.
+For complete information about F Prime parameters, see the
+<a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F Prime User&#8217;s Guide</a>.
 Here we concentrate on how to specify parameters in FPP.</p>
 </div>
 <div class="sect3">
@@ -9726,10 +9733,10 @@ in this manual.</p>
 <div class="sect2">
 <h3 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus">13.3. Generating C Plus Plus</h3>
 <div class="paragraph">
-<p>As discussed in the previous section, our current strategy is to generate XML
+<p>As discussed in the previous section, our general strategy is to generate XML
 and to use the F Prime autocoders to generate
 C&#43;&#43;.
-As of the current version of FPP, we make two exceptions to this rule:</p>
+As of the current version of FPP, we make the following exceptions to this rule:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -9752,6 +9759,10 @@ provide more complete C&#43;&#43; code generation than is available
 via F Prime XML.
 However, we still use the F Prime XML to generate dictionaries
 for the F Prime ground data system.</p>
+</li>
+<li>
+<p>We are phasing in direct C&#43;&#43; code generation for types, ports,
+and components.</p>
 </li>
 </ol>
 </div>
@@ -9996,6 +10007,15 @@ the <code>-d</code>, <code>-n</code>, and <code>-p</code> options work in the sa
 <a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions">translating constant definitions</a>.
 The <code>-g</code> option is ignored, because
 the include guard prefix comes from the name of the topology.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Other-Definitions">13.3.3. Other Definitions</h4>
+<div class="paragraph">
+<p>We are phasing in direct C&#43;&#43; code generation for types, ports, and
+components.
+Currently we have implemented direct C&#43;&#43; code generation for types
+(arrays, structs, and enums).</p>
 </div>
 </div>
 </div>
@@ -11149,7 +11169,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-10-20 13:14:16 -0700
+Last updated 2022-10-22 10:24:12 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
