@@ -9,7 +9,7 @@ A record is a unit of data that is stored in a
 
 `record` <<Lexical-Elements_Identifiers,_identifier_>>
 `:` <<Type-Names,_type-name_>>
-_[_ 
+_[_
 `id` <<Expressions,_expression_>>
 _]_
 
