@@ -419,6 +419,7 @@ var IN_GLOBAL_SCOPE = false;
           "component," +
           "connections," +
           "constant," +
+          "container," +
           "cpu," +
           "default," +
           "diagnostic," +
@@ -453,6 +454,7 @@ var IN_GLOBAL_SCOPE = false;
           "private," +
           "queued," +
           "queue," +
+          "record," +
           "recv," +
           "red," +
           "ref," +

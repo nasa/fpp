@@ -7,12 +7,42 @@ A record is a unit of data that is stored in a
 
 ==== Syntax
 
-TODO
+`record` <<Lexical-Elements_Identifiers,_identifier_>>
+`:` <<Type-Names,_type-name_>>
+_[_ 
+`id` <<Expressions,_expression_>>
+_]_
 
 ==== Semantics
 
-TODO
+. The identifier names the record.
+
+. The type name specifies the type of the record.
+
+. The optional expression _e_ after the keyword `id` specifies the
+numeric identifier for the record.
+If _e_ is present, then the type of _e_ must be
+<<Type-Checking_Type-Conversion,convertible to>>
+<<Types_Internal-Types_Integer,_Integer_>>, and _e_ must evaluate
+to a nonnegative integer.
+If _e_ is not present, then the
+default identifier is either zero (for the first record appearing in a
+component) or the previous record identifier plus one.
 
 ==== Examples
 
-TODO
+[source,fpp]
+----
+@ An array of 3 F64 values
+array F64x3 = [3] F64
+
+@ Record 0
+@ id is 0x00
+record Record0: U32
+
+@ Record 1
+record Record1: U32 id 0x01
+
+@ Record 2
+record Record2: F64x3 id 0x02
+----
