@@ -56,6 +56,7 @@ command
 component
 connections
 constant
+container
 cpu
 default
 diagnostic
@@ -91,6 +92,7 @@ priority
 private
 queue
 queued
+record
 recv
 red
 ref
