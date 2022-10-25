@@ -57,12 +57,14 @@ object Ast {
     final case class DefEnum(node: AstNode[Ast.DefEnum]) extends Node
     final case class DefStruct(node: AstNode[Ast.DefStruct]) extends Node
     final case class SpecCommand(node: AstNode[Ast.SpecCommand]) extends Node
+    final case class SpecContainer(node: AstNode[Ast.SpecContainer]) extends Node
     final case class SpecEvent(node: AstNode[Ast.SpecEvent]) extends Node
     final case class SpecInclude(node: AstNode[Ast.SpecInclude]) extends Node
     final case class SpecInternalPort(node: AstNode[Ast.SpecInternalPort]) extends Node
     final case class SpecParam(node: AstNode[Ast.SpecParam]) extends Node
     final case class SpecPortInstance(node: AstNode[Ast.SpecPortInstance]) extends Node
     final case class SpecPortMatching(node: AstNode[Ast.SpecPortMatching]) extends Node
+    final case class SpecRecord(node: AstNode[Ast.SpecRecord]) extends Node
     final case class SpecTlmChannel(node: AstNode[Ast.SpecTlmChannel]) extends Node
   }
 
@@ -376,6 +378,13 @@ object Ast {
     )
   }
 
+  /** Container specifier */
+  final case class SpecContainer(
+    name: Ident,
+    id: Option[AstNode[Expr]],
+    defaultPriority: Option[AstNode[Expr]]
+  )
+
   /** Event specifier */
   final case class SpecEvent(
     name: Ident,
@@ -538,6 +547,13 @@ object Ast {
   final case class SpecPortMatching(
     port1: AstNode[Ident],
     port2: AstNode[Ident]
+  )
+
+  /** Record specifier */
+  final case class SpecRecord(
+    name: Ident,
+    typeName: AstNode[TypeName],
+    id: Option[AstNode[Expr]]
   )
 
   /** Telemetry channel specifier */
