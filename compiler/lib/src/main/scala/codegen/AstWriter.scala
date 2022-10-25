@@ -297,6 +297,20 @@ object AstWriter extends AstVisitor with LineUtils {
     }
   }
 
+  override def specContainerAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecContainer]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("spec container") ++
+    List(
+      ident(data.name),
+      linesOpt(addPrefix("id", exprNode), data.id),
+      linesOpt(addPrefix("default priority", exprNode), data.defaultPriority)
+    ).flatten.map(indentIn)
+  }
+
   override def specEventAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecEvent]]
@@ -408,6 +422,20 @@ object AstWriter extends AstVisitor with LineUtils {
     List(
         ident(data.port1.data),
         ident(data.port2.data),
+    ).flatten.map(indentIn)
+  }
+
+  override def specRecordAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecRecord]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("spec container") ++
+    List(
+      ident(data.name),
+      typeNameNode(data.typeName),
+      linesOpt(addPrefix("id", exprNode), data.id)
     ).flatten.map(indentIn)
   }
 
