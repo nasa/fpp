@@ -10,11 +10,14 @@ object XmlTags extends LineUtils {
   def openTag(name: String, pairs: List[(String, String)] = Nil): String = openTagPrefix(name, pairs) ++ ">"
 
   def quoted(s: String): String = {
-    // Remove leading and trailing quotation marks from the input string
+    // If s represents a C++ literal string value, then remove the leading and
+    // trailing quotation marks from the value now. The F Prime autocoder will
+    // re-insert them during code gen. If s represents a non-string value, then
+    // the next line is a no-op.
     val s1 = s.replaceAll("^\"", "").replaceAll("\"$", "")
     // Escape any remaining quotation marks in the XML way
     val s2 = s1.replaceAll("\"", "&quot;")
-    // Add leading and trailing quotation marks for the XML tag
+    // Add the leading and trailing quotation marks for the XML attribute
     "\"" ++ s2 ++ "\""
   }
 
@@ -23,13 +26,13 @@ object XmlTags extends LineUtils {
     (line(openTag) :: ls) :+ line(closeTag)
   }
 
-  def taggedLines (name: String, pairs: List[(String, String)] = Nil) (ls: List[Line]): List[Line] = 
+  def taggedLines (name: String, pairs: List[(String, String)] = Nil) (ls: List[Line]): List[Line] =
     ls match {
       case Nil => lines(openCloseTag(name, pairs))
       case _ => taggedLines (tags(name, pairs)) (ls)
     }
 
-  def taggedLinesOpt (name: String, pairs: List[(String, String)] = Nil) (ls: List[Line]): List[Line] = 
+  def taggedLinesOpt (name: String, pairs: List[(String, String)] = Nil) (ls: List[Line]): List[Line] =
     ls match {
       case Nil => Nil
       case ls1 => taggedLines (name, pairs) (ls1)
@@ -42,7 +45,7 @@ object XmlTags extends LineUtils {
 
   def tags(name: String, pairs: List[(String, String)] = Nil): (String, String) = (openTag(name, pairs), closeTag(name))
 
-  private def openTagPrefix(name: String, pairs: List[(String, String)]) = 
+  private def openTagPrefix(name: String, pairs: List[(String, String)]) =
     pairs.foldLeft(s"<$name")({ case (s, key -> value) => s ++ s" $key=${quoted(value)}" })
 
 }
