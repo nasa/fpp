@@ -9,10 +9,14 @@ object XmlTags extends LineUtils {
 
   def openTag(name: String, pairs: List[(String, String)] = Nil): String = openTagPrefix(name, pairs) ++ ">"
 
-  def quoted(s: String): String =
-    "\"" ++
-    s.replaceAll("^\"", "").replaceAll("\"$", "").replaceAll("\"", "&quot;") ++
-    "\""
+  def quoted(s: String): String = {
+    // Remove leading and trailing quotation marks from the input string
+    val s1 = s.replaceAll("^\"", "").replaceAll("\"$", "")
+    // Escape any remaining quotation marks in the XML way
+    val s2 = s1.replaceAll("\"", "&quot;")
+    // Add leading and trailing quotation marks for the XML tag
+    "\"" ++ s2 ++ "\""
+  }
 
   def taggedLines (tags: (String, String)) (ls: List[Line]): List[Line] = {
     val (openTag, closeTag) = tags
