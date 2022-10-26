@@ -9,7 +9,10 @@ object XmlTags extends LineUtils {
 
   def openTag(name: String, pairs: List[(String, String)] = Nil): String = openTagPrefix(name, pairs) ++ ">"
 
-  def quoted(s: String): String =  "\"" ++ s ++ "\""
+  def quoted(s: String): String =
+    "\"" ++
+    s.replaceAll("^\"", "").replaceAll("\"$", "").replaceAll("\"", "&quot;") ++
+    "\""
 
   def taggedLines (tags: (String, String)) (ls: List[Line]): List[Line] = {
     val (openTag, closeTag) = tags
