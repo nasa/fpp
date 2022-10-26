@@ -9,7 +9,7 @@ fi
 
 export LEVEL=`cd $LEVEL; echo $PWD`
 
-redo-ifchange $LEVEL/defs.sh
+redo-ifchange $LEVEL/defs.sh $LEVEL/version.sh
 
 # Pick up the FPP version
 . $LEVEL/version.sh
