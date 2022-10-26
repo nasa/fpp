@@ -55,6 +55,14 @@ object CppWriter extends AstStateVisitor with LineUtils {
     writeCppDoc(s, cppDoc)
   }
 
+  override def defPortAnnotatedNode(
+    s: State,
+    aNode: Ast.Annotated[AstNode[Ast.DefPort]]
+  ) = {
+    val cppDoc = PortCppWriter(s, aNode).write
+    writeCppDoc(s, cppDoc)
+  }
+
   override def defTopologyAnnotatedNode(
     s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
