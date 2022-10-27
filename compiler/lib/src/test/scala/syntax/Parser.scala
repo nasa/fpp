@@ -378,6 +378,17 @@ class ParserSpec extends AnyWordSpec {
     )
   }
 
+  "spec container OK" should {
+    parseAllOK(
+      Parser.specContainer,
+      List(
+        "container C",
+        "container C id 0x100",
+        "container C id 0x100 default priority 10"
+      )
+    )
+  }
+
   "spec event OK" should {
     parseAllOK(
       Parser.specEvent,
@@ -486,6 +497,16 @@ class ParserSpec extends AnyWordSpec {
       Parser.specPortMatching,
       List(
         "match p1 with p2",
+      )
+    )
+  }
+
+  "spec record OK" should {
+    parseAllOK(
+      Parser.specRecord,
+      List(
+        "record R: U32",
+        "record R: U32 id 0x100"
       )
     )
   }
