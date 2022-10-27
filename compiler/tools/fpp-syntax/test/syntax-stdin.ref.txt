@@ -43,6 +43,16 @@ def module
         ident Y
       def enum constant
         ident Z
+    @ Container specifier
+    spec container
+      ident C
+      id literal int 0x00
+      default priority literal int 10
+    @ Record specifier
+    spec container
+      ident R
+      type name U32
+      id literal int 0x00
     @ Command specifier
     spec command
       kind async

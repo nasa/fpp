@@ -17,6 +17,12 @@ module DefinitionsAndSpecifiers {
     struct S { x: [3] U32, y: F32, z: string }
     enum E { X, Y, Z }
 
+    @ Container specifier
+    container C id 0x00 default priority 10
+
+    @ Record specifier
+    record R: U32 id 0x00
+
     @ Command specifier
     async command C(a: U32, b: F32) opcode 0x00 priority 10 assert
     @< Command specifier
