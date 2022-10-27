@@ -26,6 +26,12 @@ module DefinitionsAndSpecifiers {
       Z
     }
 
+    @ Container specifier
+    container C id 0x00 default priority 10
+
+    @ Record specifier
+    record R: U32 id 0x00
+
     @ Command specifier
     async command C(
                      a: U32
