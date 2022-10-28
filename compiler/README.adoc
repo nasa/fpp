@@ -72,7 +72,7 @@ installed and available on the command line.
 
 . Start up the sbt shell.
 
-. In the shell, run `compile` to compile everything, `test` to run all 
+. In the shell, run `compile` to compile everything, `test` to run all
 Scala unit tests,
 and `assembly` to create jar files.
 The `install` script runs these commands automatically.
@@ -128,7 +128,7 @@ directory.
 To install the standard version of the FPP tools, run `./install`.
 
 *Trace files:*
-Before generating native binary tools, the `release` script runs 
+Before generating native binary tools, the `release` script runs
 the FPP unit tests with a tracing agent enabled and records the results.
 The directory `lib/src/main/resources/META-INF` stores the results of
 running the FPP unit tests with the tracing agent enabled.
