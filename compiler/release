@@ -76,6 +76,15 @@ sync; sync; sync;
 rm "$native_bin"/*.txt
 sync; sync; sync;
 
+# Testing of the native binaries
+mv "$directory/bin" "$directory/bin.bak"
+cp -r "$native_bin" "$directory/bin"
+"$directory/test"
+if [ $? -ne 0 ]
+then
+    echo "[WARNING] Failed to run tests"
+fi
+
 # Create tar ball
 release_tgz="$native_bin.tar.gz"
 tar -czf "$release_tgz" "$native_bin"
