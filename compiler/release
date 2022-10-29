@@ -41,7 +41,6 @@ cd `dirname $0`
 
 # Set local variables
 native_bin="native-fpp-`uname`-`uname -m`"
-java=$GRAALVM_JAVA_HOME/bin/java
 native_image="$GRAALVM_JAVA_HOME/bin/native-image"
 meta_inf_dir="lib/src/main/resources/META-INF/native-image"
 release_tgz="$native_bin.tar.gz"
@@ -50,30 +49,17 @@ release_tgz="$native_bin.tar.gz"
 mkdir -p "$meta_inf_dir"
 mkdir -p "$native_bin"
 
-# Versioning information
+# Print version information
 echo "C compiler version"
 cc --version
-echo "Java version"
-$java --version
 echo "Native Image Version"
 $native_image --version
 
 # Install jar files in bin
-# Install scripts that run jar files with tracing
-./install-trace
+./install
 
 # Get the tool names from bin
 tool_names=`get_tool_names bin`
-
-# Run the FPP unit tests and capture the GraalVM trace
-./test
-if [ $? -ne 0 ]
-then
-    # Check that unit tests passed
-    echo "[ERROR] JVM unit tests failed"
-    exit 1
-fi
-sync; sync; sync;
 
 # Use GraalVM to convert the jar files to native binaries
 for tool_name in $tool_names
@@ -97,13 +83,12 @@ do
 done
 sync; sync; sync;
 
+# Clean up the native directory
+rm -f "$native_bin"/*.txt
+
 # Install the native binaries
-evalp rm -r bin
-evalp mkdir bin
-for tool_name in $tool_names
-do
-    evalp cp $native_bin/$tool_name bin/$tool_name
-done
+evalp rm -r "bin"
+evalp cp -r "$native_bin" "bin"
 sync; sync; sync;
 
 # Test the native binaries
