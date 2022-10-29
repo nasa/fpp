@@ -40,7 +40,7 @@ print_phase()
 # Check that GRAALVM_JAVA_HOME is set
 if test -z "$GRAALVM_JAVA_HOME"
 then
-  echo "release: environment variable GRAALVM_JAVA_HOME is not set" 1>&2
+  echo "[ERROR] Environment variable GRAALVM_JAVA_HOME is not set" 1>&2
   exit 1
 fi
 
@@ -85,13 +85,13 @@ do
       -jar "$jar_file" "$out_file"
     if [ $? -ne 0 ]
     then
-        echo "release: Failed to build $out_file"
+        echo "[ERROR] Failed to build $out_file"
         exit 1
     fi
     sync; sync; sync;
     if ! $out_file --help 1>/dev/null
     then
-        echo "release: Failed, $out_file not executable"
+        echo "[ERROR] $out_file not executable"
         exit 1
     fi
 done
