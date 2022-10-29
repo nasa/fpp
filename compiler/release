@@ -12,7 +12,7 @@
 # See README.adoc.
 # ----------------------------------------------------------------------
 
-# Print and evaluate
+# Print and evaluate a command
 evalp()
 {
   echo "$@"
@@ -43,7 +43,8 @@ cd `dirname $0`
 native_bin="native-fpp-`uname`-`uname -m`"
 java=$GRAALVM_JAVA_HOME/bin/java
 native_image="$GRAALVM_JAVA_HOME/bin/native-image"
-meta_inf_dir="lib/src/main/resources/META-INF/native-image/"
+meta_inf_dir="lib/src/main/resources/META-INF/native-image"
+release_tgz="$native_bin.tar.gz"
 
 # Make directories
 mkdir -p "$meta_inf_dir"
@@ -58,12 +59,13 @@ echo "Native Image Version"
 $native_image --version
 
 # Install jar files in bin
+# Install scripts that run jar files with tracing
 ./install-trace
 
 # Get the tool names from bin
 tool_names=`get_tool_names bin`
 
-# Run unit tests and capture the GraalVM trace
+# Run the FPP unit tests and capture the GraalVM trace
 ./test
 if [ $? -ne 0 ]
 then
@@ -73,10 +75,11 @@ then
 fi
 sync; sync; sync;
 
-# Use GraalVM to convert jar files to binaries
-for jar_file in bin/*.jar
+# Use GraalVM to convert the jar files to native binaries
+for tool_name in $tool_names
 do
-    out_file=$native_bin/`basename $jar_file .jar`
+    jar_file="bin/$tool_name.jar"
+    out_file="$native_bin/$tool_name"
     echo "Building $out_file"
     evalp "$native_image" --configure-reflection-metadata --no-fallback \
       --install-exit-handlers -jar "$jar_file" "$out_file"
@@ -94,13 +97,16 @@ do
 done
 sync; sync; sync;
 
-# Clean up native directory
-rm -f "$native_bin"/*.txt "$native_bin"/*.o
+# Install the native binaries
+evalp rm -r bin
+evalp mkdir bin
+for tool_name in $tool_names
+do
+    evalp cp $native_bin/$tool_name bin/$tool_name
+done
 sync; sync; sync;
 
 # Test the native binaries
-evalp rm -r "bin"
-evalp cp -r "$native_bin" "bin"
 ./test
 if [ $? -ne 0 ]
 then
@@ -109,12 +115,11 @@ then
 fi
 
 # Create the tar ball
-release_tgz="$native_bin.tar.gz"
 evalp tar -czf "$release_tgz" "$native_bin"
 sync; sync; sync;
 
 # Verify the tar ball
-mkdir -p check-tar
+evalp mkdir -p check-tar
 (cd check-tar; evalp tar -xvf "../$release_tgz")
 sync; sync; sync;
 for file in `ls "$native_bin"`
@@ -125,6 +130,7 @@ do
     exit 1
   fi
 done
+evalp rm -r check-tar
 
 # Print status
 echo "Release archive written to $release_tgz with size `du -hs $release_tgz`"
