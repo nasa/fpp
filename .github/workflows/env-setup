@@ -1,5 +1,5 @@
 #!/bin/bash
-graal_ver="22.1.0"
+graal_ver="22.2.0"
 graal_os="$( uname -s | tr "[:upper:]" "[:lower:]")"
 graal_ar="graalvm-ce-java11-${graal_os}-amd64-${graal_ver}.tar.gz"
 graal_dir="$(pwd)/graalvm-ce-java11-${graal_ver}"
