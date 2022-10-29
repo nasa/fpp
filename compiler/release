@@ -29,6 +29,14 @@ get_tool_names()
   done
 }
 
+# Print a phase of the process
+print_phase()
+{
+  echo "----------------------------------------------------------------------"
+  echo $1
+  echo "----------------------------------------------------------------------"
+}
+
 # Check that GRAALVM_JAVA_HOME is set
 if test -z "$GRAALVM_JAVA_HOME"
 then
@@ -49,14 +57,20 @@ release_tgz="$native_bin.tar.gz"
 mkdir -p "$meta_inf_dir"
 mkdir -p "$native_bin"
 
+print_phase "Version information"
+
 # Print version information
 echo "C compiler version"
 cc --version
 echo "Native Image Version"
 $native_image --version
 
+print_phase "Installing JVM tools in bin"
+
 # Install jar files in bin
 ./install
+
+print_phase "Constructing binary tools in $native_bin"
 
 # Get the tool names from bin
 tool_names=`get_tool_names bin`
@@ -91,6 +105,8 @@ evalp rm -r "bin"
 evalp cp -r "$native_bin" "bin"
 sync; sync; sync;
 
+print_phase "Testing the binary tools"
+
 # Test the native binaries
 ./test
 if [ $? -ne 0 ]
@@ -98,6 +114,8 @@ then
     echo "[ERROR] Native unit tests failed"
     exit 1
 fi
+
+print_phase "Constructing the release archive $release_tgz"
 
 # Create the tar ball
 evalp tar -czf "$release_tgz" "$native_bin"
