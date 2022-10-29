@@ -81,8 +81,8 @@ do
     jar_file="bin/$tool_name.jar"
     out_file="$native_bin/$tool_name"
     echo "Building $out_file"
-    evalp "$native_image" --configure-reflection-metadata --no-fallback \
-      --install-exit-handlers -jar "$jar_file" "$out_file"
+    evalp "$native_image" --no-fallback --install-exit-handlers \
+      -jar "$jar_file" "$out_file"
     if [ $? -ne 0 ]
     then
         echo "release: Failed to build $out_file"
@@ -137,3 +137,5 @@ evalp rm -r check-tar
 
 # Print status
 echo "Release archive written to $release_tgz with size `du -hs $release_tgz`"
+
+print_phase "Success"
