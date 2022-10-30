@@ -52,6 +52,13 @@ native_bin="native-fpp-`uname`-`uname -m`"
 native_image="$GRAALVM_JAVA_HOME/bin/native-image"
 meta_inf_dir="lib/src/main/resources/META-INF/native-image"
 release_tgz="$native_bin.tar.gz"
+# Use gtar if it's available
+# The default tar has issues on Mac OS on GitHub
+tar=`which gtar`
+if test -z "$tar"
+then
+  tar=tar
+fi
 
 # Make directories
 mkdir -p "$meta_inf_dir"
@@ -118,12 +125,12 @@ fi
 print_phase "Constructing the release archive $release_tgz"
 
 # Create the tar ball
-evalp tar -czf "$release_tgz" "$native_bin"
+evalp $tar -czf "$release_tgz" "$native_bin"
 sync; sync; sync;
 
 # Verify the tar ball
 evalp mkdir -p check-tar
-(cd check-tar; evalp tar -xvf "../$release_tgz")
+(cd check-tar; evalp $tar -xvf "../$release_tgz")
 sync; sync; sync;
 for file in `ls "$native_bin"`
 do
