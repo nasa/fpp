@@ -54,9 +54,10 @@ meta_inf_dir="lib/src/main/resources/META-INF/native-image"
 release_tgz="$native_bin.tar.gz"
 # Use gtar if it's available
 # The default tar has issues on Mac OS on GitHub
-tar=`which gtar`
-if test -z "$tar"
+if which gtar
 then
+  tar=`which gtar`
+else
   tar=tar
 fi
 
