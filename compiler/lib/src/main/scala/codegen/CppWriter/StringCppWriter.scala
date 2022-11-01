@@ -31,19 +31,30 @@ case class StringCppWriter(
   def getClassName(size: Int): String = s"StringSize$size"
 
   /** Writes the C++ string classes */
-  def write(strTypes: List[Type.String]): List[CppDoc.Class.Member] = {
-    // Write access tag if these classes appear inside another class
-    val accessTag = enclosingClassQualified match {
-      case Some(_) =>
-        CppDoc.Class.Member.Lines(
+  def write(strTypes: List[Type.String]): List[CppDoc.Member] = {
+    strTypes.map(getSize).distinct.flatMap(size => {
+      val name = getClassName(size)
+      List(
+        CppDoc.Member.Lines(
           CppDoc.Lines(
-            CppDocHppWriter.writeAccessTag("public")
+            CppDocWriter.writeBannerComment(s"$name class"),
+            CppDoc.Lines.Both
           )
+        ),
+        CppDoc.Member.Class(
+          writeClass(size)
         )
-      case None => CppDoc.Class.Member.Lines(CppDoc.Lines(Nil))
-    }
+      )
+    })
+  }
 
-    accessTag ::
+  /** Writes the C++ string classes as nested classes */
+  def writeNested(strTypes: List[Type.String]): List[CppDoc.Class.Member] = {
+    CppDoc.Class.Member.Lines(
+      CppDoc.Lines(
+        CppDocHppWriter.writeAccessTag("public")
+      )
+    ) ::
       strTypes.map(getSize).distinct.flatMap(size => {
         val name = getClassName(size)
         List(
