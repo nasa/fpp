@@ -9,6 +9,9 @@
 #
 # 2. Set the environment variable GRAALVM_JAVA_HOME.
 #
+# 3. To pass flags to native-image, set the environment variable
+#    FPP_NATIVE_IMAGE_FLAGS.
+#
 # See README.adoc.
 # ----------------------------------------------------------------------
 
@@ -89,7 +92,8 @@ do
     jar_file="bin/$tool_name.jar"
     out_file="$native_bin/$tool_name"
     echo "Building $out_file"
-    evalp "$native_image" --no-fallback --install-exit-handlers \
+    evalp "$native_image" $FPP_NATIVE_IMAGE_FLAGS \
+      --no-fallback --install-exit-handlers \
       -jar "$jar_file" "$out_file"
     if [ $? -ne 0 ]
     then

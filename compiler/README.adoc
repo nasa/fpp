@@ -127,6 +127,18 @@ The script will build the native binary tools and install them at
 directory.
 To install the standard version of the FPP tools, run `./install`.
 
+*Custom native-image flags:*
+For some installations, you may need to pass special flags
+to `native-image`.
+To do this, set the environment variable `FPP_NATIVE_IMAGE_FLAGS`.
+For example, to set the temporary directory used by `native-image`, you can run
+
+[source,bash]
+----
+% export FPP_NATIVE_IMAGE_FLAGS='-H:TempDirectory=/path/to/tmp/directory'
+% ./release
+----
+
 *Running the tracing agent:*
 Occasionally when developing FPP, you may need to re-run the tracing
 agent to capture new runtime behavior.
