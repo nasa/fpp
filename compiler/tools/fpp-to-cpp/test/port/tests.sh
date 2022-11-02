@@ -1,0 +1,10 @@
+tests="
+abs_type
+builtin_type
+duplicate
+empty
+fpp_type
+primitive
+return_type
+string
+"
