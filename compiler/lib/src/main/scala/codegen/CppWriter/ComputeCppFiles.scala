@@ -91,6 +91,16 @@ object ComputeCppFiles extends AstStateVisitor {
     addMappings(s, FileNames.getStruct(name), Some(loc))
   }
 
+  override def defPortAnnotatedNode(
+    s: State,
+    aNode: Ast.Annotated[AstNode[Ast.DefPort]]
+  ) = {
+    val node = aNode._2
+    val name = s.getName(Symbol.Port(aNode))
+    val loc = Locations.get(node.id)
+    addMappings(s, FileNames.getPort(name), Some(loc))
+  }
+
   override def defTopologyAnnotatedNode(
     s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
