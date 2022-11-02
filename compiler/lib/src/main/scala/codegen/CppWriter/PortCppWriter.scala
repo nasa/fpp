@@ -142,6 +142,7 @@ case class PortCppWriter (
       "cstring",
     ).map(CppWriter.systemHeaderString).map(line)
     val userHeaders = List(
+      "Fw/Types/Assert.hpp",
       "Fw/Types/StringUtils.hpp",
       s"${s.getRelativePath(fileName).toString}.hpp"
     ).sorted.map(CppWriter.headerString).map(line)
@@ -283,7 +284,7 @@ case class PortCppWriter (
           Some("Invoke a port interface"),
           "invoke",
           functionParams,
-          CppDoc.Type("U32"),
+          CppDoc.Type(returnType),
           lines(
             s"""|#if FW_PORT_TRACING == 1
                 |this->trace();
@@ -292,7 +293,7 @@ case class PortCppWriter (
                 |FW_ASSERT(this->m_comp);
                 |FW_ASSERT(this->m_func);
                 |
-                |return this->m_func(this->m_comp, this->portNum${if params.isEmpty then ""
+                |return this->m_func(this->m_comp, this->m_portNum${if params.isEmpty then ""
                   else ", " + paramList.map(_._1).mkString(", ")});"""
           )
         )
@@ -302,30 +303,7 @@ case class PortCppWriter (
           CppDocHppWriter.writeAccessTag("private")
         )
       ),
-    ) ++
-      wrapClassMembersInIfDirective(
-        "\n#if FW_PORT_SERIALIZATION == 1",
-        List(
-          CppDoc.Class.Member.Function(
-            CppDoc.Function(
-              Some("Invoke the port with serialized arguments"),
-              "invokeSerial",
-              List(
-                CppDoc.Function.Param(
-                  CppDoc.Type("Fw::SerializeBufferBase&"),
-                  "buffer"
-                )
-              ),
-              CppDoc.Type("Fw::SerializeStatus"),
-              lines(
-                s"""|FW_ASSERT(0);
-                    |
-                    |return Fw::FW_SERIALIZE_OK;"""
-              )
-            )
-          )
-        ),
-      )
+    )
   }
 
   private def getInputPortVariableMembers: List[CppDoc.Class.Member] = {
@@ -393,7 +371,7 @@ case class PortCppWriter (
           ),
           CppDoc.Type("void"),
           lines(
-            s"""|FW_ASSERT(callComp);
+            s"""|FW_ASSERT(callPort);
                 |
                 |this->m_port = callPort;
                 |this->m_connObj = callPort;
@@ -409,7 +387,7 @@ case class PortCppWriter (
           Some("Invoke a port interface"),
           "invoke",
           functionParams,
-          CppDoc.Type("U32"),
+          CppDoc.Type(returnType),
           lines(
             s"""|#if FW_PORT_TRACING == 1
                 |this->trace();
