@@ -367,7 +367,7 @@ object Parser extends Parsers {
   }
 
   def specContainer: Parser[Ast.SpecContainer] = {
-    ((product ~ container) ~> ident) ~!
+    ((product ~ container) ~>! ident) ~!
     opt(id ~>! exprNode) ~!
     opt((default ~ priority) ~>! exprNode) ^^ {
       case name ~ id ~ defaultPriority => Ast.SpecContainer(
@@ -530,7 +530,7 @@ object Parser extends Parsers {
   }
 
   def specRecord: Parser[Ast.SpecRecord] = {
-    ((product ~ record) ~> ident) ~!
+    ((product ~ record) ~>! ident) ~!
     (colon ~>! node(typeName)) ~!
     opt(id ~>! exprNode) ^^ {
       case name ~ typeName ~ id => Ast.SpecRecord(
