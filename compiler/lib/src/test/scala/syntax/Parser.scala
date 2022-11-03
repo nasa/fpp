@@ -382,9 +382,9 @@ class ParserSpec extends AnyWordSpec {
     parseAllOK(
       Parser.specContainer,
       List(
-        "container C",
-        "container C id 0x100",
-        "container C id 0x100 default priority 10"
+        "product container C",
+        "product container C id 0x100",
+        "product container C id 0x100 default priority 10"
       )
     )
   }
@@ -505,8 +505,8 @@ class ParserSpec extends AnyWordSpec {
     parseAllOK(
       Parser.specRecord,
       List(
-        "record R: U32",
-        "record R: U32 id 0x100"
+        "product record R: U32",
+        "product record R: U32 id 0x100"
       )
     )
   }

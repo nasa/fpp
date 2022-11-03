@@ -48,11 +48,13 @@ def module
       ident C
       id literal int 0x00
       default priority literal int 10
+    @< Container specifier
     @ Record specifier
     spec container
       ident R
       type name U32
       id literal int 0x00
+    @< Record specifier
     @ Command specifier
     spec command
       kind async
