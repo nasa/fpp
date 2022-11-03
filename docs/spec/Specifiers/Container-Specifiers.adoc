@@ -1,13 +1,13 @@
 === Container Specifiers
 
-A *container specifier* specifies a container as part of a
+A *container specifier* specifies a data product container as part of a
 <<Definitions_Component-Definitions,component definition>>.
 Containers are units of data that can be downlinked and then deleted.
 They hold <<Specifiers_Record-Specifiers,data product records>>.
 
 ==== Syntax
 
-`container` <<Lexical-Elements_Identifiers,_identifier_>>
+`product` `container` <<Lexical-Elements_Identifiers,_identifier_>>
 _[_ 
 `id` <<Expressions,_expression_>>
 _]_
@@ -43,12 +43,12 @@ to a nonnegative integer.
 ----
 @ Container 0
 @ Implied id is 0x00
-container Container0
+product container Container0
 
 @ Container 1
-container Container1 id 0x02
+product container Container1 id 0x02
 
 @ Container 2
 @ Implied id is 0x03
-container Container2 default priority 10
+product container Container2 default priority 10
 ----
