@@ -57,7 +57,7 @@ for jar_file in $directory/bin/*.jar
 do
     out_file=$native_bin/`basename $jar_file .jar`
     echo "Building $out_file"
-    "$native_image" --no-fallback --install-exit-handlers -jar "$jar_file" "$out_file"
+    "$native_image" --configure-reflection-metadata --no-fallback --install-exit-handlers -jar "$jar_file" "$out_file"
     if [ $? -ne 0 ]
     then
         echo "release: Failed to build $out_file"
@@ -75,6 +75,15 @@ sync; sync; sync;
 # Clean up native directory
 rm "$native_bin"/*.txt
 sync; sync; sync;
+
+# Testing of the native binaries
+rm -r "$directory/bin"
+cp -r "$native_bin" "$directory/bin"
+"$directory/test"
+if [ $? -ne 0 ]
+then
+    echo "[WARNING] Failed to run tests"
+fi
 
 # Create tar ball
 release_tgz="$native_bin.tar.gz"
