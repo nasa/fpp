@@ -276,6 +276,7 @@ object Lexer extends RegexParsers {
     ("port", (u: Unit) => Token.PORT()),
     ("priority", (u: Unit) => Token.PRIORITY()),
     ("private", (u: Unit) => Token.PRIVATE()),
+    ("product", (u: Unit) => Token.PRODUCT()),
     ("queue", (u: Unit) => Token.QUEUE()),
     ("queued", (u: Unit) => Token.QUEUED()),
     ("record", (u: Unit) => Token.RECORD()),

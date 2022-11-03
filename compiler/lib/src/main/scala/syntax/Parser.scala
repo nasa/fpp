@@ -367,7 +367,7 @@ object Parser extends Parsers {
   }
 
   def specContainer: Parser[Ast.SpecContainer] = {
-    (container ~> ident) ~!
+    ((product ~ container) ~> ident) ~!
     opt(id ~>! exprNode) ~!
     opt((default ~ priority) ~>! exprNode) ^^ {
       case name ~ id ~ defaultPriority => Ast.SpecContainer(
@@ -530,7 +530,7 @@ object Parser extends Parsers {
   }
 
   def specRecord: Parser[Ast.SpecRecord] = {
-    (record ~> ident) ~!
+    ((product ~ record) ~> ident) ~!
     (colon ~>! node(typeName)) ~!
     opt(id ~>! exprNode) ^^ {
       case name ~ typeName ~ id => Ast.SpecRecord(
@@ -813,6 +813,8 @@ object Parser extends Parsers {
     accept("pre annotation", { case Token.PRE_ANNOTATION(s) => s })
 
   private def priority = accept("priority", { case t : Token.PRIORITY => t })
+
+  private def product = accept("product", { case t : Token.PRODUCT => t })
 
   private def queue = accept("queue", { case t : Token.QUEUE => t })
 

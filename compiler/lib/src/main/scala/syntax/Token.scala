@@ -76,6 +76,7 @@ object Token {
   final case class PRE_ANNOTATION(str: String) extends Token
   final case class PRIORITY() extends Token
   final case class PRIVATE() extends Token
+  final case class PRODUCT() extends Token
   final case class QUEUE() extends Token
   final case class QUEUED() extends Token
   final case class RARROW() extends Token
