@@ -132,33 +132,42 @@ case class CppWriterState(
   def writeIncludeDirectives(usedSymbols: Iterable[Symbol]): List[String] = {
     def getHeaderStr(file: File.JavaPath) =
       CppWriter.headerString(s"${file.toString}.hpp")
-    def getDirectiveforSymbol(sym: Symbol): Option[String] = sym match {
-      case Symbol.AbsType(node) => getName(Symbol.AbsType(node)) match {
-        case name if isBuiltInType(name) => None
-        case name => Some(getHeaderStr(getRelativePath(name)))
+    def getDirectiveForSymbol(sym: Symbol): Option[String] =
+      for {
+        fileName <- sym match {
+          case Symbol.AbsType(node) => getName(Symbol.AbsType(node)) match {
+            case name if isBuiltInType(name) => None
+            case name => Some(name)
+          }
+          case Symbol.Array(node) => Some(
+            ComputeCppFiles.FileNames.getArray(getName(Symbol.Array(node)))
+          )
+          case Symbol.Component(node) => Some(
+            ComputeCppFiles.FileNames.getComponent(getName(Symbol.Component(node)))
+          )
+          case Symbol.Enum(node) => Some(
+            ComputeCppFiles.FileNames.getEnum(getName(Symbol.Enum(node)))
+          )
+          case Symbol.Port(node) => Some(
+            ComputeCppFiles.FileNames.getPort(getName(Symbol.Port(node)))
+          )
+          case Symbol.Struct(node) => Some(
+            ComputeCppFiles.FileNames.getStruct(getName(Symbol.Struct(node)))
+          )
+          case Symbol.Topology(node) => Some(
+            ComputeCppFiles.FileNames.getTopology(getName(Symbol.Topology(node)))
+          )
+          case _ => None
+        }
       }
-      case Symbol.Array(node) => Some(
-        getHeaderStr(getRelativePath(ComputeCppFiles.FileNames.getArray(getName(Symbol.Array(node)))))
-      )
-      case Symbol.Component(node) => Some(
-        getHeaderStr(getRelativePath(ComputeCppFiles.FileNames.getComponent(getName(Symbol.Component(node)))))
-      )
-      case Symbol.Enum(node) => Some(
-        getHeaderStr(getRelativePath(ComputeCppFiles.FileNames.getEnum(getName(Symbol.Enum(node)))))
-      )
-      case Symbol.Port(node) => Some(
-        getHeaderStr(getRelativePath(ComputeCppFiles.FileNames.getPort(getName(Symbol.Port(node)))))
-      )
-      case Symbol.Struct(node) => Some(
-        getHeaderStr(getRelativePath(ComputeCppFiles.FileNames.getStruct(getName(Symbol.Struct(node)))))
-      )
-      case Symbol.Topology(node) => Some(
-        getHeaderStr(getRelativePath(ComputeCppFiles.FileNames.getTopology(getName(Symbol.Topology(node)))))
-      )
-      case _ => None
-    }
+      yield {
+        val loc = sym.getLoc
+        val fullPath = loc.getNeighborPath(fileName)
+        val path = removeLongestPathPrefix(fullPath)
+        getHeaderStr(path)
+      }
 
-    usedSymbols.map(getDirectiveforSymbol).filter(_.isDefined).map(_.get).toList
+    usedSymbols.map(getDirectiveForSymbol).filter(_.isDefined).map(_.get).toList
   }
 
   /** Is this a built-in type? */
