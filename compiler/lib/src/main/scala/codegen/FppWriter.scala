@@ -319,7 +319,7 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"container ${ident(data.name)}").
+    lines(s"product container ${ident(data.name)}").
       joinOpt (data.id) (" id ") (exprNode).
       joinOpt (data.defaultPriority) (" default priority ") (exprNode)
   }
@@ -431,7 +431,7 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"record ${ident(data.name)}").
+    lines(s"product record ${ident(data.name)}").
       join (": ") (typeNameNode(data.typeName)).
       joinOpt (data.id) (" id ") (exprNode)
   }
@@ -672,6 +672,7 @@ object FppWriter extends AstVisitor with LineUtils {
     "port",
     "priority",
     "private",
+    "product",
     "queue",
     "queued",
     "record",

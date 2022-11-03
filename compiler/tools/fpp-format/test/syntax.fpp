@@ -18,10 +18,12 @@ module DefinitionsAndSpecifiers {
     enum E { X, Y, Z }
 
     @ Container specifier
-    container C id 0x00 default priority 10
+    product container C id 0x00 default priority 10
+    @< Container specifier
 
     @ Record specifier
-    record R: U32 id 0x00
+    product record R: U32 id 0x00
+    @< Record specifier
 
     @ Command specifier
     async command C(a: U32, b: F32) opcode 0x00 priority 10 assert
