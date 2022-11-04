@@ -172,6 +172,26 @@ case class ArrayCppWriter (
 
   private def getConstructorMembers: List[CppDoc.Class.Member] = {
     val defaultValues = getDefaultValues
+    // Only write this constructor if the array has more than one element
+    val singleElementConstructor =
+      if arraySize == 1 then None
+      else Some(
+        CppDoc.Class.Member.Constructor(
+          CppDoc.Class.Constructor(
+            Some("Constructor (single element)"),
+            List(
+              CppDoc.Function.Param(
+                CppDoc.Type("const ElementType&"),
+                "e",
+                Some("The element"),
+              )
+            ),
+            List("Serializable()"),
+            indexIterator(lines("this->elements[index] = e;")),
+          )
+        )
+      )
+
     List(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
@@ -215,20 +235,6 @@ case class ArrayCppWriter (
       ),
       CppDoc.Class.Member.Constructor(
         CppDoc.Class.Constructor(
-          Some("Constructor (single element)"),
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type("const ElementType&"),
-              "e",
-              Some("The element"),
-            )
-          ),
-          List("Serializable()"),
-          indexIterator(lines("this->elements[index] = e;")),
-        )
-      ),
-      CppDoc.Class.Member.Constructor(
-        CppDoc.Class.Constructor(
           Some("Constructor (multiple elements)"),
           List.range(1, arraySize + 1).map(i => CppDoc.Function.Param(
             CppDoc.Type("const ElementType&"),
@@ -255,7 +261,8 @@ case class ArrayCppWriter (
           indexIterator(lines("this->elements[index] = obj.elements[index];")),
         )
       ),
-    )
+    ) ++
+      singleElementConstructor
   }
 
   private def getOperatorMembers: List[CppDoc.Class.Member] =
