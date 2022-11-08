@@ -97,6 +97,16 @@ case class PortCppWriter (
     val classes = List(
       getStringClasses,
       List(
+        CppDoc.Member.Lines(
+          CppDoc.Lines(
+            List(
+              Line.blank :: lines("namespace {"),
+              getPortBufferClass.map(indentIn),
+              Line.blank :: lines("}")
+            ).flatten,
+            CppDoc.Lines.Cpp
+          )
+        ),
         CppDoc.Member.Class(
           CppDoc.Class(
             Some(s"Input $name port" + annotation),
@@ -123,6 +133,8 @@ case class PortCppWriter (
 
   private def getHppIncludes: CppDoc.Member = {
     val standardHeaders = List(
+      "cstdio",
+      "cstring",
       "FpConfig.hpp",
       "Fw/Cmd/CmdArgBuffer.hpp",
       "Fw/Comp/PassiveComponentBase.hpp",
@@ -137,20 +149,13 @@ case class PortCppWriter (
   }
 
   private def getCppIncludes: CppDoc.Member = {
-    val systemHeaders = List(
-      "cstdio",
-      "cstring",
-    ).map(CppWriter.systemHeaderString).map(line)
     val userHeaders = List(
       "Fw/Types/Assert.hpp",
       "Fw/Types/StringUtils.hpp",
       s"${s.getRelativePath(fileName).toString}.hpp"
     ).sorted.map(CppWriter.headerString).map(line)
     CppWriter.linesMember(
-      List(
-        Line.blank :: systemHeaders,
-        Line.blank :: userHeaders
-      ).flatten,
+      Line.blank :: userHeaders,
       CppDoc.Lines.Cpp
     )
   }
@@ -164,6 +169,38 @@ case class PortCppWriter (
       case Nil => Nil
       case l => strCppWriter.write(l)
     }
+  }
+
+  private def getPortBufferClass: List[Line] = {
+    val privateMemberVariables =
+      if params.isEmpty then Nil
+      else
+        CppDocHppWriter.writeAccessTag("private") ++
+          lines(s"\nU8 m_buff[Input${name}Port::SERIALIZED_SIZE];")
+
+    List(
+      CppDocWriter.writeBannerComment("Port buffer class"),
+      Line.blank :: lines(s"class ${name}PortBuffer : public Fw::SerializeBufferBase {"),
+      List(
+        CppDocHppWriter.writeAccessTag("public"),
+        Line.blank :: lines(
+          s"""|NATIVE_UINT_TYPE getBuffCapacity() const {
+              |  return Input${name}Port::SERIALIZED_SIZE;
+              |}
+              |
+              |U8* getBuffAddr() {
+              |  return ${if params.isEmpty then "nullptr" else "m_buff"};
+              |}
+              |
+              |const U8* getBuffAddr() const {
+              |  return ${if params.isEmpty then "nullptr" else "m_buff"};
+              |}
+              |"""
+        ) ++
+          privateMemberVariables
+      ).flatten.map(indentIn).map(indentIn),
+      Line.blank :: lines("};")
+    ).flatten
   }
 
   private def getInputPortClassMembers: List[CppDoc.Class.Member] = {
@@ -223,6 +260,45 @@ case class PortCppWriter (
   }
 
   private def getInputPortFunctionMembers: List[CppDoc.Class.Member] = {
+    val invokeSerialBody = data.returnType match {
+      case Some(_) => lines(
+        """|// For ports with a return type, invokeSerial is not used
+           |FW_ASSERT(0);
+           |return Fw::FW_SERIALIZE_OK;
+           |"""
+      )
+      case None => (if params.isEmpty then Nil
+        else line("Fw::SerializeStatus _status;") :: List(Line.blank)) ++
+          lines(
+            """|#if FW_PORT_SERIALIZATION == 1
+               |this->trace();
+               |#endif
+               |
+               |FW_ASSERT(this->m_comp);
+               |FW_ASSERT(this->m_func);
+               |"""
+          ) ++
+          paramList.flatMap((n, tn, _) => {
+            lines(
+              s"""|
+                  |$tn $n;
+                  |_status = _buffer.deserialize($n);
+                  |if (_status != Fw::FW_SERIALIZE_OK) {
+                  |  return _status;
+                  |}
+                  |"""
+            )
+          }) ++
+          lines(
+            s"""|
+                |this->m_func(this->m_comp, this->m_portNum${if params.isEmpty then ""
+                  else ", " + paramList.map(_._1).mkString(", ")});
+                |
+                |return Fw::FW_SERIALIZE_OK;
+                |"""
+          )
+    }
+
     List(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
@@ -270,12 +346,13 @@ case class PortCppWriter (
           ),
           CppDoc.Type("void"),
           lines(
-            s"""|FW_ASSERT(callComp);
-                |FW_ASSERT(funcPtr);
-                |
-                |this->m_comp = callComp;
-                |this->m_func = funcPtr;
-                |this->m_connObj = callComp;"""
+            """|FW_ASSERT(callComp);
+               |FW_ASSERT(funcPtr);
+               |
+               |this->m_comp = callComp;
+               |this->m_func = funcPtr;
+               |this->m_connObj = callComp;
+               |"""
           )
         )
       ),
@@ -294,7 +371,8 @@ case class PortCppWriter (
                 |FW_ASSERT(this->m_func);
                 |
                 |return this->m_func(this->m_comp, this->m_portNum${if params.isEmpty then ""
-                  else ", " + paramList.map(_._1).mkString(", ")});"""
+                  else ", " + paramList.map(_._1).mkString(", ")});
+                |"""
           )
         )
       ),
@@ -303,7 +381,26 @@ case class PortCppWriter (
           CppDocHppWriter.writeAccessTag("private")
         )
       ),
-    )
+    ) ++
+      wrapClassMembersInIfDirective(
+        "\n#if FW_PORT_SERIALIZATION == 1",
+        List(
+          CppDoc.Class.Member.Function(
+            CppDoc.Function(
+              Some("Invoke the port with serialized arguments"),
+              "invokeSerial",
+              List(
+                CppDoc.Function.Param(
+                  CppDoc.Type("Fw::SerializeBufferBase&"),
+                  "_buffer"
+                )
+              ),
+              CppDoc.Type("Fw::SerializeStatus"),
+              invokeSerialBody
+            )
+          )
+        ),
+      )
   }
 
   private def getInputPortVariableMembers: List[CppDoc.Class.Member] = {
@@ -329,6 +426,37 @@ case class PortCppWriter (
   }
 
   private def getOutputPortFunctionMembers: List[CppDoc.Class.Member] = {
+    val invokeBody = data.returnType match {
+      case Some(_) => lines(
+        s"return this->m_port->invoke(${paramList.map(_._1).mkString(", ")});"
+      )
+      case None => lines(
+        s"""|if (this->m_port) {
+            |  this->m_port->invoke(${paramList.map(_._1).mkString(", ")});
+            |#if FW_PORT_SERIALIZATION
+            |} else if (this->m_serPort) {
+            |  Fw::SerializeStatus _status;
+            |  ${name}PortBuffer _buffer;
+            |"""
+      ) ++
+        paramList.flatMap((n, _, _) => { lines(
+          s"""|
+              |  _status = _buffer.serialize($n);
+              |  FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+              |"""
+        )}) ++
+        lines(
+         """|
+            |  _status = this->m_serPort->invokeSerial(_buffer);
+            |  FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+            |}
+            |#else
+            |}
+            |#endif
+            |"""
+        )
+    }
+
     List(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
@@ -371,14 +499,15 @@ case class PortCppWriter (
           ),
           CppDoc.Type("void"),
           lines(
-            s"""|FW_ASSERT(callPort);
-                |
-                |this->m_port = callPort;
-                |this->m_connObj = callPort;
-                |
-                |#if FW_PORT_SERIALIZATION == 1
-                |this->m_serPort = nullptr;
-                |#endif"""
+            """|FW_ASSERT(callPort);
+               |
+               |this->m_port = callPort;
+               |this->m_connObj = callPort;
+               |
+               |#if FW_PORT_SERIALIZATION == 1
+               |this->m_serPort = nullptr;
+               |#endif
+               |"""
           )
         )
       ),
@@ -399,8 +528,9 @@ case class PortCppWriter (
                 |FW_ASSERT(this->m_port);
                 |#endif
                 |
-                |return this->m_port->invoke(${paramList.map(_._1).mkString(", ")});"""
-          )
+                |"""
+          ) ++
+            invokeBody
         )
       )
     )
