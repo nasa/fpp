@@ -222,7 +222,7 @@ _T_ `TopologyDefs.hpp` must define a type
 corresponding to the FPP module where the topology _T_ is defined.
 For example, in `SystemReference/Top/topology.fpp` in the
 https://github.com/fprime-community/fprime-system-reference/blob/main/SystemReference/Top/topology.fpp[F Prime system reference deployment], the FPP topology `SystemReference` is defined in the FPP
-module `SystemReference`, and so in 
+module `SystemReference`, and so in
 https://github.com/fprime-community/fprime-system-reference/blob/main/SystemReference/Top/SystemReferenceTopologyDefs.hpp[`SystemReference/Top/SystemReferenceTopologyDefs.hpp`], the type `TopologyState`
 is defined in the namespace `SystemReference`.
 

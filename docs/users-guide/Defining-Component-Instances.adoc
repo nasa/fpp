@@ -192,7 +192,7 @@ module FSW {
 }
 ----
 
-In the component definition, we have revised the example from the previous 
+In the component definition, we have revised the example from the previous
 section so that
 the `EngineTemp` component is queued instead of passive,
 and we have added an async input port for calibration input.
@@ -259,7 +259,7 @@ We have defined an instance of this component called
 `FSW.dataCompressor`.
 Our instance has base identifier 0x100, the default
 queue size, the default stack size, and priority 30.
-We have used 
+We have used
 <<Defining-Constants,constant definitions>> for
 the default queue and stack sizes.
 
@@ -388,7 +388,7 @@ the file.
 If the implementation header file does not follow
 rules (1) and (2) stated above, then you must specify
 the name and location of the header file by hand.
-You do that by writing the keyword `at` followed by 
+You do that by writing the keyword `at` followed by
 a <<Defining-Constants_Expressions_String-Values, string>>
 specifying the header file path.
 The header file path is relative to the directory
@@ -429,7 +429,7 @@ and tearing down _I_ when FSW exits.
 Much of this code can be inferred from the FPP model,
 but some of it is implementation-specific.
 For example, each instance of the standard F Prime command sequencer
-component has a method `allocateBuffer` that the FSW must 
+component has a method `allocateBuffer` that the FSW must
 call during setup to allocate the sequence buffer
 for that instance.
 The FPP model does not represent this function;
@@ -468,7 +468,7 @@ files _T_ `TopologyAc.hpp` and _T_ `TopologyAc.cpp`.
 
 The generated code in _T_ `TopologyAc.hpp` and _T_ `TopologyAc.cpp`
 is divided into several phases of execution.
-Table <<execution-phases>> shows the execution phases 
+Table <<execution-phases>> shows the execution phases
 recognized by the FPP code generator.
 In this table, _T_ is the name of a topology and _I_ is the
 name of a component instance.
@@ -490,7 +490,7 @@ associated with the instance _I_ and the phase.
 * *Where Placed:* Where FPP places the code snippet
 in the generated file.
 
-* *Default Code:* Whether FPP generates default code if 
+* *Default Code:* Whether FPP generates default code if
 there is no init specifier for instance _I_
 and for this phase.
 If there is an init specifier, then it replaces any
@@ -621,9 +621,9 @@ You may write one or more init specifiers as part of a component
 instance definition.
 The init specifiers, if any, come at the end of the
 definition and must be enclosed in curly braces.
-The init specifiers form an 
+The init specifiers form an
 <<Defining-Constants_Multiple-Definitions-and-Element-Sequences,element sequence>>
-with a semicolon as the optional terminating punctuation. 
+with a semicolon as the optional terminating punctuation.
 
 To write an init specifier, you write the following:
 
@@ -642,7 +642,7 @@ It is usually convenient, but not required, to use a multiline string
 for the code snippet.
 
 As an example, here is the component instance definition for the
-command sequencer instance `cmdSeq` from the 
+command sequencer instance `cmdSeq` from the
 https://github.com/fprime-community/fprime-system-reference/blob/main/SystemReference/Top/instances.fpp[F Prime system reference deployment]:
 
 [source,fpp]
@@ -708,7 +708,7 @@ instance prmDb: Svc.PrmDb base id 0x0D00 \
 }
 --------
 
-Here we provide code for the `instances` phase because the constructor 
+Here we provide code for the `instances` phase because the constructor
 call for this component is nonstandard -- it takes the parameter
 file name as an argument.
 In the `readParameters` phase, we provide the code for reading the parameters
