@@ -36,6 +36,15 @@ Enum1 ::
 }
 
 Enum1 ::
+  Enum1(const ElementType& e) :
+    Serializable()
+{
+  for (U32 index = 0; index < SIZE; index++) {
+    this->elements[index] = e;
+  }
+}
+
+Enum1 ::
   Enum1(
       const ElementType& e1,
       const ElementType& e2
@@ -52,15 +61,6 @@ Enum1 ::
 {
   for (U32 index = 0; index < SIZE; index++) {
     this->elements[index] = obj.elements[index];
-  }
-}
-
-Enum1 ::
-  Enum1(const ElementType& e) :
-    Serializable()
-{
-  for (U32 index = 0; index < SIZE; index++) {
-    this->elements[index] = e;
   }
 }
 

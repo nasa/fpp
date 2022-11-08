@@ -104,6 +104,11 @@ class String1 :
         const ElementType (&a)[SIZE] //!< The array
     );
 
+    //! Constructor (single element)
+    String1(
+        const ElementType& e //!< The element
+    );
+
     //! Constructor (multiple elements)
     String1(
         const ElementType& e1, //!< Element 1
@@ -114,11 +119,6 @@ class String1 :
     //! Copy Constructor
     String1(
         const String1& obj //!< The source object
-    );
-
-    //! Constructor (single element)
-    String1(
-        const ElementType& e //!< The element
     );
 
   public:

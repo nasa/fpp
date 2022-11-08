@@ -104,6 +104,11 @@ class String2 :
         const ElementType (&a)[SIZE] //!< The array
     );
 
+    //! Constructor (single element)
+    String2(
+        const ElementType& e //!< The element
+    );
+
     //! Constructor (multiple elements)
     String2(
         const ElementType& e1, //!< Element 1
@@ -113,11 +118,6 @@ class String2 :
     //! Copy Constructor
     String2(
         const String2& obj //!< The source object
-    );
-
-    //! Constructor (single element)
-    String2(
-        const ElementType& e //!< The element
     );
 
   public:

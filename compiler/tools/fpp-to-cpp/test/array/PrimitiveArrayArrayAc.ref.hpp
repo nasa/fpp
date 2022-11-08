@@ -53,6 +53,11 @@ class PrimitiveArray :
         const ElementType (&a)[SIZE] //!< The array
     );
 
+    //! Constructor (single element)
+    PrimitiveArray(
+        const ElementType& e //!< The element
+    );
+
     //! Constructor (multiple elements)
     PrimitiveArray(
         const ElementType& e1, //!< Element 1
@@ -65,11 +70,6 @@ class PrimitiveArray :
     //! Copy Constructor
     PrimitiveArray(
         const PrimitiveArray& obj //!< The source object
-    );
-
-    //! Constructor (single element)
-    PrimitiveArray(
-        const ElementType& e //!< The element
     );
 
   public:

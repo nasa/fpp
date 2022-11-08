@@ -41,6 +41,15 @@ namespace M {
   }
 
   PrimitiveF64 ::
+    PrimitiveF64(const ElementType& e) :
+      Serializable()
+  {
+    for (U32 index = 0; index < SIZE; index++) {
+      this->elements[index] = e;
+    }
+  }
+
+  PrimitiveF64 ::
     PrimitiveF64(
         const ElementType& e1,
         const ElementType& e2,
@@ -63,15 +72,6 @@ namespace M {
   {
     for (U32 index = 0; index < SIZE; index++) {
       this->elements[index] = obj.elements[index];
-    }
-  }
-
-  PrimitiveF64 ::
-    PrimitiveF64(const ElementType& e) :
-      Serializable()
-  {
-    for (U32 index = 0; index < SIZE; index++) {
-      this->elements[index] = e;
     }
   }
 

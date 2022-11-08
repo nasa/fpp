@@ -53,6 +53,11 @@ namespace M {
           const ElementType (&a)[SIZE] //!< The array
       );
 
+      //! Constructor (single element)
+      PrimitiveBool(
+          const ElementType& e //!< The element
+      );
+
       //! Constructor (multiple elements)
       PrimitiveBool(
           const ElementType& e1, //!< Element 1
@@ -63,11 +68,6 @@ namespace M {
       //! Copy Constructor
       PrimitiveBool(
           const PrimitiveBool& obj //!< The source object
-      );
-
-      //! Constructor (single element)
-      PrimitiveBool(
-          const ElementType& e //!< The element
       );
 
     public:

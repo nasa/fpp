@@ -37,6 +37,15 @@ C_A ::
 }
 
 C_A ::
+  C_A(const ElementType& e) :
+    Serializable()
+{
+  for (U32 index = 0; index < SIZE; index++) {
+    this->elements[index] = e;
+  }
+}
+
+C_A ::
   C_A(
       const ElementType& e1,
       const ElementType& e2,
@@ -55,15 +64,6 @@ C_A ::
 {
   for (U32 index = 0; index < SIZE; index++) {
     this->elements[index] = obj.elements[index];
-  }
-}
-
-C_A ::
-  C_A(const ElementType& e) :
-    Serializable()
-{
-  for (U32 index = 0; index < SIZE; index++) {
-    this->elements[index] = e;
   }
 }
 

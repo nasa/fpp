@@ -53,6 +53,11 @@ class HeaderPath :
         const ElementType (&a)[SIZE] //!< The array
     );
 
+    //! Constructor (single element)
+    HeaderPath(
+        const ElementType& e //!< The element
+    );
+
     //! Constructor (multiple elements)
     HeaderPath(
         const ElementType& e1, //!< Element 1
@@ -63,11 +68,6 @@ class HeaderPath :
     //! Copy Constructor
     HeaderPath(
         const HeaderPath& obj //!< The source object
-    );
-
-    //! Constructor (single element)
-    HeaderPath(
-        const ElementType& e //!< The element
     );
 
   public:

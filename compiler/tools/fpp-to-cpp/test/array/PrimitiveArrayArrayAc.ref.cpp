@@ -39,6 +39,15 @@ PrimitiveArray ::
 }
 
 PrimitiveArray ::
+  PrimitiveArray(const ElementType& e) :
+    Serializable()
+{
+  for (U32 index = 0; index < SIZE; index++) {
+    this->elements[index] = e;
+  }
+}
+
+PrimitiveArray ::
   PrimitiveArray(
       const ElementType& e1,
       const ElementType& e2,
@@ -61,15 +70,6 @@ PrimitiveArray ::
 {
   for (U32 index = 0; index < SIZE; index++) {
     this->elements[index] = obj.elements[index];
-  }
-}
-
-PrimitiveArray ::
-  PrimitiveArray(const ElementType& e) :
-    Serializable()
-{
-  for (U32 index = 0; index < SIZE; index++) {
-    this->elements[index] = e;
   }
 }
 

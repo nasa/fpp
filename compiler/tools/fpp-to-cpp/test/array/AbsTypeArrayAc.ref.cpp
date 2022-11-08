@@ -37,6 +37,15 @@ AbsType ::
 }
 
 AbsType ::
+  AbsType(const ElementType& e) :
+    Serializable()
+{
+  for (U32 index = 0; index < SIZE; index++) {
+    this->elements[index] = e;
+  }
+}
+
+AbsType ::
   AbsType(
       const ElementType& e1,
       const ElementType& e2,
@@ -55,15 +64,6 @@ AbsType ::
 {
   for (U32 index = 0; index < SIZE; index++) {
     this->elements[index] = obj.elements[index];
-  }
-}
-
-AbsType ::
-  AbsType(const ElementType& e) :
-    Serializable()
-{
-  for (U32 index = 0; index < SIZE; index++) {
-    this->elements[index] = e;
   }
 }
 

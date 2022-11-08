@@ -51,6 +51,11 @@ class C_A :
         const ElementType (&a)[SIZE] //!< The array
     );
 
+    //! Constructor (single element)
+    C_A(
+        const ElementType& e //!< The element
+    );
+
     //! Constructor (multiple elements)
     C_A(
         const ElementType& e1, //!< Element 1
@@ -61,11 +66,6 @@ class C_A :
     //! Copy Constructor
     C_A(
         const C_A& obj //!< The source object
-    );
-
-    //! Constructor (single element)
-    C_A(
-        const ElementType& e //!< The element
     );
 
   public:

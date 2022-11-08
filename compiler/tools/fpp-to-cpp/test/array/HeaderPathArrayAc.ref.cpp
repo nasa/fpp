@@ -37,6 +37,15 @@ HeaderPath ::
 }
 
 HeaderPath ::
+  HeaderPath(const ElementType& e) :
+    Serializable()
+{
+  for (U32 index = 0; index < SIZE; index++) {
+    this->elements[index] = e;
+  }
+}
+
+HeaderPath ::
   HeaderPath(
       const ElementType& e1,
       const ElementType& e2,
@@ -55,15 +64,6 @@ HeaderPath ::
 {
   for (U32 index = 0; index < SIZE; index++) {
     this->elements[index] = obj.elements[index];
-  }
-}
-
-HeaderPath ::
-  HeaderPath(const ElementType& e) :
-    Serializable()
-{
-  for (U32 index = 0; index < SIZE; index++) {
-    this->elements[index] = e;
   }
 }
 

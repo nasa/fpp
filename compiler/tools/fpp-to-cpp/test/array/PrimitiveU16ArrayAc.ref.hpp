@@ -53,6 +53,11 @@ namespace M {
           const ElementType (&a)[SIZE] //!< The array
       );
 
+      //! Constructor (single element)
+      PrimitiveU16(
+          const ElementType& e //!< The element
+      );
+
       //! Constructor (multiple elements)
       PrimitiveU16(
           const ElementType& e1, //!< Element 1
@@ -63,11 +68,6 @@ namespace M {
       //! Copy Constructor
       PrimitiveU16(
           const PrimitiveU16& obj //!< The source object
-      );
-
-      //! Constructor (single element)
-      PrimitiveU16(
-          const ElementType& e //!< The element
       );
 
     public:

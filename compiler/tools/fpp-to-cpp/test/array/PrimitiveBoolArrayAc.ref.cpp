@@ -39,6 +39,15 @@ namespace M {
   }
 
   PrimitiveBool ::
+    PrimitiveBool(const ElementType& e) :
+      Serializable()
+  {
+    for (U32 index = 0; index < SIZE; index++) {
+      this->elements[index] = e;
+    }
+  }
+
+  PrimitiveBool ::
     PrimitiveBool(
         const ElementType& e1,
         const ElementType& e2,
@@ -57,15 +66,6 @@ namespace M {
   {
     for (U32 index = 0; index < SIZE; index++) {
       this->elements[index] = obj.elements[index];
-    }
-  }
-
-  PrimitiveBool ::
-    PrimitiveBool(const ElementType& e) :
-      Serializable()
-  {
-    for (U32 index = 0; index < SIZE; index++) {
-      this->elements[index] = e;
     }
   }
 
