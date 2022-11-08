@@ -174,8 +174,8 @@ case class ArrayCppWriter (
     val defaultValues = getDefaultValues
     // Only write this constructor if the array has more than one element
     val singleElementConstructor =
-      if arraySize == 1 then None
-      else Some(
+      if arraySize == 1 then Nil
+      else List(
         CppDoc.Class.Member.Constructor(
           CppDoc.Class.Constructor(
             Some("Constructor (single element)"),
@@ -232,37 +232,39 @@ case class ArrayCppWriter (
           List("Serializable()"),
           indexIterator(lines("this->elements[index] = a[index];")),
         )
-      ),
-      CppDoc.Class.Member.Constructor(
-        CppDoc.Class.Constructor(
-          Some("Constructor (multiple elements)"),
-          List.range(1, arraySize + 1).map(i => CppDoc.Function.Param(
-            CppDoc.Type("const ElementType&"),
-            s"e$i",
-            Some(s"Element $i"),
-          )),
-          List("Serializable()"),
-          List.range(1, arraySize + 1).map(i => line(
-            s"this->elements[${i - 1}] = e$i;"
-          )),
-        )
-      ),
-      CppDoc.Class.Member.Constructor(
-        CppDoc.Class.Constructor(
-          Some("Copy Constructor"),
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type(s"const $name&"),
-              "obj",
-              Some("The source object"),
-            )
-          ),
-          List("Serializable()"),
-          indexIterator(lines("this->elements[index] = obj.elements[index];")),
-        )
-      ),
+      )
     ) ++
-      singleElementConstructor
+      singleElementConstructor ++
+      List(
+        CppDoc.Class.Member.Constructor(
+          CppDoc.Class.Constructor(
+            Some("Constructor (multiple elements)"),
+            List.range(1, arraySize + 1).map(i => CppDoc.Function.Param(
+              CppDoc.Type("const ElementType&"),
+              s"e$i",
+              Some(s"Element $i"),
+            )),
+            List("Serializable()"),
+            List.range(1, arraySize + 1).map(i => line(
+              s"this->elements[${i - 1}] = e$i;"
+            )),
+          )
+        ),
+        CppDoc.Class.Member.Constructor(
+          CppDoc.Class.Constructor(
+            Some("Copy Constructor"),
+            List(
+              CppDoc.Function.Param(
+                CppDoc.Type(s"const $name&"),
+                "obj",
+                Some("The source object"),
+              )
+            ),
+            List("Serializable()"),
+            indexIterator(lines("this->elements[index] = obj.elements[index];")),
+          )
+        ),
+      )
   }
 
   private def getOperatorMembers: List[CppDoc.Class.Member] =
