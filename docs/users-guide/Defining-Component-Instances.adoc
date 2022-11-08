@@ -619,9 +619,9 @@ instance needs to deallocate memory or release resources on program exit.
 
 You may write one or more init specifiers as part of a component
 instance definition.
-The instance specifiers, if any, come at the end of the
+The init specifiers, if any, come at the end of the
 definition and must be enclosed in curly braces.
-The instances specifiers form an 
+The init specifiers form an 
 <<Defining-Constants_Multiple-Definitions-and-Element-Sequences,element sequence>>
 with a semicolon as the optional terminating punctuation. 
 
@@ -642,12 +642,12 @@ It is usually convenient, but not required, to use a multiline string
 for the code snippet.
 
 As an example, here is the component instance definition for the
-command sequencer instance `cmdSeq` from the F Prime reference
-deployment located at `Ref/Top/instances.fpp`:
+command sequencer instance `cmdSeq` from the 
+https://github.com/fprime-community/fprime-system-reference/blob/main/SystemReference/Top/instances.fpp[F Prime system reference deployment]:
 
 [source,fpp]
 --------
-instance cmdSeq: Svc.CmdSequencer base id 0x0600 \
+instance cmdSeq: Svc.CmdSequencer base id 0x0700 \
   queue size Default.queueSize \
   stack size Default.stackSize \
   priority 100 \
@@ -687,7 +687,7 @@ deallocate the sequence buffer, passing in the allocator
 object again.
 
 As another example, here is the instance definition for the parameter
-database instance `prmDb` from the Ref deployment:
+database instance `prmDb` from the system reference deployment:
 
 [source,fpp]
 --------
@@ -725,6 +725,6 @@ section on <<Writing-C-Plus-Plus-Implementations_Implementing-Deployments,
 implementing deployments>>.
 
 For more examples of init specifiers in action, see the rest of
-the file `Ref/Top/instances.fpp` in the F Prime repository.
-In particular, the init specifiers for the `comm` component
+the file `SystemReference/Top/instances.fpp` in the F Prime repository.
+In particular, the init specifiers for the `comDriver` instance
 use the `state` value that we just mentioned.
