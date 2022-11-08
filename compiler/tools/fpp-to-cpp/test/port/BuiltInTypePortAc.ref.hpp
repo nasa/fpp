@@ -14,6 +14,8 @@
 #include "Fw/Port/OutputPortBase.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/StringType.hpp"
+#include "cstdio"
+#include "cstring"
 
 //! Input BuiltInType port
 //! A port with built-in type parameters
@@ -73,6 +75,13 @@ class InputBuiltInTypePort :
     );
 
   private:
+
+#if FW_PORT_SERIALIZATION == 1
+
+    //! Invoke the port with serialized arguments
+    Fw::SerializeStatus invokeSerial(Fw::SerializeBufferBase& _buffer);
+
+#endif
 
   private:
 

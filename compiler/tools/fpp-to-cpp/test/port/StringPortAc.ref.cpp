@@ -4,9 +4,6 @@
 // \brief  cpp file for String port
 // ======================================================================
 
-#include <cstdio>
-#include <cstring>
-
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/StringUtils.hpp"
 #include "StringPortAc.hpp"
@@ -169,6 +166,36 @@ NATIVE_UINT_TYPE StringSize100 ::
   return sizeof(this->m_buf);
 }
 
+namespace {
+
+  // ----------------------------------------------------------------------
+  // Port _buffer class
+  // ----------------------------------------------------------------------
+
+  class StringPortBuffer : public Fw::SerializeBufferBase {
+
+    public:
+
+      NATIVE_UINT_TYPE getBuffCapacity() const {
+        return InputStringPort::SERIALIZED_SIZE;
+      }
+
+      U8* getBuffAddr() {
+        return m_buff;
+      }
+
+      const U8* getBuffAddr() const {
+        return m_buff;
+      }
+
+    private:
+
+      U8 m_buff[InputStringPort::SERIALIZED_SIZE];
+
+  };
+
+}
+
 // ----------------------------------------------------------------------
 // Input Port Member functions
 // ----------------------------------------------------------------------
@@ -219,6 +246,51 @@ void InputStringPort ::
   return this->m_func(this->m_comp, this->m_portNum, str80, str80Ref, str100, str100Ref);
 }
 
+#if FW_PORT_SERIALIZATION == 1
+
+Fw::SerializeStatus InputStringPort ::
+  invokeSerial(Fw::SerializeBufferBase& _buffer)
+{
+  Fw::SerializeStatus _status;
+
+#if FW_PORT_SERIALIZATION == 1
+  this->trace();
+#endif
+
+  FW_ASSERT(this->m_comp);
+  FW_ASSERT(this->m_func);
+
+  StringSize80 str80;
+  _status = _buffer.deserialize(str80);
+  if (_status != Fw::FW_SERIALIZE_OK) {
+    return _status;
+  }
+
+  StringSize80 str80Ref;
+  _status = _buffer.deserialize(str80Ref);
+  if (_status != Fw::FW_SERIALIZE_OK) {
+    return _status;
+  }
+
+  StringSize100 str100;
+  _status = _buffer.deserialize(str100);
+  if (_status != Fw::FW_SERIALIZE_OK) {
+    return _status;
+  }
+
+  StringSize100 str100Ref;
+  _status = _buffer.deserialize(str100Ref);
+  if (_status != Fw::FW_SERIALIZE_OK) {
+    return _status;
+  }
+
+  this->m_func(this->m_comp, this->m_portNum, str80, str80Ref, str100, str100Ref);
+
+  return Fw::FW_SERIALIZE_OK;
+}
+
+#endif
+
 // ----------------------------------------------------------------------
 // Output Port Member functions
 // ----------------------------------------------------------------------
@@ -267,6 +339,29 @@ void OutputStringPort ::
 #else
   FW_ASSERT(this->m_port);
 #endif
+  if (this->m_port) {
+    this->m_port->invoke(str80, str80Ref, str100, str100Ref);
+#if FW_PORT_SERIALIZATION
+  } else if (this->m_serPort) {
+    Fw::SerializeStatus _status;
+    StringPortBuffer _buffer;
 
-  return this->m_port->invoke(str80, str80Ref, str100, str100Ref);
+    _status = _buffer.serialize(str80);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+
+    _status = _buffer.serialize(str80Ref);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+
+    _status = _buffer.serialize(str100);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+
+    _status = _buffer.serialize(str100Ref);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+
+    _status = this->m_serPort->invokeSerial(_buffer);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  }
+#else
+  }
+#endif
 }

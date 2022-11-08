@@ -4,12 +4,39 @@
 // \brief  cpp file for AbsType port
 // ======================================================================
 
-#include <cstdio>
-#include <cstring>
-
 #include "AbsTypePortAc.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/StringUtils.hpp"
+
+namespace {
+
+  // ----------------------------------------------------------------------
+  // Port _buffer class
+  // ----------------------------------------------------------------------
+
+  class AbsTypePortBuffer : public Fw::SerializeBufferBase {
+
+    public:
+
+      NATIVE_UINT_TYPE getBuffCapacity() const {
+        return InputAbsTypePort::SERIALIZED_SIZE;
+      }
+
+      U8* getBuffAddr() {
+        return m_buff;
+      }
+
+      const U8* getBuffAddr() const {
+        return m_buff;
+      }
+
+    private:
+
+      U8 m_buff[InputAbsTypePort::SERIALIZED_SIZE];
+
+  };
+
+}
 
 // ----------------------------------------------------------------------
 // Input Port Member functions
@@ -59,6 +86,39 @@ void InputAbsTypePort ::
   return this->m_func(this->m_comp, this->m_portNum, t, tRef);
 }
 
+#if FW_PORT_SERIALIZATION == 1
+
+Fw::SerializeStatus InputAbsTypePort ::
+  invokeSerial(Fw::SerializeBufferBase& _buffer)
+{
+  Fw::SerializeStatus _status;
+
+#if FW_PORT_SERIALIZATION == 1
+  this->trace();
+#endif
+
+  FW_ASSERT(this->m_comp);
+  FW_ASSERT(this->m_func);
+
+  T t;
+  _status = _buffer.deserialize(t);
+  if (_status != Fw::FW_SERIALIZE_OK) {
+    return _status;
+  }
+
+  T tRef;
+  _status = _buffer.deserialize(tRef);
+  if (_status != Fw::FW_SERIALIZE_OK) {
+    return _status;
+  }
+
+  this->m_func(this->m_comp, this->m_portNum, t, tRef);
+
+  return Fw::FW_SERIALIZE_OK;
+}
+
+#endif
+
 // ----------------------------------------------------------------------
 // Output Port Member functions
 // ----------------------------------------------------------------------
@@ -105,6 +165,23 @@ void OutputAbsTypePort ::
 #else
   FW_ASSERT(this->m_port);
 #endif
+  if (this->m_port) {
+    this->m_port->invoke(t, tRef);
+#if FW_PORT_SERIALIZATION
+  } else if (this->m_serPort) {
+    Fw::SerializeStatus _status;
+    AbsTypePortBuffer _buffer;
 
-  return this->m_port->invoke(t, tRef);
+    _status = _buffer.serialize(t);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+
+    _status = _buffer.serialize(tRef);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+
+    _status = this->m_serPort->invokeSerial(_buffer);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  }
+#else
+  }
+#endif
 }

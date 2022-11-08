@@ -5,7 +5,6 @@
 # ----------------------------------------------------------------------
 
 fprime_gcc=../../../../scripts/fprime-gcc
-export FPRIME_GCC_FLAGS="-Iinclude"
 
 for file in `find . -name '*Ac.ref.cpp'`
 do

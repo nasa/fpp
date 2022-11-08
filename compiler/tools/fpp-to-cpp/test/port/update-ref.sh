@@ -1,6 +1,6 @@
 abs_type()
 {
-  update "-p $PWD" abs_type
+  update "-p $PWD" "include/T.fpp abs_type" abs_type
   move_cpp AbsTypePort
 }
 
@@ -20,6 +20,12 @@ fpp_type()
 {
   update "-p $PWD" fpp_type
   move_cpp FppTypePort
+}
+
+kwd_name()
+{
+  update "-p $PWD" kwd_name
+  move_cpp KwdNamePort
 }
 
 primitive()

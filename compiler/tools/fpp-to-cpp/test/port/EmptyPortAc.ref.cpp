@@ -4,12 +4,35 @@
 // \brief  cpp file for Empty port
 // ======================================================================
 
-#include <cstdio>
-#include <cstring>
-
 #include "EmptyPortAc.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/StringUtils.hpp"
+
+namespace {
+
+  // ----------------------------------------------------------------------
+  // Port _buffer class
+  // ----------------------------------------------------------------------
+
+  class EmptyPortBuffer : public Fw::SerializeBufferBase {
+
+    public:
+
+      NATIVE_UINT_TYPE getBuffCapacity() const {
+        return InputEmptyPort::SERIALIZED_SIZE;
+      }
+
+      U8* getBuffAddr() {
+        return nullptr;
+      }
+
+      const U8* getBuffAddr() const {
+        return nullptr;
+      }
+
+  };
+
+}
 
 // ----------------------------------------------------------------------
 // Input Port Member functions
@@ -56,6 +79,25 @@ void InputEmptyPort ::
   return this->m_func(this->m_comp, this->m_portNum);
 }
 
+#if FW_PORT_SERIALIZATION == 1
+
+Fw::SerializeStatus InputEmptyPort ::
+  invokeSerial(Fw::SerializeBufferBase& _buffer)
+{
+#if FW_PORT_SERIALIZATION == 1
+  this->trace();
+#endif
+
+  FW_ASSERT(this->m_comp);
+  FW_ASSERT(this->m_func);
+
+  this->m_func(this->m_comp, this->m_portNum);
+
+  return Fw::FW_SERIALIZE_OK;
+}
+
+#endif
+
 // ----------------------------------------------------------------------
 // Output Port Member functions
 // ----------------------------------------------------------------------
@@ -99,6 +141,17 @@ void OutputEmptyPort ::
 #else
   FW_ASSERT(this->m_port);
 #endif
+  if (this->m_port) {
+    this->m_port->invoke();
+#if FW_PORT_SERIALIZATION
+  } else if (this->m_serPort) {
+    Fw::SerializeStatus _status;
+    EmptyPortBuffer _buffer;
 
-  return this->m_port->invoke();
+    _status = this->m_serPort->invokeSerial(_buffer);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  }
+#else
+  }
+#endif
 }

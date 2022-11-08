@@ -17,6 +17,8 @@
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/StringType.hpp"
 #include "SSerializableAc.hpp"
+#include "cstdio"
+#include "cstring"
 
 //! Input FppType port
 //! A port with FPP type parameters
@@ -88,6 +90,13 @@ class InputFppTypePort :
     );
 
   private:
+
+#if FW_PORT_SERIALIZATION == 1
+
+    //! Invoke the port with serialized arguments
+    Fw::SerializeStatus invokeSerial(Fw::SerializeBufferBase& _buffer);
+
+#endif
 
   private:
 

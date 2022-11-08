@@ -1,6 +1,6 @@
 abs_type()
 {
-  run_test "-p $PWD" abs_type && \
+  run_test "-p $PWD" "include/T.fpp abs_type" abs_type && \
     diff_cpp AbsTypePort
 }
 
@@ -20,6 +20,12 @@ fpp_type()
 {
   run_test "-p $PWD" fpp_type && \
     diff_cpp FppTypePort
+}
+
+kwd_name()
+{
+  run_test "-p $PWD" kwd_name && \
+    diff_cpp KwdNamePort
 }
 
 primitive()

@@ -4,14 +4,41 @@
 // \brief  cpp file for ReturnType port
 // ======================================================================
 
-#include <cstdio>
-#include <cstring>
-
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/StringUtils.hpp"
 #include "ReturnTypePortAc.hpp"
 
 namespace M {
+
+  namespace {
+
+    // ----------------------------------------------------------------------
+    // Port _buffer class
+    // ----------------------------------------------------------------------
+
+    class ReturnTypePortBuffer : public Fw::SerializeBufferBase {
+
+      public:
+
+        NATIVE_UINT_TYPE getBuffCapacity() const {
+          return InputReturnTypePort::SERIALIZED_SIZE;
+        }
+
+        U8* getBuffAddr() {
+          return m_buff;
+        }
+
+        const U8* getBuffAddr() const {
+          return m_buff;
+        }
+
+      private:
+
+        U8 m_buff[InputReturnTypePort::SERIALIZED_SIZE];
+
+    };
+
+  }
 
   // ----------------------------------------------------------------------
   // Input Port Member functions
@@ -58,6 +85,18 @@ namespace M {
     return this->m_func(this->m_comp, this->m_portNum, u);
   }
 
+#if FW_PORT_SERIALIZATION == 1
+
+  Fw::SerializeStatus InputReturnTypePort ::
+    invokeSerial(Fw::SerializeBufferBase& _buffer)
+  {
+    // For ports with a return type, invokeSerial is not used
+    FW_ASSERT(0);
+    return Fw::FW_SERIALIZE_OK;
+  }
+
+#endif
+
   // ----------------------------------------------------------------------
   // Output Port Member functions
   // ----------------------------------------------------------------------
@@ -101,7 +140,6 @@ namespace M {
 #else
     FW_ASSERT(this->m_port);
 #endif
-
     return this->m_port->invoke(u);
   }
 

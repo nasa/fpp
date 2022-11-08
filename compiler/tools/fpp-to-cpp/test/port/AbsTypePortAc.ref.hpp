@@ -14,7 +14,9 @@
 #include "Fw/Port/OutputPortBase.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/StringType.hpp"
-#include "T.hpp"
+#include "cstdio"
+#include "cstring"
+#include "include/T.hpp"
 
 //! Input AbsType port
 //! A port with abstract type parameters
@@ -74,6 +76,13 @@ class InputAbsTypePort :
     );
 
   private:
+
+#if FW_PORT_SERIALIZATION == 1
+
+    //! Invoke the port with serialized arguments
+    Fw::SerializeStatus invokeSerial(Fw::SerializeBufferBase& _buffer);
+
+#endif
 
   private:
 
