@@ -52,11 +52,6 @@ class Enum2 :
         const ElementType (&a)[SIZE] //!< The array
     );
 
-    //! Constructor (single element)
-    Enum2(
-        const ElementType& e //!< The element
-    );
-
     //! Constructor (multiple elements)
     Enum2(
         const ElementType& e1, //!< Element 1
@@ -69,6 +64,11 @@ class Enum2 :
     //! Copy Constructor
     Enum2(
         const Enum2& obj //!< The source object
+    );
+
+    //! Constructor (single element)
+    Enum2(
+        const ElementType& e //!< The element
     );
 
   public:

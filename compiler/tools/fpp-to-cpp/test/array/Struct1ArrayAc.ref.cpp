@@ -39,15 +39,6 @@ Struct1 ::
 }
 
 Struct1 ::
-  Struct1(const ElementType& e) :
-    Serializable()
-{
-  for (U32 index = 0; index < SIZE; index++) {
-    this->elements[index] = e;
-  }
-}
-
-Struct1 ::
   Struct1(
       const ElementType& e1,
       const ElementType& e2,
@@ -70,6 +61,15 @@ Struct1 ::
 {
   for (U32 index = 0; index < SIZE; index++) {
     this->elements[index] = obj.elements[index];
+  }
+}
+
+Struct1 ::
+  Struct1(const ElementType& e) :
+    Serializable()
+{
+  for (U32 index = 0; index < SIZE; index++) {
+    this->elements[index] = e;
   }
 }
 

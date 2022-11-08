@@ -64,3 +64,9 @@ header_path()
   update "-p $PWD" "include/T.fpp header_path" header_path
   move_cpp HeaderPathArray
 }
+
+single_element()
+{
+  update "-p $PWD" single_element
+  move_cpp SingleElementArray
+}

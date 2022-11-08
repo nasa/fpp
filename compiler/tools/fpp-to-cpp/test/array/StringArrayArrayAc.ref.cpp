@@ -39,15 +39,6 @@ StringArray ::
 }
 
 StringArray ::
-  StringArray(const ElementType& e) :
-    Serializable()
-{
-  for (U32 index = 0; index < SIZE; index++) {
-    this->elements[index] = e;
-  }
-}
-
-StringArray ::
   StringArray(
       const ElementType& e1,
       const ElementType& e2,
@@ -70,6 +61,15 @@ StringArray ::
 {
   for (U32 index = 0; index < SIZE; index++) {
     this->elements[index] = obj.elements[index];
+  }
+}
+
+StringArray ::
+  StringArray(const ElementType& e) :
+    Serializable()
+{
+  for (U32 index = 0; index < SIZE; index++) {
+    this->elements[index] = e;
   }
 }
 

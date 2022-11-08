@@ -39,15 +39,6 @@ namespace M {
   }
 
   PrimitiveI32 ::
-    PrimitiveI32(const ElementType& e) :
-      Serializable()
-  {
-    for (U32 index = 0; index < SIZE; index++) {
-      this->elements[index] = e;
-    }
-  }
-
-  PrimitiveI32 ::
     PrimitiveI32(
         const ElementType& e1,
         const ElementType& e2,
@@ -66,6 +57,15 @@ namespace M {
   {
     for (U32 index = 0; index < SIZE; index++) {
       this->elements[index] = obj.elements[index];
+    }
+  }
+
+  PrimitiveI32 ::
+    PrimitiveI32(const ElementType& e) :
+      Serializable()
+  {
+    for (U32 index = 0; index < SIZE; index++) {
+      this->elements[index] = e;
     }
   }
 

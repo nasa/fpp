@@ -54,11 +54,6 @@ namespace M {
           const ElementType (&a)[SIZE] //!< The array
       );
 
-      //! Constructor (single element)
-      PrimitiveF32e(
-          const ElementType& e //!< The element
-      );
-
       //! Constructor (multiple elements)
       PrimitiveF32e(
           const ElementType& e1, //!< Element 1
@@ -69,6 +64,11 @@ namespace M {
       //! Copy Constructor
       PrimitiveF32e(
           const PrimitiveF32e& obj //!< The source object
+      );
+
+      //! Constructor (single element)
+      PrimitiveF32e(
+          const ElementType& e //!< The element
       );
 
     public:

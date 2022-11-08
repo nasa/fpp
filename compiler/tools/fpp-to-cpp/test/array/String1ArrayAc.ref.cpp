@@ -116,15 +116,6 @@ String1 ::
 }
 
 String1 ::
-  String1(const ElementType& e) :
-    Serializable()
-{
-  for (U32 index = 0; index < SIZE; index++) {
-    this->elements[index] = e;
-  }
-}
-
-String1 ::
   String1(
       const ElementType& e1,
       const ElementType& e2,
@@ -143,6 +134,15 @@ String1 ::
 {
   for (U32 index = 0; index < SIZE; index++) {
     this->elements[index] = obj.elements[index];
+  }
+}
+
+String1 ::
+  String1(const ElementType& e) :
+    Serializable()
+{
+  for (U32 index = 0; index < SIZE; index++) {
+    this->elements[index] = e;
   }
 }
 

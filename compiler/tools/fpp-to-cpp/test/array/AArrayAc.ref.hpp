@@ -52,11 +52,6 @@ class A :
         const ElementType (&a)[SIZE] //!< The array
     );
 
-    //! Constructor (single element)
-    A(
-        const ElementType& e //!< The element
-    );
-
     //! Constructor (multiple elements)
     A(
         const ElementType& e1, //!< Element 1
@@ -67,6 +62,11 @@ class A :
     //! Copy Constructor
     A(
         const A& obj //!< The source object
+    );
+
+    //! Constructor (single element)
+    A(
+        const ElementType& e //!< The element
     );
 
   public:

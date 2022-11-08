@@ -53,11 +53,6 @@ class StringArray :
         const ElementType (&a)[SIZE] //!< The array
     );
 
-    //! Constructor (single element)
-    StringArray(
-        const ElementType& e //!< The element
-    );
-
     //! Constructor (multiple elements)
     StringArray(
         const ElementType& e1, //!< Element 1
@@ -70,6 +65,11 @@ class StringArray :
     //! Copy Constructor
     StringArray(
         const StringArray& obj //!< The source object
+    );
+
+    //! Constructor (single element)
+    StringArray(
+        const ElementType& e //!< The element
     );
 
   public:

@@ -54,11 +54,6 @@ namespace M {
           const ElementType (&a)[SIZE] //!< The array
       );
 
-      //! Constructor (single element)
-      PrimitiveI64(
-          const ElementType& e //!< The element
-      );
-
       //! Constructor (multiple elements)
       PrimitiveI64(
           const ElementType& e1, //!< Element 1
@@ -69,6 +64,11 @@ namespace M {
       //! Copy Constructor
       PrimitiveI64(
           const PrimitiveI64& obj //!< The source object
+      );
+
+      //! Constructor (single element)
+      PrimitiveI64(
+          const ElementType& e //!< The element
       );
 
     public:

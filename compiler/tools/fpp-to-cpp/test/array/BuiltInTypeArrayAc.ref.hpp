@@ -52,11 +52,6 @@ class BuiltInType :
         const ElementType (&a)[SIZE] //!< The array
     );
 
-    //! Constructor (single element)
-    BuiltInType(
-        const ElementType& e //!< The element
-    );
-
     //! Constructor (multiple elements)
     BuiltInType(
         const ElementType& e1, //!< Element 1
@@ -67,6 +62,11 @@ class BuiltInType :
     //! Copy Constructor
     BuiltInType(
         const BuiltInType& obj //!< The source object
+    );
+
+    //! Constructor (single element)
+    BuiltInType(
+        const ElementType& e //!< The element
     );
 
   public:

@@ -53,11 +53,6 @@ class AbsType :
         const ElementType (&a)[SIZE] //!< The array
     );
 
-    //! Constructor (single element)
-    AbsType(
-        const ElementType& e //!< The element
-    );
-
     //! Constructor (multiple elements)
     AbsType(
         const ElementType& e1, //!< Element 1
@@ -68,6 +63,11 @@ class AbsType :
     //! Copy Constructor
     AbsType(
         const AbsType& obj //!< The source object
+    );
+
+    //! Constructor (single element)
+    AbsType(
+        const ElementType& e //!< The element
     );
 
   public:

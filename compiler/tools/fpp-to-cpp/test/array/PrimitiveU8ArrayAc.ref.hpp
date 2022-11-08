@@ -53,11 +53,6 @@ namespace M {
           const ElementType (&a)[SIZE] //!< The array
       );
 
-      //! Constructor (single element)
-      PrimitiveU8(
-          const ElementType& e //!< The element
-      );
-
       //! Constructor (multiple elements)
       PrimitiveU8(
           const ElementType& e1, //!< Element 1
@@ -68,6 +63,11 @@ namespace M {
       //! Copy Constructor
       PrimitiveU8(
           const PrimitiveU8& obj //!< The source object
+      );
+
+      //! Constructor (single element)
+      PrimitiveU8(
+          const ElementType& e //!< The element
       );
 
     public:

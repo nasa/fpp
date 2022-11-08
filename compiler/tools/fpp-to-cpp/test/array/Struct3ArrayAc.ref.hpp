@@ -53,11 +53,6 @@ class Struct3 :
         const ElementType (&a)[SIZE] //!< The array
     );
 
-    //! Constructor (single element)
-    Struct3(
-        const ElementType& e //!< The element
-    );
-
     //! Constructor (multiple elements)
     Struct3(
         const ElementType& e1, //!< Element 1
@@ -68,6 +63,11 @@ class Struct3 :
     //! Copy Constructor
     Struct3(
         const Struct3& obj //!< The source object
+    );
+
+    //! Constructor (single element)
+    Struct3(
+        const ElementType& e //!< The element
     );
 
   public:
