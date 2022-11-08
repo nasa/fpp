@@ -1,4 +1,7 @@
 def topology
   ident T
-  spec include
-    file constant.fppi
+  @ Included instance
+  spec comp instance
+    public
+    qual ident x
+  @< Included instance

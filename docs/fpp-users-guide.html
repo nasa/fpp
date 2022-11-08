@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.17">
+<meta name="generator" content="Asciidoctor 2.0.18">
 <title>The F Prime Prime (FPP) User&#8217;s Guide, v1.1.0</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -84,10 +84,10 @@ code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;
 ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
 ul,ol{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
-ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
-ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
 ul.disc{list-style-type:disc}
+ul.square{list-style-type:square}
+ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
@@ -6882,9 +6882,9 @@ instance needs to deallocate memory or release resources on program exit.</p>
 <div class="paragraph">
 <p>You may write one or more init specifiers as part of a component
 instance definition.
-The instance specifiers, if any, come at the end of the
+The init specifiers, if any, come at the end of the
 definition and must be enclosed in curly braces.
-The instances specifiers form an
+The init specifiers form an
 <a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">element sequence</a>
 with a semicolon as the optional terminating punctuation.</p>
 </div>
@@ -6914,12 +6914,12 @@ for the code snippet.</p>
 </div>
 <div class="paragraph">
 <p>As an example, here is the component instance definition for the
-command sequencer instance <code>cmdSeq</code> from the F Prime reference
-deployment located at <code>Ref/Top/instances.fpp</code>:</p>
+command sequencer instance <code>cmdSeq</code> from the
+<a href="https://github.com/fprime-community/fprime-system-reference/blob/main/SystemReference/Top/instances.fpp">F Prime system reference deployment</a>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">instance cmdSeq: Svc.CmdSequencer base id 0x0600 \
+<pre class="prettyprint highlight"><code data-lang="fpp">instance cmdSeq: Svc.CmdSequencer base id 0x0700 \
   queue size Default.queueSize \
   stack size Default.stackSize \
   priority 100 \
@@ -6960,7 +6960,7 @@ object again.</p>
 </div>
 <div class="paragraph">
 <p>As another example, here is the instance definition for the parameter
-database instance <code>prmDb</code> from the Ref deployment:</p>
+database instance <code>prmDb</code> from the system reference deployment:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -7000,8 +7000,8 @@ section on <a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployment
 </div>
 <div class="paragraph">
 <p>For more examples of init specifiers in action, see the rest of
-the file <code>Ref/Top/instances.fpp</code> in the F Prime repository.
-In particular, the init specifiers for the <code>comm</code> component
+the file <code>SystemReference/Top/instances.fpp</code> in the F Prime repository.
+In particular, the init specifiers for the <code>comDriver</code> instance
 use the <code>state</code> value that we just mentioned.</p>
 </div>
 </div>
@@ -7576,7 +7576,7 @@ in square brackets, immediately following the port name.
 The port numbers start at zero.</p>
 </div>
 <div class="paragraph">
-<p>For example, the <code>RateGroups</code> graph of the reference topology in the F Prime
+<p>For example, the <code>RateGroups</code> graph of the Ref (reference) topology in the F Prime
 repository defines the rate group connections.
 It contains the following connection:</p>
 </div>
@@ -7647,7 +7647,7 @@ For example:</p>
 <li>
 <p>You can write any numeric expression as a port number.
 Each port number must be in bounds for the port (greater than
-zero and less than the size of the port array).
+or equal to zero and less than the size of the port array).
 If you write a port number that is out of bounds, you will get an error.</p>
 </li>
 <li>
@@ -10885,10 +10885,11 @@ follow the description given below.</p>
 <em>T</em> <code>TopologyDefs.hpp</code> must define a type
 <code>TopologyState</code> in the C&#43;&#43; namespace
 corresponding to the FPP module where the topology <em>T</em> is defined.
-For example, in <code>Ref/Top/topology.fpp</code> in the
-F Prime repository, the FPP topology <code>Ref</code> is defined in the FPP
-module <code>Ref</code>, and so in <code>RefTopologyDefs.hpp</code>, the type <code>TopologyState</code>
-is defined in the namespace <code>Ref</code>.</p>
+For example, in <code>SystemReference/Top/topology.fpp</code> in the
+<a href="https://github.com/fprime-community/fprime-system-reference/blob/main/SystemReference/Top/topology.fpp">F Prime system reference deployment</a>, the FPP topology <code>SystemReference</code> is defined in the FPP
+module <code>SystemReference</code>, and so in
+<a href="https://github.com/fprime-community/fprime-system-reference/blob/main/SystemReference/Top/SystemReferenceTopologyDefs.hpp"><code>SystemReference/Top/SystemReferenceTopologyDefs.hpp</code></a>, the type <code>TopologyState</code>
+is defined in the namespace <code>SystemReference</code>.</p>
 </div>
 <div class="paragraph">
 <p><code>TopologyState</code> may be any type.
@@ -10899,7 +10900,7 @@ You can read this value in the code associated with your
 <a href="#Defining-Component-Instances_Init-Specifiers">init specifiers</a>.</p>
 </div>
 <div class="paragraph">
-<p>In the F Prime Ref example, <code>TopologyState</code>
+<p>In the F Prime system reference example, <code>TopologyState</code>
 is a struct with two member variables: a C-style string
 <code>hostName</code> that stores a host name and a <code>U32</code> value <code>portNumber</code>
 that stores a port number.
@@ -10907,21 +10908,22 @@ The main function defined in <code>Main.cpp</code> parses the command-line
 arguments to the application, uses the result to create an object
 <code>state</code> of type <code>TopologyState</code>, and passes the <code>state</code> object
 into the functions for setting up and tearing down the topology.
-The <code>startTasks</code> phase for the <code>comm</code> function uses the <code>state</code>
+The <code>startTasks</code> phase for the <code>comDriver</code> instance uses the <code>state</code>
 object in the following way:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">init comm phase Fpp.ToCpp.Phases.startTasks """
+<pre class="prettyprint highlight"><code data-lang="fpp">phase Fpp.ToCpp.Phases.startTasks """
 // Initialize socket server if and only if there is a valid specification
-if (state.hostName != NULL &amp;&amp; state.portNumber != 0) {
-    Fw::EightyCharString name("ReceiveTask");
+if (state.hostName != nullptr &amp;&amp; state.portNumber != 0) {
+    Os::TaskString name("ReceiveTask");
     // Uplink is configured for receive so a socket task is started
-    comm.configure(state.hostName, state.portNumber);
-    comm.startSocketTask(
+    comDriver.configure(state.hostName, state.portNumber);
+    comDriver.startSocketTask(
         name,
-        ConfigConstants::comm::PRIORITY,
-        ConfigConstants::comm::STACK_SIZE
+        true,
+        ConfigConstants::comDriver::PRIORITY,
+        ConfigConstants::comDriver::STACK_SIZE
     );
 }
 """</code></pre>
@@ -10975,15 +10977,17 @@ Set <code>FATAL</code> equal to the fatal interval.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>For example, here are the health ping entries from <code>Ref/Top/RefTopologyDefs.hpp</code>
-in the F Prime repository:</p>
+<p>For example, here are the health ping entries from
+<code>SystemReference/Top/SystemReferenceTopologyDefs.hpp</code>
+in the F Prime system reference repository:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="cpp">namespace Ref {
+<pre class="prettyprint highlight"><code data-lang="cpp">namespace SystemReference {
 
   ...
 
+  // Health ping entries
   namespace PingEntries {
     namespace blockDrv { enum { WARN = 3, FATAL = 5 }; }
     namespace chanTlm { enum { WARN = 3, FATAL = 5 }; }
@@ -10993,11 +10997,13 @@ in the F Prime repository:</p>
     namespace fileDownlink { enum { WARN = 3, FATAL = 5 }; }
     namespace fileManager { enum { WARN = 3, FATAL = 5 }; }
     namespace fileUplink { enum { WARN = 3, FATAL = 5 }; }
-    namespace pingRcvr { enum { WARN = 3, FATAL = 5 }; }
+    namespace imageProcessor { enum {WARN = 3, FATAL = 5}; }
     namespace prmDb { enum { WARN = 3, FATAL = 5 }; }
+    namespace processedImageBufferLogger { enum {WARN = 3, FATAL = 5}; }
     namespace rateGroup1Comp { enum { WARN = 3, FATAL = 5 }; }
     namespace rateGroup2Comp { enum { WARN = 3, FATAL = 5 }; }
     namespace rateGroup3Comp { enum { WARN = 3, FATAL = 5 }; }
+    namespace saveImageBufferLogger { enum {WARN = 3, FATAL = 5}; }
   }
 
 }</code></pre>
@@ -11010,11 +11016,11 @@ If you need link-time definitions (e.g., to declare variables with storage),
 you can put them in <em>T</em> <code>TopologyAc.cpp</code>, but this is not required.</p>
 </div>
 <div class="paragraph">
-<p>For example, <code>Ref/Top/RefTopologyAc.hpp</code> declares
-a variable <code>Ref::Allocation::mallocator</code> of type <code>Fw::MallocAllocator</code>.
+<p>For example, <code>SystemReference/Top/SystemReferenceTopologyAc.hpp</code> declares
+a variable <code>SystemReference::Allocation::mallocator</code> of type <code>Fw::MallocAllocator</code>.
 It provides an allocator used in the setup and teardown
 of several component instances.
-The corresponding link-time symbol is defined in <code>RefTopologyDefs.cpp</code>.</p>
+The corresponding link-time symbol is defined in <code>SystemReferenceTopologyDefs.cpp</code>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -11078,7 +11084,7 @@ when the user presses control-C at the console.</p>
 <p>Set a flag that causes the main loop to exit or the timer
 to stop.
 This flag must be a volatile and atomic variable (e.g.,
-<code>volatile std::atomic_bool</code>) because it is accessed
+<code>std::atomic_bool</code>) because it is accessed
 concurrently by signal handlers and threads.</p>
 </li>
 <li>
@@ -11097,8 +11103,8 @@ tear down the topology.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>For an example like this, see <code>Ref/Top/Main.cpp</code> in the
-F Prime repository.</p>
+<p>For an example like this, see <code>SystemReference/Top/Main.cpp</code> in the
+F Prime system reference repository.</p>
 </div>
 </div>
 <div class="sect3">
@@ -11112,7 +11118,7 @@ symbols that you can use when writing your main function.</p>
 Each component instance used in the topology is declared as
 an <code>extern</code> variable, so you can refer to any component instance
 in the main function.
-For example, the main function in the <code>Ref</code> topology
+For example, the main function in the <code>SystemReference</code> topology
 calls the method <code>callIsr</code> of the <code>blockDrv</code> (block driver)
 component instance, in order to simulate an interrupt service
 routine (ISR) call triggered by a hardware interrupt.</p>
@@ -11169,7 +11175,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-10-22 10:24:12 -0700
+Last updated 2022-11-07 17:05:37 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

@@ -58,3 +58,9 @@ component()
   move_cpp C_AArray
   move_cpp AArray
 }
+
+header_path()
+{
+  update "-p $PWD" "include/T.fpp header_path" header_path
+  move_cpp HeaderPathArray
+}

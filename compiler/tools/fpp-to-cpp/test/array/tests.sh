@@ -7,4 +7,5 @@ builtin_type
 abs_type
 struct
 component
+header_path
 "

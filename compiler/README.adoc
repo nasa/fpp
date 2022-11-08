@@ -72,7 +72,7 @@ installed and available on the command line.
 
 . Start up the sbt shell.
 
-. In the shell, run `compile` to compile everything, `test` to run all 
+. In the shell, run `compile` to compile everything, `test` to run all
 Scala unit tests,
 and `assembly` to create jar files.
 The `install` script runs these commands automatically.
@@ -123,15 +123,23 @@ of sync, and the native image build may not work.
 The script will build the native binary tools and install them at
 `native-fpp-[platform name]`.
 
-. The previous step installs FPP tools with the tracing agent enabled
-(see below).
+. The previous step installs the native binary tools into the `bin`
+directory.
 To install the standard version of the FPP tools, run `./install`.
 
+*Custom native-image flags:*
+For some installations, you may need to pass special flags
+to `native-image`.
+To do this, set the environment variable `FPP_NATIVE_IMAGE_FLAGS`.
+For example, to set the temporary directory used by `native-image`, you can run
+
+[source,bash]
+----
+% export FPP_NATIVE_IMAGE_FLAGS='-H:TempDirectory=/path/to/tmp/directory'
+% ./release
+----
+
 *Running the tracing agent:*
-Before running `native-image` on a JVM program, you must first run the
-JVM program with a tracing agent enabled and record the results.
-The directory `lib/src/main/resources/META-INF` stores the results of
-running the FPP unit tests with the tracing agent enabled.
 Occasionally when developing FPP, you may need to re-run the tracing
 agent to capture new runtime behavior.
 To do that, use the following procedure:
