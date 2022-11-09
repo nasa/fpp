@@ -169,7 +169,7 @@ NATIVE_UINT_TYPE StringSize100 ::
 namespace {
 
   // ----------------------------------------------------------------------
-  // Port _buffer class
+  // Port buffer class
   // ----------------------------------------------------------------------
 
   class StringPortBuffer : public Fw::SerializeBufferBase {

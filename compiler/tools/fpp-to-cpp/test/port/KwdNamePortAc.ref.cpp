@@ -11,7 +11,7 @@
 namespace {
 
   // ----------------------------------------------------------------------
-  // Port _buffer class
+  // Port buffer class
   // ----------------------------------------------------------------------
 
   class KwdNamePortBuffer : public Fw::SerializeBufferBase {

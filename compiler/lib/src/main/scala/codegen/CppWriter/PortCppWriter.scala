@@ -177,6 +177,8 @@ case class PortCppWriter (
       else
         CppDocHppWriter.writeAccessTag("private") ++
           lines(s"\nU8 m_buff[Input${name}Port::SERIALIZED_SIZE];")
+    val buffAddr =
+      if params.isEmpty then "nullptr" else "m_buff"
 
     List(
       CppDocWriter.writeBannerComment("Port buffer class"),
@@ -189,15 +191,15 @@ case class PortCppWriter (
               |}
               |
               |U8* getBuffAddr() {
-              |  return ${if params.isEmpty then "nullptr" else "m_buff"};
+              |  return $buffAddr;
               |}
               |
               |const U8* getBuffAddr() const {
-              |  return ${if params.isEmpty then "nullptr" else "m_buff"};
+              |  return $buffAddr;
               |}
               |"""
-        ) ++
-          privateMemberVariables
+        ),
+        privateMemberVariables
       ).flatten.map(indentIn).map(indentIn),
       Line.blank :: lines("};")
     ).flatten
@@ -216,8 +218,9 @@ case class PortCppWriter (
     List(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
-          CppDocHppWriter.writeAccessTag("public") ++
-            CppDocWriter.writeBannerComment("Constants") ++
+          List(
+            CppDocHppWriter.writeAccessTag("public"),
+            CppDocWriter.writeBannerComment("Constants"),
             addBlankPrefix(
               wrapInEnum(
                 List(
@@ -232,12 +235,27 @@ case class PortCppWriter (
                 ).flatten
               )
             )
+          ).flatten
         )
       )
     )
   }
 
   private def getInputPortTypeMembers: List[CppDoc.Class.Member] = {
+    val compFuncParams = 
+      line("Fw::PassiveComponentBase* callComp,") ::
+        (if params.isEmpty then
+          lines("NATIVE_INT_TYPE portNum")
+        else
+          line("NATIVE_INT_TYPE portNum,") ::
+            lines(paramList.map((n, tn, k) => {
+              (paramTypeMap(n), k) match {
+                case (_, Ast.FormalParam.Ref) => s"$tn& $n"
+                case (t, Ast.FormalParam.Value) if s.isPrimitive(t, tn) => s"$tn $n"
+                case (_, Ast.FormalParam.Value) => s"const $tn& $n"
+              }
+            }).mkString(",\n")))
+
     List(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
@@ -246,12 +264,7 @@ case class PortCppWriter (
             CppDocWriter.writeBannerComment("Types"),
             Line.blank :: lines("//! The port callback function type"),
             lines(s"typedef $returnType (*CompFuncPtr)("),
-            lines("Fw::PassiveComponentBase* callComp,").map(indentIn),
-            if params.isEmpty then
-              lines("NATIVE_INT_TYPE portNum").map(indentIn)
-            else
-              indentIn(line("NATIVE_INT_TYPE portNum,")) ::
-                writeCppParams.map(indentIn),
+            compFuncParams.map(indentIn),
             lines(");")
           ).flatten
         )
@@ -260,6 +273,7 @@ case class PortCppWriter (
   }
 
   private def getInputPortFunctionMembers: List[CppDoc.Class.Member] = {
+    val paramNames = paramList.map((n, _, _) => s", $n").mkString("");
     val invokeSerialBody = data.returnType match {
       case Some(_) => lines(
         """|// For ports with a return type, invokeSerial is not used
@@ -267,8 +281,10 @@ case class PortCppWriter (
            |return Fw::FW_SERIALIZE_OK;
            |"""
       )
-      case None => (if params.isEmpty then Nil
-        else line("Fw::SerializeStatus _status;") :: List(Line.blank)) ++
+      case None => 
+        (if params.isEmpty then Nil
+        else line("Fw::SerializeStatus _status;") :: 
+          List(Line.blank)) ++
           lines(
             """|#if FW_PORT_SERIALIZATION == 1
                |this->trace();
@@ -291,8 +307,7 @@ case class PortCppWriter (
           }) ++
           lines(
             s"""|
-                |this->m_func(this->m_comp, this->m_portNum${if params.isEmpty then ""
-                  else ", " + paramList.map(_._1).mkString(", ")});
+                |this->m_func(this->m_comp, this->m_portNum${paramNames});
                 |
                 |return Fw::FW_SERIALIZE_OK;
                 |"""
@@ -370,8 +385,7 @@ case class PortCppWriter (
                 |FW_ASSERT(this->m_comp);
                 |FW_ASSERT(this->m_func);
                 |
-                |return this->m_func(this->m_comp, this->m_portNum${if params.isEmpty then ""
-                  else ", " + paramList.map(_._1).mkString(", ")});
+                |return this->m_func(this->m_comp, this->m_portNum${paramNames});
                 |"""
           )
         )
@@ -426,25 +440,28 @@ case class PortCppWriter (
   }
 
   private def getOutputPortFunctionMembers: List[CppDoc.Class.Member] = {
+    val paramNames = paramList.map(_._1).mkString(", ")
     val invokeBody = data.returnType match {
       case Some(_) => lines(
-        s"return this->m_port->invoke(${paramList.map(_._1).mkString(", ")});"
+        s"return this->m_port->invoke($paramNames);"
       )
       case None => lines(
         s"""|if (this->m_port) {
-            |  this->m_port->invoke(${paramList.map(_._1).mkString(", ")});
+            |  this->m_port->invoke($paramNames);
             |#if FW_PORT_SERIALIZATION
             |} else if (this->m_serPort) {
             |  Fw::SerializeStatus _status;
             |  ${name}PortBuffer _buffer;
             |"""
       ) ++
-        paramList.flatMap((n, _, _) => { lines(
-          s"""|
-              |  _status = _buffer.serialize($n);
-              |  FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-              |"""
-        )}) ++
+        paramList.flatMap((n, _, _) => {
+          lines(
+            s"""|
+                |  _status = _buffer.serialize($n);
+                |  FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+                |"""
+          )
+        }) ++
         lines(
          """|
             |  _status = this->m_serPort->invokeSerial(_buffer);
@@ -549,17 +566,6 @@ case class PortCppWriter (
         )
       )
     )
-  }
-
-  // Write params as C++ function arguments
-  private def writeCppParams: List[Line] = {
-    lines(paramList.map((n, tn, k) => {
-      (paramTypeMap(n), k) match {
-        case (_, Ast.FormalParam.Ref) => s"$tn& $n"
-        case (t, Ast.FormalParam.Value) if s.isPrimitive(t, tn) => s"$tn $n"
-        case (_, Ast.FormalParam.Value) => s"const $tn& $n"
-      }
-    }).mkString(",\n"))
   }
 
 }

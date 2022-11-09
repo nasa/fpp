@@ -13,7 +13,7 @@ namespace M {
   namespace {
 
     // ----------------------------------------------------------------------
-    // Port _buffer class
+    // Port buffer class
     // ----------------------------------------------------------------------
 
     class ReturnTypePortBuffer : public Fw::SerializeBufferBase {
