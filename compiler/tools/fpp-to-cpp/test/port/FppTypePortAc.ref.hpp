@@ -10,7 +10,6 @@
 #include "AArrayAc.hpp"
 #include "EEnumAc.hpp"
 #include "FpConfig.hpp"
-#include "Fw/Cmd/CmdArgBuffer.hpp"
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"
 #include "Fw/Port/OutputPortBase.hpp"

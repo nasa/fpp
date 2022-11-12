@@ -10,36 +10,6 @@
 
 namespace M {
 
-  namespace {
-
-    // ----------------------------------------------------------------------
-    // Port buffer class
-    // ----------------------------------------------------------------------
-
-    class ReturnTypePortBuffer : public Fw::SerializeBufferBase {
-
-      public:
-
-        NATIVE_UINT_TYPE getBuffCapacity() const {
-          return InputReturnTypePort::SERIALIZED_SIZE;
-        }
-
-        U8* getBuffAddr() {
-          return m_buff;
-        }
-
-        const U8* getBuffAddr() const {
-          return m_buff;
-        }
-
-      private:
-
-        U8 m_buff[InputReturnTypePort::SERIALIZED_SIZE];
-
-    };
-
-  }
-
   // ----------------------------------------------------------------------
   // Input Port Member functions
   // ----------------------------------------------------------------------

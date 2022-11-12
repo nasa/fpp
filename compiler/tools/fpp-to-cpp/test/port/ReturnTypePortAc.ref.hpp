@@ -8,11 +8,9 @@
 #define M_ReturnTypePortAc_HPP
 
 #include "FpConfig.hpp"
-#include "Fw/Cmd/CmdArgBuffer.hpp"
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"
 #include "Fw/Port/OutputPortBase.hpp"
-#include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/StringType.hpp"
 #include "cstdio"
 #include "cstring"

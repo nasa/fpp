@@ -8,7 +8,6 @@
 #define PrimitivePortAc_HPP
 
 #include "FpConfig.hpp"
-#include "Fw/Cmd/CmdArgBuffer.hpp"
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"
 #include "Fw/Port/OutputPortBase.hpp"
