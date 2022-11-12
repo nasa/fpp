@@ -23,6 +23,10 @@ case class PortCppWriter (
 
   private val typeCppWriter = TypeCppWriter(s)
 
+  private val strCppWriter = StringCppWriter(s)
+
+  private val strNamespace = s"${name}PortStrings"
+
   private val params = data.params
 
   // Map from param name to param type
@@ -43,17 +47,19 @@ case class PortCppWriter (
 
   // Map from string size to list of names of string of that size
   private val strNameMap = strParamList.groupBy((_, t) => {
-    StringCppWriter.getSize(s, t)
+    strCppWriter.getSize(t)
   }).map((size, l) => (size, l.map(_._1)))
-
-  private val strCppWriter = StringCppWriter(s, None, Some(strNameMap))
 
   // List of tuples (name, C++ type, kind) for each param
   private val paramList = params.map((_, node, _) => {
     val n = node.data.name
     val k = node.data.kind
     paramTypeMap(n) match {
-      case t: Type.String => (n, strCppWriter.getClassName(t), k)
+      case t: Type.String => (
+        n,
+        strCppWriter.getQualifiedClassName(t, List(strNamespace)),
+        k
+      )
       case t => (n, typeCppWriter.write(t), k)
     }
   })
@@ -70,7 +76,7 @@ case class PortCppWriter (
   // Return type as a C++ type
   private val returnType = data.returnType match {
     case Some(value) => s.a.typeMap(value.id) match {
-      case t: Type.String => strCppWriter.getClassName(t)
+      case t: Type.String => strCppWriter.getQualifiedClassName(t, List(strNamespace))
       case t => typeCppWriter.write(t)
     }
     case None => "void"
@@ -115,11 +121,7 @@ case class PortCppWriter (
       case None => List(
         CppDoc.Member.Lines(
           CppDoc.Lines(
-            List(
-              Line.blank :: lines("namespace {"),
-              getPortBufferClass.map(indentIn),
-              Line.blank :: lines("}")
-            ).flatten,
+            Line.blank :: wrapInAnonymousNamespace(getPortBufferClass),
             CppDoc.Lines.Cpp
           )
         )
@@ -127,6 +129,7 @@ case class PortCppWriter (
     }
     val classes = List(
       getStringClasses,
+      getStringTypedefs,
       portBufferClass,
       List(
         CppDoc.Member.Class(
@@ -187,28 +190,41 @@ case class PortCppWriter (
     )
   }
 
-  private def getStringClasses: List[CppDoc.Member] = {
-    // Write typedefs for string classes of the same size
-    val strTypedefs = strNameMap.flatMap((_, l) => l match {
-      case head :: tail => tail.map(n => {
-        line(s"typedef ${head}String ${n}String;")
-      })
-      case _ => Nil
-    }).toList
-    val strTypedefLines =
-      if strTypedefs.isEmpty then Nil
-      else List(
-        CppDoc.Member.Lines(
-          CppDoc.Lines(
-            List(
-              CppDocWriter.writeBannerComment("String types for backwards compatibility"),
-              Line.blank :: strTypedefs
-            ).flatten
-          )
+  private def getStringTypedefs: List[CppDoc.Member] = {
+    if strParamList.isEmpty then Nil
+    else List(
+      CppDoc.Member.Lines(
+        CppDoc.Lines(
+          List(
+            CppDocWriter.writeBannerComment(
+              "String types for backwards compatibility"
+            ),
+            Line.blank ::
+              strNameMap.flatMap((size, l) => {
+                l.map(strName => line(
+                  s"typedef ${
+                    strCppWriter.getQualifiedClassName(size, List(strNamespace))
+                  } ${strName}String;"
+                ))
+              }).toList
+          ).flatten
         )
       )
+    )
+  }
 
-    strCppWriter.write(strParamList.map(_._2)) ++ strTypedefLines
+  private def getStringClasses: List[CppDoc.Member] = {
+    val strTypes = paramTypeMap.map((_, t) => t match {
+      case t: Type.String => Some(t)
+      case _ => None
+    }).filter(_.isDefined).map(_.get).toList
+    strTypes match {
+      case Nil => Nil
+      case l => CppWriter.wrapInNamespaces(
+        List(strNamespace),
+        strCppWriter.write(l)
+      )
+    }
   }
 
   private def getPortBufferClass: List[Line] = {
@@ -241,7 +257,8 @@ case class PortCppWriter (
         ),
         privateMemberVariables
       ).flatten.map(indentIn).map(indentIn),
-      Line.blank :: lines("};")
+      Line.blank :: lines("};"),
+      List(Line.blank)
     ).flatten
   }
 

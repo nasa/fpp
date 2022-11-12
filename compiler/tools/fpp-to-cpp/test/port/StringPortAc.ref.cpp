@@ -8,162 +8,166 @@
 #include "Fw/Types/StringUtils.hpp"
 #include "StringPortAc.hpp"
 
-// ----------------------------------------------------------------------
-// str80String class
-// ----------------------------------------------------------------------
+namespace StringPortStrings {
 
-str80String ::
-  str80String() :
-    StringBase()
-{
-  this->m_buf[0] = 0;
-}
+  // ----------------------------------------------------------------------
+  // StringSize80 class
+  // ----------------------------------------------------------------------
 
-str80String ::
-  str80String(const char* src) :
-    StringBase()
-{
-  Fw::StringUtils::string_copy(this->m_buf, src, sizeof(this->m_buf));
-}
+  StringSize80 ::
+    StringSize80() :
+      StringBase()
+  {
+    this->m_buf[0] = 0;
+  }
 
-str80String ::
-  str80String(const Fw::StringBase& src) :
-    StringBase()
-{
-  Fw::StringUtils::string_copy(this->m_buf, src.toChar(), sizeof(this->m_buf));
-}
+  StringSize80 ::
+    StringSize80(const char* src) :
+      StringBase()
+  {
+    Fw::StringUtils::string_copy(this->m_buf, src, sizeof(this->m_buf));
+  }
 
-str80String ::
-  str80String(const str80String& src) :
-    StringBase()
-{
-  Fw::StringUtils::string_copy(this->m_buf, src.toChar(), sizeof(this->m_buf));
-}
+  StringSize80 ::
+    StringSize80(const Fw::StringBase& src) :
+      StringBase()
+  {
+    Fw::StringUtils::string_copy(this->m_buf, src.toChar(), sizeof(this->m_buf));
+  }
 
-str80String ::
-  ~str80String()
-{
+  StringSize80 ::
+    StringSize80(const StringSize80& src) :
+      StringBase()
+  {
+    Fw::StringUtils::string_copy(this->m_buf, src.toChar(), sizeof(this->m_buf));
+  }
 
-}
+  StringSize80 ::
+    ~StringSize80()
+  {
 
-str80String& str80String ::
-  operator=(const str80String& other)
-{
-  if (this == &other) {
+  }
+
+  StringSize80& StringSize80 ::
+    operator=(const StringSize80& other)
+  {
+    if (this == &other) {
+      return *this;
+    }
+
+    Fw::StringUtils::string_copy(this->m_buf, other.toChar(), sizeof(this->m_buf));
     return *this;
   }
 
-  Fw::StringUtils::string_copy(this->m_buf, other.toChar(), sizeof(this->m_buf));
-  return *this;
-}
+  StringSize80& StringSize80 ::
+    operator=(const Fw::StringBase& other)
+  {
+    if (this == &other) {
+      return *this;
+    }
 
-str80String& str80String ::
-  operator=(const Fw::StringBase& other)
-{
-  if (this == &other) {
+    Fw::StringUtils::string_copy(this->m_buf, other.toChar(), sizeof(this->m_buf));
     return *this;
   }
 
-  Fw::StringUtils::string_copy(this->m_buf, other.toChar(), sizeof(this->m_buf));
-  return *this;
-}
-
-str80String& str80String ::
-  operator=(const char* other)
-{
-  Fw::StringUtils::string_copy(this->m_buf, other, sizeof(this->m_buf));
-  return *this;
-}
-
-const char* str80String ::
-  toChar() const
-{
-  return this->m_buf;
-}
-
-NATIVE_UINT_TYPE str80String ::
-  getCapacity() const
-{
-  return sizeof(this->m_buf);
-}
-
-// ----------------------------------------------------------------------
-// str100String class
-// ----------------------------------------------------------------------
-
-str100String ::
-  str100String() :
-    StringBase()
-{
-  this->m_buf[0] = 0;
-}
-
-str100String ::
-  str100String(const char* src) :
-    StringBase()
-{
-  Fw::StringUtils::string_copy(this->m_buf, src, sizeof(this->m_buf));
-}
-
-str100String ::
-  str100String(const Fw::StringBase& src) :
-    StringBase()
-{
-  Fw::StringUtils::string_copy(this->m_buf, src.toChar(), sizeof(this->m_buf));
-}
-
-str100String ::
-  str100String(const str100String& src) :
-    StringBase()
-{
-  Fw::StringUtils::string_copy(this->m_buf, src.toChar(), sizeof(this->m_buf));
-}
-
-str100String ::
-  ~str100String()
-{
-
-}
-
-str100String& str100String ::
-  operator=(const str100String& other)
-{
-  if (this == &other) {
+  StringSize80& StringSize80 ::
+    operator=(const char* other)
+  {
+    Fw::StringUtils::string_copy(this->m_buf, other, sizeof(this->m_buf));
     return *this;
   }
 
-  Fw::StringUtils::string_copy(this->m_buf, other.toChar(), sizeof(this->m_buf));
-  return *this;
-}
+  const char* StringSize80 ::
+    toChar() const
+  {
+    return this->m_buf;
+  }
 
-str100String& str100String ::
-  operator=(const Fw::StringBase& other)
-{
-  if (this == &other) {
+  NATIVE_UINT_TYPE StringSize80 ::
+    getCapacity() const
+  {
+    return sizeof(this->m_buf);
+  }
+
+  // ----------------------------------------------------------------------
+  // StringSize100 class
+  // ----------------------------------------------------------------------
+
+  StringSize100 ::
+    StringSize100() :
+      StringBase()
+  {
+    this->m_buf[0] = 0;
+  }
+
+  StringSize100 ::
+    StringSize100(const char* src) :
+      StringBase()
+  {
+    Fw::StringUtils::string_copy(this->m_buf, src, sizeof(this->m_buf));
+  }
+
+  StringSize100 ::
+    StringSize100(const Fw::StringBase& src) :
+      StringBase()
+  {
+    Fw::StringUtils::string_copy(this->m_buf, src.toChar(), sizeof(this->m_buf));
+  }
+
+  StringSize100 ::
+    StringSize100(const StringSize100& src) :
+      StringBase()
+  {
+    Fw::StringUtils::string_copy(this->m_buf, src.toChar(), sizeof(this->m_buf));
+  }
+
+  StringSize100 ::
+    ~StringSize100()
+  {
+
+  }
+
+  StringSize100& StringSize100 ::
+    operator=(const StringSize100& other)
+  {
+    if (this == &other) {
+      return *this;
+    }
+
+    Fw::StringUtils::string_copy(this->m_buf, other.toChar(), sizeof(this->m_buf));
     return *this;
   }
 
-  Fw::StringUtils::string_copy(this->m_buf, other.toChar(), sizeof(this->m_buf));
-  return *this;
-}
+  StringSize100& StringSize100 ::
+    operator=(const Fw::StringBase& other)
+  {
+    if (this == &other) {
+      return *this;
+    }
 
-str100String& str100String ::
-  operator=(const char* other)
-{
-  Fw::StringUtils::string_copy(this->m_buf, other, sizeof(this->m_buf));
-  return *this;
-}
+    Fw::StringUtils::string_copy(this->m_buf, other.toChar(), sizeof(this->m_buf));
+    return *this;
+  }
 
-const char* str100String ::
-  toChar() const
-{
-  return this->m_buf;
-}
+  StringSize100& StringSize100 ::
+    operator=(const char* other)
+  {
+    Fw::StringUtils::string_copy(this->m_buf, other, sizeof(this->m_buf));
+    return *this;
+  }
 
-NATIVE_UINT_TYPE str100String ::
-  getCapacity() const
-{
-  return sizeof(this->m_buf);
+  const char* StringSize100 ::
+    toChar() const
+  {
+    return this->m_buf;
+  }
+
+  NATIVE_UINT_TYPE StringSize100 ::
+    getCapacity() const
+  {
+    return sizeof(this->m_buf);
+  }
+
 }
 
 namespace {
@@ -230,10 +234,10 @@ void InputStringPort ::
 
 void InputStringPort ::
   invoke(
-      const str80String& str80,
-      str80String& str80Ref,
-      const str100String& str100,
-      str100String& str100Ref
+      const StringPortStrings::StringSize80& str80,
+      StringPortStrings::StringSize80& str80Ref,
+      const StringPortStrings::StringSize100& str100,
+      StringPortStrings::StringSize100& str100Ref
   )
 {
 #if FW_PORT_TRACING == 1
@@ -260,25 +264,25 @@ Fw::SerializeStatus InputStringPort ::
   FW_ASSERT(this->m_comp);
   FW_ASSERT(this->m_func);
 
-  str80String str80;
+  StringPortStrings::StringSize80 str80;
   _status = _buffer.deserialize(str80);
   if (_status != Fw::FW_SERIALIZE_OK) {
     return _status;
   }
 
-  str80String str80Ref;
+  StringPortStrings::StringSize80 str80Ref;
   _status = _buffer.deserialize(str80Ref);
   if (_status != Fw::FW_SERIALIZE_OK) {
     return _status;
   }
 
-  str100String str100;
+  StringPortStrings::StringSize100 str100;
   _status = _buffer.deserialize(str100);
   if (_status != Fw::FW_SERIALIZE_OK) {
     return _status;
   }
 
-  str100String str100Ref;
+  StringPortStrings::StringSize100 str100Ref;
   _status = _buffer.deserialize(str100Ref);
   if (_status != Fw::FW_SERIALIZE_OK) {
     return _status;
@@ -324,10 +328,10 @@ void OutputStringPort ::
 
 void OutputStringPort ::
   invoke(
-      const str80String& str80,
-      str80String& str80Ref,
-      const str100String& str100,
-      str100String& str100Ref
+      const StringPortStrings::StringSize80& str80,
+      StringPortStrings::StringSize80& str80Ref,
+      const StringPortStrings::StringSize100& str100,
+      StringPortStrings::StringSize100& str100Ref
   )
 {
 #if FW_PORT_TRACING == 1

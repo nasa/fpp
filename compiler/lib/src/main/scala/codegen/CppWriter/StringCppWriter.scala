@@ -10,29 +10,33 @@ case class StringCppWriter(
   /** CppWriterState */
   s: CppWriterState,
   /** Enclosing class name, including any qualifiers */
-  enclosingClassQualified: Option[String] = None,
-  /** Map from a string size to the list of corresponding string names. Used
-   * to generate string class names for ports temporarily for compatibility
-   * with the F Prime Python component autocoder */
-  nameMap: Option[Map[Int, List[String]]] = None
+  enclosingClassQualified: Option[String] = None
 ) extends CppWriterLineUtils {
 
   /** Get max string size */
-  def getSize(str: Type.String): Int = StringCppWriter.getSize(s, str)
+  def getSize(str: Type.String): Int = str.size match {
+    case Some(typeNode) => s.a.valueMap(typeNode.id) match {
+      case Value.EnumConstant(value, _) => value._2.toInt
+      case Value.PrimitiveInt(value, _) => value.toInt
+      case Value.Integer(value) => value.toInt
+      case _ => s.defaultStringSize
+    }
+    case None => s.defaultStringSize
+  }
 
   /** Compute the string class name from a String type */
-  def getClassName(str: Type.String): String =
-    nameMap match {
-      case Some(map) => s"${map(getSize(str)).head}String"
-      case None => s"StringSize${getSize(str)}"
-    }
+  def getClassName(str: Type.String): String = s"StringSize${getSize(str)}"
 
   /** Compute the string class name from a given size */
-  def getClassName(size: Int): String =
-    nameMap match {
-      case Some(map) => s"${map(size).head}String"
-      case None => s"StringSize${size}"
-    }
+  def getClassName(size: Int): String = s"StringSize${size}"
+
+  /** Compute the qualified string class name from a String type */
+  def getQualifiedClassName(str: Type.String, namespaceNames: List[String]): String =
+    namespaceNames.map(n => s"$n::").mkString("") + getClassName(str)
+
+  /** Compute the qualified string class name from a given size */
+  def getQualifiedClassName(size: Int, namespaceNames: List[String]): String =
+    namespaceNames.map(n => s"$n::").mkString("") + getClassName(size)
 
   /** Writes the C++ string classes */
   def write(strTypes: List[Type.String]): List[CppDoc.Member] = {
@@ -268,18 +272,5 @@ case class StringCppWriter(
         case None => None
       }
     )
-  }
-}
-
-object StringCppWriter {
-  /** Get max string size */
-  def getSize(s: CppWriterState, str: Type.String): Int = str.size match {
-    case Some(typeNode) => s.a.valueMap(typeNode.id) match {
-      case Value.EnumConstant(value, _) => value._2.toInt
-      case Value.PrimitiveInt(value, _) => value.toInt
-      case Value.Integer(value) => value.toInt
-      case _ => s.defaultStringSize
-    }
-    case None => s.defaultStringSize
   }
 }

@@ -16,115 +16,121 @@
 #include "cstdio"
 #include "cstring"
 
-// ----------------------------------------------------------------------
-// str80String class
-// ----------------------------------------------------------------------
+namespace StringPortStrings {
 
-class str80String :
-  public Fw::StringBase
-{
+  // ----------------------------------------------------------------------
+  // StringSize80 class
+  // ----------------------------------------------------------------------
 
-  public:
+  class StringSize80 :
+    public Fw::StringBase
+  {
 
-    enum {
-      //! The size of the string length plus the size of the string buffer
-      SERIALIZED_SIZE = sizeof(FwBuffSizeType) + 80
-    };
+    public:
 
-    //! Default constructor
-    str80String();
+      enum {
+        //! The size of the string length plus the size of the string buffer
+        SERIALIZED_SIZE = sizeof(FwBuffSizeType) + 80
+      };
 
-    //! Char array constructor
-    str80String(const char* src);
+      //! Default constructor
+      StringSize80();
 
-    //! String base constructor
-    str80String(const Fw::StringBase& src);
+      //! Char array constructor
+      StringSize80(const char* src);
 
-    //! Copy constructor
-    str80String(const str80String& src);
+      //! String base constructor
+      StringSize80(const Fw::StringBase& src);
 
-    //! Destructor
-    ~str80String();
+      //! Copy constructor
+      StringSize80(const StringSize80& src);
 
-    //! Copy assignment operator
-    str80String& operator=(const str80String& other);
+      //! Destructor
+      ~StringSize80();
 
-    //! String base assignment operator
-    str80String& operator=(const Fw::StringBase& other);
+      //! Copy assignment operator
+      StringSize80& operator=(const StringSize80& other);
 
-    //! char* assignment operator
-    str80String& operator=(const char* other);
+      //! String base assignment operator
+      StringSize80& operator=(const Fw::StringBase& other);
 
-    //! Retrieves char buffer of string
-    const char* toChar() const;
+      //! char* assignment operator
+      StringSize80& operator=(const char* other);
 
-    NATIVE_UINT_TYPE getCapacity() const;
+      //! Retrieves char buffer of string
+      const char* toChar() const;
 
-  private:
+      NATIVE_UINT_TYPE getCapacity() const;
 
-    char m_buf[80]; //!< Buffer for string storage
+    private:
 
-};
+      char m_buf[80]; //!< Buffer for string storage
 
-// ----------------------------------------------------------------------
-// str100String class
-// ----------------------------------------------------------------------
+  };
 
-class str100String :
-  public Fw::StringBase
-{
+  // ----------------------------------------------------------------------
+  // StringSize100 class
+  // ----------------------------------------------------------------------
 
-  public:
+  class StringSize100 :
+    public Fw::StringBase
+  {
 
-    enum {
-      //! The size of the string length plus the size of the string buffer
-      SERIALIZED_SIZE = sizeof(FwBuffSizeType) + 100
-    };
+    public:
 
-    //! Default constructor
-    str100String();
+      enum {
+        //! The size of the string length plus the size of the string buffer
+        SERIALIZED_SIZE = sizeof(FwBuffSizeType) + 100
+      };
 
-    //! Char array constructor
-    str100String(const char* src);
+      //! Default constructor
+      StringSize100();
 
-    //! String base constructor
-    str100String(const Fw::StringBase& src);
+      //! Char array constructor
+      StringSize100(const char* src);
 
-    //! Copy constructor
-    str100String(const str100String& src);
+      //! String base constructor
+      StringSize100(const Fw::StringBase& src);
 
-    //! Destructor
-    ~str100String();
+      //! Copy constructor
+      StringSize100(const StringSize100& src);
 
-    //! Copy assignment operator
-    str100String& operator=(const str100String& other);
+      //! Destructor
+      ~StringSize100();
 
-    //! String base assignment operator
-    str100String& operator=(const Fw::StringBase& other);
+      //! Copy assignment operator
+      StringSize100& operator=(const StringSize100& other);
 
-    //! char* assignment operator
-    str100String& operator=(const char* other);
+      //! String base assignment operator
+      StringSize100& operator=(const Fw::StringBase& other);
 
-    //! Retrieves char buffer of string
-    const char* toChar() const;
+      //! char* assignment operator
+      StringSize100& operator=(const char* other);
 
-    NATIVE_UINT_TYPE getCapacity() const;
+      //! Retrieves char buffer of string
+      const char* toChar() const;
 
-  private:
+      NATIVE_UINT_TYPE getCapacity() const;
 
-    char m_buf[100]; //!< Buffer for string storage
+    private:
 
-};
+      char m_buf[100]; //!< Buffer for string storage
+
+  };
+
+}
 
 // ----------------------------------------------------------------------
 // String types for backwards compatibility
 // ----------------------------------------------------------------------
 
-typedef str80String str80RefString;
-typedef str100String str100RefString;
+typedef StringPortStrings::StringSize80 str80String;
+typedef StringPortStrings::StringSize80 str80RefString;
+typedef StringPortStrings::StringSize100 str100String;
+typedef StringPortStrings::StringSize100 str100RefString;
 
 //! Input String port
-//! A port with string parameters of duplicate sizes
+//! A port with string parameters
 class InputStringPort :
   public Fw::InputPortBase
 {
@@ -138,10 +144,10 @@ class InputStringPort :
     enum {
       //! The size of the serial representations of the port arguments
       SERIALIZED_SIZE =
-        str80String::SERIALIZED_SIZE +
-        str80String::SERIALIZED_SIZE +
-        str100String::SERIALIZED_SIZE +
-        str100String::SERIALIZED_SIZE
+        StringPortStrings::StringSize80::SERIALIZED_SIZE +
+        StringPortStrings::StringSize80::SERIALIZED_SIZE +
+        StringPortStrings::StringSize100::SERIALIZED_SIZE +
+        StringPortStrings::StringSize100::SERIALIZED_SIZE
     };
 
   public:
@@ -154,10 +160,10 @@ class InputStringPort :
     typedef void (*CompFuncPtr)(
       Fw::PassiveComponentBase* callComp,
       NATIVE_INT_TYPE portNum,
-      const str80String& str80,
-      str80String& str80Ref,
-      const str100String& str100,
-      str100String& str100Ref
+      const StringPortStrings::StringSize80& str80,
+      StringPortStrings::StringSize80& str80Ref,
+      const StringPortStrings::StringSize100& str100,
+      StringPortStrings::StringSize100& str100Ref
     );
 
   public:
@@ -180,10 +186,10 @@ class InputStringPort :
 
     //! Invoke a port interface
     void invoke(
-        const str80String& str80, //!< A string of size 80
-        str80String& str80Ref,
-        const str100String& str100, //!< A string of size 100
-        str100String& str100Ref
+        const StringPortStrings::StringSize80& str80, //!< A string of size 80
+        StringPortStrings::StringSize80& str80Ref,
+        const StringPortStrings::StringSize100& str100, //!< A string of size 100
+        StringPortStrings::StringSize100& str100Ref
     );
 
   private:
@@ -207,7 +213,7 @@ class InputStringPort :
 };
 
 //! Output String port
-//! A port with string parameters of duplicate sizes
+//! A port with string parameters
 class OutputStringPort :
   public Fw::OutputPortBase
 {
@@ -231,10 +237,10 @@ class OutputStringPort :
 
     //! Invoke a port interface
     void invoke(
-        const str80String& str80, //!< A string of size 80
-        str80String& str80Ref,
-        const str100String& str100, //!< A string of size 100
-        str100String& str100Ref
+        const StringPortStrings::StringSize80& str80, //!< A string of size 80
+        StringPortStrings::StringSize80& str80Ref,
+        const StringPortStrings::StringSize100& str100, //!< A string of size 100
+        StringPortStrings::StringSize100& str100Ref
     );
 
   private:
