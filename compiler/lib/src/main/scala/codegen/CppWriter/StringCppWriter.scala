@@ -46,7 +46,7 @@ case class StringCppWriter(
           )
         ),
         CppDoc.Member.Class(
-          writeClass(size, false)
+          writeClass(size)
         )
       )
     })
@@ -69,22 +69,22 @@ case class StringCppWriter(
             )
           ),
           CppDoc.Class.Member.Class(
-            writeClass(size, true)
+            writeClass(size)
           )
         )
       })
   }
 
-  def writeClass(size: Int, isNested: Boolean): CppDoc.Class = {
+  def writeClass(size: Int): CppDoc.Class = {
     CppDoc.Class(
       None,
       getClassName(size),
       Some("public Fw::StringBase"),
-      getClassMembers(size, isNested)
+      getClassMembers(size)
     )
   }
 
-  private def getClassMembers(size: Int, isNested: Boolean): List[CppDoc.Class.Member] = {
+  private def getClassMembers(size: Int): List[CppDoc.Class.Member] = {
     val name = getClassName(size)
     List(
       CppDoc.Class.Member.Lines(
@@ -175,7 +175,7 @@ case class StringCppWriter(
               None
             )
           ),
-          getCppType(s"$name&", isNested),
+          getCppType(s"$name&"),
           List(
             wrapInIf("this == &other", lines("return *this;")),
             List(
@@ -197,7 +197,7 @@ case class StringCppWriter(
               None
             )
           ),
-          getCppType(s"$name&", isNested),
+          getCppType(s"$name&"),
           List(
             wrapInIf("this == &other", lines("return *this;")),
             List(
@@ -219,7 +219,7 @@ case class StringCppWriter(
               None
             )
           ),
-          getCppType(s"$name&", isNested),
+          getCppType(s"$name&"),
           List(
             line("Fw::StringUtils::string_copy(this->m_buf, other, sizeof(this->m_buf));"),
             line("return *this;"),
@@ -261,18 +261,14 @@ case class StringCppWriter(
     )
   }
 
-  private def getCppType(typeName: String, isNested: Boolean) = {
-    if isNested then
-      CppDoc.Type(s"$typeName",
-        enclosingClassQualified match {
-          case Some(qualifier) => Some(s"$qualifier::$typeName")
-          case None => None
-        }
-      )
-    else
-      CppDoc.Type(s"$typeName")
+  private def getCppType(typeName: String) = {
+    CppDoc.Type(s"$typeName",
+      enclosingClassQualified match {
+        case Some(qualifier) => Some(s"$qualifier::$typeName")
+        case None => None
+      }
+    )
   }
-
 }
 
 object StringCppWriter {
