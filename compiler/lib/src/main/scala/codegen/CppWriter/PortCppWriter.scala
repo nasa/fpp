@@ -23,8 +23,6 @@ case class PortCppWriter (
 
   private val typeCppWriter = TypeCppWriter(s)
 
-  private val strCppWriter = StringCppWriter(s, Some(name))
-
   private val params = data.params
 
   // Map from param name to param type
@@ -37,7 +35,20 @@ case class PortCppWriter (
     (aNode._2.data.name, AnnotationCppWriter.asStringOpt(aNode))
   }).toMap
 
-  // List of each param name, C++ type, and kind
+  // List of tuples (name, type) for each string param
+  private val strParamList = paramTypeMap.map((n, t) => t match {
+    case t: Type.String => Some((n, t))
+    case _ => None
+  }).filter(_.isDefined).map(_.get).toList
+
+  // Map from string size to list of names of string of that size
+  private val strNameMap = strParamList.groupBy((_, t) => {
+    StringCppWriter.getSize(s, t)
+  }).map((size, l) => (size, l.map(_._1)))
+
+  private val strCppWriter = StringCppWriter(s, None, Some(strNameMap))
+
+  // List of tuples (name, C++ type, kind) for each param
   private val paramList = params.map((_, node, _) => {
     val n = node.data.name
     val k = node.data.kind
@@ -50,13 +61,7 @@ case class PortCppWriter (
   // Port params as CppDoc Function Params
   private val functionParams = paramList.map((n, tn, k) => {
     CppDoc.Function.Param(
-      CppDoc.Type(
-        (paramTypeMap(n), k)  match {
-          case (_, Ast.FormalParam.Ref) => s"$tn&"
-          case (t, Ast.FormalParam.Value) if s.isPrimitive(t, tn) => tn
-          case (_, Ast.FormalParam.Value) => s"const $tn&"
-        }
-      ),
+      CppDoc.Type(getCppType(paramTypeMap(n), tn, k)),
       n,
       paramAnnotationMap(n)
     )
@@ -70,6 +75,17 @@ case class PortCppWriter (
     }
     case None => "void"
   }
+
+  // Translate formal parameter to C++ parameter
+  private def getCppType(t: Type, typeName: String, kind: Ast.FormalParam.Kind) =
+    (t, kind)  match {
+      // Reference formal parameters become non-constant C++ reference parameters
+      case (_, Ast.FormalParam.Ref) => s"$typeName&"
+      // Primitive, non-reference formal parameters become C++ value parameters
+      case (t, Ast.FormalParam.Value) if s.isPrimitive(t, typeName) => typeName
+      // Other non-reference formal parameters become constant C++ reference parameters
+      case (_, Ast.FormalParam.Value) => s"const $typeName&"
+    }
 
   private def writeIncludeDirectives: List[String] = {
     val Right(a) = UsedSymbols.defPortAnnotatedNode(s.a, aNode)
@@ -94,9 +110,9 @@ case class PortCppWriter (
       case Some(value) => s"\n$value"
       case None => ""
     }
-    val classes = List(
-      getStringClasses,
-      List(
+    val portBufferClass = data.returnType match {
+      case Some(_) => Nil
+      case None => List(
         CppDoc.Member.Lines(
           CppDoc.Lines(
             List(
@@ -106,7 +122,13 @@ case class PortCppWriter (
             ).flatten,
             CppDoc.Lines.Cpp
           )
-        ),
+        )
+      )
+    }
+    val classes = List(
+      getStringClasses,
+      portBufferClass,
+      List(
         CppDoc.Member.Class(
           CppDoc.Class(
             Some(s"Input $name port" + annotation),
@@ -132,16 +154,21 @@ case class PortCppWriter (
   }
 
   private def getHppIncludes: CppDoc.Member = {
-    val standardHeaders = List(
-      "cstdio",
-      "cstring",
-      "FpConfig.hpp",
-      "Fw/Cmd/CmdArgBuffer.hpp",
-      "Fw/Comp/PassiveComponentBase.hpp",
-      "Fw/Port/InputPortBase.hpp",
-      "Fw/Port/OutputPortBase.hpp",
-      "Fw/Types/Serializable.hpp",
-      "Fw/Types/StringType.hpp",
+    val serializableHeader = data.returnType match {
+      case Some(_) => Nil
+      case None => List("Fw/Types/Serializable.hpp")
+    }
+    val standardHeaders = (
+      List(
+        "cstdio",
+        "cstring",
+        "FpConfig.hpp",
+        "Fw/Comp/PassiveComponentBase.hpp",
+        "Fw/Port/InputPortBase.hpp",
+        "Fw/Port/OutputPortBase.hpp",
+        "Fw/Types/StringType.hpp",
+      ) ++
+        serializableHeader
     ).map(CppWriter.headerString)
     val symbolHeaders = writeIncludeDirectives
     val headers = standardHeaders ++ symbolHeaders
@@ -161,14 +188,27 @@ case class PortCppWriter (
   }
 
   private def getStringClasses: List[CppDoc.Member] = {
-    val strTypes = paramTypeMap.map((_, t) => t match {
-      case t: Type.String => Some(t)
-      case _ => None
-    }).filter(_.isDefined).map(_.get).toList
-    strTypes match {
-      case Nil => Nil
-      case l => strCppWriter.write(l)
-    }
+    // Write typedefs for string classes of the same size
+    val strTypedefs = strNameMap.flatMap((_, l) => l match {
+      case head :: tail => tail.map(n => {
+        line(s"typedef ${head}String ${n}String;")
+      })
+      case _ => Nil
+    }).toList
+    val strTypedefLines =
+      if strTypedefs.isEmpty then Nil
+      else List(
+        CppDoc.Member.Lines(
+          CppDoc.Lines(
+            List(
+              CppDocWriter.writeBannerComment("String types for backwards compatibility"),
+              Line.blank :: strTypedefs
+            ).flatten
+          )
+        )
+      )
+
+    strCppWriter.write(strParamList.map(_._2)) ++ strTypedefLines
   }
 
   private def getPortBufferClass: List[Line] = {
@@ -249,11 +289,7 @@ case class PortCppWriter (
         else
           line("NATIVE_INT_TYPE portNum,") ::
             lines(paramList.map((n, tn, k) => {
-              (paramTypeMap(n), k) match {
-                case (_, Ast.FormalParam.Ref) => s"$tn& $n"
-                case (t, Ast.FormalParam.Value) if s.isPrimitive(t, tn) => s"$tn $n"
-                case (_, Ast.FormalParam.Value) => s"const $tn& $n"
-              }
+              s"${getCppType(paramTypeMap(n), tn, k)} $n"
             }).mkString(",\n")))
 
     List(
