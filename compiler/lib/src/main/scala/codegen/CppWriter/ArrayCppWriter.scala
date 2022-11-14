@@ -129,7 +129,7 @@ case class ArrayCppWriter (
 
   // Generate a nested string class of the specified size for arrays of strings
   private def getStringClass: List[CppDoc.Class.Member] = eltType match {
-    case t: Type.String => strCppWriter.write(List(t))
+    case t: Type.String => strCppWriter.writeNested(List(t))
     case _ => Nil
   }
 

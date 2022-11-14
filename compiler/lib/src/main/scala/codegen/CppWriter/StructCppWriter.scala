@@ -151,7 +151,7 @@ case class StructCppWriter(
     }).filter(_.isDefined).map(_.get).toList
     strTypes match {
       case Nil => Nil
-      case l => strCppWriter.write(l)
+      case l => strCppWriter.writeNested(l)
     }
   }
 
