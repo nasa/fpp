@@ -453,7 +453,7 @@ constant d = "abcd"
 You should see files `FppConstantsAc.hpp` and `FppConstantsAc.cpp`
 in the current directory.
 Examine them to confirm your understanding of how the translation
-works
+works.
 Notice how the FPP annotations are translated to comments.
 (We also remarked on this in the section on 
 <<Writing-Comments-and-Annotations_Annotations,writing annotations>>.)
@@ -567,7 +567,7 @@ the include guard prefix comes from the name of the topology.
 We are phasing in direct {cpp} code generation for types, ports, and
 components.
 Currently we have implemented direct {cpp} code generation for types
-(arrays, structs, and enums).
+(arrays, structs, and enums) and ports.
 
 === Identifying Generated Files
 
