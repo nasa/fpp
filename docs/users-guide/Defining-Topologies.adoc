@@ -493,7 +493,7 @@ You write the port number as a
 in square brackets, immediately following the port name.
 The port numbers start at zero.
 
-For example, the `RateGroups` graph of the reference topology in the F Prime 
+For example, the `RateGroups` graph of the Ref (reference) topology in the F Prime 
 repository defines the rate group connections.
 It contains the following connection:
 
@@ -555,7 +555,7 @@ Here are some rules to keep in mind when using explicit numbering:
 
 . You can write any numeric expression as a port number.
 Each port number must be in bounds for the port (greater than
-zero and less than the size of the port array).
+or equal to zero and less than the size of the port array).
 If you write a port number that is out of bounds, you will get an error.
 
 . Use symbolic constants judiciously.

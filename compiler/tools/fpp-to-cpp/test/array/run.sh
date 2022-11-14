@@ -58,3 +58,15 @@ component()
     diff_cpp C_AArray && \
     diff_cpp AArray
 }
+
+header_path()
+{
+  run_test "-p $PWD" "include/T.fpp header_path" header_path && \
+    diff_cpp HeaderPathArray
+}
+
+single_element()
+{
+  run_test "-p $PWD" single_element && \
+    diff_cpp SingleElementArray
+}

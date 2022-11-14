@@ -16,6 +16,8 @@ EEnumAc.hpp
 EEnumAi.xml
 FppConstantsAc.cpp
 FppConstantsAc.hpp
+PPortAc.cpp
+PPortAc.hpp
 PPortAi.xml
 SSerializableAc.cpp
 SSerializableAc.hpp

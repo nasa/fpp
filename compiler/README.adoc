@@ -127,14 +127,30 @@ The script will build the native binary tools and install them at
 directory.
 To install the standard version of the FPP tools, run `./install`.
 
-*Trace files:*
-Before generating native binary tools, the `release` script runs
-the FPP unit tests with a tracing agent enabled and records the results.
-The directory `lib/src/main/resources/META-INF` stores the results of
-running the FPP unit tests with the tracing agent enabled.
+*Custom native-image flags:*
+For some installations, you may need to pass special flags
+to `native-image`.
+To do this, set the environment variable `FPP_NATIVE_IMAGE_FLAGS`.
+For example, to set the temporary directory used by `native-image`, you can run
 
-A version of the trace files is checked in to this repository.
-Running the release installation will merge the new trace results
-into these files.
-Occasionally, due to issues with GraalVM, these files have to be
-edited by hand, to add trace information missed by the tracing agent.
+[source,bash]
+----
+% export FPP_NATIVE_IMAGE_FLAGS='-H:TempDirectory=/path/to/tmp/directory'
+% ./release
+----
+
+*Running the tracing agent:*
+Occasionally when developing FPP, you may need to re-run the tracing
+agent to capture new runtime behavior.
+To do that, use the following procedure:
+
+. Run `./install-trace` to install JVM versions of the FPP tools with
+tracing enabled in the `bin` directory.
+
+. Run `./test` to use the installed tools to run the unit tests.
+This will run the tracing agent and update the trace files.
+
+. Commit the updated trace files to the repository.
+
+Remember to run `./install` to install the standard version
+of the tools if you no longer want to run the tracing agent.

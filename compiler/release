@@ -9,90 +9,145 @@
 #
 # 2. Set the environment variable GRAALVM_JAVA_HOME.
 #
+# 3. To pass flags to native-image, set the environment variable
+#    FPP_NATIVE_IMAGE_FLAGS.
+#
 # See README.adoc.
 # ----------------------------------------------------------------------
 
+# Print and evaluate a command
+evalp()
+{
+  echo "$@"
+  $@
+}
+
+# Get tool names from a directory
+get_tool_names()
+{
+  dir=$1
+  for file in $dir/*.jar
+  do
+    basename $file .jar
+  done
+}
+
+# Print a phase of the process
+print_phase()
+{
+  echo "----------------------------------------------------------------------"
+  echo $1
+  echo "----------------------------------------------------------------------"
+}
+
+# Check that GRAALVM_JAVA_HOME is set
 if test -z "$GRAALVM_JAVA_HOME"
 then
-  echo "release: environment variable GRAALVM_JAVA_HOME is not set" 1>&2
+  echo "[ERROR] Environment variable GRAALVM_JAVA_HOME is not set" 1>&2
   exit 1
 fi
-directory=`dirname $0`
-native_bin="$directory/native-fpp-`uname`-`uname -m`"
+
+# Run in the directory where this script is located
+cd `dirname $0`
+
+# Set local variables
+native_bin="native-fpp-`uname`-`uname -m`"
 native_image="$GRAALVM_JAVA_HOME/bin/native-image"
-meta_inf_dir="$directory/lib/src/main/resources/META-INF/native-image/"
+meta_inf_dir="lib/src/main/resources/META-INF/native-image"
+release_tgz="$native_bin.tar.gz"
+# Use gtar if it's available
+# The default tar has issues on Mac OS on GitHub
+if which gtar
+then
+  tar=`which gtar`
+else
+  tar=tar
+fi
 
 # Make directories
 mkdir -p "$meta_inf_dir"
 mkdir -p "$native_bin"
 
-# Versioning information
+print_phase "Version information"
+
+# Print version information
 echo "C compiler version"
 cc --version
-echo "Java version"
-java --version
 echo "Native Image Version"
-native-image --version
+$native_image --version
 
+print_phase "Installing JVM tools in bin"
 
-# Install jar files here
-$directory/install-trace
-# Test a run before running test
-$directory/bin/fpp-locate-defs tools/fpp-locate-defs/test/defs/defs-1.fpp tools/fpp-locate-defs/test/defs/defs-2.fpp 1>/dev/null
-if [ $? -ne 0 ]
-then
-    echo "[ERROR] Failed to run JAR with tracing enabled"
-    exit 1
-fi
+# Install jar files in bin
+./install
 
-# Trace through testing
-$directory/test
-if [ $? -ne 0 ]
-then
-    echo "[WARNING] Failed to run tests"
-fi
-sync; sync; sync;
-# Convert jar files to binaries
-for jar_file in $directory/bin/*.jar
+print_phase "Constructing binary tools in $native_bin"
+
+# Get the tool names from bin
+tool_names=`get_tool_names bin`
+
+# Use GraalVM to convert the jar files to native binaries
+for tool_name in $tool_names
 do
-    out_file=$native_bin/`basename $jar_file .jar`
+    jar_file="bin/$tool_name.jar"
+    out_file="$native_bin/$tool_name"
     echo "Building $out_file"
-    "$native_image" --configure-reflection-metadata --no-fallback --install-exit-handlers -jar "$jar_file" "$out_file"
+    evalp "$native_image" $FPP_NATIVE_IMAGE_FLAGS \
+      --no-fallback --install-exit-handlers \
+      -jar "$jar_file" "$out_file"
     if [ $? -ne 0 ]
     then
-        echo "release: Failed to build $out_file"
+        echo "[ERROR] Failed to build $out_file"
         exit 1
     fi
     sync; sync; sync;
     if ! $out_file --help 1>/dev/null
     then
-        echo "release: Failed, $out_file not executable"
+        echo "[ERROR] $out_file not executable"
         exit 1
     fi
 done
 sync; sync; sync;
 
-# Clean up native directory
-rm "$native_bin"/*.txt
+# Clean up the native directory
+rm -f "$native_bin"/*.txt
+
+# Install the native binaries
+evalp rm -r "bin"
+evalp cp -r "$native_bin" "bin"
 sync; sync; sync;
 
-# Testing of the native binaries
-rm -r "$directory/bin"
-cp -r "$native_bin" "$directory/bin"
-"$directory/test"
+print_phase "Testing the binary tools"
+
+# Test the native binaries
+./test
 if [ $? -ne 0 ]
 then
-    echo "[WARNING] Failed to run tests"
+    echo "[ERROR] Native unit tests failed"
+    exit 1
 fi
 
-# Create tar ball
-release_tgz="$native_bin.tar.gz"
-tar -czf "$release_tgz" "$native_bin"
+print_phase "Constructing the release archive $release_tgz"
+
+# Create the tar ball
+evalp $tar -czf "$release_tgz" "$native_bin"
 sync; sync; sync;
-# Check if file size too small
-if [ `stat -f %z $release_tgz` -lt 55846858 ]
-then
-    echo "Release archive $release_tgz too small with size `du -hs $release_tgz`"
-    exit 99
-fi
+
+# Verify the tar ball
+evalp mkdir -p check-tar
+(cd check-tar; evalp $tar -xvf "../$release_tgz")
+sync; sync; sync;
+for file in `ls "$native_bin"`
+do
+  if ! evalp diff -q "$native_bin/$file check-tar/$native_bin/$file"
+  then
+    echo "[ERROR] Archive creation failed"
+    exit 1
+  fi
+done
+evalp rm -r check-tar
+
+# Print status
 echo "Release archive written to $release_tgz with size `du -hs $release_tgz`"
+
+print_phase "Success"

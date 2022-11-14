@@ -28,22 +28,41 @@ case class StringCppWriter(
   def getClassName(str: Type.String): String = s"StringSize${getSize(str)}"
 
   /** Compute the string class name from a given size */
-  def getClassName(size: Int): String = s"StringSize$size"
+  def getClassName(size: Int): String = s"StringSize${size}"
+
+  /** Compute the qualified string class name from a String type */
+  def getQualifiedClassName(str: Type.String, namespaceNames: List[String]): String =
+    namespaceNames.map(n => s"$n::").mkString("") + getClassName(str)
+
+  /** Compute the qualified string class name from a given size */
+  def getQualifiedClassName(size: Int, namespaceNames: List[String]): String =
+    namespaceNames.map(n => s"$n::").mkString("") + getClassName(size)
 
   /** Writes the C++ string classes */
-  def write(strTypes: List[Type.String]): List[CppDoc.Class.Member] = {
-    // Write access tag if these classes appear inside another class
-    val accessTag = enclosingClassQualified match {
-      case Some(_) =>
-        CppDoc.Class.Member.Lines(
+  def write(strTypes: List[Type.String]): List[CppDoc.Member] = {
+    strTypes.map(getSize).distinct.flatMap(size => {
+      val name = getClassName(size)
+      List(
+        CppDoc.Member.Lines(
           CppDoc.Lines(
-            CppDocHppWriter.writeAccessTag("public")
+            CppDocWriter.writeBannerComment(s"$name class"),
+            CppDoc.Lines.Both
           )
+        ),
+        CppDoc.Member.Class(
+          writeClass(size)
         )
-      case None => CppDoc.Class.Member.Lines(CppDoc.Lines(Nil))
-    }
+      )
+    })
+  }
 
-    accessTag ::
+  /** Writes the C++ string classes as nested classes */
+  def writeNested(strTypes: List[Type.String]): List[CppDoc.Class.Member] = {
+    CppDoc.Class.Member.Lines(
+      CppDoc.Lines(
+        CppDocHppWriter.writeAccessTag("public")
+      )
+    ) ::
       strTypes.map(getSize).distinct.flatMap(size => {
         val name = getClassName(size)
         List(
@@ -160,7 +179,7 @@ case class StringCppWriter(
               None
             )
           ),
-          CppDoc.Type(s"$name&", getCppType(s"$name&")),
+          getCppType(s"$name&"),
           List(
             wrapInIf("this == &other", lines("return *this;")),
             List(
@@ -182,7 +201,7 @@ case class StringCppWriter(
               None
             )
           ),
-          CppDoc.Type(s"$name&", getCppType(s"$name&")),
+          getCppType(s"$name&"),
           List(
             wrapInIf("this == &other", lines("return *this;")),
             List(
@@ -204,7 +223,7 @@ case class StringCppWriter(
               None
             )
           ),
-          CppDoc.Type(s"$name&", getCppType(s"$name&")),
+          getCppType(s"$name&"),
           List(
             line("Fw::StringUtils::string_copy(this->m_buf, other, sizeof(this->m_buf));"),
             line("return *this;"),
@@ -246,9 +265,12 @@ case class StringCppWriter(
     )
   }
 
-  private def getCppType(typeName: String) = enclosingClassQualified match {
-    case Some(qualifier) => Some(s"$qualifier::$typeName")
-    case None => None
+  private def getCppType(typeName: String) = {
+    CppDoc.Type(s"$typeName",
+      enclosingClassQualified match {
+        case Some(qualifier) => Some(s"$qualifier::$typeName")
+        case None => None
+      }
+    )
   }
-
 }
