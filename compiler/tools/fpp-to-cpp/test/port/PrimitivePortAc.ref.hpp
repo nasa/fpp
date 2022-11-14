@@ -7,14 +7,15 @@
 #ifndef PrimitivePortAc_HPP
 #define PrimitivePortAc_HPP
 
+#include <cstdio>
+#include <cstring>
+
 #include "FpConfig.hpp"
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"
 #include "Fw/Port/OutputPortBase.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/StringType.hpp"
-#include <cstdio>
-#include <cstring>
 
 //! Input Primitive port
 //! A port with primitive parameters
