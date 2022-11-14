@@ -157,14 +157,16 @@ case class PortCppWriter (
   }
 
   private def getHppIncludes: CppDoc.Member = {
+    val systemHeaders = List(
+      "cstdio",
+      "cstring",
+    ).map(CppWriter.systemHeaderString)
     val serializableHeader = data.returnType match {
       case Some(_) => Nil
       case None => List("Fw/Types/Serializable.hpp")
     }
     val standardHeaders = (
       List(
-        "cstdio",
-        "cstring",
         "FpConfig.hpp",
         "Fw/Comp/PassiveComponentBase.hpp",
         "Fw/Port/InputPortBase.hpp",
@@ -174,7 +176,7 @@ case class PortCppWriter (
         serializableHeader
     ).map(CppWriter.headerString)
     val symbolHeaders = writeIncludeDirectives
-    val headers = standardHeaders ++ symbolHeaders
+    val headers = systemHeaders ++ standardHeaders ++ symbolHeaders
     CppWriter.linesMember(addBlankPrefix(headers.sorted.map(line)))
   }
 
@@ -330,16 +332,18 @@ case class PortCppWriter (
     val invokeSerialBody = data.returnType match {
       case Some(_) => lines(
         """|// For ports with a return type, invokeSerial is not used
+           |(void) _buffer;
+           |
            |FW_ASSERT(0);
            |return Fw::FW_SERIALIZE_OK;
            |"""
       )
-      case None => 
-        (if params.isEmpty then Nil
-        else line("Fw::SerializeStatus _status;") :: 
-          List(Line.blank)) ++
+      case None =>
+        (if params.isEmpty then line("(void) _buffer;")
+        else line("Fw::SerializeStatus _status;")) ::
           lines(
-            """|#if FW_PORT_SERIALIZATION == 1
+            """|
+               |#if FW_PORT_SERIALIZATION == 1
                |this->trace();
                |#endif
                |

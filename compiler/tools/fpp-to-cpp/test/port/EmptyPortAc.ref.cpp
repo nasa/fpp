@@ -84,6 +84,8 @@ void InputEmptyPort ::
 Fw::SerializeStatus InputEmptyPort ::
   invokeSerial(Fw::SerializeBufferBase& _buffer)
 {
+  (void) _buffer;
+
 #if FW_PORT_SERIALIZATION == 1
   this->trace();
 #endif

@@ -12,8 +12,8 @@
 #include "Fw/Port/InputPortBase.hpp"
 #include "Fw/Port/OutputPortBase.hpp"
 #include "Fw/Types/StringType.hpp"
-#include "cstdio"
-#include "cstring"
+#include <cstdio>
+#include <cstring>
 
 namespace M {
 

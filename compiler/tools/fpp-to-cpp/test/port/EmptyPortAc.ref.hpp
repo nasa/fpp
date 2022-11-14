@@ -13,8 +13,8 @@
 #include "Fw/Port/OutputPortBase.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/StringType.hpp"
-#include "cstdio"
-#include "cstring"
+#include <cstdio>
+#include <cstring>
 
 //! Input Empty port
 //! An empty port

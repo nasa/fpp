@@ -16,8 +16,8 @@
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/StringType.hpp"
 #include "SSerializableAc.hpp"
-#include "cstdio"
-#include "cstring"
+#include <cstdio>
+#include <cstring>
 
 //! Input FppType port
 //! A port with FPP type parameters

@@ -13,9 +13,9 @@
 #include "Fw/Port/OutputPortBase.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/StringType.hpp"
-#include "cstdio"
-#include "cstring"
 #include "include/T.hpp"
+#include <cstdio>
+#include <cstring>
 
 //! Input AbsType port
 //! A port with abstract type parameters
