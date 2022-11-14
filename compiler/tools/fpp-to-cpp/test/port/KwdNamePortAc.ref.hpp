@@ -7,9 +7,6 @@
 #ifndef KwdNamePortAc_HPP
 #define KwdNamePortAc_HPP
 
-#include <cstdio>
-#include <cstring>
-
 #include "FpConfig.hpp"
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"

@@ -7,9 +7,6 @@
 #ifndef FppTypePortAc_HPP
 #define FppTypePortAc_HPP
 
-#include <cstdio>
-#include <cstring>
-
 #include "AArrayAc.hpp"
 #include "EEnumAc.hpp"
 #include "FpConfig.hpp"

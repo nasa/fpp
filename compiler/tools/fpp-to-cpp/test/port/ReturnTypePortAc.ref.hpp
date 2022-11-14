@@ -7,9 +7,6 @@
 #ifndef M_ReturnTypePortAc_HPP
 #define M_ReturnTypePortAc_HPP
 
-#include <cstdio>
-#include <cstring>
-
 #include "FpConfig.hpp"
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"
