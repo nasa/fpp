@@ -7,6 +7,9 @@
 #ifndef BuiltInTypePortAc_HPP
 #define BuiltInTypePortAc_HPP
 
+#include <cstdio>
+#include <cstring>
+
 #include "FpConfig.hpp"
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"
