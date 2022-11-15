@@ -165,6 +165,20 @@ object CheckExprTypes extends UseAnalyzer {
     yield a
   }
 
+  override def specContainerAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecContainer]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    for {
+      a <- super.specContainerAnnotatedNode(a, aNode)
+      _ <- convertNodeToNumericOpt(a, data.id)
+      _ <- convertNodeToNumericOpt(a, data.defaultPriority)
+    }
+    yield a
+  }
+    
   override def specEventAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecEvent]]) = {
     val (_, node, _) = aNode
     val data = node.data
@@ -230,6 +244,19 @@ object CheckExprTypes extends UseAnalyzer {
     }
   }
 
+  override def specRecordAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecRecord]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    for {
+      a <- super.specRecordAnnotatedNode(a, aNode)
+      _ <- convertNodeToNumericOpt(a, data.id)
+    }
+    yield a
+  }
+    
   override def specTlmChannelAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]) = {
     val (_, node, _) = aNode
     val data = node.data
