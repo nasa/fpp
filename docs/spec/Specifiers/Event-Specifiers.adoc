@@ -41,7 +41,7 @@ If there are no parameters, the list may be omitted.
 
 * The optional expression _e_ following `id` specifies the numeric
 identifier for the event.
-If _e_ is present, then type of _e_ must be convertible to 
+If _e_ is present, then the type of _e_ must be convertible to 
 <<Types_Internal-Types_Integer,_Integer_>>, and _e_ must evaluate
 to a nonnegative integer.
 If _e_ is not present, then the default identifier is either zero (for the 

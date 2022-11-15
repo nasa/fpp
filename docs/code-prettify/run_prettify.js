@@ -460,8 +460,10 @@ var IN_GLOBAL_SCOPE = false;
           "red," +
           "ref," +
           "reg," +
+          "request," +
           "resp," +
           "save," +
+          "send," +
           "serial," +
           "set," +
           "severity," +

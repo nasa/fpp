@@ -48,7 +48,7 @@ component) or the previous parameter identifier plus one.
 
 * The optional expression _e_ after the keywords `set` `opcode` specifies the
 opcode of the command for setting the parameter.
-If _e_ is present, then type of _e_ must be 
+If _e_ is present, then the type of _e_ must be 
 <<Type-Checking_Type-Conversion,convertible to>>
 <<Types_Internal-Types_Integer,_Integer_>>.
 If _e_ is not present, then the default value is either zero (for
