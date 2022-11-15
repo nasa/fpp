@@ -38,6 +38,14 @@ object CheckComponentDefs
     yield a.copy(component = Some(component))
   }
 
+  override def specContainerAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecContainer]]
+  ) = {
+    // TODO
+    Right(a)
+  }
+
   override def specEventAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecEvent]]
@@ -99,6 +107,14 @@ object CheckComponentDefs
     val list = aNode :: component.specPortMatchingList
     val component1 = component.copy(specPortMatchingList = list)
     Right(a.copy(component = Some(component1)))
+  }
+
+  override def specRecordAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecRecord]]
+  ) = {
+    // TODO
+    Right(a)
   }
 
   override def specTlmChannelAnnotatedNode(
