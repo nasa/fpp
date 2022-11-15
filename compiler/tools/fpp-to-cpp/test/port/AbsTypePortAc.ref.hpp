@@ -7,6 +7,9 @@
 #ifndef AbsTypePortAc_HPP
 #define AbsTypePortAc_HPP
 
+#include <cstdio>
+#include <cstring>
+
 #include "FpConfig.hpp"
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"
@@ -14,8 +17,6 @@
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/StringType.hpp"
 #include "include/T.hpp"
-#include <cstdio>
-#include <cstring>
 
 //! Input AbsType port
 //! A port with abstract type parameters

@@ -160,7 +160,7 @@ case class PortCppWriter (
     val systemHeaders = List(
       "cstdio",
       "cstring",
-    ).map(CppWriter.systemHeaderString)
+    ).map(CppWriter.systemHeaderString).map(line)
     val serializableHeader = data.returnType match {
       case Some(_) => Nil
       case None => List("Fw/Types/Serializable.hpp")
@@ -172,12 +172,16 @@ case class PortCppWriter (
         "Fw/Port/InputPortBase.hpp",
         "Fw/Port/OutputPortBase.hpp",
         "Fw/Types/StringType.hpp",
-      ) ++
-        serializableHeader
+      ) ++ serializableHeader
     ).map(CppWriter.headerString)
     val symbolHeaders = writeIncludeDirectives
-    val headers = systemHeaders ++ standardHeaders ++ symbolHeaders
-    CppWriter.linesMember(addBlankPrefix(headers.sorted.map(line)))
+    val userHeaders = (standardHeaders ++ symbolHeaders).sorted.map(line)
+    CppWriter.linesMember(
+      List(
+        Line.blank :: systemHeaders,
+        Line.blank :: userHeaders
+      ).flatten
+    )
   }
 
   private def getCppIncludes: CppDoc.Member = {

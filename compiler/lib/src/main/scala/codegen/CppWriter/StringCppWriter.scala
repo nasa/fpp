@@ -38,46 +38,42 @@ case class StringCppWriter(
   def getQualifiedClassName(size: Int, namespaceNames: List[String]): String =
     namespaceNames.map(n => s"$n::").mkString("") + getClassName(size)
 
-  /** Writes the C++ string classes */
-  def write(strTypes: List[Type.String]): List[CppDoc.Member] = {
-    strTypes.map(getSize).distinct.flatMap(size => {
+  /** Helper for writing C++ string classes */
+  private def writeHelper[T](
+    strTypes: List[Type.String],
+    mkLines: CppDoc.Lines => T,
+    mkClass: CppDoc.Class => T
+  ): List[T] = strTypes.map(getSize).distinct.flatMap(
+    size => {
       val name = getClassName(size)
       List(
-        CppDoc.Member.Lines(
+        mkLines(
           CppDoc.Lines(
             CppDocWriter.writeBannerComment(s"$name class"),
             CppDoc.Lines.Both
           )
         ),
-        CppDoc.Member.Class(
-          writeClass(size)
-        )
+        mkClass(writeClass(size))
       )
-    })
-  }
+    }
+  )
+
+  /** Writes the C++ string classes */
+  def write(strTypes: List[Type.String]): List[CppDoc.Member] =
+    writeHelper(strTypes, CppDoc.Member.Lines.apply, CppDoc.Member.Class.apply)
 
   /** Writes the C++ string classes as nested classes */
-  def writeNested(strTypes: List[Type.String]): List[CppDoc.Class.Member] = {
+  def writeNested(strTypes: List[Type.String]): List[CppDoc.Class.Member] =
     CppDoc.Class.Member.Lines(
       CppDoc.Lines(
         CppDocHppWriter.writeAccessTag("public")
       )
     ) ::
-      strTypes.map(getSize).distinct.flatMap(size => {
-        val name = getClassName(size)
-        List(
-          CppDoc.Class.Member.Lines(
-            CppDoc.Lines(
-              CppDocWriter.writeBannerComment(s"$name class"),
-              CppDoc.Lines.Both
-            )
-          ),
-          CppDoc.Class.Member.Class(
-            writeClass(size)
-          )
-        )
-      })
-  }
+      writeHelper(
+        strTypes,
+        CppDoc.Class.Member.Lines.apply,
+        CppDoc.Class.Member.Class.apply
+      )
 
   def writeClass(size: Int): CppDoc.Class = {
     CppDoc.Class(
