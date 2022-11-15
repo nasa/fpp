@@ -30,7 +30,15 @@ case class Component(
   /** The list of port matching constraints */
   portMatchingList: List[Component.PortMatching] = Nil,
   /** The next default parameter ID */
-  defaultParamId: Int = 0
+  defaultParamId: Int = 0,
+  /** The map from container ids to containers */
+  containerMap: Map[Container.Id, Container] = Map(),
+  /** The next default container ID */
+  defaultContainerId: Int = 0,
+  /** The map from record ids to records */
+  recordMap: Map[Record.Id, Record] = Map(),
+  /** The next default record ID */
+  defaultRecordId: Int = 0
 ) {
 
   /** Gets the max identifier */
@@ -39,6 +47,7 @@ case class Component(
       if (map.size == 0) -1 else map.keys.max
     val maxMap = Vector(
       commandMap,
+      containerMap,
       eventMap,
       paramMap,
       tlmChannelMap
