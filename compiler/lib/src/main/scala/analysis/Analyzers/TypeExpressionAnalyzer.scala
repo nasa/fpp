@@ -197,6 +197,22 @@ trait TypeExpressionAnalyzer
     }
   }
 
+  override def specContainerAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecContainer]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    for {
+      a <- Right(a)
+    } yield a
+  }
+
+  override def specRecordAnnotatedNode(
+    a: Analysis,
+    node: Ast.Annotated[AstNode[Ast.SpecRecord]]
+  ) = Right(a)
+
   override def specTlmChannelAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]) = {
     def limit(a: Analysis, value: Ast.SpecTlmChannel.Limit) = {
       val (_, e) = value
