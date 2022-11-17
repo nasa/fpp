@@ -29,15 +29,14 @@ case class ComponentCppWriter (
 
   private val members = data.members
   
-  private val generalPorts = members.map(member => {
-    member match {
-      case Ast.ComponentMember.SpecPortInstance(node) => node match {
+  private val generalPorts = members.map(member =>
+    member.node._2 match {
+      case Ast.ComponentMember.SpecPortInstance(node) => node.data match {
         case p: Ast.SpecPortInstance.General => Some(p)
         case _ => None
       }
       case _ => None
-    }
-  }).filter(_.isDefined).map(_.get)
+    }).filter(_.isDefined).map(_.get)
 
   private val inputPorts = generalPorts.map(p => {
     p.kind match {
@@ -46,15 +45,21 @@ case class ComponentCppWriter (
     }
   }).filter(_.isDefined).map(_.get)
 
-  private val specialPorts = members.map(member => {
-    member match {
-      case Ast.ComponentMember.SpecPortInstance(node) => node match {
+  private val outputPorts = generalPorts.map(p => {
+    p.kind match {
+      case Ast.SpecPortInstance.Output => Some(p)
+      case _ => None
+    }
+  }).filter(_.isDefined).map(_.get)
+
+  private val specialPorts = members.map(member =>
+    member.node._2 match {
+      case Ast.ComponentMember.SpecPortInstance(node) => node.data match {
         case p: Ast.SpecPortInstance.Special => Some(p)
         case _ => None
       }
       case _ => None
-    }
-  }).filter(_.isDefined).map(_.get)
+    }).filter(_.isDefined).map(_.get)
 
   private def writeIncludeDirectives: List[String] = {
     val Right(a) = UsedSymbols.defComponentAnnotatedNode(s.a, aNode)
@@ -120,6 +125,7 @@ case class ComponentCppWriter (
   private def getClassMembers: List[CppDoc.Class.Member] = {
     List(
       getInputPortGetters,
+      getOutputPortConnectors,
     ).flatten
   }
 
@@ -130,7 +136,9 @@ case class ComponentCppWriter (
           CppDoc.Lines(
             List(
               CppDocHppWriter.writeAccessTag("public"),
-              CppDocWriter.writeBannerComment("Getters for typed input ports"),
+              CppDocWriter.writeBannerComment(
+                "Getters for typed input ports"
+              ),
             ).flatten
           )
         )
@@ -143,17 +151,93 @@ case class ComponentCppWriter (
             List(
               CppDoc.Function.Param(
                 CppDoc.Type("NATIVE_INT_TYPE"),
-                "portNum"
+                "portNum",
+                Some("The port number")
               )
             ),
-            CppDoc.Type(
-              "a"
-            ),
-            Nil,
+            CppDoc.Type(s"${getQualifiedPortName(p)}*"),
+            lines(
+              s"""|FW_ASSERT(
+                  |  portNum < this->getNum_${p.name}_InputPorts(),
+                  |  static_cast<FwAssertArgType>(portNum)
+                  | );
+                  |
+                  |return &this->m_${p.name}_InputPort[portNum];
+                  |"""
+            )
           )
         )
       })
     ).flatten
+  }
+
+  private def getOutputPortConnectors: List[CppDoc.Class.Member] = {
+    List(
+      List(
+        CppDoc.Class.Member.Lines(
+          CppDoc.Lines(
+            List(
+              CppDocHppWriter.writeAccessTag("public"),
+              CppDocWriter.writeBannerComment("" +
+                "Connect typed input ports to typed output ports"
+              ),
+            ).flatten
+          )
+        )
+      ),
+      outputPorts.map(p => {
+        CppDoc.Class.Member.Function(
+          CppDoc.Function(
+            Some(s"Connect port to ${p.name}[portNum]"),
+            s"set_${p.name}_OutputPort",
+            List(
+              CppDoc.Function.Param(
+                CppDoc.Type("NATIVE_INT_TYPE"),
+                "portNum",
+                Some("The port number")
+              ),
+              CppDoc.Function.Param(
+                CppDoc.Type(s"${getQualifiedPortName(p, false)}*"),
+                "port",
+                Some("The input port")
+              )
+            ),
+            CppDoc.Type("void"),
+            lines(
+              s"""|FW_ASSERT(
+                  |  portNum < this->getNum_${p.name}_OutputPorts(),
+                  |  static_cast<FwAssertArgType>(portNum)
+                  |);
+                  |
+                  |this->m_${p.name}_OutputPort[portNum].addCallPort(port);
+                  |"""
+            )
+          )
+        )
+      })
+    ).flatten
+  }
+
+  private def getQualifiedPortName(
+    p: Ast.SpecPortInstance.General,
+    matchKind: Boolean = true
+  ) = {
+    val portKind = (matchKind, p.kind) match {
+      case (true, Ast.SpecPortInstance.Output) => "Output"
+      case (false, Ast.SpecPortInstance.Output) => "Input"
+      case (true, _) => "Input"
+      case (false, _) => "Output"
+    }
+
+    p.port match {
+      case Some(node) => node.data match {
+        case Ast.QualIdent.Qualified(qualifier, name) =>
+          qualifier.data.toIdentList.mkString("::") + s"::${portKind}${name.data}Port"
+        case Ast.QualIdent.Unqualified(name) =>
+          s"${portKind}${name}Port"
+      }
+      case None => ""
+    }
   }
 
 }
