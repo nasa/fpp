@@ -11,10 +11,10 @@ final case class ComponentInstance(
   baseId: BigInt,
   maxId: BigInt,
   file: Option[String],
-  queueSize: Option[Int],
-  stackSize: Option[Int],
-  priority: Option[Int],
-  cpu: Option[Int],
+  queueSize: Option[BigInt],
+  stackSize: Option[BigInt],
+  priority: Option[BigInt],
+  cpu: Option[BigInt],
   initSpecifierMap: Map[Int, InitSpecifier] = Map()
 ) extends Ordered[ComponentInstance] {
 
@@ -71,7 +71,7 @@ object ComponentInstance {
         componentKind
       )(
         "stack size",
-        a.getNonnegativeIntValueOpt,
+        a.getNonnegativeBigIntValueOpt,
         data.stackSize
       )
       priority <- getActiveAttribute(
@@ -79,7 +79,7 @@ object ComponentInstance {
         componentKind,
       )(
         "priority",
-        a.getIntValueOpt,
+        node => Right(a.getBigIntValueOpt(node)),
         data.priority
       )
       cpu <- getActiveAttribute(
@@ -87,7 +87,7 @@ object ComponentInstance {
         componentKind,
       )(
         "CPU affinity",
-        a.getIntValueOpt,
+        node => Right(a.getBigIntValueOpt(node)),
         data.cpu
       )
     }
@@ -132,14 +132,14 @@ object ComponentInstance {
     name: String,
     componentKind: Ast.ComponentKind,
     nodeOpt: Option[AstNode[Ast.Expr]]
-  ): Result.Result[Option[Int]] = {
+  ): Result.Result[Option[BigInt]] = {
     (componentKind, nodeOpt) match {
       case (Ast.ComponentKind.Passive, Some(node)) => invalid(
         name,
         Locations.get(node.id),
         "passive component may not have queue size"
       )
-      case (_, Some(_)) => a.getNonnegativeIntValueOpt(nodeOpt)
+      case (_, Some(_)) => a.getNonnegativeBigIntValueOpt(nodeOpt)
       case (_, None) =>
         Right(None)
     }
@@ -152,9 +152,9 @@ object ComponentInstance {
   )
   (
     kind: String,
-    getValue: Option[AstNode[Ast.Expr]] => Result.Result[Option[Int]],
+    getValue: Option[AstNode[Ast.Expr]] => Result.Result[Option[BigInt]],
     nodeOpt: Option[AstNode[Ast.Expr]]
-  ): Result.Result[Option[Int]] =
+  ): Result.Result[Option[BigInt]] =
     (componentKind, nodeOpt) match {
       case (Ast.ComponentKind.Active, Some(_)) => getValue(nodeOpt)
       case (_, Some(node)) => invalid(

@@ -89,7 +89,7 @@ object PortInstance {
     sealed trait Kind
     object Kind {
       case class AsyncInput(
-        priority: Option[Int],
+        priority: Option[BigInt],
         queueFull: Ast.QueueFull
       ) extends Kind
       case object GuardedInput extends Kind
@@ -149,7 +149,7 @@ object PortInstance {
 
   final case class Internal(  
     aNode: Ast.Annotated[AstNode[Ast.SpecInternalPort]],
-    priority: Option[Int],
+    priority: Option[BigInt],
     queueFull: Ast.QueueFull
   ) extends PortInstance {
 
@@ -182,8 +182,8 @@ object PortInstance {
         )
         else Right(())
       }
+      val priority = a.getBigIntValueOpt(data.priority)
       for {
-        priority <- a.getIntValueOpt(data.priority)
         _ <- Analysis.checkForDuplicateParameter(data.params)
         _ <- checkRefParams(data.params)
       }
@@ -220,7 +220,7 @@ object PortInstance {
             case (_, None) => Right(())
           }
           size <- getArraySize(a, specifier.size)
-          priority <- a.getIntValueOpt(specifier.priority)
+          priority <- Right(a.getBigIntValueOpt(specifier.priority))
           ty <- specifier.port match {
             case Some(qid) => a.useDefMap(qid.id) match {
               case symbol @ Symbol.Port(_) => 

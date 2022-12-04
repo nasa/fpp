@@ -31,7 +31,7 @@ object Command {
 
     sealed trait Kind
     case class Async(
-      priority: Option[Int],
+      priority: Option[BigInt],
       queueFull: Ast.QueueFull
     ) extends Kind
     case object Guarded extends Kind
@@ -93,7 +93,7 @@ object Command {
             Left(SemanticError.InvalidQueueFull(loc))
           case (_, None) => Right(())
         }
-        priority <- a.getIntValueOpt(data.priority)
+        priority <- Right(a.getBigIntValueOpt(data.priority))
         _ <- Analysis.checkForDuplicateParameter(data.params)
         _ <- checkRefParams(data.params)
       }

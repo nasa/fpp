@@ -3,7 +3,6 @@ active_no_priority
 active_no_queue_size
 active_no_stack_size
 conflicting_ids
-int_out_of_range
 invalid_negative_int
 ok
 passive_cpu
