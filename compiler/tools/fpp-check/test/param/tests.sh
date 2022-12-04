@@ -11,5 +11,8 @@ duplicate_save_opcode_implicit
 duplicate_set_opcode_explicit
 duplicate_set_opcode_implicit
 missing_ports
+negative_id
+negative_save_opcode
+negative_set_opcode
 ok
 "

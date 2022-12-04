@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/param/negative_id.fpp: 3.19
+  param P: U32 id -1
+                  ^
+error: invalid integer value -1
+value may not be negative

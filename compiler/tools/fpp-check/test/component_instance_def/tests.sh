@@ -4,6 +4,7 @@ active_no_queue_size
 active_no_stack_size
 conflicting_ids
 invalid_negative_int
+large_int
 ok
 passive_cpu
 passive_priority
