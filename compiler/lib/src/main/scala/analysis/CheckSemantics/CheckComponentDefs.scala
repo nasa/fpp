@@ -44,7 +44,7 @@ object CheckComponentDefs
   ) = {
     val data = aNode._2.data
     for {
-      idOpt <- a.getIntValueOpt(data.id)
+      idOpt <- a.getNonnegativeBigIntValueOpt(data.id)
       event <- Event.fromSpecEvent(a, aNode)
       component <- a.component.get.addEvent(idOpt, event)
     }

@@ -108,7 +108,7 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
           typeNames
         )
         val pairs1 = List(
-          ("id", XmlWriterState.writeId(id)),
+          ("id", XmlWriterState.writeId(id.toInt)),
           ("name", data.name),
           ("severity", writeSeverity(data.severity)),
           ("format_string", format)

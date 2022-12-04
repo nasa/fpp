@@ -22,7 +22,7 @@ case class Component(
   /** The map from event IDs to events */
   eventMap: Map[Event.Id, Event] = Map(),
   /** The next default event ID */
-  defaultEventId: Int = 0,
+  defaultEventId: BigInt = 0,
   /** The map from parameter IDs to parameters */
   paramMap: Map[Param.Id, Param] = Map(),
   /** The list of port matching specifiers */
@@ -39,7 +39,7 @@ case class Component(
       if (map.size == 0) -1 else map.keys.max
     val maxMap = Vector(
       commandMap.map((k,v) => (k.toInt,v)),
-      eventMap,
+      eventMap.map((k,v) => (k.toInt,v)),
       paramMap,
       tlmChannelMap.map((k,v) => (k.toInt,v))
     ).maxBy(maxInMap)
@@ -151,7 +151,7 @@ case class Component(
     val id = idOpt.getOrElse(defaultEventId)
     eventMap.get(id) match {
       case Some(prevEvent) =>
-        val value = Analysis.displayIdValue(id)
+        val value = Analysis.displayIdValue(id.toInt)
         val loc = event.getLoc
         val prevLoc = prevEvent.getLoc
         Left(SemanticError.DuplicateIdValue(value, loc, prevLoc))
