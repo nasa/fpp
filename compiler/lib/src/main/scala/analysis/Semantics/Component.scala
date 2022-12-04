@@ -18,7 +18,7 @@ case class Component(
   /** The map from telemetry channel IDs to channels */
   tlmChannelMap: Map[TlmChannel.Id, TlmChannel] = Map(),
   /** The next default channel ID */
-  defaultTlmChannelId: Int = 0,
+  defaultTlmChannelId: BigInt = 0,
   /** The map from event IDs to events */
   eventMap: Map[Event.Id, Event] = Map(),
   /** The next default event ID */
@@ -41,7 +41,7 @@ case class Component(
       commandMap.map((k,v) => (k.toInt,v)),
       eventMap,
       paramMap,
-      tlmChannelMap
+      tlmChannelMap.map((k,v) => (k.toInt,v))
     ).maxBy(maxInMap)
     maxInMap(maxMap)
   }
@@ -129,7 +129,7 @@ case class Component(
     val id = idOpt.getOrElse(defaultTlmChannelId)
     tlmChannelMap.get(id) match {
       case Some(prevTlmChannel) =>
-        val value = Analysis.displayIdValue(id)
+        val value = Analysis.displayIdValue(id.toInt)
         val loc = tlmChannel.getLoc
         val prevLoc = prevTlmChannel.getLoc
         Left(SemanticError.DuplicateIdValue(value, loc, prevLoc))

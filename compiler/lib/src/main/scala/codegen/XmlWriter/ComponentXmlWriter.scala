@@ -292,7 +292,7 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
       }
       val pairs = List(
         List(
-          ("id", XmlWriterState.writeId(id)),
+          ("id", XmlWriterState.writeId(id.toInt)),
           ("name", data.name),
         ),
         TypeXmlWriter.getPairs(s, tlmChannel.channelType, "data_type"),
