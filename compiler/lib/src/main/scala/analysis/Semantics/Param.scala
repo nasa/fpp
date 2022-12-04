@@ -8,8 +8,8 @@ final case class Param(
   aNode: Ast.Annotated[AstNode[Ast.SpecParam]],
   paramType: Type,
   default: Option[Value],
-  setOpcode: Int,
-  saveOpcode: Int
+  setOpcode: BigInt,
+  saveOpcode: BigInt
 ) {
 
   /** Gets the name of the parameter */
@@ -26,8 +26,8 @@ object Param {
 
   /** Creates a parameter from a parameter specifier
    *  Returns the new default opcode */
-  def fromSpecParam(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecParam]], defaultOpcode: Int):
-    Result.Result[(Param, Int)] = {
+  def fromSpecParam(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecParam]], defaultOpcode: BigInt):
+    Result.Result[(Param, BigInt)] = {
       val node = aNode._2
       val data = node.data
       val paramType = a.typeMap(data.typeName.id)
@@ -38,15 +38,15 @@ object Param {
         for (_ <- Analysis.convertTypes(loc, defaultType -> paramType))
           yield Analysis.convertValueToType(defaultValue, paramType)
       }
-      def computeOpcode(intOpt: Option[Int], defaultOpcode: Int) =
+      def computeOpcode(intOpt: Option[BigInt], defaultOpcode: BigInt) =
         intOpt match {
           case Some(i) => (i, defaultOpcode)
           case None => (defaultOpcode, defaultOpcode + 1)
         }
       for {
         default <- Result.mapOpt(data.default, computeDefaultValue)
-        setOpcodeOpt <- a.getNonnegativeIntValueOpt(data.setOpcode)
-        saveOpcodeOpt <- a.getNonnegativeIntValueOpt(data.saveOpcode)
+        setOpcodeOpt <- a.getNonnegativeBigIntValueOpt(data.setOpcode)
+        saveOpcodeOpt <- a.getNonnegativeBigIntValueOpt(data.saveOpcode)
       }
       yield {
         val (setOpcode, defaultOpcode1) = computeOpcode(setOpcodeOpt, defaultOpcode)

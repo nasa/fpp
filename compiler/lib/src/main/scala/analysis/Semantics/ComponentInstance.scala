@@ -8,8 +8,8 @@ final case class ComponentInstance(
   aNode: Ast.Annotated[AstNode[Ast.DefComponentInstance]],
   qualifiedName: Name.Qualified,
   component: Component,
-  baseId: Int,
-  maxId: Int,
+  baseId: BigInt,
+  maxId: BigInt,
   file: Option[String],
   queueSize: Option[Int],
   stackSize: Option[Int],
@@ -58,7 +58,7 @@ object ComponentInstance {
     for {
       component <- a.getComponent(data.component.id)
       componentKind <- Right(component.aNode._2.data.kind)
-      baseId <- a.getNonnegativeIntValue(data.baseId.id)
+      baseId <- a.getNonnegativeBigIntValue(data.baseId.id)
       file <- Right(data.file.map(getFile))
       queueSize <- getQueueSize(
         a,

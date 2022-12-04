@@ -172,8 +172,8 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
       val pairs = List(
         List (
           ("id", XmlWriterState.writeId(id)),
-          ("set_opcode", XmlWriterState.writeId(BigInt(param.setOpcode))),
-          ("save_opcode", XmlWriterState.writeId(BigInt(param.saveOpcode))),
+          ("set_opcode", XmlWriterState.writeId(param.setOpcode)),
+          ("save_opcode", XmlWriterState.writeId(param.saveOpcode)),
           ("name", data.name),
         ),
         TypeXmlWriter.getPairs(s, param.paramType, "data_type"),

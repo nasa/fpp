@@ -161,7 +161,7 @@ object CppWriter extends AstStateVisitor with LineUtils {
     name.toString.replaceAll("\\.", "::")
 
   /** Writes an identifier */
-  def writeId(id: Int): String = s"0x${Integer.toString(id, 16).toUpperCase}"
+  def writeId(id: BigInt): String = s"0x${id.toString(16).toUpperCase}"
 
   /** The phases of code generation */
   object Phases {
