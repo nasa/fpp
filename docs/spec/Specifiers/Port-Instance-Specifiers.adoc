@@ -174,13 +174,13 @@ These ports are defined by the F Prime framework.
 |`Fw.PrmSet`
 
 |`product` `recv`
-|`Fw.DpBuffer`
+|`Fw.DpBufferSend`
 
 |`product` `request`
-|`Fw.DpRequest`
+|`Fw.DpBufferRequest`
 
 |`product` `send`
-|`Fw.DpBuffer`
+|`Fw.DpBufferSend`
 
 |`telemetry`
 |`Fw.Tlm`

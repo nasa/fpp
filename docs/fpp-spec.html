@@ -3837,7 +3837,7 @@ If there are no parameters, the list may be omitted.
 <li>
 <p>The optional expression <em>e</em> following <code>id</code> specifies the numeric
 identifier for the event.
-If <em>e</em> is present, then type of <em>e</em> must be convertible to
+If <em>e</em> is present, then the type of <em>e</em> must be convertible to
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>, and <em>e</em> must evaluate
 to a nonnegative integer.
 If <em>e</em> is not present, then the default identifier is either zero (for the
@@ -4398,7 +4398,7 @@ component) or the previous parameter identifier plus one.</p>
 <li>
 <p>The optional expression <em>e</em> after the keywords <code>set</code> <code>opcode</code> specifies the
 opcode of the command for setting the parameter.
-If <em>e</em> is present, then type of <em>e</em> must be
+If <em>e</em> is present, then the type of <em>e</em> must be
 <a href="#Type-Checking_Type-Conversion">convertible to</a>
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
 If <em>e</em> is not present, then the default value is either zero (for
@@ -4716,15 +4716,15 @@ These ports are defined by the F Prime framework.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>product</code> <code>recv</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpBuffer</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpBufferSend</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>product</code> <code>request</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpRequest</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpBufferRequest</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>product</code> <code>send</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpBuffer</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpBufferSend</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>telemetry</code></p></td>
@@ -8427,7 +8427,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-11-15 14:21:16 -0800
+Last updated 2022-12-04 12:56:44 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
