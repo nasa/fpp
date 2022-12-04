@@ -235,12 +235,18 @@ case class Analysis(
     for (ts <- getTopologySymbol(id))
       yield this.topologyMap(ts)
 
-  /** Gets an int value from an AST node */
-  def getIntValue(id: AstNode.Id): Result.Result[Int] = {
+  /** Gets a BigInt value from an AST node */
+  def getBigIntValue(id: AstNode.Id): BigInt = {
     val Value.Integer(v) = Analysis.convertValueToType(
       valueMap(id),
       Type.Integer
     )
+    v
+  }
+
+  /** Gets an int value from an AST node */
+  def getIntValue(id: AstNode.Id): Result.Result[Int] = {
+    val v = getBigIntValue(id)
     if (v >= Int.MinValue && v <= Int.MaxValue) {
       Right(v.intValue)
     }
@@ -248,6 +254,17 @@ case class Analysis(
       val loc = Locations.get(id)
       Left(SemanticError.InvalidIntValue(loc, v, "value out of range"))
     }
+  }
+
+  /** Gets a nonnegative BigInt value from an AST node */
+  def getNonnegativeBigIntValue(id: AstNode.Id): Result.Result[BigInt] = {
+    val v = getBigIntValue(id)
+    if (v >= 0) Right(v)
+      else Left(SemanticError.InvalidIntValue(
+        Locations.get(id),
+        v,
+        "value may not be negative"
+      ))
   }
 
   /** Gets a nonnegative int value from an AST node */
@@ -262,13 +279,22 @@ case class Analysis(
            ))
     }
     yield v
- 
+
+  /** Gets an optional BigInt value from an AST node */
+  def getBigIntValueOpt[T](nodeOpt: Option[AstNode[T]]): Option[BigInt] =
+    nodeOpt.map((node: AstNode[T]) => getBigIntValue(node.id))
+
   /** Gets an optional int value from an AST node */
-  def getIntValueOpt[T](nodeOpt: Option[AstNode[T]]): Result.Result[Option[Int]] = 
+  def getIntValueOpt[T](nodeOpt: Option[AstNode[T]]): Result.Result[Option[Int]] =
     Result.mapOpt(nodeOpt, (node: AstNode[T]) => getIntValue(node.id))
 
+  /** Gets an optional nonnegative BigInt value from an AST ndoe */
+  def getNonnegativeBigIntValueOpt[T](nodeOpt: Option[AstNode[T]]):
+    Result.Result[Option[BigInt]] =
+    Result.mapOpt(nodeOpt, (node: AstNode[T]) => getNonnegativeBigIntValue(node.id))
+
   /** Gets an optional nonnegative int value from an AST ndoe */
-  def getNonnegativeIntValueOpt[T](nodeOpt: Option[AstNode[T]]): Result.Result[Option[Int]] = 
+  def getNonnegativeIntValueOpt[T](nodeOpt: Option[AstNode[T]]): Result.Result[Option[Int]] =
     Result.mapOpt(nodeOpt, (node: AstNode[T]) => getNonnegativeIntValue(node.id))
 
   /** Gets a bounded array size from an AST node */
@@ -284,7 +310,7 @@ case class Analysis(
     yield size
 
   /** Gets an optional unbounded array size */
-  def getUnboundedArraySizeOpt[T](nodeOpt: Option[AstNode[T]]): Result.Result[Option[Int]] = 
+  def getUnboundedArraySizeOpt[T](nodeOpt: Option[AstNode[T]]): Result.Result[Option[Int]] =
     Result.mapOpt(nodeOpt, (node: AstNode[T]) => getUnboundedArraySize(node.id))
 
   /** Gets an unbounded array size from an AST node */
@@ -376,7 +402,7 @@ object Analysis {
     def checkSize(format: Format) =
       if (format.fields.size < ts.size)
         Left(SemanticError.InvalidFormatString(loc, "missing replacement field"))
-      else if (format.fields.size > ts.size) 
+      else if (format.fields.size > ts.size)
         Left(SemanticError.InvalidFormatString(loc, "too many replacement fields"))
       else Right(())
     def checkNumericField(pair: (Type, Format.Field)) = {

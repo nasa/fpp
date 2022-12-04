@@ -31,9 +31,9 @@ object CheckComponentDefs
   ) = {
     val data = aNode._2.data
     for {
-      opcodeOpt <- a.getIntValueOpt(data.opcode)
+      opcodeOpt <- a.getNonnegativeBigIntValueOpt(data.opcode)
       command <- Command.fromSpecCommand(a, aNode)
-      component <- a.component.get.addCommand(opcodeOpt.map(BigInt.apply), command)
+      component <- a.component.get.addCommand(opcodeOpt, command)
     }
     yield a.copy(component = Some(component))
   }
