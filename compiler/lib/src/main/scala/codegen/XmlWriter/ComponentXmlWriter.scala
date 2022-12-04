@@ -54,7 +54,7 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
       val pairs = {
         val pairs1 = List(
           ("kind", writeKind(nonParam.kind)),
-          ("opcode", XmlWriterState.writeId(opcode)),
+          ("opcode", XmlWriterState.writeId(opcode.toInt)),
           ("mnemonic", data.name),
         )
         val priority = nonParam.kind match {

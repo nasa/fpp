@@ -14,7 +14,7 @@ case class Component(
   /** The map from command opcodes to commands */
   commandMap: Map[Command.Opcode, Command] = Map(),
   /** The next default opcode */
-  defaultOpcode: Int = 0,
+  defaultOpcode: BigInt = 0,
   /** The map from telemetry channel IDs to channels */
   tlmChannelMap: Map[TlmChannel.Id, TlmChannel] = Map(),
   /** The next default channel ID */
@@ -38,7 +38,7 @@ case class Component(
     def maxInMap[T](map: Map[Int, T]): Int =
       if (map.size == 0) -1 else map.keys.max
     val maxMap = Vector(
-      commandMap,
+      commandMap.map((k,v) => (k.toInt,v)),
       eventMap,
       paramMap,
       tlmChannelMap
@@ -67,7 +67,7 @@ case class Component(
     val opcode = opcodeOpt.getOrElse(defaultOpcode)
     commandMap.get(opcode) match {
       case Some(prevCommand) =>
-        val value = Analysis.displayIdValue(opcode)
+        val value = Analysis.displayIdValue(opcode.toInt)
         val loc = command.getLoc
         val prevLoc = prevCommand.getLoc
         Left(SemanticError.DuplicateOpcodeValue(value, loc, prevLoc))

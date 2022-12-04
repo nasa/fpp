@@ -16,7 +16,7 @@ sealed trait Command {
 
 object Command {
 
-  type Opcode = Int
+  type Opcode = BigInt
 
   /** A non-parameter command */
   final case class NonParam(

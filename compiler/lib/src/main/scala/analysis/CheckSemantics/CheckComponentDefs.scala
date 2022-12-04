@@ -33,7 +33,7 @@ object CheckComponentDefs
     for {
       opcodeOpt <- a.getIntValueOpt(data.opcode)
       command <- Command.fromSpecCommand(a, aNode)
-      component <- a.component.get.addCommand(opcodeOpt, command)
+      component <- a.component.get.addCommand(opcodeOpt.map(BigInt.apply), command)
     }
     yield a.copy(component = Some(component))
   }
@@ -71,7 +71,7 @@ object CheckComponentDefs
     val component = a.component.get
     for {
       idOpt <- a.getIntValueOpt(data.id)
-      param_defaultOpcode <- Param.fromSpecParam(a, aNode, component.defaultOpcode)
+      param_defaultOpcode <- Param.fromSpecParam(a, aNode, component.defaultOpcode.toInt)
       component <- {
         val (param, defaultOpcode) = param_defaultOpcode
         component.copy(defaultOpcode = defaultOpcode).addParam(idOpt, param)
