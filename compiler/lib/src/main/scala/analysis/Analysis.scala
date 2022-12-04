@@ -450,9 +450,9 @@ object Analysis {
     queueFullOpt.getOrElse(Ast.QueueFull.Assert)
 
   /** Displays an ID value */
-  def displayIdValue(value: Int): String = {
+  def displayIdValue(value: BigInt): String = {
     val dec = value.toString
-    val hex = Integer.toString(value, 16).toUpperCase
+    val hex = value.toString(16).toUpperCase
     s"($dec dec, $hex hex)"
   }
 

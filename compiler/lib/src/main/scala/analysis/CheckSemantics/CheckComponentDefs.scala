@@ -70,7 +70,7 @@ object CheckComponentDefs
     val data = aNode._2.data
     val component = a.component.get
     for {
-      idOpt <- a.getIntValueOpt(data.id)
+      idOpt <- a.getNonnegativeBigIntValueOpt(data.id)
       param_defaultOpcode <- Param.fromSpecParam(a, aNode, component.defaultOpcode.toInt)
       component <- {
         val (param, defaultOpcode) = param_defaultOpcode

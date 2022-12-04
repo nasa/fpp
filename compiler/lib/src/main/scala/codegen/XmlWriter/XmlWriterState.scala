@@ -121,6 +121,6 @@ case object XmlWriterState extends LineUtils {
     Line.addPrefixAndSuffix("<!-- ", lines(comment), " -->")
 
   /** Write an identifier */
-  def writeId(id: Int): String = s"0x${Integer.toString(id, 16).toUpperCase}"
+  def writeId(id: BigInt): String = s"0x${id.toString(16).toUpperCase}"
 
 }

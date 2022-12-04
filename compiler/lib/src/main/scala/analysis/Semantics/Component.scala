@@ -30,7 +30,7 @@ case class Component(
   /** The list of port matching constraints */
   portMatchingList: List[Component.PortMatching] = Nil,
   /** The next default parameter ID */
-  defaultParamId: Int = 0
+  defaultParamId: BigInt = 0
 ) {
 
   /** Gets the max identifier */
@@ -40,7 +40,7 @@ case class Component(
     val maxMap = Vector(
       commandMap.map((k,v) => (k.toInt,v)),
       eventMap.map((k,v) => (k.toInt,v)),
-      paramMap,
+      paramMap.map((k,v) => (k.toInt,v)),
       tlmChannelMap.map((k,v) => (k.toInt,v))
     ).maxBy(maxInMap)
     maxInMap(maxMap)
@@ -67,7 +67,7 @@ case class Component(
     val opcode = opcodeOpt.getOrElse(defaultOpcode)
     commandMap.get(opcode) match {
       case Some(prevCommand) =>
-        val value = Analysis.displayIdValue(opcode.toInt)
+        val value = Analysis.displayIdValue(opcode)
         val loc = command.getLoc
         val prevLoc = prevCommand.getLoc
         Left(SemanticError.DuplicateOpcodeValue(value, loc, prevLoc))
@@ -129,7 +129,7 @@ case class Component(
     val id = idOpt.getOrElse(defaultTlmChannelId)
     tlmChannelMap.get(id) match {
       case Some(prevTlmChannel) =>
-        val value = Analysis.displayIdValue(id.toInt)
+        val value = Analysis.displayIdValue(id)
         val loc = tlmChannel.getLoc
         val prevLoc = prevTlmChannel.getLoc
         Left(SemanticError.DuplicateIdValue(value, loc, prevLoc))
@@ -151,7 +151,7 @@ case class Component(
     val id = idOpt.getOrElse(defaultEventId)
     eventMap.get(id) match {
       case Some(prevEvent) =>
-        val value = Analysis.displayIdValue(id.toInt)
+        val value = Analysis.displayIdValue(id)
         val loc = event.getLoc
         val prevLoc = prevEvent.getLoc
         Left(SemanticError.DuplicateIdValue(value, loc, prevLoc))

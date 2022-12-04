@@ -22,7 +22,7 @@ final case class Param(
 
 object Param {
 
-  type Id = Int
+  type Id = BigInt
 
   /** Creates a parameter from a parameter specifier
    *  Returns the new default opcode */

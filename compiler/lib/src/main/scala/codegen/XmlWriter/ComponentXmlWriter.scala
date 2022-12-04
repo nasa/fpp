@@ -54,7 +54,7 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
       val pairs = {
         val pairs1 = List(
           ("kind", writeKind(nonParam.kind)),
-          ("opcode", XmlWriterState.writeId(opcode.toInt)),
+          ("opcode", XmlWriterState.writeId(opcode)),
           ("mnemonic", data.name),
         )
         val priority = nonParam.kind match {
@@ -108,7 +108,7 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
           typeNames
         )
         val pairs1 = List(
-          ("id", XmlWriterState.writeId(id.toInt)),
+          ("id", XmlWriterState.writeId(id)),
           ("name", data.name),
           ("severity", writeSeverity(data.severity)),
           ("format_string", format)
@@ -172,8 +172,8 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
       val pairs = List(
         List (
           ("id", XmlWriterState.writeId(id)),
-          ("set_opcode", XmlWriterState.writeId(param.setOpcode)),
-          ("save_opcode", XmlWriterState.writeId(param.saveOpcode)),
+          ("set_opcode", XmlWriterState.writeId(BigInt(param.setOpcode))),
+          ("save_opcode", XmlWriterState.writeId(BigInt(param.saveOpcode))),
           ("name", data.name),
         ),
         TypeXmlWriter.getPairs(s, param.paramType, "data_type"),
@@ -292,7 +292,7 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
       }
       val pairs = List(
         List(
-          ("id", XmlWriterState.writeId(id.toInt)),
+          ("id", XmlWriterState.writeId(id)),
           ("name", data.name),
         ),
         TypeXmlWriter.getPairs(s, tlmChannel.channelType, "data_type"),
