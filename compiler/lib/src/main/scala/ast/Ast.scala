@@ -531,6 +531,15 @@ object Ast {
     case object ParamSet extends SpecialKind {
       override def toString = "param set"
     }
+    case object ProductRecv extends SpecialKind {
+      override def toString = "product recv"
+    }
+    case object ProductRequest extends SpecialKind {
+      override def toString = "product request"
+    }
+    case object ProductSend extends SpecialKind {
+      override def toString = "product send"
+    }
     case object Telemetry extends SpecialKind {
       override def toString = "telemetry"
     }

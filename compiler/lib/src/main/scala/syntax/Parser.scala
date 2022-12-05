@@ -501,6 +501,9 @@ object Parser extends Parsers {
       event ^^ { case _ => Ast.SpecPortInstance.Event } |
       param ~ get ^^ { case _ => Ast.SpecPortInstance.ParamGet } |
       param ~ set ^^ { case _ => Ast.SpecPortInstance.ParamSet } |
+      product ~ recv ^^ { case _ => Ast.SpecPortInstance.ProductRecv } |
+      product ~ request ^^ { case _ => Ast.SpecPortInstance.ProductRequest } |
+      product ~ send ^^ { case _ => Ast.SpecPortInstance.ProductSend } |
       telemetry ^^ { case _ => Ast.SpecPortInstance.Telemetry } |
       text ~ event ^^ { case _ => Ast.SpecPortInstance.TextEvent } |
       time ~ get ^^ { case _ => Ast.SpecPortInstance.TimeGet }
@@ -836,6 +839,8 @@ object Parser extends Parsers {
 
   private def reg = accept("reg", { case t : Token.REG => t })
 
+  private def request = accept("request", { case t : Token.REQUEST => t })
+
   private def resp = accept("resp", { case t : Token.RESP => t })
 
   private def rparen = accept(")", { case t : Token.RPAREN => t })
@@ -843,6 +848,8 @@ object Parser extends Parsers {
   private def save = accept("save", { case t : Token.SAVE => t })
 
   private def semi = accept(";", { case t : Token.SEMI => t })
+
+  private def send = accept("send", { case t : Token.SEND => t })
 
   private def serial = accept("serial", { case t : Token.SERIAL => t })
 
