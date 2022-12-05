@@ -56,13 +56,14 @@ numbers up to some size _s_ and uses exponent notation for numbers larger than
 _s_.
 The value of _s_ is implementation-dependent.
 
-.. One of the replacement fields denoted above, but with a period and an integer 
-after the opening brace.
-The integer value specifies the *precision*, i.e., the number of digits after
+.. One of the replacement fields denoted above, but with a period and a literal
+decimal integer after the opening brace.
+The integer value _n_ specifies the *precision*, i.e., the number of digits after
 the decimal point for fixed-point notation, or before the `e` for exponent 
 notation.
 For example, the replacement field `{.3f}`, specifies fixed-point notation
 with a precision of 3.
+_n_ must be in the range [0,100].
 
 No other replacement fields are allowed.
 No other use of `{` or `}` is allowed, except in the escape sequences

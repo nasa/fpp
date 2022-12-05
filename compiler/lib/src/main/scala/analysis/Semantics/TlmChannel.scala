@@ -23,7 +23,7 @@ final case class TlmChannel(
 
 object TlmChannel {
 
-  type Id = Int
+  type Id = BigInt
 
   type Limits = Map[Ast.SpecTlmChannel.LimitKind, (AstNode.Id, Value)]
 

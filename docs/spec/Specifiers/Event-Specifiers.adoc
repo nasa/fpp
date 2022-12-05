@@ -57,7 +57,8 @@ argument whose type is a <<Types_Internal-Types_Numeric-Types,numeric type>>.
 * The optional expression _e_ following `throttle` specifies the maximum number
 of times to emit the event before throttling it.
 The type of _e_ must be convertible to 
-<<Types_Internal-Types_Integer,_Integer_>>.
+<<Types_Internal-Types_Integer,_Integer_>> and must evaluate to an integer
+in the range [0,2^31^).
 
 ==== Examples
 

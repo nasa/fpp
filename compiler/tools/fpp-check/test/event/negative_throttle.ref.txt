@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/event/negative_throttle.fpp: 3.52
+  event E severity activity low format "" throttle -1
+                                                   ^
+error: invalid integer value -1
+value may not be negative

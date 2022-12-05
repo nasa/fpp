@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/port_numbering/negative_port_number.fpp: 33.14
+    c1.p1Out[-1] -> c2.p1In
+             ^
+error: invalid integer value -1
+value may not be negative
