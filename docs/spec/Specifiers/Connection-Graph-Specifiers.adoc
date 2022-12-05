@@ -97,8 +97,8 @@ _e_ must
 <<Evaluation,evaluate>> to a compile-time constant
 that becomes a non-negative integer _n_ when 
 <<Evaluation_Type-Conversion,converted to>> type _Integer_.
-_n_ must be in bounds for the array size of 
-the port instance specifier named in _I_.
+_n_ must lie in the range [0,2^31^] and must be in bounds for the
+array size of the port instance specifier named in _I_.
 
 .. The arrow represents the direction of the connection (left to right).
 
