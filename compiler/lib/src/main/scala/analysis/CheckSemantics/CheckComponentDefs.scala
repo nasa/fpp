@@ -31,7 +31,7 @@ object CheckComponentDefs
   ) = {
     val data = aNode._2.data
     for {
-      opcodeOpt <- a.getIntValueOpt(data.opcode)
+      opcodeOpt <- a.getNonnegativeBigIntValueOpt(data.opcode)
       command <- Command.fromSpecCommand(a, aNode)
       component <- a.component.get.addCommand(opcodeOpt, command)
     }
@@ -52,7 +52,7 @@ object CheckComponentDefs
   ) = {
     val data = aNode._2.data
     for {
-      idOpt <- a.getIntValueOpt(data.id)
+      idOpt <- a.getNonnegativeBigIntValueOpt(data.id)
       event <- Event.fromSpecEvent(a, aNode)
       component <- a.component.get.addEvent(idOpt, event)
     }
@@ -78,8 +78,8 @@ object CheckComponentDefs
     val data = aNode._2.data
     val component = a.component.get
     for {
-      idOpt <- a.getIntValueOpt(data.id)
-      param_defaultOpcode <- Param.fromSpecParam(a, aNode, component.defaultOpcode)
+      idOpt <- a.getNonnegativeBigIntValueOpt(data.id)
+      param_defaultOpcode <- Param.fromSpecParam(a, aNode, component.defaultOpcode.toInt)
       component <- {
         val (param, defaultOpcode) = param_defaultOpcode
         component.copy(defaultOpcode = defaultOpcode).addParam(idOpt, param)
@@ -123,7 +123,7 @@ object CheckComponentDefs
   ) = {
     val data = aNode._2.data
     for {
-      idOpt <- a.getIntValueOpt(data.id)
+      idOpt <- a.getNonnegativeBigIntValueOpt(data.id)
       tlmChannel <- TlmChannel.fromSpecTlmChannel(a, aNode)
       component <- a.component.get.addTlmChannel(idOpt, tlmChannel)
     }

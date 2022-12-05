@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/param/negative_save_opcode.fpp: 3.28
+  param P: U32 save opcode -1
+                           ^
+error: invalid integer value -1
+value may not be negative

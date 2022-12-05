@@ -442,10 +442,10 @@ object SemanticError {
   ) extends Error
   /** Overlapping ID ranges */
   final case class OverlappingIdRanges(
-    maxId1: Int,
+    maxId1: BigInt,
     name1: String,
     loc1: Location,
-    baseId2: Int,
+    baseId2: BigInt,
     name2: String,
     loc2: Location
   ) extends Error

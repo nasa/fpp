@@ -3478,8 +3478,8 @@ The type of <em>e</em> must be a
 <a href="#Evaluation">evaluate</a> to a compile-time constant
 that becomes a non-negative integer <em>n</em> when
 <a href="#Evaluation_Type-Conversion">converted to</a> type <em>Integer</em>.
-<em>n</em> must be in bounds for the array size of
-the port instance specifier named in <em>I</em>.</p>
+<em>n</em> must lie in the range [0,2<sup>31</sup>) and must be in bounds for the
+array size of the port instance specifier named in <em>I</em>.</p>
 </li>
 </ol>
 </div>
@@ -3829,7 +3829,8 @@ argument whose type is a <a href="#Types_Internal-Types_Numeric-Types">numeric t
 <p>The optional expression <em>e</em> following <code>throttle</code> specifies the maximum number
 of times to emit the event before throttling it.
 The type of <em>e</em> must be convertible to
-<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.</p>
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a> and must evaluate to an integer
+in the range [0,2<sup>31</sup>).</p>
 </li>
 </ul>
 </div>
@@ -5357,7 +5358,7 @@ string size 256</code></pre>
 <p>The optional expression following the keyword <code>size</code> is called the <strong>size
 expression</strong> of the string type name.  If present, it must have a
 <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>, and it must
-evaluate to a value greater than zero after conversion to
+evaluate to a value in the range [0,2<sup>31</sup>) after conversion to
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
 The size expression specifies the maximum
 length of a string value represented by the type.  If the size expression is
@@ -6111,13 +6112,14 @@ numbers up to some size <em>s</em> and uses exponent notation for numbers larger
 The value of <em>s</em> is implementation-dependent.</p>
 </li>
 <li>
-<p>One of the replacement fields denoted above, but with a period and an integer
-after the opening brace.
-The integer value specifies the <strong>precision</strong>, i.e., the number of digits after
+<p>One of the replacement fields denoted above, but with a period and a literal
+decimal integer after the opening brace.
+The integer value <em>n</em> specifies the <strong>precision</strong>, i.e., the number of digits after
 the decimal point for fixed-point notation, or before the <code>e</code> for exponent
 notation.
 For example, the replacement field <code>{.3f}</code>, specifies fixed-point notation
-with a precision of 3.</p>
+with a precision of 3.
+<em>n</em> must be in the range [0,100].</p>
 </li>
 </ol>
 </div>
@@ -7021,7 +7023,7 @@ are called the <strong>primitive types</strong>.</p>
 <p>The <strong>string types</strong> correspond to the
 <a href="#Type-Names_String-Type-Names">string type names</a>.
 A string type is written <code>string</code> or <code>string size</code> <em>n</em>,
-where <em>n</em> is an integer value greater than zero.
+where <em>n</em> is an integer value in the range [0,2<sup>31</sup>].
 There is one string type <code>string</code> and one string type <code>string</code> <em>n</em>
 for each legal value of <em>n</em>.</p>
 </div>
@@ -8366,7 +8368,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-11-14 14:40:16 -0800
+Last updated 2022-12-05 10:08:47 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

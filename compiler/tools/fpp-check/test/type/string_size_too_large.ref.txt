@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/type/string_size_too_large.fpp: 1.27
+array A = [3] string size 0x80000000
+                          ^
+error: invalid string size 2147483648

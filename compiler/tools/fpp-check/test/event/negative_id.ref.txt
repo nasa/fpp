@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/event/negative_id.fpp: 3.36
+  event E severity activity low id -1 format ""
+                                   ^
+error: invalid integer value -1
+value may not be negative

@@ -142,7 +142,7 @@ object Connection {
     ): Result.Result[Endpoint] = for {
       pid <- PortInstanceIdentifier.fromNode(a, port)
       _ <- pid.portInstance.requireConnectionAt(Locations.get(port.id))
-      pn <- a.getIntValueOpt(portNumber)
+      pn <- a.getNonnegativeIntValueOpt(portNumber)
       endpoint <- Right(Endpoint(Locations.get(port.id), pid, pn))
       _ <- portNumber match {
         case Some(pn) => endpoint.checkPortNumber(Locations.get(pn.id))

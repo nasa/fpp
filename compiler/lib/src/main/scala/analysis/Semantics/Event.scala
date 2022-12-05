@@ -20,7 +20,7 @@ final case class Event(
 
 object Event {
 
-  type Id = Int
+  type Id = BigInt
 
   /** Creates a event from an event specifier */
   def fromSpecEvent(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecEvent]]):

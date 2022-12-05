@@ -19,7 +19,7 @@ final case class Container(
 
 object Container {
 
-  type Id = Int
+  type Id = BigInt
 
   /** Creates a container from a container specifier */
   def fromSpecContainer(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecContainer]]):
