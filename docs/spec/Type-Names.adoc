@@ -10,30 +10,30 @@ For example, depending on the enclosing scope, the name
 
 === Primitive Integer Type Names
 
-*Primitive integer type names* are the names of the 
+*Primitive integer type names* are the names of the
 <<Types_Primitive-Integer-Types,primitive integer types>>.
 There are two kinds of primitive
 integer types: unsigned integer types and signed integer types.
 
-* The names of the unsigned integer types are `U8`, `U16`, `U32`, and `U64`. 
+* The names of the unsigned integer types are `U8`, `U16`, `U32`, and `U64`.
 The `U` stands for "`unsigned.`" The number after the U is the width of the
 representation in bits, using the standard binary representation of an
 unsigned integer.
 
-* The names of the signed integer types are `I8`, `I16`, `I32`, and `I64`. The 
+* The names of the signed integer types are `I8`, `I16`, `I32`, and `I64`. The
 `I` stands for "`[signed] integer.`" The number after the I is the width of
 the representation in bits, using the standard binary two's complement
 representation of a signed integer.
 
 === Floating-Point Type Names
 
-The *floating-point type names* are `F32` and `F64`. These refer to the types 
+The *floating-point type names* are `F32` and `F64`. These refer to the types
 of IEEE
 floating-point values of width 32 and 64 bits, respectively.
 
 === The Boolean Type Name
 
-The type name `bool` represents the type of the two Boolean values `true` and 
+The type name `bool` represents the type of the two Boolean values `true` and
 `false`.
 
 === String Type Names
@@ -48,9 +48,9 @@ string size 256
 ----
 
 The optional expression following the keyword `size` is called the *size
-expression* of the string type name.  If present, it must have a 
+expression* of the string type name.  If present, it must have a
 <<Types_Internal-Types_Numeric-Types,numeric type>>, and it must
-evaluate to a value greater than zero after conversion to 
+evaluate to a value in the range [0,2^31^) after conversion to
 <<Types_Internal-Types_Integer,_Integer_>>.
 The size expression specifies the maximum
 length of a string value represented by the type.  If the size expression is

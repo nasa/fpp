@@ -5185,7 +5185,7 @@ string size 256</code></pre>
 <p>The optional expression following the keyword <code>size</code> is called the <strong>size
 expression</strong> of the string type name.  If present, it must have a
 <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>, and it must
-evaluate to a value greater than zero after conversion to
+evaluate to a value in the range [0,2<sup>31</sup>) after conversion to
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
 The size expression specifies the maximum
 length of a string value represented by the type.  If the size expression is
@@ -6849,7 +6849,7 @@ are called the <strong>primitive types</strong>.</p>
 <p>The <strong>string types</strong> correspond to the
 <a href="#Type-Names_String-Type-Names">string type names</a>.
 A string type is written <code>string</code> or <code>string size</code> <em>n</em>,
-where <em>n</em> is an integer value greater than zero.
+where <em>n</em> is an integer value in the range [0,2<sup>31</sup>].
 There is one string type <code>string</code> and one string type <code>string</code> <em>n</em>
 for each legal value of <em>n</em>.</p>
 </div>
@@ -8194,7 +8194,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-12-05 08:41:57 -0800
+Last updated 2022-12-05 09:07:36 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
