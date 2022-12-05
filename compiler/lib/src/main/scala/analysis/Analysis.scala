@@ -407,13 +407,28 @@ object Analysis {
       else Right(())
     def checkNumericField(pair: (Type, Format.Field)) = {
       val (t, field) = pair
-      if (field.isInteger && !t.isInt) {
-        val loc = Locations.get(node.id)
-        Left(SemanticError.InvalidFormatString(loc, s"$t is not an integer type"))
-      } else if (field.isRational && !t.isFloat) {
-        val loc = Locations.get(node.id)
-        Left(SemanticError.InvalidFormatString(loc, s"$t is not a floating-point type"))
-      } else Right(())
+      val loc = Locations.get(node.id)
+      for {
+        _ <- if (field.isInteger && !t.isInt)
+               Left(SemanticError.InvalidFormatString(loc, s"$t is not an integer type"))
+             else Right(())
+        _ <- field match {
+               case Format.Field.Rational(Some(precision), _) =>
+                 if (precision > Format.Field.Rational.maxPrecision)
+                   Left(
+                     SemanticError.InvalidFormatString(
+                       loc,
+                       s"precision value $precision is out of range"
+                     )
+                   )
+                 else Right(())
+               case _ => Right(())
+             }
+        _ <- if (field.isRational && !t.isFloat)
+               Left(SemanticError.InvalidFormatString(loc, s"$t is not a floating-point type"))
+             else Right(())
+      }
+      yield ()
     }
     for {
       format <- Format.Parser.parseNode(node)

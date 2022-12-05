@@ -5939,13 +5939,14 @@ numbers up to some size <em>s</em> and uses exponent notation for numbers larger
 The value of <em>s</em> is implementation-dependent.</p>
 </li>
 <li>
-<p>One of the replacement fields denoted above, but with a period and an integer
-after the opening brace.
-The integer value specifies the <strong>precision</strong>, i.e., the number of digits after
+<p>One of the replacement fields denoted above, but with a period and a literal
+decimal integer after the opening brace.
+The integer value <em>n</em> specifies the <strong>precision</strong>, i.e., the number of digits after
 the decimal point for fixed-point notation, or before the <code>e</code> for exponent
 notation.
 For example, the replacement field <code>{.3f}</code>, specifies fixed-point notation
-with a precision of 3.</p>
+with a precision of 3.
+<em>n</em> must be in the range [0,100].</p>
 </li>
 </ol>
 </div>
@@ -8194,7 +8195,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-12-05 09:07:36 -0800
+Last updated 2022-12-05 09:44:13 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

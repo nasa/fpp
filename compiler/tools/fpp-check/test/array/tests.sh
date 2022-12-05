@@ -13,6 +13,7 @@ format_missing_repl
 format_not_numeric
 format_numeric
 format_ok
+format_precision_too_large
 format_too_many_repls
 invalid_size
 string_size_default_ok
