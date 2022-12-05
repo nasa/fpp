@@ -37,11 +37,13 @@ object Format {
       case object Octal extends Type
     }
 
-    case class Rational(precision: Option[Int], t: Rational.Type) extends Field {
+    case class Rational(precision: Option[BigInt], t: Rational.Type) extends Field {
       override def isRational = true
     }
 
     object Rational {
+      /** The maximum allowed precision */
+      val maxPrecision = 100
       sealed trait Type
       case object Exponent extends Type
       case object Fixed extends Type
@@ -62,7 +64,7 @@ object Format {
       }
     }
 
-    def precision: Parser[Int] = "." ~>! "[0-9]+".r  ^^ { _.toInt }
+    def precision: Parser[BigInt] = "." ~>! "[0-9]+".r  ^^ { BigInt(_) }
 
     def field: Parser[Field] = positioned {
       def default = "{}" ^^ { case _ => Field.Default }

@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/command/negative_opcode.fpp: 3.26
+  async command C opcode -1
+                         ^
+error: invalid integer value -1
+value may not be negative

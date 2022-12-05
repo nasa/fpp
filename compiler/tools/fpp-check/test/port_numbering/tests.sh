@@ -3,5 +3,6 @@ duplicate_connection
 duplicate_output_port
 mismatched_port_numbers
 ok
+negative_port_number
 too_many_output_ports
 "

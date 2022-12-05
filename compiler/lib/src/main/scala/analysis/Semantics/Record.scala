@@ -19,7 +19,7 @@ final case class Record(
 
 object Record {
 
-  type Id = Int
+  type Id = BigInt
 
   /** Creates a record from a record specifier */
   def fromSpecRecord(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecRecord]]):

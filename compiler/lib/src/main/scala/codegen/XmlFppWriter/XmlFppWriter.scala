@@ -24,7 +24,7 @@ object XmlFppWriter extends LineUtils {
     def semanticError(message: String): Error = error(XmlError.SemanticError(_, message))
 
     /** Gets an attribute from a node, returning an error if it is not there */
-    def getAttribute(node: scala.xml.Node, name: String): Result.Result[String] = 
+    def getAttribute(node: scala.xml.Node, name: String): Result.Result[String] =
       getAttributeOpt(node, name) match {
         case Some(s) => Right(s)
         case None => Left(semanticError(s"missing attribute $name for node ${node.toString}"))
@@ -54,12 +54,12 @@ object XmlFppWriter extends LineUtils {
         }
 
     /** Gets the integer value attribute from a node */
-    def getIntegerValueAttribute(defaultValue: Int)(node: scala.xml.Node):
-      Result.Result[Int]= 
+    def getIntegerValueAttribute(defaultValue: BigInt)(node: scala.xml.Node):
+      Result.Result[BigInt]=
       getAttributeOpt(node, "value") match {
-        case Some(value) => 
-          try { 
-            Right(value.toInt) 
+        case Some(value) =>
+          try {
+            Right(BigInt(value))
           } catch {
             case _: Exception => Left(
               semanticError(s"invalid value $value for node ${node.toString}")
@@ -171,9 +171,9 @@ object XmlFppWriter extends LineUtils {
     }
 
   /** Gets an optional attribute */
-  def getAttributeOpt(node: scala.xml.Node, name: String): Option[String] = 
+  def getAttributeOpt(node: scala.xml.Node, name: String): Option[String] =
     node.attribute(name).map(_.toList.head.toString)
-  
+
   /** Writes a file list */
   def writeFileList(fileList: List[File]): Result.Result[List[Line]] = {
     for (files <- Result.map(fileList, (file: File) => file.write))
@@ -197,7 +197,7 @@ object XmlFppWriter extends LineUtils {
   ).head
 
   /** Transforms an annotated AST node */
-  def transformNode[A,B](transform: AstNode[A] => B)(a: Ast.Annotated[A]): (List[String], B, List[String]) = 
+  def transformNode[A,B](transform: AstNode[A] => B)(a: Ast.Annotated[A]): (List[String], B, List[String]) =
     (a._1, transform(AstNode.create(a._2)), a._3)
 
   /** Builds a list of TU members from a list of annotated A elements
@@ -229,7 +229,7 @@ object XmlFppWriter extends LineUtils {
       }
     }
     memberNodes.map(Ast.TUMember(_))
-  }      
+  }
 
   /** Utilities for constructing FPP ASTs */
   object FppBuilder {
@@ -237,7 +237,7 @@ object XmlFppWriter extends LineUtils {
     /** Encloses a list of module members with a module inside a trans unit */
     def encloseWithTuMemberModule
       (name: String)
-      (members: List[Ast.Annotated[Ast.ModuleMember.Node]]): 
+      (members: List[Ast.Annotated[Ast.ModuleMember.Node]]):
       Ast.Annotated[Ast.TUMember.Node] =
         encloseWithModule(Ast.TUMember.DefModule.apply)(name)(members)
 
@@ -261,11 +261,11 @@ object XmlFppWriter extends LineUtils {
     }
 
     /** Translates a qualified identifier type */
-    def translateQualIdentType(xmlType: String): Ast.TypeNameQualIdent = 
+    def translateQualIdentType(xmlType: String): Ast.TypeNameQualIdent =
       Ast.TypeNameQualIdent(translateQualIdent(xmlType))
 
     /** Translates a qualified identifier */
-    def translateQualIdent(xmlQid: String): AstNode[Ast.QualIdent] = 
+    def translateQualIdent(xmlQid: String): AstNode[Ast.QualIdent] =
       AstNode.create(
         Ast.QualIdent.fromNodeList(
           xmlQid.split("::").toList.map(AstNode.create(_))
@@ -318,7 +318,7 @@ object XmlFppWriter extends LineUtils {
         case ("true", Ast.TypeNameBool) => Some(Ast.ExprLiteralBool(Ast.LiteralBool.True))
         case ("false", Ast.TypeNameBool) => Some(Ast.ExprLiteralBool(Ast.LiteralBool.False))
         case (_, Ast.TypeNameString(_)) => Some(Ast.ExprLiteralString(xmlValue.replaceAll("^\"|\"$", "")))
-        case _ => 
+        case _ =>
           if ("[^A-Za-z0-9_:]".r.findAllIn(xmlValue).length > 0)
             // Not a qualified identifier -- don't translate
             None
@@ -339,7 +339,7 @@ object XmlFppWriter extends LineUtils {
       (memberTypeConstructor: AstNode[Ast.DefModule] => MemberType)
       (name:String)
       (memberNodes: List[Ast.Annotated[Ast.ModuleMember.Node]]):
-      Ast.Annotated[MemberType] = 
+      Ast.Annotated[MemberType] =
     {
       val members = memberNodes.map(Ast.ModuleMember(_))
       val defModule = Ast.DefModule(name, members)
@@ -373,9 +373,9 @@ object XmlFppWriter extends LineUtils {
       /** Translates an enum constant node */
       def defEnumConstantNodeAnnotated
         (file: XmlFppWriter.File)
-        (defaultValue: Int)
+        (defaultValue: BigInt)
         (node: scala.xml.Node):
-        Result.Result[(Ast.Annotated[AstNode[Ast.DefEnumConstant]], Int)] =
+        Result.Result[(Ast.Annotated[AstNode[Ast.DefEnumConstant]], BigInt)] =
       {
         for {
           name <- file.getAttribute(node, "name")
@@ -396,12 +396,12 @@ object XmlFppWriter extends LineUtils {
       def defEnumConstantNodeAnnotatedList
         (file: XmlFppWriter.File)
         (enumNode: scala.xml.Node):
-        Result.Result[List[Ast.Annotated[AstNode[Ast.DefEnumConstant]]]] = 
+        Result.Result[List[Ast.Annotated[AstNode[Ast.DefEnumConstant]]]] =
       {
         val items = (enumNode \ "item").toList
         def fold(
           nodes: List[scala.xml.Node],
-          defaultValue: Int,
+          defaultValue: BigInt,
           out: List[Ast.Annotated[AstNode[Ast.DefEnumConstant]]]
         ): Result.Result[List[Ast.Annotated[AstNode[Ast.DefEnumConstant]]]] = {
           nodes match {
@@ -412,7 +412,7 @@ object XmlFppWriter extends LineUtils {
             }
           }
         }
-        fold(items, 0, Nil)
+        fold(items, BigInt(0), Nil)
       }
 
     }

@@ -14,15 +14,15 @@ case class Component(
   /** The map from command opcodes to commands */
   commandMap: Map[Command.Opcode, Command] = Map(),
   /** The next default opcode */
-  defaultOpcode: Int = 0,
+  defaultOpcode: BigInt = 0,
   /** The map from telemetry channel IDs to channels */
   tlmChannelMap: Map[TlmChannel.Id, TlmChannel] = Map(),
   /** The next default channel ID */
-  defaultTlmChannelId: Int = 0,
+  defaultTlmChannelId: BigInt = 0,
   /** The map from event IDs to events */
   eventMap: Map[Event.Id, Event] = Map(),
   /** The next default event ID */
-  defaultEventId: Int = 0,
+  defaultEventId: BigInt = 0,
   /** The map from parameter IDs to parameters */
   paramMap: Map[Param.Id, Param] = Map(),
   /** The list of port matching specifiers */
@@ -30,7 +30,7 @@ case class Component(
   /** The list of port matching constraints */
   portMatchingList: List[Component.PortMatching] = Nil,
   /** The next default parameter ID */
-  defaultParamId: Int = 0,
+  defaultParamId: BigInt = 0,
   /** The map from container ids to containers */
   containerMap: Map[Container.Id, Container] = Map(),
   /** The next default container ID */
@@ -42,8 +42,8 @@ case class Component(
 ) {
 
   /** Gets the max identifier */
-  def getMaxId: Int = {
-    def maxInMap[T](map: Map[Int, T]): Int =
+  def getMaxId: BigInt = {
+    def maxInMap[T](map: Map[BigInt, T]): BigInt =
       if (map.size == 0) -1 else map.keys.max
     val maxMap = Vector(
       commandMap,

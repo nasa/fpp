@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/event/throttle_too_large.fpp: 3.52
+  event E severity activity low format "" throttle 0x80000000
+                                                   ^
+error: invalid integer value 2147483648
+value out of range

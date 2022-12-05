@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/array/format_precision_too_large.fpp: 1.26
+array A = [3] F32 format "{.1000f}"
+                         ^
+error: invalid format string: precision value 1000 is out of range
