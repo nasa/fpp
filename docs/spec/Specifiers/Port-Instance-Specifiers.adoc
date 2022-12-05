@@ -61,6 +61,12 @@ _special-port-kind_ is one of the following:
 
 . `param` `set`
 
+. `product` `recv`
+
+. `product` `request`
+
+. `product` `send`
+
 . `telemetry`
 
 . `text` `event`
@@ -71,7 +77,7 @@ The following port instances are *input port instances*:
 
 * Any general port with `input` in its name.
 
-* Special port `command recv`.
+* Special ports `command recv` and `product recv`.
 
 The others are *output port instances*.
 
@@ -132,8 +138,12 @@ This specifier is valid only for `async input` ports.
 If no specifier appears, then the default behavior is `assert`.
 
 *Special port instances:*
-These port instances correspond to the "role ports" in the F Prime XML model.
-Their types and other attributes are specified by F Prime.
+The port instance whose names begin with `product` are for managing
+data products.
+The other special port instances correspond to the "role ports"
+in the F Prime XML model.
+
+The types and other attributes of the special ports are specified by F Prime.
 The identifier specifies the name of the port.
 
 There must be at most one of each kind of special port instance.
@@ -163,6 +173,15 @@ These ports are defined by the F Prime framework.
 |`param` `set`
 |`Fw.PrmSet`
 
+|`product` `recv`
+|`Fw.DpBufferSend`
+
+|`product` `request`
+|`Fw.DpBufferRequest`
+
+|`product` `send`
+|`Fw.DpBufferSend`
+
 |`telemetry`
 |`Fw.Tlm`
 
@@ -171,6 +190,7 @@ These ports are defined by the F Prime framework.
 
 |`time` `get`
 |`Fw.Time`
+
 |===
 
 ==== Examples
@@ -227,4 +247,14 @@ telemetry port tlmOut
 
 @ A port for getting the current time
 time get port timeGetOut
+
+@ A port for receiving requested data product buffers
+product recv port productRecvIn
+
+@ A port for requesting data product buffers
+product request port productRequestOut
+
+@ A port for sending data products
+product send port productSendOut
+
 ----

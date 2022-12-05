@@ -104,6 +104,10 @@ specifier, internal port specifier, or `async` command specifier.
 
 |If there are any telemetry specifiers
 |There must be specifiers for ports `telemetry` and `time get`.
+
+|If there are any data product specifiers
+|There must be specifiers for ports `product` `request`, `product` `recv`,
+and `product` `send`.
 |===
 
 The dictionary specifiers must satisfy the following rules:
@@ -184,6 +188,15 @@ active component CommandDispatcher {
   @ Time get port
   time get port timeGetOut
 
+  @ Product request port
+  product request port productRequestOut
+
+  @ Product receive port
+  product recv port productRecvOut
+
+  @ Product send port
+  product send port productSendOut
+
   # ----------------------------------------------------------------------
   # Commands 
   # ----------------------------------------------------------------------
@@ -228,6 +241,16 @@ active component CommandDispatcher {
 
   @ Number of command errors
   telemetry CommandErrors: U32 update on change
+
+  # ----------------------------------------------------------------------
+  # Data products
+  # ----------------------------------------------------------------------
+
+  @ A container for images
+  product container Images
+
+  @ A record for holding an image
+  product record ImageRecord: Image
 
 }
 ----

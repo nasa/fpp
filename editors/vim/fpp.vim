@@ -64,8 +64,10 @@ syn keyword fppKeyword recv
 syn keyword fppKeyword red
 syn keyword fppKeyword ref
 syn keyword fppKeyword reg
+syn keyword fppKeyword request
 syn keyword fppKeyword resp
 syn keyword fppKeyword save
+syn keyword fppKeyword send
 syn keyword fppKeyword serial
 syn keyword fppKeyword set
 syn keyword fppKeyword severity

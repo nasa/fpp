@@ -1037,8 +1037,10 @@ recv
 red
 ref
 reg
+request
 resp
 save
+send
 serial
 set
 severity
@@ -1726,6 +1728,11 @@ specifier, internal port specifier, or <code>async</code> command specifier.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">If there are any telemetry specifiers</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">There must be specifiers for ports <code>telemetry</code> and <code>time get</code>.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If there are any data product specifiers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">There must be specifiers for ports <code>product</code> <code>request</code>, <code>product</code> <code>recv</code>,
+and <code>product</code> <code>send</code>.</p></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -1823,6 +1830,15 @@ active component CommandDispatcher {
   @ Time get port
   time get port timeGetOut
 
+  @ Product request port
+  product request port productRequestOut
+
+  @ Product receive port
+  product recv port productRecvOut
+
+  @ Product send port
+  product send port productSendOut
+
   # ----------------------------------------------------------------------
   # Commands
   # ----------------------------------------------------------------------
@@ -1867,6 +1883,16 @@ active component CommandDispatcher {
 
   @ Number of command errors
   telemetry CommandErrors: U32 update on change
+
+  # ----------------------------------------------------------------------
+  # Data products
+  # ----------------------------------------------------------------------
+
+  @ A container for images
+  product container Images
+
+  @ A record for holding an image
+  product record ImageRecord: Image
 
 }</code></pre>
 </div>
@@ -3811,7 +3837,7 @@ If there are no parameters, the list may be omitted.
 <li>
 <p>The optional expression <em>e</em> following <code>id</code> specifies the numeric
 identifier for the event.
-If <em>e</em> is present, then type of <em>e</em> must be convertible to
+If <em>e</em> is present, then the type of <em>e</em> must be convertible to
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>, and <em>e</em> must evaluate
 to a nonnegative integer.
 If <em>e</em> is not present, then the default identifier is either zero (for the
@@ -4373,7 +4399,7 @@ component) or the previous parameter identifier plus one.</p>
 <li>
 <p>The optional expression <em>e</em> after the keywords <code>set</code> <code>opcode</code> specifies the
 opcode of the command for setting the parameter.
-If <em>e</em> is present, then type of <em>e</em> must be
+If <em>e</em> is present, then the type of <em>e</em> must be
 <a href="#Type-Checking_Type-Conversion">convertible to</a>
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
 If <em>e</em> is not present, then the default value is either zero (for
@@ -4518,6 +4544,15 @@ of a
 <p><code>param</code> <code>set</code></p>
 </li>
 <li>
+<p><code>product</code> <code>recv</code></p>
+</li>
+<li>
+<p><code>product</code> <code>request</code></p>
+</li>
+<li>
+<p><code>product</code> <code>send</code></p>
+</li>
+<li>
 <p><code>telemetry</code></p>
 </li>
 <li>
@@ -4537,7 +4572,7 @@ of a
 <p>Any general port with <code>input</code> in its name.</p>
 </li>
 <li>
-<p>Special port <code>command recv</code>.</p>
+<p>Special ports <code>command recv</code> and <code>product recv</code>.</p>
 </li>
 </ul>
 </div>
@@ -4627,8 +4662,13 @@ If no specifier appears, then the default behavior is <code>assert</code>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Special port instances:</strong>
-These port instances correspond to the "role ports" in the F Prime XML model.
-Their types and other attributes are specified by F Prime.
+The port instance whose names begin with <code>product</code> are for managing
+data products.
+The other special port instances correspond to the "role ports"
+in the F Prime XML model.</p>
+</div>
+<div class="paragraph">
+<p>The types and other attributes of the special ports are specified by F Prime.
 The identifier specifies the name of the port.</p>
 </div>
 <div class="paragraph">
@@ -4674,6 +4714,18 @@ These ports are defined by the F Prime framework.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>param</code> <code>set</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.PrmSet</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>product</code> <code>recv</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpBufferSend</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>product</code> <code>request</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpBufferRequest</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>product</code> <code>send</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpBufferSend</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>telemetry</code></p></td>
@@ -4745,7 +4797,16 @@ param set port paramSetOut
 telemetry port tlmOut
 
 @ A port for getting the current time
-time get port timeGetOut</code></pre>
+time get port timeGetOut
+
+@ A port for receiving requested data product buffers
+product recv port productRecvIn
+
+@ A port for requesting data product buffers
+product request port productRequestOut
+
+@ A port for sending data products
+product send port productSendOut</code></pre>
 </div>
 </div>
 </div>
@@ -8368,7 +8429,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-12-05 10:08:47 -0800
+Last updated 2022-12-05 10:18:31 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

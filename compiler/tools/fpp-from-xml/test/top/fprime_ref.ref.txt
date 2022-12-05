@@ -134,7 +134,7 @@ topology Ref {
     uplink.bufferDeallocate[0] -> fileUplinkBufferManager.bufferSendIn[0]
     fileUplink.bufferSendOut[0] -> fileUplinkBufferManager.bufferSendIn[0]
     downlink.framedAllocate[0] -> staticMemory.bufferAllocate[1]
-    downlink.framedOut[0] -> comm.send[0]
+    downlink.framedOut[0] -> comm.$send[0]
     comm.deallocate[0] -> staticMemory.bufferDeallocate[1]
     eventLogger.PktSend[0] -> downlink.comIn[0]
     chanTlm.PktSend[0] -> downlink.comIn[0]
