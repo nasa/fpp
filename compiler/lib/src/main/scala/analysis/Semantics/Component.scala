@@ -179,8 +179,8 @@ case class Component(
           defaultParamId = id + 1
         )
         val name = param.aNode._2.data.name
-        val setCommand = Command.Param(param.aNode, Command.Param.Get)
-        val saveCommand = Command.Param(param.aNode, Command.Param.Set)
+        val saveCommand = Command.Param(param.aNode, Command.Param.Save)
+        val setCommand = Command.Param(param.aNode, Command.Param.Set)
         for {
           component <- component.addCommand(Some(param.setOpcode), setCommand)
           component <- component.addCommand(Some(param.saveOpcode), saveCommand)
