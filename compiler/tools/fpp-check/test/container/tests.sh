@@ -6,4 +6,6 @@ id_negative
 id_not_numeric
 missing_ports
 ok
+priority_negative
+priority_not_numeric
 "
