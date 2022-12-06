@@ -130,6 +130,26 @@ case class Component(
     }
   }
 
+  /** Add a dictionary element mapped by ID */
+  private def addElementToIdMap[T](
+    map: Map[BigInt, T],
+    id: BigInt,
+    element: T,
+    getLoc: T => Location
+  ): Result.Result[(Map[BigInt,T], BigInt)] = {
+    map.get(id) match {
+      case Some(prevElement) =>
+        // Element already there: report the error
+        val idValue = Analysis.displayIdValue(id)
+        val loc = getLoc(element)
+        val prevLoc = getLoc(prevElement)
+        Left(SemanticError.DuplicateIdValue(idValue, loc, prevLoc))
+      case None =>
+        // New element: compute the new map and the new default ID
+        Right(map + (id -> element), id + 1)
+    }
+  }
+
   /** Add a data product container */
   def addContainer(
     idOpt: Option[TlmChannel.Id],
@@ -168,24 +188,6 @@ case class Component(
     )
   }
   
-  /** Add a dictionary element mapped by ID */
-  def addElementToIdMap[T](
-    map: Map[BigInt, T],
-    id: BigInt,
-    element: T,
-    getLoc: T => Location
-  ): Result.Result[(Map[BigInt,T], BigInt)] = {
-    map.get(id) match {
-      case Some(prevElement) =>
-        val idValue = Analysis.displayIdValue(id)
-        val loc = getLoc(element)
-        val prevLoc = getLoc(prevElement)
-        Left(SemanticError.DuplicateIdValue(idValue, loc, prevLoc))
-      case None =>
-        Right(map + (id -> element), id + 1)
-    }
-  }
-
   /** Add a parameter */
   def addParam(
     idOpt: Option[Param.Id],
