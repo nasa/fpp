@@ -42,8 +42,13 @@ object CheckComponentDefs
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecContainer]]
   ) = {
-    // TODO
-    Right(a)
+    val data = aNode._2.data
+    val container = Container.fromSpecContainer(a, aNode)
+    for {
+      idOpt <- a.getNonnegativeBigIntValueOpt(data.id)
+      component <- a.component.get.addContainer(idOpt, container)
+    }
+    yield a.copy(component = Some(component))
   }
 
   override def specEventAnnotatedNode(
@@ -113,8 +118,13 @@ object CheckComponentDefs
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecRecord]]
   ) = {
-    // TODO
-    Right(a)
+    val data = aNode._2.data
+    val record = Record.fromSpecRecord(a, aNode)
+    for {
+      idOpt <- a.getNonnegativeBigIntValueOpt(data.id)
+      component <- a.component.get.addRecord(idOpt, record)
+    }
+    yield a.copy(component = Some(component))
   }
 
   override def specTlmChannelAnnotatedNode(

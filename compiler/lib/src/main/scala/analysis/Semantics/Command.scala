@@ -48,7 +48,7 @@ object Command {
     override def getName = {
       val paramName = aNode._2.data.name.toUpperCase
       kind match {
-        case Param.Get => s"${paramName}_PARAM_GET"
+        case Param.Save => s"${paramName}_PARAM_SAVE"
         case Param.Set => s"${paramName}_PARAM_SET"
       }
     }
@@ -57,7 +57,7 @@ object Command {
   object Param {
 
     sealed trait Kind
-    case object Get extends Kind
+    case object Save extends Kind
     case object Set extends Kind
 
   }

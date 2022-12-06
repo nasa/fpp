@@ -6,7 +6,7 @@ import fpp.compiler.util._
 /** An FPP data product containter */
 final case class Container(
   aNode: Ast.Annotated[AstNode[Ast.SpecContainer]],
-  defaultPriority: Option[Int]
+  defaultPriority: Option[BigInt]
 ) {
 
   /** Gets the name of the container */
@@ -23,13 +23,11 @@ object Container {
 
   /** Creates a container from a container specifier */
   def fromSpecContainer(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecContainer]]):
-    Result.Result[Container] = {
+    Container = {
       val node = aNode._2
       val data = node.data
-      for {
-        defaultPriority <- a.getIntValueOpt(data.defaultPriority)
-      }
-      yield Container(aNode, defaultPriority)
+      val defaultPriority = a.getBigIntValueOpt(data.defaultPriority)
+      Container(aNode, defaultPriority)
    }
 
 }

@@ -34,11 +34,11 @@ case class Component(
   /** The map from container ids to containers */
   containerMap: Map[Container.Id, Container] = Map(),
   /** The next default container ID */
-  defaultContainerId: Int = 0,
+  defaultContainerId: BigInt = 0,
   /** The map from record ids to records */
   recordMap: Map[Record.Id, Record] = Map(),
   /** The next default record ID */
-  defaultRecordId: Int = 0
+  defaultRecordId: BigInt = 0
 ) {
 
   /** Gets the max identifier */
@@ -130,26 +130,13 @@ case class Component(
     }
   }
 
-  /** Add a telemetry channel */
-  def addTlmChannel(
+  /** Add a data product container */
+  def addContainer(
     idOpt: Option[TlmChannel.Id],
-    tlmChannel: TlmChannel):
-  Result.Result[Component] = {
-    val id = idOpt.getOrElse(defaultTlmChannelId)
-    tlmChannelMap.get(id) match {
-      case Some(prevTlmChannel) =>
-        val value = Analysis.displayIdValue(id)
-        val loc = tlmChannel.getLoc
-        val prevLoc = prevTlmChannel.getLoc
-        Left(SemanticError.DuplicateIdValue(value, loc, prevLoc))
-      case None =>
-        val tlmChannelMap = this.tlmChannelMap + (id -> tlmChannel)
-        val component = this.copy(
-          tlmChannelMap = tlmChannelMap,
-          defaultTlmChannelId = id + 1
-        )
-        Right(component)
-    }
+    container: Container
+  ): Result.Result[Component] = {
+    // TODO
+    Right(this)
   }
 
   /** Add an event */
@@ -157,45 +144,105 @@ case class Component(
     idOpt: Option[Event.Id],
     event: Event
   ): Result.Result[Component] = {
-    val id = idOpt.getOrElse(defaultEventId)
-    eventMap.get(id) match {
-      case Some(prevEvent) =>
+    for {
+      result <- addElementToIdMap(
+        eventMap,
+        idOpt.getOrElse(defaultEventId),
+        event,
+        _.getLoc
+      )
+    }
+    yield this.copy(
+      eventMap = result._1,
+      defaultEventId = result._2
+    )
+  }
+  
+  /** Add a dictionary or data product element mapped by ID */
+  def addElementToIdMap[T](
+    map: Map[BigInt, T],
+    id: BigInt,
+    element: T,
+    getLoc: T => Location
+  ): Result.Result[(Map[BigInt,T], BigInt)] = {
+    map.get(id) match {
+      case Some(prevElement) =>
+        val idValue = Analysis.displayIdValue(id)
+        val loc = getLoc(element)
+        val prevLoc = getLoc(prevElement)
+        Left(SemanticError.DuplicateIdValue(idValue, loc, prevLoc))
+      case None =>
+        Right(map + (id -> element), id + 1)
+    }
+  }
+
+  /** Add a parameter */
+  def addParam(
+    idOpt: Option[Param.Id],
+    param: Param
+  ): Result.Result[Component] = {
+    for {
+      // Update the parameter map and default parameter ID
+      result <- addElementToIdMap(
+        paramMap,
+        idOpt.getOrElse(defaultParamId),
+        param,
+        _.getLoc
+      )
+      component <- Right(
+        this.copy(
+          paramMap = result._1,
+          defaultParamId = result._2
+        )
+      )
+      // Add the implicit set and save commands
+      setCommand <- Right(Command.Param(param.aNode, Command.Param.Set))
+      saveCommand <- Right(Command.Param(param.aNode, Command.Param.Save))
+      component <- component.addCommand(Some(param.setOpcode), setCommand)
+      component <- component.addCommand(Some(param.saveOpcode), saveCommand)
+    }
+    yield component
+  }
+
+  /** Add a data product record */
+  def addRecord(
+    idOpt: Option[Record.Id],
+    record: Record
+  ): Result.Result[Component] = {
+    val id = idOpt.getOrElse(defaultRecordId)
+    recordMap.get(id) match {
+      case Some(prevRecord) =>
         val value = Analysis.displayIdValue(id)
-        val loc = event.getLoc
-        val prevLoc = prevEvent.getLoc
+        val loc = record.getLoc
+        val prevLoc = prevRecord.getLoc
         Left(SemanticError.DuplicateIdValue(value, loc, prevLoc))
       case None =>
-        val eventMap = this.eventMap + (id -> event)
-        val component = this.copy(eventMap = eventMap, defaultEventId = id + 1)
+        val recordMap = this.recordMap + (id -> record)
+        val component = this.copy(
+          recordMap = recordMap,
+          defaultRecordId = id + 1
+        )
         Right(component)
     }
   }
-  
-  /** Add a parameter */
-  def addParam(idOpt: Option[Param.Id], param: Param): 
-  Result.Result[Component] = {
-    val id = idOpt.getOrElse(defaultParamId)
-    paramMap.get(id) match {
-      case Some(prevParam) =>
-        val value = Analysis.displayIdValue(id)
-        val loc = param.getLoc
-        val prevLoc = prevParam.getLoc
-        Left(SemanticError.DuplicateIdValue(value, loc, prevLoc))
-      case None =>
-        val paramMap = this.paramMap + (id -> param)
-        val component = this.copy(
-          paramMap = paramMap,
-          defaultParamId = id + 1
-        )
-        val name = param.aNode._2.data.name
-        val setCommand = Command.Param(param.aNode, Command.Param.Get)
-        val saveCommand = Command.Param(param.aNode, Command.Param.Set)
-        for {
-          component <- component.addCommand(Some(param.setOpcode), setCommand)
-          component <- component.addCommand(Some(param.saveOpcode), saveCommand)
-        }
-        yield component
+
+  /** Add a telemetry channel */
+  def addTlmChannel(
+    idOpt: Option[TlmChannel.Id],
+    tlmChannel: TlmChannel
+  ): Result.Result[Component] = {
+    for {
+      result <- addElementToIdMap(
+        tlmChannelMap,
+        idOpt.getOrElse(defaultTlmChannelId),
+        tlmChannel,
+        _.getLoc
+      )
     }
+    yield this.copy(
+      tlmChannelMap = result._1,
+      defaultTlmChannelId = result._2
+    )
   }
 
   /** Check that component provides ports required by dictionaries */
