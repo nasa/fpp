@@ -1,5 +1,5 @@
 passive component C {
 
-  product container C
+  product record R: U32
 
 }

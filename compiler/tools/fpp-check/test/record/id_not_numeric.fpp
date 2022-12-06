@@ -1,5 +1,5 @@
 active component C {
 
-  product container C id "abc"
+  product record R: U32 id "abc"
 
 }
