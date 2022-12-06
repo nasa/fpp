@@ -23,11 +23,13 @@ object Container {
 
   /** Creates a container from a container specifier */
   def fromSpecContainer(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecContainer]]):
-    Container = {
+    Result.Result[Container] = {
       val node = aNode._2
       val data = node.data
-      val defaultPriority = a.getBigIntValueOpt(data.defaultPriority)
-      Container(aNode, defaultPriority)
+      for {
+        defaultPriority <- a.getNonnegativeBigIntValueOpt(data.defaultPriority)
+      }
+      yield Container(aNode, defaultPriority)
    }
 
 }

@@ -168,7 +168,7 @@ case class Component(
     )
   }
   
-  /** Add a dictionary or data product element mapped by ID */
+  /** Add a dictionary element mapped by ID */
   def addElementToIdMap[T](
     map: Map[BigInt, T],
     id: BigInt,
@@ -252,7 +252,8 @@ case class Component(
     )
   }
 
-  /** Check that component provides ports required by dictionaries */
+  /** Check that component provides ports required by dictionary
+   *  and data product specifiers */
   private def checkRequiredPorts:
     Result.Result[Unit] = {
       def requirePorts(
@@ -290,6 +291,11 @@ case class Component(
           this.tlmChannelMap.size,
           "telemetry",
           List(Telemetry, TimeGet)
+        )
+        _ <- requirePorts(
+          this.recordMap.size + this.containerMap.size,
+          "data product",
+          List(ProductRecv, ProductRequest, ProductSend)
         )
       }
       yield ()
@@ -364,26 +370,38 @@ case class Component(
         _ <- checkDictionary(
           this.paramMap,
           "parameter",
-          (param: Param) => param.getName,
-          (param: Param) => param.getLoc
+          _.getName,
+          _.getLoc
         )
         _ <- checkDictionary(
           this.commandMap,
           "command",
-          (command: Command) => command.getName,
-          (command: Command) => command.getLoc
+          _.getName,
+          _.getLoc
         )
         _ <- checkDictionary(
           this.eventMap,
           "event",
-          (event: Event) => event.getName,
-          (event: Event) => event.getLoc
+          _.getName,
+          _.getLoc
         )
         _ <- checkDictionary(
           this.tlmChannelMap,
           "telemetry channel",
-          (tlmChannel: TlmChannel) => tlmChannel.getName,
-          (tlmChannel: TlmChannel) => tlmChannel.getLoc
+          _.getName,
+          _.getLoc
+        )
+        _ <- checkDictionary(
+          this.containerMap,
+          "container",
+          _.getName,
+          _.getLoc
+        )
+        _ <- checkDictionary(
+          this.recordMap,
+          "record",
+          _.getName,
+          _.getLoc
         )
       }
       yield ()

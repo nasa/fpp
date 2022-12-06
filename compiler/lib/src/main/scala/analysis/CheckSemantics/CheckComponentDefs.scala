@@ -43,9 +43,9 @@ object CheckComponentDefs
     aNode: Ast.Annotated[AstNode[Ast.SpecContainer]]
   ) = {
     val data = aNode._2.data
-    val container = Container.fromSpecContainer(a, aNode)
     for {
       idOpt <- a.getNonnegativeBigIntValueOpt(data.id)
+      container <- Container.fromSpecContainer(a, aNode)
       component <- a.component.get.addContainer(idOpt, container)
     }
     yield a.copy(component = Some(component))

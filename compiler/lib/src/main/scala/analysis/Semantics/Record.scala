@@ -6,7 +6,7 @@ import fpp.compiler.util._
 /** An FPP data product containter */
 final case class Record(
   aNode: Ast.Annotated[AstNode[Ast.SpecRecord]],
-  recordType: Type,
+  recordType: Type
 ) {
 
   /** Gets the name of the container */
