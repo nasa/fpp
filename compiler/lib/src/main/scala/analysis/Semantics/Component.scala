@@ -135,8 +135,18 @@ case class Component(
     idOpt: Option[TlmChannel.Id],
     container: Container
   ): Result.Result[Component] = {
-    // TODO
-    Right(this)
+    for {
+      result <- addElementToIdMap(
+        containerMap,
+        idOpt.getOrElse(defaultContainerId),
+        container,
+        _.getLoc
+      )
+    }
+    yield this.copy(
+      containerMap = result._1,
+      defaultContainerId = result._2
+    )
   }
 
   /** Add an event */
@@ -182,7 +192,7 @@ case class Component(
     param: Param
   ): Result.Result[Component] = {
     for {
-      // Update the parameter map and default parameter ID
+      // Update the parameter map and the default parameter ID
       result <- addElementToIdMap(
         paramMap,
         idOpt.getOrElse(defaultParamId),
@@ -209,21 +219,18 @@ case class Component(
     idOpt: Option[Record.Id],
     record: Record
   ): Result.Result[Component] = {
-    val id = idOpt.getOrElse(defaultRecordId)
-    recordMap.get(id) match {
-      case Some(prevRecord) =>
-        val value = Analysis.displayIdValue(id)
-        val loc = record.getLoc
-        val prevLoc = prevRecord.getLoc
-        Left(SemanticError.DuplicateIdValue(value, loc, prevLoc))
-      case None =>
-        val recordMap = this.recordMap + (id -> record)
-        val component = this.copy(
-          recordMap = recordMap,
-          defaultRecordId = id + 1
-        )
-        Right(component)
+    for {
+      result <- addElementToIdMap(
+        recordMap,
+        idOpt.getOrElse(defaultRecordId),
+        record,
+        _.getLoc
+      )
     }
+    yield this.copy(
+      recordMap = result._1,
+      defaultRecordId = result._2
+    )
   }
 
   /** Add a telemetry channel */
