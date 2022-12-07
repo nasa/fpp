@@ -34,6 +34,14 @@ active component C3 {
   time get port timeGetOut
 }
 
+passive component C4 {
+  product request port productRequestOut
+  product recv port productRecvIn
+  product send port productSendOut
+  product container C id container_id default priority container_priority
+  product record R: RecordType id record_id
+}
+
 instance c12: C1 \
   base id base_id_def \
   queue size queue_size_def \

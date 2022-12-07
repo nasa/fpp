@@ -4,6 +4,8 @@ module Fw {
   port Cmd
   port CmdReg
   port CmdResponse
+  port DpBufferSend
+  port DpBufferRequest
   port Log
   port LogText
   port PrmGet
@@ -71,3 +73,7 @@ constant queue_size_def = 10
 constant stack_size_def = 10
 constant priority_def = 10
 constant cpu_def = 0
+type RecordType
+constant record_id = 0
+constant container_id = 0
+constant container_priority = 0
