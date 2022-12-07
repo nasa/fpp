@@ -34,10 +34,12 @@ spec_command
 spec_comp_instance
 spec_connection_graph_direct
 spec_connection_graph_pattern
+spec_container
 spec_event
 spec_internal_port
 spec_param
 spec_port_instance
+spec_record
 spec_tlm_channel
 spec_top_import
 transitive_instance
