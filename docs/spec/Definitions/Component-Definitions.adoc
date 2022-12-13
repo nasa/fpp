@@ -192,7 +192,7 @@ active component CommandDispatcher {
   product request port productRequestOut
 
   @ Product receive port
-  product recv port productRecvOut
+  product recv port productRecvIn
 
   @ Product send port
   product send port productSendOut

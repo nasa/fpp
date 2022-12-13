@@ -199,6 +199,8 @@ object CppWriterState {
   val builtInTypes: Map[String,Value.Integer] = Map(
     "FwBuffSizeType" -> zero,
     "FwChanIdType" -> zero,
+    "FwDpBuffSizeType" -> zero,
+    "FwDpIdType" -> zero,
     "FwEnumStoreType" -> zero,
     "FwEventIdType" -> zero,
     "FwIndexType" -> zero,
