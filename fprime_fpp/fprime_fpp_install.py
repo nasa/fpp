@@ -215,7 +215,26 @@ def install_fpp_via_git(installation_directory: Path):
         os.chdir(tools_directory)
         wget(SBT_URL)
         with tarfile.open(os.path.basename(SBT_URL)) as archive:
-            archive.extractall(".")
+            def is_within_directory(directory, target):
+                
+                abs_directory = os.path.abspath(directory)
+                abs_target = os.path.abspath(target)
+            
+                prefix = os.path.commonprefix([abs_directory, abs_target])
+                
+                return prefix == abs_directory
+            
+            def safe_extract(tar, path=".", members=None, *, numeric_owner=False):
+            
+                for member in tar.getmembers():
+                    member_path = os.path.join(path, member.name)
+                    if not is_within_directory(path, member_path):
+                        raise Exception("Attempted Path Traversal in Tar File")
+            
+                tar.extractall(path, members, numeric_owner=numeric_owner) 
+                
+            
+            safe_extract(archive, ".")
         sbt_path = Path(tools_directory) / "sbt" / "bin"
         subprocess_environment = os.environ.copy()
         subprocess_environment["PATH"] = f"{ sbt_path }:{ os.environ.get('PATH') }"
