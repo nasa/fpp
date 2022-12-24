@@ -1,8 +1,9 @@
 package fpp.compiler.codegen
 
-import fpp.compiler.analysis._
-import fpp.compiler.ast._
-import fpp.compiler.util._
+import fpp.compiler.analysis.*
+import fpp.compiler.ast.*
+import fpp.compiler.codegen.CppDoc.Function
+import fpp.compiler.util.*
 
 case class PortCppWriter (
   s: CppWriterState,
@@ -64,8 +65,8 @@ case class PortCppWriter (
     }
   })
 
-  // Port params as CppDoc Function Params
-  private val functionParams = paramList.map((n, tn, k) => {
+  /** Port params as CppDoc Function Params */
+  val functionParams: List[Function.Param] = paramList.map((n, tn, k) => {
     CppDoc.Function.Param(
       CppDoc.Type(getCppType(paramTypeMap(n), tn, k)),
       n,
@@ -73,8 +74,8 @@ case class PortCppWriter (
     )
   })
 
-  // Return type as a C++ type
-  private val returnType = data.returnType match {
+  /** Return type as a C++ type */
+  val returnType: String = data.returnType match {
     case Some(value) => s.a.typeMap(value.id) match {
       case t: Type.String => strCppWriter.getQualifiedClassName(t, List(strNamespace))
       case t => typeCppWriter.write(t)
@@ -135,7 +136,7 @@ case class PortCppWriter (
         CppDoc.Member.Class(
           CppDoc.Class(
             Some(s"Input $name port" + annotation),
-            s"Input${name}Port",
+            PortCppWriter.inputPortName(name),
             Some("public Fw::InputPortBase"),
             getInputPortClassMembers
           )
@@ -143,7 +144,7 @@ case class PortCppWriter (
         CppDoc.Member.Class(
           CppDoc.Class(
             Some(s"Output $name port" + annotation),
-            s"Output${name}Port",
+            PortCppWriter.outputPortName(name),
             Some("public Fw::OutputPortBase"),
             getOutputPortClassMembers
           )
@@ -238,7 +239,7 @@ case class PortCppWriter (
       if params.isEmpty then Nil
       else
         CppDocHppWriter.writeAccessTag("private") ++
-          lines(s"\nU8 m_buff[Input${name}Port::SERIALIZED_SIZE];")
+          lines(s"\nU8 m_buff[${PortCppWriter.inputPortName(name)}::SERIALIZED_SIZE];")
     val buffAddr =
       if params.isEmpty then "nullptr" else "m_buff"
 
@@ -249,7 +250,7 @@ case class PortCppWriter (
         CppDocHppWriter.writeAccessTag("public"),
         Line.blank :: lines(
           s"""|NATIVE_UINT_TYPE getBuffCapacity() const {
-              |  return Input${name}Port::SERIALIZED_SIZE;
+              |  return ${PortCppWriter.inputPortName(name)}::SERIALIZED_SIZE;
               |}
               |
               |U8* getBuffAddr() {
@@ -332,7 +333,7 @@ case class PortCppWriter (
   }
 
   private def getInputPortFunctionMembers: List[CppDoc.Class.Member] = {
-    val paramNames = paramList.map((n, _, _) => s", $n").mkString("");
+    val paramNames = paramList.map((n, _, _) => s", $n").mkString("")
     val invokeSerialBody = data.returnType match {
       case Some(_) => lines(
         """|// For ports with a return type, invokeSerial is not used
@@ -570,7 +571,7 @@ case class PortCppWriter (
           "addCallPort",
           List(
             CppDoc.Function.Param(
-              CppDoc.Type(s"Input${name}Port*"),
+              CppDoc.Type(s"${PortCppWriter.inputPortName(name)}*"),
               "callPort",
               Some("The input port")
             )
@@ -622,11 +623,26 @@ case class PortCppWriter (
             CppDocHppWriter.writeAccessTag("private"),
             CppDocWriter.writeBannerComment("Member variables"),
             Line.blank :: lines("//! The pointer to the input port"),
-            lines(s"Input${name}Port* m_port;")
+            lines(s"${PortCppWriter.inputPortName(name)}* m_port;")
           ).flatten
         )
       )
     )
   }
+
+}
+
+object PortCppWriter {
+
+  private def inputPortName(name: String) = s"Input${name}Port"
+
+  private def outputPortName(name: String) = s"Output${name}Port"
+
+  /** Get the name of a port type */
+  def getPortName(name: String, direction: PortInstance.Direction): String =
+    direction match {
+      case PortInstance.Direction.Input => inputPortName(name)
+      case PortInstance.Direction.Output => outputPortName(name)
+    }
 
 }
