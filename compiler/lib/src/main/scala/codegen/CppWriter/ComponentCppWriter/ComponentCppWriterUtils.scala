@@ -20,6 +20,13 @@ abstract class ComponentCppWriterUtils(
 
   val members: List[Ast.ComponentMember] = data.members
 
+  /** Port number param as a CppDoc Function Param */
+  val portNumParam: CppDoc.Function.Param = CppDoc.Function.Param(
+    CppDoc.Type("NATIVE_INT_TYPE"),
+    "portNum",
+    Some("The port number")
+  )
+
   /** List of general port instances */
   val generalPorts: List[PortInstance.General] = members.map(member =>
     member.node._2 match {
@@ -47,6 +54,15 @@ abstract class ComponentCppWriterUtils(
   /** List of serial input ports */
   val serialInputPorts: List[PortInstance.General] = filterSerialPorts(inputPorts)
 
+  /** List of guarded input ports */
+  val guardedInputPorts: List[PortInstance.General] = filterGuardedInputPorts(inputPorts)
+
+  /** List of typed async input ports */
+  val typedAsyncInputPorts: List[PortInstance.General] = filterAsyncInputPorts(typedInputPorts)
+
+  /** List of serial async input ports */
+  val serialAsyncInputPorts: List[PortInstance.General] = filterAsyncInputPorts(serialInputPorts)
+
   /** List of general output ports */
   val outputPorts: List[PortInstance.General] = generalPorts.filter(p =>
     p.getDirection.get match {
@@ -66,6 +82,12 @@ abstract class ComponentCppWriterUtils(
   val hasTypedInputPorts: Boolean = typedInputPorts.nonEmpty
 
   val hasSerialInputPorts: Boolean = serialInputPorts.nonEmpty
+
+  val hasGuardedInputPorts: Boolean = guardedInputPorts.nonEmpty
+
+  val hasTypedAsyncInputPorts: Boolean = typedAsyncInputPorts.nonEmpty
+
+  val hasSerialAsyncInputPorts: Boolean = serialAsyncInputPorts.nonEmpty
 
   val hasOutputPorts: Boolean = outputPorts.nonEmpty
 
@@ -164,6 +186,22 @@ abstract class ComponentCppWriterUtils(
       p.getType.get match {
         case PortInstance.Type.DefPort(_) => false
         case PortInstance.Type.Serial => true
+      }
+    )
+
+  private def filterGuardedInputPorts(ports: List[PortInstance.General]) =
+    ports.filter(p =>
+      p.kind match {
+        case PortInstance.General.Kind.GuardedInput => true
+        case _ => false
+      }
+    )
+
+  private def filterAsyncInputPorts(ports: List[PortInstance.General]) =
+    ports.filter(p =>
+      p.kind match {
+        case PortInstance.General.Kind.AsyncInput(_, _) => true
+        case _ => false
       }
     )
 

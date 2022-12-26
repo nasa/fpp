@@ -61,11 +61,16 @@ case class ComponentCppWriter (
   }
 
   private def getHppIncludes: CppDoc.Member = {
-    val standardHeaders = List(
-      "FpConfig.hpp",
-      "Fw/Port/InputSerializePort.hpp",
-      "Fw/Port/OutputSerializePort.hpp",
-      s"Fw/Comp/${baseClassName}.hpp"
+    val mutexHeader =
+      if hasGuardedInputPorts then List("Os/Mutex.hpp")
+      else Nil
+    val standardHeaders = (
+      List(
+        "FpConfig.hpp",
+        "Fw/Port/InputSerializePort.hpp",
+        "Fw/Port/OutputSerializePort.hpp",
+        s"Fw/Comp/${baseClassName}.hpp"
+      ) ++ mutexHeader
     ).map(CppWriter.headerString)
     val symbolHeaders = writeIncludeDirectives
     val headers = standardHeaders ++ symbolHeaders
@@ -94,8 +99,10 @@ case class ComponentCppWriter (
     List(
       getFriendClasses,
       getComponentFunctions,
+      getDispatchFunction,
       ComponentInputPortInstances(s, aNode).write,
-      getOutputPortMembers,
+      getMutexMembers,
+      getOutputPortMembers
     ).flatten
   }
 
@@ -120,14 +127,31 @@ case class ComponentCppWriter (
   }
 
   private def getComponentFunctions: List[CppDoc.Class.Member] = {
-    val initParams =
-      List(
+    val initInstanceParam = List(
+      CppDoc.Function.Param(
+        CppDoc.Type("NATIVE_INT_TYPE"),
+        "instance = 0",
+        Some("The instance number")
+      )
+    )
+    val initQueueDepthParam =
+      if data.kind != Ast.ComponentKind.Passive then List(
         CppDoc.Function.Param(
           CppDoc.Type("NATIVE_INT_TYPE"),
-          "instance = 0",
-          Some("The instance number")
+          "queueDepth",
+          Some("The queue depth")
         )
       )
+      else Nil
+    val initMsgSizeParam =
+      if hasSerialAsyncInputPorts then List(
+        CppDoc.Function.Param(
+          CppDoc.Type("NATIVE_INT_TYPE"),
+          "msgSize",
+          Some("The message size")
+        )
+      )
+      else Nil
 
     List(
       CppDoc.Class.Member.Lines(
@@ -158,7 +182,7 @@ case class ComponentCppWriter (
         CppDoc.Function(
           Some(s"Initialize ${className} object"),
           "init",
-          initParams,
+          initQueueDepthParam ++ initMsgSizeParam ++ initInstanceParam,
           CppDoc.Type("void"),
           Nil
         )
@@ -168,6 +192,54 @@ case class ComponentCppWriter (
           Some(s"Destroy ${className} object"),
           Nil,
           CppDoc.Class.Destructor.Virtual
+        )
+      )
+    )
+  }
+
+  private def getDispatchFunction: List[CppDoc.Class.Member] = {
+    if data.kind != Ast.ComponentKind.Active then Nil
+    else List(
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          List(
+            CppDocHppWriter.writeAccessTag("PRIVATE"),
+            CppDocWriter.writeBannerComment(
+              "Message dispatch functions"
+            )
+          ).flatten
+        )
+      ),
+      CppDoc.Class.Member.Function(
+        CppDoc.Function(
+          Some("Called in the message loop to dispatch a message from the queue"),
+          "doDispatch",
+          Nil,
+          CppDoc.Type("MsgDispatchStatus"),
+          Nil,
+          CppDoc.Function.Virtual
+        )
+      )
+    )
+  }
+
+  private def getMutexMembers: List[CppDoc.Class.Member] = {
+    if !hasGuardedInputPorts then Nil
+    else List(
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          List(
+            CppDocHppWriter.writeAccessTag("PRIVATE"),
+            CppDocWriter.writeBannerComment(
+              "Mutexes"
+            ),
+            lines(
+              """|
+                 |//! Mutex for guarded ports
+                 |Os::Mutex m_guardedPortMutex;
+                 |"""
+            )
+          ).flatten
         )
       )
     )

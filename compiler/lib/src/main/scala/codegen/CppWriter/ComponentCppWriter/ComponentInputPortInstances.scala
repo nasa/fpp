@@ -12,8 +12,8 @@ case class ComponentInputPortInstances (
 
   // Map from port instance name to a PortCppWriter
   private val portWriterMap = typedInputPorts.map(p => {
-    p.getType match {
-      case Some(PortInstance.Type.DefPort(symbol)) =>
+    p.getType.get match {
+      case PortInstance.Type.DefPort(symbol) =>
         Some((p.getUnqualifiedName, PortCppWriter(s, symbol.node)))
       case _ => None
     }
@@ -22,24 +22,29 @@ case class ComponentInputPortInstances (
   def write: List[CppDoc.Class.Member] = {
     if hasInputPorts then
       List(
-        if hasTypedInputPorts then getGetters(typedInputPorts) else Nil,
-        if hasSerialInputPorts then getGetters(serialInputPorts) else Nil,
+        getGetters(typedInputPorts),
+        getGetters(serialInputPorts),
         getNumGetters,
         getEnum,
-        if hasTypedInputPorts then getHandlers(typedInputPorts) else Nil,
-        if hasTypedInputPorts then getHandlerBases(typedInputPorts) else Nil,
-        if hasSerialInputPorts then getHandlers(serialInputPorts) else Nil,
-        if hasSerialInputPorts then getHandlerBases(serialInputPorts) else Nil,
-        if hasTypedInputPorts then getCallbacks(typedInputPorts) else Nil,
-        if hasSerialInputPorts then getCallbacks(serialInputPorts) else Nil,
-        if hasTypedInputPorts then getMemberVariables(typedInputPorts) else Nil,
-        if hasSerialInputPorts then getMemberVariables(serialInputPorts) else Nil
+        getHandlers(typedInputPorts),
+        getHandlerBases(typedInputPorts),
+        getHandlers(serialInputPorts),
+        getHandlerBases(serialInputPorts),
+        getCallbacks(typedInputPorts),
+        getCallbacks(serialInputPorts),
+        getMutexOperations,
+        getPreMsgHooks(typedAsyncInputPorts),
+        getPreMsgHooks(serialAsyncInputPorts),
+        getPortMembers(typedInputPorts),
+        getPortMembers(serialInputPorts),
+        getMsgSizeMember
       ).flatten
     else Nil
   }
 
   private def getGetters(ports: List[PortInstance.General]): List[CppDoc.Class.Member] = {
-    List(
+    if ports.isEmpty then Nil
+    else List(
       List(
         CppDoc.Class.Member.Lines(
           CppDoc.Lines(
@@ -58,11 +63,7 @@ case class ComponentInputPortInstances (
             Some("Get input port at index"),
             inputGetterName(p.getUnqualifiedName),
             List(
-              CppDoc.Function.Param(
-                CppDoc.Type("NATIVE_INT_TYPE"),
-                "portNum",
-                Some("The port number")
-              )
+              portNumParam
             ),
             CppDoc.Type(s"${getQualifiedPortTypeName(p, PortInstance.Direction.Input)}*"),
             lines(
@@ -129,7 +130,8 @@ case class ComponentInputPortInstances (
   }
 
   private def getHandlers(ports: List[PortInstance.General]): List[CppDoc.Class.Member] = {
-    List(
+    if ports.isEmpty then Nil
+    else List(
       List(
         CppDoc.Class.Member.Lines(
           CppDoc.Lines(
@@ -147,11 +149,7 @@ case class ComponentInputPortInstances (
           CppDoc.Function(
             Some(s"Handler for input port ${p.getUnqualifiedName}"),
             inputHandlerName(p.getUnqualifiedName),
-            CppDoc.Function.Param(
-              CppDoc.Type("NATIVE_INT_TYPE"),
-              "portNum",
-              Some("The port number")
-            ) :: getFunctionParams(p),
+            portNumParam :: getFunctionParams(p),
             CppDoc.Type("void"),
             Nil,
             CppDoc.Function.PureVirtual
@@ -162,7 +160,8 @@ case class ComponentInputPortInstances (
   }
 
   private def getHandlerBases(ports: List[PortInstance.General]): List[CppDoc.Class.Member] = {
-    List(
+    if ports.isEmpty then Nil
+    else List(
       List(
         CppDoc.Class.Member.Lines(
           CppDoc.Lines(
@@ -182,11 +181,7 @@ case class ComponentInputPortInstances (
           CppDoc.Function(
             Some(s"Handler base-class function for input port ${p.getUnqualifiedName}"),
             inputHandlerBaseName(p.getUnqualifiedName),
-            CppDoc.Function.Param(
-              CppDoc.Type("NATIVE_INT_TYPE"),
-              "portNum",
-              Some("The port number")
-            ) :: getFunctionParams(p),
+            portNumParam :: getFunctionParams(p),
             CppDoc.Type("void"),
             Nil
           )
@@ -196,57 +191,57 @@ case class ComponentInputPortInstances (
   }
 
   private def getCallbacks(ports: List[PortInstance.General]): List[CppDoc.Class.Member] = {
-    val functions =
-      ports.map(p =>
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some(s"Callback for port ${p.getUnqualifiedName}"),
-            inputCallbackName(p.getUnqualifiedName),
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type("Fw::PassiveComponentBase*"),
-                "callComp",
-                Some("The component instance")
-              ),
-              CppDoc.Function.Param(
-                CppDoc.Type("NATIVE_INT_TYPE"),
-                "portNum",
-                Some("The port number")
-              )
-            ) ++ getFunctionParams(p),
-            CppDoc.Type("void"),
-            Nil,
-            CppDoc.Function.Static
+    if ports.isEmpty then Nil
+    else {
+      val functions =
+        ports.map(p =>
+          CppDoc.Class.Member.Function(
+            CppDoc.Function(
+              Some(s"Callback for port ${p.getUnqualifiedName}"),
+              inputCallbackName(p.getUnqualifiedName),
+              List(
+                CppDoc.Function.Param(
+                  CppDoc.Type("Fw::PassiveComponentBase*"),
+                  "callComp",
+                  Some("The component instance")
+                ),
+                portNumParam
+              ) ++ getFunctionParams(p),
+              CppDoc.Type("void"),
+              Nil,
+              CppDoc.Function.Static
+            )
           )
         )
-      )
 
-    List(
       List(
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            List(
-              CppDocHppWriter.writeAccessTag("PRIVATE"),
-              CppDocWriter.writeBannerComment(
-                s"Calls for messages received on ${getTypeString(ports.head)} input ports"
-              ),
-            ).flatten
+        List(
+          CppDoc.Class.Member.Lines(
+            CppDoc.Lines(
+              List(
+                CppDocHppWriter.writeAccessTag("PRIVATE"),
+                CppDocWriter.writeBannerComment(
+                  s"Calls for messages received on ${getTypeString(ports.head)} input ports"
+                ),
+              ).flatten
+            )
           )
-        )
-      ),
-      ports.head.getType.get match {
-        case PortInstance.Type.DefPort(_) => functions
-        case PortInstance.Type.Serial =>
-          wrapClassMembersInIfDirective(
-            "\n#if FW_PORT_SERIALIZATION",
-            functions
-          )
-      }
-    ).flatten
+        ),
+        ports.head.getType.get match {
+          case PortInstance.Type.DefPort(_) => functions
+          case PortInstance.Type.Serial =>
+            wrapClassMembersInIfDirective(
+              "\n#if FW_PORT_SERIALIZATION",
+              functions
+            )
+        }
+      ).flatten
+    }
   }
 
-  private def getMemberVariables(ports: List[PortInstance.General]): List[CppDoc.Class.Member] = {
-    List(
+  private def getPortMembers(ports: List[PortInstance.General]): List[CppDoc.Class.Member] = {
+    if ports.isEmpty then Nil
+    else List(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
           List(
@@ -266,6 +261,98 @@ case class ComponentInputPortInstances (
                     |"""
               )
             })
+          ).flatten
+        )
+      )
+    )
+  }
+
+  private def getMutexOperations: List[CppDoc.Class.Member] = {
+    if !hasGuardedInputPorts then Nil
+    else List(
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          List(
+            CppDocHppWriter.writeAccessTag("PROTECTED"),
+            CppDocWriter.writeBannerComment(
+              """|Mutex operations for guarded ports.
+                 |You can override these operations to provide more sophisticated
+                 |synchronization.
+                 |"""
+            ),
+          ).flatten
+        )
+      ),
+      CppDoc.Class.Member.Function(
+        CppDoc.Function(
+          Some("Lock the guarded mutex"),
+          "lock",
+          Nil,
+          CppDoc.Type("void"),
+          Nil,
+          CppDoc.Function.Virtual
+        )
+      ),
+      CppDoc.Class.Member.Function(
+        CppDoc.Function(
+          Some("Unlock the guarded mutex"),
+          "unLock",
+          Nil,
+          CppDoc.Type("void"),
+          Nil,
+          CppDoc.Function.Virtual
+        )
+      )
+    )
+  }
+
+  private def getPreMsgHooks(ports: List[PortInstance.General]): List[CppDoc.Class.Member] = {
+    if ports.isEmpty then Nil
+    else List(
+      List(
+        CppDoc.Class.Member.Lines(
+          CppDoc.Lines(
+            List(
+              CppDocHppWriter.writeAccessTag("PRIVATE"),
+              CppDocWriter.writeBannerComment(
+                s"""|Pre-message hooks for ${getTypeString(ports.head)} async input ports.
+                    |Each of these functions is invoked just before processing a message
+                    |on the corresponding port. By default, they do nothing. You can
+                    |override them to provide specific pre-message behavior.
+                    |"""
+              ),
+            ).flatten
+          )
+        )
+      ),
+      ports.map(p =>
+        CppDoc.Class.Member.Function(
+          CppDoc.Function(
+            Some(s"Pre-message hook for async input port ${p.getUnqualifiedName}"),
+            asyncInputHookName(p.getUnqualifiedName),
+            portNumParam :: getFunctionParams(p),
+            CppDoc.Type("void"),
+            Nil,
+            CppDoc.Function.Virtual
+          )
+        )
+      )
+    ).flatten
+  }
+
+  private def getMsgSizeMember: List[CppDoc.Class.Member] = {
+    if !hasSerialAsyncInputPorts then Nil
+    else List(
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          List(
+            CppDocHppWriter.writeAccessTag("PRIVATE"),
+            lines(
+              """|
+                 |//! Stores max message size
+                 |NATIVE_INT_TYPE m_msgSize;
+                 |"""
+            )
           ).flatten
         )
       )
