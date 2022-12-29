@@ -5,7 +5,7 @@ import fpp.compiler.ast._
 import fpp.compiler.codegen._
 
 /** Writes out C++ for component output port instances */
-case class ComponentOutputPortInstances (
+case class ComponentOutputPorts(
   s: CppWriterState,
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
