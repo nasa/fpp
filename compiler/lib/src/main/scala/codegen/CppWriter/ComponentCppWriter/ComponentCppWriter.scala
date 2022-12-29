@@ -102,8 +102,9 @@ case class ComponentCppWriter (
       getDispatchFunction,
       getMutexOperations,
       ComponentInputPortInstances(s, aNode).write,
+      ComponentOutputPortInstances(s, aNode).write,
+      getMsgSizeMember,
       getMutexMembers,
-      getOutputPortMembers
     ).flatten
   }
 
