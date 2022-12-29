@@ -77,6 +77,16 @@ abstract class ComponentCppWriterUtils(
   /** List of serial output ports */
   val serialOutputPorts: List[PortInstance.General] = filterSerialPorts(outputPorts)
 
+  // Map from a port instance name to a PortCppWriter
+  private val portWriterMap =
+    (typedInputPorts ++ typedOutputPorts).map(p =>
+      p.getType.get match {
+        case PortInstance.Type.DefPort(symbol) =>
+          Some((p.getUnqualifiedName, PortCppWriter(s, symbol.node)))
+        case _ => None
+      }
+    ).filter(_.isDefined).map(_.get).toMap
+
   val hasInputPorts: Boolean = inputPorts.nonEmpty
 
   val hasTypedInputPorts: Boolean = typedInputPorts.nonEmpty
@@ -101,7 +111,7 @@ abstract class ComponentCppWriterUtils(
     direction: PortInstance.Direction
   ): String = {
     p.getType match {
-      case Some(PortInstance.Type.DefPort(symbol)) => {
+      case Some(PortInstance.Type.DefPort(symbol)) =>
         val qualifiers = s.a.getEnclosingNames(symbol)
         val cppQualifier = qualifiers match {
           case Nil => ""
@@ -110,12 +120,43 @@ abstract class ComponentCppWriterUtils(
         val name = PortCppWriter.getPortName(symbol.getUnqualifiedName, direction)
 
         cppQualifier + name
-      }
       case Some(PortInstance.Type.Serial) =>
         s"Fw::${direction.toString.capitalize}SerializePort"
       case None => ""
     }
   }
+
+  /** Get port params as CppDoc Function Params */
+  def getFunctionParams(p: PortInstance.General): List[CppDoc.Function.Param] =
+    p.getType.get match {
+      case PortInstance.Type.DefPort(_) =>
+        portWriterMap(p.getUnqualifiedName).functionParams
+      case PortInstance.Type.Serial =>
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type("Fw::SerializeBufferBase&"),
+            "buffer",
+            Some("The serialization buffer")
+          )
+        )
+    }
+
+  /** Get a port return type as a CppDoc Type */
+  def getReturnType(p: PortInstance.General): CppDoc.Type =
+    p.getType.get match {
+      case PortInstance.Type.DefPort(_) => CppDoc.Type(
+        portWriterMap(p.getUnqualifiedName).returnType
+      )
+      case PortInstance.Type.Serial => CppDoc.Type(
+        "Fw::SerializeStatus"
+      )
+    }
+
+  def getTypeString(p: PortInstance.General): String =
+    p.getType.get match {
+      case PortInstance.Type.DefPort(_) => "typed"
+      case PortInstance.Type.Serial => "serial"
+    }
 
   /** Get the name for an input port getter function */
   def inputGetterName(name: String) =

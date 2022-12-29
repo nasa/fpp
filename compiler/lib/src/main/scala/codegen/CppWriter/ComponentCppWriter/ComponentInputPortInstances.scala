@@ -10,15 +10,6 @@ case class ComponentInputPortInstances (
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
-  // Map from port instance name to a PortCppWriter
-  private val portWriterMap = typedInputPorts.map(p => {
-    p.getType.get match {
-      case PortInstance.Type.DefPort(symbol) =>
-        Some((p.getUnqualifiedName, PortCppWriter(s, symbol.node)))
-      case _ => None
-    }
-  }).filter(_.isDefined).map(_.get).toMap
-
   def write: List[CppDoc.Class.Member] = {
     if hasInputPorts then
       List(
@@ -32,12 +23,10 @@ case class ComponentInputPortInstances (
         getHandlerBases(serialInputPorts),
         getCallbacks(typedInputPorts),
         getCallbacks(serialInputPorts),
-        getMutexOperations,
         getPreMsgHooks(typedAsyncInputPorts),
         getPreMsgHooks(serialAsyncInputPorts),
         getPortMembers(typedInputPorts),
-        getPortMembers(serialInputPorts),
-        getMsgSizeMember
+        getPortMembers(serialInputPorts)
       ).flatten
     else Nil
   }
@@ -267,45 +256,6 @@ case class ComponentInputPortInstances (
     )
   }
 
-  private def getMutexOperations: List[CppDoc.Class.Member] = {
-    if !hasGuardedInputPorts then Nil
-    else List(
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          List(
-            CppDocHppWriter.writeAccessTag("PROTECTED"),
-            CppDocWriter.writeBannerComment(
-              """|Mutex operations for guarded ports.
-                 |You can override these operations to provide more sophisticated
-                 |synchronization.
-                 |"""
-            ),
-          ).flatten
-        )
-      ),
-      CppDoc.Class.Member.Function(
-        CppDoc.Function(
-          Some("Lock the guarded mutex"),
-          "lock",
-          Nil,
-          CppDoc.Type("void"),
-          Nil,
-          CppDoc.Function.Virtual
-        )
-      ),
-      CppDoc.Class.Member.Function(
-        CppDoc.Function(
-          Some("Unlock the guarded mutex"),
-          "unLock",
-          Nil,
-          CppDoc.Type("void"),
-          Nil,
-          CppDoc.Function.Virtual
-        )
-      )
-    )
-  }
-
   private def getPreMsgHooks(ports: List[PortInstance.General]): List[CppDoc.Class.Member] = {
     if ports.isEmpty then Nil
     else List(
@@ -339,44 +289,5 @@ case class ComponentInputPortInstances (
       )
     ).flatten
   }
-
-  private def getMsgSizeMember: List[CppDoc.Class.Member] = {
-    if !hasSerialAsyncInputPorts then Nil
-    else List(
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          List(
-            CppDocHppWriter.writeAccessTag("PRIVATE"),
-            lines(
-              """|
-                 |//! Stores max message size
-                 |NATIVE_INT_TYPE m_msgSize;
-                 |"""
-            )
-          ).flatten
-        )
-      )
-    )
-  }
-
-  private def getTypeString(p: PortInstance.General) =
-    p.getType.get match {
-      case PortInstance.Type.DefPort(_) => "typed"
-      case PortInstance.Type.Serial => "serial"
-    }
-
-  private def getFunctionParams(p: PortInstance.General) =
-    p.getType.get match {
-      case PortInstance.Type.DefPort(_) =>
-        portWriterMap(p.getUnqualifiedName).functionParams
-      case PortInstance.Type.Serial =>
-        List(
-          CppDoc.Function.Param(
-            CppDoc.Type("Fw::SerializeBufferBase&"),
-            "buffer",
-            Some("The serialization buffer")
-          )
-        )
-    }
 
 }

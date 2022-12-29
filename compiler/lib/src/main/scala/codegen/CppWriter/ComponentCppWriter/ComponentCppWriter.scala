@@ -50,7 +50,7 @@ case class ComponentCppWriter (
       CppDoc.Class(
         AnnotationCppWriter.asStringOpt(aNode),
         className,
-        Some(s"public Fw::${baseClassName}"),
+        Some(s"public Fw::$baseClassName"),
         getClassMembers
       )
     )
@@ -69,7 +69,7 @@ case class ComponentCppWriter (
         "FpConfig.hpp",
         "Fw/Port/InputSerializePort.hpp",
         "Fw/Port/OutputSerializePort.hpp",
-        s"Fw/Comp/${baseClassName}.hpp"
+        s"Fw/Comp/$baseClassName.hpp"
       ) ++ mutexHeader
     ).map(CppWriter.headerString)
     val symbolHeaders = writeIncludeDirectives
@@ -100,6 +100,7 @@ case class ComponentCppWriter (
       getFriendClasses,
       getComponentFunctions,
       getDispatchFunction,
+      getMutexOperations,
       ComponentInputPortInstances(s, aNode).write,
       getMutexMembers,
       getOutputPortMembers
@@ -166,7 +167,7 @@ case class ComponentCppWriter (
       ),
       CppDoc.Class.Member.Constructor(
         CppDoc.Class.Constructor(
-          Some(s"Construct ${className} object"),
+          Some(s"Construct $className object"),
           List(
             CppDoc.Function.Param(
               CppDoc.Type("const char*"),
@@ -180,7 +181,7 @@ case class ComponentCppWriter (
       ),
       CppDoc.Class.Member.Function(
         CppDoc.Function(
-          Some(s"Initialize ${className} object"),
+          Some(s"Initialize $className object"),
           "init",
           initQueueDepthParam ++ initMsgSizeParam ++ initInstanceParam,
           CppDoc.Type("void"),
@@ -189,7 +190,7 @@ case class ComponentCppWriter (
       ),
       CppDoc.Class.Member.Destructor(
         CppDoc.Class.Destructor(
-          Some(s"Destroy ${className} object"),
+          Some(s"Destroy $className object"),
           Nil,
           CppDoc.Class.Destructor.Virtual
         )
@@ -197,13 +198,56 @@ case class ComponentCppWriter (
     )
   }
 
-  private def getDispatchFunction: List[CppDoc.Class.Member] = {
-    if data.kind != Ast.ComponentKind.Active then Nil
+  private def getMutexOperations: List[CppDoc.Class.Member] = {
+    if !hasGuardedInputPorts then Nil
     else List(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
           List(
-            CppDocHppWriter.writeAccessTag("PRIVATE"),
+            CppDocHppWriter.writeAccessTag("PROTECTED"),
+            CppDocWriter.writeBannerComment(
+              """|Mutex operations for guarded ports.
+                 |You can override these operations to provide more sophisticated
+                 |synchronization.
+                 |"""
+            ),
+          ).flatten
+        )
+      ),
+      CppDoc.Class.Member.Function(
+        CppDoc.Function(
+          Some("Lock the guarded mutex"),
+          "lock",
+          Nil,
+          CppDoc.Type("void"),
+          Nil,
+          CppDoc.Function.Virtual
+        )
+      ),
+      CppDoc.Class.Member.Function(
+        CppDoc.Function(
+          Some("Unlock the guarded mutex"),
+          "unLock",
+          Nil,
+          CppDoc.Type("void"),
+          Nil,
+          CppDoc.Function.Virtual
+        )
+      )
+    )
+  }
+
+  private def getDispatchFunction: List[CppDoc.Class.Member] = {
+    if data.kind == Ast.ComponentKind.Passive then Nil
+    else List(
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          List(
+            data.kind match {
+              case Ast.ComponentKind.Active => CppDocHppWriter.writeAccessTag("PRIVATE")
+              case Ast.ComponentKind.Queued => CppDocHppWriter.writeAccessTag("PROTECTED")
+              case _ => Nil
+            },
             CppDocWriter.writeBannerComment(
               "Message dispatch functions"
             )
@@ -218,6 +262,25 @@ case class ComponentCppWriter (
           CppDoc.Type("MsgDispatchStatus"),
           Nil,
           CppDoc.Function.Virtual
+        )
+      )
+    )
+  }
+
+  private def getMsgSizeMember: List[CppDoc.Class.Member] = {
+    if !hasSerialAsyncInputPorts then Nil
+    else List(
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          List(
+            CppDocHppWriter.writeAccessTag("PRIVATE"),
+            lines(
+              """|
+               |//! Stores max message size
+                 |NATIVE_INT_TYPE m_msgSize;
+                 |"""
+            )
+          ).flatten
         )
       )
     )
@@ -243,61 +306,6 @@ case class ComponentCppWriter (
         )
       )
     )
-  }
-
-  private def getOutputPortMembers: List[CppDoc.Class.Member] = {
-    if outputPorts.isEmpty then Nil
-    else
-      List(
-        getOutputPortConnectors,
-      ).flatten
-  }
-
-  private def getOutputPortConnectors: List[CppDoc.Class.Member] = {
-    List(
-      List(
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            List(
-              CppDocHppWriter.writeAccessTag("public"),
-              CppDocWriter.writeBannerComment("" +
-                "Connect typed input ports to typed output ports"
-              ),
-            ).flatten
-          )
-        )
-      ),
-      outputPorts.map(p => {
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some(s"Connect port to ${p.getUnqualifiedName}[portNum]"),
-            outputConnectorName(p.getUnqualifiedName),
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type("NATIVE_INT_TYPE"),
-                "portNum",
-                Some("The port number")
-              ),
-              CppDoc.Function.Param(
-                CppDoc.Type(s"${getQualifiedPortTypeName(p, PortInstance.Direction.Input)}*"),
-                "port",
-                Some("The input port")
-              )
-            ),
-            CppDoc.Type("void"),
-            lines(
-              s"""|FW_ASSERT(
-                  |  portNum < this->${outputNumGetterName(p.getUnqualifiedName)}(),
-                  |  static_cast<FwAssertArgType>(portNum)
-                  |);
-                  |
-                  |this->${outputMemberName(p.getUnqualifiedName)}[portNum].addCallPort(port);
-                  |"""
-            )
-          )
-        )
-      })
-    ).flatten
   }
 
 }
