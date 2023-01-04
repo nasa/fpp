@@ -10,28 +10,7 @@ case class ComponentInputPorts(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
-  def write: List[CppDoc.Class.Member] = {
-    if hasInputPorts then
-      List(
-        getGetters(typedInputPorts),
-        getGetters(serialInputPorts),
-        getNumGetters,
-        getEnum,
-        getHandlers(typedInputPorts),
-        getHandlerBases(typedInputPorts),
-        getHandlers(serialInputPorts),
-        getHandlerBases(serialInputPorts),
-        getCallbacks(typedInputPorts),
-        getCallbacks(serialInputPorts),
-        getPreMsgHooks(typedAsyncInputPorts),
-        getPreMsgHooks(serialAsyncInputPorts),
-        getPortMembers(typedInputPorts),
-        getPortMembers(serialInputPorts)
-      ).flatten
-    else Nil
-  }
-
-  private def getGetters(ports: List[PortInstance.General]): List[CppDoc.Class.Member] = {
+  def getGetters(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     if ports.isEmpty then Nil
     else List(
       List(
@@ -49,19 +28,19 @@ case class ComponentInputPorts(
       ports.map(p =>
         CppDoc.Class.Member.Function(
           CppDoc.Function(
-            Some("Get input port at index"),
-            inputGetterName(p.getUnqualifiedName),
+            Some(s"Get ${getTypeString(ports.head)} input port at index"),
+            inputPortGetterName(p.getUnqualifiedName),
             List(
               portNumParam
             ),
             CppDoc.Type(s"${getQualifiedPortTypeName(p, PortInstance.Direction.Input)}*"),
             lines(
               s"""|FW_ASSERT(
-                  |  portNum < this->${inputNumGetterName(p.getUnqualifiedName)}(),
+                  |  portNum < this->${portNumGetterName(p.getUnqualifiedName, PortInstance.Direction.Input)}(),
                   |  static_cast<FwAssertArgType>(portNum)
                   | );
                   |
-                  |return &this->${inputMemberName(p.getUnqualifiedName)}[portNum];
+                  |return &this->${portMemberName(p.getUnqualifiedName, PortInstance.Direction.Input)}[portNum];
                   |"""
             )
           )
@@ -70,55 +49,7 @@ case class ComponentInputPorts(
     ).flatten
   }
 
-  private def getEnum: List[CppDoc.Class.Member] = {
-    List(
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          List(
-            CppDocHppWriter.writeAccessTag("PROTECTED"),
-            CppDocWriter.writeBannerComment(
-              "Enumerations for numbers of input ports"
-            ),
-            Line.blank :: wrapInEnum(
-              inputPorts.map(p =>
-                line(s"${inputEnumName(p.getUnqualifiedName)} = ${p.getArraySize};")
-              )
-            )
-          ).flatten
-        )
-      )
-    )
-  }
-
-  private def getNumGetters: List[CppDoc.Class.Member] = {
-    List(
-      List(
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            List(
-              CppDocHppWriter.writeAccessTag("PROTECTED"),
-              CppDocWriter.writeBannerComment(
-                "Getters for numbers of input ports"
-              )
-            ).flatten
-          )
-        )
-      ),
-      inputPorts.map(p =>
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some(s"Get the number of ${p.getUnqualifiedName} input ports"),
-            inputNumGetterName(p.getUnqualifiedName),
-            Nil,
-            CppDoc.Type("NATIVE_INT_TYPE"),
-            Nil
-          )
-        )
-      )
-    ).flatten
-  }
-
-  private def getHandlers(ports: List[PortInstance.General]): List[CppDoc.Class.Member] = {
+  def getHandlers(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     if ports.isEmpty then Nil
     else List(
       List(
@@ -137,7 +68,7 @@ case class ComponentInputPorts(
         CppDoc.Class.Member.Function(
           CppDoc.Function(
             Some(s"Handler for input port ${p.getUnqualifiedName}"),
-            inputHandlerName(p.getUnqualifiedName),
+            inputPortHandlerName(p.getUnqualifiedName),
             portNumParam :: getFunctionParams(p),
             CppDoc.Type("void"),
             Nil,
@@ -148,7 +79,7 @@ case class ComponentInputPorts(
     ).flatten
   }
 
-  private def getHandlerBases(ports: List[PortInstance.General]): List[CppDoc.Class.Member] = {
+  def getHandlerBases(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     if ports.isEmpty then Nil
     else List(
       List(
@@ -169,7 +100,7 @@ case class ComponentInputPorts(
         CppDoc.Class.Member.Function(
           CppDoc.Function(
             Some(s"Handler base-class function for input port ${p.getUnqualifiedName}"),
-            inputHandlerBaseName(p.getUnqualifiedName),
+            inputPortHandlerBaseName(p.getUnqualifiedName),
             portNumParam :: getFunctionParams(p),
             CppDoc.Type("void"),
             Nil
@@ -179,7 +110,7 @@ case class ComponentInputPorts(
     ).flatten
   }
 
-  private def getCallbacks(ports: List[PortInstance.General]): List[CppDoc.Class.Member] = {
+  def getCallbacks(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     if ports.isEmpty then Nil
     else {
       val functions =
@@ -187,7 +118,7 @@ case class ComponentInputPorts(
           CppDoc.Class.Member.Function(
             CppDoc.Function(
               Some(s"Callback for port ${p.getUnqualifiedName}"),
-              inputCallbackName(p.getUnqualifiedName),
+              inputPortCallbackName(p.getUnqualifiedName),
               List(
                 CppDoc.Function.Param(
                   CppDoc.Type("Fw::PassiveComponentBase*"),
@@ -228,35 +159,7 @@ case class ComponentInputPorts(
     }
   }
 
-  private def getPortMembers(ports: List[PortInstance.General]): List[CppDoc.Class.Member] = {
-    if ports.isEmpty then Nil
-    else List(
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          List(
-            CppDocHppWriter.writeAccessTag("PRIVATE"),
-            CppDocWriter.writeBannerComment(
-              s"${getTypeString(ports.head).capitalize} input ports"
-            ),
-            ports.flatMap(p => {
-              val typeName = getQualifiedPortTypeName(p, PortInstance.Direction.Input)
-              val name = inputMemberName(p.getUnqualifiedName)
-              val num = inputEnumName(p.getUnqualifiedName)
-
-              lines(
-                s"""|
-                    |//! Input port ${p.getUnqualifiedName}
-                    |$typeName $name[$num];
-                    |"""
-              )
-            })
-          ).flatten
-        )
-      )
-    )
-  }
-
-  private def getPreMsgHooks(ports: List[PortInstance.General]): List[CppDoc.Class.Member] = {
+  def getPreMsgHooks(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     if ports.isEmpty then Nil
     else List(
       List(
@@ -279,7 +182,7 @@ case class ComponentInputPorts(
         CppDoc.Class.Member.Function(
           CppDoc.Function(
             Some(s"Pre-message hook for async input port ${p.getUnqualifiedName}"),
-            asyncInputHookName(p.getUnqualifiedName),
+            asyncInputPortHookName(p.getUnqualifiedName),
             portNumParam :: getFunctionParams(p),
             CppDoc.Type("void"),
             Nil,

@@ -17,6 +17,8 @@ case class ComponentCppWriter (
 
   private val namespaceIdentList = s.getNamespaceIdentList(symbol)
 
+  private val portWriter = ComponentPorts(s, aNode)
+
   private val kindStr = data.kind match {
     case Ast.ComponentKind.Active => "Active"
     case Ast.ComponentKind.Passive => "Passive"
@@ -70,8 +72,9 @@ case class ComponentCppWriter (
         "Fw/Port/InputSerializePort.hpp",
         "Fw/Port/OutputSerializePort.hpp",
         s"Fw/Comp/$baseClassName.hpp"
-      ) ++ mutexHeader
-    ).map(CppWriter.headerString)
+      ),
+      mutexHeader
+    ).flatten.map(CppWriter.headerString)
     val symbolHeaders = writeIncludeDirectives
     val headers = standardHeaders ++ symbolHeaders
     CppWriter.linesMember(addBlankPrefix(headers.sorted.map(line)))
@@ -101,8 +104,14 @@ case class ComponentCppWriter (
       getComponentFunctions,
       getDispatchFunction,
       getMutexOperations,
-      ComponentInputPorts(s, aNode).write,
-      ComponentOutputPorts(s, aNode).write,
+      portWriter.getPortFunctionMembers,
+      getMemberVariables
+    ).flatten
+  }
+
+  private def getMemberVariables: List[CppDoc.Class.Member] = {
+    List(
+      portWriter.getPortMemberVariables,
       getMsgSizeMember,
       getMutexMembers,
     ).flatten

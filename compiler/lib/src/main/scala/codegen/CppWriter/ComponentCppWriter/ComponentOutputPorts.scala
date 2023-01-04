@@ -10,41 +10,26 @@ case class ComponentOutputPorts(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
-  def write: List[CppDoc.Class.Member] = {
-    if !hasOutputPorts then Nil
-    else List(
-      getTypedConnectors,
-      getSerialConnectors,
-      getInvokers(typedOutputPorts),
-      getInvokers(serialOutputPorts),
-      getNumGetters,
-      getEnum,
-      getConnectionStatusQueries,
-      getPortMembers(typedOutputPorts),
-      getPortMembers(serialOutputPorts)
-    ).flatten
-  }
-
-  private def getTypedConnectors: List[CppDoc.Class.Member] = {
-    if !hasTypedOutputPorts then Nil
+   def getTypedConnectors(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+    if ports.isEmpty then Nil
     else List(
       List(
         CppDoc.Class.Member.Lines(
           CppDoc.Lines(
             List(
               CppDocHppWriter.writeAccessTag("public"),
-              CppDocWriter.writeBannerComment("" +
-                "Connect typed input ports to typed output ports"
+              CppDocWriter.writeBannerComment(
+                s"Connect ${getTypeString(ports.head)} input ports to ${getTypeString(ports.head)} output ports"
               ),
             ).flatten
           )
         )
       ),
-      typedOutputPorts.map(p => {
+      ports.map(p => {
         CppDoc.Class.Member.Function(
           CppDoc.Function(
             Some(s"Connect port to ${p.getUnqualifiedName}[portNum]"),
-            outputConnectorName(p.getUnqualifiedName),
+            outputPortConnectorName(p.getUnqualifiedName),
             List(
               portNumParam,
               CppDoc.Function.Param(
@@ -56,11 +41,11 @@ case class ComponentOutputPorts(
             CppDoc.Type("void"),
             lines(
               s"""|FW_ASSERT(
-                  |  portNum < this->${outputNumGetterName(p.getUnqualifiedName)}(),
+                  |  portNum < this->${portNumGetterName(p.getUnqualifiedName, PortInstance.Direction.Output)}(),
                   |  static_cast<FwAssertArgType>(portNum)
                   |);
                   |
-                  |this->${outputMemberName(p.getUnqualifiedName)}[portNum].addCallPort(port);
+                  |this->${portMemberName(p.getUnqualifiedName, PortInstance.Direction.Output)}[portNum].addCallPort(port);
                   |"""
             )
           )
@@ -75,17 +60,17 @@ case class ComponentOutputPorts(
                 List(
                   CppDocHppWriter.writeAccessTag("public"),
                   CppDocWriter.writeBannerComment("" +
-                    "Connect serial input ports to typed output ports"
+                    s"Connect serial input ports to ${getTypeString(ports.head)} output ports"
                   ),
                 ).flatten
               )
             )
           ),
-          typedOutputPorts.map(p => {
+          ports.map(p => {
             CppDoc.Class.Member.Function(
               CppDoc.Function(
                 Some(s"Connect port to ${p.getUnqualifiedName}[portNum]"),
-                outputConnectorName(p.getUnqualifiedName),
+                outputPortConnectorName(p.getUnqualifiedName),
                 List(
                   portNumParam,
                   CppDoc.Function.Param(
@@ -104,8 +89,8 @@ case class ComponentOutputPorts(
     ).flatten
   }
 
-  private def getSerialConnectors: List[CppDoc.Class.Member] = {
-    if !hasSerialOutputPorts then Nil
+   def getSerialConnectors(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+    if ports.isEmpty then Nil
     else wrapClassMembersInIfDirective(
       "\n#if FW_PORT_SERIALIZATION",
       List(
@@ -115,18 +100,18 @@ case class ComponentOutputPorts(
               List(
                 CppDocHppWriter.writeAccessTag("public"),
                 CppDocWriter.writeBannerComment("" +
-                  "Connect serial input ports to typed output ports"
+                  "Connect serial input ports to serial output ports"
                 ),
               ).flatten
             )
           )
         ),
-        serialOutputPorts.flatMap(p =>
+        ports.flatMap(p =>
           List(
             CppDoc.Class.Member.Function(
               CppDoc.Function(
                 Some(s"Connect port to ${p.getUnqualifiedName}[portNum]"),
-                outputConnectorName(p.getUnqualifiedName),
+                outputPortConnectorName(p.getUnqualifiedName),
                 List(
                   portNumParam,
                   CppDoc.Function.Param(
@@ -142,7 +127,7 @@ case class ComponentOutputPorts(
             CppDoc.Class.Member.Function(
               CppDoc.Function(
                 Some(s"Connect port to ${p.getUnqualifiedName}[portNum]"),
-                outputConnectorName(p.getUnqualifiedName),
+                outputPortConnectorName(p.getUnqualifiedName),
                 List(
                   portNumParam,
                   CppDoc.Function.Param(
@@ -161,7 +146,7 @@ case class ComponentOutputPorts(
     )
   }
 
-  private def getInvokers(ports: List[PortInstance.General]): List[CppDoc.Class.Member] = {
+   def getInvokers(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     if ports.isEmpty then Nil
     else List(
       List(
@@ -180,7 +165,7 @@ case class ComponentOutputPorts(
         CppDoc.Class.Member.Function(
           CppDoc.Function(
             Some(s"Invoke output port ${p.getUnqualifiedName}"),
-            outputInvokerName(p.getUnqualifiedName),
+            outputPortInvokerName(p.getUnqualifiedName),
             portNumParam :: getFunctionParams(p),
             getReturnType(p),
             Nil
@@ -190,73 +175,26 @@ case class ComponentOutputPorts(
     ).flatten
   }
 
-  private def getNumGetters: List[CppDoc.Class.Member] = {
-    List(
+  def getConnectionStatusQueries(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+    if ports.isEmpty then Nil
+    else List(
       List(
         CppDoc.Class.Member.Lines(
           CppDoc.Lines(
             List(
               CppDocHppWriter.writeAccessTag("PROTECTED"),
               CppDocWriter.writeBannerComment("" +
-                "Getters for numbers of output ports"
+                s"Connection status queries for ${getTypeString(ports.head)} output ports"
               ),
             ).flatten
           )
         )
       ),
-      outputPorts.map(p =>
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some(s"Get the number of ${p.getUnqualifiedName} output ports"),
-            outputNumGetterName(p.getUnqualifiedName),
-            Nil,
-            CppDoc.Type("NATIVE_INT_TYPE"),
-            Nil
-          )
-        )
-      )
-    ).flatten
-  }
-
-  private def getEnum: List[CppDoc.Class.Member] = {
-    List(
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          List(
-            CppDocHppWriter.writeAccessTag("PROTECTED"),
-            CppDocWriter.writeBannerComment("" +
-              "Enumerations for numbers of output ports"
-            ),
-            Line.blank :: wrapInEnum(
-              outputPorts.map(p =>
-                line(s"${outputEnumName(p.getUnqualifiedName)} = ${p.getArraySize};")
-              )
-            )
-          ).flatten
-        )
-      )
-    )
-  }
-
-  private def getConnectionStatusQueries: List[CppDoc.Class.Member] = {
-    List(
-      List(
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            List(
-              CppDocHppWriter.writeAccessTag("PROTECTED"),
-              CppDocWriter.writeBannerComment("" +
-                "Connection status queries for output ports"
-              ),
-            ).flatten
-          )
-        )
-      ),
-      outputPorts.map(p =>
+      ports.map(p =>
         CppDoc.Class.Member.Function(
           CppDoc.Function(
             Some(s"Check whether port ${p.getUnqualifiedName} is connected"),
-            outputIsConnectedName(p.getUnqualifiedName),
+            outputPortIsConnectedName(p.getUnqualifiedName),
             List(portNumParam),
             CppDoc.Type("bool"),
             Nil
@@ -264,34 +202,6 @@ case class ComponentOutputPorts(
         )
       )
     ).flatten
-  }
-
-  private def getPortMembers(ports: List[PortInstance.General]): List[CppDoc.Class.Member] = {
-    if ports.isEmpty then Nil
-    else List(
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          List(
-            CppDocHppWriter.writeAccessTag("PRIVATE"),
-            CppDocWriter.writeBannerComment("" +
-              s"${getTypeString(ports.head).capitalize} output ports"
-            ),
-            ports.flatMap(p => {
-              val typeName = getQualifiedPortTypeName(p, PortInstance.Direction.Output)
-              val name = outputMemberName(p.getUnqualifiedName)
-              val num = outputEnumName(p.getUnqualifiedName)
-
-              lines(
-                s"""|
-                    |//! Output port ${p.getUnqualifiedName}
-                    |$typeName $name[$num];
-                    |"""
-              )
-            })
-          ).flatten
-        )
-      )
-    )
   }
 
 }

@@ -28,11 +28,11 @@ abstract class ComponentCppWriterUtils(
   )
 
   /** List of general port instances */
-  val generalPorts: List[PortInstance.General] = members.map(member =>
+  private val specialPorts: List[PortInstance.Special] = members.map(member =>
     member.node._2 match {
       case Ast.ComponentMember.SpecPortInstance(node) => node.data match {
-        case p: Ast.SpecPortInstance.General => component.portMap(p.name) match {
-          case i: PortInstance.General => Some(i)
+        case p: Ast.SpecPortInstance.Special => component.portMap(p.name) match {
+          case i: PortInstance.Special => Some(i)
           case _ => None
         }
         case _ => None
@@ -40,22 +40,37 @@ abstract class ComponentCppWriterUtils(
       case _ => None
     }).filter(_.isDefined).map(_.get)
 
-  /** List of general input ports */
-  val inputPorts: List[PortInstance.General] = generalPorts.filter(p =>
-    p.getDirection.get match {
-      case PortInstance.Direction.Input => true
-      case PortInstance.Direction.Output => false
-    }
-  )
+  val specialInputPorts: List[PortInstance.Special] =
+    filterByPortDirection(specialPorts, PortInstance.Direction.Input)
+
+  val specialOutputPorts: List[PortInstance.Special] =
+    filterByPortDirection(specialPorts, PortInstance.Direction.Output)
+
+  /** List of general port instances */
+  private val generalPorts: List[PortInstance.General] = members.map(member =>
+    member.node._2 match {
+      case Ast.ComponentMember.SpecPortInstance(node) => node.data match {
+        case p: Ast.SpecPortInstance.General => component.portMap(p.name) match {
+          case i: PortInstance.General => Some(i)
+          case _ => None
+        }
+        case _  => None
+      }
+      case _ => None
+    }).filter(_.isDefined).map(_.get)
+
+  /** List of input ports */
+  private val generalInputPorts: List[PortInstance.General] =
+    filterByPortDirection(generalPorts, PortInstance.Direction.Input)
 
   /** List of typed input ports */
-  val typedInputPorts: List[PortInstance.General] = filterTypedPorts(inputPorts)
+  val typedInputPorts: List[PortInstance.General] = filterTypedPorts(generalInputPorts)
 
   /** List of serial input ports */
-  val serialInputPorts: List[PortInstance.General] = filterSerialPorts(inputPorts)
+  val serialInputPorts: List[PortInstance.General] = filterSerialPorts(generalInputPorts)
 
   /** List of guarded input ports */
-  val guardedInputPorts: List[PortInstance.General] = filterGuardedInputPorts(inputPorts)
+  val guardedInputPorts: List[PortInstance.General] = filterGuardedInputPorts(generalInputPorts)
 
   /** List of typed async input ports */
   val typedAsyncInputPorts: List[PortInstance.General] = filterAsyncInputPorts(typedInputPorts)
@@ -64,12 +79,8 @@ abstract class ComponentCppWriterUtils(
   val serialAsyncInputPorts: List[PortInstance.General] = filterAsyncInputPorts(serialInputPorts)
 
   /** List of general output ports */
-  val outputPorts: List[PortInstance.General] = generalPorts.filter(p =>
-    p.getDirection.get match {
-      case PortInstance.Direction.Input => false
-      case PortInstance.Direction.Output => true
-    }
-  )
+  private val outputPorts: List[PortInstance.General] =
+    filterByPortDirection(generalPorts, PortInstance.Direction.Output)
 
   /** List of typed output ports */
   val typedOutputPorts: List[PortInstance.General] = filterTypedPorts(outputPorts)
@@ -79,31 +90,22 @@ abstract class ComponentCppWriterUtils(
 
   // Map from a port instance name to a PortCppWriter
   private val portWriterMap =
-    (typedInputPorts ++ typedOutputPorts).map(p =>
-      p.getType.get match {
-        case PortInstance.Type.DefPort(symbol) =>
+    List(
+      specialInputPorts,
+      typedInputPorts,
+      specialOutputPorts,
+      typedOutputPorts
+    ).flatten.map(p =>
+      p.getType match {
+        case Some(PortInstance.Type.DefPort(symbol)) =>
           Some((p.getUnqualifiedName, PortCppWriter(s, symbol.node)))
         case _ => None
       }
     ).filter(_.isDefined).map(_.get).toMap
 
-  val hasInputPorts: Boolean = inputPorts.nonEmpty
-
-  val hasTypedInputPorts: Boolean = typedInputPorts.nonEmpty
-
-  val hasSerialInputPorts: Boolean = serialInputPorts.nonEmpty
-
   val hasGuardedInputPorts: Boolean = guardedInputPorts.nonEmpty
 
-  val hasTypedAsyncInputPorts: Boolean = typedAsyncInputPorts.nonEmpty
-
   val hasSerialAsyncInputPorts: Boolean = serialAsyncInputPorts.nonEmpty
-
-  val hasOutputPorts: Boolean = outputPorts.nonEmpty
-
-  val hasTypedOutputPorts: Boolean = typedOutputPorts.nonEmpty
-
-  val hasSerialOutputPorts: Boolean = serialOutputPorts.nonEmpty
 
   /** Get the qualified name of a port type */
   def getQualifiedPortTypeName(
@@ -127,7 +129,7 @@ abstract class ComponentCppWriterUtils(
   }
 
   /** Get port params as CppDoc Function Params */
-  def getFunctionParams(p: PortInstance.General): List[CppDoc.Function.Param] =
+  def getFunctionParams(p: PortInstance): List[CppDoc.Function.Param] =
     p.getType.get match {
       case PortInstance.Type.DefPort(_) =>
         portWriterMap(p.getUnqualifiedName).functionParams
@@ -142,7 +144,7 @@ abstract class ComponentCppWriterUtils(
     }
 
   /** Get a port return type as a CppDoc Type */
-  def getReturnType(p: PortInstance.General): CppDoc.Type =
+  def getReturnType(p: PortInstance): CppDoc.Type =
     p.getType.get match {
       case PortInstance.Type.DefPort(_) => CppDoc.Type(
         portWriterMap(p.getUnqualifiedName).returnType
@@ -152,67 +154,67 @@ abstract class ComponentCppWriterUtils(
       )
     }
 
-  def getTypeString(p: PortInstance.General): String =
-    p.getType.get match {
-      case PortInstance.Type.DefPort(_) => "typed"
-      case PortInstance.Type.Serial => "serial"
+  def getTypeString(p: PortInstance): String =
+    p match {
+      case _: PortInstance.General => p.getType.get match {
+        case PortInstance.Type.DefPort(_) => "typed"
+        case PortInstance.Type.Serial => "serial"
+      }
+      case _: PortInstance.Special => "special"
+      case _: PortInstance.Internal => "internal"
     }
 
+  /** Get the name for a port enumerated constant */
+  def portEnumName(name: String, direction: PortInstance.Direction) =
+    s"NUM_${name.toUpperCase}_${direction.toString.toUpperCase}_PORTS"
+
+  /** Get the name for a port number getter function */
+  def portNumGetterName(name: String, direction: PortInstance.Direction) =
+    s"getNum_${name}_${direction.toString.capitalize}Ports"
+
+  /** Get the name for a port member */
+  def portMemberName(name: String, direction: PortInstance.Direction) =
+    s"m_${name}_${direction.toString.capitalize}Port"
+
   /** Get the name for an input port getter function */
-  def inputGetterName(name: String) =
+  def inputPortGetterName(name: String) =
     s"get_${name}_InputPort"
 
-  /** Get the name for an input port enumerated constant */
-  def inputEnumName(name: String) =
-    s"NUM_${name.toUpperCase}_INPUT_PORTS"
-
-  /** Get the name for an input port number getter function */
-  def inputNumGetterName(name: String) =
-    s"getNum_${name}_InputPorts"
-
   /** Get the name for an input port handler function */
-  def inputHandlerName(name: String) =
+  def inputPortHandlerName(name: String) =
     s"${name}_handler"
 
   /** Get the name for an input port handler base-class function */
-  def inputHandlerBaseName(name: String) =
+  def inputPortHandlerBaseName(name: String) =
     s"${name}_handlerBase"
 
   /** Get the name for an input port callback function */
-  def inputCallbackName(name: String) =
+  def inputPortCallbackName(name: String) =
     s"m_p_${name}_in"
 
   /** Get the name for an async input port pre-message hook function */
-  def asyncInputHookName(name: String) =
+  def asyncInputPortHookName(name: String) =
     s"${name}_preMsgHook"
 
-  /** Get the name for an input port member */
-  def inputMemberName(name: String) =
-    s"m_${name}_InputPort"
-
-  /** Get the name for an output port number getter function */
-  def outputNumGetterName(name: String) =
-    s"getNum_${name}_OutputPorts"
-
-  /** Get the name for an output port enumerated constant function */
-  def outputEnumName(name: String) =
-    s"NUM_${name.toUpperCase}_OUTPUT_PORTS"
-
   /** Get the name for an output port connector function */
-  def outputConnectorName(name: String) =
+  def outputPortConnectorName(name: String) =
     s"set_${name}_OutputPort"
 
   /** Get the name for an output port connection status function */
-  def outputIsConnectedName(name: String) =
+  def outputPortIsConnectedName(name: String) =
     s"isConnected_${name}_OutputPort"
 
   /** Get the name for an output port invocation function */
-  def outputInvokerName(name: String) =
+  def outputPortInvokerName(name: String) =
     s"${name}_out"
 
-  /** Get the name for an output port member */
-  def outputMemberName(name: String) =
-    s"m_${name}_OutputPort"
+  private def filterByPortDirection[T<: PortInstance](ports: List[T], direction: PortInstance.Direction) =
+    ports.filter(p =>
+      p.getDirection match {
+        case Some(d) if d == direction => true
+        case _ => false
+      }
+    )
 
   private def filterTypedPorts(ports: List[PortInstance.General]) =
     ports.filter(p =>
