@@ -136,12 +136,14 @@ object Program extends LineUtils {
                         Function.Param(
                           Type("const double", None),
                           "x",
-                          Some("This is parameter x")
+                          Some("This is parameter x"),
+                          Some("0.0")
                         ),
                         Function.Param(
                           Type("const int", None),
                           "y",
-                          Some("This is parameter y")
+                          Some("This is parameter y"),
+                          Some("0")
                         )
                       ),
                       retType = Type("void", None),
