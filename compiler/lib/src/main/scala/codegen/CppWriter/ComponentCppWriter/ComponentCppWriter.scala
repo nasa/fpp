@@ -48,9 +48,21 @@ case class ComponentCppWriter (
   private def getMembers: List[CppDoc.Member] = {
     val hppIncludes = getHppIncludes
     val cppIncludes = getCppIncludes
+    val annotationStr = AnnotationCppWriter.asStringOpt(aNode) match {
+      case Some(annotation) =>
+        s"""|$annotation
+            |
+            |"""
+      case None => ""
+    }
     val cls = CppDoc.Member.Class(
       CppDoc.Class(
-        AnnotationCppWriter.asStringOpt(aNode),
+        Some(
+          annotationStr +
+          s"""|\\class $className
+              |\\brief Auto-generated base for $name component
+              |"""
+        ),
         className,
         Some(s"public Fw::$baseClassName"),
         getClassMembers
@@ -66,7 +78,7 @@ case class ComponentCppWriter (
     val mutexHeader =
       if hasGuardedInputPorts then List("Os/Mutex.hpp")
       else Nil
-    val standardHeaders = (
+    val standardHeaders = List(
       List(
         "FpConfig.hpp",
         "Fw/Port/InputSerializePort.hpp",
@@ -101,6 +113,7 @@ case class ComponentCppWriter (
   private def getClassMembers: List[CppDoc.Class.Member] = {
     List(
       getFriendClasses,
+      portWriter.getPortConstants,
       getComponentFunctions,
       getDispatchFunction,
       getMutexOperations,
@@ -141,8 +154,9 @@ case class ComponentCppWriter (
     val initInstanceParam = List(
       CppDoc.Function.Param(
         CppDoc.Type("NATIVE_INT_TYPE"),
-        "instance = 0",
-        Some("The instance number")
+        "instance",
+        Some("The instance number"),
+        Some("0")
       )
     )
     val initQueueDepthParam =
@@ -181,8 +195,9 @@ case class ComponentCppWriter (
           List(
             CppDoc.Function.Param(
               CppDoc.Type("const char*"),
-              "compName = \"\"",
-              Some("The component name")
+              "compName",
+              Some("The component name"),
+              Some("\"\"")
             )
           ),
           Nil,

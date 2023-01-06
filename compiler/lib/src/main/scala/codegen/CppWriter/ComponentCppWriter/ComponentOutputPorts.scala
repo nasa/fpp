@@ -193,7 +193,12 @@ case class ComponentOutputPorts(
       ports.map(p =>
         CppDoc.Class.Member.Function(
           CppDoc.Function(
-            Some(s"Check whether port ${p.getUnqualifiedName} is connected"),
+            Some(
+              s"""|Check whether port ${p.getUnqualifiedName} is connected
+                  |
+                  |\\return Whether port ${p.getUnqualifiedName} is connected
+                  |"""
+            ),
             outputPortIsConnectedName(p.getUnqualifiedName),
             List(portNumParam),
             CppDoc.Type("bool"),

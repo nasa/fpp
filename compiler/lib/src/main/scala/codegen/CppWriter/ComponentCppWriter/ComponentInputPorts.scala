@@ -28,7 +28,12 @@ case class ComponentInputPorts(
       ports.map(p =>
         CppDoc.Class.Member.Function(
           CppDoc.Function(
-            Some(s"Get ${getTypeString(ports.head)} input port at index"),
+            Some(
+              s"""|Get ${getTypeString(ports.head)} input port at index
+                  |
+                  |\\return ${p.getUnqualifiedName}[portNum]
+                  |"""
+            ),
             inputPortGetterName(p.getUnqualifiedName),
             List(
               portNumParam

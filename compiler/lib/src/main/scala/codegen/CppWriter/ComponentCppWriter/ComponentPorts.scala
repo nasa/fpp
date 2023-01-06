@@ -14,14 +14,26 @@ case class ComponentPorts(
 
   private val outputPortWriter = ComponentOutputPorts(s, aNode)
 
-  def getPortMemberVariables: List[CppDoc.Class.Member] = {
+  def getPortConstants: List[CppDoc.Class.Member] = {
     List(
-      getPortMembers(specialInputPorts),
-      getPortMembers(typedInputPorts),
-      getPortMembers(serialInputPorts),
-      getPortMembers(specialOutputPorts),
-      getPortMembers(typedOutputPorts),
-      getPortMembers(serialOutputPorts),
+      List(
+        CppDoc.Class.Member.Lines(
+          CppDoc.Lines(
+            List(
+              CppDocHppWriter.writeAccessTag("PROTECTED"),
+              CppDocWriter.writeBannerComment(
+                "Constants"
+              ),
+            ).flatten
+          )
+        )
+      ),
+      getPortEnum(specialInputPorts),
+      getPortEnum(typedInputPorts),
+      getPortEnum(serialInputPorts),
+      getPortEnum(specialOutputPorts),
+      getPortEnum(typedOutputPorts),
+      getPortEnum(serialOutputPorts),
     ).flatten
   }
 
@@ -30,12 +42,6 @@ case class ComponentPorts(
       inputPortWriter.getGetters(specialInputPorts),
       inputPortWriter.getGetters(typedInputPorts),
       inputPortWriter.getGetters(serialInputPorts),
-      getPortEnum(specialInputPorts),
-      getPortEnum(typedInputPorts),
-      getPortEnum(serialInputPorts),
-      getPortEnum(specialOutputPorts),
-      getPortEnum(typedOutputPorts),
-      getPortEnum(serialOutputPorts),
       getPortNumGetters(specialInputPorts),
       getPortNumGetters(typedInputPorts),
       getPortNumGetters(serialInputPorts),
@@ -49,19 +55,30 @@ case class ComponentPorts(
       outputPortWriter.getConnectionStatusQueries(typedOutputPorts),
       outputPortWriter.getConnectionStatusQueries(serialOutputPorts),
       inputPortWriter.getHandlers(specialInputPorts),
-      inputPortWriter.getHandlers(typedInputPorts),
-      inputPortWriter.getHandlers(serialInputPorts),
       inputPortWriter.getHandlerBases(specialInputPorts),
+      inputPortWriter.getHandlers(typedInputPorts),
       inputPortWriter.getHandlerBases(typedInputPorts),
+      inputPortWriter.getHandlers(serialInputPorts),
       inputPortWriter.getHandlerBases(serialInputPorts),
       outputPortWriter.getInvokers(specialOutputPorts),
       outputPortWriter.getInvokers(typedOutputPorts),
       outputPortWriter.getInvokers(serialOutputPorts),
+      inputPortWriter.getPreMsgHooks(typedAsyncInputPorts),
+      inputPortWriter.getPreMsgHooks(serialAsyncInputPorts),
       inputPortWriter.getCallbacks(specialInputPorts),
       inputPortWriter.getCallbacks(typedInputPorts),
       inputPortWriter.getCallbacks(serialInputPorts),
-      inputPortWriter.getPreMsgHooks(typedAsyncInputPorts),
-      inputPortWriter.getPreMsgHooks(serialAsyncInputPorts),
+    ).flatten
+  }
+
+  def getPortMemberVariables: List[CppDoc.Class.Member] = {
+    List(
+      getPortMembers(specialInputPorts),
+      getPortMembers(typedInputPorts),
+      getPortMembers(serialInputPorts),
+      getPortMembers(specialOutputPorts),
+      getPortMembers(typedOutputPorts),
+      getPortMembers(serialOutputPorts),
     ).flatten
   }
 
@@ -71,13 +88,14 @@ case class ComponentPorts(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
           List(
-            CppDocHppWriter.writeAccessTag("PROTECTED"),
-            CppDocWriter.writeBannerComment(
-              s"Enumerations for numbers of ${getTypeString(ports.head)} ${ports.head.getDirection.get.toString} ports"
+            Line.blank :: lines(
+              s"//! Enumerations for numbers of ${getTypeString(ports.head)} ${ports.head.getDirection.get.toString} ports"
             ),
-            Line.blank :: wrapInEnum(
-              ports.map(p =>
-                line(s"${portEnumName(p.getUnqualifiedName, p.getDirection.get)} = ${p.getArraySize};")
+            wrapInEnum(
+              lines(
+                ports.map(p =>
+                  s"${portEnumName(p.getUnqualifiedName, p.getDirection.get)} = ${p.getArraySize}"
+                ).mkString(",\n")
               )
             )
           ).flatten
@@ -104,7 +122,12 @@ case class ComponentPorts(
       ports.map(p =>
         CppDoc.Class.Member.Function(
           CppDoc.Function(
-            Some(s"Get the number of ${p.getUnqualifiedName} ${p.getDirection.get.toString} ports"),
+            Some(
+              s"""|Get the number of ${p.getUnqualifiedName} ${p.getDirection.get.toString} ports
+                  |
+                  |\\return The number of ${p.getUnqualifiedName} ${p.getDirection.get.toString} ports
+                  |"""
+            ),
             portNumGetterName(p.getUnqualifiedName, p.getDirection.get),
             Nil,
             CppDoc.Type("NATIVE_INT_TYPE"),
@@ -126,13 +149,13 @@ case class ComponentPorts(
               s"${getTypeString(ports.head).capitalize} ${ports.head.getDirection.get.toString} ports"
             ),
             ports.flatMap(p => {
-              val typeName = getQualifiedPortTypeName(p, PortInstance.Direction.Input)
+              val typeName = getQualifiedPortTypeName(p, p.getDirection.get)
               val name = portMemberName(p.getUnqualifiedName, p.getDirection.get)
               val num = portEnumName(p.getUnqualifiedName, p.getDirection.get)
 
               lines(
                 s"""|
-              |//! Input port ${p.getUnqualifiedName}
+                    |//! ${p.getDirection.get.toString.capitalize} port ${p.getUnqualifiedName}
                     |$typeName $name[$num];
                     |"""
               )
