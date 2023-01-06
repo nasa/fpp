@@ -37,9 +37,10 @@ object CppDocHppWriter extends CppDocWriter {
 
   def paramStringComma(p: CppDoc.Function.Param): String = {
     val s1 = CppDocCppWriter.paramString(p)
-    val s2 = s"${addParamDefault(s1, p.default)},"
-    val s3 = addParamComment(s2, p.comment)
-    s3
+    val s2 = addParamDefault(s1, p.default)
+    val s3 = s"$s2,"
+    val s4 = addParamComment(s3, p.comment)
+    s4
   }
 
   def writeAccessTag(tag: String): List[Line] = List(
