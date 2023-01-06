@@ -10,6 +10,11 @@ object CppDocHppWriter extends CppDocWriter {
     case None => s
   }
 
+  def addParamDefault(s: String, defaultOpt: Option[String]): String = defaultOpt match {
+    case Some(default) => s"$s = $default"
+    case None => s
+  }
+
   def closeIncludeGuard: List[Line] = lines(
     """|
        |#endif"""
@@ -25,14 +30,16 @@ object CppDocHppWriter extends CppDocWriter {
 
   def paramString(p: CppDoc.Function.Param): String = {
     val s1 = CppDocCppWriter.paramString(p)
-    val s2 = addParamComment(s1, p.comment)
-    s2
+    val s2 = addParamDefault(s1, p.default)
+    val s3 = addParamComment(s2, p.comment)
+    s3
   }
 
   def paramStringComma(p: CppDoc.Function.Param): String = {
-    val s1 = CppDocCppWriter.paramStringComma(p)
-    val s2 = addParamComment(s1, p.comment)
-    s2
+    val s1 = CppDocCppWriter.paramString(p)
+    val s2 = s"${addParamDefault(s1, p.default)},"
+    val s3 = addParamComment(s2, p.comment)
+    s3
   }
 
   def writeAccessTag(tag: String): List[Line] = List(
@@ -43,7 +50,7 @@ object CppDocHppWriter extends CppDocWriter {
   def writeParams(prefix: String, params: List[CppDoc.Function.Param]): List[Line] = {
     if (params.length == 0) lines(s"$prefix()")
     else if (params.length == 1 && params.head.comment.isEmpty)
-      lines(s"$prefix(" ++ CppDocCppWriter.paramString(params.head) ++ ")")
+      lines(s"$prefix(" ++ paramString(params.head) ++ ")")
     else {
       val head :: tail = params.reverse
       val paramLines = (writeParam(head) :: tail.map(writeParamComma(_))).reverse

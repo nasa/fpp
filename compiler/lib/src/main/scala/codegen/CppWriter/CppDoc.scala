@@ -84,7 +84,8 @@ object CppDoc {
     case class Param(
       t: Type,
       name: String,
-      comment: Option[String] = None
+      comment: Option[String] = None,
+      default: Option[String] = None
     )
     sealed trait SVQualifier
     case object NonSV extends SVQualifier
