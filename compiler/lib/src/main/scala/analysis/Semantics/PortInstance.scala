@@ -329,11 +329,7 @@ object PortInstance {
             _ <- checkGeneralAsyncInput(instance)
           } yield instance
         case specifier : Ast.SpecPortInstance.Special =>
-          for {
-            instance <- createSpecialPortInstance(a, aNode, specifier)
-            // TODO: Check special async input
-          }
-          yield instance
+          createSpecialPortInstance(a, aNode, specifier)
       }
     }
 

@@ -9,7 +9,7 @@ module Fw {
 passive component C {
 
   product request port productRequestOut
-  product recv port productRecvIn
+  sync product recv port productRecvIn
   product send port productSendOut
 
   @ A record with no ID
