@@ -4701,7 +4701,8 @@ The identifier specifies the name of the port.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The optional input kind is valid only for <code>product</code> <code>recv</code> ports.</p>
+<p>The optional input kind must be present for <code>product</code> <code>recv</code> ports
+and may not be present for other ports.</p>
 </li>
 <li>
 <p>The optional expression <em>e</em> appearing after the keyword
@@ -4836,7 +4837,7 @@ telemetry port tlmOut
 @ A port for getting the current time
 time get port timeGetOut
 
-@ A port for receiving requested data product buffers
+@ An async port for receiving requested data product buffers
 async product recv port productRecvIn
 
 @ A port for requesting data product buffers
@@ -8466,7 +8467,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-01-06 16:39:07 -0800
+Last updated 2023-01-06 18:00:26 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

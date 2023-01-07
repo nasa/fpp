@@ -205,7 +205,8 @@ trait TypeExpressionAnalyzer
           a <- opt(exprNode)(a, general.size)
           a <- opt(exprNode)(a, general.priority)
         } yield a
-      case _ => Right(a)
+      case special : Ast.SpecPortInstance.Special =>
+        opt(exprNode)(a, special.priority)
     }
   }
 

@@ -268,7 +268,7 @@ telemetry port tlmOut
 @ A port for getting the current time
 time get port timeGetOut
 
-@ A port for receiving requested data product buffers
+@ An async port for receiving requested data product buffers
 async product recv port productRecvIn
 
 @ A port for requesting data product buffers

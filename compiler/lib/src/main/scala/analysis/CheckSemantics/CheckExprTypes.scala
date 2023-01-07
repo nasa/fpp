@@ -240,7 +240,11 @@ object CheckExprTypes extends UseAnalyzer {
           _ <- convertNodeToNumericOpt(a, general.priority)
         }
         yield a
-      case _ => Right(a)
+      case special : Ast.SpecPortInstance.Special =>
+        for {
+          a <- super.specPortInstanceAnnotatedNode(a, aNode)
+          _ <- convertNodeToNumericOpt(a, special.priority)
+        } yield a
     }
   }
 
