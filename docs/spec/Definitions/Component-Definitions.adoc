@@ -81,11 +81,15 @@ The component members must satisfy the following rules:
 . All names appearing in any general port specifiers, special port specifiers, 
 and internal port specifiers must be distinct.
 
-. No passive component may have an `async` `input` port specifier, an internal
+. No passive component may have an `async` general or special
+port specifier, an internal
 port specifier, or an `async` command specifier.
 
-. Each active or queued component must have at least one `async` `input` port 
-specifier, internal port specifier, or `async` command specifier.
+. Each active or queued component must have at least one `async` general
+or special port specifier, internal port specifier, or
+`async` command specifier.
+
+. Each component may have at most one of each special port kind.
 
 . Each component must provide ports as shown in the table below.
 

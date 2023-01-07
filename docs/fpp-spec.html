@@ -1687,12 +1687,17 @@ qualified with the component name, as for
 and internal port specifiers must be distinct.</p>
 </li>
 <li>
-<p>No passive component may have an <code>async</code> <code>input</code> port specifier, an internal
+<p>No passive component may have an <code>async</code> general or special
+port specifier, an internal
 port specifier, or an <code>async</code> command specifier.</p>
 </li>
 <li>
-<p>Each active or queued component must have at least one <code>async</code> <code>input</code> port
-specifier, internal port specifier, or <code>async</code> command specifier.</p>
+<p>Each active or queued component must have at least one <code>async</code> general
+or special port specifier, internal port specifier, or
+<code>async</code> command specifier.</p>
+</li>
+<li>
+<p>Each component may have at most one of each special port kind.</p>
 </li>
 <li>
 <p>Each component must provide ports as shown in the table below.</p>
@@ -4468,7 +4473,14 @@ of a
 <em>]</em></p>
 </li>
 <li>
-<p><em>special-port-kind</em> <code>port</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a></p>
+<p><em>[</em> <em>special-port-input-kind</em> <em>]</em>
+<em>special-port-kind</em> <code>port</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>[</em>
+<code>priority</code> <a href="#Expressions"><em>expression</em></a>
+<em>]</em>
+<em>[</em>
+<em>queue-full-behavior</em>
+<em>]</em></p>
 </li>
 </ul>
 </div>
@@ -4517,6 +4529,22 @@ of a
 </li>
 <li>
 <p><code>drop</code></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><em>special-port-input-kind</em> is one of the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>async</code></p>
+</li>
+<li>
+<p><code>guarded</code></p>
+</li>
+<li>
+<p><code>sync</code></p>
 </li>
 </ol>
 </div>
@@ -4662,17 +4690,26 @@ If no specifier appears, then the default behavior is <code>assert</code>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Special port instances:</strong>
-The port instance whose names begin with <code>product</code> are for managing
-data products.
-The other special port instances correspond to the "role ports"
-in the F Prime XML model.</p>
-</div>
-<div class="paragraph">
-<p>The types and other attributes of the special ports are specified by F Prime.
+The special port instance have special functions in the code generated
+from an FPP model.
+The types and other attributes of the special ports are specified by F Prime.
 The identifier specifies the name of the port.</p>
 </div>
 <div class="paragraph">
 <p>There must be at most one of each kind of special port instance.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The optional input kind is valid only for <code>product</code> <code>recv</code> ports.</p>
+</li>
+<li>
+<p>The optional expression <em>e</em> appearing after the keyword
+<code>priority</code> and the optional <em>queue-full-behavior</em> behavior have
+the same meaning as described above for general ports.
+These elements are valid only for <code>async</code> <code>product</code> <code>recv</code> ports.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p>Each special port instance represents an implied use of a port
@@ -4800,7 +4837,7 @@ telemetry port tlmOut
 time get port timeGetOut
 
 @ A port for receiving requested data product buffers
-product recv port productRecvIn
+async product recv port productRecvIn
 
 @ A port for requesting data product buffers
 product request port productRequestOut
@@ -8429,7 +8466,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-01-06 13:56:01 -0800
+Last updated 2023-01-06 16:39:07 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

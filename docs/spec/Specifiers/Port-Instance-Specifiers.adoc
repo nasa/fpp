@@ -21,7 +21,14 @@ _[_
 _queue-full-behavior_
 _]_
 
-* _special-port-kind_ `port` <<Lexical-Elements_Identifiers,_identifier_>>
+* _[_ _special-port-input-kind_ _]_
+_special-port-kind_ `port` <<Lexical-Elements_Identifiers,_identifier_>>
+_[_
+`priority` <<Expressions,_expression_>>
+_]_
+_[_
+_queue-full-behavior_
+_]_
 
 _general-port-kind_ is one of the following:
 
@@ -46,6 +53,14 @@ _queue-full-behavior_ is one of the following:
 . `block`
 
 . `drop`
+
+_special-port-input-kind_ is one of the following:
+
+. `async`
+
+. `guarded`
+
+. `sync`
 
 _special-port-kind_ is one of the following:
 
@@ -138,15 +153,19 @@ This specifier is valid only for `async input` ports.
 If no specifier appears, then the default behavior is `assert`.
 
 *Special port instances:*
-The port instance whose names begin with `product` are for managing
-data products.
-The other special port instances correspond to the "role ports"
-in the F Prime XML model.
-
+The special port instance have special functions in the code generated
+from an FPP model.
 The types and other attributes of the special ports are specified by F Prime.
 The identifier specifies the name of the port.
 
 There must be at most one of each kind of special port instance.
+
+. The optional input kind is valid only for `product` `recv` ports.
+
+. The optional expression _e_ appearing after the keyword
+`priority` and the optional _queue-full-behavior_ behavior have
+the same meaning as described above for general ports.
+These elements are valid only for `async` `product` `recv` ports.
 
 Each special port instance represents an implied use of a port
 as shown in the table below.
@@ -249,7 +268,7 @@ telemetry port tlmOut
 time get port timeGetOut
 
 @ A port for receiving requested data product buffers
-product recv port productRecvIn
+async product recv port productRecvIn
 
 @ A port for requesting data product buffers
 product request port productRequestOut
