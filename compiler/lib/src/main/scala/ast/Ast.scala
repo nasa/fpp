@@ -507,9 +507,24 @@ object Ast {
 
     /** Special port instance */
     final case class Special (
+      inputKind: Option[SpecialInputKind],
       kind: SpecialKind,
-      name: Ident
+      name: Ident,
+      priority: Option[AstNode[Expr]],
+      queueFull: Option[AstNode[QueueFull]]
     ) extends SpecPortInstance
+
+    /** Special port input kind */
+    sealed trait SpecialInputKind
+    case object Async extends SpecialInputKind {
+      override def toString = "async"
+    }
+    case object Guarded extends SpecialInputKind {
+      override def toString = "guarded"
+    }
+    case object Sync extends SpecialInputKind {
+      override def toString = "sync"
+    }
 
     /** Special port instance kind */
     sealed trait SpecialKind

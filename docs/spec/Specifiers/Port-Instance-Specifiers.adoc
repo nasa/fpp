@@ -160,7 +160,8 @@ The identifier specifies the name of the port.
 
 There must be at most one of each kind of special port instance.
 
-. The optional input kind is valid only for `product` `recv` ports.
+. The optional input kind must be present for `product` `recv` ports
+and may not be present for other ports.
 
 . The optional expression _e_ appearing after the keyword
 `priority` and the optional _queue-full-behavior_ behavior have

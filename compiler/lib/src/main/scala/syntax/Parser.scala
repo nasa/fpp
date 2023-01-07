@@ -494,6 +494,11 @@ object Parser extends Parsers {
       serial ^^ { case _ => None} |
       failure("port type expected")
     }
+    def specialInputKind = {
+      async ^^ { case _ => Ast.SpecPortInstance.Async } |
+      guarded ^^ { case _ => Ast.SpecPortInstance.Guarded } |
+      sync ^^ { case _ => Ast.SpecPortInstance.Sync }
+    }
     def specialKind = {
       command ~ recv ^^ { case _ => Ast.SpecPortInstance.CommandRecv } |
       command ~ reg ^^ { case _ => Ast.SpecPortInstance.CommandReg } |
@@ -519,8 +524,19 @@ object Parser extends Parsers {
       }
     }
     def special: Parser[Ast.SpecPortInstance] = {
-      specialKind ~ (port ~>! ident) ^^ {
-        case kind ~ name => Ast.SpecPortInstance.Special(kind, name)
+      opt(specialInputKind) ~
+      specialKind ~
+      (port ~>! ident) ~!
+      opt(priority ~>! exprNode) ~!
+      opt(node(queueFull)) ^^ {
+        case inputKind ~ kind ~ name ~ priority ~ queueFull =>
+          Ast.SpecPortInstance.Special(
+            inputKind,
+            kind,
+            name,
+            priority,
+            queueFull
+          )
       }
     }
     general | special
