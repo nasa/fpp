@@ -127,7 +127,9 @@ object PortInstance {
   final case class Special(
     aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]],
     specifier: Ast.SpecPortInstance.Special,
-    symbol: Symbol.Port
+    symbol: Symbol.Port,
+    priority: Option[BigInt],
+    queueFull: Option[Ast.QueueFull]
   ) extends PortInstance {
 
     override def getDirection = {
@@ -197,70 +199,142 @@ object PortInstance {
       }
     }
 
+  /** Creates a general port instance */
+  private def createGeneralPortInstance(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]],
+    specifier: Ast.SpecPortInstance.General
+  ) = {
+    for {
+      // Check the priority specifier
+      _ <- (specifier.kind, specifier.priority) match {
+        case (Ast.SpecPortInstance.AsyncInput, _) => Right(())
+        case (_, Some(priority)) =>
+          val loc = Locations.get(priority.id)
+          Left(SemanticError.InvalidPriority(loc))
+        case (_, None) => Right(())
+      }
+      // Check the queue full specifier
+      _ <- (specifier.kind, specifier.queueFull) match {
+        case (Ast.SpecPortInstance.AsyncInput, _) => Right(())
+        case (_, Some(queueFull)) =>
+          val loc = Locations.get(queueFull.id)
+          Left(SemanticError.InvalidQueueFull(loc))
+        case (_, None) => Right(())
+      }
+      // Get the size
+      size <- getArraySize(a, specifier.size)
+      // Get the priority
+      priority <- Right(a.getBigIntValueOpt(specifier.priority))
+      // Get the type
+      ty <- specifier.port match {
+        case Some(qid) => a.useDefMap(qid.id) match {
+          case symbol @ Symbol.Port(_) => 
+            Right(PortInstance.Type.DefPort(symbol))
+          case symbol => Left(SemanticError.InvalidSymbol(
+            symbol.getUnqualifiedName,
+            Locations.get(qid.id),
+            "not a port symbol",
+            symbol.getLoc
+          ))
+        }
+        case None => Right(PortInstance.Type.Serial)
+      }
+    }
+    yield {
+      val kind = specifier.kind match {
+        case Ast.SpecPortInstance.AsyncInput =>
+          val queueFull = Analysis.getQueueFull(specifier.queueFull.map(_.data))
+          PortInstance.General.Kind.AsyncInput(priority, queueFull)
+        case Ast.SpecPortInstance.GuardedInput =>
+          PortInstance.General.Kind.GuardedInput
+        case Ast.SpecPortInstance.Output =>
+          PortInstance.General.Kind.Output
+        case Ast.SpecPortInstance.SyncInput =>
+          PortInstance.General.Kind.SyncInput
+      }
+      PortInstance.General(aNode, specifier, kind, size, ty)
+    }
+  }
+
+  /** Creates a special port instance */
+  def createSpecialPortInstance(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]],
+    specifier: Ast.SpecPortInstance.Special
+  ) = {
+    val node = aNode._2
+    val symbol @ Symbol.Port(_) = a.useDefMap(node.id)
+    val loc = Locations.get(node.id)
+    val kindString = specifier.kind.toString
+    for {
+      // Check the input kind
+      _ <- (specifier.inputKind, specifier.kind) match {
+        case (Some(_), Ast.SpecPortInstance.ProductRecv) => Right(())
+        case (Some(_), _) => Left(
+          SemanticError.InvalidSpecialPort(
+            loc,
+            s"$kindString port may not specify input kind"
+          )
+        )
+        case (None, Ast.SpecPortInstance.ProductRecv) => Left(
+          SemanticError.InvalidSpecialPort(
+            loc,
+            s"$kindString port must specify input kind"
+          )
+        )
+        case _ => Right(())
+      }
+      // Check the priority specifier
+      _ <- (specifier.inputKind, specifier.priority) match {
+        case (Some(Ast.SpecPortInstance.Async), _) => Right(())
+        case (_, Some(priority)) =>
+          val loc = Locations.get(priority.id)
+          Left(SemanticError.InvalidPriority(loc))
+        case (_, None) => Right(())
+      }
+      // Check the queue full specifier
+      _ <- (specifier.inputKind, specifier.queueFull) match {
+        case (Some(Ast.SpecPortInstance.Async), _) => Right(())
+        case (_, Some(queueFull)) =>
+          val loc = Locations.get(queueFull.id)
+          Left(SemanticError.InvalidQueueFull(loc))
+        case (_, None) => Right(())
+      }
+      // Get the priority
+      priority <- Right(a.getBigIntValueOpt(specifier.priority))
+    }
+    yield {
+      val queueFull = specifier.kind match {
+        case Ast.SpecPortInstance.ProductRecv =>
+          Some(Analysis.getQueueFull(specifier.queueFull.map(_.data)))
+        case _ => None
+      }
+      PortInstance.Special(aNode, specifier, symbol, priority, queueFull)
+    }
+  }
+
   /** Creates a port instance from a port instance specifier */
-  def fromSpecPortInstance(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]]): 
+  def fromSpecPortInstance(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]]
+  ): 
     Result.Result[PortInstance] = {
       val node = aNode._2
       val data = node.data
-      /** Creates a general port instance */
-      def general(a: Analysis, specifier: Ast.SpecPortInstance.General) = {
-        for {
-          _ <- (specifier.kind, specifier.priority) match {
-            case (Ast.SpecPortInstance.AsyncInput, _) => Right(())
-            case (_, Some(priority)) =>
-              val loc = Locations.get(priority.id)
-              Left(SemanticError.InvalidPriority(loc))
-            case (_, None) => Right(())
-          }
-          _ <- (specifier.kind, specifier.queueFull) match {
-            case (Ast.SpecPortInstance.AsyncInput, _) => Right(())
-            case (_, Some(queueFull)) =>
-              val loc = Locations.get(queueFull.id)
-              Left(SemanticError.InvalidQueueFull(loc))
-            case (_, None) => Right(())
-          }
-          size <- getArraySize(a, specifier.size)
-          priority <- Right(a.getBigIntValueOpt(specifier.priority))
-          ty <- specifier.port match {
-            case Some(qid) => a.useDefMap(qid.id) match {
-              case symbol @ Symbol.Port(_) => 
-                Right(PortInstance.Type.DefPort(symbol))
-              case symbol => Left(SemanticError.InvalidSymbol(
-                symbol.getUnqualifiedName,
-                Locations.get(qid.id),
-                "not a port symbol",
-                symbol.getLoc
-              ))
-            }
-            case None => Right(PortInstance.Type.Serial)
-          }
-        }
-        yield {
-          val kind = specifier.kind match {
-            case Ast.SpecPortInstance.AsyncInput =>
-              val queueFull = Analysis.getQueueFull(specifier.queueFull.map(_.data))
-              PortInstance.General.Kind.AsyncInput(priority, queueFull)
-            case Ast.SpecPortInstance.GuardedInput =>
-              PortInstance.General.Kind.GuardedInput
-            case Ast.SpecPortInstance.Output =>
-              PortInstance.General.Kind.Output
-            case Ast.SpecPortInstance.SyncInput =>
-              PortInstance.General.Kind.SyncInput
-          }
-          PortInstance.General(aNode, specifier, kind, size, ty)
-        }
-      }
       data match {
         case specifier : Ast.SpecPortInstance.General =>
           for {
-            instance <- general(a, specifier)
+            instance <- createGeneralPortInstance(a, aNode, specifier)
             _ <- checkGeneralAsyncInput(instance)
           } yield instance
         case specifier : Ast.SpecPortInstance.Special =>
-          val symbol @ Symbol.Port(_) = a.useDefMap(node.id)
-          Right(PortInstance.Special(aNode, specifier, symbol))
+          for {
+            instance <- createSpecialPortInstance(a, aNode, specifier)
+            // TODO: Check special async input
+          }
+          yield instance
       }
-        
     }
 
   /** Gets an array size from an AST node */

@@ -147,6 +147,8 @@ sealed trait Error {
         Error.print (Some(loc)) ("only async input may have a priority")
       case SemanticError.InvalidQueueFull(loc) =>
         Error.print (Some(loc)) ("only async input may have queue full behavior")
+      case SemanticError.InvalidSpecialPort(loc, msg) =>
+        Error.print (Some(loc)) (msg)
       case SemanticError.InvalidStringSize(loc, size) =>
         Error.print (Some(loc)) (s"invalid string size $size")
       case SemanticError.InvalidSymbol(name, loc, msg, defLoc) =>
@@ -408,6 +410,8 @@ object SemanticError {
   final case class InvalidPriority(loc: Location) extends Error
   /** Invalid queue full specifier */
   final case class InvalidQueueFull(loc: Location) extends Error
+  /** Invalid special port */
+  final case class InvalidSpecialPort(loc: Location, msg: String) extends Error
   /** Invalid string size */
   final case class InvalidStringSize(loc: Location, size: BigInt) extends Error
   /** Invalid symbol */
