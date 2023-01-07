@@ -271,7 +271,7 @@ object PortInstance {
         case None => Right(1)
       }
 
-  /** Checks general async input uses port definitions */
+  /** Checks general async input port specifiers */
   private def checkGeneralAsyncInput(instance: PortInstance.General) = {
     val loc = Locations.get(instance.aNode._2.id)
     def checkReturnType(defPort: Ast.DefPort, defLoc: Location) = {
