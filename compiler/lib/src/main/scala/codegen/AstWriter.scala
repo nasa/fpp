@@ -404,7 +404,16 @@ object AstWriter extends AstVisitor with LineUtils {
     def special(i: Ast.SpecPortInstance.Special) = {
       val kind = lines(s"kind ${i.kind.toString}")
       lines("spec port instance special") ++
-      (kind ++ ident(i.name)).map(indentIn)
+      List(
+        linesOpt(
+          addPrefix("input kind", string),
+          i.inputKind.map(_.toString)
+        ),
+        kind,
+        ident(i.name),
+        linesOpt(addPrefix("priority", exprNode), i.priority),
+        linesOpt(applyToData(queueFull), i.queueFull)
+      ).flatten.map(indentIn)
     }
     node.data match {
       case i : Ast.SpecPortInstance.General => general(i)

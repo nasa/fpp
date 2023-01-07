@@ -41,6 +41,10 @@ module DefinitionsAndSpecifiers {
     command recv port cmdIn
     @< Special port instance specifier
 
+    @ Async product receive port
+    async product recv port productRecvIn priority 10 assert
+    @< Async product receive port
+
     output port p2: [10] P
     @ Port matching specifier
     match p1 with p2

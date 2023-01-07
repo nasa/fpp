@@ -406,7 +406,13 @@ object FppWriter extends AstVisitor with LineUtils {
     }
     def special(i: Ast.SpecPortInstance.Special) = {
       val kind = i.kind.toString
-      lines(s"$kind port ${ident(i.name)}")
+      val inputKind = i.inputKind match {
+        case Some(kind) => s"$kind "
+        case None => ""
+      }
+      lines(s"${inputKind}$kind port ${ident(i.name)}").
+        joinOptWithBreak (i.priority) ("priority ") (exprNode).
+        joinOptWithBreak (i.queueFull) ("") (applyToData(queueFull))
     }
     node.data match {
       case i : Ast.SpecPortInstance.General => general(i)

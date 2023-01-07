@@ -94,6 +94,14 @@ def module
       kind command recv
       ident cmdIn
     @< Special port instance specifier
+    @ Async product receive port
+    spec port instance special
+      input kind async
+      kind product recv
+      ident productRecvIn
+      priority literal int 10
+      queue full assert
+    @< Async product receive port
     spec port instance general
       kind output
       ident p2
