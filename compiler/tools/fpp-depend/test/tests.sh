@@ -30,6 +30,8 @@ locate_constant_inconsistent
 locate_constant_modules_1
 locate_constant_modules_2
 missing
+spec_async_input_port
+spec_async_product_recv_port
 spec_command
 spec_comp_instance
 spec_connection_graph_direct
@@ -38,7 +40,6 @@ spec_container
 spec_event
 spec_internal_port
 spec_param
-spec_port_instance
 spec_record
 spec_tlm_channel
 spec_top_import
