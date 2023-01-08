@@ -323,10 +323,18 @@ case class Component(
           val loc = instance.getLoc
           val error = SemanticError.PassiveAsync(loc)
           instance match {
-            case PortInstance.General(_, _, PortInstance.General.Kind.AsyncInput(_, _), _, _) =>
-              Left(error)
+            case general : PortInstance.General =>
+              general.kind match {
+                case PortInstance.General.Kind.AsyncInput(_, _) =>
+                  Left(error)
+                case _ => Right(())
+              }
+            case special : PortInstance.Special =>
+              special.specifier.inputKind match {
+                case Some(Ast.SpecPortInstance.Async) => Left(error)
+                case _ => Right(())
+              }
             case internal: PortInstance.Internal => Left(error)
-            case _ => Right(())
           }
         }
       )
