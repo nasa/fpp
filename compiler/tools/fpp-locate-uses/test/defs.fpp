@@ -77,3 +77,4 @@ type RecordType
 constant record_id = 0
 constant container_id = 0
 constant container_priority = 0
+constant product_recv_priority = 0

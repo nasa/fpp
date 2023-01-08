@@ -34,9 +34,9 @@ active component C3 {
   time get port timeGetOut
 }
 
-passive component C4 {
+active component C4 {
   product request port productRequestOut
-  sync product recv port productRecvIn
+  async product recv port productRecvIn priority product_recv_priority
   product send port productSendOut
   product container C id container_id default priority container_priority
   product record R: RecordType id record_id
