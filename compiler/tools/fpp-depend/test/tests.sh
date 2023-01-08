@@ -43,5 +43,6 @@ spec_param
 spec_record
 spec_tlm_channel
 spec_top_import
+special_ports
 transitive_instance
 "
