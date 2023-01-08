@@ -24,5 +24,10 @@ undef_event
 undef_general
 undef_param_get
 undef_param_set
+undef_product_recv
+undef_product_request
+undef_product_send
+undef_telemetry
 undef_text_event
+undef_time_get
 "
