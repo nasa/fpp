@@ -27,7 +27,7 @@ active component C {
   guarded input port s3: serial
   output port s4: serial
 
-  async product recv port productRecvIn
+  async product recv port productRecvIn priority 3 drop
   command recv port cmdIn
   command reg port cmdRegIn
   command resp port cmdResponseIn

@@ -1,4 +1,5 @@
 tests="
+async_input_active
 async_input_passive
 async_input_ref_params
 async_input_return_value
