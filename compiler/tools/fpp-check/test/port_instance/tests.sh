@@ -15,6 +15,8 @@ special_input_kind_command
 special_input_kind_missing_product_recv
 sync_input_priority
 sync_input_queue_full
+sync_product_recv_priority
+sync_product_recv_queue_full
 undef_command_recv
 undef_command_reg
 undef_command_resp
