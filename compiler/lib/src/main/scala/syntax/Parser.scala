@@ -359,7 +359,7 @@ object Parser extends Parsers {
       sync ^^ { case _ => Ast.SpecCommand.Sync } |
       failure("command kind expected")
     }
-    kind ~ (command ~>! ident) ~! formalParamList ~!
+    kind ~ (command ~> ident) ~! formalParamList ~!
     opt(opcode ~>! exprNode) ~! opt(priority ~>! exprNode) ~! opt(node(queueFull)) ^^ {
       case kind ~ name ~ params ~ opcode ~ priority ~ queueFull =>
         Ast.SpecCommand(kind, name, params, opcode, priority, queueFull)

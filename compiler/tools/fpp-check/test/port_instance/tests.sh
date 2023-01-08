@@ -9,6 +9,7 @@ bad_priority_product_recv
 duplicate_command_recv
 duplicate_general
 ok
+special_input_kind_command
 sync_input_priority
 sync_input_queue_full
 undef_command_recv
