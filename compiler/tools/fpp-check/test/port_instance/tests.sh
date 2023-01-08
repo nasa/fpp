@@ -2,6 +2,7 @@ tests="
 async_input_passive
 async_input_ref_params
 async_input_return_value
+async_product_recv_passive
 bad_array_size
 bad_priority
 duplicate_command_recv
