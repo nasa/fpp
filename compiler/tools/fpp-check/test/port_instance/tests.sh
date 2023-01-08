@@ -5,6 +5,7 @@ async_input_return_value
 async_product_recv_passive
 bad_array_size
 bad_priority
+bad_priority_product_recv
 duplicate_command_recv
 duplicate_general
 ok
