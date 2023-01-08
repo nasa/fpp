@@ -10,6 +10,7 @@ duplicate_command_recv
 duplicate_general
 ok
 special_input_kind_command
+special_input_kind_missing_product_recv
 sync_input_priority
 sync_input_queue_full
 undef_command_recv
