@@ -23,6 +23,11 @@ comments()
   run_test "" comments
 }
 
+embedded_tab()
+{
+  run_test "" embedded-tab
+}
+
 empty()
 {
   run_test -a empty
@@ -31,6 +36,11 @@ empty()
 escaped_strings()
 {
   run_test -a escaped-strings
+}
+
+illegal_character()
+{
+  run_test "" illegal-character
 }
 
 include_component()
@@ -122,8 +132,10 @@ two_input_files()
 
 tests="
 comments
+embedded_tab
 empty
 escaped_strings
+illegal_character
 include_component
 include_constant_1
 include_cycle_1
@@ -136,9 +148,9 @@ include_subdir
 include_topology
 parse_error
 syntax
-syntax_kwd_names
 syntax_ast
 syntax_include_ast
+syntax_kwd_names
 syntax_stdin
 two_input_files
 "
