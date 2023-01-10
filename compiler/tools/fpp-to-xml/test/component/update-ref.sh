@@ -46,6 +46,12 @@ ports()
     TlmPort
 }
 
+product_recv_port_async()
+{
+  update "-p $PWD -i ports.fpp" product_recv_port_async
+  move_xml ProductRecvPortAsyncComponent
+}
+
 special_ports()
 {
   update "-p $PWD -i ports.fpp" special_ports

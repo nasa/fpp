@@ -46,6 +46,12 @@ ports()
       TlmPort
 }
 
+product_recv_port_async()
+{
+  run_test "-p $PWD -i ports.fpp" product_recv_port_async && \
+    diff_xml ProductRecvPortAsyncComponent
+}
+
 special_ports()
 {
   run_test "-p $PWD -i ports.fpp" special_ports && \
