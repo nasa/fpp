@@ -203,7 +203,6 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
         case Kind.SyncInput => "sync_input"
         case Kind.Output => "output"
       }
-      val data = general.aNode._2.data
       val pairs = {
         val pairs1 = List(
           ("name", name),
@@ -263,7 +262,11 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
     }
     def writePort(name: String, instance: PortInstance) = instance match {
       case general: PortInstance.General => writeGeneralPort(name, general)
-      case special: PortInstance.Special => writeSpecialPort(name, special)
+      case special: PortInstance.Special =>
+        DpPortXmlLowering(s, name, special).lower match {
+          case Some(general) => writeGeneralPort(name, general)
+          case None => writeSpecialPort(name, special)
+        }
       case _ => Nil
     }
     val ports = c.portMap.keys.toList.sortWith(_ < _).
