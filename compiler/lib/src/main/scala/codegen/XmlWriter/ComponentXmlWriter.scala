@@ -242,12 +242,11 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
           case Event => "LogEvent"
           case ParamGet => "ParamGet"
           case ParamSet => "ParamSet"
-          case ProductRecv => "ProductRecv"
-          case ProductRequest => "ProductRequest"
-          case ProductSend => "ProductSend"
           case Telemetry => "Telemetry"
           case TextEvent => "LogTextEvent"
           case TimeGet => "TimeGet"
+          // This should never happen, because of XML lowering
+          case _ => throw new InternalError(s"invalid specifier kind ${special.specifier.kind}")
         }
       }
       val pairs = List(
@@ -263,6 +262,7 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
     def writePort(name: String, instance: PortInstance) = instance match {
       case general: PortInstance.General => writeGeneralPort(name, general)
       case special: PortInstance.Special =>
+        // Lower data product ports to generic XML
         DpPortXmlLowering(s, name, special).lower match {
           case Some(general) => writeGeneralPort(name, general)
           case None => writeSpecialPort(name, special)
