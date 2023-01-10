@@ -31,6 +31,40 @@ case class Connection(
     }
   }
 
+  /** Checks the rule for a serial port connected to a typed
+   *  input port */
+  def checkSerialToTypedInput: Result.Result[Unit] = {
+    val fromInstance = from.port.portInstance
+    val fromType = fromInstance.getType
+    val toInstance = to.port.portInstance
+    val toType = toInstance.getType
+    (fromType, toType) match {
+      case (
+        Some(PortInstance.Type.Serial),
+        Some(PortInstance.Type.DefPort(Symbol.Port(aNode)))
+      ) => {
+        aNode._2.data.returnType match {
+          case Some(_) =>
+            val toTypeString = PortInstance.Type.show(toType)
+            val msg =
+              s"cannot connect serial output port to input port of type $toTypeString, which returns a value"
+            val fromLoc = fromInstance.getLoc
+            val toLoc = toInstance.getLoc
+            Left(SemanticError.InvalidConnection(
+              getLoc,
+              msg,
+              fromLoc,
+              toLoc,
+              None, 
+              Some(Locations.get(aNode._2.id))
+            ))
+          case _ => Right(())
+        }
+      }
+      case _ => Right(())
+    }
+  }
+
   /** Checks the directions of a connection */
   def checkDirections: Result.Result[Unit] = {
     val fromInstance = from.port.portInstance
@@ -88,8 +122,9 @@ object Connection {
         from <- Endpoint.fromAst(a, connection.fromPort, connection.fromIndex)
         to <- Endpoint.fromAst(a, connection.toPort, connection.toIndex)
         connection <- Right(Connection(from, to))
-        _ <- connection.checkTypes
         _ <- connection.checkDirections
+        _ <- connection.checkTypes
+        _ <- connection.checkSerialToTypedInput
       }
       yield connection
 
