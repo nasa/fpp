@@ -1,0 +1,7 @@
+fpp-syntax
+[ local path prefix ]/compiler/tools/fpp-syntax/test/embedded-tab.fpp: 1.1
+	
+^
+error: illegal character (unicode value 9, hex 0x9)
+note: embedded tab characters are not allowed in FPP source files
+try configuring your editor to convert tabs to spaces

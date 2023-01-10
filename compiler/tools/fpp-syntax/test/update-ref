@@ -24,6 +24,8 @@ do
 done
 
 update "" comments
+update "" embedded-tab
+update "" illegal-character
 update "" parse-error
 update "" syntax
 update "" syntax-kwd-names
