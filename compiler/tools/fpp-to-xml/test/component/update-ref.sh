@@ -52,6 +52,12 @@ product_recv_port_async()
   move_xml ProductRecvPortAsyncComponent
 }
 
+product_recv_port_guarded()
+{
+  update "-p $PWD -i ports.fpp" product_recv_port_guarded
+  move_xml ProductRecvPortGuardedComponent
+}
+
 special_ports()
 {
   update "-p $PWD -i ports.fpp" special_ports
