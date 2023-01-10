@@ -39,6 +39,7 @@ ports()
   run_test "-p $PWD" ports && \
     diff_xml PPort \
       CmdPort CmdRegPort CmdResponsePort \
+      DpBufferRequestPort DpBufferSendPort \
       LogPort LogTextPort \
       PrmGetPort PrmSetPort \
       TimePort \
