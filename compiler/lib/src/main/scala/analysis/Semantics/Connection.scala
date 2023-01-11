@@ -19,7 +19,7 @@ case class Connection(
     val fromType = fromInstance.getType
     val toInstance = to.port.portInstance
     val toType = toInstance.getType
-    if (PortInstance.Type.areCompatible(fromType, toType)) 
+    if (PortInstance.Type.areCompatible(fromType, toType))
       Right(())
     else {
       val fromTypeString = PortInstance.Type.show(fromType)
@@ -55,7 +55,7 @@ case class Connection(
               msg,
               fromLoc,
               toLoc,
-              None, 
+              None,
               Some(Locations.get(aNode._2.id))
             ))
           case _ => Right(())
@@ -71,7 +71,7 @@ case class Connection(
     val fromDirection = fromInstance.getDirection
     val toInstance = to.port.portInstance
     val toDirection = toInstance.getDirection
-    if (PortInstance.Direction.areCompatible(fromDirection -> toDirection)) 
+    if (PortInstance.Direction.areCompatible(fromDirection -> toDirection))
       Right(())
     else {
       val fromDirString = PortInstance.Direction.show(fromDirection)
