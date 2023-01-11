@@ -88,6 +88,16 @@ abstract class ComponentCppWriterUtils(
   /** List of serial output ports */
   val serialOutputPorts: List[PortInstance.General] = filterSerialPorts(outputPorts)
 
+  /** List of internal port instances */
+  private val internalPorts: List[PortInstance.Internal] = members.map(member =>
+    member.node._2 match {
+      case Ast.ComponentMember.SpecInternalPort(node) => component.portMap(node.data.name) match {
+        case i: PortInstance.Internal => Some(i)
+        case _ => None
+      }
+      case _ => None
+    }).filter(_.isDefined).map(_.get)
+
   // Map from a port instance name to a PortCppWriter
   private val portWriterMap =
     List(
@@ -103,9 +113,21 @@ abstract class ComponentCppWriterUtils(
       }
     ).filter(_.isDefined).map(_.get).toMap
 
+  // Component properties
+
   val hasGuardedInputPorts: Boolean = guardedInputPorts.nonEmpty
 
   val hasSerialAsyncInputPorts: Boolean = serialAsyncInputPorts.nonEmpty
+
+  val hasInternalPorts: Boolean = internalPorts.nonEmpty
+
+  val hasCommands: Boolean = component.commandMap.isEmpty
+
+  val hasEvents: Boolean = component.eventMap.isEmpty
+
+  val hasChannels: Boolean = component.tlmChannelMap.isEmpty
+
+  val hasParameters: Boolean = component.paramMap.isEmpty
 
   /** Get the qualified name of a port type */
   def getQualifiedPortTypeName(

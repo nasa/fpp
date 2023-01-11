@@ -16,18 +16,6 @@ case class ComponentPorts(
 
   def getPortConstants: List[CppDoc.Class.Member] = {
     List(
-      List(
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            List(
-              CppDocHppWriter.writeAccessTag("PROTECTED"),
-              CppDocWriter.writeBannerComment(
-                "Constants"
-              ),
-            ).flatten
-          )
-        )
-      ),
       getPortEnum(specialInputPorts),
       getPortEnum(typedInputPorts),
       getPortEnum(serialInputPorts),

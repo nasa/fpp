@@ -19,6 +19,8 @@ case class ComponentCppWriter (
 
   private val portWriter = ComponentPorts(s, aNode)
 
+  private val cmdWriter = ComponentCommands(s, aNode)
+
   private val kindStr = data.kind match {
     case Ast.ComponentKind.Active => "Active"
     case Ast.ComponentKind.Passive => "Passive"
@@ -75,9 +77,26 @@ case class ComponentCppWriter (
   }
 
   private def getHppIncludes: CppDoc.Member = {
+    // Conditional headers
     val mutexHeader =
       if hasGuardedInputPorts then List("Os/Mutex.hpp")
       else Nil
+    val cmdStrHeader =
+      if hasCommands || hasParameters then List("Fw/Cmd/CmdString.hpp")
+      else Nil
+    val tlmStrHeader =
+      if hasChannels then List("Fw/Tlm/TlmString.hpp")
+      else Nil
+    val prmStrHeader =
+      if hasParameters then List("Fw/Prm/PrmString.hpp")
+      else Nil
+    val logStrHeader =
+      if hasEvents then List("Fw/Log/LogString.hpp")
+      else Nil
+    val internalStrHeader =
+      if hasInternalPorts then List("Fw/Types/InternalInterfaceString.hpp")
+      else Nil
+
     val standardHeaders = List(
       List(
         "FpConfig.hpp",
@@ -85,7 +104,12 @@ case class ComponentCppWriter (
         "Fw/Port/OutputSerializePort.hpp",
         s"Fw/Comp/$baseClassName.hpp"
       ),
-      mutexHeader
+      mutexHeader,
+      cmdStrHeader,
+      tlmStrHeader,
+      prmStrHeader,
+      logStrHeader,
+      internalStrHeader
     ).flatten.map(CppWriter.headerString)
     val symbolHeaders = writeIncludeDirectives
     val headers = standardHeaders ++ symbolHeaders
@@ -113,12 +137,37 @@ case class ComponentCppWriter (
   private def getClassMembers: List[CppDoc.Class.Member] = {
     List(
       getFriendClasses,
-      portWriter.getPortConstants,
+      getConstants,
       getComponentFunctions,
       getDispatchFunction,
       getMutexOperations,
       portWriter.getPortFunctionMembers,
+      cmdWriter.getCmdFunctionMembers,
       getMemberVariables
+    ).flatten
+  }
+
+  private def getConstants: List[CppDoc.Class.Member] = {
+    val constants = List(
+      portWriter.getPortConstants,
+      cmdWriter.getCmdConstants
+    ).flatten
+
+    if constants.isEmpty then Nil
+    else List(
+      List(
+        CppDoc.Class.Member.Lines(
+          CppDoc.Lines(
+            List(
+              CppDocHppWriter.writeAccessTag("PROTECTED"),
+              CppDocWriter.writeBannerComment(
+                "Constants"
+              ),
+            ).flatten
+          )
+        )
+      ),
+      constants
     ).flatten
   }
 
@@ -200,7 +249,7 @@ case class ComponentCppWriter (
               Some("\"\"")
             )
           ),
-          Nil,
+          List(s"Fw::${kindStr}ComponentBase(compName)"),
           Nil
         )
       ),
