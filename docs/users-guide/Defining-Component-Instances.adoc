@@ -113,14 +113,16 @@ Therefore the corresponding telemetry channels for the instance
 respectively.
 
 For consistency, the base identifier is required for all component instances,
-even instances that have no commands, events telemetry,
-or parameters.
+even instances that define no dictionary elements (commands, events, telemetry,
+or parameters).
 For each component instance _I_, the range of numbers between the base
 identifier and the base identifier plus the largest relative identifier
 is called the *identifier range* of _I_.
+If a component instance defines no dictionary elements, then the
+identifier range is empty.
 All the numbers in the identifier range of _I_ are reserved for
 instance _I_ (even if they are not all used).
-No other component instance may have a base identifier in the
+No other component instance may have a base identifier that lies within the
 identifier range of _I_.
 
 For example, this code is illegal:
@@ -141,6 +143,10 @@ module FSW {
 The base identifier 0x101 for `rightEngineTemp` is inside the
 identifier range for `leftEngineTemp`, which goes from
 0x100 to 0x101, inclusive.
+
+*XML limitation:* The tool that generates the XML dictionary
+requires that each component instance _I_ have a distinct base ID,
+even if _I_ defines no dictionary elements.
 
 ==== Queued Components
 
