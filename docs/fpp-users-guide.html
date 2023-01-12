@@ -749,8 +749,7 @@ We recommend that you read this document before consulting that one.</p>
 <div class="paragraph">
 <p><strong>XML limitations:</strong>
 Currently we translate FPP to F Prime XML and then to C&#43;&#43;.
-Some features of FPP are not supported in the XML representation,
-or were not supported until very recently.
+Some features of FPP are not supported in the XML representation.
 Where a feature is not supported in XML, we will call out this fact in a
 note marked <strong>XML limitation</strong>.
 As we continue to develop FPP, we will phase in support
@@ -6282,14 +6281,16 @@ respectively.</p>
 </div>
 <div class="paragraph">
 <p>For consistency, the base identifier is required for all component instances,
-even instances that have no commands, events telemetry,
-or parameters.
+even instances that define no dictionary elements (commands, events, telemetry,
+or parameters).
 For each component instance <em>I</em>, the range of numbers between the base
 identifier and the base identifier plus the largest relative identifier
 is called the <strong>identifier range</strong> of <em>I</em>.
+If a component instance defines no dictionary elements, then the
+identifier range is empty.
 All the numbers in the identifier range of <em>I</em> are reserved for
 instance <em>I</em> (even if they are not all used).
-No other component instance may have a base identifier in the
+No other component instance may have a base identifier that lies within the
 identifier range of <em>I</em>.</p>
 </div>
 <div class="paragraph">
@@ -6312,6 +6313,11 @@ identifier range of <em>I</em>.</p>
 <p>The base identifier 0x101 for <code>rightEngineTemp</code> is inside the
 identifier range for <code>leftEngineTemp</code>, which goes from
 0x100 to 0x101, inclusive.</p>
+</div>
+<div class="paragraph">
+<p><strong>XML limitation:</strong> The tool that generates the XML dictionary
+requires that each component instance <em>I</em> have a distinct base ID,
+even if <em>I</em> defines no dictionary elements.</p>
 </div>
 </div>
 <div class="sect3">
@@ -11178,7 +11184,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-01-06 13:57:10 -0800
+Last updated 2023-01-12 13:44:49 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
