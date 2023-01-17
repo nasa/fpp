@@ -112,9 +112,9 @@ specified in the two port instances must match,
 except that a `serial` port at either end can be connected
 to any port at the other end.
 
-.. If a `serial` output port instance is connected to a typed input port
-instance _I_, then the <<Definitions_Port-Definitions,port type>>
-specified in _I_ may not have a return type.
+.. If a `serial` port instance _S_ is connected to a typed port
+instance _T_, then the <<Definitions_Port-Definitions,port type>>
+specified in _T_ may not have a return type.
 
 *Pattern graph specifiers.*
 A pattern graph specifier indirectly specifies one or more named connection 
