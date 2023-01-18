@@ -1,9 +1,12 @@
 tests="
+instance_not_in_topology
+internal_port
 invalid_directions
 invalid_port_instance
 invalid_port_number
-internal_port
 mismatched_port_types
 ok
+serial_to_typed_with_return
+typed_to_serial_with_return
 undef_instance
 "

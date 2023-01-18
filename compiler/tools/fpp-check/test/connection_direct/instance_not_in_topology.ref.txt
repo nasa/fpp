@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/connection_direct/instance_not_in_topology.fpp: 13.16
+    c1.pOut -> c2.pIn
+               ^
+error: instance c2 is not a member of topology T

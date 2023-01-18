@@ -107,9 +107,14 @@ array size of the port instance specifier named in _I_.
 to an
 <<Specifiers_Port-Instance-Specifiers,input port instance>>.
 
-.. The types specified in the two port instances must match,
+.. The <<Specifiers_Port-Instance-Specifiers,port instance types>>
+specified in the two port instances must match,
 except that a `serial` port at either end can be connected
 to any port at the other end.
+
+.. If a `serial` port instance _S_ is connected to a typed port
+instance _T_, then the <<Definitions_Port-Definitions,port type>>
+specified in _T_ may not have a return type.
 
 *Pattern graph specifiers.*
 A pattern graph specifier indirectly specifies one or more named connection 

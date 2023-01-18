@@ -106,12 +106,24 @@ sealed trait Error {
         Error.print (Some(loc)) (msg)
       case SemanticError.InvalidComponentInstance(loc, instanceName, topName) =>
         Error.print (Some(loc)) (s"instance $instanceName is not a member of topology $topName")
-      case SemanticError.InvalidConnection(loc, msg, fromLoc, toLoc) =>
+      case SemanticError.InvalidConnection(loc, msg, fromLoc, toLoc, fromPortDefLoc, toPortDefLoc) =>
         Error.print (Some(loc)) (msg)
         System.err.println("from port is specified here:")
         System.err.println(fromLoc)
         System.err.println("to port is specified here:")
         System.err.println(toLoc)
+        fromPortDefLoc match {
+          case Some(loc) =>
+            System.err.println("from port type is defined here:")
+            System.err.println(loc)
+          case _ => ()
+        }
+        toPortDefLoc match {
+          case Some(loc) =>
+            System.err.println("to port type is defined here:")
+            System.err.println(loc)
+          case _ => ()
+        }
       case SemanticError.InvalidDefComponentInstance(name, loc, msg) =>
         Error.print (Some(loc)) (s"invalid component instance definition $name: $msg")
       case SemanticError.InvalidEnumConstants(loc) =>
@@ -351,7 +363,9 @@ object SemanticError {
     loc: Location,
     msg: String,
     fromLoc: Location,
-    toLoc: Location
+    toLoc: Location,
+    fromPortDefLoc: Option[Location] = None,
+    toPortDefLoc: Option[Location] = None
   ) extends Error
   /** Invalid component instance definition */
   final case class InvalidDefComponentInstance(
