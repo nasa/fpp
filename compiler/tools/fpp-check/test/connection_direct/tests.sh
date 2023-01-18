@@ -7,5 +7,6 @@ invalid_port_number
 mismatched_port_types
 ok
 serial_to_typed_with_return
+typed_to_serial_with_return
 undef_instance
 "
