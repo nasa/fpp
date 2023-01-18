@@ -9,13 +9,17 @@ object CppDocCppWriter extends CppDocWriter {
 
   def paramStringComma(p: CppDoc.Function.Param): String = s"${paramString(p)},"
 
+  def paramLine(p: CppDoc.Function.Param): Line = line(paramString(p))
+
+  def paramLineComma(p: CppDoc.Function.Param): Line = line(paramStringComma(p))
+
   def writeParams(prefix: String, params: List[CppDoc.Function.Param]): List[Line] = {
     if (params.length == 0) lines(s"$prefix()")
     else if (params.length == 1)
       lines(s"$prefix(" ++ paramString(params.head) ++ ")")
     else {
       val head :: tail = params.reverse
-      val paramLines = (writeParam(head) :: tail.map(writeParamComma(_))).reverse
+      val paramLines = (paramLine(head) :: tail.map(paramLineComma(_))).reverse
       line(s"$prefix(") :: (paramLines.map(_.indentIn(2 * indentIncrement)) :+ line(")"))
     }
   }

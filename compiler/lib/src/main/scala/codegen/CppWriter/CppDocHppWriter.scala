@@ -43,6 +43,10 @@ object CppDocHppWriter extends CppDocWriter {
     s4
   }
 
+  def paramLines(p: CppDoc.Function.Param): List[Line] = lines(paramString(p))
+
+  def paramLinesComma(p: CppDoc.Function.Param): List[Line] = lines(paramStringComma(p))
+
   def writeAccessTag(tag: String): List[Line] = List(
     Line.blank,
     line(s"$tag:").indentOut(2)
@@ -54,8 +58,8 @@ object CppDocHppWriter extends CppDocWriter {
       lines(s"$prefix(" ++ paramString(params.head) ++ ")")
     else {
       val head :: tail = params.reverse
-      val paramLines = (writeParam(head) :: tail.map(writeParamComma(_))).reverse
-      line(s"$prefix(") :: (paramLines.map(_.indentIn(2 * indentIncrement)) :+ line(")"))
+      val paramsLines = (paramLines(head) :: tail.map(paramLinesComma(_))).reverse.flatten
+      line(s"$prefix(") :: (paramsLines.map(_.indentIn(2 * indentIncrement)) :+ line(")"))
     }
   }
 

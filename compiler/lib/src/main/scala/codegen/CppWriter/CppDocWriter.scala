@@ -24,20 +24,8 @@ trait CppDocWriter extends CppDocVisitor with LineUtils {
 
   def default(in: Input) = Nil
 
-  /** Convert a param to a string with no trailing comma */
-  def paramString(p: CppDoc.Function.Param): String
-
-  /** Convert a param to a string with a trailing comma */
-  def paramStringComma(p: CppDoc.Function.Param): String
-
   /** Visit a CppDoc */
   def visitCppDoc(cppDoc: CppDoc): Output
-
-  /** Write a parameter with no trailing comma as a line */
-  final def writeParam(p: CppDoc.Function.Param): Line = line(paramString(p))
-
-  /** Write a parameter with a trailing comma as a line */
-  final def writeParamComma(p: CppDoc.Function.Param): Line = line(paramStringComma(p))
 
   type Output = List[Line]
 
