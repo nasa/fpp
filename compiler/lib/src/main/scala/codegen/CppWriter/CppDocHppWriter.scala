@@ -6,7 +6,7 @@ import java.time.Year
 object CppDocHppWriter extends CppDocWriter {
 
   def addParamComment(s: String, commentOpt: Option[String]): List[Line] = commentOpt match {
-    case Some(comment) => //lines(s"$s //!< ${"\n".r.replaceAllIn(comment, " ")}")
+    case Some(comment) =>
       val ls = CppDocWriter.writeDoxygenPostComment(comment)
       Line.joinLists (Line.Indent) (lines(s)) (" ") (ls)
     case None => lines(s)
