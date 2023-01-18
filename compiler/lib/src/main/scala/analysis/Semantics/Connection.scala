@@ -19,7 +19,7 @@ case class Connection(
     val fromType = fromInstance.getType
     val toInstance = to.port.portInstance
     val toType = toInstance.getType
-    if (PortInstance.Type.areCompatible(fromType, toType)) 
+    if (PortInstance.Type.areCompatible(fromType, toType))
       Right(())
     else {
       val fromTypeString = PortInstance.Type.show(fromType)
@@ -31,13 +31,67 @@ case class Connection(
     }
   }
 
+  /** Checks the case of a serial port connected to a typed port,
+   *  in either direction. The port type may not have a return type. */
+  def checkSerialWithTypedInput: Result.Result[Unit] = {
+    val fromInstance = from.port.portInstance
+    val fromType = fromInstance.getType
+    val toInstance = to.port.portInstance
+    val toType = toInstance.getType
+    (fromType, toType) match {
+      case (
+        Some(PortInstance.Type.Serial),
+        Some(PortInstance.Type.DefPort(Symbol.Port(aNode)))
+      ) =>
+        aNode._2.data.returnType match {
+          case Some(_) =>
+            val toTypeString = PortInstance.Type.show(toType)
+            val msg =
+              s"cannot connect serial output port to input port of type $toTypeString, which returns a value"
+            val fromLoc = fromInstance.getLoc
+            val toLoc = toInstance.getLoc
+            Left(SemanticError.InvalidConnection(
+              getLoc,
+              msg,
+              fromLoc,
+              toLoc,
+              None,
+              Some(Locations.get(aNode._2.id))
+            ))
+          case _ => Right(())
+        }
+      case (
+        Some(PortInstance.Type.DefPort(Symbol.Port(aNode))),
+        Some(PortInstance.Type.Serial)
+      ) =>
+        aNode._2.data.returnType match {
+          case Some(_) =>
+            val fromTypeString = PortInstance.Type.show(fromType)
+            val msg =
+              s"cannot connect output port of type $fromTypeString, which returns a value, to serial input port"
+            val fromLoc = fromInstance.getLoc
+            val toLoc = toInstance.getLoc
+            Left(SemanticError.InvalidConnection(
+              getLoc,
+              msg,
+              fromLoc,
+              toLoc,
+              Some(Locations.get(aNode._2.id)),
+              None,
+            ))
+          case _ => Right(())
+        }
+      case _ => Right(())
+    }
+  }
+
   /** Checks the directions of a connection */
   def checkDirections: Result.Result[Unit] = {
     val fromInstance = from.port.portInstance
     val fromDirection = fromInstance.getDirection
     val toInstance = to.port.portInstance
     val toDirection = toInstance.getDirection
-    if (PortInstance.Direction.areCompatible(fromDirection -> toDirection)) 
+    if (PortInstance.Direction.areCompatible(fromDirection -> toDirection))
       Right(())
     else {
       val fromDirString = PortInstance.Direction.show(fromDirection)
@@ -88,8 +142,9 @@ object Connection {
         from <- Endpoint.fromAst(a, connection.fromPort, connection.fromIndex)
         to <- Endpoint.fromAst(a, connection.toPort, connection.toIndex)
         connection <- Right(Connection(from, to))
-        _ <- connection.checkTypes
         _ <- connection.checkDirections
+        _ <- connection.checkTypes
+        _ <- connection.checkSerialWithTypedInput
       }
       yield connection
 

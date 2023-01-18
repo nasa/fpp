@@ -1,0 +1,17 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/connection_direct/typed_to_serial_with_return.fpp: 14.5
+    c1.pOut -> c2.serialIn
+    ^
+error: cannot connect output port of type P, which returns a value, to serial input port
+from port is specified here:
+[ local path prefix ]/compiler/tools/fpp-check/test/connection_direct/typed_to_serial_with_return.fpp: 3.3
+  output port pOut: P
+  ^
+to port is specified here:
+[ local path prefix ]/compiler/tools/fpp-check/test/connection_direct/typed_to_serial_with_return.fpp: 6.3
+  sync input port serialIn: serial
+  ^
+from port type is defined here:
+[ local path prefix ]/compiler/tools/fpp-check/test/connection_direct/typed_to_serial_with_return.fpp: 1.1
+port P -> U32
+^

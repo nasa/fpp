@@ -144,7 +144,39 @@ included direct graph specifiers for graphs named
 `C1` and `C2`.
 Here are some more details about direct graph specifiers.
 
-Each instance named in a connection must be part of the
+As shown in the previous section, each connection consists
+of an output port specifier, followed by an arrow, followed
+by an input port specifier.
+For example:
+
+[source,fpp]
+--------
+connections C {
+  a.p -> b.p
+}
+--------
+
+Each of the two port specifiers consists of a component
+instance name, followed by a dot, followed the name of a port instance.
+The component instance name must refer to a
+<<Defining-Component-Instances,component instance definition>>
+and may be qualified by a module name.
+For example:
+
+[source,fpp]
+--------
+connections C {
+  M.a.p -> N.b.p
+}
+--------
+
+Here component instance `a` is defined in module `M` and component
+instance `b` is defined in module `N`.
+In a port specifier `a.p`, the port instance name `p` must refer to a
+<<Defining-Components_Port-Instances,port instance>> of the
+component definition associated with the component instance `a`.
+
+Each component instance named in a connection must be part of the
 instance list in the topology.
 For example, if you write a connection `a.b pass:[->] c.d` inside
 a topology `T`, and the specifier `instance a` does not
@@ -193,6 +225,22 @@ For example, you can write this:
 --------
 connections C { a.p -> b.p, c.p -> d.p }
 --------
+
+The connections appearing in direct graph specifiers must obey the
+following rules:
+
+* Each connection must go from an output port instance to
+an input port instance.
+
+* The types of the ports must match, except that a
+<<Defining-Components_Port-Instances_Serial-Port-Instances,
+serial port instance>> may be connected to a port of any
+type.
+In particular, serial to serial connections are allowed.
+
+* If a typed port _P_ is connected to a serial port in either direction,
+then the port type of _P_ may not specify a
+<<Defining-Ports_Returning-Values,return type>>.
 
 ==== Pattern Graph Specifiers
 

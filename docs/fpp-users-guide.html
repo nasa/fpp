@@ -7185,7 +7185,42 @@ included direct graph specifiers for graphs named
 Here are some more details about direct graph specifiers.</p>
 </div>
 <div class="paragraph">
-<p>Each instance named in a connection must be part of the
+<p>As shown in the previous section, each connection consists
+of an output port specifier, followed by an arrow, followed
+by an input port specifier.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">connections C {
+  a.p -&gt; b.p
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Each of the two port specifiers consists of a component
+instance name, followed by a dot, followed the name of a port instance.
+The component instance name must refer to a
+<a href="#Defining-Component-Instances">component instance definition</a>
+and may be qualified by a module name.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">connections C {
+  M.a.p -&gt; N.b.p
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here component instance <code>a</code> is defined in module <code>M</code> and component
+instance <code>b</code> is defined in module <code>N</code>.
+In a port specifier <code>a.p</code>, the port instance name <code>p</code> must refer to a
+<a href="#Defining-Components_Port-Instances">port instance</a> of the
+component definition associated with the component instance <code>a</code>.</p>
+</div>
+<div class="paragraph">
+<p>Each component instance named in a connection must be part of the
 instance list in the topology.
 For example, if you write a connection <code>a.b -> c.d</code> inside
 a topology <code>T</code>, and the specifier <code>instance a</code> does not
@@ -7234,6 +7269,29 @@ For example, you can write this:</p>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">connections C { a.p -&gt; b.p, c.p -&gt; d.p }</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>The connections appearing in direct graph specifiers must obey the
+following rules:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Each connection must go from an output port instance to
+an input port instance.</p>
+</li>
+<li>
+<p>The types of the ports must match, except that a
+<a href="#Defining-Components_Port-Instances_Serial-Port-Instances">serial port instance</a> may be connected to a port of any
+type.
+In particular, serial to serial connections are allowed.</p>
+</li>
+<li>
+<p>If a typed port <em>P</em> is connected to a serial port in either direction,
+then the port type of <em>P</em> may not specify a
+<a href="#Defining-Ports_Returning-Values">return type</a>.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect3">
@@ -11184,7 +11242,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-01-12 13:42:24 -0800
+Last updated 2023-01-18 09:03:50 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
