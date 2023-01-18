@@ -238,8 +238,8 @@ serial port instance>> may be connected to a port of any
 type.
 In particular, serial to serial connections are allowed.
 
-* If a serial output port is connected to a typed input port,
-then the type of the input port may not specify a
+* If a typed port _P_ is connected to a serial port in either direction,
+then the port type of _P_ may not specify a
 <<Defining-Ports_Returning-Values,return type>>.
 
 ==== Pattern Graph Specifiers
