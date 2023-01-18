@@ -82,7 +82,9 @@ class InputFppTypePort :
     //! Invoke a port interface
     void invoke(
         const E& e, //!< An enum
+                    //!< Line 2 of the comment
         E& eRef, //!< An enum ref
+                 //!< Line 2 of the comment
         const A& a, //!< An array
         A& aRef, //!< An array ref
         const S& s, //!< A struct
@@ -135,7 +137,9 @@ class OutputFppTypePort :
     //! Invoke a port interface
     void invoke(
         const E& e, //!< An enum
+                    //!< Line 2 of the comment
         E& eRef, //!< An enum ref
+                 //!< Line 2 of the comment
         const A& a, //!< An array
         A& aRef, //!< An array ref
         const S& s, //!< A struct
