@@ -351,8 +351,8 @@ case class PortCppWriter (
                |this->trace();
                |#endif
                |
-               |FW_ASSERT(this->m_comp);
-               |FW_ASSERT(this->m_func);
+               |FW_ASSERT(this->m_comp != nullptr);
+               |FW_ASSERT(this->m_func != nullptr);
                |"""
           ) ++
           paramList.flatMap((n, tn, _) => {
@@ -422,8 +422,8 @@ case class PortCppWriter (
           ),
           CppDoc.Type("void"),
           lines(
-            """|FW_ASSERT(callComp);
-               |FW_ASSERT(funcPtr);
+            """|FW_ASSERT(callComp != nullptr);
+               |FW_ASSERT(funcPtr != nullptr);
                |
                |this->m_comp = callComp;
                |this->m_func = funcPtr;
@@ -443,8 +443,8 @@ case class PortCppWriter (
                 |this->trace();
                 |#endif
                 |
-                |FW_ASSERT(this->m_comp);
-                |FW_ASSERT(this->m_func);
+                |FW_ASSERT(this->m_comp != nullptr);
+                |FW_ASSERT(this->m_func != nullptr);
                 |
                 |return this->m_func(this->m_comp, this->m_portNum${paramNames});
                 |"""
@@ -501,20 +501,27 @@ case class PortCppWriter (
   }
 
   private def getOutputPortFunctionMembers: List[CppDoc.Class.Member] = {
-    val paramNames = paramList.map(_._1).mkString(", ")
+    val invokeCall = s"this->m_port->invoke(${paramList.map(_._1).mkString(", ")});"
     val invokeBody = data.returnType match {
       case Some(_) => lines(
-        s"return this->m_port->invoke($paramNames);"
-      )
-      case None => lines(
-        s"""|if (this->m_port) {
-            |  this->m_port->invoke($paramNames);
-            |#if FW_PORT_SERIALIZATION
-            |} else if (this->m_serPort) {
-            |  Fw::SerializeStatus _status;
-            |  ${name}PortBuffer _buffer;
+        s"""|
+            |FW_ASSERT(this->m_port != nullptr);
+            |return $invokeCall
             |"""
-      ) ++
+      )
+      case None => List(
+        lines(
+          s"""|
+              |#if FW_PORT_SERIALIZATION
+              |FW_ASSERT((this->m_port != nullptr) || (this->m_serPort != nullptr));
+              |
+              |if (this->m_port != nullptr) {
+              |  $invokeCall
+              |} else {
+              |  Fw::SerializeStatus _status;
+              |  ${name}PortBuffer _buffer;
+              |"""
+        ),
         paramList.flatMap((n, _, _) => {
           lines(
             s"""|
@@ -522,17 +529,19 @@ case class PortCppWriter (
                 |  FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
                 |"""
           )
-        }) ++
+        }),
         lines(
-         """|
-            |  _status = this->m_serPort->invokeSerial(_buffer);
-            |  FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-            |}
-            |#else
-            |}
-            |#endif
-            |"""
+          s"""|
+              |  _status = this->m_serPort->invokeSerial(_buffer);
+              |  FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+              |}
+              |#else
+              |FW_ASSERT(this->m_port != nullptr);
+              |$invokeCall
+              |#endif
+              |"""
         )
+      ).flatten
     }
 
     List(
@@ -577,7 +586,7 @@ case class PortCppWriter (
           ),
           CppDoc.Type("void"),
           lines(
-            """|FW_ASSERT(callPort);
+            """|FW_ASSERT(callPort != nullptr);
                |
                |this->m_port = callPort;
                |this->m_connObj = callPort;
@@ -599,13 +608,6 @@ case class PortCppWriter (
             s"""|#if FW_PORT_TRACING == 1
                 |this->trace();
                 |#endif
-                |
-                |#if FW_PORT_SERIALIZATION
-                |FW_ASSERT(this->m_port || this->m_serPort);
-                |#else
-                |FW_ASSERT(this->m_port);
-                |#endif
-                |
                 |"""
           ) ++
             invokeBody
