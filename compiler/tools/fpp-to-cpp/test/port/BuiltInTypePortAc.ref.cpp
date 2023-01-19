@@ -62,8 +62,8 @@ void InputBuiltInTypePort ::
       CompFuncPtr funcPtr
   )
 {
-  FW_ASSERT(callComp);
-  FW_ASSERT(funcPtr);
+  FW_ASSERT(callComp != nullptr);
+  FW_ASSERT(funcPtr != nullptr);
 
   this->m_comp = callComp;
   this->m_func = funcPtr;
@@ -80,8 +80,8 @@ void InputBuiltInTypePort ::
   this->trace();
 #endif
 
-  FW_ASSERT(this->m_comp);
-  FW_ASSERT(this->m_func);
+  FW_ASSERT(this->m_comp != nullptr);
+  FW_ASSERT(this->m_func != nullptr);
 
   return this->m_func(this->m_comp, this->m_portNum, t, tRef);
 }
@@ -97,8 +97,8 @@ Fw::SerializeStatus InputBuiltInTypePort ::
   this->trace();
 #endif
 
-  FW_ASSERT(this->m_comp);
-  FW_ASSERT(this->m_func);
+  FW_ASSERT(this->m_comp != nullptr);
+  FW_ASSERT(this->m_func != nullptr);
 
   FwOpcodeType t;
   _status = _buffer.deserialize(t);
@@ -140,7 +140,7 @@ void OutputBuiltInTypePort ::
 void OutputBuiltInTypePort ::
   addCallPort(InputBuiltInTypePort* callPort)
 {
-  FW_ASSERT(callPort);
+  FW_ASSERT(callPort != nullptr);
 
   this->m_port = callPort;
   this->m_connObj = callPort;
@@ -161,14 +161,11 @@ void OutputBuiltInTypePort ::
 #endif
 
 #if FW_PORT_SERIALIZATION
-  FW_ASSERT(this->m_port || this->m_serPort);
-#else
-  FW_ASSERT(this->m_port);
-#endif
-  if (this->m_port) {
+  FW_ASSERT((this->m_port != nullptr) || (this->m_serPort != nullptr));
+
+  if (this->m_port != nullptr) {
     this->m_port->invoke(t, tRef);
-#if FW_PORT_SERIALIZATION
-  } else if (this->m_serPort) {
+  } else {
     Fw::SerializeStatus _status;
     BuiltInTypePortBuffer _buffer;
 
@@ -182,6 +179,7 @@ void OutputBuiltInTypePort ::
     FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
   }
 #else
-  }
+  FW_ASSERT(this->m_port != nullptr);
+  this->m_port->invoke(t, tRef);
 #endif
 }

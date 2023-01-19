@@ -34,8 +34,8 @@ namespace M {
         CompFuncPtr funcPtr
     )
   {
-    FW_ASSERT(callComp);
-    FW_ASSERT(funcPtr);
+    FW_ASSERT(callComp != nullptr);
+    FW_ASSERT(funcPtr != nullptr);
 
     this->m_comp = callComp;
     this->m_func = funcPtr;
@@ -49,8 +49,8 @@ namespace M {
     this->trace();
 #endif
 
-    FW_ASSERT(this->m_comp);
-    FW_ASSERT(this->m_func);
+    FW_ASSERT(this->m_comp != nullptr);
+    FW_ASSERT(this->m_func != nullptr);
 
     return this->m_func(this->m_comp, this->m_portNum, u);
   }
@@ -90,7 +90,7 @@ namespace M {
   void OutputReturnTypePort ::
     addCallPort(InputReturnTypePort* callPort)
   {
-    FW_ASSERT(callPort);
+    FW_ASSERT(callPort != nullptr);
 
     this->m_port = callPort;
     this->m_connObj = callPort;
@@ -107,11 +107,7 @@ namespace M {
     this->trace();
 #endif
 
-#if FW_PORT_SERIALIZATION
-    FW_ASSERT(this->m_port || this->m_serPort);
-#else
-    FW_ASSERT(this->m_port);
-#endif
+    FW_ASSERT(this->m_port != nullptr);
     return this->m_port->invoke(u);
   }
 
