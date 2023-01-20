@@ -11,6 +11,11 @@
 # FPP_INSTALL_JAVA
 # ----------------------------------------------------------------------
 
+# Go to the working directory, so that relative paths work as expected
+wd=`dirname $0`
+cd $wd
+
+# Pull in the version info
 . ../version.sh
 
 scala_version="3.1.2"
@@ -36,9 +41,6 @@ then
 else
   dest=bin
 fi
-
-wd=`dirname $0`
-cd $wd
 
 dir=`dirname $dest`
 dir=`cd $dir; pwd`

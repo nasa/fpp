@@ -5,9 +5,11 @@ import java.time.Year
 /** Write a CppDoc to an hpp file */
 object CppDocHppWriter extends CppDocWriter {
 
-  def addParamComment(s: String, commentOpt: Option[String]): String = commentOpt match {
-    case Some(comment) => s"$s //!< ${"\n".r.replaceAllIn(comment, " ")}"
-    case None => s
+  def addParamComment(s: String, commentOpt: Option[String]): List[Line] = commentOpt match {
+    case Some(comment) =>
+      val ls = CppDocWriter.writeDoxygenPostComment(comment)
+      Line.joinLists (Line.Indent) (lines(s)) (" ") (ls)
+    case None => lines(s)
   }
 
   def addParamDefault(s: String, defaultOpt: Option[String]): String = defaultOpt match {
@@ -30,18 +32,14 @@ object CppDocHppWriter extends CppDocWriter {
 
   def paramString(p: CppDoc.Function.Param): String = {
     val s1 = CppDocCppWriter.paramString(p)
-    val s2 = addParamDefault(s1, p.default)
-    val s3 = addParamComment(s2, p.comment)
-    s3
+    addParamDefault(s1, p.default)
   }
 
-  def paramStringComma(p: CppDoc.Function.Param): String = {
-    val s1 = CppDocCppWriter.paramString(p)
-    val s2 = addParamDefault(s1, p.default)
-    val s3 = s"$s2,"
-    val s4 = addParamComment(s3, p.comment)
-    s4
-  }
+  def paramLines(p: CppDoc.Function.Param): List[Line] =
+    addParamComment(paramString(p), p.comment)
+
+  def paramLinesComma(p: CppDoc.Function.Param): List[Line] =
+    addParamComment(s"${paramString(p)},", p.comment)
 
   def writeAccessTag(tag: String): List[Line] = List(
     Line.blank,
@@ -54,8 +52,8 @@ object CppDocHppWriter extends CppDocWriter {
       lines(s"$prefix(" ++ paramString(params.head) ++ ")")
     else {
       val head :: tail = params.reverse
-      val paramLines = (writeParam(head) :: tail.map(writeParamComma(_))).reverse
-      line(s"$prefix(") :: (paramLines.map(_.indentIn(2 * indentIncrement)) :+ line(")"))
+      val paramsLines = (paramLines(head) :: tail.map(paramLinesComma(_))).reverse.flatten
+      line(s"$prefix(") :: (paramsLines.map(_.indentIn(2 * indentIncrement)) :+ line(")"))
     }
   }
 
