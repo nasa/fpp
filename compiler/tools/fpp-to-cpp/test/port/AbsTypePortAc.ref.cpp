@@ -165,7 +165,8 @@ void OutputAbsTypePort ::
 
   if (this->m_port != nullptr) {
     this->m_port->invoke(t, tRef);
-  } else {
+  }
+  else {
     Fw::SerializeStatus _status;
     AbsTypePortBuffer _buffer;
 

@@ -343,7 +343,8 @@ void OutputStringPort ::
 
   if (this->m_port != nullptr) {
     this->m_port->invoke(str80, str80Ref, str100, str100Ref);
-  } else {
+  }
+  else {
     Fw::SerializeStatus _status;
     StringPortBuffer _buffer;
 

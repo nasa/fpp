@@ -143,7 +143,8 @@ void OutputEmptyPort ::
 
   if (this->m_port != nullptr) {
     this->m_port->invoke();
-  } else {
+  }
+  else {
     Fw::SerializeStatus _status;
     EmptyPortBuffer _buffer;
 

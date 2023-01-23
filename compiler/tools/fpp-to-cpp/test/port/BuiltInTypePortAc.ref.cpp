@@ -165,7 +165,8 @@ void OutputBuiltInTypePort ::
 
   if (this->m_port != nullptr) {
     this->m_port->invoke(t, tRef);
-  } else {
+  }
+  else {
     Fw::SerializeStatus _status;
     BuiltInTypePortBuffer _buffer;
 

@@ -197,7 +197,8 @@ void OutputPrimitivePort ::
 
   if (this->m_port != nullptr) {
     this->m_port->invoke(u32, u32Ref, f32, f32Ref, b, bRef);
-  } else {
+  }
+  else {
     Fw::SerializeStatus _status;
     PrimitivePortBuffer _buffer;
 

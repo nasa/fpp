@@ -517,7 +517,8 @@ case class PortCppWriter (
               |
               |if (this->m_port != nullptr) {
               |  $invokeCall
-              |} else {
+              |}
+              |else {
               |  Fw::SerializeStatus _status;
               |  ${name}PortBuffer _buffer;
               |"""

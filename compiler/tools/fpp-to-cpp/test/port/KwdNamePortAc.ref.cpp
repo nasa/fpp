@@ -153,7 +153,8 @@ void OutputKwdNamePort ::
 
   if (this->m_port != nullptr) {
     this->m_port->invoke(time);
-  } else {
+  }
+  else {
     Fw::SerializeStatus _status;
     KwdNamePortBuffer _buffer;
 

@@ -197,7 +197,8 @@ void OutputFppTypePort ::
 
   if (this->m_port != nullptr) {
     this->m_port->invoke(e, eRef, a, aRef, s, sRef);
-  } else {
+  }
+  else {
     Fw::SerializeStatus _status;
     FppTypePortBuffer _buffer;
 
