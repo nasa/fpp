@@ -62,8 +62,8 @@ void InputKwdNamePort ::
       CompFuncPtr funcPtr
   )
 {
-  FW_ASSERT(callComp);
-  FW_ASSERT(funcPtr);
+  FW_ASSERT(callComp != nullptr);
+  FW_ASSERT(funcPtr != nullptr);
 
   this->m_comp = callComp;
   this->m_func = funcPtr;
@@ -77,8 +77,8 @@ void InputKwdNamePort ::
   this->trace();
 #endif
 
-  FW_ASSERT(this->m_comp);
-  FW_ASSERT(this->m_func);
+  FW_ASSERT(this->m_comp != nullptr);
+  FW_ASSERT(this->m_func != nullptr);
 
   return this->m_func(this->m_comp, this->m_portNum, time);
 }
@@ -94,8 +94,8 @@ Fw::SerializeStatus InputKwdNamePort ::
   this->trace();
 #endif
 
-  FW_ASSERT(this->m_comp);
-  FW_ASSERT(this->m_func);
+  FW_ASSERT(this->m_comp != nullptr);
+  FW_ASSERT(this->m_func != nullptr);
 
   U32 time;
   _status = _buffer.deserialize(time);
@@ -131,7 +131,7 @@ void OutputKwdNamePort ::
 void OutputKwdNamePort ::
   addCallPort(InputKwdNamePort* callPort)
 {
-  FW_ASSERT(callPort);
+  FW_ASSERT(callPort != nullptr);
 
   this->m_port = callPort;
   this->m_connObj = callPort;
@@ -149,14 +149,12 @@ void OutputKwdNamePort ::
 #endif
 
 #if FW_PORT_SERIALIZATION
-  FW_ASSERT(this->m_port || this->m_serPort);
-#else
-  FW_ASSERT(this->m_port);
-#endif
-  if (this->m_port) {
+  FW_ASSERT((this->m_port != nullptr) || (this->m_serPort != nullptr));
+
+  if (this->m_port != nullptr) {
     this->m_port->invoke(time);
-#if FW_PORT_SERIALIZATION
-  } else if (this->m_serPort) {
+  }
+  else {
     Fw::SerializeStatus _status;
     KwdNamePortBuffer _buffer;
 
@@ -167,6 +165,7 @@ void OutputKwdNamePort ::
     FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
   }
 #else
-  }
+  FW_ASSERT(this->m_port != nullptr);
+  this->m_port->invoke(time);
 #endif
 }

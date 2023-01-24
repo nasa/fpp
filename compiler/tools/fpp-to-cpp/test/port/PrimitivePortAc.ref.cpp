@@ -62,8 +62,8 @@ void InputPrimitivePort ::
       CompFuncPtr funcPtr
   )
 {
-  FW_ASSERT(callComp);
-  FW_ASSERT(funcPtr);
+  FW_ASSERT(callComp != nullptr);
+  FW_ASSERT(funcPtr != nullptr);
 
   this->m_comp = callComp;
   this->m_func = funcPtr;
@@ -84,8 +84,8 @@ void InputPrimitivePort ::
   this->trace();
 #endif
 
-  FW_ASSERT(this->m_comp);
-  FW_ASSERT(this->m_func);
+  FW_ASSERT(this->m_comp != nullptr);
+  FW_ASSERT(this->m_func != nullptr);
 
   return this->m_func(this->m_comp, this->m_portNum, u32, u32Ref, f32, f32Ref, b, bRef);
 }
@@ -101,8 +101,8 @@ Fw::SerializeStatus InputPrimitivePort ::
   this->trace();
 #endif
 
-  FW_ASSERT(this->m_comp);
-  FW_ASSERT(this->m_func);
+  FW_ASSERT(this->m_comp != nullptr);
+  FW_ASSERT(this->m_func != nullptr);
 
   U32 u32;
   _status = _buffer.deserialize(u32);
@@ -168,7 +168,7 @@ void OutputPrimitivePort ::
 void OutputPrimitivePort ::
   addCallPort(InputPrimitivePort* callPort)
 {
-  FW_ASSERT(callPort);
+  FW_ASSERT(callPort != nullptr);
 
   this->m_port = callPort;
   this->m_connObj = callPort;
@@ -193,14 +193,12 @@ void OutputPrimitivePort ::
 #endif
 
 #if FW_PORT_SERIALIZATION
-  FW_ASSERT(this->m_port || this->m_serPort);
-#else
-  FW_ASSERT(this->m_port);
-#endif
-  if (this->m_port) {
+  FW_ASSERT((this->m_port != nullptr) || (this->m_serPort != nullptr));
+
+  if (this->m_port != nullptr) {
     this->m_port->invoke(u32, u32Ref, f32, f32Ref, b, bRef);
-#if FW_PORT_SERIALIZATION
-  } else if (this->m_serPort) {
+  }
+  else {
     Fw::SerializeStatus _status;
     PrimitivePortBuffer _buffer;
 
@@ -226,6 +224,7 @@ void OutputPrimitivePort ::
     FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
   }
 #else
-  }
+  FW_ASSERT(this->m_port != nullptr);
+  this->m_port->invoke(u32, u32Ref, f32, f32Ref, b, bRef);
 #endif
 }
