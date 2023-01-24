@@ -98,8 +98,8 @@ abstract class ComponentCppWriterUtils(
       case _ => None
     }).filter(_.isDefined).map(_.get)
 
-  // Map from a port instance name to a PortCppWriter
-  private val portWriterMap =
+  // Map from a port instance name to param list
+  private val portParamMap =
     List(
       specialInputPorts,
       typedInputPorts,
@@ -107,8 +107,14 @@ abstract class ComponentCppWriterUtils(
       typedOutputPorts
     ).flatten.map(p =>
       p.getType match {
-        case Some(PortInstance.Type.DefPort(symbol)) =>
-          Some((p.getUnqualifiedName, PortCppWriter(s, symbol.node)))
+        case Some(PortInstance.Type.DefPort(symbol)) => Some((
+          p.getUnqualifiedName,
+          writeFormalParamList(
+            symbol.node._2.data.params,
+            s,
+            PortCppWriter.getPortNamespaces(symbol.node._2.data.name)
+          )
+        ))
         case _ => None
       }
     ).filter(_.isDefined).map(_.get).toMap

@@ -1,9 +1,8 @@
 package fpp.compiler.codegen
 
-import fpp.compiler.analysis.*
-import fpp.compiler.ast.*
-import fpp.compiler.codegen.CppDoc.Function
-import fpp.compiler.util.*
+import fpp.compiler.analysis._
+import fpp.compiler.ast._
+import fpp.compiler.util._
 
 case class PortCppWriter (
   s: CppWriterState,
@@ -22,22 +21,15 @@ case class PortCppWriter (
 
   private val namespaceIdentList = s.getNamespaceIdentList(symbol)
 
-  private val typeCppWriter = TypeCppWriter(s)
-
   private val strCppWriter = StringCppWriter(s)
 
-  private val strNamespace = s"${name}PortStrings"
+  private val strNamespace = PortCppWriter.getPortStringNamespace(name)
 
   private val params = data.params
 
   // Map from param name to param type
   private val paramTypeMap = params.map((_, node, _) => {
     (node.data.name, s.a.typeMap(node.data.typeName.id))
-  }).toMap
-
-  // Map from param name to param annotation
-  private val paramAnnotationMap = params.map(aNode => {
-    (aNode._2.data.name, AnnotationCppWriter.asStringOpt(aNode))
   }).toMap
 
   // List of tuples (name, type) for each string param
@@ -55,43 +47,22 @@ case class PortCppWriter (
   private val paramList = params.map((_, node, _) => {
     val n = node.data.name
     val k = node.data.kind
-    paramTypeMap(n) match {
-      case t: Type.String => (
-        n,
-        strCppWriter.getQualifiedClassName(t, List(strNamespace)),
-        k
-      )
-      case t => (n, typeCppWriter.write(t), k)
-    }
+
+    (n, writeCppTypeName(paramTypeMap(n), s, List(strNamespace)), k)
   })
 
-  /** Port params as CppDoc Function Params */
-  val functionParams: List[Function.Param] = paramList.map((n, tn, k) => {
-    CppDoc.Function.Param(
-      CppDoc.Type(getCppType(paramTypeMap(n), tn, k)),
-      n,
-      paramAnnotationMap(n)
-    )
-  })
+  // Port params as CppDoc Function Params
+  private val functionParams: List[CppDoc.Function.Param] =
+    writeFormalParamList(params, s, List(strNamespace))
 
   /** Return type as a C++ type */
   val returnType: String = data.returnType match {
-    case Some(value) => s.a.typeMap(value.id) match {
-      case t: Type.String => strCppWriter.getQualifiedClassName(t, List(strNamespace))
-      case t => typeCppWriter.write(t)
-    }
-    case None => "void"
-  }
-
-  // Translate formal parameter to C++ parameter
-  private def getCppType(t: Type, typeName: String, kind: Ast.FormalParam.Kind) =
-    (t, kind)  match {
-      // Reference formal parameters become non-constant C++ reference parameters
-      case (_, Ast.FormalParam.Ref) => s"$typeName&"
-      // Primitive, non-reference formal parameters become C++ value parameters
-      case (t, Ast.FormalParam.Value) if s.isPrimitive(t, typeName) => typeName
-      // Other non-reference formal parameters become constant C++ reference parameters
-      case (_, Ast.FormalParam.Value) => s"const $typeName&"
+      case Some(node) => writeCppTypeName(
+        s.a.typeMap(node.id),
+        s,
+        List(strNamespace)
+      )
+      case None => "void"
     }
 
   private def writeIncludeDirectives: List[String] = {
@@ -312,8 +283,8 @@ case class PortCppWriter (
           lines("NATIVE_INT_TYPE portNum")
         else
           line("NATIVE_INT_TYPE portNum,") ::
-            lines(paramList.map((n, tn, k) => {
-              s"${getCppType(paramTypeMap(n), tn, k)} $n"
+            lines(params.map(p => {
+              s"${writeFormalParam(p._2.data, s, List(strNamespace))} ${p._2.data.name}"
             }).mkString(",\n")))
 
     List(
@@ -644,5 +615,11 @@ object PortCppWriter {
       case PortInstance.Direction.Input => inputPortName(name)
       case PortInstance.Direction.Output => outputPortName(name)
     }
+
+  /** Get the name of the port string class namespace */
+  def getPortStringNamespace(name: String): String = s"${name}PortStrings"
+
+  /** Get the names of port namespaces as a list */
+  def getPortNamespaces(name: String): List[String] = List(getPortStringNamespace(name))
 
 }

@@ -1,5 +1,8 @@
 package fpp.compiler.codegen
 
+import fpp.compiler.analysis._
+import fpp.compiler.ast._
+
 /** Utilities for writing C++ lines */
 trait CppWriterLineUtils extends LineUtils {
 
@@ -108,5 +111,56 @@ trait CppWriterLineUtils extends LineUtils {
         ),
       )
     )
+
+  /** Writes a type as a C++ type */
+  def writeCppTypeName(
+    t: Type,
+    s: CppWriterState,
+    namespaceNames: List[String] = Nil,
+    strName: Option[String] = None
+  ): String =
+    t match {
+      case t: Type.String => strName match {
+        case Some(name) => name
+        case None => StringCppWriter(s).getQualifiedClassName(t, namespaceNames)
+      }
+      case t =>
+        TypeCppWriter(s).write(t)
+    }
+
+  /** Writes a formal parameter as a C++ parameter */
+  def writeFormalParam(
+    param: Ast.FormalParam,
+    s: CppWriterState,
+    namespaceNames: List[String] = Nil,
+    strName: Option[String] = None
+  ): String = {
+    val t = s.a.typeMap(param.typeName.id)
+    val typeName = writeCppTypeName(t, s, namespaceNames, strName)
+
+    (t, param.kind) match {
+      // Reference formal parameters become non-constant C++ reference parameters
+      case (_, Ast.FormalParam.Ref) => s"$typeName&"
+      // Primitive, non-reference formal parameters become C++ value parameters
+      case (t, Ast.FormalParam.Value) if s.isPrimitive(t, typeName) => typeName
+      // Other non-reference formal parameters become constant C++ reference parameters
+      case (_, Ast.FormalParam.Value) => s"const $typeName&"
+    }
+  }
+
+  /** Writes a list of formal parameters as a list of CppDoc Function Params */
+  def writeFormalParamList(
+    params: Ast.FormalParamList,
+    s: CppWriterState,
+    namespaceNames: List[String] = Nil,
+    strName: Option[String] = None
+  ): List[CppDoc.Function.Param] =
+    params.map(aNode => {
+      CppDoc.Function.Param(
+        CppDoc.Type(writeFormalParam(aNode._2.data, s, namespaceNames, strName)),
+        aNode._2.data.name,
+        AnnotationCppWriter.asStringOpt(aNode)
+      )
+    })
 
 }
