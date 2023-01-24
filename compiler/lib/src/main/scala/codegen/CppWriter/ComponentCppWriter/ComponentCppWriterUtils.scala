@@ -127,13 +127,13 @@ abstract class ComponentCppWriterUtils(
 
   val hasInternalPorts: Boolean = internalPorts.nonEmpty
 
-  val hasCommands: Boolean = component.commandMap.isEmpty
+  val hasCommands: Boolean = component.commandMap.nonEmpty
 
-  val hasEvents: Boolean = component.eventMap.isEmpty
+  val hasEvents: Boolean = component.eventMap.nonEmpty
 
-  val hasChannels: Boolean = component.tlmChannelMap.isEmpty
+  val hasChannels: Boolean = component.tlmChannelMap.nonEmpty
 
-  val hasParameters: Boolean = component.paramMap.isEmpty
+  val hasParameters: Boolean = component.paramMap.nonEmpty
 
   /** Get the qualified name of a port type */
   def getQualifiedPortTypeName(
@@ -160,7 +160,7 @@ abstract class ComponentCppWriterUtils(
   def getFunctionParams(p: PortInstance): List[CppDoc.Function.Param] =
     p.getType.get match {
       case PortInstance.Type.DefPort(_) =>
-        portWriterMap(p.getUnqualifiedName).functionParams
+        portParamMap(p.getUnqualifiedName)
       case PortInstance.Type.Serial =>
         List(
           CppDoc.Function.Param(
@@ -174,8 +174,8 @@ abstract class ComponentCppWriterUtils(
   /** Get a port return type as a CppDoc Type */
   def getReturnType(p: PortInstance): CppDoc.Type =
     p.getType.get match {
-      case PortInstance.Type.DefPort(_) => CppDoc.Type(
-        portWriterMap(p.getUnqualifiedName).returnType
+      case PortInstance.Type.DefPort(symbol) => CppDoc.Type(
+        PortCppWriter(s, symbol.node).returnType
       )
       case PortInstance.Type.Serial => CppDoc.Type(
         "Fw::SerializeStatus"
@@ -235,6 +235,14 @@ abstract class ComponentCppWriterUtils(
   /** Get the name for an output port invocation function */
   def outputPortInvokerName(name: String) =
     s"${name}_out"
+
+  /** Get the name for a command handler */
+  def commandHandlerName(name: String) =
+    s"${name}_cmdHandler"
+
+  /** Get the name for a command handler base-class function */
+  def commandHandlerBaseName(name: String) =
+    s"${name}_cmdHandlerBase"
 
   private def filterByPortDirection[T<: PortInstance](ports: List[T], direction: PortInstance.Direction) =
     ports.filter(p =>
