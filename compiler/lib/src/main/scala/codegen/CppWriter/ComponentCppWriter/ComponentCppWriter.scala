@@ -21,6 +21,8 @@ case class ComponentCppWriter (
 
   private val cmdWriter = ComponentCommands(s, aNode)
 
+  private val internalPortWriter = ComponentInternalPort(s, aNode)
+
   private val kindStr = data.kind match {
     case Ast.ComponentKind.Active => "Active"
     case Ast.ComponentKind.Passive => "Passive"
@@ -138,6 +140,8 @@ case class ComponentCppWriter (
       getDispatchFunction,
       getMutexOperations,
       portWriter.getPortFunctionMembers,
+      internalPortWriter.getInternalPortFunctionMembers,
+      cmdWriter.getCmdRegRespFunctionMembers,
       cmdWriter.getCmdFunctionMembers,
       getMemberVariables
     ).flatten
@@ -329,7 +333,10 @@ case class ComponentCppWriter (
           Some("Called in the message loop to dispatch a message from the queue"),
           "doDispatch",
           Nil,
-          CppDoc.Type("MsgDispatchStatus"),
+          CppDoc.Type(
+            "MsgDispatchStatus",
+            Some("Fw::QueuedComponentBase::MsgDispatchStatus")
+          ),
           Nil,
           CppDoc.Function.Virtual
         )

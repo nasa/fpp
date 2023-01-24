@@ -89,7 +89,7 @@ abstract class ComponentCppWriterUtils(
   val serialOutputPorts: List[PortInstance.General] = filterSerialPorts(outputPorts)
 
   /** List of internal port instances */
-  private val internalPorts: List[PortInstance.Internal] = members.map(member =>
+  val internalPorts: List[PortInstance.Internal] = members.map(member =>
     member.node._2 match {
       case Ast.ComponentMember.SpecInternalPort(node) => component.portMap(node.data.name) match {
         case i: PortInstance.Internal => Some(i)
@@ -104,7 +104,8 @@ abstract class ComponentCppWriterUtils(
       specialInputPorts,
       typedInputPorts,
       specialOutputPorts,
-      typedOutputPorts
+      typedOutputPorts,
+      internalPorts
     ).flatten.map(p =>
       p.getType match {
         case Some(PortInstance.Type.DefPort(symbol)) => Some((
@@ -115,6 +116,18 @@ abstract class ComponentCppWriterUtils(
             PortCppWriter.getPortNamespaces(symbol.node._2.data.name)
           )
         ))
+        case None => p match {
+          case PortInstance.Internal(node, _, _) => Some((
+            p.getUnqualifiedName,
+            writeFormalParamList(
+              node._2.data.params,
+              s,
+              Nil,
+              Some("Fw::InternalInterfaceString")
+            )
+          ))
+          case _ => None
+        }
         case _ => None
       }
     ).filter(_.isDefined).map(_.get).toMap
@@ -158,10 +171,10 @@ abstract class ComponentCppWriterUtils(
 
   /** Get port params as CppDoc Function Params */
   def getFunctionParams(p: PortInstance): List[CppDoc.Function.Param] =
-    p.getType.get match {
-      case PortInstance.Type.DefPort(_) =>
+    p.getType match {
+      case Some(PortInstance.Type.DefPort(_)) | None =>
         portParamMap(p.getUnqualifiedName)
-      case PortInstance.Type.Serial =>
+      case Some(PortInstance.Type.Serial) =>
         List(
           CppDoc.Function.Param(
             CppDoc.Type("Fw::SerializeBufferBase&"),
@@ -243,6 +256,14 @@ abstract class ComponentCppWriterUtils(
   /** Get the name for a command handler base-class function */
   def commandHandlerBaseName(name: String) =
     s"${name}_cmdHandlerBase"
+
+  /** Get the name for an internal interface handler */
+  def internalInterfaceHandlerName(name: String) =
+    s"${name}_internalInterfaceHandler"
+
+  /** Get the name for an internal interface base-class function */
+  def internalInterfaceHandlerBaseName(name: String) =
+    s"${name}_internalInterfaceInvoke"
 
   private def filterByPortDirection[T<: PortInstance](ports: List[T], direction: PortInstance.Direction) =
     ports.filter(p =>
