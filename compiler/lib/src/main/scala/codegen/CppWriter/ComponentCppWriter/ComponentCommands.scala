@@ -48,21 +48,6 @@ case class ComponentCommands (
   )
 
   def getCmdConstants: List[CppDoc.Class.Member] = {
-    def writeComment(opcode: Command.Opcode) =
-      cmdAnnotationMap(opcode) match {
-        case Some(str) => s" //!< $str"
-        case _ => ""
-      }
-    def writeEnum(input: (Command.Opcode, Command)) = {
-      s"OPCODE_${input._2.getName.toUpperCase} = 0x${input._1.toString(16).toUpperCase}"
-    }
-    def writeEnums(cmds: List[(Command.Opcode, Command)]): List[String] =
-      cmds match {
-        case Nil => Nil
-        case h :: Nil => List(s"${writeEnum(h)}${writeComment(h._1)}")
-        case h :: t => s"${writeEnum(h)},${writeComment(h._1)}" :: writeEnums(t)
-      }
-
     if !(hasCommands || hasParameters) then Nil
     else List(
       CppDoc.Class.Member.Lines(
@@ -71,7 +56,14 @@ case class ComponentCommands (
             Line.blank :: lines(s"//! Command opcodes"),
             wrapInEnum(
               lines(
-                writeEnums(sortedCmds).mkString("\n")
+                sortedCmds.map((opcode, cmd) =>
+                  writeEnumeratedConstant(
+                    commandConstantName(cmd.getName),
+                    opcode,
+                    cmdAnnotationMap(opcode),
+                    ComponentCppWriterUtils.Hex
+                  )
+                ).mkString("\n")
               )
             )
           ).flatten

@@ -284,6 +284,10 @@ abstract class ComponentCppWriterUtils(
   def commandHandlerBaseName(name: String) =
     s"${name}_cmdHandlerBase"
 
+  /** Get the name for a command opcode constant */
+  def commandConstantName(name: String) =
+    s"OPCODE_${name.toUpperCase}"
+
   /** Get the name for an internal interface handler */
   def internalInterfaceHandlerName(name: String) =
     s"${name}_internalInterfaceHandler"

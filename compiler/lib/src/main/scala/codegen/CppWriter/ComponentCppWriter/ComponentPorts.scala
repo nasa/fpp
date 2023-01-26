@@ -92,8 +92,11 @@ case class ComponentPorts(
             wrapInEnum(
               lines(
                 ports.map(p =>
-                  s"${portEnumName(p.getUnqualifiedName, p.getDirection.get)} = ${p.getArraySize}"
-                ).mkString(",\n")
+                  writeEnumeratedConstant(
+                    portEnumName(p.getUnqualifiedName, p.getDirection.get),
+                    p.getArraySize,
+                  )
+                ).mkString("\n")
               )
             )
           ).flatten
