@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# ----------------------------------------------------------------------
+# Compile ref C++ files, to check them for validity
+# ----------------------------------------------------------------------
+
+fprime_gcc=../../../../scripts/fprime-gcc
+export FPRIME_GCC_FLAGS="-I../fprime"
+
+echo "generating C++"
+fpp-to-cpp -d ../fprime/Fw -p `dirname $PWD`/fprime `cat deps.txt`
+for dir in Cmd Log Prm Time Tlm
+do
+  mv ../fprime/Fw/$dir*.hpp ../fprime/Fw/$dir*.cpp ../fprime/Fw/$dir
+done
+mv ../fprime/Fw/Param*.hpp ../fprime/Fw/Param*.cpp ../fprime/Fw/Prm
+
+for file in `find . -name '*Ac.ref.cpp'`
+do
+  echo "compiling $file"
+  base=`echo $file | sed 's;\.cpp;;'`
+  dest_base=`echo $base | sed 's;\(.*Ac\).*;\1;'`
+  cp $base.hpp $dest_base.hpp
+  cp $base.cpp $dest_base.cpp
+  $fprime_gcc -I../../.. -c $dest_base.cpp -Wno-gnu-zero-variadic-macro-arguments
+done
