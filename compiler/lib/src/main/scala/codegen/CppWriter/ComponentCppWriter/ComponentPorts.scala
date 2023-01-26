@@ -25,20 +25,25 @@ case class ComponentPorts(
     ).flatten
   }
 
-  def getPortFunctionMembers: List[CppDoc.Class.Member] = {
+  def getPortPublicFunctionMembers: List[CppDoc.Class.Member] = {
     List(
       inputPortWriter.getGetters(specialInputPorts),
       inputPortWriter.getGetters(typedInputPorts),
       inputPortWriter.getGetters(serialInputPorts),
+      outputPortWriter.getTypedConnectors(specialOutputPorts),
+      outputPortWriter.getTypedConnectors(typedOutputPorts),
+      outputPortWriter.getSerialConnectors(serialOutputPorts)
+    ).flatten
+  }
+
+  def getPortProtectedFunctionMembers: List[CppDoc.Class.Member] = {
+    List(
       getPortNumGetters(specialInputPorts),
       getPortNumGetters(typedInputPorts),
       getPortNumGetters(serialInputPorts),
       getPortNumGetters(specialOutputPorts),
       getPortNumGetters(typedOutputPorts),
       getPortNumGetters(serialOutputPorts),
-      outputPortWriter.getTypedConnectors(specialOutputPorts),
-      outputPortWriter.getTypedConnectors(typedOutputPorts),
-      outputPortWriter.getSerialConnectors(serialOutputPorts),
       outputPortWriter.getConnectionStatusQueries(specialOutputPorts),
       outputPortWriter.getConnectionStatusQueries(typedOutputPorts),
       outputPortWriter.getConnectionStatusQueries(serialOutputPorts),
@@ -51,11 +56,16 @@ case class ComponentPorts(
       outputPortWriter.getInvokers(specialOutputPorts),
       outputPortWriter.getInvokers(typedOutputPorts),
       outputPortWriter.getInvokers(serialOutputPorts),
+    ).flatten
+  }
+
+  def getPortPrivateFunctionMembers: List[CppDoc.Class.Member] = {
+    List(
       inputPortWriter.getPreMsgHooks(typedAsyncInputPorts),
       inputPortWriter.getPreMsgHooks(serialAsyncInputPorts),
       inputPortWriter.getCallbacks(specialInputPorts),
       inputPortWriter.getCallbacks(typedInputPorts),
-      inputPortWriter.getCallbacks(serialInputPorts),
+      inputPortWriter.getCallbacks(serialInputPorts)
     ).flatten
   }
 

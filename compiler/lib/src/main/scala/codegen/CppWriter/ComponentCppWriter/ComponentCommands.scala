@@ -80,15 +80,21 @@ case class ComponentCommands (
     )
   }
 
-  def getCmdRegRespFunctionMembers: List[CppDoc.Class.Member] = {
+  def getCmdPublicFunctionMembers: List[CppDoc.Class.Member] = {
+    if !(hasCommands || hasParameters) then Nil
+    else
+      getRegFunction
+  }
+
+  def getCmdProtectedFunctionMembers: List[CppDoc.Class.Member] = {
     if !(hasCommands || hasParameters) then Nil
     else List(
-      getRegFunction,
-      getResponseFunction
+      getResponseFunction,
+      getFunctionMembers
     ).flatten
   }
 
-  def getCmdFunctionMembers: List[CppDoc.Class.Member] = {
+  private def getFunctionMembers: List[CppDoc.Class.Member] = {
     if !hasCommands then Nil
     else List(
       getHandlers,

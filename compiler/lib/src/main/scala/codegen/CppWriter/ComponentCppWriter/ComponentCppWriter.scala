@@ -138,15 +138,17 @@ case class ComponentCppWriter (
     List(
       getFriendClasses,
       getConstants,
+      portWriter.getPortPublicFunctionMembers,
+      cmdWriter.getCmdPublicFunctionMembers,
       getComponentFunctions,
-      getDispatchFunction,
-      getMutexOperations,
-      portWriter.getPortFunctionMembers,
+      portWriter.getPortProtectedFunctionMembers,
       internalPortWriter.getInternalPortFunctionMembers,
-      cmdWriter.getCmdRegRespFunctionMembers,
-      cmdWriter.getCmdFunctionMembers,
+      cmdWriter.getCmdProtectedFunctionMembers,
       eventWriter.getEventFunctionMembers,
       getTimeFunction,
+      getMutexOperations,
+      getDispatchFunction,
+      portWriter.getPortPrivateFunctionMembers,
       getMemberVariables
     ).flatten
   }
