@@ -119,7 +119,13 @@ case class ComponentEvents (
                 })
             ),
             eventLogName(event),
-            writeFormalParamList(event.aNode._2.data.params, s, Nil, Some("Fw::LogStringArg")),
+            writeFormalParamList(
+              event.aNode._2.data.params,
+              s,
+              Nil,
+              Some("Fw::LogStringArg"),
+              CppWriterLineUtils.Value
+            ),
             CppDoc.Type("void"),
             Nil
           )

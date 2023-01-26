@@ -133,18 +133,26 @@ trait CppWriterLineUtils extends LineUtils {
     param: Ast.FormalParam,
     s: CppWriterState,
     namespaceNames: List[String] = Nil,
-    strName: Option[String] = None
+    strName: Option[String] = None,
+    passingConvention: CppWriterLineUtils.SerializablePassingConvention = CppWriterLineUtils.ConstRef
   ): String = {
     val t = s.a.typeMap(param.typeName.id)
     val typeName = writeCppTypeName(t, s, namespaceNames, strName)
 
-    (t, param.kind) match {
+    param.kind match {
       // Reference formal parameters become non-constant C++ reference parameters
-      case (_, Ast.FormalParam.Ref) => s"$typeName&"
-      // Primitive, non-reference formal parameters become C++ value parameters
-      case (t, Ast.FormalParam.Value) if s.isPrimitive(t, typeName) => typeName
-      // Other non-reference formal parameters become constant C++ reference parameters
-      case (_, Ast.FormalParam.Value) => s"const $typeName&"
+      case Ast.FormalParam.Ref => s"$typeName&"
+      case Ast.FormalParam.Value => t match {
+        // Primitive, non-reference formal parameters become C++ value parameters
+        case t if s.isPrimitive(t, typeName) => typeName
+        // String formal parameters become constant C++ reference parameters
+        case _: Type.String => s"const $typeName&"
+        // Serializable formal parameters become C++ value or constant reference parameters
+        case _ => passingConvention match {
+          case CppWriterLineUtils.ConstRef => s"const $typeName&"
+          case CppWriterLineUtils.Value => typeName
+        }
+      }
     }
   }
 
@@ -153,14 +161,32 @@ trait CppWriterLineUtils extends LineUtils {
     params: Ast.FormalParamList,
     s: CppWriterState,
     namespaceNames: List[String] = Nil,
-    strName: Option[String] = None
+    strName: Option[String] = None,
+    passingConvention: CppWriterLineUtils.SerializablePassingConvention = CppWriterLineUtils.ConstRef
   ): List[CppDoc.Function.Param] =
     params.map(aNode => {
       CppDoc.Function.Param(
-        CppDoc.Type(writeFormalParam(aNode._2.data, s, namespaceNames, strName)),
+        CppDoc.Type(writeFormalParam(
+          aNode._2.data,
+          s,
+          namespaceNames,
+          strName,
+          passingConvention
+        )),
         aNode._2.data.name,
         AnnotationCppWriter.asStringOpt(aNode)
       )
     })
+
+}
+
+object CppWriterLineUtils {
+
+  /** The passing convention for a serializable type */
+  sealed trait SerializablePassingConvention
+
+  case object ConstRef extends SerializablePassingConvention
+
+  case object Value extends SerializablePassingConvention
 
 }

@@ -31,7 +31,8 @@ case class ComponentCommands (
       cmd.aNode._2.data.params,
       s,
       Nil,
-      Some("Fw::CmdStringArg")
+      Some("Fw::CmdStringArg"),
+      CppWriterLineUtils.Value
     )
   )}).toMap
 
