@@ -205,6 +205,24 @@ abstract class ComponentCppWriterUtils(
       case _: PortInstance.Internal => "internal"
     }
 
+  def writeEnumeratedConstant(
+    name: String,
+    value: BigInt,
+    comment: Option[String] = None,
+    radix: ComponentCppWriterUtils.Radix = ComponentCppWriterUtils.Decimal
+  ): String = {
+    val valueStr = radix match {
+      case ComponentCppWriterUtils.Decimal => value.toString
+      case ComponentCppWriterUtils.Hex => s"0x${value.toString(16)}"
+    }
+    val commentStr = comment match {
+      case Some(s) => s" //! $s"
+      case None => ""
+    }
+
+    s"$name = $valueStr,$commentStr"
+  }
+
   /** Get the name for a port enumerated constant */
   def portEnumName(name: String, direction: PortInstance.Direction) =
     s"NUM_${name.toUpperCase}_${direction.toString.toUpperCase}_PORTS"
@@ -265,6 +283,25 @@ abstract class ComponentCppWriterUtils(
   def internalInterfaceHandlerBaseName(name: String) =
     s"${name}_internalInterfaceInvoke"
 
+  /** Get the name for an event ID constant */
+  def eventIdConstantName(name: String) =
+    s"EVENTID_${name.toUpperCase}"
+
+  /** Get the name for an event throttle constant */
+  def eventThrottleConstantName(name: String) =
+    s"${eventIdConstantName(name)}_THROTTLE"
+
+  /** Get the name for an event logging function */
+  def eventLogName(event: Event) =
+    s"log_${event.aNode._2.data.severity.toString.toUpperCase.replace(' ', '_')}_${event.getName}"
+
+  /** Get the name for an event throttle reset function */
+  def eventThrottleResetName(event: Event) =
+    s"${eventLogName(event)}_ThrottleClear"
+
+  def eventThrottleCounterName(name: String) =
+    s"m_${name}Throttle"
+
   private def filterByPortDirection[T<: PortInstance](ports: List[T], direction: PortInstance.Direction) =
     ports.filter(p =>
       p.getDirection match {
@@ -305,4 +342,12 @@ abstract class ComponentCppWriterUtils(
       }
     )
 
+}
+
+object ComponentCppWriterUtils {
+  sealed trait Radix
+
+  case object Decimal extends Radix
+
+  case object Hex extends Radix
 }

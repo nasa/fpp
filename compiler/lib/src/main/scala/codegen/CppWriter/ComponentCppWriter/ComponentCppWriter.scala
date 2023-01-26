@@ -23,6 +23,8 @@ case class ComponentCppWriter (
 
   private val internalPortWriter = ComponentInternalPort(s, aNode)
 
+  private val eventWriter = ComponentEvents(s, aNode)
+
   private val kindStr = data.kind match {
     case Ast.ComponentKind.Active => "Active"
     case Ast.ComponentKind.Passive => "Passive"
@@ -143,6 +145,8 @@ case class ComponentCppWriter (
       internalPortWriter.getInternalPortFunctionMembers,
       cmdWriter.getCmdRegRespFunctionMembers,
       cmdWriter.getCmdFunctionMembers,
+      eventWriter.getEventFunctionMembers,
+      getTimeFunction,
       getMemberVariables
     ).flatten
   }
@@ -150,7 +154,8 @@ case class ComponentCppWriter (
   private def getConstants: List[CppDoc.Class.Member] = {
     val constants = List(
       portWriter.getPortConstants,
-      cmdWriter.getCmdConstants
+      cmdWriter.getCmdConstants,
+      eventWriter.getEventConstants
     ).flatten
 
     if constants.isEmpty then Nil
@@ -174,6 +179,7 @@ case class ComponentCppWriter (
   private def getMemberVariables: List[CppDoc.Class.Member] = {
     List(
       portWriter.getPortMemberVariables,
+      eventWriter.getEventVariableMembers,
       getMsgSizeMember,
       getMutexMembers,
     ).flatten
