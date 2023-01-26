@@ -148,6 +148,15 @@ abstract class ComponentCppWriterUtils(
 
   val hasParameters: Boolean = component.paramMap.nonEmpty
 
+  val hasTimeGet: Boolean = specialPorts.exists(p =>
+    p.aNode._2.data match {
+      case Ast.SpecPortInstance.Special(kind, _) => kind match {
+        case Ast.SpecPortInstance.TimeGet => true
+        case _ => false
+      }
+      case _ => false
+    })
+
   /** Get the qualified name of a port type */
   def getQualifiedPortTypeName(
     p: PortInstance,

@@ -350,6 +350,34 @@ case class ComponentCppWriter (
     )
   }
 
+  private def getTimeFunction: List[CppDoc.Class.Member] = {
+    if !(hasChannels || hasEvents || hasTimeGet) then Nil
+    else List(
+      CppDoc.Class.Member.Lines(
+        CppDoc.Lines(
+          List(
+            CppDocHppWriter.writeAccessTag("PROTECTED"),
+            CppDocWriter.writeBannerComment("Time")
+          ).flatten
+        )
+      ),
+      CppDoc.Class.Member.Function(
+        CppDoc.Function(
+          Some(
+            s"""| Get the time
+                |
+                |\\return The current time
+                |"""
+          ),
+          "getTime",
+          Nil,
+          CppDoc.Type("Fw::Time"),
+          Nil
+        )
+      )
+    )
+  }
+
   private def getMsgSizeMember: List[CppDoc.Class.Member] = {
     if !hasSerialAsyncInputPorts then Nil
     else List(
