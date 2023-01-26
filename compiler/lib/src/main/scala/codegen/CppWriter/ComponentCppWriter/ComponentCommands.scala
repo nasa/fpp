@@ -59,7 +59,7 @@ case class ComponentCommands (
               lines(
                 sortedCmds.map((opcode, cmd) =>
                   writeEnumeratedConstant(
-                    commandConstantName(cmd.getName),
+                    commandConstantName(cmd),
                     opcode,
                     cmdAnnotationMap(opcode),
                     ComponentCppWriterUtils.Hex

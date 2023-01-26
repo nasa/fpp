@@ -285,8 +285,19 @@ abstract class ComponentCppWriterUtils(
     s"${name}_cmdHandlerBase"
 
   /** Get the name for a command opcode constant */
-  def commandConstantName(name: String) =
+  def commandConstantName(cmd: Command) = {
+    val name = cmd match {
+      case Command.NonParam(_, _) => cmd.getName
+      case Command.Param(aNode, kind) =>
+        val kindStr = kind match {
+          case Command.Param.Save => "SAVE"
+          case Command.Param.Set => "SET"
+        }
+        s"${aNode._2.data.name}_$kindStr"
+    }
+
     s"OPCODE_${name.toUpperCase}"
+  }
 
   /** Get the name for an internal interface handler */
   def internalInterfaceHandlerName(name: String) =
@@ -305,8 +316,17 @@ abstract class ComponentCppWriterUtils(
     s"${eventIdConstantName(name)}_THROTTLE"
 
   /** Get the name for an event logging function */
-  def eventLogName(event: Event) =
-    s"log_${event.aNode._2.data.severity.toString.toUpperCase.replace(' ', '_')}_${event.getName}"
+  def eventLogName(event: Event) = {
+    val severity = event.aNode._2.data.severity
+    val severityStr = severity match {
+      case Ast.SpecEvent.ActivityHigh => "ACTIVITY_HI"
+      case Ast.SpecEvent.ActivityLow => "ACTIVITY_LO"
+      case Ast.SpecEvent.WarningHigh => "WARNING_HI"
+      case Ast.SpecEvent.WarningLow => "WARNING_LO"
+      case _ => severity.toString.toUpperCase.replace(' ', '_')
+    }
+    s"log_${severityStr}_${event.getName}"
+  }
 
   /** Get the name for an event throttle reset function */
   def eventThrottleResetName(event: Event) =
@@ -358,9 +378,11 @@ abstract class ComponentCppWriterUtils(
 }
 
 object ComponentCppWriterUtils {
+
   sealed trait Radix
 
   case object Decimal extends Radix
 
   case object Hex extends Radix
+
 }
