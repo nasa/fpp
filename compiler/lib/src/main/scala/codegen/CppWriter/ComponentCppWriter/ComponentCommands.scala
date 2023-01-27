@@ -48,7 +48,7 @@ case class ComponentCommands (
     Some("The command sequence number")
   )
 
-  def getCmdConstants: List[CppDoc.Class.Member] = {
+  def getConstantMembers: List[CppDoc.Class.Member] = {
     if !(hasCommands || hasParameters) then Nil
     else List(
       CppDoc.Class.Member.Lines(
@@ -58,7 +58,7 @@ case class ComponentCommands (
             wrapInEnum(
               lines(
                 sortedCmds.map((opcode, cmd) =>
-                  writeEnumeratedConstant(
+                  writeEnumConstant(
                     commandConstantName(cmd),
                     opcode,
                     cmdAnnotationMap(opcode),
@@ -73,21 +73,21 @@ case class ComponentCommands (
     )
   }
 
-  def getCmdPublicFunctionMembers: List[CppDoc.Class.Member] = {
+  def getPublicFunctionMembers: List[CppDoc.Class.Member] = {
     if !(hasCommands || hasParameters) then Nil
     else
       getRegFunction
   }
 
-  def getCmdProtectedFunctionMembers: List[CppDoc.Class.Member] = {
+  def getProtectedFunctionMembers: List[CppDoc.Class.Member] = {
     if !(hasCommands || hasParameters) then Nil
     else List(
       getResponseFunction,
-      getFunctionMembers
+      getFunctions
     ).flatten
   }
 
-  private def getFunctionMembers: List[CppDoc.Class.Member] = {
+  private def getFunctions: List[CppDoc.Class.Member] = {
     if !hasCommands then Nil
     else List(
       getHandlers,
@@ -263,7 +263,7 @@ case class ComponentCommands (
         CppDoc.Class.Member.Function(
           CppDoc.Function(
             Some(s"Pre-message hook for command ${cmd.getName}"),
-            asyncInputPortHookName(cmd.getName),
+            inputPortHookName(cmd.getName),
             List(
               opcodeParam,
               cmdSeqParam
@@ -282,5 +282,28 @@ case class ComponentCommands (
       case Some(str) => s"\n\n$str"
       case None => ""
     }
+
+  // Get the name for a command handler
+  private def commandHandlerName(name: String) =
+    s"${name}_cmdHandler"
+
+  // Get the name for a command handler base-class function
+  private def commandHandlerBaseName(name: String) =
+    s"${name}_cmdHandlerBase"
+
+  // Get the name for a command opcode constant
+  private def commandConstantName(cmd: Command) = {
+    val name = cmd match {
+      case Command.NonParam(_, _) => cmd.getName
+      case Command.Param(aNode, kind) =>
+        val kindStr = kind match {
+          case Command.Param.Save => "SAVE"
+          case Command.Param.Set => "SET"
+        }
+        s"${aNode._2.data.name}_$kindStr"
+    }
+
+    s"OPCODE_${name.toUpperCase}"
+  }
 
 }

@@ -14,18 +14,18 @@ case class ComponentPorts(
 
   private val outputPortWriter = ComponentOutputPorts(s, aNode)
 
-  def getPortConstants: List[CppDoc.Class.Member] = {
+  def getConstantMembers: List[CppDoc.Class.Member] = {
     List(
-      getPortEnum(specialInputPorts),
-      getPortEnum(typedInputPorts),
-      getPortEnum(serialInputPorts),
-      getPortEnum(specialOutputPorts),
-      getPortEnum(typedOutputPorts),
-      getPortEnum(serialOutputPorts),
+      getConstants(specialInputPorts),
+      getConstants(typedInputPorts),
+      getConstants(serialInputPorts),
+      getConstants(specialOutputPorts),
+      getConstants(typedOutputPorts),
+      getConstants(serialOutputPorts),
     ).flatten
   }
 
-  def getPortPublicFunctionMembers: List[CppDoc.Class.Member] = {
+  def getPublicFunctionMembers: List[CppDoc.Class.Member] = {
     List(
       inputPortWriter.getGetters(specialInputPorts),
       inputPortWriter.getGetters(typedInputPorts),
@@ -36,14 +36,14 @@ case class ComponentPorts(
     ).flatten
   }
 
-  def getPortProtectedFunctionMembers: List[CppDoc.Class.Member] = {
+  def getProtectedFunctionMembers: List[CppDoc.Class.Member] = {
     List(
-      getPortNumGetters(specialInputPorts),
-      getPortNumGetters(typedInputPorts),
-      getPortNumGetters(serialInputPorts),
-      getPortNumGetters(specialOutputPorts),
-      getPortNumGetters(typedOutputPorts),
-      getPortNumGetters(serialOutputPorts),
+      getNumGetters(specialInputPorts),
+      getNumGetters(typedInputPorts),
+      getNumGetters(serialInputPorts),
+      getNumGetters(specialOutputPorts),
+      getNumGetters(typedOutputPorts),
+      getNumGetters(serialOutputPorts),
       outputPortWriter.getConnectionStatusQueries(specialOutputPorts),
       outputPortWriter.getConnectionStatusQueries(typedOutputPorts),
       outputPortWriter.getConnectionStatusQueries(serialOutputPorts),
@@ -59,7 +59,7 @@ case class ComponentPorts(
     ).flatten
   }
 
-  def getPortPrivateFunctionMembers: List[CppDoc.Class.Member] = {
+  def getPrivateFunctionMembers: List[CppDoc.Class.Member] = {
     List(
       inputPortWriter.getPreMsgHooks(typedAsyncInputPorts),
       inputPortWriter.getPreMsgHooks(serialAsyncInputPorts),
@@ -69,31 +69,31 @@ case class ComponentPorts(
     ).flatten
   }
 
-  def getPortMemberVariables: List[CppDoc.Class.Member] = {
+  def getVariableMembers: List[CppDoc.Class.Member] = {
     List(
-      getPortMembers(specialInputPorts),
-      getPortMembers(typedInputPorts),
-      getPortMembers(serialInputPorts),
-      getPortMembers(specialOutputPorts),
-      getPortMembers(typedOutputPorts),
-      getPortMembers(serialOutputPorts),
+      getVariables(specialInputPorts),
+      getVariables(typedInputPorts),
+      getVariables(serialInputPorts),
+      getVariables(specialOutputPorts),
+      getVariables(typedOutputPorts),
+      getVariables(serialOutputPorts),
     ).flatten
   }
 
-  private def getPortEnum(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+  private def getConstants(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     if ports.isEmpty then Nil
     else List(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
           List(
             Line.blank :: lines(
-              s"//! Enumerations for numbers of ${getTypeString(ports.head)} ${ports.head.getDirection.get.toString} ports"
+              s"//! Enumerations for numbers of ${getPortTypeString(ports.head)} ${ports.head.getDirection.get.toString} ports"
             ),
             wrapInEnum(
               lines(
                 ports.map(p =>
-                  writeEnumeratedConstant(
-                    portEnumName(p.getUnqualifiedName, p.getDirection.get),
+                  writeEnumConstant(
+                    portConstantName(p.getUnqualifiedName, p.getDirection.get),
                     p.getArraySize,
                   )
                 ).mkString("\n")
@@ -105,7 +105,7 @@ case class ComponentPorts(
     )
   }
 
-  private def getPortNumGetters(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+  private def getNumGetters(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     if ports.isEmpty then Nil
     else List(
       List(
@@ -114,7 +114,7 @@ case class ComponentPorts(
             List(
               CppDocHppWriter.writeAccessTag("PROTECTED"),
               CppDocWriter.writeBannerComment(
-                s"Getters for numbers of ${getTypeString(ports.head)} ${ports.head.getDirection.get.toString} ports"
+                s"Getters for numbers of ${getPortTypeString(ports.head)} ${ports.head.getDirection.get.toString} ports"
               )
             ).flatten
           )
@@ -139,7 +139,7 @@ case class ComponentPorts(
     ).flatten
   }
 
-  private def getPortMembers(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+  private def getVariables(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     if ports.isEmpty then Nil
     else List(
       CppDoc.Class.Member.Lines(
@@ -147,12 +147,12 @@ case class ComponentPorts(
           List(
             CppDocHppWriter.writeAccessTag("PRIVATE"),
             CppDocWriter.writeBannerComment(
-              s"${getTypeString(ports.head).capitalize} ${ports.head.getDirection.get.toString} ports"
+              s"${getPortTypeString(ports.head).capitalize} ${ports.head.getDirection.get.toString} ports"
             ),
             ports.flatMap(p => {
               val typeName = getQualifiedPortTypeName(p, p.getDirection.get)
-              val name = portMemberName(p.getUnqualifiedName, p.getDirection.get)
-              val num = portEnumName(p.getUnqualifiedName, p.getDirection.get)
+              val name = portVariableName(p.getUnqualifiedName, p.getDirection.get)
+              val num = portConstantName(p.getUnqualifiedName, p.getDirection.get)
 
               lines(
                 s"""|
@@ -166,5 +166,9 @@ case class ComponentPorts(
       )
     )
   }
+
+  // Get the name for a port enumerated constant
+  private def portConstantName(name: String, direction: PortInstance.Direction) =
+    s"NUM_${name.toUpperCase}_${direction.toString.toUpperCase}_PORTS"
 
 }

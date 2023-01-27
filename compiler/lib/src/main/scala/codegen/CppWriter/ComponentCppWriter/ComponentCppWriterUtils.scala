@@ -28,25 +28,6 @@ abstract class ComponentCppWriterUtils(
   )
 
   /** List of general port instances */
-  private val specialPorts: List[PortInstance.Special] = members.map(member =>
-    member.node._2 match {
-      case Ast.ComponentMember.SpecPortInstance(node) => node.data match {
-        case p: Ast.SpecPortInstance.Special => component.portMap(p.name) match {
-          case i: PortInstance.Special => Some(i)
-          case _ => None
-        }
-        case _ => None
-      }
-      case _ => None
-    }).filter(_.isDefined).map(_.get)
-
-  val specialInputPorts: List[PortInstance.Special] =
-    filterByPortDirection(specialPorts, PortInstance.Direction.Input)
-
-  val specialOutputPorts: List[PortInstance.Special] =
-    filterByPortDirection(specialPorts, PortInstance.Direction.Output)
-
-  /** List of general port instances */
   private val generalPorts: List[PortInstance.General] = members.map(member =>
     member.node._2 match {
       case Ast.ComponentMember.SpecPortInstance(node) => node.data match {
@@ -59,9 +40,34 @@ abstract class ComponentCppWriterUtils(
       case _ => None
     }).filter(_.isDefined).map(_.get)
 
-  /** List of input ports */
+  /** List of general input ports */
   private val generalInputPorts: List[PortInstance.General] =
     filterByPortDirection(generalPorts, PortInstance.Direction.Input)
+
+  /** List of general output ports */
+  private val outputPorts: List[PortInstance.General] =
+    filterByPortDirection(generalPorts, PortInstance.Direction.Output)
+
+  /** List of special port instances */
+  private val specialPorts: List[PortInstance.Special] = members.map(member =>
+    member.node._2 match {
+      case Ast.ComponentMember.SpecPortInstance(node) => node.data match {
+        case p: Ast.SpecPortInstance.Special => component.portMap(p.name) match {
+          case i: PortInstance.Special => Some(i)
+          case _ => None
+        }
+        case _ => None
+      }
+      case _ => None
+    }).filter(_.isDefined).map(_.get)
+
+  /** List of special input port instances */
+  val specialInputPorts: List[PortInstance.Special] =
+    filterByPortDirection(specialPorts, PortInstance.Direction.Input)
+
+  /** List of special output port instances */
+  val specialOutputPorts: List[PortInstance.Special] =
+    filterByPortDirection(specialPorts, PortInstance.Direction.Output)
 
   /** List of typed input ports */
   val typedInputPorts: List[PortInstance.General] = filterTypedPorts(generalInputPorts)
@@ -69,18 +75,11 @@ abstract class ComponentCppWriterUtils(
   /** List of serial input ports */
   val serialInputPorts: List[PortInstance.General] = filterSerialPorts(generalInputPorts)
 
-  /** List of guarded input ports */
-  val guardedInputPorts: List[PortInstance.General] = filterGuardedInputPorts(generalInputPorts)
-
   /** List of typed async input ports */
   val typedAsyncInputPorts: List[PortInstance.General] = filterAsyncInputPorts(typedInputPorts)
 
   /** List of serial async input ports */
   val serialAsyncInputPorts: List[PortInstance.General] = filterAsyncInputPorts(serialInputPorts)
-
-  /** List of general output ports */
-  private val outputPorts: List[PortInstance.General] =
-    filterByPortDirection(generalPorts, PortInstance.Direction.Output)
 
   /** List of typed output ports */
   val typedOutputPorts: List[PortInstance.General] = filterTypedPorts(outputPorts)
@@ -97,6 +96,36 @@ abstract class ComponentCppWriterUtils(
       }
       case _ => None
     }).filter(_.isDefined).map(_.get)
+
+  // Component properties
+
+  val hasGuardedInputPorts: Boolean = generalInputPorts.exists(p =>
+    p.kind match {
+      case PortInstance.General.Kind.GuardedInput => true
+      case _ => false
+    }
+  )
+
+  val hasSerialAsyncInputPorts: Boolean = serialAsyncInputPorts.nonEmpty
+
+  val hasInternalPorts: Boolean = internalPorts.nonEmpty
+
+  val hasTimeGetPort: Boolean = specialPorts.exists(p =>
+    p.aNode._2.data match {
+      case Ast.SpecPortInstance.Special(kind, _) => kind match {
+        case Ast.SpecPortInstance.TimeGet => true
+        case _ => false
+      }
+      case _ => false
+    })
+
+  val hasCommands: Boolean = component.commandMap.nonEmpty
+
+  val hasEvents: Boolean = component.eventMap.nonEmpty
+
+  val hasChannels: Boolean = component.tlmChannelMap.nonEmpty
+
+  val hasParameters: Boolean = component.paramMap.nonEmpty
 
   // Map from a port instance name to param list
   private val portParamMap =
@@ -132,31 +161,6 @@ abstract class ComponentCppWriterUtils(
       }
     ).filter(_.isDefined).map(_.get).toMap
 
-  // Component properties
-
-  val hasGuardedInputPorts: Boolean = guardedInputPorts.nonEmpty
-
-  val hasSerialAsyncInputPorts: Boolean = serialAsyncInputPorts.nonEmpty
-
-  val hasInternalPorts: Boolean = internalPorts.nonEmpty
-
-  val hasCommands: Boolean = component.commandMap.nonEmpty
-
-  val hasEvents: Boolean = component.eventMap.nonEmpty
-
-  val hasChannels: Boolean = component.tlmChannelMap.nonEmpty
-
-  val hasParameters: Boolean = component.paramMap.nonEmpty
-
-  val hasTimeGet: Boolean = specialPorts.exists(p =>
-    p.aNode._2.data match {
-      case Ast.SpecPortInstance.Special(kind, _) => kind match {
-        case Ast.SpecPortInstance.TimeGet => true
-        case _ => false
-      }
-      case _ => false
-    })
-
   /** Get the qualified name of a port type */
   def getQualifiedPortTypeName(
     p: PortInstance,
@@ -179,7 +183,7 @@ abstract class ComponentCppWriterUtils(
   }
 
   /** Get port params as CppDoc Function Params */
-  def getFunctionParams(p: PortInstance): List[CppDoc.Function.Param] =
+  def getPortFunctionParams(p: PortInstance): List[CppDoc.Function.Param] =
     p.getType match {
       case Some(PortInstance.Type.DefPort(_)) | None =>
         portParamMap(p.getUnqualifiedName)
@@ -193,18 +197,8 @@ abstract class ComponentCppWriterUtils(
         )
     }
 
-  /** Get a port return type as a CppDoc Type */
-  def getReturnType(p: PortInstance): CppDoc.Type =
-    p.getType.get match {
-      case PortInstance.Type.DefPort(symbol) => CppDoc.Type(
-        PortCppWriter(s, symbol.node).returnType
-      )
-      case PortInstance.Type.Serial => CppDoc.Type(
-        "Fw::SerializeStatus"
-      )
-    }
-
-  def getTypeString(p: PortInstance): String =
+  /** Get the port type as a string */
+  def getPortTypeString(p: PortInstance): String =
     p match {
       case _: PortInstance.General => p.getType.get match {
         case PortInstance.Type.DefPort(_) => "typed"
@@ -214,7 +208,8 @@ abstract class ComponentCppWriterUtils(
       case _: PortInstance.Internal => "internal"
     }
 
-  def writeEnumeratedConstant(
+  /** Write an enumerated constant */
+  def writeEnumConstant(
     name: String,
     value: BigInt,
     comment: Option[String] = None,
@@ -232,108 +227,17 @@ abstract class ComponentCppWriterUtils(
     s"$name = $valueStr,$commentStr"
   }
 
-  /** Get the name for a port enumerated constant */
-  def portEnumName(name: String, direction: PortInstance.Direction) =
-    s"NUM_${name.toUpperCase}_${direction.toString.toUpperCase}_PORTS"
-
   /** Get the name for a port number getter function */
   def portNumGetterName(name: String, direction: PortInstance.Direction) =
     s"getNum_${name}_${direction.toString.capitalize}Ports"
 
   /** Get the name for a port member */
-  def portMemberName(name: String, direction: PortInstance.Direction) =
+  def portVariableName(name: String, direction: PortInstance.Direction) =
     s"m_${name}_${direction.toString.capitalize}Port"
 
-  /** Get the name for an input port getter function */
-  def inputPortGetterName(name: String) =
-    s"get_${name}_InputPort"
-
-  /** Get the name for an input port handler function */
-  def inputPortHandlerName(name: String) =
-    s"${name}_handler"
-
-  /** Get the name for an input port handler base-class function */
-  def inputPortHandlerBaseName(name: String) =
-    s"${name}_handlerBase"
-
-  /** Get the name for an input port callback function */
-  def inputPortCallbackName(name: String) =
-    s"m_p_${name}_in"
-
   /** Get the name for an async input port pre-message hook function */
-  def asyncInputPortHookName(name: String) =
+  def inputPortHookName(name: String) =
     s"${name}_preMsgHook"
-
-  /** Get the name for an output port connector function */
-  def outputPortConnectorName(name: String) =
-    s"set_${name}_OutputPort"
-
-  /** Get the name for an output port connection status function */
-  def outputPortIsConnectedName(name: String) =
-    s"isConnected_${name}_OutputPort"
-
-  /** Get the name for an output port invocation function */
-  def outputPortInvokerName(name: String) =
-    s"${name}_out"
-
-  /** Get the name for a command handler */
-  def commandHandlerName(name: String) =
-    s"${name}_cmdHandler"
-
-  /** Get the name for a command handler base-class function */
-  def commandHandlerBaseName(name: String) =
-    s"${name}_cmdHandlerBase"
-
-  /** Get the name for a command opcode constant */
-  def commandConstantName(cmd: Command) = {
-    val name = cmd match {
-      case Command.NonParam(_, _) => cmd.getName
-      case Command.Param(aNode, kind) =>
-        val kindStr = kind match {
-          case Command.Param.Save => "SAVE"
-          case Command.Param.Set => "SET"
-        }
-        s"${aNode._2.data.name}_$kindStr"
-    }
-
-    s"OPCODE_${name.toUpperCase}"
-  }
-
-  /** Get the name for an internal interface handler */
-  def internalInterfaceHandlerName(name: String) =
-    s"${name}_internalInterfaceHandler"
-
-  /** Get the name for an internal interface base-class function */
-  def internalInterfaceHandlerBaseName(name: String) =
-    s"${name}_internalInterfaceInvoke"
-
-  /** Get the name for an event ID constant */
-  def eventIdConstantName(name: String) =
-    s"EVENTID_${name.toUpperCase}"
-
-  /** Get the name for an event throttle constant */
-  def eventThrottleConstantName(name: String) =
-    s"${eventIdConstantName(name)}_THROTTLE"
-
-  /** Get the name for an event logging function */
-  def eventLogName(event: Event) = {
-    val severity = event.aNode._2.data.severity
-    val severityStr = severity match {
-      case Ast.SpecEvent.ActivityHigh => "ACTIVITY_HI"
-      case Ast.SpecEvent.ActivityLow => "ACTIVITY_LO"
-      case Ast.SpecEvent.WarningHigh => "WARNING_HI"
-      case Ast.SpecEvent.WarningLow => "WARNING_LO"
-      case _ => severity.toString.toUpperCase.replace(' ', '_')
-    }
-    s"log_${severityStr}_${event.getName}"
-  }
-
-  /** Get the name for an event throttle reset function */
-  def eventThrottleResetName(event: Event) =
-    s"${eventLogName(event)}_ThrottleClear"
-
-  def eventThrottleCounterName(name: String) =
-    s"m_${name}Throttle"
 
   private def filterByPortDirection[T<: PortInstance](ports: List[T], direction: PortInstance.Direction) =
     ports.filter(p =>
@@ -356,14 +260,6 @@ abstract class ComponentCppWriterUtils(
       p.getType.get match {
         case PortInstance.Type.DefPort(_) => false
         case PortInstance.Type.Serial => true
-      }
-    )
-
-  private def filterGuardedInputPorts(ports: List[PortInstance.General]) =
-    ports.filter(p =>
-      p.kind match {
-        case PortInstance.General.Kind.GuardedInput => true
-        case _ => false
       }
     )
 

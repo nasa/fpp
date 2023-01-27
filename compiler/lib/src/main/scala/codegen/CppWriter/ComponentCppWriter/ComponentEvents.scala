@@ -19,7 +19,7 @@ case class ComponentEvents (
     }
   )
 
-  def getEventConstants: List[CppDoc.Class.Member] = {
+  def getConstantMembers: List[CppDoc.Class.Member] = {
     val throttleEnum =
       if throttledEvents.isEmpty then Nil
       else List(
@@ -29,7 +29,7 @@ case class ComponentEvents (
         wrapInEnum(
           lines(
             throttledEvents.map((_, event) =>
-              writeEnumeratedConstant(
+              writeEnumConstant(
                 eventThrottleConstantName(event.getName),
                 event.throttle.get,
                 Some(s"Throttle reset count for ${event.getName}")
@@ -48,7 +48,7 @@ case class ComponentEvents (
             wrapInEnum(
               lines(
                 sortedEvents.map((id, event) =>
-                  writeEnumeratedConstant(
+                  writeEnumConstant(
                     eventIdConstantName(event.getName),
                     id,
                     AnnotationCppWriter.asStringOpt(aNode),
@@ -64,7 +64,7 @@ case class ComponentEvents (
     )
   }
 
-  def getEventFunctionMembers: List[CppDoc.Class.Member] = {
+  def getFunctionMembers: List[CppDoc.Class.Member] = {
     if !hasEvents then Nil
     else List(
       getLoggingFunctions,
@@ -72,7 +72,7 @@ case class ComponentEvents (
     ).flatten
   }
 
-  def getEventVariableMembers: List[CppDoc.Class.Member] = {
+  def getVariableMembers: List[CppDoc.Class.Member] = {
     if throttledEvents.isEmpty then Nil
     else List(
       CppDoc.Class.Member.Lines(
@@ -162,5 +162,34 @@ case class ComponentEvents (
       )
     ).flatten
   }
+
+  // Get the name for an event ID constant
+  private def eventIdConstantName(name: String) =
+    s"EVENTID_${name.toUpperCase}"
+
+  // Get the name for an event throttle constant
+  private def eventThrottleConstantName(name: String) =
+    s"${eventIdConstantName(name)}_THROTTLE"
+
+  // Get the name for an event logging function
+  private def eventLogName(event: Event) = {
+    val severity = event.aNode._2.data.severity
+    val severityStr = severity match {
+      case Ast.SpecEvent.ActivityHigh => "ACTIVITY_HI"
+      case Ast.SpecEvent.ActivityLow => "ACTIVITY_LO"
+      case Ast.SpecEvent.WarningHigh => "WARNING_HI"
+      case Ast.SpecEvent.WarningLow => "WARNING_LO"
+      case _ => severity.toString.toUpperCase.replace(' ', '_')
+    }
+    s"log_${severityStr}_${event.getName}"
+  }
+
+  // Get the name for an event throttle reset function
+  private def eventThrottleResetName(event: Event) =
+    s"${eventLogName(event)}_ThrottleClear"
+
+  // Get the name for an event throttle counter variable
+  private def eventThrottleCounterName(name: String) =
+    s"m_${name}Throttle"
 
 }

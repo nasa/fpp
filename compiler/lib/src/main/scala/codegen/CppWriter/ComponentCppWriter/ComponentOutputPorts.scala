@@ -19,7 +19,7 @@ case class ComponentOutputPorts(
             List(
               CppDocHppWriter.writeAccessTag("public"),
               CppDocWriter.writeBannerComment(
-                s"Connect ${getTypeString(ports.head)} input ports to ${getTypeString(ports.head)} output ports"
+                s"Connect ${getPortTypeString(ports.head)} input ports to ${getPortTypeString(ports.head)} output ports"
               ),
             ).flatten
           )
@@ -45,7 +45,7 @@ case class ComponentOutputPorts(
                   |  static_cast<FwAssertArgType>(portNum)
                   |);
                   |
-                  |this->${portMemberName(p.getUnqualifiedName, PortInstance.Direction.Output)}[portNum].addCallPort(port);
+                  |this->${portVariableName(p.getUnqualifiedName, PortInstance.Direction.Output)}[portNum].addCallPort(port);
                   |"""
             )
           )
@@ -60,7 +60,7 @@ case class ComponentOutputPorts(
                 List(
                   CppDocHppWriter.writeAccessTag("public"),
                   CppDocWriter.writeBannerComment("" +
-                    s"Connect serial input ports to ${getTypeString(ports.head)} output ports"
+                    s"Connect serial input ports to ${getPortTypeString(ports.head)} output ports"
                   ),
                 ).flatten
               )
@@ -155,7 +155,7 @@ case class ComponentOutputPorts(
             List(
               CppDocHppWriter.writeAccessTag("PROTECTED"),
               CppDocWriter.writeBannerComment("" +
-                s"Invocation functions for ${getTypeString(ports.head)} output ports"
+                s"Invocation functions for ${getPortTypeString(ports.head)} output ports"
               ),
             ).flatten
           )
@@ -166,7 +166,7 @@ case class ComponentOutputPorts(
           CppDoc.Function(
             Some(s"Invoke output port ${p.getUnqualifiedName}"),
             outputPortInvokerName(p.getUnqualifiedName),
-            portNumParam :: getFunctionParams(p),
+            portNumParam :: getPortFunctionParams(p),
             getReturnType(p),
             Nil
           )
@@ -184,7 +184,7 @@ case class ComponentOutputPorts(
             List(
               CppDocHppWriter.writeAccessTag("PROTECTED"),
               CppDocWriter.writeBannerComment("" +
-                s"Connection status queries for ${getTypeString(ports.head)} output ports"
+                s"Connection status queries for ${getPortTypeString(ports.head)} output ports"
               ),
             ).flatten
           )
@@ -208,5 +208,28 @@ case class ComponentOutputPorts(
       )
     ).flatten
   }
+
+  // Get a port return type as a CppDoc Type
+  private def getReturnType(p: PortInstance): CppDoc.Type =
+    p.getType.get match {
+      case PortInstance.Type.DefPort(symbol) => CppDoc.Type(
+        PortCppWriter(s, symbol.node).returnType
+      )
+      case PortInstance.Type.Serial => CppDoc.Type(
+        "Fw::SerializeStatus"
+      )
+    }
+
+  // Get the name for an output port connector function
+  private def outputPortConnectorName(name: String) =
+    s"set_${name}_OutputPort"
+
+  // Get the name for an output port connection status function
+  private def outputPortIsConnectedName(name: String) =
+    s"isConnected_${name}_OutputPort"
+
+  // Get the name for an output port invocation function
+  private def outputPortInvokerName(name: String) =
+    s"${name}_out"
 
 }

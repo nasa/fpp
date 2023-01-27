@@ -136,28 +136,44 @@ case class ComponentCppWriter (
 
   private def getClassMembers: List[CppDoc.Class.Member] = {
     List(
-      getFriendClasses,
-      getConstants,
-      portWriter.getPortPublicFunctionMembers,
-      cmdWriter.getCmdPublicFunctionMembers,
-      getComponentFunctions,
-      portWriter.getPortProtectedFunctionMembers,
-      internalPortWriter.getInternalPortFunctionMembers,
-      cmdWriter.getCmdProtectedFunctionMembers,
-      eventWriter.getEventFunctionMembers,
-      getTimeFunction,
-      getMutexOperations,
-      getDispatchFunction,
-      portWriter.getPortPrivateFunctionMembers,
-      getMemberVariables
+      // Friend classes
+      getFriendClassMembers,
+
+      // Constants
+      getConstantMembers,
+
+      // Public function members
+      portWriter.getPublicFunctionMembers,
+      cmdWriter.getPublicFunctionMembers,
+
+      // Protected function members
+      getComponentFunctionMembers,
+      portWriter.getProtectedFunctionMembers,
+      internalPortWriter.getFunctionMembers,
+      cmdWriter.getProtectedFunctionMembers,
+      eventWriter.getFunctionMembers,
+      getTimeFunctionMember,
+      getMutexOperationMembers,
+
+      // Protected/private function members
+      getDispatchFunctionMember,
+
+      // Private function members
+      portWriter.getPrivateFunctionMembers,
+
+      // Member variables
+      portWriter.getVariableMembers,
+      eventWriter.getVariableMembers,
+      getMsgSizeVariableMember,
+      getMutexVariableMembers,
     ).flatten
   }
 
-  private def getConstants: List[CppDoc.Class.Member] = {
+  private def getConstantMembers: List[CppDoc.Class.Member] = {
     val constants = List(
-      portWriter.getPortConstants,
-      cmdWriter.getCmdConstants,
-      eventWriter.getEventConstants
+      portWriter.getConstantMembers,
+      cmdWriter.getConstantMembers,
+      eventWriter.getConstantMembers
     ).flatten
 
     if constants.isEmpty then Nil
@@ -178,16 +194,7 @@ case class ComponentCppWriter (
     ).flatten
   }
 
-  private def getMemberVariables: List[CppDoc.Class.Member] = {
-    List(
-      portWriter.getPortMemberVariables,
-      eventWriter.getEventVariableMembers,
-      getMsgSizeMember,
-      getMutexMembers,
-    ).flatten
-  }
-
-  private def getFriendClasses: List[CppDoc.Class.Member] = {
+  private def getFriendClassMembers: List[CppDoc.Class.Member] = {
     List(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
@@ -207,7 +214,7 @@ case class ComponentCppWriter (
     )
   }
 
-  private def getComponentFunctions: List[CppDoc.Class.Member] = {
+  private def getComponentFunctionMembers: List[CppDoc.Class.Member] = {
     val initInstanceParam = List(
       CppDoc.Function.Param(
         CppDoc.Type("NATIVE_INT_TYPE"),
@@ -280,7 +287,7 @@ case class ComponentCppWriter (
     )
   }
 
-  private def getMutexOperations: List[CppDoc.Class.Member] = {
+  private def getMutexOperationMembers: List[CppDoc.Class.Member] = {
     if !hasGuardedInputPorts then Nil
     else List(
       CppDoc.Class.Member.Lines(
@@ -319,7 +326,7 @@ case class ComponentCppWriter (
     )
   }
 
-  private def getDispatchFunction: List[CppDoc.Class.Member] = {
+  private def getDispatchFunctionMember: List[CppDoc.Class.Member] = {
     if data.kind == Ast.ComponentKind.Passive then Nil
     else List(
       CppDoc.Class.Member.Lines(
@@ -352,8 +359,8 @@ case class ComponentCppWriter (
     )
   }
 
-  private def getTimeFunction: List[CppDoc.Class.Member] = {
-    if !(hasChannels || hasEvents || hasTimeGet) then Nil
+  private def getTimeFunctionMember: List[CppDoc.Class.Member] = {
+    if !(hasChannels || hasEvents || hasTimeGetPort) then Nil
     else List(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
@@ -380,7 +387,7 @@ case class ComponentCppWriter (
     )
   }
 
-  private def getMsgSizeMember: List[CppDoc.Class.Member] = {
+  private def getMsgSizeVariableMember: List[CppDoc.Class.Member] = {
     if !hasSerialAsyncInputPorts then Nil
     else List(
       CppDoc.Class.Member.Lines(
@@ -399,7 +406,7 @@ case class ComponentCppWriter (
     )
   }
 
-  private def getMutexMembers: List[CppDoc.Class.Member] = {
+  private def getMutexVariableMembers: List[CppDoc.Class.Member] = {
     if !hasGuardedInputPorts then Nil
     else List(
       CppDoc.Class.Member.Lines(
