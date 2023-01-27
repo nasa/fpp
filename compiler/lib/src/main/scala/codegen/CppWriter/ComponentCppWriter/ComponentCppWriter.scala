@@ -25,6 +25,8 @@ case class ComponentCppWriter (
 
   private val eventWriter = ComponentEvents(s, aNode)
 
+  private val tlmWriter = ComponentTelemetry(s, aNode)
+
   private val kindStr = data.kind match {
     case Ast.ComponentKind.Active => "Active"
     case Ast.ComponentKind.Passive => "Passive"
@@ -152,6 +154,7 @@ case class ComponentCppWriter (
       internalPortWriter.getFunctionMembers,
       cmdWriter.getProtectedFunctionMembers,
       eventWriter.getFunctionMembers,
+      tlmWriter.getFunctionMembers,
       getTimeFunctionMember,
       getMutexOperationMembers,
 
@@ -164,6 +167,7 @@ case class ComponentCppWriter (
       // Member variables
       portWriter.getVariableMembers,
       eventWriter.getVariableMembers,
+      tlmWriter.getVariableMembers,
       getMsgSizeVariableMember,
       getMutexVariableMembers,
     ).flatten
@@ -173,7 +177,8 @@ case class ComponentCppWriter (
     val constants = List(
       portWriter.getConstantMembers,
       cmdWriter.getConstantMembers,
-      eventWriter.getConstantMembers
+      eventWriter.getConstantMembers,
+      tlmWriter.getConstantMembers
     ).flatten
 
     if constants.isEmpty then Nil
@@ -360,7 +365,7 @@ case class ComponentCppWriter (
   }
 
   private def getTimeFunctionMember: List[CppDoc.Class.Member] = {
-    if !(hasChannels || hasEvents || hasTimeGetPort) then Nil
+    if !hasTimeGetPort then Nil
     else List(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(

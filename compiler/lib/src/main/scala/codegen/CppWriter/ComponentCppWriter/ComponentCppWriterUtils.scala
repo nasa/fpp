@@ -227,6 +227,14 @@ abstract class ComponentCppWriterUtils(
     s"$name = $valueStr,$commentStr"
   }
 
+  /** Add an optional comment string separated by two newlines */
+  def addSeparatedComment(str: String, comment: Option[String]): String = {
+    comment match {
+      case Some(s) => s"$str\n\n$s"
+      case None => str
+    }
+  }
+
   /** Get the name for a port number getter function */
   def portNumGetterName(name: String, direction: PortInstance.Direction) =
     s"getNum_${name}_${direction.toString.capitalize}Ports"
