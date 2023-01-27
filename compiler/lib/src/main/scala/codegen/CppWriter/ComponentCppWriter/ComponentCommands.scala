@@ -17,14 +17,6 @@ case class ComponentCommands (
     case _ => None
   }).filter(_.isDefined).map(_.get)
 
-  private val cmdAnnotationMap = component.commandMap.map((opcode, cmd) => {
-    val strOpt = cmd match {
-      case Command.NonParam(aNode, _) => AnnotationCppWriter.asStringOpt(aNode)
-      case Command.Param(aNode, _) => AnnotationCppWriter.asStringOpt(aNode)
-    }
-    (opcode, strOpt)
-  })
-
   private val cmdParamMap = nonParamCmds.map((opcode, cmd) => {(
     opcode,
     writeFormalParamList(
@@ -61,7 +53,12 @@ case class ComponentCommands (
                   writeEnumConstant(
                     commandConstantName(cmd),
                     opcode,
-                    cmdAnnotationMap(opcode),
+                    cmd match {
+                      case Command.NonParam(aNode, _) =>
+                        AnnotationCppWriter.asStringOpt(aNode)
+                      case Command.Param(aNode, _) =>
+                        AnnotationCppWriter.asStringOpt(aNode)
+                    },
                     ComponentCppWriterUtils.Hex
                   )
                 ).mkString("\n")
@@ -143,8 +140,10 @@ case class ComponentCommands (
         CppDoc.Class.Member.Function(
           CppDoc.Function(
             Some(
-              s"Handler for command ${cmd.getName}" +
-                getComment(opcode)
+              addSeparatedComment(
+                s"Handler for command ${cmd.getName}",
+                AnnotationCppWriter.asStringOpt(cmd.aNode)
+              )
             ),
             commandHandlerName(cmd.getName),
             List(
@@ -179,12 +178,14 @@ case class ComponentCommands (
           )
         ),
       ),
-      nonParamCmds.map((opcode, cmd) =>
+      nonParamCmds.map((_, cmd) =>
         CppDoc.Class.Member.Function(
           CppDoc.Function(
             Some(
-              s"Base-class handler function for command ${cmd.getName}" +
-                getComment(opcode)
+              addSeparatedComment(
+                s"Base-class handler function for command ${cmd.getName}",
+                AnnotationCppWriter.asStringOpt(cmd.aNode)
+              )
             ),
             commandHandlerBaseName(cmd.getName),
             List(
@@ -276,12 +277,6 @@ case class ComponentCommands (
       )
     ).flatten
   }
-
-  private def getComment(opcode: Command.Opcode) =
-    cmdAnnotationMap(opcode) match {
-      case Some(str) => s"\n\n$str"
-      case None => ""
-    }
 
   // Get the name for a command handler
   private def commandHandlerName(name: String) =

@@ -112,11 +112,10 @@ case class ComponentEvents (
         CppDoc.Class.Member.Function(
           CppDoc.Function(
             Some(
-              s"Log event ${event.getName}" +
-                (AnnotationCppWriter.asStringOpt(event.aNode) match {
-                  case Some(s) => s"\n\n$s"
-                  case None => ""
-                })
+              addSeparatedComment(
+                s"Log event ${event.getName}",
+                AnnotationCppWriter.asStringOpt(event.aNode)
+              )
             ),
             eventLogName(event),
             writeFormalParamList(
