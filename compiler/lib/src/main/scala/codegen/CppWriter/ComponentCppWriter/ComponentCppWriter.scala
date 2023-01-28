@@ -27,6 +27,8 @@ case class ComponentCppWriter (
 
   private val tlmWriter = ComponentTelemetry(s, aNode)
 
+  private val paramWriter = ComponentParameters(s, aNode)
+
   private val kindStr = data.kind match {
     case Ast.ComponentKind.Active => "Active"
     case Ast.ComponentKind.Passive => "Passive"
@@ -81,7 +83,7 @@ case class ComponentCppWriter (
   private def getHppIncludes: CppDoc.Member = {
     // Conditional headers
     val mutexHeader =
-      if hasGuardedInputPorts then List("Os/Mutex.hpp")
+      if hasGuardedInputPorts || hasParameters then List("Os/Mutex.hpp")
       else Nil
     val cmdStrHeader =
       if hasCommands || hasParameters then List("Fw/Cmd/CmdString.hpp")
@@ -147,6 +149,7 @@ case class ComponentCppWriter (
       // Public function members
       portWriter.getPublicFunctionMembers,
       cmdWriter.getPublicFunctionMembers,
+      paramWriter.getPublicFunctionMembers,
 
       // Protected function members
       getComponentFunctionMembers,
@@ -155,6 +158,7 @@ case class ComponentCppWriter (
       cmdWriter.getProtectedFunctionMembers,
       eventWriter.getFunctionMembers,
       tlmWriter.getFunctionMembers,
+      paramWriter.getProtectedFunctionMembers,
       getTimeFunctionMember,
       getMutexOperationMembers,
 
@@ -163,11 +167,13 @@ case class ComponentCppWriter (
 
       // Private function members
       portWriter.getPrivateFunctionMembers,
+      paramWriter.getPrivateFunctionMembers,
 
       // Member variables
       portWriter.getVariableMembers,
       eventWriter.getVariableMembers,
       tlmWriter.getVariableMembers,
+      paramWriter.getVariableMembers,
       getMsgSizeVariableMember,
       getMutexVariableMembers,
     ).flatten
@@ -178,7 +184,8 @@ case class ComponentCppWriter (
       portWriter.getConstantMembers,
       cmdWriter.getConstantMembers,
       eventWriter.getConstantMembers,
-      tlmWriter.getConstantMembers
+      tlmWriter.getConstantMembers,
+      paramWriter.getConstantMembers
     ).flatten
 
     if constants.isEmpty then Nil
@@ -412,7 +419,7 @@ case class ComponentCppWriter (
   }
 
   private def getMutexVariableMembers: List[CppDoc.Class.Member] = {
-    if !hasGuardedInputPorts then Nil
+    if !(hasGuardedInputPorts|| hasParameters) then Nil
     else List(
       CppDoc.Class.Member.Lines(
         CppDoc.Lines(
@@ -421,10 +428,18 @@ case class ComponentCppWriter (
             CppDocWriter.writeBannerComment(
               "Mutexes"
             ),
-            lines(
+            if !hasGuardedInputPorts then Nil
+            else lines(
               """|
                  |//! Mutex for guarded ports
                  |Os::Mutex m_guardedPortMutex;
+                 |"""
+            ),
+            if !hasParameters then Nil
+            else lines(
+              """|
+                 |//! Mutex for locking parameters during sets and saves
+                 |Os::Mutex m_paramLock;
                  |"""
             )
           ).flatten

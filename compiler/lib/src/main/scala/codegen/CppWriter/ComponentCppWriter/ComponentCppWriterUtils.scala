@@ -227,10 +227,18 @@ abstract class ComponentCppWriterUtils(
     s"$name = $valueStr,$commentStr"
   }
 
-  /** Add an optional comment string separated by two newlines */
-  def addSeparatedComment(str: String, comment: Option[String]): String = {
-    comment match {
+  /** Add an optional string separated by two newlines */
+  def addSeparatedString(str: String, strOpt: Option[String]): String = {
+    strOpt match {
       case Some(s) => s"$str\n\n$s"
+      case None => str
+    }
+  }
+
+  /** Add an optional pre comment separated by two newlines */
+  def addSeparatedPreComment(str: String, commentOpt: Option[String]): String = {
+    commentOpt match {
+      case Some(s) => s"//! $str\n//!\n//! $s"
       case None => str
     }
   }
