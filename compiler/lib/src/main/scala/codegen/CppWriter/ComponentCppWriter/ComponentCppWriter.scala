@@ -58,16 +58,13 @@ case class ComponentCppWriter (
   private def getMembers: List[CppDoc.Member] = {
     val hppIncludes = getHppIncludes
     val cppIncludes = getCppIncludes
-    val annotationStr = AnnotationCppWriter.asStringOpt(aNode) match {
-      case Some(annotation) => s"$annotation\n\n"
-      case None => ""
-    }
     val cls = CppDoc.Member.Class(
       CppDoc.Class(
         Some(
-          annotationStr +
-            s"\\class $className\n" +
-            s"\\brief Auto-generated base for $name component"
+          addSeparatedString(
+            s"\\class $className\n\\brief Auto-generated base for $name component",
+            AnnotationCppWriter.asStringOpt(aNode)
+          )
         ),
         className,
         Some(s"public Fw::$baseClassName"),

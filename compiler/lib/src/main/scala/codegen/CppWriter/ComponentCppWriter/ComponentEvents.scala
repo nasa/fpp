@@ -51,7 +51,7 @@ case class ComponentEvents (
                   writeEnumConstant(
                     eventIdConstantName(event.getName),
                     id,
-                    AnnotationCppWriter.asStringOpt(aNode),
+                    AnnotationCppWriter.asStringOpt(event.aNode),
                     ComponentCppWriterUtils.Hex
                   )
                 ).mkString("\n")
@@ -82,20 +82,21 @@ case class ComponentEvents (
             CppDocWriter.writeBannerComment(
               "Counter values for event throttling"
             ),
-            Line.blank :: throttledEvents.map((_, event) =>
-              line(
-                s"NATIVE_UINT_TYPE ${eventThrottleCounterName(event.getName)}; //! Throttle for ${event.getName}"
+            throttledEvents.flatMap((_, event) =>
+              Line.blank :: lines(
+                s"""|//! Throttle for ${event.getName}
+                    |NATIVE_UINT_TYPE ${eventThrottleCounterName(event.getName)};
+                    |"""
               )
             )
           ).flatten
         )
-      ),
+      )
     )
   }
 
   private def getLoggingFunctions: List[CppDoc.Class.Member] = {
-    if !hasEvents then Nil
-    else List(
+    List(
       List(
         CppDoc.Class.Member.Lines(
           CppDoc.Lines(
@@ -112,7 +113,7 @@ case class ComponentEvents (
         CppDoc.Class.Member.Function(
           CppDoc.Function(
             Some(
-              addSeparatedComment(
+              addSeparatedString(
                 s"Log event ${event.getName}",
                 AnnotationCppWriter.asStringOpt(event.aNode)
               )

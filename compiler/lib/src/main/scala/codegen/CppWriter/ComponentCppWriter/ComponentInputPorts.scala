@@ -171,7 +171,7 @@ case class ComponentInputPorts(
         CppDoc.Class.Member.Lines(
           CppDoc.Lines(
             List(
-              CppDocHppWriter.writeAccessTag("PRIVATE"),
+              CppDocHppWriter.writeAccessTag("PROTECTED"),
               CppDocWriter.writeBannerComment(
                 s"""|Pre-message hooks for ${getPortTypeString(ports.head)} async input ports.
                     |Each of these functions is invoked just before processing a message

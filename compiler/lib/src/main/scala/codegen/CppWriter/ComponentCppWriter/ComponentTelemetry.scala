@@ -32,7 +32,7 @@ case class ComponentTelemetry (
                   writeEnumConstant(
                     channelIdConstantName(channel.getName),
                     id,
-                    AnnotationCppWriter.asStringOpt(aNode),
+                    Some(s"Channel ID for ${channel.getName}"),
                     ComponentCppWriterUtils.Hex
                   )
                 ).mkString("\n")
@@ -84,8 +84,7 @@ case class ComponentTelemetry (
   }
 
   private def getWriteFunctions: List[CppDoc.Class.Member] = {
-    if !hasChannels then Nil
-    else List(
+    List(
       List(
         CppDoc.Class.Member.Lines(
           CppDoc.Lines(
@@ -102,7 +101,7 @@ case class ComponentTelemetry (
         CppDoc.Class.Member.Function(
           CppDoc.Function(
             Some(
-              addSeparatedComment(
+              addSeparatedString(
                 s"Write telemetry channel ${channel.getName}",
                 AnnotationCppWriter.asStringOpt(channel.aNode)
               )

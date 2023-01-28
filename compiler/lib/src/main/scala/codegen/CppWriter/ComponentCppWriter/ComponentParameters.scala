@@ -202,7 +202,7 @@ case class ComponentParameters (
           CppDoc.Function(
             Some(
               addSeparatedString(
-                s"Get parameter ${param.getName}",
+                s"Get parameter ${param.getName}\n\n\\return The parameter value",
                 AnnotationCppWriter.asStringOpt(param.aNode)
               )
             ),
@@ -239,7 +239,7 @@ case class ComponentParameters (
           Some(
             """|Get a parameter by ID
                |
-               |\\return Whether the parameter is valid
+               |\return Whether the parameter is valid
                |"""
           ),
           "getParam",

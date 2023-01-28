@@ -56,8 +56,8 @@ case class ComponentCommands (
                     cmd match {
                       case Command.NonParam(aNode, _) =>
                         AnnotationCppWriter.asStringOpt(aNode)
-                      case Command.Param(aNode, _) =>
-                        AnnotationCppWriter.asStringOpt(aNode)
+                      case Command.Param(aNode, kind) =>
+                        Some(s"Opcode to ${paramKindStr(kind)} parameter ${aNode._2.data.name}")
                     },
                     ComponentCppWriterUtils.Hex
                   )
@@ -140,7 +140,7 @@ case class ComponentCommands (
         CppDoc.Class.Member.Function(
           CppDoc.Function(
             Some(
-              addSeparatedComment(
+              addSeparatedString(
                 s"Handler for command ${cmd.getName}",
                 AnnotationCppWriter.asStringOpt(cmd.aNode)
               )
@@ -182,7 +182,7 @@ case class ComponentCommands (
         CppDoc.Class.Member.Function(
           CppDoc.Function(
             Some(
-              addSeparatedComment(
+              addSeparatedString(
                 s"Base-class handler function for command ${cmd.getName}",
                 AnnotationCppWriter.asStringOpt(cmd.aNode)
               )
@@ -278,6 +278,12 @@ case class ComponentCommands (
     ).flatten
   }
 
+  private def paramKindStr(kind: Command.Param.Kind) =
+    kind match {
+      case Command.Param.Save => "save"
+      case Command.Param.Set => "set"
+    }
+
   // Get the name for a command handler
   private def commandHandlerName(name: String) =
     s"${name}_cmdHandler"
@@ -289,13 +295,10 @@ case class ComponentCommands (
   // Get the name for a command opcode constant
   private def commandConstantName(cmd: Command) = {
     val name = cmd match {
-      case Command.NonParam(_, _) => cmd.getName
+      case Command.NonParam(_, _) =>
+        cmd.getName
       case Command.Param(aNode, kind) =>
-        val kindStr = kind match {
-          case Command.Param.Save => "SAVE"
-          case Command.Param.Set => "SET"
-        }
-        s"${aNode._2.data.name}_$kindStr"
+        s"${aNode._2.data.name}_${paramKindStr(kind).toUpperCase}"
     }
 
     s"OPCODE_${name.toUpperCase}"

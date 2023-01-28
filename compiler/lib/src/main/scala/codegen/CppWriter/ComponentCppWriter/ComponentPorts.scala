@@ -47,13 +47,12 @@ case class ComponentPorts(
       outputPortWriter.getConnectionStatusQueries(specialOutputPorts),
       outputPortWriter.getConnectionStatusQueries(typedOutputPorts),
       outputPortWriter.getConnectionStatusQueries(serialOutputPorts),
-      inputPortWriter.getHandlers(specialInputPorts),
-      inputPortWriter.getHandlerBases(specialInputPorts),
       inputPortWriter.getHandlers(typedInputPorts),
       inputPortWriter.getHandlerBases(typedInputPorts),
       inputPortWriter.getHandlers(serialInputPorts),
       inputPortWriter.getHandlerBases(serialInputPorts),
-      outputPortWriter.getInvokers(specialOutputPorts),
+      inputPortWriter.getPreMsgHooks(typedAsyncInputPorts),
+      inputPortWriter.getPreMsgHooks(serialAsyncInputPorts),
       outputPortWriter.getInvokers(typedOutputPorts),
       outputPortWriter.getInvokers(serialOutputPorts),
     ).flatten
@@ -61,8 +60,6 @@ case class ComponentPorts(
 
   def getPrivateFunctionMembers: List[CppDoc.Class.Member] = {
     List(
-      inputPortWriter.getPreMsgHooks(typedAsyncInputPorts),
-      inputPortWriter.getPreMsgHooks(serialAsyncInputPorts),
       inputPortWriter.getCallbacks(specialInputPorts),
       inputPortWriter.getCallbacks(typedInputPorts),
       inputPortWriter.getCallbacks(serialInputPorts)

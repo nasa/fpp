@@ -10,7 +10,7 @@ case class ComponentOutputPorts(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
-   def getTypedConnectors(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+  def getTypedConnectors(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     if ports.isEmpty then Nil
     else List(
       List(
@@ -89,7 +89,7 @@ case class ComponentOutputPorts(
     ).flatten
   }
 
-   def getSerialConnectors(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+  def getSerialConnectors(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     if ports.isEmpty then Nil
     else wrapClassMembersInIfDirective(
       "\n#if FW_PORT_SERIALIZATION",
@@ -146,7 +146,7 @@ case class ComponentOutputPorts(
     )
   }
 
-   def getInvokers(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+  def getInvokers(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     if ports.isEmpty then Nil
     else List(
       List(
