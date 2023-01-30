@@ -1,5 +1,5 @@
-@ An active component
-active component Active {
+@ A passive component
+passive component Passive {
 
   # ----------------------------------------------------------------------
   # General ports
@@ -7,9 +7,6 @@ active component Active {
 
   @ A typed sync input port
   sync input port typedSync: [3] Typed
-
-  @ A typed async input port
-  async input port typedAsync: Typed
 
   @ A typed guarded input
   guarded input port typedGuarded: Typed
@@ -20,49 +17,11 @@ active component Active {
   @ A serial sync input port
   sync input port serialSync: serial
 
-  @ A serial async input port
-  async input port serialAsync: serial
-
   @ A serial guarded input
   guarded input port serialGuarded: serial
 
   @ A serial output port
   output port serialOut: [5] serial
-
-  # ----------------------------------------------------------------------
-  # Internal ports
-  # ----------------------------------------------------------------------
-
-  @ An internal port with primitive params and priority
-  internal port internalPrimitive(
-    u32: U32, @< A U32
-    f32: F32, @< An F32
-    b: bool @< A boolean
-  ) priority 5
-
-  @ An internal port with string params
-  internal port internalString(
-    str1: string, @< A string
-    str2: string size 100 @< Another string
-  )
-
-  @ An internal port with enum params
-  internal port internalEnum(
-    e: E @< An enum
-  )
-
-  @ An internal port with array params
-  internal port internalArray(
-    a: A @< An array
-  )
-
-  @ An internal port with struct params with priority and queue full behavior
-  internal port internalStruct(
-    s: S @< A struct
-  ) priority 20 drop
-
-  @ An internal port with priority and queue full behavior
-  internal port internalPriorityDrop priority 10 drop
 
   # ----------------------------------------------------------------------
   # Special ports
@@ -102,9 +61,6 @@ active component Active {
   @ A sync command with no params
   sync command CMD_SYNC
 
-  @ An async command with no params 
-  async command CMD_ASYNC
-
   @ An async command with primitive params
   sync command CMD_SYNC_PRIMITIVE(
     u32: U32, @< A U32
@@ -132,22 +88,6 @@ active component Active {
   sync command CMD_SYNC_STRUCT(
     s: S @< A struct
   )
-
-  @ A command with priority
-  async command CMD_PRIORITY opcode 0x20 priority 10
-
-  @ A command with params and priority
-  async command CMD_PARAMS_PRIORITY(
-    u32: U32
-  ) priority 20
-
-  @ A command with queue full behavior
-  async command CMD_DROP drop
-
-  @ A command with params, priority, and queue full behavior
-  async command CMD_PARAMS_PRIORITY_DROP(
-    u32: U32
-  ) priority 30 drop
 
   # ----------------------------------------------------------------------
   # Events

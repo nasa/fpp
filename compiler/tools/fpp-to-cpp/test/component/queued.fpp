@@ -1,5 +1,5 @@
-@ An active component
-active component Active {
+@ A queued component
+queued component Queued {
 
   # ----------------------------------------------------------------------
   # General ports
