@@ -103,7 +103,7 @@ case class ComponentCppWriter (
         "FpConfig.hpp",
         "Fw/Port/InputSerializePort.hpp",
         "Fw/Port/OutputSerializePort.hpp",
-        s"Fw/Comp/$baseClassName.hpp"
+        "Fw/Comp/ActiveComponentBase.hpp"
       ),
       mutexHeader,
       cmdStrHeader,
