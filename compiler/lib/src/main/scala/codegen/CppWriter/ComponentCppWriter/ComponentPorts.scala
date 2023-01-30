@@ -117,7 +117,7 @@ case class ComponentPorts(
           )
         )
       ),
-      ports.map(p =>
+      mapPorts(ports, p => List(
         CppDoc.Class.Member.Function(
           CppDoc.Function(
             Some(
@@ -132,36 +132,44 @@ case class ComponentPorts(
             Nil
           )
         )
-      )
+      ))
     ).flatten
   }
 
   private def getVariables(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     if ports.isEmpty then Nil
     else List(
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          List(
-            CppDocHppWriter.writeAccessTag("PRIVATE"),
-            CppDocWriter.writeBannerComment(
-              s"${getPortTypeString(ports.head).capitalize} ${ports.head.getDirection.get.toString} ports"
-            ),
-            ports.flatMap(p => {
-              val typeName = getQualifiedPortTypeName(p, p.getDirection.get)
-              val name = portVariableName(p.getUnqualifiedName, p.getDirection.get)
-              val num = portConstantName(p.getUnqualifiedName, p.getDirection.get)
+      List(
+        CppDoc.Class.Member.Lines(
+          CppDoc.Lines(
+            List(
+              CppDocHppWriter.writeAccessTag("PRIVATE"),
+              CppDocWriter.writeBannerComment(
+                s"${getPortTypeString(ports.head).capitalize} ${ports.head.getDirection.get.toString} ports"
+              ),
+            ).flatten
+          )
+        )
+      ),
+      mapPorts(ports, p => {
+        val typeName = getQualifiedPortTypeName(p, p.getDirection.get)
+        val name = portVariableName(p.getUnqualifiedName, p.getDirection.get)
+        val num = portConstantName(p.getUnqualifiedName, p.getDirection.get)
 
+        List(
+          CppDoc.Class.Member.Lines(
+            CppDoc.Lines(
               lines(
                 s"""|
                     |//! ${p.getDirection.get.toString.capitalize} port ${p.getUnqualifiedName}
                     |$typeName $name[$num];
                     |"""
               )
-            })
-          ).flatten
+            )
+          )
         )
-      )
-    )
+      })
+    ).flatten
   }
 
   // Get the name for a port enumerated constant

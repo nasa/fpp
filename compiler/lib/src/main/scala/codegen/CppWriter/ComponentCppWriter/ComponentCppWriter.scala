@@ -114,7 +114,16 @@ case class ComponentCppWriter (
     ).flatten.map(CppWriter.headerString)
     val symbolHeaders = writeIncludeDirectives
     val headers = standardHeaders ++ symbolHeaders
-    CppWriter.linesMember(addBlankPrefix(headers.sorted.map(line)))
+    CppWriter.linesMember(addBlankPrefix(headers.sorted.flatMap({
+      case s: "#include \"Fw/Log/LogTextPortAc.hpp\"" =>
+        lines(
+          s"""|#if FW_ENABLE_TEXT_LOGGING == 1
+              |$s
+              |#endif
+              |""".stripMargin
+        )
+      case s => lines(s)
+    })))
   }
 
   private def getCppIncludes: CppDoc.Member = {

@@ -182,6 +182,26 @@ abstract class ComponentCppWriterUtils(
     }
   }
 
+  /** Calls writePort() on each port in ports, wrapping the result in an if directive if necessary */
+  def mapPorts(
+    ports: List[PortInstance],
+    writePort: PortInstance => List[CppDoc.Class.Member]
+  ): List[CppDoc.Class.Member] = {
+    ports.flatMap(p => p match {
+      case PortInstance.Special(aNode, _, _) => aNode._2.data match {
+        case Ast.SpecPortInstance.Special(kind, _) => kind match {
+          case Ast.SpecPortInstance.TextEvent => wrapClassMembersInIfDirective(
+            "\n#if FW_ENABLE_TEXT_LOGGING == 1",
+            writePort(p)
+          )
+          case _ => writePort(p)
+        }
+        case _ => writePort(p)
+      }
+      case _ => writePort(p)
+    })
+  }
+
   /** Get port params as CppDoc Function Params */
   def getPortFunctionParams(p: PortInstance): List[CppDoc.Function.Param] =
     p.getType match {

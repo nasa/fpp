@@ -25,7 +25,7 @@ case class ComponentOutputPorts(
           )
         )
       ),
-      ports.map(p => {
+      mapPorts(ports, p => List(
         CppDoc.Class.Member.Function(
           CppDoc.Function(
             Some(s"Connect port to ${p.getUnqualifiedName}[portNum]"),
@@ -50,7 +50,7 @@ case class ComponentOutputPorts(
             )
           )
         )
-      }),
+      )),
       wrapClassMembersInIfDirective(
         "\n#if FW_PORT_SERIALIZATION",
         List(
@@ -66,7 +66,7 @@ case class ComponentOutputPorts(
               )
             )
           ),
-          ports.map(p => {
+          mapPorts(ports, p => List(
             CppDoc.Class.Member.Function(
               CppDoc.Function(
                 Some(s"Connect port to ${p.getUnqualifiedName}[portNum]"),
@@ -83,7 +83,7 @@ case class ComponentOutputPorts(
                 Nil
               )
             )
-          })
+          ))
         ).flatten
       )
     ).flatten
@@ -190,7 +190,7 @@ case class ComponentOutputPorts(
           )
         )
       ),
-      ports.map(p =>
+      mapPorts(ports, p => List(
         CppDoc.Class.Member.Function(
           CppDoc.Function(
             Some(
@@ -205,7 +205,7 @@ case class ComponentOutputPorts(
             Nil
           )
         )
-      )
+      ))
     ).flatten
   }
 

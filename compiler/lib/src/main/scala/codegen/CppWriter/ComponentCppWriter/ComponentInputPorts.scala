@@ -25,7 +25,7 @@ case class ComponentInputPorts(
           )
         )
       ),
-      ports.map(p =>
+      mapPorts(ports, p => List(
         CppDoc.Class.Member.Function(
           CppDoc.Function(
             Some(
@@ -50,7 +50,7 @@ case class ComponentInputPorts(
             )
           )
         )
-      )
+      ))
     ).flatten
   }
 
@@ -119,7 +119,7 @@ case class ComponentInputPorts(
     if ports.isEmpty then Nil
     else {
       val functions =
-        ports.map(p =>
+        mapPorts(ports, p => List(
           CppDoc.Class.Member.Function(
             CppDoc.Function(
               Some(s"Callback for port ${p.getUnqualifiedName}"),
@@ -137,7 +137,7 @@ case class ComponentInputPorts(
               CppDoc.Function.Static
             )
           )
-        )
+        ))
 
       List(
         List(
