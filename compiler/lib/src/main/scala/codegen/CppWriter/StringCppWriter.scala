@@ -11,7 +11,7 @@ case class StringCppWriter(
   s: CppWriterState,
   /** Enclosing class name, including any qualifiers */
   enclosingClassQualified: Option[String] = None
-) extends CppWriterLineUtils {
+) extends CppWriterUtils {
 
   /** Get max string size */
   def getSize(str: Type.String): Int = str.size match {

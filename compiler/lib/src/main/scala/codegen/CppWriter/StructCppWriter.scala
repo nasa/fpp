@@ -7,7 +7,7 @@ import fpp.compiler.ast._
 case class StructCppWriter(
   s: CppWriterState,
   aNode: Ast.Annotated[AstNode[Ast.DefStruct]]
-) extends CppWriterLineUtils {
+) extends CppWriterUtils {
 
   private val node = aNode._2
 

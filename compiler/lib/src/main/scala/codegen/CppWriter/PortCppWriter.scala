@@ -7,7 +7,7 @@ import fpp.compiler.util._
 case class PortCppWriter (
   s: CppWriterState,
   aNode: Ast.Annotated[AstNode[Ast.DefPort]]
-) extends CppWriterLineUtils {
+) extends CppWriterUtils {
 
   private val node = aNode._2
 

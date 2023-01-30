@@ -1,7 +1,7 @@
 package fpp.compiler.codegen
 
-/** Utilities for writing C++ lines */
-trait CppWriterLineUtils extends LineUtils {
+/** Utilities for writing C++ */
+trait CppWriterUtils extends LineUtils {
 
   def wrapInScope(
     s1: String,

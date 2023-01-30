@@ -8,7 +8,7 @@ import fpp.compiler.util._
 case class ArrayCppWriter (
   s: CppWriterState,
   aNode: Ast.Annotated[AstNode[Ast.DefArray]]
-) extends CppWriterLineUtils {
+) extends CppWriterUtils {
 
   private val node = aNode._2
 

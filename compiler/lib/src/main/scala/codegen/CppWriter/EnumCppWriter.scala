@@ -8,7 +8,7 @@ import fpp.compiler.util._
 case class EnumCppWriter(
   s: CppWriterState,
   aNode: Ast.Annotated[AstNode[Ast.DefEnum]]
-) extends CppWriterLineUtils {
+) extends CppWriterUtils {
 
   private val node = aNode._2
 
