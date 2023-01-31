@@ -11,7 +11,7 @@ https://nasa.github.io/fprime/[F Prime flight software framework].
 
 `docs`: The FPP User's Guide and language specification.
 
-`editors`: Syntax highlighting for code editors. Currently vim is supported.
+`editors`: Syntax highlighting for code editors. Currently Vim and Emacs are supported.
 
 == Building and Installing
 
