@@ -79,7 +79,7 @@ case class EnumCppWriter(
     )
     List(
       List(hppIncludes, cppIncludes),
-      CppWriter.wrapInNamespaces(namespaceIdentList, List(cls))
+      wrapInNamespaces(namespaceIdentList, List(cls))
     ).flatten
   }
 
@@ -89,7 +89,7 @@ case class EnumCppWriter(
       "Fw/Types/Serializable.hpp",
       "Fw/Types/String.hpp"
     )
-    CppWriter.linesMember(
+    linesMember(
       Line.blank ::
       strings.map(CppWriter.headerString).map(line)
     )
@@ -101,7 +101,7 @@ case class EnumCppWriter(
       "Fw/Types/Assert.hpp",
       s"${s.getRelativePath(fileName).toString}.hpp"
     )
-    CppWriter.linesMember(
+    linesMember(
       List(
         List(Line.blank),
         systemStrings.map(CppWriter.systemHeaderString).map(line),

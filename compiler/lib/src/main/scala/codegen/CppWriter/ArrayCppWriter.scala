@@ -82,7 +82,7 @@ case class ArrayCppWriter (
     )
     List(
       List(hppIncludes, cppIncludes),
-      CppWriter.wrapInNamespaces(namespaceIdentList, List(cls))
+      wrapInNamespaces(namespaceIdentList, List(cls))
     ).flatten
   }
 
@@ -94,7 +94,7 @@ case class ArrayCppWriter (
     ).map(CppWriter.headerString)
     val symbolHeaders = writeIncludeDirectives(s, aNode)
     val headers = standardHeaders ++ symbolHeaders
-    CppWriter.linesMember(addBlankPrefix(headers.sorted.map(line)))
+    linesMember(addBlankPrefix(headers.sorted.map(line)))
   }
 
   private def getCppIncludes: CppDoc.Member = {
@@ -107,7 +107,7 @@ case class ArrayCppWriter (
       "Fw/Types/StringUtils.hpp",
       s"${s.getRelativePath(fileName).toString}.hpp"
     ).sorted.map(CppWriter.headerString).map(line)
-    CppWriter.linesMember(
+    linesMember(
       List(
         Line.blank :: systemHeaders,
         Line.blank :: userHeaders

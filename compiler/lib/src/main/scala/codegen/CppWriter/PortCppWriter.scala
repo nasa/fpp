@@ -152,7 +152,7 @@ case class PortCppWriter (
     ).flatten
     List(
       List(hppIncludes, cppIncludes),
-      CppWriter.wrapInNamespaces(namespaceIdentList, classes)
+      wrapInNamespaces(namespaceIdentList, classes)
     ).flatten
   }
 
@@ -176,7 +176,7 @@ case class PortCppWriter (
     ).map(CppWriter.headerString)
     val symbolHeaders = writeIncludeDirectives
     val userHeaders = (standardHeaders ++ symbolHeaders).sorted.map(line)
-    CppWriter.linesMember(
+    linesMember(
       List(
         Line.blank :: systemHeaders,
         Line.blank :: userHeaders
@@ -190,7 +190,7 @@ case class PortCppWriter (
       "Fw/Types/StringUtils.hpp",
       s"${s.getRelativePath(fileName).toString}.hpp"
     ).sorted.map(CppWriter.headerString).map(line)
-    CppWriter.linesMember(
+    linesMember(
       Line.blank :: userHeaders,
       CppDoc.Lines.Cpp
     )
@@ -226,7 +226,7 @@ case class PortCppWriter (
     }).filter(_.isDefined).map(_.get).toList
     strTypes match {
       case Nil => Nil
-      case l => CppWriter.wrapInNamespaces(
+      case l => wrapInNamespaces(
         List(strNamespace),
         strCppWriter.write(l)
       )

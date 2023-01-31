@@ -109,4 +109,95 @@ trait CppWriterUtils extends LineUtils {
       )
     )
 
+  def linesMember(
+    content: List[Line],
+    output: CppDoc.Lines.Output = CppDoc.Lines.Hpp
+  ): CppDoc.Member.Lines = CppDoc.Member.Lines(CppDoc.Lines(content, output))
+
+  def namespaceMember(
+    name: String,
+    members: List[CppDoc.Member]
+  ): CppDoc.Member.Namespace = CppDoc.Member.Namespace(CppDoc.Namespace(name, members))
+
+  def classClassMember(
+    comment: Option[String],
+    name: String,
+    superclassDecls: Option[String],
+    members: List[CppDoc.Class.Member],
+  ): CppDoc.Class.Member.Class =
+    CppDoc.Class.Member.Class(
+      CppDoc.Class(
+        comment,
+        name,
+        superclassDecls,
+        members
+      )
+    )
+
+  def constructorClassMember(
+    comment: Option[String],
+    params: List[CppDoc.Function.Param],
+    initializers: List[String],
+    body: List[Line]
+  ): CppDoc.Class.Member.Constructor =
+    CppDoc.Class.Member.Constructor(
+      CppDoc.Class.Constructor(
+        comment,
+        params,
+        initializers,
+        body
+      )
+    )
+
+  def destructorClassMember(
+    comment: Option[String],
+    body: List[Line],
+    virtualQualifier: CppDoc.Class.Destructor.VirtualQualifier = CppDoc.Class.Destructor.NonVirtual
+  ): CppDoc.Class.Member.Destructor =
+    CppDoc.Class.Member.Destructor(
+      CppDoc.Class.Destructor(
+        comment,
+        body,
+        virtualQualifier
+      )
+    )
+
+  def functionClassMember(
+    comment: Option[String],
+    name: String,
+    params: List[CppDoc.Function.Param],
+    retType: CppDoc.Type,
+    body: List[Line],
+    svQualifier: CppDoc.Function.SVQualifier = CppDoc.Function.NonSV,
+    constQualifier: CppDoc.Function.ConstQualifier = CppDoc.Function.NonConst,
+  ): CppDoc.Class.Member.Function =
+    CppDoc.Class.Member.Function(
+      CppDoc.Function(
+        comment,
+        name,
+        params,
+        retType,
+        body,
+        svQualifier,
+        constQualifier
+      )
+    )
+
+  def linesClassMember(
+   content: List[Line],
+   output: CppDoc.Lines.Output = CppDoc.Lines.Hpp
+ ): CppDoc.Class.Member.Lines =
+    CppDoc.Class.Member.Lines(
+      CppDoc.Lines(content, output)
+    )
+
+  def wrapInNamespaces(
+    namespaceNames: List[String],
+    members: List[CppDoc.Member]
+  ): List[CppDoc.Member] = namespaceNames match {
+    case Nil => members
+    case head :: tail =>
+      List(namespaceMember(head, wrapInNamespaces(tail, members)))
+  }
+
 }

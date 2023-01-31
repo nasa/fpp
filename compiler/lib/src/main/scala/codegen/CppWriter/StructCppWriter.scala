@@ -94,7 +94,7 @@ case class StructCppWriter(
       // If struct is empty, write an empty .cpp file
       if memberList.isEmpty then List(hppIncludes)
       else List(hppIncludes, cppIncludes),
-      CppWriter.wrapInNamespaces(namespaceIdentList, List(cls))
+      wrapInNamespaces(namespaceIdentList, List(cls))
     ).flatten
   }
 
@@ -111,7 +111,7 @@ case class StructCppWriter(
     ).map(CppWriter.headerString)
     val symbolHeaders = writeIncludeDirectives
     val headers = userHeaders ++ symbolHeaders
-    CppWriter.linesMember(addBlankPrefix(headers.sorted.map(line)))
+    linesMember(addBlankPrefix(headers.sorted.map(line)))
   }
 
   private def getCppIncludes: CppDoc.Member = {
@@ -124,7 +124,7 @@ case class StructCppWriter(
       "Fw/Types/StringUtils.hpp",
       s"${s.getRelativePath(fileName).toString}.hpp",
     ).sorted.map(CppWriter.headerString).map(line)
-    CppWriter.linesMember(
+    linesMember(
       List(
         Line.blank :: systemheaders,
         Line.blank :: userHeaders,

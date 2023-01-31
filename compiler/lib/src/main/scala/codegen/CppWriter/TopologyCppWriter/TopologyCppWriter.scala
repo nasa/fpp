@@ -32,15 +32,15 @@ case class TopologyCppWriter(
           s.getRelativePath(s"${name}TopologyDefs.hpp").toString
         )
       ).sorted
-      CppWriter.linesMember(Line.blank :: strings.map(line))
+      linesMember(Line.blank :: strings.map(line))
     }
-    val hppLines = CppWriter.linesMember(
+    val hppLines = linesMember(
       TopConstants(s, aNode).getLines ++
       TopComponentInstances(s, aNode).getHppLines
     )
     val cppIncludes = {
       val fileName = s"${ComputeCppFiles.FileNames.getTopology(name)}.hpp"
-      CppWriter.linesMember(
+      linesMember(
         List(
           Line.blank,
           CppWriter.headerLine(s.getRelativePath(fileName).toString)
@@ -48,7 +48,7 @@ case class TopologyCppWriter(
         CppDoc.Lines.Cpp
       )
     }
-    val cppLines = CppWriter.linesMember(
+    val cppLines = linesMember(
       Line.blank ::
       List(
         wrapInAnonymousNamespace(
@@ -66,7 +66,7 @@ case class TopologyCppWriter(
     val defs = hppLines :: cppLines :: (helperFns ++ setupTeardownFns)
     List(
       List(hppIncludes, cppIncludes),
-      CppWriter.wrapInNamespaces(namespaceIdentList, defs)
+      wrapInNamespaces(namespaceIdentList, defs)
     ).flatten
   }
 
