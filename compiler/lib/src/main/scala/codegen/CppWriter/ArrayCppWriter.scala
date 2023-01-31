@@ -72,13 +72,11 @@ case class ArrayCppWriter (
   private def getMembers: List[CppDoc.Member] = {
     val hppIncludes = getHppIncludes
     val cppIncludes = getCppIncludes
-    val cls = CppDoc.Member.Class(
-      CppDoc.Class(
-        AnnotationCppWriter.asStringOpt(aNode),
-        name,
-        Some("public Fw::Serializable"),
-        getClassMembers
-      )
+    val cls = classMember(
+      AnnotationCppWriter.asStringOpt(aNode),
+      name,
+      Some("public Fw::Serializable"),
+      getClassMembers
     )
     List(
       List(hppIncludes, cppIncludes),
@@ -135,35 +133,31 @@ case class ArrayCppWriter (
 
   private def getTypeMembers: List[CppDoc.Class.Member] =
     List(
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          List(
-            CppDocHppWriter.writeAccessTag("public"),
-            CppDocWriter.writeBannerComment("Types"),
-            lines(
-              s"""|
-                  |//! The element type
-                  |typedef $eltTypeName ElementType;"""
-            ),
-          ).flatten
-        )
+      linesClassMember(
+        List(
+          CppDocHppWriter.writeAccessTag("public"),
+          CppDocWriter.writeBannerComment("Types"),
+          lines(
+            s"""|
+                |//! The element type
+                |typedef $eltTypeName ElementType;"""
+          ),
+        ).flatten
       )
     )
 
   private def getConstantMembers: List[CppDoc.Class.Member] =
     List(
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          CppDocHppWriter.writeAccessTag("public") ++
-          CppDocWriter.writeBannerComment("Constants") ++
-          addBlankPrefix(
-            wrapInEnum(
-              lines(
-                s"""|//! The size of the array
-                    |SIZE = $arraySize,
-                    |//! The size of the serial representation
-                    |SERIALIZED_SIZE = SIZE * ${s.getSerializedSizeExpr(eltType, eltTypeName)},"""
-              )
+      linesClassMember(
+        CppDocHppWriter.writeAccessTag("public") ++
+        CppDocWriter.writeBannerComment("Constants") ++
+        addBlankPrefix(
+          wrapInEnum(
+            lines(
+              s"""|//! The size of the array
+                  |SIZE = $arraySize,
+                  |//! The size of the serial representation
+                  |SERIALIZED_SIZE = SIZE * ${s.getSerializedSizeExpr(eltType, eltTypeName)},"""
             )
           )
         )
@@ -176,248 +170,216 @@ case class ArrayCppWriter (
     val singleElementConstructor =
       if arraySize == 1 then Nil
       else List(
-        CppDoc.Class.Member.Constructor(
-          CppDoc.Class.Constructor(
-            Some("Constructor (single element)"),
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type("const ElementType&"),
-                "e",
-                Some("The element"),
-              )
-            ),
-            List("Serializable()"),
-            indexIterator(lines("this->elements[index] = e;")),
-          )
+        constructorClassMember(
+          Some("Constructor (single element)"),
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("const ElementType&"),
+              "e",
+              Some("The element"),
+            )
+          ),
+          List("Serializable()"),
+          indexIterator(lines("this->elements[index] = e;")),
         )
       )
 
     List(
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          CppDocHppWriter.writeAccessTag("public")
-        )
+      linesClassMember(
+        CppDocHppWriter.writeAccessTag("public")
       ),
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          CppDocWriter.writeBannerComment("Constructors"),
-          CppDoc.Lines.Both
-        )
+      linesClassMember(
+        CppDocWriter.writeBannerComment("Constructors"),
+        CppDoc.Lines.Both
       ),
-      CppDoc.Class.Member.Constructor(
-        CppDoc.Class.Constructor(
-          Some("Constructor (default value)"),
-          Nil,
-          List("Serializable()"),
-          List(
-            lines("// Construct using element-wise constructor"),
-            wrapInScope(
-              s"*this = $name(",
-              lines(defaultValues.map(v => s"$v").mkString(",\n")),
-              ");",
-            ),
-          ).flatten
-        )
-      ),
-      CppDoc.Class.Member.Constructor(
-        CppDoc.Class.Constructor(
-          Some("Constructor (user-provided value)"),
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type("const ElementType"),
-              "(&a)[SIZE]",
-              Some("The array"),
-            )
+      constructorClassMember(
+        Some("Constructor (default value)"),
+        Nil,
+        List("Serializable()"),
+        List(
+          lines("// Construct using element-wise constructor"),
+          wrapInScope(
+            s"*this = $name(",
+            lines(defaultValues.map(v => s"$v").mkString(",\n")),
+            ");",
           ),
-          List("Serializable()"),
-          indexIterator(lines("this->elements[index] = a[index];")),
-        )
+        ).flatten
+      ),
+      constructorClassMember(
+        Some("Constructor (user-provided value)"),
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type("const ElementType"),
+            "(&a)[SIZE]",
+            Some("The array"),
+          )
+        ),
+        List("Serializable()"),
+        indexIterator(lines("this->elements[index] = a[index];")),
       )
     ) ++
       singleElementConstructor ++
       List(
-        CppDoc.Class.Member.Constructor(
-          CppDoc.Class.Constructor(
-            Some("Constructor (multiple elements)"),
-            List.range(1, arraySize + 1).map(i => CppDoc.Function.Param(
-              CppDoc.Type("const ElementType&"),
-              s"e$i",
-              Some(s"Element $i"),
-            )),
-            List("Serializable()"),
-            List.range(1, arraySize + 1).map(i => line(
-              s"this->elements[${i - 1}] = e$i;"
-            )),
-          )
+        constructorClassMember(
+          Some("Constructor (multiple elements)"),
+          List.range(1, arraySize + 1).map(i => CppDoc.Function.Param(
+            CppDoc.Type("const ElementType&"),
+            s"e$i",
+            Some(s"Element $i"),
+          )),
+          List("Serializable()"),
+          List.range(1, arraySize + 1).map(i => line(
+            s"this->elements[${i - 1}] = e$i;"
+          )),
         ),
-        CppDoc.Class.Member.Constructor(
-          CppDoc.Class.Constructor(
-            Some("Copy Constructor"),
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type(s"const $name&"),
-                "obj",
-                Some("The source object"),
-              )
-            ),
-            List("Serializable()"),
-            indexIterator(lines("this->elements[index] = obj.elements[index];")),
-          )
+        constructorClassMember(
+          Some("Copy Constructor"),
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type(s"const $name&"),
+              "obj",
+              Some("The source object"),
+            )
+          ),
+          List("Serializable()"),
+          indexIterator(lines("this->elements[index] = obj.elements[index];")),
         ),
       )
   }
 
   private def getOperatorMembers: List[CppDoc.Class.Member] =
     List(
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(CppDocHppWriter.writeAccessTag("public"))
+      linesClassMember(
+        CppDocHppWriter.writeAccessTag("public")
       ),
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          CppDocWriter.writeBannerComment("Operators"),
-          CppDoc.Lines.Both,
-        )
+      linesClassMember(
+        CppDocWriter.writeBannerComment("Operators"),
+        CppDoc.Lines.Both,
       ),
-      CppDoc.Class.Member.Function(
-        CppDoc.Function(
-          Some("Subscript operator"),
-          "operator[]",
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type("const U32"),
-              "i",
-              Some("The subscript index"),
-            ),
+      functionClassMember(
+        Some("Subscript operator"),
+        "operator[]",
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type("const U32"),
+            "i",
+            Some("The subscript index"),
           ),
-          CppDoc.Type("ElementType&", Some(s"$name::ElementType&")),
-          List(
-            line("FW_ASSERT(i < SIZE);"),
-            line("return this->elements[i];"),
-          ),
-        )
+        ),
+        CppDoc.Type("ElementType&", Some(s"$name::ElementType&")),
+        List(
+          line("FW_ASSERT(i < SIZE);"),
+          line("return this->elements[i];"),
+        ),
       ),
-      CppDoc.Class.Member.Function(
-        CppDoc.Function(
-          Some("Const subscript operator"),
-          "operator[]",
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type("const U32"),
-              "i",
-              Some("The subscript index"),
-            ),
+      functionClassMember(
+        Some("Const subscript operator"),
+        "operator[]",
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type("const U32"),
+            "i",
+            Some("The subscript index"),
           ),
-          CppDoc.Type("const ElementType&", Some(s"const $name::ElementType&")),
-          List(
-            line("FW_ASSERT(i < SIZE);"),
-            line("return this->elements[i];"),
-          ),
-          CppDoc.Function.NonSV,
-          CppDoc.Function.Const,
-        )
+        ),
+        CppDoc.Type("const ElementType&", Some(s"const $name::ElementType&")),
+        List(
+          line("FW_ASSERT(i < SIZE);"),
+          line("return this->elements[i];"),
+        ),
+        CppDoc.Function.NonSV,
+        CppDoc.Function.Const,
       ),
-      CppDoc.Class.Member.Function(
-        CppDoc.Function(
-          Some("Copy assignment operator (object)"),
-          "operator=",
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type(s"const $name&"),
-              "obj",
-              Some("The source object"),
-            ),
+      functionClassMember(
+        Some("Copy assignment operator (object)"),
+        "operator=",
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type(s"const $name&"),
+            "obj",
+            Some("The source object"),
           ),
-          CppDoc.Type(s"$name&"),
-          List(
-            wrapInIf("this == &obj", lines("return *this;")),
-            Line.blank ::
-            indexIterator(lines("this->elements[index] = obj.elements[index];")),
-            lines("return *this;"),
-          ).flatten,
-        )
+        ),
+        CppDoc.Type(s"$name&"),
+        List(
+          wrapInIf("this == &obj", lines("return *this;")),
+          Line.blank ::
+          indexIterator(lines("this->elements[index] = obj.elements[index];")),
+          lines("return *this;"),
+        ).flatten,
       ),
-      CppDoc.Class.Member.Function(
-        CppDoc.Function(
-          Some("Copy assignment operator (raw array)"),
-          "operator=",
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type(s"const ElementType"),
-              "(&a)[SIZE]",
-              Some("The source array"),
-            ),
+      functionClassMember(
+        Some("Copy assignment operator (raw array)"),
+        "operator=",
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type(s"const ElementType"),
+            "(&a)[SIZE]",
+            Some("The source array"),
           ),
-          CppDoc.Type(s"$name&"),
-          List(
-            indexIterator(lines("this->elements[index] = a[index];")),
-            lines("return *this;"),
-          ).flatten
-        )
+        ),
+        CppDoc.Type(s"$name&"),
+        List(
+          indexIterator(lines("this->elements[index] = a[index];")),
+          lines("return *this;"),
+        ).flatten
       ),
-      CppDoc.Class.Member.Function(
-        CppDoc.Function(
-          Some("Copy assignment operator (single element)"),
-          "operator=",
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type(s"const ElementType&"),
-              "e",
-              Some("The element"),
-            ),
+      functionClassMember(
+        Some("Copy assignment operator (single element)"),
+        "operator=",
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type(s"const ElementType&"),
+            "e",
+            Some("The element"),
           ),
-          CppDoc.Type(s"$name&"),
-          List(
-            indexIterator(lines("this->elements[index] = e;")),
-            lines("return *this;"),
-          ).flatten
-        )
+        ),
+        CppDoc.Type(s"$name&"),
+        List(
+          indexIterator(lines("this->elements[index] = e;")),
+          lines("return *this;"),
+        ).flatten
       ),
-      CppDoc.Class.Member.Function(
-        CppDoc.Function(
-          Some("Equality operator"),
-          "operator==",
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type(s"const $name&"),
-              "obj",
-              Some("The other object"),
-            ),
+      functionClassMember(
+        Some("Equality operator"),
+        "operator==",
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type(s"const $name&"),
+            "obj",
+            Some("The other object"),
           ),
-          CppDoc.Type("bool"),
-          List(
-            indexIterator(wrapInIf(
-              "!((*this)[index] == obj[index])",
-              lines("return false;"),
-            )),
-            lines("return true;"),
-          ).flatten,
-          CppDoc.Function.NonSV,
-          CppDoc.Function.Const,
-        )
+        ),
+        CppDoc.Type("bool"),
+        List(
+          indexIterator(wrapInIf(
+            "!((*this)[index] == obj[index])",
+            lines("return false;"),
+          )),
+          lines("return true;"),
+        ).flatten,
+        CppDoc.Function.NonSV,
+        CppDoc.Function.Const,
       ),
-      CppDoc.Class.Member.Function(
-        CppDoc.Function(
-          Some("Inequality operator"),
-          "operator!=",
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type(s"const $name&"),
-              "obj",
-              Some("The other object"),
-            ),
+      functionClassMember(
+        Some("Inequality operator"),
+        "operator!=",
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type(s"const $name&"),
+            "obj",
+            Some("The other object"),
           ),
-          CppDoc.Type("bool"),
-          lines("return !(*this == obj);"),
-          CppDoc.Function.NonSV,
-          CppDoc.Function.Const,
-        )
+        ),
+        CppDoc.Type("bool"),
+        lines("return !(*this == obj);"),
+        CppDoc.Function.NonSV,
+        CppDoc.Function.Const,
       )
     ) ++ (
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          List(Line.blank),
-          CppDoc.Lines.Both
-        )
+      linesClassMember(
+        List(Line.blank),
+        CppDoc.Lines.Both
       ) :: writeOstreamOperator(
         name,
         lines(
@@ -456,106 +418,98 @@ case class ArrayCppWriter (
           lines(List.range(0, arraySize).map(i => s"str$i.toChar()").mkString(",\n"))
 
     List(
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(CppDocHppWriter.writeAccessTag("public"))
+      linesClassMember(
+        CppDocHppWriter.writeAccessTag("public")
       ),
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          CppDocWriter.writeBannerComment("Member functions"),
-          CppDoc.Lines.Both
-        )
+      linesClassMember(
+        CppDocWriter.writeBannerComment("Member functions"),
+        CppDoc.Lines.Both
       ),
-      CppDoc.Class.Member.Function(
-        CppDoc.Function(
-          Some("Serialization"),
-          "serialize",
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type("Fw::SerializeBufferBase&"),
-              "buffer",
-              Some("The serial buffer"),
-            )
+      functionClassMember(
+        Some("Serialization"),
+        "serialize",
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type("Fw::SerializeBufferBase&"),
+            "buffer",
+            Some("The serial buffer"),
+          )
+        ),
+        CppDoc.Type("Fw::SerializeStatus"),
+        List(
+          lines("Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;"),
+          indexIterator(
+            line("status = buffer.serialize((*this)[index]);") ::
+              wrapInIf("status != Fw::FW_SERIALIZE_OK", lines("return status;")),
           ),
-          CppDoc.Type("Fw::SerializeStatus"),
-          List(
-            lines("Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;"),
-            indexIterator(
-              line("status = buffer.serialize((*this)[index]);") ::
-                wrapInIf("status != Fw::FW_SERIALIZE_OK", lines("return status;")),
-            ),
-            lines("return status;"),
-          ).flatten,
-          CppDoc.Function.NonSV,
-          CppDoc.Function.Const
-        )
+          lines("return status;"),
+        ).flatten,
+        CppDoc.Function.NonSV,
+        CppDoc.Function.Const
       ),
-      CppDoc.Class.Member.Function(
-        CppDoc.Function(
-          Some("Deserialization"),
-          "deserialize",
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type("Fw::SerializeBufferBase&"),
-              "buffer",
-              Some("The serial buffer"),
-            )
+      functionClassMember(
+        Some("Deserialization"),
+        "deserialize",
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type("Fw::SerializeBufferBase&"),
+            "buffer",
+            Some("The serial buffer"),
+          )
+        ),
+        CppDoc.Type("Fw::SerializeStatus"),
+        List(
+          lines("Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;"),
+          indexIterator(
+            line("status = buffer.deserialize((*this)[index]);") ::
+              wrapInIf("status != Fw::FW_SERIALIZE_OK", lines("return status;")),
           ),
-          CppDoc.Type("Fw::SerializeStatus"),
-          List(
-            lines("Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;"),
-            indexIterator(
-              line("status = buffer.deserialize((*this)[index]);") ::
-                wrapInIf("status != Fw::FW_SERIALIZE_OK", lines("return status;")),
-            ),
-            lines("return status;"),
-          ).flatten,
-        )
-      )
+          lines("return status;"),
+        ).flatten,
+    )
     ) ++
       wrapClassMembersInIfDirective(
         "\n#if FW_ARRAY_TO_STRING || BUILD_UT",
         List(
-          CppDoc.Class.Member.Function(
-            CppDoc.Function(
-              Some("Convert array to string"),
-              "toString",
-              List(
-                CppDoc.Function.Param(
-                  CppDoc.Type("Fw::StringBase&"),
-                  "sb",
-                  Some("The StringBase object to hold the result")
-                )
+          functionClassMember(
+            Some("Convert array to string"),
+            "toString",
+            List(
+              CppDoc.Function.Param(
+                CppDoc.Type("Fw::StringBase&"),
+                "sb",
+                Some("The StringBase object to hold the result")
+              )
+            ),
+            CppDoc.Type("void"),
+            List(
+              wrapInScope(
+                "static const char *formatString = \"[ \"",
+                lines(List.fill(arraySize)(s"\"$formatStr ").mkString("\"\n") + "]\";"),
+                ""
               ),
-              CppDoc.Type("void"),
-              List(
-                wrapInScope(
-                  "static const char *formatString = \"[ \"",
-                  lines(List.fill(arraySize)(s"\"$formatStr ").mkString("\"\n") + "]\";"),
-                  ""
-                ),
-                initStrings,
-                lines("char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];"),
-                wrapInScope(
-                  "(void) snprintf(",
-                  List(
-                    List(
-                      line("outputString,"),
-                      line("FW_ARRAY_TO_STRING_BUFFER_SIZE,"),
-                      line("formatString,"),
-                    ),
-                    formatArgs,
-                  ).flatten,
-                  ");"
-                ),
+              initStrings,
+              lines("char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];"),
+              wrapInScope(
+                "(void) snprintf(",
                 List(
-                  Line.blank,
-                  line("outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate"),
-                  line("sb = outputString;"),
-                ),
-              ).flatten,
-              CppDoc.Function.NonSV,
-              CppDoc.Function.Const,
-            )
+                  List(
+                    line("outputString,"),
+                    line("FW_ARRAY_TO_STRING_BUFFER_SIZE,"),
+                    line("formatString,"),
+                  ),
+                  formatArgs,
+                ).flatten,
+                ");"
+              ),
+              List(
+                Line.blank,
+                line("outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate"),
+                line("sb = outputString;"),
+              ),
+            ).flatten,
+            CppDoc.Function.NonSV,
+            CppDoc.Function.Const,
           )
         )
       )
@@ -563,19 +517,17 @@ case class ArrayCppWriter (
 
   private def getMemberVariableMembers: List[CppDoc.Class.Member] =
     List(
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(CppDocHppWriter.writeAccessTag("private"))
+      linesClassMember(
+        CppDocHppWriter.writeAccessTag("private")
       ),
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          CppDocWriter.writeBannerComment("Member variables") ++
-            addBlankPrefix(
-              lines(
-                s"""|//! The array elements
-                    |ElementType elements[SIZE];"""
-              )
+      linesClassMember(
+        CppDocWriter.writeBannerComment("Member variables") ++
+          addBlankPrefix(
+            lines(
+              s"""|//! The array elements
+                  |ElementType elements[SIZE];"""
             )
-        )
+          )
       )
     )
 
