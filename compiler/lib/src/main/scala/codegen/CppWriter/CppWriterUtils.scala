@@ -109,6 +109,42 @@ trait CppWriterUtils extends LineUtils {
       )
     )
 
+  def classMember(
+    comment: Option[String],
+    name: String,
+    superclassDecls: Option[String],
+    members: List[CppDoc.Class.Member],
+  ): CppDoc.Member.Class =
+    CppDoc.Member.Class(
+      CppDoc.Class(
+        comment,
+        name,
+        superclassDecls,
+        members
+      )
+    )
+
+  def functionMember(
+    comment: Option[String],
+    name: String,
+    params: List[CppDoc.Function.Param],
+    retType: CppDoc.Type,
+    body: List[Line],
+    svQualifier: CppDoc.Function.SVQualifier = CppDoc.Function.NonSV,
+    constQualifier: CppDoc.Function.ConstQualifier = CppDoc.Function.NonConst,
+  ): CppDoc.Member.Function =
+    CppDoc.Member.Function(
+      CppDoc.Function(
+        comment,
+        name,
+        params,
+        retType,
+        body,
+        svQualifier,
+        constQualifier
+      )
+    )
+
   def linesMember(
     content: List[Line],
     output: CppDoc.Lines.Output = CppDoc.Lines.Hpp
@@ -118,21 +154,6 @@ trait CppWriterUtils extends LineUtils {
     name: String,
     members: List[CppDoc.Member]
   ): CppDoc.Member.Namespace = CppDoc.Member.Namespace(CppDoc.Namespace(name, members))
-
-  def classClassMember(
-    comment: Option[String],
-    name: String,
-    superclassDecls: Option[String],
-    members: List[CppDoc.Class.Member],
-  ): CppDoc.Class.Member.Class =
-    CppDoc.Class.Member.Class(
-      CppDoc.Class(
-        comment,
-        name,
-        superclassDecls,
-        members
-      )
-    )
 
   def constructorClassMember(
     comment: Option[String],
@@ -184,11 +205,14 @@ trait CppWriterUtils extends LineUtils {
     )
 
   def linesClassMember(
-   content: List[Line],
-   output: CppDoc.Lines.Output = CppDoc.Lines.Hpp
- ): CppDoc.Class.Member.Lines =
+    content: List[Line],
+    output: CppDoc.Lines.Output = CppDoc.Lines.Hpp
+  ): CppDoc.Class.Member.Lines =
     CppDoc.Class.Member.Lines(
-      CppDoc.Lines(content, output)
+      CppDoc.Lines(
+        content,
+        output
+      )
     )
 
   def wrapInNamespaces(
