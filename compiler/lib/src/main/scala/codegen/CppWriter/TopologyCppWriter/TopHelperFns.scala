@@ -304,11 +304,9 @@ case class TopHelperFns(
     )
   }
 
-  private def getBannerComment = CppDoc.Member.Lines(
-    CppDoc.Lines(
-      CppDocWriter.writeBannerComment("Helper functions"),
-      CppDoc.Lines.Both
-    )
+  private def getBannerComment = linesMember(
+    CppDocWriter.writeBannerComment("Helper functions"),
+    CppDoc.Lines.Both
   )
 
 }

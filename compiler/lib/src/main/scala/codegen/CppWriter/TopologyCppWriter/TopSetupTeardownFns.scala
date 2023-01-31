@@ -25,11 +25,9 @@ case class TopSetupTeardownFns(
     )
   )
 
-  private def getBannerComment = CppDoc.Member.Lines(
-    CppDoc.Lines(
-      CppDocWriter.writeBannerComment("Setup and teardown functions"),
-      CppDoc.Lines.Both
-    )
+  private def getBannerComment = linesMember(
+    CppDocWriter.writeBannerComment("Setup and teardown functions"),
+    CppDoc.Lines.Both
   )
 
   private def writeFnCall(pair: (String, String)): List[Line] = {
@@ -39,37 +37,33 @@ case class TopSetupTeardownFns(
     else Nil
   }
 
-  private def getSetupFn = CppDoc.Member.Function(
-    CppDoc.Function(
-      Some("Set up the topology"),
-      "setup",
-      params,
-      CppDoc.Type("void"),
-      List(
-        ("initComponents", "state"),
-        ("configComponents", "state"),
-        ("setBaseIds", ""),
-        ("connectComponents", ""),
-        ("regCommands", ""),
-        ("readParameters", ""),
-        ("loadParameters", ""),
-        ("startTasks", "state"),
-      ).flatMap(writeFnCall)
-    )
+  private def getSetupFn = functionMember(
+    Some("Set up the topology"),
+    "setup",
+    params,
+    CppDoc.Type("void"),
+    List(
+      ("initComponents", "state"),
+      ("configComponents", "state"),
+      ("setBaseIds", ""),
+      ("connectComponents", ""),
+      ("regCommands", ""),
+      ("readParameters", ""),
+      ("loadParameters", ""),
+      ("startTasks", "state"),
+    ).flatMap(writeFnCall)
   )
 
-  private def getTeardownFn = CppDoc.Member.Function(
-    CppDoc.Function(
-      Some("Tear down the topology"),
-      "teardown",
-      params,
-      CppDoc.Type("void"),
-      List(
-        ("stopTasks", "state"),
-        ("freeThreads", "state"),
-        ("tearDownComponents" ,"state"),
-      ).flatMap(writeFnCall)
-    )
+  private def getTeardownFn = functionMember(
+    Some("Tear down the topology"),
+    "teardown",
+    params,
+    CppDoc.Type("void"),
+    List(
+      ("stopTasks", "state"),
+      ("freeThreads", "state"),
+      ("tearDownComponents" ,"state"),
+    ).flatMap(writeFnCall)
   )
 
 }

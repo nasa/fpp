@@ -8,7 +8,7 @@ import fpp.compiler.util._
 abstract class TopologyCppWriterUtils(
   s: CppWriterState,
   aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
-) extends CppWriterLineUtils {
+) extends CppWriterUtils {
 
   val symbol: Symbol.Topology = Symbol.Topology(aNode)
 

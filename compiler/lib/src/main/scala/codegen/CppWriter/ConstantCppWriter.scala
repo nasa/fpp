@@ -6,7 +6,7 @@ import fpp.compiler.util._
 
 /** Writes out C++ for constant definitions 
  *  Writes only primitive values, enum values, and strings (no structs or arrays) */
-object ConstantCppWriter {
+object ConstantCppWriter extends CppWriterUtils {
 
   /** Writes out constant hpp and cpp */
   def write(s: CppWriterState, tuList: List[Ast.TransUnit]): Result.Result[Any] =
@@ -23,8 +23,8 @@ object ConstantCppWriter {
           val headers = List(path.toString)
           Line.blank :: headers.map(CppWriter.headerLine)
         }
-        val members = CppWriter.linesMember(hppHeaderLines) :: 
-          CppWriter.linesMember(cppHeaderLines, CppDoc.Lines.Cpp) :: 
+        val members = linesMember(hppHeaderLines) ::
+          linesMember(cppHeaderLines, CppDoc.Lines.Cpp) ::
           constantMembers
         val includeGuard = s.includeGuardFromPrefix(fileName)
         val cppDoc = CppWriter.createCppDoc(
@@ -67,7 +67,7 @@ object ConstantCppWriter {
           case Nil => Nil
           case _ => {
             val ls = (Line.blank :: AnnotationCppWriter.writePreComment(aNode)) ++ hppLines
-            List(CppWriter.linesMember(ls))
+            List(linesMember(ls))
           }
         }
       }
@@ -76,7 +76,7 @@ object ConstantCppWriter {
           case Nil => Nil
           case _ => {
             val ls = Line.blank :: cppLines
-            List(CppWriter.linesMember(ls, CppDoc.Lines.Cpp))
+            List(linesMember(ls, CppDoc.Lines.Cpp))
           }
         }
       }
@@ -93,7 +93,7 @@ object ConstantCppWriter {
       members match {
         case Nil => Nil
         case _ =>
-          val namespace = CppWriter.namespaceMember(data.name, members)
+          val namespace = namespaceMember(data.name, members)
           List(namespace)
       }
     }
