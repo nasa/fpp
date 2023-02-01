@@ -8,7 +8,7 @@ import fpp.compiler.codegen._
 abstract class ComponentCppWriterUtils(
   s: CppWriterState,
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
-) extends CppWriterLineUtils {
+) extends CppWriterUtils {
 
   val node: AstNode[Ast.DefComponent] = aNode._2
 

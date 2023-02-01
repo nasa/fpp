@@ -99,7 +99,27 @@ object Lexer extends RegexParsers {
     def apply(in: Input) = p(in) match {
       case s @ Success(out, in1) =>
         if (in1.atEnd) s
-        else Failure("illegal character", dropWhile(in1, _ == ' '))
+        else {
+          // We hit an illegal character
+          val in2 = dropWhile(in1, _ == ' ')
+          val c = in2.first
+          val errMsg = {
+            // Print out the unicode value, in case the console can't
+            // display it as a character
+            val prefix =
+              s"illegal character (unicode value ${c.toInt}, hex 0x${c.toInt.toHexString})"
+            // Generate a special error message for tab characters
+            // These are especially tricky and also somewhat common
+            if (c == '\t')
+              List(
+                prefix,
+                "note: embedded tab characters are not allowed in FPP source files",
+                "try configuring your editor to convert tabs to spaces"
+              ).mkString("\n")
+            else prefix
+          }
+          Failure(errMsg, in2)
+        }
       case other => other
     }
   }

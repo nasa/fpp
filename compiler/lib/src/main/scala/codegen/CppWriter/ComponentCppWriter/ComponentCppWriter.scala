@@ -58,22 +58,20 @@ case class ComponentCppWriter (
   private def getMembers: List[CppDoc.Member] = {
     val hppIncludes = getHppIncludes
     val cppIncludes = getCppIncludes
-    val cls = CppDoc.Member.Class(
-      CppDoc.Class(
-        Some(
-          addSeparatedString(
-            s"\\class $className\n\\brief Auto-generated base for $name component",
-            AnnotationCppWriter.asStringOpt(aNode)
-          )
-        ),
-        className,
-        Some(s"public Fw::$baseClassName"),
-        getClassMembers
-      )
+    val cls = classMember(
+      Some(
+        addSeparatedString(
+          s"\\class $className\n\\brief Auto-generated base for $name component",
+          AnnotationCppWriter.asStringOpt(aNode)
+        )
+      ),
+      className,
+      Some(s"public Fw::$baseClassName"),
+      getClassMembers
     )
     List(
       List(hppIncludes, cppIncludes),
-      CppWriter.wrapInNamespaces(namespaceIdentList, List(cls))
+      wrapInNamespaces(namespaceIdentList, List(cls))
     ).flatten
   }
 
@@ -114,7 +112,7 @@ case class ComponentCppWriter (
     ).flatten.map(CppWriter.headerString)
     val symbolHeaders = writeIncludeDirectives
     val headers = standardHeaders ++ symbolHeaders
-    CppWriter.linesMember(addBlankPrefix(headers.sorted.flatMap({
+    linesMember(addBlankPrefix(headers.sorted.flatMap({
       case s: "#include \"Fw/Log/LogTextPortAc.hpp\"" =>
         lines(
           s"""|#if FW_ENABLE_TEXT_LOGGING == 1
@@ -135,7 +133,7 @@ case class ComponentCppWriter (
       "Fw/Types/String.hpp",
       s"${s.getRelativePath(fileName).toString}.hpp"
     ).sorted.map(CppWriter.headerString).map(line)
-    CppWriter.linesMember(
+    linesMember(
       List(
         Line.blank :: systemHeaders,
         Line.blank :: userHeaders
@@ -197,15 +195,13 @@ case class ComponentCppWriter (
     if constants.isEmpty then Nil
     else List(
       List(
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            List(
-              CppDocHppWriter.writeAccessTag("PROTECTED"),
-              CppDocWriter.writeBannerComment(
-                "Constants"
-              ),
-            ).flatten
-          )
+        linesClassMember(
+          List(
+            CppDocHppWriter.writeAccessTag("PROTECTED"),
+            CppDocWriter.writeBannerComment(
+              "Constants"
+            ),
+          ).flatten
         )
       ),
       constants
@@ -214,20 +210,18 @@ case class ComponentCppWriter (
 
   private def getFriendClassMembers: List[CppDoc.Class.Member] = {
     List(
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          List(
-            CppDocWriter.writeBannerComment(
-              "Friend classes"
-            ),
-            lines(
-              s"""|
-                  |//! Friend class for white-box testing
-                  |friend class ${className}Friend;
-                  |"""
-            )
-          ).flatten
-        )
+      linesClassMember(
+        List(
+          CppDocWriter.writeBannerComment(
+            "Friend classes"
+          ),
+          lines(
+            s"""|
+                |//! Friend class for white-box testing
+                |friend class ${className}Friend;
+                |"""
+          )
+        ).flatten
       )
     )
   }
@@ -261,46 +255,38 @@ case class ComponentCppWriter (
       else Nil
 
     List(
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          List(
-            CppDocHppWriter.writeAccessTag("PROTECTED"),
-            CppDocWriter.writeBannerComment(
-              "Component construction, initialization, and destruction"
-            )
-          ).flatten
-        )
+      linesClassMember(
+        List(
+          CppDocHppWriter.writeAccessTag("PROTECTED"),
+          CppDocWriter.writeBannerComment(
+            "Component construction, initialization, and destruction"
+          )
+        ).flatten
       ),
-      CppDoc.Class.Member.Constructor(
-        CppDoc.Class.Constructor(
-          Some(s"Construct $className object"),
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type("const char*"),
-              "compName",
-              Some("The component name"),
-              Some("\"\"")
-            )
-          ),
-          List(s"Fw::${kindStr}ComponentBase(compName)"),
-          Nil
-        )
+      constructorClassMember(
+        Some(s"Construct $className object"),
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type("const char*"),
+            "compName",
+            Some("The component name"),
+            Some("\"\"")
+          )
+        ),
+        List(s"Fw::${kindStr}ComponentBase(compName)"),
+        Nil
       ),
-      CppDoc.Class.Member.Function(
-        CppDoc.Function(
-          Some(s"Initialize $className object"),
-          "init",
-          initQueueDepthParam ++ initMsgSizeParam ++ initInstanceParam,
-          CppDoc.Type("void"),
-          Nil
-        )
+      functionClassMember(
+        Some(s"Initialize $className object"),
+        "init",
+        initQueueDepthParam ++ initMsgSizeParam ++ initInstanceParam,
+        CppDoc.Type("void"),
+        Nil
       ),
-      CppDoc.Class.Member.Destructor(
-        CppDoc.Class.Destructor(
-          Some(s"Destroy $className object"),
-          Nil,
-          CppDoc.Class.Destructor.Virtual
-        )
+      destructorClassMember(
+        Some(s"Destroy $className object"),
+        Nil,
+        CppDoc.Class.Destructor.Virtual
       )
     )
   }
@@ -308,38 +294,32 @@ case class ComponentCppWriter (
   private def getMutexOperationMembers: List[CppDoc.Class.Member] = {
     if !hasGuardedInputPorts then Nil
     else List(
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          List(
-            CppDocHppWriter.writeAccessTag("PROTECTED"),
-            CppDocWriter.writeBannerComment(
-              """|Mutex operations for guarded ports.
-                 |You can override these operations to provide more sophisticated
-                 |synchronization.
-                 |"""
-            ),
-          ).flatten
-        )
+      linesClassMember(
+        List(
+          CppDocHppWriter.writeAccessTag("PROTECTED"),
+          CppDocWriter.writeBannerComment(
+            """|Mutex operations for guarded ports.
+               |You can override these operations to provide more sophisticated
+               |synchronization.
+               |"""
+          ),
+        ).flatten
       ),
-      CppDoc.Class.Member.Function(
-        CppDoc.Function(
-          Some("Lock the guarded mutex"),
-          "lock",
-          Nil,
-          CppDoc.Type("void"),
-          Nil,
-          CppDoc.Function.Virtual
-        )
+      functionClassMember(
+        Some("Lock the guarded mutex"),
+        "lock",
+        Nil,
+        CppDoc.Type("void"),
+        Nil,
+        CppDoc.Function.Virtual
       ),
-      CppDoc.Class.Member.Function(
-        CppDoc.Function(
-          Some("Unlock the guarded mutex"),
-          "unLock",
-          Nil,
-          CppDoc.Type("void"),
-          Nil,
-          CppDoc.Function.Virtual
-        )
+      functionClassMember(
+        Some("Unlock the guarded mutex"),
+        "unLock",
+        Nil,
+        CppDoc.Type("void"),
+        Nil,
+        CppDoc.Function.Virtual
       )
     )
   }
@@ -347,32 +327,28 @@ case class ComponentCppWriter (
   private def getDispatchFunctionMember: List[CppDoc.Class.Member] = {
     if data.kind == Ast.ComponentKind.Passive then Nil
     else List(
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          List(
-            data.kind match {
-              case Ast.ComponentKind.Active => CppDocHppWriter.writeAccessTag("PRIVATE")
-              case Ast.ComponentKind.Queued => CppDocHppWriter.writeAccessTag("PROTECTED")
-              case _ => Nil
-            },
-            CppDocWriter.writeBannerComment(
-              "Message dispatch functions"
-            )
-          ).flatten
-        )
+      linesClassMember(
+        List(
+          data.kind match {
+            case Ast.ComponentKind.Active => CppDocHppWriter.writeAccessTag("PRIVATE")
+            case Ast.ComponentKind.Queued => CppDocHppWriter.writeAccessTag("PROTECTED")
+            case _ => Nil
+          },
+          CppDocWriter.writeBannerComment(
+            "Message dispatch functions"
+          )
+        ).flatten
       ),
-      CppDoc.Class.Member.Function(
-        CppDoc.Function(
-          Some("Called in the message loop to dispatch a message from the queue"),
-          "doDispatch",
-          Nil,
-          CppDoc.Type(
-            "MsgDispatchStatus",
-            Some("Fw::QueuedComponentBase::MsgDispatchStatus")
-          ),
-          Nil,
-          CppDoc.Function.Virtual
-        )
+      functionClassMember(
+        Some("Called in the message loop to dispatch a message from the queue"),
+        "doDispatch",
+        Nil,
+        CppDoc.Type(
+          "MsgDispatchStatus",
+          Some("Fw::QueuedComponentBase::MsgDispatchStatus")
+        ),
+        Nil,
+        CppDoc.Function.Virtual
       )
     )
   }
@@ -380,27 +356,23 @@ case class ComponentCppWriter (
   private def getTimeFunctionMember: List[CppDoc.Class.Member] = {
     if !hasTimeGetPort then Nil
     else List(
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          List(
-            CppDocHppWriter.writeAccessTag("PROTECTED"),
-            CppDocWriter.writeBannerComment("Time")
-          ).flatten
-        )
+      linesClassMember(
+        List(
+          CppDocHppWriter.writeAccessTag("PROTECTED"),
+          CppDocWriter.writeBannerComment("Time")
+        ).flatten
       ),
-      CppDoc.Class.Member.Function(
-        CppDoc.Function(
-          Some(
-            s"""| Get the time
-                |
-                |\\return The current time
-                |"""
-          ),
-          "getTime",
-          Nil,
-          CppDoc.Type("Fw::Time"),
-          Nil
-        )
+      functionClassMember(
+        Some(
+          s"""| Get the time
+              |
+              |\\return The current time
+              |"""
+        ),
+        "getTime",
+        Nil,
+        CppDoc.Type("Fw::Time"),
+        Nil
       )
     )
   }
@@ -408,18 +380,16 @@ case class ComponentCppWriter (
   private def getMsgSizeVariableMember: List[CppDoc.Class.Member] = {
     if !hasSerialAsyncInputPorts then Nil
     else List(
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          List(
-            CppDocHppWriter.writeAccessTag("PRIVATE"),
-            lines(
-              """|
-               |//! Stores max message size
-                 |NATIVE_INT_TYPE m_msgSize;
-                 |"""
-            )
-          ).flatten
-        )
+      linesClassMember(
+        List(
+          CppDocHppWriter.writeAccessTag("PRIVATE"),
+          lines(
+            """|
+             |//! Stores max message size
+               |NATIVE_INT_TYPE m_msgSize;
+               |"""
+          )
+        ).flatten
       )
     )
   }
@@ -427,29 +397,27 @@ case class ComponentCppWriter (
   private def getMutexVariableMembers: List[CppDoc.Class.Member] = {
     if !(hasGuardedInputPorts|| hasParameters) then Nil
     else List(
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          List(
-            CppDocHppWriter.writeAccessTag("PRIVATE"),
-            CppDocWriter.writeBannerComment(
-              "Mutexes"
-            ),
-            if !hasGuardedInputPorts then Nil
-            else lines(
-              """|
-                 |//! Mutex for guarded ports
-                 |Os::Mutex m_guardedPortMutex;
-                 |"""
-            ),
-            if !hasParameters then Nil
-            else lines(
-              """|
-                 |//! Mutex for locking parameters during sets and saves
-                 |Os::Mutex m_paramLock;
-                 |"""
-            )
-          ).flatten
-        )
+      linesClassMember(
+        List(
+          CppDocHppWriter.writeAccessTag("PRIVATE"),
+          CppDocWriter.writeBannerComment(
+            "Mutexes"
+          ),
+          if !hasGuardedInputPorts then Nil
+          else lines(
+            """|
+               |//! Mutex for guarded ports
+               |Os::Mutex m_guardedPortMutex;
+               |"""
+          ),
+          if !hasParameters then Nil
+          else lines(
+            """|
+               |//! Mutex for locking parameters during sets and saves
+               |Os::Mutex m_paramLock;
+               |"""
+          )
+        ).flatten
       )
     )
   }

@@ -224,8 +224,8 @@ void InputStringPort ::
       CompFuncPtr funcPtr
   )
 {
-  FW_ASSERT(callComp);
-  FW_ASSERT(funcPtr);
+  FW_ASSERT(callComp != nullptr);
+  FW_ASSERT(funcPtr != nullptr);
 
   this->m_comp = callComp;
   this->m_func = funcPtr;
@@ -244,8 +244,8 @@ void InputStringPort ::
   this->trace();
 #endif
 
-  FW_ASSERT(this->m_comp);
-  FW_ASSERT(this->m_func);
+  FW_ASSERT(this->m_comp != nullptr);
+  FW_ASSERT(this->m_func != nullptr);
 
   return this->m_func(this->m_comp, this->m_portNum, str80, str80Ref, str100, str100Ref);
 }
@@ -261,8 +261,8 @@ Fw::SerializeStatus InputStringPort ::
   this->trace();
 #endif
 
-  FW_ASSERT(this->m_comp);
-  FW_ASSERT(this->m_func);
+  FW_ASSERT(this->m_comp != nullptr);
+  FW_ASSERT(this->m_func != nullptr);
 
   StringPortStrings::StringSize80 str80;
   _status = _buffer.deserialize(str80);
@@ -316,7 +316,7 @@ void OutputStringPort ::
 void OutputStringPort ::
   addCallPort(InputStringPort* callPort)
 {
-  FW_ASSERT(callPort);
+  FW_ASSERT(callPort != nullptr);
 
   this->m_port = callPort;
   this->m_connObj = callPort;
@@ -339,14 +339,12 @@ void OutputStringPort ::
 #endif
 
 #if FW_PORT_SERIALIZATION
-  FW_ASSERT(this->m_port || this->m_serPort);
-#else
-  FW_ASSERT(this->m_port);
-#endif
-  if (this->m_port) {
+  FW_ASSERT((this->m_port != nullptr) || (this->m_serPort != nullptr));
+
+  if (this->m_port != nullptr) {
     this->m_port->invoke(str80, str80Ref, str100, str100Ref);
-#if FW_PORT_SERIALIZATION
-  } else if (this->m_serPort) {
+  }
+  else {
     Fw::SerializeStatus _status;
     StringPortBuffer _buffer;
 
@@ -366,6 +364,7 @@ void OutputStringPort ::
     FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
   }
 #else
-  }
+  FW_ASSERT(this->m_port != nullptr);
+  this->m_port->invoke(str80, str80Ref, str100, str100Ref);
 #endif
 }

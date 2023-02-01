@@ -24,7 +24,7 @@ case class ComponentCommands (
       s,
       Nil,
       Some("Fw::CmdStringArg"),
-      CppWriterLineUtils.Value
+      CppWriterUtils.Value
     )
   )}).toMap
 
@@ -43,29 +43,27 @@ case class ComponentCommands (
   def getConstantMembers: List[CppDoc.Class.Member] = {
     if !(hasCommands || hasParameters) then Nil
     else List(
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          List(
-            Line.blank :: lines(s"//! Command opcodes"),
-            wrapInEnum(
-              lines(
-                sortedCmds.map((opcode, cmd) =>
-                  writeEnumConstant(
-                    commandConstantName(cmd),
-                    opcode,
-                    cmd match {
-                      case Command.NonParam(aNode, _) =>
-                        AnnotationCppWriter.asStringOpt(aNode)
-                      case Command.Param(aNode, kind) =>
-                        Some(s"Opcode to ${paramKindStr(kind)} parameter ${aNode._2.data.name}")
-                    },
-                    ComponentCppWriterUtils.Hex
-                  )
-                ).mkString("\n")
-              )
+      linesClassMember(
+        List(
+          Line.blank :: lines(s"//! Command opcodes"),
+          wrapInEnum(
+            lines(
+              sortedCmds.map((opcode, cmd) =>
+                writeEnumConstant(
+                  commandConstantName(cmd),
+                  opcode,
+                  cmd match {
+                    case Command.NonParam(aNode, _) =>
+                      AnnotationCppWriter.asStringOpt(aNode)
+                    case Command.Param(aNode, kind) =>
+                      Some(s"Opcode to ${paramKindStr(kind)} parameter ${aNode._2.data.name}")
+                  },
+                  ComponentCppWriterUtils.Hex
+                )
+              ).mkString("\n")
             )
-          ).flatten
-        )
+          )
+        ).flatten
       )
     )
   }
@@ -95,29 +93,25 @@ case class ComponentCommands (
 
   private def getRegFunction: List[CppDoc.Class.Member] = {
     List(
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          List(
-            CppDocHppWriter.writeAccessTag("public"),
-            CppDocWriter.writeBannerComment(
-              "Command registration"
-            ),
-          ).flatten
-        )
-      ),
-      CppDoc.Class.Member.Function(
-        CppDoc.Function(
-          Some(
-            s"""|\\brief Register commands with the Command Dispatcher
-                |
-                |Connect the dispatcher first
-                |"""
+      linesClassMember(
+        List(
+          CppDocHppWriter.writeAccessTag("public"),
+          CppDocWriter.writeBannerComment(
+            "Command registration"
           ),
-          "regCommands",
-          Nil,
-          CppDoc.Type("void"),
-          Nil
-        )
+        ).flatten
+      ),
+      functionClassMember(
+        Some(
+          s"""|\\brief Register commands with the Command Dispatcher
+              |
+              |Connect the dispatcher first
+              |"""
+        ),
+        "regCommands",
+        Nil,
+        CppDoc.Type("void"),
+        Nil
       )
     )
   }
@@ -125,38 +119,34 @@ case class ComponentCommands (
   private def getHandlers: List[CppDoc.Class.Member] = {
     List(
       List(
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            List(
-              CppDocHppWriter.writeAccessTag("PROTECTED"),
-              CppDocWriter.writeBannerComment(
-                "Command handlers to implement"
-              ),
-            ).flatten
-          )
-        ),
+        linesClassMember(
+          List(
+            CppDocHppWriter.writeAccessTag("PROTECTED"),
+            CppDocWriter.writeBannerComment(
+              "Command handlers to implement"
+            ),
+          ).flatten
+        )
       ),
       nonParamCmds.map((opcode, cmd) =>
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some(
-              addSeparatedString(
-                s"Handler for command ${cmd.getName}",
-                AnnotationCppWriter.asStringOpt(cmd.aNode)
-              )
-            ),
-            commandHandlerName(cmd.getName),
+        functionClassMember(
+          Some(
+            addSeparatedString(
+              s"Handler for command ${cmd.getName}",
+              AnnotationCppWriter.asStringOpt(cmd.aNode)
+            )
+          ),
+          commandHandlerName(cmd.getName),
+          List(
             List(
-              List(
-                opcodeParam,
-                cmdSeqParam,
-              ),
-              cmdParamMap(opcode)
-            ).flatten,
-            CppDoc.Type("void"),
-            Nil,
-            CppDoc.Function.PureVirtual
-          )
+              opcodeParam,
+              cmdSeqParam,
+            ),
+            cmdParamMap(opcode)
+          ).flatten,
+          CppDoc.Type("void"),
+          Nil,
+          CppDoc.Function.PureVirtual
         )
       )
     ).flatten
@@ -165,41 +155,37 @@ case class ComponentCommands (
   private def getHandlerBases: List[CppDoc.Class.Member] = {
     List(
       List(
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            List(
-              CppDocHppWriter.writeAccessTag("PROTECTED"),
-              CppDocWriter.writeBannerComment(
-                """|Command handler base-class functions.
-                   |Call these functions directly to bypass the command input port.
-                   |"""
-              ),
-            ).flatten
-          )
-        ),
+        linesClassMember(
+          List(
+            CppDocHppWriter.writeAccessTag("PROTECTED"),
+            CppDocWriter.writeBannerComment(
+              """|Command handler base-class functions.
+                 |Call these functions directly to bypass the command input port.
+                 |"""
+            ),
+          ).flatten
+        )
       ),
       nonParamCmds.map((_, cmd) =>
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some(
-              addSeparatedString(
-                s"Base-class handler function for command ${cmd.getName}",
-                AnnotationCppWriter.asStringOpt(cmd.aNode)
-              )
-            ),
-            commandHandlerBaseName(cmd.getName),
-            List(
-              opcodeParam,
-              cmdSeqParam,
-              CppDoc.Function.Param(
-                CppDoc.Type("Fw::CmdArgBuffer&"),
-                "args",
-                Some("The command argument buffer")
-              )
-            ),
-            CppDoc.Type("void"),
-            Nil
-          )
+        functionClassMember(
+          Some(
+            addSeparatedString(
+              s"Base-class handler function for command ${cmd.getName}",
+              AnnotationCppWriter.asStringOpt(cmd.aNode)
+            )
+          ),
+          commandHandlerBaseName(cmd.getName),
+          List(
+            opcodeParam,
+            cmdSeqParam,
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::CmdArgBuffer&"),
+              "args",
+              Some("The command argument buffer")
+            )
+          ),
+          CppDoc.Type("void"),
+          Nil
         )
       )
     ).flatten
@@ -207,34 +193,30 @@ case class ComponentCommands (
 
   private def getResponseFunction: List[CppDoc.Class.Member] = {
     List(
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          List(
-            CppDocHppWriter.writeAccessTag("PROTECTED"),
-            CppDocWriter.writeBannerComment(
-              "Command response"
-            ),
-          ).flatten
-        )
+      linesClassMember(
+        List(
+          CppDocHppWriter.writeAccessTag("PROTECTED"),
+          CppDocWriter.writeBannerComment(
+            "Command response"
+          ),
+        ).flatten
       ),
-      CppDoc.Class.Member.Function(
-        CppDoc.Function(
-          Some(
-            "Emit command response"
-          ),
-          "cmdResponse_out",
-          List(
-            opcodeParam,
-            cmdSeqParam,
-            CppDoc.Function.Param(
-              CppDoc.Type("Fw::CmdResponse"),
-              "response",
-              Some("The command response")
-            )
-          ),
-          CppDoc.Type("void"),
-          Nil
-        )
+      functionClassMember(
+        Some(
+          "Emit command response"
+        ),
+        "cmdResponse_out",
+        List(
+          opcodeParam,
+          cmdSeqParam,
+          CppDoc.Function.Param(
+            CppDoc.Type("Fw::CmdResponse"),
+            "response",
+            Some("The command response")
+          )
+        ),
+        CppDoc.Type("void"),
+        Nil
       )
     )
   }
@@ -242,37 +224,33 @@ case class ComponentCommands (
   private def getPreMsgHooks: List[CppDoc.Class.Member] = {
     List(
       List(
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            List(
-              CppDocHppWriter.writeAccessTag("PROTECTED"),
-              CppDocWriter.writeBannerComment(
-                s"""|Pre-message hooks for async commands.
-                    |Each of these functions is invoked just before processing the
-                    |corresponding command. By default they do nothing. You can
-                    |override them to provide specific pre-command behavior.
-                    |"""
-              ),
-            ).flatten
-          )
+        linesClassMember(
+          List(
+            CppDocHppWriter.writeAccessTag("PROTECTED"),
+            CppDocWriter.writeBannerComment(
+              s"""|Pre-message hooks for async commands.
+                  |Each of these functions is invoked just before processing the
+                  |corresponding command. By default they do nothing. You can
+                  |override them to provide specific pre-command behavior.
+                  |"""
+            ),
+          ).flatten
         )
       ),
       nonParamCmds.filter((_, cmd) => cmd.kind match {
         case Command.NonParam.Async(_, _) => true
         case _ => false
       }).map((_, cmd) =>
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some(s"Pre-message hook for command ${cmd.getName}"),
-            inputPortHookName(cmd.getName),
-            List(
-              opcodeParam,
-              cmdSeqParam
-            ),
-            CppDoc.Type("void"),
-            Nil,
-            CppDoc.Function.Virtual
-          )
+        functionClassMember(
+          Some(s"Pre-message hook for command ${cmd.getName}"),
+          inputPortHookName(cmd.getName),
+          List(
+            opcodeParam,
+            cmdSeqParam
+          ),
+          CppDoc.Type("void"),
+          Nil,
+          CppDoc.Function.Virtual
         )
       )
     ).flatten

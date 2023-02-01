@@ -41,25 +41,23 @@ case class ComponentEvents (
 
     if !hasEvents then Nil
     else List(
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          List(
-            Line.blank :: lines(s"//! Event IDs"),
-            wrapInEnum(
-              lines(
-                sortedEvents.map((id, event) =>
-                  writeEnumConstant(
-                    eventIdConstantName(event.getName),
-                    id,
-                    AnnotationCppWriter.asStringOpt(event.aNode),
-                    ComponentCppWriterUtils.Hex
-                  )
-                ).mkString("\n")
-              )
-            ),
-            throttleEnum
-          ).flatten
-        )
+      linesClassMember(
+        List(
+          Line.blank :: lines(s"//! Event IDs"),
+          wrapInEnum(
+            lines(
+              sortedEvents.map((id, event) =>
+                writeEnumConstant(
+                  eventIdConstantName(event.getName),
+                  id,
+                  AnnotationCppWriter.asStringOpt(event.aNode),
+                  ComponentCppWriterUtils.Hex
+                )
+              ).mkString("\n")
+            )
+          ),
+          throttleEnum
+        ).flatten
       )
     )
   }
@@ -75,22 +73,20 @@ case class ComponentEvents (
   def getVariableMembers: List[CppDoc.Class.Member] = {
     if throttledEvents.isEmpty then Nil
     else List(
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          List(
-            CppDocHppWriter.writeAccessTag("PRIVATE"),
-            CppDocWriter.writeBannerComment(
-              "Counter values for event throttling"
-            ),
-            throttledEvents.flatMap((_, event) =>
-              Line.blank :: lines(
-                s"""|//! Throttle for ${event.getName}
-                    |NATIVE_UINT_TYPE ${eventThrottleCounterName(event.getName)};
-                    |"""
-              )
+      linesClassMember(
+        List(
+          CppDocHppWriter.writeAccessTag("PRIVATE"),
+          CppDocWriter.writeBannerComment(
+            "Counter values for event throttling"
+          ),
+          throttledEvents.flatMap((_, event) =>
+            Line.blank :: lines(
+              s"""|//! Throttle for ${event.getName}
+                  |NATIVE_UINT_TYPE ${eventThrottleCounterName(event.getName)};
+                  |"""
             )
-          ).flatten
-        )
+          )
+        ).flatten
       )
     )
   }
@@ -98,37 +94,33 @@ case class ComponentEvents (
   private def getLoggingFunctions: List[CppDoc.Class.Member] = {
     List(
       List(
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            List(
-              CppDocHppWriter.writeAccessTag("PROTECTED"),
-              CppDocWriter.writeBannerComment(
-                "Event logging functions"
-              ),
-            ).flatten
-          )
-        ),
+        linesClassMember(
+          List(
+            CppDocHppWriter.writeAccessTag("PROTECTED"),
+            CppDocWriter.writeBannerComment(
+              "Event logging functions"
+            ),
+          ).flatten
+        )
       ),
       sortedEvents.map((_, event) =>
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some(
-              addSeparatedString(
-                s"Log event ${event.getName}",
-                AnnotationCppWriter.asStringOpt(event.aNode)
-              )
-            ),
-            eventLogName(event),
-            writeFormalParamList(
-              event.aNode._2.data.params,
-              s,
-              Nil,
-              Some("Fw::LogStringArg"),
-              CppWriterLineUtils.Value
-            ),
-            CppDoc.Type("void"),
-            Nil
-          )
+        functionClassMember(
+          Some(
+            addSeparatedString(
+              s"Log event ${event.getName}",
+              AnnotationCppWriter.asStringOpt(event.aNode)
+            )
+          ),
+          eventLogName(event),
+          writeFormalParamList(
+            event.aNode._2.data.params,
+            s,
+            Nil,
+            Some("Fw::LogStringArg"),
+            CppWriterUtils.Value
+          ),
+          CppDoc.Type("void"),
+          Nil
         )
       )
     ).flatten
@@ -138,26 +130,22 @@ case class ComponentEvents (
     if throttledEvents.isEmpty then Nil
     else List(
       List(
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            List(
-              CppDocHppWriter.writeAccessTag("PROTECTED"),
-              CppDocWriter.writeBannerComment(
-                "Event throttle reset functions"
-              ),
-            ).flatten
-          )
-        ),
+        linesClassMember(
+          List(
+            CppDocHppWriter.writeAccessTag("PROTECTED"),
+            CppDocWriter.writeBannerComment(
+              "Event throttle reset functions"
+            ),
+          ).flatten
+        )
       ),
       throttledEvents.map((_, event) =>
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some(s"Reset throttle value for ${event.getName}"),
-            eventThrottleResetName(event),
-            Nil,
-            CppDoc.Type("void"),
-            Nil
-          )
+        functionClassMember(
+          Some(s"Reset throttle value for ${event.getName}"),
+          eventThrottleResetName(event),
+          Nil,
+          CppDoc.Type("void"),
+          Nil
         )
       )
     ).flatten

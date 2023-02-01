@@ -21,29 +21,25 @@ case class ComponentInternalPort (
   private def getHandlers: List[CppDoc.Class.Member] = {
     List(
       List(
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            List(
-              CppDocHppWriter.writeAccessTag("PROTECTED"),
-              CppDocWriter.writeBannerComment(
-                "Internal interface handlers"
-              ),
-            ).flatten
-          )
+        linesClassMember(
+          List(
+            CppDocHppWriter.writeAccessTag("PROTECTED"),
+            CppDocWriter.writeBannerComment(
+              "Internal interface handlers"
+            ),
+          ).flatten
         ),
       ),
       internalPorts.map(p =>
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some(
-              s"Internal interface handler for ${p.getUnqualifiedName}"
-            ),
-            internalInterfaceHandlerName(p.getUnqualifiedName),
-            getPortFunctionParams(p),
-            CppDoc.Type("void"),
-            Nil,
-            CppDoc.Function.PureVirtual
-          )
+        functionClassMember(
+          Some(
+            s"Internal interface handler for ${p.getUnqualifiedName}"
+          ),
+          internalInterfaceHandlerName(p.getUnqualifiedName),
+          getPortFunctionParams(p),
+          CppDoc.Type("void"),
+          Nil,
+          CppDoc.Function.PureVirtual
         )
       )
     ).flatten
@@ -52,28 +48,24 @@ case class ComponentInternalPort (
   private def getHandlerBases: List[CppDoc.Class.Member] = {
     List(
       List(
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            List(
-              CppDocHppWriter.writeAccessTag("PROTECTED"),
-              CppDocWriter.writeBannerComment(
-                "Internal interface base-class functions"
-              ),
-            ).flatten
-          )
-        ),
+        linesClassMember(
+          List(
+            CppDocHppWriter.writeAccessTag("PROTECTED"),
+            CppDocWriter.writeBannerComment(
+              "Internal interface base-class functions"
+            ),
+          ).flatten
+        )
       ),
       internalPorts.map(p =>
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some(
-              s"Internal interface base-class function for ${p.getUnqualifiedName}"
-            ),
-            internalInterfaceHandlerBaseName(p.getUnqualifiedName),
-            getPortFunctionParams(p),
-            CppDoc.Type("void"),
-            Nil
-          )
+        functionClassMember(
+          Some(
+            s"Internal interface base-class function for ${p.getUnqualifiedName}"
+          ),
+          internalInterfaceHandlerBaseName(p.getUnqualifiedName),
+          getPortFunctionParams(p),
+          CppDoc.Type("void"),
+          Nil
         )
       )
     ).flatten

@@ -80,24 +80,22 @@ case class ComponentPorts(
   private def getConstants(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     if ports.isEmpty then Nil
     else List(
-      CppDoc.Class.Member.Lines(
-        CppDoc.Lines(
-          List(
-            Line.blank :: lines(
-              s"//! Enumerations for numbers of ${getPortTypeString(ports.head)} ${ports.head.getDirection.get.toString} ports"
-            ),
-            wrapInEnum(
-              lines(
-                ports.map(p =>
-                  writeEnumConstant(
-                    portConstantName(p.getUnqualifiedName, p.getDirection.get),
-                    p.getArraySize,
-                  )
-                ).mkString("\n")
-              )
+      linesClassMember(
+        List(
+          Line.blank :: lines(
+            s"//! Enumerations for numbers of ${getPortTypeString(ports.head)} ${ports.head.getDirection.get.toString} ports"
+          ),
+          wrapInEnum(
+            lines(
+              ports.map(p =>
+                writeEnumConstant(
+                  portConstantName(p.getUnqualifiedName, p.getDirection.get),
+                  p.getArraySize,
+                )
+              ).mkString("\n")
             )
-          ).flatten
-        )
+          )
+        ).flatten
       )
     )
   }
@@ -106,31 +104,27 @@ case class ComponentPorts(
     if ports.isEmpty then Nil
     else List(
       List(
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            List(
-              CppDocHppWriter.writeAccessTag("PROTECTED"),
-              CppDocWriter.writeBannerComment(
-                s"Getters for numbers of ${getPortTypeString(ports.head)} ${ports.head.getDirection.get.toString} ports"
-              )
-            ).flatten
-          )
+        linesClassMember(
+          List(
+            CppDocHppWriter.writeAccessTag("PROTECTED"),
+            CppDocWriter.writeBannerComment(
+              s"Getters for numbers of ${getPortTypeString(ports.head)} ${ports.head.getDirection.get.toString} ports"
+            )
+          ).flatten
         )
       ),
       mapPorts(ports, p => List(
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some(
-              s"""|Get the number of ${p.getUnqualifiedName} ${p.getDirection.get.toString} ports
-                  |
-                  |\\return The number of ${p.getUnqualifiedName} ${p.getDirection.get.toString} ports
-                  |"""
-            ),
-            portNumGetterName(p.getUnqualifiedName, p.getDirection.get),
-            Nil,
-            CppDoc.Type("NATIVE_INT_TYPE"),
-            Nil
-          )
+        functionClassMember(
+          Some(
+            s"""|Get the number of ${p.getUnqualifiedName} ${p.getDirection.get.toString} ports
+                |
+                |\\return The number of ${p.getUnqualifiedName} ${p.getDirection.get.toString} ports
+                |"""
+          ),
+          portNumGetterName(p.getUnqualifiedName, p.getDirection.get),
+          Nil,
+          CppDoc.Type("NATIVE_INT_TYPE"),
+          Nil
         )
       ))
     ).flatten
@@ -140,15 +134,13 @@ case class ComponentPorts(
     if ports.isEmpty then Nil
     else List(
       List(
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            List(
-              CppDocHppWriter.writeAccessTag("PRIVATE"),
-              CppDocWriter.writeBannerComment(
-                s"${getPortTypeString(ports.head).capitalize} ${ports.head.getDirection.get.toString} ports"
-              ),
-            ).flatten
-          )
+        linesClassMember(
+          List(
+            CppDocHppWriter.writeAccessTag("PRIVATE"),
+            CppDocWriter.writeBannerComment(
+              s"${getPortTypeString(ports.head).capitalize} ${ports.head.getDirection.get.toString} ports"
+            ),
+          ).flatten
         )
       ),
       mapPorts(ports, p => {
@@ -157,14 +149,12 @@ case class ComponentPorts(
         val num = portConstantName(p.getUnqualifiedName, p.getDirection.get)
 
         List(
-          CppDoc.Class.Member.Lines(
-            CppDoc.Lines(
-              lines(
-                s"""|
-                    |//! ${p.getDirection.get.toString.capitalize} port ${p.getUnqualifiedName}
-                    |$typeName $name[$num];
-                    |"""
-              )
+          linesClassMember(
+            lines(
+              s"""|
+                  |//! ${p.getDirection.get.toString.capitalize} port ${p.getUnqualifiedName}
+                  |$typeName $name[$num];
+                  |"""
             )
           )
         )

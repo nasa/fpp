@@ -105,25 +105,6 @@ object CppWriter extends AstStateVisitor with LineUtils {
 
   def headerLine(s: String): Line = line(headerString(s))
 
-  def linesMember(
-    content: List[Line],
-    output: CppDoc.Lines.Output = CppDoc.Lines.Hpp
-  ): CppDoc.Member.Lines = CppDoc.Member.Lines(CppDoc.Lines(content, output))
-
-  def namespaceMember(
-    name: String,
-    members: List[CppDoc.Member]
-  ): CppDoc.Member.Namespace = CppDoc.Member.Namespace(CppDoc.Namespace(name, members))
-
-  def wrapInNamespaces(
-    namespaceNames: List[String],
-    members: List[CppDoc.Member]
-  ): List[CppDoc.Member] = namespaceNames match {
-    case Nil => members
-    case head :: tail =>
-      List(namespaceMember(head, wrapInNamespaces(tail, members)))
-  }
-
   def writeCppDoc(s: State, cppDoc: CppDoc): Result.Result[State] =
     for {
       _ <- writeHppFile(s, cppDoc)

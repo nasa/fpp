@@ -14,40 +14,36 @@ case class ComponentOutputPorts(
     if ports.isEmpty then Nil
     else List(
       List(
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            List(
-              CppDocHppWriter.writeAccessTag("public"),
-              CppDocWriter.writeBannerComment(
-                s"Connect ${getPortTypeString(ports.head)} input ports to ${getPortTypeString(ports.head)} output ports"
-              ),
-            ).flatten
-          )
+        linesClassMember(
+          List(
+            CppDocHppWriter.writeAccessTag("public"),
+            CppDocWriter.writeBannerComment(
+              s"Connect ${getPortTypeString(ports.head)} input ports to ${getPortTypeString(ports.head)} output ports"
+            ),
+          ).flatten
         )
       ),
       mapPorts(ports, p => List(
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some(s"Connect port to ${p.getUnqualifiedName}[portNum]"),
-            outputPortConnectorName(p.getUnqualifiedName),
-            List(
-              portNumParam,
-              CppDoc.Function.Param(
-                CppDoc.Type(s"${getQualifiedPortTypeName(p, PortInstance.Direction.Input)}*"),
-                "port",
-                Some("The input port")
-              )
-            ),
-            CppDoc.Type("void"),
-            lines(
-              s"""|FW_ASSERT(
-                  |  portNum < this->${portNumGetterName(p.getUnqualifiedName, PortInstance.Direction.Output)}(),
-                  |  static_cast<FwAssertArgType>(portNum)
-                  |);
-                  |
-                  |this->${portVariableName(p.getUnqualifiedName, PortInstance.Direction.Output)}[portNum].addCallPort(port);
-                  |"""
+        functionClassMember(
+          Some(s"Connect port to ${p.getUnqualifiedName}[portNum]"),
+          outputPortConnectorName(p.getUnqualifiedName),
+          List(
+            portNumParam,
+            CppDoc.Function.Param(
+              CppDoc.Type(s"${getQualifiedPortTypeName(p, PortInstance.Direction.Input)}*"),
+              "port",
+              Some("The input port")
             )
+          ),
+          CppDoc.Type("void"),
+          lines(
+            s"""|FW_ASSERT(
+                |  portNum < this->${portNumGetterName(p.getUnqualifiedName, PortInstance.Direction.Output)}(),
+                |  static_cast<FwAssertArgType>(portNum)
+                |);
+                |
+                |this->${portVariableName(p.getUnqualifiedName, PortInstance.Direction.Output)}[portNum].addCallPort(port);
+                |"""
           )
         )
       )),
@@ -55,33 +51,29 @@ case class ComponentOutputPorts(
         "\n#if FW_PORT_SERIALIZATION",
         List(
           List(
-            CppDoc.Class.Member.Lines(
-              CppDoc.Lines(
-                List(
-                  CppDocHppWriter.writeAccessTag("public"),
-                  CppDocWriter.writeBannerComment("" +
-                    s"Connect serial input ports to ${getPortTypeString(ports.head)} output ports"
-                  ),
-                ).flatten
-              )
+            linesClassMember(
+              List(
+                CppDocHppWriter.writeAccessTag("public"),
+                CppDocWriter.writeBannerComment("" +
+                  s"Connect serial input ports to ${getPortTypeString(ports.head)} output ports"
+                ),
+              ).flatten
             )
           ),
           mapPorts(ports, p => List(
-            CppDoc.Class.Member.Function(
-              CppDoc.Function(
-                Some(s"Connect port to ${p.getUnqualifiedName}[portNum]"),
-                outputPortConnectorName(p.getUnqualifiedName),
-                List(
-                  portNumParam,
-                  CppDoc.Function.Param(
-                    CppDoc.Type(s"Fw::InputSerializePort*"),
-                    "port",
-                    Some("The port")
-                  )
-                ),
-                CppDoc.Type("void"),
-                Nil
-              )
+            functionClassMember(
+              Some(s"Connect port to ${p.getUnqualifiedName}[portNum]"),
+              outputPortConnectorName(p.getUnqualifiedName),
+              List(
+                portNumParam,
+                CppDoc.Function.Param(
+                  CppDoc.Type(s"Fw::InputSerializePort*"),
+                  "port",
+                  Some("The port")
+                )
+              ),
+              CppDoc.Type("void"),
+              Nil
             )
           ))
         ).flatten
@@ -95,50 +87,44 @@ case class ComponentOutputPorts(
       "\n#if FW_PORT_SERIALIZATION",
       List(
         List(
-          CppDoc.Class.Member.Lines(
-            CppDoc.Lines(
-              List(
-                CppDocHppWriter.writeAccessTag("public"),
-                CppDocWriter.writeBannerComment("" +
-                  "Connect serial input ports to serial output ports"
-                ),
-              ).flatten
-            )
+          linesClassMember(
+            List(
+              CppDocHppWriter.writeAccessTag("public"),
+              CppDocWriter.writeBannerComment("" +
+                "Connect serial input ports to serial output ports"
+              ),
+            ).flatten
           )
         ),
         ports.flatMap(p =>
           List(
-            CppDoc.Class.Member.Function(
-              CppDoc.Function(
-                Some(s"Connect port to ${p.getUnqualifiedName}[portNum]"),
-                outputPortConnectorName(p.getUnqualifiedName),
-                List(
-                  portNumParam,
-                  CppDoc.Function.Param(
-                    CppDoc.Type("Fw::InputSerializePort*"),
-                    "port",
-                    Some("The port")
-                  )
-                ),
-                CppDoc.Type("void"),
-                Nil
-              )
+            functionClassMember(
+              Some(s"Connect port to ${p.getUnqualifiedName}[portNum]"),
+              outputPortConnectorName(p.getUnqualifiedName),
+              List(
+                portNumParam,
+                CppDoc.Function.Param(
+                  CppDoc.Type("Fw::InputSerializePort*"),
+                  "port",
+                  Some("The port")
+                )
+              ),
+              CppDoc.Type("void"),
+              Nil
             ),
-            CppDoc.Class.Member.Function(
-              CppDoc.Function(
-                Some(s"Connect port to ${p.getUnqualifiedName}[portNum]"),
-                outputPortConnectorName(p.getUnqualifiedName),
-                List(
-                  portNumParam,
-                  CppDoc.Function.Param(
-                    CppDoc.Type("Fw::InputPortBase*"),
-                    "port",
-                    Some("The port")
-                  )
-                ),
-                CppDoc.Type("void"),
-                Nil
-              )
+            functionClassMember(
+              Some(s"Connect port to ${p.getUnqualifiedName}[portNum]"),
+              outputPortConnectorName(p.getUnqualifiedName),
+              List(
+                portNumParam,
+                CppDoc.Function.Param(
+                  CppDoc.Type("Fw::InputPortBase*"),
+                  "port",
+                  Some("The port")
+                )
+              ),
+              CppDoc.Type("void"),
+              Nil
             )
           )
         )
@@ -150,26 +136,22 @@ case class ComponentOutputPorts(
     if ports.isEmpty then Nil
     else List(
       List(
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            List(
-              CppDocHppWriter.writeAccessTag("PROTECTED"),
-              CppDocWriter.writeBannerComment("" +
-                s"Invocation functions for ${getPortTypeString(ports.head)} output ports"
-              ),
-            ).flatten
-          )
+        linesClassMember(
+          List(
+            CppDocHppWriter.writeAccessTag("PROTECTED"),
+            CppDocWriter.writeBannerComment("" +
+              s"Invocation functions for ${getPortTypeString(ports.head)} output ports"
+            ),
+          ).flatten
         )
       ),
       ports.map(p =>
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some(s"Invoke output port ${p.getUnqualifiedName}"),
-            outputPortInvokerName(p.getUnqualifiedName),
-            portNumParam :: getPortFunctionParams(p),
-            getReturnType(p),
-            Nil
-          )
+        functionClassMember(
+          Some(s"Invoke output port ${p.getUnqualifiedName}"),
+          outputPortInvokerName(p.getUnqualifiedName),
+          portNumParam :: getPortFunctionParams(p),
+          getReturnType(p),
+          Nil
         )
       )
     ).flatten
@@ -179,31 +161,27 @@ case class ComponentOutputPorts(
     if ports.isEmpty then Nil
     else List(
       List(
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            List(
-              CppDocHppWriter.writeAccessTag("PROTECTED"),
-              CppDocWriter.writeBannerComment("" +
-                s"Connection status queries for ${getPortTypeString(ports.head)} output ports"
-              ),
-            ).flatten
-          )
+        linesClassMember(
+          List(
+            CppDocHppWriter.writeAccessTag("PROTECTED"),
+            CppDocWriter.writeBannerComment("" +
+              s"Connection status queries for ${getPortTypeString(ports.head)} output ports"
+            ),
+          ).flatten
         )
       ),
       mapPorts(ports, p => List(
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some(
-              s"""|Check whether port ${p.getUnqualifiedName} is connected
-                  |
-                  |\\return Whether port ${p.getUnqualifiedName} is connected
-                  |"""
-            ),
-            outputPortIsConnectedName(p.getUnqualifiedName),
-            List(portNumParam),
-            CppDoc.Type("bool"),
-            Nil
-          )
+        functionClassMember(
+          Some(
+            s"""|Check whether port ${p.getUnqualifiedName} is connected
+                |
+                |\\return Whether port ${p.getUnqualifiedName} is connected
+                |"""
+          ),
+          outputPortIsConnectedName(p.getUnqualifiedName),
+          List(portNumParam),
+          CppDoc.Type("bool"),
+          Nil
         )
       ))
     ).flatten

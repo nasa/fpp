@@ -14,40 +14,36 @@ case class ComponentInputPorts(
     if ports.isEmpty then Nil
     else List(
       List(
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            List(
-              CppDocHppWriter.writeAccessTag("public"),
-              CppDocWriter.writeBannerComment(
-                s"Getters for ${getPortTypeString(ports.head)} input ports"
-              )
-            ).flatten
-          )
+        linesClassMember(
+          List(
+            CppDocHppWriter.writeAccessTag("public"),
+            CppDocWriter.writeBannerComment(
+              s"Getters for ${getPortTypeString(ports.head)} input ports"
+            )
+          ).flatten
         )
       ),
       mapPorts(ports, p => List(
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some(
-              s"""|Get ${getPortTypeString(ports.head)} input port at index
-                  |
-                  |\\return ${p.getUnqualifiedName}[portNum]
-                  |"""
-            ),
-            inputPortGetterName(p.getUnqualifiedName),
-            List(
-              portNumParam
-            ),
-            CppDoc.Type(s"${getQualifiedPortTypeName(p, PortInstance.Direction.Input)}*"),
-            lines(
-              s"""|FW_ASSERT(
-                  |  portNum < this->${portNumGetterName(p.getUnqualifiedName, PortInstance.Direction.Input)}(),
-                  |  static_cast<FwAssertArgType>(portNum)
-                  | );
-                  |
-                  |return &this->${portVariableName(p.getUnqualifiedName, PortInstance.Direction.Input)}[portNum];
-                  |"""
-            )
+        functionClassMember(
+          Some(
+            s"""|Get ${getPortTypeString(ports.head)} input port at index
+                |
+                |\\return ${p.getUnqualifiedName}[portNum]
+                |"""
+          ),
+          inputPortGetterName(p.getUnqualifiedName),
+          List(
+            portNumParam
+          ),
+          CppDoc.Type(s"${getQualifiedPortTypeName(p, PortInstance.Direction.Input)}*"),
+          lines(
+            s"""|FW_ASSERT(
+                |  portNum < this->${portNumGetterName(p.getUnqualifiedName, PortInstance.Direction.Input)}(),
+                |  static_cast<FwAssertArgType>(portNum)
+                | );
+                |
+                |return &this->${portVariableName(p.getUnqualifiedName, PortInstance.Direction.Input)}[portNum];
+                |"""
           )
         )
       ))
@@ -58,27 +54,23 @@ case class ComponentInputPorts(
     if ports.isEmpty then Nil
     else List(
       List(
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            List(
-              CppDocHppWriter.writeAccessTag("PROTECTED"),
-              CppDocWriter.writeBannerComment(
-                s"Handlers to implement for ${getPortTypeString(ports.head)} input ports"
-              )
-            ).flatten
-          )
+        linesClassMember(
+          List(
+            CppDocHppWriter.writeAccessTag("PROTECTED"),
+            CppDocWriter.writeBannerComment(
+              s"Handlers to implement for ${getPortTypeString(ports.head)} input ports"
+            )
+          ).flatten
         )
       ),
       ports.map(p =>
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some(s"Handler for input port ${p.getUnqualifiedName}"),
-            inputPortHandlerName(p.getUnqualifiedName),
-            portNumParam :: getPortFunctionParams(p),
-            CppDoc.Type("void"),
-            Nil,
-            CppDoc.Function.PureVirtual
-          )
+        functionClassMember(
+          Some(s"Handler for input port ${p.getUnqualifiedName}"),
+          inputPortHandlerName(p.getUnqualifiedName),
+          portNumParam :: getPortFunctionParams(p),
+          CppDoc.Type("void"),
+          Nil,
+          CppDoc.Function.PureVirtual
         )
       )
     ).flatten
@@ -88,28 +80,24 @@ case class ComponentInputPorts(
     if ports.isEmpty then Nil
     else List(
       List(
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            List(
-              CppDocHppWriter.writeAccessTag("PROTECTED"),
-              CppDocWriter.writeBannerComment(
-                s"""|Port handler base-class functions for ${getPortTypeString(ports.head)} input ports.
-                   |Call these functions directly to bypass the corresponding ports.
-                   |"""
-              ),
-            ).flatten
-          )
+        linesClassMember(
+          List(
+            CppDocHppWriter.writeAccessTag("PROTECTED"),
+            CppDocWriter.writeBannerComment(
+              s"""|Port handler base-class functions for ${getPortTypeString(ports.head)} input ports.
+                 |Call these functions directly to bypass the corresponding ports.
+                 |"""
+            ),
+          ).flatten
         )
       ),
       ports.map(p =>
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some(s"Handler base-class function for input port ${p.getUnqualifiedName}"),
-            inputPortHandlerBaseName(p.getUnqualifiedName),
-            portNumParam :: getPortFunctionParams(p),
-            CppDoc.Type("void"),
-            Nil
-          )
+        functionClassMember(
+          Some(s"Handler base-class function for input port ${p.getUnqualifiedName}"),
+          inputPortHandlerBaseName(p.getUnqualifiedName),
+          portNumParam :: getPortFunctionParams(p),
+          CppDoc.Type("void"),
+          Nil
         )
       )
     ).flatten
@@ -120,36 +108,32 @@ case class ComponentInputPorts(
     else {
       val functions =
         mapPorts(ports, p => List(
-          CppDoc.Class.Member.Function(
-            CppDoc.Function(
-              Some(s"Callback for port ${p.getUnqualifiedName}"),
-              inputPortCallbackName(p.getUnqualifiedName),
-              List(
-                CppDoc.Function.Param(
-                  CppDoc.Type("Fw::PassiveComponentBase*"),
-                  "callComp",
-                  Some("The component instance")
-                ),
-                portNumParam
-              ) ++ getPortFunctionParams(p),
-              CppDoc.Type("void"),
-              Nil,
-              CppDoc.Function.Static
-            )
+          functionClassMember(
+            Some(s"Callback for port ${p.getUnqualifiedName}"),
+            inputPortCallbackName(p.getUnqualifiedName),
+            List(
+              CppDoc.Function.Param(
+                CppDoc.Type("Fw::PassiveComponentBase*"),
+                "callComp",
+                Some("The component instance")
+              ),
+              portNumParam
+            ) ++ getPortFunctionParams(p),
+            CppDoc.Type("void"),
+            Nil,
+            CppDoc.Function.Static
           )
         ))
 
       List(
         List(
-          CppDoc.Class.Member.Lines(
-            CppDoc.Lines(
-              List(
-                CppDocHppWriter.writeAccessTag("PRIVATE"),
-                CppDocWriter.writeBannerComment(
-                  s"Calls for messages received on ${getPortTypeString(ports.head)} input ports"
-                ),
-              ).flatten
-            )
+          linesClassMember(
+            List(
+              CppDocHppWriter.writeAccessTag("PRIVATE"),
+              CppDocWriter.writeBannerComment(
+                s"Calls for messages received on ${getPortTypeString(ports.head)} input ports"
+              ),
+            ).flatten
           )
         ),
         ports.head.getType.get match {
@@ -168,31 +152,27 @@ case class ComponentInputPorts(
     if ports.isEmpty then Nil
     else List(
       List(
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            List(
-              CppDocHppWriter.writeAccessTag("PROTECTED"),
-              CppDocWriter.writeBannerComment(
-                s"""|Pre-message hooks for ${getPortTypeString(ports.head)} async input ports.
-                    |Each of these functions is invoked just before processing a message
-                    |on the corresponding port. By default, they do nothing. You can
-                    |override them to provide specific pre-message behavior.
-                    |"""
-              ),
-            ).flatten
-          )
+        linesClassMember(
+          List(
+            CppDocHppWriter.writeAccessTag("PROTECTED"),
+            CppDocWriter.writeBannerComment(
+              s"""|Pre-message hooks for ${getPortTypeString(ports.head)} async input ports.
+                  |Each of these functions is invoked just before processing a message
+                  |on the corresponding port. By default, they do nothing. You can
+                  |override them to provide specific pre-message behavior.
+                  |"""
+            ),
+          ).flatten
         )
       ),
       ports.map(p =>
-        CppDoc.Class.Member.Function(
-          CppDoc.Function(
-            Some(s"Pre-message hook for async input port ${p.getUnqualifiedName}"),
-            inputPortHookName(p.getUnqualifiedName),
-            portNumParam :: getPortFunctionParams(p),
-            CppDoc.Type("void"),
-            Nil,
-            CppDoc.Function.Virtual
-          )
+        functionClassMember(
+          Some(s"Pre-message hook for async input port ${p.getUnqualifiedName}"),
+          inputPortHookName(p.getUnqualifiedName),
+          portNumParam :: getPortFunctionParams(p),
+          CppDoc.Type("void"),
+          Nil,
+          CppDoc.Function.Virtual
         )
       )
     ).flatten
