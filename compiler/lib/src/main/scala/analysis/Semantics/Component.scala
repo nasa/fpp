@@ -297,7 +297,7 @@ case class Component(
         _ <- requirePorts(
           this.recordMap.size + this.containerMap.size,
           "data product",
-          List(ProductRecv, ProductRequest, ProductSend)
+          List(ProductRecv, ProductRequest, ProductSend, TimeGet)
         )
       }
       yield ()
