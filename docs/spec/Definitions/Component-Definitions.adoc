@@ -111,7 +111,7 @@ or special port specifier, internal port specifier, or
 
 |If there are any data product specifiers
 |There must be specifiers for ports `product` `request`, `product` `recv`,
-and `product` `send`.
+`product` `send`, and `time` `get`.
 |===
 
 The dictionary specifiers must satisfy the following rules:
@@ -123,8 +123,6 @@ The dictionary specifiers must satisfy the following rules:
 . All parameters must have distinct names and identifier values.
 
 . All telemetry channels must have distinct names and identifier values.
-
-The data product specifiers must satisfy the following rules:
 
 . All records must have distinct names and identifier values.
 
