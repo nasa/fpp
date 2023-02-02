@@ -7349,10 +7349,6 @@ literal expression</a>, the semantic analyzer does the following:</p>
 <p>Evaluate the expression to an unsigned integer value \$v\$.</p>
 </li>
 <li>
-<p>Check that \$v\$ can be represented in 64 or fewer bits. If not, throw
-an error.</p>
-</li>
-<li>
 <p>Assign the type <a href="#Types_Internal-Types_Integer"><em>Integer</em></a> to the expression.</p>
 </li>
 </ol>
@@ -7366,8 +7362,7 @@ an error.</p>
 constant b = 1 # Type is Integer
 constant c = 256 # Type is Integer
 constant d = 65536 # Type is Integer
-constant e = 0x100000000 # Type is Integer
-constant f = 0x10000000000000000 # Error; integer value is too large</code></pre>
+constant e = 0x100000000 # Type is Integer</code></pre>
 </div>
 </div>
 </div>
@@ -8466,7 +8461,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-02-01 09:25:58 -0800
+Last updated 2023-02-01 21:27:00 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
