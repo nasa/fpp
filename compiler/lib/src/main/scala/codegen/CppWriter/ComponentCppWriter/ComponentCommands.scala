@@ -83,7 +83,7 @@ case class ComponentCommands (
   }
 
   private def getFunctions: List[CppDoc.Class.Member] = {
-    if !hasCommands then Nil
+    if nonParamCmds.isEmpty then Nil
     else List(
       getHandlers,
       getHandlerBases,

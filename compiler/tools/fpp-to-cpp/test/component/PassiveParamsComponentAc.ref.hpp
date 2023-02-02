@@ -731,28 +731,6 @@ class PassiveParamsComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
-    // Command handlers to implement
-    // ----------------------------------------------------------------------
-
-  PROTECTED:
-
-    // ----------------------------------------------------------------------
-    // Command handler base-class functions.
-    // Call these functions directly to bypass the command input port.
-    // ----------------------------------------------------------------------
-
-  PROTECTED:
-
-    // ----------------------------------------------------------------------
-    // Pre-message hooks for async commands.
-    // Each of these functions is invoked just before processing the
-    // corresponding command. By default they do nothing. You can
-    // override them to provide specific pre-command behavior.
-    // ----------------------------------------------------------------------
-
-  PROTECTED:
-
-    // ----------------------------------------------------------------------
     // Parameter update hook
     // ----------------------------------------------------------------------
 
