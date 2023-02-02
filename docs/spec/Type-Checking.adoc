@@ -25,9 +25,6 @@ literal expression>>, the semantic analyzer does the following:
 
 . Evaluate the expression to an unsigned integer value stem:[v].
 
-. Check that stem:[v] can be represented in 64 or fewer bits. If not, throw
-an error.
-
 . Assign the type <<Types_Internal-Types_Integer,_Integer_>> to the expression.
 
 **Examples:**
@@ -39,7 +36,6 @@ constant b = 1 # Type is Integer
 constant c = 256 # Type is Integer
 constant d = 65536 # Type is Integer
 constant e = 0x100000000 # Type is Integer
-constant f = 0x10000000000000000 # Error; integer value is too large
 ----
 
 === Floating-Point Literals
