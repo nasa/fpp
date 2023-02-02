@@ -201,6 +201,7 @@ object CppWriterState {
     "FwChanIdType" -> zero,
     "FwDpBuffSizeType" -> zero,
     "FwDpIdType" -> zero,
+    "FwDpPriorityType" -> zero,
     "FwEnumStoreType" -> zero,
     "FwEventIdType" -> zero,
     "FwIndexType" -> zero,
