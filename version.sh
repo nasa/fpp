@@ -2,4 +2,4 @@
 # The FPP version
 # ----------------------------------------------------------------------
 
-export VERSION="v1.2.0 + Data Products"
+export VERSION="Data Products"
