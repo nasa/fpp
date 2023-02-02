@@ -1,4 +1,5 @@
 tests="
+types
 empty
 passive
 active

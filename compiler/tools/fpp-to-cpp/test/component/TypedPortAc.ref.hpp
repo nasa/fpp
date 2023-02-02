@@ -143,13 +143,13 @@ class InputTypedPort :
 
     //! Invoke a port interface
     void invoke(
-        U32 u32,
-        F32 f32,
-        bool b,
-        const TypedPortStrings::StringSize80& str,
-        const E& e,
-        const A& a,
-        const S& s
+        U32 u32, //!< A U32
+        F32 f32, //!< An F32
+        bool b, //!< A boolean
+        const TypedPortStrings::StringSize80& str, //!< A string
+        const E& e, //!< An enum
+        const A& a, //!< An array
+        const S& s //!< A struct
     );
 
   private:
@@ -197,13 +197,13 @@ class OutputTypedPort :
 
     //! Invoke a port interface
     void invoke(
-        U32 u32,
-        F32 f32,
-        bool b,
-        const TypedPortStrings::StringSize80& str,
-        const E& e,
-        const A& a,
-        const S& s
+        U32 u32, //!< A U32
+        F32 f32, //!< An F32
+        bool b, //!< A boolean
+        const TypedPortStrings::StringSize80& str, //!< A string
+        const E& e, //!< An enum
+        const A& a, //!< An array
+        const S& s //!< A struct
     );
 
   private:

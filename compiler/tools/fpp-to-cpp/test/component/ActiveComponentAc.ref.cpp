@@ -33,17 +33,6 @@ InputTypedPort* ActiveComponentBase ::
 }
 
 InputTypedPort* ActiveComponentBase ::
-  get_typedAsync_InputPort(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_typedAsync_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-   );
-
-  return &this->m_typedAsync_InputPort[portNum];
-}
-
-InputTypedPort* ActiveComponentBase ::
   get_typedGuarded_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -52,6 +41,17 @@ InputTypedPort* ActiveComponentBase ::
    );
 
   return &this->m_typedGuarded_InputPort[portNum];
+}
+
+InputTypedPort* ActiveComponentBase ::
+  get_typedAsync_InputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedAsync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+   );
+
+  return &this->m_typedAsync_InputPort[portNum];
 }
 
 Fw::InputSerializePort* ActiveComponentBase ::
@@ -66,17 +66,6 @@ Fw::InputSerializePort* ActiveComponentBase ::
 }
 
 Fw::InputSerializePort* ActiveComponentBase ::
-  get_serialAsync_InputPort(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_serialAsync_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-   );
-
-  return &this->m_serialAsync_InputPort[portNum];
-}
-
-Fw::InputSerializePort* ActiveComponentBase ::
   get_serialGuarded_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -85,6 +74,17 @@ Fw::InputSerializePort* ActiveComponentBase ::
    );
 
   return &this->m_serialGuarded_InputPort[portNum];
+}
+
+Fw::InputSerializePort* ActiveComponentBase ::
+  get_serialAsync_InputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_serialAsync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+   );
+
+  return &this->m_serialAsync_InputPort[portNum];
 }
 
 void ActiveComponentBase ::
@@ -380,13 +380,13 @@ NATIVE_INT_TYPE ActiveComponentBase ::
 }
 
 NATIVE_INT_TYPE ActiveComponentBase ::
-  getNum_typedAsync_InputPorts()
+  getNum_typedGuarded_InputPorts()
 {
 
 }
 
 NATIVE_INT_TYPE ActiveComponentBase ::
-  getNum_typedGuarded_InputPorts()
+  getNum_typedAsync_InputPorts()
 {
 
 }
@@ -398,13 +398,13 @@ NATIVE_INT_TYPE ActiveComponentBase ::
 }
 
 NATIVE_INT_TYPE ActiveComponentBase ::
-  getNum_serialAsync_InputPorts()
+  getNum_serialGuarded_InputPorts()
 {
 
 }
 
 NATIVE_INT_TYPE ActiveComponentBase ::
-  getNum_serialGuarded_InputPorts()
+  getNum_serialAsync_InputPorts()
 {
 
 }
@@ -553,7 +553,7 @@ void ActiveComponentBase ::
 }
 
 void ActiveComponentBase ::
-  typedAsync_handler(
+  typedGuarded_handler(
       NATIVE_INT_TYPE portNum,
       U32 u32,
       F32 f32,
@@ -568,7 +568,7 @@ void ActiveComponentBase ::
 }
 
 void ActiveComponentBase ::
-  typedGuarded_handler(
+  typedAsync_handler(
       NATIVE_INT_TYPE portNum,
       U32 u32,
       F32 f32,
@@ -598,7 +598,7 @@ void ActiveComponentBase ::
 }
 
 void ActiveComponentBase ::
-  typedAsync_handlerBase(
+  typedGuarded_handlerBase(
       NATIVE_INT_TYPE portNum,
       U32 u32,
       F32 f32,
@@ -613,7 +613,7 @@ void ActiveComponentBase ::
 }
 
 void ActiveComponentBase ::
-  typedGuarded_handlerBase(
+  typedAsync_handlerBase(
       NATIVE_INT_TYPE portNum,
       U32 u32,
       F32 f32,
@@ -637,7 +637,7 @@ void ActiveComponentBase ::
 }
 
 void ActiveComponentBase ::
-  serialAsync_handler(
+  serialGuarded_handler(
       NATIVE_INT_TYPE portNum,
       Fw::SerializeBufferBase& buffer
   )
@@ -646,7 +646,7 @@ void ActiveComponentBase ::
 }
 
 void ActiveComponentBase ::
-  serialGuarded_handler(
+  serialAsync_handler(
       NATIVE_INT_TYPE portNum,
       Fw::SerializeBufferBase& buffer
   )
@@ -664,7 +664,7 @@ void ActiveComponentBase ::
 }
 
 void ActiveComponentBase ::
-  serialAsync_handlerBase(
+  serialGuarded_handlerBase(
       NATIVE_INT_TYPE portNum,
       Fw::SerializeBufferBase& buffer
   )
@@ -673,7 +673,7 @@ void ActiveComponentBase ::
 }
 
 void ActiveComponentBase ::
-  serialGuarded_handlerBase(
+  serialAsync_handlerBase(
       NATIVE_INT_TYPE portNum,
       Fw::SerializeBufferBase& buffer
   )
@@ -835,15 +835,6 @@ void ActiveComponentBase ::
 }
 
 void ActiveComponentBase ::
-  CMD_ASYNC_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq
-  )
-{
-
-}
-
-void ActiveComponentBase ::
   CMD_SYNC_PRIMITIVE_cmdHandler(
       FwOpcodeType opCode,
       U32 cmdSeq,
@@ -891,6 +882,15 @@ void ActiveComponentBase ::
       FwOpcodeType opCode,
       U32 cmdSeq,
       S s
+  )
+{
+
+}
+
+void ActiveComponentBase ::
+  CMD_ASYNC_cmdHandler(
+      FwOpcodeType opCode,
+      U32 cmdSeq
   )
 {
 
@@ -945,16 +945,6 @@ void ActiveComponentBase ::
 }
 
 void ActiveComponentBase ::
-  CMD_ASYNC_cmdHandlerBase(
-      FwOpcodeType opCode,
-      U32 cmdSeq,
-      Fw::CmdArgBuffer& args
-  )
-{
-
-}
-
-void ActiveComponentBase ::
   CMD_SYNC_PRIMITIVE_cmdHandlerBase(
       FwOpcodeType opCode,
       U32 cmdSeq,
@@ -996,6 +986,16 @@ void ActiveComponentBase ::
 
 void ActiveComponentBase ::
   CMD_SYNC_STRUCT_cmdHandlerBase(
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      Fw::CmdArgBuffer& args
+  )
+{
+
+}
+
+void ActiveComponentBase ::
+  CMD_ASYNC_cmdHandlerBase(
       FwOpcodeType opCode,
       U32 cmdSeq,
       Fw::CmdArgBuffer& args
@@ -1338,7 +1338,7 @@ void ActiveComponentBase ::
 }
 
 void ActiveComponentBase ::
-  m_p_typedAsync_in(
+  m_p_typedGuarded_in(
       Fw::PassiveComponentBase* callComp,
       NATIVE_INT_TYPE portNum,
       U32 u32,
@@ -1354,7 +1354,7 @@ void ActiveComponentBase ::
 }
 
 void ActiveComponentBase ::
-  m_p_typedGuarded_in(
+  m_p_typedAsync_in(
       Fw::PassiveComponentBase* callComp,
       NATIVE_INT_TYPE portNum,
       U32 u32,
@@ -1382,7 +1382,7 @@ void ActiveComponentBase ::
 }
 
 void ActiveComponentBase ::
-  m_p_serialAsync_in(
+  m_p_serialGuarded_in(
       Fw::PassiveComponentBase* callComp,
       NATIVE_INT_TYPE portNum,
       Fw::SerializeBufferBase& buffer
@@ -1392,7 +1392,7 @@ void ActiveComponentBase ::
 }
 
 void ActiveComponentBase ::
-  m_p_serialGuarded_in(
+  m_p_serialAsync_in(
       Fw::PassiveComponentBase* callComp,
       NATIVE_INT_TYPE portNum,
       Fw::SerializeBufferBase& buffer

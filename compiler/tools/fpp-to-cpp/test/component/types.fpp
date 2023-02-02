@@ -9,11 +9,11 @@ struct S { x: U32, y: string }
 
 @ A typed port
 port Typed(
-  u32: U32,
-  f32: F32,
-  b: bool,
-  str: string,
-  e: E,
-  a: A,
-  s: S
+  u32: U32, @< A U32
+  f32: F32, @< An F32
+  b: bool, @< A boolean
+  str: string, @< A string
+  e: E, @< An enum
+  a: A, @< An array
+  s: S @< A struct
 )
