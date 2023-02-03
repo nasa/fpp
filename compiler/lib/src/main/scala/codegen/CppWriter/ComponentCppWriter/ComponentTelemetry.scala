@@ -10,15 +10,6 @@ case class ComponentTelemetry (
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
-  private val sortedChannels = component.tlmChannelMap.toList.sortBy(_._1)
-
-  private val updateOnChangeChannels = sortedChannels.filter((_, channel) =>
-    channel.update match {
-      case Ast.SpecTlmChannel.OnChange => true
-      case _ => false
-    }
-  )
-
   def getConstantMembers: List[CppDoc.Class.Member] = {
     if !hasChannels then Nil
     else List(
@@ -120,9 +111,6 @@ case class ComponentTelemetry (
     ).flatten
   }
 
-  private def writeChannelType(t: Type) =
-    writeCppTypeName(t, s, Nil, Some("Fw::TlmString"))
-
   private def writeChannelParam(t: Type) = {
     val typeName = writeChannelType(t)
 
@@ -137,11 +125,5 @@ case class ComponentTelemetry (
 
   private def channelWriteFunctionName(name: String) =
     s"tlmWrite_$name"
-
-  private def channelUpdateFlagName(name: String) =
-    s"m_first_update_$name"
-
-  private def channelStorageName(name: String) =
-    s"m_last_$name"
 
 }

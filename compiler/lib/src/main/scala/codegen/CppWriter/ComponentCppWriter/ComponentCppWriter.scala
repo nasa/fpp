@@ -227,6 +227,63 @@ case class ComponentCppWriter (
   }
 
   private def getComponentFunctionMembers: List[CppDoc.Class.Member] = {
+    def writeChannelInit(channel: TlmChannel) = {
+      List(
+        lines(
+          s"""|// Write telemetry channel ${channel.getName}
+              |this->${channelUpdateFlagName(channel.getName)} = true;
+              |"""
+        ),
+        channel.channelType match {
+          case t if s.isPrimitive(t, writeChannelType(t)) => lines(
+            s"this->${channelStorageName(channel.getName)} = 0;"
+          )
+          case _ => Nil
+        }
+      ).flatten
+    }
+    def writePortConnections(port: PortInstance) = {
+      val name = port.getUnqualifiedName
+      val d = port.getDirection.get
+
+      line(s"// Connect ${d.toString} port $name") ::
+        wrapInForLoopStaggered(
+          "PlatformIntType port = 0",
+          s"port < static_cast<PlatformIntType>(this->${portNumGetterName(name, d)}())",
+          "port++",
+          List(
+            lines(
+              s"|this->${portVariableName(name, d)}[port].init();"
+            ),
+            d match {
+              case PortInstance.Direction.Input => lines(
+                s"""|this->${portVariableName(name, d)}[port].addCallComp(
+                    |  this,
+                    |  ${inputPortCallbackName(name)}
+                    |);
+                    |this->${portVariableName(name, d)}[port].setPortNum(port);
+                    |"""
+              )
+              case PortInstance.Direction.Output => Nil
+            },
+            Line.blank :: lines(
+              s"""|#if FW_OBJECT_NAMES == 1
+                  |char portName[120];
+                  |(void) snprintf(
+                  |  portName,
+                  |  sizeof(portName),
+                  |  "%s_${name}_${d.toString.capitalize}Port[%" PRI_PlatformIntType "]",
+                  |  this->m_objName,
+                  |  port
+                  |);
+                  |this->${portVariableName(name, d)}[port].setObjName(portName);
+                  |#endif
+                  |"""
+            )
+          ).flatten
+        )
+    }
+
     val initInstanceParam = List(
       CppDoc.Function.Param(
         CppDoc.Type("NATIVE_INT_TYPE"),
@@ -274,14 +331,46 @@ case class ComponentCppWriter (
           )
         ),
         List(s"Fw::${kindStr}ComponentBase(compName)"),
-        Nil
+        intersperseBlankLines(
+          List(
+            intersperseBlankLines(
+              updateOnChangeChannels.map((_, channel) =>
+                writeChannelInit(channel)
+              )
+            ),
+            throttledEvents.map((_, event) => line(
+              s"this->${eventThrottleCounterName(event.getName)} = 0;"
+            )),
+            sortedParams.map((_, param) => line(
+              s"this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::UNINIT;"
+            ))
+          )
+        )
       ),
       functionClassMember(
         Some(s"Initialize $className object"),
         "init",
         initQueueDepthParam ++ initMsgSizeParam ++ initInstanceParam,
         CppDoc.Type("void"),
-        Nil
+        intersperseBlankLines(
+          List(
+            lines(
+              s"""|// Initialize base class
+                  |Fw::$baseClassName::init(instance);
+                  |"""
+            ),
+            intersperseBlankLines(
+              List(
+                intersperseBlankLines(specialInputPorts.map(writePortConnections)),
+                intersperseBlankLines(typedInputPorts.map(writePortConnections)),
+                intersperseBlankLines(serialInputPorts.map(writePortConnections)),
+                intersperseBlankLines(specialOutputPorts.map(writePortConnections)),
+                intersperseBlankLines(typedOutputPorts.map(writePortConnections)),
+                intersperseBlankLines(serialOutputPorts.map(writePortConnections))
+              )
+            )
+          )
+        )
       ),
       destructorClassMember(
         Some(s"Destroy $className object"),

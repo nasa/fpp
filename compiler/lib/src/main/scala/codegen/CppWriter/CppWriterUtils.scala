@@ -27,6 +27,18 @@ trait CppWriterUtils extends LineUtils {
   def wrapInForLoop(init: String, condition: String, step: String, body: List[Line]): List[Line] =
     wrapInScope(s"for ($init; $condition; $step) {", body, "}")
 
+  def wrapInForLoopStaggered(init: String, condition: String, step: String, body: List[Line]): List[Line] =
+    wrapInScope(
+      s"""|for (
+          |  $init;
+          |  $condition;
+          |  $step
+          |) {
+          |""",
+      body,
+      "}"
+    )
+
   def wrapInIf(condition: String, body: List[Line]): List[Line] =
     wrapInScope(s"if ($condition) {", body, "}")
 
@@ -111,6 +123,16 @@ trait CppWriterUtils extends LineUtils {
         ),
       )
     )
+
+  /** Insert element between each element of list l */
+  def intersperseList[T](l: List[T], element: T): List[T] = l match {
+    case Nil | _ :: Nil => l
+    case h :: t => h :: element :: intersperseList(t, element)
+  }
+
+  /** Insert blank lines between each list of lines in l and flatten */
+  def intersperseBlankLines(l: List[List[Line]]): List[Line] =
+    intersperseList(l.filter(_ != Nil), List(Line.blank)).flatten
 
   def classMember(
     comment: Option[String],

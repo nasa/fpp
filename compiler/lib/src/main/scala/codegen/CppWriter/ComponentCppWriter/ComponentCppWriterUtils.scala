@@ -28,7 +28,7 @@ abstract class ComponentCppWriterUtils(
   )
 
   /** List of general port instances */
-  private val generalPorts: List[PortInstance.General] = members.map(member =>
+  val generalPorts: List[PortInstance.General] = members.map(member =>
     member.node._2 match {
       case Ast.ComponentMember.SpecPortInstance(node) => node.data match {
         case p: Ast.SpecPortInstance.General => component.portMap(p.name) match {
@@ -49,7 +49,7 @@ abstract class ComponentCppWriterUtils(
     filterByPortDirection(generalPorts, PortInstance.Direction.Output)
 
   /** List of special port instances */
-  private val specialPorts: List[PortInstance.Special] = members.map(member =>
+  val specialPorts: List[PortInstance.Special] = members.map(member =>
     member.node._2 match {
       case Ast.ComponentMember.SpecPortInstance(node) => node.data match {
         case p: Ast.SpecPortInstance.Special => component.portMap(p.name) match {
@@ -96,6 +96,31 @@ abstract class ComponentCppWriterUtils(
       }
       case _ => None
     }).filter(_.isDefined).map(_.get)
+
+  /** List of events sorted by ID */
+  val sortedEvents = component.eventMap.toList.sortBy(_._1)
+
+  /** List of throttled events */
+  val throttledEvents = sortedEvents.filter((_, event) =>
+    event.throttle match {
+      case Some(_) => true
+      case None => false
+    }
+  )
+
+  /** List of channels sorted by ID */
+  val sortedChannels = component.tlmChannelMap.toList.sortBy(_._1)
+
+  /** List of channels updated on change */
+  val updateOnChangeChannels = sortedChannels.filter((_, channel) =>
+    channel.update match {
+      case Ast.SpecTlmChannel.OnChange => true
+      case _ => false
+    }
+  )
+
+  /** List of parameters sorted by ID */
+  val sortedParams = component.paramMap.toList.sortBy(_._1)
 
   // Component properties
 
@@ -247,6 +272,10 @@ abstract class ComponentCppWriterUtils(
     s"$name = $valueStr,$commentStr"
   }
 
+  /** Write a channel type as a C++ type */
+  def writeChannelType(t: Type) =
+    writeCppTypeName(t, s, Nil, Some("Fw::TlmString"))
+
   /** Add an optional string separated by two newlines */
   def addSeparatedString(str: String, strOpt: Option[String]): String = {
     strOpt match {
@@ -267,13 +296,33 @@ abstract class ComponentCppWriterUtils(
   def portNumGetterName(name: String, direction: PortInstance.Direction) =
     s"getNum_${name}_${direction.toString.capitalize}Ports"
 
-  /** Get the name for a port member */
+  /** Get the name for a port variable */
   def portVariableName(name: String, direction: PortInstance.Direction) =
     s"m_${name}_${direction.toString.capitalize}Port"
+
+  /** Get the name for an input port callback function */
+  def inputPortCallbackName(name: String) =
+    s"m_p_${name}_in"
 
   /** Get the name for an async input port pre-message hook function */
   def inputPortHookName(name: String) =
     s"${name}_preMsgHook"
+
+  /** Get the name for an event throttle counter variable */
+  def eventThrottleCounterName(name: String) =
+    s"m_${name}Throttle"
+
+  /** Get the name for a telemetry channel update flag variable */
+  def channelUpdateFlagName(name: String) =
+    s"m_first_update_$name"
+
+  /** Get the name for a telemetry channel storage variable */
+  def channelStorageName(name: String) =
+    s"m_last_$name"
+
+  /** Get the name for a parameter validity flag variable */
+  def paramValidityFlagName(name: String) =
+    s"m_param_${name}_valid"
 
   private def filterByPortDirection[T<: PortInstance](ports: List[T], direction: PortInstance.Direction) =
     ports.filter(p =>

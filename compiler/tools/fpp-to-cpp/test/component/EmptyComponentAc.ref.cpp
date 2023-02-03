@@ -20,7 +20,8 @@ EmptyComponentBase ::
 void EmptyComponentBase ::
   init(NATIVE_INT_TYPE instance)
 {
-
+  // Initialize base class
+  Fw::PassiveComponentBase::init(instance);
 }
 
 EmptyComponentBase ::

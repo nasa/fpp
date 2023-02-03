@@ -10,8 +10,6 @@ case class ComponentParameters (
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
-  private val sortedParams = component.paramMap.toList.sortBy(_._1)
-
   def getConstantMembers: List[CppDoc.Class.Member] = {
     if !hasParameters then Nil
     else List(
@@ -316,9 +314,6 @@ case class ComponentParameters (
 
   private def paramSaveName(name: String) =
     s"paramSave_$name"
-
-  private def paramValidityFlagName(name: String) =
-    s"m_param_${name}_valid"
 
   private def paramVariableName(name: String) =
     s"m_$name"

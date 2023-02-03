@@ -190,8 +190,4 @@ case class ComponentInputPorts(
   private def inputPortHandlerBaseName(name: String) =
     s"${name}_handlerBase"
 
-  // Get the name for an input port callback function
-  private def inputPortCallbackName(name: String) =
-    s"m_p_${name}_in"
-
 }

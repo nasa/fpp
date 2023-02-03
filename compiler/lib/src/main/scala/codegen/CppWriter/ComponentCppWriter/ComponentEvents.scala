@@ -10,15 +10,6 @@ case class ComponentEvents (
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
-  private val sortedEvents = component.eventMap.toList.sortBy(_._1)
-
-  private val throttledEvents = sortedEvents.filter((_, event) =>
-    event.throttle match {
-      case Some(_) => true
-      case None => false
-    }
-  )
-
   def getConstantMembers: List[CppDoc.Class.Member] = {
     val throttleEnum =
       if throttledEvents.isEmpty then Nil
@@ -175,9 +166,5 @@ case class ComponentEvents (
   // Get the name for an event throttle reset function
   private def eventThrottleResetName(event: Event) =
     s"${eventLogName(event)}_ThrottleClear"
-
-  // Get the name for an event throttle counter variable
-  private def eventThrottleCounterName(name: String) =
-    s"m_${name}Throttle"
 
 }
