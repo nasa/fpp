@@ -41,6 +41,9 @@ case class Component(
   defaultRecordId: BigInt = 0
 ) {
 
+  /** Query whether the component has data products */
+  def hasDataProducts = (this.recordMap.size + this.containerMap.size) > 0
+
   /** Gets the max identifier */
   def getMaxId: BigInt = {
     def maxInMap[T](map: Map[BigInt, T]): BigInt =

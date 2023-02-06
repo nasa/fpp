@@ -27,6 +27,9 @@ object ComputeCppFiles extends AstStateVisitor {
     /** Gets the C++ file name for generated components */
     def getComponent(baseName: String) = s"${baseName}ComponentAc"
 
+    /** Gets the C++ file name for generated component data products */
+    def getDpComponent(baseName: String) = s"${baseName}DpComponentAc"
+
     /** Gets the C++ file name for generated ports */
     def getPort(baseName: String) = s"${baseName}PortAc"
 
@@ -44,11 +47,15 @@ object ComputeCppFiles extends AstStateVisitor {
   ) = {
     val node = aNode._2
     val data = node.data
-    // TODO
-    //val name = s.getName(Symbol.Component(aNode))
-    //val loc = Locations.get(node.id)
-    //addMappings(s, FileNames.getComponent(name), Some(loc))
-    visitList(s, data.members, matchComponentMember)
+    val name = s.getName(Symbol.Component(aNode))
+    val loc = Locations.get(node.id)
+    for {
+      // TODO
+      //s <- addMappings(s, FileNames.getComponent(name), Some(loc))
+      s <- addMappings(s, FileNames.getDpComponent(name), Some(loc))
+      s <- visitList(s, data.members, matchComponentMember)
+    }
+    yield s
   }
 
   override def defConstantAnnotatedNode(

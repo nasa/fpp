@@ -25,10 +25,12 @@ object CppWriter extends AstStateVisitor with LineUtils {
   ) = {
     val node = aNode._2
     val data = node.data
-    val cppDoc = ComponentCppWriter(s, aNode).write
+    //val cppDoc = ComponentCppWriter(s, aNode).write
+    val dpCppDoc = DpComponentCppWriter(s, aNode).write
     for {
       // TODO
       //_ <- writeCppDoc(s, cppDoc)
+      _ <- writeCppDoc(s, dpCppDoc)
       _ <- visitList (s, data.members, matchComponentMember)
     }
     yield s
