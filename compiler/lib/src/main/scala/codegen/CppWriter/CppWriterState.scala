@@ -128,10 +128,17 @@ case class CppWriterState(
       removeComponentQualifiers(psOpt, out1)
   }
 
+  /** Write the path of a symbol definition file */
+  def writeSymbolPath(sym: Symbol, fileName:String): String = {
+    val loc = sym.getLoc
+    val fullPath = loc.getNeighborPath(fileName)
+    removeLongestPathPrefix(fullPath).toString
+  }
+
   /** Write include directives as lines */
   def writeIncludeDirectives(usedSymbols: Iterable[Symbol]): List[String] = {
-    def getHeaderStr(file: File.JavaPath) =
-      CppWriter.headerString(s"${file.toString}.hpp")
+    def getHeaderStr(fileName: String) =
+      CppWriter.headerString(s"${fileName}.hpp")
     def getDirectiveForSymbol(sym: Symbol): Option[String] =
       for {
         fileName <- sym match {
@@ -160,12 +167,7 @@ case class CppWriterState(
           case _ => None
         }
       }
-      yield {
-        val loc = sym.getLoc
-        val fullPath = loc.getNeighborPath(fileName)
-        val path = removeLongestPathPrefix(fullPath)
-        getHeaderStr(path)
-      }
+      yield getHeaderStr(writeSymbolPath(sym, fileName))
 
     usedSymbols.map(getDirectiveForSymbol).filter(_.isDefined).map(_.get).toList
   }

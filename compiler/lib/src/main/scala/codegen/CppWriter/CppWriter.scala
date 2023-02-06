@@ -25,12 +25,16 @@ object CppWriter extends AstStateVisitor with LineUtils {
   ) = {
     val node = aNode._2
     val data = node.data
-    //val cppDoc = ComponentCppWriter(s, aNode).write
-    val dpCppDoc = DpComponentCppWriter(s, aNode).write
     for {
-      // TODO
-      //_ <- writeCppDoc(s, cppDoc)
-      _ <- writeCppDoc(s, dpCppDoc)
+// TODO
+//      _ <- {
+//        val cppDoc = ComponentCppWriter(s, aNode).write
+//        writeCppDoc(s, cppDoc)
+//      }
+      _ <- if (ComputeCppFiles.componentHasDataProducts(data)) {
+        val dpCppDoc = DpComponentCppWriter(s, aNode).write
+        writeCppDoc(s, dpCppDoc)
+      } else Right(())
       _ <- visitList (s, data.members, matchComponentMember)
     }
     yield s

@@ -15,6 +15,8 @@ case class DpComponentCppWriter (
 
   private val fileName = ComputeCppFiles.FileNames.getComponent(name)
 
+  private val dpFileName = ComputeCppFiles.FileNames.getDpComponent(name)
+
   private val namespaceIdentList = s.getNamespaceIdentList(symbol)
 
   private val kindStr = data.kind match {
@@ -33,20 +35,19 @@ case class DpComponentCppWriter (
   }
 
   def write: CppDoc = {
-    val includeGuard = s.includeGuardFromQualifiedName(symbol, fileName)
+    val includeGuard = s.includeGuardFromQualifiedName(symbol, dpFileName)
     CppWriter.createCppDoc(
       s"$name component base class",
-      fileName,
+      dpFileName,
       includeGuard,
-      // TODO
-      Nil, //getMembers,
+      getMembers,
       s.toolName
     )
   }
 
-//  private def getMembers: List[CppDoc.Member] = {
-//    val hppIncludes = getHppIncludes
-//    val cppIncludes = getCppIncludes
+  private def getMembers: List[CppDoc.Member] = {
+    val hppIncludes = getHppIncludes
+    val cppIncludes = getCppIncludes
 //    val cls = classMember(
 //      Some(
 //        addSeparatedString(
@@ -58,79 +59,36 @@ case class DpComponentCppWriter (
 //      Some(s"public Fw::$baseClassName"),
 //      getClassMembers
 //    )
-//    List(
-//      List(hppIncludes, cppIncludes),
-//      wrapInNamespaces(namespaceIdentList, List(cls))
-//    ).flatten
-//  }
-//
-//  private def getHppIncludes: CppDoc.Member = {
-//    // Conditional headers
-//    val mutexHeader =
-//      if hasGuardedInputPorts || hasParameters then List("Os/Mutex.hpp")
-//      else Nil
-//    val cmdStrHeader =
-//      if hasCommands || hasParameters then List("Fw/Cmd/CmdString.hpp")
-//      else Nil
-//    val tlmStrHeader =
-//      if hasChannels then List("Fw/Tlm/TlmString.hpp")
-//      else Nil
-//    val prmStrHeader =
-//      if hasParameters then List("Fw/Prm/PrmString.hpp")
-//      else Nil
-//    val logStrHeader =
-//      if hasEvents then List("Fw/Log/LogString.hpp")
-//      else Nil
-//    val internalStrHeader =
-//      if hasInternalPorts then List("Fw/Types/InternalInterfaceString.hpp")
-//      else Nil
-//
-//    val standardHeaders = List(
-//      List(
-//        "FpConfig.hpp",
-//        "Fw/Port/InputSerializePort.hpp",
-//        "Fw/Port/OutputSerializePort.hpp",
-//        "Fw/Comp/ActiveComponentBase.hpp"
-//      ),
-//      mutexHeader,
-//      cmdStrHeader,
-//      tlmStrHeader,
-//      prmStrHeader,
-//      logStrHeader,
-//      internalStrHeader
-//    ).flatten.map(CppWriter.headerString)
-//    val symbolHeaders = writeIncludeDirectives
-//    val headers = standardHeaders ++ symbolHeaders
-//    linesMember(addBlankPrefix(headers.sorted.flatMap({
-//      case s: "#include \"Fw/Log/LogTextPortAc.hpp\"" =>
-//        lines(
-//          s"""|#if FW_ENABLE_TEXT_LOGGING == 1
-//              |$s
-//              |#endif
-//              |""".stripMargin
-//        )
-//      case s => lines(s)
-//    })))
-//  }
-//
-//  private def getCppIncludes: CppDoc.Member = {
-//    val systemHeaders = List(
-//      "cstdio",
-//    ).map(CppWriter.systemHeaderString).map(line)
-//    val userHeaders = List(
-//      "Fw/Types/Assert.hpp",
-//      "Fw/Types/String.hpp",
-//      s"${s.getRelativePath(fileName).toString}.hpp"
-//    ).sorted.map(CppWriter.headerString).map(line)
-//    linesMember(
-//      List(
-//        Line.blank :: systemHeaders,
-//        Line.blank :: userHeaders
-//      ).flatten,
-//      CppDoc.Lines.Cpp
-//    )
-//  }
-//
+    List(
+      List(hppIncludes, cppIncludes),
+      //wrapInNamespaces(namespaceIdentList, List(cls))
+      wrapInNamespaces(namespaceIdentList, Nil)
+    ).flatten
+  }
+
+  private def getHppIncludes: CppDoc.Member = {
+    val standardHeaders = List(
+      "FpConfig.hpp",
+      "Fw/Com/ComPacket.hpp",
+      "Fw/Dp/DpContainer.hpp",
+      s"${s.getRelativePath(fileName).toString}.hpp",
+    ).map(CppWriter.headerString)
+    val symbolHeaders = writeIncludeDirectives
+    val headers = standardHeaders ++ symbolHeaders
+    linesMember(addBlankPrefix(headers.sorted.map(line)))
+  }
+
+  private def getCppIncludes: CppDoc.Member = {
+    val headers = List(
+      "FppTest/dp/DpTestDpComponentBase.hpp",
+      "Fw/Types/Assert.hpp"
+    )
+    linesMember(
+      addBlankPrefix(headers.map(CppWriter.headerString).map(line)),
+      CppDoc.Lines.Cpp
+    )
+  }
+
 //  private def getClassMembers: List[CppDoc.Class.Member] = {
 //    List(
 //      // Friend classes

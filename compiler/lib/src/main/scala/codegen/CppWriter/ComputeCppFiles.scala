@@ -41,6 +41,16 @@ object ComputeCppFiles extends AstStateVisitor {
 
   }
 
+  // TODO: Temporary function to support data products
+  def componentHasDataProducts(c: Ast.DefComponent) =
+    c.members.foldLeft (false) ((s, m) => {
+      m match {
+        case Ast.ComponentMember((_, Ast.ComponentMember.SpecContainer(_), _)) => true
+        case Ast.ComponentMember((_, Ast.ComponentMember.SpecRecord(_), _)) => true
+        case _ => s
+      }
+    })
+
   override def defComponentAnnotatedNode(
     s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
@@ -52,7 +62,9 @@ object ComputeCppFiles extends AstStateVisitor {
     for {
       // TODO
       //s <- addMappings(s, FileNames.getComponent(name), Some(loc))
-      s <- addMappings(s, FileNames.getDpComponent(name), Some(loc))
+      s <- if (componentHasDataProducts(data))
+        addMappings(s, FileNames.getDpComponent(name), Some(loc))
+        else Right(s)
       s <- visitList(s, data.members, matchComponentMember)
     }
     yield s
