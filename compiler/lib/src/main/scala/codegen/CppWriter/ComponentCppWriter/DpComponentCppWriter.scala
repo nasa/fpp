@@ -13,21 +13,15 @@ case class DpComponentCppWriter (
 
   private val name = s.getName(symbol)
 
-  private val fileName = ComputeCppFiles.FileNames.getComponent(name)
+  private val componentFileName = ComputeCppFiles.FileNames.getComponent(name)
 
   private val dpFileName = ComputeCppFiles.FileNames.getDpComponent(name)
 
   private val namespaceIdentList = s.getNamespaceIdentList(symbol)
 
-  private val kindStr = data.kind match {
-    case Ast.ComponentKind.Active => "Active"
-    case Ast.ComponentKind.Passive => "Passive"
-    case Ast.ComponentKind.Queued => "Queued"
-  }
+  private val baseClassName = s"${name}ComponentBase"
 
-  private val className = s"${name}DpComponentBase"
-
-  private val baseClassName = s"${kindStr}ComponentBase"
+  private val dpBaseClassName = s"${name}DpComponentBase"
 
   private def writeIncludeDirectives: List[String] = {
     val Right(a) = UsedSymbols.defComponentAnnotatedNode(s.a, aNode)
@@ -37,7 +31,7 @@ case class DpComponentCppWriter (
   def write: CppDoc = {
     val includeGuard = s.includeGuardFromQualifiedName(symbol, dpFileName)
     CppWriter.createCppDoc(
-      s"$name component base class",
+      s"Data product base class for $name component",
       dpFileName,
       includeGuard,
       getMembers,
@@ -48,21 +42,20 @@ case class DpComponentCppWriter (
   private def getMembers: List[CppDoc.Member] = {
     val hppIncludes = getHppIncludes
     val cppIncludes = getCppIncludes
-//    val cls = classMember(
-//      Some(
-//        addSeparatedString(
-//          s"\\class $className\n\\brief Auto-generated base for $name component",
-//          AnnotationCppWriter.asStringOpt(aNode)
-//        )
-//      ),
-//      className,
-//      Some(s"public Fw::$baseClassName"),
-//      getClassMembers
-//    )
+    val cls = classMember(
+      Some(
+        addSeparatedString(
+          s"\\class $dpBaseClassName\n\\brief Auto-generated data product base class for $name component",
+          AnnotationCppWriter.asStringOpt(aNode)
+        )
+      ),
+      dpBaseClassName,
+      Some(s"public Fw::$baseClassName"),
+      getClassMembers
+    )
     List(
       List(hppIncludes, cppIncludes),
-      //wrapInNamespaces(namespaceIdentList, List(cls))
-      wrapInNamespaces(namespaceIdentList, Nil)
+      wrapInNamespaces(namespaceIdentList, List(cls))
     ).flatten
   }
 
@@ -71,7 +64,7 @@ case class DpComponentCppWriter (
       "FpConfig.hpp",
       "Fw/Com/ComPacket.hpp",
       "Fw/Dp/DpContainer.hpp",
-      s"${s.getRelativePath(fileName).toString}.hpp",
+      s"${s.getRelativePath(componentFileName).toString}.hpp",
     ).map(CppWriter.headerString)
     val symbolHeaders = writeIncludeDirectives
     val headers = standardHeaders ++ symbolHeaders
@@ -80,8 +73,8 @@ case class DpComponentCppWriter (
 
   private def getCppIncludes: CppDoc.Member = {
     val headers = List(
-      "FppTest/dp/DpTestDpComponentBase.hpp",
-      "Fw/Types/Assert.hpp"
+      "Fw/Types/Assert.hpp",
+      s"${s.getRelativePath(dpFileName).toString}.hpp",
     )
     linesMember(
       addBlankPrefix(headers.map(CppWriter.headerString).map(line)),
@@ -89,7 +82,8 @@ case class DpComponentCppWriter (
     )
   }
 
-//  private def getClassMembers: List[CppDoc.Class.Member] = {
+  private def getClassMembers: List[CppDoc.Class.Member] = {
+    Nil
 //    List(
 //      // Friend classes
 //      getFriendClassMembers,
@@ -128,7 +122,7 @@ case class DpComponentCppWriter (
 //      getMsgSizeVariableMember,
 //      getMutexVariableMembers,
 //    ).flatten
-//  }
+  }
 //
 //  private def getConstantMembers: List[CppDoc.Class.Member] = {
 //    val constants = List(
