@@ -82,243 +82,37 @@ case class DpComponentCppWriter (
     )
   }
 
-  private def getClassMembers: List[CppDoc.Class.Member] = {
-    Nil
-//    List(
-//      // Friend classes
-//      getFriendClassMembers,
-//
-//      // Constants
-//      getConstantMembers,
-//
-//      // Public function members
-//      portWriter.getPublicFunctionMembers,
-//      cmdWriter.getPublicFunctionMembers,
-//      paramWriter.getPublicFunctionMembers,
-//
-//      // Protected function members
-//      getComponentFunctionMembers,
-//      portWriter.getProtectedFunctionMembers,
-//      internalPortWriter.getFunctionMembers,
-//      cmdWriter.getProtectedFunctionMembers,
-//      eventWriter.getFunctionMembers,
-//      tlmWriter.getFunctionMembers,
-//      paramWriter.getProtectedFunctionMembers,
-//      getTimeFunctionMember,
-//      getMutexOperationMembers,
-//
-//      // Protected/private function members
-//      getDispatchFunctionMember,
-//
-//      // Private function members
-//      portWriter.getPrivateFunctionMembers,
-//      paramWriter.getPrivateFunctionMembers,
-//
-//      // Member variables
-//      portWriter.getVariableMembers,
-//      eventWriter.getVariableMembers,
-//      tlmWriter.getVariableMembers,
-//      paramWriter.getVariableMembers,
-//      getMsgSizeVariableMember,
-//      getMutexVariableMembers,
-//    ).flatten
-  }
-//
-//  private def getConstantMembers: List[CppDoc.Class.Member] = {
-//    val constants = List(
-//      portWriter.getConstantMembers,
-//      cmdWriter.getConstantMembers,
-//      eventWriter.getConstantMembers,
-//      tlmWriter.getConstantMembers,
-//      paramWriter.getConstantMembers
-//    ).flatten
-//
-//    if constants.isEmpty then Nil
-//    else List(
-//      List(
-//        linesClassMember(
-//          List(
-//            CppDocHppWriter.writeAccessTag("PROTECTED"),
-//            CppDocWriter.writeBannerComment(
-//              "Constants"
-//            ),
-//          ).flatten
-//        )
-//      ),
-//      constants
-//    ).flatten
-//  }
-//
-//  private def getFriendClassMembers: List[CppDoc.Class.Member] = {
-//    List(
-//      linesClassMember(
-//        List(
-//          CppDocWriter.writeBannerComment(
-//            "Friend classes"
-//          ),
-//          lines(
-//            s"""|
-//                |//! Friend class for white-box testing
-//                |friend class ${className}Friend;
-//                |"""
-//          )
-//        ).flatten
-//      )
-//    )
-//  }
-//
-//  private def getComponentFunctionMembers: List[CppDoc.Class.Member] = {
-//    def writeChannelInit(channel: TlmChannel) = {
-//      List(
-//        lines(
-//          s"""|// Write telemetry channel ${channel.getName}
-//              |this->${channelUpdateFlagName(channel.getName)} = true;
-//              |"""
-//        ),
-//        channel.channelType match {
-//          case t if s.isPrimitive(t, writeChannelType(t)) => lines(
-//            s"this->${channelStorageName(channel.getName)} = 0;"
-//          )
-//          case _ => Nil
-//        }
-//      ).flatten
-//    }
-//    def writePortConnections(port: PortInstance) = {
-//      val name = port.getUnqualifiedName
-//      val d = port.getDirection.get
-//
-//      line(s"// Connect ${d.toString} port $name") ::
-//        wrapInForLoopStaggered(
-//          "PlatformIntType port = 0",
-//          s"port < static_cast<PlatformIntType>(this->${portNumGetterName(name, d)}())",
-//          "port++",
-//          List(
-//            lines(
-//              s"|this->${portVariableName(name, d)}[port].init();"
-//            ),
-//            d match {
-//              case PortInstance.Direction.Input => lines(
-//                s"""|this->${portVariableName(name, d)}[port].addCallComp(
-//                    |  this,
-//                    |  ${inputPortCallbackName(name)}
-//                    |);
-//                    |this->${portVariableName(name, d)}[port].setPortNum(port);
-//                    |"""
-//              )
-//              case PortInstance.Direction.Output => Nil
-//            },
-//            Line.blank :: lines(
-//              s"""|#if FW_OBJECT_NAMES == 1
-//                  |char portName[120];
-//                  |(void) snprintf(
-//                  |  portName,
-//                  |  sizeof(portName),
-//                  |  "%s_${name}_${d.toString.capitalize}Port[%" PRI_PlatformIntType "]",
-//                  |  this->m_objName,
-//                  |  port
-//                  |);
-//                  |this->${portVariableName(name, d)}[port].setObjName(portName);
-//                  |#endif
-//                  |"""
-//            )
-//          ).flatten
-//        )
-//    }
-//
-//    val initInstanceParam = List(
-//      CppDoc.Function.Param(
-//        CppDoc.Type("NATIVE_INT_TYPE"),
-//        "instance",
-//        Some("The instance number"),
-//        Some("0")
-//      )
-//    )
-//    val initQueueDepthParam =
-//      if data.kind != Ast.ComponentKind.Passive then List(
-//        CppDoc.Function.Param(
-//          CppDoc.Type("NATIVE_INT_TYPE"),
-//          "queueDepth",
-//          Some("The queue depth")
-//        )
-//      )
-//      else Nil
-//    val initMsgSizeParam =
-//      if hasSerialAsyncInputPorts then List(
-//        CppDoc.Function.Param(
-//          CppDoc.Type("NATIVE_INT_TYPE"),
-//          "msgSize",
-//          Some("The message size")
-//        )
-//      )
-//      else Nil
-//
-//    List(
-//      writeAccessTagAndComment(
-//        "PROTECTED",
-//        "Component construction, initialization, and destruction"
-//      ),
-//      List(
-//        constructorClassMember(
-//          Some(s"Construct $className object"),
-//          List(
-//            CppDoc.Function.Param(
-//              CppDoc.Type("const char*"),
-//              "compName",
-//              Some("The component name"),
-//              Some("\"\"")
-//            )
-//          ),
-//          List(s"Fw::${kindStr}ComponentBase(compName)"),
-//          intersperseBlankLines(
-//            List(
-//              intersperseBlankLines(
-//                updateOnChangeChannels.map((_, channel) =>
-//                  writeChannelInit(channel)
-//                )
-//              ),
-//              throttledEvents.map((_, event) => line(
-//                s"this->${eventThrottleCounterName(event.getName)} = 0;"
-//              )),
-//              sortedParams.map((_, param) => line(
-//                s"this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::UNINIT;"
-//              ))
-//            )
-//          )
-//        ),
-//        functionClassMember(
-//          Some(s"Initialize $className object"),
-//          "init",
-//          initQueueDepthParam ++ initMsgSizeParam ++ initInstanceParam,
-//          CppDoc.Type("void"),
-//          intersperseBlankLines(
-//            List(
-//              lines(
-//                s"""|// Initialize base class
-//                    |Fw::$baseClassName::init(instance);
-//                    |"""
-//              ),
-//              intersperseBlankLines(
-//                List(
-//                  intersperseBlankLines(specialInputPorts.map(writePortConnections)),
-//                  intersperseBlankLines(typedInputPorts.map(writePortConnections)),
-//                  intersperseBlankLines(serialInputPorts.map(writePortConnections)),
-//                  intersperseBlankLines(specialOutputPorts.map(writePortConnections)),
-//                  intersperseBlankLines(typedOutputPorts.map(writePortConnections)),
-//                  intersperseBlankLines(serialOutputPorts.map(writePortConnections))
-//                )
-//              )
-//            )
-//          )
-//        ),
-//        destructorClassMember(
-//          Some(s"Destroy $className object"),
-//          Nil,
-//          CppDoc.Class.Destructor.Virtual
-//        )
-//      )
-//    ).flatten
-//  }
-//
+  private def getClassMembers: List[CppDoc.Class.Member] = List(
+    getConstructionMembers,
+  ).flatten
+
+  private def getConstructionMembers: List[CppDoc.Class.Member] = List(
+    writeAccessTagAndComment(
+      "PROTECTED",
+      "Construction and destruction"
+    ),
+    List(
+      constructorClassMember(
+        Some(s"Construct $dpBaseClassName object"),
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type("const char*"),
+            "compName",
+            Some("The component name"),
+            Some("\"\"")
+          )
+        ),
+        List(s"${baseClassName}(compName)"),
+        Nil
+      ),
+      destructorClassMember(
+        Some(s"Destroy $dpBaseClassName object"),
+        Nil,
+        CppDoc.Class.Destructor.Virtual
+      )
+    )
+  ).flatten
+
 //  private def getMutexOperationMembers: List[CppDoc.Class.Member] = {
 //    if !hasGuardedInputPorts then Nil
 //    else List(
