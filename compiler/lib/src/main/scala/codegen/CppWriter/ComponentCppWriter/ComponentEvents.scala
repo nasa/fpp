@@ -84,15 +84,9 @@ case class ComponentEvents (
 
   private def getLoggingFunctions: List[CppDoc.Class.Member] = {
     List(
-      List(
-        linesClassMember(
-          List(
-            CppDocHppWriter.writeAccessTag("PROTECTED"),
-            CppDocWriter.writeBannerComment(
-              "Event logging functions"
-            ),
-          ).flatten
-        )
+      writeAccessTagAndComment(
+        "PROTECTED",
+        "Event logging functions"
       ),
       sortedEvents.map((_, event) =>
         functionClassMember(
@@ -120,15 +114,9 @@ case class ComponentEvents (
   private def getThrottleFunctions: List[CppDoc.Class.Member] = {
     if throttledEvents.isEmpty then Nil
     else List(
-      List(
-        linesClassMember(
-          List(
-            CppDocHppWriter.writeAccessTag("PROTECTED"),
-            CppDocWriter.writeBannerComment(
-              "Event throttle reset functions"
-            ),
-          ).flatten
-        )
+      writeAccessTagAndComment(
+        "PROTECTED",
+        "Event throttle reset functions"
       ),
       throttledEvents.map((_, event) =>
         functionClassMember(

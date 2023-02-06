@@ -13,15 +13,9 @@ case class ComponentOutputPorts(
   def getTypedConnectors(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     if ports.isEmpty then Nil
     else List(
-      List(
-        linesClassMember(
-          List(
-            CppDocHppWriter.writeAccessTag("public"),
-            CppDocWriter.writeBannerComment(
-              s"Connect ${getPortTypeString(ports.head)} input ports to ${getPortTypeString(ports.head)} output ports"
-            ),
-          ).flatten
-        )
+      writeAccessTagAndComment(
+        "public",
+        s"Connect ${getPortTypeString(ports.head)} input ports to ${getPortTypeString(ports.head)} output ports"
       ),
       mapPorts(ports, p => List(
         functionClassMember(
@@ -50,15 +44,9 @@ case class ComponentOutputPorts(
       wrapClassMembersInIfDirective(
         "\n#if FW_PORT_SERIALIZATION",
         List(
-          List(
-            linesClassMember(
-              List(
-                CppDocHppWriter.writeAccessTag("public"),
-                CppDocWriter.writeBannerComment("" +
-                  s"Connect serial input ports to ${getPortTypeString(ports.head)} output ports"
-                ),
-              ).flatten
-            )
+          writeAccessTagAndComment(
+            "public",
+            s"Connect serial input ports to ${getPortTypeString(ports.head)} output ports"
           ),
           mapPorts(ports, p => List(
             functionClassMember(
@@ -86,15 +74,9 @@ case class ComponentOutputPorts(
     else wrapClassMembersInIfDirective(
       "\n#if FW_PORT_SERIALIZATION",
       List(
-        List(
-          linesClassMember(
-            List(
-              CppDocHppWriter.writeAccessTag("public"),
-              CppDocWriter.writeBannerComment("" +
-                "Connect serial input ports to serial output ports"
-              ),
-            ).flatten
-          )
+        writeAccessTagAndComment(
+          "public",
+          "Connect serial input ports to serial output ports"
         ),
         ports.flatMap(p =>
           List(
@@ -135,15 +117,9 @@ case class ComponentOutputPorts(
   def getInvokers(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     if ports.isEmpty then Nil
     else List(
-      List(
-        linesClassMember(
-          List(
-            CppDocHppWriter.writeAccessTag("PROTECTED"),
-            CppDocWriter.writeBannerComment("" +
-              s"Invocation functions for ${getPortTypeString(ports.head)} output ports"
-            ),
-          ).flatten
-        )
+      writeAccessTagAndComment(
+        "PROTECTED",
+        s"Invocation functions for ${getPortTypeString(ports.head)} output ports"
       ),
       ports.map(p =>
         functionClassMember(
@@ -160,15 +136,9 @@ case class ComponentOutputPorts(
   def getConnectionStatusQueries(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     if ports.isEmpty then Nil
     else List(
-      List(
-        linesClassMember(
-          List(
-            CppDocHppWriter.writeAccessTag("PROTECTED"),
-            CppDocWriter.writeBannerComment("" +
-              s"Connection status queries for ${getPortTypeString(ports.head)} output ports"
-            ),
-          ).flatten
-        )
+      writeAccessTagAndComment(
+        "PROTECTED",
+        s"Connection status queries for ${getPortTypeString(ports.head)} output ports"
       ),
       mapPorts(ports, p => List(
         functionClassMember(

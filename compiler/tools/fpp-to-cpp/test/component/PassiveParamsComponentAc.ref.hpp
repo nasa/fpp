@@ -620,8 +620,9 @@ class PassiveParamsComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
-    // Port handler base-class functions for typed input ports.
-    // Call these functions directly to bypass the corresponding ports.
+    // Port handler base-class functions for typed input ports
+    // 
+    // Call these functions directly to bypass the corresponding ports
     // ----------------------------------------------------------------------
 
     //! Handler base-class function for input port typedSync
@@ -669,8 +670,9 @@ class PassiveParamsComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
-    // Port handler base-class functions for serial input ports.
-    // Call these functions directly to bypass the corresponding ports.
+    // Port handler base-class functions for serial input ports
+    // 
+    // Call these functions directly to bypass the corresponding ports
     // ----------------------------------------------------------------------
 
     //! Handler base-class function for input port serialSync
@@ -824,9 +826,10 @@ class PassiveParamsComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
-    // Mutex operations for guarded ports.
+    // Mutex operations for guarded ports
+    // 
     // You can override these operations to provide more sophisticated
-    // synchronization.
+    // synchronization
     // ----------------------------------------------------------------------
 
     //! Lock the guarded mutex

@@ -10,6 +10,10 @@
 #include "Fw/Types/String.hpp"
 #include "PassiveCommandsComponentAc.hpp"
 
+// ----------------------------------------------------------------------
+// Getters for special input ports
+// ----------------------------------------------------------------------
+
 Fw::InputCmdPort* PassiveCommandsComponentBase ::
   get_cmdIn_InputPort(NATIVE_INT_TYPE portNum)
 {
@@ -20,6 +24,10 @@ Fw::InputCmdPort* PassiveCommandsComponentBase ::
 
   return &this->m_cmdIn_InputPort[portNum];
 }
+
+// ----------------------------------------------------------------------
+// Getters for typed input ports
+// ----------------------------------------------------------------------
 
 InputTypedPort* PassiveCommandsComponentBase ::
   get_typedSync_InputPort(NATIVE_INT_TYPE portNum)
@@ -43,6 +51,10 @@ InputTypedPort* PassiveCommandsComponentBase ::
   return &this->m_typedGuarded_InputPort[portNum];
 }
 
+// ----------------------------------------------------------------------
+// Getters for serial input ports
+// ----------------------------------------------------------------------
+
 Fw::InputSerializePort* PassiveCommandsComponentBase ::
   get_serialSync_InputPort(NATIVE_INT_TYPE portNum)
 {
@@ -64,6 +76,10 @@ Fw::InputSerializePort* PassiveCommandsComponentBase ::
 
   return &this->m_serialGuarded_InputPort[portNum];
 }
+
+// ----------------------------------------------------------------------
+// Connect special input ports to special output ports
+// ----------------------------------------------------------------------
 
 void PassiveCommandsComponentBase ::
   set_cmdRegOut_OutputPort(
@@ -183,6 +199,10 @@ void PassiveCommandsComponentBase ::
 
 #if FW_PORT_SERIALIZATION
 
+// ----------------------------------------------------------------------
+// Connect serial input ports to special output ports
+// ----------------------------------------------------------------------
+
 void PassiveCommandsComponentBase ::
   set_cmdRegOut_OutputPort(
       NATIVE_INT_TYPE portNum,
@@ -261,6 +281,10 @@ void PassiveCommandsComponentBase ::
 
 #endif
 
+// ----------------------------------------------------------------------
+// Connect typed input ports to typed output ports
+// ----------------------------------------------------------------------
+
 void PassiveCommandsComponentBase ::
   set_typedOut_OutputPort(
       NATIVE_INT_TYPE portNum,
@@ -277,6 +301,10 @@ void PassiveCommandsComponentBase ::
 
 #if FW_PORT_SERIALIZATION
 
+// ----------------------------------------------------------------------
+// Connect serial input ports to typed output ports
+// ----------------------------------------------------------------------
+
 void PassiveCommandsComponentBase ::
   set_typedOut_OutputPort(
       NATIVE_INT_TYPE portNum,
@@ -289,6 +317,10 @@ void PassiveCommandsComponentBase ::
 #endif
 
 #if FW_PORT_SERIALIZATION
+
+// ----------------------------------------------------------------------
+// Connect serial input ports to serial output ports
+// ----------------------------------------------------------------------
 
 void PassiveCommandsComponentBase ::
   set_serialOut_OutputPort(
@@ -310,11 +342,19 @@ void PassiveCommandsComponentBase ::
 
 #endif
 
+// ----------------------------------------------------------------------
+// Command registration
+// ----------------------------------------------------------------------
+
 void PassiveCommandsComponentBase ::
   regCommands()
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Component construction, initialization, and destruction
+// ----------------------------------------------------------------------
 
 PassiveCommandsComponentBase ::
   PassiveCommandsComponentBase(const char* compName) :
@@ -676,11 +716,19 @@ PassiveCommandsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Getters for numbers of special input ports
+// ----------------------------------------------------------------------
+
 NATIVE_INT_TYPE PassiveCommandsComponentBase ::
   getNum_cmdIn_InputPorts()
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Getters for numbers of typed input ports
+// ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE PassiveCommandsComponentBase ::
   getNum_typedSync_InputPorts()
@@ -694,6 +742,10 @@ NATIVE_INT_TYPE PassiveCommandsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Getters for numbers of serial input ports
+// ----------------------------------------------------------------------
+
 NATIVE_INT_TYPE PassiveCommandsComponentBase ::
   getNum_serialSync_InputPorts()
 {
@@ -705,6 +757,10 @@ NATIVE_INT_TYPE PassiveCommandsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Getters for numbers of special output ports
+// ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE PassiveCommandsComponentBase ::
   getNum_cmdRegOut_OutputPorts()
@@ -758,17 +814,29 @@ NATIVE_INT_TYPE PassiveCommandsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Getters for numbers of typed output ports
+// ----------------------------------------------------------------------
+
 NATIVE_INT_TYPE PassiveCommandsComponentBase ::
   getNum_typedOut_OutputPorts()
 {
 
 }
 
+// ----------------------------------------------------------------------
+// Getters for numbers of serial output ports
+// ----------------------------------------------------------------------
+
 NATIVE_INT_TYPE PassiveCommandsComponentBase ::
   getNum_serialOut_OutputPorts()
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Connection status queries for special output ports
+// ----------------------------------------------------------------------
 
 bool PassiveCommandsComponentBase ::
   isConnected_cmdRegOut_OutputPort(NATIVE_INT_TYPE portNum)
@@ -822,17 +890,29 @@ bool PassiveCommandsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Connection status queries for typed output ports
+// ----------------------------------------------------------------------
+
 bool PassiveCommandsComponentBase ::
   isConnected_typedOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
 
 }
 
+// ----------------------------------------------------------------------
+// Connection status queries for serial output ports
+// ----------------------------------------------------------------------
+
 bool PassiveCommandsComponentBase ::
   isConnected_serialOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Handlers to implement for typed input ports
+// ----------------------------------------------------------------------
 
 void PassiveCommandsComponentBase ::
   typedSync_handler(
@@ -864,6 +944,10 @@ void PassiveCommandsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Port handler base-class functions for typed input ports
+// ----------------------------------------------------------------------
+
 void PassiveCommandsComponentBase ::
   typedSync_handlerBase(
       NATIVE_INT_TYPE portNum,
@@ -894,6 +978,10 @@ void PassiveCommandsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Handlers to implement for serial input ports
+// ----------------------------------------------------------------------
+
 void PassiveCommandsComponentBase ::
   serialSync_handler(
       NATIVE_INT_TYPE portNum,
@@ -911,6 +999,10 @@ void PassiveCommandsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Port handler base-class functions for serial input ports
+// ----------------------------------------------------------------------
 
 void PassiveCommandsComponentBase ::
   serialSync_handlerBase(
@@ -930,6 +1022,10 @@ void PassiveCommandsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Invocation functions for typed output ports
+// ----------------------------------------------------------------------
+
 void PassiveCommandsComponentBase ::
   typedOut_out(
       NATIVE_INT_TYPE portNum,
@@ -945,6 +1041,10 @@ void PassiveCommandsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Invocation functions for serial output ports
+// ----------------------------------------------------------------------
+
 Fw::SerializeStatus PassiveCommandsComponentBase ::
   serialOut_out(
       NATIVE_INT_TYPE portNum,
@@ -953,6 +1053,10 @@ Fw::SerializeStatus PassiveCommandsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Command response
+// ----------------------------------------------------------------------
 
 void PassiveCommandsComponentBase ::
   cmdResponse_out(
@@ -963,6 +1067,10 @@ void PassiveCommandsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Command handlers to implement
+// ----------------------------------------------------------------------
 
 void PassiveCommandsComponentBase ::
   CMD_SYNC_cmdHandler(
@@ -1026,6 +1134,10 @@ void PassiveCommandsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Command handler base-class functions
+// ----------------------------------------------------------------------
+
 void PassiveCommandsComponentBase ::
   CMD_SYNC_cmdHandlerBase(
       FwOpcodeType opCode,
@@ -1086,11 +1198,23 @@ void PassiveCommandsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Pre-message hooks for async commands
+// ----------------------------------------------------------------------
+
+// ----------------------------------------------------------------------
+// Time
+// ----------------------------------------------------------------------
+
 Fw::Time PassiveCommandsComponentBase ::
   getTime()
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Mutex operations for guarded ports
+// ----------------------------------------------------------------------
 
 void PassiveCommandsComponentBase ::
   lock()
@@ -1104,6 +1228,10 @@ void PassiveCommandsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Calls for messages received on special input ports
+// ----------------------------------------------------------------------
+
 void PassiveCommandsComponentBase ::
   m_p_cmdIn_in(
       Fw::PassiveComponentBase* callComp,
@@ -1115,6 +1243,10 @@ void PassiveCommandsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Calls for messages received on typed input ports
+// ----------------------------------------------------------------------
 
 void PassiveCommandsComponentBase ::
   m_p_typedSync_in(
@@ -1147,6 +1279,10 @@ void PassiveCommandsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Calls for messages received on serial input ports
+// ----------------------------------------------------------------------
 
 #if FW_PORT_SERIALIZATION
 

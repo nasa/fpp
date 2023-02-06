@@ -10,6 +10,10 @@
 #include "Fw/Types/String.hpp"
 #include "PassiveParamsComponentAc.hpp"
 
+// ----------------------------------------------------------------------
+// Getters for special input ports
+// ----------------------------------------------------------------------
+
 Fw::InputCmdPort* PassiveParamsComponentBase ::
   get_cmdIn_InputPort(NATIVE_INT_TYPE portNum)
 {
@@ -20,6 +24,10 @@ Fw::InputCmdPort* PassiveParamsComponentBase ::
 
   return &this->m_cmdIn_InputPort[portNum];
 }
+
+// ----------------------------------------------------------------------
+// Getters for typed input ports
+// ----------------------------------------------------------------------
 
 InputTypedPort* PassiveParamsComponentBase ::
   get_typedSync_InputPort(NATIVE_INT_TYPE portNum)
@@ -43,6 +51,10 @@ InputTypedPort* PassiveParamsComponentBase ::
   return &this->m_typedGuarded_InputPort[portNum];
 }
 
+// ----------------------------------------------------------------------
+// Getters for serial input ports
+// ----------------------------------------------------------------------
+
 Fw::InputSerializePort* PassiveParamsComponentBase ::
   get_serialSync_InputPort(NATIVE_INT_TYPE portNum)
 {
@@ -64,6 +76,10 @@ Fw::InputSerializePort* PassiveParamsComponentBase ::
 
   return &this->m_serialGuarded_InputPort[portNum];
 }
+
+// ----------------------------------------------------------------------
+// Connect special input ports to special output ports
+// ----------------------------------------------------------------------
 
 void PassiveParamsComponentBase ::
   set_cmdRegOut_OutputPort(
@@ -183,6 +199,10 @@ void PassiveParamsComponentBase ::
 
 #if FW_PORT_SERIALIZATION
 
+// ----------------------------------------------------------------------
+// Connect serial input ports to special output ports
+// ----------------------------------------------------------------------
+
 void PassiveParamsComponentBase ::
   set_cmdRegOut_OutputPort(
       NATIVE_INT_TYPE portNum,
@@ -261,6 +281,10 @@ void PassiveParamsComponentBase ::
 
 #endif
 
+// ----------------------------------------------------------------------
+// Connect typed input ports to typed output ports
+// ----------------------------------------------------------------------
+
 void PassiveParamsComponentBase ::
   set_typedOut_OutputPort(
       NATIVE_INT_TYPE portNum,
@@ -277,6 +301,10 @@ void PassiveParamsComponentBase ::
 
 #if FW_PORT_SERIALIZATION
 
+// ----------------------------------------------------------------------
+// Connect serial input ports to typed output ports
+// ----------------------------------------------------------------------
+
 void PassiveParamsComponentBase ::
   set_typedOut_OutputPort(
       NATIVE_INT_TYPE portNum,
@@ -289,6 +317,10 @@ void PassiveParamsComponentBase ::
 #endif
 
 #if FW_PORT_SERIALIZATION
+
+// ----------------------------------------------------------------------
+// Connect serial input ports to serial output ports
+// ----------------------------------------------------------------------
 
 void PassiveParamsComponentBase ::
   set_serialOut_OutputPort(
@@ -310,17 +342,29 @@ void PassiveParamsComponentBase ::
 
 #endif
 
+// ----------------------------------------------------------------------
+// Command registration
+// ----------------------------------------------------------------------
+
 void PassiveParamsComponentBase ::
   regCommands()
 {
 
 }
 
+// ----------------------------------------------------------------------
+// Parameter loading
+// ----------------------------------------------------------------------
+
 void PassiveParamsComponentBase ::
   loadParameters()
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Component construction, initialization, and destruction
+// ----------------------------------------------------------------------
 
 PassiveParamsComponentBase ::
   PassiveParamsComponentBase(const char* compName) :
@@ -687,11 +731,19 @@ PassiveParamsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Getters for numbers of special input ports
+// ----------------------------------------------------------------------
+
 NATIVE_INT_TYPE PassiveParamsComponentBase ::
   getNum_cmdIn_InputPorts()
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Getters for numbers of typed input ports
+// ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE PassiveParamsComponentBase ::
   getNum_typedSync_InputPorts()
@@ -705,6 +757,10 @@ NATIVE_INT_TYPE PassiveParamsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Getters for numbers of serial input ports
+// ----------------------------------------------------------------------
+
 NATIVE_INT_TYPE PassiveParamsComponentBase ::
   getNum_serialSync_InputPorts()
 {
@@ -716,6 +772,10 @@ NATIVE_INT_TYPE PassiveParamsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Getters for numbers of special output ports
+// ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE PassiveParamsComponentBase ::
   getNum_cmdRegOut_OutputPorts()
@@ -769,17 +829,29 @@ NATIVE_INT_TYPE PassiveParamsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Getters for numbers of typed output ports
+// ----------------------------------------------------------------------
+
 NATIVE_INT_TYPE PassiveParamsComponentBase ::
   getNum_typedOut_OutputPorts()
 {
 
 }
 
+// ----------------------------------------------------------------------
+// Getters for numbers of serial output ports
+// ----------------------------------------------------------------------
+
 NATIVE_INT_TYPE PassiveParamsComponentBase ::
   getNum_serialOut_OutputPorts()
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Connection status queries for special output ports
+// ----------------------------------------------------------------------
 
 bool PassiveParamsComponentBase ::
   isConnected_cmdRegOut_OutputPort(NATIVE_INT_TYPE portNum)
@@ -833,17 +905,29 @@ bool PassiveParamsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Connection status queries for typed output ports
+// ----------------------------------------------------------------------
+
 bool PassiveParamsComponentBase ::
   isConnected_typedOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
 
 }
 
+// ----------------------------------------------------------------------
+// Connection status queries for serial output ports
+// ----------------------------------------------------------------------
+
 bool PassiveParamsComponentBase ::
   isConnected_serialOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Handlers to implement for typed input ports
+// ----------------------------------------------------------------------
 
 void PassiveParamsComponentBase ::
   typedSync_handler(
@@ -875,6 +959,10 @@ void PassiveParamsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Port handler base-class functions for typed input ports
+// ----------------------------------------------------------------------
+
 void PassiveParamsComponentBase ::
   typedSync_handlerBase(
       NATIVE_INT_TYPE portNum,
@@ -905,6 +993,10 @@ void PassiveParamsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Handlers to implement for serial input ports
+// ----------------------------------------------------------------------
+
 void PassiveParamsComponentBase ::
   serialSync_handler(
       NATIVE_INT_TYPE portNum,
@@ -922,6 +1014,10 @@ void PassiveParamsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Port handler base-class functions for serial input ports
+// ----------------------------------------------------------------------
 
 void PassiveParamsComponentBase ::
   serialSync_handlerBase(
@@ -941,6 +1037,10 @@ void PassiveParamsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Invocation functions for typed output ports
+// ----------------------------------------------------------------------
+
 void PassiveParamsComponentBase ::
   typedOut_out(
       NATIVE_INT_TYPE portNum,
@@ -956,6 +1056,10 @@ void PassiveParamsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Invocation functions for serial output ports
+// ----------------------------------------------------------------------
+
 Fw::SerializeStatus PassiveParamsComponentBase ::
   serialOut_out(
       NATIVE_INT_TYPE portNum,
@@ -964,6 +1068,10 @@ Fw::SerializeStatus PassiveParamsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Command response
+// ----------------------------------------------------------------------
 
 void PassiveParamsComponentBase ::
   cmdResponse_out(
@@ -974,6 +1082,10 @@ void PassiveParamsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Parameter update hook
+// ----------------------------------------------------------------------
 
 void PassiveParamsComponentBase ::
   parameterUpdated(FwPrmIdType id)
@@ -986,6 +1098,10 @@ void PassiveParamsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Parameter get functions
+// ----------------------------------------------------------------------
 
 U32 PassiveParamsComponentBase ::
   paramGet_ParamU32(Fw::ParamValid& isValid)
@@ -1023,11 +1139,19 @@ S PassiveParamsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Time
+// ----------------------------------------------------------------------
+
 Fw::Time PassiveParamsComponentBase ::
   getTime()
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Mutex operations for guarded ports
+// ----------------------------------------------------------------------
 
 void PassiveParamsComponentBase ::
   lock()
@@ -1041,6 +1165,10 @@ void PassiveParamsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Calls for messages received on special input ports
+// ----------------------------------------------------------------------
+
 void PassiveParamsComponentBase ::
   m_p_cmdIn_in(
       Fw::PassiveComponentBase* callComp,
@@ -1052,6 +1180,10 @@ void PassiveParamsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Calls for messages received on typed input ports
+// ----------------------------------------------------------------------
 
 void PassiveParamsComponentBase ::
   m_p_typedSync_in(
@@ -1085,6 +1217,10 @@ void PassiveParamsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Calls for messages received on serial input ports
+// ----------------------------------------------------------------------
+
 #if FW_PORT_SERIALIZATION
 
 void PassiveParamsComponentBase ::
@@ -1109,6 +1245,10 @@ void PassiveParamsComponentBase ::
 
 #endif
 
+// ----------------------------------------------------------------------
+// Private parameter get function
+// ----------------------------------------------------------------------
+
 Fw::ParamValid PassiveParamsComponentBase ::
   getParam(
       FwPrmIdType id,
@@ -1117,6 +1257,10 @@ Fw::ParamValid PassiveParamsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Parameter set functions
+// ----------------------------------------------------------------------
 
 Fw::CmdResponse PassiveParamsComponentBase ::
   paramSet_ParamU32(Fw::SerializeBufferBase& val)
@@ -1153,6 +1297,10 @@ Fw::CmdResponse PassiveParamsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Parameter save functions
+// ----------------------------------------------------------------------
 
 Fw::CmdResponse PassiveParamsComponentBase ::
   paramSave_ParamU32()

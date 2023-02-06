@@ -103,15 +103,9 @@ case class ComponentPorts(
   private def getNumGetters(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     if ports.isEmpty then Nil
     else List(
-      List(
-        linesClassMember(
-          List(
-            CppDocHppWriter.writeAccessTag("PROTECTED"),
-            CppDocWriter.writeBannerComment(
-              s"Getters for numbers of ${getPortTypeString(ports.head)} ${ports.head.getDirection.get.toString} ports"
-            )
-          ).flatten
-        )
+      writeAccessTagAndComment(
+        "PROTECTED",
+        s"Getters for numbers of ${getPortTypeString(ports.head)} ${ports.head.getDirection.get.toString} ports"
       ),
       mapPorts(ports, p => List(
         functionClassMember(

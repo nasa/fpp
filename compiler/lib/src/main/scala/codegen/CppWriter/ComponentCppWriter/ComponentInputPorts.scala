@@ -13,15 +13,9 @@ case class ComponentInputPorts(
   def getGetters(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     if ports.isEmpty then Nil
     else List(
-      List(
-        linesClassMember(
-          List(
-            CppDocHppWriter.writeAccessTag("public"),
-            CppDocWriter.writeBannerComment(
-              s"Getters for ${getPortTypeString(ports.head)} input ports"
-            )
-          ).flatten
-        )
+      writeAccessTagAndComment(
+        "public",
+        s"Getters for ${getPortTypeString(ports.head)} input ports"
       ),
       mapPorts(ports, p => List(
         functionClassMember(
@@ -53,15 +47,9 @@ case class ComponentInputPorts(
   def getHandlers(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     if ports.isEmpty then Nil
     else List(
-      List(
-        linesClassMember(
-          List(
-            CppDocHppWriter.writeAccessTag("PROTECTED"),
-            CppDocWriter.writeBannerComment(
-              s"Handlers to implement for ${getPortTypeString(ports.head)} input ports"
-            )
-          ).flatten
-        )
+      writeAccessTagAndComment(
+        "PROTECTED",
+        s"Handlers to implement for ${getPortTypeString(ports.head)} input ports"
       ),
       ports.map(p =>
         functionClassMember(
@@ -79,16 +67,11 @@ case class ComponentInputPorts(
   def getHandlerBases(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     if ports.isEmpty then Nil
     else List(
-      List(
-        linesClassMember(
-          List(
-            CppDocHppWriter.writeAccessTag("PROTECTED"),
-            CppDocWriter.writeBannerComment(
-              s"""|Port handler base-class functions for ${getPortTypeString(ports.head)} input ports.
-                 |Call these functions directly to bypass the corresponding ports.
-                 |"""
-            ),
-          ).flatten
+      writeAccessTagAndComment(
+        "PROTECTED",
+        s"Port handler base-class functions for ${getPortTypeString(ports.head)} input ports",
+        Some(
+          "Call these functions directly to bypass the corresponding ports"
         )
       ),
       ports.map(p =>
@@ -126,15 +109,9 @@ case class ComponentInputPorts(
         ))
 
       List(
-        List(
-          linesClassMember(
-            List(
-              CppDocHppWriter.writeAccessTag("PRIVATE"),
-              CppDocWriter.writeBannerComment(
-                s"Calls for messages received on ${getPortTypeString(ports.head)} input ports"
-              ),
-            ).flatten
-          )
+        writeAccessTagAndComment(
+          "PRIVATE",
+          s"Calls for messages received on ${getPortTypeString(ports.head)} input ports"
         ),
         ports.head.getType.get match {
           case PortInstance.Type.DefPort(_) => functions
@@ -151,18 +128,14 @@ case class ComponentInputPorts(
   def getPreMsgHooks(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     if ports.isEmpty then Nil
     else List(
-      List(
-        linesClassMember(
-          List(
-            CppDocHppWriter.writeAccessTag("PROTECTED"),
-            CppDocWriter.writeBannerComment(
-              s"""|Pre-message hooks for ${getPortTypeString(ports.head)} async input ports.
-                  |Each of these functions is invoked just before processing a message
-                  |on the corresponding port. By default, they do nothing. You can
-                  |override them to provide specific pre-message behavior.
-                  |"""
-            ),
-          ).flatten
+      writeAccessTagAndComment(
+        "PROTECTED",
+        s"Pre-message hooks for ${getPortTypeString(ports.head)} async input ports",
+        Some(
+          s"""|Each of these functions is invoked just before processing a message
+              |on the corresponding port. By default, they do nothing. You can
+              |override them to provide specific pre-message behavior.
+              |"""
         )
       ),
       ports.map(p =>

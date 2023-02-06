@@ -629,8 +629,9 @@ class ActiveEventsComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
-    // Port handler base-class functions for typed input ports.
-    // Call these functions directly to bypass the corresponding ports.
+    // Port handler base-class functions for typed input ports
+    // 
+    // Call these functions directly to bypass the corresponding ports
     // ----------------------------------------------------------------------
 
     //! Handler base-class function for input port typedSync
@@ -696,8 +697,9 @@ class ActiveEventsComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
-    // Port handler base-class functions for serial input ports.
-    // Call these functions directly to bypass the corresponding ports.
+    // Port handler base-class functions for serial input ports
+    // 
+    // Call these functions directly to bypass the corresponding ports
     // ----------------------------------------------------------------------
 
     //! Handler base-class function for input port serialSync
@@ -721,7 +723,8 @@ class ActiveEventsComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
-    // Pre-message hooks for typed async input ports.
+    // Pre-message hooks for typed async input ports
+    // 
     // Each of these functions is invoked just before processing a message
     // on the corresponding port. By default, they do nothing. You can
     // override them to provide specific pre-message behavior.
@@ -742,7 +745,8 @@ class ActiveEventsComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
-    // Pre-message hooks for serial async input ports.
+    // Pre-message hooks for serial async input ports
+    // 
     // Each of these functions is invoked just before processing a message
     // on the corresponding port. By default, they do nothing. You can
     // override them to provide specific pre-message behavior.
@@ -867,9 +871,10 @@ class ActiveEventsComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
-    // Mutex operations for guarded ports.
+    // Mutex operations for guarded ports
+    // 
     // You can override these operations to provide more sophisticated
-    // synchronization.
+    // synchronization
     // ----------------------------------------------------------------------
 
     //! Lock the guarded mutex

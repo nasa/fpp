@@ -10,6 +10,10 @@
 #include "Fw/Types/String.hpp"
 #include "QueuedCommandsComponentAc.hpp"
 
+// ----------------------------------------------------------------------
+// Getters for special input ports
+// ----------------------------------------------------------------------
+
 Fw::InputCmdPort* QueuedCommandsComponentBase ::
   get_cmdIn_InputPort(NATIVE_INT_TYPE portNum)
 {
@@ -20,6 +24,10 @@ Fw::InputCmdPort* QueuedCommandsComponentBase ::
 
   return &this->m_cmdIn_InputPort[portNum];
 }
+
+// ----------------------------------------------------------------------
+// Getters for typed input ports
+// ----------------------------------------------------------------------
 
 InputTypedPort* QueuedCommandsComponentBase ::
   get_typedSync_InputPort(NATIVE_INT_TYPE portNum)
@@ -54,6 +62,10 @@ InputTypedPort* QueuedCommandsComponentBase ::
   return &this->m_typedAsync_InputPort[portNum];
 }
 
+// ----------------------------------------------------------------------
+// Getters for serial input ports
+// ----------------------------------------------------------------------
+
 Fw::InputSerializePort* QueuedCommandsComponentBase ::
   get_serialSync_InputPort(NATIVE_INT_TYPE portNum)
 {
@@ -86,6 +98,10 @@ Fw::InputSerializePort* QueuedCommandsComponentBase ::
 
   return &this->m_serialAsync_InputPort[portNum];
 }
+
+// ----------------------------------------------------------------------
+// Connect special input ports to special output ports
+// ----------------------------------------------------------------------
 
 void QueuedCommandsComponentBase ::
   set_cmdRegOut_OutputPort(
@@ -205,6 +221,10 @@ void QueuedCommandsComponentBase ::
 
 #if FW_PORT_SERIALIZATION
 
+// ----------------------------------------------------------------------
+// Connect serial input ports to special output ports
+// ----------------------------------------------------------------------
+
 void QueuedCommandsComponentBase ::
   set_cmdRegOut_OutputPort(
       NATIVE_INT_TYPE portNum,
@@ -283,6 +303,10 @@ void QueuedCommandsComponentBase ::
 
 #endif
 
+// ----------------------------------------------------------------------
+// Connect typed input ports to typed output ports
+// ----------------------------------------------------------------------
+
 void QueuedCommandsComponentBase ::
   set_typedOut_OutputPort(
       NATIVE_INT_TYPE portNum,
@@ -299,6 +323,10 @@ void QueuedCommandsComponentBase ::
 
 #if FW_PORT_SERIALIZATION
 
+// ----------------------------------------------------------------------
+// Connect serial input ports to typed output ports
+// ----------------------------------------------------------------------
+
 void QueuedCommandsComponentBase ::
   set_typedOut_OutputPort(
       NATIVE_INT_TYPE portNum,
@@ -311,6 +339,10 @@ void QueuedCommandsComponentBase ::
 #endif
 
 #if FW_PORT_SERIALIZATION
+
+// ----------------------------------------------------------------------
+// Connect serial input ports to serial output ports
+// ----------------------------------------------------------------------
 
 void QueuedCommandsComponentBase ::
   set_serialOut_OutputPort(
@@ -332,11 +364,19 @@ void QueuedCommandsComponentBase ::
 
 #endif
 
+// ----------------------------------------------------------------------
+// Command registration
+// ----------------------------------------------------------------------
+
 void QueuedCommandsComponentBase ::
   regCommands()
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Component construction, initialization, and destruction
+// ----------------------------------------------------------------------
 
 QueuedCommandsComponentBase ::
   QueuedCommandsComponentBase(const char* compName) :
@@ -754,11 +794,19 @@ QueuedCommandsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Getters for numbers of special input ports
+// ----------------------------------------------------------------------
+
 NATIVE_INT_TYPE QueuedCommandsComponentBase ::
   getNum_cmdIn_InputPorts()
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Getters for numbers of typed input ports
+// ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE QueuedCommandsComponentBase ::
   getNum_typedSync_InputPorts()
@@ -778,6 +826,10 @@ NATIVE_INT_TYPE QueuedCommandsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Getters for numbers of serial input ports
+// ----------------------------------------------------------------------
+
 NATIVE_INT_TYPE QueuedCommandsComponentBase ::
   getNum_serialSync_InputPorts()
 {
@@ -795,6 +847,10 @@ NATIVE_INT_TYPE QueuedCommandsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Getters for numbers of special output ports
+// ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE QueuedCommandsComponentBase ::
   getNum_cmdRegOut_OutputPorts()
@@ -848,17 +904,29 @@ NATIVE_INT_TYPE QueuedCommandsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Getters for numbers of typed output ports
+// ----------------------------------------------------------------------
+
 NATIVE_INT_TYPE QueuedCommandsComponentBase ::
   getNum_typedOut_OutputPorts()
 {
 
 }
 
+// ----------------------------------------------------------------------
+// Getters for numbers of serial output ports
+// ----------------------------------------------------------------------
+
 NATIVE_INT_TYPE QueuedCommandsComponentBase ::
   getNum_serialOut_OutputPorts()
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Connection status queries for special output ports
+// ----------------------------------------------------------------------
 
 bool QueuedCommandsComponentBase ::
   isConnected_cmdRegOut_OutputPort(NATIVE_INT_TYPE portNum)
@@ -912,17 +980,29 @@ bool QueuedCommandsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Connection status queries for typed output ports
+// ----------------------------------------------------------------------
+
 bool QueuedCommandsComponentBase ::
   isConnected_typedOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
 
 }
 
+// ----------------------------------------------------------------------
+// Connection status queries for serial output ports
+// ----------------------------------------------------------------------
+
 bool QueuedCommandsComponentBase ::
   isConnected_serialOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Handlers to implement for typed input ports
+// ----------------------------------------------------------------------
 
 void QueuedCommandsComponentBase ::
   typedSync_handler(
@@ -969,6 +1049,10 @@ void QueuedCommandsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Port handler base-class functions for typed input ports
+// ----------------------------------------------------------------------
+
 void QueuedCommandsComponentBase ::
   typedSync_handlerBase(
       NATIVE_INT_TYPE portNum,
@@ -1014,6 +1098,10 @@ void QueuedCommandsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Handlers to implement for serial input ports
+// ----------------------------------------------------------------------
+
 void QueuedCommandsComponentBase ::
   serialSync_handler(
       NATIVE_INT_TYPE portNum,
@@ -1040,6 +1128,10 @@ void QueuedCommandsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Port handler base-class functions for serial input ports
+// ----------------------------------------------------------------------
 
 void QueuedCommandsComponentBase ::
   serialSync_handlerBase(
@@ -1068,6 +1160,10 @@ void QueuedCommandsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Pre-message hooks for typed async input ports
+// ----------------------------------------------------------------------
+
 void QueuedCommandsComponentBase ::
   typedAsync_preMsgHook(
       NATIVE_INT_TYPE portNum,
@@ -1083,6 +1179,10 @@ void QueuedCommandsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Pre-message hooks for serial async input ports
+// ----------------------------------------------------------------------
+
 void QueuedCommandsComponentBase ::
   serialAsync_preMsgHook(
       NATIVE_INT_TYPE portNum,
@@ -1091,6 +1191,10 @@ void QueuedCommandsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Invocation functions for typed output ports
+// ----------------------------------------------------------------------
 
 void QueuedCommandsComponentBase ::
   typedOut_out(
@@ -1107,6 +1211,10 @@ void QueuedCommandsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Invocation functions for serial output ports
+// ----------------------------------------------------------------------
+
 Fw::SerializeStatus QueuedCommandsComponentBase ::
   serialOut_out(
       NATIVE_INT_TYPE portNum,
@@ -1115,6 +1223,10 @@ Fw::SerializeStatus QueuedCommandsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Command response
+// ----------------------------------------------------------------------
 
 void QueuedCommandsComponentBase ::
   cmdResponse_out(
@@ -1125,6 +1237,10 @@ void QueuedCommandsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Command handlers to implement
+// ----------------------------------------------------------------------
 
 void QueuedCommandsComponentBase ::
   CMD_SYNC_cmdHandler(
@@ -1234,6 +1350,10 @@ void QueuedCommandsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Command handler base-class functions
+// ----------------------------------------------------------------------
 
 void QueuedCommandsComponentBase ::
   CMD_SYNC_cmdHandlerBase(
@@ -1345,6 +1465,10 @@ void QueuedCommandsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Pre-message hooks for async commands
+// ----------------------------------------------------------------------
+
 void QueuedCommandsComponentBase ::
   CMD_ASYNC_preMsgHook(
       FwOpcodeType opCode,
@@ -1390,11 +1514,19 @@ void QueuedCommandsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Time
+// ----------------------------------------------------------------------
+
 Fw::Time QueuedCommandsComponentBase ::
   getTime()
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Mutex operations for guarded ports
+// ----------------------------------------------------------------------
 
 void QueuedCommandsComponentBase ::
   lock()
@@ -1408,11 +1540,19 @@ void QueuedCommandsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Message dispatch functions
+// ----------------------------------------------------------------------
+
 Fw::QueuedComponentBase::MsgDispatchStatus QueuedCommandsComponentBase ::
   doDispatch()
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Calls for messages received on special input ports
+// ----------------------------------------------------------------------
 
 void QueuedCommandsComponentBase ::
   m_p_cmdIn_in(
@@ -1425,6 +1565,10 @@ void QueuedCommandsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Calls for messages received on typed input ports
+// ----------------------------------------------------------------------
 
 void QueuedCommandsComponentBase ::
   m_p_typedSync_in(
@@ -1473,6 +1617,10 @@ void QueuedCommandsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Calls for messages received on serial input ports
+// ----------------------------------------------------------------------
 
 #if FW_PORT_SERIALIZATION
 

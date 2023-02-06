@@ -10,6 +10,10 @@
 #include "Fw/Types/String.hpp"
 #include "PassiveTelemetryComponentAc.hpp"
 
+// ----------------------------------------------------------------------
+// Getters for special input ports
+// ----------------------------------------------------------------------
+
 Fw::InputCmdPort* PassiveTelemetryComponentBase ::
   get_cmdIn_InputPort(NATIVE_INT_TYPE portNum)
 {
@@ -20,6 +24,10 @@ Fw::InputCmdPort* PassiveTelemetryComponentBase ::
 
   return &this->m_cmdIn_InputPort[portNum];
 }
+
+// ----------------------------------------------------------------------
+// Getters for typed input ports
+// ----------------------------------------------------------------------
 
 InputTypedPort* PassiveTelemetryComponentBase ::
   get_typedSync_InputPort(NATIVE_INT_TYPE portNum)
@@ -43,6 +51,10 @@ InputTypedPort* PassiveTelemetryComponentBase ::
   return &this->m_typedGuarded_InputPort[portNum];
 }
 
+// ----------------------------------------------------------------------
+// Getters for serial input ports
+// ----------------------------------------------------------------------
+
 Fw::InputSerializePort* PassiveTelemetryComponentBase ::
   get_serialSync_InputPort(NATIVE_INT_TYPE portNum)
 {
@@ -64,6 +76,10 @@ Fw::InputSerializePort* PassiveTelemetryComponentBase ::
 
   return &this->m_serialGuarded_InputPort[portNum];
 }
+
+// ----------------------------------------------------------------------
+// Connect special input ports to special output ports
+// ----------------------------------------------------------------------
 
 void PassiveTelemetryComponentBase ::
   set_cmdRegOut_OutputPort(
@@ -183,6 +199,10 @@ void PassiveTelemetryComponentBase ::
 
 #if FW_PORT_SERIALIZATION
 
+// ----------------------------------------------------------------------
+// Connect serial input ports to special output ports
+// ----------------------------------------------------------------------
+
 void PassiveTelemetryComponentBase ::
   set_cmdRegOut_OutputPort(
       NATIVE_INT_TYPE portNum,
@@ -261,6 +281,10 @@ void PassiveTelemetryComponentBase ::
 
 #endif
 
+// ----------------------------------------------------------------------
+// Connect typed input ports to typed output ports
+// ----------------------------------------------------------------------
+
 void PassiveTelemetryComponentBase ::
   set_typedOut_OutputPort(
       NATIVE_INT_TYPE portNum,
@@ -277,6 +301,10 @@ void PassiveTelemetryComponentBase ::
 
 #if FW_PORT_SERIALIZATION
 
+// ----------------------------------------------------------------------
+// Connect serial input ports to typed output ports
+// ----------------------------------------------------------------------
+
 void PassiveTelemetryComponentBase ::
   set_typedOut_OutputPort(
       NATIVE_INT_TYPE portNum,
@@ -289,6 +317,10 @@ void PassiveTelemetryComponentBase ::
 #endif
 
 #if FW_PORT_SERIALIZATION
+
+// ----------------------------------------------------------------------
+// Connect serial input ports to serial output ports
+// ----------------------------------------------------------------------
 
 void PassiveTelemetryComponentBase ::
   set_serialOut_OutputPort(
@@ -309,6 +341,10 @@ void PassiveTelemetryComponentBase ::
 }
 
 #endif
+
+// ----------------------------------------------------------------------
+// Component construction, initialization, and destruction
+// ----------------------------------------------------------------------
 
 PassiveTelemetryComponentBase ::
   PassiveTelemetryComponentBase(const char* compName) :
@@ -671,11 +707,19 @@ PassiveTelemetryComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Getters for numbers of special input ports
+// ----------------------------------------------------------------------
+
 NATIVE_INT_TYPE PassiveTelemetryComponentBase ::
   getNum_cmdIn_InputPorts()
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Getters for numbers of typed input ports
+// ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE PassiveTelemetryComponentBase ::
   getNum_typedSync_InputPorts()
@@ -689,6 +733,10 @@ NATIVE_INT_TYPE PassiveTelemetryComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Getters for numbers of serial input ports
+// ----------------------------------------------------------------------
+
 NATIVE_INT_TYPE PassiveTelemetryComponentBase ::
   getNum_serialSync_InputPorts()
 {
@@ -700,6 +748,10 @@ NATIVE_INT_TYPE PassiveTelemetryComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Getters for numbers of special output ports
+// ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE PassiveTelemetryComponentBase ::
   getNum_cmdRegOut_OutputPorts()
@@ -753,17 +805,29 @@ NATIVE_INT_TYPE PassiveTelemetryComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Getters for numbers of typed output ports
+// ----------------------------------------------------------------------
+
 NATIVE_INT_TYPE PassiveTelemetryComponentBase ::
   getNum_typedOut_OutputPorts()
 {
 
 }
 
+// ----------------------------------------------------------------------
+// Getters for numbers of serial output ports
+// ----------------------------------------------------------------------
+
 NATIVE_INT_TYPE PassiveTelemetryComponentBase ::
   getNum_serialOut_OutputPorts()
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Connection status queries for special output ports
+// ----------------------------------------------------------------------
 
 bool PassiveTelemetryComponentBase ::
   isConnected_cmdRegOut_OutputPort(NATIVE_INT_TYPE portNum)
@@ -817,17 +881,29 @@ bool PassiveTelemetryComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Connection status queries for typed output ports
+// ----------------------------------------------------------------------
+
 bool PassiveTelemetryComponentBase ::
   isConnected_typedOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
 
 }
 
+// ----------------------------------------------------------------------
+// Connection status queries for serial output ports
+// ----------------------------------------------------------------------
+
 bool PassiveTelemetryComponentBase ::
   isConnected_serialOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Handlers to implement for typed input ports
+// ----------------------------------------------------------------------
 
 void PassiveTelemetryComponentBase ::
   typedSync_handler(
@@ -859,6 +935,10 @@ void PassiveTelemetryComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Port handler base-class functions for typed input ports
+// ----------------------------------------------------------------------
+
 void PassiveTelemetryComponentBase ::
   typedSync_handlerBase(
       NATIVE_INT_TYPE portNum,
@@ -889,6 +969,10 @@ void PassiveTelemetryComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Handlers to implement for serial input ports
+// ----------------------------------------------------------------------
+
 void PassiveTelemetryComponentBase ::
   serialSync_handler(
       NATIVE_INT_TYPE portNum,
@@ -906,6 +990,10 @@ void PassiveTelemetryComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Port handler base-class functions for serial input ports
+// ----------------------------------------------------------------------
 
 void PassiveTelemetryComponentBase ::
   serialSync_handlerBase(
@@ -925,6 +1013,10 @@ void PassiveTelemetryComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Invocation functions for typed output ports
+// ----------------------------------------------------------------------
+
 void PassiveTelemetryComponentBase ::
   typedOut_out(
       NATIVE_INT_TYPE portNum,
@@ -940,6 +1032,10 @@ void PassiveTelemetryComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Invocation functions for serial output ports
+// ----------------------------------------------------------------------
+
 Fw::SerializeStatus PassiveTelemetryComponentBase ::
   serialOut_out(
       NATIVE_INT_TYPE portNum,
@@ -948,6 +1044,10 @@ Fw::SerializeStatus PassiveTelemetryComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Telemetry write functions
+// ----------------------------------------------------------------------
 
 void PassiveTelemetryComponentBase ::
   tlmWrite_ChannelU32Format(
@@ -1030,11 +1130,19 @@ void PassiveTelemetryComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Time
+// ----------------------------------------------------------------------
+
 Fw::Time PassiveTelemetryComponentBase ::
   getTime()
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Mutex operations for guarded ports
+// ----------------------------------------------------------------------
 
 void PassiveTelemetryComponentBase ::
   lock()
@@ -1048,6 +1156,10 @@ void PassiveTelemetryComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Calls for messages received on special input ports
+// ----------------------------------------------------------------------
+
 void PassiveTelemetryComponentBase ::
   m_p_cmdIn_in(
       Fw::PassiveComponentBase* callComp,
@@ -1059,6 +1171,10 @@ void PassiveTelemetryComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Calls for messages received on typed input ports
+// ----------------------------------------------------------------------
 
 void PassiveTelemetryComponentBase ::
   m_p_typedSync_in(
@@ -1091,6 +1207,10 @@ void PassiveTelemetryComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Calls for messages received on serial input ports
+// ----------------------------------------------------------------------
 
 #if FW_PORT_SERIALIZATION
 

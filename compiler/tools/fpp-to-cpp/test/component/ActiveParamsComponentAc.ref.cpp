@@ -10,6 +10,10 @@
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/String.hpp"
 
+// ----------------------------------------------------------------------
+// Getters for special input ports
+// ----------------------------------------------------------------------
+
 Fw::InputCmdPort* ActiveParamsComponentBase ::
   get_cmdIn_InputPort(NATIVE_INT_TYPE portNum)
 {
@@ -20,6 +24,10 @@ Fw::InputCmdPort* ActiveParamsComponentBase ::
 
   return &this->m_cmdIn_InputPort[portNum];
 }
+
+// ----------------------------------------------------------------------
+// Getters for typed input ports
+// ----------------------------------------------------------------------
 
 InputTypedPort* ActiveParamsComponentBase ::
   get_typedSync_InputPort(NATIVE_INT_TYPE portNum)
@@ -54,6 +62,10 @@ InputTypedPort* ActiveParamsComponentBase ::
   return &this->m_typedAsync_InputPort[portNum];
 }
 
+// ----------------------------------------------------------------------
+// Getters for serial input ports
+// ----------------------------------------------------------------------
+
 Fw::InputSerializePort* ActiveParamsComponentBase ::
   get_serialSync_InputPort(NATIVE_INT_TYPE portNum)
 {
@@ -86,6 +98,10 @@ Fw::InputSerializePort* ActiveParamsComponentBase ::
 
   return &this->m_serialAsync_InputPort[portNum];
 }
+
+// ----------------------------------------------------------------------
+// Connect special input ports to special output ports
+// ----------------------------------------------------------------------
 
 void ActiveParamsComponentBase ::
   set_cmdRegOut_OutputPort(
@@ -205,6 +221,10 @@ void ActiveParamsComponentBase ::
 
 #if FW_PORT_SERIALIZATION
 
+// ----------------------------------------------------------------------
+// Connect serial input ports to special output ports
+// ----------------------------------------------------------------------
+
 void ActiveParamsComponentBase ::
   set_cmdRegOut_OutputPort(
       NATIVE_INT_TYPE portNum,
@@ -283,6 +303,10 @@ void ActiveParamsComponentBase ::
 
 #endif
 
+// ----------------------------------------------------------------------
+// Connect typed input ports to typed output ports
+// ----------------------------------------------------------------------
+
 void ActiveParamsComponentBase ::
   set_typedOut_OutputPort(
       NATIVE_INT_TYPE portNum,
@@ -299,6 +323,10 @@ void ActiveParamsComponentBase ::
 
 #if FW_PORT_SERIALIZATION
 
+// ----------------------------------------------------------------------
+// Connect serial input ports to typed output ports
+// ----------------------------------------------------------------------
+
 void ActiveParamsComponentBase ::
   set_typedOut_OutputPort(
       NATIVE_INT_TYPE portNum,
@@ -311,6 +339,10 @@ void ActiveParamsComponentBase ::
 #endif
 
 #if FW_PORT_SERIALIZATION
+
+// ----------------------------------------------------------------------
+// Connect serial input ports to serial output ports
+// ----------------------------------------------------------------------
 
 void ActiveParamsComponentBase ::
   set_serialOut_OutputPort(
@@ -332,17 +364,29 @@ void ActiveParamsComponentBase ::
 
 #endif
 
+// ----------------------------------------------------------------------
+// Command registration
+// ----------------------------------------------------------------------
+
 void ActiveParamsComponentBase ::
   regCommands()
 {
 
 }
 
+// ----------------------------------------------------------------------
+// Parameter loading
+// ----------------------------------------------------------------------
+
 void ActiveParamsComponentBase ::
   loadParameters()
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Component construction, initialization, and destruction
+// ----------------------------------------------------------------------
 
 ActiveParamsComponentBase ::
   ActiveParamsComponentBase(const char* compName) :
@@ -765,11 +809,19 @@ ActiveParamsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Getters for numbers of special input ports
+// ----------------------------------------------------------------------
+
 NATIVE_INT_TYPE ActiveParamsComponentBase ::
   getNum_cmdIn_InputPorts()
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Getters for numbers of typed input ports
+// ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE ActiveParamsComponentBase ::
   getNum_typedSync_InputPorts()
@@ -789,6 +841,10 @@ NATIVE_INT_TYPE ActiveParamsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Getters for numbers of serial input ports
+// ----------------------------------------------------------------------
+
 NATIVE_INT_TYPE ActiveParamsComponentBase ::
   getNum_serialSync_InputPorts()
 {
@@ -806,6 +862,10 @@ NATIVE_INT_TYPE ActiveParamsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Getters for numbers of special output ports
+// ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE ActiveParamsComponentBase ::
   getNum_cmdRegOut_OutputPorts()
@@ -859,17 +919,29 @@ NATIVE_INT_TYPE ActiveParamsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Getters for numbers of typed output ports
+// ----------------------------------------------------------------------
+
 NATIVE_INT_TYPE ActiveParamsComponentBase ::
   getNum_typedOut_OutputPorts()
 {
 
 }
 
+// ----------------------------------------------------------------------
+// Getters for numbers of serial output ports
+// ----------------------------------------------------------------------
+
 NATIVE_INT_TYPE ActiveParamsComponentBase ::
   getNum_serialOut_OutputPorts()
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Connection status queries for special output ports
+// ----------------------------------------------------------------------
 
 bool ActiveParamsComponentBase ::
   isConnected_cmdRegOut_OutputPort(NATIVE_INT_TYPE portNum)
@@ -923,17 +995,29 @@ bool ActiveParamsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Connection status queries for typed output ports
+// ----------------------------------------------------------------------
+
 bool ActiveParamsComponentBase ::
   isConnected_typedOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
 
 }
 
+// ----------------------------------------------------------------------
+// Connection status queries for serial output ports
+// ----------------------------------------------------------------------
+
 bool ActiveParamsComponentBase ::
   isConnected_serialOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Handlers to implement for typed input ports
+// ----------------------------------------------------------------------
 
 void ActiveParamsComponentBase ::
   typedSync_handler(
@@ -980,6 +1064,10 @@ void ActiveParamsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Port handler base-class functions for typed input ports
+// ----------------------------------------------------------------------
+
 void ActiveParamsComponentBase ::
   typedSync_handlerBase(
       NATIVE_INT_TYPE portNum,
@@ -1025,6 +1113,10 @@ void ActiveParamsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Handlers to implement for serial input ports
+// ----------------------------------------------------------------------
+
 void ActiveParamsComponentBase ::
   serialSync_handler(
       NATIVE_INT_TYPE portNum,
@@ -1051,6 +1143,10 @@ void ActiveParamsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Port handler base-class functions for serial input ports
+// ----------------------------------------------------------------------
 
 void ActiveParamsComponentBase ::
   serialSync_handlerBase(
@@ -1079,6 +1175,10 @@ void ActiveParamsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Pre-message hooks for typed async input ports
+// ----------------------------------------------------------------------
+
 void ActiveParamsComponentBase ::
   typedAsync_preMsgHook(
       NATIVE_INT_TYPE portNum,
@@ -1094,6 +1194,10 @@ void ActiveParamsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Pre-message hooks for serial async input ports
+// ----------------------------------------------------------------------
+
 void ActiveParamsComponentBase ::
   serialAsync_preMsgHook(
       NATIVE_INT_TYPE portNum,
@@ -1102,6 +1206,10 @@ void ActiveParamsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Invocation functions for typed output ports
+// ----------------------------------------------------------------------
 
 void ActiveParamsComponentBase ::
   typedOut_out(
@@ -1118,6 +1226,10 @@ void ActiveParamsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Invocation functions for serial output ports
+// ----------------------------------------------------------------------
+
 Fw::SerializeStatus ActiveParamsComponentBase ::
   serialOut_out(
       NATIVE_INT_TYPE portNum,
@@ -1126,6 +1238,10 @@ Fw::SerializeStatus ActiveParamsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Command response
+// ----------------------------------------------------------------------
 
 void ActiveParamsComponentBase ::
   cmdResponse_out(
@@ -1136,6 +1252,10 @@ void ActiveParamsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Parameter update hook
+// ----------------------------------------------------------------------
 
 void ActiveParamsComponentBase ::
   parameterUpdated(FwPrmIdType id)
@@ -1148,6 +1268,10 @@ void ActiveParamsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Parameter get functions
+// ----------------------------------------------------------------------
 
 U32 ActiveParamsComponentBase ::
   paramGet_ParamU32(Fw::ParamValid& isValid)
@@ -1185,11 +1309,19 @@ S ActiveParamsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Time
+// ----------------------------------------------------------------------
+
 Fw::Time ActiveParamsComponentBase ::
   getTime()
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Mutex operations for guarded ports
+// ----------------------------------------------------------------------
 
 void ActiveParamsComponentBase ::
   lock()
@@ -1203,11 +1335,19 @@ void ActiveParamsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Message dispatch functions
+// ----------------------------------------------------------------------
+
 Fw::QueuedComponentBase::MsgDispatchStatus ActiveParamsComponentBase ::
   doDispatch()
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Calls for messages received on special input ports
+// ----------------------------------------------------------------------
 
 void ActiveParamsComponentBase ::
   m_p_cmdIn_in(
@@ -1220,6 +1360,10 @@ void ActiveParamsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Calls for messages received on typed input ports
+// ----------------------------------------------------------------------
 
 void ActiveParamsComponentBase ::
   m_p_typedSync_in(
@@ -1269,6 +1413,10 @@ void ActiveParamsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Calls for messages received on serial input ports
+// ----------------------------------------------------------------------
+
 #if FW_PORT_SERIALIZATION
 
 void ActiveParamsComponentBase ::
@@ -1303,6 +1451,10 @@ void ActiveParamsComponentBase ::
 
 #endif
 
+// ----------------------------------------------------------------------
+// Private parameter get function
+// ----------------------------------------------------------------------
+
 Fw::ParamValid ActiveParamsComponentBase ::
   getParam(
       FwPrmIdType id,
@@ -1311,6 +1463,10 @@ Fw::ParamValid ActiveParamsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Parameter set functions
+// ----------------------------------------------------------------------
 
 Fw::CmdResponse ActiveParamsComponentBase ::
   paramSet_ParamU32(Fw::SerializeBufferBase& val)
@@ -1347,6 +1503,10 @@ Fw::CmdResponse ActiveParamsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Parameter save functions
+// ----------------------------------------------------------------------
 
 Fw::CmdResponse ActiveParamsComponentBase ::
   paramSave_ParamU32()

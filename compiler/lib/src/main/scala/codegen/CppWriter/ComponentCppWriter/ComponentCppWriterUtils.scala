@@ -292,6 +292,43 @@ abstract class ComponentCppWriterUtils(
     }
   }
 
+  /** Write a banner comment in cpp and hpp files, with description and access tag in hpp file only */
+  def writeAccessTagAndComment(
+    accessTag: String,
+    comment: String,
+    description: Option[String] = None
+  ): List[CppDoc.Class.Member] = {
+    description match {
+      case Some(s) => List(
+        linesClassMember(
+          List(
+            CppDocHppWriter.writeAccessTag(accessTag),
+            CppDocWriter.writeBannerComment(
+              s"$comment\n\n$s"
+            )
+          ).flatten
+        ),
+        linesClassMember(
+          CppDocWriter.writeBannerComment(
+            comment
+          ),
+          CppDoc.Lines.Cpp
+        ),
+      )
+      case None => List(
+        linesClassMember(
+          CppDocHppWriter.writeAccessTag(accessTag)
+        ),
+        linesClassMember(
+          CppDocWriter.writeBannerComment(
+            comment
+          ),
+          CppDoc.Lines.Both
+        )
+      )
+    }
+  }
+
   /** Get the name for a port number getter function */
   def portNumGetterName(name: String, direction: PortInstance.Direction) =
     s"getNum_${name}_${direction.toString.capitalize}Ports"

@@ -10,6 +10,10 @@
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/String.hpp"
 
+// ----------------------------------------------------------------------
+// Component construction, initialization, and destruction
+// ----------------------------------------------------------------------
+
 EmptyComponentBase ::
   EmptyComponentBase(const char* compName) :
     Fw::PassiveComponentBase(compName)

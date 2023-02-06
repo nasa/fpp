@@ -10,6 +10,10 @@
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/String.hpp"
 
+// ----------------------------------------------------------------------
+// Getters for special input ports
+// ----------------------------------------------------------------------
+
 Fw::InputCmdPort* ActiveEventsComponentBase ::
   get_cmdIn_InputPort(NATIVE_INT_TYPE portNum)
 {
@@ -20,6 +24,10 @@ Fw::InputCmdPort* ActiveEventsComponentBase ::
 
   return &this->m_cmdIn_InputPort[portNum];
 }
+
+// ----------------------------------------------------------------------
+// Getters for typed input ports
+// ----------------------------------------------------------------------
 
 InputTypedPort* ActiveEventsComponentBase ::
   get_typedSync_InputPort(NATIVE_INT_TYPE portNum)
@@ -54,6 +62,10 @@ InputTypedPort* ActiveEventsComponentBase ::
   return &this->m_typedAsync_InputPort[portNum];
 }
 
+// ----------------------------------------------------------------------
+// Getters for serial input ports
+// ----------------------------------------------------------------------
+
 Fw::InputSerializePort* ActiveEventsComponentBase ::
   get_serialSync_InputPort(NATIVE_INT_TYPE portNum)
 {
@@ -86,6 +98,10 @@ Fw::InputSerializePort* ActiveEventsComponentBase ::
 
   return &this->m_serialAsync_InputPort[portNum];
 }
+
+// ----------------------------------------------------------------------
+// Connect special input ports to special output ports
+// ----------------------------------------------------------------------
 
 void ActiveEventsComponentBase ::
   set_cmdRegOut_OutputPort(
@@ -205,6 +221,10 @@ void ActiveEventsComponentBase ::
 
 #if FW_PORT_SERIALIZATION
 
+// ----------------------------------------------------------------------
+// Connect serial input ports to special output ports
+// ----------------------------------------------------------------------
+
 void ActiveEventsComponentBase ::
   set_cmdRegOut_OutputPort(
       NATIVE_INT_TYPE portNum,
@@ -283,6 +303,10 @@ void ActiveEventsComponentBase ::
 
 #endif
 
+// ----------------------------------------------------------------------
+// Connect typed input ports to typed output ports
+// ----------------------------------------------------------------------
+
 void ActiveEventsComponentBase ::
   set_typedOut_OutputPort(
       NATIVE_INT_TYPE portNum,
@@ -299,6 +323,10 @@ void ActiveEventsComponentBase ::
 
 #if FW_PORT_SERIALIZATION
 
+// ----------------------------------------------------------------------
+// Connect serial input ports to typed output ports
+// ----------------------------------------------------------------------
+
 void ActiveEventsComponentBase ::
   set_typedOut_OutputPort(
       NATIVE_INT_TYPE portNum,
@@ -311,6 +339,10 @@ void ActiveEventsComponentBase ::
 #endif
 
 #if FW_PORT_SERIALIZATION
+
+// ----------------------------------------------------------------------
+// Connect serial input ports to serial output ports
+// ----------------------------------------------------------------------
 
 void ActiveEventsComponentBase ::
   set_serialOut_OutputPort(
@@ -331,6 +363,10 @@ void ActiveEventsComponentBase ::
 }
 
 #endif
+
+// ----------------------------------------------------------------------
+// Component construction, initialization, and destruction
+// ----------------------------------------------------------------------
 
 ActiveEventsComponentBase ::
   ActiveEventsComponentBase(const char* compName) :
@@ -750,11 +786,19 @@ ActiveEventsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Getters for numbers of special input ports
+// ----------------------------------------------------------------------
+
 NATIVE_INT_TYPE ActiveEventsComponentBase ::
   getNum_cmdIn_InputPorts()
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Getters for numbers of typed input ports
+// ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE ActiveEventsComponentBase ::
   getNum_typedSync_InputPorts()
@@ -774,6 +818,10 @@ NATIVE_INT_TYPE ActiveEventsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Getters for numbers of serial input ports
+// ----------------------------------------------------------------------
+
 NATIVE_INT_TYPE ActiveEventsComponentBase ::
   getNum_serialSync_InputPorts()
 {
@@ -791,6 +839,10 @@ NATIVE_INT_TYPE ActiveEventsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Getters for numbers of special output ports
+// ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE ActiveEventsComponentBase ::
   getNum_cmdRegOut_OutputPorts()
@@ -844,17 +896,29 @@ NATIVE_INT_TYPE ActiveEventsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Getters for numbers of typed output ports
+// ----------------------------------------------------------------------
+
 NATIVE_INT_TYPE ActiveEventsComponentBase ::
   getNum_typedOut_OutputPorts()
 {
 
 }
 
+// ----------------------------------------------------------------------
+// Getters for numbers of serial output ports
+// ----------------------------------------------------------------------
+
 NATIVE_INT_TYPE ActiveEventsComponentBase ::
   getNum_serialOut_OutputPorts()
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Connection status queries for special output ports
+// ----------------------------------------------------------------------
 
 bool ActiveEventsComponentBase ::
   isConnected_cmdRegOut_OutputPort(NATIVE_INT_TYPE portNum)
@@ -908,17 +972,29 @@ bool ActiveEventsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Connection status queries for typed output ports
+// ----------------------------------------------------------------------
+
 bool ActiveEventsComponentBase ::
   isConnected_typedOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
 
 }
 
+// ----------------------------------------------------------------------
+// Connection status queries for serial output ports
+// ----------------------------------------------------------------------
+
 bool ActiveEventsComponentBase ::
   isConnected_serialOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Handlers to implement for typed input ports
+// ----------------------------------------------------------------------
 
 void ActiveEventsComponentBase ::
   typedSync_handler(
@@ -965,6 +1041,10 @@ void ActiveEventsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Port handler base-class functions for typed input ports
+// ----------------------------------------------------------------------
+
 void ActiveEventsComponentBase ::
   typedSync_handlerBase(
       NATIVE_INT_TYPE portNum,
@@ -1010,6 +1090,10 @@ void ActiveEventsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Handlers to implement for serial input ports
+// ----------------------------------------------------------------------
+
 void ActiveEventsComponentBase ::
   serialSync_handler(
       NATIVE_INT_TYPE portNum,
@@ -1036,6 +1120,10 @@ void ActiveEventsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Port handler base-class functions for serial input ports
+// ----------------------------------------------------------------------
 
 void ActiveEventsComponentBase ::
   serialSync_handlerBase(
@@ -1064,6 +1152,10 @@ void ActiveEventsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Pre-message hooks for typed async input ports
+// ----------------------------------------------------------------------
+
 void ActiveEventsComponentBase ::
   typedAsync_preMsgHook(
       NATIVE_INT_TYPE portNum,
@@ -1079,6 +1171,10 @@ void ActiveEventsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Pre-message hooks for serial async input ports
+// ----------------------------------------------------------------------
+
 void ActiveEventsComponentBase ::
   serialAsync_preMsgHook(
       NATIVE_INT_TYPE portNum,
@@ -1087,6 +1183,10 @@ void ActiveEventsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Invocation functions for typed output ports
+// ----------------------------------------------------------------------
 
 void ActiveEventsComponentBase ::
   typedOut_out(
@@ -1103,6 +1203,10 @@ void ActiveEventsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Invocation functions for serial output ports
+// ----------------------------------------------------------------------
+
 Fw::SerializeStatus ActiveEventsComponentBase ::
   serialOut_out(
       NATIVE_INT_TYPE portNum,
@@ -1111,6 +1215,10 @@ Fw::SerializeStatus ActiveEventsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Event logging functions
+// ----------------------------------------------------------------------
 
 void ActiveEventsComponentBase ::
   log_ACTIVITY_HI_EventActivityHigh()
@@ -1161,6 +1269,10 @@ void ActiveEventsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Event throttle reset functions
+// ----------------------------------------------------------------------
+
 void ActiveEventsComponentBase ::
   log_ACTIVITY_LO_EventActivityLowThrottled_ThrottleClear()
 {
@@ -1179,11 +1291,19 @@ void ActiveEventsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Time
+// ----------------------------------------------------------------------
+
 Fw::Time ActiveEventsComponentBase ::
   getTime()
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Mutex operations for guarded ports
+// ----------------------------------------------------------------------
 
 void ActiveEventsComponentBase ::
   lock()
@@ -1197,11 +1317,19 @@ void ActiveEventsComponentBase ::
 
 }
 
+// ----------------------------------------------------------------------
+// Message dispatch functions
+// ----------------------------------------------------------------------
+
 Fw::QueuedComponentBase::MsgDispatchStatus ActiveEventsComponentBase ::
   doDispatch()
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Calls for messages received on special input ports
+// ----------------------------------------------------------------------
 
 void ActiveEventsComponentBase ::
   m_p_cmdIn_in(
@@ -1214,6 +1342,10 @@ void ActiveEventsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Calls for messages received on typed input ports
+// ----------------------------------------------------------------------
 
 void ActiveEventsComponentBase ::
   m_p_typedSync_in(
@@ -1262,6 +1394,10 @@ void ActiveEventsComponentBase ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Calls for messages received on serial input ports
+// ----------------------------------------------------------------------
 
 #if FW_PORT_SERIALIZATION
 

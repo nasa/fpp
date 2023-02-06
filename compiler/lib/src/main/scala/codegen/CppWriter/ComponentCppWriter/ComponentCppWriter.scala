@@ -312,158 +312,154 @@ case class ComponentCppWriter (
       else Nil
 
     List(
-      linesClassMember(
-        List(
-          CppDocHppWriter.writeAccessTag("PROTECTED"),
-          CppDocWriter.writeBannerComment(
-            "Component construction, initialization, and destruction"
-          )
-        ).flatten
+      writeAccessTagAndComment(
+        "PROTECTED",
+        "Component construction, initialization, and destruction"
       ),
-      constructorClassMember(
-        Some(s"Construct $className object"),
-        List(
-          CppDoc.Function.Param(
-            CppDoc.Type("const char*"),
-            "compName",
-            Some("The component name"),
-            Some("\"\"")
+      List(
+        constructorClassMember(
+          Some(s"Construct $className object"),
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("const char*"),
+              "compName",
+              Some("The component name"),
+              Some("\"\"")
+            )
+          ),
+          List(s"Fw::${kindStr}ComponentBase(compName)"),
+          intersperseBlankLines(
+            List(
+              intersperseBlankLines(
+                updateOnChangeChannels.map((_, channel) =>
+                  writeChannelInit(channel)
+                )
+              ),
+              throttledEvents.map((_, event) => line(
+                s"this->${eventThrottleCounterName(event.getName)} = 0;"
+              )),
+              sortedParams.map((_, param) => line(
+                s"this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::UNINIT;"
+              ))
+            )
           )
         ),
-        List(s"Fw::${kindStr}ComponentBase(compName)"),
-        intersperseBlankLines(
-          List(
-            intersperseBlankLines(
-              updateOnChangeChannels.map((_, channel) =>
-                writeChannelInit(channel)
-              )
-            ),
-            throttledEvents.map((_, event) => line(
-              s"this->${eventThrottleCounterName(event.getName)} = 0;"
-            )),
-            sortedParams.map((_, param) => line(
-              s"this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::UNINIT;"
-            ))
-          )
-        )
-      ),
-      functionClassMember(
-        Some(s"Initialize $className object"),
-        "init",
-        initQueueDepthParam ++ initMsgSizeParam ++ initInstanceParam,
-        CppDoc.Type("void"),
-        intersperseBlankLines(
-          List(
-            lines(
-              s"""|// Initialize base class
-                  |Fw::$baseClassName::init(instance);
-                  |"""
-            ),
-            intersperseBlankLines(
-              List(
-                intersperseBlankLines(specialInputPorts.map(writePortConnections)),
-                intersperseBlankLines(typedInputPorts.map(writePortConnections)),
-                intersperseBlankLines(serialInputPorts.map(writePortConnections)),
-                intersperseBlankLines(specialOutputPorts.map(writePortConnections)),
-                intersperseBlankLines(typedOutputPorts.map(writePortConnections)),
-                intersperseBlankLines(serialOutputPorts.map(writePortConnections))
+        functionClassMember(
+          Some(s"Initialize $className object"),
+          "init",
+          initQueueDepthParam ++ initMsgSizeParam ++ initInstanceParam,
+          CppDoc.Type("void"),
+          intersperseBlankLines(
+            List(
+              lines(
+                s"""|// Initialize base class
+                    |Fw::$baseClassName::init(instance);
+                    |"""
+              ),
+              intersperseBlankLines(
+                List(
+                  intersperseBlankLines(specialInputPorts.map(writePortConnections)),
+                  intersperseBlankLines(typedInputPorts.map(writePortConnections)),
+                  intersperseBlankLines(serialInputPorts.map(writePortConnections)),
+                  intersperseBlankLines(specialOutputPorts.map(writePortConnections)),
+                  intersperseBlankLines(typedOutputPorts.map(writePortConnections)),
+                  intersperseBlankLines(serialOutputPorts.map(writePortConnections))
+                )
               )
             )
           )
+        ),
+        destructorClassMember(
+          Some(s"Destroy $className object"),
+          Nil,
+          CppDoc.Class.Destructor.Virtual
         )
-      ),
-      destructorClassMember(
-        Some(s"Destroy $className object"),
-        Nil,
-        CppDoc.Class.Destructor.Virtual
       )
-    )
+    ).flatten
   }
 
   private def getMutexOperationMembers: List[CppDoc.Class.Member] = {
     if !hasGuardedInputPorts then Nil
     else List(
-      linesClassMember(
-        List(
-          CppDocHppWriter.writeAccessTag("PROTECTED"),
-          CppDocWriter.writeBannerComment(
-            """|Mutex operations for guarded ports.
-               |You can override these operations to provide more sophisticated
-               |synchronization.
-               |"""
-          ),
-        ).flatten
+      writeAccessTagAndComment(
+        "PROTECTED",
+        "Mutex operations for guarded ports",
+        Some(
+          """|You can override these operations to provide more sophisticated
+             |synchronization
+             |"""
+        )
       ),
-      functionClassMember(
-        Some("Lock the guarded mutex"),
-        "lock",
-        Nil,
-        CppDoc.Type("void"),
-        Nil,
-        CppDoc.Function.Virtual
-      ),
-      functionClassMember(
-        Some("Unlock the guarded mutex"),
-        "unLock",
-        Nil,
-        CppDoc.Type("void"),
-        Nil,
-        CppDoc.Function.Virtual
+      List(
+        functionClassMember(
+          Some("Lock the guarded mutex"),
+          "lock",
+          Nil,
+          CppDoc.Type("void"),
+          Nil,
+          CppDoc.Function.Virtual
+        ),
+        functionClassMember(
+          Some("Unlock the guarded mutex"),
+          "unLock",
+          Nil,
+          CppDoc.Type("void"),
+          Nil,
+          CppDoc.Function.Virtual
+        )
       )
-    )
+    ).flatten
   }
 
   private def getDispatchFunctionMember: List[CppDoc.Class.Member] = {
     if data.kind == Ast.ComponentKind.Passive then Nil
     else List(
-      linesClassMember(
-        List(
-          data.kind match {
-            case Ast.ComponentKind.Active => CppDocHppWriter.writeAccessTag("PRIVATE")
-            case Ast.ComponentKind.Queued => CppDocHppWriter.writeAccessTag("PROTECTED")
-            case _ => Nil
-          },
-          CppDocWriter.writeBannerComment(
-            "Message dispatch functions"
-          )
-        ).flatten
+      writeAccessTagAndComment(
+        data.kind match {
+          case Ast.ComponentKind.Active => "PRIVATE"
+          case Ast.ComponentKind.Queued => "PROTECTED"
+          case _ => ""
+        },
+        "Message dispatch functions"
       ),
-      functionClassMember(
-        Some("Called in the message loop to dispatch a message from the queue"),
-        "doDispatch",
-        Nil,
-        CppDoc.Type(
-          "MsgDispatchStatus",
-          Some("Fw::QueuedComponentBase::MsgDispatchStatus")
-        ),
-        Nil,
-        CppDoc.Function.Virtual
+      List(
+        functionClassMember(
+          Some("Called in the message loop to dispatch a message from the queue"),
+          "doDispatch",
+          Nil,
+          CppDoc.Type(
+            "MsgDispatchStatus",
+            Some("Fw::QueuedComponentBase::MsgDispatchStatus")
+          ),
+          Nil,
+          CppDoc.Function.Virtual
+        )
       )
-    )
+    ).flatten
   }
 
   private def getTimeFunctionMember: List[CppDoc.Class.Member] = {
     if !hasTimeGetPort then Nil
     else List(
-      linesClassMember(
-        List(
-          CppDocHppWriter.writeAccessTag("PROTECTED"),
-          CppDocWriter.writeBannerComment("Time")
-        ).flatten
+      writeAccessTagAndComment(
+        "PROTECTED",
+        "Time"
       ),
-      functionClassMember(
-        Some(
-          s"""| Get the time
-              |
-              |\\return The current time
-              |"""
-        ),
-        "getTime",
-        Nil,
-        CppDoc.Type("Fw::Time"),
-        Nil
+      List(
+        functionClassMember(
+          Some(
+            s"""| Get the time
+                |
+                |\\return The current time
+                |"""
+          ),
+          "getTime",
+          Nil,
+          CppDoc.Type("Fw::Time"),
+          Nil
+        )
       )
-    )
+    ).flatten
   }
 
   private def getMsgSizeVariableMember: List[CppDoc.Class.Member] = {

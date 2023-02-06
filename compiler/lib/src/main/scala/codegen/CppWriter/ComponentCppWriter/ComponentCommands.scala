@@ -93,40 +93,32 @@ case class ComponentCommands (
 
   private def getRegFunction: List[CppDoc.Class.Member] = {
     List(
-      linesClassMember(
-        List(
-          CppDocHppWriter.writeAccessTag("public"),
-          CppDocWriter.writeBannerComment(
-            "Command registration"
-          ),
-        ).flatten
+      writeAccessTagAndComment(
+        "public",
+        "Command registration"
       ),
-      functionClassMember(
-        Some(
-          s"""|\\brief Register commands with the Command Dispatcher
-              |
-              |Connect the dispatcher first
-              |"""
-        ),
-        "regCommands",
-        Nil,
-        CppDoc.Type("void"),
-        Nil
+      List(
+        functionClassMember(
+          Some(
+            s"""|\\brief Register commands with the Command Dispatcher
+                |
+                |Connect the dispatcher first
+                |"""
+          ),
+          "regCommands",
+          Nil,
+          CppDoc.Type("void"),
+          Nil
+        )
       )
-    )
+    ).flatten
   }
 
   private def getHandlers: List[CppDoc.Class.Member] = {
     List(
-      List(
-        linesClassMember(
-          List(
-            CppDocHppWriter.writeAccessTag("PROTECTED"),
-            CppDocWriter.writeBannerComment(
-              "Command handlers to implement"
-            ),
-          ).flatten
-        )
+      writeAccessTagAndComment(
+        "PROTECTED",
+        "Command handlers to implement"
       ),
       nonParamCmds.map((opcode, cmd) =>
         functionClassMember(
@@ -154,16 +146,11 @@ case class ComponentCommands (
 
   private def getHandlerBases: List[CppDoc.Class.Member] = {
     List(
-      List(
-        linesClassMember(
-          List(
-            CppDocHppWriter.writeAccessTag("PROTECTED"),
-            CppDocWriter.writeBannerComment(
-              """|Command handler base-class functions.
-                 |Call these functions directly to bypass the command input port.
-                 |"""
-            ),
-          ).flatten
+      writeAccessTagAndComment(
+        "PROTECTED",
+        "Command handler base-class functions",
+        Some(
+           "Call these functions directly to bypass the command input port"
         )
       ),
       nonParamCmds.map((_, cmd) =>
@@ -193,48 +180,42 @@ case class ComponentCommands (
 
   private def getResponseFunction: List[CppDoc.Class.Member] = {
     List(
-      linesClassMember(
-        List(
-          CppDocHppWriter.writeAccessTag("PROTECTED"),
-          CppDocWriter.writeBannerComment(
-            "Command response"
-          ),
-        ).flatten
+      writeAccessTagAndComment(
+        "PROTECTED",
+        "Command response"
       ),
-      functionClassMember(
-        Some(
-          "Emit command response"
-        ),
-        "cmdResponse_out",
-        List(
-          opcodeParam,
-          cmdSeqParam,
-          CppDoc.Function.Param(
-            CppDoc.Type("Fw::CmdResponse"),
-            "response",
-            Some("The command response")
-          )
-        ),
-        CppDoc.Type("void"),
-        Nil
+      List(
+        functionClassMember(
+          Some(
+            "Emit command response"
+          ),
+          "cmdResponse_out",
+          List(
+            opcodeParam,
+            cmdSeqParam,
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::CmdResponse"),
+              "response",
+              Some("The command response")
+            )
+          ),
+          CppDoc.Type("void"),
+          Nil
+        )
       )
-    )
+    ).flatten
   }
 
   private def getPreMsgHooks: List[CppDoc.Class.Member] = {
     List(
-      List(
-        linesClassMember(
-          List(
-            CppDocHppWriter.writeAccessTag("PROTECTED"),
-            CppDocWriter.writeBannerComment(
-              s"""|Pre-message hooks for async commands.
-                  |Each of these functions is invoked just before processing the
-                  |corresponding command. By default they do nothing. You can
-                  |override them to provide specific pre-command behavior.
-                  |"""
-            ),
-          ).flatten
+      writeAccessTagAndComment(
+        "PROTECTED",
+        "Pre-message hooks for async commands",
+        Some(
+          """|Each of these functions is invoked just before processing the
+             |corresponding command. By default they do nothing. You can
+             |override them to provide specific pre-command behavior.
+             |"""
         )
       ),
       nonParamCmds.filter((_, cmd) => cmd.kind match {

@@ -92,90 +92,80 @@ case class ComponentParameters (
 
   private def getLoadFunction: List[CppDoc.Class.Member] = {
     List(
-      linesClassMember(
-        List(
-          CppDocHppWriter.writeAccessTag("public"),
-          CppDocWriter.writeBannerComment(
-            "Parameter loading"
-          ),
-        ).flatten
+      writeAccessTagAndComment(
+        "public",
+        "Parameter loading"
       ),
-      functionClassMember(
-        Some(
-          s"""|\\brief Load the parameters from a parameter source
-              |
-              |Connect the parameter first
-              |"""
-        ),
-        "loadParameters",
-        Nil,
-        CppDoc.Type("void"),
-        Nil
+      List(
+        functionClassMember(
+          Some(
+            s"""|\\brief Load the parameters from a parameter source
+                |
+                |Connect the parameter first
+                |"""
+          ),
+          "loadParameters",
+          Nil,
+          CppDoc.Type("void"),
+          Nil
+        )
       )
-    )
+    ).flatten
   }
 
   private def getHookFunctions: List[CppDoc.Class.Member] = {
     List(
-      linesClassMember(
-        List(
-          CppDocHppWriter.writeAccessTag("PROTECTED"),
-          CppDocWriter.writeBannerComment(
-            "Parameter update hook"
-          ),
-        ).flatten
+      writeAccessTagAndComment(
+        "PROTECTED",
+        "Parameter update hook"
       ),
-      functionClassMember(
-        Some(
-          s"""|\\brief Called whenever a parameter is updated
-              |
-              |This function does nothing by default. You may override it.
-              |"""
+      List(
+        functionClassMember(
+          Some(
+            s"""|\\brief Called whenever a parameter is updated
+                |
+                |This function does nothing by default. You may override it.
+                |"""
+          ),
+          "parameterUpdated",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("FwPrmIdType"),
+              "id",
+              Some("The parameter ID")
+            )
+          ),
+          CppDoc.Type("void"),
+          Nil,
+          CppDoc.Function.Virtual
         ),
-        "parameterUpdated",
-        List(
-          CppDoc.Function.Param(
-            CppDoc.Type("FwPrmIdType"),
-            "id",
-            Some("The parameter ID")
+        linesClassMember(
+          CppDocWriter.writeBannerComment(
+            "Parameter load hook"
           )
         ),
-        CppDoc.Type("void"),
-        Nil,
-        CppDoc.Function.Virtual
-      ),
-      linesClassMember(
-        CppDocWriter.writeBannerComment(
-          "Parameter load hook"
+        functionClassMember(
+          Some(
+            s"""|\\brief Called whenever parameters are loaded
+                |
+                |This function does nothing by default. You may override it.
+                |"""
+          ),
+          "parametersLoaded",
+          Nil,
+          CppDoc.Type("void"),
+          Nil,
+          CppDoc.Function.Virtual
         )
-      ),
-      functionClassMember(
-        Some(
-          s"""|\\brief Called whenever parameters are loaded
-              |
-              |This function does nothing by default. You may override it.
-              |"""
-        ),
-        "parametersLoaded",
-        Nil,
-        CppDoc.Type("void"),
-        Nil,
-        CppDoc.Function.Virtual
       )
-    )
+    ).flatten
   }
 
   private def getGetterFunctions: List[CppDoc.Class.Member] = {
     List(
-      List(
-        linesClassMember(
-          List(
-            CppDocHppWriter.writeAccessTag("PROTECTED"),
-            CppDocWriter.writeBannerComment(
-              "Parameter get functions"
-            ),
-          ).flatten
-        )
+      writeAccessTagAndComment(
+        "PROTECTED",
+        "Parameter get functions"
       ),
       sortedParams.map((_, param) =>
         functionClassMember(
@@ -202,51 +192,43 @@ case class ComponentParameters (
 
   private def getPrivateGetter: List[CppDoc.Class.Member] = {
     List(
-      linesClassMember(
-        List(
-          CppDocHppWriter.writeAccessTag("PRIVATE"),
-          CppDocWriter.writeBannerComment(
-            "Private parameter get function"
-          ),
-        ).flatten
+      writeAccessTagAndComment(
+        "PRIVATE",
+        "Private parameter get function"
       ),
-      functionClassMember(
-        Some(
-          """|Get a parameter by ID
-             |
-             |\return Whether the parameter is valid
-             |"""
-        ),
-        "getParam",
-        List(
-          CppDoc.Function.Param(
-            CppDoc.Type("FwPrmIdType"),
-            "id",
-            Some("The ID")
+      List(
+        functionClassMember(
+          Some(
+            """|Get a parameter by ID
+               |
+               |\return Whether the parameter is valid
+               |"""
           ),
-          CppDoc.Function.Param(
-            CppDoc.Type("Fw::ParamBuffer&"),
-            "buff",
-            Some("The parameter value")
-          )
-        ),
-        CppDoc.Type("Fw::ParamValid"),
-        Nil
+          "getParam",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("FwPrmIdType"),
+              "id",
+              Some("The ID")
+            ),
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::ParamBuffer&"),
+              "buff",
+              Some("The parameter value")
+            )
+          ),
+          CppDoc.Type("Fw::ParamValid"),
+          Nil
+        )
       )
-    )
+    ).flatten
   }
 
   private def getSetters: List[CppDoc.Class.Member] = {
     List(
-      List(
-        linesClassMember(
-          List(
-            CppDocHppWriter.writeAccessTag("PRIVATE"),
-            CppDocWriter.writeBannerComment(
-              "Parameter set functions"
-            ),
-          ).flatten
-        )
+      writeAccessTagAndComment(
+        "PRIVATE",
+        "Parameter set functions"
       ),
       sortedParams.map((_, param) =>
         functionClassMember(
@@ -273,15 +255,9 @@ case class ComponentParameters (
 
   private def getSaveFunctions: List[CppDoc.Class.Member] = {
     List(
-      List(
-        linesClassMember(
-          List(
-            CppDocHppWriter.writeAccessTag("PRIVATE"),
-            CppDocWriter.writeBannerComment(
-              "Parameter save functions"
-            ),
-          ).flatten
-        )
+      writeAccessTagAndComment(
+        "PRIVATE",
+        "Parameter save functions"
       ),
       sortedParams.map((_, param) =>
         functionClassMember(

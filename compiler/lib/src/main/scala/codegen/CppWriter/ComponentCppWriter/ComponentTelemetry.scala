@@ -72,15 +72,9 @@ case class ComponentTelemetry (
 
   private def getWriteFunctions: List[CppDoc.Class.Member] = {
     List(
-      List(
-        linesClassMember(
-          List(
-            CppDocHppWriter.writeAccessTag("PROTECTED"),
-            CppDocWriter.writeBannerComment(
-              "Telemetry write functions"
-            ),
-          ).flatten
-        )
+      writeAccessTagAndComment(
+        "PROTECTED",
+        "Telemetry write functions"
       ),
       sortedChannels.map((_, channel) =>
         functionClassMember(

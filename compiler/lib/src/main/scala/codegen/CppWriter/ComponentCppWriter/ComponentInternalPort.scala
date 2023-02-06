@@ -20,15 +20,9 @@ case class ComponentInternalPort (
 
   private def getHandlers: List[CppDoc.Class.Member] = {
     List(
-      List(
-        linesClassMember(
-          List(
-            CppDocHppWriter.writeAccessTag("PROTECTED"),
-            CppDocWriter.writeBannerComment(
-              "Internal interface handlers"
-            ),
-          ).flatten
-        ),
+      writeAccessTagAndComment(
+        "PROTECTED",
+        "Internal interface handlers"
       ),
       internalPorts.map(p =>
         functionClassMember(
@@ -47,15 +41,9 @@ case class ComponentInternalPort (
 
   private def getHandlerBases: List[CppDoc.Class.Member] = {
     List(
-      List(
-        linesClassMember(
-          List(
-            CppDocHppWriter.writeAccessTag("PROTECTED"),
-            CppDocWriter.writeBannerComment(
-              "Internal interface base-class functions"
-            ),
-          ).flatten
-        )
+      writeAccessTagAndComment(
+        "PROTECTED",
+        "Internal interface base-class functions"
       ),
       internalPorts.map(p =>
         functionClassMember(
