@@ -148,10 +148,6 @@ case class CppWriterState(
           case Symbol.Enum(node) => Some(
             ComputeCppFiles.FileNames.getEnum(getName(Symbol.Enum(node)))
           )
-          case Symbol.EnumConstant(node) => {
-            val parentSym = a.parentSymbolMap(Symbol.EnumConstant(node))
-            Some(ComputeCppFiles.FileNames.getEnum(getName(parentSym)))
-          }
           case Symbol.Port(node) => Some(
             ComputeCppFiles.FileNames.getPort(getName(Symbol.Port(node)))
           )
