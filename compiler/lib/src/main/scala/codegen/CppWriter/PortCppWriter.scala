@@ -21,22 +21,15 @@ case class PortCppWriter (
 
   private val namespaceIdentList = s.getNamespaceIdentList(symbol)
 
-  private val typeCppWriter = TypeCppWriter(s)
-
   private val strCppWriter = StringCppWriter(s)
 
-  private val strNamespace = s"${name}PortStrings"
+  private val strNamespace = PortCppWriter.getPortStringNamespace(name)
 
   private val params = data.params
 
   // Map from param name to param type
   private val paramTypeMap = params.map((_, node, _) => {
     (node.data.name, s.a.typeMap(node.data.typeName.id))
-  }).toMap
-
-  // Map from param name to param annotation
-  private val paramAnnotationMap = params.map(aNode => {
-    (aNode._2.data.name, AnnotationCppWriter.asStringOpt(aNode))
   }).toMap
 
   // List of tuples (name, type) for each string param
@@ -54,43 +47,22 @@ case class PortCppWriter (
   private val paramList = params.map((_, node, _) => {
     val n = node.data.name
     val k = node.data.kind
-    paramTypeMap(n) match {
-      case t: Type.String => (
-        n,
-        strCppWriter.getQualifiedClassName(t, List(strNamespace)),
-        k
-      )
-      case t => (n, typeCppWriter.write(t), k)
-    }
+
+    (n, writeCppTypeName(paramTypeMap(n), s, List(strNamespace)), k)
   })
 
   // Port params as CppDoc Function Params
-  private val functionParams = paramList.map((n, tn, k) => {
-    CppDoc.Function.Param(
-      CppDoc.Type(getCppType(paramTypeMap(n), tn, k)),
-      n,
-      paramAnnotationMap(n)
-    )
-  })
+  private val functionParams: List[CppDoc.Function.Param] =
+    writeFormalParamList(params, s, List(strNamespace))
 
-  // Return type as a C++ type
-  private val returnType = data.returnType match {
-    case Some(value) => s.a.typeMap(value.id) match {
-      case t: Type.String => strCppWriter.getQualifiedClassName(t, List(strNamespace))
-      case t => typeCppWriter.write(t)
-    }
-    case None => "void"
-  }
-
-  // Translate formal parameter to C++ parameter
-  private def getCppType(t: Type, typeName: String, kind: Ast.FormalParam.Kind) =
-    (t, kind)  match {
-      // Reference formal parameters become non-constant C++ reference parameters
-      case (_, Ast.FormalParam.Ref) => s"$typeName&"
-      // Primitive, non-reference formal parameters become C++ value parameters
-      case (t, Ast.FormalParam.Value) if s.isPrimitive(t, typeName) => typeName
-      // Other non-reference formal parameters become constant C++ reference parameters
-      case (_, Ast.FormalParam.Value) => s"const $typeName&"
+  /** Return type as a C++ type */
+  val returnType: String = data.returnType match {
+      case Some(node) => writeCppTypeName(
+        s.a.typeMap(node.id),
+        s,
+        List(strNamespace)
+      )
+      case None => "void"
     }
 
   private def writeIncludeDirectives: List[String] = {
@@ -132,13 +104,13 @@ case class PortCppWriter (
       List(
         classMember(
           Some(s"Input $name port" + annotation),
-          s"Input${name}Port",
+          PortCppWriter.inputPortName(name),
           Some("public Fw::InputPortBase"),
           getInputPortClassMembers
         ),
         classMember(
           Some(s"Output $name port" + annotation),
-          s"Output${name}Port",
+          PortCppWriter.outputPortName(name),
           Some("public Fw::OutputPortBase"),
           getOutputPortClassMembers
         ),
@@ -230,7 +202,7 @@ case class PortCppWriter (
       if params.isEmpty then Nil
       else
         CppDocHppWriter.writeAccessTag("private") ++
-          lines(s"\nU8 m_buff[Input${name}Port::SERIALIZED_SIZE];")
+          lines(s"\nU8 m_buff[${PortCppWriter.inputPortName(name)}::SERIALIZED_SIZE];")
     val buffAddr =
       if params.isEmpty then "nullptr" else "m_buff"
 
@@ -241,7 +213,7 @@ case class PortCppWriter (
         CppDocHppWriter.writeAccessTag("public"),
         Line.blank :: lines(
           s"""|NATIVE_UINT_TYPE getBuffCapacity() const {
-              |  return Input${name}Port::SERIALIZED_SIZE;
+              |  return ${PortCppWriter.inputPortName(name)}::SERIALIZED_SIZE;
               |}
               |
               |U8* getBuffAddr() {
@@ -301,8 +273,8 @@ case class PortCppWriter (
           lines("NATIVE_INT_TYPE portNum")
         else
           line("NATIVE_INT_TYPE portNum,") ::
-            lines(paramList.map((n, tn, k) => {
-              s"${getCppType(paramTypeMap(n), tn, k)} $n"
+            lines(params.map(p => {
+              s"${writeFormalParam(p._2.data, s, List(strNamespace))} ${p._2.data.name}"
             }).mkString(",\n")))
 
     List(
@@ -320,7 +292,7 @@ case class PortCppWriter (
   }
 
   private def getInputPortFunctionMembers: List[CppDoc.Class.Member] = {
-    val paramNames = paramList.map((n, _, _) => s", $n").mkString("");
+    val paramNames = paramList.map((n, _, _) => s", $n").mkString("")
     val invokeSerialBody = data.returnType match {
       case Some(_) => lines(
         """|// For ports with a return type, invokeSerial is not used
@@ -541,7 +513,7 @@ case class PortCppWriter (
         "addCallPort",
         List(
           CppDoc.Function.Param(
-            CppDoc.Type(s"Input${name}Port*"),
+            CppDoc.Type(s"${PortCppWriter.inputPortName(name)}*"),
             "callPort",
             Some("The input port")
           )
@@ -582,10 +554,31 @@ case class PortCppWriter (
           CppDocHppWriter.writeAccessTag("private"),
           CppDocWriter.writeBannerComment("Member variables"),
           Line.blank :: lines("//! The pointer to the input port"),
-          lines(s"Input${name}Port* m_port;")
+          lines(s"${PortCppWriter.inputPortName(name)}* m_port;")
         ).flatten
       )
     )
   }
+
+}
+
+object PortCppWriter {
+
+  private def inputPortName(name: String) = s"Input${name}Port"
+
+  private def outputPortName(name: String) = s"Output${name}Port"
+
+  /** Get the name of a port type */
+  def getPortName(name: String, direction: PortInstance.Direction): String =
+    direction match {
+      case PortInstance.Direction.Input => inputPortName(name)
+      case PortInstance.Direction.Output => outputPortName(name)
+    }
+
+  /** Get the name of the port string class namespace */
+  def getPortStringNamespace(name: String): String = s"${name}PortStrings"
+
+  /** Get the names of port namespaces as a list */
+  def getPortNamespaces(name: String): List[String] = List(getPortStringNamespace(name))
 
 }

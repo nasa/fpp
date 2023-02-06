@@ -1,5 +1,8 @@
 package fpp.compiler.codegen
 
+import fpp.compiler.analysis._
+import fpp.compiler.ast._
+
 /** Utilities for writing C++ */
 trait CppWriterUtils extends LineUtils {
 
@@ -23,6 +26,18 @@ trait CppWriterUtils extends LineUtils {
 
   def wrapInForLoop(init: String, condition: String, step: String, body: List[Line]): List[Line] =
     wrapInScope(s"for ($init; $condition; $step) {", body, "}")
+
+  def wrapInForLoopStaggered(init: String, condition: String, step: String, body: List[Line]): List[Line] =
+    wrapInScope(
+      s"""|for (
+          |  $init;
+          |  $condition;
+          |  $step
+          |) {
+          |""",
+      body,
+      "}"
+    )
 
   def wrapInIf(condition: String, body: List[Line]): List[Line] =
     wrapInScope(s"if ($condition) {", body, "}")
@@ -108,6 +123,16 @@ trait CppWriterUtils extends LineUtils {
         ),
       )
     )
+
+  /** Insert element between each element of list l */
+  def intersperseList[T](l: List[T], element: T): List[T] = l match {
+    case Nil | _ :: Nil => l
+    case h :: t => h :: element :: intersperseList(t, element)
+  }
+
+  /** Insert blank lines between each list of lines in l and flatten */
+  def intersperseBlankLines(l: List[List[Line]]): List[Line] =
+    intersperseList(l.filter(_ != Nil), List(Line.blank)).flatten
 
   def classMember(
     comment: Option[String],
@@ -223,5 +248,82 @@ trait CppWriterUtils extends LineUtils {
     case head :: tail =>
       List(namespaceMember(head, wrapInNamespaces(tail, members)))
   }
+
+  /** Writes a type as a C++ type */
+  def writeCppTypeName(
+    t: Type,
+    s: CppWriterState,
+    namespaceNames: List[String] = Nil,
+    strName: Option[String] = None
+  ): String =
+    t match {
+      case t: Type.String => strName match {
+        case Some(name) => name
+        case None => StringCppWriter(s).getQualifiedClassName(t, namespaceNames)
+      }
+      case t =>
+        TypeCppWriter(s).write(t)
+    }
+
+  /** Writes a formal parameter as a C++ parameter */
+  def writeFormalParam(
+    param: Ast.FormalParam,
+    s: CppWriterState,
+    namespaceNames: List[String] = Nil,
+    strName: Option[String] = None,
+    passingConvention: CppWriterUtils.SerializablePassingConvention = CppWriterUtils.ConstRef
+  ): String = {
+    val t = s.a.typeMap(param.typeName.id)
+    val typeName = writeCppTypeName(t, s, namespaceNames, strName)
+
+    param.kind match {
+      // Reference formal parameters become non-constant C++ reference parameters
+      case Ast.FormalParam.Ref => s"$typeName&"
+      case Ast.FormalParam.Value => t match {
+        // Primitive, non-reference formal parameters become C++ value parameters
+        case t if s.isPrimitive(t, typeName) => typeName
+        // String formal parameters become constant C++ reference parameters
+        case _: Type.String => s"const $typeName&"
+        // Serializable formal parameters become C++ value or constant reference parameters
+        case _ => passingConvention match {
+          case CppWriterUtils.ConstRef => s"const $typeName&"
+          case CppWriterUtils.Value => typeName
+        }
+      }
+    }
+  }
+
+  /** Writes a list of formal parameters as a list of CppDoc Function Params */
+  def writeFormalParamList(
+    params: Ast.FormalParamList,
+    s: CppWriterState,
+    namespaceNames: List[String] = Nil,
+    strName: Option[String] = None,
+    passingConvention: CppWriterUtils.SerializablePassingConvention = CppWriterUtils.ConstRef
+  ): List[CppDoc.Function.Param] =
+    params.map(aNode => {
+      CppDoc.Function.Param(
+        CppDoc.Type(writeFormalParam(
+          aNode._2.data,
+          s,
+          namespaceNames,
+          strName,
+          passingConvention
+        )),
+        aNode._2.data.name,
+        AnnotationCppWriter.asStringOpt(aNode)
+      )
+    })
+
+}
+
+object CppWriterUtils {
+
+  /** The passing convention for a serializable type */
+  sealed trait SerializablePassingConvention
+
+  case object ConstRef extends SerializablePassingConvention
+
+  case object Value extends SerializablePassingConvention
 
 }
