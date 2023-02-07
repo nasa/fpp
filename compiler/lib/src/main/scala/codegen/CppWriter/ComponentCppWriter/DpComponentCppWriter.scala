@@ -92,8 +92,7 @@ case class DpComponentCppWriter (
   private def getTypeMembers: List[CppDoc.Class.Member] = dpWriter.getTypeMembers match {
     case Nil => Nil
     case members => 
-      linesClassMember(CppDocHppWriter.writeAccessTag("PROTECTED")) ::
-      linesClassMember(CppDocWriter.writeBannerComment("Types"), CppDoc.Lines.Both) ::
+      writeAccessTagAndComment("PROTECTED", "Types") ++
       members
   }
 

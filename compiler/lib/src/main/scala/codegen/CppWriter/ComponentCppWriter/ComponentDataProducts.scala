@@ -21,7 +21,7 @@ case class ComponentDataProducts (
       getContainer
     ).flatten
 
-  def getContainerIds = sortedContainers match {
+  private def getContainerIds = sortedContainers match {
     case Nil => Nil
     case _ => List(
       linesClassMember(
@@ -39,7 +39,7 @@ case class ComponentDataProducts (
     )
   }
 
-  def getRecordIds = sortedRecords match {
+  private def getRecordIds = sortedRecords match {
     case Nil => Nil
     case _ => List(
       linesClassMember(
@@ -57,6 +57,18 @@ case class ComponentDataProducts (
     )
   }
 
-  def getContainer = Nil
+  private def getContainer = component.hasDataProducts match {
+    case false => Nil
+    case true => List(
+      classClassMember(
+        Some("A data product container"),
+        "DpContainer",
+        Some("public Fw::DpContainer"),
+        getContainerMembers
+      )
+    )
+  }
+
+  private def getContainerMembers: List[CppDoc.Class.Member.Class] = Nil
 
 }

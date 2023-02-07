@@ -155,6 +155,21 @@ trait CppWriterUtils extends LineUtils {
       )
     )
 
+  def classClassMember(
+    comment: Option[String],
+    name: String,
+    superclassDecls: Option[String],
+    members: List[CppDoc.Class.Member],
+  ): CppDoc.Class.Member.Class =
+    CppDoc.Class.Member.Class(
+      CppDoc.Class(
+        comment,
+        name,
+        superclassDecls,
+        members
+      )
+    )
+
   def functionMember(
     comment: Option[String],
     name: String,
