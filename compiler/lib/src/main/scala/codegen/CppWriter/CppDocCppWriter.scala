@@ -87,8 +87,12 @@ object CppDocCppWriter extends CppDocWriter {
   }
 
   override def visitFunction(in: Input, function: CppDoc.Function) =
-    function.svQualifier.match {
-      case CppDoc.Function.PureVirtual => Nil
+    (function.svQualifier, function.body) match {
+      // If the function is pure virtual, and the function body is empty,
+      // then there is no implementation, so don't write one out.
+      case (CppDoc.Function.PureVirtual, Nil) => Nil
+      // Otherwise write out the implementation.
+      // For a pure virtual function, this is a default implementation.
       case _ => {
         val contentLines = {
           val startLines = {
