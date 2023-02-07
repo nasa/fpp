@@ -109,13 +109,54 @@ case class ComponentDataProducts (
       )
     )
 
-  def getPrivateDpFunctionMembers: List[CppDoc.Class.Member] =
+  def getPrivateDpFunctionMembers: List[CppDoc.Class.Member] = {
+    val portName = "productRecvIn" // TODO: Look this up
     addAccessTagAndComment(
       "PRIVATE",
       "Private data product handling functions",
-      // TODO
-      Nil
+      List(
+        functionClassMember(
+          Some(s"Handler implementation for ${portName}"),
+          s"${portName}_handler",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("const NATIVE_INT_TYPE"),
+              "portNum",
+              Some("The port number")
+            ),
+            CppDoc.Function.Param(
+              CppDoc.Type("FwDpIdType"),
+              "id",
+              Some("The container id")
+            ),
+            CppDoc.Function.Param(
+              CppDoc.Type("const Fw::Buffer&"),
+              "buffer",
+              Some("The buffer")
+            )
+          ),
+          CppDoc.Type("void"),
+          lines("// TODO"),
+          CppDoc.Function.NonSV,
+          CppDoc.Function.NonConst,
+          CppDoc.Function.Override
+        ),
+        functionClassMember(
+          Some(s"The handler for receiving a data product buffer"),
+          s"Dp_Recv_handler",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("DpContainer&"),
+              "container",
+              Some("The data product container")
+            ),
+          ),
+          CppDoc.Type("void"),
+          lines("// TODO")
+        ),
+      )
     )
+  }
 
   private def getContainerIds = containersById match {
     case Nil => Nil
