@@ -10,7 +10,9 @@ case class ComponentDataProducts (
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
-  private val sortedContainers = component.containerMap.toList.sortBy(_._1)
+  private val containersById = component.containerMap.toList.sortBy(_._1)
+
+  private val containersByName = component.containerMap.toList.sortBy(_._2.getName)
 
   private val recordsById = component.recordMap.toList.sortBy(_._1)
 
@@ -23,7 +25,29 @@ case class ComponentDataProducts (
       getContainer
     ).flatten
 
-  private def getContainerIds = sortedContainers match {
+  def getVirtualFunctionMembers: List[CppDoc.Class.Member] = 
+    containersByName.match {
+      case Nil => Nil
+      case _ => containersByName.map((id, container) => {
+        val name = container.getName
+        functionClassMember(
+          Some(s"Receive a container of type $name"),
+          s"Dp_Recv_${name}_handler",
+          Nil,
+          CppDoc.Type("void"),
+          Nil,
+          CppDoc.Function.PureVirtual
+        )
+      })
+    }
+
+  def getProtectedDpFunctionMembers: List[CppDoc.Class.Member] =
+    Nil
+
+  def getPrivateDpFunctionMembers: List[CppDoc.Class.Member] =
+    Nil
+
+  private def getContainerIds = containersById match {
     case Nil => Nil
     case _ => List(
       linesClassMember(
@@ -32,7 +56,7 @@ case class ComponentDataProducts (
           "ContainerId",
           wrapInNamedEnum(
             "T : FwDpIdType",
-            sortedContainers.map((id, container) => line(
+            containersById.map((id, container) => line(
               writeEnumConstant(container.getName, id)
             ))
           )
@@ -146,3 +170,4 @@ case class ComponentDataProducts (
     )
 
 }
+

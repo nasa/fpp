@@ -294,11 +294,12 @@ abstract class ComponentCppWriterUtils(
     accessTag: String,
     comment: String,
     members: List[CppDoc.Class.Member],
-    description: Option[String] = None
+    output: CppDoc.Lines.Output = CppDoc.Lines.Both
   ): List[CppDoc.Class.Member] = members match {
     case Nil => Nil
     case _ =>
-      writeAccessTagAndComment(accessTag, comment, description) ++
+      linesClassMember( CppDocHppWriter.writeAccessTag(accessTag)) ::
+      linesClassMember(CppDocWriter.writeBannerComment(comment), output) ::
       members
   }
 

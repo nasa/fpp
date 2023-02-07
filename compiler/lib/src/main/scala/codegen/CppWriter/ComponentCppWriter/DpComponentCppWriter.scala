@@ -121,10 +121,26 @@ case class DpComponentCppWriter (
       )
     )
 
-  private def getVirtualFunctionMembers: List[CppDoc.Class.Member] = Nil
+  private def getVirtualFunctionMembers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "PROTECTED",
+      "Pure virtual functions to implement",
+      dpWriter.getVirtualFunctionMembers,
+      CppDoc.Lines.Hpp
+    )
 
-  private def getProtectedDpFunctionMembers: List[CppDoc.Class.Member] = Nil
+  private def getProtectedDpFunctionMembers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "PROTECTED",
+      "Functions for managing data products",
+      dpWriter.getProtectedDpFunctionMembers
+    )
 
-  private def getPrivateDpFunctionMembers: List[CppDoc.Class.Member] = Nil
+  private def getPrivateDpFunctionMembers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "PRIVATE",
+      "Private data product handling functions",
+      dpWriter.getPrivateDpFunctionMembers
+    )
 
 }
