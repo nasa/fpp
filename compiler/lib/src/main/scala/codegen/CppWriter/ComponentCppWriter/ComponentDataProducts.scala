@@ -24,6 +24,7 @@ case class ComponentDataProducts (
       "Types",
       List(
         getContainerIds,
+        getContainerPriorities,
         getRecordIds,
         Container.getContainer
       ).flatten
@@ -150,11 +151,10 @@ case class ComponentDataProducts (
             "switch (localId) {",
             containersById.flatMap((id, container) => {
               val name = container.getName
-              val priority = container.defaultPriority.getOrElse(BigInt(0)).toString
               lines(
                 s"""|case ContainerId::$name:
                     |  // Set the priority
-                    |  container.setPriority($priority);
+                    |  container.setPriority(ContainerPriority::$name);
                     |  // Call the handler
                     |  this->Dp_Recv_${name}_handler(container);
                     |  break;"""
@@ -186,6 +186,25 @@ case class ComponentDataProducts (
             containersById.map((id, container) => line(
               writeEnumConstant(container.getName, id)
             ))
+          )
+        )
+      )
+    )
+  }
+
+  private def getContainerPriorities = containersById match {
+    case Nil => Nil
+    case _ => List(
+      linesClassMember(
+        CppDocWriter.writeDoxygenComment("The container default priorities") ++
+        wrapInNamedStruct(
+          "ContainerPriority",
+          wrapInNamedEnum(
+            "T : FwDpPriorityType",
+            containersById.map((id, container) => {
+              val priority = container.defaultPriority.getOrElse(BigInt(0))
+              line(writeEnumConstant(container.getName, priority))
+            })
           )
         )
       )
