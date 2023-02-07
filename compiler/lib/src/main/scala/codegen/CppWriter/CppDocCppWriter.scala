@@ -86,38 +86,46 @@ object CppDocCppWriter extends CppDocWriter {
     outputLines
   }
 
-  override def visitFunction(in: Input, function: CppDoc.Function) = {
-    val contentLines = {
-      val startLines = {
-        val prototypeLines = {
-          import CppDoc.Function._
-          val lines1 = writeParams(function.name, function.params)
-          function.constQualifier match {
-            case Const => Line.addSuffix(lines1, " const")
-            case NonConst => lines1
+  override def visitFunction(in: Input, function: CppDoc.Function) =
+    (function.svQualifier, function.body) match {
+      // If the function is pure virtual, and the function body is empty,
+      // then there is no implementation, so don't write one out.
+      case (CppDoc.Function.PureVirtual, Nil) => Nil
+      // Otherwise write out the implementation.
+      // For a pure virtual function, this is a default implementation.
+      case _ => {
+        val contentLines = {
+          val startLines = {
+            val prototypeLines = {
+              import CppDoc.Function._
+              val lines1 = writeParams(function.name, function.params)
+              function.constQualifier match {
+                case Const => Line.addSuffix(lines1, " const")
+                case NonConst => lines1
+              }
+            }
+            val retType = function.retType.getCppType match {
+              case "" => ""
+              case t => s"$t "
+            }
+            in.classNameList match {
+              case _ :: _ => {
+                val line1 = line(s"${retType}${in.getEnclosingClassQualified} ::")
+                line1 :: prototypeLines.map(indentIn(_))
+              }
+              case Nil =>
+                Line.addPrefix(retType, prototypeLines)
+            }
+          }
+          val bodyLines = CppDocWriter.writeFunctionBody(function.body)
+          in.classNameList match {
+            case _ :: _ => startLines ++ bodyLines
+            case Nil => Line.joinLists(Line.NoIndent)(startLines)(" ")(bodyLines)
           }
         }
-        val retType = function.retType.getCppType match {
-          case "" => ""
-          case t => s"$t "
-        }
-        in.classNameList match {
-          case _ :: _ => {
-            val line1 = line(s"$retType${in.getEnclosingClassQualified} ::")
-            line1 :: prototypeLines.map(indentIn(_))
-          }
-          case Nil =>
-            Line.addPrefix(retType, prototypeLines)
-        }
-      }
-      val bodyLines = CppDocWriter.writeFunctionBody(function.body)
-      in.classNameList match {
-        case _ :: _ => startLines ++ bodyLines
-        case Nil => Line.joinLists(Line.NoIndent)(startLines)(" ")(bodyLines)
+        Line.blank :: contentLines
       }
     }
-    Line.blank :: contentLines
-  }
 
   override def visitLines(in: Input, lines: CppDoc.Lines) = {
     val content = lines.content
