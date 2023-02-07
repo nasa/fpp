@@ -87,40 +87,44 @@ case class DpComponentCppWriter (
   private def getClassMembers: List[CppDoc.Class.Member] = List(
     getTypeMembers,
     getConstructionMembers,
+    getVirtualFunctionMembers,
+    getProtectedDpFunctionMembers,
+    getPrivateDpFunctionMembers,
   ).flatten
 
-  private def getTypeMembers: List[CppDoc.Class.Member] = dpWriter.getTypeMembers match {
-    case Nil => Nil
-    case members => 
-      writeAccessTagAndComment("PROTECTED", "Types") ++
-      members
-  }
+  private def getTypeMembers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment("PROTECTED", "Types", dpWriter.getTypeMembers)
 
-  private def getConstructionMembers: List[CppDoc.Class.Member] = List(
-    writeAccessTagAndComment(
+  private def getConstructionMembers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
       "PROTECTED",
-      "Construction and destruction"
-    ),
-    List(
-      constructorClassMember(
-        Some(s"Construct $dpBaseClassName object"),
-        List(
-          CppDoc.Function.Param(
-            CppDoc.Type("const char*"),
-            "compName",
-            Some("The component name"),
-            Some("\"\"")
-          )
+      "Construction and destruction",
+      List(
+        constructorClassMember(
+          Some(s"Construct $dpBaseClassName object"),
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("const char*"),
+              "compName",
+              Some("The component name"),
+              Some("\"\"")
+            )
+          ),
+          List(s"${baseClassName}(compName)"),
+          Nil
         ),
-        List(s"${baseClassName}(compName)"),
-        Nil
-      ),
-      destructorClassMember(
-        Some(s"Destroy $dpBaseClassName object"),
-        Nil,
-        CppDoc.Class.Destructor.Virtual
+        destructorClassMember(
+          Some(s"Destroy $dpBaseClassName object"),
+          Nil,
+          CppDoc.Class.Destructor.Virtual
+        )
       )
     )
-  ).flatten
+
+  private def getVirtualFunctionMembers: List[CppDoc.Class.Member] = Nil
+
+  private def getProtectedDpFunctionMembers: List[CppDoc.Class.Member] = Nil
+
+  private def getPrivateDpFunctionMembers: List[CppDoc.Class.Member] = Nil
 
 }

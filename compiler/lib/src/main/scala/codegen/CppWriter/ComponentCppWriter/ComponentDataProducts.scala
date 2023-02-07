@@ -138,10 +138,11 @@ case class ComponentDataProducts (
       )
     })
 
-  private def getVariableMembers = List(
-    CppDocHppWriter.writeAccessTag("PRIVATE"),
-    CppDocWriter.writeDoxygenComment("The component base id"),
-    lines("FwDpIdType baseId;")
-  ).map(ll => linesClassMember(ll))
+  private def getVariableMembers =
+    addAccessTagAndComment(
+      "PRIVATE",
+      "The component base id",
+      List(linesClassMember(lines("FwDpIdType baseId;")))
+    )
 
 }

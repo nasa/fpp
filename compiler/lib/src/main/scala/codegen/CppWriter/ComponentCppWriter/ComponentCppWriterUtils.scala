@@ -289,6 +289,19 @@ abstract class ComponentCppWriterUtils(
     }
   }
 
+  /** Add access tag and comment to a nonempty list of class members */
+  def addAccessTagAndComment(
+    accessTag: String,
+    comment: String,
+    members: List[CppDoc.Class.Member],
+    description: Option[String] = None
+  ): List[CppDoc.Class.Member] = members match {
+    case Nil => Nil
+    case _ =>
+      writeAccessTagAndComment(accessTag, comment, description) ++
+      members
+  }
+
   /** Write a banner comment in cpp and hpp files, with description and access tag in hpp file only */
   def writeAccessTagAndComment(
     accessTag: String,
