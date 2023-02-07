@@ -45,10 +45,47 @@ case class ComponentDataProducts (
     })
 
   def getProtectedDpFunctionMembers: List[CppDoc.Class.Member] =
-    Nil
+    List(
+      functionClassMember(
+        Some("Request a data product container"),
+        "Dp_Request",
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type("TODO"),
+            "TODO",
+            Some("TODO")
+          ),
+          CppDoc.Function.Param(
+            CppDoc.Type("TODO"),
+            "TODO",
+            Some("TODO")
+          )
+        ),
+        CppDoc.Type("void"),
+        lines("TODO")
+      ),
+      functionClassMember(
+        Some("Send a data product"),
+        "Dp_Send",
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type("TODO"),
+            "TODO",
+            Some("TODO")
+          )
+        ),
+        CppDoc.Type("void"),
+        lines("TODO")
+      )
+    )
 
   def getPrivateDpFunctionMembers: List[CppDoc.Class.Member] =
-    Nil
+    addAccessTagAndComment(
+      "PRIVATE",
+      "Private data product handling functions",
+      // TODO
+      Nil
+    )
 
   private def getContainerIds = containersById match {
     case Nil => Nil
