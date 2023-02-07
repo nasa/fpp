@@ -22,12 +22,12 @@ case class ComponentDataProducts (
     addAccessTagAndComment(
       "PROTECTED",
       "Types",
-      List(
+      List.concat(
         getContainerIds,
         getContainerPriorities,
         getRecordIds,
         Container.getContainer
-      ).flatten
+      )
     )
 
   def getVirtualFunctionMembers: List[CppDoc.Class.Member] = 
@@ -138,33 +138,34 @@ case class ComponentDataProducts (
             )
           ),
           CppDoc.Type("void"),
-          // TODO: Range over the containers
-          // TODO: Compute the priority values 10 and 20
-          lines(
-            """|DpContainer container(id, buffer, this->getIdBase());
-                |// Convert global id to local id
-                |const auto idBase = this->getIdBase();
-                |FW_ASSERT(id >= idBase, id, idBase);
-                |const auto localId = id - idBase;
-                |// Switch on the local id"""
-          ) ++ wrapInScope(
-            "switch (localId) {",
-            containersById.flatMap((id, container) => {
-              val name = container.getName
-              lines(
-                s"""|case ContainerId::$name:
-                    |  // Set the priority
-                    |  container.setPriority(ContainerPriority::$name);
-                    |  // Call the handler
-                    |  this->Dp_Recv_${name}_handler(container);
-                    |  break;"""
-              )
-            }) ++ lines (
-              """|default:
-                 |  FW_ASSERT(0);
-                 |  break;"""
+          List.concat(
+            lines(
+              """|DpContainer container(id, buffer, this->getIdBase());
+                 |// Convert global id to local id
+                 |const auto idBase = this->getIdBase();
+                 |FW_ASSERT(id >= idBase, id, idBase);
+                 |const auto localId = id - idBase;
+                 |// Switch on the local id"""
             ),
-            "}"
+            wrapInScope(
+              "switch (localId) {",
+              containersById.flatMap((id, container) => {
+                val name = container.getName
+                lines(
+                  s"""|case ContainerId::$name:
+                      |  // Set the priority
+                      |  container.setPriority(ContainerPriority::$name);
+                      |  // Call the handler
+                      |  this->Dp_Recv_${name}_handler(container);
+                      |  break;"""
+                )
+              }) ++ lines (
+                """|default:
+                   |  FW_ASSERT(0);
+                   |  break;"""
+              ),
+              "}"
+            ),
           ),
           CppDoc.Function.NonSV,
           CppDoc.Function.NonConst,
@@ -239,11 +240,11 @@ case class ComponentDataProducts (
           Some("A data product container"),
           "DpContainer",
           Some("public Fw::DpContainer"),
-          List(
+          List.concat(
             getConstructionMembers,
             getFunctionMembers,
             getVariableMembers
-          ).flatten
+          )
         )
       )
     }
