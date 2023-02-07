@@ -71,15 +71,11 @@ abstract class ComponentCppWriterUtils(
   /** List of serial output ports */
   val serialOutputPorts: List[PortInstance.General] = filterSerialPorts(outputPorts)
 
-  /** List of internal port instances */
-  val internalPorts: List[PortInstance.Internal] = members.map(member =>
-    member.node._2 match {
-      case Ast.ComponentMember.SpecInternalPort(node) => component.portMap(node.data.name) match {
-        case i: PortInstance.Internal => Some(i)
-        case _ => None
-      }
-      case _ => None
-    }).filter(_.isDefined).map(_.get)
+  /** List of internal port instances sorted by name */
+  val internalPorts: List[PortInstance.Internal] = component.portMap.toList.map((_, p) => p match {
+    case i: PortInstance.Internal => Some(i)
+    case _ => None
+  }).filter(_.isDefined).map(_.get).sortBy(_.getUnqualifiedName)
 
   /** List of commands sorted by opcode */
   val sortedCmds: List[(Command.Opcode, Command)] = component.commandMap.toList.sortBy(_._1)
@@ -122,24 +118,12 @@ abstract class ComponentCppWriterUtils(
   val sortedParams: List[(Param.Id, Param)] = component.paramMap.toList.sortBy(_._1)
 
   /** Command response port */
-  val cmdRespPort: Option[PortInstance.Special] = specialPorts.find(p =>
-    p.aNode._2.data match {
-      case Ast.SpecPortInstance.Special(kind, _) => kind match {
-        case Ast.SpecPortInstance.CommandResp => true
-        case _ => false
-      }
-      case _ => false
-    })
+  val cmdRespPort: Option[PortInstance.Special] =
+    component.specialPortMap.get(Ast.SpecPortInstance.CommandResp)
 
   /** Time get port */
-  val timeGetPort: Option[PortInstance.Special] = specialPorts.find(p =>
-    p.aNode._2.data match {
-      case Ast.SpecPortInstance.Special(kind, _) => kind match {
-        case Ast.SpecPortInstance.TimeGet => true
-        case _ => false
-      }
-      case _ => false
-    })
+  val timeGetPort: Option[PortInstance.Special] =
+    component.specialPortMap.get(Ast.SpecPortInstance.TimeGet)
 
   // Component properties
 

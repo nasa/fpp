@@ -22,12 +22,12 @@ namespace {
     CMD_CMD_PARAMS_PRIORITY,
     CMD_CMD_DROP,
     CMD_CMD_PARAMS_PRIORITY_DROP,
-    INT_IF_INTERNALPRIMITIVE,
-    INT_IF_INTERNALSTRING,
-    INT_IF_INTERNALENUM,
     INT_IF_INTERNALARRAY,
-    INT_IF_INTERNALSTRUCT,
+    INT_IF_INTERNALENUM,
+    INT_IF_INTERNALPRIMITIVE,
     INT_IF_INTERNALPRIORITYDROP,
+    INT_IF_INTERNALSTRING,
+    INT_IF_INTERNALSTRUCT,
   };
 }
 
@@ -1272,11 +1272,29 @@ Fw::SerializeStatus QueuedComponentBase ::
 // ----------------------------------------------------------------------
 
 void QueuedComponentBase ::
+  internalArray_internalInterfaceHandler(const A& a)
+{
+
+}
+
+void QueuedComponentBase ::
+  internalEnum_internalInterfaceHandler(const E& e)
+{
+
+}
+
+void QueuedComponentBase ::
   internalPrimitive_internalInterfaceHandler(
       U32 u32,
       F32 f32,
       bool b
   )
+{
+
+}
+
+void QueuedComponentBase ::
+  internalPriorityDrop_internalInterfaceHandler()
 {
 
 }
@@ -1291,25 +1309,7 @@ void QueuedComponentBase ::
 }
 
 void QueuedComponentBase ::
-  internalEnum_internalInterfaceHandler(const E& e)
-{
-
-}
-
-void QueuedComponentBase ::
-  internalArray_internalInterfaceHandler(const A& a)
-{
-
-}
-
-void QueuedComponentBase ::
   internalStruct_internalInterfaceHandler(const S& s)
-{
-
-}
-
-void QueuedComponentBase ::
-  internalPriorityDrop_internalInterfaceHandler()
 {
 
 }
@@ -1319,11 +1319,29 @@ void QueuedComponentBase ::
 // ----------------------------------------------------------------------
 
 void QueuedComponentBase ::
+  internalArray_internalInterfaceInvoke(const A& a)
+{
+
+}
+
+void QueuedComponentBase ::
+  internalEnum_internalInterfaceInvoke(const E& e)
+{
+
+}
+
+void QueuedComponentBase ::
   internalPrimitive_internalInterfaceInvoke(
       U32 u32,
       F32 f32,
       bool b
   )
+{
+
+}
+
+void QueuedComponentBase ::
+  internalPriorityDrop_internalInterfaceInvoke()
 {
 
 }
@@ -1338,25 +1356,7 @@ void QueuedComponentBase ::
 }
 
 void QueuedComponentBase ::
-  internalEnum_internalInterfaceInvoke(const E& e)
-{
-
-}
-
-void QueuedComponentBase ::
-  internalArray_internalInterfaceInvoke(const A& a)
-{
-
-}
-
-void QueuedComponentBase ::
   internalStruct_internalInterfaceInvoke(const S& s)
-{
-
-}
-
-void QueuedComponentBase ::
-  internalPriorityDrop_internalInterfaceInvoke()
 {
 
 }
@@ -2311,6 +2311,44 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedComponentBase ::
       break;
     }
 
+    // Handle internal interface internalArray
+    case INT_IF_INTERNALARRAY: {
+      A a;
+      deserStatus = msg.deserialize(a);
+
+      // Internal interface should always deserialize
+      FW_ASSERT(
+        Fw::FW_SERIALIZE_OK == deserStatus,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      // Call handler function
+      this->internalArray_internalInterfaceHandler(
+        a
+      );
+
+      break;
+    }
+
+    // Handle internal interface internalEnum
+    case INT_IF_INTERNALENUM: {
+      E e;
+      deserStatus = msg.deserialize(e);
+
+      // Internal interface should always deserialize
+      FW_ASSERT(
+        Fw::FW_SERIALIZE_OK == deserStatus,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      // Call handler function
+      this->internalEnum_internalInterfaceHandler(
+        e
+      );
+
+      break;
+    }
+
     // Handle internal interface internalPrimitive
     case INT_IF_INTERNALPRIMITIVE: {
       U32 u32;
@@ -2350,6 +2388,17 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedComponentBase ::
       break;
     }
 
+    // Handle internal interface internalPriorityDrop
+    case INT_IF_INTERNALPRIORITYDROP: {
+
+      // Call handler function
+      this->internalPriorityDrop_internalInterfaceHandler(
+
+      );
+
+      break;
+    }
+
     // Handle internal interface internalString
     case INT_IF_INTERNALSTRING: {
       Fw::CmdStringArg str1;
@@ -2379,44 +2428,6 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedComponentBase ::
       break;
     }
 
-    // Handle internal interface internalEnum
-    case INT_IF_INTERNALENUM: {
-      E e;
-      deserStatus = msg.deserialize(e);
-
-      // Internal interface should always deserialize
-      FW_ASSERT(
-        Fw::FW_SERIALIZE_OK == deserStatus,
-        static_cast<FwAssertArgType>(deserStatus)
-      );
-
-      // Call handler function
-      this->internalEnum_internalInterfaceHandler(
-        e
-      );
-
-      break;
-    }
-
-    // Handle internal interface internalArray
-    case INT_IF_INTERNALARRAY: {
-      A a;
-      deserStatus = msg.deserialize(a);
-
-      // Internal interface should always deserialize
-      FW_ASSERT(
-        Fw::FW_SERIALIZE_OK == deserStatus,
-        static_cast<FwAssertArgType>(deserStatus)
-      );
-
-      // Call handler function
-      this->internalArray_internalInterfaceHandler(
-        a
-      );
-
-      break;
-    }
-
     // Handle internal interface internalStruct
     case INT_IF_INTERNALSTRUCT: {
       S s;
@@ -2431,17 +2442,6 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedComponentBase ::
       // Call handler function
       this->internalStruct_internalInterfaceHandler(
         s
-      );
-
-      break;
-    }
-
-    // Handle internal interface internalPriorityDrop
-    case INT_IF_INTERNALPRIORITYDROP: {
-
-      // Call handler function
-      this->internalPriorityDrop_internalInterfaceHandler(
-
       );
 
       break;

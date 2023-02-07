@@ -870,17 +870,9 @@ class QueuedComponentBase :
     // Internal interface handlers
     // ----------------------------------------------------------------------
 
-    //! Internal interface handler for internalPrimitive
-    virtual void internalPrimitive_internalInterfaceHandler(
-        U32 u32, //!< A U32
-        F32 f32, //!< An F32
-        bool b //!< A boolean
-    ) = 0;
-
-    //! Internal interface handler for internalString
-    virtual void internalString_internalInterfaceHandler(
-        const Fw::InternalInterfaceString& str1, //!< A string
-        const Fw::InternalInterfaceString& str2 //!< Another string
+    //! Internal interface handler for internalArray
+    virtual void internalArray_internalInterfaceHandler(
+        const A& a //!< An array
     ) = 0;
 
     //! Internal interface handler for internalEnum
@@ -888,9 +880,20 @@ class QueuedComponentBase :
         const E& e //!< An enum
     ) = 0;
 
-    //! Internal interface handler for internalArray
-    virtual void internalArray_internalInterfaceHandler(
-        const A& a //!< An array
+    //! Internal interface handler for internalPrimitive
+    virtual void internalPrimitive_internalInterfaceHandler(
+        U32 u32, //!< A U32
+        F32 f32, //!< An F32
+        bool b //!< A boolean
+    ) = 0;
+
+    //! Internal interface handler for internalPriorityDrop
+    virtual void internalPriorityDrop_internalInterfaceHandler() = 0;
+
+    //! Internal interface handler for internalString
+    virtual void internalString_internalInterfaceHandler(
+        const Fw::InternalInterfaceString& str1, //!< A string
+        const Fw::InternalInterfaceString& str2 //!< Another string
     ) = 0;
 
     //! Internal interface handler for internalStruct
@@ -898,14 +901,21 @@ class QueuedComponentBase :
         const S& s //!< A struct
     ) = 0;
 
-    //! Internal interface handler for internalPriorityDrop
-    virtual void internalPriorityDrop_internalInterfaceHandler() = 0;
-
   PROTECTED:
 
     // ----------------------------------------------------------------------
     // Internal interface base-class functions
     // ----------------------------------------------------------------------
+
+    //! Internal interface base-class function for internalArray
+    void internalArray_internalInterfaceInvoke(
+        const A& a //!< An array
+    );
+
+    //! Internal interface base-class function for internalEnum
+    void internalEnum_internalInterfaceInvoke(
+        const E& e //!< An enum
+    );
 
     //! Internal interface base-class function for internalPrimitive
     void internalPrimitive_internalInterfaceInvoke(
@@ -914,29 +924,19 @@ class QueuedComponentBase :
         bool b //!< A boolean
     );
 
+    //! Internal interface base-class function for internalPriorityDrop
+    void internalPriorityDrop_internalInterfaceInvoke();
+
     //! Internal interface base-class function for internalString
     void internalString_internalInterfaceInvoke(
         const Fw::InternalInterfaceString& str1, //!< A string
         const Fw::InternalInterfaceString& str2 //!< Another string
     );
 
-    //! Internal interface base-class function for internalEnum
-    void internalEnum_internalInterfaceInvoke(
-        const E& e //!< An enum
-    );
-
-    //! Internal interface base-class function for internalArray
-    void internalArray_internalInterfaceInvoke(
-        const A& a //!< An array
-    );
-
     //! Internal interface base-class function for internalStruct
     void internalStruct_internalInterfaceInvoke(
         const S& s //!< A struct
     );
-
-    //! Internal interface base-class function for internalPriorityDrop
-    void internalPriorityDrop_internalInterfaceInvoke();
 
   PROTECTED:
 
