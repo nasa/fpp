@@ -19,79 +19,92 @@ case class ComponentDataProducts (
   private val recordsByName = component.recordMap.toList.sortBy(_._2.getName)
 
   def getTypeMembers: List[CppDoc.Class.Member] =
-    List(
-      getContainerIds,
-      getRecordIds,
-      Container.getContainer
-    ).flatten
+    addAccessTagAndComment(
+      "PROTECTED",
+      "Types",
+      List(
+        getContainerIds,
+        getRecordIds,
+        Container.getContainer
+      ).flatten
+    )
 
   def getVirtualFunctionMembers: List[CppDoc.Class.Member] = 
-    containersByName.map((id, container) => {
-      val name = container.getName
-      functionClassMember(
-        Some(s"Receive a container of type $name"),
-        s"Dp_Recv_${name}_handler",
-        List(
-          CppDoc.Function.Param(
-            CppDoc.Type("DpContainer&"),
-            "container",
-            Some("The container")
-          )
-        ),
-        CppDoc.Type("void"),
-        Nil,
-        CppDoc.Function.PureVirtual
-      )
-    })
+    addAccessTagAndComment(
+      "PROTECTED",
+      "Pure virtual functions to implement",
+      containersByName.map((id, container) => {
+        val name = container.getName
+        functionClassMember(
+          Some(s"Receive a container of type $name"),
+          s"Dp_Recv_${name}_handler",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("DpContainer&"),
+              "container",
+              Some("The container")
+            )
+          ),
+          CppDoc.Type("void"),
+          Nil,
+          CppDoc.Function.PureVirtual
+        )
+      }),
+      CppDoc.Lines.Hpp
+    )
 
   def getProtectedDpFunctionMembers: List[CppDoc.Class.Member] =
-    List(
-      functionClassMember(
-        Some("Request a data product container"),
-        "Dp_Request",
-        List(
-          CppDoc.Function.Param(
-            CppDoc.Type("ContainerId::T"),
-            "containerId",
-            Some("The container id")
+    addAccessTagAndComment(
+      "PROTECTED",
+      "Functions for managing data products",
+      List(
+        functionClassMember(
+          Some("Request a data product container"),
+          "Dp_Request",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("ContainerId::T"),
+              "containerId",
+              Some("The container id")
+            ),
+            CppDoc.Function.Param(
+              CppDoc.Type("FwDpBuffSizeType"),
+              "size",
+              Some("The buffer size")
+            )
           ),
-          CppDoc.Function.Param(
-            CppDoc.Type("FwDpBuffSizeType"),
-            "size",
-            Some("The buffer size")
+          CppDoc.Type("void"),
+          lines(
+            """|const FwDpIdType globalId = this->getIdBase() + containerId;
+               |this->productRequestOut_out(0, globalId, size);"""
           )
         ),
-        CppDoc.Type("void"),
-        lines(
-          """|const FwDpIdType globalId = this->getIdBase() + containerId;
-             |this->productRequestOut_out(0, globalId, size);"""
-        )
-      ),
-      functionClassMember(
-        Some("Send a data product"),
-        "Dp_Send",
-        List(
-          CppDoc.Function.Param(
-            CppDoc.Type("DpContainer&"),
-            "container",
-            Some("The data product container")
+        functionClassMember(
+          Some("Send a data product"),
+          "Dp_Send",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("DpContainer&"),
+              "container",
+              Some("The data product container")
+            )
+          ),
+          CppDoc.Type("void"),
+          lines(
+            """|// Update the time tag
+               |const Fw::Time timeTag = this->getTime();
+               |container.setTimeTag(timeTag);
+               |// Serialize the header into the packet
+               |Fw::SerializeStatus status = container.serializeHeader();
+               |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+               |// Update the size of the buffer according to the data size
+               |const FwDpBuffSizeType packetSize = container.getPacketSize();
+               |Fw::Buffer buffer = container.getBuffer();
+               |FW_ASSERT(packetSize <= buffer.getSize(), packetSize, buffer.getSize());
+               |buffer.setSize(packetSize);
+               |// Send the buffer
+               |this->productSendOut_out(0, container.getId(), buffer);"""
           )
-        ),
-        CppDoc.Type("void"),
-        lines(
-          """|// Update the time tag
-             |const Fw::Time timeTag = this->getTime();
-             |container.setTimeTag(timeTag);
-             |// Serialize the header into the packet
-             |Fw::SerializeStatus status = container.serializeHeader();
-             |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
-             |// Update the size of the buffer according to the data size
-             |const FwDpBuffSizeType packetSize = container.getPacketSize();
-             |Fw::Buffer buffer = container.getBuffer();
-             |FW_ASSERT(packetSize <= buffer.getSize(), packetSize, buffer.getSize());
-             |buffer.setSize(packetSize);
-             |// Send the buffer
-             |this->productSendOut_out(0, container.getId(), buffer);"""
         )
       )
     )
@@ -140,6 +153,7 @@ case class ComponentDataProducts (
     )
   }
 
+  /** Generates the Container inner class */
   private object Container extends ComponentCppWriterUtils(s, aNode) {
 
     def getContainer = component.hasDataProducts match {

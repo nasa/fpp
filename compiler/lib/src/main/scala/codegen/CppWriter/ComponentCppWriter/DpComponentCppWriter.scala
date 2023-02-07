@@ -47,7 +47,8 @@ case class DpComponentCppWriter (
     val cls = classMember(
       Some(
         addSeparatedString(
-          s"\\class $dpBaseClassName\n\\brief Auto-generated data product base class for $name component",
+          s"""|\\class $dpBaseClassName
+              |\\brief Auto-generated data product base class for $name component""",
           AnnotationCppWriter.asStringOpt(aNode)
         )
       ),
@@ -85,15 +86,12 @@ case class DpComponentCppWriter (
   }
 
   private def getClassMembers: List[CppDoc.Class.Member] = List(
-    getTypeMembers,
+    dpWriter.getTypeMembers,
     getConstructionMembers,
-    getVirtualFunctionMembers,
-    getProtectedDpFunctionMembers,
-    getPrivateDpFunctionMembers,
+    dpWriter.getVirtualFunctionMembers,
+    dpWriter.getProtectedDpFunctionMembers,
+    dpWriter.getPrivateDpFunctionMembers
   ).flatten
-
-  private def getTypeMembers: List[CppDoc.Class.Member] =
-    addAccessTagAndComment("PROTECTED", "Types", dpWriter.getTypeMembers)
 
   private def getConstructionMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
@@ -119,28 +117,6 @@ case class DpComponentCppWriter (
           CppDoc.Class.Destructor.Virtual
         )
       )
-    )
-
-  private def getVirtualFunctionMembers: List[CppDoc.Class.Member] =
-    addAccessTagAndComment(
-      "PROTECTED",
-      "Pure virtual functions to implement",
-      dpWriter.getVirtualFunctionMembers,
-      CppDoc.Lines.Hpp
-    )
-
-  private def getProtectedDpFunctionMembers: List[CppDoc.Class.Member] =
-    addAccessTagAndComment(
-      "PROTECTED",
-      "Functions for managing data products",
-      dpWriter.getProtectedDpFunctionMembers
-    )
-
-  private def getPrivateDpFunctionMembers: List[CppDoc.Class.Member] =
-    addAccessTagAndComment(
-      "PRIVATE",
-      "Private data product handling functions",
-      dpWriter.getPrivateDpFunctionMembers
     )
 
 }
