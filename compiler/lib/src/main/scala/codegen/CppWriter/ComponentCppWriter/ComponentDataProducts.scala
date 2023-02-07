@@ -110,7 +110,8 @@ case class ComponentDataProducts (
     )
 
   def getPrivateDpFunctionMembers: List[CppDoc.Class.Member] = {
-    val portName = "productRecvIn" // TODO: Look this up
+    val portInstance = component.specialPortMap(Ast.SpecPortInstance.ProductRecv)
+    val portName = portInstance.getUnqualifiedName
     addAccessTagAndComment(
       "PRIVATE",
       "Private data product handling functions",
@@ -136,23 +137,41 @@ case class ComponentDataProducts (
             )
           ),
           CppDoc.Type("void"),
-          lines("// TODO"),
+          // TODO: Range over the containers
+          // TODO: Compute the priority values 10 and 20
+          lines(
+            """|DpContainer container(id, buffer, this->getIdBase());
+                |// Convert global id to local id
+                |const auto idBase = this->getIdBase();
+                |FW_ASSERT(id >= idBase, id, idBase);
+                |const auto localId = id - idBase;
+                |// Switch on the local id"""
+          ) ++ wrapInScope(
+            "switch (localId) {",
+            lines(
+              """|case ContainerId::Container1:
+                 |  // Set the priority
+                 |  container.setPriority(10);
+                 |  // Call the handler
+                 |  this->Dp_Recv_Container1_handler(container);
+                 |  break;"""
+            ) ++ lines(
+              """|case ContainerId::Container2:
+                 |  // Set the priority
+                 |  container.setPriority(20);
+                 |  // Call the handler
+                 |  this->Dp_Recv_Container2_handler(container);
+                 |  break;"""
+            ) ++ lines (
+              """|default:
+                 |  FW_ASSERT(0);
+                 |  break;"""
+            ),
+            "}"
+          ),
           CppDoc.Function.NonSV,
           CppDoc.Function.NonConst,
           CppDoc.Function.Override
-        ),
-        functionClassMember(
-          Some(s"The handler for receiving a data product buffer"),
-          s"Dp_Recv_handler",
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type("DpContainer&"),
-              "container",
-              Some("The data product container")
-            ),
-          ),
-          CppDoc.Type("void"),
-          lines("// TODO")
         ),
       )
     )
