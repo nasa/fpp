@@ -148,21 +148,18 @@ case class ComponentDataProducts (
                 |// Switch on the local id"""
           ) ++ wrapInScope(
             "switch (localId) {",
-            lines(
-              """|case ContainerId::Container1:
-                 |  // Set the priority
-                 |  container.setPriority(10);
-                 |  // Call the handler
-                 |  this->Dp_Recv_Container1_handler(container);
-                 |  break;"""
-            ) ++ lines(
-              """|case ContainerId::Container2:
-                 |  // Set the priority
-                 |  container.setPriority(20);
-                 |  // Call the handler
-                 |  this->Dp_Recv_Container2_handler(container);
-                 |  break;"""
-            ) ++ lines (
+            containersById.flatMap((id, container) => {
+              val name = container.getName
+              val priority = container.defaultPriority.getOrElse(BigInt(0)).toString
+              lines(
+                s"""|case ContainerId::$name:
+                    |  // Set the priority
+                    |  container.setPriority($priority);
+                    |  // Call the handler
+                    |  this->Dp_Recv_${name}_handler(container);
+                    |  break;"""
+              )
+            }) ++ lines (
               """|default:
                  |  FW_ASSERT(0);
                  |  break;"""
