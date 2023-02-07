@@ -12,7 +12,7 @@ case class ComponentDataProducts (
 
   private val sortedContainers = component.containerMap.toList.sortBy(_._1)
 
-  private val sortedRecords = component.recordMap.toList.sortBy(_._1)
+  private val recordsById = component.recordMap.toList.sortBy(_._1)
 
   private val recordsByName = component.recordMap.toList.sortBy(_._2.getName)
 
@@ -41,7 +41,7 @@ case class ComponentDataProducts (
     )
   }
 
-  private def getRecordIds = sortedRecords match {
+  private def getRecordIds = recordsById match {
     case Nil => Nil
     case _ => List(
       linesClassMember(
@@ -50,7 +50,7 @@ case class ComponentDataProducts (
           "RecordId",
           wrapInNamedEnum(
             "T : FwDpIdType",
-            sortedRecords.map((id, container) => line(
+            recordsById.map((id, container) => line(
               writeEnumConstant(container.getName, id)
             ))
           )
