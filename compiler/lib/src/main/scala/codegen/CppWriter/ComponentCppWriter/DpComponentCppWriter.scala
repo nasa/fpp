@@ -50,7 +50,7 @@ case class DpComponentCppWriter (
         )
       ),
       dpBaseClassName,
-      Some(s"public Fw::$baseClassName"),
+      Some(s"public $baseClassName"),
       getClassMembers
     )
     List(
