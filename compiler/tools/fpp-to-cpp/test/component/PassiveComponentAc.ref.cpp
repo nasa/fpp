@@ -33,17 +33,6 @@ Fw::InputCmdPort* PassiveComponentBase ::
 // ----------------------------------------------------------------------
 
 InputTypedPort* PassiveComponentBase ::
-  get_typedSync_InputPort(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_typedSync_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-   );
-
-  return &this->m_typedSync_InputPort[portNum];
-}
-
-InputTypedPort* PassiveComponentBase ::
   get_typedGuarded_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -54,20 +43,20 @@ InputTypedPort* PassiveComponentBase ::
   return &this->m_typedGuarded_InputPort[portNum];
 }
 
-// ----------------------------------------------------------------------
-// Getters for serial input ports
-// ----------------------------------------------------------------------
-
-Fw::InputSerializePort* PassiveComponentBase ::
-  get_serialSync_InputPort(NATIVE_INT_TYPE portNum)
+InputTypedPort* PassiveComponentBase ::
+  get_typedSync_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_serialSync_InputPorts(),
+    portNum < this->getNum_typedSync_InputPorts(),
     static_cast<FwAssertArgType>(portNum)
    );
 
-  return &this->m_serialSync_InputPort[portNum];
+  return &this->m_typedSync_InputPort[portNum];
 }
+
+// ----------------------------------------------------------------------
+// Getters for serial input ports
+// ----------------------------------------------------------------------
 
 Fw::InputSerializePort* PassiveComponentBase ::
   get_serialGuarded_InputPort(NATIVE_INT_TYPE portNum)
@@ -78,6 +67,17 @@ Fw::InputSerializePort* PassiveComponentBase ::
    );
 
   return &this->m_serialGuarded_InputPort[portNum];
+}
+
+Fw::InputSerializePort* PassiveComponentBase ::
+  get_serialSync_InputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_serialSync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+   );
+
+  return &this->m_serialSync_InputPort[portNum];
 }
 
 // ----------------------------------------------------------------------
@@ -126,38 +126,6 @@ void PassiveComponentBase ::
   this->m_eventOut_OutputPort[portNum].addCallPort(port);
 }
 
-#if FW_ENABLE_TEXT_LOGGING == 1
-
-void PassiveComponentBase ::
-  set_textEventOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputLogTextPort* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_textEventOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_textEventOut_OutputPort[portNum].addCallPort(port);
-}
-
-#endif
-
-void PassiveComponentBase ::
-  set_tlmOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputTlmPort* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_tlmOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_tlmOut_OutputPort[portNum].addCallPort(port);
-}
-
 void PassiveComponentBase ::
   set_prmGetOut_OutputPort(
       NATIVE_INT_TYPE portNum,
@@ -186,6 +154,24 @@ void PassiveComponentBase ::
   this->m_prmSetOut_OutputPort[portNum].addCallPort(port);
 }
 
+#if FW_ENABLE_TEXT_LOGGING == 1
+
+void PassiveComponentBase ::
+  set_textEventOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputLogTextPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_textEventOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_textEventOut_OutputPort[portNum].addCallPort(port);
+}
+
+#endif
+
 void PassiveComponentBase ::
   set_timeGetOut_OutputPort(
       NATIVE_INT_TYPE portNum,
@@ -198,6 +184,20 @@ void PassiveComponentBase ::
   );
 
   this->m_timeGetOut_OutputPort[portNum].addCallPort(port);
+}
+
+void PassiveComponentBase ::
+  set_tlmOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputTlmPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_tlmOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_tlmOut_OutputPort[portNum].addCallPort(port);
 }
 
 #if FW_PORT_SERIALIZATION
@@ -233,28 +233,6 @@ void PassiveComponentBase ::
 
 }
 
-#if FW_ENABLE_TEXT_LOGGING == 1
-
-void PassiveComponentBase ::
-  set_textEventOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-
-}
-
-#endif
-
-void PassiveComponentBase ::
-  set_tlmOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-
-}
-
 void PassiveComponentBase ::
   set_prmGetOut_OutputPort(
       NATIVE_INT_TYPE portNum,
@@ -273,8 +251,30 @@ void PassiveComponentBase ::
 
 }
 
+#if FW_ENABLE_TEXT_LOGGING == 1
+
+void PassiveComponentBase ::
+  set_textEventOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+
+}
+
+#endif
+
 void PassiveComponentBase ::
   set_timeGetOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+
+}
+
+void PassiveComponentBase ::
+  set_tlmOut_OutputPort(
       NATIVE_INT_TYPE portNum,
       Fw::InputSerializePort* port
   )
@@ -420,32 +420,6 @@ void PassiveComponentBase ::
 #endif
   }
 
-  // Connect input port typedSync
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedSync_InputPorts());
-    port++
-  ) {
-    this->m_typedSync_InputPort[port].init();
-    this->m_typedSync_InputPort[port].addCallComp(
-      this,
-      m_p_typedSync_in
-    );
-    this->m_typedSync_InputPort[port].setPortNum(port);
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_typedSync_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_typedSync_InputPort[port].setObjName(portName);
-#endif
-  }
-
   // Connect input port typedGuarded
   for (
     PlatformIntType port = 0;
@@ -472,29 +446,29 @@ void PassiveComponentBase ::
 #endif
   }
 
-  // Connect input port serialSync
+  // Connect input port typedSync
   for (
     PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_serialSync_InputPorts());
+    port < static_cast<PlatformIntType>(this->getNum_typedSync_InputPorts());
     port++
   ) {
-    this->m_serialSync_InputPort[port].init();
-    this->m_serialSync_InputPort[port].addCallComp(
+    this->m_typedSync_InputPort[port].init();
+    this->m_typedSync_InputPort[port].addCallComp(
       this,
-      m_p_serialSync_in
+      m_p_typedSync_in
     );
-    this->m_serialSync_InputPort[port].setPortNum(port);
+    this->m_typedSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
     char portName[120];
     (void) snprintf(
       portName,
       sizeof(portName),
-      "%s_serialSync_InputPort[%" PRI_PlatformIntType "]",
+      "%s_typedSync_InputPort[%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
-    this->m_serialSync_InputPort[port].setObjName(portName);
+    this->m_typedSync_InputPort[port].setObjName(portName);
 #endif
   }
 
@@ -521,6 +495,32 @@ void PassiveComponentBase ::
       port
     );
     this->m_serialGuarded_InputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect input port serialSync
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_serialSync_InputPorts());
+    port++
+  ) {
+    this->m_serialSync_InputPort[port].init();
+    this->m_serialSync_InputPort[port].addCallComp(
+      this,
+      m_p_serialSync_in
+    );
+    this->m_serialSync_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_serialSync_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_serialSync_InputPort[port].setObjName(portName);
 #endif
   }
 
@@ -587,48 +587,6 @@ void PassiveComponentBase ::
 #endif
   }
 
-  // Connect output port textEventOut
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_textEventOut_OutputPorts());
-    port++
-  ) {
-    this->m_textEventOut_OutputPort[port].init();
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_textEventOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_textEventOut_OutputPort[port].setObjName(portName);
-#endif
-  }
-
-  // Connect output port tlmOut
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_tlmOut_OutputPorts());
-    port++
-  ) {
-    this->m_tlmOut_OutputPort[port].init();
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_tlmOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_tlmOut_OutputPort[port].setObjName(portName);
-#endif
-  }
-
   // Connect output port prmGetOut
   for (
     PlatformIntType port = 0;
@@ -671,6 +629,27 @@ void PassiveComponentBase ::
 #endif
   }
 
+  // Connect output port textEventOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_textEventOut_OutputPorts());
+    port++
+  ) {
+    this->m_textEventOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_textEventOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_textEventOut_OutputPort[port].setObjName(portName);
+#endif
+  }
+
   // Connect output port timeGetOut
   for (
     PlatformIntType port = 0;
@@ -689,6 +668,27 @@ void PassiveComponentBase ::
       port
     );
     this->m_timeGetOut_OutputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect output port tlmOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_tlmOut_OutputPorts());
+    port++
+  ) {
+    this->m_tlmOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_tlmOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_tlmOut_OutputPort[port].setObjName(portName);
 #endif
   }
 
@@ -756,13 +756,13 @@ NATIVE_INT_TYPE PassiveComponentBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE PassiveComponentBase ::
-  getNum_typedSync_InputPorts()
+  getNum_typedGuarded_InputPorts()
 {
 
 }
 
 NATIVE_INT_TYPE PassiveComponentBase ::
-  getNum_typedGuarded_InputPorts()
+  getNum_typedSync_InputPorts()
 {
 
 }
@@ -772,13 +772,13 @@ NATIVE_INT_TYPE PassiveComponentBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE PassiveComponentBase ::
-  getNum_serialSync_InputPorts()
+  getNum_serialGuarded_InputPorts()
 {
 
 }
 
 NATIVE_INT_TYPE PassiveComponentBase ::
-  getNum_serialGuarded_InputPorts()
+  getNum_serialSync_InputPorts()
 {
 
 }
@@ -805,22 +805,6 @@ NATIVE_INT_TYPE PassiveComponentBase ::
 
 }
 
-#if FW_ENABLE_TEXT_LOGGING == 1
-
-NATIVE_INT_TYPE PassiveComponentBase ::
-  getNum_textEventOut_OutputPorts()
-{
-
-}
-
-#endif
-
-NATIVE_INT_TYPE PassiveComponentBase ::
-  getNum_tlmOut_OutputPorts()
-{
-
-}
-
 NATIVE_INT_TYPE PassiveComponentBase ::
   getNum_prmGetOut_OutputPorts()
 {
@@ -833,8 +817,24 @@ NATIVE_INT_TYPE PassiveComponentBase ::
 
 }
 
+#if FW_ENABLE_TEXT_LOGGING == 1
+
+NATIVE_INT_TYPE PassiveComponentBase ::
+  getNum_textEventOut_OutputPorts()
+{
+
+}
+
+#endif
+
 NATIVE_INT_TYPE PassiveComponentBase ::
   getNum_timeGetOut_OutputPorts()
+{
+
+}
+
+NATIVE_INT_TYPE PassiveComponentBase ::
+  getNum_tlmOut_OutputPorts()
 {
 
 }
@@ -881,22 +881,6 @@ bool PassiveComponentBase ::
 
 }
 
-#if FW_ENABLE_TEXT_LOGGING == 1
-
-bool PassiveComponentBase ::
-  isConnected_textEventOut_OutputPort(NATIVE_INT_TYPE portNum)
-{
-
-}
-
-#endif
-
-bool PassiveComponentBase ::
-  isConnected_tlmOut_OutputPort(NATIVE_INT_TYPE portNum)
-{
-
-}
-
 bool PassiveComponentBase ::
   isConnected_prmGetOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
@@ -909,8 +893,24 @@ bool PassiveComponentBase ::
 
 }
 
+#if FW_ENABLE_TEXT_LOGGING == 1
+
+bool PassiveComponentBase ::
+  isConnected_textEventOut_OutputPort(NATIVE_INT_TYPE portNum)
+{
+
+}
+
+#endif
+
 bool PassiveComponentBase ::
   isConnected_timeGetOut_OutputPort(NATIVE_INT_TYPE portNum)
+{
+
+}
+
+bool PassiveComponentBase ::
+  isConnected_tlmOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
 
 }
@@ -940,7 +940,7 @@ bool PassiveComponentBase ::
 // ----------------------------------------------------------------------
 
 void PassiveComponentBase ::
-  typedSync_handler(
+  typedGuarded_handler(
       NATIVE_INT_TYPE portNum,
       U32 u32,
       F32 f32,
@@ -955,7 +955,7 @@ void PassiveComponentBase ::
 }
 
 void PassiveComponentBase ::
-  typedGuarded_handler(
+  typedSync_handler(
       NATIVE_INT_TYPE portNum,
       U32 u32,
       F32 f32,
@@ -974,7 +974,7 @@ void PassiveComponentBase ::
 // ----------------------------------------------------------------------
 
 void PassiveComponentBase ::
-  typedSync_handlerBase(
+  typedGuarded_handlerBase(
       NATIVE_INT_TYPE portNum,
       U32 u32,
       F32 f32,
@@ -989,7 +989,7 @@ void PassiveComponentBase ::
 }
 
 void PassiveComponentBase ::
-  typedGuarded_handlerBase(
+  typedSync_handlerBase(
       NATIVE_INT_TYPE portNum,
       U32 u32,
       F32 f32,
@@ -1008,7 +1008,7 @@ void PassiveComponentBase ::
 // ----------------------------------------------------------------------
 
 void PassiveComponentBase ::
-  serialSync_handler(
+  serialGuarded_handler(
       NATIVE_INT_TYPE portNum,
       Fw::SerializeBufferBase& buffer
   )
@@ -1017,7 +1017,7 @@ void PassiveComponentBase ::
 }
 
 void PassiveComponentBase ::
-  serialGuarded_handler(
+  serialSync_handler(
       NATIVE_INT_TYPE portNum,
       Fw::SerializeBufferBase& buffer
   )
@@ -1030,7 +1030,7 @@ void PassiveComponentBase ::
 // ----------------------------------------------------------------------
 
 void PassiveComponentBase ::
-  serialSync_handlerBase(
+  serialGuarded_handlerBase(
       NATIVE_INT_TYPE portNum,
       Fw::SerializeBufferBase& buffer
   )
@@ -1039,7 +1039,7 @@ void PassiveComponentBase ::
 }
 
 void PassiveComponentBase ::
-  serialGuarded_handlerBase(
+  serialSync_handlerBase(
       NATIVE_INT_TYPE portNum,
       Fw::SerializeBufferBase& buffer
   )
@@ -1497,7 +1497,7 @@ void PassiveComponentBase ::
 // ----------------------------------------------------------------------
 
 void PassiveComponentBase ::
-  m_p_typedSync_in(
+  m_p_typedGuarded_in(
       Fw::PassiveComponentBase* callComp,
       NATIVE_INT_TYPE portNum,
       U32 u32,
@@ -1513,7 +1513,7 @@ void PassiveComponentBase ::
 }
 
 void PassiveComponentBase ::
-  m_p_typedGuarded_in(
+  m_p_typedSync_in(
       Fw::PassiveComponentBase* callComp,
       NATIVE_INT_TYPE portNum,
       U32 u32,
@@ -1535,7 +1535,7 @@ void PassiveComponentBase ::
 #if FW_PORT_SERIALIZATION
 
 void PassiveComponentBase ::
-  m_p_serialSync_in(
+  m_p_serialGuarded_in(
       Fw::PassiveComponentBase* callComp,
       NATIVE_INT_TYPE portNum,
       Fw::SerializeBufferBase& buffer
@@ -1545,7 +1545,7 @@ void PassiveComponentBase ::
 }
 
 void PassiveComponentBase ::
-  m_p_serialGuarded_in(
+  m_p_serialSync_in(
       Fw::PassiveComponentBase* callComp,
       NATIVE_INT_TYPE portNum,
       Fw::SerializeBufferBase& buffer

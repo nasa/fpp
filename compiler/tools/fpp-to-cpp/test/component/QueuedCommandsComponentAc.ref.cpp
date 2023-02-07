@@ -45,14 +45,14 @@ Fw::InputCmdPort* QueuedCommandsComponentBase ::
 // ----------------------------------------------------------------------
 
 InputTypedPort* QueuedCommandsComponentBase ::
-  get_typedSync_InputPort(NATIVE_INT_TYPE portNum)
+  get_typedAsync_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_typedSync_InputPorts(),
+    portNum < this->getNum_typedAsync_InputPorts(),
     static_cast<FwAssertArgType>(portNum)
    );
 
-  return &this->m_typedSync_InputPort[portNum];
+  return &this->m_typedAsync_InputPort[portNum];
 }
 
 InputTypedPort* QueuedCommandsComponentBase ::
@@ -67,14 +67,14 @@ InputTypedPort* QueuedCommandsComponentBase ::
 }
 
 InputTypedPort* QueuedCommandsComponentBase ::
-  get_typedAsync_InputPort(NATIVE_INT_TYPE portNum)
+  get_typedSync_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_typedAsync_InputPorts(),
+    portNum < this->getNum_typedSync_InputPorts(),
     static_cast<FwAssertArgType>(portNum)
    );
 
-  return &this->m_typedAsync_InputPort[portNum];
+  return &this->m_typedSync_InputPort[portNum];
 }
 
 // ----------------------------------------------------------------------
@@ -82,14 +82,14 @@ InputTypedPort* QueuedCommandsComponentBase ::
 // ----------------------------------------------------------------------
 
 Fw::InputSerializePort* QueuedCommandsComponentBase ::
-  get_serialSync_InputPort(NATIVE_INT_TYPE portNum)
+  get_serialAsync_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_serialSync_InputPorts(),
+    portNum < this->getNum_serialAsync_InputPorts(),
     static_cast<FwAssertArgType>(portNum)
    );
 
-  return &this->m_serialSync_InputPort[portNum];
+  return &this->m_serialAsync_InputPort[portNum];
 }
 
 Fw::InputSerializePort* QueuedCommandsComponentBase ::
@@ -104,14 +104,14 @@ Fw::InputSerializePort* QueuedCommandsComponentBase ::
 }
 
 Fw::InputSerializePort* QueuedCommandsComponentBase ::
-  get_serialAsync_InputPort(NATIVE_INT_TYPE portNum)
+  get_serialSync_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_serialAsync_InputPorts(),
+    portNum < this->getNum_serialSync_InputPorts(),
     static_cast<FwAssertArgType>(portNum)
    );
 
-  return &this->m_serialAsync_InputPort[portNum];
+  return &this->m_serialSync_InputPort[portNum];
 }
 
 // ----------------------------------------------------------------------
@@ -160,38 +160,6 @@ void QueuedCommandsComponentBase ::
   this->m_eventOut_OutputPort[portNum].addCallPort(port);
 }
 
-#if FW_ENABLE_TEXT_LOGGING == 1
-
-void QueuedCommandsComponentBase ::
-  set_textEventOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputLogTextPort* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_textEventOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_textEventOut_OutputPort[portNum].addCallPort(port);
-}
-
-#endif
-
-void QueuedCommandsComponentBase ::
-  set_tlmOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputTlmPort* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_tlmOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_tlmOut_OutputPort[portNum].addCallPort(port);
-}
-
 void QueuedCommandsComponentBase ::
   set_prmGetOut_OutputPort(
       NATIVE_INT_TYPE portNum,
@@ -220,6 +188,24 @@ void QueuedCommandsComponentBase ::
   this->m_prmSetOut_OutputPort[portNum].addCallPort(port);
 }
 
+#if FW_ENABLE_TEXT_LOGGING == 1
+
+void QueuedCommandsComponentBase ::
+  set_textEventOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputLogTextPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_textEventOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_textEventOut_OutputPort[portNum].addCallPort(port);
+}
+
+#endif
+
 void QueuedCommandsComponentBase ::
   set_timeGetOut_OutputPort(
       NATIVE_INT_TYPE portNum,
@@ -232,6 +218,20 @@ void QueuedCommandsComponentBase ::
   );
 
   this->m_timeGetOut_OutputPort[portNum].addCallPort(port);
+}
+
+void QueuedCommandsComponentBase ::
+  set_tlmOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputTlmPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_tlmOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_tlmOut_OutputPort[portNum].addCallPort(port);
 }
 
 #if FW_PORT_SERIALIZATION
@@ -267,28 +267,6 @@ void QueuedCommandsComponentBase ::
 
 }
 
-#if FW_ENABLE_TEXT_LOGGING == 1
-
-void QueuedCommandsComponentBase ::
-  set_textEventOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-
-}
-
-#endif
-
-void QueuedCommandsComponentBase ::
-  set_tlmOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-
-}
-
 void QueuedCommandsComponentBase ::
   set_prmGetOut_OutputPort(
       NATIVE_INT_TYPE portNum,
@@ -307,8 +285,30 @@ void QueuedCommandsComponentBase ::
 
 }
 
+#if FW_ENABLE_TEXT_LOGGING == 1
+
+void QueuedCommandsComponentBase ::
+  set_textEventOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+
+}
+
+#endif
+
 void QueuedCommandsComponentBase ::
   set_timeGetOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+
+}
+
+void QueuedCommandsComponentBase ::
+  set_tlmOut_OutputPort(
       NATIVE_INT_TYPE portNum,
       Fw::InputSerializePort* port
   )
@@ -436,29 +436,29 @@ void QueuedCommandsComponentBase ::
 #endif
   }
 
-  // Connect input port typedSync
+  // Connect input port typedAsync
   for (
     PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedSync_InputPorts());
+    port < static_cast<PlatformIntType>(this->getNum_typedAsync_InputPorts());
     port++
   ) {
-    this->m_typedSync_InputPort[port].init();
-    this->m_typedSync_InputPort[port].addCallComp(
+    this->m_typedAsync_InputPort[port].init();
+    this->m_typedAsync_InputPort[port].addCallComp(
       this,
-      m_p_typedSync_in
+      m_p_typedAsync_in
     );
-    this->m_typedSync_InputPort[port].setPortNum(port);
+    this->m_typedAsync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
     char portName[120];
     (void) snprintf(
       portName,
       sizeof(portName),
-      "%s_typedSync_InputPort[%" PRI_PlatformIntType "]",
+      "%s_typedAsync_InputPort[%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
-    this->m_typedSync_InputPort[port].setObjName(portName);
+    this->m_typedAsync_InputPort[port].setObjName(portName);
 #endif
   }
 
@@ -488,55 +488,55 @@ void QueuedCommandsComponentBase ::
 #endif
   }
 
-  // Connect input port typedAsync
+  // Connect input port typedSync
   for (
     PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedAsync_InputPorts());
+    port < static_cast<PlatformIntType>(this->getNum_typedSync_InputPorts());
     port++
   ) {
-    this->m_typedAsync_InputPort[port].init();
-    this->m_typedAsync_InputPort[port].addCallComp(
+    this->m_typedSync_InputPort[port].init();
+    this->m_typedSync_InputPort[port].addCallComp(
       this,
-      m_p_typedAsync_in
+      m_p_typedSync_in
     );
-    this->m_typedAsync_InputPort[port].setPortNum(port);
+    this->m_typedSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
     char portName[120];
     (void) snprintf(
       portName,
       sizeof(portName),
-      "%s_typedAsync_InputPort[%" PRI_PlatformIntType "]",
+      "%s_typedSync_InputPort[%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
-    this->m_typedAsync_InputPort[port].setObjName(portName);
+    this->m_typedSync_InputPort[port].setObjName(portName);
 #endif
   }
 
-  // Connect input port serialSync
+  // Connect input port serialAsync
   for (
     PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_serialSync_InputPorts());
+    port < static_cast<PlatformIntType>(this->getNum_serialAsync_InputPorts());
     port++
   ) {
-    this->m_serialSync_InputPort[port].init();
-    this->m_serialSync_InputPort[port].addCallComp(
+    this->m_serialAsync_InputPort[port].init();
+    this->m_serialAsync_InputPort[port].addCallComp(
       this,
-      m_p_serialSync_in
+      m_p_serialAsync_in
     );
-    this->m_serialSync_InputPort[port].setPortNum(port);
+    this->m_serialAsync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
     char portName[120];
     (void) snprintf(
       portName,
       sizeof(portName),
-      "%s_serialSync_InputPort[%" PRI_PlatformIntType "]",
+      "%s_serialAsync_InputPort[%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
-    this->m_serialSync_InputPort[port].setObjName(portName);
+    this->m_serialAsync_InputPort[port].setObjName(portName);
 #endif
   }
 
@@ -566,29 +566,29 @@ void QueuedCommandsComponentBase ::
 #endif
   }
 
-  // Connect input port serialAsync
+  // Connect input port serialSync
   for (
     PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_serialAsync_InputPorts());
+    port < static_cast<PlatformIntType>(this->getNum_serialSync_InputPorts());
     port++
   ) {
-    this->m_serialAsync_InputPort[port].init();
-    this->m_serialAsync_InputPort[port].addCallComp(
+    this->m_serialSync_InputPort[port].init();
+    this->m_serialSync_InputPort[port].addCallComp(
       this,
-      m_p_serialAsync_in
+      m_p_serialSync_in
     );
-    this->m_serialAsync_InputPort[port].setPortNum(port);
+    this->m_serialSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
     char portName[120];
     (void) snprintf(
       portName,
       sizeof(portName),
-      "%s_serialAsync_InputPort[%" PRI_PlatformIntType "]",
+      "%s_serialSync_InputPort[%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
-    this->m_serialAsync_InputPort[port].setObjName(portName);
+    this->m_serialSync_InputPort[port].setObjName(portName);
 #endif
   }
 
@@ -655,48 +655,6 @@ void QueuedCommandsComponentBase ::
 #endif
   }
 
-  // Connect output port textEventOut
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_textEventOut_OutputPorts());
-    port++
-  ) {
-    this->m_textEventOut_OutputPort[port].init();
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_textEventOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_textEventOut_OutputPort[port].setObjName(portName);
-#endif
-  }
-
-  // Connect output port tlmOut
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_tlmOut_OutputPorts());
-    port++
-  ) {
-    this->m_tlmOut_OutputPort[port].init();
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_tlmOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_tlmOut_OutputPort[port].setObjName(portName);
-#endif
-  }
-
   // Connect output port prmGetOut
   for (
     PlatformIntType port = 0;
@@ -739,6 +697,27 @@ void QueuedCommandsComponentBase ::
 #endif
   }
 
+  // Connect output port textEventOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_textEventOut_OutputPorts());
+    port++
+  ) {
+    this->m_textEventOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_textEventOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_textEventOut_OutputPort[port].setObjName(portName);
+#endif
+  }
+
   // Connect output port timeGetOut
   for (
     PlatformIntType port = 0;
@@ -757,6 +736,27 @@ void QueuedCommandsComponentBase ::
       port
     );
     this->m_timeGetOut_OutputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect output port tlmOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_tlmOut_OutputPorts());
+    port++
+  ) {
+    this->m_tlmOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_tlmOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_tlmOut_OutputPort[port].setObjName(portName);
 #endif
   }
 
@@ -824,7 +824,7 @@ NATIVE_INT_TYPE QueuedCommandsComponentBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE QueuedCommandsComponentBase ::
-  getNum_typedSync_InputPorts()
+  getNum_typedAsync_InputPorts()
 {
 
 }
@@ -836,7 +836,7 @@ NATIVE_INT_TYPE QueuedCommandsComponentBase ::
 }
 
 NATIVE_INT_TYPE QueuedCommandsComponentBase ::
-  getNum_typedAsync_InputPorts()
+  getNum_typedSync_InputPorts()
 {
 
 }
@@ -846,7 +846,7 @@ NATIVE_INT_TYPE QueuedCommandsComponentBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE QueuedCommandsComponentBase ::
-  getNum_serialSync_InputPorts()
+  getNum_serialAsync_InputPorts()
 {
 
 }
@@ -858,7 +858,7 @@ NATIVE_INT_TYPE QueuedCommandsComponentBase ::
 }
 
 NATIVE_INT_TYPE QueuedCommandsComponentBase ::
-  getNum_serialAsync_InputPorts()
+  getNum_serialSync_InputPorts()
 {
 
 }
@@ -885,22 +885,6 @@ NATIVE_INT_TYPE QueuedCommandsComponentBase ::
 
 }
 
-#if FW_ENABLE_TEXT_LOGGING == 1
-
-NATIVE_INT_TYPE QueuedCommandsComponentBase ::
-  getNum_textEventOut_OutputPorts()
-{
-
-}
-
-#endif
-
-NATIVE_INT_TYPE QueuedCommandsComponentBase ::
-  getNum_tlmOut_OutputPorts()
-{
-
-}
-
 NATIVE_INT_TYPE QueuedCommandsComponentBase ::
   getNum_prmGetOut_OutputPorts()
 {
@@ -913,8 +897,24 @@ NATIVE_INT_TYPE QueuedCommandsComponentBase ::
 
 }
 
+#if FW_ENABLE_TEXT_LOGGING == 1
+
+NATIVE_INT_TYPE QueuedCommandsComponentBase ::
+  getNum_textEventOut_OutputPorts()
+{
+
+}
+
+#endif
+
 NATIVE_INT_TYPE QueuedCommandsComponentBase ::
   getNum_timeGetOut_OutputPorts()
+{
+
+}
+
+NATIVE_INT_TYPE QueuedCommandsComponentBase ::
+  getNum_tlmOut_OutputPorts()
 {
 
 }
@@ -961,22 +961,6 @@ bool QueuedCommandsComponentBase ::
 
 }
 
-#if FW_ENABLE_TEXT_LOGGING == 1
-
-bool QueuedCommandsComponentBase ::
-  isConnected_textEventOut_OutputPort(NATIVE_INT_TYPE portNum)
-{
-
-}
-
-#endif
-
-bool QueuedCommandsComponentBase ::
-  isConnected_tlmOut_OutputPort(NATIVE_INT_TYPE portNum)
-{
-
-}
-
 bool QueuedCommandsComponentBase ::
   isConnected_prmGetOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
@@ -989,8 +973,24 @@ bool QueuedCommandsComponentBase ::
 
 }
 
+#if FW_ENABLE_TEXT_LOGGING == 1
+
+bool QueuedCommandsComponentBase ::
+  isConnected_textEventOut_OutputPort(NATIVE_INT_TYPE portNum)
+{
+
+}
+
+#endif
+
 bool QueuedCommandsComponentBase ::
   isConnected_timeGetOut_OutputPort(NATIVE_INT_TYPE portNum)
+{
+
+}
+
+bool QueuedCommandsComponentBase ::
+  isConnected_tlmOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
 
 }
@@ -1020,7 +1020,7 @@ bool QueuedCommandsComponentBase ::
 // ----------------------------------------------------------------------
 
 void QueuedCommandsComponentBase ::
-  typedSync_handler(
+  typedAsync_handler(
       NATIVE_INT_TYPE portNum,
       U32 u32,
       F32 f32,
@@ -1050,7 +1050,7 @@ void QueuedCommandsComponentBase ::
 }
 
 void QueuedCommandsComponentBase ::
-  typedAsync_handler(
+  typedSync_handler(
       NATIVE_INT_TYPE portNum,
       U32 u32,
       F32 f32,
@@ -1069,7 +1069,7 @@ void QueuedCommandsComponentBase ::
 // ----------------------------------------------------------------------
 
 void QueuedCommandsComponentBase ::
-  typedSync_handlerBase(
+  typedAsync_handlerBase(
       NATIVE_INT_TYPE portNum,
       U32 u32,
       F32 f32,
@@ -1099,7 +1099,7 @@ void QueuedCommandsComponentBase ::
 }
 
 void QueuedCommandsComponentBase ::
-  typedAsync_handlerBase(
+  typedSync_handlerBase(
       NATIVE_INT_TYPE portNum,
       U32 u32,
       F32 f32,
@@ -1118,7 +1118,7 @@ void QueuedCommandsComponentBase ::
 // ----------------------------------------------------------------------
 
 void QueuedCommandsComponentBase ::
-  serialSync_handler(
+  serialAsync_handler(
       NATIVE_INT_TYPE portNum,
       Fw::SerializeBufferBase& buffer
   )
@@ -1136,7 +1136,7 @@ void QueuedCommandsComponentBase ::
 }
 
 void QueuedCommandsComponentBase ::
-  serialAsync_handler(
+  serialSync_handler(
       NATIVE_INT_TYPE portNum,
       Fw::SerializeBufferBase& buffer
   )
@@ -1149,7 +1149,7 @@ void QueuedCommandsComponentBase ::
 // ----------------------------------------------------------------------
 
 void QueuedCommandsComponentBase ::
-  serialSync_handlerBase(
+  serialAsync_handlerBase(
       NATIVE_INT_TYPE portNum,
       Fw::SerializeBufferBase& buffer
   )
@@ -1167,7 +1167,7 @@ void QueuedCommandsComponentBase ::
 }
 
 void QueuedCommandsComponentBase ::
-  serialAsync_handlerBase(
+  serialSync_handlerBase(
       NATIVE_INT_TYPE portNum,
       Fw::SerializeBufferBase& buffer
   )
@@ -2001,7 +2001,7 @@ void QueuedCommandsComponentBase ::
 // ----------------------------------------------------------------------
 
 void QueuedCommandsComponentBase ::
-  m_p_typedSync_in(
+  m_p_typedAsync_in(
       Fw::PassiveComponentBase* callComp,
       NATIVE_INT_TYPE portNum,
       U32 u32,
@@ -2033,7 +2033,7 @@ void QueuedCommandsComponentBase ::
 }
 
 void QueuedCommandsComponentBase ::
-  m_p_typedAsync_in(
+  m_p_typedSync_in(
       Fw::PassiveComponentBase* callComp,
       NATIVE_INT_TYPE portNum,
       U32 u32,
@@ -2055,7 +2055,7 @@ void QueuedCommandsComponentBase ::
 #if FW_PORT_SERIALIZATION
 
 void QueuedCommandsComponentBase ::
-  m_p_serialSync_in(
+  m_p_serialAsync_in(
       Fw::PassiveComponentBase* callComp,
       NATIVE_INT_TYPE portNum,
       Fw::SerializeBufferBase& buffer
@@ -2075,7 +2075,7 @@ void QueuedCommandsComponentBase ::
 }
 
 void QueuedCommandsComponentBase ::
-  m_p_serialAsync_in(
+  m_p_serialSync_in(
       Fw::PassiveComponentBase* callComp,
       NATIVE_INT_TYPE portNum,
       Fw::SerializeBufferBase& buffer

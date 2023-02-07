@@ -27,18 +27,11 @@ abstract class ComponentCppWriterUtils(
     Some("The port number")
   )
 
-  /** List of general port instances */
-  val generalPorts: List[PortInstance.General] = members.map(member =>
-    member.node._2 match {
-      case Ast.ComponentMember.SpecPortInstance(node) => node.data match {
-        case p: Ast.SpecPortInstance.General => component.portMap(p.name) match {
-          case i: PortInstance.General => Some(i)
-          case _ => None
-        }
-        case _  => None
-      }
-      case _ => None
-    }).filter(_.isDefined).map(_.get)
+  /** List of general port instances sorted by name */
+  val generalPorts: List[PortInstance.General] = component.portMap.toList.map((_, p) => p match {
+    case i: PortInstance.General => Some(i)
+    case _ => None
+  }).filter(_.isDefined).map(_.get).sortBy(_.getUnqualifiedName)
 
   /** List of general input ports */
   private val generalInputPorts: List[PortInstance.General] =
@@ -48,18 +41,9 @@ abstract class ComponentCppWriterUtils(
   private val outputPorts: List[PortInstance.General] =
     filterByPortDirection(generalPorts, PortInstance.Direction.Output)
 
-  /** List of special port instances */
-  val specialPorts: List[PortInstance.Special] = members.map(member =>
-    member.node._2 match {
-      case Ast.ComponentMember.SpecPortInstance(node) => node.data match {
-        case p: Ast.SpecPortInstance.Special => component.portMap(p.name) match {
-          case i: PortInstance.Special => Some(i)
-          case _ => None
-        }
-        case _ => None
-      }
-      case _ => None
-    }).filter(_.isDefined).map(_.get)
+  /** List of special port instances sorted by name */
+  val specialPorts: List[PortInstance.Special] =
+    component.specialPortMap.toList.map(_._2).sortBy(_.getUnqualifiedName)
 
   /** List of special input port instances */
   val specialInputPorts: List[PortInstance.Special] =
