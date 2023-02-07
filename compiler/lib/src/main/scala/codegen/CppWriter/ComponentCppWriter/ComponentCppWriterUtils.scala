@@ -160,27 +160,14 @@ abstract class ComponentCppWriterUtils(
         case Some(PortInstance.Type.DefPort(symbol)) => Some((
           p.getUnqualifiedName,
           symbol.node._2.data.params.map(param => {
-            val typeName = writeCppTypeName(
-              s.a.typeMap(param._2.data.typeName.id),
-              s,
-              PortCppWriter.getPortNamespaces(symbol.node._2.data.name)
-            )
-
-            (param._2.data.name, typeName)
+            (param._2.data.name, writeGeneralPortParam(param._2.data, symbol))
           })
         ))
         case None => p match {
           case PortInstance.Internal(node, _, _) => Some((
             p.getUnqualifiedName,
             node._2.data.params.map(param => {
-              val typeName = writeCppTypeName(
-                s.a.typeMap(param._2.data.typeName.id),
-                s,
-                Nil,
-                Some("Fw::CmdStringArg")
-              )
-
-              (param._2.data.name, typeName)
+              (param._2.data.name, writeInternalPortParam(param._2.data))
             })
           ))
           case _ => None
@@ -193,14 +180,7 @@ abstract class ComponentCppWriterUtils(
     nonParamCmds.map((opcode, cmd) => (
       opcode,
       cmd.aNode._2.data.params.map(param => {
-        val typeName = writeCppTypeName(
-          s.a.typeMap(param._2.data.typeName.id),
-          s,
-          Nil,
-          Some("Fw::InternalInterfaceString")
-        )
-
-        (param._2.data.name, typeName)
+        (param._2.data.name, writeCommandParam(param._2.data))
       })
     )).toMap
 
@@ -325,7 +305,7 @@ abstract class ComponentCppWriterUtils(
   }
 
   /** Write a channel type as a C++ type */
-  def writeChannelType(t: Type) =
+  def writeChannelType(t: Type): String =
     writeCppTypeName(t, s, Nil, Some("Fw::TlmString"))
 
   /** Add an optional string separated by two newlines */
@@ -424,6 +404,31 @@ abstract class ComponentCppWriterUtils(
   /** Get the name for a parameter validity flag variable */
   def paramValidityFlagName(name: String) =
     s"m_param_${name}_valid"
+
+  /** Write a general port param as a C++ type */
+  private def writeGeneralPortParam(param: Ast.FormalParam, symbol: Symbol.Port) =
+    writeCppTypeName(
+      s.a.typeMap(param.typeName.id),
+      s,
+      PortCppWriter.getPortNamespaces(symbol.node._2.data.name)
+    )
+
+  /** Write an internal port param as a C++ type */
+  private def writeInternalPortParam(param: Ast.FormalParam) =
+    writeCppTypeName(
+      s.a.typeMap(param.typeName.id),
+      s,
+      Nil,
+      Some("Fw::InternalInterfaceString")
+    )
+
+  /** Write a command param as a C++ type */
+  private def writeCommandParam(param: Ast.FormalParam) =
+    writeCppTypeName(s.a.typeMap(param.typeName.id),
+      s,
+      Nil,
+      Some("Fw::CmdStringArg")
+    )
 
   private def filterByPortDirection[T<: PortInstance](ports: List[T], direction: PortInstance.Direction) =
     ports.filter(p =>

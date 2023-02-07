@@ -2396,7 +2396,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveComponentBase ::
 
     // Handle internal interface internalString
     case INT_IF_INTERNALSTRING: {
-      Fw::CmdStringArg str1;
+      Fw::InternalInterfaceString str1;
       deserStatus = msg.deserialize(str1);
 
       // Internal interface should always deserialize
@@ -2405,7 +2405,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveComponentBase ::
         static_cast<FwAssertArgType>(deserStatus)
       );
 
-      Fw::CmdStringArg str2;
+      Fw::InternalInterfaceString str2;
       deserStatus = msg.deserialize(str2);
 
       // Internal interface should always deserialize
