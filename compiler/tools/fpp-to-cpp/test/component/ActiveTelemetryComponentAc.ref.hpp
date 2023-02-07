@@ -869,7 +869,7 @@ class ActiveTelemetryComponentBase :
 
     //!  Get the time
     //! 
-    //! \return The current time
+    //! \\return The current time
     Fw::Time getTime();
 
   PROTECTED:

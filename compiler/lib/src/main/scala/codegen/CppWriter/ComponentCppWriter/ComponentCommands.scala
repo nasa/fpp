@@ -10,13 +10,6 @@ case class ComponentCommands (
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
-  private val sortedCmds = component.commandMap.toList.sortBy(_._1)
-
-  private val nonParamCmds = sortedCmds.map((opcode, cmd) => cmd match {
-    case c: Command.NonParam => Some((opcode, c))
-    case _ => None
-  }).filter(_.isDefined).map(_.get)
-
   private val cmdParamMap = nonParamCmds.map((opcode, cmd) => {(
     opcode,
     writeFormalParamList(
@@ -218,10 +211,7 @@ case class ComponentCommands (
              |"""
         )
       ),
-      nonParamCmds.filter((_, cmd) => cmd.kind match {
-        case Command.NonParam.Async(_, _) => true
-        case _ => false
-      }).map((_, cmd) =>
+      asyncCmds.map((_, cmd) =>
         functionClassMember(
           Some(s"Pre-message hook for command ${cmd.getName}"),
           inputPortHookName(cmd.getName),
@@ -242,10 +232,6 @@ case class ComponentCommands (
       case Command.Param.Save => "save"
       case Command.Param.Set => "set"
     }
-
-  // Get the name for a command handler
-  private def commandHandlerName(name: String) =
-    s"${name}_cmdHandler"
 
   // Get the name for a command handler base-class function
   private def commandHandlerBaseName(name: String) =

@@ -7,8 +7,11 @@
 #include <cstdio>
 
 #include "Fw/Types/Assert.hpp"
+#if FW_ENABLE_TEXT_LOGGING
 #include "Fw/Types/String.hpp"
+#endif
 #include "PassiveEventsComponentAc.hpp"
+
 
 // ----------------------------------------------------------------------
 // Getters for special input ports
@@ -1128,7 +1131,14 @@ void PassiveEventsComponentBase ::
 Fw::Time PassiveEventsComponentBase ::
   getTime()
 {
-
+  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
+    Fw::Time _time;
+    this->m_timeGetOut_OutputPort[0].invoke(_time);
+    return _time;
+  }
+  else {
+    return Fw::Time(TB_NONE, 0, 0);
+  }
 }
 
 // ----------------------------------------------------------------------
@@ -1138,13 +1148,13 @@ Fw::Time PassiveEventsComponentBase ::
 void PassiveEventsComponentBase ::
   lock()
 {
-
+  this->m_guardedPortMutex.lock();
 }
 
 void PassiveEventsComponentBase ::
   unLock()
 {
-
+  this->m_guardedPortMutex.unLock();
 }
 
 // ----------------------------------------------------------------------

@@ -7,8 +7,29 @@
 #include <cstdio>
 
 #include "Fw/Types/Assert.hpp"
+#if FW_ENABLE_TEXT_LOGGING
 #include "Fw/Types/String.hpp"
+#endif
 #include "QueuedComponentAc.hpp"
+
+namespace {
+  enum MsgTypeEnum {
+    QUEUED_COMPONENT_EXIT = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT,
+    TYPEDASYNC_TYPED,
+    SERIALASYNC_SERIAL,
+    CMD_CMD_ASYNC,
+    CMD_CMD_PRIORITY,
+    CMD_CMD_PARAMS_PRIORITY,
+    CMD_CMD_DROP,
+    CMD_CMD_PARAMS_PRIORITY_DROP,
+    INT_IF_INTERNALPRIMITIVE,
+    INT_IF_INTERNALSTRING,
+    INT_IF_INTERNALENUM,
+    INT_IF_INTERNALARRAY,
+    INT_IF_INTERNALSTRUCT,
+    INT_IF_INTERNALPRIORITYDROP,
+  };
+}
 
 // ----------------------------------------------------------------------
 // Getters for special input ports
@@ -1853,7 +1874,14 @@ S QueuedComponentBase ::
 Fw::Time QueuedComponentBase ::
   getTime()
 {
-
+  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
+    Fw::Time _time;
+    this->m_timeGetOut_OutputPort[0].invoke(_time);
+    return _time;
+  }
+  else {
+    return Fw::Time(TB_NONE, 0, 0);
+  }
 }
 
 // ----------------------------------------------------------------------
@@ -1863,13 +1891,13 @@ Fw::Time QueuedComponentBase ::
 void QueuedComponentBase ::
   lock()
 {
-
+  this->m_guardedPortMutex.lock();
 }
 
 void QueuedComponentBase ::
   unLock()
 {
-
+  this->m_guardedPortMutex.unLock();
 }
 
 // ----------------------------------------------------------------------
@@ -1879,7 +1907,551 @@ void QueuedComponentBase ::
 Fw::QueuedComponentBase::MsgDispatchStatus QueuedComponentBase ::
   doDispatch()
 {
+  U8 msgBuff[this->m_msgSize];
+  Fw::ExternalSerializeBuffer msg(msgBuff,this->m_msgSize);
+  NATIVE_INT_TYPE priority = 0;
 
+  Os::Queue::QueueStatus msgStatus = this->m_queue.receive(
+    msg,
+    priority,
+    Os::Queue::QUEUE_NONBLOCKING
+  );
+  if (Os::Queue::QUEUE_NO_MORE_MSGS == msgStatus) {
+    return Fw::QueuedComponentBase::MSG_DISPATCH_EMPTY;
+  }
+  else {
+    FW_ASSERT(
+      msgStatus == Os::Queue::QUEUE_OK,
+      static_cast<FwAssertArgType>(msgStatus)
+    );
+  }
+
+  // Reset to beginning of buffer
+  msg.resetDeser();
+
+  NATIVE_INT_TYPE desMsg = 0;
+  Fw::SerializeStatus deserStatus = msg.deserialize(desMsg);
+  FW_ASSERT(
+    deserStatus == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(deserStatus)
+  );
+
+  MsgTypeEnum msgType = static_cast<MsgTypeEnum>(desMsg);
+
+  if (msgType == QUEUED_COMPONENT_EXIT) {
+    return MSG_DISPATCH_EXIT;
+  }
+
+  NATIVE_INT_TYPE portNum = 0;
+  deserStatus = msg.deserialize(portNum);
+  FW_ASSERT(
+    deserStatus == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(deserStatus)
+  );
+
+  switch (msgType) {
+    // Handle async input port typedAsync
+    case TYPEDASYNC_TYPED: {
+      // Deserialize argument u32
+      U32 u32;
+      deserStatus = msg.deserialize(u32);
+      FW_ASSERT(
+        deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      // Deserialize argument f32
+      F32 f32;
+      deserStatus = msg.deserialize(f32);
+      FW_ASSERT(
+        deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      // Deserialize argument b
+      bool b;
+      deserStatus = msg.deserialize(b);
+      FW_ASSERT(
+        deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      // Deserialize argument str
+      TypedPortStrings::StringSize80 str;
+      deserStatus = msg.deserialize(str);
+      FW_ASSERT(
+        deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      // Deserialize argument e
+      E e;
+      deserStatus = msg.deserialize(e);
+      FW_ASSERT(
+        deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      // Deserialize argument a
+      A a;
+      deserStatus = msg.deserialize(a);
+      FW_ASSERT(
+        deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      // Deserialize argument s
+      S s;
+      deserStatus = msg.deserialize(s);
+      FW_ASSERT(
+        deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      // Call handler function
+      this->typedAsync_handler(
+        portNum,
+        u32,
+        f32,
+        b,
+        str,
+        e,
+        a,
+        s
+      );
+
+      break;
+    }
+
+    // Handle async input port serialAsync
+    case SERIALASYNC_SERIAL: {
+      // Deserialize serialized buffer into new buffer
+      U8 handBuff[this->m_msgSize];
+      Fw::ExternalSerializeBuffer serHandBuff(handBuff,this->m_msgSize);
+      deserStatus = msg.deserialize(serHandBuff);
+      FW_ASSERT(
+        deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+      this->serialAsync_handler(portNum, serHandBuff);
+
+      break;
+    }
+
+    // Handle command CMD_ASYNC
+    case CMD_CMD_ASYNC: {
+      // Deserialize opcode
+      FwOpcodeType opCode = 0;
+      deserStatus = msg.deserialize(opCode);
+      FW_ASSERT (
+        deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      // Deserialize command sequence
+      U32 cmdSeq = 0;
+      deserStatus = msg.deserialize(cmdSeq);
+      FW_ASSERT (
+        deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      // Deserialize command argument buffer
+      Fw::CmdArgBuffer args;
+      deserStatus = msg.deserialize(args);
+      FW_ASSERT (
+        deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      // Reset buffer
+      args.resetDeser();
+
+      // Make sure there was no data left over.
+      // That means the argument buffer size was incorrect.
+#if FW_CMD_CHECK_RESIDUAL
+      if (args.getBuffLeft() != 0) {
+        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+          this->cmdResponse_out(opCode,cmdSeq,Fw::CmdResponse::FORMAT_ERROR);
+        }
+        // Don't crash the task if bad arguments were passed from the ground
+        break;
+      }
+#endif
+
+      // Call handler function
+      this->CMD_ASYNC_cmdHandler(opCode, cmdSeq);
+
+      break;
+    }
+
+    // Handle command CMD_PRIORITY
+    case CMD_CMD_PRIORITY: {
+      // Deserialize opcode
+      FwOpcodeType opCode = 0;
+      deserStatus = msg.deserialize(opCode);
+      FW_ASSERT (
+        deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      // Deserialize command sequence
+      U32 cmdSeq = 0;
+      deserStatus = msg.deserialize(cmdSeq);
+      FW_ASSERT (
+        deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      // Deserialize command argument buffer
+      Fw::CmdArgBuffer args;
+      deserStatus = msg.deserialize(args);
+      FW_ASSERT (
+        deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      // Reset buffer
+      args.resetDeser();
+
+      // Make sure there was no data left over.
+      // That means the argument buffer size was incorrect.
+#if FW_CMD_CHECK_RESIDUAL
+      if (args.getBuffLeft() != 0) {
+        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+          this->cmdResponse_out(opCode,cmdSeq,Fw::CmdResponse::FORMAT_ERROR);
+        }
+        // Don't crash the task if bad arguments were passed from the ground
+        break;
+      }
+#endif
+
+      // Call handler function
+      this->CMD_PRIORITY_cmdHandler(opCode, cmdSeq);
+
+      break;
+    }
+
+    // Handle command CMD_PARAMS_PRIORITY
+    case CMD_CMD_PARAMS_PRIORITY: {
+      // Deserialize opcode
+      FwOpcodeType opCode = 0;
+      deserStatus = msg.deserialize(opCode);
+      FW_ASSERT (
+        deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      // Deserialize command sequence
+      U32 cmdSeq = 0;
+      deserStatus = msg.deserialize(cmdSeq);
+      FW_ASSERT (
+        deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      // Deserialize command argument buffer
+      Fw::CmdArgBuffer args;
+      deserStatus = msg.deserialize(args);
+      FW_ASSERT (
+        deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      // Reset buffer
+      args.resetDeser();
+
+      // Deserialize argument u32
+      U32 u32;
+      deserStatus = args.deserialize(u32);
+      if (deserStatus != Fw::FW_SERIALIZE_OK) {
+        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+          this->cmdResponse_out(
+              opCode,
+              cmdSeq,
+              Fw::CmdResponse::FORMAT_ERROR
+          );
+        }
+        // Don't crash the task if bad arguments were passed from the ground
+        break;
+      }
+
+      // Make sure there was no data left over.
+      // That means the argument buffer size was incorrect.
+#if FW_CMD_CHECK_RESIDUAL
+      if (args.getBuffLeft() != 0) {
+        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+          this->cmdResponse_out(opCode,cmdSeq,Fw::CmdResponse::FORMAT_ERROR);
+        }
+        // Don't crash the task if bad arguments were passed from the ground
+        break;
+      }
+#endif
+
+      // Call handler function
+      this->CMD_PARAMS_PRIORITY_cmdHandler(
+        opCode,
+        cmdSeq,
+        u32
+      );
+
+      break;
+    }
+
+    // Handle command CMD_DROP
+    case CMD_CMD_DROP: {
+      // Deserialize opcode
+      FwOpcodeType opCode = 0;
+      deserStatus = msg.deserialize(opCode);
+      FW_ASSERT (
+        deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      // Deserialize command sequence
+      U32 cmdSeq = 0;
+      deserStatus = msg.deserialize(cmdSeq);
+      FW_ASSERT (
+        deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      // Deserialize command argument buffer
+      Fw::CmdArgBuffer args;
+      deserStatus = msg.deserialize(args);
+      FW_ASSERT (
+        deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      // Reset buffer
+      args.resetDeser();
+
+      // Make sure there was no data left over.
+      // That means the argument buffer size was incorrect.
+#if FW_CMD_CHECK_RESIDUAL
+      if (args.getBuffLeft() != 0) {
+        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+          this->cmdResponse_out(opCode,cmdSeq,Fw::CmdResponse::FORMAT_ERROR);
+        }
+        // Don't crash the task if bad arguments were passed from the ground
+        break;
+      }
+#endif
+
+      // Call handler function
+      this->CMD_DROP_cmdHandler(opCode, cmdSeq);
+
+      break;
+    }
+
+    // Handle command CMD_PARAMS_PRIORITY_DROP
+    case CMD_CMD_PARAMS_PRIORITY_DROP: {
+      // Deserialize opcode
+      FwOpcodeType opCode = 0;
+      deserStatus = msg.deserialize(opCode);
+      FW_ASSERT (
+        deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      // Deserialize command sequence
+      U32 cmdSeq = 0;
+      deserStatus = msg.deserialize(cmdSeq);
+      FW_ASSERT (
+        deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      // Deserialize command argument buffer
+      Fw::CmdArgBuffer args;
+      deserStatus = msg.deserialize(args);
+      FW_ASSERT (
+        deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      // Reset buffer
+      args.resetDeser();
+
+      // Deserialize argument u32
+      U32 u32;
+      deserStatus = args.deserialize(u32);
+      if (deserStatus != Fw::FW_SERIALIZE_OK) {
+        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+          this->cmdResponse_out(
+              opCode,
+              cmdSeq,
+              Fw::CmdResponse::FORMAT_ERROR
+          );
+        }
+        // Don't crash the task if bad arguments were passed from the ground
+        break;
+      }
+
+      // Make sure there was no data left over.
+      // That means the argument buffer size was incorrect.
+#if FW_CMD_CHECK_RESIDUAL
+      if (args.getBuffLeft() != 0) {
+        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+          this->cmdResponse_out(opCode,cmdSeq,Fw::CmdResponse::FORMAT_ERROR);
+        }
+        // Don't crash the task if bad arguments were passed from the ground
+        break;
+      }
+#endif
+
+      // Call handler function
+      this->CMD_PARAMS_PRIORITY_DROP_cmdHandler(
+        opCode,
+        cmdSeq,
+        u32
+      );
+
+      break;
+    }
+
+    // Handle internal interface internalPrimitive
+    case INT_IF_INTERNALPRIMITIVE: {
+      U32 u32;
+      deserStatus = msg.deserialize(u32);
+
+      // Internal interface should always deserialize
+      FW_ASSERT(
+        Fw::FW_SERIALIZE_OK == deserStatus,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      F32 f32;
+      deserStatus = msg.deserialize(f32);
+
+      // Internal interface should always deserialize
+      FW_ASSERT(
+        Fw::FW_SERIALIZE_OK == deserStatus,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      bool b;
+      deserStatus = msg.deserialize(b);
+
+      // Internal interface should always deserialize
+      FW_ASSERT(
+        Fw::FW_SERIALIZE_OK == deserStatus,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      // Call handler function
+      this->internalPrimitive_internalInterfaceHandler(
+        u32,
+        f32,
+        b
+      );
+
+      break;
+    }
+
+    // Handle internal interface internalString
+    case INT_IF_INTERNALSTRING: {
+      Fw::CmdStringArg str1;
+      deserStatus = msg.deserialize(str1);
+
+      // Internal interface should always deserialize
+      FW_ASSERT(
+        Fw::FW_SERIALIZE_OK == deserStatus,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      Fw::CmdStringArg str2;
+      deserStatus = msg.deserialize(str2);
+
+      // Internal interface should always deserialize
+      FW_ASSERT(
+        Fw::FW_SERIALIZE_OK == deserStatus,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      // Call handler function
+      this->internalString_internalInterfaceHandler(
+        str1,
+        str2
+      );
+
+      break;
+    }
+
+    // Handle internal interface internalEnum
+    case INT_IF_INTERNALENUM: {
+      E e;
+      deserStatus = msg.deserialize(e);
+
+      // Internal interface should always deserialize
+      FW_ASSERT(
+        Fw::FW_SERIALIZE_OK == deserStatus,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      // Call handler function
+      this->internalEnum_internalInterfaceHandler(
+        e
+      );
+
+      break;
+    }
+
+    // Handle internal interface internalArray
+    case INT_IF_INTERNALARRAY: {
+      A a;
+      deserStatus = msg.deserialize(a);
+
+      // Internal interface should always deserialize
+      FW_ASSERT(
+        Fw::FW_SERIALIZE_OK == deserStatus,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      // Call handler function
+      this->internalArray_internalInterfaceHandler(
+        a
+      );
+
+      break;
+    }
+
+    // Handle internal interface internalStruct
+    case INT_IF_INTERNALSTRUCT: {
+      S s;
+      deserStatus = msg.deserialize(s);
+
+      // Internal interface should always deserialize
+      FW_ASSERT(
+        Fw::FW_SERIALIZE_OK == deserStatus,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      // Call handler function
+      this->internalStruct_internalInterfaceHandler(
+        s
+      );
+
+      break;
+    }
+
+    // Handle internal interface internalPriorityDrop
+    case INT_IF_INTERNALPRIORITYDROP: {
+
+      // Call handler function
+      this->internalPriorityDrop_internalInterfaceHandler(
+
+      );
+
+      break;
+    }
+
+    default:
+      return MSG_DISPATCH_ERROR;
+  }
+
+  return MSG_DISPATCH_OK;
 }
 
 // ----------------------------------------------------------------------

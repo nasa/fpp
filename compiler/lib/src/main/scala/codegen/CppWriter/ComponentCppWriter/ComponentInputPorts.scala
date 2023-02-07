@@ -155,10 +155,6 @@ case class ComponentInputPorts(
   private def inputPortGetterName(name: String) =
     s"get_${name}_InputPort"
 
-  // Get the name for an input port handler function
-  private def inputPortHandlerName(name: String) =
-    s"${name}_handler"
-
   // Get the name for an input port handler base-class function
   private def inputPortHandlerBaseName(name: String) =
     s"${name}_handlerBase"

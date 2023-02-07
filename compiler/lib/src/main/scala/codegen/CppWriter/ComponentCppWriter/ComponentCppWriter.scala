@@ -39,6 +39,8 @@ case class ComponentCppWriter (
 
   private val baseClassName = s"${kindStr}ComponentBase"
 
+  private val exitConstantName = s"${kindStr.toUpperCase}_COMPONENT_EXIT"
+
   private def writeIncludeDirectives: List[String] = {
     val Right(a) = UsedSymbols.defComponentAnnotatedNode(s.a, aNode)
     s.writeIncludeDirectives(a.usedSymbolSet)
@@ -132,7 +134,16 @@ case class ComponentCppWriter (
       "Fw/Types/Assert.hpp",
       "Fw/Types/String.hpp",
       s"${s.getRelativePath(fileName).toString}.hpp"
-    ).sorted.map(CppWriter.headerString).map(line)
+    ).sorted.map(CppWriter.headerString).flatMap({
+      case s: "#include \"Fw/Types/String.hpp\"" =>
+        lines(
+          s"""|#if FW_ENABLE_TEXT_LOGGING
+              |$s
+              |#endif
+              |""".stripMargin
+        )
+      case s => lines(s)
+    })
     linesMember(
       List(
         Line.blank :: systemHeaders,
@@ -149,6 +160,9 @@ case class ComponentCppWriter (
 
       // Constants
       getConstantMembers,
+
+      // Anonymous namespace members
+      getAnonymousNamespaceMembers,
 
       // Public function members
       portWriter.getPublicFunctionMembers,
@@ -222,6 +236,34 @@ case class ComponentCppWriter (
                 |"""
           )
         ).flatten
+      )
+    )
+  }
+
+  private def getAnonymousNamespaceMembers: List[CppDoc.Class.Member] = {
+    List(
+      linesClassMember(
+        Line.blank :: wrapInAnonymousNamespace(
+          List(
+            wrapInScope(
+              "enum MsgTypeEnum {",
+              List(
+                if data.kind != Ast.ComponentKind.Passive then lines(
+                  s"$exitConstantName = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT,"
+                )
+                else Nil,
+                List(
+                  typedAsyncInputPorts.map(generalPortCppConstantName),
+                  serialAsyncInputPorts.map(generalPortCppConstantName),
+                  asyncCmds.map((_, cmd) => commandCppConstantName(cmd)),
+                  internalPorts.map(internalPortCppConstantName),
+                ).flatten.map(s => line(s"$s,"))
+              ).flatten,
+              "};"
+            )
+          ).flatten
+        ),
+        CppDoc.Lines.Cpp
       )
     )
   }
@@ -396,7 +438,9 @@ case class ComponentCppWriter (
           "lock",
           Nil,
           CppDoc.Type("void"),
-          Nil,
+          lines(
+            "this->m_guardedPortMutex.lock();"
+          ),
           CppDoc.Function.Virtual
         ),
         functionClassMember(
@@ -404,7 +448,9 @@ case class ComponentCppWriter (
           "unLock",
           Nil,
           CppDoc.Type("void"),
-          Nil,
+          lines(
+            "this->m_guardedPortMutex.unLock();"
+          ),
           CppDoc.Function.Virtual
         )
       )
@@ -412,55 +458,350 @@ case class ComponentCppWriter (
   }
 
   private def getDispatchFunctionMember: List[CppDoc.Class.Member] = {
-    if data.kind == Ast.ComponentKind.Passive then Nil
-    else List(
-      writeAccessTagAndComment(
-        data.kind match {
-          case Ast.ComponentKind.Active => "PRIVATE"
-          case Ast.ComponentKind.Queued => "PROTECTED"
-          case _ => ""
-        },
-        "Message dispatch functions"
-      ),
-      List(
-        functionClassMember(
-          Some("Called in the message loop to dispatch a message from the queue"),
-          "doDispatch",
-          Nil,
-          CppDoc.Type(
-            "MsgDispatchStatus",
-            Some("Fw::QueuedComponentBase::MsgDispatchStatus")
-          ),
-          Nil,
-          CppDoc.Function.Virtual
+    def writeGeneralAsyncPortDispatch(p: PortInstance.General) = {
+      val body = p.getType.get match {
+        case PortInstance.Type.DefPort(_) =>
+          List(
+            intersperseBlankLines(
+              portParamTypeMap(p.getUnqualifiedName).map((n, tn) =>
+                lines(
+                  s"""|// Deserialize argument $n
+                      |$tn $n;
+                      |deserStatus = msg.deserialize($n);
+                      |FW_ASSERT(
+                      |  deserStatus == Fw::FW_SERIALIZE_OK,
+                      |  static_cast<FwAssertArgType>(deserStatus)
+                      |);
+                      |"""
+                )
+              )
+            ),
+            if portParamTypeMap(p.getUnqualifiedName).isEmpty then lines(
+              s"""|// Call handler function
+                  |this->${inputPortHandlerName(p.getUnqualifiedName)}(portNum);
+                  |""".stripMargin
+            )
+            else List(
+              lines(
+                s"""|
+                    |// Call handler function
+                    |this->${inputPortHandlerName(p.getUnqualifiedName)}(
+                    |  portNum,
+                    |"""
+              ),
+              lines(
+                portParamTypeMap(p.getUnqualifiedName).map(_._1).mkString(",\n")
+              ).map(indentIn),
+              lines(
+                s"""|);
+                    |
+                    |break;
+                    |"""
+              )
+            ).flatten
+          ).flatten
+        case PortInstance.Type.Serial => lines(
+          s"""|// Deserialize serialized buffer into new buffer
+              |U8 handBuff[this->m_msgSize];
+              |Fw::ExternalSerializeBuffer serHandBuff(handBuff,this->m_msgSize);
+              |deserStatus = msg.deserialize(serHandBuff);
+              |FW_ASSERT(
+              |  deserStatus == Fw::FW_SERIALIZE_OK,
+              |  static_cast<FwAssertArgType>(deserStatus)
+              |);
+              |this->${inputPortHandlerName(p.getUnqualifiedName)}(portNum, serHandBuff);
+              |
+              |break;
+              |"""
         )
-      )
-    ).flatten
-  }
+      }
 
-  private def getTimeFunctionMember: List[CppDoc.Class.Member] = {
-    if !hasTimeGetPort then Nil
-    else List(
-      writeAccessTagAndComment(
-        "PROTECTED",
-        "Time"
-      ),
-      List(
-        functionClassMember(
-          Some(
-            s"""| Get the time
-                |
-                |\\return The current time
+      line(s"// Handle async input port ${p.getUnqualifiedName}") ::
+        wrapInScope(
+          s"case ${generalPortCppConstantName(p)}: {",
+          body,
+          "}"
+        )
+    }
+    def writeAsyncCommandDispatch(opcode: Command.Opcode, cmd: Command) = {
+      val cmdRespVarName = portVariableName(cmdRespPort.get.getUnqualifiedName, PortInstance.Direction.Output)
+      val body = intersperseBlankLines(
+        List(
+          lines(
+            """|// Deserialize opcode
+               |FwOpcodeType opCode = 0;
+               |deserStatus = msg.deserialize(opCode);
+               |FW_ASSERT (
+               |  deserStatus == Fw::FW_SERIALIZE_OK,
+               |  static_cast<FwAssertArgType>(deserStatus)
+               |);
+               |
+               |// Deserialize command sequence
+               |U32 cmdSeq = 0;
+               |deserStatus = msg.deserialize(cmdSeq);
+               |FW_ASSERT (
+               |  deserStatus == Fw::FW_SERIALIZE_OK,
+               |  static_cast<FwAssertArgType>(deserStatus)
+               |);
+               |
+               |// Deserialize command argument buffer
+               |Fw::CmdArgBuffer args;
+               |deserStatus = msg.deserialize(args);
+               |FW_ASSERT (
+               |  deserStatus == Fw::FW_SERIALIZE_OK,
+               |  static_cast<FwAssertArgType>(deserStatus)
+               |);
+               |
+               |// Reset buffer
+               |args.resetDeser();
+               |"""
+          ),
+          intersperseBlankLines(
+            cmdParamTypeMap(opcode).map((n, tn) =>
+              lines(
+                s"""|// Deserialize argument $n
+                    |$tn $n;
+                    |deserStatus = args.deserialize($n);
+                    |if (deserStatus != Fw::FW_SERIALIZE_OK) {
+                    |  if (this->$cmdRespVarName[0].isConnected()) {
+                    |    this->cmdResponse_out(
+                    |        opCode,
+                    |        cmdSeq,
+                    |        Fw::CmdResponse::FORMAT_ERROR
+                    |    );
+                    |  }
+                    |  // Don't crash the task if bad arguments were passed from the ground
+                    |  break;
+                    |}
+                    |"""
+              )
+            )
+          ),
+          lines(
+            s"""|// Make sure there was no data left over.
+                |// That means the argument buffer size was incorrect.
+                |#if FW_CMD_CHECK_RESIDUAL
+                |if (args.getBuffLeft() != 0) {
+                |  if (this->$cmdRespVarName[0].isConnected()) {
+                |    this->cmdResponse_out(opCode,cmdSeq,Fw::CmdResponse::FORMAT_ERROR);
+                |  }
+                |  // Don't crash the task if bad arguments were passed from the ground
+                |  break;
+                |}
+                |#endif
                 |"""
           ),
-          "getTime",
-          Nil,
-          CppDoc.Type("Fw::Time"),
-          Nil
+          if cmdParamTypeMap(opcode).isEmpty then lines(
+            s"""|// Call handler function
+                |this->${commandHandlerName(cmd.getName)}(opCode, cmdSeq);
+                |"""
+          )
+          else List(
+            lines(
+              s"""|// Call handler function
+                  |this->${commandHandlerName(cmd.getName)}(
+                  |  opCode,
+                  |  cmdSeq,
+                  |"""
+            ),
+            lines(cmdParamTypeMap(opcode).map(_._1).mkString(",\n")).map(indentIn),
+            lines(");")
+          ).flatten,
+          lines("break;")
         )
       )
-    ).flatten
+
+      line(s"// Handle command ${cmd.getName}") ::
+        wrapInScope(
+          s"case ${commandCppConstantName(cmd)}: {",
+          body,
+          "}"
+        )
+    }
+    def writeInternalPortDispatch(p: PortInstance.Internal) = {
+      val body = List(
+        intersperseBlankLines(
+          portParamTypeMap(p.getUnqualifiedName).map((n, tn) =>
+            lines(
+              s"""|$tn $n;
+                  |deserStatus = msg.deserialize($n);
+                  |
+                  |// Internal interface should always deserialize
+                  |FW_ASSERT(
+                  |  Fw::FW_SERIALIZE_OK == deserStatus,
+                  |  static_cast<FwAssertArgType>(deserStatus)
+                  |);
+                  |"""
+            )
+          )
+        ),
+        Line.blank :: lines(
+          s"""|// Call handler function
+              |this->${internalInterfaceHandlerName(p.getUnqualifiedName)}(
+              |""".stripMargin
+        ),
+        lines(portParamTypeMap(p.getUnqualifiedName).map(_._1).mkString(",\n")).map(indentIn),
+        lines(
+          """|);
+             |
+             |break;
+             |"""
+        )
+      ).flatten
+
+      line(s"// Handle internal interface ${p.getUnqualifiedName}") ::
+        wrapInScope(
+          s"case ${internalPortCppConstantName(p)}: {",
+          body,
+          "}"
+        )
+    }
+
+    if data.kind == Ast.ComponentKind.Passive then Nil
+    else {
+      val assertMsgStatus = lines(
+        """|FW_ASSERT(
+           |  msgStatus == Os::Queue::QUEUE_OK,
+           |  static_cast<FwAssertArgType>(msgStatus)
+           |);
+           |"""
+      )
+
+      List(
+        writeAccessTagAndComment(
+          data.kind match {
+            case Ast.ComponentKind.Active => "PRIVATE"
+            case Ast.ComponentKind.Queued => "PROTECTED"
+            case _ => ""
+          },
+          "Message dispatch functions"
+        ),
+        List(
+          functionClassMember(
+            Some("Called in the message loop to dispatch a message from the queue"),
+            "doDispatch",
+            Nil,
+            CppDoc.Type(
+              "MsgDispatchStatus",
+              Some("Fw::QueuedComponentBase::MsgDispatchStatus")
+            ),
+            List(
+              if hasSerialAsyncInputPorts then lines(
+                """|U8 msgBuff[this->m_msgSize];
+                   |Fw::ExternalSerializeBuffer msg(msgBuff,this->m_msgSize);
+                   |"""
+              )
+              else lines("ComponentIpcSerializableBuffer msg;"),
+              lines(
+                s"""|NATIVE_INT_TYPE priority = 0;
+                    |
+                    |Os::Queue::QueueStatus msgStatus = this->m_queue.receive(
+                    |  msg,
+                    |  priority,
+                    |  Os::Queue::QUEUE_${if data.kind == Ast.ComponentKind.Queued then "NON" else ""}BLOCKING
+                    |);
+                    |""".stripMargin
+              ),
+              if data.kind == Ast.ComponentKind.Queued then wrapInIfElse(
+                "Os::Queue::QUEUE_NO_MORE_MSGS == msgStatus",
+                lines("return Fw::QueuedComponentBase::MSG_DISPATCH_EMPTY;"),
+                assertMsgStatus
+              )
+              else assertMsgStatus,
+              lines(
+                """|
+                   |// Reset to beginning of buffer
+                   |msg.resetDeser();
+                   |
+                   |NATIVE_INT_TYPE desMsg = 0;
+                   |Fw::SerializeStatus deserStatus = msg.deserialize(desMsg);
+                   |FW_ASSERT(
+                   |  deserStatus == Fw::FW_SERIALIZE_OK,
+                   |  static_cast<FwAssertArgType>(deserStatus)
+                   |);
+                   |
+                   |MsgTypeEnum msgType = static_cast<MsgTypeEnum>(desMsg);
+                   |"""
+              ),
+              Line.blank :: wrapInIf(
+                s"msgType == ${kindStr.toUpperCase}_COMPONENT_EXIT",
+                lines("return MSG_DISPATCH_EXIT;")
+              ),
+              lines(
+                """|
+                   |NATIVE_INT_TYPE portNum = 0;
+                   |deserStatus = msg.deserialize(portNum);
+                   |FW_ASSERT(
+                   |  deserStatus == Fw::FW_SERIALIZE_OK,
+                   |  static_cast<FwAssertArgType>(deserStatus)
+                   |);
+                   |"""
+              ),
+              Line.blank :: wrapInSwitch(
+                "msgType",
+                intersperseBlankLines(
+                  List(
+                    intersperseBlankLines(typedAsyncInputPorts.map(writeGeneralAsyncPortDispatch)),
+                    intersperseBlankLines(serialAsyncInputPorts.map(writeGeneralAsyncPortDispatch)),
+                    intersperseBlankLines(asyncCmds.map(writeAsyncCommandDispatch)),
+                    intersperseBlankLines(internalPorts.map(writeInternalPortDispatch)),
+                    lines(
+                      """|default:
+                         |  return MSG_DISPATCH_ERROR;
+                         |"""
+                    )
+                  )
+                )
+              ),
+              Line.blank :: lines("return MSG_DISPATCH_OK;")
+            ).flatten,
+            CppDoc.Function.Virtual
+          )
+        )
+      ).flatten
+    }
   }
+
+  private def getTimeFunctionMember: List[CppDoc.Class.Member] =
+    if !hasTimeGetPort then Nil
+    else {
+      val name = portVariableName(
+        timeGetPort.get.getUnqualifiedName,
+        timeGetPort.get.getDirection.get
+      )
+
+      List(
+        writeAccessTagAndComment(
+          "PROTECTED",
+          "Time"
+        ),
+        List(
+          functionClassMember(
+            Some(
+              """| Get the time
+                 |
+                 |\\return The current time
+                 |"""
+            ),
+            "getTime",
+            Nil,
+            CppDoc.Type("Fw::Time"),
+            wrapInIfElse(
+              s"this->$name[0].isConnected()",
+              lines(
+                s"""|Fw::Time _time;
+                    |this->$name[0].invoke(_time);
+                    |return _time;
+                    |"""
+              ),
+              lines(
+                "return Fw::Time(TB_NONE, 0, 0);"
+              )
+            )
+          )
+        )
+      ).flatten
+    }
 
   private def getMsgSizeVariableMember: List[CppDoc.Class.Member] = {
     if !hasSerialAsyncInputPorts then Nil
@@ -506,5 +847,15 @@ case class ComponentCppWriter (
       )
     )
   }
+
+  private def generalPortCppConstantName(p: PortInstance.General) =
+    s"${p.getUnqualifiedName}_${getPortTypeString(p)}".toUpperCase
+
+
+  private def commandCppConstantName(cmd: Command) =
+    s"CMD_${cmd.getName.toUpperCase}"
+
+  private def internalPortCppConstantName(p: PortInstance.Internal) =
+    s"INT_IF_${p.getUnqualifiedName.toUpperCase}"
 
 }

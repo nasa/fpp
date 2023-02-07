@@ -59,10 +59,6 @@ case class ComponentInternalPort (
     ).flatten
   }
 
-  // Get the name for an internal interface handler
-  private def internalInterfaceHandlerName(name: String) =
-    s"${name}_internalInterfaceHandler"
-
   // Get the name for an internal interface base-class function
   private def internalInterfaceHandlerBaseName(name: String) =
     s"${name}_internalInterfaceInvoke"

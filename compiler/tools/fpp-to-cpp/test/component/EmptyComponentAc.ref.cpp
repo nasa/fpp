@@ -8,7 +8,10 @@
 
 #include "EmptyComponentAc.hpp"
 #include "Fw/Types/Assert.hpp"
+#if FW_ENABLE_TEXT_LOGGING
 #include "Fw/Types/String.hpp"
+#endif
+
 
 // ----------------------------------------------------------------------
 // Component construction, initialization, and destruction

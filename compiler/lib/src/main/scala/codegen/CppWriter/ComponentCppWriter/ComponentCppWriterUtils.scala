@@ -97,11 +97,26 @@ abstract class ComponentCppWriterUtils(
       case _ => None
     }).filter(_.isDefined).map(_.get)
 
+  /** List of commands sorted by opcode */
+  val sortedCmds: List[(Command.Opcode, Command)] = component.commandMap.toList.sortBy(_._1)
+
+  /** List of non-parameter commands */
+  val nonParamCmds: List[(Command.Opcode, Command.NonParam)] = sortedCmds.map((opcode, cmd) => cmd match {
+    case c: Command.NonParam => Some((opcode, c))
+    case _ => None
+  }).filter(_.isDefined).map(_.get)
+
+  /** List of async commands */
+  val asyncCmds: List[(Command.Opcode, Command.NonParam)] = nonParamCmds.filter((_, cmd) => cmd.kind match {
+    case Command.NonParam.Async(_, _) => true
+    case _ => false
+  })
+
   /** List of events sorted by ID */
-  val sortedEvents = component.eventMap.toList.sortBy(_._1)
+  val sortedEvents: List[(Event.Id, Event)] = component.eventMap.toList.sortBy(_._1)
 
   /** List of throttled events */
-  val throttledEvents = sortedEvents.filter((_, event) =>
+  val throttledEvents: List[(Event.Id, Event)] = sortedEvents.filter((_, event) =>
     event.throttle match {
       case Some(_) => true
       case None => false
@@ -109,10 +124,10 @@ abstract class ComponentCppWriterUtils(
   )
 
   /** List of channels sorted by ID */
-  val sortedChannels = component.tlmChannelMap.toList.sortBy(_._1)
+  val sortedChannels: List[(TlmChannel.Id, TlmChannel)] = component.tlmChannelMap.toList.sortBy(_._1)
 
   /** List of channels updated on change */
-  val updateOnChangeChannels = sortedChannels.filter((_, channel) =>
+  val updateOnChangeChannels: List[(TlmChannel.Id, TlmChannel)] = sortedChannels.filter((_, channel) =>
     channel.update match {
       case Ast.SpecTlmChannel.OnChange => true
       case _ => false
@@ -120,7 +135,27 @@ abstract class ComponentCppWriterUtils(
   )
 
   /** List of parameters sorted by ID */
-  val sortedParams = component.paramMap.toList.sortBy(_._1)
+  val sortedParams: List[(Param.Id, Param)] = component.paramMap.toList.sortBy(_._1)
+
+  /** Command response port */
+  val cmdRespPort: Option[PortInstance.Special] = specialPorts.find(p =>
+    p.aNode._2.data match {
+      case Ast.SpecPortInstance.Special(kind, _) => kind match {
+        case Ast.SpecPortInstance.CommandResp => true
+        case _ => false
+      }
+      case _ => false
+    })
+
+  /** Time get port */
+  val timeGetPort: Option[PortInstance.Special] = specialPorts.find(p =>
+    p.aNode._2.data match {
+      case Ast.SpecPortInstance.Special(kind, _) => kind match {
+        case Ast.SpecPortInstance.TimeGet => true
+        case _ => false
+      }
+      case _ => false
+    })
 
   // Component properties
 
@@ -135,14 +170,7 @@ abstract class ComponentCppWriterUtils(
 
   val hasInternalPorts: Boolean = internalPorts.nonEmpty
 
-  val hasTimeGetPort: Boolean = specialPorts.exists(p =>
-    p.aNode._2.data match {
-      case Ast.SpecPortInstance.Special(kind, _) => kind match {
-        case Ast.SpecPortInstance.TimeGet => true
-        case _ => false
-      }
-      case _ => false
-    })
+  val hasTimeGetPort: Boolean = timeGetPort.isDefined
 
   val hasCommands: Boolean = component.commandMap.nonEmpty
 
@@ -151,6 +179,62 @@ abstract class ComponentCppWriterUtils(
   val hasChannels: Boolean = component.tlmChannelMap.nonEmpty
 
   val hasParameters: Boolean = component.paramMap.nonEmpty
+
+  val portParamTypeMap: Map[String, List[(String, String)]] =
+    List(
+      specialInputPorts,
+      typedInputPorts,
+      specialOutputPorts,
+      typedOutputPorts,
+      internalPorts
+    ).flatten.map(p =>
+      p.getType match {
+        case Some(PortInstance.Type.DefPort(symbol)) => Some((
+          p.getUnqualifiedName,
+          symbol.node._2.data.params.map(param => {
+            val typeName = writeCppTypeName(
+              s.a.typeMap(param._2.data.typeName.id),
+              s,
+              PortCppWriter.getPortNamespaces(symbol.node._2.data.name)
+            )
+
+            (param._2.data.name, typeName)
+          })
+        ))
+        case None => p match {
+          case PortInstance.Internal(node, _, _) => Some((
+            p.getUnqualifiedName,
+            node._2.data.params.map(param => {
+              val typeName = writeCppTypeName(
+                s.a.typeMap(param._2.data.typeName.id),
+                s,
+                Nil,
+                Some("Fw::CmdStringArg")
+              )
+
+              (param._2.data.name, typeName)
+            })
+          ))
+          case _ => None
+        }
+        case _ => None
+      }
+    ).filter(_.isDefined).map(_.get).toMap
+
+  val cmdParamTypeMap: Map[Command.Opcode, List[(String, String)]] =
+    nonParamCmds.map((opcode, cmd) => (
+      opcode,
+      cmd.aNode._2.data.params.map(param => {
+        val typeName = writeCppTypeName(
+          s.a.typeMap(param._2.data.typeName.id),
+          s,
+          Nil,
+          Some("Fw::InternalInterfaceString")
+        )
+
+        (param._2.data.name, typeName)
+      })
+    )).toMap
 
   // Map from a port instance name to param list
   private val portParamMap =
@@ -337,6 +421,10 @@ abstract class ComponentCppWriterUtils(
   def portVariableName(name: String, direction: PortInstance.Direction) =
     s"m_${name}_${direction.toString.capitalize}Port"
 
+  /** Get the name for an input port handler function */
+  def inputPortHandlerName(name: String) =
+    s"${name}_handler"
+
   /** Get the name for an input port callback function */
   def inputPortCallbackName(name: String) =
     s"m_p_${name}_in"
@@ -344,6 +432,14 @@ abstract class ComponentCppWriterUtils(
   /** Get the name for an async input port pre-message hook function */
   def inputPortHookName(name: String) =
     s"${name}_preMsgHook"
+
+  /** Get the name for an internal interface handler */
+  def internalInterfaceHandlerName(name: String) =
+    s"${name}_internalInterfaceHandler"
+
+  /** Get the name for a command handler */
+  def commandHandlerName(name: String) =
+    s"${name}_cmdHandler"
 
   /** Get the name for an event throttle counter variable */
   def eventThrottleCounterName(name: String) =
