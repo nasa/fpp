@@ -22,7 +22,7 @@ case class ComponentDataProducts (
     List(
       getContainerIds,
       getRecordIds,
-      getContainer
+      Container.getContainer
     ).flatten
 
   def getVirtualFunctionMembers: List[CppDoc.Class.Member] = 
@@ -83,91 +83,95 @@ case class ComponentDataProducts (
     )
   }
 
-  private def getContainer = component.hasDataProducts match {
-    case false => Nil
-    case true => List(
-      classClassMember(
-        Some("A data product container"),
-        "DpContainer",
-        Some("public Fw::DpContainer"),
-        List(
-          getConstructionMembers,
-          getFunctionMembers,
-          getVariableMembers
-        ).flatten
-      )
-    )
-  }
+  private object Container extends ComponentCppWriterUtils(s, aNode) {
 
-  private def getConstructionMembers = List(
-    linesClassMember(CppDocHppWriter.writeAccessTag("public")),
-    constructorClassMember(
-      Some("Constructor"),
-      List(
-        CppDoc.Function.Param(
-          CppDoc.Type("FwDpIdType"),
-          "id",
-          Some("The container id")
-        ),
-        CppDoc.Function.Param(
-          CppDoc.Type("const Fw::Buffer&"),
-          "buffer",
-          Some("The packet buffer")
-        ),
-        CppDoc.Function.Param(
-          CppDoc.Type("FwDpIdType"),
-          "baseId",
-          Some("The component base id")
+    def getContainer = component.hasDataProducts match {
+      case false => Nil
+      case true => List(
+        classClassMember(
+          Some("A data product container"),
+          "DpContainer",
+          Some("public Fw::DpContainer"),
+          List(
+            getConstructionMembers,
+            getFunctionMembers,
+            getVariableMembers
+          ).flatten
         )
-      ),
-      List("Fw::DpContainer(id, buffer)", "baseId(baseId)"),
-      Nil
-    )
-  )
+      )
+    }
 
-  private def getFunctionMembers =
-    linesClassMember(CppDocHppWriter.writeAccessTag("public")) ::
-    recordsByName.map((id, record) => {
-      val name = record.getName
-      val t = record.recordType
-      val typeName = writeCppTypeName(t, s)
-      val paramType = if (s.isPrimitive(t, typeName))
-        typeName else s"const ${typeName}&"
-      val typeSize = s.getSerializedSizeExpr(t, typeName)
-      functionClassMember(
-        Some(s"""|Serialize a $name into the packet buffer
-                 |\\return The serialize status"""),
-        s"serializeRecord_${name}",
+    private def getConstructionMembers = List(
+      linesClassMember(CppDocHppWriter.writeAccessTag("public")),
+      constructorClassMember(
+        Some("Constructor"),
         List(
           CppDoc.Function.Param(
-            CppDoc.Type(paramType),
-            "elt",
-            Some("The element")
+            CppDoc.Type("FwDpIdType"),
+            "id",
+            Some("The container id")
+          ),
+          CppDoc.Function.Param(
+            CppDoc.Type("const Fw::Buffer&"),
+            "buffer",
+            Some("The packet buffer")
+          ),
+          CppDoc.Function.Param(
+            CppDoc.Type("FwDpIdType"),
+            "baseId",
+            Some("The component base id")
           )
         ),
-        CppDoc.Type("Fw::SerializeStatus"),
-        lines(
-          s"""|Fw::SerializeBufferBase& serializeRepr = buffer.getSerializeRepr();
-              |const FwDpIdType id = this->baseId + RecordId::${name};
-              |Fw::SerializeStatus status = serializeRepr.serialize(id);
-              |if (status == Fw::FW_SERIALIZE_OK) {
-              |  status = serializeRepr.serialize(elt);
-              |}
-              |if (status == Fw::FW_SERIALIZE_OK) {
-              |  this->dataSize += sizeof(FwDpIdType);
-              |  this->dataSize += $typeSize;
-              |}
-              |return status;"""
-        )
+        List("Fw::DpContainer(id, buffer)", "baseId(baseId)"),
+        Nil
       )
-    })
-
-  private def getVariableMembers =
-    addAccessTagAndComment(
-      "PRIVATE",
-      "The component base id",
-      List(linesClassMember(lines("FwDpIdType baseId;")))
     )
+
+    private def getFunctionMembers =
+      linesClassMember(CppDocHppWriter.writeAccessTag("public")) ::
+      recordsByName.map((id, record) => {
+        val name = record.getName
+        val t = record.recordType
+        val typeName = writeCppTypeName(t, s)
+        val paramType = if (s.isPrimitive(t, typeName))
+          typeName else s"const ${typeName}&"
+        val typeSize = s.getSerializedSizeExpr(t, typeName)
+        functionClassMember(
+          Some(s"""|Serialize a $name into the packet buffer
+                   |\\return The serialize status"""),
+          s"serializeRecord_${name}",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type(paramType),
+              "elt",
+              Some("The element")
+            )
+          ),
+          CppDoc.Type("Fw::SerializeStatus"),
+          lines(
+            s"""|Fw::SerializeBufferBase& serializeRepr = buffer.getSerializeRepr();
+                |const FwDpIdType id = this->baseId + RecordId::${name};
+                |Fw::SerializeStatus status = serializeRepr.serialize(id);
+                |if (status == Fw::FW_SERIALIZE_OK) {
+                |  status = serializeRepr.serialize(elt);
+                |}
+                |if (status == Fw::FW_SERIALIZE_OK) {
+                |  this->dataSize += sizeof(FwDpIdType);
+                |  this->dataSize += $typeSize;
+                |}
+                |return status;"""
+          )
+        )
+      })
+
+    private def getVariableMembers =
+      addAccessTagAndComment(
+        "PRIVATE",
+        "The component base id",
+        List(linesClassMember(lines("FwDpIdType baseId;")))
+      )
+
+  }
 
 }
 
