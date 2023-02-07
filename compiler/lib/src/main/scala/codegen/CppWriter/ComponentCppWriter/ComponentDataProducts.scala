@@ -51,31 +51,48 @@ case class ComponentDataProducts (
         "Dp_Request",
         List(
           CppDoc.Function.Param(
-            CppDoc.Type("TODO"),
-            "TODO",
-            Some("TODO")
+            CppDoc.Type("ContainerId::T"),
+            "containerId",
+            Some("The container id")
           ),
           CppDoc.Function.Param(
-            CppDoc.Type("TODO"),
-            "TODO",
-            Some("TODO")
+            CppDoc.Type("FwDpBuffSizeType"),
+            "size",
+            Some("The buffer size")
           )
         ),
         CppDoc.Type("void"),
-        lines("TODO")
+        lines(
+          """|const FwDpIdType globalId = this->getIdBase() + containerId;
+             |this->productRequestOut_out(0, globalId, size);"""
+        )
       ),
       functionClassMember(
         Some("Send a data product"),
         "Dp_Send",
         List(
           CppDoc.Function.Param(
-            CppDoc.Type("TODO"),
-            "TODO",
-            Some("TODO")
+            CppDoc.Type("DpContainer&"),
+            "container",
+            Some("The data product container")
           )
         ),
         CppDoc.Type("void"),
-        lines("TODO")
+        lines(
+          """|// Update the time tag
+             |const Fw::Time timeTag = this->getTime();
+             |container.setTimeTag(timeTag);
+             |// Serialize the header into the packet
+             |Fw::SerializeStatus status = container.serializeHeader();
+             |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+             |// Update the size of the buffer according to the data size
+             |const FwDpBuffSizeType packetSize = container.getPacketSize();
+             |Fw::Buffer buffer = container.getBuffer();
+             |FW_ASSERT(packetSize <= buffer.getSize(), packetSize, buffer.getSize());
+             |buffer.setSize(packetSize);
+             |// Send the buffer
+             |this->productSendOut_out(0, container.getId(), buffer);"""
+        )
       )
     )
 
