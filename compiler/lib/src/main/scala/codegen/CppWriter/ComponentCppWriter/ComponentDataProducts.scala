@@ -14,6 +14,8 @@ case class ComponentDataProducts (
 
   private val sortedRecords = component.recordMap.toList.sortBy(_._1)
 
+  private val recordsByName = component.recordMap.toList.sortBy(_._2.getName)
+
   def getTypeMembers: List[CppDoc.Class.Member] =
     List(
       getContainerIds,
@@ -64,11 +66,82 @@ case class ComponentDataProducts (
         Some("A data product container"),
         "DpContainer",
         Some("public Fw::DpContainer"),
-        getContainerMembers
+        List(
+          getConstructionMembers,
+          getFunctionMembers,
+          getVariableMembers
+        ).flatten
       )
     )
   }
 
-  private def getContainerMembers: List[CppDoc.Class.Member.Class] = Nil
+  private def getConstructionMembers = List(
+    linesClassMember(CppDocHppWriter.writeAccessTag("public")),
+    constructorClassMember(
+      Some("Constructor"),
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type("FwDpIdType"),
+          "id",
+          Some("The container id")
+        ),
+        CppDoc.Function.Param(
+          CppDoc.Type("const Fw::Buffer&"),
+          "buffer",
+          Some("The packet buffer")
+        ),
+        CppDoc.Function.Param(
+          CppDoc.Type("FwDpIdType"),
+          "baseId",
+          Some("The component base id")
+        )
+      ),
+      List("Fw::DpContainer(id, buffer)", "baseId(baseId)"),
+      Nil
+    )
+  )
+
+  private def getFunctionMembers =
+    linesClassMember(CppDocHppWriter.writeAccessTag("public")) ::
+    recordsByName.map((id, record) => {
+      val name = record.getName
+      val t = record.recordType
+      val typeName = writeCppTypeName(t, s)
+      val paramType = if (s.isPrimitive(t, typeName))
+        typeName else s"const ${typeName}&"
+      val typeSize = s.getSerializedSizeExpr(t, typeName)
+      functionClassMember(
+        Some(s"""|Serialize a $name into the packet buffer
+                 |\\return The serialize status"""),
+        s"serializeRecord_${name}",
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type(paramType),
+            "elt",
+            Some("The element")
+          )
+        ),
+        CppDoc.Type("Fw::SerializeStatus"),
+        lines(
+          s"""|Fw::SerializeBufferBase& serializeRepr = buffer.getSerializeRepr();
+              |const FwDpIdType id = this->baseId + RecordId::${name};
+              |Fw::SerializeStatus status = serializeRepr.serialize(id);
+              |if (status == Fw::FW_SERIALIZE_OK) {
+              |  status = serializeRepr.serialize(elt);
+              |}
+              |if (status == Fw::FW_SERIALIZE_OK) {
+              |  this->dataSize += sizeof(FwDpIdType);
+              |  this->dataSize += $typeSize;
+              |}
+              |return status;"""
+        )
+      )
+    })
+
+  private def getVariableMembers = List(
+    CppDocHppWriter.writeAccessTag("PRIVATE"),
+    CppDocWriter.writeDoxygenComment("The component base id"),
+    lines("FwDpIdType baseId;")
+  ).map(ll => linesClassMember(ll))
 
 }
