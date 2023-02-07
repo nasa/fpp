@@ -26,26 +26,23 @@ case class ComponentDataProducts (
     ).flatten
 
   def getVirtualFunctionMembers: List[CppDoc.Class.Member] = 
-    containersByName.match {
-      case Nil => Nil
-      case _ => containersByName.map((id, container) => {
-        val name = container.getName
-        functionClassMember(
-          Some(s"Receive a container of type $name"),
-          s"Dp_Recv_${name}_handler",
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type("DpContainer&"),
-              "container",
-              Some("The container")
-            )
-          ),
-          CppDoc.Type("void"),
-          Nil,
-          CppDoc.Function.PureVirtual
-        )
-      })
-    }
+    containersByName.map((id, container) => {
+      val name = container.getName
+      functionClassMember(
+        Some(s"Receive a container of type $name"),
+        s"Dp_Recv_${name}_handler",
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type("DpContainer&"),
+            "container",
+            Some("The container")
+          )
+        ),
+        CppDoc.Type("void"),
+        Nil,
+        CppDoc.Function.PureVirtual
+      )
+    })
 
   def getProtectedDpFunctionMembers: List[CppDoc.Class.Member] =
     Nil

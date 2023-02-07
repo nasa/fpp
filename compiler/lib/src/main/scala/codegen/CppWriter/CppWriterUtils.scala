@@ -6,6 +6,20 @@ import fpp.compiler.ast._
 /** Utilities for writing C++ */
 trait CppWriterUtils extends LineUtils {
 
+  /** Add an access tag and comment to a nonempty list of class members */
+  def addAccessTagAndComment(
+    accessTag: String,
+    comment: String,
+    members: List[CppDoc.Class.Member],
+    output: CppDoc.Lines.Output = CppDoc.Lines.Both
+  ): List[CppDoc.Class.Member] = members match {
+    case Nil => Nil
+    case _ =>
+      linesClassMember(CppDocHppWriter.writeAccessTag(accessTag)) ::
+      linesClassMember(CppDocWriter.writeBannerComment(comment), output) ::
+      members
+  }
+
   def wrapInScope(
     s1: String,
     ll: List[Line],
