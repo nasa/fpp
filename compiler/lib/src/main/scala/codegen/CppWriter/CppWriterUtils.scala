@@ -21,6 +21,12 @@ trait CppWriterUtils extends LineUtils {
   def wrapInNamespace(namespace: String, ll: List[Line]): List[Line] =
     wrapInScope(s"namespace $namespace {", ll, "}")
 
+  def wrapInNamedEnum(name: String, ll: List[Line]): List[Line] =
+    wrapInScope(s"enum $name {", ll, "};")
+
+  def wrapInNamedStruct(name: String, ll: List[Line]): List[Line] =
+    wrapInScope(s"struct $name {", ll, "};")
+
   def wrapInEnum(ll: List[Line]): List[Line] =
     wrapInScope("enum {", ll, "};")
 

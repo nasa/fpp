@@ -13,15 +13,17 @@ case class DpComponentCppWriter (
 
   private val name = s.getName(symbol)
 
+  private val baseClassName = s"${name}ComponentBase"
+
   private val componentFileName = ComputeCppFiles.FileNames.getComponent(name)
+
+  private val dpBaseClassName = s"${name}DpComponentBase"
 
   private val dpFileName = ComputeCppFiles.FileNames.getDpComponent(name)
 
+  private val dpWriter = ComponentDataProducts(s, aNode)
+
   private val namespaceIdentList = s.getNamespaceIdentList(symbol)
-
-  private val baseClassName = s"${name}ComponentBase"
-
-  private val dpBaseClassName = s"${name}DpComponentBase"
 
   private def writeIncludeDirectives: List[String] = {
     val Right(a) = UsedSymbols.defComponentAnnotatedNode(s.a, aNode)
@@ -83,8 +85,17 @@ case class DpComponentCppWriter (
   }
 
   private def getClassMembers: List[CppDoc.Class.Member] = List(
+    getTypeMembers,
     getConstructionMembers,
   ).flatten
+
+  private def getTypeMembers: List[CppDoc.Class.Member] = dpWriter.getTypeMembers match {
+    case Nil => Nil
+    case members => 
+      linesClassMember(CppDocHppWriter.writeAccessTag("PROTECTED")) ::
+      linesClassMember(CppDocWriter.writeBannerComment("Types"), CppDoc.Lines.Both) ::
+      members
+  }
 
   private def getConstructionMembers: List[CppDoc.Class.Member] = List(
     writeAccessTagAndComment(
