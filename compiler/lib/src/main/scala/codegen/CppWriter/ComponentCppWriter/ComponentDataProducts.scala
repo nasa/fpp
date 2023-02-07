@@ -33,7 +33,13 @@ case class ComponentDataProducts (
         functionClassMember(
           Some(s"Receive a container of type $name"),
           s"Dp_Recv_${name}_handler",
-          Nil,
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("DpContainer&"),
+              "container",
+              Some("The container")
+            )
+          ),
           CppDoc.Type("void"),
           Nil,
           CppDoc.Function.PureVirtual
