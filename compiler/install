@@ -18,7 +18,7 @@ cd $wd
 # Pull in the version info
 . ../version.sh
 
-scala_version="3.1.2"
+scala_version="3.2.1"
 
 if test -n "$FPP_INSTALL_JAVA"
 then
