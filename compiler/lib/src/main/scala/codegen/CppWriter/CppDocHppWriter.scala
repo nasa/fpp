@@ -140,9 +140,13 @@ object CppDocHppWriter extends CppDocWriter {
         }
         val lines1 = {
           val lines1 = writeParams(prefix, function.params)
-          function.constQualifier match {
+          val lines2 = function.constQualifier match {
             case Const => Line.addSuffix(lines1, " const")
             case _ => lines1
+          }
+          function.overrideQualifier match {
+            case Override => Line.addSuffix(lines2, " override")
+            case _ => lines2
           }
         }
         val lines2 = function.svQualifier match {
