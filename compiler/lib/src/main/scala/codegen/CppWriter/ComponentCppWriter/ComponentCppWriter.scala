@@ -245,26 +245,73 @@ case class ComponentCppWriter (
       linesClassMember(
         Line.blank :: wrapInAnonymousNamespace(
           List(
-            wrapInScope(
-              "enum MsgTypeEnum {",
-              List(
-                if data.kind != Ast.ComponentKind.Passive then lines(
-                  s"$exitConstantName = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT,"
-                )
-                else Nil,
-                List(
-                  typedAsyncInputPorts.map(generalPortCppConstantName),
-                  serialAsyncInputPorts.map(generalPortCppConstantName),
-                  asyncCmds.map((_, cmd) => commandCppConstantName(cmd)),
-                  internalPorts.map(internalPortCppConstantName),
-                ).flatten.map(s => line(s"$s,"))
-              ).flatten,
-              "};"
-            )
+            getMsgTypeEnum,
+            getComponentIpcSerializableBufferClass
           ).flatten
         ),
         CppDoc.Lines.Cpp
       )
+    )
+  }
+
+  private def getMsgTypeEnum: List[Line] = {
+    List(
+      wrapInScope(
+        "enum MsgTypeEnum {",
+        List(
+          if data.kind != Ast.ComponentKind.Passive then lines(
+            s"$exitConstantName = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT,"
+          )
+          else Nil,
+          List(
+            typedAsyncInputPorts.map(generalPortCppConstantName),
+            serialAsyncInputPorts.map(generalPortCppConstantName),
+            asyncCmds.map((_, cmd) => commandCppConstantName(cmd)),
+            internalPorts.map(internalPortCppConstantName),
+          ).flatten.map(s => line(s"$s,"))
+        ).flatten,
+        "};"
+      )
+    ).flatten
+  }
+
+  private def getComponentIpcSerializableBufferClass: List[Line] = {
+    lines(
+      """|// Define a message buffer class large enough to handle all the
+         |// asynchronous inputs to the component
+         |
+         |class ComponentIpcSerializableBuffer :
+         |  public Fw::SerializeBufferBase
+         |{
+         |
+         |  public:
+         |
+         |    enum {
+         |      // Max. message size = size of data + message id + port
+         |      SERIALIZATION_SIZE =
+         |        sizeof(BuffUnion) +
+         |        sizeof(NATIVE_INT_TYPE) +
+         |        sizeof(NATIVE_INT_TYPE)
+         |    };
+         |
+         |    NATIVE_UINT_TYPE getBuffCapacity() const {
+         |      return sizeof(m_buff);
+         |    }
+         |
+         |    U8* getBuffAddr() {
+         |      return m_buff;
+         |    }
+         |
+         |    const U8* getBuffAddr() const {
+         |      return m_buff;
+         |    }
+         |
+         |  private:
+         |    // Should be the max of all the input ports serialized sizes...
+         |    U8 m_buff[SERIALIZATION_SIZE];
+         |
+         |};
+         |"""
     )
   }
 
@@ -285,25 +332,24 @@ case class ComponentCppWriter (
       ).flatten
     }
     def writePortConnections(port: PortInstance) = {
-      val name = port.getUnqualifiedName
       val d = port.getDirection.get
 
       line(s"// Connect ${d.toString} port $name") ::
         wrapInForLoopStaggered(
           "PlatformIntType port = 0",
-          s"port < static_cast<PlatformIntType>(this->${portNumGetterName(name, d)}())",
+          s"port < static_cast<PlatformIntType>(this->${portNumGetterName(port)}())",
           "port++",
           List(
             lines(
-              s"|this->${portVariableName(name, d)}[port].init();"
+              s"|this->${portVariableName(port)}[port].init();"
             ),
             d match {
               case PortInstance.Direction.Input => lines(
-                s"""|this->${portVariableName(name, d)}[port].addCallComp(
+                s"""|this->${portVariableName(port)}[port].addCallComp(
                     |  this,
-                    |  ${inputPortCallbackName(name)}
+                    |  ${inputPortCallbackName(port.getUnqualifiedName)}
                     |);
-                    |this->${portVariableName(name, d)}[port].setPortNum(port);
+                    |this->${portVariableName(port)}[port].setPortNum(port);
                     |"""
               )
               case PortInstance.Direction.Output => Nil
@@ -314,11 +360,11 @@ case class ComponentCppWriter (
                   |(void) snprintf(
                   |  portName,
                   |  sizeof(portName),
-                  |  "%s_${name}_${d.toString.capitalize}Port[%" PRI_PlatformIntType "]",
+                  |  "%s_${port.getUnqualifiedName}_${d.toString.capitalize}Port[%" PRI_PlatformIntType "]",
                   |  this->m_objName,
                   |  port
                   |);
-                  |this->${portVariableName(name, d)}[port].setObjName(portName);
+                  |this->${portVariableName(port)}[port].setObjName(portName);
                   |#endif
                   |"""
             )
@@ -524,7 +570,7 @@ case class ComponentCppWriter (
         )
     }
     def writeAsyncCommandDispatch(opcode: Command.Opcode, cmd: Command) = {
-      val cmdRespVarName = portVariableName(cmdRespPort.get.getUnqualifiedName, PortInstance.Direction.Output)
+      val cmdRespVarName = portVariableName(cmdRespPort.get)
       val body = intersperseBlankLines(
         List(
           lines(
@@ -765,10 +811,7 @@ case class ComponentCppWriter (
   private def getTimeFunctionMember: List[CppDoc.Class.Member] =
     if !hasTimeGetPort then Nil
     else {
-      val name = portVariableName(
-        timeGetPort.get.getUnqualifiedName,
-        timeGetPort.get.getDirection.get
-      )
+      val name = portVariableName(timeGetPort.get)
 
       List(
         writeAccessTagAndComment(
@@ -821,7 +864,7 @@ case class ComponentCppWriter (
   }
 
   private def getMutexVariableMembers: List[CppDoc.Class.Member] = {
-    if !(hasGuardedInputPorts|| hasParameters) then Nil
+    if !(hasGuardedInputPorts || hasParameters) then Nil
     else List(
       linesClassMember(
         List(
@@ -847,10 +890,6 @@ case class ComponentCppWriter (
       )
     )
   }
-
-  private def generalPortCppConstantName(p: PortInstance.General) =
-    s"${p.getUnqualifiedName}_${getPortTypeString(p)}".toUpperCase
-
 
   private def commandCppConstantName(cmd: Command) =
     s"CMD_${cmd.getName.toUpperCase}"

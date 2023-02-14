@@ -32,11 +32,11 @@ case class ComponentInputPorts(
           CppDoc.Type(s"${getQualifiedPortTypeName(p, PortInstance.Direction.Input)}*"),
           lines(
             s"""|FW_ASSERT(
-                |  portNum < this->${portNumGetterName(p.getUnqualifiedName, PortInstance.Direction.Input)}(),
+                |  portNum < this->${portNumGetterName(p)}(),
                 |  static_cast<FwAssertArgType>(portNum)
-                | );
+                |);
                 |
-                |return &this->${portVariableName(p.getUnqualifiedName, PortInstance.Direction.Input)}[portNum];
+                |return &this->${portVariableName(p)}[portNum];
                 |"""
           )
         )
@@ -56,7 +56,7 @@ case class ComponentInputPorts(
           Some(s"Handler for input port ${p.getUnqualifiedName}"),
           inputPortHandlerName(p.getUnqualifiedName),
           portNumParam :: getPortFunctionParams(p),
-          CppDoc.Type("void"),
+          getPortReturnTypeAsCppDocType(p),
           Nil,
           CppDoc.Function.PureVirtual
         )
@@ -65,6 +65,118 @@ case class ComponentInputPorts(
   }
 
   def getHandlerBases(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+    def writeAsyncInputPort(
+      p: PortInstance.General,
+      params: List[(String, String)],
+      queueFull: Ast.QueueFull,
+      priority: Option[BigInt]
+    ) = {
+      val bufferName = p.getType.get match {
+        case PortInstance.Type.DefPort(_) => "msg"
+        case PortInstance.Type.Serial => "msgSerBuff"
+      }
+      val queueBlocking = queueFull match {
+        case Ast.QueueFull.Block => "QUEUE_BLOCKING"
+        case _ => "QUEUE_NONBLOCKING"
+      }
+      val priorityNum = priority match {
+        case Some(num) => num
+        case _ => BigInt(0)
+      }
+
+      intersperseBlankLines(
+        List(
+          p.getType.get match {
+            case PortInstance.Type.DefPort(_) => List(
+              params match {
+                case Nil => lines(
+                  s"""|// Call pre-message hook
+                      |${inputPortHookName(p.getUnqualifiedName)}(portNum);
+                      |"""
+                )
+                case _ => List(
+                  lines(
+                    s"""|// Call pre-message hook
+                        |${inputPortHookName(p.getUnqualifiedName)}(
+                        |  portNum,
+                        |"""
+                  ),
+                  lines(
+                    params.map(_._1).mkString(",\n")
+                  ).map(indentIn),
+                  lines(");")
+                ).flatten
+              },
+              lines(
+                s"""|ComponentIpcSerializableBuffer $bufferName;
+                    |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+                    |"""
+              )
+            ).flatten
+            case PortInstance.Type.Serial => lines(
+              s"""|// Declare buffer for ${p.getUnqualifiedName}
+                  |U8 msgBuff[this->m_msgSize];
+                  |Fw::ExternalSerializeBuffer $bufferName(msgBuff, this->m_msgSize);
+                  |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+                  |"""
+            )
+          },
+          lines(
+            s"""|// Serialize message ID
+                |_status = $bufferName.serialize(
+                |  static_cast<NATIVE_INT_TYPE>(${generalPortCppConstantName(p)})
+                |);
+                |FW_ASSERT(
+                |  _status == Fw::FW_SERIALIZE_OK,
+                |  static_cast<FwAssertArgType>(_status)
+                |);
+                |
+                |// Serialize port number
+                |_status = $bufferName.serialize(portNum);
+                |FW_ASSERT(
+                |  _status == Fw::FW_SERIALIZE_OK,
+                |  static_cast<FwAssertArgType>(_status)
+                |);
+                |"""
+          ),
+          intersperseBlankLines(
+            getPortParams(p).map((n, _) => lines(
+              s"""|// Serialize argument $n
+                  |_status = $bufferName.serialize($n);
+                  |FW_ASSERT(
+                  |  _status == Fw::FW_SERIALIZE_OK,
+                  |  static_cast<FwAssertArgType>(_status)
+                  |);
+                  |"""
+            ))
+          ),
+          lines(
+            s"""|// Send message
+                |Os::Queue::QueueBlocking _block = Os::Queue::$queueBlocking;
+                |Os::Queue::QueueStatus qStatus = this->m_queue.send($bufferName, $priorityNum, _block);
+                |"""
+          ),
+          queueFull match {
+            case Ast.QueueFull.Drop => lines(
+              """|if (qStatus == Os::Queue::QUEUE_FULL) {
+                 |  this->incNumMsgDropped();
+                 |  return;
+                 |}
+                 |"""
+            )
+            case _ => Nil
+          },
+          lines(
+            """|FW_ASSERT(
+               |  qStatus == Os::Queue::QUEUE_OK,
+               |  static_cast<FwAssertArgType>(qStatus)
+               |);
+               |"""
+          )
+        )
+      )
+    }
+
     if ports.isEmpty then Nil
     else List(
       writeAccessTagAndComment(
@@ -74,15 +186,82 @@ case class ComponentInputPorts(
           "Call these functions directly to bypass the corresponding ports"
         )
       ),
-      ports.map(p =>
+      ports.map(p => {
+        val params = getPortParams(p)
+        val returnType = getPortReturnType(p)
+        val retValAssignment = returnType match {
+          case Some(_) => s"retVal = "
+          case None => ""
+        }
+        val handlerCall =
+          line("// Down call to pure virtual handler method implemented in Impl class") ::
+            params match {
+            case Nil => lines(
+              s"${retValAssignment}this->${inputPortHandlerName(p.getUnqualifiedName)}(portNum);"
+            )
+            case _ => List(
+              lines(
+                s"""|${retValAssignment}this->${inputPortHandlerName(p.getUnqualifiedName)}(
+                    |  portNum,
+                    |"""
+              ),
+              lines(
+                  params.map(_._1).mkString(",\n")
+                ).map(indentIn),
+                lines(");")
+              ).flatten
+            }
+
         functionClassMember(
           Some(s"Handler base-class function for input port ${p.getUnqualifiedName}"),
           inputPortHandlerBaseName(p.getUnqualifiedName),
           portNumParam :: getPortFunctionParams(p),
-          CppDoc.Type("void"),
-          Nil
+          getPortReturnTypeAsCppDocType(p),
+          intersperseBlankLines(
+            List(
+              lines(
+                s"""|// Make sure port number is valid
+                    |FW_ASSERT(
+                    |  portNum < this->${portNumGetterName(p)}(),
+                    |  static_cast<FwAssertArgType>(portNum)
+                    |);
+                    |"""
+              ),
+              returnType match {
+                case Some(tn) => lines(s"$tn retVal;")
+                case None => Nil
+              },
+              p match {
+                case i: PortInstance.General => i.kind match {
+                  case PortInstance.General.Kind.AsyncInput(priority, queueFull) =>
+                    writeAsyncInputPort(i, params, queueFull, priority)
+                  case PortInstance.General.Kind.GuardedInput => List(
+                    lines(
+                      """|// Lock guard mutex before calling
+                         |this->lock();
+                         |"""
+                    ),
+                    Line.blank :: handlerCall,
+                    lines(
+                      """|
+                         |// Unlock guard mutex
+                         |this->unLock();
+                         |"""
+                    )
+                  ).flatten
+                  case PortInstance.General.Kind.SyncInput => handlerCall
+                  case _ => Nil
+                }
+                case _ => Nil
+              },
+              returnType match {
+                case Some(_) => lines("return retVal;")
+                case None => Nil
+              }
+            )
+          )
         )
-      )
+      })
     ).flatten
   }
 
@@ -102,7 +281,7 @@ case class ComponentInputPorts(
               ),
               portNumParam
             ) ++ getPortFunctionParams(p),
-            CppDoc.Type("void"),
+            getPortReturnTypeAsCppDocType(p),
             Nil,
             CppDoc.Function.Static
           )

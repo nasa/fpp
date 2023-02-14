@@ -28,7 +28,7 @@ abstract class ComponentCppWriterUtils(
   )
 
   /** List of general port instances sorted by name */
-  val generalPorts: List[PortInstance.General] = component.portMap.toList.map((_, p) => p match {
+  private val generalPorts: List[PortInstance.General] = component.portMap.toList.map((_, p) => p match {
     case i: PortInstance.General => Some(i)
     case _ => None
   }).filter(_.isDefined).map(_.get).sortBy(_.getUnqualifiedName)
@@ -42,7 +42,7 @@ abstract class ComponentCppWriterUtils(
     filterByPortDirection(generalPorts, PortInstance.Direction.Output)
 
   /** List of special port instances sorted by name */
-  val specialPorts: List[PortInstance.Special] =
+  private val specialPorts: List[PortInstance.Special] =
     component.specialPortMap.toList.map(_._2).sortBy(_.getUnqualifiedName)
 
   /** List of special input port instances */
@@ -259,20 +259,53 @@ abstract class ComponentCppWriterUtils(
     })
   }
 
+  /** Get port params as a list of tuples containing the name and typename for each param */
+  def getPortParams(p: PortInstance): List[(String, String)] =
+    p.getType match {
+      case Some(PortInstance.Type.Serial) => List(
+        ("buffer", "Fw::SerializeBufferBase")
+      )
+      case _ => portParamTypeMap(p.getUnqualifiedName)
+    }
+
   /** Get port params as CppDoc Function Params */
   def getPortFunctionParams(p: PortInstance): List[CppDoc.Function.Param] =
     p.getType match {
-      case Some(PortInstance.Type.DefPort(_)) | None =>
-        portParamMap(p.getUnqualifiedName)
-      case Some(PortInstance.Type.Serial) =>
-        List(
-          CppDoc.Function.Param(
-            CppDoc.Type("Fw::SerializeBufferBase&"),
-            "buffer",
-            Some("The serialization buffer")
-          )
+      case Some(PortInstance.Type.Serial) => List(
+        CppDoc.Function.Param(
+          CppDoc.Type("Fw::SerializeBufferBase&"),
+          "buffer",
+          Some("The serialization buffer")
         )
+      )
+      case _ => portParamMap(p.getUnqualifiedName)
     }
+
+  /** Get a return type of a port instance as an optional C++ type */
+  def getPortReturnType(p: PortInstance): Option[String] =
+    p.getType match {
+      case Some(PortInstance.Type.DefPort(symbol)) =>
+        symbol.node._2.data.returnType match {
+          case Some(typeName) => Some(
+            writeCppTypeName(
+              s.a.typeMap(typeName.id),
+              s,
+              PortCppWriter.getPortNamespaces(symbol.getUnqualifiedName)
+            )
+          )
+          case _ => None
+        }
+      case _ => None
+    }
+
+  /** Get a return type of a port as a CppDoc type */
+  def getPortReturnTypeAsCppDocType(p: PortInstance): CppDoc.Type =
+    CppDoc.Type(
+      getPortReturnType(p) match {
+        case Some(tn) => tn
+        case None => "void"
+      }
+    )
 
   /** Get the port type as a string */
   def getPortTypeString(p: PortInstance): String =
@@ -361,13 +394,17 @@ abstract class ComponentCppWriterUtils(
     }
   }
 
+  /** Get the name for general port enumerated constant in cpp file */
+  def generalPortCppConstantName(p: PortInstance.General) =
+    s"${p.getUnqualifiedName}_${getPortTypeString(p)}".toUpperCase
+
   /** Get the name for a port number getter function */
-  def portNumGetterName(name: String, direction: PortInstance.Direction) =
-    s"getNum_${name}_${direction.toString.capitalize}Ports"
+  def portNumGetterName(p: PortInstance) =
+    s"getNum_${p.getUnqualifiedName}_${p.getDirection.get.toString.capitalize}Ports"
 
   /** Get the name for a port variable */
-  def portVariableName(name: String, direction: PortInstance.Direction) =
-    s"m_${name}_${direction.toString.capitalize}Port"
+  def portVariableName(p: PortInstance) =
+    s"m_${p.getUnqualifiedName}_${p.getDirection.get.toString.capitalize}Port"
 
   /** Get the name for an input port handler function */
   def inputPortHandlerName(name: String) =
@@ -410,7 +447,7 @@ abstract class ComponentCppWriterUtils(
     writeCppTypeName(
       s.a.typeMap(param.typeName.id),
       s,
-      PortCppWriter.getPortNamespaces(symbol.node._2.data.name)
+      PortCppWriter.getPortNamespaces(symbol.getUnqualifiedName)
     )
 
   /** Write an internal port param as a C++ type */

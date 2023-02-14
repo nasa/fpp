@@ -89,7 +89,7 @@ case class ComponentPorts(
             lines(
               ports.map(p =>
                 writeEnumConstant(
-                  portConstantName(p.getUnqualifiedName, p.getDirection.get),
+                  portConstantName(p),
                   p.getArraySize,
                 )
               ).mkString("\n")
@@ -115,10 +115,12 @@ case class ComponentPorts(
                 |\\return The number of ${p.getUnqualifiedName} ${p.getDirection.get.toString} ports
                 |"""
           ),
-          portNumGetterName(p.getUnqualifiedName, p.getDirection.get),
+          portNumGetterName(p),
           Nil,
           CppDoc.Type("NATIVE_INT_TYPE"),
-          Nil
+          lines(
+            s"return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->${portVariableName(p)}));"
+          )
         )
       ))
     ).flatten
@@ -139,8 +141,8 @@ case class ComponentPorts(
       ),
       mapPorts(ports, p => {
         val typeName = getQualifiedPortTypeName(p, p.getDirection.get)
-        val name = portVariableName(p.getUnqualifiedName, p.getDirection.get)
-        val num = portConstantName(p.getUnqualifiedName, p.getDirection.get)
+        val name = portVariableName(p)
+        val num = portConstantName(p)
 
         List(
           linesClassMember(
@@ -157,7 +159,7 @@ case class ComponentPorts(
   }
 
   // Get the name for a port enumerated constant
-  private def portConstantName(name: String, direction: PortInstance.Direction) =
-    s"NUM_${name.toUpperCase}_${direction.toString.toUpperCase}_PORTS"
+  private def portConstantName(p: PortInstance) =
+    s"NUM_${p.getUnqualifiedName.toUpperCase}_${p.getDirection.get.toString.toUpperCase}_PORTS"
 
 }

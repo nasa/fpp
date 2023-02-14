@@ -32,11 +32,11 @@ case class ComponentOutputPorts(
           CppDoc.Type("void"),
           lines(
             s"""|FW_ASSERT(
-                |  portNum < this->${portNumGetterName(p.getUnqualifiedName, PortInstance.Direction.Output)}(),
+                |  portNum < this->${portNumGetterName(p)}(),
                 |  static_cast<FwAssertArgType>(portNum)
                 |);
                 |
-                |this->${portVariableName(p.getUnqualifiedName, PortInstance.Direction.Output)}[portNum].addCallPort(port);
+                |this->${portVariableName(p)}[portNum].addCallPort(port);
                 |"""
           )
         )
