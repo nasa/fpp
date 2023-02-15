@@ -7,10 +7,10 @@ dir=`cd ../..; echo $PWD`
 
 echo '  generating XML'
 fpp-to-xml -p $dir -i ../../builtin.fpp ../../commands.fpp
-cp ../Fw/Cmd/*Ai.xml .
+cp ../../../fprime/Fw/Cmd/*Ai.xml .
 
 echo '  generating C++'
-(cd ../Fw/Cmd; fprime-codegen CmdResponseEnumAi.xml > /dev/null)
+(cd ../../../fprime/Fw/Cmd; fprime-codegen CmdResponseEnumAi.xml > /dev/null)
 for file in CComponent CmdPort CmdRegPort CmdResponsePort
 do
   fprime-codegen $file'Ai.xml' > /dev/null

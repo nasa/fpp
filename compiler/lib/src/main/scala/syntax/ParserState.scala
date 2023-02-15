@@ -1,7 +1,7 @@
 package fpp.compiler.syntax
 
 import fpp.compiler.util._
-import util.parsing.input.Position
+import scala.util.parsing.input.Position
 
 object ParserState {
 
