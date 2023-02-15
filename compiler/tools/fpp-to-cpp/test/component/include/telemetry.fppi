@@ -19,8 +19,7 @@ telemetry ChannelEnum: E \
   id 0x10
 
 @ A telemetry channel with array data and update frequency
-telemetry ChannelArrayFreq: A \
-  update on change
+telemetry ChannelArrayFreq: A
 
 @ A telemetry channel with struct data
 telemetry ChannelStructFreq: S \
@@ -40,3 +39,12 @@ telemetry ChannelF64: F64 \
   update always \
   format "{e}" \
   high { red 3, orange 2, yellow 1 }
+
+@ A telemetry channel with U32 data and update on change frequency
+telemetry ChannelU32OnChange: U32 \
+  update on change
+
+@ A telemetry channel with enum data and update on change frequency
+telemetry ChannelEnumOnChange: E \
+  update on change
+

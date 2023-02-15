@@ -74,12 +74,6 @@ namespace TypedPortStrings {
 
 }
 
-// ----------------------------------------------------------------------
-// String types for backwards compatibility
-// ----------------------------------------------------------------------
-
-typedef TypedPortStrings::StringSize80 strString;
-
 //! Input Typed port
 //! A typed port
 class InputTypedPort :

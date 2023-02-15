@@ -28,6 +28,7 @@
 #include "Os/Mutex.hpp"
 #include "SSerializableAc.hpp"
 #include "TypedPortAc.hpp"
+#include "TypedReturnPortAc.hpp"
 
 //! \class PassiveTelemetryComponentBase
 //! \brief Auto-generated base for PassiveTelemetry component
@@ -58,6 +59,8 @@ class PassiveTelemetryComponentBase :
     //! Enumerations for numbers of typed input ports
     enum {
       NUM_TYPEDGUARDED_INPUT_PORTS = 1,
+      NUM_TYPEDRETURNGUARDED_INPUT_PORTS = 1,
+      NUM_TYPEDRETURNSYNC_INPUT_PORTS = 3,
       NUM_TYPEDSYNC_INPUT_PORTS = 3,
     };
 
@@ -82,6 +85,7 @@ class PassiveTelemetryComponentBase :
     //! Enumerations for numbers of typed output ports
     enum {
       NUM_TYPEDOUT_OUTPUT_PORTS = 1,
+      NUM_TYPEDRETURNOUT_OUTPUT_PORTS = 1,
     };
 
     //! Enumerations for numbers of serial output ports
@@ -100,6 +104,8 @@ class PassiveTelemetryComponentBase :
       CHANNELID_CHANNELU32LIMITS = 0x13, //! Channel ID for ChannelU32Limits
       CHANNELID_CHANNELF32LIMITS = 0x14, //! Channel ID for ChannelF32Limits
       CHANNELID_CHANNELF64 = 0x15, //! Channel ID for ChannelF64
+      CHANNELID_CHANNELU32ONCHANGE = 0x16, //! Channel ID for ChannelU32OnChange
+      CHANNELID_CHANNELENUMONCHANGE = 0x17, //! Channel ID for ChannelEnumOnChange
     };
 
   public:
@@ -125,6 +131,20 @@ class PassiveTelemetryComponentBase :
     //! 
     //! \return typedGuarded[portNum]
     InputTypedPort* get_typedGuarded_InputPort(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Get typed input port at index
+    //! 
+    //! \return typedReturnGuarded[portNum]
+    InputTypedReturnPort* get_typedReturnGuarded_InputPort(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Get typed input port at index
+    //! 
+    //! \return typedReturnSync[portNum]
+    InputTypedReturnPort* get_typedReturnSync_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
@@ -287,6 +307,12 @@ class PassiveTelemetryComponentBase :
         InputTypedPort* port //!< The input port
     );
 
+    //! Connect port to typedReturnOut[portNum]
+    void set_typedReturnOut_OutputPort(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        InputTypedReturnPort* port //!< The input port
+    );
+
 #if FW_PORT_SERIALIZATION
 
   public:
@@ -297,6 +323,12 @@ class PassiveTelemetryComponentBase :
 
     //! Connect port to typedOut[portNum]
     void set_typedOut_OutputPort(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        Fw::InputSerializePort* port //!< The port
+    );
+
+    //! Connect port to typedReturnOut[portNum]
+    void set_typedReturnOut_OutputPort(
         NATIVE_INT_TYPE portNum, //!< The port number
         Fw::InputSerializePort* port //!< The port
     );
@@ -365,6 +397,16 @@ class PassiveTelemetryComponentBase :
     //! 
     //! \return The number of typedGuarded input ports
     NATIVE_INT_TYPE getNum_typedGuarded_InputPorts();
+
+    //! Get the number of typedReturnGuarded input ports
+    //! 
+    //! \return The number of typedReturnGuarded input ports
+    NATIVE_INT_TYPE getNum_typedReturnGuarded_InputPorts();
+
+    //! Get the number of typedReturnSync input ports
+    //! 
+    //! \return The number of typedReturnSync input ports
+    NATIVE_INT_TYPE getNum_typedReturnSync_InputPorts();
 
     //! Get the number of typedSync input ports
     //! 
@@ -447,6 +489,11 @@ class PassiveTelemetryComponentBase :
     //! 
     //! \return The number of typedOut output ports
     NATIVE_INT_TYPE getNum_typedOut_OutputPorts();
+
+    //! Get the number of typedReturnOut output ports
+    //! 
+    //! \return The number of typedReturnOut output ports
+    NATIVE_INT_TYPE getNum_typedReturnOut_OutputPorts();
 
   PROTECTED:
 
@@ -538,6 +585,13 @@ class PassiveTelemetryComponentBase :
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
+    //! Check whether port typedReturnOut is connected
+    //! 
+    //! \return Whether port typedReturnOut is connected
+    bool isConnected_typedReturnOut_OutputPort(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
   PROTECTED:
 
     // ----------------------------------------------------------------------
@@ -564,6 +618,30 @@ class PassiveTelemetryComponentBase :
         F32 f32, //!< An F32
         bool b, //!< A boolean
         const TypedPortStrings::StringSize80& str, //!< A string
+        const E& e, //!< An enum
+        const A& a, //!< An array
+        const S& s //!< A struct
+    ) = 0;
+
+    //! Handler for input port typedReturnGuarded
+    virtual F32 typedReturnGuarded_handler(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        U32 u32, //!< A U32
+        F32 f32, //!< An F32
+        bool b, //!< A boolean
+        const TypedReturnPortStrings::StringSize80& str, //!< A string
+        const E& e, //!< An enum
+        const A& a, //!< An array
+        const S& s //!< A struct
+    ) = 0;
+
+    //! Handler for input port typedReturnSync
+    virtual F32 typedReturnSync_handler(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        U32 u32, //!< A U32
+        F32 f32, //!< An F32
+        bool b, //!< A boolean
+        const TypedReturnPortStrings::StringSize80& str, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -596,6 +674,30 @@ class PassiveTelemetryComponentBase :
         F32 f32, //!< An F32
         bool b, //!< A boolean
         const TypedPortStrings::StringSize80& str, //!< A string
+        const E& e, //!< An enum
+        const A& a, //!< An array
+        const S& s //!< A struct
+    );
+
+    //! Handler base-class function for input port typedReturnGuarded
+    F32 typedReturnGuarded_handlerBase(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        U32 u32, //!< A U32
+        F32 f32, //!< An F32
+        bool b, //!< A boolean
+        const TypedReturnPortStrings::StringSize80& str, //!< A string
+        const E& e, //!< An enum
+        const A& a, //!< An array
+        const S& s //!< A struct
+    );
+
+    //! Handler base-class function for input port typedReturnSync
+    F32 typedReturnSync_handlerBase(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        U32 u32, //!< A U32
+        F32 f32, //!< An F32
+        bool b, //!< A boolean
+        const TypedReturnPortStrings::StringSize80& str, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -664,6 +766,18 @@ class PassiveTelemetryComponentBase :
         F32 f32, //!< An F32
         bool b, //!< A boolean
         const TypedPortStrings::StringSize80& str, //!< A string
+        const E& e, //!< An enum
+        const A& a, //!< An array
+        const S& s //!< A struct
+    );
+
+    //! Invoke output port typedReturnOut
+    F32 typedReturnOut_out(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        U32 u32, //!< A U32
+        F32 f32, //!< An F32
+        bool b, //!< A boolean
+        const TypedReturnPortStrings::StringSize80& str, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -759,6 +873,22 @@ class PassiveTelemetryComponentBase :
         Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
     );
 
+    //! Write telemetry channel ChannelU32OnChange
+    //! 
+    //! A telemetry channel with U32 data and update on change frequency
+    void tlmWrite_ChannelU32OnChange(
+        U32 arg, //!< The telemetry value
+        Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
+    );
+
+    //! Write telemetry channel ChannelEnumOnChange
+    //! 
+    //! A telemetry channel with enum data and update on change frequency
+    void tlmWrite_ChannelEnumOnChange(
+        const E& arg, //!< The telemetry value
+        Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
+    );
+
   PROTECTED:
 
     // ----------------------------------------------------------------------
@@ -819,6 +949,32 @@ class PassiveTelemetryComponentBase :
         const S& s //!< A struct
     );
 
+    //! Callback for port typedReturnGuarded
+    static F32 m_p_typedReturnGuarded_in(
+        Fw::PassiveComponentBase* callComp, //!< The component instance
+        NATIVE_INT_TYPE portNum, //!< The port number
+        U32 u32, //!< A U32
+        F32 f32, //!< An F32
+        bool b, //!< A boolean
+        const TypedReturnPortStrings::StringSize80& str, //!< A string
+        const E& e, //!< An enum
+        const A& a, //!< An array
+        const S& s //!< A struct
+    );
+
+    //! Callback for port typedReturnSync
+    static F32 m_p_typedReturnSync_in(
+        Fw::PassiveComponentBase* callComp, //!< The component instance
+        NATIVE_INT_TYPE portNum, //!< The port number
+        U32 u32, //!< A U32
+        F32 f32, //!< An F32
+        bool b, //!< A boolean
+        const TypedReturnPortStrings::StringSize80& str, //!< A string
+        const E& e, //!< An enum
+        const A& a, //!< An array
+        const S& s //!< A struct
+    );
+
     //! Callback for port typedSync
     static void m_p_typedSync_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
@@ -873,6 +1029,12 @@ class PassiveTelemetryComponentBase :
 
     //! Input port typedGuarded
     InputTypedPort m_typedGuarded_InputPort[NUM_TYPEDGUARDED_INPUT_PORTS];
+
+    //! Input port typedReturnGuarded
+    InputTypedReturnPort m_typedReturnGuarded_InputPort[NUM_TYPEDRETURNGUARDED_INPUT_PORTS];
+
+    //! Input port typedReturnSync
+    InputTypedReturnPort m_typedReturnSync_InputPort[NUM_TYPEDRETURNSYNC_INPUT_PORTS];
 
     //! Input port typedSync
     InputTypedPort m_typedSync_InputPort[NUM_TYPEDSYNC_INPUT_PORTS];
@@ -932,6 +1094,9 @@ class PassiveTelemetryComponentBase :
     //! Output port typedOut
     OutputTypedPort m_typedOut_OutputPort[NUM_TYPEDOUT_OUTPUT_PORTS];
 
+    //! Output port typedReturnOut
+    OutputTypedReturnPort m_typedReturnOut_OutputPort[NUM_TYPEDRETURNOUT_OUTPUT_PORTS];
+
   PRIVATE:
 
     // ----------------------------------------------------------------------
@@ -947,8 +1112,10 @@ class PassiveTelemetryComponentBase :
     // First update flags for telemetry channels
     // ----------------------------------------------------------------------
 
-    //! Initialized to true; cleared when channel ChannelArrayFreq is first updated
-    bool m_first_update_ChannelArrayFreq;
+    //! Initialized to true; cleared when channel ChannelU32OnChange is first updated
+    bool m_first_update_ChannelU32OnChange;
+    //! Initialized to true; cleared when channel ChannelEnumOnChange is first updated
+    bool m_first_update_ChannelEnumOnChange;
 
   PRIVATE:
 
@@ -956,8 +1123,10 @@ class PassiveTelemetryComponentBase :
     // Last value storage for telemetry channels
     // ----------------------------------------------------------------------
 
-    //! Records the last emitted value for channel ChannelArrayFreq
-    A m_last_ChannelArrayFreq;
+    //! Records the last emitted value for channel ChannelU32OnChange
+    U32 m_last_ChannelU32OnChange;
+    //! Records the last emitted value for channel ChannelEnumOnChange
+    E m_last_ChannelEnumOnChange;
 
   PRIVATE:
 

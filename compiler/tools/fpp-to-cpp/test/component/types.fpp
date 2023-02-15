@@ -17,3 +17,14 @@ port Typed(
   a: A, @< An array
   s: S @< A struct
 )
+
+@ A typed port with a return type
+port TypedReturn(
+  u32: U32, @< A U32
+  f32: F32, @< An F32
+  b: bool, @< A boolean
+  str: string, @< A string
+  e: E, @< An enum
+  a: A, @< An array
+  s: S @< A struct
+) -> F32
