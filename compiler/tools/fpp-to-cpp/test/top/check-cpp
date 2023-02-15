@@ -1,4 +1,4 @@
 #!/bin/sh -e
 
-export FPRIME_GCC_FLAGS="-Wno-unused-parameter -Wno-unused-variable"
+export FPRIME_GCC_FLAGS="-I../../../fprime -Wno-unused-parameter -Wno-unused-variable"
 (cd check-cpp-dir; ./check)
