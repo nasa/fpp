@@ -44,6 +44,9 @@ trait CppWriterUtils extends LineUtils {
   def wrapInEnum(ll: List[Line]): List[Line] =
     wrapInScope("enum {", ll, "};")
 
+  def wrapInSwitch(condition: String, body: List[Line]) =
+    wrapInScope(s"switch ($condition) {", body, "}")
+
   def wrapInForLoop(init: String, condition: String, step: String, body: List[Line]): List[Line] =
     wrapInScope(s"for ($init; $condition; $step) {", body, "}")
 
@@ -61,6 +64,9 @@ trait CppWriterUtils extends LineUtils {
 
   def wrapInIf(condition: String, body: List[Line]): List[Line] =
     wrapInScope(s"if ($condition) {", body, "}")
+
+  def wrapInIfElse(condition: String, ifBody: List[Line], elseBody: List[Line]): List[Line] =
+    wrapInIf(condition, ifBody) ++ wrapInScope("else {", elseBody, "}")
 
   def wrapMembersInIfDirective(
     directive: String,
