@@ -11,8 +11,6 @@ case class ComponentCppWriter (
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
-  private val name = s.getName(symbol)
-
   private val fileName = ComputeCppFiles.FileNames.getComponent(name)
 
   private val namespaceIdentList = s.getNamespaceIdentList(symbol)
@@ -34,8 +32,6 @@ case class ComponentCppWriter (
     case Ast.ComponentKind.Passive => "Passive"
     case Ast.ComponentKind.Queued => "Queued"
   }
-
-  private val className = s"${name}ComponentBase"
 
   private val baseClassName = s"${kindStr}ComponentBase"
 
@@ -246,7 +242,7 @@ case class ComponentCppWriter (
         Line.blank :: wrapInAnonymousNamespace(
           List(
             getMsgTypeEnum,
-            getComponentIpcSerializableBufferClass
+            Line.blank :: getComponentIpcSerializableBufferClass
           ).flatten
         ),
         CppDoc.Lines.Cpp
@@ -255,31 +251,28 @@ case class ComponentCppWriter (
   }
 
   private def getMsgTypeEnum: List[Line] = {
-    List(
-      wrapInScope(
-        "enum MsgTypeEnum {",
+    wrapInScope(
+      "enum MsgTypeEnum {",
+      List(
+        if data.kind != Ast.ComponentKind.Passive then lines(
+          s"$exitConstantName = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT,"
+        )
+        else Nil,
         List(
-          if data.kind != Ast.ComponentKind.Passive then lines(
-            s"$exitConstantName = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT,"
-          )
-          else Nil,
-          List(
-            typedAsyncInputPorts.map(generalPortCppConstantName),
-            serialAsyncInputPorts.map(generalPortCppConstantName),
-            asyncCmds.map((_, cmd) => commandCppConstantName(cmd)),
-            internalPorts.map(internalPortCppConstantName),
-          ).flatten.map(s => line(s"$s,"))
-        ).flatten,
-        "};"
-      )
-    ).flatten
+          typedAsyncInputPorts.map(generalPortCppConstantName),
+          serialAsyncInputPorts.map(generalPortCppConstantName),
+          asyncCmds.map((_, cmd) => commandCppConstantName(cmd)),
+          internalPorts.map(internalPortCppConstantName),
+        ).flatten.map(s => line(s"$s,"))
+      ).flatten,
+      "};"
+    )
   }
 
   private def getComponentIpcSerializableBufferClass: List[Line] = {
     lines(
       """|// Define a message buffer class large enough to handle all the
          |// asynchronous inputs to the component
-         |
          |class ComponentIpcSerializableBuffer :
          |  public Fw::SerializeBufferBase
          |{

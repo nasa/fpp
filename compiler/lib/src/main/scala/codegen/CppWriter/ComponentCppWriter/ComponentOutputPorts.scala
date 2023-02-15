@@ -176,8 +176,4 @@ case class ComponentOutputPorts(
   private def outputPortIsConnectedName(name: String) =
     s"isConnected_${name}_OutputPort"
 
-  // Get the name for an output port invocation function
-  private def outputPortInvokerName(name: String) =
-    s"${name}_out"
-
 }

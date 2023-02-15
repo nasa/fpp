@@ -49,7 +49,7 @@ case class ComponentCommands (
                     case Command.NonParam(aNode, _) =>
                       AnnotationCppWriter.asStringOpt(aNode)
                     case Command.Param(aNode, kind) =>
-                      Some(s"Opcode to ${paramKindStr(kind)} parameter ${aNode._2.data.name}")
+                      Some(s"Opcode to ${getCommandParamString(kind)} parameter ${aNode._2.data.name}")
                   },
                   ComponentCppWriterUtils.Hex
                 )
@@ -225,28 +225,6 @@ case class ComponentCommands (
         )
       )
     ).flatten
-  }
-
-  private def paramKindStr(kind: Command.Param.Kind) =
-    kind match {
-      case Command.Param.Save => "save"
-      case Command.Param.Set => "set"
-    }
-
-  // Get the name for a command handler base-class function
-  private def commandHandlerBaseName(name: String) =
-    s"${name}_cmdHandlerBase"
-
-  // Get the name for a command opcode constant
-  private def commandConstantName(cmd: Command) = {
-    val name = cmd match {
-      case Command.NonParam(_, _) =>
-        cmd.getName
-      case Command.Param(aNode, kind) =>
-        s"${aNode._2.data.name}_${paramKindStr(kind).toUpperCase}"
-    }
-
-    s"OPCODE_${name.toUpperCase}"
   }
 
 }

@@ -238,7 +238,7 @@ case class ComponentParameters (
                 |\\return The command response
                 |"""
           ),
-          paramSetterName(param.getName),
+          paramHandlerName(param.getName, Command.Param.Set),
           List(
             CppDoc.Function.Param(
               CppDoc.Type("Fw::SerializeBufferBase&"),
@@ -267,7 +267,7 @@ case class ComponentParameters (
                 |\\return The command response
                 |"""
           ),
-          paramSaveName(param.getName),
+          paramHandlerName(param.getName, Command.Param.Save),
           Nil,
           CppDoc.Type("Fw::CmdResponse"),
           Nil
@@ -284,12 +284,6 @@ case class ComponentParameters (
 
   private def paramGetterName(name: String) =
     s"paramGet_$name"
-
-  private def paramSetterName(name: String) =
-    s"paramSet_$name"
-
-  private def paramSaveName(name: String) =
-    s"paramSave_$name"
 
   private def paramVariableName(name: String) =
     s"m_$name"

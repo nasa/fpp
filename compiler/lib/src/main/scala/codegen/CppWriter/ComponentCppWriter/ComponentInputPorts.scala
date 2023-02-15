@@ -196,16 +196,16 @@ case class ComponentInputPorts(
         val handlerCall =
           line("// Down call to pure virtual handler method implemented in Impl class") ::
             params match {
-            case Nil => lines(
-              s"${retValAssignment}this->${inputPortHandlerName(p.getUnqualifiedName)}(portNum);"
-            )
-            case _ => List(
-              lines(
-                s"""|${retValAssignment}this->${inputPortHandlerName(p.getUnqualifiedName)}(
-                    |  portNum,
-                    |"""
-              ),
-              lines(
+              case Nil => lines(
+                s"${retValAssignment}this->${inputPortHandlerName(p.getUnqualifiedName)}(portNum);"
+              )
+              case _ => List(
+                lines(
+                  s"""|${retValAssignment}this->${inputPortHandlerName(p.getUnqualifiedName)}(
+                      |  portNum,
+                      |"""
+                ),
+                lines(
                   params.map(_._1).mkString(",\n")
                 ).map(indentIn),
                 lines(");")
@@ -266,26 +266,119 @@ case class ComponentInputPorts(
   }
 
   def getCallbacks(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+    def writeGeneralInputPort(p: PortInstance) = {
+      val params = getPortParams(p)
+      val returnKeyword = getPortReturnType(p) match {
+        case Some(_) => "return "
+        case None => ""
+      }
+
+      List(
+        lines(
+          s"""|FW_ASSERT(callComp);
+              |$className* compPtr = static_cast<$className*>(callComp);
+              |
+              |"""
+        ),
+        params match {
+          case Nil => lines(
+            s"${returnKeyword}compPtr->${inputPortHandlerBaseName(p.getUnqualifiedName)}(portNum);"
+          )
+          case _ => List(
+            lines(
+              s"""|${returnKeyword}compPtr->${inputPortHandlerBaseName(p.getUnqualifiedName)}(
+                  |  portNum,
+                  |"""
+            ),
+            lines(
+              params.map(_._1).mkString(",\n")
+            ).map(indentIn),
+            lines(");")
+          ).flatten
+        }
+      ).flatten
+    }
+    def writeCommandInputPort() = {
+      if sortedCmds.isEmpty then Nil
+      else List(
+        lines(
+          s"""|FW_ASSERT(callComp);
+              |$className* compPtr = static_cast<$className*>(callComp);
+              |
+              |const U32 idBase = callComp->getIdBase();
+              |FW_ASSERT(opCode >= idBase, opCode, idBase);
+              |
+              |// Select base class function based on opcode
+              |"""
+        ),
+        wrapInSwitch(
+          "opCode - idBase",
+          intersperseBlankLines(
+            sortedCmds.map((_, cmd) =>
+              wrapInScope(
+                s"case ${commandConstantName(cmd)}: {",
+                cmd match {
+                  case _: Command.NonParam => lines(
+                    s"""|compPtr->${commandHandlerBaseName(cmd.getName)}(
+                        |  opCode,
+                        |  cmdSeq,
+                        |  args
+                        |);
+                        |break;
+                        |""".stripMargin
+                  )
+                  case c: Command.Param =>
+                    val args =
+                      c.kind match {
+                        case Command.Param.Set => "args"
+                        case Command.Param.Save => ""
+                      }
+
+                    lines(
+                      s"""|Fw::CmdResponse _cstat = compPtr->${paramHandlerName(c.aNode._2.data.name, c.kind)}($args);
+                          |compPtr->cmdResponse_out(
+                          |  opCode,
+                          |  cmdSeq,
+                          |  _cstat
+                          |);
+                          |break;
+                          |"""
+                    )
+                },
+                "}"
+              )
+            )
+          )
+        )
+      ).flatten
+    }
+
     if ports.isEmpty then Nil
     else {
       val functions =
-        mapPorts(ports, p => List(
-          functionClassMember(
-            Some(s"Callback for port ${p.getUnqualifiedName}"),
-            inputPortCallbackName(p.getUnqualifiedName),
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type("Fw::PassiveComponentBase*"),
-                "callComp",
-                Some("The component instance")
-              ),
-              portNumParam
-            ) ++ getPortFunctionParams(p),
-            getPortReturnTypeAsCppDocType(p),
-            Nil,
-            CppDoc.Function.Static
+        mapPorts(ports, p => {
+          List(
+            functionClassMember(
+              Some(s"Callback for port ${p.getUnqualifiedName}"),
+              inputPortCallbackName(p.getUnqualifiedName),
+              List(
+                CppDoc.Function.Param(
+                  CppDoc.Type("Fw::PassiveComponentBase*"),
+                  "callComp",
+                  Some("The component instance")
+                ),
+                portNumParam
+              ) ++ getPortFunctionParams(p),
+              getPortReturnTypeAsCppDocType(p),
+              p match {
+                case i: PortInstance.General => writeGeneralInputPort(i)
+                case _: PortInstance.Special => writeCommandInputPort()
+                case _ => Nil
+              },
+              CppDoc.Function.Static
+            )
           )
-        ))
+        })
 
       List(
         writeAccessTagAndComment(
@@ -323,7 +416,7 @@ case class ComponentInputPorts(
           inputPortHookName(p.getUnqualifiedName),
           portNumParam :: getPortFunctionParams(p),
           CppDoc.Type("void"),
-          Nil,
+          lines("// Default: no-op"),
           CppDoc.Function.Virtual
         )
       )
@@ -337,5 +430,9 @@ case class ComponentInputPorts(
   // Get the name for an input port handler base-class function
   private def inputPortHandlerBaseName(name: String) =
     s"${name}_handlerBase"
+
+  // Get the name for a param command handler function
+  private def paramCmdHandlerName(cmd: Command.Param) =
+    s"param${getCommandParamString(cmd.kind).capitalize}_${cmd.getName}"
 
 }

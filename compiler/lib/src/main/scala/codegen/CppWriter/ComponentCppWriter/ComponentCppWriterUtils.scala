@@ -18,6 +18,10 @@ abstract class ComponentCppWriterUtils(
 
   val component: Component = s.a.componentMap(symbol)
 
+  val name: String = s.getName(symbol)
+
+  val className: String = s"${name}ComponentBase"
+
   val members: List[Ast.ComponentMember] = data.members
 
   /** Port number param as a CppDoc Function Param */
@@ -318,6 +322,13 @@ abstract class ComponentCppWriterUtils(
       case _: PortInstance.Internal => "internal"
     }
 
+  /** Get the command param type as a string */
+  def getCommandParamString(kind: Command.Param.Kind) =
+    kind match {
+      case Command.Param.Save => "save"
+      case Command.Param.Set => "set"
+    }
+
   /** Write an enumerated constant */
   def writeEnumConstant(
     name: String,
@@ -418,6 +429,10 @@ abstract class ComponentCppWriterUtils(
   def inputPortHookName(name: String) =
     s"${name}_preMsgHook"
 
+  /** Get the name for an output port invocation function */
+  def outputPortInvokerName(name: String) =
+    s"${name}_out"
+
   /** Get the name for an internal interface handler */
   def internalInterfaceHandlerName(name: String) =
     s"${name}_internalInterfaceHandler"
@@ -425,6 +440,22 @@ abstract class ComponentCppWriterUtils(
   /** Get the name for a command handler */
   def commandHandlerName(name: String) =
     s"${name}_cmdHandler"
+
+  /** Get the name for a command handler base-class function */
+  def commandHandlerBaseName(name: String) =
+    s"${name}_cmdHandlerBase"
+
+  /** Get the name for a command opcode constant */
+  def commandConstantName(cmd: Command) = {
+    val name = cmd match {
+      case Command.NonParam(_, _) =>
+        cmd.getName
+      case Command.Param(aNode, kind) =>
+        s"${aNode._2.data.name}_${getCommandParamString(kind).toUpperCase}"
+    }
+
+    s"OPCODE_${name.toUpperCase}"
+  }
 
   /** Get the name for an event throttle counter variable */
   def eventThrottleCounterName(name: String) =
@@ -437,6 +468,10 @@ abstract class ComponentCppWriterUtils(
   /** Get the name for a telemetry channel storage variable */
   def channelStorageName(name: String) =
     s"m_last_$name"
+
+  /** Get the name for a parameter handler (set/save) function */
+  def paramHandlerName(name: String, kind: Command.Param.Kind) =
+    s"param${getCommandParamString(kind).capitalize}_$name"
 
   /** Get the name for a parameter validity flag variable */
   def paramValidityFlagName(name: String) =
