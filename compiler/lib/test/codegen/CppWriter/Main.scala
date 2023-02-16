@@ -51,7 +51,7 @@ object Program extends LineUtils {
                         ),
                         Class.Member.Constructor(
                           constructor = Class.Constructor(
-                            comment = Some("This is line 1.\nThis is line 2."),
+                            comment = Some("This is line 1.\n\nThis is line 3."),
                             params = Nil,
                             initializers = Nil,
                             body = lines("// line1\n// line2")
@@ -71,7 +71,7 @@ object Program extends LineUtils {
                               Function.Param(
                                 Type("const double"),
                                 "x",
-                                Some("This is parameter x line 1.\nThis is parameter x line 2.")
+                                Some("This is parameter x line 1.\n\nThis is parameter x line 3.")
                               ),
                               Function.Param(
                                 Type("const int"),
