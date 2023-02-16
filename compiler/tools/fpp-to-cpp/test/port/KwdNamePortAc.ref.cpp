@@ -90,7 +90,7 @@ Fw::SerializeStatus InputKwdNamePort ::
 {
   Fw::SerializeStatus _status;
 
-#if FW_PORT_SERIALIZATION == 1
+#if FW_PORT_TRACING == 1
   this->trace();
 #endif
 
