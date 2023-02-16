@@ -59,7 +59,10 @@ object CppDocWriter extends LineUtils {
     
   /** Write a Doxygen comment */
   def writeDoxygenComment(comment: String): List[Line] = 
-    Line.blank ::lines(comment).map(Line.join(" ")(line("//!"))_)
+    Line.blank :: lines(comment).map(l => l.string match {
+      case "" => line("//!")
+      case _ => Line.join(" ")(line("//!"))(l)
+    })
 
   /** Write a Doxygen post comment */
   def writeDoxygenPostComment(comment: String): List[Line] =
