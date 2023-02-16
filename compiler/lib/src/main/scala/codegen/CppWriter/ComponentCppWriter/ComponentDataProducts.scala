@@ -30,7 +30,7 @@ case class ComponentDataProducts (
       )
     )
 
-  def getVirtualFunctionMembers: List[CppDoc.Class.Member] = 
+  def getVirtualFunctionMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "PROTECTED",
       "Pure virtual functions to implement",
