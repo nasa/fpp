@@ -335,7 +335,7 @@ case class PortCppWriter (
         else line("Fw::SerializeStatus _status;")) ::
           lines(
             """|
-               |#if FW_PORT_SERIALIZATION == 1
+               |#if FW_PORT_TRACING == 1
                |this->trace();
                |#endif
                |
