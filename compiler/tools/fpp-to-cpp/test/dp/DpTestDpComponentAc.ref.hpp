@@ -21,7 +21,7 @@ namespace FppTest {
 
   //! \class DpTestDpComponentBase
   //! \brief Auto-generated data product base class for DpTest component
-  //! 
+  //!
   //! A component for testing  data product code gen
   class DpTestDpComponentBase :
     public DpTestComponentBase
