@@ -127,8 +127,6 @@ object CppDocHppWriter extends CppDocWriter {
       val lines2 = {
         val prefix = {
           val prefix1 = function.svQualifier match {
-            case Final => "final "
-            case Override => "override "
             case PureVirtual => "virtual "
             case Static => "static "
             case Virtual => "virtual "
@@ -142,9 +140,14 @@ object CppDocHppWriter extends CppDocWriter {
         }
         val lines1 = {
           val lines11 = writeParams(prefix, function.params)
-          function.constQualifier match {
+          val lines12 = function.constQualifier match {
             case Const => Line.addSuffix(lines11, " const")
             case _ => lines11
+          }
+          function.svQualifier match {
+            case Final => Line.addSuffix(lines12, " final")
+            case Override => Line.addSuffix(lines12, " override")
+            case _ => lines12
           }
         }
         val lines2 = function.svQualifier match {
