@@ -127,9 +127,11 @@ object CppDocHppWriter extends CppDocWriter {
       val lines2 = {
         val prefix = {
           val prefix1 = function.svQualifier match {
-            case Virtual => "virtual "
+            case Final => "final "
+            case Override => "override "
             case PureVirtual => "virtual "
             case Static => "static "
+            case Virtual => "virtual "
             case _ => ""
           }
           val retType = function.retType.hppType match {
@@ -139,14 +141,10 @@ object CppDocHppWriter extends CppDocWriter {
           prefix1 ++ s"${retType}${function.name}"
         }
         val lines1 = {
-          val lines1 = writeParams(prefix, function.params)
-          val lines2 = function.constQualifier match {
-            case Const => Line.addSuffix(lines1, " const")
-            case _ => lines1
-          }
-          function.overrideQualifier match {
-            case Override => Line.addSuffix(lines2, " override")
-            case _ => lines2
+          val lines11 = writeParams(prefix, function.params)
+          function.constQualifier match {
+            case Const => Line.addSuffix(lines11, " const")
+            case _ => lines11
           }
         }
         val lines2 = function.svQualifier match {

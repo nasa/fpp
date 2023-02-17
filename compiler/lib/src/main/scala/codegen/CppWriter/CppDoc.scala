@@ -79,8 +79,6 @@ object CppDoc {
     svQualifier: Function.SVQualifier = Function.NonSV,
     /** The const qualifier */
     constQualifier: Function.ConstQualifier = Function.NonConst,
-    /** The override qualifier */
-    overrideQualifier: Function.OverrideQualifier = Function.NoOverride,
   )
   case object Function {
     case class Param(
@@ -90,16 +88,15 @@ object CppDoc {
       default: Option[String] = None
     )
     sealed trait SVQualifier
+    case object Final extends SVQualifier
     case object NonSV extends SVQualifier
+    case object Override extends SVQualifier
     case object PureVirtual extends SVQualifier
-    case object Virtual extends SVQualifier
     case object Static extends SVQualifier
+    case object Virtual extends SVQualifier
     sealed trait ConstQualifier
     case object Const extends ConstQualifier
     case object NonConst extends ConstQualifier
-    sealed trait OverrideQualifier
-    case object Override extends OverrideQualifier
-    case object NoOverride extends OverrideQualifier
   }
 
   /** A C++ namespace */
