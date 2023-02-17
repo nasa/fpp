@@ -246,8 +246,7 @@ trait CppWriterUtils extends LineUtils {
     retType: CppDoc.Type,
     body: List[Line],
     svQualifier: CppDoc.Function.SVQualifier = CppDoc.Function.NonSV,
-    constQualifier: CppDoc.Function.ConstQualifier = CppDoc.Function.NonConst,
-    overrideQualifier: CppDoc.Function.OverrideQualifier = CppDoc.Function.NoOverride,
+    constQualifier: CppDoc.Function.ConstQualifier = CppDoc.Function.NonConst
   ): CppDoc.Class.Member.Function =
     CppDoc.Class.Member.Function(
       CppDoc.Function(
@@ -257,8 +256,7 @@ trait CppWriterUtils extends LineUtils {
         retType,
         body,
         svQualifier,
-        constQualifier,
-        overrideQualifier
+        constQualifier
       )
     )
 
