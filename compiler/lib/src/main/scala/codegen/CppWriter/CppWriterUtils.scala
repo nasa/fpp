@@ -17,6 +17,32 @@ trait CppWriterUtils extends LineUtils {
       members
   }
 
+  /** Add an access tag and comment to a nonempty list of class members */
+  def addAccessTagAndComment(
+    accessTag: String,
+    comment: List[CppDoc.Class.Member],
+    members: List[CppDoc.Class.Member]
+  ): List[CppDoc.Class.Member] = members match {
+    case Nil => Nil
+    case _ =>
+      linesClassMember(CppDocHppWriter.writeAccessTag(accessTag)) ::
+        (comment ++ members)
+  }
+
+  /** Write a comment with a description that appears only in the hpp file */
+  def writeComment(
+    comment: String,
+    description: Option[String] = None
+  ): List[CppDoc.Class.Member] = description match {
+    case Some(s) => List(
+      linesClassMember(CppDocWriter.writeBannerComment(comment), CppDoc.Lines.Both),
+      linesClassMember(CppDocWriter.writeBannerComment(s"$comment\n\n$s"))
+    )
+    case None => List(
+      linesClassMember(CppDocWriter.writeBannerComment(comment), CppDoc.Lines.Both)
+    )
+  }
+
   def wrapInScope(
     s1: String,
     ll: List[Line],
@@ -146,6 +172,43 @@ trait CppWriterUtils extends LineUtils {
         ),
       )
     )
+
+  /** Write an enumerated constant */
+  def writeEnumConstant(
+    name: String,
+    value: BigInt,
+    comment: Option[String] = None,
+    radix: CppWriterUtils.Radix = CppWriterUtils.Decimal
+  ): String = {
+    val valueStr = radix match {
+      case CppWriterUtils.Decimal => value.toString
+      case CppWriterUtils.Hex => s"0x${value.toString(16)}"
+    }
+    val commentStr = comment match {
+      case Some(s) => s" //! $s"
+      case None => ""
+    }
+
+    s"$name = $valueStr,$commentStr"
+  }
+
+  /** Write a function call with fixed and variable arguments */
+  def writeFunctionCall(
+    name: String,
+    args: List[String],
+    variableArgs: List[String] = Nil
+  ): List[Line] = variableArgs match {
+    case Nil => lines(
+      s"$name(${args.mkString(", ")});"
+    )
+    case _ => wrapInScope(
+      s"$name(",
+      lines(
+        (args ++ variableArgs).mkString(",\n")
+      ),
+      ");"
+    )
+  }
 
   def classMember(
     comment: Option[String],
@@ -278,5 +341,13 @@ trait CppWriterUtils extends LineUtils {
     case head :: tail =>
       List(namespaceMember(head, wrapInNamespaces(tail, members)))
   }
+
+}
+
+object CppWriterUtils {
+
+  sealed trait Radix
+  case object Decimal extends Radix
+  case object Hex extends Radix
 
 }
