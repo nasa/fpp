@@ -17,55 +17,42 @@ case class ComponentOutputPorts(
         "public",
         s"Connect ${getPortTypeString(ports.head)} input ports to ${getPortTypeString(ports.head)} output ports"
       ),
-      mapPorts(ports, p => List(
-        functionClassMember(
-          Some(s"Connect port to ${p.getUnqualifiedName}[portNum]"),
-          outputPortConnectorName(p.getUnqualifiedName),
-          List(
-            portNumParam,
-            CppDoc.Function.Param(
-              CppDoc.Type(s"${getQualifiedPortTypeName(p, PortInstance.Direction.Input)}*"),
-              "port",
-              Some("The input port")
+      mapPorts(ports, p => {
+        val connectionFunction = p.getType.get match {
+          case PortInstance.Type.DefPort(_) => "addCallPort"
+          case PortInstance.Type.Serial => "registerSerialPort"
+        }
+
+        List(
+          functionClassMember(
+            Some(s"Connect port to ${p.getUnqualifiedName}[portNum]"),
+            outputPortConnectorName(p.getUnqualifiedName),
+            List(
+              portNumParam,
+              CppDoc.Function.Param(
+                p.getType.get match {
+                  case PortInstance.Type.DefPort(_) =>
+                    CppDoc.Type(s"${getQualifiedPortTypeName(p, PortInstance.Direction.Input)}*")
+                  case PortInstance.Type.Serial =>
+                    CppDoc.Type("Fw::InputSerializePort*")
+                },
+                "port",
+                Some("The input port")
+              )
+            ),
+            CppDoc.Type("void"),
+            lines(
+              s"""|FW_ASSERT(
+                  |  portNum < this->${portNumGetterName(p)}(),
+                  |  static_cast<FwAssertArgType>(portNum)
+                  |);
+                  |
+                  |this->${portVariableName(p)}[portNum].$connectionFunction(port);
+                  |"""
             )
-          ),
-          CppDoc.Type("void"),
-          lines(
-            s"""|FW_ASSERT(
-                |  portNum < this->${portNumGetterName(p)}(),
-                |  static_cast<FwAssertArgType>(portNum)
-                |);
-                |
-                |this->${portVariableName(p)}[portNum].addCallPort(port);
-                |"""
           )
         )
-      )),
-      wrapClassMembersInIfDirective(
-        "\n#if FW_PORT_SERIALIZATION",
-        List(
-          writeAccessTagAndComment(
-            "public",
-            s"Connect serial input ports to ${getPortTypeString(ports.head)} output ports"
-          ),
-          mapPorts(ports, p => List(
-            functionClassMember(
-              Some(s"Connect port to ${p.getUnqualifiedName}[portNum]"),
-              outputPortConnectorName(p.getUnqualifiedName),
-              List(
-                portNumParam,
-                CppDoc.Function.Param(
-                  CppDoc.Type(s"Fw::InputSerializePort*"),
-                  "port",
-                  Some("The port")
-                )
-              ),
-              CppDoc.Type("void"),
-              Nil
-            )
-          ))
-        ).flatten
-      )
+      })
     ).flatten
   }
 
@@ -86,27 +73,26 @@ case class ComponentOutputPorts(
               List(
                 portNumParam,
                 CppDoc.Function.Param(
-                  CppDoc.Type("Fw::InputSerializePort*"),
+                  p.getType.get match {
+                    case PortInstance.Type.DefPort(_) =>
+                      CppDoc.Type("Fw::InputSerializePort*")
+                    case PortInstance.Type.Serial =>
+                      CppDoc.Type("Fw::InputPortBase*")
+                  },
                   "port",
                   Some("The port")
                 )
               ),
               CppDoc.Type("void"),
-              Nil
-            ),
-            functionClassMember(
-              Some(s"Connect port to ${p.getUnqualifiedName}[portNum]"),
-              outputPortConnectorName(p.getUnqualifiedName),
-              List(
-                portNumParam,
-                CppDoc.Function.Param(
-                  CppDoc.Type("Fw::InputPortBase*"),
-                  "port",
-                  Some("The port")
-                )
+              lines(
+                s"""|FW_ASSERT(
+                    |  portNum < this->${portNumGetterName(p)}(),
+                    |  static_cast<FwAssertArgType>(portNum)
+                    |);
+                    |
+                    |this->${portVariableName(p)}[portNum].registerSerialPort(port);
+                    |"""
               ),
-              CppDoc.Type("void"),
-              Nil
             )
           )
         )
@@ -121,15 +107,35 @@ case class ComponentOutputPorts(
         "PROTECTED",
         s"Invocation functions for ${getPortTypeString(ports.head)} output ports"
       ),
-      ports.map(p =>
+      ports.map(p => {
+        val invokeFunction = p.getType.get match {
+          case PortInstance.Type.DefPort(_) => "invoke"
+          case PortInstance.Type.Serial => "invokeSerial"
+        }
+
         functionClassMember(
           Some(s"Invoke output port ${p.getUnqualifiedName}"),
           outputPortInvokerName(p.getUnqualifiedName),
           portNumParam :: getPortFunctionParams(p),
           getReturnType(p),
-          Nil
+          List.concat(
+            lines(
+              s"""|FW_ASSERT(
+                  |  portNum < this->${portNumGetterName(p)}(),
+                  |  static_cast<FwAssertArgType>(portNum)
+                  |);
+                  |
+                  |"""
+            ),
+            lines(
+              addReturnKeyword(
+                s"this->${portVariableName(p)}[portNum].$invokeFunction(${getPortParams(p).map(_._1).mkString(", ")});",
+                p
+              )
+            )
+          )
         )
-      )
+      })
     ).flatten
   }
 
@@ -151,7 +157,15 @@ case class ComponentOutputPorts(
           outputPortIsConnectedName(p.getUnqualifiedName),
           List(portNumParam),
           CppDoc.Type("bool"),
-          Nil
+          lines(
+            s"""|FW_ASSERT(
+                |  portNum < this->${portNumGetterName(p)}(),
+                |  static_cast<FwAssertArgType>(portNum)
+                |);
+                |
+                |return this->${portVariableName(p)}[portNum].isConnected();
+                |"""
+          )
         )
       ))
     ).flatten

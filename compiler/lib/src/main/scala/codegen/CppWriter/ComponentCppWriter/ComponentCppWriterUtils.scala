@@ -311,6 +311,12 @@ abstract class ComponentCppWriterUtils(
       }
     )
 
+  def addReturnKeyword(str: String, p: PortInstance): String =
+    getPortReturnType(p) match {
+      case Some(_) => s"return $str"
+      case None => str
+    }
+
   /** Get the port type as a string */
   def getPortTypeString(p: PortInstance): String =
     p match {
@@ -323,7 +329,7 @@ abstract class ComponentCppWriterUtils(
     }
 
   /** Get the command param type as a string */
-  def getCommandParamString(kind: Command.Param.Kind) =
+  def getCommandParamString(kind: Command.Param.Kind): String =
     kind match {
       case Command.Param.Save => "save"
       case Command.Param.Set => "set"
@@ -446,7 +452,7 @@ abstract class ComponentCppWriterUtils(
     s"${name}_cmdHandlerBase"
 
   /** Get the name for a command opcode constant */
-  def commandConstantName(cmd: Command) = {
+  def commandConstantName(cmd: Command): String = {
     val name = cmd match {
       case Command.NonParam(_, _) =>
         cmd.getName
