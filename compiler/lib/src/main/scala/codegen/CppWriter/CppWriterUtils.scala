@@ -17,32 +17,6 @@ trait CppWriterUtils extends LineUtils {
       members
   }
 
-  /** Add an access tag and comment to a nonempty list of class members */
-  def addAccessTagAndComment(
-    accessTag: String,
-    comment: List[CppDoc.Class.Member],
-    members: List[CppDoc.Class.Member]
-  ): List[CppDoc.Class.Member] = members match {
-    case Nil => Nil
-    case _ =>
-      linesClassMember(CppDocHppWriter.writeAccessTag(accessTag)) ::
-        (comment ++ members)
-  }
-
-  /** Write a comment with a description that appears only in the hpp file */
-  def writeComment(
-    comment: String,
-    description: Option[String] = None
-  ): List[CppDoc.Class.Member] = description match {
-    case Some(s) => List(
-      linesClassMember(CppDocWriter.writeBannerComment(comment), CppDoc.Lines.Both),
-      linesClassMember(CppDocWriter.writeBannerComment(s"$comment\n\n$s"))
-    )
-    case None => List(
-      linesClassMember(CppDocWriter.writeBannerComment(comment), CppDoc.Lines.Both)
-    )
-  }
-
   def wrapInScope(
     s1: String,
     ll: List[Line],
