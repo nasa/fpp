@@ -22,12 +22,18 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: 'sbt'
+    - name: Install Scala
+      run: |
+        curl -fL https://github.com/coursier/launchers/raw/master/cs-x86_64-pc-linux.gz | gzip -d > cs
+        chmod +x cs
+        echo Y | ./cs setup
     - name: Install fpp tools
       run: compiler/install
     - name: Run sbt tests
       run: sbt test
     - name: Run fpp tests
       run: |
+        export PATH=~/.local/share/coursier/bin:$PATH
         cd compiler/
         ./test
     - name: Clean up
