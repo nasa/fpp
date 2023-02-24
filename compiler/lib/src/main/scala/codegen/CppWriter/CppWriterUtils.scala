@@ -94,8 +94,9 @@ trait CppWriterUtils extends LineUtils {
     body: List[T],
     constructMemberLines: CppDoc.Lines => T,
     linesOutput: CppDoc.Lines.Output = CppDoc.Lines.Both
-  ): List[T] =
-    List(
+  ): List[T] = body match {
+    case Nil => Nil
+    case _ => List(
       List(
         constructMemberLines(
           CppDoc.Lines(
@@ -114,6 +115,7 @@ trait CppWriterUtils extends LineUtils {
         )
       ),
     ).flatten
+  }
 
   def writeOstreamOperator(
     name: String,
@@ -146,6 +148,43 @@ trait CppWriterUtils extends LineUtils {
         ),
       )
     )
+
+  /** Write an enumerated constant */
+  def writeEnumConstant(
+    name: String,
+    value: BigInt,
+    comment: Option[String] = None,
+    radix: CppWriterUtils.Radix = CppWriterUtils.Decimal
+  ): String = {
+    val valueStr = radix match {
+      case CppWriterUtils.Decimal => value.toString
+      case CppWriterUtils.Hex => s"0x${value.toString(16)}"
+    }
+    val commentStr = comment match {
+      case Some(s) => s" //! $s"
+      case None => ""
+    }
+
+    s"$name = $valueStr,$commentStr"
+  }
+
+  /** Write a function call with fixed and variable arguments */
+  def writeFunctionCall(
+    name: String,
+    args: List[String],
+    variableArgs: List[String] = Nil
+  ): List[Line] = variableArgs match {
+    case Nil => lines(
+      s"$name(${args.mkString(", ")});"
+    )
+    case _ => wrapInScope(
+      s"$name(",
+      lines(
+        (args ++ variableArgs).mkString(",\n")
+      ),
+      ");"
+    )
+  }
 
   def classMember(
     comment: Option[String],
@@ -276,5 +315,13 @@ trait CppWriterUtils extends LineUtils {
     case head :: tail =>
       List(namespaceMember(head, wrapInNamespaces(tail, members)))
   }
+
+}
+
+object CppWriterUtils {
+
+  sealed trait Radix
+  case object Decimal extends Radix
+  case object Hex extends Radix
 
 }
