@@ -94,8 +94,9 @@ trait CppWriterUtils extends LineUtils {
     body: List[T],
     constructMemberLines: CppDoc.Lines => T,
     linesOutput: CppDoc.Lines.Output = CppDoc.Lines.Both
-  ): List[T] =
-    List(
+  ): List[T] = body match {
+    case Nil => Nil
+    case _ => List(
       List(
         constructMemberLines(
           CppDoc.Lines(
@@ -114,6 +115,7 @@ trait CppWriterUtils extends LineUtils {
         )
       ),
     ).flatten
+  }
 
   def writeOstreamOperator(
     name: String,
