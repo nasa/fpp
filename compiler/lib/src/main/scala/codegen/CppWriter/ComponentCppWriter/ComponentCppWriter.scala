@@ -240,10 +240,13 @@ case class ComponentCppWriter (
     List(
       linesClassMember(
         Line.blank :: wrapInAnonymousNamespace(
-          List(
-            getMsgTypeEnum,
-            Line.blank :: getComponentIpcSerializableBufferClass
-          ).flatten
+          intersperseBlankLines(
+            List(
+              getMsgTypeEnum,
+              getBuffUnion,
+              getComponentIpcSerializableBufferClass
+            )
+          )
         ),
         CppDoc.Lines.Cpp
       )
@@ -264,6 +267,44 @@ case class ComponentCppWriter (
           asyncCmds.map((_, cmd) => commandCppConstantName(cmd)),
           internalPorts.map(internalPortCppConstantName),
         ).flatten.map(s => line(s"$s,"))
+      ).flatten,
+      "};"
+    )
+  }
+
+  private def getBuffUnion: List[Line] = {
+    line("// Get the max size by doing a union of the input and internal port serialization sizes")
+    wrapInScope(
+      "union BuffUnion {",
+      List(
+        lines(
+          typedInputPorts.map(p =>
+            s"BYTE ${p.getUnqualifiedName}PortSize[${getQualifiedPortTypeName(p, p.getDirection.get)}::SERIALIZED_SIZE];"
+          ).mkString("\n"),
+        ),
+        cmdRespPort match {
+          case Some(p) => lines(
+            s"BYTE cmdPortSize[Fw::InputCmdPort::SERIALIZED_SIZE];"
+          )
+          case None => Nil
+        },
+        internalPorts.flatMap(p => p.aNode._2.data.params match {
+          case Nil => Nil
+          case l =>
+            line(s"// Size of ${p.getUnqualifiedName} argument list") ::
+              wrapInScope(
+                s"BYTE ${p.getUnqualifiedName}IntIfSize[",
+                lines(
+                  l.map(param =>
+                    s.getSerializedSizeExpr(
+                      s.a.typeMap(param._2.data.typeName.id),
+                      writeInternalPortParam(param._2.data)
+                    )
+                  ).mkString(" +\n")
+                ),
+                "];"
+              )
+        }),
       ).flatten,
       "};"
     )

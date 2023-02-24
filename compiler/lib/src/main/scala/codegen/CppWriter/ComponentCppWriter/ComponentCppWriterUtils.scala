@@ -362,6 +362,15 @@ abstract class ComponentCppWriterUtils(
     s"$name = $valueStr,$commentStr"
   }
 
+  /** Write an internal port param as a C++ type */
+  def writeInternalPortParam(param: Ast.FormalParam) =
+    writeCppTypeName(
+      s.a.typeMap(param.typeName.id),
+      s,
+      Nil,
+      Some("Fw::InternalInterfaceString")
+    )
+
   /** Write a channel type as a C++ type */
   def writeChannelType(t: Type): String =
     writeCppTypeName(t, s, Nil, Some("Fw::TlmString"))
@@ -460,15 +469,6 @@ abstract class ComponentCppWriterUtils(
       s.a.typeMap(param.typeName.id),
       s,
       PortCppWriter.getPortNamespaces(symbol.getUnqualifiedName)
-    )
-
-  /** Write an internal port param as a C++ type */
-  private def writeInternalPortParam(param: Ast.FormalParam) =
-    writeCppTypeName(
-      s.a.typeMap(param.typeName.id),
-      s,
-      Nil,
-      Some("Fw::InternalInterfaceString")
     )
 
   /** Write a command param as a C++ type */
