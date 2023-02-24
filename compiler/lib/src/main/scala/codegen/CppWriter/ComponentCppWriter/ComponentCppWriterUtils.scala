@@ -152,61 +152,6 @@ abstract class ComponentCppWriterUtils(
 
   val hasParameters: Boolean = component.paramMap.nonEmpty
 
-  // Map from a port instance name to param list
-  private val portParamMap =
-    List(
-      specialInputPorts,
-      typedInputPorts,
-      specialOutputPorts,
-      typedOutputPorts,
-      internalPorts
-    ).flatten.map(p =>
-      p.getType match {
-        case Some(PortInstance.Type.DefPort(symbol)) => Some((
-          p.getUnqualifiedName,
-          writeFormalParamList(
-            symbol.node._2.data.params,
-            s,
-            PortCppWriter.getPortNamespaces(symbol.node._2.data.name)
-          )
-        ))
-        case None => p match {
-          case PortInstance.Internal(node, _, _) => Some((
-            p.getUnqualifiedName,
-            writeFormalParamList(
-              node._2.data.params,
-              s,
-              Nil,
-              Some("Fw::InternalInterfaceString")
-            )
-          ))
-          case _ => None
-        }
-        case _ => None
-      }
-    ).filter(_.isDefined).map(_.get).toMap
-
-  /** Get the qualified name of a port type */
-  def getQualifiedPortTypeName(
-    p: PortInstance,
-    direction: PortInstance.Direction
-  ): String = {
-    p.getType match {
-      case Some(PortInstance.Type.DefPort(symbol)) =>
-        val qualifiers = s.a.getEnclosingNames(symbol)
-        val cppQualifier = qualifiers match {
-          case Nil => ""
-          case _ => qualifiers.mkString("::") + "::"
-        }
-        val name = PortCppWriter.getPortName(symbol.getUnqualifiedName, direction)
-
-        cppQualifier + name
-      case Some(PortInstance.Type.Serial) =>
-        s"Fw::${direction.toString.capitalize}SerializePort"
-      case None => ""
-    }
-  }
-
   /** Calls writePort() on each port in ports, wrapping the result in an if directive if necessary */
   def mapPorts(
     ports: List[PortInstance],
@@ -224,21 +169,6 @@ abstract class ComponentCppWriterUtils(
     })
   }
 
-  /** Get port params as CppDoc Function Params */
-  def getPortFunctionParams(p: PortInstance): List[CppDoc.Function.Param] =
-    p.getType match {
-      case Some(PortInstance.Type.DefPort(_)) | None =>
-        portParamMap(p.getUnqualifiedName)
-      case Some(PortInstance.Type.Serial) =>
-        List(
-          CppDoc.Function.Param(
-            CppDoc.Type("Fw::SerializeBufferBase&"),
-            "buffer",
-            Some("The serialization buffer")
-          )
-        )
-    }
-
   /** Get the port type as a string */
   def getPortTypeString(p: PortInstance): String =
     p match {
@@ -249,29 +179,6 @@ abstract class ComponentCppWriterUtils(
       case _: PortInstance.Special => "special"
       case _: PortInstance.Internal => "internal"
     }
-
-  /** Write an enumerated constant */
-  def writeEnumConstant(
-    name: String,
-    value: BigInt,
-    comment: Option[String] = None,
-    radix: ComponentCppWriterUtils.Radix = ComponentCppWriterUtils.Decimal
-  ): String = {
-    val valueStr = radix match {
-      case ComponentCppWriterUtils.Decimal => value.toString
-      case ComponentCppWriterUtils.Hex => s"0x${value.toString(16)}"
-    }
-    val commentStr = comment match {
-      case Some(s) => s" //! $s"
-      case None => ""
-    }
-
-    s"$name = $valueStr,$commentStr"
-  }
-
-  /** Write a channel type as a C++ type */
-  def writeChannelType(t: Type) =
-    writeCppTypeName(t, s, Nil, Some("Fw::TlmString"))
 
   /** Add an optional string separated by two newlines */
   def addSeparatedString(str: String, strOpt: Option[String]): String = {

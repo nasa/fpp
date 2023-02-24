@@ -279,7 +279,7 @@ case class ComponentDataProducts (
       recordsByName.map((id, record) => {
         val name = record.getName
         val t = record.recordType
-        val typeName = writeCppTypeName(t, s)
+        val typeName = TypeCppWriter.getName(s, t)
         val paramType = if (s.isPrimitive(t, typeName))
           typeName else s"const ${typeName}&"
         val typeSize = s.getSerializedSizeExpr(t, typeName)
