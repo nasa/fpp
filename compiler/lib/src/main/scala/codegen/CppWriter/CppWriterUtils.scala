@@ -17,6 +17,14 @@ trait CppWriterUtils extends LineUtils {
       members
   }
 
+  /** Add an optional string separated by two newlines */
+  def addSeparatedString(str: String, strOpt: Option[String]): String = {
+    strOpt match {
+      case Some(s) => s"$str\n\n$s"
+      case None => str
+    }
+  }
+
   def wrapInScope(
     s1: String,
     ll: List[Line],
