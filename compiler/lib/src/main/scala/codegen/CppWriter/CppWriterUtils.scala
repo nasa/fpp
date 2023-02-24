@@ -6,6 +6,20 @@ import fpp.compiler.ast._
 /** Utilities for writing C++ */
 trait CppWriterUtils extends LineUtils {
 
+  /** Add an access tag and comment to a nonempty list of class members */
+  def addAccessTagAndComment(
+    accessTag: String,
+    comment: String,
+    members: List[CppDoc.Class.Member],
+    output: CppDoc.Lines.Output = CppDoc.Lines.Both
+  ): List[CppDoc.Class.Member] = members match {
+    case Nil => Nil
+    case _ =>
+      linesClassMember(CppDocHppWriter.writeAccessTag(accessTag)) ::
+      linesClassMember(CppDocWriter.writeBannerComment(comment), output) ::
+      members
+  }
+
   def wrapInScope(
     s1: String,
     ll: List[Line],
@@ -21,14 +35,20 @@ trait CppWriterUtils extends LineUtils {
   def wrapInNamespace(namespace: String, ll: List[Line]): List[Line] =
     wrapInScope(s"namespace $namespace {", ll, "}")
 
+  def wrapInNamedEnum(name: String, ll: List[Line]): List[Line] =
+    wrapInScope(s"enum $name {", ll, "};")
+
+  def wrapInNamedStruct(name: String, ll: List[Line]): List[Line] =
+    wrapInScope(s"struct $name {", ll, "};")
+
   def wrapInEnum(ll: List[Line]): List[Line] =
     wrapInScope("enum {", ll, "};")
 
-  def wrapInStatement(statement: String, condition: String, body: List[Line]) =
-    wrapInScope(s"$statement ($condition) {", body, "}")
+  def wrapInSwitch(condition: String, body: List[Line]) =
+    wrapInScope(s"switch ($condition) {", body, "}")
 
   def wrapInForLoop(init: String, condition: String, step: String, body: List[Line]): List[Line] =
-    wrapInStatement("for", s"$init; $condition; $step", body)
+    wrapInScope(s"for ($init; $condition; $step) {", body, "}")
 
   def wrapInForLoopStaggered(init: String, condition: String, step: String, body: List[Line]): List[Line] =
     wrapInScope(
@@ -43,13 +63,10 @@ trait CppWriterUtils extends LineUtils {
     )
 
   def wrapInIf(condition: String, body: List[Line]): List[Line] =
-    wrapInStatement("if", condition, body)
+    wrapInScope(s"if ($condition) {", body, "}")
 
   def wrapInIfElse(condition: String, ifBody: List[Line], elseBody: List[Line]): List[Line] =
     wrapInIf(condition, ifBody) ++ wrapInScope("else {", elseBody, "}")
-
-  def wrapInSwitch(condition: String, body: List[Line]) =
-    wrapInStatement("switch", condition, body)
 
   def wrapMembersInIfDirective(
     directive: String,
@@ -133,16 +150,6 @@ trait CppWriterUtils extends LineUtils {
       )
     )
 
-  /** Insert element between each element of list l */
-  def intersperseList[T](l: List[T], element: T): List[T] = l match {
-    case Nil | _ :: Nil => l
-    case h :: t => h :: element :: intersperseList(t, element)
-  }
-
-  /** Insert blank lines between each list of lines in l and flatten */
-  def intersperseBlankLines(l: List[List[Line]]): List[Line] =
-    intersperseList(l.filter(_ != Nil), List(Line.blank)).flatten
-
   def classMember(
     comment: Option[String],
     name: String,
@@ -150,6 +157,21 @@ trait CppWriterUtils extends LineUtils {
     members: List[CppDoc.Class.Member],
   ): CppDoc.Member.Class =
     CppDoc.Member.Class(
+      CppDoc.Class(
+        comment,
+        name,
+        superclassDecls,
+        members
+      )
+    )
+
+  def classClassMember(
+    comment: Option[String],
+    name: String,
+    superclassDecls: Option[String],
+    members: List[CppDoc.Class.Member],
+  ): CppDoc.Class.Member.Class =
+    CppDoc.Class.Member.Class(
       CppDoc.Class(
         comment,
         name,
@@ -225,6 +247,7 @@ trait CppWriterUtils extends LineUtils {
     body: List[Line],
     svQualifier: CppDoc.Function.SVQualifier = CppDoc.Function.NonSV,
     constQualifier: CppDoc.Function.ConstQualifier = CppDoc.Function.NonConst,
+    overrideQualifier: CppDoc.Function.OverrideQualifier = CppDoc.Function.NoOverride,
   ): CppDoc.Class.Member.Function =
     CppDoc.Class.Member.Function(
       CppDoc.Function(
@@ -234,7 +257,8 @@ trait CppWriterUtils extends LineUtils {
         retType,
         body,
         svQualifier,
-        constQualifier
+        constQualifier,
+        overrideQualifier
       )
     )
 

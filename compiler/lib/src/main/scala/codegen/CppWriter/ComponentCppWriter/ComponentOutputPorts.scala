@@ -11,12 +11,11 @@ case class ComponentOutputPorts(
 ) extends ComponentCppWriterUtils(s, aNode) {
 
   def getTypedConnectors(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    if ports.isEmpty then Nil
-    else List(
-      writeAccessTagAndComment(
-        "public",
-        s"Connect ${getPortTypeString(ports.head)} input ports to ${getPortTypeString(ports.head)} output ports"
-      ),
+    val typeStr = getPortListTypeString(ports)
+
+    addAccessTagAndComment(
+      "public",
+      s"Connect $typeStr input ports to $typeStr output ports",
       mapPorts(ports, p => {
         val connectionFunction = p.getType.get match {
           case PortInstance.Type.DefPort(_) => "addCallPort"
@@ -53,18 +52,15 @@ case class ComponentOutputPorts(
           )
         )
       })
-    ).flatten
+    )
   }
 
   def getSerialConnectors(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    if ports.isEmpty then Nil
-    else wrapClassMembersInIfDirective(
+    wrapClassMembersInIfDirective(
       "\n#if FW_PORT_SERIALIZATION",
-      List(
-        writeAccessTagAndComment(
-          "public",
-          "Connect serial input ports to serial output ports"
-        ),
+      addAccessTagAndComment(
+        "public",
+        "Connect serial input ports to serial output ports",
         ports.flatMap(p =>
           List(
             functionClassMember(
@@ -96,17 +92,14 @@ case class ComponentOutputPorts(
             )
           )
         )
-      ).flatten
+      )
     )
   }
 
   def getInvokers(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    if ports.isEmpty then Nil
-    else List(
-      writeAccessTagAndComment(
-        "PROTECTED",
-        s"Invocation functions for ${getPortTypeString(ports.head)} output ports"
-      ),
+    addAccessTagAndComment(
+      "PROTECTED",
+      s"Invocation functions for ${getPortListTypeString(ports)} output ports",
       ports.map(p => {
         val invokeFunction = p.getType.get match {
           case PortInstance.Type.DefPort(_) => "invoke"
@@ -136,16 +129,13 @@ case class ComponentOutputPorts(
           )
         )
       })
-    ).flatten
+    )
   }
 
   def getConnectionStatusQueries(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    if ports.isEmpty then Nil
-    else List(
-      writeAccessTagAndComment(
-        "PROTECTED",
-        s"Connection status queries for ${getPortTypeString(ports.head)} output ports"
-      ),
+    addAccessTagAndComment(
+      "PROTECTED",
+      s"Connection status queries for ${getPortListTypeString(ports)} output ports",
       mapPorts(ports, p => List(
         functionClassMember(
           Some(
@@ -168,7 +158,7 @@ case class ComponentOutputPorts(
           )
         )
       ))
-    ).flatten
+    )
   }
 
   // Get a port return type as a CppDoc Type

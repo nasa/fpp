@@ -392,11 +392,9 @@ case class ComponentCppWriter (
       )
       else Nil
 
-    List(
-      writeAccessTagAndComment(
-        "PROTECTED",
-        "Component construction, initialization, and destruction"
-      ),
+    addAccessTagAndComment(
+      "PROTECTED",
+      "Component construction, initialization, and destruction",
       List(
         constructorClassMember(
           Some(s"Construct $className object"),
@@ -456,21 +454,18 @@ case class ComponentCppWriter (
           CppDoc.Class.Destructor.Virtual
         )
       )
-    ).flatten
+    )
   }
 
   private def getMutexOperationMembers: List[CppDoc.Class.Member] = {
     if !hasGuardedInputPorts then Nil
-    else List(
-      writeAccessTagAndComment(
-        "PROTECTED",
-        "Mutex operations for guarded ports",
-        Some(
-          """|You can override these operations to provide more sophisticated
-             |synchronization
-             |"""
-        )
-      ),
+    else addAccessTagAndComment(
+      "PROTECTED",
+      """|Mutex operations for guarded ports
+         |
+         |You can override these operations to provide more sophisticated
+         |synchronization
+         |""",
       List(
         functionClassMember(
           Some("Lock the guarded mutex"),
@@ -493,7 +488,7 @@ case class ComponentCppWriter (
           CppDoc.Function.Virtual
         )
       )
-    ).flatten
+    )
   }
 
   private def getDispatchFunctionMember: List[CppDoc.Class.Member] = {
@@ -706,15 +701,13 @@ case class ComponentCppWriter (
            |"""
       )
 
-      List(
-        writeAccessTagAndComment(
-          data.kind match {
-            case Ast.ComponentKind.Active => "PRIVATE"
-            case Ast.ComponentKind.Queued => "PROTECTED"
-            case _ => ""
-          },
-          "Message dispatch functions"
-        ),
+      addAccessTagAndComment(
+        data.kind match {
+          case Ast.ComponentKind.Active => "PRIVATE"
+          case Ast.ComponentKind.Queued => "PROTECTED"
+          case _ => ""
+        },
+        "Message dispatch functions",
         List(
           functionClassMember(
             Some("Called in the message loop to dispatch a message from the queue"),
@@ -797,7 +790,7 @@ case class ComponentCppWriter (
             CppDoc.Function.Virtual
           )
         )
-      ).flatten
+      )
     }
   }
 
@@ -806,11 +799,9 @@ case class ComponentCppWriter (
     else {
       val name = portVariableName(timeGetPort.get)
 
-      List(
-        writeAccessTagAndComment(
-          "PROTECTED",
-          "Time"
-        ),
+      addAccessTagAndComment(
+        "PROTECTED",
+        "Time",
         List(
           functionClassMember(
             Some(
@@ -836,7 +827,7 @@ case class ComponentCppWriter (
             )
           )
         )
-      ).flatten
+      )
     }
 
   private def getMsgSizeVariableMember: List[CppDoc.Class.Member] = {
@@ -847,7 +838,7 @@ case class ComponentCppWriter (
           CppDocHppWriter.writeAccessTag("PRIVATE"),
           lines(
             """|
-             |//! Stores max message size
+               |//! Stores max message size
                |NATIVE_INT_TYPE m_msgSize;
                |"""
           )

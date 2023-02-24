@@ -54,40 +54,33 @@ case class ComponentEvents (
   }
 
   def getFunctionMembers: List[CppDoc.Class.Member] = {
-    if !hasEvents then Nil
-    else List(
+    List(
       getLoggingFunctions,
       getThrottleFunctions
     ).flatten
   }
 
   def getVariableMembers: List[CppDoc.Class.Member] = {
-    if throttledEvents.isEmpty then Nil
-    else List(
-      linesClassMember(
-        List(
-          CppDocHppWriter.writeAccessTag("PRIVATE"),
-          CppDocWriter.writeBannerComment(
-            "Counter values for event throttling"
-          ),
-          throttledEvents.flatMap((_, event) =>
-            Line.blank :: lines(
-              s"""|//! Throttle for ${event.getName}
-                  |NATIVE_UINT_TYPE ${eventThrottleCounterName(event.getName)};
-                  |"""
-            )
+    addAccessTagAndComment(
+      "PRIVATE",
+      "Counter values for event throttling",
+      throttledEvents.map((_, event) =>
+        linesClassMember(
+          Line.blank :: lines(
+            s"""|//! Throttle for ${event.getName}
+                |NATIVE_UINT_TYPE ${eventThrottleCounterName(event.getName)};
+                |"""
           )
-        ).flatten
-      )
+        )
+      ),
+      CppDoc.Lines.Hpp
     )
   }
 
   private def getLoggingFunctions: List[CppDoc.Class.Member] = {
-    List(
-      writeAccessTagAndComment(
-        "PROTECTED",
-        "Event logging functions"
-      ),
+    addAccessTagAndComment(
+      "PROTECTED",
+      "Event logging functions",
       sortedEvents.map((_, event) =>
         functionClassMember(
           Some(
@@ -108,16 +101,13 @@ case class ComponentEvents (
           Nil
         )
       )
-    ).flatten
+    )
   }
 
   private def getThrottleFunctions: List[CppDoc.Class.Member] = {
-    if throttledEvents.isEmpty then Nil
-    else List(
-      writeAccessTagAndComment(
-        "PROTECTED",
-        "Event throttle reset functions"
-      ),
+    addAccessTagAndComment(
+      "PROTECTED",
+      "Event throttle reset functions",
       throttledEvents.map((_, event) =>
         functionClassMember(
           Some(s"Reset throttle value for ${event.getName}"),
@@ -127,7 +117,7 @@ case class ComponentEvents (
           Nil
         )
       )
-    ).flatten
+    )
   }
 
   // Get the name for an event ID constant

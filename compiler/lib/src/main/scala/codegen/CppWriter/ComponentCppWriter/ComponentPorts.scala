@@ -86,7 +86,7 @@ case class ComponentPorts(
       linesClassMember(
         List(
           Line.blank :: lines(
-            s"//! Enumerations for numbers of ${getPortTypeString(ports.head)} ${ports.head.getDirection.get.toString} ports"
+            s"//! Enumerations for numbers of ${getPortListTypeString(ports)} ${ports.head.getDirection.get.toString} ports"
           ),
           wrapInEnum(
             lines(
@@ -104,12 +104,14 @@ case class ComponentPorts(
   }
 
   private def getNumGetters(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    if ports.isEmpty then Nil
-    else List(
-      writeAccessTagAndComment(
-        "PROTECTED",
-        s"Getters for numbers of ${getPortTypeString(ports.head)} ${ports.head.getDirection.get.toString} ports"
-      ),
+    val dirStr = ports match {
+      case Nil => ""
+      case _ => ports.head.getDirection.get.toString
+    }
+
+    addAccessTagAndComment(
+      "PROTECTED",
+      s"Getters for numbers of ${getPortListTypeString(ports)} $dirStr ports",
       mapPorts(ports, p => List(
         functionClassMember(
           Some(
@@ -126,7 +128,7 @@ case class ComponentPorts(
           )
         )
       ))
-    ).flatten
+    )
   }
 
   private def getVariables(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
@@ -137,7 +139,7 @@ case class ComponentPorts(
           List(
             CppDocHppWriter.writeAccessTag("PRIVATE"),
             CppDocWriter.writeBannerComment(
-              s"${getPortTypeString(ports.head).capitalize} ${ports.head.getDirection.get.toString} ports"
+              s"${getPortListTypeString(ports).capitalize} ${ports.head.getDirection.get.toString} ports"
             ),
           ).flatten
         )
@@ -157,7 +159,7 @@ case class ComponentPorts(
             )
           )
         )
-      })
+      }, CppDoc.Lines.Hpp)
     ).flatten
   }
 

@@ -76,8 +76,7 @@ case class ComponentCommands (
   }
 
   private def getFunctions: List[CppDoc.Class.Member] = {
-    if nonParamCmds.isEmpty then Nil
-    else List(
+    List(
       getHandlers,
       getHandlerBases,
       getPreMsgHooks
@@ -85,11 +84,9 @@ case class ComponentCommands (
   }
 
   private def getRegFunction: List[CppDoc.Class.Member] = {
-    List(
-      writeAccessTagAndComment(
-        "public",
-        "Command registration"
-      ),
+    addAccessTagAndComment(
+      "public",
+      "Command registration",
       List(
         functionClassMember(
           Some(
@@ -104,15 +101,13 @@ case class ComponentCommands (
           Nil
         )
       )
-    ).flatten
+    )
   }
 
   private def getHandlers: List[CppDoc.Class.Member] = {
-    List(
-      writeAccessTagAndComment(
-        "PROTECTED",
-        "Command handlers to implement"
-      ),
+    addAccessTagAndComment(
+      "PROTECTED",
+      "Command handlers to implement",
       nonParamCmds.map((opcode, cmd) =>
         functionClassMember(
           Some(
@@ -133,19 +128,18 @@ case class ComponentCommands (
           Nil,
           CppDoc.Function.PureVirtual
         )
-      )
-    ).flatten
+      ),
+      CppDoc.Lines.Hpp
+    )
   }
 
   private def getHandlerBases: List[CppDoc.Class.Member] = {
-    List(
-      writeAccessTagAndComment(
-        "PROTECTED",
-        "Command handler base-class functions",
-        Some(
-           "Call these functions directly to bypass the command input port"
-        )
-      ),
+    addAccessTagAndComment(
+      "PROTECTED",
+      """|Command handler base-class functions
+         |
+         |Call these functions directly to bypass the command input port
+         |""",
       nonParamCmds.map((_, cmd) =>
         functionClassMember(
           Some(
@@ -168,15 +162,13 @@ case class ComponentCommands (
           Nil
         )
       )
-    ).flatten
+    )
   }
 
   private def getResponseFunction: List[CppDoc.Class.Member] = {
-    List(
-      writeAccessTagAndComment(
-        "PROTECTED",
-        "Command response"
-      ),
+    addAccessTagAndComment(
+      "PROTECTED",
+      "Command response",
       List(
         functionClassMember(
           Some(
@@ -196,21 +188,18 @@ case class ComponentCommands (
           Nil
         )
       )
-    ).flatten
+    )
   }
 
   private def getPreMsgHooks: List[CppDoc.Class.Member] = {
-    List(
-      writeAccessTagAndComment(
-        "PROTECTED",
-        "Pre-message hooks for async commands",
-        Some(
-          """|Each of these functions is invoked just before processing the
-             |corresponding command. By default they do nothing. You can
-             |override them to provide specific pre-command behavior.
-             |"""
-        )
-      ),
+    addAccessTagAndComment(
+      "PROTECTED",
+      """|Pre-message hooks for async commands
+         |
+         |Each of these functions is invoked just before processing the
+         |corresponding command. By default they do nothing. You can
+         |override them to provide specific pre-command behavior.
+         |""",
       asyncCmds.map((_, cmd) =>
         functionClassMember(
           Some(s"Pre-message hook for command ${cmd.getName}"),
@@ -224,7 +213,7 @@ case class ComponentCommands (
           CppDoc.Function.Virtual
         )
       )
-    ).flatten
+    )
   }
 
 }

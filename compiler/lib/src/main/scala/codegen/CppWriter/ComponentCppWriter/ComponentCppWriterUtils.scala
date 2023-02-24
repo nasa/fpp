@@ -246,14 +246,16 @@ abstract class ComponentCppWriterUtils(
   /** Calls writePort() on each port in ports, wrapping the result in an if directive if necessary */
   def mapPorts(
     ports: List[PortInstance],
-    writePort: PortInstance => List[CppDoc.Class.Member]
+    writePort: PortInstance => List[CppDoc.Class.Member],
+    output: CppDoc.Lines.Output = CppDoc.Lines.Both
   ): List[CppDoc.Class.Member] = {
     ports.flatMap(p => p match {
       case PortInstance.Special(aNode, _, _) => aNode._2.data match {
         case Ast.SpecPortInstance.Special(kind, _) => kind match {
           case Ast.SpecPortInstance.TextEvent => wrapClassMembersInIfDirective(
             "\n#if FW_ENABLE_TEXT_LOGGING == 1",
-            writePort(p)
+            writePort(p),
+            output
           )
           case _ => writePort(p)
         }
@@ -328,6 +330,12 @@ abstract class ComponentCppWriterUtils(
       case _: PortInstance.Internal => "internal"
     }
 
+  def getPortListTypeString(ports: List[PortInstance]): String =
+    ports match {
+      case Nil => ""
+      case _ => getPortTypeString(ports.head)
+    }
+
   /** Get the command param type as a string */
   def getCommandParamString(kind: Command.Param.Kind): String =
     kind match {
@@ -371,43 +379,6 @@ abstract class ComponentCppWriterUtils(
     commentOpt match {
       case Some(s) => s"//! $str\n//!\n//! $s"
       case None => str
-    }
-  }
-
-  /** Write a banner comment in cpp and hpp files, with description and access tag in hpp file only */
-  def writeAccessTagAndComment(
-    accessTag: String,
-    comment: String,
-    description: Option[String] = None
-  ): List[CppDoc.Class.Member] = {
-    description match {
-      case Some(s) => List(
-        linesClassMember(
-          List(
-            CppDocHppWriter.writeAccessTag(accessTag),
-            CppDocWriter.writeBannerComment(
-              s"$comment\n\n$s"
-            )
-          ).flatten
-        ),
-        linesClassMember(
-          CppDocWriter.writeBannerComment(
-            comment
-          ),
-          CppDoc.Lines.Cpp
-        ),
-      )
-      case None => List(
-        linesClassMember(
-          CppDocHppWriter.writeAccessTag(accessTag)
-        ),
-        linesClassMember(
-          CppDocWriter.writeBannerComment(
-            comment
-          ),
-          CppDoc.Lines.Both
-        )
-      )
     }
   }
 

@@ -2,4 +2,4 @@
 # The FPP version
 # ----------------------------------------------------------------------
 
-export VERSION="v1.2.0"
+export VERSION="Unreleased, after v1.2.0"

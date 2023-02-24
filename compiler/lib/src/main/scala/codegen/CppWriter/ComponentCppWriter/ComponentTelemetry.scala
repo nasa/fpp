@@ -34,48 +34,48 @@ case class ComponentTelemetry (
   }
 
   def getFunctionMembers: List[CppDoc.Class.Member] = {
-    if !hasChannels then Nil
-    else getWriteFunctions
+    getWriteFunctions
   }
 
   def getVariableMembers: List[CppDoc.Class.Member] = {
-    if !hasChannels then Nil
-    else List(
-      linesClassMember(
-        List(
-          CppDocHppWriter.writeAccessTag("PRIVATE"),
-          CppDocWriter.writeBannerComment(
-            "First update flags for telemetry channels"
-          ),
-          Line.blank :: updateOnChangeChannels.flatMap((_, channel) =>
+    List(
+      addAccessTagAndComment(
+        "PRIVATE",
+        "First update flags for telemetry channels",
+        updateOnChangeChannels.map((_, channel) =>
+          linesClassMember(
             lines(
-              s"""|//! Initialized to true; cleared when channel ${channel.getName} is first updated
+              s"""|
+                  |//! Initialized to true; cleared when channel ${channel.getName} is first updated
                   |bool ${channelUpdateFlagName(channel.getName)};
                   |"""
-            ),
-          ),
-          CppDocHppWriter.writeAccessTag("PRIVATE"),
-          CppDocWriter.writeBannerComment(
-            "Last value storage for telemetry channels"
-          ),
-          Line.blank :: updateOnChangeChannels.flatMap((_, channel) =>
+            )
+          )
+        ),
+        CppDoc.Lines.Hpp
+      ),
+      addAccessTagAndComment(
+        "PRIVATE",
+        "Last value storage for telemetry channels",
+        updateOnChangeChannels.map((_, channel) =>
+          linesClassMember(
             lines(
-              s"""|//! Records the last emitted value for channel ${channel.getName}
+              s"""|
+                  |//! Records the last emitted value for channel ${channel.getName}
                   |${writeChannelType(channel.channelType)} ${channelStorageName(channel.getName)};
                   |"""
             )
           )
-        ).flatten
+        ),
+        CppDoc.Lines.Hpp
       )
-    )
+    ).flatten
   }
 
   private def getWriteFunctions: List[CppDoc.Class.Member] = {
-    List(
-      writeAccessTagAndComment(
-        "PROTECTED",
-        "Telemetry write functions"
-      ),
+    addAccessTagAndComment(
+      "PROTECTED",
+      "Telemetry write functions",
       sortedChannels.map((_, channel) =>
         functionClassMember(
           Some(
@@ -102,7 +102,7 @@ case class ComponentTelemetry (
           Nil
         )
       )
-    ).flatten
+    )
   }
 
   private def writeChannelParam(t: Type) = {

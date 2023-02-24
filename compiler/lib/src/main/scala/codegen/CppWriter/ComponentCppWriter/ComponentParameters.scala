@@ -58,25 +58,26 @@ case class ComponentParameters (
   def getVariableMembers: List[CppDoc.Class.Member] = {
     if !hasParameters then Nil
     else List(
-      linesClassMember(
-        List(
-          CppDocHppWriter.writeAccessTag("PRIVATE"),
-          CppDocWriter.writeBannerComment(
-            "Parameter validity flags"
-          ),
-          sortedParams.flatMap((_, param) =>
+      addAccessTagAndComment(
+        "PRIVATE",
+        "Parameter validity flags",
+        sortedParams.map((_, param) =>
+          linesClassMember(
             lines(
               s"""|
                   |//! True if ${param.getName} was successfully received
                   |Fw::ParamValid ${paramValidityFlagName(param.getName)};
                   |"""
             )
-          ),
-          CppDocHppWriter.writeAccessTag("PRIVATE"),
-          CppDocWriter.writeBannerComment(
-            "Parameter variables"
-          ),
-          sortedParams.flatMap((_, param) =>
+          )
+        ),
+        CppDoc.Lines.Hpp
+      ),
+      addAccessTagAndComment(
+        "PRIVATE",
+        "Parameter variables",
+        sortedParams.map((_, param) =>
+          linesClassMember(
             Line.blank :: lines(
               addSeparatedPreComment(
                 s"Parameter ${param.getName}",
@@ -84,18 +85,17 @@ case class ComponentParameters (
               ) +
                 s"\n${writeParamType(param.paramType)} ${paramVariableName(param.getName)};"
             )
-          ),
-        ).flatten
+          )
+        ),
+        CppDoc.Lines.Hpp
       )
-    )
+    ).flatten
   }
 
   private def getLoadFunction: List[CppDoc.Class.Member] = {
-    List(
-      writeAccessTagAndComment(
-        "public",
-        "Parameter loading"
-      ),
+    addAccessTagAndComment(
+      "public",
+      "Parameter loading",
       List(
         functionClassMember(
           Some(
@@ -110,15 +110,13 @@ case class ComponentParameters (
           Nil
         )
       )
-    ).flatten
+    )
   }
 
   private def getHookFunctions: List[CppDoc.Class.Member] = {
-    List(
-      writeAccessTagAndComment(
-        "PROTECTED",
-        "Parameter update hook"
-      ),
+    addAccessTagAndComment(
+      "PROTECTED",
+      "Parameter update hook",
       List(
         functionClassMember(
           Some(
@@ -158,15 +156,13 @@ case class ComponentParameters (
           CppDoc.Function.Virtual
         )
       )
-    ).flatten
+    )
   }
 
   private def getGetterFunctions: List[CppDoc.Class.Member] = {
-    List(
-      writeAccessTagAndComment(
-        "PROTECTED",
-        "Parameter get functions"
-      ),
+    addAccessTagAndComment(
+      "PROTECTED",
+      "Parameter get functions",
       sortedParams.map((_, param) =>
         functionClassMember(
           Some(
@@ -187,15 +183,13 @@ case class ComponentParameters (
           Nil
         )
       )
-    ).flatten
+    )
   }
 
   private def getPrivateGetter: List[CppDoc.Class.Member] = {
-    List(
-      writeAccessTagAndComment(
-        "PRIVATE",
-        "Private parameter get function"
-      ),
+    addAccessTagAndComment(
+      "PRIVATE",
+      "Private parameter get function",
       List(
         functionClassMember(
           Some(
@@ -221,15 +215,13 @@ case class ComponentParameters (
           Nil
         )
       )
-    ).flatten
+    )
   }
 
   private def getSetters: List[CppDoc.Class.Member] = {
-    List(
-      writeAccessTagAndComment(
-        "PRIVATE",
-        "Parameter set functions"
-      ),
+    addAccessTagAndComment(
+      "PRIVATE",
+      "Parameter set functions",
       sortedParams.map((_, param) =>
         functionClassMember(
           Some(
@@ -250,15 +242,13 @@ case class ComponentParameters (
           Nil
         )
       )
-    ).flatten
+    )
   }
 
   private def getSaveFunctions: List[CppDoc.Class.Member] = {
-    List(
-      writeAccessTagAndComment(
-        "PRIVATE",
-        "Parameter save functions"
-      ),
+    addAccessTagAndComment(
+      "PRIVATE",
+      "Parameter save functions",
       sortedParams.map((_, param) =>
         functionClassMember(
           Some(
@@ -273,7 +263,7 @@ case class ComponentParameters (
           Nil
         )
       )
-    ).flatten
+    )
   }
 
   private def writeParamType(t: Type) =

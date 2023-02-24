@@ -11,19 +11,16 @@ case class ComponentInternalPort (
 ) extends ComponentCppWriterUtils(s, aNode) {
 
   def getFunctionMembers: List[CppDoc.Class.Member] = {
-    if !hasInternalPorts then Nil
-    else List(
+    List(
       getHandlers,
       getHandlerBases
     ).flatten
   }
 
   private def getHandlers: List[CppDoc.Class.Member] = {
-    List(
-      writeAccessTagAndComment(
-        "PROTECTED",
-        "Internal interface handlers"
-      ),
+    addAccessTagAndComment(
+      "PROTECTED",
+      "Internal interface handlers",
       internalPorts.map(p =>
         functionClassMember(
           Some(
@@ -35,16 +32,15 @@ case class ComponentInternalPort (
           Nil,
           CppDoc.Function.PureVirtual
         )
-      )
-    ).flatten
+      ),
+      CppDoc.Lines.Hpp
+    )
   }
 
   private def getHandlerBases: List[CppDoc.Class.Member] = {
-    List(
-      writeAccessTagAndComment(
-        "PROTECTED",
-        "Internal interface base-class functions"
-      ),
+    addAccessTagAndComment(
+      "PROTECTED",
+      "Internal interface base-class functions",
       internalPorts.map(p =>
         functionClassMember(
           Some(
@@ -56,7 +52,7 @@ case class ComponentInternalPort (
           Nil
         )
       )
-    ).flatten
+    )
   }
 
   // Get the name for an internal interface base-class function
