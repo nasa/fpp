@@ -372,9 +372,58 @@ abstract class ComponentCppWriterUtils(
     }
   }
 
-  /** Get the name for general port enumerated constant in cpp file */
+  def writeSendMessageLogic(
+    bufferName: String,
+    queueFull: Ast.QueueFull,
+    priority: Option[BigInt]
+  ): List[Line] = {
+    val queueBlocking = queueFull match {
+      case Ast.QueueFull.Block => "QUEUE_BLOCKING"
+      case _ => "QUEUE_NONBLOCKING"
+    }
+    val priorityNum = priority match {
+      case Some(num) => num
+      case _ => BigInt(0)
+    }
+
+    intersperseBlankLines(
+      List(
+        lines(
+          s"""|// Send message
+              |Os::Queue::QueueBlocking _block = Os::Queue::$queueBlocking;
+              |Os::Queue::QueueStatus qStatus = this->m_queue.send($bufferName, $priorityNum, _block);
+              |"""
+        )
+        ,
+        queueFull match {
+          case Ast.QueueFull.Drop => lines(
+            """|if (qStatus == Os::Queue::QUEUE_FULL) {
+               |  this->incNumMsgDropped();
+               |  return;
+               |}
+               |"""
+          )
+          case _ => Nil
+        }
+        ,
+        lines(
+          """|FW_ASSERT(
+             |  qStatus == Os::Queue::QUEUE_OK,
+             |  static_cast<FwAssertArgType>(qStatus)
+             |);
+             |"""
+        )
+      )
+    )
+  }
+
+  /** Get the name for a general port enumerated constant in cpp file */
   def generalPortCppConstantName(p: PortInstance.General) =
     s"${p.getUnqualifiedName}_${getPortTypeString(p)}".toUpperCase
+
+  /** Get the name for an internal port enumerated constant in cpp file */
+  def internalPortCppConstantName(p: PortInstance.Internal) =
+    s"INT_IF_${p.getUnqualifiedName.toUpperCase}"
 
   /** Get the name for a port number getter function */
   def portNumGetterName(p: PortInstance) =

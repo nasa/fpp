@@ -888,7 +888,4 @@ case class ComponentCppWriter (
   private def commandCppConstantName(cmd: Command) =
     s"CMD_${cmd.getName.toUpperCase}"
 
-  private def internalPortCppConstantName(p: PortInstance.Internal) =
-    s"INT_IF_${p.getUnqualifiedName.toUpperCase}"
-
 }

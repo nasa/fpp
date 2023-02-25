@@ -72,14 +72,6 @@ case class ComponentInputPorts(
         case PortInstance.Type.DefPort(_) => "msg"
         case PortInstance.Type.Serial => "msgSerBuff"
       }
-      val queueBlocking = queueFull match {
-        case Ast.QueueFull.Block => "QUEUE_BLOCKING"
-        case _ => "QUEUE_NONBLOCKING"
-      }
-      val priorityNum = priority match {
-        case Some(num) => num
-        case _ => BigInt(0)
-      }
 
       intersperseBlankLines(
         List(
@@ -134,29 +126,7 @@ case class ComponentInputPorts(
                   |"""
             ))
           ),
-          lines(
-            s"""|// Send message
-                |Os::Queue::QueueBlocking _block = Os::Queue::$queueBlocking;
-                |Os::Queue::QueueStatus qStatus = this->m_queue.send($bufferName, $priorityNum, _block);
-                |"""
-          ),
-          queueFull match {
-            case Ast.QueueFull.Drop => lines(
-              """|if (qStatus == Os::Queue::QUEUE_FULL) {
-                 |  this->incNumMsgDropped();
-                 |  return;
-                 |}
-                 |"""
-            )
-            case _ => Nil
-          },
-          lines(
-            """|FW_ASSERT(
-               |  qStatus == Os::Queue::QUEUE_OK,
-               |  static_cast<FwAssertArgType>(qStatus)
-               |);
-               |"""
-          )
+          writeSendMessageLogic(bufferName, queueFull, priority)
         )
       )
     }

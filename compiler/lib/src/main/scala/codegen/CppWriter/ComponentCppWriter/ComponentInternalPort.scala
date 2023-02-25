@@ -49,7 +49,42 @@ case class ComponentInternalPort (
           internalInterfaceHandlerBaseName(p.getUnqualifiedName),
           getPortFunctionParams(p),
           CppDoc.Type("void"),
-          Nil
+          intersperseBlankLines(
+            List(
+              lines(
+                s"""|ComponentIpcSerializableBuffer msg;
+                    |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+                    |
+                    |// Serialize the message ID
+                    |_status = msg.serialize(static_cast<NATIVE_INT_TYPE>(${internalPortCppConstantName(p)}));
+                    |FW_ASSERT (
+                    |  _status == Fw::FW_SERIALIZE_OK,
+                    |  static_cast<FwAssertArgType>(_status)
+                    |);
+                    |
+                    |// Fake port number to make message dequeue work
+                    |_status = msg.serialize(static_cast<NATIVE_INT_TYPE>(0));
+                    |FW_ASSERT (
+                    |  _status == Fw::FW_SERIALIZE_OK,
+                    |  static_cast<FwAssertArgType>(_status)
+                    |);
+                    |"""
+              ),
+              intersperseBlankLines(
+                getPortParams(p).map((n, _) =>
+                  lines(
+                    s"""|_status = msg.serialize($n);
+                        |FW_ASSERT(
+                        |  _status == Fw::FW_SERIALIZE_OK,
+                        |  static_cast<FwAssertArgType>(_status)
+                        |);
+                        |""".stripMargin
+                  )
+                )
+              ),
+              writeSendMessageLogic("msg", p.queueFull, p.priority)
+            )
+          )
         )
       )
     )
