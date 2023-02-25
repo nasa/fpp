@@ -298,7 +298,7 @@ case class ComponentCppWriter (
                   l.map(param =>
                     s.getSerializedSizeExpr(
                       s.a.typeMap(param._2.data.typeName.id),
-                      writeInternalPortParam(param._2.data)
+                      getInternalPortParam(param._2.data)
                     )
                   ).mkString(" +\n")
                 ),
@@ -358,7 +358,7 @@ case class ComponentCppWriter (
               |"""
         ),
         channel.channelType match {
-          case t if s.isPrimitive(t, writeChannelType(t)) => lines(
+          case t if s.isPrimitive(t, getChannelType(t)) => lines(
             s"this->${channelStorageName(channel.getName)} = 0;"
           )
           case _ => Nil
@@ -551,29 +551,13 @@ case class ComponentCppWriter (
                 )
               )
             ),
-            if portParamTypeMap(p.getUnqualifiedName).isEmpty then lines(
-              s"""|// Call handler function
-                  |this->${inputPortHandlerName(p.getUnqualifiedName)}(portNum);
-                  |""".stripMargin
-            )
-            else List(
-              lines(
-                s"""|
-                    |// Call handler function
-                    |this->${inputPortHandlerName(p.getUnqualifiedName)}(
-                    |  portNum,
-                    |"""
+            line("// Call handler function") ::
+              writeFunctionCall(
+                s"this->${inputPortHandlerName(p.getUnqualifiedName)}",
+                List("portNum"),
+                getPortParams(p).map(_._1)
               ),
-              lines(
-                portParamTypeMap(p.getUnqualifiedName).map(_._1).mkString(",\n")
-              ).map(indentIn),
-              lines(
-                s"""|);
-                    |
-                    |break;
-                    |"""
-              )
-            ).flatten
+            Line.blank :: lines("break;")
           ).flatten
         case PortInstance.Type.Serial => lines(
           s"""|// Deserialize serialized buffer into new buffer
@@ -666,22 +650,12 @@ case class ComponentCppWriter (
                 |#endif
                 |"""
           ),
-          if cmdParamTypeMap(opcode).isEmpty then lines(
-            s"""|// Call handler function
-                |this->${commandHandlerName(cmd.getName)}(opCode, cmdSeq);
-                |"""
-          )
-          else List(
-            lines(
-              s"""|// Call handler function
-                  |this->${commandHandlerName(cmd.getName)}(
-                  |  opCode,
-                  |  cmdSeq,
-                  |"""
+          line("// Call handler function") ::
+            writeFunctionCall(
+              s"this->${commandHandlerName(cmd.getName)}",
+              List("opCode, cmdSeq"),
+              cmdParamTypeMap(opcode).map(_._1)
             ),
-            lines(cmdParamTypeMap(opcode).map(_._1).mkString(",\n")).map(indentIn),
-            lines(");")
-          ).flatten,
           lines("break;")
         )
       )
@@ -710,18 +684,13 @@ case class ComponentCppWriter (
             )
           )
         ),
-        Line.blank :: lines(
-          s"""|// Call handler function
-              |this->${internalInterfaceHandlerName(p.getUnqualifiedName)}(
-              |""".stripMargin
-        ),
-        lines(portParamTypeMap(p.getUnqualifiedName).map(_._1).mkString(",\n")).map(indentIn),
-        lines(
-          """|);
-             |
-             |break;
-             |"""
-        )
+        line("// Call handler function") ::
+          writeFunctionCall(
+            s"this->${internalInterfaceHandlerName(p.getUnqualifiedName)}",
+            Nil,
+            getPortParams(p).map(_._1)
+          ),
+        lines("break;")
       ).flatten
 
       line(s"// Handle internal interface ${p.getUnqualifiedName}") ::

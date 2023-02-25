@@ -21,9 +21,13 @@ case class PortCppWriter (
 
   private val namespaceIdentList = s.getNamespaceIdentList(symbol)
 
+  private val strNamespace = s"${name}PortStrings"
+
+  private val typeCppWriter = TypeCppWriter(s, None, List(strNamespace))
+
   private val strCppWriter = StringCppWriter(s)
 
-  private val strNamespace = PortCppWriter.getPortStringNamespace(name)
+  private val formalParamsCppWriter = FormalParamsCppWriter(s)
 
   private val params = data.params
 
@@ -47,23 +51,20 @@ case class PortCppWriter (
   private val paramList = params.map((_, node, _) => {
     val n = node.data.name
     val k = node.data.kind
+    val t = paramTypeMap(n)
 
-    (n, writeCppTypeName(paramTypeMap(n), s, List(strNamespace)), k)
+    (n, typeCppWriter.write(t), k)
   })
 
   // Port params as CppDoc Function Params
   private val functionParams: List[CppDoc.Function.Param] =
-    writeFormalParamList(params, s, List(strNamespace))
+    formalParamsCppWriter.write(params, List(strNamespace))
 
-  /** Return type as a C++ type */
-  val returnType: String = data.returnType match {
-      case Some(node) => writeCppTypeName(
-        s.a.typeMap(node.id),
-        s,
-        List(strNamespace)
-      )
-      case None => "void"
-    }
+  // Return type as a C++ type
+  private val returnType = data.returnType match {
+    case Some(value) => typeCppWriter.write(s.a.typeMap(value.id))
+    case None => "void"
+  }
 
   private def writeIncludeDirectives: List[String] = {
     val Right(a) = UsedSymbols.defPortAnnotatedNode(s.a, aNode)
@@ -252,7 +253,7 @@ case class PortCppWriter (
         else
           line("NATIVE_INT_TYPE portNum,") ::
             lines(params.map(p => {
-              s"${writeFormalParam(p._2.data, s, List(strNamespace))} ${p._2.data.name}"
+              s"${formalParamsCppWriter.getFormalParamType(p._2.data, None, List(strNamespace)).hppType} ${p._2.data.name}"
             }).mkString(",\n")))
 
     List(
@@ -285,7 +286,7 @@ case class PortCppWriter (
         else line("Fw::SerializeStatus _status;")) ::
           lines(
             """|
-               |#if FW_PORT_SERIALIZATION == 1
+               |#if FW_PORT_TRACING == 1
                |this->trace();
                |#endif
                |

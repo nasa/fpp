@@ -12,12 +12,11 @@ case class ComponentCommands (
 
   private val cmdParamMap = nonParamCmds.map((opcode, cmd) => {(
     opcode,
-    writeFormalParamList(
+    formalParamsCppWriter.write(
       cmd.aNode._2.data.params,
-      s,
       Nil,
       Some("Fw::CmdStringArg"),
-      CppWriterUtils.Value
+      FormalParamsCppWriter.Value
     )
   )}).toMap
 
@@ -51,7 +50,7 @@ case class ComponentCommands (
                     case Command.Param(aNode, kind) =>
                       Some(s"Opcode to ${getCommandParamString(kind)} parameter ${aNode._2.data.name}")
                   },
-                  ComponentCppWriterUtils.Hex
+                  CppWriterUtils.Hex
                 )
               ).mkString("\n")
             )

@@ -32,10 +32,7 @@ case class ArrayCppWriter (
 
   private val arraySize = arrayType.getArraySize.get
 
-  private val eltTypeName = eltType match {
-    case t: Type.String => strCppWriter.getClassName(t)
-    case _ => typeCppWriter.write(eltType)
-  }
+  private val eltTypeName = typeCppWriter.write(eltType)
 
   private val formatStr = FormatCppWriter.write(
     arrayType.format.getOrElse(Format("", List((Format.Field.Default, "")))),

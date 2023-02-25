@@ -24,6 +24,8 @@ abstract class ComponentCppWriterUtils(
 
   val members: List[Ast.ComponentMember] = data.members
 
+  val formalParamsCppWriter: FormalParamsCppWriter = FormalParamsCppWriter(s)
+
   /** Port number param as a CppDoc Function Param */
   val portNumParam: CppDoc.Function.Param = CppDoc.Function.Param(
     CppDoc.Type("NATIVE_INT_TYPE"),
@@ -164,14 +166,14 @@ abstract class ComponentCppWriterUtils(
         case Some(PortInstance.Type.DefPort(symbol)) => Some((
           p.getUnqualifiedName,
           symbol.node._2.data.params.map(param => {
-            (param._2.data.name, writeGeneralPortParam(param._2.data, symbol))
+            (param._2.data.name, getGeneralPortParam(param._2.data, symbol))
           })
         ))
         case None => p match {
           case PortInstance.Internal(node, _, _) => Some((
             p.getUnqualifiedName,
             node._2.data.params.map(param => {
-              (param._2.data.name, writeInternalPortParam(param._2.data))
+              (param._2.data.name, getInternalPortParam(param._2.data))
             })
           ))
           case _ => None
@@ -184,7 +186,7 @@ abstract class ComponentCppWriterUtils(
     nonParamCmds.map((opcode, cmd) => (
       opcode,
       cmd.aNode._2.data.params.map(param => {
-        (param._2.data.name, writeCommandParam(param._2.data))
+        (param._2.data.name, getCommandParam(param._2.data))
       })
     )).toMap
 
@@ -200,18 +202,16 @@ abstract class ComponentCppWriterUtils(
       p.getType match {
         case Some(PortInstance.Type.DefPort(symbol)) => Some((
           p.getUnqualifiedName,
-          writeFormalParamList(
+          formalParamsCppWriter.write(
             symbol.node._2.data.params,
-            s,
             PortCppWriter.getPortNamespaces(symbol.node._2.data.name)
           )
         ))
         case None => p match {
           case PortInstance.Internal(node, _, _) => Some((
             p.getUnqualifiedName,
-            writeFormalParamList(
+            formalParamsCppWriter.write(
               node._2.data.params,
-              s,
               Nil,
               Some("Fw::InternalInterfaceString")
             )
@@ -293,9 +293,10 @@ abstract class ComponentCppWriterUtils(
       case Some(PortInstance.Type.DefPort(symbol)) =>
         symbol.node._2.data.returnType match {
           case Some(typeName) => Some(
-            writeCppTypeName(
-              s.a.typeMap(typeName.id),
+            TypeCppWriter.getName(
               s,
+              s.a.typeMap(typeName.id),
+              None,
               PortCppWriter.getPortNamespaces(symbol.getUnqualifiedName)
             )
           )
@@ -343,37 +344,17 @@ abstract class ComponentCppWriterUtils(
       case Command.Param.Set => "set"
     }
 
-  /** Write an enumerated constant */
-  def writeEnumConstant(
-    name: String,
-    value: BigInt,
-    comment: Option[String] = None,
-    radix: ComponentCppWriterUtils.Radix = ComponentCppWriterUtils.Decimal
-  ): String = {
-    val valueStr = radix match {
-      case ComponentCppWriterUtils.Decimal => value.toString
-      case ComponentCppWriterUtils.Hex => s"0x${value.toString(16)}"
-    }
-    val commentStr = comment match {
-      case Some(s) => s" //! $s"
-      case None => ""
-    }
-
-    s"$name = $valueStr,$commentStr"
-  }
-
   /** Write an internal port param as a C++ type */
-  def writeInternalPortParam(param: Ast.FormalParam) =
-    writeCppTypeName(
-      s.a.typeMap(param.typeName.id),
+  def getInternalPortParam(param: Ast.FormalParam) =
+    TypeCppWriter.getName(
       s,
-      Nil,
+      s.a.typeMap(param.typeName.id),
       Some("Fw::InternalInterfaceString")
     )
 
   /** Write a channel type as a C++ type */
-  def writeChannelType(t: Type): String =
-    writeCppTypeName(t, s, Nil, Some("Fw::TlmString"))
+  def getChannelType(t: Type): String =
+    TypeCppWriter.getName(s, t, Some("Fw::TlmString"))
 
   /** Add an optional string separated by two newlines */
   def addSeparatedString(str: String, strOpt: Option[String]): String = {
@@ -464,18 +445,19 @@ abstract class ComponentCppWriterUtils(
     s"m_param_${name}_valid"
 
   /** Write a general port param as a C++ type */
-  private def writeGeneralPortParam(param: Ast.FormalParam, symbol: Symbol.Port) =
-    writeCppTypeName(
-      s.a.typeMap(param.typeName.id),
+  private def getGeneralPortParam(param: Ast.FormalParam, symbol: Symbol.Port) =
+    TypeCppWriter.getName(
       s,
+      s.a.typeMap(param.typeName.id),
+      None,
       PortCppWriter.getPortNamespaces(symbol.getUnqualifiedName)
     )
 
   /** Write a command param as a C++ type */
-  private def writeCommandParam(param: Ast.FormalParam) =
-    writeCppTypeName(s.a.typeMap(param.typeName.id),
+  private def getCommandParam(param: Ast.FormalParam) =
+    TypeCppWriter.getName(
       s,
-      Nil,
+      s.a.typeMap(param.typeName.id),
       Some("Fw::CmdStringArg")
     )
 
@@ -516,9 +498,7 @@ abstract class ComponentCppWriterUtils(
 object ComponentCppWriterUtils {
 
   sealed trait Radix
-
   case object Decimal extends Radix
-
   case object Hex extends Radix
 
 }

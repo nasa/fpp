@@ -132,18 +132,14 @@ case class ComponentPorts(
   }
 
   private def getVariables(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    if ports.isEmpty then Nil
-    else List(
-      List(
-        linesClassMember(
-          List(
-            CppDocHppWriter.writeAccessTag("PRIVATE"),
-            CppDocWriter.writeBannerComment(
-              s"${getPortListTypeString(ports).capitalize} ${ports.head.getDirection.get.toString} ports"
-            ),
-          ).flatten
-        )
-      ),
+    val dirStr = ports match {
+      case Nil => ""
+      case _ => ports.head.getDirection.get.toString
+    }
+
+    addAccessTagAndComment(
+      "PRIVATE",
+      s"${getPortListTypeString(ports).capitalize} $dirStr ports",
       mapPorts(ports, p => {
         val typeName = getQualifiedPortTypeName(p, p.getDirection.get)
         val name = portVariableName(p)
@@ -159,8 +155,9 @@ case class ComponentPorts(
             )
           )
         )
-      }, CppDoc.Lines.Hpp)
-    ).flatten
+      }, CppDoc.Lines.Hpp),
+      CppDoc.Lines.Hpp
+    )
   }
 
   // Get the name for a port enumerated constant

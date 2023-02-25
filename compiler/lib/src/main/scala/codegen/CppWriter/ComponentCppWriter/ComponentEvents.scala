@@ -42,7 +42,7 @@ case class ComponentEvents (
                   eventIdConstantName(event.getName),
                   id,
                   AnnotationCppWriter.asStringOpt(event.aNode),
-                  ComponentCppWriterUtils.Hex
+                  CppWriterUtils.Hex
                 )
               ).mkString("\n")
             )
@@ -90,12 +90,11 @@ case class ComponentEvents (
             )
           ),
           eventLogName(event),
-          writeFormalParamList(
+          formalParamsCppWriter.write(
             event.aNode._2.data.params,
-            s,
             Nil,
             Some("Fw::LogStringArg"),
-            CppWriterUtils.Value
+            FormalParamsCppWriter.Value
           ),
           CppDoc.Type("void"),
           Nil

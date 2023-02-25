@@ -120,11 +120,13 @@ case class ComponentOutputPorts(
                   |
                   |"""
             ),
-            lines(
+            writeFunctionCall(
               addReturnKeyword(
-                s"this->${portVariableName(p)}[portNum].$invokeFunction(${getPortParams(p).map(_._1).mkString(", ")});",
+                s"this->${portVariableName(p)}[portNum].$invokeFunction",
                 p
-              )
+              ),
+              Nil,
+              getPortParams(p).map(_._1)
             )
           )
         )
@@ -164,9 +166,7 @@ case class ComponentOutputPorts(
   // Get a port return type as a CppDoc Type
   private def getReturnType(p: PortInstance): CppDoc.Type =
     p.getType.get match {
-      case PortInstance.Type.DefPort(symbol) => CppDoc.Type(
-        PortCppWriter(s, symbol.node).returnType
-      )
+      case PortInstance.Type.DefPort(_) => getPortReturnTypeAsCppDocType(p)
       case PortInstance.Type.Serial => CppDoc.Type(
         "Fw::SerializeStatus"
       )

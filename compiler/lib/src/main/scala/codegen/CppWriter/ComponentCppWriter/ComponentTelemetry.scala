@@ -23,7 +23,7 @@ case class ComponentTelemetry (
                   channelIdConstantName(channel.getName),
                   id,
                   Some(s"Channel ID for ${channel.getName}"),
-                  ComponentCppWriterUtils.Hex
+                  CppWriterUtils.Hex
                 )
               ).mkString("\n")
             )
@@ -62,7 +62,7 @@ case class ComponentTelemetry (
             lines(
               s"""|
                   |//! Records the last emitted value for channel ${channel.getName}
-                  |${writeChannelType(channel.channelType)} ${channelStorageName(channel.getName)};
+                  |${getChannelType(channel.channelType)} ${channelStorageName(channel.getName)};
                   |"""
             )
           )
@@ -106,7 +106,7 @@ case class ComponentTelemetry (
   }
 
   private def writeChannelParam(t: Type) = {
-    val typeName = writeChannelType(t)
+    val typeName = getChannelType(t)
 
     t match {
       case t if s.isPrimitive(t, typeName) => typeName

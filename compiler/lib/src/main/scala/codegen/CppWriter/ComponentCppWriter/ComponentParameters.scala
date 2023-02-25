@@ -23,7 +23,7 @@ case class ComponentParameters (
                   paramIdConstantName(param.getName),
                   id,
                   AnnotationCppWriter.asStringOpt(param.aNode),
-                  ComponentCppWriterUtils.Hex
+                  CppWriterUtils.Hex
                 )
               ).mkString("\n")
             )
@@ -267,7 +267,7 @@ case class ComponentParameters (
   }
 
   private def writeParamType(t: Type) =
-    writeCppTypeName(t, s, Nil, Some("Fw::ParamString"))
+    TypeCppWriter.getName(s, t, Some("Fw::ParamString"))
 
   private def paramIdConstantName(name: String) =
     s"PARAMID_${name.toUpperCase}"

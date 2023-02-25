@@ -85,25 +85,12 @@ case class ComponentInputPorts(
         List(
           p.getType.get match {
             case PortInstance.Type.DefPort(_) => List(
-              params match {
-                case Nil => lines(
-                  s"""|// Call pre-message hook
-                      |${inputPortHookName(p.getUnqualifiedName)}(portNum);
-                      |"""
-                )
-                case _ => List(
-                  lines(
-                    s"""|// Call pre-message hook
-                        |${inputPortHookName(p.getUnqualifiedName)}(
-                        |  portNum,
-                        |"""
-                  ),
-                  lines(
-                    params.map(_._1).mkString(",\n")
-                  ).map(indentIn),
-                  lines(");")
-                ).flatten
-              },
+              line("// Call pre-message hook") ::
+                writeFunctionCall(
+                  s"${inputPortHookName(p.getUnqualifiedName)}",
+                  List("portNum"),
+                  params.map(_._1)
+                ),
               lines(
                 s"""|ComponentIpcSerializableBuffer $bufferName;
                     |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
@@ -189,22 +176,11 @@ case class ComponentInputPorts(
         }
         val handlerCall =
           line("// Down call to pure virtual handler method implemented in Impl class") ::
-            params match {
-              case Nil => lines(
-                s"${retValAssignment}this->${inputPortHandlerName(p.getUnqualifiedName)}(portNum);"
-              )
-              case _ => List(
-                lines(
-                  s"""|${retValAssignment}this->${inputPortHandlerName(p.getUnqualifiedName)}(
-                      |  portNum,
-                      |"""
-                ),
-                lines(
-                  params.map(_._1).mkString(",\n")
-                ).map(indentIn),
-                lines(");")
-              ).flatten
-            }
+            writeFunctionCall(
+              s"${retValAssignment}this->${inputPortHandlerName(p.getUnqualifiedName)}",
+              List("portNum"),
+              params.map(_._1)
+            )
 
         functionClassMember(
           Some(s"Handler base-class function for input port ${p.getUnqualifiedName}"),
@@ -274,22 +250,11 @@ case class ComponentInputPorts(
               |
               |"""
         ),
-        params match {
-          case Nil => lines(
-            s"${returnKeyword}compPtr->${inputPortHandlerBaseName(p.getUnqualifiedName)}(portNum);"
-          )
-          case _ => List(
-            lines(
-              s"""|${returnKeyword}compPtr->${inputPortHandlerBaseName(p.getUnqualifiedName)}(
-                  |  portNum,
-                  |"""
-            ),
-            lines(
-              params.map(_._1).mkString(",\n")
-            ).map(indentIn),
-            lines(");")
-          ).flatten
-        }
+        writeFunctionCall(
+          s"${returnKeyword}compPtr->${inputPortHandlerBaseName(p.getUnqualifiedName)}",
+          List("portNum"),
+          params.map(_._1)
+        )
       ).flatten
     }
     def writeCommandInputPort() = {
