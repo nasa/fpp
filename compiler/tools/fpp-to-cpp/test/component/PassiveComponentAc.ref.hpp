@@ -35,7 +35,7 @@
 
 //! \class PassiveComponentBase
 //! \brief Auto-generated base for Passive component
-//! 
+//!
 //! A passive component
 class PassiveComponentBase :
   public Fw::PassiveComponentBase
@@ -168,7 +168,7 @@ class PassiveComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get special input port at index
-    //! 
+    //!
     //! \return cmdIn[portNum]
     Fw::InputCmdPort* get_cmdIn_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -181,28 +181,28 @@ class PassiveComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get typed input port at index
-    //! 
+    //!
     //! \return typedGuarded[portNum]
     InputTypedPort* get_typedGuarded_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
-    //! 
+    //!
     //! \return typedReturnGuarded[portNum]
     InputTypedReturnPort* get_typedReturnGuarded_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
-    //! 
+    //!
     //! \return typedReturnSync[portNum]
     InputTypedReturnPort* get_typedReturnSync_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
-    //! 
+    //!
     //! \return typedSync[portNum]
     InputTypedPort* get_typedSync_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -215,14 +215,14 @@ class PassiveComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get serial input port at index
-    //! 
+    //!
     //! \return serialGuarded[portNum]
     Fw::InputSerializePort* get_serialGuarded_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get serial input port at index
-    //! 
+    //!
     //! \return serialSync[portNum]
     Fw::InputSerializePort* get_serialSync_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -286,12 +286,42 @@ class PassiveComponentBase :
         Fw::InputTlmPort* port //!< The input port
     );
 
+  public:
+
+    // ----------------------------------------------------------------------
+    // Connect typed input ports to typed output ports
+    // ----------------------------------------------------------------------
+
+    //! Connect port to typedOut[portNum]
+    void set_typedOut_OutputPort(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        InputTypedPort* port //!< The input port
+    );
+
+    //! Connect port to typedReturnOut[portNum]
+    void set_typedReturnOut_OutputPort(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        InputTypedReturnPort* port //!< The input port
+    );
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Connect serial input ports to serial output ports
+    // ----------------------------------------------------------------------
+
+    //! Connect port to serialOut[portNum]
+    void set_serialOut_OutputPort(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        Fw::InputSerializePort* port //!< The input port
+    );
+
 #if FW_PORT_SERIALIZATION
 
   public:
 
     // ----------------------------------------------------------------------
-    // Connect serial input ports to special output ports
+    // Connect serial input ports to serial output ports
     // ----------------------------------------------------------------------
 
     //! Connect port to cmdRegOut[portNum]
@@ -324,15 +354,11 @@ class PassiveComponentBase :
         Fw::InputSerializePort* port //!< The port
     );
 
-#if FW_ENABLE_TEXT_LOGGING == 1
-
     //! Connect port to textEventOut[portNum]
     void set_textEventOut_OutputPort(
         NATIVE_INT_TYPE portNum, //!< The port number
         Fw::InputSerializePort* port //!< The port
     );
-
-#endif
 
     //! Connect port to timeGetOut[portNum]
     void set_timeGetOut_OutputPort(
@@ -348,30 +374,12 @@ class PassiveComponentBase :
 
 #endif
 
-  public:
-
-    // ----------------------------------------------------------------------
-    // Connect typed input ports to typed output ports
-    // ----------------------------------------------------------------------
-
-    //! Connect port to typedOut[portNum]
-    void set_typedOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        InputTypedPort* port //!< The input port
-    );
-
-    //! Connect port to typedReturnOut[portNum]
-    void set_typedReturnOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        InputTypedReturnPort* port //!< The input port
-    );
-
 #if FW_PORT_SERIALIZATION
 
   public:
 
     // ----------------------------------------------------------------------
-    // Connect serial input ports to typed output ports
+    // Connect serial input ports to serial output ports
     // ----------------------------------------------------------------------
 
     //! Connect port to typedOut[portNum]
@@ -399,12 +407,6 @@ class PassiveComponentBase :
     //! Connect port to serialOut[portNum]
     void set_serialOut_OutputPort(
         NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::InputSerializePort* port //!< The port
-    );
-
-    //! Connect port to serialOut[portNum]
-    void set_serialOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
         Fw::InputPortBase* port //!< The port
     );
 
@@ -417,7 +419,7 @@ class PassiveComponentBase :
     // ----------------------------------------------------------------------
 
     //! \brief Register commands with the Command Dispatcher
-    //! 
+    //!
     //! Connect the dispatcher first
     void regCommands();
 
@@ -428,7 +430,7 @@ class PassiveComponentBase :
     // ----------------------------------------------------------------------
 
     //! \brief Load the parameters from a parameter source
-    //! 
+    //!
     //! Connect the parameter first
     void loadParameters();
 
@@ -458,7 +460,7 @@ class PassiveComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get the number of cmdIn input ports
-    //! 
+    //!
     //! \return The number of cmdIn input ports
     NATIVE_INT_TYPE getNum_cmdIn_InputPorts();
 
@@ -469,22 +471,22 @@ class PassiveComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get the number of typedGuarded input ports
-    //! 
+    //!
     //! \return The number of typedGuarded input ports
     NATIVE_INT_TYPE getNum_typedGuarded_InputPorts();
 
     //! Get the number of typedReturnGuarded input ports
-    //! 
+    //!
     //! \return The number of typedReturnGuarded input ports
     NATIVE_INT_TYPE getNum_typedReturnGuarded_InputPorts();
 
     //! Get the number of typedReturnSync input ports
-    //! 
+    //!
     //! \return The number of typedReturnSync input ports
     NATIVE_INT_TYPE getNum_typedReturnSync_InputPorts();
 
     //! Get the number of typedSync input ports
-    //! 
+    //!
     //! \return The number of typedSync input ports
     NATIVE_INT_TYPE getNum_typedSync_InputPorts();
 
@@ -495,12 +497,12 @@ class PassiveComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get the number of serialGuarded input ports
-    //! 
+    //!
     //! \return The number of serialGuarded input ports
     NATIVE_INT_TYPE getNum_serialGuarded_InputPorts();
 
     //! Get the number of serialSync input ports
-    //! 
+    //!
     //! \return The number of serialSync input ports
     NATIVE_INT_TYPE getNum_serialSync_InputPorts();
 
@@ -511,46 +513,46 @@ class PassiveComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get the number of cmdRegOut output ports
-    //! 
+    //!
     //! \return The number of cmdRegOut output ports
     NATIVE_INT_TYPE getNum_cmdRegOut_OutputPorts();
 
     //! Get the number of cmdResponseOut output ports
-    //! 
+    //!
     //! \return The number of cmdResponseOut output ports
     NATIVE_INT_TYPE getNum_cmdResponseOut_OutputPorts();
 
     //! Get the number of eventOut output ports
-    //! 
+    //!
     //! \return The number of eventOut output ports
     NATIVE_INT_TYPE getNum_eventOut_OutputPorts();
 
     //! Get the number of prmGetOut output ports
-    //! 
+    //!
     //! \return The number of prmGetOut output ports
     NATIVE_INT_TYPE getNum_prmGetOut_OutputPorts();
 
     //! Get the number of prmSetOut output ports
-    //! 
+    //!
     //! \return The number of prmSetOut output ports
     NATIVE_INT_TYPE getNum_prmSetOut_OutputPorts();
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
     //! Get the number of textEventOut output ports
-    //! 
+    //!
     //! \return The number of textEventOut output ports
     NATIVE_INT_TYPE getNum_textEventOut_OutputPorts();
 
 #endif
 
     //! Get the number of timeGetOut output ports
-    //! 
+    //!
     //! \return The number of timeGetOut output ports
     NATIVE_INT_TYPE getNum_timeGetOut_OutputPorts();
 
     //! Get the number of tlmOut output ports
-    //! 
+    //!
     //! \return The number of tlmOut output ports
     NATIVE_INT_TYPE getNum_tlmOut_OutputPorts();
 
@@ -561,12 +563,12 @@ class PassiveComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get the number of typedOut output ports
-    //! 
+    //!
     //! \return The number of typedOut output ports
     NATIVE_INT_TYPE getNum_typedOut_OutputPorts();
 
     //! Get the number of typedReturnOut output ports
-    //! 
+    //!
     //! \return The number of typedReturnOut output ports
     NATIVE_INT_TYPE getNum_typedReturnOut_OutputPorts();
 
@@ -577,7 +579,7 @@ class PassiveComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get the number of serialOut output ports
-    //! 
+    //!
     //! \return The number of serialOut output ports
     NATIVE_INT_TYPE getNum_serialOut_OutputPorts();
 
@@ -588,35 +590,35 @@ class PassiveComponentBase :
     // ----------------------------------------------------------------------
 
     //! Check whether port cmdRegOut is connected
-    //! 
+    //!
     //! \return Whether port cmdRegOut is connected
     bool isConnected_cmdRegOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Check whether port cmdResponseOut is connected
-    //! 
+    //!
     //! \return Whether port cmdResponseOut is connected
     bool isConnected_cmdResponseOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Check whether port eventOut is connected
-    //! 
+    //!
     //! \return Whether port eventOut is connected
     bool isConnected_eventOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Check whether port prmGetOut is connected
-    //! 
+    //!
     //! \return Whether port prmGetOut is connected
     bool isConnected_prmGetOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Check whether port prmSetOut is connected
-    //! 
+    //!
     //! \return Whether port prmSetOut is connected
     bool isConnected_prmSetOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -625,7 +627,7 @@ class PassiveComponentBase :
 #if FW_ENABLE_TEXT_LOGGING == 1
 
     //! Check whether port textEventOut is connected
-    //! 
+    //!
     //! \return Whether port textEventOut is connected
     bool isConnected_textEventOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -634,14 +636,14 @@ class PassiveComponentBase :
 #endif
 
     //! Check whether port timeGetOut is connected
-    //! 
+    //!
     //! \return Whether port timeGetOut is connected
     bool isConnected_timeGetOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Check whether port tlmOut is connected
-    //! 
+    //!
     //! \return Whether port tlmOut is connected
     bool isConnected_tlmOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -654,14 +656,14 @@ class PassiveComponentBase :
     // ----------------------------------------------------------------------
 
     //! Check whether port typedOut is connected
-    //! 
+    //!
     //! \return Whether port typedOut is connected
     bool isConnected_typedOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Check whether port typedReturnOut is connected
-    //! 
+    //!
     //! \return Whether port typedReturnOut is connected
     bool isConnected_typedReturnOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -674,7 +676,7 @@ class PassiveComponentBase :
     // ----------------------------------------------------------------------
 
     //! Check whether port serialOut is connected
-    //! 
+    //!
     //! \return Whether port serialOut is connected
     bool isConnected_serialOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -738,7 +740,7 @@ class PassiveComponentBase :
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for typed input ports
-    // 
+    //
     // Call these functions directly to bypass the corresponding ports
     // ----------------------------------------------------------------------
 
@@ -812,7 +814,7 @@ class PassiveComponentBase :
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for serial input ports
-    // 
+    //
     // Call these functions directly to bypass the corresponding ports
     // ----------------------------------------------------------------------
 
@@ -890,7 +892,7 @@ class PassiveComponentBase :
     // ----------------------------------------------------------------------
 
     //! Handler for command CMD_SYNC
-    //! 
+    //!
     //! A sync command with no params
     virtual void CMD_SYNC_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
@@ -898,7 +900,7 @@ class PassiveComponentBase :
     ) = 0;
 
     //! Handler for command CMD_SYNC_PRIMITIVE
-    //! 
+    //!
     //! An async command with primitive params
     virtual void CMD_SYNC_PRIMITIVE_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
@@ -909,7 +911,7 @@ class PassiveComponentBase :
     ) = 0;
 
     //! Handler for command CMD_SYNC_STRING
-    //! 
+    //!
     //! A sync command with string params
     virtual void CMD_SYNC_STRING_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
@@ -919,7 +921,7 @@ class PassiveComponentBase :
     ) = 0;
 
     //! Handler for command CMD_ASYNC_ENUM
-    //! 
+    //!
     //! A sync command with enum params
     virtual void CMD_ASYNC_ENUM_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
@@ -928,7 +930,7 @@ class PassiveComponentBase :
     ) = 0;
 
     //! Handler for command CMD_SYNC_ARRAY
-    //! 
+    //!
     //! A sync command with array params
     virtual void CMD_SYNC_ARRAY_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
@@ -937,7 +939,7 @@ class PassiveComponentBase :
     ) = 0;
 
     //! Handler for command CMD_SYNC_STRUCT
-    //! 
+    //!
     //! A sync command with struct params
     virtual void CMD_SYNC_STRUCT_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
@@ -949,12 +951,12 @@ class PassiveComponentBase :
 
     // ----------------------------------------------------------------------
     // Command handler base-class functions
-    // 
+    //
     // Call these functions directly to bypass the command input port
     // ----------------------------------------------------------------------
 
     //! Base-class handler function for command CMD_SYNC
-    //! 
+    //!
     //! A sync command with no params
     void CMD_SYNC_cmdHandlerBase(
         FwOpcodeType opCode, //!< The opcode
@@ -963,7 +965,7 @@ class PassiveComponentBase :
     );
 
     //! Base-class handler function for command CMD_SYNC_PRIMITIVE
-    //! 
+    //!
     //! An async command with primitive params
     void CMD_SYNC_PRIMITIVE_cmdHandlerBase(
         FwOpcodeType opCode, //!< The opcode
@@ -972,7 +974,7 @@ class PassiveComponentBase :
     );
 
     //! Base-class handler function for command CMD_SYNC_STRING
-    //! 
+    //!
     //! A sync command with string params
     void CMD_SYNC_STRING_cmdHandlerBase(
         FwOpcodeType opCode, //!< The opcode
@@ -981,7 +983,7 @@ class PassiveComponentBase :
     );
 
     //! Base-class handler function for command CMD_ASYNC_ENUM
-    //! 
+    //!
     //! A sync command with enum params
     void CMD_ASYNC_ENUM_cmdHandlerBase(
         FwOpcodeType opCode, //!< The opcode
@@ -990,7 +992,7 @@ class PassiveComponentBase :
     );
 
     //! Base-class handler function for command CMD_SYNC_ARRAY
-    //! 
+    //!
     //! A sync command with array params
     void CMD_SYNC_ARRAY_cmdHandlerBase(
         FwOpcodeType opCode, //!< The opcode
@@ -999,7 +1001,7 @@ class PassiveComponentBase :
     );
 
     //! Base-class handler function for command CMD_SYNC_STRUCT
-    //! 
+    //!
     //! A sync command with struct params
     void CMD_SYNC_STRUCT_cmdHandlerBase(
         FwOpcodeType opCode, //!< The opcode
@@ -1010,26 +1012,16 @@ class PassiveComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
-    // Pre-message hooks for async commands
-    // 
-    // Each of these functions is invoked just before processing the
-    // corresponding command. By default they do nothing. You can
-    // override them to provide specific pre-command behavior.
-    // ----------------------------------------------------------------------
-
-  PROTECTED:
-
-    // ----------------------------------------------------------------------
     // Event logging functions
     // ----------------------------------------------------------------------
 
     //! Log event EventActivityHigh
-    //! 
+    //!
     //! An activity high event with no params
     void log_ACTIVITY_HI_EventActivityHigh();
 
     //! Log event EventActivityLowThrottled
-    //! 
+    //!
     //! An activity low, throttled event with primitive params
     void log_ACTIVITY_LO_EventActivityLowThrottled(
         U32 u32, //!< A U32
@@ -1038,7 +1030,7 @@ class PassiveComponentBase :
     );
 
     //! Log event EventCommand
-    //! 
+    //!
     //! A command event with string params
     void log_COMMAND_EventCommand(
         const Fw::LogStringArg& str1, //!< A string
@@ -1046,28 +1038,28 @@ class PassiveComponentBase :
     );
 
     //! Log event EventDiagnostic
-    //! 
+    //!
     //! A diagnostic event with enum params
     void log_DIAGNOSTIC_EventDiagnostic(
         E e //!< An enum
     );
 
     //! Log event EventFatalThrottled
-    //! 
+    //!
     //! A fatal, throttled event with array params
     void log_FATAL_EventFatalThrottled(
         A a //!< An array
     );
 
     //! Log event EventWarningHigh
-    //! 
+    //!
     //! A warning high event with struct params
     void log_WARNING_HI_EventWarningHigh(
         S s //!< A struct
     );
 
     //! Log event EventWarningLowThrottled
-    //! 
+    //!
     //! A warning low, throttled event with no params
     void log_WARNING_LO_EventWarningLowThrottled();
 
@@ -1093,7 +1085,7 @@ class PassiveComponentBase :
     // ----------------------------------------------------------------------
 
     //! Write telemetry channel ChannelU32Format
-    //! 
+    //!
     //! A telemetry channel with U32 data and format string
     void tlmWrite_ChannelU32Format(
         U32 arg, //!< The telemetry value
@@ -1101,7 +1093,7 @@ class PassiveComponentBase :
     );
 
     //! Write telemetry channel ChannelF32Format
-    //! 
+    //!
     //! A telemetry channel with F32 data and format string
     void tlmWrite_ChannelF32Format(
         F32 arg, //!< The telemetry value
@@ -1109,7 +1101,7 @@ class PassiveComponentBase :
     );
 
     //! Write telemetry channel ChannelStringFormat
-    //! 
+    //!
     //! A telemetry channel with string data with format string
     void tlmWrite_ChannelStringFormat(
         const Fw::TlmString& arg, //!< The telemetry value
@@ -1117,7 +1109,7 @@ class PassiveComponentBase :
     );
 
     //! Write telemetry channel ChannelEnum
-    //! 
+    //!
     //! A telemetry channel with enum data
     void tlmWrite_ChannelEnum(
         const E& arg, //!< The telemetry value
@@ -1125,7 +1117,7 @@ class PassiveComponentBase :
     );
 
     //! Write telemetry channel ChannelArrayFreq
-    //! 
+    //!
     //! A telemetry channel with array data and update frequency
     void tlmWrite_ChannelArrayFreq(
         const A& arg, //!< The telemetry value
@@ -1133,7 +1125,7 @@ class PassiveComponentBase :
     );
 
     //! Write telemetry channel ChannelStructFreq
-    //! 
+    //!
     //! A telemetry channel with struct data
     void tlmWrite_ChannelStructFreq(
         const S& arg, //!< The telemetry value
@@ -1141,7 +1133,7 @@ class PassiveComponentBase :
     );
 
     //! Write telemetry channel ChannelU32Limits
-    //! 
+    //!
     //! A telemetry channel with U32 data and limits
     void tlmWrite_ChannelU32Limits(
         U32 arg, //!< The telemetry value
@@ -1149,7 +1141,7 @@ class PassiveComponentBase :
     );
 
     //! Write telemetry channel ChannelF32Limits
-    //! 
+    //!
     //! A telemetry channel with F32 data and limits
     void tlmWrite_ChannelF32Limits(
         F32 arg, //!< The telemetry value
@@ -1157,7 +1149,7 @@ class PassiveComponentBase :
     );
 
     //! Write telemetry channel ChannelF64
-    //! 
+    //!
     //! A telemetry channel F64 data, update frequency, format, and limits
     void tlmWrite_ChannelF64(
         F64 arg, //!< The telemetry value
@@ -1165,7 +1157,7 @@ class PassiveComponentBase :
     );
 
     //! Write telemetry channel ChannelU32OnChange
-    //! 
+    //!
     //! A telemetry channel with U32 data and update on change frequency
     void tlmWrite_ChannelU32OnChange(
         U32 arg, //!< The telemetry value
@@ -1173,7 +1165,7 @@ class PassiveComponentBase :
     );
 
     //! Write telemetry channel ChannelEnumOnChange
-    //! 
+    //!
     //! A telemetry channel with enum data and update on change frequency
     void tlmWrite_ChannelEnumOnChange(
         const E& arg, //!< The telemetry value
@@ -1187,7 +1179,7 @@ class PassiveComponentBase :
     // ----------------------------------------------------------------------
 
     //! \brief Called whenever a parameter is updated
-    //! 
+    //!
     //! This function does nothing by default. You may override it.
     virtual void parameterUpdated(
         FwPrmIdType id //!< The parameter ID
@@ -1198,7 +1190,7 @@ class PassiveComponentBase :
     // ----------------------------------------------------------------------
 
     //! \brief Called whenever parameters are loaded
-    //! 
+    //!
     //! This function does nothing by default. You may override it.
     virtual void parametersLoaded();
 
@@ -1209,54 +1201,54 @@ class PassiveComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get parameter ParamU32
-    //! 
+    //!
     //! \return The parameter value
-    //! 
+    //!
     //! A parameter with U32 data
     U32 paramGet_ParamU32(
         Fw::ParamValid& isValid //!< Whether the parameter is valid
     );
 
     //! Get parameter ParamF64
-    //! 
+    //!
     //! \return The parameter value
-    //! 
+    //!
     //! A parameter with F64 data
     F64 paramGet_ParamF64(
         Fw::ParamValid& isValid //!< Whether the parameter is valid
     );
 
     //! Get parameter ParamString
-    //! 
+    //!
     //! \return The parameter value
-    //! 
+    //!
     //! A parameter with string data and default value
     Fw::ParamString paramGet_ParamString(
         Fw::ParamValid& isValid //!< Whether the parameter is valid
     );
 
     //! Get parameter ParamEnum
-    //! 
+    //!
     //! \return The parameter value
-    //! 
+    //!
     //! A parameter with enum data
     E paramGet_ParamEnum(
         Fw::ParamValid& isValid //!< Whether the parameter is valid
     );
 
     //! Get parameter ParamArray
-    //! 
+    //!
     //! \return The parameter value
-    //! 
+    //!
     //! A parameter with array data, default value, and save opcode
     A paramGet_ParamArray(
         Fw::ParamValid& isValid //!< Whether the parameter is valid
     );
 
     //! Get parameter ParamStruct
-    //! 
+    //!
     //! \return The parameter value
-    //! 
+    //!
     //! A parameter with struct data and set/save opcodes
     S paramGet_ParamStruct(
         Fw::ParamValid& isValid //!< Whether the parameter is valid
@@ -1269,7 +1261,7 @@ class PassiveComponentBase :
     // ----------------------------------------------------------------------
 
     //!  Get the time
-    //! 
+    //!
     //! \\return The current time
     Fw::Time getTime();
 
@@ -1277,7 +1269,7 @@ class PassiveComponentBase :
 
     // ----------------------------------------------------------------------
     // Mutex operations for guarded ports
-    // 
+    //
     // You can override these operations to provide more sophisticated
     // synchronization
     // ----------------------------------------------------------------------
@@ -1392,7 +1384,7 @@ class PassiveComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get a parameter by ID
-    //! 
+    //!
     //! \return Whether the parameter is valid
     Fw::ParamValid getParam(
         FwPrmIdType id, //!< The ID
@@ -1406,42 +1398,42 @@ class PassiveComponentBase :
     // ----------------------------------------------------------------------
 
     //! Set parameter ParamU32
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamU32(
         Fw::SerializeBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamF64
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamF64(
         Fw::SerializeBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamString
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamString(
         Fw::SerializeBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamEnum
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamEnum(
         Fw::SerializeBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamArray
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamArray(
         Fw::SerializeBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamStruct
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamStruct(
         Fw::SerializeBufferBase& val //!< The serialization buffer
@@ -1454,32 +1446,32 @@ class PassiveComponentBase :
     // ----------------------------------------------------------------------
 
     //! Save parameter ParamU32
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSave_ParamU32();
 
     //! Save parameter ParamF64
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSave_ParamF64();
 
     //! Save parameter ParamString
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSave_ParamString();
 
     //! Save parameter ParamEnum
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSave_ParamEnum();
 
     //! Save parameter ParamArray
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSave_ParamArray();
 
     //! Save parameter ParamStruct
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSave_ParamStruct();
 
@@ -1600,6 +1592,7 @@ class PassiveComponentBase :
 
     //! Initialized to true; cleared when channel ChannelU32OnChange is first updated
     bool m_first_update_ChannelU32OnChange;
+
     //! Initialized to true; cleared when channel ChannelEnumOnChange is first updated
     bool m_first_update_ChannelEnumOnChange;
 
@@ -1611,6 +1604,7 @@ class PassiveComponentBase :
 
     //! Records the last emitted value for channel ChannelU32OnChange
     U32 m_last_ChannelU32OnChange;
+
     //! Records the last emitted value for channel ChannelEnumOnChange
     E m_last_ChannelEnumOnChange;
 

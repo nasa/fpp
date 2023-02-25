@@ -35,6 +35,42 @@ namespace {
     INT_IF_INTERNALSTRING,
     INT_IF_INTERNALSTRUCT,
   };
+
+  union BuffUnion {
+    BYTE typedAsyncPortSize[InputTypedPort::SERIALIZED_SIZE];
+    BYTE typedAsyncAssertPortSize[InputTypedPort::SERIALIZED_SIZE];
+    BYTE typedAsyncBlockPriorityPortSize[InputTypedPort::SERIALIZED_SIZE];
+    BYTE typedAsyncDropPriorityPortSize[InputTypedPort::SERIALIZED_SIZE];
+    BYTE typedGuardedPortSize[InputTypedPort::SERIALIZED_SIZE];
+    BYTE typedReturnGuardedPortSize[InputTypedReturnPort::SERIALIZED_SIZE];
+    BYTE typedReturnSyncPortSize[InputTypedReturnPort::SERIALIZED_SIZE];
+    BYTE typedSyncPortSize[InputTypedPort::SERIALIZED_SIZE];
+    BYTE cmdPortSize[Fw::InputCmdPort::SERIALIZED_SIZE];
+    // Size of internalArray argument list
+    BYTE internalArrayIntIfSize[
+      A::SERIALIZED_SIZE
+    ];
+    // Size of internalEnum argument list
+    BYTE internalEnumIntIfSize[
+      E::SERIALIZED_SIZE
+    ];
+    // Size of internalPrimitive argument list
+    BYTE internalPrimitiveIntIfSize[
+      sizeof(U32) +
+      sizeof(F32) +
+      sizeof(U8)
+    ];
+    // Size of internalString argument list
+    BYTE internalStringIntIfSize[
+      Fw::InternalInterfaceString::SERIALIZED_SIZE +
+      Fw::InternalInterfaceString::SERIALIZED_SIZE
+    ];
+    // Size of internalStruct argument list
+    BYTE internalStructIntIfSize[
+      S::SERIALIZED_SIZE
+    ];
+  };
+
   // Define a message buffer class large enough to handle all the
   // asynchronous inputs to the component
   class ComponentIpcSerializableBuffer :
@@ -367,90 +403,6 @@ void QueuedComponentBase ::
   this->m_tlmOut_OutputPort[portNum].addCallPort(port);
 }
 
-#if FW_PORT_SERIALIZATION
-
-// ----------------------------------------------------------------------
-// Connect serial input ports to special output ports
-// ----------------------------------------------------------------------
-
-void QueuedComponentBase ::
-  set_cmdRegOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-
-}
-
-void QueuedComponentBase ::
-  set_cmdResponseOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-
-}
-
-void QueuedComponentBase ::
-  set_eventOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-
-}
-
-void QueuedComponentBase ::
-  set_prmGetOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-
-}
-
-void QueuedComponentBase ::
-  set_prmSetOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-
-}
-
-#if FW_ENABLE_TEXT_LOGGING == 1
-
-void QueuedComponentBase ::
-  set_textEventOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-
-}
-
-#endif
-
-void QueuedComponentBase ::
-  set_timeGetOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-
-}
-
-void QueuedComponentBase ::
-  set_tlmOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-
-}
-
-#endif
-
 // ----------------------------------------------------------------------
 // Connect typed input ports to typed output ports
 // ----------------------------------------------------------------------
@@ -483,10 +435,148 @@ void QueuedComponentBase ::
   this->m_typedReturnOut_OutputPort[portNum].addCallPort(port);
 }
 
+// ----------------------------------------------------------------------
+// Connect serial input ports to serial output ports
+// ----------------------------------------------------------------------
+
+void QueuedComponentBase ::
+  set_serialOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_serialOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_serialOut_OutputPort[portNum].registerSerialPort(port);
+}
+
 #if FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
-// Connect serial input ports to typed output ports
+// Connect serial input ports to serial output ports
+// ----------------------------------------------------------------------
+
+void QueuedComponentBase ::
+  set_cmdRegOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_cmdRegOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_cmdRegOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+void QueuedComponentBase ::
+  set_cmdResponseOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_cmdResponseOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_cmdResponseOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+void QueuedComponentBase ::
+  set_eventOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_eventOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_eventOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+void QueuedComponentBase ::
+  set_prmGetOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_prmGetOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_prmGetOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+void QueuedComponentBase ::
+  set_prmSetOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_prmSetOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_prmSetOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+void QueuedComponentBase ::
+  set_textEventOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_textEventOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_textEventOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+void QueuedComponentBase ::
+  set_timeGetOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_timeGetOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_timeGetOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+void QueuedComponentBase ::
+  set_tlmOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_tlmOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_tlmOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+#endif
+
+#if FW_PORT_SERIALIZATION
+
+// ----------------------------------------------------------------------
+// Connect serial input ports to serial output ports
 // ----------------------------------------------------------------------
 
 void QueuedComponentBase ::
@@ -495,7 +585,12 @@ void QueuedComponentBase ::
       Fw::InputSerializePort* port
   )
 {
+  FW_ASSERT(
+    portNum < this->getNum_typedOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
+  this->m_typedOut_OutputPort[portNum].registerSerialPort(port);
 }
 
 void QueuedComponentBase ::
@@ -504,7 +599,12 @@ void QueuedComponentBase ::
       Fw::InputSerializePort* port
   )
 {
+  FW_ASSERT(
+    portNum < this->getNum_typedReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
+  this->m_typedReturnOut_OutputPort[portNum].registerSerialPort(port);
 }
 
 #endif
@@ -518,19 +618,15 @@ void QueuedComponentBase ::
 void QueuedComponentBase ::
   set_serialOut_OutputPort(
       NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-
-}
-
-void QueuedComponentBase ::
-  set_serialOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
       Fw::InputPortBase* port
   )
 {
+  FW_ASSERT(
+    portNum < this->getNum_serialOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
+  this->m_serialOut_OutputPort[portNum].registerSerialPort(port);
 }
 
 #endif
@@ -1411,31 +1507,56 @@ NATIVE_INT_TYPE QueuedComponentBase ::
 bool QueuedComponentBase ::
   isConnected_cmdRegOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
+  FW_ASSERT(
+    portNum < this->getNum_cmdRegOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
+  return this->m_cmdRegOut_OutputPort[portNum].isConnected();
 }
 
 bool QueuedComponentBase ::
   isConnected_cmdResponseOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
+  FW_ASSERT(
+    portNum < this->getNum_cmdResponseOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
+  return this->m_cmdResponseOut_OutputPort[portNum].isConnected();
 }
 
 bool QueuedComponentBase ::
   isConnected_eventOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
+  FW_ASSERT(
+    portNum < this->getNum_eventOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
+  return this->m_eventOut_OutputPort[portNum].isConnected();
 }
 
 bool QueuedComponentBase ::
   isConnected_prmGetOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
+  FW_ASSERT(
+    portNum < this->getNum_prmGetOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
+  return this->m_prmGetOut_OutputPort[portNum].isConnected();
 }
 
 bool QueuedComponentBase ::
   isConnected_prmSetOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
+  FW_ASSERT(
+    portNum < this->getNum_prmSetOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
+  return this->m_prmSetOut_OutputPort[portNum].isConnected();
 }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
@@ -1443,7 +1564,12 @@ bool QueuedComponentBase ::
 bool QueuedComponentBase ::
   isConnected_textEventOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
+  FW_ASSERT(
+    portNum < this->getNum_textEventOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
+  return this->m_textEventOut_OutputPort[portNum].isConnected();
 }
 
 #endif
@@ -1451,13 +1577,23 @@ bool QueuedComponentBase ::
 bool QueuedComponentBase ::
   isConnected_timeGetOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
+  FW_ASSERT(
+    portNum < this->getNum_timeGetOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
+  return this->m_timeGetOut_OutputPort[portNum].isConnected();
 }
 
 bool QueuedComponentBase ::
   isConnected_tlmOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
+  FW_ASSERT(
+    portNum < this->getNum_tlmOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
+  return this->m_tlmOut_OutputPort[portNum].isConnected();
 }
 
 // ----------------------------------------------------------------------
@@ -1467,13 +1603,23 @@ bool QueuedComponentBase ::
 bool QueuedComponentBase ::
   isConnected_typedOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
+  FW_ASSERT(
+    portNum < this->getNum_typedOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
+  return this->m_typedOut_OutputPort[portNum].isConnected();
 }
 
 bool QueuedComponentBase ::
   isConnected_typedReturnOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
+  FW_ASSERT(
+    portNum < this->getNum_typedReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
+  return this->m_typedReturnOut_OutputPort[portNum].isConnected();
 }
 
 // ----------------------------------------------------------------------
@@ -1483,135 +1629,18 @@ bool QueuedComponentBase ::
 bool QueuedComponentBase ::
   isConnected_serialOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
+  FW_ASSERT(
+    portNum < this->getNum_serialOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-}
-
-// ----------------------------------------------------------------------
-// Handlers to implement for typed input ports
-// ----------------------------------------------------------------------
-
-void QueuedComponentBase ::
-  typedAsync_handler(
-      NATIVE_INT_TYPE portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const TypedPortStrings::StringSize80& str,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-
-}
-
-void QueuedComponentBase ::
-  typedAsyncAssert_handler(
-      NATIVE_INT_TYPE portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const TypedPortStrings::StringSize80& str,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-
-}
-
-void QueuedComponentBase ::
-  typedAsyncBlockPriority_handler(
-      NATIVE_INT_TYPE portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const TypedPortStrings::StringSize80& str,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-
-}
-
-void QueuedComponentBase ::
-  typedAsyncDropPriority_handler(
-      NATIVE_INT_TYPE portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const TypedPortStrings::StringSize80& str,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-
-}
-
-void QueuedComponentBase ::
-  typedGuarded_handler(
-      NATIVE_INT_TYPE portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const TypedPortStrings::StringSize80& str,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-
-}
-
-F32 QueuedComponentBase ::
-  typedReturnGuarded_handler(
-      NATIVE_INT_TYPE portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const TypedReturnPortStrings::StringSize80& str,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-
-}
-
-F32 QueuedComponentBase ::
-  typedReturnSync_handler(
-      NATIVE_INT_TYPE portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const TypedReturnPortStrings::StringSize80& str,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-
-}
-
-void QueuedComponentBase ::
-  typedSync_handler(
-      NATIVE_INT_TYPE portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const TypedPortStrings::StringSize80& str,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-
+  return this->m_serialOut_OutputPort[portNum].isConnected();
 }
 
 // ----------------------------------------------------------------------
 // Port handler base-class functions for typed input ports
+//
+// Call these functions directly to bypass the corresponding ports
 // ----------------------------------------------------------------------
 
 void QueuedComponentBase ::
@@ -2068,6 +2097,7 @@ void QueuedComponentBase ::
   // Lock guard mutex before calling
   this->lock();
 
+  // Down call to pure virtual handler method implemented in Impl class
   this->typedGuarded_handler(
     portNum,
     u32,
@@ -2106,6 +2136,7 @@ F32 QueuedComponentBase ::
   // Lock guard mutex before calling
   this->lock();
 
+  // Down call to pure virtual handler method implemented in Impl class
   retVal = this->typedReturnGuarded_handler(
     portNum,
     u32,
@@ -2143,6 +2174,7 @@ F32 QueuedComponentBase ::
 
   F32 retVal;
 
+  // Down call to pure virtual handler method implemented in Impl class
   retVal = this->typedReturnSync_handler(
     portNum,
     u32,
@@ -2175,6 +2207,7 @@ void QueuedComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
+  // Down call to pure virtual handler method implemented in Impl class
   this->typedSync_handler(
     portNum,
     u32,
@@ -2188,65 +2221,9 @@ void QueuedComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Handlers to implement for serial input ports
-// ----------------------------------------------------------------------
-
-void QueuedComponentBase ::
-  serialAsync_handler(
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-
-}
-
-void QueuedComponentBase ::
-  serialAsyncAssert_handler(
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-
-}
-
-void QueuedComponentBase ::
-  serialAsyncBlockPriority_handler(
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-
-}
-
-void QueuedComponentBase ::
-  serialAsyncDropPriority_handler(
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-
-}
-
-void QueuedComponentBase ::
-  serialGuarded_handler(
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-
-}
-
-void QueuedComponentBase ::
-  serialSync_handler(
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-
-}
-
-// ----------------------------------------------------------------------
 // Port handler base-class functions for serial input ports
+//
+// Call these functions directly to bypass the corresponding ports
 // ----------------------------------------------------------------------
 
 void QueuedComponentBase ::
@@ -2469,6 +2446,7 @@ void QueuedComponentBase ::
   // Lock guard mutex before calling
   this->lock();
 
+  // Down call to pure virtual handler method implemented in Impl class
   this->serialGuarded_handler(
     portNum,
     buffer
@@ -2490,6 +2468,7 @@ void QueuedComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
+  // Down call to pure virtual handler method implemented in Impl class
   this->serialSync_handler(
     portNum,
     buffer
@@ -2498,6 +2477,10 @@ void QueuedComponentBase ::
 
 // ----------------------------------------------------------------------
 // Pre-message hooks for typed async input ports
+//
+// Each of these functions is invoked just before processing a message
+// on the corresponding port. By default, they do nothing. You can
+// override them to provide specific pre-message behavior.
 // ----------------------------------------------------------------------
 
 void QueuedComponentBase ::
@@ -2562,6 +2545,10 @@ void QueuedComponentBase ::
 
 // ----------------------------------------------------------------------
 // Pre-message hooks for serial async input ports
+//
+// Each of these functions is invoked just before processing a message
+// on the corresponding port. By default, they do nothing. You can
+// override them to provide specific pre-message behavior.
 // ----------------------------------------------------------------------
 
 void QueuedComponentBase ::
@@ -2616,7 +2603,19 @@ void QueuedComponentBase ::
       const S& s
   )
 {
-
+  FW_ASSERT(
+    portNum < this->getNum_typedOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_typedOut_OutputPort[portNum].invoke(
+    u32,
+    f32,
+    b,
+    str,
+    e,
+    a,
+    s
+  );
 }
 
 F32 QueuedComponentBase ::
@@ -2631,7 +2630,19 @@ F32 QueuedComponentBase ::
       const S& s
   )
 {
-
+  FW_ASSERT(
+    portNum < this->getNum_typedReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_typedReturnOut_OutputPort[portNum].invoke(
+    u32,
+    f32,
+    b,
+    str,
+    e,
+    a,
+    s
+  );
 }
 
 // ----------------------------------------------------------------------
@@ -2644,54 +2655,13 @@ Fw::SerializeStatus QueuedComponentBase ::
       Fw::SerializeBufferBase& buffer
   )
 {
-
-}
-
-// ----------------------------------------------------------------------
-// Internal interface handlers
-// ----------------------------------------------------------------------
-
-void QueuedComponentBase ::
-  internalArray_internalInterfaceHandler(const A& a)
-{
-
-}
-
-void QueuedComponentBase ::
-  internalEnum_internalInterfaceHandler(const E& e)
-{
-
-}
-
-void QueuedComponentBase ::
-  internalPrimitive_internalInterfaceHandler(
-      U32 u32,
-      F32 f32,
-      bool b
-  )
-{
-
-}
-
-void QueuedComponentBase ::
-  internalPriorityDrop_internalInterfaceHandler()
-{
-
-}
-
-void QueuedComponentBase ::
-  internalString_internalInterfaceHandler(
-      const Fw::InternalInterfaceString& str1,
-      const Fw::InternalInterfaceString& str2
-  )
-{
-
-}
-
-void QueuedComponentBase ::
-  internalStruct_internalInterfaceHandler(const S& s)
-{
-
+  FW_ASSERT(
+    portNum < this->getNum_serialOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_serialOut_OutputPort[portNum].invokeSerial(
+    buffer
+  );
 }
 
 // ----------------------------------------------------------------------
@@ -2756,120 +2726,9 @@ void QueuedComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Command handlers to implement
-// ----------------------------------------------------------------------
-
-void QueuedComponentBase ::
-  CMD_SYNC_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq
-  )
-{
-
-}
-
-void QueuedComponentBase ::
-  CMD_SYNC_PRIMITIVE_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq,
-      U32 u32,
-      F32 f32,
-      bool b
-  )
-{
-
-}
-
-void QueuedComponentBase ::
-  CMD_SYNC_STRING_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq,
-      const Fw::CmdStringArg& str1,
-      const Fw::CmdStringArg& str2
-  )
-{
-
-}
-
-void QueuedComponentBase ::
-  CMD_ASYNC_ENUM_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq,
-      E e
-  )
-{
-
-}
-
-void QueuedComponentBase ::
-  CMD_SYNC_ARRAY_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq,
-      A a
-  )
-{
-
-}
-
-void QueuedComponentBase ::
-  CMD_SYNC_STRUCT_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq,
-      S s
-  )
-{
-
-}
-
-void QueuedComponentBase ::
-  CMD_ASYNC_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq
-  )
-{
-
-}
-
-void QueuedComponentBase ::
-  CMD_PRIORITY_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq
-  )
-{
-
-}
-
-void QueuedComponentBase ::
-  CMD_PARAMS_PRIORITY_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq,
-      U32 u32
-  )
-{
-
-}
-
-void QueuedComponentBase ::
-  CMD_DROP_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq
-  )
-{
-
-}
-
-void QueuedComponentBase ::
-  CMD_PARAMS_PRIORITY_DROP_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq,
-      U32 u32
-  )
-{
-
-}
-
-// ----------------------------------------------------------------------
 // Command handler base-class functions
+//
+// Call these functions directly to bypass the command input port
 // ----------------------------------------------------------------------
 
 void QueuedComponentBase ::
@@ -2984,6 +2843,10 @@ void QueuedComponentBase ::
 
 // ----------------------------------------------------------------------
 // Pre-message hooks for async commands
+//
+// Each of these functions is invoked just before processing the
+// corresponding command. By default they do nothing. You can
+// override them to provide specific pre-command behavior.
 // ----------------------------------------------------------------------
 
 void QueuedComponentBase ::
@@ -3284,6 +3147,9 @@ Fw::Time QueuedComponentBase ::
 
 // ----------------------------------------------------------------------
 // Mutex operations for guarded ports
+//
+// You can override these operations to provide more sophisticated
+// synchronization
 // ----------------------------------------------------------------------
 
 void QueuedComponentBase ::
@@ -3405,7 +3271,6 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedComponentBase ::
         deserStatus == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(deserStatus)
       );
-
       // Call handler function
       this->typedAsync_handler(
         portNum,
@@ -3478,7 +3343,6 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedComponentBase ::
         deserStatus == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(deserStatus)
       );
-
       // Call handler function
       this->typedAsyncAssert_handler(
         portNum,
@@ -3551,7 +3415,6 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedComponentBase ::
         deserStatus == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(deserStatus)
       );
-
       // Call handler function
       this->typedAsyncBlockPriority_handler(
         portNum,
@@ -3624,7 +3487,6 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedComponentBase ::
         deserStatus == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(deserStatus)
       );
-
       // Call handler function
       this->typedAsyncDropPriority_handler(
         portNum,
@@ -3852,8 +3714,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedComponentBase ::
 
       // Call handler function
       this->CMD_PARAMS_PRIORITY_cmdHandler(
-        opCode,
-        cmdSeq,
+        opCode, cmdSeq,
         u32
       );
 
@@ -3965,8 +3826,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedComponentBase ::
 
       // Call handler function
       this->CMD_PARAMS_PRIORITY_DROP_cmdHandler(
-        opCode,
-        cmdSeq,
+        opCode, cmdSeq,
         u32
       );
 
@@ -3983,12 +3843,10 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedComponentBase ::
         Fw::FW_SERIALIZE_OK == deserStatus,
         static_cast<FwAssertArgType>(deserStatus)
       );
-
       // Call handler function
       this->internalArray_internalInterfaceHandler(
         a
       );
-
       break;
     }
 
@@ -4002,12 +3860,10 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedComponentBase ::
         Fw::FW_SERIALIZE_OK == deserStatus,
         static_cast<FwAssertArgType>(deserStatus)
       );
-
       // Call handler function
       this->internalEnum_internalInterfaceHandler(
         e
       );
-
       break;
     }
 
@@ -4039,25 +3895,19 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedComponentBase ::
         Fw::FW_SERIALIZE_OK == deserStatus,
         static_cast<FwAssertArgType>(deserStatus)
       );
-
       // Call handler function
       this->internalPrimitive_internalInterfaceHandler(
         u32,
         f32,
         b
       );
-
       break;
     }
 
     // Handle internal interface internalPriorityDrop
     case INT_IF_INTERNALPRIORITYDROP: {
-
       // Call handler function
-      this->internalPriorityDrop_internalInterfaceHandler(
-
-      );
-
+      this->internalPriorityDrop_internalInterfaceHandler();
       break;
     }
 
@@ -4080,13 +3930,11 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedComponentBase ::
         Fw::FW_SERIALIZE_OK == deserStatus,
         static_cast<FwAssertArgType>(deserStatus)
       );
-
       // Call handler function
       this->internalString_internalInterfaceHandler(
         str1,
         str2
       );
-
       break;
     }
 
@@ -4100,12 +3948,10 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedComponentBase ::
         Fw::FW_SERIALIZE_OK == deserStatus,
         static_cast<FwAssertArgType>(deserStatus)
       );
-
       // Call handler function
       this->internalStruct_internalInterfaceHandler(
         s
       );
-
       break;
     }
 
@@ -4768,7 +4614,3 @@ Fw::CmdResponse QueuedComponentBase ::
 {
 
 }
-
-#if FW_ENABLE_TEXT_LOGGING == 1
-
-#endif

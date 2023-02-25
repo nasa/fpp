@@ -32,7 +32,7 @@
 
 //! \class ActiveEventsComponentBase
 //! \brief Auto-generated base for ActiveEvents component
-//! 
+//!
 //! An active component with events
 class ActiveEventsComponentBase :
   public Fw::ActiveComponentBase
@@ -126,7 +126,7 @@ class ActiveEventsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get special input port at index
-    //! 
+    //!
     //! \return cmdIn[portNum]
     Fw::InputCmdPort* get_cmdIn_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -139,56 +139,56 @@ class ActiveEventsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get typed input port at index
-    //! 
+    //!
     //! \return typedAsync[portNum]
     InputTypedPort* get_typedAsync_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
-    //! 
+    //!
     //! \return typedAsyncAssert[portNum]
     InputTypedPort* get_typedAsyncAssert_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
-    //! 
+    //!
     //! \return typedAsyncBlockPriority[portNum]
     InputTypedPort* get_typedAsyncBlockPriority_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
-    //! 
+    //!
     //! \return typedAsyncDropPriority[portNum]
     InputTypedPort* get_typedAsyncDropPriority_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
-    //! 
+    //!
     //! \return typedGuarded[portNum]
     InputTypedPort* get_typedGuarded_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
-    //! 
+    //!
     //! \return typedReturnGuarded[portNum]
     InputTypedReturnPort* get_typedReturnGuarded_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
-    //! 
+    //!
     //! \return typedReturnSync[portNum]
     InputTypedReturnPort* get_typedReturnSync_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
-    //! 
+    //!
     //! \return typedSync[portNum]
     InputTypedPort* get_typedSync_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -201,42 +201,42 @@ class ActiveEventsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get serial input port at index
-    //! 
+    //!
     //! \return serialAsync[portNum]
     Fw::InputSerializePort* get_serialAsync_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get serial input port at index
-    //! 
+    //!
     //! \return serialAsyncAssert[portNum]
     Fw::InputSerializePort* get_serialAsyncAssert_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get serial input port at index
-    //! 
+    //!
     //! \return serialAsyncBlockPriority[portNum]
     Fw::InputSerializePort* get_serialAsyncBlockPriority_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get serial input port at index
-    //! 
+    //!
     //! \return serialAsyncDropPriority[portNum]
     Fw::InputSerializePort* get_serialAsyncDropPriority_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get serial input port at index
-    //! 
+    //!
     //! \return serialGuarded[portNum]
     Fw::InputSerializePort* get_serialGuarded_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get serial input port at index
-    //! 
+    //!
     //! \return serialSync[portNum]
     Fw::InputSerializePort* get_serialSync_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -300,12 +300,42 @@ class ActiveEventsComponentBase :
         Fw::InputTlmPort* port //!< The input port
     );
 
+  public:
+
+    // ----------------------------------------------------------------------
+    // Connect typed input ports to typed output ports
+    // ----------------------------------------------------------------------
+
+    //! Connect port to typedOut[portNum]
+    void set_typedOut_OutputPort(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        InputTypedPort* port //!< The input port
+    );
+
+    //! Connect port to typedReturnOut[portNum]
+    void set_typedReturnOut_OutputPort(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        InputTypedReturnPort* port //!< The input port
+    );
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Connect serial input ports to serial output ports
+    // ----------------------------------------------------------------------
+
+    //! Connect port to serialOut[portNum]
+    void set_serialOut_OutputPort(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        Fw::InputSerializePort* port //!< The input port
+    );
+
 #if FW_PORT_SERIALIZATION
 
   public:
 
     // ----------------------------------------------------------------------
-    // Connect serial input ports to special output ports
+    // Connect serial input ports to serial output ports
     // ----------------------------------------------------------------------
 
     //! Connect port to cmdRegOut[portNum]
@@ -338,15 +368,11 @@ class ActiveEventsComponentBase :
         Fw::InputSerializePort* port //!< The port
     );
 
-#if FW_ENABLE_TEXT_LOGGING == 1
-
     //! Connect port to textEventOut[portNum]
     void set_textEventOut_OutputPort(
         NATIVE_INT_TYPE portNum, //!< The port number
         Fw::InputSerializePort* port //!< The port
     );
-
-#endif
 
     //! Connect port to timeGetOut[portNum]
     void set_timeGetOut_OutputPort(
@@ -362,30 +388,12 @@ class ActiveEventsComponentBase :
 
 #endif
 
-  public:
-
-    // ----------------------------------------------------------------------
-    // Connect typed input ports to typed output ports
-    // ----------------------------------------------------------------------
-
-    //! Connect port to typedOut[portNum]
-    void set_typedOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        InputTypedPort* port //!< The input port
-    );
-
-    //! Connect port to typedReturnOut[portNum]
-    void set_typedReturnOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        InputTypedReturnPort* port //!< The input port
-    );
-
 #if FW_PORT_SERIALIZATION
 
   public:
 
     // ----------------------------------------------------------------------
-    // Connect serial input ports to typed output ports
+    // Connect serial input ports to serial output ports
     // ----------------------------------------------------------------------
 
     //! Connect port to typedOut[portNum]
@@ -409,12 +417,6 @@ class ActiveEventsComponentBase :
     // ----------------------------------------------------------------------
     // Connect serial input ports to serial output ports
     // ----------------------------------------------------------------------
-
-    //! Connect port to serialOut[portNum]
-    void set_serialOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::InputSerializePort* port //!< The port
-    );
 
     //! Connect port to serialOut[portNum]
     void set_serialOut_OutputPort(
@@ -452,7 +454,7 @@ class ActiveEventsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get the number of cmdIn input ports
-    //! 
+    //!
     //! \return The number of cmdIn input ports
     NATIVE_INT_TYPE getNum_cmdIn_InputPorts();
 
@@ -463,42 +465,42 @@ class ActiveEventsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get the number of typedAsync input ports
-    //! 
+    //!
     //! \return The number of typedAsync input ports
     NATIVE_INT_TYPE getNum_typedAsync_InputPorts();
 
     //! Get the number of typedAsyncAssert input ports
-    //! 
+    //!
     //! \return The number of typedAsyncAssert input ports
     NATIVE_INT_TYPE getNum_typedAsyncAssert_InputPorts();
 
     //! Get the number of typedAsyncBlockPriority input ports
-    //! 
+    //!
     //! \return The number of typedAsyncBlockPriority input ports
     NATIVE_INT_TYPE getNum_typedAsyncBlockPriority_InputPorts();
 
     //! Get the number of typedAsyncDropPriority input ports
-    //! 
+    //!
     //! \return The number of typedAsyncDropPriority input ports
     NATIVE_INT_TYPE getNum_typedAsyncDropPriority_InputPorts();
 
     //! Get the number of typedGuarded input ports
-    //! 
+    //!
     //! \return The number of typedGuarded input ports
     NATIVE_INT_TYPE getNum_typedGuarded_InputPorts();
 
     //! Get the number of typedReturnGuarded input ports
-    //! 
+    //!
     //! \return The number of typedReturnGuarded input ports
     NATIVE_INT_TYPE getNum_typedReturnGuarded_InputPorts();
 
     //! Get the number of typedReturnSync input ports
-    //! 
+    //!
     //! \return The number of typedReturnSync input ports
     NATIVE_INT_TYPE getNum_typedReturnSync_InputPorts();
 
     //! Get the number of typedSync input ports
-    //! 
+    //!
     //! \return The number of typedSync input ports
     NATIVE_INT_TYPE getNum_typedSync_InputPorts();
 
@@ -509,32 +511,32 @@ class ActiveEventsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get the number of serialAsync input ports
-    //! 
+    //!
     //! \return The number of serialAsync input ports
     NATIVE_INT_TYPE getNum_serialAsync_InputPorts();
 
     //! Get the number of serialAsyncAssert input ports
-    //! 
+    //!
     //! \return The number of serialAsyncAssert input ports
     NATIVE_INT_TYPE getNum_serialAsyncAssert_InputPorts();
 
     //! Get the number of serialAsyncBlockPriority input ports
-    //! 
+    //!
     //! \return The number of serialAsyncBlockPriority input ports
     NATIVE_INT_TYPE getNum_serialAsyncBlockPriority_InputPorts();
 
     //! Get the number of serialAsyncDropPriority input ports
-    //! 
+    //!
     //! \return The number of serialAsyncDropPriority input ports
     NATIVE_INT_TYPE getNum_serialAsyncDropPriority_InputPorts();
 
     //! Get the number of serialGuarded input ports
-    //! 
+    //!
     //! \return The number of serialGuarded input ports
     NATIVE_INT_TYPE getNum_serialGuarded_InputPorts();
 
     //! Get the number of serialSync input ports
-    //! 
+    //!
     //! \return The number of serialSync input ports
     NATIVE_INT_TYPE getNum_serialSync_InputPorts();
 
@@ -545,46 +547,46 @@ class ActiveEventsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get the number of cmdRegOut output ports
-    //! 
+    //!
     //! \return The number of cmdRegOut output ports
     NATIVE_INT_TYPE getNum_cmdRegOut_OutputPorts();
 
     //! Get the number of cmdResponseOut output ports
-    //! 
+    //!
     //! \return The number of cmdResponseOut output ports
     NATIVE_INT_TYPE getNum_cmdResponseOut_OutputPorts();
 
     //! Get the number of eventOut output ports
-    //! 
+    //!
     //! \return The number of eventOut output ports
     NATIVE_INT_TYPE getNum_eventOut_OutputPorts();
 
     //! Get the number of prmGetOut output ports
-    //! 
+    //!
     //! \return The number of prmGetOut output ports
     NATIVE_INT_TYPE getNum_prmGetOut_OutputPorts();
 
     //! Get the number of prmSetOut output ports
-    //! 
+    //!
     //! \return The number of prmSetOut output ports
     NATIVE_INT_TYPE getNum_prmSetOut_OutputPorts();
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
     //! Get the number of textEventOut output ports
-    //! 
+    //!
     //! \return The number of textEventOut output ports
     NATIVE_INT_TYPE getNum_textEventOut_OutputPorts();
 
 #endif
 
     //! Get the number of timeGetOut output ports
-    //! 
+    //!
     //! \return The number of timeGetOut output ports
     NATIVE_INT_TYPE getNum_timeGetOut_OutputPorts();
 
     //! Get the number of tlmOut output ports
-    //! 
+    //!
     //! \return The number of tlmOut output ports
     NATIVE_INT_TYPE getNum_tlmOut_OutputPorts();
 
@@ -595,12 +597,12 @@ class ActiveEventsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get the number of typedOut output ports
-    //! 
+    //!
     //! \return The number of typedOut output ports
     NATIVE_INT_TYPE getNum_typedOut_OutputPorts();
 
     //! Get the number of typedReturnOut output ports
-    //! 
+    //!
     //! \return The number of typedReturnOut output ports
     NATIVE_INT_TYPE getNum_typedReturnOut_OutputPorts();
 
@@ -611,7 +613,7 @@ class ActiveEventsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get the number of serialOut output ports
-    //! 
+    //!
     //! \return The number of serialOut output ports
     NATIVE_INT_TYPE getNum_serialOut_OutputPorts();
 
@@ -622,35 +624,35 @@ class ActiveEventsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Check whether port cmdRegOut is connected
-    //! 
+    //!
     //! \return Whether port cmdRegOut is connected
     bool isConnected_cmdRegOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Check whether port cmdResponseOut is connected
-    //! 
+    //!
     //! \return Whether port cmdResponseOut is connected
     bool isConnected_cmdResponseOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Check whether port eventOut is connected
-    //! 
+    //!
     //! \return Whether port eventOut is connected
     bool isConnected_eventOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Check whether port prmGetOut is connected
-    //! 
+    //!
     //! \return Whether port prmGetOut is connected
     bool isConnected_prmGetOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Check whether port prmSetOut is connected
-    //! 
+    //!
     //! \return Whether port prmSetOut is connected
     bool isConnected_prmSetOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -659,7 +661,7 @@ class ActiveEventsComponentBase :
 #if FW_ENABLE_TEXT_LOGGING == 1
 
     //! Check whether port textEventOut is connected
-    //! 
+    //!
     //! \return Whether port textEventOut is connected
     bool isConnected_textEventOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -668,14 +670,14 @@ class ActiveEventsComponentBase :
 #endif
 
     //! Check whether port timeGetOut is connected
-    //! 
+    //!
     //! \return Whether port timeGetOut is connected
     bool isConnected_timeGetOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Check whether port tlmOut is connected
-    //! 
+    //!
     //! \return Whether port tlmOut is connected
     bool isConnected_tlmOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -688,14 +690,14 @@ class ActiveEventsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Check whether port typedOut is connected
-    //! 
+    //!
     //! \return Whether port typedOut is connected
     bool isConnected_typedOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Check whether port typedReturnOut is connected
-    //! 
+    //!
     //! \return Whether port typedReturnOut is connected
     bool isConnected_typedReturnOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -708,7 +710,7 @@ class ActiveEventsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Check whether port serialOut is connected
-    //! 
+    //!
     //! \return Whether port serialOut is connected
     bool isConnected_serialOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -820,7 +822,7 @@ class ActiveEventsComponentBase :
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for typed input ports
-    // 
+    //
     // Call these functions directly to bypass the corresponding ports
     // ----------------------------------------------------------------------
 
@@ -966,7 +968,7 @@ class ActiveEventsComponentBase :
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for serial input ports
-    // 
+    //
     // Call these functions directly to bypass the corresponding ports
     // ----------------------------------------------------------------------
 
@@ -1010,7 +1012,7 @@ class ActiveEventsComponentBase :
 
     // ----------------------------------------------------------------------
     // Pre-message hooks for typed async input ports
-    // 
+    //
     // Each of these functions is invoked just before processing a message
     // on the corresponding port. By default, they do nothing. You can
     // override them to provide specific pre-message behavior.
@@ -1068,7 +1070,7 @@ class ActiveEventsComponentBase :
 
     // ----------------------------------------------------------------------
     // Pre-message hooks for serial async input ports
-    // 
+    //
     // Each of these functions is invoked just before processing a message
     // on the corresponding port. By default, they do nothing. You can
     // override them to provide specific pre-message behavior.
@@ -1147,12 +1149,12 @@ class ActiveEventsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Log event EventActivityHigh
-    //! 
+    //!
     //! An activity high event with no params
     void log_ACTIVITY_HI_EventActivityHigh();
 
     //! Log event EventActivityLowThrottled
-    //! 
+    //!
     //! An activity low, throttled event with primitive params
     void log_ACTIVITY_LO_EventActivityLowThrottled(
         U32 u32, //!< A U32
@@ -1161,7 +1163,7 @@ class ActiveEventsComponentBase :
     );
 
     //! Log event EventCommand
-    //! 
+    //!
     //! A command event with string params
     void log_COMMAND_EventCommand(
         const Fw::LogStringArg& str1, //!< A string
@@ -1169,28 +1171,28 @@ class ActiveEventsComponentBase :
     );
 
     //! Log event EventDiagnostic
-    //! 
+    //!
     //! A diagnostic event with enum params
     void log_DIAGNOSTIC_EventDiagnostic(
         E e //!< An enum
     );
 
     //! Log event EventFatalThrottled
-    //! 
+    //!
     //! A fatal, throttled event with array params
     void log_FATAL_EventFatalThrottled(
         A a //!< An array
     );
 
     //! Log event EventWarningHigh
-    //! 
+    //!
     //! A warning high event with struct params
     void log_WARNING_HI_EventWarningHigh(
         S s //!< A struct
     );
 
     //! Log event EventWarningLowThrottled
-    //! 
+    //!
     //! A warning low, throttled event with no params
     void log_WARNING_LO_EventWarningLowThrottled();
 
@@ -1216,7 +1218,7 @@ class ActiveEventsComponentBase :
     // ----------------------------------------------------------------------
 
     //!  Get the time
-    //! 
+    //!
     //! \\return The current time
     Fw::Time getTime();
 
@@ -1224,7 +1226,7 @@ class ActiveEventsComponentBase :
 
     // ----------------------------------------------------------------------
     // Mutex operations for guarded ports
-    // 
+    //
     // You can override these operations to provide more sophisticated
     // synchronization
     // ----------------------------------------------------------------------

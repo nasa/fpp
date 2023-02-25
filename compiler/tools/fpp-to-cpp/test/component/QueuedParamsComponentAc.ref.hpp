@@ -33,7 +33,7 @@
 
 //! \class QueuedParamsComponentBase
 //! \brief Auto-generated base for QueuedParams component
-//! 
+//!
 //! An queued component with params
 class QueuedParamsComponentBase :
   public Fw::QueuedComponentBase
@@ -135,7 +135,7 @@ class QueuedParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get special input port at index
-    //! 
+    //!
     //! \return cmdIn[portNum]
     Fw::InputCmdPort* get_cmdIn_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -148,56 +148,56 @@ class QueuedParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get typed input port at index
-    //! 
+    //!
     //! \return typedAsync[portNum]
     InputTypedPort* get_typedAsync_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
-    //! 
+    //!
     //! \return typedAsyncAssert[portNum]
     InputTypedPort* get_typedAsyncAssert_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
-    //! 
+    //!
     //! \return typedAsyncBlockPriority[portNum]
     InputTypedPort* get_typedAsyncBlockPriority_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
-    //! 
+    //!
     //! \return typedAsyncDropPriority[portNum]
     InputTypedPort* get_typedAsyncDropPriority_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
-    //! 
+    //!
     //! \return typedGuarded[portNum]
     InputTypedPort* get_typedGuarded_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
-    //! 
+    //!
     //! \return typedReturnGuarded[portNum]
     InputTypedReturnPort* get_typedReturnGuarded_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
-    //! 
+    //!
     //! \return typedReturnSync[portNum]
     InputTypedReturnPort* get_typedReturnSync_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
-    //! 
+    //!
     //! \return typedSync[portNum]
     InputTypedPort* get_typedSync_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -210,42 +210,42 @@ class QueuedParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get serial input port at index
-    //! 
+    //!
     //! \return serialAsync[portNum]
     Fw::InputSerializePort* get_serialAsync_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get serial input port at index
-    //! 
+    //!
     //! \return serialAsyncAssert[portNum]
     Fw::InputSerializePort* get_serialAsyncAssert_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get serial input port at index
-    //! 
+    //!
     //! \return serialAsyncBlockPriority[portNum]
     Fw::InputSerializePort* get_serialAsyncBlockPriority_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get serial input port at index
-    //! 
+    //!
     //! \return serialAsyncDropPriority[portNum]
     Fw::InputSerializePort* get_serialAsyncDropPriority_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get serial input port at index
-    //! 
+    //!
     //! \return serialGuarded[portNum]
     Fw::InputSerializePort* get_serialGuarded_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get serial input port at index
-    //! 
+    //!
     //! \return serialSync[portNum]
     Fw::InputSerializePort* get_serialSync_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -309,12 +309,42 @@ class QueuedParamsComponentBase :
         Fw::InputTlmPort* port //!< The input port
     );
 
+  public:
+
+    // ----------------------------------------------------------------------
+    // Connect typed input ports to typed output ports
+    // ----------------------------------------------------------------------
+
+    //! Connect port to typedOut[portNum]
+    void set_typedOut_OutputPort(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        InputTypedPort* port //!< The input port
+    );
+
+    //! Connect port to typedReturnOut[portNum]
+    void set_typedReturnOut_OutputPort(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        InputTypedReturnPort* port //!< The input port
+    );
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Connect serial input ports to serial output ports
+    // ----------------------------------------------------------------------
+
+    //! Connect port to serialOut[portNum]
+    void set_serialOut_OutputPort(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        Fw::InputSerializePort* port //!< The input port
+    );
+
 #if FW_PORT_SERIALIZATION
 
   public:
 
     // ----------------------------------------------------------------------
-    // Connect serial input ports to special output ports
+    // Connect serial input ports to serial output ports
     // ----------------------------------------------------------------------
 
     //! Connect port to cmdRegOut[portNum]
@@ -347,15 +377,11 @@ class QueuedParamsComponentBase :
         Fw::InputSerializePort* port //!< The port
     );
 
-#if FW_ENABLE_TEXT_LOGGING == 1
-
     //! Connect port to textEventOut[portNum]
     void set_textEventOut_OutputPort(
         NATIVE_INT_TYPE portNum, //!< The port number
         Fw::InputSerializePort* port //!< The port
     );
-
-#endif
 
     //! Connect port to timeGetOut[portNum]
     void set_timeGetOut_OutputPort(
@@ -371,30 +397,12 @@ class QueuedParamsComponentBase :
 
 #endif
 
-  public:
-
-    // ----------------------------------------------------------------------
-    // Connect typed input ports to typed output ports
-    // ----------------------------------------------------------------------
-
-    //! Connect port to typedOut[portNum]
-    void set_typedOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        InputTypedPort* port //!< The input port
-    );
-
-    //! Connect port to typedReturnOut[portNum]
-    void set_typedReturnOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        InputTypedReturnPort* port //!< The input port
-    );
-
 #if FW_PORT_SERIALIZATION
 
   public:
 
     // ----------------------------------------------------------------------
-    // Connect serial input ports to typed output ports
+    // Connect serial input ports to serial output ports
     // ----------------------------------------------------------------------
 
     //! Connect port to typedOut[portNum]
@@ -422,12 +430,6 @@ class QueuedParamsComponentBase :
     //! Connect port to serialOut[portNum]
     void set_serialOut_OutputPort(
         NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::InputSerializePort* port //!< The port
-    );
-
-    //! Connect port to serialOut[portNum]
-    void set_serialOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
         Fw::InputPortBase* port //!< The port
     );
 
@@ -440,7 +442,7 @@ class QueuedParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! \brief Register commands with the Command Dispatcher
-    //! 
+    //!
     //! Connect the dispatcher first
     void regCommands();
 
@@ -451,7 +453,7 @@ class QueuedParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! \brief Load the parameters from a parameter source
-    //! 
+    //!
     //! Connect the parameter first
     void loadParameters();
 
@@ -483,7 +485,7 @@ class QueuedParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get the number of cmdIn input ports
-    //! 
+    //!
     //! \return The number of cmdIn input ports
     NATIVE_INT_TYPE getNum_cmdIn_InputPorts();
 
@@ -494,42 +496,42 @@ class QueuedParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get the number of typedAsync input ports
-    //! 
+    //!
     //! \return The number of typedAsync input ports
     NATIVE_INT_TYPE getNum_typedAsync_InputPorts();
 
     //! Get the number of typedAsyncAssert input ports
-    //! 
+    //!
     //! \return The number of typedAsyncAssert input ports
     NATIVE_INT_TYPE getNum_typedAsyncAssert_InputPorts();
 
     //! Get the number of typedAsyncBlockPriority input ports
-    //! 
+    //!
     //! \return The number of typedAsyncBlockPriority input ports
     NATIVE_INT_TYPE getNum_typedAsyncBlockPriority_InputPorts();
 
     //! Get the number of typedAsyncDropPriority input ports
-    //! 
+    //!
     //! \return The number of typedAsyncDropPriority input ports
     NATIVE_INT_TYPE getNum_typedAsyncDropPriority_InputPorts();
 
     //! Get the number of typedGuarded input ports
-    //! 
+    //!
     //! \return The number of typedGuarded input ports
     NATIVE_INT_TYPE getNum_typedGuarded_InputPorts();
 
     //! Get the number of typedReturnGuarded input ports
-    //! 
+    //!
     //! \return The number of typedReturnGuarded input ports
     NATIVE_INT_TYPE getNum_typedReturnGuarded_InputPorts();
 
     //! Get the number of typedReturnSync input ports
-    //! 
+    //!
     //! \return The number of typedReturnSync input ports
     NATIVE_INT_TYPE getNum_typedReturnSync_InputPorts();
 
     //! Get the number of typedSync input ports
-    //! 
+    //!
     //! \return The number of typedSync input ports
     NATIVE_INT_TYPE getNum_typedSync_InputPorts();
 
@@ -540,32 +542,32 @@ class QueuedParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get the number of serialAsync input ports
-    //! 
+    //!
     //! \return The number of serialAsync input ports
     NATIVE_INT_TYPE getNum_serialAsync_InputPorts();
 
     //! Get the number of serialAsyncAssert input ports
-    //! 
+    //!
     //! \return The number of serialAsyncAssert input ports
     NATIVE_INT_TYPE getNum_serialAsyncAssert_InputPorts();
 
     //! Get the number of serialAsyncBlockPriority input ports
-    //! 
+    //!
     //! \return The number of serialAsyncBlockPriority input ports
     NATIVE_INT_TYPE getNum_serialAsyncBlockPriority_InputPorts();
 
     //! Get the number of serialAsyncDropPriority input ports
-    //! 
+    //!
     //! \return The number of serialAsyncDropPriority input ports
     NATIVE_INT_TYPE getNum_serialAsyncDropPriority_InputPorts();
 
     //! Get the number of serialGuarded input ports
-    //! 
+    //!
     //! \return The number of serialGuarded input ports
     NATIVE_INT_TYPE getNum_serialGuarded_InputPorts();
 
     //! Get the number of serialSync input ports
-    //! 
+    //!
     //! \return The number of serialSync input ports
     NATIVE_INT_TYPE getNum_serialSync_InputPorts();
 
@@ -576,46 +578,46 @@ class QueuedParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get the number of cmdRegOut output ports
-    //! 
+    //!
     //! \return The number of cmdRegOut output ports
     NATIVE_INT_TYPE getNum_cmdRegOut_OutputPorts();
 
     //! Get the number of cmdResponseOut output ports
-    //! 
+    //!
     //! \return The number of cmdResponseOut output ports
     NATIVE_INT_TYPE getNum_cmdResponseOut_OutputPorts();
 
     //! Get the number of eventOut output ports
-    //! 
+    //!
     //! \return The number of eventOut output ports
     NATIVE_INT_TYPE getNum_eventOut_OutputPorts();
 
     //! Get the number of prmGetOut output ports
-    //! 
+    //!
     //! \return The number of prmGetOut output ports
     NATIVE_INT_TYPE getNum_prmGetOut_OutputPorts();
 
     //! Get the number of prmSetOut output ports
-    //! 
+    //!
     //! \return The number of prmSetOut output ports
     NATIVE_INT_TYPE getNum_prmSetOut_OutputPorts();
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
     //! Get the number of textEventOut output ports
-    //! 
+    //!
     //! \return The number of textEventOut output ports
     NATIVE_INT_TYPE getNum_textEventOut_OutputPorts();
 
 #endif
 
     //! Get the number of timeGetOut output ports
-    //! 
+    //!
     //! \return The number of timeGetOut output ports
     NATIVE_INT_TYPE getNum_timeGetOut_OutputPorts();
 
     //! Get the number of tlmOut output ports
-    //! 
+    //!
     //! \return The number of tlmOut output ports
     NATIVE_INT_TYPE getNum_tlmOut_OutputPorts();
 
@@ -626,12 +628,12 @@ class QueuedParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get the number of typedOut output ports
-    //! 
+    //!
     //! \return The number of typedOut output ports
     NATIVE_INT_TYPE getNum_typedOut_OutputPorts();
 
     //! Get the number of typedReturnOut output ports
-    //! 
+    //!
     //! \return The number of typedReturnOut output ports
     NATIVE_INT_TYPE getNum_typedReturnOut_OutputPorts();
 
@@ -642,7 +644,7 @@ class QueuedParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get the number of serialOut output ports
-    //! 
+    //!
     //! \return The number of serialOut output ports
     NATIVE_INT_TYPE getNum_serialOut_OutputPorts();
 
@@ -653,35 +655,35 @@ class QueuedParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Check whether port cmdRegOut is connected
-    //! 
+    //!
     //! \return Whether port cmdRegOut is connected
     bool isConnected_cmdRegOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Check whether port cmdResponseOut is connected
-    //! 
+    //!
     //! \return Whether port cmdResponseOut is connected
     bool isConnected_cmdResponseOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Check whether port eventOut is connected
-    //! 
+    //!
     //! \return Whether port eventOut is connected
     bool isConnected_eventOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Check whether port prmGetOut is connected
-    //! 
+    //!
     //! \return Whether port prmGetOut is connected
     bool isConnected_prmGetOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Check whether port prmSetOut is connected
-    //! 
+    //!
     //! \return Whether port prmSetOut is connected
     bool isConnected_prmSetOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -690,7 +692,7 @@ class QueuedParamsComponentBase :
 #if FW_ENABLE_TEXT_LOGGING == 1
 
     //! Check whether port textEventOut is connected
-    //! 
+    //!
     //! \return Whether port textEventOut is connected
     bool isConnected_textEventOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -699,14 +701,14 @@ class QueuedParamsComponentBase :
 #endif
 
     //! Check whether port timeGetOut is connected
-    //! 
+    //!
     //! \return Whether port timeGetOut is connected
     bool isConnected_timeGetOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Check whether port tlmOut is connected
-    //! 
+    //!
     //! \return Whether port tlmOut is connected
     bool isConnected_tlmOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -719,14 +721,14 @@ class QueuedParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Check whether port typedOut is connected
-    //! 
+    //!
     //! \return Whether port typedOut is connected
     bool isConnected_typedOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Check whether port typedReturnOut is connected
-    //! 
+    //!
     //! \return Whether port typedReturnOut is connected
     bool isConnected_typedReturnOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -739,7 +741,7 @@ class QueuedParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Check whether port serialOut is connected
-    //! 
+    //!
     //! \return Whether port serialOut is connected
     bool isConnected_serialOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -851,7 +853,7 @@ class QueuedParamsComponentBase :
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for typed input ports
-    // 
+    //
     // Call these functions directly to bypass the corresponding ports
     // ----------------------------------------------------------------------
 
@@ -997,7 +999,7 @@ class QueuedParamsComponentBase :
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for serial input ports
-    // 
+    //
     // Call these functions directly to bypass the corresponding ports
     // ----------------------------------------------------------------------
 
@@ -1041,7 +1043,7 @@ class QueuedParamsComponentBase :
 
     // ----------------------------------------------------------------------
     // Pre-message hooks for typed async input ports
-    // 
+    //
     // Each of these functions is invoked just before processing a message
     // on the corresponding port. By default, they do nothing. You can
     // override them to provide specific pre-message behavior.
@@ -1099,7 +1101,7 @@ class QueuedParamsComponentBase :
 
     // ----------------------------------------------------------------------
     // Pre-message hooks for serial async input ports
-    // 
+    //
     // Each of these functions is invoked just before processing a message
     // on the corresponding port. By default, they do nothing. You can
     // override them to provide specific pre-message behavior.
@@ -1191,7 +1193,7 @@ class QueuedParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! \brief Called whenever a parameter is updated
-    //! 
+    //!
     //! This function does nothing by default. You may override it.
     virtual void parameterUpdated(
         FwPrmIdType id //!< The parameter ID
@@ -1202,7 +1204,7 @@ class QueuedParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! \brief Called whenever parameters are loaded
-    //! 
+    //!
     //! This function does nothing by default. You may override it.
     virtual void parametersLoaded();
 
@@ -1213,54 +1215,54 @@ class QueuedParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get parameter ParamU32
-    //! 
+    //!
     //! \return The parameter value
-    //! 
+    //!
     //! A parameter with U32 data
     U32 paramGet_ParamU32(
         Fw::ParamValid& isValid //!< Whether the parameter is valid
     );
 
     //! Get parameter ParamF64
-    //! 
+    //!
     //! \return The parameter value
-    //! 
+    //!
     //! A parameter with F64 data
     F64 paramGet_ParamF64(
         Fw::ParamValid& isValid //!< Whether the parameter is valid
     );
 
     //! Get parameter ParamString
-    //! 
+    //!
     //! \return The parameter value
-    //! 
+    //!
     //! A parameter with string data and default value
     Fw::ParamString paramGet_ParamString(
         Fw::ParamValid& isValid //!< Whether the parameter is valid
     );
 
     //! Get parameter ParamEnum
-    //! 
+    //!
     //! \return The parameter value
-    //! 
+    //!
     //! A parameter with enum data
     E paramGet_ParamEnum(
         Fw::ParamValid& isValid //!< Whether the parameter is valid
     );
 
     //! Get parameter ParamArray
-    //! 
+    //!
     //! \return The parameter value
-    //! 
+    //!
     //! A parameter with array data, default value, and save opcode
     A paramGet_ParamArray(
         Fw::ParamValid& isValid //!< Whether the parameter is valid
     );
 
     //! Get parameter ParamStruct
-    //! 
+    //!
     //! \return The parameter value
-    //! 
+    //!
     //! A parameter with struct data and set/save opcodes
     S paramGet_ParamStruct(
         Fw::ParamValid& isValid //!< Whether the parameter is valid
@@ -1273,7 +1275,7 @@ class QueuedParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //!  Get the time
-    //! 
+    //!
     //! \\return The current time
     Fw::Time getTime();
 
@@ -1281,7 +1283,7 @@ class QueuedParamsComponentBase :
 
     // ----------------------------------------------------------------------
     // Mutex operations for guarded ports
-    // 
+    //
     // You can override these operations to provide more sophisticated
     // synchronization
     // ----------------------------------------------------------------------
@@ -1485,7 +1487,7 @@ class QueuedParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get a parameter by ID
-    //! 
+    //!
     //! \return Whether the parameter is valid
     Fw::ParamValid getParam(
         FwPrmIdType id, //!< The ID
@@ -1499,42 +1501,42 @@ class QueuedParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Set parameter ParamU32
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamU32(
         Fw::SerializeBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamF64
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamF64(
         Fw::SerializeBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamString
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamString(
         Fw::SerializeBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamEnum
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamEnum(
         Fw::SerializeBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamArray
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamArray(
         Fw::SerializeBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamStruct
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamStruct(
         Fw::SerializeBufferBase& val //!< The serialization buffer
@@ -1547,32 +1549,32 @@ class QueuedParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Save parameter ParamU32
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSave_ParamU32();
 
     //! Save parameter ParamF64
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSave_ParamF64();
 
     //! Save parameter ParamString
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSave_ParamString();
 
     //! Save parameter ParamEnum
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSave_ParamEnum();
 
     //! Save parameter ParamArray
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSave_ParamArray();
 
     //! Save parameter ParamStruct
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSave_ParamStruct();
 

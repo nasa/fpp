@@ -33,7 +33,7 @@
 
 //! \class PassiveParamsComponentBase
 //! \brief Auto-generated base for PassiveParams component
-//! 
+//!
 //! An passive component with params
 class PassiveParamsComponentBase :
   public Fw::PassiveComponentBase
@@ -127,7 +127,7 @@ class PassiveParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get special input port at index
-    //! 
+    //!
     //! \return cmdIn[portNum]
     Fw::InputCmdPort* get_cmdIn_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -140,28 +140,28 @@ class PassiveParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get typed input port at index
-    //! 
+    //!
     //! \return typedGuarded[portNum]
     InputTypedPort* get_typedGuarded_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
-    //! 
+    //!
     //! \return typedReturnGuarded[portNum]
     InputTypedReturnPort* get_typedReturnGuarded_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
-    //! 
+    //!
     //! \return typedReturnSync[portNum]
     InputTypedReturnPort* get_typedReturnSync_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
-    //! 
+    //!
     //! \return typedSync[portNum]
     InputTypedPort* get_typedSync_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -174,14 +174,14 @@ class PassiveParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get serial input port at index
-    //! 
+    //!
     //! \return serialGuarded[portNum]
     Fw::InputSerializePort* get_serialGuarded_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get serial input port at index
-    //! 
+    //!
     //! \return serialSync[portNum]
     Fw::InputSerializePort* get_serialSync_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -245,12 +245,42 @@ class PassiveParamsComponentBase :
         Fw::InputTlmPort* port //!< The input port
     );
 
+  public:
+
+    // ----------------------------------------------------------------------
+    // Connect typed input ports to typed output ports
+    // ----------------------------------------------------------------------
+
+    //! Connect port to typedOut[portNum]
+    void set_typedOut_OutputPort(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        InputTypedPort* port //!< The input port
+    );
+
+    //! Connect port to typedReturnOut[portNum]
+    void set_typedReturnOut_OutputPort(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        InputTypedReturnPort* port //!< The input port
+    );
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Connect serial input ports to serial output ports
+    // ----------------------------------------------------------------------
+
+    //! Connect port to serialOut[portNum]
+    void set_serialOut_OutputPort(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        Fw::InputSerializePort* port //!< The input port
+    );
+
 #if FW_PORT_SERIALIZATION
 
   public:
 
     // ----------------------------------------------------------------------
-    // Connect serial input ports to special output ports
+    // Connect serial input ports to serial output ports
     // ----------------------------------------------------------------------
 
     //! Connect port to cmdRegOut[portNum]
@@ -283,15 +313,11 @@ class PassiveParamsComponentBase :
         Fw::InputSerializePort* port //!< The port
     );
 
-#if FW_ENABLE_TEXT_LOGGING == 1
-
     //! Connect port to textEventOut[portNum]
     void set_textEventOut_OutputPort(
         NATIVE_INT_TYPE portNum, //!< The port number
         Fw::InputSerializePort* port //!< The port
     );
-
-#endif
 
     //! Connect port to timeGetOut[portNum]
     void set_timeGetOut_OutputPort(
@@ -307,30 +333,12 @@ class PassiveParamsComponentBase :
 
 #endif
 
-  public:
-
-    // ----------------------------------------------------------------------
-    // Connect typed input ports to typed output ports
-    // ----------------------------------------------------------------------
-
-    //! Connect port to typedOut[portNum]
-    void set_typedOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        InputTypedPort* port //!< The input port
-    );
-
-    //! Connect port to typedReturnOut[portNum]
-    void set_typedReturnOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        InputTypedReturnPort* port //!< The input port
-    );
-
 #if FW_PORT_SERIALIZATION
 
   public:
 
     // ----------------------------------------------------------------------
-    // Connect serial input ports to typed output ports
+    // Connect serial input ports to serial output ports
     // ----------------------------------------------------------------------
 
     //! Connect port to typedOut[portNum]
@@ -358,12 +366,6 @@ class PassiveParamsComponentBase :
     //! Connect port to serialOut[portNum]
     void set_serialOut_OutputPort(
         NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::InputSerializePort* port //!< The port
-    );
-
-    //! Connect port to serialOut[portNum]
-    void set_serialOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
         Fw::InputPortBase* port //!< The port
     );
 
@@ -376,7 +378,7 @@ class PassiveParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! \brief Register commands with the Command Dispatcher
-    //! 
+    //!
     //! Connect the dispatcher first
     void regCommands();
 
@@ -387,7 +389,7 @@ class PassiveParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! \brief Load the parameters from a parameter source
-    //! 
+    //!
     //! Connect the parameter first
     void loadParameters();
 
@@ -417,7 +419,7 @@ class PassiveParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get the number of cmdIn input ports
-    //! 
+    //!
     //! \return The number of cmdIn input ports
     NATIVE_INT_TYPE getNum_cmdIn_InputPorts();
 
@@ -428,22 +430,22 @@ class PassiveParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get the number of typedGuarded input ports
-    //! 
+    //!
     //! \return The number of typedGuarded input ports
     NATIVE_INT_TYPE getNum_typedGuarded_InputPorts();
 
     //! Get the number of typedReturnGuarded input ports
-    //! 
+    //!
     //! \return The number of typedReturnGuarded input ports
     NATIVE_INT_TYPE getNum_typedReturnGuarded_InputPorts();
 
     //! Get the number of typedReturnSync input ports
-    //! 
+    //!
     //! \return The number of typedReturnSync input ports
     NATIVE_INT_TYPE getNum_typedReturnSync_InputPorts();
 
     //! Get the number of typedSync input ports
-    //! 
+    //!
     //! \return The number of typedSync input ports
     NATIVE_INT_TYPE getNum_typedSync_InputPorts();
 
@@ -454,12 +456,12 @@ class PassiveParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get the number of serialGuarded input ports
-    //! 
+    //!
     //! \return The number of serialGuarded input ports
     NATIVE_INT_TYPE getNum_serialGuarded_InputPorts();
 
     //! Get the number of serialSync input ports
-    //! 
+    //!
     //! \return The number of serialSync input ports
     NATIVE_INT_TYPE getNum_serialSync_InputPorts();
 
@@ -470,46 +472,46 @@ class PassiveParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get the number of cmdRegOut output ports
-    //! 
+    //!
     //! \return The number of cmdRegOut output ports
     NATIVE_INT_TYPE getNum_cmdRegOut_OutputPorts();
 
     //! Get the number of cmdResponseOut output ports
-    //! 
+    //!
     //! \return The number of cmdResponseOut output ports
     NATIVE_INT_TYPE getNum_cmdResponseOut_OutputPorts();
 
     //! Get the number of eventOut output ports
-    //! 
+    //!
     //! \return The number of eventOut output ports
     NATIVE_INT_TYPE getNum_eventOut_OutputPorts();
 
     //! Get the number of prmGetOut output ports
-    //! 
+    //!
     //! \return The number of prmGetOut output ports
     NATIVE_INT_TYPE getNum_prmGetOut_OutputPorts();
 
     //! Get the number of prmSetOut output ports
-    //! 
+    //!
     //! \return The number of prmSetOut output ports
     NATIVE_INT_TYPE getNum_prmSetOut_OutputPorts();
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
     //! Get the number of textEventOut output ports
-    //! 
+    //!
     //! \return The number of textEventOut output ports
     NATIVE_INT_TYPE getNum_textEventOut_OutputPorts();
 
 #endif
 
     //! Get the number of timeGetOut output ports
-    //! 
+    //!
     //! \return The number of timeGetOut output ports
     NATIVE_INT_TYPE getNum_timeGetOut_OutputPorts();
 
     //! Get the number of tlmOut output ports
-    //! 
+    //!
     //! \return The number of tlmOut output ports
     NATIVE_INT_TYPE getNum_tlmOut_OutputPorts();
 
@@ -520,12 +522,12 @@ class PassiveParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get the number of typedOut output ports
-    //! 
+    //!
     //! \return The number of typedOut output ports
     NATIVE_INT_TYPE getNum_typedOut_OutputPorts();
 
     //! Get the number of typedReturnOut output ports
-    //! 
+    //!
     //! \return The number of typedReturnOut output ports
     NATIVE_INT_TYPE getNum_typedReturnOut_OutputPorts();
 
@@ -536,7 +538,7 @@ class PassiveParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get the number of serialOut output ports
-    //! 
+    //!
     //! \return The number of serialOut output ports
     NATIVE_INT_TYPE getNum_serialOut_OutputPorts();
 
@@ -547,35 +549,35 @@ class PassiveParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Check whether port cmdRegOut is connected
-    //! 
+    //!
     //! \return Whether port cmdRegOut is connected
     bool isConnected_cmdRegOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Check whether port cmdResponseOut is connected
-    //! 
+    //!
     //! \return Whether port cmdResponseOut is connected
     bool isConnected_cmdResponseOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Check whether port eventOut is connected
-    //! 
+    //!
     //! \return Whether port eventOut is connected
     bool isConnected_eventOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Check whether port prmGetOut is connected
-    //! 
+    //!
     //! \return Whether port prmGetOut is connected
     bool isConnected_prmGetOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Check whether port prmSetOut is connected
-    //! 
+    //!
     //! \return Whether port prmSetOut is connected
     bool isConnected_prmSetOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -584,7 +586,7 @@ class PassiveParamsComponentBase :
 #if FW_ENABLE_TEXT_LOGGING == 1
 
     //! Check whether port textEventOut is connected
-    //! 
+    //!
     //! \return Whether port textEventOut is connected
     bool isConnected_textEventOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -593,14 +595,14 @@ class PassiveParamsComponentBase :
 #endif
 
     //! Check whether port timeGetOut is connected
-    //! 
+    //!
     //! \return Whether port timeGetOut is connected
     bool isConnected_timeGetOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Check whether port tlmOut is connected
-    //! 
+    //!
     //! \return Whether port tlmOut is connected
     bool isConnected_tlmOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -613,14 +615,14 @@ class PassiveParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Check whether port typedOut is connected
-    //! 
+    //!
     //! \return Whether port typedOut is connected
     bool isConnected_typedOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Check whether port typedReturnOut is connected
-    //! 
+    //!
     //! \return Whether port typedReturnOut is connected
     bool isConnected_typedReturnOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -633,7 +635,7 @@ class PassiveParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Check whether port serialOut is connected
-    //! 
+    //!
     //! \return Whether port serialOut is connected
     bool isConnected_serialOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -697,7 +699,7 @@ class PassiveParamsComponentBase :
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for typed input ports
-    // 
+    //
     // Call these functions directly to bypass the corresponding ports
     // ----------------------------------------------------------------------
 
@@ -771,7 +773,7 @@ class PassiveParamsComponentBase :
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for serial input ports
-    // 
+    //
     // Call these functions directly to bypass the corresponding ports
     // ----------------------------------------------------------------------
 
@@ -849,7 +851,7 @@ class PassiveParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! \brief Called whenever a parameter is updated
-    //! 
+    //!
     //! This function does nothing by default. You may override it.
     virtual void parameterUpdated(
         FwPrmIdType id //!< The parameter ID
@@ -860,7 +862,7 @@ class PassiveParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! \brief Called whenever parameters are loaded
-    //! 
+    //!
     //! This function does nothing by default. You may override it.
     virtual void parametersLoaded();
 
@@ -871,54 +873,54 @@ class PassiveParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get parameter ParamU32
-    //! 
+    //!
     //! \return The parameter value
-    //! 
+    //!
     //! A parameter with U32 data
     U32 paramGet_ParamU32(
         Fw::ParamValid& isValid //!< Whether the parameter is valid
     );
 
     //! Get parameter ParamF64
-    //! 
+    //!
     //! \return The parameter value
-    //! 
+    //!
     //! A parameter with F64 data
     F64 paramGet_ParamF64(
         Fw::ParamValid& isValid //!< Whether the parameter is valid
     );
 
     //! Get parameter ParamString
-    //! 
+    //!
     //! \return The parameter value
-    //! 
+    //!
     //! A parameter with string data and default value
     Fw::ParamString paramGet_ParamString(
         Fw::ParamValid& isValid //!< Whether the parameter is valid
     );
 
     //! Get parameter ParamEnum
-    //! 
+    //!
     //! \return The parameter value
-    //! 
+    //!
     //! A parameter with enum data
     E paramGet_ParamEnum(
         Fw::ParamValid& isValid //!< Whether the parameter is valid
     );
 
     //! Get parameter ParamArray
-    //! 
+    //!
     //! \return The parameter value
-    //! 
+    //!
     //! A parameter with array data, default value, and save opcode
     A paramGet_ParamArray(
         Fw::ParamValid& isValid //!< Whether the parameter is valid
     );
 
     //! Get parameter ParamStruct
-    //! 
+    //!
     //! \return The parameter value
-    //! 
+    //!
     //! A parameter with struct data and set/save opcodes
     S paramGet_ParamStruct(
         Fw::ParamValid& isValid //!< Whether the parameter is valid
@@ -931,7 +933,7 @@ class PassiveParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //!  Get the time
-    //! 
+    //!
     //! \\return The current time
     Fw::Time getTime();
 
@@ -939,7 +941,7 @@ class PassiveParamsComponentBase :
 
     // ----------------------------------------------------------------------
     // Mutex operations for guarded ports
-    // 
+    //
     // You can override these operations to provide more sophisticated
     // synchronization
     // ----------------------------------------------------------------------
@@ -1054,7 +1056,7 @@ class PassiveParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get a parameter by ID
-    //! 
+    //!
     //! \return Whether the parameter is valid
     Fw::ParamValid getParam(
         FwPrmIdType id, //!< The ID
@@ -1068,42 +1070,42 @@ class PassiveParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Set parameter ParamU32
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamU32(
         Fw::SerializeBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamF64
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamF64(
         Fw::SerializeBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamString
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamString(
         Fw::SerializeBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamEnum
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamEnum(
         Fw::SerializeBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamArray
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamArray(
         Fw::SerializeBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamStruct
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamStruct(
         Fw::SerializeBufferBase& val //!< The serialization buffer
@@ -1116,32 +1118,32 @@ class PassiveParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Save parameter ParamU32
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSave_ParamU32();
 
     //! Save parameter ParamF64
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSave_ParamF64();
 
     //! Save parameter ParamString
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSave_ParamString();
 
     //! Save parameter ParamEnum
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSave_ParamEnum();
 
     //! Save parameter ParamArray
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSave_ParamArray();
 
     //! Save parameter ParamStruct
-    //! 
+    //!
     //! \return The command response
     Fw::CmdResponse paramSave_ParamStruct();
 

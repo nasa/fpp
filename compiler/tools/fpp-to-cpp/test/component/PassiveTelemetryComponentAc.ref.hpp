@@ -32,7 +32,7 @@
 
 //! \class PassiveTelemetryComponentBase
 //! \brief Auto-generated base for PassiveTelemetry component
-//! 
+//!
 //! An passive component with telemetry
 class PassiveTelemetryComponentBase :
   public Fw::PassiveComponentBase
@@ -115,7 +115,7 @@ class PassiveTelemetryComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get special input port at index
-    //! 
+    //!
     //! \return cmdIn[portNum]
     Fw::InputCmdPort* get_cmdIn_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -128,28 +128,28 @@ class PassiveTelemetryComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get typed input port at index
-    //! 
+    //!
     //! \return typedGuarded[portNum]
     InputTypedPort* get_typedGuarded_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
-    //! 
+    //!
     //! \return typedReturnGuarded[portNum]
     InputTypedReturnPort* get_typedReturnGuarded_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
-    //! 
+    //!
     //! \return typedReturnSync[portNum]
     InputTypedReturnPort* get_typedReturnSync_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
-    //! 
+    //!
     //! \return typedSync[portNum]
     InputTypedPort* get_typedSync_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -162,14 +162,14 @@ class PassiveTelemetryComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get serial input port at index
-    //! 
+    //!
     //! \return serialGuarded[portNum]
     Fw::InputSerializePort* get_serialGuarded_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get serial input port at index
-    //! 
+    //!
     //! \return serialSync[portNum]
     Fw::InputSerializePort* get_serialSync_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -233,12 +233,42 @@ class PassiveTelemetryComponentBase :
         Fw::InputTlmPort* port //!< The input port
     );
 
+  public:
+
+    // ----------------------------------------------------------------------
+    // Connect typed input ports to typed output ports
+    // ----------------------------------------------------------------------
+
+    //! Connect port to typedOut[portNum]
+    void set_typedOut_OutputPort(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        InputTypedPort* port //!< The input port
+    );
+
+    //! Connect port to typedReturnOut[portNum]
+    void set_typedReturnOut_OutputPort(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        InputTypedReturnPort* port //!< The input port
+    );
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Connect serial input ports to serial output ports
+    // ----------------------------------------------------------------------
+
+    //! Connect port to serialOut[portNum]
+    void set_serialOut_OutputPort(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        Fw::InputSerializePort* port //!< The input port
+    );
+
 #if FW_PORT_SERIALIZATION
 
   public:
 
     // ----------------------------------------------------------------------
-    // Connect serial input ports to special output ports
+    // Connect serial input ports to serial output ports
     // ----------------------------------------------------------------------
 
     //! Connect port to cmdRegOut[portNum]
@@ -271,15 +301,11 @@ class PassiveTelemetryComponentBase :
         Fw::InputSerializePort* port //!< The port
     );
 
-#if FW_ENABLE_TEXT_LOGGING == 1
-
     //! Connect port to textEventOut[portNum]
     void set_textEventOut_OutputPort(
         NATIVE_INT_TYPE portNum, //!< The port number
         Fw::InputSerializePort* port //!< The port
     );
-
-#endif
 
     //! Connect port to timeGetOut[portNum]
     void set_timeGetOut_OutputPort(
@@ -295,30 +321,12 @@ class PassiveTelemetryComponentBase :
 
 #endif
 
-  public:
-
-    // ----------------------------------------------------------------------
-    // Connect typed input ports to typed output ports
-    // ----------------------------------------------------------------------
-
-    //! Connect port to typedOut[portNum]
-    void set_typedOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        InputTypedPort* port //!< The input port
-    );
-
-    //! Connect port to typedReturnOut[portNum]
-    void set_typedReturnOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        InputTypedReturnPort* port //!< The input port
-    );
-
 #if FW_PORT_SERIALIZATION
 
   public:
 
     // ----------------------------------------------------------------------
-    // Connect serial input ports to typed output ports
+    // Connect serial input ports to serial output ports
     // ----------------------------------------------------------------------
 
     //! Connect port to typedOut[portNum]
@@ -342,12 +350,6 @@ class PassiveTelemetryComponentBase :
     // ----------------------------------------------------------------------
     // Connect serial input ports to serial output ports
     // ----------------------------------------------------------------------
-
-    //! Connect port to serialOut[portNum]
-    void set_serialOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::InputSerializePort* port //!< The port
-    );
 
     //! Connect port to serialOut[portNum]
     void set_serialOut_OutputPort(
@@ -383,7 +385,7 @@ class PassiveTelemetryComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get the number of cmdIn input ports
-    //! 
+    //!
     //! \return The number of cmdIn input ports
     NATIVE_INT_TYPE getNum_cmdIn_InputPorts();
 
@@ -394,22 +396,22 @@ class PassiveTelemetryComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get the number of typedGuarded input ports
-    //! 
+    //!
     //! \return The number of typedGuarded input ports
     NATIVE_INT_TYPE getNum_typedGuarded_InputPorts();
 
     //! Get the number of typedReturnGuarded input ports
-    //! 
+    //!
     //! \return The number of typedReturnGuarded input ports
     NATIVE_INT_TYPE getNum_typedReturnGuarded_InputPorts();
 
     //! Get the number of typedReturnSync input ports
-    //! 
+    //!
     //! \return The number of typedReturnSync input ports
     NATIVE_INT_TYPE getNum_typedReturnSync_InputPorts();
 
     //! Get the number of typedSync input ports
-    //! 
+    //!
     //! \return The number of typedSync input ports
     NATIVE_INT_TYPE getNum_typedSync_InputPorts();
 
@@ -420,12 +422,12 @@ class PassiveTelemetryComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get the number of serialGuarded input ports
-    //! 
+    //!
     //! \return The number of serialGuarded input ports
     NATIVE_INT_TYPE getNum_serialGuarded_InputPorts();
 
     //! Get the number of serialSync input ports
-    //! 
+    //!
     //! \return The number of serialSync input ports
     NATIVE_INT_TYPE getNum_serialSync_InputPorts();
 
@@ -436,46 +438,46 @@ class PassiveTelemetryComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get the number of cmdRegOut output ports
-    //! 
+    //!
     //! \return The number of cmdRegOut output ports
     NATIVE_INT_TYPE getNum_cmdRegOut_OutputPorts();
 
     //! Get the number of cmdResponseOut output ports
-    //! 
+    //!
     //! \return The number of cmdResponseOut output ports
     NATIVE_INT_TYPE getNum_cmdResponseOut_OutputPorts();
 
     //! Get the number of eventOut output ports
-    //! 
+    //!
     //! \return The number of eventOut output ports
     NATIVE_INT_TYPE getNum_eventOut_OutputPorts();
 
     //! Get the number of prmGetOut output ports
-    //! 
+    //!
     //! \return The number of prmGetOut output ports
     NATIVE_INT_TYPE getNum_prmGetOut_OutputPorts();
 
     //! Get the number of prmSetOut output ports
-    //! 
+    //!
     //! \return The number of prmSetOut output ports
     NATIVE_INT_TYPE getNum_prmSetOut_OutputPorts();
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
     //! Get the number of textEventOut output ports
-    //! 
+    //!
     //! \return The number of textEventOut output ports
     NATIVE_INT_TYPE getNum_textEventOut_OutputPorts();
 
 #endif
 
     //! Get the number of timeGetOut output ports
-    //! 
+    //!
     //! \return The number of timeGetOut output ports
     NATIVE_INT_TYPE getNum_timeGetOut_OutputPorts();
 
     //! Get the number of tlmOut output ports
-    //! 
+    //!
     //! \return The number of tlmOut output ports
     NATIVE_INT_TYPE getNum_tlmOut_OutputPorts();
 
@@ -486,12 +488,12 @@ class PassiveTelemetryComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get the number of typedOut output ports
-    //! 
+    //!
     //! \return The number of typedOut output ports
     NATIVE_INT_TYPE getNum_typedOut_OutputPorts();
 
     //! Get the number of typedReturnOut output ports
-    //! 
+    //!
     //! \return The number of typedReturnOut output ports
     NATIVE_INT_TYPE getNum_typedReturnOut_OutputPorts();
 
@@ -502,7 +504,7 @@ class PassiveTelemetryComponentBase :
     // ----------------------------------------------------------------------
 
     //! Get the number of serialOut output ports
-    //! 
+    //!
     //! \return The number of serialOut output ports
     NATIVE_INT_TYPE getNum_serialOut_OutputPorts();
 
@@ -513,35 +515,35 @@ class PassiveTelemetryComponentBase :
     // ----------------------------------------------------------------------
 
     //! Check whether port cmdRegOut is connected
-    //! 
+    //!
     //! \return Whether port cmdRegOut is connected
     bool isConnected_cmdRegOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Check whether port cmdResponseOut is connected
-    //! 
+    //!
     //! \return Whether port cmdResponseOut is connected
     bool isConnected_cmdResponseOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Check whether port eventOut is connected
-    //! 
+    //!
     //! \return Whether port eventOut is connected
     bool isConnected_eventOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Check whether port prmGetOut is connected
-    //! 
+    //!
     //! \return Whether port prmGetOut is connected
     bool isConnected_prmGetOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Check whether port prmSetOut is connected
-    //! 
+    //!
     //! \return Whether port prmSetOut is connected
     bool isConnected_prmSetOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -550,7 +552,7 @@ class PassiveTelemetryComponentBase :
 #if FW_ENABLE_TEXT_LOGGING == 1
 
     //! Check whether port textEventOut is connected
-    //! 
+    //!
     //! \return Whether port textEventOut is connected
     bool isConnected_textEventOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -559,14 +561,14 @@ class PassiveTelemetryComponentBase :
 #endif
 
     //! Check whether port timeGetOut is connected
-    //! 
+    //!
     //! \return Whether port timeGetOut is connected
     bool isConnected_timeGetOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Check whether port tlmOut is connected
-    //! 
+    //!
     //! \return Whether port tlmOut is connected
     bool isConnected_tlmOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -579,14 +581,14 @@ class PassiveTelemetryComponentBase :
     // ----------------------------------------------------------------------
 
     //! Check whether port typedOut is connected
-    //! 
+    //!
     //! \return Whether port typedOut is connected
     bool isConnected_typedOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Check whether port typedReturnOut is connected
-    //! 
+    //!
     //! \return Whether port typedReturnOut is connected
     bool isConnected_typedReturnOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -599,7 +601,7 @@ class PassiveTelemetryComponentBase :
     // ----------------------------------------------------------------------
 
     //! Check whether port serialOut is connected
-    //! 
+    //!
     //! \return Whether port serialOut is connected
     bool isConnected_serialOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -663,7 +665,7 @@ class PassiveTelemetryComponentBase :
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for typed input ports
-    // 
+    //
     // Call these functions directly to bypass the corresponding ports
     // ----------------------------------------------------------------------
 
@@ -737,7 +739,7 @@ class PassiveTelemetryComponentBase :
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for serial input ports
-    // 
+    //
     // Call these functions directly to bypass the corresponding ports
     // ----------------------------------------------------------------------
 
@@ -802,7 +804,7 @@ class PassiveTelemetryComponentBase :
     // ----------------------------------------------------------------------
 
     //! Write telemetry channel ChannelU32Format
-    //! 
+    //!
     //! A telemetry channel with U32 data and format string
     void tlmWrite_ChannelU32Format(
         U32 arg, //!< The telemetry value
@@ -810,7 +812,7 @@ class PassiveTelemetryComponentBase :
     );
 
     //! Write telemetry channel ChannelF32Format
-    //! 
+    //!
     //! A telemetry channel with F32 data and format string
     void tlmWrite_ChannelF32Format(
         F32 arg, //!< The telemetry value
@@ -818,7 +820,7 @@ class PassiveTelemetryComponentBase :
     );
 
     //! Write telemetry channel ChannelStringFormat
-    //! 
+    //!
     //! A telemetry channel with string data with format string
     void tlmWrite_ChannelStringFormat(
         const Fw::TlmString& arg, //!< The telemetry value
@@ -826,7 +828,7 @@ class PassiveTelemetryComponentBase :
     );
 
     //! Write telemetry channel ChannelEnum
-    //! 
+    //!
     //! A telemetry channel with enum data
     void tlmWrite_ChannelEnum(
         const E& arg, //!< The telemetry value
@@ -834,7 +836,7 @@ class PassiveTelemetryComponentBase :
     );
 
     //! Write telemetry channel ChannelArrayFreq
-    //! 
+    //!
     //! A telemetry channel with array data and update frequency
     void tlmWrite_ChannelArrayFreq(
         const A& arg, //!< The telemetry value
@@ -842,7 +844,7 @@ class PassiveTelemetryComponentBase :
     );
 
     //! Write telemetry channel ChannelStructFreq
-    //! 
+    //!
     //! A telemetry channel with struct data
     void tlmWrite_ChannelStructFreq(
         const S& arg, //!< The telemetry value
@@ -850,7 +852,7 @@ class PassiveTelemetryComponentBase :
     );
 
     //! Write telemetry channel ChannelU32Limits
-    //! 
+    //!
     //! A telemetry channel with U32 data and limits
     void tlmWrite_ChannelU32Limits(
         U32 arg, //!< The telemetry value
@@ -858,7 +860,7 @@ class PassiveTelemetryComponentBase :
     );
 
     //! Write telemetry channel ChannelF32Limits
-    //! 
+    //!
     //! A telemetry channel with F32 data and limits
     void tlmWrite_ChannelF32Limits(
         F32 arg, //!< The telemetry value
@@ -866,7 +868,7 @@ class PassiveTelemetryComponentBase :
     );
 
     //! Write telemetry channel ChannelF64
-    //! 
+    //!
     //! A telemetry channel F64 data, update frequency, format, and limits
     void tlmWrite_ChannelF64(
         F64 arg, //!< The telemetry value
@@ -874,7 +876,7 @@ class PassiveTelemetryComponentBase :
     );
 
     //! Write telemetry channel ChannelU32OnChange
-    //! 
+    //!
     //! A telemetry channel with U32 data and update on change frequency
     void tlmWrite_ChannelU32OnChange(
         U32 arg, //!< The telemetry value
@@ -882,7 +884,7 @@ class PassiveTelemetryComponentBase :
     );
 
     //! Write telemetry channel ChannelEnumOnChange
-    //! 
+    //!
     //! A telemetry channel with enum data and update on change frequency
     void tlmWrite_ChannelEnumOnChange(
         const E& arg, //!< The telemetry value
@@ -896,7 +898,7 @@ class PassiveTelemetryComponentBase :
     // ----------------------------------------------------------------------
 
     //!  Get the time
-    //! 
+    //!
     //! \\return The current time
     Fw::Time getTime();
 
@@ -904,7 +906,7 @@ class PassiveTelemetryComponentBase :
 
     // ----------------------------------------------------------------------
     // Mutex operations for guarded ports
-    // 
+    //
     // You can override these operations to provide more sophisticated
     // synchronization
     // ----------------------------------------------------------------------
@@ -1114,6 +1116,7 @@ class PassiveTelemetryComponentBase :
 
     //! Initialized to true; cleared when channel ChannelU32OnChange is first updated
     bool m_first_update_ChannelU32OnChange;
+
     //! Initialized to true; cleared when channel ChannelEnumOnChange is first updated
     bool m_first_update_ChannelEnumOnChange;
 
@@ -1125,6 +1128,7 @@ class PassiveTelemetryComponentBase :
 
     //! Records the last emitted value for channel ChannelU32OnChange
     U32 m_last_ChannelU32OnChange;
+
     //! Records the last emitted value for channel ChannelEnumOnChange
     E m_last_ChannelEnumOnChange;
 

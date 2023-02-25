@@ -13,6 +13,14 @@
 #include "PassiveComponentAc.hpp"
 
 namespace {
+  union BuffUnion {
+    BYTE typedGuardedPortSize[InputTypedPort::SERIALIZED_SIZE];
+    BYTE typedReturnGuardedPortSize[InputTypedReturnPort::SERIALIZED_SIZE];
+    BYTE typedReturnSyncPortSize[InputTypedReturnPort::SERIALIZED_SIZE];
+    BYTE typedSyncPortSize[InputTypedPort::SERIALIZED_SIZE];
+    BYTE cmdPortSize[Fw::InputCmdPort::SERIALIZED_SIZE];
+  };
+
   // Define a message buffer class large enough to handle all the
   // asynchronous inputs to the component
   class ComponentIpcSerializableBuffer :
@@ -257,90 +265,6 @@ void PassiveComponentBase ::
   this->m_tlmOut_OutputPort[portNum].addCallPort(port);
 }
 
-#if FW_PORT_SERIALIZATION
-
-// ----------------------------------------------------------------------
-// Connect serial input ports to special output ports
-// ----------------------------------------------------------------------
-
-void PassiveComponentBase ::
-  set_cmdRegOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-
-}
-
-void PassiveComponentBase ::
-  set_cmdResponseOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-
-}
-
-void PassiveComponentBase ::
-  set_eventOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-
-}
-
-void PassiveComponentBase ::
-  set_prmGetOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-
-}
-
-void PassiveComponentBase ::
-  set_prmSetOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-
-}
-
-#if FW_ENABLE_TEXT_LOGGING == 1
-
-void PassiveComponentBase ::
-  set_textEventOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-
-}
-
-#endif
-
-void PassiveComponentBase ::
-  set_timeGetOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-
-}
-
-void PassiveComponentBase ::
-  set_tlmOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-
-}
-
-#endif
-
 // ----------------------------------------------------------------------
 // Connect typed input ports to typed output ports
 // ----------------------------------------------------------------------
@@ -373,10 +297,148 @@ void PassiveComponentBase ::
   this->m_typedReturnOut_OutputPort[portNum].addCallPort(port);
 }
 
+// ----------------------------------------------------------------------
+// Connect serial input ports to serial output ports
+// ----------------------------------------------------------------------
+
+void PassiveComponentBase ::
+  set_serialOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_serialOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_serialOut_OutputPort[portNum].registerSerialPort(port);
+}
+
 #if FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
-// Connect serial input ports to typed output ports
+// Connect serial input ports to serial output ports
+// ----------------------------------------------------------------------
+
+void PassiveComponentBase ::
+  set_cmdRegOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_cmdRegOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_cmdRegOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+void PassiveComponentBase ::
+  set_cmdResponseOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_cmdResponseOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_cmdResponseOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+void PassiveComponentBase ::
+  set_eventOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_eventOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_eventOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+void PassiveComponentBase ::
+  set_prmGetOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_prmGetOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_prmGetOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+void PassiveComponentBase ::
+  set_prmSetOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_prmSetOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_prmSetOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+void PassiveComponentBase ::
+  set_textEventOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_textEventOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_textEventOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+void PassiveComponentBase ::
+  set_timeGetOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_timeGetOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_timeGetOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+void PassiveComponentBase ::
+  set_tlmOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_tlmOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_tlmOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+#endif
+
+#if FW_PORT_SERIALIZATION
+
+// ----------------------------------------------------------------------
+// Connect serial input ports to serial output ports
 // ----------------------------------------------------------------------
 
 void PassiveComponentBase ::
@@ -385,7 +447,12 @@ void PassiveComponentBase ::
       Fw::InputSerializePort* port
   )
 {
+  FW_ASSERT(
+    portNum < this->getNum_typedOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
+  this->m_typedOut_OutputPort[portNum].registerSerialPort(port);
 }
 
 void PassiveComponentBase ::
@@ -394,7 +461,12 @@ void PassiveComponentBase ::
       Fw::InputSerializePort* port
   )
 {
+  FW_ASSERT(
+    portNum < this->getNum_typedReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
+  this->m_typedReturnOut_OutputPort[portNum].registerSerialPort(port);
 }
 
 #endif
@@ -408,19 +480,15 @@ void PassiveComponentBase ::
 void PassiveComponentBase ::
   set_serialOut_OutputPort(
       NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-
-}
-
-void PassiveComponentBase ::
-  set_serialOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
       Fw::InputPortBase* port
   )
 {
+  FW_ASSERT(
+    portNum < this->getNum_serialOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
+  this->m_serialOut_OutputPort[portNum].registerSerialPort(port);
 }
 
 #endif
@@ -1041,31 +1109,56 @@ NATIVE_INT_TYPE PassiveComponentBase ::
 bool PassiveComponentBase ::
   isConnected_cmdRegOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
+  FW_ASSERT(
+    portNum < this->getNum_cmdRegOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
+  return this->m_cmdRegOut_OutputPort[portNum].isConnected();
 }
 
 bool PassiveComponentBase ::
   isConnected_cmdResponseOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
+  FW_ASSERT(
+    portNum < this->getNum_cmdResponseOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
+  return this->m_cmdResponseOut_OutputPort[portNum].isConnected();
 }
 
 bool PassiveComponentBase ::
   isConnected_eventOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
+  FW_ASSERT(
+    portNum < this->getNum_eventOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
+  return this->m_eventOut_OutputPort[portNum].isConnected();
 }
 
 bool PassiveComponentBase ::
   isConnected_prmGetOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
+  FW_ASSERT(
+    portNum < this->getNum_prmGetOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
+  return this->m_prmGetOut_OutputPort[portNum].isConnected();
 }
 
 bool PassiveComponentBase ::
   isConnected_prmSetOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
+  FW_ASSERT(
+    portNum < this->getNum_prmSetOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
+  return this->m_prmSetOut_OutputPort[portNum].isConnected();
 }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
@@ -1073,7 +1166,12 @@ bool PassiveComponentBase ::
 bool PassiveComponentBase ::
   isConnected_textEventOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
+  FW_ASSERT(
+    portNum < this->getNum_textEventOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
+  return this->m_textEventOut_OutputPort[portNum].isConnected();
 }
 
 #endif
@@ -1081,13 +1179,23 @@ bool PassiveComponentBase ::
 bool PassiveComponentBase ::
   isConnected_timeGetOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
+  FW_ASSERT(
+    portNum < this->getNum_timeGetOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
+  return this->m_timeGetOut_OutputPort[portNum].isConnected();
 }
 
 bool PassiveComponentBase ::
   isConnected_tlmOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
+  FW_ASSERT(
+    portNum < this->getNum_tlmOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
+  return this->m_tlmOut_OutputPort[portNum].isConnected();
 }
 
 // ----------------------------------------------------------------------
@@ -1097,13 +1205,23 @@ bool PassiveComponentBase ::
 bool PassiveComponentBase ::
   isConnected_typedOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
+  FW_ASSERT(
+    portNum < this->getNum_typedOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
+  return this->m_typedOut_OutputPort[portNum].isConnected();
 }
 
 bool PassiveComponentBase ::
   isConnected_typedReturnOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
+  FW_ASSERT(
+    portNum < this->getNum_typedReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
+  return this->m_typedReturnOut_OutputPort[portNum].isConnected();
 }
 
 // ----------------------------------------------------------------------
@@ -1113,75 +1231,18 @@ bool PassiveComponentBase ::
 bool PassiveComponentBase ::
   isConnected_serialOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
+  FW_ASSERT(
+    portNum < this->getNum_serialOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-}
-
-// ----------------------------------------------------------------------
-// Handlers to implement for typed input ports
-// ----------------------------------------------------------------------
-
-void PassiveComponentBase ::
-  typedGuarded_handler(
-      NATIVE_INT_TYPE portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const TypedPortStrings::StringSize80& str,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-
-}
-
-F32 PassiveComponentBase ::
-  typedReturnGuarded_handler(
-      NATIVE_INT_TYPE portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const TypedReturnPortStrings::StringSize80& str,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-
-}
-
-F32 PassiveComponentBase ::
-  typedReturnSync_handler(
-      NATIVE_INT_TYPE portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const TypedReturnPortStrings::StringSize80& str,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-
-}
-
-void PassiveComponentBase ::
-  typedSync_handler(
-      NATIVE_INT_TYPE portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const TypedPortStrings::StringSize80& str,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-
+  return this->m_serialOut_OutputPort[portNum].isConnected();
 }
 
 // ----------------------------------------------------------------------
 // Port handler base-class functions for typed input ports
+//
+// Call these functions directly to bypass the corresponding ports
 // ----------------------------------------------------------------------
 
 void PassiveComponentBase ::
@@ -1205,6 +1266,7 @@ void PassiveComponentBase ::
   // Lock guard mutex before calling
   this->lock();
 
+  // Down call to pure virtual handler method implemented in Impl class
   this->typedGuarded_handler(
     portNum,
     u32,
@@ -1243,6 +1305,7 @@ F32 PassiveComponentBase ::
   // Lock guard mutex before calling
   this->lock();
 
+  // Down call to pure virtual handler method implemented in Impl class
   retVal = this->typedReturnGuarded_handler(
     portNum,
     u32,
@@ -1280,6 +1343,7 @@ F32 PassiveComponentBase ::
 
   F32 retVal;
 
+  // Down call to pure virtual handler method implemented in Impl class
   retVal = this->typedReturnSync_handler(
     portNum,
     u32,
@@ -1312,6 +1376,7 @@ void PassiveComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
+  // Down call to pure virtual handler method implemented in Impl class
   this->typedSync_handler(
     portNum,
     u32,
@@ -1325,29 +1390,9 @@ void PassiveComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Handlers to implement for serial input ports
-// ----------------------------------------------------------------------
-
-void PassiveComponentBase ::
-  serialGuarded_handler(
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-
-}
-
-void PassiveComponentBase ::
-  serialSync_handler(
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-
-}
-
-// ----------------------------------------------------------------------
 // Port handler base-class functions for serial input ports
+//
+// Call these functions directly to bypass the corresponding ports
 // ----------------------------------------------------------------------
 
 void PassiveComponentBase ::
@@ -1365,6 +1410,7 @@ void PassiveComponentBase ::
   // Lock guard mutex before calling
   this->lock();
 
+  // Down call to pure virtual handler method implemented in Impl class
   this->serialGuarded_handler(
     portNum,
     buffer
@@ -1386,6 +1432,7 @@ void PassiveComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
+  // Down call to pure virtual handler method implemented in Impl class
   this->serialSync_handler(
     portNum,
     buffer
@@ -1408,7 +1455,19 @@ void PassiveComponentBase ::
       const S& s
   )
 {
-
+  FW_ASSERT(
+    portNum < this->getNum_typedOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_typedOut_OutputPort[portNum].invoke(
+    u32,
+    f32,
+    b,
+    str,
+    e,
+    a,
+    s
+  );
 }
 
 F32 PassiveComponentBase ::
@@ -1423,7 +1482,19 @@ F32 PassiveComponentBase ::
       const S& s
   )
 {
-
+  FW_ASSERT(
+    portNum < this->getNum_typedReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_typedReturnOut_OutputPort[portNum].invoke(
+    u32,
+    f32,
+    b,
+    str,
+    e,
+    a,
+    s
+  );
 }
 
 // ----------------------------------------------------------------------
@@ -1436,7 +1507,13 @@ Fw::SerializeStatus PassiveComponentBase ::
       Fw::SerializeBufferBase& buffer
   )
 {
-
+  FW_ASSERT(
+    portNum < this->getNum_serialOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_serialOut_OutputPort[portNum].invokeSerial(
+    buffer
+  );
 }
 
 // ----------------------------------------------------------------------
@@ -1454,73 +1531,9 @@ void PassiveComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Command handlers to implement
-// ----------------------------------------------------------------------
-
-void PassiveComponentBase ::
-  CMD_SYNC_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq
-  )
-{
-
-}
-
-void PassiveComponentBase ::
-  CMD_SYNC_PRIMITIVE_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq,
-      U32 u32,
-      F32 f32,
-      bool b
-  )
-{
-
-}
-
-void PassiveComponentBase ::
-  CMD_SYNC_STRING_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq,
-      const Fw::CmdStringArg& str1,
-      const Fw::CmdStringArg& str2
-  )
-{
-
-}
-
-void PassiveComponentBase ::
-  CMD_ASYNC_ENUM_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq,
-      E e
-  )
-{
-
-}
-
-void PassiveComponentBase ::
-  CMD_SYNC_ARRAY_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq,
-      A a
-  )
-{
-
-}
-
-void PassiveComponentBase ::
-  CMD_SYNC_STRUCT_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq,
-      S s
-  )
-{
-
-}
-
-// ----------------------------------------------------------------------
 // Command handler base-class functions
+//
+// Call these functions directly to bypass the command input port
 // ----------------------------------------------------------------------
 
 void PassiveComponentBase ::
@@ -1582,10 +1595,6 @@ void PassiveComponentBase ::
 {
 
 }
-
-// ----------------------------------------------------------------------
-// Pre-message hooks for async commands
-// ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
 // Event logging functions
@@ -1840,6 +1849,9 @@ Fw::Time PassiveComponentBase ::
 
 // ----------------------------------------------------------------------
 // Mutex operations for guarded ports
+//
+// You can override these operations to provide more sophisticated
+// synchronization
 // ----------------------------------------------------------------------
 
 void PassiveComponentBase ::
@@ -2293,7 +2305,3 @@ Fw::CmdResponse PassiveComponentBase ::
 {
 
 }
-
-#if FW_ENABLE_TEXT_LOGGING == 1
-
-#endif
