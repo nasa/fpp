@@ -127,6 +127,10 @@ abstract class ComponentCppWriterUtils(
   val cmdRespPort: Option[PortInstance.Special] =
     component.specialPortMap.get(Ast.SpecPortInstance.CommandResp)
 
+  /** Command register port */
+  val cmdRegPort: Option[PortInstance.Special] =
+    component.specialPortMap.get(Ast.SpecPortInstance.CommandReg)
+
   /** Time get port */
   val timeGetPort: Option[PortInstance.Special] =
     component.specialPortMap.get(Ast.SpecPortInstance.TimeGet)
@@ -345,7 +349,7 @@ abstract class ComponentCppWriterUtils(
     }
 
   /** Write an internal port param as a C++ type */
-  def getInternalPortParam(param: Ast.FormalParam) =
+  def getInternalPortParam(param: Ast.FormalParam): String =
     TypeCppWriter.getName(
       s,
       s.a.typeMap(param.typeName.id),
@@ -424,6 +428,10 @@ abstract class ComponentCppWriterUtils(
   /** Get the name for an internal port enumerated constant in cpp file */
   def internalPortCppConstantName(p: PortInstance.Internal) =
     s"INT_IF_${p.getUnqualifiedName.toUpperCase}"
+
+  /** Get the name for a command enumerated constant in cpp file */
+  def commandCppConstantName(cmd: Command) =
+    s"CMD_${cmd.getName.toUpperCase}"
 
   /** Get the name for a port number getter function */
   def portNumGetterName(p: PortInstance) =

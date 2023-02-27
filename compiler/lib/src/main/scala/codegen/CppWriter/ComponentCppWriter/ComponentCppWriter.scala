@@ -885,7 +885,4 @@ case class ComponentCppWriter (
     )
   }
 
-  private def commandCppConstantName(cmd: Command) =
-    s"CMD_${cmd.getName.toUpperCase}"
-
 }
