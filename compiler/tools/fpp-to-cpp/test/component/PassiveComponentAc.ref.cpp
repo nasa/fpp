@@ -500,7 +500,103 @@ void PassiveComponentBase ::
 void PassiveComponentBase ::
   regCommands()
 {
+  FW_ASSERT(this->m_cmdRegOut_OutputPort[0].isConnected());
 
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_CMD_SYNC
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_CMD_SYNC_PRIMITIVE
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_CMD_SYNC_STRING
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_CMD_SYNC_ENUM
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_CMD_SYNC_ARRAY
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_CMD_SYNC_STRUCT
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_CMD_GUARDED
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_CMD_GUARDED_PRIMITIVE
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_CMD_GUARDED_STRING
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_CMD_GUARDED_ENUM
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_CMD_GUARDED_ARRAY
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_CMD_GUARDED_STRUCT
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_PARAMU32_SET
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_PARAMU32_SAVE
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_PARAMF64_SET
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_PARAMF64_SAVE
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_PARAMSTRING_SET
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_PARAMSTRING_SAVE
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_PARAMENUM_SET
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_PARAMENUM_SAVE
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_PARAMARRAY_SET
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_PARAMARRAY_SAVE
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_PARAMSTRUCT_SET
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_PARAMSTRUCT_SAVE
+  );
 }
 
 // ----------------------------------------------------------------------
@@ -1527,7 +1623,8 @@ void PassiveComponentBase ::
       Fw::CmdResponse response
   )
 {
-
+  FW_ASSERT(this->m_cmdResponseOut_OutputPort[0].isConnected());
+  this->m_cmdResponseOut_OutputPort[0].invoke(opCode, cmdSeq, response);
 }
 
 // ----------------------------------------------------------------------
@@ -1543,7 +1640,22 @@ void PassiveComponentBase ::
       Fw::CmdArgBuffer& args
   )
 {
+#if FW_CMD_CHECK_RESIDUAL
+  // Make sure there was no data left over.
+  // That means the argument buffer size was incorrect.
+  if (args.getBuffLeft() != 0) {
+    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+      this->m_cmdResponseOut_OutputPort[0].invoke(
+        opCode,
+        cmdSeq,
+        Fw::CmdResponse::FORMAT_ERROR
+      );
+    }
+    return;
+  }
+#endif
 
+  this->CMD_SYNC_cmdHandler(opCode, cmdSeq);
 }
 
 void PassiveComponentBase ::
@@ -1553,7 +1665,72 @@ void PassiveComponentBase ::
       Fw::CmdArgBuffer& args
   )
 {
+  // Deserialize the arguments
+  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
+  // Reset the buffer
+  args.resetDeser();
+
+  U32 u32;
+  _status = args.deserialize(u32);
+  if (_status != Fw::FW_SERIALIZE_OK) {
+    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+      this->m_cmdResponseOut_OutputPort[0].invoke(
+        opCode,
+        cmdSeq,
+        Fw::CmdResponse::FORMAT_ERROR
+      );
+    }
+    return;
+  }
+
+  F32 f32;
+  _status = args.deserialize(f32);
+  if (_status != Fw::FW_SERIALIZE_OK) {
+    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+      this->m_cmdResponseOut_OutputPort[0].invoke(
+        opCode,
+        cmdSeq,
+        Fw::CmdResponse::FORMAT_ERROR
+      );
+    }
+    return;
+  }
+
+  bool b;
+  _status = args.deserialize(b);
+  if (_status != Fw::FW_SERIALIZE_OK) {
+    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+      this->m_cmdResponseOut_OutputPort[0].invoke(
+        opCode,
+        cmdSeq,
+        Fw::CmdResponse::FORMAT_ERROR
+      );
+    }
+    return;
+  }
+
+#if FW_CMD_CHECK_RESIDUAL
+  // Make sure there was no data left over.
+  // That means the argument buffer size was incorrect.
+  if (args.getBuffLeft() != 0) {
+    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+      this->m_cmdResponseOut_OutputPort[0].invoke(
+        opCode,
+        cmdSeq,
+        Fw::CmdResponse::FORMAT_ERROR
+      );
+    }
+    return;
+  }
+#endif
+
+  this->CMD_SYNC_PRIMITIVE_cmdHandler(
+    opCode, cmdSeq,
+    u32,
+    f32,
+    b
+  );
 }
 
 void PassiveComponentBase ::
@@ -1563,17 +1740,105 @@ void PassiveComponentBase ::
       Fw::CmdArgBuffer& args
   )
 {
+  // Deserialize the arguments
+  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
+  // Reset the buffer
+  args.resetDeser();
+
+  Fw::CmdStringArg str1;
+  _status = args.deserialize(str1);
+  if (_status != Fw::FW_SERIALIZE_OK) {
+    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+      this->m_cmdResponseOut_OutputPort[0].invoke(
+        opCode,
+        cmdSeq,
+        Fw::CmdResponse::FORMAT_ERROR
+      );
+    }
+    return;
+  }
+
+  Fw::CmdStringArg str2;
+  _status = args.deserialize(str2);
+  if (_status != Fw::FW_SERIALIZE_OK) {
+    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+      this->m_cmdResponseOut_OutputPort[0].invoke(
+        opCode,
+        cmdSeq,
+        Fw::CmdResponse::FORMAT_ERROR
+      );
+    }
+    return;
+  }
+
+#if FW_CMD_CHECK_RESIDUAL
+  // Make sure there was no data left over.
+  // That means the argument buffer size was incorrect.
+  if (args.getBuffLeft() != 0) {
+    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+      this->m_cmdResponseOut_OutputPort[0].invoke(
+        opCode,
+        cmdSeq,
+        Fw::CmdResponse::FORMAT_ERROR
+      );
+    }
+    return;
+  }
+#endif
+
+  this->CMD_SYNC_STRING_cmdHandler(
+    opCode, cmdSeq,
+    str1,
+    str2
+  );
 }
 
 void PassiveComponentBase ::
-  CMD_ASYNC_ENUM_cmdHandlerBase(
+  CMD_SYNC_ENUM_cmdHandlerBase(
       FwOpcodeType opCode,
       U32 cmdSeq,
       Fw::CmdArgBuffer& args
   )
 {
+  // Deserialize the arguments
+  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
+  // Reset the buffer
+  args.resetDeser();
+
+  E e;
+  _status = args.deserialize(e);
+  if (_status != Fw::FW_SERIALIZE_OK) {
+    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+      this->m_cmdResponseOut_OutputPort[0].invoke(
+        opCode,
+        cmdSeq,
+        Fw::CmdResponse::FORMAT_ERROR
+      );
+    }
+    return;
+  }
+
+#if FW_CMD_CHECK_RESIDUAL
+  // Make sure there was no data left over.
+  // That means the argument buffer size was incorrect.
+  if (args.getBuffLeft() != 0) {
+    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+      this->m_cmdResponseOut_OutputPort[0].invoke(
+        opCode,
+        cmdSeq,
+        Fw::CmdResponse::FORMAT_ERROR
+      );
+    }
+    return;
+  }
+#endif
+
+  this->CMD_SYNC_ENUM_cmdHandler(
+    opCode, cmdSeq,
+    e
+  );
 }
 
 void PassiveComponentBase ::
@@ -1583,7 +1848,44 @@ void PassiveComponentBase ::
       Fw::CmdArgBuffer& args
   )
 {
+  // Deserialize the arguments
+  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
+  // Reset the buffer
+  args.resetDeser();
+
+  A a;
+  _status = args.deserialize(a);
+  if (_status != Fw::FW_SERIALIZE_OK) {
+    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+      this->m_cmdResponseOut_OutputPort[0].invoke(
+        opCode,
+        cmdSeq,
+        Fw::CmdResponse::FORMAT_ERROR
+      );
+    }
+    return;
+  }
+
+#if FW_CMD_CHECK_RESIDUAL
+  // Make sure there was no data left over.
+  // That means the argument buffer size was incorrect.
+  if (args.getBuffLeft() != 0) {
+    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+      this->m_cmdResponseOut_OutputPort[0].invoke(
+        opCode,
+        cmdSeq,
+        Fw::CmdResponse::FORMAT_ERROR
+      );
+    }
+    return;
+  }
+#endif
+
+  this->CMD_SYNC_ARRAY_cmdHandler(
+    opCode, cmdSeq,
+    a
+  );
 }
 
 void PassiveComponentBase ::
@@ -1593,7 +1895,370 @@ void PassiveComponentBase ::
       Fw::CmdArgBuffer& args
   )
 {
+  // Deserialize the arguments
+  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
+  // Reset the buffer
+  args.resetDeser();
+
+  S s;
+  _status = args.deserialize(s);
+  if (_status != Fw::FW_SERIALIZE_OK) {
+    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+      this->m_cmdResponseOut_OutputPort[0].invoke(
+        opCode,
+        cmdSeq,
+        Fw::CmdResponse::FORMAT_ERROR
+      );
+    }
+    return;
+  }
+
+#if FW_CMD_CHECK_RESIDUAL
+  // Make sure there was no data left over.
+  // That means the argument buffer size was incorrect.
+  if (args.getBuffLeft() != 0) {
+    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+      this->m_cmdResponseOut_OutputPort[0].invoke(
+        opCode,
+        cmdSeq,
+        Fw::CmdResponse::FORMAT_ERROR
+      );
+    }
+    return;
+  }
+#endif
+
+  this->CMD_SYNC_STRUCT_cmdHandler(
+    opCode, cmdSeq,
+    s
+  );
+}
+
+void PassiveComponentBase ::
+  CMD_GUARDED_cmdHandlerBase(
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      Fw::CmdArgBuffer& args
+  )
+{
+#if FW_CMD_CHECK_RESIDUAL
+  // Make sure there was no data left over.
+  // That means the argument buffer size was incorrect.
+  if (args.getBuffLeft() != 0) {
+    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+      this->m_cmdResponseOut_OutputPort[0].invoke(
+        opCode,
+        cmdSeq,
+        Fw::CmdResponse::FORMAT_ERROR
+      );
+    }
+    return;
+  }
+#endif
+
+  this->lock();
+
+  this->CMD_GUARDED_cmdHandler(opCode, cmdSeq);
+
+  this->unLock();
+}
+
+void PassiveComponentBase ::
+  CMD_GUARDED_PRIMITIVE_cmdHandlerBase(
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      Fw::CmdArgBuffer& args
+  )
+{
+  // Deserialize the arguments
+  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+
+  // Reset the buffer
+  args.resetDeser();
+
+  U32 u32;
+  _status = args.deserialize(u32);
+  if (_status != Fw::FW_SERIALIZE_OK) {
+    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+      this->m_cmdResponseOut_OutputPort[0].invoke(
+        opCode,
+        cmdSeq,
+        Fw::CmdResponse::FORMAT_ERROR
+      );
+    }
+    return;
+  }
+
+  F32 f32;
+  _status = args.deserialize(f32);
+  if (_status != Fw::FW_SERIALIZE_OK) {
+    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+      this->m_cmdResponseOut_OutputPort[0].invoke(
+        opCode,
+        cmdSeq,
+        Fw::CmdResponse::FORMAT_ERROR
+      );
+    }
+    return;
+  }
+
+  bool b;
+  _status = args.deserialize(b);
+  if (_status != Fw::FW_SERIALIZE_OK) {
+    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+      this->m_cmdResponseOut_OutputPort[0].invoke(
+        opCode,
+        cmdSeq,
+        Fw::CmdResponse::FORMAT_ERROR
+      );
+    }
+    return;
+  }
+
+#if FW_CMD_CHECK_RESIDUAL
+  // Make sure there was no data left over.
+  // That means the argument buffer size was incorrect.
+  if (args.getBuffLeft() != 0) {
+    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+      this->m_cmdResponseOut_OutputPort[0].invoke(
+        opCode,
+        cmdSeq,
+        Fw::CmdResponse::FORMAT_ERROR
+      );
+    }
+    return;
+  }
+#endif
+
+  this->lock();
+
+  this->CMD_GUARDED_PRIMITIVE_cmdHandler(
+    opCode, cmdSeq,
+    u32,
+    f32,
+    b
+  );
+
+  this->unLock();
+}
+
+void PassiveComponentBase ::
+  CMD_GUARDED_STRING_cmdHandlerBase(
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      Fw::CmdArgBuffer& args
+  )
+{
+  // Deserialize the arguments
+  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+
+  // Reset the buffer
+  args.resetDeser();
+
+  Fw::CmdStringArg str1;
+  _status = args.deserialize(str1);
+  if (_status != Fw::FW_SERIALIZE_OK) {
+    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+      this->m_cmdResponseOut_OutputPort[0].invoke(
+        opCode,
+        cmdSeq,
+        Fw::CmdResponse::FORMAT_ERROR
+      );
+    }
+    return;
+  }
+
+  Fw::CmdStringArg str2;
+  _status = args.deserialize(str2);
+  if (_status != Fw::FW_SERIALIZE_OK) {
+    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+      this->m_cmdResponseOut_OutputPort[0].invoke(
+        opCode,
+        cmdSeq,
+        Fw::CmdResponse::FORMAT_ERROR
+      );
+    }
+    return;
+  }
+
+#if FW_CMD_CHECK_RESIDUAL
+  // Make sure there was no data left over.
+  // That means the argument buffer size was incorrect.
+  if (args.getBuffLeft() != 0) {
+    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+      this->m_cmdResponseOut_OutputPort[0].invoke(
+        opCode,
+        cmdSeq,
+        Fw::CmdResponse::FORMAT_ERROR
+      );
+    }
+    return;
+  }
+#endif
+
+  this->lock();
+
+  this->CMD_GUARDED_STRING_cmdHandler(
+    opCode, cmdSeq,
+    str1,
+    str2
+  );
+
+  this->unLock();
+}
+
+void PassiveComponentBase ::
+  CMD_GUARDED_ENUM_cmdHandlerBase(
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      Fw::CmdArgBuffer& args
+  )
+{
+  // Deserialize the arguments
+  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+
+  // Reset the buffer
+  args.resetDeser();
+
+  E e;
+  _status = args.deserialize(e);
+  if (_status != Fw::FW_SERIALIZE_OK) {
+    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+      this->m_cmdResponseOut_OutputPort[0].invoke(
+        opCode,
+        cmdSeq,
+        Fw::CmdResponse::FORMAT_ERROR
+      );
+    }
+    return;
+  }
+
+#if FW_CMD_CHECK_RESIDUAL
+  // Make sure there was no data left over.
+  // That means the argument buffer size was incorrect.
+  if (args.getBuffLeft() != 0) {
+    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+      this->m_cmdResponseOut_OutputPort[0].invoke(
+        opCode,
+        cmdSeq,
+        Fw::CmdResponse::FORMAT_ERROR
+      );
+    }
+    return;
+  }
+#endif
+
+  this->lock();
+
+  this->CMD_GUARDED_ENUM_cmdHandler(
+    opCode, cmdSeq,
+    e
+  );
+
+  this->unLock();
+}
+
+void PassiveComponentBase ::
+  CMD_GUARDED_ARRAY_cmdHandlerBase(
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      Fw::CmdArgBuffer& args
+  )
+{
+  // Deserialize the arguments
+  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+
+  // Reset the buffer
+  args.resetDeser();
+
+  A a;
+  _status = args.deserialize(a);
+  if (_status != Fw::FW_SERIALIZE_OK) {
+    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+      this->m_cmdResponseOut_OutputPort[0].invoke(
+        opCode,
+        cmdSeq,
+        Fw::CmdResponse::FORMAT_ERROR
+      );
+    }
+    return;
+  }
+
+#if FW_CMD_CHECK_RESIDUAL
+  // Make sure there was no data left over.
+  // That means the argument buffer size was incorrect.
+  if (args.getBuffLeft() != 0) {
+    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+      this->m_cmdResponseOut_OutputPort[0].invoke(
+        opCode,
+        cmdSeq,
+        Fw::CmdResponse::FORMAT_ERROR
+      );
+    }
+    return;
+  }
+#endif
+
+  this->lock();
+
+  this->CMD_GUARDED_ARRAY_cmdHandler(
+    opCode, cmdSeq,
+    a
+  );
+
+  this->unLock();
+}
+
+void PassiveComponentBase ::
+  CMD_GUARDED_STRUCT_cmdHandlerBase(
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      Fw::CmdArgBuffer& args
+  )
+{
+  // Deserialize the arguments
+  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+
+  // Reset the buffer
+  args.resetDeser();
+
+  S s;
+  _status = args.deserialize(s);
+  if (_status != Fw::FW_SERIALIZE_OK) {
+    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+      this->m_cmdResponseOut_OutputPort[0].invoke(
+        opCode,
+        cmdSeq,
+        Fw::CmdResponse::FORMAT_ERROR
+      );
+    }
+    return;
+  }
+
+#if FW_CMD_CHECK_RESIDUAL
+  // Make sure there was no data left over.
+  // That means the argument buffer size was incorrect.
+  if (args.getBuffLeft() != 0) {
+    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+      this->m_cmdResponseOut_OutputPort[0].invoke(
+        opCode,
+        cmdSeq,
+        Fw::CmdResponse::FORMAT_ERROR
+      );
+    }
+    return;
+  }
+#endif
+
+  this->lock();
+
+  this->CMD_GUARDED_STRUCT_cmdHandler(
+    opCode, cmdSeq,
+    s
+  );
+
+  this->unLock();
 }
 
 // ----------------------------------------------------------------------
@@ -1914,8 +2579,8 @@ void PassiveComponentBase ::
       break;
     }
 
-    case OPCODE_CMD_ASYNC_ENUM: {
-      compPtr->CMD_ASYNC_ENUM_cmdHandlerBase(
+    case OPCODE_CMD_SYNC_ENUM: {
+      compPtr->CMD_SYNC_ENUM_cmdHandlerBase(
         opCode,
         cmdSeq,
         args
@@ -1934,6 +2599,60 @@ void PassiveComponentBase ::
 
     case OPCODE_CMD_SYNC_STRUCT: {
       compPtr->CMD_SYNC_STRUCT_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_GUARDED: {
+      compPtr->CMD_GUARDED_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_GUARDED_PRIMITIVE: {
+      compPtr->CMD_GUARDED_PRIMITIVE_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_GUARDED_STRING: {
+      compPtr->CMD_GUARDED_STRING_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_GUARDED_ENUM: {
+      compPtr->CMD_GUARDED_ENUM_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_GUARDED_ARRAY: {
+      compPtr->CMD_GUARDED_ARRAY_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_GUARDED_STRUCT: {
+      compPtr->CMD_GUARDED_STRUCT_cmdHandlerBase(
         opCode,
         cmdSeq,
         args

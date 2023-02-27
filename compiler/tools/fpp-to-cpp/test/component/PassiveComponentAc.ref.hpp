@@ -101,18 +101,24 @@ class PassiveComponentBase :
       OPCODE_CMD_SYNC = 0x0, //! A sync command with no params
       OPCODE_CMD_SYNC_PRIMITIVE = 0x10, //! An async command with primitive params
       OPCODE_CMD_SYNC_STRING = 0x11, //! A sync command with string params
-      OPCODE_CMD_ASYNC_ENUM = 0x12, //! A sync command with enum params
+      OPCODE_CMD_SYNC_ENUM = 0x12, //! A sync command with enum params
       OPCODE_CMD_SYNC_ARRAY = 0x13, //! A sync command with array params
       OPCODE_CMD_SYNC_STRUCT = 0x14, //! A sync command with struct params
-      OPCODE_PARAMU32_SET = 0x15, //! Opcode to set parameter ParamU32
-      OPCODE_PARAMU32_SAVE = 0x16, //! Opcode to save parameter ParamU32
-      OPCODE_PARAMF64_SET = 0x17, //! Opcode to set parameter ParamF64
-      OPCODE_PARAMF64_SAVE = 0x18, //! Opcode to save parameter ParamF64
-      OPCODE_PARAMSTRING_SET = 0x19, //! Opcode to set parameter ParamString
-      OPCODE_PARAMSTRING_SAVE = 0x1a, //! Opcode to save parameter ParamString
-      OPCODE_PARAMENUM_SET = 0x1b, //! Opcode to set parameter ParamEnum
-      OPCODE_PARAMENUM_SAVE = 0x1c, //! Opcode to save parameter ParamEnum
-      OPCODE_PARAMARRAY_SET = 0x1d, //! Opcode to set parameter ParamArray
+      OPCODE_CMD_GUARDED = 0x15, //! A guarded command with no params
+      OPCODE_CMD_GUARDED_PRIMITIVE = 0x16, //! An aguarded command with primitive params
+      OPCODE_CMD_GUARDED_STRING = 0x17, //! A guarded command with string params
+      OPCODE_CMD_GUARDED_ENUM = 0x18, //! A guarded command with enum params
+      OPCODE_CMD_GUARDED_ARRAY = 0x19, //! A guarded command with array params
+      OPCODE_CMD_GUARDED_STRUCT = 0x1a, //! A guarded command with struct params
+      OPCODE_PARAMU32_SET = 0x1b, //! Opcode to set parameter ParamU32
+      OPCODE_PARAMU32_SAVE = 0x1c, //! Opcode to save parameter ParamU32
+      OPCODE_PARAMF64_SET = 0x1d, //! Opcode to set parameter ParamF64
+      OPCODE_PARAMF64_SAVE = 0x1e, //! Opcode to save parameter ParamF64
+      OPCODE_PARAMSTRING_SET = 0x1f, //! Opcode to set parameter ParamString
+      OPCODE_PARAMSTRING_SAVE = 0x20, //! Opcode to save parameter ParamString
+      OPCODE_PARAMENUM_SET = 0x21, //! Opcode to set parameter ParamEnum
+      OPCODE_PARAMENUM_SAVE = 0x22, //! Opcode to save parameter ParamEnum
+      OPCODE_PARAMARRAY_SET = 0x23, //! Opcode to set parameter ParamArray
       OPCODE_PARAMARRAY_SAVE = 0x35, //! Opcode to save parameter ParamArray
       OPCODE_PARAMSTRUCT_SET = 0x40, //! Opcode to set parameter ParamStruct
       OPCODE_PARAMSTRUCT_SAVE = 0x45, //! Opcode to save parameter ParamStruct
@@ -920,10 +926,10 @@ class PassiveComponentBase :
         const Fw::CmdStringArg& str2 //!< Another string
     ) = 0;
 
-    //! Handler for command CMD_ASYNC_ENUM
+    //! Handler for command CMD_SYNC_ENUM
     //!
     //! A sync command with enum params
-    virtual void CMD_ASYNC_ENUM_cmdHandler(
+    virtual void CMD_SYNC_ENUM_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
         E e //!< An enum
@@ -942,6 +948,62 @@ class PassiveComponentBase :
     //!
     //! A sync command with struct params
     virtual void CMD_SYNC_STRUCT_cmdHandler(
+        FwOpcodeType opCode, //!< The opcode
+        U32 cmdSeq, //!< The command sequence number
+        S s //!< A struct
+    ) = 0;
+
+    //! Handler for command CMD_GUARDED
+    //!
+    //! A guarded command with no params
+    virtual void CMD_GUARDED_cmdHandler(
+        FwOpcodeType opCode, //!< The opcode
+        U32 cmdSeq //!< The command sequence number
+    ) = 0;
+
+    //! Handler for command CMD_GUARDED_PRIMITIVE
+    //!
+    //! An aguarded command with primitive params
+    virtual void CMD_GUARDED_PRIMITIVE_cmdHandler(
+        FwOpcodeType opCode, //!< The opcode
+        U32 cmdSeq, //!< The command sequence number
+        U32 u32, //!< A U32
+        F32 f32, //!< An F32
+        bool b //!< A boolean
+    ) = 0;
+
+    //! Handler for command CMD_GUARDED_STRING
+    //!
+    //! A guarded command with string params
+    virtual void CMD_GUARDED_STRING_cmdHandler(
+        FwOpcodeType opCode, //!< The opcode
+        U32 cmdSeq, //!< The command sequence number
+        const Fw::CmdStringArg& str1, //!< A string
+        const Fw::CmdStringArg& str2 //!< Another string
+    ) = 0;
+
+    //! Handler for command CMD_GUARDED_ENUM
+    //!
+    //! A guarded command with enum params
+    virtual void CMD_GUARDED_ENUM_cmdHandler(
+        FwOpcodeType opCode, //!< The opcode
+        U32 cmdSeq, //!< The command sequence number
+        E e //!< An enum
+    ) = 0;
+
+    //! Handler for command CMD_GUARDED_ARRAY
+    //!
+    //! A guarded command with array params
+    virtual void CMD_GUARDED_ARRAY_cmdHandler(
+        FwOpcodeType opCode, //!< The opcode
+        U32 cmdSeq, //!< The command sequence number
+        A a //!< An array
+    ) = 0;
+
+    //! Handler for command CMD_GUARDED_STRUCT
+    //!
+    //! A guarded command with struct params
+    virtual void CMD_GUARDED_STRUCT_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
         S s //!< A struct
@@ -982,10 +1044,10 @@ class PassiveComponentBase :
         Fw::CmdArgBuffer& args //!< The command argument buffer
     );
 
-    //! Base-class handler function for command CMD_ASYNC_ENUM
+    //! Base-class handler function for command CMD_SYNC_ENUM
     //!
     //! A sync command with enum params
-    void CMD_ASYNC_ENUM_cmdHandlerBase(
+    void CMD_SYNC_ENUM_cmdHandlerBase(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
         Fw::CmdArgBuffer& args //!< The command argument buffer
@@ -1004,6 +1066,60 @@ class PassiveComponentBase :
     //!
     //! A sync command with struct params
     void CMD_SYNC_STRUCT_cmdHandlerBase(
+        FwOpcodeType opCode, //!< The opcode
+        U32 cmdSeq, //!< The command sequence number
+        Fw::CmdArgBuffer& args //!< The command argument buffer
+    );
+
+    //! Base-class handler function for command CMD_GUARDED
+    //!
+    //! A guarded command with no params
+    void CMD_GUARDED_cmdHandlerBase(
+        FwOpcodeType opCode, //!< The opcode
+        U32 cmdSeq, //!< The command sequence number
+        Fw::CmdArgBuffer& args //!< The command argument buffer
+    );
+
+    //! Base-class handler function for command CMD_GUARDED_PRIMITIVE
+    //!
+    //! An aguarded command with primitive params
+    void CMD_GUARDED_PRIMITIVE_cmdHandlerBase(
+        FwOpcodeType opCode, //!< The opcode
+        U32 cmdSeq, //!< The command sequence number
+        Fw::CmdArgBuffer& args //!< The command argument buffer
+    );
+
+    //! Base-class handler function for command CMD_GUARDED_STRING
+    //!
+    //! A guarded command with string params
+    void CMD_GUARDED_STRING_cmdHandlerBase(
+        FwOpcodeType opCode, //!< The opcode
+        U32 cmdSeq, //!< The command sequence number
+        Fw::CmdArgBuffer& args //!< The command argument buffer
+    );
+
+    //! Base-class handler function for command CMD_GUARDED_ENUM
+    //!
+    //! A guarded command with enum params
+    void CMD_GUARDED_ENUM_cmdHandlerBase(
+        FwOpcodeType opCode, //!< The opcode
+        U32 cmdSeq, //!< The command sequence number
+        Fw::CmdArgBuffer& args //!< The command argument buffer
+    );
+
+    //! Base-class handler function for command CMD_GUARDED_ARRAY
+    //!
+    //! A guarded command with array params
+    void CMD_GUARDED_ARRAY_cmdHandlerBase(
+        FwOpcodeType opCode, //!< The opcode
+        U32 cmdSeq, //!< The command sequence number
+        Fw::CmdArgBuffer& args //!< The command argument buffer
+    );
+
+    //! Base-class handler function for command CMD_GUARDED_STRUCT
+    //!
+    //! A guarded command with struct params
+    void CMD_GUARDED_STRUCT_cmdHandlerBase(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
         Fw::CmdArgBuffer& args //!< The command argument buffer
