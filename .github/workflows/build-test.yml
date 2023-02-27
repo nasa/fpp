@@ -30,7 +30,9 @@ jobs:
     - name: Install fpp tools
       run: compiler/install
     - name: Run sbt tests
-      run: sbt test
+      run: |
+        cd compiler/
+        sbt test
     - name: Run fpp tests
       run: |
         export PATH=~/.local/share/coursier/bin:$PATH
