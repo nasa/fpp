@@ -24,6 +24,8 @@ abstract class ComponentCppWriterUtils(
 
   val members: List[Ast.ComponentMember] = data.members
 
+  val stringCppWriter: StringCppWriter = StringCppWriter(s)
+
   val formalParamsCppWriter: FormalParamsCppWriter = FormalParamsCppWriter(s)
 
   /** Port number param as a CppDoc Function Param */
@@ -142,6 +144,10 @@ abstract class ComponentCppWriterUtils(
   /** Text event port */
   val textEventPort: Option[PortInstance.Special] =
     component.specialPortMap.get(Ast.SpecPortInstance.TextEvent)
+
+  /** Telemetry port */
+  val tlmPort: Option[PortInstance.Special] =
+    component.specialPortMap.get(Ast.SpecPortInstance.Telemetry)
 
   // Component properties
 

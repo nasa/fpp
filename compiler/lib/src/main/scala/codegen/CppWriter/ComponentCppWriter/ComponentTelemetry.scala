@@ -99,7 +99,71 @@ case class ComponentTelemetry (
             )
           ),
           CppDoc.Type("void"),
-          Nil
+          intersperseBlankLines(
+            List(
+              channel.update match {
+                case Ast.SpecTlmChannel.OnChange => lines(
+                  s"""|// Check to see if it is the first time
+                      |if (not this->${channelUpdateFlagName(channel.getName)}) {
+                      |  // Check to see if value has changed. If not, don't write it.
+                      |  if (arg == this->${channelStorageName(channel.getName)}) {
+                      |    return;
+                      |  }
+                      |  else {
+                      |    this->${channelStorageName(channel.getName)} = arg;
+                      |  }
+                      |}
+                      |else {
+                      |  this->${channelUpdateFlagName(channel.getName)} = false;
+                      |  this->${channelStorageName(channel.getName)} = arg;
+                      |}
+                      |"""
+                )
+                case _ => Nil
+              },
+              wrapInIf(
+                s"this->${portVariableName(tlmPort.get)}[0].isConnected()",
+                List.concat(
+                  lines(
+                    s"""|if (
+                        |  this->${portVariableName(timeGetPort.get)}[0].isConnected() &&
+                        |  (_tlmTime ==  Fw::ZERO_TIME)
+                        |) {
+                        |  this->${portVariableName(timeGetPort.get)}[0].invoke(_tlmTime);
+                        |}
+                        |
+                        |Fw::TlmBuffer _tlmBuff;
+                        |"""
+                  ),
+                  lines(
+                    channel.channelType match {
+                      case t: Type.String =>
+                        s"Fw::SerializeStatus _stat = arg.serialize(_tlmBuff, ${stringCppWriter.getSize(t)});"
+                      case _ =>
+                        "Fw::SerializeStatus _stat = _tlmBuff.serialize(arg);"
+                    }
+                  ),
+                  lines(
+                    s"""|FW_ASSERT(
+                        |  _stat == Fw::FW_SERIALIZE_OK,
+                        |  static_cast<FwAssertArgType>(_stat)
+                        |);
+                        |
+                        |FwChanIdType _id;
+                        |
+                        |_id = this->getIdBase() + ${channelIdConstantName(channel.getName)};
+                        |
+                        |this->${portVariableName(tlmPort.get)}[0].invoke(
+                        |  _id,
+                        |  _tlmTime,
+                        |  _tlmBuff
+                        |);
+                        |"""
+                  )
+                )
+              )
+            )
+          )
         )
       )
     )

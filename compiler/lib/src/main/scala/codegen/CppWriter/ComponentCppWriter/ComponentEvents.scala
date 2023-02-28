@@ -184,7 +184,7 @@ case class ComponentEvents (
                           List.concat(
                             s.a.typeMap(param._2.data.typeName.id) match {
                               case t: Type.String => lines(
-                                s"_status = $name.serialize(_logBuff, ${StringCppWriter(s).getSize(t)});"
+                                s"_status = $name.serialize(_logBuff, ${stringCppWriter.getSize(t)});"
                               )
                               case t => lines(
                                 s"""|#if FW_AMPCS_COMPATIBLE
