@@ -135,6 +135,14 @@ abstract class ComponentCppWriterUtils(
   val timeGetPort: Option[PortInstance.Special] =
     component.specialPortMap.get(Ast.SpecPortInstance.TimeGet)
 
+  /** Event port */
+  val eventPort: Option[PortInstance.Special] =
+    component.specialPortMap.get(Ast.SpecPortInstance.Event)
+
+  /** Text event port */
+  val textEventPort: Option[PortInstance.Special] =
+    component.specialPortMap.get(Ast.SpecPortInstance.TextEvent)
+
   // Component properties
 
   val hasGuardedInputPorts: Boolean = generalInputPorts.exists(p =>
@@ -189,9 +197,17 @@ abstract class ComponentCppWriterUtils(
   val cmdParamTypeMap: Map[Command.Opcode, List[(String, String)]] =
     nonParamCmds.map((opcode, cmd) => (
       opcode,
-      cmd.aNode._2.data.params.map(param => {
+      cmd.aNode._2.data.params.map(param =>
         (param._2.data.name, getCommandParam(param._2.data))
-      })
+      )
+    )).toMap
+
+  val eventParamTypeMap: Map[Event.Id, List[(String, String)]] =
+    sortedEvents.map((id, event) => (
+      id,
+      event.aNode._2.data.params.map(param =>
+        (param._2.data.name, getEventParam(param._2.data))
+      )
     )).toMap
 
   // Map from a port instance name to param list
@@ -354,6 +370,14 @@ abstract class ComponentCppWriterUtils(
       s,
       s.a.typeMap(param.typeName.id),
       Some("Fw::InternalInterfaceString")
+    )
+
+  /** Write an event param as a C++ type */
+  def getEventParam(param: Ast.FormalParam) =
+    TypeCppWriter.getName(
+      s,
+      s.a.typeMap(param.typeName.id),
+      Some("Fw::LogStringArg")
     )
 
   /** Write a channel type as a C++ type */
