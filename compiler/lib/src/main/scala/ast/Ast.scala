@@ -221,7 +221,7 @@ object Ast {
 
     /** Convert a qualified identifier to a list of identifiers */
     def toIdentList: List[Ident]
-      
+
   }
 
   object QualIdent {
@@ -251,7 +251,7 @@ object Ast {
         }
       }
 
-    /** A qualified identifier represented as a list of identifier nodes 
+    /** A qualified identifier represented as a list of identifier nodes
      *  This is useful during parsing */
     type NodeList = List[AstNode[Ident]]
 
