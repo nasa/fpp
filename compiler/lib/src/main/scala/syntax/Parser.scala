@@ -503,7 +503,8 @@ object Parser extends Parsers {
     }
     def special: Parser[Ast.SpecPortInstance] = {
       specialKind ~ (port ~>! ident) ^^ {
-        case kind ~ name => Ast.SpecPortInstance.Special(kind, name)
+        case kind ~ name =>
+          Ast.SpecPortInstance.Special(None, kind, name, None, None)
       }
     }
     general | special
