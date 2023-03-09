@@ -107,7 +107,73 @@ case class ComponentParameters (
           "loadParameters",
           Nil,
           CppDoc.Type("void"),
-          Nil
+          intersperseBlankLines(
+            List(
+              lines(
+                s"""|Fw::ParamBuffer buff;
+                    |Fw::SerializeStatus stat = Fw::FW_SERIALIZE_OK;
+                    |FW_ASSERT(this->${portVariableName(prmGetPort.get)}[0].isConnected());
+                    |
+                    |FwPrmIdType _id;
+                    |"""
+              ),
+              intersperseBlankLines(
+                sortedParams.map((_, param) =>
+                  List.concat(
+                    lines(
+                      s"""|_id = this->getIdBase() + ${paramIdConstantName(param.getName)};
+                          |
+                          |// Get parameter ${param.getName}
+                          |this->${paramValidityFlagName(param.getName)} =
+                          |  this->${portVariableName(prmGetPort.get)}[0].invoke(
+                          |    _id,
+                          |    buff
+                          |  );
+                          |
+                          |// Deserialize value
+                          |this->m_paramLock.lock();
+                          |
+                          |// If there was a deserialization issue, mark it invalid
+                          |"""
+                    ),
+                    wrapInIfElse(
+                      s"this->${paramValidityFlagName(param.getName)} == Fw::ParamValid::VALID",
+                      line(s"stat = buff.deserialize(this->${paramVariableName(param.getName)});") ::
+                        wrapInIf(
+                          "stat != Fw::FW_SERIALIZE_OK",
+                          param.default match {
+                            case Some(value) => lines(
+                              s"""|this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::DEFAULT;
+                                  |// Set default value
+                                  |this->${paramVariableName(param.getName)} = ${ValueCppWriter.write(s, value)};
+                                  |"""
+                            )
+                            case None => lines(
+                              s"this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::INVALID;"
+                            )
+                          }
+                        ),
+                      param.default match {
+                        case Some(value) => lines(
+                          s"""|// Set default value
+                              |this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::DEFAULT;
+                              |this->${paramVariableName(param.getName)} = ${ValueCppWriter.write(s, value)};
+                              |"""
+                        )
+                        case None => lines("// No default")
+                      }
+                    ),
+                    Line.blank :: lines("this->m_paramLock.unLock();")
+                  )
+                )
+              ),
+              lines(
+                """|// Call notifier
+                   |this->parametersLoaded();
+                   |"""
+              )
+            )
+          )
         )
       )
     )
@@ -134,7 +200,7 @@ case class ComponentParameters (
             )
           ),
           CppDoc.Type("void"),
-          Nil,
+          lines("// Do nothing by default"),
           CppDoc.Function.Virtual
         ),
         linesClassMember(
@@ -152,7 +218,7 @@ case class ComponentParameters (
           "parametersLoaded",
           Nil,
           CppDoc.Type("void"),
-          Nil,
+          lines("// Do nothing by default"),
           CppDoc.Function.Virtual
         )
       )
@@ -175,12 +241,20 @@ case class ComponentParameters (
           List(
             CppDoc.Function.Param(
               CppDoc.Type("Fw::ParamValid&"),
-              "isValid",
+              "valid",
               Some("Whether the parameter is valid")
             )
           ),
           CppDoc.Type(writeParamType(param.paramType)),
-          Nil
+          lines(
+            s"""|${writeParamType(param.paramType)} _local;
+                |this->m_paramLock.lock();
+                |valid = this->${paramValidityFlagName(param.getName)};
+                |_local = this->${paramVariableName(param.getName)};
+                |this->m_paramLock.unLock();
+                |return _local;
+                |"""
+          )
         )
       )
     )
@@ -212,7 +286,11 @@ case class ComponentParameters (
             )
           ),
           CppDoc.Type("Fw::ParamValid"),
-          Nil
+          wrapInIfElse(
+            s"this->${portVariableName(prmGetPort.get)}[0].isConnected()",
+            lines(s"return this->${portVariableName(prmGetPort.get)}[0].invoke(id, buff);"),
+            lines("return Fw::ParamValid::INVALID;")
+          )
         )
       )
     )
@@ -239,7 +317,24 @@ case class ComponentParameters (
             ),
           ),
           CppDoc.Type("Fw::CmdResponse"),
-          Nil
+          lines(
+            s"""|${writeParamType(param.paramType)} _local_val;
+                |Fw::SerializeStatus _stat = val.deserialize(_local_val);
+                |if (_stat != Fw::FW_SERIALIZE_OK) {
+                |  return Fw::CmdResponse::VALIDATION_ERROR;
+                |}
+                |
+                |// Assign value only if successfully deserialized
+                |this->m_paramLock.lock();
+                |this->${paramVariableName(param.getName)} = _local_val;
+                |this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::VALID;
+                |this->m_paramLock.unLock();
+                |
+                |// Call notifier
+                |this->parameterUpdated(${paramIdConstantName(param.getName)});
+                |return Fw::CmdResponse::OK;
+                |"""
+          )
         )
       )
     )
@@ -260,7 +355,35 @@ case class ComponentParameters (
           paramHandlerName(param.getName, Command.Param.Save),
           Nil,
           CppDoc.Type("Fw::CmdResponse"),
-          Nil
+          List.concat(
+            wrapInIf(
+              s"this->${portVariableName(prmSetPort.get)}[0].isConnected()",
+              lines(
+                s"""|Fw::ParamBuffer saveBuff;
+                    |this->m_paramLock.lock();
+                    |
+                    |Fw::SerializeStatus stat = saveBuff.serialize(${paramVariableName(param.getName)});
+                    |
+                    |this->m_paramLock.unLock();
+                    |if (stat != Fw::FW_SERIALIZE_OK) {
+                    |  return Fw::CmdResponse::VALIDATION_ERROR;
+                    |}
+                    |
+                    |FwPrmIdType id = 0;
+                    |id = this->getIdBase() + ${paramIdConstantName(param.getName)};
+                    |
+                    |// Save the parameter
+                    |this->${portVariableName(prmSetPort.get)}[0].invoke(
+                    |  id,
+                    |  saveBuff
+                    |);
+                    |
+                    |return Fw::CmdResponse::OK;
+                    |"""
+              )
+            ),
+            Line.blank :: lines("return Fw::CmdResponse::EXECUTION_ERROR;")
+          )
         )
       )
     )

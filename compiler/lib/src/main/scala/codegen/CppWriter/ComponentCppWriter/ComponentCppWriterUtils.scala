@@ -149,6 +149,12 @@ abstract class ComponentCppWriterUtils(
   val tlmPort: Option[PortInstance.Special] =
     component.specialPortMap.get(Ast.SpecPortInstance.Telemetry)
 
+  val prmGetPort: Option[PortInstance.Special] =
+    component.specialPortMap.get(Ast.SpecPortInstance.ParamGet)
+
+  val prmSetPort: Option[PortInstance.Special] =
+    component.specialPortMap.get(Ast.SpecPortInstance.ParamSet)
+
   // Component properties
 
   val hasGuardedInputPorts: Boolean = generalInputPorts.exists(p =>
