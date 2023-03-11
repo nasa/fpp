@@ -196,7 +196,7 @@ object ComponentXmlFppWriter extends LineUtils {
             }
             name <- file.getAttribute(xmlNode, "name")
           }
-          yield Special(kind, name)
+          yield Special(None, kind, name, None, None)
         }
 
         override def generateMemberNode(file: XmlFppWriter.File, xmlNode: scala.xml.Node) = {

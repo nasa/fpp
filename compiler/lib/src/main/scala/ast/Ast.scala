@@ -219,7 +219,7 @@ object Ast {
 
     /** Convert a qualified identifier to a list of identifiers */
     def toIdentList: List[Ident]
-      
+
   }
 
   object QualIdent {
@@ -249,7 +249,7 @@ object Ast {
         }
       }
 
-    /** A qualified identifier represented as a list of identifier nodes 
+    /** A qualified identifier represented as a list of identifier nodes
      *  This is useful during parsing */
     type NodeList = List[AstNode[Ident]]
 
@@ -498,9 +498,24 @@ object Ast {
 
     /** Special port instance */
     final case class Special (
+      inputKind: Option[SpecialInputKind],
       kind: SpecialKind,
-      name: Ident
+      name: Ident,
+      priority: Option[AstNode[Expr]],
+      queueFull: Option[AstNode[QueueFull]]
     ) extends SpecPortInstance
+
+    /** Special port input kind */
+    sealed trait SpecialInputKind
+    case object Async extends SpecialInputKind {
+      override def toString = "async"
+    }
+    case object Guarded extends SpecialInputKind {
+      override def toString = "guarded"
+    }
+    case object Sync extends SpecialInputKind {
+      override def toString = "sync"
+    }
 
     /** Special port instance kind */
     sealed trait SpecialKind
