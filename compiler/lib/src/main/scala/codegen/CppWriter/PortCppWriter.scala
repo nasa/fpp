@@ -100,6 +100,7 @@ case class PortCppWriter (
     }
     val classes = List(
       getStringClasses,
+      getStringTypedefs,
       portBufferClass,
       List(
         classMember(
@@ -159,6 +160,27 @@ case class PortCppWriter (
     linesMember(
       Line.blank :: userHeaders,
       CppDoc.Lines.Cpp
+    )
+  }
+
+  private def getStringTypedefs: List[CppDoc.Member] = {
+    if strParamList.isEmpty then Nil
+    else List(
+      linesMember(
+        List(
+          CppDocWriter.writeBannerComment(
+            "String types for backwards compatibility"
+          ),
+          Line.blank ::
+            strNameMap.flatMap((size, l) => {
+              l.map(strName => line(
+                s"typedef ${
+                  strCppWriter.getQualifiedClassName(size, List(strNamespace))
+                } ${strName}String;"
+              ))
+            }).toList
+        ).flatten
+      )
     )
   }
 

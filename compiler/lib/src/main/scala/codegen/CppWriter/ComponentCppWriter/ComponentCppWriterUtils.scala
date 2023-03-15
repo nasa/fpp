@@ -149,9 +149,11 @@ abstract class ComponentCppWriterUtils(
   val tlmPort: Option[PortInstance.Special] =
     component.specialPortMap.get(Ast.SpecPortInstance.Telemetry)
 
+  /** Parameter get port */
   val prmGetPort: Option[PortInstance.Special] =
     component.specialPortMap.get(Ast.SpecPortInstance.ParamGet)
 
+  /** Parameter set port */
   val prmSetPort: Option[PortInstance.Special] =
     component.specialPortMap.get(Ast.SpecPortInstance.ParamSet)
 
@@ -347,9 +349,12 @@ abstract class ComponentCppWriterUtils(
     )
 
   def addReturnKeyword(str: String, p: PortInstance): String =
-    getPortReturnType(p) match {
-      case Some(_) => s"return $str"
-      case None => str
+    p.getType match {
+      case Some(PortInstance.Type.Serial) => s"return $str"
+      case _ => getPortReturnType(p) match {
+          case Some(_) => s"return $str"
+          case None => str
+        }
     }
 
   /** Get the port type as a string */

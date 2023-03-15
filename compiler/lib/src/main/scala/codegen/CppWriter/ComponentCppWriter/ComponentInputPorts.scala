@@ -228,7 +228,13 @@ case class ComponentInputPorts(
       ).flatten
     }
     def writeCommandInputPort() = {
-      if sortedCmds.isEmpty then Nil
+      if !hasCommands then lines(
+        """|FW_ASSERT(callComp);
+           |
+           |const U32 idBase = callComp->getIdBase();
+           |FW_ASSERT(opCode >= idBase, opCode, idBase);
+           |"""
+      )
       else List(
         lines(
           s"""|FW_ASSERT(callComp);

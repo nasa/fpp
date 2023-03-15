@@ -642,7 +642,7 @@ case class ComponentCppWriter (
                 |#if FW_CMD_CHECK_RESIDUAL
                 |if (args.getBuffLeft() != 0) {
                 |  if (this->$cmdRespVarName[0].isConnected()) {
-                |    this->cmdResponse_out(opCode,cmdSeq,Fw::CmdResponse::FORMAT_ERROR);
+                |    this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
                 |  }
                 |  // Don't crash the task if bad arguments were passed from the ground
                 |  break;
@@ -668,30 +668,41 @@ case class ComponentCppWriter (
         )
     }
     def writeInternalPortDispatch(p: PortInstance.Internal) = {
-      val body = List(
-        intersperseBlankLines(
-          portParamTypeMap(p.getUnqualifiedName).map((n, tn) =>
-            lines(
-              s"""|$tn $n;
-                  |deserStatus = msg.deserialize($n);
-                  |
-                  |// Internal interface should always deserialize
-                  |FW_ASSERT(
-                  |  Fw::FW_SERIALIZE_OK == deserStatus,
-                  |  static_cast<FwAssertArgType>(deserStatus)
-                  |);
-                  |"""
+      val body = intersperseBlankLines(
+        List(
+          intersperseBlankLines(
+            portParamTypeMap(p.getUnqualifiedName).map((n, tn) =>
+              lines(
+                s"""|$tn $n;
+                    |deserStatus = msg.deserialize($n);
+                    |
+                    |// Internal interface should always deserialize
+                    |FW_ASSERT(
+                    |  Fw::FW_SERIALIZE_OK == deserStatus,
+                    |  static_cast<FwAssertArgType>(deserStatus)
+                    |);
+                    |"""
+              )
             )
-          )
-        ),
-        line("// Call handler function") ::
-          writeFunctionCall(
-            s"this->${internalInterfaceHandlerName(p.getUnqualifiedName)}",
-            Nil,
-            getPortParams(p).map(_._1)
           ),
-        lines("break;")
-      ).flatten
+          lines(
+            """|// Make sure there was no data left over.
+               |// That means the buffer size was incorrect.
+               |FW_ASSERT(
+               |  msg.getBuffLeft() == 0,
+               |  static_cast<FwAssertArgType>(msg.getBuffLeft())
+               |);
+               |"""
+          ),
+          line("// Call handler function") ::
+            writeFunctionCall(
+              s"this->${internalInterfaceHandlerName(p.getUnqualifiedName)}",
+              Nil,
+              getPortParams(p).map(_._1)
+            ),
+          lines("break;")
+        )
+      )
 
       line(s"// Handle internal interface ${p.getUnqualifiedName}") ::
         wrapInScope(
