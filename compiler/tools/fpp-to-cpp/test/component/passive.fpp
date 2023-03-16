@@ -1,7 +1,21 @@
 @ A passive component
 passive component Passive {
 
-  include "include/general_ports.fppi"
+  include "include/typed_ports.fppi"
+  include "include/special_ports.fppi"
+
+  include "include/commands.fppi"
+  include "include/events.fppi"
+  include "include/telemetry.fppi"
+  include "include/params.fppi"
+
+}
+
+@ A passive component with serial ports
+passive component PassiveSerial {
+
+  include "include/typed_ports.fppi"
+  include "include/serial_ports.fppi"
   include "include/special_ports.fppi"
 
   include "include/commands.fppi"
@@ -14,7 +28,7 @@ passive component Passive {
 @ An passive component with commands
 passive component PassiveCommands {
 
-  include "include/general_ports.fppi"
+  include "include/typed_ports.fppi"
   include "include/special_ports.fppi"
 
   include "include/commands.fppi"
@@ -24,7 +38,7 @@ passive component PassiveCommands {
 @ An passive component with events
 passive component PassiveEvents {
 
-  include "include/general_ports.fppi"
+  include "include/typed_ports.fppi"
   include "include/special_ports.fppi"
 
   include "include/events.fppi"
@@ -34,7 +48,7 @@ passive component PassiveEvents {
 @ An passive component with telemetry
 passive component PassiveTelemetry {
 
-  include "include/general_ports.fppi"
+  include "include/typed_ports.fppi"
   include "include/special_ports.fppi"
 
   include "include/telemetry.fppi"
@@ -44,7 +58,7 @@ passive component PassiveTelemetry {
 @ An passive component with params
 passive component PassiveParams {
 
-  include "include/general_ports.fppi"
+  include "include/typed_ports.fppi"
   include "include/special_ports.fppi"
 
   include "include/params.fppi"

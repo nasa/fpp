@@ -1,8 +1,26 @@
 @ An active component
 active component Active {
 
-  include "include/general_ports.fppi"
-  include "include/general_ports_async.fppi"
+  include "include/typed_ports.fppi"
+  include "include/typed_ports_async.fppi"
+  include "include/special_ports.fppi"
+  include "include/internal_ports.fppi"
+
+  include "include/commands.fppi"
+  include "include/commands_async.fppi"
+  include "include/events.fppi"
+  include "include/telemetry.fppi"
+  include "include/params.fppi"
+
+}
+
+@ An active component with serial ports
+active component ActiveSerial {
+
+  include "include/typed_ports.fppi"
+  include "include/typed_ports_async.fppi"
+  include "include/serial_ports.fppi"
+  include "include/serial_ports_async.fppi"
   include "include/special_ports.fppi"
   include "include/internal_ports.fppi"
 
@@ -17,8 +35,8 @@ active component Active {
 @ An active component with commands
 active component ActiveCommands {
 
-  include "include/general_ports.fppi"
-  include "include/general_ports_async.fppi"
+  include "include/typed_ports.fppi"
+  include "include/typed_ports_async.fppi"
   include "include/special_ports.fppi"
 
   include "include/commands.fppi"
@@ -29,8 +47,8 @@ active component ActiveCommands {
 @ An active component with events
 active component ActiveEvents {
 
-  include "include/general_ports.fppi"
-  include "include/general_ports_async.fppi"
+  include "include/typed_ports.fppi"
+  include "include/typed_ports_async.fppi"
   include "include/special_ports.fppi"
 
   include "include/events.fppi"
@@ -40,8 +58,8 @@ active component ActiveEvents {
 @ An active component with telemetry
 active component ActiveTelemetry {
 
-  include "include/general_ports.fppi"
-  include "include/general_ports_async.fppi"
+  include "include/typed_ports.fppi"
+  include "include/typed_ports_async.fppi"
   include "include/special_ports.fppi"
 
   include "include/telemetry.fppi"
@@ -51,8 +69,8 @@ active component ActiveTelemetry {
 @ An active component with params
 active component ActiveParams {
 
-  include "include/general_ports.fppi"
-  include "include/general_ports_async.fppi"
+  include "include/typed_ports.fppi"
+  include "include/typed_ports_async.fppi"
   include "include/special_ports.fppi"
 
   include "include/params.fppi"

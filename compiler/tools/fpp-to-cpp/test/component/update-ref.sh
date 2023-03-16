@@ -3,7 +3,10 @@ fprime_dir=`dirname $PWD`/fprime
 types()
 {
   update "-p $PWD" types
+  move_cpp NoArgsPort
+  move_cpp NoArgsReturnPort
   move_cpp TypedPort 
+  move_cpp TypedReturnPort
   move_cpp EEnum
   move_cpp AArray
   move_cpp SSerializable
@@ -19,6 +22,7 @@ passive()
 {
   update "-i `cat deps-comma.txt`,types.fpp" "-p $PWD,$fprime_dir passive" passive
   move_cpp PassiveComponent
+  move_cpp PassiveSerialComponent
   move_cpp PassiveCommandsComponent
   move_cpp PassiveEventsComponent
   move_cpp PassiveTelemetryComponent
@@ -29,6 +33,7 @@ active()
 {
   update "-i `cat deps-comma.txt`,types.fpp" "-p $PWD,$fprime_dir active" active
   move_cpp ActiveComponent
+  move_cpp ActiveSerialComponent
   move_cpp ActiveCommandsComponent
   move_cpp ActiveEventsComponent
   move_cpp ActiveTelemetryComponent
@@ -39,6 +44,7 @@ queued()
 {
   update "-i `cat deps-comma.txt`,types.fpp" "-p $PWD,$fprime_dir queued" queued
   move_cpp QueuedComponent
+  move_cpp QueuedSerialComponent
   move_cpp QueuedCommandsComponent
   move_cpp QueuedEventsComponent
   move_cpp QueuedTelemetryComponent
