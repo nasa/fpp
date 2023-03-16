@@ -56,11 +56,13 @@ case class ComponentOutputPorts(
   }
 
   def getSerialConnectors(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+    val typeStr = getPortListTypeString(ports)
+
     wrapClassMembersInIfDirective(
       "\n#if FW_PORT_SERIALIZATION",
       addAccessTagAndComment(
         "public",
-        "Connect serial input ports to serial output ports",
+        s"Connect serial input ports to $typeStr output ports",
         ports.flatMap(p =>
           List(
             functionClassMember(
