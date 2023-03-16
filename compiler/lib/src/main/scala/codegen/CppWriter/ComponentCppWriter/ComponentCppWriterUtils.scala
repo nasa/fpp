@@ -284,8 +284,8 @@ abstract class ComponentCppWriterUtils(
     output: CppDoc.Lines.Output = CppDoc.Lines.Both
   ): List[CppDoc.Class.Member] = {
     ports.flatMap(p => p match {
-      case PortInstance.Special(aNode, _, _) => aNode._2.data match {
-        case Ast.SpecPortInstance.Special(kind, _) => kind match {
+      case PortInstance.Special(aNode, _, _, _, _) => aNode._2.data match {
+        case Ast.SpecPortInstance.Special(_, kind, _, _, _) => kind match {
           case Ast.SpecPortInstance.TextEvent => wrapClassMembersInIfDirective(
             "\n#if FW_ENABLE_TEXT_LOGGING == 1",
             writePort(p),
