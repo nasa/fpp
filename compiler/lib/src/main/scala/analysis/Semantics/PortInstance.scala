@@ -127,7 +127,9 @@ object PortInstance {
   final case class Special(
     aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]],
     specifier: Ast.SpecPortInstance.Special,
-    symbol: Symbol.Port
+    symbol: Symbol.Port,
+    priority: Option[BigInt],
+    queueFull: Option[Ast.QueueFull]
   ) extends PortInstance {
 
     override def getDirection = {
@@ -258,7 +260,7 @@ object PortInstance {
           } yield instance
         case specifier : Ast.SpecPortInstance.Special =>
           val symbol @ Symbol.Port(_) = a.useDefMap(node.id)
-          Right(PortInstance.Special(aNode, specifier, symbol))
+          Right(PortInstance.Special(aNode, specifier, symbol, None, None))
       }
         
     }
