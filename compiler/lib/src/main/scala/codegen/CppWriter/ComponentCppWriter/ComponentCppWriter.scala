@@ -69,6 +69,7 @@ case class ComponentCppWriter (
     )
     List(
       List(hppIncludes, cppIncludes),
+      getStaticAssertion,
       wrapInNamespaces(namespaceIdentList, List(cls))
     ).flatten
   }
@@ -146,6 +147,21 @@ case class ComponentCppWriter (
         Line.blank :: userHeaders
       ).flatten,
       CppDoc.Lines.Cpp
+    )
+  }
+
+  private def getStaticAssertion: List[CppDoc.Member] = {
+    if serialInputPorts.isEmpty && serialOutputPorts.isEmpty then Nil
+    else List(
+      linesMember(
+        Line.blank :: lines(
+          s"""|static_assert(
+              |  FW_PORT_SERIALIZATION == 1,
+              |  \"$name component requires serialization\"
+              |);
+              |"""
+        )
+      )
     )
   }
 
