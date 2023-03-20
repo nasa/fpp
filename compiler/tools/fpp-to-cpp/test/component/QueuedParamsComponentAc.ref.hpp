@@ -26,6 +26,8 @@
 #include "Fw/Prm/PrmString.hpp"
 #include "Fw/Time/TimePortAc.hpp"
 #include "Fw/Tlm/TlmPortAc.hpp"
+#include "NoArgsPortAc.hpp"
+#include "NoArgsReturnPortAc.hpp"
 #include "Os/Mutex.hpp"
 #include "SSerializableAc.hpp"
 #include "TypedPortAc.hpp"
@@ -59,6 +61,11 @@ class QueuedParamsComponentBase :
 
     //! Enumerations for numbers of typed input ports
     enum {
+      NUM_NOARGSASYNC_INPUT_PORTS = 1,
+      NUM_NOARGSGUARDED_INPUT_PORTS = 1,
+      NUM_NOARGSRETURNGUARDED_INPUT_PORTS = 1,
+      NUM_NOARGSRETURNSYNC_INPUT_PORTS = 3,
+      NUM_NOARGSSYNC_INPUT_PORTS = 3,
       NUM_TYPEDASYNC_INPUT_PORTS = 1,
       NUM_TYPEDASYNCASSERT_INPUT_PORTS = 1,
       NUM_TYPEDASYNCBLOCKPRIORITY_INPUT_PORTS = 1,
@@ -67,16 +74,6 @@ class QueuedParamsComponentBase :
       NUM_TYPEDRETURNGUARDED_INPUT_PORTS = 1,
       NUM_TYPEDRETURNSYNC_INPUT_PORTS = 3,
       NUM_TYPEDSYNC_INPUT_PORTS = 3,
-    };
-
-    //! Enumerations for numbers of serial input ports
-    enum {
-      NUM_SERIALASYNC_INPUT_PORTS = 1,
-      NUM_SERIALASYNCASSERT_INPUT_PORTS = 1,
-      NUM_SERIALASYNCBLOCKPRIORITY_INPUT_PORTS = 1,
-      NUM_SERIALASYNCDROPPRIORITY_INPUT_PORTS = 1,
-      NUM_SERIALGUARDED_INPUT_PORTS = 1,
-      NUM_SERIALSYNC_INPUT_PORTS = 1,
     };
 
     //! Enumerations for numbers of special output ports
@@ -95,11 +92,6 @@ class QueuedParamsComponentBase :
     enum {
       NUM_TYPEDOUT_OUTPUT_PORTS = 1,
       NUM_TYPEDRETURNOUT_OUTPUT_PORTS = 1,
-    };
-
-    //! Enumerations for numbers of serial output ports
-    enum {
-      NUM_SERIALOUT_OUTPUT_PORTS = 5,
     };
 
     //! Command opcodes
@@ -146,6 +138,41 @@ class QueuedParamsComponentBase :
     // ----------------------------------------------------------------------
     // Getters for typed input ports
     // ----------------------------------------------------------------------
+
+    //! Get typed input port at index
+    //!
+    //! \return noArgsAsync[portNum]
+    InputNoArgsPort* get_noArgsAsync_InputPort(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Get typed input port at index
+    //!
+    //! \return noArgsGuarded[portNum]
+    InputNoArgsPort* get_noArgsGuarded_InputPort(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Get typed input port at index
+    //!
+    //! \return noArgsReturnGuarded[portNum]
+    InputNoArgsReturnPort* get_noArgsReturnGuarded_InputPort(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Get typed input port at index
+    //!
+    //! \return noArgsReturnSync[portNum]
+    InputNoArgsReturnPort* get_noArgsReturnSync_InputPort(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Get typed input port at index
+    //!
+    //! \return noArgsSync[portNum]
+    InputNoArgsPort* get_noArgsSync_InputPort(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
 
     //! Get typed input port at index
     //!
@@ -200,54 +227,6 @@ class QueuedParamsComponentBase :
     //!
     //! \return typedSync[portNum]
     InputTypedPort* get_typedSync_InputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
-    );
-
-  public:
-
-    // ----------------------------------------------------------------------
-    // Getters for serial input ports
-    // ----------------------------------------------------------------------
-
-    //! Get serial input port at index
-    //!
-    //! \return serialAsync[portNum]
-    Fw::InputSerializePort* get_serialAsync_InputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
-    );
-
-    //! Get serial input port at index
-    //!
-    //! \return serialAsyncAssert[portNum]
-    Fw::InputSerializePort* get_serialAsyncAssert_InputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
-    );
-
-    //! Get serial input port at index
-    //!
-    //! \return serialAsyncBlockPriority[portNum]
-    Fw::InputSerializePort* get_serialAsyncBlockPriority_InputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
-    );
-
-    //! Get serial input port at index
-    //!
-    //! \return serialAsyncDropPriority[portNum]
-    Fw::InputSerializePort* get_serialAsyncDropPriority_InputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
-    );
-
-    //! Get serial input port at index
-    //!
-    //! \return serialGuarded[portNum]
-    Fw::InputSerializePort* get_serialGuarded_InputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
-    );
-
-    //! Get serial input port at index
-    //!
-    //! \return serialSync[portNum]
-    Fw::InputSerializePort* get_serialSync_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
@@ -327,24 +306,12 @@ class QueuedParamsComponentBase :
         InputTypedReturnPort* port //!< The input port
     );
 
-  public:
-
-    // ----------------------------------------------------------------------
-    // Connect serial input ports to serial output ports
-    // ----------------------------------------------------------------------
-
-    //! Connect port to serialOut[portNum]
-    void set_serialOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::InputSerializePort* port //!< The input port
-    );
-
 #if FW_PORT_SERIALIZATION
 
   public:
 
     // ----------------------------------------------------------------------
-    // Connect serial input ports to serial output ports
+    // Connect serial input ports to special output ports
     // ----------------------------------------------------------------------
 
     //! Connect port to cmdRegOut[portNum]
@@ -377,11 +344,15 @@ class QueuedParamsComponentBase :
         Fw::InputSerializePort* port //!< The port
     );
 
+#if FW_ENABLE_TEXT_LOGGING == 1
+
     //! Connect port to textEventOut[portNum]
     void set_textEventOut_OutputPort(
         NATIVE_INT_TYPE portNum, //!< The port number
         Fw::InputSerializePort* port //!< The port
     );
+
+#endif
 
     //! Connect port to timeGetOut[portNum]
     void set_timeGetOut_OutputPort(
@@ -402,7 +373,7 @@ class QueuedParamsComponentBase :
   public:
 
     // ----------------------------------------------------------------------
-    // Connect serial input ports to serial output ports
+    // Connect serial input ports to typed output ports
     // ----------------------------------------------------------------------
 
     //! Connect port to typedOut[portNum]
@@ -415,22 +386,6 @@ class QueuedParamsComponentBase :
     void set_typedReturnOut_OutputPort(
         NATIVE_INT_TYPE portNum, //!< The port number
         Fw::InputSerializePort* port //!< The port
-    );
-
-#endif
-
-#if FW_PORT_SERIALIZATION
-
-  public:
-
-    // ----------------------------------------------------------------------
-    // Connect serial input ports to serial output ports
-    // ----------------------------------------------------------------------
-
-    //! Connect port to serialOut[portNum]
-    void set_serialOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::InputPortBase* port //!< The port
     );
 
 #endif
@@ -471,7 +426,6 @@ class QueuedParamsComponentBase :
     //! Initialize QueuedParamsComponentBase object
     void init(
         NATIVE_INT_TYPE queueDepth, //!< The queue depth
-        NATIVE_INT_TYPE msgSize, //!< The message size
         NATIVE_INT_TYPE instance = 0 //!< The instance number
     );
 
@@ -494,6 +448,31 @@ class QueuedParamsComponentBase :
     // ----------------------------------------------------------------------
     // Getters for numbers of typed input ports
     // ----------------------------------------------------------------------
+
+    //! Get the number of noArgsAsync input ports
+    //!
+    //! \return The number of noArgsAsync input ports
+    NATIVE_INT_TYPE getNum_noArgsAsync_InputPorts();
+
+    //! Get the number of noArgsGuarded input ports
+    //!
+    //! \return The number of noArgsGuarded input ports
+    NATIVE_INT_TYPE getNum_noArgsGuarded_InputPorts();
+
+    //! Get the number of noArgsReturnGuarded input ports
+    //!
+    //! \return The number of noArgsReturnGuarded input ports
+    NATIVE_INT_TYPE getNum_noArgsReturnGuarded_InputPorts();
+
+    //! Get the number of noArgsReturnSync input ports
+    //!
+    //! \return The number of noArgsReturnSync input ports
+    NATIVE_INT_TYPE getNum_noArgsReturnSync_InputPorts();
+
+    //! Get the number of noArgsSync input ports
+    //!
+    //! \return The number of noArgsSync input ports
+    NATIVE_INT_TYPE getNum_noArgsSync_InputPorts();
 
     //! Get the number of typedAsync input ports
     //!
@@ -534,42 +513,6 @@ class QueuedParamsComponentBase :
     //!
     //! \return The number of typedSync input ports
     NATIVE_INT_TYPE getNum_typedSync_InputPorts();
-
-  PROTECTED:
-
-    // ----------------------------------------------------------------------
-    // Getters for numbers of serial input ports
-    // ----------------------------------------------------------------------
-
-    //! Get the number of serialAsync input ports
-    //!
-    //! \return The number of serialAsync input ports
-    NATIVE_INT_TYPE getNum_serialAsync_InputPorts();
-
-    //! Get the number of serialAsyncAssert input ports
-    //!
-    //! \return The number of serialAsyncAssert input ports
-    NATIVE_INT_TYPE getNum_serialAsyncAssert_InputPorts();
-
-    //! Get the number of serialAsyncBlockPriority input ports
-    //!
-    //! \return The number of serialAsyncBlockPriority input ports
-    NATIVE_INT_TYPE getNum_serialAsyncBlockPriority_InputPorts();
-
-    //! Get the number of serialAsyncDropPriority input ports
-    //!
-    //! \return The number of serialAsyncDropPriority input ports
-    NATIVE_INT_TYPE getNum_serialAsyncDropPriority_InputPorts();
-
-    //! Get the number of serialGuarded input ports
-    //!
-    //! \return The number of serialGuarded input ports
-    NATIVE_INT_TYPE getNum_serialGuarded_InputPorts();
-
-    //! Get the number of serialSync input ports
-    //!
-    //! \return The number of serialSync input ports
-    NATIVE_INT_TYPE getNum_serialSync_InputPorts();
 
   PROTECTED:
 
@@ -636,17 +579,6 @@ class QueuedParamsComponentBase :
     //!
     //! \return The number of typedReturnOut output ports
     NATIVE_INT_TYPE getNum_typedReturnOut_OutputPorts();
-
-  PROTECTED:
-
-    // ----------------------------------------------------------------------
-    // Getters for numbers of serial output ports
-    // ----------------------------------------------------------------------
-
-    //! Get the number of serialOut output ports
-    //!
-    //! \return The number of serialOut output ports
-    NATIVE_INT_TYPE getNum_serialOut_OutputPorts();
 
   PROTECTED:
 
@@ -737,21 +669,33 @@ class QueuedParamsComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
-    // Connection status queries for serial output ports
-    // ----------------------------------------------------------------------
-
-    //! Check whether port serialOut is connected
-    //!
-    //! \return Whether port serialOut is connected
-    bool isConnected_serialOut_OutputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
-    );
-
-  PROTECTED:
-
-    // ----------------------------------------------------------------------
     // Handlers to implement for typed input ports
     // ----------------------------------------------------------------------
+
+    //! Handler for input port noArgsAsync
+    virtual void noArgsAsync_handler(
+        NATIVE_INT_TYPE portNum //!< The port number
+    ) = 0;
+
+    //! Handler for input port noArgsGuarded
+    virtual void noArgsGuarded_handler(
+        NATIVE_INT_TYPE portNum //!< The port number
+    ) = 0;
+
+    //! Handler for input port noArgsReturnGuarded
+    virtual U32 noArgsReturnGuarded_handler(
+        NATIVE_INT_TYPE portNum //!< The port number
+    ) = 0;
+
+    //! Handler for input port noArgsReturnSync
+    virtual U32 noArgsReturnSync_handler(
+        NATIVE_INT_TYPE portNum //!< The port number
+    ) = 0;
+
+    //! Handler for input port noArgsSync
+    virtual void noArgsSync_handler(
+        NATIVE_INT_TYPE portNum //!< The port number
+    ) = 0;
 
     //! Handler for input port typedAsync
     virtual void typedAsync_handler(
@@ -759,7 +703,7 @@ class QueuedParamsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str, //!< A string
+        const TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -771,7 +715,7 @@ class QueuedParamsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str, //!< A string
+        const TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -783,7 +727,7 @@ class QueuedParamsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str, //!< A string
+        const TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -795,7 +739,7 @@ class QueuedParamsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str, //!< A string
+        const TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -807,7 +751,7 @@ class QueuedParamsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str, //!< A string
+        const TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -819,7 +763,7 @@ class QueuedParamsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedReturnPortStrings::StringSize80& str, //!< A string
+        const TypedReturnPortStrings::StringSize80& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -831,7 +775,7 @@ class QueuedParamsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedReturnPortStrings::StringSize80& str, //!< A string
+        const TypedReturnPortStrings::StringSize80& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -843,7 +787,7 @@ class QueuedParamsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str, //!< A string
+        const TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -857,13 +801,38 @@ class QueuedParamsComponentBase :
     // Call these functions directly to bypass the corresponding ports
     // ----------------------------------------------------------------------
 
+    //! Handler base-class function for input port noArgsAsync
+    void noArgsAsync_handlerBase(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Handler base-class function for input port noArgsGuarded
+    void noArgsGuarded_handlerBase(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Handler base-class function for input port noArgsReturnGuarded
+    U32 noArgsReturnGuarded_handlerBase(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Handler base-class function for input port noArgsReturnSync
+    U32 noArgsReturnSync_handlerBase(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Handler base-class function for input port noArgsSync
+    void noArgsSync_handlerBase(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
     //! Handler base-class function for input port typedAsync
     void typedAsync_handlerBase(
         NATIVE_INT_TYPE portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str, //!< A string
+        const TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -875,7 +844,7 @@ class QueuedParamsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str, //!< A string
+        const TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -887,7 +856,7 @@ class QueuedParamsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str, //!< A string
+        const TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -899,7 +868,7 @@ class QueuedParamsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str, //!< A string
+        const TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -911,7 +880,7 @@ class QueuedParamsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str, //!< A string
+        const TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -923,7 +892,7 @@ class QueuedParamsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedReturnPortStrings::StringSize80& str, //!< A string
+        const TypedReturnPortStrings::StringSize80& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -935,7 +904,7 @@ class QueuedParamsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedReturnPortStrings::StringSize80& str, //!< A string
+        const TypedReturnPortStrings::StringSize80& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -947,96 +916,10 @@ class QueuedParamsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str, //!< A string
+        const TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
-
-  PROTECTED:
-
-    // ----------------------------------------------------------------------
-    // Handlers to implement for serial input ports
-    // ----------------------------------------------------------------------
-
-    //! Handler for input port serialAsync
-    virtual void serialAsync_handler(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
-    ) = 0;
-
-    //! Handler for input port serialAsyncAssert
-    virtual void serialAsyncAssert_handler(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
-    ) = 0;
-
-    //! Handler for input port serialAsyncBlockPriority
-    virtual void serialAsyncBlockPriority_handler(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
-    ) = 0;
-
-    //! Handler for input port serialAsyncDropPriority
-    virtual void serialAsyncDropPriority_handler(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
-    ) = 0;
-
-    //! Handler for input port serialGuarded
-    virtual void serialGuarded_handler(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
-    ) = 0;
-
-    //! Handler for input port serialSync
-    virtual void serialSync_handler(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
-    ) = 0;
-
-  PROTECTED:
-
-    // ----------------------------------------------------------------------
-    // Port handler base-class functions for serial input ports
-    //
-    // Call these functions directly to bypass the corresponding ports
-    // ----------------------------------------------------------------------
-
-    //! Handler base-class function for input port serialAsync
-    void serialAsync_handlerBase(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
-    );
-
-    //! Handler base-class function for input port serialAsyncAssert
-    void serialAsyncAssert_handlerBase(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
-    );
-
-    //! Handler base-class function for input port serialAsyncBlockPriority
-    void serialAsyncBlockPriority_handlerBase(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
-    );
-
-    //! Handler base-class function for input port serialAsyncDropPriority
-    void serialAsyncDropPriority_handlerBase(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
-    );
-
-    //! Handler base-class function for input port serialGuarded
-    void serialGuarded_handlerBase(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
-    );
-
-    //! Handler base-class function for input port serialSync
-    void serialSync_handlerBase(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
     );
 
   PROTECTED:
@@ -1049,13 +932,18 @@ class QueuedParamsComponentBase :
     // override them to provide specific pre-message behavior.
     // ----------------------------------------------------------------------
 
+    //! Pre-message hook for async input port noArgsAsync
+    virtual void noArgsAsync_preMsgHook(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
     //! Pre-message hook for async input port typedAsync
     virtual void typedAsync_preMsgHook(
         NATIVE_INT_TYPE portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str, //!< A string
+        const TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -1067,7 +955,7 @@ class QueuedParamsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str, //!< A string
+        const TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -1079,7 +967,7 @@ class QueuedParamsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str, //!< A string
+        const TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -1091,44 +979,10 @@ class QueuedParamsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str, //!< A string
+        const TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
-
-  PROTECTED:
-
-    // ----------------------------------------------------------------------
-    // Pre-message hooks for serial async input ports
-    //
-    // Each of these functions is invoked just before processing a message
-    // on the corresponding port. By default, they do nothing. You can
-    // override them to provide specific pre-message behavior.
-    // ----------------------------------------------------------------------
-
-    //! Pre-message hook for async input port serialAsync
-    virtual void serialAsync_preMsgHook(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
-    );
-
-    //! Pre-message hook for async input port serialAsyncAssert
-    virtual void serialAsyncAssert_preMsgHook(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
-    );
-
-    //! Pre-message hook for async input port serialAsyncBlockPriority
-    virtual void serialAsyncBlockPriority_preMsgHook(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
-    );
-
-    //! Pre-message hook for async input port serialAsyncDropPriority
-    virtual void serialAsyncDropPriority_preMsgHook(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
     );
 
   PROTECTED:
@@ -1143,7 +997,7 @@ class QueuedParamsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str, //!< A string
+        const TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -1155,22 +1009,10 @@ class QueuedParamsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedReturnPortStrings::StringSize80& str, //!< A string
+        const TypedReturnPortStrings::StringSize80& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
-
-  PROTECTED:
-
-    // ----------------------------------------------------------------------
-    // Invocation functions for serial output ports
-    // ----------------------------------------------------------------------
-
-    //! Invoke output port serialOut
-    Fw::SerializeStatus serialOut_out(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
     );
 
   PROTECTED:
@@ -1220,7 +1062,7 @@ class QueuedParamsComponentBase :
     //!
     //! A parameter with U32 data
     U32 paramGet_ParamU32(
-        Fw::ParamValid& isValid //!< Whether the parameter is valid
+        Fw::ParamValid& valid //!< Whether the parameter is valid
     );
 
     //! Get parameter ParamF64
@@ -1229,7 +1071,7 @@ class QueuedParamsComponentBase :
     //!
     //! A parameter with F64 data
     F64 paramGet_ParamF64(
-        Fw::ParamValid& isValid //!< Whether the parameter is valid
+        Fw::ParamValid& valid //!< Whether the parameter is valid
     );
 
     //! Get parameter ParamString
@@ -1238,7 +1080,7 @@ class QueuedParamsComponentBase :
     //!
     //! A parameter with string data and default value
     Fw::ParamString paramGet_ParamString(
-        Fw::ParamValid& isValid //!< Whether the parameter is valid
+        Fw::ParamValid& valid //!< Whether the parameter is valid
     );
 
     //! Get parameter ParamEnum
@@ -1247,7 +1089,7 @@ class QueuedParamsComponentBase :
     //!
     //! A parameter with enum data
     E paramGet_ParamEnum(
-        Fw::ParamValid& isValid //!< Whether the parameter is valid
+        Fw::ParamValid& valid //!< Whether the parameter is valid
     );
 
     //! Get parameter ParamArray
@@ -1256,7 +1098,7 @@ class QueuedParamsComponentBase :
     //!
     //! A parameter with array data, default value, and save opcode
     A paramGet_ParamArray(
-        Fw::ParamValid& isValid //!< Whether the parameter is valid
+        Fw::ParamValid& valid //!< Whether the parameter is valid
     );
 
     //! Get parameter ParamStruct
@@ -1265,7 +1107,7 @@ class QueuedParamsComponentBase :
     //!
     //! A parameter with struct data and set/save opcodes
     S paramGet_ParamStruct(
-        Fw::ParamValid& isValid //!< Whether the parameter is valid
+        Fw::ParamValid& valid //!< Whether the parameter is valid
     );
 
   PROTECTED:
@@ -1324,6 +1166,36 @@ class QueuedParamsComponentBase :
     // Calls for messages received on typed input ports
     // ----------------------------------------------------------------------
 
+    //! Callback for port noArgsAsync
+    static void m_p_noArgsAsync_in(
+        Fw::PassiveComponentBase* callComp, //!< The component instance
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Callback for port noArgsGuarded
+    static void m_p_noArgsGuarded_in(
+        Fw::PassiveComponentBase* callComp, //!< The component instance
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Callback for port noArgsReturnGuarded
+    static U32 m_p_noArgsReturnGuarded_in(
+        Fw::PassiveComponentBase* callComp, //!< The component instance
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Callback for port noArgsReturnSync
+    static U32 m_p_noArgsReturnSync_in(
+        Fw::PassiveComponentBase* callComp, //!< The component instance
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Callback for port noArgsSync
+    static void m_p_noArgsSync_in(
+        Fw::PassiveComponentBase* callComp, //!< The component instance
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
     //! Callback for port typedAsync
     static void m_p_typedAsync_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
@@ -1331,7 +1203,7 @@ class QueuedParamsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str, //!< A string
+        const TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -1344,7 +1216,7 @@ class QueuedParamsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str, //!< A string
+        const TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -1357,7 +1229,7 @@ class QueuedParamsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str, //!< A string
+        const TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -1370,7 +1242,7 @@ class QueuedParamsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str, //!< A string
+        const TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -1383,7 +1255,7 @@ class QueuedParamsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str, //!< A string
+        const TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -1396,7 +1268,7 @@ class QueuedParamsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedReturnPortStrings::StringSize80& str, //!< A string
+        const TypedReturnPortStrings::StringSize80& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -1409,7 +1281,7 @@ class QueuedParamsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedReturnPortStrings::StringSize80& str, //!< A string
+        const TypedReturnPortStrings::StringSize80& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -1422,63 +1294,11 @@ class QueuedParamsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str, //!< A string
+        const TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
     );
-
-  PRIVATE:
-
-    // ----------------------------------------------------------------------
-    // Calls for messages received on serial input ports
-    // ----------------------------------------------------------------------
-
-#if FW_PORT_SERIALIZATION
-
-    //! Callback for port serialAsync
-    static void m_p_serialAsync_in(
-        Fw::PassiveComponentBase* callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
-    );
-
-    //! Callback for port serialAsyncAssert
-    static void m_p_serialAsyncAssert_in(
-        Fw::PassiveComponentBase* callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
-    );
-
-    //! Callback for port serialAsyncBlockPriority
-    static void m_p_serialAsyncBlockPriority_in(
-        Fw::PassiveComponentBase* callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
-    );
-
-    //! Callback for port serialAsyncDropPriority
-    static void m_p_serialAsyncDropPriority_in(
-        Fw::PassiveComponentBase* callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
-    );
-
-    //! Callback for port serialGuarded
-    static void m_p_serialGuarded_in(
-        Fw::PassiveComponentBase* callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
-    );
-
-    //! Callback for port serialSync
-    static void m_p_serialSync_in(
-        Fw::PassiveComponentBase* callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
-    );
-
-#endif
 
   PRIVATE:
 
@@ -1593,6 +1413,21 @@ class QueuedParamsComponentBase :
     // Typed input ports
     // ----------------------------------------------------------------------
 
+    //! Input port noArgsAsync
+    InputNoArgsPort m_noArgsAsync_InputPort[NUM_NOARGSASYNC_INPUT_PORTS];
+
+    //! Input port noArgsGuarded
+    InputNoArgsPort m_noArgsGuarded_InputPort[NUM_NOARGSGUARDED_INPUT_PORTS];
+
+    //! Input port noArgsReturnGuarded
+    InputNoArgsReturnPort m_noArgsReturnGuarded_InputPort[NUM_NOARGSRETURNGUARDED_INPUT_PORTS];
+
+    //! Input port noArgsReturnSync
+    InputNoArgsReturnPort m_noArgsReturnSync_InputPort[NUM_NOARGSRETURNSYNC_INPUT_PORTS];
+
+    //! Input port noArgsSync
+    InputNoArgsPort m_noArgsSync_InputPort[NUM_NOARGSSYNC_INPUT_PORTS];
+
     //! Input port typedAsync
     InputTypedPort m_typedAsync_InputPort[NUM_TYPEDASYNC_INPUT_PORTS];
 
@@ -1616,30 +1451,6 @@ class QueuedParamsComponentBase :
 
     //! Input port typedSync
     InputTypedPort m_typedSync_InputPort[NUM_TYPEDSYNC_INPUT_PORTS];
-
-  PRIVATE:
-
-    // ----------------------------------------------------------------------
-    // Serial input ports
-    // ----------------------------------------------------------------------
-
-    //! Input port serialAsync
-    Fw::InputSerializePort m_serialAsync_InputPort[NUM_SERIALASYNC_INPUT_PORTS];
-
-    //! Input port serialAsyncAssert
-    Fw::InputSerializePort m_serialAsyncAssert_InputPort[NUM_SERIALASYNCASSERT_INPUT_PORTS];
-
-    //! Input port serialAsyncBlockPriority
-    Fw::InputSerializePort m_serialAsyncBlockPriority_InputPort[NUM_SERIALASYNCBLOCKPRIORITY_INPUT_PORTS];
-
-    //! Input port serialAsyncDropPriority
-    Fw::InputSerializePort m_serialAsyncDropPriority_InputPort[NUM_SERIALASYNCDROPPRIORITY_INPUT_PORTS];
-
-    //! Input port serialGuarded
-    Fw::InputSerializePort m_serialGuarded_InputPort[NUM_SERIALGUARDED_INPUT_PORTS];
-
-    //! Input port serialSync
-    Fw::InputSerializePort m_serialSync_InputPort[NUM_SERIALSYNC_INPUT_PORTS];
 
   PRIVATE:
 
@@ -1686,15 +1497,6 @@ class QueuedParamsComponentBase :
 
     //! Output port typedReturnOut
     OutputTypedReturnPort m_typedReturnOut_OutputPort[NUM_TYPEDRETURNOUT_OUTPUT_PORTS];
-
-  PRIVATE:
-
-    // ----------------------------------------------------------------------
-    // Serial output ports
-    // ----------------------------------------------------------------------
-
-    //! Output port serialOut
-    Fw::OutputSerializePort m_serialOut_OutputPort[NUM_SERIALOUT_OUTPUT_PORTS];
 
   PRIVATE:
 
@@ -1755,11 +1557,6 @@ class QueuedParamsComponentBase :
     //!
     //! A parameter with struct data and set/save opcodes
     S m_ParamStruct;
-
-  PRIVATE:
-
-    //! Stores max message size
-    NATIVE_INT_TYPE m_msgSize;
 
   PRIVATE:
 

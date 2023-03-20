@@ -25,6 +25,8 @@
 #include "Fw/Prm/PrmSetPortAc.hpp"
 #include "Fw/Time/TimePortAc.hpp"
 #include "Fw/Tlm/TlmPortAc.hpp"
+#include "NoArgsPortAc.hpp"
+#include "NoArgsReturnPortAc.hpp"
 #include "Os/Mutex.hpp"
 #include "SSerializableAc.hpp"
 #include "TypedPortAc.hpp"
@@ -58,16 +60,14 @@ class PassiveCommandsComponentBase :
 
     //! Enumerations for numbers of typed input ports
     enum {
+      NUM_NOARGSGUARDED_INPUT_PORTS = 1,
+      NUM_NOARGSRETURNGUARDED_INPUT_PORTS = 1,
+      NUM_NOARGSRETURNSYNC_INPUT_PORTS = 3,
+      NUM_NOARGSSYNC_INPUT_PORTS = 3,
       NUM_TYPEDGUARDED_INPUT_PORTS = 1,
       NUM_TYPEDRETURNGUARDED_INPUT_PORTS = 1,
       NUM_TYPEDRETURNSYNC_INPUT_PORTS = 3,
       NUM_TYPEDSYNC_INPUT_PORTS = 3,
-    };
-
-    //! Enumerations for numbers of serial input ports
-    enum {
-      NUM_SERIALGUARDED_INPUT_PORTS = 1,
-      NUM_SERIALSYNC_INPUT_PORTS = 1,
     };
 
     //! Enumerations for numbers of special output ports
@@ -86,11 +86,6 @@ class PassiveCommandsComponentBase :
     enum {
       NUM_TYPEDOUT_OUTPUT_PORTS = 1,
       NUM_TYPEDRETURNOUT_OUTPUT_PORTS = 1,
-    };
-
-    //! Enumerations for numbers of serial output ports
-    enum {
-      NUM_SERIALOUT_OUTPUT_PORTS = 5,
     };
 
     //! Command opcodes
@@ -130,6 +125,34 @@ class PassiveCommandsComponentBase :
 
     //! Get typed input port at index
     //!
+    //! \return noArgsGuarded[portNum]
+    InputNoArgsPort* get_noArgsGuarded_InputPort(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Get typed input port at index
+    //!
+    //! \return noArgsReturnGuarded[portNum]
+    InputNoArgsReturnPort* get_noArgsReturnGuarded_InputPort(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Get typed input port at index
+    //!
+    //! \return noArgsReturnSync[portNum]
+    InputNoArgsReturnPort* get_noArgsReturnSync_InputPort(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Get typed input port at index
+    //!
+    //! \return noArgsSync[portNum]
+    InputNoArgsPort* get_noArgsSync_InputPort(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Get typed input port at index
+    //!
     //! \return typedGuarded[portNum]
     InputTypedPort* get_typedGuarded_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -153,26 +176,6 @@ class PassiveCommandsComponentBase :
     //!
     //! \return typedSync[portNum]
     InputTypedPort* get_typedSync_InputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
-    );
-
-  public:
-
-    // ----------------------------------------------------------------------
-    // Getters for serial input ports
-    // ----------------------------------------------------------------------
-
-    //! Get serial input port at index
-    //!
-    //! \return serialGuarded[portNum]
-    Fw::InputSerializePort* get_serialGuarded_InputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
-    );
-
-    //! Get serial input port at index
-    //!
-    //! \return serialSync[portNum]
-    Fw::InputSerializePort* get_serialSync_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
@@ -252,24 +255,12 @@ class PassiveCommandsComponentBase :
         InputTypedReturnPort* port //!< The input port
     );
 
-  public:
-
-    // ----------------------------------------------------------------------
-    // Connect serial input ports to serial output ports
-    // ----------------------------------------------------------------------
-
-    //! Connect port to serialOut[portNum]
-    void set_serialOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::InputSerializePort* port //!< The input port
-    );
-
 #if FW_PORT_SERIALIZATION
 
   public:
 
     // ----------------------------------------------------------------------
-    // Connect serial input ports to serial output ports
+    // Connect serial input ports to special output ports
     // ----------------------------------------------------------------------
 
     //! Connect port to cmdRegOut[portNum]
@@ -302,11 +293,15 @@ class PassiveCommandsComponentBase :
         Fw::InputSerializePort* port //!< The port
     );
 
+#if FW_ENABLE_TEXT_LOGGING == 1
+
     //! Connect port to textEventOut[portNum]
     void set_textEventOut_OutputPort(
         NATIVE_INT_TYPE portNum, //!< The port number
         Fw::InputSerializePort* port //!< The port
     );
+
+#endif
 
     //! Connect port to timeGetOut[portNum]
     void set_timeGetOut_OutputPort(
@@ -327,7 +322,7 @@ class PassiveCommandsComponentBase :
   public:
 
     // ----------------------------------------------------------------------
-    // Connect serial input ports to serial output ports
+    // Connect serial input ports to typed output ports
     // ----------------------------------------------------------------------
 
     //! Connect port to typedOut[portNum]
@@ -340,22 +335,6 @@ class PassiveCommandsComponentBase :
     void set_typedReturnOut_OutputPort(
         NATIVE_INT_TYPE portNum, //!< The port number
         Fw::InputSerializePort* port //!< The port
-    );
-
-#endif
-
-#if FW_PORT_SERIALIZATION
-
-  public:
-
-    // ----------------------------------------------------------------------
-    // Connect serial input ports to serial output ports
-    // ----------------------------------------------------------------------
-
-    //! Connect port to serialOut[portNum]
-    void set_serialOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::InputPortBase* port //!< The port
     );
 
 #endif
@@ -407,6 +386,26 @@ class PassiveCommandsComponentBase :
     // Getters for numbers of typed input ports
     // ----------------------------------------------------------------------
 
+    //! Get the number of noArgsGuarded input ports
+    //!
+    //! \return The number of noArgsGuarded input ports
+    NATIVE_INT_TYPE getNum_noArgsGuarded_InputPorts();
+
+    //! Get the number of noArgsReturnGuarded input ports
+    //!
+    //! \return The number of noArgsReturnGuarded input ports
+    NATIVE_INT_TYPE getNum_noArgsReturnGuarded_InputPorts();
+
+    //! Get the number of noArgsReturnSync input ports
+    //!
+    //! \return The number of noArgsReturnSync input ports
+    NATIVE_INT_TYPE getNum_noArgsReturnSync_InputPorts();
+
+    //! Get the number of noArgsSync input ports
+    //!
+    //! \return The number of noArgsSync input ports
+    NATIVE_INT_TYPE getNum_noArgsSync_InputPorts();
+
     //! Get the number of typedGuarded input ports
     //!
     //! \return The number of typedGuarded input ports
@@ -426,22 +425,6 @@ class PassiveCommandsComponentBase :
     //!
     //! \return The number of typedSync input ports
     NATIVE_INT_TYPE getNum_typedSync_InputPorts();
-
-  PROTECTED:
-
-    // ----------------------------------------------------------------------
-    // Getters for numbers of serial input ports
-    // ----------------------------------------------------------------------
-
-    //! Get the number of serialGuarded input ports
-    //!
-    //! \return The number of serialGuarded input ports
-    NATIVE_INT_TYPE getNum_serialGuarded_InputPorts();
-
-    //! Get the number of serialSync input ports
-    //!
-    //! \return The number of serialSync input ports
-    NATIVE_INT_TYPE getNum_serialSync_InputPorts();
 
   PROTECTED:
 
@@ -508,17 +491,6 @@ class PassiveCommandsComponentBase :
     //!
     //! \return The number of typedReturnOut output ports
     NATIVE_INT_TYPE getNum_typedReturnOut_OutputPorts();
-
-  PROTECTED:
-
-    // ----------------------------------------------------------------------
-    // Getters for numbers of serial output ports
-    // ----------------------------------------------------------------------
-
-    //! Get the number of serialOut output ports
-    //!
-    //! \return The number of serialOut output ports
-    NATIVE_INT_TYPE getNum_serialOut_OutputPorts();
 
   PROTECTED:
 
@@ -609,21 +581,28 @@ class PassiveCommandsComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
-    // Connection status queries for serial output ports
-    // ----------------------------------------------------------------------
-
-    //! Check whether port serialOut is connected
-    //!
-    //! \return Whether port serialOut is connected
-    bool isConnected_serialOut_OutputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
-    );
-
-  PROTECTED:
-
-    // ----------------------------------------------------------------------
     // Handlers to implement for typed input ports
     // ----------------------------------------------------------------------
+
+    //! Handler for input port noArgsGuarded
+    virtual void noArgsGuarded_handler(
+        NATIVE_INT_TYPE portNum //!< The port number
+    ) = 0;
+
+    //! Handler for input port noArgsReturnGuarded
+    virtual U32 noArgsReturnGuarded_handler(
+        NATIVE_INT_TYPE portNum //!< The port number
+    ) = 0;
+
+    //! Handler for input port noArgsReturnSync
+    virtual U32 noArgsReturnSync_handler(
+        NATIVE_INT_TYPE portNum //!< The port number
+    ) = 0;
+
+    //! Handler for input port noArgsSync
+    virtual void noArgsSync_handler(
+        NATIVE_INT_TYPE portNum //!< The port number
+    ) = 0;
 
     //! Handler for input port typedGuarded
     virtual void typedGuarded_handler(
@@ -631,7 +610,7 @@ class PassiveCommandsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str, //!< A string
+        const TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -643,7 +622,7 @@ class PassiveCommandsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedReturnPortStrings::StringSize80& str, //!< A string
+        const TypedReturnPortStrings::StringSize80& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -655,7 +634,7 @@ class PassiveCommandsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedReturnPortStrings::StringSize80& str, //!< A string
+        const TypedReturnPortStrings::StringSize80& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -667,7 +646,7 @@ class PassiveCommandsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str, //!< A string
+        const TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -681,13 +660,33 @@ class PassiveCommandsComponentBase :
     // Call these functions directly to bypass the corresponding ports
     // ----------------------------------------------------------------------
 
+    //! Handler base-class function for input port noArgsGuarded
+    void noArgsGuarded_handlerBase(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Handler base-class function for input port noArgsReturnGuarded
+    U32 noArgsReturnGuarded_handlerBase(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Handler base-class function for input port noArgsReturnSync
+    U32 noArgsReturnSync_handlerBase(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Handler base-class function for input port noArgsSync
+    void noArgsSync_handlerBase(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
     //! Handler base-class function for input port typedGuarded
     void typedGuarded_handlerBase(
         NATIVE_INT_TYPE portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str, //!< A string
+        const TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -699,7 +698,7 @@ class PassiveCommandsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedReturnPortStrings::StringSize80& str, //!< A string
+        const TypedReturnPortStrings::StringSize80& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -711,7 +710,7 @@ class PassiveCommandsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedReturnPortStrings::StringSize80& str, //!< A string
+        const TypedReturnPortStrings::StringSize80& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -723,48 +722,10 @@ class PassiveCommandsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str, //!< A string
+        const TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
-
-  PROTECTED:
-
-    // ----------------------------------------------------------------------
-    // Handlers to implement for serial input ports
-    // ----------------------------------------------------------------------
-
-    //! Handler for input port serialGuarded
-    virtual void serialGuarded_handler(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
-    ) = 0;
-
-    //! Handler for input port serialSync
-    virtual void serialSync_handler(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
-    ) = 0;
-
-  PROTECTED:
-
-    // ----------------------------------------------------------------------
-    // Port handler base-class functions for serial input ports
-    //
-    // Call these functions directly to bypass the corresponding ports
-    // ----------------------------------------------------------------------
-
-    //! Handler base-class function for input port serialGuarded
-    void serialGuarded_handlerBase(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
-    );
-
-    //! Handler base-class function for input port serialSync
-    void serialSync_handlerBase(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
     );
 
   PROTECTED:
@@ -779,7 +740,7 @@ class PassiveCommandsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str, //!< A string
+        const TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -791,22 +752,10 @@ class PassiveCommandsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedReturnPortStrings::StringSize80& str, //!< A string
+        const TypedReturnPortStrings::StringSize80& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
-
-  PROTECTED:
-
-    // ----------------------------------------------------------------------
-    // Invocation functions for serial output ports
-    // ----------------------------------------------------------------------
-
-    //! Invoke output port serialOut
-    Fw::SerializeStatus serialOut_out(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
     );
 
   PROTECTED:
@@ -1103,6 +1052,30 @@ class PassiveCommandsComponentBase :
     // Calls for messages received on typed input ports
     // ----------------------------------------------------------------------
 
+    //! Callback for port noArgsGuarded
+    static void m_p_noArgsGuarded_in(
+        Fw::PassiveComponentBase* callComp, //!< The component instance
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Callback for port noArgsReturnGuarded
+    static U32 m_p_noArgsReturnGuarded_in(
+        Fw::PassiveComponentBase* callComp, //!< The component instance
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Callback for port noArgsReturnSync
+    static U32 m_p_noArgsReturnSync_in(
+        Fw::PassiveComponentBase* callComp, //!< The component instance
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Callback for port noArgsSync
+    static void m_p_noArgsSync_in(
+        Fw::PassiveComponentBase* callComp, //!< The component instance
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
     //! Callback for port typedGuarded
     static void m_p_typedGuarded_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
@@ -1110,7 +1083,7 @@ class PassiveCommandsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str, //!< A string
+        const TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -1123,7 +1096,7 @@ class PassiveCommandsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedReturnPortStrings::StringSize80& str, //!< A string
+        const TypedReturnPortStrings::StringSize80& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -1136,7 +1109,7 @@ class PassiveCommandsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedReturnPortStrings::StringSize80& str, //!< A string
+        const TypedReturnPortStrings::StringSize80& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -1149,35 +1122,11 @@ class PassiveCommandsComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str, //!< A string
+        const TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
     );
-
-  PRIVATE:
-
-    // ----------------------------------------------------------------------
-    // Calls for messages received on serial input ports
-    // ----------------------------------------------------------------------
-
-#if FW_PORT_SERIALIZATION
-
-    //! Callback for port serialGuarded
-    static void m_p_serialGuarded_in(
-        Fw::PassiveComponentBase* callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
-    );
-
-    //! Callback for port serialSync
-    static void m_p_serialSync_in(
-        Fw::PassiveComponentBase* callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
-    );
-
-#endif
 
   PRIVATE:
 
@@ -1194,6 +1143,18 @@ class PassiveCommandsComponentBase :
     // Typed input ports
     // ----------------------------------------------------------------------
 
+    //! Input port noArgsGuarded
+    InputNoArgsPort m_noArgsGuarded_InputPort[NUM_NOARGSGUARDED_INPUT_PORTS];
+
+    //! Input port noArgsReturnGuarded
+    InputNoArgsReturnPort m_noArgsReturnGuarded_InputPort[NUM_NOARGSRETURNGUARDED_INPUT_PORTS];
+
+    //! Input port noArgsReturnSync
+    InputNoArgsReturnPort m_noArgsReturnSync_InputPort[NUM_NOARGSRETURNSYNC_INPUT_PORTS];
+
+    //! Input port noArgsSync
+    InputNoArgsPort m_noArgsSync_InputPort[NUM_NOARGSSYNC_INPUT_PORTS];
+
     //! Input port typedGuarded
     InputTypedPort m_typedGuarded_InputPort[NUM_TYPEDGUARDED_INPUT_PORTS];
 
@@ -1205,18 +1166,6 @@ class PassiveCommandsComponentBase :
 
     //! Input port typedSync
     InputTypedPort m_typedSync_InputPort[NUM_TYPEDSYNC_INPUT_PORTS];
-
-  PRIVATE:
-
-    // ----------------------------------------------------------------------
-    // Serial input ports
-    // ----------------------------------------------------------------------
-
-    //! Input port serialGuarded
-    Fw::InputSerializePort m_serialGuarded_InputPort[NUM_SERIALGUARDED_INPUT_PORTS];
-
-    //! Input port serialSync
-    Fw::InputSerializePort m_serialSync_InputPort[NUM_SERIALSYNC_INPUT_PORTS];
 
   PRIVATE:
 
@@ -1263,15 +1212,6 @@ class PassiveCommandsComponentBase :
 
     //! Output port typedReturnOut
     OutputTypedReturnPort m_typedReturnOut_OutputPort[NUM_TYPEDRETURNOUT_OUTPUT_PORTS];
-
-  PRIVATE:
-
-    // ----------------------------------------------------------------------
-    // Serial output ports
-    // ----------------------------------------------------------------------
-
-    //! Output port serialOut
-    Fw::OutputSerializePort m_serialOut_OutputPort[NUM_SERIALOUT_OUTPUT_PORTS];
 
   PRIVATE:
 

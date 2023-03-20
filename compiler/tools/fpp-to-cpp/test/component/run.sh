@@ -21,7 +21,7 @@ empty()
 passive()
 {
   run_test "-i `cat deps-comma.txt`,types.fpp" "-p $PWD,$fprime_dir passive" passive && \
-  diff_cpp PassiveComponent && \
+  diff_cpp PassiveTestComponent && \
   diff_cpp PassiveSerialComponent && \
   diff_cpp PassiveCommandsComponent && \
   diff_cpp PassiveEventsComponent && \
@@ -32,7 +32,7 @@ passive()
 active()
 {
   run_test "-i `cat deps-comma.txt`,types.fpp" "-p $PWD,$fprime_dir active" active && \
-  diff_cpp ActiveComponent && \
+  diff_cpp ActiveTestComponent && \
   diff_cpp ActiveSerialComponent && \
   diff_cpp ActiveCommandsComponent && \
   diff_cpp ActiveEventsComponent && \
@@ -43,7 +43,7 @@ active()
 queued()
 {
   run_test "-i `cat deps-comma.txt`,types.fpp" "-p $PWD,$fprime_dir queued" queued && \
-  diff_cpp QueuedComponent && \
+  diff_cpp QueuedTestComponent && \
   diff_cpp QueuedSerialComponent && \
   diff_cpp QueuedCommandsComponent && \
   diff_cpp QueuedEventsComponent && \

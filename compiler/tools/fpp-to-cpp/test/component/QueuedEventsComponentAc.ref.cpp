@@ -14,18 +14,21 @@
 
 namespace {
   enum MsgTypeEnum {
-    QUEUED_COMPONENT_EXIT = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT,
+    QUEUEDEVENTS_COMPONENT_EXIT = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT,
+    NOARGSASYNC_TYPED,
     TYPEDASYNC_TYPED,
     TYPEDASYNCASSERT_TYPED,
     TYPEDASYNCBLOCKPRIORITY_TYPED,
     TYPEDASYNCDROPPRIORITY_TYPED,
-    SERIALASYNC_SERIAL,
-    SERIALASYNCASSERT_SERIAL,
-    SERIALASYNCBLOCKPRIORITY_SERIAL,
-    SERIALASYNCDROPPRIORITY_SERIAL,
   };
 
+  // Get the max size by doing a union of the input and internal port serialization sizes
   union BuffUnion {
+    BYTE noArgsAsyncPortSize[InputNoArgsPort::SERIALIZED_SIZE];
+    BYTE noArgsGuardedPortSize[InputNoArgsPort::SERIALIZED_SIZE];
+    BYTE noArgsReturnGuardedPortSize[InputNoArgsReturnPort::SERIALIZED_SIZE];
+    BYTE noArgsReturnSyncPortSize[InputNoArgsReturnPort::SERIALIZED_SIZE];
+    BYTE noArgsSyncPortSize[InputNoArgsPort::SERIALIZED_SIZE];
     BYTE typedAsyncPortSize[InputTypedPort::SERIALIZED_SIZE];
     BYTE typedAsyncAssertPortSize[InputTypedPort::SERIALIZED_SIZE];
     BYTE typedAsyncBlockPriorityPortSize[InputTypedPort::SERIALIZED_SIZE];
@@ -90,6 +93,61 @@ Fw::InputCmdPort* QueuedEventsComponentBase ::
 // ----------------------------------------------------------------------
 // Getters for typed input ports
 // ----------------------------------------------------------------------
+
+InputNoArgsPort* QueuedEventsComponentBase ::
+  get_noArgsAsync_InputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsAsync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_noArgsAsync_InputPort[portNum];
+}
+
+InputNoArgsPort* QueuedEventsComponentBase ::
+  get_noArgsGuarded_InputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsGuarded_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_noArgsGuarded_InputPort[portNum];
+}
+
+InputNoArgsReturnPort* QueuedEventsComponentBase ::
+  get_noArgsReturnGuarded_InputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsReturnGuarded_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_noArgsReturnGuarded_InputPort[portNum];
+}
+
+InputNoArgsReturnPort* QueuedEventsComponentBase ::
+  get_noArgsReturnSync_InputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsReturnSync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_noArgsReturnSync_InputPort[portNum];
+}
+
+InputNoArgsPort* QueuedEventsComponentBase ::
+  get_noArgsSync_InputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsSync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_noArgsSync_InputPort[portNum];
+}
 
 InputTypedPort* QueuedEventsComponentBase ::
   get_typedAsync_InputPort(NATIVE_INT_TYPE portNum)
@@ -177,76 +235,6 @@ InputTypedPort* QueuedEventsComponentBase ::
   );
 
   return &this->m_typedSync_InputPort[portNum];
-}
-
-// ----------------------------------------------------------------------
-// Getters for serial input ports
-// ----------------------------------------------------------------------
-
-Fw::InputSerializePort* QueuedEventsComponentBase ::
-  get_serialAsync_InputPort(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_serialAsync_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  return &this->m_serialAsync_InputPort[portNum];
-}
-
-Fw::InputSerializePort* QueuedEventsComponentBase ::
-  get_serialAsyncAssert_InputPort(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_serialAsyncAssert_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  return &this->m_serialAsyncAssert_InputPort[portNum];
-}
-
-Fw::InputSerializePort* QueuedEventsComponentBase ::
-  get_serialAsyncBlockPriority_InputPort(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_serialAsyncBlockPriority_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  return &this->m_serialAsyncBlockPriority_InputPort[portNum];
-}
-
-Fw::InputSerializePort* QueuedEventsComponentBase ::
-  get_serialAsyncDropPriority_InputPort(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_serialAsyncDropPriority_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  return &this->m_serialAsyncDropPriority_InputPort[portNum];
-}
-
-Fw::InputSerializePort* QueuedEventsComponentBase ::
-  get_serialGuarded_InputPort(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_serialGuarded_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  return &this->m_serialGuarded_InputPort[portNum];
-}
-
-Fw::InputSerializePort* QueuedEventsComponentBase ::
-  get_serialSync_InputPort(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_serialSync_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  return &this->m_serialSync_InputPort[portNum];
 }
 
 // ----------------------------------------------------------------------
@@ -401,28 +389,10 @@ void QueuedEventsComponentBase ::
   this->m_typedReturnOut_OutputPort[portNum].addCallPort(port);
 }
 
-// ----------------------------------------------------------------------
-// Connect serial input ports to serial output ports
-// ----------------------------------------------------------------------
-
-void QueuedEventsComponentBase ::
-  set_serialOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_serialOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_serialOut_OutputPort[portNum].registerSerialPort(port);
-}
-
 #if FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
-// Connect serial input ports to serial output ports
+// Connect serial input ports to special output ports
 // ----------------------------------------------------------------------
 
 void QueuedEventsComponentBase ::
@@ -495,6 +465,8 @@ void QueuedEventsComponentBase ::
   this->m_prmSetOut_OutputPort[portNum].registerSerialPort(port);
 }
 
+#if FW_ENABLE_TEXT_LOGGING == 1
+
 void QueuedEventsComponentBase ::
   set_textEventOut_OutputPort(
       NATIVE_INT_TYPE portNum,
@@ -508,6 +480,8 @@ void QueuedEventsComponentBase ::
 
   this->m_textEventOut_OutputPort[portNum].registerSerialPort(port);
 }
+
+#endif
 
 void QueuedEventsComponentBase ::
   set_timeGetOut_OutputPort(
@@ -542,7 +516,7 @@ void QueuedEventsComponentBase ::
 #if FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
-// Connect serial input ports to serial output ports
+// Connect serial input ports to typed output ports
 // ----------------------------------------------------------------------
 
 void QueuedEventsComponentBase ::
@@ -575,28 +549,6 @@ void QueuedEventsComponentBase ::
 
 #endif
 
-#if FW_PORT_SERIALIZATION
-
-// ----------------------------------------------------------------------
-// Connect serial input ports to serial output ports
-// ----------------------------------------------------------------------
-
-void QueuedEventsComponentBase ::
-  set_serialOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputPortBase* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_serialOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_serialOut_OutputPort[portNum].registerSerialPort(port);
-}
-
-#endif
-
 // ----------------------------------------------------------------------
 // Component construction, initialization, and destruction
 // ----------------------------------------------------------------------
@@ -613,7 +565,6 @@ QueuedEventsComponentBase ::
 void QueuedEventsComponentBase ::
   init(
       NATIVE_INT_TYPE queueDepth,
-      NATIVE_INT_TYPE msgSize,
       NATIVE_INT_TYPE instance
   )
 {
@@ -643,6 +594,136 @@ void QueuedEventsComponentBase ::
       port
     );
     this->m_cmdIn_InputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect input port QueuedEvents
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_noArgsAsync_InputPorts());
+    port++
+  ) {
+    this->m_noArgsAsync_InputPort[port].init();
+    this->m_noArgsAsync_InputPort[port].addCallComp(
+      this,
+      m_p_noArgsAsync_in
+    );
+    this->m_noArgsAsync_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_noArgsAsync_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_noArgsAsync_InputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect input port QueuedEvents
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_noArgsGuarded_InputPorts());
+    port++
+  ) {
+    this->m_noArgsGuarded_InputPort[port].init();
+    this->m_noArgsGuarded_InputPort[port].addCallComp(
+      this,
+      m_p_noArgsGuarded_in
+    );
+    this->m_noArgsGuarded_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_noArgsGuarded_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_noArgsGuarded_InputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect input port QueuedEvents
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_noArgsReturnGuarded_InputPorts());
+    port++
+  ) {
+    this->m_noArgsReturnGuarded_InputPort[port].init();
+    this->m_noArgsReturnGuarded_InputPort[port].addCallComp(
+      this,
+      m_p_noArgsReturnGuarded_in
+    );
+    this->m_noArgsReturnGuarded_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_noArgsReturnGuarded_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_noArgsReturnGuarded_InputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect input port QueuedEvents
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_noArgsReturnSync_InputPorts());
+    port++
+  ) {
+    this->m_noArgsReturnSync_InputPort[port].init();
+    this->m_noArgsReturnSync_InputPort[port].addCallComp(
+      this,
+      m_p_noArgsReturnSync_in
+    );
+    this->m_noArgsReturnSync_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_noArgsReturnSync_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_noArgsReturnSync_InputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect input port QueuedEvents
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_noArgsSync_InputPorts());
+    port++
+  ) {
+    this->m_noArgsSync_InputPort[port].init();
+    this->m_noArgsSync_InputPort[port].addCallComp(
+      this,
+      m_p_noArgsSync_in
+    );
+    this->m_noArgsSync_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_noArgsSync_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_noArgsSync_InputPort[port].setObjName(portName);
 #endif
   }
 
@@ -854,162 +935,6 @@ void QueuedEventsComponentBase ::
 #endif
   }
 
-  // Connect input port QueuedEvents
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_serialAsync_InputPorts());
-    port++
-  ) {
-    this->m_serialAsync_InputPort[port].init();
-    this->m_serialAsync_InputPort[port].addCallComp(
-      this,
-      m_p_serialAsync_in
-    );
-    this->m_serialAsync_InputPort[port].setPortNum(port);
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_serialAsync_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_serialAsync_InputPort[port].setObjName(portName);
-#endif
-  }
-
-  // Connect input port QueuedEvents
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_serialAsyncAssert_InputPorts());
-    port++
-  ) {
-    this->m_serialAsyncAssert_InputPort[port].init();
-    this->m_serialAsyncAssert_InputPort[port].addCallComp(
-      this,
-      m_p_serialAsyncAssert_in
-    );
-    this->m_serialAsyncAssert_InputPort[port].setPortNum(port);
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_serialAsyncAssert_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_serialAsyncAssert_InputPort[port].setObjName(portName);
-#endif
-  }
-
-  // Connect input port QueuedEvents
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_serialAsyncBlockPriority_InputPorts());
-    port++
-  ) {
-    this->m_serialAsyncBlockPriority_InputPort[port].init();
-    this->m_serialAsyncBlockPriority_InputPort[port].addCallComp(
-      this,
-      m_p_serialAsyncBlockPriority_in
-    );
-    this->m_serialAsyncBlockPriority_InputPort[port].setPortNum(port);
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_serialAsyncBlockPriority_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_serialAsyncBlockPriority_InputPort[port].setObjName(portName);
-#endif
-  }
-
-  // Connect input port QueuedEvents
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_serialAsyncDropPriority_InputPorts());
-    port++
-  ) {
-    this->m_serialAsyncDropPriority_InputPort[port].init();
-    this->m_serialAsyncDropPriority_InputPort[port].addCallComp(
-      this,
-      m_p_serialAsyncDropPriority_in
-    );
-    this->m_serialAsyncDropPriority_InputPort[port].setPortNum(port);
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_serialAsyncDropPriority_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_serialAsyncDropPriority_InputPort[port].setObjName(portName);
-#endif
-  }
-
-  // Connect input port QueuedEvents
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_serialGuarded_InputPorts());
-    port++
-  ) {
-    this->m_serialGuarded_InputPort[port].init();
-    this->m_serialGuarded_InputPort[port].addCallComp(
-      this,
-      m_p_serialGuarded_in
-    );
-    this->m_serialGuarded_InputPort[port].setPortNum(port);
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_serialGuarded_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_serialGuarded_InputPort[port].setObjName(portName);
-#endif
-  }
-
-  // Connect input port QueuedEvents
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_serialSync_InputPorts());
-    port++
-  ) {
-    this->m_serialSync_InputPort[port].init();
-    this->m_serialSync_InputPort[port].addCallComp(
-      this,
-      m_p_serialSync_in
-    );
-    this->m_serialSync_InputPort[port].setPortNum(port);
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_serialSync_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_serialSync_InputPort[port].setObjName(portName);
-#endif
-  }
-
   // Connect output port QueuedEvents
   for (
     PlatformIntType port = 0;
@@ -1115,6 +1040,7 @@ void QueuedEventsComponentBase ::
 #endif
   }
 
+#if FW_ENABLE_TEXT_LOGGING == 1
   // Connect output port QueuedEvents
   for (
     PlatformIntType port = 0;
@@ -1135,6 +1061,7 @@ void QueuedEventsComponentBase ::
     this->m_textEventOut_OutputPort[port].setObjName(portName);
 #endif
   }
+#endif
 
   // Connect output port QueuedEvents
   for (
@@ -1219,27 +1146,6 @@ void QueuedEventsComponentBase ::
     this->m_typedReturnOut_OutputPort[port].setObjName(portName);
 #endif
   }
-
-  // Connect output port QueuedEvents
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_serialOut_OutputPorts());
-    port++
-  ) {
-    this->m_serialOut_OutputPort[port].init();
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_serialOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_serialOut_OutputPort[port].setObjName(portName);
-#endif
-  }
 }
 
 QueuedEventsComponentBase ::
@@ -1261,6 +1167,36 @@ NATIVE_INT_TYPE QueuedEventsComponentBase ::
 // ----------------------------------------------------------------------
 // Getters for numbers of typed input ports
 // ----------------------------------------------------------------------
+
+NATIVE_INT_TYPE QueuedEventsComponentBase ::
+  getNum_noArgsAsync_InputPorts()
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsAsync_InputPort));
+}
+
+NATIVE_INT_TYPE QueuedEventsComponentBase ::
+  getNum_noArgsGuarded_InputPorts()
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsGuarded_InputPort));
+}
+
+NATIVE_INT_TYPE QueuedEventsComponentBase ::
+  getNum_noArgsReturnGuarded_InputPorts()
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnGuarded_InputPort));
+}
+
+NATIVE_INT_TYPE QueuedEventsComponentBase ::
+  getNum_noArgsReturnSync_InputPorts()
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnSync_InputPort));
+}
+
+NATIVE_INT_TYPE QueuedEventsComponentBase ::
+  getNum_noArgsSync_InputPorts()
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsSync_InputPort));
+}
 
 NATIVE_INT_TYPE QueuedEventsComponentBase ::
   getNum_typedAsync_InputPorts()
@@ -1308,46 +1244,6 @@ NATIVE_INT_TYPE QueuedEventsComponentBase ::
   getNum_typedSync_InputPorts()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedSync_InputPort));
-}
-
-// ----------------------------------------------------------------------
-// Getters for numbers of serial input ports
-// ----------------------------------------------------------------------
-
-NATIVE_INT_TYPE QueuedEventsComponentBase ::
-  getNum_serialAsync_InputPorts()
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_serialAsync_InputPort));
-}
-
-NATIVE_INT_TYPE QueuedEventsComponentBase ::
-  getNum_serialAsyncAssert_InputPorts()
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_serialAsyncAssert_InputPort));
-}
-
-NATIVE_INT_TYPE QueuedEventsComponentBase ::
-  getNum_serialAsyncBlockPriority_InputPorts()
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_serialAsyncBlockPriority_InputPort));
-}
-
-NATIVE_INT_TYPE QueuedEventsComponentBase ::
-  getNum_serialAsyncDropPriority_InputPorts()
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_serialAsyncDropPriority_InputPort));
-}
-
-NATIVE_INT_TYPE QueuedEventsComponentBase ::
-  getNum_serialGuarded_InputPorts()
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_serialGuarded_InputPort));
-}
-
-NATIVE_INT_TYPE QueuedEventsComponentBase ::
-  getNum_serialSync_InputPorts()
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_serialSync_InputPort));
 }
 
 // ----------------------------------------------------------------------
@@ -1420,16 +1316,6 @@ NATIVE_INT_TYPE QueuedEventsComponentBase ::
   getNum_typedReturnOut_OutputPorts()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnOut_OutputPort));
-}
-
-// ----------------------------------------------------------------------
-// Getters for numbers of serial output ports
-// ----------------------------------------------------------------------
-
-NATIVE_INT_TYPE QueuedEventsComponentBase ::
-  getNum_serialOut_OutputPorts()
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_serialOut_OutputPort));
 }
 
 // ----------------------------------------------------------------------
@@ -1555,25 +1441,122 @@ bool QueuedEventsComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Connection status queries for serial output ports
-// ----------------------------------------------------------------------
-
-bool QueuedEventsComponentBase ::
-  isConnected_serialOut_OutputPort(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_serialOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  return this->m_serialOut_OutputPort[portNum].isConnected();
-}
-
-// ----------------------------------------------------------------------
 // Port handler base-class functions for typed input ports
 //
 // Call these functions directly to bypass the corresponding ports
 // ----------------------------------------------------------------------
+
+void QueuedEventsComponentBase ::
+  noArgsAsync_handlerBase(NATIVE_INT_TYPE portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_noArgsAsync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  // Call pre-message hook
+  noArgsAsync_preMsgHook(portNum);
+  ComponentIpcSerializableBuffer msg;
+  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+
+  // Serialize message ID
+  _status = msg.serialize(
+    static_cast<NATIVE_INT_TYPE>(NOARGSASYNC_TYPED)
+  );
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
+
+  // Serialize port number
+  _status = msg.serialize(portNum);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
+
+  // Send message
+  Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
+  Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 0, _block);
+
+  FW_ASSERT(
+    qStatus == Os::Queue::QUEUE_OK,
+    static_cast<FwAssertArgType>(qStatus)
+  );
+}
+
+void QueuedEventsComponentBase ::
+  noArgsGuarded_handlerBase(NATIVE_INT_TYPE portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_noArgsGuarded_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  // Lock guard mutex before calling
+  this->lock();
+
+  // Down call to pure virtual handler method implemented in Impl class
+  this->noArgsGuarded_handler(portNum);
+
+  // Unlock guard mutex
+  this->unLock();
+}
+
+U32 QueuedEventsComponentBase ::
+  noArgsReturnGuarded_handlerBase(NATIVE_INT_TYPE portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_noArgsReturnGuarded_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  U32 retVal;
+
+  // Lock guard mutex before calling
+  this->lock();
+
+  // Down call to pure virtual handler method implemented in Impl class
+  retVal = this->noArgsReturnGuarded_handler(portNum);
+
+  // Unlock guard mutex
+  this->unLock();
+
+  return retVal;
+}
+
+U32 QueuedEventsComponentBase ::
+  noArgsReturnSync_handlerBase(NATIVE_INT_TYPE portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_noArgsReturnSync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  U32 retVal;
+
+  // Down call to pure virtual handler method implemented in Impl class
+  retVal = this->noArgsReturnSync_handler(portNum);
+
+  return retVal;
+}
+
+void QueuedEventsComponentBase ::
+  noArgsSync_handlerBase(NATIVE_INT_TYPE portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_noArgsSync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  // Down call to pure virtual handler method implemented in Impl class
+  this->noArgsSync_handler(portNum);
+}
 
 void QueuedEventsComponentBase ::
   typedAsync_handlerBase(
@@ -1581,7 +1564,7 @@ void QueuedEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str,
+      const TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1599,7 +1582,7 @@ void QueuedEventsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str1,
     e,
     a,
     s
@@ -1644,8 +1627,8 @@ void QueuedEventsComponentBase ::
     static_cast<FwAssertArgType>(_status)
   );
 
-  // Serialize argument str
-  _status = msg.serialize(str);
+  // Serialize argument str1
+  _status = msg.serialize(str1);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -1688,7 +1671,7 @@ void QueuedEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str,
+      const TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1706,7 +1689,7 @@ void QueuedEventsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str1,
     e,
     a,
     s
@@ -1751,8 +1734,8 @@ void QueuedEventsComponentBase ::
     static_cast<FwAssertArgType>(_status)
   );
 
-  // Serialize argument str
-  _status = msg.serialize(str);
+  // Serialize argument str1
+  _status = msg.serialize(str1);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -1795,7 +1778,7 @@ void QueuedEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str,
+      const TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1813,7 +1796,7 @@ void QueuedEventsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str1,
     e,
     a,
     s
@@ -1858,8 +1841,8 @@ void QueuedEventsComponentBase ::
     static_cast<FwAssertArgType>(_status)
   );
 
-  // Serialize argument str
-  _status = msg.serialize(str);
+  // Serialize argument str1
+  _status = msg.serialize(str1);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -1902,7 +1885,7 @@ void QueuedEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str,
+      const TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1920,7 +1903,7 @@ void QueuedEventsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str1,
     e,
     a,
     s
@@ -1965,8 +1948,8 @@ void QueuedEventsComponentBase ::
     static_cast<FwAssertArgType>(_status)
   );
 
-  // Serialize argument str
-  _status = msg.serialize(str);
+  // Serialize argument str1
+  _status = msg.serialize(str1);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2014,7 +1997,7 @@ void QueuedEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str,
+      const TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -2035,7 +2018,7 @@ void QueuedEventsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str1,
     e,
     a,
     s
@@ -2051,7 +2034,7 @@ F32 QueuedEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str,
+      const TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -2074,7 +2057,7 @@ F32 QueuedEventsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str2,
     e,
     a,
     s
@@ -2092,7 +2075,7 @@ F32 QueuedEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str,
+      const TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -2112,7 +2095,7 @@ F32 QueuedEventsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str2,
     e,
     a,
     s
@@ -2127,7 +2110,7 @@ void QueuedEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str,
+      const TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -2145,265 +2128,10 @@ void QueuedEventsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str1,
     e,
     a,
     s
-  );
-}
-
-// ----------------------------------------------------------------------
-// Port handler base-class functions for serial input ports
-//
-// Call these functions directly to bypass the corresponding ports
-// ----------------------------------------------------------------------
-
-void QueuedEventsComponentBase ::
-  serialAsync_handlerBase(
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-  // Make sure port number is valid
-  FW_ASSERT(
-    portNum < this->getNum_serialAsync_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  // Declare buffer for serialAsync
-  U8 msgBuff[this->m_msgSize];
-  Fw::ExternalSerializeBuffer msgSerBuff(msgBuff, this->m_msgSize);
-  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
-
-  // Serialize message ID
-  _status = msgSerBuff.serialize(
-    static_cast<NATIVE_INT_TYPE>(SERIALASYNC_SERIAL)
-  );
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
-
-  // Serialize port number
-  _status = msgSerBuff.serialize(portNum);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
-
-  // Serialize argument buffer
-  _status = msgSerBuff.serialize(buffer);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
-
-  // Send message
-  Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
-  Os::Queue::QueueStatus qStatus = this->m_queue.send(msgSerBuff, 0, _block);
-
-  FW_ASSERT(
-    qStatus == Os::Queue::QUEUE_OK,
-    static_cast<FwAssertArgType>(qStatus)
-  );
-}
-
-void QueuedEventsComponentBase ::
-  serialAsyncAssert_handlerBase(
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-  // Make sure port number is valid
-  FW_ASSERT(
-    portNum < this->getNum_serialAsyncAssert_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  // Declare buffer for serialAsyncAssert
-  U8 msgBuff[this->m_msgSize];
-  Fw::ExternalSerializeBuffer msgSerBuff(msgBuff, this->m_msgSize);
-  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
-
-  // Serialize message ID
-  _status = msgSerBuff.serialize(
-    static_cast<NATIVE_INT_TYPE>(SERIALASYNCASSERT_SERIAL)
-  );
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
-
-  // Serialize port number
-  _status = msgSerBuff.serialize(portNum);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
-
-  // Serialize argument buffer
-  _status = msgSerBuff.serialize(buffer);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
-
-  // Send message
-  Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
-  Os::Queue::QueueStatus qStatus = this->m_queue.send(msgSerBuff, 0, _block);
-
-  FW_ASSERT(
-    qStatus == Os::Queue::QUEUE_OK,
-    static_cast<FwAssertArgType>(qStatus)
-  );
-}
-
-void QueuedEventsComponentBase ::
-  serialAsyncBlockPriority_handlerBase(
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-  // Make sure port number is valid
-  FW_ASSERT(
-    portNum < this->getNum_serialAsyncBlockPriority_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  // Declare buffer for serialAsyncBlockPriority
-  U8 msgBuff[this->m_msgSize];
-  Fw::ExternalSerializeBuffer msgSerBuff(msgBuff, this->m_msgSize);
-  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
-
-  // Serialize message ID
-  _status = msgSerBuff.serialize(
-    static_cast<NATIVE_INT_TYPE>(SERIALASYNCBLOCKPRIORITY_SERIAL)
-  );
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
-
-  // Serialize port number
-  _status = msgSerBuff.serialize(portNum);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
-
-  // Serialize argument buffer
-  _status = msgSerBuff.serialize(buffer);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
-
-  // Send message
-  Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_BLOCKING;
-  Os::Queue::QueueStatus qStatus = this->m_queue.send(msgSerBuff, 10, _block);
-
-  FW_ASSERT(
-    qStatus == Os::Queue::QUEUE_OK,
-    static_cast<FwAssertArgType>(qStatus)
-  );
-}
-
-void QueuedEventsComponentBase ::
-  serialAsyncDropPriority_handlerBase(
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-  // Make sure port number is valid
-  FW_ASSERT(
-    portNum < this->getNum_serialAsyncDropPriority_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  // Declare buffer for serialAsyncDropPriority
-  U8 msgBuff[this->m_msgSize];
-  Fw::ExternalSerializeBuffer msgSerBuff(msgBuff, this->m_msgSize);
-  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
-
-  // Serialize message ID
-  _status = msgSerBuff.serialize(
-    static_cast<NATIVE_INT_TYPE>(SERIALASYNCDROPPRIORITY_SERIAL)
-  );
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
-
-  // Serialize port number
-  _status = msgSerBuff.serialize(portNum);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
-
-  // Serialize argument buffer
-  _status = msgSerBuff.serialize(buffer);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
-
-  // Send message
-  Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
-  Os::Queue::QueueStatus qStatus = this->m_queue.send(msgSerBuff, 5, _block);
-
-  if (qStatus == Os::Queue::QUEUE_FULL) {
-    this->incNumMsgDropped();
-    return;
-  }
-
-  FW_ASSERT(
-    qStatus == Os::Queue::QUEUE_OK,
-    static_cast<FwAssertArgType>(qStatus)
-  );
-}
-
-void QueuedEventsComponentBase ::
-  serialGuarded_handlerBase(
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-  // Make sure port number is valid
-  FW_ASSERT(
-    portNum < this->getNum_serialGuarded_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  // Lock guard mutex before calling
-  this->lock();
-
-  // Down call to pure virtual handler method implemented in Impl class
-  this->serialGuarded_handler(
-    portNum,
-    buffer
-  );
-
-  // Unlock guard mutex
-  this->unLock();
-}
-
-void QueuedEventsComponentBase ::
-  serialSync_handlerBase(
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-  // Make sure port number is valid
-  FW_ASSERT(
-    portNum < this->getNum_serialSync_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  // Down call to pure virtual handler method implemented in Impl class
-  this->serialSync_handler(
-    portNum,
-    buffer
   );
 }
 
@@ -2416,12 +2144,18 @@ void QueuedEventsComponentBase ::
 // ----------------------------------------------------------------------
 
 void QueuedEventsComponentBase ::
+  noArgsAsync_preMsgHook(NATIVE_INT_TYPE portNum)
+{
+  // Default: no-op
+}
+
+void QueuedEventsComponentBase ::
   typedAsync_preMsgHook(
       NATIVE_INT_TYPE portNum,
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str,
+      const TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -2436,7 +2170,7 @@ void QueuedEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str,
+      const TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -2451,7 +2185,7 @@ void QueuedEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str,
+      const TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -2466,54 +2200,10 @@ void QueuedEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str,
+      const TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
-  )
-{
-  // Default: no-op
-}
-
-// ----------------------------------------------------------------------
-// Pre-message hooks for serial async input ports
-//
-// Each of these functions is invoked just before processing a message
-// on the corresponding port. By default, they do nothing. You can
-// override them to provide specific pre-message behavior.
-// ----------------------------------------------------------------------
-
-void QueuedEventsComponentBase ::
-  serialAsync_preMsgHook(
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-  // Default: no-op
-}
-
-void QueuedEventsComponentBase ::
-  serialAsyncAssert_preMsgHook(
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-  // Default: no-op
-}
-
-void QueuedEventsComponentBase ::
-  serialAsyncBlockPriority_preMsgHook(
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-  // Default: no-op
-}
-
-void QueuedEventsComponentBase ::
-  serialAsyncDropPriority_preMsgHook(
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
   )
 {
   // Default: no-op
@@ -2529,7 +2219,7 @@ void QueuedEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str,
+      const TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -2543,7 +2233,7 @@ void QueuedEventsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str1,
     e,
     a,
     s
@@ -2556,7 +2246,7 @@ F32 QueuedEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str,
+      const TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -2570,29 +2260,10 @@ F32 QueuedEventsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str2,
     e,
     a,
     s
-  );
-}
-
-// ----------------------------------------------------------------------
-// Invocation functions for serial output ports
-// ----------------------------------------------------------------------
-
-Fw::SerializeStatus QueuedEventsComponentBase ::
-  serialOut_out(
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_serialOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-  this->m_serialOut_OutputPort[portNum].invokeSerial(
-    buffer
   );
 }
 
@@ -2603,7 +2274,72 @@ Fw::SerializeStatus QueuedEventsComponentBase ::
 void QueuedEventsComponentBase ::
   log_ACTIVITY_HI_EventActivityHigh()
 {
+  // Get the time
+  Fw::Time _logTime;
+  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
+    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  }
 
+  FwEventIdType _id = static_cast<FwEventIdType>(0);
+
+  _id = this->getIdBase() + EVENTID_EVENTACTIVITYHIGH;
+
+  // Emit the event on the log port
+  if (this->m_eventOut_OutputPort[0].isConnected()) {
+    Fw::LogBuffer _logBuff;
+
+#if FW_AMPCS_COMPATIBLE
+    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+    // Serialize the number of arguments
+    _status = _logBuff.serialize(static_cast<U8>(0));
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+#endif
+
+    this->m_eventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::ACTIVITY_HI,
+      _logBuff
+    );
+  }
+
+  // Emit the event on the text log port
+#if FW_ENABLE_TEXT_LOGGING
+  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+#if FW_OBJECT_NAMES == 1
+    const char* _formatString =
+      "(%s) %s: Event Activity High occurred";
+#else
+    const char* _formatString =
+      "%s: Event Activity High occurred";
+#endif
+
+    char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
+
+    (void) snprintf(
+      _textBuffer,
+      FW_LOG_TEXT_BUFFER_SIZE,
+      _formatString,
+#if FW_OBJECT_NAMES == 1
+      this->m_objName,
+#endif
+      "EventActivityHigh "
+    );
+
+    // Null terminate
+    _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
+    Fw::TextLogString _logString = _textBuffer;
+    this->m_textEventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::ACTIVITY_HI,
+      _logString
+    );
+  }
+#endif
 }
 
 void QueuedEventsComponentBase ::
@@ -2613,7 +2349,131 @@ void QueuedEventsComponentBase ::
       bool b
   )
 {
+  // Check throttle value
+  if (this->m_EventActivityLowThrottledThrottle >= EVENTID_EVENTACTIVITYLOWTHROTTLED) {
+    return;
+  }
+  else {
+    this->m_EventActivityLowThrottledThrottle++;
+  }
 
+  // Get the time
+  Fw::Time _logTime;
+  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
+    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  }
+
+  FwEventIdType _id = static_cast<FwEventIdType>(0);
+
+  _id = this->getIdBase() + EVENTID_EVENTACTIVITYLOWTHROTTLED;
+
+  // Emit the event on the log port
+  if (this->m_eventOut_OutputPort[0].isConnected()) {
+    Fw::LogBuffer _logBuff;
+    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+
+#if FW_AMPCS_COMPATIBLE
+    // Serialize the number of arguments
+    _status = _logBuff.serialize(static_cast<U8>(3));
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+#endif
+
+#if FW_AMPCS_COMPATIBLE
+    // Serialize the argument size
+    _status = _logBuff.serialize(
+      static_cast<U8>(sizeof(U32))
+    );
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+#endif
+    _status = _logBuff.serialize(u32);
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+
+#if FW_AMPCS_COMPATIBLE
+    // Serialize the argument size
+    _status = _logBuff.serialize(
+      static_cast<U8>(sizeof(F32))
+    );
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+#endif
+    _status = _logBuff.serialize(f32);
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+
+#if FW_AMPCS_COMPATIBLE
+    // Serialize the argument size
+    _status = _logBuff.serialize(
+      static_cast<U8>(sizeof(U8))
+    );
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+#endif
+    _status = _logBuff.serialize(b);
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+
+    this->m_eventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::ACTIVITY_LO,
+      _logBuff
+    );
+  }
+
+  // Emit the event on the text log port
+#if FW_ENABLE_TEXT_LOGGING
+  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+#if FW_OBJECT_NAMES == 1
+    const char* _formatString =
+      "(%s) %s: Event Activity Low occurred with arguments: %" PRIu32 ", %f, %d";
+#else
+    const char* _formatString =
+      "%s: Event Activity Low occurred with arguments: %" PRIu32 ", %f, %d";
+#endif
+
+    char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
+
+    (void) snprintf(
+      _textBuffer,
+      FW_LOG_TEXT_BUFFER_SIZE,
+      _formatString,
+#if FW_OBJECT_NAMES == 1
+      this->m_objName,
+#endif
+      "EventActivityLowThrottled ",
+      u32,
+      f32,
+      b
+    );
+
+    // Null terminate
+    _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
+    Fw::TextLogString _logString = _textBuffer;
+    this->m_textEventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::ACTIVITY_LO,
+      _logString
+    );
+  }
+#endif
 }
 
 void QueuedEventsComponentBase ::
@@ -2622,31 +2482,459 @@ void QueuedEventsComponentBase ::
       const Fw::LogStringArg& str2
   )
 {
+  // Get the time
+  Fw::Time _logTime;
+  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
+    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  }
 
+  FwEventIdType _id = static_cast<FwEventIdType>(0);
+
+  _id = this->getIdBase() + EVENTID_EVENTCOMMAND;
+
+  // Emit the event on the log port
+  if (this->m_eventOut_OutputPort[0].isConnected()) {
+    Fw::LogBuffer _logBuff;
+    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+
+#if FW_AMPCS_COMPATIBLE
+    // Serialize the number of arguments
+    _status = _logBuff.serialize(static_cast<U8>(2));
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+#endif
+
+    _status = str1.serialize(_logBuff, 80);
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+
+    _status = str2.serialize(_logBuff, 100);
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+
+    this->m_eventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::COMMAND,
+      _logBuff
+    );
+  }
+
+  // Emit the event on the text log port
+#if FW_ENABLE_TEXT_LOGGING
+  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+#if FW_OBJECT_NAMES == 1
+    const char* _formatString =
+      "(%s) %s: Event Command occurred with arguments: %s, %s";
+#else
+    const char* _formatString =
+      "%s: Event Command occurred with arguments: %s, %s";
+#endif
+
+    char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
+
+    (void) snprintf(
+      _textBuffer,
+      FW_LOG_TEXT_BUFFER_SIZE,
+      _formatString,
+#if FW_OBJECT_NAMES == 1
+      this->m_objName,
+#endif
+      "EventCommand ",
+      str1.toChar(),
+      str2.toChar()
+    );
+
+    // Null terminate
+    _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
+    Fw::TextLogString _logString = _textBuffer;
+    this->m_textEventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::COMMAND,
+      _logString
+    );
+  }
+#endif
 }
 
 void QueuedEventsComponentBase ::
   log_DIAGNOSTIC_EventDiagnostic(E e)
 {
+  // Get the time
+  Fw::Time _logTime;
+  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
+    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  }
 
+  FwEventIdType _id = static_cast<FwEventIdType>(0);
+
+  _id = this->getIdBase() + EVENTID_EVENTDIAGNOSTIC;
+
+  // Emit the event on the log port
+  if (this->m_eventOut_OutputPort[0].isConnected()) {
+    Fw::LogBuffer _logBuff;
+    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+
+#if FW_AMPCS_COMPATIBLE
+    // Serialize the number of arguments
+    _status = _logBuff.serialize(static_cast<U8>(1));
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+#endif
+
+#if FW_AMPCS_COMPATIBLE
+    // Serialize the argument size
+    _status = _logBuff.serialize(
+      static_cast<U8>(E::SERIALIZED_SIZE)
+    );
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+#endif
+    _status = _logBuff.serialize(e);
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+
+    this->m_eventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::DIAGNOSTIC,
+      _logBuff
+    );
+  }
+
+  // Emit the event on the text log port
+#if FW_ENABLE_TEXT_LOGGING
+  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+#if FW_OBJECT_NAMES == 1
+    const char* _formatString =
+      "(%s) %s: Event Diagnostic occurred with argument: %s";
+#else
+    const char* _formatString =
+      "%s: Event Diagnostic occurred with argument: %s";
+#endif
+
+    char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
+
+    Fw::String eStr;
+    e.toString(eStr);
+
+    (void) snprintf(
+      _textBuffer,
+      FW_LOG_TEXT_BUFFER_SIZE,
+      _formatString,
+#if FW_OBJECT_NAMES == 1
+      this->m_objName,
+#endif
+      "EventDiagnostic ",
+      eStr.toChar()
+    );
+
+    // Null terminate
+    _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
+    Fw::TextLogString _logString = _textBuffer;
+    this->m_textEventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::DIAGNOSTIC,
+      _logString
+    );
+  }
+#endif
 }
 
 void QueuedEventsComponentBase ::
   log_FATAL_EventFatalThrottled(A a)
 {
+  // Check throttle value
+  if (this->m_EventFatalThrottledThrottle >= EVENTID_EVENTFATALTHROTTLED) {
+    return;
+  }
+  else {
+    this->m_EventFatalThrottledThrottle++;
+  }
 
+  // Get the time
+  Fw::Time _logTime;
+  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
+    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  }
+
+  FwEventIdType _id = static_cast<FwEventIdType>(0);
+
+  _id = this->getIdBase() + EVENTID_EVENTFATALTHROTTLED;
+
+  // Emit the event on the log port
+  if (this->m_eventOut_OutputPort[0].isConnected()) {
+    Fw::LogBuffer _logBuff;
+    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+
+#if FW_AMPCS_COMPATIBLE
+    // Serialize the number of arguments
+    _status = _logBuff.serialize(static_cast<U8>(1 + 1));
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+
+    // For FATAL, add stack size of 4 and a dummy entry. No support for stacks yet.
+    _status = _logBuff.serialize(static_cast<U8>(4));
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+
+    _status = _logBuff.serialize(static_cast<U32>(0));
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+#endif
+
+#if FW_AMPCS_COMPATIBLE
+    // Serialize the argument size
+    _status = _logBuff.serialize(
+      static_cast<U8>(A::SERIALIZED_SIZE)
+    );
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+#endif
+    _status = _logBuff.serialize(a);
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+
+    this->m_eventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::FATAL,
+      _logBuff
+    );
+  }
+
+  // Emit the event on the text log port
+#if FW_ENABLE_TEXT_LOGGING
+  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+#if FW_OBJECT_NAMES == 1
+    const char* _formatString =
+      "(%s) %s: Event Fatal occurred with argument: %s";
+#else
+    const char* _formatString =
+      "%s: Event Fatal occurred with argument: %s";
+#endif
+
+    char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
+
+    Fw::String aStr;
+    a.toString(aStr);
+
+    (void) snprintf(
+      _textBuffer,
+      FW_LOG_TEXT_BUFFER_SIZE,
+      _formatString,
+#if FW_OBJECT_NAMES == 1
+      this->m_objName,
+#endif
+      "EventFatalThrottled ",
+      aStr.toChar()
+    );
+
+    // Null terminate
+    _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
+    Fw::TextLogString _logString = _textBuffer;
+    this->m_textEventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::FATAL,
+      _logString
+    );
+  }
+#endif
 }
 
 void QueuedEventsComponentBase ::
   log_WARNING_HI_EventWarningHigh(S s)
 {
+  // Get the time
+  Fw::Time _logTime;
+  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
+    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  }
 
+  FwEventIdType _id = static_cast<FwEventIdType>(0);
+
+  _id = this->getIdBase() + EVENTID_EVENTWARNINGHIGH;
+
+  // Emit the event on the log port
+  if (this->m_eventOut_OutputPort[0].isConnected()) {
+    Fw::LogBuffer _logBuff;
+    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+
+#if FW_AMPCS_COMPATIBLE
+    // Serialize the number of arguments
+    _status = _logBuff.serialize(static_cast<U8>(1));
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+#endif
+
+#if FW_AMPCS_COMPATIBLE
+    // Serialize the argument size
+    _status = _logBuff.serialize(
+      static_cast<U8>(S::SERIALIZED_SIZE)
+    );
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+#endif
+    _status = _logBuff.serialize(s);
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+
+    this->m_eventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::WARNING_HI,
+      _logBuff
+    );
+  }
+
+  // Emit the event on the text log port
+#if FW_ENABLE_TEXT_LOGGING
+  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+#if FW_OBJECT_NAMES == 1
+    const char* _formatString =
+      "(%s) %s: Event Warning High occurred with argument: %s";
+#else
+    const char* _formatString =
+      "%s: Event Warning High occurred with argument: %s";
+#endif
+
+    char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
+
+    Fw::String sStr;
+    s.toString(sStr);
+
+    (void) snprintf(
+      _textBuffer,
+      FW_LOG_TEXT_BUFFER_SIZE,
+      _formatString,
+#if FW_OBJECT_NAMES == 1
+      this->m_objName,
+#endif
+      "EventWarningHigh ",
+      sStr.toChar()
+    );
+
+    // Null terminate
+    _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
+    Fw::TextLogString _logString = _textBuffer;
+    this->m_textEventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::WARNING_HI,
+      _logString
+    );
+  }
+#endif
 }
 
 void QueuedEventsComponentBase ::
   log_WARNING_LO_EventWarningLowThrottled()
 {
+  // Check throttle value
+  if (this->m_EventWarningLowThrottledThrottle >= EVENTID_EVENTWARNINGLOWTHROTTLED) {
+    return;
+  }
+  else {
+    this->m_EventWarningLowThrottledThrottle++;
+  }
 
+  // Get the time
+  Fw::Time _logTime;
+  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
+    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  }
+
+  FwEventIdType _id = static_cast<FwEventIdType>(0);
+
+  _id = this->getIdBase() + EVENTID_EVENTWARNINGLOWTHROTTLED;
+
+  // Emit the event on the log port
+  if (this->m_eventOut_OutputPort[0].isConnected()) {
+    Fw::LogBuffer _logBuff;
+
+#if FW_AMPCS_COMPATIBLE
+    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+    // Serialize the number of arguments
+    _status = _logBuff.serialize(static_cast<U8>(0));
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+#endif
+
+    this->m_eventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::WARNING_LO,
+      _logBuff
+    );
+  }
+
+  // Emit the event on the text log port
+#if FW_ENABLE_TEXT_LOGGING
+  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+#if FW_OBJECT_NAMES == 1
+    const char* _formatString =
+      "(%s) %s: Event Warning Low occurred";
+#else
+    const char* _formatString =
+      "%s: Event Warning Low occurred";
+#endif
+
+    char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
+
+    (void) snprintf(
+      _textBuffer,
+      FW_LOG_TEXT_BUFFER_SIZE,
+      _formatString,
+#if FW_OBJECT_NAMES == 1
+      this->m_objName,
+#endif
+      "EventWarningLowThrottled "
+    );
+
+    // Null terminate
+    _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
+    Fw::TextLogString _logString = _textBuffer;
+    this->m_textEventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::WARNING_LO,
+      _logString
+    );
+  }
+#endif
 }
 
 // ----------------------------------------------------------------------
@@ -2656,19 +2944,22 @@ void QueuedEventsComponentBase ::
 void QueuedEventsComponentBase ::
   log_ACTIVITY_LO_EventActivityLowThrottled_ThrottleClear()
 {
-
+  // Reset throttle counter
+  this->m_EventActivityLowThrottledThrottle = 0;
 }
 
 void QueuedEventsComponentBase ::
   log_FATAL_EventFatalThrottled_ThrottleClear()
 {
-
+  // Reset throttle counter
+  this->m_EventFatalThrottledThrottle = 0;
 }
 
 void QueuedEventsComponentBase ::
   log_WARNING_LO_EventWarningLowThrottled_ThrottleClear()
 {
-
+  // Reset throttle counter
+  this->m_EventWarningLowThrottledThrottle = 0;
 }
 
 // ----------------------------------------------------------------------
@@ -2714,8 +3005,7 @@ void QueuedEventsComponentBase ::
 Fw::QueuedComponentBase::MsgDispatchStatus QueuedEventsComponentBase ::
   doDispatch()
 {
-  U8 msgBuff[this->m_msgSize];
-  Fw::ExternalSerializeBuffer msg(msgBuff,this->m_msgSize);
+  ComponentIpcSerializableBuffer msg;
   NATIVE_INT_TYPE priority = 0;
 
   Os::Queue::QueueStatus msgStatus = this->m_queue.receive(
@@ -2745,7 +3035,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedEventsComponentBase ::
 
   MsgTypeEnum msgType = static_cast<MsgTypeEnum>(desMsg);
 
-  if (msgType == QUEUED_COMPONENT_EXIT) {
+  if (msgType == QUEUEDEVENTS_COMPONENT_EXIT) {
     return MSG_DISPATCH_EXIT;
   }
 
@@ -2757,6 +3047,14 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedEventsComponentBase ::
   );
 
   switch (msgType) {
+    // Handle async input port noArgsAsync
+    case NOARGSASYNC_TYPED: {
+      // Call handler function
+      this->noArgsAsync_handler(portNum);
+
+      break;
+    }
+
     // Handle async input port typedAsync
     case TYPEDASYNC_TYPED: {
       // Deserialize argument u32
@@ -2783,9 +3081,9 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedEventsComponentBase ::
         static_cast<FwAssertArgType>(deserStatus)
       );
 
-      // Deserialize argument str
-      TypedPortStrings::StringSize80 str;
-      deserStatus = msg.deserialize(str);
+      // Deserialize argument str1
+      TypedPortStrings::StringSize80 str1;
+      deserStatus = msg.deserialize(str1);
       FW_ASSERT(
         deserStatus == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(deserStatus)
@@ -2820,7 +3118,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedEventsComponentBase ::
         u32,
         f32,
         b,
-        str,
+        str1,
         e,
         a,
         s
@@ -2855,9 +3153,9 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedEventsComponentBase ::
         static_cast<FwAssertArgType>(deserStatus)
       );
 
-      // Deserialize argument str
-      TypedPortStrings::StringSize80 str;
-      deserStatus = msg.deserialize(str);
+      // Deserialize argument str1
+      TypedPortStrings::StringSize80 str1;
+      deserStatus = msg.deserialize(str1);
       FW_ASSERT(
         deserStatus == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(deserStatus)
@@ -2892,7 +3190,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedEventsComponentBase ::
         u32,
         f32,
         b,
-        str,
+        str1,
         e,
         a,
         s
@@ -2927,9 +3225,9 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedEventsComponentBase ::
         static_cast<FwAssertArgType>(deserStatus)
       );
 
-      // Deserialize argument str
-      TypedPortStrings::StringSize80 str;
-      deserStatus = msg.deserialize(str);
+      // Deserialize argument str1
+      TypedPortStrings::StringSize80 str1;
+      deserStatus = msg.deserialize(str1);
       FW_ASSERT(
         deserStatus == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(deserStatus)
@@ -2964,7 +3262,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedEventsComponentBase ::
         u32,
         f32,
         b,
-        str,
+        str1,
         e,
         a,
         s
@@ -2999,9 +3297,9 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedEventsComponentBase ::
         static_cast<FwAssertArgType>(deserStatus)
       );
 
-      // Deserialize argument str
-      TypedPortStrings::StringSize80 str;
-      deserStatus = msg.deserialize(str);
+      // Deserialize argument str1
+      TypedPortStrings::StringSize80 str1;
+      deserStatus = msg.deserialize(str1);
       FW_ASSERT(
         deserStatus == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(deserStatus)
@@ -3036,71 +3334,11 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedEventsComponentBase ::
         u32,
         f32,
         b,
-        str,
+        str1,
         e,
         a,
         s
       );
-
-      break;
-    }
-
-    // Handle async input port serialAsync
-    case SERIALASYNC_SERIAL: {
-      // Deserialize serialized buffer into new buffer
-      U8 handBuff[this->m_msgSize];
-      Fw::ExternalSerializeBuffer serHandBuff(handBuff,this->m_msgSize);
-      deserStatus = msg.deserialize(serHandBuff);
-      FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
-      );
-      this->serialAsync_handler(portNum, serHandBuff);
-
-      break;
-    }
-
-    // Handle async input port serialAsyncAssert
-    case SERIALASYNCASSERT_SERIAL: {
-      // Deserialize serialized buffer into new buffer
-      U8 handBuff[this->m_msgSize];
-      Fw::ExternalSerializeBuffer serHandBuff(handBuff,this->m_msgSize);
-      deserStatus = msg.deserialize(serHandBuff);
-      FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
-      );
-      this->serialAsyncAssert_handler(portNum, serHandBuff);
-
-      break;
-    }
-
-    // Handle async input port serialAsyncBlockPriority
-    case SERIALASYNCBLOCKPRIORITY_SERIAL: {
-      // Deserialize serialized buffer into new buffer
-      U8 handBuff[this->m_msgSize];
-      Fw::ExternalSerializeBuffer serHandBuff(handBuff,this->m_msgSize);
-      deserStatus = msg.deserialize(serHandBuff);
-      FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
-      );
-      this->serialAsyncBlockPriority_handler(portNum, serHandBuff);
-
-      break;
-    }
-
-    // Handle async input port serialAsyncDropPriority
-    case SERIALASYNCDROPPRIORITY_SERIAL: {
-      // Deserialize serialized buffer into new buffer
-      U8 handBuff[this->m_msgSize];
-      Fw::ExternalSerializeBuffer serHandBuff(handBuff,this->m_msgSize);
-      deserStatus = msg.deserialize(serHandBuff);
-      FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
-      );
-      this->serialAsyncDropPriority_handler(portNum, serHandBuff);
 
       break;
     }
@@ -3125,12 +3363,70 @@ void QueuedEventsComponentBase ::
       Fw::CmdArgBuffer& args
   )
 {
+  FW_ASSERT(callComp);
 
+  const U32 idBase = callComp->getIdBase();
+  FW_ASSERT(opCode >= idBase, opCode, idBase);
 }
 
 // ----------------------------------------------------------------------
 // Calls for messages received on typed input ports
 // ----------------------------------------------------------------------
+
+void QueuedEventsComponentBase ::
+  m_p_noArgsAsync_in(
+      Fw::PassiveComponentBase* callComp,
+      NATIVE_INT_TYPE portNum
+  )
+{
+  FW_ASSERT(callComp);
+  QueuedEventsComponentBase* compPtr = static_cast<QueuedEventsComponentBase*>(callComp);
+  compPtr->noArgsAsync_handlerBase(portNum);
+}
+
+void QueuedEventsComponentBase ::
+  m_p_noArgsGuarded_in(
+      Fw::PassiveComponentBase* callComp,
+      NATIVE_INT_TYPE portNum
+  )
+{
+  FW_ASSERT(callComp);
+  QueuedEventsComponentBase* compPtr = static_cast<QueuedEventsComponentBase*>(callComp);
+  compPtr->noArgsGuarded_handlerBase(portNum);
+}
+
+U32 QueuedEventsComponentBase ::
+  m_p_noArgsReturnGuarded_in(
+      Fw::PassiveComponentBase* callComp,
+      NATIVE_INT_TYPE portNum
+  )
+{
+  FW_ASSERT(callComp);
+  QueuedEventsComponentBase* compPtr = static_cast<QueuedEventsComponentBase*>(callComp);
+  return compPtr->noArgsReturnGuarded_handlerBase(portNum);
+}
+
+U32 QueuedEventsComponentBase ::
+  m_p_noArgsReturnSync_in(
+      Fw::PassiveComponentBase* callComp,
+      NATIVE_INT_TYPE portNum
+  )
+{
+  FW_ASSERT(callComp);
+  QueuedEventsComponentBase* compPtr = static_cast<QueuedEventsComponentBase*>(callComp);
+  return compPtr->noArgsReturnSync_handlerBase(portNum);
+}
+
+void QueuedEventsComponentBase ::
+  m_p_noArgsSync_in(
+      Fw::PassiveComponentBase* callComp,
+      NATIVE_INT_TYPE portNum
+  )
+{
+  FW_ASSERT(callComp);
+  QueuedEventsComponentBase* compPtr = static_cast<QueuedEventsComponentBase*>(callComp);
+  compPtr->noArgsSync_handlerBase(portNum);
+}
 
 void QueuedEventsComponentBase ::
   m_p_typedAsync_in(
@@ -3139,7 +3435,7 @@ void QueuedEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str,
+      const TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -3152,7 +3448,7 @@ void QueuedEventsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str1,
     e,
     a,
     s
@@ -3166,7 +3462,7 @@ void QueuedEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str,
+      const TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -3179,7 +3475,7 @@ void QueuedEventsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str1,
     e,
     a,
     s
@@ -3193,7 +3489,7 @@ void QueuedEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str,
+      const TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -3206,7 +3502,7 @@ void QueuedEventsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str1,
     e,
     a,
     s
@@ -3220,7 +3516,7 @@ void QueuedEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str,
+      const TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -3233,7 +3529,7 @@ void QueuedEventsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str1,
     e,
     a,
     s
@@ -3247,7 +3543,7 @@ void QueuedEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str,
+      const TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -3260,7 +3556,7 @@ void QueuedEventsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str1,
     e,
     a,
     s
@@ -3274,7 +3570,7 @@ F32 QueuedEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str,
+      const TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -3287,7 +3583,7 @@ F32 QueuedEventsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str2,
     e,
     a,
     s
@@ -3301,7 +3597,7 @@ F32 QueuedEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str,
+      const TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -3314,7 +3610,7 @@ F32 QueuedEventsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str2,
     e,
     a,
     s
@@ -3328,7 +3624,7 @@ void QueuedEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str,
+      const TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -3341,107 +3637,9 @@ void QueuedEventsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str1,
     e,
     a,
     s
   );
 }
-
-// ----------------------------------------------------------------------
-// Calls for messages received on serial input ports
-// ----------------------------------------------------------------------
-
-#if FW_PORT_SERIALIZATION
-
-void QueuedEventsComponentBase ::
-  m_p_serialAsync_in(
-      Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-  FW_ASSERT(callComp);
-  QueuedEventsComponentBase* compPtr = static_cast<QueuedEventsComponentBase*>(callComp);
-  compPtr->serialAsync_handlerBase(
-    portNum,
-    buffer
-  );
-}
-
-void QueuedEventsComponentBase ::
-  m_p_serialAsyncAssert_in(
-      Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-  FW_ASSERT(callComp);
-  QueuedEventsComponentBase* compPtr = static_cast<QueuedEventsComponentBase*>(callComp);
-  compPtr->serialAsyncAssert_handlerBase(
-    portNum,
-    buffer
-  );
-}
-
-void QueuedEventsComponentBase ::
-  m_p_serialAsyncBlockPriority_in(
-      Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-  FW_ASSERT(callComp);
-  QueuedEventsComponentBase* compPtr = static_cast<QueuedEventsComponentBase*>(callComp);
-  compPtr->serialAsyncBlockPriority_handlerBase(
-    portNum,
-    buffer
-  );
-}
-
-void QueuedEventsComponentBase ::
-  m_p_serialAsyncDropPriority_in(
-      Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-  FW_ASSERT(callComp);
-  QueuedEventsComponentBase* compPtr = static_cast<QueuedEventsComponentBase*>(callComp);
-  compPtr->serialAsyncDropPriority_handlerBase(
-    portNum,
-    buffer
-  );
-}
-
-void QueuedEventsComponentBase ::
-  m_p_serialGuarded_in(
-      Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-  FW_ASSERT(callComp);
-  QueuedEventsComponentBase* compPtr = static_cast<QueuedEventsComponentBase*>(callComp);
-  compPtr->serialGuarded_handlerBase(
-    portNum,
-    buffer
-  );
-}
-
-void QueuedEventsComponentBase ::
-  m_p_serialSync_in(
-      Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-  FW_ASSERT(callComp);
-  QueuedEventsComponentBase* compPtr = static_cast<QueuedEventsComponentBase*>(callComp);
-  compPtr->serialSync_handlerBase(
-    portNum,
-    buffer
-  );
-}
-
-#endif

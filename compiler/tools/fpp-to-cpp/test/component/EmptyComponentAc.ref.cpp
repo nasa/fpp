@@ -13,6 +13,7 @@
 #endif
 
 namespace {
+  // Get the max size by doing a union of the input and internal port serialization sizes
   union BuffUnion {
 
   };

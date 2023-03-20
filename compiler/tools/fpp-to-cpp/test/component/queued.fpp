@@ -1,5 +1,5 @@
 @ A queued component
-queued component Queued {
+queued component QueuedTest {
 
   include "include/typed_ports.fppi"
   include "include/typed_ports_async.fppi"

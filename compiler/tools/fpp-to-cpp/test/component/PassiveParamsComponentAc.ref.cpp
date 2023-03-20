@@ -13,7 +13,12 @@
 #include "PassiveParamsComponentAc.hpp"
 
 namespace {
+  // Get the max size by doing a union of the input and internal port serialization sizes
   union BuffUnion {
+    BYTE noArgsGuardedPortSize[InputNoArgsPort::SERIALIZED_SIZE];
+    BYTE noArgsReturnGuardedPortSize[InputNoArgsReturnPort::SERIALIZED_SIZE];
+    BYTE noArgsReturnSyncPortSize[InputNoArgsReturnPort::SERIALIZED_SIZE];
+    BYTE noArgsSyncPortSize[InputNoArgsPort::SERIALIZED_SIZE];
     BYTE typedGuardedPortSize[InputTypedPort::SERIALIZED_SIZE];
     BYTE typedReturnGuardedPortSize[InputTypedReturnPort::SERIALIZED_SIZE];
     BYTE typedReturnSyncPortSize[InputTypedReturnPort::SERIALIZED_SIZE];
@@ -75,6 +80,50 @@ Fw::InputCmdPort* PassiveParamsComponentBase ::
 // Getters for typed input ports
 // ----------------------------------------------------------------------
 
+InputNoArgsPort* PassiveParamsComponentBase ::
+  get_noArgsGuarded_InputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsGuarded_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_noArgsGuarded_InputPort[portNum];
+}
+
+InputNoArgsReturnPort* PassiveParamsComponentBase ::
+  get_noArgsReturnGuarded_InputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsReturnGuarded_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_noArgsReturnGuarded_InputPort[portNum];
+}
+
+InputNoArgsReturnPort* PassiveParamsComponentBase ::
+  get_noArgsReturnSync_InputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsReturnSync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_noArgsReturnSync_InputPort[portNum];
+}
+
+InputNoArgsPort* PassiveParamsComponentBase ::
+  get_noArgsSync_InputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsSync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_noArgsSync_InputPort[portNum];
+}
+
 InputTypedPort* PassiveParamsComponentBase ::
   get_typedGuarded_InputPort(NATIVE_INT_TYPE portNum)
 {
@@ -117,32 +166,6 @@ InputTypedPort* PassiveParamsComponentBase ::
   );
 
   return &this->m_typedSync_InputPort[portNum];
-}
-
-// ----------------------------------------------------------------------
-// Getters for serial input ports
-// ----------------------------------------------------------------------
-
-Fw::InputSerializePort* PassiveParamsComponentBase ::
-  get_serialGuarded_InputPort(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_serialGuarded_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  return &this->m_serialGuarded_InputPort[portNum];
-}
-
-Fw::InputSerializePort* PassiveParamsComponentBase ::
-  get_serialSync_InputPort(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_serialSync_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  return &this->m_serialSync_InputPort[portNum];
 }
 
 // ----------------------------------------------------------------------
@@ -297,28 +320,10 @@ void PassiveParamsComponentBase ::
   this->m_typedReturnOut_OutputPort[portNum].addCallPort(port);
 }
 
-// ----------------------------------------------------------------------
-// Connect serial input ports to serial output ports
-// ----------------------------------------------------------------------
-
-void PassiveParamsComponentBase ::
-  set_serialOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_serialOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_serialOut_OutputPort[portNum].registerSerialPort(port);
-}
-
 #if FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
-// Connect serial input ports to serial output ports
+// Connect serial input ports to special output ports
 // ----------------------------------------------------------------------
 
 void PassiveParamsComponentBase ::
@@ -391,6 +396,8 @@ void PassiveParamsComponentBase ::
   this->m_prmSetOut_OutputPort[portNum].registerSerialPort(port);
 }
 
+#if FW_ENABLE_TEXT_LOGGING == 1
+
 void PassiveParamsComponentBase ::
   set_textEventOut_OutputPort(
       NATIVE_INT_TYPE portNum,
@@ -404,6 +411,8 @@ void PassiveParamsComponentBase ::
 
   this->m_textEventOut_OutputPort[portNum].registerSerialPort(port);
 }
+
+#endif
 
 void PassiveParamsComponentBase ::
   set_timeGetOut_OutputPort(
@@ -438,7 +447,7 @@ void PassiveParamsComponentBase ::
 #if FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
-// Connect serial input ports to serial output ports
+// Connect serial input ports to typed output ports
 // ----------------------------------------------------------------------
 
 void PassiveParamsComponentBase ::
@@ -467,28 +476,6 @@ void PassiveParamsComponentBase ::
   );
 
   this->m_typedReturnOut_OutputPort[portNum].registerSerialPort(port);
-}
-
-#endif
-
-#if FW_PORT_SERIALIZATION
-
-// ----------------------------------------------------------------------
-// Connect serial input ports to serial output ports
-// ----------------------------------------------------------------------
-
-void PassiveParamsComponentBase ::
-  set_serialOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputPortBase* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_serialOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_serialOut_OutputPort[portNum].registerSerialPort(port);
 }
 
 #endif
@@ -558,7 +545,172 @@ void PassiveParamsComponentBase ::
 void PassiveParamsComponentBase ::
   loadParameters()
 {
+  Fw::ParamBuffer buff;
+  Fw::SerializeStatus stat = Fw::FW_SERIALIZE_OK;
+  FW_ASSERT(this->m_prmGetOut_OutputPort[0].isConnected());
 
+  FwPrmIdType _id;
+
+  _id = this->getIdBase() + PARAMID_PARAMU32;
+
+  // Get parameter ParamU32
+  this->m_param_ParamU32_valid =
+    this->m_prmGetOut_OutputPort[0].invoke(
+      _id,
+      buff
+    );
+
+  // Deserialize value
+  this->m_paramLock.lock();
+
+  // If there was a deserialization issue, mark it invalid
+  if (this->m_param_ParamU32_valid == Fw::ParamValid::VALID) {
+    stat = buff.deserialize(this->m_ParamU32);
+    if (stat != Fw::FW_SERIALIZE_OK) {
+      this->m_param_ParamU32_valid = Fw::ParamValid::INVALID;
+    }
+  }
+  else {
+    // No default
+  }
+
+  this->m_paramLock.unLock();
+
+  _id = this->getIdBase() + PARAMID_PARAMF64;
+
+  // Get parameter ParamF64
+  this->m_param_ParamF64_valid =
+    this->m_prmGetOut_OutputPort[0].invoke(
+      _id,
+      buff
+    );
+
+  // Deserialize value
+  this->m_paramLock.lock();
+
+  // If there was a deserialization issue, mark it invalid
+  if (this->m_param_ParamF64_valid == Fw::ParamValid::VALID) {
+    stat = buff.deserialize(this->m_ParamF64);
+    if (stat != Fw::FW_SERIALIZE_OK) {
+      this->m_param_ParamF64_valid = Fw::ParamValid::INVALID;
+    }
+  }
+  else {
+    // No default
+  }
+
+  this->m_paramLock.unLock();
+
+  _id = this->getIdBase() + PARAMID_PARAMSTRING;
+
+  // Get parameter ParamString
+  this->m_param_ParamString_valid =
+    this->m_prmGetOut_OutputPort[0].invoke(
+      _id,
+      buff
+    );
+
+  // Deserialize value
+  this->m_paramLock.lock();
+
+  // If there was a deserialization issue, mark it invalid
+  if (this->m_param_ParamString_valid == Fw::ParamValid::VALID) {
+    stat = buff.deserialize(this->m_ParamString);
+    if (stat != Fw::FW_SERIALIZE_OK) {
+      this->m_param_ParamString_valid = Fw::ParamValid::DEFAULT;
+      // Set default value
+      this->m_ParamString = "default";
+    }
+  }
+  else {
+    // Set default value
+    this->m_param_ParamString_valid = Fw::ParamValid::DEFAULT;
+    this->m_ParamString = "default";
+  }
+
+  this->m_paramLock.unLock();
+
+  _id = this->getIdBase() + PARAMID_PARAMENUM;
+
+  // Get parameter ParamEnum
+  this->m_param_ParamEnum_valid =
+    this->m_prmGetOut_OutputPort[0].invoke(
+      _id,
+      buff
+    );
+
+  // Deserialize value
+  this->m_paramLock.lock();
+
+  // If there was a deserialization issue, mark it invalid
+  if (this->m_param_ParamEnum_valid == Fw::ParamValid::VALID) {
+    stat = buff.deserialize(this->m_ParamEnum);
+    if (stat != Fw::FW_SERIALIZE_OK) {
+      this->m_param_ParamEnum_valid = Fw::ParamValid::INVALID;
+    }
+  }
+  else {
+    // No default
+  }
+
+  this->m_paramLock.unLock();
+
+  _id = this->getIdBase() + PARAMID_PARAMARRAY;
+
+  // Get parameter ParamArray
+  this->m_param_ParamArray_valid =
+    this->m_prmGetOut_OutputPort[0].invoke(
+      _id,
+      buff
+    );
+
+  // Deserialize value
+  this->m_paramLock.lock();
+
+  // If there was a deserialization issue, mark it invalid
+  if (this->m_param_ParamArray_valid == Fw::ParamValid::VALID) {
+    stat = buff.deserialize(this->m_ParamArray);
+    if (stat != Fw::FW_SERIALIZE_OK) {
+      this->m_param_ParamArray_valid = Fw::ParamValid::DEFAULT;
+      // Set default value
+      this->m_ParamArray = A(1, 2, 3);
+    }
+  }
+  else {
+    // Set default value
+    this->m_param_ParamArray_valid = Fw::ParamValid::DEFAULT;
+    this->m_ParamArray = A(1, 2, 3);
+  }
+
+  this->m_paramLock.unLock();
+
+  _id = this->getIdBase() + PARAMID_PARAMSTRUCT;
+
+  // Get parameter ParamStruct
+  this->m_param_ParamStruct_valid =
+    this->m_prmGetOut_OutputPort[0].invoke(
+      _id,
+      buff
+    );
+
+  // Deserialize value
+  this->m_paramLock.lock();
+
+  // If there was a deserialization issue, mark it invalid
+  if (this->m_param_ParamStruct_valid == Fw::ParamValid::VALID) {
+    stat = buff.deserialize(this->m_ParamStruct);
+    if (stat != Fw::FW_SERIALIZE_OK) {
+      this->m_param_ParamStruct_valid = Fw::ParamValid::INVALID;
+    }
+  }
+  else {
+    // No default
+  }
+
+  this->m_paramLock.unLock();
+
+  // Call notifier
+  this->parametersLoaded();
 }
 
 // ----------------------------------------------------------------------
@@ -606,6 +758,110 @@ void PassiveParamsComponentBase ::
       port
     );
     this->m_cmdIn_InputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect input port PassiveParams
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_noArgsGuarded_InputPorts());
+    port++
+  ) {
+    this->m_noArgsGuarded_InputPort[port].init();
+    this->m_noArgsGuarded_InputPort[port].addCallComp(
+      this,
+      m_p_noArgsGuarded_in
+    );
+    this->m_noArgsGuarded_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_noArgsGuarded_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_noArgsGuarded_InputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect input port PassiveParams
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_noArgsReturnGuarded_InputPorts());
+    port++
+  ) {
+    this->m_noArgsReturnGuarded_InputPort[port].init();
+    this->m_noArgsReturnGuarded_InputPort[port].addCallComp(
+      this,
+      m_p_noArgsReturnGuarded_in
+    );
+    this->m_noArgsReturnGuarded_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_noArgsReturnGuarded_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_noArgsReturnGuarded_InputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect input port PassiveParams
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_noArgsReturnSync_InputPorts());
+    port++
+  ) {
+    this->m_noArgsReturnSync_InputPort[port].init();
+    this->m_noArgsReturnSync_InputPort[port].addCallComp(
+      this,
+      m_p_noArgsReturnSync_in
+    );
+    this->m_noArgsReturnSync_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_noArgsReturnSync_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_noArgsReturnSync_InputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect input port PassiveParams
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_noArgsSync_InputPorts());
+    port++
+  ) {
+    this->m_noArgsSync_InputPort[port].init();
+    this->m_noArgsSync_InputPort[port].addCallComp(
+      this,
+      m_p_noArgsSync_in
+    );
+    this->m_noArgsSync_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_noArgsSync_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_noArgsSync_InputPort[port].setObjName(portName);
 #endif
   }
 
@@ -710,58 +966,6 @@ void PassiveParamsComponentBase ::
       port
     );
     this->m_typedSync_InputPort[port].setObjName(portName);
-#endif
-  }
-
-  // Connect input port PassiveParams
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_serialGuarded_InputPorts());
-    port++
-  ) {
-    this->m_serialGuarded_InputPort[port].init();
-    this->m_serialGuarded_InputPort[port].addCallComp(
-      this,
-      m_p_serialGuarded_in
-    );
-    this->m_serialGuarded_InputPort[port].setPortNum(port);
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_serialGuarded_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_serialGuarded_InputPort[port].setObjName(portName);
-#endif
-  }
-
-  // Connect input port PassiveParams
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_serialSync_InputPorts());
-    port++
-  ) {
-    this->m_serialSync_InputPort[port].init();
-    this->m_serialSync_InputPort[port].addCallComp(
-      this,
-      m_p_serialSync_in
-    );
-    this->m_serialSync_InputPort[port].setPortNum(port);
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_serialSync_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_serialSync_InputPort[port].setObjName(portName);
 #endif
   }
 
@@ -870,6 +1074,7 @@ void PassiveParamsComponentBase ::
 #endif
   }
 
+#if FW_ENABLE_TEXT_LOGGING == 1
   // Connect output port PassiveParams
   for (
     PlatformIntType port = 0;
@@ -890,6 +1095,7 @@ void PassiveParamsComponentBase ::
     this->m_textEventOut_OutputPort[port].setObjName(portName);
 #endif
   }
+#endif
 
   // Connect output port PassiveParams
   for (
@@ -974,27 +1180,6 @@ void PassiveParamsComponentBase ::
     this->m_typedReturnOut_OutputPort[port].setObjName(portName);
 #endif
   }
-
-  // Connect output port PassiveParams
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_serialOut_OutputPorts());
-    port++
-  ) {
-    this->m_serialOut_OutputPort[port].init();
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_serialOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_serialOut_OutputPort[port].setObjName(portName);
-#endif
-  }
 }
 
 PassiveParamsComponentBase ::
@@ -1018,6 +1203,30 @@ NATIVE_INT_TYPE PassiveParamsComponentBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE PassiveParamsComponentBase ::
+  getNum_noArgsGuarded_InputPorts()
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsGuarded_InputPort));
+}
+
+NATIVE_INT_TYPE PassiveParamsComponentBase ::
+  getNum_noArgsReturnGuarded_InputPorts()
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnGuarded_InputPort));
+}
+
+NATIVE_INT_TYPE PassiveParamsComponentBase ::
+  getNum_noArgsReturnSync_InputPorts()
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnSync_InputPort));
+}
+
+NATIVE_INT_TYPE PassiveParamsComponentBase ::
+  getNum_noArgsSync_InputPorts()
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsSync_InputPort));
+}
+
+NATIVE_INT_TYPE PassiveParamsComponentBase ::
   getNum_typedGuarded_InputPorts()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedGuarded_InputPort));
@@ -1039,22 +1248,6 @@ NATIVE_INT_TYPE PassiveParamsComponentBase ::
   getNum_typedSync_InputPorts()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedSync_InputPort));
-}
-
-// ----------------------------------------------------------------------
-// Getters for numbers of serial input ports
-// ----------------------------------------------------------------------
-
-NATIVE_INT_TYPE PassiveParamsComponentBase ::
-  getNum_serialGuarded_InputPorts()
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_serialGuarded_InputPort));
-}
-
-NATIVE_INT_TYPE PassiveParamsComponentBase ::
-  getNum_serialSync_InputPorts()
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_serialSync_InputPort));
 }
 
 // ----------------------------------------------------------------------
@@ -1127,16 +1320,6 @@ NATIVE_INT_TYPE PassiveParamsComponentBase ::
   getNum_typedReturnOut_OutputPorts()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnOut_OutputPort));
-}
-
-// ----------------------------------------------------------------------
-// Getters for numbers of serial output ports
-// ----------------------------------------------------------------------
-
-NATIVE_INT_TYPE PassiveParamsComponentBase ::
-  getNum_serialOut_OutputPorts()
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_serialOut_OutputPort));
 }
 
 // ----------------------------------------------------------------------
@@ -1262,25 +1445,82 @@ bool PassiveParamsComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Connection status queries for serial output ports
-// ----------------------------------------------------------------------
-
-bool PassiveParamsComponentBase ::
-  isConnected_serialOut_OutputPort(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_serialOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  return this->m_serialOut_OutputPort[portNum].isConnected();
-}
-
-// ----------------------------------------------------------------------
 // Port handler base-class functions for typed input ports
 //
 // Call these functions directly to bypass the corresponding ports
 // ----------------------------------------------------------------------
+
+void PassiveParamsComponentBase ::
+  noArgsGuarded_handlerBase(NATIVE_INT_TYPE portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_noArgsGuarded_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  // Lock guard mutex before calling
+  this->lock();
+
+  // Down call to pure virtual handler method implemented in Impl class
+  this->noArgsGuarded_handler(portNum);
+
+  // Unlock guard mutex
+  this->unLock();
+}
+
+U32 PassiveParamsComponentBase ::
+  noArgsReturnGuarded_handlerBase(NATIVE_INT_TYPE portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_noArgsReturnGuarded_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  U32 retVal;
+
+  // Lock guard mutex before calling
+  this->lock();
+
+  // Down call to pure virtual handler method implemented in Impl class
+  retVal = this->noArgsReturnGuarded_handler(portNum);
+
+  // Unlock guard mutex
+  this->unLock();
+
+  return retVal;
+}
+
+U32 PassiveParamsComponentBase ::
+  noArgsReturnSync_handlerBase(NATIVE_INT_TYPE portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_noArgsReturnSync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  U32 retVal;
+
+  // Down call to pure virtual handler method implemented in Impl class
+  retVal = this->noArgsReturnSync_handler(portNum);
+
+  return retVal;
+}
+
+void PassiveParamsComponentBase ::
+  noArgsSync_handlerBase(NATIVE_INT_TYPE portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_noArgsSync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  // Down call to pure virtual handler method implemented in Impl class
+  this->noArgsSync_handler(portNum);
+}
 
 void PassiveParamsComponentBase ::
   typedGuarded_handlerBase(
@@ -1288,7 +1528,7 @@ void PassiveParamsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str,
+      const TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1309,7 +1549,7 @@ void PassiveParamsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str1,
     e,
     a,
     s
@@ -1325,7 +1565,7 @@ F32 PassiveParamsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str,
+      const TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1348,7 +1588,7 @@ F32 PassiveParamsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str2,
     e,
     a,
     s
@@ -1366,7 +1606,7 @@ F32 PassiveParamsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str,
+      const TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1386,7 +1626,7 @@ F32 PassiveParamsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str2,
     e,
     a,
     s
@@ -1401,7 +1641,7 @@ void PassiveParamsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str,
+      const TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1419,60 +1659,10 @@ void PassiveParamsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str1,
     e,
     a,
     s
-  );
-}
-
-// ----------------------------------------------------------------------
-// Port handler base-class functions for serial input ports
-//
-// Call these functions directly to bypass the corresponding ports
-// ----------------------------------------------------------------------
-
-void PassiveParamsComponentBase ::
-  serialGuarded_handlerBase(
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-  // Make sure port number is valid
-  FW_ASSERT(
-    portNum < this->getNum_serialGuarded_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  // Lock guard mutex before calling
-  this->lock();
-
-  // Down call to pure virtual handler method implemented in Impl class
-  this->serialGuarded_handler(
-    portNum,
-    buffer
-  );
-
-  // Unlock guard mutex
-  this->unLock();
-}
-
-void PassiveParamsComponentBase ::
-  serialSync_handlerBase(
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-  // Make sure port number is valid
-  FW_ASSERT(
-    portNum < this->getNum_serialSync_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  // Down call to pure virtual handler method implemented in Impl class
-  this->serialSync_handler(
-    portNum,
-    buffer
   );
 }
 
@@ -1486,7 +1676,7 @@ void PassiveParamsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str,
+      const TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1500,7 +1690,7 @@ void PassiveParamsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str1,
     e,
     a,
     s
@@ -1513,7 +1703,7 @@ F32 PassiveParamsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str,
+      const TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1527,29 +1717,10 @@ F32 PassiveParamsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str2,
     e,
     a,
     s
-  );
-}
-
-// ----------------------------------------------------------------------
-// Invocation functions for serial output ports
-// ----------------------------------------------------------------------
-
-Fw::SerializeStatus PassiveParamsComponentBase ::
-  serialOut_out(
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_serialOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-  this->m_serialOut_OutputPort[portNum].invokeSerial(
-    buffer
   );
 }
 
@@ -1575,13 +1746,13 @@ void PassiveParamsComponentBase ::
 void PassiveParamsComponentBase ::
   parameterUpdated(FwPrmIdType id)
 {
-
+  // Do nothing by default
 }
 
 void PassiveParamsComponentBase ::
   parametersLoaded()
 {
-
+  // Do nothing by default
 }
 
 // ----------------------------------------------------------------------
@@ -1589,39 +1760,69 @@ void PassiveParamsComponentBase ::
 // ----------------------------------------------------------------------
 
 U32 PassiveParamsComponentBase ::
-  paramGet_ParamU32(Fw::ParamValid& isValid)
+  paramGet_ParamU32(Fw::ParamValid& valid)
 {
-
+  U32 _local;
+  this->m_paramLock.lock();
+  valid = this->m_param_ParamU32_valid;
+  _local = this->m_ParamU32;
+  this->m_paramLock.unLock();
+  return _local;
 }
 
 F64 PassiveParamsComponentBase ::
-  paramGet_ParamF64(Fw::ParamValid& isValid)
+  paramGet_ParamF64(Fw::ParamValid& valid)
 {
-
+  F64 _local;
+  this->m_paramLock.lock();
+  valid = this->m_param_ParamF64_valid;
+  _local = this->m_ParamF64;
+  this->m_paramLock.unLock();
+  return _local;
 }
 
 Fw::ParamString PassiveParamsComponentBase ::
-  paramGet_ParamString(Fw::ParamValid& isValid)
+  paramGet_ParamString(Fw::ParamValid& valid)
 {
-
+  Fw::ParamString _local;
+  this->m_paramLock.lock();
+  valid = this->m_param_ParamString_valid;
+  _local = this->m_ParamString;
+  this->m_paramLock.unLock();
+  return _local;
 }
 
 E PassiveParamsComponentBase ::
-  paramGet_ParamEnum(Fw::ParamValid& isValid)
+  paramGet_ParamEnum(Fw::ParamValid& valid)
 {
-
+  E _local;
+  this->m_paramLock.lock();
+  valid = this->m_param_ParamEnum_valid;
+  _local = this->m_ParamEnum;
+  this->m_paramLock.unLock();
+  return _local;
 }
 
 A PassiveParamsComponentBase ::
-  paramGet_ParamArray(Fw::ParamValid& isValid)
+  paramGet_ParamArray(Fw::ParamValid& valid)
 {
-
+  A _local;
+  this->m_paramLock.lock();
+  valid = this->m_param_ParamArray_valid;
+  _local = this->m_ParamArray;
+  this->m_paramLock.unLock();
+  return _local;
 }
 
 S PassiveParamsComponentBase ::
-  paramGet_ParamStruct(Fw::ParamValid& isValid)
+  paramGet_ParamStruct(Fw::ParamValid& valid)
 {
-
+  S _local;
+  this->m_paramLock.lock();
+  valid = this->m_param_ParamStruct_valid;
+  _local = this->m_ParamStruct;
+  this->m_paramLock.unLock();
+  return _local;
 }
 
 // ----------------------------------------------------------------------
@@ -1808,13 +2009,57 @@ void PassiveParamsComponentBase ::
 // ----------------------------------------------------------------------
 
 void PassiveParamsComponentBase ::
+  m_p_noArgsGuarded_in(
+      Fw::PassiveComponentBase* callComp,
+      NATIVE_INT_TYPE portNum
+  )
+{
+  FW_ASSERT(callComp);
+  PassiveParamsComponentBase* compPtr = static_cast<PassiveParamsComponentBase*>(callComp);
+  compPtr->noArgsGuarded_handlerBase(portNum);
+}
+
+U32 PassiveParamsComponentBase ::
+  m_p_noArgsReturnGuarded_in(
+      Fw::PassiveComponentBase* callComp,
+      NATIVE_INT_TYPE portNum
+  )
+{
+  FW_ASSERT(callComp);
+  PassiveParamsComponentBase* compPtr = static_cast<PassiveParamsComponentBase*>(callComp);
+  return compPtr->noArgsReturnGuarded_handlerBase(portNum);
+}
+
+U32 PassiveParamsComponentBase ::
+  m_p_noArgsReturnSync_in(
+      Fw::PassiveComponentBase* callComp,
+      NATIVE_INT_TYPE portNum
+  )
+{
+  FW_ASSERT(callComp);
+  PassiveParamsComponentBase* compPtr = static_cast<PassiveParamsComponentBase*>(callComp);
+  return compPtr->noArgsReturnSync_handlerBase(portNum);
+}
+
+void PassiveParamsComponentBase ::
+  m_p_noArgsSync_in(
+      Fw::PassiveComponentBase* callComp,
+      NATIVE_INT_TYPE portNum
+  )
+{
+  FW_ASSERT(callComp);
+  PassiveParamsComponentBase* compPtr = static_cast<PassiveParamsComponentBase*>(callComp);
+  compPtr->noArgsSync_handlerBase(portNum);
+}
+
+void PassiveParamsComponentBase ::
   m_p_typedGuarded_in(
       Fw::PassiveComponentBase* callComp,
       NATIVE_INT_TYPE portNum,
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str,
+      const TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1827,7 +2072,7 @@ void PassiveParamsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str1,
     e,
     a,
     s
@@ -1841,7 +2086,7 @@ F32 PassiveParamsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str,
+      const TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1854,7 +2099,7 @@ F32 PassiveParamsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str2,
     e,
     a,
     s
@@ -1868,7 +2113,7 @@ F32 PassiveParamsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str,
+      const TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1881,7 +2126,7 @@ F32 PassiveParamsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str2,
     e,
     a,
     s
@@ -1895,7 +2140,7 @@ void PassiveParamsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str,
+      const TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1908,50 +2153,12 @@ void PassiveParamsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str1,
     e,
     a,
     s
   );
 }
-
-// ----------------------------------------------------------------------
-// Calls for messages received on serial input ports
-// ----------------------------------------------------------------------
-
-#if FW_PORT_SERIALIZATION
-
-void PassiveParamsComponentBase ::
-  m_p_serialGuarded_in(
-      Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-  FW_ASSERT(callComp);
-  PassiveParamsComponentBase* compPtr = static_cast<PassiveParamsComponentBase*>(callComp);
-  compPtr->serialGuarded_handlerBase(
-    portNum,
-    buffer
-  );
-}
-
-void PassiveParamsComponentBase ::
-  m_p_serialSync_in(
-      Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-  FW_ASSERT(callComp);
-  PassiveParamsComponentBase* compPtr = static_cast<PassiveParamsComponentBase*>(callComp);
-  compPtr->serialSync_handlerBase(
-    portNum,
-    buffer
-  );
-}
-
-#endif
 
 // ----------------------------------------------------------------------
 // Private parameter get function
@@ -1963,7 +2170,12 @@ Fw::ParamValid PassiveParamsComponentBase ::
       Fw::ParamBuffer& buff
   )
 {
-
+  if (this->m_prmGetOut_OutputPort[0].isConnected()) {
+    return this->m_prmGetOut_OutputPort[0].invoke(id, buff);
+  }
+  else {
+    return Fw::ParamValid::INVALID;
+  }
 }
 
 // ----------------------------------------------------------------------
@@ -1973,37 +2185,121 @@ Fw::ParamValid PassiveParamsComponentBase ::
 Fw::CmdResponse PassiveParamsComponentBase ::
   paramSet_ParamU32(Fw::SerializeBufferBase& val)
 {
+  U32 _local_val;
+  Fw::SerializeStatus _stat = val.deserialize(_local_val);
+  if (_stat != Fw::FW_SERIALIZE_OK) {
+    return Fw::CmdResponse::VALIDATION_ERROR;
+  }
 
+  // Assign value only if successfully deserialized
+  this->m_paramLock.lock();
+  this->m_ParamU32 = _local_val;
+  this->m_param_ParamU32_valid = Fw::ParamValid::VALID;
+  this->m_paramLock.unLock();
+
+  // Call notifier
+  this->parameterUpdated(PARAMID_PARAMU32);
+  return Fw::CmdResponse::OK;
 }
 
 Fw::CmdResponse PassiveParamsComponentBase ::
   paramSet_ParamF64(Fw::SerializeBufferBase& val)
 {
+  F64 _local_val;
+  Fw::SerializeStatus _stat = val.deserialize(_local_val);
+  if (_stat != Fw::FW_SERIALIZE_OK) {
+    return Fw::CmdResponse::VALIDATION_ERROR;
+  }
 
+  // Assign value only if successfully deserialized
+  this->m_paramLock.lock();
+  this->m_ParamF64 = _local_val;
+  this->m_param_ParamF64_valid = Fw::ParamValid::VALID;
+  this->m_paramLock.unLock();
+
+  // Call notifier
+  this->parameterUpdated(PARAMID_PARAMF64);
+  return Fw::CmdResponse::OK;
 }
 
 Fw::CmdResponse PassiveParamsComponentBase ::
   paramSet_ParamString(Fw::SerializeBufferBase& val)
 {
+  Fw::ParamString _local_val;
+  Fw::SerializeStatus _stat = val.deserialize(_local_val);
+  if (_stat != Fw::FW_SERIALIZE_OK) {
+    return Fw::CmdResponse::VALIDATION_ERROR;
+  }
 
+  // Assign value only if successfully deserialized
+  this->m_paramLock.lock();
+  this->m_ParamString = _local_val;
+  this->m_param_ParamString_valid = Fw::ParamValid::VALID;
+  this->m_paramLock.unLock();
+
+  // Call notifier
+  this->parameterUpdated(PARAMID_PARAMSTRING);
+  return Fw::CmdResponse::OK;
 }
 
 Fw::CmdResponse PassiveParamsComponentBase ::
   paramSet_ParamEnum(Fw::SerializeBufferBase& val)
 {
+  E _local_val;
+  Fw::SerializeStatus _stat = val.deserialize(_local_val);
+  if (_stat != Fw::FW_SERIALIZE_OK) {
+    return Fw::CmdResponse::VALIDATION_ERROR;
+  }
 
+  // Assign value only if successfully deserialized
+  this->m_paramLock.lock();
+  this->m_ParamEnum = _local_val;
+  this->m_param_ParamEnum_valid = Fw::ParamValid::VALID;
+  this->m_paramLock.unLock();
+
+  // Call notifier
+  this->parameterUpdated(PARAMID_PARAMENUM);
+  return Fw::CmdResponse::OK;
 }
 
 Fw::CmdResponse PassiveParamsComponentBase ::
   paramSet_ParamArray(Fw::SerializeBufferBase& val)
 {
+  A _local_val;
+  Fw::SerializeStatus _stat = val.deserialize(_local_val);
+  if (_stat != Fw::FW_SERIALIZE_OK) {
+    return Fw::CmdResponse::VALIDATION_ERROR;
+  }
 
+  // Assign value only if successfully deserialized
+  this->m_paramLock.lock();
+  this->m_ParamArray = _local_val;
+  this->m_param_ParamArray_valid = Fw::ParamValid::VALID;
+  this->m_paramLock.unLock();
+
+  // Call notifier
+  this->parameterUpdated(PARAMID_PARAMARRAY);
+  return Fw::CmdResponse::OK;
 }
 
 Fw::CmdResponse PassiveParamsComponentBase ::
   paramSet_ParamStruct(Fw::SerializeBufferBase& val)
 {
+  S _local_val;
+  Fw::SerializeStatus _stat = val.deserialize(_local_val);
+  if (_stat != Fw::FW_SERIALIZE_OK) {
+    return Fw::CmdResponse::VALIDATION_ERROR;
+  }
 
+  // Assign value only if successfully deserialized
+  this->m_paramLock.lock();
+  this->m_ParamStruct = _local_val;
+  this->m_param_ParamStruct_valid = Fw::ParamValid::VALID;
+  this->m_paramLock.unLock();
+
+  // Call notifier
+  this->parameterUpdated(PARAMID_PARAMSTRUCT);
+  return Fw::CmdResponse::OK;
 }
 
 // ----------------------------------------------------------------------
@@ -2013,35 +2309,173 @@ Fw::CmdResponse PassiveParamsComponentBase ::
 Fw::CmdResponse PassiveParamsComponentBase ::
   paramSave_ParamU32()
 {
+  if (this->m_prmSetOut_OutputPort[0].isConnected()) {
+    Fw::ParamBuffer saveBuff;
+    this->m_paramLock.lock();
 
+    Fw::SerializeStatus stat = saveBuff.serialize(m_ParamU32);
+
+    this->m_paramLock.unLock();
+    if (stat != Fw::FW_SERIALIZE_OK) {
+      return Fw::CmdResponse::VALIDATION_ERROR;
+    }
+
+    FwPrmIdType id = 0;
+    id = this->getIdBase() + PARAMID_PARAMU32;
+
+    // Save the parameter
+    this->m_prmSetOut_OutputPort[0].invoke(
+      id,
+      saveBuff
+    );
+
+    return Fw::CmdResponse::OK;
+  }
+
+  return Fw::CmdResponse::EXECUTION_ERROR;
 }
 
 Fw::CmdResponse PassiveParamsComponentBase ::
   paramSave_ParamF64()
 {
+  if (this->m_prmSetOut_OutputPort[0].isConnected()) {
+    Fw::ParamBuffer saveBuff;
+    this->m_paramLock.lock();
 
+    Fw::SerializeStatus stat = saveBuff.serialize(m_ParamF64);
+
+    this->m_paramLock.unLock();
+    if (stat != Fw::FW_SERIALIZE_OK) {
+      return Fw::CmdResponse::VALIDATION_ERROR;
+    }
+
+    FwPrmIdType id = 0;
+    id = this->getIdBase() + PARAMID_PARAMF64;
+
+    // Save the parameter
+    this->m_prmSetOut_OutputPort[0].invoke(
+      id,
+      saveBuff
+    );
+
+    return Fw::CmdResponse::OK;
+  }
+
+  return Fw::CmdResponse::EXECUTION_ERROR;
 }
 
 Fw::CmdResponse PassiveParamsComponentBase ::
   paramSave_ParamString()
 {
+  if (this->m_prmSetOut_OutputPort[0].isConnected()) {
+    Fw::ParamBuffer saveBuff;
+    this->m_paramLock.lock();
 
+    Fw::SerializeStatus stat = saveBuff.serialize(m_ParamString);
+
+    this->m_paramLock.unLock();
+    if (stat != Fw::FW_SERIALIZE_OK) {
+      return Fw::CmdResponse::VALIDATION_ERROR;
+    }
+
+    FwPrmIdType id = 0;
+    id = this->getIdBase() + PARAMID_PARAMSTRING;
+
+    // Save the parameter
+    this->m_prmSetOut_OutputPort[0].invoke(
+      id,
+      saveBuff
+    );
+
+    return Fw::CmdResponse::OK;
+  }
+
+  return Fw::CmdResponse::EXECUTION_ERROR;
 }
 
 Fw::CmdResponse PassiveParamsComponentBase ::
   paramSave_ParamEnum()
 {
+  if (this->m_prmSetOut_OutputPort[0].isConnected()) {
+    Fw::ParamBuffer saveBuff;
+    this->m_paramLock.lock();
 
+    Fw::SerializeStatus stat = saveBuff.serialize(m_ParamEnum);
+
+    this->m_paramLock.unLock();
+    if (stat != Fw::FW_SERIALIZE_OK) {
+      return Fw::CmdResponse::VALIDATION_ERROR;
+    }
+
+    FwPrmIdType id = 0;
+    id = this->getIdBase() + PARAMID_PARAMENUM;
+
+    // Save the parameter
+    this->m_prmSetOut_OutputPort[0].invoke(
+      id,
+      saveBuff
+    );
+
+    return Fw::CmdResponse::OK;
+  }
+
+  return Fw::CmdResponse::EXECUTION_ERROR;
 }
 
 Fw::CmdResponse PassiveParamsComponentBase ::
   paramSave_ParamArray()
 {
+  if (this->m_prmSetOut_OutputPort[0].isConnected()) {
+    Fw::ParamBuffer saveBuff;
+    this->m_paramLock.lock();
 
+    Fw::SerializeStatus stat = saveBuff.serialize(m_ParamArray);
+
+    this->m_paramLock.unLock();
+    if (stat != Fw::FW_SERIALIZE_OK) {
+      return Fw::CmdResponse::VALIDATION_ERROR;
+    }
+
+    FwPrmIdType id = 0;
+    id = this->getIdBase() + PARAMID_PARAMARRAY;
+
+    // Save the parameter
+    this->m_prmSetOut_OutputPort[0].invoke(
+      id,
+      saveBuff
+    );
+
+    return Fw::CmdResponse::OK;
+  }
+
+  return Fw::CmdResponse::EXECUTION_ERROR;
 }
 
 Fw::CmdResponse PassiveParamsComponentBase ::
   paramSave_ParamStruct()
 {
+  if (this->m_prmSetOut_OutputPort[0].isConnected()) {
+    Fw::ParamBuffer saveBuff;
+    this->m_paramLock.lock();
 
+    Fw::SerializeStatus stat = saveBuff.serialize(m_ParamStruct);
+
+    this->m_paramLock.unLock();
+    if (stat != Fw::FW_SERIALIZE_OK) {
+      return Fw::CmdResponse::VALIDATION_ERROR;
+    }
+
+    FwPrmIdType id = 0;
+    id = this->getIdBase() + PARAMID_PARAMSTRUCT;
+
+    // Save the parameter
+    this->m_prmSetOut_OutputPort[0].invoke(
+      id,
+      saveBuff
+    );
+
+    return Fw::CmdResponse::OK;
+  }
+
+  return Fw::CmdResponse::EXECUTION_ERROR;
 }

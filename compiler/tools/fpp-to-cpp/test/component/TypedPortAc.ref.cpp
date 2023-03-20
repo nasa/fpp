@@ -158,7 +158,7 @@ void InputTypedPort ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str,
+      const TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -171,7 +171,7 @@ void InputTypedPort ::
   FW_ASSERT(this->m_comp != nullptr);
   FW_ASSERT(this->m_func != nullptr);
 
-  return this->m_func(this->m_comp, this->m_portNum, u32, f32, b, str, e, a, s);
+  return this->m_func(this->m_comp, this->m_portNum, u32, f32, b, str1, e, a, s);
 }
 
 #if FW_PORT_SERIALIZATION == 1
@@ -206,8 +206,8 @@ Fw::SerializeStatus InputTypedPort ::
     return _status;
   }
 
-  TypedPortStrings::StringSize80 str;
-  _status = _buffer.deserialize(str);
+  TypedPortStrings::StringSize80 str1;
+  _status = _buffer.deserialize(str1);
   if (_status != Fw::FW_SERIALIZE_OK) {
     return _status;
   }
@@ -230,7 +230,7 @@ Fw::SerializeStatus InputTypedPort ::
     return _status;
   }
 
-  this->m_func(this->m_comp, this->m_portNum, u32, f32, b, str, e, a, s);
+  this->m_func(this->m_comp, this->m_portNum, u32, f32, b, str1, e, a, s);
 
   return Fw::FW_SERIALIZE_OK;
 }
@@ -273,7 +273,7 @@ void OutputTypedPort ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str,
+      const TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -287,7 +287,7 @@ void OutputTypedPort ::
   FW_ASSERT((this->m_port != nullptr) || (this->m_serPort != nullptr));
 
   if (this->m_port != nullptr) {
-    this->m_port->invoke(u32, f32, b, str, e, a, s);
+    this->m_port->invoke(u32, f32, b, str1, e, a, s);
   }
   else {
     Fw::SerializeStatus _status;
@@ -302,7 +302,7 @@ void OutputTypedPort ::
     _status = _buffer.serialize(b);
     FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-    _status = _buffer.serialize(str);
+    _status = _buffer.serialize(str1);
     FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
     _status = _buffer.serialize(e);
@@ -319,6 +319,6 @@ void OutputTypedPort ::
   }
 #else
   FW_ASSERT(this->m_port != nullptr);
-  this->m_port->invoke(u32, f32, b, str, e, a, s);
+  this->m_port->invoke(u32, f32, b, str1, e, a, s);
 #endif
 }

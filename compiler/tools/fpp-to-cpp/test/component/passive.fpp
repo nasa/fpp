@@ -1,5 +1,5 @@
 @ A passive component
-passive component Passive {
+passive component PassiveTest {
 
   include "include/typed_ports.fppi"
   include "include/special_ports.fppi"

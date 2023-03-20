@@ -21,7 +21,7 @@ empty()
 passive()
 {
   update "-i `cat deps-comma.txt`,types.fpp" "-p $PWD,$fprime_dir passive" passive
-  move_cpp PassiveComponent
+  move_cpp PassiveTestComponent
   move_cpp PassiveSerialComponent
   move_cpp PassiveCommandsComponent
   move_cpp PassiveEventsComponent
@@ -32,7 +32,7 @@ passive()
 active()
 {
   update "-i `cat deps-comma.txt`,types.fpp" "-p $PWD,$fprime_dir active" active
-  move_cpp ActiveComponent
+  move_cpp ActiveTestComponent
   move_cpp ActiveSerialComponent
   move_cpp ActiveCommandsComponent
   move_cpp ActiveEventsComponent
@@ -43,7 +43,7 @@ active()
 queued()
 {
   update "-i `cat deps-comma.txt`,types.fpp" "-p $PWD,$fprime_dir queued" queued
-  move_cpp QueuedComponent
+  move_cpp QueuedTestComponent
   move_cpp QueuedSerialComponent
   move_cpp QueuedCommandsComponent
   move_cpp QueuedEventsComponent

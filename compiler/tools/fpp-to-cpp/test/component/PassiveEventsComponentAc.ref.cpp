@@ -13,7 +13,12 @@
 #include "PassiveEventsComponentAc.hpp"
 
 namespace {
+  // Get the max size by doing a union of the input and internal port serialization sizes
   union BuffUnion {
+    BYTE noArgsGuardedPortSize[InputNoArgsPort::SERIALIZED_SIZE];
+    BYTE noArgsReturnGuardedPortSize[InputNoArgsReturnPort::SERIALIZED_SIZE];
+    BYTE noArgsReturnSyncPortSize[InputNoArgsReturnPort::SERIALIZED_SIZE];
+    BYTE noArgsSyncPortSize[InputNoArgsPort::SERIALIZED_SIZE];
     BYTE typedGuardedPortSize[InputTypedPort::SERIALIZED_SIZE];
     BYTE typedReturnGuardedPortSize[InputTypedReturnPort::SERIALIZED_SIZE];
     BYTE typedReturnSyncPortSize[InputTypedReturnPort::SERIALIZED_SIZE];
@@ -75,6 +80,50 @@ Fw::InputCmdPort* PassiveEventsComponentBase ::
 // Getters for typed input ports
 // ----------------------------------------------------------------------
 
+InputNoArgsPort* PassiveEventsComponentBase ::
+  get_noArgsGuarded_InputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsGuarded_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_noArgsGuarded_InputPort[portNum];
+}
+
+InputNoArgsReturnPort* PassiveEventsComponentBase ::
+  get_noArgsReturnGuarded_InputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsReturnGuarded_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_noArgsReturnGuarded_InputPort[portNum];
+}
+
+InputNoArgsReturnPort* PassiveEventsComponentBase ::
+  get_noArgsReturnSync_InputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsReturnSync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_noArgsReturnSync_InputPort[portNum];
+}
+
+InputNoArgsPort* PassiveEventsComponentBase ::
+  get_noArgsSync_InputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsSync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_noArgsSync_InputPort[portNum];
+}
+
 InputTypedPort* PassiveEventsComponentBase ::
   get_typedGuarded_InputPort(NATIVE_INT_TYPE portNum)
 {
@@ -117,32 +166,6 @@ InputTypedPort* PassiveEventsComponentBase ::
   );
 
   return &this->m_typedSync_InputPort[portNum];
-}
-
-// ----------------------------------------------------------------------
-// Getters for serial input ports
-// ----------------------------------------------------------------------
-
-Fw::InputSerializePort* PassiveEventsComponentBase ::
-  get_serialGuarded_InputPort(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_serialGuarded_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  return &this->m_serialGuarded_InputPort[portNum];
-}
-
-Fw::InputSerializePort* PassiveEventsComponentBase ::
-  get_serialSync_InputPort(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_serialSync_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  return &this->m_serialSync_InputPort[portNum];
 }
 
 // ----------------------------------------------------------------------
@@ -297,28 +320,10 @@ void PassiveEventsComponentBase ::
   this->m_typedReturnOut_OutputPort[portNum].addCallPort(port);
 }
 
-// ----------------------------------------------------------------------
-// Connect serial input ports to serial output ports
-// ----------------------------------------------------------------------
-
-void PassiveEventsComponentBase ::
-  set_serialOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_serialOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_serialOut_OutputPort[portNum].registerSerialPort(port);
-}
-
 #if FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
-// Connect serial input ports to serial output ports
+// Connect serial input ports to special output ports
 // ----------------------------------------------------------------------
 
 void PassiveEventsComponentBase ::
@@ -391,6 +396,8 @@ void PassiveEventsComponentBase ::
   this->m_prmSetOut_OutputPort[portNum].registerSerialPort(port);
 }
 
+#if FW_ENABLE_TEXT_LOGGING == 1
+
 void PassiveEventsComponentBase ::
   set_textEventOut_OutputPort(
       NATIVE_INT_TYPE portNum,
@@ -404,6 +411,8 @@ void PassiveEventsComponentBase ::
 
   this->m_textEventOut_OutputPort[portNum].registerSerialPort(port);
 }
+
+#endif
 
 void PassiveEventsComponentBase ::
   set_timeGetOut_OutputPort(
@@ -438,7 +447,7 @@ void PassiveEventsComponentBase ::
 #if FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
-// Connect serial input ports to serial output ports
+// Connect serial input ports to typed output ports
 // ----------------------------------------------------------------------
 
 void PassiveEventsComponentBase ::
@@ -467,28 +476,6 @@ void PassiveEventsComponentBase ::
   );
 
   this->m_typedReturnOut_OutputPort[portNum].registerSerialPort(port);
-}
-
-#endif
-
-#if FW_PORT_SERIALIZATION
-
-// ----------------------------------------------------------------------
-// Connect serial input ports to serial output ports
-// ----------------------------------------------------------------------
-
-void PassiveEventsComponentBase ::
-  set_serialOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputPortBase* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_serialOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_serialOut_OutputPort[portNum].registerSerialPort(port);
 }
 
 #endif
@@ -535,6 +522,110 @@ void PassiveEventsComponentBase ::
       port
     );
     this->m_cmdIn_InputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect input port PassiveEvents
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_noArgsGuarded_InputPorts());
+    port++
+  ) {
+    this->m_noArgsGuarded_InputPort[port].init();
+    this->m_noArgsGuarded_InputPort[port].addCallComp(
+      this,
+      m_p_noArgsGuarded_in
+    );
+    this->m_noArgsGuarded_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_noArgsGuarded_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_noArgsGuarded_InputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect input port PassiveEvents
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_noArgsReturnGuarded_InputPorts());
+    port++
+  ) {
+    this->m_noArgsReturnGuarded_InputPort[port].init();
+    this->m_noArgsReturnGuarded_InputPort[port].addCallComp(
+      this,
+      m_p_noArgsReturnGuarded_in
+    );
+    this->m_noArgsReturnGuarded_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_noArgsReturnGuarded_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_noArgsReturnGuarded_InputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect input port PassiveEvents
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_noArgsReturnSync_InputPorts());
+    port++
+  ) {
+    this->m_noArgsReturnSync_InputPort[port].init();
+    this->m_noArgsReturnSync_InputPort[port].addCallComp(
+      this,
+      m_p_noArgsReturnSync_in
+    );
+    this->m_noArgsReturnSync_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_noArgsReturnSync_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_noArgsReturnSync_InputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect input port PassiveEvents
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_noArgsSync_InputPorts());
+    port++
+  ) {
+    this->m_noArgsSync_InputPort[port].init();
+    this->m_noArgsSync_InputPort[port].addCallComp(
+      this,
+      m_p_noArgsSync_in
+    );
+    this->m_noArgsSync_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_noArgsSync_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_noArgsSync_InputPort[port].setObjName(portName);
 #endif
   }
 
@@ -639,58 +730,6 @@ void PassiveEventsComponentBase ::
       port
     );
     this->m_typedSync_InputPort[port].setObjName(portName);
-#endif
-  }
-
-  // Connect input port PassiveEvents
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_serialGuarded_InputPorts());
-    port++
-  ) {
-    this->m_serialGuarded_InputPort[port].init();
-    this->m_serialGuarded_InputPort[port].addCallComp(
-      this,
-      m_p_serialGuarded_in
-    );
-    this->m_serialGuarded_InputPort[port].setPortNum(port);
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_serialGuarded_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_serialGuarded_InputPort[port].setObjName(portName);
-#endif
-  }
-
-  // Connect input port PassiveEvents
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_serialSync_InputPorts());
-    port++
-  ) {
-    this->m_serialSync_InputPort[port].init();
-    this->m_serialSync_InputPort[port].addCallComp(
-      this,
-      m_p_serialSync_in
-    );
-    this->m_serialSync_InputPort[port].setPortNum(port);
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_serialSync_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_serialSync_InputPort[port].setObjName(portName);
 #endif
   }
 
@@ -799,6 +838,7 @@ void PassiveEventsComponentBase ::
 #endif
   }
 
+#if FW_ENABLE_TEXT_LOGGING == 1
   // Connect output port PassiveEvents
   for (
     PlatformIntType port = 0;
@@ -819,6 +859,7 @@ void PassiveEventsComponentBase ::
     this->m_textEventOut_OutputPort[port].setObjName(portName);
 #endif
   }
+#endif
 
   // Connect output port PassiveEvents
   for (
@@ -903,27 +944,6 @@ void PassiveEventsComponentBase ::
     this->m_typedReturnOut_OutputPort[port].setObjName(portName);
 #endif
   }
-
-  // Connect output port PassiveEvents
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_serialOut_OutputPorts());
-    port++
-  ) {
-    this->m_serialOut_OutputPort[port].init();
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_serialOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_serialOut_OutputPort[port].setObjName(portName);
-#endif
-  }
 }
 
 PassiveEventsComponentBase ::
@@ -947,6 +967,30 @@ NATIVE_INT_TYPE PassiveEventsComponentBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE PassiveEventsComponentBase ::
+  getNum_noArgsGuarded_InputPorts()
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsGuarded_InputPort));
+}
+
+NATIVE_INT_TYPE PassiveEventsComponentBase ::
+  getNum_noArgsReturnGuarded_InputPorts()
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnGuarded_InputPort));
+}
+
+NATIVE_INT_TYPE PassiveEventsComponentBase ::
+  getNum_noArgsReturnSync_InputPorts()
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnSync_InputPort));
+}
+
+NATIVE_INT_TYPE PassiveEventsComponentBase ::
+  getNum_noArgsSync_InputPorts()
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsSync_InputPort));
+}
+
+NATIVE_INT_TYPE PassiveEventsComponentBase ::
   getNum_typedGuarded_InputPorts()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedGuarded_InputPort));
@@ -968,22 +1012,6 @@ NATIVE_INT_TYPE PassiveEventsComponentBase ::
   getNum_typedSync_InputPorts()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedSync_InputPort));
-}
-
-// ----------------------------------------------------------------------
-// Getters for numbers of serial input ports
-// ----------------------------------------------------------------------
-
-NATIVE_INT_TYPE PassiveEventsComponentBase ::
-  getNum_serialGuarded_InputPorts()
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_serialGuarded_InputPort));
-}
-
-NATIVE_INT_TYPE PassiveEventsComponentBase ::
-  getNum_serialSync_InputPorts()
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_serialSync_InputPort));
 }
 
 // ----------------------------------------------------------------------
@@ -1056,16 +1084,6 @@ NATIVE_INT_TYPE PassiveEventsComponentBase ::
   getNum_typedReturnOut_OutputPorts()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnOut_OutputPort));
-}
-
-// ----------------------------------------------------------------------
-// Getters for numbers of serial output ports
-// ----------------------------------------------------------------------
-
-NATIVE_INT_TYPE PassiveEventsComponentBase ::
-  getNum_serialOut_OutputPorts()
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_serialOut_OutputPort));
 }
 
 // ----------------------------------------------------------------------
@@ -1191,25 +1209,82 @@ bool PassiveEventsComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Connection status queries for serial output ports
-// ----------------------------------------------------------------------
-
-bool PassiveEventsComponentBase ::
-  isConnected_serialOut_OutputPort(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_serialOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  return this->m_serialOut_OutputPort[portNum].isConnected();
-}
-
-// ----------------------------------------------------------------------
 // Port handler base-class functions for typed input ports
 //
 // Call these functions directly to bypass the corresponding ports
 // ----------------------------------------------------------------------
+
+void PassiveEventsComponentBase ::
+  noArgsGuarded_handlerBase(NATIVE_INT_TYPE portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_noArgsGuarded_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  // Lock guard mutex before calling
+  this->lock();
+
+  // Down call to pure virtual handler method implemented in Impl class
+  this->noArgsGuarded_handler(portNum);
+
+  // Unlock guard mutex
+  this->unLock();
+}
+
+U32 PassiveEventsComponentBase ::
+  noArgsReturnGuarded_handlerBase(NATIVE_INT_TYPE portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_noArgsReturnGuarded_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  U32 retVal;
+
+  // Lock guard mutex before calling
+  this->lock();
+
+  // Down call to pure virtual handler method implemented in Impl class
+  retVal = this->noArgsReturnGuarded_handler(portNum);
+
+  // Unlock guard mutex
+  this->unLock();
+
+  return retVal;
+}
+
+U32 PassiveEventsComponentBase ::
+  noArgsReturnSync_handlerBase(NATIVE_INT_TYPE portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_noArgsReturnSync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  U32 retVal;
+
+  // Down call to pure virtual handler method implemented in Impl class
+  retVal = this->noArgsReturnSync_handler(portNum);
+
+  return retVal;
+}
+
+void PassiveEventsComponentBase ::
+  noArgsSync_handlerBase(NATIVE_INT_TYPE portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_noArgsSync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  // Down call to pure virtual handler method implemented in Impl class
+  this->noArgsSync_handler(portNum);
+}
 
 void PassiveEventsComponentBase ::
   typedGuarded_handlerBase(
@@ -1217,7 +1292,7 @@ void PassiveEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str,
+      const TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1238,7 +1313,7 @@ void PassiveEventsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str1,
     e,
     a,
     s
@@ -1254,7 +1329,7 @@ F32 PassiveEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str,
+      const TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1277,7 +1352,7 @@ F32 PassiveEventsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str2,
     e,
     a,
     s
@@ -1295,7 +1370,7 @@ F32 PassiveEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str,
+      const TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1315,7 +1390,7 @@ F32 PassiveEventsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str2,
     e,
     a,
     s
@@ -1330,7 +1405,7 @@ void PassiveEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str,
+      const TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1348,60 +1423,10 @@ void PassiveEventsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str1,
     e,
     a,
     s
-  );
-}
-
-// ----------------------------------------------------------------------
-// Port handler base-class functions for serial input ports
-//
-// Call these functions directly to bypass the corresponding ports
-// ----------------------------------------------------------------------
-
-void PassiveEventsComponentBase ::
-  serialGuarded_handlerBase(
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-  // Make sure port number is valid
-  FW_ASSERT(
-    portNum < this->getNum_serialGuarded_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  // Lock guard mutex before calling
-  this->lock();
-
-  // Down call to pure virtual handler method implemented in Impl class
-  this->serialGuarded_handler(
-    portNum,
-    buffer
-  );
-
-  // Unlock guard mutex
-  this->unLock();
-}
-
-void PassiveEventsComponentBase ::
-  serialSync_handlerBase(
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-  // Make sure port number is valid
-  FW_ASSERT(
-    portNum < this->getNum_serialSync_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  // Down call to pure virtual handler method implemented in Impl class
-  this->serialSync_handler(
-    portNum,
-    buffer
   );
 }
 
@@ -1415,7 +1440,7 @@ void PassiveEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str,
+      const TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1429,7 +1454,7 @@ void PassiveEventsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str1,
     e,
     a,
     s
@@ -1442,7 +1467,7 @@ F32 PassiveEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str,
+      const TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1456,29 +1481,10 @@ F32 PassiveEventsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str2,
     e,
     a,
     s
-  );
-}
-
-// ----------------------------------------------------------------------
-// Invocation functions for serial output ports
-// ----------------------------------------------------------------------
-
-Fw::SerializeStatus PassiveEventsComponentBase ::
-  serialOut_out(
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_serialOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-  this->m_serialOut_OutputPort[portNum].invokeSerial(
-    buffer
   );
 }
 
@@ -1489,7 +1495,72 @@ Fw::SerializeStatus PassiveEventsComponentBase ::
 void PassiveEventsComponentBase ::
   log_ACTIVITY_HI_EventActivityHigh()
 {
+  // Get the time
+  Fw::Time _logTime;
+  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
+    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  }
 
+  FwEventIdType _id = static_cast<FwEventIdType>(0);
+
+  _id = this->getIdBase() + EVENTID_EVENTACTIVITYHIGH;
+
+  // Emit the event on the log port
+  if (this->m_eventOut_OutputPort[0].isConnected()) {
+    Fw::LogBuffer _logBuff;
+
+#if FW_AMPCS_COMPATIBLE
+    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+    // Serialize the number of arguments
+    _status = _logBuff.serialize(static_cast<U8>(0));
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+#endif
+
+    this->m_eventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::ACTIVITY_HI,
+      _logBuff
+    );
+  }
+
+  // Emit the event on the text log port
+#if FW_ENABLE_TEXT_LOGGING
+  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+#if FW_OBJECT_NAMES == 1
+    const char* _formatString =
+      "(%s) %s: Event Activity High occurred";
+#else
+    const char* _formatString =
+      "%s: Event Activity High occurred";
+#endif
+
+    char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
+
+    (void) snprintf(
+      _textBuffer,
+      FW_LOG_TEXT_BUFFER_SIZE,
+      _formatString,
+#if FW_OBJECT_NAMES == 1
+      this->m_objName,
+#endif
+      "EventActivityHigh "
+    );
+
+    // Null terminate
+    _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
+    Fw::TextLogString _logString = _textBuffer;
+    this->m_textEventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::ACTIVITY_HI,
+      _logString
+    );
+  }
+#endif
 }
 
 void PassiveEventsComponentBase ::
@@ -1499,7 +1570,131 @@ void PassiveEventsComponentBase ::
       bool b
   )
 {
+  // Check throttle value
+  if (this->m_EventActivityLowThrottledThrottle >= EVENTID_EVENTACTIVITYLOWTHROTTLED) {
+    return;
+  }
+  else {
+    this->m_EventActivityLowThrottledThrottle++;
+  }
 
+  // Get the time
+  Fw::Time _logTime;
+  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
+    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  }
+
+  FwEventIdType _id = static_cast<FwEventIdType>(0);
+
+  _id = this->getIdBase() + EVENTID_EVENTACTIVITYLOWTHROTTLED;
+
+  // Emit the event on the log port
+  if (this->m_eventOut_OutputPort[0].isConnected()) {
+    Fw::LogBuffer _logBuff;
+    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+
+#if FW_AMPCS_COMPATIBLE
+    // Serialize the number of arguments
+    _status = _logBuff.serialize(static_cast<U8>(3));
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+#endif
+
+#if FW_AMPCS_COMPATIBLE
+    // Serialize the argument size
+    _status = _logBuff.serialize(
+      static_cast<U8>(sizeof(U32))
+    );
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+#endif
+    _status = _logBuff.serialize(u32);
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+
+#if FW_AMPCS_COMPATIBLE
+    // Serialize the argument size
+    _status = _logBuff.serialize(
+      static_cast<U8>(sizeof(F32))
+    );
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+#endif
+    _status = _logBuff.serialize(f32);
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+
+#if FW_AMPCS_COMPATIBLE
+    // Serialize the argument size
+    _status = _logBuff.serialize(
+      static_cast<U8>(sizeof(U8))
+    );
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+#endif
+    _status = _logBuff.serialize(b);
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+
+    this->m_eventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::ACTIVITY_LO,
+      _logBuff
+    );
+  }
+
+  // Emit the event on the text log port
+#if FW_ENABLE_TEXT_LOGGING
+  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+#if FW_OBJECT_NAMES == 1
+    const char* _formatString =
+      "(%s) %s: Event Activity Low occurred with arguments: %" PRIu32 ", %f, %d";
+#else
+    const char* _formatString =
+      "%s: Event Activity Low occurred with arguments: %" PRIu32 ", %f, %d";
+#endif
+
+    char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
+
+    (void) snprintf(
+      _textBuffer,
+      FW_LOG_TEXT_BUFFER_SIZE,
+      _formatString,
+#if FW_OBJECT_NAMES == 1
+      this->m_objName,
+#endif
+      "EventActivityLowThrottled ",
+      u32,
+      f32,
+      b
+    );
+
+    // Null terminate
+    _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
+    Fw::TextLogString _logString = _textBuffer;
+    this->m_textEventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::ACTIVITY_LO,
+      _logString
+    );
+  }
+#endif
 }
 
 void PassiveEventsComponentBase ::
@@ -1508,31 +1703,459 @@ void PassiveEventsComponentBase ::
       const Fw::LogStringArg& str2
   )
 {
+  // Get the time
+  Fw::Time _logTime;
+  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
+    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  }
 
+  FwEventIdType _id = static_cast<FwEventIdType>(0);
+
+  _id = this->getIdBase() + EVENTID_EVENTCOMMAND;
+
+  // Emit the event on the log port
+  if (this->m_eventOut_OutputPort[0].isConnected()) {
+    Fw::LogBuffer _logBuff;
+    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+
+#if FW_AMPCS_COMPATIBLE
+    // Serialize the number of arguments
+    _status = _logBuff.serialize(static_cast<U8>(2));
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+#endif
+
+    _status = str1.serialize(_logBuff, 80);
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+
+    _status = str2.serialize(_logBuff, 100);
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+
+    this->m_eventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::COMMAND,
+      _logBuff
+    );
+  }
+
+  // Emit the event on the text log port
+#if FW_ENABLE_TEXT_LOGGING
+  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+#if FW_OBJECT_NAMES == 1
+    const char* _formatString =
+      "(%s) %s: Event Command occurred with arguments: %s, %s";
+#else
+    const char* _formatString =
+      "%s: Event Command occurred with arguments: %s, %s";
+#endif
+
+    char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
+
+    (void) snprintf(
+      _textBuffer,
+      FW_LOG_TEXT_BUFFER_SIZE,
+      _formatString,
+#if FW_OBJECT_NAMES == 1
+      this->m_objName,
+#endif
+      "EventCommand ",
+      str1.toChar(),
+      str2.toChar()
+    );
+
+    // Null terminate
+    _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
+    Fw::TextLogString _logString = _textBuffer;
+    this->m_textEventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::COMMAND,
+      _logString
+    );
+  }
+#endif
 }
 
 void PassiveEventsComponentBase ::
   log_DIAGNOSTIC_EventDiagnostic(E e)
 {
+  // Get the time
+  Fw::Time _logTime;
+  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
+    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  }
 
+  FwEventIdType _id = static_cast<FwEventIdType>(0);
+
+  _id = this->getIdBase() + EVENTID_EVENTDIAGNOSTIC;
+
+  // Emit the event on the log port
+  if (this->m_eventOut_OutputPort[0].isConnected()) {
+    Fw::LogBuffer _logBuff;
+    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+
+#if FW_AMPCS_COMPATIBLE
+    // Serialize the number of arguments
+    _status = _logBuff.serialize(static_cast<U8>(1));
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+#endif
+
+#if FW_AMPCS_COMPATIBLE
+    // Serialize the argument size
+    _status = _logBuff.serialize(
+      static_cast<U8>(E::SERIALIZED_SIZE)
+    );
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+#endif
+    _status = _logBuff.serialize(e);
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+
+    this->m_eventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::DIAGNOSTIC,
+      _logBuff
+    );
+  }
+
+  // Emit the event on the text log port
+#if FW_ENABLE_TEXT_LOGGING
+  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+#if FW_OBJECT_NAMES == 1
+    const char* _formatString =
+      "(%s) %s: Event Diagnostic occurred with argument: %s";
+#else
+    const char* _formatString =
+      "%s: Event Diagnostic occurred with argument: %s";
+#endif
+
+    char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
+
+    Fw::String eStr;
+    e.toString(eStr);
+
+    (void) snprintf(
+      _textBuffer,
+      FW_LOG_TEXT_BUFFER_SIZE,
+      _formatString,
+#if FW_OBJECT_NAMES == 1
+      this->m_objName,
+#endif
+      "EventDiagnostic ",
+      eStr.toChar()
+    );
+
+    // Null terminate
+    _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
+    Fw::TextLogString _logString = _textBuffer;
+    this->m_textEventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::DIAGNOSTIC,
+      _logString
+    );
+  }
+#endif
 }
 
 void PassiveEventsComponentBase ::
   log_FATAL_EventFatalThrottled(A a)
 {
+  // Check throttle value
+  if (this->m_EventFatalThrottledThrottle >= EVENTID_EVENTFATALTHROTTLED) {
+    return;
+  }
+  else {
+    this->m_EventFatalThrottledThrottle++;
+  }
 
+  // Get the time
+  Fw::Time _logTime;
+  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
+    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  }
+
+  FwEventIdType _id = static_cast<FwEventIdType>(0);
+
+  _id = this->getIdBase() + EVENTID_EVENTFATALTHROTTLED;
+
+  // Emit the event on the log port
+  if (this->m_eventOut_OutputPort[0].isConnected()) {
+    Fw::LogBuffer _logBuff;
+    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+
+#if FW_AMPCS_COMPATIBLE
+    // Serialize the number of arguments
+    _status = _logBuff.serialize(static_cast<U8>(1 + 1));
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+
+    // For FATAL, add stack size of 4 and a dummy entry. No support for stacks yet.
+    _status = _logBuff.serialize(static_cast<U8>(4));
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+
+    _status = _logBuff.serialize(static_cast<U32>(0));
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+#endif
+
+#if FW_AMPCS_COMPATIBLE
+    // Serialize the argument size
+    _status = _logBuff.serialize(
+      static_cast<U8>(A::SERIALIZED_SIZE)
+    );
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+#endif
+    _status = _logBuff.serialize(a);
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+
+    this->m_eventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::FATAL,
+      _logBuff
+    );
+  }
+
+  // Emit the event on the text log port
+#if FW_ENABLE_TEXT_LOGGING
+  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+#if FW_OBJECT_NAMES == 1
+    const char* _formatString =
+      "(%s) %s: Event Fatal occurred with argument: %s";
+#else
+    const char* _formatString =
+      "%s: Event Fatal occurred with argument: %s";
+#endif
+
+    char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
+
+    Fw::String aStr;
+    a.toString(aStr);
+
+    (void) snprintf(
+      _textBuffer,
+      FW_LOG_TEXT_BUFFER_SIZE,
+      _formatString,
+#if FW_OBJECT_NAMES == 1
+      this->m_objName,
+#endif
+      "EventFatalThrottled ",
+      aStr.toChar()
+    );
+
+    // Null terminate
+    _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
+    Fw::TextLogString _logString = _textBuffer;
+    this->m_textEventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::FATAL,
+      _logString
+    );
+  }
+#endif
 }
 
 void PassiveEventsComponentBase ::
   log_WARNING_HI_EventWarningHigh(S s)
 {
+  // Get the time
+  Fw::Time _logTime;
+  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
+    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  }
 
+  FwEventIdType _id = static_cast<FwEventIdType>(0);
+
+  _id = this->getIdBase() + EVENTID_EVENTWARNINGHIGH;
+
+  // Emit the event on the log port
+  if (this->m_eventOut_OutputPort[0].isConnected()) {
+    Fw::LogBuffer _logBuff;
+    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+
+#if FW_AMPCS_COMPATIBLE
+    // Serialize the number of arguments
+    _status = _logBuff.serialize(static_cast<U8>(1));
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+#endif
+
+#if FW_AMPCS_COMPATIBLE
+    // Serialize the argument size
+    _status = _logBuff.serialize(
+      static_cast<U8>(S::SERIALIZED_SIZE)
+    );
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+#endif
+    _status = _logBuff.serialize(s);
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+
+    this->m_eventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::WARNING_HI,
+      _logBuff
+    );
+  }
+
+  // Emit the event on the text log port
+#if FW_ENABLE_TEXT_LOGGING
+  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+#if FW_OBJECT_NAMES == 1
+    const char* _formatString =
+      "(%s) %s: Event Warning High occurred with argument: %s";
+#else
+    const char* _formatString =
+      "%s: Event Warning High occurred with argument: %s";
+#endif
+
+    char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
+
+    Fw::String sStr;
+    s.toString(sStr);
+
+    (void) snprintf(
+      _textBuffer,
+      FW_LOG_TEXT_BUFFER_SIZE,
+      _formatString,
+#if FW_OBJECT_NAMES == 1
+      this->m_objName,
+#endif
+      "EventWarningHigh ",
+      sStr.toChar()
+    );
+
+    // Null terminate
+    _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
+    Fw::TextLogString _logString = _textBuffer;
+    this->m_textEventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::WARNING_HI,
+      _logString
+    );
+  }
+#endif
 }
 
 void PassiveEventsComponentBase ::
   log_WARNING_LO_EventWarningLowThrottled()
 {
+  // Check throttle value
+  if (this->m_EventWarningLowThrottledThrottle >= EVENTID_EVENTWARNINGLOWTHROTTLED) {
+    return;
+  }
+  else {
+    this->m_EventWarningLowThrottledThrottle++;
+  }
 
+  // Get the time
+  Fw::Time _logTime;
+  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
+    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  }
+
+  FwEventIdType _id = static_cast<FwEventIdType>(0);
+
+  _id = this->getIdBase() + EVENTID_EVENTWARNINGLOWTHROTTLED;
+
+  // Emit the event on the log port
+  if (this->m_eventOut_OutputPort[0].isConnected()) {
+    Fw::LogBuffer _logBuff;
+
+#if FW_AMPCS_COMPATIBLE
+    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+    // Serialize the number of arguments
+    _status = _logBuff.serialize(static_cast<U8>(0));
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+#endif
+
+    this->m_eventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::WARNING_LO,
+      _logBuff
+    );
+  }
+
+  // Emit the event on the text log port
+#if FW_ENABLE_TEXT_LOGGING
+  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+#if FW_OBJECT_NAMES == 1
+    const char* _formatString =
+      "(%s) %s: Event Warning Low occurred";
+#else
+    const char* _formatString =
+      "%s: Event Warning Low occurred";
+#endif
+
+    char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
+
+    (void) snprintf(
+      _textBuffer,
+      FW_LOG_TEXT_BUFFER_SIZE,
+      _formatString,
+#if FW_OBJECT_NAMES == 1
+      this->m_objName,
+#endif
+      "EventWarningLowThrottled "
+    );
+
+    // Null terminate
+    _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
+    Fw::TextLogString _logString = _textBuffer;
+    this->m_textEventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::WARNING_LO,
+      _logString
+    );
+  }
+#endif
 }
 
 // ----------------------------------------------------------------------
@@ -1542,19 +2165,22 @@ void PassiveEventsComponentBase ::
 void PassiveEventsComponentBase ::
   log_ACTIVITY_LO_EventActivityLowThrottled_ThrottleClear()
 {
-
+  // Reset throttle counter
+  this->m_EventActivityLowThrottledThrottle = 0;
 }
 
 void PassiveEventsComponentBase ::
   log_FATAL_EventFatalThrottled_ThrottleClear()
 {
-
+  // Reset throttle counter
+  this->m_EventFatalThrottledThrottle = 0;
 }
 
 void PassiveEventsComponentBase ::
   log_WARNING_LO_EventWarningLowThrottled_ThrottleClear()
 {
-
+  // Reset throttle counter
+  this->m_EventWarningLowThrottledThrottle = 0;
 }
 
 // ----------------------------------------------------------------------
@@ -1606,12 +2232,59 @@ void PassiveEventsComponentBase ::
       Fw::CmdArgBuffer& args
   )
 {
+  FW_ASSERT(callComp);
 
+  const U32 idBase = callComp->getIdBase();
+  FW_ASSERT(opCode >= idBase, opCode, idBase);
 }
 
 // ----------------------------------------------------------------------
 // Calls for messages received on typed input ports
 // ----------------------------------------------------------------------
+
+void PassiveEventsComponentBase ::
+  m_p_noArgsGuarded_in(
+      Fw::PassiveComponentBase* callComp,
+      NATIVE_INT_TYPE portNum
+  )
+{
+  FW_ASSERT(callComp);
+  PassiveEventsComponentBase* compPtr = static_cast<PassiveEventsComponentBase*>(callComp);
+  compPtr->noArgsGuarded_handlerBase(portNum);
+}
+
+U32 PassiveEventsComponentBase ::
+  m_p_noArgsReturnGuarded_in(
+      Fw::PassiveComponentBase* callComp,
+      NATIVE_INT_TYPE portNum
+  )
+{
+  FW_ASSERT(callComp);
+  PassiveEventsComponentBase* compPtr = static_cast<PassiveEventsComponentBase*>(callComp);
+  return compPtr->noArgsReturnGuarded_handlerBase(portNum);
+}
+
+U32 PassiveEventsComponentBase ::
+  m_p_noArgsReturnSync_in(
+      Fw::PassiveComponentBase* callComp,
+      NATIVE_INT_TYPE portNum
+  )
+{
+  FW_ASSERT(callComp);
+  PassiveEventsComponentBase* compPtr = static_cast<PassiveEventsComponentBase*>(callComp);
+  return compPtr->noArgsReturnSync_handlerBase(portNum);
+}
+
+void PassiveEventsComponentBase ::
+  m_p_noArgsSync_in(
+      Fw::PassiveComponentBase* callComp,
+      NATIVE_INT_TYPE portNum
+  )
+{
+  FW_ASSERT(callComp);
+  PassiveEventsComponentBase* compPtr = static_cast<PassiveEventsComponentBase*>(callComp);
+  compPtr->noArgsSync_handlerBase(portNum);
+}
 
 void PassiveEventsComponentBase ::
   m_p_typedGuarded_in(
@@ -1620,7 +2293,7 @@ void PassiveEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str,
+      const TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1633,7 +2306,7 @@ void PassiveEventsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str1,
     e,
     a,
     s
@@ -1647,7 +2320,7 @@ F32 PassiveEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str,
+      const TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1660,7 +2333,7 @@ F32 PassiveEventsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str2,
     e,
     a,
     s
@@ -1674,7 +2347,7 @@ F32 PassiveEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str,
+      const TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1687,7 +2360,7 @@ F32 PassiveEventsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str2,
     e,
     a,
     s
@@ -1701,7 +2374,7 @@ void PassiveEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str,
+      const TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1714,47 +2387,9 @@ void PassiveEventsComponentBase ::
     u32,
     f32,
     b,
-    str,
+    str1,
     e,
     a,
     s
   );
 }
-
-// ----------------------------------------------------------------------
-// Calls for messages received on serial input ports
-// ----------------------------------------------------------------------
-
-#if FW_PORT_SERIALIZATION
-
-void PassiveEventsComponentBase ::
-  m_p_serialGuarded_in(
-      Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-  FW_ASSERT(callComp);
-  PassiveEventsComponentBase* compPtr = static_cast<PassiveEventsComponentBase*>(callComp);
-  compPtr->serialGuarded_handlerBase(
-    portNum,
-    buffer
-  );
-}
-
-void PassiveEventsComponentBase ::
-  m_p_serialSync_in(
-      Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
-      Fw::SerializeBufferBase& buffer
-  )
-{
-  FW_ASSERT(callComp);
-  PassiveEventsComponentBase* compPtr = static_cast<PassiveEventsComponentBase*>(callComp);
-  compPtr->serialSync_handlerBase(
-    portNum,
-    buffer
-  );
-}
-
-#endif
