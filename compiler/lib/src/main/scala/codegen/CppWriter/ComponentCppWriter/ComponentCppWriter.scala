@@ -35,7 +35,7 @@ case class ComponentCppWriter (
 
   private val baseClassName = s"${kindStr}ComponentBase"
 
-  private val exitConstantName = s"${kindStr.toUpperCase}_COMPONENT_EXIT"
+  private val exitConstantName = s"${name.toUpperCase}_COMPONENT_EXIT"
 
   private def writeIncludeDirectives: List[String] = {
     val Right(a) = UsedSymbols.defComponentAnnotatedNode(s.a, aNode)
@@ -383,8 +383,7 @@ case class ComponentCppWriter (
     }
     def writePortConnections(port: PortInstance) = {
       val d = port.getDirection.get
-
-      line(s"// Connect ${d.toString} port $name") ::
+      val body = line(s"// Connect ${d.toString} port $name") ::
         wrapInForLoopStaggered(
           "PlatformIntType port = 0",
           s"port < static_cast<PlatformIntType>(this->${portNumGetterName(port)}())",
@@ -420,6 +419,21 @@ case class ComponentCppWriter (
             )
           ).flatten
         )
+
+      port match {
+        case PortInstance.Special(aNode, _, _, _, _) => aNode._2.data match {
+          case Ast.SpecPortInstance.Special(_, kind, _, _, _) => kind match {
+            case Ast.SpecPortInstance.TextEvent => List.concat(
+              lines("#if FW_ENABLE_TEXT_LOGGING == 1"),
+              body,
+              lines("#endif")
+            )
+            case _ => body
+          }
+          case _ => body
+        }
+        case _ => body
+      }
     }
 
     val initInstanceParam = List(
@@ -793,7 +807,7 @@ case class ComponentCppWriter (
                    |"""
               ),
               Line.blank :: wrapInIf(
-                s"msgType == ${kindStr.toUpperCase}_COMPONENT_EXIT",
+                s"msgType == $exitConstantName",
                 lines("return MSG_DISPATCH_EXIT;")
               ),
               lines(

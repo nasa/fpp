@@ -63,7 +63,7 @@ case class ComponentOutputPorts(
       addAccessTagAndComment(
         "public",
         s"Connect serial input ports to $typeStr output ports",
-        ports.flatMap(p =>
+        mapPorts(ports, p =>
           List(
             functionClassMember(
               Some(s"Connect port to ${p.getUnqualifiedName}[portNum]"),
