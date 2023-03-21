@@ -15,7 +15,7 @@
 namespace {
   enum MsgTypeEnum {
     QUEUEDTELEMETRY_COMPONENT_EXIT = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT,
-    NOARGSASYNC_TYPED,
+    NOARGSASYNC_NOARGS,
     TYPEDASYNC_TYPED,
     TYPEDASYNCASSERT_TYPED,
     TYPEDASYNCBLOCKPRIORITY_TYPED,
@@ -574,7 +574,7 @@ void QueuedTelemetryComponentBase ::
   // Initialize base class
   Fw::QueuedComponentBase::init(instance);
 
-  // Connect input port QueuedTelemetry
+  // Connect input port cmdIn
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_cmdIn_InputPorts());
@@ -600,7 +600,7 @@ void QueuedTelemetryComponentBase ::
 #endif
   }
 
-  // Connect input port QueuedTelemetry
+  // Connect input port noArgsAsync
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_noArgsAsync_InputPorts());
@@ -626,7 +626,7 @@ void QueuedTelemetryComponentBase ::
 #endif
   }
 
-  // Connect input port QueuedTelemetry
+  // Connect input port noArgsGuarded
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_noArgsGuarded_InputPorts());
@@ -652,7 +652,7 @@ void QueuedTelemetryComponentBase ::
 #endif
   }
 
-  // Connect input port QueuedTelemetry
+  // Connect input port noArgsReturnGuarded
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_noArgsReturnGuarded_InputPorts());
@@ -678,7 +678,7 @@ void QueuedTelemetryComponentBase ::
 #endif
   }
 
-  // Connect input port QueuedTelemetry
+  // Connect input port noArgsReturnSync
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_noArgsReturnSync_InputPorts());
@@ -704,7 +704,7 @@ void QueuedTelemetryComponentBase ::
 #endif
   }
 
-  // Connect input port QueuedTelemetry
+  // Connect input port noArgsSync
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_noArgsSync_InputPorts());
@@ -730,7 +730,7 @@ void QueuedTelemetryComponentBase ::
 #endif
   }
 
-  // Connect input port QueuedTelemetry
+  // Connect input port typedAsync
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedAsync_InputPorts());
@@ -756,7 +756,7 @@ void QueuedTelemetryComponentBase ::
 #endif
   }
 
-  // Connect input port QueuedTelemetry
+  // Connect input port typedAsyncAssert
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedAsyncAssert_InputPorts());
@@ -782,7 +782,7 @@ void QueuedTelemetryComponentBase ::
 #endif
   }
 
-  // Connect input port QueuedTelemetry
+  // Connect input port typedAsyncBlockPriority
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedAsyncBlockPriority_InputPorts());
@@ -808,7 +808,7 @@ void QueuedTelemetryComponentBase ::
 #endif
   }
 
-  // Connect input port QueuedTelemetry
+  // Connect input port typedAsyncDropPriority
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedAsyncDropPriority_InputPorts());
@@ -834,7 +834,7 @@ void QueuedTelemetryComponentBase ::
 #endif
   }
 
-  // Connect input port QueuedTelemetry
+  // Connect input port typedGuarded
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedGuarded_InputPorts());
@@ -860,7 +860,7 @@ void QueuedTelemetryComponentBase ::
 #endif
   }
 
-  // Connect input port QueuedTelemetry
+  // Connect input port typedReturnGuarded
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedReturnGuarded_InputPorts());
@@ -886,7 +886,7 @@ void QueuedTelemetryComponentBase ::
 #endif
   }
 
-  // Connect input port QueuedTelemetry
+  // Connect input port typedReturnSync
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedReturnSync_InputPorts());
@@ -912,7 +912,7 @@ void QueuedTelemetryComponentBase ::
 #endif
   }
 
-  // Connect input port QueuedTelemetry
+  // Connect input port typedSync
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedSync_InputPorts());
@@ -938,7 +938,7 @@ void QueuedTelemetryComponentBase ::
 #endif
   }
 
-  // Connect output port QueuedTelemetry
+  // Connect output port cmdRegOut
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_cmdRegOut_OutputPorts());
@@ -959,7 +959,7 @@ void QueuedTelemetryComponentBase ::
 #endif
   }
 
-  // Connect output port QueuedTelemetry
+  // Connect output port cmdResponseOut
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_cmdResponseOut_OutputPorts());
@@ -980,7 +980,7 @@ void QueuedTelemetryComponentBase ::
 #endif
   }
 
-  // Connect output port QueuedTelemetry
+  // Connect output port eventOut
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_eventOut_OutputPorts());
@@ -1001,7 +1001,7 @@ void QueuedTelemetryComponentBase ::
 #endif
   }
 
-  // Connect output port QueuedTelemetry
+  // Connect output port prmGetOut
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_prmGetOut_OutputPorts());
@@ -1022,7 +1022,7 @@ void QueuedTelemetryComponentBase ::
 #endif
   }
 
-  // Connect output port QueuedTelemetry
+  // Connect output port prmSetOut
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_prmSetOut_OutputPorts());
@@ -1044,7 +1044,7 @@ void QueuedTelemetryComponentBase ::
   }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
-  // Connect output port QueuedTelemetry
+  // Connect output port textEventOut
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_textEventOut_OutputPorts());
@@ -1066,7 +1066,7 @@ void QueuedTelemetryComponentBase ::
   }
 #endif
 
-  // Connect output port QueuedTelemetry
+  // Connect output port timeGetOut
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_timeGetOut_OutputPorts());
@@ -1087,7 +1087,7 @@ void QueuedTelemetryComponentBase ::
 #endif
   }
 
-  // Connect output port QueuedTelemetry
+  // Connect output port tlmOut
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_tlmOut_OutputPorts());
@@ -1108,7 +1108,7 @@ void QueuedTelemetryComponentBase ::
 #endif
   }
 
-  // Connect output port QueuedTelemetry
+  // Connect output port typedOut
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedOut_OutputPorts());
@@ -1129,7 +1129,7 @@ void QueuedTelemetryComponentBase ::
 #endif
   }
 
-  // Connect output port QueuedTelemetry
+  // Connect output port typedReturnOut
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedReturnOut_OutputPorts());
@@ -1149,6 +1149,15 @@ void QueuedTelemetryComponentBase ::
     this->m_typedReturnOut_OutputPort[port].setObjName(portName);
 #endif
   }
+
+  Os::Queue::QueueStatus qStat = this->createQueue(
+    queueDepth,
+    ComponentIpcSerializableBuffer::SERIALIZATION_SIZE
+  );
+  FW_ASSERT(
+    Os::Queue::QUEUE_OK == qStat,
+    static_cast<FwAssertArgType>(qStat)
+  );
 }
 
 QueuedTelemetryComponentBase ::
@@ -1465,7 +1474,7 @@ void QueuedTelemetryComponentBase ::
 
   // Serialize message ID
   _status = msg.serialize(
-    static_cast<NATIVE_INT_TYPE>(NOARGSASYNC_TYPED)
+    static_cast<NATIVE_INT_TYPE>(NOARGSASYNC_NOARGS)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -2753,7 +2762,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTelemetryComponentBase ::
 
   switch (msgType) {
     // Handle async input port noArgsAsync
-    case NOARGSASYNC_TYPED: {
+    case NOARGSASYNC_NOARGS: {
       // Call handler function
       this->noArgsAsync_handler(portNum);
 

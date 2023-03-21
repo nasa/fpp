@@ -15,7 +15,7 @@
 namespace {
   enum MsgTypeEnum {
     ACTIVESERIAL_COMPONENT_EXIT = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT,
-    NOARGSASYNC_TYPED,
+    NOARGSASYNC_NOARGS,
     TYPEDASYNC_TYPED,
     TYPEDASYNCASSERT_TYPED,
     TYPEDASYNCBLOCKPRIORITY_TYPED,
@@ -1035,7 +1035,7 @@ void ActiveSerialComponentBase ::
   // Initialize base class
   Fw::ActiveComponentBase::init(instance);
 
-  // Connect input port ActiveSerial
+  // Connect input port cmdIn
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_cmdIn_InputPorts());
@@ -1061,7 +1061,7 @@ void ActiveSerialComponentBase ::
 #endif
   }
 
-  // Connect input port ActiveSerial
+  // Connect input port noArgsAsync
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_noArgsAsync_InputPorts());
@@ -1087,7 +1087,7 @@ void ActiveSerialComponentBase ::
 #endif
   }
 
-  // Connect input port ActiveSerial
+  // Connect input port noArgsGuarded
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_noArgsGuarded_InputPorts());
@@ -1113,7 +1113,7 @@ void ActiveSerialComponentBase ::
 #endif
   }
 
-  // Connect input port ActiveSerial
+  // Connect input port noArgsReturnGuarded
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_noArgsReturnGuarded_InputPorts());
@@ -1139,7 +1139,7 @@ void ActiveSerialComponentBase ::
 #endif
   }
 
-  // Connect input port ActiveSerial
+  // Connect input port noArgsReturnSync
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_noArgsReturnSync_InputPorts());
@@ -1165,7 +1165,7 @@ void ActiveSerialComponentBase ::
 #endif
   }
 
-  // Connect input port ActiveSerial
+  // Connect input port noArgsSync
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_noArgsSync_InputPorts());
@@ -1191,7 +1191,7 @@ void ActiveSerialComponentBase ::
 #endif
   }
 
-  // Connect input port ActiveSerial
+  // Connect input port typedAsync
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedAsync_InputPorts());
@@ -1217,7 +1217,7 @@ void ActiveSerialComponentBase ::
 #endif
   }
 
-  // Connect input port ActiveSerial
+  // Connect input port typedAsyncAssert
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedAsyncAssert_InputPorts());
@@ -1243,7 +1243,7 @@ void ActiveSerialComponentBase ::
 #endif
   }
 
-  // Connect input port ActiveSerial
+  // Connect input port typedAsyncBlockPriority
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedAsyncBlockPriority_InputPorts());
@@ -1269,7 +1269,7 @@ void ActiveSerialComponentBase ::
 #endif
   }
 
-  // Connect input port ActiveSerial
+  // Connect input port typedAsyncDropPriority
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedAsyncDropPriority_InputPorts());
@@ -1295,7 +1295,7 @@ void ActiveSerialComponentBase ::
 #endif
   }
 
-  // Connect input port ActiveSerial
+  // Connect input port typedGuarded
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedGuarded_InputPorts());
@@ -1321,7 +1321,7 @@ void ActiveSerialComponentBase ::
 #endif
   }
 
-  // Connect input port ActiveSerial
+  // Connect input port typedReturnGuarded
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedReturnGuarded_InputPorts());
@@ -1347,7 +1347,7 @@ void ActiveSerialComponentBase ::
 #endif
   }
 
-  // Connect input port ActiveSerial
+  // Connect input port typedReturnSync
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedReturnSync_InputPorts());
@@ -1373,7 +1373,7 @@ void ActiveSerialComponentBase ::
 #endif
   }
 
-  // Connect input port ActiveSerial
+  // Connect input port typedSync
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedSync_InputPorts());
@@ -1399,7 +1399,7 @@ void ActiveSerialComponentBase ::
 #endif
   }
 
-  // Connect input port ActiveSerial
+  // Connect input port serialAsync
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_serialAsync_InputPorts());
@@ -1425,7 +1425,7 @@ void ActiveSerialComponentBase ::
 #endif
   }
 
-  // Connect input port ActiveSerial
+  // Connect input port serialAsyncAssert
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_serialAsyncAssert_InputPorts());
@@ -1451,7 +1451,7 @@ void ActiveSerialComponentBase ::
 #endif
   }
 
-  // Connect input port ActiveSerial
+  // Connect input port serialAsyncBlockPriority
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_serialAsyncBlockPriority_InputPorts());
@@ -1477,7 +1477,7 @@ void ActiveSerialComponentBase ::
 #endif
   }
 
-  // Connect input port ActiveSerial
+  // Connect input port serialAsyncDropPriority
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_serialAsyncDropPriority_InputPorts());
@@ -1503,7 +1503,7 @@ void ActiveSerialComponentBase ::
 #endif
   }
 
-  // Connect input port ActiveSerial
+  // Connect input port serialGuarded
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_serialGuarded_InputPorts());
@@ -1529,7 +1529,7 @@ void ActiveSerialComponentBase ::
 #endif
   }
 
-  // Connect input port ActiveSerial
+  // Connect input port serialSync
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_serialSync_InputPorts());
@@ -1555,7 +1555,7 @@ void ActiveSerialComponentBase ::
 #endif
   }
 
-  // Connect output port ActiveSerial
+  // Connect output port cmdRegOut
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_cmdRegOut_OutputPorts());
@@ -1576,7 +1576,7 @@ void ActiveSerialComponentBase ::
 #endif
   }
 
-  // Connect output port ActiveSerial
+  // Connect output port cmdResponseOut
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_cmdResponseOut_OutputPorts());
@@ -1597,7 +1597,7 @@ void ActiveSerialComponentBase ::
 #endif
   }
 
-  // Connect output port ActiveSerial
+  // Connect output port eventOut
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_eventOut_OutputPorts());
@@ -1618,7 +1618,7 @@ void ActiveSerialComponentBase ::
 #endif
   }
 
-  // Connect output port ActiveSerial
+  // Connect output port prmGetOut
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_prmGetOut_OutputPorts());
@@ -1639,7 +1639,7 @@ void ActiveSerialComponentBase ::
 #endif
   }
 
-  // Connect output port ActiveSerial
+  // Connect output port prmSetOut
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_prmSetOut_OutputPorts());
@@ -1661,7 +1661,7 @@ void ActiveSerialComponentBase ::
   }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
-  // Connect output port ActiveSerial
+  // Connect output port textEventOut
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_textEventOut_OutputPorts());
@@ -1683,7 +1683,7 @@ void ActiveSerialComponentBase ::
   }
 #endif
 
-  // Connect output port ActiveSerial
+  // Connect output port timeGetOut
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_timeGetOut_OutputPorts());
@@ -1704,7 +1704,7 @@ void ActiveSerialComponentBase ::
 #endif
   }
 
-  // Connect output port ActiveSerial
+  // Connect output port tlmOut
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_tlmOut_OutputPorts());
@@ -1725,7 +1725,7 @@ void ActiveSerialComponentBase ::
 #endif
   }
 
-  // Connect output port ActiveSerial
+  // Connect output port typedOut
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedOut_OutputPorts());
@@ -1746,7 +1746,7 @@ void ActiveSerialComponentBase ::
 #endif
   }
 
-  // Connect output port ActiveSerial
+  // Connect output port typedReturnOut
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedReturnOut_OutputPorts());
@@ -1767,7 +1767,7 @@ void ActiveSerialComponentBase ::
 #endif
   }
 
-  // Connect output port ActiveSerial
+  // Connect output port serialOut
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_serialOut_OutputPorts());
@@ -1787,6 +1787,21 @@ void ActiveSerialComponentBase ::
     this->m_serialOut_OutputPort[port].setObjName(portName);
 #endif
   }
+
+  // Passed-in size added to port number and message type enumeration sizes.
+  // NATIVE_INT_TYPE cast because of compiler warning.
+  this->m_msgSize = FW_MAX(
+    msgSize +
+    static_cast<NATIVE_INT_TYPE>(sizeof(NATIVE_INT_TYPE)) +
+    static_cast<NATIVE_INT_TYPE>(sizeof(I32)),
+    static_cast<NATIVE_INT_TYPE>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE)
+  );
+
+  Os::Queue::QueueStatus qStat = this->createQueue(queueDepth, this->m_msgSize);
+  FW_ASSERT(
+    Os::Queue::QUEUE_OK == qStat,
+    static_cast<FwAssertArgType>(qStat)
+  );
 }
 
 ActiveSerialComponentBase ::
@@ -2168,7 +2183,7 @@ void ActiveSerialComponentBase ::
 
   // Serialize message ID
   _status = msg.serialize(
-    static_cast<NATIVE_INT_TYPE>(NOARGSASYNC_TYPED)
+    static_cast<NATIVE_INT_TYPE>(NOARGSASYNC_NOARGS)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -5807,7 +5822,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveSerialComponentBase ::
 
   switch (msgType) {
     // Handle async input port noArgsAsync
-    case NOARGSASYNC_TYPED: {
+    case NOARGSASYNC_NOARGS: {
       // Call handler function
       this->noArgsAsync_handler(portNum);
 
