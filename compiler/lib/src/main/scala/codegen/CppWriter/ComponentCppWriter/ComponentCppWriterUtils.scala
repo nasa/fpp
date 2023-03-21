@@ -464,7 +464,7 @@ abstract class ComponentCppWriterUtils(
 
   /** Get the name for a general port enumerated constant in cpp file */
   def generalPortCppConstantName(p: PortInstance.General) =
-    s"${p.getUnqualifiedName}_${getPortTypeString(p)}".toUpperCase
+    s"${p.getUnqualifiedName}_${getPortTypeBaseName(p)}".toUpperCase
 
   /** Get the name for an internal port enumerated constant in cpp file */
   def internalPortCppConstantName(p: PortInstance.Internal) =
@@ -541,6 +541,16 @@ abstract class ComponentCppWriterUtils(
   /** Get the name for a parameter validity flag variable */
   def paramValidityFlagName(name: String) =
     s"m_param_${name}_valid"
+
+  private def getPortTypeBaseName(
+    p: PortInstance,
+  ): String = {
+    p.getType match {
+      case Some(PortInstance.Type.DefPort(symbol)) => symbol.getUnqualifiedName
+      case Some(PortInstance.Type.Serial) => "serial"
+      case None => ""
+    }
+  }
 
   /** Write a general port param as a C++ type */
   private def getGeneralPortParam(param: Ast.FormalParam, symbol: Symbol.Port) =

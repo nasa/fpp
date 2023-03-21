@@ -383,7 +383,7 @@ case class ComponentCppWriter (
     }
     def writePortConnections(port: PortInstance) = {
       val d = port.getDirection.get
-      val body = line(s"// Connect ${d.toString} port $name") ::
+      val body = line(s"// Connect ${d.toString} port ${port.getUnqualifiedName}") ::
         wrapInForLoopStaggered(
           "PlatformIntType port = 0",
           s"port < static_cast<PlatformIntType>(this->${portNumGetterName(port)}())",
@@ -513,7 +513,39 @@ case class ComponentCppWriter (
                   intersperseBlankLines(serialInputPorts.map(writePortConnections)),
                   intersperseBlankLines(specialOutputPorts.map(writePortConnections)),
                   intersperseBlankLines(typedOutputPorts.map(writePortConnections)),
-                  intersperseBlankLines(serialOutputPorts.map(writePortConnections))
+                  intersperseBlankLines(serialOutputPorts.map(writePortConnections)),
+                  data.kind match {
+                    case Ast.ComponentKind.Passive => Nil
+                    case _ => List.concat(
+                      if hasSerialAsyncInputPorts then lines(
+                        """|// Passed-in size added to port number and message type enumeration sizes.
+                           |// NATIVE_INT_TYPE cast because of compiler warning.
+                           |this->m_msgSize = FW_MAX(
+                           |  msgSize +
+                           |  static_cast<NATIVE_INT_TYPE>(sizeof(NATIVE_INT_TYPE)) +
+                           |  static_cast<NATIVE_INT_TYPE>(sizeof(I32)),
+                           |  static_cast<NATIVE_INT_TYPE>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE)
+                           |);
+                           |
+                           |Os::Queue::QueueStatus qStat = this->createQueue(queueDepth, this->m_msgSize);
+                           |"""
+                      )
+                      else lines(
+                        """|Os::Queue::QueueStatus qStat = this->createQueue(
+                           |  queueDepth,
+                           |  ComponentIpcSerializableBuffer::SERIALIZATION_SIZE
+                           |);
+                           |"""
+                      ),
+                      lines(
+                        """|FW_ASSERT(
+                           |  Os::Queue::QUEUE_OK == qStat,
+                           |  static_cast<FwAssertArgType>(qStat)
+                           |);
+                           |"""
+                      )
+                    )
+                  }
                 )
               )
             )
