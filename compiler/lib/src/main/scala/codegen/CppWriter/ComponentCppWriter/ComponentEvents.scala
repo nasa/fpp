@@ -103,7 +103,7 @@ case class ComponentEvents (
                 case None => Nil
                 case Some(_) => lines(
                   s"""|// Check throttle value
-                      |if (this->${eventThrottleCounterName(event.getName)} >= ${eventIdConstantName(event.getName)}) {
+                      |if (this->${eventThrottleCounterName(event.getName)} >= ${eventThrottleConstantName(event.getName)}) {
                       |  return;
                       |}
                       |else {
