@@ -1571,7 +1571,7 @@ void PassiveEventsComponentBase ::
   )
 {
   // Check throttle value
-  if (this->m_EventActivityLowThrottledThrottle >= EVENTID_EVENTACTIVITYLOWTHROTTLED) {
+  if (this->m_EventActivityLowThrottledThrottle >= EVENTID_EVENTACTIVITYLOWTHROTTLED_THROTTLE) {
     return;
   }
   else {
@@ -1880,7 +1880,7 @@ void PassiveEventsComponentBase ::
   log_FATAL_EventFatalThrottled(A a)
 {
   // Check throttle value
-  if (this->m_EventFatalThrottledThrottle >= EVENTID_EVENTFATALTHROTTLED) {
+  if (this->m_EventFatalThrottledThrottle >= EVENTID_EVENTFATALTHROTTLED_THROTTLE) {
     return;
   }
   else {
@@ -2083,7 +2083,7 @@ void PassiveEventsComponentBase ::
   log_WARNING_LO_EventWarningLowThrottled()
 {
   // Check throttle value
-  if (this->m_EventWarningLowThrottledThrottle >= EVENTID_EVENTWARNINGLOWTHROTTLED) {
+  if (this->m_EventWarningLowThrottledThrottle >= EVENTID_EVENTWARNINGLOWTHROTTLED_THROTTLE) {
     return;
   }
   else {
