@@ -351,47 +351,74 @@ case class EnumCppWriter(
         )
       )
     ) ++
-      wrapClassMembersInIfDirective(
-        "\n#if FW_SERIALIZABLE_TO_STRING || BUILD_UT",
+      List.concat(
         List(
-          functionClassMember(
-            Some(s"Convert enum to string"),
-            "toString",
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type("Fw::StringBase&"),
-                "sb",
-                Some("The StringBase object to hold the result")
-              )
+          linesClassMember(
+            lines("\n#if FW_SERIALIZABLE_TO_STRING || BUILD_UT"),
+            CppDoc.Lines.Cpp
+          )
+        ),
+        wrapClassMembersInIfDirective(
+          "\n#if FW_SERIALIZABLE_TO_STRING || FW_ENABLE_TEXT_LOGGING || BUILD_UT",
+          List(
+            functionClassMember(
+              Some(s"Convert enum to string"),
+              "toString",
+              List(
+                CppDoc.Function.Param(
+                  CppDoc.Type("Fw::StringBase&"),
+                  "sb",
+                  Some("The StringBase object to hold the result")
+                )
+              ),
+              CppDoc.Type("void"),
+              List(
+                lines(
+                  s"""|Fw::String s;"""
+                ),
+                wrapInScope(
+                  "switch (e) {",
+                  data.constants.flatMap(aNode => {
+                    val enumName = aNode._2.data.name
+                    lines(
+                      s"""|case $enumName:
+                          |  s = "$enumName";
+                          |  break;"""
+                    )
+                  }) ++
+                    lines(
+                      """|default:
+                         |  s = "[invalid]";
+                         |  break;"""
+                    ),
+                  "}"
+                ),
+                lines(
+                  s"""|sb.format("%s ($writeFormatStr)", s.toChar(), e);"""
+                )
+              ).flatten,
+              CppDoc.Function.NonSV,
+              CppDoc.Function.Const
+            )
+          ),
+          CppDoc.Lines.Hpp
+        ),
+        List(
+          linesClassMember(
+            lines(
+              s"""|
+                  |#elif FW_ENABLE_TEXT_LOGGING
+                  |
+                  |void SerializeType ::
+                  |  toString(Fw::StringBase& sb) const
+                  |{
+                  |  sb.format("$writeFormatStr", e);
+                  |}
+                  |
+                  |#endif
+                  |"""
             ),
-            CppDoc.Type("void"),
-            List(
-              lines(
-                s"""|Fw::String s;"""
-              ),
-              wrapInScope(
-                "switch (e) {",
-                data.constants.flatMap(aNode => {
-                  val enumName = aNode._2.data.name
-                  lines(
-                    s"""|case $enumName:
-                        |  s = "$enumName";
-                        |  break;"""
-                  )
-                }) ++
-                  lines(
-                    """|default:
-                       |  s = "[invalid]";
-                       |  break;"""
-                  ),
-                "}"
-              ),
-              lines(
-                """|sb.format("%s (%d)", s.toChar(), e);"""
-              )
-            ).flatten,
-            CppDoc.Function.NonSV,
-            CppDoc.Function.Const
+            CppDoc.Lines.Cpp
           )
         )
       )
@@ -420,6 +447,15 @@ case class EnumCppWriter(
   private def writeIntervals(cs: List[EnumCppWriter.Interval]) =
     line(writeInterval(cs.head)) ::
     cs.tail.map(c => line(s"|| ${writeInterval(c)}")).map(indentIn)
+
+  private def writeFormatStr = {
+    val typeName = data.typeName match {
+      case Some(AstNode(Ast.TypeNameInt(name), _)) => name
+      case _ => Ast.I32()
+    }
+    FormatCppWriter.getDecimalFormat(typeName)
+  }
+
 }
 
 object EnumCppWriter {
