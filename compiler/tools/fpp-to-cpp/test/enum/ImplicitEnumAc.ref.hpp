@@ -141,7 +141,7 @@ namespace M {
           Fw::SerializeBufferBase& buffer //!< The serial buffer
       );
 
-#if FW_SERIALIZABLE_TO_STRING || BUILD_UT
+#if FW_SERIALIZABLE_TO_STRING || FW_ENABLE_TEXT_LOGGING || BUILD_UT
 
       //! Convert enum to string
       void toString(
