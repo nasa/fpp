@@ -304,14 +304,14 @@ case class ComponentCppWriter (
             )
             case None => Nil
           },
-          internalPorts.flatMap(p => p.aNode._2.data.params match {
-            case Nil => Nil
-            case l =>
-              line(s"// Size of ${p.getUnqualifiedName} argument list") ::
-                wrapInScope(
+          internalPorts.flatMap(p =>
+            line(s"// Size of ${p.getUnqualifiedName} argument list") ::
+              (p.aNode._2.data.params match {
+                case Nil => lines(s"BYTE ${p.getUnqualifiedName}IntIfSize[0];")
+                case _ => wrapInScope(
                   s"BYTE ${p.getUnqualifiedName}IntIfSize[",
                   lines(
-                    l.map(param =>
+                    p.aNode._2.data.params.map(param =>
                       s.getSerializedSizeExpr(
                         s.a.typeMap(param._2.data.typeName.id),
                         getInternalPortParam(param._2.data)
@@ -320,7 +320,8 @@ case class ComponentCppWriter (
                   ),
                   "];"
                 )
-          }),
+              })
+          )
         ).flatten,
         "};"
       )
