@@ -96,7 +96,7 @@ namespace M {
 
 #elif FW_ENABLE_TEXT_LOGGING
 
-  void SerializeType ::
+  void Explicit ::
     toString(Fw::StringBase& sb) const
   {
     sb.format("%" PRIu8 "", e);

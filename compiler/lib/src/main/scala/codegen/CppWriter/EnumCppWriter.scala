@@ -409,7 +409,7 @@ case class EnumCppWriter(
               s"""|
                   |#elif FW_ENABLE_TEXT_LOGGING
                   |
-                  |void SerializeType ::
+                  |void $name ::
                   |  toString(Fw::StringBase& sb) const
                   |{
                   |  sb.format("$writeFormatStr", e);

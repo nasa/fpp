@@ -94,7 +94,7 @@ void C_E ::
 
 #elif FW_ENABLE_TEXT_LOGGING
 
-void SerializeType ::
+void C_E ::
   toString(Fw::StringBase& sb) const
 {
   sb.format("%" PRIi32 "", e);
