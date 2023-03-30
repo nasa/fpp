@@ -1,3 +1,5 @@
+CComponentAc.cpp
+CComponentAc.hpp
 C_E3EnumAc.cpp
 C_E3EnumAc.hpp
 E1EnumAc.cpp

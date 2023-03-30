@@ -15,7 +15,7 @@
 namespace {
   enum MsgTypeEnum {
     ACTIVEEVENTS_COMPONENT_EXIT = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT,
-    NOARGSASYNC_TYPED,
+    NOARGSASYNC_NOARGS,
     TYPEDASYNC_TYPED,
     TYPEDASYNCASSERT_TYPED,
     TYPEDASYNCBLOCKPRIORITY_TYPED,
@@ -571,7 +571,7 @@ void ActiveEventsComponentBase ::
   // Initialize base class
   Fw::ActiveComponentBase::init(instance);
 
-  // Connect input port ActiveEvents
+  // Connect input port cmdIn
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_cmdIn_InputPorts());
@@ -597,7 +597,7 @@ void ActiveEventsComponentBase ::
 #endif
   }
 
-  // Connect input port ActiveEvents
+  // Connect input port noArgsAsync
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_noArgsAsync_InputPorts());
@@ -623,7 +623,7 @@ void ActiveEventsComponentBase ::
 #endif
   }
 
-  // Connect input port ActiveEvents
+  // Connect input port noArgsGuarded
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_noArgsGuarded_InputPorts());
@@ -649,7 +649,7 @@ void ActiveEventsComponentBase ::
 #endif
   }
 
-  // Connect input port ActiveEvents
+  // Connect input port noArgsReturnGuarded
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_noArgsReturnGuarded_InputPorts());
@@ -675,7 +675,7 @@ void ActiveEventsComponentBase ::
 #endif
   }
 
-  // Connect input port ActiveEvents
+  // Connect input port noArgsReturnSync
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_noArgsReturnSync_InputPorts());
@@ -701,7 +701,7 @@ void ActiveEventsComponentBase ::
 #endif
   }
 
-  // Connect input port ActiveEvents
+  // Connect input port noArgsSync
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_noArgsSync_InputPorts());
@@ -727,7 +727,7 @@ void ActiveEventsComponentBase ::
 #endif
   }
 
-  // Connect input port ActiveEvents
+  // Connect input port typedAsync
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedAsync_InputPorts());
@@ -753,7 +753,7 @@ void ActiveEventsComponentBase ::
 #endif
   }
 
-  // Connect input port ActiveEvents
+  // Connect input port typedAsyncAssert
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedAsyncAssert_InputPorts());
@@ -779,7 +779,7 @@ void ActiveEventsComponentBase ::
 #endif
   }
 
-  // Connect input port ActiveEvents
+  // Connect input port typedAsyncBlockPriority
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedAsyncBlockPriority_InputPorts());
@@ -805,7 +805,7 @@ void ActiveEventsComponentBase ::
 #endif
   }
 
-  // Connect input port ActiveEvents
+  // Connect input port typedAsyncDropPriority
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedAsyncDropPriority_InputPorts());
@@ -831,7 +831,7 @@ void ActiveEventsComponentBase ::
 #endif
   }
 
-  // Connect input port ActiveEvents
+  // Connect input port typedGuarded
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedGuarded_InputPorts());
@@ -857,7 +857,7 @@ void ActiveEventsComponentBase ::
 #endif
   }
 
-  // Connect input port ActiveEvents
+  // Connect input port typedReturnGuarded
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedReturnGuarded_InputPorts());
@@ -883,7 +883,7 @@ void ActiveEventsComponentBase ::
 #endif
   }
 
-  // Connect input port ActiveEvents
+  // Connect input port typedReturnSync
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedReturnSync_InputPorts());
@@ -909,7 +909,7 @@ void ActiveEventsComponentBase ::
 #endif
   }
 
-  // Connect input port ActiveEvents
+  // Connect input port typedSync
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedSync_InputPorts());
@@ -935,7 +935,7 @@ void ActiveEventsComponentBase ::
 #endif
   }
 
-  // Connect output port ActiveEvents
+  // Connect output port cmdRegOut
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_cmdRegOut_OutputPorts());
@@ -956,7 +956,7 @@ void ActiveEventsComponentBase ::
 #endif
   }
 
-  // Connect output port ActiveEvents
+  // Connect output port cmdResponseOut
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_cmdResponseOut_OutputPorts());
@@ -977,7 +977,7 @@ void ActiveEventsComponentBase ::
 #endif
   }
 
-  // Connect output port ActiveEvents
+  // Connect output port eventOut
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_eventOut_OutputPorts());
@@ -998,7 +998,7 @@ void ActiveEventsComponentBase ::
 #endif
   }
 
-  // Connect output port ActiveEvents
+  // Connect output port prmGetOut
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_prmGetOut_OutputPorts());
@@ -1019,7 +1019,7 @@ void ActiveEventsComponentBase ::
 #endif
   }
 
-  // Connect output port ActiveEvents
+  // Connect output port prmSetOut
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_prmSetOut_OutputPorts());
@@ -1041,7 +1041,7 @@ void ActiveEventsComponentBase ::
   }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
-  // Connect output port ActiveEvents
+  // Connect output port textEventOut
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_textEventOut_OutputPorts());
@@ -1063,7 +1063,7 @@ void ActiveEventsComponentBase ::
   }
 #endif
 
-  // Connect output port ActiveEvents
+  // Connect output port timeGetOut
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_timeGetOut_OutputPorts());
@@ -1084,7 +1084,7 @@ void ActiveEventsComponentBase ::
 #endif
   }
 
-  // Connect output port ActiveEvents
+  // Connect output port tlmOut
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_tlmOut_OutputPorts());
@@ -1105,7 +1105,7 @@ void ActiveEventsComponentBase ::
 #endif
   }
 
-  // Connect output port ActiveEvents
+  // Connect output port typedOut
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedOut_OutputPorts());
@@ -1126,7 +1126,7 @@ void ActiveEventsComponentBase ::
 #endif
   }
 
-  // Connect output port ActiveEvents
+  // Connect output port typedReturnOut
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedReturnOut_OutputPorts());
@@ -1146,6 +1146,15 @@ void ActiveEventsComponentBase ::
     this->m_typedReturnOut_OutputPort[port].setObjName(portName);
 #endif
   }
+
+  Os::Queue::QueueStatus qStat = this->createQueue(
+    queueDepth,
+    ComponentIpcSerializableBuffer::SERIALIZATION_SIZE
+  );
+  FW_ASSERT(
+    Os::Queue::QUEUE_OK == qStat,
+    static_cast<FwAssertArgType>(qStat)
+  );
 }
 
 ActiveEventsComponentBase ::
@@ -1462,7 +1471,7 @@ void ActiveEventsComponentBase ::
 
   // Serialize message ID
   _status = msg.serialize(
-    static_cast<NATIVE_INT_TYPE>(NOARGSASYNC_TYPED)
+    static_cast<NATIVE_INT_TYPE>(NOARGSASYNC_NOARGS)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -2350,7 +2359,7 @@ void ActiveEventsComponentBase ::
   )
 {
   // Check throttle value
-  if (this->m_EventActivityLowThrottledThrottle >= EVENTID_EVENTACTIVITYLOWTHROTTLED) {
+  if (this->m_EventActivityLowThrottledThrottle >= EVENTID_EVENTACTIVITYLOWTHROTTLED_THROTTLE) {
     return;
   }
   else {
@@ -2659,7 +2668,7 @@ void ActiveEventsComponentBase ::
   log_FATAL_EventFatalThrottled(A a)
 {
   // Check throttle value
-  if (this->m_EventFatalThrottledThrottle >= EVENTID_EVENTFATALTHROTTLED) {
+  if (this->m_EventFatalThrottledThrottle >= EVENTID_EVENTFATALTHROTTLED_THROTTLE) {
     return;
   }
   else {
@@ -2862,7 +2871,7 @@ void ActiveEventsComponentBase ::
   log_WARNING_LO_EventWarningLowThrottled()
 {
   // Check throttle value
-  if (this->m_EventWarningLowThrottledThrottle >= EVENTID_EVENTWARNINGLOWTHROTTLED) {
+  if (this->m_EventWarningLowThrottledThrottle >= EVENTID_EVENTWARNINGLOWTHROTTLED_THROTTLE) {
     return;
   }
   else {
@@ -3043,7 +3052,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveEventsComponentBase ::
 
   switch (msgType) {
     // Handle async input port noArgsAsync
-    case NOARGSASYNC_TYPED: {
+    case NOARGSASYNC_NOARGS: {
       // Call handler function
       this->noArgsAsync_handler(portNum);
 

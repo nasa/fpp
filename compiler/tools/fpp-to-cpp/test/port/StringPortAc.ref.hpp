@@ -121,6 +121,15 @@ namespace StringPortStrings {
 
 }
 
+// ----------------------------------------------------------------------
+// String types for backwards compatibility
+// ----------------------------------------------------------------------
+
+typedef StringPortStrings::StringSize80 str80String;
+typedef StringPortStrings::StringSize80 str80RefString;
+typedef StringPortStrings::StringSize100 str100String;
+typedef StringPortStrings::StringSize100 str100RefString;
+
 //! Input String port
 //! A port with string parameters
 class InputStringPort :
