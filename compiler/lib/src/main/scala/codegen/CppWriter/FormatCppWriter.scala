@@ -8,13 +8,16 @@ import fpp.compiler.util._
  *  Uses PRI macros from cinttypes header for formatting integer types */
 object FormatCppWriter {
 
-  /** Write an FPP format field as a C++ format string */
-  def writeField(f: Format.Field, tn: AstNode[Ast.TypeName]): String = {
-    import Format.Field._
-    def getDecimalFormat(name: Ast.TypeInt) = (TypeUtils.signedness(name), TypeUtils.width(name)) match {
+  /** Get the PRI macro for a decimal integer type */
+  def getDecimalFormat(name: Ast.TypeInt): String =
+    (TypeUtils.signedness(name), TypeUtils.width(name)) match {
       case (TypeUtils.Unsigned, w) => s"%\" PRIu${w.toString} \""
       case (TypeUtils.Signed, w) => s"%\" PRIi${w.toString} \""
     }
+
+  /** Write an FPP format field as a C++ format string */
+  def writeField(f: Format.Field, tn: AstNode[Ast.TypeName]): String = {
+    import Format.Field._
     def default = tn.data match {
       case Ast.TypeNameFloat(_) => "%f"
       case Ast.TypeNameInt(name) => getDecimalFormat(name)
