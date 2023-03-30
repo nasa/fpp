@@ -15,7 +15,7 @@
 namespace {
   enum MsgTypeEnum {
     QUEUEDSERIAL_COMPONENT_EXIT = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT,
-    NOARGSASYNC_NOARGS,
+    NOARGSASYNC_TYPED,
     TYPEDASYNC_TYPED,
     TYPEDASYNCASSERT_TYPED,
     TYPEDASYNCBLOCKPRIORITY_TYPED,
@@ -67,6 +67,8 @@ namespace {
       sizeof(F32) +
       sizeof(U8)
     ];
+    // Size of internalPriorityDrop argument list
+    BYTE internalPriorityDropIntIfSize[0];
     // Size of internalString argument list
     BYTE internalStringIntIfSize[
       Fw::InternalInterfaceString::SERIALIZED_SIZE +
@@ -1035,7 +1037,7 @@ void QueuedSerialComponentBase ::
   // Initialize base class
   Fw::QueuedComponentBase::init(instance);
 
-  // Connect input port cmdIn
+  // Connect input port QueuedSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_cmdIn_InputPorts());
@@ -1061,7 +1063,7 @@ void QueuedSerialComponentBase ::
 #endif
   }
 
-  // Connect input port noArgsAsync
+  // Connect input port QueuedSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_noArgsAsync_InputPorts());
@@ -1087,7 +1089,7 @@ void QueuedSerialComponentBase ::
 #endif
   }
 
-  // Connect input port noArgsGuarded
+  // Connect input port QueuedSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_noArgsGuarded_InputPorts());
@@ -1113,7 +1115,7 @@ void QueuedSerialComponentBase ::
 #endif
   }
 
-  // Connect input port noArgsReturnGuarded
+  // Connect input port QueuedSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_noArgsReturnGuarded_InputPorts());
@@ -1139,7 +1141,7 @@ void QueuedSerialComponentBase ::
 #endif
   }
 
-  // Connect input port noArgsReturnSync
+  // Connect input port QueuedSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_noArgsReturnSync_InputPorts());
@@ -1165,7 +1167,7 @@ void QueuedSerialComponentBase ::
 #endif
   }
 
-  // Connect input port noArgsSync
+  // Connect input port QueuedSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_noArgsSync_InputPorts());
@@ -1191,7 +1193,7 @@ void QueuedSerialComponentBase ::
 #endif
   }
 
-  // Connect input port typedAsync
+  // Connect input port QueuedSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedAsync_InputPorts());
@@ -1217,7 +1219,7 @@ void QueuedSerialComponentBase ::
 #endif
   }
 
-  // Connect input port typedAsyncAssert
+  // Connect input port QueuedSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedAsyncAssert_InputPorts());
@@ -1243,7 +1245,7 @@ void QueuedSerialComponentBase ::
 #endif
   }
 
-  // Connect input port typedAsyncBlockPriority
+  // Connect input port QueuedSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedAsyncBlockPriority_InputPorts());
@@ -1269,7 +1271,7 @@ void QueuedSerialComponentBase ::
 #endif
   }
 
-  // Connect input port typedAsyncDropPriority
+  // Connect input port QueuedSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedAsyncDropPriority_InputPorts());
@@ -1295,7 +1297,7 @@ void QueuedSerialComponentBase ::
 #endif
   }
 
-  // Connect input port typedGuarded
+  // Connect input port QueuedSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedGuarded_InputPorts());
@@ -1321,7 +1323,7 @@ void QueuedSerialComponentBase ::
 #endif
   }
 
-  // Connect input port typedReturnGuarded
+  // Connect input port QueuedSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedReturnGuarded_InputPorts());
@@ -1347,7 +1349,7 @@ void QueuedSerialComponentBase ::
 #endif
   }
 
-  // Connect input port typedReturnSync
+  // Connect input port QueuedSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedReturnSync_InputPorts());
@@ -1373,7 +1375,7 @@ void QueuedSerialComponentBase ::
 #endif
   }
 
-  // Connect input port typedSync
+  // Connect input port QueuedSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedSync_InputPorts());
@@ -1399,7 +1401,7 @@ void QueuedSerialComponentBase ::
 #endif
   }
 
-  // Connect input port serialAsync
+  // Connect input port QueuedSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_serialAsync_InputPorts());
@@ -1425,7 +1427,7 @@ void QueuedSerialComponentBase ::
 #endif
   }
 
-  // Connect input port serialAsyncAssert
+  // Connect input port QueuedSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_serialAsyncAssert_InputPorts());
@@ -1451,7 +1453,7 @@ void QueuedSerialComponentBase ::
 #endif
   }
 
-  // Connect input port serialAsyncBlockPriority
+  // Connect input port QueuedSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_serialAsyncBlockPriority_InputPorts());
@@ -1477,7 +1479,7 @@ void QueuedSerialComponentBase ::
 #endif
   }
 
-  // Connect input port serialAsyncDropPriority
+  // Connect input port QueuedSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_serialAsyncDropPriority_InputPorts());
@@ -1503,7 +1505,7 @@ void QueuedSerialComponentBase ::
 #endif
   }
 
-  // Connect input port serialGuarded
+  // Connect input port QueuedSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_serialGuarded_InputPorts());
@@ -1529,7 +1531,7 @@ void QueuedSerialComponentBase ::
 #endif
   }
 
-  // Connect input port serialSync
+  // Connect input port QueuedSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_serialSync_InputPorts());
@@ -1555,7 +1557,7 @@ void QueuedSerialComponentBase ::
 #endif
   }
 
-  // Connect output port cmdRegOut
+  // Connect output port QueuedSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_cmdRegOut_OutputPorts());
@@ -1576,7 +1578,7 @@ void QueuedSerialComponentBase ::
 #endif
   }
 
-  // Connect output port cmdResponseOut
+  // Connect output port QueuedSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_cmdResponseOut_OutputPorts());
@@ -1597,7 +1599,7 @@ void QueuedSerialComponentBase ::
 #endif
   }
 
-  // Connect output port eventOut
+  // Connect output port QueuedSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_eventOut_OutputPorts());
@@ -1618,7 +1620,7 @@ void QueuedSerialComponentBase ::
 #endif
   }
 
-  // Connect output port prmGetOut
+  // Connect output port QueuedSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_prmGetOut_OutputPorts());
@@ -1639,7 +1641,7 @@ void QueuedSerialComponentBase ::
 #endif
   }
 
-  // Connect output port prmSetOut
+  // Connect output port QueuedSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_prmSetOut_OutputPorts());
@@ -1661,7 +1663,7 @@ void QueuedSerialComponentBase ::
   }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
-  // Connect output port textEventOut
+  // Connect output port QueuedSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_textEventOut_OutputPorts());
@@ -1683,7 +1685,7 @@ void QueuedSerialComponentBase ::
   }
 #endif
 
-  // Connect output port timeGetOut
+  // Connect output port QueuedSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_timeGetOut_OutputPorts());
@@ -1704,7 +1706,7 @@ void QueuedSerialComponentBase ::
 #endif
   }
 
-  // Connect output port tlmOut
+  // Connect output port QueuedSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_tlmOut_OutputPorts());
@@ -1725,7 +1727,7 @@ void QueuedSerialComponentBase ::
 #endif
   }
 
-  // Connect output port typedOut
+  // Connect output port QueuedSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedOut_OutputPorts());
@@ -1746,7 +1748,7 @@ void QueuedSerialComponentBase ::
 #endif
   }
 
-  // Connect output port typedReturnOut
+  // Connect output port QueuedSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedReturnOut_OutputPorts());
@@ -1767,7 +1769,7 @@ void QueuedSerialComponentBase ::
 #endif
   }
 
-  // Connect output port serialOut
+  // Connect output port QueuedSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_serialOut_OutputPorts());
@@ -1787,21 +1789,6 @@ void QueuedSerialComponentBase ::
     this->m_serialOut_OutputPort[port].setObjName(portName);
 #endif
   }
-
-  // Passed-in size added to port number and message type enumeration sizes.
-  // NATIVE_INT_TYPE cast because of compiler warning.
-  this->m_msgSize = FW_MAX(
-    msgSize +
-    static_cast<NATIVE_INT_TYPE>(sizeof(NATIVE_INT_TYPE)) +
-    static_cast<NATIVE_INT_TYPE>(sizeof(I32)),
-    static_cast<NATIVE_INT_TYPE>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE)
-  );
-
-  Os::Queue::QueueStatus qStat = this->createQueue(queueDepth, this->m_msgSize);
-  FW_ASSERT(
-    Os::Queue::QUEUE_OK == qStat,
-    static_cast<FwAssertArgType>(qStat)
-  );
 }
 
 QueuedSerialComponentBase ::
@@ -2183,7 +2170,7 @@ void QueuedSerialComponentBase ::
 
   // Serialize message ID
   _status = msg.serialize(
-    static_cast<NATIVE_INT_TYPE>(NOARGSASYNC_NOARGS)
+    static_cast<NATIVE_INT_TYPE>(NOARGSASYNC_TYPED)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -4645,7 +4632,7 @@ void QueuedSerialComponentBase ::
   )
 {
   // Check throttle value
-  if (this->m_EventActivityLowThrottledThrottle >= EVENTID_EVENTACTIVITYLOWTHROTTLED_THROTTLE) {
+  if (this->m_EventActivityLowThrottledThrottle >= EVENTID_EVENTACTIVITYLOWTHROTTLED) {
     return;
   }
   else {
@@ -4954,7 +4941,7 @@ void QueuedSerialComponentBase ::
   log_FATAL_EventFatalThrottled(A a)
 {
   // Check throttle value
-  if (this->m_EventFatalThrottledThrottle >= EVENTID_EVENTFATALTHROTTLED_THROTTLE) {
+  if (this->m_EventFatalThrottledThrottle >= EVENTID_EVENTFATALTHROTTLED) {
     return;
   }
   else {
@@ -5157,7 +5144,7 @@ void QueuedSerialComponentBase ::
   log_WARNING_LO_EventWarningLowThrottled()
 {
   // Check throttle value
-  if (this->m_EventWarningLowThrottledThrottle >= EVENTID_EVENTWARNINGLOWTHROTTLED_THROTTLE) {
+  if (this->m_EventWarningLowThrottledThrottle >= EVENTID_EVENTWARNINGLOWTHROTTLED) {
     return;
   }
   else {
@@ -5827,7 +5814,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedSerialComponentBase ::
 
   switch (msgType) {
     // Handle async input port noArgsAsync
-    case NOARGSASYNC_NOARGS: {
+    case NOARGSASYNC_TYPED: {
       // Call handler function
       this->noArgsAsync_handler(portNum);
 

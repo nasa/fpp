@@ -15,7 +15,7 @@
 namespace {
   enum MsgTypeEnum {
     ACTIVECOMMANDS_COMPONENT_EXIT = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT,
-    NOARGSASYNC_NOARGS,
+    NOARGSASYNC_TYPED,
     TYPEDASYNC_TYPED,
     TYPEDASYNCASSERT_TYPED,
     TYPEDASYNCBLOCKPRIORITY_TYPED,
@@ -652,7 +652,7 @@ void ActiveCommandsComponentBase ::
   // Initialize base class
   Fw::ActiveComponentBase::init(instance);
 
-  // Connect input port cmdIn
+  // Connect input port ActiveCommands
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_cmdIn_InputPorts());
@@ -678,7 +678,7 @@ void ActiveCommandsComponentBase ::
 #endif
   }
 
-  // Connect input port noArgsAsync
+  // Connect input port ActiveCommands
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_noArgsAsync_InputPorts());
@@ -704,7 +704,7 @@ void ActiveCommandsComponentBase ::
 #endif
   }
 
-  // Connect input port noArgsGuarded
+  // Connect input port ActiveCommands
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_noArgsGuarded_InputPorts());
@@ -730,7 +730,7 @@ void ActiveCommandsComponentBase ::
 #endif
   }
 
-  // Connect input port noArgsReturnGuarded
+  // Connect input port ActiveCommands
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_noArgsReturnGuarded_InputPorts());
@@ -756,7 +756,7 @@ void ActiveCommandsComponentBase ::
 #endif
   }
 
-  // Connect input port noArgsReturnSync
+  // Connect input port ActiveCommands
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_noArgsReturnSync_InputPorts());
@@ -782,7 +782,7 @@ void ActiveCommandsComponentBase ::
 #endif
   }
 
-  // Connect input port noArgsSync
+  // Connect input port ActiveCommands
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_noArgsSync_InputPorts());
@@ -808,7 +808,7 @@ void ActiveCommandsComponentBase ::
 #endif
   }
 
-  // Connect input port typedAsync
+  // Connect input port ActiveCommands
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedAsync_InputPorts());
@@ -834,7 +834,7 @@ void ActiveCommandsComponentBase ::
 #endif
   }
 
-  // Connect input port typedAsyncAssert
+  // Connect input port ActiveCommands
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedAsyncAssert_InputPorts());
@@ -860,7 +860,7 @@ void ActiveCommandsComponentBase ::
 #endif
   }
 
-  // Connect input port typedAsyncBlockPriority
+  // Connect input port ActiveCommands
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedAsyncBlockPriority_InputPorts());
@@ -886,7 +886,7 @@ void ActiveCommandsComponentBase ::
 #endif
   }
 
-  // Connect input port typedAsyncDropPriority
+  // Connect input port ActiveCommands
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedAsyncDropPriority_InputPorts());
@@ -912,7 +912,7 @@ void ActiveCommandsComponentBase ::
 #endif
   }
 
-  // Connect input port typedGuarded
+  // Connect input port ActiveCommands
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedGuarded_InputPorts());
@@ -938,7 +938,7 @@ void ActiveCommandsComponentBase ::
 #endif
   }
 
-  // Connect input port typedReturnGuarded
+  // Connect input port ActiveCommands
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedReturnGuarded_InputPorts());
@@ -964,7 +964,7 @@ void ActiveCommandsComponentBase ::
 #endif
   }
 
-  // Connect input port typedReturnSync
+  // Connect input port ActiveCommands
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedReturnSync_InputPorts());
@@ -990,7 +990,7 @@ void ActiveCommandsComponentBase ::
 #endif
   }
 
-  // Connect input port typedSync
+  // Connect input port ActiveCommands
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedSync_InputPorts());
@@ -1016,7 +1016,7 @@ void ActiveCommandsComponentBase ::
 #endif
   }
 
-  // Connect output port cmdRegOut
+  // Connect output port ActiveCommands
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_cmdRegOut_OutputPorts());
@@ -1037,7 +1037,7 @@ void ActiveCommandsComponentBase ::
 #endif
   }
 
-  // Connect output port cmdResponseOut
+  // Connect output port ActiveCommands
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_cmdResponseOut_OutputPorts());
@@ -1058,7 +1058,7 @@ void ActiveCommandsComponentBase ::
 #endif
   }
 
-  // Connect output port eventOut
+  // Connect output port ActiveCommands
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_eventOut_OutputPorts());
@@ -1079,7 +1079,7 @@ void ActiveCommandsComponentBase ::
 #endif
   }
 
-  // Connect output port prmGetOut
+  // Connect output port ActiveCommands
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_prmGetOut_OutputPorts());
@@ -1100,7 +1100,7 @@ void ActiveCommandsComponentBase ::
 #endif
   }
 
-  // Connect output port prmSetOut
+  // Connect output port ActiveCommands
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_prmSetOut_OutputPorts());
@@ -1122,7 +1122,7 @@ void ActiveCommandsComponentBase ::
   }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
-  // Connect output port textEventOut
+  // Connect output port ActiveCommands
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_textEventOut_OutputPorts());
@@ -1144,7 +1144,7 @@ void ActiveCommandsComponentBase ::
   }
 #endif
 
-  // Connect output port timeGetOut
+  // Connect output port ActiveCommands
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_timeGetOut_OutputPorts());
@@ -1165,7 +1165,7 @@ void ActiveCommandsComponentBase ::
 #endif
   }
 
-  // Connect output port tlmOut
+  // Connect output port ActiveCommands
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_tlmOut_OutputPorts());
@@ -1186,7 +1186,7 @@ void ActiveCommandsComponentBase ::
 #endif
   }
 
-  // Connect output port typedOut
+  // Connect output port ActiveCommands
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedOut_OutputPorts());
@@ -1207,7 +1207,7 @@ void ActiveCommandsComponentBase ::
 #endif
   }
 
-  // Connect output port typedReturnOut
+  // Connect output port ActiveCommands
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedReturnOut_OutputPorts());
@@ -1227,15 +1227,6 @@ void ActiveCommandsComponentBase ::
     this->m_typedReturnOut_OutputPort[port].setObjName(portName);
 #endif
   }
-
-  Os::Queue::QueueStatus qStat = this->createQueue(
-    queueDepth,
-    ComponentIpcSerializableBuffer::SERIALIZATION_SIZE
-  );
-  FW_ASSERT(
-    Os::Queue::QUEUE_OK == qStat,
-    static_cast<FwAssertArgType>(qStat)
-  );
 }
 
 ActiveCommandsComponentBase ::
@@ -1552,7 +1543,7 @@ void ActiveCommandsComponentBase ::
 
   // Serialize message ID
   _status = msg.serialize(
-    static_cast<NATIVE_INT_TYPE>(NOARGSASYNC_NOARGS)
+    static_cast<NATIVE_INT_TYPE>(NOARGSASYNC_TYPED)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -3445,7 +3436,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveCommandsComponentBase ::
 
   switch (msgType) {
     // Handle async input port noArgsAsync
-    case NOARGSASYNC_NOARGS: {
+    case NOARGSASYNC_TYPED: {
       // Call handler function
       this->noArgsAsync_handler(portNum);
 

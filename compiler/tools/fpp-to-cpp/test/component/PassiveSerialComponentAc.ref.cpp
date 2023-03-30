@@ -860,7 +860,7 @@ void PassiveSerialComponentBase ::
   // Initialize base class
   Fw::PassiveComponentBase::init(instance);
 
-  // Connect input port cmdIn
+  // Connect input port PassiveSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_cmdIn_InputPorts());
@@ -886,7 +886,7 @@ void PassiveSerialComponentBase ::
 #endif
   }
 
-  // Connect input port noArgsGuarded
+  // Connect input port PassiveSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_noArgsGuarded_InputPorts());
@@ -912,7 +912,7 @@ void PassiveSerialComponentBase ::
 #endif
   }
 
-  // Connect input port noArgsReturnGuarded
+  // Connect input port PassiveSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_noArgsReturnGuarded_InputPorts());
@@ -938,7 +938,7 @@ void PassiveSerialComponentBase ::
 #endif
   }
 
-  // Connect input port noArgsReturnSync
+  // Connect input port PassiveSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_noArgsReturnSync_InputPorts());
@@ -964,7 +964,7 @@ void PassiveSerialComponentBase ::
 #endif
   }
 
-  // Connect input port noArgsSync
+  // Connect input port PassiveSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_noArgsSync_InputPorts());
@@ -990,7 +990,7 @@ void PassiveSerialComponentBase ::
 #endif
   }
 
-  // Connect input port typedGuarded
+  // Connect input port PassiveSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedGuarded_InputPorts());
@@ -1016,7 +1016,7 @@ void PassiveSerialComponentBase ::
 #endif
   }
 
-  // Connect input port typedReturnGuarded
+  // Connect input port PassiveSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedReturnGuarded_InputPorts());
@@ -1042,7 +1042,7 @@ void PassiveSerialComponentBase ::
 #endif
   }
 
-  // Connect input port typedReturnSync
+  // Connect input port PassiveSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedReturnSync_InputPorts());
@@ -1068,7 +1068,7 @@ void PassiveSerialComponentBase ::
 #endif
   }
 
-  // Connect input port typedSync
+  // Connect input port PassiveSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedSync_InputPorts());
@@ -1094,7 +1094,7 @@ void PassiveSerialComponentBase ::
 #endif
   }
 
-  // Connect input port serialGuarded
+  // Connect input port PassiveSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_serialGuarded_InputPorts());
@@ -1120,7 +1120,7 @@ void PassiveSerialComponentBase ::
 #endif
   }
 
-  // Connect input port serialSync
+  // Connect input port PassiveSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_serialSync_InputPorts());
@@ -1146,7 +1146,7 @@ void PassiveSerialComponentBase ::
 #endif
   }
 
-  // Connect output port cmdRegOut
+  // Connect output port PassiveSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_cmdRegOut_OutputPorts());
@@ -1167,7 +1167,7 @@ void PassiveSerialComponentBase ::
 #endif
   }
 
-  // Connect output port cmdResponseOut
+  // Connect output port PassiveSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_cmdResponseOut_OutputPorts());
@@ -1188,7 +1188,7 @@ void PassiveSerialComponentBase ::
 #endif
   }
 
-  // Connect output port eventOut
+  // Connect output port PassiveSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_eventOut_OutputPorts());
@@ -1209,7 +1209,7 @@ void PassiveSerialComponentBase ::
 #endif
   }
 
-  // Connect output port prmGetOut
+  // Connect output port PassiveSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_prmGetOut_OutputPorts());
@@ -1230,7 +1230,7 @@ void PassiveSerialComponentBase ::
 #endif
   }
 
-  // Connect output port prmSetOut
+  // Connect output port PassiveSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_prmSetOut_OutputPorts());
@@ -1252,7 +1252,7 @@ void PassiveSerialComponentBase ::
   }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
-  // Connect output port textEventOut
+  // Connect output port PassiveSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_textEventOut_OutputPorts());
@@ -1274,7 +1274,7 @@ void PassiveSerialComponentBase ::
   }
 #endif
 
-  // Connect output port timeGetOut
+  // Connect output port PassiveSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_timeGetOut_OutputPorts());
@@ -1295,7 +1295,7 @@ void PassiveSerialComponentBase ::
 #endif
   }
 
-  // Connect output port tlmOut
+  // Connect output port PassiveSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_tlmOut_OutputPorts());
@@ -1316,7 +1316,7 @@ void PassiveSerialComponentBase ::
 #endif
   }
 
-  // Connect output port typedOut
+  // Connect output port PassiveSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedOut_OutputPorts());
@@ -1337,7 +1337,7 @@ void PassiveSerialComponentBase ::
 #endif
   }
 
-  // Connect output port typedReturnOut
+  // Connect output port PassiveSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedReturnOut_OutputPorts());
@@ -1358,7 +1358,7 @@ void PassiveSerialComponentBase ::
 #endif
   }
 
-  // Connect output port serialOut
+  // Connect output port PassiveSerial
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_serialOut_OutputPorts());
@@ -2764,7 +2764,7 @@ void PassiveSerialComponentBase ::
   )
 {
   // Check throttle value
-  if (this->m_EventActivityLowThrottledThrottle >= EVENTID_EVENTACTIVITYLOWTHROTTLED_THROTTLE) {
+  if (this->m_EventActivityLowThrottledThrottle >= EVENTID_EVENTACTIVITYLOWTHROTTLED) {
     return;
   }
   else {
@@ -3073,7 +3073,7 @@ void PassiveSerialComponentBase ::
   log_FATAL_EventFatalThrottled(A a)
 {
   // Check throttle value
-  if (this->m_EventFatalThrottledThrottle >= EVENTID_EVENTFATALTHROTTLED_THROTTLE) {
+  if (this->m_EventFatalThrottledThrottle >= EVENTID_EVENTFATALTHROTTLED) {
     return;
   }
   else {
@@ -3276,7 +3276,7 @@ void PassiveSerialComponentBase ::
   log_WARNING_LO_EventWarningLowThrottled()
 {
   // Check throttle value
-  if (this->m_EventWarningLowThrottledThrottle >= EVENTID_EVENTWARNINGLOWTHROTTLED_THROTTLE) {
+  if (this->m_EventWarningLowThrottledThrottle >= EVENTID_EVENTWARNINGLOWTHROTTLED) {
     return;
   }
   else {

@@ -502,7 +502,7 @@ void PassiveTelemetryComponentBase ::
   // Initialize base class
   Fw::PassiveComponentBase::init(instance);
 
-  // Connect input port cmdIn
+  // Connect input port PassiveTelemetry
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_cmdIn_InputPorts());
@@ -528,7 +528,7 @@ void PassiveTelemetryComponentBase ::
 #endif
   }
 
-  // Connect input port noArgsGuarded
+  // Connect input port PassiveTelemetry
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_noArgsGuarded_InputPorts());
@@ -554,7 +554,7 @@ void PassiveTelemetryComponentBase ::
 #endif
   }
 
-  // Connect input port noArgsReturnGuarded
+  // Connect input port PassiveTelemetry
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_noArgsReturnGuarded_InputPorts());
@@ -580,7 +580,7 @@ void PassiveTelemetryComponentBase ::
 #endif
   }
 
-  // Connect input port noArgsReturnSync
+  // Connect input port PassiveTelemetry
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_noArgsReturnSync_InputPorts());
@@ -606,7 +606,7 @@ void PassiveTelemetryComponentBase ::
 #endif
   }
 
-  // Connect input port noArgsSync
+  // Connect input port PassiveTelemetry
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_noArgsSync_InputPorts());
@@ -632,7 +632,7 @@ void PassiveTelemetryComponentBase ::
 #endif
   }
 
-  // Connect input port typedGuarded
+  // Connect input port PassiveTelemetry
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedGuarded_InputPorts());
@@ -658,7 +658,7 @@ void PassiveTelemetryComponentBase ::
 #endif
   }
 
-  // Connect input port typedReturnGuarded
+  // Connect input port PassiveTelemetry
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedReturnGuarded_InputPorts());
@@ -684,7 +684,7 @@ void PassiveTelemetryComponentBase ::
 #endif
   }
 
-  // Connect input port typedReturnSync
+  // Connect input port PassiveTelemetry
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedReturnSync_InputPorts());
@@ -710,7 +710,7 @@ void PassiveTelemetryComponentBase ::
 #endif
   }
 
-  // Connect input port typedSync
+  // Connect input port PassiveTelemetry
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedSync_InputPorts());
@@ -736,7 +736,7 @@ void PassiveTelemetryComponentBase ::
 #endif
   }
 
-  // Connect output port cmdRegOut
+  // Connect output port PassiveTelemetry
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_cmdRegOut_OutputPorts());
@@ -757,7 +757,7 @@ void PassiveTelemetryComponentBase ::
 #endif
   }
 
-  // Connect output port cmdResponseOut
+  // Connect output port PassiveTelemetry
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_cmdResponseOut_OutputPorts());
@@ -778,7 +778,7 @@ void PassiveTelemetryComponentBase ::
 #endif
   }
 
-  // Connect output port eventOut
+  // Connect output port PassiveTelemetry
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_eventOut_OutputPorts());
@@ -799,7 +799,7 @@ void PassiveTelemetryComponentBase ::
 #endif
   }
 
-  // Connect output port prmGetOut
+  // Connect output port PassiveTelemetry
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_prmGetOut_OutputPorts());
@@ -820,7 +820,7 @@ void PassiveTelemetryComponentBase ::
 #endif
   }
 
-  // Connect output port prmSetOut
+  // Connect output port PassiveTelemetry
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_prmSetOut_OutputPorts());
@@ -842,7 +842,7 @@ void PassiveTelemetryComponentBase ::
   }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
-  // Connect output port textEventOut
+  // Connect output port PassiveTelemetry
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_textEventOut_OutputPorts());
@@ -864,7 +864,7 @@ void PassiveTelemetryComponentBase ::
   }
 #endif
 
-  // Connect output port timeGetOut
+  // Connect output port PassiveTelemetry
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_timeGetOut_OutputPorts());
@@ -885,7 +885,7 @@ void PassiveTelemetryComponentBase ::
 #endif
   }
 
-  // Connect output port tlmOut
+  // Connect output port PassiveTelemetry
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_tlmOut_OutputPorts());
@@ -906,7 +906,7 @@ void PassiveTelemetryComponentBase ::
 #endif
   }
 
-  // Connect output port typedOut
+  // Connect output port PassiveTelemetry
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedOut_OutputPorts());
@@ -927,7 +927,7 @@ void PassiveTelemetryComponentBase ::
 #endif
   }
 
-  // Connect output port typedReturnOut
+  // Connect output port PassiveTelemetry
   for (
     PlatformIntType port = 0;
     port < static_cast<PlatformIntType>(this->getNum_typedReturnOut_OutputPorts());
