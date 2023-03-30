@@ -6,6 +6,7 @@
 
 fprime_gcc=../../../../scripts/fprime-gcc
 export FPRIME_GCC_FLAGS="-I../fprime"
+warning_flags="-Wno-gnu-zero-variadic-macro-arguments -Wno-unused-parameter -Wno-zero-length-array -Wno-sign-conversion -Wno-vla-extension"
 
 echo "generating C++"
 fpp-to-cpp -d ../fprime/Fw -p `dirname $PWD`/fprime `cat deps.txt`
@@ -16,13 +17,13 @@ done
 mv ../fprime/Fw/Param*.hpp ../fprime/Fw/Param*.cpp ../fprime/Fw/Prm
 
 # Find all guards used in generated component base class files
-guards=`grep '#if FW_' *ComponentAc.hpp *ComponentAc.cpp | cut -f 2 -d ' ' | sort -u | sed 's/^/-D/g'`
+guards=`grep '#if FW_' *Ac.hpp *Ac.cpp | cut -f 2 -d ' ' | sort -u | sed 's/^/-D/g'`
 # All guards set to 1
 guards_on=`echo $guards | sed 's/ /\n/g' | sed 's/$/=1/g'`
 # All guards set to 0
 guards_off=`echo $guards | sed 's/ /\n/g' | sed 's/$/=0/g'`
 # All guards except FW_PORT_SERIALIZATION set to 0
-guards_off_serial_on=`echo $guards_off | sed 's/0$/1/g'`
+guards_off_serial_on=`echo $guards_off | sed 's/FW_PORT_SERIALIZATION=0/FW_PORT_SERIALIZATION=1/g'`
 
 for file in `find . -name '*Ac.ref.cpp'`
 do
@@ -31,18 +32,34 @@ do
   cp $base.hpp $dest_base.hpp
   cp $base.cpp $dest_base.cpp
 
-  echo "compiling $file with default guards"
-  $fprime_gcc -I../../.. -c $dest_base.cpp -Wno-gnu-zero-variadic-macro-arguments -Wno-unused-parameter
-
-  g=`echo $guards_on`
-  echo "compiling $file with $g"
-  $fprime_gcc -I../../.. -c $dest_base.cpp $g -Wno-gnu-zero-variadic-macro-arguments -Wno-unused-parameter
-
-  g=`echo $guards_off`
-  if grep -q static_assert $base.hpp
+  if [ "$1" = "--all" ]
   then
-    g=$guards_off_serial_on
+    for g in `python3 gen_guards.py $guards`
+    do
+      g=`echo $g | sed 's/,/ /g'`
+
+      if grep -q static_assert $base.hpp
+      then
+        g=`echo $g | sed 's/FW_PORT_SERIALIZATION=0/FW_PORT_SERIALIZATION=1/g'`
+      fi
+      echo "compiling $file with $g"
+      $fprime_gcc -I../../.. -c $dest_base.cpp $g $warning_flags
+     done
+  else
+    echo "compiling $file with default guards"
+    $fprime_gcc -I../../.. -c $dest_base.cpp $warning_flags
+
+    g=`echo $guards_on`
+    echo "compiling $file with $g"
+    $fprime_gcc -I../../.. -c $dest_base.cpp $g $warning_flags
+
+    g=`echo $guards_off`
+    if grep -q static_assert $base.hpp
+    then
+      g=$guards_off_serial_on
+    fi
+    echo "compiling $file with $g"
+    $fprime_gcc -I../../.. -c $dest_base.cpp $g $warning_flags
   fi
-  echo "compiling $file with $g"
-  $fprime_gcc -I../../.. -c $dest_base.cpp $g -Wno-gnu-zero-variadic-macro-arguments -Wno-unused-parameter
+
 done
