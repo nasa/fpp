@@ -92,7 +92,15 @@ void E ::
       s = "[invalid]";
       break;
   }
-  sb.format("%s (%d)", s.toChar(), e);
+  sb.format("%s (%" PRIi32 ")", s.toChar(), e);
+}
+
+#elif FW_ENABLE_TEXT_LOGGING
+
+void E ::
+  toString(Fw::StringBase& sb) const
+{
+  sb.format("%" PRIi32 "", e);
 }
 
 #endif

@@ -1,6 +1,8 @@
 AArrayAc.cpp
 AArrayAc.hpp
 AArrayAi.xml
+CComponentAc.cpp
+CComponentAc.hpp
 CComponentAi.xml
 C_AArrayAc.cpp
 C_AArrayAc.hpp
