@@ -81,7 +81,7 @@ namespace FppTest {
   void DpTestDpComponentBase ::
     Dp_Request(
         ContainerId::T containerId,
-        FwDpBuffSizeType size
+        FwSizeType size
     )
   {
     const FwDpIdType globalId = this->getIdBase() + containerId;
@@ -98,7 +98,7 @@ namespace FppTest {
     Fw::SerializeStatus status = container.serializeHeader();
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
     // Update the size of the buffer according to the data size
-    const FwDpBuffSizeType packetSize = container.getPacketSize();
+    const FwSizeType packetSize = container.getPacketSize();
     Fw::Buffer buffer = container.getBuffer();
     FW_ASSERT(packetSize <= buffer.getSize(), packetSize, buffer.getSize());
     buffer.setSize(packetSize);

@@ -1,6 +1,5 @@
 type FwBuffSizeType
 type FwChanIdType
-type FwDpBuffSizeType
 type FwDpIdType
 type FwDpPriorityType
 type FwEnumStoreType

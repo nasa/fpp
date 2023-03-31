@@ -25,7 +25,7 @@ DpContainer::DpContainer(FwDpIdType id, const Fw::Buffer& buffer) : id(id), prio
 // Public member functions
 // ----------------------------------------------------------------------
 
-Fw::SerializeStatus DpContainer::moveSerToOffset(FwDpBuffSizeType offset  //!< The offset
+Fw::SerializeStatus DpContainer::moveSerToOffset(FwSizeType offset  //!< The offset
 ) {
     auto& serializeRepr = this->buffer.getSerializeRepr();
     return serializeRepr.moveSerToOffset(offset);

@@ -23,17 +23,17 @@ class DpContainer {
     //! A DpContainer packet header
     struct Header {
         //! The offset for the packet descriptor field
-        static constexpr FwDpBuffSizeType PACKET_DESCRIPTOR_OFFSET = 0;
+        static constexpr FwSizeType PACKET_DESCRIPTOR_OFFSET = 0;
         //! The offset for the id field
-        static constexpr FwDpBuffSizeType ID_OFFSET = PACKET_DESCRIPTOR_OFFSET + sizeof(FwPacketDescriptorType);
+        static constexpr FwSizeType ID_OFFSET = PACKET_DESCRIPTOR_OFFSET + sizeof(FwPacketDescriptorType);
         //! The offset for the priority field
         static constexpr FwDpPriorityType PRIORITY_OFFSET = ID_OFFSET + sizeof(FwDpIdType);
         //! The offset for the time tag field
-        static constexpr FwDpBuffSizeType TIME_TAG_OFFSET = PRIORITY_OFFSET + sizeof(FwDpPriorityType);
+        static constexpr FwSizeType TIME_TAG_OFFSET = PRIORITY_OFFSET + sizeof(FwDpPriorityType);
         //! The offset for the data size field
-        static constexpr FwDpBuffSizeType DATA_SIZE_OFFSET = TIME_TAG_OFFSET + Fw::Time::SERIALIZED_SIZE;
+        static constexpr FwSizeType DATA_SIZE_OFFSET = TIME_TAG_OFFSET + Fw::Time::SERIALIZED_SIZE;
         //! The header size
-        static constexpr FwDpBuffSizeType SIZE = DATA_SIZE_OFFSET + sizeof(FwDpBuffSizeType);
+        static constexpr FwSizeType SIZE = DATA_SIZE_OFFSET + sizeof(FwSizeType);
     };
 
   public:
@@ -57,14 +57,14 @@ class DpContainer {
 
     //! Get the data size
     //! \return The data size
-    FwDpBuffSizeType getDataSize() const { return this->dataSize; }
+    FwSizeType getDataSize() const { return this->dataSize; }
 
     //! Get the packet buffer
     //! \return The buffer
     Fw::Buffer getBuffer() const { return this->buffer; }
 
     //! Get the packet size corresponding to the data size
-    FwDpBuffSizeType getPacketSize() const { return Header::SIZE + this->dataSize; }
+    FwSizeType getPacketSize() const { return Header::SIZE + this->dataSize; }
 
     //! Get the priority
     //! \return The priority
@@ -76,7 +76,7 @@ class DpContainer {
 
     //! Move the packet serialization to the specified offset
     //! \return The serialize status
-    Fw::SerializeStatus moveSerToOffset(FwDpBuffSizeType offset  //!< The offset
+    Fw::SerializeStatus moveSerToOffset(FwSizeType offset  //!< The offset
     );
 
     //! Serialize the header into the packet buffer
@@ -110,7 +110,7 @@ class DpContainer {
     Fw::Time timeTag;
 
     //! The data size
-    FwDpBuffSizeType dataSize;
+    FwSizeType dataSize;
 
     //! The packet buffer
     Fw::Buffer buffer;

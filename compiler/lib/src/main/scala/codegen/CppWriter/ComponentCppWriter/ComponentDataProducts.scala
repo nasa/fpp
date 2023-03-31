@@ -69,7 +69,7 @@ case class ComponentDataProducts (
               Some("The container id")
             ),
             CppDoc.Function.Param(
-              CppDoc.Type("FwDpBuffSizeType"),
+              CppDoc.Type("FwSizeType"),
               "size",
               Some("The buffer size")
             )
@@ -99,7 +99,7 @@ case class ComponentDataProducts (
                |Fw::SerializeStatus status = container.serializeHeader();
                |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
                |// Update the size of the buffer according to the data size
-               |const FwDpBuffSizeType packetSize = container.getPacketSize();
+               |const FwSizeType packetSize = container.getPacketSize();
                |Fw::Buffer buffer = container.getBuffer();
                |FW_ASSERT(packetSize <= buffer.getSize(), packetSize, buffer.getSize());
                |buffer.setSize(packetSize);

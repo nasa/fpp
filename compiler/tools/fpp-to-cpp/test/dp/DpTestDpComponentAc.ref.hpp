@@ -131,7 +131,7 @@ namespace FppTest {
       //! Request a data product container
       void Dp_Request(
           ContainerId::T containerId, //!< The container id
-          FwDpBuffSizeType size //!< The buffer size
+          FwSizeType size //!< The buffer size
       );
 
       //! Send a data product
