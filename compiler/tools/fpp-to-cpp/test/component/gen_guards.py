@@ -1,8 +1,16 @@
 import sys
 
+# Expects a list of string arguments representing F Prime guards of the form 
+# '-D<name of guard>'
+#
+# Writes a list of comma-separated lists of compiler flags specifying the 
+# values of the F Prime guards to stdout
 def gen_guards():
-    guards_to_remove = ['-DFW_AMPCS_COMPATIBLE', '-DFW_CMD_CHECK_RESIDUAL', '-DFW_ARRAY_TO_STRING']
+    guards_to_remove = ['-DFW_AMPCS_COMPATIBLE', 
+                        '-DFW_CMD_CHECK_RESIDUAL', 
+                        '-DFW_ARRAY_TO_STRING']
 
+    # First argument is the name of the script
     guards = sys.argv[1:]
     for guard in guards_to_remove:
         if guard in guards:
