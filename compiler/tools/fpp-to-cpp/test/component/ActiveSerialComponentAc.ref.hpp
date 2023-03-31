@@ -196,6 +196,19 @@ class ActiveSerialComponentBase :
   public:
 
     // ----------------------------------------------------------------------
+    // Component initialization
+    // ----------------------------------------------------------------------
+
+    //! Initialize ActiveSerialComponentBase object
+    void init(
+        NATIVE_INT_TYPE queueDepth, //!< The queue depth
+        NATIVE_INT_TYPE msgSize, //!< The message size
+        NATIVE_INT_TYPE instance = 0 //!< The instance number
+    );
+
+  public:
+
+    // ----------------------------------------------------------------------
     // Getters for special input ports
     // ----------------------------------------------------------------------
 
@@ -564,19 +577,12 @@ class ActiveSerialComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
-    // Component construction, initialization, and destruction
+    // Component construction and destruction
     // ----------------------------------------------------------------------
 
     //! Construct ActiveSerialComponentBase object
     ActiveSerialComponentBase(
         const char* compName = "" //!< The component name
-    );
-
-    //! Initialize ActiveSerialComponentBase object
-    void init(
-        NATIVE_INT_TYPE queueDepth, //!< The queue depth
-        NATIVE_INT_TYPE msgSize, //!< The message size
-        NATIVE_INT_TYPE instance = 0 //!< The instance number
     );
 
     //! Destroy ActiveSerialComponentBase object

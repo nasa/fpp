@@ -118,6 +118,17 @@ class PassiveParamsComponentBase :
   public:
 
     // ----------------------------------------------------------------------
+    // Component initialization
+    // ----------------------------------------------------------------------
+
+    //! Initialize PassiveParamsComponentBase object
+    void init(
+        NATIVE_INT_TYPE instance = 0 //!< The instance number
+    );
+
+  public:
+
+    // ----------------------------------------------------------------------
     // Getters for special input ports
     // ----------------------------------------------------------------------
 
@@ -375,17 +386,12 @@ class PassiveParamsComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
-    // Component construction, initialization, and destruction
+    // Component construction and destruction
     // ----------------------------------------------------------------------
 
     //! Construct PassiveParamsComponentBase object
     PassiveParamsComponentBase(
         const char* compName = "" //!< The component name
-    );
-
-    //! Initialize PassiveParamsComponentBase object
-    void init(
-        NATIVE_INT_TYPE instance = 0 //!< The instance number
     );
 
     //! Destroy PassiveParamsComponentBase object

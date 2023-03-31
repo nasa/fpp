@@ -176,6 +176,18 @@ class ActiveTestComponentBase :
   public:
 
     // ----------------------------------------------------------------------
+    // Component initialization
+    // ----------------------------------------------------------------------
+
+    //! Initialize ActiveTestComponentBase object
+    void init(
+        NATIVE_INT_TYPE queueDepth, //!< The queue depth
+        NATIVE_INT_TYPE instance = 0 //!< The instance number
+    );
+
+  public:
+
+    // ----------------------------------------------------------------------
     // Getters for special input ports
     // ----------------------------------------------------------------------
 
@@ -468,18 +480,12 @@ class ActiveTestComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
-    // Component construction, initialization, and destruction
+    // Component construction and destruction
     // ----------------------------------------------------------------------
 
     //! Construct ActiveTestComponentBase object
     ActiveTestComponentBase(
         const char* compName = "" //!< The component name
-    );
-
-    //! Initialize ActiveTestComponentBase object
-    void init(
-        NATIVE_INT_TYPE queueDepth, //!< The queue depth
-        NATIVE_INT_TYPE instance = 0 //!< The instance number
     );
 
     //! Destroy ActiveTestComponentBase object

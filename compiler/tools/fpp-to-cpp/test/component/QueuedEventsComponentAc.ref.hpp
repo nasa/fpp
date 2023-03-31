@@ -114,6 +114,18 @@ class QueuedEventsComponentBase :
   public:
 
     // ----------------------------------------------------------------------
+    // Component initialization
+    // ----------------------------------------------------------------------
+
+    //! Initialize QueuedEventsComponentBase object
+    void init(
+        NATIVE_INT_TYPE queueDepth, //!< The queue depth
+        NATIVE_INT_TYPE instance = 0 //!< The instance number
+    );
+
+  public:
+
+    // ----------------------------------------------------------------------
     // Getters for special input ports
     // ----------------------------------------------------------------------
 
@@ -384,18 +396,12 @@ class QueuedEventsComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
-    // Component construction, initialization, and destruction
+    // Component construction and destruction
     // ----------------------------------------------------------------------
 
     //! Construct QueuedEventsComponentBase object
     QueuedEventsComponentBase(
         const char* compName = "" //!< The component name
-    );
-
-    //! Initialize QueuedEventsComponentBase object
-    void init(
-        NATIVE_INT_TYPE queueDepth, //!< The queue depth
-        NATIVE_INT_TYPE instance = 0 //!< The instance number
     );
 
     //! Destroy QueuedEventsComponentBase object

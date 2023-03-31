@@ -117,6 +117,18 @@ class QueuedCommandsComponentBase :
   public:
 
     // ----------------------------------------------------------------------
+    // Component initialization
+    // ----------------------------------------------------------------------
+
+    //! Initialize QueuedCommandsComponentBase object
+    void init(
+        NATIVE_INT_TYPE queueDepth, //!< The queue depth
+        NATIVE_INT_TYPE instance = 0 //!< The instance number
+    );
+
+  public:
+
+    // ----------------------------------------------------------------------
     // Getters for special input ports
     // ----------------------------------------------------------------------
 
@@ -398,18 +410,12 @@ class QueuedCommandsComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
-    // Component construction, initialization, and destruction
+    // Component construction and destruction
     // ----------------------------------------------------------------------
 
     //! Construct QueuedCommandsComponentBase object
     QueuedCommandsComponentBase(
         const char* compName = "" //!< The component name
-    );
-
-    //! Initialize QueuedCommandsComponentBase object
-    void init(
-        NATIVE_INT_TYPE queueDepth, //!< The queue depth
-        NATIVE_INT_TYPE instance = 0 //!< The instance number
     );
 
     //! Destroy QueuedCommandsComponentBase object

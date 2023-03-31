@@ -111,6 +111,18 @@ class ActiveTelemetryComponentBase :
   public:
 
     // ----------------------------------------------------------------------
+    // Component initialization
+    // ----------------------------------------------------------------------
+
+    //! Initialize ActiveTelemetryComponentBase object
+    void init(
+        NATIVE_INT_TYPE queueDepth, //!< The queue depth
+        NATIVE_INT_TYPE instance = 0 //!< The instance number
+    );
+
+  public:
+
+    // ----------------------------------------------------------------------
     // Getters for special input ports
     // ----------------------------------------------------------------------
 
@@ -381,18 +393,12 @@ class ActiveTelemetryComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
-    // Component construction, initialization, and destruction
+    // Component construction and destruction
     // ----------------------------------------------------------------------
 
     //! Construct ActiveTelemetryComponentBase object
     ActiveTelemetryComponentBase(
         const char* compName = "" //!< The component name
-    );
-
-    //! Initialize ActiveTelemetryComponentBase object
-    void init(
-        NATIVE_INT_TYPE queueDepth, //!< The queue depth
-        NATIVE_INT_TYPE instance = 0 //!< The instance number
     );
 
     //! Destroy ActiveTelemetryComponentBase object

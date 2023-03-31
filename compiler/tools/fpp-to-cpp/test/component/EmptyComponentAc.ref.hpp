@@ -25,20 +25,26 @@ class EmptyComponentBase :
     //! Friend class for white-box testing
     friend class EmptyComponentBaseFriend;
 
+  public:
+
+    // ----------------------------------------------------------------------
+    // Component initialization
+    // ----------------------------------------------------------------------
+
+    //! Initialize EmptyComponentBase object
+    void init(
+        NATIVE_INT_TYPE instance = 0 //!< The instance number
+    );
+
   PROTECTED:
 
     // ----------------------------------------------------------------------
-    // Component construction, initialization, and destruction
+    // Component construction and destruction
     // ----------------------------------------------------------------------
 
     //! Construct EmptyComponentBase object
     EmptyComponentBase(
         const char* compName = "" //!< The component name
-    );
-
-    //! Initialize EmptyComponentBase object
-    void init(
-        NATIVE_INT_TYPE instance = 0 //!< The instance number
     );
 
     //! Destroy EmptyComponentBase object

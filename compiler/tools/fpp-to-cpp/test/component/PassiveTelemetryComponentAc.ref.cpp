@@ -62,439 +62,8 @@ namespace {
 }
 
 // ----------------------------------------------------------------------
-// Getters for special input ports
+// Component initialization
 // ----------------------------------------------------------------------
-
-Fw::InputCmdPort* PassiveTelemetryComponentBase ::
-  get_cmdIn_InputPort(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_cmdIn_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  return &this->m_cmdIn_InputPort[portNum];
-}
-
-// ----------------------------------------------------------------------
-// Getters for typed input ports
-// ----------------------------------------------------------------------
-
-InputNoArgsPort* PassiveTelemetryComponentBase ::
-  get_noArgsGuarded_InputPort(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_noArgsGuarded_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  return &this->m_noArgsGuarded_InputPort[portNum];
-}
-
-InputNoArgsReturnPort* PassiveTelemetryComponentBase ::
-  get_noArgsReturnGuarded_InputPort(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_noArgsReturnGuarded_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  return &this->m_noArgsReturnGuarded_InputPort[portNum];
-}
-
-InputNoArgsReturnPort* PassiveTelemetryComponentBase ::
-  get_noArgsReturnSync_InputPort(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_noArgsReturnSync_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  return &this->m_noArgsReturnSync_InputPort[portNum];
-}
-
-InputNoArgsPort* PassiveTelemetryComponentBase ::
-  get_noArgsSync_InputPort(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_noArgsSync_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  return &this->m_noArgsSync_InputPort[portNum];
-}
-
-InputTypedPort* PassiveTelemetryComponentBase ::
-  get_typedGuarded_InputPort(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_typedGuarded_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  return &this->m_typedGuarded_InputPort[portNum];
-}
-
-InputTypedReturnPort* PassiveTelemetryComponentBase ::
-  get_typedReturnGuarded_InputPort(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_typedReturnGuarded_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  return &this->m_typedReturnGuarded_InputPort[portNum];
-}
-
-InputTypedReturnPort* PassiveTelemetryComponentBase ::
-  get_typedReturnSync_InputPort(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_typedReturnSync_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  return &this->m_typedReturnSync_InputPort[portNum];
-}
-
-InputTypedPort* PassiveTelemetryComponentBase ::
-  get_typedSync_InputPort(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_typedSync_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  return &this->m_typedSync_InputPort[portNum];
-}
-
-// ----------------------------------------------------------------------
-// Connect special input ports to special output ports
-// ----------------------------------------------------------------------
-
-void PassiveTelemetryComponentBase ::
-  set_cmdRegOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputCmdRegPort* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_cmdRegOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_cmdRegOut_OutputPort[portNum].addCallPort(port);
-}
-
-void PassiveTelemetryComponentBase ::
-  set_cmdResponseOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputCmdResponsePort* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_cmdResponseOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_cmdResponseOut_OutputPort[portNum].addCallPort(port);
-}
-
-void PassiveTelemetryComponentBase ::
-  set_eventOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputLogPort* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_eventOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_eventOut_OutputPort[portNum].addCallPort(port);
-}
-
-void PassiveTelemetryComponentBase ::
-  set_prmGetOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputPrmGetPort* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_prmGetOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_prmGetOut_OutputPort[portNum].addCallPort(port);
-}
-
-void PassiveTelemetryComponentBase ::
-  set_prmSetOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputPrmSetPort* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_prmSetOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_prmSetOut_OutputPort[portNum].addCallPort(port);
-}
-
-#if FW_ENABLE_TEXT_LOGGING == 1
-
-void PassiveTelemetryComponentBase ::
-  set_textEventOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputLogTextPort* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_textEventOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_textEventOut_OutputPort[portNum].addCallPort(port);
-}
-
-#endif
-
-void PassiveTelemetryComponentBase ::
-  set_timeGetOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputTimePort* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_timeGetOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_timeGetOut_OutputPort[portNum].addCallPort(port);
-}
-
-void PassiveTelemetryComponentBase ::
-  set_tlmOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputTlmPort* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_tlmOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_tlmOut_OutputPort[portNum].addCallPort(port);
-}
-
-// ----------------------------------------------------------------------
-// Connect typed input ports to typed output ports
-// ----------------------------------------------------------------------
-
-void PassiveTelemetryComponentBase ::
-  set_typedOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      InputTypedPort* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_typedOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_typedOut_OutputPort[portNum].addCallPort(port);
-}
-
-void PassiveTelemetryComponentBase ::
-  set_typedReturnOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      InputTypedReturnPort* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_typedReturnOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_typedReturnOut_OutputPort[portNum].addCallPort(port);
-}
-
-#if FW_PORT_SERIALIZATION
-
-// ----------------------------------------------------------------------
-// Connect serial input ports to special output ports
-// ----------------------------------------------------------------------
-
-void PassiveTelemetryComponentBase ::
-  set_cmdRegOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_cmdRegOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_cmdRegOut_OutputPort[portNum].registerSerialPort(port);
-}
-
-void PassiveTelemetryComponentBase ::
-  set_cmdResponseOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_cmdResponseOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_cmdResponseOut_OutputPort[portNum].registerSerialPort(port);
-}
-
-void PassiveTelemetryComponentBase ::
-  set_eventOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_eventOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_eventOut_OutputPort[portNum].registerSerialPort(port);
-}
-
-void PassiveTelemetryComponentBase ::
-  set_prmGetOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_prmGetOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_prmGetOut_OutputPort[portNum].registerSerialPort(port);
-}
-
-void PassiveTelemetryComponentBase ::
-  set_prmSetOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_prmSetOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_prmSetOut_OutputPort[portNum].registerSerialPort(port);
-}
-
-#if FW_ENABLE_TEXT_LOGGING == 1
-
-void PassiveTelemetryComponentBase ::
-  set_textEventOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_textEventOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_textEventOut_OutputPort[portNum].registerSerialPort(port);
-}
-
-#endif
-
-void PassiveTelemetryComponentBase ::
-  set_timeGetOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_timeGetOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_timeGetOut_OutputPort[portNum].registerSerialPort(port);
-}
-
-void PassiveTelemetryComponentBase ::
-  set_tlmOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_tlmOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_tlmOut_OutputPort[portNum].registerSerialPort(port);
-}
-
-#endif
-
-#if FW_PORT_SERIALIZATION
-
-// ----------------------------------------------------------------------
-// Connect serial input ports to typed output ports
-// ----------------------------------------------------------------------
-
-void PassiveTelemetryComponentBase ::
-  set_typedOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_typedOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_typedOut_OutputPort[portNum].registerSerialPort(port);
-}
-
-void PassiveTelemetryComponentBase ::
-  set_typedReturnOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_typedReturnOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_typedReturnOut_OutputPort[portNum].registerSerialPort(port);
-}
-
-#endif
-
-// ----------------------------------------------------------------------
-// Component construction, initialization, and destruction
-// ----------------------------------------------------------------------
-
-PassiveTelemetryComponentBase ::
-  PassiveTelemetryComponentBase(const char* compName) :
-    Fw::PassiveComponentBase(compName)
-{
-  // Write telemetry channel ChannelU32OnChange
-  this->m_first_update_ChannelU32OnChange = true;
-  this->m_last_ChannelU32OnChange = 0;
-
-  // Write telemetry channel ChannelEnumOnChange
-  this->m_first_update_ChannelEnumOnChange = true;
-}
 
 void PassiveTelemetryComponentBase ::
   init(NATIVE_INT_TYPE instance)
@@ -947,6 +516,441 @@ void PassiveTelemetryComponentBase ::
     this->m_typedReturnOut_OutputPort[port].setObjName(portName);
 #endif
   }
+}
+
+// ----------------------------------------------------------------------
+// Getters for special input ports
+// ----------------------------------------------------------------------
+
+Fw::InputCmdPort* PassiveTelemetryComponentBase ::
+  get_cmdIn_InputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_cmdIn_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_cmdIn_InputPort[portNum];
+}
+
+// ----------------------------------------------------------------------
+// Getters for typed input ports
+// ----------------------------------------------------------------------
+
+InputNoArgsPort* PassiveTelemetryComponentBase ::
+  get_noArgsGuarded_InputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsGuarded_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_noArgsGuarded_InputPort[portNum];
+}
+
+InputNoArgsReturnPort* PassiveTelemetryComponentBase ::
+  get_noArgsReturnGuarded_InputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsReturnGuarded_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_noArgsReturnGuarded_InputPort[portNum];
+}
+
+InputNoArgsReturnPort* PassiveTelemetryComponentBase ::
+  get_noArgsReturnSync_InputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsReturnSync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_noArgsReturnSync_InputPort[portNum];
+}
+
+InputNoArgsPort* PassiveTelemetryComponentBase ::
+  get_noArgsSync_InputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsSync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_noArgsSync_InputPort[portNum];
+}
+
+InputTypedPort* PassiveTelemetryComponentBase ::
+  get_typedGuarded_InputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedGuarded_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_typedGuarded_InputPort[portNum];
+}
+
+InputTypedReturnPort* PassiveTelemetryComponentBase ::
+  get_typedReturnGuarded_InputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedReturnGuarded_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_typedReturnGuarded_InputPort[portNum];
+}
+
+InputTypedReturnPort* PassiveTelemetryComponentBase ::
+  get_typedReturnSync_InputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedReturnSync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_typedReturnSync_InputPort[portNum];
+}
+
+InputTypedPort* PassiveTelemetryComponentBase ::
+  get_typedSync_InputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedSync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_typedSync_InputPort[portNum];
+}
+
+// ----------------------------------------------------------------------
+// Connect special input ports to special output ports
+// ----------------------------------------------------------------------
+
+void PassiveTelemetryComponentBase ::
+  set_cmdRegOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputCmdRegPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_cmdRegOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_cmdRegOut_OutputPort[portNum].addCallPort(port);
+}
+
+void PassiveTelemetryComponentBase ::
+  set_cmdResponseOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputCmdResponsePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_cmdResponseOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_cmdResponseOut_OutputPort[portNum].addCallPort(port);
+}
+
+void PassiveTelemetryComponentBase ::
+  set_eventOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputLogPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_eventOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_eventOut_OutputPort[portNum].addCallPort(port);
+}
+
+void PassiveTelemetryComponentBase ::
+  set_prmGetOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputPrmGetPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_prmGetOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_prmGetOut_OutputPort[portNum].addCallPort(port);
+}
+
+void PassiveTelemetryComponentBase ::
+  set_prmSetOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputPrmSetPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_prmSetOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_prmSetOut_OutputPort[portNum].addCallPort(port);
+}
+
+#if FW_ENABLE_TEXT_LOGGING == 1
+
+void PassiveTelemetryComponentBase ::
+  set_textEventOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputLogTextPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_textEventOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_textEventOut_OutputPort[portNum].addCallPort(port);
+}
+
+#endif
+
+void PassiveTelemetryComponentBase ::
+  set_timeGetOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputTimePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_timeGetOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_timeGetOut_OutputPort[portNum].addCallPort(port);
+}
+
+void PassiveTelemetryComponentBase ::
+  set_tlmOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputTlmPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_tlmOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_tlmOut_OutputPort[portNum].addCallPort(port);
+}
+
+// ----------------------------------------------------------------------
+// Connect typed input ports to typed output ports
+// ----------------------------------------------------------------------
+
+void PassiveTelemetryComponentBase ::
+  set_typedOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      InputTypedPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_typedOut_OutputPort[portNum].addCallPort(port);
+}
+
+void PassiveTelemetryComponentBase ::
+  set_typedReturnOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      InputTypedReturnPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_typedReturnOut_OutputPort[portNum].addCallPort(port);
+}
+
+#if FW_PORT_SERIALIZATION
+
+// ----------------------------------------------------------------------
+// Connect serial input ports to special output ports
+// ----------------------------------------------------------------------
+
+void PassiveTelemetryComponentBase ::
+  set_cmdRegOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_cmdRegOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_cmdRegOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+void PassiveTelemetryComponentBase ::
+  set_cmdResponseOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_cmdResponseOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_cmdResponseOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+void PassiveTelemetryComponentBase ::
+  set_eventOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_eventOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_eventOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+void PassiveTelemetryComponentBase ::
+  set_prmGetOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_prmGetOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_prmGetOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+void PassiveTelemetryComponentBase ::
+  set_prmSetOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_prmSetOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_prmSetOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+#if FW_ENABLE_TEXT_LOGGING == 1
+
+void PassiveTelemetryComponentBase ::
+  set_textEventOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_textEventOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_textEventOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+#endif
+
+void PassiveTelemetryComponentBase ::
+  set_timeGetOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_timeGetOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_timeGetOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+void PassiveTelemetryComponentBase ::
+  set_tlmOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_tlmOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_tlmOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+#endif
+
+#if FW_PORT_SERIALIZATION
+
+// ----------------------------------------------------------------------
+// Connect serial input ports to typed output ports
+// ----------------------------------------------------------------------
+
+void PassiveTelemetryComponentBase ::
+  set_typedOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_typedOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+void PassiveTelemetryComponentBase ::
+  set_typedReturnOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_typedReturnOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+#endif
+
+// ----------------------------------------------------------------------
+// Component construction and destruction
+// ----------------------------------------------------------------------
+
+PassiveTelemetryComponentBase ::
+  PassiveTelemetryComponentBase(const char* compName) :
+    Fw::PassiveComponentBase(compName)
+{
+  // Write telemetry channel ChannelU32OnChange
+  this->m_first_update_ChannelU32OnChange = true;
+  this->m_last_ChannelU32OnChange = 0;
+
+  // Write telemetry channel ChannelEnumOnChange
+  this->m_first_update_ChannelEnumOnChange = true;
 }
 
 PassiveTelemetryComponentBase ::

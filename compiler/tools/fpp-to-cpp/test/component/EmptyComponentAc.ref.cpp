@@ -54,7 +54,18 @@ namespace {
 }
 
 // ----------------------------------------------------------------------
-// Component construction, initialization, and destruction
+// Component initialization
+// ----------------------------------------------------------------------
+
+void EmptyComponentBase ::
+  init(NATIVE_INT_TYPE instance)
+{
+  // Initialize base class
+  Fw::PassiveComponentBase::init(instance);
+}
+
+// ----------------------------------------------------------------------
+// Component construction and destruction
 // ----------------------------------------------------------------------
 
 EmptyComponentBase ::
@@ -62,13 +73,6 @@ EmptyComponentBase ::
     Fw::PassiveComponentBase(compName)
 {
 
-}
-
-void EmptyComponentBase ::
-  init(NATIVE_INT_TYPE instance)
-{
-  // Initialize base class
-  Fw::PassiveComponentBase::init(instance);
 }
 
 EmptyComponentBase ::

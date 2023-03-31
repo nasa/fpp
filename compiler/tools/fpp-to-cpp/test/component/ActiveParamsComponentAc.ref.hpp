@@ -123,6 +123,18 @@ class ActiveParamsComponentBase :
   public:
 
     // ----------------------------------------------------------------------
+    // Component initialization
+    // ----------------------------------------------------------------------
+
+    //! Initialize ActiveParamsComponentBase object
+    void init(
+        NATIVE_INT_TYPE queueDepth, //!< The queue depth
+        NATIVE_INT_TYPE instance = 0 //!< The instance number
+    );
+
+  public:
+
+    // ----------------------------------------------------------------------
     // Getters for special input ports
     // ----------------------------------------------------------------------
 
@@ -415,18 +427,12 @@ class ActiveParamsComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
-    // Component construction, initialization, and destruction
+    // Component construction and destruction
     // ----------------------------------------------------------------------
 
     //! Construct ActiveParamsComponentBase object
     ActiveParamsComponentBase(
         const char* compName = "" //!< The component name
-    );
-
-    //! Initialize ActiveParamsComponentBase object
-    void init(
-        NATIVE_INT_TYPE queueDepth, //!< The queue depth
-        NATIVE_INT_TYPE instance = 0 //!< The instance number
     );
 
     //! Destroy ActiveParamsComponentBase object

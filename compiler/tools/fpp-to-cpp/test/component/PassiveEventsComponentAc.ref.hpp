@@ -109,6 +109,17 @@ class PassiveEventsComponentBase :
   public:
 
     // ----------------------------------------------------------------------
+    // Component initialization
+    // ----------------------------------------------------------------------
+
+    //! Initialize PassiveEventsComponentBase object
+    void init(
+        NATIVE_INT_TYPE instance = 0 //!< The instance number
+    );
+
+  public:
+
+    // ----------------------------------------------------------------------
     // Getters for special input ports
     // ----------------------------------------------------------------------
 
@@ -344,17 +355,12 @@ class PassiveEventsComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
-    // Component construction, initialization, and destruction
+    // Component construction and destruction
     // ----------------------------------------------------------------------
 
     //! Construct PassiveEventsComponentBase object
     PassiveEventsComponentBase(
         const char* compName = "" //!< The component name
-    );
-
-    //! Initialize PassiveEventsComponentBase object
-    void init(
-        NATIVE_INT_TYPE instance = 0 //!< The instance number
     );
 
     //! Destroy PassiveEventsComponentBase object

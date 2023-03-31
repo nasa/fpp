@@ -177,12 +177,13 @@ case class ComponentCppWriter (
       getAnonymousNamespaceMembers,
 
       // Public function members
+      getPublicComponentFunctionMembers,
       portWriter.getPublicFunctionMembers,
       cmdWriter.getPublicFunctionMembers,
       paramWriter.getPublicFunctionMembers,
 
       // Protected function members
-      getComponentFunctionMembers,
+      getProtectedComponentFunctionMembers,
       portWriter.getProtectedFunctionMembers,
       internalPortWriter.getFunctionMembers,
       cmdWriter.getProtectedFunctionMembers,
@@ -366,22 +367,7 @@ case class ComponentCppWriter (
     )
   }
 
-  private def getComponentFunctionMembers: List[CppDoc.Class.Member] = {
-    def writeChannelInit(channel: TlmChannel) = {
-      List(
-        lines(
-          s"""|// Write telemetry channel ${channel.getName}
-              |this->${channelUpdateFlagName(channel.getName)} = true;
-              |"""
-        ),
-        channel.channelType match {
-          case t if s.isPrimitive(t, getChannelType(t)) => lines(
-            s"this->${channelStorageName(channel.getName)} = 0;"
-          )
-          case _ => Nil
-        }
-      ).flatten
-    }
+  private def getPublicComponentFunctionMembers: List[CppDoc.Class.Member] = {
     def writePortConnections(port: PortInstance) = {
       val d = port.getDirection.get
       val body = line(s"// Connect ${d.toString} port ${port.getUnqualifiedName}") ::
@@ -465,36 +451,9 @@ case class ComponentCppWriter (
       else Nil
 
     addAccessTagAndComment(
-      "PROTECTED",
-      "Component construction, initialization, and destruction",
+      "public",
+      "Component initialization",
       List(
-        constructorClassMember(
-          Some(s"Construct $className object"),
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type("const char*"),
-              "compName",
-              Some("The component name"),
-              Some("\"\"")
-            )
-          ),
-          List(s"Fw::${kindStr}ComponentBase(compName)"),
-          intersperseBlankLines(
-            List(
-              intersperseBlankLines(
-                updateOnChangeChannels.map((_, channel) =>
-                  writeChannelInit(channel)
-                )
-              ),
-              throttledEvents.map((_, event) => line(
-                s"this->${eventThrottleCounterName(event.getName)} = 0;"
-              )),
-              sortedParams.map((_, param) => line(
-                s"this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::UNINIT;"
-              ))
-            )
-          )
-        ),
         functionClassMember(
           Some(s"Initialize $className object"),
           "init",
@@ -549,6 +508,58 @@ case class ComponentCppWriter (
                   }
                 )
               )
+            )
+          )
+        )
+      )
+    )
+  }
+
+  private def getProtectedComponentFunctionMembers: List[CppDoc.Class.Member] = {
+    def writeChannelInit(channel: TlmChannel) = {
+      List(
+        lines(
+          s"""|// Write telemetry channel ${channel.getName}
+              |this->${channelUpdateFlagName(channel.getName)} = true;
+              |"""
+        ),
+        channel.channelType match {
+          case t if s.isPrimitive(t, getChannelType(t)) => lines(
+            s"this->${channelStorageName(channel.getName)} = 0;"
+          )
+          case _ => Nil
+        }
+      ).flatten
+    }
+
+    addAccessTagAndComment(
+      "PROTECTED",
+      "Component construction and destruction",
+      List(
+        constructorClassMember(
+          Some(s"Construct $className object"),
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("const char*"),
+              "compName",
+              Some("The component name"),
+              Some("\"\"")
+            )
+          ),
+          List(s"Fw::${kindStr}ComponentBase(compName)"),
+          intersperseBlankLines(
+            List(
+              intersperseBlankLines(
+                updateOnChangeChannels.map((_, channel) =>
+                  writeChannelInit(channel)
+                )
+              ),
+              throttledEvents.map((_, event) => line(
+                s"this->${eventThrottleCounterName(event.getName)} = 0;"
+              )),
+              sortedParams.map((_, param) => line(
+                s"this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::UNINIT;"
+              ))
             )
           )
         ),

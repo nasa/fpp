@@ -165,6 +165,17 @@ class PassiveTestComponentBase :
   public:
 
     // ----------------------------------------------------------------------
+    // Component initialization
+    // ----------------------------------------------------------------------
+
+    //! Initialize PassiveTestComponentBase object
+    void init(
+        NATIVE_INT_TYPE instance = 0 //!< The instance number
+    );
+
+  public:
+
+    // ----------------------------------------------------------------------
     // Getters for special input ports
     // ----------------------------------------------------------------------
 
@@ -422,17 +433,12 @@ class PassiveTestComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
-    // Component construction, initialization, and destruction
+    // Component construction and destruction
     // ----------------------------------------------------------------------
 
     //! Construct PassiveTestComponentBase object
     PassiveTestComponentBase(
         const char* compName = "" //!< The component name
-    );
-
-    //! Initialize PassiveTestComponentBase object
-    void init(
-        NATIVE_INT_TYPE instance = 0 //!< The instance number
     );
 
     //! Destroy PassiveTestComponentBase object

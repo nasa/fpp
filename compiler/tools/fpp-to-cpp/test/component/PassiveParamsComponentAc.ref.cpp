@@ -62,6 +62,463 @@ namespace {
 }
 
 // ----------------------------------------------------------------------
+// Component initialization
+// ----------------------------------------------------------------------
+
+void PassiveParamsComponentBase ::
+  init(NATIVE_INT_TYPE instance)
+{
+  // Initialize base class
+  Fw::PassiveComponentBase::init(instance);
+
+  // Connect input port cmdIn
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_cmdIn_InputPorts());
+    port++
+  ) {
+    this->m_cmdIn_InputPort[port].init();
+    this->m_cmdIn_InputPort[port].addCallComp(
+      this,
+      m_p_cmdIn_in
+    );
+    this->m_cmdIn_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_cmdIn_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_cmdIn_InputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect input port noArgsGuarded
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_noArgsGuarded_InputPorts());
+    port++
+  ) {
+    this->m_noArgsGuarded_InputPort[port].init();
+    this->m_noArgsGuarded_InputPort[port].addCallComp(
+      this,
+      m_p_noArgsGuarded_in
+    );
+    this->m_noArgsGuarded_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_noArgsGuarded_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_noArgsGuarded_InputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect input port noArgsReturnGuarded
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_noArgsReturnGuarded_InputPorts());
+    port++
+  ) {
+    this->m_noArgsReturnGuarded_InputPort[port].init();
+    this->m_noArgsReturnGuarded_InputPort[port].addCallComp(
+      this,
+      m_p_noArgsReturnGuarded_in
+    );
+    this->m_noArgsReturnGuarded_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_noArgsReturnGuarded_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_noArgsReturnGuarded_InputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect input port noArgsReturnSync
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_noArgsReturnSync_InputPorts());
+    port++
+  ) {
+    this->m_noArgsReturnSync_InputPort[port].init();
+    this->m_noArgsReturnSync_InputPort[port].addCallComp(
+      this,
+      m_p_noArgsReturnSync_in
+    );
+    this->m_noArgsReturnSync_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_noArgsReturnSync_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_noArgsReturnSync_InputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect input port noArgsSync
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_noArgsSync_InputPorts());
+    port++
+  ) {
+    this->m_noArgsSync_InputPort[port].init();
+    this->m_noArgsSync_InputPort[port].addCallComp(
+      this,
+      m_p_noArgsSync_in
+    );
+    this->m_noArgsSync_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_noArgsSync_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_noArgsSync_InputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect input port typedGuarded
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_typedGuarded_InputPorts());
+    port++
+  ) {
+    this->m_typedGuarded_InputPort[port].init();
+    this->m_typedGuarded_InputPort[port].addCallComp(
+      this,
+      m_p_typedGuarded_in
+    );
+    this->m_typedGuarded_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_typedGuarded_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_typedGuarded_InputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect input port typedReturnGuarded
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_typedReturnGuarded_InputPorts());
+    port++
+  ) {
+    this->m_typedReturnGuarded_InputPort[port].init();
+    this->m_typedReturnGuarded_InputPort[port].addCallComp(
+      this,
+      m_p_typedReturnGuarded_in
+    );
+    this->m_typedReturnGuarded_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_typedReturnGuarded_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_typedReturnGuarded_InputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect input port typedReturnSync
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_typedReturnSync_InputPorts());
+    port++
+  ) {
+    this->m_typedReturnSync_InputPort[port].init();
+    this->m_typedReturnSync_InputPort[port].addCallComp(
+      this,
+      m_p_typedReturnSync_in
+    );
+    this->m_typedReturnSync_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_typedReturnSync_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_typedReturnSync_InputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect input port typedSync
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_typedSync_InputPorts());
+    port++
+  ) {
+    this->m_typedSync_InputPort[port].init();
+    this->m_typedSync_InputPort[port].addCallComp(
+      this,
+      m_p_typedSync_in
+    );
+    this->m_typedSync_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_typedSync_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_typedSync_InputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect output port cmdRegOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_cmdRegOut_OutputPorts());
+    port++
+  ) {
+    this->m_cmdRegOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_cmdRegOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_cmdRegOut_OutputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect output port cmdResponseOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_cmdResponseOut_OutputPorts());
+    port++
+  ) {
+    this->m_cmdResponseOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_cmdResponseOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_cmdResponseOut_OutputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect output port eventOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_eventOut_OutputPorts());
+    port++
+  ) {
+    this->m_eventOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_eventOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_eventOut_OutputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect output port prmGetOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_prmGetOut_OutputPorts());
+    port++
+  ) {
+    this->m_prmGetOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_prmGetOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_prmGetOut_OutputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect output port prmSetOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_prmSetOut_OutputPorts());
+    port++
+  ) {
+    this->m_prmSetOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_prmSetOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_prmSetOut_OutputPort[port].setObjName(portName);
+#endif
+  }
+
+#if FW_ENABLE_TEXT_LOGGING == 1
+  // Connect output port textEventOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_textEventOut_OutputPorts());
+    port++
+  ) {
+    this->m_textEventOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_textEventOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_textEventOut_OutputPort[port].setObjName(portName);
+#endif
+  }
+#endif
+
+  // Connect output port timeGetOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_timeGetOut_OutputPorts());
+    port++
+  ) {
+    this->m_timeGetOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_timeGetOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_timeGetOut_OutputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect output port tlmOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_tlmOut_OutputPorts());
+    port++
+  ) {
+    this->m_tlmOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_tlmOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_tlmOut_OutputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect output port typedOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_typedOut_OutputPorts());
+    port++
+  ) {
+    this->m_typedOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_typedOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_typedOut_OutputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect output port typedReturnOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_typedReturnOut_OutputPorts());
+    port++
+  ) {
+    this->m_typedReturnOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_typedReturnOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_typedReturnOut_OutputPort[port].setObjName(portName);
+#endif
+  }
+}
+
+// ----------------------------------------------------------------------
 // Getters for special input ports
 // ----------------------------------------------------------------------
 
@@ -714,7 +1171,7 @@ void PassiveParamsComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Component construction, initialization, and destruction
+// Component construction and destruction
 // ----------------------------------------------------------------------
 
 PassiveParamsComponentBase ::
@@ -727,459 +1184,6 @@ PassiveParamsComponentBase ::
   this->m_param_ParamEnum_valid = Fw::ParamValid::UNINIT;
   this->m_param_ParamArray_valid = Fw::ParamValid::UNINIT;
   this->m_param_ParamStruct_valid = Fw::ParamValid::UNINIT;
-}
-
-void PassiveParamsComponentBase ::
-  init(NATIVE_INT_TYPE instance)
-{
-  // Initialize base class
-  Fw::PassiveComponentBase::init(instance);
-
-  // Connect input port cmdIn
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_cmdIn_InputPorts());
-    port++
-  ) {
-    this->m_cmdIn_InputPort[port].init();
-    this->m_cmdIn_InputPort[port].addCallComp(
-      this,
-      m_p_cmdIn_in
-    );
-    this->m_cmdIn_InputPort[port].setPortNum(port);
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_cmdIn_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_cmdIn_InputPort[port].setObjName(portName);
-#endif
-  }
-
-  // Connect input port noArgsGuarded
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_noArgsGuarded_InputPorts());
-    port++
-  ) {
-    this->m_noArgsGuarded_InputPort[port].init();
-    this->m_noArgsGuarded_InputPort[port].addCallComp(
-      this,
-      m_p_noArgsGuarded_in
-    );
-    this->m_noArgsGuarded_InputPort[port].setPortNum(port);
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_noArgsGuarded_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_noArgsGuarded_InputPort[port].setObjName(portName);
-#endif
-  }
-
-  // Connect input port noArgsReturnGuarded
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_noArgsReturnGuarded_InputPorts());
-    port++
-  ) {
-    this->m_noArgsReturnGuarded_InputPort[port].init();
-    this->m_noArgsReturnGuarded_InputPort[port].addCallComp(
-      this,
-      m_p_noArgsReturnGuarded_in
-    );
-    this->m_noArgsReturnGuarded_InputPort[port].setPortNum(port);
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_noArgsReturnGuarded_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_noArgsReturnGuarded_InputPort[port].setObjName(portName);
-#endif
-  }
-
-  // Connect input port noArgsReturnSync
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_noArgsReturnSync_InputPorts());
-    port++
-  ) {
-    this->m_noArgsReturnSync_InputPort[port].init();
-    this->m_noArgsReturnSync_InputPort[port].addCallComp(
-      this,
-      m_p_noArgsReturnSync_in
-    );
-    this->m_noArgsReturnSync_InputPort[port].setPortNum(port);
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_noArgsReturnSync_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_noArgsReturnSync_InputPort[port].setObjName(portName);
-#endif
-  }
-
-  // Connect input port noArgsSync
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_noArgsSync_InputPorts());
-    port++
-  ) {
-    this->m_noArgsSync_InputPort[port].init();
-    this->m_noArgsSync_InputPort[port].addCallComp(
-      this,
-      m_p_noArgsSync_in
-    );
-    this->m_noArgsSync_InputPort[port].setPortNum(port);
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_noArgsSync_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_noArgsSync_InputPort[port].setObjName(portName);
-#endif
-  }
-
-  // Connect input port typedGuarded
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedGuarded_InputPorts());
-    port++
-  ) {
-    this->m_typedGuarded_InputPort[port].init();
-    this->m_typedGuarded_InputPort[port].addCallComp(
-      this,
-      m_p_typedGuarded_in
-    );
-    this->m_typedGuarded_InputPort[port].setPortNum(port);
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_typedGuarded_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_typedGuarded_InputPort[port].setObjName(portName);
-#endif
-  }
-
-  // Connect input port typedReturnGuarded
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedReturnGuarded_InputPorts());
-    port++
-  ) {
-    this->m_typedReturnGuarded_InputPort[port].init();
-    this->m_typedReturnGuarded_InputPort[port].addCallComp(
-      this,
-      m_p_typedReturnGuarded_in
-    );
-    this->m_typedReturnGuarded_InputPort[port].setPortNum(port);
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_typedReturnGuarded_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_typedReturnGuarded_InputPort[port].setObjName(portName);
-#endif
-  }
-
-  // Connect input port typedReturnSync
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedReturnSync_InputPorts());
-    port++
-  ) {
-    this->m_typedReturnSync_InputPort[port].init();
-    this->m_typedReturnSync_InputPort[port].addCallComp(
-      this,
-      m_p_typedReturnSync_in
-    );
-    this->m_typedReturnSync_InputPort[port].setPortNum(port);
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_typedReturnSync_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_typedReturnSync_InputPort[port].setObjName(portName);
-#endif
-  }
-
-  // Connect input port typedSync
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedSync_InputPorts());
-    port++
-  ) {
-    this->m_typedSync_InputPort[port].init();
-    this->m_typedSync_InputPort[port].addCallComp(
-      this,
-      m_p_typedSync_in
-    );
-    this->m_typedSync_InputPort[port].setPortNum(port);
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_typedSync_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_typedSync_InputPort[port].setObjName(portName);
-#endif
-  }
-
-  // Connect output port cmdRegOut
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_cmdRegOut_OutputPorts());
-    port++
-  ) {
-    this->m_cmdRegOut_OutputPort[port].init();
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_cmdRegOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_cmdRegOut_OutputPort[port].setObjName(portName);
-#endif
-  }
-
-  // Connect output port cmdResponseOut
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_cmdResponseOut_OutputPorts());
-    port++
-  ) {
-    this->m_cmdResponseOut_OutputPort[port].init();
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_cmdResponseOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_cmdResponseOut_OutputPort[port].setObjName(portName);
-#endif
-  }
-
-  // Connect output port eventOut
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_eventOut_OutputPorts());
-    port++
-  ) {
-    this->m_eventOut_OutputPort[port].init();
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_eventOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_eventOut_OutputPort[port].setObjName(portName);
-#endif
-  }
-
-  // Connect output port prmGetOut
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_prmGetOut_OutputPorts());
-    port++
-  ) {
-    this->m_prmGetOut_OutputPort[port].init();
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_prmGetOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_prmGetOut_OutputPort[port].setObjName(portName);
-#endif
-  }
-
-  // Connect output port prmSetOut
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_prmSetOut_OutputPorts());
-    port++
-  ) {
-    this->m_prmSetOut_OutputPort[port].init();
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_prmSetOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_prmSetOut_OutputPort[port].setObjName(portName);
-#endif
-  }
-
-#if FW_ENABLE_TEXT_LOGGING == 1
-  // Connect output port textEventOut
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_textEventOut_OutputPorts());
-    port++
-  ) {
-    this->m_textEventOut_OutputPort[port].init();
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_textEventOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_textEventOut_OutputPort[port].setObjName(portName);
-#endif
-  }
-#endif
-
-  // Connect output port timeGetOut
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_timeGetOut_OutputPorts());
-    port++
-  ) {
-    this->m_timeGetOut_OutputPort[port].init();
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_timeGetOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_timeGetOut_OutputPort[port].setObjName(portName);
-#endif
-  }
-
-  // Connect output port tlmOut
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_tlmOut_OutputPorts());
-    port++
-  ) {
-    this->m_tlmOut_OutputPort[port].init();
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_tlmOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_tlmOut_OutputPort[port].setObjName(portName);
-#endif
-  }
-
-  // Connect output port typedOut
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedOut_OutputPorts());
-    port++
-  ) {
-    this->m_typedOut_OutputPort[port].init();
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_typedOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_typedOut_OutputPort[port].setObjName(portName);
-#endif
-  }
-
-  // Connect output port typedReturnOut
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedReturnOut_OutputPorts());
-    port++
-  ) {
-    this->m_typedReturnOut_OutputPort[port].init();
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_typedReturnOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_typedReturnOut_OutputPort[port].setObjName(portName);
-#endif
-  }
 }
 
 PassiveParamsComponentBase ::
