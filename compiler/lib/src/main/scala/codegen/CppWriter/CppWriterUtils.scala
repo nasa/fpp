@@ -1,8 +1,5 @@
 package fpp.compiler.codegen
 
-import fpp.compiler.analysis._
-import fpp.compiler.ast._
-
 /** Utilities for writing C++ */
 trait CppWriterUtils extends LineUtils {
 
