@@ -11,9 +11,9 @@
 #include "DpTest_DataSerializableAc.hpp"
 #include "FpConfig.hpp"
 #include "Fw/Com/ComPacket.hpp"
-#include "Fw/Dp/DpBufferRequestPortAc.hpp"
-#include "Fw/Dp/DpBufferSendPortAc.hpp"
 #include "Fw/Dp/DpContainer.hpp"
+#include "Fw/Dp/DpRequestPortAc.hpp"
+#include "Fw/Dp/DpSendPortAc.hpp"
 #include "Fw/Time/TimePortAc.hpp"
 #include "Svc/Sched/SchedPortAc.hpp"
 
