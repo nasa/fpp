@@ -39,7 +39,7 @@ ports()
   update "-p $PWD" ports
   move_xml PPort \
     CmdPort CmdRegPort CmdResponsePort \
-    DpBufferRequestPort DpBufferSendPort \
+    DpRequestPort DpResponsePort DpSendPort \
     LogPort LogTextPort \
     PrmGetPort PrmSetPort \
     TimePort \
