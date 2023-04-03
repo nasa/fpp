@@ -401,22 +401,6 @@ abstract class ComponentCppWriterUtils(
   def getChannelType(t: Type): String =
     TypeCppWriter.getName(s, t, Some("Fw::TlmString"))
 
-  /** Add an optional string separated by two newlines */
-  def addSeparatedString(str: String, strOpt: Option[String]): String = {
-    strOpt match {
-      case Some(s) => s"$str\n\n$s"
-      case None => str
-    }
-  }
-
-  /** Add an optional pre comment separated by two newlines */
-  def addSeparatedPreComment(str: String, commentOpt: Option[String]): String = {
-    commentOpt match {
-      case Some(s) => s"//! $str\n//!\n//! $s"
-      case None => str
-    }
-  }
-
   def writeSendMessageLogic(
     bufferName: String,
     queueFull: Ast.QueueFull,
