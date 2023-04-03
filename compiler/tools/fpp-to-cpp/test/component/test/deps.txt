@@ -1,0 +1,6 @@
+../../fprime/Fw/Cmd/Cmd.fpp
+../../fprime/Fw/Log/Log.fpp
+../../fprime/Fw/Prm/Prm.fpp
+../../fprime/Fw/Time/Time.fpp
+../../fprime/Fw/Tlm/Tlm.fpp
+../../fprime/config/FpConfig.fpp

@@ -60,8 +60,7 @@ object ComputeCppFiles extends AstStateVisitor {
     val name = s.getName(Symbol.Component(aNode))
     val loc = Locations.get(node.id)
     for {
-      // TODO
-      //s <- addMappings(s, FileNames.getComponent(name), Some(loc))
+      s <- addMappings(s, FileNames.getComponent(name), Some(loc))
       s <- if (componentHasDataProducts(data))
         addMappings(s, FileNames.getDpComponent(name), Some(loc))
         else Right(s)
