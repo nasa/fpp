@@ -16,7 +16,7 @@ trait CppDocWriter extends CppDocVisitor with LineUtils {
 
     /** Get the enclosing class name, including any qualifier */
     def getEnclosingClassQualified: String = classNameList.reverse.mkString("::")
- 
+
     /** Get the enclosing class name with no qualifier */
     def getEnclosingClassUnqualified: String = classNameList.head.split("::").reverse.head
 
@@ -56,17 +56,24 @@ object CppDocWriter extends LineUtils {
       case Some(comment) => writeDoxygenPostComment(comment)
       case None => Line.blank :: Nil
     }
-    
+
+  /** Add a a prefix to a comment line */
+  def addCommentPrefix (prefix: String) (l: Line): Line = l.string match {
+    case "" => line(prefix)
+    case _ => Line.join(" ")(line(prefix))(l)
+  }
+
   /** Write a Doxygen comment */
-  def writeDoxygenComment(comment: String): List[Line] = 
-    Line.blank ::lines(comment).map(Line.join(" ")(line("//!"))_)
+  def writeDoxygenComment(comment: String): List[Line] =
+    Line.blank :: lines(comment).map(addCommentPrefix("//!")_)
 
   /** Write a Doxygen post comment */
   def writeDoxygenPostComment(comment: String): List[Line] =
-    lines(comment).map(Line.join(" ")(line("//!<"))_)
-    
+    lines(comment).map(addCommentPrefix("//!<")_)
+
   /** Write a comment body */
-  def writeCommentBody(comment: String): List[Line] = lines(comment).map(Line.join(" ")(line("//"))_)
+  def writeCommentBody(comment: String): List[Line] =
+    lines(comment).map(addCommentPrefix("//")_)
 
   /** Left align a compiler directive */
   def leftAlignDirective(line: Line): Line =

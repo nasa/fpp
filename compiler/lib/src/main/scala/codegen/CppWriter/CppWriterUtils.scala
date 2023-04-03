@@ -3,6 +3,20 @@ package fpp.compiler.codegen
 /** Utilities for writing C++ */
 trait CppWriterUtils extends LineUtils {
 
+  /** Add an access tag and comment to a nonempty list of class members */
+  def addAccessTagAndComment(
+    accessTag: String,
+    comment: String,
+    members: List[CppDoc.Class.Member],
+    output: CppDoc.Lines.Output = CppDoc.Lines.Both
+  ): List[CppDoc.Class.Member] = members match {
+    case Nil => Nil
+    case _ =>
+      linesClassMember(CppDocHppWriter.writeAccessTag(accessTag)) ::
+      linesClassMember(CppDocWriter.writeBannerComment(comment), output) ::
+      members
+  }
+
   def wrapInScope(
     s1: String,
     ll: List[Line],
@@ -18,14 +32,38 @@ trait CppWriterUtils extends LineUtils {
   def wrapInNamespace(namespace: String, ll: List[Line]): List[Line] =
     wrapInScope(s"namespace $namespace {", ll, "}")
 
+  def wrapInNamedEnum(name: String, ll: List[Line]): List[Line] =
+    wrapInScope(s"enum $name {", ll, "};")
+
+  def wrapInNamedStruct(name: String, ll: List[Line]): List[Line] =
+    wrapInScope(s"struct $name {", ll, "};")
+
   def wrapInEnum(ll: List[Line]): List[Line] =
     wrapInScope("enum {", ll, "};")
+
+  def wrapInSwitch(condition: String, body: List[Line]) =
+    wrapInScope(s"switch ($condition) {", body, "}")
 
   def wrapInForLoop(init: String, condition: String, step: String, body: List[Line]): List[Line] =
     wrapInScope(s"for ($init; $condition; $step) {", body, "}")
 
+  def wrapInForLoopStaggered(init: String, condition: String, step: String, body: List[Line]): List[Line] =
+    wrapInScope(
+      s"""|for (
+          |  $init;
+          |  $condition;
+          |  $step
+          |) {
+          |""",
+      body,
+      "}"
+    )
+
   def wrapInIf(condition: String, body: List[Line]): List[Line] =
     wrapInScope(s"if ($condition) {", body, "}")
+
+  def wrapInIfElse(condition: String, ifBody: List[Line], elseBody: List[Line]): List[Line] =
+    wrapInIf(condition, ifBody) ++ wrapInScope("else {", elseBody, "}")
 
   def wrapMembersInIfDirective(
     directive: String,
@@ -56,8 +94,9 @@ trait CppWriterUtils extends LineUtils {
     body: List[T],
     constructMemberLines: CppDoc.Lines => T,
     linesOutput: CppDoc.Lines.Output = CppDoc.Lines.Both
-  ): List[T] =
-    List(
+  ): List[T] = body match {
+    case Nil => Nil
+    case _ => List(
       List(
         constructMemberLines(
           CppDoc.Lines(
@@ -76,6 +115,7 @@ trait CppWriterUtils extends LineUtils {
         )
       ),
     ).flatten
+  }
 
   def writeOstreamOperator(
     name: String,
@@ -109,6 +149,43 @@ trait CppWriterUtils extends LineUtils {
       )
     )
 
+  /** Write an enumerated constant */
+  def writeEnumConstant(
+    name: String,
+    value: BigInt,
+    comment: Option[String] = None,
+    radix: CppWriterUtils.Radix = CppWriterUtils.Decimal
+  ): String = {
+    val valueStr = radix match {
+      case CppWriterUtils.Decimal => value.toString
+      case CppWriterUtils.Hex => s"0x${value.toString(16)}"
+    }
+    val commentStr = comment match {
+      case Some(s) => s" //! $s"
+      case None => ""
+    }
+
+    s"$name = $valueStr,$commentStr"
+  }
+
+  /** Write a function call with fixed and variable arguments */
+  def writeFunctionCall(
+    name: String,
+    args: List[String],
+    variableArgs: List[String] = Nil
+  ): List[Line] = variableArgs match {
+    case Nil => lines(
+      s"$name(${args.mkString(", ")});"
+    )
+    case _ => wrapInScope(
+      s"$name(",
+      lines(
+        (args ++ variableArgs).mkString(",\n")
+      ),
+      ");"
+    )
+  }
+
   def classMember(
     comment: Option[String],
     name: String,
@@ -116,6 +193,21 @@ trait CppWriterUtils extends LineUtils {
     members: List[CppDoc.Class.Member],
   ): CppDoc.Member.Class =
     CppDoc.Member.Class(
+      CppDoc.Class(
+        comment,
+        name,
+        superclassDecls,
+        members
+      )
+    )
+
+  def classClassMember(
+    comment: Option[String],
+    name: String,
+    superclassDecls: Option[String],
+    members: List[CppDoc.Class.Member],
+  ): CppDoc.Class.Member.Class =
+    CppDoc.Class.Member.Class(
       CppDoc.Class(
         comment,
         name,
@@ -190,7 +282,7 @@ trait CppWriterUtils extends LineUtils {
     retType: CppDoc.Type,
     body: List[Line],
     svQualifier: CppDoc.Function.SVQualifier = CppDoc.Function.NonSV,
-    constQualifier: CppDoc.Function.ConstQualifier = CppDoc.Function.NonConst,
+    constQualifier: CppDoc.Function.ConstQualifier = CppDoc.Function.NonConst
   ): CppDoc.Class.Member.Function =
     CppDoc.Class.Member.Function(
       CppDoc.Function(
@@ -223,5 +315,13 @@ trait CppWriterUtils extends LineUtils {
     case head :: tail =>
       List(namespaceMember(head, wrapInNamespaces(tail, members)))
   }
+
+}
+
+object CppWriterUtils {
+
+  sealed trait Radix
+  case object Decimal extends Radix
+  case object Hex extends Radix
 
 }

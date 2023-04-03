@@ -51,7 +51,7 @@ object Program extends LineUtils {
                         ),
                         Class.Member.Constructor(
                           constructor = Class.Constructor(
-                            comment = Some("This is line 1.\nThis is line 2."),
+                            comment = Some("This is line 1.\n\nThis is line 3."),
                             params = Nil,
                             initializers = Nil,
                             body = lines("// line1\n// line2")
@@ -69,17 +69,17 @@ object Program extends LineUtils {
                             name = "f",
                             params = List(
                               Function.Param(
-                                Type("const double", None),
+                                Type("const double"),
                                 "x",
-                                Some("This is parameter x line 1.\nThis is parameter x line 2.")
+                                Some("This is parameter x line 1.\n\nThis is parameter x line 3.")
                               ),
                               Function.Param(
-                                Type("const int", None),
+                                Type("const int"),
                                 "y",
                                 Some("This is parameter y line 1.\nThis is parameter y line 2.")
                               )
                             ),
-                            retType = Type("void", None),
+                            retType = Type("void"),
                             body = Nil
                           )
                         ),
@@ -97,12 +97,12 @@ object Program extends LineUtils {
                       comment = Some("This is line 1.\nThis is line 2."),
                       params = List(
                         Function.Param(
-                          t = Type("const double", None),
+                          t = Type("const double"),
                           name = "x",
                           comment = Some("This is parameter x")
                         ),
                         Function.Param(
-                          t = Type("const int", None),
+                          t = Type("const int"),
                           name = "y",
                           comment = Some("This is parameter y")
                         )
@@ -134,20 +134,31 @@ object Program extends LineUtils {
                       name = "f",
                       params = List(
                         Function.Param(
-                          Type("const double", None),
+                          Type("const double"),
                           "x",
                           Some("This is parameter x"),
                           Some("0.0")
                         ),
                         Function.Param(
-                          Type("const int", None),
+                          Type("const int"),
                           "y",
                           Some("This is parameter y"),
                           Some("0")
                         )
                       ),
-                      retType = Type("void", None),
+                      retType = Type("void"),
                       body = Nil
+                    )
+                  ),
+                  Class.Member.Function(
+                    Function(
+                      comment = Some("This is line 1.\nThis is line 2."),
+                      name = "g",
+                      params = Nil,
+                      retType = Type("void"),
+                      body = Nil,
+                      Function.PureVirtual,
+                      Function.Const
                     )
                   ),
                   Class.Member.Lines(

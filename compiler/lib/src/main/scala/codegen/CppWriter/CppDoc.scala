@@ -88,10 +88,12 @@ object CppDoc {
       default: Option[String] = None
     )
     sealed trait SVQualifier
+    case object Final extends SVQualifier
     case object NonSV extends SVQualifier
+    case object Override extends SVQualifier
     case object PureVirtual extends SVQualifier
-    case object Virtual extends SVQualifier
     case object Static extends SVQualifier
+    case object Virtual extends SVQualifier
     sealed trait ConstQualifier
     case object Const extends ConstQualifier
     case object NonConst extends ConstQualifier

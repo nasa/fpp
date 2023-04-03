@@ -21,11 +21,11 @@ case class PortCppWriter (
 
   private val namespaceIdentList = s.getNamespaceIdentList(symbol)
 
-  private val typeCppWriter = TypeCppWriter(s)
+  private val strNamespace = s"${name}PortStrings"
+
+  private val typeCppWriter = TypeCppWriter(s, None, List(strNamespace))
 
   private val strCppWriter = StringCppWriter(s)
-
-  private val strNamespace = s"${name}PortStrings"
 
   private val params = data.params
 
@@ -54,14 +54,9 @@ case class PortCppWriter (
   private val paramList = params.map((_, node, _) => {
     val n = node.data.name
     val k = node.data.kind
-    paramTypeMap(n) match {
-      case t: Type.String => (
-        n,
-        strCppWriter.getQualifiedClassName(t, List(strNamespace)),
-        k
-      )
-      case t => (n, typeCppWriter.write(t), k)
-    }
+    val t = paramTypeMap(n)
+
+    (n, typeCppWriter.write(t), k)
   })
 
   // Port params as CppDoc Function Params
@@ -75,10 +70,7 @@ case class PortCppWriter (
 
   // Return type as a C++ type
   private val returnType = data.returnType match {
-    case Some(value) => s.a.typeMap(value.id) match {
-      case t: Type.String => strCppWriter.getQualifiedClassName(t, List(strNamespace))
-      case t => typeCppWriter.write(t)
-    }
+    case Some(value) => typeCppWriter.write(s.a.typeMap(value.id))
     case None => "void"
   }
 
@@ -335,7 +327,7 @@ case class PortCppWriter (
         else line("Fw::SerializeStatus _status;")) ::
           lines(
             """|
-               |#if FW_PORT_SERIALIZATION == 1
+               |#if FW_PORT_TRACING == 1
                |this->trace();
                |#endif
                |

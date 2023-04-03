@@ -7,11 +7,11 @@ dir=`cd ../..; echo $PWD`
 
 echo '  generating XML'
 fpp-to-xml -p $dir ../../builtin.fpp ../../params.fpp
-cp ../Fw/Cmd/*Ai.xml .
-cp ../Fw/Prm/*Ai.xml .
+cp ../../../fprime/Fw/Cmd/*Ai.xml .
+cp ../../../fprime/Fw/Prm/*Ai.xml .
 
 echo '  generating C++'
-(cd ../Fw/Prm; fprime-codegen ParamValidEnumAi.xml > /dev/null)
+(cd ../../../fprime/Fw/Prm; fprime-codegen ParamValidEnumAi.xml > /dev/null)
 for file in CComponent CmdPort CmdRegPort CmdResponsePort PrmGetPort PrmSetPort
 do
   fprime-codegen $file'Ai.xml' > /dev/null

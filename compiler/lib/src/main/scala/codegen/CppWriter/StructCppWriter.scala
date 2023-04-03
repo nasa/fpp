@@ -39,10 +39,9 @@ case class StructCppWriter(
   // Preserves ordering of struct members
   private val memberList = typeMembers.map((_, node, _) => {
     val n = node.data.name
-    members(n) match {
-      case t: Type.String => (n, strCppWriter.getClassName(t))
-      case t => (n, typeCppWriter.write(t))
-    }
+    val t = members(n)
+
+    (n, typeCppWriter.write(t))
   })
 
   private val memberNames = memberList.map((n, _) => n)

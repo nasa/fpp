@@ -1,0 +1,9 @@
+#!/bin/sh -e
+
+. ../../../../scripts/utils.sh
+
+clean
+for file in `find . -name '*Ac.cpp' -or -name '*Ac.hpp'`
+do
+  rm $file
+done
