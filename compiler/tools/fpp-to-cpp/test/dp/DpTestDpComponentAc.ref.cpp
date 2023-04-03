@@ -89,10 +89,16 @@ namespace FppTest {
   }
 
   void DpTestDpComponentBase ::
-    Dp_Send(DpContainer& container)
+    Dp_Send(
+        DpContainer& container,
+        Fw::Time timeTag
+    )
   {
     // Update the time tag
-    const Fw::Time timeTag = this->getTime();
+    if (timeTag == Fw::ZERO_TIME) {
+      // Get the time from the time port
+      timeTag = this->getTime();
+    }
     container.setTimeTag(timeTag);
     // Serialize the header into the packet
     Fw::SerializeStatus status = container.serializeHeader();

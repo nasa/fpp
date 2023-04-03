@@ -93,12 +93,21 @@ case class ComponentDataProducts (
               CppDoc.Type("DpContainer&"),
               "container",
               Some("The data product container")
+            ),
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::Time"),
+              "timeTag",
+              Some("The time tag"),
+              Some("FW::ZERO_TIME")
             )
           ),
           CppDoc.Type("void"),
           lines(
             """|// Update the time tag
-               |const Fw::Time timeTag = this->getTime();
+               |if (timeTag == Fw::ZERO_TIME) {
+               |  // Get the time from the time port
+               |  timeTag = this->getTime();
+               |}
                |container.setTimeTag(timeTag);
                |// Serialize the header into the packet
                |Fw::SerializeStatus status = container.serializeHeader();
