@@ -13,6 +13,7 @@
 #include "Fw/Com/ComPacket.hpp"
 #include "Fw/Dp/DpContainer.hpp"
 #include "Fw/Dp/DpRequestPortAc.hpp"
+#include "Fw/Dp/DpResponsePortAc.hpp"
 #include "Fw/Dp/DpSendPortAc.hpp"
 #include "Fw/Time/TimePortAc.hpp"
 #include "Svc/Sched/SchedPortAc.hpp"
@@ -149,7 +150,8 @@ namespace FppTest {
       void productRecvIn_handler(
           const NATIVE_INT_TYPE portNum, //!< The port number
           FwDpIdType id, //!< The container id
-          const Fw::Buffer& buffer //!< The buffer
+          const Fw::Buffer& buffer, //!< The buffer
+          const Fw::Success& status //!< The buffer status
       ) override;
 
   };

@@ -114,7 +114,8 @@ namespace FppTest {
     productRecvIn_handler(
         const NATIVE_INT_TYPE portNum,
         FwDpIdType id,
-        const Fw::Buffer& buffer
+        const Fw::Buffer& buffer,
+        const Fw::Success& status
     )
   {
     DpContainer container(id, buffer, this->getIdBase());

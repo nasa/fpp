@@ -135,6 +135,11 @@ case class ComponentDataProducts (
               CppDoc.Type("const Fw::Buffer&"),
               "buffer",
               Some("The buffer")
+            ),
+            CppDoc.Function.Param(
+              CppDoc.Type("const Fw::Success&"),
+              "status",
+              Some("The buffer status")
             )
           ),
           CppDoc.Type("void"),
