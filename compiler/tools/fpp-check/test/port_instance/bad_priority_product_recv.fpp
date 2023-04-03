@@ -1,6 +1,6 @@
 module Fw {
 
-  port DpBufferSend
+  port DpResponse
 
 }
 
