@@ -115,12 +115,14 @@ namespace FppTest {
 
       //! Receive a container of type Container1
       virtual void Dp_Recv_Container1_handler(
-          DpContainer& container //!< The container
+          DpContainer& container, //!< The container
+          Fw::Success::T status //!< The container status
       ) = 0;
 
       //! Receive a container of type Container2
       virtual void Dp_Recv_Container2_handler(
-          DpContainer& container //!< The container
+          DpContainer& container, //!< The container
+          Fw::Success::T status //!< The container status
       ) = 0;
 
     PROTECTED:

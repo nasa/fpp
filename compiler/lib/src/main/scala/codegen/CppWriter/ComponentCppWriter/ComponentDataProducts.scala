@@ -44,6 +44,11 @@ case class ComponentDataProducts (
               CppDoc.Type("DpContainer&"),
               "container",
               Some("The container")
+            ),
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::Success::T"),
+              "status",
+              Some("The container status")
             )
           ),
           CppDoc.Type("void"),
@@ -161,7 +166,7 @@ case class ComponentDataProducts (
                       |  // Set the priority
                       |  container.setPriority(ContainerPriority::$name);
                       |  // Call the handler
-                      |  this->Dp_Recv_${name}_handler(container);
+                      |  this->Dp_Recv_${name}_handler(container, status.e);
                       |  break;"""
                 )
               }) ++ lines (
