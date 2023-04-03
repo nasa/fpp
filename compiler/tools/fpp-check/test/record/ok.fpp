@@ -1,8 +1,8 @@
 module Fw {
 
-  port DpBufferRecv
-  port DpBufferRequest
-  port DpBufferSend
+  port DpRequest
+  port DpResponse
+  port DpSend
   port Time
 
 }
