@@ -1,4 +1,4 @@
-locate port Fw.DpBufferSend at "DpBufferSend.fpp"
+locate port Fw.DpResponse at "DpResponse.fpp"
 locate constant a at "a.fpp"
 
 active component C {
