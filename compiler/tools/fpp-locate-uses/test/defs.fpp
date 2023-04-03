@@ -4,8 +4,9 @@ module Fw {
   port Cmd
   port CmdReg
   port CmdResponse
-  port DpBufferSend
-  port DpBufferRequest
+  port DpRequest
+  port DpResponse
+  port DpSend
   port Log
   port LogText
   port PrmGet
