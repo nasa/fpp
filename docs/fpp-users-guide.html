@@ -756,15 +756,6 @@ As we continue to develop FPP, we will phase in support
 for all the features described here.</p>
 </div>
 <div class="paragraph">
-<p><strong>GDS limitations:</strong>
-It is currently possible to construct FPP models that are not
-fully supported by the F Prime Ground Data System (GDS).
-Where an FPP feature is not supported in the GDS, we will call out this
-fact in a note marked <strong>GDS limitation.</strong>
-If you plan to use the F Prime GDS, then you should avoid using
-any feature so marked in your FPP models.</p>
-</div>
-<div class="paragraph">
 <p><strong>Overview:</strong> The rest of this document proceeds as follows.
 Section 2 explains how to get up and running with FPP.
 Sections 3 through 11 describe the elements of an FPP
@@ -4669,12 +4660,6 @@ active component Switch {
 }</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p><strong>GDS limitation:</strong> The F Prime GDS does not currently support the
-use of <a href="#Defining-Types_Array-Type-Definitions">array types</a> or
-<a href="#Defining-Types_Struct-Type-Definitions">struct types</a> in the formal parameters
-of commands.</p>
-</div>
 </div>
 <div class="sect3">
 <h4 id="Defining-Components_Commands_Opcodes">9.5.3. Opcodes</h4>
@@ -5612,14 +5597,6 @@ Therefore, any component that has parameters must have
 the command ports.
 Try deleting one or more of the command ports from the example
 above and see what <code>fpp-check</code> does.</p>
-</div>
-<div class="paragraph">
-<p><strong>GDS limitation:</strong> The F Prime GDS does not currently support the
-use of <a href="#Defining-Types_Array-Type-Definitions">array types</a> or
-<a href="#Defining-Types_Struct-Type-Definitions">struct types</a> as the
-types of parameters.
-In particular, parameter <code>Param3</code> in the example above will
-not work with the F Prime GDS.</p>
 </div>
 </div>
 <div class="sect3">
@@ -11244,7 +11221,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-04-03 13:14:27 -0700
+Last updated 2023-04-03 14:56:07 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
