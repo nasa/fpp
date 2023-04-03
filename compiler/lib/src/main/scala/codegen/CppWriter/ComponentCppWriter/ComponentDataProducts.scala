@@ -98,7 +98,7 @@ case class ComponentDataProducts (
               CppDoc.Type("Fw::Time"),
               "timeTag",
               Some("The time tag"),
-              Some("FW::ZERO_TIME")
+              Some("Fw::ZERO_TIME")
             )
           ),
           CppDoc.Type("void"),

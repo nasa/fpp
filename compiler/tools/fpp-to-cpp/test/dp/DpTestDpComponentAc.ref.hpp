@@ -140,7 +140,7 @@ namespace FppTest {
       //! Send a data product
       void Dp_Send(
           DpContainer& container, //!< The data product container
-          Fw::Time timeTag = FW::ZERO_TIME //!< The time tag
+          Fw::Time timeTag = Fw::ZERO_TIME //!< The time tag
       );
 
     PRIVATE:
