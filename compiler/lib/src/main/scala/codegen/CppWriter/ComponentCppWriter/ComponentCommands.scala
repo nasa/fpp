@@ -83,6 +83,22 @@ case class ComponentCommands (
   }
 
   private def getRegFunction: List[CppDoc.Class.Member] = {
+    val body = intersperseBlankLines(
+      List(
+        lines(s"FW_ASSERT(this->${portVariableName(cmdRegPort.get)}[0].isConnected());"),
+        intersperseBlankLines(
+          sortedCmds.map((_, cmd) =>
+            lines(
+              s"""|this->${portVariableName(cmdRegPort.get)}[0].invoke(
+                  |  this->getIdBase() + ${commandConstantName(cmd)}
+                  |);
+                  |"""
+            )
+          )
+        )
+      )
+    )
+
     addAccessTagAndComment(
       "public",
       "Command registration",
@@ -97,21 +113,7 @@ case class ComponentCommands (
           "regCommands",
           Nil,
           CppDoc.Type("void"),
-          intersperseBlankLines(
-            List(
-              lines(s"FW_ASSERT(this->${portVariableName(cmdRegPort.get)}[0].isConnected());"),
-              intersperseBlankLines(
-                sortedCmds.map((_, cmd) =>
-                  lines(
-                    s"""|this->${portVariableName(cmdRegPort.get)}[0].invoke(
-                        |  this->getIdBase() + ${commandConstantName(cmd)}
-                        |);
-                        |"""
-                  )
-                )
-              )
-            ),
-          )
+          body
         )
       )
     )

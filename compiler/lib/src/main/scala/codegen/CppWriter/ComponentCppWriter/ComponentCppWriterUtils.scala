@@ -401,14 +401,6 @@ abstract class ComponentCppWriterUtils(
   def getChannelType(t: Type): String =
     TypeCppWriter.getName(s, t, Some("Fw::TlmString"))
 
-  /** Add an optional pre comment separated by two newlines */
-  def addSeparatedPreComment(str: String, commentOpt: Option[String]): String = {
-    commentOpt match {
-      case Some(s) => s"//! $str\n//!\n//! $s"
-      case None => str
-    }
-  }
-
   def writeSendMessageLogic(
     bufferName: String,
     queueFull: Ast.QueueFull,
@@ -451,6 +443,19 @@ abstract class ComponentCppWriterUtils(
              |"""
         )
       )
+    )
+  }
+
+  /** Write an event format as C++ */
+  def writeEventFormat(event: Event): String = {
+    val formatList = event.format.fields zip event.aNode._2.data.params.map(_._2.data.typeName)
+    formatList.foldLeft(FormatCppWriter.escapePercent(event.format.prefix))((a, s) =>
+      a + (s match {
+        case (f, tn) => f match {
+          case (field, suffix) =>
+            FormatCppWriter.writeField(field, tn) + FormatCppWriter.escapePercent(suffix)
+        }
+      })
     )
   }
 
