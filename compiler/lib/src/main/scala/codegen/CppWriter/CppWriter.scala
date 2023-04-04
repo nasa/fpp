@@ -25,7 +25,12 @@ object CppWriter extends AstStateVisitor with LineUtils {
   ) = {
     val node = aNode._2
     val data = node.data
-    visitList(s, data.members, matchComponentMember)
+    val cppDoc = ComponentCppWriter(s, aNode).write
+    for {
+      s <- writeCppDoc(s, cppDoc)
+      s <- visitList(s, data.members, matchComponentMember)
+    }
+    yield s
   }
 
   override def defEnumAnnotatedNode(

@@ -56,11 +56,12 @@ object FormatCppWriter {
   }
 
   def write(f: Format, tn: AstNode[Ast.TypeName]): String = {
-    def escapePercent(s: String) = s.replaceAll("%", "%%")
     f.fields.foldLeft(escapePercent(f.prefix))((a, s) =>
       a + (s match {
         case (field, suffix) => writeField(field, tn) + escapePercent(suffix)
       })
     )
   }
+
+  def escapePercent(s: String) = s.replaceAll("%", "%%")
 }

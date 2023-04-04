@@ -44,7 +44,13 @@ object ComputeCppFiles extends AstStateVisitor {
   ) = {
     val node = aNode._2
     val data = node.data
-    visitList(s, data.members, matchComponentMember)
+    val name = s.getName(Symbol.Component(aNode))
+    val loc = Locations.get(node.id)
+    for {
+      s <- addMappings(s, FileNames.getComponent(name), Some(loc))
+      s <- visitList (s, data.members, matchComponentMember)
+    }
+    yield s
   }
 
   override def defConstantAnnotatedNode(
