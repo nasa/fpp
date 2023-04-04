@@ -29,7 +29,7 @@ object CppWriter extends AstStateVisitor with LineUtils {
       s <- if (ComputeCppFiles.componentHasDataProducts(data)) {
         val dpCppDoc = DpComponentCppWriter(s, aNode).write
         writeCppDoc(s, dpCppDoc)
-      } else Right(())
+      } else Right(s)
       s <- {
         val cppDoc = ComponentCppWriter(s, aNode).write
         writeCppDoc(s, cppDoc)
