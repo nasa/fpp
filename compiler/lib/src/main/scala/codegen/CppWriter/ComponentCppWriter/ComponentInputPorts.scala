@@ -218,7 +218,7 @@ case class ComponentInputPorts(
   }
 
   def getCallbacks(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    def writeGeneralInputPort(p: PortInstance) = {
+    def writeInputPort(p: PortInstance) = {
       val params = getPortParams(p)
       val returnKeyword = getPortReturnType(p) match {
         case Some(_) => "return "
@@ -316,8 +316,13 @@ case class ComponentInputPorts(
             ) ++ getPortFunctionParams(p),
             getPortReturnTypeAsCppDocType(p),
             p match {
-              case i: PortInstance.General => writeGeneralInputPort(i)
-              case _: PortInstance.Special => writeCommandInputPort()
+              case i: PortInstance.General => writeInputPort(i)
+              case special: PortInstance.Special => 
+                special.specifier.kind match {
+                  case Ast.SpecPortInstance.CommandRecv => writeCommandInputPort()
+                  case Ast.SpecPortInstance.ProductRecv => writeInputPort(special)
+                  case _ => Nil
+                }
               case _ => Nil
             },
             CppDoc.Function.Static
