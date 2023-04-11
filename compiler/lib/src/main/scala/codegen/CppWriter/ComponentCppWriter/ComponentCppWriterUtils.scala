@@ -78,6 +78,9 @@ abstract class ComponentCppWriterUtils(
   /** List of serial input ports */
   val serialInputPorts: List[PortInstance.General] = filterSerialPorts(generalInputPorts)
 
+  /** List of data product async input ports */
+  val dataProductAsyncInputPorts: List[PortInstance.Special] = filterAsyncSpecialPorts(dataProductInputPorts)
+
   /** List of typed async input ports */
   val typedAsyncInputPorts: List[PortInstance.General] = filterAsyncInputPorts(typedInputPorts)
 
@@ -471,7 +474,7 @@ abstract class ComponentCppWriterUtils(
   }
 
   /** Get the name for a general port enumerated constant in cpp file */
-  def generalPortCppConstantName(p: PortInstance.General) =
+  def portCppConstantName(p: PortInstance) =
     s"${p.getUnqualifiedName}_${getPortTypeBaseName(p)}".toUpperCase
 
   /** Get the name for an internal port enumerated constant in cpp file */
@@ -605,6 +608,14 @@ abstract class ComponentCppWriterUtils(
     ports.filter(p =>
       p.kind match {
         case PortInstance.General.Kind.AsyncInput(_, _) => true
+        case _ => false
+      }
+    )
+
+  private def filterAsyncSpecialPorts(ports: List[PortInstance.Special]) =
+    ports.filter(p =>
+      p.specifier.inputKind match {
+        case Some(Ast.SpecPortInstance.Async) => true
         case _ => false
       }
     )

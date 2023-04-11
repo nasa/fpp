@@ -279,8 +279,9 @@ case class ComponentCppWriter (
         )
         else Nil,
         List(
-          typedAsyncInputPorts.map(generalPortCppConstantName),
-          serialAsyncInputPorts.map(generalPortCppConstantName),
+          dataProductAsyncInputPorts.map(portCppConstantName),
+          typedAsyncInputPorts.map(portCppConstantName),
+          serialAsyncInputPorts.map(portCppConstantName),
           asyncCmds.map((_, cmd) => commandCppConstantName(cmd)),
           internalPorts.map(internalPortCppConstantName),
         ).flatten.map(s => line(s"$s,"))
@@ -648,7 +649,7 @@ case class ComponentCppWriter (
 
       line(s"// Handle async input port ${p.getUnqualifiedName}") ::
         wrapInScope(
-          s"case ${generalPortCppConstantName(p)}: {",
+          s"case ${portCppConstantName(p)}: {",
           body,
           "}"
         )

@@ -100,7 +100,7 @@ case class ComponentInputPorts(
           lines(
             s"""|// Serialize message ID
                 |_status = $bufferName.serialize(
-                |  static_cast<NATIVE_INT_TYPE>(${generalPortCppConstantName(p)})
+                |  static_cast<NATIVE_INT_TYPE>(${portCppConstantName(p)})
                 |);
                 |FW_ASSERT(
                 |  _status == Fw::FW_SERIALIZE_OK,
