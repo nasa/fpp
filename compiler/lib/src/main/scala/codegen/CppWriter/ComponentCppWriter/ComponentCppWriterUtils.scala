@@ -57,9 +57,20 @@ abstract class ComponentCppWriterUtils(
   val specialInputPorts: List[PortInstance.Special] =
     filterByPortDirection(specialPorts, PortInstance.Direction.Input)
 
+  /** List of data product input port instances */
+  val dataProductInputPorts: List[PortInstance.Special] =
+    specialInputPorts.filter(pi => pi.specifier.kind == Ast.SpecPortInstance.ProductRecv)
+
   /** List of special output port instances */
   val specialOutputPorts: List[PortInstance.Special] =
     filterByPortDirection(specialPorts, PortInstance.Direction.Output)
+
+  /** List of data product output port instances */
+  val dataProductOutputPorts: List[PortInstance.Special] =
+    specialOutputPorts.filter(pi => {
+      pi.specifier.kind == Ast.SpecPortInstance.ProductRequest ||
+      pi.specifier.kind == Ast.SpecPortInstance.ProductSend
+    })
 
   /** List of typed input ports */
   val typedInputPorts: List[PortInstance.General] = filterTypedPorts(generalInputPorts)
