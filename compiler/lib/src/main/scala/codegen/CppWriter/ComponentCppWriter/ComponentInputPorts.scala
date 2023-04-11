@@ -63,7 +63,7 @@ case class ComponentInputPorts(
 
   def getHandlerBases(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     def writeAsyncInputPort(
-      p: PortInstance.General,
+      p: PortInstance,
       params: List[(String, String)],
       queueFull: Ast.QueueFull,
       priority: Option[BigInt]
@@ -144,13 +144,28 @@ case class ComponentInputPorts(
           case Some(_) => s"retVal = "
           case None => ""
         }
-        val handlerCall =
+        def handlerCall =
           line("// Down call to pure virtual handler method implemented in Impl class") ::
             writeFunctionCall(
               s"${retValAssignment}this->${inputPortHandlerName(p.getUnqualifiedName)}",
               List("portNum"),
               params.map(_._1)
             )
+        def guardedHandlerCall =
+          List.concat(
+            lines(
+              """|// Lock guard mutex before calling
+                 |this->lock();
+                 |"""
+            ),
+            Line.blank :: handlerCall,
+            lines(
+              """|
+                 |// Unlock guard mutex
+                 |this->unLock();
+                 |"""
+            )
+          )
 
         functionClassMember(
           Some(s"Handler base-class function for input port ${p.getUnqualifiedName}"),
@@ -175,21 +190,18 @@ case class ComponentInputPorts(
                 case i: PortInstance.General => i.kind match {
                   case PortInstance.General.Kind.AsyncInput(priority, queueFull) =>
                     writeAsyncInputPort(i, params, queueFull, priority)
-                  case PortInstance.General.Kind.GuardedInput => List(
-                    lines(
-                      """|// Lock guard mutex before calling
-                         |this->lock();
-                         |"""
-                    ),
-                    Line.blank :: handlerCall,
-                    lines(
-                      """|
-                         |// Unlock guard mutex
-                         |this->unLock();
-                         |"""
-                    )
-                  ).flatten
+                  case PortInstance.General.Kind.GuardedInput => guardedHandlerCall
                   case PortInstance.General.Kind.SyncInput => handlerCall
+                  case _ => Nil
+                }
+                case special: PortInstance.Special => special.specifier.inputKind match {
+                  case Some(Ast.SpecPortInstance.Async) =>
+                    writeAsyncInputPort(
+                      special, params, special.queueFull.get,
+                      special.priority
+                    )
+                  case Some(Ast.SpecPortInstance.Guarded) => guardedHandlerCall
+                  case Some(Ast.SpecPortInstance.Sync) => handlerCall
                   case _ => Nil
                 }
                 case _ => Nil

@@ -296,7 +296,8 @@ case class ComponentCppWriter (
         "union BuffUnion {",
         List(
           lines(
-            typedInputPorts.map(p =>
+            // TODO: Should this name async input ports only?
+            (dataProductAsyncInputPorts ++ typedInputPorts).map(p =>
               s"BYTE ${p.getUnqualifiedName}PortSize[${getQualifiedPortTypeName(p, p.getDirection.get)}::SERIALIZED_SIZE];"
             ).mkString("\n"),
           ),
