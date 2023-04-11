@@ -12,7 +12,7 @@ case class ComponentOutputPorts(
 
   def getTypedConnectors(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     val typeStr = getPortListTypeString(ports)
-    val comment = 
+    val comment =
       if (typeStr == "special")
         s"Connect input ports to $typeStr output ports"
       else
