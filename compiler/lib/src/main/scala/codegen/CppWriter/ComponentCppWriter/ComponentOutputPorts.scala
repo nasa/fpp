@@ -12,10 +12,15 @@ case class ComponentOutputPorts(
 
   def getTypedConnectors(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     val typeStr = getPortListTypeString(ports)
+    val comment = 
+      if (typeStr == "special")
+        s"Connect input ports to $typeStr output ports"
+      else
+        s"Connect $typeStr input ports to $typeStr output ports"
 
     addAccessTagAndComment(
       "public",
-      s"Connect $typeStr input ports to $typeStr output ports",
+      comment,
       mapPorts(ports, p => {
         val connectionFunction = p.getType.get match {
           case PortInstance.Type.DefPort(_) => "addCallPort"
