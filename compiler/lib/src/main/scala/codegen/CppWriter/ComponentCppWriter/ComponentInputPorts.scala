@@ -317,7 +317,7 @@ case class ComponentInputPorts(
             getPortReturnTypeAsCppDocType(p),
             p match {
               case i: PortInstance.General => writeInputPort(i)
-              case special: PortInstance.Special => 
+              case special: PortInstance.Special =>
                 special.specifier.kind match {
                   case Ast.SpecPortInstance.CommandRecv => writeCommandInputPort()
                   case Ast.SpecPortInstance.ProductRecv => writeInputPort(special)
