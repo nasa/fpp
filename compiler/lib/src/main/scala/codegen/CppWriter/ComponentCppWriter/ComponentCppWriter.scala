@@ -606,7 +606,7 @@ case class ComponentCppWriter (
   }
 
   private def getDispatchFunctionMember: List[CppDoc.Class.Member] = {
-    def writeGeneralAsyncPortDispatch(p: PortInstance.General) = {
+    def writeAsyncPortDispatch(p: PortInstance) = {
       val body = p.getType.get match {
         case PortInstance.Type.DefPort(_) =>
           List(
@@ -867,8 +867,9 @@ case class ComponentCppWriter (
                 "msgType",
                 intersperseBlankLines(
                   List(
-                    intersperseBlankLines(typedAsyncInputPorts.map(writeGeneralAsyncPortDispatch)),
-                    intersperseBlankLines(serialAsyncInputPorts.map(writeGeneralAsyncPortDispatch)),
+                    intersperseBlankLines(dataProductAsyncInputPorts.map(writeAsyncPortDispatch)),
+                    intersperseBlankLines(typedAsyncInputPorts.map(writeAsyncPortDispatch)),
+                    intersperseBlankLines(serialAsyncInputPorts.map(writeAsyncPortDispatch)),
                     intersperseBlankLines(asyncCmds.map(writeAsyncCommandDispatch)),
                     intersperseBlankLines(internalPorts.map(writeInternalPortDispatch)),
                     lines(
