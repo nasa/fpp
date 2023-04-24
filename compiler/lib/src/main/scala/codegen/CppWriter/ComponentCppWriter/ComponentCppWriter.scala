@@ -15,6 +15,8 @@ case class ComponentCppWriter (
 
   private val namespaceIdentList = s.getNamespaceIdentList(symbol)
 
+  private val dpWriter = ComponentDataProducts(s, aNode)
+
   private val portWriter = ComponentPorts(s, aNode)
 
   private val cmdWriter = ComponentCommands(s, aNode)
@@ -76,6 +78,9 @@ case class ComponentCppWriter (
 
   private def getHppIncludes: CppDoc.Member = {
     // Conditional headers
+    val dpHeader =
+      if component.hasDataProducts then List("Fw/Dp/DpContainer.hpp")
+      else Nil
     val mutexHeader =
       if hasGuardedInputPorts || hasParameters then List("Os/Mutex.hpp")
       else Nil
@@ -95,7 +100,7 @@ case class ComponentCppWriter (
       if hasInternalPorts then List("Fw/Types/InternalInterfaceString.hpp")
       else Nil
 
-    val standardHeaders = List(
+    val standardHeaders = List.concat(
       List(
         "FpConfig.hpp",
         "Fw/Port/InputSerializePort.hpp",
@@ -108,7 +113,7 @@ case class ComponentCppWriter (
       prmStrHeader,
       logStrHeader,
       internalStrHeader
-    ).flatten.map(CppWriter.headerString)
+    ).map(CppWriter.headerString)
     val symbolHeaders = writeIncludeDirectives
     val headers = standardHeaders ++ symbolHeaders
     linesMember(addBlankPrefix(headers.sorted.flatMap({
@@ -175,6 +180,9 @@ case class ComponentCppWriter (
 
       // Anonymous namespace members
       getAnonymousNamespaceMembers,
+
+      // Types
+      dpWriter.getTypeMembers,
 
       // Public function members
       getPublicComponentFunctionMembers,

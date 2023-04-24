@@ -86,7 +86,6 @@ case class DpComponentCppWriter (
   }
 
   private def getClassMembers: List[CppDoc.Class.Member] = List(
-    dpWriter.getTypeMembers,
     getConstructionMembers,
     dpWriter.getVirtualFunctionMembers,
     dpWriter.getProtectedDpFunctionMembers,

@@ -21,7 +21,7 @@ case class ComponentDataProducts (
   def getTypeMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "PROTECTED",
-      "Types",
+      "Types for data products",
       List.concat(
         getContainerIds,
         getContainerPriorities,
