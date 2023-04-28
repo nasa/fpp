@@ -55,6 +55,10 @@ namespace M {
     health.init(InstanceIds::health);
   }
 
+  void configComponents(const TopologyState& state) {
+    // Nothing to do
+  }
+
   void setBaseIds() {
     health.setIdBase(BaseIds::health);
     c1.setIdBase(BaseIds::c1);
@@ -82,18 +86,53 @@ namespace M {
     );
   }
 
+  void regCommands() {
+    // Nothing to do
+  }
+
+  void readParameters() {
+    // Nothing to do
+  }
+
+  void loadParameters() {
+    // Nothing to do
+  }
+
+  void startTasks(const TopologyState& state) {
+    // Nothing to do
+  }
+
+  void stopTasks(const TopologyState& state) {
+    // Nothing to do
+  }
+
+  void freeThreads(const TopologyState& state) {
+    // Nothing to do
+  }
+
+  void tearDownComponents(const TopologyState& state) {
+    // Nothing to do
+  }
+
   // ----------------------------------------------------------------------
   // Setup and teardown functions
   // ----------------------------------------------------------------------
 
   void setup(const TopologyState& state) {
     initComponents(state);
+    configComponents(state);
     setBaseIds();
     connectComponents();
+    regCommands();
+    readParameters();
+    loadParameters();
+    startTasks(state);
   }
 
   void teardown(const TopologyState& state) {
-
+    stopTasks(state);
+    freeThreads(state);
+    tearDownComponents(state);
   }
 
 }

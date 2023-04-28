@@ -77,6 +77,18 @@ namespace M {
     );
   }
 
+  void regCommands() {
+    // Nothing to do
+  }
+
+  void readParameters() {
+    // Nothing to do
+  }
+
+  void loadParameters() {
+    // Nothing to do
+  }
+
   void startTasks(const TopologyState& state) {
     active1.start(
       static_cast<NATIVE_UINT_TYPE>(Priorities::active1),
@@ -118,6 +130,9 @@ namespace M {
     configComponents(state);
     setBaseIds();
     connectComponents();
+    regCommands();
+    readParameters();
+    loadParameters();
     startTasks(state);
   }
 
