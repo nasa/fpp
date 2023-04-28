@@ -119,6 +119,15 @@ namespace M {
   //! Connect components
   void connectComponents();
 
+  //! Register commands
+  void regCommands();
+
+  //! Read parameters
+  void readParameters();
+
+  //! Load parameters
+  void loadParameters();
+
   //! Start tasks
   void startTasks(
       const TopologyState& state //!< The topology state
