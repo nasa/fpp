@@ -41,14 +41,6 @@ sealed trait Error {
         Error.print (Some(loc)) (s"cannot resolve path $name")
       case SemanticError.DivisionByZero(loc) =>
         Error.print (Some(loc)) ("division by zero")
-      case SemanticError.DuplicateConnection(
-        loc,
-        prevLoc,
-        matchingLoc
-      ) => 
-        Error.print (Some(loc)) ("duplicate connection")
-        printPrevLoc(prevLoc)
-        printMatchingLoc(matchingLoc)
       case SemanticError.DuplicateDictionaryName(kind, name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate ${kind} name ${name}")
         printPrevLoc(prevLoc)
@@ -67,6 +59,14 @@ sealed trait Error {
       case SemanticError.DuplicateLimit(loc, prevLoc) =>
         Error.print (Some(loc)) ("duplicate limit")
         printPrevLoc(prevLoc)
+      case SemanticError.DuplicateMatchedConnection(
+        loc,
+        prevLoc,
+        matchingLoc
+      ) => 
+        Error.print (Some(loc)) ("duplicate connection")
+        printPrevLoc(prevLoc)
+        printMatchingLoc(matchingLoc)
       case SemanticError.DuplicateOpcodeValue(value, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate opcode value ${value}")
         printPrevLoc(prevLoc)
@@ -249,12 +249,6 @@ object SemanticError {
   final case class EmptyArray(loc: Location) extends Error
   /** Division by zero */
   final case class DivisionByZero(loc: Location) extends Error
-  /** Duplicate connection */
-  final case class DuplicateConnection(
-    loc: Location,
-    prevLoc: Location,
-    matchingLoc: Location
-  ) extends Error
   /** Duplicate name in dictionary */
   final case class DuplicateDictionaryName(
     kind: String,
@@ -290,6 +284,12 @@ object SemanticError {
   final case class DuplicateLimit(
     loc: Location,
     prevLoc: Location
+  ) extends Error
+  /** Duplicate matched connection */
+  final case class DuplicateMatchedConnection(
+    loc: Location,
+    prevLoc: Location,
+    matchingLoc: Location
   ) extends Error
   /** Duplicate opcode value */
   final case class DuplicateOpcodeValue(

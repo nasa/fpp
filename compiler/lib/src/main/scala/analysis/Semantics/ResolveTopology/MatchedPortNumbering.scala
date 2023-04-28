@@ -165,7 +165,7 @@ object MatchedPortNumbering {
         val ciRemote = piiRemote.componentInstance
         m.get(ciRemote) match {
           case Some(cPrev) => Left(
-            SemanticError.DuplicateConnection(
+            SemanticError.DuplicateMatchedConnection(
               c.getLoc,
               cPrev.getLoc,
               portMatching.getLoc
