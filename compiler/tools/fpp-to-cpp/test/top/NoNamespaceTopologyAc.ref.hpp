@@ -10,6 +10,55 @@
 #include "NoNamespaceTopologyDefs.hpp"
 
 // ----------------------------------------------------------------------
+// Helper functions
+// ----------------------------------------------------------------------
+
+//! Initialize components
+void initComponents(
+    const TopologyState& state //!< The topology state
+);
+
+//! Configure components
+void configComponents(
+    const TopologyState& state //!< The topology state
+);
+
+//! Set component base Ids
+void setBaseIds();
+
+//! Connect components
+void connectComponents();
+
+//! Register commands
+void regCommands();
+
+//! Read parameters
+void readParameters();
+
+//! Load parameters
+void loadParameters();
+
+//! Start tasks
+void startTasks(
+    const TopologyState& state //!< The topology state
+);
+
+//! Stop tasks
+void stopTasks(
+    const TopologyState& state //!< The topology state
+);
+
+//! Free threads
+void freeThreads(
+    const TopologyState& state //!< The topology state
+);
+
+//! Tear down components
+void tearDownComponents(
+    const TopologyState& state //!< The topology state
+);
+
+// ----------------------------------------------------------------------
 // Setup and teardown functions
 // ----------------------------------------------------------------------
 
