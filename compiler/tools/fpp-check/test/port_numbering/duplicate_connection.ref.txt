@@ -2,7 +2,7 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/port_numbering/duplicate_connection.fpp: 29.5
     c1.pOut -> c2.pIn
     ^
-error: duplicate connection
+error: duplicate connection between a matched port array and a single instance
 previous occurrence is here:
 [ local path prefix ]/compiler/tools/fpp-check/test/port_numbering/duplicate_connection.fpp: 28.5
     c1.pOut -> c2.pIn
@@ -11,3 +11,4 @@ port matching is specified here:
 [ local path prefix ]/compiler/tools/fpp-check/test/port_numbering/duplicate_connection.fpp: 8.3
   match pIn with pOut
   ^
+note: each port in a matched port array must be connected to a separate instance

@@ -64,9 +64,10 @@ sealed trait Error {
         prevLoc,
         matchingLoc
       ) => 
-        Error.print (Some(loc)) ("duplicate connection")
+        Error.print (Some(loc)) ("duplicate connection between a matched port array and a single instance")
         printPrevLoc(prevLoc)
         printMatchingLoc(matchingLoc)
+        System.err.println("note: each port in a matched port array must be connected to a separate instance")
       case SemanticError.DuplicateOpcodeValue(value, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate opcode value ${value}")
         printPrevLoc(prevLoc)
