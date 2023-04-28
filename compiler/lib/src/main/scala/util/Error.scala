@@ -70,7 +70,7 @@ sealed trait Error {
       case SemanticError.DuplicateOpcodeValue(value, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate opcode value ${value}")
         printPrevLoc(prevLoc)
-      case SemanticError.DuplicateOutputPort(loc, portNum, prevLoc) =>
+      case SemanticError.DuplicateOutputConnection(loc, portNum, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate connection at output port $portNum")
         printPrevLoc(prevLoc)
       case SemanticError.DuplicateParameter(name, loc, prevLoc) =>
@@ -298,7 +298,7 @@ object SemanticError {
     prevLoc: Location
   ) extends Error
   /** Duplicate output port */
-  final case class DuplicateOutputPort(
+  final case class DuplicateOutputConnection(
     loc: Location,
     portNum: Int,
     prevLoc: Location

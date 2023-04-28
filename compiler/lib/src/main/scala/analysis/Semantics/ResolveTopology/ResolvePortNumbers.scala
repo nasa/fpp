@@ -11,14 +11,14 @@ object ResolvePortNumbers {
     Result.foldLeft (t.outputConnectionMap.toList) (()) ({
       case (_, (pii, s)) => for {
         _ <- checkOutputSizeBounds(pii, s)
-        _ <- checkDuplicateOutputPorts(s)
+        _ <- checkDuplicateOutputConnections(s)
       }
       yield ()
     })
 
   /** Check that there are no duplicate port numbers at any output
    *  ports. */
-  private def checkDuplicateOutputPorts(
+  private def checkDuplicateOutputConnections(
     connections: Set[Connection]
   ): Result.Result[Unit] = {
     val portNumMap: Map[Int, Connection] = Map()
@@ -31,7 +31,7 @@ object ResolvePortNumbers {
                   val loc = c.from.loc
                   val prevLoc = prevC.from.loc
                   Left(
-                    SemanticError.DuplicateOutputPort(loc, portNum, prevLoc)
+                    SemanticError.DuplicateOutputConnection(loc, portNum, prevLoc)
                   )
                 case None => Right(m + (portNum -> c))
               }
