@@ -289,9 +289,15 @@ case class TopHelperFns(
     name: String,
     params: List[CppDoc.Function.Param],
     body: List[Line]
-  ) = body match {
-    case Nil => None
-    case ll => Some(
+  ): Option[CppDoc.Member.Function] = {
+    val ll = body match {
+      // Force code generation in the no-op case
+      // This supports a pattern of manual topology setup
+      // See issue fprime-community/fpp#239
+      case Nil => lines("// Nothing to do")
+      case _ => body
+    }
+    Some(
       CppDoc.Member.Function(
         CppDoc.Function(
           Some(comment),
