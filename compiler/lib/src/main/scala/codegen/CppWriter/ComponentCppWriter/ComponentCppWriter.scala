@@ -198,6 +198,7 @@ case class ComponentCppWriter (
       eventWriter.getFunctionMembers,
       tlmWriter.getFunctionMembers,
       paramWriter.getProtectedFunctionMembers,
+      dpWriter.getVirtualFunctionMembers,
       getTimeFunctionMember,
       getMutexOperationMembers,
 
