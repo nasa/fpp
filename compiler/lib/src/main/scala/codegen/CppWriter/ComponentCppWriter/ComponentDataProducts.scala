@@ -33,7 +33,7 @@ case class ComponentDataProducts (
   def getVirtualFunctionMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "PROTECTED",
-      "Pure virtual functions to implement",
+      "Handlers to implement for data products",
       containersByName.map((id, container) => {
         val name = container.getName
         functionClassMember(

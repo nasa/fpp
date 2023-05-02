@@ -50,7 +50,6 @@ case class ComponentPorts(
       outputPortWriter.getConnectionStatusQueries(specialOutputPorts),
       outputPortWriter.getConnectionStatusQueries(typedOutputPorts),
       outputPortWriter.getConnectionStatusQueries(serialOutputPorts),
-      inputPortWriter.getHandlers(dataProductInputPorts),
       inputPortWriter.getHandlerBases(dataProductInputPorts),
       inputPortWriter.getHandlers(typedInputPorts),
       inputPortWriter.getHandlerBases(typedInputPorts),
