@@ -41,14 +41,6 @@ sealed trait Error {
         Error.print (Some(loc)) (s"cannot resolve path $name")
       case SemanticError.DivisionByZero(loc) =>
         Error.print (Some(loc)) ("division by zero")
-      case SemanticError.DuplicateConnection(
-        loc,
-        prevLoc,
-        matchingLoc
-      ) => 
-        Error.print (Some(loc)) ("duplicate connection")
-        printPrevLoc(prevLoc)
-        printMatchingLoc(matchingLoc)
       case SemanticError.DuplicateDictionaryName(kind, name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate ${kind} name ${name}")
         printPrevLoc(prevLoc)
@@ -67,10 +59,19 @@ sealed trait Error {
       case SemanticError.DuplicateLimit(loc, prevLoc) =>
         Error.print (Some(loc)) ("duplicate limit")
         printPrevLoc(prevLoc)
+      case SemanticError.DuplicateMatchedConnection(
+        loc,
+        prevLoc,
+        matchingLoc
+      ) => 
+        Error.print (Some(loc)) ("duplicate connection between a matched port array and a single instance")
+        printPrevLoc(prevLoc)
+        printMatchingLoc(matchingLoc)
+        System.err.println("note: each port in a matched port array must be connected to a separate instance")
       case SemanticError.DuplicateOpcodeValue(value, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate opcode value ${value}")
         printPrevLoc(prevLoc)
-      case SemanticError.DuplicateOutputPort(loc, portNum, prevLoc) =>
+      case SemanticError.DuplicateOutputConnection(loc, portNum, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate connection at output port $portNum")
         printPrevLoc(prevLoc)
       case SemanticError.DuplicateParameter(name, loc, prevLoc) =>
@@ -251,12 +252,6 @@ object SemanticError {
   final case class EmptyArray(loc: Location) extends Error
   /** Division by zero */
   final case class DivisionByZero(loc: Location) extends Error
-  /** Duplicate connection */
-  final case class DuplicateConnection(
-    loc: Location,
-    prevLoc: Location,
-    matchingLoc: Location
-  ) extends Error
   /** Duplicate name in dictionary */
   final case class DuplicateDictionaryName(
     kind: String,
@@ -293,6 +288,12 @@ object SemanticError {
     loc: Location,
     prevLoc: Location
   ) extends Error
+  /** Duplicate matched connection */
+  final case class DuplicateMatchedConnection(
+    loc: Location,
+    prevLoc: Location,
+    matchingLoc: Location
+  ) extends Error
   /** Duplicate opcode value */
   final case class DuplicateOpcodeValue(
     value: String,
@@ -300,7 +301,7 @@ object SemanticError {
     prevLoc: Location
   ) extends Error
   /** Duplicate output port */
-  final case class DuplicateOutputPort(
+  final case class DuplicateOutputConnection(
     loc: Location,
     portNum: Int,
     prevLoc: Location

@@ -1,6 +1,6 @@
 tests="
-duplicate_connection
-duplicate_output_port
+duplicate_matched_connection
+duplicate_output_connection
 mismatched_port_numbers
 ok
 negative_port_number
