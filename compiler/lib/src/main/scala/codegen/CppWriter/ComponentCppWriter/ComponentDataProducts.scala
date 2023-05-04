@@ -125,70 +125,73 @@ case class ComponentDataProducts (
     )
 
   def getPrivateDpFunctionMembers: List[CppDoc.Class.Member] = {
-    val portInstance = component.specialPortMap(Ast.SpecPortInstance.ProductRecv)
-    val portName = portInstance.getUnqualifiedName
-    addAccessTagAndComment(
-      "PRIVATE",
-      "Private data product handling functions",
-      List(
-        functionClassMember(
-          Some(s"Handler implementation for ${portName}"),
-          s"${portName}_handler",
+    component.specialPortMap.get(Ast.SpecPortInstance.ProductRecv) match {
+      case None => Nil
+      case Some(portInstance) =>
+        val portName = portInstance.getUnqualifiedName
+        addAccessTagAndComment(
+          "PRIVATE",
+          "Private data product handling functions",
           List(
-            CppDoc.Function.Param(
-              CppDoc.Type("const NATIVE_INT_TYPE"),
-              "portNum",
-              Some("The port number")
-            ),
-            CppDoc.Function.Param(
-              CppDoc.Type("FwDpIdType"),
-              "id",
-              Some("The container id")
-            ),
-            CppDoc.Function.Param(
-              CppDoc.Type("const Fw::Buffer&"),
-              "buffer",
-              Some("The buffer")
-            ),
-            CppDoc.Function.Param(
-              CppDoc.Type("const Fw::Success&"),
-              "status",
-              Some("The buffer status")
-            )
-          ),
-          CppDoc.Type("void"),
-          List.concat(
-            lines(
-              """|DpContainer container(id, buffer, this->getIdBase());
-                 |// Convert global id to local id
-                 |const auto idBase = this->getIdBase();
-                 |FW_ASSERT(id >= idBase, id, idBase);
-                 |const auto localId = id - idBase;
-                 |// Switch on the local id"""
-            ),
-            wrapInScope(
-              "switch (localId) {",
-              containersById.flatMap((id, container) => {
-                val name = container.getName
-                lines(
-                  s"""|case ContainerId::$name:
-                      |  // Set the priority
-                      |  container.setPriority(ContainerPriority::$name);
-                      |  // Call the handler
-                      |  this->Dp_Recv_${name}_handler(container, status.e);
-                      |  break;"""
+            functionClassMember(
+              Some(s"Handler implementation for ${portName}"),
+              s"${portName}_handler",
+              List(
+                CppDoc.Function.Param(
+                  CppDoc.Type("const NATIVE_INT_TYPE"),
+                  "portNum",
+                  Some("The port number")
+                ),
+                CppDoc.Function.Param(
+                  CppDoc.Type("FwDpIdType"),
+                  "id",
+                  Some("The container id")
+                ),
+                CppDoc.Function.Param(
+                  CppDoc.Type("const Fw::Buffer&"),
+                  "buffer",
+                  Some("The buffer")
+                ),
+                CppDoc.Function.Param(
+                  CppDoc.Type("const Fw::Success&"),
+                  "status",
+                  Some("The buffer status")
                 )
-              }) ++ lines (
-                """|default:
-                   |  FW_ASSERT(0);
-                   |  break;"""
               ),
-              "}"
+              CppDoc.Type("void"),
+              List.concat(
+                lines(
+                  """|DpContainer container(id, buffer, this->getIdBase());
+                     |// Convert global id to local id
+                     |const auto idBase = this->getIdBase();
+                     |FW_ASSERT(id >= idBase, id, idBase);
+                     |const auto localId = id - idBase;
+                     |// Switch on the local id"""
+                ),
+                wrapInScope(
+                  "switch (localId) {",
+                  containersById.flatMap((id, container) => {
+                    val name = container.getName
+                    lines(
+                      s"""|case ContainerId::$name:
+                          |  // Set the priority
+                          |  container.setPriority(ContainerPriority::$name);
+                          |  // Call the handler
+                          |  this->Dp_Recv_${name}_handler(container, status.e);
+                          |  break;"""
+                    )
+                  }) ++ lines (
+                    """|default:
+                       |  FW_ASSERT(0);
+                       |  break;"""
+                  ),
+                  "}"
+                ),
+              )
             ),
           )
-        ),
-      )
-    )
+        )
+    }
   }
 
   private def getContainerIds = containersById match {
