@@ -185,9 +185,7 @@ case class ComponentDataProducts (
               ),
               "}"
             ),
-          ),
-          CppDoc.Function.Override,
-          CppDoc.Function.NonConst
+          )
         ),
       )
     )

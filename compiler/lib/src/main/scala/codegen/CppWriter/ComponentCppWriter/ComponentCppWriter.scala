@@ -107,6 +107,7 @@ case class ComponentCppWriter (
         "Fw/Port/OutputSerializePort.hpp",
         "Fw/Comp/ActiveComponentBase.hpp"
       ),
+      dpHeader,
       mutexHeader,
       cmdStrHeader,
       tlmStrHeader,
@@ -198,6 +199,7 @@ case class ComponentCppWriter (
       eventWriter.getFunctionMembers,
       tlmWriter.getFunctionMembers,
       paramWriter.getProtectedFunctionMembers,
+      dpWriter.getProtectedDpFunctionMembers,
       dpWriter.getVirtualFunctionMembers,
       getTimeFunctionMember,
       getMutexOperationMembers,
@@ -208,6 +210,7 @@ case class ComponentCppWriter (
       // Private function members
       portWriter.getPrivateFunctionMembers,
       paramWriter.getPrivateFunctionMembers,
+      dpWriter.getPrivateDpFunctionMembers,
 
       // Member variables
       portWriter.getVariableMembers,
