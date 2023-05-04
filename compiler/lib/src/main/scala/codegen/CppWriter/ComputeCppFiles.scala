@@ -27,9 +27,6 @@ object ComputeCppFiles extends AstStateVisitor {
     /** Gets the C++ file name for generated components */
     def getComponent(baseName: String) = s"${baseName}ComponentAc"
 
-    /** Gets the C++ file name for generated component data products */
-    def getDpComponent(baseName: String) = s"${baseName}DpComponentAc"
-
     /** Gets the C++ file name for generated ports */
     def getPort(baseName: String) = s"${baseName}PortAc"
 
@@ -61,9 +58,6 @@ object ComputeCppFiles extends AstStateVisitor {
     val loc = Locations.get(node.id)
     for {
       s <- addMappings(s, FileNames.getComponent(name), Some(loc))
-      s <- if (componentHasDataProducts(data))
-        addMappings(s, FileNames.getDpComponent(name), Some(loc))
-        else Right(s)
       s <- visitList(s, data.members, matchComponentMember)
     }
     yield s
