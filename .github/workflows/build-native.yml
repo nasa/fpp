@@ -17,11 +17,9 @@ jobs:
     - name: Image Build Step
       working-directory: ./compiler
       if: ${{ matrix.os == 'odroid' }}
-        run: |
-          echo "architecture=aarch64" >> "$GITHUB_ENV"
+        run: echo "architecture=aarch64" >> "$GITHUB_ENV"
       if: ${{ matrix.os != 'odroid' }}
-        run: |
-          echo "architecture=amd64" >> "$GITHUB_ENV"
+        run: echo "architecture=amd64" >> "$GITHUB_ENV"
       run: |
         . ${GITHUB_WORKSPACE}/.github/workflows/env-setup ${{ env.architecture }}
         ./release
