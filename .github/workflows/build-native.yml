@@ -14,12 +14,14 @@ jobs:
       uses: actions/checkout@v2
       with:
         fetch-depth: 0
+    - name: Set architecture type (aarch64)
+      if: ${{ matrix.os == 'odroid' }}
+      run: echo "architecture=aarch64" >> "$GITHUB_ENV"
+    - name: Set architecture type (amd64)
+      if: ${{ matrix.os != 'odroid' }}
+      run: echo "architecture=amd64" >> "$GITHUB_ENV"
     - name: Image Build Step
       working-directory: ./compiler
-      if: ${{ matrix.os == 'odroid' }}
-        run: echo "architecture=aarch64" >> "$GITHUB_ENV"
-      if: ${{ matrix.os != 'odroid' }}
-        run: echo "architecture=amd64" >> "$GITHUB_ENV"
       run: |
         . ${GITHUB_WORKSPACE}/.github/workflows/env-setup ${{ env.architecture }}
         ./release
