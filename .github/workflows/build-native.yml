@@ -26,30 +26,32 @@ jobs:
         . ${GITHUB_WORKSPACE}/.github/workflows/env-setup ${{ env.architecture }}
         ./release
         mv native-fpp-*.tar.gz "${GITHUB_WORKSPACE}" 
-  #   - name: Publish Release Binaries
-  #     env:
-  #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #     run: ${GITHUB_WORKSPACE}/.github/workflows/publish native-fpp-*.tar.gz
-  # Build-PyPI-Package:
-  #   needs: Build-Native-Images
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: "Checkout FPP Repository"
-  #     uses: actions/checkout@v2
-  #     with:
-  #       fetch-depth: 0
-  #   - name: Test PyPI
-  #     uses: fprime-community/publish-pypi@main
-  #     env:
-  #       TWINE_PASSWORD: ${{ secrets.TESTPYPI_CREDENTIAL }}
-  #     with:
-  #       package: "fprime-fpp"
-  #       steps: "sdist"
-  #   - name: PyPI
-  #     uses: fprime-community/publish-pypi@main
-  #     env:
-  #       TWINE_PASSWORD: ${{ secrets.PYPI_CREDENTIAL }}
-  #     with:
-  #       repo: "pypi"
-  #       package: "fprime-fpp"
-  #       steps: "sdist"
+    - name: Publish Release Binaries
+      if: ${{ github.event_name == 'release' }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: ${GITHUB_WORKSPACE}/.github/workflows/publish native-fpp-*.tar.gz
+  Build-PyPI-Package:
+    if: ${{ github.event_name == 'release' }}
+    needs: Build-Native-Images
+    runs-on: ubuntu-latest
+    steps:
+    - name: "Checkout FPP Repository"
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: Test PyPI
+      uses: fprime-community/publish-pypi@main
+      env:
+        TWINE_PASSWORD: ${{ secrets.TESTPYPI_CREDENTIAL }}
+      with:
+        package: "fprime-fpp"
+        steps: "sdist"
+    - name: PyPI
+      uses: fprime-community/publish-pypi@main
+      env:
+        TWINE_PASSWORD: ${{ secrets.PYPI_CREDENTIAL }}
+      with:
+        repo: "pypi"
+        package: "fprime-fpp"
+        steps: "sdist"
