@@ -49,6 +49,7 @@ modules()
   move_cpp Modules1Serializable
   move_cpp Modules2Serializable
   move_cpp Modules3Serializable
+  move_cpp Modules4Serializable
 }
 
 component()
