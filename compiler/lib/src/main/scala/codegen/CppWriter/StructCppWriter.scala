@@ -261,22 +261,25 @@ case class StructCppWriter(
           ");"
         )
       else List(
-        lines("// Compare non-array members"),
-        if nonArrayMemberNames.length == 1 then
-          wrapInIf(
-            s"!${nonArrayMemberCheck.head}",
-            lines("return false;")
-          )
-        else List(
-          lines("if (!("),
-          nonArrayMemberCheck.map(indentIn),
-          lines(
-            """|)) {
-               |  return false;
-               |}"""
-          ),
-        ).flatten,
-        Line.blank :: lines("// Compare array members"),
+        if nonArrayMemberNames.length >0 then List(
+          lines("// Compare non-array members"),
+          if nonArrayMemberNames.length == 1 then
+            wrapInIf(
+              s"!${nonArrayMemberCheck.head}",
+              lines("return false;")
+            )
+          else List(
+            lines("if (!("),
+            nonArrayMemberCheck.map(indentIn),
+            lines(
+              """|)) {
+                |  return false;
+                |}"""
+            ),
+          ).flatten
+        ).flatten
+        else lines(s"")
+        ,Line.blank :: lines("// Compare array members"),
         arrayMemberNames.flatMap(n =>
           wrapInIf(
             s"!(this->$n == obj.$n)",
