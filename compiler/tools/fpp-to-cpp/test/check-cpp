@@ -6,5 +6,5 @@ for target in `find . -mindepth 2 -name check-cpp`
 do
   dir=`dirname $target`
   echo "[ $dir ]"
-  (cd $dir; ./check-cpp)
+  (cd $dir; ./check-cpp "$@")
 done
