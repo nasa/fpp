@@ -13,3 +13,8 @@ struct Modules3 {
   x: M.Modules2
   arr: [3] M.Modules2
 }
+
+struct Modules4 {
+  arr1: [3] M.Modules2
+  arr2: [6] M.Modules2
+}

@@ -48,7 +48,8 @@ modules()
   run_test "-p $PWD" modules && \
     diff_cpp Modules1Serializable && \
     diff_cpp Modules2Serializable && \
-    diff_cpp Modules3Serializable
+    diff_cpp Modules3Serializable && \
+    diff_cpp Modules4Serializable
 }
 
 component()
