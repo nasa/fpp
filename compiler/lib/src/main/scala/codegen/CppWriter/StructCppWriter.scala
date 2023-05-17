@@ -261,7 +261,7 @@ case class StructCppWriter(
           ");"
         )
       else List(
-        if nonArrayMemberNames.length >0 then List(
+        if nonArrayMemberNames.length > 0 then List(
           lines("// Compare non-array members"),
           if nonArrayMemberNames.length == 1 then
             wrapInIf(
@@ -273,8 +273,8 @@ case class StructCppWriter(
             nonArrayMemberCheck.map(indentIn),
             lines(
               """|)) {
-                |  return false;
-                |}"""
+                 |  return false;
+                 |}"""
             ),
           ).flatten
         ).flatten
