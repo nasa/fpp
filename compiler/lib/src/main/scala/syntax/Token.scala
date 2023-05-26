@@ -79,6 +79,7 @@ object Token {
   final case class PRODUCT() extends Token
   final case class QUEUE() extends Token
   final case class QUEUED() extends Token
+  final case class RAW() extends Token
   final case class RARROW() extends Token
   final case class RBRACE() extends Token
   final case class RBRACKET() extends Token

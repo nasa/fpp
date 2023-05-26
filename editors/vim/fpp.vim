@@ -59,6 +59,7 @@ syn keyword fppKeyword private
 syn keyword fppKeyword product
 syn keyword fppKeyword queue
 syn keyword fppKeyword queued
+syn keyword fppKeyword raw
 syn keyword fppKeyword record
 syn keyword fppKeyword recv
 syn keyword fppKeyword red

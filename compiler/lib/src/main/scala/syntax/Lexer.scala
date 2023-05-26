@@ -299,6 +299,7 @@ object Lexer extends RegexParsers {
     ("product", (u: Unit) => Token.PRODUCT()),
     ("queue", (u: Unit) => Token.QUEUE()),
     ("queued", (u: Unit) => Token.QUEUED()),
+    ("raw", (u: Unit) => Token.RAW()),
     ("record", (u: Unit) => Token.RECORD()),
     ("recv", (u: Unit) => Token.RECV()),
     ("red", (u: Unit) => Token.RED()),
