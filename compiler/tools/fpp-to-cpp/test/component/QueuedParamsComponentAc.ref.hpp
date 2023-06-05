@@ -344,12 +344,6 @@ class QueuedParamsComponentBase :
         Fw::InputSerializePort* port //!< The port
     );
 
-    //! Connect port to prmGetOut[portNum]
-    void set_prmGetOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::InputSerializePort* port //!< The port
-    );
-
     //! Connect port to prmSetOut[portNum]
     void set_prmSetOut_OutputPort(
         NATIVE_INT_TYPE portNum, //!< The port number
@@ -390,12 +384,6 @@ class QueuedParamsComponentBase :
 
     //! Connect port to typedOut[portNum]
     void set_typedOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::InputSerializePort* port //!< The port
-    );
-
-    //! Connect port to typedReturnOut[portNum]
-    void set_typedReturnOut_OutputPort(
         NATIVE_INT_TYPE portNum, //!< The port number
         Fw::InputSerializePort* port //!< The port
     );
