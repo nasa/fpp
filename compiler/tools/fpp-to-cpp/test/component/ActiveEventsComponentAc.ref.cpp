@@ -1037,20 +1037,6 @@ void ActiveEventsComponentBase ::
 }
 
 void ActiveEventsComponentBase ::
-  set_prmGetOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_prmGetOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_prmGetOut_OutputPort[portNum].registerSerialPort(port);
-}
-
-void ActiveEventsComponentBase ::
   set_prmSetOut_OutputPort(
       NATIVE_INT_TYPE portNum,
       Fw::InputSerializePort* port
@@ -1130,20 +1116,6 @@ void ActiveEventsComponentBase ::
   );
 
   this->m_typedOut_OutputPort[portNum].registerSerialPort(port);
-}
-
-void ActiveEventsComponentBase ::
-  set_typedReturnOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_typedReturnOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_typedReturnOut_OutputPort[portNum].registerSerialPort(port);
 }
 
 #endif

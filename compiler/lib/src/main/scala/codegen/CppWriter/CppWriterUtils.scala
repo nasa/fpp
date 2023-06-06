@@ -29,7 +29,7 @@ trait CppWriterUtils extends LineUtils {
   def addSeparatedPreComment(str: String, commentOpt: Option[String]): String = {
     commentOpt match {
       case Some(s) => s"//! $str\n//!\n//! $s"
-      case None => str
+      case None => s"//! $str"
     }
   }
 
