@@ -69,35 +69,38 @@ case class ComponentOutputPorts(
         "public",
         s"Connect serial input ports to $typeStr output ports",
         mapPorts(ports, p =>
-          List(
-            functionClassMember(
-              Some(s"Connect port to ${p.getUnqualifiedName}[portNum]"),
-              outputPortConnectorName(p.getUnqualifiedName),
-              List(
-                portNumParam,
-                CppDoc.Function.Param(
-                  p.getType.get match {
-                    case PortInstance.Type.DefPort(_) =>
-                      CppDoc.Type("Fw::InputSerializePort*")
-                    case PortInstance.Type.Serial =>
-                      CppDoc.Type("Fw::InputPortBase*")
-                  },
-                  "port",
-                  Some("The port")
-                )
-              ),
-              CppDoc.Type("void"),
-              lines(
-                s"""|FW_ASSERT(
-                    |  portNum < this->${portNumGetterName(p)}(),
-                    |  static_cast<FwAssertArgType>(portNum)
-                    |);
-                    |
-                    |this->${portVariableName(p)}[portNum].registerSerialPort(port);
-                    |"""
-              ),
+          getPortReturnType(p) match {
+            case None => List(
+              functionClassMember(
+                Some(s"Connect port to ${p.getUnqualifiedName}[portNum]"),
+                outputPortConnectorName(p.getUnqualifiedName),
+                List(
+                  portNumParam,
+                  CppDoc.Function.Param(
+                    p.getType.get match {
+                      case PortInstance.Type.DefPort(_) =>
+                        CppDoc.Type("Fw::InputSerializePort*")
+                      case PortInstance.Type.Serial =>
+                        CppDoc.Type("Fw::InputPortBase*")
+                    },
+                    "port",
+                    Some("The port")
+                  )
+                ),
+                CppDoc.Type("void"),
+                lines(
+                  s"""|FW_ASSERT(
+                      |  portNum < this->${portNumGetterName(p)}(),
+                      |  static_cast<FwAssertArgType>(portNum)
+                      |);
+                      |
+                      |this->${portVariableName(p)}[portNum].registerSerialPort(port);
+                      |"""
+                ),
+              )
             )
-          )
+            case Some(_) => Nil
+          }
         )
       )
     )
