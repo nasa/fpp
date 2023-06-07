@@ -52,7 +52,7 @@ array F64x3 = [3] F64
 
 @ Record 0
 @ Implied id is 0x00
-product record Record0: U32
+product record Record0: raw
 
 @ Record 1
 product record Record1: U32 id 0x02
