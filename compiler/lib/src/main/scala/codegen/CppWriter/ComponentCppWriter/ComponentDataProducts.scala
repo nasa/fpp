@@ -296,41 +296,68 @@ case class ComponentDataProducts (
       )
     )
 
+    private def typedRecordSerializeFn(name: String, t: Type) = {
+      val typeName = TypeCppWriter.getName(s, t)
+      val paramType = if (s.isPrimitive(t, typeName))
+        typeName else s"const ${typeName}&"
+      val typeSize = s.getSerializedSizeExpr(t, typeName)
+      functionClassMember(
+        Some(s"""|Serialize a $name record into the packet buffer
+                 |\\return The serialize status"""),
+        s"serializeRecord_${name}",
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type(paramType),
+            "elt",
+            Some("The element")
+          )
+        ),
+        CppDoc.Type("Fw::SerializeStatus"),
+        lines(
+          s"""|Fw::SerializeBufferBase& serializeRepr = buffer.getSerializeRepr();
+              |const FwDpIdType id = this->baseId + RecordId::${name};
+              |Fw::SerializeStatus status = serializeRepr.serialize(id);
+              |if (status == Fw::FW_SERIALIZE_OK) {
+              |  status = serializeRepr.serialize(elt);
+              |}
+              |if (status == Fw::FW_SERIALIZE_OK) {
+              |  this->dataSize += sizeof(FwDpIdType);
+              |  this->dataSize += $typeSize;
+              |}
+              |return status;"""
+        )
+      )
+    }
+
+    private def rawRecordSerializeFn(name: String) =
+      functionClassMember(
+        Some(s"""|Serialize a $name record into the packet buffer
+                 |\\return The serialize status"""),
+        s"serializeRecord_${name}",
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type("Fw::ByteArray"),
+            "byteArray",
+            Some("The byte array")
+          )
+        ),
+        CppDoc.Type("Fw::SerializeStatus"),
+        // TODO
+        lines(
+          s"""|// TODO
+              |return Fw::FW_SERIALIZE_OK;"""
+        )
+      )
+
+
     private def getFunctionMembers =
       linesClassMember(CppDocHppWriter.writeAccessTag("public")) ::
       recordsByName.map((id, record) => {
         val name = record.getName
-        val t = record.recordType
-        val typeName = TypeCppWriter.getName(s, t)
-        val paramType = if (s.isPrimitive(t, typeName))
-          typeName else s"const ${typeName}&"
-        val typeSize = s.getSerializedSizeExpr(t, typeName)
-        functionClassMember(
-          Some(s"""|Serialize a $name into the packet buffer
-                   |\\return The serialize status"""),
-          s"serializeRecord_${name}",
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type(paramType),
-              "elt",
-              Some("The element")
-            )
-          ),
-          CppDoc.Type("Fw::SerializeStatus"),
-          lines(
-            s"""|Fw::SerializeBufferBase& serializeRepr = buffer.getSerializeRepr();
-                |const FwDpIdType id = this->baseId + RecordId::${name};
-                |Fw::SerializeStatus status = serializeRepr.serialize(id);
-                |if (status == Fw::FW_SERIALIZE_OK) {
-                |  status = serializeRepr.serialize(elt);
-                |}
-                |if (status == Fw::FW_SERIALIZE_OK) {
-                |  this->dataSize += sizeof(FwDpIdType);
-                |  this->dataSize += $typeSize;
-                |}
-                |return status;"""
-          )
-        )
+        record.recordType match {
+          case Some(t) => typedRecordSerializeFn(name, t)
+          case None => rawRecordSerializeFn(name)
+        }
       })
 
     private def getVariableMembers = List(

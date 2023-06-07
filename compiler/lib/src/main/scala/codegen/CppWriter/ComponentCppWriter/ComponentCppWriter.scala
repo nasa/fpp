@@ -79,7 +79,10 @@ case class ComponentCppWriter (
   private def getHppIncludes: CppDoc.Member = {
     // Conditional headers
     val dpHeader =
-      if component.hasDataProducts then List("Fw/Dp/DpContainer.hpp")
+      if component.hasDataProducts then List(
+        "Fw/Dp/DpContainer.hpp",
+        "Fw/Types/ByteArray.hpp"
+      )
       else Nil
     val mutexHeader =
       if hasGuardedInputPorts || hasParameters then List("Os/Mutex.hpp")

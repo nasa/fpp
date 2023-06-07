@@ -554,7 +554,7 @@ object Parser extends Parsers {
     opt(id ~>! exprNode) ^^ {
       case name ~ typeName ~ id => Ast.SpecRecord(
         name,
-        typeName,
+        Some(typeName),
         id
       )
     }

@@ -576,7 +576,7 @@ object Ast {
   /** Record specifier */
   final case class SpecRecord(
     name: Ident,
-    typeName: AstNode[TypeName],
+    typeName: Option[AstNode[TypeName]],
     id: Option[AstNode[Expr]]
   )
 
