@@ -549,12 +549,17 @@ object Parser extends Parsers {
   }
 
   def specRecord: Parser[Ast.SpecRecord] = {
+    def recordType = {
+      node(typeName) ^^ { case tn => Some(tn) } |
+      raw ^^ { case _ => None} |
+      failure("record type expected")
+    }
     ((product ~ record) ~>! ident) ~!
-    (colon ~>! node(typeName)) ~!
+    (colon ~>! recordType) ~!
     opt(id ~>! exprNode) ^^ {
-      case name ~ typeName ~ id => Ast.SpecRecord(
+      case name ~ recordType ~ id => Ast.SpecRecord(
         name,
-        Some(typeName),
+        recordType,
         id
       )
     }
@@ -840,6 +845,8 @@ object Parser extends Parsers {
   private def queued = accept("queued", { case t : Token.QUEUED => t })
 
   private def rarrow = accept("->", { case t : Token.RARROW => t })
+
+  private def raw = accept("raw", { case t : Token.RAW => t })
 
   private def rbrace = accept("}", { case t : Token.RBRACE => t })
 

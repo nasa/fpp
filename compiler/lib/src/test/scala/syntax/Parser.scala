@@ -512,6 +512,7 @@ class ParserSpec extends AnyWordSpec {
       Parser.specRecord,
       List(
         "product record R: U32",
+        "product record R: raw",
         "product record R: U32 id 0x100"
       )
     )
