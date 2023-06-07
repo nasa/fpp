@@ -46,6 +46,9 @@ module FppTest {
     @ Record 2
     product record DataRecord: Data id 200
 
+    @ Record 3
+    product record RawRecord: raw id 300
+
     # ----------------------------------------------------------------------
     # Containers
     # ----------------------------------------------------------------------

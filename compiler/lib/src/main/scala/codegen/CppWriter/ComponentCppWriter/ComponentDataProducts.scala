@@ -338,14 +338,32 @@ case class ComponentDataProducts (
           CppDoc.Function.Param(
             CppDoc.Type("Fw::ByteArray"),
             "byteArray",
-            Some("The byte array")
+            Some("The raw byte array")
           )
         ),
         CppDoc.Type("Fw::SerializeStatus"),
-        // TODO
         lines(
-          s"""|// TODO
-              |return Fw::FW_SERIALIZE_OK;"""
+          s"""|Fw::SerializeBufferBase& serializeRepr = buffer.getSerializeRepr();
+              |const FwDpIdType id = this->baseId + RecordId::${name};
+              |const FwSizeType size = byteArray.size;
+              |Fw::SerializeStatus status = serializeRepr.serialize(id);
+              |if (status == Fw::FW_SERIALIZE_OK) {
+              |  status = serializeRepr.serialize(size);
+              |}
+              |if (status == Fw::FW_SERIALIZE_OK) {
+              |  const bool omitSerializedLength = true;
+              |  status = serializeRepr.serialize(
+              |      byteArray.bytes,
+              |      size,
+              |      omitSerializedLength
+              |  );
+              |}
+              |if (status == Fw::FW_SERIALIZE_OK) {
+              |  this->dataSize += sizeof(FwDpIdType);
+              |  this->dataSize += sizeof(FwSizeType);
+              |  this->dataSize += size;
+              |}
+              |return status;"""
         )
       )
 

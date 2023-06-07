@@ -87,6 +87,7 @@ namespace FppTest {
         enum T : FwDpIdType {
           U32Record = 100,
           DataRecord = 200,
+          RawRecord = 300,
         };
       };
 
@@ -110,6 +111,12 @@ namespace FppTest {
           //! \return The serialize status
           Fw::SerializeStatus serializeRecord_DataRecord(
               const FppTest::DpTest_Data& elt //!< The element
+          );
+
+          //! Serialize a RawRecord record into the packet buffer
+          //! \return The serialize status
+          Fw::SerializeStatus serializeRecord_RawRecord(
+              Fw::ByteArray byteArray //!< The raw byte array
           );
 
           //! Serialize a U32Record record into the packet buffer
