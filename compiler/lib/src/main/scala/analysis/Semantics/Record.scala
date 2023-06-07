@@ -26,7 +26,7 @@ object Record {
     Record = {
       val node = aNode._2
       val data = node.data
-      val recordType = data.typeName.map(tn => a.typeMap(tn.id))
+      val recordType = data.recordType.map(typeNameNode => a.typeMap(typeNameNode.id))
       Record(aNode, recordType)
     }
 

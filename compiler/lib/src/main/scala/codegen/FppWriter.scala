@@ -443,7 +443,7 @@ object FppWriter extends AstVisitor with LineUtils {
         case None => lines("raw")
       }
     lines(s"product record ${ident(data.name)}").
-      join (": ") (recordType(data.typeName)).
+      join (": ") (recordType(data.recordType)).
       joinOpt (data.id) (" id ") (exprNode)
   }
 

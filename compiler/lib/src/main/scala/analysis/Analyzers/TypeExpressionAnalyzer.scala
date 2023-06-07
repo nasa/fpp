@@ -217,7 +217,7 @@ trait TypeExpressionAnalyzer
     val (_, node, _) = aNode
     val data = node.data
     for {
-      a <- opt(typeNameNode)(a, data.typeName)
+      a <- opt(typeNameNode)(a, data.recordType)
       a <- opt(exprNode)(a, data.id)
     } yield a
   }

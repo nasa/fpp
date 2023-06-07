@@ -443,7 +443,7 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("spec container") ++
     List(
       ident(data.name),
-      linesOpt(typeNameNode, data.typeName),
+      linesOpt(typeNameNode, data.recordType),
       linesOpt(addPrefix("id", exprNode), data.id)
     ).flatten.map(indentIn)
   }
