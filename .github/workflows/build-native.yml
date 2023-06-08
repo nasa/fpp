@@ -3,11 +3,12 @@ on:
   release:
     types: [published]
   pull_request:
+    branches: [main]
 jobs:
   Build-Native-Images:
     strategy:
       matrix:
-        os: ["ubuntu-18.04", "macos-11", "odroid"]
+        os: ["rhel-8.7", "macos-11", "odroid"]
     runs-on: ${{ matrix.os }}
     steps:
     - name: "Checkout FPP Repository"
