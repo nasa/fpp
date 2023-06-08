@@ -34,7 +34,7 @@ active component C {
   telemetry port tlmOut
 
   text event port textEventOut
-  
+
   time get port timeGetOut
 
 }
