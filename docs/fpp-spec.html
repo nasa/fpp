@@ -1032,6 +1032,7 @@ private
 product
 queue
 queued
+raw
 record
 recv
 red
@@ -4921,10 +4922,23 @@ A record is a unit of data that is stored in a
 <h4 id="Specifiers_Record-Specifiers_Syntax">6.13.1. Syntax</h4>
 <div class="paragraph">
 <p><code>product</code> <code>record</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
-<code>:</code> <a href="#Type-Names"><em>type-name</em></a>
+<code>:</code> <em>record-type</em>
 <em>[</em>
 <code>id</code> <a href="#Expressions"><em>expression</em></a>
 <em>]</em></p>
+</div>
+<div class="paragraph">
+<p><em>record-type</em> is one of the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="#Type-Names"><em>type-name</em></a></p>
+</li>
+<li>
+<p><code>raw</code></p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect3">
@@ -4935,7 +4949,21 @@ A record is a unit of data that is stored in a
 <p>The identifier names the record.</p>
 </li>
 <li>
-<p>The type name specifies the type of the record.</p>
+<p><em>record-type</em> name specifies the type of the data stored in the record.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>If the type is a type name <em>T</em>, then the record stores one
+element of type <em>T</em>.</p>
+</li>
+<li>
+<p>If the type is <code>raw</code>, then the record is a raw or uninterpreted
+record.
+A raw record consists of a size <em>s</em> and a data payload
+consisting of <em>s</em> bytes.</p>
+</li>
+</ol>
+</div>
 </li>
 <li>
 <p>The optional expression <em>e</em> after the keyword <code>id</code> specifies the
@@ -4960,7 +4988,7 @@ array F64x3 = [3] F64
 
 @ Record 0
 @ Implied id is 0x00
-product record Record0: U32
+product record Record0: raw
 
 @ Record 1
 product record Record1: U32 id 0x02
@@ -8461,7 +8489,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-04-03 14:54:57 -0700
+Last updated 2023-06-07 13:01:38 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
