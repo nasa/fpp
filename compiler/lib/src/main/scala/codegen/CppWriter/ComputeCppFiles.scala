@@ -38,16 +38,6 @@ object ComputeCppFiles extends AstStateVisitor {
 
   }
 
-  // TODO: Temporary function to support data products
-  def componentHasDataProducts(c: Ast.DefComponent) =
-    c.members.foldLeft (false) ((s, m) => {
-      m match {
-        case Ast.ComponentMember((_, Ast.ComponentMember.SpecContainer(_), _)) => true
-        case Ast.ComponentMember((_, Ast.ComponentMember.SpecRecord(_), _)) => true
-        case _ => s
-      }
-    })
-
   override def defComponentAnnotatedNode(
     s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
