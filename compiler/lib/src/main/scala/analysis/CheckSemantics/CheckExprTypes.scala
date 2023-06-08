@@ -116,7 +116,7 @@ object CheckExprTypes extends UseAnalyzer {
 
   override def exprLiteralIntNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralInt) =
     Right(a.assignType(node -> Type.Integer))
-  
+
   override def exprLiteralStringNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralString) =
     Right(a.assignType(node -> Type.String(None)))
 
@@ -130,7 +130,7 @@ object CheckExprTypes extends UseAnalyzer {
     for {
       _ <- Analysis.checkForDuplicateStructMember(getName)(e.members)
       a <- super.exprStructNode(a, node, e)
-    } 
+    }
     yield {
       def visitor(members: Type.Struct.Members, node: AstNode[Ast.StructMember]): Type.Struct.Members = {
         val data = node.data
@@ -178,7 +178,7 @@ object CheckExprTypes extends UseAnalyzer {
     }
     yield a
   }
-    
+
   override def specEventAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecEvent]]) = {
     val (_, node, _) = aNode
     val data = node.data
@@ -260,7 +260,7 @@ object CheckExprTypes extends UseAnalyzer {
     }
     yield a
   }
-    
+
   override def specTlmChannelAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]) = {
     val (_, node, _) = aNode
     val data = node.data
@@ -312,7 +312,7 @@ object CheckExprTypes extends UseAnalyzer {
         // Unqualified constant symbol: visit the constant definition
         // to ensure it has a type
         case Symbol.Constant(node) => defConstantAnnotatedNode(a, node)
-        // Unqualified enum symbol: if this is in scope, then we are in 
+        // Unqualified enum symbol: if this is in scope, then we are in
         // the enum definition, so it already has a type
         case Symbol.EnumConstant(node) => Right(a)
         // Invalid use of a symbol in an expression
@@ -343,7 +343,7 @@ object CheckExprTypes extends UseAnalyzer {
     }
 
   private def convertToNumeric(loc: Location, t: Type): Result.Result[Type] = {
-    if (t.isNumeric) Right(t) 
+    if (t.isNumeric) Right(t)
     else if (t.isConvertibleTo(Type.Integer)) Right(Type.Integer)
     else {
       val error = SemanticError.InvalidType(loc, s"cannot convert $t to a numeric type")
