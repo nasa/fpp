@@ -8,7 +8,7 @@ They hold <<Specifiers_Record-Specifiers,data product records>>.
 ==== Syntax
 
 `product` `container` <<Lexical-Elements_Identifiers,_identifier_>>
-_[_ 
+_[_
 `id` <<Expressions,_expression_>>
 _]_
 _[_
