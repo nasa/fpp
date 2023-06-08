@@ -50,7 +50,7 @@ object PortInstance {
       case None => "none"
     }
     /** Check whether types are compatible */
-    def areCompatible(to1: Option[Type], to2: Option[Type]): Boolean = 
+    def areCompatible(to1: Option[Type], to2: Option[Type]): Boolean =
       (to1, to2) match {
         case (Some(Type.Serial), _) => true
         case (_, Some(Type.Serial)) => true
@@ -150,7 +150,7 @@ object PortInstance {
 
   }
 
-  final case class Internal(  
+  final case class Internal(
     aNode: Ast.Annotated[AstNode[Ast.SpecInternalPort]],
     priority: Option[BigInt],
     queueFull: Ast.QueueFull
@@ -230,7 +230,7 @@ object PortInstance {
       // Get the type
       ty <- specifier.port match {
         case Some(qid) => a.useDefMap(qid.id) match {
-          case symbol @ Symbol.Port(_) => 
+          case symbol @ Symbol.Port(_) =>
             Right(PortInstance.Type.DefPort(symbol))
           case symbol => Left(SemanticError.InvalidSymbol(
             symbol.getUnqualifiedName,
@@ -319,7 +319,7 @@ object PortInstance {
   def fromSpecPortInstance(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]]
-  ): 
+  ):
     Result.Result[PortInstance] = {
       val node = aNode._2
       val data = node.data
@@ -336,7 +336,7 @@ object PortInstance {
 
   /** Gets an array size from an AST node */
   private def getArraySize(a: Analysis, sizeOpt: Option[AstNode[Ast.Expr]]):
-    Result.Result[Int] = 
+    Result.Result[Int] =
       sizeOpt match {
         case Some(size) => a.getUnboundedArraySize(size.id)
         case None => Right(1)
