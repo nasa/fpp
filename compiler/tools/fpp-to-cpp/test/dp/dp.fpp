@@ -54,10 +54,13 @@ module FppTest {
     # ----------------------------------------------------------------------
 
     @ Container 1
-    product container Container1 id 300 default priority 10
+    product container Container1 id 100 default priority 10
 
     @ Container 2
-    product container Container2 id 400 default priority 20
+    product container Container2 id 200 default priority 20
+
+    @ Container 3
+    product container Container3 id 300 default priority 30
 
   }
 

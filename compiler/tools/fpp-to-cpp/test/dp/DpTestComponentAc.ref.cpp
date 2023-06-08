@@ -939,6 +939,12 @@ namespace FppTest {
         // Call the handler
         this->Dp_Recv_Container2_handler(container, status.e);
         break;
+      case ContainerId::Container3:
+        // Set the priority
+        container.setPriority(ContainerPriority::Container3);
+        // Call the handler
+        this->Dp_Recv_Container3_handler(container, status.e);
+        break;
       default:
         FW_ASSERT(0);
         break;

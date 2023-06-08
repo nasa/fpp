@@ -69,8 +69,9 @@ namespace FppTest {
       //! The container ids
       struct ContainerId {
         enum T : FwDpIdType {
-          Container1 = 300,
-          Container2 = 400,
+          Container1 = 100,
+          Container2 = 200,
+          Container3 = 300,
         };
       };
 
@@ -79,6 +80,7 @@ namespace FppTest {
         enum T : FwDpPriorityType {
           Container1 = 10,
           Container2 = 20,
+          Container3 = 30,
         };
       };
 
@@ -434,6 +436,12 @@ namespace FppTest {
 
       //! Receive a container of type Container2
       virtual void Dp_Recv_Container2_handler(
+          DpContainer& container, //!< The container
+          Fw::Success::T status //!< The container status
+      ) = 0;
+
+      //! Receive a container of type Container3
+      virtual void Dp_Recv_Container3_handler(
           DpContainer& container, //!< The container
           Fw::Success::T status //!< The container status
       ) = 0;
