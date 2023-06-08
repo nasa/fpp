@@ -9,4 +9,4 @@ passive component C {
   product recv port productRecvIn
 
 }
-   
+
