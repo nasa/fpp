@@ -58,6 +58,7 @@ fpp-locate-defs
 fpp-locate-uses
 fpp-to-cpp
 fpp-to-xml
+fpp-to-json
 "
 
 if git describe --tags --always > /dev/null 2>&1

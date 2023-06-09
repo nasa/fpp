@@ -19,6 +19,9 @@ lazy val dependencies = Seq(
   "org.scala-lang.modules" %% "scala-parser-combinators" % "2.1.1",
   "org.scala-lang.modules" %% "scala-xml" % "2.1.0",
   "org.scalatest" %% "scalatest" % "3.2.12" % "test",
+  "io.circe" %% "circe-core" % "0.14.3",
+  "io.circe" %% "circe-generic" % "0.14.3",
+  "io.circe" %% "circe-parser" % "0.14.3",
 )
 
 lazy val root = (project in file("."))
@@ -35,6 +38,7 @@ lazy val root = (project in file("."))
     fpp_syntax,
     fpp_to_cpp,
     fpp_to_xml,
+    fpp_to_json,
   )
 
 lazy val lib = project
@@ -86,6 +90,11 @@ lazy val fpp_to_cpp = (project in file("tools/fpp-to-cpp"))
   .enablePlugins(AssemblyPlugin)
 
 lazy val fpp_to_xml = (project in file("tools/fpp-to-xml"))
+  .settings(settings)
+  .dependsOn(lib)
+  .enablePlugins(AssemblyPlugin)
+
+lazy val fpp_to_json = (project in file("tools/fpp-to-json"))
   .settings(settings)
   .dependsOn(lib)
   .enablePlugins(AssemblyPlugin)
