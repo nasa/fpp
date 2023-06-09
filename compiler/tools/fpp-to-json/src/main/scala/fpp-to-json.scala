@@ -44,13 +44,36 @@ object FPPtoJson {
       case None => ()
     }
   }
-
+  
+  implicit val moduleEncoder: Encoder[Ast.ModuleMember.DefModule] = deriveEncoder[Ast.ModuleMember.DefModule]
+  implicit val moduleMemberEncoder: Encoder[Ast.ModuleMember] = Encoder.instance (
+    (m: Ast.ModuleMember) => m.node._2 match {
+        case defModule: Ast.ModuleMember.DefModule => Json.Null
+        case defConstant: Ast.ModuleMember.DefConstant => defConstant.asJson
+        case moduleMember => Json.Null
+    })
+  
+  //implicit val constantEncoder: Encoder[Ast.DefConstant] = deriveEncoder[Ast.DefConstant]
+  implicit val exprEncoder: Encoder[Ast.Expr] = Encoder.instance {
+    case expr: Ast.ExprArray => Json.obj("name" -> "Cool".asJson)
+    case expr: Ast.ExprBinop => Json.obj("name" -> "Cool".asJson)
+    case expr: Ast.ExprDot => Json.obj("name" -> "Cool".asJson)
+    case expr: Ast.ExprParen => Json.obj("name" -> "Cool".asJson)
+    case expr: Ast.ExprStruct => Json.obj("name" -> "Cool".asJson)
+    case expr: Ast.ExprUnop => Json.obj("name" -> "Cool".asJson)
+    case expr => Json.Null
+  }
+  implicit val annotatedDefConstantEncoder: Encoder[Ast.Annotated[Ast.ModuleMember.DefConstant]] = deriveEncoder[Ast.Annotated[Ast.ModuleMember.DefConstant]]
+  implicit val defConstantEncoder: Encoder[Ast.DefConstant] = deriveEncoder[Ast.DefConstant]
+  implicit val moduleMemberefConstantEncoder: Encoder[Ast.ModuleMember.DefConstant] = deriveEncoder[Ast.ModuleMember.DefConstant]
+  implicit val transUnitEncoder: Encoder[Ast.TransUnit] = deriveEncoder[Ast.TransUnit]
   def printAst(options: Options)(tul: List[Ast.TransUnit]): Result.Result[List[Ast.TransUnit]] = {
     options.ast match {
       case true => {
+        
         val lines = tul.map(AstWriter.transUnit).flatten
         println("__________")
-        println(lines.asJson)
+        println(tul.head.asJson)
         println("__________")
         lines.map(Line.write(Line.stdout) _)
       }
