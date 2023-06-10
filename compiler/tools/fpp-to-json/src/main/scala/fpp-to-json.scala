@@ -49,12 +49,24 @@ object FPPtoJson {
 
   implicit val binopEncoder: Encoder[Ast.Binop] = Encoder.encodeString.contramap(getUnqualifiedClassName(_))
   implicit val unopEncoder: Encoder[Ast.Unop] = Encoder.encodeString.contramap(getUnqualifiedClassName(_))
+  implicit val componentKindEncoder: Encoder[Ast.ComponentKind] = Encoder.encodeString.contramap(getUnqualifiedClassName(_))
+  //implicit val unopEncoder: Encoder[Ast.ComponentKind] = Encoder.encodeString.contramap(getUnqualifiedClassName(_))
 
   implicit val moduleMemberEncoder: Encoder[Ast.ModuleMember] = Encoder.instance (
     (m: Ast.ModuleMember) => m.node._2 match {
-        case node: Ast.ModuleMember.DefModule => addTypeName(node, node.asJson)
-        case node: Ast.ModuleMember.DefConstant => addTypeName(node, node.asJson)
-        case moduleMember => Json.Null
+        //case aNode: Ast.ModuleMember.DefAbsType => addTypeName(aNode, aNode.asJson)
+        //case aNode: Ast.ModuleMember.DefArray => addTypeName(aNode, aNode.asJson)
+        //case aNode: Ast.ModuleMember.DefComponent => addTypeName(aNode, aNode.asJson)
+        //case aNode: Ast.ModuleMember.DefComponentInstance => addTypeName(aNode, aNode.asJson)
+        case aNode: Ast.ModuleMember.DefConstant => addAnnotationJson(m.node._1, addTypeName(aNode, aNode.asJson), m.node._3)
+        //case aNode: Ast.ModuleMember.DefEnum => addTypeName(aNode, aNode.asJson)
+        case aNode: Ast.ModuleMember.DefModule => addAnnotationJson(m.node._1, addTypeName(aNode, aNode.asJson), m.node._3)
+        //case aNode: Ast.ModuleMember.DefPort => addTypeName(aNode, aNode.asJson)
+        //case aNode: Ast.ModuleMember.DefStruct => addTypeName(aNode, aNode.asJson)
+        //case aNode: Ast.ModuleMember.DefTopology => addTypeName(aNode, aNode.asJson)
+        //case aNode: Ast.ModuleMember.SpecInclude => addTypeName(aNode, aNode.asJson)
+        //case aNode: Ast.ModuleMember.SpecLoc => addTypeName(aNode, aNode.asJson)
+        case expr => Json.Null
     })
   
   implicit val exprEncoder: Encoder[Ast.Expr] = Encoder.instance (
@@ -134,5 +146,6 @@ object FPPtoJson {
 
   def getUnqualifiedClassName[T] (x: T): String = x.getClass.getName.replaceAll("\\A.*\\.", "").replaceAll("\\$$", "").replaceAll("\\A.*\\$", "")
   
+  def addAnnotationJson(pre: List[String], data: Json, post: List[String]): Json = Json.obj("preAnnotation" -> pre.asJson, "data" -> data, "postAnnotation" -> post.asJson)
 }
 
