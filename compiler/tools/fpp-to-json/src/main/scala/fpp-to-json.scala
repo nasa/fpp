@@ -46,19 +46,14 @@ object FPPtoJson {
     }
   }
   
-  //implicit val moduleEncoder: Encoder[Ast.ModuleMember.DefModule] = deriveEncoder[Ast.ModuleMember.DefModule]
-  //implicit val annotatedDefConstantEncoder: Encoder[Ast.Annotated[Ast.ModuleMember.DefConstant]] = deriveEncoder[Ast.Annotated[Ast.ModuleMember.DefConstant]]
-  //implicit val defConstantEncoder: Encoder[Ast.DefConstant] = deriveEncoder[Ast.DefConstant]
-  //implicit val moduleMemberefConstantEncoder: Encoder[Ast.ModuleMember.DefConstant] = deriveEncoder[Ast.ModuleMember.DefConstant]
-  //implicit val transUnitEncoder: Encoder[Ast.TransUnit] = deriveEncoder[Ast.TransUnit]
-  //implicit val astNodeEncoder: Encoder[AstNode[Ast.Expr]] = deriveEncoder[AstNode[Ast.Expr]]
-  implicit val binopEncoder: Encoder[Ast.Binop] = Encoder.encodeString.contramap(_.toString)
-  implicit val unopEncoder: Encoder[Ast.Unop] = Encoder.encodeString.contramap(_.toString)
+
+  implicit val binopEncoder: Encoder[Ast.Binop] = Encoder.encodeString.contramap(getUnqualifiedClassName(_))
+  implicit val unopEncoder: Encoder[Ast.Unop] = Encoder.encodeString.contramap(getUnqualifiedClassName(_))
 
   implicit val moduleMemberEncoder: Encoder[Ast.ModuleMember] = Encoder.instance (
     (m: Ast.ModuleMember) => m.node._2 match {
-        case defModule: Ast.ModuleMember.DefModule => Json.Null
-        case defConstant: Ast.ModuleMember.DefConstant => defConstant.asJson
+        case node: Ast.ModuleMember.DefModule => addTypeName(node, node.asJson)
+        case node: Ast.ModuleMember.DefConstant => addTypeName(node, node.asJson)
         case moduleMember => Json.Null
     })
   
@@ -131,9 +126,13 @@ object FPPtoJson {
     )
   }
 
-  def addTypeName[T](x: T, json: Json): Json = {
-        val name: String = x.getClass.getName.substring(21)
-        Json.obj(name -> json)
-  }
+  def addTypeName[T](x: T, json: Json): Json = Json.obj(getUnqualifiedClassName(x) -> json)
+
+  //Strip off longest prefix with a . then $ then remove any additional $'s
+  //Use 
+  val regex1 = "\\A[^.]*\\.".r
+
+  def getUnqualifiedClassName[T] (x: T): String = x.getClass.getName.replaceAll("\\A.*\\.", "").replaceAll("\\$$", "").replaceAll("\\A.*\\$", "")
   
 }
+
