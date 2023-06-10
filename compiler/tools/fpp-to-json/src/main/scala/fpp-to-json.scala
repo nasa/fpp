@@ -9,6 +9,7 @@ import fpp.compiler.util._
 import io.circe.syntax._
 import io.circe._
 import io.circe.generic.semiauto._
+import io.circe.generic.auto._
 import scopt.OParser
 
 object FPPtoJson {
@@ -45,7 +46,15 @@ object FPPtoJson {
     }
   }
   
-  implicit val moduleEncoder: Encoder[Ast.ModuleMember.DefModule] = deriveEncoder[Ast.ModuleMember.DefModule]
+  //implicit val moduleEncoder: Encoder[Ast.ModuleMember.DefModule] = deriveEncoder[Ast.ModuleMember.DefModule]
+  //implicit val annotatedDefConstantEncoder: Encoder[Ast.Annotated[Ast.ModuleMember.DefConstant]] = deriveEncoder[Ast.Annotated[Ast.ModuleMember.DefConstant]]
+  //implicit val defConstantEncoder: Encoder[Ast.DefConstant] = deriveEncoder[Ast.DefConstant]
+  //implicit val moduleMemberefConstantEncoder: Encoder[Ast.ModuleMember.DefConstant] = deriveEncoder[Ast.ModuleMember.DefConstant]
+  //implicit val transUnitEncoder: Encoder[Ast.TransUnit] = deriveEncoder[Ast.TransUnit]
+  //implicit val astNodeEncoder: Encoder[AstNode[Ast.Expr]] = deriveEncoder[AstNode[Ast.Expr]]
+  implicit val binopEncoder: Encoder[Ast.Binop] = Encoder.encodeString.contramap(_.toString)
+  implicit val unopEncoder: Encoder[Ast.Unop] = Encoder.encodeString.contramap(_.toString)
+
   implicit val moduleMemberEncoder: Encoder[Ast.ModuleMember] = Encoder.instance (
     (m: Ast.ModuleMember) => m.node._2 match {
         case defModule: Ast.ModuleMember.DefModule => Json.Null
@@ -53,27 +62,30 @@ object FPPtoJson {
         case moduleMember => Json.Null
     })
   
-  //implicit val constantEncoder: Encoder[Ast.DefConstant] = deriveEncoder[Ast.DefConstant]
-  implicit val exprEncoder: Encoder[Ast.Expr] = Encoder.instance {
-    case expr: Ast.ExprArray => Json.obj("name" -> "Cool".asJson)
-    case expr: Ast.ExprBinop => Json.obj("name" -> "Cool".asJson)
-    case expr: Ast.ExprDot => Json.obj("name" -> "Cool".asJson)
-    case expr: Ast.ExprParen => Json.obj("name" -> "Cool".asJson)
-    case expr: Ast.ExprStruct => Json.obj("name" -> "Cool".asJson)
-    case expr: Ast.ExprUnop => Json.obj("name" -> "Cool".asJson)
-    case expr => Json.Null
-  }
-  implicit val annotatedDefConstantEncoder: Encoder[Ast.Annotated[Ast.ModuleMember.DefConstant]] = deriveEncoder[Ast.Annotated[Ast.ModuleMember.DefConstant]]
-  implicit val defConstantEncoder: Encoder[Ast.DefConstant] = deriveEncoder[Ast.DefConstant]
-  implicit val moduleMemberefConstantEncoder: Encoder[Ast.ModuleMember.DefConstant] = deriveEncoder[Ast.ModuleMember.DefConstant]
-  implicit val transUnitEncoder: Encoder[Ast.TransUnit] = deriveEncoder[Ast.TransUnit]
+  implicit val exprEncoder: Encoder[Ast.Expr] = Encoder.instance (
+    (e: Ast.Expr) => e match {
+        case expr: Ast.ExprArray => addTypeName(expr, expr.asJson)
+        case expr: Ast.ExprBinop => addTypeName(expr, expr.asJson)
+        case expr: Ast.ExprDot => addTypeName(expr, expr.asJson)
+        case expr: Ast.ExprParen => addTypeName(expr, expr.asJson)
+        case expr: Ast.ExprIdent => addTypeName(expr, expr.asJson)
+        case expr: Ast.ExprStruct => addTypeName(expr, expr.asJson)
+        case expr: Ast.ExprUnop => addTypeName(expr, expr.asJson)
+        case expr: Ast.ExprLiteralInt => addTypeName(expr, expr.asJson)
+        case expr: Ast.ExprLiteralBool => addTypeName(expr, expr.asJson)
+        case expr: Ast.ExprLiteralFloat => addTypeName(expr, expr.asJson)
+        case expr: Ast.ExprLiteralString => addTypeName(expr, expr.asJson)
+    })
+
   def printAst(options: Options)(tul: List[Ast.TransUnit]): Result.Result[List[Ast.TransUnit]] = {
     options.ast match {
       case true => {
         
         val lines = tul.map(AstWriter.transUnit).flatten
         println("__________")
-        println(tul.head.asJson)
+        println(tul)
+        println("__________")
+        println(tul.asJson)
         println("__________")
         lines.map(Line.write(Line.stdout) _)
       }
@@ -117,6 +129,11 @@ object FPPtoJson {
         .action((f, c) => c.copy(files = File.fromString(f) :: c.files))
         .text("input files"),
     )
+  }
+
+  def addTypeName[T](x: T, json: Json): Json = {
+        val name: String = x.getClass.getName.substring(21)
+        Json.obj(name -> json)
   }
   
 }
