@@ -52,11 +52,11 @@ object FPPtoJson {
   implicit val componentKindEncoder: Encoder[Ast.ComponentKind] = Encoder.encodeString.contramap(getUnqualifiedClassName(_))
   implicit val typeIntEncoder: Encoder[Ast.TypeInt] = Encoder.encodeString.contramap(getUnqualifiedClassName(_))
   implicit val typeFloatEncoder: Encoder[Ast.TypeFloat] = Encoder.encodeString.contramap(getUnqualifiedClassName(_))
-  implicit val typeQualEncoder: Encoder[Ast.QualIdent] = Encoder.encodeString.contramap(getUnqualifiedClassName(_)) //Needs to be refactored becuase this wont print out full list
+  //implicit val typeQualEncoder: Encoder[Ast.QualIdent] = Encoder.encodeString.contramap(getUnqualifiedClassName(_)) //Needs to be refactored becuase this wont print out full list
   //implicit val specCommandEncoder: Encoder[Ast.SpecCommand] = Encoder.encodeString.contramap(getUnqualifiedClassName(_)) 
   //implicit val specEventEncoder: Encoder[Ast.SpecEvent] = Encoder.encodeString.contramap(getUnqualifiedClassName(_))
   implicit val queueFullEncoder: Encoder[Ast.QueueFull] = Encoder.encodeString.contramap(getUnqualifiedClassName(_))
-  //implicit val formalParamEncoder: Encoder[Ast.FormalParam] = Encoder.encodeString.contramap(getUnqualifiedClassName(_))
+  //implicit val formalParamEncoder: Encoder[Ast.Annotated[AstNode[Ast.FormalParam]]] = Encoder.encodeString.contramap(addAnnotationJson(_: (List[String], AstNode[Ast.FormalParam], List[String]))._1, addTypeName(_: (List[String], AstNode[Ast.FormalParam], List[String]))._2.asJson, _._3)
   implicit val updateEncoder: Encoder[Ast.SpecTlmChannel.Update] = Encoder.encodeString.contramap(getUnqualifiedClassName(_))
   implicit val limitKindEncoder: Encoder[Ast.SpecTlmChannel.LimitKind] = Encoder.encodeString.contramap(getUnqualifiedClassName(_))
   implicit val generalKindEncoder: Encoder[Ast.SpecPortInstance.GeneralKind] = Encoder.encodeString.contramap(getUnqualifiedClassName(_))
@@ -64,19 +64,36 @@ object FPPtoJson {
   implicit val specialKindEncoder: Encoder[Ast.SpecPortInstance.SpecialKind] = Encoder.encodeString.contramap(getUnqualifiedClassName(_))
   implicit val visibilityEncoder: Encoder[Ast.Visibility] = Encoder.encodeString.contramap(getUnqualifiedClassName(_))
   implicit val patternEncoder: Encoder[Ast.SpecConnectionGraph.Pattern] = Encoder.encodeString.contramap(getUnqualifiedClassName(_))
+  
+  implicit def optionEncoder[A](implicit encoder: Encoder[A]): Encoder[Option[A]] = new Encoder[Option[A]] {
+  def apply(option: Option[A]): Json = option match {
+    case Some(value) => Json.obj("Option" -> Json.obj("Some" -> encoder(value)))
+    case None => Json.obj("Option" -> Json.fromString("None"))
+  }}
+
+  implicit val formalParamEncoder: Encoder[Ast.Annotated[AstNode[Ast.FormalParam]]] = Encoder.instance (
+    (aNode: Ast.Annotated[AstNode[Ast.FormalParam]]) => aNode match {
+        case aNode: Ast.Annotated[AstNode[Ast.FormalParam]] => addAnnotationJson(aNode._1, addTypeName(aNode._2, aNode._2.asJson), aNode._3)
+    })
+    
+  implicit val qualIdentEncoder: Encoder[Ast.QualIdent] = Encoder.instance (
+    (q: Ast.QualIdent) => q match {
+        case ident: Ast.QualIdent.Unqualified => addTypeName(ident, ident.asJson)
+        case ident: Ast.QualIdent.Qualified =>addTypeName(ident, ident.asJson)
+    })
 
   implicit val moduleMemberEncoder: Encoder[Ast.ModuleMember] = Encoder.instance (
     (m: Ast.ModuleMember) => m.node._2 match {
         case aNode: Ast.ModuleMember.DefAbsType => addAnnotationJson(m.node._1, addTypeName(aNode, aNode.asJson), m.node._3)
         case aNode: Ast.ModuleMember.DefArray => addAnnotationJson(m.node._1, addTypeName(aNode, aNode.asJson), m.node._3)
-        case aNode: Ast.ModuleMember.DefComponent => addTypeName(aNode, aNode.asJson)
-        case aNode: Ast.ModuleMember.DefComponentInstance => addTypeName(aNode, aNode.asJson)
+        case aNode: Ast.ModuleMember.DefComponent => addAnnotationJson(m.node._1, addTypeName(aNode, aNode.asJson), m.node._3)
+        case aNode: Ast.ModuleMember.DefComponentInstance => addAnnotationJson(m.node._1, addTypeName(aNode, aNode.asJson), m.node._3)
         case aNode: Ast.ModuleMember.DefConstant => addAnnotationJson(m.node._1, addTypeName(aNode, aNode.asJson), m.node._3)
         case aNode: Ast.ModuleMember.DefEnum => addAnnotationJson(m.node._1, addTypeName(aNode, aNode.asJson), m.node._3)
         case aNode: Ast.ModuleMember.DefModule => addAnnotationJson(m.node._1, addTypeName(aNode, aNode.asJson), m.node._3)
         case aNode: Ast.ModuleMember.DefPort => addAnnotationJson(m.node._1, addTypeName(aNode, aNode.asJson), m.node._3)
         case aNode: Ast.ModuleMember.DefStruct => addAnnotationJson(m.node._1, addTypeName(aNode, aNode.asJson), m.node._3)
-        case aNode: Ast.ModuleMember.DefTopology => addTypeName(aNode, aNode.asJson)
+        case aNode: Ast.ModuleMember.DefTopology => addAnnotationJson(m.node._1, addTypeName(aNode, aNode.asJson), m.node._3)
         case aNode: Ast.ModuleMember.SpecInclude => addAnnotationJson(m.node._1, addTypeName(aNode, aNode.asJson), m.node._3)
         case aNode: Ast.ModuleMember.SpecLoc => addAnnotationJson(m.node._1, addTypeName(aNode, aNode.asJson), m.node._3)
     })
