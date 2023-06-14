@@ -99,7 +99,7 @@ implicit val typeNameEncoder: Encoder[Ast.TypeName] = Encoder.instance (
     case t: Ast.TypeNameInt => addTypeName(t, t.asJson)
     case t: Ast.TypeNameQualIdent => addTypeName(t, t.asJson)
     case t: Ast.TypeNameString => addTypeName(t, t.asJson)
-    case t: Ast.TypeNameBool => addTypeName(t, Json.fromString("TypeNameBool"))
+    case Ast.TypeNameBool => addTypeName(t, Json.fromString("TypeNameBool"))
 })
 
 implicit val topologyMemberEncoder: Encoder[Ast.TopologyMember] = Encoder.instance (

@@ -49,6 +49,15 @@ object FPPtoJson {
   def printAst(options: Options)(tul: List[Ast.TransUnit]): Result.Result[List[Ast.TransUnit]] = {
     options.ast match {
       case true => {
+        val file = File.fromString("output.json")
+        for { 
+          writer <- file.openWrite() 
+        } 
+        yield { 
+          writer.println(printAstJson(tul))
+          writer.close()
+        }
+
         println(printAstJson(tul))
       }
       case false => ()
@@ -71,7 +80,7 @@ object FPPtoJson {
 
   val builder = OParser.builder[Options]
 
-  val name = "fpp-syntax"
+  val name = "fpp-to-json"
 
   val oparser = {
     import builder._
