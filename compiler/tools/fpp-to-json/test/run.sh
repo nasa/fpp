@@ -26,7 +26,7 @@ run_test()
   compare $outfile
 }
 
-. ./tests.sh
+. ./test.sh
 
 # Default tests
 for t in $tests
