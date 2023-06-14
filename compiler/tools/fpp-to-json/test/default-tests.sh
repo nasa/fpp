@@ -1,5 +1,5 @@
 
 syntax()
 {
-  run_test '' syntax
+  run_test '-a' syntax
 }

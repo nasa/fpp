@@ -2,8 +2,6 @@
 
 . ../../../scripts/test-utils.sh
 
-fpp_format=../../../bin/fpp-format
-fpp_syntax=../../../bin/fpp-syntax
 fpp_json=../../../bin/fpp-to-json
 
 compare()
@@ -14,6 +12,7 @@ compare()
 
 run_test()
 {
+
   args=$1
   infile=$2
   if test -n "$3"
@@ -34,8 +33,9 @@ do
   echo "
 $t()
 {
-  run_test '' $t
+  run_test '-a' $t
 }"
 done > default-tests.sh
 . ./default-tests.sh
 
+run_suite $tests

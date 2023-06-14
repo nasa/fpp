@@ -55,6 +55,8 @@ object FPPtoJson {
         } 
         yield { 
           writer.println(printAstJson(tul))
+          println(printLocationsMapJson())
+          println(tul)
           writer.close()
         }
 
