@@ -8,6 +8,7 @@
 #define ActiveTestComponentAc_HPP
 
 #include "AArrayAc.hpp"
+#include "ActiveTest_DataSerializableAc.hpp"
 #include "EEnumAc.hpp"
 #include "FpConfig.hpp"
 #include "Fw/Cmd/CmdPortAc.hpp"
@@ -15,6 +16,10 @@
 #include "Fw/Cmd/CmdResponsePortAc.hpp"
 #include "Fw/Cmd/CmdString.hpp"
 #include "Fw/Comp/ActiveComponentBase.hpp"
+#include "Fw/Dp/DpContainer.hpp"
+#include "Fw/Dp/DpRequestPortAc.hpp"
+#include "Fw/Dp/DpResponsePortAc.hpp"
+#include "Fw/Dp/DpSendPortAc.hpp"
 #include "Fw/Log/LogPortAc.hpp"
 #include "Fw/Log/LogString.hpp"
 #if FW_ENABLE_TEXT_LOGGING == 1
@@ -28,6 +33,7 @@
 #include "Fw/Time/TimePortAc.hpp"
 #include "Fw/Tlm/TlmPortAc.hpp"
 #include "Fw/Tlm/TlmString.hpp"
+#include "Fw/Types/ByteArray.hpp"
 #include "Fw/Types/InternalInterfaceString.hpp"
 #include "NoArgsPortAc.hpp"
 #include "NoArgsReturnPortAc.hpp"
@@ -60,6 +66,7 @@ class ActiveTestComponentBase :
     //! Enumerations for numbers of special input ports
     enum {
       NUM_CMDIN_INPUT_PORTS = 1,
+      NUM_PRODUCTRECVIN_INPUT_PORTS = 1,
     };
 
     //! Enumerations for numbers of typed input ports
@@ -86,6 +93,8 @@ class ActiveTestComponentBase :
       NUM_EVENTOUT_OUTPUT_PORTS = 1,
       NUM_PRMGETOUT_OUTPUT_PORTS = 1,
       NUM_PRMSETOUT_OUTPUT_PORTS = 1,
+      NUM_PRODUCTREQUESTOUT_OUTPUT_PORTS = 1,
+      NUM_PRODUCTSENDOUT_OUTPUT_PORTS = 1,
       NUM_TEXTEVENTOUT_OUTPUT_PORTS = 1,
       NUM_TIMEGETOUT_OUTPUT_PORTS = 1,
       NUM_TLMOUT_OUTPUT_PORTS = 1,
@@ -173,6 +182,80 @@ class ActiveTestComponentBase :
       PARAMID_PARAMSTRUCT = 0x32, //! A parameter with struct data and set/save opcodes
     };
 
+  PROTECTED:
+
+    // ----------------------------------------------------------------------
+    // Types for data products
+    // ----------------------------------------------------------------------
+
+    //! The container ids
+    struct ContainerId {
+      enum T : FwDpIdType {
+        Container1 = 100,
+        Container2 = 200,
+        Container3 = 300,
+      };
+    };
+
+    //! The container default priorities
+    struct ContainerPriority {
+      enum T : FwDpPriorityType {
+        Container1 = 10,
+        Container2 = 20,
+        Container3 = 0,
+      };
+    };
+
+    //! The record ids
+    struct RecordId {
+      enum T : FwDpIdType {
+        U32Record = 100,
+        DataRecord = 200,
+        RawRecord = 300,
+      };
+    };
+
+    //! A data product container
+    class DpContainer :
+      public Fw::DpContainer
+    {
+
+      public:
+
+        //! Constructor
+        DpContainer(
+            FwDpIdType id, //!< The container id
+            const Fw::Buffer& buffer, //!< The packet buffer
+            FwDpIdType baseId //!< The component base id
+        );
+
+      public:
+
+        //! Serialize a DataRecord record into the packet buffer
+        //! \return The serialize status
+        Fw::SerializeStatus serializeRecord_DataRecord(
+            const ActiveTest_Data& elt //!< The element
+        );
+
+        //! Serialize a RawRecord record into the packet buffer
+        //! \return The serialize status
+        Fw::SerializeStatus serializeRecord_RawRecord(
+            Fw::ByteArray byteArray //!< The raw byte array
+        );
+
+        //! Serialize a U32Record record into the packet buffer
+        //! \return The serialize status
+        Fw::SerializeStatus serializeRecord_U32Record(
+            U32 elt //!< The element
+        );
+
+      PRIVATE:
+
+        //! The component base id
+        FwDpIdType baseId;
+
+    };
+
   public:
 
     // ----------------------------------------------------------------------
@@ -195,6 +278,13 @@ class ActiveTestComponentBase :
     //!
     //! \return cmdIn[portNum]
     Fw::InputCmdPort* get_cmdIn_InputPort(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Get special input port at index
+    //!
+    //! \return productRecvIn[portNum]
+    Fw::InputDpResponsePort* get_productRecvIn_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
@@ -331,6 +421,18 @@ class ActiveTestComponentBase :
         Fw::InputPrmSetPort* port //!< The input port
     );
 
+    //! Connect port to productRequestOut[portNum]
+    void set_productRequestOut_OutputPort(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        Fw::InputDpRequestPort* port //!< The input port
+    );
+
+    //! Connect port to productSendOut[portNum]
+    void set_productSendOut_OutputPort(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        Fw::InputDpSendPort* port //!< The input port
+    );
+
 #if FW_ENABLE_TEXT_LOGGING == 1
 
     //! Connect port to textEventOut[portNum]
@@ -399,6 +501,18 @@ class ActiveTestComponentBase :
 
     //! Connect port to prmSetOut[portNum]
     void set_prmSetOut_OutputPort(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        Fw::InputSerializePort* port //!< The port
+    );
+
+    //! Connect port to productRequestOut[portNum]
+    void set_productRequestOut_OutputPort(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        Fw::InputSerializePort* port //!< The port
+    );
+
+    //! Connect port to productSendOut[portNum]
+    void set_productSendOut_OutputPort(
         NATIVE_INT_TYPE portNum, //!< The port number
         Fw::InputSerializePort* port //!< The port
     );
@@ -489,6 +603,11 @@ class ActiveTestComponentBase :
     //!
     //! \return The number of cmdIn input ports
     NATIVE_INT_TYPE getNum_cmdIn_InputPorts();
+
+    //! Get the number of productRecvIn input ports
+    //!
+    //! \return The number of productRecvIn input ports
+    NATIVE_INT_TYPE getNum_productRecvIn_InputPorts();
 
   PROTECTED:
 
@@ -592,6 +711,16 @@ class ActiveTestComponentBase :
     //! \return The number of prmSetOut output ports
     NATIVE_INT_TYPE getNum_prmSetOut_OutputPorts();
 
+    //! Get the number of productRequestOut output ports
+    //!
+    //! \return The number of productRequestOut output ports
+    NATIVE_INT_TYPE getNum_productRequestOut_OutputPorts();
+
+    //! Get the number of productSendOut output ports
+    //!
+    //! \return The number of productSendOut output ports
+    NATIVE_INT_TYPE getNum_productSendOut_OutputPorts();
+
 #if FW_ENABLE_TEXT_LOGGING == 1
 
     //! Get the number of textEventOut output ports
@@ -668,6 +797,20 @@ class ActiveTestComponentBase :
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
+    //! Check whether port productRequestOut is connected
+    //!
+    //! \return Whether port productRequestOut is connected
+    bool isConnected_productRequestOut_OutputPort(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Check whether port productSendOut is connected
+    //!
+    //! \return Whether port productSendOut is connected
+    bool isConnected_productSendOut_OutputPort(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
 #if FW_ENABLE_TEXT_LOGGING == 1
 
     //! Check whether port textEventOut is connected
@@ -711,6 +854,22 @@ class ActiveTestComponentBase :
     //! \return Whether port typedReturnOut is connected
     bool isConnected_typedReturnOut_OutputPort(
         NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+  PROTECTED:
+
+    // ----------------------------------------------------------------------
+    // Port handler base-class functions for special input ports
+    //
+    // Call these functions directly to bypass the corresponding ports
+    // ----------------------------------------------------------------------
+
+    //! Handler base-class function for input port productRecvIn
+    void productRecvIn_handlerBase(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        FwDpIdType id, //!< The container ID
+        const Fw::Buffer& buffer, //!< The buffer
+        const Fw::Success& status //!< The status
     );
 
   PROTECTED:
@@ -972,6 +1131,24 @@ class ActiveTestComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
+    // Pre-message hooks for special async input ports
+    //
+    // Each of these functions is invoked just before processing a message
+    // on the corresponding port. By default, they do nothing. You can
+    // override them to provide specific pre-message behavior.
+    // ----------------------------------------------------------------------
+
+    //! Pre-message hook for async input port productRecvIn
+    virtual void productRecvIn_preMsgHook(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        FwDpIdType id, //!< The container ID
+        const Fw::Buffer& buffer, //!< The buffer
+        const Fw::Success& status //!< The status
+    );
+
+  PROTECTED:
+
+    // ----------------------------------------------------------------------
     // Pre-message hooks for typed async input ports
     //
     // Each of these functions is invoked just before processing a message
@@ -1030,6 +1207,26 @@ class ActiveTestComponentBase :
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
+    );
+
+  PROTECTED:
+
+    // ----------------------------------------------------------------------
+    // Invocation functions for special output ports
+    // ----------------------------------------------------------------------
+
+    //! Invoke output port productRequestOut
+    void productRequestOut_out(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        FwDpIdType id, //!< The container ID
+        FwSizeType size //!< The size of the requested buffer
+    );
+
+    //! Invoke output port productSendOut
+    void productSendOut_out(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        FwDpIdType id, //!< The container ID
+        const Fw::Buffer& buffer //!< The buffer
     );
 
   PROTECTED:
@@ -1758,6 +1955,48 @@ class ActiveTestComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
+    // Functions for managing data products
+    // ----------------------------------------------------------------------
+
+    //! Request a data product container
+    void Dp_Request(
+        ContainerId::T containerId, //!< The container id
+        FwSizeType size //!< The buffer size
+    );
+
+    //! Send a data product
+    void Dp_Send(
+        DpContainer& container, //!< The data product container
+        Fw::Time timeTag = Fw::ZERO_TIME //!< The time tag
+    );
+
+  PROTECTED:
+
+    // ----------------------------------------------------------------------
+    // Handlers to implement for data products
+    // ----------------------------------------------------------------------
+
+    //! Receive a container of type Container1
+    virtual void Dp_Recv_Container1_handler(
+        DpContainer& container, //!< The container
+        Fw::Success::T status //!< The container status
+    ) = 0;
+
+    //! Receive a container of type Container2
+    virtual void Dp_Recv_Container2_handler(
+        DpContainer& container, //!< The container
+        Fw::Success::T status //!< The container status
+    ) = 0;
+
+    //! Receive a container of type Container3
+    virtual void Dp_Recv_Container3_handler(
+        DpContainer& container, //!< The container
+        Fw::Success::T status //!< The container status
+    ) = 0;
+
+  PROTECTED:
+
+    // ----------------------------------------------------------------------
     // Time
     // ----------------------------------------------------------------------
 
@@ -1803,6 +2042,15 @@ class ActiveTestComponentBase :
         FwOpcodeType opCode, //!< Command Op Code
         U32 cmdSeq, //!< Command Sequence
         Fw::CmdArgBuffer& args //!< Buffer containing arguments
+    );
+
+    //! Callback for port productRecvIn
+    static void m_p_productRecvIn_in(
+        Fw::PassiveComponentBase* callComp, //!< The component instance
+        NATIVE_INT_TYPE portNum, //!< The port number
+        FwDpIdType id, //!< The container ID
+        const Fw::Buffer& buffer, //!< The buffer
+        const Fw::Success& status //!< The status
     );
 
   PRIVATE:
@@ -2046,11 +2294,28 @@ class ActiveTestComponentBase :
   PRIVATE:
 
     // ----------------------------------------------------------------------
+    // Private data product handling functions
+    // ----------------------------------------------------------------------
+
+    //! Handler implementation for productRecvIn
+    void productRecvIn_handler(
+        const NATIVE_INT_TYPE portNum, //!< The port number
+        FwDpIdType id, //!< The container id
+        const Fw::Buffer& buffer, //!< The buffer
+        const Fw::Success& status //!< The buffer status
+    );
+
+  PRIVATE:
+
+    // ----------------------------------------------------------------------
     // Special input ports
     // ----------------------------------------------------------------------
 
     //! Input port cmdIn
     Fw::InputCmdPort m_cmdIn_InputPort[NUM_CMDIN_INPUT_PORTS];
+
+    //! Input port productRecvIn
+    Fw::InputDpResponsePort m_productRecvIn_InputPort[NUM_PRODUCTRECVIN_INPUT_PORTS];
 
   PRIVATE:
 
@@ -2117,6 +2382,12 @@ class ActiveTestComponentBase :
 
     //! Output port prmSetOut
     Fw::OutputPrmSetPort m_prmSetOut_OutputPort[NUM_PRMSETOUT_OUTPUT_PORTS];
+
+    //! Output port productRequestOut
+    Fw::OutputDpRequestPort m_productRequestOut_OutputPort[NUM_PRODUCTREQUESTOUT_OUTPUT_PORTS];
+
+    //! Output port productSendOut
+    Fw::OutputDpSendPort m_productSendOut_OutputPort[NUM_PRODUCTSENDOUT_OUTPUT_PORTS];
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
