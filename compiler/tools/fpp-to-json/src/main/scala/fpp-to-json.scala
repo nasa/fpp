@@ -49,18 +49,24 @@ object FPPtoJson {
   def printAst(options: Options)(tul: List[Ast.TransUnit]): Result.Result[List[Ast.TransUnit]] = {
     options.ast match {
       case true => {
-        val file = File.fromString("output.json")
+        println(tul)
+        val astFile = File.fromString("ast.json")
+        val locFile = File.fromString("location.json")
         for { 
-          writer <- file.openWrite() 
+          writer <- astFile.openWrite() 
         } 
         yield { 
-          writer.println(printAstJson(tul))
-          println(printLocationsMapJson())
-          println(tul)
+          writer.println(printAstJson(tul)) 
           writer.close()
         }
 
-        println(printAstJson(tul))
+        for { 
+          writer <- locFile.openWrite() 
+        } 
+        yield { 
+          writer.println(printLocationsMapJson())
+          writer.close()
+        }
       }
       case false => ()
     }
