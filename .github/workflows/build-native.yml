@@ -2,28 +2,38 @@ name: Build Native Images
 on:
   release:
     types: [published]
+  pull_request:
+    branches: [main]
 jobs:
   Build-Native-Images:
     strategy:
       matrix:
-        os: ["ubuntu-18.04", "macos-11"]
+        os: ["rhel-8.7", "macos-11", "odroid"]
     runs-on: ${{ matrix.os }}
     steps:
     - name: "Checkout FPP Repository"
       uses: actions/checkout@v2
       with:
         fetch-depth: 0
+    - name: Set architecture type (aarch64)
+      if: ${{ matrix.os == 'odroid' }}
+      run: echo "architecture=aarch64" >> "$GITHUB_ENV"
+    - name: Set architecture type (amd64)
+      if: ${{ matrix.os != 'odroid' }}
+      run: echo "architecture=amd64" >> "$GITHUB_ENV"
     - name: Image Build Step
       working-directory: ./compiler
       run: |
-        . ${GITHUB_WORKSPACE}/.github/workflows/env-setup
+        . ${GITHUB_WORKSPACE}/.github/workflows/env-setup ${{ env.architecture }}
         ./release
-        mv native-fpp-*.tar.gz "${GITHUB_WORKSPACE}"
+        mv native-fpp-*.tar.gz "${GITHUB_WORKSPACE}" 
     - name: Publish Release Binaries
+      if: ${{ github.event_name == 'release' }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: ${GITHUB_WORKSPACE}/.github/workflows/publish native-fpp-*.tar.gz
   Build-PyPI-Package:
+    if: ${{ github.event_name == 'release' }}
     needs: Build-Native-Images
     runs-on: ubuntu-latest
     steps:
