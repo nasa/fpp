@@ -118,7 +118,7 @@ class ActiveDpComponentBase :
       enum T : FwDpPriorityType {
         Container1 = 10,
         Container2 = 20,
-        Container3 = 30,
+        Container3 = 0,
       };
     };
 

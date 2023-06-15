@@ -32,4 +32,4 @@ product container Container1 id 100 default priority 10
 product container Container2 id 200 default priority 20
 
 @ Container 3
-product container Container3 id 300 default priority 30
+product container Container3 id 300
