@@ -76,3 +76,15 @@ active component ActiveParams {
   include "include/params.fppi"
 
 }
+
+@ An active component with data products
+active component ActiveDp {
+
+  include "include/typed_ports.fppi"
+  include "include/typed_ports_async.fppi"
+  include "include/special_ports.fppi"
+  include "include/dp_ports_async.fppi"
+
+  include "include/dp.fppi"
+
+}

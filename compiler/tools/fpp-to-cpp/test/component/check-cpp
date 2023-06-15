@@ -23,12 +23,17 @@ export FPRIME_GCC_FLAGS="-I../fprime"
 warning_flags="-Wno-gnu-zero-variadic-macro-arguments -Wno-unused-parameter -Wno-zero-length-array -Wno-sign-conversion -Wno-vla-extension"
 
 echo "generating C++"
+
+# Generate F Prime C++ files into ../fprime/Fw
 fpp-to-cpp -d ../fprime/Fw -p `dirname $PWD`/fprime `cat deps.txt`
-for dir in Cmd Log Prm Time Tlm
+# Move files into place by name prefix
+for dir in Buffer Cmd Dp Log Prm Time Tlm
 do
   mv ../fprime/Fw/$dir*.hpp ../fprime/Fw/$dir*.cpp ../fprime/Fw/$dir
 done
 mv ../fprime/Fw/Param*.hpp ../fprime/Fw/Param*.cpp ../fprime/Fw/Prm
+# Remaining files go into types
+mv ../fprime/Fw/*.hpp ../fprime/Fw/*.cpp ../fprime/Fw/Types
 
 # Find all guards used in generated component base class files
 guards=`grep '#if FW_' *Ac.hpp *Ac.cpp | cut -f 2 -d ' ' | sort -u | sed 's/^/-D/g'`

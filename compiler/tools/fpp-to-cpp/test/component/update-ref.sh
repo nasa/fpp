@@ -21,32 +21,33 @@ empty()
 passive()
 {
   update "-i `cat deps-comma.txt`,types.fpp" "-p $PWD,$fprime_dir passive" passive
-  move_cpp PassiveTestComponent
-  move_cpp PassiveSerialComponent
   move_cpp PassiveCommandsComponent
   move_cpp PassiveEventsComponent
-  move_cpp PassiveTelemetryComponent
   move_cpp PassiveParamsComponent
+  move_cpp PassiveSerialComponent
+  move_cpp PassiveTelemetryComponent
+  move_cpp PassiveTestComponent
 }
 
 active()
 {
   update "-i `cat deps-comma.txt`,types.fpp" "-p $PWD,$fprime_dir active" active
-  move_cpp ActiveTestComponent
-  move_cpp ActiveSerialComponent
   move_cpp ActiveCommandsComponent
+  move_cpp ActiveDpComponent
   move_cpp ActiveEventsComponent
-  move_cpp ActiveTelemetryComponent
   move_cpp ActiveParamsComponent
+  move_cpp ActiveSerialComponent
+  move_cpp ActiveTelemetryComponent
+  move_cpp ActiveTestComponent
 }
 
 queued()
 {
   update "-i `cat deps-comma.txt`,types.fpp" "-p $PWD,$fprime_dir queued" queued
-  move_cpp QueuedTestComponent
-  move_cpp QueuedSerialComponent
   move_cpp QueuedCommandsComponent
   move_cpp QueuedEventsComponent
-  move_cpp QueuedTelemetryComponent
   move_cpp QueuedParamsComponent
+  move_cpp QueuedSerialComponent
+  move_cpp QueuedTelemetryComponent
+  move_cpp QueuedTestComponent
 }

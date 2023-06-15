@@ -37,7 +37,8 @@ active()
   diff_cpp ActiveCommandsComponent && \
   diff_cpp ActiveEventsComponent && \
   diff_cpp ActiveTelemetryComponent && \
-  diff_cpp ActiveParamsComponent
+  diff_cpp ActiveParamsComponent && \
+  diff_cpp ActiveDpComponent
 }
 
 queued()

@@ -161,7 +161,7 @@ case class CppWriterState(
         }
       }
       yield {
-        val loc = sym.getLoc
+        val loc = sym.getLoc.tuLocation
         val fullPath = loc.getNeighborPath(fileName)
         val path = removeLongestPathPrefix(fullPath)
         getHeaderStr(path)
