@@ -45,8 +45,9 @@ format()
 
 include()
 {
-  run_test "-p $PWD" include && 
-    diff_cpp IncludedSerializable
+  run_test "-p $PWD" include && \
+    diff_cpp IncludedSerializable && \
+    diff_cpp IncludingSerializable
 }
 
 modules()

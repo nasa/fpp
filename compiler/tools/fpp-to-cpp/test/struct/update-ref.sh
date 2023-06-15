@@ -47,6 +47,7 @@ include()
 {
   update "-p $PWD" include
   move_cpp IncludedSerializable
+  move_cpp IncludingSerializable
 }
 
 modules()
