@@ -168,7 +168,8 @@ object Parser extends Parsers {
             case Token.STAR() => AstNode.create(Ast.ExprBinop(e1, Ast.Binop.Mul, e2))
             case _ => throw new InternalError(s"invalid binary operator ${op}")
         }
-        val loc = Locations.get(e.id)
+        //val loc = Locations.get(e.id)
+        val loc = Location(ParserState.file, op.pos, ParserState.includingLoc)
         Locations.put(binop.id, loc)
         binop
       }

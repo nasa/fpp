@@ -10,6 +10,8 @@ import io.circe.syntax._
 import io.circe._
 import io.circe.generic.semiauto._
 import io.circe.generic.auto._
+import scala.util.parsing.input.Position
+
 import scopt.OParser
 
 implicit val binopEncoder: Encoder[Ast.Binop] = Encoder.encodeString.contramap(getUnqualifiedClassName(_))
@@ -25,6 +27,7 @@ implicit val specialInputKindEncoder: Encoder[Ast.SpecPortInstance.SpecialInputK
 implicit val specialKindEncoder: Encoder[Ast.SpecPortInstance.SpecialKind] = Encoder.encodeString.contramap(getUnqualifiedClassName(_))
 implicit val visibilityEncoder: Encoder[Ast.Visibility] = Encoder.encodeString.contramap(getUnqualifiedClassName(_))
 implicit val patternEncoder: Encoder[Ast.SpecConnectionGraph.Pattern] = Encoder.encodeString.contramap(getUnqualifiedClassName(_))
+
 //implicit val typeQualEncoder: Encoder[Ast.QualIdent] = Encoder.encodeString.contramap(getUnqualifiedClassName(_)) //Needs to be refactored becuase this wont print out full list
 //implicit val specCommandEncoder: Encoder[Ast.SpecCommand] = Encoder.encodeString.contramap(getUnqualifiedClassName(_)) 
 //implicit val specEventEncoder: Encoder[Ast.SpecEvent] = Encoder.encodeString.contramap(getUnqualifiedClassName(_))
@@ -32,6 +35,18 @@ implicit val patternEncoder: Encoder[Ast.SpecConnectionGraph.Pattern] = Encoder.
 implicit def optionEncoder[A](implicit encoder: Encoder[A]): Encoder[Option[A]] = {
   case Some(value) => Json.obj("Option" -> Json.obj("Some" -> encoder(value)))
   case None => Json.obj("Option" -> Json.fromString("None"))
+}
+
+implicit val structTypeMemberEncoder: Encoder[Ast.Annotated[AstNode[Ast.StructTypeMember]]] = Encoder.instance { 
+    aNode => addAnnotationJson(aNode._1, addTypeName(aNode._2, aNode._2.asJson), aNode._3)
+}
+
+implicit val defEnumConstantEncoder: Encoder[Ast.Annotated[AstNode[Ast.DefEnumConstant]]] = Encoder.instance { 
+    aNode => addAnnotationJson(aNode._1, addTypeName(aNode._2, aNode._2.asJson), aNode._3)
+}
+
+implicit val specInitEncoder: Encoder[Ast.Annotated[AstNode[Ast.SpecInit]]] = Encoder.instance { 
+    aNode => addAnnotationJson(aNode._1, addTypeName(aNode._2, aNode._2.asJson), aNode._3)
 }
 
 implicit val formalParamEncoder: Encoder[Ast.Annotated[AstNode[Ast.FormalParam]]] = Encoder.instance { 
@@ -119,3 +134,25 @@ def getUnqualifiedClassName[T] (x: T): String = x.getClass.getName.replaceAll("\
   
 def addAnnotationJson(pre: List[String], data: Json, post: List[String]): Json = Json.obj("preAnnotation" -> pre.asJson, "data" -> data, "postAnnotation" -> post.asJson)
 
+
+
+implicit val fileEncoder: Encoder[File] = new Encoder[File] {
+  override def apply(file: File): Json = Json.fromString(file.toString)
+}
+
+implicit val positionEncoder: Encoder[Position] = new Encoder[Position] {
+  override def apply(position: Position): Json = Json.fromString(position.toString)
+}
+
+implicit val locationEncoder: Encoder[Location] = new Encoder[Location] {
+  override def apply(location: Location): Json = Json.obj(
+    "file" -> location.file.asJson,
+    "pos" -> location.pos.asJson,
+    "includingLoc" -> location.includingLoc.asJson
+  )
+}
+
+
+
+
+def printLocationsMapJson(): Json = Locations.hashMapToListOfPairs().asJson
