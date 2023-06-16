@@ -50,8 +50,8 @@ object FPPtoJson {
     options.ast match {
       case true => {
         println(tul)
-        val astFile = File.fromString("ast.json")
-        val locFile = File.fromString("location.json")
+        val astFile = File.fromString("fpp-ast.json")
+        val locFile = File.fromString("fpp-loc-map.json")
         for { 
           writer <- astFile.openWrite() 
         } 
