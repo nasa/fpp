@@ -2,7 +2,6 @@
 
 export COMPILER_ROOT=$PWD/../../../..
 
-# Skip cases where F Prime XML to C++ code gen is broken
 skip_xml_names="
 BuiltInTypeArray
 ArrayEnumE2Enum

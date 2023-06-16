@@ -43,6 +43,8 @@ for file in $files
 do
   dir=`dirname $file`
   base=`basename $file Ai.ref.xml`
+  # Skip XML to C++ in cases where the F Prime Python autocoder is
+  # broken
   var='SKIP_XML_FOR_'$base
   skip_xml_cmd='echo $'$var
   xml_file=$base'Ai.xml'
@@ -61,6 +63,7 @@ for file in $files
 do
   dir=`dirname $file`
   base=`basename $file Ai.ref.xml`
+  # Skip C++ compilation in cases where F Prime code gen is broken
   var='SKIP_CPP_FOR_'$base
   skip_cpp_cmd='echo $'$var
   cpp_file=$base'Ac.cpp'
