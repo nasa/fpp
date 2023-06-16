@@ -43,11 +43,18 @@ for file in $files
 do
   dir=`dirname $file`
   base=`basename $file Ai.ref.xml`
+  var='SKIP_XML_FOR_'$base
+  skip_xml_cmd='echo $'$var
   xml_file=$base'Ai.xml'
-  cd $dir
-  echo "compiling $xml_file"
-  $fprime_codegen $xml_file > /dev/null
-  cd $pwd
+  if test -z "`eval $skip_xml_cmd`"
+  then
+    cd $dir
+    echo "compiling $xml_file"
+    $fprime_codegen $xml_file > /dev/null
+    cd $pwd
+  else
+    echo "skipping $xml_file"
+  fi
 done
 
 for file in $files
@@ -58,7 +65,7 @@ do
   skip_cpp_cmd='echo $'$var
   cpp_file=$base'Ac.cpp'
   if test -z "`eval $skip_cpp_cmd`"
-    then
+  then
     echo "compiling $cpp_file"
     cd $dir
     $fprime_gcc -I $test_dir -c $cpp_file

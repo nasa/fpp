@@ -2,16 +2,36 @@
 
 export COMPILER_ROOT=$PWD/../../../..
 
+skip_xml_names="
+Types_AArray
+Types_AUseArray
+Types_EEnum
+Types_EUseArray
+Types_SUseArray
+Types_TUseArray
+"
+
+for name in $skip_xml_names
+do
+  export SKIP_XML_FOR_$name=1
+done
+
 skip_cpp_names="
-Commands
-Events
-Parameters
-Telemetry
+CommandsComponent
+EventsComponent
+ParametersComponent
+TelemetryComponent
+Types_AArray
+Types_AUseArray
+Types_EEnum
+Types_EUseArray
+Types_SUseArray
+Types_TUseArray
 "
 
 for name in $skip_cpp_names
 do
-  export SKIP_CPP_FOR_$name'Component'=1
+  export SKIP_CPP_FOR_$name=1
 done
 
 export FPRIME_GCC_FLAGS="-Wno-zero-length-array -Wno-vla-extension -Wno-sign-conversion"

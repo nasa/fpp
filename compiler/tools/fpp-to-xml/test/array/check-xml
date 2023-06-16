@@ -2,9 +2,29 @@
 
 export COMPILER_ROOT=$PWD/../../../..
 
-# F Prime ode generation is broken for built-in types
+# Skip cases where F Prime XML to C++ code gen is broken
+skip_xml_names="
+BuiltInTypeArray
+ArrayEnumE2Enum
+ArrayEnum2Array
+ArrayOK3Array
+ArrayOK5Array
+ArrayStruct1Array
+"
+
+for name in $skip_xml_names
+do
+  export SKIP_XML_FOR_$name=1
+done
+
 skip_cpp_names="
 BuiltInTypeArray
+ArrayEnumE2Enum
+ArrayEnum2Array
+ArrayOK3Array
+ArrayOK4Array
+ArrayOK5Array
+ArrayStruct1Array
 "
 
 for name in $skip_cpp_names
