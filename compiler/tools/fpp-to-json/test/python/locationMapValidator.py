@@ -47,6 +47,28 @@ def check_ids_in_dataset(id_list, ast):
             #return id_group
     return True
 
+def collect_ids(json_data):
+    ids = []
+
+    # Check if the current level is a list
+    if isinstance(json_data, list):
+        # Iterate over the list elements
+        for item in json_data:
+            # Recursively call the function on each item in the list
+            ids.extend(collect_ids(item))
+    
+    # Check if the current level is a dictionary
+    elif isinstance(json_data, dict):
+        # Check if the 'id' key is present and add its value to the list
+        if 'id' in json_data:
+            ids.append(json_data['id'])
+        
+        # Iterate over the dictionary values
+        for value in json_data.values():
+            # Recursively call the function on each value in the dictionary
+            ids.extend(collect_ids(value))
+    
+    return ids
 
 
 with open('ast.json') as json_file:
