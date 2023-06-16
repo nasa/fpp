@@ -1,3 +1,7 @@
-include "include/included.fppi"
+module M {
 
-struct Including { x: Included }
+  include "include/included.fppi"
+
+  struct Including { x: Included }
+
+}

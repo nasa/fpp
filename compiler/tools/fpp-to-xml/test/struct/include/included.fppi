@@ -1,1 +1,1 @@
-struct Included { x: U32 }
+struct Included { x: U32, y: F32 }
