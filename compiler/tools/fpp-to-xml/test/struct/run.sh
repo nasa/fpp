@@ -56,8 +56,9 @@ enum()
 
 include()
 {
-  run_test '' include && \
-    diff IncludedSerializableAi.xml IncludedSerializableAi.ref.xml
+  run_test "-p $PWD" include && \
+    diff IncludedSerializableAi.xml IncludedSerializableAi.ref.xml && \
+    diff IncludingSerializableAi.xml IncludingSerializableAi.ref.xml
 }
 
 struct_abs_type()

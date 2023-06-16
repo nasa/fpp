@@ -8,8 +8,9 @@ enum()
 
 include()
 {
-  update '' include
+  update "-p $PWD" include
   mv IncludedSerializableAi.xml IncludedSerializableAi.ref.xml
+  mv IncludingSerializableAi.xml IncludingSerializableAi.ref.xml
 }
 
 struct_abs_type()
