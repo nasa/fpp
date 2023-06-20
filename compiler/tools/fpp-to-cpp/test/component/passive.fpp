@@ -64,3 +64,14 @@ passive component PassiveParams {
   include "include/params.fppi"
 
 }
+
+@ A queued component with sync data products
+passive component PassiveSyncProducts {
+
+  include "include/product_ports_sync.fppi"
+  include "include/special_ports.fppi"
+  include "include/typed_ports.fppi"
+
+  include "include/products.fppi"
+
+}

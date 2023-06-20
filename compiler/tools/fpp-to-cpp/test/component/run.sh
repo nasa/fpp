@@ -25,6 +25,7 @@ passive()
   diff_cpp PassiveSerialComponent && \
   diff_cpp PassiveCommandsComponent && \
   diff_cpp PassiveEventsComponent && \
+  diff_cpp PassiveSyncProductsComponent && \
   diff_cpp PassiveTelemetryComponent && \
   diff_cpp PassiveParamsComponent
 }
