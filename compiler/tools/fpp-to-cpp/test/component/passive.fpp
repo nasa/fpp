@@ -1,13 +1,15 @@
 @ A passive component
 passive component PassiveTest {
 
+  include "include/product_ports_sync.fppi"
   include "include/typed_ports.fppi"
   include "include/special_ports.fppi"
 
   include "include/commands.fppi"
   include "include/events.fppi"
-  include "include/telemetry.fppi"
   include "include/params.fppi"
+  include "include/products.fppi"
+  include "include/telemetry.fppi"
 
 }
 
