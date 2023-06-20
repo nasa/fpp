@@ -9,7 +9,7 @@ active component ActiveTest {
 
   include "include/commands.fppi"
   include "include/commands_async.fppi"
-  include "include/dp.fppi"
+  include "include/products.fppi"
   include "include/events.fppi"
   include "include/params.fppi"
   include "include/telemetry.fppi"
@@ -87,6 +87,6 @@ active component ActiveDp {
   include "include/typed_ports.fppi"
   include "include/typed_ports_async.fppi"
 
-  include "include/dp.fppi"
+  include "include/products.fppi"
 
 }
