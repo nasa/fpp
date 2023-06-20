@@ -37,7 +37,7 @@
 //! \class PassiveSyncProductsComponentBase
 //! \brief Auto-generated base for PassiveSyncProducts component
 //!
-//! A queued component with sync data products
+//! A passive component with sync data products
 class PassiveSyncProductsComponentBase :
   public Fw::PassiveComponentBase
 {

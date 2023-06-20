@@ -25,7 +25,7 @@ passive component PassiveSerial {
 
 }
 
-@ An passive component with commands
+@ A passive component with commands
 passive component PassiveCommands {
 
   include "include/typed_ports.fppi"
@@ -35,7 +35,7 @@ passive component PassiveCommands {
 
 }
 
-@ An passive component with events
+@ A passive component with events
 passive component PassiveEvents {
 
   include "include/typed_ports.fppi"
@@ -45,7 +45,7 @@ passive component PassiveEvents {
 
 }
 
-@ An passive component with telemetry
+@ A passive component with telemetry
 passive component PassiveTelemetry {
 
   include "include/typed_ports.fppi"
@@ -55,7 +55,7 @@ passive component PassiveTelemetry {
 
 }
 
-@ An passive component with params
+@ A passive component with params
 passive component PassiveParams {
 
   include "include/typed_ports.fppi"
@@ -65,7 +65,7 @@ passive component PassiveParams {
 
 }
 
-@ A queued component with sync data products
+@ A passive component with sync data products
 passive component PassiveSyncProducts {
 
   include "include/product_ports_sync.fppi"

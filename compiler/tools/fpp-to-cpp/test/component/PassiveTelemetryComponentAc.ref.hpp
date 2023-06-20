@@ -35,7 +35,7 @@
 //! \class PassiveTelemetryComponentBase
 //! \brief Auto-generated base for PassiveTelemetry component
 //!
-//! An passive component with telemetry
+//! A passive component with telemetry
 class PassiveTelemetryComponentBase :
   public Fw::PassiveComponentBase
 {

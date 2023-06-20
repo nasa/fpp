@@ -35,7 +35,7 @@
 //! \class PassiveEventsComponentBase
 //! \brief Auto-generated base for PassiveEvents component
 //!
-//! An passive component with events
+//! A passive component with events
 class PassiveEventsComponentBase :
   public Fw::PassiveComponentBase
 {

@@ -36,7 +36,7 @@
 //! \class PassiveParamsComponentBase
 //! \brief Auto-generated base for PassiveParams component
 //!
-//! An passive component with params
+//! A passive component with params
 class PassiveParamsComponentBase :
   public Fw::PassiveComponentBase
 {
