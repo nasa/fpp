@@ -3,11 +3,6 @@
 export COMPILER_ROOT=$PWD/../../../..
 
 skip_xml_names="
-BuiltInTypeArray
-ArrayEnumE2Enum
-ArrayEnum2Array
-ArrayOK3Array
-ArrayOK5Array
 ArrayStruct1Array
 "
 
@@ -18,11 +13,6 @@ done
 
 skip_cpp_names="
 BuiltInTypeArray
-ArrayEnumE2Enum
-ArrayEnum2Array
-ArrayOK3Array
-ArrayOK4Array
-ArrayOK5Array
 ArrayStruct1Array
 "
 
