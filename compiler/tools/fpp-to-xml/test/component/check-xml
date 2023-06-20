@@ -3,12 +3,6 @@
 export COMPILER_ROOT=$PWD/../../../..
 
 skip_xml_names="
-Types_AArray
-Types_AUseArray
-Types_EEnum
-Types_EUseArray
-Types_SUseArray
-Types_TUseArray
 "
 
 for name in $skip_xml_names
@@ -21,12 +15,6 @@ CommandsComponent
 EventsComponent
 ParametersComponent
 TelemetryComponent
-Types_AArray
-Types_AUseArray
-Types_EEnum
-Types_EUseArray
-Types_SUseArray
-Types_TUseArray
 "
 
 for name in $skip_cpp_names
