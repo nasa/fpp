@@ -80,7 +80,7 @@ active component ActiveParams {
 }
 
 @ An active component with data products
-active component ActiveDp {
+active component ActiveProducts {
 
   include "include/product_ports_async.fppi"
   include "include/special_ports.fppi"
