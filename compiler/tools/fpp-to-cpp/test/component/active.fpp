@@ -1,17 +1,17 @@
 @ An active component
 active component ActiveTest {
 
-  include "include/dp_ports_async.fppi"
   include "include/internal_ports.fppi"
+  include "include/product_ports_async.fppi"
   include "include/special_ports.fppi"
   include "include/typed_ports.fppi"
   include "include/typed_ports_async.fppi"
 
   include "include/commands.fppi"
   include "include/commands_async.fppi"
-  include "include/products.fppi"
   include "include/events.fppi"
   include "include/params.fppi"
+  include "include/products.fppi"
   include "include/telemetry.fppi"
 
 }
@@ -82,7 +82,7 @@ active component ActiveParams {
 @ An active component with data products
 active component ActiveDp {
 
-  include "include/dp_ports_async.fppi"
+  include "include/product_ports_async.fppi"
   include "include/special_ports.fppi"
   include "include/typed_ports.fppi"
   include "include/typed_ports_async.fppi"
