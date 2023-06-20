@@ -6,17 +6,19 @@ module M {
     Z = 9
   }
 
-}
+  enum ArrayEnumE2 {
+    A = 10
+    B = 20
+    C = 30
+    D = 40
+  }
 
-enum ArrayEnumE2 {
-  A = 10
-  B = 20
-  C = 30
-  D = 40
 }
 
 module N {
-  array ArrayEnum1 = [2] M.ArrayEnumE1 @< Array with enum argument
-}
 
-array ArrayEnum2 = [5] ArrayEnumE2
+  array ArrayEnum1 = [2] M.ArrayEnumE1 @< Array with enum argument
+
+  array ArrayEnum2 = [5] M.ArrayEnumE2
+
+}
