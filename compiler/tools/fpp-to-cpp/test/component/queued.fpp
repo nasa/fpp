@@ -1,6 +1,7 @@
 @ A queued component
 queued component QueuedTest {
 
+  include "include/product_ports_async.fppi"
   include "include/typed_ports.fppi"
   include "include/typed_ports_async.fppi"
   include "include/special_ports.fppi"
@@ -9,6 +10,7 @@ queued component QueuedTest {
   include "include/commands.fppi"
   include "include/commands_async.fppi"
   include "include/events.fppi"
+  include "include/products.fppi"
   include "include/telemetry.fppi"
   include "include/params.fppi"
 

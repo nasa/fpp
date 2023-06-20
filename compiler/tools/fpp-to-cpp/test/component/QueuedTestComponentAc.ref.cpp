@@ -15,6 +15,7 @@
 namespace {
   enum MsgTypeEnum {
     QUEUEDTEST_COMPONENT_EXIT = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT,
+    PRODUCTRECVIN_DPRESPONSE,
     NOARGSASYNC_NOARGS,
     TYPEDASYNC_TYPED,
     TYPEDASYNCASSERT_TYPED,
@@ -35,6 +36,7 @@ namespace {
 
   // Get the max size by doing a union of the input and internal port serialization sizes
   union BuffUnion {
+    BYTE productRecvInPortSize[Fw::InputDpResponsePort::SERIALIZED_SIZE];
     BYTE noArgsAsyncPortSize[InputNoArgsPort::SERIALIZED_SIZE];
     BYTE noArgsGuardedPortSize[InputNoArgsPort::SERIALIZED_SIZE];
     BYTE noArgsReturnGuardedPortSize[InputNoArgsReturnPort::SERIALIZED_SIZE];
@@ -112,6 +114,80 @@ namespace {
 }
 
 // ----------------------------------------------------------------------
+// Types for data products
+// ----------------------------------------------------------------------
+
+QueuedTestComponentBase::DpContainer ::
+  DpContainer(
+      FwDpIdType id,
+      const Fw::Buffer& buffer,
+      FwDpIdType baseId
+  ) :
+    Fw::DpContainer(id, buffer),
+    baseId(baseId)
+{
+
+}
+
+Fw::SerializeStatus QueuedTestComponentBase::DpContainer ::
+  serializeRecord_DataRecord(const QueuedTest_Data& elt)
+{
+  Fw::SerializeBufferBase& serializeRepr = buffer.getSerializeRepr();
+  const FwDpIdType id = this->baseId + RecordId::DataRecord;
+  Fw::SerializeStatus status = serializeRepr.serialize(id);
+  if (status == Fw::FW_SERIALIZE_OK) {
+    status = serializeRepr.serialize(elt);
+  }
+  if (status == Fw::FW_SERIALIZE_OK) {
+    this->dataSize += sizeof(FwDpIdType);
+    this->dataSize += QueuedTest_Data::SERIALIZED_SIZE;
+  }
+  return status;
+}
+
+Fw::SerializeStatus QueuedTestComponentBase::DpContainer ::
+  serializeRecord_RawRecord(Fw::ByteArray byteArray)
+{
+  Fw::SerializeBufferBase& serializeRepr = buffer.getSerializeRepr();
+  const FwDpIdType id = this->baseId + RecordId::RawRecord;
+  const FwSizeType size = byteArray.size;
+  Fw::SerializeStatus status = serializeRepr.serialize(id);
+  if (status == Fw::FW_SERIALIZE_OK) {
+    status = serializeRepr.serialize(size);
+  }
+  if (status == Fw::FW_SERIALIZE_OK) {
+    const bool omitSerializedLength = true;
+    status = serializeRepr.serialize(
+        byteArray.bytes,
+        size,
+        omitSerializedLength
+    );
+  }
+  if (status == Fw::FW_SERIALIZE_OK) {
+    this->dataSize += sizeof(FwDpIdType);
+    this->dataSize += sizeof(FwSizeType);
+    this->dataSize += size;
+  }
+  return status;
+}
+
+Fw::SerializeStatus QueuedTestComponentBase::DpContainer ::
+  serializeRecord_U32Record(U32 elt)
+{
+  Fw::SerializeBufferBase& serializeRepr = buffer.getSerializeRepr();
+  const FwDpIdType id = this->baseId + RecordId::U32Record;
+  Fw::SerializeStatus status = serializeRepr.serialize(id);
+  if (status == Fw::FW_SERIALIZE_OK) {
+    status = serializeRepr.serialize(elt);
+  }
+  if (status == Fw::FW_SERIALIZE_OK) {
+    this->dataSize += sizeof(FwDpIdType);
+    this->dataSize += sizeof(U32);
+  }
+  return status;
+}
+
+// ----------------------------------------------------------------------
 // Component initialization
 // ----------------------------------------------------------------------
 
@@ -147,6 +223,32 @@ void QueuedTestComponentBase ::
       port
     );
     this->m_cmdIn_InputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect input port productRecvIn
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_productRecvIn_InputPorts());
+    port++
+  ) {
+    this->m_productRecvIn_InputPort[port].init();
+    this->m_productRecvIn_InputPort[port].addCallComp(
+      this,
+      m_p_productRecvIn_in
+    );
+    this->m_productRecvIn_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_productRecvIn_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_productRecvIn_InputPort[port].setObjName(portName);
 #endif
   }
 
@@ -593,6 +695,48 @@ void QueuedTestComponentBase ::
 #endif
   }
 
+  // Connect output port productRequestOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_productRequestOut_OutputPorts());
+    port++
+  ) {
+    this->m_productRequestOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_productRequestOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_productRequestOut_OutputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect output port productSendOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_productSendOut_OutputPorts());
+    port++
+  ) {
+    this->m_productSendOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_productSendOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_productSendOut_OutputPort[port].setObjName(portName);
+#endif
+  }
+
 #if FW_ENABLE_TEXT_LOGGING == 1
   // Connect output port textEventOut
   for (
@@ -723,6 +867,17 @@ Fw::InputCmdPort* QueuedTestComponentBase ::
   );
 
   return &this->m_cmdIn_InputPort[portNum];
+}
+
+Fw::InputDpResponsePort* QueuedTestComponentBase ::
+  get_productRecvIn_InputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_productRecvIn_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_productRecvIn_InputPort[portNum];
 }
 
 // ----------------------------------------------------------------------
@@ -946,6 +1101,34 @@ void QueuedTestComponentBase ::
   this->m_prmSetOut_OutputPort[portNum].addCallPort(port);
 }
 
+void QueuedTestComponentBase ::
+  set_productRequestOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputDpRequestPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_productRequestOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_productRequestOut_OutputPort[portNum].addCallPort(port);
+}
+
+void QueuedTestComponentBase ::
+  set_productSendOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputDpSendPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_productSendOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_productSendOut_OutputPort[portNum].addCallPort(port);
+}
+
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 void QueuedTestComponentBase ::
@@ -1084,6 +1267,34 @@ void QueuedTestComponentBase ::
   );
 
   this->m_prmSetOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+void QueuedTestComponentBase ::
+  set_productRequestOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_productRequestOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_productRequestOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+void QueuedTestComponentBase ::
+  set_productSendOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_productSendOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_productSendOut_OutputPort[portNum].registerSerialPort(port);
 }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
@@ -1500,6 +1711,12 @@ NATIVE_INT_TYPE QueuedTestComponentBase ::
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdIn_InputPort));
 }
 
+NATIVE_INT_TYPE QueuedTestComponentBase ::
+  getNum_productRecvIn_InputPorts()
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_productRecvIn_InputPort));
+}
+
 // ----------------------------------------------------------------------
 // Getters for numbers of typed input ports
 // ----------------------------------------------------------------------
@@ -1616,6 +1833,18 @@ NATIVE_INT_TYPE QueuedTestComponentBase ::
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_prmSetOut_OutputPort));
 }
 
+NATIVE_INT_TYPE QueuedTestComponentBase ::
+  getNum_productRequestOut_OutputPorts()
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_productRequestOut_OutputPort));
+}
+
+NATIVE_INT_TYPE QueuedTestComponentBase ::
+  getNum_productSendOut_OutputPorts()
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_productSendOut_OutputPort));
+}
+
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 NATIVE_INT_TYPE QueuedTestComponentBase ::
@@ -1713,6 +1942,28 @@ bool QueuedTestComponentBase ::
   return this->m_prmSetOut_OutputPort[portNum].isConnected();
 }
 
+bool QueuedTestComponentBase ::
+  isConnected_productRequestOut_OutputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_productRequestOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_productRequestOut_OutputPort[portNum].isConnected();
+}
+
+bool QueuedTestComponentBase ::
+  isConnected_productSendOut_OutputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_productSendOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_productSendOut_OutputPort[portNum].isConnected();
+}
+
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 bool QueuedTestComponentBase ::
@@ -1774,6 +2025,83 @@ bool QueuedTestComponentBase ::
   );
 
   return this->m_typedReturnOut_OutputPort[portNum].isConnected();
+}
+
+// ----------------------------------------------------------------------
+// Port handler base-class functions for special input ports
+//
+// Call these functions directly to bypass the corresponding ports
+// ----------------------------------------------------------------------
+
+void QueuedTestComponentBase ::
+  productRecvIn_handlerBase(
+      NATIVE_INT_TYPE portNum,
+      FwDpIdType id,
+      const Fw::Buffer& buffer,
+      const Fw::Success& status
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_productRecvIn_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  // Call pre-message hook
+  productRecvIn_preMsgHook(
+    portNum,
+    id,
+    buffer,
+    status
+  );
+  ComponentIpcSerializableBuffer msg;
+  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+
+  // Serialize message ID
+  _status = msg.serialize(
+    static_cast<NATIVE_INT_TYPE>(PRODUCTRECVIN_DPRESPONSE)
+  );
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
+
+  // Serialize port number
+  _status = msg.serialize(portNum);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
+
+  // Serialize argument id
+  _status = msg.serialize(id);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
+
+  // Serialize argument buffer
+  _status = msg.serialize(buffer);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
+
+  // Serialize argument status
+  _status = msg.serialize(status);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
+
+  // Send message
+  Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
+  Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 0, _block);
+
+  FW_ASSERT(
+    qStatus == Os::Queue::QUEUE_OK,
+    static_cast<FwAssertArgType>(qStatus)
+  );
 }
 
 // ----------------------------------------------------------------------
@@ -2472,6 +2800,25 @@ void QueuedTestComponentBase ::
 }
 
 // ----------------------------------------------------------------------
+// Pre-message hooks for special async input ports
+//
+// Each of these functions is invoked just before processing a message
+// on the corresponding port. By default, they do nothing. You can
+// override them to provide specific pre-message behavior.
+// ----------------------------------------------------------------------
+
+void QueuedTestComponentBase ::
+  productRecvIn_preMsgHook(
+      NATIVE_INT_TYPE portNum,
+      FwDpIdType id,
+      const Fw::Buffer& buffer,
+      const Fw::Success& status
+  )
+{
+  // Default: no-op
+}
+
+// ----------------------------------------------------------------------
 // Pre-message hooks for typed async input ports
 //
 // Each of these functions is invoked just before processing a message
@@ -2543,6 +2890,44 @@ void QueuedTestComponentBase ::
   )
 {
   // Default: no-op
+}
+
+// ----------------------------------------------------------------------
+// Invocation functions for special output ports
+// ----------------------------------------------------------------------
+
+void QueuedTestComponentBase ::
+  productRequestOut_out(
+      NATIVE_INT_TYPE portNum,
+      FwDpIdType id,
+      FwSizeType size
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_productRequestOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_productRequestOut_OutputPort[portNum].invoke(
+    id,
+    size
+  );
+}
+
+void QueuedTestComponentBase ::
+  productSendOut_out(
+      NATIVE_INT_TYPE portNum,
+      FwDpIdType id,
+      const Fw::Buffer& buffer
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_productSendOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_productSendOut_OutputPort[portNum].invoke(
+    id,
+    buffer
+  );
 }
 
 // ----------------------------------------------------------------------
@@ -5038,6 +5423,44 @@ S QueuedTestComponentBase ::
 }
 
 // ----------------------------------------------------------------------
+// Functions for managing data products
+// ----------------------------------------------------------------------
+
+void QueuedTestComponentBase ::
+  Dp_Request(
+      ContainerId::T containerId,
+      FwSizeType size
+  )
+{
+  const FwDpIdType globalId = this->getIdBase() + containerId;
+  this->productRequestOut_out(0, globalId, size);
+}
+
+void QueuedTestComponentBase ::
+  Dp_Send(
+      DpContainer& container,
+      Fw::Time timeTag
+  )
+{
+  // Update the time tag
+  if (timeTag == Fw::ZERO_TIME) {
+    // Get the time from the time port
+    timeTag = this->getTime();
+  }
+  container.setTimeTag(timeTag);
+  // Serialize the header into the packet
+  Fw::SerializeStatus status = container.serializeHeader();
+  FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+  // Update the size of the buffer according to the data size
+  const FwSizeType packetSize = container.getPacketSize();
+  Fw::Buffer buffer = container.getBuffer();
+  FW_ASSERT(packetSize <= buffer.getSize(), packetSize, buffer.getSize());
+  buffer.setSize(packetSize);
+  // Send the buffer
+  this->productSendOut_out(0, container.getId(), buffer);
+}
+
+// ----------------------------------------------------------------------
 // Time
 // ----------------------------------------------------------------------
 
@@ -5122,6 +5545,42 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
   );
 
   switch (msgType) {
+    // Handle async input port productRecvIn
+    case PRODUCTRECVIN_DPRESPONSE: {
+      // Deserialize argument id
+      FwDpIdType id;
+      deserStatus = msg.deserialize(id);
+      FW_ASSERT(
+        deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      // Deserialize argument buffer
+      Fw::Buffer buffer;
+      deserStatus = msg.deserialize(buffer);
+      FW_ASSERT(
+        deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+
+      // Deserialize argument status
+      Fw::Success status;
+      deserStatus = msg.deserialize(status);
+      FW_ASSERT(
+        deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(deserStatus)
+      );
+      // Call handler function
+      this->productRecvIn_handler(
+        portNum,
+        id,
+        buffer,
+        status
+      );
+
+      break;
+    }
+
     // Handle async input port noArgsAsync
     case NOARGSASYNC_NOARGS: {
       // Call handler function
@@ -6167,6 +6626,25 @@ void QueuedTestComponentBase ::
   }
 }
 
+void QueuedTestComponentBase ::
+  m_p_productRecvIn_in(
+      Fw::PassiveComponentBase* callComp,
+      NATIVE_INT_TYPE portNum,
+      FwDpIdType id,
+      const Fw::Buffer& buffer,
+      const Fw::Success& status
+  )
+{
+  FW_ASSERT(callComp);
+  QueuedTestComponentBase* compPtr = static_cast<QueuedTestComponentBase*>(callComp);
+  compPtr->productRecvIn_handlerBase(
+    portNum,
+    id,
+    buffer,
+    status
+  );
+}
+
 // ----------------------------------------------------------------------
 // Calls for messages received on typed input ports
 // ----------------------------------------------------------------------
@@ -6760,4 +7238,47 @@ Fw::CmdResponse QueuedTestComponentBase ::
   }
 
   return Fw::CmdResponse::EXECUTION_ERROR;
+}
+
+// ----------------------------------------------------------------------
+// Private data product handling functions
+// ----------------------------------------------------------------------
+
+void QueuedTestComponentBase ::
+  productRecvIn_handler(
+      const NATIVE_INT_TYPE portNum,
+      FwDpIdType id,
+      const Fw::Buffer& buffer,
+      const Fw::Success& status
+  )
+{
+  DpContainer container(id, buffer, this->getIdBase());
+  // Convert global id to local id
+  const auto idBase = this->getIdBase();
+  FW_ASSERT(id >= idBase, id, idBase);
+  const auto localId = id - idBase;
+  // Switch on the local id
+  switch (localId) {
+    case ContainerId::Container1:
+      // Set the priority
+      container.setPriority(ContainerPriority::Container1);
+      // Call the handler
+      this->Dp_Recv_Container1_handler(container, status.e);
+      break;
+    case ContainerId::Container2:
+      // Set the priority
+      container.setPriority(ContainerPriority::Container2);
+      // Call the handler
+      this->Dp_Recv_Container2_handler(container, status.e);
+      break;
+    case ContainerId::Container3:
+      // Set the priority
+      container.setPriority(ContainerPriority::Container3);
+      // Call the handler
+      this->Dp_Recv_Container3_handler(container, status.e);
+      break;
+    default:
+      FW_ASSERT(0);
+      break;
+  }
 }
