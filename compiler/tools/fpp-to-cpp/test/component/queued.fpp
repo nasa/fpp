@@ -76,3 +76,15 @@ queued component QueuedParams {
   include "include/params.fppi"
 
 }
+
+@ A queued component with async data products
+active component QueuedAsyncProducts {
+
+  include "include/product_ports_async.fppi"
+  include "include/special_ports.fppi"
+  include "include/typed_ports.fppi"
+  include "include/typed_ports_async.fppi"
+
+  include "include/products.fppi"
+
+}

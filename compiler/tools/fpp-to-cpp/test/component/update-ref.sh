@@ -44,6 +44,7 @@ active()
 queued()
 {
   update "-i `cat deps-comma.txt`,types.fpp" "-p $PWD,$fprime_dir queued" queued
+  move_cpp QueuedAsyncProductsComponent
   move_cpp QueuedCommandsComponent
   move_cpp QueuedEventsComponent
   move_cpp QueuedParamsComponent

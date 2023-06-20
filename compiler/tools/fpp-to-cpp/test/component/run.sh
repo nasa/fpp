@@ -44,10 +44,11 @@ active()
 queued()
 {
   run_test "-i `cat deps-comma.txt`,types.fpp" "-p $PWD,$fprime_dir queued" queued && \
-  diff_cpp QueuedTestComponent && \
-  diff_cpp QueuedSerialComponent && \
+  diff_cpp QueuedAsyncProductsComponent && \
   diff_cpp QueuedCommandsComponent && \
   diff_cpp QueuedEventsComponent && \
+  diff_cpp QueuedParamsComponent && \
+  diff_cpp QueuedSerialComponent && \
   diff_cpp QueuedTelemetryComponent && \
-  diff_cpp QueuedParamsComponent
+  diff_cpp QueuedTestComponent
 }
