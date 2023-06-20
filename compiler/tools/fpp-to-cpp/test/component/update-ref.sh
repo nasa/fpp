@@ -32,10 +32,10 @@ passive()
 active()
 {
   update "-i `cat deps-comma.txt`,types.fpp" "-p $PWD,$fprime_dir active" active
+  move_cpp ActiveAsyncProductsComponent
   move_cpp ActiveCommandsComponent
   move_cpp ActiveEventsComponent
   move_cpp ActiveParamsComponent
-  move_cpp ActiveProductsComponent
   move_cpp ActiveSerialComponent
   move_cpp ActiveTelemetryComponent
   move_cpp ActiveTestComponent

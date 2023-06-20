@@ -79,8 +79,8 @@ active component ActiveParams {
 
 }
 
-@ An active component with data products
-active component ActiveProducts {
+@ An active component with async data products
+active component ActiveAsyncProducts {
 
   include "include/product_ports_async.fppi"
   include "include/special_ports.fppi"
