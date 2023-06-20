@@ -62,7 +62,7 @@ case class XmlWriterState(
         }
       }
       yield {
-        val loc = sym.getLoc
+        val loc = sym.getLoc.tuLocation
         val (tagName, fileName) = tagFileName
         val fullPath = loc.getNeighborPath(fileName)
         val path = removeLongestPrefix(fullPath)

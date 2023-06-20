@@ -54,6 +54,13 @@ enum()
     diff EEnumAi.xml EEnumAi.ref.xml
 }
 
+include()
+{
+  run_test "-p $PWD" include && \
+    diff IncludedSerializableAi.xml IncludedSerializableAi.ref.xml && \
+    diff IncludingSerializableAi.xml IncludingSerializableAi.ref.xml
+}
+
 struct_abs_type()
 {
   run_test "-p $PWD" struct_abs_type && \

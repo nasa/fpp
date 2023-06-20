@@ -6,6 +6,13 @@ enum()
   mv EEnumAi.xml EEnumAi.ref.xml
 }
 
+include()
+{
+  update "-p $PWD" include
+  mv IncludedSerializableAi.xml IncludedSerializableAi.ref.xml
+  mv IncludingSerializableAi.xml IncludingSerializableAi.ref.xml
+}
+
 struct_abs_type()
 {
   update "-p $PWD" struct_abs_type

@@ -2,6 +2,7 @@ tests="
 duplicate_xml_file
 empty_struct
 enum
+include
 struct_abs_type
 struct_default
 struct_enum_member

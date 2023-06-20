@@ -43,6 +43,13 @@ format()
   move_cpp FormatSerializable
 }
 
+include()
+{
+  update "-p $PWD" include
+  move_cpp IncludedSerializable
+  move_cpp IncludingSerializable
+}
+
 modules()
 {
   update "-p $PWD" modules
