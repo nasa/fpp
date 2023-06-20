@@ -21,13 +21,14 @@ empty()
 passive()
 {
   run_test "-i `cat deps-comma.txt`,types.fpp" "-p $PWD,$fprime_dir passive" passive && \
-  diff_cpp PassiveTestComponent && \
-  diff_cpp PassiveSerialComponent && \
   diff_cpp PassiveCommandsComponent && \
   diff_cpp PassiveEventsComponent && \
+  diff_cpp PassiveGuardedProductsComponent && \
+  diff_cpp PassiveParamsComponent &&\
+  diff_cpp PassiveSerialComponent && \
   diff_cpp PassiveSyncProductsComponent && \
   diff_cpp PassiveTelemetryComponent && \
-  diff_cpp PassiveParamsComponent
+  diff_cpp PassiveTestComponent
 }
 
 active()

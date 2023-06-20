@@ -75,3 +75,14 @@ passive component PassiveSyncProducts {
   include "include/products.fppi"
 
 }
+
+@ A passive component with guarded data products
+passive component PassiveGuardedProducts {
+
+  include "include/product_ports_guarded.fppi"
+  include "include/special_ports.fppi"
+  include "include/typed_ports.fppi"
+
+  include "include/products.fppi"
+
+}
