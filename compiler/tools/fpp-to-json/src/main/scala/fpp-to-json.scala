@@ -6,13 +6,12 @@ import fpp.compiler.codegen._
 import fpp.compiler.syntax._
 import fpp.compiler.transform._
 import fpp.compiler.util._
-
 import scopt.OParser
 
 object FPPtoJson {
   case class Options(
-    ast: Boolean = false,
-    include: Boolean = false,
+    analysis: Boolean = false,
+    dir: Option[String] = None,
     files: List[File] = List()
   )
 
@@ -24,7 +23,7 @@ object FPPtoJson {
     }
     val result = Result.seq(
       Result.map(files, Parser.parseFile (Parser.transUnit) (None) _),
-      List(resolveIncludes (options) _, printAst (options) _)
+      List(resolveIncludes _, writeJson (options) _, writeAnylisis (options) _)
     )
     result match {
       case Left(error) => {
@@ -46,44 +45,61 @@ object FPPtoJson {
 
   
 
-  def printAst(options: Options)(tul: List[Ast.TransUnit]): Result.Result[List[Ast.TransUnit]] = {
-    options.ast match {
+  def writeJson (options: Options) (tul: List[Ast.TransUnit]): Result.Result[List[Ast.TransUnit]] = {
+    val encoder = JsonEncoder(tul = tul)
+    val path = options.dir.getOrElse("")
+    println("Here is the path: " + path)
+    val astFile = File.fromString(path + "fpp-ast.json")
+    val locFile = File.fromString(path + "fpp-loc-map.json")
+    println("Writing ast and locMap")
+    for { 
+      writer <- astFile.openWrite() 
+    } 
+    yield { 
+      writer.println(encoder.printAstJson()) 
+      writer.close()
+    }
+    for { 
+      writer <- locFile.openWrite() 
+    } 
+    yield { 
+      writer.println(encoder.printLocationsMapJson())
+      writer.close()
+    }
+    
+    Right(tul)
+  }
+
+    def writeAnylisis(options: Options)(tul: List[Ast.TransUnit]): Result.Result[List[Ast.TransUnit]] = {
+    val encoder = JsonEncoder(tul = tul)
+    val path = options.dir.getOrElse("")
+    options.analysis match {
       case true => {
-        println(tul)
-        val astFile = File.fromString("fpp-ast.json")
-        val locFile = File.fromString("fpp-loc-map.json")
+        val analysisFile = File.fromString(path + "fpp-analysis.json")
         for { 
-          writer <- astFile.openWrite() 
+          writer <- analysisFile.openWrite() 
         } 
         yield { 
-          writer.println(printAstJson(tul)) 
+          //writer.println(encoder.printAstJson()) 
+          println("I am writing the analysis")
           writer.close()
         }
 
-        for { 
-          writer <- locFile.openWrite() 
-        } 
-        yield { 
-          writer.println(printLocationsMapJson())
-          writer.close()
-        }
       }
       case false => ()
     }
     Right(tul)
   }
 
-  def resolveIncludes(options: Options)(tul: List[Ast.TransUnit]): Result.Result[List[Ast.TransUnit]] = {
-    options.include match {
-      case true => for { 
-        result <- ResolveSpecInclude.transformList(
-          Analysis(),
-          tul, 
-          ResolveSpecInclude.transUnit
-        )
-      } yield result._2
-      case false => Right(tul)
-    }
+  def resolveIncludes(tul: List[Ast.TransUnit]): Result.Result[List[Ast.TransUnit]] = {
+    for { 
+      result <- ResolveSpecInclude.transformList(
+        Analysis(),
+        tul, 
+        ResolveSpecInclude.transUnit
+      )
+    } yield result._2
+
   }
 
   val builder = OParser.builder[Options]
@@ -95,12 +111,13 @@ object FPPtoJson {
     OParser.sequence(
       programName(name),
       head(name, Version.v),
-      opt[Unit]('a', "ast")
-        .action((_, c) => c.copy(ast = true))
-        .text("print the abstract syntax tree (ast)"),
-      opt[Unit]('i', "include")
-        .action((_, c) => c.copy(include = true))
-        .text("resolve include specifiers"),
+      opt[Unit]('a', "analysis")
+        .action((_, c) => c.copy(analysis = true))
+        .text("write the anylisis data structure"),
+      opt[String]('d', "directory")
+        .valueName("<dir>")
+        .action((d, c) => c.copy(dir = Some(d)))
+        .text("output directory"),
       help('h', "help").text("print this message and exit"),
       arg[String]("file ...")
         .unbounded()
@@ -109,7 +126,6 @@ object FPPtoJson {
         .text("input files"),
     )
   }
-
   
 }
 
