@@ -126,7 +126,7 @@ class ActiveSerialComponentBase :
       OPCODE_CMD_SYNC_ARRAY = 0x13, //!< A sync command with array params
       OPCODE_CMD_SYNC_STRUCT = 0x14, //!< A sync command with struct params
       OPCODE_CMD_GUARDED = 0x15, //!< A guarded command with no params
-      OPCODE_CMD_GUARDED_PRIMITIVE = 0x16, //!< An aguarded command with primitive params
+      OPCODE_CMD_GUARDED_PRIMITIVE = 0x16, //!< A guarded command with primitive params
       OPCODE_CMD_GUARDED_STRING = 0x17, //!< A guarded command with string params
       OPCODE_CMD_GUARDED_ENUM = 0x18, //!< A guarded command with enum params
       OPCODE_CMD_GUARDED_ARRAY = 0x19, //!< A guarded command with array params
@@ -1511,7 +1511,7 @@ class ActiveSerialComponentBase :
 
     //! Handler for command CMD_GUARDED_PRIMITIVE
     //!
-    //! An aguarded command with primitive params
+    //! A guarded command with primitive params
     virtual void CMD_GUARDED_PRIMITIVE_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
@@ -1672,7 +1672,7 @@ class ActiveSerialComponentBase :
 
     //! Base-class handler function for command CMD_GUARDED_PRIMITIVE
     //!
-    //! An aguarded command with primitive params
+    //! A guarded command with primitive params
     void CMD_GUARDED_PRIMITIVE_cmdHandlerBase(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
