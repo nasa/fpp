@@ -178,9 +178,8 @@ trait CppWriterUtils extends LineUtils {
       case CppWriterUtils.Decimal => value.toString
       case CppWriterUtils.Hex => s"0x${value.toString(16)}"
     }
-    val commentStr = CppDocWriter.writeDoxygenPostCommentOpt(comment)
 
-    Line.joinLists (Line.Indent) (lines(s"$name = $valueStr,")) (" ") (commentStr)
+    CppDocHppWriter.addParamComment(s"$name = $valueStr,", comment)
   }
 
   /** Write a function call with fixed and variable arguments */
