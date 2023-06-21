@@ -55,57 +55,57 @@ class QueuedTelemetryComponentBase :
 
     //! Enumerations for numbers of special input ports
     enum {
-      NUM_CMDIN_INPUT_PORTS = 1,
+      NUM_CMDIN_INPUT_PORTS = 1, 
     };
 
     //! Enumerations for numbers of typed input ports
     enum {
-      NUM_NOARGSASYNC_INPUT_PORTS = 1,
-      NUM_NOARGSGUARDED_INPUT_PORTS = 1,
-      NUM_NOARGSRETURNGUARDED_INPUT_PORTS = 1,
-      NUM_NOARGSRETURNSYNC_INPUT_PORTS = 3,
-      NUM_NOARGSSYNC_INPUT_PORTS = 3,
-      NUM_TYPEDASYNC_INPUT_PORTS = 1,
-      NUM_TYPEDASYNCASSERT_INPUT_PORTS = 1,
-      NUM_TYPEDASYNCBLOCKPRIORITY_INPUT_PORTS = 1,
-      NUM_TYPEDASYNCDROPPRIORITY_INPUT_PORTS = 1,
-      NUM_TYPEDGUARDED_INPUT_PORTS = 1,
-      NUM_TYPEDRETURNGUARDED_INPUT_PORTS = 1,
-      NUM_TYPEDRETURNSYNC_INPUT_PORTS = 3,
-      NUM_TYPEDSYNC_INPUT_PORTS = 3,
+      NUM_NOARGSASYNC_INPUT_PORTS = 1, 
+      NUM_NOARGSGUARDED_INPUT_PORTS = 1, 
+      NUM_NOARGSRETURNGUARDED_INPUT_PORTS = 1, 
+      NUM_NOARGSRETURNSYNC_INPUT_PORTS = 3, 
+      NUM_NOARGSSYNC_INPUT_PORTS = 3, 
+      NUM_TYPEDASYNC_INPUT_PORTS = 1, 
+      NUM_TYPEDASYNCASSERT_INPUT_PORTS = 1, 
+      NUM_TYPEDASYNCBLOCKPRIORITY_INPUT_PORTS = 1, 
+      NUM_TYPEDASYNCDROPPRIORITY_INPUT_PORTS = 1, 
+      NUM_TYPEDGUARDED_INPUT_PORTS = 1, 
+      NUM_TYPEDRETURNGUARDED_INPUT_PORTS = 1, 
+      NUM_TYPEDRETURNSYNC_INPUT_PORTS = 3, 
+      NUM_TYPEDSYNC_INPUT_PORTS = 3, 
     };
 
     //! Enumerations for numbers of special output ports
     enum {
-      NUM_CMDREGOUT_OUTPUT_PORTS = 1,
-      NUM_CMDRESPONSEOUT_OUTPUT_PORTS = 1,
-      NUM_EVENTOUT_OUTPUT_PORTS = 1,
-      NUM_PRMGETOUT_OUTPUT_PORTS = 1,
-      NUM_PRMSETOUT_OUTPUT_PORTS = 1,
-      NUM_TEXTEVENTOUT_OUTPUT_PORTS = 1,
-      NUM_TIMEGETOUT_OUTPUT_PORTS = 1,
-      NUM_TLMOUT_OUTPUT_PORTS = 1,
+      NUM_CMDREGOUT_OUTPUT_PORTS = 1, 
+      NUM_CMDRESPONSEOUT_OUTPUT_PORTS = 1, 
+      NUM_EVENTOUT_OUTPUT_PORTS = 1, 
+      NUM_PRMGETOUT_OUTPUT_PORTS = 1, 
+      NUM_PRMSETOUT_OUTPUT_PORTS = 1, 
+      NUM_TEXTEVENTOUT_OUTPUT_PORTS = 1, 
+      NUM_TIMEGETOUT_OUTPUT_PORTS = 1, 
+      NUM_TLMOUT_OUTPUT_PORTS = 1, 
     };
 
     //! Enumerations for numbers of typed output ports
     enum {
-      NUM_TYPEDOUT_OUTPUT_PORTS = 1,
-      NUM_TYPEDRETURNOUT_OUTPUT_PORTS = 1,
+      NUM_TYPEDOUT_OUTPUT_PORTS = 1, 
+      NUM_TYPEDRETURNOUT_OUTPUT_PORTS = 1, 
     };
 
     //! Channel IDs
     enum {
-      CHANNELID_CHANNELU32FORMAT = 0x0, //! Channel ID for ChannelU32Format
-      CHANNELID_CHANNELF32FORMAT = 0x1, //! Channel ID for ChannelF32Format
-      CHANNELID_CHANNELSTRINGFORMAT = 0x2, //! Channel ID for ChannelStringFormat
-      CHANNELID_CHANNELENUM = 0x10, //! Channel ID for ChannelEnum
-      CHANNELID_CHANNELARRAYFREQ = 0x11, //! Channel ID for ChannelArrayFreq
-      CHANNELID_CHANNELSTRUCTFREQ = 0x12, //! Channel ID for ChannelStructFreq
-      CHANNELID_CHANNELU32LIMITS = 0x13, //! Channel ID for ChannelU32Limits
-      CHANNELID_CHANNELF32LIMITS = 0x14, //! Channel ID for ChannelF32Limits
-      CHANNELID_CHANNELF64 = 0x15, //! Channel ID for ChannelF64
-      CHANNELID_CHANNELU32ONCHANGE = 0x16, //! Channel ID for ChannelU32OnChange
-      CHANNELID_CHANNELENUMONCHANGE = 0x17, //! Channel ID for ChannelEnumOnChange
+      CHANNELID_CHANNELU32FORMAT = 0x0, //!< Channel ID for ChannelU32Format
+      CHANNELID_CHANNELF32FORMAT = 0x1, //!< Channel ID for ChannelF32Format
+      CHANNELID_CHANNELSTRINGFORMAT = 0x2, //!< Channel ID for ChannelStringFormat
+      CHANNELID_CHANNELENUM = 0x10, //!< Channel ID for ChannelEnum
+      CHANNELID_CHANNELARRAYFREQ = 0x11, //!< Channel ID for ChannelArrayFreq
+      CHANNELID_CHANNELSTRUCTFREQ = 0x12, //!< Channel ID for ChannelStructFreq
+      CHANNELID_CHANNELU32LIMITS = 0x13, //!< Channel ID for ChannelU32Limits
+      CHANNELID_CHANNELF32LIMITS = 0x14, //!< Channel ID for ChannelF32Limits
+      CHANNELID_CHANNELF64 = 0x15, //!< Channel ID for ChannelF64
+      CHANNELID_CHANNELU32ONCHANGE = 0x16, //!< Channel ID for ChannelU32OnChange
+      CHANNELID_CHANNELENUMONCHANGE = 0x17, //!< Channel ID for ChannelEnumOnChange
     };
 
   public:

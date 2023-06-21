@@ -58,108 +58,109 @@ class PassiveTestComponentBase :
 
     //! Enumerations for numbers of special input ports
     enum {
-      NUM_CMDIN_INPUT_PORTS = 1,
+      NUM_CMDIN_INPUT_PORTS = 1, 
     };
 
     //! Enumerations for numbers of typed input ports
     enum {
-      NUM_NOARGSGUARDED_INPUT_PORTS = 1,
-      NUM_NOARGSRETURNGUARDED_INPUT_PORTS = 1,
-      NUM_NOARGSRETURNSYNC_INPUT_PORTS = 3,
-      NUM_NOARGSSYNC_INPUT_PORTS = 3,
-      NUM_TYPEDGUARDED_INPUT_PORTS = 1,
-      NUM_TYPEDRETURNGUARDED_INPUT_PORTS = 1,
-      NUM_TYPEDRETURNSYNC_INPUT_PORTS = 3,
-      NUM_TYPEDSYNC_INPUT_PORTS = 3,
+      NUM_NOARGSGUARDED_INPUT_PORTS = 1, 
+      NUM_NOARGSRETURNGUARDED_INPUT_PORTS = 1, 
+      NUM_NOARGSRETURNSYNC_INPUT_PORTS = 3, 
+      NUM_NOARGSSYNC_INPUT_PORTS = 3, 
+      NUM_TYPEDGUARDED_INPUT_PORTS = 1, 
+      NUM_TYPEDRETURNGUARDED_INPUT_PORTS = 1, 
+      NUM_TYPEDRETURNSYNC_INPUT_PORTS = 3, 
+      NUM_TYPEDSYNC_INPUT_PORTS = 3, 
     };
 
     //! Enumerations for numbers of special output ports
     enum {
-      NUM_CMDREGOUT_OUTPUT_PORTS = 1,
-      NUM_CMDRESPONSEOUT_OUTPUT_PORTS = 1,
-      NUM_EVENTOUT_OUTPUT_PORTS = 1,
-      NUM_PRMGETOUT_OUTPUT_PORTS = 1,
-      NUM_PRMSETOUT_OUTPUT_PORTS = 1,
-      NUM_TEXTEVENTOUT_OUTPUT_PORTS = 1,
-      NUM_TIMEGETOUT_OUTPUT_PORTS = 1,
-      NUM_TLMOUT_OUTPUT_PORTS = 1,
+      NUM_CMDREGOUT_OUTPUT_PORTS = 1, 
+      NUM_CMDRESPONSEOUT_OUTPUT_PORTS = 1, 
+      NUM_EVENTOUT_OUTPUT_PORTS = 1, 
+      NUM_PRMGETOUT_OUTPUT_PORTS = 1, 
+      NUM_PRMSETOUT_OUTPUT_PORTS = 1, 
+      NUM_TEXTEVENTOUT_OUTPUT_PORTS = 1, 
+      NUM_TIMEGETOUT_OUTPUT_PORTS = 1, 
+      NUM_TLMOUT_OUTPUT_PORTS = 1, 
     };
 
     //! Enumerations for numbers of typed output ports
     enum {
-      NUM_TYPEDOUT_OUTPUT_PORTS = 1,
-      NUM_TYPEDRETURNOUT_OUTPUT_PORTS = 1,
+      NUM_TYPEDOUT_OUTPUT_PORTS = 1, 
+      NUM_TYPEDRETURNOUT_OUTPUT_PORTS = 1, 
     };
 
     //! Command opcodes
     enum {
-      OPCODE_CMD_SYNC = 0x0, //! A sync command with no params
-      OPCODE_CMD_SYNC_PRIMITIVE = 0x10, //! An async command with primitive params
-      OPCODE_CMD_SYNC_STRING = 0x11, //! A sync command with string params
-      OPCODE_CMD_SYNC_ENUM = 0x12, //! A sync command with enum params
-      OPCODE_CMD_SYNC_ARRAY = 0x13, //! A sync command with array params
-      OPCODE_CMD_SYNC_STRUCT = 0x14, //! A sync command with struct params
-      OPCODE_CMD_GUARDED = 0x15, //! A guarded command with no params
-      OPCODE_CMD_GUARDED_PRIMITIVE = 0x16, //! An aguarded command with primitive params
-      OPCODE_CMD_GUARDED_STRING = 0x17, //! A guarded command with string params
-      OPCODE_CMD_GUARDED_ENUM = 0x18, //! A guarded command with enum params
-      OPCODE_CMD_GUARDED_ARRAY = 0x19, //! A guarded command with array params
-      OPCODE_CMD_GUARDED_STRUCT = 0x1a, //! A guarded command with struct params
-      OPCODE_PARAMU32_SET = 0x1b, //! Opcode to set parameter ParamU32
-      OPCODE_PARAMU32_SAVE = 0x1c, //! Opcode to save parameter ParamU32
-      OPCODE_PARAMF64_SET = 0x1d, //! Opcode to set parameter ParamF64
-      OPCODE_PARAMF64_SAVE = 0x1e, //! Opcode to save parameter ParamF64
-      OPCODE_PARAMSTRING_SET = 0x1f, //! Opcode to set parameter ParamString
-      OPCODE_PARAMSTRING_SAVE = 0x20, //! Opcode to save parameter ParamString
-      OPCODE_PARAMENUM_SET = 0x21, //! Opcode to set parameter ParamEnum
-      OPCODE_PARAMENUM_SAVE = 0x22, //! Opcode to save parameter ParamEnum
-      OPCODE_PARAMARRAY_SET = 0x23, //! Opcode to set parameter ParamArray
-      OPCODE_PARAMARRAY_SAVE = 0x35, //! Opcode to save parameter ParamArray
-      OPCODE_PARAMSTRUCT_SET = 0x40, //! Opcode to set parameter ParamStruct
-      OPCODE_PARAMSTRUCT_SAVE = 0x45, //! Opcode to save parameter ParamStruct
+      OPCODE_CMD_SYNC = 0x0, //!< A sync command with no params
+      OPCODE_CMD_SYNC_PRIMITIVE = 0x10, //!< An async command with primitive params
+      OPCODE_CMD_SYNC_STRING = 0x11, //!< A sync command with string params
+      OPCODE_CMD_SYNC_ENUM = 0x12, //!< A sync command with enum params
+      OPCODE_CMD_SYNC_ARRAY = 0x13, //!< A sync command with array params
+      OPCODE_CMD_SYNC_STRUCT = 0x14, //!< A sync command with struct params
+      OPCODE_CMD_GUARDED = 0x15, //!< A guarded command with no params
+      OPCODE_CMD_GUARDED_PRIMITIVE = 0x16, //!< An aguarded command with primitive params
+      OPCODE_CMD_GUARDED_STRING = 0x17, //!< A guarded command with string params
+      OPCODE_CMD_GUARDED_ENUM = 0x18, //!< A guarded command with enum params
+      OPCODE_CMD_GUARDED_ARRAY = 0x19, //!< A guarded command with array params
+      OPCODE_CMD_GUARDED_STRUCT = 0x1a, //!< A guarded command with struct params
+      OPCODE_PARAMU32_SET = 0x1b, //!< Opcode to set parameter ParamU32
+      OPCODE_PARAMU32_SAVE = 0x1c, //!< Opcode to save parameter ParamU32
+      OPCODE_PARAMF64_SET = 0x1d, //!< Opcode to set parameter ParamF64
+      OPCODE_PARAMF64_SAVE = 0x1e, //!< Opcode to save parameter ParamF64
+      OPCODE_PARAMSTRING_SET = 0x1f, //!< Opcode to set parameter ParamString
+      OPCODE_PARAMSTRING_SAVE = 0x20, //!< Opcode to save parameter ParamString
+      OPCODE_PARAMENUM_SET = 0x21, //!< Opcode to set parameter ParamEnum
+      OPCODE_PARAMENUM_SAVE = 0x22, //!< Opcode to save parameter ParamEnum
+      OPCODE_PARAMARRAY_SET = 0x23, //!< Opcode to set parameter ParamArray
+      OPCODE_PARAMARRAY_SAVE = 0x35, //!< Opcode to save parameter ParamArray
+      OPCODE_PARAMSTRUCT_SET = 0x40, //!< Opcode to set parameter ParamStruct
+      OPCODE_PARAMSTRUCT_SAVE = 0x45, //!< Opcode to save parameter ParamStruct
     };
 
     //! Event IDs
     enum {
-      EVENTID_EVENTACTIVITYHIGH = 0x0, //! An activity high event with no params
-      EVENTID_EVENTACTIVITYLOWTHROTTLED = 0x10, //! An activity low, throttled event with primitive params
-      EVENTID_EVENTCOMMAND = 0x11, //! A command event with string params
-      EVENTID_EVENTDIAGNOSTIC = 0x12, //! A diagnostic event with enum params
-      EVENTID_EVENTFATALTHROTTLED = 0x13, //! A fatal, throttled event with array params
-      EVENTID_EVENTWARNINGHIGH = 0x20, //! A warning high event with struct params
-      EVENTID_EVENTWARNINGLOWTHROTTLED = 0x21, //! A warning low, throttled event with no params
+      EVENTID_EVENTACTIVITYHIGH = 0x0, //!< An activity high event with no params
+      EVENTID_EVENTACTIVITYLOWTHROTTLED = 0x10, //!< An activity low, throttled event with primitive params
+      EVENTID_EVENTCOMMAND = 0x11, //!< A command event with string params
+      EVENTID_EVENTDIAGNOSTIC = 0x12, //!< A diagnostic event with enum params
+      EVENTID_EVENTFATALTHROTTLED = 0x13, //!< A fatal, throttled event with array params
+      EVENTID_EVENTWARNINGHIGH = 0x20, //!< A warning high event with struct params
+      EVENTID_EVENTWARNINGLOWTHROTTLED = 0x21, //!< A warning low, throttled event with no params
     };
 
     //! Event throttle values: sets initial value of countdown variables
     enum {
-      EVENTID_EVENTACTIVITYLOWTHROTTLED_THROTTLE = 5, //! Throttle reset count for EventActivityLowThrottled
-      EVENTID_EVENTFATALTHROTTLED_THROTTLE = 10, //! Throttle reset count for EventFatalThrottled
-      EVENTID_EVENTWARNINGLOWTHROTTLED_THROTTLE = 10, //! Throttle reset count for EventWarningLowThrottled
+      EVENTID_EVENTACTIVITYLOWTHROTTLED_THROTTLE = 5, //!< Throttle reset count for EventActivityLowThrottled
+      EVENTID_EVENTFATALTHROTTLED_THROTTLE = 10, //!< Throttle reset count for EventFatalThrottled
+      EVENTID_EVENTWARNINGLOWTHROTTLED_THROTTLE = 10, //!< Throttle reset count for EventWarningLowThrottled
     };
 
     //! Channel IDs
     enum {
-      CHANNELID_CHANNELU32FORMAT = 0x0, //! Channel ID for ChannelU32Format
-      CHANNELID_CHANNELF32FORMAT = 0x1, //! Channel ID for ChannelF32Format
-      CHANNELID_CHANNELSTRINGFORMAT = 0x2, //! Channel ID for ChannelStringFormat
-      CHANNELID_CHANNELENUM = 0x10, //! Channel ID for ChannelEnum
-      CHANNELID_CHANNELARRAYFREQ = 0x11, //! Channel ID for ChannelArrayFreq
-      CHANNELID_CHANNELSTRUCTFREQ = 0x12, //! Channel ID for ChannelStructFreq
-      CHANNELID_CHANNELU32LIMITS = 0x13, //! Channel ID for ChannelU32Limits
-      CHANNELID_CHANNELF32LIMITS = 0x14, //! Channel ID for ChannelF32Limits
-      CHANNELID_CHANNELF64 = 0x15, //! Channel ID for ChannelF64
-      CHANNELID_CHANNELU32ONCHANGE = 0x16, //! Channel ID for ChannelU32OnChange
-      CHANNELID_CHANNELENUMONCHANGE = 0x17, //! Channel ID for ChannelEnumOnChange
+      CHANNELID_CHANNELU32FORMAT = 0x0, //!< Channel ID for ChannelU32Format
+      CHANNELID_CHANNELF32FORMAT = 0x1, //!< Channel ID for ChannelF32Format
+      CHANNELID_CHANNELSTRINGFORMAT = 0x2, //!< Channel ID for ChannelStringFormat
+      CHANNELID_CHANNELENUM = 0x10, //!< Channel ID for ChannelEnum
+      CHANNELID_CHANNELARRAYFREQ = 0x11, //!< Channel ID for ChannelArrayFreq
+      CHANNELID_CHANNELSTRUCTFREQ = 0x12, //!< Channel ID for ChannelStructFreq
+      CHANNELID_CHANNELU32LIMITS = 0x13, //!< Channel ID for ChannelU32Limits
+      CHANNELID_CHANNELF32LIMITS = 0x14, //!< Channel ID for ChannelF32Limits
+      CHANNELID_CHANNELF64 = 0x15, //!< Channel ID for ChannelF64
+      CHANNELID_CHANNELU32ONCHANGE = 0x16, //!< Channel ID for ChannelU32OnChange
+      CHANNELID_CHANNELENUMONCHANGE = 0x17, //!< Channel ID for ChannelEnumOnChange
     };
 
     //! Parameter IDs
     enum {
-      PARAMID_PARAMU32 = 0x0, //! A parameter with U32 data
-      PARAMID_PARAMF64 = 0x1, //! A parameter with F64 data
-      PARAMID_PARAMSTRING = 0x2, //! A parameter with string data and default value
-      PARAMID_PARAMENUM = 0x30, //! A parameter with enum data
-      PARAMID_PARAMARRAY = 0x31, //! A parameter with array data, default value, and save opcode
-      PARAMID_PARAMSTRUCT = 0x32, //! A parameter with struct data and set/save opcodes
+      PARAMID_PARAMU32 = 0x0, //!< A parameter with U32 data
+                              //!< Second line of annotation
+      PARAMID_PARAMF64 = 0x1, //!< A parameter with F64 data
+      PARAMID_PARAMSTRING = 0x2, //!< A parameter with string data and default value
+      PARAMID_PARAMENUM = 0x30, //!< A parameter with enum data
+      PARAMID_PARAMARRAY = 0x31, //!< A parameter with array data, default value, and save opcode
+      PARAMID_PARAMSTRUCT = 0x32, //!< A parameter with struct data and set/save opcodes
     };
 
   public:
@@ -1264,6 +1265,7 @@ class PassiveTestComponentBase :
     //! \return The parameter value
     //!
     //! A parameter with U32 data
+    //! Second line of annotation
     U32 paramGet_ParamU32(
         Fw::ParamValid& valid //!< Whether the parameter is valid
     );
@@ -1691,6 +1693,7 @@ class PassiveTestComponentBase :
     //! Parameter ParamU32
     //!
     //! A parameter with U32 data
+    //! Second line of annotation
     U32 m_ParamU32;
 
     //! Parameter ParamF64

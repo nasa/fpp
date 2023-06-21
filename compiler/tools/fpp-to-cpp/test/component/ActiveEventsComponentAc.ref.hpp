@@ -55,60 +55,60 @@ class ActiveEventsComponentBase :
 
     //! Enumerations for numbers of special input ports
     enum {
-      NUM_CMDIN_INPUT_PORTS = 1,
+      NUM_CMDIN_INPUT_PORTS = 1, 
     };
 
     //! Enumerations for numbers of typed input ports
     enum {
-      NUM_NOARGSASYNC_INPUT_PORTS = 1,
-      NUM_NOARGSGUARDED_INPUT_PORTS = 1,
-      NUM_NOARGSRETURNGUARDED_INPUT_PORTS = 1,
-      NUM_NOARGSRETURNSYNC_INPUT_PORTS = 3,
-      NUM_NOARGSSYNC_INPUT_PORTS = 3,
-      NUM_TYPEDASYNC_INPUT_PORTS = 1,
-      NUM_TYPEDASYNCASSERT_INPUT_PORTS = 1,
-      NUM_TYPEDASYNCBLOCKPRIORITY_INPUT_PORTS = 1,
-      NUM_TYPEDASYNCDROPPRIORITY_INPUT_PORTS = 1,
-      NUM_TYPEDGUARDED_INPUT_PORTS = 1,
-      NUM_TYPEDRETURNGUARDED_INPUT_PORTS = 1,
-      NUM_TYPEDRETURNSYNC_INPUT_PORTS = 3,
-      NUM_TYPEDSYNC_INPUT_PORTS = 3,
+      NUM_NOARGSASYNC_INPUT_PORTS = 1, 
+      NUM_NOARGSGUARDED_INPUT_PORTS = 1, 
+      NUM_NOARGSRETURNGUARDED_INPUT_PORTS = 1, 
+      NUM_NOARGSRETURNSYNC_INPUT_PORTS = 3, 
+      NUM_NOARGSSYNC_INPUT_PORTS = 3, 
+      NUM_TYPEDASYNC_INPUT_PORTS = 1, 
+      NUM_TYPEDASYNCASSERT_INPUT_PORTS = 1, 
+      NUM_TYPEDASYNCBLOCKPRIORITY_INPUT_PORTS = 1, 
+      NUM_TYPEDASYNCDROPPRIORITY_INPUT_PORTS = 1, 
+      NUM_TYPEDGUARDED_INPUT_PORTS = 1, 
+      NUM_TYPEDRETURNGUARDED_INPUT_PORTS = 1, 
+      NUM_TYPEDRETURNSYNC_INPUT_PORTS = 3, 
+      NUM_TYPEDSYNC_INPUT_PORTS = 3, 
     };
 
     //! Enumerations for numbers of special output ports
     enum {
-      NUM_CMDREGOUT_OUTPUT_PORTS = 1,
-      NUM_CMDRESPONSEOUT_OUTPUT_PORTS = 1,
-      NUM_EVENTOUT_OUTPUT_PORTS = 1,
-      NUM_PRMGETOUT_OUTPUT_PORTS = 1,
-      NUM_PRMSETOUT_OUTPUT_PORTS = 1,
-      NUM_TEXTEVENTOUT_OUTPUT_PORTS = 1,
-      NUM_TIMEGETOUT_OUTPUT_PORTS = 1,
-      NUM_TLMOUT_OUTPUT_PORTS = 1,
+      NUM_CMDREGOUT_OUTPUT_PORTS = 1, 
+      NUM_CMDRESPONSEOUT_OUTPUT_PORTS = 1, 
+      NUM_EVENTOUT_OUTPUT_PORTS = 1, 
+      NUM_PRMGETOUT_OUTPUT_PORTS = 1, 
+      NUM_PRMSETOUT_OUTPUT_PORTS = 1, 
+      NUM_TEXTEVENTOUT_OUTPUT_PORTS = 1, 
+      NUM_TIMEGETOUT_OUTPUT_PORTS = 1, 
+      NUM_TLMOUT_OUTPUT_PORTS = 1, 
     };
 
     //! Enumerations for numbers of typed output ports
     enum {
-      NUM_TYPEDOUT_OUTPUT_PORTS = 1,
-      NUM_TYPEDRETURNOUT_OUTPUT_PORTS = 1,
+      NUM_TYPEDOUT_OUTPUT_PORTS = 1, 
+      NUM_TYPEDRETURNOUT_OUTPUT_PORTS = 1, 
     };
 
     //! Event IDs
     enum {
-      EVENTID_EVENTACTIVITYHIGH = 0x0, //! An activity high event with no params
-      EVENTID_EVENTACTIVITYLOWTHROTTLED = 0x10, //! An activity low, throttled event with primitive params
-      EVENTID_EVENTCOMMAND = 0x11, //! A command event with string params
-      EVENTID_EVENTDIAGNOSTIC = 0x12, //! A diagnostic event with enum params
-      EVENTID_EVENTFATALTHROTTLED = 0x13, //! A fatal, throttled event with array params
-      EVENTID_EVENTWARNINGHIGH = 0x20, //! A warning high event with struct params
-      EVENTID_EVENTWARNINGLOWTHROTTLED = 0x21, //! A warning low, throttled event with no params
+      EVENTID_EVENTACTIVITYHIGH = 0x0, //!< An activity high event with no params
+      EVENTID_EVENTACTIVITYLOWTHROTTLED = 0x10, //!< An activity low, throttled event with primitive params
+      EVENTID_EVENTCOMMAND = 0x11, //!< A command event with string params
+      EVENTID_EVENTDIAGNOSTIC = 0x12, //!< A diagnostic event with enum params
+      EVENTID_EVENTFATALTHROTTLED = 0x13, //!< A fatal, throttled event with array params
+      EVENTID_EVENTWARNINGHIGH = 0x20, //!< A warning high event with struct params
+      EVENTID_EVENTWARNINGLOWTHROTTLED = 0x21, //!< A warning low, throttled event with no params
     };
 
     //! Event throttle values: sets initial value of countdown variables
     enum {
-      EVENTID_EVENTACTIVITYLOWTHROTTLED_THROTTLE = 5, //! Throttle reset count for EventActivityLowThrottled
-      EVENTID_EVENTFATALTHROTTLED_THROTTLE = 10, //! Throttle reset count for EventFatalThrottled
-      EVENTID_EVENTWARNINGLOWTHROTTLED_THROTTLE = 10, //! Throttle reset count for EventWarningLowThrottled
+      EVENTID_EVENTACTIVITYLOWTHROTTLED_THROTTLE = 5, //!< Throttle reset count for EventActivityLowThrottled
+      EVENTID_EVENTFATALTHROTTLED_THROTTLE = 10, //!< Throttle reset count for EventFatalThrottled
+      EVENTID_EVENTWARNINGLOWTHROTTLED_THROTTLE = 10, //!< Throttle reset count for EventWarningLowThrottled
     };
 
   public:

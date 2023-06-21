@@ -55,63 +55,63 @@ class ActiveCommandsComponentBase :
 
     //! Enumerations for numbers of special input ports
     enum {
-      NUM_CMDIN_INPUT_PORTS = 1,
+      NUM_CMDIN_INPUT_PORTS = 1, 
     };
 
     //! Enumerations for numbers of typed input ports
     enum {
-      NUM_NOARGSASYNC_INPUT_PORTS = 1,
-      NUM_NOARGSGUARDED_INPUT_PORTS = 1,
-      NUM_NOARGSRETURNGUARDED_INPUT_PORTS = 1,
-      NUM_NOARGSRETURNSYNC_INPUT_PORTS = 3,
-      NUM_NOARGSSYNC_INPUT_PORTS = 3,
-      NUM_TYPEDASYNC_INPUT_PORTS = 1,
-      NUM_TYPEDASYNCASSERT_INPUT_PORTS = 1,
-      NUM_TYPEDASYNCBLOCKPRIORITY_INPUT_PORTS = 1,
-      NUM_TYPEDASYNCDROPPRIORITY_INPUT_PORTS = 1,
-      NUM_TYPEDGUARDED_INPUT_PORTS = 1,
-      NUM_TYPEDRETURNGUARDED_INPUT_PORTS = 1,
-      NUM_TYPEDRETURNSYNC_INPUT_PORTS = 3,
-      NUM_TYPEDSYNC_INPUT_PORTS = 3,
+      NUM_NOARGSASYNC_INPUT_PORTS = 1, 
+      NUM_NOARGSGUARDED_INPUT_PORTS = 1, 
+      NUM_NOARGSRETURNGUARDED_INPUT_PORTS = 1, 
+      NUM_NOARGSRETURNSYNC_INPUT_PORTS = 3, 
+      NUM_NOARGSSYNC_INPUT_PORTS = 3, 
+      NUM_TYPEDASYNC_INPUT_PORTS = 1, 
+      NUM_TYPEDASYNCASSERT_INPUT_PORTS = 1, 
+      NUM_TYPEDASYNCBLOCKPRIORITY_INPUT_PORTS = 1, 
+      NUM_TYPEDASYNCDROPPRIORITY_INPUT_PORTS = 1, 
+      NUM_TYPEDGUARDED_INPUT_PORTS = 1, 
+      NUM_TYPEDRETURNGUARDED_INPUT_PORTS = 1, 
+      NUM_TYPEDRETURNSYNC_INPUT_PORTS = 3, 
+      NUM_TYPEDSYNC_INPUT_PORTS = 3, 
     };
 
     //! Enumerations for numbers of special output ports
     enum {
-      NUM_CMDREGOUT_OUTPUT_PORTS = 1,
-      NUM_CMDRESPONSEOUT_OUTPUT_PORTS = 1,
-      NUM_EVENTOUT_OUTPUT_PORTS = 1,
-      NUM_PRMGETOUT_OUTPUT_PORTS = 1,
-      NUM_PRMSETOUT_OUTPUT_PORTS = 1,
-      NUM_TEXTEVENTOUT_OUTPUT_PORTS = 1,
-      NUM_TIMEGETOUT_OUTPUT_PORTS = 1,
-      NUM_TLMOUT_OUTPUT_PORTS = 1,
+      NUM_CMDREGOUT_OUTPUT_PORTS = 1, 
+      NUM_CMDRESPONSEOUT_OUTPUT_PORTS = 1, 
+      NUM_EVENTOUT_OUTPUT_PORTS = 1, 
+      NUM_PRMGETOUT_OUTPUT_PORTS = 1, 
+      NUM_PRMSETOUT_OUTPUT_PORTS = 1, 
+      NUM_TEXTEVENTOUT_OUTPUT_PORTS = 1, 
+      NUM_TIMEGETOUT_OUTPUT_PORTS = 1, 
+      NUM_TLMOUT_OUTPUT_PORTS = 1, 
     };
 
     //! Enumerations for numbers of typed output ports
     enum {
-      NUM_TYPEDOUT_OUTPUT_PORTS = 1,
-      NUM_TYPEDRETURNOUT_OUTPUT_PORTS = 1,
+      NUM_TYPEDOUT_OUTPUT_PORTS = 1, 
+      NUM_TYPEDRETURNOUT_OUTPUT_PORTS = 1, 
     };
 
     //! Command opcodes
     enum {
-      OPCODE_CMD_SYNC = 0x0, //! A sync command with no params
-      OPCODE_CMD_SYNC_PRIMITIVE = 0x10, //! An async command with primitive params
-      OPCODE_CMD_SYNC_STRING = 0x11, //! A sync command with string params
-      OPCODE_CMD_SYNC_ENUM = 0x12, //! A sync command with enum params
-      OPCODE_CMD_SYNC_ARRAY = 0x13, //! A sync command with array params
-      OPCODE_CMD_SYNC_STRUCT = 0x14, //! A sync command with struct params
-      OPCODE_CMD_GUARDED = 0x15, //! A guarded command with no params
-      OPCODE_CMD_GUARDED_PRIMITIVE = 0x16, //! An aguarded command with primitive params
-      OPCODE_CMD_GUARDED_STRING = 0x17, //! A guarded command with string params
-      OPCODE_CMD_GUARDED_ENUM = 0x18, //! A guarded command with enum params
-      OPCODE_CMD_GUARDED_ARRAY = 0x19, //! A guarded command with array params
-      OPCODE_CMD_GUARDED_STRUCT = 0x1a, //! A guarded command with struct params
-      OPCODE_CMD_ASYNC = 0x1b, //! An async command with no params
-      OPCODE_CMD_PRIORITY = 0x20, //! A command with priority
-      OPCODE_CMD_PARAMS_PRIORITY = 0x21, //! A command with params and priority
-      OPCODE_CMD_DROP = 0x22, //! A command with queue full behavior
-      OPCODE_CMD_PARAMS_PRIORITY_DROP = 0x23, //! A command with params, priority, and queue full behavior
+      OPCODE_CMD_SYNC = 0x0, //!< A sync command with no params
+      OPCODE_CMD_SYNC_PRIMITIVE = 0x10, //!< An async command with primitive params
+      OPCODE_CMD_SYNC_STRING = 0x11, //!< A sync command with string params
+      OPCODE_CMD_SYNC_ENUM = 0x12, //!< A sync command with enum params
+      OPCODE_CMD_SYNC_ARRAY = 0x13, //!< A sync command with array params
+      OPCODE_CMD_SYNC_STRUCT = 0x14, //!< A sync command with struct params
+      OPCODE_CMD_GUARDED = 0x15, //!< A guarded command with no params
+      OPCODE_CMD_GUARDED_PRIMITIVE = 0x16, //!< An aguarded command with primitive params
+      OPCODE_CMD_GUARDED_STRING = 0x17, //!< A guarded command with string params
+      OPCODE_CMD_GUARDED_ENUM = 0x18, //!< A guarded command with enum params
+      OPCODE_CMD_GUARDED_ARRAY = 0x19, //!< A guarded command with array params
+      OPCODE_CMD_GUARDED_STRUCT = 0x1a, //!< A guarded command with struct params
+      OPCODE_CMD_ASYNC = 0x1b, //!< An async command with no params
+      OPCODE_CMD_PRIORITY = 0x20, //!< A command with priority
+      OPCODE_CMD_PARAMS_PRIORITY = 0x21, //!< A command with params and priority
+      OPCODE_CMD_DROP = 0x22, //!< A command with queue full behavior
+      OPCODE_CMD_PARAMS_PRIORITY_DROP = 0x23, //!< A command with params, priority, and queue full behavior
     };
 
   public:
