@@ -37,8 +37,10 @@ active()
   diff_cpp ActiveAsyncProductsComponent && \
   diff_cpp ActiveCommandsComponent && \
   diff_cpp ActiveEventsComponent && \
+  diff_cpp ActiveGuardedProductsComponent && \
   diff_cpp ActiveParamsComponent && \
   diff_cpp ActiveSerialComponent && \
+  diff_cpp ActiveSyncProductsComponent && \
   diff_cpp ActiveTelemetryComponent && \
   diff_cpp ActiveTestComponent
 }

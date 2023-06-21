@@ -37,8 +37,10 @@ active()
   move_cpp ActiveAsyncProductsComponent
   move_cpp ActiveCommandsComponent
   move_cpp ActiveEventsComponent
+  move_cpp ActiveGuardedProductsComponent
   move_cpp ActiveParamsComponent
   move_cpp ActiveSerialComponent
+  move_cpp ActiveSyncProductsComponent
   move_cpp ActiveTelemetryComponent
   move_cpp ActiveTestComponent
 }

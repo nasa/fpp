@@ -90,3 +90,27 @@ active component ActiveAsyncProducts {
   include "include/products.fppi"
 
 }
+
+@ An active component with sync data products
+active component ActiveSyncProducts {
+
+  include "include/product_ports_sync.fppi"
+  include "include/special_ports.fppi"
+  include "include/typed_ports.fppi"
+  include "include/typed_ports_async.fppi"
+
+  include "include/products.fppi"
+
+}
+
+@ An active component with guarded data products
+active component ActiveGuardedProducts {
+
+  include "include/product_ports_guarded.fppi"
+  include "include/special_ports.fppi"
+  include "include/typed_ports.fppi"
+  include "include/typed_ports_async.fppi"
+
+  include "include/products.fppi"
+
+}
