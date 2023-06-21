@@ -17,15 +17,13 @@ case class ComponentTelemetry (
         List(
           Line.blank :: lines(s"//! Channel IDs"),
           wrapInEnum(
-            lines(
-              sortedChannels.map((id, channel) =>
-                writeEnumConstant(
-                  channelIdConstantName(channel.getName),
-                  id,
-                  Some(s"Channel ID for ${channel.getName}"),
-                  CppWriterUtils.Hex
-                )
-              ).mkString("\n")
+            sortedChannels.flatMap((id, channel) =>
+              writeEnumConstant(
+                channelIdConstantName(channel.getName),
+                id,
+                Some(s"Channel ID for ${channel.getName}"),
+                CppWriterUtils.Hex
+              )
             )
           )
         ).flatten

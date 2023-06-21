@@ -17,15 +17,13 @@ case class ComponentParameters (
         List(
           Line.blank :: lines(s"//! Parameter IDs"),
           wrapInEnum(
-            lines(
-              sortedParams.map((id, param) =>
-                writeEnumConstant(
-                  paramIdConstantName(param.getName),
-                  id,
-                  AnnotationCppWriter.asStringOpt(param.aNode),
-                  CppWriterUtils.Hex
-                )
-              ).mkString("\n")
+            sortedParams.flatMap((id, param) =>
+              writeEnumConstant(
+                paramIdConstantName(param.getName),
+                id,
+                AnnotationCppWriter.asStringOpt(param.aNode),
+                CppWriterUtils.Hex
+              )
             )
           )
         ).flatten

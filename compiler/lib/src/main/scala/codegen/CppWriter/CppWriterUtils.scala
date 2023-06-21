@@ -173,17 +173,14 @@ trait CppWriterUtils extends LineUtils {
     value: BigInt,
     comment: Option[String] = None,
     radix: CppWriterUtils.Radix = CppWriterUtils.Decimal
-  ): String = {
+  ): List[Line] = {
     val valueStr = radix match {
       case CppWriterUtils.Decimal => value.toString
       case CppWriterUtils.Hex => s"0x${value.toString(16)}"
     }
-    val commentStr = comment match {
-      case Some(s) => s" //! $s"
-      case None => ""
-    }
+    val commentStr = CppDocWriter.writeDoxygenPostCommentOpt(comment)
 
-    s"$name = $valueStr,$commentStr"
+    Line.joinLists (Line.Indent) (lines(s"$name = $valueStr,")) (" ") (commentStr)
   }
 
   /** Write a function call with fixed and variable arguments */
