@@ -79,12 +79,16 @@ object FPPtoJson {
       case Nil => List(File.StdIn)
       case list => list
     }
-
-    for {
+    
+    val res: Either[fpp.compiler.util.Error, fpp.compiler.analysis.Analysis] = for {
       tul <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
       a <- CheckSemantics.tuList(a, tul)
     } yield a
-    val encoder = JsonEncoder(anylisis = a)
+    
+    val encoder: JsonEncoder = res match {
+      case Right(an) => JsonEncoder(anylisis= an)
+      case Left(error) => JsonEncoder(anylisis = a)
+    }
     options.analysis match {
       case true => {
         val analysisFile = File.fromString(path + "fpp-analysis.json")
