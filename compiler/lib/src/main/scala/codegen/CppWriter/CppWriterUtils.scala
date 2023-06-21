@@ -26,10 +26,12 @@ trait CppWriterUtils extends LineUtils {
   }
 
   /** Add an optional pre comment separated by two newlines */
-  def addSeparatedPreComment(str: String, commentOpt: Option[String]): String = {
+  def addSeparatedPreComment(str: String, commentOpt: Option[String]): List[Line] = {
     commentOpt match {
-      case Some(s) => s"//! $str\n//!\n//! $s"
-      case None => s"//! $str"
+      case Some(s) => List.concat(
+        CppDocWriter.writeDoxygenComment(str + "\n\n" + s)
+      )
+      case None => CppDocWriter.writeDoxygenComment(str)
     }
   }
 

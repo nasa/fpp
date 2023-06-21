@@ -78,12 +78,14 @@ case class ComponentParameters (
         "Parameter variables",
         sortedParams.map((_, param) =>
           linesClassMember(
-            Line.blank :: lines(
+            List.concat(
               addSeparatedPreComment(
                 s"Parameter ${param.getName}",
                 AnnotationCppWriter.asStringOpt(param.aNode)
-              ) +
-                s"\n${writeParamType(param.paramType)} ${paramVariableName(param.getName)};"
+              ),
+              lines(
+                s"${writeParamType(param.paramType)} ${paramVariableName(param.getName)};"
+              )
             )
           )
         ),
