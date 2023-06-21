@@ -71,9 +71,9 @@ object FPPtoJson {
   }
 
     def writeAnylisis(options: Options)(tul: List[Ast.TransUnit]): Result.Result[List[Ast.TransUnit]] = {
-    val encoder = JsonEncoder(tul = tul)
-    val path = options.dir.getOrElse("")
     
+    val path = options.dir.getOrElse("")
+
     val a = Analysis(inputFileSet = options.files.toSet)
     val files = options.files.reverse match {
       case Nil => List(File.StdIn)
@@ -84,7 +84,7 @@ object FPPtoJson {
       tul <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
       a <- CheckSemantics.tuList(a, tul)
     } yield a
-
+    val encoder = JsonEncoder(anylisis = a)
     options.analysis match {
       case true => {
         val analysisFile = File.fromString(path + "fpp-analysis.json")
@@ -92,7 +92,7 @@ object FPPtoJson {
           writer <- analysisFile.openWrite() 
         } 
         yield { 
-          //writer.println(encoder.printAstJson()) 
+          writer.println(encoder.printAnalysisJson()) 
           println("I am writing the analysis")
           writer.close()
         }
