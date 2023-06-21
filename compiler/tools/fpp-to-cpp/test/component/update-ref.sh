@@ -51,8 +51,10 @@ queued()
   move_cpp QueuedAsyncProductsComponent
   move_cpp QueuedCommandsComponent
   move_cpp QueuedEventsComponent
+  move_cpp QueuedGuardedProductsComponent
   move_cpp QueuedParamsComponent
   move_cpp QueuedSerialComponent
+  move_cpp QueuedSyncProductsComponent
   move_cpp QueuedTelemetryComponent
   move_cpp QueuedTestComponent
 }

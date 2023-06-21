@@ -90,3 +90,27 @@ active component QueuedAsyncProducts {
   include "include/products.fppi"
 
 }
+
+@ A queued component with sync data products
+active component QueuedSyncProducts {
+
+  include "include/product_ports_sync.fppi"
+  include "include/special_ports.fppi"
+  include "include/typed_ports.fppi"
+  include "include/typed_ports_async.fppi"
+
+  include "include/products.fppi"
+
+}
+
+@ A queued component with guarded data products
+active component QueuedGuardedProducts {
+
+  include "include/product_ports_guarded.fppi"
+  include "include/special_ports.fppi"
+  include "include/typed_ports.fppi"
+  include "include/typed_ports_async.fppi"
+
+  include "include/products.fppi"
+
+}
