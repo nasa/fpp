@@ -27,6 +27,9 @@ object ComputeCppFiles extends AstStateVisitor {
     /** Gets the C++ file name for generated components */
     def getComponent(baseName: String) = s"${baseName}ComponentAc"
 
+    /** Gets the C++ file name for generated component implementation templates */
+    def getComponentImpl(baseName: String) = baseName
+
     /** Gets the C++ file name for generated ports */
     def getPort(baseName: String) = s"${baseName}PortAc"
 

@@ -35,6 +35,20 @@ abstract class ComponentCppWriterUtils(
     Some("The port number")
   )
 
+  /** Opcode param as a CppDoc Function Param */
+  val opcodeParam: CppDoc.Function.Param = CppDoc.Function.Param(
+    CppDoc.Type("FwOpcodeType"),
+    "opCode",
+    Some("The opcode")
+  )
+
+  /** Command sequence param as a CppDoc Function Param */
+  val cmdSeqParam: CppDoc.Function.Param = CppDoc.Function.Param(
+    CppDoc.Type("U32"),
+    "cmdSeq",
+    Some("The command sequence number")
+  )
+
   /** List of general port instances sorted by name */
   private val generalPorts: List[PortInstance.General] = component.portMap.toList.map((_, p) => p match {
     case i: PortInstance.General => Some(i)
@@ -99,6 +113,17 @@ abstract class ComponentCppWriterUtils(
     case Command.NonParam.Async(_, _) => true
     case _ => false
   })
+
+  /** Map from command opcodes to command parameters */
+  val cmdParamMap: Map[Command.Opcode, List[CppDoc.Function.Param]] = nonParamCmds.map((opcode, cmd) => {(
+    opcode,
+    formalParamsCppWriter.write(
+      cmd.aNode._2.data.params,
+      Nil,
+      Some("Fw::CmdStringArg"),
+      FormalParamsCppWriter.Value
+    )
+  )}).toMap
 
   /** List of events sorted by ID */
   val sortedEvents: List[(Event.Id, Event)] = component.eventMap.toList.sortBy(_._1)
