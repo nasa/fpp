@@ -1950,20 +1950,6 @@ class QueuedTestComponentBase :
   PRIVATE:
 
     // ----------------------------------------------------------------------
-    // Private parameter get function
-    // ----------------------------------------------------------------------
-
-    //! Get a parameter by ID
-    //!
-    //! \return Whether the parameter is valid
-    Fw::ParamValid getParam(
-        FwPrmIdType id, //!< The ID
-        Fw::ParamBuffer& buff //!< The parameter value
-    );
-
-  PRIVATE:
-
-    // ----------------------------------------------------------------------
     // Parameter set functions
     // ----------------------------------------------------------------------
 
