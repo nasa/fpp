@@ -174,7 +174,7 @@ case class JsonEncoder(
 //******************************************************************************************************************************************************************
 implicit val symbolMapEncoder: Encoder[Map[Symbol, Symbol]] = Encoder.instance { symbols =>
     symbols.toList.map {
-      case (key, value) => key.toString -> value.toString
+      case (key, value) => key.getNodeId -> value.getNodeId
     }.toMap.asJson
   }
 
@@ -198,7 +198,7 @@ implicit val symbolMapEncoder: Encoder[Map[Symbol, Symbol]] = Encoder.instance {
 
     implicit val commandMapEncoder: Encoder[Map[Command.Opcode, Command]] = Encoder.instance { symbols =>
       symbols.toList.map {
-        case (key, value) => key.toString -> value.toString
+        case (key, value) => key.toString -> value.asJson
       }.toMap.asJson
     }
 
@@ -210,7 +210,7 @@ implicit val symbolMapEncoder: Encoder[Map[Symbol, Symbol]] = Encoder.instance {
   //
     implicit val eventMapEncoder: Encoder[Map[Event.Id, Event]] = Encoder.instance { symbols =>
       symbols.toList.map {
-        case (key, value) => key.toString -> value.toString
+        case (key, value) => key.toString -> value.asJson
       }.toMap.asJson
     }
 //
@@ -222,7 +222,7 @@ implicit val symbolMapEncoder: Encoder[Map[Symbol, Symbol]] = Encoder.instance {
 
     implicit val componentInstanceMapEncoder: Encoder[Map[Symbol.ComponentInstance, ComponentInstance]] = Encoder.instance { symbols =>
       symbols.toList.map {
-        case (key, value) => key.toString -> value.toString
+        case (key, value) => key.getNodeId -> value.asJson
       }.toMap.asJson
     }
 
@@ -256,7 +256,7 @@ implicit val symbolMapEncoder: Encoder[Map[Symbol, Symbol]] = Encoder.instance {
       }.toMap.asJson
     }
 
-    implicit val typeMapEncoder: Encoder[Map[AstNode.Id, Type]] = Encoder.instance { symbols =>
+     implicit val typeMapEncoder: Encoder[Map[AstNode.Id, Type]] = Encoder.instance { symbols =>
       symbols.toList.map {
         case (key, value) => key.toString -> value.toString
       }.toMap.asJson
@@ -267,6 +267,7 @@ implicit val symbolMapEncoder: Encoder[Map[Symbol, Symbol]] = Encoder.instance {
         case (key, value) => key.toString -> value.toString
       }.toMap.asJson
     }
+
 
     implicit val nestedScopeEncoder: Encoder[NestedScope] = Encoder.encodeString.contramap(getUnqualifiedClassName(_))
 
