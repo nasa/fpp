@@ -36,7 +36,7 @@ sync command CMD_SYNC_STRUCT(
 @ A guarded command with no params
 guarded command CMD_GUARDED
 
-@ An aguarded command with primitive params
+@ A guarded command with primitive params
 guarded command CMD_GUARDED_PRIMITIVE(
   u32: U32, @< A U32
   f32: F32, @< An F32

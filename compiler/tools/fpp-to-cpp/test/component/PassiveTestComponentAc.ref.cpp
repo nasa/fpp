@@ -4422,24 +4422,6 @@ void PassiveTestComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Private parameter get function
-// ----------------------------------------------------------------------
-
-Fw::ParamValid PassiveTestComponentBase ::
-  getParam(
-      FwPrmIdType id,
-      Fw::ParamBuffer& buff
-  )
-{
-  if (this->m_prmGetOut_OutputPort[0].isConnected()) {
-    return this->m_prmGetOut_OutputPort[0].invoke(id, buff);
-  }
-  else {
-    return Fw::ParamValid::INVALID;
-  }
-}
-
-// ----------------------------------------------------------------------
 // Parameter set functions
 // ----------------------------------------------------------------------
 

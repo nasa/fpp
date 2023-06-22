@@ -17,15 +17,13 @@ case class ComponentParameters (
         List(
           Line.blank :: lines(s"//! Parameter IDs"),
           wrapInEnum(
-            lines(
-              sortedParams.map((id, param) =>
-                writeEnumConstant(
-                  paramIdConstantName(param.getName),
-                  id,
-                  AnnotationCppWriter.asStringOpt(param.aNode),
-                  CppWriterUtils.Hex
-                )
-              ).mkString("\n")
+            sortedParams.flatMap((id, param) =>
+              writeEnumConstant(
+                paramIdConstantName(param.getName),
+                id,
+                AnnotationCppWriter.asStringOpt(param.aNode),
+                CppWriterUtils.Hex
+              )
             )
           )
         ).flatten
@@ -49,7 +47,6 @@ case class ComponentParameters (
   def getPrivateFunctionMembers: List[CppDoc.Class.Member] = {
     if !hasParameters then Nil
     else List(
-      getPrivateGetter,
       getSetters,
       getSaveFunctions
     ).flatten
@@ -78,12 +75,14 @@ case class ComponentParameters (
         "Parameter variables",
         sortedParams.map((_, param) =>
           linesClassMember(
-            Line.blank :: lines(
+            List.concat(
               addSeparatedPreComment(
                 s"Parameter ${param.getName}",
                 AnnotationCppWriter.asStringOpt(param.aNode)
-              ) +
-                s"\n${writeParamType(param.paramType)} ${paramVariableName(param.getName)};"
+              ),
+              lines(
+                s"${writeParamType(param.paramType)} ${paramVariableName(param.getName)};"
+              )
             )
           )
         ),
@@ -254,42 +253,6 @@ case class ComponentParameters (
                 |this->m_paramLock.unLock();
                 |return _local;
                 |"""
-          )
-        )
-      )
-    )
-  }
-
-  private def getPrivateGetter: List[CppDoc.Class.Member] = {
-    addAccessTagAndComment(
-      "PRIVATE",
-      "Private parameter get function",
-      List(
-        functionClassMember(
-          Some(
-            """|Get a parameter by ID
-               |
-               |\return Whether the parameter is valid
-               |"""
-          ),
-          "getParam",
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type("FwPrmIdType"),
-              "id",
-              Some("The ID")
-            ),
-            CppDoc.Function.Param(
-              CppDoc.Type("Fw::ParamBuffer&"),
-              "buff",
-              Some("The parameter value")
-            )
-          ),
-          CppDoc.Type("Fw::ParamValid"),
-          wrapInIfElse(
-            s"this->${portVariableName(prmGetPort.get)}[0].isConnected()",
-            lines(s"return this->${portVariableName(prmGetPort.get)}[0].invoke(id, buff);"),
-            lines("return Fw::ParamValid::INVALID;")
           )
         )
       )

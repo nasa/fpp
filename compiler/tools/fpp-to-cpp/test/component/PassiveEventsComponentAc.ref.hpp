@@ -90,20 +90,20 @@ class PassiveEventsComponentBase :
 
     //! Event IDs
     enum {
-      EVENTID_EVENTACTIVITYHIGH = 0x0, //! An activity high event with no params
-      EVENTID_EVENTACTIVITYLOWTHROTTLED = 0x10, //! An activity low, throttled event with primitive params
-      EVENTID_EVENTCOMMAND = 0x11, //! A command event with string params
-      EVENTID_EVENTDIAGNOSTIC = 0x12, //! A diagnostic event with enum params
-      EVENTID_EVENTFATALTHROTTLED = 0x13, //! A fatal, throttled event with array params
-      EVENTID_EVENTWARNINGHIGH = 0x20, //! A warning high event with struct params
-      EVENTID_EVENTWARNINGLOWTHROTTLED = 0x21, //! A warning low, throttled event with no params
+      EVENTID_EVENTACTIVITYHIGH = 0x0, //!< An activity high event with no params
+      EVENTID_EVENTACTIVITYLOWTHROTTLED = 0x10, //!< An activity low, throttled event with primitive params
+      EVENTID_EVENTCOMMAND = 0x11, //!< A command event with string params
+      EVENTID_EVENTDIAGNOSTIC = 0x12, //!< A diagnostic event with enum params
+      EVENTID_EVENTFATALTHROTTLED = 0x13, //!< A fatal, throttled event with array params
+      EVENTID_EVENTWARNINGHIGH = 0x20, //!< A warning high event with struct params
+      EVENTID_EVENTWARNINGLOWTHROTTLED = 0x21, //!< A warning low, throttled event with no params
     };
 
     //! Event throttle values: sets initial value of countdown variables
     enum {
-      EVENTID_EVENTACTIVITYLOWTHROTTLED_THROTTLE = 5, //! Throttle reset count for EventActivityLowThrottled
-      EVENTID_EVENTFATALTHROTTLED_THROTTLE = 10, //! Throttle reset count for EventFatalThrottled
-      EVENTID_EVENTWARNINGLOWTHROTTLED_THROTTLE = 10, //! Throttle reset count for EventWarningLowThrottled
+      EVENTID_EVENTACTIVITYLOWTHROTTLED_THROTTLE = 5, //!< Throttle reset count for EventActivityLowThrottled
+      EVENTID_EVENTFATALTHROTTLED_THROTTLE = 10, //!< Throttle reset count for EventFatalThrottled
+      EVENTID_EVENTWARNINGLOWTHROTTLED_THROTTLE = 10, //!< Throttle reset count for EventWarningLowThrottled
     };
 
   public:

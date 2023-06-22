@@ -7283,24 +7283,6 @@ void QueuedSerialComponentBase ::
 #endif
 
 // ----------------------------------------------------------------------
-// Private parameter get function
-// ----------------------------------------------------------------------
-
-Fw::ParamValid QueuedSerialComponentBase ::
-  getParam(
-      FwPrmIdType id,
-      Fw::ParamBuffer& buff
-  )
-{
-  if (this->m_prmGetOut_OutputPort[0].isConnected()) {
-    return this->m_prmGetOut_OutputPort[0].invoke(id, buff);
-  }
-  else {
-    return Fw::ParamValid::INVALID;
-  }
-}
-
-// ----------------------------------------------------------------------
 // Parameter set functions
 // ----------------------------------------------------------------------
 
