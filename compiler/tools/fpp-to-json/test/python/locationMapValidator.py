@@ -50,30 +50,43 @@ def check_ids_in_dataset(id_list, ast):
 def collect_ids(json_data):
     ids = []
 
-    # Check if the current level is a list
     if isinstance(json_data, list):
-        # Iterate over the list elements
         for item in json_data:
-            # Recursively call the function on each item in the list
             ids.extend(collect_ids(item))
-    
-    # Check if the current level is a dictionary
+
     elif isinstance(json_data, dict):
-        # Check if the 'id' key is present and add its value to the list
-        if 'id' in json_data:
-            ids.append(json_data['id'])
-        
-        # Iterate over the dictionary values
-        for value in json_data.values():
-            # Recursively call the function on each value in the dictionary
-            ids.extend(collect_ids(value))
-    
+        for key, value in json_data.items():
+            if key == 'id':
+                # Check if the value is an integer
+                if isinstance(value, int):
+                    ids.append(value)
+                # Check if the value is a string and matches the format 'id : number'
+                elif isinstance(value, str) and re.match(r"id\s*:\s*\d+$", value):
+                    ids.append(int(value.split(':')[1].strip()))
+
+            if isinstance(value, (dict, list)):
+                ids.extend(collect_ids(value))
+
     return ids
+
+
+def check_if_ids_in_loc_map(numbers, data):
+    
+    json_numbers = [item[0] for item in data]
+    
+    for number in numbers:
+        if number not in json_numbers:
+            return False
+    
+    return True
+
 
 
 with open('ast.json') as json_file:
     ast = json.load(json_file)
+
     with open('location.json') as json_file:
         location = json.load(json_file)
         print(check_ids_in_dataset(group_ids_by_position(location), ast))
+        print(check_if_ids_in_loc_map(collect_ids(ast), location))
 

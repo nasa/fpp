@@ -1,0 +1,2583 @@
+[
+  {
+    "members" : [
+      {
+        "preAnnotation" : [
+          "Definitions and specifiers"
+        ],
+        "data" : {
+          "DefModule" : {
+            "node" : {
+              "data" : {
+                "name" : "DefinitionsAndSpecifiers",
+                "members" : [
+                  {
+                    "preAnnotation" : [
+                      "Abstract type definition"
+                    ],
+                    "data" : {
+                      "DefAbsType" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "T"
+                          },
+                          "id" : 578
+                        }
+                      }
+                    },
+                    "postAnnotation" : [
+                      "Abstract type definition"
+                    ]
+                  },
+                  {
+                    "preAnnotation" : [
+                      "Array definition"
+                    ],
+                    "data" : {
+                      "DefArray" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "A",
+                            "size" : {
+                              "data" : {
+                                "ExprLiteralInt" : {
+                                  "value" : "10"
+                                }
+                              },
+                              "id" : 584
+                            },
+                            "eltType" : {
+                              "data" : {
+                                "TypeNameInt" : {
+                                  "name" : "U32"
+                                }
+                              },
+                              "id" : 585
+                            },
+                            "default" : {
+                              "Option" : {
+                                "Some" : {
+                                  "data" : {
+                                    "ExprLiteralInt" : {
+                                      "value" : "0"
+                                    }
+                                  },
+                                  "id" : 586
+                                }
+                              }
+                            },
+                            "format" : {
+                              "Option" : {
+                                "Some" : {
+                                  "data" : "{} counts",
+                                  "id" : 587
+                                }
+                              }
+                            }
+                          },
+                          "id" : 588
+                        }
+                      }
+                    },
+                    "postAnnotation" : [
+                      "Array definition"
+                    ]
+                  },
+                  {
+                    "preAnnotation" : [
+                      "Component definition"
+                    ],
+                    "data" : {
+                      "DefComponent" : {
+                        "node" : {
+                          "data" : {
+                            "kind" : "Active",
+                            "name" : "C",
+                            "members" : [
+                              {
+                                "preAnnotation" : [
+                                ],
+                                "data" : {
+                                  "DefAbsType" : {
+                                    "node" : {
+                                      "data" : {
+                                        "name" : "T"
+                                      },
+                                      "id" : 748
+                                    }
+                                  }
+                                },
+                                "postAnnotation" : [
+                                ]
+                              },
+                              {
+                                "preAnnotation" : [
+                                ],
+                                "data" : {
+                                  "DefArray" : {
+                                    "node" : {
+                                      "data" : {
+                                        "name" : "A",
+                                        "size" : {
+                                          "data" : {
+                                            "ExprLiteralInt" : {
+                                              "value" : "3"
+                                            }
+                                          },
+                                          "id" : 749
+                                        },
+                                        "eltType" : {
+                                          "data" : {
+                                            "TypeNameInt" : {
+                                              "name" : "U32"
+                                            }
+                                          },
+                                          "id" : 750
+                                        },
+                                        "default" : {
+                                          "Option" : "None"
+                                        },
+                                        "format" : {
+                                          "Option" : "None"
+                                        }
+                                      },
+                                      "id" : 751
+                                    }
+                                  }
+                                },
+                                "postAnnotation" : [
+                                ]
+                              },
+                              {
+                                "preAnnotation" : [
+                                ],
+                                "data" : {
+                                  "DefStruct" : {
+                                    "node" : {
+                                      "data" : {
+                                        "name" : "S",
+                                        "members" : [
+                                          {
+                                            "preAnnotation" : [
+                                            ],
+                                            "data" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "name" : "x",
+                                                  "size" : {
+                                                    "Option" : {
+                                                      "Some" : {
+                                                        "data" : {
+                                                          "ExprLiteralInt" : {
+                                                            "value" : "3"
+                                                          }
+                                                        },
+                                                        "id" : 752
+                                                      }
+                                                    }
+                                                  },
+                                                  "typeName" : {
+                                                    "data" : {
+                                                      "TypeNameInt" : {
+                                                        "name" : "U32"
+                                                      }
+                                                    },
+                                                    "id" : 753
+                                                  },
+                                                  "format" : {
+                                                    "Option" : "None"
+                                                  }
+                                                },
+                                                "id" : 754
+                                              }
+                                            },
+                                            "postAnnotation" : [
+                                            ]
+                                          },
+                                          {
+                                            "preAnnotation" : [
+                                            ],
+                                            "data" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "name" : "y",
+                                                  "size" : {
+                                                    "Option" : "None"
+                                                  },
+                                                  "typeName" : {
+                                                    "data" : {
+                                                      "TypeNameFloat" : {
+                                                        "name" : "F32"
+                                                      }
+                                                    },
+                                                    "id" : 755
+                                                  },
+                                                  "format" : {
+                                                    "Option" : "None"
+                                                  }
+                                                },
+                                                "id" : 756
+                                              }
+                                            },
+                                            "postAnnotation" : [
+                                            ]
+                                          },
+                                          {
+                                            "preAnnotation" : [
+                                            ],
+                                            "data" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "name" : "z",
+                                                  "size" : {
+                                                    "Option" : "None"
+                                                  },
+                                                  "typeName" : {
+                                                    "data" : {
+                                                      "TypeNameString" : {
+                                                        "size" : {
+                                                          "Option" : "None"
+                                                        }
+                                                      }
+                                                    },
+                                                    "id" : 761
+                                                  },
+                                                  "format" : {
+                                                    "Option" : "None"
+                                                  }
+                                                },
+                                                "id" : 762
+                                              }
+                                            },
+                                            "postAnnotation" : [
+                                            ]
+                                          }
+                                        ],
+                                        "default" : {
+                                          "Option" : "None"
+                                        }
+                                      },
+                                      "id" : 763
+                                    }
+                                  }
+                                },
+                                "postAnnotation" : [
+                                ]
+                              },
+                              {
+                                "preAnnotation" : [
+                                ],
+                                "data" : {
+                                  "DefEnum" : {
+                                    "node" : {
+                                      "data" : {
+                                        "name" : "E",
+                                        "typeName" : {
+                                          "Option" : "None"
+                                        },
+                                        "constants" : [
+                                          {
+                                            "preAnnotation" : [
+                                            ],
+                                            "data" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "name" : "X",
+                                                  "value" : {
+                                                    "Option" : "None"
+                                                  }
+                                                },
+                                                "id" : 764
+                                              }
+                                            },
+                                            "postAnnotation" : [
+                                            ]
+                                          },
+                                          {
+                                            "preAnnotation" : [
+                                            ],
+                                            "data" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "name" : "Y",
+                                                  "value" : {
+                                                    "Option" : "None"
+                                                  }
+                                                },
+                                                "id" : 765
+                                              }
+                                            },
+                                            "postAnnotation" : [
+                                            ]
+                                          },
+                                          {
+                                            "preAnnotation" : [
+                                            ],
+                                            "data" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "name" : "Z",
+                                                  "value" : {
+                                                    "Option" : "None"
+                                                  }
+                                                },
+                                                "id" : 768
+                                              }
+                                            },
+                                            "postAnnotation" : [
+                                            ]
+                                          }
+                                        ],
+                                        "default" : {
+                                          "Option" : "None"
+                                        }
+                                      },
+                                      "id" : 769
+                                    }
+                                  }
+                                },
+                                "postAnnotation" : [
+                                ]
+                              },
+                              {
+                                "preAnnotation" : [
+                                  "Command specifier"
+                                ],
+                                "data" : {
+                                  "SpecCommand" : {
+                                    "node" : {
+                                      "data" : {
+                                        "kind" : {
+                                          "Async" : {
+                                            
+                                          }
+                                        },
+                                        "name" : "C",
+                                        "params" : [
+                                          {
+                                            "preAnnotation" : [
+                                            ],
+                                            "data" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "kind" : {
+                                                    "Value" : {
+                                                      
+                                                    }
+                                                  },
+                                                  "name" : "a",
+                                                  "typeName" : {
+                                                    "data" : {
+                                                      "TypeNameInt" : {
+                                                        "name" : "U32"
+                                                      }
+                                                    },
+                                                    "id" : 782
+                                                  }
+                                                },
+                                                "id" : 783
+                                              }
+                                            },
+                                            "postAnnotation" : [
+                                            ]
+                                          },
+                                          {
+                                            "preAnnotation" : [
+                                            ],
+                                            "data" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "kind" : {
+                                                    "Value" : {
+                                                      
+                                                    }
+                                                  },
+                                                  "name" : "b",
+                                                  "typeName" : {
+                                                    "data" : {
+                                                      "TypeNameFloat" : {
+                                                        "name" : "F32"
+                                                      }
+                                                    },
+                                                    "id" : 788
+                                                  }
+                                                },
+                                                "id" : 789
+                                              }
+                                            },
+                                            "postAnnotation" : [
+                                            ]
+                                          }
+                                        ],
+                                        "opcode" : {
+                                          "Option" : {
+                                            "Some" : {
+                                              "data" : {
+                                                "ExprLiteralInt" : {
+                                                  "value" : "0x00"
+                                                }
+                                              },
+                                              "id" : 790
+                                            }
+                                          }
+                                        },
+                                        "priority" : {
+                                          "Option" : {
+                                            "Some" : {
+                                              "data" : {
+                                                "ExprLiteralInt" : {
+                                                  "value" : "10"
+                                                }
+                                              },
+                                              "id" : 791
+                                            }
+                                          }
+                                        },
+                                        "queueFull" : {
+                                          "Option" : {
+                                            "Some" : {
+                                              "data" : "Assert",
+                                              "id" : 792
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "id" : 793
+                                    }
+                                  }
+                                },
+                                "postAnnotation" : [
+                                  "Command specifier"
+                                ]
+                              },
+                              {
+                                "preAnnotation" : [
+                                  "Parameter specifier"
+                                ],
+                                "data" : {
+                                  "SpecParam" : {
+                                    "node" : {
+                                      "data" : {
+                                        "name" : "P",
+                                        "typeName" : {
+                                          "data" : {
+                                            "TypeNameInt" : {
+                                              "name" : "U32"
+                                            }
+                                          },
+                                          "id" : 800
+                                        },
+                                        "default" : {
+                                          "Option" : {
+                                            "Some" : {
+                                              "data" : {
+                                                "ExprLiteralInt" : {
+                                                  "value" : "0"
+                                                }
+                                              },
+                                              "id" : 801
+                                            }
+                                          }
+                                        },
+                                        "id" : {
+                                          "Option" : {
+                                            "Some" : {
+                                              "data" : {
+                                                "ExprLiteralInt" : {
+                                                  "value" : "0x00"
+                                                }
+                                              },
+                                              "id" : 802
+                                            }
+                                          }
+                                        },
+                                        "setOpcode" : {
+                                          "Option" : {
+                                            "Some" : {
+                                              "data" : {
+                                                "ExprLiteralInt" : {
+                                                  "value" : "0x01"
+                                                }
+                                              },
+                                              "id" : 803
+                                            }
+                                          }
+                                        },
+                                        "saveOpcode" : {
+                                          "Option" : {
+                                            "Some" : {
+                                              "data" : {
+                                                "ExprLiteralInt" : {
+                                                  "value" : "0x02"
+                                                }
+                                              },
+                                              "id" : 804
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "id" : 805
+                                    }
+                                  }
+                                },
+                                "postAnnotation" : [
+                                  "Parameter specifier"
+                                ]
+                              },
+                              {
+                                "preAnnotation" : [
+                                  "General port instance specifier"
+                                ],
+                                "data" : {
+                                  "SpecPortInstance" : {
+                                    "node" : {
+                                      "data" : {
+                                        "General" : {
+                                          "kind" : "SyncInput",
+                                          "name" : "p1",
+                                          "size" : {
+                                            "Option" : {
+                                              "Some" : {
+                                                "data" : {
+                                                  "ExprLiteralInt" : {
+                                                    "value" : "10"
+                                                  }
+                                                },
+                                                "id" : 812
+                                              }
+                                            }
+                                          },
+                                          "port" : {
+                                            "Option" : {
+                                              "Some" : {
+                                                "data" : {
+                                                  "Unqualified" : {
+                                                    "name" : "P"
+                                                  }
+                                                },
+                                                "id" : 814
+                                              }
+                                            }
+                                          },
+                                          "priority" : {
+                                            "Option" : {
+                                              "Some" : {
+                                                "data" : {
+                                                  "ExprLiteralInt" : {
+                                                    "value" : "10"
+                                                  }
+                                                },
+                                                "id" : 815
+                                              }
+                                            }
+                                          },
+                                          "queueFull" : {
+                                            "Option" : {
+                                              "Some" : {
+                                                "data" : "Assert",
+                                                "id" : 816
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "id" : 817
+                                    }
+                                  }
+                                },
+                                "postAnnotation" : [
+                                  "General port instance specifier"
+                                ]
+                              },
+                              {
+                                "preAnnotation" : [
+                                  "Special port instance specifier"
+                                ],
+                                "data" : {
+                                  "SpecPortInstance" : {
+                                    "node" : {
+                                      "data" : {
+                                        "Special" : {
+                                          "inputKind" : {
+                                            "Option" : "None"
+                                          },
+                                          "kind" : "CommandRecv",
+                                          "name" : "cmdIn",
+                                          "priority" : {
+                                            "Option" : "None"
+                                          },
+                                          "queueFull" : {
+                                            "Option" : "None"
+                                          }
+                                        }
+                                      },
+                                      "id" : 819
+                                    }
+                                  }
+                                },
+                                "postAnnotation" : [
+                                  "Special port instance specifier"
+                                ]
+                              },
+                              {
+                                "preAnnotation" : [
+                                ],
+                                "data" : {
+                                  "SpecPortInstance" : {
+                                    "node" : {
+                                      "data" : {
+                                        "General" : {
+                                          "kind" : "Output",
+                                          "name" : "p2",
+                                          "size" : {
+                                            "Option" : {
+                                              "Some" : {
+                                                "data" : {
+                                                  "ExprLiteralInt" : {
+                                                    "value" : "10"
+                                                  }
+                                                },
+                                                "id" : 820
+                                              }
+                                            }
+                                          },
+                                          "port" : {
+                                            "Option" : {
+                                              "Some" : {
+                                                "data" : {
+                                                  "Unqualified" : {
+                                                    "name" : "P"
+                                                  }
+                                                },
+                                                "id" : 822
+                                              }
+                                            }
+                                          },
+                                          "priority" : {
+                                            "Option" : "None"
+                                          },
+                                          "queueFull" : {
+                                            "Option" : "None"
+                                          }
+                                        }
+                                      },
+                                      "id" : 823
+                                    }
+                                  }
+                                },
+                                "postAnnotation" : [
+                                ]
+                              },
+                              {
+                                "preAnnotation" : [
+                                  "Port matching specifier"
+                                ],
+                                "data" : {
+                                  "SpecPortMatching" : {
+                                    "node" : {
+                                      "data" : {
+                                        "port1" : {
+                                          "data" : "p1",
+                                          "id" : 827
+                                        },
+                                        "port2" : {
+                                          "data" : "p2",
+                                          "id" : 828
+                                        }
+                                      },
+                                      "id" : 829
+                                    }
+                                  }
+                                },
+                                "postAnnotation" : [
+                                  "Port matching specifier"
+                                ]
+                              },
+                              {
+                                "preAnnotation" : [
+                                  "Telemetry channel specifier"
+                                ],
+                                "data" : {
+                                  "SpecTlmChannel" : {
+                                    "node" : {
+                                      "data" : {
+                                        "name" : "T",
+                                        "typeName" : {
+                                          "data" : {
+                                            "TypeNameInt" : {
+                                              "name" : "U32"
+                                            }
+                                          },
+                                          "id" : 846
+                                        },
+                                        "id" : {
+                                          "Option" : {
+                                            "Some" : {
+                                              "data" : {
+                                                "ExprLiteralInt" : {
+                                                  "value" : "0x00"
+                                                }
+                                              },
+                                              "id" : 847
+                                            }
+                                          }
+                                        },
+                                        "update" : {
+                                          "Option" : {
+                                            "Some" : "OnChange"
+                                          }
+                                        },
+                                        "format" : {
+                                          "Option" : {
+                                            "Some" : {
+                                              "data" : "{} s",
+                                              "id" : 848
+                                            }
+                                          }
+                                        },
+                                        "low" : [
+                                          [
+                                            {
+                                              "data" : "Red",
+                                              "id" : 849
+                                            },
+                                            {
+                                              "data" : {
+                                                "ExprLiteralInt" : {
+                                                  "value" : "0"
+                                                }
+                                              },
+                                              "id" : 850
+                                            }
+                                          ],
+                                          [
+                                            {
+                                              "data" : "Orange",
+                                              "id" : 851
+                                            },
+                                            {
+                                              "data" : {
+                                                "ExprLiteralInt" : {
+                                                  "value" : "1"
+                                                }
+                                              },
+                                              "id" : 852
+                                            }
+                                          ],
+                                          [
+                                            {
+                                              "data" : "Yellow",
+                                              "id" : 853
+                                            },
+                                            {
+                                              "data" : {
+                                                "ExprLiteralInt" : {
+                                                  "value" : "2"
+                                                }
+                                              },
+                                              "id" : 854
+                                            }
+                                          ]
+                                        ],
+                                        "high" : [
+                                          [
+                                            {
+                                              "data" : "Yellow",
+                                              "id" : 855
+                                            },
+                                            {
+                                              "data" : {
+                                                "ExprLiteralInt" : {
+                                                  "value" : "10"
+                                                }
+                                              },
+                                              "id" : 856
+                                            }
+                                          ],
+                                          [
+                                            {
+                                              "data" : "Orange",
+                                              "id" : 857
+                                            },
+                                            {
+                                              "data" : {
+                                                "ExprLiteralInt" : {
+                                                  "value" : "11"
+                                                }
+                                              },
+                                              "id" : 858
+                                            }
+                                          ],
+                                          [
+                                            {
+                                              "data" : "Red",
+                                              "id" : 859
+                                            },
+                                            {
+                                              "data" : {
+                                                "ExprLiteralInt" : {
+                                                  "value" : "12"
+                                                }
+                                              },
+                                              "id" : 860
+                                            }
+                                          ]
+                                        ]
+                                      },
+                                      "id" : 861
+                                    }
+                                  }
+                                },
+                                "postAnnotation" : [
+                                  "Telemetry channel specifier"
+                                ]
+                              },
+                              {
+                                "preAnnotation" : [
+                                  "Event specifier"
+                                ],
+                                "data" : {
+                                  "SpecEvent" : {
+                                    "node" : {
+                                      "data" : {
+                                        "name" : "E",
+                                        "params" : [
+                                          {
+                                            "preAnnotation" : [
+                                            ],
+                                            "data" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "kind" : {
+                                                    "Value" : {
+                                                      
+                                                    }
+                                                  },
+                                                  "name" : "a",
+                                                  "typeName" : {
+                                                    "data" : {
+                                                      "TypeNameInt" : {
+                                                        "name" : "U32"
+                                                      }
+                                                    },
+                                                    "id" : 874
+                                                  }
+                                                },
+                                                "id" : 875
+                                              }
+                                            },
+                                            "postAnnotation" : [
+                                            ]
+                                          },
+                                          {
+                                            "preAnnotation" : [
+                                            ],
+                                            "data" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "kind" : {
+                                                    "Value" : {
+                                                      
+                                                    }
+                                                  },
+                                                  "name" : "b",
+                                                  "typeName" : {
+                                                    "data" : {
+                                                      "TypeNameFloat" : {
+                                                        "name" : "F32"
+                                                      }
+                                                    },
+                                                    "id" : 880
+                                                  }
+                                                },
+                                                "id" : 881
+                                              }
+                                            },
+                                            "postAnnotation" : [
+                                            ]
+                                          }
+                                        ],
+                                        "severity" : {
+                                          "ActivityLow" : {
+                                            
+                                          }
+                                        },
+                                        "id" : {
+                                          "Option" : {
+                                            "Some" : {
+                                              "data" : {
+                                                "ExprLiteralInt" : {
+                                                  "value" : "0x00"
+                                                }
+                                              },
+                                              "id" : 882
+                                            }
+                                          }
+                                        },
+                                        "format" : {
+                                          "data" : "{} counts",
+                                          "id" : 883
+                                        },
+                                        "throttle" : {
+                                          "Option" : {
+                                            "Some" : {
+                                              "data" : {
+                                                "ExprLiteralInt" : {
+                                                  "value" : "10"
+                                                }
+                                              },
+                                              "id" : 884
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "id" : 885
+                                    }
+                                  }
+                                },
+                                "postAnnotation" : [
+                                  "Event specifier"
+                                ]
+                              },
+                              {
+                                "preAnnotation" : [
+                                  "Internal port specifier"
+                                ],
+                                "data" : {
+                                  "SpecInternalPort" : {
+                                    "node" : {
+                                      "data" : {
+                                        "name" : "I",
+                                        "params" : [
+                                          {
+                                            "preAnnotation" : [
+                                            ],
+                                            "data" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "kind" : {
+                                                    "Value" : {
+                                                      
+                                                    }
+                                                  },
+                                                  "name" : "a",
+                                                  "typeName" : {
+                                                    "data" : {
+                                                      "TypeNameInt" : {
+                                                        "name" : "U32"
+                                                      }
+                                                    },
+                                                    "id" : 896
+                                                  }
+                                                },
+                                                "id" : 897
+                                              }
+                                            },
+                                            "postAnnotation" : [
+                                            ]
+                                          },
+                                          {
+                                            "preAnnotation" : [
+                                            ],
+                                            "data" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "kind" : {
+                                                    "Value" : {
+                                                      
+                                                    }
+                                                  },
+                                                  "name" : "b",
+                                                  "typeName" : {
+                                                    "data" : {
+                                                      "TypeNameFloat" : {
+                                                        "name" : "F32"
+                                                      }
+                                                    },
+                                                    "id" : 902
+                                                  }
+                                                },
+                                                "id" : 903
+                                              }
+                                            },
+                                            "postAnnotation" : [
+                                            ]
+                                          }
+                                        ],
+                                        "priority" : {
+                                          "Option" : {
+                                            "Some" : {
+                                              "data" : {
+                                                "ExprLiteralInt" : {
+                                                  "value" : "10"
+                                                }
+                                              },
+                                              "id" : 904
+                                            }
+                                          }
+                                        },
+                                        "queueFull" : {
+                                          "Option" : {
+                                            "Some" : "Assert"
+                                          }
+                                        }
+                                      },
+                                      "id" : 905
+                                    }
+                                  }
+                                },
+                                "postAnnotation" : [
+                                  "Internal port specifier"
+                                ]
+                              }
+                            ]
+                          },
+                          "id" : 906
+                        }
+                      }
+                    },
+                    "postAnnotation" : [
+                      "Component definition"
+                    ]
+                  },
+                  {
+                    "preAnnotation" : [
+                      "Simple component instance definition"
+                    ],
+                    "data" : {
+                      "DefComponentInstance" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "c1",
+                            "component" : {
+                              "data" : {
+                                "Unqualified" : {
+                                  "name" : "C1"
+                                }
+                              },
+                              "id" : 912
+                            },
+                            "baseId" : {
+                              "data" : {
+                                "ExprLiteralInt" : {
+                                  "value" : "0x100"
+                                }
+                              },
+                              "id" : 913
+                            },
+                            "implType" : {
+                              "Option" : "None"
+                            },
+                            "file" : {
+                              "Option" : "None"
+                            },
+                            "queueSize" : {
+                              "Option" : "None"
+                            },
+                            "stackSize" : {
+                              "Option" : "None"
+                            },
+                            "priority" : {
+                              "Option" : "None"
+                            },
+                            "cpu" : {
+                              "Option" : "None"
+                            },
+                            "initSpecs" : [
+                            ]
+                          },
+                          "id" : 914
+                        }
+                      }
+                    },
+                    "postAnnotation" : [
+                      "Simple component instance definition"
+                    ]
+                  },
+                  {
+                    "preAnnotation" : [
+                      "Component instance definition"
+                    ],
+                    "data" : {
+                      "DefComponentInstance" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "c2",
+                            "component" : {
+                              "data" : {
+                                "Unqualified" : {
+                                  "name" : "C2"
+                                }
+                              },
+                              "id" : 930
+                            },
+                            "baseId" : {
+                              "data" : {
+                                "ExprLiteralInt" : {
+                                  "value" : "0x200"
+                                }
+                              },
+                              "id" : 931
+                            },
+                            "implType" : {
+                              "Option" : {
+                                "Some" : {
+                                  "data" : "T",
+                                  "id" : 932
+                                }
+                              }
+                            },
+                            "file" : {
+                              "Option" : {
+                                "Some" : {
+                                  "data" : "C2.hpp",
+                                  "id" : 933
+                                }
+                              }
+                            },
+                            "queueSize" : {
+                              "Option" : {
+                                "Some" : {
+                                  "data" : {
+                                    "ExprLiteralInt" : {
+                                      "value" : "100"
+                                    }
+                                  },
+                                  "id" : 934
+                                }
+                              }
+                            },
+                            "stackSize" : {
+                              "Option" : {
+                                "Some" : {
+                                  "data" : {
+                                    "ExprLiteralInt" : {
+                                      "value" : "1024"
+                                    }
+                                  },
+                                  "id" : 935
+                                }
+                              }
+                            },
+                            "priority" : {
+                              "Option" : {
+                                "Some" : {
+                                  "data" : {
+                                    "ExprLiteralInt" : {
+                                      "value" : "10"
+                                    }
+                                  },
+                                  "id" : 936
+                                }
+                              }
+                            },
+                            "cpu" : {
+                              "Option" : {
+                                "Some" : {
+                                  "data" : {
+                                    "ExprLiteralInt" : {
+                                      "value" : "0"
+                                    }
+                                  },
+                                  "id" : 937
+                                }
+                              }
+                            },
+                            "initSpecs" : [
+                              {
+                                "preAnnotation" : [
+                                  "Init specifier"
+                                ],
+                                "data" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "phase" : {
+                                        "data" : {
+                                          "ExprIdent" : {
+                                            "value" : "CONSTRUCTION"
+                                          }
+                                        },
+                                        "id" : 940
+                                      },
+                                      "code" : "line 1\n  line 2\nline 3\n"
+                                    },
+                                    "id" : 941
+                                  }
+                                },
+                                "postAnnotation" : [
+                                  "Init specifier"
+                                ]
+                              }
+                            ]
+                          },
+                          "id" : 942
+                        }
+                      }
+                    },
+                    "postAnnotation" : [
+                      "Component instance definition"
+                    ]
+                  },
+                  {
+                    "preAnnotation" : [
+                      "Constant definition"
+                    ],
+                    "data" : {
+                      "DefConstant" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "x",
+                            "value" : {
+                              "data" : {
+                                "ExprLiteralInt" : {
+                                  "value" : "0"
+                                }
+                              },
+                              "id" : 945
+                            }
+                          },
+                          "id" : 946
+                        }
+                      }
+                    },
+                    "postAnnotation" : [
+                      "Constant definition"
+                    ]
+                  },
+                  {
+                    "preAnnotation" : [
+                      "Enum definition"
+                    ],
+                    "data" : {
+                      "DefEnum" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "E",
+                            "typeName" : {
+                              "Option" : {
+                                "Some" : {
+                                  "data" : {
+                                    "TypeNameInt" : {
+                                      "name" : "I32"
+                                    }
+                                  },
+                                  "id" : 957
+                                }
+                              }
+                            },
+                            "constants" : [
+                              {
+                                "preAnnotation" : [
+                                  "X"
+                                ],
+                                "data" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "name" : "X",
+                                      "value" : {
+                                        "Option" : {
+                                          "Some" : {
+                                            "data" : {
+                                              "ExprLiteralInt" : {
+                                                "value" : "1"
+                                              }
+                                            },
+                                            "id" : 960
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "id" : 961
+                                  }
+                                },
+                                "postAnnotation" : [
+                                  "X"
+                                ]
+                              },
+                              {
+                                "preAnnotation" : [
+                                  "Y"
+                                ],
+                                "data" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "name" : "Y",
+                                      "value" : {
+                                        "Option" : {
+                                          "Some" : {
+                                            "data" : {
+                                              "ExprLiteralInt" : {
+                                                "value" : "2"
+                                              }
+                                            },
+                                            "id" : 964
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "id" : 965
+                                  }
+                                },
+                                "postAnnotation" : [
+                                  "Y"
+                                ]
+                              }
+                            ],
+                            "default" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 966
+                        }
+                      }
+                    },
+                    "postAnnotation" : [
+                      "Enum definition"
+                    ]
+                  },
+                  {
+                    "preAnnotation" : [
+                      "Module definition"
+                    ],
+                    "data" : {
+                      "DefModule" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "M",
+                            "members" : [
+                              {
+                                "preAnnotation" : [
+                                ],
+                                "data" : {
+                                  "DefConstant" : {
+                                    "node" : {
+                                      "data" : {
+                                        "name" : "x",
+                                        "value" : {
+                                          "data" : {
+                                            "ExprLiteralInt" : {
+                                              "value" : "0"
+                                            }
+                                          },
+                                          "id" : 978
+                                        }
+                                      },
+                                      "id" : 979
+                                    }
+                                  }
+                                },
+                                "postAnnotation" : [
+                                ]
+                              }
+                            ]
+                          },
+                          "id" : 980
+                        }
+                      }
+                    },
+                    "postAnnotation" : [
+                      "Module definition"
+                    ]
+                  },
+                  {
+                    "preAnnotation" : [
+                      "Port definition"
+                    ],
+                    "data" : {
+                      "DefPort" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "P",
+                            "params" : [
+                              {
+                                "preAnnotation" : [
+                                ],
+                                "data" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "kind" : {
+                                        "Value" : {
+                                          
+                                        }
+                                      },
+                                      "name" : "a",
+                                      "typeName" : {
+                                        "data" : {
+                                          "TypeNameInt" : {
+                                            "name" : "U32"
+                                          }
+                                        },
+                                        "id" : 991
+                                      }
+                                    },
+                                    "id" : 992
+                                  }
+                                },
+                                "postAnnotation" : [
+                                ]
+                              },
+                              {
+                                "preAnnotation" : [
+                                ],
+                                "data" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "kind" : {
+                                        "Value" : {
+                                          
+                                        }
+                                      },
+                                      "name" : "b",
+                                      "typeName" : {
+                                        "data" : {
+                                          "TypeNameFloat" : {
+                                            "name" : "F32"
+                                          }
+                                        },
+                                        "id" : 997
+                                      }
+                                    },
+                                    "id" : 998
+                                  }
+                                },
+                                "postAnnotation" : [
+                                ]
+                              }
+                            ],
+                            "returnType" : {
+                              "Option" : {
+                                "Some" : {
+                                  "data" : {
+                                    "TypeNameInt" : {
+                                      "name" : "U32"
+                                    }
+                                  },
+                                  "id" : 999
+                                }
+                              }
+                            }
+                          },
+                          "id" : 1000
+                        }
+                      }
+                    },
+                    "postAnnotation" : [
+                      "Port definition"
+                    ]
+                  },
+                  {
+                    "preAnnotation" : [
+                      "Struct definition"
+                    ],
+                    "data" : {
+                      "DefStruct" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "S",
+                            "members" : [
+                              {
+                                "preAnnotation" : [
+                                  "x"
+                                ],
+                                "data" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "name" : "x",
+                                      "size" : {
+                                        "Option" : "None"
+                                      },
+                                      "typeName" : {
+                                        "data" : {
+                                          "TypeNameInt" : {
+                                            "name" : "U32"
+                                          }
+                                        },
+                                        "id" : 1017
+                                      },
+                                      "format" : {
+                                        "Option" : {
+                                          "Some" : {
+                                            "data" : "{} s",
+                                            "id" : 1018
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "id" : 1019
+                                  }
+                                },
+                                "postAnnotation" : [
+                                  "x"
+                                ]
+                              },
+                              {
+                                "preAnnotation" : [
+                                  "y"
+                                ],
+                                "data" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "name" : "y",
+                                      "size" : {
+                                        "Option" : "None"
+                                      },
+                                      "typeName" : {
+                                        "data" : {
+                                          "TypeNameFloat" : {
+                                            "name" : "F32"
+                                          }
+                                        },
+                                        "id" : 1023
+                                      },
+                                      "format" : {
+                                        "Option" : {
+                                          "Some" : {
+                                            "data" : "{} m/s",
+                                            "id" : 1024
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "id" : 1025
+                                  }
+                                },
+                                "postAnnotation" : [
+                                  "y"
+                                ]
+                              }
+                            ],
+                            "default" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 1026
+                        }
+                      }
+                    },
+                    "postAnnotation" : [
+                      "Struct definition"
+                    ]
+                  },
+                  {
+                    "preAnnotation" : [
+                      "Topology definition"
+                    ],
+                    "data" : {
+                      "DefTopology" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "T",
+                            "members" : [
+                              {
+                                "preAnnotation" : [
+                                  "Public instance specifier"
+                                ],
+                                "data" : {
+                                  "SpecCompInstance" : {
+                                    "node" : {
+                                      "data" : {
+                                        "visibility" : "Public",
+                                        "instance" : {
+                                          "data" : {
+                                            "Unqualified" : {
+                                              "name" : "i1"
+                                            }
+                                          },
+                                          "id" : 1090
+                                        }
+                                      },
+                                      "id" : 1091
+                                    }
+                                  }
+                                },
+                                "postAnnotation" : [
+                                  "Public instance specifier"
+                                ]
+                              },
+                              {
+                                "preAnnotation" : [
+                                  "Private instance specifier"
+                                ],
+                                "data" : {
+                                  "SpecCompInstance" : {
+                                    "node" : {
+                                      "data" : {
+                                        "visibility" : "Private",
+                                        "instance" : {
+                                          "data" : {
+                                            "Unqualified" : {
+                                              "name" : "i2"
+                                            }
+                                          },
+                                          "id" : 1096
+                                        }
+                                      },
+                                      "id" : 1097
+                                    }
+                                  }
+                                },
+                                "postAnnotation" : [
+                                  "Private instance specifier"
+                                ]
+                              },
+                              {
+                                "preAnnotation" : [
+                                  "Direct connection graph specifier"
+                                ],
+                                "data" : {
+                                  "SpecConnectionGraph" : {
+                                    "node" : {
+                                      "data" : {
+                                        "Direct" : {
+                                          "name" : "C",
+                                          "connections" : [
+                                            {
+                                              "fromPort" : {
+                                                "data" : {
+                                                  "componentInstance" : {
+                                                    "data" : {
+                                                      "Unqualified" : {
+                                                        "name" : "i1"
+                                                      }
+                                                    },
+                                                    "id" : 1111
+                                                  },
+                                                  "portName" : {
+                                                    "data" : "p",
+                                                    "id" : 1110
+                                                  }
+                                                },
+                                                "id" : 1112
+                                              },
+                                              "fromIndex" : {
+                                                "Option" : {
+                                                  "Some" : {
+                                                    "data" : {
+                                                      "ExprLiteralInt" : {
+                                                        "value" : "0"
+                                                      }
+                                                    },
+                                                    "id" : 1113
+                                                  }
+                                                }
+                                              },
+                                              "toPort" : {
+                                                "data" : {
+                                                  "componentInstance" : {
+                                                    "data" : {
+                                                      "Unqualified" : {
+                                                        "name" : "i2"
+                                                      }
+                                                    },
+                                                    "id" : 1116
+                                                  },
+                                                  "portName" : {
+                                                    "data" : "p",
+                                                    "id" : 1115
+                                                  }
+                                                },
+                                                "id" : 1117
+                                              },
+                                              "toIndex" : {
+                                                "Option" : {
+                                                  "Some" : {
+                                                    "data" : {
+                                                      "ExprLiteralInt" : {
+                                                        "value" : "1"
+                                                      }
+                                                    },
+                                                    "id" : 1118
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "id" : 1119
+                                    }
+                                  }
+                                },
+                                "postAnnotation" : [
+                                  "Direct connection graph specifier"
+                                ]
+                              },
+                              {
+                                "preAnnotation" : [
+                                  "Graph pattern specifier"
+                                ],
+                                "data" : {
+                                  "SpecConnectionGraph" : {
+                                    "node" : {
+                                      "data" : {
+                                        "Pattern" : {
+                                          "kind" : {
+                                            "Command" : {
+                                              
+                                            }
+                                          },
+                                          "source" : {
+                                            "data" : {
+                                              "Unqualified" : {
+                                                "name" : "i1"
+                                              }
+                                            },
+                                            "id" : 1130
+                                          },
+                                          "targets" : [
+                                            {
+                                              "data" : {
+                                                "Unqualified" : {
+                                                  "name" : "i2"
+                                                }
+                                              },
+                                              "id" : 1132
+                                            },
+                                            {
+                                              "data" : {
+                                                "Unqualified" : {
+                                                  "name" : "i3"
+                                                }
+                                              },
+                                              "id" : 1134
+                                            },
+                                            {
+                                              "data" : {
+                                                "Unqualified" : {
+                                                  "name" : "i4"
+                                                }
+                                              },
+                                              "id" : 1136
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "id" : 1137
+                                    }
+                                  }
+                                },
+                                "postAnnotation" : [
+                                  "Graph pattern specifier"
+                                ]
+                              },
+                              {
+                                "preAnnotation" : [
+                                  "Topology import specifier"
+                                ],
+                                "data" : {
+                                  "SpecTopImport" : {
+                                    "node" : {
+                                      "data" : {
+                                        "top" : {
+                                          "data" : {
+                                            "Unqualified" : {
+                                              "name" : "T1"
+                                            }
+                                          },
+                                          "id" : 1142
+                                        }
+                                      },
+                                      "id" : 1143
+                                    }
+                                  }
+                                },
+                                "postAnnotation" : [
+                                  "Topology import specifier"
+                                ]
+                              }
+                            ]
+                          },
+                          "id" : 1144
+                        }
+                      }
+                    },
+                    "postAnnotation" : [
+                      "Topology definition"
+                    ]
+                  },
+                  {
+                    "preAnnotation" : [
+                      "Location specifier"
+                    ],
+                    "data" : {
+                      "SpecLoc" : {
+                        "node" : {
+                          "data" : {
+                            "kind" : {
+                              "ComponentInstance" : {
+                                
+                              }
+                            },
+                            "symbol" : {
+                              "data" : {
+                                "Unqualified" : {
+                                  "name" : "i"
+                                }
+                              },
+                              "id" : 1150
+                            },
+                            "file" : {
+                              "data" : "instances.fpp",
+                              "id" : 1151
+                            }
+                          },
+                          "id" : 1152
+                        }
+                      }
+                    },
+                    "postAnnotation" : [
+                      "Location specifier"
+                    ]
+                  }
+                ]
+              },
+              "id" : 1153
+            }
+          }
+        },
+        "postAnnotation" : [
+          "Definitions and specifiers"
+        ]
+      },
+      {
+        "preAnnotation" : [
+          "Type names"
+        ],
+        "data" : {
+          "DefModule" : {
+            "node" : {
+              "data" : {
+                "name" : "TypeNames",
+                "members" : [
+                  {
+                    "preAnnotation" : [
+                    ],
+                    "data" : {
+                      "DefArray" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "typeNameU32",
+                            "size" : {
+                              "data" : {
+                                "ExprLiteralInt" : {
+                                  "value" : "10"
+                                }
+                              },
+                              "id" : 1186
+                            },
+                            "eltType" : {
+                              "data" : {
+                                "TypeNameInt" : {
+                                  "name" : "U32"
+                                }
+                              },
+                              "id" : 1187
+                            },
+                            "default" : {
+                              "Option" : "None"
+                            },
+                            "format" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 1188
+                        }
+                      }
+                    },
+                    "postAnnotation" : [
+                    ]
+                  },
+                  {
+                    "preAnnotation" : [
+                    ],
+                    "data" : {
+                      "DefArray" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "typeNameF32",
+                            "size" : {
+                              "data" : {
+                                "ExprLiteralInt" : {
+                                  "value" : "10"
+                                }
+                              },
+                              "id" : 1189
+                            },
+                            "eltType" : {
+                              "data" : {
+                                "TypeNameFloat" : {
+                                  "name" : "F32"
+                                }
+                              },
+                              "id" : 1190
+                            },
+                            "default" : {
+                              "Option" : "None"
+                            },
+                            "format" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 1191
+                        }
+                      }
+                    },
+                    "postAnnotation" : [
+                    ]
+                  },
+                  {
+                    "preAnnotation" : [
+                    ],
+                    "data" : {
+                      "DefArray" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "typeNameString",
+                            "size" : {
+                              "data" : {
+                                "ExprLiteralInt" : {
+                                  "value" : "10"
+                                }
+                              },
+                              "id" : 1192
+                            },
+                            "eltType" : {
+                              "data" : {
+                                "TypeNameString" : {
+                                  "size" : {
+                                    "Option" : {
+                                      "Some" : {
+                                        "data" : {
+                                          "ExprLiteralInt" : {
+                                            "value" : "256"
+                                          }
+                                        },
+                                        "id" : 1193
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "id" : 1194
+                            },
+                            "default" : {
+                              "Option" : "None"
+                            },
+                            "format" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 1195
+                        }
+                      }
+                    },
+                    "postAnnotation" : [
+                    ]
+                  },
+                  {
+                    "preAnnotation" : [
+                    ],
+                    "data" : {
+                      "DefArray" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "typeNameQID",
+                            "size" : {
+                              "data" : {
+                                "ExprLiteralInt" : {
+                                  "value" : "10"
+                                }
+                              },
+                              "id" : 1210
+                            },
+                            "eltType" : {
+                              "data" : {
+                                "TypeNameQualIdent" : {
+                                  "name" : {
+                                    "data" : {
+                                      "Qualified" : {
+                                        "qualifier" : {
+                                          "data" : {
+                                            "Qualified" : {
+                                              "qualifier" : {
+                                                "data" : {
+                                                  "Unqualified" : {
+                                                    "name" : "a"
+                                                  }
+                                                },
+                                                "id" : 1211
+                                              },
+                                              "name" : {
+                                                "data" : "b",
+                                                "id" : 1212
+                                              }
+                                            }
+                                          },
+                                          "id" : 1212
+                                        },
+                                        "name" : {
+                                          "data" : "c",
+                                          "id" : 1213
+                                        }
+                                      }
+                                    },
+                                    "id" : 1214
+                                  }
+                                }
+                              },
+                              "id" : 1215
+                            },
+                            "default" : {
+                              "Option" : "None"
+                            },
+                            "format" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 1216
+                        }
+                      }
+                    },
+                    "postAnnotation" : [
+                    ]
+                  }
+                ]
+              },
+              "id" : 1217
+            }
+          }
+        },
+        "postAnnotation" : [
+          "Type names"
+        ]
+      },
+      {
+        "preAnnotation" : [
+          "Expressions"
+        ],
+        "data" : {
+          "DefModule" : {
+            "node" : {
+              "data" : {
+                "name" : "Expressions",
+                "members" : [
+                  {
+                    "preAnnotation" : [
+                      "Arithmetic"
+                    ],
+                    "data" : {
+                      "DefConstant" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "arithExp",
+                            "value" : {
+                              "data" : {
+                                "ExprBinop" : {
+                                  "e1" : {
+                                    "data" : {
+                                      "ExprBinop" : {
+                                        "e1" : {
+                                          "data" : {
+                                            "ExprBinop" : {
+                                              "e1" : {
+                                                "data" : {
+                                                  "ExprLiteralInt" : {
+                                                    "value" : "1"
+                                                  }
+                                                },
+                                                "id" : 1334
+                                              },
+                                              "op" : "Add",
+                                              "e2" : {
+                                                "data" : {
+                                                  "ExprBinop" : {
+                                                    "e1" : {
+                                                      "data" : {
+                                                        "ExprLiteralInt" : {
+                                                          "value" : "2"
+                                                        }
+                                                      },
+                                                      "id" : 1335
+                                                    },
+                                                    "op" : "Mul",
+                                                    "e2" : {
+                                                      "data" : {
+                                                        "ExprLiteralInt" : {
+                                                          "value" : "3"
+                                                        }
+                                                      },
+                                                      "id" : 1336
+                                                    }
+                                                  }
+                                                },
+                                                "id" : 1337
+                                              }
+                                            }
+                                          },
+                                          "id" : 1343
+                                        },
+                                        "op" : "Sub",
+                                        "e2" : {
+                                          "data" : {
+                                            "ExprBinop" : {
+                                              "e1" : {
+                                                "data" : {
+                                                  "ExprUnop" : {
+                                                    "op" : "Minus",
+                                                    "e" : {
+                                                      "data" : {
+                                                        "ExprLiteralInt" : {
+                                                          "value" : "4"
+                                                        }
+                                                      },
+                                                      "id" : 1338
+                                                    }
+                                                  }
+                                                },
+                                                "id" : 1339
+                                              },
+                                              "op" : "Mul",
+                                              "e2" : {
+                                                "data" : {
+                                                  "ExprLiteralInt" : {
+                                                    "value" : "5"
+                                                  }
+                                                },
+                                                "id" : 1340
+                                              }
+                                            }
+                                          },
+                                          "id" : 1341
+                                        }
+                                      }
+                                    },
+                                    "id" : 1344
+                                  },
+                                  "op" : "Add",
+                                  "e2" : {
+                                    "data" : {
+                                      "ExprLiteralInt" : {
+                                        "value" : "6"
+                                      }
+                                    },
+                                    "id" : 1342
+                                  }
+                                }
+                              },
+                              "id" : 1345
+                            }
+                          },
+                          "id" : 1346
+                        }
+                      }
+                    },
+                    "postAnnotation" : [
+                      "Arithmetic"
+                    ]
+                  },
+                  {
+                    "preAnnotation" : [
+                      "Array"
+                    ],
+                    "data" : {
+                      "DefConstant" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "arrayExp",
+                            "value" : {
+                              "data" : {
+                                "ExprArray" : {
+                                  "elts" : [
+                                    {
+                                      "data" : {
+                                        "ExprLiteralInt" : {
+                                          "value" : "1"
+                                        }
+                                      },
+                                      "id" : 1352
+                                    },
+                                    {
+                                      "data" : {
+                                        "ExprLiteralInt" : {
+                                          "value" : "2"
+                                        }
+                                      },
+                                      "id" : 1353
+                                    },
+                                    {
+                                      "data" : {
+                                        "ExprLiteralInt" : {
+                                          "value" : "3"
+                                        }
+                                      },
+                                      "id" : 1354
+                                    }
+                                  ]
+                                }
+                              },
+                              "id" : 1355
+                            }
+                          },
+                          "id" : 1356
+                        }
+                      }
+                    },
+                    "postAnnotation" : [
+                      "Array"
+                    ]
+                  },
+                  {
+                    "preAnnotation" : [
+                      "Boolean literal"
+                    ],
+                    "data" : {
+                      "DefConstant" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "booleanLiteralExp",
+                            "value" : {
+                              "data" : {
+                                "ExprLiteralBool" : {
+                                  "value" : {
+                                    "True" : {
+                                      
+                                    }
+                                  }
+                                }
+                              },
+                              "id" : 1359
+                            }
+                          },
+                          "id" : 1360
+                        }
+                      }
+                    },
+                    "postAnnotation" : [
+                      "Boolean literal"
+                    ]
+                  },
+                  {
+                    "preAnnotation" : [
+                      "Dot"
+                    ],
+                    "data" : {
+                      "DefConstant" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "dotExp",
+                            "value" : {
+                              "data" : {
+                                "ExprDot" : {
+                                  "e" : {
+                                    "data" : {
+                                      "ExprDot" : {
+                                        "e" : {
+                                          "data" : {
+                                            "ExprIdent" : {
+                                              "value" : "a"
+                                            }
+                                          },
+                                          "id" : 1367
+                                        },
+                                        "id" : {
+                                          "data" : "b",
+                                          "id" : 1368
+                                        }
+                                      }
+                                    },
+                                    "id" : 1370
+                                  },
+                                  "id" : {
+                                    "data" : "c",
+                                    "id" : 1369
+                                  }
+                                }
+                              },
+                              "id" : 1371
+                            }
+                          },
+                          "id" : 1372
+                        }
+                      }
+                    },
+                    "postAnnotation" : [
+                      "Dot"
+                    ]
+                  },
+                  {
+                    "preAnnotation" : [
+                      "FP literal"
+                    ],
+                    "data" : {
+                      "DefConstant" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "fpLiteralExp",
+                            "value" : {
+                              "data" : {
+                                "ExprLiteralFloat" : {
+                                  "value" : "0.1234"
+                                }
+                              },
+                              "id" : 1375
+                            }
+                          },
+                          "id" : 1376
+                        }
+                      }
+                    },
+                    "postAnnotation" : [
+                      "FP literal"
+                    ]
+                  },
+                  {
+                    "preAnnotation" : [
+                      "Identifier"
+                    ],
+                    "data" : {
+                      "DefConstant" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "identExp",
+                            "value" : {
+                              "data" : {
+                                "ExprIdent" : {
+                                  "value" : "x"
+                                }
+                              },
+                              "id" : 1379
+                            }
+                          },
+                          "id" : 1380
+                        }
+                      }
+                    },
+                    "postAnnotation" : [
+                      "Identifier"
+                    ]
+                  },
+                  {
+                    "preAnnotation" : [
+                      "Int literal"
+                    ],
+                    "data" : {
+                      "DefConstant" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "intLiteralExp",
+                            "value" : {
+                              "data" : {
+                                "ExprLiteralInt" : {
+                                  "value" : "1234"
+                                }
+                              },
+                              "id" : 1383
+                            }
+                          },
+                          "id" : 1384
+                        }
+                      }
+                    },
+                    "postAnnotation" : [
+                      "Int literal"
+                    ]
+                  },
+                  {
+                    "preAnnotation" : [
+                      "Paren"
+                    ],
+                    "data" : {
+                      "DefConstant" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "parenExp",
+                            "value" : {
+                              "data" : {
+                                "ExprBinop" : {
+                                  "e1" : {
+                                    "data" : {
+                                      "ExprParen" : {
+                                        "e" : {
+                                          "data" : {
+                                            "ExprBinop" : {
+                                              "e1" : {
+                                                "data" : {
+                                                  "ExprLiteralInt" : {
+                                                    "value" : "1"
+                                                  }
+                                                },
+                                                "id" : 1392
+                                              },
+                                              "op" : "Add",
+                                              "e2" : {
+                                                "data" : {
+                                                  "ExprLiteralInt" : {
+                                                    "value" : "2"
+                                                  }
+                                                },
+                                                "id" : 1393
+                                              }
+                                            }
+                                          },
+                                          "id" : 1394
+                                        }
+                                      }
+                                    },
+                                    "id" : 1395
+                                  },
+                                  "op" : "Mul",
+                                  "e2" : {
+                                    "data" : {
+                                      "ExprLiteralInt" : {
+                                        "value" : "3"
+                                      }
+                                    },
+                                    "id" : 1396
+                                  }
+                                }
+                              },
+                              "id" : 1397
+                            }
+                          },
+                          "id" : 1398
+                        }
+                      }
+                    },
+                    "postAnnotation" : [
+                      "Paren"
+                    ]
+                  },
+                  {
+                    "preAnnotation" : [
+                      "String literal single"
+                    ],
+                    "data" : {
+                      "DefConstant" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "stringLiteralSingleExp",
+                            "value" : {
+                              "data" : {
+                                "ExprLiteralString" : {
+                                  "value" : "This is a string."
+                                }
+                              },
+                              "id" : 1401
+                            }
+                          },
+                          "id" : 1402
+                        }
+                      }
+                    },
+                    "postAnnotation" : [
+                      "String literal single"
+                    ]
+                  },
+                  {
+                    "preAnnotation" : [
+                      "String literal multi"
+                    ],
+                    "data" : {
+                      "DefConstant" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "stringLiteralMultExp",
+                            "value" : {
+                              "data" : {
+                                "ExprLiteralString" : {
+                                  "value" : "line 1\nline 2\nline 3\n"
+                                }
+                              },
+                              "id" : 1405
+                            }
+                          },
+                          "id" : 1406
+                        }
+                      }
+                    },
+                    "postAnnotation" : [
+                      "String literal multi"
+                    ]
+                  },
+                  {
+                    "preAnnotation" : [
+                      "Struct"
+                    ],
+                    "data" : {
+                      "DefConstant" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "structExp",
+                            "value" : {
+                              "data" : {
+                                "ExprStruct" : {
+                                  "members" : [
+                                    {
+                                      "data" : {
+                                        "name" : "a",
+                                        "value" : {
+                                          "data" : {
+                                            "ExprLiteralInt" : {
+                                              "value" : "1"
+                                            }
+                                          },
+                                          "id" : 1415
+                                        }
+                                      },
+                                      "id" : 1416
+                                    },
+                                    {
+                                      "data" : {
+                                        "name" : "b",
+                                        "value" : {
+                                          "data" : {
+                                            "ExprLiteralInt" : {
+                                              "value" : "2"
+                                            }
+                                          },
+                                          "id" : 1417
+                                        }
+                                      },
+                                      "id" : 1418
+                                    },
+                                    {
+                                      "data" : {
+                                        "name" : "c",
+                                        "value" : {
+                                          "data" : {
+                                            "ExprLiteralInt" : {
+                                              "value" : "3"
+                                            }
+                                          },
+                                          "id" : 1419
+                                        }
+                                      },
+                                      "id" : 1420
+                                    }
+                                  ]
+                                }
+                              },
+                              "id" : 1421
+                            }
+                          },
+                          "id" : 1422
+                        }
+                      }
+                    },
+                    "postAnnotation" : [
+                      "Struct"
+                    ]
+                  }
+                ]
+              },
+              "id" : 1423
+            }
+          }
+        },
+        "postAnnotation" : [
+          "Expressions"
+        ]
+      }
+    ]
+  }
+]

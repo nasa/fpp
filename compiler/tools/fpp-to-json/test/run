@@ -4,6 +4,7 @@
 
 fpp_json=../../../bin/fpp-to-json
 
+python_cmd=python/
 compare()
 {
   outfile=$1
@@ -33,7 +34,7 @@ do
   echo "
 $t()
 {
-  run_test '-a' $t
+  run_test $t
 }"
 done > default-tests.sh
 . ./default-tests.sh

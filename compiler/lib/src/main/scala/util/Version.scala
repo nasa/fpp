@@ -3,6 +3,6 @@ package fpp.compiler.util
 /** The compiler version */
 object Version {
 
-  val v = "3eab187c"
+  val v = "9eac34f7"
 
 }
