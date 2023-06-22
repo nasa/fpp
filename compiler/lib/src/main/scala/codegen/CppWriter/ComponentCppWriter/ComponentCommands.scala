@@ -39,20 +39,18 @@ case class ComponentCommands (
         List(
           Line.blank :: lines(s"//! Command opcodes"),
           wrapInEnum(
-            lines(
-              sortedCmds.map((opcode, cmd) =>
-                writeEnumConstant(
-                  commandConstantName(cmd),
-                  opcode,
-                  cmd match {
-                    case Command.NonParam(aNode, _) =>
-                      AnnotationCppWriter.asStringOpt(aNode)
-                    case Command.Param(aNode, kind) =>
-                      Some(s"Opcode to ${getCommandParamString(kind)} parameter ${aNode._2.data.name}")
-                  },
-                  CppWriterUtils.Hex
-                )
-              ).mkString("\n")
+            sortedCmds.flatMap((opcode, cmd) =>
+              writeEnumConstant(
+                commandConstantName(cmd),
+                opcode,
+                cmd match {
+                  case Command.NonParam(aNode, _) =>
+                    AnnotationCppWriter.asStringOpt(aNode)
+                  case Command.Param(aNode, kind) =>
+                    Some(s"Opcode to ${getCommandParamString(kind)} parameter ${aNode._2.data.name}")
+                },
+                CppWriterUtils.Hex
+              )
             )
           )
         ).flatten

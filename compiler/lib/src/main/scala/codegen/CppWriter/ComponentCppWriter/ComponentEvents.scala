@@ -18,14 +18,12 @@ case class ComponentEvents (
           s"//! Event throttle values: sets initial value of countdown variables"
         ),
         wrapInEnum(
-          lines(
-            throttledEvents.map((_, event) =>
-              writeEnumConstant(
-                eventThrottleConstantName(event.getName),
-                event.throttle.get,
-                Some(s"Throttle reset count for ${event.getName}")
-              )
-            ).mkString("\n")
+          throttledEvents.flatMap((_, event) =>
+            writeEnumConstant(
+              eventThrottleConstantName(event.getName),
+              event.throttle.get,
+              Some(s"Throttle reset count for ${event.getName}")
+            )
           )
         )
       ).flatten
@@ -36,15 +34,13 @@ case class ComponentEvents (
         List(
           Line.blank :: lines(s"//! Event IDs"),
           wrapInEnum(
-            lines(
-              sortedEvents.map((id, event) =>
-                writeEnumConstant(
-                  eventIdConstantName(event.getName),
-                  id,
-                  AnnotationCppWriter.asStringOpt(event.aNode),
-                  CppWriterUtils.Hex
-                )
-              ).mkString("\n")
+            sortedEvents.flatMap((id, event) =>
+              writeEnumConstant(
+                eventIdConstantName(event.getName),
+                id,
+                AnnotationCppWriter.asStringOpt(event.aNode),
+                CppWriterUtils.Hex
+              )
             )
           ),
           throttleEnum

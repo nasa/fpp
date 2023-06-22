@@ -96,28 +96,29 @@ class ActiveParamsComponentBase :
 
     //! Command opcodes
     enum {
-      OPCODE_PARAMU32_SET = 0x0, //! Opcode to set parameter ParamU32
-      OPCODE_PARAMU32_SAVE = 0x1, //! Opcode to save parameter ParamU32
-      OPCODE_PARAMF64_SET = 0x2, //! Opcode to set parameter ParamF64
-      OPCODE_PARAMF64_SAVE = 0x3, //! Opcode to save parameter ParamF64
-      OPCODE_PARAMSTRING_SET = 0x4, //! Opcode to set parameter ParamString
-      OPCODE_PARAMSTRING_SAVE = 0x5, //! Opcode to save parameter ParamString
-      OPCODE_PARAMENUM_SET = 0x6, //! Opcode to set parameter ParamEnum
-      OPCODE_PARAMENUM_SAVE = 0x7, //! Opcode to save parameter ParamEnum
-      OPCODE_PARAMARRAY_SET = 0x8, //! Opcode to set parameter ParamArray
-      OPCODE_PARAMARRAY_SAVE = 0x35, //! Opcode to save parameter ParamArray
-      OPCODE_PARAMSTRUCT_SET = 0x40, //! Opcode to set parameter ParamStruct
-      OPCODE_PARAMSTRUCT_SAVE = 0x45, //! Opcode to save parameter ParamStruct
+      OPCODE_PARAMU32_SET = 0x0, //!< Opcode to set parameter ParamU32
+      OPCODE_PARAMU32_SAVE = 0x1, //!< Opcode to save parameter ParamU32
+      OPCODE_PARAMF64_SET = 0x2, //!< Opcode to set parameter ParamF64
+      OPCODE_PARAMF64_SAVE = 0x3, //!< Opcode to save parameter ParamF64
+      OPCODE_PARAMSTRING_SET = 0x4, //!< Opcode to set parameter ParamString
+      OPCODE_PARAMSTRING_SAVE = 0x5, //!< Opcode to save parameter ParamString
+      OPCODE_PARAMENUM_SET = 0x6, //!< Opcode to set parameter ParamEnum
+      OPCODE_PARAMENUM_SAVE = 0x7, //!< Opcode to save parameter ParamEnum
+      OPCODE_PARAMARRAY_SET = 0x8, //!< Opcode to set parameter ParamArray
+      OPCODE_PARAMARRAY_SAVE = 0x35, //!< Opcode to save parameter ParamArray
+      OPCODE_PARAMSTRUCT_SET = 0x40, //!< Opcode to set parameter ParamStruct
+      OPCODE_PARAMSTRUCT_SAVE = 0x45, //!< Opcode to save parameter ParamStruct
     };
 
     //! Parameter IDs
     enum {
-      PARAMID_PARAMU32 = 0x0, //! A parameter with U32 data
-      PARAMID_PARAMF64 = 0x1, //! A parameter with F64 data
-      PARAMID_PARAMSTRING = 0x2, //! A parameter with string data and default value
-      PARAMID_PARAMENUM = 0x30, //! A parameter with enum data
-      PARAMID_PARAMARRAY = 0x31, //! A parameter with array data, default value, and save opcode
-      PARAMID_PARAMSTRUCT = 0x32, //! A parameter with struct data and set/save opcodes
+      PARAMID_PARAMU32 = 0x0, //!< A parameter with U32 data
+                              //!< Second line of annotation
+      PARAMID_PARAMF64 = 0x1, //!< A parameter with F64 data
+      PARAMID_PARAMSTRING = 0x2, //!< A parameter with string data and default value
+      PARAMID_PARAMENUM = 0x30, //!< A parameter with enum data
+      PARAMID_PARAMARRAY = 0x31, //!< A parameter with array data, default value, and save opcode
+      PARAMID_PARAMSTRUCT = 0x32, //!< A parameter with struct data and set/save opcodes
     };
 
   public:
@@ -1055,6 +1056,7 @@ class ActiveParamsComponentBase :
     //! \return The parameter value
     //!
     //! A parameter with U32 data
+    //! Second line of annotation
     U32 paramGet_ParamU32(
         Fw::ParamValid& valid //!< Whether the parameter is valid
     );
@@ -1525,6 +1527,7 @@ class ActiveParamsComponentBase :
     //! Parameter ParamU32
     //!
     //! A parameter with U32 data
+    //! Second line of annotation
     U32 m_ParamU32;
 
     //! Parameter ParamF64

@@ -17,15 +17,13 @@ case class ComponentParameters (
         List(
           Line.blank :: lines(s"//! Parameter IDs"),
           wrapInEnum(
-            lines(
-              sortedParams.map((id, param) =>
-                writeEnumConstant(
-                  paramIdConstantName(param.getName),
-                  id,
-                  AnnotationCppWriter.asStringOpt(param.aNode),
-                  CppWriterUtils.Hex
-                )
-              ).mkString("\n")
+            sortedParams.flatMap((id, param) =>
+              writeEnumConstant(
+                paramIdConstantName(param.getName),
+                id,
+                AnnotationCppWriter.asStringOpt(param.aNode),
+                CppWriterUtils.Hex
+              )
             )
           )
         ).flatten
@@ -78,12 +76,14 @@ case class ComponentParameters (
         "Parameter variables",
         sortedParams.map((_, param) =>
           linesClassMember(
-            Line.blank :: lines(
+            List.concat(
               addSeparatedPreComment(
                 s"Parameter ${param.getName}",
                 AnnotationCppWriter.asStringOpt(param.aNode)
-              ) +
-                s"\n${writeParamType(param.paramType)} ${paramVariableName(param.getName)};"
+              ),
+              lines(
+                s"${writeParamType(param.paramType)} ${paramVariableName(param.getName)};"
+              )
             )
           )
         ),

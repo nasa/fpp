@@ -26,10 +26,12 @@ trait CppWriterUtils extends LineUtils {
   }
 
   /** Add an optional pre comment separated by two newlines */
-  def addSeparatedPreComment(str: String, commentOpt: Option[String]): String = {
+  def addSeparatedPreComment(str: String, commentOpt: Option[String]): List[Line] = {
     commentOpt match {
-      case Some(s) => s"//! $str\n//!\n//! $s"
-      case None => s"//! $str"
+      case Some(s) => List.concat(
+        CppDocWriter.writeDoxygenComment(str + "\n\n" + s)
+      )
+      case None => CppDocWriter.writeDoxygenComment(str)
     }
   }
 
@@ -171,17 +173,13 @@ trait CppWriterUtils extends LineUtils {
     value: BigInt,
     comment: Option[String] = None,
     radix: CppWriterUtils.Radix = CppWriterUtils.Decimal
-  ): String = {
+  ): List[Line] = {
     val valueStr = radix match {
       case CppWriterUtils.Decimal => value.toString
       case CppWriterUtils.Hex => s"0x${value.toString(16)}"
     }
-    val commentStr = comment match {
-      case Some(s) => s" //! $s"
-      case None => ""
-    }
 
-    s"$name = $valueStr,$commentStr"
+    CppDocHppWriter.addParamComment(s"$name = $valueStr,", comment)
   }
 
   /** Write a function call with fixed and variable arguments */
