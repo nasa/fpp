@@ -205,9 +205,9 @@ case class ComponentDataProducts (
           "ContainerId",
           wrapInNamedEnum(
             "T : FwDpIdType",
-            containersById.map((id, container) => line(
+            containersById.flatMap((id, container) =>
               writeEnumConstant(container.getName, id)
-            ))
+            )
           )
         )
       )
@@ -223,9 +223,9 @@ case class ComponentDataProducts (
           "ContainerPriority",
           wrapInNamedEnum(
             "T : FwDpPriorityType",
-            containersById.map((id, container) => {
+            containersById.flatMap((id, container) => {
               val priority = container.defaultPriority.getOrElse(BigInt(0))
-              line(writeEnumConstant(container.getName, priority))
+              writeEnumConstant(container.getName, priority)
             })
           )
         )
@@ -242,9 +242,9 @@ case class ComponentDataProducts (
           "RecordId",
           wrapInNamedEnum(
             "T : FwDpIdType",
-            recordsById.map((id, container) => line(
-              writeEnumConstant(container.getName, id)
-            ))
+            recordsById.flatMap((id, container) =>
+                writeEnumConstant(container.getName, id)
+            )
           )
         )
       )
