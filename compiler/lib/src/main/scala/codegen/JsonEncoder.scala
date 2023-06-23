@@ -14,7 +14,7 @@ import scala.util.parsing.input.Position
 
 case class JsonEncoder(
   tul: List[Ast.TransUnit] = List.empty[Ast.TransUnit],
-  anylisis: Analysis = Analysis()
+  analysis: Analysis = Analysis()
 )
 {
   implicit val binopEncoder: Encoder[Ast.Binop] = Encoder.encodeString.contramap(getUnqualifiedClassName(_))
@@ -172,96 +172,96 @@ case class JsonEncoder(
 //******************************************************************************************************************************************************************
 //******************************************************************************************************************************************************************
 //******************************************************************************************************************************************************************
+//
 implicit val symbolMapEncoder: Encoder[Map[Symbol, Symbol]] = Encoder.instance { symbols =>
     symbols.toList.map {
       case (key, value) => key.getNodeId -> value.getNodeId
     }.toMap.asJson
   }
-
+  //
   implicit val scopeMapEncoder: Encoder[Map[Symbol, Scope]] = Encoder.instance { symbols =>
     symbols.toList.map {
-      case (key, value) => key.toString -> value.toString
+      case (key, value) => key.getNodeId -> value.asJson
     }.toMap.asJson
   }
-
+  //
     implicit val componentMapEncoder: Encoder[Map[Symbol.Component, Component]] = Encoder.instance { symbols =>
       symbols.toList.map {
         case (key, value) => key.getNodeId -> value.asJson
       }.toMap.asJson
     }
 
+    //
     implicit val specialKindMapEncoder: Encoder[Map[Ast.SpecPortInstance.SpecialKind, PortInstance.Special]] = Encoder.instance { symbols =>
       symbols.toList.map {
-        case (key, value) => key.toString -> value.toString
+        case (key, value) => key.toString -> value.asJson
       }.toMap.asJson
     }
 
+    //
     implicit val commandMapEncoder: Encoder[Map[Command.Opcode, Command]] = Encoder.instance { symbols =>
       symbols.toList.map {
         case (key, value) => key.toString -> value.asJson
       }.toMap.asJson
     }
 
+    //
     implicit val tlmChannelMapEncoder: Encoder[Map[TlmChannel.Id, TlmChannel]] = Encoder.instance { symbols =>
       symbols.toList.map {
-        case (key, value) => key.toString -> value.toString
+        case (key, value) => key.toString -> value.toString //value inline error when calling asJson on value
       }.toMap.asJson
     }
-  //
+
+    //
     implicit val eventMapEncoder: Encoder[Map[Event.Id, Event]] = Encoder.instance { symbols =>
       symbols.toList.map {
         case (key, value) => key.toString -> value.asJson
       }.toMap.asJson
     }
-//
+
+    //
     implicit val paramMapEncoder: Encoder[Map[Param.Id, Param]] = Encoder.instance { symbols =>
       symbols.toList.map {
-        case (key, value) => key.toString -> value.toString
+        case (key, value) => key.toString -> value.toString //value inline error when calling asJson on value
       }.toMap.asJson
     }
 
+    //
     implicit val componentInstanceMapEncoder: Encoder[Map[Symbol.ComponentInstance, ComponentInstance]] = Encoder.instance { symbols =>
       symbols.toList.map {
         case (key, value) => key.getNodeId -> value.asJson
       }.toMap.asJson
     }
 
+    //
     implicit val topologyMapEncoder: Encoder[Map[Symbol.Topology, Topology]] = Encoder.instance { symbols =>
       symbols.toList.map {
         case (key, value) => key.getNodeId -> value.asJson
       }.toMap.asJson
     }
-
+    //
     implicit val locationSpecifierMapEncoder: Encoder[Map[(Ast.SpecLoc.Kind, Name.Qualified), Ast.SpecLoc]] = Encoder.instance { symbols =>
+      symbols.toList.map {
+        case (key, value) => combineTuples(key._1.toString, "$$", key._2.toString) -> value.asJson
+      }.toMap.asJson
+    }
+
+
+
+    implicit val componentInstanceLocationMapEncoder: Encoder[Map[ComponentInstance, (Ast.Visibility, Location)]] = Encoder.instance { symbols =>
       symbols.toList.map {
         case (key, value) => key.toString -> value.asJson
       }.toMap.asJson
     }
 
-    implicit val locationTopologyMapEncoder: Encoder[Map[Symbol.Topology, Location]] = Encoder.instance { symbols =>
-      symbols.toList.map {
-        case (key, value) => key.getNodeId -> value.asJson
-      }.toMap.asJson
-    }
 
-    implicit val componentInstanceLocationMapEncoder: Encoder[Map[ComponentInstance, (Ast.Visibility, Location)]] = Encoder.instance { symbols =>
-      symbols.toList.map {
-        case (key, value) => key.toString -> value.toString
-      }.toMap.asJson
-    }
-
-    implicit val connectionGraphMapEncoder: Encoder[Map[Ast.SpecConnectionGraph.Pattern.Kind, ConnectionPattern]] = Encoder.instance { symbols =>
-      symbols.toList.map {
-        case (key, value) => key.toString -> value.toString
-      }.toMap.asJson
-    }
-
+    //
      implicit val typeMapEncoder: Encoder[Map[AstNode.Id, Type]] = Encoder.instance { symbols =>
       symbols.toList.map {
         case (key, value) => key.toString -> value.toString
       }.toMap.asJson
     }
-
+    //
     implicit val valueMapEncoder: Encoder[Map[AstNode.Id, Value]] = Encoder.instance { symbols =>
       symbols.toList.map {
         case (key, value) => key.toString -> value.toString
@@ -269,14 +269,34 @@ implicit val symbolMapEncoder: Encoder[Map[Symbol, Symbol]] = Encoder.instance {
     }
 
 
-    implicit val nestedScopeEncoder: Encoder[NestedScope] = Encoder.encodeString.contramap(getUnqualifiedClassName(_))
+    //
+    implicit val nameGroupSymbolMapEncoder: Encoder[Map[NameGroup, NameSymbolMap]] = Encoder.instance { symbols =>
+      symbols.toList.map {
+        case (key, value) => key.toString -> value.toString
+      }.toMap.asJson
+    }
 
     implicit val topologyEncoder: Encoder[Topology] = Encoder.encodeString.contramap(getUnqualifiedClassName(_))
 
 
 
-    def printAnalysisJson(): Json = anylisis.asJson
- 
+    def printAnalysisJson(): Json = {
+      Json.obj(
+        "inputFileSet" -> analysis.inputFileSet.asJson,
+        "includedFileSet" -> analysis.includedFileSet.asJson,
+        "locationSpecifierMap" -> analysis.locationSpecifierMap.asJson,
+        "parentSymbolMap" -> analysis.parentSymbolMap.asJson,
+        "symbolScopeMap" -> analysis.symbolScopeMap.asJson,
+        "useDefMap" -> analysis.useDefMap.asJson,
+        "typeMap" -> analysis.typeMap.asJson,
+        "valueMap" -> analysis.valueMap.asJson,
+        "componentMap" -> analysis.componentMap.asJson,
+        "componentInstanceMap" -> analysis.componentInstanceMap.asJson,
+        "topologyMap" -> analysis.topologyMap.asJson
+      )
+    }
+  
+  def combineTuples(s1: String, s2: String, sep: String): String = s1 + sep + s2
 }
 /**
 ##Stuff that works

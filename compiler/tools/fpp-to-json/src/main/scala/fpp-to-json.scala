@@ -23,7 +23,7 @@ object FPPtoJson {
     }
     val result = Result.seq(
       Result.map(files, Parser.parseFile (Parser.transUnit) (None) _),
-      List(resolveIncludes _, writeJson (options) _, writeAnylisis (options) _)
+      List(resolveIncludes _, writeJson (options) _, writeAnalysis (options) _)
     )
     result match {
       case Left(error) => {
@@ -70,7 +70,7 @@ object FPPtoJson {
     Right(tul)
   }
 
-    def writeAnylisis(options: Options)(tul: List[Ast.TransUnit]): Result.Result[List[Ast.TransUnit]] = {
+    def writeAnalysis(options: Options)(tul: List[Ast.TransUnit]): Result.Result[List[Ast.TransUnit]] = {
     
     val path = options.dir.getOrElse("")
 
@@ -86,8 +86,8 @@ object FPPtoJson {
     } yield a
     
     val encoder: JsonEncoder = res match {
-      case Right(an) => JsonEncoder(anylisis= an)
-      case Left(error) => JsonEncoder(anylisis = a)
+      case Right(an) => JsonEncoder(analysis= an)
+      case Left(error) => JsonEncoder(analysis = a)
     }
     options.analysis match {
       case true => {
@@ -129,7 +129,7 @@ object FPPtoJson {
       head(name, Version.v),
       opt[Unit]('a', "analysis")
         .action((_, c) => c.copy(analysis = true))
-        .text("write the anylisis data structure"),
+        .text("write the analysis data structure"),
       opt[String]('d', "directory")
         .valueName("<dir>")
         .action((d, c) => c.copy(dir = Some(d)))
