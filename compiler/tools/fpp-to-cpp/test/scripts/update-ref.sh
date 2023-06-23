@@ -45,6 +45,16 @@ move_cpp()
   done
 }
 
+move_cpp_no_ac()
+{
+  file=$1
+  target_suffix=$2
+  for suffix in hpp cpp
+  do
+    cp $file'.'$suffix $file$target_suffix'.ref.'$suffix
+  done
+}
+
 . ./update-ref.sh
 
 for t in $tests
