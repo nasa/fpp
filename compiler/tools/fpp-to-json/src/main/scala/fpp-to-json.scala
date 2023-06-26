@@ -81,7 +81,6 @@ object FPPtoJson {
     }
     
     val res: Either[fpp.compiler.util.Error, fpp.compiler.analysis.Analysis] = for {
-      tul <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
       a <- CheckSemantics.tuList(a, tul)
     } yield a
     
