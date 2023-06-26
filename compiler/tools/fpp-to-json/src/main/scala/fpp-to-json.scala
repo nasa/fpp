@@ -10,7 +10,7 @@ import scopt.OParser
 
 object FPPtoJson {
   case class Options(
-    analysis: Boolean = false,
+    syntax: Boolean = false,
     dir: Option[String] = None,
     files: List[File] = List()
   )
@@ -47,10 +47,10 @@ object FPPtoJson {
 
   def writeJson (options: Options) (tul: List[Ast.TransUnit]): Result.Result[List[Ast.TransUnit]] = {
     val encoder = JsonEncoder(tul = tul)
-    val path = options.dir.getOrElse("")
-    println("Here is the path: " + path)
-    val astFile = File.fromString(path + "fpp-ast.json")
-    val locFile = File.fromString(path + "fpp-loc-map.json")
+    val astPath = java.nio.file.Paths.get(options.dir.getOrElse("."), "fpp-ast.json")
+    val locPath = java.nio.file.Paths.get(options.dir.getOrElse("."), "fpp-loc-map.json")
+    val astFile =File.Path(astPath)
+    val locFile = File.Path(locPath)
     println("Writing ast and locMap")
     for { 
       writer <- astFile.openWrite() 
@@ -72,7 +72,7 @@ object FPPtoJson {
 
     def writeAnalysis(options: Options)(tul: List[Ast.TransUnit]): Result.Result[List[Ast.TransUnit]] = {
     
-    val path = options.dir.getOrElse("")
+    val analysisPath = java.nio.file.Paths.get(options.dir.getOrElse("."), "fpp-analysis.json")
 
     val a = Analysis(inputFileSet = options.files.toSet)
     val files = options.files.reverse match {
@@ -88,9 +88,9 @@ object FPPtoJson {
       case Right(an) => JsonEncoder(analysis= an)
       case Left(error) => JsonEncoder(analysis = a)
     }
-    options.analysis match {
-      case true => {
-        val analysisFile = File.fromString(path + "fpp-analysis.json")
+    options.syntax match {
+      case false => {
+        val analysisFile = File.Path(analysisPath)
         for { 
           writer <- analysisFile.openWrite() 
         } 
@@ -101,7 +101,7 @@ object FPPtoJson {
         }
 
       }
-      case false => ()
+      case true => ()
     }
     Right(tul)
   }
@@ -126,9 +126,9 @@ object FPPtoJson {
     OParser.sequence(
       programName(name),
       head(name, Version.v),
-      opt[Unit]('a', "analysis")
-        .action((_, c) => c.copy(analysis = true))
-        .text("write the analysis data structure"),
+      opt[Unit]('s', "syntax")
+        .action((_, c) => c.copy(syntax = true))
+        .text("omit the analysis data structure"),
       opt[String]('d', "directory")
         .valueName("<dir>")
         .action((d, c) => c.copy(dir = Some(d)))

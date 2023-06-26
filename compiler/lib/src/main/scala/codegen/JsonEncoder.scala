@@ -167,7 +167,15 @@ case class JsonEncoder(
     )
   }
 
-  def printLocationsMapJson(): Json = Locations.hashMapToListOfPairs().asJson
+
+
+def printLocationsMapJson(): Json = {
+  val locationsList = Locations.hashMapToListOfPairs().map { case (id, location) =>
+    id.toString -> location.asJson
+  }
+  Json.obj(locationsList: _*)
+}
+
 
 //******************************************************************************************************************************************************************
 //******************************************************************************************************************************************************************
