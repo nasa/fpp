@@ -50,7 +50,8 @@ object ComputeCppFiles extends AstStateVisitor {
     val name = s.getName(Symbol.Component(aNode))
     val loc = Locations.get(node.id)
     for {
-      s <- addMappings(s, FileNames.getComponent(name), Some(loc))
+      s <- if s.template then addMappings(s, FileNames.getComponentImpl(name), Some(loc))
+        else addMappings(s, FileNames.getComponent(name), Some(loc))
       s <- visitList (s, data.members, matchComponentMember)
     }
     yield s

@@ -24,7 +24,9 @@ case class ComponentImplWriter(
       fileName,
       includeGuard,
       getMembers,
-      s.toolName
+      s.toolName,
+      "hpp-template",
+      "cpp-template"
     )
   }
 
@@ -32,7 +34,7 @@ case class ComponentImplWriter(
     val hppIncludes = getHppIncludes
     val cppIncludes = getCppIncludes
     val cls = classMember(
-      AnnotationCppWriter.asStringOpt(aNode),
+      None,
       implClassName,
       Some(s"public $className"),
       getClassMembers
