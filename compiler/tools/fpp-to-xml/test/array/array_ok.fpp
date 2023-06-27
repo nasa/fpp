@@ -3,17 +3,22 @@ module M1 {
 }
 
 module M2 {
+
   array ArrayOK2 = [3] M1.ArrayOK1
+
+  array ArrayOK3 = [2] string default ["\"\\", """
+  abc
+  def
+  """]
+
 }
 
-array ArrayOK3 = [2] string default ["\"\\", """
-abc
-def
-"""]
-
 module M3 {
-  array ArrayOK4 = [4] ArrayOK3 @< Array with array arg
+  array ArrayOK4 = [4] M2.ArrayOK3 @< Array with array arg
 }
 
 type T
-array ArrayOK5 = [3] T
+
+module M4 {
+  array ArrayOK5 = [3] T
+}

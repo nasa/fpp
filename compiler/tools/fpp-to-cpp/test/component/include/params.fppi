@@ -3,6 +3,7 @@
 # ----------------------------------------------------------------------
 
 @ A parameter with U32 data
+@ Second line of annotation
 param ParamU32: U32
 
 @ A parameter with F64 data

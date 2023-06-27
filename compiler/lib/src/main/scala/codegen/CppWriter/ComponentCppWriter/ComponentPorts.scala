@@ -89,13 +89,11 @@ case class ComponentPorts(
             s"//! Enumerations for numbers of ${getPortListTypeString(ports)} ${ports.head.getDirection.get.toString} ports"
           ),
           wrapInEnum(
-            lines(
-              ports.map(p =>
-                writeEnumConstant(
-                  portConstantName(p),
-                  p.getArraySize,
-                )
-              ).mkString("\n")
+            ports.flatMap(p =>
+              writeEnumConstant(
+                portConstantName(p),
+                p.getArraySize,
+              )
             )
           )
         ).flatten

@@ -3,6 +3,8 @@
 
 #include "Fw/Types/Serializable.hpp"
 
+namespace M {
+
 //! C++ interface for type Types_T
 //! This simulates a handwritten C++ serializable class
 //! that is represented as an abstract type in an FPP model.
@@ -30,5 +32,7 @@ class Types_T :
     Fw::SerializeStatus deserialize(Fw::SerializeBufferBase& buffer);
 
 };
+
+}
 
 #endif
