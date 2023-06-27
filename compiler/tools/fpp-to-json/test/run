@@ -19,10 +19,11 @@ run_test()
   $fpp_to_json $args $infile.fpp 2>&1 | remove_path_prefix > $outfile.out.txt
   cat fpp-ast.json fpp-loc-map.json fpp-analysis.json >> $outfile.out.txt
 
-  diff -u $outfile.ref.txt $outfile.out.txt > $outfile.diff.txt 2>&1
 
   # Delete the JSON files
   rm fpp-ast.json fpp-loc-map.json fpp-analysis.json
+
+  diff -u $outfile.ref.txt $outfile.out.txt > $outfile.diff.txt 2>&1
 }
 
 constants()
@@ -30,9 +31,105 @@ constants()
   run_test "" constants
 }
 
+modules()
+{
+  run_test "" modules
+}
+
+types()
+{
+  run_test "" types
+}
+
+enums()
+{
+  run_test "" enums
+}
+
+ports()
+{
+  run_test "" ports
+}
+
+simpleComponents()
+{
+  run_test "" simpleComponents
+}
+
+specialPorts()
+{
+  run_test "" specialPorts
+}
+
+internalPorts()
+{
+  run_test "" internalPorts
+}
+
+commands(){
+  run_test "" commands
+}
+
+events(){
+  run_test "" events
+}
+
+telemetry(){
+  run_test "" telemetry
+}
+
+parameters(){
+  run_test "" parameters
+}
+
+constTypesComponents(){
+  run_test "" constTypesComponents
+}
+
+matchedPorts(){
+  run_test "" matchedPorts
+}
+
+passiveComponent(){
+  run_test "" passiveComponent
+}
+
+queuedComponets(){
+  run_test "" queuedComponets
+}
+
+activeComponents(){
+  run_test "" activeComponents
+}
+
+simpleTopology(){
+  run_test "" simpleTopology
+}
+
+importedTopologies(){
+  run_test "" importedTopologies
+}
 
 tests="
 constants
+modules
+types
+enums
+ports
+simpleComponents
+specialPorts
+internalPorts
+commands
+events
+telemetry
+parameters
+constTypesComponents
+matchedPorts
+passiveComponent
+queuedComponets
+activeComponents
+simpleTopology
+importedTopologies
 "
 
 run_suite $tests

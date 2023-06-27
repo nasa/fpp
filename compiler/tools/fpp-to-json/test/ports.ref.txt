@@ -1,0 +1,1084 @@
+[
+  {
+    "members" : [
+      [
+        [
+        ],
+        {
+          "DefPort" : {
+            "node" : {
+              "data" : {
+                "name" : "P",
+                "params" : [
+                ],
+                "returnType" : {
+                  "Option" : "None"
+                }
+              },
+              "id" : 0
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefPort" : {
+            "node" : {
+              "data" : {
+                "name" : "P1",
+                "params" : [
+                ],
+                "returnType" : {
+                  "Option" : "None"
+                }
+              },
+              "id" : 1
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefPort" : {
+            "node" : {
+              "data" : {
+                "name" : "P2",
+                "params" : [
+                  [
+                    [
+                    ],
+                    {
+                      "AstNode" : {
+                        "data" : {
+                          "kind" : {
+                            "Value" : {
+                              
+                            }
+                          },
+                          "name" : "a",
+                          "typeName" : {
+                            "data" : {
+                              "TypeNameInt" : {
+                                "name" : "U32"
+                              }
+                            },
+                            "id" : 6
+                          }
+                        },
+                        "id" : 7
+                      }
+                    },
+                    [
+                    ]
+                  ]
+                ],
+                "returnType" : {
+                  "Option" : "None"
+                }
+              },
+              "id" : 8
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefPort" : {
+            "node" : {
+              "data" : {
+                "name" : "P3",
+                "params" : [
+                  [
+                    [
+                    ],
+                    {
+                      "AstNode" : {
+                        "data" : {
+                          "kind" : {
+                            "Value" : {
+                              
+                            }
+                          },
+                          "name" : "a",
+                          "typeName" : {
+                            "data" : {
+                              "TypeNameInt" : {
+                                "name" : "I32"
+                              }
+                            },
+                            "id" : 9
+                          }
+                        },
+                        "id" : 10
+                      }
+                    },
+                    [
+                    ]
+                  ],
+                  [
+                    [
+                    ],
+                    {
+                      "AstNode" : {
+                        "data" : {
+                          "kind" : {
+                            "Value" : {
+                              
+                            }
+                          },
+                          "name" : "b",
+                          "typeName" : {
+                            "data" : {
+                              "TypeNameFloat" : {
+                                "name" : "F32"
+                              }
+                            },
+                            "id" : 11
+                          }
+                        },
+                        "id" : 12
+                      }
+                    },
+                    [
+                    ]
+                  ],
+                  [
+                    [
+                    ],
+                    {
+                      "AstNode" : {
+                        "data" : {
+                          "kind" : {
+                            "Value" : {
+                              
+                            }
+                          },
+                          "name" : "c",
+                          "typeName" : {
+                            "data" : {
+                              "TypeNameString" : {
+                                "size" : {
+                                  "Option" : "None"
+                                }
+                              }
+                            },
+                            "id" : 17
+                          }
+                        },
+                        "id" : 18
+                      }
+                    },
+                    [
+                    ]
+                  ]
+                ],
+                "returnType" : {
+                  "Option" : "None"
+                }
+              },
+              "id" : 19
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefEnum" : {
+            "node" : {
+              "data" : {
+                "name" : "E",
+                "typeName" : {
+                  "Option" : "None"
+                },
+                "constants" : [
+                  [
+                    [
+                    ],
+                    {
+                      "AstNode" : {
+                        "data" : {
+                          "name" : "A",
+                          "value" : {
+                            "Option" : "None"
+                          }
+                        },
+                        "id" : 20
+                      }
+                    },
+                    [
+                    ]
+                  ],
+                  [
+                    [
+                    ],
+                    {
+                      "AstNode" : {
+                        "data" : {
+                          "name" : "B",
+                          "value" : {
+                            "Option" : "None"
+                          }
+                        },
+                        "id" : 23
+                      }
+                    },
+                    [
+                    ]
+                  ]
+                ],
+                "default" : {
+                  "Option" : "None"
+                }
+              },
+              "id" : 24
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefAbsType" : {
+            "node" : {
+              "data" : {
+                "name" : "T"
+              },
+              "id" : 25
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefPort" : {
+            "node" : {
+              "data" : {
+                "name" : "P4",
+                "params" : [
+                  [
+                    [
+                    ],
+                    {
+                      "AstNode" : {
+                        "data" : {
+                          "kind" : {
+                            "Value" : {
+                              
+                            }
+                          },
+                          "name" : "e",
+                          "typeName" : {
+                            "data" : {
+                              "TypeNameQualIdent" : {
+                                "name" : {
+                                  "data" : {
+                                    "Unqualified" : {
+                                      "name" : "E"
+                                    }
+                                  },
+                                  "id" : 27
+                                }
+                              }
+                            },
+                            "id" : 28
+                          }
+                        },
+                        "id" : 29
+                      }
+                    },
+                    [
+                    ]
+                  ],
+                  [
+                    [
+                    ],
+                    {
+                      "AstNode" : {
+                        "data" : {
+                          "kind" : {
+                            "Value" : {
+                              
+                            }
+                          },
+                          "name" : "t",
+                          "typeName" : {
+                            "data" : {
+                              "TypeNameQualIdent" : {
+                                "name" : {
+                                  "data" : {
+                                    "Unqualified" : {
+                                      "name" : "T"
+                                    }
+                                  },
+                                  "id" : 31
+                                }
+                              }
+                            },
+                            "id" : 32
+                          }
+                        },
+                        "id" : 33
+                      }
+                    },
+                    [
+                    ]
+                  ],
+                  [
+                    [
+                    ],
+                    {
+                      "AstNode" : {
+                        "data" : {
+                          "kind" : {
+                            "Ref" : {
+                              
+                            }
+                          },
+                          "name" : "c",
+                          "typeName" : {
+                            "data" : {
+                              "TypeNameQualIdent" : {
+                                "name" : {
+                                  "data" : {
+                                    "Unqualified" : {
+                                      "name" : "T"
+                                    }
+                                  },
+                                  "id" : 43
+                                }
+                              }
+                            },
+                            "id" : 44
+                          }
+                        },
+                        "id" : 45
+                      }
+                    },
+                    [
+                    ]
+                  ]
+                ],
+                "returnType" : {
+                  "Option" : {
+                    "Some" : {
+                      "data" : {
+                        "TypeNameQualIdent" : {
+                          "name" : {
+                            "data" : {
+                              "Unqualified" : {
+                                "name" : "T"
+                              }
+                            },
+                            "id" : 47
+                          }
+                        }
+                      },
+                      "id" : 48
+                    }
+                  }
+                }
+              },
+              "id" : 49
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefEnum" : {
+            "node" : {
+              "data" : {
+                "name" : "Status",
+                "typeName" : {
+                  "Option" : "None"
+                },
+                "constants" : [
+                  [
+                    [
+                    ],
+                    {
+                      "AstNode" : {
+                        "data" : {
+                          "name" : "SUCCEED",
+                          "value" : {
+                            "Option" : "None"
+                          }
+                        },
+                        "id" : 50
+                      }
+                    },
+                    [
+                    ]
+                  ],
+                  [
+                    [
+                    ],
+                    {
+                      "AstNode" : {
+                        "data" : {
+                          "name" : "FAIL",
+                          "value" : {
+                            "Option" : "None"
+                          }
+                        },
+                        "id" : 53
+                      }
+                    },
+                    [
+                    ]
+                  ]
+                ],
+                "default" : {
+                  "Option" : "None"
+                }
+              },
+              "id" : 54
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+          "Pre annotation for port P5"
+        ],
+        {
+          "DefPort" : {
+            "node" : {
+              "data" : {
+                "name" : "P5",
+                "params" : [
+                  [
+                    [
+                    ],
+                    {
+                      "AstNode" : {
+                        "data" : {
+                          "kind" : {
+                            "Ref" : {
+                              
+                            }
+                          },
+                          "name" : "result",
+                          "typeName" : {
+                            "data" : {
+                              "TypeNameInt" : {
+                                "name" : "U32"
+                              }
+                            },
+                            "id" : 59
+                          }
+                        },
+                        "id" : 60
+                      }
+                    },
+                    [
+                    ]
+                  ]
+                ],
+                "returnType" : {
+                  "Option" : {
+                    "Some" : {
+                      "data" : {
+                        "TypeNameQualIdent" : {
+                          "name" : {
+                            "data" : {
+                              "Unqualified" : {
+                                "name" : "Status"
+                              }
+                            },
+                            "id" : 62
+                          }
+                        }
+                      },
+                      "id" : 63
+                    }
+                  }
+                }
+              },
+              "id" : 64
+            }
+          }
+        },
+        [
+        ]
+      ]
+    ]
+  }
+]
+{
+  "0" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "1.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "1" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "3.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "2" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "4.12",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "3" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "4.9",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "4" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "4.12",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "5" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "4.9",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "6" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "4.12",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "7" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "4.9",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "8" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "4.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "9" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "5.12",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "10" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "5.9",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "11" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "5.20",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "12" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "5.17",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "13" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "5.28",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "14" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "5.25",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "15" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "5.28",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "16" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "5.25",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "17" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "5.28",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "18" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "5.25",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "19" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "5.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "20" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "7.10",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "21" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "7.13",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "22" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "7.13",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "23" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "7.13",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "24" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "7.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "25" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "8.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "26" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "9.12",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "27" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "9.12",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "28" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "9.12",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "29" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "9.9",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "30" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "9.18",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "31" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "9.18",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "32" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "9.18",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "33" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "9.15",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "34" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "9.28",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "35" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "9.28",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "36" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "9.28",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "37" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "9.21",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "38" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "9.28",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "39" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "9.28",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "40" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "9.28",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "41" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "9.21",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "42" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "9.28",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "43" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "9.28",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "44" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "9.28",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "45" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "9.21",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "46" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "9.34",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "47" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "9.34",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "48" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "9.34",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "49" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "9.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "50" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "11.15",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "51" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "11.24",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "52" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "11.24",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "53" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "11.24",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "54" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "11.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "55" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "13.21",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "56" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "13.9",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "57" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "13.21",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "58" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "13.9",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "59" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "13.21",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "60" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "13.9",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "61" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "13.29",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "62" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "13.29",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "63" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "13.29",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "64" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp",
+    "pos" : "13.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  }
+}
+{
+  "inputFileSet" : [
+    "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/ports.fpp"
+  ],
+  "includedFileSet" : [
+  ],
+  "locationSpecifierMap" : [
+  ],
+  "parentSymbolMap" : {
+    "20" : 24,
+    "23" : 24,
+    "50" : 54,
+    "53" : 54
+  },
+  "symbolScopeMap" : {
+    "24" : {
+      "ScopeImpl" : {
+        "map" : {
+          "Value" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "A" : 20,
+                "B" : 23
+              }
+            }
+          }
+        }
+      }
+    },
+    "54" : {
+      "ScopeImpl" : {
+        "map" : {
+          "Value" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "SUCCEED" : 50,
+                "FAIL" : 53
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "useDefMap" : {
+    "28" : "E",
+    "32" : "T",
+    "31" : "T",
+    "43" : "T",
+    "44" : "T",
+    "27" : "E",
+    "48" : "T",
+    "63" : "Status",
+    "47" : "T",
+    "62" : "Status"
+  },
+  "typeMap" : {
+    "23" : "enum E",
+    "44" : "T",
+    "50" : "enum Status",
+    "24" : "enum E",
+    "59" : "U32",
+    "48" : "T",
+    "54" : "enum Status",
+    "32" : "T",
+    "6" : "U32",
+    "53" : "enum Status",
+    "20" : "enum E",
+    "63" : "enum Status",
+    "28" : "enum E",
+    "11" : "F32",
+    "9" : "I32",
+    "17" : "string",
+    "25" : "T"
+  },
+  "valueMap" : {
+    "20" : "(A,0): E",
+    "23" : "(B,1): E",
+    "50" : "(SUCCEED,0): Status",
+    "53" : "(FAIL,1): Status"
+  },
+  "componentMap" : {
+    
+  },
+  "componentInstanceMap" : {
+    
+  },
+  "topologyMap" : {
+    
+  }
+}

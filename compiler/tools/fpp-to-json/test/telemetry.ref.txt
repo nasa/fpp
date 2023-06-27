@@ -1,0 +1,1247 @@
+[
+  {
+    "members" : [
+      [
+        [
+          "Component for illustrating telemetry channel limits"
+        ],
+        {
+          "DefComponent" : {
+            "node" : {
+              "data" : {
+                "kind" : "Passive",
+                "name" : "TlmLimits",
+                "members" : [
+                  [
+                    [
+                      "Telemetry port"
+                    ],
+                    {
+                      "SpecPortInstance" : {
+                        "node" : {
+                          "data" : {
+                            "Special" : {
+                              "inputKind" : {
+                                "Option" : "None"
+                              },
+                              "kind" : "Telemetry",
+                              "name" : "tlmOut",
+                              "priority" : {
+                                "Option" : "None"
+                              },
+                              "queueFull" : {
+                                "Option" : "None"
+                              }
+                            }
+                          },
+                          "id" : 0
+                        }
+                      }
+                    },
+                    [
+                    ]
+                  ],
+                  [
+                    [
+                      "Time get port"
+                    ],
+                    {
+                      "SpecPortInstance" : {
+                        "node" : {
+                          "data" : {
+                            "Special" : {
+                              "inputKind" : {
+                                "Option" : "None"
+                              },
+                              "kind" : "TimeGet",
+                              "name" : "timeGetOut",
+                              "priority" : {
+                                "Option" : "None"
+                              },
+                              "queueFull" : {
+                                "Option" : "None"
+                              }
+                            }
+                          },
+                          "id" : 1
+                        }
+                      }
+                    },
+                    [
+                    ]
+                  ],
+                  [
+                    [
+                      "Telemetry channel 1"
+                    ],
+                    {
+                      "SpecTlmChannel" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "Channel1",
+                            "typeName" : {
+                              "data" : {
+                                "TypeNameInt" : {
+                                  "name" : "U32"
+                                }
+                              },
+                              "id" : 2
+                            },
+                            "id" : {
+                              "Option" : "None"
+                            },
+                            "update" : {
+                              "Option" : "None"
+                            },
+                            "format" : {
+                              "Option" : "None"
+                            },
+                            "low" : [
+                              [
+                                {
+                                  "data" : "Red",
+                                  "id" : 3
+                                },
+                                {
+                                  "data" : {
+                                    "ExprLiteralInt" : {
+                                      "value" : "0"
+                                    }
+                                  },
+                                  "id" : 4
+                                }
+                              ],
+                              [
+                                {
+                                  "data" : "Orange",
+                                  "id" : 5
+                                },
+                                {
+                                  "data" : {
+                                    "ExprLiteralInt" : {
+                                      "value" : "1"
+                                    }
+                                  },
+                                  "id" : 6
+                                }
+                              ],
+                              [
+                                {
+                                  "data" : "Yellow",
+                                  "id" : 7
+                                },
+                                {
+                                  "data" : {
+                                    "ExprLiteralInt" : {
+                                      "value" : "2"
+                                    }
+                                  },
+                                  "id" : 8
+                                }
+                              ]
+                            ],
+                            "high" : [
+                            ]
+                          },
+                          "id" : 9
+                        }
+                      }
+                    },
+                    [
+                    ]
+                  ],
+                  [
+                    [
+                      "Telemetry channel 2"
+                    ],
+                    {
+                      "SpecTlmChannel" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "Channel2",
+                            "typeName" : {
+                              "data" : {
+                                "TypeNameFloat" : {
+                                  "name" : "F64"
+                                }
+                              },
+                              "id" : 10
+                            },
+                            "id" : {
+                              "Option" : {
+                                "Some" : {
+                                  "data" : {
+                                    "ExprLiteralInt" : {
+                                      "value" : "0x10"
+                                    }
+                                  },
+                                  "id" : 11
+                                }
+                              }
+                            },
+                            "update" : {
+                              "Option" : {
+                                "Some" : "OnChange"
+                              }
+                            },
+                            "format" : {
+                              "Option" : {
+                                "Some" : {
+                                  "data" : "{.3f}",
+                                  "id" : 12
+                                }
+                              }
+                            },
+                            "low" : [
+                              [
+                                {
+                                  "data" : "Red",
+                                  "id" : 13
+                                },
+                                {
+                                  "data" : {
+                                    "ExprUnop" : {
+                                      "op" : "Minus",
+                                      "e" : {
+                                        "data" : {
+                                          "ExprLiteralInt" : {
+                                            "value" : "3"
+                                          }
+                                        },
+                                        "id" : 14
+                                      }
+                                    }
+                                  },
+                                  "id" : 15
+                                }
+                              ],
+                              [
+                                {
+                                  "data" : "Orange",
+                                  "id" : 16
+                                },
+                                {
+                                  "data" : {
+                                    "ExprUnop" : {
+                                      "op" : "Minus",
+                                      "e" : {
+                                        "data" : {
+                                          "ExprLiteralInt" : {
+                                            "value" : "2"
+                                          }
+                                        },
+                                        "id" : 17
+                                      }
+                                    }
+                                  },
+                                  "id" : 18
+                                }
+                              ],
+                              [
+                                {
+                                  "data" : "Yellow",
+                                  "id" : 19
+                                },
+                                {
+                                  "data" : {
+                                    "ExprUnop" : {
+                                      "op" : "Minus",
+                                      "e" : {
+                                        "data" : {
+                                          "ExprLiteralInt" : {
+                                            "value" : "1"
+                                          }
+                                        },
+                                        "id" : 20
+                                      }
+                                    }
+                                  },
+                                  "id" : 21
+                                }
+                              ]
+                            ],
+                            "high" : [
+                              [
+                                {
+                                  "data" : "Red",
+                                  "id" : 22
+                                },
+                                {
+                                  "data" : {
+                                    "ExprLiteralInt" : {
+                                      "value" : "3"
+                                    }
+                                  },
+                                  "id" : 23
+                                }
+                              ],
+                              [
+                                {
+                                  "data" : "Orange",
+                                  "id" : 24
+                                },
+                                {
+                                  "data" : {
+                                    "ExprLiteralInt" : {
+                                      "value" : "2"
+                                    }
+                                  },
+                                  "id" : 25
+                                }
+                              ],
+                              [
+                                {
+                                  "data" : "Yellow",
+                                  "id" : 26
+                                },
+                                {
+                                  "data" : {
+                                    "ExprLiteralInt" : {
+                                      "value" : "1"
+                                    }
+                                  },
+                                  "id" : 27
+                                }
+                              ]
+                            ]
+                          },
+                          "id" : 28
+                        }
+                      }
+                    },
+                    [
+                    ]
+                  ],
+                  [
+                    [
+                      "Telemetry channel 3"
+                    ],
+                    {
+                      "SpecTlmChannel" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "Channel3",
+                            "typeName" : {
+                              "data" : {
+                                "TypeNameFloat" : {
+                                  "name" : "F64"
+                                }
+                              },
+                              "id" : 47
+                            },
+                            "id" : {
+                              "Option" : "None"
+                            },
+                            "update" : {
+                              "Option" : {
+                                "Some" : "Always"
+                              }
+                            },
+                            "format" : {
+                              "Option" : {
+                                "Some" : {
+                                  "data" : "{e}",
+                                  "id" : 48
+                                }
+                              }
+                            },
+                            "low" : [
+                            ],
+                            "high" : [
+                              [
+                                {
+                                  "data" : "Red",
+                                  "id" : 49
+                                },
+                                {
+                                  "data" : {
+                                    "ExprLiteralInt" : {
+                                      "value" : "3"
+                                    }
+                                  },
+                                  "id" : 50
+                                }
+                              ],
+                              [
+                                {
+                                  "data" : "Orange",
+                                  "id" : 51
+                                },
+                                {
+                                  "data" : {
+                                    "ExprLiteralInt" : {
+                                      "value" : "2"
+                                    }
+                                  },
+                                  "id" : 52
+                                }
+                              ],
+                              [
+                                {
+                                  "data" : "Yellow",
+                                  "id" : 53
+                                },
+                                {
+                                  "data" : {
+                                    "ExprLiteralInt" : {
+                                      "value" : "1"
+                                    }
+                                  },
+                                  "id" : 54
+                                }
+                              ]
+                            ]
+                          },
+                          "id" : 55
+                        }
+                      }
+                    },
+                    [
+                    ]
+                  ]
+                ]
+              },
+              "id" : 56
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefModule" : {
+            "node" : {
+              "data" : {
+                "name" : "Fw",
+                "members" : [
+                  [
+                    [
+                    ],
+                    {
+                      "DefPort" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "Tlm",
+                            "params" : [
+                            ],
+                            "returnType" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 57
+                        }
+                      }
+                    },
+                    [
+                    ]
+                  ],
+                  [
+                    [
+                    ],
+                    {
+                      "DefPort" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "Time",
+                            "params" : [
+                            ],
+                            "returnType" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 60
+                        }
+                      }
+                    },
+                    [
+                    ]
+                  ]
+                ]
+              },
+              "id" : 61
+            }
+          }
+        },
+        [
+        ]
+      ]
+    ]
+  }
+]
+{
+  "0" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "9.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "1" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "12.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "2" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "19.23",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "3" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "20.11",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "4" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "20.15",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "5" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "20.18",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "6" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "20.25",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "7" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "20.28",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "8" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "20.35",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "9" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "19.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "10" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "23.23",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "11" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "23.30",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "12" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "25.12",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "13" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "26.11",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "14" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "26.16",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "15" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "26.15",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "16" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "26.19",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "17" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "26.27",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "18" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "26.26",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "19" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "26.30",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "20" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "26.38",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "21" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "26.37",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "22" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "27.12",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "23" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "27.16",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "24" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "27.19",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "25" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "27.26",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "26" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "27.29",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "27" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "27.36",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "28" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "23.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "29" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "30.23",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "30" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "32.12",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "31" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.12",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "32" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.16",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "33" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.19",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "34" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.26",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "35" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.29",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "36" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.36",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "37" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "30.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "38" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "30.23",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "39" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "32.12",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "40" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.12",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "41" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.16",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "42" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.19",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "43" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.26",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "44" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.29",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "45" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.36",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "46" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "30.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "47" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "30.23",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "48" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "32.12",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "49" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.12",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "50" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.16",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "51" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.19",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "52" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.26",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "53" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.29",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "54" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.36",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "55" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "30.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "56" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "2.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "57" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "38.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "58" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "39.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "59" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "39.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "60" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "39.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "61" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "37.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  }
+}
+{
+  "inputFileSet" : [
+    "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/telemetry.fpp"
+  ],
+  "includedFileSet" : [
+  ],
+  "locationSpecifierMap" : [
+  ],
+  "parentSymbolMap" : {
+    "57" : 61,
+    "60" : 61
+  },
+  "symbolScopeMap" : {
+    "56" : {
+      "ScopeImpl" : {
+        "map" : {
+          
+        }
+      }
+    },
+    "61" : {
+      "ScopeImpl" : {
+        "map" : {
+          "Port" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "Tlm" : 57,
+                "Time" : 60
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "useDefMap" : {
+    "0" : "Tlm",
+    "1" : "Time"
+  },
+  "typeMap" : {
+    "8" : "Integer",
+    "23" : "Integer",
+    "4" : "Integer",
+    "50" : "Integer",
+    "10" : "F64",
+    "21" : "Integer",
+    "54" : "Integer",
+    "6" : "Integer",
+    "47" : "F64",
+    "2" : "U32",
+    "18" : "Integer",
+    "52" : "Integer",
+    "15" : "Integer",
+    "11" : "Integer",
+    "17" : "Integer",
+    "25" : "Integer",
+    "14" : "Integer",
+    "20" : "Integer",
+    "27" : "Integer"
+  },
+  "valueMap" : {
+    "8" : "2",
+    "23" : "3",
+    "4" : "0",
+    "50" : "3",
+    "21" : "-1",
+    "54" : "1",
+    "6" : "1",
+    "18" : "-2",
+    "52" : "2",
+    "15" : "-3",
+    "11" : "16",
+    "17" : "2",
+    "25" : "2",
+    "14" : "3",
+    "20" : "1",
+    "27" : "1"
+  },
+  "componentMap" : {
+    "56" : {
+      "id" : 56,
+      "portMap" : {
+        "tlmOut" : {
+          "Special" : {
+            "id" : 0,
+            "specifier" : {
+              "inputKind" : {
+                "Option" : "None"
+              },
+              "kind" : "Telemetry",
+              "name" : "tlmOut",
+              "priority" : {
+                "Option" : "None"
+              },
+              "queueFull" : {
+                "Option" : "None"
+              }
+            },
+            "name" : "Tlm",
+            "priority" : {
+              "Option" : "None"
+            },
+            "queueFull" : {
+              "Option" : "None"
+            }
+          }
+        },
+        "timeGetOut" : {
+          "Special" : {
+            "id" : 1,
+            "specifier" : {
+              "inputKind" : {
+                "Option" : "None"
+              },
+              "kind" : "TimeGet",
+              "name" : "timeGetOut",
+              "priority" : {
+                "Option" : "None"
+              },
+              "queueFull" : {
+                "Option" : "None"
+              }
+            },
+            "name" : "Time",
+            "priority" : {
+              "Option" : "None"
+            },
+            "queueFull" : {
+              "Option" : "None"
+            }
+          }
+        }
+      },
+      "specialPortMap" : {
+        "telemetry" : {
+          "id" : 0,
+          "specifier" : {
+            "inputKind" : {
+              "Option" : "None"
+            },
+            "kind" : "Telemetry",
+            "name" : "tlmOut",
+            "priority" : {
+              "Option" : "None"
+            },
+            "queueFull" : {
+              "Option" : "None"
+            }
+          },
+          "name" : "Tlm",
+          "priority" : {
+            "Option" : "None"
+          },
+          "queueFull" : {
+            "Option" : "None"
+          }
+        },
+        "time get" : {
+          "id" : 1,
+          "specifier" : {
+            "inputKind" : {
+              "Option" : "None"
+            },
+            "kind" : "TimeGet",
+            "name" : "timeGetOut",
+            "priority" : {
+              "Option" : "None"
+            },
+            "queueFull" : {
+              "Option" : "None"
+            }
+          },
+          "name" : "Time",
+          "priority" : {
+            "Option" : "None"
+          },
+          "queueFull" : {
+            "Option" : "None"
+          }
+        }
+      },
+      "commandMap" : {
+        
+      },
+      "defaultOpcode" : 0,
+      "tlmChannelMap" : {
+        "0" : {
+          "id" : 9,
+          "channelType" : "U32",
+          "update" : "Always",
+          "format" : {
+            "Option" : "None"
+          },
+          "lowLimits" : {
+            "red" : {
+              "id" : 3,
+              "value" : "0"
+            },
+            "orange" : {
+              "id" : 5,
+              "value" : "1"
+            },
+            "yellow" : {
+              "id" : 7,
+              "value" : "2"
+            }
+          },
+          "highLimits" : {
+            
+          }
+        },
+        "16" : {
+          "id" : 28,
+          "channelType" : "F64",
+          "update" : "OnChange",
+          "format" : {
+            "Option" : {
+              "Some" : {
+                "prefix" : "",
+                "fields" : [
+                  [
+                    {
+                      "Rational" : {
+                        "precision" : {
+                          "Option" : {
+                            "Some" : 3
+                          }
+                        },
+                        "t" : {
+                          "Fixed" : {
+                            
+                          }
+                        }
+                      }
+                    },
+                    ""
+                  ]
+                ]
+              }
+            }
+          },
+          "lowLimits" : {
+            "red" : {
+              "id" : 13,
+              "value" : "-3"
+            },
+            "orange" : {
+              "id" : 16,
+              "value" : "-2"
+            },
+            "yellow" : {
+              "id" : 19,
+              "value" : "-1"
+            }
+          },
+          "highLimits" : {
+            "red" : {
+              "id" : 22,
+              "value" : "3"
+            },
+            "orange" : {
+              "id" : 24,
+              "value" : "2"
+            },
+            "yellow" : {
+              "id" : 26,
+              "value" : "1"
+            }
+          }
+        },
+        "17" : {
+          "id" : 55,
+          "channelType" : "F64",
+          "update" : "Always",
+          "format" : {
+            "Option" : {
+              "Some" : {
+                "prefix" : "",
+                "fields" : [
+                  [
+                    {
+                      "Rational" : {
+                        "precision" : {
+                          "Option" : "None"
+                        },
+                        "t" : {
+                          "Exponent" : {
+                            
+                          }
+                        }
+                      }
+                    },
+                    ""
+                  ]
+                ]
+              }
+            }
+          },
+          "lowLimits" : {
+            
+          },
+          "highLimits" : {
+            "red" : {
+              "id" : 49,
+              "value" : "3"
+            },
+            "orange" : {
+              "id" : 51,
+              "value" : "2"
+            },
+            "yellow" : {
+              "id" : 53,
+              "value" : "1"
+            }
+          }
+        }
+      },
+      "defaultTlmChannelId" : 18,
+      "eventMap" : [
+      ],
+      "defaultEventId" : 0,
+      "paramMap" : {
+        
+      },
+      "specPortMatchingList" : [
+      ],
+      "portMatchingList" : [
+      ],
+      "defaultParamId" : 0
+    }
+  },
+  "componentInstanceMap" : {
+    
+  },
+  "topologyMap" : {
+    
+  }
+}

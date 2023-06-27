@@ -48,6 +48,537 @@
         },
         [
         ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "data" : {
+                "name" : "c",
+                "value" : {
+                  "data" : {
+                    "ExprLiteralString" : {
+                      "value" : "This is a string."
+                    }
+                  },
+                  "id" : 4
+                }
+              },
+              "id" : 5
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "data" : {
+                "name" : "d",
+                "value" : {
+                  "data" : {
+                    "ExprArray" : {
+                      "elts" : [
+                        {
+                          "data" : {
+                            "ExprLiteralInt" : {
+                              "value" : "1"
+                            }
+                          },
+                          "id" : 6
+                        },
+                        {
+                          "data" : {
+                            "ExprLiteralInt" : {
+                              "value" : "2"
+                            }
+                          },
+                          "id" : 7
+                        },
+                        {
+                          "data" : {
+                            "ExprLiteralInt" : {
+                              "value" : "3"
+                            }
+                          },
+                          "id" : 8
+                        }
+                      ]
+                    }
+                  },
+                  "id" : 9
+                }
+              },
+              "id" : 10
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "data" : {
+                "name" : "e",
+                "value" : {
+                  "data" : {
+                    "ExprArray" : {
+                      "elts" : [
+                        {
+                          "data" : {
+                            "ExprLiteralInt" : {
+                              "value" : "1"
+                            }
+                          },
+                          "id" : 11
+                        },
+                        {
+                          "data" : {
+                            "ExprLiteralFloat" : {
+                              "value" : "2.0"
+                            }
+                          },
+                          "id" : 12
+                        }
+                      ]
+                    }
+                  },
+                  "id" : 13
+                }
+              },
+              "id" : 14
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "data" : {
+                "name" : "f",
+                "value" : {
+                  "data" : {
+                    "ExprArray" : {
+                      "elts" : [
+                        {
+                          "data" : {
+                            "ExprArray" : {
+                              "elts" : [
+                                {
+                                  "data" : {
+                                    "ExprLiteralInt" : {
+                                      "value" : "1"
+                                    }
+                                  },
+                                  "id" : 15
+                                },
+                                {
+                                  "data" : {
+                                    "ExprLiteralInt" : {
+                                      "value" : "2"
+                                    }
+                                  },
+                                  "id" : 16
+                                }
+                              ]
+                            }
+                          },
+                          "id" : 17
+                        },
+                        {
+                          "data" : {
+                            "ExprArray" : {
+                              "elts" : [
+                                {
+                                  "data" : {
+                                    "ExprLiteralInt" : {
+                                      "value" : "3"
+                                    }
+                                  },
+                                  "id" : 18
+                                },
+                                {
+                                  "data" : {
+                                    "ExprLiteralInt" : {
+                                      "value" : "4"
+                                    }
+                                  },
+                                  "id" : 19
+                                }
+                              ]
+                            }
+                          },
+                          "id" : 20
+                        }
+                      ]
+                    }
+                  },
+                  "id" : 21
+                }
+              },
+              "id" : 22
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "data" : {
+                "name" : "g",
+                "value" : {
+                  "data" : {
+                    "ExprStruct" : {
+                      "members" : [
+                        {
+                          "data" : {
+                            "name" : "x",
+                            "value" : {
+                              "data" : {
+                                "ExprLiteralInt" : {
+                                  "value" : "1"
+                                }
+                              },
+                              "id" : 23
+                            }
+                          },
+                          "id" : 24
+                        },
+                        {
+                          "data" : {
+                            "name" : "y",
+                            "value" : {
+                              "data" : {
+                                "ExprLiteralString" : {
+                                  "value" : "abc"
+                                }
+                              },
+                              "id" : 25
+                            }
+                          },
+                          "id" : 26
+                        }
+                      ]
+                    }
+                  },
+                  "id" : 27
+                }
+              },
+              "id" : 28
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "data" : {
+                "name" : "h",
+                "value" : {
+                  "data" : {
+                    "ExprStruct" : {
+                      "members" : [
+                      ]
+                    }
+                  },
+                  "id" : 29
+                }
+              },
+              "id" : 30
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "data" : {
+                "name" : "i",
+                "value" : {
+                  "data" : {
+                    "ExprArray" : {
+                      "elts" : [
+                        {
+                          "data" : {
+                            "ExprStruct" : {
+                              "members" : [
+                                {
+                                  "data" : {
+                                    "name" : "x",
+                                    "value" : {
+                                      "data" : {
+                                        "ExprLiteralInt" : {
+                                          "value" : "1"
+                                        }
+                                      },
+                                      "id" : 31
+                                    }
+                                  },
+                                  "id" : 32
+                                },
+                                {
+                                  "data" : {
+                                    "name" : "y",
+                                    "value" : {
+                                      "data" : {
+                                        "ExprLiteralInt" : {
+                                          "value" : "2"
+                                        }
+                                      },
+                                      "id" : 33
+                                    }
+                                  },
+                                  "id" : 34
+                                }
+                              ]
+                            }
+                          },
+                          "id" : 35
+                        },
+                        {
+                          "data" : {
+                            "ExprStruct" : {
+                              "members" : [
+                                {
+                                  "data" : {
+                                    "name" : "x",
+                                    "value" : {
+                                      "data" : {
+                                        "ExprLiteralInt" : {
+                                          "value" : "3"
+                                        }
+                                      },
+                                      "id" : 36
+                                    }
+                                  },
+                                  "id" : 37
+                                }
+                              ]
+                            }
+                          },
+                          "id" : 38
+                        }
+                      ]
+                    }
+                  },
+                  "id" : 39
+                }
+              },
+              "id" : 40
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "data" : {
+                "name" : "j",
+                "value" : {
+                  "data" : {
+                    "ExprLiteralInt" : {
+                      "value" : "1"
+                    }
+                  },
+                  "id" : 41
+                }
+              },
+              "id" : 42
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "data" : {
+                "name" : "k",
+                "value" : {
+                  "data" : {
+                    "ExprIdent" : {
+                      "value" : "j"
+                    }
+                  },
+                  "id" : 43
+                }
+              },
+              "id" : 44
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "data" : {
+                "name" : "l",
+                "value" : {
+                  "data" : {
+                    "ExprUnop" : {
+                      "op" : "Minus",
+                      "e" : {
+                        "data" : {
+                          "ExprLiteralInt" : {
+                            "value" : "1"
+                          }
+                        },
+                        "id" : 45
+                      }
+                    }
+                  },
+                  "id" : 46
+                }
+              },
+              "id" : 47
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "data" : {
+                "name" : "m",
+                "value" : {
+                  "data" : {
+                    "ExprBinop" : {
+                      "e1" : {
+                        "data" : {
+                          "ExprLiteralInt" : {
+                            "value" : "1"
+                          }
+                        },
+                        "id" : 48
+                      },
+                      "op" : "Add",
+                      "e2" : {
+                        "data" : {
+                          "ExprLiteralInt" : {
+                            "value" : "2"
+                          }
+                        },
+                        "id" : 49
+                      }
+                    }
+                  },
+                  "id" : 50
+                }
+              },
+              "id" : 51
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "data" : {
+                "name" : "n",
+                "value" : {
+                  "data" : {
+                    "ExprParen" : {
+                      "e" : {
+                        "data" : {
+                          "ExprLiteralInt" : {
+                            "value" : "1"
+                          }
+                        },
+                        "id" : 52
+                      }
+                    }
+                  },
+                  "id" : 53
+                }
+              },
+              "id" : 54
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+          "This is a pre annotation.",
+          "It has two lines."
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "data" : {
+                "name" : "o",
+                "value" : {
+                  "data" : {
+                    "ExprLiteralInt" : {
+                      "value" : "0"
+                    }
+                  },
+                  "id" : 57
+                }
+              },
+              "id" : 58
+            }
+          }
+        },
+        [
+          "This is a post annotation.",
+          "It also has two lines."
+        ]
       ]
     ]
   }
@@ -80,6 +611,391 @@
     "includingLoc" : {
       "Option" : "None"
     }
+  },
+  "4" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "4.14",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "5" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "4.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "6" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "6.16",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "7" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "6.19",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "8" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "6.22",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "9" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "6.14",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "10" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "6.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "11" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "7.16",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "12" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "7.19",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "13" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "7.14",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "14" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "7.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "15" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "8.18",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "16" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "8.21",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "17" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "8.16",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "18" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "8.28",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "19" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "8.31",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "20" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "8.26",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "21" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "8.14",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "22" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "8.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "23" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "10.20",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "24" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "10.16",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "25" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "10.27",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "26" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "10.23",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "27" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "10.14",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "28" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "10.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "29" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "11.14",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "30" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "11.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "31" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "13.22",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "32" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "13.18",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "33" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "13.29",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "34" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "13.25",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "35" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "13.16",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "36" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "13.40",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "37" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "13.36",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "38" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "13.34",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "39" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "13.14",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "40" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "13.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "41" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "15.14",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "42" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "15.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "43" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "16.14",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "44" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "16.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "45" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "18.15",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "46" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "18.14",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "47" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "18.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "48" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "19.14",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "49" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "19.18",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "50" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "19.16",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "51" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "19.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "52" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "20.15",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "53" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "20.14",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "54" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "20.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "55" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "24.14",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "56" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "24.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "57" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "24.14",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "58" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "24.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
   }
 }
 {
@@ -97,19 +1013,115 @@
     
   },
   "useDefMap" : {
-    
+    "43" : "j"
   },
   "typeMap" : {
-    "0" : "Integer",
+    "45" : "Integer",
+    "8" : "Integer",
+    "22" : "[2] [2] Integer",
+    "50" : "Integer",
+    "5" : "string",
+    "10" : "[3] Integer",
+    "57" : "Integer",
+    "42" : "Integer",
+    "18" : "Integer",
+    "3" : "Integer",
+    "52" : "Integer",
+    "28" : "{ x: Integer, y: string }",
+    "12" : "F64",
+    "51" : "Integer",
+    "19" : "Integer",
+    "23" : "Integer",
+    "4" : "string",
+    "40" : "[2] { x: Integer, y: Integer }",
+    "15" : "Integer",
+    "11" : "Integer",
+    "9" : "[3] Integer",
+    "44" : "Integer",
+    "33" : "Integer",
+    "13" : "[2] F64",
+    "46" : "Integer",
+    "35" : "{ x: Integer, y: Integer }",
+    "16" : "Integer",
+    "48" : "Integer",
+    "21" : "[2] [2] Integer",
+    "54" : "Integer",
+    "43" : "Integer",
+    "49" : "Integer",
+    "6" : "Integer",
+    "36" : "Integer",
     "1" : "Integer",
+    "39" : "[2] { x: Integer, y: Integer }",
+    "17" : "[2] Integer",
+    "25" : "string",
+    "14" : "[2] F64",
+    "47" : "Integer",
+    "31" : "Integer",
+    "58" : "Integer",
+    "53" : "Integer",
+    "0" : "Integer",
+    "20" : "[2] Integer",
+    "27" : "{ x: Integer, y: string }",
     "2" : "Integer",
-    "3" : "Integer"
+    "38" : "{ x: Integer }",
+    "30" : "{ }",
+    "7" : "Integer",
+    "29" : "{ }",
+    "41" : "Integer"
   },
   "valueMap" : {
-    "0" : "1234",
+    "45" : "1",
+    "8" : "3",
+    "22" : "[ [ 1, 2 ], [ 3, 4 ] ]",
+    "50" : "3",
+    "5" : "\"This is a string.\"",
+    "10" : "[ 1, 2, 3 ]",
+    "57" : "0",
+    "42" : "1",
+    "18" : "3",
+    "3" : "43981",
+    "52" : "1",
+    "28" : "{ x = 1, y = \"abc\" }",
+    "12" : "2.0: F64",
+    "51" : "3",
+    "19" : "4",
+    "23" : "1",
+    "4" : "\"This is a string.\"",
+    "40" : "[ { x = 1, y = 2 }, { x = 3, y = 0 } ]",
+    "15" : "1",
+    "11" : "1",
+    "9" : "[ 1, 2, 3 ]",
+    "44" : "1",
+    "33" : "2",
+    "13" : "[ 1.0: F64, 2.0: F64 ]",
+    "46" : "-1",
+    "35" : "{ x = 1, y = 2 }",
+    "16" : "2",
+    "48" : "1",
+    "21" : "[ [ 1, 2 ], [ 3, 4 ] ]",
+    "54" : "1",
+    "43" : "1",
+    "49" : "2",
+    "6" : "1",
+    "36" : "3",
     "1" : "1234",
+    "39" : "[ { x = 1, y = 2 }, { x = 3, y = 0 } ]",
+    "17" : "[ 1, 2 ]",
+    "25" : "\"abc\"",
+    "14" : "[ 1.0: F64, 2.0: F64 ]",
+    "47" : "-1",
+    "31" : "1",
+    "58" : "0",
+    "53" : "1",
+    "0" : "1234",
+    "20" : "[ 3, 4 ]",
+    "27" : "{ x = 1, y = \"abc\" }",
     "2" : "43981",
-    "3" : "43981"
+    "38" : "{ x = 3 }",
+    "30" : "{ }",
+    "7" : "2",
+    "29" : "{ }",
+    "41" : "1"
   },
   "componentMap" : {
     

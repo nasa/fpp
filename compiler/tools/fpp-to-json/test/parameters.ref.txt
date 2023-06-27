@@ -1,0 +1,1365 @@
+[
+  {
+    "members" : [
+      [
+        [
+          "An array of 3 F64 values"
+        ],
+        {
+          "DefArray" : {
+            "node" : {
+              "data" : {
+                "name" : "F64x3",
+                "size" : {
+                  "data" : {
+                    "ExprLiteralInt" : {
+                      "value" : "3"
+                    }
+                  },
+                  "id" : 0
+                },
+                "eltType" : {
+                  "data" : {
+                    "TypeNameFloat" : {
+                      "name" : "F64"
+                    }
+                  },
+                  "id" : 1
+                },
+                "default" : {
+                  "Option" : "None"
+                },
+                "format" : {
+                  "Option" : "None"
+                }
+              },
+              "id" : 2
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+          "A component for illustrating parameter set and save opcodes"
+        ],
+        {
+          "DefComponent" : {
+            "node" : {
+              "data" : {
+                "kind" : "Passive",
+                "name" : "ParamOpcodes",
+                "members" : [
+                  [
+                    [
+                      "Command receive port"
+                    ],
+                    {
+                      "SpecPortInstance" : {
+                        "node" : {
+                          "data" : {
+                            "Special" : {
+                              "inputKind" : {
+                                "Option" : "None"
+                              },
+                              "kind" : "CommandRecv",
+                              "name" : "cmdIn",
+                              "priority" : {
+                                "Option" : "None"
+                              },
+                              "queueFull" : {
+                                "Option" : "None"
+                              }
+                            }
+                          },
+                          "id" : 3
+                        }
+                      }
+                    },
+                    [
+                    ]
+                  ],
+                  [
+                    [
+                      "Command registration port"
+                    ],
+                    {
+                      "SpecPortInstance" : {
+                        "node" : {
+                          "data" : {
+                            "Special" : {
+                              "inputKind" : {
+                                "Option" : "None"
+                              },
+                              "kind" : "CommandReg",
+                              "name" : "cmdRegOut",
+                              "priority" : {
+                                "Option" : "None"
+                              },
+                              "queueFull" : {
+                                "Option" : "None"
+                              }
+                            }
+                          },
+                          "id" : 4
+                        }
+                      }
+                    },
+                    [
+                    ]
+                  ],
+                  [
+                    [
+                      "Command response port"
+                    ],
+                    {
+                      "SpecPortInstance" : {
+                        "node" : {
+                          "data" : {
+                            "Special" : {
+                              "inputKind" : {
+                                "Option" : "None"
+                              },
+                              "kind" : "CommandResp",
+                              "name" : "cmdResponseOut",
+                              "priority" : {
+                                "Option" : "None"
+                              },
+                              "queueFull" : {
+                                "Option" : "None"
+                              }
+                            }
+                          },
+                          "id" : 5
+                        }
+                      }
+                    },
+                    [
+                    ]
+                  ],
+                  [
+                    [
+                      "Parameter get port"
+                    ],
+                    {
+                      "SpecPortInstance" : {
+                        "node" : {
+                          "data" : {
+                            "Special" : {
+                              "inputKind" : {
+                                "Option" : "None"
+                              },
+                              "kind" : "ParamGet",
+                              "name" : "prmGetOut",
+                              "priority" : {
+                                "Option" : "None"
+                              },
+                              "queueFull" : {
+                                "Option" : "None"
+                              }
+                            }
+                          },
+                          "id" : 6
+                        }
+                      }
+                    },
+                    [
+                    ]
+                  ],
+                  [
+                    [
+                      "Parameter set port"
+                    ],
+                    {
+                      "SpecPortInstance" : {
+                        "node" : {
+                          "data" : {
+                            "Special" : {
+                              "inputKind" : {
+                                "Option" : "None"
+                              },
+                              "kind" : "ParamSet",
+                              "name" : "prmSetOut",
+                              "priority" : {
+                                "Option" : "None"
+                              },
+                              "queueFull" : {
+                                "Option" : "None"
+                              }
+                            }
+                          },
+                          "id" : 7
+                        }
+                      }
+                    },
+                    [
+                    ]
+                  ],
+                  [
+                    [
+                      "Parameter 1",
+                      "Its implied set opcode is 0x00",
+                      "Its implied save opcode is 0x01"
+                    ],
+                    {
+                      "SpecParam" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "Param1",
+                            "typeName" : {
+                              "data" : {
+                                "TypeNameInt" : {
+                                  "name" : "U32"
+                                }
+                              },
+                              "id" : 8
+                            },
+                            "default" : {
+                              "Option" : {
+                                "Some" : {
+                                  "data" : {
+                                    "ExprLiteralInt" : {
+                                      "value" : "1"
+                                    }
+                                  },
+                                  "id" : 9
+                                }
+                              }
+                            },
+                            "id" : {
+                              "Option" : "None"
+                            },
+                            "setOpcode" : {
+                              "Option" : "None"
+                            },
+                            "saveOpcode" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 10
+                        }
+                      }
+                    },
+                    [
+                    ]
+                  ],
+                  [
+                    [
+                      "Parameter 2",
+                      "Its set opcode is 0x10",
+                      "Its save opcode is 0x11"
+                    ],
+                    {
+                      "SpecParam" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "Param2",
+                            "typeName" : {
+                              "data" : {
+                                "TypeNameFloat" : {
+                                  "name" : "F64"
+                                }
+                              },
+                              "id" : 11
+                            },
+                            "default" : {
+                              "Option" : {
+                                "Some" : {
+                                  "data" : {
+                                    "ExprLiteralFloat" : {
+                                      "value" : "2.0"
+                                    }
+                                  },
+                                  "id" : 12
+                                }
+                              }
+                            },
+                            "id" : {
+                              "Option" : {
+                                "Some" : {
+                                  "data" : {
+                                    "ExprLiteralInt" : {
+                                      "value" : "0x10"
+                                    }
+                                  },
+                                  "id" : 13
+                                }
+                              }
+                            },
+                            "setOpcode" : {
+                              "Option" : {
+                                "Some" : {
+                                  "data" : {
+                                    "ExprLiteralInt" : {
+                                      "value" : "0x10"
+                                    }
+                                  },
+                                  "id" : 14
+                                }
+                              }
+                            },
+                            "saveOpcode" : {
+                              "Option" : {
+                                "Some" : {
+                                  "data" : {
+                                    "ExprLiteralInt" : {
+                                      "value" : "0x11"
+                                    }
+                                  },
+                                  "id" : 15
+                                }
+                              }
+                            }
+                          },
+                          "id" : 16
+                        }
+                      }
+                    },
+                    [
+                    ]
+                  ],
+                  [
+                    [
+                      "Parameter 3",
+                      "Its set opcode is 0x12",
+                      "Its save opcode is 0x20"
+                    ],
+                    {
+                      "SpecParam" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "Param3",
+                            "typeName" : {
+                              "data" : {
+                                "TypeNameQualIdent" : {
+                                  "name" : {
+                                    "data" : {
+                                      "Unqualified" : {
+                                        "name" : "F64x3"
+                                      }
+                                    },
+                                    "id" : 36
+                                  }
+                                }
+                              },
+                              "id" : 37
+                            },
+                            "default" : {
+                              "Option" : {
+                                "Some" : {
+                                  "data" : {
+                                    "ExprArray" : {
+                                      "elts" : [
+                                        {
+                                          "data" : {
+                                            "ExprLiteralFloat" : {
+                                              "value" : "1.0"
+                                            }
+                                          },
+                                          "id" : 38
+                                        },
+                                        {
+                                          "data" : {
+                                            "ExprLiteralFloat" : {
+                                              "value" : "2.0"
+                                            }
+                                          },
+                                          "id" : 39
+                                        },
+                                        {
+                                          "data" : {
+                                            "ExprLiteralFloat" : {
+                                              "value" : "3.0"
+                                            }
+                                          },
+                                          "id" : 40
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "id" : 41
+                                }
+                              }
+                            },
+                            "id" : {
+                              "Option" : "None"
+                            },
+                            "setOpcode" : {
+                              "Option" : "None"
+                            },
+                            "saveOpcode" : {
+                              "Option" : {
+                                "Some" : {
+                                  "data" : {
+                                    "ExprLiteralInt" : {
+                                      "value" : "0x20"
+                                    }
+                                  },
+                                  "id" : 42
+                                }
+                              }
+                            }
+                          },
+                          "id" : 43
+                        }
+                      }
+                    },
+                    [
+                    ]
+                  ]
+                ]
+              },
+              "id" : 44
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefModule" : {
+            "node" : {
+              "data" : {
+                "name" : "Fw",
+                "members" : [
+                  [
+                    [
+                    ],
+                    {
+                      "DefPort" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "PrmGet",
+                            "params" : [
+                            ],
+                            "returnType" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 45
+                        }
+                      }
+                    },
+                    [
+                    ]
+                  ],
+                  [
+                    [
+                    ],
+                    {
+                      "DefPort" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "PrmSet",
+                            "params" : [
+                            ],
+                            "returnType" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 46
+                        }
+                      }
+                    },
+                    [
+                    ]
+                  ],
+                  [
+                    [
+                    ],
+                    {
+                      "DefPort" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "Cmd",
+                            "params" : [
+                            ],
+                            "returnType" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 47
+                        }
+                      }
+                    },
+                    [
+                    ]
+                  ],
+                  [
+                    [
+                    ],
+                    {
+                      "DefPort" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "CmdReg",
+                            "params" : [
+                            ],
+                            "returnType" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 48
+                        }
+                      }
+                    },
+                    [
+                    ]
+                  ],
+                  [
+                    [
+                    ],
+                    {
+                      "DefPort" : {
+                        "node" : {
+                          "data" : {
+                            "name" : "CmdResponse",
+                            "params" : [
+                            ],
+                            "returnType" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 51
+                        }
+                      }
+                    },
+                    [
+                    ]
+                  ]
+                ]
+              },
+              "id" : 52
+            }
+          }
+        },
+        [
+        ]
+      ]
+    ]
+  }
+]
+{
+  "0" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "2.16",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "1" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "2.19",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "2" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "2.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "3" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "12.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "4" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "15.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "5" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "18.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "6" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "21.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "7" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "24.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "8" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "33.17",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "9" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "33.29",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "10" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "33.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "11" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "38.17",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "12" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "39.13",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "13" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "40.8",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "14" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "41.16",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "15" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "42.17",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "16" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "38.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "17" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "47.17",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "18" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "47.17",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "19" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "47.17",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "20" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "48.15",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "21" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "48.20",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "22" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "48.25",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "23" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "48.13",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "24" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "49.17",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "25" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "47.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "26" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "47.17",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "27" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "47.17",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "28" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "47.17",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "29" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "48.15",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "30" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "48.20",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "31" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "48.25",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "32" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "48.13",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "33" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "49.17",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "34" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "47.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "35" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "47.17",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "36" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "47.17",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "37" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "47.17",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "38" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "48.15",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "39" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "48.20",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "40" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "48.25",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "41" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "48.13",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "42" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "49.17",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "43" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "47.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "44" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "5.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "45" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "54.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "46" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "55.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "47" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "56.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "48" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "57.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "49" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "58.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "50" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "58.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "51" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "58.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "52" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp",
+    "pos" : "53.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  }
+}
+{
+  "inputFileSet" : [
+    "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/parameters.fpp"
+  ],
+  "includedFileSet" : [
+  ],
+  "locationSpecifierMap" : [
+  ],
+  "parentSymbolMap" : {
+    "46" : 52,
+    "45" : 52,
+    "48" : 52,
+    "51" : 52,
+    "47" : 52
+  },
+  "symbolScopeMap" : {
+    "44" : {
+      "ScopeImpl" : {
+        "map" : {
+          
+        }
+      }
+    },
+    "52" : {
+      "ScopeImpl" : {
+        "map" : {
+          "Port" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "CmdReg" : 48,
+                "PrmGet" : 45,
+                "PrmSet" : 46,
+                "Cmd" : 47,
+                "CmdResponse" : 51
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "useDefMap" : {
+    "5" : "CmdResponse",
+    "37" : "F64x3",
+    "6" : "PrmGet",
+    "7" : "PrmSet",
+    "3" : "Cmd",
+    "36" : "F64x3",
+    "4" : "CmdReg"
+  },
+  "typeMap" : {
+    "12" : "F64",
+    "8" : "U32",
+    "40" : "F64",
+    "37" : "array F64x3",
+    "13" : "Integer",
+    "14" : "Integer",
+    "42" : "Integer",
+    "0" : "Integer",
+    "41" : "[3] F64",
+    "15" : "Integer",
+    "11" : "F64",
+    "9" : "Integer",
+    "1" : "F64",
+    "39" : "F64",
+    "2" : "array F64x3",
+    "38" : "F64"
+  },
+  "valueMap" : {
+    "12" : "2.0: F64",
+    "40" : "3.0: F64",
+    "13" : "16",
+    "39" : "2.0: F64",
+    "14" : "16",
+    "42" : "32",
+    "0" : "3",
+    "38" : "1.0: F64",
+    "41" : "[ 1.0: F64, 2.0: F64, 3.0: F64 ]",
+    "15" : "17",
+    "9" : "1"
+  },
+  "componentMap" : {
+    "44" : {
+      "id" : 44,
+      "portMap" : {
+        "cmdIn" : {
+          "Special" : {
+            "id" : 3,
+            "specifier" : {
+              "inputKind" : {
+                "Option" : "None"
+              },
+              "kind" : "CommandRecv",
+              "name" : "cmdIn",
+              "priority" : {
+                "Option" : "None"
+              },
+              "queueFull" : {
+                "Option" : "None"
+              }
+            },
+            "name" : "Cmd",
+            "priority" : {
+              "Option" : "None"
+            },
+            "queueFull" : {
+              "Option" : "None"
+            }
+          }
+        },
+        "prmGetOut" : {
+          "Special" : {
+            "id" : 6,
+            "specifier" : {
+              "inputKind" : {
+                "Option" : "None"
+              },
+              "kind" : "ParamGet",
+              "name" : "prmGetOut",
+              "priority" : {
+                "Option" : "None"
+              },
+              "queueFull" : {
+                "Option" : "None"
+              }
+            },
+            "name" : "PrmGet",
+            "priority" : {
+              "Option" : "None"
+            },
+            "queueFull" : {
+              "Option" : "None"
+            }
+          }
+        },
+        "cmdResponseOut" : {
+          "Special" : {
+            "id" : 5,
+            "specifier" : {
+              "inputKind" : {
+                "Option" : "None"
+              },
+              "kind" : "CommandResp",
+              "name" : "cmdResponseOut",
+              "priority" : {
+                "Option" : "None"
+              },
+              "queueFull" : {
+                "Option" : "None"
+              }
+            },
+            "name" : "CmdResponse",
+            "priority" : {
+              "Option" : "None"
+            },
+            "queueFull" : {
+              "Option" : "None"
+            }
+          }
+        },
+        "prmSetOut" : {
+          "Special" : {
+            "id" : 7,
+            "specifier" : {
+              "inputKind" : {
+                "Option" : "None"
+              },
+              "kind" : "ParamSet",
+              "name" : "prmSetOut",
+              "priority" : {
+                "Option" : "None"
+              },
+              "queueFull" : {
+                "Option" : "None"
+              }
+            },
+            "name" : "PrmSet",
+            "priority" : {
+              "Option" : "None"
+            },
+            "queueFull" : {
+              "Option" : "None"
+            }
+          }
+        },
+        "cmdRegOut" : {
+          "Special" : {
+            "id" : 4,
+            "specifier" : {
+              "inputKind" : {
+                "Option" : "None"
+              },
+              "kind" : "CommandReg",
+              "name" : "cmdRegOut",
+              "priority" : {
+                "Option" : "None"
+              },
+              "queueFull" : {
+                "Option" : "None"
+              }
+            },
+            "name" : "CmdReg",
+            "priority" : {
+              "Option" : "None"
+            },
+            "queueFull" : {
+              "Option" : "None"
+            }
+          }
+        }
+      },
+      "specialPortMap" : {
+        "param set" : {
+          "id" : 7,
+          "specifier" : {
+            "inputKind" : {
+              "Option" : "None"
+            },
+            "kind" : "ParamSet",
+            "name" : "prmSetOut",
+            "priority" : {
+              "Option" : "None"
+            },
+            "queueFull" : {
+              "Option" : "None"
+            }
+          },
+          "name" : "PrmSet",
+          "priority" : {
+            "Option" : "None"
+          },
+          "queueFull" : {
+            "Option" : "None"
+          }
+        },
+        "command recv" : {
+          "id" : 3,
+          "specifier" : {
+            "inputKind" : {
+              "Option" : "None"
+            },
+            "kind" : "CommandRecv",
+            "name" : "cmdIn",
+            "priority" : {
+              "Option" : "None"
+            },
+            "queueFull" : {
+              "Option" : "None"
+            }
+          },
+          "name" : "Cmd",
+          "priority" : {
+            "Option" : "None"
+          },
+          "queueFull" : {
+            "Option" : "None"
+          }
+        },
+        "command reg" : {
+          "id" : 4,
+          "specifier" : {
+            "inputKind" : {
+              "Option" : "None"
+            },
+            "kind" : "CommandReg",
+            "name" : "cmdRegOut",
+            "priority" : {
+              "Option" : "None"
+            },
+            "queueFull" : {
+              "Option" : "None"
+            }
+          },
+          "name" : "CmdReg",
+          "priority" : {
+            "Option" : "None"
+          },
+          "queueFull" : {
+            "Option" : "None"
+          }
+        },
+        "command resp" : {
+          "id" : 5,
+          "specifier" : {
+            "inputKind" : {
+              "Option" : "None"
+            },
+            "kind" : "CommandResp",
+            "name" : "cmdResponseOut",
+            "priority" : {
+              "Option" : "None"
+            },
+            "queueFull" : {
+              "Option" : "None"
+            }
+          },
+          "name" : "CmdResponse",
+          "priority" : {
+            "Option" : "None"
+          },
+          "queueFull" : {
+            "Option" : "None"
+          }
+        },
+        "param get" : {
+          "id" : 6,
+          "specifier" : {
+            "inputKind" : {
+              "Option" : "None"
+            },
+            "kind" : "ParamGet",
+            "name" : "prmGetOut",
+            "priority" : {
+              "Option" : "None"
+            },
+            "queueFull" : {
+              "Option" : "None"
+            }
+          },
+          "name" : "PrmGet",
+          "priority" : {
+            "Option" : "None"
+          },
+          "queueFull" : {
+            "Option" : "None"
+          }
+        }
+      },
+      "commandMap" : {
+        "16" : {
+          "Param" : {
+            "id" : 16,
+            "kind" : {
+              "Set" : {
+                
+              }
+            }
+          }
+        },
+        "32" : {
+          "Param" : {
+            "id" : 43,
+            "kind" : {
+              "Save" : {
+                
+              }
+            }
+          }
+        },
+        "1" : {
+          "Param" : {
+            "id" : 10,
+            "kind" : {
+              "Save" : {
+                
+              }
+            }
+          }
+        },
+        "17" : {
+          "Param" : {
+            "id" : 16,
+            "kind" : {
+              "Save" : {
+                
+              }
+            }
+          }
+        },
+        "0" : {
+          "Param" : {
+            "id" : 10,
+            "kind" : {
+              "Set" : {
+                
+              }
+            }
+          }
+        },
+        "18" : {
+          "Param" : {
+            "id" : 43,
+            "kind" : {
+              "Set" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "defaultOpcode" : 33,
+      "tlmChannelMap" : {
+        
+      },
+      "defaultTlmChannelId" : 0,
+      "eventMap" : [
+      ],
+      "defaultEventId" : 0,
+      "paramMap" : {
+        "0" : {
+          "id" : 10,
+          "paramType" : "U32",
+          "default" : {
+            "Option" : {
+              "Some" : "1: U32"
+            }
+          },
+          "setOpcode" : 0,
+          "saveOpcode" : 1
+        },
+        "16" : {
+          "id" : 16,
+          "paramType" : "F64",
+          "default" : {
+            "Option" : {
+              "Some" : "2.0: F64"
+            }
+          },
+          "setOpcode" : 16,
+          "saveOpcode" : 17
+        },
+        "17" : {
+          "id" : 43,
+          "paramType" : "array F64x3",
+          "default" : {
+            "Option" : {
+              "Some" : "[ 1.0: F64, 2.0: F64, 3.0: F64 ]: F64x3"
+            }
+          },
+          "setOpcode" : 18,
+          "saveOpcode" : 32
+        }
+      },
+      "specPortMatchingList" : [
+      ],
+      "portMatchingList" : [
+      ],
+      "defaultParamId" : 18
+    }
+  },
+  "componentInstanceMap" : {
+    
+  },
+  "topologyMap" : {
+    
+  }
+}
