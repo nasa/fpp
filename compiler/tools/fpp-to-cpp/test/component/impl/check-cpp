@@ -22,21 +22,13 @@ fprime_gcc=../../../../../scripts/fprime-gcc
 export FPRIME_GCC_FLAGS="-I../../fprime"
 warning_flags="-Wno-gnu-zero-variadic-macro-arguments -Wno-unused-parameter -Wno-return-type"
 
-component_dir=`dirname $PWD`
-echo "generating C++"
-fpp-to-cpp -d ../../fprime/Fw -p `dirname $component_dir`/fprime `cat deps.txt`
-for dir in Cmd Log Prm Time Tlm
-do
-  mv ../../fprime/Fw/$dir*.hpp ../../fprime/Fw/$dir*.cpp ../../fprime/Fw/$dir
-done
-mv ../../fprime/Fw/Param*.hpp ../../fprime/Fw/Param*.cpp ../../fprime/Fw/Prm
+. ../generate_cpp.sh
 
-for file in `find . -name '*.ref.cpp'`
+for file in `find . -name '*.ref.cpp-template'`
 do
   echo "compiling $file"
-  base=`echo $file | sed 's;\.cpp;;'`
-  dest_base=`echo $base | sed 's;\(.*\).ref*;\1;'`
-  cp $base.hpp $dest_base.hpp
-  cp $base.cpp $dest_base.cpp
-  $fprime_gcc -I../../../.. -I../ -c $dest_base.cpp $warning_flags
+  base=`echo $file | sed 's;\.ref.cpp-template;;'`
+  cp $base.ref.hpp-template $base.hpp
+  cp $base.ref.cpp-template $base.cpp
+  $fprime_gcc -I../../../.. -I../base -I.. -c $base.cpp $warning_flags
 done

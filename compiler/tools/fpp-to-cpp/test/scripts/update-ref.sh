@@ -45,13 +45,13 @@ move_cpp()
   done
 }
 
-move_cpp_no_ac()
+move_template()
 {
   file=$1
   target_suffix=$2
   for suffix in hpp cpp
   do
-    cp $file'.'$suffix $file$target_suffix'.ref.'$suffix
+    cp $file'.'$suffix-template $file$target_suffix'.ref.'$suffix-template
   done
 }
 
