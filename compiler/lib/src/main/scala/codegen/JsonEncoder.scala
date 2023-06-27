@@ -301,7 +301,7 @@ case class JsonEncoder(
         .map { case (key, value) =>
           key.toString -> value.asJson
         }
-        .toMap
+        //.toMap
         .asJson
     }
 
@@ -344,24 +344,20 @@ case class JsonEncoder(
     Encoder.instance { symbols =>
       symbols.toList
         .map { case ((key1, key2), value) =>
-          getUnqualifiedClassName(key1) -> Json.obj(
-            "qualifiedName" -> key2.asJson,
-            "Location" -> value.asJson
-          )
+          (getUnqualifiedClassName(key1), key2.asJson).asJson -> value.asJson
         }
-        .toMap
+        //.toMap
         .asJson
     }
 
  
-  implicit val componentInstanceLocationMapEncoder
-      : Encoder[Map[ComponentInstance, (Ast.Visibility, Location)]] =
+  implicit val componentInstanceLocationMapEncoder: Encoder[Map[ComponentInstance, (Ast.Visibility, Location)]] =
     Encoder.instance { symbols =>
       symbols.toList
         .map { case (key, value) =>
-          key.aNode._2.id -> value.asJson
+          key.asJson -> value.asJson
         }
-        .toMap
+        //.toMap
         .asJson
     }
 
@@ -436,9 +432,9 @@ case class JsonEncoder(
     Encoder.instance { symbols =>
       symbols.toList
         .map { case (key, value) =>
-          key.toString -> value.asJson
+          key.asJson -> value.asJson
         }
-        .toMap
+        //.toMap
         .asJson
     }
 
@@ -447,9 +443,9 @@ case class JsonEncoder(
     Encoder.instance { symbols =>
       symbols.toList
         .map { case (key, value) =>
-          key.toString -> value.asJson
+          key.asJson -> value.asJson
         }
-        .toMap
+        //.toMap
         .asJson
     }
 
@@ -523,8 +519,7 @@ case class JsonEncoder(
         "defaultParamId" -> component.defaultParamId.asJson
       )
   }
-  implicit val generalPortInstanceKindEncoder
-      : Encoder[PortInstance.General.Kind] =
+  implicit val generalPortInstanceKindEncoder: Encoder[PortInstance.General.Kind] =
     Encoder.encodeString.contramap(getUnqualifiedClassName(_))
 
   implicit val generalPortInstancetEncoder: Encoder[PortInstance.General] =
