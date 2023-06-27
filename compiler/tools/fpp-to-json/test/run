@@ -4,6 +4,7 @@
 
 fpp_to_json=../../../bin/fpp-to-json
 
+
 run_test()
 {
   args=$1
@@ -24,6 +25,17 @@ run_test()
   rm fpp-ast.json fpp-loc-map.json fpp-analysis.json
 
   diff -u $outfile.ref.txt $outfile.out.txt > $outfile.diff.txt 2>&1
+}
+
+run_python_validation()
+{
+  outfile=$1
+
+  # Run locationMapValidator.py and capture its output
+  python3 python/locationMapValidator.py > $outfile.py_out.txt
+
+  # Compare the Python output to the reference file and store the diff
+  diff -u $outfile.py_out.txt $outfile.py_ref.txt > $outfile.py_diff.txt 2>&1
 }
 
 constants()
@@ -110,6 +122,10 @@ importedTopologies(){
   run_test "" importedTopologies
 }
 
+locationMapValidator(){
+  run_python_validation "locationMapValidator"
+}
+
 tests="
 constants
 modules
@@ -130,6 +146,7 @@ queuedComponets
 activeComponents
 simpleTopology
 importedTopologies
+locationMapValidator
 "
 
 run_suite $tests

@@ -82,10 +82,10 @@ def check_if_ids_in_loc_map(numbers, data):
 
 
 
-with open('ast.json') as json_file:
+with open('python/ast.json') as json_file:
     ast = json.load(json_file)
 
-    with open('location.json') as json_file:
+    with open('python/location.json') as json_file:
         location = json.load(json_file)
         print(check_ids_in_dataset(group_ids_by_position(location), ast))
         print(check_if_ids_in_loc_map(collect_ids(ast), location))
