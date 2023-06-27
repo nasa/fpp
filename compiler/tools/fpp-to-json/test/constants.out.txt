@@ -1,0 +1,123 @@
+[
+  {
+    "members" : [
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "data" : {
+                "name" : "a",
+                "value" : {
+                  "data" : {
+                    "ExprLiteralInt" : {
+                      "value" : "1234"
+                    }
+                  },
+                  "id" : 0
+                }
+              },
+              "id" : 1
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "data" : {
+                "name" : "b",
+                "value" : {
+                  "data" : {
+                    "ExprLiteralInt" : {
+                      "value" : "0xABCD"
+                    }
+                  },
+                  "id" : 2
+                }
+              },
+              "id" : 3
+            }
+          }
+        },
+        [
+        ]
+      ]
+    ]
+  }
+]
+{
+  "0" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "1.14",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "1" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "1.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "2" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "2.14",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "3" : {
+    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "2.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  }
+}
+{
+  "inputFileSet" : [
+    "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/constants.fpp"
+  ],
+  "includedFileSet" : [
+  ],
+  "locationSpecifierMap" : [
+  ],
+  "parentSymbolMap" : {
+    
+  },
+  "symbolScopeMap" : {
+    
+  },
+  "useDefMap" : {
+    
+  },
+  "typeMap" : {
+    "0" : "Integer",
+    "1" : "Integer",
+    "2" : "Integer",
+    "3" : "Integer"
+  },
+  "valueMap" : {
+    "0" : "1234",
+    "1" : "1234",
+    "2" : "43981",
+    "3" : "43981"
+  },
+  "componentMap" : {
+    
+  },
+  "componentInstanceMap" : {
+    
+  },
+  "topologyMap" : {
+    
+  }
+}
