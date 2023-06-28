@@ -21,10 +21,10 @@ object FPPDepend {
     directFile: Option[String] = None,
     files: List[File] = List(),
     frameworkFile: Option[String] = None,
-    generatedFile: Option[String] = None,
+    generatedAutocodeFile: Option[String] = None,
     includedFile: Option[String] = None,
     missingFile: Option[String] = None,
-    template: Boolean = false,
+    generatedImplFile: Option[String] = None,
   )
 
   def mapIterable[T](
@@ -74,12 +74,9 @@ object FPPDepend {
           }
         case None => Right(())
       }
-      _ <- options.generatedFile match {
+      _ <- options.generatedAutocodeFile match {
         case Some(file) =>
-          for (files <-
-                 if options.template then ComputeGeneratedFiles.getImplFiles(tul)
-                 else ComputeGeneratedFiles.getAutocodeFiles(tul)
-              )
+          for (files <- ComputeGeneratedFiles.getAutocodeFiles(tul))
             yield writeIterable(files, file)
         case None => Right(())
       }
@@ -89,6 +86,12 @@ object FPPDepend {
       }
       _ <- options.missingFile match {
         case Some(file) => writeIterable(a.missingDependencyFileSet, file)
+        case None => Right(())
+      }
+      _ <- options.generatedImplFile match {
+        case Some(file) =>
+          for (files <- ComputeGeneratedFiles.getImplFiles(tul))
+            yield writeIterable(files, file)
         case None => Right(())
       }
     } yield mapIterable(a.dependencyFileSet, System.out.println(_))
@@ -141,7 +144,7 @@ object FPPDepend {
         .text("write framework dependencies to file"),
       opt[String]('g', "generated")
         .valueName("<file>")
-        .action((m, c) => c.copy(generatedFile = Some(m)))
+        .action((m, c) => c.copy(generatedAutocodeFile = Some(m)))
         .text("write names of generated autocode files to file"),
       opt[String]('i', "included")
         .valueName("<file>")
@@ -154,7 +157,7 @@ object FPPDepend {
       help('h', "help").text("print this message and exit"),
       opt[String]('t', "template")
         .valueName("<file>")
-        .action((m, c) => c.copy(generatedFile = Some(m), template = true))
+        .action((m, c) => c.copy(generatedImplFile = Some(m)))
         .text("write names of generated template files to file"),
       arg[String]("file ...")
         .unbounded()
