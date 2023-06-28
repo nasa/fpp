@@ -40,11 +40,16 @@ object FPPToCpp {
         Parser.parseFile (Parser.transUnit) (None) _
       )
       a <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
-      s <- ComputeCppFiles.visitList(
-        CppWriterState(a),
-        tulFiles,
-        ComputeCppFiles.transUnit
-      )
+      s <- if options.template then ComputeImplCppFiles.visitList(
+          CppWriterState(a),
+          tulFiles,
+          ComputeImplCppFiles.transUnit
+        )
+        else ComputeAutocodeCppFiles.visitList(
+          CppWriterState(a),
+          tulFiles,
+          ComputeAutocodeCppFiles.transUnit
+        )
       _ <- options.names match {
         case Some(fileName) => writeCppFileNames(
           s.locationMap.toList.map(_._1), fileName
@@ -62,10 +67,10 @@ object FPPToCpp {
           options.guardPrefix,
           options.pathPrefixes,
           options.defaultStringSize,
-          options.template,
           Some(name)
         )
-        CppWriter.tuList(state, tulFiles)
+        if options.template then ImplCppWriter.tuList(state, tulFiles)
+        else AutocodeCppWriter.tuList(state, tulFiles)
       }
     } yield ()
   }

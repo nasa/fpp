@@ -17,8 +17,6 @@ case class CppWriterState(
   /** The default string size */
   defaultStringSize: Int = CppWriterState.defaultDefaultStringSize,
   /** Whether or not to emit template code */
-  template: Boolean = false,
-  /** The name of the tool using the CppWriter */
   toolName: Option[String] = None,
   /** The map from strings to locations */
   locationMap: Map[String, Option[Location]] = Map()

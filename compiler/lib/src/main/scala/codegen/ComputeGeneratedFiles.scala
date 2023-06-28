@@ -17,10 +17,10 @@ object ComputeGeneratedFiles {
 
   def getCppFiles(a: Analysis, tul: List[Ast.TransUnit]): Result.Result[List[String]] =
     for {
-      s <- ComputeCppFiles.visitList(
+      s <- ComputeAutocodeCppFiles.visitList(
         CppWriterState(a),
         tul,
-        ComputeCppFiles.transUnit
+        ComputeAutocodeCppFiles.transUnit
       )
     }
     yield s.locationMap.toList.map(_._1)
