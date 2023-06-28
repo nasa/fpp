@@ -25,8 +25,8 @@ case class ComponentImplWriter(
       includeGuard,
       getMembers,
       s.toolName,
-      "hpp-template",
-      "cpp-template"
+      "template.hpp",
+      "template.cpp"
     )
   }
 

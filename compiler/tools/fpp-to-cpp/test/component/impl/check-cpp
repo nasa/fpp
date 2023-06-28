@@ -24,11 +24,11 @@ warning_flags="-Wno-gnu-zero-variadic-macro-arguments -Wno-unused-parameter -Wno
 
 . ../generate_cpp.sh
 
-for file in `find . -name '*.ref.cpp-template'`
+for file in `find . -name '*.ref.template.cpp'`
 do
   echo "compiling $file"
-  base=`echo $file | sed 's;\.ref.cpp-template;;'`
-  cp $base.ref.hpp-template $base.hpp
-  cp $base.ref.cpp-template $base.cpp
+  base=`echo $file | sed 's;\.ref.template.cpp;;'`
+  cp $base.ref.template.hpp $base.hpp
+  cp $base.ref.template.cpp $base.cpp
   $fprime_gcc -I../../../.. -I../base -I.. -c $base.cpp $warning_flags
 done

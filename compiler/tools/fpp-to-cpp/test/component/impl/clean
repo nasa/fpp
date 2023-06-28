@@ -7,10 +7,8 @@ rm -f default-tests.sh default-update-ref.sh
 for file in `find . -name '*out.*' \
   -or -name '*.names.txt' \
   -or -name '*o' \
-  -or -name '*.cpp' \
-  -or -name '*.hpp' \
-  -or -name '*.cpp-template' -and -not -name '*.ref.cpp-template' \
-  -or -name '*.hpp-template' -and -not -name '*.ref.hpp-template'`
+  -or \( -not -name '*.ref.template.cpp' -and -name '*.cpp' \) \
+  -or \( -not -name '*.ref.template.hpp' -and -name '*.hpp' \)`
 do
   rm $file
 done
