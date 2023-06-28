@@ -17,6 +17,10 @@ case class JsonEncoder(
     analysis: Analysis = Analysis()
 ){
 
+  /*
+    Defines implicit Encoder instances for various types in the Ast and PortInstance classes.
+    Each encoder returns a Unqualified Class Name Json.
+  */
   implicit val binopEncoder: Encoder[Ast.Binop] =
     Encoder.encodeString.contramap(getUnqualifiedClassName(_))
   implicit val unopEncoder: Encoder[Ast.Unop] =
@@ -41,13 +45,23 @@ case class JsonEncoder(
     Encoder.encodeString.contramap(getUnqualifiedClassName(_))
   implicit val visibilityEncoder: Encoder[Ast.Visibility] =
     Encoder.encodeString.contramap(getUnqualifiedClassName(_))
-
   implicit val formalParamKindEncoder: Encoder[Ast.FormalParam.Kind] =
     Encoder.encodeString.contramap(getUnqualifiedClassName(_))
+  implicit val generalPortInstanceKindEncoder: Encoder[PortInstance.General.Kind] =
+    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
 
-  implicit def optionEncoder[A](implicit
-      encoder: Encoder[A]
-  ): Encoder[Option[A]] = {
+  implicit val typeEncoder: Encoder[Type] =
+    Encoder.encodeString.contramap(_.toString())
+  implicit val valueEncoder: Encoder[Value] =
+    Encoder.encodeString.contramap(_.toString)
+  implicit val portInstanceIdentifierEncoder: Encoder[PortInstanceIdentifier] =
+    Encoder.encodeString.contramap(_.toString())
+
+  /*
+    Encoders for serializing Ast
+  */
+
+  implicit def optionEncoder[A](implicit encoder: Encoder[A]): Encoder[Option[A]] = {
     case Some(value) => Json.obj("Option" -> Json.obj("Some" -> encoder(value)))
     case None        => Json.obj("Option" -> Json.fromString("None"))
   }
@@ -80,6 +94,10 @@ case class JsonEncoder(
       }
     )
 
+  /*
+    Encoder for Module Members: Encodes different subtypes of Ast.ModuleMember 
+    by adding their type name and converting them to JSON.
+  */
   implicit val moduleMemberEncoder: Encoder[Ast.ModuleMember] =
     Encoder.instance((m: Ast.ModuleMember) =>
       m.node._2 match {
@@ -109,7 +127,11 @@ case class JsonEncoder(
           (m.node._1, addTypeName(aNode, aNode.asJson), m.node._3).asJson
       }
     )
-
+  
+  /*
+    Encoder for Expressions: Encodes different subtypes of Ast.Expr by adding 
+    their type name and converting them to JSON.
+  */
   implicit val exprEncoder: Encoder[Ast.Expr] =
     Encoder.instance((e: Ast.Expr) =>
       e match {
@@ -127,6 +149,10 @@ case class JsonEncoder(
       }
     )
 
+  /*
+    Encoder for Component Members: Encodes different subtypes of Ast.ComponentMember 
+    by adding their type name and converting them to JSON.
+  */
   implicit val componentMemberEncoder: Encoder[Ast.ComponentMember] =
     Encoder.instance((c: Ast.ComponentMember) =>
       c.node._2 match {
@@ -159,6 +185,10 @@ case class JsonEncoder(
       }
     )
 
+  /*
+    Encoder for Type Names: Encodes different subtypes of Ast.TypeName by 
+    adding their type name and converting them to JSON.
+  */
   implicit val typeNameEncoder: Encoder[Ast.TypeName] =
     Encoder.instance((t: Ast.TypeName) =>
       t match {
@@ -169,7 +199,11 @@ case class JsonEncoder(
         case Ast.TypeNameBool => addTypeName(t, Json.fromString("TypeNameBool"))
       }
     )
-
+  
+  /*
+     Encoder for Topology Members: Encodes different subtypes of Ast.TopologyMember 
+     by adding their type name and converting them to JSON.
+  */
   implicit val topologyMemberEncoder: Encoder[Ast.TopologyMember] =
     Encoder.instance((t: Ast.TopologyMember) =>
       t.node._2 match {
@@ -184,28 +218,10 @@ case class JsonEncoder(
       }
     )
 
-  def printAstJson(): Json = tul.asJson
-
-  def addTypeName[T](x: T, json: Json): Json =
-    Json.obj(getUnqualifiedClassName(x) -> json)
-
-  def getUnqualifiedClassName[T](x: T): String =
-    x.getClass.getName
-      .replaceAll("\\A.*\\.", "")
-      .replaceAll("\\$$", "")
-      .replaceAll("\\A.*\\$", "")
-
-  def addAnnotationJson(
-      pre: List[String],
-      data: Json,
-      post: List[String]
-    ): Json =
-    Json.obj(
-      "preAnnotation" -> pre.asJson,
-      "data" -> data,
-      "postAnnotation" -> post.asJson
-    )
-
+  
+  /*
+    Encoders for serializing location map
+  */
 
   implicit val fileEncoder: Encoder[File] = new Encoder[File] {
     override def apply(file: File): Json = Json.fromString(file.toString)
@@ -224,14 +240,9 @@ case class JsonEncoder(
     )
   }
 
-  def printLocationsMapJson(): Json = {
-    val locationsList =
-      Locations.hashMapToListOfPairs().map { case (id, location) =>
-        id.toString -> location.asJson
-      }
-    Json.obj(locationsList: _*)
-  }
-
+  /*
+    Encoders for serializing analysis
+  */
 
   implicit val symbolMapEncoder: Encoder[Map[Symbol, Symbol]] =
     Encoder.instance { symbols =>
@@ -242,7 +253,7 @@ case class JsonEncoder(
         .toMap
         .asJson
     }
-  // approved
+  
   implicit val scopeMapEncoder: Encoder[Map[Symbol, Scope]] = Encoder.instance {
     symbols =>
       symbols.toList
@@ -252,7 +263,7 @@ case class JsonEncoder(
         .toMap
         .asJson
   }
-  // approved but maybe consider creating a specifier encoder that is more concise
+  
   implicit val componentMapEncoder: Encoder[Map[Symbol.Component, Component]] =
     Encoder.instance { symbols =>
       symbols.toList
@@ -263,7 +274,7 @@ case class JsonEncoder(
         .asJson
     }
 
-  // Approved
+  
   implicit val specialKindMapEncoder
       : Encoder[Map[Ast.SpecPortInstance.SpecialKind, PortInstance.Special]] =
     Encoder.instance { symbols =>
@@ -275,7 +286,7 @@ case class JsonEncoder(
         .asJson
     }
 
-  // approved but might consider refactoring the way "kind" is encoded
+  
   implicit val commandMapEncoder: Encoder[Map[Command.Opcode, Command]] =
     Encoder.instance { symbols =>
       symbols.toList
@@ -286,7 +297,7 @@ case class JsonEncoder(
         .asJson
     }
 
-  // No way to test but approved for now
+  
   implicit val tlmChannelMapEncoder: Encoder[Map[TlmChannel.Id, TlmChannel]] =
     Encoder.instance { symbols =>
       symbols.toList
@@ -297,18 +308,17 @@ case class JsonEncoder(
         .asJson
     }
 
-  // No way to test but approved for now
+  
   implicit val eventMapEncoder: Encoder[Map[Event.Id, Event]] =
     Encoder.instance { symbols =>
       symbols.toList
         .map { case (key, value) =>
           key.toString -> value.asJson
         }
-        //.toMap
         .asJson
     }
 
-  // No way to test but approved for now
+  
   implicit val paramMapEncoder: Encoder[Map[Param.Id, Param]] =
     Encoder.instance { symbols =>
       symbols.toList
@@ -319,7 +329,7 @@ case class JsonEncoder(
         .asJson
     }
 
-  // Approved
+  
   implicit val componentInstanceMapEncoder
       : Encoder[Map[Symbol.ComponentInstance, ComponentInstance]] =
     Encoder.instance { symbols =>
@@ -349,7 +359,6 @@ case class JsonEncoder(
         .map { case ((key1, key2), value) =>
           (getUnqualifiedClassName(key1), key2.asJson).asJson -> value.asJson
         }
-        //.toMap
         .asJson
     }
 
@@ -360,7 +369,6 @@ case class JsonEncoder(
         .map { case (key, value) =>
           key.asJson -> value.asJson
         }
-        //.toMap
         .asJson
     }
 
@@ -407,7 +415,7 @@ case class JsonEncoder(
         .asJson
     }
 
-  // approved
+
   implicit val directImportMapEncoder: Encoder[Map[Symbol.Topology, Location]] =
     Encoder.instance { symbols =>
       symbols.toList
@@ -418,7 +426,7 @@ case class JsonEncoder(
         .asJson
     }
 
-  // approved
+
   implicit val useDefMapEncoder: Encoder[Map[AstNode.Id, Symbol]] =
     Encoder.instance { symbols =>
       symbols.toList
@@ -429,7 +437,7 @@ case class JsonEncoder(
         .asJson
     }
 
-  // key.toString must be changed
+  
   implicit val ConnectionMapEncoder
       : Encoder[Map[PortInstanceIdentifier, Set[Connection]]] =
     Encoder.instance { symbols =>
@@ -437,7 +445,6 @@ case class JsonEncoder(
         .map { case (key, value) =>
           key.asJson -> value.asJson
         }
-        //.toMap
         .asJson
     }
 
@@ -448,7 +455,6 @@ case class JsonEncoder(
         .map { case (key, value) =>
           key.asJson -> value.asJson
         }
-        //.toMap
         .asJson
     }
 
@@ -476,10 +482,7 @@ case class JsonEncoder(
       )
   }
 
-  implicit val typeEncoder: Encoder[Type] =
-    Encoder.encodeString.contramap(_.toString())
-  implicit val valueEncoder: Encoder[Value] =
-    Encoder.encodeString.contramap(_.toString)
+  
 
   implicit val limitsEncoder: Encoder[TlmChannel.Limits] = Encoder.instance {
     limits =>
@@ -501,9 +504,6 @@ case class JsonEncoder(
     )
   }
 
-  implicit val portInstanceIdentifierEncoder: Encoder[PortInstanceIdentifier] =
-    Encoder.encodeString.contramap(_.toString())
-
   implicit val componentEncoder: Encoder[Component] = Encoder.instance {
     component =>
       Json.obj(
@@ -522,8 +522,7 @@ case class JsonEncoder(
         "defaultParamId" -> component.defaultParamId.asJson
       )
   }
-  implicit val generalPortInstanceKindEncoder: Encoder[PortInstance.General.Kind] =
-    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
+
 
   implicit val generalPortInstancetEncoder: Encoder[PortInstance.General] =
     Encoder.instance { genPort =>
@@ -641,26 +640,64 @@ case class JsonEncoder(
       )
     }
 
-  implicit val setCompInstanceLocationEncoder
-      : Encoder[(ComponentInstance, Location)] = Encoder.instance { tuple =>
+  implicit val setCompInstanceLocationEncoder: Encoder[(ComponentInstance, Location)] = Encoder.instance { tuple =>
     (tuple._1.aNode._2.id.asJson, tuple._2.asJson).asJson
   }
 
+  /*
+    Top Level methods used in the fpp-to-json tool
+  */
+
+  // Top level method for converting Ast Data Structure to Json
+  def printAstJson(): Json = tul.asJson
+
+  // Top level method for converting Location Map Data Structure to Json
+  def printLocationsMapJson(): Json = {
+    val locationsList =
+      Locations.hashMapToListOfPairs().map { case (id, location) =>
+        id.toString -> location.asJson
+      }
+    Json.obj(locationsList: _*)
+  }
+
+  // Top level method for converting Analysis Data Structure to Json
   def printAnalysisJson(): Json = {
     Json.obj(
-      "inputFileSet" -> analysis.inputFileSet.asJson, // good to go
-      "includedFileSet" -> analysis.includedFileSet.asJson, // good to go
+      "inputFileSet" -> analysis.inputFileSet.asJson, 
+      "includedFileSet" -> analysis.includedFileSet.asJson, 
       "locationSpecifierMap" -> analysis.locationSpecifierMap.asJson, // should be good to go (needs more tests)
-      "parentSymbolMap" -> analysis.parentSymbolMap.asJson, // good to go
+      "parentSymbolMap" -> analysis.parentSymbolMap.asJson, 
       "symbolScopeMap" -> analysis.symbolScopeMap.asJson, // may need to revisit becuase there feels like too much nesting
-      "useDefMap" -> analysis.useDefMap.asJson, // good to go
-      "typeMap" -> analysis.typeMap.asJson, // good to go
-      "valueMap" -> analysis.valueMap.asJson, // good to go
-      "componentMap" -> analysis.componentMap.asJson, // mostly good to go, revisit the port matching maps
-      "componentInstanceMap" -> analysis.componentInstanceMap.asJson, // good to go
-      "topologyMap" -> analysis.topologyMap.asJson //
+      "useDefMap" -> analysis.useDefMap.asJson,
+      "typeMap" -> analysis.typeMap.asJson, 
+      "valueMap" -> analysis.valueMap.asJson, 
+      "componentMap" -> analysis.componentMap.asJson, 
+      "componentInstanceMap" -> analysis.componentInstanceMap.asJson, 
+      "topologyMap" -> analysis.topologyMap.asJson 
     )
   }
 
+  /*
+    Helper methods
+  */
+
+  def addTypeName[T](x: T, json: Json): Json =
+    Json.obj(getUnqualifiedClassName(x) -> json)
+
+  def getUnqualifiedClassName[T](x: T): String =
+    x.getClass.getName
+      .replaceAll("\\A.*\\.", "")
+      .replaceAll("\\$$", "")
+      .replaceAll("\\A.*\\$", "")
+
+  def addAnnotationJson(
+      pre: List[String],
+      data: Json,
+      post: List[String]
+    ): Json = Json.obj(
+      "preAnnotation" -> pre.asJson,
+      "data" -> data,
+      "postAnnotation" -> post.asJson
+    )
 
 }
