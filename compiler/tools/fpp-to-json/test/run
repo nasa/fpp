@@ -27,16 +27,6 @@ run_test()
   diff -u $outfile.ref.txt $outfile.out.txt > $outfile.diff.txt 2>&1
 }
 
-run_python_validation()
-{
-  outfile=$1
-
-  # Run locationMapValidator.py and capture its output
-  python3 python/locationMapValidator.py > $outfile.py_out.txt
-
-  # Compare the Python output to the reference file and store the diff
-  diff -u $outfile.py_out.txt $outfile.py_ref.txt > $outfile.py_diff.txt 2>&1
-}
 
 constants()
 {
@@ -123,7 +113,15 @@ importedTopologies(){
 }
 
 locationMapValidator(){
-  run_python_validation "locationMapValidator"
+  outfile=$1
+
+  # Run locationMapValidator.py and capture its output
+  output=$(python3 python/locationMapValidator.py)
+  exit_status=$?
+  if [ $exit_status -eq 1 ]; then
+    echo "$output" >&2
+    return 1
+  fi
 }
 
 tests="

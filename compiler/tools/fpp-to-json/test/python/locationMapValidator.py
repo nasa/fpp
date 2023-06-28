@@ -1,4 +1,5 @@
 import json
+import sys
 
 def find_id_in_ast(json_data, target_id):
     # Check if the current level is a list
@@ -21,7 +22,7 @@ def find_id_in_ast(json_data, target_id):
             if result:
                 return True
     # Return False if the target id is not found
-    return False
+    return f"ID not found in ast: {target_id}"
 
 
 def group_ids_by_position(id_pos_list):
@@ -43,8 +44,7 @@ def check_ids_in_dataset(id_list, ast):
             if(find_id_in_ast(ast, id)):
                 found = True
         if not found:
-            print(id_group)
-            #return id_group
+            return id_group
     return True
 
 def collect_ids(json_data):
@@ -76,7 +76,7 @@ def check_if_ids_in_loc_map(numbers, data):
     
     for number in numbers:
         if number not in json_numbers:
-            return False
+            return f"ID in ast not found in location map: {number}"
     
     return True
 
@@ -87,6 +87,10 @@ with open('python/ast.json') as json_file:
 
     with open('python/location.json') as json_file:
         location = json.load(json_file)
-        print(check_ids_in_dataset(group_ids_by_position(location), ast))
-        print(check_if_ids_in_loc_map(collect_ids(ast), location))
+        loc_map_check_result = check_if_ids_in_loc_map(collect_ids(ast), location)
+        if loc_map_check_result is not True:
+            print(loc_map_check_result)
+            sys.exit(1)
+        else:
+            sys.exit(0)
 
