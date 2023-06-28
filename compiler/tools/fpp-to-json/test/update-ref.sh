@@ -16,6 +16,8 @@ update()
   fi
   echo "updating $outfile.ref.txt"
   $fpp_to_json $args $infile.fpp 2>&1 | remove_path_prefix > $outfile.ref.txt
+  cat fpp-ast.json fpp-loc-map.json fpp-analysis.json >> $outfile.ref.txt
+  rm fpp-ast.json fpp-loc-map.json fpp-analysis.json
 }
 
 for file in `find . -name '*.ref.txt'`
@@ -42,5 +44,4 @@ update "" queuedComponets
 update "" activeComponents
 update "" simpleTopology
 update "" importedTopologies
-update "" locationMapValidator
 
