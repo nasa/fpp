@@ -23,7 +23,8 @@ object FPPDepend {
     frameworkFile: Option[String] = None,
     generatedFile: Option[String] = None,
     includedFile: Option[String] = None,
-    missingFile: Option[String] = None
+    missingFile: Option[String] = None,
+    template: Boolean = false,
   )
 
   def mapIterable[T](
@@ -75,7 +76,10 @@ object FPPDepend {
       }
       _ <- options.generatedFile match {
         case Some(file) =>
-          for (files <- ComputeGeneratedFiles.getFiles(tul))
+          for (files <-
+                 if options.template then ComputeGeneratedFiles.getImplFiles(tul)
+                 else ComputeGeneratedFiles.getAutocodeFiles(tul)
+              )
             yield writeIterable(files, file)
         case None => Right(())
       }
@@ -138,7 +142,7 @@ object FPPDepend {
       opt[String]('g', "generated")
         .valueName("<file>")
         .action((m, c) => c.copy(generatedFile = Some(m)))
-        .text("write names of generated files to file"),
+        .text("write names of generated autocode files to file"),
       opt[String]('i', "included")
         .valueName("<file>")
         .action((m, c) => c.copy(includedFile = Some(m)))
@@ -148,6 +152,10 @@ object FPPDepend {
         .action((m, c) => c.copy(missingFile = Some(m)))
         .text("write missing dependencies to file"),
       help('h', "help").text("print this message and exit"),
+      opt[String]('t', "template")
+        .valueName("<file>")
+        .action((m, c) => c.copy(generatedFile = Some(m), template = true))
+        .text("write names of generated template files to file"),
       arg[String]("file ...")
         .unbounded()
         .optional()
