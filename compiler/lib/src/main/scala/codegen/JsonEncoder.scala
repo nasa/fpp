@@ -42,6 +42,9 @@ case class JsonEncoder(
   implicit val visibilityEncoder: Encoder[Ast.Visibility] =
     Encoder.encodeString.contramap(getUnqualifiedClassName(_))
 
+  implicit val formalParamKindEncoder: Encoder[Ast.FormalParam.Kind] =
+    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
+
   implicit def optionEncoder[A](implicit
       encoder: Encoder[A]
   ): Encoder[Option[A]] = {

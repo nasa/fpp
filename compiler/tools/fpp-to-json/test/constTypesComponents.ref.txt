@@ -181,11 +181,7 @@
                                 {
                                   "AstNode" : {
                                     "data" : {
-                                      "kind" : {
-                                        "Value" : {
-                                          
-                                        }
-                                      },
+                                      "kind" : "Value",
                                       "name" : "state",
                                       "typeName" : {
                                         "data" : {

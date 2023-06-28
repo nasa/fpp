@@ -26,11 +26,7 @@
                                 {
                                   "AstNode" : {
                                     "data" : {
-                                      "kind" : {
-                                        "Value" : {
-                                          
-                                        }
-                                      },
+                                      "kind" : "Value",
                                       "name" : "cal",
                                       "typeName" : {
                                         "data" : {

@@ -163,11 +163,7 @@
                                 {
                                   "AstNode" : {
                                     "data" : {
-                                      "kind" : {
-                                        "Value" : {
-                                          
-                                        }
-                                      },
+                                      "kind" : "Value",
                                       "name" : "a",
                                       "typeName" : {
                                         "data" : {
@@ -190,11 +186,7 @@
                                 {
                                   "AstNode" : {
                                     "data" : {
-                                      "kind" : {
-                                        "Value" : {
-                                          
-                                        }
-                                      },
+                                      "kind" : "Value",
                                       "name" : "b",
                                       "typeName" : {
                                         "data" : {
@@ -259,11 +251,7 @@
                                 {
                                   "AstNode" : {
                                     "data" : {
-                                      "kind" : {
-                                        "Value" : {
-                                          
-                                        }
-                                      },
+                                      "kind" : "Value",
                                       "name" : "a",
                                       "typeName" : {
                                         "data" : {

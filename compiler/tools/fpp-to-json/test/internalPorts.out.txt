@@ -46,11 +46,7 @@
                                 {
                                   "AstNode" : {
                                     "data" : {
-                                      "kind" : {
-                                        "Value" : {
-                                          
-                                        }
-                                      },
+                                      "kind" : "Value",
                                       "name" : "t",
                                       "typeName" : {
                                         "data" : {

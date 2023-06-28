@@ -58,11 +58,7 @@
                     {
                       "AstNode" : {
                         "data" : {
-                          "kind" : {
-                            "Value" : {
-                              
-                            }
-                          },
+                          "kind" : "Value",
                           "name" : "a",
                           "typeName" : {
                             "data" : {
@@ -106,11 +102,7 @@
                     {
                       "AstNode" : {
                         "data" : {
-                          "kind" : {
-                            "Value" : {
-                              
-                            }
-                          },
+                          "kind" : "Value",
                           "name" : "a",
                           "typeName" : {
                             "data" : {
@@ -133,11 +125,7 @@
                     {
                       "AstNode" : {
                         "data" : {
-                          "kind" : {
-                            "Value" : {
-                              
-                            }
-                          },
+                          "kind" : "Value",
                           "name" : "b",
                           "typeName" : {
                             "data" : {
@@ -160,11 +148,7 @@
                     {
                       "AstNode" : {
                         "data" : {
-                          "kind" : {
-                            "Value" : {
-                              
-                            }
-                          },
+                          "kind" : "Value",
                           "name" : "c",
                           "typeName" : {
                             "data" : {
@@ -284,11 +268,7 @@
                     {
                       "AstNode" : {
                         "data" : {
-                          "kind" : {
-                            "Value" : {
-                              
-                            }
-                          },
+                          "kind" : "Value",
                           "name" : "e",
                           "typeName" : {
                             "data" : {
@@ -318,11 +298,7 @@
                     {
                       "AstNode" : {
                         "data" : {
-                          "kind" : {
-                            "Value" : {
-                              
-                            }
-                          },
+                          "kind" : "Value",
                           "name" : "t",
                           "typeName" : {
                             "data" : {
@@ -352,11 +328,7 @@
                     {
                       "AstNode" : {
                         "data" : {
-                          "kind" : {
-                            "Ref" : {
-                              
-                            }
-                          },
+                          "kind" : "Ref",
                           "name" : "c",
                           "typeName" : {
                             "data" : {
@@ -482,11 +454,7 @@
                     {
                       "AstNode" : {
                         "data" : {
-                          "kind" : {
-                            "Ref" : {
-                              
-                            }
-                          },
+                          "kind" : "Ref",
                           "name" : "result",
                           "typeName" : {
                             "data" : {
