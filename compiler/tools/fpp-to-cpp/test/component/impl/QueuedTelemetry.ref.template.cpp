@@ -8,7 +8,7 @@
 #include "impl/QueuedTelemetry.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction and destruction
+// Component construction, initialization, and destruction
 // ----------------------------------------------------------------------
 
 QueuedTelemetry ::
@@ -16,6 +16,15 @@ QueuedTelemetry ::
     QueuedTelemetryComponentBase(compName)
 {
 
+}
+
+void QueuedTelemetry ::
+  init(
+      NATIVE_INT_TYPE queueDepth,
+      NATIVE_INT_TYPE instance
+  )
+{
+  QueuedTelemetryComponentBase::init(queueDepth, instance);
 }
 
 QueuedTelemetry ::

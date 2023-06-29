@@ -16,12 +16,18 @@ class ActiveTelemetry :
   public:
 
     // ----------------------------------------------------------------------
-    // Component construction and destruction
+    // Component construction, initialization, and destruction
     // ----------------------------------------------------------------------
 
     //! Construct ActiveTelemetry object
     ActiveTelemetry(
         const char* const compName //!< The component name
+    );
+
+    //! Initialize ActiveTelemetry object
+    void init(
+        NATIVE_INT_TYPE queueDepth, //!< The queue depth
+        NATIVE_INT_TYPE instance = 0 //!< The instance number
     );
 
     //! Destroy ActiveTelemetry object

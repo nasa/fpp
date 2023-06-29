@@ -8,7 +8,7 @@
 #include "impl/PassiveTest.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction and destruction
+// Component construction, initialization, and destruction
 // ----------------------------------------------------------------------
 
 PassiveTest ::
@@ -16,6 +16,12 @@ PassiveTest ::
     PassiveTestComponentBase(compName)
 {
 
+}
+
+void PassiveTest ::
+  init(NATIVE_INT_TYPE instance)
+{
+  PassiveTestComponentBase::init(instance);
 }
 
 PassiveTest ::

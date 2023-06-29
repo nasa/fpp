@@ -423,32 +423,6 @@ case class ComponentCppWriter (
       }
     }
 
-    val initInstanceParam = List(
-      CppDoc.Function.Param(
-        CppDoc.Type("NATIVE_INT_TYPE"),
-        "instance",
-        Some("The instance number"),
-        Some("0")
-      )
-    )
-    val initQueueDepthParam =
-      if data.kind != Ast.ComponentKind.Passive then List(
-        CppDoc.Function.Param(
-          CppDoc.Type("NATIVE_INT_TYPE"),
-          "queueDepth",
-          Some("The queue depth")
-        )
-      )
-      else Nil
-    val initMsgSizeParam =
-      if hasSerialAsyncInputPorts then List(
-        CppDoc.Function.Param(
-          CppDoc.Type("NATIVE_INT_TYPE"),
-          "msgSize",
-          Some("The message size")
-        )
-      )
-      else Nil
     val body = intersperseBlankLines(
       List(
         lines(
@@ -504,7 +478,7 @@ case class ComponentCppWriter (
         functionClassMember(
           Some(s"Initialize $className object"),
           "init",
-          initQueueDepthParam ++ initMsgSizeParam ++ initInstanceParam,
+          initParams,
           CppDoc.Type("void"),
           body
         )

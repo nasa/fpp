@@ -8,7 +8,7 @@
 #include "impl/PassiveTelemetry.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction and destruction
+// Component construction, initialization, and destruction
 // ----------------------------------------------------------------------
 
 PassiveTelemetry ::
@@ -16,6 +16,12 @@ PassiveTelemetry ::
     PassiveTelemetryComponentBase(compName)
 {
 
+}
+
+void PassiveTelemetry ::
+  init(NATIVE_INT_TYPE instance)
+{
+  PassiveTelemetryComponentBase::init(instance);
 }
 
 PassiveTelemetry ::

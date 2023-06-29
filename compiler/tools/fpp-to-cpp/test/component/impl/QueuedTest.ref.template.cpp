@@ -8,7 +8,7 @@
 #include "impl/QueuedTest.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction and destruction
+// Component construction, initialization, and destruction
 // ----------------------------------------------------------------------
 
 QueuedTest ::
@@ -16,6 +16,15 @@ QueuedTest ::
     QueuedTestComponentBase(compName)
 {
 
+}
+
+void QueuedTest ::
+  init(
+      NATIVE_INT_TYPE queueDepth,
+      NATIVE_INT_TYPE instance
+  )
+{
+  QueuedTestComponentBase::init(queueDepth, instance);
 }
 
 QueuedTest ::

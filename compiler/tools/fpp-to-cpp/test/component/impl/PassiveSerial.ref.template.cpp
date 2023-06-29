@@ -8,7 +8,7 @@
 #include "impl/PassiveSerial.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction and destruction
+// Component construction, initialization, and destruction
 // ----------------------------------------------------------------------
 
 PassiveSerial ::
@@ -16,6 +16,12 @@ PassiveSerial ::
     PassiveSerialComponentBase(compName)
 {
 
+}
+
+void PassiveSerial ::
+  init(NATIVE_INT_TYPE instance)
+{
+  PassiveSerialComponentBase::init(instance);
 }
 
 PassiveSerial ::

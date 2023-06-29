@@ -8,7 +8,7 @@
 #include "impl/QueuedSerial.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction and destruction
+// Component construction, initialization, and destruction
 // ----------------------------------------------------------------------
 
 QueuedSerial ::
@@ -16,6 +16,16 @@ QueuedSerial ::
     QueuedSerialComponentBase(compName)
 {
 
+}
+
+void QueuedSerial ::
+  init(
+      NATIVE_INT_TYPE queueDepth,
+      NATIVE_INT_TYPE msgSize,
+      NATIVE_INT_TYPE instance
+  )
+{
+  QueuedSerialComponentBase::init(queueDepth, msgSize, instance);
 }
 
 QueuedSerial ::

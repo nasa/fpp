@@ -16,12 +16,17 @@ class PassiveTelemetry :
   public:
 
     // ----------------------------------------------------------------------
-    // Component construction and destruction
+    // Component construction, initialization, and destruction
     // ----------------------------------------------------------------------
 
     //! Construct PassiveTelemetry object
     PassiveTelemetry(
         const char* const compName //!< The component name
+    );
+
+    //! Initialize PassiveTelemetry object
+    void init(
+        NATIVE_INT_TYPE instance = 0 //!< The instance number
     );
 
     //! Destroy PassiveTelemetry object

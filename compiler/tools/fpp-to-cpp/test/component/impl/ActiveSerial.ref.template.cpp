@@ -8,7 +8,7 @@
 #include "impl/ActiveSerial.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction and destruction
+// Component construction, initialization, and destruction
 // ----------------------------------------------------------------------
 
 ActiveSerial ::
@@ -16,6 +16,16 @@ ActiveSerial ::
     ActiveSerialComponentBase(compName)
 {
 
+}
+
+void ActiveSerial ::
+  init(
+      NATIVE_INT_TYPE queueDepth,
+      NATIVE_INT_TYPE msgSize,
+      NATIVE_INT_TYPE instance
+  )
+{
+  ActiveSerialComponentBase::init(queueDepth, msgSize, instance);
 }
 
 ActiveSerial ::

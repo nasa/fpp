@@ -16,12 +16,17 @@ class PassiveTest :
   public:
 
     // ----------------------------------------------------------------------
-    // Component construction and destruction
+    // Component construction, initialization, and destruction
     // ----------------------------------------------------------------------
 
     //! Construct PassiveTest object
     PassiveTest(
         const char* const compName //!< The component name
+    );
+
+    //! Initialize PassiveTest object
+    void init(
+        NATIVE_INT_TYPE instance = 0 //!< The instance number
     );
 
     //! Destroy PassiveTest object

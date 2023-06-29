@@ -8,7 +8,7 @@
 #include "impl/ActiveParams.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction and destruction
+// Component construction, initialization, and destruction
 // ----------------------------------------------------------------------
 
 ActiveParams ::
@@ -16,6 +16,15 @@ ActiveParams ::
     ActiveParamsComponentBase(compName)
 {
 
+}
+
+void ActiveParams ::
+  init(
+      NATIVE_INT_TYPE queueDepth,
+      NATIVE_INT_TYPE instance
+  )
+{
+  ActiveParamsComponentBase::init(queueDepth, instance);
 }
 
 ActiveParams ::

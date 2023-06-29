@@ -205,6 +205,34 @@ abstract class ComponentCppWriterUtils(
 
   val hasParameters: Boolean = component.paramMap.nonEmpty
 
+  /** Parameters for the init function */
+  val initParams: List[CppDoc.Function.Param] = List.concat(
+    if data.kind != Ast.ComponentKind.Passive then List(
+      CppDoc.Function.Param(
+        CppDoc.Type("NATIVE_INT_TYPE"),
+        "queueDepth",
+        Some("The queue depth")
+      )
+    )
+    else Nil,
+    if hasSerialAsyncInputPorts then List(
+      CppDoc.Function.Param(
+        CppDoc.Type("NATIVE_INT_TYPE"),
+        "msgSize",
+        Some("The message size")
+      )
+    )
+    else Nil,
+    List(
+      CppDoc.Function.Param(
+        CppDoc.Type("NATIVE_INT_TYPE"),
+        "instance",
+        Some("The instance number"),
+        Some("0")
+      )
+    ),
+  )
+
   val portParamTypeMap: Map[String, List[(String, String)]] =
     List(
       specialInputPorts,

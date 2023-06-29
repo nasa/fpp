@@ -8,7 +8,7 @@
 #include "impl/PassiveParams.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction and destruction
+// Component construction, initialization, and destruction
 // ----------------------------------------------------------------------
 
 PassiveParams ::
@@ -16,6 +16,12 @@ PassiveParams ::
     PassiveParamsComponentBase(compName)
 {
 
+}
+
+void PassiveParams ::
+  init(NATIVE_INT_TYPE instance)
+{
+  PassiveParamsComponentBase::init(instance);
 }
 
 PassiveParams ::

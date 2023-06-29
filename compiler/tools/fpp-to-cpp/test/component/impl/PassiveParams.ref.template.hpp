@@ -16,12 +16,17 @@ class PassiveParams :
   public:
 
     // ----------------------------------------------------------------------
-    // Component construction and destruction
+    // Component construction, initialization, and destruction
     // ----------------------------------------------------------------------
 
     //! Construct PassiveParams object
     PassiveParams(
         const char* const compName //!< The component name
+    );
+
+    //! Initialize PassiveParams object
+    void init(
+        NATIVE_INT_TYPE instance = 0 //!< The instance number
     );
 
     //! Destroy PassiveParams object

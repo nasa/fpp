@@ -8,7 +8,7 @@
 #include "impl/QueuedCommands.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction and destruction
+// Component construction, initialization, and destruction
 // ----------------------------------------------------------------------
 
 QueuedCommands ::
@@ -16,6 +16,15 @@ QueuedCommands ::
     QueuedCommandsComponentBase(compName)
 {
 
+}
+
+void QueuedCommands ::
+  init(
+      NATIVE_INT_TYPE queueDepth,
+      NATIVE_INT_TYPE instance
+  )
+{
+  QueuedCommandsComponentBase::init(queueDepth, instance);
 }
 
 QueuedCommands ::

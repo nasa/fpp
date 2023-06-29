@@ -16,12 +16,18 @@ class QueuedParams :
   public:
 
     // ----------------------------------------------------------------------
-    // Component construction and destruction
+    // Component construction, initialization, and destruction
     // ----------------------------------------------------------------------
 
     //! Construct QueuedParams object
     QueuedParams(
         const char* const compName //!< The component name
+    );
+
+    //! Initialize QueuedParams object
+    void init(
+        NATIVE_INT_TYPE queueDepth, //!< The queue depth
+        NATIVE_INT_TYPE instance = 0 //!< The instance number
     );
 
     //! Destroy QueuedParams object

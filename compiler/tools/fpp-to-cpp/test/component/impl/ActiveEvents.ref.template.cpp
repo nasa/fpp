@@ -8,7 +8,7 @@
 #include "impl/ActiveEvents.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction and destruction
+// Component construction, initialization, and destruction
 // ----------------------------------------------------------------------
 
 ActiveEvents ::
@@ -16,6 +16,15 @@ ActiveEvents ::
     ActiveEventsComponentBase(compName)
 {
 
+}
+
+void ActiveEvents ::
+  init(
+      NATIVE_INT_TYPE queueDepth,
+      NATIVE_INT_TYPE instance
+  )
+{
+  ActiveEventsComponentBase::init(queueDepth, instance);
 }
 
 ActiveEvents ::
