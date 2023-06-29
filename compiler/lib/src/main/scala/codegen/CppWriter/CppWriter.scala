@@ -5,7 +5,7 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 
 /** Writes out C++ */
-abstract class CppWriter extends AstStateVisitor with LineUtils {
+trait CppWriter extends AstStateVisitor with LineUtils {
 
   type State = CppWriterState
 

@@ -8,7 +8,7 @@ import fpp.compiler.util._
  *  Computes the names of the C++ files to generate
  *  Checks for duplicates that would cause a name collision. 
  *  ======================================================================*/
-abstract class ComputeCppFiles extends AstStateVisitor {
+trait ComputeCppFiles extends AstStateVisitor {
 
   type State = CppWriterState
 
