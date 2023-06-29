@@ -49,6 +49,8 @@ case class JsonEncoder(
     Encoder.encodeString.contramap(getUnqualifiedClassName(_))
   implicit val generalPortInstanceKindEncoder: Encoder[PortInstance.General.Kind] =
     Encoder.encodeString.contramap(getUnqualifiedClassName(_))
+  implicit val patternEncoder: Encoder[Ast.SpecConnectionGraph.Pattern.Kind] =
+    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
 
   implicit val typeEncoder: Encoder[Type] =
     Encoder.encodeString.contramap(_.toString())
