@@ -1329,7 +1329,42 @@
         "bufferSendIn" : {
           "General" : {
             "id" : 37,
-            "specifier" : "bufferSendIn",
+            "specifier" : {
+              "kind" : "AsyncInput",
+              "name" : "bufferSendIn",
+              "size" : {
+                "Option" : "None"
+              },
+              "port" : {
+                "Option" : {
+                  "Some" : {
+                    "data" : {
+                      "Qualified" : {
+                        "qualifier" : {
+                          "data" : {
+                            "Unqualified" : {
+                              "name" : "Fw"
+                            }
+                          },
+                          "id" : 34
+                        },
+                        "name" : {
+                          "data" : "BufferSend",
+                          "id" : 35
+                        }
+                      }
+                    },
+                    "id" : 36
+                  }
+                }
+              },
+              "priority" : {
+                "Option" : "None"
+              },
+              "queueFull" : {
+                "Option" : "None"
+              }
+            },
             "kind" : "AsyncInput",
             "size" : 1,
             "ty" : 1
@@ -1338,7 +1373,42 @@
         "bufferSendOut" : {
           "General" : {
             "id" : 49,
-            "specifier" : "bufferSendOut",
+            "specifier" : {
+              "kind" : "Output",
+              "name" : "bufferSendOut",
+              "size" : {
+                "Option" : "None"
+              },
+              "port" : {
+                "Option" : {
+                  "Some" : {
+                    "data" : {
+                      "Qualified" : {
+                        "qualifier" : {
+                          "data" : {
+                            "Unqualified" : {
+                              "name" : "Fw"
+                            }
+                          },
+                          "id" : 46
+                        },
+                        "name" : {
+                          "data" : "BufferSend",
+                          "id" : 47
+                        }
+                      }
+                    },
+                    "id" : 48
+                  }
+                }
+              },
+              "priority" : {
+                "Option" : "None"
+              },
+              "queueFull" : {
+                "Option" : "None"
+              }
+            },
             "kind" : "Output",
             "size" : 1,
             "ty" : 1

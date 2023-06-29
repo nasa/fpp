@@ -1262,7 +1262,42 @@
         "schedIn" : {
           "General" : {
             "id" : 46,
-            "specifier" : "schedIn",
+            "specifier" : {
+              "kind" : "SyncInput",
+              "name" : "schedIn",
+              "size" : {
+                "Option" : "None"
+              },
+              "port" : {
+                "Option" : {
+                  "Some" : {
+                    "data" : {
+                      "Qualified" : {
+                        "qualifier" : {
+                          "data" : {
+                            "Unqualified" : {
+                              "name" : "Svc"
+                            }
+                          },
+                          "id" : 43
+                        },
+                        "name" : {
+                          "data" : "Sched",
+                          "id" : 44
+                        }
+                      }
+                    },
+                    "id" : 45
+                  }
+                }
+              },
+              "priority" : {
+                "Option" : "None"
+              },
+              "queueFull" : {
+                "Option" : "None"
+              }
+            },
             "kind" : "SyncInput",
             "size" : 1,
             "ty" : 1
@@ -1271,7 +1306,31 @@
         "calibrationIn" : {
           "General" : {
             "id" : 49,
-            "specifier" : "calibrationIn",
+            "specifier" : {
+              "kind" : "AsyncInput",
+              "name" : "calibrationIn",
+              "size" : {
+                "Option" : "None"
+              },
+              "port" : {
+                "Option" : {
+                  "Some" : {
+                    "data" : {
+                      "Unqualified" : {
+                        "name" : "Calibration"
+                      }
+                    },
+                    "id" : 48
+                  }
+                }
+              },
+              "priority" : {
+                "Option" : "None"
+              },
+              "queueFull" : {
+                "Option" : "None"
+              }
+            },
             "kind" : "AsyncInput",
             "size" : 1,
             "ty" : 1

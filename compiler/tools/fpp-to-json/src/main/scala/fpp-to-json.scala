@@ -53,16 +53,13 @@ object FPPtoJson {
     val astFile = File.Path(astPath)
     val locFile = File.Path(locPath)
     for {
-      writer <- astFile.openWrite()
+      astWriter <- astFile.openWrite()
+      locWriter <- locFile.openWrite()
     } yield {
-      writer.println(encoder.printAstJson())
-      writer.close()
-    }
-    for {
-      writer <- locFile.openWrite()
-    } yield {
-      writer.println(encoder.printLocationsMapJson())
-      writer.close()
+      astWriter.println(encoder.printAstJson())
+      locWriter.println(encoder.printLocationsMapJson())
+      astWriter.close()
+      locWriter.close()
     }
 
     Right(tul)

@@ -477,7 +477,51 @@
         "pingOut" : {
           "General" : {
             "id" : 6,
-            "specifier" : "pingOut",
+            "specifier" : {
+              "kind" : "Output",
+              "name" : "pingOut",
+              "size" : {
+                "Option" : {
+                  "Some" : {
+                    "data" : {
+                      "ExprIdent" : {
+                        "value" : "numPingPorts"
+                      }
+                    },
+                    "id" : 2
+                  }
+                }
+              },
+              "port" : {
+                "Option" : {
+                  "Some" : {
+                    "data" : {
+                      "Qualified" : {
+                        "qualifier" : {
+                          "data" : {
+                            "Unqualified" : {
+                              "name" : "Svc"
+                            }
+                          },
+                          "id" : 3
+                        },
+                        "name" : {
+                          "data" : "Ping",
+                          "id" : 4
+                        }
+                      }
+                    },
+                    "id" : 5
+                  }
+                }
+              },
+              "priority" : {
+                "Option" : "None"
+              },
+              "queueFull" : {
+                "Option" : "None"
+              }
+            },
             "kind" : "Output",
             "size" : 10,
             "ty" : 10
@@ -486,7 +530,51 @@
         "pingIn" : {
           "General" : {
             "id" : 11,
-            "specifier" : "pingIn",
+            "specifier" : {
+              "kind" : "AsyncInput",
+              "name" : "pingIn",
+              "size" : {
+                "Option" : {
+                  "Some" : {
+                    "data" : {
+                      "ExprIdent" : {
+                        "value" : "numPingPorts"
+                      }
+                    },
+                    "id" : 7
+                  }
+                }
+              },
+              "port" : {
+                "Option" : {
+                  "Some" : {
+                    "data" : {
+                      "Qualified" : {
+                        "qualifier" : {
+                          "data" : {
+                            "Unqualified" : {
+                              "name" : "Svc"
+                            }
+                          },
+                          "id" : 8
+                        },
+                        "name" : {
+                          "data" : "Ping",
+                          "id" : 9
+                        }
+                      }
+                    },
+                    "id" : 10
+                  }
+                }
+              },
+              "priority" : {
+                "Option" : "None"
+              },
+              "queueFull" : {
+                "Option" : "None"
+              }
+            },
             "kind" : "AsyncInput",
             "size" : 10,
             "ty" : 10
@@ -556,14 +644,102 @@
           ],
           "instance1" : {
             "id" : 6,
-            "specifier" : "pingOut",
+            "specifier" : {
+              "kind" : "Output",
+              "name" : "pingOut",
+              "size" : {
+                "Option" : {
+                  "Some" : {
+                    "data" : {
+                      "ExprIdent" : {
+                        "value" : "numPingPorts"
+                      }
+                    },
+                    "id" : 2
+                  }
+                }
+              },
+              "port" : {
+                "Option" : {
+                  "Some" : {
+                    "data" : {
+                      "Qualified" : {
+                        "qualifier" : {
+                          "data" : {
+                            "Unqualified" : {
+                              "name" : "Svc"
+                            }
+                          },
+                          "id" : 3
+                        },
+                        "name" : {
+                          "data" : "Ping",
+                          "id" : 4
+                        }
+                      }
+                    },
+                    "id" : 5
+                  }
+                }
+              },
+              "priority" : {
+                "Option" : "None"
+              },
+              "queueFull" : {
+                "Option" : "None"
+              }
+            },
             "kind" : "Output",
             "size" : 10,
             "ty" : 10
           },
           "instance2" : {
             "id" : 11,
-            "specifier" : "pingIn",
+            "specifier" : {
+              "kind" : "AsyncInput",
+              "name" : "pingIn",
+              "size" : {
+                "Option" : {
+                  "Some" : {
+                    "data" : {
+                      "ExprIdent" : {
+                        "value" : "numPingPorts"
+                      }
+                    },
+                    "id" : 7
+                  }
+                }
+              },
+              "port" : {
+                "Option" : {
+                  "Some" : {
+                    "data" : {
+                      "Qualified" : {
+                        "qualifier" : {
+                          "data" : {
+                            "Unqualified" : {
+                              "name" : "Svc"
+                            }
+                          },
+                          "id" : 8
+                        },
+                        "name" : {
+                          "data" : "Ping",
+                          "id" : 9
+                        }
+                      }
+                    },
+                    "id" : 10
+                  }
+                }
+              },
+              "priority" : {
+                "Option" : "None"
+              },
+              "queueFull" : {
+                "Option" : "None"
+              }
+            },
             "kind" : "AsyncInput",
             "size" : 10,
             "ty" : 10

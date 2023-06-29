@@ -1753,7 +1753,31 @@
         "pIn" : {
           "General" : {
             "id" : 3,
-            "specifier" : "pIn",
+            "specifier" : {
+              "kind" : "SyncInput",
+              "name" : "pIn",
+              "size" : {
+                "Option" : "None"
+              },
+              "port" : {
+                "Option" : {
+                  "Some" : {
+                    "data" : {
+                      "Unqualified" : {
+                        "name" : "P"
+                      }
+                    },
+                    "id" : 2
+                  }
+                }
+              },
+              "priority" : {
+                "Option" : "None"
+              },
+              "queueFull" : {
+                "Option" : "None"
+              }
+            },
             "kind" : "SyncInput",
             "size" : 1,
             "ty" : 1
@@ -1762,7 +1786,31 @@
         "pOut" : {
           "General" : {
             "id" : 12,
-            "specifier" : "pOut",
+            "specifier" : {
+              "kind" : "Output",
+              "name" : "pOut",
+              "size" : {
+                "Option" : "None"
+              },
+              "port" : {
+                "Option" : {
+                  "Some" : {
+                    "data" : {
+                      "Unqualified" : {
+                        "name" : "P"
+                      }
+                    },
+                    "id" : 11
+                  }
+                }
+              },
+              "priority" : {
+                "Option" : "None"
+              },
+              "queueFull" : {
+                "Option" : "None"
+              }
+            },
             "kind" : "Output",
             "size" : 1,
             "ty" : 1

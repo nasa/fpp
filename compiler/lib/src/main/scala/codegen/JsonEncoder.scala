@@ -528,7 +528,7 @@ case class JsonEncoder(
     Encoder.instance { genPort =>
       Json.obj(
         "id" -> genPort.aNode._2.id.asJson,
-        "specifier" -> genPort.specifier.name.asJson, // may need to expand this since name is one of many feilds in here
+        "specifier" -> genPort.specifier.asJson,
         "kind" -> genPort.kind.asJson,
         "size" -> genPort.size.asJson,
         "ty" -> genPort.size.asJson
@@ -539,13 +539,7 @@ case class JsonEncoder(
     Encoder.instance { specPort =>
       Json.obj(
         "id" -> specPort.aNode._2.id.asJson,
-        "specifier" -> Json.obj(
-          "inputKind" -> specPort.specifier.inputKind.asJson,
-          "kind" -> specPort.specifier.kind.asJson,
-          "name" -> specPort.specifier.name.asJson,
-          "priority" -> specPort.specifier.priority.asJson,
-          "queueFull" -> specPort.specifier.queueFull.asJson
-        ),
+        "specifier" -> specPort.specifier.asJson,
         "name" -> specPort.symbol.getUnqualifiedName.asJson,
         "priority" -> specPort.priority.asJson,
         "queueFull" -> specPort.queueFull.asJson
@@ -665,9 +659,9 @@ case class JsonEncoder(
     Json.obj(
       "inputFileSet" -> analysis.inputFileSet.asJson, 
       "includedFileSet" -> analysis.includedFileSet.asJson, 
-      "locationSpecifierMap" -> analysis.locationSpecifierMap.asJson, // should be good to go (needs more tests)
+      "locationSpecifierMap" -> analysis.locationSpecifierMap.asJson, 
       "parentSymbolMap" -> analysis.parentSymbolMap.asJson, 
-      "symbolScopeMap" -> analysis.symbolScopeMap.asJson, // may need to revisit becuase there feels like too much nesting
+      "symbolScopeMap" -> analysis.symbolScopeMap.asJson, 
       "useDefMap" -> analysis.useDefMap.asJson,
       "typeMap" -> analysis.typeMap.asJson, 
       "valueMap" -> analysis.valueMap.asJson, 

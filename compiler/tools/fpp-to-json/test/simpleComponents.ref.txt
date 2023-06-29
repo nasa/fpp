@@ -1185,7 +1185,31 @@
         "f32ValueIn1" : {
           "General" : {
             "id" : 9,
-            "specifier" : "f32ValueIn1",
+            "specifier" : {
+              "kind" : "SyncInput",
+              "name" : "f32ValueIn1",
+              "size" : {
+                "Option" : "None"
+              },
+              "port" : {
+                "Option" : {
+                  "Some" : {
+                    "data" : {
+                      "Unqualified" : {
+                        "name" : "F32Value"
+                      }
+                    },
+                    "id" : 8
+                  }
+                }
+              },
+              "priority" : {
+                "Option" : "None"
+              },
+              "queueFull" : {
+                "Option" : "None"
+              }
+            },
             "kind" : "SyncInput",
             "size" : 1,
             "ty" : 1
@@ -1194,7 +1218,31 @@
         "f32ValueIn2" : {
           "General" : {
             "id" : 12,
-            "specifier" : "f32ValueIn2",
+            "specifier" : {
+              "kind" : "SyncInput",
+              "name" : "f32ValueIn2",
+              "size" : {
+                "Option" : "None"
+              },
+              "port" : {
+                "Option" : {
+                  "Some" : {
+                    "data" : {
+                      "Unqualified" : {
+                        "name" : "F32Value"
+                      }
+                    },
+                    "id" : 11
+                  }
+                }
+              },
+              "priority" : {
+                "Option" : "None"
+              },
+              "queueFull" : {
+                "Option" : "None"
+              }
+            },
             "kind" : "SyncInput",
             "size" : 1,
             "ty" : 1
@@ -1203,7 +1251,31 @@
         "f32ValueOut" : {
           "General" : {
             "id" : 21,
-            "specifier" : "f32ValueOut",
+            "specifier" : {
+              "kind" : "Output",
+              "name" : "f32ValueOut",
+              "size" : {
+                "Option" : "None"
+              },
+              "port" : {
+                "Option" : {
+                  "Some" : {
+                    "data" : {
+                      "Unqualified" : {
+                        "name" : "F32Value"
+                      }
+                    },
+                    "id" : 20
+                  }
+                }
+              },
+              "priority" : {
+                "Option" : "None"
+              },
+              "queueFull" : {
+                "Option" : "None"
+              }
+            },
             "kind" : "Output",
             "size" : 1,
             "ty" : 1
@@ -1239,7 +1311,31 @@
         "f32ValueIn1" : {
           "General" : {
             "id" : 25,
-            "specifier" : "f32ValueIn1",
+            "specifier" : {
+              "kind" : "AsyncInput",
+              "name" : "f32ValueIn1",
+              "size" : {
+                "Option" : "None"
+              },
+              "port" : {
+                "Option" : {
+                  "Some" : {
+                    "data" : {
+                      "Unqualified" : {
+                        "name" : "F32Value"
+                      }
+                    },
+                    "id" : 24
+                  }
+                }
+              },
+              "priority" : {
+                "Option" : "None"
+              },
+              "queueFull" : {
+                "Option" : "None"
+              }
+            },
             "kind" : "AsyncInput",
             "size" : 1,
             "ty" : 1
@@ -1248,7 +1344,31 @@
         "f32ValueIn2" : {
           "General" : {
             "id" : 28,
-            "specifier" : "f32ValueIn2",
+            "specifier" : {
+              "kind" : "AsyncInput",
+              "name" : "f32ValueIn2",
+              "size" : {
+                "Option" : "None"
+              },
+              "port" : {
+                "Option" : {
+                  "Some" : {
+                    "data" : {
+                      "Unqualified" : {
+                        "name" : "F32Value"
+                      }
+                    },
+                    "id" : 27
+                  }
+                }
+              },
+              "priority" : {
+                "Option" : "None"
+              },
+              "queueFull" : {
+                "Option" : "None"
+              }
+            },
             "kind" : "AsyncInput",
             "size" : 1,
             "ty" : 1
@@ -1257,7 +1377,31 @@
         "f32ValueOut" : {
           "General" : {
             "id" : 37,
-            "specifier" : "f32ValueOut",
+            "specifier" : {
+              "kind" : "Output",
+              "name" : "f32ValueOut",
+              "size" : {
+                "Option" : "None"
+              },
+              "port" : {
+                "Option" : {
+                  "Some" : {
+                    "data" : {
+                      "Unqualified" : {
+                        "name" : "F32Value"
+                      }
+                    },
+                    "id" : 36
+                  }
+                }
+              },
+              "priority" : {
+                "Option" : "None"
+              },
+              "queueFull" : {
+                "Option" : "None"
+              }
+            },
             "kind" : "Output",
             "size" : 1,
             "ty" : 1
@@ -1293,7 +1437,45 @@
         "f32ValueIn1" : {
           "General" : {
             "id" : 43,
-            "specifier" : "f32ValueIn1",
+            "specifier" : {
+              "kind" : "AsyncInput",
+              "name" : "f32ValueIn1",
+              "size" : {
+                "Option" : "None"
+              },
+              "port" : {
+                "Option" : {
+                  "Some" : {
+                    "data" : {
+                      "Unqualified" : {
+                        "name" : "F32Value"
+                      }
+                    },
+                    "id" : 40
+                  }
+                }
+              },
+              "priority" : {
+                "Option" : {
+                  "Some" : {
+                    "data" : {
+                      "ExprLiteralInt" : {
+                        "value" : "10"
+                      }
+                    },
+                    "id" : 41
+                  }
+                }
+              },
+              "queueFull" : {
+                "Option" : {
+                  "Some" : {
+                    "data" : "Block",
+                    "id" : 42
+                  }
+                }
+              }
+            },
             "kind" : "AsyncInput",
             "size" : 1,
             "ty" : 1
@@ -1302,7 +1484,45 @@
         "f32ValueIn2" : {
           "General" : {
             "id" : 48,
-            "specifier" : "f32ValueIn2",
+            "specifier" : {
+              "kind" : "AsyncInput",
+              "name" : "f32ValueIn2",
+              "size" : {
+                "Option" : "None"
+              },
+              "port" : {
+                "Option" : {
+                  "Some" : {
+                    "data" : {
+                      "Unqualified" : {
+                        "name" : "F32Value"
+                      }
+                    },
+                    "id" : 45
+                  }
+                }
+              },
+              "priority" : {
+                "Option" : {
+                  "Some" : {
+                    "data" : {
+                      "ExprLiteralInt" : {
+                        "value" : "20"
+                      }
+                    },
+                    "id" : 46
+                  }
+                }
+              },
+              "queueFull" : {
+                "Option" : {
+                  "Some" : {
+                    "data" : "Drop",
+                    "id" : 47
+                  }
+                }
+              }
+            },
             "kind" : "AsyncInput",
             "size" : 1,
             "ty" : 1
@@ -1311,7 +1531,31 @@
         "f32ValueOut" : {
           "General" : {
             "id" : 57,
-            "specifier" : "f32ValueOut",
+            "specifier" : {
+              "kind" : "Output",
+              "name" : "f32ValueOut",
+              "size" : {
+                "Option" : "None"
+              },
+              "port" : {
+                "Option" : {
+                  "Some" : {
+                    "data" : {
+                      "Unqualified" : {
+                        "name" : "F32Value"
+                      }
+                    },
+                    "id" : 56
+                  }
+                }
+              },
+              "priority" : {
+                "Option" : "None"
+              },
+              "queueFull" : {
+                "Option" : "None"
+              }
+            },
             "kind" : "Output",
             "size" : 1,
             "ty" : 1
@@ -1347,7 +1591,22 @@
         "serialIn" : {
           "General" : {
             "id" : 61,
-            "specifier" : "serialIn",
+            "specifier" : {
+              "kind" : "SyncInput",
+              "name" : "serialIn",
+              "size" : {
+                "Option" : "None"
+              },
+              "port" : {
+                "Option" : "None"
+              },
+              "priority" : {
+                "Option" : "None"
+              },
+              "queueFull" : {
+                "Option" : "None"
+              }
+            },
             "kind" : "SyncInput",
             "size" : 1,
             "ty" : 1
@@ -1356,7 +1615,31 @@
         "serialOut" : {
           "General" : {
             "id" : 67,
-            "specifier" : "serialOut",
+            "specifier" : {
+              "kind" : "Output",
+              "name" : "serialOut",
+              "size" : {
+                "Option" : {
+                  "Some" : {
+                    "data" : {
+                      "ExprIdent" : {
+                        "value" : "splitFactor"
+                      }
+                    },
+                    "id" : 66
+                  }
+                }
+              },
+              "port" : {
+                "Option" : "None"
+              },
+              "priority" : {
+                "Option" : "None"
+              },
+              "queueFull" : {
+                "Option" : "None"
+              }
+            },
             "kind" : "Output",
             "size" : 10,
             "ty" : 10

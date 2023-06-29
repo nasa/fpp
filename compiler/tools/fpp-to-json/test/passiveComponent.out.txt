@@ -1022,7 +1022,42 @@
         "schedIn" : {
           "General" : {
             "id" : 33,
-            "specifier" : "schedIn",
+            "specifier" : {
+              "kind" : "SyncInput",
+              "name" : "schedIn",
+              "size" : {
+                "Option" : "None"
+              },
+              "port" : {
+                "Option" : {
+                  "Some" : {
+                    "data" : {
+                      "Qualified" : {
+                        "qualifier" : {
+                          "data" : {
+                            "Unqualified" : {
+                              "name" : "Svc"
+                            }
+                          },
+                          "id" : 30
+                        },
+                        "name" : {
+                          "data" : "Sched",
+                          "id" : 31
+                        }
+                      }
+                    },
+                    "id" : 32
+                  }
+                }
+              },
+              "priority" : {
+                "Option" : "None"
+              },
+              "queueFull" : {
+                "Option" : "None"
+              }
+            },
             "kind" : "SyncInput",
             "size" : 1,
             "ty" : 1
