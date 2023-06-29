@@ -85,6 +85,10 @@ object CppWriter extends LineUtils{
   /** Writes an identifier */
   def writeId(id: BigInt): String = s"0x${id.toString(16).toUpperCase}"
 
+  def getMode(template: Boolean): Mode =
+    if template then ImplTemplate
+    else Autocode
+
   /** The phases of code generation */
   object Phases {
 
@@ -125,5 +129,9 @@ object CppWriter extends LineUtils{
     val tearDownComponents = 11
 
   }
+
+  sealed trait Mode
+  case object Autocode extends Mode
+  case object ImplTemplate extends Mode
 
 }

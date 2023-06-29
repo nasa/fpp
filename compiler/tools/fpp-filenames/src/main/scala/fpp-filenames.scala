@@ -28,8 +28,10 @@ object FPPFilenames {
         ResolveSpecInclude.transUnit
       )
       files <-
-        if options.template then ComputeGeneratedFiles.getImplFiles(aTul._2)
-        else ComputeGeneratedFiles.getAutocodeFiles(aTul._2)
+        CppWriter.getMode(options.template) match {
+          case CppWriter.Autocode => ComputeGeneratedFiles.getAutocodeFiles(aTul._2)
+          case CppWriter.ImplTemplate => ComputeGeneratedFiles.getImplFiles(aTul._2)
+        }
     }
     yield files.sorted.map(System.out.println)
   }
