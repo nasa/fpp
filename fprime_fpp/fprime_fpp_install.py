@@ -265,24 +265,18 @@ def install_fpl_via_git(installation_directory: Path, subprocess_environment: di
             file=sys.stderr,
         )
         sys.exit(-1)
-    # Retrieve fprime-layout source
-    step = ["git", "clone", "https://github.com/fprime-community/fprime-layout"]
-    print(f"-- INFO  -- Running { ' '.join(step) }")
-    completed = subprocess.run(step, env=subprocess_environment)
-    if completed.returncode != 0:
-        print(
-            f"-- ERROR -- Failed to run { ' '.join(step) }", file=sys.stderr
-        )
-        sys.exit(-1)
-    # Install fprime-layout
-    step = ["./install", str(installation_directory)]
-    print(f"-- INFO  -- Running { ' '.join(step) }")
-    completed = subprocess.run(step, env=subprocess_environment, cwd="fprime-layout")
-    if completed.returncode != 0:
-        print(
-            f"-- ERROR -- Failed to run { ' '.join(step) }", file=sys.stderr
-        )
-        sys.exit(-1)
+    steps = [
+        ["git", "clone", "https://github.com/fprime-community/fprime-layout"],
+        ["fprime-layout/install", str(installation_directory)]
+    ]
+    for step in steps:
+        print(f"-- INFO  -- Running { ' '.join(step) }")
+        completed = subprocess.run(step, env=subprocess_environment)
+        if completed.returncode != 0:
+            print(
+                f"-- ERROR -- Failed to run { ' '.join(step) }", file=sys.stderr
+            )
+            sys.exit(-1)
 
 def iterate_fpp_tools(working_dir: Path) -> Iterable[Path]:
     """Iterates through FPP tools"""
