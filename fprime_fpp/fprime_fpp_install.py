@@ -199,6 +199,7 @@ def install_fpp_via_git(installation_directory: Path):
     Should FPP not be available as a published version, this will clone the FPP repo, checkout, and build the FPP tools
     for the given version. This requires the following tools to exist on the system: git, sh, java, and sbt. These tools
     will be checked and then the process will run and intall into the specified directory.
+    Additionally installs the FPL (https://github.com/fprime-community/fprime-layout) tools unless FPL_NO_INSTALL is set to TRUE.
 
     Args:
         installation_directory: directory to install into
@@ -244,15 +245,44 @@ def install_fpp_via_git(installation_directory: Path):
                 str(installation_directory),
             ],
         ]
+        # FPP install
         for step in steps:
             print(f"-- INFO  -- Running { ' '.join(step) }")
             completed = subprocess.run(step, env=subprocess_environment)
             if completed.returncode != 0:
                 print(f"-- ERROR -- Failed to run { ' '.join(step) }", file=sys.stderr)
                 sys.exit(-1)
-
+        # FPL install (https://github.com/fprime-community/fprime-layout)
+        if (os.getenv("FPL_NO_INSTALL") != "TRUE"):
+            install_fpl_via_git(installation_directory, subprocess_environment)
     return installation_directory
 
+def install_fpl_via_git(installation_directory: Path, subprocess_environment: dict):
+    if not shutil.which("git"):
+        print(
+            f"-- ERROR -- git must exist on PATH to retrieve fprime-layout from source. "
+             "Disable fprime-layout install with the FPL_NO_INSTALL=TRUE env var",
+            file=sys.stderr,
+        )
+        sys.exit(-1)
+    # Retrieve fprime-layout source
+    step = ["git", "clone", "https://github.com/fprime-community/fprime-layout"]
+    print(f"-- INFO  -- Running { ' '.join(step) }")
+    completed = subprocess.run(step, env=subprocess_environment)
+    if completed.returncode != 0:
+        print(
+            f"-- ERROR -- Failed to run { ' '.join(step) }", file=sys.stderr
+        )
+        sys.exit(-1)
+    # Install fprime-layout
+    step = ["./install", str(installation_directory)]
+    print(f"-- INFO  -- Running { ' '.join(step) }")
+    completed = subprocess.run(step, env=subprocess_environment, cwd="fprime-layout")
+    if completed.returncode != 0:
+        print(
+            f"-- ERROR -- Failed to run { ' '.join(step) }", file=sys.stderr
+        )
+        sys.exit(-1)
 
 def iterate_fpp_tools(working_dir: Path) -> Iterable[Path]:
     """Iterates through FPP tools"""
