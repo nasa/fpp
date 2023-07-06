@@ -13,8 +13,6 @@ case class ComponentCppWriter (
 
   private val fileName = ComputeCppFiles.FileNames.getComponent(name)
 
-  private val namespaceIdentList = s.getNamespaceIdentList(symbol)
-
   private val portWriter = ComponentPorts(s, aNode)
 
   private val cmdWriter = ComponentCommands(s, aNode)

@@ -20,7 +20,11 @@ abstract class ComponentCppWriterUtils(
 
   val name: String = s.getName(symbol)
 
+  val namespaceIdentList: List[String] = s.getNamespaceIdentList(symbol)
+
   val className: String = s"${name}ComponentBase"
+
+  val implClassName: String = name
 
   val members: List[Ast.ComponentMember] = data.members
 

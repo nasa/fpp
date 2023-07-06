@@ -88,6 +88,15 @@ object ComputeCppFiles {
     /** Gets the C++ file name for generated topologies */
     def getTopology(baseName: String): String = s"${baseName}TopologyAc"
 
+    /** Gets the C++ file name for generated component Google Test harness base classes */
+    def getComponentGTestBase(baseName: String) = s"${baseName}GTestBase"
+
+    /** Gets the C++ file name for generated component test harness base classes */
+    def getComponentTesterBase(baseName: String) = s"${baseName}TesterBase"
+
+    /** Gets the C++ file name for generated component test harness implementation classes */
+    def getComponentTestImpl(baseName: String) = s"${baseName}Tester"
+
   }
 
 }
