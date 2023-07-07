@@ -85,9 +85,14 @@ object CppWriter extends LineUtils{
   /** Writes an identifier */
   def writeId(id: BigInt): String = s"0x${id.toString(16).toUpperCase}"
 
-  def getMode(template: Boolean): Mode =
-    if template then ImplTemplate
-    else Autocode
+  def getMode(template: Boolean, unitTest: Boolean): Mode =
+    (template, unitTest) match {
+      case (false, false) => Autocode
+      case (true, false) => ImplTemplate
+      case (false, true) => UnitTest
+      // TODO: raise error
+      case (true, true) => Autocode
+    }
 
   /** The phases of code generation */
   object Phases {
@@ -133,5 +138,6 @@ object CppWriter extends LineUtils{
   sealed trait Mode
   case object Autocode extends Mode
   case object ImplTemplate extends Mode
+  case object UnitTest extends Mode
 
 }

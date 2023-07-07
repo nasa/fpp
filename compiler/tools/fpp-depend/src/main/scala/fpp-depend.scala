@@ -25,6 +25,7 @@ object FPPDepend {
     includedFile: Option[String] = None,
     missingFile: Option[String] = None,
     generatedImplFile: Option[String] = None,
+    generatedTestFile: Option[String] = None,
   )
 
   def mapIterable[T](
@@ -94,6 +95,12 @@ object FPPDepend {
             yield writeIterable(files, file)
         case None => Right(())
       }
+      _ <- options.generatedTestFile match {
+        case Some(file) =>
+          for (files <- ComputeGeneratedFiles.getTestFiles(tul))
+            yield writeIterable(files, file)
+        case None => Right(())
+      }
     } yield mapIterable(a.dependencyFileSet, System.out.println(_))
   }
 
@@ -159,6 +166,10 @@ object FPPDepend {
         .valueName("<file>")
         .action((m, c) => c.copy(generatedImplFile = Some(m)))
         .text("write names of generated template files to file"),
+      opt[String]('u', "unit-test")
+        .valueName("<file>")
+        .action((m, c) => c.copy(generatedTestFile = Some(m)))
+        .text("write names of generated unit test files to file"),
       arg[String]("file ...")
         .unbounded()
         .optional()

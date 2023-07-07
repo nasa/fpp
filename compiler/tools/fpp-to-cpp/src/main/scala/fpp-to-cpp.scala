@@ -19,6 +19,7 @@ object FPPToCpp {
     pathPrefixes: List[String] = Nil,
     defaultStringSize: Int = CppWriterState.defaultDefaultStringSize,
     template: Boolean = false,
+    unitTest: Boolean = false,
   )
 
   def command(options: Options) = {
@@ -27,7 +28,7 @@ object FPPToCpp {
       case list => list
     }
     val a = Analysis(inputFileSet = options.files.toSet)
-    val mode = CppWriter.getMode(options.template)
+    val mode = CppWriter.getMode(options.template, options.unitTest)
     for {
       tulFiles <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
       aTulFiles <- ResolveSpecInclude.transformList(
@@ -52,6 +53,11 @@ object FPPToCpp {
           tulFiles,
           ComputeImplCppFiles.transUnit
         )
+        case CppWriter.UnitTest => ComputeTestCppFiles.visitList(
+          CppWriterState(a),
+          tulFiles,
+          ComputeTestCppFiles.transUnit
+        )
       }
       _ <- options.names match {
         case Some(fileName) => writeCppFileNames(
@@ -75,6 +81,7 @@ object FPPToCpp {
         mode match {
           case CppWriter.Autocode => AutocodeCppWriter.tuList(state, tulFiles)
           case CppWriter.ImplTemplate => ImplCppWriter.tuList(state, tulFiles)
+          case CppWriter.UnitTest => TestCppWriter.tuList(state, tulFiles)
         }
       }
     } yield ()
@@ -142,6 +149,9 @@ object FPPToCpp {
       opt[Unit]('t', "template")
         .action((_, c) => c.copy(template = true))
         .text("emit template code"),
+      opt[Unit]('u', "unit-test")
+        .action((_, c) => c.copy(unitTest = true))
+        .text("emit unit test code"),
       arg[String]("file ...")
         .unbounded()
         .optional()
