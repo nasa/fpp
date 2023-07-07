@@ -43,7 +43,7 @@ case class ComponentTestImplWriter(
       s"${s.getRelativePath(ComputeCppFiles.FileNames.getComponentImpl(name))}.hpp"
     )
     linesMember(
-      addBlankPrefix(headers.map(line))
+      addBlankPrefix(headers.map(CppWriter.headerString).map(line))
     )
   }
 
@@ -73,24 +73,25 @@ case class ComponentTestImplWriter(
       List(
         linesClassMember(
           List.concat(
-            lines(
-              """|// Maximum size of histories storing events, telemetry, and port outputs
-                 |static const NATIVE_INT_TYPE MAX_HISTORY_SIZE = 10;
-                 |
-                 |// Instance ID supplied to the component instance under test
-                 |static const NATIVE_INT_TYPE TEST_INSTANCE_ID = 0;
-                 |"""
+            Line.blank :: lines(
+              s"""|// Maximum size of histories storing events, telemetry, and port outputs
+                  |static const NATIVE_INT_TYPE $historySizeConstantName = 10;
+                  |
+                  |// Instance ID supplied to the component instance under test
+                  |static const NATIVE_INT_TYPE $idConstantName = 0;
+                  |"""
             ),
             if data.kind != Ast.ComponentKind.Passive then lines(
-              """|
-                 |// Queue depth supplied to the component instance under test
-                 |static const NATIVE_INT_TYPE TEST_INSTANCE_QUEUE_DEPTH = 10;
-                 |"""
+              s"""|
+                  |// Queue depth supplied to the component instance under test
+                  |static const NATIVE_INT_TYPE $queueDepthConstantName = 10;
+                  |"""
             )
             else Nil
           )
         )
-      )
+      ),
+      CppDoc.Lines.Hpp
     )
   }
 
@@ -142,22 +143,80 @@ case class ComponentTestImplWriter(
   }
 
   private def getHelpers: List[CppDoc.Class.Member] = {
+    def writeConnection(p: PortInstance, portNum: String) =
+      p.getDirection.get match {
+        case PortInstance.Direction.Input => lines(
+          s"""|this->${toPortConnectorName(p.getUnqualifiedName)}(
+              |  $portNum,
+              |  this->component.${inputPortGetterName(p.getUnqualifiedName)}($portNum)
+              |);
+              |"""
+        )
+        case PortInstance.Direction.Output => lines(
+          s"""|this->component.${outputPortConnectorName(p.getUnqualifiedName)}(
+              |  $portNum,
+              |  this->${fromPortGetterName(p.getUnqualifiedName)}($portNum)
+              |);
+              |"""
+        )
+      }
+    def writeConnections(ports: List[PortInstance]) =
+      ports match {
+        case Nil => Nil
+        case _ => List.concat(
+          lines(
+            s"// Connect ${getPortListTypeString(ports)} ${getPortListDirectionString(ports)} ports"
+          ),
+          Line.blank :: intersperseBlankLines(
+            ports.map(p => p.getArraySize match {
+              case 1 => writeConnection(p, "0")
+              case size => wrapInForLoop(
+                "NATIVE_UINT_TYPE i = 0",
+                s"i < $size",
+                "i++",
+                writeConnection(p, "i")
+              )
+            })
+          )
+        )
+      }
+
+    val initArgs = List.concat(
+      if data.kind != Ast.ComponentKind.Passive then List(s"$testImplClassName::$queueDepthConstantName")
+      else Nil,
+      List(s"$testImplClassName::$idConstantName"),
+    ).mkString(", ")
+
     addAccessTagAndComment(
       "private",
       "Helper functions",
       List(
-        linesClassMember(
+        functionClassMember(
+          Some("Connect ports"),
+          "connectPorts",
+          Nil,
+          CppDoc.Type("void"),
+          intersperseBlankLines(
+            List(
+              writeConnections(typedInputPorts),
+              writeConnections(typedOutputPorts),
+              writeConnections(serialInputPorts),
+              writeConnections(serialOutputPorts)
+            )
+          )
+        ),
+        functionClassMember(
+          Some("Initialize components"),
+          "initComponents",
+          Nil,
+          CppDoc.Type("void"),
           lines(
-            """|//! Connect ports
-               |void connectPorts();
-               |
-               |//! Initialize components
-               |void initComponents();
-               |"""
+            s"""|this->init();
+                |this->component.init($initArgs);
+                |"""
           )
         )
-      ),
-      CppDoc.Lines.Hpp
+      )
     )
   }
 
@@ -167,7 +226,7 @@ case class ComponentTestImplWriter(
       "Member variables",
       List(
         linesClassMember(
-          lines(
+          Line.blank :: lines(
             s"""|//! The component under test
                 |$implClassName component;
                 |"""

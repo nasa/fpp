@@ -431,6 +431,12 @@ abstract class ComponentCppWriterUtils(
       case _ => getPortTypeString(ports.head)
     }
 
+  def getPortListDirectionString(ports: List[PortInstance]): String =
+    ports match {
+      case Nil => ""
+      case _ => ports.head.getDirection.get.toString
+    }
+
   /** Get the command param type as a string */
   def getCommandParamString(kind: Command.Param.Kind): String =
     kind match {
@@ -536,6 +542,10 @@ abstract class ComponentCppWriterUtils(
   def portVariableName(p: PortInstance) =
     s"m_${p.getUnqualifiedName}_${p.getDirection.get.toString.capitalize}Port"
 
+  // Get the name for an input port getter function
+  def inputPortGetterName(name: String) =
+    s"get_${name}_InputPort"
+
   /** Get the name for an input port handler function */
   def inputPortHandlerName(name: String) =
     s"${name}_handler"
@@ -547,6 +557,10 @@ abstract class ComponentCppWriterUtils(
   /** Get the name for an async input port pre-message hook function */
   def inputPortHookName(name: String) =
     s"${name}_preMsgHook"
+
+  // Get the name for an output port connector function
+  def outputPortConnectorName(name: String) =
+    s"set_${name}_OutputPort"
 
   /** Get the name for an output port invocation function */
   def outputPortInvokerName(name: String) =

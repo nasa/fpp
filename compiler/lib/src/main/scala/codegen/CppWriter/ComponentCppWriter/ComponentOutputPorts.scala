@@ -177,10 +177,6 @@ case class ComponentOutputPorts(
       )
     }
 
-  // Get the name for an output port connector function
-  private def outputPortConnectorName(name: String) =
-    s"set_${name}_OutputPort"
-
   // Get the name for an output port connection status function
   private def outputPortIsConnectedName(name: String) =
     s"isConnected_${name}_OutputPort"
