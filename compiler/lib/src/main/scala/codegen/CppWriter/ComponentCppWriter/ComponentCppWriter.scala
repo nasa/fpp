@@ -366,60 +366,15 @@ case class ComponentCppWriter (
   }
 
   private def getPublicComponentFunctionMembers: List[CppDoc.Class.Member] = {
-    def writePortConnections(port: PortInstance) = {
-      val d = port.getDirection.get
-      val body = line(s"// Connect ${d.toString} port ${port.getUnqualifiedName}") ::
-        wrapInForLoopStaggered(
-          "PlatformIntType port = 0",
-          s"port < static_cast<PlatformIntType>(this->${portNumGetterName(port)}())",
-          "port++",
-          List(
-            lines(
-              s"|this->${portVariableName(port)}[port].init();"
-            ),
-            d match {
-              case PortInstance.Direction.Input => lines(
-                s"""|this->${portVariableName(port)}[port].addCallComp(
-                    |  this,
-                    |  ${inputPortCallbackName(port.getUnqualifiedName)}
-                    |);
-                    |this->${portVariableName(port)}[port].setPortNum(port);
-                    |"""
-              )
-              case PortInstance.Direction.Output => Nil
-            },
-            Line.blank :: lines(
-              s"""|#if FW_OBJECT_NAMES == 1
-                  |char portName[120];
-                  |(void) snprintf(
-                  |  portName,
-                  |  sizeof(portName),
-                  |  "%s_${port.getUnqualifiedName}_${d.toString.capitalize}Port[%" PRI_PlatformIntType "]",
-                  |  this->m_objName,
-                  |  port
-                  |);
-                  |this->${portVariableName(port)}[port].setObjName(portName);
-                  |#endif
-                  |"""
-            )
-          ).flatten
-        )
-
-      port match {
-        case PortInstance.Special(aNode, _, _, _, _) => aNode._2.data match {
-          case Ast.SpecPortInstance.Special(_, kind, _, _, _) => kind match {
-            case Ast.SpecPortInstance.TextEvent => List.concat(
-              lines("#if FW_ENABLE_TEXT_LOGGING == 1"),
-              body,
-              lines("#endif")
-            )
-            case _ => body
-          }
-          case _ => body
-        }
-        case _ => body
-      }
-    }
+    def writePortConnections(port: PortInstance) =
+      ComponentCppWriter.writePortConnections(
+        port,
+        portNumGetterName,
+        portVariableName,
+        inputPortCallbackName,
+        (p: PortInstance) => s"${p.getUnqualifiedName}_${p.getDirection.get.toString.capitalize}Port",
+        false
+      )
 
     val body = intersperseBlankLines(
       List(
@@ -937,6 +892,77 @@ case class ComponentCppWriter (
         ).flatten
       )
     )
+  }
+
+}
+
+object ComponentCppWriter extends CppWriterUtils {
+
+  def writePortConnections(
+    port: PortInstance,
+    numGetterName: PortInstance => String,
+    variableName: PortInstance => String,
+    callbackName: String => String,
+    printName: PortInstance => String,
+    reverseDirection: Boolean,
+  ): List[Line] = {
+    val d = if reverseDirection then port.getDirection.get match {
+      case PortInstance.Direction.Input => PortInstance.Direction.Output
+      case PortInstance.Direction.Output => PortInstance.Direction.Input
+    }
+    else port.getDirection.get
+
+    val body = line(s"// Connect ${d.toString} port ${port.getUnqualifiedName}") ::
+      wrapInForLoopStaggered(
+        "PlatformIntType port = 0",
+        s"port < static_cast<PlatformIntType>(this->${numGetterName(port)}())",
+        "port++",
+        List(
+          lines(
+            s"|this->${variableName(port)}[port].init();"
+          ),
+          d match {
+            case PortInstance.Direction.Input => lines(
+              s"""|this->${variableName(port)}[port].addCallComp(
+                  |  this,
+                  |  ${callbackName(port.getUnqualifiedName)}
+                  |);
+                  |this->${variableName(port)}[port].setPortNum(port);
+                  |"""
+            )
+            case PortInstance.Direction.Output => Nil
+          },
+          Line.blank :: lines(
+            s"""|#if FW_OBJECT_NAMES == 1
+                |char portName[120];
+                |(void) snprintf(
+                |  portName,
+                |  sizeof(portName),
+                |  "%s_${printName(port)}[%" PRI_PlatformIntType "]",
+                |  this->m_objName,
+                |  port
+                |);
+                |this->${variableName(port)}[port].setObjName(portName);
+                |#endif
+                |"""
+          )
+        ).flatten
+      )
+
+    port match {
+      case PortInstance.Special(aNode, _, _, _, _) => aNode._2.data match {
+        case Ast.SpecPortInstance.Special(_, kind, _, _, _) => kind match {
+          case Ast.SpecPortInstance.TextEvent => List.concat(
+            lines("#if FW_ENABLE_TEXT_LOGGING == 1"),
+            body,
+            lines("#endif")
+          )
+          case _ => body
+        }
+        case _ => body
+      }
+      case _ => body
+    }
   }
 
 }

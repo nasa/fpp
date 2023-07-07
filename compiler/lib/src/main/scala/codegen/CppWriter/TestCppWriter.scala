@@ -13,9 +13,10 @@ object TestCppWriter extends CppWriter {
   ) = {
     val node = aNode._2
     val data = node.data
-    val cppDoc = ComponentTestImplWriter(s, aNode).write
     for {
-      s <- CppWriter.writeCppDoc(s, cppDoc)
+      s <- CppWriter.writeCppDoc(s, ComponentTestImplWriter(s, aNode).write)
+      s <- visitList(s, data.members, matchComponentMember)
+      s <- CppWriter.writeCppDoc(s, ComponentTesterBaseWriter(s, aNode).write)
       s <- visitList(s, data.members, matchComponentMember)
     }
     yield s

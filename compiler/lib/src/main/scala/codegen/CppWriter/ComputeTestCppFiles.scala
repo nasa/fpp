@@ -15,7 +15,9 @@ object ComputeTestCppFiles extends ComputeCppFiles {
     val loc = Locations.get(node.id)
     for {
       s <- addMappings(s, ComputeCppFiles.FileNames.getComponentGTestBase(name), Some(loc))
+      s <- visitList (s, data.members, matchComponentMember)
       s <- addMappings(s, ComputeCppFiles.FileNames.getComponentTesterBase(name), Some(loc))
+      s <- visitList (s, data.members, matchComponentMember)
       s <- addMappings(s, ComputeCppFiles.FileNames.getComponentTestImpl(name), Some(loc))
       s <- visitList (s, data.members, matchComponentMember)
     }
