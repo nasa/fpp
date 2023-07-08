@@ -1470,8 +1470,9 @@
         }
       },
       "defaultTlmChannelId" : 2,
-      "eventMap" : [
-      ],
+      "eventMap" : {
+        
+      },
       "defaultEventId" : 0,
       "paramMap" : {
         

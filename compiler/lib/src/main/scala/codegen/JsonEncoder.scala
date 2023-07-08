@@ -51,6 +51,8 @@ case class JsonEncoder(
     Encoder.encodeString.contramap(getUnqualifiedClassName(_))
   implicit val patternEncoder: Encoder[Ast.SpecConnectionGraph.Pattern.Kind] =
     Encoder.encodeString.contramap(getUnqualifiedClassName(_))
+  implicit val severityEncoder: Encoder[Ast.SpecEvent.Severity] =
+    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
 
   implicit val typeEncoder: Encoder[Type] =
     Encoder.encodeString.contramap(_.toString())
@@ -317,6 +319,7 @@ case class JsonEncoder(
         .map { case (key, value) =>
           key.toString -> value.asJson
         }
+        .toMap
         .asJson
     }
 

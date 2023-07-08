@@ -1079,8 +1079,9 @@
         
       },
       "defaultTlmChannelId" : 0,
-      "eventMap" : [
-      ],
+      "eventMap" : {
+        
+      },
       "defaultEventId" : 0,
       "paramMap" : {
         
@@ -1201,8 +1202,9 @@
         
       },
       "defaultTlmChannelId" : 0,
-      "eventMap" : [
-      ],
+      "eventMap" : {
+        
+      },
       "defaultEventId" : 0,
       "paramMap" : {
         
@@ -1275,8 +1277,9 @@
         
       },
       "defaultTlmChannelId" : 0,
-      "eventMap" : [
-      ],
+      "eventMap" : {
+        
+      },
       "defaultEventId" : 0,
       "paramMap" : {
         
@@ -1349,8 +1352,9 @@
         
       },
       "defaultTlmChannelId" : 0,
-      "eventMap" : [
-      ],
+      "eventMap" : {
+        
+      },
       "defaultEventId" : 0,
       "paramMap" : {
         
@@ -1471,8 +1475,9 @@
         
       },
       "defaultTlmChannelId" : 0,
-      "eventMap" : [
-      ],
+      "eventMap" : {
+        
+      },
       "defaultEventId" : 0,
       "paramMap" : {
         

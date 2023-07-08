@@ -1225,8 +1225,9 @@
         }
       },
       "defaultTlmChannelId" : 18,
-      "eventMap" : [
-      ],
+      "eventMap" : {
+        
+      },
       "defaultEventId" : 0,
       "paramMap" : {
         

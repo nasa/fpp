@@ -111,11 +111,7 @@
                             "name" : "Event1",
                             "params" : [
                             ],
-                            "severity" : {
-                              "ActivityLow" : {
-                                
-                              }
-                            },
+                            "severity" : "ActivityLow",
                             "id" : {
                               "Option" : {
                                 "Some" : {
@@ -179,11 +175,7 @@
                                 ]
                               ]
                             ],
-                            "severity" : {
-                              "ActivityHigh" : {
-                                
-                              }
-                            },
+                            "severity" : "ActivityHigh",
                             "id" : {
                               "Option" : {
                                 "Some" : {
@@ -223,11 +215,7 @@
                             "name" : "Event3",
                             "params" : [
                             ],
-                            "severity" : {
-                              "ActivityHigh" : {
-                                
-                              }
-                            },
+                            "severity" : "ActivityHigh",
                             "id" : {
                               "Option" : "None"
                             },
@@ -364,11 +352,7 @@
                             "name" : "Event1",
                             "params" : [
                             ],
-                            "severity" : {
-                              "WarningHigh" : {
-                                
-                              }
-                            },
+                            "severity" : "WarningHigh",
                             "id" : {
                               "Option" : "None"
                             },
@@ -986,58 +970,49 @@
         
       },
       "defaultTlmChannelId" : 0,
-      "eventMap" : [
-        [
-          "16",
-          {
-            "id" : 5,
-            "format" : {
-              "prefix" : "Event 1 occurred",
-              "fields" : [
-              ]
-            },
-            "throttle" : {
-              "Option" : "None"
-            }
+      "eventMap" : {
+        "16" : {
+          "id" : 5,
+          "format" : {
+            "prefix" : "Event 1 occurred",
+            "fields" : [
+            ]
+          },
+          "throttle" : {
+            "Option" : "None"
           }
-        ],
-        [
-          "17",
-          {
-            "id" : 12,
-            "format" : {
-              "prefix" : "The count is ",
-              "fields" : [
-                [
-                  {
-                    "Default" : {
-                      
-                    }
-                  },
-                  ""
-                ]
+        },
+        "17" : {
+          "id" : 12,
+          "format" : {
+            "prefix" : "The count is ",
+            "fields" : [
+              [
+                {
+                  "Default" : {
+                    
+                  }
+                },
+                ""
               ]
-            },
-            "throttle" : {
-              "Option" : "None"
-            }
+            ]
+          },
+          "throttle" : {
+            "Option" : "None"
           }
-        ],
-        [
-          "18",
-          {
-            "id" : 18,
-            "format" : {
-              "prefix" : "Event 3 occurred",
-              "fields" : [
-              ]
-            },
-            "throttle" : {
-              "Option" : "None"
-            }
+        },
+        "18" : {
+          "id" : 18,
+          "format" : {
+            "prefix" : "Event 3 occurred",
+            "fields" : [
+            ]
+          },
+          "throttle" : {
+            "Option" : "None"
           }
-        ]
-      ],
+        }
+      },
       "defaultEventId" : 19,
       "paramMap" : {
         
@@ -1206,24 +1181,21 @@
         
       },
       "defaultTlmChannelId" : 0,
-      "eventMap" : [
-        [
-          "0",
-          {
-            "id" : 31,
-            "format" : {
-              "prefix" : "Event 1 occurred",
-              "fields" : [
-              ]
-            },
-            "throttle" : {
-              "Option" : {
-                "Some" : 10
-              }
+      "eventMap" : {
+        "0" : {
+          "id" : 31,
+          "format" : {
+            "prefix" : "Event 1 occurred",
+            "fields" : [
+            ]
+          },
+          "throttle" : {
+            "Option" : {
+              "Some" : 10
             }
           }
-        ]
-      ],
+        }
+      },
       "defaultEventId" : 1,
       "paramMap" : {
         
