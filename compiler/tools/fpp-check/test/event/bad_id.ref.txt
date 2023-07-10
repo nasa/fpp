@@ -1,5 +1,5 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/event/bad_id.fpp: 3.36
+[ local path prefix ]/compiler/tools/fpp-check/test/event/bad_id.fpp:3.36
   event E severity activity low id "abc" format ""
                                    ^
 error: cannot convert string to a numeric type
