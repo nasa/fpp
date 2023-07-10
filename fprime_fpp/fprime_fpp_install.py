@@ -217,7 +217,7 @@ def install_fpp_tools_from_source(installation_directory: Path):
             # Install SBT into ephemeral tools directory
             sbt_env = install_sbt(tools_directory)
             # Install FPP tools in installation_directory
-            install_fpp_via_git(installation_directory, tools_directory, sbt_env)
+            install_fpp_via_local(installation_directory, tools_directory, sbt_env)
             if (os.getenv("FPL_INSTALL") != "FALSE"):
                 install_fpl_via_git(installation_directory, tools_directory, sbt_env)
 
@@ -252,8 +252,8 @@ def install_sbt(tools_directory: str):
     return subprocess_environment
 
 
-def install_fpp_via_git(installation_directory: Path, tools_dir: str, env: dict = None):
-    """Installs FPP from current source
+def install_fpp_via_local(installation_directory: Path, tools_dir: str, env: dict = None):
+    """Installs FPP from current (local) source
 
     Args:
         installation_directory: directory to install into
