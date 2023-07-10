@@ -2,7 +2,6 @@ package fpp.compiler.codegen
 
 import fpp.compiler.analysis._
 import fpp.compiler.ast._
-import fpp.compiler.codegen._
 import fpp.compiler.util._
 
 /** Writes out C++ for component test harness base classes */
@@ -74,6 +73,8 @@ case class ComponentTesterBaseWriter(
     List.concat(
       // Public members
       getInitFunction,
+      getPortConnectors,
+      getPortGetters,
 
       // Protected members
       getConstructorMembers,
@@ -233,6 +234,35 @@ case class ComponentTesterBaseWriter(
           CppDoc.Class.Destructor.Virtual
         )
       )
+    )
+  }
+
+  private def getPortConnectors: List[CppDoc.Class.Member] = {
+    ComponentOutputPorts(s, aNode).generateTypedConnectors(
+      List.concat(
+        specialInputPorts,
+        typedInputPorts,
+        serialInputPorts,
+      ),
+      "Connectors for to ports",
+      toPortConnectorName,
+      portNumGetterName,
+      portVariableName
+    )
+  }
+
+  private def getPortGetters: List[CppDoc.Class.Member] = {
+    ComponentInputPorts(s, aNode).generateGetters(
+      List.concat(
+        specialOutputPorts,
+        typedOutputPorts,
+        serialOutputPorts,
+      ),
+      "from",
+      inputPortName,
+      fromPortGetterName,
+      portNumGetterName,
+      portVariableName
     )
   }
 

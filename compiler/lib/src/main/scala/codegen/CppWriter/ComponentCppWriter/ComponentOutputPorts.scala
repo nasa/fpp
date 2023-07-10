@@ -10,12 +10,16 @@ case class ComponentOutputPorts(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
-  def getTypedConnectors(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    val typeStr = getPortListTypeString(ports)
-
+  def generateTypedConnectors(
+    ports: List[PortInstance],
+    comment: String,
+    connectorName: String => String,
+    numGetterName: PortInstance => String,
+    variableName: PortInstance => String,
+  ): List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
       "public",
-      s"Connect $typeStr input ports to $typeStr output ports",
+      comment,
       mapPorts(ports, p => {
         val connectionFunction = p.getType.get match {
           case PortInstance.Type.DefPort(_) => "addCallPort"
@@ -25,7 +29,7 @@ case class ComponentOutputPorts(
         List(
           functionClassMember(
             Some(s"Connect port to ${p.getUnqualifiedName}[portNum]"),
-            outputPortConnectorName(p.getUnqualifiedName),
+            connectorName(p.getUnqualifiedName),
             List(
               portNumParam,
               CppDoc.Function.Param(
@@ -42,16 +46,28 @@ case class ComponentOutputPorts(
             CppDoc.Type("void"),
             lines(
               s"""|FW_ASSERT(
-                  |  portNum < this->${portNumGetterName(p)}(),
+                  |  portNum < this->${numGetterName(p)}(),
                   |  static_cast<FwAssertArgType>(portNum)
                   |);
                   |
-                  |this->${portVariableName(p)}[portNum].$connectionFunction(port);
+                  |this->${variableName(p)}[portNum].$connectionFunction(port);
                   |"""
             )
           )
         )
       })
+    )
+  }
+
+  def getTypedConnectors(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+    val typeStr = getPortListTypeString(ports)
+
+    generateTypedConnectors(
+      ports,
+      s"Connect $typeStr input ports to $typeStr output ports",
+      outputPortConnectorName,
+      portNumGetterName,
+      portVariableName
     )
   }
 

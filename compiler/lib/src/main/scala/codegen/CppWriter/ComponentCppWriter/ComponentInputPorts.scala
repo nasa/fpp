@@ -10,36 +10,54 @@ case class ComponentInputPorts(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
-  def getGetters(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    val typeStr = getPortListTypeString(ports)
-
+  def generateGetters(
+    ports: List[PortInstance],
+    portType: String,
+    portName: String => String,
+    getterName: String => String,
+    numGetterName: PortInstance => String,
+    variableName: PortInstance => String
+  ): List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
       "public",
-      s"Getters for $typeStr input ports",
+      s"Getters for $portType ports",
       mapPorts(ports, p => List(
         functionClassMember(
           Some(
-            s"""|Get $typeStr input port at index
+            s"""|Get $portType port at index
                 |
-                |\\return ${p.getUnqualifiedName}[portNum]
+                |\\return ${portName(p.getUnqualifiedName)}[portNum]
                 |"""
           ),
-          inputPortGetterName(p.getUnqualifiedName),
+          getterName(p.getUnqualifiedName),
           List(
             portNumParam
           ),
           CppDoc.Type(s"${getQualifiedPortTypeName(p, PortInstance.Direction.Input)}*"),
           lines(
             s"""|FW_ASSERT(
-                |  portNum < this->${portNumGetterName(p)}(),
+                |  portNum < this->${numGetterName(p)}(),
                 |  static_cast<FwAssertArgType>(portNum)
                 |);
                 |
-                |return &this->${portVariableName(p)}[portNum];
+                |return &this->${variableName(p)}[portNum];
                 |"""
           )
         )
       ))
+    )
+  }
+
+  def getGetters(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+    val typeStr = getPortListTypeString(ports)
+
+    generateGetters(
+      ports,
+      s"$typeStr input",
+      (s: String) => s,
+      inputPortGetterName,
+      portNumGetterName,
+      portVariableName
     )
   }
 
