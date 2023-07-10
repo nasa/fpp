@@ -173,7 +173,11 @@ def verify_download(version: str):
 
 
 def install_fpp(working_dir: Path) -> Path:
-    """Installs FPP of the specified version"""
+    """Installs FPP of the specified version
+
+    Should FPP not be available as a published version, this will build the FPP tools from the current source.
+    This requires the following tools to exist on the system: sh, and java. These tools will be checked and 
+    then the process will run and install into the specified directory."""
     version = __FPP_TOOLS_VERSION__
 
     # Put everything in the current working directory
@@ -183,7 +187,7 @@ def install_fpp(working_dir: Path) -> Path:
             prepare_cache_dir(version)
             verify_download(version)
         except urllib.error.HTTPError:
-            install_fpp_via_git(working_dir)
+            install_fpp_tools_from_source(working_dir)
         except OSError as ose:
             print(f"-- ERROR -- Failed find expected download: {ose}", file=sys.stderr)
             sys.exit(-1)
@@ -193,13 +197,9 @@ def install_fpp(working_dir: Path) -> Path:
         return working_dir
 
 
-def install_fpp_via_git(installation_directory: Path):
-    """Installs FPP from git
-
-    Should FPP not be available as a published version, this will clone the FPP repo, checkout, and build the FPP tools
-    for the given version. This requires the following tools to exist on the system: git, sh, java, and sbt. These tools
-    will be checked and then the process will run and intall into the specified directory.
-    Additionally installs the FPL (https://github.com/fprime-community/fprime-layout) tools unless FPL_NO_INSTALL is set to TRUE.
+def install_fpp_tools_from_source(installation_directory: Path):
+    """Installs FPP tools from source into the given directory
+    This includes tools from the current FPP source as well as FPL (fprime-layout).
 
     Args:
         installation_directory: directory to install into
@@ -213,55 +213,73 @@ def install_fpp_via_git(installation_directory: Path):
             )
             sys.exit(-1)
     with tempfile.TemporaryDirectory() as tools_directory:
-        os.chdir(tools_directory)
-        wget(SBT_URL)
-        with tarfile.open(os.path.basename(SBT_URL)) as archive:
-            def is_within_directory(directory, target):
-                
-                abs_directory = os.path.abspath(directory)
-                abs_target = os.path.abspath(target)
+        with safe_chdir(tools_directory):
+            # Install SBT into ephemeral tools directory
+            sbt_env = install_sbt(tools_directory)
+            # Install FPP tools in installation_directory
+            install_fpp_via_git(installation_directory, tools_directory, sbt_env)
+            if (os.getenv("FPL_INSTALL") != "FALSE"):
+                install_fpl_via_git(installation_directory, tools_directory, sbt_env)
+
+
+def install_sbt(tools_directory: str):
+    """Installs SBT into the given directory. Returns a dictionary of environment
+    variables with SBT added to the PATH, to reuse SBT in other subprocesses"""
+    wget(SBT_URL)
+    with tarfile.open(os.path.basename(SBT_URL)) as archive:
+        def is_within_directory(directory, target):
             
-                prefix = os.path.commonprefix([abs_directory, abs_target])
-                
-                return prefix == abs_directory
+            abs_directory = os.path.abspath(directory)
+            abs_target = os.path.abspath(target)
+        
+            prefix = os.path.commonprefix([abs_directory, abs_target])
             
-            def safe_extract(tar, path=".", members=None, *, numeric_owner=False):
-            
-                for member in tar.getmembers():
-                    member_path = os.path.join(path, member.name)
-                    if not is_within_directory(path, member_path):
-                        raise Exception("Attempted Path Traversal in Tar File")
-            
-                tar.extractall(path, members, numeric_owner=numeric_owner) 
-                
-            
-            safe_extract(archive, ".")
-        sbt_path = Path(tools_directory) / "sbt" / "bin"
-        subprocess_environment = os.environ.copy()
-        subprocess_environment["PATH"] = f"{ sbt_path }:{ os.environ.get('PATH') }"
-        steps = [
-            [
-                os.path.join(os.path.dirname(__file__), "..", "compiler", "install"),
-                str(installation_directory),
-            ],
-        ]
-        # FPP install
-        for step in steps:
-            print(f"-- INFO  -- Running { ' '.join(step) }")
-            completed = subprocess.run(step, env=subprocess_environment)
-            if completed.returncode != 0:
-                print(f"-- ERROR -- Failed to run { ' '.join(step) }", file=sys.stderr)
-                sys.exit(-1)
-        # FPL install (https://github.com/fprime-community/fprime-layout)
-        if (os.getenv("FPL_NO_INSTALL") != "TRUE"):
-            install_fpl_via_git(installation_directory, subprocess_environment)
+            return prefix == abs_directory
+        
+        def safe_extract(tar, path=".", members=None, *, numeric_owner=False):
+        
+            for member in tar.getmembers():
+                member_path = os.path.join(path, member.name)
+                if not is_within_directory(path, member_path):
+                    raise Exception("Attempted Path Traversal in Tar File")
+        
+            tar.extractall(path, members, numeric_owner=numeric_owner) 
+        
+        safe_extract(archive, ".")
+    sbt_path = Path(tools_directory) / "sbt" / "bin"
+    subprocess_environment = os.environ.copy()
+    subprocess_environment["PATH"] = f"{ sbt_path }:{ os.environ.get('PATH') }"
+    return subprocess_environment
+
+
+def install_fpp_via_git(installation_directory: Path, tools_dir: str, env: dict = None):
+    """Installs FPP from current source
+
+    Args:
+        installation_directory: directory to install into
+    """
+    steps = [
+        [
+            os.path.join(os.path.dirname(__file__), "..", "compiler", "install"),
+            str(installation_directory),
+        ],
+    ]
+    # FPP install
+    for step in steps:
+        print(f"-- INFO  -- Running { ' '.join(step) }")
+        completed = subprocess.run(step, env=env)
+        if completed.returncode != 0:
+            print(f"-- ERROR -- Failed to run { ' '.join(step) }", file=sys.stderr)
+            sys.exit(-1)
     return installation_directory
 
-def install_fpl_via_git(installation_directory: Path, subprocess_environment: dict):
+
+def install_fpl_via_git(installation_directory: Path, tools_dir: str, env: dict = None):
+    """Installs FPL from external (git) source"""
     if not shutil.which("git"):
         print(
             f"-- ERROR -- git must exist on PATH to retrieve fprime-layout from source. "
-             "Disable fprime-layout install with the FPL_NO_INSTALL=TRUE env var",
+             "Disable fprime-layout install with the FPL_INSTALL=FALSE environment variable",
             file=sys.stderr,
         )
         sys.exit(-1)
@@ -271,12 +289,13 @@ def install_fpl_via_git(installation_directory: Path, subprocess_environment: di
     ]
     for step in steps:
         print(f"-- INFO  -- Running { ' '.join(step) }")
-        completed = subprocess.run(step, env=subprocess_environment)
+        completed = subprocess.run(step, env=env)
         if completed.returncode != 0:
             print(
                 f"-- ERROR -- Failed to run { ' '.join(step) }", file=sys.stderr
             )
             sys.exit(-1)
+
 
 def iterate_fpp_tools(working_dir: Path) -> Iterable[Path]:
     """Iterates through FPP tools"""
