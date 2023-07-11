@@ -750,7 +750,7 @@ active component InternalSelfMessage {
 }
 ----
 
-When the implementation of `ExternalSelfMessage` invokes
+When the implementation of `InternalSelfMessage` invokes
 the port `pInternal`, a message goes on its queue.
 This corresponds to the behavior of `pOut` in
 `ExternalSelfMessage`.
