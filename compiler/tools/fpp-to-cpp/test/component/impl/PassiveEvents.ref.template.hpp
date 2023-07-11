@@ -16,17 +16,12 @@ class PassiveEvents :
   public:
 
     // ----------------------------------------------------------------------
-    // Component construction, initialization, and destruction
+    // Component construction and destruction
     // ----------------------------------------------------------------------
 
     //! Construct PassiveEvents object
     PassiveEvents(
         const char* const compName //!< The component name
-    );
-
-    //! Initialize PassiveEvents object
-    void init(
-        NATIVE_INT_TYPE instance = 0 //!< The instance number
     );
 
     //! Destroy PassiveEvents object

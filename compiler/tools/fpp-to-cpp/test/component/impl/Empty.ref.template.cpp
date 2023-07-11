@@ -8,7 +8,7 @@
 #include "impl/Empty.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction, initialization, and destruction
+// Component construction and destruction
 // ----------------------------------------------------------------------
 
 Empty ::
@@ -16,12 +16,6 @@ Empty ::
     EmptyComponentBase(compName)
 {
 
-}
-
-void Empty ::
-  init(NATIVE_INT_TYPE instance)
-{
-  EmptyComponentBase::init(instance);
 }
 
 Empty ::

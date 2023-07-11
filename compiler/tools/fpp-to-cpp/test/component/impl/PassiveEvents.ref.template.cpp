@@ -8,7 +8,7 @@
 #include "impl/PassiveEvents.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction, initialization, and destruction
+// Component construction and destruction
 // ----------------------------------------------------------------------
 
 PassiveEvents ::
@@ -16,12 +16,6 @@ PassiveEvents ::
     PassiveEventsComponentBase(compName)
 {
 
-}
-
-void PassiveEvents ::
-  init(NATIVE_INT_TYPE instance)
-{
-  PassiveEventsComponentBase::init(instance);
 }
 
 PassiveEvents ::

@@ -8,7 +8,7 @@
 #include "impl/QueuedParams.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction, initialization, and destruction
+// Component construction and destruction
 // ----------------------------------------------------------------------
 
 QueuedParams ::
@@ -16,15 +16,6 @@ QueuedParams ::
     QueuedParamsComponentBase(compName)
 {
 
-}
-
-void QueuedParams ::
-  init(
-      NATIVE_INT_TYPE queueDepth,
-      NATIVE_INT_TYPE instance
-  )
-{
-  QueuedParamsComponentBase::init(queueDepth, instance);
 }
 
 QueuedParams ::

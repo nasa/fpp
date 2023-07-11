@@ -8,7 +8,7 @@
 #include "impl/PassiveCommands.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction, initialization, and destruction
+// Component construction and destruction
 // ----------------------------------------------------------------------
 
 PassiveCommands ::
@@ -16,12 +16,6 @@ PassiveCommands ::
     PassiveCommandsComponentBase(compName)
 {
 
-}
-
-void PassiveCommands ::
-  init(NATIVE_INT_TYPE instance)
-{
-  PassiveCommandsComponentBase::init(instance);
 }
 
 PassiveCommands ::

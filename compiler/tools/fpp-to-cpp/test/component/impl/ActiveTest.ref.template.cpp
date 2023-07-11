@@ -8,7 +8,7 @@
 #include "impl/ActiveTest.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction, initialization, and destruction
+// Component construction and destruction
 // ----------------------------------------------------------------------
 
 ActiveTest ::
@@ -16,15 +16,6 @@ ActiveTest ::
     ActiveTestComponentBase(compName)
 {
 
-}
-
-void ActiveTest ::
-  init(
-      NATIVE_INT_TYPE queueDepth,
-      NATIVE_INT_TYPE instance
-  )
-{
-  ActiveTestComponentBase::init(queueDepth, instance);
 }
 
 ActiveTest ::

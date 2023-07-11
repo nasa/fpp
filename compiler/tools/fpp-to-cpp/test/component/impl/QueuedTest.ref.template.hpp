@@ -16,18 +16,12 @@ class QueuedTest :
   public:
 
     // ----------------------------------------------------------------------
-    // Component construction, initialization, and destruction
+    // Component construction and destruction
     // ----------------------------------------------------------------------
 
     //! Construct QueuedTest object
     QueuedTest(
         const char* const compName //!< The component name
-    );
-
-    //! Initialize QueuedTest object
-    void init(
-        NATIVE_INT_TYPE queueDepth, //!< The queue depth
-        NATIVE_INT_TYPE instance = 0 //!< The instance number
     );
 
     //! Destroy QueuedTest object

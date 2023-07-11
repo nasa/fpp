@@ -16,17 +16,12 @@ class PassiveCommands :
   public:
 
     // ----------------------------------------------------------------------
-    // Component construction, initialization, and destruction
+    // Component construction and destruction
     // ----------------------------------------------------------------------
 
     //! Construct PassiveCommands object
     PassiveCommands(
         const char* const compName //!< The component name
-    );
-
-    //! Initialize PassiveCommands object
-    void init(
-        NATIVE_INT_TYPE instance = 0 //!< The instance number
     );
 
     //! Destroy PassiveCommands object

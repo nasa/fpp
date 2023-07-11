@@ -8,7 +8,7 @@
 #include "impl/QueuedEvents.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction, initialization, and destruction
+// Component construction and destruction
 // ----------------------------------------------------------------------
 
 QueuedEvents ::
@@ -16,15 +16,6 @@ QueuedEvents ::
     QueuedEventsComponentBase(compName)
 {
 
-}
-
-void QueuedEvents ::
-  init(
-      NATIVE_INT_TYPE queueDepth,
-      NATIVE_INT_TYPE instance
-  )
-{
-  QueuedEventsComponentBase::init(queueDepth, instance);
 }
 
 QueuedEvents ::

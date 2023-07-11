@@ -8,7 +8,7 @@
 #include "impl/ActiveCommands.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction, initialization, and destruction
+// Component construction and destruction
 // ----------------------------------------------------------------------
 
 ActiveCommands ::
@@ -16,15 +16,6 @@ ActiveCommands ::
     ActiveCommandsComponentBase(compName)
 {
 
-}
-
-void ActiveCommands ::
-  init(
-      NATIVE_INT_TYPE queueDepth,
-      NATIVE_INT_TYPE instance
-  )
-{
-  ActiveCommandsComponentBase::init(queueDepth, instance);
 }
 
 ActiveCommands ::

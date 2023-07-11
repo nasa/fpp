@@ -8,7 +8,7 @@
 #include "impl/ActiveTelemetry.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction, initialization, and destruction
+// Component construction and destruction
 // ----------------------------------------------------------------------
 
 ActiveTelemetry ::
@@ -16,15 +16,6 @@ ActiveTelemetry ::
     ActiveTelemetryComponentBase(compName)
 {
 
-}
-
-void ActiveTelemetry ::
-  init(
-      NATIVE_INT_TYPE queueDepth,
-      NATIVE_INT_TYPE instance
-  )
-{
-  ActiveTelemetryComponentBase::init(queueDepth, instance);
 }
 
 ActiveTelemetry ::

@@ -16,18 +16,12 @@ class QueuedEvents :
   public:
 
     // ----------------------------------------------------------------------
-    // Component construction, initialization, and destruction
+    // Component construction and destruction
     // ----------------------------------------------------------------------
 
     //! Construct QueuedEvents object
     QueuedEvents(
         const char* const compName //!< The component name
-    );
-
-    //! Initialize QueuedEvents object
-    void init(
-        NATIVE_INT_TYPE queueDepth, //!< The queue depth
-        NATIVE_INT_TYPE instance = 0 //!< The instance number
     );
 
     //! Destroy QueuedEvents object

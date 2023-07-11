@@ -16,17 +16,12 @@ class PassiveSerial :
   public:
 
     // ----------------------------------------------------------------------
-    // Component construction, initialization, and destruction
+    // Component construction and destruction
     // ----------------------------------------------------------------------
 
     //! Construct PassiveSerial object
     PassiveSerial(
         const char* const compName //!< The component name
-    );
-
-    //! Initialize PassiveSerial object
-    void init(
-        NATIVE_INT_TYPE instance = 0 //!< The instance number
     );
 
     //! Destroy PassiveSerial object
