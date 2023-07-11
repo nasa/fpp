@@ -35,6 +35,20 @@ abstract class ComponentCppWriterUtils(
     Some("The port number")
   )
 
+  /** Opcode param as a CppDoc Function Param */
+  val opcodeParam: CppDoc.Function.Param = CppDoc.Function.Param(
+    CppDoc.Type("FwOpcodeType"),
+    "opCode",
+    Some("The opcode")
+  )
+
+  /** Command sequence param as a CppDoc Function Param */
+  val cmdSeqParam: CppDoc.Function.Param = CppDoc.Function.Param(
+    CppDoc.Type("U32"),
+    "cmdSeq",
+    Some("The command sequence number")
+  )
+
   /** List of general port instances sorted by name */
   private val generalPorts: List[PortInstance.General] = component.portMap.toList.map((_, p) => p match {
     case i: PortInstance.General => Some(i)
@@ -113,6 +127,17 @@ abstract class ComponentCppWriterUtils(
     case Command.NonParam.Async(_, _) => true
     case _ => false
   })
+
+  /** Map from command opcodes to command parameters */
+  val cmdParamMap: Map[Command.Opcode, List[CppDoc.Function.Param]] = nonParamCmds.map((opcode, cmd) => {(
+    opcode,
+    formalParamsCppWriter.write(
+      cmd.aNode._2.data.params,
+      Nil,
+      Some("Fw::CmdStringArg"),
+      FormalParamsCppWriter.Value
+    )
+  )}).toMap
 
   /** List of events sorted by ID */
   val sortedEvents: List[(Event.Id, Event)] = component.eventMap.toList.sortBy(_._1)
@@ -193,6 +218,34 @@ abstract class ComponentCppWriterUtils(
   val hasChannels: Boolean = component.tlmChannelMap.nonEmpty
 
   val hasParameters: Boolean = component.paramMap.nonEmpty
+
+  /** Parameters for the init function */
+  val initParams: List[CppDoc.Function.Param] = List.concat(
+    if data.kind != Ast.ComponentKind.Passive then List(
+      CppDoc.Function.Param(
+        CppDoc.Type("NATIVE_INT_TYPE"),
+        "queueDepth",
+        Some("The queue depth")
+      )
+    )
+    else Nil,
+    if hasSerialAsyncInputPorts then List(
+      CppDoc.Function.Param(
+        CppDoc.Type("NATIVE_INT_TYPE"),
+        "msgSize",
+        Some("The message size")
+      )
+    )
+    else Nil,
+    List(
+      CppDoc.Function.Param(
+        CppDoc.Type("NATIVE_INT_TYPE"),
+        "instance",
+        Some("The instance number"),
+        Some("0")
+      )
+    ),
+  )
 
   val portParamTypeMap: Map[String, List[(String, String)]] =
     List(

@@ -44,5 +44,7 @@ spec_record
 spec_tlm_channel
 spec_top_import
 special_ports
+template_filenames
+template_filenames_include
 transitive_instance
 "

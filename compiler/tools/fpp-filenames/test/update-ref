@@ -26,4 +26,6 @@ do
 done
 
 update "" include
+update "-t" "include" include_template
 update "" ok
+update "-t" "ok" ok_template

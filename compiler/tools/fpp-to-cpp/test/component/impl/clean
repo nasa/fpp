@@ -1,0 +1,14 @@
+#!/bin/sh -e
+
+. ../../../../../scripts/utils.sh
+
+clean
+rm -f default-tests.sh default-update-ref.sh
+for file in `find . -name '*out.*' \
+  -or -name '*.names.txt' \
+  -or -name '*o' \
+  -or \( -not -name '*.ref.template.cpp' -and -name '*.cpp' \) \
+  -or \( -not -name '*.ref.template.hpp' -and -name '*.hpp' \)`
+do
+  rm $file
+done
