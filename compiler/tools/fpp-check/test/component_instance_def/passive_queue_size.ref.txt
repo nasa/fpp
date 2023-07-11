@@ -1,5 +1,5 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/component_instance_def/passive_queue_size.fpp: 5.40
+[ local path prefix ]/compiler/tools/fpp-check/test/component_instance_def/passive_queue_size.fpp:5.40
 instance c: C base id 0x100 queue size 10
                                        ^
 error: invalid component instance definition c: passive component may not have queue size

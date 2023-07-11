@@ -1,5 +1,5 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/port_matching/mismatched_sizes.fpp: 7.3
+[ local path prefix ]/compiler/tools/fpp-check/test/port_matching/mismatched_sizes.fpp:7.3
   match p1 with p2
   ^
 error: mismatched port sizes (2 vs. 3)

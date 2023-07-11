@@ -1,5 +1,5 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/event/bad_throttle.fpp: 3.52
+[ local path prefix ]/compiler/tools/fpp-check/test/event/bad_throttle.fpp:3.52
   event E severity activity low format "" throttle "abc"
                                                    ^
 error: cannot convert string to a numeric type

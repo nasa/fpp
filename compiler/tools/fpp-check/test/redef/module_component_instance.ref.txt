@@ -1,9 +1,9 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/redef/module_component_instance.fpp: 3.1
+[ local path prefix ]/compiler/tools/fpp-check/test/redef/module_component_instance.fpp:3.1
 instance M: C base id 0
 ^
 error: redefinition of symbol M
 previous definition is here:
-[ local path prefix ]/compiler/tools/fpp-check/test/redef/module_component_instance.fpp: 2.1
+[ local path prefix ]/compiler/tools/fpp-check/test/redef/module_component_instance.fpp:2.1
 module M { }
 ^
