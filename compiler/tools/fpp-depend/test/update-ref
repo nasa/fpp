@@ -85,6 +85,14 @@ missing() {
   update '-m tmp.out.txt' missing; remove_path_prefix < tmp.out.txt > missing_output.ref.txt
 }
 
+template_filenames() {
+  update '-t template_filenames_output.ref.txt' filenames
+}
+
+template_filenames_include() {
+  update '-t template_filenames_include_output.ref.txt' filenames_include
+}
+
 for t in $tests
 do
   echo "updating ref output for $t"

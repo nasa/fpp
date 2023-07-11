@@ -1,0 +1,74 @@
+#!/bin/sh
+
+# ----------------------------------------------------------------------
+# Compile ref C++ files, to check them for validity
+#
+# By default, each file is compiled with three different sets of values of F
+# Prime guards: 
+# - Default values as found in fprime/config/FpConfig.h
+# - All guards turned on
+# - All guards turned off (except FW_PORT_SERIALIZATION for components
+#   containing serial ports)
+#
+# If this script is run with the --all flag, each file is compiled with all
+# possible combinations of values of F Prime guards with these exceptions:
+# - FW_AMPCS_COMPATIBLE and FW_CMD_CHECK_RESIDUAL remain set to the default
+#   values found in fprime/config/FpConfig.h
+# - FW_SERIALIZABLE_TO_STRING and FW_ARRAY_TO_STRING always have the same value
+# - FW_PORT_SERIALIZATION is always on for components containing serial ports
+# ----------------------------------------------------------------------
+
+fprime_gcc=../../../../../scripts/fprime-gcc
+export FPRIME_GCC_FLAGS="-I../../fprime"
+warning_flags="-Wno-gnu-zero-variadic-macro-arguments -Wno-unused-parameter -Wno-zero-length-array -Wno-sign-conversion -Wno-vla-extension"
+include_flags="-I../../../.. -I.."
+
+. ../generate_cpp.sh
+
+# Find all guards used in generated component base class files
+guards=`grep '#if FW_' *Ac.hpp *Ac.cpp | cut -f 2 -d ' ' | sort -u | sed 's/^/-D/g'`
+# All guards set to 1
+guards_on=`echo $guards | sed 's/ /\n/g' | sed 's/$/=1/g'`
+# All guards set to 0
+guards_off=`echo $guards | sed 's/ /\n/g' | sed 's/$/=0/g'`
+# All guards except FW_PORT_SERIALIZATION set to 0
+guards_off_serial_on=`echo $guards_off | sed 's/FW_PORT_SERIALIZATION=0/FW_PORT_SERIALIZATION=1/g'`
+
+for file in `find . -name '*Ac.ref.cpp'`
+do
+  base=`echo $file | sed 's;\.cpp;;'`
+  dest_base=`echo $base | sed 's;\(.*Ac\).*;\1;'`
+  cp $base.hpp $dest_base.hpp
+  cp $base.cpp $dest_base.cpp
+
+  if [ "$1" = "--all" ]
+  then
+    for g in `python3 gen_guards.py $guards`
+    do
+      g=`echo $g | sed 's/,/ /g'`
+
+      if grep -q static_assert $base.hpp
+      then
+        g=`echo $g | sed 's/FW_PORT_SERIALIZATION=0/FW_PORT_SERIALIZATION=1/g'`
+      fi
+      echo "compiling $file with $g"
+      $fprime_gcc $include_flags -c $dest_base.cpp $g $warning_flags
+     done
+  else
+    echo "compiling $file with default guards"
+    $fprime_gcc $include_flags -c $dest_base.cpp $warning_flags
+
+    g=`echo $guards_on`
+    echo "compiling $file with $g"
+    $fprime_gcc $include_flags -c $dest_base.cpp $g $warning_flags
+
+    g=`echo $guards_off`
+    if grep -q static_assert $base.hpp
+    then
+      g=$guards_off_serial_on
+    fi
+    echo "compiling $file with $g"
+    $fprime_gcc $include_flags -c $dest_base.cpp $g $warning_flags
+  fi
+
+done
