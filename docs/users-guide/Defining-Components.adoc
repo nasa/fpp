@@ -864,11 +864,11 @@ active component Action {
   # Ports
   # ----------------------------------------------------------------------
 
-  @ Command registration
-  command reg port cmdRegOut
-
   @ Command input
   command recv port cmdIn
+
+  @ Command registration
+  command reg port cmdRegOut
 
   @ Command response
   command resp port cmdResponseOut
@@ -950,11 +950,11 @@ active component Switch {
   # Ports
   # ----------------------------------------------------------------------
 
-  @ Command registration
-  command reg port cmdRegOut
-
   @ Command input
   command recv port cmdIn
+
+  @ Command registration
+  command reg port cmdRegOut
 
   @ Command response
   command resp port cmdResponseOut
@@ -1015,11 +1015,11 @@ active component CommandOpcodes {
   # Ports
   # ----------------------------------------------------------------------
 
-  @ Command registration
-  command reg port cmdRegOut
-
   @ Command input
   command recv port cmdIn
+
+  @ Command registration
+  command reg port cmdRegOut
 
   @ Command response
   command resp port cmdResponseOut
@@ -1053,11 +1053,11 @@ active component DuplicateOpcode {
   # Ports
   # ----------------------------------------------------------------------
 
-  @ Command registration
-  command reg port cmdRegOut
-
   @ Command input
   command recv port cmdIn
+
+  @ Command registration
+  command reg port cmdRegOut
 
   @ Command response
   command resp port cmdResponseOut
@@ -1095,11 +1095,11 @@ active component PriorityQueueFull {
   # Ports
   # ----------------------------------------------------------------------
 
-  @ Command registration
-  command reg port cmdRegOut
-
   @ Command input
   command recv port cmdIn
+
+  @ Command registration
+  command reg port cmdRegOut
 
   @ Command response
   command resp port cmdResponseOut
@@ -2127,11 +2127,11 @@ active component Switch {
   # Ports
   # ----------------------------------------------------------------------
 
-  @ Command registration
-  command reg port cmdRegOut
-
   @ Command input
   command recv port cmdIn
+
+  @ Command registration
+  command reg port cmdRegOut
 
   @ Command response
   command resp port cmdResponseOut
