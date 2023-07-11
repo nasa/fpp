@@ -80,8 +80,8 @@ print_phase "Installing JVM tools in bin"
 ./install
 
 print_phase "Installing JVM layout tools in bin"
-git clone https://github.com/fprime-community/fprime-layout.git
-./fprime-layout/install ./bin
+git clone https://github.com/fprime-community/fprime-layout.git ../../fprime-layout
+../../fprime-layout/install `pwd`/bin
 
 # Release FPL layout too
 print_phase "Constructing binary tools in $native_bin"
