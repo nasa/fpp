@@ -10,7 +10,7 @@
 #if FW_ENABLE_TEXT_LOGGING
 #include "Fw/Types/String.hpp"
 #endif
-#include "PassiveGuardedProductsComponentAc.hpp"
+#include "base/PassiveGuardedProductsComponentAc.hpp"
 
 namespace {
   // Get the max size by doing a union of the input and internal port serialization sizes

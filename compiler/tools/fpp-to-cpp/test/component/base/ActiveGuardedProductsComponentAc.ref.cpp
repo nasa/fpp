@@ -6,11 +6,11 @@
 
 #include <cstdio>
 
-#include "ActiveGuardedProductsComponentAc.hpp"
 #include "Fw/Types/Assert.hpp"
 #if FW_ENABLE_TEXT_LOGGING
 #include "Fw/Types/String.hpp"
 #endif
+#include "base/ActiveGuardedProductsComponentAc.hpp"
 
 namespace {
   enum MsgTypeEnum {
