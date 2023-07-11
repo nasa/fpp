@@ -53,7 +53,6 @@ cd `dirname $0`
 # Set local variables
 native_bin="native-fpp-`uname`-`uname -m`"
 native_image="$GRAALVM_JAVA_HOME/bin/native-image"
-meta_inf_dir="lib/src/main/resources/META-INF/native-image"
 release_tgz="$native_bin.tar.gz"
 # Use gtar if it's available
 # The default tar has issues on Mac OS on GitHub
@@ -65,7 +64,6 @@ else
 fi
 
 # Make directories
-mkdir -p "$meta_inf_dir"
 mkdir -p "$native_bin"
 
 print_phase "Version information"
@@ -81,6 +79,11 @@ print_phase "Installing JVM tools in bin"
 # Install jar files in bin
 ./install
 
+print_phase "Installing JVM layout tools in bin"
+git clone https://github.com/fprime-community/fprime-layout.git
+./fprime-layout/install ./bin
+
+# Release FPL layout too
 print_phase "Constructing binary tools in $native_bin"
 
 # Get the tool names from bin
