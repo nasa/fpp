@@ -51,7 +51,7 @@ move_template()
   target_suffix=$2
   for suffix in hpp cpp
   do
-    cp $file'.template.'$suffix $file$target_suffix'.ref.template.'$suffix
+    cp $file'.template.'$suffix $file$target_suffix'.template.ref.'$suffix
   done
 }
 

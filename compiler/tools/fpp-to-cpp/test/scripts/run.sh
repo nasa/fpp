@@ -52,9 +52,9 @@ diff_template()
   file=$1
   target_suffix=$2
   cp $file.template.hpp $file$target_suffix.out.template.hpp && \
-  diff -u $file$target_suffix.out.template.hpp $file$target_suffix.ref.template.hpp && \
+  diff -u $file$target_suffix.out.template.hpp $file$target_suffix.template.ref.hpp && \
   cp $file.template.cpp $file$target_suffix.out.template.cpp && \
-  diff -u $file$target_suffix.out.template.cpp $file$target_suffix.ref.template.cpp
+  diff -u $file$target_suffix.out.template.cpp $file$target_suffix.template.ref.cpp
 }
 
 . ./run.sh
