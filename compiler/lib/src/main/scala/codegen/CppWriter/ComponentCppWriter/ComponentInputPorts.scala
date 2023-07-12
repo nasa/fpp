@@ -10,6 +10,23 @@ case class ComponentInputPorts(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
+  def generateHandlers(
+    ports: List[PortInstance],
+    portName: String => String,
+    handlerName: String => String
+  ): List[CppDoc.Class.Member] = {
+    ports.map(p =>
+      functionClassMember(
+        Some(s"Handler for input port ${portName(p.getUnqualifiedName)}"),
+        handlerName(p.getUnqualifiedName),
+        portNumParam :: getPortFunctionParams(p),
+        getPortReturnTypeAsCppDocType(p),
+        Nil,
+        CppDoc.Function.PureVirtual
+      )
+    )
+  }
+
   def generateGetters(
     ports: List[PortInstance],
     portType: String,
@@ -65,15 +82,10 @@ case class ComponentInputPorts(
     addAccessTagAndComment(
       "PROTECTED",
       s"Handlers to implement for ${getPortListTypeString(ports)} input ports",
-      ports.map(p =>
-        functionClassMember(
-          Some(s"Handler for input port ${p.getUnqualifiedName}"),
-          inputPortHandlerName(p.getUnqualifiedName),
-          portNumParam :: getPortFunctionParams(p),
-          getPortReturnTypeAsCppDocType(p),
-          Nil,
-          CppDoc.Function.PureVirtual
-        )
+      generateHandlers(
+        ports,
+        (s: String) => s,
+        inputPortHandlerName
       ),
       CppDoc.Lines.Hpp
     )
@@ -369,10 +381,6 @@ case class ComponentInputPorts(
       )
     )
   }
-
-  // Get the name for an input port handler base-class function
-  private def inputPortHandlerBaseName(name: String) =
-    s"${name}_handlerBase"
 
   // Get the name for a param command handler function
   private def paramCmdHandlerName(cmd: Command.Param) =

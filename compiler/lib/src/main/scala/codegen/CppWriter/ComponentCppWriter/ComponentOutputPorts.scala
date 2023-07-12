@@ -155,32 +155,48 @@ case class ComponentOutputPorts(
     )
   }
 
+  def generateConnectionStatusQueries(
+    ports: List[PortInstance],
+    portName: String => String,
+    isConnectedName: String => String,
+    numGetterName: PortInstance => String,
+    variableName: PortInstance => String
+  ): List[CppDoc.Class.Member] = {
+    mapPorts(ports, p => List(
+      functionClassMember(
+        Some(
+          s"""|Check whether port ${portName(p.getUnqualifiedName)} is connected
+              |
+              |\\return Whether port ${portName(p.getUnqualifiedName)} is connected
+              |"""
+        ),
+        isConnectedName(p.getUnqualifiedName),
+        List(portNumParam),
+        CppDoc.Type("bool"),
+        lines(
+          s"""|FW_ASSERT(
+              |  portNum < this->${numGetterName(p)}(),
+              |  static_cast<FwAssertArgType>(portNum)
+              |);
+              |
+              |return this->${variableName(p)}[portNum].isConnected();
+              |"""
+        )
+      )
+    ))
+  }
+
   def getConnectionStatusQueries(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
       "PROTECTED",
       s"Connection status queries for ${getPortListTypeString(ports)} output ports",
-      mapPorts(ports, p => List(
-        functionClassMember(
-          Some(
-            s"""|Check whether port ${p.getUnqualifiedName} is connected
-                |
-                |\\return Whether port ${p.getUnqualifiedName} is connected
-                |"""
-          ),
-          outputPortIsConnectedName(p.getUnqualifiedName),
-          List(portNumParam),
-          CppDoc.Type("bool"),
-          lines(
-            s"""|FW_ASSERT(
-                |  portNum < this->${portNumGetterName(p)}(),
-                |  static_cast<FwAssertArgType>(portNum)
-                |);
-                |
-                |return this->${portVariableName(p)}[portNum].isConnected();
-                |"""
-          )
-        )
-      ))
+      generateConnectionStatusQueries(
+        ports,
+        (s: String) => s,
+        outputPortIsConnectedName,
+        portNumGetterName,
+        portVariableName
+      )
     )
   }
 

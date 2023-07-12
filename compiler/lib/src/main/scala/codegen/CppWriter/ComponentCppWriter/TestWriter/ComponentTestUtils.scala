@@ -52,9 +52,17 @@ abstract class ComponentTestUtils(
   override def portVariableName(p: PortInstance) =
     s"m_${portName(p)}"
 
+  /** Get the name for a to port connection status query function */
+  def toPortIsConnectedName(name: String) =
+    s"isConnected_${outputPortName(name)}"
+
   /** Get the name for a to port connector function */
   def toPortConnectorName(name: String) =
     s"connect_${outputPortName(name)}"
+
+  /** Get the name for a to port invocation function */
+  def toPortInvokerName(name: String) =
+    s"invoke_${outputPortName(name)}"
 
   /** Get the name for a from getter function */
   def fromPortGetterName(name: String) =
@@ -64,9 +72,17 @@ abstract class ComponentTestUtils(
   def fromPortHandlerName(name: String): String =
     inputPortHandlerName(inputPortName(name))
 
+  /** Get the name for a from port handler base function */
+  def fromPortHandlerBaseName(name: String): String =
+    inputPortHandlerBaseName(inputPortName(name))
+
   /** Get the name for a from port handler function */
   def fromPortCallbackName(name: String): String =
     s"${inputPortName(name)}_static"
+
+  /** Get the name for a from port push entry function */
+  def fromPortPushEntryName(name: String): String =
+    s"pushFromPortEntry_$name"
 
   /** Get the name for a from port history variable */
   def fromPortHistoryName(name: String) =
@@ -75,6 +91,11 @@ abstract class ComponentTestUtils(
   /** Get the name for a from port entry struct */
   def fromPortEntryName(name: String) =
     s"FromPortEntry_$name"
+
+
+  /** Get the name for a send command function */
+  def sendCmdName(name: String) =
+    s"sendCmd_$name"
 
   /** Get the name for an event history variable */
   def eventHistoryName(name: String) =

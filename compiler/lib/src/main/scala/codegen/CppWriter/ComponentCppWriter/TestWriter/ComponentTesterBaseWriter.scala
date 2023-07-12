@@ -12,6 +12,8 @@ case class ComponentTesterBaseWriter(
 
   private val fileName = ComputeCppFiles.FileNames.getComponentTesterBase(name)
 
+  private val historyWriter = ComponentHistory(s, aNode)
+
   def write: CppDoc = {
     val includeGuard = s.includeGuardFromQualifiedName(symbol, fileName)
     CppWriter.createCppDoc(
@@ -78,6 +80,12 @@ case class ComponentTesterBaseWriter(
 
       // Protected members
       getConstructorMembers,
+      getPortHandlers,
+      getPortHandlerBases,
+
+      // History members
+      historyWriter.getHistoryClass,
+      historyWriter.getMembers,
     )
   }
 
@@ -263,6 +271,223 @@ case class ComponentTesterBaseWriter(
       fromPortGetterName,
       portNumGetterName,
       portVariableName
+    )
+  }
+
+  private def getPortHandlers: List[CppDoc.Class.Member] = {
+    addAccessTagAndComment(
+      "protected",
+      s"Handlers to implement for from ports",
+      ComponentInputPorts(s, aNode).generateHandlers(
+        List.concat(
+          typedOutputPorts,
+          serialOutputPorts,
+        ),
+        inputPortName,
+        fromPortHandlerName
+      ),
+      CppDoc.Lines.Hpp
+    )
+  }
+
+  private def getPortHandlerBases: List[CppDoc.Class.Member] = {
+    addAccessTagAndComment(
+      "protected",
+      "Handler base-class functions for from ports",
+      List.concat(
+        typedOutputPorts,
+        serialOutputPorts,
+      ).map(p => {
+        val returnKeyword = getPortReturnType(p) match {
+          case Some(_) => "return "
+          case None => ""
+        }
+        val handlerCall = writeFunctionCall(
+          s"${returnKeyword}this->${fromPortHandlerName(p.getUnqualifiedName)}",
+          List("portNum"),
+          getPortParams(p).map(_._1)
+        )
+
+        functionClassMember(
+          Some(s"Handler base-class function for ${inputPortName(p.getUnqualifiedName)}"),
+          fromPortHandlerBaseName(p.getUnqualifiedName),
+          portNumParam :: getPortFunctionParams(p),
+          getPortReturnTypeAsCppDocType(p),
+          List.concat(
+            lines(
+              s"""|// Make sure port number is valid
+                  |FW_ASSERT(
+                  |  portNum < this->${portNumGetterName(p)}(),
+                  |  static_cast<FwAssertArgType>(portNum)
+                  |);
+                  |"""
+            ),
+            handlerCall
+          )
+        )
+      })
+    )
+  }
+
+  private def getPortInvocationFunctions: List[CppDoc.Class.Member] = {
+    addAccessTagAndComment(
+      "protected",
+      "Invocation functions for to ports",
+      List.concat(
+        typedInputPorts,
+        serialInputPorts,
+      ).map(p => {
+        val returnKeyword = getPortReturnType(p) match {
+          case Some(_) => "return "
+          case None => ""
+        }
+        val invokeCall = writeFunctionCall(
+          s"${returnKeyword}this->${portVariableName(p)}[portNum].invoke",
+          Nil,
+          getPortParams(p).map(_._1)
+        )
+
+        functionClassMember(
+          Some(s"Invoke the to port connected to ${p.getUnqualifiedName}"),
+          toPortInvokerName(p.getUnqualifiedName),
+          portNumParam :: getPortFunctionParams(p),
+          getPortReturnTypeAsCppDocType(p),
+          List.concat(
+            lines(
+              s"""|// Make sure port number is valid
+                  |FW_ASSERT(
+                  |  portNum < this->${portNumGetterName(p)}(),
+                  |  static_cast<FwAssertArgType>(portNum)
+                  |);
+                  |"""
+            ),
+            invokeCall
+          )
+        )
+      })
+    )
+  }
+
+  private def getPortNumGetters: List[CppDoc.Class.Member] = {
+    addAccessTagAndComment(
+      "protected",
+      "Getters for port counts",
+      ComponentPorts(s, aNode).generateNumGetters(
+        List.concat(
+          typedInputPorts,
+          serialInputPorts,
+          typedOutputPorts,
+          serialOutputPorts,
+        ),
+        portName,
+        portVariableName
+      )
+    )
+  }
+
+  private def getPortConnectionStatusQueries: List[CppDoc.Class.Member] = {
+    addAccessTagAndComment(
+      "protected",
+      "Connection status queries for to ports",
+      ComponentOutputPorts(s, aNode).generateConnectionStatusQueries(
+        List.concat(
+          typedInputPorts,
+          serialInputPorts,
+          specialInputPorts,
+        ),
+        outputPortName,
+        toPortIsConnectedName,
+        portNumGetterName,
+        portVariableName
+      )
+    )
+  }
+
+  private def getCmdFunctions: List[CppDoc.Class.Member] = {
+    List.concat(
+      List(
+        functionClassMember(
+          Some("Handle a command response"),
+          "cmdResponseIn",
+          List(
+            opcodeParam,
+            cmdSeqParam,
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::CmdResponse"),
+              "response",
+              Some("The command response")
+            )
+          ),
+          CppDoc.Type("void"),
+          lines(
+            """|CmdResponse e = { opCode, seq, response };
+               |this->cmdResponseHistory->push_back(e);
+               |"""
+          ),
+          CppDoc.Function.Virtual
+        ),
+        functionClassMember(
+          Some("Send command buffers directly (used for intentional command encoding errors)"),
+          "sendRawCmd",
+          List(
+            opcodeParam,
+            cmdSeqParam,
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::CmdBufferArg&"),
+              "args",
+              Some("The command argument buffer")
+            )
+          ),
+          CppDoc.Type("void"),
+          lines(
+            s"""|const U32 idBase = this->getIdBase();
+                |FwOpcodeType _opcode = opcode + idBase;
+                |
+                |if (this->${portVariableName(cmdRecvPort.get)}[0].isConnected()) {
+                |  this->${portVariableName(cmdRecvPort.get)}[0].invoke(
+                |    _opcode,
+                |    cmdSeq,
+                |    args
+                |  );
+                |}
+                |else {
+                |  printf("Test Command Output port not connected!\\n");
+                |}
+                |"""
+          )
+        )
+      ),
+      sortedCmds.map((opcode, cmd) =>
+        functionClassMember(
+          Some(s"Send a ${cmd.getName} command"),
+          sendCmdName(cmd.getName),
+          List.concat(
+            List(
+              CppDoc.Function.Param(
+                CppDoc.Type("const NATIVE_INT_TYPE"),
+                "instance",
+                Some("The instance number")
+              ),
+              cmdSeqParam
+            ),
+            cmdParamMap(opcode)
+          ),
+          CppDoc.Type("void"),
+          intersperseBlankLines(
+            List(
+              if cmdParamMap(opcode).empty then Nil
+              else lines(
+                """|// Serialize arguments
+                   |Fw::CmdArgBuffer buf;
+                   |Fw::SerializeStatus _status;
+                   |"""
+              ) :: intersperseBlankLines(
+                cmdParamMap(opcode).map()
+              )
+            )
+          )
+        )
+      )
     )
   }
 

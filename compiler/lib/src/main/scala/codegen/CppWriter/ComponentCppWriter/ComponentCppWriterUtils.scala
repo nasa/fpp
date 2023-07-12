@@ -154,6 +154,10 @@ abstract class ComponentCppWriterUtils(
   /** List of parameters sorted by ID */
   val sortedParams: List[(Param.Id, Param)] = component.paramMap.toList.sortBy(_._1)
 
+  /** Command receive port */
+  val cmdRecvPort: Option[PortInstance.Special] =
+    component.specialPortMap.get(Ast.SpecPortInstance.CommandRecv)
+
   /** Command response port */
   val cmdRespPort: Option[PortInstance.Special] =
     component.specialPortMap.get(Ast.SpecPortInstance.CommandResp)
@@ -549,6 +553,10 @@ abstract class ComponentCppWriterUtils(
   /** Get the name for an input port handler function */
   def inputPortHandlerName(name: String) =
     s"${name}_handler"
+
+  // Get the name for an input port handler base-class function
+  def inputPortHandlerBaseName(name: String) =
+    s"${name}_handlerBase"
 
   /** Get the name for an input port callback function */
   def inputPortCallbackName(name: String) =
