@@ -876,24 +876,6 @@ void PassiveSerialComponentBase ::
   this->m_typedReturnOut_OutputPort[portNum].addCallPort(port);
 }
 
-// ----------------------------------------------------------------------
-// Connect serial input ports to serial output ports
-// ----------------------------------------------------------------------
-
-void PassiveSerialComponentBase ::
-  set_serialOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputSerializePort* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_serialOut_OutputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_serialOut_OutputPort[portNum].registerSerialPort(port);
-}
-
 #if FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
