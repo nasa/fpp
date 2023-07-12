@@ -5,78 +5,9 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 
 /** Writes out C++ */
-object CppWriter extends AstStateVisitor with LineUtils {
+trait CppWriter extends AstStateVisitor with LineUtils {
 
   type State = CppWriterState
-
-  override def defArrayAnnotatedNode(
-    s: CppWriterState,
-    aNode: Ast.Annotated[AstNode[Ast.DefArray]]
-  ) = {
-    val node = aNode._2
-    val data = node.data
-    val cppDoc = ArrayCppWriter(s, aNode).write
-    writeCppDoc(s, cppDoc)
-  }
-
-  override def defComponentAnnotatedNode(
-    s: State,
-    aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
-  ) = {
-    val node = aNode._2
-    val data = node.data
-    val cppDoc = ComponentCppWriter(s, aNode).write
-    for {
-      s <- writeCppDoc(s, cppDoc)
-      s <- visitList(s, data.members, matchComponentMember)
-    }
-    yield s
-  }
-
-  override def defEnumAnnotatedNode(
-    s: CppWriterState,
-    aNode: Ast.Annotated[AstNode[Ast.DefEnum]]
-  ) = {
-    val node = aNode._2
-    val data = node.data
-    val cppDoc = EnumCppWriter(s, aNode).write
-    writeCppDoc(s, cppDoc)
-  }
-
-  override def defModuleAnnotatedNode(
-    s: State,
-    aNode: Ast.Annotated[AstNode[Ast.DefModule]]
-  ) = {
-    val node = aNode._2
-    val data = node.data
-    visitList(s, data.members, matchModuleMember)
-  }
-
-  override def defStructAnnotatedNode(
-    s: State,
-    aNode: Ast.Annotated[AstNode[Ast.DefStruct]]
-  ) = {
-    val cppDoc = StructCppWriter(s, aNode).write
-    writeCppDoc(s, cppDoc)
-  }
-
-  override def defPortAnnotatedNode(
-    s: State,
-    aNode: Ast.Annotated[AstNode[Ast.DefPort]]
-  ) = {
-    val cppDoc = PortCppWriter(s, aNode).write
-    writeCppDoc(s, cppDoc)
-  }
-
-  override def defTopologyAnnotatedNode(
-    s: State,
-    aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
-  ) = {
-    val node = aNode._2
-    val data = node.data
-    val cppDoc = TopologyCppWriter(s, aNode).write
-    writeCppDoc(s, cppDoc)
-  }
 
   override def transUnit(s: State, tu: Ast.TransUnit) =
     visitList(s, tu.members, matchTuMember)
@@ -87,16 +18,21 @@ object CppWriter extends AstStateVisitor with LineUtils {
       _ <- visitList(s, tul, transUnit)
     }
     yield ()
+}
+
+object CppWriter extends LineUtils{
 
   def createCppDoc(
     description: String,
     fileName: String,
     includeGuard: String,
     members: List[CppDoc.Member],
-    toolName: Option[String]
+    toolName: Option[String],
+    hppFileExtension: String = "hpp",
+    cppFileExtension: String = "cpp",
   ): CppDoc = {
-    val hppFile = CppDoc.HppFile(s"$fileName.hpp", includeGuard)
-    CppDoc(description, hppFile, s"$fileName.cpp", members, toolName)
+    val hppFile = CppDoc.HppFile(s"$fileName.$hppFileExtension", includeGuard)
+    CppDoc(description, hppFile, s"$fileName.$cppFileExtension", members, toolName)
   }
 
   def headerString(s: String): String = {
@@ -108,25 +44,25 @@ object CppWriter extends AstStateVisitor with LineUtils {
 
   def headerLine(s: String): Line = line(headerString(s))
 
-  def writeCppDoc(s: State, cppDoc: CppDoc): Result.Result[State] =
+  def writeCppDoc(s: CppWriterState, cppDoc: CppDoc): Result.Result[CppWriterState] =
     for {
       _ <- writeHppFile(s, cppDoc)
       _ <- writeCppFile(s, cppDoc)
     }
     yield s
 
-  private def writeCppFile(s: State, cppDoc: CppDoc) = {
+  private def writeCppFile(s: CppWriterState, cppDoc: CppDoc) = {
     val lines = CppDocCppWriter.visitCppDoc(cppDoc)
     writeLinesToFile(s, cppDoc.cppFileName, lines)
   }
 
-  private def writeHppFile(s: State, cppDoc: CppDoc) = {
+  private def writeHppFile(s: CppWriterState, cppDoc: CppDoc) = {
     val lines = CppDocHppWriter.visitCppDoc(cppDoc)
     writeLinesToFile(s, cppDoc.hppFile.name, lines)
   }
 
   private def writeLinesToFile(
-    s: State,
+    s: CppWriterState,
     fileName: String,
     lines: List[Line]
   ) = {
@@ -148,6 +84,10 @@ object CppWriter extends AstStateVisitor with LineUtils {
 
   /** Writes an identifier */
   def writeId(id: BigInt): String = s"0x${id.toString(16).toUpperCase}"
+
+  def getMode(template: Boolean): Mode =
+    if template then ImplTemplate
+    else Autocode
 
   /** The phases of code generation */
   object Phases {
@@ -189,5 +129,9 @@ object CppWriter extends AstStateVisitor with LineUtils {
     val tearDownComponents = 11
 
   }
+
+  sealed trait Mode
+  case object Autocode extends Mode
+  case object ImplTemplate extends Mode
 
 }

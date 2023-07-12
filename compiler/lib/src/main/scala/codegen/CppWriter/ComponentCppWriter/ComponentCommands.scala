@@ -10,28 +10,6 @@ case class ComponentCommands (
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
-  private val cmdParamMap = nonParamCmds.map((opcode, cmd) => {(
-    opcode,
-    formalParamsCppWriter.write(
-      cmd.aNode._2.data.params,
-      Nil,
-      Some("Fw::CmdStringArg"),
-      FormalParamsCppWriter.Value
-    )
-  )}).toMap
-
-  private val opcodeParam = CppDoc.Function.Param(
-    CppDoc.Type("FwOpcodeType"),
-    "opCode",
-    Some("The opcode")
-  )
-
-  private val cmdSeqParam = CppDoc.Function.Param(
-    CppDoc.Type("U32"),
-    "cmdSeq",
-    Some("The command sequence number")
-  )
-
   def getConstantMembers: List[CppDoc.Class.Member] = {
     if !(hasCommands || hasParameters) then Nil
     else List(
