@@ -4417,7 +4417,7 @@ active component InternalSelfMessage {
 </div>
 </div>
 <div class="paragraph">
-<p>When the implementation of <code>ExternalSelfMessage</code> invokes
+<p>When the implementation of <code>InternalSelfMessage</code> invokes
 the port <code>pInternal</code>, a message goes on its queue.
 This corresponds to the behavior of <code>pOut</code> in
 <code>ExternalSelfMessage</code>.
@@ -4547,11 +4547,11 @@ active component Action {
   # Ports
   # ----------------------------------------------------------------------
 
-  @ Command registration
-  command reg port cmdRegOut
-
   @ Command input
   command recv port cmdIn
+
+  @ Command registration
+  command reg port cmdRegOut
 
   @ Command response
   command resp port cmdResponseOut
@@ -4639,11 +4639,11 @@ active component Switch {
   # Ports
   # ----------------------------------------------------------------------
 
-  @ Command registration
-  command reg port cmdRegOut
-
   @ Command input
   command recv port cmdIn
+
+  @ Command registration
+  command reg port cmdRegOut
 
   @ Command response
   command resp port cmdResponseOut
@@ -4709,11 +4709,11 @@ active component CommandOpcodes {
   # Ports
   # ----------------------------------------------------------------------
 
-  @ Command registration
-  command reg port cmdRegOut
-
   @ Command input
   command recv port cmdIn
+
+  @ Command registration
+  command reg port cmdRegOut
 
   @ Command response
   command resp port cmdResponseOut
@@ -4748,11 +4748,11 @@ active component DuplicateOpcode {
   # Ports
   # ----------------------------------------------------------------------
 
-  @ Command registration
-  command reg port cmdRegOut
-
   @ Command input
   command recv port cmdIn
+
+  @ Command registration
+  command reg port cmdRegOut
 
   @ Command response
   command resp port cmdResponseOut
@@ -4792,11 +4792,11 @@ active component PriorityQueueFull {
   # Ports
   # ----------------------------------------------------------------------
 
-  @ Command registration
-  command reg port cmdRegOut
-
   @ Command input
   command recv port cmdIn
+
+  @ Command registration
+  command reg port cmdRegOut
 
   @ Command response
   command resp port cmdResponseOut
@@ -5919,11 +5919,11 @@ active component Switch {
   # Ports
   # ----------------------------------------------------------------------
 
-  @ Command registration
-  command reg port cmdRegOut
-
   @ Command input
   command recv port cmdIn
+
+  @ Command registration
+  command reg port cmdRegOut
 
   @ Command response
   command resp port cmdResponseOut
@@ -11219,7 +11219,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-04-03 14:48:54 -0700
+Last updated 2023-07-13 09:53:33 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
