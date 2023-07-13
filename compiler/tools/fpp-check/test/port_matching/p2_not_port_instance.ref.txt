@@ -1,5 +1,5 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/port_matching/p2_not_port_instance.fpp: 6.17
+[ local path prefix ]/compiler/tools/fpp-check/test/port_matching/p2_not_port_instance.fpp:6.17
   match p1 with p2
                 ^
 error: p2 is not a port instance of component C

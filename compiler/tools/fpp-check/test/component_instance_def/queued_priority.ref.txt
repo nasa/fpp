@@ -1,5 +1,5 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/component_instance_def/queued_priority.fpp: 11.12
+[ local path prefix ]/compiler/tools/fpp-check/test/component_instance_def/queued_priority.fpp:11.12
   priority 10
            ^
 error: invalid component instance definition c: queued component may not have priority

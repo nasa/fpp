@@ -1,9 +1,9 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/event/duplicate_id_explicit.fpp: 5.3
+[ local path prefix ]/compiler/tools/fpp-check/test/event/duplicate_id_explicit.fpp:5.3
   event E2 severity activity low id 0x10 format ""
   ^
 error: duplicate identifier value (16 dec, 10 hex)
 previous occurrence is here:
-[ local path prefix ]/compiler/tools/fpp-check/test/event/duplicate_id_explicit.fpp: 3.3
+[ local path prefix ]/compiler/tools/fpp-check/test/event/duplicate_id_explicit.fpp:3.3
   event E1 severity activity low id 0x10 format ""
   ^

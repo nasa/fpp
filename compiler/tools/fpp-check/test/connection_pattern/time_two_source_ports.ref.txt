@@ -1,5 +1,5 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/connection_pattern/time_two_source_ports.fpp: 17.31
+[ local path prefix ]/compiler/tools/fpp-check/test/connection_pattern/time_two_source_ports.fpp:17.31
     time connections instance $time { c }
                               ^
 error: ambiguous pattern: instance time has time get input ports timeGetIn, timeGetIn1

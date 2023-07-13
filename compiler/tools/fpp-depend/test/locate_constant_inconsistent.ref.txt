@@ -1,9 +1,9 @@
 fpp-depend
-[ local path prefix ]/compiler/tools/fpp-depend/test/locate_constant_inconsistent.fpp: 2.22
+[ local path prefix ]/compiler/tools/fpp-depend/test/locate_constant_inconsistent.fpp:2.22
 locate constant c at "b.fpp"
                      ^
 error: inconsistent location path [ local path prefix ]/compiler/tools/fpp-depend/test/b.fpp
-[ local path prefix ]/compiler/tools/fpp-depend/test/locate_constant_inconsistent.fpp: 1.22
+[ local path prefix ]/compiler/tools/fpp-depend/test/locate_constant_inconsistent.fpp:1.22
 locate constant c at "a.fpp"
                      ^
 previous path is [ local path prefix ]/compiler/tools/fpp-depend/test/a.fpp

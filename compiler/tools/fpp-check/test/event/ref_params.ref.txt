@@ -1,5 +1,5 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/event/ref_params.fpp: 3.3
+[ local path prefix ]/compiler/tools/fpp-check/test/event/ref_params.fpp:3.3
   event e(ref a: U32) severity activity low format "a={}"
   ^
 error: event may not have ref parameters

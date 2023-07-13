@@ -1,5 +1,5 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/port_instance/sync_input_queue_full.fpp: 5.24
+[ local path prefix ]/compiler/tools/fpp-check/test/port_instance/sync_input_queue_full.fpp:5.24
   sync input port p: P drop
                        ^
 error: only async input may have queue full behavior

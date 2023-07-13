@@ -1,9 +1,9 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/top_import/duplicate_topology.fpp: 8.3
+[ local path prefix ]/compiler/tools/fpp-check/test/top_import/duplicate_topology.fpp:8.3
   import A
   ^
 error: duplicate topology A
 previous occurrence is here:
-[ local path prefix ]/compiler/tools/fpp-check/test/top_import/duplicate_topology.fpp: 7.3
+[ local path prefix ]/compiler/tools/fpp-check/test/top_import/duplicate_topology.fpp:7.3
   import A
   ^

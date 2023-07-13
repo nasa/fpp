@@ -1,9 +1,9 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/enum/invalid_symbol.fpp: 2.14
+[ local path prefix ]/compiler/tools/fpp-check/test/enum/invalid_symbol.fpp:2.14
 constant c = E
              ^
 error: invalid symbol E: not a constant symbol
 symbol is defined here:
-[ local path prefix ]/compiler/tools/fpp-check/test/enum/invalid_symbol.fpp: 1.1
+[ local path prefix ]/compiler/tools/fpp-check/test/enum/invalid_symbol.fpp:1.1
 enum E { A, B, C }
 ^

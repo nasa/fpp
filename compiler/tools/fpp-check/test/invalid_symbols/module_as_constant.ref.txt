@@ -1,9 +1,9 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/invalid_symbols/module_as_constant.fpp: 3.16
+[ local path prefix ]/compiler/tools/fpp-check/test/invalid_symbols/module_as_constant.fpp:3.16
   constant a = M
                ^
 error: invalid symbol M: not a constant symbol
 symbol is defined here:
-[ local path prefix ]/compiler/tools/fpp-check/test/invalid_symbols/module_as_constant.fpp: 1.1
+[ local path prefix ]/compiler/tools/fpp-check/test/invalid_symbols/module_as_constant.fpp:1.1
 module M {
 ^
