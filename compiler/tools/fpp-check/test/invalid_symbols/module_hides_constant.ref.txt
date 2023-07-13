@@ -1,9 +1,9 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/invalid_symbols/module_hides_constant.fpp: 6.16
+[ local path prefix ]/compiler/tools/fpp-check/test/invalid_symbols/module_hides_constant.fpp:6.16
   constant b = a
                ^
 error: invalid symbol a: not a constant symbol
 symbol is defined here:
-[ local path prefix ]/compiler/tools/fpp-check/test/invalid_symbols/module_hides_constant.fpp: 7.3
+[ local path prefix ]/compiler/tools/fpp-check/test/invalid_symbols/module_hides_constant.fpp:7.3
   module a { }
   ^

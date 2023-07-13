@@ -1,5 +1,5 @@
 fpp-syntax
-[ local path prefix ]/compiler/tools/fpp-syntax/test/include-missing-file.fpp: 1.9
+[ local path prefix ]/compiler/tools/fpp-syntax/test/include-missing-file.fpp:1.9
 include "this-file-should-not-exist.fppi"
         ^
 error: cannot open file [ local path prefix ]/compiler/tools/fpp-syntax/test/this-file-should-not-exist.fppi

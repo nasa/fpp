@@ -1,5 +1,5 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/port_instance/undef_command_recv.fpp: 3.3
+[ local path prefix ]/compiler/tools/fpp-check/test/port_instance/undef_command_recv.fpp:3.3
   command recv port cmdIn
   ^
 error: undefined symbol Fw

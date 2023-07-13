@@ -1,9 +1,9 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/invalid_symbols/module_as_type.fpp: 3.17
+[ local path prefix ]/compiler/tools/fpp-check/test/invalid_symbols/module_as_type.fpp:3.17
   array a = [3] M
                 ^
 error: invalid symbol M: not a type symbol
 symbol is defined here:
-[ local path prefix ]/compiler/tools/fpp-check/test/invalid_symbols/module_as_type.fpp: 1.1
+[ local path prefix ]/compiler/tools/fpp-check/test/invalid_symbols/module_as_type.fpp:1.1
 module M {
 ^
