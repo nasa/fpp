@@ -107,4 +107,16 @@ missing()
   compare missing_output
 }
 
+template_filenames()
+{
+  run_test '-t template_filenames_output.out.txt' filenames
+  compare template_filenames_output
+}
+
+template_filenames_include()
+{
+  run_test '-t template_filenames_include_output.out.txt' filenames_include
+  compare template_filenames_include_output
+}
+
 run_suite $tests

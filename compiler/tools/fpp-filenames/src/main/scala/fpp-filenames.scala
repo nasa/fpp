@@ -12,6 +12,7 @@ object FPPFilenames {
 
   case class Options(
     files: List[File] = List(),
+    template: Boolean = false,
   )
 
   def command(options: Options) = {
@@ -26,7 +27,11 @@ object FPPFilenames {
         tul,
         ResolveSpecInclude.transUnit
       )
-      files <- ComputeGeneratedFiles.getFiles(aTul._2)
+      files <-
+        CppWriter.getMode(options.template) match {
+          case CppWriter.Autocode => ComputeGeneratedFiles.getAutocodeFiles(aTul._2)
+          case CppWriter.ImplTemplate => ComputeGeneratedFiles.getImplFiles(aTul._2)
+        }
     }
     yield files.sorted.map(System.out.println)
   }
@@ -56,6 +61,9 @@ object FPPFilenames {
       programName(name),
       head(name, Version.v),
       help('h', "help").text("print this message and exit"),
+      opt[Unit]('t', "template")
+        .action((_, c) => c.copy(template = true))
+        .text("write names of generated template files"),
       arg[String]("file ...")
         .unbounded()
         .optional()
