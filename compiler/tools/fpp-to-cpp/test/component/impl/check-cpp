@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# ----------------------------------------------------------------------
+# Compile ref C++ files, to check them for validity
+#
+# By default, each file is compiled with three different sets of values of F
+# Prime guards: 
+# - Default values as found in fprime/config/FpConfig.h
+# - All guards turned on
+# - All guards turned off (except FW_PORT_SERIALIZATION for components
+#   containing serial ports)
+#
+# If this script is run with the --all flag, each file is compiled with all
+# possible combinations of values of F Prime guards with these exceptions:
+# - FW_AMPCS_COMPATIBLE and FW_CMD_CHECK_RESIDUAL remain set to the default
+#   values found in fprime/config/FpConfig.h
+# - FW_SERIALIZABLE_TO_STRING and FW_ARRAY_TO_STRING always have the same value
+# - FW_PORT_SERIALIZATION is always on for components containing serial ports
+# ----------------------------------------------------------------------
+
+fprime_gcc=../../../../../scripts/fprime-gcc
+export FPRIME_GCC_FLAGS="-I../../fprime"
+warning_flags="-Wno-gnu-zero-variadic-macro-arguments -Wno-unused-parameter -Wno-return-type"
+
+. ../generate_cpp.sh
+
+for file in `find . -name '*.template.ref.cpp'`
+do
+  echo "compiling $file"
+  base=`echo $file | sed 's;\.template.ref.cpp;;'`
+  cp $base.template.ref.hpp $base.hpp
+  cp $base.template.ref.cpp $base.cpp
+  $fprime_gcc -I../../../.. -I../base -I.. -c $base.cpp $warning_flags
+done

@@ -30,9 +30,21 @@ ok()
   run_test "" ok
 }
 
+include_template()
+{
+  run_test "-t" "include" include_template
+}
+
+ok_template()
+{
+  run_test "-t" "ok" ok_template
+}
+
 tests="
 include
+include_template
 ok
+ok_template
 "
 
 run_suite $tests

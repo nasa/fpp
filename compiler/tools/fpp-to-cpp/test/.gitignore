@@ -6,5 +6,7 @@ default-update-ref.sh
 *.o
 *Ac.hpp
 *Ac.cpp
+*.template.hpp
+*.template.cpp
 
 !*/include/*

@@ -1,8 +1,8 @@
 #!/bin/sh
 
-. ../../../../scripts/test-utils.sh
+. $COMPILER_ROOT/scripts/test-utils.sh
 
-fpp_to_cpp=../../../../bin/fpp-to-cpp
+fpp_to_cpp=$COMPILER_ROOT/bin/fpp-to-cpp
 
 compare()
 {
@@ -45,6 +45,16 @@ diff_cpp()
   diff -u $file'Ac'$target_suffix.out.hpp $file'Ac'$target_suffix.ref.hpp && \
   cp $file'Ac'.cpp $file'Ac'$target_suffix.out.cpp && \
   diff -u $file'Ac'$target_suffix.out.cpp $file'Ac'$target_suffix.ref.cpp
+}
+
+diff_template()
+{
+  file=$1
+  target_suffix=$2
+  cp $file.template.hpp $file$target_suffix.out.template.hpp && \
+  diff -u $file$target_suffix.out.template.hpp $file$target_suffix.template.ref.hpp && \
+  cp $file.template.cpp $file$target_suffix.out.template.cpp && \
+  diff -u $file$target_suffix.out.template.cpp $file$target_suffix.template.ref.cpp
 }
 
 . ./run.sh

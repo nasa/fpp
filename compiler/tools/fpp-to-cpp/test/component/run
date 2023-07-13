@@ -1,5 +1,9 @@
-#!/bin/sh
+#!/bin/sh -e
 
-export COMPILER_ROOT=../../../..
-
-sh ../scripts/run.sh
+for file in `find . -mindepth 2 -name run`
+do
+  dir=`dirname $file`
+  echo "[ $dir ]"
+  base=`basename $file`
+  (cd $dir; ./$base)
+done
