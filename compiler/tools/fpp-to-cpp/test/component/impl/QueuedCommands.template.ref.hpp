@@ -34,31 +34,43 @@ class QueuedCommands :
     // ----------------------------------------------------------------------
 
     //! Handler implementation for noArgsAsync
+    //!
+    //! A typed async input port
     void noArgsAsync_handler(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Handler implementation for noArgsGuarded
+    //!
+    //! A typed guarded input
     void noArgsGuarded_handler(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Handler implementation for noArgsReturnGuarded
+    //!
+    //! A typed guarded input
     U32 noArgsReturnGuarded_handler(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Handler implementation for noArgsReturnSync
+    //!
+    //! A typed sync input port
     U32 noArgsReturnSync_handler(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Handler implementation for noArgsSync
+    //!
+    //! A typed sync input port
     void noArgsSync_handler(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Handler implementation for typedAsync
+    //!
+    //! A typed async input port
     void typedAsync_handler(
         NATIVE_INT_TYPE portNum, //!< The port number
         U32 u32, //!< A U32
@@ -71,6 +83,8 @@ class QueuedCommands :
     );
 
     //! Handler implementation for typedAsyncAssert
+    //!
+    //! A typed async input port with queue full behavior and priority
     void typedAsyncAssert_handler(
         NATIVE_INT_TYPE portNum, //!< The port number
         U32 u32, //!< A U32
@@ -83,6 +97,8 @@ class QueuedCommands :
     );
 
     //! Handler implementation for typedAsyncBlockPriority
+    //!
+    //! A typed async input port with queue full behavior and priority
     void typedAsyncBlockPriority_handler(
         NATIVE_INT_TYPE portNum, //!< The port number
         U32 u32, //!< A U32
@@ -95,6 +111,8 @@ class QueuedCommands :
     );
 
     //! Handler implementation for typedAsyncDropPriority
+    //!
+    //! A typed async input port with queue full behavior and priority
     void typedAsyncDropPriority_handler(
         NATIVE_INT_TYPE portNum, //!< The port number
         U32 u32, //!< A U32
@@ -107,6 +125,8 @@ class QueuedCommands :
     );
 
     //! Handler implementation for typedGuarded
+    //!
+    //! A typed guarded input
     void typedGuarded_handler(
         NATIVE_INT_TYPE portNum, //!< The port number
         U32 u32, //!< A U32
@@ -119,6 +139,8 @@ class QueuedCommands :
     );
 
     //! Handler implementation for typedReturnGuarded
+    //!
+    //! A typed guarded input with a return type
     F32 typedReturnGuarded_handler(
         NATIVE_INT_TYPE portNum, //!< The port number
         U32 u32, //!< A U32
@@ -131,6 +153,8 @@ class QueuedCommands :
     );
 
     //! Handler implementation for typedReturnSync
+    //!
+    //! A typed sync input port with a return type
     F32 typedReturnSync_handler(
         NATIVE_INT_TYPE portNum, //!< The port number
         U32 u32, //!< A U32
@@ -143,6 +167,8 @@ class QueuedCommands :
     );
 
     //! Handler implementation for typedSync
+    //!
+    //! A typed sync input port
     void typedSync_handler(
         NATIVE_INT_TYPE portNum, //!< The port number
         U32 u32, //!< A U32
@@ -161,12 +187,16 @@ class QueuedCommands :
     // ----------------------------------------------------------------------
 
     //! Handler implementation for command CMD_SYNC
+    //!
+    //! A sync command with no params
     void CMD_SYNC_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Handler implementation for command CMD_SYNC_PRIMITIVE
+    //!
+    //! An async command with primitive params
     void CMD_SYNC_PRIMITIVE_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
@@ -176,6 +206,8 @@ class QueuedCommands :
     );
 
     //! Handler implementation for command CMD_SYNC_STRING
+    //!
+    //! A sync command with string params
     void CMD_SYNC_STRING_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
@@ -184,6 +216,8 @@ class QueuedCommands :
     );
 
     //! Handler implementation for command CMD_SYNC_ENUM
+    //!
+    //! A sync command with enum params
     void CMD_SYNC_ENUM_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
@@ -191,6 +225,8 @@ class QueuedCommands :
     );
 
     //! Handler implementation for command CMD_SYNC_ARRAY
+    //!
+    //! A sync command with array params
     void CMD_SYNC_ARRAY_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
@@ -198,6 +234,8 @@ class QueuedCommands :
     );
 
     //! Handler implementation for command CMD_SYNC_STRUCT
+    //!
+    //! A sync command with struct params
     void CMD_SYNC_STRUCT_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
@@ -205,12 +243,16 @@ class QueuedCommands :
     );
 
     //! Handler implementation for command CMD_GUARDED
+    //!
+    //! A guarded command with no params
     void CMD_GUARDED_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Handler implementation for command CMD_GUARDED_PRIMITIVE
+    //!
+    //! A guarded command with primitive params
     void CMD_GUARDED_PRIMITIVE_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
@@ -220,6 +262,8 @@ class QueuedCommands :
     );
 
     //! Handler implementation for command CMD_GUARDED_STRING
+    //!
+    //! A guarded command with string params
     void CMD_GUARDED_STRING_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
@@ -228,6 +272,8 @@ class QueuedCommands :
     );
 
     //! Handler implementation for command CMD_GUARDED_ENUM
+    //!
+    //! A guarded command with enum params
     void CMD_GUARDED_ENUM_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
@@ -235,6 +281,8 @@ class QueuedCommands :
     );
 
     //! Handler implementation for command CMD_GUARDED_ARRAY
+    //!
+    //! A guarded command with array params
     void CMD_GUARDED_ARRAY_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
@@ -242,6 +290,8 @@ class QueuedCommands :
     );
 
     //! Handler implementation for command CMD_GUARDED_STRUCT
+    //!
+    //! A guarded command with struct params
     void CMD_GUARDED_STRUCT_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
@@ -249,18 +299,24 @@ class QueuedCommands :
     );
 
     //! Handler implementation for command CMD_ASYNC
+    //!
+    //! An async command with no params
     void CMD_ASYNC_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Handler implementation for command CMD_PRIORITY
+    //!
+    //! A command with priority
     void CMD_PRIORITY_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Handler implementation for command CMD_PARAMS_PRIORITY
+    //!
+    //! A command with params and priority
     void CMD_PARAMS_PRIORITY_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
@@ -268,12 +324,16 @@ class QueuedCommands :
     );
 
     //! Handler implementation for command CMD_DROP
+    //!
+    //! A command with queue full behavior
     void CMD_DROP_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Handler implementation for command CMD_PARAMS_PRIORITY_DROP
+    //!
+    //! A command with params, priority, and queue full behavior
     void CMD_PARAMS_PRIORITY_DROP_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
