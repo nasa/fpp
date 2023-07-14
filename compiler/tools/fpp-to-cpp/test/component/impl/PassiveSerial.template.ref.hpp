@@ -34,26 +34,36 @@ class PassiveSerial :
     // ----------------------------------------------------------------------
 
     //! Handler implementation for noArgsGuarded
+    //!
+    //! A typed guarded input
     void noArgsGuarded_handler(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Handler implementation for noArgsReturnGuarded
+    //!
+    //! A typed guarded input
     U32 noArgsReturnGuarded_handler(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Handler implementation for noArgsReturnSync
+    //!
+    //! A typed sync input port
     U32 noArgsReturnSync_handler(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Handler implementation for noArgsSync
+    //!
+    //! A typed sync input port
     void noArgsSync_handler(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Handler implementation for typedGuarded
+    //!
+    //! A typed guarded input
     void typedGuarded_handler(
         NATIVE_INT_TYPE portNum, //!< The port number
         U32 u32, //!< A U32
@@ -66,6 +76,8 @@ class PassiveSerial :
     );
 
     //! Handler implementation for typedReturnGuarded
+    //!
+    //! A typed guarded input with a return type
     F32 typedReturnGuarded_handler(
         NATIVE_INT_TYPE portNum, //!< The port number
         U32 u32, //!< A U32
@@ -78,6 +90,8 @@ class PassiveSerial :
     );
 
     //! Handler implementation for typedReturnSync
+    //!
+    //! A typed sync input port with a return type
     F32 typedReturnSync_handler(
         NATIVE_INT_TYPE portNum, //!< The port number
         U32 u32, //!< A U32
@@ -90,6 +104,8 @@ class PassiveSerial :
     );
 
     //! Handler implementation for typedSync
+    //!
+    //! A typed sync input port
     void typedSync_handler(
         NATIVE_INT_TYPE portNum, //!< The port number
         U32 u32, //!< A U32
@@ -108,12 +124,16 @@ class PassiveSerial :
     // ----------------------------------------------------------------------
 
     //! Handler implementation for serialGuarded
+    //!
+    //! A serial guarded input
     void serialGuarded_handler(
         NATIVE_INT_TYPE portNum, //!< The port number
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
     );
 
     //! Handler implementation for serialSync
+    //!
+    //! A serial sync input port
     void serialSync_handler(
         NATIVE_INT_TYPE portNum, //!< The port number
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
@@ -126,12 +146,16 @@ class PassiveSerial :
     // ----------------------------------------------------------------------
 
     //! Handler implementation for command CMD_SYNC
+    //!
+    //! A sync command with no params
     void CMD_SYNC_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Handler implementation for command CMD_SYNC_PRIMITIVE
+    //!
+    //! An async command with primitive params
     void CMD_SYNC_PRIMITIVE_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
@@ -141,6 +165,8 @@ class PassiveSerial :
     );
 
     //! Handler implementation for command CMD_SYNC_STRING
+    //!
+    //! A sync command with string params
     void CMD_SYNC_STRING_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
@@ -149,6 +175,8 @@ class PassiveSerial :
     );
 
     //! Handler implementation for command CMD_SYNC_ENUM
+    //!
+    //! A sync command with enum params
     void CMD_SYNC_ENUM_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
@@ -156,6 +184,8 @@ class PassiveSerial :
     );
 
     //! Handler implementation for command CMD_SYNC_ARRAY
+    //!
+    //! A sync command with array params
     void CMD_SYNC_ARRAY_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
@@ -163,6 +193,8 @@ class PassiveSerial :
     );
 
     //! Handler implementation for command CMD_SYNC_STRUCT
+    //!
+    //! A sync command with struct params
     void CMD_SYNC_STRUCT_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
@@ -170,12 +202,16 @@ class PassiveSerial :
     );
 
     //! Handler implementation for command CMD_GUARDED
+    //!
+    //! A guarded command with no params
     void CMD_GUARDED_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Handler implementation for command CMD_GUARDED_PRIMITIVE
+    //!
+    //! A guarded command with primitive params
     void CMD_GUARDED_PRIMITIVE_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
@@ -185,6 +221,8 @@ class PassiveSerial :
     );
 
     //! Handler implementation for command CMD_GUARDED_STRING
+    //!
+    //! A guarded command with string params
     void CMD_GUARDED_STRING_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
@@ -193,6 +231,8 @@ class PassiveSerial :
     );
 
     //! Handler implementation for command CMD_GUARDED_ENUM
+    //!
+    //! A guarded command with enum params
     void CMD_GUARDED_ENUM_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
@@ -200,6 +240,8 @@ class PassiveSerial :
     );
 
     //! Handler implementation for command CMD_GUARDED_ARRAY
+    //!
+    //! A guarded command with array params
     void CMD_GUARDED_ARRAY_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
@@ -207,6 +249,8 @@ class PassiveSerial :
     );
 
     //! Handler implementation for command CMD_GUARDED_STRUCT
+    //!
+    //! A guarded command with struct params
     void CMD_GUARDED_STRUCT_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number

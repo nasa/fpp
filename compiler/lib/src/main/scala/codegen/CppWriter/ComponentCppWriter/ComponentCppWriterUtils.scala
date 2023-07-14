@@ -352,6 +352,16 @@ abstract class ComponentCppWriterUtils(
     })
   }
 
+  def getPortComment(p: PortInstance): Option[String] = {
+    val aNode = p match {
+      case PortInstance.General(aNode, _, _, _, _) => aNode
+      case PortInstance.Special(aNode, _, _, _, _) => aNode
+      case PortInstance.Internal(aNode, _, _) => aNode
+    }
+
+    AnnotationCppWriter.asStringOpt(aNode)
+  }
+
   /** Get port params as a list of tuples containing the name and typename for each param */
   def getPortParams(p: PortInstance): List[(String, String)] =
     p.getType match {
