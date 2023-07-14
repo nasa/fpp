@@ -104,6 +104,7 @@ case class ComponentPorts(
   def generateNumGetters(
     ports: List[PortInstance],
     portName: PortInstance => String,
+    numGetterName: PortInstance => String,
     variableName: PortInstance => String
   ) = {
     mapPorts(ports, p => List(
@@ -114,7 +115,7 @@ case class ComponentPorts(
               |\\return The number of ${portName(p)} ports
               |"""
         ),
-        portNumGetterName(p),
+        numGetterName(p),
         Nil,
         CppDoc.Type("NATIVE_INT_TYPE"),
         lines(
@@ -135,6 +136,7 @@ case class ComponentPorts(
       s"Getters for numbers of ${getPortListTypeString(ports)} $dirStr ports",
       generateNumGetters(
         ports,
+        portNumGetterName,
         (p: PortInstance) => s"${p.getUnqualifiedName} ${p.getDirection.get.toString}",
         portVariableName
       )

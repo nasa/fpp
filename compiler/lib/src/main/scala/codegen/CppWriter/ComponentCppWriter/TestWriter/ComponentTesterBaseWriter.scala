@@ -1,8 +1,9 @@
 package fpp.compiler.codegen
 
-import fpp.compiler.analysis._
-import fpp.compiler.ast._
-import fpp.compiler.util._
+import fpp.compiler.analysis.*
+import fpp.compiler.ast.*
+import fpp.compiler.codegen.CppDoc.Lines.Cpp
+import fpp.compiler.util.*
 
 /** Writes out C++ for component test harness base classes */
 case class ComponentTesterBaseWriter(
@@ -82,6 +83,10 @@ case class ComponentTesterBaseWriter(
       getConstructorMembers,
       getPortHandlers,
       getPortHandlerBases,
+      getPortInvocationFunctions,
+      getPortNumGetters,
+      getPortConnectionStatusQueries,
+      getCmdFunctions,
 
       // History members
       historyWriter.getHistoryClass,
@@ -320,6 +325,7 @@ case class ComponentTesterBaseWriter(
                   |  portNum < this->${portNumGetterName(p)}(),
                   |  static_cast<FwAssertArgType>(portNum)
                   |);
+                  |
                   |"""
             ),
             handlerCall
@@ -359,6 +365,7 @@ case class ComponentTesterBaseWriter(
                   |  portNum < this->${portNumGetterName(p)}(),
                   |  static_cast<FwAssertArgType>(portNum)
                   |);
+                  |
                   |"""
             ),
             invokeCall
@@ -379,6 +386,7 @@ case class ComponentTesterBaseWriter(
           typedOutputPorts,
           serialOutputPorts,
         ),
+        portNumGetterName,
         portName,
         portVariableName
       )
@@ -404,86 +412,436 @@ case class ComponentTesterBaseWriter(
   }
 
   private def getCmdFunctions: List[CppDoc.Class.Member] = {
-    List.concat(
-      List(
-        functionClassMember(
-          Some("Handle a command response"),
-          "cmdResponseIn",
-          List(
-            opcodeParam,
-            cmdSeqParam,
-            CppDoc.Function.Param(
-              CppDoc.Type("Fw::CmdResponse"),
-              "response",
-              Some("The command response")
+    val cmdPortInvocation = lines(
+      s"""|if (this->${portVariableName(cmdRecvPort.get)}[0].isConnected()) {
+          |  this->${portVariableName(cmdRecvPort.get)}[0].invoke(
+          |    _opcode,
+          |    cmdSeq,
+          |    args
+          |  );
+          |}
+          |else {
+          |  printf("Test Command Output port not connected!\\n");
+          |}
+          |"""
+    )
+
+    addAccessTagAndComment(
+      "protected",
+      "Functions for testing commands",
+      List.concat(
+        List(
+          functionClassMember(
+            Some("Handle a command response"),
+            "cmdResponseIn",
+            List(
+              opcodeParam,
+              cmdSeqParam,
+              CppDoc.Function.Param(
+                CppDoc.Type("Fw::CmdResponse"),
+                "response",
+                Some("The command response")
+              )
+            ),
+            CppDoc.Type("void"),
+            lines(
+              """|CmdResponse e = { opCode, seq, response };
+                 |this->cmdResponseHistory->push_back(e);
+                 |"""
+            ),
+            CppDoc.Function.Virtual
+          ),
+          functionClassMember(
+            Some("Send command buffers directly (used for intentional command encoding errors)"),
+            "sendRawCmd",
+            List(
+              opcodeParam,
+              cmdSeqParam,
+              CppDoc.Function.Param(
+                CppDoc.Type("Fw::CmdBufferArg&"),
+                "args",
+                Some("The command argument buffer")
+              )
+            ),
+            CppDoc.Type("void"),
+            List.concat(
+              lines(
+                s"""|const U32 idBase = this->getIdBase();
+                    |FwOpcodeType _opcode = opcode + idBase;
+                    |
+                    |"""
+              ),
+              cmdPortInvocation
             )
-          ),
-          CppDoc.Type("void"),
-          lines(
-            """|CmdResponse e = { opCode, seq, response };
-               |this->cmdResponseHistory->push_back(e);
-               |"""
-          ),
-          CppDoc.Function.Virtual
+          )
         ),
-        functionClassMember(
-          Some("Send command buffers directly (used for intentional command encoding errors)"),
-          "sendRawCmd",
-          List(
-            opcodeParam,
-            cmdSeqParam,
-            CppDoc.Function.Param(
-              CppDoc.Type("Fw::CmdBufferArg&"),
-              "args",
-              Some("The command argument buffer")
+        nonParamCmds.map((opcode, cmd) =>
+          functionClassMember(
+            Some(s"Send a ${cmd.getName} command"),
+            sendCmdName(cmd.getName),
+            List.concat(
+              List(
+                CppDoc.Function.Param(
+                  CppDoc.Type("const NATIVE_INT_TYPE"),
+                  "instance",
+                  Some("The instance number")
+                ),
+                cmdSeqParam
+              ),
+              cmdParamMap(opcode)
+            ),
+            CppDoc.Type("void"),
+            intersperseBlankLines(
+              List(
+                if cmdParamMap(opcode).isEmpty then Nil
+                else List.concat(
+                  lines(
+                    """|// Serialize arguments
+                       |Fw::CmdArgBuffer buf;
+                       |Fw::SerializeStatus _status;
+                       |
+                       |"""
+                  ),
+                  intersperseBlankLines(
+                    cmdParamTypeMap(opcode).map((name, _) =>
+                      lines(
+                        s"""|_status = buf.serialize($name);
+                            |FW_ASSERT(
+                            |  status == FW::FW_SERIALIZE_OK,
+                            |  static_cast<FwAssertArgType>(_status)
+                            |);
+                            |"""
+                      )
+                    )
+                  )
+                ),
+                lines(
+                  s"""|// Call output command port
+                      |FwOpcodeType _opcode;
+                      |const U32 idBase = this->getIdBase();
+                      |_opcode = $className::${commandConstantName(cmd)} + idBase;
+                      |"""
+                ),
+                cmdPortInvocation
+              )
             )
-          ),
-          CppDoc.Type("void"),
-          lines(
-            s"""|const U32 idBase = this->getIdBase();
-                |FwOpcodeType _opcode = opcode + idBase;
-                |
-                |if (this->${portVariableName(cmdRecvPort.get)}[0].isConnected()) {
-                |  this->${portVariableName(cmdRecvPort.get)}[0].invoke(
-                |    _opcode,
-                |    cmdSeq,
-                |    args
-                |  );
-                |}
-                |else {
-                |  printf("Test Command Output port not connected!\\n");
-                |}
-                |"""
           )
         )
-      ),
-      sortedCmds.map((opcode, cmd) =>
-        functionClassMember(
-          Some(s"Send a ${cmd.getName} command"),
-          sendCmdName(cmd.getName),
-          List.concat(
+      )
+    )
+  }
+
+  private def getEventFunctions: List[CppDoc.Class.Member] = {
+    addAccessTagAndComment(
+      "protected",
+      "Functions for testing events",
+      List.concat(
+        List(
+          functionClassMember(
+            Some("Dispatch an event"),
+            "dispatchEvents",
             List(
               CppDoc.Function.Param(
-                CppDoc.Type("const NATIVE_INT_TYPE"),
+                CppDoc.Type("FwEventIdType"),
+                "id",
+                Some("The event ID")
+              ),
+              CppDoc.Function.Param(
+                CppDoc.Type("Fw::Time&"),
+                "timeTag",
+                Some("The time")
+              ),
+              CppDoc.Function.Param(
+                CppDoc.Type("const Fw::LogSeverity"),
+                "severity",
+                Some("The severity")
+              ),
+              CppDoc.Function.Param(
+                CppDoc.Type("Fw::LogBuffer&"),
+                "args",
+                Some("The serialized arguments")
+              )
+            ),
+            CppDoc.Type("void"),
+            Nil
+          )
+        ),
+        wrapClassMemberInTextLogGuard(
+          functionClassMember(
+            Some("Handle a text event"),
+            "textLogIn",
+            List(
+              CppDoc.Function.Param(
+                CppDoc.Type("FwEventIdType"),
+                "id",
+                Some("The event ID")
+              ),
+              CppDoc.Function.Param(
+                CppDoc.Type("Fw::Time&"),
+                "timeTag",
+                Some("The time")
+              ),
+              CppDoc.Function.Param(
+                CppDoc.Type("const Fw::LogSeverity"),
+                "severity",
+                Some("The severity")
+              ),
+              CppDoc.Function.Param(
+                CppDoc.Type("const Fw::TextLogString&"),
+                "text",
+                Some("The event string")
+              )
+            ),
+            CppDoc.Type("void"),
+            lines(
+              s"""|TextLogEntry e = { id, timeTag, severity, text };
+                  |textLogHistory->push_back(e);
+                  |"""
+            )
+          )
+        ),
+        sortedEvents.map((id, event) =>
+          functionClassMember(
+            Some(s"Handle event ${event.getName}"),
+            eventHandlerName(event),
+            formalParamsCppWriter.write(
+              event.aNode._2.data.params,
+              Nil,
+              Some("Fw::LogStringArg"),
+              FormalParamsCppWriter.Value
+            ),
+            CppDoc.Type("void"),
+            List.concat(
+              eventParamTypeMap(id) match {
+                case Nil => lines(
+                  s"this->${eventSizeName(event.getName)}++;"
+                )
+                case params => List.concat(
+                  wrapInScope(
+                    s"${eventEntryName(event.getName)} e = {",
+                    lines(params.map(_._1).mkString(",\n")),
+                    "};"
+                  ),
+                  lines(s"${eventHistoryName(event.getName)}->push_back(e);")
+                )
+              },
+              lines("this->eventsSize++;")
+            ),
+            CppDoc.Function.Virtual
+          )
+        )
+      )
+    )
+  }
+
+  private def getTlmFunctions: List[CppDoc.Class.Member] = {
+    addAccessTagAndComment(
+      "protected",
+      "Functions for testing telemetry",
+      List.concat(
+        List(
+          functionClassMember(
+            Some("Dispatch telemetry"),
+            "dispatchTlm",
+            List(
+              CppDoc.Function.Param(
+                CppDoc.Type("FwChanIdType"),
+                "id",
+                Some("The channel id")
+              ),
+              CppDoc.Function.Param(
+                CppDoc.Type("const Fw::Time&"),
+                "timeTag",
+                Some("The time")
+              ),
+              CppDoc.Function.Param(
+                CppDoc.Type("Fw::TlmBuffer&"),
+                "val",
+                Some("The channel value")
+              )
+            ),
+            CppDoc.Type("void"),
+            List.concat(
+              lines(
+                """|val.resetDeser();
+                   |
+                   |const U32 idBase = this->getIdBase();
+                   |FW_ASSERT(id >= idBase, id, idBase);
+                   |"""
+              ),
+              wrapInSwitch(
+                "id - idBase",
+                List.concat(
+                  sortedChannels.flatMap((_, channel) =>
+                    wrapInScope(
+                      s"case $className::${channelIdConstantName(channel.getName)}: {",
+                      lines(
+                        s"""|${getChannelType(channel.channelType)} arg;
+                            |const Fw::SerializeStatus _status = val.deserialize(arg);
+                            |
+                            |if (_status != Fw::FW_SERIALIZE_OK) {
+                            |  printf("Error deserializing ${channel.getName}: %d\n", _status);
+                            |  return;
+                            |}
+                            |
+                            |this->${tlmHandlerName(channel.getName)}(timeTag, arg);
+                            |break;
+                            |"""
+                      ),
+                      "}"
+                    )
+                  ),
+                  wrapInScope(
+                    "default: {",
+                    lines(
+                      """|FW_ASSERT(0, id);
+                         |break;
+                         |"""
+                    ),
+                    "}"
+                  )
+                )
+              )
+            )
+          )
+        ),
+        sortedChannels.map((_, channel) =>
+          functionClassMember(
+            Some(s"Handle channel ${channel.getName}"),
+            tlmHandlerName(channel.getName),
+            List(
+              CppDoc.Function.Param(
+                CppDoc.Type("const Fw::Time&"),
+                "timeTag",
+                Some("The time")
+              ),
+            ),
+            CppDoc.Type("void"),
+            lines(
+              s"""|${tlmEntryName(channel.getName)} e = { timeTag, val };
+                  |this->${tlmHistoryName(channel.getName)}->push_back(e);
+                  |this->tlmSize++;
+                  |"""
+            )
+          )
+        )
+      )
+    )
+  }
+
+  private def getTimeFunctions: List[CppDoc.Class.Member] = {
+    addAccessTagAndComment(
+      "protected",
+      "Functions to test time",
+      List(
+        functionClassMember(
+          Some("Set the test time for events and telemetry"),
+          "testTime",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("const Fw::Time&"),
+              "timeTag",
+              Some("The time"),
+            )
+          ),
+          CppDoc.Type("void"),
+          lines("this->m_testTime = timeTag;")
+        )
+      )
+    )
+  }
+
+  private def getPrmFunctions: List[CppDoc.Class.Member] = {
+    addAccessTagAndComment(
+      "protected",
+      "Functions to test parameters",
+      sortedParams.flatMap((_, prm) =>
+        List(
+          functionClassMember(
+            Some(s"Set parameter ${prm.getName}"),
+            prmSetName(prm.getName),
+            List(
+              CppDoc.Function.Param(
+                CppDoc.Type(s"const ${writeParamType(prm.paramType)}&"),
+                "val",
+                Some("The parameter value")
+              ),
+              CppDoc.Function.Param(
+                CppDoc.Type("Fw::ParamValid"),
+                "valid",
+                Some("The parameter valid flag")
+              )
+            ),
+            CppDoc.Type("void"),
+            lines(
+              s"""|this->${prmVariableName(prm.getName)} = val;
+                  |this->${prmValidVariableName(prm.getName)} = valid;
+                  |"""
+            )
+          ),
+          functionClassMember(
+            Some(s"Send parameter ${prm.getName}"),
+            prmSetName(prm.getName),
+            List(
+              CppDoc.Function.Param(
+                CppDoc.Type("NATIVE_INT_TYPE"),
                 "instance",
-                Some("The instance number")
+                Some("The component instance")
               ),
               cmdSeqParam
             ),
-            cmdParamMap(opcode)
+            CppDoc.Type("void"),
+            lines(
+              s"""|// Build command for parameter set
+                  |Fw::CmdArgBuffer args;
+                  |FW_ASSERT(
+                  |  args.serialize(this->${prmVariableName(prm.getName)}) == Fw::FW_SERIALIZE_OK
+                  |);
+                  |
+                  |const U32 idBase = this->getIdBase();
+                  |FwOpcodeType _prmOpcode =  $className::${paramCommandConstantName(prm.getName, Command.Param.Set)} + idBase;
+                  |
+                  |if (not this->${portVariableName(cmdRecvPort.get)}[0].isConnected()) {
+                  |  printf("Test Command Output port not connected!\\n");
+                  |}
+                  |else {
+                  |  this->m_to_${portVariableName(cmdRecvPort.get)}[0].invoke(
+                  |    _prmOpcode,
+                  |    cmdSeq,
+                  |    args
+                  |  );
+                  |}
+                  |"""
+            )
           ),
-          CppDoc.Type("void"),
-          intersperseBlankLines(
+          functionClassMember(
+            Some(s"Save parameter ${prm.getName}"),
+            prmSaveName(prm.getName),
             List(
-              if cmdParamMap(opcode).empty then Nil
-              else lines(
-                """|// Serialize arguments
-                   |Fw::CmdArgBuffer buf;
-                   |Fw::SerializeStatus _status;
-                   |"""
-              ) :: intersperseBlankLines(
-                cmdParamMap(opcode).map()
-              )
+              CppDoc.Function.Param(
+                CppDoc.Type("NATIVE_INT_TYPE"),
+                "instance",
+                Some("The component instance")
+              ),
+              cmdSeqParam
+            ),
+            CppDoc.Type("void"),
+            lines(
+              s"""|Fw::CmdArgBuffer args;
+                  |FwOpcodeType _prmOpcode = $className::${paramCommandConstantName(prm.getName, Command.Param.Save)} + idBase;
+                  |const U32 idBase = this->getIdBase();
+                  |
+                  |if (not this->${portVariableName(cmdRecvPort.get)}[0].isConnected()) {
+                  |  printf("Test Command Output port not connected!\\n");
+                  |}
+                  |else {
+                  |  this->${portVariableName(cmdRecvPort.get)}[0].invoke(
+                  |    _prmOpcode,
+                  |    cmdSeq,
+                  |    args
+                  |  );
+                  |}
+                  |"""
             )
           )
         )

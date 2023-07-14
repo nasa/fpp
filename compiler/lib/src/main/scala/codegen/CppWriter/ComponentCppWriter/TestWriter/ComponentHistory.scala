@@ -12,7 +12,14 @@ case class ComponentHistory(
 
   def getMembers: List[CppDoc.Class.Member] = {
     List.concat(
+      getPortHistoryTypes,
+      getCmdHistoryTypes,
+
       getClearHistoryFunction,
+      getPortHistoryFunctions,
+
+      getPortHistoryVariables,
+      getCmdHistoryVariables,
     )
   }
 
@@ -137,9 +144,9 @@ case class ComponentHistory(
     List(
       linesClassMember(
         typedOutputPorts.flatMap(p =>
-          wrapInScope(
-            s"struct ${fromPortEntryName(p.getUnqualifiedName)}",
-            lines(getPortParams(p).map((name, tn) => s"$tn $name").mkString(",\n")),
+          Line.blank :: wrapInScope(
+            s"struct ${fromPortEntryName(p.getUnqualifiedName)} {",
+            getPortParams(p).map((name, tn) => line(s"$tn $name;")),
             "};"
           )
         )
@@ -186,13 +193,13 @@ case class ComponentHistory(
     List(
       linesClassMember(
         List.concat(
-          lines(
+          Line.blank :: lines(
             s"""|//! The total number of port entries
                 |U32 fromPortHistorySize;
                 |"""
           ),
           typedOutputPorts.flatMap(p =>
-            lines(
+            Line.blank :: lines(
               s"""|//! The history for ${inputPortName(p.getUnqualifiedName)}
                   |History<${fromPortEntryName(p.getUnqualifiedName)}>* ${fromPortHistoryName(p.getUnqualifiedName)};
                   |"""
@@ -207,7 +214,7 @@ case class ComponentHistory(
   private def getCmdHistoryTypes: List[CppDoc.Class.Member] = {
     List(
       linesClassMember(
-        line("//! A type representing a command response") ::
+        Line.blank :: line("//! A type representing a command response") ::
           wrapInScope(
             "struct CmdResponse {",
             lines(
@@ -226,10 +233,255 @@ case class ComponentHistory(
   private def getCmdHistoryVariables: List[CppDoc.Class.Member] = {
     List(
       linesClassMember(
-        lines(
+        Line.blank :: lines(
           """|//! The command response history
              |History<CmdResponse>* cmdResponseHistory;
              |"""
+        ),
+        CppDoc.Lines.Hpp
+      )
+    )
+  }
+
+  private def getEventHistoryTypes: List[CppDoc.Class.Member] = {
+    List.concat(
+      wrapClassMemberInTextLogGuard(
+        linesClassMember(
+          line("//! A history entry for text log events") :: wrapInScope(
+            "struct TextLogEntry {",
+            lines(
+              """|U32 id;
+                 |Fw::Time timeTag;
+                 |Fw::LogSeverity severity;
+                 |Fw::TextLogString text;
+                 |"""
+            ),
+            "};"
+          ),
+          CppDoc.Lines.Hpp
+        ),
+        CppDoc.Lines.Hpp
+      ),
+      List(
+        linesClassMember(
+          sortedEvents.flatMap((id, event) =>
+            eventParamTypeMap(id) match {
+              case Nil => Nil
+              case params => Line.blank :: wrapInScope(
+                s"struct ${eventEntryName(event.getName)} {",
+                params.map((name, tn) => line(s"$tn $name;")),
+                "};"
+              )
+            }
+          ),
+          CppDoc.Lines.Hpp
+        )
+      )
+    )
+  }
+
+  private def getEventHistoryFunctions: List[CppDoc.Class.Member] = {
+    List.concat(
+      List(
+        functionClassMember(
+          Some("Clear event history"),
+          "clearEvents",
+          Nil,
+          CppDoc.Type("void"),
+          List.concat(
+            lines("this->eventsSize = 0;"),
+            sortedEvents.map((id, event) =>
+              eventParamTypeMap(id) match {
+                case Nil => line(s"this->${eventSizeName(event.getName)};")
+                case _ => line(s"this->${eventHistoryName(event.getName)}->clear();")
+              }
+            )
+          )
+        )
+      ),
+      wrapClassMembersInTextLogGuard(
+        List(
+          functionClassMember(
+            Some("Print a text log history entry"),
+            "printTextLogHistoryEntry",
+            List(
+              CppDoc.Function.Param(
+                CppDoc.Type("const TextLogEntry&"),
+                "e"
+              ),
+              CppDoc.Function.Param(
+                CppDoc.Type("FILE*"),
+                "file"
+              )
+            ),
+            CppDoc.Type("void"),
+            lines(
+              """|const char* severityString = "UNKNOWN";
+                 |
+                 |switch (e.severity.e) {
+                 |  case Fw::LogSeverity::FATAL:
+                 |    severityString = "FATAL";
+                 |    break;
+                 |  case Fw::LogSeverity::WARNING_HI:
+                 |    severityString = "WARNING_HI";
+                 |    break;
+                 |  case Fw::LogSeverity::WARNING_LO:
+                 |    severityString = "WARNING_LO";
+                 |    break;
+                 |  case Fw::LogSeverity::COMMAND:
+                 |    severityString = "COMMAND";
+                 |    break;
+                 |  case Fw::LogSeverity::ACTIVITY_HI:
+                 |    severityString = "ACTIVITY_HI";
+                 |    break;
+                 |  case Fw::LogSeverity::ACTIVITY_LO:
+                 |    severityString = "ACTIVITY_LO";
+                 |    break;
+                 |  case Fw::LogSeverity::DIAGNOSTIC:
+                 |   severityString = "DIAGNOSTIC";
+                 |    break;
+                 |  default:
+                 |    severityString = "SEVERITY ERROR";
+                 |    break;
+                 |}
+                 |
+                 |fprintf(
+                 |  file,
+                 |  "EVENT: (%" PRI_FwEventIdType ") (%" PRI_FwTimeBaseStoreType ":%" PRIu32 ",%" PRIu32 ") %s: %s\n",
+                 |  e.id,
+                 |  static_cast<FwTimeBaseStoreType>(e.timeTag.getTimeBase()),
+                 |  e.timeTag.getSeconds(),
+                 |  e.timeTag.getUSeconds(),
+                 |  severityString,
+                 |  e.text.toChar()
+                 |);
+                 |"""
+            ),
+            CppDoc.Function.Static
+          ),
+          functionClassMember(
+            Some("Print the text log history"),
+            "printTextLogHistory",
+            List(
+              CppDoc.Function.Param(
+                CppDoc.Type("FILE* const"),
+                "file"
+              )
+            ),
+            CppDoc.Type("void"),
+            lines(
+              """|for (U32 i = 0; i < this->textLogHistory->size(); i++) {
+                 |  this->printTextLogHistoryEntry(
+                 |    this->textLogHistory->at(i),
+                 |    file
+                 |  );
+                 |}
+                 |"""
+            )
+          )
+        )
+      )
+    )
+  }
+
+  private def getEventHistoryVariables: List[CppDoc.Class.Member] = {
+    List.concat(
+      List(
+        linesClassMember(
+          Line.blank :: lines(
+            """|//! The total number of events seen
+               |U32 eventsSize;
+               |"""
+          )
+        )
+      ),
+      wrapClassMemberInTextLogGuard(
+        linesClassMember(
+          Line.blank :: lines(
+            """|//! The history of text log events
+               |History<TextLogEntry>* textLogHistory;
+               |"""
+          ),
+          CppDoc.Lines.Hpp
+        ),
+        CppDoc.Lines.Hpp
+      ),
+      List(
+        linesClassMember(
+          sortedEvents.flatMap((id, event) =>
+            eventParamTypeMap(id) match {
+              case Nil => lines(
+                s"""|//! Size of history for event ${event.getName}
+                    |U32 ${eventSizeName(event.getName)};
+                    |"""
+              )
+              case _ => lines(
+                s"""|//! The history of ${event.getName} events
+                    |History<${eventEntryName(event.getName)}>* ${eventHistoryName(event.getName)};
+                    |"""
+              )
+            }
+          ),
+          CppDoc.Lines.Hpp
+        )
+      )
+    )
+  }
+
+  private def getTlmHistoryTypes: List[CppDoc.Class.Member] = {
+    List(
+      linesClassMember(
+        sortedChannels.flatMap((_, channel) =>
+          Line.blank :: wrapInScope(
+            s"struct ${tlmEntryName(channel.getName)} {",
+            lines(
+              s"""|Fw::Time timeTag;
+                  |${getChannelType(channel.channelType)} arg;
+                  |"""
+            ),
+            "};"
+          )
+        ),
+        CppDoc.Lines.Hpp
+      )
+    )
+  }
+
+  private def getTlmHistoryFunctions: List[CppDoc.Class.Member] = {
+    List(
+      functionClassMember(
+        Some("Clear telemetry history"),
+        "clearTlm",
+        Nil,
+        CppDoc.Type("void"),
+        List.concat(
+          lines("this->tlmSize = 0;"),
+          sortedChannels.map((_, channel) =>
+            line(s"this->${tlmHistoryName(channel.getName)}->clear();")
+          )
+        )
+      )
+    )
+  }
+
+  private def getTlmHistoryVariables: List[CppDoc.Class.Member] = {
+    List(
+      linesClassMember(
+        List.concat(
+          lines(
+            """|
+               |//! The total number of telemetry inputs seen
+               |U32 tlmSize;
+               |"""
+          ),
+          sortedChannels.flatMap((_, channel) =>
+            lines(
+              s"""|
+                  |//! The history of ${channel.getName} values
+                  |History<${tlmEntryName(channel.getName)}>* ${tlmHistoryName(channel.getName)};
+                  |"""
+            )
+          )
         ),
         CppDoc.Lines.Hpp
       )

@@ -526,6 +526,20 @@ abstract class ComponentCppWriterUtils(
     )
   }
 
+  /** Write event severity as a string */
+  def writeSeverity(event: Event) =
+    event.aNode._2.data.severity match {
+      case Ast.SpecEvent.ActivityHigh => "ACTIVITY_HI"
+      case Ast.SpecEvent.ActivityLow => "ACTIVITY_LO"
+      case Ast.SpecEvent.WarningHigh => "WARNING_HI"
+      case Ast.SpecEvent.WarningLow => "WARNING_LO"
+      case s => s.toString.toUpperCase.replace(' ', '_')
+    }
+
+  /** Write a parameter type as a C++ type */
+  def writeParamType(t: Type) =
+    TypeCppWriter.getName(s, t, Some("Fw::ParamString"))
+
   /** Get the name for a general port enumerated constant in cpp file */
   def generalPortCppConstantName(p: PortInstance.General) =
     s"${p.getUnqualifiedName}_${getPortTypeBaseName(p)}".toUpperCase
@@ -598,6 +612,11 @@ abstract class ComponentCppWriterUtils(
     s"OPCODE_${name.toUpperCase}"
   }
 
+  /** Get the name for a param command opcode constant */
+  def paramCommandConstantName(name: String, kind: Command.Param.Kind) = {
+    s"OPCODE_${name}_${getCommandParamString(kind).toUpperCase}"
+  }
+
   /** Get the name for an event throttle counter variable */
   def eventThrottleCounterName(name: String) =
     s"m_${name}Throttle"
@@ -609,6 +628,10 @@ abstract class ComponentCppWriterUtils(
   /** Get the name for a telemetry channel storage variable */
   def channelStorageName(name: String) =
     s"m_last_$name"
+
+  /** Get the name for a telemetry channel constant */
+  def channelIdConstantName(name: String) =
+    s"CHANNELID_${name.toUpperCase}"
 
   /** Get the name for a parameter handler (set/save) function */
   def paramHandlerName(name: String, kind: Command.Param.Kind) =

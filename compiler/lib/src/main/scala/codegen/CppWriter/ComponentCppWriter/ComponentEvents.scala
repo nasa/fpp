@@ -325,16 +325,6 @@ case class ComponentEvents (
     )
   }
 
-  // Write event severity as a string
-  private def writeSeverity(event: Event) =
-    event.aNode._2.data.severity match {
-      case Ast.SpecEvent.ActivityHigh => "ACTIVITY_HI"
-      case Ast.SpecEvent.ActivityLow => "ACTIVITY_LO"
-      case Ast.SpecEvent.WarningHigh => "WARNING_HI"
-      case Ast.SpecEvent.WarningLow => "WARNING_LO"
-      case s => s.toString.toUpperCase.replace(' ', '_')
-    }
-
   // Get the name for an event ID constant
   private def eventIdConstantName(name: String) =
     s"EVENTID_${name.toUpperCase}"

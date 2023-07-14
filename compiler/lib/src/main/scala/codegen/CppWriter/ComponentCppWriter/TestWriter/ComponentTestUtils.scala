@@ -29,6 +29,26 @@ abstract class ComponentTestUtils(
     hasEvents ||
     hasCommands
 
+  def wrapClassMemberInTextLogGuard(
+    member: CppDoc.Class.Member,
+    output: CppDoc.Lines.Output = CppDoc.Lines.Both
+  ): List[CppDoc.Class.Member] =
+    wrapClassMembersInIfDirective(
+      "#if FW_ENABLE_TEXT_LOGGING",
+      List(member),
+      output
+    )
+
+  def wrapClassMembersInTextLogGuard(
+    members: List[CppDoc.Class.Member],
+    output: CppDoc.Lines.Output = CppDoc.Lines.Both
+  ): List[CppDoc.Class.Member] =
+    wrapClassMembersInIfDirective(
+      "#if FW_ENABLE_TEXT_LOGGING",
+      members,
+      output
+    )
+
   /** Get the name for the corresponding input port for an output port */
   def inputPortName(name: String) =
     s"from_$name"
@@ -92,10 +112,17 @@ abstract class ComponentTestUtils(
   def fromPortEntryName(name: String) =
     s"FromPortEntry_$name"
 
-
   /** Get the name for a send command function */
   def sendCmdName(name: String) =
     s"sendCmd_$name"
+
+  /** Get the name for an event handler function */
+  def eventHandlerName(event: Event) =
+    s"logIn_${writeSeverity(event)}_${event.getName}"
+
+  /** Get the name for an event size variable */
+  def eventSizeName(name: String) =
+    s"eventsSize_$name"
 
   /** Get the name for an event history variable */
   def eventHistoryName(name: String) =
@@ -105,6 +132,10 @@ abstract class ComponentTestUtils(
   def eventEntryName(name: String) =
     s"EventEntry_$name"
 
+  /** Get the name for a telemetry handler function */
+  def tlmHandlerName(name: String) =
+    s"tlmInput_$name"
+
   /** Get the name for a telemetry history variable */
   def tlmHistoryName(name: String) =
     s"tlmHistory_$name"
@@ -112,5 +143,25 @@ abstract class ComponentTestUtils(
   /** Get the name for a telemetry entry struct */
   def tlmEntryName(name: String) =
     s"TlmEntry_$name"
+
+  /** Get the name for a parameter setter */
+  def prmSetName(name: String) =
+    s"paramSet_$name"
+
+  /** Get the name for a parameter variable */
+  def prmVariableName(name: String) =
+    s"m_param_$name"
+
+  /** Get the name for a parameter valid variable */
+  def prmValidVariableName(name: String) =
+    s"m_param_${name}_valid"
+
+  /** Get the name for a parameter send function */
+  def prmSendName(name: String) =
+    s"paramSend_$name"
+
+  /** Get the name for a parameter save function */
+  def prmSaveName(name: String) =
+    s"paramSave_$name"
 
 }
