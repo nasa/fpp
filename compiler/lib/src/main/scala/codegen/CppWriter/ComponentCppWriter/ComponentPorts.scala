@@ -32,7 +32,6 @@ case class ComponentPorts(
       inputPortWriter.getGetters(serialInputPorts),
       outputPortWriter.getTypedConnectors(specialOutputPorts),
       outputPortWriter.getTypedConnectors(typedOutputPorts),
-      outputPortWriter.getTypedConnectors(serialOutputPorts),
       outputPortWriter.getSerialConnectors(specialOutputPorts),
       outputPortWriter.getSerialConnectors(typedOutputPorts),
       outputPortWriter.getSerialConnectors(serialOutputPorts),

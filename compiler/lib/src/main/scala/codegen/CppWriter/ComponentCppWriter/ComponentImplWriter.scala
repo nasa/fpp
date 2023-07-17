@@ -66,17 +66,9 @@ case class ComponentImplWriter(
   }
 
   private def getPublicMembers: List[CppDoc.Class.Member] = {
-    val initArgs = List.concat(
-      if data.kind != Ast.ComponentKind.Passive then List("queueDepth")
-      else Nil,
-      if hasSerialAsyncInputPorts then List("msgSize")
-      else Nil,
-      List("instance"),
-    ).mkString(", ")
-
     addAccessTagAndComment(
       "public",
-      "Component construction, initialization, and destruction",
+      "Component construction and destruction",
       List(
         constructorClassMember(
           Some(s"Construct $implClassName object"),
@@ -89,13 +81,6 @@ case class ComponentImplWriter(
           ),
           List(s"$className(compName)"),
           Nil
-        ),
-        functionClassMember(
-          Some(s"Initialize $implClassName object"),
-          "init",
-          initParams,
-          CppDoc.Type("void"),
-          lines(s"$className::init($initArgs);")
         ),
         destructorClassMember(
           Some(s"Destroy $implClassName object"),
@@ -114,7 +99,12 @@ case class ComponentImplWriter(
         s"Handler implementations for commands",
         nonParamCmds.map((opcode, cmd) =>
           functionClassMember(
-            Some(s"Handler implementation for command ${cmd.getName}"),
+            Some(
+              addSeparatedString(
+                s"Handler implementation for command ${cmd.getName}",
+                AnnotationCppWriter.asStringOpt(cmd.aNode)
+              )
+            ),
             commandHandlerName(cmd.getName),
             List.concat(
               List(
@@ -137,7 +127,12 @@ case class ComponentImplWriter(
         s"Handler implementations for user-defined internal interfaces",
         internalPorts.map(p =>
           functionClassMember(
-            Some(s"Handler implementation for ${p.getUnqualifiedName}"),
+            Some(
+              addSeparatedString(
+                s"Handler implementation for ${p.getUnqualifiedName}",
+                getPortComment(p)
+              )
+            ),
             internalInterfaceHandlerName(p.getUnqualifiedName),
             getPortFunctionParams(p),
             CppDoc.Type("void"),
@@ -159,7 +154,12 @@ case class ComponentImplWriter(
         }
 
         functionClassMember(
-          Some(s"Handler implementation for ${p.getUnqualifiedName}"),
+          Some(
+            addSeparatedString(
+              s"Handler implementation for ${p.getUnqualifiedName}",
+              getPortComment(p)
+            )
+          ),
           inputPortHandlerName(p.getUnqualifiedName),
           portNumParam :: getPortFunctionParams(p),
           getPortReturnTypeAsCppDocType(p),

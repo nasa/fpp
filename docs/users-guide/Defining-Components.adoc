@@ -417,10 +417,21 @@ commands, events, telemetry, parameters, and time.
 ==== Command Ports
 
 A *command* is an instruction to the spacecraft to perform an action.
-The special command behaviors, and their keywords, are as follows:
+Each component instance _C_ that specifies commands has the following
+high-level behaviors:
 
-* `command` `recv`: A port for receiving commands.
+. At FSW startup time, _C_ registers its commands with a component
+instance called the *command dispatcher*.
+
+. During FSW execution, _C_ receives commands from the command
+dispatcher.
+For each command received, _C_ executes the command and
+sends a response back to the command dispatcher.
+
+In FPP, the keywords for the special command behaviors are as follows:
+
 * `command` `reg`: A port for sending command registration requests.
+* `command` `recv`: A port for receiving commands.
 * `command` `resp`: A port for sending command responses.
 
 Collectively, these ports are known as *command ports*.
@@ -750,7 +761,7 @@ active component InternalSelfMessage {
 }
 ----
 
-When the implementation of `ExternalSelfMessage` invokes
+When the implementation of `InternalSelfMessage` invokes
 the port `pInternal`, a message goes on its queue.
 This corresponds to the behavior of `pOut` in
 `ExternalSelfMessage`.
@@ -864,11 +875,11 @@ active component Action {
   # Ports
   # ----------------------------------------------------------------------
 
-  @ Command registration
-  command reg port cmdRegOut
-
   @ Command input
   command recv port cmdIn
+
+  @ Command registration
+  command reg port cmdRegOut
 
   @ Command response
   command resp port cmdResponseOut
@@ -950,11 +961,11 @@ active component Switch {
   # Ports
   # ----------------------------------------------------------------------
 
-  @ Command registration
-  command reg port cmdRegOut
-
   @ Command input
   command recv port cmdIn
+
+  @ Command registration
+  command reg port cmdRegOut
 
   @ Command response
   command resp port cmdResponseOut
@@ -1015,11 +1026,11 @@ active component CommandOpcodes {
   # Ports
   # ----------------------------------------------------------------------
 
-  @ Command registration
-  command reg port cmdRegOut
-
   @ Command input
   command recv port cmdIn
+
+  @ Command registration
+  command reg port cmdRegOut
 
   @ Command response
   command resp port cmdResponseOut
@@ -1053,11 +1064,11 @@ active component DuplicateOpcode {
   # Ports
   # ----------------------------------------------------------------------
 
-  @ Command registration
-  command reg port cmdRegOut
-
   @ Command input
   command recv port cmdIn
+
+  @ Command registration
+  command reg port cmdRegOut
 
   @ Command response
   command resp port cmdResponseOut
@@ -1095,11 +1106,11 @@ active component PriorityQueueFull {
   # Ports
   # ----------------------------------------------------------------------
 
-  @ Command registration
-  command reg port cmdRegOut
-
   @ Command input
   command recv port cmdIn
+
+  @ Command registration
+  command reg port cmdRegOut
 
   @ Command response
   command resp port cmdResponseOut
@@ -2127,11 +2138,11 @@ active component Switch {
   # Ports
   # ----------------------------------------------------------------------
 
-  @ Command registration
-  command reg port cmdRegOut
-
   @ Command input
   command recv port cmdIn
+
+  @ Command registration
+  command reg port cmdRegOut
 
   @ Command response
   command resp port cmdResponseOut

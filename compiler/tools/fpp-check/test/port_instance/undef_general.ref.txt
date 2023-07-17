@@ -1,5 +1,5 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/port_instance/undef_general.fpp: 3.22
+[ local path prefix ]/compiler/tools/fpp-check/test/port_instance/undef_general.fpp:3.22
   sync input port p: P
                      ^
 error: undefined symbol P

@@ -1,9 +1,9 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/invalid_symbols/module_as_component.fpp: 3.15
+[ local path prefix ]/compiler/tools/fpp-check/test/invalid_symbols/module_as_component.fpp:3.15
   instance c: M base id 0x100
               ^
 error: invalid symbol M: not a component symbol
 symbol is defined here:
-[ local path prefix ]/compiler/tools/fpp-check/test/invalid_symbols/module_as_component.fpp: 1.1
+[ local path prefix ]/compiler/tools/fpp-check/test/invalid_symbols/module_as_component.fpp:1.1
 module M {
 ^

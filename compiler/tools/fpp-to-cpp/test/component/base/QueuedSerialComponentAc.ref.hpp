@@ -441,18 +441,6 @@ class QueuedSerialComponentBase :
         InputTypedReturnPort* port //!< The input port
     );
 
-  public:
-
-    // ----------------------------------------------------------------------
-    // Connect serial input ports to serial output ports
-    // ----------------------------------------------------------------------
-
-    //! Connect port to serialOut[portNum]
-    void set_serialOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::InputSerializePort* port //!< The input port
-    );
-
 #if FW_PORT_SERIALIZATION
 
   public:

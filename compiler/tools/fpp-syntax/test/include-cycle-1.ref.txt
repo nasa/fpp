@@ -1,9 +1,9 @@
 fpp-syntax
-[ local path prefix ]/compiler/tools/fpp-syntax/test/cycle-3.fpp: 1.9
+[ local path prefix ]/compiler/tools/fpp-syntax/test/cycle-3.fpp:1.9
 include "cycle-1.fpp"
         ^
-  included at [ local path prefix ]/compiler/tools/fpp-syntax/test/cycle-2.fpp: 1.9
-  included at [ local path prefix ]/compiler/tools/fpp-syntax/test/cycle-1.fpp: 1.9
+  included at [ local path prefix ]/compiler/tools/fpp-syntax/test/cycle-2.fpp:1.9
+  included at [ local path prefix ]/compiler/tools/fpp-syntax/test/cycle-1.fpp:1.9
 error: include cycle:
   [ local path prefix ]/compiler/tools/fpp-syntax/test/cycle-1.fpp includes
   [ local path prefix ]/compiler/tools/fpp-syntax/test/cycle-2.fpp includes

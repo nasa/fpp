@@ -1,5 +1,5 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/port_instance/bad_priority.fpp: 5.34
+[ local path prefix ]/compiler/tools/fpp-check/test/port_instance/bad_priority.fpp:5.34
   async input port p: P priority "abc"
                                  ^
 error: cannot convert string to a numeric type
