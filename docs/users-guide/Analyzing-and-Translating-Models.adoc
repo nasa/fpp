@@ -550,8 +550,8 @@ Prime User's Guide].
 
 ==== Component Implementation Templates
 
-`fpp_to_cpp` has an option `-t`.
-When you run `fpp_to_cpp` with this option, it does not
+`fpp-to-cpp` has an option `-t`.
+When you run `fpp-to-cpp` with this option, it does not
 generate any autocoded {cpp} for constants, ports, types, components, or
 topologies.
 Instead, for each component definition _C_ in the input,
