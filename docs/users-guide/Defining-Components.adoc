@@ -417,10 +417,21 @@ commands, events, telemetry, parameters, and time.
 ==== Command Ports
 
 A *command* is an instruction to the spacecraft to perform an action.
-The special command behaviors, and their keywords, are as follows:
+Each F Prime component _C_ that specifies commands has the following
+high-level behaviors:
 
-* `command` `recv`: A port for receiving commands.
+. At FSW startup time, _C_ registers its commands with a component
+instance called the *command dispatcher*.
+
+. During FSW execution, _C_ receives commands from the command
+dispatcher.
+For each command received, _C_ executes the command and
+sends a response back to the command dispatcher.
+
+In FPP, the keywords for the special command behaviors are as follows:
+
 * `command` `reg`: A port for sending command registration requests.
+* `command` `recv`: A port for receiving commands.
 * `command` `resp`: A port for sending command responses.
 
 Collectively, these ports are known as *command ports*.
