@@ -417,7 +417,7 @@ commands, events, telemetry, parameters, and time.
 ==== Command Ports
 
 A *command* is an instruction to the spacecraft to perform an action.
-Each F Prime component _C_ that specifies commands has the following
+Each component instance _C_ that specifies commands has the following
 high-level behaviors:
 
 . At FSW startup time, _C_ registers its commands with a component
