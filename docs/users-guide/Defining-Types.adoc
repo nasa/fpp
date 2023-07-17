@@ -477,6 +477,12 @@ struct S {
 The member `x` of the struct `S` gets three copies of the value
 10 specified for `x` in the default value expression.
 
+*GDS limitation:* The F Prime GDS does not properly handle
+member arrays.
+Therefore, if you plan to use the F Prime GDS, then you should avoid
+using a struct type with a member array in the flight-ground interface (i.e., 
+commands, events, telemetry, and parameters).
+
 ==== Member Format Strings
 
 For any struct member, you can include an optional format.
