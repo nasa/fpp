@@ -2,9 +2,9 @@
 
 . ../../../../scripts/utils.sh
 
-clean
-rm -f default-tests.sh default-update-ref.sh
-for file in `find . -name '*out.*' -or -name '*.names.txt' -or -name '*o' -or -name '*Ac.cpp' -or -name '*Ac.hpp'`
+for target in `find . -mindepth 2 -maxdepth 2 -name clean`
 do
-  rm $file
+  dir=`dirname $target`
+  (cd $dir; ./clean)
 done
+clean

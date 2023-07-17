@@ -9,7 +9,7 @@ The enumerated constants are the values associated with the type.
 
 An enum definition may appear at the top level or inside a
 <<Defining-Modules,module definition>>.
-An enum definition is an 
+An enum definition is an
 <<Writing-Comments-and-Annotations_Annotations,annotatable element>>.
 
 === Writing an Enum Definition
@@ -38,7 +38,7 @@ In general, to write an enum definition, you write the following:
 
 
 The enumerated constants form an
-<<Defining-Constants_Multiple-Definitions-and-Element-Sequences,element 
+<<Defining-Constants_Multiple-Definitions-and-Element-Sequences,element
 sequence>>
 in which the optional terminating punctuation is a comma.
 For example, this definition is equivalent to the one above:
@@ -52,7 +52,7 @@ There must be at least one enumerated constant.
 
 === Using an Enum Definition
 
-Once you have defined an enum, you can use the enum as a type and the 
+Once you have defined an enum, you can use the enum as a type and the
 enumerated constants as constants of that type.
 The name of each enumerated constant is qualified by the enum name.
 Here is an example:
@@ -97,7 +97,7 @@ enum E { A = 1, B = 2, C = 3 }
 ----
 
 This definition creates an enum type `E` with three enumerated constants `E.A`,
-`E.B`, and `E.C`. The constants have 1, 2, and 3 as their associated numeric 
+`E.B`, and `E.C`. The constants have 1, 2, and 3 as their associated numeric
 values.
 
 If you provide an explicit numeric value for any of the enumerated constants,
@@ -167,6 +167,14 @@ This code defines an enum `Small` with three enumerated constants
 `Small.A`, `Small.B`, and `Small.C`.
 Each of the enumerated constants is represented as a `U8` value
 in {cpp}.
+
+*GDS limitation:*
+The F Prime GDS currently assumes that all enums use the default representation
+size of `I32`.
+Therefore, if you plan to use the F Prime GDS, then
+you should not use any enum with a specified representation
+type other than `I32` in the flight-ground interface (i.e., commands, events, telemetry,
+and parameters).
 
 === The Default Value
 

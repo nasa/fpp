@@ -15,13 +15,13 @@ final case class Location(
         case None => s
         case Some(loc) => showIncludes(
           loc.includingLoc, 
-          s ++ s"\n  included at ${loc.file}: ${loc.pos}"
+          s ++ s"\n  included at ${loc.file}:${loc.pos}"
         )
       }
     }
     val s1 = pos match {
       case scala.util.parsing.input.NoPosition => s"${file}: end of input"
-      case _ => s"${file}: ${pos.toString}\n${pos.longString}"
+      case _ => s"${file}:${pos.toString}\n${pos.longString}"
     }
     val s2 = showIncludes(includingLoc, "")
     s1 ++ s2

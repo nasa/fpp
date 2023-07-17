@@ -1,5 +1,5 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/port_matching/p1_not_valid.fpp: 7.9
+[ local path prefix ]/compiler/tools/fpp-check/test/port_matching/p1_not_valid.fpp:7.9
   match p1 with p2
         ^
 error: p1 is not a valid port instance for matching

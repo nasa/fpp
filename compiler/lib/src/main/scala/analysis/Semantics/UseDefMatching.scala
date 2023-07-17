@@ -16,7 +16,7 @@ case class UseDefMatching(
     val useLoc = Locations.get(nodeId)
     val defLoc = symbol.getLoc
     val defName = symbol.getUnqualifiedName
-    s"use ${qualifiedName} at ${useLoc.file}: ${useLoc.pos} refers to definition ${defName} at ${defLoc.file}: ${defLoc.pos}"
+    s"use ${qualifiedName} at ${useLoc.file}:${useLoc.pos} refers to definition ${defName} at ${defLoc.file}:${defLoc.pos}"
   }
 
 }

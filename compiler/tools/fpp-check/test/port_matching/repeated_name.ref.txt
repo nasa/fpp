@@ -1,5 +1,5 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/port_matching/repeated_name.fpp: 6.3
+[ local path prefix ]/compiler/tools/fpp-check/test/port_matching/repeated_name.fpp:6.3
   match p with p
   ^
 error: repeated name p

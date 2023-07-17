@@ -1,5 +1,5 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/array/format_not_numeric.fpp: 1.29
+[ local path prefix ]/compiler/tools/fpp-check/test/array/format_not_numeric.fpp:1.29
 array A = [3] string format "{.3f}"
                             ^
 error: invalid format string: string is not a floating-point type

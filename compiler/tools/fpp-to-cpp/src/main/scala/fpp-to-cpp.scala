@@ -27,6 +27,7 @@ object FPPToCpp {
       case list => list
     }
     val a = Analysis(inputFileSet = options.files.toSet)
+    val mode = CppWriter.getMode(options.template)
     for {
       tulFiles <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
       aTulFiles <- ResolveSpecInclude.transformList(
@@ -40,11 +41,18 @@ object FPPToCpp {
         Parser.parseFile (Parser.transUnit) (None) _
       )
       a <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
-      s <- ComputeCppFiles.visitList(
-        CppWriterState(a),
-        tulFiles,
-        ComputeCppFiles.transUnit
-      )
+      s <- mode match {
+        case CppWriter.Autocode => ComputeAutocodeCppFiles.visitList (
+          CppWriterState (a),
+          tulFiles,
+          ComputeAutocodeCppFiles.transUnit
+        )
+        case CppWriter.ImplTemplate => ComputeImplCppFiles.visitList(
+          CppWriterState(a),
+          tulFiles,
+          ComputeImplCppFiles.transUnit
+        )
+      }
       _ <- options.names match {
         case Some(fileName) => writeCppFileNames(
           s.locationMap.toList.map(_._1), fileName
@@ -64,7 +72,10 @@ object FPPToCpp {
           options.defaultStringSize,
           Some(name)
         )
-        CppWriter.tuList(state, tulFiles)
+        mode match {
+          case CppWriter.Autocode => AutocodeCppWriter.tuList(state, tulFiles)
+          case CppWriter.ImplTemplate => ImplCppWriter.tuList(state, tulFiles)
+        }
       }
     } yield ()
   }

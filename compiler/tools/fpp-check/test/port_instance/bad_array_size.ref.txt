@@ -1,5 +1,5 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/port_instance/bad_array_size.fpp: 5.25
+[ local path prefix ]/compiler/tools/fpp-check/test/port_instance/bad_array_size.fpp:5.25
   async input port p: [ "abc" ] P
                         ^
 error: cannot convert string to a numeric type
