@@ -7,8 +7,8 @@
 #ifndef ActiveParamsTester_HPP
 #define ActiveParamsTester_HPP
 
-#include "test/ActiveParamsGTestBase.hpp"
-#include "test/ActiveParams.hpp"
+#include "ActiveParamsGTestBase.hpp"
+#include "ActiveParams.hpp"
 
 class ActiveParamsTester :
   public ActiveParamsGTestBase

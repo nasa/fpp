@@ -7,8 +7,8 @@
 #ifndef ActiveCommandsTester_HPP
 #define ActiveCommandsTester_HPP
 
-#include "test/ActiveCommandsGTestBase.hpp"
-#include "test/ActiveCommands.hpp"
+#include "ActiveCommandsGTestBase.hpp"
+#include "ActiveCommands.hpp"
 
 class ActiveCommandsTester :
   public ActiveCommandsGTestBase

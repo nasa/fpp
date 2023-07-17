@@ -7,8 +7,8 @@
 #ifndef QueuedParamsTester_HPP
 #define QueuedParamsTester_HPP
 
-#include "test/QueuedParamsGTestBase.hpp"
-#include "test/QueuedParams.hpp"
+#include "QueuedParamsGTestBase.hpp"
+#include "QueuedParams.hpp"
 
 class QueuedParamsTester :
   public QueuedParamsGTestBase

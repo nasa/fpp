@@ -4,7 +4,7 @@
 // \brief  cpp file for PassiveEvents component test harness implementation class
 // ======================================================================
 
-#include "test/PassiveEventsTester.hpp"
+#include "PassiveEventsTester.hpp"
 
 // ----------------------------------------------------------------------
 // Construction and destruction

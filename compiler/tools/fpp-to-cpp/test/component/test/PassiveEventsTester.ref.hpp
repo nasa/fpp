@@ -7,8 +7,8 @@
 #ifndef PassiveEventsTester_HPP
 #define PassiveEventsTester_HPP
 
-#include "test/PassiveEventsGTestBase.hpp"
-#include "test/PassiveEvents.hpp"
+#include "PassiveEventsGTestBase.hpp"
+#include "PassiveEvents.hpp"
 
 class PassiveEventsTester :
   public PassiveEventsGTestBase

@@ -7,8 +7,8 @@
 #ifndef PassiveParamsTester_HPP
 #define PassiveParamsTester_HPP
 
-#include "test/PassiveParamsGTestBase.hpp"
-#include "test/PassiveParams.hpp"
+#include "PassiveParamsGTestBase.hpp"
+#include "PassiveParams.hpp"
 
 class PassiveParamsTester :
   public PassiveParamsGTestBase

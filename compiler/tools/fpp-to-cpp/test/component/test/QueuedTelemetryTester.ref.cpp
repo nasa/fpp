@@ -4,7 +4,7 @@
 // \brief  cpp file for QueuedTelemetry component test harness implementation class
 // ======================================================================
 
-#include "test/QueuedTelemetryTester.hpp"
+#include "QueuedTelemetryTester.hpp"
 
 // ----------------------------------------------------------------------
 // Construction and destruction

@@ -4,7 +4,7 @@
 // \brief  cpp file for QueuedEvents component test harness implementation class
 // ======================================================================
 
-#include "test/QueuedEventsTester.hpp"
+#include "QueuedEventsTester.hpp"
 
 // ----------------------------------------------------------------------
 // Construction and destruction

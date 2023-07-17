@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "test/QueuedTelemetryTesterBase.hpp"
+#include "QueuedTelemetryTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Component initialization
@@ -1297,93 +1297,151 @@ void QueuedTelemetryTesterBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE QueuedTelemetryTesterBase ::
-  to_noArgsAsync()
+  getNum_to_noArgsAsync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsAsync));
 }
 
 NATIVE_INT_TYPE QueuedTelemetryTesterBase ::
-  to_noArgsGuarded()
+  getNum_to_noArgsGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsGuarded));
 }
 
 NATIVE_INT_TYPE QueuedTelemetryTesterBase ::
-  to_noArgsReturnGuarded()
+  getNum_to_noArgsReturnGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnGuarded));
 }
 
 NATIVE_INT_TYPE QueuedTelemetryTesterBase ::
-  to_noArgsReturnSync()
+  getNum_to_noArgsReturnSync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnSync));
 }
 
 NATIVE_INT_TYPE QueuedTelemetryTesterBase ::
-  to_noArgsSync()
+  getNum_to_noArgsSync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsSync));
 }
 
 NATIVE_INT_TYPE QueuedTelemetryTesterBase ::
-  to_typedAsync()
+  getNum_to_typedAsync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsync));
 }
 
 NATIVE_INT_TYPE QueuedTelemetryTesterBase ::
-  to_typedAsyncAssert()
+  getNum_to_typedAsyncAssert() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsyncAssert));
 }
 
 NATIVE_INT_TYPE QueuedTelemetryTesterBase ::
-  to_typedAsyncBlockPriority()
+  getNum_to_typedAsyncBlockPriority() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsyncBlockPriority));
 }
 
 NATIVE_INT_TYPE QueuedTelemetryTesterBase ::
-  to_typedAsyncDropPriority()
+  getNum_to_typedAsyncDropPriority() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsyncDropPriority));
 }
 
 NATIVE_INT_TYPE QueuedTelemetryTesterBase ::
-  to_typedGuarded()
+  getNum_to_typedGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedGuarded));
 }
 
 NATIVE_INT_TYPE QueuedTelemetryTesterBase ::
-  to_typedReturnGuarded()
+  getNum_to_typedReturnGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnGuarded));
 }
 
 NATIVE_INT_TYPE QueuedTelemetryTesterBase ::
-  to_typedReturnSync()
+  getNum_to_typedReturnSync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnSync));
 }
 
 NATIVE_INT_TYPE QueuedTelemetryTesterBase ::
-  to_typedSync()
+  getNum_to_typedSync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedSync));
 }
 
 NATIVE_INT_TYPE QueuedTelemetryTesterBase ::
-  from_typedOut()
+  getNum_to_cmdIn() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_cmdIn));
+}
+
+NATIVE_INT_TYPE QueuedTelemetryTesterBase ::
+  getNum_from_typedOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
 }
 
 NATIVE_INT_TYPE QueuedTelemetryTesterBase ::
-  from_typedReturnOut()
+  getNum_from_typedReturnOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedReturnOut));
+}
+
+NATIVE_INT_TYPE QueuedTelemetryTesterBase ::
+  getNum_from_cmdRegOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdRegOut));
+}
+
+NATIVE_INT_TYPE QueuedTelemetryTesterBase ::
+  getNum_from_cmdResponseOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdResponseOut));
+}
+
+NATIVE_INT_TYPE QueuedTelemetryTesterBase ::
+  getNum_from_eventOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_eventOut));
+}
+
+NATIVE_INT_TYPE QueuedTelemetryTesterBase ::
+  getNum_from_prmGetOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmGetOut));
+}
+
+NATIVE_INT_TYPE QueuedTelemetryTesterBase ::
+  getNum_from_prmSetOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmSetOut));
+}
+
+#if FW_ENABLE_TEXT_LOGGING == 1
+
+NATIVE_INT_TYPE QueuedTelemetryTesterBase ::
+  getNum_from_textEventOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_textEventOut));
+}
+
+#endif
+
+NATIVE_INT_TYPE QueuedTelemetryTesterBase ::
+  getNum_from_timeGetOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_timeGetOut));
+}
+
+NATIVE_INT_TYPE QueuedTelemetryTesterBase ::
+  getNum_from_tlmOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_tlmOut));
 }
 
 // ----------------------------------------------------------------------
@@ -1555,7 +1613,7 @@ void QueuedTelemetryTesterBase ::
       Fw::CmdResponse response
   )
 {
-  CmdResponse e = { opCode, seq, response };
+  CmdResponse e = { opCode, cmdSeq, response };
   this->cmdResponseHistory->push_back(e);
 }
 
@@ -1563,16 +1621,16 @@ void QueuedTelemetryTesterBase ::
   sendRawCmd(
       FwOpcodeType opCode,
       U32 cmdSeq,
-      Fw::CmdBufferArg& args
+      Fw::CmdArgBuffer& buf
   )
 {
   const U32 idBase = this->getIdBase();
-  FwOpcodeType _opcode = opcode + idBase;
+  FwOpcodeType _opcode = opCode + idBase;
   if (this->m_to_cmdIn[0].isConnected()) {
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -1581,8 +1639,333 @@ void QueuedTelemetryTesterBase ::
 }
 
 // ----------------------------------------------------------------------
-// History class
+// Functions for testing events
 // ----------------------------------------------------------------------
+
+void QueuedTelemetryTesterBase ::
+  dispatchEvents(
+      FwEventIdType id,
+      Fw::Time& timeTag,
+      const Fw::LogSeverity severity,
+      Fw::LogBuffer& args
+  )
+{
+
+}
+
+#if FW_ENABLE_TEXT_LOGGING
+
+void QueuedTelemetryTesterBase ::
+  textLogIn(
+      FwEventIdType id,
+      Fw::Time& timeTag,
+      const Fw::LogSeverity severity,
+      const Fw::TextLogString& text
+  )
+{
+  TextLogEntry e = { id, timeTag, severity, text };
+  textLogHistory->push_back(e);
+}
+
+#endif
+
+// ----------------------------------------------------------------------
+// Functions for testing telemetry
+// ----------------------------------------------------------------------
+
+void QueuedTelemetryTesterBase ::
+  dispatchTlm(
+      FwChanIdType id,
+      const Fw::Time& timeTag,
+      Fw::TlmBuffer& val
+  )
+{
+  val.resetDeser();
+
+  const U32 idBase = this->getIdBase();
+  FW_ASSERT(id >= idBase, id, idBase);
+
+  switch (id - idBase) {
+    case QueuedTelemetryComponentBase::CHANNELID_CHANNELU32FORMAT: {
+      U32 arg;
+      const Fw::SerializeStatus _status = val.deserialize(arg);
+
+      if (_status != Fw::FW_SERIALIZE_OK) {
+        printf("Error deserializing ChannelU32Format: %d\n", _status);
+        return;
+      }
+
+      this->tlmInput_ChannelU32Format(timeTag, arg);
+      break;
+    }
+
+    case QueuedTelemetryComponentBase::CHANNELID_CHANNELF32FORMAT: {
+      F32 arg;
+      const Fw::SerializeStatus _status = val.deserialize(arg);
+
+      if (_status != Fw::FW_SERIALIZE_OK) {
+        printf("Error deserializing ChannelF32Format: %d\n", _status);
+        return;
+      }
+
+      this->tlmInput_ChannelF32Format(timeTag, arg);
+      break;
+    }
+
+    case QueuedTelemetryComponentBase::CHANNELID_CHANNELSTRINGFORMAT: {
+      Fw::TlmString arg;
+      const Fw::SerializeStatus _status = val.deserialize(arg);
+
+      if (_status != Fw::FW_SERIALIZE_OK) {
+        printf("Error deserializing ChannelStringFormat: %d\n", _status);
+        return;
+      }
+
+      this->tlmInput_ChannelStringFormat(timeTag, arg);
+      break;
+    }
+
+    case QueuedTelemetryComponentBase::CHANNELID_CHANNELENUM: {
+      E arg;
+      const Fw::SerializeStatus _status = val.deserialize(arg);
+
+      if (_status != Fw::FW_SERIALIZE_OK) {
+        printf("Error deserializing ChannelEnum: %d\n", _status);
+        return;
+      }
+
+      this->tlmInput_ChannelEnum(timeTag, arg);
+      break;
+    }
+
+    case QueuedTelemetryComponentBase::CHANNELID_CHANNELARRAYFREQ: {
+      A arg;
+      const Fw::SerializeStatus _status = val.deserialize(arg);
+
+      if (_status != Fw::FW_SERIALIZE_OK) {
+        printf("Error deserializing ChannelArrayFreq: %d\n", _status);
+        return;
+      }
+
+      this->tlmInput_ChannelArrayFreq(timeTag, arg);
+      break;
+    }
+
+    case QueuedTelemetryComponentBase::CHANNELID_CHANNELSTRUCTFREQ: {
+      S arg;
+      const Fw::SerializeStatus _status = val.deserialize(arg);
+
+      if (_status != Fw::FW_SERIALIZE_OK) {
+        printf("Error deserializing ChannelStructFreq: %d\n", _status);
+        return;
+      }
+
+      this->tlmInput_ChannelStructFreq(timeTag, arg);
+      break;
+    }
+
+    case QueuedTelemetryComponentBase::CHANNELID_CHANNELU32LIMITS: {
+      U32 arg;
+      const Fw::SerializeStatus _status = val.deserialize(arg);
+
+      if (_status != Fw::FW_SERIALIZE_OK) {
+        printf("Error deserializing ChannelU32Limits: %d\n", _status);
+        return;
+      }
+
+      this->tlmInput_ChannelU32Limits(timeTag, arg);
+      break;
+    }
+
+    case QueuedTelemetryComponentBase::CHANNELID_CHANNELF32LIMITS: {
+      F32 arg;
+      const Fw::SerializeStatus _status = val.deserialize(arg);
+
+      if (_status != Fw::FW_SERIALIZE_OK) {
+        printf("Error deserializing ChannelF32Limits: %d\n", _status);
+        return;
+      }
+
+      this->tlmInput_ChannelF32Limits(timeTag, arg);
+      break;
+    }
+
+    case QueuedTelemetryComponentBase::CHANNELID_CHANNELF64: {
+      F64 arg;
+      const Fw::SerializeStatus _status = val.deserialize(arg);
+
+      if (_status != Fw::FW_SERIALIZE_OK) {
+        printf("Error deserializing ChannelF64: %d\n", _status);
+        return;
+      }
+
+      this->tlmInput_ChannelF64(timeTag, arg);
+      break;
+    }
+
+    case QueuedTelemetryComponentBase::CHANNELID_CHANNELU32ONCHANGE: {
+      U32 arg;
+      const Fw::SerializeStatus _status = val.deserialize(arg);
+
+      if (_status != Fw::FW_SERIALIZE_OK) {
+        printf("Error deserializing ChannelU32OnChange: %d\n", _status);
+        return;
+      }
+
+      this->tlmInput_ChannelU32OnChange(timeTag, arg);
+      break;
+    }
+
+    case QueuedTelemetryComponentBase::CHANNELID_CHANNELENUMONCHANGE: {
+      E arg;
+      const Fw::SerializeStatus _status = val.deserialize(arg);
+
+      if (_status != Fw::FW_SERIALIZE_OK) {
+        printf("Error deserializing ChannelEnumOnChange: %d\n", _status);
+        return;
+      }
+
+      this->tlmInput_ChannelEnumOnChange(timeTag, arg);
+      break;
+    }
+
+    default: {
+      FW_ASSERT(0, id);
+      break;
+    }
+  }
+}
+
+void QueuedTelemetryTesterBase ::
+  tlmInput_ChannelU32Format(
+      const Fw::Time& timeTag,
+      const U32& val
+  )
+{
+  TlmEntry_ChannelU32Format e = { timeTag, val };
+  this->tlmHistory_ChannelU32Format->push_back(e);
+  this->tlmSize++;
+}
+
+void QueuedTelemetryTesterBase ::
+  tlmInput_ChannelF32Format(
+      const Fw::Time& timeTag,
+      const F32& val
+  )
+{
+  TlmEntry_ChannelF32Format e = { timeTag, val };
+  this->tlmHistory_ChannelF32Format->push_back(e);
+  this->tlmSize++;
+}
+
+void QueuedTelemetryTesterBase ::
+  tlmInput_ChannelStringFormat(
+      const Fw::Time& timeTag,
+      const Fw::TlmString& val
+  )
+{
+  TlmEntry_ChannelStringFormat e = { timeTag, val };
+  this->tlmHistory_ChannelStringFormat->push_back(e);
+  this->tlmSize++;
+}
+
+void QueuedTelemetryTesterBase ::
+  tlmInput_ChannelEnum(
+      const Fw::Time& timeTag,
+      const E& val
+  )
+{
+  TlmEntry_ChannelEnum e = { timeTag, val };
+  this->tlmHistory_ChannelEnum->push_back(e);
+  this->tlmSize++;
+}
+
+void QueuedTelemetryTesterBase ::
+  tlmInput_ChannelArrayFreq(
+      const Fw::Time& timeTag,
+      const A& val
+  )
+{
+  TlmEntry_ChannelArrayFreq e = { timeTag, val };
+  this->tlmHistory_ChannelArrayFreq->push_back(e);
+  this->tlmSize++;
+}
+
+void QueuedTelemetryTesterBase ::
+  tlmInput_ChannelStructFreq(
+      const Fw::Time& timeTag,
+      const S& val
+  )
+{
+  TlmEntry_ChannelStructFreq e = { timeTag, val };
+  this->tlmHistory_ChannelStructFreq->push_back(e);
+  this->tlmSize++;
+}
+
+void QueuedTelemetryTesterBase ::
+  tlmInput_ChannelU32Limits(
+      const Fw::Time& timeTag,
+      const U32& val
+  )
+{
+  TlmEntry_ChannelU32Limits e = { timeTag, val };
+  this->tlmHistory_ChannelU32Limits->push_back(e);
+  this->tlmSize++;
+}
+
+void QueuedTelemetryTesterBase ::
+  tlmInput_ChannelF32Limits(
+      const Fw::Time& timeTag,
+      const F32& val
+  )
+{
+  TlmEntry_ChannelF32Limits e = { timeTag, val };
+  this->tlmHistory_ChannelF32Limits->push_back(e);
+  this->tlmSize++;
+}
+
+void QueuedTelemetryTesterBase ::
+  tlmInput_ChannelF64(
+      const Fw::Time& timeTag,
+      const F64& val
+  )
+{
+  TlmEntry_ChannelF64 e = { timeTag, val };
+  this->tlmHistory_ChannelF64->push_back(e);
+  this->tlmSize++;
+}
+
+void QueuedTelemetryTesterBase ::
+  tlmInput_ChannelU32OnChange(
+      const Fw::Time& timeTag,
+      const U32& val
+  )
+{
+  TlmEntry_ChannelU32OnChange e = { timeTag, val };
+  this->tlmHistory_ChannelU32OnChange->push_back(e);
+  this->tlmSize++;
+}
+
+void QueuedTelemetryTesterBase ::
+  tlmInput_ChannelEnumOnChange(
+      const Fw::Time& timeTag,
+      const E& val
+  )
+{
+  TlmEntry_ChannelEnumOnChange e = { timeTag, val };
+  this->tlmHistory_ChannelEnumOnChange->push_back(e);
+  this->tlmSize++;
+}
+
+// ----------------------------------------------------------------------
+// Functions to test time
+// ----------------------------------------------------------------------
+
+void QueuedTelemetryTesterBase ::
+  setTestTime(const Fw::Time& timeTag)
+{
+  this->m_testTime = timeTag;
+}
 
 // ----------------------------------------------------------------------
 // History functions
@@ -1649,4 +2032,276 @@ void QueuedTelemetryTesterBase ::
   };
   this->fromPortHistory_typedReturnOut->push_back(_e);
   this->fromPortHistorySize++;
+}
+
+void QueuedTelemetryTesterBase ::
+  clearEvents()
+{
+  this->eventsSize = 0;
+}
+
+#if FW_ENABLE_TEXT_LOGGING
+
+void QueuedTelemetryTesterBase ::
+  printTextLogHistoryEntry(
+      const TextLogEntry& e,
+      FILE* file
+  )
+{
+  const char* severityString = "UNKNOWN";
+
+  switch (e.severity.e) {
+    case Fw::LogSeverity::FATAL:
+      severityString = "FATAL";
+      break;
+    case Fw::LogSeverity::WARNING_HI:
+      severityString = "WARNING_HI";
+      break;
+    case Fw::LogSeverity::WARNING_LO:
+      severityString = "WARNING_LO";
+      break;
+    case Fw::LogSeverity::COMMAND:
+      severityString = "COMMAND";
+      break;
+    case Fw::LogSeverity::ACTIVITY_HI:
+      severityString = "ACTIVITY_HI";
+      break;
+    case Fw::LogSeverity::ACTIVITY_LO:
+      severityString = "ACTIVITY_LO";
+      break;
+    case Fw::LogSeverity::DIAGNOSTIC:
+     severityString = "DIAGNOSTIC";
+      break;
+    default:
+      severityString = "SEVERITY ERROR";
+      break;
+  }
+
+  fprintf(
+    file,
+    "EVENT: (%" PRI_FwEventIdType ") (%" PRI_FwTimeBaseStoreType ":%" PRIu32 ",%" PRIu32 ") %s: %s\n",
+    e.id,
+    static_cast<FwTimeBaseStoreType>(e.timeTag.getTimeBase()),
+    e.timeTag.getSeconds(),
+    e.timeTag.getUSeconds(),
+    severityString,
+    e.text.toChar()
+  );
+}
+
+void QueuedTelemetryTesterBase ::
+  printTextLogHistory(FILE* const file)
+{
+  for (U32 i = 0; i < this->textLogHistory->size(); i++) {
+    this->printTextLogHistoryEntry(
+      this->textLogHistory->at(i),
+      file
+    );
+  }
+}
+
+#endif
+
+void QueuedTelemetryTesterBase ::
+  clearTlm()
+{
+  this->tlmSize = 0;
+  this->tlmHistory_ChannelU32Format->clear();
+  this->tlmHistory_ChannelF32Format->clear();
+  this->tlmHistory_ChannelStringFormat->clear();
+  this->tlmHistory_ChannelEnum->clear();
+  this->tlmHistory_ChannelArrayFreq->clear();
+  this->tlmHistory_ChannelStructFreq->clear();
+  this->tlmHistory_ChannelU32Limits->clear();
+  this->tlmHistory_ChannelF32Limits->clear();
+  this->tlmHistory_ChannelF64->clear();
+  this->tlmHistory_ChannelU32OnChange->clear();
+  this->tlmHistory_ChannelEnumOnChange->clear();
+}
+
+// ----------------------------------------------------------------------
+// Static functions for output ports
+// ----------------------------------------------------------------------
+
+void QueuedTelemetryTesterBase ::
+  from_typedOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const TypedPortStrings::StringSize80& str1,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  FW_ASSERT(callComp);
+  QueuedTelemetryTesterBase* _testerBase = static_cast<QueuedTelemetryTesterBase*>(callComp);
+  _testerBase->from_typedOut_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str1,
+    e,
+    a,
+    s
+  );
+}
+
+F32 QueuedTelemetryTesterBase ::
+  from_typedReturnOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const TypedReturnPortStrings::StringSize80& str2,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  FW_ASSERT(callComp);
+  QueuedTelemetryTesterBase* _testerBase = static_cast<QueuedTelemetryTesterBase*>(callComp);
+  return _testerBase->from_typedReturnOut_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+}
+
+void QueuedTelemetryTesterBase ::
+  from_cmdRegOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwOpcodeType opCode
+  )
+{
+
+}
+
+void QueuedTelemetryTesterBase ::
+  from_cmdResponseOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      const Fw::CmdResponse& cmdResponse
+  )
+{
+  QueuedTelemetryTesterBase* _testerBase = static_cast<QueuedTelemetryTesterBase*>(callComp);
+  _testerBase->cmdResponseIn(opCode, cmdSeq, cmdResponse);
+}
+
+void QueuedTelemetryTesterBase ::
+  from_eventOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwEventIdType id,
+      Fw::Time& timeTag,
+      const Fw::LogSeverity& severity,
+      Fw::LogBuffer& args
+  )
+{
+  QueuedTelemetryTesterBase* _testerBase = static_cast<QueuedTelemetryTesterBase*>(callComp);
+  _testerBase->dispatchEvents(id, timeTag, severity, args);
+}
+
+Fw::ParamValid QueuedTelemetryTesterBase ::
+  from_prmGetOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwPrmIdType id,
+      Fw::ParamBuffer& val
+  )
+{
+  QueuedTelemetryTesterBase* _testerBase = static_cast<QueuedTelemetryTesterBase*>(callComp);
+
+  Fw::SerializeStatus _status;
+  Fw::ParamValid _ret = Fw::ParamValid::VALID;
+  val.resetSer();
+
+  const U32 idBase = _testerBase->getIdBase();
+  FW_ASSERT(id >= idBase, id, idBase);
+
+
+  switch (id - idBase) {
+    default:
+      FW_ASSERT(id);
+      break;
+  }
+
+  return _ret;
+}
+
+void QueuedTelemetryTesterBase ::
+  from_prmSetOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwPrmIdType id,
+      Fw::ParamBuffer& val
+  )
+{
+  QueuedTelemetryTesterBase* _testerBase = static_cast<QueuedTelemetryTesterBase*>(callComp);
+
+  Fw::SerializeStatus _status;
+  val.resetSer();
+
+  const U32 idBase = _testerBase->getIdBase();
+  FW_ASSERT(id >= idBase, id, idBase);
+
+  switch (id - idBase) {
+    default:
+      FW_ASSERT(id);
+      break;
+  }
+}
+
+#if FW_ENABLE_TEXT_LOGGING == 1
+
+void QueuedTelemetryTesterBase ::
+  from_textEventOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwEventIdType id,
+      Fw::Time& timeTag,
+      const Fw::LogSeverity& severity,
+      Fw::TextLogString& text
+  )
+{
+  QueuedTelemetryTesterBase* _testerBase = static_cast<QueuedTelemetryTesterBase*>(callComp);
+  _testerBase->textLogIn(id, timeTag, severity, text);
+}
+
+#endif
+
+void QueuedTelemetryTesterBase ::
+  from_timeGetOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      Fw::Time& time
+  )
+{
+  QueuedTelemetryTesterBase* _testerBase = static_cast<QueuedTelemetryTesterBase*>(callComp);
+  time = _testerBase->m_testTime;
+}
+
+void QueuedTelemetryTesterBase ::
+  from_tlmOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwChanIdType id,
+      Fw::Time& timeTag,
+      Fw::TlmBuffer& val
+  )
+{
+  QueuedTelemetryTesterBase* _testerBase = static_cast<QueuedTelemetryTesterBase*>(callComp);
+  _testerBase->dispatchTlm(id, timeTag, val);
 }

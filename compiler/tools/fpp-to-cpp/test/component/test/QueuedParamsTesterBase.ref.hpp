@@ -12,13 +12,140 @@
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Types/Assert.hpp"
-#include "test/QueuedParamsComponentAc.hpp"
+#include "QueuedParamsComponentAc.hpp"
 
 //! \class QueuedParamsTesterBase
 //! \brief Auto-generated base for QueuedParams component test harness
 class QueuedParamsTesterBase :
   public Fw::PassiveComponentBase
 {
+
+  protected:
+
+    // ----------------------------------------------------------------------
+    // History class
+    // ----------------------------------------------------------------------
+
+    //! \class History
+    //! \brief A history of port inputs
+    //!
+    template<typename T>
+    class History
+    {
+
+      public:
+
+        //! Create a History
+        History(
+           const U32 maxSize //!< The maximum history size
+        ) :
+          numEntries(0),
+          maxSize(maxSize)
+        {
+          this->entries = new T[maxSize];
+        }
+
+        //! Destroy a History
+        ~History()
+        {
+          delete[] this->entries;
+        }
+
+        //! Clear the history
+        //!
+        void clear()
+        {
+          this->numEntries = 0;
+        }
+
+        //! Push an item onto the history
+        //!
+        void push_back(
+            T entry //!< The item
+        )
+        {
+          FW_ASSERT(this->numEntries < this->maxSize);
+          entries[this->numEntries++] = entry;
+        }
+
+        //! Get an item at an index
+        //!
+        //! \return The item at index i
+        T at(
+            const U32 i //!< The index
+        ) const
+        {
+          FW_ASSERT(i < this->numEntries);
+          return entries[i];
+        }
+
+        //! Get the number of entries in the history
+        //!
+        //! \return The number of entries in the history
+        U32 size() const
+        {
+          return this->numEntries;
+        }
+
+      private:
+
+        //! The number of entries in the history
+        U32 numEntries;
+
+        //! The maximum history size
+        const U32 maxSize;
+
+        //! The entries
+        T* entries;
+
+    };
+
+  protected:
+
+    // ----------------------------------------------------------------------
+    // History types
+    // ----------------------------------------------------------------------
+
+    //! A history entry for port from_typedOut
+    struct FromPortEntry_typedOut {
+      U32 u32;
+      F32 f32;
+      bool b;
+      TypedPortStrings::StringSize80 str1;
+      E e;
+      A a;
+      S s;
+    };
+
+    //! A history entry for port from_typedReturnOut
+    struct FromPortEntry_typedReturnOut {
+      U32 u32;
+      F32 f32;
+      bool b;
+      TypedReturnPortStrings::StringSize80 str2;
+      E e;
+      A a;
+      S s;
+    };
+
+    //! A type representing a command response
+    struct CmdResponse {
+      FwOpcodeType opCode;
+      U32 cmdSeq;
+      Fw::CmdResponse response;
+    };
+
+#if FW_ENABLE_TEXT_LOGGING
+
+    //! A history entry for text log events
+    struct TextLogEntry {
+      U32 id;
+      Fw::Time timeTag;
+      Fw::LogSeverity severity;
+      Fw::TextLogString text;
+    };
+
+#endif
 
   public:
 
@@ -409,80 +536,129 @@ class QueuedParamsTesterBase :
     // Getters for port counts
     // ----------------------------------------------------------------------
 
-    //! Get the number of getNum_to_noArgsAsync ports
+    //! Get the number of to_noArgsAsync ports
     //!
-    //! \return The number of getNum_to_noArgsAsync ports
-    NATIVE_INT_TYPE to_noArgsAsync();
+    //! \return The number of to_noArgsAsync ports
+    NATIVE_INT_TYPE getNum_to_noArgsAsync() const;
 
-    //! Get the number of getNum_to_noArgsGuarded ports
+    //! Get the number of to_noArgsGuarded ports
     //!
-    //! \return The number of getNum_to_noArgsGuarded ports
-    NATIVE_INT_TYPE to_noArgsGuarded();
+    //! \return The number of to_noArgsGuarded ports
+    NATIVE_INT_TYPE getNum_to_noArgsGuarded() const;
 
-    //! Get the number of getNum_to_noArgsReturnGuarded ports
+    //! Get the number of to_noArgsReturnGuarded ports
     //!
-    //! \return The number of getNum_to_noArgsReturnGuarded ports
-    NATIVE_INT_TYPE to_noArgsReturnGuarded();
+    //! \return The number of to_noArgsReturnGuarded ports
+    NATIVE_INT_TYPE getNum_to_noArgsReturnGuarded() const;
 
-    //! Get the number of getNum_to_noArgsReturnSync ports
+    //! Get the number of to_noArgsReturnSync ports
     //!
-    //! \return The number of getNum_to_noArgsReturnSync ports
-    NATIVE_INT_TYPE to_noArgsReturnSync();
+    //! \return The number of to_noArgsReturnSync ports
+    NATIVE_INT_TYPE getNum_to_noArgsReturnSync() const;
 
-    //! Get the number of getNum_to_noArgsSync ports
+    //! Get the number of to_noArgsSync ports
     //!
-    //! \return The number of getNum_to_noArgsSync ports
-    NATIVE_INT_TYPE to_noArgsSync();
+    //! \return The number of to_noArgsSync ports
+    NATIVE_INT_TYPE getNum_to_noArgsSync() const;
 
-    //! Get the number of getNum_to_typedAsync ports
+    //! Get the number of to_typedAsync ports
     //!
-    //! \return The number of getNum_to_typedAsync ports
-    NATIVE_INT_TYPE to_typedAsync();
+    //! \return The number of to_typedAsync ports
+    NATIVE_INT_TYPE getNum_to_typedAsync() const;
 
-    //! Get the number of getNum_to_typedAsyncAssert ports
+    //! Get the number of to_typedAsyncAssert ports
     //!
-    //! \return The number of getNum_to_typedAsyncAssert ports
-    NATIVE_INT_TYPE to_typedAsyncAssert();
+    //! \return The number of to_typedAsyncAssert ports
+    NATIVE_INT_TYPE getNum_to_typedAsyncAssert() const;
 
-    //! Get the number of getNum_to_typedAsyncBlockPriority ports
+    //! Get the number of to_typedAsyncBlockPriority ports
     //!
-    //! \return The number of getNum_to_typedAsyncBlockPriority ports
-    NATIVE_INT_TYPE to_typedAsyncBlockPriority();
+    //! \return The number of to_typedAsyncBlockPriority ports
+    NATIVE_INT_TYPE getNum_to_typedAsyncBlockPriority() const;
 
-    //! Get the number of getNum_to_typedAsyncDropPriority ports
+    //! Get the number of to_typedAsyncDropPriority ports
     //!
-    //! \return The number of getNum_to_typedAsyncDropPriority ports
-    NATIVE_INT_TYPE to_typedAsyncDropPriority();
+    //! \return The number of to_typedAsyncDropPriority ports
+    NATIVE_INT_TYPE getNum_to_typedAsyncDropPriority() const;
 
-    //! Get the number of getNum_to_typedGuarded ports
+    //! Get the number of to_typedGuarded ports
     //!
-    //! \return The number of getNum_to_typedGuarded ports
-    NATIVE_INT_TYPE to_typedGuarded();
+    //! \return The number of to_typedGuarded ports
+    NATIVE_INT_TYPE getNum_to_typedGuarded() const;
 
-    //! Get the number of getNum_to_typedReturnGuarded ports
+    //! Get the number of to_typedReturnGuarded ports
     //!
-    //! \return The number of getNum_to_typedReturnGuarded ports
-    NATIVE_INT_TYPE to_typedReturnGuarded();
+    //! \return The number of to_typedReturnGuarded ports
+    NATIVE_INT_TYPE getNum_to_typedReturnGuarded() const;
 
-    //! Get the number of getNum_to_typedReturnSync ports
+    //! Get the number of to_typedReturnSync ports
     //!
-    //! \return The number of getNum_to_typedReturnSync ports
-    NATIVE_INT_TYPE to_typedReturnSync();
+    //! \return The number of to_typedReturnSync ports
+    NATIVE_INT_TYPE getNum_to_typedReturnSync() const;
 
-    //! Get the number of getNum_to_typedSync ports
+    //! Get the number of to_typedSync ports
     //!
-    //! \return The number of getNum_to_typedSync ports
-    NATIVE_INT_TYPE to_typedSync();
+    //! \return The number of to_typedSync ports
+    NATIVE_INT_TYPE getNum_to_typedSync() const;
 
-    //! Get the number of getNum_from_typedOut ports
+    //! Get the number of to_cmdIn ports
     //!
-    //! \return The number of getNum_from_typedOut ports
-    NATIVE_INT_TYPE from_typedOut();
+    //! \return The number of to_cmdIn ports
+    NATIVE_INT_TYPE getNum_to_cmdIn() const;
 
-    //! Get the number of getNum_from_typedReturnOut ports
+    //! Get the number of from_typedOut ports
     //!
-    //! \return The number of getNum_from_typedReturnOut ports
-    NATIVE_INT_TYPE from_typedReturnOut();
+    //! \return The number of from_typedOut ports
+    NATIVE_INT_TYPE getNum_from_typedOut() const;
+
+    //! Get the number of from_typedReturnOut ports
+    //!
+    //! \return The number of from_typedReturnOut ports
+    NATIVE_INT_TYPE getNum_from_typedReturnOut() const;
+
+    //! Get the number of from_cmdRegOut ports
+    //!
+    //! \return The number of from_cmdRegOut ports
+    NATIVE_INT_TYPE getNum_from_cmdRegOut() const;
+
+    //! Get the number of from_cmdResponseOut ports
+    //!
+    //! \return The number of from_cmdResponseOut ports
+    NATIVE_INT_TYPE getNum_from_cmdResponseOut() const;
+
+    //! Get the number of from_eventOut ports
+    //!
+    //! \return The number of from_eventOut ports
+    NATIVE_INT_TYPE getNum_from_eventOut() const;
+
+    //! Get the number of from_prmGetOut ports
+    //!
+    //! \return The number of from_prmGetOut ports
+    NATIVE_INT_TYPE getNum_from_prmGetOut() const;
+
+    //! Get the number of from_prmSetOut ports
+    //!
+    //! \return The number of from_prmSetOut ports
+    NATIVE_INT_TYPE getNum_from_prmSetOut() const;
+
+#if FW_ENABLE_TEXT_LOGGING == 1
+
+    //! Get the number of from_textEventOut ports
+    //!
+    //! \return The number of from_textEventOut ports
+    NATIVE_INT_TYPE getNum_from_textEventOut() const;
+
+#endif
+
+    //! Get the number of from_timeGetOut ports
+    //!
+    //! \return The number of from_timeGetOut ports
+    NATIVE_INT_TYPE getNum_from_timeGetOut() const;
+
+    //! Get the number of from_tlmOut ports
+    //!
+    //! \return The number of from_tlmOut ports
+    NATIVE_INT_TYPE getNum_from_tlmOut() const;
 
   protected:
 
@@ -605,114 +781,172 @@ class QueuedParamsTesterBase :
     void sendRawCmd(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
-        Fw::CmdBufferArg& args //!< The command argument buffer
+        Fw::CmdArgBuffer& buf //!< The command argument buffer
     );
 
   protected:
 
     // ----------------------------------------------------------------------
-    // History class
+    // Functions for testing events
     // ----------------------------------------------------------------------
-    //! \class History
-    //! \brief A history of port inputs
-    //!
-    template<typename T>
-    class History
-    {
 
-      public:
+    //! Dispatch an event
+    void dispatchEvents(
+        FwEventIdType id, //!< The event ID
+        Fw::Time& timeTag, //!< The time
+        const Fw::LogSeverity severity, //!< The severity
+        Fw::LogBuffer& args //!< The serialized arguments
+    );
 
-        //! Create a History
-        History(
-           const U32 maxSize //!< The maximum history size
-        ) :
-          numEntries(0),
-          maxSize(maxSize)
-        {
-          this->entries = new T[maxSize];
-        }
+#if FW_ENABLE_TEXT_LOGGING
 
-        //! Destroy a History
-        ~History()
-        {
-          delete[] this->entries;
-        }
+    //! Handle a text event
+    void textLogIn(
+        FwEventIdType id, //!< The event ID
+        Fw::Time& timeTag, //!< The time
+        const Fw::LogSeverity severity, //!< The severity
+        const Fw::TextLogString& text //!< The event string
+    );
 
-        //! Clear the history
-        //!
-        void clear()
-        {
-          this->numEntries = 0;
-        }
+#endif
 
-        //! Push an item onto the history
-        //!
-        void push_back(
-            T entry //!< The item
-        )
-        {
-          FW_ASSERT(this->numEntries < this->maxSize);
-          entries[this->numEntries++] = entry;
-        }
+  protected:
 
-        //! Get an item at an index
-        //!
-        //! \return The item at index i
-        T at(
-            const U32 i //!< The index
-        ) const
-        {
-          FW_ASSERT(i < this->numEntries);
-          return entries[i];
-        }
+    // ----------------------------------------------------------------------
+    // Functions for testing telemetry
+    // ----------------------------------------------------------------------
 
-        //! Get the number of entries in the history
-        //!
-        //! \return The number of entries in the history
-        U32 size() const
-        {
-          return this->numEntries;
-        }
+    //! Dispatch telemetry
+    void dispatchTlm(
+        FwChanIdType id, //!< The channel id
+        const Fw::Time& timeTag, //!< The time
+        Fw::TlmBuffer& val //!< The channel value
+    );
 
-      private:
+  protected:
 
-        //! The number of entries in the history
-        U32 numEntries;
+    // ----------------------------------------------------------------------
+    // Functions to test parameters
+    // ----------------------------------------------------------------------
 
-        //! The maximum history size
-        const U32 maxSize;
+    //! Set parameter ParamU32
+    void paramSet_ParamU32(
+        const U32& val, //!< The parameter value
+        Fw::ParamValid valid //!< The parameter valid flag
+    );
 
-        //! The entries
-        T* entries;
+    //! Send parameter ParamU32
+    void paramSend_ParamU32(
+        NATIVE_INT_TYPE instance, //!< The component instance
+        U32 cmdSeq //!< The command sequence number
+    );
 
-    };
+    //! Save parameter ParamU32
+    void paramSave_ParamU32(
+        NATIVE_INT_TYPE instance, //!< The component instance
+        U32 cmdSeq //!< The command sequence number
+    );
 
-    struct FromPortEntry_typedOut {
-      U32 u32,
-      F32 f32,
-      bool b,
-      TypedPortStrings::StringSize80 str1,
-      E e,
-      A a,
-      S s
-    };
+    //! Set parameter ParamF64
+    void paramSet_ParamF64(
+        const F64& val, //!< The parameter value
+        Fw::ParamValid valid //!< The parameter valid flag
+    );
 
-    struct FromPortEntry_typedReturnOut {
-      U32 u32,
-      F32 f32,
-      bool b,
-      TypedReturnPortStrings::StringSize80 str2,
-      E e,
-      A a,
-      S s
-    };
+    //! Send parameter ParamF64
+    void paramSend_ParamF64(
+        NATIVE_INT_TYPE instance, //!< The component instance
+        U32 cmdSeq //!< The command sequence number
+    );
 
-    //! A type representing a command response
-    struct CmdResponse {
-      FwOpcodeType opCode;
-      U32 cmdSeq;
-      Fw::CmdResponse response;
-    };
+    //! Save parameter ParamF64
+    void paramSave_ParamF64(
+        NATIVE_INT_TYPE instance, //!< The component instance
+        U32 cmdSeq //!< The command sequence number
+    );
+
+    //! Set parameter ParamString
+    void paramSet_ParamString(
+        const Fw::ParamString& val, //!< The parameter value
+        Fw::ParamValid valid //!< The parameter valid flag
+    );
+
+    //! Send parameter ParamString
+    void paramSend_ParamString(
+        NATIVE_INT_TYPE instance, //!< The component instance
+        U32 cmdSeq //!< The command sequence number
+    );
+
+    //! Save parameter ParamString
+    void paramSave_ParamString(
+        NATIVE_INT_TYPE instance, //!< The component instance
+        U32 cmdSeq //!< The command sequence number
+    );
+
+    //! Set parameter ParamEnum
+    void paramSet_ParamEnum(
+        const E& val, //!< The parameter value
+        Fw::ParamValid valid //!< The parameter valid flag
+    );
+
+    //! Send parameter ParamEnum
+    void paramSend_ParamEnum(
+        NATIVE_INT_TYPE instance, //!< The component instance
+        U32 cmdSeq //!< The command sequence number
+    );
+
+    //! Save parameter ParamEnum
+    void paramSave_ParamEnum(
+        NATIVE_INT_TYPE instance, //!< The component instance
+        U32 cmdSeq //!< The command sequence number
+    );
+
+    //! Set parameter ParamArray
+    void paramSet_ParamArray(
+        const A& val, //!< The parameter value
+        Fw::ParamValid valid //!< The parameter valid flag
+    );
+
+    //! Send parameter ParamArray
+    void paramSend_ParamArray(
+        NATIVE_INT_TYPE instance, //!< The component instance
+        U32 cmdSeq //!< The command sequence number
+    );
+
+    //! Save parameter ParamArray
+    void paramSave_ParamArray(
+        NATIVE_INT_TYPE instance, //!< The component instance
+        U32 cmdSeq //!< The command sequence number
+    );
+
+    //! Set parameter ParamStruct
+    void paramSet_ParamStruct(
+        const S& val, //!< The parameter value
+        Fw::ParamValid valid //!< The parameter valid flag
+    );
+
+    //! Send parameter ParamStruct
+    void paramSend_ParamStruct(
+        NATIVE_INT_TYPE instance, //!< The component instance
+        U32 cmdSeq //!< The command sequence number
+    );
+
+    //! Save parameter ParamStruct
+    void paramSave_ParamStruct(
+        NATIVE_INT_TYPE instance, //!< The component instance
+        U32 cmdSeq //!< The command sequence number
+    );
+
+  protected:
+
+    // ----------------------------------------------------------------------
+    // Functions to test time
+    // ----------------------------------------------------------------------
+
+    //! Set the test time for events and telemetry
+    void setTestTime(
+        const Fw::Time& timeTag //!< The time
+    );
 
   protected:
 
@@ -748,6 +982,135 @@ class QueuedParamsTesterBase :
         const S& s //!< A struct
     );
 
+    //! Clear event history
+    void clearEvents();
+
+#if FW_ENABLE_TEXT_LOGGING
+
+    //! Print a text log history entry
+    static void printTextLogHistoryEntry(
+        const TextLogEntry& e,
+        FILE* file
+    );
+
+    //! Print the text log history
+    void printTextLogHistory(FILE* const file);
+
+#endif
+
+    //! Clear telemetry history
+    void clearTlm();
+
+  private:
+
+    // ----------------------------------------------------------------------
+    // Static functions for output ports
+    // ----------------------------------------------------------------------
+
+    //! Static function for port from_typedOut
+    static void from_typedOut_static(
+        Fw::PassiveComponentBase* const callComp, //!< The component instance
+        NATIVE_INT_TYPE portNum, //!< The port number
+        U32 u32, //!< A U32
+        F32 f32, //!< An F32
+        bool b, //!< A boolean
+        const TypedPortStrings::StringSize80& str1, //!< A string
+        const E& e, //!< An enum
+        const A& a, //!< An array
+        const S& s //!< A struct
+    );
+
+    //! Static function for port from_typedReturnOut
+    static F32 from_typedReturnOut_static(
+        Fw::PassiveComponentBase* const callComp, //!< The component instance
+        NATIVE_INT_TYPE portNum, //!< The port number
+        U32 u32, //!< A U32
+        F32 f32, //!< An F32
+        bool b, //!< A boolean
+        const TypedReturnPortStrings::StringSize80& str2, //!< A string
+        const E& e, //!< An enum
+        const A& a, //!< An array
+        const S& s //!< A struct
+    );
+
+    //! Static function for port from_cmdRegOut
+    static void from_cmdRegOut_static(
+        Fw::PassiveComponentBase* const callComp, //!< The component instance
+        NATIVE_INT_TYPE portNum, //!< The port number
+        FwOpcodeType opCode //!< The opcode
+    );
+
+    //! Static function for port from_cmdResponseOut
+    static void from_cmdResponseOut_static(
+        Fw::PassiveComponentBase* const callComp, //!< The component instance
+        NATIVE_INT_TYPE portNum, //!< The port number
+        FwOpcodeType opCode, //!< The opcode
+        U32 cmdSeq, //!< The command sequence number
+        const Fw::CmdResponse& cmdResponse //!< The command response argument
+    );
+
+    //! Static function for port from_eventOut
+    static void from_eventOut_static(
+        Fw::PassiveComponentBase* const callComp, //!< The component instance
+        NATIVE_INT_TYPE portNum, //!< The port number
+        FwEventIdType id, //!< The log ID
+        Fw::Time& timeTag, //!< The time tag
+        const Fw::LogSeverity& severity, //!< The severity argument
+        Fw::LogBuffer& args //!< The buffer containing the serialized log entry
+    );
+
+    //! Static function for port from_prmGetOut
+    static Fw::ParamValid from_prmGetOut_static(
+        Fw::PassiveComponentBase* const callComp, //!< The component instance
+        NATIVE_INT_TYPE portNum, //!< The port number
+        FwPrmIdType id, //!< The parameter ID
+        Fw::ParamBuffer& val //!< The buffer containing the serialized parameter value
+    );
+
+    //! Static function for port from_prmSetOut
+    static void from_prmSetOut_static(
+        Fw::PassiveComponentBase* const callComp, //!< The component instance
+        NATIVE_INT_TYPE portNum, //!< The port number
+        FwPrmIdType id, //!< The parameter ID
+        Fw::ParamBuffer& val //!< The buffer containing the serialized parameter value
+    );
+
+#if FW_ENABLE_TEXT_LOGGING == 1
+
+    //! Static function for port from_textEventOut
+    static void from_textEventOut_static(
+        Fw::PassiveComponentBase* const callComp, //!< The component instance
+        NATIVE_INT_TYPE portNum, //!< The port number
+        FwEventIdType id, //!< The log ID
+        Fw::Time& timeTag, //!< The time tag
+        const Fw::LogSeverity& severity, //!< The severity argument
+        Fw::TextLogString& text //!< The text of the log message
+    );
+
+#endif
+
+    //! Static function for port from_timeGetOut
+    static void from_timeGetOut_static(
+        Fw::PassiveComponentBase* const callComp, //!< The component instance
+        NATIVE_INT_TYPE portNum, //!< The port number
+        Fw::Time& time //!< The time
+    );
+
+    //! Static function for port from_tlmOut
+    static void from_tlmOut_static(
+        Fw::PassiveComponentBase* const callComp, //!< The component instance
+        NATIVE_INT_TYPE portNum, //!< The port number
+        FwChanIdType id, //!< The telemetry channel ID
+        Fw::Time& timeTag, //!< The time tag
+        Fw::TlmBuffer& val //!< The buffer containing the serialized telemetry value
+    );
+
+  protected:
+
+    // ----------------------------------------------------------------------
+    // History member variables
+    // ----------------------------------------------------------------------
+
     //! The total number of port entries
     U32 fromPortHistorySize;
 
@@ -759,6 +1122,164 @@ class QueuedParamsTesterBase :
 
     //! The command response history
     History<CmdResponse>* cmdResponseHistory;
+
+    //! The total number of events seen
+    U32 eventsSize;
+
+#if FW_ENABLE_TEXT_LOGGING
+
+    //! The history of text log events
+    History<TextLogEntry>* textLogHistory;
+
+#endif
+
+    //! The total number of telemetry inputs seen
+    U32 tlmSize;
+
+  private:
+
+    // ----------------------------------------------------------------------
+    // To ports
+    // ----------------------------------------------------------------------
+
+    //! To port connected to noArgsAsync
+    OutputNoArgsPort m_to_noArgsAsync[1];
+
+    //! To port connected to noArgsGuarded
+    OutputNoArgsPort m_to_noArgsGuarded[1];
+
+    //! To port connected to noArgsReturnGuarded
+    OutputNoArgsReturnPort m_to_noArgsReturnGuarded[1];
+
+    //! To port connected to noArgsReturnSync
+    OutputNoArgsReturnPort m_to_noArgsReturnSync[3];
+
+    //! To port connected to noArgsSync
+    OutputNoArgsPort m_to_noArgsSync[3];
+
+    //! To port connected to typedAsync
+    OutputTypedPort m_to_typedAsync[1];
+
+    //! To port connected to typedAsyncAssert
+    OutputTypedPort m_to_typedAsyncAssert[1];
+
+    //! To port connected to typedAsyncBlockPriority
+    OutputTypedPort m_to_typedAsyncBlockPriority[1];
+
+    //! To port connected to typedAsyncDropPriority
+    OutputTypedPort m_to_typedAsyncDropPriority[1];
+
+    //! To port connected to typedGuarded
+    OutputTypedPort m_to_typedGuarded[1];
+
+    //! To port connected to typedReturnGuarded
+    OutputTypedReturnPort m_to_typedReturnGuarded[1];
+
+    //! To port connected to typedReturnSync
+    OutputTypedReturnPort m_to_typedReturnSync[3];
+
+    //! To port connected to typedSync
+    OutputTypedPort m_to_typedSync[3];
+
+    //! To port connected to cmdIn
+    Fw::OutputCmdPort m_to_cmdIn[1];
+
+  private:
+
+    // ----------------------------------------------------------------------
+    // From ports
+    // ----------------------------------------------------------------------
+
+    //! From port connected to typedOut
+    InputTypedPort m_from_typedOut[1];
+
+    //! From port connected to typedReturnOut
+    InputTypedReturnPort m_from_typedReturnOut[1];
+
+    //! From port connected to cmdRegOut
+    Fw::InputCmdRegPort m_from_cmdRegOut[1];
+
+    //! From port connected to cmdResponseOut
+    Fw::InputCmdResponsePort m_from_cmdResponseOut[1];
+
+    //! From port connected to eventOut
+    Fw::InputLogPort m_from_eventOut[1];
+
+    //! From port connected to prmGetOut
+    Fw::InputPrmGetPort m_from_prmGetOut[1];
+
+    //! From port connected to prmSetOut
+    Fw::InputPrmSetPort m_from_prmSetOut[1];
+
+#if FW_ENABLE_TEXT_LOGGING == 1
+
+    //! From port connected to textEventOut
+    Fw::InputLogTextPort m_from_textEventOut[1];
+
+#endif
+
+    //! From port connected to timeGetOut
+    Fw::InputTimePort m_from_timeGetOut[1];
+
+    //! From port connected to tlmOut
+    Fw::InputTlmPort m_from_tlmOut[1];
+
+  private:
+
+    // ----------------------------------------------------------------------
+    // Parameter validity flags
+    // ----------------------------------------------------------------------
+
+    //! True if parameter ParamU32 was successfully received
+    Fw::ParamValid m_param_ParamU32_valid;
+
+    //! True if parameter ParamF64 was successfully received
+    Fw::ParamValid m_param_ParamF64_valid;
+
+    //! True if parameter ParamString was successfully received
+    Fw::ParamValid m_param_ParamString_valid;
+
+    //! True if parameter ParamEnum was successfully received
+    Fw::ParamValid m_param_ParamEnum_valid;
+
+    //! True if parameter ParamArray was successfully received
+    Fw::ParamValid m_param_ParamArray_valid;
+
+    //! True if parameter ParamStruct was successfully received
+    Fw::ParamValid m_param_ParamStruct_valid;
+
+  private:
+
+    // ----------------------------------------------------------------------
+    // Parameter variables
+    // ----------------------------------------------------------------------
+
+    //! Parameter ParamU32
+    U32 m_param_ParamU32;
+
+    //! Parameter ParamF64
+    F64 m_param_ParamF64;
+
+    //! Parameter ParamString
+    Fw::ParamString m_param_ParamString;
+
+    //! Parameter ParamEnum
+    E m_param_ParamEnum;
+
+    //! Parameter ParamArray
+    A m_param_ParamArray;
+
+    //! Parameter ParamStruct
+    S m_param_ParamStruct;
+
+  private:
+
+    // ----------------------------------------------------------------------
+    // Time variables
+    // ----------------------------------------------------------------------
+
+    //! Test time stamp
+    Fw::Time m_testTime;
 
 };
 

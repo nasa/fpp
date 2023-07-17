@@ -7,8 +7,8 @@
 #ifndef PassiveCommandsTester_HPP
 #define PassiveCommandsTester_HPP
 
-#include "test/PassiveCommandsGTestBase.hpp"
-#include "test/PassiveCommands.hpp"
+#include "PassiveCommandsGTestBase.hpp"
+#include "PassiveCommands.hpp"
 
 class PassiveCommandsTester :
   public PassiveCommandsGTestBase

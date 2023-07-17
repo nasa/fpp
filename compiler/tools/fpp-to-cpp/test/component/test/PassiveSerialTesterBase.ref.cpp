@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "test/PassiveSerialTesterBase.hpp"
+#include "PassiveSerialTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Component initialization
@@ -855,13 +855,11 @@ PassiveSerialTesterBase ::
 #if FW_ENABLE_TEXT_LOGGING
   this->textLogHistory = new History<TextLogEntry>(maxHistorySize);
 #endif
-  this->eventHistory_EventActivityHigh = new History<EventEntry_EventActivityHigh>(maxHistorySize);
   this->eventHistory_EventActivityLowThrottled = new History<EventEntry_EventActivityLowThrottled>(maxHistorySize);
   this->eventHistory_EventCommand = new History<EventEntry_EventCommand>(maxHistorySize);
   this->eventHistory_EventDiagnostic = new History<EventEntry_EventDiagnostic>(maxHistorySize);
   this->eventHistory_EventFatalThrottled = new History<EventEntry_EventFatalThrottled>(maxHistorySize);
   this->eventHistory_EventWarningHigh = new History<EventEntry_EventWarningHigh>(maxHistorySize);
-  this->eventHistory_EventWarningLowThrottled = new History<EventEntry_EventWarningLowThrottled>(maxHistorySize);
 
   // Initialize telemetry histories
   this->tlmHistory_ChannelU32Format = new History<TlmEntry_ChannelU32Format>(maxHistorySize);
@@ -894,13 +892,11 @@ PassiveSerialTesterBase ::
 #if FW_ENABLE_TEXT_LOGGING
   delete this->textLogHistory;
 #endif
-  delete this->eventHistory_EventActivityHigh;
   delete this->eventHistory_EventActivityLowThrottled;
   delete this->eventHistory_EventCommand;
   delete this->eventHistory_EventDiagnostic;
   delete this->eventHistory_EventFatalThrottled;
   delete this->eventHistory_EventWarningHigh;
-  delete this->eventHistory_EventWarningLowThrottled;
 
   // Destroy telemetry histories
   delete this->tlmHistory_ChannelU32Format;
@@ -1192,81 +1188,139 @@ void PassiveSerialTesterBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  to_noArgsGuarded()
+  getNum_to_noArgsGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsGuarded));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  to_noArgsReturnGuarded()
+  getNum_to_noArgsReturnGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnGuarded));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  to_noArgsReturnSync()
+  getNum_to_noArgsReturnSync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnSync));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  to_noArgsSync()
+  getNum_to_noArgsSync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsSync));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  to_typedGuarded()
+  getNum_to_typedGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedGuarded));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  to_typedReturnGuarded()
+  getNum_to_typedReturnGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnGuarded));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  to_typedReturnSync()
+  getNum_to_typedReturnSync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnSync));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  to_typedSync()
+  getNum_to_typedSync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedSync));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  to_serialGuarded()
+  getNum_to_serialGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_serialGuarded));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  to_serialSync()
+  getNum_to_serialSync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_serialSync));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  from_typedOut()
+  getNum_to_cmdIn() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_cmdIn));
+}
+
+NATIVE_INT_TYPE PassiveSerialTesterBase ::
+  getNum_from_typedOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  from_typedReturnOut()
+  getNum_from_typedReturnOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedReturnOut));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  from_serialOut()
+  getNum_from_serialOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_serialOut));
+}
+
+NATIVE_INT_TYPE PassiveSerialTesterBase ::
+  getNum_from_cmdRegOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdRegOut));
+}
+
+NATIVE_INT_TYPE PassiveSerialTesterBase ::
+  getNum_from_cmdResponseOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdResponseOut));
+}
+
+NATIVE_INT_TYPE PassiveSerialTesterBase ::
+  getNum_from_eventOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_eventOut));
+}
+
+NATIVE_INT_TYPE PassiveSerialTesterBase ::
+  getNum_from_prmGetOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmGetOut));
+}
+
+NATIVE_INT_TYPE PassiveSerialTesterBase ::
+  getNum_from_prmSetOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmSetOut));
+}
+
+#if FW_ENABLE_TEXT_LOGGING == 1
+
+NATIVE_INT_TYPE PassiveSerialTesterBase ::
+  getNum_from_textEventOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_textEventOut));
+}
+
+#endif
+
+NATIVE_INT_TYPE PassiveSerialTesterBase ::
+  getNum_from_timeGetOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_timeGetOut));
+}
+
+NATIVE_INT_TYPE PassiveSerialTesterBase ::
+  getNum_from_tlmOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_tlmOut));
 }
 
 // ----------------------------------------------------------------------
@@ -1405,7 +1459,7 @@ void PassiveSerialTesterBase ::
       Fw::CmdResponse response
   )
 {
-  CmdResponse e = { opCode, seq, response };
+  CmdResponse e = { opCode, cmdSeq, response };
   this->cmdResponseHistory->push_back(e);
 }
 
@@ -1413,16 +1467,16 @@ void PassiveSerialTesterBase ::
   sendRawCmd(
       FwOpcodeType opCode,
       U32 cmdSeq,
-      Fw::CmdBufferArg& args
+      Fw::CmdArgBuffer& buf
   )
 {
   const U32 idBase = this->getIdBase();
-  FwOpcodeType _opcode = opcode + idBase;
+  FwOpcodeType _opcode = opCode + idBase;
   if (this->m_to_cmdIn[0].isConnected()) {
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -1436,6 +1490,8 @@ void PassiveSerialTesterBase ::
       U32 cmdSeq
   )
 {
+  Fw::CmdArgBuffer buf;
+
   // Call output command port
   FwOpcodeType _opcode;
   const U32 idBase = this->getIdBase();
@@ -1445,7 +1501,7 @@ void PassiveSerialTesterBase ::
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -1465,21 +1521,22 @@ void PassiveSerialTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(u32);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
   _status = buf.serialize(f32);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
   _status = buf.serialize(b);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
@@ -1492,7 +1549,7 @@ void PassiveSerialTesterBase ::
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -1511,15 +1568,16 @@ void PassiveSerialTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(str1);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
   _status = buf.serialize(str2);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
@@ -1532,7 +1590,7 @@ void PassiveSerialTesterBase ::
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -1550,9 +1608,10 @@ void PassiveSerialTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(e);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
@@ -1565,7 +1624,7 @@ void PassiveSerialTesterBase ::
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -1583,9 +1642,10 @@ void PassiveSerialTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(a);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
@@ -1598,7 +1658,7 @@ void PassiveSerialTesterBase ::
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -1616,9 +1676,10 @@ void PassiveSerialTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(s);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
@@ -1631,7 +1692,7 @@ void PassiveSerialTesterBase ::
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -1645,6 +1706,8 @@ void PassiveSerialTesterBase ::
       U32 cmdSeq
   )
 {
+  Fw::CmdArgBuffer buf;
+
   // Call output command port
   FwOpcodeType _opcode;
   const U32 idBase = this->getIdBase();
@@ -1654,7 +1717,7 @@ void PassiveSerialTesterBase ::
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -1674,21 +1737,22 @@ void PassiveSerialTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(u32);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
   _status = buf.serialize(f32);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
   _status = buf.serialize(b);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
@@ -1701,7 +1765,7 @@ void PassiveSerialTesterBase ::
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -1720,15 +1784,16 @@ void PassiveSerialTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(str1);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
   _status = buf.serialize(str2);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
@@ -1741,7 +1806,7 @@ void PassiveSerialTesterBase ::
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -1759,9 +1824,10 @@ void PassiveSerialTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(e);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
@@ -1774,7 +1840,7 @@ void PassiveSerialTesterBase ::
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -1792,9 +1858,10 @@ void PassiveSerialTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(a);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
@@ -1807,7 +1874,7 @@ void PassiveSerialTesterBase ::
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -1825,9 +1892,10 @@ void PassiveSerialTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(s);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
@@ -1840,7 +1908,7 @@ void PassiveSerialTesterBase ::
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -1849,8 +1917,765 @@ void PassiveSerialTesterBase ::
 }
 
 // ----------------------------------------------------------------------
-// History class
+// Functions for testing events
 // ----------------------------------------------------------------------
+
+void PassiveSerialTesterBase ::
+  dispatchEvents(
+      FwEventIdType id,
+      Fw::Time& timeTag,
+      const Fw::LogSeverity severity,
+      Fw::LogBuffer& args
+  )
+{
+
+}
+
+#if FW_ENABLE_TEXT_LOGGING
+
+void PassiveSerialTesterBase ::
+  textLogIn(
+      FwEventIdType id,
+      Fw::Time& timeTag,
+      const Fw::LogSeverity severity,
+      const Fw::TextLogString& text
+  )
+{
+  TextLogEntry e = { id, timeTag, severity, text };
+  textLogHistory->push_back(e);
+}
+
+#endif
+
+void PassiveSerialTesterBase ::
+  logIn_ACTIVITY_HI_EventActivityHigh()
+{
+  this->eventsSize_EventActivityHigh++;
+  this->eventsSize++;
+}
+
+void PassiveSerialTesterBase ::
+  logIn_ACTIVITY_LO_EventActivityLowThrottled(
+      U32 u32,
+      F32 f32,
+      bool b
+  )
+{
+  EventEntry_EventActivityLowThrottled _e = {
+    u32,
+    f32,
+    b
+  };
+  eventHistory_EventActivityLowThrottled->push_back(_e);
+  this->eventsSize++;
+}
+
+void PassiveSerialTesterBase ::
+  logIn_COMMAND_EventCommand(
+      const Fw::LogStringArg& str1,
+      const Fw::LogStringArg& str2
+  )
+{
+  EventEntry_EventCommand _e = {
+    str1,
+    str2
+  };
+  eventHistory_EventCommand->push_back(_e);
+  this->eventsSize++;
+}
+
+void PassiveSerialTesterBase ::
+  logIn_DIAGNOSTIC_EventDiagnostic(E e)
+{
+  EventEntry_EventDiagnostic _e = {
+    e
+  };
+  eventHistory_EventDiagnostic->push_back(_e);
+  this->eventsSize++;
+}
+
+void PassiveSerialTesterBase ::
+  logIn_FATAL_EventFatalThrottled(A a)
+{
+  EventEntry_EventFatalThrottled _e = {
+    a
+  };
+  eventHistory_EventFatalThrottled->push_back(_e);
+  this->eventsSize++;
+}
+
+void PassiveSerialTesterBase ::
+  logIn_WARNING_HI_EventWarningHigh(S s)
+{
+  EventEntry_EventWarningHigh _e = {
+    s
+  };
+  eventHistory_EventWarningHigh->push_back(_e);
+  this->eventsSize++;
+}
+
+void PassiveSerialTesterBase ::
+  logIn_WARNING_LO_EventWarningLowThrottled()
+{
+  this->eventsSize_EventWarningLowThrottled++;
+  this->eventsSize++;
+}
+
+// ----------------------------------------------------------------------
+// Functions for testing telemetry
+// ----------------------------------------------------------------------
+
+void PassiveSerialTesterBase ::
+  dispatchTlm(
+      FwChanIdType id,
+      const Fw::Time& timeTag,
+      Fw::TlmBuffer& val
+  )
+{
+  val.resetDeser();
+
+  const U32 idBase = this->getIdBase();
+  FW_ASSERT(id >= idBase, id, idBase);
+
+  switch (id - idBase) {
+    case PassiveSerialComponentBase::CHANNELID_CHANNELU32FORMAT: {
+      U32 arg;
+      const Fw::SerializeStatus _status = val.deserialize(arg);
+
+      if (_status != Fw::FW_SERIALIZE_OK) {
+        printf("Error deserializing ChannelU32Format: %d\n", _status);
+        return;
+      }
+
+      this->tlmInput_ChannelU32Format(timeTag, arg);
+      break;
+    }
+
+    case PassiveSerialComponentBase::CHANNELID_CHANNELF32FORMAT: {
+      F32 arg;
+      const Fw::SerializeStatus _status = val.deserialize(arg);
+
+      if (_status != Fw::FW_SERIALIZE_OK) {
+        printf("Error deserializing ChannelF32Format: %d\n", _status);
+        return;
+      }
+
+      this->tlmInput_ChannelF32Format(timeTag, arg);
+      break;
+    }
+
+    case PassiveSerialComponentBase::CHANNELID_CHANNELSTRINGFORMAT: {
+      Fw::TlmString arg;
+      const Fw::SerializeStatus _status = val.deserialize(arg);
+
+      if (_status != Fw::FW_SERIALIZE_OK) {
+        printf("Error deserializing ChannelStringFormat: %d\n", _status);
+        return;
+      }
+
+      this->tlmInput_ChannelStringFormat(timeTag, arg);
+      break;
+    }
+
+    case PassiveSerialComponentBase::CHANNELID_CHANNELENUM: {
+      E arg;
+      const Fw::SerializeStatus _status = val.deserialize(arg);
+
+      if (_status != Fw::FW_SERIALIZE_OK) {
+        printf("Error deserializing ChannelEnum: %d\n", _status);
+        return;
+      }
+
+      this->tlmInput_ChannelEnum(timeTag, arg);
+      break;
+    }
+
+    case PassiveSerialComponentBase::CHANNELID_CHANNELARRAYFREQ: {
+      A arg;
+      const Fw::SerializeStatus _status = val.deserialize(arg);
+
+      if (_status != Fw::FW_SERIALIZE_OK) {
+        printf("Error deserializing ChannelArrayFreq: %d\n", _status);
+        return;
+      }
+
+      this->tlmInput_ChannelArrayFreq(timeTag, arg);
+      break;
+    }
+
+    case PassiveSerialComponentBase::CHANNELID_CHANNELSTRUCTFREQ: {
+      S arg;
+      const Fw::SerializeStatus _status = val.deserialize(arg);
+
+      if (_status != Fw::FW_SERIALIZE_OK) {
+        printf("Error deserializing ChannelStructFreq: %d\n", _status);
+        return;
+      }
+
+      this->tlmInput_ChannelStructFreq(timeTag, arg);
+      break;
+    }
+
+    case PassiveSerialComponentBase::CHANNELID_CHANNELU32LIMITS: {
+      U32 arg;
+      const Fw::SerializeStatus _status = val.deserialize(arg);
+
+      if (_status != Fw::FW_SERIALIZE_OK) {
+        printf("Error deserializing ChannelU32Limits: %d\n", _status);
+        return;
+      }
+
+      this->tlmInput_ChannelU32Limits(timeTag, arg);
+      break;
+    }
+
+    case PassiveSerialComponentBase::CHANNELID_CHANNELF32LIMITS: {
+      F32 arg;
+      const Fw::SerializeStatus _status = val.deserialize(arg);
+
+      if (_status != Fw::FW_SERIALIZE_OK) {
+        printf("Error deserializing ChannelF32Limits: %d\n", _status);
+        return;
+      }
+
+      this->tlmInput_ChannelF32Limits(timeTag, arg);
+      break;
+    }
+
+    case PassiveSerialComponentBase::CHANNELID_CHANNELF64: {
+      F64 arg;
+      const Fw::SerializeStatus _status = val.deserialize(arg);
+
+      if (_status != Fw::FW_SERIALIZE_OK) {
+        printf("Error deserializing ChannelF64: %d\n", _status);
+        return;
+      }
+
+      this->tlmInput_ChannelF64(timeTag, arg);
+      break;
+    }
+
+    case PassiveSerialComponentBase::CHANNELID_CHANNELU32ONCHANGE: {
+      U32 arg;
+      const Fw::SerializeStatus _status = val.deserialize(arg);
+
+      if (_status != Fw::FW_SERIALIZE_OK) {
+        printf("Error deserializing ChannelU32OnChange: %d\n", _status);
+        return;
+      }
+
+      this->tlmInput_ChannelU32OnChange(timeTag, arg);
+      break;
+    }
+
+    case PassiveSerialComponentBase::CHANNELID_CHANNELENUMONCHANGE: {
+      E arg;
+      const Fw::SerializeStatus _status = val.deserialize(arg);
+
+      if (_status != Fw::FW_SERIALIZE_OK) {
+        printf("Error deserializing ChannelEnumOnChange: %d\n", _status);
+        return;
+      }
+
+      this->tlmInput_ChannelEnumOnChange(timeTag, arg);
+      break;
+    }
+
+    default: {
+      FW_ASSERT(0, id);
+      break;
+    }
+  }
+}
+
+void PassiveSerialTesterBase ::
+  tlmInput_ChannelU32Format(
+      const Fw::Time& timeTag,
+      const U32& val
+  )
+{
+  TlmEntry_ChannelU32Format e = { timeTag, val };
+  this->tlmHistory_ChannelU32Format->push_back(e);
+  this->tlmSize++;
+}
+
+void PassiveSerialTesterBase ::
+  tlmInput_ChannelF32Format(
+      const Fw::Time& timeTag,
+      const F32& val
+  )
+{
+  TlmEntry_ChannelF32Format e = { timeTag, val };
+  this->tlmHistory_ChannelF32Format->push_back(e);
+  this->tlmSize++;
+}
+
+void PassiveSerialTesterBase ::
+  tlmInput_ChannelStringFormat(
+      const Fw::Time& timeTag,
+      const Fw::TlmString& val
+  )
+{
+  TlmEntry_ChannelStringFormat e = { timeTag, val };
+  this->tlmHistory_ChannelStringFormat->push_back(e);
+  this->tlmSize++;
+}
+
+void PassiveSerialTesterBase ::
+  tlmInput_ChannelEnum(
+      const Fw::Time& timeTag,
+      const E& val
+  )
+{
+  TlmEntry_ChannelEnum e = { timeTag, val };
+  this->tlmHistory_ChannelEnum->push_back(e);
+  this->tlmSize++;
+}
+
+void PassiveSerialTesterBase ::
+  tlmInput_ChannelArrayFreq(
+      const Fw::Time& timeTag,
+      const A& val
+  )
+{
+  TlmEntry_ChannelArrayFreq e = { timeTag, val };
+  this->tlmHistory_ChannelArrayFreq->push_back(e);
+  this->tlmSize++;
+}
+
+void PassiveSerialTesterBase ::
+  tlmInput_ChannelStructFreq(
+      const Fw::Time& timeTag,
+      const S& val
+  )
+{
+  TlmEntry_ChannelStructFreq e = { timeTag, val };
+  this->tlmHistory_ChannelStructFreq->push_back(e);
+  this->tlmSize++;
+}
+
+void PassiveSerialTesterBase ::
+  tlmInput_ChannelU32Limits(
+      const Fw::Time& timeTag,
+      const U32& val
+  )
+{
+  TlmEntry_ChannelU32Limits e = { timeTag, val };
+  this->tlmHistory_ChannelU32Limits->push_back(e);
+  this->tlmSize++;
+}
+
+void PassiveSerialTesterBase ::
+  tlmInput_ChannelF32Limits(
+      const Fw::Time& timeTag,
+      const F32& val
+  )
+{
+  TlmEntry_ChannelF32Limits e = { timeTag, val };
+  this->tlmHistory_ChannelF32Limits->push_back(e);
+  this->tlmSize++;
+}
+
+void PassiveSerialTesterBase ::
+  tlmInput_ChannelF64(
+      const Fw::Time& timeTag,
+      const F64& val
+  )
+{
+  TlmEntry_ChannelF64 e = { timeTag, val };
+  this->tlmHistory_ChannelF64->push_back(e);
+  this->tlmSize++;
+}
+
+void PassiveSerialTesterBase ::
+  tlmInput_ChannelU32OnChange(
+      const Fw::Time& timeTag,
+      const U32& val
+  )
+{
+  TlmEntry_ChannelU32OnChange e = { timeTag, val };
+  this->tlmHistory_ChannelU32OnChange->push_back(e);
+  this->tlmSize++;
+}
+
+void PassiveSerialTesterBase ::
+  tlmInput_ChannelEnumOnChange(
+      const Fw::Time& timeTag,
+      const E& val
+  )
+{
+  TlmEntry_ChannelEnumOnChange e = { timeTag, val };
+  this->tlmHistory_ChannelEnumOnChange->push_back(e);
+  this->tlmSize++;
+}
+
+// ----------------------------------------------------------------------
+// Functions to test parameters
+// ----------------------------------------------------------------------
+
+void PassiveSerialTesterBase ::
+  paramSet_ParamU32(
+      const U32& val,
+      Fw::ParamValid valid
+  )
+{
+  this->m_param_ParamU32 = val;
+  this->m_param_ParamU32_valid = valid;
+}
+
+void PassiveSerialTesterBase ::
+  paramSend_ParamU32(
+      NATIVE_INT_TYPE instance,
+      U32 cmdSeq
+  )
+{
+  // Build command for parameter set
+  Fw::CmdArgBuffer args;
+  FW_ASSERT(
+    args.serialize(this->m_param_ParamU32) == Fw::FW_SERIALIZE_OK
+  );
+
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode =  PassiveSerialComponentBase::OPCODE_PARAMU32_SET + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void PassiveSerialTesterBase ::
+  paramSave_ParamU32(
+      NATIVE_INT_TYPE instance,
+      U32 cmdSeq
+  )
+{
+  Fw::CmdArgBuffer args;
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode = PassiveSerialComponentBase::OPCODE_PARAMU32_SAVE + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void PassiveSerialTesterBase ::
+  paramSet_ParamF64(
+      const F64& val,
+      Fw::ParamValid valid
+  )
+{
+  this->m_param_ParamF64 = val;
+  this->m_param_ParamF64_valid = valid;
+}
+
+void PassiveSerialTesterBase ::
+  paramSend_ParamF64(
+      NATIVE_INT_TYPE instance,
+      U32 cmdSeq
+  )
+{
+  // Build command for parameter set
+  Fw::CmdArgBuffer args;
+  FW_ASSERT(
+    args.serialize(this->m_param_ParamF64) == Fw::FW_SERIALIZE_OK
+  );
+
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode =  PassiveSerialComponentBase::OPCODE_PARAMF64_SET + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void PassiveSerialTesterBase ::
+  paramSave_ParamF64(
+      NATIVE_INT_TYPE instance,
+      U32 cmdSeq
+  )
+{
+  Fw::CmdArgBuffer args;
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode = PassiveSerialComponentBase::OPCODE_PARAMF64_SAVE + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void PassiveSerialTesterBase ::
+  paramSet_ParamString(
+      const Fw::ParamString& val,
+      Fw::ParamValid valid
+  )
+{
+  this->m_param_ParamString = val;
+  this->m_param_ParamString_valid = valid;
+}
+
+void PassiveSerialTesterBase ::
+  paramSend_ParamString(
+      NATIVE_INT_TYPE instance,
+      U32 cmdSeq
+  )
+{
+  // Build command for parameter set
+  Fw::CmdArgBuffer args;
+  FW_ASSERT(
+    args.serialize(this->m_param_ParamString) == Fw::FW_SERIALIZE_OK
+  );
+
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode =  PassiveSerialComponentBase::OPCODE_PARAMSTRING_SET + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void PassiveSerialTesterBase ::
+  paramSave_ParamString(
+      NATIVE_INT_TYPE instance,
+      U32 cmdSeq
+  )
+{
+  Fw::CmdArgBuffer args;
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode = PassiveSerialComponentBase::OPCODE_PARAMSTRING_SAVE + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void PassiveSerialTesterBase ::
+  paramSet_ParamEnum(
+      const E& val,
+      Fw::ParamValid valid
+  )
+{
+  this->m_param_ParamEnum = val;
+  this->m_param_ParamEnum_valid = valid;
+}
+
+void PassiveSerialTesterBase ::
+  paramSend_ParamEnum(
+      NATIVE_INT_TYPE instance,
+      U32 cmdSeq
+  )
+{
+  // Build command for parameter set
+  Fw::CmdArgBuffer args;
+  FW_ASSERT(
+    args.serialize(this->m_param_ParamEnum) == Fw::FW_SERIALIZE_OK
+  );
+
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode =  PassiveSerialComponentBase::OPCODE_PARAMENUM_SET + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void PassiveSerialTesterBase ::
+  paramSave_ParamEnum(
+      NATIVE_INT_TYPE instance,
+      U32 cmdSeq
+  )
+{
+  Fw::CmdArgBuffer args;
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode = PassiveSerialComponentBase::OPCODE_PARAMENUM_SAVE + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void PassiveSerialTesterBase ::
+  paramSet_ParamArray(
+      const A& val,
+      Fw::ParamValid valid
+  )
+{
+  this->m_param_ParamArray = val;
+  this->m_param_ParamArray_valid = valid;
+}
+
+void PassiveSerialTesterBase ::
+  paramSend_ParamArray(
+      NATIVE_INT_TYPE instance,
+      U32 cmdSeq
+  )
+{
+  // Build command for parameter set
+  Fw::CmdArgBuffer args;
+  FW_ASSERT(
+    args.serialize(this->m_param_ParamArray) == Fw::FW_SERIALIZE_OK
+  );
+
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode =  PassiveSerialComponentBase::OPCODE_PARAMARRAY_SET + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void PassiveSerialTesterBase ::
+  paramSave_ParamArray(
+      NATIVE_INT_TYPE instance,
+      U32 cmdSeq
+  )
+{
+  Fw::CmdArgBuffer args;
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode = PassiveSerialComponentBase::OPCODE_PARAMARRAY_SAVE + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void PassiveSerialTesterBase ::
+  paramSet_ParamStruct(
+      const S& val,
+      Fw::ParamValid valid
+  )
+{
+  this->m_param_ParamStruct = val;
+  this->m_param_ParamStruct_valid = valid;
+}
+
+void PassiveSerialTesterBase ::
+  paramSend_ParamStruct(
+      NATIVE_INT_TYPE instance,
+      U32 cmdSeq
+  )
+{
+  // Build command for parameter set
+  Fw::CmdArgBuffer args;
+  FW_ASSERT(
+    args.serialize(this->m_param_ParamStruct) == Fw::FW_SERIALIZE_OK
+  );
+
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode =  PassiveSerialComponentBase::OPCODE_PARAMSTRUCT_SET + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void PassiveSerialTesterBase ::
+  paramSave_ParamStruct(
+      NATIVE_INT_TYPE instance,
+      U32 cmdSeq
+  )
+{
+  Fw::CmdArgBuffer args;
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode = PassiveSerialComponentBase::OPCODE_PARAMSTRUCT_SAVE + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+// ----------------------------------------------------------------------
+// Functions to test time
+// ----------------------------------------------------------------------
+
+void PassiveSerialTesterBase ::
+  setTestTime(const Fw::Time& timeTag)
+{
+  this->m_testTime = timeTag;
+}
 
 // ----------------------------------------------------------------------
 // History functions
@@ -1920,4 +2745,442 @@ void PassiveSerialTesterBase ::
   };
   this->fromPortHistory_typedReturnOut->push_back(_e);
   this->fromPortHistorySize++;
+}
+
+void PassiveSerialTesterBase ::
+  clearEvents()
+{
+  this->eventsSize = 0;
+  this->eventsSize_EventActivityHigh = 0;
+  this->eventHistory_EventActivityLowThrottled->clear();
+  this->eventHistory_EventCommand->clear();
+  this->eventHistory_EventDiagnostic->clear();
+  this->eventHistory_EventFatalThrottled->clear();
+  this->eventHistory_EventWarningHigh->clear();
+  this->eventsSize_EventWarningLowThrottled = 0;
+}
+
+#if FW_ENABLE_TEXT_LOGGING
+
+void PassiveSerialTesterBase ::
+  printTextLogHistoryEntry(
+      const TextLogEntry& e,
+      FILE* file
+  )
+{
+  const char* severityString = "UNKNOWN";
+
+  switch (e.severity.e) {
+    case Fw::LogSeverity::FATAL:
+      severityString = "FATAL";
+      break;
+    case Fw::LogSeverity::WARNING_HI:
+      severityString = "WARNING_HI";
+      break;
+    case Fw::LogSeverity::WARNING_LO:
+      severityString = "WARNING_LO";
+      break;
+    case Fw::LogSeverity::COMMAND:
+      severityString = "COMMAND";
+      break;
+    case Fw::LogSeverity::ACTIVITY_HI:
+      severityString = "ACTIVITY_HI";
+      break;
+    case Fw::LogSeverity::ACTIVITY_LO:
+      severityString = "ACTIVITY_LO";
+      break;
+    case Fw::LogSeverity::DIAGNOSTIC:
+     severityString = "DIAGNOSTIC";
+      break;
+    default:
+      severityString = "SEVERITY ERROR";
+      break;
+  }
+
+  fprintf(
+    file,
+    "EVENT: (%" PRI_FwEventIdType ") (%" PRI_FwTimeBaseStoreType ":%" PRIu32 ",%" PRIu32 ") %s: %s\n",
+    e.id,
+    static_cast<FwTimeBaseStoreType>(e.timeTag.getTimeBase()),
+    e.timeTag.getSeconds(),
+    e.timeTag.getUSeconds(),
+    severityString,
+    e.text.toChar()
+  );
+}
+
+void PassiveSerialTesterBase ::
+  printTextLogHistory(FILE* const file)
+{
+  for (U32 i = 0; i < this->textLogHistory->size(); i++) {
+    this->printTextLogHistoryEntry(
+      this->textLogHistory->at(i),
+      file
+    );
+  }
+}
+
+#endif
+
+void PassiveSerialTesterBase ::
+  clearTlm()
+{
+  this->tlmSize = 0;
+  this->tlmHistory_ChannelU32Format->clear();
+  this->tlmHistory_ChannelF32Format->clear();
+  this->tlmHistory_ChannelStringFormat->clear();
+  this->tlmHistory_ChannelEnum->clear();
+  this->tlmHistory_ChannelArrayFreq->clear();
+  this->tlmHistory_ChannelStructFreq->clear();
+  this->tlmHistory_ChannelU32Limits->clear();
+  this->tlmHistory_ChannelF32Limits->clear();
+  this->tlmHistory_ChannelF64->clear();
+  this->tlmHistory_ChannelU32OnChange->clear();
+  this->tlmHistory_ChannelEnumOnChange->clear();
+}
+
+// ----------------------------------------------------------------------
+// Static functions for output ports
+// ----------------------------------------------------------------------
+
+void PassiveSerialTesterBase ::
+  from_typedOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const TypedPortStrings::StringSize80& str1,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  FW_ASSERT(callComp);
+  PassiveSerialTesterBase* _testerBase = static_cast<PassiveSerialTesterBase*>(callComp);
+  _testerBase->from_typedOut_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str1,
+    e,
+    a,
+    s
+  );
+}
+
+F32 PassiveSerialTesterBase ::
+  from_typedReturnOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const TypedReturnPortStrings::StringSize80& str2,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  FW_ASSERT(callComp);
+  PassiveSerialTesterBase* _testerBase = static_cast<PassiveSerialTesterBase*>(callComp);
+  return _testerBase->from_typedReturnOut_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+}
+
+void PassiveSerialTesterBase ::
+  from_serialOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      Fw::SerializeBufferBase& buffer
+  )
+{
+  FW_ASSERT(callComp);
+  PassiveSerialTesterBase* _testerBase = static_cast<PassiveSerialTesterBase*>(callComp);
+  return _testerBase->from_serialOut_handlerBase(
+    portNum,
+    buffer
+  );
+}
+
+void PassiveSerialTesterBase ::
+  from_cmdRegOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwOpcodeType opCode
+  )
+{
+
+}
+
+void PassiveSerialTesterBase ::
+  from_cmdResponseOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      const Fw::CmdResponse& cmdResponse
+  )
+{
+  PassiveSerialTesterBase* _testerBase = static_cast<PassiveSerialTesterBase*>(callComp);
+  _testerBase->cmdResponseIn(opCode, cmdSeq, cmdResponse);
+}
+
+void PassiveSerialTesterBase ::
+  from_eventOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwEventIdType id,
+      Fw::Time& timeTag,
+      const Fw::LogSeverity& severity,
+      Fw::LogBuffer& args
+  )
+{
+  PassiveSerialTesterBase* _testerBase = static_cast<PassiveSerialTesterBase*>(callComp);
+  _testerBase->dispatchEvents(id, timeTag, severity, args);
+}
+
+Fw::ParamValid PassiveSerialTesterBase ::
+  from_prmGetOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwPrmIdType id,
+      Fw::ParamBuffer& val
+  )
+{
+  PassiveSerialTesterBase* _testerBase = static_cast<PassiveSerialTesterBase*>(callComp);
+
+  Fw::SerializeStatus _status;
+  Fw::ParamValid _ret = Fw::ParamValid::VALID;
+  val.resetSer();
+
+  const U32 idBase = _testerBase->getIdBase();
+  FW_ASSERT(id >= idBase, id, idBase);
+
+
+  switch (id - idBase) {
+    case PassiveSerialComponentBase::PARAMID_PARAMU32: {
+      _status = val.serialize(_testerBase->m_param_ParamU32);
+      _ret = _testerBase->m_param_ParamU32_valid;
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      break;
+    };
+
+    case PassiveSerialComponentBase::PARAMID_PARAMF64: {
+      _status = val.serialize(_testerBase->m_param_ParamF64);
+      _ret = _testerBase->m_param_ParamF64_valid;
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      break;
+    };
+
+    case PassiveSerialComponentBase::PARAMID_PARAMSTRING: {
+      _status = val.serialize(_testerBase->m_param_ParamString);
+      _ret = _testerBase->m_param_ParamString_valid;
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      break;
+    };
+
+    case PassiveSerialComponentBase::PARAMID_PARAMENUM: {
+      _status = val.serialize(_testerBase->m_param_ParamEnum);
+      _ret = _testerBase->m_param_ParamEnum_valid;
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      break;
+    };
+
+    case PassiveSerialComponentBase::PARAMID_PARAMARRAY: {
+      _status = val.serialize(_testerBase->m_param_ParamArray);
+      _ret = _testerBase->m_param_ParamArray_valid;
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      break;
+    };
+
+    case PassiveSerialComponentBase::PARAMID_PARAMSTRUCT: {
+      _status = val.serialize(_testerBase->m_param_ParamStruct);
+      _ret = _testerBase->m_param_ParamStruct_valid;
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      break;
+    };
+
+    default:
+      FW_ASSERT(id);
+      break;
+  }
+
+  return _ret;
+}
+
+void PassiveSerialTesterBase ::
+  from_prmSetOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwPrmIdType id,
+      Fw::ParamBuffer& val
+  )
+{
+  PassiveSerialTesterBase* _testerBase = static_cast<PassiveSerialTesterBase*>(callComp);
+
+  Fw::SerializeStatus _status;
+  val.resetSer();
+
+  const U32 idBase = _testerBase->getIdBase();
+  FW_ASSERT(id >= idBase, id, idBase);
+
+  switch (id - idBase) {
+    case PassiveSerialComponentBase::PARAMID_PARAMU32: {
+      U32 ParamU32Val;
+      _status = val.deserialize(ParamU32Val);
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      FW_ASSERT(
+        ParamU32Val ==
+        _testerBase->m_param_ParamU32
+      );
+      break;
+    };
+
+    case PassiveSerialComponentBase::PARAMID_PARAMF64: {
+      F64 ParamF64Val;
+      _status = val.deserialize(ParamF64Val);
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      FW_ASSERT(
+        ParamF64Val ==
+        _testerBase->m_param_ParamF64
+      );
+      break;
+    };
+
+    case PassiveSerialComponentBase::PARAMID_PARAMSTRING: {
+      Fw::ParamString ParamStringVal;
+      _status = val.deserialize(ParamStringVal);
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      FW_ASSERT(
+        ParamStringVal ==
+        _testerBase->m_param_ParamString
+      );
+      break;
+    };
+
+    case PassiveSerialComponentBase::PARAMID_PARAMENUM: {
+      E ParamEnumVal;
+      _status = val.deserialize(ParamEnumVal);
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      FW_ASSERT(
+        ParamEnumVal ==
+        _testerBase->m_param_ParamEnum
+      );
+      break;
+    };
+
+    case PassiveSerialComponentBase::PARAMID_PARAMARRAY: {
+      A ParamArrayVal;
+      _status = val.deserialize(ParamArrayVal);
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      FW_ASSERT(
+        ParamArrayVal ==
+        _testerBase->m_param_ParamArray
+      );
+      break;
+    };
+
+    case PassiveSerialComponentBase::PARAMID_PARAMSTRUCT: {
+      S ParamStructVal;
+      _status = val.deserialize(ParamStructVal);
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      FW_ASSERT(
+        ParamStructVal ==
+        _testerBase->m_param_ParamStruct
+      );
+      break;
+    };
+
+    default:
+      FW_ASSERT(id);
+      break;
+  }
+}
+
+#if FW_ENABLE_TEXT_LOGGING == 1
+
+void PassiveSerialTesterBase ::
+  from_textEventOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwEventIdType id,
+      Fw::Time& timeTag,
+      const Fw::LogSeverity& severity,
+      Fw::TextLogString& text
+  )
+{
+  PassiveSerialTesterBase* _testerBase = static_cast<PassiveSerialTesterBase*>(callComp);
+  _testerBase->textLogIn(id, timeTag, severity, text);
+}
+
+#endif
+
+void PassiveSerialTesterBase ::
+  from_timeGetOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      Fw::Time& time
+  )
+{
+  PassiveSerialTesterBase* _testerBase = static_cast<PassiveSerialTesterBase*>(callComp);
+  time = _testerBase->m_testTime;
+}
+
+void PassiveSerialTesterBase ::
+  from_tlmOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwChanIdType id,
+      Fw::Time& timeTag,
+      Fw::TlmBuffer& val
+  )
+{
+  PassiveSerialTesterBase* _testerBase = static_cast<PassiveSerialTesterBase*>(callComp);
+  _testerBase->dispatchTlm(id, timeTag, val);
 }

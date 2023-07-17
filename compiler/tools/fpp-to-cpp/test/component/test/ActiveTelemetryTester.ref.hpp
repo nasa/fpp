@@ -7,8 +7,8 @@
 #ifndef ActiveTelemetryTester_HPP
 #define ActiveTelemetryTester_HPP
 
-#include "test/ActiveTelemetryGTestBase.hpp"
-#include "test/ActiveTelemetry.hpp"
+#include "ActiveTelemetryGTestBase.hpp"
+#include "ActiveTelemetry.hpp"
 
 class ActiveTelemetryTester :
   public ActiveTelemetryGTestBase

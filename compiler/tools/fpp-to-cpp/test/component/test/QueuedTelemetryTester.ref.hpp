@@ -7,8 +7,8 @@
 #ifndef QueuedTelemetryTester_HPP
 #define QueuedTelemetryTester_HPP
 
-#include "test/QueuedTelemetryGTestBase.hpp"
-#include "test/QueuedTelemetry.hpp"
+#include "QueuedTelemetryGTestBase.hpp"
+#include "QueuedTelemetry.hpp"
 
 class QueuedTelemetryTester :
   public QueuedTelemetryGTestBase

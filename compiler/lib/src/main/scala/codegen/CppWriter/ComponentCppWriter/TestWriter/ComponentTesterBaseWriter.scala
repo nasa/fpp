@@ -435,19 +435,22 @@ case class ComponentTesterBaseWriter(
   }
 
   private def getCmdFunctions: List[CppDoc.Class.Member] = {
-    val cmdPortInvocation = lines(
-      s"""|if (this->${portVariableName(cmdRecvPort.get)}[0].isConnected()) {
-          |  this->${portVariableName(cmdRecvPort.get)}[0].invoke(
-          |    _opcode,
-          |    cmdSeq,
-          |    buf
-          |  );
-          |}
-          |else {
-          |  printf("Test Command Output port not connected!\\n");
-          |}
-          |"""
-    )
+    val cmdPortInvocation = cmdRecvPort match {
+      case None => Nil
+      case Some(p) => lines(
+        s"""|if (this->${portVariableName(p)}[0].isConnected()) {
+            |  this->${portVariableName(p)}[0].invoke(
+            |    _opcode,
+            |    cmdSeq,
+            |    buf
+            |  );
+            |}
+            |else {
+            |  printf("Test Command Output port not connected!\\n");
+            |}
+            |"""
+      )
+    }
 
     addAccessTagAndComment(
       "protected",
@@ -522,10 +525,9 @@ case class ComponentTesterBaseWriter(
                     """|// Serialize arguments
                        |Fw::CmdArgBuffer buf;
                        |Fw::SerializeStatus _status;
-                       |
                        |"""
                   ),
-                  intersperseBlankLines(
+                  Line.blank :: intersperseBlankLines(
                     cmdParamTypeMap(opcode).map((name, _) =>
                       lines(
                         s"""|_status = buf.serialize($name);
@@ -692,10 +694,10 @@ case class ComponentTesterBaseWriter(
                    |FW_ASSERT(id >= idBase, id, idBase);
                    |"""
               ),
-              wrapInSwitch(
+              Line.blank :: wrapInSwitch(
                 "id - idBase",
-                List.concat(
-                  sortedChannels.flatMap((_, channel) =>
+                intersperseBlankLines(
+                  sortedChannels.map((_, channel) =>
                     wrapInScope(
                       s"case $className::${channelIdConstantName(channel.getName)}: {",
                       lines(
@@ -713,15 +715,16 @@ case class ComponentTesterBaseWriter(
                       ),
                       "}"
                     )
-                  ),
-                  wrapInScope(
-                    "default: {",
-                    lines(
-                      """|FW_ASSERT(0, id);
-                         |break;
-                         |"""
-                    ),
-                    "}"
+                  ) ++ List(
+                    wrapInScope(
+                      "default: {",
+                      lines(
+                        """|FW_ASSERT(0, id);
+                           |break;
+                           |"""
+                      ),
+                      "}"
+                    )
                   )
                 )
               )
@@ -992,10 +995,10 @@ case class ComponentTesterBaseWriter(
               |FW_ASSERT(id >= idBase, id, idBase);
               |"""
         ),
-        wrapInSwitch(
+        Line.blank :: wrapInSwitch(
           "id - idBase",
-          List.concat(
-            sortedParams.flatMap((_, prm) =>
+          intersperseBlankLines(
+            sortedParams.map((_, prm) =>
               wrapInScope(
                 s"case $className::${paramIdConstantName(prm.getName)}: {",
                 lines(
@@ -1010,12 +1013,13 @@ case class ComponentTesterBaseWriter(
                 ),
                 "};"
               )
-            ),
-            lines(
-              """|default:
-                 |  FW_ASSERT(id);
-                 |  break;
-                 |"""
+            ) ++ List(
+              lines(
+                """|default:
+                   |  FW_ASSERT(id);
+                   |  break;
+                   |"""
+              )
             )
           )
         ),
@@ -1031,13 +1035,12 @@ case class ComponentTesterBaseWriter(
             |
             |const U32 idBase = _testerBase->getIdBase();
             |FW_ASSERT(id >= idBase, id, idBase);
-            |
             |"""
       ),
-      wrapInSwitch(
+      Line.blank :: wrapInSwitch(
         "id - idBase",
-        List.concat(
-          sortedParams.flatMap((_, prm) =>
+        intersperseBlankLines(
+          sortedParams.map((_, prm) =>
             wrapInScope(
               s"case $className::${paramIdConstantName(prm.getName)}: {",
               lines(
@@ -1056,12 +1059,13 @@ case class ComponentTesterBaseWriter(
               ),
               "};"
             )
-          ),
-          lines(
-            """|default:
-               |  FW_ASSERT(id);
-               |  break;
-               |"""
+          ) ++ List(
+            lines(
+              """|default:
+                 |  FW_ASSERT(id);
+                 |  break;
+                 |"""
+            )
           )
         )
       )
@@ -1102,7 +1106,7 @@ case class ComponentTesterBaseWriter(
                 writeFunctionCall(
                   addReturnKeyword(s"_testerBase->${fromPortHandlerBaseName(p.getUnqualifiedName)}", i),
                   List("portNum"),
-                  portParamTypeMap(i.getUnqualifiedName).map(_._1)
+                  getPortParams(i).map(_._1)
                 )
               )
               case PortInstance.Special(aNode, _, _, _, _) => aNode._2.data match {

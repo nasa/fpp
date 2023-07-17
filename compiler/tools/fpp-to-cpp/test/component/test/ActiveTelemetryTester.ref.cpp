@@ -4,7 +4,7 @@
 // \brief  cpp file for ActiveTelemetry component test harness implementation class
 // ======================================================================
 
-#include "test/ActiveTelemetryTester.hpp"
+#include "ActiveTelemetryTester.hpp"
 
 // ----------------------------------------------------------------------
 // Construction and destruction

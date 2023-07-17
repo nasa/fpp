@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "test/QueuedParamsTesterBase.hpp"
+#include "QueuedParamsTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Component initialization
@@ -1284,93 +1284,151 @@ void QueuedParamsTesterBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE QueuedParamsTesterBase ::
-  to_noArgsAsync()
+  getNum_to_noArgsAsync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsAsync));
 }
 
 NATIVE_INT_TYPE QueuedParamsTesterBase ::
-  to_noArgsGuarded()
+  getNum_to_noArgsGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsGuarded));
 }
 
 NATIVE_INT_TYPE QueuedParamsTesterBase ::
-  to_noArgsReturnGuarded()
+  getNum_to_noArgsReturnGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnGuarded));
 }
 
 NATIVE_INT_TYPE QueuedParamsTesterBase ::
-  to_noArgsReturnSync()
+  getNum_to_noArgsReturnSync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnSync));
 }
 
 NATIVE_INT_TYPE QueuedParamsTesterBase ::
-  to_noArgsSync()
+  getNum_to_noArgsSync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsSync));
 }
 
 NATIVE_INT_TYPE QueuedParamsTesterBase ::
-  to_typedAsync()
+  getNum_to_typedAsync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsync));
 }
 
 NATIVE_INT_TYPE QueuedParamsTesterBase ::
-  to_typedAsyncAssert()
+  getNum_to_typedAsyncAssert() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsyncAssert));
 }
 
 NATIVE_INT_TYPE QueuedParamsTesterBase ::
-  to_typedAsyncBlockPriority()
+  getNum_to_typedAsyncBlockPriority() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsyncBlockPriority));
 }
 
 NATIVE_INT_TYPE QueuedParamsTesterBase ::
-  to_typedAsyncDropPriority()
+  getNum_to_typedAsyncDropPriority() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsyncDropPriority));
 }
 
 NATIVE_INT_TYPE QueuedParamsTesterBase ::
-  to_typedGuarded()
+  getNum_to_typedGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedGuarded));
 }
 
 NATIVE_INT_TYPE QueuedParamsTesterBase ::
-  to_typedReturnGuarded()
+  getNum_to_typedReturnGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnGuarded));
 }
 
 NATIVE_INT_TYPE QueuedParamsTesterBase ::
-  to_typedReturnSync()
+  getNum_to_typedReturnSync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnSync));
 }
 
 NATIVE_INT_TYPE QueuedParamsTesterBase ::
-  to_typedSync()
+  getNum_to_typedSync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedSync));
 }
 
 NATIVE_INT_TYPE QueuedParamsTesterBase ::
-  from_typedOut()
+  getNum_to_cmdIn() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_cmdIn));
+}
+
+NATIVE_INT_TYPE QueuedParamsTesterBase ::
+  getNum_from_typedOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
 }
 
 NATIVE_INT_TYPE QueuedParamsTesterBase ::
-  from_typedReturnOut()
+  getNum_from_typedReturnOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedReturnOut));
+}
+
+NATIVE_INT_TYPE QueuedParamsTesterBase ::
+  getNum_from_cmdRegOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdRegOut));
+}
+
+NATIVE_INT_TYPE QueuedParamsTesterBase ::
+  getNum_from_cmdResponseOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdResponseOut));
+}
+
+NATIVE_INT_TYPE QueuedParamsTesterBase ::
+  getNum_from_eventOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_eventOut));
+}
+
+NATIVE_INT_TYPE QueuedParamsTesterBase ::
+  getNum_from_prmGetOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmGetOut));
+}
+
+NATIVE_INT_TYPE QueuedParamsTesterBase ::
+  getNum_from_prmSetOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmSetOut));
+}
+
+#if FW_ENABLE_TEXT_LOGGING == 1
+
+NATIVE_INT_TYPE QueuedParamsTesterBase ::
+  getNum_from_textEventOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_textEventOut));
+}
+
+#endif
+
+NATIVE_INT_TYPE QueuedParamsTesterBase ::
+  getNum_from_timeGetOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_timeGetOut));
+}
+
+NATIVE_INT_TYPE QueuedParamsTesterBase ::
+  getNum_from_tlmOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_tlmOut));
 }
 
 // ----------------------------------------------------------------------
@@ -1542,7 +1600,7 @@ void QueuedParamsTesterBase ::
       Fw::CmdResponse response
   )
 {
-  CmdResponse e = { opCode, seq, response };
+  CmdResponse e = { opCode, cmdSeq, response };
   this->cmdResponseHistory->push_back(e);
 }
 
@@ -1550,16 +1608,16 @@ void QueuedParamsTesterBase ::
   sendRawCmd(
       FwOpcodeType opCode,
       U32 cmdSeq,
-      Fw::CmdBufferArg& args
+      Fw::CmdArgBuffer& buf
   )
 {
   const U32 idBase = this->getIdBase();
-  FwOpcodeType _opcode = opcode + idBase;
+  FwOpcodeType _opcode = opCode + idBase;
   if (this->m_to_cmdIn[0].isConnected()) {
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -1568,8 +1626,427 @@ void QueuedParamsTesterBase ::
 }
 
 // ----------------------------------------------------------------------
-// History class
+// Functions for testing events
 // ----------------------------------------------------------------------
+
+void QueuedParamsTesterBase ::
+  dispatchEvents(
+      FwEventIdType id,
+      Fw::Time& timeTag,
+      const Fw::LogSeverity severity,
+      Fw::LogBuffer& args
+  )
+{
+
+}
+
+#if FW_ENABLE_TEXT_LOGGING
+
+void QueuedParamsTesterBase ::
+  textLogIn(
+      FwEventIdType id,
+      Fw::Time& timeTag,
+      const Fw::LogSeverity severity,
+      const Fw::TextLogString& text
+  )
+{
+  TextLogEntry e = { id, timeTag, severity, text };
+  textLogHistory->push_back(e);
+}
+
+#endif
+
+// ----------------------------------------------------------------------
+// Functions for testing telemetry
+// ----------------------------------------------------------------------
+
+void QueuedParamsTesterBase ::
+  dispatchTlm(
+      FwChanIdType id,
+      const Fw::Time& timeTag,
+      Fw::TlmBuffer& val
+  )
+{
+  val.resetDeser();
+
+  const U32 idBase = this->getIdBase();
+  FW_ASSERT(id >= idBase, id, idBase);
+
+  switch (id - idBase) {
+    default: {
+      FW_ASSERT(0, id);
+      break;
+    }
+  }
+}
+
+// ----------------------------------------------------------------------
+// Functions to test parameters
+// ----------------------------------------------------------------------
+
+void QueuedParamsTesterBase ::
+  paramSet_ParamU32(
+      const U32& val,
+      Fw::ParamValid valid
+  )
+{
+  this->m_param_ParamU32 = val;
+  this->m_param_ParamU32_valid = valid;
+}
+
+void QueuedParamsTesterBase ::
+  paramSend_ParamU32(
+      NATIVE_INT_TYPE instance,
+      U32 cmdSeq
+  )
+{
+  // Build command for parameter set
+  Fw::CmdArgBuffer args;
+  FW_ASSERT(
+    args.serialize(this->m_param_ParamU32) == Fw::FW_SERIALIZE_OK
+  );
+
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode =  QueuedParamsComponentBase::OPCODE_PARAMU32_SET + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void QueuedParamsTesterBase ::
+  paramSave_ParamU32(
+      NATIVE_INT_TYPE instance,
+      U32 cmdSeq
+  )
+{
+  Fw::CmdArgBuffer args;
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode = QueuedParamsComponentBase::OPCODE_PARAMU32_SAVE + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void QueuedParamsTesterBase ::
+  paramSet_ParamF64(
+      const F64& val,
+      Fw::ParamValid valid
+  )
+{
+  this->m_param_ParamF64 = val;
+  this->m_param_ParamF64_valid = valid;
+}
+
+void QueuedParamsTesterBase ::
+  paramSend_ParamF64(
+      NATIVE_INT_TYPE instance,
+      U32 cmdSeq
+  )
+{
+  // Build command for parameter set
+  Fw::CmdArgBuffer args;
+  FW_ASSERT(
+    args.serialize(this->m_param_ParamF64) == Fw::FW_SERIALIZE_OK
+  );
+
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode =  QueuedParamsComponentBase::OPCODE_PARAMF64_SET + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void QueuedParamsTesterBase ::
+  paramSave_ParamF64(
+      NATIVE_INT_TYPE instance,
+      U32 cmdSeq
+  )
+{
+  Fw::CmdArgBuffer args;
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode = QueuedParamsComponentBase::OPCODE_PARAMF64_SAVE + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void QueuedParamsTesterBase ::
+  paramSet_ParamString(
+      const Fw::ParamString& val,
+      Fw::ParamValid valid
+  )
+{
+  this->m_param_ParamString = val;
+  this->m_param_ParamString_valid = valid;
+}
+
+void QueuedParamsTesterBase ::
+  paramSend_ParamString(
+      NATIVE_INT_TYPE instance,
+      U32 cmdSeq
+  )
+{
+  // Build command for parameter set
+  Fw::CmdArgBuffer args;
+  FW_ASSERT(
+    args.serialize(this->m_param_ParamString) == Fw::FW_SERIALIZE_OK
+  );
+
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode =  QueuedParamsComponentBase::OPCODE_PARAMSTRING_SET + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void QueuedParamsTesterBase ::
+  paramSave_ParamString(
+      NATIVE_INT_TYPE instance,
+      U32 cmdSeq
+  )
+{
+  Fw::CmdArgBuffer args;
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode = QueuedParamsComponentBase::OPCODE_PARAMSTRING_SAVE + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void QueuedParamsTesterBase ::
+  paramSet_ParamEnum(
+      const E& val,
+      Fw::ParamValid valid
+  )
+{
+  this->m_param_ParamEnum = val;
+  this->m_param_ParamEnum_valid = valid;
+}
+
+void QueuedParamsTesterBase ::
+  paramSend_ParamEnum(
+      NATIVE_INT_TYPE instance,
+      U32 cmdSeq
+  )
+{
+  // Build command for parameter set
+  Fw::CmdArgBuffer args;
+  FW_ASSERT(
+    args.serialize(this->m_param_ParamEnum) == Fw::FW_SERIALIZE_OK
+  );
+
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode =  QueuedParamsComponentBase::OPCODE_PARAMENUM_SET + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void QueuedParamsTesterBase ::
+  paramSave_ParamEnum(
+      NATIVE_INT_TYPE instance,
+      U32 cmdSeq
+  )
+{
+  Fw::CmdArgBuffer args;
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode = QueuedParamsComponentBase::OPCODE_PARAMENUM_SAVE + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void QueuedParamsTesterBase ::
+  paramSet_ParamArray(
+      const A& val,
+      Fw::ParamValid valid
+  )
+{
+  this->m_param_ParamArray = val;
+  this->m_param_ParamArray_valid = valid;
+}
+
+void QueuedParamsTesterBase ::
+  paramSend_ParamArray(
+      NATIVE_INT_TYPE instance,
+      U32 cmdSeq
+  )
+{
+  // Build command for parameter set
+  Fw::CmdArgBuffer args;
+  FW_ASSERT(
+    args.serialize(this->m_param_ParamArray) == Fw::FW_SERIALIZE_OK
+  );
+
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode =  QueuedParamsComponentBase::OPCODE_PARAMARRAY_SET + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void QueuedParamsTesterBase ::
+  paramSave_ParamArray(
+      NATIVE_INT_TYPE instance,
+      U32 cmdSeq
+  )
+{
+  Fw::CmdArgBuffer args;
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode = QueuedParamsComponentBase::OPCODE_PARAMARRAY_SAVE + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void QueuedParamsTesterBase ::
+  paramSet_ParamStruct(
+      const S& val,
+      Fw::ParamValid valid
+  )
+{
+  this->m_param_ParamStruct = val;
+  this->m_param_ParamStruct_valid = valid;
+}
+
+void QueuedParamsTesterBase ::
+  paramSend_ParamStruct(
+      NATIVE_INT_TYPE instance,
+      U32 cmdSeq
+  )
+{
+  // Build command for parameter set
+  Fw::CmdArgBuffer args;
+  FW_ASSERT(
+    args.serialize(this->m_param_ParamStruct) == Fw::FW_SERIALIZE_OK
+  );
+
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode =  QueuedParamsComponentBase::OPCODE_PARAMSTRUCT_SET + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void QueuedParamsTesterBase ::
+  paramSave_ParamStruct(
+      NATIVE_INT_TYPE instance,
+      U32 cmdSeq
+  )
+{
+  Fw::CmdArgBuffer args;
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode = QueuedParamsComponentBase::OPCODE_PARAMSTRUCT_SAVE + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+// ----------------------------------------------------------------------
+// Functions to test time
+// ----------------------------------------------------------------------
+
+void QueuedParamsTesterBase ::
+  setTestTime(const Fw::Time& timeTag)
+{
+  this->m_testTime = timeTag;
+}
 
 // ----------------------------------------------------------------------
 // History functions
@@ -1636,4 +2113,409 @@ void QueuedParamsTesterBase ::
   };
   this->fromPortHistory_typedReturnOut->push_back(_e);
   this->fromPortHistorySize++;
+}
+
+void QueuedParamsTesterBase ::
+  clearEvents()
+{
+  this->eventsSize = 0;
+}
+
+#if FW_ENABLE_TEXT_LOGGING
+
+void QueuedParamsTesterBase ::
+  printTextLogHistoryEntry(
+      const TextLogEntry& e,
+      FILE* file
+  )
+{
+  const char* severityString = "UNKNOWN";
+
+  switch (e.severity.e) {
+    case Fw::LogSeverity::FATAL:
+      severityString = "FATAL";
+      break;
+    case Fw::LogSeverity::WARNING_HI:
+      severityString = "WARNING_HI";
+      break;
+    case Fw::LogSeverity::WARNING_LO:
+      severityString = "WARNING_LO";
+      break;
+    case Fw::LogSeverity::COMMAND:
+      severityString = "COMMAND";
+      break;
+    case Fw::LogSeverity::ACTIVITY_HI:
+      severityString = "ACTIVITY_HI";
+      break;
+    case Fw::LogSeverity::ACTIVITY_LO:
+      severityString = "ACTIVITY_LO";
+      break;
+    case Fw::LogSeverity::DIAGNOSTIC:
+     severityString = "DIAGNOSTIC";
+      break;
+    default:
+      severityString = "SEVERITY ERROR";
+      break;
+  }
+
+  fprintf(
+    file,
+    "EVENT: (%" PRI_FwEventIdType ") (%" PRI_FwTimeBaseStoreType ":%" PRIu32 ",%" PRIu32 ") %s: %s\n",
+    e.id,
+    static_cast<FwTimeBaseStoreType>(e.timeTag.getTimeBase()),
+    e.timeTag.getSeconds(),
+    e.timeTag.getUSeconds(),
+    severityString,
+    e.text.toChar()
+  );
+}
+
+void QueuedParamsTesterBase ::
+  printTextLogHistory(FILE* const file)
+{
+  for (U32 i = 0; i < this->textLogHistory->size(); i++) {
+    this->printTextLogHistoryEntry(
+      this->textLogHistory->at(i),
+      file
+    );
+  }
+}
+
+#endif
+
+void QueuedParamsTesterBase ::
+  clearTlm()
+{
+  this->tlmSize = 0;
+}
+
+// ----------------------------------------------------------------------
+// Static functions for output ports
+// ----------------------------------------------------------------------
+
+void QueuedParamsTesterBase ::
+  from_typedOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const TypedPortStrings::StringSize80& str1,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  FW_ASSERT(callComp);
+  QueuedParamsTesterBase* _testerBase = static_cast<QueuedParamsTesterBase*>(callComp);
+  _testerBase->from_typedOut_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str1,
+    e,
+    a,
+    s
+  );
+}
+
+F32 QueuedParamsTesterBase ::
+  from_typedReturnOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const TypedReturnPortStrings::StringSize80& str2,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  FW_ASSERT(callComp);
+  QueuedParamsTesterBase* _testerBase = static_cast<QueuedParamsTesterBase*>(callComp);
+  return _testerBase->from_typedReturnOut_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+}
+
+void QueuedParamsTesterBase ::
+  from_cmdRegOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwOpcodeType opCode
+  )
+{
+
+}
+
+void QueuedParamsTesterBase ::
+  from_cmdResponseOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      const Fw::CmdResponse& cmdResponse
+  )
+{
+  QueuedParamsTesterBase* _testerBase = static_cast<QueuedParamsTesterBase*>(callComp);
+  _testerBase->cmdResponseIn(opCode, cmdSeq, cmdResponse);
+}
+
+void QueuedParamsTesterBase ::
+  from_eventOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwEventIdType id,
+      Fw::Time& timeTag,
+      const Fw::LogSeverity& severity,
+      Fw::LogBuffer& args
+  )
+{
+  QueuedParamsTesterBase* _testerBase = static_cast<QueuedParamsTesterBase*>(callComp);
+  _testerBase->dispatchEvents(id, timeTag, severity, args);
+}
+
+Fw::ParamValid QueuedParamsTesterBase ::
+  from_prmGetOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwPrmIdType id,
+      Fw::ParamBuffer& val
+  )
+{
+  QueuedParamsTesterBase* _testerBase = static_cast<QueuedParamsTesterBase*>(callComp);
+
+  Fw::SerializeStatus _status;
+  Fw::ParamValid _ret = Fw::ParamValid::VALID;
+  val.resetSer();
+
+  const U32 idBase = _testerBase->getIdBase();
+  FW_ASSERT(id >= idBase, id, idBase);
+
+
+  switch (id - idBase) {
+    case QueuedParamsComponentBase::PARAMID_PARAMU32: {
+      _status = val.serialize(_testerBase->m_param_ParamU32);
+      _ret = _testerBase->m_param_ParamU32_valid;
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      break;
+    };
+
+    case QueuedParamsComponentBase::PARAMID_PARAMF64: {
+      _status = val.serialize(_testerBase->m_param_ParamF64);
+      _ret = _testerBase->m_param_ParamF64_valid;
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      break;
+    };
+
+    case QueuedParamsComponentBase::PARAMID_PARAMSTRING: {
+      _status = val.serialize(_testerBase->m_param_ParamString);
+      _ret = _testerBase->m_param_ParamString_valid;
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      break;
+    };
+
+    case QueuedParamsComponentBase::PARAMID_PARAMENUM: {
+      _status = val.serialize(_testerBase->m_param_ParamEnum);
+      _ret = _testerBase->m_param_ParamEnum_valid;
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      break;
+    };
+
+    case QueuedParamsComponentBase::PARAMID_PARAMARRAY: {
+      _status = val.serialize(_testerBase->m_param_ParamArray);
+      _ret = _testerBase->m_param_ParamArray_valid;
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      break;
+    };
+
+    case QueuedParamsComponentBase::PARAMID_PARAMSTRUCT: {
+      _status = val.serialize(_testerBase->m_param_ParamStruct);
+      _ret = _testerBase->m_param_ParamStruct_valid;
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      break;
+    };
+
+    default:
+      FW_ASSERT(id);
+      break;
+  }
+
+  return _ret;
+}
+
+void QueuedParamsTesterBase ::
+  from_prmSetOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwPrmIdType id,
+      Fw::ParamBuffer& val
+  )
+{
+  QueuedParamsTesterBase* _testerBase = static_cast<QueuedParamsTesterBase*>(callComp);
+
+  Fw::SerializeStatus _status;
+  val.resetSer();
+
+  const U32 idBase = _testerBase->getIdBase();
+  FW_ASSERT(id >= idBase, id, idBase);
+
+  switch (id - idBase) {
+    case QueuedParamsComponentBase::PARAMID_PARAMU32: {
+      U32 ParamU32Val;
+      _status = val.deserialize(ParamU32Val);
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      FW_ASSERT(
+        ParamU32Val ==
+        _testerBase->m_param_ParamU32
+      );
+      break;
+    };
+
+    case QueuedParamsComponentBase::PARAMID_PARAMF64: {
+      F64 ParamF64Val;
+      _status = val.deserialize(ParamF64Val);
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      FW_ASSERT(
+        ParamF64Val ==
+        _testerBase->m_param_ParamF64
+      );
+      break;
+    };
+
+    case QueuedParamsComponentBase::PARAMID_PARAMSTRING: {
+      Fw::ParamString ParamStringVal;
+      _status = val.deserialize(ParamStringVal);
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      FW_ASSERT(
+        ParamStringVal ==
+        _testerBase->m_param_ParamString
+      );
+      break;
+    };
+
+    case QueuedParamsComponentBase::PARAMID_PARAMENUM: {
+      E ParamEnumVal;
+      _status = val.deserialize(ParamEnumVal);
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      FW_ASSERT(
+        ParamEnumVal ==
+        _testerBase->m_param_ParamEnum
+      );
+      break;
+    };
+
+    case QueuedParamsComponentBase::PARAMID_PARAMARRAY: {
+      A ParamArrayVal;
+      _status = val.deserialize(ParamArrayVal);
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      FW_ASSERT(
+        ParamArrayVal ==
+        _testerBase->m_param_ParamArray
+      );
+      break;
+    };
+
+    case QueuedParamsComponentBase::PARAMID_PARAMSTRUCT: {
+      S ParamStructVal;
+      _status = val.deserialize(ParamStructVal);
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      FW_ASSERT(
+        ParamStructVal ==
+        _testerBase->m_param_ParamStruct
+      );
+      break;
+    };
+
+    default:
+      FW_ASSERT(id);
+      break;
+  }
+}
+
+#if FW_ENABLE_TEXT_LOGGING == 1
+
+void QueuedParamsTesterBase ::
+  from_textEventOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwEventIdType id,
+      Fw::Time& timeTag,
+      const Fw::LogSeverity& severity,
+      Fw::TextLogString& text
+  )
+{
+  QueuedParamsTesterBase* _testerBase = static_cast<QueuedParamsTesterBase*>(callComp);
+  _testerBase->textLogIn(id, timeTag, severity, text);
+}
+
+#endif
+
+void QueuedParamsTesterBase ::
+  from_timeGetOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      Fw::Time& time
+  )
+{
+  QueuedParamsTesterBase* _testerBase = static_cast<QueuedParamsTesterBase*>(callComp);
+  time = _testerBase->m_testTime;
+}
+
+void QueuedParamsTesterBase ::
+  from_tlmOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwChanIdType id,
+      Fw::Time& timeTag,
+      Fw::TlmBuffer& val
+  )
+{
+  QueuedParamsTesterBase* _testerBase = static_cast<QueuedParamsTesterBase*>(callComp);
+  _testerBase->dispatchTlm(id, timeTag, val);
 }

@@ -7,8 +7,8 @@
 #ifndef QueuedCommandsTester_HPP
 #define QueuedCommandsTester_HPP
 
-#include "test/QueuedCommandsGTestBase.hpp"
-#include "test/QueuedCommands.hpp"
+#include "QueuedCommandsGTestBase.hpp"
+#include "QueuedCommands.hpp"
 
 class QueuedCommandsTester :
   public QueuedCommandsGTestBase

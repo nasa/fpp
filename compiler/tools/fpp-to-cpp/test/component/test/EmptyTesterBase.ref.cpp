@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "test/EmptyTesterBase.hpp"
+#include "EmptyTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Component initialization
@@ -38,4 +38,185 @@ EmptyTesterBase ::
   ~EmptyTesterBase()
 {
 
+}
+
+// ----------------------------------------------------------------------
+// Functions for testing commands
+// ----------------------------------------------------------------------
+
+void EmptyTesterBase ::
+  cmdResponseIn(
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      Fw::CmdResponse response
+  )
+{
+  CmdResponse e = { opCode, cmdSeq, response };
+  this->cmdResponseHistory->push_back(e);
+}
+
+void EmptyTesterBase ::
+  sendRawCmd(
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      Fw::CmdArgBuffer& buf
+  )
+{
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _opcode = opCode + idBase;
+}
+
+// ----------------------------------------------------------------------
+// Functions for testing events
+// ----------------------------------------------------------------------
+
+void EmptyTesterBase ::
+  dispatchEvents(
+      FwEventIdType id,
+      Fw::Time& timeTag,
+      const Fw::LogSeverity severity,
+      Fw::LogBuffer& args
+  )
+{
+
+}
+
+#if FW_ENABLE_TEXT_LOGGING
+
+void EmptyTesterBase ::
+  textLogIn(
+      FwEventIdType id,
+      Fw::Time& timeTag,
+      const Fw::LogSeverity severity,
+      const Fw::TextLogString& text
+  )
+{
+  TextLogEntry e = { id, timeTag, severity, text };
+  textLogHistory->push_back(e);
+}
+
+#endif
+
+// ----------------------------------------------------------------------
+// Functions for testing telemetry
+// ----------------------------------------------------------------------
+
+void EmptyTesterBase ::
+  dispatchTlm(
+      FwChanIdType id,
+      const Fw::Time& timeTag,
+      Fw::TlmBuffer& val
+  )
+{
+  val.resetDeser();
+
+  const U32 idBase = this->getIdBase();
+  FW_ASSERT(id >= idBase, id, idBase);
+
+  switch (id - idBase) {
+    default: {
+      FW_ASSERT(0, id);
+      break;
+    }
+  }
+}
+
+// ----------------------------------------------------------------------
+// Functions to test time
+// ----------------------------------------------------------------------
+
+void EmptyTesterBase ::
+  setTestTime(const Fw::Time& timeTag)
+{
+  this->m_testTime = timeTag;
+}
+
+// ----------------------------------------------------------------------
+// History functions
+// ----------------------------------------------------------------------
+
+void EmptyTesterBase ::
+  clearHistory()
+{
+
+}
+
+void EmptyTesterBase ::
+  clearFromPortHistory()
+{
+  this->fromPortHistorySize = 0;
+}
+
+void EmptyTesterBase ::
+  clearEvents()
+{
+  this->eventsSize = 0;
+}
+
+#if FW_ENABLE_TEXT_LOGGING
+
+void EmptyTesterBase ::
+  printTextLogHistoryEntry(
+      const TextLogEntry& e,
+      FILE* file
+  )
+{
+  const char* severityString = "UNKNOWN";
+
+  switch (e.severity.e) {
+    case Fw::LogSeverity::FATAL:
+      severityString = "FATAL";
+      break;
+    case Fw::LogSeverity::WARNING_HI:
+      severityString = "WARNING_HI";
+      break;
+    case Fw::LogSeverity::WARNING_LO:
+      severityString = "WARNING_LO";
+      break;
+    case Fw::LogSeverity::COMMAND:
+      severityString = "COMMAND";
+      break;
+    case Fw::LogSeverity::ACTIVITY_HI:
+      severityString = "ACTIVITY_HI";
+      break;
+    case Fw::LogSeverity::ACTIVITY_LO:
+      severityString = "ACTIVITY_LO";
+      break;
+    case Fw::LogSeverity::DIAGNOSTIC:
+     severityString = "DIAGNOSTIC";
+      break;
+    default:
+      severityString = "SEVERITY ERROR";
+      break;
+  }
+
+  fprintf(
+    file,
+    "EVENT: (%" PRI_FwEventIdType ") (%" PRI_FwTimeBaseStoreType ":%" PRIu32 ",%" PRIu32 ") %s: %s\n",
+    e.id,
+    static_cast<FwTimeBaseStoreType>(e.timeTag.getTimeBase()),
+    e.timeTag.getSeconds(),
+    e.timeTag.getUSeconds(),
+    severityString,
+    e.text.toChar()
+  );
+}
+
+void EmptyTesterBase ::
+  printTextLogHistory(FILE* const file)
+{
+  for (U32 i = 0; i < this->textLogHistory->size(); i++) {
+    this->printTextLogHistoryEntry(
+      this->textLogHistory->at(i),
+      file
+    );
+  }
+}
+
+#endif
+
+void EmptyTesterBase ::
+  clearTlm()
+{
+  this->tlmSize = 0;
 }

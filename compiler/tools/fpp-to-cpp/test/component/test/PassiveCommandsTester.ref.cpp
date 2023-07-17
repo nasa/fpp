@@ -4,7 +4,7 @@
 // \brief  cpp file for PassiveCommands component test harness implementation class
 // ======================================================================
 
-#include "test/PassiveCommandsTester.hpp"
+#include "PassiveCommandsTester.hpp"
 
 // ----------------------------------------------------------------------
 // Construction and destruction

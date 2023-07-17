@@ -4,7 +4,7 @@
 // \brief  cpp file for ActiveParams component test harness implementation class
 // ======================================================================
 
-#include "test/ActiveParamsTester.hpp"
+#include "ActiveParamsTester.hpp"
 
 // ----------------------------------------------------------------------
 // Construction and destruction

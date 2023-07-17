@@ -4,7 +4,7 @@
 // \brief  cpp file for ActiveEvents component test harness implementation class
 // ======================================================================
 
-#include "test/ActiveEventsTester.hpp"
+#include "ActiveEventsTester.hpp"
 
 // ----------------------------------------------------------------------
 // Construction and destruction

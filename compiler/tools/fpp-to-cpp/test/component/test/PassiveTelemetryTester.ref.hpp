@@ -7,8 +7,8 @@
 #ifndef PassiveTelemetryTester_HPP
 #define PassiveTelemetryTester_HPP
 
-#include "test/PassiveTelemetryGTestBase.hpp"
-#include "test/PassiveTelemetry.hpp"
+#include "PassiveTelemetryGTestBase.hpp"
+#include "PassiveTelemetry.hpp"
 
 class PassiveTelemetryTester :
   public PassiveTelemetryGTestBase

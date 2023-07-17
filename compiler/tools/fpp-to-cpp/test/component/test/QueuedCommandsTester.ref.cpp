@@ -4,7 +4,7 @@
 // \brief  cpp file for QueuedCommands component test harness implementation class
 // ======================================================================
 
-#include "test/QueuedCommandsTester.hpp"
+#include "QueuedCommandsTester.hpp"
 
 // ----------------------------------------------------------------------
 // Construction and destruction

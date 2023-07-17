@@ -7,8 +7,8 @@
 #ifndef QueuedEventsTester_HPP
 #define QueuedEventsTester_HPP
 
-#include "test/QueuedEventsGTestBase.hpp"
-#include "test/QueuedEvents.hpp"
+#include "QueuedEventsGTestBase.hpp"
+#include "QueuedEvents.hpp"
 
 class QueuedEventsTester :
   public QueuedEventsGTestBase

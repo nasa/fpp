@@ -4,7 +4,7 @@
 // \brief  cpp file for ActiveCommands component test harness implementation class
 // ======================================================================
 
-#include "test/ActiveCommandsTester.hpp"
+#include "ActiveCommandsTester.hpp"
 
 // ----------------------------------------------------------------------
 // Construction and destruction

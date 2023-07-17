@@ -44,7 +44,7 @@ abstract class ComponentTestUtils(
     output: CppDoc.Lines.Output = CppDoc.Lines.Both
   ): List[CppDoc.Class.Member] =
     wrapClassMembersInIfDirective(
-      "#if FW_ENABLE_TEXT_LOGGING",
+      "\n#if FW_ENABLE_TEXT_LOGGING",
       members,
       output
     )

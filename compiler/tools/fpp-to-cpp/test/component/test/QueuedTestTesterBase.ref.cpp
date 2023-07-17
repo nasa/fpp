@@ -1708,6 +1708,7 @@ void QueuedTestTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(u32);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -1754,6 +1755,7 @@ void QueuedTestTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(str1);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -1793,6 +1795,7 @@ void QueuedTestTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(e);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -1826,6 +1829,7 @@ void QueuedTestTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(a);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -1859,6 +1863,7 @@ void QueuedTestTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(s);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -1919,6 +1924,7 @@ void QueuedTestTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(u32);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -1965,6 +1971,7 @@ void QueuedTestTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(str1);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -2004,6 +2011,7 @@ void QueuedTestTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(e);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -2037,6 +2045,7 @@ void QueuedTestTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(a);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -2070,6 +2079,7 @@ void QueuedTestTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(s);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -2153,6 +2163,7 @@ void QueuedTestTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(u32);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -2211,6 +2222,7 @@ void QueuedTestTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(u32);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -2354,6 +2366,7 @@ void QueuedTestTesterBase ::
 
   const U32 idBase = this->getIdBase();
   FW_ASSERT(id >= idBase, id, idBase);
+
   switch (id - idBase) {
     case QueuedTestComponentBase::CHANNELID_CHANNELU32FORMAT: {
       U32 arg;
@@ -2367,6 +2380,7 @@ void QueuedTestTesterBase ::
       this->tlmInput_ChannelU32Format(timeTag, arg);
       break;
     }
+
     case QueuedTestComponentBase::CHANNELID_CHANNELF32FORMAT: {
       F32 arg;
       const Fw::SerializeStatus _status = val.deserialize(arg);
@@ -2379,6 +2393,7 @@ void QueuedTestTesterBase ::
       this->tlmInput_ChannelF32Format(timeTag, arg);
       break;
     }
+
     case QueuedTestComponentBase::CHANNELID_CHANNELSTRINGFORMAT: {
       Fw::TlmString arg;
       const Fw::SerializeStatus _status = val.deserialize(arg);
@@ -2391,6 +2406,7 @@ void QueuedTestTesterBase ::
       this->tlmInput_ChannelStringFormat(timeTag, arg);
       break;
     }
+
     case QueuedTestComponentBase::CHANNELID_CHANNELENUM: {
       E arg;
       const Fw::SerializeStatus _status = val.deserialize(arg);
@@ -2403,6 +2419,7 @@ void QueuedTestTesterBase ::
       this->tlmInput_ChannelEnum(timeTag, arg);
       break;
     }
+
     case QueuedTestComponentBase::CHANNELID_CHANNELARRAYFREQ: {
       A arg;
       const Fw::SerializeStatus _status = val.deserialize(arg);
@@ -2415,6 +2432,7 @@ void QueuedTestTesterBase ::
       this->tlmInput_ChannelArrayFreq(timeTag, arg);
       break;
     }
+
     case QueuedTestComponentBase::CHANNELID_CHANNELSTRUCTFREQ: {
       S arg;
       const Fw::SerializeStatus _status = val.deserialize(arg);
@@ -2427,6 +2445,7 @@ void QueuedTestTesterBase ::
       this->tlmInput_ChannelStructFreq(timeTag, arg);
       break;
     }
+
     case QueuedTestComponentBase::CHANNELID_CHANNELU32LIMITS: {
       U32 arg;
       const Fw::SerializeStatus _status = val.deserialize(arg);
@@ -2439,6 +2458,7 @@ void QueuedTestTesterBase ::
       this->tlmInput_ChannelU32Limits(timeTag, arg);
       break;
     }
+
     case QueuedTestComponentBase::CHANNELID_CHANNELF32LIMITS: {
       F32 arg;
       const Fw::SerializeStatus _status = val.deserialize(arg);
@@ -2451,6 +2471,7 @@ void QueuedTestTesterBase ::
       this->tlmInput_ChannelF32Limits(timeTag, arg);
       break;
     }
+
     case QueuedTestComponentBase::CHANNELID_CHANNELF64: {
       F64 arg;
       const Fw::SerializeStatus _status = val.deserialize(arg);
@@ -2463,6 +2484,7 @@ void QueuedTestTesterBase ::
       this->tlmInput_ChannelF64(timeTag, arg);
       break;
     }
+
     case QueuedTestComponentBase::CHANNELID_CHANNELU32ONCHANGE: {
       U32 arg;
       const Fw::SerializeStatus _status = val.deserialize(arg);
@@ -2475,6 +2497,7 @@ void QueuedTestTesterBase ::
       this->tlmInput_ChannelU32OnChange(timeTag, arg);
       break;
     }
+
     case QueuedTestComponentBase::CHANNELID_CHANNELENUMONCHANGE: {
       E arg;
       const Fw::SerializeStatus _status = val.deserialize(arg);
@@ -2487,6 +2510,7 @@ void QueuedTestTesterBase ::
       this->tlmInput_ChannelEnumOnChange(timeTag, arg);
       break;
     }
+
     default: {
       FW_ASSERT(0, id);
       break;
@@ -3065,6 +3089,7 @@ void QueuedTestTesterBase ::
   this->eventHistory_EventWarningHigh->clear();
   this->eventsSize_EventWarningLowThrottled = 0;
 }
+
 #if FW_ENABLE_TEXT_LOGGING
 
 void QueuedTestTesterBase ::
@@ -3256,6 +3281,7 @@ Fw::ParamValid QueuedTestTesterBase ::
   const U32 idBase = _testerBase->getIdBase();
   FW_ASSERT(id >= idBase, id, idBase);
 
+
   switch (id - idBase) {
     case QueuedTestComponentBase::PARAMID_PARAMU32: {
       _status = val.serialize(_testerBase->m_param_ParamU32);
@@ -3266,6 +3292,7 @@ Fw::ParamValid QueuedTestTesterBase ::
       );
       break;
     };
+
     case QueuedTestComponentBase::PARAMID_PARAMF64: {
       _status = val.serialize(_testerBase->m_param_ParamF64);
       _ret = _testerBase->m_param_ParamF64_valid;
@@ -3275,6 +3302,7 @@ Fw::ParamValid QueuedTestTesterBase ::
       );
       break;
     };
+
     case QueuedTestComponentBase::PARAMID_PARAMSTRING: {
       _status = val.serialize(_testerBase->m_param_ParamString);
       _ret = _testerBase->m_param_ParamString_valid;
@@ -3284,6 +3312,7 @@ Fw::ParamValid QueuedTestTesterBase ::
       );
       break;
     };
+
     case QueuedTestComponentBase::PARAMID_PARAMENUM: {
       _status = val.serialize(_testerBase->m_param_ParamEnum);
       _ret = _testerBase->m_param_ParamEnum_valid;
@@ -3293,6 +3322,7 @@ Fw::ParamValid QueuedTestTesterBase ::
       );
       break;
     };
+
     case QueuedTestComponentBase::PARAMID_PARAMARRAY: {
       _status = val.serialize(_testerBase->m_param_ParamArray);
       _ret = _testerBase->m_param_ParamArray_valid;
@@ -3302,6 +3332,7 @@ Fw::ParamValid QueuedTestTesterBase ::
       );
       break;
     };
+
     case QueuedTestComponentBase::PARAMID_PARAMSTRUCT: {
       _status = val.serialize(_testerBase->m_param_ParamStruct);
       _ret = _testerBase->m_param_ParamStruct_valid;
@@ -3311,6 +3342,7 @@ Fw::ParamValid QueuedTestTesterBase ::
       );
       break;
     };
+
     default:
       FW_ASSERT(id);
       break;
@@ -3334,6 +3366,7 @@ void QueuedTestTesterBase ::
 
   const U32 idBase = _testerBase->getIdBase();
   FW_ASSERT(id >= idBase, id, idBase);
+
   switch (id - idBase) {
     case QueuedTestComponentBase::PARAMID_PARAMU32: {
       U32 ParamU32Val;
@@ -3348,6 +3381,7 @@ void QueuedTestTesterBase ::
       );
       break;
     };
+
     case QueuedTestComponentBase::PARAMID_PARAMF64: {
       F64 ParamF64Val;
       _status = val.deserialize(ParamF64Val);
@@ -3361,6 +3395,7 @@ void QueuedTestTesterBase ::
       );
       break;
     };
+
     case QueuedTestComponentBase::PARAMID_PARAMSTRING: {
       Fw::ParamString ParamStringVal;
       _status = val.deserialize(ParamStringVal);
@@ -3374,6 +3409,7 @@ void QueuedTestTesterBase ::
       );
       break;
     };
+
     case QueuedTestComponentBase::PARAMID_PARAMENUM: {
       E ParamEnumVal;
       _status = val.deserialize(ParamEnumVal);
@@ -3387,6 +3423,7 @@ void QueuedTestTesterBase ::
       );
       break;
     };
+
     case QueuedTestComponentBase::PARAMID_PARAMARRAY: {
       A ParamArrayVal;
       _status = val.deserialize(ParamArrayVal);
@@ -3400,6 +3437,7 @@ void QueuedTestTesterBase ::
       );
       break;
     };
+
     case QueuedTestComponentBase::PARAMID_PARAMSTRUCT: {
       S ParamStructVal;
       _status = val.deserialize(ParamStructVal);
@@ -3413,6 +3451,7 @@ void QueuedTestTesterBase ::
       );
       break;
     };
+
     default:
       FW_ASSERT(id);
       break;

@@ -1123,6 +1123,7 @@ class PassiveTestTesterBase :
 
     //! Clear event history
     void clearEvents();
+
 #if FW_ENABLE_TEXT_LOGGING
 
     //! Print a text log history entry

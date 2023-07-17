@@ -7,8 +7,8 @@
 #ifndef ActiveEventsTester_HPP
 #define ActiveEventsTester_HPP
 
-#include "test/ActiveEventsGTestBase.hpp"
-#include "test/ActiveEvents.hpp"
+#include "ActiveEventsGTestBase.hpp"
+#include "ActiveEvents.hpp"
 
 class ActiveEventsTester :
   public ActiveEventsGTestBase

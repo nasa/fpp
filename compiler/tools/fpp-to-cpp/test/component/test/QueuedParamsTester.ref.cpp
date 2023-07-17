@@ -4,7 +4,7 @@
 // \brief  cpp file for QueuedParams component test harness implementation class
 // ======================================================================
 
-#include "test/QueuedParamsTester.hpp"
+#include "QueuedParamsTester.hpp"
 
 // ----------------------------------------------------------------------
 // Construction and destruction

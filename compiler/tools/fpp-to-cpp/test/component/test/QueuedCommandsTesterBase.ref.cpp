@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "test/QueuedCommandsTesterBase.hpp"
+#include "QueuedCommandsTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Component initialization
@@ -1277,93 +1277,151 @@ void QueuedCommandsTesterBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE QueuedCommandsTesterBase ::
-  to_noArgsAsync()
+  getNum_to_noArgsAsync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsAsync));
 }
 
 NATIVE_INT_TYPE QueuedCommandsTesterBase ::
-  to_noArgsGuarded()
+  getNum_to_noArgsGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsGuarded));
 }
 
 NATIVE_INT_TYPE QueuedCommandsTesterBase ::
-  to_noArgsReturnGuarded()
+  getNum_to_noArgsReturnGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnGuarded));
 }
 
 NATIVE_INT_TYPE QueuedCommandsTesterBase ::
-  to_noArgsReturnSync()
+  getNum_to_noArgsReturnSync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnSync));
 }
 
 NATIVE_INT_TYPE QueuedCommandsTesterBase ::
-  to_noArgsSync()
+  getNum_to_noArgsSync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsSync));
 }
 
 NATIVE_INT_TYPE QueuedCommandsTesterBase ::
-  to_typedAsync()
+  getNum_to_typedAsync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsync));
 }
 
 NATIVE_INT_TYPE QueuedCommandsTesterBase ::
-  to_typedAsyncAssert()
+  getNum_to_typedAsyncAssert() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsyncAssert));
 }
 
 NATIVE_INT_TYPE QueuedCommandsTesterBase ::
-  to_typedAsyncBlockPriority()
+  getNum_to_typedAsyncBlockPriority() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsyncBlockPriority));
 }
 
 NATIVE_INT_TYPE QueuedCommandsTesterBase ::
-  to_typedAsyncDropPriority()
+  getNum_to_typedAsyncDropPriority() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsyncDropPriority));
 }
 
 NATIVE_INT_TYPE QueuedCommandsTesterBase ::
-  to_typedGuarded()
+  getNum_to_typedGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedGuarded));
 }
 
 NATIVE_INT_TYPE QueuedCommandsTesterBase ::
-  to_typedReturnGuarded()
+  getNum_to_typedReturnGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnGuarded));
 }
 
 NATIVE_INT_TYPE QueuedCommandsTesterBase ::
-  to_typedReturnSync()
+  getNum_to_typedReturnSync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnSync));
 }
 
 NATIVE_INT_TYPE QueuedCommandsTesterBase ::
-  to_typedSync()
+  getNum_to_typedSync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedSync));
 }
 
 NATIVE_INT_TYPE QueuedCommandsTesterBase ::
-  from_typedOut()
+  getNum_to_cmdIn() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_cmdIn));
+}
+
+NATIVE_INT_TYPE QueuedCommandsTesterBase ::
+  getNum_from_typedOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
 }
 
 NATIVE_INT_TYPE QueuedCommandsTesterBase ::
-  from_typedReturnOut()
+  getNum_from_typedReturnOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedReturnOut));
+}
+
+NATIVE_INT_TYPE QueuedCommandsTesterBase ::
+  getNum_from_cmdRegOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdRegOut));
+}
+
+NATIVE_INT_TYPE QueuedCommandsTesterBase ::
+  getNum_from_cmdResponseOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdResponseOut));
+}
+
+NATIVE_INT_TYPE QueuedCommandsTesterBase ::
+  getNum_from_eventOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_eventOut));
+}
+
+NATIVE_INT_TYPE QueuedCommandsTesterBase ::
+  getNum_from_prmGetOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmGetOut));
+}
+
+NATIVE_INT_TYPE QueuedCommandsTesterBase ::
+  getNum_from_prmSetOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmSetOut));
+}
+
+#if FW_ENABLE_TEXT_LOGGING == 1
+
+NATIVE_INT_TYPE QueuedCommandsTesterBase ::
+  getNum_from_textEventOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_textEventOut));
+}
+
+#endif
+
+NATIVE_INT_TYPE QueuedCommandsTesterBase ::
+  getNum_from_timeGetOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_timeGetOut));
+}
+
+NATIVE_INT_TYPE QueuedCommandsTesterBase ::
+  getNum_from_tlmOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_tlmOut));
 }
 
 // ----------------------------------------------------------------------
@@ -1535,7 +1593,7 @@ void QueuedCommandsTesterBase ::
       Fw::CmdResponse response
   )
 {
-  CmdResponse e = { opCode, seq, response };
+  CmdResponse e = { opCode, cmdSeq, response };
   this->cmdResponseHistory->push_back(e);
 }
 
@@ -1543,16 +1601,16 @@ void QueuedCommandsTesterBase ::
   sendRawCmd(
       FwOpcodeType opCode,
       U32 cmdSeq,
-      Fw::CmdBufferArg& args
+      Fw::CmdArgBuffer& buf
   )
 {
   const U32 idBase = this->getIdBase();
-  FwOpcodeType _opcode = opcode + idBase;
+  FwOpcodeType _opcode = opCode + idBase;
   if (this->m_to_cmdIn[0].isConnected()) {
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -1566,6 +1624,8 @@ void QueuedCommandsTesterBase ::
       U32 cmdSeq
   )
 {
+  Fw::CmdArgBuffer buf;
+
   // Call output command port
   FwOpcodeType _opcode;
   const U32 idBase = this->getIdBase();
@@ -1575,7 +1635,7 @@ void QueuedCommandsTesterBase ::
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -1595,21 +1655,22 @@ void QueuedCommandsTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(u32);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
   _status = buf.serialize(f32);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
   _status = buf.serialize(b);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
@@ -1622,7 +1683,7 @@ void QueuedCommandsTesterBase ::
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -1641,15 +1702,16 @@ void QueuedCommandsTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(str1);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
   _status = buf.serialize(str2);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
@@ -1662,7 +1724,7 @@ void QueuedCommandsTesterBase ::
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -1680,9 +1742,10 @@ void QueuedCommandsTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(e);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
@@ -1695,7 +1758,7 @@ void QueuedCommandsTesterBase ::
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -1713,9 +1776,10 @@ void QueuedCommandsTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(a);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
@@ -1728,7 +1792,7 @@ void QueuedCommandsTesterBase ::
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -1746,9 +1810,10 @@ void QueuedCommandsTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(s);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
@@ -1761,7 +1826,7 @@ void QueuedCommandsTesterBase ::
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -1775,6 +1840,8 @@ void QueuedCommandsTesterBase ::
       U32 cmdSeq
   )
 {
+  Fw::CmdArgBuffer buf;
+
   // Call output command port
   FwOpcodeType _opcode;
   const U32 idBase = this->getIdBase();
@@ -1784,7 +1851,7 @@ void QueuedCommandsTesterBase ::
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -1804,21 +1871,22 @@ void QueuedCommandsTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(u32);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
   _status = buf.serialize(f32);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
   _status = buf.serialize(b);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
@@ -1831,7 +1899,7 @@ void QueuedCommandsTesterBase ::
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -1850,15 +1918,16 @@ void QueuedCommandsTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(str1);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
   _status = buf.serialize(str2);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
@@ -1871,7 +1940,7 @@ void QueuedCommandsTesterBase ::
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -1889,9 +1958,10 @@ void QueuedCommandsTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(e);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
@@ -1904,7 +1974,7 @@ void QueuedCommandsTesterBase ::
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -1922,9 +1992,10 @@ void QueuedCommandsTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(a);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
@@ -1937,7 +2008,7 @@ void QueuedCommandsTesterBase ::
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -1955,9 +2026,10 @@ void QueuedCommandsTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(s);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
@@ -1970,7 +2042,7 @@ void QueuedCommandsTesterBase ::
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -1984,6 +2056,8 @@ void QueuedCommandsTesterBase ::
       U32 cmdSeq
   )
 {
+  Fw::CmdArgBuffer buf;
+
   // Call output command port
   FwOpcodeType _opcode;
   const U32 idBase = this->getIdBase();
@@ -1993,7 +2067,7 @@ void QueuedCommandsTesterBase ::
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -2007,6 +2081,8 @@ void QueuedCommandsTesterBase ::
       U32 cmdSeq
   )
 {
+  Fw::CmdArgBuffer buf;
+
   // Call output command port
   FwOpcodeType _opcode;
   const U32 idBase = this->getIdBase();
@@ -2016,7 +2092,7 @@ void QueuedCommandsTesterBase ::
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -2034,9 +2110,10 @@ void QueuedCommandsTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(u32);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
@@ -2049,7 +2126,7 @@ void QueuedCommandsTesterBase ::
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -2063,6 +2140,8 @@ void QueuedCommandsTesterBase ::
       U32 cmdSeq
   )
 {
+  Fw::CmdArgBuffer buf;
+
   // Call output command port
   FwOpcodeType _opcode;
   const U32 idBase = this->getIdBase();
@@ -2072,7 +2151,7 @@ void QueuedCommandsTesterBase ::
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -2090,9 +2169,10 @@ void QueuedCommandsTesterBase ::
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
+
   _status = buf.serialize(u32);
   FW_ASSERT(
-    status == FW::FW_SERIALIZE_OK,
+    _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
@@ -2105,7 +2185,7 @@ void QueuedCommandsTesterBase ::
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -2114,8 +2194,69 @@ void QueuedCommandsTesterBase ::
 }
 
 // ----------------------------------------------------------------------
-// History class
+// Functions for testing events
 // ----------------------------------------------------------------------
+
+void QueuedCommandsTesterBase ::
+  dispatchEvents(
+      FwEventIdType id,
+      Fw::Time& timeTag,
+      const Fw::LogSeverity severity,
+      Fw::LogBuffer& args
+  )
+{
+
+}
+
+#if FW_ENABLE_TEXT_LOGGING
+
+void QueuedCommandsTesterBase ::
+  textLogIn(
+      FwEventIdType id,
+      Fw::Time& timeTag,
+      const Fw::LogSeverity severity,
+      const Fw::TextLogString& text
+  )
+{
+  TextLogEntry e = { id, timeTag, severity, text };
+  textLogHistory->push_back(e);
+}
+
+#endif
+
+// ----------------------------------------------------------------------
+// Functions for testing telemetry
+// ----------------------------------------------------------------------
+
+void QueuedCommandsTesterBase ::
+  dispatchTlm(
+      FwChanIdType id,
+      const Fw::Time& timeTag,
+      Fw::TlmBuffer& val
+  )
+{
+  val.resetDeser();
+
+  const U32 idBase = this->getIdBase();
+  FW_ASSERT(id >= idBase, id, idBase);
+
+  switch (id - idBase) {
+    default: {
+      FW_ASSERT(0, id);
+      break;
+    }
+  }
+}
+
+// ----------------------------------------------------------------------
+// Functions to test time
+// ----------------------------------------------------------------------
+
+void QueuedCommandsTesterBase ::
+  setTestTime(const Fw::Time& timeTag)
+{
+  this->m_testTime = timeTag;
+}
 
 // ----------------------------------------------------------------------
 // History functions
@@ -2182,4 +2323,265 @@ void QueuedCommandsTesterBase ::
   };
   this->fromPortHistory_typedReturnOut->push_back(_e);
   this->fromPortHistorySize++;
+}
+
+void QueuedCommandsTesterBase ::
+  clearEvents()
+{
+  this->eventsSize = 0;
+}
+
+#if FW_ENABLE_TEXT_LOGGING
+
+void QueuedCommandsTesterBase ::
+  printTextLogHistoryEntry(
+      const TextLogEntry& e,
+      FILE* file
+  )
+{
+  const char* severityString = "UNKNOWN";
+
+  switch (e.severity.e) {
+    case Fw::LogSeverity::FATAL:
+      severityString = "FATAL";
+      break;
+    case Fw::LogSeverity::WARNING_HI:
+      severityString = "WARNING_HI";
+      break;
+    case Fw::LogSeverity::WARNING_LO:
+      severityString = "WARNING_LO";
+      break;
+    case Fw::LogSeverity::COMMAND:
+      severityString = "COMMAND";
+      break;
+    case Fw::LogSeverity::ACTIVITY_HI:
+      severityString = "ACTIVITY_HI";
+      break;
+    case Fw::LogSeverity::ACTIVITY_LO:
+      severityString = "ACTIVITY_LO";
+      break;
+    case Fw::LogSeverity::DIAGNOSTIC:
+     severityString = "DIAGNOSTIC";
+      break;
+    default:
+      severityString = "SEVERITY ERROR";
+      break;
+  }
+
+  fprintf(
+    file,
+    "EVENT: (%" PRI_FwEventIdType ") (%" PRI_FwTimeBaseStoreType ":%" PRIu32 ",%" PRIu32 ") %s: %s\n",
+    e.id,
+    static_cast<FwTimeBaseStoreType>(e.timeTag.getTimeBase()),
+    e.timeTag.getSeconds(),
+    e.timeTag.getUSeconds(),
+    severityString,
+    e.text.toChar()
+  );
+}
+
+void QueuedCommandsTesterBase ::
+  printTextLogHistory(FILE* const file)
+{
+  for (U32 i = 0; i < this->textLogHistory->size(); i++) {
+    this->printTextLogHistoryEntry(
+      this->textLogHistory->at(i),
+      file
+    );
+  }
+}
+
+#endif
+
+void QueuedCommandsTesterBase ::
+  clearTlm()
+{
+  this->tlmSize = 0;
+}
+
+// ----------------------------------------------------------------------
+// Static functions for output ports
+// ----------------------------------------------------------------------
+
+void QueuedCommandsTesterBase ::
+  from_typedOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const TypedPortStrings::StringSize80& str1,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  FW_ASSERT(callComp);
+  QueuedCommandsTesterBase* _testerBase = static_cast<QueuedCommandsTesterBase*>(callComp);
+  _testerBase->from_typedOut_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str1,
+    e,
+    a,
+    s
+  );
+}
+
+F32 QueuedCommandsTesterBase ::
+  from_typedReturnOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const TypedReturnPortStrings::StringSize80& str2,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  FW_ASSERT(callComp);
+  QueuedCommandsTesterBase* _testerBase = static_cast<QueuedCommandsTesterBase*>(callComp);
+  return _testerBase->from_typedReturnOut_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+}
+
+void QueuedCommandsTesterBase ::
+  from_cmdRegOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwOpcodeType opCode
+  )
+{
+
+}
+
+void QueuedCommandsTesterBase ::
+  from_cmdResponseOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      const Fw::CmdResponse& cmdResponse
+  )
+{
+  QueuedCommandsTesterBase* _testerBase = static_cast<QueuedCommandsTesterBase*>(callComp);
+  _testerBase->cmdResponseIn(opCode, cmdSeq, cmdResponse);
+}
+
+void QueuedCommandsTesterBase ::
+  from_eventOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwEventIdType id,
+      Fw::Time& timeTag,
+      const Fw::LogSeverity& severity,
+      Fw::LogBuffer& args
+  )
+{
+  QueuedCommandsTesterBase* _testerBase = static_cast<QueuedCommandsTesterBase*>(callComp);
+  _testerBase->dispatchEvents(id, timeTag, severity, args);
+}
+
+Fw::ParamValid QueuedCommandsTesterBase ::
+  from_prmGetOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwPrmIdType id,
+      Fw::ParamBuffer& val
+  )
+{
+  QueuedCommandsTesterBase* _testerBase = static_cast<QueuedCommandsTesterBase*>(callComp);
+
+  Fw::SerializeStatus _status;
+  Fw::ParamValid _ret = Fw::ParamValid::VALID;
+  val.resetSer();
+
+  const U32 idBase = _testerBase->getIdBase();
+  FW_ASSERT(id >= idBase, id, idBase);
+
+
+  switch (id - idBase) {
+    default:
+      FW_ASSERT(id);
+      break;
+  }
+
+  return _ret;
+}
+
+void QueuedCommandsTesterBase ::
+  from_prmSetOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwPrmIdType id,
+      Fw::ParamBuffer& val
+  )
+{
+  QueuedCommandsTesterBase* _testerBase = static_cast<QueuedCommandsTesterBase*>(callComp);
+
+  Fw::SerializeStatus _status;
+  val.resetSer();
+
+  const U32 idBase = _testerBase->getIdBase();
+  FW_ASSERT(id >= idBase, id, idBase);
+
+  switch (id - idBase) {
+    default:
+      FW_ASSERT(id);
+      break;
+  }
+}
+
+#if FW_ENABLE_TEXT_LOGGING == 1
+
+void QueuedCommandsTesterBase ::
+  from_textEventOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwEventIdType id,
+      Fw::Time& timeTag,
+      const Fw::LogSeverity& severity,
+      Fw::TextLogString& text
+  )
+{
+  QueuedCommandsTesterBase* _testerBase = static_cast<QueuedCommandsTesterBase*>(callComp);
+  _testerBase->textLogIn(id, timeTag, severity, text);
+}
+
+#endif
+
+void QueuedCommandsTesterBase ::
+  from_timeGetOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      Fw::Time& time
+  )
+{
+  QueuedCommandsTesterBase* _testerBase = static_cast<QueuedCommandsTesterBase*>(callComp);
+  time = _testerBase->m_testTime;
+}
+
+void QueuedCommandsTesterBase ::
+  from_tlmOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwChanIdType id,
+      Fw::Time& timeTag,
+      Fw::TlmBuffer& val
+  )
+{
+  QueuedCommandsTesterBase* _testerBase = static_cast<QueuedCommandsTesterBase*>(callComp);
+  _testerBase->dispatchTlm(id, timeTag, val);
 }

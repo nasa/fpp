@@ -4,7 +4,7 @@
 // \brief  cpp file for PassiveParams component test harness implementation class
 // ======================================================================
 
-#include "test/PassiveParamsTester.hpp"
+#include "PassiveParamsTester.hpp"
 
 // ----------------------------------------------------------------------
 // Construction and destruction

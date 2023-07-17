@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "test/QueuedEventsTesterBase.hpp"
+#include "QueuedEventsTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Component initialization
@@ -913,13 +913,11 @@ QueuedEventsTesterBase ::
 #if FW_ENABLE_TEXT_LOGGING
   this->textLogHistory = new History<TextLogEntry>(maxHistorySize);
 #endif
-  this->eventHistory_EventActivityHigh = new History<EventEntry_EventActivityHigh>(maxHistorySize);
   this->eventHistory_EventActivityLowThrottled = new History<EventEntry_EventActivityLowThrottled>(maxHistorySize);
   this->eventHistory_EventCommand = new History<EventEntry_EventCommand>(maxHistorySize);
   this->eventHistory_EventDiagnostic = new History<EventEntry_EventDiagnostic>(maxHistorySize);
   this->eventHistory_EventFatalThrottled = new History<EventEntry_EventFatalThrottled>(maxHistorySize);
   this->eventHistory_EventWarningHigh = new History<EventEntry_EventWarningHigh>(maxHistorySize);
-  this->eventHistory_EventWarningLowThrottled = new History<EventEntry_EventWarningLowThrottled>(maxHistorySize);
 
   // Clear history
   this->clearHistory();
@@ -936,13 +934,11 @@ QueuedEventsTesterBase ::
 #if FW_ENABLE_TEXT_LOGGING
   delete this->textLogHistory;
 #endif
-  delete this->eventHistory_EventActivityHigh;
   delete this->eventHistory_EventActivityLowThrottled;
   delete this->eventHistory_EventCommand;
   delete this->eventHistory_EventDiagnostic;
   delete this->eventHistory_EventFatalThrottled;
   delete this->eventHistory_EventWarningHigh;
-  delete this->eventHistory_EventWarningLowThrottled;
 }
 
 // ----------------------------------------------------------------------
@@ -1295,93 +1291,151 @@ void QueuedEventsTesterBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE QueuedEventsTesterBase ::
-  to_noArgsAsync()
+  getNum_to_noArgsAsync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsAsync));
 }
 
 NATIVE_INT_TYPE QueuedEventsTesterBase ::
-  to_noArgsGuarded()
+  getNum_to_noArgsGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsGuarded));
 }
 
 NATIVE_INT_TYPE QueuedEventsTesterBase ::
-  to_noArgsReturnGuarded()
+  getNum_to_noArgsReturnGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnGuarded));
 }
 
 NATIVE_INT_TYPE QueuedEventsTesterBase ::
-  to_noArgsReturnSync()
+  getNum_to_noArgsReturnSync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnSync));
 }
 
 NATIVE_INT_TYPE QueuedEventsTesterBase ::
-  to_noArgsSync()
+  getNum_to_noArgsSync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsSync));
 }
 
 NATIVE_INT_TYPE QueuedEventsTesterBase ::
-  to_typedAsync()
+  getNum_to_typedAsync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsync));
 }
 
 NATIVE_INT_TYPE QueuedEventsTesterBase ::
-  to_typedAsyncAssert()
+  getNum_to_typedAsyncAssert() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsyncAssert));
 }
 
 NATIVE_INT_TYPE QueuedEventsTesterBase ::
-  to_typedAsyncBlockPriority()
+  getNum_to_typedAsyncBlockPriority() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsyncBlockPriority));
 }
 
 NATIVE_INT_TYPE QueuedEventsTesterBase ::
-  to_typedAsyncDropPriority()
+  getNum_to_typedAsyncDropPriority() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsyncDropPriority));
 }
 
 NATIVE_INT_TYPE QueuedEventsTesterBase ::
-  to_typedGuarded()
+  getNum_to_typedGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedGuarded));
 }
 
 NATIVE_INT_TYPE QueuedEventsTesterBase ::
-  to_typedReturnGuarded()
+  getNum_to_typedReturnGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnGuarded));
 }
 
 NATIVE_INT_TYPE QueuedEventsTesterBase ::
-  to_typedReturnSync()
+  getNum_to_typedReturnSync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnSync));
 }
 
 NATIVE_INT_TYPE QueuedEventsTesterBase ::
-  to_typedSync()
+  getNum_to_typedSync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedSync));
 }
 
 NATIVE_INT_TYPE QueuedEventsTesterBase ::
-  from_typedOut()
+  getNum_to_cmdIn() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_cmdIn));
+}
+
+NATIVE_INT_TYPE QueuedEventsTesterBase ::
+  getNum_from_typedOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
 }
 
 NATIVE_INT_TYPE QueuedEventsTesterBase ::
-  from_typedReturnOut()
+  getNum_from_typedReturnOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedReturnOut));
+}
+
+NATIVE_INT_TYPE QueuedEventsTesterBase ::
+  getNum_from_cmdRegOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdRegOut));
+}
+
+NATIVE_INT_TYPE QueuedEventsTesterBase ::
+  getNum_from_cmdResponseOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdResponseOut));
+}
+
+NATIVE_INT_TYPE QueuedEventsTesterBase ::
+  getNum_from_eventOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_eventOut));
+}
+
+NATIVE_INT_TYPE QueuedEventsTesterBase ::
+  getNum_from_prmGetOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmGetOut));
+}
+
+NATIVE_INT_TYPE QueuedEventsTesterBase ::
+  getNum_from_prmSetOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmSetOut));
+}
+
+#if FW_ENABLE_TEXT_LOGGING == 1
+
+NATIVE_INT_TYPE QueuedEventsTesterBase ::
+  getNum_from_textEventOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_textEventOut));
+}
+
+#endif
+
+NATIVE_INT_TYPE QueuedEventsTesterBase ::
+  getNum_from_timeGetOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_timeGetOut));
+}
+
+NATIVE_INT_TYPE QueuedEventsTesterBase ::
+  getNum_from_tlmOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_tlmOut));
 }
 
 // ----------------------------------------------------------------------
@@ -1553,7 +1607,7 @@ void QueuedEventsTesterBase ::
       Fw::CmdResponse response
   )
 {
-  CmdResponse e = { opCode, seq, response };
+  CmdResponse e = { opCode, cmdSeq, response };
   this->cmdResponseHistory->push_back(e);
 }
 
@@ -1561,16 +1615,16 @@ void QueuedEventsTesterBase ::
   sendRawCmd(
       FwOpcodeType opCode,
       U32 cmdSeq,
-      Fw::CmdBufferArg& args
+      Fw::CmdArgBuffer& buf
   )
 {
   const U32 idBase = this->getIdBase();
-  FwOpcodeType _opcode = opcode + idBase;
+  FwOpcodeType _opcode = opCode + idBase;
   if (this->m_to_cmdIn[0].isConnected()) {
     this->m_to_cmdIn[0].invoke(
       _opcode,
       cmdSeq,
-      args
+      buf
     );
   }
   else {
@@ -1579,8 +1633,143 @@ void QueuedEventsTesterBase ::
 }
 
 // ----------------------------------------------------------------------
-// History class
+// Functions for testing events
 // ----------------------------------------------------------------------
+
+void QueuedEventsTesterBase ::
+  dispatchEvents(
+      FwEventIdType id,
+      Fw::Time& timeTag,
+      const Fw::LogSeverity severity,
+      Fw::LogBuffer& args
+  )
+{
+
+}
+
+#if FW_ENABLE_TEXT_LOGGING
+
+void QueuedEventsTesterBase ::
+  textLogIn(
+      FwEventIdType id,
+      Fw::Time& timeTag,
+      const Fw::LogSeverity severity,
+      const Fw::TextLogString& text
+  )
+{
+  TextLogEntry e = { id, timeTag, severity, text };
+  textLogHistory->push_back(e);
+}
+
+#endif
+
+void QueuedEventsTesterBase ::
+  logIn_ACTIVITY_HI_EventActivityHigh()
+{
+  this->eventsSize_EventActivityHigh++;
+  this->eventsSize++;
+}
+
+void QueuedEventsTesterBase ::
+  logIn_ACTIVITY_LO_EventActivityLowThrottled(
+      U32 u32,
+      F32 f32,
+      bool b
+  )
+{
+  EventEntry_EventActivityLowThrottled _e = {
+    u32,
+    f32,
+    b
+  };
+  eventHistory_EventActivityLowThrottled->push_back(_e);
+  this->eventsSize++;
+}
+
+void QueuedEventsTesterBase ::
+  logIn_COMMAND_EventCommand(
+      const Fw::LogStringArg& str1,
+      const Fw::LogStringArg& str2
+  )
+{
+  EventEntry_EventCommand _e = {
+    str1,
+    str2
+  };
+  eventHistory_EventCommand->push_back(_e);
+  this->eventsSize++;
+}
+
+void QueuedEventsTesterBase ::
+  logIn_DIAGNOSTIC_EventDiagnostic(E e)
+{
+  EventEntry_EventDiagnostic _e = {
+    e
+  };
+  eventHistory_EventDiagnostic->push_back(_e);
+  this->eventsSize++;
+}
+
+void QueuedEventsTesterBase ::
+  logIn_FATAL_EventFatalThrottled(A a)
+{
+  EventEntry_EventFatalThrottled _e = {
+    a
+  };
+  eventHistory_EventFatalThrottled->push_back(_e);
+  this->eventsSize++;
+}
+
+void QueuedEventsTesterBase ::
+  logIn_WARNING_HI_EventWarningHigh(S s)
+{
+  EventEntry_EventWarningHigh _e = {
+    s
+  };
+  eventHistory_EventWarningHigh->push_back(_e);
+  this->eventsSize++;
+}
+
+void QueuedEventsTesterBase ::
+  logIn_WARNING_LO_EventWarningLowThrottled()
+{
+  this->eventsSize_EventWarningLowThrottled++;
+  this->eventsSize++;
+}
+
+// ----------------------------------------------------------------------
+// Functions for testing telemetry
+// ----------------------------------------------------------------------
+
+void QueuedEventsTesterBase ::
+  dispatchTlm(
+      FwChanIdType id,
+      const Fw::Time& timeTag,
+      Fw::TlmBuffer& val
+  )
+{
+  val.resetDeser();
+
+  const U32 idBase = this->getIdBase();
+  FW_ASSERT(id >= idBase, id, idBase);
+
+  switch (id - idBase) {
+    default: {
+      FW_ASSERT(0, id);
+      break;
+    }
+  }
+}
+
+// ----------------------------------------------------------------------
+// Functions to test time
+// ----------------------------------------------------------------------
+
+void QueuedEventsTesterBase ::
+  setTestTime(const Fw::Time& timeTag)
+{
+  this->m_testTime = timeTag;
+}
 
 // ----------------------------------------------------------------------
 // History functions
@@ -1648,4 +1837,272 @@ void QueuedEventsTesterBase ::
   };
   this->fromPortHistory_typedReturnOut->push_back(_e);
   this->fromPortHistorySize++;
+}
+
+void QueuedEventsTesterBase ::
+  clearEvents()
+{
+  this->eventsSize = 0;
+  this->eventsSize_EventActivityHigh = 0;
+  this->eventHistory_EventActivityLowThrottled->clear();
+  this->eventHistory_EventCommand->clear();
+  this->eventHistory_EventDiagnostic->clear();
+  this->eventHistory_EventFatalThrottled->clear();
+  this->eventHistory_EventWarningHigh->clear();
+  this->eventsSize_EventWarningLowThrottled = 0;
+}
+
+#if FW_ENABLE_TEXT_LOGGING
+
+void QueuedEventsTesterBase ::
+  printTextLogHistoryEntry(
+      const TextLogEntry& e,
+      FILE* file
+  )
+{
+  const char* severityString = "UNKNOWN";
+
+  switch (e.severity.e) {
+    case Fw::LogSeverity::FATAL:
+      severityString = "FATAL";
+      break;
+    case Fw::LogSeverity::WARNING_HI:
+      severityString = "WARNING_HI";
+      break;
+    case Fw::LogSeverity::WARNING_LO:
+      severityString = "WARNING_LO";
+      break;
+    case Fw::LogSeverity::COMMAND:
+      severityString = "COMMAND";
+      break;
+    case Fw::LogSeverity::ACTIVITY_HI:
+      severityString = "ACTIVITY_HI";
+      break;
+    case Fw::LogSeverity::ACTIVITY_LO:
+      severityString = "ACTIVITY_LO";
+      break;
+    case Fw::LogSeverity::DIAGNOSTIC:
+     severityString = "DIAGNOSTIC";
+      break;
+    default:
+      severityString = "SEVERITY ERROR";
+      break;
+  }
+
+  fprintf(
+    file,
+    "EVENT: (%" PRI_FwEventIdType ") (%" PRI_FwTimeBaseStoreType ":%" PRIu32 ",%" PRIu32 ") %s: %s\n",
+    e.id,
+    static_cast<FwTimeBaseStoreType>(e.timeTag.getTimeBase()),
+    e.timeTag.getSeconds(),
+    e.timeTag.getUSeconds(),
+    severityString,
+    e.text.toChar()
+  );
+}
+
+void QueuedEventsTesterBase ::
+  printTextLogHistory(FILE* const file)
+{
+  for (U32 i = 0; i < this->textLogHistory->size(); i++) {
+    this->printTextLogHistoryEntry(
+      this->textLogHistory->at(i),
+      file
+    );
+  }
+}
+
+#endif
+
+void QueuedEventsTesterBase ::
+  clearTlm()
+{
+  this->tlmSize = 0;
+}
+
+// ----------------------------------------------------------------------
+// Static functions for output ports
+// ----------------------------------------------------------------------
+
+void QueuedEventsTesterBase ::
+  from_typedOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const TypedPortStrings::StringSize80& str1,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  FW_ASSERT(callComp);
+  QueuedEventsTesterBase* _testerBase = static_cast<QueuedEventsTesterBase*>(callComp);
+  _testerBase->from_typedOut_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str1,
+    e,
+    a,
+    s
+  );
+}
+
+F32 QueuedEventsTesterBase ::
+  from_typedReturnOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const TypedReturnPortStrings::StringSize80& str2,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  FW_ASSERT(callComp);
+  QueuedEventsTesterBase* _testerBase = static_cast<QueuedEventsTesterBase*>(callComp);
+  return _testerBase->from_typedReturnOut_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+}
+
+void QueuedEventsTesterBase ::
+  from_cmdRegOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwOpcodeType opCode
+  )
+{
+
+}
+
+void QueuedEventsTesterBase ::
+  from_cmdResponseOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      const Fw::CmdResponse& cmdResponse
+  )
+{
+  QueuedEventsTesterBase* _testerBase = static_cast<QueuedEventsTesterBase*>(callComp);
+  _testerBase->cmdResponseIn(opCode, cmdSeq, cmdResponse);
+}
+
+void QueuedEventsTesterBase ::
+  from_eventOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwEventIdType id,
+      Fw::Time& timeTag,
+      const Fw::LogSeverity& severity,
+      Fw::LogBuffer& args
+  )
+{
+  QueuedEventsTesterBase* _testerBase = static_cast<QueuedEventsTesterBase*>(callComp);
+  _testerBase->dispatchEvents(id, timeTag, severity, args);
+}
+
+Fw::ParamValid QueuedEventsTesterBase ::
+  from_prmGetOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwPrmIdType id,
+      Fw::ParamBuffer& val
+  )
+{
+  QueuedEventsTesterBase* _testerBase = static_cast<QueuedEventsTesterBase*>(callComp);
+
+  Fw::SerializeStatus _status;
+  Fw::ParamValid _ret = Fw::ParamValid::VALID;
+  val.resetSer();
+
+  const U32 idBase = _testerBase->getIdBase();
+  FW_ASSERT(id >= idBase, id, idBase);
+
+
+  switch (id - idBase) {
+    default:
+      FW_ASSERT(id);
+      break;
+  }
+
+  return _ret;
+}
+
+void QueuedEventsTesterBase ::
+  from_prmSetOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwPrmIdType id,
+      Fw::ParamBuffer& val
+  )
+{
+  QueuedEventsTesterBase* _testerBase = static_cast<QueuedEventsTesterBase*>(callComp);
+
+  Fw::SerializeStatus _status;
+  val.resetSer();
+
+  const U32 idBase = _testerBase->getIdBase();
+  FW_ASSERT(id >= idBase, id, idBase);
+
+  switch (id - idBase) {
+    default:
+      FW_ASSERT(id);
+      break;
+  }
+}
+
+#if FW_ENABLE_TEXT_LOGGING == 1
+
+void QueuedEventsTesterBase ::
+  from_textEventOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwEventIdType id,
+      Fw::Time& timeTag,
+      const Fw::LogSeverity& severity,
+      Fw::TextLogString& text
+  )
+{
+  QueuedEventsTesterBase* _testerBase = static_cast<QueuedEventsTesterBase*>(callComp);
+  _testerBase->textLogIn(id, timeTag, severity, text);
+}
+
+#endif
+
+void QueuedEventsTesterBase ::
+  from_timeGetOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      Fw::Time& time
+  )
+{
+  QueuedEventsTesterBase* _testerBase = static_cast<QueuedEventsTesterBase*>(callComp);
+  time = _testerBase->m_testTime;
+}
+
+void QueuedEventsTesterBase ::
+  from_tlmOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwChanIdType id,
+      Fw::Time& timeTag,
+      Fw::TlmBuffer& val
+  )
+{
+  QueuedEventsTesterBase* _testerBase = static_cast<QueuedEventsTesterBase*>(callComp);
+  _testerBase->dispatchTlm(id, timeTag, val);
 }
