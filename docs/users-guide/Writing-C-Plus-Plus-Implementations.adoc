@@ -169,8 +169,8 @@ has default value zero.
 
 The F Prime framework provides the {cpp} definitions
 for these types.
-It also provides abstract type definitions for these types;
-for a typical F Prime project, these
+It also provides the corresponding abstract type definitions
+in the FPP model; for a typical F Prime project, these
 definitions are located at `config/FpConfig.fpp`.
 You don't have to define header files for these types.
 
