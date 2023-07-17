@@ -319,7 +319,7 @@ case class ComponentHistory(
             lines("this->eventsSize = 0;"),
             sortedEvents.map((id, event) =>
               eventParamTypeMap(id) match {
-                case Nil => line(s"this->${eventSizeName(event.getName)};")
+                case Nil => line(s"this->${eventSizeName(event.getName)} = 0;")
                 case _ => line(s"this->${eventHistoryName(event.getName)}->clear();")
               }
             )

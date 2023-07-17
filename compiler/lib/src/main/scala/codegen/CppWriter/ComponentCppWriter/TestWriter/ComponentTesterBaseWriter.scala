@@ -201,9 +201,14 @@ case class ComponentTesterBaseWriter(
                      |#endif
                      |"""
                 ),
-                sortedEvents.map((_, event) => line(
-                  s"this->${eventHistoryName(event.getName)} = new History<${eventEntryName(event.getName)}>(maxHistorySize);"
-                ))
+                sortedEvents.flatMap((id, event) =>
+                  eventParamTypeMap(id) match {
+                    case Nil => Nil
+                    case _ => lines(
+                      s"this->${eventHistoryName(event.getName)} = new History<${eventEntryName(event.getName)}>(maxHistorySize);"
+                    )
+                  }
+               )
               )
               else Nil,
               if hasChannels then line("// Initialize telemetry histories") ::
@@ -243,9 +248,14 @@ case class ComponentTesterBaseWriter(
                      |#endif
                      |"""
                 ),
-                sortedEvents.map((_, event) => line(
-                  s"delete this->${eventHistoryName(event.getName)};"
-                ))
+                sortedEvents.flatMap((id, event) =>
+                  eventParamTypeMap(id) match {
+                    case Nil => Nil
+                    case _ => lines(
+                      s"delete this->${eventHistoryName(event.getName)};"
+                    )
+                  }
+                )
               )
               else Nil,
               if hasChannels then line("// Destroy telemetry histories") ::
@@ -394,11 +404,13 @@ case class ComponentTesterBaseWriter(
         List.concat(
           typedInputPorts,
           serialInputPorts,
+          specialInputPorts,
           typedOutputPorts,
           serialOutputPorts,
+          specialOutputPorts,
         ),
-        portNumGetterName,
         portName,
+        portNumGetterName,
         portVariableName
       )
     )
@@ -428,7 +440,7 @@ case class ComponentTesterBaseWriter(
           |  this->${portVariableName(cmdRecvPort.get)}[0].invoke(
           |    _opcode,
           |    cmdSeq,
-          |    args
+          |    buf
           |  );
           |}
           |else {
@@ -456,7 +468,7 @@ case class ComponentTesterBaseWriter(
             ),
             CppDoc.Type("void"),
             lines(
-              """|CmdResponse e = { opCode, seq, response };
+              """|CmdResponse e = { opCode, cmdSeq, response };
                  |this->cmdResponseHistory->push_back(e);
                  |"""
             ),
@@ -469,8 +481,8 @@ case class ComponentTesterBaseWriter(
               opcodeParam,
               cmdSeqParam,
               CppDoc.Function.Param(
-                CppDoc.Type("Fw::CmdBufferArg&"),
-                "args",
+                CppDoc.Type("Fw::CmdArgBuffer&"),
+                "buf",
                 Some("The command argument buffer")
               )
             ),
@@ -478,7 +490,7 @@ case class ComponentTesterBaseWriter(
             List.concat(
               lines(
                 s"""|const U32 idBase = this->getIdBase();
-                    |FwOpcodeType _opcode = opcode + idBase;
+                    |FwOpcodeType _opcode = opCode + idBase;
                     |
                     |"""
               ),
@@ -504,7 +516,7 @@ case class ComponentTesterBaseWriter(
             CppDoc.Type("void"),
             intersperseBlankLines(
               List(
-                if cmdParamMap(opcode).isEmpty then Nil
+                if cmdParamMap(opcode).isEmpty then lines("Fw::CmdArgBuffer buf;")
                 else List.concat(
                   lines(
                     """|// Serialize arguments
@@ -518,7 +530,7 @@ case class ComponentTesterBaseWriter(
                       lines(
                         s"""|_status = buf.serialize($name);
                             |FW_ASSERT(
-                            |  status == FW::FW_SERIALIZE_OK,
+                            |  _status == Fw::FW_SERIALIZE_OK,
                             |  static_cast<FwAssertArgType>(_status)
                             |);
                             |"""
@@ -629,11 +641,11 @@ case class ComponentTesterBaseWriter(
                 )
                 case params => List.concat(
                   wrapInScope(
-                    s"${eventEntryName(event.getName)} e = {",
+                    s"${eventEntryName(event.getName)} _e = {",
                     lines(params.map(_._1).mkString(",\n")),
                     "};"
                   ),
-                  lines(s"${eventHistoryName(event.getName)}->push_back(e);")
+                  lines(s"${eventHistoryName(event.getName)}->push_back(_e);")
                 )
               },
               lines("this->eventsSize++;")
@@ -691,7 +703,7 @@ case class ComponentTesterBaseWriter(
                             |const Fw::SerializeStatus _status = val.deserialize(arg);
                             |
                             |if (_status != Fw::FW_SERIALIZE_OK) {
-                            |  printf("Error deserializing ${channel.getName}: %d\n", _status);
+                            |  printf("Error deserializing ${channel.getName}: %d\\n", _status);
                             |  return;
                             |}
                             |
@@ -726,6 +738,11 @@ case class ComponentTesterBaseWriter(
                 "timeTag",
                 Some("The time")
               ),
+              CppDoc.Function.Param(
+                CppDoc.Type(s"const ${getChannelType(channel.channelType)}&"),
+                "val",
+                Some("The channel value")
+              )
             ),
             CppDoc.Type("void"),
             lines(
@@ -747,7 +764,7 @@ case class ComponentTesterBaseWriter(
       List(
         functionClassMember(
           Some("Set the test time for events and telemetry"),
-          "testTime",
+          "setTestTime",
           List(
             CppDoc.Function.Param(
               CppDoc.Type("const Fw::Time&"),
@@ -786,7 +803,7 @@ case class ComponentTesterBaseWriter(
             CppDoc.Type("void"),
             lines(
               s"""|this->${paramVariableName(prm.getName)} = val;
-                  |this->${paramValidVariableName(prm.getName)} = valid;
+                  |this->${paramValidityFlagName(prm.getName)} = valid;
                   |"""
             )
           ),
@@ -816,7 +833,7 @@ case class ComponentTesterBaseWriter(
                   |  printf("Test Command Output port not connected!\\n");
                   |}
                   |else {
-                  |  this->m_to_${portVariableName(cmdRecvPort.get)}[0].invoke(
+                  |  this->${portVariableName(cmdRecvPort.get)}[0].invoke(
                   |    _prmOpcode,
                   |    cmdSeq,
                   |    args
@@ -839,8 +856,8 @@ case class ComponentTesterBaseWriter(
             CppDoc.Type("void"),
             lines(
               s"""|Fw::CmdArgBuffer args;
-                  |FwOpcodeType _prmOpcode = $className::${paramCommandConstantName(prm.getName, Command.Param.Save)} + idBase;
                   |const U32 idBase = this->getIdBase();
+                  |FwOpcodeType _prmOpcode = $className::${paramCommandConstantName(prm.getName, Command.Param.Save)} + idBase;
                   |
                   |if (not this->${portVariableName(cmdRecvPort.get)}[0].isConnected()) {
                   |  printf("Test Command Output port not connected!\\n");
@@ -983,7 +1000,7 @@ case class ComponentTesterBaseWriter(
                 s"case $className::${paramIdConstantName(prm.getName)}: {",
                 lines(
                   s"""|_status = val.serialize(_testerBase->${paramVariableName(prm.getName)});
-                      |_ret = _testerBase->${paramValidVariableName(prm.getName)};
+                      |_ret = _testerBase->${paramValidityFlagName(prm.getName)};
                       |FW_ASSERT(
                       |  _status == Fw::FW_SERIALIZE_OK,
                       |  static_cast<FwAssertArgType>(_status)
@@ -1093,7 +1110,7 @@ case class ComponentTesterBaseWriter(
                   case Ast.SpecPortInstance.CommandReg => Nil
                   case Ast.SpecPortInstance.CommandResp => lines(
                     s"""|$testerBaseClassName* _testerBase = static_cast<$testerBaseClassName*>(callComp);
-                        |_testerBase->cmdResponseIn(opCode, cmdSeq, response);
+                        |_testerBase->cmdResponseIn(opCode, cmdSeq, cmdResponse);
                         |"""
                   )
                   case Ast.SpecPortInstance.Event => lines(
@@ -1110,7 +1127,7 @@ case class ComponentTesterBaseWriter(
                   )
                   case Ast.SpecPortInstance.TextEvent => lines(
                     s"""|$testerBaseClassName* _testerBase = static_cast<$testerBaseClassName*>(callComp);
-                        |_testerBase->textLogIn(id, timeTag, severity, args);
+                        |_testerBase->textLogIn(id, timeTag, severity, text);
                         |"""
                   )
                   case Ast.SpecPortInstance.TimeGet => lines(
@@ -1145,7 +1162,7 @@ case class ComponentTesterBaseWriter(
             ).flatMap(p =>
               Line.blank :: lines(
                 s"""|//! To port connected to ${p.getUnqualifiedName}
-                    |${getQualifiedPortTypeName(p, PortInstance.Direction.Input)} ${portVariableName(p)}[${p.getArraySize}];
+                    |${getQualifiedPortTypeName(p, PortInstance.Direction.Output)} ${portVariableName(p)}[${p.getArraySize}];
                     |"""
               )
             ),
@@ -1167,7 +1184,7 @@ case class ComponentTesterBaseWriter(
             linesClassMember(
               Line.blank :: lines(
                 s"""|//! From port connected to ${p.getUnqualifiedName}
-                    |${getQualifiedPortTypeName(p, PortInstance.Direction.Output)} ${portVariableName(p)}[${p.getArraySize}];
+                    |${getQualifiedPortTypeName(p, PortInstance.Direction.Input)} ${portVariableName(p)}[${p.getArraySize}];
                     |"""
               ),
               CppDoc.Lines.Hpp
@@ -1176,7 +1193,52 @@ case class ComponentTesterBaseWriter(
           CppDoc.Lines.Hpp
         ),
         CppDoc.Lines.Hpp
-      )
+      ),
+      addAccessTagAndComment(
+        "private",
+        "Parameter validity flags",
+        sortedParams.map((_, prm) =>
+          linesClassMember(
+            Line.blank :: lines(
+              s"""|//! True if parameter ${prm.getName} was successfully received
+                  |Fw::ParamValid ${paramValidityFlagName(prm.getName)};
+                  |"""
+            ),
+            CppDoc.Lines.Hpp
+          )
+        ),
+        CppDoc.Lines.Hpp
+      ),
+      addAccessTagAndComment(
+        "private",
+        "Parameter variables",
+        sortedParams.map((_, prm) =>
+          linesClassMember(
+            Line.blank :: lines(
+              s"""|//! Parameter ${prm.getName}
+                  |${writeParamType(prm.paramType)} ${paramVariableName(prm.getName)};
+                  |"""
+            ),
+            CppDoc.Lines.Hpp
+          )
+        ),
+        CppDoc.Lines.Hpp
+      ),
+      addAccessTagAndComment(
+        "private",
+        "Time variables",
+        List(
+          linesClassMember(
+            Line.blank :: lines(
+              s"""|//! Test time stamp
+                  |Fw::Time m_testTime;
+                  |"""
+            ),
+            CppDoc.Lines.Hpp
+          )
+        ),
+        CppDoc.Lines.Hpp
+      ),
     )
   }
 

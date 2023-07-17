@@ -84,7 +84,7 @@ abstract class ComponentTestUtils(
   def toPortInvokerName(name: String) =
     s"invoke_${outputPortName(name)}"
 
-  /** Get the name for a from getter function */
+  /** Get the name for a from port getter function */
   def fromPortGetterName(name: String) =
     s"get_${inputPortName(name)}"
 
@@ -149,7 +149,7 @@ abstract class ComponentTestUtils(
     s"m_param_$name"
 
   /** Get the name for a parameter valid variable */
-  def paramValidVariableName(name: String) =
+  override def paramValidityFlagName(name: String) =
     s"m_param_${name}_valid"
 
   /** Get the name for a parameter setter */

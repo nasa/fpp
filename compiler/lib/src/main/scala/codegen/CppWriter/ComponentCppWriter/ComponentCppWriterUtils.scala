@@ -614,7 +614,7 @@ abstract class ComponentCppWriterUtils(
 
   /** Get the name for a param command opcode constant */
   def paramCommandConstantName(name: String, kind: Command.Param.Kind) = {
-    s"OPCODE_${name}_${getCommandParamString(kind).toUpperCase}"
+    s"OPCODE_${name.toUpperCase}_${getCommandParamString(kind).toUpperCase}"
   }
 
   /** Get the name for an event throttle counter variable */
