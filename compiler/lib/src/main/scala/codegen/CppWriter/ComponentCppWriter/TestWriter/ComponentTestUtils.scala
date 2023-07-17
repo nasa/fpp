@@ -34,7 +34,7 @@ abstract class ComponentTestUtils(
     output: CppDoc.Lines.Output = CppDoc.Lines.Both
   ): List[CppDoc.Class.Member] =
     wrapClassMembersInIfDirective(
-      "#if FW_ENABLE_TEXT_LOGGING",
+      "\n#if FW_ENABLE_TEXT_LOGGING",
       List(member),
       output
     )
@@ -113,7 +113,7 @@ abstract class ComponentTestUtils(
     s"FromPortEntry_$name"
 
   /** Get the name for a send command function */
-  def sendCmdName(name: String) =
+  def commandSendName(name: String) =
     s"sendCmd_$name"
 
   /** Get the name for an event handler function */
@@ -144,24 +144,24 @@ abstract class ComponentTestUtils(
   def tlmEntryName(name: String) =
     s"TlmEntry_$name"
 
-  /** Get the name for a parameter setter */
-  def prmSetName(name: String) =
-    s"paramSet_$name"
-
   /** Get the name for a parameter variable */
-  def prmVariableName(name: String) =
+  def paramVariableName(name: String) =
     s"m_param_$name"
 
   /** Get the name for a parameter valid variable */
-  def prmValidVariableName(name: String) =
+  def paramValidVariableName(name: String) =
     s"m_param_${name}_valid"
 
+  /** Get the name for a parameter setter */
+  def paramSetName(name: String) =
+    s"paramSet_$name"
+
   /** Get the name for a parameter send function */
-  def prmSendName(name: String) =
+  def paramSendName(name: String) =
     s"paramSend_$name"
 
   /** Get the name for a parameter save function */
-  def prmSaveName(name: String) =
+  def paramSaveName(name: String) =
     s"paramSave_$name"
 
 }

@@ -1,8 +1,8 @@
 package fpp.compiler.codegen
 
-import fpp.compiler.analysis.*
-import fpp.compiler.ast.*
-import fpp.compiler.util.*
+import fpp.compiler.analysis._
+import fpp.compiler.ast._
+import fpp.compiler.util._
 
 /** Writes out C++ for component test harness history class */
 case class ComponentHistory(
@@ -10,27 +10,15 @@ case class ComponentHistory(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentTestUtils(s, aNode) {
 
-  def getMembers: List[CppDoc.Class.Member] = {
-    List.concat(
-      getPortHistoryTypes,
-      getCmdHistoryTypes,
-
-      getClearHistoryFunction,
-      getPortHistoryFunctions,
-
-      getPortHistoryVariables,
-      getCmdHistoryVariables,
-    )
-  }
-
-  def getHistoryClass: List[CppDoc.Class.Member] = {
+  def getClassMember: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
       "protected",
       "History class",
       List(
         linesClassMember(
           lines(
-            """|//! \class History
+            """|
+               |//! \class History
                |//! \brief A history of port inputs
                |//!
                |template<typename T>
@@ -107,7 +95,45 @@ case class ComponentHistory(
           ),
           CppDoc.Lines.Hpp
         )
-      )
+      ),
+      CppDoc.Lines.Hpp
+    )
+  }
+
+  def getTypeMembers: List[CppDoc.Class.Member] = {
+    addAccessTagAndComment(
+      "protected",
+      "History types",
+      List.concat(
+        getPortHistoryTypes,
+        getCmdHistoryTypes,
+        getEventHistoryTypes,
+        getTlmHistoryTypes,
+      ),
+      CppDoc.Lines.Hpp
+    )
+  }
+
+  def getFunctionMembers: List[CppDoc.Class.Member] = {
+    List.concat(
+      getClearHistoryFunction,
+      getPortHistoryFunctions,
+      getEventHistoryFunctions,
+      getTlmHistoryFunctions,
+    )
+  }
+
+  def getVariableMembers: List[CppDoc.Class.Member] = {
+    addAccessTagAndComment(
+      "protected",
+      "History member variables",
+      List.concat(
+        getPortHistoryVariables,
+        getCmdHistoryVariables,
+        getEventHistoryVariables,
+        getTlmHistoryVariables,
+      ),
+      CppDoc.Lines.Hpp
     )
   }
 
@@ -144,7 +170,7 @@ case class ComponentHistory(
     List(
       linesClassMember(
         typedOutputPorts.flatMap(p =>
-          Line.blank :: wrapInScope(
+          Line.blank :: line(s"//! A history entry for port ${portName(p)}") :: wrapInScope(
             s"struct ${fromPortEntryName(p.getUnqualifiedName)} {",
             getPortParams(p).map((name, tn) => line(s"$tn $name;")),
             "};"
@@ -247,7 +273,7 @@ case class ComponentHistory(
     List.concat(
       wrapClassMemberInTextLogGuard(
         linesClassMember(
-          line("//! A history entry for text log events") :: wrapInScope(
+          Line.blank :: line("//! A history entry for text log events") :: wrapInScope(
             "struct TextLogEntry {",
             lines(
               """|U32 id;
@@ -267,11 +293,12 @@ case class ComponentHistory(
           sortedEvents.flatMap((id, event) =>
             eventParamTypeMap(id) match {
               case Nil => Nil
-              case params => Line.blank :: wrapInScope(
-                s"struct ${eventEntryName(event.getName)} {",
-                params.map((name, tn) => line(s"$tn $name;")),
-                "};"
-              )
+              case params => Line.blank :: line(s"//! A history entry for event ${event.getName}") ::
+                wrapInScope(
+                  s"struct ${eventEntryName(event.getName)} {",
+                  params.map((name, tn) => line(s"$tn $name;")),
+                  "};"
+                )
             }
           ),
           CppDoc.Lines.Hpp
@@ -410,12 +437,12 @@ case class ComponentHistory(
         linesClassMember(
           sortedEvents.flatMap((id, event) =>
             eventParamTypeMap(id) match {
-              case Nil => lines(
+              case Nil => Line.blank :: lines(
                 s"""|//! Size of history for event ${event.getName}
                     |U32 ${eventSizeName(event.getName)};
                     |"""
               )
-              case _ => lines(
+              case _ => Line.blank :: lines(
                 s"""|//! The history of ${event.getName} events
                     |History<${eventEntryName(event.getName)}>* ${eventHistoryName(event.getName)};
                     |"""
@@ -432,7 +459,7 @@ case class ComponentHistory(
     List(
       linesClassMember(
         sortedChannels.flatMap((_, channel) =>
-          Line.blank :: wrapInScope(
+          Line.blank :: line(s"//! A history entry for telemetry channel ${channel.getName}") :: wrapInScope(
             s"struct ${tlmEntryName(channel.getName)} {",
             lines(
               s"""|Fw::Time timeTag;
@@ -468,16 +495,14 @@ case class ComponentHistory(
     List(
       linesClassMember(
         List.concat(
-          lines(
-            """|
-               |//! The total number of telemetry inputs seen
+          Line.blank :: lines(
+            """|//! The total number of telemetry inputs seen
                |U32 tlmSize;
                |"""
           ),
           sortedChannels.flatMap((_, channel) =>
-            lines(
-              s"""|
-                  |//! The history of ${channel.getName} values
+            Line.blank :: lines(
+              s"""|//! The history of ${channel.getName} values
                   |History<${tlmEntryName(channel.getName)}>* ${tlmHistoryName(channel.getName)};
                   |"""
             )

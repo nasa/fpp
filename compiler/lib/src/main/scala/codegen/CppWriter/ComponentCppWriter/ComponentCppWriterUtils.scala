@@ -641,6 +641,10 @@ abstract class ComponentCppWriterUtils(
   def paramValidityFlagName(name: String) =
     s"m_param_${name}_valid"
 
+  /** Get the name for a parameter id constant */
+  def paramIdConstantName(name: String) =
+    s"PARAMID_${name.toUpperCase}"
+
   private def getPortTypeBaseName(
     p: PortInstance,
   ): String = {

@@ -1,9 +1,8 @@
 package fpp.compiler.codegen
 
-import fpp.compiler.analysis.*
-import fpp.compiler.ast.*
-import fpp.compiler.codegen.CppDoc.Lines.Cpp
-import fpp.compiler.util.*
+import fpp.compiler.analysis._
+import fpp.compiler.ast._
+import fpp.compiler.util._
 
 /** Writes out C++ for component test harness base classes */
 case class ComponentTesterBaseWriter(
@@ -74,12 +73,16 @@ case class ComponentTesterBaseWriter(
 
   private def getClassMembers: List[CppDoc.Class.Member] = {
     List.concat(
-      // Public members
+      // Types
+      historyWriter.getClassMember,
+      historyWriter.getTypeMembers,
+
+      // Public function members
       getInitFunction,
       getPortConnectors,
       getPortGetters,
 
-      // Protected members
+      // Protected function members
       getConstructorMembers,
       getPortHandlers,
       getPortHandlerBases,
@@ -87,10 +90,18 @@ case class ComponentTesterBaseWriter(
       getPortNumGetters,
       getPortConnectionStatusQueries,
       getCmdFunctions,
+      getEventFunctions,
+      getTlmFunctions,
+      getPrmFunctions,
+      getTimeFunctions,
+      historyWriter.getFunctionMembers,
 
-      // History members
-      historyWriter.getHistoryClass,
-      historyWriter.getMembers,
+      // Private function members
+      getPortStaticFunctions,
+
+      // Member variables
+      historyWriter.getVariableMembers,
+      getVariableMembers,
     )
   }
 
@@ -478,7 +489,7 @@ case class ComponentTesterBaseWriter(
         nonParamCmds.map((opcode, cmd) =>
           functionClassMember(
             Some(s"Send a ${cmd.getName} command"),
-            sendCmdName(cmd.getName),
+            commandSendName(cmd.getName),
             List.concat(
               List(
                 CppDoc.Function.Param(
@@ -759,7 +770,7 @@ case class ComponentTesterBaseWriter(
         List(
           functionClassMember(
             Some(s"Set parameter ${prm.getName}"),
-            prmSetName(prm.getName),
+            paramSetName(prm.getName),
             List(
               CppDoc.Function.Param(
                 CppDoc.Type(s"const ${writeParamType(prm.paramType)}&"),
@@ -774,14 +785,14 @@ case class ComponentTesterBaseWriter(
             ),
             CppDoc.Type("void"),
             lines(
-              s"""|this->${prmVariableName(prm.getName)} = val;
-                  |this->${prmValidVariableName(prm.getName)} = valid;
+              s"""|this->${paramVariableName(prm.getName)} = val;
+                  |this->${paramValidVariableName(prm.getName)} = valid;
                   |"""
             )
           ),
           functionClassMember(
             Some(s"Send parameter ${prm.getName}"),
-            prmSetName(prm.getName),
+            paramSendName(prm.getName),
             List(
               CppDoc.Function.Param(
                 CppDoc.Type("NATIVE_INT_TYPE"),
@@ -795,7 +806,7 @@ case class ComponentTesterBaseWriter(
               s"""|// Build command for parameter set
                   |Fw::CmdArgBuffer args;
                   |FW_ASSERT(
-                  |  args.serialize(this->${prmVariableName(prm.getName)}) == Fw::FW_SERIALIZE_OK
+                  |  args.serialize(this->${paramVariableName(prm.getName)}) == Fw::FW_SERIALIZE_OK
                   |);
                   |
                   |const U32 idBase = this->getIdBase();
@@ -816,7 +827,7 @@ case class ComponentTesterBaseWriter(
           ),
           functionClassMember(
             Some(s"Save parameter ${prm.getName}"),
-            prmSaveName(prm.getName),
+            paramSaveName(prm.getName),
             List(
               CppDoc.Function.Param(
                 CppDoc.Type("NATIVE_INT_TYPE"),
@@ -845,6 +856,326 @@ case class ComponentTesterBaseWriter(
             )
           )
         )
+      )
+    )
+  }
+
+  private def getPortStaticFunctions: List[CppDoc.Class.Member] = {
+    def getParams(p: PortInstance) = p match {
+      case i: PortInstance.General => getPortFunctionParams(i)
+      case PortInstance.Special(aNode, _, _, _, _) => aNode._2.data match {
+        case Ast.SpecPortInstance.Special(_, kind, _, _, _) => kind match {
+          case Ast.SpecPortInstance.CommandReg => List(opcodeParam)
+          case Ast.SpecPortInstance.CommandResp => List(
+            opcodeParam,
+            cmdSeqParam,
+            CppDoc.Function.Param(
+              CppDoc.Type("const Fw::CmdResponse&"),
+              "cmdResponse",
+              Some("The command response argument")
+            )
+          )
+          case Ast.SpecPortInstance.Event => List(
+            CppDoc.Function.Param(
+              CppDoc.Type("FwEventIdType"),
+              "id",
+              Some("The log ID")
+            ),
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::Time&"),
+              "timeTag",
+              Some("The time tag")
+            ),
+            CppDoc.Function.Param(
+              CppDoc.Type("const Fw::LogSeverity&"),
+              "severity",
+              Some("The severity argument")
+            ),
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::LogBuffer&"),
+              "args",
+              Some("The buffer containing the serialized log entry")
+            )
+          )
+          case Ast.SpecPortInstance.ParamGet | Ast.SpecPortInstance.ParamSet => List(
+            CppDoc.Function.Param(
+              CppDoc.Type("FwPrmIdType"),
+              "id",
+              Some("The parameter ID")
+            ),
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::ParamBuffer&"),
+              "val",
+              Some("The buffer containing the serialized parameter value")
+            )
+          )
+          case Ast.SpecPortInstance.Telemetry => List(
+            CppDoc.Function.Param(
+              CppDoc.Type("FwChanIdType"),
+              "id",
+              Some("The telemetry channel ID")
+            ),
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::Time&"),
+              "timeTag",
+              Some("The time tag")
+            ),
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::TlmBuffer&"),
+              "val",
+              Some("The buffer containing the serialized telemetry value")
+            )
+          )
+          case Ast.SpecPortInstance.TextEvent => List(
+            CppDoc.Function.Param(
+              CppDoc.Type("FwEventIdType"),
+              "id",
+              Some("The log ID")
+            ),
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::Time&"),
+              "timeTag",
+              Some("The time tag")
+            ),
+            CppDoc.Function.Param(
+              CppDoc.Type("const Fw::LogSeverity&"),
+              "severity",
+              Some("The severity argument")
+            ),
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::TextLogString&"),
+              "text",
+              Some("The text of the log message")
+            )
+          )
+          case Ast.SpecPortInstance.TimeGet => List(
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::Time&"),
+              "time",
+              Some("The time")
+            )
+          )
+          case _ => Nil
+        }
+        case _ => Nil
+      }
+      case _ => Nil
+    }
+
+    val paramGetBody = intersperseBlankLines(
+      List(
+        lines(
+          s"""|$testerBaseClassName* _testerBase = static_cast<$testerBaseClassName*>(callComp);
+              |
+              |Fw::SerializeStatus _status;
+              |Fw::ParamValid _ret = Fw::ParamValid::VALID;
+              |val.resetSer();
+              |
+              |const U32 idBase = _testerBase->getIdBase();
+              |FW_ASSERT(id >= idBase, id, idBase);
+              |"""
+        ),
+        wrapInSwitch(
+          "id - idBase",
+          List.concat(
+            sortedParams.flatMap((_, prm) =>
+              wrapInScope(
+                s"case $className::${paramIdConstantName(prm.getName)}: {",
+                lines(
+                  s"""|_status = val.serialize(_testerBase->${paramVariableName(prm.getName)});
+                      |_ret = _testerBase->${paramValidVariableName(prm.getName)};
+                      |FW_ASSERT(
+                      |  _status == Fw::FW_SERIALIZE_OK,
+                      |  static_cast<FwAssertArgType>(_status)
+                      |);
+                      |break;
+                      |"""
+                ),
+                "};"
+              )
+            ),
+            lines(
+              """|default:
+                 |  FW_ASSERT(id);
+                 |  break;
+                 |"""
+            )
+          )
+        ),
+        lines("return _ret;")
+      )
+    )
+    val paramSetBody = List.concat(
+      lines(
+        s"""|$testerBaseClassName* _testerBase = static_cast<$testerBaseClassName*>(callComp);
+            |
+            |Fw::SerializeStatus _status;
+            |val.resetSer();
+            |
+            |const U32 idBase = _testerBase->getIdBase();
+            |FW_ASSERT(id >= idBase, id, idBase);
+            |
+            |"""
+      ),
+      wrapInSwitch(
+        "id - idBase",
+        List.concat(
+          sortedParams.flatMap((_, prm) =>
+            wrapInScope(
+              s"case $className::${paramIdConstantName(prm.getName)}: {",
+              lines(
+                s"""|${writeParamType(prm.paramType)} ${prm.getName}Val;
+                    |_status = val.deserialize(${prm.getName}Val);
+                    |FW_ASSERT(
+                    |  _status == Fw::FW_SERIALIZE_OK,
+                    |  static_cast<FwAssertArgType>(_status)
+                    |);
+                    |FW_ASSERT(
+                    |  ${prm.getName}Val ==
+                    |  _testerBase->${paramVariableName(prm.getName)}
+                    |);
+                    |break;
+                    |"""
+              ),
+              "};"
+            )
+          ),
+          lines(
+            """|default:
+               |  FW_ASSERT(id);
+               |  break;
+               |"""
+          )
+        )
+      )
+    )
+
+    addAccessTagAndComment(
+      "private",
+      "Static functions for output ports",
+      mapPorts(
+        List.concat(
+          typedOutputPorts,
+          serialOutputPorts,
+          specialOutputPorts,
+        ),
+        p => List(
+          functionClassMember(
+            Some(s"Static function for port ${portName(p)}"),
+            fromPortCallbackName(p.getUnqualifiedName),
+            List.concat(
+              List(
+                CppDoc.Function.Param(
+                  CppDoc.Type("Fw::PassiveComponentBase* const"),
+                  "callComp",
+                  Some("The component instance")
+                ),
+                portNumParam
+              ),
+              getParams(p)
+            ),
+            getPortReturnTypeAsCppDocType(p),
+            p match {
+              case i: PortInstance.General => List.concat(
+                lines(
+                  s"""|FW_ASSERT(callComp);
+                      |$testerBaseClassName* _testerBase = static_cast<$testerBaseClassName*>(callComp);
+                      |"""
+                ),
+                writeFunctionCall(
+                  addReturnKeyword(s"_testerBase->${fromPortHandlerBaseName(p.getUnqualifiedName)}", i),
+                  List("portNum"),
+                  portParamTypeMap(i.getUnqualifiedName).map(_._1)
+                )
+              )
+              case PortInstance.Special(aNode, _, _, _, _) => aNode._2.data match {
+                case Ast.SpecPortInstance.Special(_, kind, _, _, _) => kind match {
+                  case Ast.SpecPortInstance.CommandReg => Nil
+                  case Ast.SpecPortInstance.CommandResp => lines(
+                    s"""|$testerBaseClassName* _testerBase = static_cast<$testerBaseClassName*>(callComp);
+                        |_testerBase->cmdResponseIn(opCode, cmdSeq, response);
+                        |"""
+                  )
+                  case Ast.SpecPortInstance.Event => lines(
+                    s"""|$testerBaseClassName* _testerBase = static_cast<$testerBaseClassName*>(callComp);
+                        |_testerBase->dispatchEvents(id, timeTag, severity, args);
+                        |"""
+                  )
+                  case Ast.SpecPortInstance.ParamGet => paramGetBody
+                  case Ast.SpecPortInstance.ParamSet => paramSetBody
+                  case Ast.SpecPortInstance.Telemetry => lines(
+                    s"""|$testerBaseClassName* _testerBase = static_cast<$testerBaseClassName*>(callComp);
+                        |_testerBase->dispatchTlm(id, timeTag, val);
+                        |"""
+                  )
+                  case Ast.SpecPortInstance.TextEvent => lines(
+                    s"""|$testerBaseClassName* _testerBase = static_cast<$testerBaseClassName*>(callComp);
+                        |_testerBase->textLogIn(id, timeTag, severity, args);
+                        |"""
+                  )
+                  case Ast.SpecPortInstance.TimeGet => lines(
+                    s"""|$testerBaseClassName* _testerBase = static_cast<$testerBaseClassName*>(callComp);
+                        |time = _testerBase->m_testTime;
+                        |"""
+                  )
+                  case _ => Nil
+                }
+                case _ => Nil
+              }
+              case _ => Nil
+            },
+            CppDoc.Function.Static
+          )
+        )
+      )
+    )
+  }
+
+  private def getVariableMembers: List[CppDoc.Class.Member] = {
+    List.concat(
+      addAccessTagAndComment(
+        "private",
+        "To ports",
+        List(
+          linesClassMember(
+            List.concat(
+              typedInputPorts,
+              serialInputPorts,
+              specialInputPorts,
+            ).flatMap(p =>
+              Line.blank :: lines(
+                s"""|//! To port connected to ${p.getUnqualifiedName}
+                    |${getQualifiedPortTypeName(p, PortInstance.Direction.Input)} ${portVariableName(p)}[${p.getArraySize}];
+                    |"""
+              )
+            ),
+            CppDoc.Lines.Hpp
+          )
+        ),
+        CppDoc.Lines.Hpp
+      ),
+      addAccessTagAndComment(
+        "private",
+        "From ports",
+        mapPorts(
+          List.concat(
+            typedOutputPorts,
+            serialOutputPorts,
+            specialOutputPorts,
+          ),
+          p => List(
+            linesClassMember(
+              Line.blank :: lines(
+                s"""|//! From port connected to ${p.getUnqualifiedName}
+                    |${getQualifiedPortTypeName(p, PortInstance.Direction.Output)} ${portVariableName(p)}[${p.getArraySize}];
+                    |"""
+              ),
+              CppDoc.Lines.Hpp
+            )
+          ),
+          CppDoc.Lines.Hpp
+        ),
+        CppDoc.Lines.Hpp
       )
     )
   }
