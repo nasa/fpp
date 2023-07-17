@@ -55,6 +55,17 @@ move_template()
   done
 }
 
+move_test()
+{
+  file=$1
+  target_suffix=$2
+  for suffix in hpp cpp
+  do
+    cp $file'Tester.'$suffix $file'Tester'$target_suffix'.ref.'$suffix
+    cp $file'TesterBase.'$suffix $file'TesterBase'$target_suffix'.ref.'$suffix
+  done
+}
+
 . ./update-ref.sh
 
 for t in $tests
