@@ -14,7 +14,7 @@ There are three kinds of type definitions:
 
 Type definitions may appear at the top level or inside a
 <<Defining-Modules,module definition>>.
-A type definition is an 
+A type definition is an
 <<Writing-Comments-and-Annotations_Annotations,annotatable element>>.
 
 === Array Type Definitions
@@ -68,7 +68,7 @@ or equal to 256.
 
 The following type names are available for the element types:
 
-* The type names `U8`, `U16`, `U32`, and `U64`, denoting the type of unsigned 
+* The type names `U8`, `U16`, `U32`, and `U64`, denoting the type of unsigned
 integers of width 8, 16, 32, and 64 bits.
 
 * The type names `I8`, `I16`, `I32`, and `I64`, denoting the type of signed integers
@@ -79,7 +79,7 @@ of width 32 and 64 bits.
 
 * The type name `bool`, denoting the type of Boolean values (`true` and `false`).
 
-* The type name `string`, denoting the type of 
+* The type name `string`, denoting the type of
 <<Defining-Constants_Expressions_String-Values,string values>>.
 This type has a default maximum size.
 For example:
@@ -137,12 +137,12 @@ array B = [3] U16 default a # default value is [ 1, 2, 3 ]
 
 If you don't specify a default value, then the type gets an automatic default value,
 consisting of the default value for each element.
-The default numeric value is zero, the default Boolean value is `false`, 
+The default numeric value is zero, the default Boolean value is `false`,
 the default string value is `""`, and the default value of an array type
 is specified in the type definition.
 
 The type of the default expression must match the size and element type of the
-array, with type conversions allowed as discussed for 
+array, with type conversions allowed as discussed for
 <<Defining-Constants_Expressions_Array-Values,array values>>.
 For example, this default expression is allowed, because we can convert integer
 values to floating-point values, and we can promote a single value to an array
@@ -179,16 +179,16 @@ array WheelSpeeds = [3] U32 format "{} RPM"
 
 Then an element with value 100 would have the format `100 RPM`.
 
-Note that the format string specifies the format for an _element_, not the 
+Note that the format string specifies the format for an _element_, not the
 entire array.
 The way an entire array is displayed is implementation-specific.
 A standard way is a comma-separated list enclosed in square brackets.
 For example, a value `[ 100, 200, 300 ]` of type `WheelSpeeds` might
 be displayed as `[ 100 RPM, 200 RPM, 300 RPM ]`.
-Or, since the format is the same for all elements, the implementation could 
+Or, since the format is the same for all elements, the implementation could
 display the array as `[ 100, 200, 300 ] RPM`.
 
-The special character sequence `{}` is called a *replacement field*; it says 
+The special character sequence `{}` is called a *replacement field*; it says
 where to put the value in the format text.
 Each format string must have exactly one replacement field.
 The following replacement fields are allowed:
@@ -203,14 +203,14 @@ The following replacement fields are allowed:
 
 * The field `{o}` for displaying an octal value
 
-* The field `{e}` for displaying a rational value in exponent notation, e.g., 
+* The field `{e}` for displaying a rational value in exponent notation, e.g.,
 `1.234e2`.
 
-* The field `{f}` for displaying a rational value in fixed-point notation, 
+* The field `{f}` for displaying a rational value in fixed-point notation,
 e.g., `123.4`.
 
-* The field `{g}` for displaying a rational value in general format 
-(fixed-point notation up to an implementation-dependent size and exponent 
+* The field `{g}` for displaying a rational value in general format
+(fixed-point notation up to an implementation-dependent size and exponent
 notation for larger sizes).
 
 For field types `c`, `d`, `x`, and `o`, the element type must be an integer
@@ -226,8 +226,8 @@ array A = [3] string format "{d}" # Illegal: string is not an integer type
 --------
 
 For field types `e`, `f`, and `g`, you can optionally specify a precision
-by writing a decimal point and an integer before the field type.  For example, 
-the replacement field `{.3f}`, specifies fixed-point notation with a precision 
+by writing a decimal point and an integer before the field type.  For example,
+the replacement field `{.3f}`, specifies fixed-point notation with a precision
 of 3.
 
 To include the literal character `{` in the formatted output, you can write
@@ -315,7 +315,7 @@ A struct type member consists of a name, a colon, and a
 for example `x: U32`.
 
 The struct type members form an
-<<Defining-Constants_Multiple-Definitions-and-Element-Sequences,element 
+<<Defining-Constants_Multiple-Definitions-and-Element-Sequences,element
 sequence>>
 in which the optional terminating punctuation is a comma.
 As usual for element sequences, you can omit the comma and use
@@ -354,9 +354,9 @@ struct S {
 
 You can specify an optional default value for a struct definition.
 To do this, you write the keyword `default` and an expression
-that evaluates to a <<Defining-Constants_Expressions_Struct-Values,struct 
+that evaluates to a <<Defining-Constants_Expressions_Struct-Values,struct
 value>>.
-For example, here is a struct type `S` with default value `{ x = 1, y = "abc" 
+For example, here is a struct type `S` with default value `{ x = 1, y = "abc"
 }`:
 
 [source,fpp]
@@ -376,12 +376,12 @@ struct S1 { x: U8, y: string } default s
 struct S2 { x: U32, y: string } default s
 ----
 
-If you don't specify a default value, then the struct type gets an automatic default 
+If you don't specify a default value, then the struct type gets an automatic default
 value,
 consisting of the default value for each member.
 
-The type of the default expression must match the type of the struct, with type 
-conversions allowed as discussed for 
+The type of the default expression must match the type of the struct, with type
+conversions allowed as discussed for
 <<Defining-Constants_Expressions_Struct-Values,struct values>>.
 For example, this default expression is allowed, because we can convert integer
 values to floating-point values, and we can promote a single value to a
@@ -416,7 +416,7 @@ struct S2 { x: U32, y: string } default { x = "abc" } # Error: type of member x 
 
 For any struct member, you can specify that the member
 is an array of elements.
-To do this you, write an array the size enclosed in square brackets 
+To do this you, write an array the size enclosed in square brackets
 before the member type.
 For example:
 
@@ -444,7 +444,7 @@ each named array is a {cpp} class.
 
 * The size of a member array is not limited to 256 elements.
 
-On the other hand, defining a named array is usually 
+On the other hand, defining a named array is usually
 a good choice when
 
 * You want to define a small reusable array.
@@ -455,7 +455,7 @@ a good choice when
 which has a richer interface than the bare
 {cpp} array.
 
-In particular, the generated array class provides 
+In particular, the generated array class provides
 *bounds-checked* access operations:
 it causes a runtime failure if an out-of-bounds access
 occurs.
@@ -463,7 +463,7 @@ The bounds checking provides an additional degree of memory
 safety when accessing array elements.
 
 *Member arrays and default values:*
-FPP ignores member array sizes when checking the types of 
+FPP ignores member array sizes when checking the types of
 default values.
 For example, this code is accepted:
 
@@ -480,7 +480,7 @@ The member `x` of the struct `S` gets three copies of the value
 *GDS limitation:* The F Prime GDS does not properly handle
 member arrays.
 Therefore, if you plan to use the F Prime GDS, then you should avoid
-using a struct type with a member array in the flight-ground interface (i.e., 
+using a struct type with a member array in the flight-ground interface (i.e.,
 commands, events, telemetry, and parameters).
 
 ==== Member Format Strings
@@ -508,7 +508,7 @@ might look like this when displayed:
 Channel { name = "momentum", offset = 0x400 }
 ----
 
-If you don't specify a format for a struct member, then the system uses the default 
+If you don't specify a format for a struct member, then the system uses the default
 format for the type of that member.
 
 If the member has a size greater than one, then the format
@@ -557,9 +557,9 @@ struct S3 { s1: S1, a: A } default { s1 = { y = "abc" }, a = 5 }
 ==== The Order of Members
 
 For <<Defining-Constants_Expressions_Struct-Values,struct values>>,
-we said that the order in which the members appear in the value is not 
+we said that the order in which the members appear in the value is not
 significant.
-For example, the expressions `{ x = 1, y = 2 }` and `{ y = 2, x = 1 }` denote 
+For example, the expressions `{ x = 1, y = 2 }` and `{ y = 2, x = 1 }` denote
 the same value.
 For struct types, the rule is different.
 The order in which the members appear is significant, because
@@ -567,16 +567,16 @@ it governs the order in which the members appear in the generated
 code.
 
 For example, the type `struct S1 { x: U32, y : string }` might generate a {cpp}
-class `S1` with members `x` and `y` laid out with `x` first; while `struct S2 
+class `S1` with members `x` and `y` laid out with `x` first; while `struct S2
 { y : string, x : U32 }`
-might generate a {cpp} class `S2` with members `x` and `y` laid out with `y` 
+might generate a {cpp} class `S2` with members `x` and `y` laid out with `y`
 first.
-Since class members are generally serialized in the order in which they appear in 
+Since class members are generally serialized in the order in which they appear in
 the class,
-the members of `S1` would be serialized with `x` first, and the members of 
+the members of `S1` would be serialized with `x` first, and the members of
 `S2`
 would be serialized with `y` first.
-Serializing `S1` to data and then trying to deserialize it to `S2` would 
+Serializing `S1` to data and then trying to deserialize it to `S2` would
 produce garbage.
 
 The order matters only for purposes of defining the type, not for
@@ -599,9 +599,9 @@ in addition to the name of the type, it provides the names and types
 of all the members.
 An *abstract type*, by contrast, has an incomplete or opaque definition.
 It provides only a name _N_.
-Its purpose is to tell the analyzer that a type with name _N_ exists and will 
+Its purpose is to tell the analyzer that a type with name _N_ exists and will
 be defined elsewhere.
-For example, if the target language is {cpp}, then the type is a {cpp} 
+For example, if the target language is {cpp}, then the type is a {cpp}
 class.
 
 To define an abstract type, you write the keyword `type` followed
@@ -651,6 +651,6 @@ value is the zero-argument constructor `T()`.
 When translating to XML, there are a few special types that are abstract
 in the model, but that are known to the translator.
 You don't have to define {cpp} classes for these types.
-We will discuss these types further in the section on 
+We will discuss these types further in the section on
 <<Writing-C-Plus-Plus-Implementations_Implementing-Abstract-Types,
 implementing abstract types>>.
