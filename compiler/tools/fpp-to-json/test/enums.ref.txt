@@ -362,245 +362,245 @@
 ]
 {
   "0" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "2.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "1" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "3.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "2" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "4.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "3" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "4.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "4" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "4.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "5" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "1.1",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "6" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "6.25",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "7" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "6.34",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "8" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "6.25",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "9" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "6.1",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "10" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "8.14",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "11" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "8.10",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "12" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "8.21",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "13" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "8.17",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "14" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "8.28",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "15" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "8.24",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "16" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "8.28",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "17" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "8.24",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "18" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "8.28",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "19" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "8.24",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "20" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "8.1",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "21" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "9.14",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "22" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "9.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "23" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "9.14",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "24" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "9.20",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "25" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "9.18",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "26" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "9.1",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "27" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "11.14",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "28" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "11.19",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "29" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "11.22",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "30" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "11.25",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "31" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "11.25",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "32" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "11.25",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "33" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "11.37",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "34" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "11.1",
     "includingLoc" : {
       "Option" : "None"
@@ -609,7 +609,7 @@
 }
 {
   "inputFileSet" : [
-    "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/enums.fpp"
+    "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp"
   ],
   "includedFileSet" : [
   ],

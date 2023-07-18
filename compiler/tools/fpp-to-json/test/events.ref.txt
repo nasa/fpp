@@ -475,273 +475,273 @@
 ]
 {
   "0" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "9.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "1" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "12.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "2" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "15.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "3" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "24.8",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "4" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "25.12",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "5" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "23.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "6" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "30.12",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "7" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "30.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "8" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "30.12",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "9" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "30.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "10" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "33.8",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "11" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "34.12",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "12" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "29.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "13" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "39.12",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "14" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "38.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "15" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "39.12",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "16" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "38.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "17" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "39.12",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "18" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "38.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "19" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "2.1",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "20" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "51.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "21" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "54.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "22" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "57.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "23" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "65.12",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "24" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "66.14",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "25" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "64.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "26" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "65.12",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "27" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "66.14",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "28" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "64.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "29" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "65.12",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "30" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "66.14",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "31" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "64.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "32" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "44.1",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "33" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "71.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "34" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "72.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "35" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "73.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "36" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "73.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "37" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "73.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "38" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "70.1",
     "includingLoc" : {
       "Option" : "None"
@@ -750,7 +750,7 @@
 }
 {
   "inputFileSet" : [
-    "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/events.fpp"
+    "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp"
   ],
   "includedFileSet" : [
   ],

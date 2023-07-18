@@ -16,7 +16,9 @@ update()
   fi
   echo "updating $outfile.ref.txt"
   $fpp_to_json $args $infile.fpp 2>&1 | remove_path_prefix > $outfile.ref.txt
-  cat fpp-ast.json fpp-loc-map.json fpp-analysis.json >> $outfile.ref.txt
+  remove_path_prefix < fpp-ast.json >> $outfile.ref.txt
+  remove_path_prefix < fpp-loc-map.json >> $outfile.ref.txt
+  remove_path_prefix < fpp-analysis.json >> $outfile.ref.txt
   rm fpp-ast.json fpp-loc-map.json fpp-analysis.json
 }
 

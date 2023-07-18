@@ -789,903 +789,903 @@
 ]
 {
   "0" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "1.1",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "1" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "4.24",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "2" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "4.24",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "3" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "4.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "4" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "5.21",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "5" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "5.21",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "6" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "5.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "7" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "5.21",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "8" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "5.21",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "9" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "5.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "10" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "5.21",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "11" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "5.21",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "12" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "5.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "13" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "3.1",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "14" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "8.14",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "15" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "8.14",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "16" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "8.24",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "17" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "8.1",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "18" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "9.14",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "19" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "9.14",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "20" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "9.24",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "21" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "9.1",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "22" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "10.14",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "23" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "10.14",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "24" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "10.24",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "25" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "10.1",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "26" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "11.14",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "27" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "11.14",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "28" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "11.24",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "29" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "11.1",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "30" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "17.12",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "31" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "17.12",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "32" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "17.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "33" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "19.20",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "34" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "19.20",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "35" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "19.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "36" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "23.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "37" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "23.8",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "38" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "23.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "39" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "23.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "40" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "23.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "41" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "23.19",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "42" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "23.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "43" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "23.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "44" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "22.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "45" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "28.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "46" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "28.8",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "47" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "28.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "48" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "28.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "49" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "28.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "50" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "28.19",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "51" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "28.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "52" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "28.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "53" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "27.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "54" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "28.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "55" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "28.8",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "56" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "28.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "57" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "28.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "58" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "28.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "59" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "28.19",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "60" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "28.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "61" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "28.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "62" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "27.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "63" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "28.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "64" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "28.8",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "65" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "28.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "66" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "28.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "67" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "28.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "68" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "28.19",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "69" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "28.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "70" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "28.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "71" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "27.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "72" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "14.1",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "73" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "35.10",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "74" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "35.10",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "75" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "35.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "76" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "37.12",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "77" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "37.12",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "78" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "37.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "79" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "39.12",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "80" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "39.12",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "81" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "39.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "82" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "43.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "83" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "43.8",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "84" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "43.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "85" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "43.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "86" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "43.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "87" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "43.19",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "88" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "43.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "89" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "43.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "90" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "42.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "91" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "48.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "92" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "48.8",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "93" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "48.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "94" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "48.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "95" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "48.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "96" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "48.19",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "97" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "48.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "98" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "48.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "99" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "47.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "100" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "48.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "101" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "48.8",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "102" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "48.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "103" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "48.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "104" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "48.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "105" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "48.19",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "106" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "48.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "107" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "48.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "108" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "47.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "109" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "48.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "110" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "48.8",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "111" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "48.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "112" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "48.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "113" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "48.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "114" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "48.19",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "115" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "48.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "116" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "48.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "117" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "47.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "118" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "34.1",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "119" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "55.10",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "120" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "55.10",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "121" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "55.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "122" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "55.10",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "123" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "55.10",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "124" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "55.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "125" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "55.10",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "126" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "55.10",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "127" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "55.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "128" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
     "pos" : "54.1",
     "includingLoc" : {
       "Option" : "None"
@@ -1694,7 +1694,7 @@
 }
 {
   "inputFileSet" : [
-    "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp"
+    "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp"
   ],
   "includedFileSet" : [
   ],
@@ -2002,7 +2002,7 @@
           [
             "Public",
             {
-              "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+              "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
               "pos" : "17.3",
               "includingLoc" : {
                 "Option" : "None"
@@ -2043,7 +2043,7 @@
           [
             "Private",
             {
-              "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+              "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
               "pos" : "19.3",
               "includingLoc" : {
                 "Option" : "None"
@@ -2060,7 +2060,7 @@
           {
             "from" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "23.5",
                 "includingLoc" : {
                   "Option" : "None"
@@ -2073,7 +2073,7 @@
             },
             "to" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "23.16",
                 "includingLoc" : {
                   "Option" : "None"
@@ -2090,7 +2090,7 @@
           {
             "from" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "28.5",
                 "includingLoc" : {
                   "Option" : "None"
@@ -2103,7 +2103,7 @@
             },
             "to" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "28.16",
                 "includingLoc" : {
                   "Option" : "None"
@@ -2122,7 +2122,7 @@
           {
             "from" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "23.5",
                 "includingLoc" : {
                   "Option" : "None"
@@ -2135,7 +2135,7 @@
             },
             "to" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "23.16",
                 "includingLoc" : {
                   "Option" : "None"
@@ -2152,7 +2152,7 @@
           {
             "from" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "28.5",
                 "includingLoc" : {
                   "Option" : "None"
@@ -2165,7 +2165,7 @@
             },
             "to" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "28.16",
                 "includingLoc" : {
                   "Option" : "None"
@@ -2186,7 +2186,7 @@
             {
               "from" : {
                 "loc" : {
-                  "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "23.5",
                   "includingLoc" : {
                     "Option" : "None"
@@ -2199,7 +2199,7 @@
               },
               "to" : {
                 "loc" : {
-                  "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "23.16",
                   "includingLoc" : {
                     "Option" : "None"
@@ -2219,7 +2219,7 @@
             {
               "from" : {
                 "loc" : {
-                  "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "28.5",
                   "includingLoc" : {
                     "Option" : "None"
@@ -2232,7 +2232,7 @@
               },
               "to" : {
                 "loc" : {
-                  "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "28.16",
                   "includingLoc" : {
                     "Option" : "None"
@@ -2254,7 +2254,7 @@
             {
               "from" : {
                 "loc" : {
-                  "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "23.5",
                   "includingLoc" : {
                     "Option" : "None"
@@ -2267,7 +2267,7 @@
               },
               "to" : {
                 "loc" : {
-                  "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "23.16",
                   "includingLoc" : {
                     "Option" : "None"
@@ -2287,7 +2287,7 @@
             {
               "from" : {
                 "loc" : {
-                  "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "28.5",
                   "includingLoc" : {
                     "Option" : "None"
@@ -2300,7 +2300,7 @@
               },
               "to" : {
                 "loc" : {
-                  "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "28.16",
                   "includingLoc" : {
                     "Option" : "None"
@@ -2320,7 +2320,7 @@
           {
             "from" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "23.5",
                 "includingLoc" : {
                   "Option" : "None"
@@ -2333,7 +2333,7 @@
             },
             "to" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "23.16",
                 "includingLoc" : {
                   "Option" : "None"
@@ -2351,7 +2351,7 @@
           {
             "from" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "28.5",
                 "includingLoc" : {
                   "Option" : "None"
@@ -2364,7 +2364,7 @@
             },
             "to" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "28.16",
                 "includingLoc" : {
                   "Option" : "None"
@@ -2384,7 +2384,7 @@
           {
             "from" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "28.5",
                 "includingLoc" : {
                   "Option" : "None"
@@ -2397,7 +2397,7 @@
             },
             "to" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "28.16",
                 "includingLoc" : {
                   "Option" : "None"
@@ -2415,7 +2415,7 @@
           {
             "from" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "23.5",
                 "includingLoc" : {
                   "Option" : "None"
@@ -2428,7 +2428,7 @@
             },
             "to" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "23.16",
                 "includingLoc" : {
                   "Option" : "None"
@@ -2450,7 +2450,7 @@
       "id" : 118,
       "directImportMap" : {
         "72" : {
-          "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+          "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
           "pos" : "35.3",
           "includingLoc" : {
             "Option" : "None"
@@ -2494,7 +2494,7 @@
           [
             "Public",
             {
-              "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+              "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
               "pos" : "37.3",
               "includingLoc" : {
                 "Option" : "None"
@@ -2535,7 +2535,7 @@
           [
             "Public",
             {
-              "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+              "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
               "pos" : "39.3",
               "includingLoc" : {
                 "Option" : "None"
@@ -2576,7 +2576,7 @@
           [
             "Public",
             {
-              "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+              "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
               "pos" : "17.3",
               "includingLoc" : {
                 "Option" : "None"
@@ -2593,7 +2593,7 @@
           {
             "from" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "43.5",
                 "includingLoc" : {
                   "Option" : "None"
@@ -2606,7 +2606,7 @@
             },
             "to" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "43.16",
                 "includingLoc" : {
                   "Option" : "None"
@@ -2623,7 +2623,7 @@
           {
             "from" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "48.5",
                 "includingLoc" : {
                   "Option" : "None"
@@ -2636,7 +2636,7 @@
             },
             "to" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "48.16",
                 "includingLoc" : {
                   "Option" : "None"
@@ -2655,7 +2655,7 @@
           {
             "from" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "43.5",
                 "includingLoc" : {
                   "Option" : "None"
@@ -2668,7 +2668,7 @@
             },
             "to" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "43.16",
                 "includingLoc" : {
                   "Option" : "None"
@@ -2685,7 +2685,7 @@
           {
             "from" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "48.5",
                 "includingLoc" : {
                   "Option" : "None"
@@ -2698,7 +2698,7 @@
             },
             "to" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "48.16",
                 "includingLoc" : {
                   "Option" : "None"
@@ -2719,7 +2719,7 @@
             {
               "from" : {
                 "loc" : {
-                  "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "43.5",
                   "includingLoc" : {
                     "Option" : "None"
@@ -2732,7 +2732,7 @@
               },
               "to" : {
                 "loc" : {
-                  "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "43.16",
                   "includingLoc" : {
                     "Option" : "None"
@@ -2752,7 +2752,7 @@
             {
               "from" : {
                 "loc" : {
-                  "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "48.5",
                   "includingLoc" : {
                     "Option" : "None"
@@ -2765,7 +2765,7 @@
               },
               "to" : {
                 "loc" : {
-                  "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "48.16",
                   "includingLoc" : {
                     "Option" : "None"
@@ -2787,7 +2787,7 @@
             {
               "from" : {
                 "loc" : {
-                  "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "43.5",
                   "includingLoc" : {
                     "Option" : "None"
@@ -2800,7 +2800,7 @@
               },
               "to" : {
                 "loc" : {
-                  "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "43.16",
                   "includingLoc" : {
                     "Option" : "None"
@@ -2820,7 +2820,7 @@
             {
               "from" : {
                 "loc" : {
-                  "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "48.5",
                   "includingLoc" : {
                     "Option" : "None"
@@ -2833,7 +2833,7 @@
               },
               "to" : {
                 "loc" : {
-                  "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "48.16",
                   "includingLoc" : {
                     "Option" : "None"
@@ -2853,7 +2853,7 @@
           {
             "from" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "43.5",
                 "includingLoc" : {
                   "Option" : "None"
@@ -2866,7 +2866,7 @@
             },
             "to" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "43.16",
                 "includingLoc" : {
                   "Option" : "None"
@@ -2884,7 +2884,7 @@
           {
             "from" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "48.5",
                 "includingLoc" : {
                   "Option" : "None"
@@ -2897,7 +2897,7 @@
             },
             "to" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "48.16",
                 "includingLoc" : {
                   "Option" : "None"
@@ -2917,7 +2917,7 @@
           {
             "from" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "48.5",
                 "includingLoc" : {
                   "Option" : "None"
@@ -2930,7 +2930,7 @@
             },
             "to" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "48.16",
                 "includingLoc" : {
                   "Option" : "None"
@@ -2948,7 +2948,7 @@
           {
             "from" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "43.5",
                 "includingLoc" : {
                   "Option" : "None"
@@ -2961,7 +2961,7 @@
             },
             "to" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "43.16",
                 "includingLoc" : {
                   "Option" : "None"
@@ -2985,7 +2985,7 @@
       "id" : 128,
       "directImportMap" : {
         "118" : {
-          "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+          "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
           "pos" : "55.3",
           "includingLoc" : {
             "Option" : "None"
@@ -3030,7 +3030,7 @@
           [
             "Public",
             {
-              "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+              "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
               "pos" : "37.3",
               "includingLoc" : {
                 "Option" : "None"
@@ -3071,7 +3071,7 @@
           [
             "Public",
             {
-              "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+              "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
               "pos" : "39.3",
               "includingLoc" : {
                 "Option" : "None"
@@ -3112,7 +3112,7 @@
           [
             "Public",
             {
-              "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+              "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
               "pos" : "17.3",
               "includingLoc" : {
                 "Option" : "None"
@@ -3129,7 +3129,7 @@
           {
             "from" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "43.5",
                 "includingLoc" : {
                   "Option" : "None"
@@ -3142,7 +3142,7 @@
             },
             "to" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "43.16",
                 "includingLoc" : {
                   "Option" : "None"
@@ -3159,7 +3159,7 @@
           {
             "from" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "48.5",
                 "includingLoc" : {
                   "Option" : "None"
@@ -3172,7 +3172,7 @@
             },
             "to" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "48.16",
                 "includingLoc" : {
                   "Option" : "None"
@@ -3196,7 +3196,7 @@
             {
               "from" : {
                 "loc" : {
-                  "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "43.5",
                   "includingLoc" : {
                     "Option" : "None"
@@ -3209,7 +3209,7 @@
               },
               "to" : {
                 "loc" : {
-                  "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "43.16",
                   "includingLoc" : {
                     "Option" : "None"
@@ -3229,7 +3229,7 @@
             {
               "from" : {
                 "loc" : {
-                  "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "48.5",
                   "includingLoc" : {
                     "Option" : "None"
@@ -3242,7 +3242,7 @@
               },
               "to" : {
                 "loc" : {
-                  "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "48.16",
                   "includingLoc" : {
                     "Option" : "None"
@@ -3264,7 +3264,7 @@
             {
               "from" : {
                 "loc" : {
-                  "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "43.5",
                   "includingLoc" : {
                     "Option" : "None"
@@ -3277,7 +3277,7 @@
               },
               "to" : {
                 "loc" : {
-                  "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "43.16",
                   "includingLoc" : {
                     "Option" : "None"
@@ -3297,7 +3297,7 @@
             {
               "from" : {
                 "loc" : {
-                  "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "48.5",
                   "includingLoc" : {
                     "Option" : "None"
@@ -3310,7 +3310,7 @@
               },
               "to" : {
                 "loc" : {
-                  "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "48.16",
                   "includingLoc" : {
                     "Option" : "None"
@@ -3330,7 +3330,7 @@
           {
             "from" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "43.5",
                 "includingLoc" : {
                   "Option" : "None"
@@ -3343,7 +3343,7 @@
             },
             "to" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "43.16",
                 "includingLoc" : {
                   "Option" : "None"
@@ -3361,7 +3361,7 @@
           {
             "from" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "48.5",
                 "includingLoc" : {
                   "Option" : "None"
@@ -3374,7 +3374,7 @@
             },
             "to" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "48.16",
                 "includingLoc" : {
                   "Option" : "None"
@@ -3394,7 +3394,7 @@
           {
             "from" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "48.5",
                 "includingLoc" : {
                   "Option" : "None"
@@ -3407,7 +3407,7 @@
             },
             "to" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "48.16",
                 "includingLoc" : {
                   "Option" : "None"
@@ -3425,7 +3425,7 @@
           {
             "from" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "43.5",
                 "includingLoc" : {
                   "Option" : "None"
@@ -3438,7 +3438,7 @@
             },
             "to" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                 "pos" : "43.16",
                 "includingLoc" : {
                   "Option" : "None"

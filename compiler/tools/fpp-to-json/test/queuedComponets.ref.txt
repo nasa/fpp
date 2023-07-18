@@ -506,630 +506,630 @@
 ]
 {
   "0" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "4.25",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "1" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "4.20",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "2" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "4.25",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "3" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "4.20",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "4" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "4.25",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "5" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "4.20",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "6" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "4.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "7" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "10.30",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "8" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "10.34",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "9" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "10.30",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "10" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "10.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "11" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "13.37",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "12" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "13.37",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "13" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "13.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "14" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "16.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "15" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "19.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "16" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "22.28",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "17" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "22.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "18" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.25",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "19" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "20" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.25",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "21" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "22" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.25",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "23" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "24" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "7.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "25" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "10.30",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "26" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "10.34",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "27" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "10.30",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "28" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "10.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "29" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "13.37",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "30" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "13.37",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "31" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "13.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "32" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "16.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "33" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "19.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "34" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "22.28",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "35" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "22.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "36" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.25",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "37" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "38" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.25",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "39" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "40" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.25",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "41" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "42" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "7.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "43" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "10.30",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "44" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "10.34",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "45" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "10.30",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "46" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "10.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "47" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "13.37",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "48" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "13.37",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "49" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "13.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "50" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "16.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "51" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "19.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "52" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "22.28",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "53" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "22.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "54" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.25",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "55" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "56" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.25",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "57" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "58" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.25",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "59" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "60" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "7.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "61" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "1.1",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "62" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "34.24",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "63" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "34.32",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "64" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "34.24",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "65" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "34.51",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "66" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "35.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "67" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "34.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "68" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "34.24",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "69" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "34.32",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "70" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "34.24",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "71" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "34.51",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "72" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "35.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "73" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "34.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "74" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "34.24",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "75" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "34.32",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "76" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "34.24",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "77" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "34.51",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "78" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "35.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "79" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "34.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "80" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "31.1",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "81" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "40.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "82" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "40.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "83" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "40.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "84" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "39.1",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "85" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "44.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "86" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "45.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "87" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "45.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "88" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "45.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "89" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "43.1",
     "includingLoc" : {
       "Option" : "None"
@@ -1138,7 +1138,7 @@
 }
 {
   "inputFileSet" : [
-    "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/queuedComponets.fpp"
+    "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp"
   ],
   "includedFileSet" : [
   ],

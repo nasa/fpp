@@ -425,455 +425,455 @@
 ]
 {
   "0" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "1.1",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "1" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "4.24",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "2" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "4.24",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "3" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "4.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "4" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "5.21",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "5" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "5.21",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "6" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "5.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "7" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "5.21",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "8" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "5.21",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "9" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "5.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "10" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "5.21",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "11" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "5.21",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "12" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "5.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "13" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "3.1",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "14" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "8.14",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "15" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "8.14",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "16" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "8.24",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "17" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "8.1",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "18" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "9.14",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "19" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "9.14",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "20" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "9.24",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "21" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "9.1",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "22" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "15.12",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "23" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "15.12",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "24" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "15.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "25" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "17.12",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "26" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "17.12",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "27" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "17.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "28" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "21.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "29" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "21.8",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "30" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "21.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "31" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "21.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "32" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "21.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "33" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "21.19",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "34" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "21.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "35" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "21.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "36" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "20.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "37" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "26.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "38" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "26.8",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "39" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "26.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "40" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "26.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "41" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "26.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "42" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "26.19",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "43" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "26.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "44" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "26.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "45" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "25.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "46" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "26.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "47" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "26.8",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "48" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "26.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "49" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "26.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "50" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "26.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "51" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "26.19",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "52" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "26.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "53" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "26.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "54" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "25.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "55" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "26.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "56" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "26.8",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "57" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "26.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "58" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "26.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "59" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "26.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "60" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "26.19",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "61" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "26.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "62" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "26.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "63" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "25.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
   "64" : {
-    "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "12.1",
     "includingLoc" : {
       "Option" : "None"
@@ -882,7 +882,7 @@
 }
 {
   "inputFileSet" : [
-    "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp"
+    "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp"
   ],
   "includedFileSet" : [
   ],
@@ -1118,7 +1118,7 @@
           [
             "Public",
             {
-              "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+              "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
               "pos" : "15.3",
               "includingLoc" : {
                 "Option" : "None"
@@ -1159,7 +1159,7 @@
           [
             "Public",
             {
-              "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+              "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
               "pos" : "17.3",
               "includingLoc" : {
                 "Option" : "None"
@@ -1176,7 +1176,7 @@
           {
             "from" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                 "pos" : "21.5",
                 "includingLoc" : {
                   "Option" : "None"
@@ -1189,7 +1189,7 @@
             },
             "to" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                 "pos" : "21.16",
                 "includingLoc" : {
                   "Option" : "None"
@@ -1206,7 +1206,7 @@
           {
             "from" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                 "pos" : "26.5",
                 "includingLoc" : {
                   "Option" : "None"
@@ -1219,7 +1219,7 @@
             },
             "to" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                 "pos" : "26.16",
                 "includingLoc" : {
                   "Option" : "None"
@@ -1238,7 +1238,7 @@
           {
             "from" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                 "pos" : "21.5",
                 "includingLoc" : {
                   "Option" : "None"
@@ -1251,7 +1251,7 @@
             },
             "to" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                 "pos" : "21.16",
                 "includingLoc" : {
                   "Option" : "None"
@@ -1268,7 +1268,7 @@
           {
             "from" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                 "pos" : "26.5",
                 "includingLoc" : {
                   "Option" : "None"
@@ -1281,7 +1281,7 @@
             },
             "to" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                 "pos" : "26.16",
                 "includingLoc" : {
                   "Option" : "None"
@@ -1302,7 +1302,7 @@
             {
               "from" : {
                 "loc" : {
-                  "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                   "pos" : "21.5",
                   "includingLoc" : {
                     "Option" : "None"
@@ -1315,7 +1315,7 @@
               },
               "to" : {
                 "loc" : {
-                  "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                   "pos" : "21.16",
                   "includingLoc" : {
                     "Option" : "None"
@@ -1335,7 +1335,7 @@
             {
               "from" : {
                 "loc" : {
-                  "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                   "pos" : "26.5",
                   "includingLoc" : {
                     "Option" : "None"
@@ -1348,7 +1348,7 @@
               },
               "to" : {
                 "loc" : {
-                  "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                   "pos" : "26.16",
                   "includingLoc" : {
                     "Option" : "None"
@@ -1370,7 +1370,7 @@
             {
               "from" : {
                 "loc" : {
-                  "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                   "pos" : "21.5",
                   "includingLoc" : {
                     "Option" : "None"
@@ -1383,7 +1383,7 @@
               },
               "to" : {
                 "loc" : {
-                  "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                   "pos" : "21.16",
                   "includingLoc" : {
                     "Option" : "None"
@@ -1403,7 +1403,7 @@
             {
               "from" : {
                 "loc" : {
-                  "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                   "pos" : "26.5",
                   "includingLoc" : {
                     "Option" : "None"
@@ -1416,7 +1416,7 @@
               },
               "to" : {
                 "loc" : {
-                  "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                   "pos" : "26.16",
                   "includingLoc" : {
                     "Option" : "None"
@@ -1436,7 +1436,7 @@
           {
             "from" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                 "pos" : "21.5",
                 "includingLoc" : {
                   "Option" : "None"
@@ -1449,7 +1449,7 @@
             },
             "to" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                 "pos" : "21.16",
                 "includingLoc" : {
                   "Option" : "None"
@@ -1467,7 +1467,7 @@
           {
             "from" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                 "pos" : "26.5",
                 "includingLoc" : {
                   "Option" : "None"
@@ -1480,7 +1480,7 @@
             },
             "to" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                 "pos" : "26.16",
                 "includingLoc" : {
                   "Option" : "None"
@@ -1500,7 +1500,7 @@
           {
             "from" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                 "pos" : "26.5",
                 "includingLoc" : {
                   "Option" : "None"
@@ -1513,7 +1513,7 @@
             },
             "to" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                 "pos" : "26.16",
                 "includingLoc" : {
                   "Option" : "None"
@@ -1531,7 +1531,7 @@
           {
             "from" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                 "pos" : "21.5",
                 "includingLoc" : {
                   "Option" : "None"
@@ -1544,7 +1544,7 @@
             },
             "to" : {
               "loc" : {
-                "file" : "/Users/efayman/Desktop/JPL/fpp/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                 "pos" : "21.16",
                 "includingLoc" : {
                   "Option" : "None"
