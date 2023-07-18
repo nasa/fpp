@@ -1018,6 +1018,7 @@
               }
             },
             "name" : "Cmd",
+            "symbolId" : 47,
             "priority" : {
               "Option" : "None"
             },
@@ -1043,6 +1044,7 @@
               }
             },
             "name" : "PrmGet",
+            "symbolId" : 45,
             "priority" : {
               "Option" : "None"
             },
@@ -1068,6 +1070,7 @@
               }
             },
             "name" : "CmdResponse",
+            "symbolId" : 51,
             "priority" : {
               "Option" : "None"
             },
@@ -1093,6 +1096,7 @@
               }
             },
             "name" : "PrmSet",
+            "symbolId" : 46,
             "priority" : {
               "Option" : "None"
             },
@@ -1118,6 +1122,7 @@
               }
             },
             "name" : "CmdReg",
+            "symbolId" : 48,
             "priority" : {
               "Option" : "None"
             },
@@ -1144,6 +1149,7 @@
             }
           },
           "name" : "PrmSet",
+          "symbolId" : 46,
           "priority" : {
             "Option" : "None"
           },
@@ -1167,6 +1173,7 @@
             }
           },
           "name" : "Cmd",
+          "symbolId" : 47,
           "priority" : {
             "Option" : "None"
           },
@@ -1190,6 +1197,7 @@
             }
           },
           "name" : "CmdReg",
+          "symbolId" : 48,
           "priority" : {
             "Option" : "None"
           },
@@ -1213,6 +1221,7 @@
             }
           },
           "name" : "CmdResponse",
+          "symbolId" : 51,
           "priority" : {
             "Option" : "None"
           },
@@ -1236,6 +1245,7 @@
             }
           },
           "name" : "PrmGet",
+          "symbolId" : 45,
           "priority" : {
             "Option" : "None"
           },

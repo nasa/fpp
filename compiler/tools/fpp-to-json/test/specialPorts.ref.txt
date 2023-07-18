@@ -941,6 +941,7 @@
               }
             },
             "name" : "Cmd",
+            "symbolId" : 24,
             "priority" : {
               "Option" : "None"
             },
@@ -966,6 +967,7 @@
               }
             },
             "name" : "CmdReg",
+            "symbolId" : 25,
             "priority" : {
               "Option" : "None"
             },
@@ -991,6 +993,7 @@
               }
             },
             "name" : "CmdResponse",
+            "symbolId" : 26,
             "priority" : {
               "Option" : "None"
             },
@@ -1017,6 +1020,7 @@
             }
           },
           "name" : "Cmd",
+          "symbolId" : 24,
           "priority" : {
             "Option" : "None"
           },
@@ -1040,6 +1044,7 @@
             }
           },
           "name" : "CmdReg",
+          "symbolId" : 25,
           "priority" : {
             "Option" : "None"
           },
@@ -1063,6 +1068,7 @@
             }
           },
           "name" : "CmdResponse",
+          "symbolId" : 26,
           "priority" : {
             "Option" : "None"
           },
@@ -1112,6 +1118,7 @@
               }
             },
             "name" : "Log",
+            "symbolId" : 27,
             "priority" : {
               "Option" : "None"
             },
@@ -1137,6 +1144,7 @@
               }
             },
             "name" : "LogText",
+            "symbolId" : 28,
             "priority" : {
               "Option" : "None"
             },
@@ -1163,6 +1171,7 @@
             }
           },
           "name" : "Log",
+          "symbolId" : 27,
           "priority" : {
             "Option" : "None"
           },
@@ -1186,6 +1195,7 @@
             }
           },
           "name" : "LogText",
+          "symbolId" : 28,
           "priority" : {
             "Option" : "None"
           },
@@ -1235,6 +1245,7 @@
               }
             },
             "name" : "Tlm",
+            "symbolId" : 29,
             "priority" : {
               "Option" : "None"
             },
@@ -1261,6 +1272,7 @@
             }
           },
           "name" : "Tlm",
+          "symbolId" : 29,
           "priority" : {
             "Option" : "None"
           },
@@ -1310,6 +1322,7 @@
               }
             },
             "name" : "Time",
+            "symbolId" : 34,
             "priority" : {
               "Option" : "None"
             },
@@ -1336,6 +1349,7 @@
             }
           },
           "name" : "Time",
+          "symbolId" : 34,
           "priority" : {
             "Option" : "None"
           },
@@ -1385,6 +1399,7 @@
               }
             },
             "name" : "PrmGet",
+            "symbolId" : 30,
             "priority" : {
               "Option" : "None"
             },
@@ -1410,6 +1425,7 @@
               }
             },
             "name" : "PrmSet",
+            "symbolId" : 31,
             "priority" : {
               "Option" : "None"
             },
@@ -1436,6 +1452,7 @@
             }
           },
           "name" : "PrmGet",
+          "symbolId" : 30,
           "priority" : {
             "Option" : "None"
           },
@@ -1459,6 +1476,7 @@
             }
           },
           "name" : "PrmSet",
+          "symbolId" : 31,
           "priority" : {
             "Option" : "None"
           },

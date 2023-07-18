@@ -848,6 +848,7 @@
               }
             },
             "name" : "CmdReg",
+            "symbolId" : 47,
             "priority" : {
               "Option" : "None"
             },
@@ -873,6 +874,7 @@
               }
             },
             "name" : "Cmd",
+            "symbolId" : 46,
             "priority" : {
               "Option" : "None"
             },
@@ -898,6 +900,7 @@
               }
             },
             "name" : "CmdResponse",
+            "symbolId" : 50,
             "priority" : {
               "Option" : "None"
             },
@@ -924,6 +927,7 @@
             }
           },
           "name" : "CmdReg",
+          "symbolId" : 47,
           "priority" : {
             "Option" : "None"
           },
@@ -947,6 +951,7 @@
             }
           },
           "name" : "Cmd",
+          "symbolId" : 46,
           "priority" : {
             "Option" : "None"
           },
@@ -970,6 +975,7 @@
             }
           },
           "name" : "CmdResponse",
+          "symbolId" : 50,
           "priority" : {
             "Option" : "None"
           },

@@ -832,6 +832,7 @@
               }
             },
             "name" : "Log",
+            "symbolId" : 33,
             "priority" : {
               "Option" : "None"
             },
@@ -857,6 +858,7 @@
               }
             },
             "name" : "LogText",
+            "symbolId" : 34,
             "priority" : {
               "Option" : "None"
             },
@@ -882,6 +884,7 @@
               }
             },
             "name" : "Time",
+            "symbolId" : 37,
             "priority" : {
               "Option" : "None"
             },
@@ -908,6 +911,7 @@
             }
           },
           "name" : "Log",
+          "symbolId" : 33,
           "priority" : {
             "Option" : "None"
           },
@@ -931,6 +935,7 @@
             }
           },
           "name" : "LogText",
+          "symbolId" : 34,
           "priority" : {
             "Option" : "None"
           },
@@ -954,6 +959,7 @@
             }
           },
           "name" : "Time",
+          "symbolId" : 37,
           "priority" : {
             "Option" : "None"
           },
@@ -1043,6 +1049,7 @@
               }
             },
             "name" : "Log",
+            "symbolId" : 33,
             "priority" : {
               "Option" : "None"
             },
@@ -1068,6 +1075,7 @@
               }
             },
             "name" : "LogText",
+            "symbolId" : 34,
             "priority" : {
               "Option" : "None"
             },
@@ -1093,6 +1101,7 @@
               }
             },
             "name" : "Time",
+            "symbolId" : 37,
             "priority" : {
               "Option" : "None"
             },
@@ -1119,6 +1128,7 @@
             }
           },
           "name" : "Log",
+          "symbolId" : 33,
           "priority" : {
             "Option" : "None"
           },
@@ -1142,6 +1152,7 @@
             }
           },
           "name" : "LogText",
+          "symbolId" : 34,
           "priority" : {
             "Option" : "None"
           },
@@ -1165,6 +1176,7 @@
             }
           },
           "name" : "Time",
+          "symbolId" : 37,
           "priority" : {
             "Option" : "None"
           },
