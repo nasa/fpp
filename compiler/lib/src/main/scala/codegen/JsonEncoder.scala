@@ -546,6 +546,7 @@ case class JsonEncoder(
         "id" -> specPort.aNode._2.id.asJson,
         "specifier" -> specPort.specifier.asJson,
         "name" -> specPort.symbol.getUnqualifiedName.asJson,
+        "symbolId" -> specPort.symbol.getNodeId.asJson,
         "priority" -> specPort.priority.asJson,
         "queueFull" -> specPort.queueFull.asJson
       )
