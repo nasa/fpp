@@ -29,6 +29,68 @@ abstract class ComponentTestUtils(
     hasEvents ||
     hasCommands
 
+  val inputPorts: List[PortInstance] = List.concat(
+    specialInputPorts,
+    typedInputPorts,
+    serialInputPorts,
+  )
+
+  val outputPorts: List[PortInstance] = List.concat(
+    specialOutputPorts,
+    typedOutputPorts,
+    serialOutputPorts,
+  )
+
+  val constructorParams: List[CppDoc.Function.Param] = List(
+    CppDoc.Function.Param(
+      CppDoc.Type("const char* const"),
+      "compName",
+      Some("The component name")
+    ),
+    CppDoc.Function.Param(
+      CppDoc.Type("U32"),
+      "maxHistorySize",
+      Some("The maximum size of each history")
+    )
+  )
+
+  val timeTagParam: CppDoc.Function.Param = CppDoc.Function.Param(
+    CppDoc.Type("Fw::Time&"),
+    "timeTag",
+    Some("The time")
+  )
+
+  private val callSiteParams: List[CppDoc.Function.Param] = List(
+    CppDoc.Function.Param(
+      CppDoc.Type("const char* const"),
+      "__callSiteFileName",
+      Some("The name of the file containing the call site")
+    ),
+    CppDoc.Function.Param(
+      CppDoc.Type("U32"),
+      "__callSiteLineNumber",
+      Some("The line number of the call site")
+    )
+  )
+
+  val sizeAssertionFunctionParams: List[CppDoc.Function.Param] =
+    callSiteParams ++ List(
+      CppDoc.Function.Param(
+        CppDoc.Type("U32"),
+        "size",
+        Some("The asserted size")
+      )
+    )
+
+  val assertionFunctionParams: List[CppDoc.Function.Param] =
+    callSiteParams ++ List(
+      CppDoc.Function.Param(
+        CppDoc.Type("U32"),
+        "__index",
+        Some("The index")
+      )
+    )
+
   def wrapClassMemberInTextLogGuard(
     member: CppDoc.Class.Member,
     output: CppDoc.Lines.Output = CppDoc.Lines.Both
@@ -104,6 +166,10 @@ abstract class ComponentTestUtils(
   def fromPortPushEntryName(name: String): String =
     s"pushFromPortEntry_$name"
 
+  /** Get the name for a from port history size variable */
+  def fromPortHistorySizeName(name: String) =
+    s"fromPortHistorySize_$name"
+
   /** Get the name for a from port history variable */
   def fromPortHistoryName(name: String) =
     s"fromPortHistory_$name"
@@ -111,6 +177,10 @@ abstract class ComponentTestUtils(
   /** Get the name for a from port entry struct */
   def fromPortEntryName(name: String) =
     s"FromPortEntry_$name"
+
+  /** Get the name for a from port assertion function */
+  def fromPortAssertionFuncName(name: String) =
+    s"assert_${inputPortName(name)}_size"
 
   /** Get the name for a send command function */
   def commandSendName(name: String) =
@@ -132,6 +202,14 @@ abstract class ComponentTestUtils(
   def eventEntryName(name: String) =
     s"EventEntry_$name"
 
+  /** Get the name for an event assertion function */
+  def eventAssertionFuncName(name: String) =
+    s"assertEvents_$name"
+
+  /** Get the name for an event size assertion function */
+  def eventSizeAssertionFuncName(name: String) =
+    s"${eventAssertionFuncName(name)}_size"
+
   /** Get the name for a telemetry handler function */
   def tlmHandlerName(name: String) =
     s"tlmInput_$name"
@@ -143,6 +221,14 @@ abstract class ComponentTestUtils(
   /** Get the name for a telemetry entry struct */
   def tlmEntryName(name: String) =
     s"TlmEntry_$name"
+
+  /** Get the name for a telemetry assertion function */
+  def tlmAssertionFuncName(name: String) =
+    s"assertTlm_$name"
+
+  /** Get the name for a telemetry size assertion function */
+  def tlmSizeAssertionFuncName(name: String) =
+    s"${tlmAssertionFuncName(name)}_size"
 
   /** Get the name for a parameter variable */
   def paramVariableName(name: String) =

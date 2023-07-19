@@ -165,18 +165,7 @@ case class ComponentTesterBaseWriter(
       List(
         constructorClassMember(
           Some(s"Construct object $testerBaseClassName"),
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type("const char* const"),
-              "compName",
-              Some("The component name")
-            ),
-            CppDoc.Function.Param(
-              CppDoc.Type("U32"),
-              "maxHistorySize",
-              Some("The maximum size of each history")
-            )
-          ),
+          constructorParams,
           List(
             "Fw::PassiveComponentBase(compName)"
           ),
@@ -273,11 +262,7 @@ case class ComponentTesterBaseWriter(
 
   private def getPortConnectors: List[CppDoc.Class.Member] = {
     ComponentOutputPorts(s, aNode).generateTypedConnectors(
-      List.concat(
-        specialInputPorts,
-        typedInputPorts,
-        serialInputPorts,
-      ),
+      inputPorts,
       "Connectors for to ports",
       toPortConnectorName,
       portNumGetterName,
@@ -287,11 +272,7 @@ case class ComponentTesterBaseWriter(
 
   private def getPortGetters: List[CppDoc.Class.Member] = {
     ComponentInputPorts(s, aNode).generateGetters(
-      List.concat(
-        specialOutputPorts,
-        typedOutputPorts,
-        serialOutputPorts,
-      ),
+      outputPorts,
       "from",
       inputPortName,
       fromPortGetterName,
@@ -401,14 +382,7 @@ case class ComponentTesterBaseWriter(
       "protected",
       "Getters for port counts",
       ComponentPorts(s, aNode).generateNumGetters(
-        List.concat(
-          typedInputPorts,
-          serialInputPorts,
-          specialInputPorts,
-          typedOutputPorts,
-          serialOutputPorts,
-          specialOutputPorts,
-        ),
+        inputPorts ++ outputPorts,
         portName,
         portNumGetterName,
         portVariableName
@@ -421,11 +395,7 @@ case class ComponentTesterBaseWriter(
       "protected",
       "Connection status queries for to ports",
       ComponentOutputPorts(s, aNode).generateConnectionStatusQueries(
-        List.concat(
-          typedInputPorts,
-          serialInputPorts,
-          specialInputPorts,
-        ),
+        inputPorts,
         outputPortName,
         toPortIsConnectedName,
         portNumGetterName,
@@ -571,11 +541,7 @@ case class ComponentTesterBaseWriter(
                 "id",
                 Some("The event ID")
               ),
-              CppDoc.Function.Param(
-                CppDoc.Type("Fw::Time&"),
-                "timeTag",
-                Some("The time")
-              ),
+              timeTagParam,
               CppDoc.Function.Param(
                 CppDoc.Type("const Fw::LogSeverity"),
                 "severity",
@@ -601,11 +567,7 @@ case class ComponentTesterBaseWriter(
                 "id",
                 Some("The event ID")
               ),
-              CppDoc.Function.Param(
-                CppDoc.Type("Fw::Time&"),
-                "timeTag",
-                Some("The time")
-              ),
+              timeTagParam,
               CppDoc.Function.Param(
                 CppDoc.Type("const Fw::LogSeverity"),
                 "severity",
@@ -674,11 +636,7 @@ case class ComponentTesterBaseWriter(
                 "id",
                 Some("The channel id")
               ),
-              CppDoc.Function.Param(
-                CppDoc.Type("const Fw::Time&"),
-                "timeTag",
-                Some("The time")
-              ),
+              timeTagParam,
               CppDoc.Function.Param(
                 CppDoc.Type("Fw::TlmBuffer&"),
                 "val",
@@ -736,11 +694,7 @@ case class ComponentTesterBaseWriter(
             Some(s"Handle channel ${channel.getName}"),
             tlmHandlerName(channel.getName),
             List(
-              CppDoc.Function.Param(
-                CppDoc.Type("const Fw::Time&"),
-                "timeTag",
-                Some("The time")
-              ),
+              timeTagParam,
               CppDoc.Function.Param(
                 CppDoc.Type(s"const ${getChannelType(channel.channelType)}&"),
                 "val",
@@ -768,13 +722,7 @@ case class ComponentTesterBaseWriter(
         functionClassMember(
           Some("Set the test time for events and telemetry"),
           "setTestTime",
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type("const Fw::Time&"),
-              "timeTag",
-              Some("The time"),
-            )
-          ),
+          List(timeTagParam),
           CppDoc.Type("void"),
           lines("this->m_testTime = timeTag;")
         )
@@ -901,11 +849,7 @@ case class ComponentTesterBaseWriter(
               "id",
               Some("The log ID")
             ),
-            CppDoc.Function.Param(
-              CppDoc.Type("Fw::Time&"),
-              "timeTag",
-              Some("The time tag")
-            ),
+            timeTagParam,
             CppDoc.Function.Param(
               CppDoc.Type("const Fw::LogSeverity&"),
               "severity",
@@ -935,11 +879,7 @@ case class ComponentTesterBaseWriter(
               "id",
               Some("The telemetry channel ID")
             ),
-            CppDoc.Function.Param(
-              CppDoc.Type("Fw::Time&"),
-              "timeTag",
-              Some("The time tag")
-            ),
+            timeTagParam,
             CppDoc.Function.Param(
               CppDoc.Type("Fw::TlmBuffer&"),
               "val",
@@ -952,11 +892,7 @@ case class ComponentTesterBaseWriter(
               "id",
               Some("The log ID")
             ),
-            CppDoc.Function.Param(
-              CppDoc.Type("Fw::Time&"),
-              "timeTag",
-              Some("The time tag")
-            ),
+            timeTagParam,
             CppDoc.Function.Param(
               CppDoc.Type("const Fw::LogSeverity&"),
               "severity",
@@ -982,10 +918,11 @@ case class ComponentTesterBaseWriter(
       case _ => Nil
     }
 
+    val testerBaseDecl = s"$testerBaseClassName* _testerBase = static_cast<$testerBaseClassName*>(callComp);"
     val paramGetBody = intersperseBlankLines(
       List(
         lines(
-          s"""|$testerBaseClassName* _testerBase = static_cast<$testerBaseClassName*>(callComp);
+          s"""|$testerBaseDecl
               |
               |Fw::SerializeStatus _status;
               |Fw::ParamValid _ret = Fw::ParamValid::VALID;
@@ -1028,7 +965,7 @@ case class ComponentTesterBaseWriter(
     )
     val paramSetBody = List.concat(
       lines(
-        s"""|$testerBaseClassName* _testerBase = static_cast<$testerBaseClassName*>(callComp);
+        s"""|$testerBaseDecl
             |
             |Fw::SerializeStatus _status;
             |val.resetSer();
@@ -1100,7 +1037,7 @@ case class ComponentTesterBaseWriter(
               case i: PortInstance.General => List.concat(
                 lines(
                   s"""|FW_ASSERT(callComp);
-                      |$testerBaseClassName* _testerBase = static_cast<$testerBaseClassName*>(callComp);
+                      |$testerBaseDecl
                       |"""
                 ),
                 writeFunctionCall(
@@ -1113,29 +1050,29 @@ case class ComponentTesterBaseWriter(
                 case Ast.SpecPortInstance.Special(_, kind, _, _, _) => kind match {
                   case Ast.SpecPortInstance.CommandReg => Nil
                   case Ast.SpecPortInstance.CommandResp => lines(
-                    s"""|$testerBaseClassName* _testerBase = static_cast<$testerBaseClassName*>(callComp);
+                    s"""|$testerBaseDecl
                         |_testerBase->cmdResponseIn(opCode, cmdSeq, cmdResponse);
                         |"""
                   )
                   case Ast.SpecPortInstance.Event => lines(
-                    s"""|$testerBaseClassName* _testerBase = static_cast<$testerBaseClassName*>(callComp);
+                    s"""|$testerBaseDecl
                         |_testerBase->dispatchEvents(id, timeTag, severity, args);
                         |"""
                   )
                   case Ast.SpecPortInstance.ParamGet => paramGetBody
                   case Ast.SpecPortInstance.ParamSet => paramSetBody
                   case Ast.SpecPortInstance.Telemetry => lines(
-                    s"""|$testerBaseClassName* _testerBase = static_cast<$testerBaseClassName*>(callComp);
+                    s"""|$testerBaseDecl
                         |_testerBase->dispatchTlm(id, timeTag, val);
                         |"""
                   )
                   case Ast.SpecPortInstance.TextEvent => lines(
-                    s"""|$testerBaseClassName* _testerBase = static_cast<$testerBaseClassName*>(callComp);
+                    s"""|$testerBaseDecl
                         |_testerBase->textLogIn(id, timeTag, severity, text);
                         |"""
                   )
                   case Ast.SpecPortInstance.TimeGet => lines(
-                    s"""|$testerBaseClassName* _testerBase = static_cast<$testerBaseClassName*>(callComp);
+                    s"""|$testerBaseDecl
                         |time = _testerBase->m_testTime;
                         |"""
                   )

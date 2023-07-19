@@ -170,11 +170,15 @@ case class ComponentHistory(
     List(
       linesClassMember(
         typedOutputPorts.flatMap(p =>
-          Line.blank :: line(s"//! A history entry for port ${portName(p)}") :: wrapInScope(
-            s"struct ${fromPortEntryName(p.getUnqualifiedName)} {",
-            getPortParams(p).map((name, tn) => line(s"$tn $name;")),
-            "};"
-          )
+          portParamTypeMap(p.getUnqualifiedName) match {
+            case Nil => Nil
+            case params => Line.blank :: line(s"//! A history entry for port ${portName(p)}") ::
+              wrapInScope(
+                s"struct ${fromPortEntryName(p.getUnqualifiedName)} {",
+                params.map((name, tn) => line(s"$tn $name;")),
+                "};"
+              )
+          }
         )
       )
     )
@@ -189,7 +193,10 @@ case class ComponentHistory(
       List.concat(
         lines("this->fromPortHistorySize = 0;"),
         typedOutputPorts.map(p =>
-          line(s"this->${fromPortHistoryName(p.getUnqualifiedName)}->clear();")
+          portParamTypeMap(p.getUnqualifiedName) match {
+            case Nil => line(s"this->${fromPortHistorySizeName(p.getUnqualifiedName)} = 0;")
+            case _ => line(s"this->${fromPortHistoryName(p.getUnqualifiedName)}->clear();")
+          }
         )
       )
     ) ::
@@ -200,16 +207,17 @@ case class ComponentHistory(
           getPortFunctionParams(p),
           CppDoc.Type("void"),
           List.concat(
-            wrapInScope(
-              s"${fromPortEntryName(p.getUnqualifiedName)} _e = {",
-              lines(getPortParams(p).map(_._1).mkString(",\n")),
-              "};"
-            ),
-            lines(
-              s"""|this->${fromPortHistoryName(p.getUnqualifiedName)}->push_back(_e);
-                  |this->fromPortHistorySize++;
-                  |"""
-            )
+            portParamTypeMap(p.getUnqualifiedName) match {
+              case Nil => lines(s"this->${fromPortHistorySizeName(p.getUnqualifiedName)}++;")
+              case _ => wrapInScope(
+                s"${fromPortEntryName(p.getUnqualifiedName)} _e = {",
+                lines(getPortParams(p).map(_._1).mkString(",\n")),
+                "};"
+              ) ++ lines(
+                s"|this->${fromPortHistoryName (p.getUnqualifiedName)}->push_back(_e);"
+              )
+            },
+            lines("this->fromPortHistorySize++;")
           )
         )
       )
@@ -225,11 +233,18 @@ case class ComponentHistory(
                 |"""
           ),
           typedOutputPorts.flatMap(p =>
-            Line.blank :: lines(
-              s"""|//! The history for ${inputPortName(p.getUnqualifiedName)}
-                  |History<${fromPortEntryName(p.getUnqualifiedName)}>* ${fromPortHistoryName(p.getUnqualifiedName)};
-                  |"""
-            )
+            Line.blank :: getPortParams(p) match {
+              case Nil => lines(
+                s"""|//! The size of history for ${inputPortName(p.getUnqualifiedName)}
+                    |U32 ${fromPortHistorySizeName(p.getUnqualifiedName)};
+                    |""".stripMargin
+              )
+              case _ => lines(
+                s"""|//! The history for ${inputPortName(p.getUnqualifiedName)}
+                    |History<${fromPortEntryName(p.getUnqualifiedName)}>* ${fromPortHistoryName(p.getUnqualifiedName)};
+                    |"""
+              )
+            }
           )
         ),
         CppDoc.Lines.Hpp
