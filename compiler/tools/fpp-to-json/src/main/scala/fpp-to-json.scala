@@ -76,32 +76,22 @@ object FPPtoJson {
       case list => list
     }
 
-    val result: Either[fpp.compiler.util.Error, fpp.compiler.analysis.Analysis] =
-      for {
-        analysis <- CheckSemantics.tuList(analysis, tul)
-      } yield analysis
-
-    result match {
-      case Right(a)   => {
-        val encoder: JsonEncoder = JsonEncoder(analysis = a)
-        options.syntax match {
-          case false => {
-            val analysisFile = File.Path(analysisPath)
-            for {
-              writer <- analysisFile.openWrite()
-            } yield {
-              writer.println(encoder.printAnalysisJson())
-              writer.close()
-            }
-
+    for (a <- CheckSemantics.tuList(analysis, tul)) yield {
+      val encoder: JsonEncoder = JsonEncoder(analysis = a)
+      options.syntax match {
+        case false => {
+          val analysisFile = File.Path(analysisPath)
+          for {
+            writer <- analysisFile.openWrite()
+          } yield {
+            writer.println(encoder.printAnalysisJson())
+            writer.close()
           }
-          case true => ()
+
         }
-        Right(tul)
+        case true => ()
       }
-      case Left(error) => {
-        Left(error)
-      }
+      tul
     }
 
   }
