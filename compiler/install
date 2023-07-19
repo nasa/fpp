@@ -52,13 +52,13 @@ fpp-check
 fpp-depend
 fpp-filenames
 fpp-format
-fpp-syntax
 fpp-from-xml
 fpp-locate-defs
 fpp-locate-uses
+fpp-syntax
 fpp-to-cpp
-fpp-to-xml
 fpp-to-json
+fpp-to-xml
 "
 
 if git describe --tags --always > /dev/null 2>&1
