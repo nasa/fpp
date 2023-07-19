@@ -33,14 +33,13 @@ Except for a few built-in types (see below), when translating to XML and then {c
 represents a {cpp} class that you write directly in {cpp}.
 When you use an abstract type _T_ in an FPP definition _D_ (for example, as the
 member type of an array definition)
-and you translate _D_ to XML, then the generated XML node for _D_ contains an
-`include_header` node that
-includes a header file for _T_.
+and you translate _D_ to {cpp}, then the generated {cpp} for _D_ contains an
+`include` directive that includes a header file for _T_.
 
 As an example, try this:
 
 ----
-% fpp-to-xml -p $PWD
+% fpp-to-cpp -p $PWD
 type T
 array A = [3] T
 ^D
@@ -52,20 +51,19 @@ This is to make the generated include path relative to the current directory.
 Now run
 
 ----
-% cat AArrayAi.xml
+% cat AArrayAc.hpp
 ----
 
-You should see the following line in the generated XML:
+You should see the following line in the generated {cpp}:
 
-[source,xml]
+[source,cpp]
 ----
-<include_header>T.hpp</include_header>
+#include "T.hpp"
 ----
 
-This line says that when the F Prime autocoder translates this XML file
-to a {cpp} class, in order to compile that class, a header file `T.hpp`
-must exist in the current directory. It is up to you to provide that header
-file.
+This line says that in order to compile `AArrayAc.cpp`, 
+a header file `T.hpp` must exist in the current directory.
+It is up to you to provide that header file.
 
 When implementing an abstract type `T` in {cpp}, you must define
 a class that extends `Fw::Serializable` from the F Prime framework.
@@ -171,10 +169,11 @@ type POINTER_CAST
 Each of these types is an alias for a {cpp} integer type, and each
 has default value zero.
 
-The F Prime framework automatically provides the {cpp} definitions
+The F Prime framework provides the {cpp} definitions
 for these types.
-You have to declare them as abstract types in the FPP model, but
-once you do that you can use them.
+It also provides the corresponding abstract type definitions
+in the FPP model; for a typical F Prime project, these
+definitions are located at `config/FpConfig.fpp`.
 You don't have to define header files for these types.
 
 === Implementing Deployments
