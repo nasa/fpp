@@ -103,7 +103,7 @@ object FPPtoJson {
         Left(error)
       }
     }
-    
+
   }
 
   def resolveIncludes(
@@ -130,7 +130,7 @@ object FPPtoJson {
       head(name, Version.v),
       opt[Unit]('s', "syntax")
         .action((_, c) => c.copy(syntax = true))
-        .text("omit the analysis data structure"),
+        .text("emit syntax only (location map and abstract syntax tree)"),
       opt[String]('d', "directory")
         .valueName("<dir>")
         .action((d, c) => c.copy(dir = Some(d)))
