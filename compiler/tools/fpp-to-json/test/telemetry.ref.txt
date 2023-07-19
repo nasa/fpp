@@ -479,9 +479,9 @@
       "Option" : "None"
     }
   },
-  "5" : {
+  "1" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "20.18",
+    "pos" : "12.3",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -493,6 +493,13 @@
       "Option" : "None"
     }
   },
+  "3" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "20.11",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
   "4" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
     "pos" : "20.15",
@@ -500,100 +507,9 @@
       "Option" : "None"
     }
   },
-  "10" : {
+  "5" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "23.23",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "56" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "2.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "42" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "33.19",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "24" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "27.19",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "37" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "30.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "25" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "27.26",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "52" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "33.26",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "14" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "26.16",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "20" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "26.38",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "46" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "30.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "57" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "38.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "29" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "30.23",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "61" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "37.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "1" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "12.3",
+    "pos" : "20.18",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -605,247 +521,9 @@
       "Option" : "None"
     }
   },
-  "60" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "39.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "21" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "26.37",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "33" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "33.19",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "28" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "23.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "38" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "30.23",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "9" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "19.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "53" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "33.29",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "13" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "26.11",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "41" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "33.16",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "45" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "33.36",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "17" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "26.27",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "32" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "33.16",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "34" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "33.26",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "22" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "27.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "44" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "33.29",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "59" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "39.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "27" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "27.36",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "12" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "25.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "54" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "33.36",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "49" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "33.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
   "7" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
     "pos" : "20.28",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "39" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "32.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "3" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "20.11",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "35" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "33.29",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "48" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "32.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "18" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "26.26",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "50" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "33.16",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "16" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "26.19",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "31" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "33.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "11" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "23.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "43" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "33.26",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "40" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "33.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "26" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "27.29",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "55" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "30.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "23" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "27.16",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -857,30 +535,72 @@
       "Option" : "None"
     }
   },
-  "58" : {
+  "9" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "39.3",
+    "pos" : "19.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "36" : {
+  "10" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "33.36",
+    "pos" : "23.23",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "30" : {
+  "11" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "32.12",
+    "pos" : "23.30",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "51" : {
+  "12" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "33.19",
+    "pos" : "25.12",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "13" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "26.11",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "14" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "26.16",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "15" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "26.15",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "16" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "26.19",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "17" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "26.27",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "18" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "26.26",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -892,6 +612,195 @@
       "Option" : "None"
     }
   },
+  "20" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "26.38",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "21" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "26.37",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "22" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "27.12",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "23" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "27.16",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "24" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "27.19",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "25" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "27.26",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "26" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "27.29",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "27" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "27.36",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "28" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "23.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "29" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "30.23",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "30" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "32.12",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "31" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.12",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "32" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.16",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "33" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.19",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "34" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.26",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "35" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.29",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "36" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.36",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "37" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "30.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "38" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "30.23",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "39" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "32.12",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "40" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.12",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "41" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.16",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "42" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.19",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "43" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.26",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "44" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.29",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "45" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.36",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "46" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "30.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
   "47" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
     "pos" : "30.23",
@@ -899,9 +808,100 @@
       "Option" : "None"
     }
   },
-  "15" : {
+  "48" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-    "pos" : "26.15",
+    "pos" : "32.12",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "49" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.12",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "50" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.16",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "51" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.19",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "52" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.26",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "53" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.29",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "54" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "33.36",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "55" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "30.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "56" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "2.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "57" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "38.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "58" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "39.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "59" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "39.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "60" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "39.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "61" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+    "pos" : "37.1",
     "includingLoc" : {
       "Option" : "None"
     }

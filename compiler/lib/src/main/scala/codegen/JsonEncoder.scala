@@ -654,7 +654,7 @@ case class JsonEncoder(
   // Top level method for converting Location Map Data Structure to Json
   def printLocationsMapJson(): Json = {
     val locationsList =
-      Locations.getMap.toList.map { case (id, location) =>
+      Locations.getMap.toList.sortWith(_._1 < _._1).map { case (id, location) =>
         id.toString -> location.asJson
       }
     Json.obj(locationsList: _*)

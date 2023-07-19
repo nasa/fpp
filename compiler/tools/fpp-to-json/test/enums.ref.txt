@@ -368,27 +368,6 @@
       "Option" : "None"
     }
   },
-  "5" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
-    "pos" : "1.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "10" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
-    "pos" : "8.14",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "14" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
-    "pos" : "8.28",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
   "1" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "3.3",
@@ -396,7 +375,49 @@
       "Option" : "None"
     }
   },
+  "2" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
+    "pos" : "4.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "3" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
+    "pos" : "4.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "4" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
+    "pos" : "4.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "5" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
+    "pos" : "1.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
   "6" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
+    "pos" : "6.25",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "7" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
+    "pos" : "6.34",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "8" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "6.25",
     "includingLoc" : {
@@ -410,44 +431,9 @@
       "Option" : "None"
     }
   },
-  "13" : {
+  "10" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
-    "pos" : "8.17",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "2" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
-    "pos" : "4.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "12" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
-    "pos" : "8.21",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "7" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
-    "pos" : "6.34",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "3" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
-    "pos" : "4.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "18" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
-    "pos" : "8.28",
+    "pos" : "8.14",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -459,16 +445,23 @@
       "Option" : "None"
     }
   },
-  "8" : {
+  "12" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
-    "pos" : "6.25",
+    "pos" : "8.21",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "4" : {
+  "13" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
-    "pos" : "4.3",
+    "pos" : "8.17",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "14" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
+    "pos" : "8.28",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -476,6 +469,62 @@
   "15" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
     "pos" : "8.24",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "16" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
+    "pos" : "8.28",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "17" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
+    "pos" : "8.24",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "18" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
+    "pos" : "8.28",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "19" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
+    "pos" : "8.24",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "20" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
+    "pos" : "8.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "21" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
+    "pos" : "9.14",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "22" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
+    "pos" : "9.16",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "23" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
+    "pos" : "9.14",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -494,65 +543,9 @@
       "Option" : "None"
     }
   },
-  "20" : {
+  "26" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
-    "pos" : "8.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "29" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
-    "pos" : "11.22",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "28" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
-    "pos" : "11.19",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "21" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
-    "pos" : "9.14",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "33" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
-    "pos" : "11.37",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "17" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
-    "pos" : "8.24",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "32" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
-    "pos" : "11.25",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "34" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
-    "pos" : "11.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "22" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
-    "pos" : "9.16",
+    "pos" : "9.1",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -564,30 +557,16 @@
       "Option" : "None"
     }
   },
-  "16" : {
+  "28" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
-    "pos" : "8.28",
+    "pos" : "11.19",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "31" : {
+  "29" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
-    "pos" : "11.25",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "26" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
-    "pos" : "9.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "23" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
-    "pos" : "9.14",
+    "pos" : "11.22",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -599,9 +578,30 @@
       "Option" : "None"
     }
   },
-  "19" : {
+  "31" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
-    "pos" : "8.24",
+    "pos" : "11.25",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "32" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
+    "pos" : "11.25",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "33" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
+    "pos" : "11.37",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "34" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp",
+    "pos" : "11.1",
     "includingLoc" : {
       "Option" : "None"
     }
