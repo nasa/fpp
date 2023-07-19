@@ -8,8 +8,6 @@ object Locations {
 
   private val map = new scala.collection.mutable.HashMap[AstNode.Id, Location]
 
-
-
   /** Put a location into the map */
   def put(id: AstNode.Id, loc: Location): Option[Location] = map.put(id, loc)
 
@@ -23,6 +21,5 @@ object Locations {
   def getOpt(id: AstNode.Id): Option[Location] = map.get(id)
 
   def hashMapToListOfPairs(): List[(AstNode.Id, Location)] = map.toList
-
 
 }
