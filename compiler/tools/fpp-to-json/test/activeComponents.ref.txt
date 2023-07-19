@@ -401,41 +401,6 @@
   }
 ]
 {
-  "0" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "7.36",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "1" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "7.39",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "2" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "7.36",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "3" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "7.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "4" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "10.32",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
   "5" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
     "pos" : "10.35",
@@ -443,30 +408,30 @@
       "Option" : "None"
     }
   },
-  "6" : {
+  "69" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "10.32",
+    "pos" : "26.28",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "7" : {
+  "101" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "10.5",
+    "pos" : "29.14",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "8" : {
+  "0" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "10.32",
+    "pos" : "7.36",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "9" : {
+  "88" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "10.35",
+    "pos" : "28.16",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -478,91 +443,14 @@
       "Option" : "None"
     }
   },
-  "11" : {
+  "56" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "10.5",
+    "pos" : "22.29",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "12" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "10.32",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "13" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "10.35",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "14" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "10.32",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "15" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "10.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "16" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "4.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "17" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "7.36",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "18" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "7.39",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "19" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "7.36",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "20" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "7.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "21" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "10.32",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "22" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "10.35",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "23" : {
+  "42" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
     "pos" : "10.32",
     "includingLoc" : {
@@ -576,6 +464,13 @@
       "Option" : "None"
     }
   },
+  "37" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "7.5",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
   "25" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
     "pos" : "10.32",
@@ -583,23 +478,51 @@
       "Option" : "None"
     }
   },
-  "26" : {
+  "52" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "10.35",
+    "pos" : "20.26",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "27" : {
+  "14" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
     "pos" : "10.32",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "28" : {
+  "20" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "10.5",
+    "pos" : "7.5",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "46" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "10.32",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "93" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "26.28",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "57" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "22.5",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "78" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "26.3",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -611,23 +534,86 @@
       "Option" : "None"
     }
   },
-  "30" : {
+  "106" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "10.35",
+    "pos" : "34.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "31" : {
+  "84" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "27.24",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "61" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "22.5",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "89" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "29.14",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "1" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "7.39",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "74" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "28.16",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "6" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
     "pos" : "10.32",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "32" : {
+  "60" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "10.5",
+    "pos" : "22.29",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "85" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "27.16",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "102" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "26.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "70" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "26.57",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "21" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "10.32",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -639,30 +625,9 @@
       "Option" : "None"
     }
   },
-  "34" : {
+  "28" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "7.36",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "35" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "7.39",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "36" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "7.36",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "37" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "7.5",
+    "pos" : "10.5",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -674,16 +639,58 @@
       "Option" : "None"
     }
   },
-  "39" : {
+  "92" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "26.34",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "65" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "22.5",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "97" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "27.16",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "9" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
     "pos" : "10.35",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "40" : {
+  "53" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "10.32",
+    "pos" : "20.5",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "77" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "29.14",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "96" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "27.24",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "13" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "10.35",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -695,14 +702,63 @@
       "Option" : "None"
     }
   },
-  "42" : {
+  "73" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "10.32",
+    "pos" : "27.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "43" : {
+  "105" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "34.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "2" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "7.36",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "45" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "10.5",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "64" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "22.29",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "17" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "7.36",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "32" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "10.5",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "34" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "7.36",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "22" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
     "pos" : "10.35",
     "includingLoc" : {
@@ -716,104 +772,6 @@
       "Option" : "None"
     }
   },
-  "45" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "10.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "46" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "10.32",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "47" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "10.35",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "48" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "10.32",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "49" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "10.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "50" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "4.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "51" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "1.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "52" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "20.26",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "53" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "20.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "54" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "22.26",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "55" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "22.31",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "56" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "22.29",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "57" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "22.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "58" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "22.26",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
   "59" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
     "pos" : "22.31",
@@ -821,79 +779,9 @@
       "Option" : "None"
     }
   },
-  "60" : {
+  "27" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "22.29",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "61" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "22.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "62" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "22.26",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "63" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "22.31",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "64" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "22.29",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "65" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "22.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "66" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "18.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "67" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "26.28",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "68" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "26.34",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "69" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "26.28",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "70" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "26.57",
+    "pos" : "10.32",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -905,100 +793,23 @@
       "Option" : "None"
     }
   },
-  "72" : {
+  "12" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "27.24",
+    "pos" : "10.32",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "73" : {
+  "54" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "27.16",
+    "pos" : "22.26",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "74" : {
+  "49" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "28.16",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "75" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "28.24",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "76" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "28.16",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "77" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "29.14",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "78" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "26.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "79" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "26.28",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "80" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "26.34",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "81" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "26.28",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "82" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "26.57",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "83" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "27.16",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "84" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "27.24",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "85" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "27.16",
+    "pos" : "10.5",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -1010,30 +821,44 @@
       "Option" : "None"
     }
   },
-  "87" : {
+  "81" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "28.24",
+    "pos" : "26.28",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "88" : {
+  "76" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
     "pos" : "28.16",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "89" : {
+  "7" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "29.14",
+    "pos" : "10.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "90" : {
+  "39" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "26.3",
+    "pos" : "10.35",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "98" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "28.16",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "103" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "16.1",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -1045,14 +870,231 @@
       "Option" : "None"
     }
   },
-  "92" : {
+  "66" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "18.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "3" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "7.5",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "80" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
     "pos" : "26.34",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "93" : {
+  "35" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "7.39",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "48" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "10.32",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "63" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "22.31",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "18" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "7.39",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "95" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "27.16",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "50" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "4.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "67" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "26.28",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "16" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "4.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "31" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "10.32",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "11" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "10.5",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "72" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "27.24",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "43" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "10.35",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "99" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "28.24",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "87" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "28.24",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "104" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "34.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "40" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "10.32",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "26" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "10.35",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "55" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "22.31",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "23" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "10.32",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "8" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "10.32",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "75" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "28.24",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "58" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "22.26",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "82" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "26.57",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "36" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "7.36",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "30" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "10.35",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "51" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "1.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "19" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "7.36",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "107" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "33.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "4" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "10.32",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "79" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
     "pos" : "26.28",
     "includingLoc" : {
@@ -1066,37 +1108,44 @@
       "Option" : "None"
     }
   },
-  "95" : {
+  "47" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "10.35",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "15" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "10.5",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "68" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "26.34",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "62" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "22.26",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "90" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+    "pos" : "26.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "83" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
     "pos" : "27.16",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "96" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "27.24",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "97" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "27.16",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "98" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "28.16",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "99" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "28.24",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -1104,55 +1153,6 @@
   "100" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
     "pos" : "28.16",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "101" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "29.14",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "102" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "26.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "103" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "16.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "104" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "34.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "105" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "34.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "106" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "34.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "107" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "33.1",
     "includingLoc" : {
       "Option" : "None"
     }

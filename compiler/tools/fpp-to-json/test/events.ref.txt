@@ -481,34 +481,6 @@
       "Option" : "None"
     }
   },
-  "1" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "12.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "2" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "15.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "3" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "24.8",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "4" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "25.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
   "5" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "23.3",
@@ -516,21 +488,28 @@
       "Option" : "None"
     }
   },
+  "10" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "33.8",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "14" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "38.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "1" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "12.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
   "6" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "30.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "7" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "30.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "8" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "30.12",
     "includingLoc" : {
@@ -544,16 +523,16 @@
       "Option" : "None"
     }
   },
-  "10" : {
+  "13" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "33.8",
+    "pos" : "39.12",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "11" : {
+  "2" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "34.12",
+    "pos" : "15.3",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -565,37 +544,9 @@
       "Option" : "None"
     }
   },
-  "13" : {
+  "7" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "39.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "14" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "38.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "15" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "39.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "16" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "38.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "17" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "39.12",
+    "pos" : "30.5",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -607,37 +558,30 @@
       "Option" : "None"
     }
   },
-  "19" : {
+  "11" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "2.1",
+    "pos" : "34.12",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "20" : {
+  "8" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "51.3",
+    "pos" : "30.12",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "21" : {
+  "4" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "54.3",
+    "pos" : "25.12",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "22" : {
+  "15" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "57.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "23" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "65.12",
+    "pos" : "39.12",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -649,7 +593,119 @@
       "Option" : "None"
     }
   },
+  "37" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "73.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
   "25" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "64.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "20" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "51.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "29" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "65.12",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "21" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "54.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "33" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "71.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "28" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "64.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "38" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "70.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "17" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "39.12",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "32" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "44.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "34" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "72.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "22" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "57.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "27" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "66.14",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "3" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "24.8",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "35" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "73.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "16" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "38.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "31" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "64.3",
     "includingLoc" : {
@@ -663,65 +719,9 @@
       "Option" : "None"
     }
   },
-  "27" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "66.14",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "28" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "64.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "29" : {
+  "23" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
     "pos" : "65.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "30" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "66.14",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "31" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "64.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "32" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "44.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "33" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "71.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "34" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "72.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "35" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "73.3",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -733,16 +733,16 @@
       "Option" : "None"
     }
   },
-  "37" : {
+  "30" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "73.3",
+    "pos" : "66.14",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "38" : {
+  "19" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "70.1",
+    "pos" : "2.1",
     "includingLoc" : {
       "Option" : "None"
     }

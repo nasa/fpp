@@ -580,65 +580,9 @@
       "Option" : "None"
     }
   },
-  "1" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
-    "pos" : "8.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "2" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
-    "pos" : "11.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "3" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
-    "pos" : "11.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "4" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
-    "pos" : "11.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
   "5" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
     "pos" : "2.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "6" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
-    "pos" : "19.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "7" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
-    "pos" : "22.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "8" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
-    "pos" : "22.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "9" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
-    "pos" : "22.3",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -650,16 +594,30 @@
       "Option" : "None"
     }
   },
-  "11" : {
+  "14" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
-    "pos" : "30.3",
+    "pos" : "27.1",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "12" : {
+  "1" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
-    "pos" : "30.3",
+    "pos" : "8.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "6" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
+    "pos" : "19.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "9" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
+    "pos" : "22.3",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -671,30 +629,23 @@
       "Option" : "None"
     }
   },
-  "14" : {
+  "2" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
-    "pos" : "27.1",
+    "pos" : "11.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "15" : {
+  "12" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
-    "pos" : "38.3",
+    "pos" : "30.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "16" : {
+  "7" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
-    "pos" : "41.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "17" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
-    "pos" : "41.3",
+    "pos" : "22.3",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -706,37 +657,30 @@
       "Option" : "None"
     }
   },
-  "19" : {
+  "11" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
-    "pos" : "35.1",
+    "pos" : "30.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "20" : {
+  "8" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
-    "pos" : "49.3",
+    "pos" : "22.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "21" : {
+  "4" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
-    "pos" : "49.3",
+    "pos" : "11.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "22" : {
+  "15" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
-    "pos" : "49.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "23" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
-    "pos" : "46.1",
+    "pos" : "38.3",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -755,23 +699,9 @@
       "Option" : "None"
     }
   },
-  "26" : {
+  "20" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
-    "pos" : "56.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "27" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
-    "pos" : "57.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "28" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
-    "pos" : "58.3",
+    "pos" : "49.3",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -783,28 +713,35 @@
       "Option" : "None"
     }
   },
-  "30" : {
+  "28" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
-    "pos" : "60.3",
+    "pos" : "58.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "31" : {
+  "21" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
-    "pos" : "61.3",
+    "pos" : "49.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "32" : {
+  "33" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
     "pos" : "62.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "33" : {
+  "17" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
+    "pos" : "41.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "32" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
     "pos" : "62.3",
     "includingLoc" : {
@@ -818,9 +755,72 @@
       "Option" : "None"
     }
   },
+  "22" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
+    "pos" : "49.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "27" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
+    "pos" : "57.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "3" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
+    "pos" : "11.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
   "35" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
     "pos" : "53.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "16" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
+    "pos" : "41.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "31" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
+    "pos" : "61.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "26" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
+    "pos" : "56.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "23" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
+    "pos" : "46.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "30" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
+    "pos" : "60.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "19" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp",
+    "pos" : "35.1",
     "includingLoc" : {
       "Option" : "None"
     }

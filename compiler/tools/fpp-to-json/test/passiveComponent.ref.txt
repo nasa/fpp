@@ -410,16 +410,16 @@
   }
 ]
 {
-  "0" : {
+  "5" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "7.30",
+    "pos" : "13.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "1" : {
+  "65" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "7.34",
+    "pos" : "32.1",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -431,9 +431,9 @@
       "Option" : "None"
     }
   },
-  "3" : {
+  "66" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "7.5",
+    "pos" : "37.3",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -445,37 +445,16 @@
       "Option" : "None"
     }
   },
-  "5" : {
+  "69" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "13.5",
+    "pos" : "38.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "6" : {
+  "0" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "16.28",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "7" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "16.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "8" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "19.25",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "9" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "19.5",
+    "pos" : "7.30",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -487,91 +466,14 @@
       "Option" : "None"
     }
   },
-  "11" : {
+  "56" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "19.5",
+    "pos" : "28.24",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "12" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "19.25",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "13" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "19.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "14" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "4.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "15" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "7.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "16" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "7.34",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "17" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "7.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "18" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "7.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "19" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "10.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "20" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "13.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "21" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "16.28",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "22" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "16.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "23" : {
+  "42" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
     "pos" : "19.25",
     "includingLoc" : {
@@ -585,90 +487,6 @@
       "Option" : "None"
     }
   },
-  "25" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "19.25",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "26" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "19.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "27" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "19.25",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "28" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "19.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "29" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "4.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "30" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "7.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "31" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "7.34",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "32" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "7.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "33" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "7.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "34" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "10.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "35" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "13.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "36" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "16.28",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
   "37" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
     "pos" : "16.5",
@@ -676,100 +494,9 @@
       "Option" : "None"
     }
   },
-  "38" : {
+  "25" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
     "pos" : "19.25",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "39" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "19.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "40" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "19.25",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "41" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "19.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "42" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "19.25",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "43" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "19.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "44" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "4.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "45" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "1.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "46" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "28.24",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "47" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "28.32",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "48" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "28.24",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "49" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "28.51",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "50" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "28.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "51" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "28.24",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -781,28 +508,21 @@
       "Option" : "None"
     }
   },
-  "53" : {
+  "14" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "28.24",
+    "pos" : "4.3",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "54" : {
+  "20" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "28.51",
+    "pos" : "13.5",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "55" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "28.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "56" : {
+  "46" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
     "pos" : "28.24",
     "includingLoc" : {
@@ -816,23 +536,9 @@
       "Option" : "None"
     }
   },
-  "58" : {
+  "29" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "28.24",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "59" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "28.51",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "60" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "28.3",
+    "pos" : "4.3",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -844,16 +550,93 @@
       "Option" : "None"
     }
   },
-  "62" : {
+  "1" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "33.3",
+    "pos" : "7.34",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "63" : {
+  "6" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "33.3",
+    "pos" : "16.28",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "60" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "28.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "70" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "36.1",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "21" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "16.28",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "33" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "7.5",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "28" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "19.5",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "38" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "19.25",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "9" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "19.5",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "53" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "28.24",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "13" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "19.5",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "41" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "19.5",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "45" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "1.1",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -865,16 +648,128 @@
       "Option" : "None"
     }
   },
-  "65" : {
+  "17" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "32.1",
+    "pos" : "7.30",
     "includingLoc" : {
       "Option" : "None"
     }
   },
-  "66" : {
+  "32" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "37.3",
+    "pos" : "7.30",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "34" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "10.5",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "22" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "16.5",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "44" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "4.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "59" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "28.51",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "27" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "19.25",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "12" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "19.25",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "54" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "28.51",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "49" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "28.51",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "7" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "16.5",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "39" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "19.5",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "3" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "7.5",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "35" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "13.5",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "48" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "28.24",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "63" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "33.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "18" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "7.5",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "50" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "28.3",
     "includingLoc" : {
       "Option" : "None"
     }
@@ -886,6 +781,118 @@
       "Option" : "None"
     }
   },
+  "16" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "7.34",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "31" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "7.34",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "11" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "19.5",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "43" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "19.5",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "40" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "19.25",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "26" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "19.5",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "55" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "28.3",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "23" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "19.25",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "8" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "19.25",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "58" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "28.24",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "36" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "16.28",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "30" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "7.30",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "51" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "28.24",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "19" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "10.5",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "47" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "28.32",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
+  "15" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+    "pos" : "7.30",
+    "includingLoc" : {
+      "Option" : "None"
+    }
+  },
   "68" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
     "pos" : "38.3",
@@ -893,16 +900,9 @@
       "Option" : "None"
     }
   },
-  "69" : {
+  "62" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "38.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
-  },
-  "70" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "36.1",
+    "pos" : "33.3",
     "includingLoc" : {
       "Option" : "None"
     }
