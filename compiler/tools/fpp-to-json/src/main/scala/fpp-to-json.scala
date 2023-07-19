@@ -12,7 +12,7 @@ object FPPtoJson {
   case class Options(
       syntax: Boolean = false,
       dir: Option[String] = None,
-      files: List[File] = List()
+      files: List[File] = Nil
   )
 
   def command(options: Options) = {
@@ -23,7 +23,7 @@ object FPPtoJson {
     }
     val result = Result.seq(
       Result.map(files, Parser.parseFile(Parser.transUnit)(None) _),
-      List(resolveIncludes _, writeJson(options) _, writeAnalysis(options) _)
+      List(resolveIncludes _, writeSyntax(options) _, writeAnalysis(options) _)
     )
     result match {
       case Left(error) => {
@@ -42,9 +42,9 @@ object FPPtoJson {
     }
   }
 
-  def writeJson(
-      options: Options
-  )(tul: List[Ast.TransUnit]): Result.Result[List[Ast.TransUnit]] = {
+  def writeSyntax(options: Options)(tul: List[Ast.TransUnit]):
+    Result.Result[List[Ast.TransUnit]] =
+  {
     val encoder = JsonEncoder(tul = tul)
     val astPath =
       java.nio.file.Paths.get(options.dir.getOrElse("."), "fpp-ast.json")
@@ -65,36 +65,28 @@ object FPPtoJson {
     Right(tul)
   }
 
-  def writeAnalysis(options: Options)(tul: List[Ast.TransUnit]): Result.Result[List[Ast.TransUnit]] = {
-
-    val analysisPath =
-      java.nio.file.Paths.get(options.dir.getOrElse("."), "fpp-analysis.json")
-
-    val analysis = Analysis(inputFileSet = options.files.toSet)
-    val files = options.files.reverse match {
-      case Nil  => List(File.StdIn)
-      case list => list
-    }
-
-    for (a <- CheckSemantics.tuList(analysis, tul)) yield {
-      val encoder: JsonEncoder = JsonEncoder(analysis = a)
-      options.syntax match {
-        case false => {
-          val analysisFile = File.Path(analysisPath)
-          for {
-            writer <- analysisFile.openWrite()
-          } yield {
-            writer.println(encoder.printAnalysisJson())
-            writer.close()
-          }
-
+  def writeAnalysis(options: Options)(tul: List[Ast.TransUnit]):
+    Result.Result[List[Ast.TransUnit]] =
+    options.syntax match {
+      case false =>
+        val analysisPath =
+          java.nio.file.Paths.get(options.dir.getOrElse("."), "fpp-analysis.json")
+        val files = options.files.reverse match {
+          case Nil  => List(File.StdIn)
+          case list => list
         }
-        case true => ()
-      }
-      tul
+        val analysis = Analysis(inputFileSet = options.files.toSet)
+        for {
+          a <- CheckSemantics.tuList(analysis, tul)
+          encoder <- Right(JsonEncoder(analysis = a))
+          writer <- File.Path(analysisPath).openWrite()
+        } yield {
+          writer.println(encoder.printAnalysisJson())
+          writer.close()
+          tul
+        }
+      case true => Right(tul)
     }
-
-  }
 
   def resolveIncludes(
       tul: List[Ast.TransUnit]
