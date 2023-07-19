@@ -18,6 +18,8 @@ object TestCppWriter extends CppWriter {
       s <- visitList(s, data.members, matchComponentMember)
       s <- CppWriter.writeCppDoc(s, ComponentTesterBaseWriter(s, aNode).write)
       s <- visitList(s, data.members, matchComponentMember)
+      s <- CppWriter.writeCppDoc(s, ComponentGTestBaseWriter(s, aNode).write)
+      s <- visitList(s, data.members, matchComponentMember)
     }
     yield s
   }
