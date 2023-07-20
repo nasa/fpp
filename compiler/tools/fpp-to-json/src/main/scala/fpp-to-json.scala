@@ -10,7 +10,7 @@ import scopt.OParser
 
 object FPPtoJson {
   case class Options(
-      syntax: Boolean = false,
+      syntaxOnly: Boolean = false,
       dir: Option[String] = None,
       files: List[File] = Nil
   )
@@ -28,24 +28,25 @@ object FPPtoJson {
     result match {
       case Left(error) => {
         error.print
-        System.exit(1)
+        errorExit
       }
       case Right(_) => ()
     }
   }
 
+  def errorExit = System.exit(1)
+
   def main(args: Array[String]) = {
     val options = OParser.parse(oparser, args, Options())
     options match {
       case Some(options) => command(options)
-      case None          => ()
+      case None          => errorExit
     }
   }
 
-  def writeSyntax(options: Options)(tul: List[Ast.TransUnit]):
+  def writeSyntax (options: Options) (tul: List[Ast.TransUnit]):
     Result.Result[List[Ast.TransUnit]] =
   {
-    val encoder = JsonEncoder(tul = tul)
     val astPath =
       java.nio.file.Paths.get(options.dir.getOrElse("."), "fpp-ast.json")
     val locPath =
@@ -56,18 +57,17 @@ object FPPtoJson {
       astWriter <- astFile.openWrite()
       locWriter <- locFile.openWrite()
     } yield {
-      astWriter.println(encoder.printAstJson())
-      locWriter.println(encoder.printLocationsMapJson())
+      astWriter.println(JsonEncoder.printAstJson(tul))
+      locWriter.println(JsonEncoder.printLocationMapJson(tul))
       astWriter.close()
       locWriter.close()
+      tul
     }
-
-    Right(tul)
   }
 
-  def writeAnalysis(options: Options)(tul: List[Ast.TransUnit]):
+  def writeAnalysis (options: Options) (tul: List[Ast.TransUnit]):
     Result.Result[List[Ast.TransUnit]] =
-    options.syntax match {
+    options.syntaxOnly match {
       case false =>
         val analysisPath =
           java.nio.file.Paths.get(options.dir.getOrElse("."), "fpp-analysis.json")
@@ -78,28 +78,24 @@ object FPPtoJson {
         val analysis = Analysis(inputFileSet = options.files.toSet)
         for {
           a <- CheckSemantics.tuList(analysis, tul)
-          encoder <- Right(JsonEncoder(analysis = a))
           writer <- File.Path(analysisPath).openWrite()
         } yield {
-          writer.println(encoder.printAnalysisJson())
+          writer.println(JsonEncoder.printAnalysisJson(a))
           writer.close()
           tul
         }
       case true => Right(tul)
     }
 
-  def resolveIncludes(
-      tul: List[Ast.TransUnit]
-  ): Result.Result[List[Ast.TransUnit]] = {
-    for {
-      result <- ResolveSpecInclude.transformList(
-        Analysis(),
-        tul,
-        ResolveSpecInclude.transUnit
-      )
-    } yield result._2
-
-  }
+  def resolveIncludes(tul: List[Ast.TransUnit]):
+    Result.Result[List[Ast.TransUnit]] =
+  for {
+    result <- ResolveSpecInclude.transformList(
+      Analysis(),
+      tul,
+      ResolveSpecInclude.transUnit
+    )
+  } yield result._2
 
   val builder = OParser.builder[Options]
 
@@ -110,8 +106,8 @@ object FPPtoJson {
     OParser.sequence(
       programName(name),
       head(name, Version.v),
-      opt[Unit]('s', "syntax")
-        .action((_, c) => c.copy(syntax = true))
+      opt[Unit]('s', "syntax only")
+        .action((_, c) => c.copy(syntaxOnly = true))
         .text("emit syntax only (location map and abstract syntax tree)"),
       opt[String]('d', "directory")
         .valueName("<dir>")

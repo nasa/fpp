@@ -12,10 +12,7 @@ import io.circe.generic.semiauto._
 import io.circe.generic.auto._
 import scala.util.parsing.input.Position
 
-case class JsonEncoder(
-    tul: List[Ast.TransUnit] = List.empty[Ast.TransUnit],
-    analysis: Analysis = Analysis()
-){
+object JsonEncoder {
 
   /*
     Defines implicit Encoder instances for various types in the Ast and PortInstance classes.
@@ -649,31 +646,31 @@ case class JsonEncoder(
   */
 
   // Top level method for converting Ast Data Structure to Json
-  def printAstJson(): Json = tul.asJson
+  def printAstJson(tul: List[Ast.TransUnit]): Json = tul.asJson
 
   // Top level method for converting Location Map Data Structure to Json
-  def printLocationsMapJson(): Json = {
+  def printLocationMapJson(tul: List[Ast.TransUnit]): Json = {
     val locationsList =
-      Locations.getMap.toList.sortWith(_._1 < _._1).map { case (id, location) =>
-        id.toString -> location.asJson
+      Locations.getMap.toList.sortWith(_._1 < _._1).map { 
+        case (id, location) => id.toString -> location.asJson
       }
     Json.obj(locationsList: _*)
   }
 
   // Top level method for converting Analysis Data Structure to Json
-  def printAnalysisJson(): Json = {
+  def printAnalysisJson(a: Analysis): Json = {
     Json.obj(
-      "inputFileSet" -> analysis.inputFileSet.asJson, 
-      "includedFileSet" -> analysis.includedFileSet.asJson, 
-      "locationSpecifierMap" -> analysis.locationSpecifierMap.asJson, 
-      "parentSymbolMap" -> analysis.parentSymbolMap.asJson, 
-      "symbolScopeMap" -> analysis.symbolScopeMap.asJson, 
-      "useDefMap" -> analysis.useDefMap.asJson,
-      "typeMap" -> analysis.typeMap.asJson, 
-      "valueMap" -> analysis.valueMap.asJson, 
-      "componentMap" -> analysis.componentMap.asJson, 
-      "componentInstanceMap" -> analysis.componentInstanceMap.asJson, 
-      "topologyMap" -> analysis.topologyMap.asJson 
+      "inputFileSet" -> a.inputFileSet.asJson, 
+      "includedFileSet" -> a.includedFileSet.asJson, 
+      "locationSpecifierMap" -> a.locationSpecifierMap.asJson, 
+      "parentSymbolMap" -> a.parentSymbolMap.asJson, 
+      "symbolScopeMap" -> a.symbolScopeMap.asJson, 
+      "useDefMap" -> a.useDefMap.asJson,
+      "typeMap" -> a.typeMap.asJson, 
+      "valueMap" -> a.valueMap.asJson, 
+      "componentMap" -> a.componentMap.asJson, 
+      "componentInstanceMap" -> a.componentInstanceMap.asJson, 
+      "topologyMap" -> a.topologyMap.asJson 
     )
   }
 
