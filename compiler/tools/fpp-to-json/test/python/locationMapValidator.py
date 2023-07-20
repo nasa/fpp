@@ -1,5 +1,6 @@
 import json
 import sys
+import re
 
 def collect_ids(json_data):
     ids = []
@@ -26,20 +27,19 @@ def collect_ids(json_data):
 
 def check_if_ids_in_loc_map(numbers, data):
     
-    json_numbers = [item[0] for item in data]
     
     for number in numbers:
-        if number not in json_numbers:
+        if str(number) not in data:
             return f"ID in ast not found in location map: {number}"
     
     return True
 
 
 
-with open('python/ast.json') as json_file:
+with open('fpp-ast.json') as json_file:
     ast = json.load(json_file)
 
-    with open('python/location.json') as json_file:
+    with open('fpp-loc-map.json') as json_file:
         location = json.load(json_file)
         loc_map_check_result = check_if_ids_in_loc_map(collect_ids(ast), location)
         if loc_map_check_result is not True:
