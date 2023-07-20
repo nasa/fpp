@@ -111,6 +111,22 @@ abstract class ComponentTestUtils(
       output
     )
 
+  def writeValue(value: String, t: Type): String =
+    t match {
+      case Type.String(_) => s"$value.toChar()"
+      case _ => value
+    }
+
+  def writeEventValue(value: String, typeName: String): String =
+    typeName match {
+      case "Fw::LogStringArg" => s"$value.toChar()"
+      case _ => value
+    }
+
+  /** Append a trailing backslash at the end of every line */
+  def writeMacro(s: String): List[Line] =
+    Line.addSuffix(lines(s), "\\")
+
   /** Get the name for the corresponding input port for an output port */
   def inputPortName(name: String) =
     s"from_$name"
@@ -180,7 +196,11 @@ abstract class ComponentTestUtils(
 
   /** Get the name for a from port assertion function */
   def fromPortAssertionFuncName(name: String) =
-    s"assert_${inputPortName(name)}_size"
+    s"assert_${inputPortName(name)}"
+
+  /** Get the name for a from port size assertion function */
+  def fromPortSizeAssertionFuncName(name: String) =
+    s"${fromPortAssertionFuncName(name)}_size"
 
   /** Get the name for a send command function */
   def commandSendName(name: String) =
