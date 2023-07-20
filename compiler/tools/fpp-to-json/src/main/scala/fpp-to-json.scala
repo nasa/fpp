@@ -23,7 +23,12 @@ object FPPtoJson {
     }
     val result = Result.seq(
       Result.map(files, Parser.parseFile(Parser.transUnit)(None) _),
-      List(resolveIncludes _, writeSyntax(options) _, writeAnalysis(options) _)
+      List(
+        resolveIncludes _,
+        writeAst(options) _,
+        writeLocMap(options) _,
+        writeAnalysis(options) _
+      )
     )
     result match {
       case Left(error) => {
@@ -61,6 +66,32 @@ object FPPtoJson {
       locWriter.println(JsonEncoder.locMapToJson)
       astWriter.close()
       locWriter.close()
+      tul
+    }
+  }
+
+  def writeAst (options: Options) (tul: List[Ast.TransUnit]):
+    Result.Result[List[Ast.TransUnit]] =
+  {
+    val path =
+      java.nio.file.Paths.get(options.dir.getOrElse("."), "fpp-ast.json")
+    val file = File.Path(path)
+    for (writer <- file.openWrite()) yield {
+      writer.println(JsonEncoder.astToJson(tul))
+      writer.close()
+      tul
+    }
+  }
+
+  def writeLocMap (options: Options) (tul: List[Ast.TransUnit]):
+    Result.Result[List[Ast.TransUnit]] =
+  {
+    val path =
+      java.nio.file.Paths.get(options.dir.getOrElse("."), "fpp-loc-map.json")
+    val file = File.Path(path)
+    for (writer <- file.openWrite()) yield {
+      writer.println(JsonEncoder.locMapToJson)
+      writer.close()
       tul
     }
   }
