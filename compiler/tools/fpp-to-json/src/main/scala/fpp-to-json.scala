@@ -21,21 +21,19 @@ object FPPtoJson {
       case Nil  => List(File.StdIn)
       case list => list
     }
-    val result = Result.seq(
-      Result.map(files, Parser.parseFile(Parser.transUnit)(None) _),
-      List(
-        resolveIncludes _,
-        writeAst(options) _,
-        writeLocMap(options) _,
-        writeAnalysis(options) _
-      )
-    )
+    val result: Result.Result[Unit] = for {
+      tul <- Result.map(files, Parser.parseFile(Parser.transUnit)(None) _)
+      tul <- resolveIncludes(tul)
+      _ <- writeAst (options) (tul)
+      _ <- writeLocMap (options)
+      _ <- writeAnalysis (options) (tul)
+    } yield ()
     result match {
       case Left(error) => {
         error.print
         errorExit
       }
-      case Right(_) => ()
+      case _ => ()
     }
   }
 
@@ -49,58 +47,32 @@ object FPPtoJson {
     }
   }
 
-  def writeSyntax (options: Options) (tul: List[Ast.TransUnit]):
-    Result.Result[List[Ast.TransUnit]] =
-  {
-    val astPath =
-      java.nio.file.Paths.get(options.dir.getOrElse("."), "fpp-ast.json")
-    val locPath =
-      java.nio.file.Paths.get(options.dir.getOrElse("."), "fpp-loc-map.json")
-    val astFile = File.Path(astPath)
-    val locFile = File.Path(locPath)
-    for {
-      astWriter <- astFile.openWrite()
-      locWriter <- locFile.openWrite()
-    } yield {
-      astWriter.println(JsonEncoder.astToJson(tul))
-      locWriter.println(JsonEncoder.locMapToJson)
-      astWriter.close()
-      locWriter.close()
-      tul
+  def writeJson (
+    options: Options,
+    fileName: String,
+    json: io.circe.Json
+  ): Result.Result[Unit] = {
+    val path =
+      java.nio.file.Paths.get(options.dir.getOrElse("."), fileName)
+    val file = File.Path(path)
+    for (writer <- file.openWrite()) yield {
+      writer.println(json)
+      writer.close()
     }
   }
 
   def writeAst (options: Options) (tul: List[Ast.TransUnit]):
-    Result.Result[List[Ast.TransUnit]] =
-  {
-    val path =
-      java.nio.file.Paths.get(options.dir.getOrElse("."), "fpp-ast.json")
-    val file = File.Path(path)
-    for (writer <- file.openWrite()) yield {
-      writer.println(JsonEncoder.astToJson(tul))
-      writer.close()
-      tul
-    }
-  }
+    Result.Result[Unit] =
+      writeJson(options, "fpp-ast.json", JsonEncoder.astToJson(tul))
 
-  def writeLocMap (options: Options) (tul: List[Ast.TransUnit]):
-    Result.Result[List[Ast.TransUnit]] =
-  {
-    val path =
-      java.nio.file.Paths.get(options.dir.getOrElse("."), "fpp-loc-map.json")
-    val file = File.Path(path)
-    for (writer <- file.openWrite()) yield {
-      writer.println(JsonEncoder.locMapToJson)
-      writer.close()
-      tul
-    }
-  }
+  def writeLocMap (options: Options): Result.Result[Unit] =
+    writeJson(options, "fpp-loc-map.json", JsonEncoder.locMapToJson)
 
   def writeAnalysis (options: Options) (tul: List[Ast.TransUnit]):
-    Result.Result[List[Ast.TransUnit]] =
+    Result.Result[Unit] =
     options.syntaxOnly match {
       case false =>
-        val analysisPath =
+        val path =
           java.nio.file.Paths.get(options.dir.getOrElse("."), "fpp-analysis.json")
         val files = options.files.reverse match {
           case Nil  => List(File.StdIn)
@@ -109,13 +81,12 @@ object FPPtoJson {
         val analysis = Analysis(inputFileSet = options.files.toSet)
         for {
           a <- CheckSemantics.tuList(analysis, tul)
-          writer <- File.Path(analysisPath).openWrite()
+          writer <- File.Path(path).openWrite()
         } yield {
           writer.println(JsonEncoder.analysisToJson(a))
           writer.close()
-          tul
         }
-      case true => Right(tul)
+      case true => Right(())
     }
 
   def resolveIncludes(tul: List[Ast.TransUnit]):
