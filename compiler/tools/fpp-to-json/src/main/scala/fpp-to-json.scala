@@ -57,8 +57,8 @@ object FPPtoJson {
       astWriter <- astFile.openWrite()
       locWriter <- locFile.openWrite()
     } yield {
-      astWriter.println(JsonEncoder.printAstJson(tul))
-      locWriter.println(JsonEncoder.printLocationMapJson(tul))
+      astWriter.println(JsonEncoder.astToJson(tul))
+      locWriter.println(JsonEncoder.locMapToJson)
       astWriter.close()
       locWriter.close()
       tul
@@ -80,7 +80,7 @@ object FPPtoJson {
           a <- CheckSemantics.tuList(analysis, tul)
           writer <- File.Path(analysisPath).openWrite()
         } yield {
-          writer.println(JsonEncoder.printAnalysisJson(a))
+          writer.println(JsonEncoder.analysisToJson(a))
           writer.close()
           tul
         }

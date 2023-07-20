@@ -641,15 +641,15 @@ object JsonEncoder {
     (tuple._1.aNode._2.id.asJson, tuple._2.asJson).asJson
   }
 
-  /*
-    Top Level methods used in the fpp-to-json tool
-  */
+  /* 
+    Top-level conversion methods 
+   */
 
-  // Top level method for converting Ast Data Structure to Json
-  def printAstJson(tul: List[Ast.TransUnit]): Json = tul.asJson
+  /** Converts Ast to JSON */
+  def astToJson(tul: List[Ast.TransUnit]): Json = tul.asJson
 
-  // Top level method for converting Location Map Data Structure to Json
-  def printLocationMapJson(tul: List[Ast.TransUnit]): Json = {
+  /** Converts location map to JSON */
+  def locMapToJson: Json = {
     val locationsList =
       Locations.getMap.toList.sortWith(_._1 < _._1).map { 
         case (id, location) => id.toString -> location.asJson
@@ -657,22 +657,20 @@ object JsonEncoder {
     Json.obj(locationsList: _*)
   }
 
-  // Top level method for converting Analysis Data Structure to Json
-  def printAnalysisJson(a: Analysis): Json = {
-    Json.obj(
-      "inputFileSet" -> a.inputFileSet.asJson, 
-      "includedFileSet" -> a.includedFileSet.asJson, 
-      "locationSpecifierMap" -> a.locationSpecifierMap.asJson, 
-      "parentSymbolMap" -> a.parentSymbolMap.asJson, 
-      "symbolScopeMap" -> a.symbolScopeMap.asJson, 
-      "useDefMap" -> a.useDefMap.asJson,
-      "typeMap" -> a.typeMap.asJson, 
-      "valueMap" -> a.valueMap.asJson, 
-      "componentMap" -> a.componentMap.asJson, 
-      "componentInstanceMap" -> a.componentInstanceMap.asJson, 
-      "topologyMap" -> a.topologyMap.asJson 
-    )
-  }
+  /** Converts the Analysis data structure to JSON */
+  def analysisToJson(a: Analysis): Json = Json.obj(
+    "inputFileSet" -> a.inputFileSet.asJson, 
+    "includedFileSet" -> a.includedFileSet.asJson, 
+    "locationSpecifierMap" -> a.locationSpecifierMap.asJson, 
+    "parentSymbolMap" -> a.parentSymbolMap.asJson, 
+    "symbolScopeMap" -> a.symbolScopeMap.asJson, 
+    "useDefMap" -> a.useDefMap.asJson,
+    "typeMap" -> a.typeMap.asJson, 
+    "valueMap" -> a.valueMap.asJson, 
+    "componentMap" -> a.componentMap.asJson, 
+    "componentInstanceMap" -> a.componentInstanceMap.asJson, 
+    "topologyMap" -> a.topologyMap.asJson 
+  )
 
   /*
     Helper methods
