@@ -72,20 +72,15 @@ object FPPtoJson {
     Result.Result[Unit] =
     options.syntaxOnly match {
       case false =>
-        val path =
-          java.nio.file.Paths.get(options.dir.getOrElse("."), "fpp-analysis.json")
         val files = options.files.reverse match {
           case Nil  => List(File.StdIn)
           case list => list
         }
-        val analysis = Analysis(inputFileSet = options.files.toSet)
+        val a = Analysis(inputFileSet = options.files.toSet)
         for {
-          a <- CheckSemantics.tuList(analysis, tul)
-          writer <- File.Path(path).openWrite()
-        } yield {
-          writer.println(JsonEncoder.analysisToJson(a))
-          writer.close()
-        }
+          a <- CheckSemantics.tuList(a, tul)
+          _ <- writeJson(options, "fpp-analysis.json", JsonEncoder.analysisToJson(a))
+        } yield ()
       case true => Right(())
     }
 
