@@ -840,7 +840,7 @@ Fw::InputSerializePort* PassiveSerialTesterBase ::
 PassiveSerialTesterBase ::
   PassiveSerialTesterBase(
       const char* const compName,
-      U32 maxHistorySize
+      const U32 maxHistorySize
   ) :
     Fw::PassiveComponentBase(compName)
 {
@@ -1188,6 +1188,12 @@ void PassiveSerialTesterBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
+  getNum_to_cmdIn() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_cmdIn));
+}
+
+NATIVE_INT_TYPE PassiveSerialTesterBase ::
   getNum_to_noArgsGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsGuarded));
@@ -1248,30 +1254,6 @@ NATIVE_INT_TYPE PassiveSerialTesterBase ::
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_to_cmdIn() const
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_cmdIn));
-}
-
-NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_from_typedOut() const
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
-}
-
-NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_from_typedReturnOut() const
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedReturnOut));
-}
-
-NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_from_serialOut() const
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_serialOut));
-}
-
-NATIVE_INT_TYPE PassiveSerialTesterBase ::
   getNum_from_cmdRegOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdRegOut));
@@ -1323,9 +1305,38 @@ NATIVE_INT_TYPE PassiveSerialTesterBase ::
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_tlmOut));
 }
 
+NATIVE_INT_TYPE PassiveSerialTesterBase ::
+  getNum_from_typedOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
+}
+
+NATIVE_INT_TYPE PassiveSerialTesterBase ::
+  getNum_from_typedReturnOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedReturnOut));
+}
+
+NATIVE_INT_TYPE PassiveSerialTesterBase ::
+  getNum_from_serialOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_serialOut));
+}
+
 // ----------------------------------------------------------------------
 // Connection status queries for to ports
 // ----------------------------------------------------------------------
+
+bool PassiveSerialTesterBase ::
+  isConnected_to_cmdIn(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_to_cmdIn(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_to_cmdIn[portNum].isConnected();
+}
 
 bool PassiveSerialTesterBase ::
   isConnected_to_noArgsGuarded(NATIVE_INT_TYPE portNum)
@@ -1435,17 +1446,6 @@ bool PassiveSerialTesterBase ::
   );
 
   return this->m_to_serialSync[portNum].isConnected();
-}
-
-bool PassiveSerialTesterBase ::
-  isConnected_to_cmdIn(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_to_cmdIn(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  return this->m_to_cmdIn[portNum].isConnected();
 }
 
 // ----------------------------------------------------------------------
@@ -2028,7 +2028,7 @@ void PassiveSerialTesterBase ::
 void PassiveSerialTesterBase ::
   dispatchTlm(
       FwChanIdType id,
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       Fw::TlmBuffer& val
   )
 {
@@ -2190,7 +2190,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   tlmInput_ChannelU32Format(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const U32& val
   )
 {
@@ -2201,7 +2201,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   tlmInput_ChannelF32Format(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const F32& val
   )
 {
@@ -2212,7 +2212,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   tlmInput_ChannelStringFormat(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const Fw::TlmString& val
   )
 {
@@ -2223,7 +2223,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   tlmInput_ChannelEnum(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const E& val
   )
 {
@@ -2234,7 +2234,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   tlmInput_ChannelArrayFreq(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const A& val
   )
 {
@@ -2245,7 +2245,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   tlmInput_ChannelStructFreq(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const S& val
   )
 {
@@ -2256,7 +2256,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   tlmInput_ChannelU32Limits(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const U32& val
   )
 {
@@ -2267,7 +2267,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   tlmInput_ChannelF32Limits(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const F32& val
   )
 {
@@ -2278,7 +2278,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   tlmInput_ChannelF64(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const F64& val
   )
 {
@@ -2289,7 +2289,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   tlmInput_ChannelU32OnChange(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const U32& val
   )
 {
@@ -2300,7 +2300,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   tlmInput_ChannelEnumOnChange(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const E& val
   )
 {
@@ -2672,7 +2672,7 @@ void PassiveSerialTesterBase ::
 // ----------------------------------------------------------------------
 
 void PassiveSerialTesterBase ::
-  setTestTime(const Fw::Time& timeTag)
+  setTestTime(Fw::Time& timeTag)
 {
   this->m_testTime = timeTag;
 }

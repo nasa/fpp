@@ -337,7 +337,7 @@ class ActiveParamsTesterBase :
     //! Construct object ActiveParamsTesterBase
     ActiveParamsTesterBase(
         const char* const compName, //!< The component name
-        U32 maxHistorySize //!< The maximum size of each history
+        const U32 maxHistorySize //!< The maximum size of each history
     );
 
     //! Destroy object ActiveParamsTesterBase
@@ -536,6 +536,11 @@ class ActiveParamsTesterBase :
     // Getters for port counts
     // ----------------------------------------------------------------------
 
+    //! Get the number of to_cmdIn ports
+    //!
+    //! \return The number of to_cmdIn ports
+    NATIVE_INT_TYPE getNum_to_cmdIn() const;
+
     //! Get the number of to_noArgsAsync ports
     //!
     //! \return The number of to_noArgsAsync ports
@@ -601,21 +606,6 @@ class ActiveParamsTesterBase :
     //! \return The number of to_typedSync ports
     NATIVE_INT_TYPE getNum_to_typedSync() const;
 
-    //! Get the number of to_cmdIn ports
-    //!
-    //! \return The number of to_cmdIn ports
-    NATIVE_INT_TYPE getNum_to_cmdIn() const;
-
-    //! Get the number of from_typedOut ports
-    //!
-    //! \return The number of from_typedOut ports
-    NATIVE_INT_TYPE getNum_from_typedOut() const;
-
-    //! Get the number of from_typedReturnOut ports
-    //!
-    //! \return The number of from_typedReturnOut ports
-    NATIVE_INT_TYPE getNum_from_typedReturnOut() const;
-
     //! Get the number of from_cmdRegOut ports
     //!
     //! \return The number of from_cmdRegOut ports
@@ -660,11 +650,28 @@ class ActiveParamsTesterBase :
     //! \return The number of from_tlmOut ports
     NATIVE_INT_TYPE getNum_from_tlmOut() const;
 
+    //! Get the number of from_typedOut ports
+    //!
+    //! \return The number of from_typedOut ports
+    NATIVE_INT_TYPE getNum_from_typedOut() const;
+
+    //! Get the number of from_typedReturnOut ports
+    //!
+    //! \return The number of from_typedReturnOut ports
+    NATIVE_INT_TYPE getNum_from_typedReturnOut() const;
+
   protected:
 
     // ----------------------------------------------------------------------
     // Connection status queries for to ports
     // ----------------------------------------------------------------------
+
+    //! Check whether port to_cmdIn is connected
+    //!
+    //! \return Whether port to_cmdIn is connected
+    bool isConnected_to_cmdIn(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
 
     //! Check whether port to_noArgsAsync is connected
     //!
@@ -757,13 +764,6 @@ class ActiveParamsTesterBase :
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
-    //! Check whether port to_cmdIn is connected
-    //!
-    //! \return Whether port to_cmdIn is connected
-    bool isConnected_to_cmdIn(
-        NATIVE_INT_TYPE portNum //!< The port number
-    );
-
   protected:
 
     // ----------------------------------------------------------------------
@@ -819,7 +819,7 @@ class ActiveParamsTesterBase :
     //! Dispatch telemetry
     void dispatchTlm(
         FwChanIdType id, //!< The channel id
-        const Fw::Time& timeTag, //!< The time
+        Fw::Time& timeTag, //!< The time
         Fw::TlmBuffer& val //!< The channel value
     );
 
@@ -945,7 +945,7 @@ class ActiveParamsTesterBase :
 
     //! Set the test time for events and telemetry
     void setTestTime(
-        const Fw::Time& timeTag //!< The time
+        Fw::Time& timeTag //!< The time
     );
 
   protected:
@@ -1054,7 +1054,7 @@ class ActiveParamsTesterBase :
         Fw::PassiveComponentBase* const callComp, //!< The component instance
         NATIVE_INT_TYPE portNum, //!< The port number
         FwEventIdType id, //!< The log ID
-        Fw::Time& timeTag, //!< The time tag
+        Fw::Time& timeTag, //!< The time
         const Fw::LogSeverity& severity, //!< The severity argument
         Fw::LogBuffer& args //!< The buffer containing the serialized log entry
     );
@@ -1082,7 +1082,7 @@ class ActiveParamsTesterBase :
         Fw::PassiveComponentBase* const callComp, //!< The component instance
         NATIVE_INT_TYPE portNum, //!< The port number
         FwEventIdType id, //!< The log ID
-        Fw::Time& timeTag, //!< The time tag
+        Fw::Time& timeTag, //!< The time
         const Fw::LogSeverity& severity, //!< The severity argument
         Fw::TextLogString& text //!< The text of the log message
     );
@@ -1101,7 +1101,7 @@ class ActiveParamsTesterBase :
         Fw::PassiveComponentBase* const callComp, //!< The component instance
         NATIVE_INT_TYPE portNum, //!< The port number
         FwChanIdType id, //!< The telemetry channel ID
-        Fw::Time& timeTag, //!< The time tag
+        Fw::Time& timeTag, //!< The time
         Fw::TlmBuffer& val //!< The buffer containing the serialized telemetry value
     );
 
@@ -1113,10 +1113,8 @@ class ActiveParamsTesterBase :
 
     //! The total number of port entries
     U32 fromPortHistorySize;
-
     //! The history for from_typedOut
     History<FromPortEntry_typedOut>* fromPortHistory_typedOut;
-
     //! The history for from_typedReturnOut
     History<FromPortEntry_typedReturnOut>* fromPortHistory_typedReturnOut;
 

@@ -405,12 +405,14 @@ case class ComponentGTestBaseWriter(
                 Some(s"Event: ${event.getName}"),
                 eventAssertionFuncName(event.getName),
                 assertionFunctionParams ++
-                  formalParamsCppWriter.write(
-                    event.aNode._2.data.params,
-                    Nil,
-                    Some("Fw::LogStringArg"),
-                    FormalParamsCppWriter.Value
-                  ),
+                  event.aNode._2.data.params.map(aNode => {
+                    val data = aNode._2.data
+                    CppDoc.Function.Param(
+                      CppDoc.Type(writeCppType(s.a.typeMap(data.typeName.id))),
+                      data.name,
+                      AnnotationCppWriter.asStringOpt(aNode)
+                    )
+                  }),
                 CppDoc.Type("void"),
                 List.concat(
                   lines(
@@ -427,7 +429,7 @@ case class ComponentGTestBaseWriter(
                   ),
                   eventParamTypeMap(id).flatMap((name, tn) =>
                     lines(
-                      s"""ASSERT_EQ(${writeEventValue(name, tn)}, ${writeEventValue(s"_e.$name", tn)})
+                      s"""ASSERT_EQ($name, ${writeEventValue(s"_e.$name", tn)})
                          |  << "\\n"
                          |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
                          |  << "  Value:    Value of argument $name at index "
@@ -497,7 +499,7 @@ case class ComponentGTestBaseWriter(
             tlmAssertionFuncName(channel.getName),
             assertionFunctionParams ++ List(
               CppDoc.Function.Param(
-                CppDoc.Type(s"const ${getChannelType(channel.channelType)}&"),
+                CppDoc.Type(writeCppType(channel.channelType)),
                 "val",
                 Some("The channel value")
               )
@@ -513,7 +515,7 @@ case class ComponentGTestBaseWriter(
                  |  << "  Actual:   " << __index << "\\n";
                  |const ${tlmEntryName(channel.getName)}& _e =
                  |  this->${tlmHistoryName(channel.getName)}->at(__index);
-                 |ASSERT_EQ(${writeValue("val", channel.channelType)}, ${writeValue("_e.arg", channel.channelType)})
+                 |ASSERT_EQ(val, ${writeValue("_e.arg", channel.channelType)})
                  |  << "\\n"
                  |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
                  |  << "  Value:    Value at index "

@@ -48,7 +48,7 @@ abstract class ComponentTestUtils(
       Some("The component name")
     ),
     CppDoc.Function.Param(
-      CppDoc.Type("U32"),
+      CppDoc.Type("const U32"),
       "maxHistorySize",
       Some("The maximum size of each history")
     )
@@ -67,7 +67,7 @@ abstract class ComponentTestUtils(
       Some("The name of the file containing the call site")
     ),
     CppDoc.Function.Param(
-      CppDoc.Type("U32"),
+      CppDoc.Type("const U32"),
       "__callSiteLineNumber",
       Some("The line number of the call site")
     )
@@ -76,7 +76,7 @@ abstract class ComponentTestUtils(
   val sizeAssertionFunctionParams: List[CppDoc.Function.Param] =
     callSiteParams ++ List(
       CppDoc.Function.Param(
-        CppDoc.Type("U32"),
+        CppDoc.Type("const U32"),
         "size",
         Some("The asserted size")
       )
@@ -85,7 +85,7 @@ abstract class ComponentTestUtils(
   val assertionFunctionParams: List[CppDoc.Function.Param] =
     callSiteParams ++ List(
       CppDoc.Function.Param(
-        CppDoc.Type("U32"),
+        CppDoc.Type("const U32"),
         "__index",
         Some("The index")
       )
@@ -122,6 +122,15 @@ abstract class ComponentTestUtils(
       case "Fw::LogStringArg" => s"$value.toChar()"
       case _ => value
     }
+
+  def writeCppType(t: Type): String = {
+    val typeName = TypeCppWriter.getName(s, t, Some("char*"))
+    t match {
+      case t if s.isPrimitive(t, typeName) => s"const $typeName"
+      case _: Type.String => s"const $typeName const"
+      case _ => s"const $typeName&"
+    }
+  }
 
   /** Append a trailing backslash at the end of every line */
   def writeMacro(s: String): List[Line] =

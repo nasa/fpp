@@ -145,7 +145,7 @@ class EmptyTesterBase :
     //! Construct object EmptyTesterBase
     EmptyTesterBase(
         const char* const compName, //!< The component name
-        U32 maxHistorySize //!< The maximum size of each history
+        const U32 maxHistorySize //!< The maximum size of each history
     );
 
     //! Destroy object EmptyTesterBase
@@ -206,7 +206,7 @@ class EmptyTesterBase :
     //! Dispatch telemetry
     void dispatchTlm(
         FwChanIdType id, //!< The channel id
-        const Fw::Time& timeTag, //!< The time
+        Fw::Time& timeTag, //!< The time
         Fw::TlmBuffer& val //!< The channel value
     );
 
@@ -218,7 +218,7 @@ class EmptyTesterBase :
 
     //! Set the test time for events and telemetry
     void setTestTime(
-        const Fw::Time& timeTag //!< The time
+        Fw::Time& timeTag //!< The time
     );
 
   protected:

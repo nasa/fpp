@@ -27,7 +27,7 @@ void EmptyTesterBase ::
 EmptyTesterBase ::
   EmptyTesterBase(
       const char* const compName,
-      U32 maxHistorySize
+      const U32 maxHistorySize
   ) :
     Fw::PassiveComponentBase(compName)
 {
@@ -104,7 +104,7 @@ void EmptyTesterBase ::
 void EmptyTesterBase ::
   dispatchTlm(
       FwChanIdType id,
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       Fw::TlmBuffer& val
   )
 {
@@ -126,7 +126,7 @@ void EmptyTesterBase ::
 // ----------------------------------------------------------------------
 
 void EmptyTesterBase ::
-  setTestTime(const Fw::Time& timeTag)
+  setTestTime(Fw::Time& timeTag)
 {
   this->m_testTime = timeTag;
 }

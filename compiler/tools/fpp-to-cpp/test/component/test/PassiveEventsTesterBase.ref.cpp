@@ -726,7 +726,7 @@ InputTypedReturnPort* PassiveEventsTesterBase ::
 PassiveEventsTesterBase ::
   PassiveEventsTesterBase(
       const char* const compName,
-      U32 maxHistorySize
+      const U32 maxHistorySize
   ) :
     Fw::PassiveComponentBase(compName)
 {
@@ -993,6 +993,12 @@ void PassiveEventsTesterBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE PassiveEventsTesterBase ::
+  getNum_to_cmdIn() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_cmdIn));
+}
+
+NATIVE_INT_TYPE PassiveEventsTesterBase ::
   getNum_to_noArgsGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsGuarded));
@@ -1038,24 +1044,6 @@ NATIVE_INT_TYPE PassiveEventsTesterBase ::
   getNum_to_typedSync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedSync));
-}
-
-NATIVE_INT_TYPE PassiveEventsTesterBase ::
-  getNum_to_cmdIn() const
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_cmdIn));
-}
-
-NATIVE_INT_TYPE PassiveEventsTesterBase ::
-  getNum_from_typedOut() const
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
-}
-
-NATIVE_INT_TYPE PassiveEventsTesterBase ::
-  getNum_from_typedReturnOut() const
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedReturnOut));
 }
 
 NATIVE_INT_TYPE PassiveEventsTesterBase ::
@@ -1110,9 +1098,32 @@ NATIVE_INT_TYPE PassiveEventsTesterBase ::
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_tlmOut));
 }
 
+NATIVE_INT_TYPE PassiveEventsTesterBase ::
+  getNum_from_typedOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
+}
+
+NATIVE_INT_TYPE PassiveEventsTesterBase ::
+  getNum_from_typedReturnOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedReturnOut));
+}
+
 // ----------------------------------------------------------------------
 // Connection status queries for to ports
 // ----------------------------------------------------------------------
+
+bool PassiveEventsTesterBase ::
+  isConnected_to_cmdIn(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_to_cmdIn(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_to_cmdIn[portNum].isConnected();
+}
 
 bool PassiveEventsTesterBase ::
   isConnected_to_noArgsGuarded(NATIVE_INT_TYPE portNum)
@@ -1200,17 +1211,6 @@ bool PassiveEventsTesterBase ::
   );
 
   return this->m_to_typedSync[portNum].isConnected();
-}
-
-bool PassiveEventsTesterBase ::
-  isConnected_to_cmdIn(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_to_cmdIn(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  return this->m_to_cmdIn[portNum].isConnected();
 }
 
 // ----------------------------------------------------------------------
@@ -1361,7 +1361,7 @@ void PassiveEventsTesterBase ::
 void PassiveEventsTesterBase ::
   dispatchTlm(
       FwChanIdType id,
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       Fw::TlmBuffer& val
   )
 {
@@ -1383,7 +1383,7 @@ void PassiveEventsTesterBase ::
 // ----------------------------------------------------------------------
 
 void PassiveEventsTesterBase ::
-  setTestTime(const Fw::Time& timeTag)
+  setTestTime(Fw::Time& timeTag)
 {
   this->m_testTime = timeTag;
 }

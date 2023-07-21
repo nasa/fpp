@@ -63,6 +63,7 @@ move_test()
   do
     cp $file'Tester.'$suffix $file'Tester'$target_suffix'.ref.'$suffix
     cp $file'TesterBase.'$suffix $file'TesterBase'$target_suffix'.ref.'$suffix
+    cp $file'GTestBase.'$suffix $file'GTestBase'$target_suffix'.ref.'$suffix
   done
 }
 

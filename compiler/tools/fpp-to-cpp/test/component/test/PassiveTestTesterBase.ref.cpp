@@ -733,7 +733,7 @@ InputTypedReturnPort* PassiveTestTesterBase ::
 PassiveTestTesterBase ::
   PassiveTestTesterBase(
       const char* const compName,
-      U32 maxHistorySize
+      const U32 maxHistorySize
   ) :
     Fw::PassiveComponentBase(compName)
 {
@@ -1032,6 +1032,12 @@ void PassiveTestTesterBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE PassiveTestTesterBase ::
+  getNum_to_cmdIn() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_cmdIn));
+}
+
+NATIVE_INT_TYPE PassiveTestTesterBase ::
   getNum_to_noArgsGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsGuarded));
@@ -1077,24 +1083,6 @@ NATIVE_INT_TYPE PassiveTestTesterBase ::
   getNum_to_typedSync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedSync));
-}
-
-NATIVE_INT_TYPE PassiveTestTesterBase ::
-  getNum_to_cmdIn() const
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_cmdIn));
-}
-
-NATIVE_INT_TYPE PassiveTestTesterBase ::
-  getNum_from_typedOut() const
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
-}
-
-NATIVE_INT_TYPE PassiveTestTesterBase ::
-  getNum_from_typedReturnOut() const
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedReturnOut));
 }
 
 NATIVE_INT_TYPE PassiveTestTesterBase ::
@@ -1149,9 +1137,32 @@ NATIVE_INT_TYPE PassiveTestTesterBase ::
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_tlmOut));
 }
 
+NATIVE_INT_TYPE PassiveTestTesterBase ::
+  getNum_from_typedOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
+}
+
+NATIVE_INT_TYPE PassiveTestTesterBase ::
+  getNum_from_typedReturnOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedReturnOut));
+}
+
 // ----------------------------------------------------------------------
 // Connection status queries for to ports
 // ----------------------------------------------------------------------
+
+bool PassiveTestTesterBase ::
+  isConnected_to_cmdIn(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_to_cmdIn(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_to_cmdIn[portNum].isConnected();
+}
 
 bool PassiveTestTesterBase ::
   isConnected_to_noArgsGuarded(NATIVE_INT_TYPE portNum)
@@ -1239,17 +1250,6 @@ bool PassiveTestTesterBase ::
   );
 
   return this->m_to_typedSync[portNum].isConnected();
-}
-
-bool PassiveTestTesterBase ::
-  isConnected_to_cmdIn(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_to_cmdIn(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  return this->m_to_cmdIn[portNum].isConnected();
 }
 
 // ----------------------------------------------------------------------
@@ -1832,7 +1832,7 @@ void PassiveTestTesterBase ::
 void PassiveTestTesterBase ::
   dispatchTlm(
       FwChanIdType id,
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       Fw::TlmBuffer& val
   )
 {
@@ -1994,7 +1994,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   tlmInput_ChannelU32Format(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const U32& val
   )
 {
@@ -2005,7 +2005,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   tlmInput_ChannelF32Format(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const F32& val
   )
 {
@@ -2016,7 +2016,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   tlmInput_ChannelStringFormat(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const Fw::TlmString& val
   )
 {
@@ -2027,7 +2027,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   tlmInput_ChannelEnum(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const E& val
   )
 {
@@ -2038,7 +2038,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   tlmInput_ChannelArrayFreq(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const A& val
   )
 {
@@ -2049,7 +2049,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   tlmInput_ChannelStructFreq(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const S& val
   )
 {
@@ -2060,7 +2060,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   tlmInput_ChannelU32Limits(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const U32& val
   )
 {
@@ -2071,7 +2071,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   tlmInput_ChannelF32Limits(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const F32& val
   )
 {
@@ -2082,7 +2082,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   tlmInput_ChannelF64(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const F64& val
   )
 {
@@ -2093,7 +2093,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   tlmInput_ChannelU32OnChange(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const U32& val
   )
 {
@@ -2104,7 +2104,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   tlmInput_ChannelEnumOnChange(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const E& val
   )
 {
@@ -2476,7 +2476,7 @@ void PassiveTestTesterBase ::
 // ----------------------------------------------------------------------
 
 void PassiveTestTesterBase ::
-  setTestTime(const Fw::Time& timeTag)
+  setTestTime(Fw::Time& timeTag)
 {
   this->m_testTime = timeTag;
 }

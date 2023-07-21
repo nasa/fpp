@@ -401,7 +401,7 @@ class PassiveTestTesterBase :
     //! Construct object PassiveTestTesterBase
     PassiveTestTesterBase(
         const char* const compName, //!< The component name
-        U32 maxHistorySize //!< The maximum size of each history
+        const U32 maxHistorySize //!< The maximum size of each history
     );
 
     //! Destroy object PassiveTestTesterBase
@@ -547,6 +547,11 @@ class PassiveTestTesterBase :
     // Getters for port counts
     // ----------------------------------------------------------------------
 
+    //! Get the number of to_cmdIn ports
+    //!
+    //! \return The number of to_cmdIn ports
+    NATIVE_INT_TYPE getNum_to_cmdIn() const;
+
     //! Get the number of to_noArgsGuarded ports
     //!
     //! \return The number of to_noArgsGuarded ports
@@ -586,21 +591,6 @@ class PassiveTestTesterBase :
     //!
     //! \return The number of to_typedSync ports
     NATIVE_INT_TYPE getNum_to_typedSync() const;
-
-    //! Get the number of to_cmdIn ports
-    //!
-    //! \return The number of to_cmdIn ports
-    NATIVE_INT_TYPE getNum_to_cmdIn() const;
-
-    //! Get the number of from_typedOut ports
-    //!
-    //! \return The number of from_typedOut ports
-    NATIVE_INT_TYPE getNum_from_typedOut() const;
-
-    //! Get the number of from_typedReturnOut ports
-    //!
-    //! \return The number of from_typedReturnOut ports
-    NATIVE_INT_TYPE getNum_from_typedReturnOut() const;
 
     //! Get the number of from_cmdRegOut ports
     //!
@@ -646,11 +636,28 @@ class PassiveTestTesterBase :
     //! \return The number of from_tlmOut ports
     NATIVE_INT_TYPE getNum_from_tlmOut() const;
 
+    //! Get the number of from_typedOut ports
+    //!
+    //! \return The number of from_typedOut ports
+    NATIVE_INT_TYPE getNum_from_typedOut() const;
+
+    //! Get the number of from_typedReturnOut ports
+    //!
+    //! \return The number of from_typedReturnOut ports
+    NATIVE_INT_TYPE getNum_from_typedReturnOut() const;
+
   protected:
 
     // ----------------------------------------------------------------------
     // Connection status queries for to ports
     // ----------------------------------------------------------------------
+
+    //! Check whether port to_cmdIn is connected
+    //!
+    //! \return Whether port to_cmdIn is connected
+    bool isConnected_to_cmdIn(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
 
     //! Check whether port to_noArgsGuarded is connected
     //!
@@ -705,13 +712,6 @@ class PassiveTestTesterBase :
     //!
     //! \return Whether port to_typedSync is connected
     bool isConnected_to_typedSync(
-        NATIVE_INT_TYPE portNum //!< The port number
-    );
-
-    //! Check whether port to_cmdIn is connected
-    //!
-    //! \return Whether port to_cmdIn is connected
-    bool isConnected_to_cmdIn(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
@@ -892,73 +892,73 @@ class PassiveTestTesterBase :
     //! Dispatch telemetry
     void dispatchTlm(
         FwChanIdType id, //!< The channel id
-        const Fw::Time& timeTag, //!< The time
+        Fw::Time& timeTag, //!< The time
         Fw::TlmBuffer& val //!< The channel value
     );
 
     //! Handle channel ChannelU32Format
     void tlmInput_ChannelU32Format(
-        const Fw::Time& timeTag, //!< The time
+        Fw::Time& timeTag, //!< The time
         const U32& val //!< The channel value
     );
 
     //! Handle channel ChannelF32Format
     void tlmInput_ChannelF32Format(
-        const Fw::Time& timeTag, //!< The time
+        Fw::Time& timeTag, //!< The time
         const F32& val //!< The channel value
     );
 
     //! Handle channel ChannelStringFormat
     void tlmInput_ChannelStringFormat(
-        const Fw::Time& timeTag, //!< The time
+        Fw::Time& timeTag, //!< The time
         const Fw::TlmString& val //!< The channel value
     );
 
     //! Handle channel ChannelEnum
     void tlmInput_ChannelEnum(
-        const Fw::Time& timeTag, //!< The time
+        Fw::Time& timeTag, //!< The time
         const E& val //!< The channel value
     );
 
     //! Handle channel ChannelArrayFreq
     void tlmInput_ChannelArrayFreq(
-        const Fw::Time& timeTag, //!< The time
+        Fw::Time& timeTag, //!< The time
         const A& val //!< The channel value
     );
 
     //! Handle channel ChannelStructFreq
     void tlmInput_ChannelStructFreq(
-        const Fw::Time& timeTag, //!< The time
+        Fw::Time& timeTag, //!< The time
         const S& val //!< The channel value
     );
 
     //! Handle channel ChannelU32Limits
     void tlmInput_ChannelU32Limits(
-        const Fw::Time& timeTag, //!< The time
+        Fw::Time& timeTag, //!< The time
         const U32& val //!< The channel value
     );
 
     //! Handle channel ChannelF32Limits
     void tlmInput_ChannelF32Limits(
-        const Fw::Time& timeTag, //!< The time
+        Fw::Time& timeTag, //!< The time
         const F32& val //!< The channel value
     );
 
     //! Handle channel ChannelF64
     void tlmInput_ChannelF64(
-        const Fw::Time& timeTag, //!< The time
+        Fw::Time& timeTag, //!< The time
         const F64& val //!< The channel value
     );
 
     //! Handle channel ChannelU32OnChange
     void tlmInput_ChannelU32OnChange(
-        const Fw::Time& timeTag, //!< The time
+        Fw::Time& timeTag, //!< The time
         const U32& val //!< The channel value
     );
 
     //! Handle channel ChannelEnumOnChange
     void tlmInput_ChannelEnumOnChange(
-        const Fw::Time& timeTag, //!< The time
+        Fw::Time& timeTag, //!< The time
         const E& val //!< The channel value
     );
 
@@ -1084,7 +1084,7 @@ class PassiveTestTesterBase :
 
     //! Set the test time for events and telemetry
     void setTestTime(
-        const Fw::Time& timeTag //!< The time
+        Fw::Time& timeTag //!< The time
     );
 
   protected:
@@ -1193,7 +1193,7 @@ class PassiveTestTesterBase :
         Fw::PassiveComponentBase* const callComp, //!< The component instance
         NATIVE_INT_TYPE portNum, //!< The port number
         FwEventIdType id, //!< The log ID
-        Fw::Time& timeTag, //!< The time tag
+        Fw::Time& timeTag, //!< The time
         const Fw::LogSeverity& severity, //!< The severity argument
         Fw::LogBuffer& args //!< The buffer containing the serialized log entry
     );
@@ -1221,7 +1221,7 @@ class PassiveTestTesterBase :
         Fw::PassiveComponentBase* const callComp, //!< The component instance
         NATIVE_INT_TYPE portNum, //!< The port number
         FwEventIdType id, //!< The log ID
-        Fw::Time& timeTag, //!< The time tag
+        Fw::Time& timeTag, //!< The time
         const Fw::LogSeverity& severity, //!< The severity argument
         Fw::TextLogString& text //!< The text of the log message
     );
@@ -1240,7 +1240,7 @@ class PassiveTestTesterBase :
         Fw::PassiveComponentBase* const callComp, //!< The component instance
         NATIVE_INT_TYPE portNum, //!< The port number
         FwChanIdType id, //!< The telemetry channel ID
-        Fw::Time& timeTag, //!< The time tag
+        Fw::Time& timeTag, //!< The time
         Fw::TlmBuffer& val //!< The buffer containing the serialized telemetry value
     );
 
@@ -1252,10 +1252,8 @@ class PassiveTestTesterBase :
 
     //! The total number of port entries
     U32 fromPortHistorySize;
-
     //! The history for from_typedOut
     History<FromPortEntry_typedOut>* fromPortHistory_typedOut;
-
     //! The history for from_typedReturnOut
     History<FromPortEntry_typedReturnOut>* fromPortHistory_typedReturnOut;
 

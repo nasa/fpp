@@ -901,7 +901,7 @@ InputTypedReturnPort* QueuedEventsTesterBase ::
 QueuedEventsTesterBase ::
   QueuedEventsTesterBase(
       const char* const compName,
-      U32 maxHistorySize
+      const U32 maxHistorySize
   ) :
     Fw::PassiveComponentBase(compName)
 {
@@ -1291,6 +1291,12 @@ void QueuedEventsTesterBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE QueuedEventsTesterBase ::
+  getNum_to_cmdIn() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_cmdIn));
+}
+
+NATIVE_INT_TYPE QueuedEventsTesterBase ::
   getNum_to_noArgsAsync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsAsync));
@@ -1369,24 +1375,6 @@ NATIVE_INT_TYPE QueuedEventsTesterBase ::
 }
 
 NATIVE_INT_TYPE QueuedEventsTesterBase ::
-  getNum_to_cmdIn() const
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_cmdIn));
-}
-
-NATIVE_INT_TYPE QueuedEventsTesterBase ::
-  getNum_from_typedOut() const
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
-}
-
-NATIVE_INT_TYPE QueuedEventsTesterBase ::
-  getNum_from_typedReturnOut() const
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedReturnOut));
-}
-
-NATIVE_INT_TYPE QueuedEventsTesterBase ::
   getNum_from_cmdRegOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdRegOut));
@@ -1438,9 +1426,32 @@ NATIVE_INT_TYPE QueuedEventsTesterBase ::
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_tlmOut));
 }
 
+NATIVE_INT_TYPE QueuedEventsTesterBase ::
+  getNum_from_typedOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
+}
+
+NATIVE_INT_TYPE QueuedEventsTesterBase ::
+  getNum_from_typedReturnOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedReturnOut));
+}
+
 // ----------------------------------------------------------------------
 // Connection status queries for to ports
 // ----------------------------------------------------------------------
+
+bool QueuedEventsTesterBase ::
+  isConnected_to_cmdIn(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_to_cmdIn(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_to_cmdIn[portNum].isConnected();
+}
 
 bool QueuedEventsTesterBase ::
   isConnected_to_noArgsAsync(NATIVE_INT_TYPE portNum)
@@ -1583,17 +1594,6 @@ bool QueuedEventsTesterBase ::
   );
 
   return this->m_to_typedSync[portNum].isConnected();
-}
-
-bool QueuedEventsTesterBase ::
-  isConnected_to_cmdIn(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_to_cmdIn(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  return this->m_to_cmdIn[portNum].isConnected();
 }
 
 // ----------------------------------------------------------------------
@@ -1744,7 +1744,7 @@ void QueuedEventsTesterBase ::
 void QueuedEventsTesterBase ::
   dispatchTlm(
       FwChanIdType id,
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       Fw::TlmBuffer& val
   )
 {
@@ -1766,7 +1766,7 @@ void QueuedEventsTesterBase ::
 // ----------------------------------------------------------------------
 
 void QueuedEventsTesterBase ::
-  setTestTime(const Fw::Time& timeTag)
+  setTestTime(Fw::Time& timeTag)
 {
   this->m_testTime = timeTag;
 }

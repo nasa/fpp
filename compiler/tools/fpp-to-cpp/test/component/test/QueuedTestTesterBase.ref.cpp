@@ -908,7 +908,7 @@ InputTypedReturnPort* QueuedTestTesterBase ::
 QueuedTestTesterBase ::
   QueuedTestTesterBase(
       const char* const compName,
-      U32 maxHistorySize
+      const U32 maxHistorySize
   ) :
     Fw::PassiveComponentBase(compName)
 {
@@ -1330,6 +1330,12 @@ void QueuedTestTesterBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE QueuedTestTesterBase ::
+  getNum_to_cmdIn() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_cmdIn));
+}
+
+NATIVE_INT_TYPE QueuedTestTesterBase ::
   getNum_to_noArgsAsync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsAsync));
@@ -1408,24 +1414,6 @@ NATIVE_INT_TYPE QueuedTestTesterBase ::
 }
 
 NATIVE_INT_TYPE QueuedTestTesterBase ::
-  getNum_to_cmdIn() const
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_cmdIn));
-}
-
-NATIVE_INT_TYPE QueuedTestTesterBase ::
-  getNum_from_typedOut() const
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
-}
-
-NATIVE_INT_TYPE QueuedTestTesterBase ::
-  getNum_from_typedReturnOut() const
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedReturnOut));
-}
-
-NATIVE_INT_TYPE QueuedTestTesterBase ::
   getNum_from_cmdRegOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdRegOut));
@@ -1477,9 +1465,32 @@ NATIVE_INT_TYPE QueuedTestTesterBase ::
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_tlmOut));
 }
 
+NATIVE_INT_TYPE QueuedTestTesterBase ::
+  getNum_from_typedOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
+}
+
+NATIVE_INT_TYPE QueuedTestTesterBase ::
+  getNum_from_typedReturnOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedReturnOut));
+}
+
 // ----------------------------------------------------------------------
 // Connection status queries for to ports
 // ----------------------------------------------------------------------
+
+bool QueuedTestTesterBase ::
+  isConnected_to_cmdIn(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_to_cmdIn(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_to_cmdIn[portNum].isConnected();
+}
 
 bool QueuedTestTesterBase ::
   isConnected_to_noArgsAsync(NATIVE_INT_TYPE portNum)
@@ -1622,17 +1633,6 @@ bool QueuedTestTesterBase ::
   );
 
   return this->m_to_typedSync[portNum].isConnected();
-}
-
-bool QueuedTestTesterBase ::
-  isConnected_to_cmdIn(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_to_cmdIn(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  return this->m_to_cmdIn[portNum].isConnected();
 }
 
 // ----------------------------------------------------------------------
@@ -2358,7 +2358,7 @@ void QueuedTestTesterBase ::
 void QueuedTestTesterBase ::
   dispatchTlm(
       FwChanIdType id,
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       Fw::TlmBuffer& val
   )
 {
@@ -2520,7 +2520,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   tlmInput_ChannelU32Format(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const U32& val
   )
 {
@@ -2531,7 +2531,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   tlmInput_ChannelF32Format(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const F32& val
   )
 {
@@ -2542,7 +2542,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   tlmInput_ChannelStringFormat(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const Fw::TlmString& val
   )
 {
@@ -2553,7 +2553,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   tlmInput_ChannelEnum(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const E& val
   )
 {
@@ -2564,7 +2564,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   tlmInput_ChannelArrayFreq(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const A& val
   )
 {
@@ -2575,7 +2575,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   tlmInput_ChannelStructFreq(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const S& val
   )
 {
@@ -2586,7 +2586,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   tlmInput_ChannelU32Limits(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const U32& val
   )
 {
@@ -2597,7 +2597,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   tlmInput_ChannelF32Limits(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const F32& val
   )
 {
@@ -2608,7 +2608,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   tlmInput_ChannelF64(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const F64& val
   )
 {
@@ -2619,7 +2619,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   tlmInput_ChannelU32OnChange(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const U32& val
   )
 {
@@ -2630,7 +2630,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   tlmInput_ChannelEnumOnChange(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const E& val
   )
 {
@@ -3002,7 +3002,7 @@ void QueuedTestTesterBase ::
 // ----------------------------------------------------------------------
 
 void QueuedTestTesterBase ::
-  setTestTime(const Fw::Time& timeTag)
+  setTestTime(Fw::Time& timeTag)
 {
   this->m_testTime = timeTag;
 }

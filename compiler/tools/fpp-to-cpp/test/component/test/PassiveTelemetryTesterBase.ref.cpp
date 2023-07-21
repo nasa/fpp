@@ -726,7 +726,7 @@ InputTypedReturnPort* PassiveTelemetryTesterBase ::
 PassiveTelemetryTesterBase ::
   PassiveTelemetryTesterBase(
       const char* const compName,
-      U32 maxHistorySize
+      const U32 maxHistorySize
   ) :
     Fw::PassiveComponentBase(compName)
 {
@@ -999,6 +999,12 @@ void PassiveTelemetryTesterBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE PassiveTelemetryTesterBase ::
+  getNum_to_cmdIn() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_cmdIn));
+}
+
+NATIVE_INT_TYPE PassiveTelemetryTesterBase ::
   getNum_to_noArgsGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsGuarded));
@@ -1044,24 +1050,6 @@ NATIVE_INT_TYPE PassiveTelemetryTesterBase ::
   getNum_to_typedSync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedSync));
-}
-
-NATIVE_INT_TYPE PassiveTelemetryTesterBase ::
-  getNum_to_cmdIn() const
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_cmdIn));
-}
-
-NATIVE_INT_TYPE PassiveTelemetryTesterBase ::
-  getNum_from_typedOut() const
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
-}
-
-NATIVE_INT_TYPE PassiveTelemetryTesterBase ::
-  getNum_from_typedReturnOut() const
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedReturnOut));
 }
 
 NATIVE_INT_TYPE PassiveTelemetryTesterBase ::
@@ -1116,9 +1104,32 @@ NATIVE_INT_TYPE PassiveTelemetryTesterBase ::
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_tlmOut));
 }
 
+NATIVE_INT_TYPE PassiveTelemetryTesterBase ::
+  getNum_from_typedOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
+}
+
+NATIVE_INT_TYPE PassiveTelemetryTesterBase ::
+  getNum_from_typedReturnOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedReturnOut));
+}
+
 // ----------------------------------------------------------------------
 // Connection status queries for to ports
 // ----------------------------------------------------------------------
+
+bool PassiveTelemetryTesterBase ::
+  isConnected_to_cmdIn(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_to_cmdIn(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_to_cmdIn[portNum].isConnected();
+}
 
 bool PassiveTelemetryTesterBase ::
   isConnected_to_noArgsGuarded(NATIVE_INT_TYPE portNum)
@@ -1208,17 +1219,6 @@ bool PassiveTelemetryTesterBase ::
   return this->m_to_typedSync[portNum].isConnected();
 }
 
-bool PassiveTelemetryTesterBase ::
-  isConnected_to_cmdIn(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_to_cmdIn(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  return this->m_to_cmdIn[portNum].isConnected();
-}
-
 // ----------------------------------------------------------------------
 // Functions for testing commands
 // ----------------------------------------------------------------------
@@ -1293,7 +1293,7 @@ void PassiveTelemetryTesterBase ::
 void PassiveTelemetryTesterBase ::
   dispatchTlm(
       FwChanIdType id,
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       Fw::TlmBuffer& val
   )
 {
@@ -1455,7 +1455,7 @@ void PassiveTelemetryTesterBase ::
 
 void PassiveTelemetryTesterBase ::
   tlmInput_ChannelU32Format(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const U32& val
   )
 {
@@ -1466,7 +1466,7 @@ void PassiveTelemetryTesterBase ::
 
 void PassiveTelemetryTesterBase ::
   tlmInput_ChannelF32Format(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const F32& val
   )
 {
@@ -1477,7 +1477,7 @@ void PassiveTelemetryTesterBase ::
 
 void PassiveTelemetryTesterBase ::
   tlmInput_ChannelStringFormat(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const Fw::TlmString& val
   )
 {
@@ -1488,7 +1488,7 @@ void PassiveTelemetryTesterBase ::
 
 void PassiveTelemetryTesterBase ::
   tlmInput_ChannelEnum(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const E& val
   )
 {
@@ -1499,7 +1499,7 @@ void PassiveTelemetryTesterBase ::
 
 void PassiveTelemetryTesterBase ::
   tlmInput_ChannelArrayFreq(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const A& val
   )
 {
@@ -1510,7 +1510,7 @@ void PassiveTelemetryTesterBase ::
 
 void PassiveTelemetryTesterBase ::
   tlmInput_ChannelStructFreq(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const S& val
   )
 {
@@ -1521,7 +1521,7 @@ void PassiveTelemetryTesterBase ::
 
 void PassiveTelemetryTesterBase ::
   tlmInput_ChannelU32Limits(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const U32& val
   )
 {
@@ -1532,7 +1532,7 @@ void PassiveTelemetryTesterBase ::
 
 void PassiveTelemetryTesterBase ::
   tlmInput_ChannelF32Limits(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const F32& val
   )
 {
@@ -1543,7 +1543,7 @@ void PassiveTelemetryTesterBase ::
 
 void PassiveTelemetryTesterBase ::
   tlmInput_ChannelF64(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const F64& val
   )
 {
@@ -1554,7 +1554,7 @@ void PassiveTelemetryTesterBase ::
 
 void PassiveTelemetryTesterBase ::
   tlmInput_ChannelU32OnChange(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const U32& val
   )
 {
@@ -1565,7 +1565,7 @@ void PassiveTelemetryTesterBase ::
 
 void PassiveTelemetryTesterBase ::
   tlmInput_ChannelEnumOnChange(
-      const Fw::Time& timeTag,
+      Fw::Time& timeTag,
       const E& val
   )
 {
@@ -1579,7 +1579,7 @@ void PassiveTelemetryTesterBase ::
 // ----------------------------------------------------------------------
 
 void PassiveTelemetryTesterBase ::
-  setTestTime(const Fw::Time& timeTag)
+  setTestTime(Fw::Time& timeTag)
 {
   this->m_testTime = timeTag;
 }
