@@ -129,7 +129,7 @@ locationMapValidator(){
   outfile=$1
 
   # Run locationMapValidator.py and capture its output
-  output=$(python3 python/locationMapValidator.py)
+  output=$(python3 python/locationMapValidator.py fpp-ast.json fpp-loc-map.json)
   exit_status=$?
   if [ $exit_status -eq 1 ]; then
     echo "$output" >&2

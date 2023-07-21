@@ -1,6 +1,7 @@
 import json
 import sys
 import re
+import sys
 
 def collect_ids(json_data):
     ids = []
@@ -11,13 +12,8 @@ def collect_ids(json_data):
 
     elif isinstance(json_data, dict):
         for key, value in json_data.items():
-            if key == 'id':
-                # Check if the value is an integer
-                if isinstance(value, int):
-                    ids.append(value)
-                # Check if the value is a string and matches the format 'id : number'
-                elif isinstance(value, str) and re.match(r"id\s*:\s*\d+$", value):
-                    ids.append(int(value.split(':')[1].strip()))
+            if key == 'astNode':
+                ids.append(value["id"])
 
             if isinstance(value, (dict, list)):
                 ids.extend(collect_ids(value))
@@ -35,16 +31,18 @@ def check_if_ids_in_loc_map(numbers, data):
     return True
 
 
+if len(sys.argv) != 3: 
+    print("Invalid Number of arguments")
+    sys.exit(1)
 
-with open('fpp-ast.json') as json_file:
-    ast = json.load(json_file)
 
-    with open('fpp-loc-map.json') as json_file:
-        location = json.load(json_file)
-        loc_map_check_result = check_if_ids_in_loc_map(collect_ids(ast), location)
-        if loc_map_check_result is not True:
-            print(loc_map_check_result)
-            sys.exit(1)
-        else:
-            sys.exit(0)
+with open(str(sys.argv[1])) as ast_json, open(str(sys.argv[2])) as loc_json:
+    ast = json.load(ast_json)
+    location = json.load(loc_json)
+    loc_map_check_result = check_if_ids_in_loc_map(collect_ids(ast), location)
+    if loc_map_check_result is not True:
+        print(loc_map_check_result)
+        sys.exit(1)
+    else:
+        sys.exit(0)
 
