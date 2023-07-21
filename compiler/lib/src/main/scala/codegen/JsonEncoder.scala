@@ -134,6 +134,13 @@ object JsonEncoder {
     )
   }
 
+  implicit def astNodeEncoder[T: Encoder]: Encoder[AstNode[T]] = new Encoder[AstNode[T]] {
+    override def apply(astNode: AstNode[T]): Json = Json.obj( "astNode" -> Json.obj(
+      "data" -> astNode.data.asJson,
+      "id" -> astNode.id.asJson
+    ))
+  }
+
   /*
     Encoders for serializing Ast
   */
