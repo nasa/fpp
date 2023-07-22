@@ -49,12 +49,14 @@ object CppDoc {
       comment: Option[String],
       params: List[Function.Param],
       initializers: List[String],
-      body: List[Line]
+      body: List[Line],
+      cppFile: Option[String] = None,
     )
     case class Destructor(
       comment: Option[String],
       body: List[Line],
-      virtualQualifier: Destructor.VirtualQualifier = Destructor.NonVirtual
+      virtualQualifier: Destructor.VirtualQualifier = Destructor.NonVirtual,
+      cppFile: Option[String] = None,
     )
     object Destructor {
       sealed trait VirtualQualifier
@@ -79,6 +81,8 @@ object CppDoc {
     svQualifier: Function.SVQualifier = Function.NonSV,
     /** The const qualifier */
     constQualifier: Function.ConstQualifier = Function.NonConst,
+    /** The cpp file to write to */
+    cppFile: Option[String] = None,
   )
   case object Function {
     case class Param(
@@ -100,7 +104,11 @@ object CppDoc {
   }
 
   /** A C++ namespace */
-  case class Namespace(name: String, members: List[Member])
+  case class Namespace(
+    name: String,
+    members: List[Member],
+    cppFile: Option[String] = None,
+  )
 
   /** A C++ type. The .cpp spelling of the type can be different from the .hpp type. 
    *  E.g., the .cpp version may need more qualifiers. */
@@ -126,7 +134,11 @@ object CppDoc {
   }
 
   /** A list of uninterpreted lines of C++ code */
-  case class Lines(content: List[Line], output: Lines.Output = Lines.Hpp)
+  case class Lines(
+    content: List[Line],
+    output: Lines.Output = Lines.Hpp,
+    cppFile: Option[String] = None,
+  )
   object Lines {
     sealed trait Output
     case object Both extends Output

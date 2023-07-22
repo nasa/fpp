@@ -8,8 +8,10 @@ trait CppDocWriter extends CppDocVisitor with LineUtils {
   case class Input(
     /** The hpp file */
     hppFile: CppDoc.HppFile,
-    /** The cpp file name */
-    cppFileName: String,
+    /** The default cpp file name */
+    defaultCppFileName: String,
+    /** The name of the cpp file to write output to */
+    outputCppFileName: Option[String] = None,
     /** The list of enclosing class names, backwards. A class name may include :: */
     classNameList: List[String] = Nil,
   ) {
@@ -20,12 +22,15 @@ trait CppDocWriter extends CppDocVisitor with LineUtils {
     /** Get the enclosing class name with no qualifier */
     def getEnclosingClassUnqualified: String = classNameList.head.split("::").reverse.head
 
+    /** Get the output cpp file name */
+    def getCppFileName: String = outputCppFileName.getOrElse(defaultCppFileName)
+
   }
 
   def default(in: Input) = Nil
 
   /** Visit a CppDoc */
-  def visitCppDoc(cppDoc: CppDoc): Output
+  def visitCppDoc(cppDoc: CppDoc, cppFile: Option[String]): Output
 
   type Output = List[Line]
 
