@@ -28,17 +28,18 @@ object FPPFormat {
     result match {
       case Left(error) => {
         error.print
-        System.exit(1)
+        errorExit
       }
-      case Right(_) => ()
+      case _ => ()
     }
   }
 
+  def errorExit = System.exit(1)
+
   def main(args: Array[String]) = {
-    val options = OParser.parse(oparser, args, Options())
-    options match {
+    OParser.parse(oparser, args, Options()) match {
       case Some(options) => command(options)
-      case None => ()
+      case None => errorExit
     }
   }
 
