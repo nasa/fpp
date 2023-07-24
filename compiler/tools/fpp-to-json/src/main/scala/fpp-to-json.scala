@@ -6,7 +6,6 @@ import fpp.compiler.codegen._
 import fpp.compiler.syntax._
 import fpp.compiler.transform._
 import fpp.compiler.util._
-import fpp.compiler.JsonEncoder._
 import scopt.OParser
 
 object FPPtoJson {
