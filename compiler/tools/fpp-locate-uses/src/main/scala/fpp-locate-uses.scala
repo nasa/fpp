@@ -89,19 +89,20 @@ object FPPLocateUses {
     }
   }
 
+  def errorExit = System.exit(1)
+
   def main(args: Array[String]) = {
     Error.setTool(Tool(name))
-    for { options <- OParser.parse(oparser, args, Options()) }
-    yield {
-      command(options) match {
+    OParser.parse(oparser, args, Options()) match {
+      case Some(options) => command(options) match {
         case Left(error) => {
           error.print
-          System.exit(1)
+          errorExit
         }
         case _ => ()
       }
+      case None => errorExit
     }
-    ()
   }
 
   val builder = OParser.builder[Options]
